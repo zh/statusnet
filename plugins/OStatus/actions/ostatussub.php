@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2010, StatusNet, Inc.
+ * Copyright (C) 2009, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -19,57 +19,70 @@
 
 /**
  * @package OStatusPlugin
- * @maintainer James Walker <james@status.net>
+ * @maintainer Brion Vibber <brion@status.net>
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class OStatusSubAction extends Action
 {
+    protected $profile_uri;
+    protected $preview;
+    protected $munger;
 
-    protected $feedurl;
-    
+    /**
+     * Title of the page
+     *
+     * @return string Title of the page
+     */
+
     function title()
     {
-        return _m("OStatus Subscribe");
+        return _m('Authorize subscription');
     }
 
-    function handle($args)
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
+
+    function getInstructions()
     {
-        if ($this->validateFeed()) {
-            $this->showForm();
-        }
-
-        return true;
-
+        return _m('You can subscribe to users from other supported sites. Paste their address or profile URI below:');
     }
 
-    function showForm($err = null)
+    function showForm($error=null)
     {
-        $this->err = $err;
+        $this->error = $error;
         $this->showPage();
     }
 
+    /**
+     * Content area of the page
+     *
+     * Shows a form for associating a remote OStatus account with this
+     * StatusNet account.
+     *
+     * @return void
+     */
 
     function showContent()
     {
+        // @fixme is this right place?
+        if ($this->error) {
+            $this->text($this->error);
+        }
+
         $user = common_current_user();
 
         $profile = $user->getProfile();
 
-        $fuser = null;
-
-        $flink = Foreign_link::getByUserID($user->id, FEEDSUB_SERVICE);
-
-        if (!empty($flink)) {
-            $fuser = $flink->getForeignUser();
-        }
-
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'form_settings_feedsub',
+                                          'id' => 'ostatus_sub',
                                           'class' => 'form_settings',
                                           'action' =>
-                                          common_local_url('feedsubsettings')));
+                                          common_local_url('ostatussub')));
 
         $this->hidden('token', common_session_token());
 
@@ -77,17 +90,58 @@ class OStatusSubAction extends Action
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->input('feedurl', _('Feed URL'), $this->feedurl, _('Enter the URL of a PubSubHubbub-enabled feed'));
+        $this->input('profile',
+                     _m('Address or profile URL'),
+                     $this->profile_uri,
+                     _m('Enter the profile URL of a PubSubHubbub-enabled feed'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        $this->submit('subscribe', _m('Subscribe'));
+        if ($this->preview) {
+            $this->submit('subscribe', _m('Subscribe'));
+        } else {
+            $this->submit('validate', _m('Continue'));
+        }
 
         $this->elementEnd('fieldset');
 
         $this->elementEnd('form');
 
-        $this->previewFeed();
+        if ($this->preview) {
+            $this->previewFeed();
+        }
+    }
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        if (!common_logged_in()) {
+            // XXX: selfURL() didn't work. :<
+            common_set_returnto($_SERVER['REQUEST_URI']);
+            if (Event::handle('RedirectToLogin', array($this, null))) {
+                common_redirect(common_local_url('login'), 303);
+            }
+            return false;
+        }
+
+        $this->profile_uri = $this->arg('profile');
+
+        return true;
+    }
+
+    function handle($args)
+    {
+        parent::handle($args);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->handlePost();
+        } else {
+            if ($this->profile_uri) {
+                $this->validateAndPreview();
+            } else {
+                $this->showPage();
+            }
+        }
     }
 
     /**
@@ -111,14 +165,15 @@ class OStatusSubAction extends Action
             return;
         }
 
-        if ($this->arg('subscribe')) {
+        if ($this->arg('validate')) {
+            $this->validateAndPreview();
+        } else if ($this->arg('subscribe')) {
             $this->saveFeed();
         } else {
             $this->showForm(_('Unexpected form submission.'));
         }
     }
 
-    
     /**
      * Set up and add a feed
      *
@@ -127,100 +182,91 @@ class OStatusSubAction extends Action
      */
     function validateFeed()
     {
-        $feedurl = $this->trimmed('feed');
-        
-        if ($feedurl == '') {
-            $this->showForm(_m('Empty feed URL!'));
+        $profile_uri = trim($this->arg('profile'));
+
+        if ($profile_uri == '') {
+            $this->showForm(_m('Empty remote profile URL!'));
             return;
         }
-        $this->feedurl = $feedurl;
-        
-        // Get the canonical feed URI and check it
+        $this->profile_uri = $profile_uri;
+
+        // @fixme validate, normalize bla bla
         try {
-            $discover = new FeedDiscovery();
-            $uri = $discover->discoverFromURL($feedurl);
+            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+            $this->oprofile = $oprofile;
+            return true;
         } catch (FeedSubBadURLException $e) {
-            $this->showForm(_m('Invalid URL or could not reach server.'));
-            return false;
+            $err = _m('Invalid URL or could not reach server.');
         } catch (FeedSubBadResponseException $e) {
-            $this->showForm(_m('Cannot read feed; server returned error.'));
-            return false;
+            $err = _m('Cannot read feed; server returned error.');
         } catch (FeedSubEmptyException $e) {
-            $this->showForm(_m('Cannot read feed; server returned an empty page.'));
-            return false;
+            $err = _m('Cannot read feed; server returned an empty page.');
         } catch (FeedSubBadHTMLException $e) {
-            $this->showForm(_m('Bad HTML, could not find feed link.'));
-            return false;
+            $err = _m('Bad HTML, could not find feed link.');
         } catch (FeedSubNoFeedException $e) {
-            $this->showForm(_m('Could not find a feed linked from this URL.'));
-            return false;
+            $err = _m('Could not find a feed linked from this URL.');
         } catch (FeedSubUnrecognizedTypeException $e) {
-            $this->showForm(_m('Not a recognized feed type.'));
-            return false;
+            $err = _m('Not a recognized feed type.');
         } catch (FeedSubException $e) {
             // Any new ones we forgot about
-            $this->showForm(_m('Bad feed URL.'));
-            return false;
+            $err = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
         }
-        
-        $this->munger = $discover->feedMunger();
-        $this->profile = $this->munger->ostatusProfile();
 
-        if ($this->profile->huburi == '') {
-            $this->showForm(_m('Feed is not PuSH-enabled; cannot subscribe.'));
-            return false;
-        }
-        
-        return true;
+        $this->showForm($err);
+        return false;
     }
 
     function saveFeed()
     {
         if ($this->validateFeed()) {
             $this->preview = true;
-            $this->profile = Ostatus_profile::ensureProfile($this->munger);
 
-            // If not already in use, subscribe to updates via the hub
-            if ($this->profile->sub_start) {
-                common_log(LOG_INFO, __METHOD__ . ": double the fun! new sub for {$this->profile->feeduri} last subbed {$this->profile->sub_start}");
-            } else {
-                $ok = $this->profile->subscribe();
-                common_log(LOG_INFO, __METHOD__ . ": sub was $ok");
-                if (!$ok) {
-                    $this->showForm(_m('Feed subscription failed! Bad response from hub.'));
-                    return;
-                }
-            }
-            
             // And subscribe the current user to the local profile
             $user = common_current_user();
-            $profile = $this->profile->getProfile();
-            
-            if ($user->isSubscribed($profile)) {
-                $this->showForm(_m('Already subscribed!'));
-            } elseif ($user->subscribeTo($profile)) {
-                $this->showForm(_m('Feed subscribed!'));
+
+            if (!$this->oprofile->subscribe()) {
+                $this->showForm(_m("Failed to set up server-to-server subscription."));
+                return;
+            }
+
+            if ($this->oprofile->isGroup()) {
+                $group = $this->oprofile->localGroup();
+                if ($user->isMember($group)) {
+                    $this->showForm(_m('Already a member!'));
+                } elseif (Group_member::join($this->profile->group_id, $user->id)) {
+                    $this->showForm(_m('Joined remote group!'));
+                } else {
+                    $this->showForm(_m('Remote group join failed!'));
+                }
             } else {
-                $this->showForm(_m('Feed subscription failed!'));
+                $local = $this->oprofile->localProfile();
+                if ($user->isSubscribed($local)) {
+                    $this->showForm(_m('Already subscribed!'));
+                } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
+                    $this->showForm(_m('Remote user subscribed!'));
+                } else {
+                    $this->showForm(_m('Remote subscription failed!'));
+                }
             }
         }
     }
 
-    
-    function previewFeed()
+    function validateAndPreview()
     {
-        $profile = $this->munger->ostatusProfile();
-        $notice = $this->munger->notice(0, true); // preview
-
-        if ($notice) {
-            $this->element('b', null, 'Preview of latest post from this feed:');
-
-            $item = new NoticeList($notice, $this);
-            $item->show();
-        } else {
-            $this->element('b', null, 'No posts in this feed yet.');
+        if ($this->validateFeed()) {
+            $this->preview = true;
+            $this->showForm(_m('Previewing feed:'));
         }
     }
 
+    function previewFeed()
+    {
+        $this->text('Profile preview should go here');
+    }
 
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('feedurl');
+    }
 }

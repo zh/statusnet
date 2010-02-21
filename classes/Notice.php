@@ -194,6 +194,7 @@ class Notice extends Memcached_DataObject
      */
     static function saveNew($profile_id, $content, $source, $options=null) {
         $defaults = array('uri' => null,
+                          'url' => null,
                           'reply_to' => null,
                           'repeat_of' => null);
 
@@ -256,9 +257,16 @@ class Notice extends Memcached_DataObject
         }
 
         $notice->content = $final;
-        $notice->rendered = common_render_content($final, $notice);
+
+        if (!empty($rendered)) {
+            $notice->rendered = $rendered;
+        } else {
+            $notice->rendered = common_render_content($final, $notice);
+        }
+
         $notice->source = $source;
         $notice->uri = $uri;
+        $notice->url = $url;
 
         // Handle repeat case
 
@@ -681,7 +689,20 @@ class Notice extends Memcached_DataObject
     {
         $ni = $this->whoGets($groups, $recipients);
 
-        Inbox::bulkInsert($this->id, array_keys($ni));
+        $ids = array_keys($ni);
+
+        // We remove the author (if they're a local user),
+        // since we'll have already done this in distribute()
+
+        $i = array_search($this->profile_id, $ids);
+
+        if ($i !== false) {
+            unset($ids[$i]);
+        }
+
+        // Bulk insert
+
+        Inbox::bulkInsert($this->id, $ids);
 
         return;
     }
@@ -999,6 +1020,7 @@ class Notice extends Memcached_DataObject
         $xs->raw($profile->asActivityActor());
 
         $xs->element('link', array('rel' => 'alternate',
+                                   'type' => 'text/html',
                                    'href' => $this->bestUrl()));
 
         $xs->element('id', null, $this->uri);
@@ -1086,6 +1108,38 @@ class Notice extends Memcached_DataObject
         }
 
         $xs->elementEnd('entry');
+
+        return $xs->getString();
+    }
+
+    /**
+     * Returns an XML string fragment with a reference to a notice as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @param string $element one of 'subject', 'object', 'target'
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('activity:' . $element);
+        $xs->element('activity:object-type',
+                     null,
+                     'http://activitystrea.ms/schema/1.0/note');
+        $xs->element('id',
+                     null,
+                     $this->uri);
+        $xs->element('content',
+                     array('type' => 'text/html'),
+                     $this->rendered);
+        $xs->element('link',
+                     array('type' => 'text/html',
+                           'rel'  => 'alternate',
+                           'href' => $this->bestUrl()));
+        $xs->elementEnd('activity:' . $element);
 
         return $xs->getString();
     }
@@ -1487,6 +1541,14 @@ class Notice extends Memcached_DataObject
 
     function distribute()
     {
+        // We always insert for the author so they don't
+        // have to wait
+
+        $user = User::staticGet('id', $this->profile_id);
+        if (!empty($user)) {
+            Inbox::insertNotice($user->id, $this->id);
+        }
+
         if (common_config('queue', 'inboxes')) {
             // If there's a failure, we want to _force_
             // distribution at this point.

@@ -33,13 +33,14 @@ class HubVerifyQueueHandler extends QueueHandler
     {
         $sub = $data['sub'];
         $mode = $data['mode'];
+        $token = $data['token'];
 
         assert($sub instanceof HubSub);
         assert($mode === 'subscribe' || $mode === 'unsubscribe');
 
         common_log(LOG_INFO, __METHOD__ . ": $mode $sub->callback $sub->topic");
         try {
-            $sub->verify($mode);
+            $sub->verify($mode, $token);
         } catch (Exception $e) {
             common_log(LOG_ERR, "Failed PuSH $mode verify to $sub->callback for $sub->topic: " .
                                 $e->getMessage());

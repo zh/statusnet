@@ -868,4 +868,16 @@ class Profile extends Memcached_DataObject
         return $uri;
     }
 
+    function hasBlocked($other)
+    {
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (empty($block)) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+
+        return $result;
+    }
 }

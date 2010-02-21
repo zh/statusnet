@@ -1,17 +1,7 @@
 <?php
 /*
-StatusNet Plugin: 0.9
-Plugin Name: FeedSub
-Plugin URI: http://status.net/wiki/Feed_subscription
-Description: FeedSub allows subscribing to real-time updates from external feeds supporting PubHubSubbub protocol.
-Version: 0.1
-Author: Brion Vibber <brion@status.net>
-Author URI: http://status.net/
-*/
-
-/*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -28,16 +18,11 @@ Author URI: http://status.net/
  */
 
 /**
- * @package FeedSubPlugin
+ * @package OStatusPlugin
  * @maintainer Brion Vibber <brion@status.net>
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
-
-define('FEEDSUB_SERVICE', 100); // fixme -- avoid hardcoding these?
-
-// We bundle the XML_Parse_Feed library...
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
 
 class FeedSubException extends Exception
 {
@@ -78,10 +63,10 @@ class OStatusPlugin extends Plugin
 
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
-                    array('action' => 'salmon'),
+                    array('action' => 'usersalmon'),
                     array('id' => '[0-9]+'));
         $m->connect('main/salmon/group/:id',
-                    array('action' => 'salmongroup'),
+                    array('action' => 'groupsalmon'),
                     array('id' => '[0-9]+'));
         return true;
     }
@@ -112,21 +97,26 @@ class OStatusPlugin extends Plugin
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
-    function onStartApiAtom(AtomNoticeFeed $feed)
+    function onStartApiAtom($feed)
     {
         $id = null;
 
         if ($feed instanceof AtomUserNoticeFeed) {
-            $salmonAction = 'salmon';
-            $id = $feed->getUser()->id;
+            $salmonAction = 'usersalmon';
+            $user = $feed->getUser();
+            $id   = $user->id;
+            $profile = $user->getProfile();
+            $feed->setActivitySubject($profile->asActivityNoun('subject'));
         } else if ($feed instanceof AtomGroupNoticeFeed) {
-            $salmonAction = 'salmongroup';
-            $id = $feed->getGroup()->id;
+            $salmonAction = 'groupsalmon';
+            $group = $feed->getGroup();
+            $id = $group->id;
+            $feed->setActivitySubject($group->asActivitySubject());
         } else {
-            return;
+            return true;
         }
 
-       if (!empty($id)) {
+        if (!empty($id)) {
             $hub = common_config('ostatus', 'hub');
             if (empty($hub)) {
                 // Updates will be handled through our internal PuSH hub.
@@ -138,6 +128,8 @@ class OStatusPlugin extends Plugin
             $salmon = common_local_url($salmonAction, array('id' => $id));
             $feed->addLink($salmon, array('rel' => 'salmon'));
         }
+
+        return true;
     }
 
     /**
@@ -171,6 +163,12 @@ class OStatusPlugin extends Plugin
     {
         $base = dirname(__FILE__);
         $lower = strtolower($cls);
+        $map = array('activityverb' => 'activity',
+                     'activityobject' => 'activity',
+                     'activityutils' => 'activity');
+        if (isset($map[$lower])) {
+            $lower = $map[$lower];
+        }
         $files = array("$base/classes/$cls.php",
                        "$base/lib/$lower.php");
         if (substr($lower, -6) == 'action') {
@@ -253,20 +251,54 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Garbage collect unused feeds on unsubscribe
+     * Notify remote server and garbage collect unused feeds on unsubscribe.
+     * @fixme send these operations to background queues
+     *
+     * @param User $user
+     * @param Profile $other
+     * @return hook return value
      */
-    function onEndUnsubscribe($user, $other)
+    function onEndUnsubscribe($profile, $other)
     {
-        $profile = Ostatus_profile::staticGet('profile_id', $other->id);
-        if ($feed) {
-            $sub = new Subscription();
-            $sub->subscribed = $other->id;
-            $sub->limit(1);
-            if (!$sub->find(true)) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused feed $feed->feeduri on hub $feed->huburi");
-                $profile->unsubscribe();
-            }
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
         }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        // Drop the PuSH subscription if there are no other subscribers.
+
+        if ($other->subscriberCount() == 0) {
+            common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri");
+            $oprofile->unsubscribe();
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UNFOLLOW;
+
+        $act->id   = TagURI::mint('unfollow:%d:%d:%s',
+                                  $profile->id,
+                                  $other->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Unfollow");
+        $act->content = sprintf(_("%s stopped following %s."),
+                               $profile->getBestName(),
+                               $other->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromProfile($other);
+
+        $oprofile->notifyActivity($act);
+
         return true;
     }
 
@@ -276,6 +308,7 @@ class OStatusPlugin extends Plugin
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
+        $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
     }
@@ -290,6 +323,16 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Override the "from ostatus" bit in notice lists to link to the
+     * original post and show the domain it came from.
+     *
+     * @param Notice in $notice
+     * @param string out &$name
+     * @param string out &$url
+     * @param string out &$title
+     * @return mixed hook return code
+     */
     function onStartNoticeSourceLink($notice, &$name, &$url, &$title)
     {
         if ($notice->source == 'ostatus') {
@@ -301,5 +344,147 @@ class OStatusPlugin extends Plugin
             $title = sprintf(_m("Sent from %s via OStatus"), $domain);
             return false;
         }
+    }
+
+    /**
+     * Send incoming PuSH feeds for OStatus endpoints in for processing.
+     *
+     * @param FeedSub $feedsub
+     * @param DOMDocument $feed
+     * @return mixed hook return code
+     */
+    function onStartFeedSubReceive($feedsub, $feed)
+    {
+        $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
+        if ($oprofile) {
+            $oprofile->processFeed($feed);
+        } else {
+            common_log(LOG_DEBUG, "No ostatus profile for incoming feed $feedsub->uri");
+        }
+    }
+
+    function onEndSubscribe($subscriber, $other)
+    {
+        $user = User::staticGet('id', $subscriber->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FOLLOW;
+
+        $act->id   = TagURI::mint('follow:%d:%d:%s',
+                                  $subscriber->id,
+                                  $other->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Follow");
+        $act->content = sprintf(_("%s is now following %s."),
+                               $subscriber->getBestName(),
+                               $other->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($subscriber);
+        $act->object  = ActivityObject::fromProfile($other);
+
+        $oprofile->notifyActivity($act);
+
+        return true;
+    }
+
+    /**
+     * Notify remote users when their notices get favorited.
+     *
+     * @param Profile or User $profile of local user doing the faving
+     * @param Notice $notice being favored
+     * @return hook return value
+     */
+
+    function onEndFavorNotice(Profile $profile, Notice $notice)
+    {
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FAVORITE;
+        $act->id   = TagURI::mint('favor:%d:%d:%s',
+                                  $profile->id,
+                                  $notice->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Favor");
+        $act->content = sprintf(_("%s marked notice %s as a favorite."),
+                               $profile->getBestName(),
+                               $notice->uri);
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromNotice($notice);
+
+        $oprofile->notifyActivity($act);
+
+        return true;
+    }
+
+    /**
+     * Notify remote users when their notices get de-favorited.
+     *
+     * @param Profile $profile Profile person doing the de-faving
+     * @param Notice  $notice  Notice being favored
+     *
+     * @return hook return value
+     */
+
+    function onEndDisfavorNotice(Profile $profile, Notice $notice)
+    {
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UNFAVORITE;
+        $act->id   = TagURI::mint('disfavor:%d:%d:%s',
+                                  $profile->id,
+                                  $notice->id,
+                                  common_date_iso8601(time()));
+        $act->time    = time();
+        $act->title   = _("Disfavor");
+        $act->content = sprintf(_("%s marked notice %s as no longer a favorite."),
+                               $profile->getBestName(),
+                               $notice->uri);
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromNotice($notice);
+
+        $oprofile->notifyActivity($act);
+
+        return true;
     }
 }

@@ -173,6 +173,10 @@ class DocAction extends Action
         }
 
         $local = glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*');
+        if ($local === false) {
+            // Some systems return false, others array(), if dir didn't exist.
+            $local = array();
+        }
 
         if (count($local) || isset($localDef)) {
             return $this->negotiateLanguage($local, $localDef);
@@ -183,6 +187,9 @@ class DocAction extends Action
         }
 
         $dist = glob(INSTALLDIR.'/doc-src/'.$this->title.'.*');
+        if ($dist === false) {
+            $dist = array();
+        }
 
         if (count($dist) || isset($distDef)) {
             return $this->negotiateLanguage($dist, $distDef);

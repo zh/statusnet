@@ -112,7 +112,7 @@ class ApiTimelineRetweetsOfMeAction extends ApiAuthAction
             $profile    = $this->auth_user->getProfile();
 
             $title      = sprintf(_("Repeats of %s"), $this->auth_user->nickname);
-            $taguribase = common_config('integration', 'taguri');
+            $taguribase = TagURI::base();
             $id         = "tag:$taguribase:RepeatsOfMe:" . $this->auth_user->id;
 
             header('Content-Type: application/atom+xml; charset=utf-8');

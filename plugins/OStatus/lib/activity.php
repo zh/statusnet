@@ -55,6 +55,9 @@ class ActivityUtils
     const TYPE = 'type';
     const HREF = 'href';
 
+    const CONTENT = 'content';
+    const SRC     = 'src';
+
     /**
      * Get the permalink for an Activity object
      *
@@ -139,6 +142,64 @@ class ActivityUtils
             return $el->textContent;
         }
     }
+
+    /**
+     * Get the content of an atom:entry-like object
+     *
+     * @param DOMElement $element The element to examine.
+     *
+     * @return string unencoded HTML content of the element, like "This -&lt; is <b>HTML</b>."
+     *
+     * @todo handle remote content
+     * @todo handle embedded XML mime types
+     * @todo handle base64-encoded non-XML and non-text mime types
+     */
+
+    static function getContent($element)
+    {
+        $contentEl = ActivityUtils::child($element, self::CONTENT);
+
+        if (!empty($contentEl)) {
+
+            $src  = $contentEl->getAttribute(self::SRC);
+
+            if (!empty($src)) {
+                throw new ClientException(_("Can't handle remote content yet."));
+            }
+
+            $type = $contentEl->getAttribute(self::TYPE);
+
+            // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
+
+            if ($type == 'text') {
+                return $contentEl->textContent;
+            } else if ($type == 'html') {
+                $text = $contentEl->textContent;
+                return htmlspecialchars_decode($text, ENT_QUOTES);
+            } else if ($type == 'xhtml') {
+                $divEl = ActivityUtils::child($contentEl, 'div');
+                if (empty($divEl)) {
+                    return null;
+                }
+                $doc = $divEl->ownerDocument;
+                $text = '';
+                $children = $divEl->childNodes;
+
+                for ($i = 0; $i < $children->length; $i++) {
+                    $child = $children->item($i);
+                    $text .= $doc->saveXML($child);
+                }
+                return trim($text);
+            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
+                       preg_match('#(+|/)xml$#', $type)) {
+                throw new ClientException(_("Can't handle embedded XML content yet."));
+            } else if (strncasecmp($type, 'text/', 5)) {
+                return $contentEl->textContent;
+            } else {
+                throw new ClientException(_("Can't handle embedded Base64 content yet."));
+            }
+        }
+    }
 }
 
 /**
@@ -182,7 +243,6 @@ class ActivityObject
 
     const TITLE   = 'title';
     const SUMMARY = 'summary';
-    const CONTENT = 'content';
     const ID      = 'id';
     const SOURCE  = 'source';
 
@@ -198,6 +258,7 @@ class ActivityObject
     public $content;
     public $link;
     public $source;
+    public $avatar;
 
     /**
      * Constructor
@@ -209,8 +270,12 @@ class ActivityObject
      * @param DOMElement $element DOM thing to turn into an Activity thing
      */
 
-    function __construct($element)
+    function __construct($element = null)
     {
+        if (empty($element)) {
+            return;
+        }
+
         $this->element = $element;
 
         if ($element->tagName == 'author') {
@@ -239,9 +304,10 @@ class ActivityObject
             $this->id      = $this->_childContent($element, self::ID);
             $this->title   = $this->_childContent($element, self::TITLE);
             $this->summary = $this->_childContent($element, self::SUMMARY);
-            $this->content = $this->_childContent($element, self::CONTENT);
 
             $this->source  = $this->_getSource($element);
+
+            $this->content = ActivityUtils::getContent($element);
 
             $this->link = ActivityUtils::getPermalink($element);
 
@@ -279,6 +345,65 @@ class ActivityObject
             }
         }
     }
+
+    static function fromNotice($notice)
+    {
+        $object = new ActivityObject();
+
+        $object->type    = ActivityObject::NOTE;
+
+        $object->id      = $notice->uri;
+        $object->title   = $notice->content;
+        $object->content = $notice->rendered;
+        $object->link    = $notice->bestUrl();
+
+        return $object;
+    }
+
+    static function fromProfile($profile)
+    {
+        $object = new ActivityObject();
+
+        $object->type  = ActivityObject::PERSON;
+        $object->id    = $profile->getUri();
+        $object->title = $profile->getBestName();
+        $object->link  = $profile->profileurl;
+
+        return $object;
+    }
+
+    function asString($tag='activity:object')
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart($tag);
+
+        $xs->element('activity:object-type', null, $this->type);
+
+        $xs->element(self::ID, null, $this->id);
+
+        if (!empty($this->title)) {
+            $xs->element(self::TITLE, null, $this->title);
+        }
+
+        if (!empty($this->summary)) {
+            $xs->element(self::SUMMARY, null, $this->summary);
+        }
+
+        if (!empty($this->content)) {
+            // XXX: assuming HTML content here
+            $xs->element(self::CONTENT, array('type' => 'html'), $this->content);
+        }
+
+        if (!empty($this->link)) {
+            $xs->element('link', array('rel' => 'alternate', 'type' => 'text/html'),
+                         $this->content);
+        }
+
+        $xs->elementEnd($tag);
+
+        return $xs->getString();
+    }
 }
 
 /**
@@ -303,6 +428,93 @@ class ActivityVerb
     const FRIEND   = 'http://activitystrea.ms/schema/1.0/make-friend';
     const JOIN     = 'http://activitystrea.ms/schema/1.0/join';
     const TAG      = 'http://activitystrea.ms/schema/1.0/tag';
+
+    // Custom OStatus verbs for the flipside until they're standardized
+    const DELETE     = 'http://ostatus.org/schema/1.0/unfollow';
+    const UNFAVORITE = 'http://ostatus.org/schema/1.0/unfavorite';
+    const UNFOLLOW   = 'http://ostatus.org/schema/1.0/unfollow';
+    const LEAVE      = 'http://ostatus.org/schema/1.0/leave';
+}
+
+class ActivityContext
+{
+    public $replyToID;
+    public $replyToUrl;
+    public $location;
+    public $attention = array();
+    public $conversation;
+
+    const THR     = 'http://purl.org/syndication/thread/1.0';
+    const GEORSS  = 'http://www.georss.org/georss';
+    const OSTATUS = 'http://ostatus.org/schema/1.0';
+
+    const INREPLYTO = 'in-reply-to';
+    const REF       = 'ref';
+    const HREF      = 'href';
+
+    const POINT     = 'point';
+
+    const ATTENTION    = 'ostatus:attention';
+    const CONVERSATION = 'ostatus:conversation';
+
+    function __construct($element)
+    {
+        $replyToEl = ActivityUtils::child($element, self::INREPLYTO, self::THR);
+
+        if (!empty($replyToEl)) {
+            $this->replyToID  = $replyToEl->getAttribute(self::REF);
+            $this->replyToUrl = $replyToEl->getAttribute(self::HREF);
+        }
+
+        $this->location = $this->getLocation($element);
+
+        $this->conversation = ActivityUtils::getLink($element, self::CONVERSATION);
+
+        // Multiple attention links allowed
+
+        $links = $element->getElementsByTagNameNS(ActivityUtils::ATOM, ActivityUtils::LINK);
+
+        for ($i = 0; $i < $links->length; $i++) {
+
+            $link = $links->item($i);
+
+            $linkRel = $link->getAttribute(ActivityUtils::REL);
+
+            if ($linkRel == self::ATTENTION) {
+                $this->attention[] = $link->getAttribute(self::HREF);
+            }
+        }
+    }
+
+    /**
+     * Parse location given as a GeoRSS-simple point, if provided.
+     * http://www.georss.org/simple
+     *
+     * @param feed item $entry
+     * @return mixed Location or false
+     */
+    function getLocation($dom)
+    {
+        $points = $dom->getElementsByTagNameNS(self::GEORSS, self::POINT);
+
+        for ($i = 0; $i < $points->length; $i++) {
+            $point = $points->item($i)->textContent;
+            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+            $point = preg_replace('/\s+/', ' ', $point);
+            $point = trim($point);
+            $coords = explode(' ', $point);
+            if (count($coords) == 2) {
+                list($lat, $lon) = $coords;
+                if (is_numeric($lat) && is_numeric($lon)) {
+                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
+                    return Location::fromLatLon($lat, $lon);
+                }
+            }
+            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+        }
+
+        return null;
+    }
 }
 
 /**
@@ -351,6 +563,11 @@ class Activity
     public $entry;   // the source entry
     public $feed;    // the source feed
 
+    public $summary; // summary of activity
+    public $content; // HTML content of activity
+    public $id;      // ID of the activity
+    public $title;   // title of the activity
+
     /**
      * Turns a regular old Atom <entry> into a magical activity
      *
@@ -358,8 +575,12 @@ class Activity
      * @param DOMElement $feed  Atom feed, for context
      */
 
-    function __construct($entry, $feed = null)
+    function __construct($entry = null, $feed = null)
     {
+        if (is_null($entry)) {
+            return;
+        }
+
         $this->entry = $entry;
         $this->feed  = $feed;
 
@@ -420,7 +641,9 @@ class Activity
         $contextEl = $this->_child($entry, self::CONTEXT);
 
         if (!empty($contextEl)) {
-            $this->context = new ActivityObject($contextEl);
+            $this->context = new ActivityContext($contextEl);
+        } else {
+            $this->context = new ActivityContext($entry);
         }
 
         $targetEl = $this->_child($entry, self::TARGET);
@@ -428,6 +651,10 @@ class Activity
         if (!empty($targetEl)) {
             $this->target = new ActivityObject($targetEl);
         }
+
+        $this->summary = ActivityUtils::childContent($entry, 'summary');
+        $this->id      = ActivityUtils::childContent($entry, 'id');
+        $this->content = ActivityUtils::getContent($entry);
     }
 
     /**
@@ -439,6 +666,47 @@ class Activity
     function toAtomEntry()
     {
         return null;
+    }
+
+    function asString($namespace=false)
+    {
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        $xs->element('id', null, $this->id);
+        $xs->element('title', null, $this->title);
+        $xs->element('published', null, common_date_iso8601($this->time));
+        $xs->element('content', array('type' => 'html'), $this->content);
+
+        if (!empty($this->summary)) {
+            $xs->element('summary', null, $this->summary);
+        }
+
+        if (!empty($this->link)) {
+            $xs->element('link', array('rel' => 'alternate',
+                                       'type' => 'text/html'),
+                         $this->link);
+        }
+
+        // XXX: add context
+        // XXX: add target
+
+        $xs->raw($this->actor->asString());
+        $xs->element('activity:verb', null, $this->verb);
+        $xs->raw($this->object->asString());
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)

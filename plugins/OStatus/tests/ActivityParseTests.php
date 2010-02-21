@@ -22,8 +22,15 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $act = new Activity($dom->documentElement);
 
         $this->assertFalse(empty($act));
+
         $this->assertEquals($act->time, 1243860840);
         $this->assertEquals($act->verb, ActivityVerb::POST);
+
+        $this->assertFalse(empty($act->object));
+        $this->assertEquals($act->object->title, 'Punctuation Changeset');
+        $this->assertEquals($act->object->type, 'http://versioncentral.example.org/activity/changeset');
+        $this->assertEquals($act->object->summary, 'Fixing punctuation because it makes it more readable.');
+        $this->assertEquals($act->object->id, 'tag:versioncentral.example.org,2009:/change/1643245');
     }
 
     public function testExample3()
@@ -57,11 +64,38 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($act->object->summary, 'Some text.');
         $this->assertEquals($act->object->link, 'http://example.org/2003/12/13/atom03.html');
 
-        $this->assertTrue(empty($act->context));
+        $this->assertFalse(empty($act->context));
+
         $this->assertTrue(empty($act->target));
 
         $this->assertEquals($act->entry, $entry);
         $this->assertEquals($act->feed, $feed);
+    }
+
+    public function testExample4()
+    {
+        global $_example4;
+        $dom = DOMDocument::loadXML($_example4);
+
+        $entry = $dom->documentElement;
+
+        $act = new Activity($entry);
+
+        $this->assertFalse(empty($act));
+        $this->assertEquals(1266547958, $act->time);
+        $this->assertEquals('http://example.net/notice/14', $act->link);
+
+        $this->assertFalse(empty($act->context));
+        $this->assertEquals('http://example.net/notice/12', $act->context->replyToID);
+        $this->assertEquals('http://example.net/notice/12', $act->context->replyToUrl);
+        $this->assertEquals('http://example.net/conversation/11', $act->context->conversation);
+        $this->assertEquals(array('http://example.net/user/1'), $act->context->attention);
+
+        $this->assertFalse(empty($act->object));
+        $this->assertEquals($act->object->content,
+                            '@<span class="vcard"><a href="http://example.net/user/1" class="url"><span class="fn nickname">evan</span></a></span> now is the time for all good men to come to the aid of their country. #<span class="tag"><a href="http://example.net/tag/thetime" rel="tag">thetime</a></span>');
+
+        $this->assertFalse(empty($act->actor));
     }
 }
 
@@ -145,3 +179,31 @@ $_example3 = <<<EXAMPLE3
 
 </feed>
 EXAMPLE3;
+
+$_example4 = <<<EXAMPLE4
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:georss="http://www.georss.org/georss" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:ostatus="http://ostatus.org/schema/1.0">
+ <title>@evan now is the time for all good men to come to the aid of their country. #thetime</title>
+ <summary>@evan now is the time for all good men to come to the aid of their country. #thetime</summary>
+<author>
+ <name>spock</name>
+ <uri>http://example.net/user/2</uri>
+</author>
+<activity:actor>
+ <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+ <id>http://example.net/user/2</id>
+ <title>spock</title>
+ <link type="image/png" rel="avatar" href="http://example.net/theme/identica/default-avatar-profile.png"></link>
+</activity:actor>
+ <link rel="alternate" type="text/html" href="http://example.net/notice/14"/>
+ <id>http://example.net/notice/14</id>
+ <published>2010-02-19T02:52:38+00:00</published>
+ <updated>2010-02-19T02:52:38+00:00</updated>
+ <link rel="related" href="http://example.net/notice/12"/>
+ <thr:in-reply-to ref="http://example.net/notice/12" href="http://example.net/notice/12"></thr:in-reply-to>
+ <link rel="ostatus:conversation" href="http://example.net/conversation/11"/>
+ <link rel="ostatus:attention" href="http://example.net/user/1"/>
+ <content type="html">@&lt;span class=&quot;vcard&quot;&gt;&lt;a href=&quot;http://example.net/user/1&quot; class=&quot;url&quot;&gt;&lt;span class=&quot;fn nickname&quot;&gt;evan&lt;/span&gt;&lt;/a&gt;&lt;/span&gt; now is the time for all good men to come to the aid of their country. #&lt;span class=&quot;tag&quot;&gt;&lt;a href=&quot;http://example.net/tag/thetime&quot; rel=&quot;tag&quot;&gt;thetime&lt;/a&gt;&lt;/span&gt;</content>
+ <category term="thetime"></category>
+</entry>
+EXAMPLE4;

@@ -105,7 +105,7 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
             $this->tag,
             $sitename
         );
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:TagTimeline:".$tag;
 
         switch($this->format) {

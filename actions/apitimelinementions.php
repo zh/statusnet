@@ -117,7 +117,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             _('%1$s / Updates mentioning %2$s'),
             $sitename, $this->user->nickname
         );
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Mentions:" . $this->user->id;
         $link       = common_local_url(
             'replies',

@@ -83,6 +83,7 @@ class PushHubAction extends Action
     {
         $feed = $this->argUrl('hub.topic');
         $callback = $this->argUrl('hub.callback');
+        $token = $this->arg('hub.verify_token', null);
 
         common_log(LOG_DEBUG, __METHOD__ . ": checking sub'd to $feed $callback");
         if ($this->getSub($feed, $callback)) {
@@ -96,7 +97,6 @@ class PushHubAction extends Action
         $sub = new HubSub();
         $sub->topic = $feed;
         $sub->callback = $callback;
-        $sub->verify_token = $this->arg('hub.verify_token', null);
         $sub->secret = $this->arg('hub.secret', null);
         if (strlen($sub->secret) > 200) {
             throw new ClientException("hub.secret must be no longer than 200 chars", 400);
@@ -115,7 +115,7 @@ class PushHubAction extends Action
 
         // @fixme check errors ;)
 
-        $data = array('sub' => $sub, 'mode' => 'subscribe');
+        $data = array('sub' => $sub, 'mode' => 'subscribe', 'token' => $token);
         $qm = QueueManager::get();
         $qm->enqueue($data, 'hubverify');
         
@@ -130,6 +130,8 @@ class PushHubAction extends Action
      *   202 Accepted - request saved and awaiting verification
      *   204 No Content - already subscribed
      *   400 Bad Request - invalid params or rejected feed
+     *
+     * @fixme background this
      */
     function unsubscribe()
     {
@@ -138,7 +140,8 @@ class PushHubAction extends Action
         $sub = $this->getSub($feed, $callback);
         
         if ($sub) {
-            if ($sub->verify('unsubscribe')) {
+            $token = $this->arg('hub.verify_token', null);
+            if ($sub->verify('unsubscribe', $token)) {
                 $sub->delete();
                 common_log(LOG_INFO, "PuSH unsubscribed $feed for $callback");
             } else {
