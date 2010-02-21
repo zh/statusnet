@@ -255,7 +255,7 @@ class OStatusPlugin extends Plugin
     {
         if ($user instanceof Profile) {
             $profile = $user;
-        } else if ($user instanceof Profile) {
+        } else if ($user instanceof User) {
             $profile = $user->getProfile();
         }
         $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
@@ -353,30 +353,64 @@ class OStatusPlugin extends Plugin
         // We have a local user subscribing to a remote profile; make the
         // magic happen!
 
-        $oprofile->notify($subscriber, ActivityVerb::FOLLOW);
+        $oprofile->notify($subscriber, ActivityVerb::FOLLOW, $oprofile);
 
         return true;
     }
 
-    function onEndUnsubscribe($subscriber, $other)
+    function onEndFavor($profile, $notice)
     {
-        $user = User::staticGet('id', $subscriber->id);
+        // is the favorer a local user?
+
+        $user = User::staticGet('id', $profile->id);
 
         if (empty($user)) {
             return true;
         }
 
-        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+        // is the author an OStatus remote user?
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
 
         if (empty($oprofile)) {
             return true;
         }
 
-        // We have a local user subscribing to a remote profile; make the
-        // magic happen!
+        // Local user faved an Ostatus profile's notice; notify them!
 
-        $oprofile->notify($subscriber, ActivityVerb::UNFOLLOW);
+        $obj = ActivityObject::fromNotice($notice);
 
+        $oprofile->notify($profile,
+                          ActivityVerb::FAVORITE,
+                          $obj->asString());
+        return true;
+    }
+
+    function onEndDisfavor($profile, $notice)
+    {
+        // is the favorer a local user?
+
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        // is the author an OStatus remote user?
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        // Local user faved an Ostatus profile's notice; notify them!
+
+        $obj = ActivityObject::fromNotice($notice);
+
+        $oprofile->notify($profile,
+                          ActivityVerb::UNFAVORITE,
+                          $obj->asString());
         return true;
     }
 }

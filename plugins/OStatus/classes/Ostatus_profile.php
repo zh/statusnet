@@ -307,7 +307,7 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @param Profile $actor
      * @param $verb eg Activity::SUBSCRIBE or Activity::JOIN
-     * @param $object object of the action; if null, the remote entity itself is assumed
+     * @param string $object object of the action; if null, the remote entity itself is assumed
      */
     public function notify($actor, $verb, $object=null)
     {
@@ -319,7 +319,7 @@ class Ostatus_profile extends Memcached_DataObject
             throw new ServerException("Invalid actor passed to " . __METHOD__ . ": " . $type);
         }
         if ($object == null) {
-            $object = $this;
+            $object = $this->asActivityNoun('object');
         }
         if ($this->salmonuri) {
             $text = 'update'; // @fixme
@@ -345,7 +345,7 @@ class Ostatus_profile extends Memcached_DataObject
             $entry->element('activity:verb', null, $verb);
             $entry->raw($actor->asAtomAuthor());
             $entry->raw($actor->asActivityActor());
-            $entry->raw($object->asActivityNoun('object'));
+            $entry->raw($object);
             $entry->elementEnd('entry');
 
             $xml = $entry->getString();

@@ -199,7 +199,7 @@ class ActivityObject
     public $link;
     public $source;
 
-    /**
+   /**
      * Constructor
      *
      * This probably needs to be refactored
@@ -209,8 +209,12 @@ class ActivityObject
      * @param DOMElement $element DOM thing to turn into an Activity thing
      */
 
-    function __construct($element)
+    function __construct($element = null)
     {
+        if (empty($element)) {
+            return;
+        }
+
         $this->element = $element;
 
         if ($element->tagName == 'author') {
@@ -278,6 +282,53 @@ class ActivityObject
                 return ActivityUtils::childContent($sourceEl, 'id');
             }
         }
+    }
+
+    static fromNotice($notice)
+    {
+        $object = new ActivityObject();
+
+        $object->type    = ActivityObject::NOTE;
+
+        $object->id      = $notice->uri;
+        $object->title   = $notice->content;
+        $object->content = $notice->rendered;
+        $object->link    = $notice->bestUrl();
+
+        return $object;
+    }
+
+    function asString($tag='activity:object')
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart($tag);
+
+        $xs->element('activity:object-type', null, $this->type);
+
+        $xs->element(self::ID, null, $this->id);
+
+        if (!empty($this->title)) {
+            $xs->element(self::TITLE, null, $this->title);
+        }
+
+        if (!empty($this->summary)) {
+            $xs->element(self::SUMMARY, null, $this->summary);
+        }
+
+        if (!empty($this->content)) {
+            // XXX: assuming HTML content here
+            $xs->element(self::CONTENT, array('type' => 'html'), $this->content);
+        }
+
+        if (!empty($this->link)) {
+            $xs->element('link', array('rel' => 'alternate', 'type' => 'text/html'),
+                         $this->content);
+        }
+
+        $xs->elementEnd($tag);
+
+        return $xs->getString();
     }
 }
 
