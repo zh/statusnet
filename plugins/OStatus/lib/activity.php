@@ -366,7 +366,7 @@ class ActivityObject
 
         $object->type  = ActivityObject::PERSON;
         $object->id    = $profile->getUri();
-        $object->title = $this->getBestName();
+        $object->title = $profile->getBestName();
         $object->link  = $profile->profileurl;
 
         return $object;
