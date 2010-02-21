@@ -709,7 +709,7 @@ class Ostatus_profile extends Memcached_DataObject
     protected static function getActivityObjectProfile($object)
     {
         $uri = self::getActivityObjectProfileURI($object);
-        return Ostatus_profile::staticGet('homeuri', $uri);
+        return Ostatus_profile::staticGet('uri', $uri);
     }
 
     protected static function getActorProfileURI($activity)
@@ -747,9 +747,9 @@ class Ostatus_profile extends Memcached_DataObject
 
     protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
     {
-        $homeuri = self::getActivityObjectProfileURI($object);
+        $homeuri  = $object->id;
         $nickname = self::getActivityObjectNickname($object);
-        $avatar = self::getActivityObjectAvatar($object);
+        $avatar   = self::getActivityObjectAvatar($object);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
@@ -782,9 +782,9 @@ class Ostatus_profile extends Memcached_DataObject
         // @todo tags from categories
         // @todo lat/lon/location?
 
-        $ok = $profile->insert();
+        $profile_id = $profile->insert();
 
-        if (!$ok) {
+        if (!$profile_id) {
             throw new ServerException("Can't save local profile");
         }
 
@@ -797,7 +797,7 @@ class Ostatus_profile extends Memcached_DataObject
         $oprofile->uri        = $homeuri;
         $oprofile->feeduri    = $feeduri;
         $oprofile->salmonuri  = $salmonuri;
-        $oprofile->profile_id = $profile->id;
+        $oprofile->profile_id = $profile_id;
 
         $oprofile->created    = common_sql_now();
         $oprofile->modified   = common_sql_now();
