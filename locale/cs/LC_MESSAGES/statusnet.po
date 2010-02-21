@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 22:55+0000\n"
-"PO-Revision-Date: 2010-02-18 22:55:51+0000\n"
+"POT-Creation-Date: 2010-02-21 23:02+0000\n"
+"PO-Revision-Date: 2010-02-21 23:02:31+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -106,7 +106,6 @@ msgstr "Žádné takové oznámení."
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Žádný takový uživatel."
 
@@ -564,7 +563,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:442
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 #, fuzzy
 msgid "Account"
 msgstr "O nás"
@@ -957,7 +956,7 @@ msgstr "Neodeslal jste nám profil"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1198
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1719,7 +1718,7 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
@@ -2069,7 +2068,7 @@ msgstr "Neplatné jméno nebo heslo"
 msgid "Error setting user. You are probably not authorized."
 msgstr "Neautorizován."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:467
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Přihlásit"
@@ -3030,7 +3029,7 @@ msgstr "Chyba v ověřovacím kódu"
 msgid "Registration successful"
 msgstr "Registrace úspěšná"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:464
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registrovat"
@@ -3890,7 +3889,8 @@ msgstr ""
 msgid "You are not subscribed to that profile."
 msgstr "Neodeslal jste nám profil"
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 #, fuzzy
 msgid "Could not save subscription."
 msgstr "Nelze vytvořit odebírat"
@@ -4342,7 +4342,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:748
+#: actions/version.php:196 lib/action.php:747
 #, fuzzy
 msgid "Version"
 msgstr "Osobní"
@@ -4405,51 +4405,78 @@ msgstr ""
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:214
+#: classes/Notice.php:215
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:218
+#: classes/Notice.php:219
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:223
+#: classes/Notice.php:224
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:229
+#: classes/Notice.php:230
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:235
+#: classes/Notice.php:236
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:294 classes/Notice.php:320
+#: classes/Notice.php:302 classes/Notice.php:328
 msgid "Problem saving notice."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:790
+#: classes/Notice.php:811
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problém při ukládání sdělení"
 
-#: classes/Notice.php:850
+#: classes/Notice.php:871
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Chyba v DB při vkládání odpovědi: %s"
 
-#: classes/Notice.php:1274
+#: classes/Notice.php:1328
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr ""
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr ""
+
+#: classes/Subscription.php:74
+#, fuzzy
+msgid "User has blocked you."
+msgstr "Uživatel nemá profil."
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Nepřihlášen!"
+
+#: classes/Subscription.php:163
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "Nelze smazat odebírání"
+
+#: classes/Subscription.php:179
+msgid "Couldn't delete subscription."
+msgstr "Nelze smazat odebírání"
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4503,130 +4530,130 @@ msgstr "%1 statusů na %2"
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:434
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Home"
 msgstr "Domů"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:442
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect"
 msgstr "Připojit"
 
-#: lib/action.php:445
+#: lib/action.php:444
 #, fuzzy
 msgid "Connect to services"
 msgstr "Nelze přesměrovat na server: %s"
 
-#: lib/action.php:449
+#: lib/action.php:448
 #, fuzzy
 msgid "Change site configuration"
 msgstr "Odběry"
 
-#: lib/action.php:453 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:454 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout"
 msgstr "Odhlásit"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:464
+#: lib/action.php:463
 #, fuzzy
 msgid "Create an account"
 msgstr "Vytvořit nový účet"
 
-#: lib/action.php:467
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:470 lib/action.php:733
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "Nápověda"
 
-#: lib/action.php:470
+#: lib/action.php:469
 msgid "Help me!"
 msgstr "Pomoci mi!"
 
-#: lib/action.php:473 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr "Hledat"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:494
+#: lib/action.php:493
 #, fuzzy
 msgid "Site notice"
 msgstr "Nové sdělení"
 
-#: lib/action.php:560
+#: lib/action.php:559
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:626
+#: lib/action.php:625
 #, fuzzy
 msgid "Page notice"
 msgstr "Nové sdělení"
 
-#: lib/action.php:728
+#: lib/action.php:727
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "Odběry"
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "About"
 msgstr "O nás"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "FAQ"
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:744
+#: lib/action.php:743
 msgid "Privacy"
 msgstr "Soukromí"
 
-#: lib/action.php:746
+#: lib/action.php:745
 msgid "Source"
 msgstr "Zdroj"
 
-#: lib/action.php:750
+#: lib/action.php:749
 msgid "Contact"
 msgstr "Kontakt"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:780
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:783
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4635,12 +4662,12 @@ msgstr ""
 "**%%site.name%%** je služba microblogů, kterou pro vás poskytuje [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:785
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** je služba mikroblogů."
 
-#: lib/action.php:787
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4651,43 +4678,43 @@ msgstr ""
 "dostupná pod [GNU Affero General Public License](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:802
+#: lib/action.php:801
 #, fuzzy
 msgid "Site content license"
 msgstr "Nové sdělení"
 
-#: lib/action.php:807
+#: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:812
+#: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:815
+#: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:828
+#: lib/action.php:827
 msgid "All "
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:833
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1133
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1142
+#: lib/action.php:1141
 #, fuzzy
 msgid "After"
 msgstr "« Novější"
 
-#: lib/action.php:1150
+#: lib/action.php:1149
 #, fuzzy
 msgid "Before"
 msgstr "Starší »"
@@ -5002,86 +5029,91 @@ msgstr "Problém při ukládání sdělení"
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "Žádný takový uživatel."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:575
+#: lib/command.php:582
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:668
+#: lib/command.php:681
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:670
+#: lib/command.php:683
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:690
+#: lib/command.php:703
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Vzdálený odběr"
 
-#: lib/command.php:692
+#: lib/command.php:705
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Vzdálený odběr"
 msgstr[1] "Vzdálený odběr"
 msgstr[2] ""
 
-#: lib/command.php:712
+#: lib/command.php:725
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Neodeslal jste nám profil"
 
-#: lib/command.php:714
+#: lib/command.php:727
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Neodeslal jste nám profil"
 msgstr[1] "Neodeslal jste nám profil"
 msgstr[2] ""
 
-#: lib/command.php:728
+#: lib/command.php:741
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5763,10 +5795,6 @@ msgstr "Chyba při vkládaní vzdáleného profilu"
 msgid "Duplicate notice"
 msgstr "Nové sdělení"
 
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr ""
-
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Nelze vložit odebírání"
@@ -5951,37 +5979,6 @@ msgstr "Vzdálený odběr"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr ""
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr ""
-
-#: lib/subs.php:56
-#, fuzzy
-msgid "User has blocked you."
-msgstr "Uživatel nemá profil."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr ""
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr ""
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Nepřihlášen!"
-
-#: lib/subs.php:142
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "Nelze smazat odebírání"
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Nelze smazat odebírání"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 22:55+0000\n"
-"PO-Revision-Date: 2010-02-18 22:57:16+0000\n"
+"POT-Creation-Date: 2010-02-21 23:02+0000\n"
+"PO-Revision-Date: 2010-02-21 23:03:56+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -100,7 +100,6 @@ msgstr "Ingen sådan sida"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Ingen sådan användare."
 
@@ -553,7 +552,7 @@ msgstr ""
 "möjligheten att <strong>%3$s</strong> din %4$s kontoinformation. Du bör bara "
 "ge tillgång till ditt %4$s-konto till tredje-parter du litar på."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:442
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Konto"
 
@@ -931,7 +930,7 @@ msgstr "Du är inte ägaren av denna applikation."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1198
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "Det var ett problem med din sessions-token."
 
@@ -1674,7 +1673,7 @@ msgstr "%1$s gruppmedlemmar, sida %2$d"
 msgid "A list of the users in this group."
 msgstr "En lista av användarna i denna grupp."
 
-#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Administratör"
 
@@ -2059,7 +2058,7 @@ msgstr "Felaktigt användarnamn eller lösenord."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Fel vid inställning av användare. Du har sannolikt inte tillstånd."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:467
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Logga in"
@@ -3019,7 +3018,7 @@ msgstr "Tyvärr, ogiltig inbjudningskod."
 msgid "Registration successful"
 msgstr "Registreringen genomförd"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:464
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registrera"
@@ -3918,7 +3917,8 @@ msgstr "Ingen kod ifylld"
 msgid "You are not subscribed to that profile."
 msgstr "Du är inte prenumerat hos den profilen."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Kunde inte spara prenumeration."
 
@@ -4382,7 +4382,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Insticksmoduler"
 
-#: actions/version.php:196 lib/action.php:748
+#: actions/version.php:196 lib/action.php:747
 msgid "Version"
 msgstr "Version"
 
@@ -4443,22 +4443,22 @@ msgstr "Kunde inte uppdatera meddelande med ny URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "Databasfel vid infogning av hashtag: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:215
 msgid "Problem saving notice. Too long."
 msgstr "Problem vid sparande av notis. För långt."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:219
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem vid sparande av notis. Okänd användare."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:224
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "För många notiser för snabbt; ta en vilopaus och posta igen om ett par "
 "minuter."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:230
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4466,29 +4466,53 @@ msgstr ""
 "För många duplicerade meddelanden för snabbt; ta en vilopaus och posta igen "
 "om ett par minuter."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:236
 msgid "You are banned from posting notices on this site."
 msgstr "Du är utestängd från att posta notiser på denna webbplats."
 
-#: classes/Notice.php:294 classes/Notice.php:320
+#: classes/Notice.php:302 classes/Notice.php:328
 msgid "Problem saving notice."
 msgstr "Problem med att spara notis."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:811
 msgid "Problem saving group inbox."
 msgstr "Problem med att spara gruppinkorg."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:871
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Databasfel vid infogning av svar: %s"
 
-#: classes/Notice.php:1274
+#: classes/Notice.php:1328
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "Du har blivit utestängd från att prenumerera."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr "Redan prenumerant!"
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Användaren har blockerat dig."
+
+#: classes/Subscription.php:157
+msgid "Not subscribed!"
+msgstr "Inte prenumerant!"
+
+#: classes/Subscription.php:163
+msgid "Couldn't delete self-subscription."
+msgstr "Kunde inte ta bort själv-prenumeration."
+
+#: classes/Subscription.php:179
+msgid "Couldn't delete subscription."
+msgstr "Kunde inte ta bort prenumeration."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Välkommen till %1$s, @%2$s!"
@@ -4538,124 +4562,124 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "Namnlös sida"
 
-#: lib/action.php:434
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr "Primär webbplatsnavigation"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Home"
 msgstr "Hem"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr "Personlig profil och vänners tidslinje"
 
-#: lib/action.php:442
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr "Ändra din e-post, avatar, lösenord, profil"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect"
 msgstr "Anslut"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect to services"
 msgstr "Anslut till tjänster"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgid "Change site configuration"
 msgstr "Ändra webbplatskonfiguration"
 
-#: lib/action.php:453 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Bjud in"
 
-#: lib/action.php:454 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Bjud in vänner och kollegor att gå med dig på %s"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout"
 msgstr "Logga ut"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr "Logga ut från webbplatsen"
 
-#: lib/action.php:464
+#: lib/action.php:463
 msgid "Create an account"
 msgstr "Skapa ett konto"
 
-#: lib/action.php:467
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr "Logga in på webbplatsen"
 
-#: lib/action.php:470 lib/action.php:733
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "Hjälp"
 
-#: lib/action.php:470
+#: lib/action.php:469
 msgid "Help me!"
 msgstr "Hjälp mig!"
 
-#: lib/action.php:473 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr "Sök"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr "Sök efter personer eller text"
 
-#: lib/action.php:494
+#: lib/action.php:493
 msgid "Site notice"
 msgstr "Webbplatsnotis"
 
-#: lib/action.php:560
+#: lib/action.php:559
 msgid "Local views"
 msgstr "Lokala vyer"
 
-#: lib/action.php:626
+#: lib/action.php:625
 msgid "Page notice"
 msgstr "Sidnotis"
 
-#: lib/action.php:728
+#: lib/action.php:727
 msgid "Secondary site navigation"
 msgstr "Sekundär webbplatsnavigation"
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "About"
 msgstr "Om"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "Frågor & svar"
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "TOS"
 msgstr "Användarvillkor"
 
-#: lib/action.php:744
+#: lib/action.php:743
 msgid "Privacy"
 msgstr "Sekretess"
 
-#: lib/action.php:746
+#: lib/action.php:745
 msgid "Source"
 msgstr "Källa"
 
-#: lib/action.php:750
+#: lib/action.php:749
 msgid "Contact"
 msgstr "Kontakt"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Badge"
 msgstr "Emblem"
 
-#: lib/action.php:780
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr "Programvarulicens för StatusNet"
 
-#: lib/action.php:783
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4664,12 +4688,12 @@ msgstr ""
 "**%%site.name%%** är en mikrobloggtjänst tillhandahållen av [%%site.broughtby"
 "%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:785
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** är en mikrobloggtjänst. "
 
-#: lib/action.php:787
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4680,42 +4704,42 @@ msgstr ""
 "version %s, tillgänglig under [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:802
+#: lib/action.php:801
 msgid "Site content license"
 msgstr "Licens för webbplatsinnehåll"
 
-#: lib/action.php:807
+#: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Innehåll och data av %1$s är privat och konfidensiell."
 
-#: lib/action.php:812
+#: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "Innehåll och data copyright av %1$s. Alla rättigheter reserverade."
 
-#: lib/action.php:815
+#: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Innehåll och data copyright av medarbetare. Alla rättigheter reserverade."
 
-#: lib/action.php:828
+#: lib/action.php:827
 msgid "All "
 msgstr "Alla "
 
-#: lib/action.php:834
+#: lib/action.php:833
 msgid "license."
 msgstr "licens."
 
-#: lib/action.php:1133
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Numrering av sidor"
 
-#: lib/action.php:1142
+#: lib/action.php:1141
 msgid "After"
 msgstr "Senare"
 
-#: lib/action.php:1150
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Tidigare"
 
@@ -5016,81 +5040,86 @@ msgstr "Fel vid sparande av notis."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Ange namnet på användaren att prenumerara på"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "Ingen sådan användare."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Prenumerar på %s"
 
-#: lib/command.php:575
+#: lib/command.php:582
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Ange namnet på användaren att avsluta prenumeration på"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Prenumeration hos %s avslutad"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Kommando inte implementerat än."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Notifikation av."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Kan inte sätta på notifikation."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Notifikation på."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Kan inte stänga av notifikation."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr "Inloggningskommando är inaktiverat"
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Denna länk är endast användbar en gång, och gäller bara i 2 minuter: %s"
 
-#: lib/command.php:668
+#: lib/command.php:681
 msgid "You are not subscribed to anyone."
 msgstr "Du prenumererar inte på någon."
 
-#: lib/command.php:670
+#: lib/command.php:683
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Du prenumererar på denna person:"
 msgstr[1] "Du prenumererar på dessa personer:"
 
-#: lib/command.php:690
+#: lib/command.php:703
 msgid "No one is subscribed to you."
 msgstr "Ingen prenumerar på dig."
 
-#: lib/command.php:692
+#: lib/command.php:705
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Denna person prenumererar på dig:"
 msgstr[1] "Dessa personer prenumererar på dig:"
 
-#: lib/command.php:712
+#: lib/command.php:725
 msgid "You are not a member of any groups."
 msgstr "Du är inte medlem i några grupper."
 
-#: lib/command.php:714
+#: lib/command.php:727
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Du är en medlem i denna grupp:"
 msgstr[1] "Du är en medlem i dessa grupper:"
 
-#: lib/command.php:728
+#: lib/command.php:741
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5872,10 +5901,6 @@ msgstr "Fel vid infogning av fjärrprofilen"
 msgid "Duplicate notice"
 msgstr "Duplicerad notis"
 
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "Du har blivit utestängd från att prenumerera."
-
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Kunde inte infoga ny prenumeration."
@@ -6051,34 +6076,6 @@ msgstr "Personer som prenumererar på %s"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "Grupper %s är en medlem i"
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr "Redan prenumerant!"
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Användaren har blockerat dig."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Kunde inte prenumerera."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Kunde inte göra andra till prenumeranter hos dig."
-
-#: lib/subs.php:137
-msgid "Not subscribed!"
-msgstr "Inte prenumerant!"
-
-#: lib/subs.php:142
-msgid "Couldn't delete self-subscription."
-msgstr "Kunde inte ta bort själv-prenumeration."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Kunde inte ta bort prenumeration."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48

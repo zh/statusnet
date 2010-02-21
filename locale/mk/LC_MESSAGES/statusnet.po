@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 22:55+0000\n"
-"PO-Revision-Date: 2010-02-18 22:56:51+0000\n"
+"POT-Creation-Date: 2010-02-21 23:02+0000\n"
+"PO-Revision-Date: 2010-02-21 23:03:31+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -101,7 +101,6 @@ msgstr "Нема таква страница"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Нема таков корисник."
 
@@ -562,7 +561,7 @@ msgstr ""
 "<strong>%3$s</strong> податоците за Вашата %4$s сметка. Треба да дозволувате "
 "пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:442
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Сметка"
 
@@ -943,7 +942,7 @@ msgstr "Не сте сопственик на овој програм."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1198
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "Се појави проблем со Вашиот сесиски жетон."
 
@@ -1691,7 +1690,7 @@ msgstr "Членови на групата %1$s, стр. %2$d"
 msgid "A list of the users in this group."
 msgstr "Листа на корисниците на овааг група."
 
-#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Администратор"
 
@@ -2077,7 +2076,7 @@ msgstr "Неточно корисничко име или лозинка"
 msgid "Error setting user. You are probably not authorized."
 msgstr "Грешка при поставувањето на корисникот. Веројатно не се заверени."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:467
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Најава"
@@ -3045,7 +3044,7 @@ msgstr "Жалиме, неважечки код за поканата."
 msgid "Registration successful"
 msgstr "Регистрацијата е успешна"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:464
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрирај се"
@@ -3951,7 +3950,8 @@ msgstr "Нема внесено код"
 msgid "You are not subscribed to that profile."
 msgstr "Не сте претплатени на тој профил."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Не можев да ја зачувам претплатата."
 
@@ -4413,7 +4413,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Приклучоци"
 
-#: actions/version.php:196 lib/action.php:748
+#: actions/version.php:196 lib/action.php:747
 msgid "Version"
 msgstr "Верзија"
 
@@ -4475,22 +4475,22 @@ msgstr "Не можев да ја подновам пораката со нов 
 msgid "DB error inserting hashtag: %s"
 msgstr "Грешка во базата на податоци при вметнувањето на хеш-ознака: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:215
 msgid "Problem saving notice. Too long."
 msgstr "Проблем со зачувувањето на белешката. Премногу долго."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:219
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблем со зачувувањето на белешката. Непознат корисник."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:224
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Премногу забелњшки за прекратко време; здивнете малку и продолжете за "
 "неколку минути."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:230
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4498,29 +4498,54 @@ msgstr ""
 "Премногу дуплирани пораки во прекратко време; здивнете малку и продолжете за "
 "неколку минути."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:236
 msgid "You are banned from posting notices on this site."
 msgstr "Забрането Ви е да објавувате забелешки на оваа веб-страница."
 
-#: classes/Notice.php:294 classes/Notice.php:320
+#: classes/Notice.php:302 classes/Notice.php:328
 msgid "Problem saving notice."
 msgstr "Проблем во зачувувањето на белешката."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:811
 msgid "Problem saving group inbox."
 msgstr "Проблем при зачувувањето на групното приемно сандаче."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:871
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Одговор од внесот во базата: %s"
 
-#: classes/Notice.php:1274
+#: classes/Notice.php:1328
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "Блокирани сте од претплаќање."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr "Веќе претплатено!"
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Корисникот Ве има блокирано."
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Не сте претплатени!"
+
+#: classes/Subscription.php:163
+msgid "Couldn't delete self-subscription."
+msgstr "Не можам да ја избришам самопретплатата."
+
+#: classes/Subscription.php:179
+msgid "Couldn't delete subscription."
+msgstr "Претплата не може да се избрише."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добредојдовте на %1$s, @%2$s!"
@@ -4570,124 +4595,124 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "Страница без наслов"
 
-#: lib/action.php:434
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr "Главна навигација"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Home"
 msgstr "Дома"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr "Личен профил и историја на пријатели"
 
-#: lib/action.php:442
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr "Промена на е-пошта, аватар, лозинка, профил"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect"
 msgstr "Поврзи се"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect to services"
 msgstr "Поврзи се со услуги"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgid "Change site configuration"
 msgstr "Промена на конфигурацијата на веб-страницата"
 
-#: lib/action.php:453 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Покани"
 
-#: lib/action.php:454 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете пријатели и колеги да Ви се придружат на %s"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout"
 msgstr "Одјави се"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr "Одјава"
 
-#: lib/action.php:464
+#: lib/action.php:463
 msgid "Create an account"
 msgstr "Создај сметка"
 
-#: lib/action.php:467
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr "Најава"
 
-#: lib/action.php:470 lib/action.php:733
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "Помош"
 
-#: lib/action.php:470
+#: lib/action.php:469
 msgid "Help me!"
 msgstr "Напомош!"
 
-#: lib/action.php:473 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr "Барај"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr "Пребарајте луѓе или текст"
 
-#: lib/action.php:494
+#: lib/action.php:493
 msgid "Site notice"
 msgstr "Напомена за веб-страницата"
 
-#: lib/action.php:560
+#: lib/action.php:559
 msgid "Local views"
 msgstr "Локални прегледи"
 
-#: lib/action.php:626
+#: lib/action.php:625
 msgid "Page notice"
 msgstr "Напомена за страницата"
 
-#: lib/action.php:728
+#: lib/action.php:727
 msgid "Secondary site navigation"
 msgstr "Споредна навигација"
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "About"
 msgstr "За"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "ЧПП"
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "TOS"
 msgstr "Услови"
 
-#: lib/action.php:744
+#: lib/action.php:743
 msgid "Privacy"
 msgstr "Приватност"
 
-#: lib/action.php:746
+#: lib/action.php:745
 msgid "Source"
 msgstr "Изворен код"
 
-#: lib/action.php:750
+#: lib/action.php:749
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Badge"
 msgstr "Значка"
 
-#: lib/action.php:780
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr "Лиценца на програмот StatusNet"
 
-#: lib/action.php:783
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4696,12 +4721,12 @@ msgstr ""
 "**%%site.name%%** е сервис за микроблогирање што ви го овозможува [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:785
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** е сервис за микроблогирање."
 
-#: lib/action.php:787
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4712,45 +4737,45 @@ msgstr ""
 "верзија %s, достапен пд [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:802
+#: lib/action.php:801
 msgid "Site content license"
 msgstr "Лиценца на содржините на веб-страницата"
 
-#: lib/action.php:807
+#: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Содржината и податоците на %1$s се лични и доверливи."
 
-#: lib/action.php:812
+#: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Авторските права на содржината и податоците се во сопственост на %1$s. Сите "
 "права задржани."
 
-#: lib/action.php:815
+#: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторските права на содржината и податоците им припаѓаат на учесниците. Сите "
 "права задржани."
 
-#: lib/action.php:828
+#: lib/action.php:827
 msgid "All "
 msgstr "Сите "
 
-#: lib/action.php:834
+#: lib/action.php:833
 msgid "license."
 msgstr "лиценца."
 
-#: lib/action.php:1133
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Прелом на страници"
 
-#: lib/action.php:1142
+#: lib/action.php:1141
 msgid "After"
 msgstr "По"
 
-#: lib/action.php:1150
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Пред"
 
@@ -5053,80 +5078,85 @@ msgstr "Грешка при зачувувањето на белешката."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Назначете го името на корисникот на којшто сакате да се претплатите"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "Нема таков корисник."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Претплатено на %s"
 
-#: lib/command.php:575
+#: lib/command.php:582
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Назначете го името на корисникот од кого откажувате претплата."
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Претплатата на %s е откажана"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Наредбата сè уште не е имплементирана."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Известувањето е исклучено."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Не можам да исклучам известување."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Известувањето е вклучено."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Не можам да вклучам известување."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr "Наредбата за најава е оневозможена"
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr "Оваа врска може да се употреби само еднаш, и трае само 2 минути: %s"
 
-#: lib/command.php:668
+#: lib/command.php:681
 msgid "You are not subscribed to anyone."
 msgstr "Не сте претплатени никому."
 
-#: lib/command.php:670
+#: lib/command.php:683
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Не ни го испративте тој профил."
 msgstr[1] "Не ни го испративте тој профил."
 
-#: lib/command.php:690
+#: lib/command.php:703
 msgid "No one is subscribed to you."
 msgstr "Никој не е претплатен на Вас."
 
-#: lib/command.php:692
+#: lib/command.php:705
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Оддалечена претплата"
 msgstr[1] "Оддалечена претплата"
 
-#: lib/command.php:712
+#: lib/command.php:725
 msgid "You are not a member of any groups."
 msgstr "Не членувате во ниедна група."
 
-#: lib/command.php:714
+#: lib/command.php:727
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Не ни го испративте тој профил."
 msgstr[1] "Не ни го испративте тој профил."
 
-#: lib/command.php:728
+#: lib/command.php:741
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5915,10 +5945,6 @@ msgstr "Грешка во внесувањето на оддалечениот �
 msgid "Duplicate notice"
 msgstr "Дуплирај забелешка"
 
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "Блокирани сте од претплаќање."
-
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Не може да се внесе нова претплата."
@@ -6094,35 +6120,6 @@ msgstr "Луѓе претплатени на %s"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "Групи кадешто членува %s"
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr "Веќе претплатено!"
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Корисникот Ве има блокирано."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Претплатата е неуспешна."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Не можев да прептлатам друг корисник на Вас."
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Не сте претплатени!"
-
-#: lib/subs.php:142
-msgid "Couldn't delete self-subscription."
-msgstr "Не можам да ја избришам самопретплатата."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Претплата не може да се избрише."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
