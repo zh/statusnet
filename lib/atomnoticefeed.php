@@ -64,6 +64,11 @@ class AtomNoticeFeed extends Atom10Feed
             'http://activitystrea.ms/spec/1.0/'
         );
 
+        $this->addNamespace(
+            'poco',
+            'http://portablecontacts.net/spec/1.0'
+        );
+
         // XXX: What should the uri be?
         $this->addNamespace(
             'ostatus',
