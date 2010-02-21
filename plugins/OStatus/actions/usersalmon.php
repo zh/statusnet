@@ -101,7 +101,8 @@ class UsersalmonAction extends SalmonAction
         $oprofile = $this->ensureProfile();
         if ($oprofile) {
             common_log(LOG_INFO, "Setting up subscription from remote {$oprofile->uri} to local {$this->user->nickname}");
-            $oprofile->subscribeRemoteToLocal($this->user);
+            Subscription::start($oprofile->localProfile(),
+                                $this->user->getProfile());
         } else {
             common_log(LOG_INFO, "Can't set up subscription from remote; missing profile.");
         }
