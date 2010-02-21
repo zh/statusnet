@@ -78,9 +78,13 @@ class OStatusPlugin extends Plugin
      */
     function onEndInitializeQueueManager(QueueManager $qm)
     {
+        // Outgoing from our internal PuSH hub
         $qm->connect('hubverify', 'HubVerifyQueueHandler');
         $qm->connect('hubdistrib', 'HubDistribQueueHandler');
         $qm->connect('hubout', 'HubOutQueueHandler');
+
+        // Incoming from a foreign PuSH hub
+        $qm->connect('pushinput', 'PushInputQueueHandler');
         return true;
     }
 
