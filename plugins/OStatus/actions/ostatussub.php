@@ -58,7 +58,6 @@ class OStatusSubAction extends Action
         $this->showPage();
     }
 
-
     /**
      * Content area of the page
      *
@@ -116,7 +115,18 @@ class OStatusSubAction extends Action
     function prepare($args)
     {
         parent::prepare($args);
+
+        if (!common_logged_in()) {
+            // XXX: selfURL() didn't work. :<
+            common_set_returnto($_SERVER['REQUEST_URI']);
+            if (Event::handle('RedirectToLogin', array($this, null))) {
+                common_redirect(common_local_url('login'), 303);
+            }
+            return false;
+        }
+
         $this->profile_uri = $this->arg('profile');
+
         return true;
     }
 
@@ -173,13 +183,13 @@ class OStatusSubAction extends Action
     function validateFeed()
     {
         $profile_uri = trim($this->arg('profile'));
-        
+
         if ($profile_uri == '') {
             $this->showForm(_m('Empty remote profile URL!'));
             return;
         }
         $this->profile_uri = $profile_uri;
-        
+
         // @fixme validate, normalize bla bla
         try {
             $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
