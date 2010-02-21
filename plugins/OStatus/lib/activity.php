@@ -284,7 +284,7 @@ class ActivityObject
         }
     }
 
-    static fromNotice($notice)
+    static function fromNotice($notice)
     {
         $object = new ActivityObject();
 
