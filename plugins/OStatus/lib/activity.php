@@ -392,7 +392,7 @@ class ActivityObject
 
         if (!empty($this->content)) {
             // XXX: assuming HTML content here
-            $xs->element(self::CONTENT, array('type' => 'html'), $this->content);
+            $xs->element(ActivityUtils::CONTENT, array('type' => 'html'), $this->content);
         }
 
         if (!empty($this->link)) {
@@ -700,7 +700,7 @@ class Activity
         // XXX: add context
         // XXX: add target
 
-        $xs->raw($this->actor->asString());
+        $xs->raw($this->actor->asString('activity:actor'));
         $xs->element('activity:verb', null, $this->verb);
         $xs->raw($this->object->asString());
 
