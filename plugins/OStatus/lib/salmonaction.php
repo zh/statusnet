@@ -81,6 +81,9 @@ class SalmonAction extends Action
             case ActivityVerb::FAVORITE:
                 $this->handleFavorite();
                 break;
+            case ActivityVerb::UNFAVORITE:
+                $this->handleUnfavorite();
+                break;
             case ActivityVerb::FOLLOW:
             case ActivityVerb::FRIEND:
                 $this->handleFollow();

@@ -1104,6 +1104,38 @@ class Notice extends Memcached_DataObject
         return $xs->getString();
     }
 
+    /**
+     * Returns an XML string fragment with a reference to a notice as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @param string $element one of 'subject', 'object', 'target'
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('activity:' . $element);
+        $xs->element('activity:object-type',
+                     null,
+                     'http://activitystrea.ms/schema/1.0/note');
+        $xs->element('id',
+                     null,
+                     $this->uri);
+        $xs->element('content',
+                     array('type' => 'text/html'),
+                     $this->rendered);
+        $xs->element('link',
+                     array('type' => 'text/html',
+                           'rel'  => 'permalink',
+                           'href' => $this->bestUrl()));
+        $xs->elementEnd('activity:' . $element);
+
+        return $xs->getString();
+    }
+
     function bestUrl()
     {
         if (!empty($this->url)) {
