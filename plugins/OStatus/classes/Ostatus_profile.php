@@ -305,9 +305,9 @@ class Ostatus_profile extends Memcached_DataObject
      * Send an Activity Streams notification to the remote Salmon endpoint,
      * if so configured.
      *
-     * @param Profile $actor
-     * @param $verb eg Activity::SUBSCRIBE or Activity::JOIN
-     * @param string $object object of the action; if null, the remote entity itself is assumed
+     * @param Profile $actor  Actor who did the activity
+     * @param string  $verb   Activity::SUBSCRIBE or Activity::JOIN
+     * @param Object  $object object of the action; must define asActivityNoun($tag)
      */
     public function notify($actor, $verb, $object=null)
     {
@@ -322,11 +322,12 @@ class Ostatus_profile extends Memcached_DataObject
             $object = $this;
         }
         if ($this->salmonuri) {
-            $text = 'update'; // @fixme
-            $id = 'tag:' . common_config('site', 'server') .
-                ':' . $verb .
-                ':' . $actor->id .
-                ':' . time(); // @fixme
+
+            $text = 'update';
+            $id = TagURI::mint('%s:%s:%s',
+                               $verb,
+                               $actor->getURI(),
+                               common_date_iso8601(date()));
 
             // @fixme consolidate all these NS settings somewhere
             $attributes = array('xmlns' => Activity::ATOM,
@@ -354,6 +355,20 @@ class Ostatus_profile extends Memcached_DataObject
             $salmon = new Salmon(); // ?
             $salmon->post($this->salmonuri, $xml);
         }
+    }
+
+    public function notifyActivity($activity)
+    {
+        if ($this->salmonuri) {
+
+            $xml = $activity->asString();
+
+            $salmon = new Salmon(); // ?
+
+            $salmon->post($this->salmonuri, $xml);
+        }
+
+        return;
     }
 
     function getBestName()
