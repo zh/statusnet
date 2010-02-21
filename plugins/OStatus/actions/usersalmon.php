@@ -131,10 +131,51 @@ class UsersalmonAction extends SalmonAction
 
     function handleFavorite()
     {
-        // WORST VARIABLE NAME EVER
-        $object = $this->act->object;
+        $notice = $this->getNotice($this->act->object);
+        $profile = $this->ensureProfile()->localProfile();
 
-        switch ($this->act->object->type) {
+        $old = Fave::pkeyGet(array('user_id' => $profile->id,
+                                   'notice_id' => $notice->id));
+
+        if (!empty($old)) {
+            throw new ClientException("We already know that's a fave!");
+        }
+
+        if (!Fave::addNew($profile, $notice)) {
+            throw new ClientException("Could not save new favorite.");
+        }
+    }
+
+    /**
+     * Remote user doesn't like one of our posts after all!
+     * Confirm the post is ours, and save a local favorite event.
+     */
+    function handleUnfavorite()
+    {
+        $notice = $this->getNotice($this->act->object);
+        $profile = $this->ensureProfile()->localProfile();
+
+        $fave = Fave::pkeyGet(array('user_id' => $profile->id,
+                                   'notice_id' => $notice->id));
+        if (empty($fave)) {
+            throw new ClientException("Notice wasn't favorited!");
+        }
+
+        $fave->delete();
+    }
+
+    /**
+     * @param ActivityObject $object
+     * @return Notice
+     * @throws ClientException on invalid input
+     */
+    function getNotice($object)
+    {
+        if (!$object) {
+            throw new ClientException("Can't favorite/unfavorite without an object.");
+        }
+
+        switch ($object->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:
@@ -155,35 +196,7 @@ class UsersalmonAction extends SalmonAction
             throw new ClientException("Notice with ID $object->id not posted by $this->user->id.");
         }
 
-        $profile = $this->ensureProfile();
-
-        $old = Fave::pkeyGet(array('user_id' => $profile->id,
-                                   'notice_id' => $notice->id));
-
-        if (!empty($old)) {
-            throw new ClientException("We already know that's a fave!");
-        }
-
-        $fave = new Fave();
-
-        // @fixme need to change this attribute name, maybe references
-        $fave->user_id   = $profile->id;
-        $fave->notice_id = $notice->id;
-
-        $result = $fave->insert();
-
-        if (!$result) {
-            common_log_db_error($fave, 'INSERT', __FILE__);
-            throw new ServerException('Could not save new favorite.');
-        }
-    }
-
-    /**
-     * Remote user doesn't like one of our posts after all!
-     * Confirm the post is ours, and save a local favorite event.
-     */
-    function handleUnfavorite()
-    {
+        return $notice;
     }
 
 }
