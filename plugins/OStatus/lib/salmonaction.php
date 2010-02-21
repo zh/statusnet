@@ -51,6 +51,7 @@ class SalmonAction extends Action
 
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
+            common_log(LOG_DEBUG, "Got invalid Salmon post: $xml");
             $this->clientError(_m('Salmon post must be an Atom entry.'));
         }
         // XXX: check the signature
