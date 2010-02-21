@@ -87,8 +87,7 @@ class UsersalmonAction extends SalmonAction
             throw new ClientException("Not to anyone in reply to anything!");
         }
 
-        $profile = $this->ensureProfile();
-        // @fixme do something with the post
+        $this->saveNotice();
     }
 
     /**
