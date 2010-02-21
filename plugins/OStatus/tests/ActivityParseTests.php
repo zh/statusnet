@@ -22,8 +22,15 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $act = new Activity($dom->documentElement);
 
         $this->assertFalse(empty($act));
+
         $this->assertEquals($act->time, 1243860840);
         $this->assertEquals($act->verb, ActivityVerb::POST);
+
+        $this->assertFalse(empty($act->object));
+        $this->assertEquals($act->object->title, 'Punctuation Changeset');
+        $this->assertEquals($act->object->type, 'http://versioncentral.example.org/activity/changeset');
+        $this->assertEquals($act->object->summary, 'Fixing punctuation because it makes it more readable.');
+        $this->assertEquals($act->object->id, 'tag:versioncentral.example.org,2009:/change/1643245');
     }
 
     public function testExample3()
@@ -83,6 +90,10 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.net/notice/12', $act->context->replyToUrl);
         $this->assertEquals('http://example.net/conversation/11', $act->context->conversation);
         $this->assertEquals(array('http://example.net/user/1'), $act->context->attention);
+
+        $this->assertFalse(empty($act->object));
+        $this->assertEquals($act->object->content,
+                            '@<span class="vcard"><a href="http://example.net/user/1" class="url"><span class="fn nickname">evan</span></a></span> now is the time for all good men to come to the aid of their country. #<span class="tag"><a href="http://example.net/tag/thetime" rel="tag">thetime</a></span>');
 
         $this->assertFalse(empty($act->actor));
     }
