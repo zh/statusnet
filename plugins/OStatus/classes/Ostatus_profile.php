@@ -327,7 +327,7 @@ class Ostatus_profile extends Memcached_DataObject
             $id = TagURI::mint('%s:%s:%s',
                                $verb,
                                $actor->getURI(),
-                               common_date_iso8601(date()));
+                               common_date_iso8601(time()));
 
             // @fixme consolidate all these NS settings somewhere
             $attributes = array('xmlns' => Activity::ATOM,
