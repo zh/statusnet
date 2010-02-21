@@ -29,6 +29,7 @@ class PushCallbackAction extends Action
 {
     function handle()
     {
+        StatusNet::setApi(true); // Minimize error messages to aid in debugging
         parent::handle();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
