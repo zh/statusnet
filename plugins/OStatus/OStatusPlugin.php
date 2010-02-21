@@ -365,16 +365,21 @@ class OStatusPlugin extends Plugin
      * @param Notice $notice being favored
      * @return hook return value
      */
-    function onEndFavorNotice($profile, Notice $notice)
+    function onEndFavorNotice(Profile $profile, Notice $notice)
     {
-        if ($profile instanceof User) {
-            // @fixme upstream function should clarify its parameters
-            $profile = $profile->getProfile();
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
         }
+
         $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+
         if ($oprofile) {
             $oprofile->notify($profile, ActivityVerb::FAVORITE, $notice);
         }
+
+        return true;
     }
 
     /**
@@ -386,10 +391,18 @@ class OStatusPlugin extends Plugin
      */
     function onEndDisfavorNotice(Profile $profile, Notice $notice)
     {
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
         $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
+
         if ($oprofile) {
             $oprofile->notify($profile, ActivityVerb::UNFAVORITE, $notice);
         }
-    }
 
+        return true;
+    }
 }
