@@ -294,7 +294,7 @@ class OStatusPlugin extends Plugin
                                $profile->getBestName(),
                                $other->getBestName());
 
-        $act->actor   = ActivityObject::fromProfile($subscriber);
+        $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromProfile($other);
 
         $oprofile->notifyActivity($act);
@@ -447,8 +447,9 @@ class OStatusPlugin extends Plugin
     /**
      * Notify remote users when their notices get de-favorited.
      *
-     * @param Profile or User $profile of local user doing the de-faving
-     * @param Notice $notice being favored
+     * @param Profile $profile Profile person doing the de-faving
+     * @param Notice  $notice  Notice being favored
+     *
      * @return hook return value
      */
 
