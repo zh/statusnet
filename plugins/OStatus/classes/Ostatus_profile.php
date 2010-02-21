@@ -319,7 +319,7 @@ class Ostatus_profile extends Memcached_DataObject
             throw new ServerException("Invalid actor passed to " . __METHOD__ . ": " . $type);
         }
         if ($object == null) {
-            $object = $this->asActivityNoun('object');
+            $object = $this;
         }
         if ($this->salmonuri) {
             $text = 'update'; // @fixme
@@ -345,7 +345,7 @@ class Ostatus_profile extends Memcached_DataObject
             $entry->element('activity:verb', null, $verb);
             $entry->raw($actor->asAtomAuthor());
             $entry->raw($actor->asActivityActor());
-            $entry->raw($object);
+            $entry->raw($object->asActivityNoun('object'));
             $entry->elementEnd('entry');
 
             $xml = $entry->getString();
