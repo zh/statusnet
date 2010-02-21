@@ -155,10 +155,11 @@ class SalmonAction extends Action
         $actor = $this->act->actor;
         if (empty($actor->id)) {
             common_log(LOG_ERR, "broken actor: " . var_export($actor, true));
+            common_log(LOG_ERR, "activity with no actor: " . var_export($this->act, true));
             throw new Exception("Received a salmon slap from unidentified actor.");
         }
 
-        return Ostatus_profile::ensureActorProfile($this->act);
+        return Ostatus_profile::ensureActivityObjectProfile($actor);
     }
 
     function saveNotice()
