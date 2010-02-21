@@ -372,6 +372,12 @@ class FeedSub extends Memcached_DataObject
      * feed (as a DOMDocument) will be passed to the StartFeedSubHandleFeed
      * and EndFeedSubHandleFeed events for processing.
      *
+     * Not guaranteed to be running in an immediate POST context; may be run
+     * from a queue handler.
+     *
+     * Side effects: the feedsub record's lastupdate field will be updated
+     * to the current time (not published time) if we got a legit update.
+     *
      * @param string $post source of Atom or RSS feed
      * @param string $hmac X-Hub-Signature header, if present
      */
@@ -401,6 +407,10 @@ class FeedSub extends Memcached_DataObject
             common_log(LOG_ERR, __METHOD__ . ": ignoring invalid XML");
             return;
         }
+
+        $orig = clone($this);
+        $this->last_update = common_sql_now();
+        $this->update($orig);
 
         Event::handle('StartFeedSubReceive', array($this, $feed));
         Event::handle('EndFeedSubReceive', array($this, $feed));

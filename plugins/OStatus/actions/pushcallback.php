@@ -60,9 +60,14 @@ class PushCallbackAction extends Action
 
         $post = file_get_contents('php://input');
 
-        // @fixme Queue this to a background process; we should return
+        // Queue this to a background process; we should return
         // as quickly as possible from a distribution POST.
-        $feedsub->receive($post, $hmac);
+        // If queues are disabled this'll process immediately.
+        $data = array('feedsub_id' => $feedsub->id,
+                      'post' => $post,
+                      'hmac' => $hmac);
+        $qm = QueueManager::get();
+        $qm->enqueue($data, 'pushinput');
     }
     
     /**
