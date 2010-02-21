@@ -194,6 +194,7 @@ class Notice extends Memcached_DataObject
      */
     static function saveNew($profile_id, $content, $source, $options=null) {
         $defaults = array('uri' => null,
+                          'url' => null,
                           'reply_to' => null,
                           'repeat_of' => null);
 
@@ -256,9 +257,16 @@ class Notice extends Memcached_DataObject
         }
 
         $notice->content = $final;
-        $notice->rendered = common_render_content($final, $notice);
+
+        if (!empty($rendered)) {
+            $notice->rendered = $rendered;
+        } else {
+            $notice->rendered = common_render_content($final, $notice);
+        }
+
         $notice->source = $source;
         $notice->uri = $uri;
+        $notice->url = $url;
 
         // Handle repeat case
 
