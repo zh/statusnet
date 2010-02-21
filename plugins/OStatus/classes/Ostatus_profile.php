@@ -537,18 +537,58 @@ class Ostatus_profile extends Memcached_DataObject
             throw new FeedSubNoHubException();
         }
 
-        // Ok this is going to be a terrible hack!
-        // Won't be suitable for groups, empty feeds, or getting
-        // info that's only available on the profile page.
-        $entries = $discover->feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
-        if (!$entries || $entries->length == 0) {
-            throw new FeedSubException('empty feed');
+        // Try to get a profile from the feed activity:subject
+
+        $feedEl = $discover->feed->documentElement;
+
+        $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
+
+        if (!empty($subject)) {
+            $subjObject = new ActivityObject($subject);
+            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri);
         }
-        $first = new Activity($entries->item(0), $discover->feed);
-        return self::ensureActorProfile($first, $feeduri, $salmonuri);
+
+        // Otherwise, try the feed author
+
+        $author = ActivityUtils::child($feedEl, Activity::AUTHOR, Activity::ATOM);
+
+        if (!empty($author)) {
+            $authorObject = new ActivityObject($author);
+            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+        }
+
+        // Sheesh. Not a very nice feed! Let's try fingerpoken in the
+        // entries.
+
+        $entries = $discover->feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+
+        if (!empty($entries) && $entries->length > 0) {
+
+            $entry = $entries->item(0);
+
+            $actor = ActivityUtils::child($entry, Activity::ACTOR, Activity::SPEC);
+
+            if (!empty($actor)) {
+                $actorObject = new ActivityObject($actor);
+                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri);
+
+            }
+
+            $author = ActivityUtils::child($entry, Activity::AUTHOR, Activity::ATOM);
+
+            if (!empty($author)) {
+                $authorObject = new ActivityObject($author);
+                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+            }
+        }
+
+        // XXX: make some educated guesses here
+
+        throw new FeedSubException("Can't find enough profile information to make a feed.");
     }
 
     /**
+     *
      * Download and update given avatar image
      * @param string $url
      * @throws Exception in various failure cases
@@ -581,6 +621,12 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
+    protected static function getActivityObjectAvatar($object)
+    {
+        // XXX: go poke around in the feed
+        return $object->avatar;
+    }
+
     /**
      * Get an appropriate avatar image source URL, if available.
      *
@@ -588,6 +634,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param DOMElement $feed
      * @return string
      */
+
     protected static function getAvatar($actor, $feed)
     {
         $url = '';
@@ -635,11 +682,17 @@ class Ostatus_profile extends Memcached_DataObject
      * @param string $salmonuri if we already know the salmon return channel URI
      * @return Ostatus_profile
      */
+
     public static function ensureActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
-        $profile = self::getActorProfile($activity);
+        return self::ensureActivityObjectProfile($activity->actor, $feeduri, $salmonuri);
+    }
+
+    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    {
+        $profile = self::getActivityObjectProfile($object);
         if (!$profile) {
-            $profile = self::createActorProfile($activity, $feeduri, $salmonuri);
+            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri);
         }
         return $profile;
     }
@@ -650,8 +703,18 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected static function getActorProfile($activity)
     {
-        $homeuri = self::getActorProfileURI($activity);
-        return self::staticGet('uri', $homeuri);
+        return self::getActivityObjectProfile($activity->actor);
+    }
+
+    protected static function getActivityObjectProfile($object)
+    {
+        $uri = self::getActivityObjectProfileURI($object);
+        return Ostatus_profile::staticGet('homeuri', $uri);
+    }
+
+    protected static function getActorProfileURI($activity)
+    {
+        return self::getActivityObjectProfileURI($activity->actor);
     }
 
     /**
@@ -659,15 +722,14 @@ class Ostatus_profile extends Memcached_DataObject
      * @return string
      * @throws ServerException
      */
-    protected static function getActorProfileURI($activity)
+    protected static function getActivityObjectProfileURI($object)
     {
         $opts = array('allowed_schemes' => array('http', 'https'));
-        $actor = $activity->actor;
-        if ($actor->id && Validate::uri($actor->id, $opts)) {
-            return $actor->id;
+        if ($object->id && Validate::uri($object->id, $opts)) {
+            return $object->id;
         }
-        if ($actor->link && Validate::uri($actor->link, $opts)) {
-            return $actor->link;
+        if ($object->link && Validate::uri($object->link, $opts)) {
+            return $object->link;
         }
         throw new ServerException("No author ID URI found");
     }
@@ -675,12 +737,19 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * @fixme validate stuff somewhere
      */
+
     protected static function createActorProfile($activity, $feeduri=null, $salmonuri=null)
     {
         $actor = $activity->actor;
-        $homeuri = self::getActorProfileURI($activity);
-        $nickname = self::getAuthorNick($activity);
-        $avatar = self::getAvatar($actor, $activity->feed);
+
+        self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
+    }
+
+    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    {
+        $homeuri = self::getActivityObjectProfileURI($object);
+        $nickname = self::getActivityObjectNickname($object);
+        $avatar = self::getActivityObjectAvatar($object);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
@@ -703,9 +772,10 @@ class Ostatus_profile extends Memcached_DataObject
 
         $profile = new Profile();
         $profile->nickname   = $nickname;
-        $profile->fullname   = $actor->displayName;
-        $profile->homepage   = $actor->link; // @fixme
-        $profile->profileurl = $homeuri;
+        $profile->fullname   = $object->title;
+        $profile->profileurl = $object->link;
+        $profile->created    = common_sql_now();
+
         // @fixme bio
         // @fixme tags/categories
         // @fixme location?
@@ -713,6 +783,7 @@ class Ostatus_profile extends Memcached_DataObject
         // @todo lat/lon/location?
 
         $ok = $profile->insert();
+
         if (!$ok) {
             throw new ServerException("Can't save local profile");
         }
@@ -720,16 +791,19 @@ class Ostatus_profile extends Memcached_DataObject
         // @fixme either need to do feed discovery here
         // or need to split out some of the feed stuff
         // so we can leave it empty until later.
+
         $oprofile = new Ostatus_profile();
-        $oprofile->uri = $homeuri;
-        $oprofile->feeduri = $feeduri;
-        $oprofile->salmonuri = $salmonuri;
+
+        $oprofile->uri        = $homeuri;
+        $oprofile->feeduri    = $feeduri;
+        $oprofile->salmonuri  = $salmonuri;
         $oprofile->profile_id = $profile->id;
 
-        $oprofile->created = common_sql_now();
-        $oprofile->modified = common_sql_now();
+        $oprofile->created    = common_sql_now();
+        $oprofile->modified   = common_sql_now();
 
         $ok = $oprofile->insert();
+
         if ($ok) {
             $oprofile->updateAvatar($avatar);
             return $oprofile;
@@ -738,24 +812,37 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
-    /**
-     * @fixme move this into Activity?
-     * @param Activity $activity
-     * @return string
-     */
-    protected static function getAuthorNick($activity)
+    protected static function getActivityObjectNickname($object)
     {
-        // @fixme not technically part of the actor?
-        foreach (array($activity->entry, $activity->feed) as $source) {
-            $author = ActivityUtils::child($source, 'author', Activity::ATOM);
-            if ($author) {
-                $name = ActivityUtils::child($author, 'name', Activity::ATOM);
-                if ($name) {
-                    return trim($name->textContent);
-                }
-            }
+        // XXX: check whatever PoCo calls a nickname first
+
+        $nickname = self::nicknameFromURI($object->id);
+
+        if (empty($nickname)) {
+            $nickname = common_nicknamize($object->title);
         }
-        return false;
+
+        return $nickname;
     }
 
+    protected static function nicknameFromURI($uri)
+    {
+        preg_match('/(\w+):/', $uri, $matches);
+
+        $protocol = $matches[1];
+
+        switch ($protocol) {
+        case 'acct':
+        case 'mailto':
+            if (preg_match("/^$protocol:(.*)?@.*\$/", $uri, $matches)) {
+                return common_canonical_nickname($matches[1]);
+            }
+            return null;
+        case 'http':
+            return common_url_to_nickname($uri);
+            break;
+        default:
+            return null;
+        }
+    }
 }
