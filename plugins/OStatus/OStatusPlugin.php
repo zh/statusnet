@@ -102,16 +102,21 @@ class OStatusPlugin extends Plugin
         $id = null;
 
         if ($feed instanceof AtomUserNoticeFeed) {
-            $salmonAction = 'salmon';
-            $id = $feed->getUser()->id;
+            $salmonAction = 'usersalmon';
+            $user = $feed->getUser();
+            $id   = $user->id;
+            $profile = $user->getProfile();
+            $feed->setActivitySubject($profile->asActivityNoun('subject'));
         } else if ($feed instanceof AtomGroupNoticeFeed) {
-            $salmonAction = 'salmongroup';
-            $id = $feed->getGroup()->id;
+            $salmonAction = 'groupsalmon';
+            $group = $feed->getGroup();
+            $id = $group->id;
+            $feed->setActivitySubject($group->asActivitySubject());
         } else {
-            return;
+            return true;
         }
 
-       if (!empty($id)) {
+        if (!empty($id)) {
             $hub = common_config('ostatus', 'hub');
             if (empty($hub)) {
                 // Updates will be handled through our internal PuSH hub.
@@ -123,6 +128,8 @@ class OStatusPlugin extends Plugin
             $salmon = common_local_url($salmonAction, array('id' => $id));
             $feed->addLink($salmon, array('rel' => 'salmon'));
         }
+
+        return true;
     }
 
     /**
