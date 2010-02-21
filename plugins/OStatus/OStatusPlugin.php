@@ -251,27 +251,47 @@ class OStatusPlugin extends Plugin
      * @param Profile $other
      * @return hook return value
      */
-    function onEndUnsubscribe($user, $other)
+    function onEndUnsubscribe($profile, $other)
     {
-        if ($user instanceof Profile) {
-            $profile = $user;
-        } else if ($user instanceof User) {
-            $profile = $user->getProfile();
-        }
-        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
-        if ($oprofile) {
-            // Notify the remote server of the unsub, if supported.
-            $oprofile->notify($profile, ActivityVerb::UNFOLLOW, $oprofile);
+        $user = User::staticGet('id', $profile->id);
 
-            // Drop the PuSH subscription if there are no other subscribers.
-            $sub = new Subscription();
-            $sub->subscribed = $other->id;
-            $sub->limit(1);
-            if (!$sub->find(true)) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri");
-                $oprofile->unsubscribe();
-            }
+        if (empty($user)) {
+            return true;
         }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        // Drop the PuSH subscription if there are no other subscribers.
+
+        if ($other->subscriberCount() == 0) {
+            common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri");
+            $oprofile->unsubscribe();
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UNFOLLOW;
+
+        $act->id   = TagURI::mint('unfollow:%d:%d:%s',
+                                  $profile->id,
+                                  $other->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Unfollow");
+        $act->content = sprintf(_("%s stopped following %s."),
+                               $profile->getBestName(),
+                               $other->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($subscriber);
+        $act->object  = ActivityObject::fromProfile($other);
+
+        $oprofile->notifyActivity($act);
+
         return true;
     }
 
@@ -350,10 +370,25 @@ class OStatusPlugin extends Plugin
             return true;
         }
 
-        // We have a local user subscribing to a remote profile; make the
-        // magic happen!
+        $act = new Activity();
 
-        $oprofile->notify($subscriber, ActivityVerb::FOLLOW, $oprofile);
+        $act->verb = ActivityVerb::FOLLOW;
+
+        $act->id   = TagURI::mint('follow:%d:%d:%s',
+                                  $subscriber->id,
+                                  $other->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Follow");
+        $act->content = sprintf(_("%s is now following %s."),
+                               $subscriber->getBestName(),
+                               $other->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($subscriber);
+        $act->object  = ActivityObject::fromProfile($other);
+
+        $oprofile->notifyActivity($act);
 
         return true;
     }
@@ -365,6 +400,7 @@ class OStatusPlugin extends Plugin
      * @param Notice $notice being favored
      * @return hook return value
      */
+
     function onEndFavorNotice(Profile $profile, Notice $notice)
     {
         $user = User::staticGet('id', $profile->id);
@@ -375,9 +411,28 @@ class OStatusPlugin extends Plugin
 
         $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
 
-        if ($oprofile) {
-            $oprofile->notify($profile, ActivityVerb::FAVORITE, $notice);
+        if (empty($oprofile)) {
+            return true;
         }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FAVORITE;
+        $act->id   = TagURI::mint('favor:%d:%d:%s',
+                                  $profile->id,
+                                  $notice->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Favor");
+        $act->content = sprintf(_("%s marked notice %s as a favorite."),
+                               $profile->getBestName(),
+                               $notice->uri);
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromNotice($notice);
+
+        $oprofile->notifyActivity($act);
 
         return true;
     }
@@ -389,6 +444,7 @@ class OStatusPlugin extends Plugin
      * @param Notice $notice being favored
      * @return hook return value
      */
+
     function onEndDisfavorNotice(Profile $profile, Notice $notice)
     {
         $user = User::staticGet('id', $profile->id);
@@ -399,9 +455,27 @@ class OStatusPlugin extends Plugin
 
         $oprofile = Ostatus_profile::staticGet('profile_id', $notice->profile_id);
 
-        if ($oprofile) {
-            $oprofile->notify($profile, ActivityVerb::UNFAVORITE, $notice);
+        if (empty($oprofile)) {
+            return true;
         }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UNFAVORITE;
+        $act->id   = TagURI::mint('disfavor:%d:%d:%s',
+                                  $profile->id,
+                                  $notice->id,
+                                  common_date_iso8601(time()));
+        $act->time    = time();
+        $act->title   = _("Disfavor");
+        $act->content = sprintf(_("%s marked notice %s as no longer a favorite."),
+                               $profile->getBestName(),
+                               $notice->uri);
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromNotice($notice);
+
+        $oprofile->notifyActivity($act);
 
         return true;
     }
