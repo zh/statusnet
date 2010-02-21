@@ -1137,7 +1137,7 @@ class Notice extends Memcached_DataObject
                      $this->rendered);
         $xs->element('link',
                      array('type' => 'text/html',
-                           'rel'  => 'permalink',
+                           'rel'  => 'alternate',
                            'href' => $this->bestUrl()));
         $xs->elementEnd('activity:' . $element);
 
