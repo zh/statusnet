@@ -55,6 +55,9 @@ class ActivityUtils
     const TYPE = 'type';
     const HREF = 'href';
 
+    const CONTENT = 'content';
+    const SRC     = 'src';
+
     /**
      * Get the permalink for an Activity object
      *
@@ -139,6 +142,64 @@ class ActivityUtils
             return $el->textContent;
         }
     }
+
+    /**
+     * Get the content of an atom:entry-like object
+     *
+     * @param DOMElement $element The element to examine.
+     *
+     * @return string unencoded HTML content of the element, like "This -&lt; is <b>HTML</b>."
+     *
+     * @todo handle remote content
+     * @todo handle embedded XML mime types
+     * @todo handle base64-encoded non-XML and non-text mime types
+     */
+
+    static function getContent($element)
+    {
+        $contentEl = ActivityUtils::child($element, self::CONTENT);
+
+        if (!empty($contentEl)) {
+
+            $src  = $contentEl->getAttribute(self::SRC);
+
+            if (!empty($src)) {
+                throw new ClientException(_("Can't handle remote content yet."));
+            }
+
+            $type = $contentEl->getAttribute(self::TYPE);
+
+            // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
+
+            if ($type == 'text') {
+                return $contentEl->textContent;
+            } else if ($type == 'html') {
+                $text = $contentEl->textContent;
+                return htmlspecialchars_decode($text, ENT_QUOTES);
+            } else if ($type == 'xhtml') {
+                $divEl = ActivityUtils::child($contentEl, 'div');
+                if (empty($divEl)) {
+                    return null;
+                }
+                $doc = $divEl->ownerDocument;
+                $text = '';
+                $children = $divEl->childNodes;
+
+                for ($i = 0; $i < $children->length; $i++) {
+                    $child = $children->item($i);
+                    $text .= $doc->saveXML($child);
+                }
+                return trim($text);
+            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
+                       preg_match('#(+|/)xml$#', $type)) {
+                throw new ClientException(_("Can't handle embedded XML content yet."));
+            } else if (strncasecmp($type, 'text/', 5)) {
+                return $contentEl->textContent;
+            } else {
+                throw new ClientException(_("Can't handle embedded Base64 content yet."));
+            }
+        }
+    }
 }
 
 /**
@@ -182,9 +243,6 @@ class ActivityObject
 
     const TITLE   = 'title';
     const SUMMARY = 'summary';
-    const CONTENT = 'content';
-    const TYPE    = 'type';
-    const SRC     = 'src';
     const ID      = 'id';
     const SOURCE  = 'source';
 
@@ -248,7 +306,7 @@ class ActivityObject
 
             $this->source  = $this->_getSource($element);
 
-            $this->content = $this->_getContent($element);
+            $this->content = ActivityUtils::getContent($element);
 
             $this->link = ActivityUtils::getPermalink($element);
 
@@ -287,64 +345,6 @@ class ActivityObject
         }
     }
 
-    /**
-     * Get the content of an atom:entry-like object
-     *
-     * @param DOMElement $element The element to examine.
-     *
-     * @return string unencoded HTML content of the element, like "This -&lt; is <b>HTML</b>."
-     *
-     * @todo handle remote content
-     * @todo handle embedded XML mime types
-     * @todo handle base64-encoded non-XML and non-text mime types
-     */
-
-    private function _getContent($element)
-    {
-        $contentEl = ActivityUtils::child($element, self::CONTENT);
-
-        if (!empty($contentEl)) {
-
-            $src  = $contentEl->getAttribute(self::SRC);
-
-            if (!empty($src)) {
-                throw new ClientException(_("Can't handle remote content yet."));
-            }
-
-            $type = $contentEl->getAttribute(self::TYPE);
-
-            // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
-
-            if ($type == 'text') {
-                return $contentEl->textContent;
-            } else if ($type == 'html') {
-                $text = $contentEl->textContent;
-                return htmlspecialchars_decode($text, ENT_QUOTES);
-            } else if ($type == 'xhtml') {
-                $divEl = ActivityUtils::child($contentEl, 'div');
-                if (empty($divEl)) {
-                    return null;
-                }
-                $doc = $divEl->ownerDocument;
-                $text = '';
-                $children = $divEl->childNodes;
-
-                for ($i = 0; $i < $children->length; $i++) {
-                    $child = $children->item($i);
-                    $text .= $doc->saveXML($child);
-                }
-                return trim($text);
-            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
-                       preg_match('#(+|/)xml$#', $type)) {
-                throw new ClientException(_("Can't handle embedded XML content yet."));
-            } else if (strncasecmp($type, 'text/', 5)) {
-                return $contentEl->textContent;
-            } else {
-                throw new ClientException(_("Can't handle embedded Base64 content yet."));
-            }
-        }
-    }
-
     static function fromNotice($notice)
     {
         $object = new ActivityObject();
@@ -355,6 +355,18 @@ class ActivityObject
         $object->title   = $notice->content;
         $object->content = $notice->rendered;
         $object->link    = $notice->bestUrl();
+
+        return $object;
+    }
+
+    static function fromProfile($profile)
+    {
+        $object = new ActivityObject();
+
+        $object->type  = ActivityObject::PERSON;
+        $object->id    = $profile->getUri();
+        $object->title = $this->getBestName();
+        $object->link  = $profile->profileurl;
 
         return $object;
     }
@@ -550,6 +562,11 @@ class Activity
     public $entry;   // the source entry
     public $feed;    // the source feed
 
+    public $summary; // summary of activity
+    public $content; // HTML content of activity
+    public $id;      // ID of the activity
+    public $title;   // title of the activity
+
     /**
      * Turns a regular old Atom <entry> into a magical activity
      *
@@ -557,8 +574,12 @@ class Activity
      * @param DOMElement $feed  Atom feed, for context
      */
 
-    function __construct($entry, $feed = null)
+    function __construct($entry = null, $feed = null)
     {
+        if (is_null($entry)) {
+            return;
+        }
+
         $this->entry = $entry;
         $this->feed  = $feed;
 
@@ -629,6 +650,10 @@ class Activity
         if (!empty($targetEl)) {
             $this->target = new ActivityObject($targetEl);
         }
+
+        $this->summary = ActivityUtils::childContent($entry, 'summary');
+        $this->id      = ActivityUtils::childContent($entry, 'id');
+        $this->content = ActivityUtils::getContent($entry);
     }
 
     /**
@@ -640,6 +665,47 @@ class Activity
     function toAtomEntry()
     {
         return null;
+    }
+
+    function asString($namespace=false)
+    {
+        $xs = new XMLStringer(true);
+
+        if ($namespace) {
+            $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
+                           'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+        } else {
+            $attrs = array();
+        }
+
+        $xs->elementStart('entry', $attrs);
+
+        $xs->element('id', null, $this->id);
+        $xs->element('title', null, $this->title);
+        $xs->element('published', null, common_date_iso8601($this->time));
+        $xs->element('content', array('type' => 'html'), $this->content);
+
+        if (!empty($this->summary)) {
+            $xs->element('summary', null, $this->summary);
+        }
+
+        if (!empty($this->link)) {
+            $xs->element('link', array('rel' => 'alternate',
+                                       'type' => 'text/html'),
+                         $this->link);
+        }
+
+        // XXX: add context
+        // XXX: add target
+
+        $xs->raw($this->actor->asString());
+        $xs->element('activity:verb', null, $this->verb);
+        $xs->raw($this->object->asString());
+
+        $xs->elementEnd('entry');
+
+        return $xs->getString();
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)
