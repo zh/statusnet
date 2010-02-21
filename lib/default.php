@@ -280,7 +280,6 @@ $default =
                                  'Mapstraction' => null,
                                  'Linkback' => null,
                                  'WikiHashtags' => null,
-                                 'PubSubHubBub' => null,
                                  'RSSCloud' => null,
                                  'OpenID' => null),
               ),
