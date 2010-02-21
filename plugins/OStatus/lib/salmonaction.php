@@ -231,4 +231,49 @@ class SalmonAction extends Action
             return null;
         }
     }
+
+    function saveNotice()
+    {
+        $oprofile = $this->ensureProfile();
+
+        // Get (safe!) HTML and text versions of the content
+
+        require_once(INSTALLDIR.'/extlib/HTMLPurifier/HTMLPurifier.auto.php');
+
+        $html = $this->act->object->content;
+
+        $rendered = HTMLPurifier::purify($html);
+        $content = html_entity_decode(strip_tags($rendered));
+
+        $options = array('is_local' => Notice::REMOTE_OMB,
+                         'uri' => $this->act->object->id,
+                         'url' => $this->act->object->link,
+                         'rendered' => $rendered);
+
+        if (!empty($this->act->context->location)) {
+            $options['lat'] = $location->lat;
+            $options['lon'] = $location->lon;
+            if ($location->location_id) {
+                $options['location_ns'] = $location->location_ns;
+                $options['location_id'] = $location->location_id;
+            }
+        }
+
+        if (!empty($this->act->context->replyToID)) {
+            $orig = Notice::staticGet('uri',
+                                      $this->act->context->replyToID);
+            if (!empty($orig)) {
+                $options['reply_to'] = $orig->id;
+            }
+        }
+
+        if (!empty($this->act->time)) {
+            $options['created'] = common_sql_time($this->act->time);
+        }
+
+        return Notice::saveNew($oprofile->profile_id,
+                               $content,
+                               'ostatus+salmon',
+                               $options);
+    }
 }
