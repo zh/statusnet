@@ -361,7 +361,7 @@ class Ostatus_profile extends Memcached_DataObject
     {
         if ($this->salmonuri) {
 
-            $xml = $activity->asString();
+            $xml = $activity->asString(true);
 
             $salmon = new Salmon(); // ?
 
