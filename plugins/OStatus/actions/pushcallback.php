@@ -72,7 +72,7 @@ class PushCallbackAction extends Action
     }
     
     /**
-     * Handler for GET verification requests from the hub
+     * Handler for GET verification requests from the hub.
      */
     function handleGet()
     {
@@ -81,31 +81,37 @@ class PushCallbackAction extends Action
         $challenge = $this->arg('hub_challenge');
         $lease_seconds = $this->arg('hub_lease_seconds');
         $verify_token = $this->arg('hub_verify_token');
-        
+
         if ($mode != 'subscribe' && $mode != 'unsubscribe') {
-            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with mode \"$mode\"");
-            throw new ServerException("Bogus hub callback: bad mode", 404);
+            throw new ClientException("Bad hub.mode $mode", 404);
         }
-        
+
         $feedsub = FeedSub::staticGet('uri', $topic);
         if (!$feedsub) {
-            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback for unknown feed $topic");
-            throw new ServerException("Bogus hub callback: unknown feed", 404);
+            throw new ClientException("Bad hub.topic feed $topic", 404);
         }
 
         if ($feedsub->verify_token !== $verify_token) {
-            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad token \"$verify_token\" for feed $topic");
-            throw new ServerException("Bogus hub callback: bad token", 404);
+            throw new ClientException("Bad hub.verify_token $token for $topic", 404);
         }
 
-        if ($mode != $feedsub->sub_state) {
-            common_log(LOG_WARNING, __METHOD__ . ": bogus hub callback with bad mode \"$mode\" for feed $topic in state \"{$feedsub->sub_state}\"");
-            throw new ServerException("Bogus hub callback: mode doesn't match subscription state.", 404);
-        }
-
-        // OK!
         if ($mode == 'subscribe') {
-            common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
+            // We may get re-sub requests legitimately.
+            if ($feedsub->sub_state != 'subscribe' && $feedsub->sub_state != 'active') {
+                throw new ClientException("Unexpected subscribe request for $topic.", 404);
+            }
+        } else {
+            if ($feedsub->sub_state != 'unsubscribe') {
+                throw new ClientException("Unexpected unsubscribe request for $topic.", 404);
+            }
+        }
+
+        if ($mode == 'subscribe') {
+            if ($feedsub->sub_state == 'active') {
+                common_log(LOG_INFO, __METHOD__ . ': sub update confirmed');
+            } else {
+                common_log(LOG_INFO, __METHOD__ . ': sub confirmed');
+            }
             $feedsub->confirmSubscribe($lease_seconds);
         } else {
             common_log(LOG_INFO, __METHOD__ . ": unsub confirmed; deleting sub record for $topic");

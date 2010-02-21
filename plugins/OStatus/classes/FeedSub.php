@@ -291,10 +291,9 @@ class FeedSub extends Memcached_DataObject
             $headers = array('Content-Type: application/x-www-form-urlencoded');
             $post = array('hub.mode' => $mode,
                           'hub.callback' => $callback,
-                          'hub.verify' => 'async',
+                          'hub.verify' => 'sync',
                           'hub.verify_token' => $this->verify_token,
                           'hub.secret' => $this->secret,
-                          //'hub.lease_seconds' => 0,
                           'hub.topic' => $this->uri);
             $client = new HTTPClient();
             $response = $client->post($this->huburi, $headers, $post);
@@ -317,8 +316,8 @@ class FeedSub extends Memcached_DataObject
             common_log(LOG_ERR, __METHOD__ . ": error \"{$e->getMessage()}\" hitting hub $this->huburi subscribing to $this->uri");
 
             $orig = clone($this);
-            $this->verify_token = null;
-            $this->sub_state = null;
+            $this->verify_token = '';
+            $this->sub_state = 'inactive';
             $this->update($orig);
             unset($orig);
 
@@ -343,7 +342,7 @@ class FeedSub extends Memcached_DataObject
         } else {
             $this->sub_end = null;
         }
-        $this->lastupdate = common_sql_now();
+        $this->modified = common_sql_now();
 
         return $this->update($original);
     }
@@ -362,7 +361,7 @@ class FeedSub extends Memcached_DataObject
         $this->sub_state = '';
         $this->sub_start = '';
         $this->sub_end = '';
-        $this->lastupdate = common_sql_now();
+        $this->modified = common_sql_now();
 
         return $this->update($original);
     }
