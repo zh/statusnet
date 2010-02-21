@@ -258,6 +258,7 @@ class ActivityObject
     public $content;
     public $link;
     public $source;
+    public $avatar;
 
     /**
      * Constructor
