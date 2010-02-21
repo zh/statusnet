@@ -183,6 +183,8 @@ class ActivityObject
     const TITLE   = 'title';
     const SUMMARY = 'summary';
     const CONTENT = 'content';
+    const TYPE    = 'type';
+    const SRC     = 'src';
     const ID      = 'id';
     const SOURCE  = 'source';
 
@@ -199,7 +201,7 @@ class ActivityObject
     public $link;
     public $source;
 
-   /**
+    /**
      * Constructor
      *
      * This probably needs to be refactored
@@ -243,9 +245,10 @@ class ActivityObject
             $this->id      = $this->_childContent($element, self::ID);
             $this->title   = $this->_childContent($element, self::TITLE);
             $this->summary = $this->_childContent($element, self::SUMMARY);
-            $this->content = $this->_childContent($element, self::CONTENT);
 
             $this->source  = $this->_getSource($element);
+
+            $this->content = $this->_getContent($element);
 
             $this->link = ActivityUtils::getPermalink($element);
 
@@ -284,7 +287,65 @@ class ActivityObject
         }
     }
 
-    static fromNotice($notice)
+    /**
+     * Get the content of an atom:entry-like object
+     *
+     * @param DOMElement $element The element to examine.
+     *
+     * @return string unencoded HTML content of the element, like "This -&lt; is <b>HTML</b>."
+     *
+     * @todo handle remote content
+     * @todo handle embedded XML mime types
+     * @todo handle base64-encoded non-XML and non-text mime types
+     */
+
+    private function _getContent($element)
+    {
+        $contentEl = ActivityUtils::child($element, self::CONTENT);
+
+        if (!empty($contentEl)) {
+
+            $src  = $contentEl->getAttribute(self::SRC);
+
+            if (!empty($src)) {
+                throw new ClientException(_("Can't handle remote content yet."));
+            }
+
+            $type = $contentEl->getAttribute(self::TYPE);
+
+            // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
+
+            if ($type == 'text') {
+                return $contentEl->textContent;
+            } else if ($type == 'html') {
+                $text = $contentEl->textContent;
+                return htmlspecialchars_decode($text, ENT_QUOTES);
+            } else if ($type == 'xhtml') {
+                $divEl = ActivityUtils::child($contentEl, 'div');
+                if (empty($divEl)) {
+                    return null;
+                }
+                $doc = $divEl->ownerDocument;
+                $text = '';
+                $children = $divEl->childNodes;
+
+                for ($i = 0; $i < $children->length; $i++) {
+                    $child = $children->item($i);
+                    $text .= $doc->saveXML($child);
+                }
+                return trim($text);
+            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
+                       preg_match('#(+|/)xml$#', $type)) {
+                throw new ClientException(_("Can't handle embedded XML content yet."));
+            } else if (strncasecmp($type, 'text/', 5)) {
+                return $contentEl->textContent;
+            } else {
+                throw new ClientException(_("Can't handle embedded Base64 content yet."));
+            }
+        }
+    }
+
+    static function fromNotice($notice)
     {
         $object = new ActivityObject();
 
