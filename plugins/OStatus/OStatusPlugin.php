@@ -485,4 +485,14 @@ class OStatusPlugin extends Plugin
 
         return true;
     }
+
+    function onStartGetProfileUri($profile, &$uri)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+        if (!empty($oprofile)) {
+            $uri = $oprofile->uri;
+            return false;
+        }
+        return true;
+    }
 }
