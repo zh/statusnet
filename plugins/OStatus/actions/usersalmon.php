@@ -80,7 +80,7 @@ class UsersalmonAction extends SalmonAction
                 throw new ClientException("In reply to a notice not by this user");
             }
         } else if (!empty($context->attention)) {
-            if (!in_array($context->attention, $this->user->uri)) {
+            if (!in_array($this->user->uri, $context->attention)) {
                 throw new ClientException("To the attention of user(s) not including this one!");
             }
         } else {
