@@ -508,13 +508,15 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        // @fixme save detailed ostatus source info
         // @fixme ensure that groups get handled correctly
 
         $saved = Notice::saveNew($oprofile->localProfile()->id,
                                  $content,
                                  'ostatus',
                                  $params);
+
+        // Record which feed this came through...
+        Ostatus_source::saveNew($saved, $this, 'push');
     }
 
     /**
