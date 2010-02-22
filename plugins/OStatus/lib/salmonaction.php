@@ -41,7 +41,7 @@ class SalmonAction extends Action
             $this->clientError(_('This method requires a POST.'));
         }
 
-        if ($_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
+        if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
             $this->clientError(_('Salmon requires application/atom+xml'));
         }
 
@@ -57,11 +57,13 @@ class SalmonAction extends Action
 
         // Check the signature
         $salmon = new Salmon;
-        if (!$salmon->verifyMagicEnv($dom)) {
-            common_log(LOG_DEBUG, "Salmon signature verification failed.");
-            $this->clientError(_m('Salmon signature verification failed.'));
+        if (!common_config('ostatus', 'skip_signatures')) {
+            if (!$salmon->verifyMagicEnv($dom)) {
+                common_log(LOG_DEBUG, "Salmon signature verification failed.");
+                $this->clientError(_m('Salmon signature verification failed.'));
+            }
         }
-            
+
         $this->act = new Activity($dom->documentElement);
         return true;
     }
@@ -100,6 +102,9 @@ class SalmonAction extends Action
                 break;
             case ActivityVerb::JOIN:
                 $this->handleJoin();
+                break;
+            case ActivityVerb::LEAVE:
+                $this->handleLeave();
                 break;
             default:
                 throw new ClientException(_("Unimplemented."));
@@ -150,6 +155,14 @@ class SalmonAction extends Action
      * Hmmmm
      */
     function handleJoin()
+    {
+        throw new ClientException(_("Unimplemented!"));
+    }
+
+    /**
+     * Hmmmm
+     */
+    function handleLeave()
     {
         throw new ClientException(_("Unimplemented!"));
     }

@@ -28,15 +28,26 @@
  */
 class Salmon
 {
+    /**
+     * Sign and post the given Atom entry as a Salmon message.
+     *
+     * @fixme pass through the actor for signing?
+     *
+     * @param string $endpoint_uri
+     * @param string $xml
+     * @return boolean success
+     */
     public function post($endpoint_uri, $xml)
     {
         if (empty($endpoint_uri)) {
-            return FALSE;
+            return false;
         }
 
-        $xml = $this->createMagicEnv($xml);
-        
-        $headers = array('Content-type: application/atom+xml');
+        if (!common_config('ostatus', 'skip_signatures')) {
+            $xml = $this->createMagicEnv($xml);
+        }
+
+        $headers = array('Content-Type: application/atom+xml');
 
         try {
             $client = new HTTPClient();
@@ -51,7 +62,7 @@ class Salmon
                 $response->getStatus() . ': ' . $response->getBody());
             return false;
         }
-
+        return true;
     }
 
     public function createMagicEnv($text)

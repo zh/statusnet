@@ -88,21 +88,96 @@ class GroupsalmonAction extends SalmonAction
      * Save a subscription relationship for them.
      */
 
+    /**
+     * Postel's law: consider a "follow" notification as a "join".
+     */
     function handleFollow()
     {
-        $this->handleJoin(); // ???
+        $this->handleJoin();
     }
 
+    /**
+     * Postel's law: consider an "unfollow" notification as a "leave".
+     */
     function handleUnfollow()
     {
+        $this->handleLeave();
     }
 
     /**
      * A remote user joined our group.
+     * @fixme move permission checks and event call into common code,
+     *        currently we're doing the main logic in joingroup action
+     *        and so have to repeat it here.
      */
 
     function handleJoin()
     {
+        $oprofile = $this->ensureProfile();
+        if (!$oprofile) {
+            $this->clientError(_m("Can't read profile to set up group membership."));
+        }
+        if ($oprofile->isGroup()) {
+            $this->clientError(_m("Groups can't join groups."));
+        }
+
+        common_log(LOG_INFO, "Remote profile {$oprofile->uri} joining local group {$this->group->nickname}");
+        $profile = $oprofile->localProfile();
+
+        if ($profile->isMember($this->group)) {
+            // Already a member; we'll take it silently to aid in resolving
+            // inconsistencies on the other side.
+            return true;
+        }
+
+        if (Group_block::isBlocked($this->group, $profile)) {
+            $this->clientError(_('You have been blocked from that group by the admin.'), 403);
+            return false;
+        }
+
+        try {
+            // @fixme that event currently passes a user from main UI
+            // Event should probably move into Group_member::join
+            // and take a Profile object.
+            //
+            //if (Event::handle('StartJoinGroup', array($this->group, $profile))) {
+                Group_member::join($this->group->id, $profile->id);
+                //Event::handle('EndJoinGroup', array($this->group, $profile));
+            //}
+        } catch (Exception $e) {
+            $this->serverError(sprintf(_m('Could not join remote user %1$s to group %2$s.'),
+                                       $oprofile->uri, $this->group->nickname));
+        }
+    }
+
+    /**
+     * A remote user left our group.
+     */
+
+    function handleLeave()
+    {
+        $oprofile = $this->ensureProfile();
+        if (!$oprofile) {
+            $this->clientError(_m("Can't read profile to cancel group membership."));
+        }
+        if ($oprofile->isGroup()) {
+            $this->clientError(_m("Groups can't join groups."));
+        }
+
+        common_log(LOG_INFO, "Remote profile {$oprofile->uri} leaving local group {$this->group->nickname}");
+        $profile = $oprofile->localProfile();
+
+        try {
+            // @fixme event needs to be refactored as above
+            //if (Event::handle('StartLeaveGroup', array($this->group, $profile))) {
+                Group_member::leave($this->group->id, $profile->id);
+                //Event::handle('EndLeaveGroup', array($this->group, $profile));
+            //}
+        } catch (Exception $e) {
+            $this->serverError(sprintf(_m('Could not remove remote user %1$s from group %2$s.'),
+                                       $oprofile->uri, $this->group->nickname));
+            return;
+        }
     }
 
 }

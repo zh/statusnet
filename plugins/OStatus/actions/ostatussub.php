@@ -248,7 +248,7 @@ class OStatusSubAction extends Action
                 $group = $this->oprofile->localGroup();
                 if ($user->isMember($group)) {
                     $this->showForm(_m('Already a member!'));
-                } elseif (Group_member::join($this->profile->group_id, $user->id)) {
+                } elseif (Group_member::join($this->oprofile->group_id, $user->id)) {
                     $this->showForm(_m('Joined remote group!'));
                 } else {
                     $this->showForm(_m('Remote group join failed!'));
