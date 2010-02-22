@@ -202,7 +202,7 @@ class SalmonAction extends Action
         }
 
         if (!empty($this->act->time)) {
-            $options['created'] = common_sql_time($this->act->time);
+            $options['created'] = common_sql_date($this->act->time);
         }
 
         $saved = Notice::saveNew($oprofile->profile_id,
