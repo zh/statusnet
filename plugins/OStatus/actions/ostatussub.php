@@ -58,6 +58,13 @@ class OStatusSubAction extends Action
         $this->showPage();
     }
 
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('p', 'error', $this->error);
+        }
+    }
+
     /**
      * Content area of the page
      *
@@ -69,11 +76,6 @@ class OStatusSubAction extends Action
 
     function showContent()
     {
-        // @fixme is this right place?
-        if ($this->error) {
-            $this->text($this->error);
-        }
-
         $user = common_current_user();
 
         $profile = $user->getProfile();
@@ -255,7 +257,7 @@ class OStatusSubAction extends Action
     {
         if ($this->validateFeed()) {
             $this->preview = true;
-            $this->showForm(_m('Previewing feed:'));
+            $this->showForm();
         }
     }
 
