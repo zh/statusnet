@@ -55,7 +55,20 @@ class OStatusSubAction extends Action
     function showForm($error=null)
     {
         $this->error = $error;
-        $this->showPage();
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _m('Subscribe to user'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showContent();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
+        } else {
+            $this->showPage();
+        }
     }
 
     function showPageNotice()
@@ -81,7 +94,7 @@ class OStatusSubAction extends Action
         $profile = $user->getProfile();
 
         $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'ostatus_sub',
+                                          'id' => 'form_ostatus_sub',
                                           'class' => 'form_settings',
                                           'action' =>
                                           common_local_url('ostatussub')));
@@ -141,7 +154,7 @@ class OStatusSubAction extends Action
             if ($this->profile_uri) {
                 $this->validateAndPreview();
             } else {
-                $this->showPage();
+                $this->showForm();
             }
         }
     }
