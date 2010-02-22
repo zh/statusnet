@@ -822,6 +822,8 @@ class Profile extends Memcached_DataObject
                                    'type' => 'text/html'),
                      $this->profileurl);
 
+        $xs->element('poco:preferredUsername', null, $this->nickname);
+
         // Portable Contacts stuff
 
         if (isset($this->bio)) {
