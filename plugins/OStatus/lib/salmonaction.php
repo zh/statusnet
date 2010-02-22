@@ -182,7 +182,8 @@ class SalmonAction extends Action
         $options = array('is_local' => Notice::REMOTE_OMB,
                          'uri' => $this->act->object->id,
                          'url' => $this->act->object->link,
-                         'rendered' => $rendered);
+                         'rendered' => $rendered,
+                         'replies' => $this->act->context->attention);
 
         if (!empty($this->act->context->location)) {
             $options['lat'] = $location->lat;
