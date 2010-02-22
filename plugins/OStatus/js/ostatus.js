@@ -52,8 +52,7 @@ SN.U.StatusNetInstance = {
 
 SN.Init.OStatusCookie = function() {
     if (SN.U.StatusNetInstance.Get() === null) {
-        SN.C.I.OStatusProfile = SN.C.I.OStatusProfile || null;
-        SN.U.StatusNetInstance.Set({profile: SN.C.I.OStatusProfile});
+        SN.U.StatusNetInstance.Set({profile: null});
     }
 };
 
