@@ -64,7 +64,7 @@ SN.U.DialogBox = {
             f.show();
         }
         else {
-            a[0].href = (a[0].href.match(/[\\?]/) == null) ? a[0].href+'?' : a[0].href+'&';
+            a[0].href = (a[0].href.match(/[\\?]/) === null) ? a[0].href+'?' : a[0].href+'&';
             $.ajax({
                 type: 'GET',
                 dataType: 'xml',
@@ -103,7 +103,7 @@ SN.U.DialogBox = {
 
                         if (form.attr('id') == 'form_ostatus_connect') {
                             SN.Init.OStatusCookie();
-                            form.find('#profile').val(SN.U.StatusNetInstance.Get().profile)
+                            form.find('#profile').val(SN.U.StatusNetInstance.Get().profile);
 
                             form.find("[type=submit]").bind('click', function() {
                                 SN.U.StatusNetInstance.Set({profile: form.find('#profile').val()});
