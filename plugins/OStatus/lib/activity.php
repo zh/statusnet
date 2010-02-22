@@ -31,6 +31,12 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+class PoCo
+{
+    const NS = 'http://portablecontacts.net/spec/1.0';
+    const USERNAME = 'preferredUsername';
+}
+
 /**
  * Utilities for turning DOMish things into Activityish things
  *
@@ -319,7 +325,8 @@ class ActivityObject
             $this->displayName = $this->title;
 
             // @fixme we may have multiple avatars with different resolutions specified
-            $this->avatar = ActivityUtils::getLink($element, 'avatar');
+            $this->avatar   = ActivityUtils::getLink($element, 'avatar');
+            $this->nickname = ActivityUtils::childContent($element, PoCo::USERNAME, PoCo::NS);
         }
     }
 
