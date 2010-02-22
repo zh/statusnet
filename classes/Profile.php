@@ -818,6 +818,10 @@ class Profile extends Memcached_DataObject
         // title should contain fullname
         $xs->element('title', null, $this->getBestName());
 
+        $xs->element('link', array('rel' => 'alternate',
+                                   'type' => 'text/html'),
+                     $this->profileurl);
+
         // Portable Contacts stuff
 
         if (isset($this->bio)) {
