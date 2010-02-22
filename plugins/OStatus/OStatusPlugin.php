@@ -205,6 +205,8 @@ class OStatusPlugin extends Plugin
 
             if (!empty($oprofile) && !empty($oprofile->salmonuri)) {
 
+                common_log(LOG_INFO, "Sending notice '{$notice->uri}' to remote profile '{$oprofile->uri}'.");
+
                 // FIXME: this needs to go out in a queue handler
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';

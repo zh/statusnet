@@ -55,6 +55,8 @@ class UsersalmonAction extends SalmonAction
      */
     function handlePost()
     {
+        common_log(LOG_INFO, "Received post of '{$this->act->object->id}' from '{$this->act->actor->id}'");
+
         switch ($this->act->object->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
@@ -92,6 +94,7 @@ class UsersalmonAction extends SalmonAction
 
         if (!empty($existing)) {
             common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
+            return;
         }
 
         $this->saveNotice();
