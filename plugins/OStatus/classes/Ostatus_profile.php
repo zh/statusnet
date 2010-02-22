@@ -845,4 +845,107 @@ class Ostatus_profile extends Memcached_DataObject
             return null;
         }
     }
+
+    public static function ensureWebfinger($addr)
+    {
+        // First, look it up
+
+        $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
+
+        if (!empty($oprofile)) {
+            return $oprofile;
+        }
+
+        // Now, try some discovery
+
+        $wf = new Webfinger();
+
+        $result = $wf->lookup($addr);
+
+        if (!$result) {
+            return null;
+        }
+
+        foreach ($result->links as $link) {
+            switch ($link['rel']) {
+            case Webfinger::PROFILEPAGE:
+                $profileUrl = $link['href'];
+                break;
+            case 'salmon':
+                $salmonEndpoint = $link['href'];
+                break;
+            case Webfinger::UPDATESFROM:
+                $feedUrl = $link['href'];
+                break;
+            default:
+                common_log(LOG_NOTICE, "Don't know what to do with rel = '{$link['rel']}'");
+                break;
+            }
+        }
+
+        // If we got a feed URL, try that
+
+        if (isset($feedUrl)) {
+            try {
+                $oprofile = self::ensureProfile($feedUrl);
+                return $oprofile;
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, "Failed creating profile from feed URL '$feedUrl': " . $e->getMessage());
+                // keep looking
+            }
+        }
+
+        // If we got a profile page, try that!
+
+        if (isset($profileUrl)) {
+            try {
+                $oprofile = self::ensureProfile($profileUrl);
+                return $oprofile;
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
+                // keep looking
+            }
+        }
+
+        // XXX: try hcard
+        // XXX: try FOAF
+
+        if (isset($salmonEndpoint)) {
+
+            // An account URL, a salmon endpoint, and a dream? Not much to go
+            // on, but let's give it a try
+
+            $uri = 'acct:'.$addr;
+
+            $profile = new Profile();
+
+            $profile->nickname = self::nicknameFromUri($uri);
+            $profile->created  = common_sql_now();
+
+            $profile_id = $profile->insert();
+
+            if (!$profile_id) {
+                common_log_db_error($profile, 'INSERT', __FILE__);
+                throw new Exception("Couldn't save profile for '$addr'");
+            }
+
+            $oprofile = new Ostatus_profile();
+
+            $oprofile->uri        = $uri;
+            $oprofile->salmonuri  = $salmonEndpoint;
+            $oprofile->profile_id = $profile_id;
+            $oprofile->created    = common_sql_now();
+
+            $result = $oprofile->insert();
+
+            if (!$result) {
+                common_log_db_error($oprofile, 'INSERT', __FILE__);
+                throw new Exception("Couldn't save ostatus_profile for '$addr'");
+            }
+
+            return $oprofile;
+        }
+
+        return null;
+    }
 }
