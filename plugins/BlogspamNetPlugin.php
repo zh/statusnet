@@ -120,7 +120,7 @@ class BlogspamNetPlugin extends Plugin
         $args['site'] = common_root_url();
         $args['version'] = $this->userAgent();
 
-        $args['options'] = "max-size=140,min-size=0,min-words=0,exclude=bayasian";
+        $args['options'] = "max-size=" . common_config('site','textlimit') . ",min-size=0,min-words=0,exclude=bayasian";
 
         return $args;
     }
