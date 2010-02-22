@@ -33,6 +33,7 @@ class HubOutQueueHandler extends QueueHandler
     {
         $sub = $data['sub'];
         $atom = $data['atom'];
+        $retries = $data['retries'];
 
         assert($sub instanceof HubSub);
         assert(is_string($atom));
@@ -40,13 +41,20 @@ class HubOutQueueHandler extends QueueHandler
         try {
             $sub->push($atom);
         } catch (Exception $e) {
-            common_log(LOG_ERR, "Failed PuSH to $sub->callback for $sub->topic: " .
-                                $e->getMessage());
-            // @fixme Reschedule a later delivery?
-            return true;
+            $retries--;
+            $msg = "Failed PuSH to $sub->callback for $sub->topic: " .
+                   $e->getMessage();
+            if ($retries > 0) {
+                common_log(LOG_ERR, "$msg; scheduling for $retries more tries");
+
+                // @fixme when we have infrastructure to schedule a retry
+                // after a delay, use it.
+                $sub->distribute($atom, $retries);
+            } else {
+                common_log(LOG_ERR, "$msg; discarding");
+            }
         }
 
         return true;
     }
 }
-

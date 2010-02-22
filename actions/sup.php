@@ -66,10 +66,12 @@ class SupAction extends Action
         $divider = common_sql_date(time() - $seconds);
 
         $notice->query('SELECT profile_id, max(id) AS max_id ' .
-                       'FROM notice ' .
+                       'FROM ( ' .
+                       'SELECT profile_id, id FROM notice ' .
                         ((common_config('db','type') == 'pgsql') ?
                        'WHERE extract(epoch from created) > (extract(epoch from now()) - ' . $seconds . ') ' :
                        'WHERE created > "'.$divider.'" ' ) .
+                       ') AS latest ' .
                        'GROUP BY profile_id');
 
         $updates = array();

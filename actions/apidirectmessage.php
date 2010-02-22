@@ -79,7 +79,7 @@ class ApiDirectMessageAction extends ApiAuthAction
         }
 
         $server   = common_root_url();
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
 
         if ($this->arg('sent')) {
 

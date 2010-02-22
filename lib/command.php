@@ -548,12 +548,19 @@ class SubCommand extends Command
             return;
         }
 
-        $result = subs_subscribe_user($this->user, $this->other);
+        $otherUser = User::staticGet('nickname', $this->other);
 
-        if ($result == 'true') {
+        if (empty($otherUser)) {
+            $channel->error($this->user, _('No such user'));
+            return;
+        }
+
+        try {
+            Subscription::start($this->user->getProfile(),
+                                $otherUser->getProfile());
             $channel->output($this->user, sprintf(_('Subscribed to %s'), $this->other));
-        } else {
-            $channel->error($this->user, $result);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }
@@ -576,12 +583,18 @@ class UnsubCommand extends Command
             return;
         }
 
-        $result=subs_unsubscribe_user($this->user, $this->other);
+        $otherUser = User::staticGet('nickname', $this->other);
 
-        if ($result) {
+        if (empty($otherUser)) {
+            $channel->error($this->user, _('No such user'));
+        }
+
+        try {
+            Subscription::cancel($this->user->getProfile(),
+                                 $otherUser->getProfile());
             $channel->output($this->user, sprintf(_('Unsubscribed from %s'), $this->other));
-        } else {
-            $channel->error($this->user, $result);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }

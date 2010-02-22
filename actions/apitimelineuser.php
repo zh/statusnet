@@ -116,7 +116,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s timeline"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:UserTimeline:" . $this->user->id;
         $link       = common_local_url(
             'showstream',

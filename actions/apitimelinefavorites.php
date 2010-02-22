@@ -110,7 +110,7 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
             $this->user->nickname
         );
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Favorites:" . $this->user->id;
 
         $subtitle = sprintf(

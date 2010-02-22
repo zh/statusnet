@@ -109,7 +109,7 @@ class ApiTimelineRetweetedToMeAction extends ApiAuthAction
             $profile    = $this->auth_user->getProfile();
 
             $title      = sprintf(_("Repeated to %s"), $this->auth_user->nickname);
-            $taguribase = common_config('integration', 'taguri');
+            $taguribase = TagURI::base();
             $id         = "tag:$taguribase:RepeatedToMe:" . $this->auth_user->id;
             $link       = common_local_url('all',
                                            array('nickname' => $this->auth_user->nickname));

@@ -88,7 +88,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s groups"), $sitename);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
         $link       = common_local_url('groups');
         $subtitle   = sprintf(_("groups on %s"), $sitename);

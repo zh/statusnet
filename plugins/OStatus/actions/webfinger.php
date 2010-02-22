@@ -37,7 +37,7 @@ class WebfingerAction extends Action
 
         return true;
     }
-        
+
     function handle()
     {
         $acct = Webfinger::normalize($this->uri);
@@ -55,18 +55,24 @@ class WebfingerAction extends Action
 
         $xrd->subject = $this->uri;
         $xrd->alias[] = common_profile_url($nick);
-        $xrd->links[] = array('rel' => 'http://webfinger.net/rel/profile-page',
+        $xrd->links[] = array('rel' => Webfinger::PROFILEPAGE,
                               'type' => 'text/html',
                               'href' => common_profile_url($nick));
+
+        $xrd->links[] = array('rel' => Webfinger::UPDATESFROM,
+                              'href' => common_local_url('ApiTimelineUser',
+                                                         array('id' => $this->user->id,
+                                                               'format' => 'atom')),
+                              'type' => 'application/atom+xml');
 
         $salmon_url = common_local_url('salmon',
                                        array('id' => $this->user->id));
 
         $xrd->links[] = array('rel' => 'salmon',
                               'href' => $salmon_url);
-        
+
         // TODO - finalize where the redirect should go on the publisher
-        $url = common_local_url('ostatussub') . '?feed={uri}';
+        $url = common_local_url('ostatussub') . '?profile={uri}';
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
 

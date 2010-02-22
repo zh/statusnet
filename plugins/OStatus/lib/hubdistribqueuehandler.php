@@ -124,10 +124,7 @@ class HubDistribQueueHandler extends QueueHandler
         common_log(LOG_INFO, "Preparing $sub->N PuSH distribution(s) for $sub->topic");
         $qm = QueueManager::get();
         while ($sub->fetch()) {
-            common_log(LOG_INFO, "Prepping PuSH distribution to $sub->callback for $sub->topic");
-            $data = array('sub' => clone($sub),
-                          'atom' => $atom);
-            $qm->enqueue($data, 'hubout');
+            $sub->distribute($atom);
         }
     }
 

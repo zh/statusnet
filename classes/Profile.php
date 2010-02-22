@@ -792,9 +792,11 @@ class Profile extends Memcached_DataObject
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
-     * Assumes that 'activity' namespace has been previously defined.
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
      * @return string
      */
     function asActivityNoun($element)
@@ -811,8 +813,51 @@ class Profile extends Memcached_DataObject
             'id',
             null,
             $this->getUri()
-            );
+        );
+
+        // title should contain fullname
         $xs->element('title', null, $this->getBestName());
+
+        $xs->element('link', array('rel' => 'alternate',
+                                   'type' => 'text/html'),
+                     $this->profileurl);
+
+        $xs->element('poco:preferredUsername', null, $this->nickname);
+
+        // Portable Contacts stuff
+
+        if (isset($this->bio)) {
+
+            // XXX: Possible to use OpenSocial's aboutMe?
+
+            $xs->element('poco:note', null, $this->bio);
+        }
+
+        if (isset($this->homepage)) {
+
+            $xs->elementStart('poco:urls');
+            $xs->element('poco:value', null, $this->homepage);
+            $xs->element('poco:type', null, 'homepage');
+            $xs->element('poco:primary', null, 'true');
+            $xs->elementEnd('poco:urls');
+        }
+
+        if (isset($this->location)) {
+            $xs->elementStart('poco:address');
+            $xs->element('poco:formatted', null, $this->location);
+            $xs->elementEnd('poco:address');
+        }
+
+        if (isset($this->lat) && isset($this->lon)) {
+            $this->element(
+                'georss:point',
+                null,
+                (float)$this->lat . ' ' . (float)$this->lon
+            );
+        }
+
+        // XXX: Should we send all avatar sizes we have?  I think
+        // cliqset does -Z
 
         $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
 
@@ -829,6 +874,8 @@ class Profile extends Memcached_DataObject
 
         $xs->elementEnd('activity:' . $element);
 
+        // XXX: Add people tags with <poco:tags> plural?
+
         return $xs->getString();
     }
 
@@ -841,31 +888,37 @@ class Profile extends Memcached_DataObject
     {
         $uri = null;
 
-        // check for a local user first
-        $user = User::staticGet('id', $this->id);
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
 
-        if (!empty($user)) {
-            $uri = common_local_url(
-                'userbyid',
-                array('id' => $user->id)
-            );
-        } else {
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
 
-            // give plugins a chance to set the URI
-            if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
-
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
                 // return OMB profile if any
                 $remote = Remote_profile::staticGet('id', $this->id);
-
                 if (!empty($remote)) {
                     $uri = $remote->uri;
                 }
-
-                Event::handle('EndGetProfileUri', array($this, &$uri));
             }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
         }
 
         return $uri;
     }
 
+    function hasBlocked($other)
+    {
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (empty($block)) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
