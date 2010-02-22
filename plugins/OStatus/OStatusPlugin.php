@@ -201,9 +201,9 @@ class OStatusPlugin extends Plugin
     {
         $mentioned = $notice->getReplies();
 
-        foreach ($mentioned as $profile) {
+        foreach ($mentioned as $profile_id) {
 
-            $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+            $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
 
             if (!empty($oprofile) && !empty($oprofile->salmonuri)) {
 
