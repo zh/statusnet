@@ -227,6 +227,26 @@ class HubSub extends Memcached_DataObject
     }
 
     /**
+     * Schedule delivery of a 'fat ping' to the subscriber's callback
+     * endpoint. If queues are disabled, this will run immediately.
+     *
+     * @param string $atom well-formed Atom feed
+     * @param int $retries optional count of retries if POST fails; defaults to hub_retries from config or 0 if unset
+     */
+    function distribute($atom, $retries=null)
+    {
+        if ($retries === null) {
+            $retries = intval(common_config('ostatus', 'hub_retries'));
+        }
+
+        $data = array('sub' => clone($this),
+                      'atom' => $atom,
+                      'retries' => $retries);
+        $qm = QueueManager::get();
+        $qm->enqueue($data, 'hubout');
+    }
+
+    /**
      * Send a 'fat ping' to the subscriber's callback endpoint
      * containing the given Atom feed chunk.
      *
@@ -234,6 +254,7 @@ class HubSub extends Memcached_DataObject
      * a higher level; don't just shove in a complete feed!
      *
      * @param string $atom well-formed Atom feed
+     * @throws Exception (HTTP or general)
      */
     function push($atom)
     {
@@ -245,24 +266,18 @@ class HubSub extends Memcached_DataObject
             $hmac = '(none)';
         }
         common_log(LOG_INFO, "About to push feed to $this->callback for $this->topic, HMAC $hmac");
-        try {
-            $request = new HTTPClient();
-            $request->setBody($atom);
-            $response = $request->post($this->callback, $headers);
 
-            if ($response->isOk()) {
-                return true;
-            }
-            common_log(LOG_ERR, "Error sending PuSH content " .
-                                "to $this->callback for $this->topic: " .
-                                $response->getStatus());
-            return false;
+        $request = new HTTPClient();
+        $request->setBody($atom);
+        $response = $request->post($this->callback, $headers);
 
-        } catch (Exception $e) {
-            common_log(LOG_ERR, "Error sending PuSH content " .
-                                "to $this->callback for $this->topic: " .
-                                $e->getMessage());
-            return false;
+        if ($response->isOk()) {
+            return true;
+        } else {
+            throw new Exception("Callback returned status: " .
+                                $response->getStatus() .
+                                "; body: " .
+                                trim($response->getBody()));
         }
     }
 }
