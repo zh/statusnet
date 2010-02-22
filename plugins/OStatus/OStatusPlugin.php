@@ -305,6 +305,7 @@ class OStatusPlugin extends Plugin
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
+        $schema->ensureTable('ostatus_source', Ostatus_source::schemaDef());
         $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;

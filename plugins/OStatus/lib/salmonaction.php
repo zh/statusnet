@@ -202,9 +202,14 @@ class SalmonAction extends Action
             $options['created'] = common_sql_time($this->act->time);
         }
 
-        return Notice::saveNew($oprofile->profile_id,
-                               $content,
-                               'ostatus+salmon',
-                               $options);
+        $saved = Notice::saveNew($oprofile->profile_id,
+                                 $content,
+                                 'ostatus+salmon',
+                                 $options);
+
+        // Record that this was saved through a validated Salmon source
+        // @fixme actually do the signature validation!
+        Ostatus_source::saveNew($saved, $oprofile, 'salmon');
+        return $saved;
     }
 }
