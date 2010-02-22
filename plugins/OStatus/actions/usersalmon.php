@@ -81,6 +81,7 @@ class UsersalmonAction extends SalmonAction
             }
         } else if (!empty($context->attention)) {
             if (!in_array($this->user->uri, $context->attention)) {
+                common_log(LOG_ERR, "{$this->user->uri} not in attention list (".implode(',', $context->attention).")");
                 throw new ClientException("To the attention of user(s) not including this one!");
             }
         } else {
