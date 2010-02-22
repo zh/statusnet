@@ -54,8 +54,14 @@ class SalmonAction extends Action
             common_log(LOG_DEBUG, "Got invalid Salmon post: $xml");
             $this->clientError(_m('Salmon post must be an Atom entry.'));
         }
-        // XXX: check the signature
 
+        // Check the signature
+        $salmon = new Salmon;
+        if (!$salmon->verifyMagicEnv($dom)) {
+            common_log(LOG_DEBUG, "Salmon signature verification failed.");
+            $this->clientError(_m('Salmon signature verification failed.'));
+        }
+            
         $this->act = new Activity($dom->documentElement);
         return true;
     }

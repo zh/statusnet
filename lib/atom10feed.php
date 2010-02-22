@@ -109,11 +109,11 @@ class Atom10Feed extends XMLStringer
             );
         }
 
-        if (!is_null($uri)) {
+        if (isset($uri)) {
             $xs->element('uri', null, $uri);
         }
 
-        if (!is_null(email)) {
+        if (isset($email)) {
             $xs->element('email', null, $email);
         }
 

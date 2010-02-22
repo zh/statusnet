@@ -832,7 +832,9 @@ class Ostatus_profile extends Memcached_DataObject
 
     protected static function getActivityObjectNickname($object, $hints=array())
     {
-        // XXX: check whatever PoCo calls a nickname first
+        if (!empty($object->nickname)) {
+            return common_nicknamize($object->nickname);
+        }
 
         // Try the definitive ID
 

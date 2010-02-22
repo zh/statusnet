@@ -34,6 +34,8 @@ class Salmon
             return FALSE;
         }
 
+        $xml = $this->createMagicEnv($xml);
+        
         $headers = array('Content-type: application/atom+xml');
 
         try {
@@ -52,16 +54,25 @@ class Salmon
 
     }
 
-    public function createMagicEnv($text, $userid)
+    public function createMagicEnv($text)
     {
+        $magic_env = new MagicEnvelope();
 
+        // TODO: Should probably be getting the signer uri as an argument?
+        $signer_uri = $magic_env->getAuthor($text);
 
+        $env = $magic_env->signMessage($text, 'application/atom+xml', $signer_uri);
+
+        return $magic_env->unfold($env);
     }
 
 
-    public function verifyMagicEnv($env)
+    public function verifyMagicEnv($dom)
     {
+        $magic_env = new MagicEnvelope();
+        
+        $env = $magic_env->fromDom($dom);
 
-
+        return $magic_env->verify($env);
     }
 }
