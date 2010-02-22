@@ -367,6 +367,9 @@ class ActivityObject
         return $object;
     }
 
+    /**
+     * @fixme missing avatar, bio info, etc
+     */
     static function fromProfile($profile)
     {
         $object = new ActivityObject();
@@ -379,6 +382,9 @@ class ActivityObject
         return $object;
     }
 
+    /**
+     * @fixme missing avatar, bio info, etc
+     */
     function asString($tag='activity:object')
     {
         $xs = new XMLStringer(true);

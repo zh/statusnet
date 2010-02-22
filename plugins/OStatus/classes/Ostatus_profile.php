@@ -138,10 +138,47 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Returns an ActivityObject describing this remote user or group profile.
+     * Can then be used to generate Atom chunks.
+     *
+     * @return ActivityObject
+     */
+    function asActivityObject()
+    {
+        if ($this->isGroup()) {
+            $object = new ActivityObject();
+            $object->type = 'http://activitystrea.ms/schema/1.0/group';
+            $object->id = $this->uri;
+            $self = $this->localGroup();
+
+            // @fixme put a standard getAvatar() interface on groups too
+            if ($self->homepage_logo) {
+                $object->avatar = $self->homepage_logo;
+                $map = array('png' => 'image/png',
+                             'jpg' => 'image/jpeg',
+                             'jpeg' => 'image/jpeg',
+                             'gif' => 'image/gif');
+                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
+                if (isset($map[$extension])) {
+                    // @fixme this ain't used/saved yet
+                    $object->avatarType = $map[$extension];
+                }
+            }
+
+            $object->link = $this->uri; // @fixme accurate?
+            return $object;
+        } else {
+            return ActivityObject::fromProfile($this->localProfile());
+        }
+    }
+
+    /**
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
      * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @fixme replace with wrappers on asActivityObject when it's got everything.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
      * @return string
@@ -202,11 +239,19 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Damn dirty hack!
+     * @return boolean true if this is a remote group
      */
     function isGroup()
     {
-        return (strpos($this->feeduri, '/groups/') !== false);
+        if ($this->profile_id && !$this->group_id) {
+            return false;
+        } else if ($this->group_id && !$this->profile_id) {
+            return true;
+        } else if ($this->group_id && $this->profile_id) {
+            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs set for $this->uri");
+        } else {
+            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs empty for $this->uri");
+        }
     }
 
     /**
@@ -353,22 +398,24 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
-            $salmon->post($this->salmonuri, $xml);
+            return $salmon->post($this->salmonuri, $xml);
         }
+        return false;
     }
 
     public function notifyActivity($activity)
     {
         if ($this->salmonuri) {
 
-            $xml = $activity->asString(true);
+            $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>' .
+                          $activity->asString(true);
 
             $salmon = new Salmon(); // ?
 
-            $salmon->post($this->salmonuri, $xml);
+            return $salmon->post($this->salmonuri, $xml);
         }
 
-        return;
+        return false;
     }
 
     function getBestName()
@@ -597,10 +644,23 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function updateAvatar($url)
     {
+        if ($this->isGroup()) {
+            $self = $this->localGroup();
+        } else {
+            $self = $this->localProfile();
+        }
+        if (!$self) {
+            throw new ServerException(sprintf(
+                _m("Tried to update avatar for unsaved remote profile %s"),
+                $this->uri));
+        }
+
         // @fixme this should be better encapsulated
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
-        copy($url, $temp_filename);
+        if (!copy($url, $temp_filename)) {
+            throw new ServerException(sprintf(_m("Unable to fetch avatar from %s"), $url));
+        }
 
         if ($this->isGroup()) {
             $id = $this->group_id;
@@ -614,13 +674,7 @@ class Ostatus_profile extends Memcached_DataObject
                                      null,
                                      common_timestamp());
         rename($temp_filename, Avatar::path($filename));
-        if ($this->isGroup()) {
-            $group = $this->localGroup();
-            $group->setOriginal($filename);
-        } else {
-            $profile = $this->localProfile();
-            $profile->setOriginal($filename);
-        }
+        $self->setOriginal($filename);
     }
 
     protected static function getActivityObjectAvatar($object)
@@ -747,6 +801,18 @@ class Ostatus_profile extends Memcached_DataObject
         self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
     }
 
+    /**
+     * Create local ostatus_profile and profile/user_group entries for
+     * the provided remote user or group.
+     *
+     * @param ActivityObject $object
+     * @param string $feeduri
+     * @param string $salmonuri
+     * @param array $hints
+     *
+     * @fixme fold $feeduri/$salmonuri into $hints
+     * @return Ostatus_profile
+     */
     protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $homeuri  = $object->id;
@@ -784,46 +850,65 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        $profile = new Profile();
-        $profile->nickname   = $nickname;
-        $profile->fullname   = $object->title;
-        if (!empty($object->link)) {
-            $profile->profileurl = $object->link;
-        } else if (array_key_exists('profileurl', $hints)) {
-            $profile->profileurl = $hints['profileurl'];
-        }
-        $profile->created    = common_sql_now();
-
-        // @fixme bio
-        // @fixme tags/categories
-        // @fixme location?
-        // @todo tags from categories
-        // @todo lat/lon/location?
-
-        $profile_id = $profile->insert();
-
-        if (!$profile_id) {
-            throw new ServerException("Can't save local profile");
-        }
-
-        // @fixme either need to do feed discovery here
-        // or need to split out some of the feed stuff
-        // so we can leave it empty until later.
-
         $oprofile = new Ostatus_profile();
 
         $oprofile->uri        = $homeuri;
         $oprofile->feeduri    = $feeduri;
         $oprofile->salmonuri  = $salmonuri;
-        $oprofile->profile_id = $profile_id;
 
         $oprofile->created    = common_sql_now();
         $oprofile->modified   = common_sql_now();
 
+        if ($object->type == ActivityObject::PERSON) {
+            $profile = new Profile();
+            $profile->nickname   = $nickname;
+            $profile->fullname   = $object->title;
+            if (!empty($object->link)) {
+                $profile->profileurl = $object->link;
+            } else if (array_key_exists('profileurl', $hints)) {
+                $profile->profileurl = $hints['profileurl'];
+            }
+            $profile->created    = common_sql_now();
+    
+            // @fixme bio
+            // @fixme tags/categories
+            // @fixme location?
+            // @todo tags from categories
+            // @todo lat/lon/location?
+    
+            $oprofile->profile_id = $profile->insert();
+    
+            if (!$oprofile->profile_id) {
+                throw new ServerException("Can't save local profile");
+            }
+        } else {
+            $group = new User_group();
+            $group->nickname = $nickname;
+            $group->fullname = $object->title;
+            // @fixme no canonical profileurl; using homepage instead for now
+            $group->homepage = $homeuri;
+            $group->created = common_sql_now();
+
+            // @fixme homepage
+            // @fixme bio
+            // @fixme tags/categories
+            // @fixme location?
+            // @todo tags from categories
+            // @todo lat/lon/location?
+
+            $oprofile->group_id = $group->insert();
+
+            if (!$oprofile->group_id) {
+                throw new ServerException("Can't save local profile");
+            }
+        }
+
         $ok = $oprofile->insert();
 
         if ($ok) {
-            $oprofile->updateAvatar($avatar);
+            if ($avatar) {
+                $oprofile->updateAvatar($avatar);
+            }
             return $oprofile;
         } else {
             throw new ServerException("Can't save OStatus profile");

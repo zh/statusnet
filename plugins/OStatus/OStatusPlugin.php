@@ -211,7 +211,7 @@ class OStatusPlugin extends Plugin
 
                 // FIXME: this needs to go out in a queue handler
 
-                $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
+                $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
                 $xml .= $notice->asAtomEntry(true, true);
 
                 $salmon = new Salmon();
@@ -400,6 +400,97 @@ class OStatusPlugin extends Plugin
         $oprofile->notifyActivity($act);
 
         return true;
+    }
+
+    /**
+     * When one of our local users tries to join a remote group,
+     * notify the remote server. If the notification is rejected,
+     * deny the join.
+     *
+     * @param User_group $group
+     * @param User $user
+     *
+     * @return mixed hook return value
+     */
+
+    function onStartJoinGroup($group, $user)
+    {
+        $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
+        if ($oprofile) {
+            $member = Profile::staticGet($user->id);
+
+            $act = new Activity();
+            $act->id = TagURI::mint('join:%d:%d:%s',
+                                    $member->id,
+                                    $group->id,
+                                    common_date_iso8601(time()));
+
+            $act->actor = ActivityObject::fromProfile($member);
+            $act->verb = ActivityVerb::JOIN;
+            $act->object = $oprofile->asActivityObject();
+
+            $act->time = time();
+            $act->title = _m("Join");
+            $act->content = sprintf(_m("%s has joined group %s."),
+                                    $member->getBestName(),
+                                    $oprofile->getBestName());
+
+            if ($oprofile->notifyActivity($act)) {
+                return true;
+            } else {
+                throw new ServerException(_m("Failed joining remote group."));
+            }
+        }
+    }
+
+    /**
+     * When one of our local users leaves a remote group, notify the remote
+     * server.
+     *
+     * @fixme Might be good to schedule a resend of the leave notification
+     * if it failed due to a transitory error. We've canceled the local
+     * membership already anyway, but if the remote server comes back up
+     * it'll be left with a stray membership record.
+     *
+     * @param User_group $group
+     * @param User $user
+     *
+     * @return mixed hook return value
+     */
+
+    function onEndLeaveGroup($group, $user)
+    {
+        $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
+        if ($oprofile) {
+            // Drop the PuSH subscription if there are no other subscribers.
+    
+            $members = $group->getMembers(0, 1);
+            if ($members->N == 0) {
+                common_log(LOG_INFO, "Unsubscribing from now-unused group feed $oprofile->feeduri");
+                $oprofile->unsubscribe();
+            }
+
+
+            $member = Profile::staticGet($user->id);
+
+            $act = new Activity();
+            $act->id = TagURI::mint('leave:%d:%d:%s',
+                                    $member->id,
+                                    $group->id,
+                                    common_date_iso8601(time()));
+
+            $act->actor = ActivityObject::fromProfile($member);
+            $act->verb = ActivityVerb::LEAVE;
+            $act->object = $oprofile->asActivityObject();
+
+            $act->time = time();
+            $act->title = _m("Leave");
+            $act->content = sprintf(_m("%s has left group %s."),
+                                    $member->getBestName(),
+                                    $oprofile->getBestName());
+
+            $oprofile->notifyActivity($act);
+        }
     }
 
     /**
