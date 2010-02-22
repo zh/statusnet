@@ -763,3 +763,9 @@ EndFindMentions: end finding mentions in a block of text
   has 'mentioned' (array of mentioned profiles), 'url' (url to link as),
   'title' (title of the link), 'position' (position of the text to
   replace), 'text' (text to replace)
+
+StartShowSubscriptionsContent: before showing the subscriptions content
+- $action: the current action
+
+EndShowSubscriptionsContent: after showing the subscriptions content
+- $action: the current action
