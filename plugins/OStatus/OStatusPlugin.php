@@ -58,8 +58,6 @@ class OStatusPlugin extends Plugin
         $m->connect('main/push/callback/:feed',
                     array('action' => 'pushcallback'),
                     array('feed' => '[0-9]+'));
-        $m->connect('settings/feedsub',
-                    array('action' => 'feedsubsettings'));
 
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
