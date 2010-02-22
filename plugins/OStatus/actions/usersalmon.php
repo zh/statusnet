@@ -88,6 +88,12 @@ class UsersalmonAction extends SalmonAction
             throw new ClientException("Not to anyone in reply to anything!");
         }
 
+        $existing = Notice::staticGet('uri', $this->act->object->id);
+
+        if (!empty($existing)) {
+            common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
+        }
+
         $this->saveNotice();
     }
 
