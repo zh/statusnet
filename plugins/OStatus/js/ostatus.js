@@ -1,14 +1,15 @@
 SN.U.DialogBox = {
     Subscribe: function(a) {
-        var f = a.parent().find('#form_ostatus_connect');
+        var f = a.parent().find('.form_settings');
         if (f.length > 0) {
             f.show();
         }
         else {
+            a[0].href = (a[0].href.match(/[\\?]/) == null) ? a[0].href+'?' : a[0].href+'&';
             $.ajax({
                 type: 'GET',
                 dataType: 'xml',
-                url: a[0].href+'&ajax=1',
+                url: a[0].href+'ajax=1',
                 beforeSend: function(formData) {
                     a.addClass('processing');
                 },
@@ -19,7 +20,7 @@ SN.U.DialogBox = {
                     if (typeof($('form', data)[0]) != 'undefined') {
                         a.after(document._importNode($('form', data)[0], true));
 
-                        var form = a.parent().find('#form_ostatus_connect');
+                        var form = a.parent().find('.form_settings');
 
                         form
                             .addClass('dialogbox')
@@ -40,6 +41,7 @@ SN.U.DialogBox = {
                         });
 
                         form.find('#acct').focus();
+                        form.find('#profile').focus();
                     }
 
                     a.removeClass('processing');
@@ -50,11 +52,9 @@ SN.U.DialogBox = {
 };
 
 SN.Init.Subscribe = function() {
-    $('.entity_subscribe a').live('click', function() { SN.U.DialogBox.Subscribe($(this)); return false; });
+    $('.entity_subscribe .entity_remote_subscribe').live('click', function() { SN.U.DialogBox.Subscribe($(this)); return false; });
 };
 
 $(document).ready(function() {
-    if ($('.entity_subscribe .entity_remote_subscribe').length > 0) {
-        SN.Init.Subscribe();
-    }
+    SN.Init.Subscribe();
 });
