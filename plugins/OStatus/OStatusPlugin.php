@@ -58,8 +58,6 @@ class OStatusPlugin extends Plugin
         $m->connect('main/push/callback/:feed',
                     array('action' => 'pushcallback'),
                     array('feed' => '[0-9]+'));
-        $m->connect('settings/feedsub',
-                    array('action' => 'feedsubsettings'));
 
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
@@ -137,25 +135,6 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Add the feed settings page to the Connect Settings menu
-     *
-     * @param Action &$action The calling page
-     *
-     * @return boolean hook return
-     */
-    function onEndConnectSettingsNav(&$action)
-    {
-        $action_name = $action->trimmed('action');
-
-        $action->menuItem(common_local_url('feedsubsettings'),
-                          _m('Feeds'),
-                          _m('Feed subscription options'),
-                          $action_name === 'feedsubsettings');
-
-        return true;
-    }
-
-    /**
      * Automatically load the actions and libraries used by the plugin
      *
      * @param Class $cls the class
@@ -215,43 +194,59 @@ class OStatusPlugin extends Plugin
      * @fixme push webfinger lookup & sending to a background queue
      * @fixme also detect short-form name for remote subscribees where not ambiguous
      */
+
     function onEndNoticeSave($notice)
     {
-        $count = preg_match_all('/(\w+\.)*\w+@(\w+\.)*\w+(\w+\-\w+)*\.\w+/', $notice->content, $matches);
-        if ($count) {
-            foreach ($matches[0] as $webfinger) {
+        $mentioned = $notice->getReplies();
 
-                // FIXME: look up locally first
+        foreach ($mentioned as $profile_id) {
 
-                // Check to see if we've got an actual webfinger
-                $w = new Webfinger;
+            $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
 
-                $endpoint_uri = '';
+            if (!empty($oprofile) && !empty($oprofile->salmonuri)) {
 
-                $result = $w->lookup($webfinger);
-                if (empty($result)) {
-                    continue;
-                }
-
-                foreach ($result->links as $link) {
-                    if ($link['rel'] == 'salmon') {
-                        $endpoint_uri = $link['href'];
-                    }
-                }
-
-                if (empty($endpoint_uri)) {
-                    continue;
-                }
+                common_log(LOG_INFO, "Sending notice '{$notice->uri}' to remote profile '{$oprofile->uri}'.");
 
                 // FIXME: this needs to go out in a queue handler
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
-                $xml .= $notice->asAtomEntry();
+                $xml .= $notice->asAtomEntry(true, true);
 
                 $salmon = new Salmon();
-                $salmon->post($endpoint_uri, $xml);
+                $salmon->post($oprofile->salmonuri, $xml);
             }
         }
+    }
+
+    /**
+     *
+     */
+
+    function onEndFindMentions($sender, $text, &$mentions)
+    {
+        preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
+                       $text,
+                       $wmatches,
+                       PREG_OFFSET_CAPTURE);
+
+        foreach ($wmatches[1] as $wmatch) {
+
+            $webfinger = $wmatch[0];
+
+            $oprofile = Ostatus_profile::ensureWebfinger($webfinger);
+
+            if (!empty($oprofile)) {
+
+                $profile = $oprofile->localProfile();
+
+                $mentions[] = array('mentioned' => array($profile),
+                                    'text' => $wmatch[0],
+                                    'position' => $wmatch[1],
+                                    'url' => $profile->profileurl);
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -312,6 +307,7 @@ class OStatusPlugin extends Plugin
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
+        $schema->ensureTable('ostatus_source', Ostatus_source::schemaDef());
         $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
@@ -489,6 +485,16 @@ class OStatusPlugin extends Plugin
 
         $oprofile->notifyActivity($act);
 
+        return true;
+    }
+
+    function onStartGetProfileUri($profile, &$uri)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+        if (!empty($oprofile)) {
+            $uri = $oprofile->uri;
+            return false;
+        }
         return true;
     }
 }

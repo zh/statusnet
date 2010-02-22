@@ -55,6 +55,8 @@ class UsersalmonAction extends SalmonAction
      */
     function handlePost()
     {
+        common_log(LOG_INFO, "Received post of '{$this->act->object->id}' from '{$this->act->actor->id}'");
+
         switch ($this->act->object->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
@@ -80,11 +82,19 @@ class UsersalmonAction extends SalmonAction
                 throw new ClientException("In reply to a notice not by this user");
             }
         } else if (!empty($context->attention)) {
-            if (!in_array($context->attention, $this->user->uri)) {
+            if (!in_array($this->user->uri, $context->attention)) {
+                common_log(LOG_ERR, "{$this->user->uri} not in attention list (".implode(',', $context->attention).")");
                 throw new ClientException("To the attention of user(s) not including this one!");
             }
         } else {
             throw new ClientException("Not to anyone in reply to anything!");
+        }
+
+        $existing = Notice::staticGet('uri', $this->act->object->id);
+
+        if (!empty($existing)) {
+            common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
+            return;
         }
 
         $this->saveNotice();

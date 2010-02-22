@@ -882,28 +882,22 @@ class Profile extends Memcached_DataObject
     {
         $uri = null;
 
-        // check for a local user first
-        $user = User::staticGet('id', $this->id);
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
 
-        if (!empty($user)) {
-            $uri = common_local_url(
-                'userbyid',
-                array('id' => $user->id)
-            );
-        } else {
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
 
-            // give plugins a chance to set the URI
-            if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
-
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
                 // return OMB profile if any
                 $remote = Remote_profile::staticGet('id', $this->id);
-
                 if (!empty($remote)) {
                     $uri = $remote->uri;
                 }
-
-                Event::handle('EndGetProfileUri', array($this, &$uri));
             }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
         }
 
         return $uri;
