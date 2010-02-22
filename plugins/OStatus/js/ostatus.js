@@ -116,7 +116,7 @@ SN.U.DialogBox = {
                 }
             });
         }
-    },
+    }
 };
 
 SN.Init.Subscribe = function() {
