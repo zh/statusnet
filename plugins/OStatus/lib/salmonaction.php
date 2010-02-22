@@ -173,7 +173,10 @@ class SalmonAction extends Action
 
         $html = $this->act->object->content;
 
-        $rendered = HTMLPurifier::purify($html);
+        $htmlConfig = HTMLPurifier_Config::createDefault();
+
+        $rendered = HTMLPurifier::purify($html, $htmlConfig);
+
         $content = html_entity_decode(strip_tags($rendered));
 
         $options = array('is_local' => Notice::REMOTE_OMB,
