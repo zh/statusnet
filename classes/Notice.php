@@ -333,7 +333,14 @@ class Notice extends Memcached_DataObject
 
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
+
         $notice->blowOnInsert();
+
+        if (isset($replies)) {
+            $notice->saveKnownReplies($replies);
+        } else {
+            $notice->saveReplies();
+        }
 
         $notice->distribute();
 
@@ -815,6 +822,26 @@ class Notice extends Memcached_DataObject
         }
 
         return true;
+    }
+
+    function saveKnownReplies($uris)
+    {
+        foreach ($uris as $uri) {
+
+            $user = User::staticGet('uri', $uri);
+
+            if (!empty($user)) {
+
+                $reply = new Reply();
+
+                $reply->notice_id  = $this->id;
+                $reply->profile_id = $user->id;
+
+                $id = $reply->insert();
+            }
+        }
+
+        return;
     }
 
     /**

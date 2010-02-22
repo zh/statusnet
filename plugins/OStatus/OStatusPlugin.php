@@ -60,8 +60,6 @@ class OStatusPlugin extends Plugin
         $m->connect('main/push/callback/:feed',
                     array('action' => 'pushcallback'),
                     array('feed' => '[0-9]+'));
-        $m->connect('settings/feedsub',
-                    array('action' => 'feedsubsettings'));
 
         // Salmon endpoint
         $m->connect('main/salmon/user/:id',
@@ -203,16 +201,18 @@ class OStatusPlugin extends Plugin
     {
         $mentioned = $notice->getReplies();
 
-        foreach ($mentioned as $profile) {
+        foreach ($mentioned as $profile_id) {
 
-            $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+            $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
 
             if (!empty($oprofile) && !empty($oprofile->salmonuri)) {
+
+                common_log(LOG_INFO, "Sending notice '{$notice->uri}' to remote profile '{$oprofile->uri}'.");
 
                 // FIXME: this needs to go out in a queue handler
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
-                $xml .= $notice->asAtomEntry();
+                $xml .= $notice->asAtomEntry(true, true);
 
                 $salmon = new Salmon();
                 $salmon->post($oprofile->salmonuri, $xml);
@@ -309,6 +309,7 @@ class OStatusPlugin extends Plugin
     function onCheckSchema() {
         $schema = Schema::get();
         $schema->ensureTable('ostatus_profile', Ostatus_profile::schemaDef());
+        $schema->ensureTable('ostatus_source', Ostatus_source::schemaDef());
         $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
         return true;
@@ -486,6 +487,16 @@ class OStatusPlugin extends Plugin
 
         $oprofile->notifyActivity($act);
 
+        return true;
+    }
+
+    function onStartGetProfileUri($profile, &$uri)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+        if (!empty($oprofile)) {
+            $uri = $oprofile->uri;
+            return false;
+        }
         return true;
     }
 }

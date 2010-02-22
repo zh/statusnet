@@ -119,7 +119,7 @@ class OStatusInitAction extends Action
             } else {
                 $this->connectProfile($this->acct);
             }
-        } elseif (strpos('@', $this->acct) !== false) {
+        } elseif (strpos($this->acct, '@') !== false) {
             $this->connectWebfinger($this->acct);
         }
     }
@@ -139,7 +139,7 @@ class OStatusInitAction extends Action
                 $user = User::staticGet('nickname', $this->nickname);
                 $target_profile = common_local_url('userbyid', array('id' => $user->id));
 
-                $url = $w->applyTemplate($link['template'], $feed_url);
+                $url = $w->applyTemplate($link['template'], $target_profile);
 
                 common_redirect($url, 303);
             }
