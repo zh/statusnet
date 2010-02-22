@@ -173,9 +173,9 @@ class SalmonAction extends Action
 
         $html = $this->act->object->content;
 
-        $htmlConfig = HTMLPurifier_Config::createDefault();
+        $purifier = new HTMLPurifier();
 
-        $rendered = HTMLPurifier::purify($html, $htmlConfig);
+        $rendered = $purifier->purify($html);
 
         $content = html_entity_decode(strip_tags($rendered));
 
