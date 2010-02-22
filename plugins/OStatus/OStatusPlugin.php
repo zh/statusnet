@@ -208,7 +208,7 @@ class OStatusPlugin extends Plugin
                 // FIXME: this needs to go out in a queue handler
 
                 $xml = '<?xml version="1.0" encoding="UTF-8" ?>';
-                $xml .= $notice->asAtomEntry();
+                $xml .= $notice->asAtomEntry(true, true);
 
                 $salmon = new Salmon();
                 $salmon->post($oprofile->salmonuri, $xml);
