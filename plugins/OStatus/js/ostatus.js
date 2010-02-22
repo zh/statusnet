@@ -40,7 +40,6 @@ SN.U.DialogBox = {
                             return false;
                         });
 
-                        form.find('#acct').focus();
                         form.find('#profile').focus();
                     }
 
