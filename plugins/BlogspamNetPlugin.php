@@ -72,8 +72,10 @@ class BlogspamNetPlugin extends Plugin
         common_debug("Blogspamnet args = " . print_r($args, TRUE));
         $requestBody = xmlrpc_encode_request('testComment', array($args));
 
-        $request = HTTPClient::start();
-        $httpResponse = $request->post($this->baseUrl, array('Content-Type: text/xml'), $requestBody);
+        $request = new HTTPClient($this->baseUrl, HTTPClient::METHOD_POST);
+        $request->setHeader('Content-Type', 'text/xml');
+        $request->setBody($requestBody);
+        $httpResponse = $request->send();
 
         $response = xmlrpc_decode($httpResponse->getBody());
         if (xmlrpc_is_fault($response)) {
