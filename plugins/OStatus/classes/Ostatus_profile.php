@@ -522,7 +522,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      * @throws FeedSubException
      */
-    public static function ensureProfile($profile_uri)
+    public static function ensureProfile($profile_uri, $hints=array())
     {
         // Get the canonical feed URI and check it
         $discover = new FeedDiscovery();
@@ -545,7 +545,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($subject)) {
             $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri);
+            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri, $hints);
         }
 
         // Otherwise, try the feed author
@@ -554,7 +554,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($author)) {
             $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
         }
 
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
@@ -570,7 +570,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($actor)) {
                 $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri);
+                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri, $hints);
 
             }
 
@@ -578,7 +578,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($author)) {
                 $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
             }
         }
 
@@ -688,11 +688,11 @@ class Ostatus_profile extends Memcached_DataObject
         return self::ensureActivityObjectProfile($activity->actor, $feeduri, $salmonuri);
     }
 
-    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
         if (!$profile) {
-            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri);
+            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri, $hints);
         }
         return $profile;
     }
@@ -745,15 +745,27 @@ class Ostatus_profile extends Memcached_DataObject
         self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
     }
 
-    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $homeuri  = $object->id;
-        $nickname = self::getActivityObjectNickname($object);
+        $nickname = self::getActivityObjectNickname($object, $hints);
         $avatar   = self::getActivityObjectAvatar($object);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
             throw new ServerException("No profile URI");
+        }
+
+        if (empty($feeduri)) {
+            if (array_key_exists('feedurl', $hints)) {
+                $feeduri = $hints['feedurl'];
+            }
+        }
+
+        if (empty($salmonuri)) {
+            if (array_key_exists('salmon', $hints)) {
+                $salmonuri = $hints['salmon'];
+            }
         }
 
         if (!$feeduri || !$salmonuri) {
@@ -773,7 +785,11 @@ class Ostatus_profile extends Memcached_DataObject
         $profile = new Profile();
         $profile->nickname   = $nickname;
         $profile->fullname   = $object->title;
-        $profile->profileurl = $object->link;
+        if (!empty($object->link)) {
+            $profile->profileurl = $object->link;
+        } else if (array_key_exists('profileurl', $hints)) {
+            $profile->profileurl = $hints['profileurl'];
+        }
         $profile->created    = common_sql_now();
 
         // @fixme bio
@@ -812,11 +828,23 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
-    protected static function getActivityObjectNickname($object)
+    protected static function getActivityObjectNickname($object, $hints=array())
     {
         // XXX: check whatever PoCo calls a nickname first
 
+        // Try the definitive ID
+
         $nickname = self::nicknameFromURI($object->id);
+
+        // Try a Webfinger if one was passed (way) down
+
+        if (empty($nickname)) {
+            if (array_key_exists('webfinger', $hints)) {
+                $nickname = self::nicknameFromURI($hints['webfinger']);
+            }
+        }
+
+        // Try the name
 
         if (empty($nickname)) {
             $nickname = common_nicknamize($object->title);
@@ -883,11 +911,16 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
+        $hints = array('webfinger' => $addr,
+                       'profileurl' => $profileUrl,
+                       'feedurl' => $feedUrl,
+                       'salmon' => $salmonEndpoint);
+
         // If we got a feed URL, try that
 
         if (isset($feedUrl)) {
             try {
-                $oprofile = self::ensureProfile($feedUrl);
+                $oprofile = self::ensureProfile($feedUrl, $hints);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from feed URL '$feedUrl': " . $e->getMessage());
@@ -899,7 +932,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (isset($profileUrl)) {
             try {
-                $oprofile = self::ensureProfile($profileUrl);
+                $oprofile = self::ensureProfile($profileUrl, $hints);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
@@ -922,6 +955,10 @@ class Ostatus_profile extends Memcached_DataObject
             $profile->nickname = self::nicknameFromUri($uri);
             $profile->created  = common_sql_now();
 
+            if (isset($profileUrl)) {
+                $profile->profileurl = $profileUrl;
+            }
+
             $profile_id = $profile->insert();
 
             if (!$profile_id) {
@@ -935,6 +972,10 @@ class Ostatus_profile extends Memcached_DataObject
             $oprofile->salmonuri  = $salmonEndpoint;
             $oprofile->profile_id = $profile_id;
             $oprofile->created    = common_sql_now();
+
+            if (isset($feedUrl)) {
+                $profile->feeduri = $feedUrl;
+            }
 
             $result = $oprofile->insert();
 
