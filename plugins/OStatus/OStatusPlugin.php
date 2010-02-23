@@ -312,6 +312,7 @@ class OStatusPlugin extends Plugin
         $schema->ensureTable('ostatus_source', Ostatus_source::schemaDef());
         $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
+        $schema->ensureTable('magicsig', Magicsig::schemaDef());
         return true;
     }
 
