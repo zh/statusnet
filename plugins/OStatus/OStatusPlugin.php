@@ -235,9 +235,17 @@ class OStatusPlugin extends Plugin
 
             $webfinger = $wmatch[0];
 
+            $this->log(LOG_INFO, "Checking Webfinger for address '$webfinger'");
+
             $oprofile = Ostatus_profile::ensureWebfinger($webfinger);
 
-            if (!empty($oprofile)) {
+            if (empty($oprofile)) {
+
+                $this->log(LOG_INFO, "No Ostatus_profile found for address '$webfinger'");
+
+            } else {
+
+                $this->log(LOG_INFO, "Ostatus_profile found for address '$webfinger'");
 
                 $profile = $oprofile->localProfile();
 
