@@ -163,7 +163,7 @@ class Magicsig extends Memcached_DataObject
 
     public function getName()
     {
-        $this->alg;
+        return $this->alg;
     }
 
     public function getHash()
