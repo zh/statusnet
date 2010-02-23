@@ -347,6 +347,29 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Check if this remote profile has any active local subscriptions, and
+     * if not drop the PuSH subscription feed.
+     *
+     * @return boolean
+     */
+    public function garbageCollect()
+    {
+        if ($this->isGroup()) {
+            $members = $this->localGroup()->getMembers(0, 1);
+            $count = $members->N;
+        } else {
+            $count = $this->localProfile()->subscriberCount();
+        }
+        if ($count == 0) {
+            common_log(LOG_INFO, "Unsubscribing from now-unused remote feed $oprofile->feeduri");
+            $this->unsubscribe();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Send an Activity Streams notification to the remote Salmon endpoint,
      * if so configured.
      *
@@ -379,7 +402,8 @@ class Ostatus_profile extends Memcached_DataObject
                                 'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                                 'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                                 'xmlns:georss' => 'http://www.georss.org/georss',
-                                'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                                'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                                'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
 
             $entry = new XMLStringer();
             $entry->elementStart('entry', $attributes);
