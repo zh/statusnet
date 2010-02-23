@@ -43,3 +43,46 @@ function subs_unsubscribe_to($user, $other)
         return $e->getMessage();
     }
 }
+
+function subs_unsubscribe_from($user, $other){
+   $local = User::staticGet("nickname",$other);
+   if($local){
+     return subs_unsubscribe_to($local,$user);
+   } else {
+    try {
+        $remote = Profile::staticGet("nickname",$other);
+        if(is_string($remote)){
+          return $remote;
+        }
+        if (Event::handle('StartUnsubscribe', array($remote,$user))) {
+
+            $sub = DB_DataObject::factory('subscription');
+
+            $sub->subscriber = $remote->id;
+            $sub->subscribed = $user->id;
+
+            $sub->find(true);
+
+            // note we checked for existence above
+
+            if (!$sub->delete())
+              return _('Couldn\'t delete subscription.');
+
+            $cache = common_memcache();
+
+            if ($cache) {
+                $cache->delete(common_cache_key('user:notices_with_friends:' . $remote->id));
+            }
+
+
+            $user->blowSubscribersCount();
+            $remote->blowSubscribersCount();
+
+            Event::handle('EndUnsubscribe', array($remote, $user));
+        }
+    } catch (Exception $e) {
+        return $e->getMessage();
+    }
+   }
+}
+
