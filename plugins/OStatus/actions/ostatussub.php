@@ -88,9 +88,13 @@ class OStatusSubAction extends Action
     function showPreviewForm()
     {
         if ($this->oprofile->isGroup()) {
-            $this->previewGroup();
+            $ok = $this->previewGroup();
         } else {
-            $this->previewUser();
+            $ok = $this->previewUser();
+        }
+        if (!$ok) {
+            // @fixme maybe provide a cancel button or link back?
+            return;
         }
 
         $this->elementStart('div', 'entity_actions');
@@ -120,11 +124,21 @@ class OStatusSubAction extends Action
 
     /**
      * Show a preview for a remote user's profile
+     * @return boolean true if we're ok to try subscribing
      */
     function previewUser()
     {
         $oprofile = $this->oprofile;
         $profile = $oprofile->localProfile();
+
+        $cur = common_current_user();
+        if ($cur->isSubscribed($profile)) {
+            $this->element('div', array('class' => 'error'),
+                           _m("You are already subscribed to this user."));
+            $ok = false;
+        } else {
+            $ok = true;
+        }
 
         $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $avatarUrl = $avatar ? $avatar->displayUrl() : false;
@@ -133,20 +147,32 @@ class OStatusSubAction extends Action
                           $profile->profileurl,
                           $avatarUrl,
                           $profile->bio);
+        return $ok;
     }
 
     /**
      * Show a preview for a remote group's profile
+     * @return boolean true if we're ok to try joining
      */
     function previewGroup()
     {
         $oprofile = $this->oprofile;
         $group = $oprofile->localGroup();
 
+        $cur = common_current_user();
+        if ($cur->isMember($group)) {
+            $this->element('div', array('class' => 'error'),
+                           _m("You are already a member of this group."));
+            $ok = false;
+        } else {
+            $ok = true;
+        }
+
         $this->showEntity($group,
                           $group->getProfileUrl(),
                           $group->homepage_logo,
                           $group->description);
+        return $ok;
     }
 
 
