@@ -19,9 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  OStatus
+ * @category  Feed
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
+ * @author    Zach Copley <zach@status.net>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/

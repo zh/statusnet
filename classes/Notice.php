@@ -1119,25 +1119,8 @@ class Notice extends Memcached_DataObject
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-
-        $xs->elementStart('activity:' . $element);
-        $xs->element('activity:object-type',
-                     null,
-                     'http://activitystrea.ms/schema/1.0/note');
-        $xs->element('id',
-                     null,
-                     $this->uri);
-        $xs->element('content',
-                     array('type' => 'text/html'),
-                     $this->rendered);
-        $xs->element('link',
-                     array('type' => 'text/html',
-                           'rel'  => 'alternate',
-                           'href' => $this->bestUrl()));
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
+        $noun = ActivityObject::fromNotice($this);
+        return $noun->asString('activity:' . $element);
     }
 
     function bestUrl()
