@@ -1067,6 +1067,7 @@ class Notice extends Memcached_DataObject
                            'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                            'xmlns:georss' => 'http://www.georss.org/georss',
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
         } else {
             $attrs = array();
