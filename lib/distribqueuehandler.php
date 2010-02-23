@@ -69,19 +69,7 @@ class DistribQueueHandler
         }
 
         try {
-            $groups = $notice->saveGroups();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
-            $recipients = $notice->getReplies();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
-            $notice->addToInboxes($groups, $recipients);
+            $notice->addToInboxes();
         } catch (Exception $e) {
             $this->logit($notice, $e);
         }

@@ -63,11 +63,10 @@ SN.U.DialogBox = {
             f.show();
         }
         else {
-            a[0].href = (a[0].href.match(/[\\?]/) === null) ? a[0].href+'?' : a[0].href+'&';
             $.ajax({
                 type: 'GET',
                 dataType: 'xml',
-                url: a[0].href+'ajax=1',
+                url: a[0].href + ((a[0].href.match(/[\\?]/) === null)?'?':'&') + 'ajax=1',
                 beforeSend: function(formData) {
                     a.addClass('processing');
                 },

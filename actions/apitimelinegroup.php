@@ -176,7 +176,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
                 $atom->addEntryFromNotices($this->notices);
 
-                $this->raw($atom->getString());
+                //$this->raw($atom->getString());
+                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
 
             } catch (Atom10FeedException $e) {
                 $this->serverError(

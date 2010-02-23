@@ -801,82 +801,8 @@ class Profile extends Memcached_DataObject
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            'http://activitystrea.ms/schema/1.0/person'
-        );
-        $xs->element(
-            'id',
-            null,
-            $this->getUri()
-        );
-
-        // title should contain fullname
-        $xs->element('title', null, $this->getBestName());
-
-        $xs->element('link', array('rel' => 'alternate',
-                                   'type' => 'text/html'),
-                     $this->profileurl);
-
-        $xs->element('poco:preferredUsername', null, $this->nickname);
-
-        // Portable Contacts stuff
-
-        if (isset($this->bio)) {
-
-            // XXX: Possible to use OpenSocial's aboutMe?
-
-            $xs->element('poco:note', null, $this->bio);
-        }
-
-        if (isset($this->homepage)) {
-
-            $xs->elementStart('poco:urls');
-            $xs->element('poco:value', null, $this->homepage);
-            $xs->element('poco:type', null, 'homepage');
-            $xs->element('poco:primary', null, 'true');
-            $xs->elementEnd('poco:urls');
-        }
-
-        if (isset($this->location)) {
-            $xs->elementStart('poco:address');
-            $xs->element('poco:formatted', null, $this->location);
-            $xs->elementEnd('poco:address');
-        }
-
-        if (isset($this->lat) && isset($this->lon)) {
-            $this->element(
-                'georss:point',
-                null,
-                (float)$this->lat . ' ' . (float)$this->lon
-            );
-        }
-
-        // XXX: Should we send all avatar sizes we have?  I think
-        // cliqset does -Z
-
-        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
-
-        $xs->element(
-            'link', array(
-                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
-                'rel'  => 'avatar',
-                'href' => empty($avatar)
-                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                : $avatar->displayUrl()
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        // XXX: Add people tags with <poco:tags> plural?
-
-        return $xs->getString();
+        $noun = ActivityObject::fromProfile($this);
+        return $noun->asString('activity:' . $element);
     }
 
     /**

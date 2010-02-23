@@ -591,6 +591,22 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    function onStartUserGroupHomeUrl($group, &$url)
+    {
+        return $this->onStartUserGroupPermalink($group, &$url);
+    }
+
+    function onStartUserGroupPermalink($group, &$url)
+    {
+        $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
+        if ($oprofile) {
+            // @fixme this should probably be in the user_group table
+            // @fixme this uri not guaranteed to be a profile page
+            $url = $oprofile->uri;
+            return false;
+        }
+    }
+
     function onStartShowSubscriptionsContent($action)
     {
         $user = common_current_user();

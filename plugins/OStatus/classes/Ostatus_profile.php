@@ -501,6 +501,7 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * Process an incoming post activity from this remote feed.
      * @param Activity $activity
+     * @fixme break up this function, it's getting nasty long
      */
     protected function processPost($activity)
     {
@@ -518,7 +519,6 @@ class Ostatus_profile extends Memcached_DataObject
             }
             $oprofile = $this;
         }
-
         $sourceUri = $activity->object->id;
 
         $dupe = Notice::staticGet('uri', $sourceUri);
@@ -555,15 +555,76 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        // @fixme ensure that groups get handled correctly
+        $profile = $oprofile->localProfile();
+        $params['groups'] = array();
+        $params['replies'] = array();
+        if ($activity->context) {
+            foreach ($activity->context->attention as $recipient) {
+                $roprofile = Ostatus_profile::staticGet('uri', $recipient);
+                if ($roprofile) {
+                    if ($roprofile->isGroup()) {
+                        // Deliver to local recipients of this remote group.
+                        // @fixme sender verification?
+                        $params['groups'][] = $roprofile->group_id;
+                        continue;
+                    } else {
+                        // Delivery to remote users is the source service's job.
+                        continue;
+                    }
+                }
+    
+                $user = User::staticGet('uri', $recipient);
+                if ($user) {
+                    // An @-reply directed to a local user.
+                    // @fixme sender verification, spam etc?
+                    $params['replies'][] = $recipient;
+                    continue;
+                }
+    
+                // @fixme we need a uri on user_group
+                // $group = User_group::staticGet('uri', $recipient);
+                $template = common_local_url('groupbyid', array('id' => '31337'));
+                $template = preg_quote($template, '/');
+                $template = str_replace('31337', '(\d+)', $template);
+                common_log(LOG_DEBUG, $template);
+                if (preg_match("/$template/", $recipient, $matches)) {
+                    $id = $matches[1];
+                    $group = User_group::staticGet('id', $id);
+                    if ($group) {
+                        // Deliver to all members of this local group.
+                        // @fixme sender verification?
+                        if ($profile->isMember($group)) {
+                            common_log(LOG_DEBUG, "delivering to group $id $group->nickname");
+                            $params['groups'][] = $group->id;
+                        } else {
+                            common_log(LOG_DEBUG, "not delivering to group $id $group->nickname because sender $profile->nickname is not a member");
+                        }
+                        continue;
+                    } else {
+                        common_log(LOG_DEBUG, "not delivering to missing group $id");
+                    }
+                } else {
+                    common_log(LOG_DEBUG, "not delivering to groups for $recipient");
+                }
+            }
+        }
 
-        $saved = Notice::saveNew($oprofile->localProfile()->id,
-                                 $content,
-                                 'ostatus',
-                                 $params);
+        try {
+            $saved = Notice::saveNew($profile->id,
+                                     $content,
+                                     'ostatus',
+                                     $params);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Failed saving notice entry for $sourceUri: " . $e->getMessage());
+            return;
+        }
 
         // Record which feed this came through...
-        Ostatus_source::saveNew($saved, $this, 'push');
+        try {
+            Ostatus_source::saveNew($saved, $this, 'push');
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Failed saving ostatus_source entry for $saved->notice_id: " . $e->getMessage());
+        }
     }
 
     /**
