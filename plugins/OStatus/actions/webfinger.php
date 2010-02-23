@@ -65,6 +65,21 @@ class WebfingerAction extends Action
                                                                'format' => 'atom')),
                               'type' => 'application/atom+xml');
 
+        // hCard
+        $xrd->links[] = array('rel' => 'http://microformats.org/profile/hcard',
+                              'type' => 'text/html',
+                              'href' => common_profile_url($nick));
+
+        // XFN
+        $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
+                              'type' => 'text/html',
+                              'href' => common_profile_url($nick));
+        // FOAF
+        $xrd->links[] = array('rel' => 'describedby',
+                              'type' => 'application/rdf+xml',
+                              'href' => common_local_url('foaf',
+                                                         array('nickname' => $nick)));                        
+        
         $salmon_url = common_local_url('salmon',
                                        array('id' => $this->user->id));
 
