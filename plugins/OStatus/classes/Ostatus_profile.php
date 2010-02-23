@@ -556,17 +556,28 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($activity->object->link) {
             $sourceUrl = $activity->object->link;
+        } else if ($activity->link) {
+            $sourceUrl = $activity->link;
         } else if (preg_match('!^https?://!', $activity->object->id)) {
             $sourceUrl = $activity->object->id;
         }
 
-        // @fixme sanitize and save HTML content if available
+        // Get (safe!) HTML and text versions of the content
 
-        $content = $activity->object->title;
+        require_once(INSTALLDIR.'/extlib/HTMLPurifier/HTMLPurifier.auto.php');
+
+        $html = $activity->object->content;
+
+        $purifier = new HTMLPurifier();
+
+        $rendered = $purifier->purify($html);
+
+        $content = html_entity_decode(strip_tags($rendered));
 
         $params = array('is_local' => Notice::REMOTE_OMB,
                         'url' => $sourceUrl,
-                        'uri' => $sourceUri);
+                        'uri' => $sourceUri,
+                        'rendered' => $rendered);
 
         $location = $activity->context->location;
 

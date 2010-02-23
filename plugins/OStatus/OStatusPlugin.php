@@ -287,13 +287,19 @@ class OStatusPlugin extends Plugin
     function onStartNoticeSourceLink($notice, &$name, &$url, &$title)
     {
         if ($notice->source == 'ostatus') {
-            $bits = parse_url($notice->uri);
-            $domain = $bits['host'];
+            if ($notice->url) {
+                $bits = parse_url($notice->url);
+                $domain = $bits['host'];
+                if (substr($domain, 0, 4) == 'www.') {
+                    $name = substr($domain, 4);
+                } else {
+                    $name = $domain;
+                }
 
-            $name = $domain;
-            $url = $notice->uri;
-            $title = sprintf(_m("Sent from %s via OStatus"), $domain);
-            return false;
+                $url = $notice->url;
+                $title = sprintf(_m("Sent from %s via OStatus"), $domain);
+                return false;
+            }
         }
     }
 
@@ -509,12 +515,8 @@ class OStatusPlugin extends Plugin
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
         if ($oprofile) {
             // Drop the PuSH subscription if there are no other subscribers.
+            $oprofile->garbageCollect();
 
-            $members = $group->getMembers(0, 1);
-            if ($members->N == 0) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused group feed $oprofile->feeduri");
-                $oprofile->unsubscribe();
-            }
 
             $member = Profile::staticGet($user->id);
 
