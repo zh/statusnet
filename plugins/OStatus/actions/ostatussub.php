@@ -126,7 +126,13 @@ class OStatusSubAction extends Action
         $oprofile = $this->oprofile;
         $profile = $oprofile->localProfile();
 
-        $this->showEntity($profile);
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatarUrl = $avatar ? $avatar->displayUrl() : false;
+
+        $this->showEntity($profile,
+                          $profile->profileurl,
+                          $avatarUrl,
+                          $profile->bio);
     }
 
     /**
@@ -137,31 +143,33 @@ class OStatusSubAction extends Action
         $oprofile = $this->oprofile;
         $group = $oprofile->localGroup();
 
-        $this->showEntity($group);
+        $this->showEntity($group,
+                          $group->getProfileUrl(),
+                          $group->homepage_logo,
+                          $group->description);
     }
 
 
-    function showEntity($entity)
+    function showEntity($entity, $profile, $avatar, $note)
     {
         $nickname = $entity->nickname;
-        $profile  = $entity->profileurl;
         $fullname = $entity->fullname;
         $homepage = $entity->homepage;
-        $bio      = $entity->bio;
         $location = $entity->location;
-        $avatar   = $entity->avatarurl;
+        
+        if (!$avatar) {
+            $avatar = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        }
 
         $this->elementStart('div', 'entity_profile vcard');
         $this->elementStart('dl', 'entity_depiction');
         $this->element('dt', null, _('Photo'));
         $this->elementStart('dd');
-        if ($avatar) {
-            $this->element('img', array('src' => $avatar,
-                                        'class' => 'photo avatar',
-                                        'width' => AVATAR_PROFILE_SIZE,
-                                        'height' => AVATAR_PROFILE_SIZE,
-                                        'alt' => $nickname));
-        }
+        $this->element('img', array('src' => $avatar,
+                                    'class' => 'photo avatar',
+                                    'width' => AVATAR_PROFILE_SIZE,
+                                    'height' => AVATAR_PROFILE_SIZE,
+                                    'alt' => $nickname));
         $this->elementEnd('dd');
         $this->elementEnd('dl');
 
@@ -206,11 +214,11 @@ class OStatusSubAction extends Action
             $this->elementEnd('dl');
         }
 
-        if (!is_null($bio)) {
+        if (!is_null($note)) {
             $this->elementStart('dl', 'entity_note');
             $this->element('dt', null, _('Note'));
             $this->elementStart('dd', 'note');
-            $this->raw($bio);
+            $this->raw($note);
             $this->elementEnd('dd');
             $this->elementEnd('dl');
         }
@@ -368,7 +376,7 @@ class OStatusSubAction extends Action
         }
 
         if ($this->validateFeed()) {
-            if ($this->arg('subscribe')) {
+            if ($this->arg('submit')) {
                 $this->saveFeed();
                 return;
             }
@@ -424,7 +432,7 @@ class OStatusSubAction extends Action
 
     function showPageNotice()
     {
-        if ($this->error) {
+        if (!empty($this->error)) {
             $this->element('p', 'error', $this->error);
         }
     }
