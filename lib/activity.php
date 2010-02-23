@@ -104,6 +104,7 @@ class PoCo
     function __construct($profile)
     {
         $this->preferredUsername = $profile->nickname;
+        $this->displayName       = $profile->getBestName();
 
         $this->note    = $profile->bio;
         $this->address = new PoCoAddress($profile->location);
@@ -127,6 +128,12 @@ class PoCo
             'poco:preferredUsername',
             null,
             $this->preferredUsername
+        );
+
+        $xs->element(
+            'poco:displayName',
+            null,
+            $this->displayName
         );
 
         if (!empty($this->note)) {
