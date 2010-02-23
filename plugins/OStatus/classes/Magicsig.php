@@ -29,21 +29,53 @@
 
 require_once 'Crypt/RSA.php';
 
-class Magicsig
+class Magicsig extends Memcached_DataObject
 {
 
+    public $__table = 'magicsig';
+
+    public $user_id;
     public $keypair;
+    public $alg;
     
-    public function __construct($init = null)
+    private $_rsa;
+
+    public /*static*/ function staticGet($k, $v=null)
     {
-        if (is_null($init)) {
-            $this->generate();
-        } else {
-            $this->fromString($init);
-        }
+        return parent::staticGet(__CLASS__, $k, $v);
     }
 
 
+    function table()
+    {
+        return array(
+            'user_id' => DB_DATAOBJECT_INT,
+            'keypair' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+            'alg'     => DB_DATAOBJECT_STR
+        );
+    }
+
+    static function schemaDef()
+    {
+        return array(new ColumnDef('user_id', 'integer',
+                                   null, true, 'PRI'),
+                     new ColumnDef('keypair', 'varchar',
+                                   255, false),
+                     new ColumnDef('alg', 'varchar',
+                                   64, false));
+    }
+
+
+    function keys()
+    {
+        return array_keys($this->keyTypes());
+    }
+
+    function keyTypes()
+    {
+        return array('user_id' => 'K');
+    }
+    
     public function generate($key_length = 512)
     {
         $keypair = new Crypt_RSA_KeyPair($key_length);
