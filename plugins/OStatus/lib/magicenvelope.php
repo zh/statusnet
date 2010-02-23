@@ -27,8 +27,6 @@
  * @link      http://status.net/
  */
 
-require_once 'magicsig.php';
-
 class MagicEnvelope
 {
     const ENCODING = 'base64url';
@@ -64,7 +62,7 @@ class MagicEnvelope
             return false;
         }
 
-        $signature_alg = new MagicsigRsaSha256($this->getKeyPair($signer_uri));
+        $signature_alg = Magicsig::fromString($this->getKeyPair($signer_uri));
         $armored_text = base64_encode($text);
 
         return array(
@@ -139,7 +137,7 @@ class MagicEnvelope
         $text = base64_decode($env['data']);
         $signer_uri = $this->getAuthor($text);
 
-        $verifier = new MagicsigRsaSha256($this->getKeyPair($signer_uri));
+        $verifier = Magicsig::fromString($this->getKeyPair($signer_uri));
 
         return $verifier->verify($env['data'], $env['sig']);
     }
