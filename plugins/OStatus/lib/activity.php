@@ -31,10 +31,117 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+class PoCoURL
+{
+    const TYPE      = 'type';
+    const VALUE     = 'value';
+    const PRIMARY   = 'primary';
+
+    public $type;
+    public $value;
+    public $primary;
+
+    function __construct($type, $value, $primary = false)
+    {
+        $this->type    = $type;
+        $this->value   = $value;
+        $this->primary = $primary;
+    }
+
+    function asString()
+    {
+        $xs = new XMLStringer(true);
+        $xs->elementStart('poco:urls');
+        $xs->element('poco:type', null, $this->type);
+        $xs->element('poco:value', null, $this->value);
+        if ($this->primary) {
+            $xs->element('poco:primary', null, 'true');
+        }
+        $xs->elementEnd('poco:urls');
+        return $xs->getString();
+    }
+}
+
+class PoCoAddress
+{
+    const ADDRESS   = 'address';
+    const FORMATTED = 'formatted';
+
+    public $formatted;
+
+    function __construct($formatted)
+    {
+        if (empty($formatted)) {
+            return null;
+        }
+        $this->formatted = $formatted;
+    }
+
+    function asString()
+    {
+        $xs = new XMLStringer(true);
+        $xs->elementStart('poco:address');
+        $xs->element('poco:formatted', null, $this->formatted);
+        $xs->elementEnd('poco:address');
+        return $xs->getString();
+    }
+}
+
 class PoCo
 {
     const NS = 'http://portablecontacts.net/spec/1.0';
-    const USERNAME = 'preferredUsername';
+
+    const USERNAME  = 'preferredUsername';
+    const NOTE      = 'note';
+    const URLS      = 'urls';
+
+    public $preferredUsername;
+    public $note;
+    public $address;
+    public $urls = array();
+
+    function __construct($profile)
+    {
+        $this->preferredUsername = $profile->nickname;
+
+        $this->note    = $profile->bio;
+        $this->address = new PoCoAddress($profile->location);
+
+        if (!empty($profile->homepage)) {
+            array_push(
+                $this->urls,
+                new PoCoURL(
+                    'homepage',
+                    $profile->homepage,
+                    true
+                )
+            );
+        }
+    }
+
+    function asString()
+    {
+        $xs = new XMLStringer(true);
+        $xs->element(
+            'poco:preferredUsername',
+            null,
+            $this->preferredUsername
+        );
+
+        if (!empty($this->note)) {
+            $xs->element('poco:note', null, $this->note);
+        }
+
+        if (!empty($this->address)) {
+            $xs->raw($this->address->asString());
+        }
+
+        foreach ($this->urls as $url) {
+            $xs->raw($url->asString());
+        }
+
+        return $xs->getString();
+    }
 }
 
 /**
@@ -265,6 +372,7 @@ class ActivityObject
     public $link;
     public $source;
     public $avatar;
+    public $geopoint;
 
     /**
      * Constructor
@@ -371,10 +479,17 @@ class ActivityObject
     {
         $object = new ActivityObject();
 
-        $object->type  = ActivityObject::PERSON;
-        $object->id    = $profile->getUri();
-        $object->title = $profile->getBestName();
-        $object->link  = $profile->profileurl;
+        $object->type   = ActivityObject::PERSON;
+        $object->id     = $profile->getUri();
+        $object->title  = $profile->getBestName();
+        $object->link   = $profile->profileurl;
+        $object->avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+        if (isset($profile->lat) && isset($profile->lon)) {
+            $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
+        }
+
+        $object->poco = new PoCo($profile);
 
         return $object;
     }
@@ -404,7 +519,32 @@ class ActivityObject
 
         if (!empty($this->link)) {
             $xs->element('link', array('rel' => 'alternate', 'type' => 'text/html'),
-                         $this->content);
+                         $this->link);
+        }
+
+        if ($this->type == ActivityObject::PERSON) {
+            $xs->element(
+                'link', array(
+                    'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
+                    'rel'  => 'avatar',
+                    'href' => empty($this->avatar)
+                    ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
+                    : $this->avatar->displayUrl()
+                ),
+                ''
+            );
+        }
+
+        if (!empty($this->geopoint)) {
+            $xs->element(
+                'georss:point',
+                null,
+                $this->geopoint
+            );
+        }
+
+        if (!empty($this->poco)) {
+            $xs->raw($this->poco->asString());
         }
 
         $xs->elementEnd($tag);
