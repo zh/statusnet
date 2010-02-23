@@ -324,11 +324,6 @@ class OStatusSubAction extends Action
         // And subscribe the current user to the local profile
         $user = common_current_user();
 
-        if (!$this->oprofile->subscribe()) {
-            $this->showForm(_m("Failed to set up server-to-server subscription."));
-            return;
-        }
-
         if ($this->oprofile->isGroup()) {
             $group = $this->oprofile->localGroup();
             if ($user->isMember($group)) {
