@@ -89,7 +89,7 @@ class Magicsig extends Memcached_DataObject
 
         return parent::insert();
     }
-    
+
     public function generate($key_length = 512)
     {
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
@@ -143,15 +143,15 @@ class Magicsig extends Memcached_DataObject
         $params['public_key'] = new Crypt_RSA_KEY($mod, $exp, 'public');
         if ($params['public_key']->isError()) {
             $error = $params['public_key']->getLastError();
-            print $error->getMessage();
-            exit;
+            common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
+            return false;
         }
         if ($private_exp) {
             $params['private_key'] = new Crypt_RSA_KEY($mod, $private_exp, 'private');
             if ($params['private_key']->isError()) {
                 $error = $params['private_key']->getLastError();
-                print $error->getMessage();
-                exit;
+                common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
+                return false;
             }
         }
 
@@ -182,6 +182,7 @@ class Magicsig extends Memcached_DataObject
         if ($this->_rsa->isError()) {
             $error = $this->_rsa->getLastError();
             common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
+            return false;
         }
 
         return $sig;
@@ -192,8 +193,8 @@ class Magicsig extends Memcached_DataObject
         $result =  $this->_rsa->validateSign($signed_bytes, $signature, null, 'sha256');
         if ($this->_rsa->isError()) {
             $error = $this->keypair->getLastError();
-            //common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
-            print $error->getMessage();
+            common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
+            return false;
         }
         return $result;
     }
