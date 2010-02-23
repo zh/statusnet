@@ -57,8 +57,10 @@ class MagicsigRsaSha256
         $keypair = new Crypt_RSA_KeyPair($key_length);
         $params['public_key'] = $keypair->getPublicKey();
         $params['private_key'] = $keypair->getPrivateKey();
-        
+
+        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
         $this->keypair = new Crypt_RSA($params);
+        PEAR::popErrorHandling();
     }
 
 
@@ -79,6 +81,8 @@ class MagicsigRsaSha256
     
     public function fromString($text)
     {
+        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
+
         // remove whitespace
         $text = preg_replace('/\s+/', '', $text);
 
@@ -86,7 +90,6 @@ class MagicsigRsaSha256
         if (!preg_match('/RSA\.([^\.]+)\.([^\.]+)(.([^\.]+))?/', $text, $matches)) {
             return false;
         }
-
         
         $mod = base64_url_decode($matches[1]);
         $exp = base64_url_decode($matches[2]);
@@ -110,6 +113,7 @@ class MagicsigRsaSha256
         }
 
         $this->keypair = new Crypt_RSA($params);
+        PEAR::popErrorHandling();
     }
 
     public function getName()
