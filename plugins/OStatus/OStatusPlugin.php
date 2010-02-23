@@ -224,7 +224,7 @@ class OStatusPlugin extends Plugin
      *
      */
 
-    function onEndFindMentions($sender, $text, &$mentions)
+    function onStartFindMentions($sender, $text, &$mentions)
     {
         preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
                        $text,
@@ -464,13 +464,12 @@ class OStatusPlugin extends Plugin
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
         if ($oprofile) {
             // Drop the PuSH subscription if there are no other subscribers.
-    
+
             $members = $group->getMembers(0, 1);
             if ($members->N == 0) {
                 common_log(LOG_INFO, "Unsubscribing from now-unused group feed $oprofile->feeduri");
                 $oprofile->unsubscribe();
             }
-
 
             $member = Profile::staticGet($user->id);
 
