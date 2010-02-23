@@ -29,15 +29,7 @@
 
 require_once 'Crypt/RSA.php';
 
-interface Magicsig
-{
-
-    public function sign($bytes);
-
-    public function verify($signed, $signature_b64);
-}
-
-class MagicsigRsaSha256
+class Magicsig
 {
 
     public $keypair;
