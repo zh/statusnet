@@ -24,70 +24,29 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+/**
+ * Key UI methods:
+ *
+ *  showInputForm() - form asking for a remote profile account or URL
+ *                    We end up back here on errors
+ *
+ *  showPreviewForm() - surrounding form for preview-and-confirm
+ *    previewUser() - display profile for a remote user
+ *    previewGroup() - display profile for a remote group
+ *
+ *  successUser() - redirects to subscriptions page on subscribe
+ *  successGroup() - redirects to groups page on join
+ */
 class OStatusSubAction extends Action
 {
-    protected $profile_uri;
-    protected $preview;
-    protected $munger;
+    protected $profile_uri; // provided acct: or URI of remote entity
+    protected $oprofile; // Ostatus_profile of remote entity, if valid
 
     /**
-     * Title of the page
-     *
-     * @return string Title of the page
+     * Show the initial form, when we haven't yet been given a valid
+     * remote profile.
      */
-
-    function title()
-    {
-        return _m('Authorize subscription');
-    }
-
-    /**
-     * Instructions for use
-     *
-     * @return instructions for use
-     */
-
-    function getInstructions()
-    {
-        return _m('You can subscribe to users from other supported sites. Paste their address or profile URI below:');
-    }
-
-    function showForm($error=null)
-    {
-        $this->error = $error;
-        if ($this->boolean('ajax')) {
-            header('Content-Type: text/xml;charset=utf-8');
-            $this->xw->startDocument('1.0', 'UTF-8');
-            $this->elementStart('html');
-            $this->elementStart('head');
-            $this->element('title', null, _m('Subscribe to user'));
-            $this->elementEnd('head');
-            $this->elementStart('body');
-            $this->showContent();
-            $this->elementEnd('body');
-            $this->elementEnd('html');
-        } else {
-            $this->showPage();
-        }
-    }
-
-    function showPageNotice()
-    {
-        if ($this->error) {
-            $this->element('p', 'error', $this->error);
-        }
-    }
-
-    /**
-     * Content area of the page
-     *
-     * Shows a form for associating a remote OStatus account with this
-     * StatusNet account.
-     *
-     * @return void
-     */
-
-    function showContent()
+    function showInputForm()
     {
         $user = common_current_user();
 
@@ -112,18 +71,167 @@ class OStatusSubAction extends Action
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        if ($this->preview) {
-            $this->submit('subscribe', _m('Subscribe'));
-        } else {
-            $this->submit('validate', _m('Continue'));
-        }
+        $this->submit('validate', _m('Continue'));
 
         $this->elementEnd('fieldset');
 
         $this->elementEnd('form');
+    }
 
-        if ($this->preview) {
-            $this->previewFeed();
+    /**
+     * Show the preview-and-confirm form. We've got a valid remote
+     * profile and are ready to poke it!
+     *
+     * This controls the wrapper form; actual profile display will
+     * be in previewUser() or previewGroup() depending on the type.
+     */
+    function showPreviewForm()
+    {
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_ostatus_sub',
+                                          'class' => 'form_settings',
+                                          'action' =>
+                                          common_local_url('ostatussub')));
+
+        $this->hidden('token', common_session_token());
+        $this->hidden('profile', $this->profile_uri);
+
+        $this->elementStart('fieldset', array('id' => 'settings_feeds'));
+
+        if ($this->oprofile->isGroup()) {
+            $this->previewGroup();
+            $this->submit('subscribe', _m('Join'));
+        } else {
+            $this->previewUser();
+            $this->submit('subscribe', _m('Subscribe'));
+        }
+
+
+        $this->elementEnd('fieldset');
+
+        $this->elementEnd('form');
+    }
+
+    /**
+     * Show a preview for a remote user's profile
+     */
+    function previewUser()
+    {
+        $oprofile = $this->oprofile;
+        $profile = $oprofile->localProfile();
+
+        $this->text(sprintf(_m("Remote user %s"), $profile->nickname));
+        // ...
+    }
+
+    /**
+     * Show a preview for a remote group's profile
+     */
+    function previewGroup()
+    {
+        $oprofile = $this->oprofile;
+        $group = $oprofile->localGroup();
+
+        $this->text(sprintf(_m("Remote group %s"), $group->nickname));
+        // ..
+    }
+
+    /**
+     * Redirect on successful remote user subscription
+     */
+    function successUser()
+    {
+        $cur = common_current_user();
+        $url = common_local_url('subscriptions', array('nickname' => $cur->nickname));
+        common_redirect($url, 303);
+    }
+
+    /**
+     * Redirect on successful remote group join
+     */
+    function successGroup()
+    {
+        $cur = common_current_user();
+        $url = common_local_url('usergroups', array('nickname' => $cur->nickname));
+        common_redirect($url, 303);
+    }
+
+    /**
+     * Pull data for a remote profile and check if it's valid.
+     * Fills out error UI string in $this->error
+     * Fills out $this->oprofile on success.
+     *
+     * @return boolean
+     */
+    function validateFeed()
+    {
+        $profile_uri = trim($this->arg('profile'));
+
+        if ($profile_uri == '') {
+            $this->showForm(_m('Empty remote profile URL!'));
+            return;
+        }
+        $this->profile_uri = $profile_uri;
+
+        // @fixme validate, normalize bla bla
+        try {
+            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+            $this->oprofile = $oprofile;
+            return true;
+        } catch (FeedSubBadURLException $e) {
+            $this->error = _m('Invalid URL or could not reach server.');
+        } catch (FeedSubBadResponseException $e) {
+            $this->error = _m('Cannot read feed; server returned error.');
+        } catch (FeedSubEmptyException $e) {
+            $this->error = _m('Cannot read feed; server returned an empty page.');
+        } catch (FeedSubBadHTMLException $e) {
+            $this->error = _m('Bad HTML, could not find feed link.');
+        } catch (FeedSubNoFeedException $e) {
+            $this->error = _m('Could not find a feed linked from this URL.');
+        } catch (FeedSubUnrecognizedTypeException $e) {
+            $this->error = _m('Not a recognized feed type.');
+        } catch (FeedSubException $e) {
+            // Any new ones we forgot about
+            $this->error = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
+        }
+
+        return false;
+    }
+
+    /**
+     * Attempt to finalize subscription.
+     * validateFeed must have been run first.
+     *
+     * Calls showForm on failure or successUser/successGroup on success.
+     */
+    function saveFeed()
+    {
+        // And subscribe the current user to the local profile
+        $user = common_current_user();
+
+        if (!$this->oprofile->subscribe()) {
+            $this->showForm(_m("Failed to set up server-to-server subscription."));
+            return;
+        }
+
+        if ($this->oprofile->isGroup()) {
+            $group = $this->oprofile->localGroup();
+            if ($user->isMember($group)) {
+                $this->showForm(_m('Already a member!'));
+            } elseif (Group_member::join($this->oprofile->group_id, $user->id)) {
+                $this->successGroup();
+            } else {
+                $this->showForm(_m('Remote group join failed!'));
+            }
+        } else {
+            $local = $this->oprofile->localProfile();
+            if ($user->isSubscribed($local)) {
+                $this->showForm(_m('Already subscribed!'));
+            } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
+                $this->successUser();
+            } else {
+                $this->showForm(_m('Remote subscription failed!'));
+            }
         }
     }
 
@@ -145,27 +253,25 @@ class OStatusSubAction extends Action
         return true;
     }
 
+    /**
+     * Handle the submission.
+     */
     function handle($args)
     {
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
         } else {
-            if ($this->profile_uri) {
-                $this->validateAndPreview();
-            } else {
-                $this->showForm();
+            if ($this->arg('profile')) {
+                $this->validateFeed();
             }
+            $this->showForm();
         }
     }
 
+
     /**
      * Handle posts to this form
-     *
-     * Based on the button that was pressed, muxes out to other functions
-     * to do the actual task requested.
-     *
-     * All sub-functions reload the form with a message -- success or failure.
      *
      * @return void
      */
@@ -180,103 +286,84 @@ class OStatusSubAction extends Action
             return;
         }
 
-        if ($this->arg('validate')) {
-            $this->validateAndPreview();
-        } else if ($this->arg('subscribe')) {
-            $this->saveFeed();
+        if ($this->validateFeed()) {
+            if ($this->arg('subscribe')) {
+                $this->saveFeed();
+                return;
+            }
+        }
+        $this->showForm();
+    }
+
+    /**
+     * Show the appropriate form based on our input state.
+     */
+    function showForm($err=null)
+    {
+        if ($err) {
+            $this->error = $err;
+        }
+        if ($this->boolean('ajax')) {
+            header('Content-Type: text/xml;charset=utf-8');
+            $this->xw->startDocument('1.0', 'UTF-8');
+            $this->elementStart('html');
+            $this->elementStart('head');
+            $this->element('title', null, _m('Subscribe to user'));
+            $this->elementEnd('head');
+            $this->elementStart('body');
+            $this->showContent();
+            $this->elementEnd('body');
+            $this->elementEnd('html');
         } else {
-            $this->showForm(_('Unexpected form submission.'));
+            $this->showPage();
         }
     }
 
     /**
-     * Set up and add a feed
+     * Title of the page
      *
-     * @return boolean true if feed successfully read
-     * Sends you back to input form if not.
+     * @return string Title of the page
      */
-    function validateFeed()
+
+    function title()
     {
-        $profile_uri = trim($this->arg('profile'));
-
-        if ($profile_uri == '') {
-            $this->showForm(_m('Empty remote profile URL!'));
-            return;
-        }
-        $this->profile_uri = $profile_uri;
-
-        // @fixme validate, normalize bla bla
-        try {
-            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
-            $this->oprofile = $oprofile;
-            return true;
-        } catch (FeedSubBadURLException $e) {
-            $err = _m('Invalid URL or could not reach server.');
-        } catch (FeedSubBadResponseException $e) {
-            $err = _m('Cannot read feed; server returned error.');
-        } catch (FeedSubEmptyException $e) {
-            $err = _m('Cannot read feed; server returned an empty page.');
-        } catch (FeedSubBadHTMLException $e) {
-            $err = _m('Bad HTML, could not find feed link.');
-        } catch (FeedSubNoFeedException $e) {
-            $err = _m('Could not find a feed linked from this URL.');
-        } catch (FeedSubUnrecognizedTypeException $e) {
-            $err = _m('Not a recognized feed type.');
-        } catch (FeedSubException $e) {
-            // Any new ones we forgot about
-            $err = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
-        }
-
-        $this->showForm($err);
-        return false;
+        return _m('Authorize subscription');
     }
 
-    function saveFeed()
+    /**
+     * Instructions for use
+     *
+     * @return instructions for use
+     */
+
+    function getInstructions()
     {
-        if ($this->validateFeed()) {
-            $this->preview = true;
+        return _m('You can subscribe to users from other supported sites. Paste their address or profile URI below:');
+    }
 
-            // And subscribe the current user to the local profile
-            $user = common_current_user();
-
-            if (!$this->oprofile->subscribe()) {
-                $this->showForm(_m("Failed to set up server-to-server subscription."));
-                return;
-            }
-
-            if ($this->oprofile->isGroup()) {
-                $group = $this->oprofile->localGroup();
-                if ($user->isMember($group)) {
-                    $this->showForm(_m('Already a member!'));
-                } elseif (Group_member::join($this->oprofile->group_id, $user->id)) {
-                    $this->showForm(_m('Joined remote group!'));
-                } else {
-                    $this->showForm(_m('Remote group join failed!'));
-                }
-            } else {
-                $local = $this->oprofile->localProfile();
-                if ($user->isSubscribed($local)) {
-                    $this->showForm(_m('Already subscribed!'));
-                } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
-                    $this->showForm(_m('Remote user subscribed!'));
-                } else {
-                    $this->showForm(_m('Remote subscription failed!'));
-                }
-            }
+    function showPageNotice()
+    {
+        if ($this->error) {
+            $this->element('p', 'error', $this->error);
         }
     }
 
-    function validateAndPreview()
-    {
-        if ($this->validateFeed()) {
-            $this->preview = true;
-            $this->showForm();
-        }
-    }
+    /**
+     * Content area of the page
+     *
+     * Shows a form for associating a remote OStatus account with this
+     * StatusNet account.
+     *
+     * @return void
+     */
 
-    function previewFeed()
+    function showContent()
     {
-        $this->text('Profile preview should go here');
+        if ($this->oprofile) {
+            $this->showPreviewForm();
+        } else {
+            $this->showInputForm();
+        }
     }
 
     function showScripts()
