@@ -187,7 +187,14 @@ class Notice extends Memcached_DataObject
      *              int 'location_ns' geoname namespace to interpret location_id
      *              int 'reply_to'; notice ID this is a reply to
      *              int 'repeat_of'; notice ID this is a repeat of
-     *              string 'uri' permalink to notice; defaults to local notice URL
+     *              string 'uri' unique ID for notice; defaults to local notice URL
+     *              string 'url' permalink to notice; defaults to local notice URL
+     *              string 'rendered' rendered HTML version of content
+     *              array 'replies' list of profile URIs for reply delivery in
+     *                              place of extracting @-replies from content.
+     *              array 'groups' list of group IDs to deliver to, in place of
+     *                              extracting ! tags from content
+     * @fixme tag override
      *
      * @return Notice
      * @throws ClientException
@@ -340,6 +347,12 @@ class Notice extends Memcached_DataObject
             $notice->saveKnownReplies($replies);
         } else {
             $notice->saveReplies();
+        }
+
+        if (isset($groups)) {
+            $notice->saveKnownGroups($groups);
+        } else {
+            $notice->saveGroups();
         }
 
         $notice->distribute();
@@ -692,7 +705,22 @@ class Notice extends Memcached_DataObject
         return $ni;
     }
 
-    function addToInboxes($groups, $recipients)
+    /**
+     * Adds this notice to the inboxes of each local user who should receive
+     * it, based on author subscriptions, group memberships, and @-replies.
+     *
+     * Warning: running a second time currently will make items appear
+     * multiple times in users' inboxes.
+     *
+     * @fixme make more robust against errors
+     * @fixme break up massive deliveries to smaller background tasks
+     *
+     * @param array $groups optional list of Group objects;
+     *              if left empty, will be loaded from group_inbox records
+     * @param array $recipient optional list of reply profile ids
+     *              if left empty, will be loaded from reply records
+     */
+    function addToInboxes($groups=null, $recipients=null)
     {
         $ni = $this->whoGets($groups, $recipients);
 
@@ -742,6 +770,42 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Record this notice to the given group inboxes for delivery.
+     * Overrides the regular parsing of !group markup.
+     *
+     * @param string $group_ids
+     * @fixme might prefer URIs as identifiers, as for replies?
+     *        best with generalizations on user_group to support
+     *        remote groups better.
+     */
+    function saveKnownGroups($group_ids)
+    {
+        if (!is_array($group_ids)) {
+            throw new ServerException("Bad type provided to saveKnownGroups");
+        }
+
+        $groups = array();
+        foreach ($group_ids as $id) {
+            $group = User_group::staticGet('id', $id);
+            if ($group) {
+                common_log(LOG_ERR, "Local delivery to group id $id, $group->nickname");
+                $result = $this->addToGroupInbox($group);
+                if (!$result) {
+                    common_log_db_error($gi, 'INSERT', __FILE__);
+                }
+
+                // @fixme should we save the tags here or not?
+                $groups[] = clone($group);
+            } else {
+                common_log(LOG_ERR, "Local delivery to group id $id skipped, doesn't exist");
+            }
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Parse !group delivery and record targets into group_inbox.
      * @return array of Group objects
      */
     function saveGroups()
@@ -824,6 +888,19 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    /**
+     * Save reply records indicating that this notice needs to be
+     * delivered to the local users with the given URIs.
+     *
+     * Since this is expected to be used when saving foreign-sourced
+     * messages, we won't deliver to any remote targets as that's the
+     * source service's responsibility.
+     *
+     * @fixme Unlike saveReplies() there's no mail notification here.
+     *        Move that to distrib queue handler?
+     *
+     * @param array of unique identifier URIs for recipients
+     */
     function saveKnownReplies($uris)
     {
         foreach ($uris as $uri) {
@@ -845,6 +922,13 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Pull @-replies from this message's content in StatusNet markup format
+     * and save reply records indicating that this message needs to be
+     * delivered to those users.
+     *
+     * Side effect: local recipients get e-mail notifications here.
+     * @fixme move mail notifications to distrib?
+     *
      * @return array of integer profile IDs
      */
 
@@ -934,9 +1018,10 @@ class Notice extends Memcached_DataObject
     }
 
     /**
-     * Same calculation as saveGroups but without the saving
-     * @fixme merge the functions
-     * @return array of Group_inbox objects
+     * Pull list of groups this notice needs to be delivered to,
+     * as previously recorded by saveGroups() or saveKnownGroups().
+     *
+     * @return array of Group objects
      */
     function getGroups()
     {
@@ -959,7 +1044,10 @@ class Notice extends Memcached_DataObject
 
         if ($gi->find()) {
             while ($gi->fetch()) {
-                $groups[] = clone($gi);
+                $group = User_group::staticGet('id', $gi->group_id);
+                if ($group) {
+                    $groups[] = $group;
+                }
             }
         }
 
@@ -1061,6 +1149,17 @@ class Notice extends Memcached_DataObject
                     )
                 );
             }
+        }
+
+        $groups = $this->getGroups();
+
+        foreach ($groups as $group) {
+            $xs->element(
+                'link', array(
+                    'rel' => 'ostatus:attention',
+                    'href' => $group->permalink()
+                )
+            );
         }
 
         if (!empty($this->repeat_of)) {

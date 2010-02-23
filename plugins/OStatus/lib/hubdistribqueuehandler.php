@@ -36,7 +36,7 @@ class HubDistribQueueHandler extends QueueHandler
 
         $this->pushUser($notice);
         foreach ($notice->getGroups() as $group) {
-            $this->pushGroup($notice, $group->group_id);
+            $this->pushGroup($notice, $group->id);
         }
         return true;
     }
