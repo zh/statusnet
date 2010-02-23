@@ -108,6 +108,10 @@ class Webfinger
 
         $content = $this->fetchURL($url);
 
+        if (!$content) {
+            return false;
+        }
+
         return XRD::parse($content);
     }
 
