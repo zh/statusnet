@@ -68,7 +68,7 @@ class PushCallbackAction extends Action
                       'post' => $post,
                       'hmac' => $hmac);
         $qm = QueueManager::get();
-        $qm->enqueue($data, 'pushinput');
+        $qm->enqueue($data, 'pushin');
     }
     
     /**

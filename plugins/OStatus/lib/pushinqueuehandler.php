@@ -18,27 +18,32 @@
  */
 
 /**
- * Send a Salmon notification in the background.
- * @package OStatusPlugin
+ * Process a feed distribution POST from a PuSH hub.
+ * @package FeedSub
  * @author Brion Vibber <brion@status.net>
  */
-class SalmonOutQueueHandler extends QueueHandler
+
+class PushInQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'salmonout';
+        return 'pushin';
     }
 
     function handle($data)
     {
         assert(is_array($data));
-        assert(is_string($data['salmonuri']));
-        assert(is_string($data['entry']));
 
-        $salmon = new Salmon();
-        $salmon->post($data['salmonuri'], $data['entry']);
+        $feedsub_id = $data['feedsub_id'];
+        $post = $data['post'];
+        $hmac = $data['hmac'];
 
-        // @fixme detect failure and attempt to resend
+        $feedsub = FeedSub::staticGet('id', $feedsub_id);
+        if ($feedsub) {
+            $feedsub->receive($post, $hmac);
+        } else {
+            common_log(LOG_ERR, "Discarding POST to unknown feed subscription id $feedsub_id");
+        }
         return true;
     }
 }

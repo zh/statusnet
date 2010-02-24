@@ -18,37 +18,27 @@
  */
 
 /**
- * Send a PuSH subscription verification from our internal hub.
- * @package Hub
+ * Send a Salmon notification in the background.
+ * @package OStatusPlugin
  * @author Brion Vibber <brion@status.net>
  */
-class HubVerifyQueueHandler extends QueueHandler
+class SalmonQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'hubverify';
+        return 'salmon';
     }
 
     function handle($data)
     {
-        $sub = $data['sub'];
-        $mode = $data['mode'];
-        $token = $data['token'];
+        assert(is_array($data));
+        assert(is_string($data['salmonuri']));
+        assert(is_string($data['entry']));
 
-        assert($sub instanceof HubSub);
-        assert($mode === 'subscribe' || $mode === 'unsubscribe');
+        $salmon = new Salmon();
+        $salmon->post($data['salmonuri'], $data['entry']);
 
-        common_log(LOG_INFO, __METHOD__ . ": $mode $sub->callback $sub->topic");
-        try {
-            $sub->verify($mode, $token);
-        } catch (Exception $e) {
-            common_log(LOG_ERR, "Failed PuSH $mode verify to $sub->callback for $sub->topic: " .
-                                $e->getMessage());
-            // @fixme schedule retry?
-            // @fixme just kill it?
-        }
-
+        // @fixme detect failure and attempt to resend
         return true;
     }
 }
-

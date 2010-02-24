@@ -1119,12 +1119,16 @@ function common_enqueue_notice($notice)
     return true;
 }
 
-function common_broadcast_profile($profile)
+/**
+ * Broadcast profile updates to OMB and other remote subscribers.
+ *
+ * Since this may be slow with a lot of subscribers or bad remote sites,
+ * this is run through the background queues if possible.
+ */
+function common_broadcast_profile(Profile $profile)
 {
-    // XXX: optionally use a queue system like http://code.google.com/p/microapps/wiki/NQDQ
-    require_once(INSTALLDIR.'/lib/omb.php');
-    omb_broadcast_profile($profile);
-    // XXX: Other broadcasts...?
+    $qm = QueueManager::get();
+    $qm->enqueue($profile, "profile");
     return true;
 }
 

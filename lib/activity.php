@@ -691,6 +691,9 @@ class ActivityVerb
     const UNFAVORITE = 'http://ostatus.org/schema/1.0/unfavorite';
     const UNFOLLOW   = 'http://ostatus.org/schema/1.0/unfollow';
     const LEAVE      = 'http://ostatus.org/schema/1.0/leave';
+
+    // For simple profile-update pings; no content to share.
+    const UPDATE_PROFILE = 'http://ostatus.org/schema/1.0/update-profile';
 }
 
 class ActivityContext

@@ -82,14 +82,14 @@ class OStatusPlugin extends Plugin
         $qm->connect('ostatus', 'OStatusQueueHandler');
 
         // Outgoing from our internal PuSH hub
-        $qm->connect('hubverify', 'HubVerifyQueueHandler');
+        $qm->connect('hubconf', 'HubConfQueueHandler');
         $qm->connect('hubout', 'HubOutQueueHandler');
 
         // Outgoing Salmon replies (when we don't need a return value)
-        $qm->connect('salmonout', 'SalmonOutQueueHandler');
+        $qm->connect('salmon', 'SalmonQueueHandler');
 
         // Incoming from a foreign PuSH hub
-        $qm->connect('pushinput', 'PushInputQueueHandler');
+        $qm->connect('pushin', 'PushInQueueHandler');
         return true;
     }
 
@@ -660,6 +660,53 @@ class OStatusPlugin extends Plugin
                                 , _m('Subscribe to remote user'));
             $action->elementEnd('p');
             $action->elementEnd('div');
+        }
+
+        return true;
+    }
+
+    /**
+     * Ping remote profiles with updates to this profile.
+     * Salmon pings are queued for background processing.
+     */
+    function onEndBroadcastProfile(Profile $profile)
+    {
+        $user = User::staticGet('id', $profile->id);
+
+        // Find foreign accounts I'm subscribed to that support Salmon pings.
+        //
+        // @fixme we could run updates through the PuSH feed too,
+        // in which case we can skip Salmon pings to folks who
+        // are also subscribed to me.
+        $sql = "SELECT * FROM ostatus_profile " .
+               "WHERE profile_id IN " .
+               "(SELECT subscribed FROM subscription WHERE subscriber=%d) " .
+               "OR group_id IN " .
+               "(SELECT group_id FROM group_member WHERE profile_id=%d)";
+        $oprofile = new Ostatus_profile();
+        $oprofile->query(sprintf($sql, $profile->id, $profile->id));
+
+        if ($oprofile->N == 0) {
+            common_log(LOG_DEBUG, "No OStatus remote subscribees for $profile->nickname");
+            return true;
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UPDATE_PROFILE;
+        $act->id   = TagURI::mint('update-profile:%d:%s',
+                                  $profile->id,
+                                  common_date_iso8601(time()));
+        $act->time    = time();
+        $act->title   = _m("Profile update");
+        $act->content = sprintf(_m("%s has updated their profile page."),
+                               $profile->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = $act->actor;
+
+        while ($oprofile->fetch()) {
+            $oprofile->notifyDeferred($act);
         }
 
         return true;
