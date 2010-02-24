@@ -46,6 +46,11 @@ class GroupsalmonAction extends SalmonAction
             $this->clientError(_('No such group.'));
         }
 
+        $oprofile = Ostatus_profile::staticGet('group_id', $id);
+        if ($oprofile) {
+            $this->clientError(_m("Can't accept remote posts for a remote group."));
+        }
+
         return true;
     }
 
@@ -74,13 +79,13 @@ class GroupsalmonAction extends SalmonAction
             throw new ClientException("Not to the attention of anyone.");
         } else {
             $uri = common_local_url('groupbyid', array('id' => $this->group->id));
-            if (!in_array($context->attention, $uri)) {
+            if (!in_array($uri, $context->attention)) {
                 throw new ClientException("Not to the attention of this group.");
             }
         }
 
         $profile = $this->ensureProfile();
-        // @fixme save the post
+        $this->saveNotice();
     }
 
     /**
