@@ -18,32 +18,37 @@
  */
 
 /**
- * Process a feed distribution POST from a PuSH hub.
- * @package FeedSub
+ * Send a PuSH subscription verification from our internal hub.
+ * @package Hub
  * @author Brion Vibber <brion@status.net>
  */
-
-class PushInputQueueHandler extends QueueHandler
+class HubConfQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'pushinput';
+        return 'hubconf';
     }
 
     function handle($data)
     {
-        assert(is_array($data));
+        $sub = $data['sub'];
+        $mode = $data['mode'];
+        $token = $data['token'];
 
-        $feedsub_id = $data['feedsub_id'];
-        $post = $data['post'];
-        $hmac = $data['hmac'];
+        assert($sub instanceof HubSub);
+        assert($mode === 'subscribe' || $mode === 'unsubscribe');
 
-        $feedsub = FeedSub::staticGet('id', $feedsub_id);
-        if ($feedsub) {
-            $feedsub->receive($post, $hmac);
-        } else {
-            common_log(LOG_ERR, "Discarding POST to unknown feed subscription id $feedsub_id");
+        common_log(LOG_INFO, __METHOD__ . ": $mode $sub->callback $sub->topic");
+        try {
+            $sub->verify($mode, $token);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Failed PuSH $mode verify to $sub->callback for $sub->topic: " .
+                                $e->getMessage());
+            // @fixme schedule retry?
+            // @fixme just kill it?
         }
+
         return true;
     }
 }
+

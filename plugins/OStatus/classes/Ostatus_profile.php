@@ -431,19 +431,55 @@ class Ostatus_profile extends Memcached_DataObject
         return false;
     }
 
-    public function notifyActivity($activity)
+    /**
+     * Send a Salmon notification ping immediately, and confirm that we got
+     * an acceptable response from the remote site.
+     *
+     * @param mixed $entry XML string, Notice, or Activity
+     * @return boolean success
+     */
+    public function notifyActivity($entry)
     {
         if ($this->salmonuri) {
-
-            $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>' .
-                          $activity->asString(true);
-
-            $salmon = new Salmon(); // ?
-
-            return $salmon->post($this->salmonuri, $xml);
+            $salmon = new Salmon();
+            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry));
         }
 
         return false;
+    }
+
+    /**
+     * Queue a Salmon notification for later. If queues are disabled we'll
+     * send immediately but won't get the return value.
+     *
+     * @param mixed $entry XML string, Notice, or Activity
+     * @return boolean success
+     */
+    public function notifyDeferred($entry)
+    {
+        if ($this->salmonuri) {
+            $data = array('salmonuri' => $this->salmonuri,
+                          'entry' => $this->notifyPrepXml($entry));
+
+            $qm = QueueManager::get();
+            return $qm->enqueue($data, 'salmon');
+        }
+
+        return false;
+    }
+
+    protected function notifyPrepXml($entry)
+    {
+        $preamble = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
+        if (is_string($entry)) {
+            return $entry;
+        } else if ($entry instanceof Activity) {
+            return $preamble . $entry->asString(true);
+        } else if ($entry instanceof Notice) {
+            return $preamble . $entry->asAtomEntry(true, true);
+        } else {
+            throw new ServerException("Invalid type passed to Ostatus_profile::notify; must be XML string or Activity entry");
+        }
     }
 
     function getBestName()

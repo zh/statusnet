@@ -83,23 +83,11 @@ class OStatusQueueHandler extends QueueHandler
     function pingReply($oprofile)
     {
         if ($this->user) {
-            if (!empty($oprofile->salmonuri)) {
-                // For local posts, send a Salmon ping to the mentioned
-                // remote user or group.
-                // @fixme as an optimization we can skip this if the
-                // remote profile is subscribed to the author.
-
-                common_log(LOG_INFO, "Prepping to send notice '{$this->notice->uri}' to remote profile '{$oprofile->uri}'.");
-
-                $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
-                $xml .= $this->notice->asAtomEntry(true, true);
-
-                $data = array('salmonuri' => $oprofile->salmonuri,
-                              'entry' => $xml);
-
-                $qm = QueueManager::get();
-                $qm->enqueue($data, 'salmonout');
-            }
+            // For local posts, send a Salmon ping to the mentioned
+            // remote user or group.
+            // @fixme as an optimization we can skip this if the
+            // remote profile is subscribed to the author.
+            $oprofile->notifyDeferred($this->notice);
         }
     }
 
