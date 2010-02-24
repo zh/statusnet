@@ -971,7 +971,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param Activity $activity
      * @return mixed matching Ostatus_profile or false if none known
      */
-    protected static function getActorProfile($activity)
+    public static function getActorProfile($activity)
     {
         return self::getActivityObjectProfile($activity->actor);
     }
@@ -1109,7 +1109,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param ActivityObject $object
      * @param array $hints
      */
-    protected function updateFromActivityObject($object, $hints=array())
+    public function updateFromActivityObject($object, $hints=array())
     {
         if ($this->isGroup()) {
             $group = $this->localGroup();
