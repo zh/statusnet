@@ -288,10 +288,15 @@ class OStatusSubAction extends Action
         }
         $this->profile_uri = $profile_uri;
 
-        // @fixme validate, normalize bla bla
         try {
-            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
-            $this->oprofile = $oprofile;
+            if (Validate::email($this->profile_uri)) {
+                $this->oprofile = Ostatus_profile::ensureWebfinger($this->profile_uri);
+            } else if (Validate::uri($this->profile_uri)) {
+                $this->oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+            } else {
+                $this->error = _m("Invalid address format.");
+                return false;
+            }
             return true;
         } catch (FeedSubBadURLException $e) {
             $this->error = _m('Invalid URL or could not reach server.');
