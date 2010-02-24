@@ -33,6 +33,7 @@ class Ostatus_profile extends Memcached_DataObject
 
     public $feeduri;
     public $salmonuri;
+    public $avatar; // remote URL of the last avatar we saved
 
     public $created;
     public $modified;
@@ -58,6 +59,7 @@ class Ostatus_profile extends Memcached_DataObject
                      'group_id' => DB_DATAOBJECT_INT,
                      'feeduri' => DB_DATAOBJECT_STR,
                      'salmonuri' =>  DB_DATAOBJECT_STR,
+                     'avatar' =>  DB_DATAOBJECT_STR,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
@@ -73,6 +75,8 @@ class Ostatus_profile extends Memcached_DataObject
                      new ColumnDef('feeduri', 'varchar',
                                    255, true, 'UNI'),
                      new ColumnDef('salmonuri', 'text',
+                                   null, true),
+                     new ColumnDef('avatar', 'text',
                                    null, true),
                      new ColumnDef('created', 'datetime',
                                    null, false),
@@ -543,7 +547,8 @@ class Ostatus_profile extends Memcached_DataObject
             // through PuSH setup or Salmon signature checks.
             $actorUri = self::getActorProfileURI($activity);
             if ($actorUri == $this->uri) {
-                // @fixme check if profile info has changed and update it
+                // Check if profile info has changed and update it
+                $this->updateFromActivityObject($activity->actor);
             } else {
                 common_log(LOG_WARNING, "OStatus: skipping post with bad author: got $actorUri expected $this->uri");
                 return false;
@@ -785,6 +790,11 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function updateAvatar($url)
     {
+        if ($url == $this->avatar) {
+            // We've already got this one.
+            return;
+        }
+
         if ($this->isGroup()) {
             $self = $this->localGroup();
         } else {
@@ -816,12 +826,28 @@ class Ostatus_profile extends Memcached_DataObject
                                      common_timestamp());
         rename($temp_filename, Avatar::path($filename));
         $self->setOriginal($filename);
+
+        $orig = clone($this);
+        $this->avatar = $url;
+        $this->update($orig);
     }
 
-    protected static function getActivityObjectAvatar($object)
+    /**
+     * Pull avatar URL from ActivityObject or profile hints
+     *
+     * @param ActivityObject $object
+     * @param array $hints
+     * @return mixed URL string or false
+     */
+
+    protected static function getActivityObjectAvatar($object, $hints=array())
     {
-        // XXX: go poke around in the feed
-        return $object->avatar;
+        if ($object->avatar) {
+            return $object->avatar;
+        } else if (array_key_exists('avatar', $hints)) {
+            return $hints['avatar'];
+        }
+        return false;
     }
 
     /**
@@ -888,7 +914,9 @@ class Ostatus_profile extends Memcached_DataObject
     public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
-        if (!$profile) {
+        if ($profile) {
+            $profile->updateFromActivityObject($object, $hints);
+        } else {
             $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri, $hints);
         }
         return $profile;
@@ -957,8 +985,6 @@ class Ostatus_profile extends Memcached_DataObject
     protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $homeuri  = $object->id;
-        $nickname = self::getActivityObjectNickname($object, $hints);
-        $avatar   = self::getActivityObjectAvatar($object);
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
@@ -1002,43 +1028,19 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($object->type == ActivityObject::PERSON) {
             $profile = new Profile();
-            $profile->nickname   = $nickname;
-            $profile->fullname   = $object->title;
-            if (!empty($object->link)) {
-                $profile->profileurl = $object->link;
-            } else if (array_key_exists('profileurl', $hints)) {
-                $profile->profileurl = $hints['profileurl'];
-            }
-            $profile->created    = common_sql_now();
-    
-            // @fixme bio
-            // @fixme tags/categories
-            // @fixme location?
-            // @todo tags from categories
-            // @todo lat/lon/location?
-    
+            self::updateProfile($profile, $object, $hints);
+            $profile->created  = common_sql_now();
+
             $oprofile->profile_id = $profile->insert();
-    
             if (!$oprofile->profile_id) {
                 throw new ServerException("Can't save local profile");
             }
         } else {
             $group = new User_group();
-            $group->nickname = $nickname;
-            $group->fullname = $object->title;
-            // @fixme no canonical profileurl; using homepage instead for now
-            $group->homepage = $homeuri;
             $group->created = common_sql_now();
-
-            // @fixme homepage
-            // @fixme bio
-            // @fixme tags/categories
-            // @fixme location?
-            // @todo tags from categories
-            // @todo lat/lon/location?
+            self::updateGroup($group, $object, $hints);
 
             $oprofile->group_id = $group->insert();
-
             if (!$oprofile->group_id) {
                 throw new ServerException("Can't save local profile");
             }
@@ -1047,6 +1049,7 @@ class Ostatus_profile extends Memcached_DataObject
         $ok = $oprofile->insert();
 
         if ($ok) {
+            $avatar = self::getActivityObjectAvatar($object, $hints);
             if ($avatar) {
                 $oprofile->updateAvatar($avatar);
             }
@@ -1056,8 +1059,82 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
+    /**
+     * Save any updated profile information to our local copy.
+     * @param ActivityObject $object
+     * @param array $hints
+     */
+    protected function updateFromActivityObject($object, $hints=array())
+    {
+        if ($this->isGroup()) {
+            $group = $this->localGroup();
+            self::updateGroup($group, $object, $hints);
+        } else {
+            $profile = $this->localProfile();
+            self::updateProfile($profile, $object, $hints);
+        }
+        $avatar = self::getActivityObjectAvatar($object, $hints);
+        if ($avatar) {
+            $this->updateAvatar($avatar);
+        }
+    }
+
+    protected static function updateProfile($profile, $object, $hints=array())
+    {
+        $orig = clone($profile);
+
+        $profile->nickname = self::getActivityObjectNickname($object, $hints);
+        $profile->fullname = $object->title;
+        if (!empty($object->link)) {
+            $profile->profileurl = $object->link;
+        } else if (array_key_exists('profileurl', $hints)) {
+            $profile->profileurl = $hints['profileurl'];
+        }
+
+        // @fixme bio
+        // @fixme tags/categories
+        // @fixme location?
+        // @todo tags from categories
+        // @todo lat/lon/location?
+
+        if ($profile->id) {
+            common_log(LOG_DEBUG, "Updating OStatus profile $profile->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
+            $profile->update($orig);
+        }
+    }
+
+    protected static function updateGroup($group, $object, $hints=array())
+    {
+        $orig = clone($group);
+
+        // @fixme need to make nick unique etc *hack hack*
+        $group->nickname = self::getActivityObjectNickname($object, $hints);
+        $group->fullname = $object->title;
+
+        // @fixme no canonical profileurl; using homepage instead for now
+        $group->homepage = $object->id;
+
+        // @fixme homepage
+        // @fixme bio
+        // @fixme tags/categories
+        // @fixme location?
+        // @todo tags from categories
+        // @todo lat/lon/location?
+
+        if ($group->id) {
+            common_log(LOG_DEBUG, "Updating OStatus group $group->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
+            $group->update($orig);
+        }
+    }
+
+
     protected static function getActivityObjectNickname($object, $hints=array())
     {
+        if ($object->poco) {
+            if (!empty($object->poco->preferredUsername)) {
+                return common_nicknamize($object->poco->preferredUsername);
+            }
+        }
         if (!empty($object->nickname)) {
             return common_nicknamize($object->nickname);
         }
