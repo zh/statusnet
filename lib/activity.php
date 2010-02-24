@@ -34,6 +34,7 @@ if (!defined('STATUSNET')) {
 
 class PoCoURL
 {
+    const URLS      = 'urls';
     const TYPE      = 'type';
     const VALUE     = 'value';
     const PRIMARY   = 'primary';
@@ -55,7 +56,7 @@ class PoCoURL
         $xs->elementStart('poco:urls');
         $xs->element('poco:type', null, $this->type);
         $xs->element('poco:value', null, $this->value);
-        if ($this->primary) {
+        if (!empty($this->primary)) {
             $xs->element('poco:primary', null, 'true');
         }
         $xs->elementEnd('poco:urls');
@@ -70,21 +71,19 @@ class PoCoAddress
 
     public $formatted;
 
-    function __construct($formatted)
-    {
-        if (empty($formatted)) {
-            return null;
-        }
-        $this->formatted = $formatted;
-    }
+    // @todo Other address fields
 
     function asString()
     {
-        $xs = new XMLStringer(true);
-        $xs->elementStart('poco:address');
-        $xs->element('poco:formatted', null, $this->formatted);
-        $xs->elementEnd('poco:address');
-        return $xs->getString();
+        if (!empty($this->formatted)) {
+            $xs = new XMLStringer(true);
+            $xs->elementStart('poco:address');
+            $xs->element('poco:formatted', null, $this->formatted);
+            $xs->elementEnd('poco:address');
+            return $xs->getString();
+        }
+
+        return null;
     }
 }
 
@@ -92,26 +91,117 @@ class PoCo
 {
     const NS = 'http://portablecontacts.net/spec/1.0';
 
-    const USERNAME  = 'preferredUsername';
-    const NOTE      = 'note';
-    const URLS      = 'urls';
+    const USERNAME     = 'preferredUsername';
+    const DISPLAYNAME  = 'displayName';
+    const NOTE         = 'note';
 
     public $preferredUsername;
+    public $displayName;
     public $note;
     public $address;
     public $urls = array();
 
-    function __construct($profile)
+    function __construct($element = null)
     {
-        $this->preferredUsername = $profile->nickname;
-        $this->displayName       = $profile->getBestName();
+        if (empty($element)) {
+            return;
+        }
 
-        $this->note    = $profile->bio;
-        $this->address = new PoCoAddress($profile->location);
+        $this->preferredUsername = ActivityUtils::childContent(
+            $element,
+            self::USERNAME,
+            self::NS
+        );
+
+        $this->displayName = ActivityUtils::childContent(
+            $element,
+            self::DISPLAYNAME,
+            self::NS
+        );
+
+        $this->note = ActivityUtils::childContent(
+            $element,
+            self::NOTE,
+            self::NS
+        );
+
+        $this->address = $this->_getAddress($element);
+        $this->urls = $this->_getURLs($element);
+    }
+
+    private function _getURLs($element)
+    {
+        $urlEls = $element->getElementsByTagnameNS(self::NS, PoCoURL::URLS);
+        $urls = array();
+
+        foreach ($urlEls as $urlEl) {
+
+            $type = ActivityUtils::childContent(
+                $urlEl,
+                PoCoURL::TYPE,
+                PoCo::NS
+            );
+
+            $value = ActivityUtils::childContent(
+                $urlEl,
+                PoCoURL::VALUE,
+                PoCo::NS
+            );
+
+            $primary = ActivityUtils::childContent(
+                $urlEl,
+                PoCoURL::PRIMARY,
+                PoCo::NS
+            );
+
+            array_push($urls, new PoCoURL($type, $value, $primary));
+        }
+        return $urls;
+    }
+
+    private function _getAddress($element)
+    {
+        $addressEl = ActivityUtils::child(
+            $element,
+            PoCoAddress::ADDRESS,
+            PoCo::NS
+        );
+
+        $formatted = ActivityUtils::childContent(
+            $addressEl,
+            PoCoAddress::FORMATTED,
+            self::NS
+        );
+
+        if (!empty($formatted)) {
+            $address = new PoCoAddress();
+            $address->formatted = $formatted;
+            return $address;
+        }
+
+        return null;
+    }
+
+    function fromProfile($profile)
+    {
+        if (empty($profile)) {
+            return null;
+        }
+
+        $poco = new PoCo();
+
+        $poco->preferredUsername = $profile->nickname;
+        $poco->displayName       = $profile->getBestName();
+
+        $poco->note = $profile->bio;
+
+        $paddy = new PoCoAddress();
+        $paddy->formatted = $profile->location;
+        $poco->address = $paddy;
 
         if (!empty($profile->homepage)) {
             array_push(
-                $this->urls,
+                $poco->urls,
                 new PoCoURL(
                     'homepage',
                     $profile->homepage,
@@ -119,6 +209,8 @@ class PoCo
                 )
             );
         }
+
+        return $poco;
     }
 
     function asString()
@@ -381,6 +473,8 @@ class ActivityObject
     public $source;
     public $avatar;
     public $geopoint;
+    public $poco;
+    public $displayName;
 
     /**
      * Constructor
@@ -433,7 +527,6 @@ class ActivityObject
 
             $this->link = ActivityUtils::getPermalink($element);
 
-            // XXX: grab PoCo stuff
         }
 
         // Some per-type attributes...
@@ -441,8 +534,9 @@ class ActivityObject
             $this->displayName = $this->title;
 
             // @fixme we may have multiple avatars with different resolutions specified
-            $this->avatar   = ActivityUtils::getLink($element, 'avatar');
-            $this->nickname = ActivityUtils::childContent($element, PoCo::USERNAME, PoCo::NS);
+            $this->avatar = ActivityUtils::getLink($element, 'avatar');
+
+            $this->poco = new PoCo($element);
         }
     }
 
@@ -497,7 +591,7 @@ class ActivityObject
             $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
         }
 
-        $object->poco = new PoCo($profile);
+        $object->poco = PoCo::fromProfile($profile);
 
         return $object;
     }
@@ -526,11 +620,19 @@ class ActivityObject
         }
 
         if (!empty($this->link)) {
-            $xs->element('link', array('rel' => 'alternate', 'type' => 'text/html'),
-                         $this->link);
+            $xs->element(
+                'link',
+                array(
+                    'rel' => 'alternate',
+                    'type' => 'text/html',
+                    'href' => $this->link
+                ),
+                null
+            );
         }
 
-        if ($this->type == ActivityObject::PERSON) {
+        if ($this->type == ActivityObject::PERSON
+            || $this->type == ActivityObject::GROUP) {
             $xs->element(
                 'link', array(
                     'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
@@ -539,7 +641,7 @@ class ActivityObject
                     ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
                     : $this->avatar->displayUrl()
                 ),
-                ''
+                null
             );
         }
 
