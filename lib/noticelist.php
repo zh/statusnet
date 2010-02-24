@@ -380,12 +380,12 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
-            $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        }else{
-            $noticeurl = $this->notice->uri;
-        }
+        $noticeurl = $this->notice->bestUrl();
+
+        // above should always return an URL
+
+        assert(!empty($noticeurl));
+
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                             'class' => 'timestamp',
                                             'href' => $noticeurl));
