@@ -7,11 +7,10 @@ if (isset($_SERVER) && array_key_exists('REQUEST_METHOD', $_SERVER)) {
 
 // XXX: we should probably have some common source for this stuff
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 define('STATUSNET', true);
 
 require_once INSTALLDIR . '/lib/common.php';
-require_once INSTALLDIR . '/plugins/OStatus/lib/activity.php';
 
 class ActivityParseTests extends PHPUnit_Framework_TestCase
 {
@@ -97,6 +96,45 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
 
         $this->assertFalse(empty($act->actor));
     }
+
+    public function testExample5()
+    {
+        global $_example5;
+        $dom = DOMDocument::loadXML($_example5);
+
+        $feed = $dom->documentElement;
+
+        // @todo Test feed elements
+
+        $entries = $feed->getElementsByTagName('entry');
+        $entry = $entries->item(0);
+
+        $act = new Activity($entry, $feed);
+
+        // Post
+        $this->assertEquals($act->verb, ActivityVerb::POST);
+        $this->assertFalse(empty($act->context));
+
+        // Actor w/Portable Contacts stuff
+        $this->assertFalse(empty($act->actor));
+        $this->assertEquals($act->actor->type, ActivityObject::PERSON);
+        $this->assertEquals($act->actor->title, 'Test User');
+        $this->assertEquals($act->actor->id, 'http://example.net/mysite/user/3');
+        $this->assertEquals($act->actor->link, 'http://example.net/mysite/testuser');
+        $this->assertEquals(
+            $act->actor->avatar,
+            'http://example.net/mysite/avatar/3-96-20100224004207.jpeg'
+        );
+        $this->assertEquals($act->actor->displayName, 'Test User');
+
+        $poco = $act->actor->poco;
+        $this->assertEquals($poco->preferredUsername, 'testuser');
+        $this->assertEquals($poco->address->formatted, 'San Francisco, CA');
+        $this->assertEquals($poco->urls[0]->type, 'homepage');
+        $this->assertEquals($poco->urls[0]->value, 'http://example.com/blog.html');
+        $this->assertEquals($poco->urls[0]->primary, 'true');
+    }
+
 }
 
 $_example1 = <<<EXAMPLE1
@@ -156,26 +194,26 @@ $_example3 = <<<EXAMPLE3
 
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-	<title>Example Feed</title>
-	<subtitle>A subtitle.</subtitle>
-	<link href="http://example.org/feed/" rel="self" />
-	<link href="http://example.org/" />
-	<id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
-	<updated>2003-12-13T18:30:02Z</updated>
-	<author>
-		<name>John Doe</name>
-		<email>johndoe@example.com</email>
-	</author>
+    <title>Example Feed</title>
+    <subtitle>A subtitle.</subtitle>
+    <link href="http://example.org/feed/" rel="self" />
+    <link href="http://example.org/" />
+    <id>urn:uuid:60a76c80-d399-11d9-b91C-0003939e0af6</id>
+    <updated>2003-12-13T18:30:02Z</updated>
+    <author>
+        <name>John Doe</name>
+        <email>johndoe@example.com</email>
+    </author>
 
-	<entry>
-		<title>Atom-Powered Robots Run Amok</title>
-		<link href="http://example.org/2003/12/13/atom03" />
-		<link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
-		<link rel="edit" href="http://example.org/2003/12/13/atom03/edit"/>
-		<id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
-		<updated>2003-12-13T18:30:02Z</updated>
-		<summary>Some text.</summary>
-	</entry>
+    <entry>
+        <title>Atom-Powered Robots Run Amok</title>
+        <link href="http://example.org/2003/12/13/atom03" />
+        <link rel="alternate" type="text/html" href="http://example.org/2003/12/13/atom03.html"/>
+        <link rel="edit" href="http://example.org/2003/12/13/atom03/edit"/>
+        <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+        <updated>2003-12-13T18:30:02Z</updated>
+        <summary>Some text.</summary>
+    </entry>
 
 </feed>
 EXAMPLE3;
@@ -207,3 +245,82 @@ $_example4 = <<<EXAMPLE4
  <category term="thetime"></category>
 </entry>
 EXAMPLE4;
+
+$_example5 = <<<EXAMPLE5
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:georss="http://www.georss.org/georss" xmlns:activity="http://activitystrea.ms/spec/1.0/" xmlns:poco="http://portablecontacts.net/spec/1.0" xmlns:ostatus="http://ostatus.org/schema/1.0">
+ <id>3</id>
+ <title>testuser timeline</title>
+ <subtitle>Updates from testuser on Zach Dev!</subtitle>
+ <logo>http://example.net/mysite/avatar/3-96-20100224004207.jpeg</logo>
+ <updated>2010-02-24T06:38:49+00:00</updated>
+<author>
+ <name>testuser</name>
+ <uri>http://example.net/mysite/user/3</uri>
+
+</author>
+ <link href="http://example.net/mysite/testuser" rel="alternate" type="text/html"/>
+ <link href="http://example.net/mysite/api/statuses/user_timeline/3.atom" rel="self" type="application/atom+xml"/>
+ <link href="http://example.net/mysite/main/sup#3" rel="http://api.friendfeed.com/2008/03#sup" type="application/json"/>
+ <link href="http://example.net/mysite/main/push/hub" rel="hub"/>
+ <link href="http://example.net/mysite/main/salmon/user/3" rel="salmon"/>
+<activity:subject>
+ <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+ <id>http://example.net/mysite/user/3</id>
+ <title>Test User</title>
+ <link rel="alternate" type="text/html" href="http://example.net/mysite/testuser"/>
+ <link type="image/jpeg" rel="avatar" href="http://example.net/mysite/avatar/3-96-20100224004207.jpeg"/>
+ <georss:point>37.7749295 -122.4194155</georss:point>
+
+<poco:preferredUsername>testuser</poco:preferredUsername>
+<poco:displayName>Test User</poco:displayName>
+<poco:note>Just another test user.</poco:note>
+<poco:address>
+ <poco:formatted>San Francisco, CA</poco:formatted>
+</poco:address>
+<poco:urls>
+ <poco:type>homepage</poco:type>
+ <poco:value>http://example.com/blog.html</poco:value>
+ <poco:primary>true</poco:primary>
+
+</poco:urls>
+</activity:subject>
+<entry>
+ <title>Hey man, is that Freedom Code?! #freedom #hippy</title>
+ <summary>Hey man, is that Freedom Code?! #freedom #hippy</summary>
+<author>
+ <name>testuser</name>
+ <uri>http://example.net/mysite/user/3</uri>
+</author>
+<activity:actor>
+ <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+ <id>http://example.net/mysite/user/3</id>
+ <title>Test User</title>
+ <link rel="alternate" type="text/html" href="http://example.net/mysite/testuser"/>
+ <link type="image/jpeg" rel="avatar" href="http://example.net/mysite/avatar/3-96-20100224004207.jpeg"/>
+ <georss:point>37.7749295 -122.4194155</georss:point>
+
+<poco:preferredUsername>testuser</poco:preferredUsername>
+<poco:displayName>Test User</poco:displayName>
+<poco:note>Just another test user.</poco:note>
+<poco:address>
+ <poco:formatted>San Francisco, CA</poco:formatted>
+</poco:address>
+<poco:urls>
+ <poco:type>homepage</poco:type>
+ <poco:value>http://example.com/blog.html</poco:value>
+ <poco:primary>true</poco:primary>
+
+</poco:urls>
+</activity:actor>
+ <link rel="alternate" type="text/html" href="http://example.net/mysite/notice/7"/>
+ <id>http://example.net/mysite/notice/7</id>
+ <published>2010-02-24T00:53:06+00:00</published>
+ <updated>2010-02-24T00:53:06+00:00</updated>
+ <link rel="ostatus:conversation" href="http://example.net/mysite/conversation/7"/>
+ <content type="html">Hey man, is that Freedom Code?! #&lt;span class=&quot;tag&quot;&gt;&lt;a href=&quot;http://example.net/mysite/tag/freedom&quot; rel=&quot;tag&quot;&gt;freedom&lt;/a&gt;&lt;/span&gt; #&lt;span class=&quot;tag&quot;&gt;&lt;a href=&quot;http://example.net/mysite/tag/hippy&quot; rel=&quot;tag&quot;&gt;hippy&lt;/a&gt;&lt;/span&gt;</content>
+ <georss:point>37.8313160 -122.2852473</georss:point>
+
+</entry>
+</feed>
+EXAMPLE5;
