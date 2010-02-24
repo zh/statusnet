@@ -123,4 +123,6 @@ SN.Init.Subscribe = function() {
 
 $(document).ready(function() {
     SN.Init.Subscribe();
+
+    $('.form_remote_authorize').bind('submit', function() { $(this).addClass(SN.C.S.Processing); return true; });
 });
