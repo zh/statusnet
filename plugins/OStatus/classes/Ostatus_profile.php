@@ -650,6 +650,7 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function filterReplies($sender, &$attention_uris)
     {
+        common_log(LOG_DEBUG, "Original reply recipients: " . implode(', ', $attention_uris));
         $groups = array();
         $replies = array();
         foreach ($attention_uris as $recipient) {
@@ -668,6 +669,8 @@ class Ostatus_profile extends Memcached_DataObject
                     // Deliver to local members of this remote group.
                     // @fixme sender verification?
                     $groups[] = $oprofile->group_id;
+                } else {
+                    common_log(LOG_DEBUG, "Skipping reply to remote profile $recipient");
                 }
                 continue;
             }
@@ -683,14 +686,24 @@ class Ostatus_profile extends Memcached_DataObject
                 $group = User_group::staticGet('id', $id);
                 if ($group) {
                     // Deliver to all members of this local group if allowed.
-                    if ($sender->localProfile()->isMember($group)) {
+                    $profile = $sender->localProfile();
+                    if ($profile->isMember($group)) {
                         $groups[] = $group->id;
+                    } else {
+                        common_log(LOG_DEBUG, "Skipping reply to local group $group->nickname as sender $profile->id is not a member");
                     }
                     continue;
+                } else {
+                    common_log(LOG_DEBUG, "Skipping reply to bogus group $recipient");
                 }
             }
+
+            common_log(LOG_DEBUG, "Skipping reply to unrecognized profile $recipient");
+
         }
         $attention_uris = $replies;
+        common_log(LOG_DEBUG, "Local reply recipients: " . implode(', ', $replies));
+        common_log(LOG_DEBUG, "Local group recipients: " . implode(', ', $groups));
         return $groups;
     }
 

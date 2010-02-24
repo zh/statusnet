@@ -18,46 +18,89 @@
  */
 
 /**
- * Send a PuSH subscription verification from our internal hub.
- * Queue up final distribution for 
- * @package Hub
+ * Prepare PuSH and Salmon distributions for an outgoing message.
+ *
+ * @package OStatusPlugin
  * @author Brion Vibber <brion@status.net>
  */
-class HubDistribQueueHandler extends QueueHandler
+class OStatusQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'hubdistrib';
+        return 'ostatus';
     }
 
     function handle($notice)
     {
         assert($notice instanceof Notice);
 
-        $this->pushUser($notice);
+        $this->notice = $notice;
+        $this->user = User::staticGet($notice->profile_id);
+
+        $this->pushUser();
+
         foreach ($notice->getGroups() as $group) {
-            $this->pushGroup($notice, $group->id);
+            $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
+            if ($oprofile) {
+                $this->pingReply($oprofile);
+            } else {
+                $this->pushGroup($group->id);
+            }
         }
+
+        foreach ($notice->getReplies() as $profile_id) {
+            $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
+            if ($oprofile) {
+                $this->pingReply($oprofile);
+            }
+        }
+
         return true;
     }
-    
-    function pushUser($notice)
+
+    function pushUser()
     {
-        // See if there's any PuSH subscriptions, including OStatus clients.
-        // @fixme handle group subscriptions as well
-        // http://identi.ca/api/statuses/user_timeline/1.atom
-        $feed = common_local_url('ApiTimelineUser',
-                                 array('id' => $notice->profile_id,
-                                       'format' => 'atom'));
-        $this->pushFeed($feed, array($this, 'userFeedForNotice'), $notice);
+        if ($this->user) {
+            // For local posts, ping the PuSH hub to update their feed.
+            // http://identi.ca/api/statuses/user_timeline/1.atom
+            $feed = common_local_url('ApiTimelineUser',
+                                     array('id' => $this->user->id,
+                                           'format' => 'atom'));
+            $this->pushFeed($feed, array($this, 'userFeedForNotice'));
+        }
     }
 
-    function pushGroup($notice, $group_id)
+    function pushGroup($group_id)
     {
+        // For a local group, ping the PuSH hub to update its feed.
+        // Updates may come from either a local or a remote user.
         $feed = common_local_url('ApiTimelineGroup',
                                  array('id' => $group_id,
                                        'format' => 'atom'));
-        $this->pushFeed($feed, array($this, 'groupFeedForNotice'), $group_id, $notice);
+        $this->pushFeed($feed, array($this, 'groupFeedForNotice'), $group_id);
+    }
+
+    function pingReply($oprofile)
+    {
+        if ($this->user) {
+            if (!empty($oprofile->salmonuri)) {
+                // For local posts, send a Salmon ping to the mentioned
+                // remote user or group.
+                // @fixme as an optimization we can skip this if the
+                // remote profile is subscribed to the author.
+
+                common_log(LOG_INFO, "Prepping to send notice '{$this->notice->uri}' to remote profile '{$oprofile->uri}'.");
+
+                $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
+                $xml .= $this->notice->asAtomEntry(true, true);
+
+                $data = array('salmonuri' => $oprofile->salmonuri,
+                              'entry' => $xml);
+
+                $qm = QueueManager::get();
+                $qm->enqueue($data, 'salmonout');
+            }
+        }
     }
 
     /**
@@ -122,7 +165,6 @@ class HubDistribQueueHandler extends QueueHandler
     function pushFeedInternal($atom, $sub)
     {
         common_log(LOG_INFO, "Preparing $sub->N PuSH distribution(s) for $sub->topic");
-        $qm = QueueManager::get();
         while ($sub->fetch()) {
             $sub->distribute($atom);
         }
@@ -130,20 +172,19 @@ class HubDistribQueueHandler extends QueueHandler
 
     /**
      * Build a single-item version of the sending user's Atom feed.
-     * @param Notice $notice
      * @return string
      */
-    function userFeedForNotice($notice)
+    function userFeedForNotice()
     {
         // @fixme this feels VERY hacky...
         // should probably be a cleaner way to do it
 
         ob_start();
         $api = new ApiTimelineUserAction();
-        $api->prepare(array('id' => $notice->profile_id,
+        $api->prepare(array('id' => $this->notice->profile_id,
                             'format' => 'atom',
-                            'max_id' => $notice->id,
-                            'since_id' => $notice->id - 1));
+                            'max_id' => $this->notice->id,
+                            'since_id' => $this->notice->id - 1));
         $api->showTimeline();
         $feed = ob_get_clean();
         
@@ -155,7 +196,7 @@ class HubDistribQueueHandler extends QueueHandler
         return $feed;
     }
 
-    function groupFeedForNotice($group_id, $notice)
+    function groupFeedForNotice($group_id)
     {
         // @fixme this feels VERY hacky...
         // should probably be a cleaner way to do it
@@ -164,8 +205,8 @@ class HubDistribQueueHandler extends QueueHandler
         $api = new ApiTimelineGroupAction();
         $args = array('id' => $group_id,
                       'format' => 'atom',
-                      'max_id' => $notice->id,
-                      'since_id' => $notice->id - 1);
+                      'max_id' => $this->notice->id,
+                      'since_id' => $this->notice->id - 1);
         $api->prepare($args);
         $api->handle($args);
         $feed = ob_get_clean();

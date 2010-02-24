@@ -78,10 +78,15 @@ class OStatusPlugin extends Plugin
      */
     function onEndInitializeQueueManager(QueueManager $qm)
     {
+        // Prepare outgoing distributions after notice save.
+        $qm->connect('ostatus', 'OStatusQueueHandler');
+
         // Outgoing from our internal PuSH hub
         $qm->connect('hubverify', 'HubVerifyQueueHandler');
-        $qm->connect('hubdistrib', 'HubDistribQueueHandler');
         $qm->connect('hubout', 'HubOutQueueHandler');
+
+        // Outgoing Salmon replies (when we don't need a return value)
+        $qm->connect('salmonout', 'SalmonOutQueueHandler');
 
         // Incoming from a foreign PuSH hub
         $qm->connect('pushinput', 'PushInputQueueHandler');
@@ -93,7 +98,7 @@ class OStatusPlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        $transports[] = 'hubdistrib';
+        $transports[] = 'ostatus';
         return true;
     }
 
@@ -199,25 +204,6 @@ class OStatusPlugin extends Plugin
 
     function onEndNoticeSave($notice)
     {
-        $mentioned = $notice->getReplies();
-
-        foreach ($mentioned as $profile_id) {
-
-            $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
-
-            if (!empty($oprofile) && !empty($oprofile->salmonuri)) {
-
-                common_log(LOG_INFO, "Sending notice '{$notice->uri}' to remote profile '{$oprofile->uri}'.");
-
-                // FIXME: this needs to go out in a queue handler
-
-                $xml = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
-                $xml .= $notice->asAtomEntry(true, true);
-
-                $salmon = new Salmon();
-                $salmon->post($oprofile->salmonuri, $xml);
-            }
-        }
     }
 
     /**
