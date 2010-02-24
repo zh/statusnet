@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 23:02+0000\n"
-"PO-Revision-Date: 2010-02-21 23:03:41+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:51:28+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -62,7 +62,7 @@ msgstr "Nieuwe registraties uitschakelen."
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/subscriptions.php:208 actions/tagother.php:154
 #: actions/useradminpanel.php:293 lib/applicationeditform.php:333
 #: lib/applicationeditform.php:334 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -193,7 +193,7 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
@@ -505,7 +505,7 @@ msgstr "Ongeldig token."
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -769,7 +769,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:636
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -980,7 +980,7 @@ msgstr "Deze applicatie verwijderen"
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -1011,7 +1011,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:636
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -1253,7 +1253,7 @@ msgstr "de beschrijving is te lang (maximaal %d tekens)"
 msgid "Could not update group."
 msgstr "Het was niet mogelijk de groep bij te werken."
 
-#: actions/editgroup.php:259 classes/User_group.php:423
+#: actions/editgroup.php:259 classes/User_group.php:433
 msgid "Could not create aliases."
 msgstr "Het was niet mogelijk de aliassen aan te maken."
 
@@ -2797,25 +2797,25 @@ msgstr "Taal is te lang (max 50 tekens)."
 msgid "Invalid tag: \"%s\""
 msgstr "Ongeldig label: '%s'"
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 "Het was niet mogelijk de instelling voor automatisch abonneren voor de "
 "gebruiker bij te werken."
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
 msgstr "Het was niet mogelijk de locatievoorkeuren op te slaan."
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Het profiel kon niet opgeslagen worden."
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 msgid "Couldn't save tags."
 msgstr "Het was niet mogelijk de labels op te slaan."
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "De instellingen zijn opgeslagen."
 
@@ -3254,7 +3254,7 @@ msgstr "U kunt uw eigen mededeling niet herhalen."
 msgid "You already repeated that notice."
 msgstr "U hent die mededeling al herhaald."
 
-#: actions/repeat.php:114 lib/noticelist.php:655
+#: actions/repeat.php:114 lib/noticelist.php:656
 msgid "Repeated"
 msgstr "Herhaald"
 
@@ -3979,11 +3979,21 @@ msgstr "U bent niet geabonneerd op dat profiel."
 msgid "Could not save subscription."
 msgstr "Het was niet mogelijk het abonnement op te slaan."
 
-#: actions/subscribe.php:55
-msgid "Not a local user."
-msgstr "Dit is geen lokale gebruiker."
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "Het bestand bestaat niet."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "U bent niet geabonneerd op dat profiel."
+
+#: actions/subscribe.php:145
 msgid "Subscribed"
 msgstr "Geabonneerd"
 
@@ -4047,7 +4057,7 @@ msgstr "Dit zijn de gebruikers van wie u de mededelingen volgt."
 msgid "These are the people whose notices %s listens to."
 msgstr "Dit zijn de gebruikers waarvan %s de mededelingen volgt."
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4063,16 +4073,16 @@ msgstr ""
 "action.twittersettings%%), kunt u automatisch abonneren op de gebruikers die "
 "u daar al volgt."
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s volgt niemand."
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4503,26 +4513,26 @@ msgstr "Het was niet mogelijk het bericht bij te werken met de nieuwe URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "Er is een databasefout opgetreden bij de invoer van de hashtag: %s"
 
-#: classes/Notice.php:215
+#: classes/Notice.php:222
 msgid "Problem saving notice. Too long."
 msgstr ""
 "Er is een probleem opgetreden bij het opslaan van de mededeling. Deze is te "
 "lang."
 
-#: classes/Notice.php:219
+#: classes/Notice.php:226
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 "Er was een probleem bij het opslaan van de mededeling. De gebruiker is "
 "onbekend."
 
-#: classes/Notice.php:224
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "U hebt te snel te veel mededelingen verstuurd. Kom even op adem en probeer "
 "het over enige tijd weer."
 
-#: classes/Notice.php:230
+#: classes/Notice.php:237
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4530,28 +4540,22 @@ msgstr ""
 "Te veel duplicaatberichten te snel achter elkaar. Neem een adempauze en "
 "plaats over een aantal minuten pas weer een bericht."
 
-#: classes/Notice.php:236
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr ""
 "U bent geblokkeerd en mag geen mededelingen meer achterlaten op deze site."
 
-#: classes/Notice.php:302 classes/Notice.php:328
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
-#: classes/Notice.php:811
+#: classes/Notice.php:882
 msgid "Problem saving group inbox."
 msgstr ""
 "Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
 "groep."
 
-#: classes/Notice.php:871
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr ""
-"Er is een databasefout opgetreden bij het invoegen van het antwoord: %s"
-
-#: classes/Notice.php:1328
+#: classes/Notice.php:1407
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4576,7 +4580,7 @@ msgstr "Niet geabonneerd!"
 msgid "Couldn't delete self-subscription."
 msgstr "Het was niet mogelijk het abonnement op uzelf te verwijderen."
 
-#: classes/Subscription.php:179
+#: classes/Subscription.php:179 lib/subs.php:69
 msgid "Couldn't delete subscription."
 msgstr "Kon abonnement niet verwijderen."
 
@@ -4585,11 +4589,11 @@ msgstr "Kon abonnement niet verwijderen."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welkom bij %1$s, @%2$s!"
 
-#: classes/User_group.php:413
+#: classes/User_group.php:423
 msgid "Could not create group."
 msgstr "Het was niet mogelijk de groep aan te maken."
 
-#: classes/User_group.php:442
+#: classes/User_group.php:452
 msgid "Could not set group membership."
 msgstr "Het was niet mogelijk het groepslidmaatschap in te stellen."
 
@@ -4813,6 +4817,18 @@ msgstr "Later"
 #: lib/action.php:1149
 msgid "Before"
 msgstr "Eerder"
+
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5116,16 +5132,15 @@ msgid "Specify the name of the user to subscribe to"
 msgstr "Geef de naam op van de gebruiker waarop u wilt abonneren"
 
 #: lib/command.php:554 lib/command.php:589
-#, fuzzy
 msgid "No such user"
-msgstr "Onbekende gebruiker."
+msgstr "De opgegeven gebruiker bestaat niet"
 
 #: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Geabonneerd op %s"
 
-#: lib/command.php:582
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 "Geef de naam op van de gebruiker waarvoor u het abonnement wilt opzeggen"
@@ -5166,37 +5181,43 @@ msgstr ""
 "Deze verwijzing kan slechts één keer gebruikt worden en is twee minuten "
 "geldig: %s"
 
-#: lib/command.php:681
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "Uw abonnement op %s is opgezegd"
+
+#: lib/command.php:709
 msgid "You are not subscribed to anyone."
 msgstr "U bent op geen enkele gebruiker geabonneerd."
 
-#: lib/command.php:683
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "U bent geabonneerd op deze gebruiker:"
 msgstr[1] "U bent geabonneerd op deze gebruikers:"
 
-#: lib/command.php:703
+#: lib/command.php:731
 msgid "No one is subscribed to you."
 msgstr "Niemand heeft een abonnenment op u."
 
-#: lib/command.php:705
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Deze gebruiker is op u geabonneerd:"
 msgstr[1] "Deze gebruikers zijn op u geabonneerd:"
 
-#: lib/command.php:725
+#: lib/command.php:753
 msgid "You are not a member of any groups."
 msgstr "U bent lid van geen enkele groep."
 
-#: lib/command.php:727
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "U bent lid van deze groep:"
 msgstr[1] "U bent lid van deze groepen:"
 
-#: lib/command.php:741
+#: lib/command.php:769
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5210,6 +5231,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5276,20 +5298,20 @@ msgstr ""
 "tracks - nog niet beschikbaar\n"
 "tracking - nog niet beschikbaar\n"
 
-#: lib/common.php:135
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Er is geen instellingenbestand aangetroffen. "
 
-#: lib/common.php:136
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen: "
 
-#: lib/common.php:138
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "U kunt proberen de installer uit te voeren om dit probleem op te lossen."
 
-#: lib/common.php:139
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Naar het installatieprogramma gaan."
 
@@ -5786,7 +5808,7 @@ msgstr ""
 "U hebt geen privéberichten. U kunt privéberichten verzenden aan andere "
 "gebruikers. Mensen kunnen u privéberichten sturen die alleen u kunt lezen."
 
-#: lib/mailbox.php:227 lib/noticelist.php:481
+#: lib/mailbox.php:227 lib/noticelist.php:482
 msgid "from"
 msgstr "van"
 
@@ -5939,23 +5961,23 @@ msgstr "W"
 msgid "at"
 msgstr "op"
 
-#: lib/noticelist.php:557
+#: lib/noticelist.php:558
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:582
+#: lib/noticelist.php:583
 msgid "Repeated by"
 msgstr "Herhaald door"
 
-#: lib/noticelist.php:609
+#: lib/noticelist.php:610
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:611
 msgid "Reply"
 msgstr "Antwoorden"
 
-#: lib/noticelist.php:654
+#: lib/noticelist.php:655
 msgid "Notice repeated"
 msgstr "Mededeling herhaald"
 
@@ -6234,47 +6256,47 @@ msgstr "Bericht"
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/util.php:871
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:873
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:875
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:877
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:879
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:881
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:883
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:885
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:887
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:889
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 

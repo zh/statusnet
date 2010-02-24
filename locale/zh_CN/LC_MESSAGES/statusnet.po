@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-21 23:02+0000\n"
-"PO-Revision-Date: 2010-02-21 23:04:24+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:52:00+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -68,7 +68,7 @@ msgstr ""
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/subscriptions.php:208 actions/tagother.php:154
 #: actions/useradminpanel.php:293 lib/applicationeditform.php:333
 #: lib/applicationeditform.php:334 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -192,7 +192,7 @@ msgstr "来自%2$s 上 %1$s 和好友的更新！"
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:194 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
@@ -508,7 +508,7 @@ msgstr "大小不正确。"
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -768,7 +768,7 @@ msgid "Preview"
 msgstr "预览"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:636
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 #, fuzzy
 msgid "Delete"
 msgstr "删除"
@@ -991,7 +991,7 @@ msgstr "删除通告"
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -1022,7 +1022,7 @@ msgstr "确定要删除这条消息吗？"
 msgid "Do not delete this notice"
 msgstr "无法删除通告。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:636
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 #, fuzzy
 msgid "Delete this notice"
 msgstr "删除通告"
@@ -1286,7 +1286,7 @@ msgstr "描述过长(不能超过140字符)。"
 msgid "Could not update group."
 msgstr "无法更新组"
 
-#: actions/editgroup.php:259 classes/User_group.php:423
+#: actions/editgroup.php:259 classes/User_group.php:433
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "无法创建收藏。"
@@ -2830,25 +2830,25 @@ msgstr "语言过长(不能超过50个字符)。"
 msgid "Invalid tag: \"%s\""
 msgstr "主页'%s'不正确"
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动订阅选项。"
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "设置已保存。"
 
@@ -3269,7 +3269,7 @@ msgstr "您必须同意此授权方可注册。"
 msgid "You already repeated that notice."
 msgstr "您已成功阻止该用户："
 
-#: actions/repeat.php:114 lib/noticelist.php:655
+#: actions/repeat.php:114 lib/noticelist.php:656
 #, fuzzy
 msgid "Repeated"
 msgstr "创建"
@@ -3978,12 +3978,21 @@ msgstr "您未告知此个人信息"
 msgid "Could not save subscription."
 msgstr "无法删除订阅。"
 
-#: actions/subscribe.php:55
-#, fuzzy
-msgid "Not a local user."
-msgstr "没有这个用户。"
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "没有这份通告。"
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "您未告知此个人信息"
+
+#: actions/subscribe.php:145
 #, fuzzy
 msgid "Subscribed"
 msgstr "订阅"
@@ -4044,7 +4053,7 @@ msgstr "这是您订阅的用户。"
 msgid "These are the people whose notices %s listens to."
 msgstr "这是 %s 订阅的用户。"
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4054,17 +4063,17 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, fuzzy, php-format
 msgid "%s is not listening to anyone."
 msgstr "%1$s 开始关注您的 %2$s 信息。"
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 #, fuzzy
 msgid "Jabber"
 msgstr "没有 Jabber ID。"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS短信"
 
@@ -4490,47 +4499,42 @@ msgstr "无法添加新URI的信息。"
 msgid "DB error inserting hashtag: %s"
 msgstr "添加标签时数据库出错：%s"
 
-#: classes/Notice.php:215
+#: classes/Notice.php:222
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:219
+#: classes/Notice.php:226
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:224
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr "你在短时间里发布了过多的消息，请深呼吸，过几分钟再发消息。"
 
-#: classes/Notice.php:230
+#: classes/Notice.php:237
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr "你在短时间里发布了过多的消息，请深呼吸，过几分钟再发消息。"
 
-#: classes/Notice.php:236
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr "在这个网站你被禁止发布消息。"
 
-#: classes/Notice.php:302 classes/Notice.php:328
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:811
+#: classes/Notice.php:882
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:871
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "添加回复时数据库出错：%s"
-
-#: classes/Notice.php:1328
+#: classes/Notice.php:1407
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4559,7 +4563,7 @@ msgstr "未订阅！"
 msgid "Couldn't delete self-subscription."
 msgstr "无法删除订阅。"
 
-#: classes/Subscription.php:179
+#: classes/Subscription.php:179 lib/subs.php:69
 msgid "Couldn't delete subscription."
 msgstr "无法删除订阅。"
 
@@ -4568,11 +4572,11 @@ msgstr "无法删除订阅。"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "发送给 %1$s 的 %2$s 消息"
 
-#: classes/User_group.php:413
+#: classes/User_group.php:423
 msgid "Could not create group."
 msgstr "无法创建组。"
 
-#: classes/User_group.php:442
+#: classes/User_group.php:452
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "无法删除订阅。"
@@ -4806,6 +4810,18 @@ msgstr "« 之后"
 #, fuzzy
 msgid "Before"
 msgstr "之前 »"
+
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
 #, fuzzy
@@ -5122,7 +5138,6 @@ msgid "Specify the name of the user to subscribe to"
 msgstr "指定要订阅的用户名"
 
 #: lib/command.php:554 lib/command.php:589
-#, fuzzy
 msgid "No such user"
 msgstr "没有这个用户。"
 
@@ -5131,7 +5146,7 @@ msgstr "没有这个用户。"
 msgid "Subscribed to %s"
 msgstr "订阅 %s"
 
-#: lib/command.php:582
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "指定要取消订阅的用户名"
 
@@ -5169,37 +5184,42 @@ msgstr ""
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:681
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "取消订阅 %s"
+
+#: lib/command.php:709
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:683
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "您已订阅这些用户："
 
-#: lib/command.php:703
+#: lib/command.php:731
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "无法订阅他人更新。"
 
-#: lib/command.php:705
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "无法订阅他人更新。"
 
-#: lib/command.php:725
+#: lib/command.php:753
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "您未告知此个人信息"
 
-#: lib/command.php:727
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "您未告知此个人信息"
 
-#: lib/command.php:741
+#: lib/command.php:769
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5213,6 +5233,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5240,20 +5261,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
+#: lib/common.php:136
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "没有验证码"
 
-#: lib/common.php:136
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:138
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:140
 #, fuzzy
 msgid "Go to the installer."
 msgstr "登入本站"
@@ -5692,7 +5713,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:481
+#: lib/mailbox.php:227 lib/noticelist.php:482
 #, fuzzy
 msgid "from"
 msgstr " 从 "
@@ -5845,27 +5866,27 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:557
+#: lib/noticelist.php:558
 #, fuzzy
 msgid "in context"
 msgstr "没有内容！"
 
-#: lib/noticelist.php:582
+#: lib/noticelist.php:583
 #, fuzzy
 msgid "Repeated by"
 msgstr "创建"
 
-#: lib/noticelist.php:609
+#: lib/noticelist.php:610
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "无法删除通告。"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:611
 #, fuzzy
 msgid "Reply"
 msgstr "回复"
 
-#: lib/noticelist.php:654
+#: lib/noticelist.php:655
 #, fuzzy
 msgid "Notice repeated"
 msgstr "消息已发布。"
@@ -6171,47 +6192,47 @@ msgstr "新消息"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:871
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:873
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:875
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:877
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:879
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:881
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:883
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:885
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:887
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:889
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr "一年前"
 
