@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 22:55+0000\n"
-"PO-Revision-Date: 2010-02-18 22:57:25+0000\n"
+"POT-Creation-Date: 2010-02-21 23:02+0000\n"
+"PO-Revision-Date: 2010-02-21 23:04:18+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -103,7 +103,6 @@ msgstr "Немає такої сторінки"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Такого користувача немає."
 
@@ -562,7 +561,7 @@ msgstr ""
 "на доступ до Вашого акаунту %4$s лише тим стороннім додаткам, яким Ви "
 "довіряєте."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:442
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Акаунт"
 
@@ -940,7 +939,7 @@ msgstr "Ви не є власником цього додатку."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1198
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
@@ -1679,7 +1678,7 @@ msgstr "Учасники групи %1$s, сторінка %2$d"
 msgid "A list of the users in this group."
 msgstr "Список учасників цієї групи."
 
-#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Адмін"
 
@@ -2066,7 +2065,7 @@ msgstr "Неточне ім’я або пароль."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Помилка. Можливо, Ви не авторизовані."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:467
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Увійти"
@@ -3030,7 +3029,7 @@ msgstr "Даруйте, помилка у коді запрошення."
 msgid "Registration successful"
 msgstr "Реєстрація успішна"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:464
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Реєстрація"
@@ -3928,7 +3927,8 @@ msgstr "Код не введено"
 msgid "You are not subscribed to that profile."
 msgstr "Ви не підписані до цього профілю."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Не вдалося зберегти підписку."
 
@@ -4389,7 +4389,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Додатки"
 
-#: actions/version.php:196 lib/action.php:748
+#: actions/version.php:196 lib/action.php:747
 msgid "Version"
 msgstr "Версія"
 
@@ -4450,22 +4450,22 @@ msgstr "Не можна оновити повідомлення з новим UR
 msgid "DB error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні теґу: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:215
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні допису. Надто довге."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:219
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при збереженні допису. Невідомий користувач."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:224
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Дуже багато дописів за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:230
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4473,29 +4473,53 @@ msgstr ""
 "Дуже багато повідомлень за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:236
 msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
-#: classes/Notice.php:294 classes/Notice.php:320
+#: classes/Notice.php:302 classes/Notice.php:328
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:811
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:871
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "Помилка бази даних при додаванні відповіді: %s"
 
-#: classes/Notice.php:1274
+#: classes/Notice.php:1328
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "Вас позбавлено можливості підписатись."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr "Вже підписаний!"
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Користувач заблокував Вас."
+
+#: classes/Subscription.php:157
+msgid "Not subscribed!"
+msgstr "Не підписано!"
+
+#: classes/Subscription.php:163
+msgid "Couldn't delete self-subscription."
+msgstr "Не можу видалити самопідписку."
+
+#: classes/Subscription.php:179
+msgid "Couldn't delete subscription."
+msgstr "Не вдалося видалити підписку."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Вітаємо на %1$s, @%2$s!"
@@ -4545,124 +4569,124 @@ msgstr "%1$s — %2$s"
 msgid "Untitled page"
 msgstr "Сторінка без заголовку"
 
-#: lib/action.php:434
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr "Відправна навігація по сайту"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Home"
 msgstr "Дім"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr "Персональний профіль і стрічка друзів"
 
-#: lib/action.php:442
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr "Змінити електронну адресу, аватару, пароль, профіль"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect"
 msgstr "З’єднання"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect to services"
 msgstr "З’єднання з сервісами"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgid "Change site configuration"
 msgstr "Змінити конфігурацію сайту"
 
-#: lib/action.php:453 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Запросити"
 
-#: lib/action.php:454 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Запросіть друзів та колег приєднатись до Вас на %s"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout"
 msgstr "Вийти"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr "Вийти з сайту"
 
-#: lib/action.php:464
+#: lib/action.php:463
 msgid "Create an account"
 msgstr "Створити новий акаунт"
 
-#: lib/action.php:467
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr "Увійти на сайт"
 
-#: lib/action.php:470 lib/action.php:733
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "Допомога"
 
-#: lib/action.php:470
+#: lib/action.php:469
 msgid "Help me!"
 msgstr "Допоможіть!"
 
-#: lib/action.php:473 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr "Пошук"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr "Пошук людей або текстів"
 
-#: lib/action.php:494
+#: lib/action.php:493
 msgid "Site notice"
 msgstr "Зауваження сайту"
 
-#: lib/action.php:560
+#: lib/action.php:559
 msgid "Local views"
 msgstr "Огляд"
 
-#: lib/action.php:626
+#: lib/action.php:625
 msgid "Page notice"
 msgstr "Зауваження сторінки"
 
-#: lib/action.php:728
+#: lib/action.php:727
 msgid "Secondary site navigation"
 msgstr "Другорядна навігація по сайту"
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "About"
 msgstr "Про"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "ЧаПи"
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "TOS"
 msgstr "Умови"
 
-#: lib/action.php:744
+#: lib/action.php:743
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: lib/action.php:746
+#: lib/action.php:745
 msgid "Source"
 msgstr "Джерело"
 
-#: lib/action.php:750
+#: lib/action.php:749
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Badge"
 msgstr "Бедж"
 
-#: lib/action.php:780
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr "Ліцензія програмного забезпечення StatusNet"
 
-#: lib/action.php:783
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4671,12 +4695,12 @@ msgstr ""
 "**%%site.name%%** — це сервіс мікроблоґів наданий вам [%%site.broughtby%%](%%"
 "site.broughtbyurl%%). "
 
-#: lib/action.php:785
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** — це сервіс мікроблоґів. "
 
-#: lib/action.php:787
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4687,42 +4711,42 @@ msgstr ""
 "для мікроблоґів, версія %s, доступному під [GNU Affero General Public "
 "License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:802
+#: lib/action.php:801
 msgid "Site content license"
 msgstr "Ліцензія змісту сайту"
 
-#: lib/action.php:807
+#: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Зміст і дані %1$s є приватними і конфіденційними."
 
-#: lib/action.php:812
+#: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "Авторські права на зміст і дані належать %1$s. Всі права захищено."
 
-#: lib/action.php:815
+#: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторські права на зміст і дані належать розробникам. Всі права захищено."
 
-#: lib/action.php:828
+#: lib/action.php:827
 msgid "All "
 msgstr "Всі "
 
-#: lib/action.php:834
+#: lib/action.php:833
 msgid "license."
 msgstr "ліцензія."
 
-#: lib/action.php:1133
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Нумерація сторінок"
 
-#: lib/action.php:1142
+#: lib/action.php:1141
 msgid "After"
 msgstr "Вперед"
 
-#: lib/action.php:1150
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Назад"
 
@@ -5023,84 +5047,89 @@ msgstr "Проблема при збереженні допису."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Зазначте ім’я користувача, до якого бажаєте підписатись"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "Такого користувача немає."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Підписано до %s"
 
-#: lib/command.php:575
+#: lib/command.php:582
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Зазначте ім’я користувача, від якого бажаєте відписатись"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Відписано від %s"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Виконання команди ще не завершено."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Сповіщення вимкнуто."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Не можна вимкнути сповіщення."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Сповіщення увімкнуто."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Не можна увімкнути сповіщення."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr "Команду входу відключено"
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Це посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s"
 
-#: lib/command.php:668
+#: lib/command.php:681
 msgid "You are not subscribed to anyone."
 msgstr "Ви не маєте жодних підписок."
 
-#: lib/command.php:670
+#: lib/command.php:683
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ви підписані до цієї особи:"
 msgstr[1] "Ви підписані до цих людей:"
 msgstr[2] "Ви підписані до цих людей:"
 
-#: lib/command.php:690
+#: lib/command.php:703
 msgid "No one is subscribed to you."
 msgstr "До Вас ніхто не підписаний."
 
-#: lib/command.php:692
+#: lib/command.php:705
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ця особа є підписаною до Вас:"
 msgstr[1] "Ці люди підписані до Вас:"
 msgstr[2] "Ці люди підписані до Вас:"
 
-#: lib/command.php:712
+#: lib/command.php:725
 msgid "You are not a member of any groups."
 msgstr "Ви не є учасником жодної групи."
 
-#: lib/command.php:714
+#: lib/command.php:727
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ви є учасником групи:"
 msgstr[1] "Ви є учасником таких груп:"
 msgstr[2] "Ви є учасником таких груп:"
 
-#: lib/command.php:728
+#: lib/command.php:741
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5881,10 +5910,6 @@ msgstr "Помилка при додаванні віддаленого проф
 msgid "Duplicate notice"
 msgstr "Дублікат допису"
 
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "Вас позбавлено можливості підписатись."
-
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Не вдалося додати нову підписку."
@@ -6060,34 +6085,6 @@ msgstr "Люди підписані до %s"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "%s бере участь в цих групах"
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr "Вже підписаний!"
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Користувач заблокував Вас."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Невдала підписка."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Не вдалося підписати інших до Вас."
-
-#: lib/subs.php:137
-msgid "Not subscribed!"
-msgstr "Не підписано!"
-
-#: lib/subs.php:142
-msgid "Couldn't delete self-subscription."
-msgstr "Не можу видалити самопідписку."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Не вдалося видалити підписку."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48

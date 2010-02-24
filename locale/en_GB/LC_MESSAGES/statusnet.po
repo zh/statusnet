@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-18 22:55+0000\n"
-"PO-Revision-Date: 2010-02-18 22:56:01+0000\n"
+"POT-Creation-Date: 2010-02-21 23:02+0000\n"
+"PO-Revision-Date: 2010-02-21 23:02:40+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62678); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.16alpha (r62792); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -100,7 +100,6 @@ msgstr "No such page"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "No such user."
 
@@ -558,7 +557,7 @@ msgstr ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:442
+#: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
 msgstr "Account"
 
@@ -934,7 +933,7 @@ msgstr "You are not the owner of this application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1198
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "There was a problem with your session token."
 
@@ -1685,7 +1684,7 @@ msgstr "%s group members, page %d"
 msgid "A list of the users in this group."
 msgstr "A list of the users in this group."
 
-#: actions/groupmembers.php:175 lib/action.php:449 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Admin"
 
@@ -2065,7 +2064,7 @@ msgstr "Incorrect username or password."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Error setting user. You are probably not authorised."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:467
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Login"
@@ -3035,7 +3034,7 @@ msgstr "Error with confirmation code."
 msgid "Registration successful"
 msgstr "Registration successful"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:464
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Register"
@@ -3939,7 +3938,8 @@ msgstr "No code entered"
 msgid "You are not subscribed to that profile."
 msgstr "You are not subscribed to that profile."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Could not save subscription."
 
@@ -4396,7 +4396,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:748
+#: actions/version.php:196 lib/action.php:747
 #, fuzzy
 msgid "Version"
 msgstr "Personal"
@@ -4460,22 +4460,22 @@ msgstr "Could not update message with new URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "DB error inserting hashtag: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:215
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:219
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem saving notice. Unknown user."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:224
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:230
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4483,30 +4483,56 @@ msgid ""
 msgstr ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:236
 msgid "You are banned from posting notices on this site."
 msgstr "You are banned from posting notices on this site."
 
-#: classes/Notice.php:294 classes/Notice.php:320
+#: classes/Notice.php:302 classes/Notice.php:328
 msgid "Problem saving notice."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:790
+#: classes/Notice.php:811
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:850
+#: classes/Notice.php:871
 #, php-format
 msgid "DB error inserting reply: %s"
 msgstr "DB error inserting reply: %s"
 
-#: classes/Notice.php:1274
+#: classes/Notice.php:1328
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "You have been banned from subscribing."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr ""
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "User has blocked you."
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Not subscribed!"
+
+#: classes/Subscription.php:163
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "Couldn't delete subscription."
+
+#: classes/Subscription.php:179
+msgid "Couldn't delete subscription."
+msgstr "Couldn't delete subscription."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welcome to %1$s, @%2$s!"
@@ -4556,126 +4582,126 @@ msgstr "%1$s (%2$s)"
 msgid "Untitled page"
 msgstr "Untitled page"
 
-#: lib/action.php:434
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr "Primary site navigation"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Home"
 msgstr "Home"
 
-#: lib/action.php:440
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr "Personal profile and friends timeline"
 
-#: lib/action.php:442
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr "Change your e-mail, avatar, password, profile"
 
-#: lib/action.php:445
+#: lib/action.php:444
 msgid "Connect"
 msgstr "Connect"
 
-#: lib/action.php:445
+#: lib/action.php:444
 #, fuzzy
 msgid "Connect to services"
 msgstr "Could not redirect to server: %s"
 
-#: lib/action.php:449
+#: lib/action.php:448
 #, fuzzy
 msgid "Change site configuration"
 msgstr "Primary site navigation"
 
-#: lib/action.php:453 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Invite"
 
-#: lib/action.php:454 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Invite friends and colleagues to join you on %s"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout"
 msgstr "Logout"
 
-#: lib/action.php:459
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr "Logout from the site"
 
-#: lib/action.php:464
+#: lib/action.php:463
 msgid "Create an account"
 msgstr "Create an account"
 
-#: lib/action.php:467
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr "Login to the site"
 
-#: lib/action.php:470 lib/action.php:733
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "Help"
 
-#: lib/action.php:470
+#: lib/action.php:469
 msgid "Help me!"
 msgstr "Help me!"
 
-#: lib/action.php:473 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr "Search"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr "Search for people or text"
 
-#: lib/action.php:494
+#: lib/action.php:493
 msgid "Site notice"
 msgstr "Site notice"
 
-#: lib/action.php:560
+#: lib/action.php:559
 msgid "Local views"
 msgstr "Local views"
 
-#: lib/action.php:626
+#: lib/action.php:625
 msgid "Page notice"
 msgstr "Page notice"
 
-#: lib/action.php:728
+#: lib/action.php:727
 msgid "Secondary site navigation"
 msgstr "Secondary site navigation"
 
-#: lib/action.php:735
+#: lib/action.php:734
 msgid "About"
 msgstr "About"
 
-#: lib/action.php:737
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "F.A.Q."
 
-#: lib/action.php:741
+#: lib/action.php:740
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:744
+#: lib/action.php:743
 msgid "Privacy"
 msgstr "Privacy"
 
-#: lib/action.php:746
+#: lib/action.php:745
 msgid "Source"
 msgstr "Source"
 
-#: lib/action.php:750
+#: lib/action.php:749
 msgid "Contact"
 msgstr "Contact"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Badge"
 msgstr "Badge"
 
-#: lib/action.php:780
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr "StatusNet software licence"
 
-#: lib/action.php:783
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4684,12 +4710,12 @@ msgstr ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 
-#: lib/action.php:785
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** is a microblogging service."
 
-#: lib/action.php:787
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4700,41 +4726,41 @@ msgstr ""
 "s, available under the [GNU Affero General Public Licence](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:802
+#: lib/action.php:801
 msgid "Site content license"
 msgstr "Site content license"
 
-#: lib/action.php:807
+#: lib/action.php:806
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:812
+#: lib/action.php:811
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:815
+#: lib/action.php:814
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:828
+#: lib/action.php:827
 msgid "All "
 msgstr "All "
 
-#: lib/action.php:834
+#: lib/action.php:833
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1133
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1142
+#: lib/action.php:1141
 msgid "After"
 msgstr "After"
 
-#: lib/action.php:1150
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Before"
 
@@ -5047,83 +5073,88 @@ msgstr "Error saving notice."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Specify the name of the user to subscribe to"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "No such user."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Subscribed to %s"
 
-#: lib/command.php:575
+#: lib/command.php:582
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Specify the name of the user to unsubscribe from"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Unsubscribed from %s"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Command not yet implemented."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Notification off."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Can't turn off notification."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Notification on."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Can't turn on notification."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:668
+#: lib/command.php:681
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "You are not subscribed to that profile."
 
-#: lib/command.php:670
+#: lib/command.php:683
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "You are already subscribed to these users:"
 msgstr[1] "You are already subscribed to these users:"
 
-#: lib/command.php:690
+#: lib/command.php:703
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Could not subscribe other to you."
 
-#: lib/command.php:692
+#: lib/command.php:705
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Could not subscribe other to you."
 msgstr[1] "Could not subscribe other to you."
 
-#: lib/command.php:712
+#: lib/command.php:725
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "You are not a member of that group."
 
-#: lib/command.php:714
+#: lib/command.php:727
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "You are not a member of that group."
 msgstr[1] "You are not a member of that group."
 
-#: lib/command.php:728
+#: lib/command.php:741
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5806,10 +5837,6 @@ msgstr "Error inserting remote profile."
 msgid "Duplicate notice"
 msgstr "Duplicate notice"
 
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "You have been banned from subscribing."
-
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "Couldn't insert new subscription."
@@ -5990,36 +6017,6 @@ msgstr "People subscribed to %s"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "Groups %s is a member of"
-
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr ""
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "User has blocked you."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Could not subscribe."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Could not subscribe other to you."
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Not subscribed!"
-
-#: lib/subs.php:142
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "Couldn't delete subscription."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Couldn't delete subscription."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
