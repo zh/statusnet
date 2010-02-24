@@ -668,28 +668,9 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function purify($html)
     {
-        require_once(INSTALLDIR.'/extlib/HTMLPurifier/HTMLPurifier.auto.php');
-
-        // By default Purifier wants to cache data to its own code directories,
-        // and spews error messages if they're not writable.
-        $config = HTMLPurifier_Config::createDefault();
-        if (common_config('ostatus', 'purify_cache')) {
-            $config->set('Cache.SerializerPath', common_config('ostatus', 'purify_cache'));
-        } else {
-            // Although recommended in the documentation, this produces a notice:
-            //    "Core.DefinitionCache is an alias, preferred directive name is Cache.DefinitionImpl"
-            // If I then follow *those* directions, I get a warning and it doesn't work:
-            //    "Cannot set undefined directive Core.DefinitionImpl"
-            // So... lesser of two evils. Suppressing the notice from output,
-            // though it'll still be seen and logged by StatusNet's error handler.
-            $old = error_reporting();
-            error_reporting($old & ~E_NOTICE);
-            $config->set('Core.DefinitionCache', null);
-            error_reporting($old);
-        }
-
-        $purifier = new HTMLPurifier($config);
-        return $purifier->purify($html);
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        $config = array('safe' => 1);
+        return htmLawed($html, $config);
     }
 
     /**

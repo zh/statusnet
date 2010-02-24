@@ -12,10 +12,6 @@ $config['ostatus']['hub_retries']
     (default 0)
     Number of times to retry a PuSH send to consumers if using internal hub
 
-$config['ostatus']['purify_cache']
-    (default cache disabled)
-    Set to a writable cache directory for HTMLPurifier's configuration settings, can speed up processing of remote messages (have not tested by how much)
-
 
 For testing, shouldn't be used in production:
 
