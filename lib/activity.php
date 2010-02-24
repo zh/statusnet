@@ -167,16 +167,18 @@ class PoCo
             PoCo::NS
         );
 
-        $formatted = ActivityUtils::childContent(
-            $addressEl,
-            PoCoAddress::FORMATTED,
-            self::NS
-        );
+        if (!empty($addressEl)) {
+            $formatted = ActivityUtils::childContent(
+                $addressEl,
+                PoCoAddress::FORMATTED,
+                self::NS
+            );
 
-        if (!empty($formatted)) {
-            $address = new PoCoAddress();
-            $address->formatted = $formatted;
-            return $address;
+            if (!empty($formatted)) {
+                $address = new PoCoAddress();
+                $address->formatted = $formatted;
+                return $address;
+            }
         }
 
         return null;
@@ -292,7 +294,7 @@ class ActivityUtils
      * @return string related link, if any
      */
 
-    static function getLink($element, $rel, $type=null)
+    static function getLink(DOMNode $element, $rel, $type=null)
     {
         $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
 
@@ -320,7 +322,7 @@ class ActivityUtils
      * @return DOMElement found element or null
      */
 
-    static function child($element, $tag, $namespace=self::ATOM)
+    static function child(DOMNode $element, $tag, $namespace=self::ATOM)
     {
         $els = $element->childNodes;
         if (empty($els) || $els->length == 0) {
@@ -345,7 +347,7 @@ class ActivityUtils
      * @return string content of the child
      */
 
-    static function childContent($element, $tag, $namespace=self::ATOM)
+    static function childContent(DOMNode $element, $tag, $namespace=self::ATOM)
     {
         $el = self::child($element, $tag, $namespace);
 
