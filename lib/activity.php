@@ -104,6 +104,7 @@ class PoCo
     function __construct($profile)
     {
         $this->preferredUsername = $profile->nickname;
+        $this->displayName       = $profile->getBestName();
 
         $this->note    = $profile->bio;
         $this->address = new PoCoAddress($profile->location);
@@ -127,6 +128,12 @@ class PoCo
             'poco:preferredUsername',
             null,
             $this->preferredUsername
+        );
+
+        $xs->element(
+            'poco:displayName',
+            null,
+            $this->displayName
         );
 
         if (!empty($this->note)) {
@@ -823,7 +830,9 @@ class Activity
         if ($namespace) {
             $attrs = array('xmlns' => 'http://www.w3.org/2005/Atom',
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
-                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                           'xmlns:georss' => 'http://www.georss.org/georss',
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
         } else {
             $attrs = array();
         }

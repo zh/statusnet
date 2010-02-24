@@ -87,53 +87,168 @@ class OStatusSubAction extends Action
      */
     function showPreviewForm()
     {
-        $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'form_ostatus_sub',
-                                          'class' => 'form_settings',
-                                          'action' =>
-                                          common_local_url('ostatussub')));
-
-        $this->hidden('token', common_session_token());
-        $this->hidden('profile', $this->profile_uri);
-
-        $this->elementStart('fieldset', array('id' => 'settings_feeds'));
-
         if ($this->oprofile->isGroup()) {
-            $this->previewGroup();
-            $this->submit('subscribe', _m('Join'));
+            $ok = $this->previewGroup();
         } else {
-            $this->previewUser();
-            $this->submit('subscribe', _m('Subscribe'));
+            $ok = $this->previewUser();
+        }
+        if (!$ok) {
+            // @fixme maybe provide a cancel button or link back?
+            return;
         }
 
-
+        $this->elementStart('div', 'entity_actions');
+        $this->elementStart('ul');
+        $this->elementStart('li', 'entity_subscribe');
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_ostatus_sub',
+                                          'class' => 'form_remote_authorize',
+                                          'action' =>
+                                          common_local_url('ostatussub')));
+        $this->elementStart('fieldset');
+        $this->hidden('token', common_session_token());
+        $this->hidden('profile', $this->profile_uri);
+        if ($this->oprofile->isGroup()) {
+            $this->submit('submit', _m('Join'), 'submit', null,
+                         _m('Join this group'));
+        } else {
+            $this->submit('submit', _m('Subscribe'), 'submit', null,
+                         _m('Subscribe to this user'));
+        }
         $this->elementEnd('fieldset');
-
         $this->elementEnd('form');
+        $this->elementEnd('li');
+        $this->elementEnd('ul');
+        $this->elementEnd('div');
     }
 
     /**
      * Show a preview for a remote user's profile
+     * @return boolean true if we're ok to try subscribing
      */
     function previewUser()
     {
         $oprofile = $this->oprofile;
         $profile = $oprofile->localProfile();
 
-        $this->text(sprintf(_m("Remote user %s"), $profile->nickname));
-        // ...
+        $cur = common_current_user();
+        if ($cur->isSubscribed($profile)) {
+            $this->element('div', array('class' => 'error'),
+                           _m("You are already subscribed to this user."));
+            $ok = false;
+        } else {
+            $ok = true;
+        }
+
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatarUrl = $avatar ? $avatar->displayUrl() : false;
+
+        $this->showEntity($profile,
+                          $profile->profileurl,
+                          $avatarUrl,
+                          $profile->bio);
+        return $ok;
     }
 
     /**
      * Show a preview for a remote group's profile
+     * @return boolean true if we're ok to try joining
      */
     function previewGroup()
     {
         $oprofile = $this->oprofile;
         $group = $oprofile->localGroup();
 
-        $this->text(sprintf(_m("Remote group %s"), $group->nickname));
-        // ..
+        $cur = common_current_user();
+        if ($cur->isMember($group)) {
+            $this->element('div', array('class' => 'error'),
+                           _m("You are already a member of this group."));
+            $ok = false;
+        } else {
+            $ok = true;
+        }
+
+        $this->showEntity($group,
+                          $group->getProfileUrl(),
+                          $group->homepage_logo,
+                          $group->description);
+        return $ok;
+    }
+
+
+    function showEntity($entity, $profile, $avatar, $note)
+    {
+        $nickname = $entity->nickname;
+        $fullname = $entity->fullname;
+        $homepage = $entity->homepage;
+        $location = $entity->location;
+        
+        if (!$avatar) {
+            $avatar = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        }
+
+        $this->elementStart('div', 'entity_profile vcard');
+        $this->elementStart('dl', 'entity_depiction');
+        $this->element('dt', null, _('Photo'));
+        $this->elementStart('dd');
+        $this->element('img', array('src' => $avatar,
+                                    'class' => 'photo avatar',
+                                    'width' => AVATAR_PROFILE_SIZE,
+                                    'height' => AVATAR_PROFILE_SIZE,
+                                    'alt' => $nickname));
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'entity_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
+        $hasFN = ($fullname !== '') ? 'nickname' : 'fn nickname';
+        $this->elementStart('a', array('href' => $profile,
+                                       'class' => 'url '.$hasFN));
+        $this->raw($nickname);
+        $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+        if (!is_null($fullname)) {
+            $this->elementStart('dl', 'entity_fn');
+            $this->elementStart('dd');
+            $this->elementStart('span', 'fn');
+            $this->raw($fullname);
+            $this->elementEnd('span');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+        if (!is_null($location)) {
+            $this->elementStart('dl', 'entity_location');
+            $this->element('dt', null, _('Location'));
+            $this->elementStart('dd', 'label');
+            $this->raw($location);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+
+        if (!is_null($homepage)) {
+            $this->elementStart('dl', 'entity_url');
+            $this->element('dt', null, _('URL'));
+            $this->elementStart('dd');
+            $this->elementStart('a', array('href' => $homepage,
+                                                'class' => 'url'));
+            $this->raw($homepage);
+            $this->elementEnd('a');
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+
+        if (!is_null($note)) {
+            $this->elementStart('dl', 'entity_note');
+            $this->element('dt', null, _('Note'));
+            $this->elementStart('dd', 'note');
+            $this->raw($note);
+            $this->elementEnd('dd');
+            $this->elementEnd('dl');
+        }
+        $this->elementEnd('div');
     }
 
     /**
@@ -173,10 +288,15 @@ class OStatusSubAction extends Action
         }
         $this->profile_uri = $profile_uri;
 
-        // @fixme validate, normalize bla bla
         try {
-            $oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
-            $this->oprofile = $oprofile;
+            if (Validate::email($this->profile_uri)) {
+                $this->oprofile = Ostatus_profile::ensureWebfinger($this->profile_uri);
+            } else if (Validate::uri($this->profile_uri)) {
+                $this->oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+            } else {
+                $this->error = _m("Invalid address format.");
+                return false;
+            }
             return true;
         } catch (FeedSubBadURLException $e) {
             $this->error = _m('Invalid URL or could not reach server.');
@@ -208,11 +328,6 @@ class OStatusSubAction extends Action
     {
         // And subscribe the current user to the local profile
         $user = common_current_user();
-
-        if (!$this->oprofile->subscribe()) {
-            $this->showForm(_m("Failed to set up server-to-server subscription."));
-            return;
-        }
 
         if ($this->oprofile->isGroup()) {
             $group = $this->oprofile->localGroup();
@@ -287,7 +402,7 @@ class OStatusSubAction extends Action
         }
 
         if ($this->validateFeed()) {
-            if ($this->arg('subscribe')) {
+            if ($this->arg('submit')) {
                 $this->saveFeed();
                 return;
             }
@@ -343,7 +458,7 @@ class OStatusSubAction extends Action
 
     function showPageNotice()
     {
-        if ($this->error) {
+        if (!empty($this->error)) {
             $this->element('p', 'error', $this->error);
         }
     }

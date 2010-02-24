@@ -224,7 +224,7 @@ class OStatusPlugin extends Plugin
      *
      */
 
-    function onEndFindMentions($sender, $text, &$mentions)
+    function onStartFindMentions($sender, $text, &$mentions)
     {
         preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
                        $text,
@@ -252,58 +252,6 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Notify remote server and garbage collect unused feeds on unsubscribe.
-     * @fixme send these operations to background queues
-     *
-     * @param User $user
-     * @param Profile $other
-     * @return hook return value
-     */
-    function onEndUnsubscribe($profile, $other)
-    {
-        $user = User::staticGet('id', $profile->id);
-
-        if (empty($user)) {
-            return true;
-        }
-
-        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
-
-        if (empty($oprofile)) {
-            return true;
-        }
-
-        // Drop the PuSH subscription if there are no other subscribers.
-
-        if ($other->subscriberCount() == 0) {
-            common_log(LOG_INFO, "Unsubscribing from now-unused feed $oprofile->feeduri");
-            $oprofile->unsubscribe();
-        }
-
-        $act = new Activity();
-
-        $act->verb = ActivityVerb::UNFOLLOW;
-
-        $act->id   = TagURI::mint('unfollow:%d:%d:%s',
-                                  $profile->id,
-                                  $other->id,
-                                  common_date_iso8601(time()));
-
-        $act->time    = time();
-        $act->title   = _("Unfollow");
-        $act->content = sprintf(_("%s stopped following %s."),
-                               $profile->getBestName(),
-                               $other->getBestName());
-
-        $act->actor   = ActivityObject::fromProfile($profile);
-        $act->object  = ActivityObject::fromProfile($other);
-
-        $oprofile->notifyActivity($act);
-
-        return true;
-    }
-
-    /**
      * Make sure necessary tables are filled out.
      */
     function onCheckSchema() {
@@ -312,6 +260,7 @@ class OStatusPlugin extends Plugin
         $schema->ensureTable('ostatus_source', Ostatus_source::schemaDef());
         $schema->ensureTable('feedsub', FeedSub::schemaDef());
         $schema->ensureTable('hubsub', HubSub::schemaDef());
+        $schema->ensureTable('magicsig', Magicsig::schemaDef());
         return true;
     }
 
@@ -338,13 +287,19 @@ class OStatusPlugin extends Plugin
     function onStartNoticeSourceLink($notice, &$name, &$url, &$title)
     {
         if ($notice->source == 'ostatus') {
-            $bits = parse_url($notice->uri);
-            $domain = $bits['host'];
+            if ($notice->url) {
+                $bits = parse_url($notice->url);
+                $domain = $bits['host'];
+                if (substr($domain, 0, 4) == 'www.') {
+                    $name = substr($domain, 4);
+                } else {
+                    $name = $domain;
+                }
 
-            $name = $domain;
-            $url = $notice->uri;
-            $title = sprintf(_m("Sent from %s via OStatus"), $domain);
-            return false;
+                $url = $notice->url;
+                $title = sprintf(_m("Sent from %s via OStatus"), $domain);
+                return false;
+            }
         }
     }
 
@@ -359,12 +314,56 @@ class OStatusPlugin extends Plugin
     {
         $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
         if ($oprofile) {
-            $oprofile->processFeed($feed);
+            $oprofile->processFeed($feed, 'push');
         } else {
             common_log(LOG_DEBUG, "No ostatus profile for incoming feed $feedsub->uri");
         }
     }
 
+    /**
+     * When about to subscribe to a remote user, start a server-to-server
+     * PuSH subscription if needed. If we can't establish that, abort.
+     *
+     * @fixme If something else aborts later, we could end up with a stray
+     *        PuSH subscription. This is relatively harmless, though.
+     *
+     * @param Profile $subscriber
+     * @param Profile $other
+     *
+     * @return hook return code
+     *
+     * @throws Exception
+     */
+    function onStartSubscribe($subscriber, $other)
+    {
+        $user = User::staticGet('id', $subscriber->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        if (!$oprofile->subscribe()) {
+            throw new Exception(_m('Could not set up remote subscription.'));
+        }
+    }
+
+    /**
+     * Having established a remote subscription, send a notification to the
+     * remote OStatus profile's endpoint.
+     *
+     * @param Profile $subscriber
+     * @param Profile $other
+     *
+     * @return hook return code
+     *
+     * @throws Exception
+     */
     function onEndSubscribe($subscriber, $other)
     {
         $user = User::staticGet('id', $subscriber->id);
@@ -403,6 +402,54 @@ class OStatusPlugin extends Plugin
     }
 
     /**
+     * Notify remote server and garbage collect unused feeds on unsubscribe.
+     * @fixme send these operations to background queues
+     *
+     * @param User $user
+     * @param Profile $other
+     * @return hook return value
+     */
+    function onEndUnsubscribe($profile, $other)
+    {
+        $user = User::staticGet('id', $profile->id);
+
+        if (empty($user)) {
+            return true;
+        }
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $other->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        // Drop the PuSH subscription if there are no other subscribers.
+        $oprofile->garbageCollect();
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UNFOLLOW;
+
+        $act->id   = TagURI::mint('unfollow:%d:%d:%s',
+                                  $profile->id,
+                                  $other->id,
+                                  common_date_iso8601(time()));
+
+        $act->time    = time();
+        $act->title   = _("Unfollow");
+        $act->content = sprintf(_("%s stopped following %s."),
+                               $profile->getBestName(),
+                               $other->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromProfile($other);
+
+        $oprofile->notifyActivity($act);
+
+        return true;
+    }
+
+    /**
      * When one of our local users tries to join a remote group,
      * notify the remote server. If the notification is rejected,
      * deny the join.
@@ -417,6 +464,10 @@ class OStatusPlugin extends Plugin
     {
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
         if ($oprofile) {
+            if (!$oprofile->subscribe()) {
+                throw new Exception(_m('Could not set up remote group membership.'));
+            }
+
             $member = Profile::staticGet($user->id);
 
             $act = new Activity();
@@ -438,7 +489,8 @@ class OStatusPlugin extends Plugin
             if ($oprofile->notifyActivity($act)) {
                 return true;
             } else {
-                throw new ServerException(_m("Failed joining remote group."));
+                $oprofile->garbageCollect();
+                throw new Exception(_m("Failed joining remote group."));
             }
         }
     }
@@ -463,12 +515,7 @@ class OStatusPlugin extends Plugin
         $oprofile = Ostatus_profile::staticGet('group_id', $group->id);
         if ($oprofile) {
             // Drop the PuSH subscription if there are no other subscribers.
-    
-            $members = $group->getMembers(0, 1);
-            if ($members->N == 0) {
-                common_log(LOG_INFO, "Unsubscribing from now-unused group feed $oprofile->feeduri");
-                $oprofile->unsubscribe();
-            }
+            $oprofile->garbageCollect();
 
 
             $member = Profile::staticGet($user->id);

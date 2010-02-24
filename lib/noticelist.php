@@ -438,14 +438,15 @@ class NoticeListItem extends Widget
         $this->out->text(_('at'));
         $this->out->text(' ');
         if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo',
+            $this->out->element('abbr', array('class' => 'geo',
                                               'title' => $latlon),
                                 $name);
         } else {
-            $this->out->element('a', array('class' => 'geo',
-                                           'title' => $latlon,
-                                           'href' => $url),
+            $this->out->elementStart('a', array('href' => $url));
+            $this->out->element('abbr', array('class' => 'geo',
+                                              'title' => $latlon),
                                 $name);
+            $this->out->elementEnd('a');
         }
         $this->out->elementEnd('span');
     }
