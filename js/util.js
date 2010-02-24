@@ -737,6 +737,20 @@ var SN = { // StatusNet
 
                 SN.U.NewDirectMessage();
             }
+        },
+
+        Login: function() {
+            if (SN.U.StatusNetInstance.Get() !== null) {
+                var nickname = SN.U.StatusNetInstance.Get().Nickname;
+                if (nickname !== null) {
+                    $('#form_login #nickname').val(nickname);
+                }
+            }
+
+            $('#form_login').bind('submit', function() {
+                SN.U.StatusNetInstance.Set({Nickname: $('#form_login #nickname').val()});
+                return true;
+            });
         }
     }
 };
@@ -750,6 +764,9 @@ $(document).ready(function(){
     }
     if ($('#content .entity_actions').length > 0) {
         SN.Init.EntityActions();
+    }
+    if ($('#form_login').length > 0) {
+        SN.Init.Login();
     }
 });
 
