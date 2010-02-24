@@ -299,18 +299,9 @@ class Ostatus_profile extends Memcached_DataObject
             throw new ServerException("Remote groups can't subscribe to local users");
         }
 
-        // @fixme use regular channels for subbing, once they accept remote profiles
-        $sub = new Subscription();
-        $sub->subscriber = $this->profile_id;
-        $sub->subscribed = $user->id;
-        $sub->created = common_sql_now(); // current time
+        Subscription::start($this->localProfile(), $user->getProfile());
 
-        if ($sub->insert()) {
-            // @fixme use subs_notify() if refactored to take profiles?
-            mail_subscribe_notify_profile($user, $this->localProfile());
-            return true;
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -1162,7 +1153,6 @@ class Ostatus_profile extends Memcached_DataObject
             $group->update($orig);
         }
     }
-
 
     protected static function getActivityObjectNickname($object, $hints=array())
     {
