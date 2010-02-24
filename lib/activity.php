@@ -957,11 +957,24 @@ class Activity
         }
 
         // XXX: add context
-        // XXX: add target
 
+        $xs->elementStart('author');
+        $xs->element('uri', array(), $this->actor->id);
+        if ($this->actor->title) {
+            $xs->element('name', array(), $this->actor->title);
+        }
+        $xs->elementEnd('author');
         $xs->raw($this->actor->asString('activity:actor'));
+
         $xs->element('activity:verb', null, $this->verb);
-        $xs->raw($this->object->asString());
+
+        if ($this->object) {
+            $xs->raw($this->object->asString());
+        }
+
+        if ($this->target) {
+            $xs->raw($this->target->asString('activity:target'));
+        }
 
         $xs->elementEnd('entry');
 
