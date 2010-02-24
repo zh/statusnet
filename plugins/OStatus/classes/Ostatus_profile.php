@@ -33,6 +33,7 @@ class Ostatus_profile extends Memcached_DataObject
 
     public $feeduri;
     public $salmonuri;
+    public $avatar; // remote URL of the last avatar we saved
 
     public $created;
     public $modified;
@@ -58,6 +59,7 @@ class Ostatus_profile extends Memcached_DataObject
                      'group_id' => DB_DATAOBJECT_INT,
                      'feeduri' => DB_DATAOBJECT_STR,
                      'salmonuri' =>  DB_DATAOBJECT_STR,
+                     'avatar' =>  DB_DATAOBJECT_STR,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
@@ -73,6 +75,8 @@ class Ostatus_profile extends Memcached_DataObject
                      new ColumnDef('feeduri', 'varchar',
                                    255, true, 'UNI'),
                      new ColumnDef('salmonuri', 'text',
+                                   null, true),
+                     new ColumnDef('avatar', 'text',
                                    null, true),
                      new ColumnDef('created', 'datetime',
                                    null, false),
@@ -138,10 +142,47 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Returns an ActivityObject describing this remote user or group profile.
+     * Can then be used to generate Atom chunks.
+     *
+     * @return ActivityObject
+     */
+    function asActivityObject()
+    {
+        if ($this->isGroup()) {
+            $object = new ActivityObject();
+            $object->type = 'http://activitystrea.ms/schema/1.0/group';
+            $object->id = $this->uri;
+            $self = $this->localGroup();
+
+            // @fixme put a standard getAvatar() interface on groups too
+            if ($self->homepage_logo) {
+                $object->avatar = $self->homepage_logo;
+                $map = array('png' => 'image/png',
+                             'jpg' => 'image/jpeg',
+                             'jpeg' => 'image/jpeg',
+                             'gif' => 'image/gif');
+                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
+                if (isset($map[$extension])) {
+                    // @fixme this ain't used/saved yet
+                    $object->avatarType = $map[$extension];
+                }
+            }
+
+            $object->link = $this->uri; // @fixme accurate?
+            return $object;
+        } else {
+            return ActivityObject::fromProfile($this->localProfile());
+        }
+    }
+
+    /**
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
      * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @fixme replace with wrappers on asActivityObject when it's got everything.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
      * @return string
@@ -202,11 +243,19 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Damn dirty hack!
+     * @return boolean true if this is a remote group
      */
     function isGroup()
     {
-        return (strpos($this->feeduri, '/groups/') !== false);
+        if ($this->profile_id && !$this->group_id) {
+            return false;
+        } else if ($this->group_id && !$this->profile_id) {
+            return true;
+        } else if ($this->group_id && $this->profile_id) {
+            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs set for $this->uri");
+        } else {
+            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs empty for $this->uri");
+        }
     }
 
     /**
@@ -250,18 +299,9 @@ class Ostatus_profile extends Memcached_DataObject
             throw new ServerException("Remote groups can't subscribe to local users");
         }
 
-        // @fixme use regular channels for subbing, once they accept remote profiles
-        $sub = new Subscription();
-        $sub->subscriber = $this->profile_id;
-        $sub->subscribed = $user->id;
-        $sub->created = common_sql_now(); // current time
+        Subscription::start($this->localProfile(), $user->getProfile());
 
-        if ($sub->insert()) {
-            // @fixme use subs_notify() if refactored to take profiles?
-            mail_subscribe_notify_profile($user, $this->localProfile());
-            return true;
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -302,6 +342,29 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Check if this remote profile has any active local subscriptions, and
+     * if not drop the PuSH subscription feed.
+     *
+     * @return boolean
+     */
+    public function garbageCollect()
+    {
+        if ($this->isGroup()) {
+            $members = $this->localGroup()->getMembers(0, 1);
+            $count = $members->N;
+        } else {
+            $count = $this->localProfile()->subscriberCount();
+        }
+        if ($count == 0) {
+            common_log(LOG_INFO, "Unsubscribing from now-unused remote feed $oprofile->feeduri");
+            $this->unsubscribe();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * Send an Activity Streams notification to the remote Salmon endpoint,
      * if so configured.
      *
@@ -334,7 +397,8 @@ class Ostatus_profile extends Memcached_DataObject
                                 'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                                 'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                                 'xmlns:georss' => 'http://www.georss.org/georss',
-                                'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                                'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                                'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
 
             $entry = new XMLStringer();
             $entry->elementStart('entry', $attributes);
@@ -353,22 +417,60 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
-            $salmon->post($this->salmonuri, $xml);
+            return $salmon->post($this->salmonuri, $xml);
         }
+        return false;
     }
 
-    public function notifyActivity($activity)
+    /**
+     * Send a Salmon notification ping immediately, and confirm that we got
+     * an acceptable response from the remote site.
+     *
+     * @param mixed $entry XML string, Notice, or Activity
+     * @return boolean success
+     */
+    public function notifyActivity($entry)
     {
         if ($this->salmonuri) {
-
-            $xml = $activity->asString();
-
-            $salmon = new Salmon(); // ?
-
-            $salmon->post($this->salmonuri, $xml);
+            $salmon = new Salmon();
+            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry));
         }
 
-        return;
+        return false;
+    }
+
+    /**
+     * Queue a Salmon notification for later. If queues are disabled we'll
+     * send immediately but won't get the return value.
+     *
+     * @param mixed $entry XML string, Notice, or Activity
+     * @return boolean success
+     */
+    public function notifyDeferred($entry)
+    {
+        if ($this->salmonuri) {
+            $data = array('salmonuri' => $this->salmonuri,
+                          'entry' => $this->notifyPrepXml($entry));
+
+            $qm = QueueManager::get();
+            return $qm->enqueue($data, 'salmon');
+        }
+
+        return false;
+    }
+
+    protected function notifyPrepXml($entry)
+    {
+        $preamble = '<?xml version="1.0" encoding="UTF-8" ?' . '>';
+        if (is_string($entry)) {
+            return $entry;
+        } else if ($entry instanceof Activity) {
+            return $preamble . $entry->asString(true);
+        } else if ($entry instanceof Notice) {
+            return $preamble . $entry->asAtomEntry(true, true);
+        } else {
+            throw new ServerException("Invalid type passed to Ostatus_profile::notify; must be XML string or Activity entry");
+        }
     }
 
     function getBestName()
@@ -417,7 +519,7 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @param DOMDocument $feed
      */
-    public function processFeed($feed)
+    public function processFeed($feed, $source)
     {
         $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
         if ($entries->length == 0) {
@@ -427,7 +529,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         for ($i = 0; $i < $entries->length; $i++) {
             $entry = $entries->item($i);
-            $this->processEntry($entry, $feed);
+            $this->processEntry($entry, $feed, $source);
         }
     }
 
@@ -437,15 +539,12 @@ class Ostatus_profile extends Memcached_DataObject
      * @param DOMElement $entry
      * @param DOMElement $feed for context
      */
-    protected function processEntry($entry, $feed)
+    public function processEntry($entry, $feed, $source)
     {
         $activity = new Activity($entry, $feed);
 
-        $debug = var_export($activity, true);
-        common_log(LOG_DEBUG, $debug);
-
         if ($activity->verb == ActivityVerb::POST) {
-            $this->processPost($activity);
+            $this->processPost($activity, $source);
         } else {
             common_log(LOG_INFO, "Ignoring activity with unrecognized verb $activity->verb");
         }
@@ -454,67 +553,189 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * Process an incoming post activity from this remote feed.
      * @param Activity $activity
+     * @param string $method 'push' or 'salmon'
+     * @return mixed saved Notice or false
+     * @fixme break up this function, it's getting nasty long
      */
-    protected function processPost($activity)
+    public function processPost($activity, $method)
     {
         if ($this->isGroup()) {
+            // A group feed will contain posts from multiple authors.
             // @fixme validate these profiles in some way!
             $oprofile = self::ensureActorProfile($activity);
+            if ($oprofile->isGroup()) {
+                // Groups can't post notices in StatusNet.
+                common_log(LOG_WARNING, "OStatus: skipping post with group listed as author: $oprofile->uri in feed from $this->uri");
+                return false;
+            }
         } else {
+            // Individual user feeds may contain only posts from themselves.
+            // Authorship is validated against the profile URI on upper layers,
+            // through PuSH setup or Salmon signature checks.
             $actorUri = self::getActorProfileURI($activity);
             if ($actorUri == $this->uri) {
-                // @fixme check if profile info has changed and update it
+                // Check if profile info has changed and update it
+                $this->updateFromActivityObject($activity->actor);
             } else {
-                // @fixme drop or reject the messages once we've got the canonical profile URI recorded sanely
-                common_log(LOG_INFO, "OStatus: Warning: non-group post with unexpected author: $actorUri expected $this->uri");
-                //return;
+                common_log(LOG_WARNING, "OStatus: skipping post with bad author: got $actorUri expected $this->uri");
+                return false;
             }
             $oprofile = $this;
         }
 
+        // The id URI will be used as a unique identifier for for the notice,
+        // protecting against duplicate saves. It isn't required to be a URL;
+        // tag: URIs for instance are found in Google Buzz feeds.
         $sourceUri = $activity->object->id;
-
         $dupe = Notice::staticGet('uri', $sourceUri);
-
         if ($dupe) {
             common_log(LOG_INFO, "OStatus: ignoring duplicate post: $sourceUri");
-            return;
+            return false;
         }
 
+        // We'll also want to save a web link to the original notice, if provided.
         $sourceUrl = null;
-
         if ($activity->object->link) {
             $sourceUrl = $activity->object->link;
+        } else if ($activity->link) {
+            $sourceUrl = $activity->link;
         } else if (preg_match('!^https?://!', $activity->object->id)) {
             $sourceUrl = $activity->object->id;
         }
 
-        // @fixme sanitize and save HTML content if available
+        // Get (safe!) HTML and text versions of the content
+        $rendered = $this->purify($activity->object->content);
+        $content = html_entity_decode(strip_tags($rendered));
 
-        $content = $activity->object->title;
-
-        $params = array('is_local' => Notice::REMOTE_OMB,
+        $options = array('is_local' => Notice::REMOTE_OMB,
                         'url' => $sourceUrl,
-                        'uri' => $sourceUri);
+                        'uri' => $sourceUri,
+                        'rendered' => $rendered,
+                        'replies' => array(),
+                        'groups' => array());
 
-        $location = $activity->context->location;
+        // Check for optional attributes...
 
-        if ($location) {
-            $params['lat'] = $location->lat;
-            $params['lon'] = $location->lon;
-            if ($location->location_id) {
-                $params['location_ns'] = $location->location_ns;
-                $params['location_id'] = $location->location_id;
+        if (!empty($activity->time)) {
+            $options['created'] = common_sql_date($activity->time);
+        }
+
+        if ($activity->context) {
+            // Any individual or group attn: targets?
+            $replies = $activity->context->attention;
+            $options['groups'] = $this->filterReplies($oprofile, $replies);
+            $options['replies'] = $replies;
+
+            // Maintain direct reply associations
+            // @fixme what about conversation ID?
+            if (!empty($activity->context->replyToID)) {
+                $orig = Notice::staticGet('uri',
+                                          $activity->context->replyToID);
+                if (!empty($orig)) {
+                    $options['reply_to'] = $orig->id;
+                }
+            }
+
+            $location = $activity->context->location;
+            if ($location) {
+                $options['lat'] = $location->lat;
+                $options['lon'] = $location->lon;
+                if ($location->location_id) {
+                    $options['location_ns'] = $location->location_ns;
+                    $options['location_id'] = $location->location_id;
+                }
             }
         }
 
-        // @fixme save detailed ostatus source info
-        // @fixme ensure that groups get handled correctly
+        try {
+            $saved = Notice::saveNew($oprofile->profile_id,
+                                     $content,
+                                     'ostatus',
+                                     $options);
+            if ($saved) {
+                Ostatus_source::saveNew($saved, $this, $method);
+            }
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "OStatus save of remote message $sourceUri failed: " . $e->getMessage());
+            throw $e;
+        }
+        common_log(LOG_INFO, "OStatus saved remote message $sourceUri as notice id $saved->id");
+        return $saved;
+    }
 
-        $saved = Notice::saveNew($oprofile->localProfile()->id,
-                                 $content,
-                                 'ostatus',
-                                 $params);
+    /**
+     * Clean up HTML
+     */
+    protected function purify($html)
+    {
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        $config = array('safe' => 1);
+        return htmLawed($html, $config);
+    }
+
+    /**
+     * Filters a list of recipient ID URIs to just those for local delivery.
+     * @param Ostatus_profile local profile of sender
+     * @param array in/out &$attention_uris set of URIs, will be pruned on output
+     * @return array of group IDs
+     */
+    protected function filterReplies($sender, &$attention_uris)
+    {
+        common_log(LOG_DEBUG, "Original reply recipients: " . implode(', ', $attention_uris));
+        $groups = array();
+        $replies = array();
+        foreach ($attention_uris as $recipient) {
+            // Is the recipient a local user?
+            $user = User::staticGet('uri', $recipient);
+            if ($user) {
+                // @fixme sender verification, spam etc?
+                $replies[] = $recipient;
+                continue;
+            }
+
+            // Is the recipient a remote group?
+            $oprofile = Ostatus_profile::staticGet('uri', $recipient);
+            if ($oprofile) {
+                if ($oprofile->isGroup()) {
+                    // Deliver to local members of this remote group.
+                    // @fixme sender verification?
+                    $groups[] = $oprofile->group_id;
+                } else {
+                    common_log(LOG_DEBUG, "Skipping reply to remote profile $recipient");
+                }
+                continue;
+            }
+
+            // Is the recipient a local group?
+            // @fixme we need a uri on user_group
+            // $group = User_group::staticGet('uri', $recipient);
+            $template = common_local_url('groupbyid', array('id' => '31337'));
+            $template = preg_quote($template, '/');
+            $template = str_replace('31337', '(\d+)', $template);
+            if (preg_match("/$template/", $recipient, $matches)) {
+                $id = $matches[1];
+                $group = User_group::staticGet('id', $id);
+                if ($group) {
+                    // Deliver to all members of this local group if allowed.
+                    $profile = $sender->localProfile();
+                    if ($profile->isMember($group)) {
+                        $groups[] = $group->id;
+                    } else {
+                        common_log(LOG_DEBUG, "Skipping reply to local group $group->nickname as sender $profile->id is not a member");
+                    }
+                    continue;
+                } else {
+                    common_log(LOG_DEBUG, "Skipping reply to bogus group $recipient");
+                }
+            }
+
+            common_log(LOG_DEBUG, "Skipping reply to unrecognized profile $recipient");
+
+        }
+        $attention_uris = $replies;
+        common_log(LOG_DEBUG, "Local reply recipients: " . implode(', ', $replies));
+        common_log(LOG_DEBUG, "Local group recipients: " . implode(', ', $groups));
+        return $groups;
     }
 
     /**
@@ -522,7 +743,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      * @throws FeedSubException
      */
-    public static function ensureProfile($profile_uri)
+    public static function ensureProfile($profile_uri, $hints=array())
     {
         // Get the canonical feed URI and check it
         $discover = new FeedDiscovery();
@@ -545,7 +766,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($subject)) {
             $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri);
+            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri, $hints);
         }
 
         // Otherwise, try the feed author
@@ -554,7 +775,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($author)) {
             $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
         }
 
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
@@ -570,7 +791,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($actor)) {
                 $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri);
+                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri, $hints);
 
             }
 
@@ -578,7 +799,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($author)) {
                 $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri);
+                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
             }
         }
 
@@ -595,10 +816,28 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function updateAvatar($url)
     {
+        if ($url == $this->avatar) {
+            // We've already got this one.
+            return;
+        }
+
+        if ($this->isGroup()) {
+            $self = $this->localGroup();
+        } else {
+            $self = $this->localProfile();
+        }
+        if (!$self) {
+            throw new ServerException(sprintf(
+                _m("Tried to update avatar for unsaved remote profile %s"),
+                $this->uri));
+        }
+
         // @fixme this should be better encapsulated
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
-        copy($url, $temp_filename);
+        if (!copy($url, $temp_filename)) {
+            throw new ServerException(sprintf(_m("Unable to fetch avatar from %s"), $url));
+        }
 
         if ($this->isGroup()) {
             $id = $this->group_id;
@@ -612,19 +851,29 @@ class Ostatus_profile extends Memcached_DataObject
                                      null,
                                      common_timestamp());
         rename($temp_filename, Avatar::path($filename));
-        if ($this->isGroup()) {
-            $group = $this->localGroup();
-            $group->setOriginal($filename);
-        } else {
-            $profile = $this->localProfile();
-            $profile->setOriginal($filename);
-        }
+        $self->setOriginal($filename);
+
+        $orig = clone($this);
+        $this->avatar = $url;
+        $this->update($orig);
     }
 
-    protected static function getActivityObjectAvatar($object)
+    /**
+     * Pull avatar URL from ActivityObject or profile hints
+     *
+     * @param ActivityObject $object
+     * @param array $hints
+     * @return mixed URL string or false
+     */
+
+    protected static function getActivityObjectAvatar($object, $hints=array())
     {
-        // XXX: go poke around in the feed
-        return $object->avatar;
+        if ($object->avatar) {
+            return $object->avatar;
+        } else if (array_key_exists('avatar', $hints)) {
+            return $hints['avatar'];
+        }
+        return false;
     }
 
     /**
@@ -688,11 +937,13 @@ class Ostatus_profile extends Memcached_DataObject
         return self::ensureActivityObjectProfile($activity->actor, $feeduri, $salmonuri);
     }
 
-    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
-        if (!$profile) {
-            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri);
+        if ($profile) {
+            $profile->updateFromActivityObject($object, $hints);
+        } else {
+            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri, $hints);
         }
         return $profile;
     }
@@ -701,7 +952,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param Activity $activity
      * @return mixed matching Ostatus_profile or false if none known
      */
-    protected static function getActorProfile($activity)
+    public static function getActorProfile($activity)
     {
         return self::getActivityObjectProfile($activity->actor);
     }
@@ -709,7 +960,7 @@ class Ostatus_profile extends Memcached_DataObject
     protected static function getActivityObjectProfile($object)
     {
         $uri = self::getActivityObjectProfileURI($object);
-        return Ostatus_profile::staticGet('homeuri', $uri);
+        return Ostatus_profile::staticGet('uri', $uri);
     }
 
     protected static function getActorProfileURI($activity)
@@ -745,15 +996,37 @@ class Ostatus_profile extends Memcached_DataObject
         self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
     }
 
-    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null)
+    /**
+     * Create local ostatus_profile and profile/user_group entries for
+     * the provided remote user or group.
+     *
+     * @param ActivityObject $object
+     * @param string $feeduri
+     * @param string $salmonuri
+     * @param array $hints
+     *
+     * @fixme fold $feeduri/$salmonuri into $hints
+     * @return Ostatus_profile
+     */
+    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
     {
-        $homeuri = self::getActivityObjectProfileURI($object);
-        $nickname = self::getActivityObjectNickname($object);
-        $avatar = self::getActivityObjectAvatar($object);
+        $homeuri  = $object->id;
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
             throw new ServerException("No profile URI");
+        }
+
+        if (empty($feeduri)) {
+            if (array_key_exists('feedurl', $hints)) {
+                $feeduri = $hints['feedurl'];
+            }
+        }
+
+        if (empty($salmonuri)) {
+            if (array_key_exists('salmon', $hints)) {
+                $salmonuri = $hints['salmon'];
+            }
         }
 
         if (!$feeduri || !$salmonuri) {
@@ -770,11 +1043,79 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        $profile = new Profile();
-        $profile->nickname   = $nickname;
-        $profile->fullname   = $object->title;
-        $profile->profileurl = $object->link;
-        $profile->created    = common_sql_now();
+        $oprofile = new Ostatus_profile();
+
+        $oprofile->uri        = $homeuri;
+        $oprofile->feeduri    = $feeduri;
+        $oprofile->salmonuri  = $salmonuri;
+
+        $oprofile->created    = common_sql_now();
+        $oprofile->modified   = common_sql_now();
+
+        if ($object->type == ActivityObject::PERSON) {
+            $profile = new Profile();
+            self::updateProfile($profile, $object, $hints);
+            $profile->created  = common_sql_now();
+
+            $oprofile->profile_id = $profile->insert();
+            if (!$oprofile->profile_id) {
+                throw new ServerException("Can't save local profile");
+            }
+        } else {
+            $group = new User_group();
+            $group->created = common_sql_now();
+            self::updateGroup($group, $object, $hints);
+
+            $oprofile->group_id = $group->insert();
+            if (!$oprofile->group_id) {
+                throw new ServerException("Can't save local profile");
+            }
+        }
+
+        $ok = $oprofile->insert();
+
+        if ($ok) {
+            $avatar = self::getActivityObjectAvatar($object, $hints);
+            if ($avatar) {
+                $oprofile->updateAvatar($avatar);
+            }
+            return $oprofile;
+        } else {
+            throw new ServerException("Can't save OStatus profile");
+        }
+    }
+
+    /**
+     * Save any updated profile information to our local copy.
+     * @param ActivityObject $object
+     * @param array $hints
+     */
+    public function updateFromActivityObject($object, $hints=array())
+    {
+        if ($this->isGroup()) {
+            $group = $this->localGroup();
+            self::updateGroup($group, $object, $hints);
+        } else {
+            $profile = $this->localProfile();
+            self::updateProfile($profile, $object, $hints);
+        }
+        $avatar = self::getActivityObjectAvatar($object, $hints);
+        if ($avatar) {
+            $this->updateAvatar($avatar);
+        }
+    }
+
+    protected static function updateProfile($profile, $object, $hints=array())
+    {
+        $orig = clone($profile);
+
+        $profile->nickname = self::getActivityObjectNickname($object, $hints);
+        $profile->fullname = $object->title;
+        if (!empty($object->link)) {
+            $profile->profileurl = $object->link;
+        } else if (array_key_exists('profileurl', $hints)) {
+            $profile->profileurl = $hints['profileurl'];
+        }
 
         // @fixme bio
         // @fixme tags/categories
@@ -782,41 +1123,60 @@ class Ostatus_profile extends Memcached_DataObject
         // @todo tags from categories
         // @todo lat/lon/location?
 
-        $ok = $profile->insert();
-
-        if (!$ok) {
-            throw new ServerException("Can't save local profile");
-        }
-
-        // @fixme either need to do feed discovery here
-        // or need to split out some of the feed stuff
-        // so we can leave it empty until later.
-
-        $oprofile = new Ostatus_profile();
-
-        $oprofile->uri        = $homeuri;
-        $oprofile->feeduri    = $feeduri;
-        $oprofile->salmonuri  = $salmonuri;
-        $oprofile->profile_id = $profile->id;
-
-        $oprofile->created    = common_sql_now();
-        $oprofile->modified   = common_sql_now();
-
-        $ok = $oprofile->insert();
-
-        if ($ok) {
-            $oprofile->updateAvatar($avatar);
-            return $oprofile;
-        } else {
-            throw new ServerException("Can't save OStatus profile");
+        if ($profile->id) {
+            common_log(LOG_DEBUG, "Updating OStatus profile $profile->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
+            $profile->update($orig);
         }
     }
 
-    protected static function getActivityObjectNickname($object)
+    protected static function updateGroup($group, $object, $hints=array())
     {
-        // XXX: check whatever PoCo calls a nickname first
+        $orig = clone($group);
+
+        // @fixme need to make nick unique etc *hack hack*
+        $group->nickname = self::getActivityObjectNickname($object, $hints);
+        $group->fullname = $object->title;
+
+        // @fixme no canonical profileurl; using homepage instead for now
+        $group->homepage = $object->id;
+
+        // @fixme homepage
+        // @fixme bio
+        // @fixme tags/categories
+        // @fixme location?
+        // @todo tags from categories
+        // @todo lat/lon/location?
+
+        if ($group->id) {
+            common_log(LOG_DEBUG, "Updating OStatus group $group->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
+            $group->update($orig);
+        }
+    }
+
+    protected static function getActivityObjectNickname($object, $hints=array())
+    {
+        if ($object->poco) {
+            if (!empty($object->poco->preferredUsername)) {
+                return common_nicknamize($object->poco->preferredUsername);
+            }
+        }
+        if (!empty($object->nickname)) {
+            return common_nicknamize($object->nickname);
+        }
+
+        // Try the definitive ID
 
         $nickname = self::nicknameFromURI($object->id);
+
+        // Try a Webfinger if one was passed (way) down
+
+        if (empty($nickname)) {
+            if (array_key_exists('webfinger', $hints)) {
+                $nickname = self::nicknameFromURI($hints['webfinger']);
+            }
+        }
+
+        // Try the name
 
         if (empty($nickname)) {
             $nickname = common_nicknamize($object->title);
@@ -844,5 +1204,121 @@ class Ostatus_profile extends Memcached_DataObject
         default:
             return null;
         }
+    }
+
+    public static function ensureWebfinger($addr)
+    {
+        // First, look it up
+
+        $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
+
+        if (!empty($oprofile)) {
+            return $oprofile;
+        }
+
+        // Now, try some discovery
+
+        $wf = new Webfinger();
+
+        $result = $wf->lookup($addr);
+
+        if (!$result) {
+            return null;
+        }
+
+        foreach ($result->links as $link) {
+            switch ($link['rel']) {
+            case Webfinger::PROFILEPAGE:
+                $profileUrl = $link['href'];
+                break;
+            case 'salmon':
+                $salmonEndpoint = $link['href'];
+                break;
+            case Webfinger::UPDATESFROM:
+                $feedUrl = $link['href'];
+                break;
+            default:
+                common_log(LOG_NOTICE, "Don't know what to do with rel = '{$link['rel']}'");
+                break;
+            }
+        }
+
+        $hints = array('webfinger' => $addr,
+                       'profileurl' => $profileUrl,
+                       'feedurl' => $feedUrl,
+                       'salmon' => $salmonEndpoint);
+
+        // If we got a feed URL, try that
+
+        if (isset($feedUrl)) {
+            try {
+                $oprofile = self::ensureProfile($feedUrl, $hints);
+                return $oprofile;
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, "Failed creating profile from feed URL '$feedUrl': " . $e->getMessage());
+                // keep looking
+            }
+        }
+
+        // If we got a profile page, try that!
+
+        if (isset($profileUrl)) {
+            try {
+                $oprofile = self::ensureProfile($profileUrl, $hints);
+                return $oprofile;
+            } catch (Exception $e) {
+                common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
+                // keep looking
+            }
+        }
+
+        // XXX: try hcard
+        // XXX: try FOAF
+
+        if (isset($salmonEndpoint)) {
+
+            // An account URL, a salmon endpoint, and a dream? Not much to go
+            // on, but let's give it a try
+
+            $uri = 'acct:'.$addr;
+
+            $profile = new Profile();
+
+            $profile->nickname = self::nicknameFromUri($uri);
+            $profile->created  = common_sql_now();
+
+            if (isset($profileUrl)) {
+                $profile->profileurl = $profileUrl;
+            }
+
+            $profile_id = $profile->insert();
+
+            if (!$profile_id) {
+                common_log_db_error($profile, 'INSERT', __FILE__);
+                throw new Exception("Couldn't save profile for '$addr'");
+            }
+
+            $oprofile = new Ostatus_profile();
+
+            $oprofile->uri        = $uri;
+            $oprofile->salmonuri  = $salmonEndpoint;
+            $oprofile->profile_id = $profile_id;
+            $oprofile->created    = common_sql_now();
+
+            if (isset($feedUrl)) {
+                $profile->feeduri = $feedUrl;
+            }
+
+            $result = $oprofile->insert();
+
+            if (!$result) {
+                common_log_db_error($oprofile, 'INSERT', __FILE__);
+                throw new Exception("Couldn't save ostatus_profile for '$addr'");
+            }
+
+            return $oprofile;
+        }
+
+        return null;
     }
 }

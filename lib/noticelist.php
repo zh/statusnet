@@ -380,12 +380,12 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
-            $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        }else{
-            $noticeurl = $this->notice->uri;
-        }
+        $noticeurl = $this->notice->bestUrl();
+
+        // above should always return an URL
+
+        assert(!empty($noticeurl));
+
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                             'class' => 'timestamp',
                                             'href' => $noticeurl));
@@ -438,14 +438,15 @@ class NoticeListItem extends Widget
         $this->out->text(_('at'));
         $this->out->text(' ');
         if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo',
+            $this->out->element('abbr', array('class' => 'geo',
                                               'title' => $latlon),
                                 $name);
         } else {
-            $this->out->element('a', array('class' => 'geo',
-                                           'title' => $latlon,
-                                           'href' => $url),
+            $this->out->elementStart('a', array('href' => $url));
+            $this->out->element('abbr', array('class' => 'geo',
+                                              'title' => $latlon),
                                 $name);
+            $this->out->elementEnd('a');
         }
         $this->out->elementEnd('span');
     }

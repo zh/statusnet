@@ -39,14 +39,24 @@ class User_group extends Memcached_DataObject
 
     function homeUrl()
     {
-        return common_local_url('showgroup',
-                                array('nickname' => $this->nickname));
+        $url = null;
+        if (Event::handle('StartUserGroupHomeUrl', array($this, &$url))) {
+            $url = common_local_url('showgroup',
+                                    array('nickname' => $this->nickname));
+        }
+        Event::handle('EndUserGroupHomeUrl', array($this, &$url));
+        return $url;
     }
 
     function permalink()
     {
-        return common_local_url('groupbyid',
-                                array('id' => $this->id));
+        $url = null;
+        if (Event::handle('StartUserGroupPermalink', array($this, &$url))) {
+            $url = common_local_url('groupbyid',
+                                    array('id' => $this->id));
+        }
+        Event::handle('EndUserGroupPermalink', array($this, &$url));
+        return $url;
     }
 
     function getNotices($offset, $limit, $since_id=null, $max_id=null)

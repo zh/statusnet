@@ -60,8 +60,7 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
         $this->user = $user;
         if (!empty($user)) {
             $profile = $user->getProfile();
-            $this->addAuthor($profile->getBestName(),
-                             $user->uri);
+            $this->addAuthor($profile->nickname, $user->uri);
         }
     }
 

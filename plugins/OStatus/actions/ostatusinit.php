@@ -29,7 +29,7 @@ class OStatusInitAction extends Action
 {
 
     var $nickname;
-    var $acct;
+    var $profile;
     var $err;
 
     function prepare($args)
@@ -41,8 +41,11 @@ class OStatusInitAction extends Action
             return false;
         }
 
-        $this->nickname    = $this->trimmed('nickname');
-        $this->acct = $this->trimmed('acct');
+        // Local user the remote wants to subscribe to
+        $this->nickname = $this->trimmed('nickname');
+        
+        // Webfinger or profile URL of the remote user
+        $this->profile = $this->trimmed('profile');
 
         return true;
     }
@@ -100,7 +103,7 @@ class OStatusInitAction extends Action
                      _m('Nickname of the user you want to follow'));
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
-        $this->input('acct', _m('Profile Account'), $this->acct,
+        $this->input('profile', _m('Profile Account'), $this->profile,
                      _m('Your account id (i.e. user@identi.ca)'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -112,15 +115,17 @@ class OStatusInitAction extends Action
     function ostatusConnect()
     {
         $opts = array('allowed_schemes' => array('http', 'https', 'acct'));
-        if (Validate::uri($this->acct, $opts)) {
-            $bits = parse_url($this->acct);
+        if (Validate::uri($this->profile, $opts)) {
+            $bits = parse_url($this->profile);
             if ($bits['scheme'] == 'acct') {
                 $this->connectWebfinger($bits['path']);
             } else {
-                $this->connectProfile($this->acct);
+                $this->connectProfile($this->profile);
             }
-        } elseif (strpos('@', $this->acct) !== false) {
-            $this->connectWebfinger($this->acct);
+        } elseif (strpos($this->profile, '@') !== false) {
+            $this->connectWebfinger($this->profile);
+        } else {
+            $this->clientError(_m("Must provide a remote profile."));
         }
     }
 
@@ -139,13 +144,13 @@ class OStatusInitAction extends Action
                 $user = User::staticGet('nickname', $this->nickname);
                 $target_profile = common_local_url('userbyid', array('id' => $user->id));
 
-                $url = $w->applyTemplate($link['template'], $feed_url);
-
+                $url = $w->applyTemplate($link['template'], $target_profile);
+                common_log(LOG_INFO, "Sending remote subscriber $acct to $url");
                 common_redirect($url, 303);
             }
 
         }
-
+        $this->clientError(_m("Couldn't confirm remote profile address."));
     }
 
     function connectProfile($subscriber_profile)
@@ -157,6 +162,7 @@ class OStatusInitAction extends Action
         $suburl = preg_replace('!^(.*)/(.*?)$!', '$1/main/ostatussub', $subscriber_profile);
         $suburl .= '?profile=' . urlencode($target_profile);
 
+        common_log(LOG_INFO, "Sending remote subscriber $subscriber_profile to $suburl");
         common_redirect($suburl, 303);
     }
 

@@ -32,11 +32,16 @@ define('WEBFINGER_SERVICE_REL_VALUE', 'lrdd');
 /**
  * Implement the webfinger protocol.
  */
+
 class Webfinger
 {
+    const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
+    const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
+
     /**
      * Perform a webfinger lookup given an account.
-     */ 
+     */
+
     public function lookup($id)
     {
         $id = $this->normalize($id);
@@ -46,7 +51,7 @@ class Webfinger
         if (!$links) {
             return false;
         }
-        
+
         $services = array();
         foreach ($links as $link) {
             if ($link['template']) {
@@ -64,7 +69,7 @@ class Webfinger
     function normalize($id)
     {
         if (substr($id, 0, 7) == 'acct://') {
-            return substr($id, 7); 
+            return substr($id, 7);
         } else if (substr($id, 0, 5) == 'acct:') {
             return substr($id, 5);
         }
@@ -86,7 +91,7 @@ class Webfinger
         if ($result->host != $domain) {
             return false;
         }
-        
+
         $links = array();
         foreach ($result->links as $link) {
             if ($link['rel'] == WEBFINGER_SERVICE_REL_VALUE) {
@@ -102,6 +107,10 @@ class Webfinger
         $url = $this->applyTemplate($template, 'acct:' . $id);
 
         $content = $this->fetchURL($url);
+
+        if (!$content) {
+            return false;
+        }
 
         return XRD::parse($content);
     }
@@ -139,5 +148,4 @@ class Webfinger
         return $xrd->toXML();
     }
 }
-
 

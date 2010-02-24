@@ -18,43 +18,32 @@
  */
 
 /**
- * Send a raw PuSH atom update from our internal hub.
- * @package Hub
+ * Process a feed distribution POST from a PuSH hub.
+ * @package FeedSub
  * @author Brion Vibber <brion@status.net>
  */
-class HubOutQueueHandler extends QueueHandler
+
+class PushInQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'hubout';
+        return 'pushin';
     }
 
     function handle($data)
     {
-        $sub = $data['sub'];
-        $atom = $data['atom'];
-        $retries = $data['retries'];
+        assert(is_array($data));
 
-        assert($sub instanceof HubSub);
-        assert(is_string($atom));
+        $feedsub_id = $data['feedsub_id'];
+        $post = $data['post'];
+        $hmac = $data['hmac'];
 
-        try {
-            $sub->push($atom);
-        } catch (Exception $e) {
-            $retries--;
-            $msg = "Failed PuSH to $sub->callback for $sub->topic: " .
-                   $e->getMessage();
-            if ($retries > 0) {
-                common_log(LOG_ERR, "$msg; scheduling for $retries more tries");
-
-                // @fixme when we have infrastructure to schedule a retry
-                // after a delay, use it.
-                $sub->distribute($atom, $retries);
-            } else {
-                common_log(LOG_ERR, "$msg; discarding");
-            }
+        $feedsub = FeedSub::staticGet('id', $feedsub_id);
+        if ($feedsub) {
+            $feedsub->receive($post, $hmac);
+        } else {
+            common_log(LOG_ERR, "Discarding POST to unknown feed subscription id $feedsub_id");
         }
-
         return true;
     }
 }

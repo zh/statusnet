@@ -18,43 +18,37 @@
  */
 
 /**
- * Send a raw PuSH atom update from our internal hub.
+ * Send a PuSH subscription verification from our internal hub.
  * @package Hub
  * @author Brion Vibber <brion@status.net>
  */
-class HubOutQueueHandler extends QueueHandler
+class HubConfQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'hubout';
+        return 'hubconf';
     }
 
     function handle($data)
     {
         $sub = $data['sub'];
-        $atom = $data['atom'];
-        $retries = $data['retries'];
+        $mode = $data['mode'];
+        $token = $data['token'];
 
         assert($sub instanceof HubSub);
-        assert(is_string($atom));
+        assert($mode === 'subscribe' || $mode === 'unsubscribe');
 
+        common_log(LOG_INFO, __METHOD__ . ": $mode $sub->callback $sub->topic");
         try {
-            $sub->push($atom);
+            $sub->verify($mode, $token);
         } catch (Exception $e) {
-            $retries--;
-            $msg = "Failed PuSH to $sub->callback for $sub->topic: " .
-                   $e->getMessage();
-            if ($retries > 0) {
-                common_log(LOG_ERR, "$msg; scheduling for $retries more tries");
-
-                // @fixme when we have infrastructure to schedule a retry
-                // after a delay, use it.
-                $sub->distribute($atom, $retries);
-            } else {
-                common_log(LOG_ERR, "$msg; discarding");
-            }
+            common_log(LOG_ERR, "Failed PuSH $mode verify to $sub->callback for $sub->topic: " .
+                                $e->getMessage());
+            // @fixme schedule retry?
+            // @fixme just kill it?
         }
 
         return true;
     }
 }
+

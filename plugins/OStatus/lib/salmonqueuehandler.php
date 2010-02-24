@@ -18,43 +18,27 @@
  */
 
 /**
- * Send a raw PuSH atom update from our internal hub.
- * @package Hub
+ * Send a Salmon notification in the background.
+ * @package OStatusPlugin
  * @author Brion Vibber <brion@status.net>
  */
-class HubOutQueueHandler extends QueueHandler
+class SalmonQueueHandler extends QueueHandler
 {
     function transport()
     {
-        return 'hubout';
+        return 'salmon';
     }
 
     function handle($data)
     {
-        $sub = $data['sub'];
-        $atom = $data['atom'];
-        $retries = $data['retries'];
+        assert(is_array($data));
+        assert(is_string($data['salmonuri']));
+        assert(is_string($data['entry']));
 
-        assert($sub instanceof HubSub);
-        assert(is_string($atom));
+        $salmon = new Salmon();
+        $salmon->post($data['salmonuri'], $data['entry']);
 
-        try {
-            $sub->push($atom);
-        } catch (Exception $e) {
-            $retries--;
-            $msg = "Failed PuSH to $sub->callback for $sub->topic: " .
-                   $e->getMessage();
-            if ($retries > 0) {
-                common_log(LOG_ERR, "$msg; scheduling for $retries more tries");
-
-                // @fixme when we have infrastructure to schedule a retry
-                // after a delay, use it.
-                $sub->distribute($atom, $retries);
-            } else {
-                common_log(LOG_ERR, "$msg; discarding");
-            }
-        }
-
+        // @fixme detect failure and attempt to resend
         return true;
     }
 }

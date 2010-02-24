@@ -792,44 +792,17 @@ class Profile extends Memcached_DataObject
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
-     * Assumes that 'activity' namespace has been previously defined.
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
      * @return string
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            'http://activitystrea.ms/schema/1.0/person'
-        );
-        $xs->element(
-            'id',
-            null,
-            $this->getUri()
-            );
-        $xs->element('title', null, $this->getBestName());
-
-        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
-
-        $xs->element(
-            'link', array(
-                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
-                'rel'  => 'avatar',
-                'href' => empty($avatar)
-                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                : $avatar->displayUrl()
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
+        $noun = ActivityObject::fromProfile($this);
+        return $noun->asString('activity:' . $element);
     }
 
     /**
@@ -841,28 +814,22 @@ class Profile extends Memcached_DataObject
     {
         $uri = null;
 
-        // check for a local user first
-        $user = User::staticGet('id', $this->id);
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
 
-        if (!empty($user)) {
-            $uri = common_local_url(
-                'userbyid',
-                array('id' => $user->id)
-            );
-        } else {
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
 
-            // give plugins a chance to set the URI
-            if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
-
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
                 // return OMB profile if any
                 $remote = Remote_profile::staticGet('id', $this->id);
-
                 if (!empty($remote)) {
                     $uri = $remote->uri;
                 }
-
-                Event::handle('EndGetProfileUri', array($this, &$uri));
             }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
         }
 
         return $uri;

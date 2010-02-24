@@ -1,7 +1,9 @@
 <?php
-/*
+/**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010, StatusNet, Inc.
+ *
+ * Subscription action.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -15,53 +17,127 @@
  *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * PHP version 5
+ *
+ * @category  Action
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
+ * @link      http://status.net/
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+/**
+ * Subscription action
+ *
+ * Subscribing to a profile. Does not work for OMB 0.1 remote subscriptions,
+ * but may work for other remote subscription protocols, like OStatus.
+ *
+ * Takes parameters:
+ *
+ *    - subscribeto: a profile ID
+ *    - token: session token to prevent CSRF attacks
+ *    - ajax: boolean; whether to return Ajax or full-browser results
+ *
+ * Only works if the current user is logged in.
+ *
+ * @category  Action
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2008-2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
+ * @link      http://status.net/
+ */
 
 class SubscribeAction extends Action
 {
+    var $user;
+    var $other;
 
-    function handle($args)
+    /**
+     * Check pre-requisites and instantiate attributes
+     *
+     * @param Array $args array of arguments (URL, GET, POST)
+     *
+     * @return boolean success flag
+     */
+
+    function prepare($args)
     {
-        parent::handle($args);
+        parent::prepare($args);
 
-        if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
-            return;
-        }
-
-        $user = common_current_user();
+        // Only allow POST requests
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            common_redirect(common_local_url('subscriptions', array('nickname' => $user->nickname)));
-            return;
+            $this->clientError(_('This action only accepts POST requests.'));
+            return false;
         }
 
-        # CSRF protection
+        // CSRF protection
 
         $token = $this->trimmed('token');
 
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_('There was a problem with your session token. Try again, please.'));
-            return;
+            $this->clientError(_('There was a problem with your session token.'.
+                                 ' Try again, please.'));
+            return false;
         }
+
+        // Only for logged-in users
+
+        $this->user = common_current_user();
+
+        if (empty($this->user)) {
+            $this->clientError(_('Not logged in.'));
+            return false;
+        }
+
+        // Profile to subscribe to
 
         $other_id = $this->arg('subscribeto');
 
-        $other = User::staticGet('id', $other_id);
+        $this->other = Profile::staticGet('id', $other_id);
 
-        if (!$other) {
-            $this->clientError(_('Not a local user.'));
-            return;
+        if (empty($this->other)) {
+            $this->clientError(_('No such profile.'));
+            return false;
         }
 
-        $result = subs_subscribe_to($user, $other);
+        // OMB 0.1 doesn't have a mechanism for local-server-
+        // originated subscription.
 
-        if (is_string($result)) {
-            $this->clientError($result);
-            return;
+        $omb01 = Remote_profile::staticGet('id', $other_id);
+
+        if (!empty($omb01)) {
+            $this->clientError(_('You cannot subscribe to an OMB 0.1'.
+                                 ' remote profile with this action.'));
+            return false;
         }
+
+        return true;
+    }
+
+    /**
+     * Handle request
+     *
+     * Does the subscription and returns results.
+     *
+     * @param Array $args unused.
+     *
+     * @return void
+     */
+
+    function handle($args)
+    {
+        // Throws exception on error
+
+        Subscription::start($this->user->getProfile(),
+                            $this->other);
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
@@ -69,14 +145,14 @@ class SubscribeAction extends Action
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $unsubscribe = new UnsubscribeForm($this, $other->getProfile());
+            $unsubscribe = new UnsubscribeForm($this, $this->other->getProfile());
             $unsubscribe->show();
             $this->elementEnd('body');
             $this->elementEnd('html');
         } else {
-            common_redirect(common_local_url('subscriptions', array('nickname' =>
-                                                                $user->nickname)),
-                            303);
+            $url = common_local_url('subscriptions',
+                                    array('nickname' => $this->user->nickname));
+            common_redirect($url, 303);
         }
     }
 }
