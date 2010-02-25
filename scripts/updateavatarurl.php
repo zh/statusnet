@@ -94,11 +94,11 @@ function updateAvatars($user)
                 }
             }
 
-            $orig = clone($avatar);
+            $orig_url = $avatar->url;
 
             $avatar->url = Avatar::url($avatar->filename);
 
-            if ($avatar->url != $orig->url) {
+            if ($avatar->url != $orig_url) {
                 $sql =
                   "UPDATE avatar SET url = '" . $avatar->url . "' ".
                   "WHERE profile_id = " . $avatar->profile_id . " ".

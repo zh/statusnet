@@ -72,8 +72,10 @@ class BlogspamNetPlugin extends Plugin
         common_debug("Blogspamnet args = " . print_r($args, TRUE));
         $requestBody = xmlrpc_encode_request('testComment', array($args));
 
-        $request = HTTPClient::start();
-        $httpResponse = $request->post($this->baseUrl, array('Content-Type: text/xml'), $requestBody);
+        $request = new HTTPClient($this->baseUrl, HTTPClient::METHOD_POST);
+        $request->setHeader('Content-Type', 'text/xml');
+        $request->setBody($requestBody);
+        $httpResponse = $request->send();
 
         $response = xmlrpc_decode($httpResponse->getBody());
         if (xmlrpc_is_fault($response)) {
@@ -118,7 +120,7 @@ class BlogspamNetPlugin extends Plugin
         $args['site'] = common_root_url();
         $args['version'] = $this->userAgent();
 
-        $args['options'] = "max-size=140,min-size=0,min-words=0,exclude=bayasian";
+        $args['options'] = "max-size=" . common_config('site','textlimit') . ",min-size=0,min-words=0,exclude=bayasian";
 
         return $args;
     }
