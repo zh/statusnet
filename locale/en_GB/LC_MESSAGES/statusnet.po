@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-14 20:05+0000\n"
-"PO-Revision-Date: 2010-02-14 20:06:20+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:50:27+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62476); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -62,7 +62,7 @@ msgstr "Disable new registrations."
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/subscriptions.php:208 actions/tagother.php:154
 #: actions/useradminpanel.php:293 lib/applicationeditform.php:333
 #: lib/applicationeditform.php:334 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -100,7 +100,6 @@ msgstr "No such page"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "No such user."
 
@@ -192,11 +191,11 @@ msgstr "Updates from %1$s and friends on %2$s!"
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:182 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:194 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "API method not found."
 
@@ -498,7 +497,7 @@ msgstr "Invalid token."
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -753,7 +752,7 @@ msgid "Preview"
 msgstr "Preview"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 msgid "Delete"
 msgstr "Delete"
 
@@ -934,7 +933,7 @@ msgstr "You are not the owner of this application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "There was a problem with your session token."
 
@@ -963,7 +962,7 @@ msgstr "Delete this application"
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -994,7 +993,7 @@ msgstr "Are you sure you want to delete this notice?"
 msgid "Do not delete this notice"
 msgstr "Do not delete this notice"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 msgid "Delete this notice"
 msgstr "Delete this notice"
 
@@ -1235,7 +1234,7 @@ msgstr "description is too long (max %d chars)."
 msgid "Could not update group."
 msgstr "Could not update group."
 
-#: actions/editgroup.php:259 classes/User_group.php:423
+#: actions/editgroup.php:259 classes/User_group.php:433
 msgid "Could not create aliases."
 msgstr "Could not create aliases"
 
@@ -2324,7 +2323,7 @@ msgid "Only "
 msgstr ""
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "Not a supported data format."
 
@@ -2774,24 +2773,24 @@ msgstr "Language is too long (max 50 chars)."
 msgid "Invalid tag: \"%s\""
 msgstr "Invalid tag: \"%s\""
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr "Couldn't update user for autosubscribe."
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "Couldn't save tags."
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Couldn't save profile."
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 msgid "Couldn't save tags."
 msgstr "Couldn't save tags."
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Settings saved."
 
@@ -3182,7 +3181,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL of your profile on another compatible microblogging service"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "Subscribe"
 
@@ -3224,7 +3223,7 @@ msgstr "You can't repeat your own notice."
 msgid "You already repeated that notice."
 msgstr "You have already blocked this user."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:656
 #, fuzzy
 msgid "Repeated"
 msgstr "Created"
@@ -3939,15 +3938,26 @@ msgstr "No code entered"
 msgid "You are not subscribed to that profile."
 msgstr "You are not subscribed to that profile."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Could not save subscription."
 
-#: actions/subscribe.php:55
-msgid "Not a local user."
-msgstr "Not a local user."
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "No such notice."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "You are not subscribed to that profile."
+
+#: actions/subscribe.php:145
 msgid "Subscribed"
 msgstr "Subscribed"
 
@@ -4007,7 +4017,7 @@ msgstr "These are the people whose notices you listen to."
 msgid "These are the people whose notices %s listens to."
 msgstr "These are the people whose notices %s listens to."
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4017,16 +4027,16 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s is not listening to anyone."
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4460,22 +4470,22 @@ msgstr "Could not update message with new URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "DB error inserting hashtag: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:222
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:226
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem saving notice. Unknown user."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:237
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4483,39 +4493,60 @@ msgid ""
 msgstr ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr "You are banned from posting notices on this site."
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:882
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problem saving notice."
 
-#: classes/Notice.php:848
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "DB error inserting reply: %s"
-
-#: classes/Notice.php:1271
+#: classes/Notice.php:1407
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "You have been banned from subscribing."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr ""
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "User has blocked you."
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Not subscribed!"
+
+#: classes/Subscription.php:163
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "Couldn't delete subscription."
+
+#: classes/Subscription.php:179 lib/subs.php:69
+msgid "Couldn't delete subscription."
+msgstr "Couldn't delete subscription."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welcome to %1$s, @%2$s!"
 
-#: classes/User_group.php:413
+#: classes/User_group.php:423
 msgid "Could not create group."
 msgstr "Could not create group."
 
-#: classes/User_group.php:442
+#: classes/User_group.php:452
 msgid "Could not set group membership."
 msgstr "Could not set group membership."
 
@@ -4718,25 +4749,37 @@ msgstr ""
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:826
+#: lib/action.php:827
 msgid "All "
 msgstr "All "
 
-#: lib/action.php:831
+#: lib/action.php:833
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1130
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1139
+#: lib/action.php:1141
 msgid "After"
 msgstr "After"
 
-#: lib/action.php:1147
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Before"
+
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
 #, fuzzy
@@ -5047,83 +5090,92 @@ msgstr "Error saving notice."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Specify the name of the user to subscribe to"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+msgid "No such user"
+msgstr "No such user."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Subscribed to %s"
 
-#: lib/command.php:575
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Specify the name of the user to unsubscribe from"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Unsubscribed from %s"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Command not yet implemented."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Notification off."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Can't turn off notification."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Notification on."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Can't turn on notification."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:668
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "Unsubscribed from %s"
+
+#: lib/command.php:709
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "You are not subscribed to that profile."
 
-#: lib/command.php:670
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "You are already subscribed to these users:"
 msgstr[1] "You are already subscribed to these users:"
 
-#: lib/command.php:690
+#: lib/command.php:731
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Could not subscribe other to you."
 
-#: lib/command.php:692
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Could not subscribe other to you."
 msgstr[1] "Could not subscribe other to you."
 
-#: lib/command.php:712
+#: lib/command.php:753
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "You are not a member of that group."
 
-#: lib/command.php:714
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "You are not a member of that group."
 msgstr[1] "You are not a member of that group."
 
-#: lib/command.php:728
+#: lib/command.php:769
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5137,6 +5189,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5164,19 +5217,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "No configuration file found"
 
-#: lib/common.php:136
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:138
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Go to the installer."
 
@@ -5606,7 +5659,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:482
 #, fuzzy
 msgid "from"
 msgstr "from"
@@ -5730,50 +5783,50 @@ msgid ""
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, fuzzy
 msgid "N"
 msgstr "No"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:558
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:583
 #, fuzzy
 msgid "Repeated by"
 msgstr "Created"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:610
 msgid "Reply to this notice"
 msgstr "Reply to this notice"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:611
 msgid "Reply"
 msgstr "Reply"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:655
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Notice deleted."
@@ -5805,10 +5858,6 @@ msgstr "Error inserting remote profile."
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
 msgstr "Duplicate notice"
-
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "You have been banned from subscribing."
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -5991,36 +6040,6 @@ msgstr "People subscribed to %s"
 msgid "Groups %s is a member of"
 msgstr "Groups %s is a member of"
 
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr ""
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "User has blocked you."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Could not subscribe."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Could not subscribe other to you."
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Not subscribed!"
-
-#: lib/subs.php:142
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "Couldn't delete subscription."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Couldn't delete subscription."
-
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -6071,67 +6090,67 @@ msgstr "Edit Avatar"
 msgid "User actions"
 msgstr "User actions"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Edit profile settings"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Send a direct message to this user"
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Message"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:871
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr "a few seconds ago"
 
-#: lib/util.php:873
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr "about a minute ago"
 
-#: lib/util.php:875
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr "about %d minutes ago"
 
-#: lib/util.php:877
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr "about an hour ago"
 
-#: lib/util.php:879
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr "about %d hours ago"
 
-#: lib/util.php:881
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr "about a day ago"
 
-#: lib/util.php:883
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr "about %d days ago"
 
-#: lib/util.php:885
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr "about a month ago"
 
-#: lib/util.php:887
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr "about %d months ago"
 
-#: lib/util.php:889
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr "about a year ago"
 

@@ -69,19 +69,7 @@ class DistribQueueHandler
         }
 
         try {
-            $groups = $notice->saveGroups();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
-            $recipients = $notice->saveReplies();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
-            $notice->addToInboxes($groups, $recipients);
+            $notice->addToInboxes();
         } catch (Exception $e) {
             $this->logit($notice, $e);
         }
@@ -107,7 +95,7 @@ class DistribQueueHandler
 
         return true;
     }
-    
+
     protected function logit($notice, $e)
     {
         common_log(LOG_ERR, "Distrib queue exception saving notice $notice->id: " .

@@ -548,12 +548,19 @@ class SubCommand extends Command
             return;
         }
 
-        $result = subs_subscribe_user($this->user, $this->other);
+        $otherUser = User::staticGet('nickname', $this->other);
 
-        if ($result == 'true') {
+        if (empty($otherUser)) {
+            $channel->error($this->user, _('No such user'));
+            return;
+        }
+
+        try {
+            Subscription::start($this->user->getProfile(),
+                                $otherUser->getProfile());
             $channel->output($this->user, sprintf(_('Subscribed to %s'), $this->other));
-        } else {
-            $channel->error($this->user, $result);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }
@@ -576,12 +583,18 @@ class UnsubCommand extends Command
             return;
         }
 
-        $result=subs_unsubscribe_user($this->user, $this->other);
+        $otherUser = User::staticGet('nickname', $this->other);
 
-        if ($result) {
+        if (empty($otherUser)) {
+            $channel->error($this->user, _('No such user'));
+        }
+
+        try {
+            Subscription::cancel($this->user->getProfile(),
+                                 $otherUser->getProfile());
             $channel->output($this->user, sprintf(_('Unsubscribed from %s'), $this->other));
-        } else {
-            $channel->error($this->user, $result);
+        } catch (Exception $e) {
+            $channel->error($this->user, $e->getMessage());
         }
     }
 }
@@ -652,6 +665,34 @@ class LoginCommand extends Command
             sprintf(_('This link is useable only once, and is good for only 2 minutes: %s'),
                     common_local_url('otp',
                         array('user_id' => $login_token->user_id, 'token' => $login_token->token))));
+    }
+}
+
+class LoseCommand extends Command
+{
+
+    var $other = null;
+
+    function __construct($user, $other)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+    }
+
+    function execute($channel)
+    {
+        if(!$this->other) {
+            $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
+            return;
+        }
+
+        $result=subs_unsubscribe_from($this->user, $this->other);
+
+        if ($result) {
+            $channel->output($this->user, sprintf(_('Unsubscribed  %s'), $this->other));
+        } else {
+            $channel->error($this->user, $result);
+        }
     }
 }
 
@@ -737,6 +778,7 @@ class HelpCommand extends Command
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".
                            "whois <nickname> - get profile info on user\n".
+                           "lose <nickname> - force user to stop following you\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
                            "fav #<notice_id> - add notice with the given id as a 'fave'\n".
                            "repeat #<notice_id> - repeat a notice with a given id\n".

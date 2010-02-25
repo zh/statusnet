@@ -112,7 +112,7 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:FriendsTimeline:" . $this->user->id;
 
         $subtitle = sprintf(

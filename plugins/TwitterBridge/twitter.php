@@ -33,11 +33,15 @@ function add_twitter_user($twitter_id, $screen_name)
     // repoed, and things like that.
 
     $luser = Foreign_user::getForeignUser($twitter_id, TWITTER_SERVICE);
-    $result = $luser->delete();
 
-    if ($result != false) {
-        common_log(LOG_INFO,
-            "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id).");
+    if (!empty($luser)) {
+        $result = $luser->delete();
+        if ($result != false) {
+            common_log(
+                LOG_INFO,
+                "Twitter bridge - removed old Twitter user: $screen_name ($twitter_id)."
+            );
+        }
     }
 
     $fuser = new Foreign_user();

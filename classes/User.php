@@ -75,11 +75,7 @@ class User extends Memcached_DataObject
 
     function isSubscribed($other)
     {
-        assert(!is_null($other));
-        // XXX: cache results of this query
-        $sub = Subscription::pkeyGet(array('subscriber' => $this->id,
-                                           'subscribed' => $other->id));
-        return (is_null($sub)) ? false : true;
+        return Subscription::exists($this->getProfile(), $other);
     }
 
     // 'update' won't write key columns, so we have to do it ourselves.
@@ -162,17 +158,8 @@ class User extends Memcached_DataObject
 
     function hasBlocked($other)
     {
-
-        $block = Profile_block::get($this->id, $other->id);
-
-        if (is_null($block)) {
-            $result = false;
-        } else {
-            $result = true;
-            $block->free();
-        }
-
-        return $result;
+        $profile = $this->getProfile();
+        return $profile->hasBlocked($other);
     }
 
     /**

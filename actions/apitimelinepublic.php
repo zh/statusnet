@@ -109,7 +109,7 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $sitelogo   = (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png');
         $title      = sprintf(_("%s public timeline"), $sitename);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:PublicTimeline";
         $link       = common_root_url();
         $subtitle   = sprintf(_("%s updates from everyone!"), $sitename);

@@ -34,6 +34,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/XMPPHP');
+
 /**
  * Plugin for XMPP
  *
@@ -106,12 +108,15 @@ class XmppPlugin extends ImPlugin
 
         switch ($cls)
         {
+        case 'XMPPHP_XMPP':
+            require_once 'XMPP.php';
+            return false;
         case 'Sharing_XMPP':
         case 'Fake_XMPP':
-            include_once $dir . '/'.$cls.'.php';
+            require_once $dir . '/'.$cls.'.php';
             return false;
         case 'XmppManager':
-            include_once $dir . '/'.strtolower($cls).'.php';
+            require_once $dir . '/'.strtolower($cls).'.php';
             return false;
         default:
             return true;

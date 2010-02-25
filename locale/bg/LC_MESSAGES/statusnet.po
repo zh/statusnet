@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:14:17+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:50:11+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -25,9 +25,8 @@ msgid "Access"
 msgstr "Достъп"
 
 #: actions/accessadminpanel.php:65
-#, fuzzy
 msgid "Site access settings"
-msgstr "Запазване настройките на сайта"
+msgstr "Настройки за достъп до сайта"
 
 #: actions/accessadminpanel.php:158
 msgid "Registration"
@@ -62,7 +61,7 @@ msgstr "Изключване на новите регистрации."
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/subscriptions.php:208 actions/tagother.php:154
 #: actions/useradminpanel.php:293 lib/applicationeditform.php:333
 #: lib/applicationeditform.php:334 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -70,9 +69,8 @@ msgid "Save"
 msgstr "Запазване"
 
 #: actions/accessadminpanel.php:189
-#, fuzzy
 msgid "Save access settings"
-msgstr "Запазване настройките на сайта"
+msgstr "Запазване настройките за достъп"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -101,7 +99,6 @@ msgstr "Няма такака страница."
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Няма такъв потребител"
 
@@ -163,8 +160,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "Вие и приятелите"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Бележки от %1$s и приятели в %2$s."
@@ -185,12 +182,12 @@ msgstr "Бележки от %1$s и приятели в %2$s."
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Не е открит методът в API."
 
@@ -497,7 +494,7 @@ msgstr "Неправилен размер."
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -638,7 +635,7 @@ msgstr "Неподдържан формат."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%s / Отбелязани като любими от %s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s бележки отбелязани като любими от %s / %s."
@@ -649,7 +646,7 @@ msgstr "%s бележки отбелязани като любими от %s / %
 msgid "%s timeline"
 msgstr "Поток на %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -665,12 +662,12 @@ msgstr "%1$s / Реплики на %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s реплики на съобщения от %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Общ поток на %s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -680,7 +677,7 @@ msgstr ""
 msgid "Repeated to %s"
 msgstr "Повторено за %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Повторения на %s"
@@ -690,7 +687,7 @@ msgstr "Повторения на %s"
 msgid "Notices tagged with %s"
 msgstr "Бележки с етикет %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Бележки от %1$s в %2$s."
@@ -753,7 +750,7 @@ msgid "Preview"
 msgstr "Преглед"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 msgid "Delete"
 msgstr "Изтриване"
 
@@ -936,7 +933,7 @@ msgstr "Не членувате в тази група."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "Имаше проблем със сесията ви в сайта."
 
@@ -965,7 +962,7 @@ msgstr "Изтриване на бележката"
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -994,7 +991,7 @@ msgstr "Наистина ли искате да изтриете тази бел
 msgid "Do not delete this notice"
 msgstr "Да не се изтрива бележката"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 msgid "Delete this notice"
 msgstr "Изтриване на бележката"
 
@@ -1248,7 +1245,7 @@ msgstr "Описанието е твърде дълго (до %d символа)
 msgid "Could not update group."
 msgstr "Грешка при обновяване на групата."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:433
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "Грешка при отбелязване като любима."
@@ -1258,7 +1255,6 @@ msgid "Options saved."
 msgstr "Настройките са запазени."
 
 #: actions/emailsettings.php:60
-#, fuzzy
 msgid "Email settings"
 msgstr "Настройки на е-поща"
 
@@ -1297,9 +1293,8 @@ msgid "Cancel"
 msgstr "Отказ"
 
 #: actions/emailsettings.php:121
-#, fuzzy
 msgid "Email address"
-msgstr "Адреси на е-поща"
+msgstr "Адрес на е-поща"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
@@ -2079,7 +2074,7 @@ msgstr "Вход"
 
 #: actions/login.php:227
 msgid "Login to site"
-msgstr ""
+msgstr "Вход в сайта"
 
 #: actions/login.php:236 actions/register.php:478
 msgid "Remember me"
@@ -2328,7 +2323,7 @@ msgid "Only "
 msgstr "Само "
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "Неподдържан формат на данните"
 
@@ -2771,24 +2766,24 @@ msgstr "Името на езика е твърде дълго (може да е 
 msgid "Invalid tag: \"%s\""
 msgstr "Неправилен етикет: \"%s\""
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "Грешка при запазване етикетите."
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Грешка при запазване на профила."
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 msgid "Couldn't save tags."
 msgstr "Грешка при запазване етикетите."
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Настройките са запазени."
 
@@ -3168,7 +3163,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Адрес на профила ви в друга, съвместима услуга за микроблогване"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "Абониране"
 
@@ -3206,7 +3201,7 @@ msgstr "Не можете да повтаряте собствена бележ�
 msgid "You already repeated that notice."
 msgstr "Вече сте повторили тази бележка."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:656
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -3267,9 +3262,8 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Отговори до %1$s в %2$s!"
 
 #: actions/rsd.php:146 actions/version.php:157
-#, fuzzy
 msgid "StatusNet"
-msgstr "Бележката е изтрита."
+msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
@@ -3564,9 +3558,9 @@ msgid " tagged %s"
 msgstr "Бележки с етикет %s"
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "Блокирани за %s, страница %d"
+msgstr "%1$s, страница %2$d"
 
 #: actions/showstream.php:122
 #, fuzzy, php-format
@@ -3785,7 +3779,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/smssettings.php:58
-#, fuzzy
 msgid "SMS settings"
 msgstr "Настройки за SMS"
 
@@ -3816,7 +3809,6 @@ msgid "Enter the code you received on your phone."
 msgstr "Въведете кода, който получихте по телефона."
 
 #: actions/smssettings.php:138
-#, fuzzy
 msgid "SMS phone number"
 msgstr "Телефонен номер за SMS"
 
@@ -3891,16 +3883,27 @@ msgstr "Не е въведен код."
 msgid "You are not subscribed to that profile."
 msgstr "Не сте абонирани за този профил"
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 #, fuzzy
 msgid "Could not save subscription."
 msgstr "Грешка при създаване на нов абонамент."
 
-#: actions/subscribe.php:55
-msgid "Not a local user."
-msgstr "Не е локален потребител."
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "Няма такъв файл."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "Не сте абонирани за този профил"
+
+#: actions/subscribe.php:145
 #, fuzzy
 msgid "Subscribed"
 msgstr "Абониране"
@@ -3961,7 +3964,7 @@ msgstr "Няма хора, чийто бележки четете."
 msgid "These are the people whose notices %s listens to."
 msgstr "Хора, чийто бележки %s чете."
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -3971,16 +3974,16 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s не получава ничии бележки."
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4279,9 +4282,8 @@ msgid "%1$s groups, page %2$d"
 msgstr "Членове на групата %s, страница %d"
 
 #: actions/usergroups.php:130
-#, fuzzy
 msgid "Search for more groups"
-msgstr "Търсене за хора или бележки"
+msgstr "Търсене на още групи"
 
 #: actions/usergroups.php:153
 #, php-format
@@ -4399,23 +4401,23 @@ msgstr "Грешка при обновяване на бележката с но
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:214
+#: classes/Notice.php:222
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:226
 msgid "Problem saving notice. Unknown user."
 msgstr "Грешка при записване на бележката. Непознат потребител."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Твърде много бележки за кратко време. Спрете, поемете дъх и публикувайте "
 "отново след няколко минути."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:237
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4424,39 +4426,61 @@ msgstr ""
 "Твърде много бележки за кратко време. Спрете, поемете дъх и публикувайте "
 "отново след няколко минути."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr "Забранено ви е да публикувате бележки в този сайт."
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:882
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:848
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "Грешка в базата от данни — отговор при вмъкването: %s"
-
-#: classes/Notice.php:1235
+#: classes/Notice.php:1407
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+#, fuzzy
+msgid "You have been banned from subscribing."
+msgstr "Потребителят е забранил да се абонирате за него."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr ""
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Потребителят ви е блокирал."
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Не сте абонирани!"
+
+#: classes/Subscription.php:163
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "Грешка при изтриване на абонамента."
+
+#: classes/Subscription.php:179 lib/subs.php:69
+msgid "Couldn't delete subscription."
+msgstr "Грешка при изтриване на абонамента."
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добре дошли в %1$s, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:423
 msgid "Could not create group."
 msgstr "Грешка при създаване на групата."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:452
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "Грешка при създаване на нов абонамент."
@@ -4491,9 +4515,9 @@ msgid "Other options"
 msgstr "Други настройки"
 
 #: lib/action.php:144
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s - %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "%1$s - %2$s"
 
 #: lib/action.php:159
 msgid "Untitled page"
@@ -4663,25 +4687,37 @@ msgstr ""
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:826
+#: lib/action.php:827
 msgid "All "
 msgstr "Всички "
 
-#: lib/action.php:831
+#: lib/action.php:833
 msgid "license."
 msgstr "лиценз."
 
-#: lib/action.php:1130
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Страниране"
 
-#: lib/action.php:1139
+#: lib/action.php:1141
 msgid "After"
 msgstr "След"
 
-#: lib/action.php:1147
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Преди"
+
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -4993,80 +5029,89 @@ msgstr "Грешка при записване на бележката."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Уточнете името на потребителя, за когото се абонирате."
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+msgid "No such user"
+msgstr "Няма такъв потребител"
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Абонирани сте за %s."
 
-#: lib/command.php:575
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Уточнете името на потребителя, от когото се отписвате."
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Отписани сте от %s."
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Командата все още не се поддържа."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Уведомлението е изключено."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Грешка при изключване на уведомлението."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Уведомлението е включено."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Грешка при включване на уведомлението."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:668
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "Отписани сте от %s."
+
+#: lib/command.php:709
 msgid "You are not subscribed to anyone."
 msgstr "Не сте абонирани за никого."
 
-#: lib/command.php:670
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Вече сте абонирани за следните потребители:"
 msgstr[1] "Вече сте абонирани за следните потребители:"
 
-#: lib/command.php:690
+#: lib/command.php:731
 msgid "No one is subscribed to you."
 msgstr "Никой не е абониран за вас."
 
-#: lib/command.php:692
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Грешка при абониране на друг потребител за вас."
 msgstr[1] "Грешка при абониране на друг потребител за вас."
 
-#: lib/command.php:712
+#: lib/command.php:753
 msgid "You are not a member of any groups."
 msgstr "Не членувате в нито една група."
 
-#: lib/command.php:714
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Не членувате в тази група."
 msgstr[1] "Не членувате в тази група."
 
-#: lib/command.php:728
+#: lib/command.php:769
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5080,6 +5125,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5107,19 +5153,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Не е открит файл с настройки. "
 
-#: lib/common.php:136
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:138
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:140
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Влизане в сайта"
@@ -5542,7 +5588,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:482
 msgid "from"
 msgstr "от"
 
@@ -5665,48 +5711,48 @@ msgid ""
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr "С"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr "Ю"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr "И"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr "З"
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:558
 msgid "in context"
 msgstr "в контекст"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:583
 msgid "Repeated by"
 msgstr "Повторено от"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:610
 msgid "Reply to this notice"
 msgstr "Отговаряне на тази бележка"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:611
 msgid "Reply"
 msgstr "Отговор"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:655
 msgid "Notice repeated"
 msgstr "Бележката е повторена."
 
@@ -5738,11 +5784,6 @@ msgstr "Грешка при вмъкване на отдалечен профи�
 #, fuzzy
 msgid "Duplicate notice"
 msgstr "Изтриване на бележката"
-
-#: lib/oauthstore.php:465 lib/subs.php:48
-#, fuzzy
-msgid "You have been banned from subscribing."
-msgstr "Потребителят е забранил да се абонирате за него."
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -5927,36 +5968,6 @@ msgstr "Абонирани за %s"
 msgid "Groups %s is a member of"
 msgstr "Групи, в които участва %s"
 
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr ""
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Потребителят ви е блокирал."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Грешка при абониране."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Грешка при абониране на друг потребител за вас."
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Не сте абонирани!"
-
-#: lib/subs.php:142
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "Грешка при изтриване на абонамента."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Грешка при изтриване на абонамента."
-
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -6009,67 +6020,67 @@ msgstr "Редактиране на аватара"
 msgid "User actions"
 msgstr "Потребителски действия"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Редактиране на профила"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr "Редактиране"
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Изпращате на пряко съобщение до този потребител."
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Съобщение"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:870
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr "преди няколко секунди"
 
-#: lib/util.php:872
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr "преди около минута"
 
-#: lib/util.php:874
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr "преди около %d минути"
 
-#: lib/util.php:876
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr "преди около час"
 
-#: lib/util.php:878
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr "преди около %d часа"
 
-#: lib/util.php:880
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr "преди около ден"
 
-#: lib/util.php:882
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr "преди около %d дни"
 
-#: lib/util.php:884
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr "преди около месец"
 
-#: lib/util.php:886
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr "преди около %d месеца"
 
-#: lib/util.php:888
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr "преди около година"
 

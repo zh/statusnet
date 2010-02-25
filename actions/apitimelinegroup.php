@@ -107,7 +107,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $avatar     = $this->group->homepage_logo;
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
 
         $subtitle   = sprintf(
@@ -176,7 +176,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
                 $atom->addEntryFromNotices($this->notices);
 
-                $this->raw($atom->getString());
+                //$this->raw($atom->getString());
+                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
 
             } catch (Atom10FeedException $e) {
                 $this->serverError(

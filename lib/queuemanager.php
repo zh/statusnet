@@ -239,6 +239,9 @@ abstract class QueueManager extends IoManager
                 $this->connect('sms', 'SmsQueueHandler');
             }
 
+            // Broadcasting profile updates to OMB remote subscribers
+            $this->connect('profile', 'ProfileQueueHandler');
+
             // For compat with old plugins not registering their own handlers.
             $this->connect('plugin', 'PluginQueueHandler');
         }

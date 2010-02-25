@@ -1,4 +1,4 @@
-\InitializePlugin: a chance to initialize a plugin in a complete environment
+InitializePlugin: a chance to initialize a plugin in a complete environment
 
 CleanupPlugin: a chance to cleanup a plugin at the end of a program
 
@@ -739,3 +739,51 @@ StartRobotsTxt: Before outputting the robots.txt page
 
 EndRobotsTxt: After the default robots.txt page (good place for customization)
 - &$action: RobotstxtAction being shown
+
+StartGetProfileUri: When determining the canonical URI for a given profile
+- $profile: the current profile
+- &$uri: the URI
+
+EndGetProfileUri: After determining the canonical URI for a given profile
+- $profile: the current profile
+- &$uri: the URI
+
+StartFavorNotice: Saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+- &$fave: Favor object; null to start off with, but feel free to override.
+
+EndFavorNotice: After saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+
+StartDisfavorNotice: Saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+- &$result: result of the disfavoring (if you override)
+
+EndDisfavorNotice: After saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+
+StartFindMentions: start finding mentions in a block of text
+- $sender: sender profile
+- $text: plain text version of the notice
+- &$mentions: mentions found so far. Array of arrays; each array
+  has 'mentioned' (array of mentioned profiles), 'url' (url to link as),
+  'title' (title of the link), 'position' (position of the text to
+  replace), 'text' (text to replace)
+
+EndFindMentions: end finding mentions in a block of text
+- $sender: sender profile
+- $text: plain text version of the notice
+- &$mentions: mentions found so far. Array of arrays; each array
+  has 'mentioned' (array of mentioned profiles), 'url' (url to link as),
+  'title' (title of the link), 'position' (position of the text to
+  replace), 'text' (text to replace)
+
+StartShowSubscriptionsContent: before showing the subscriptions content
+- $action: the current action
+
+EndShowSubscriptionsContent: after showing the subscriptions content
+- $action: the current action

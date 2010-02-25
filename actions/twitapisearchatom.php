@@ -245,7 +245,7 @@ class TwitapisearchatomAction extends ApiAction
                              'xmlns:twitter' => 'http://api.twitter.com/',
                              'xml:lang' => 'en-US')); // XXX Other locales ?
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $this->element('id', null, "tag:$taguribase:search/$server");
 
         $site_uri = common_path(false);
@@ -329,7 +329,7 @@ class TwitapisearchatomAction extends ApiAction
 
         $this->elementStart('entry');
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
 
         $this->element('id', null, "tag:$taguribase:$notice->id");
         $this->element('published', null, common_date_w3dtf($notice->created));

@@ -2,23 +2,33 @@ Plugin to support importing updates from external RSS and Atom feeds into your t
 
 Uses PubSubHubbub for push feed updates; currently non-PuSH feeds cannot be subscribed.
 
+Configuration options available:
+
+$config['ostatus']['hub']
+    (default internal hub)
+    Set to URL of an external PuSH hub to use it instead of our internal hub.
+
+$config['ostatus']['hub_retries']
+    (default 0)
+    Number of times to retry a PuSH send to consumers if using internal hub
+
+
+For testing, shouldn't be used in production:
+
+$config['ostatus']['skip_signatures']
+    (default use signatures)
+    Disable generation and validation of Salmon magicenv signatures
+
+$config['feedsub']['nohub']
+    (default require hub)
+    Allow low-level feed subscription setup for feeds without hubs.
+    Not actually usable at this stage, OStatus will check for hubs too
+    and we have no polling backend.
+
+
 Todo:
-* set feed icon avatar for actual profiles as well as for preview
-* use channel image and/or favicon for avatar?
-* garbage-collect subscriptions that are no longer being used
-* administrative way to kill feeds?
-* functional l10n
-* clean up subscription form look and workflow
-* use ajax for test/preview in subscription form
-* rssCloud support? (Does anything use it that doesn't support PuSH as well?)
-* possibly a polling daemon to support non-PuSH feeds?
-* likely problems with multiple feeds from the same site, such as category feeds on a blog
-  (currently each feed would publish a separate notice on a separate profile, but pointing to the same post URI.)
-  (could use the local URI I guess, but that's so icky!)
-* problems with Atom feeds that list <link rel="alternate" href="..."/> but don't have the type
-  (such as http://atomgen.appspot.com/feed/5 demo feed); currently it's not recognized and we end up with the feed's master URI
-* make it easier to see what you're subscribed to and unsub from things
-* saner treatment of fullname/nickname?
+* fully functional l10n
+* redo non-OStatus feed support
+** rssCloud support?
+** possibly a polling daemon to support non-PuSH feeds?
 * make use of tags/categories from feeds
-* update feed profile data when it changes
-* XML_Feed_Parser has major problems with category and link tags; consider replacing?

@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:14:44+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:50:48+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -66,7 +66,7 @@ msgstr "Désactiver les nouvelles inscriptions."
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:351
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
+#: actions/subscriptions.php:208 actions/tagother.php:154
 #: actions/useradminpanel.php:293 lib/applicationeditform.php:333
 #: lib/applicationeditform.php:334 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -104,7 +104,6 @@ msgstr "Page non trouvée"
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "Utilisateur non trouvé."
 
@@ -175,8 +174,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "Vous et vos amis"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Statuts de %1$s et ses amis dans %2$s!"
@@ -197,12 +196,12 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Méthode API non trouvée !"
 
@@ -506,7 +505,7 @@ msgstr "Jeton incorrect."
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -657,7 +656,7 @@ msgstr "Format non supporté."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Favoris de %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s statuts favoris de %2$s / %2$s."
@@ -668,7 +667,7 @@ msgstr "%1$s statuts favoris de %2$s / %2$s."
 msgid "%s timeline"
 msgstr "Activité de %s"
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -684,12 +683,12 @@ msgstr "%1$s / Mises à jour mentionnant %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s statuts en réponses aux statuts de %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Activité publique %s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s statuts de tout le monde !"
@@ -699,7 +698,7 @@ msgstr "%s statuts de tout le monde !"
 msgid "Repeated to %s"
 msgstr "Repris pour %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Reprises de %s"
@@ -709,7 +708,7 @@ msgstr "Reprises de %s"
 msgid "Notices tagged with %s"
 msgstr "Avis marqués avec %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Mises à jour marquées avec %1$s dans %2$s !"
@@ -772,7 +771,7 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -953,7 +952,7 @@ msgstr "Vous n’êtes pas le propriétaire de cette application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1197
 msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
@@ -982,7 +981,7 @@ msgstr "Supprimer cette application"
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -1013,7 +1012,7 @@ msgstr "Voulez-vous vraiment supprimer cet avis ?"
 msgid "Do not delete this notice"
 msgstr "Ne pas supprimer cet avis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 msgid "Delete this notice"
 msgstr "Supprimer cet avis"
 
@@ -1254,7 +1253,7 @@ msgstr "la description est trop longue (%d caractères maximum)."
 msgid "Could not update group."
 msgstr "Impossible de mettre à jour le groupe."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:433
 msgid "Could not create aliases."
 msgstr "Impossible de créer les alias."
 
@@ -2357,7 +2356,7 @@ msgid "Only "
 msgstr "Seulement "
 
 #: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
 
@@ -2801,23 +2800,23 @@ msgstr "La langue est trop longue (255 caractères maximum)."
 msgid "Invalid tag: \"%s\""
 msgstr "Marque invalide : « %s »"
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr "Impossible de mettre à jour l’auto-abonnement."
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
 msgstr "Impossible d’enregistrer les préférences de localisation."
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Impossible d’enregistrer le profil."
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 msgid "Couldn't save tags."
 msgstr "Impossible d’enregistrer les marques."
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr "Préférences enregistrées."
 
@@ -3220,7 +3219,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL de votre profil sur un autre service de micro-blogging compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr "S’abonner"
 
@@ -3257,7 +3256,7 @@ msgstr "Vous ne pouvez pas reprendre votre propre avis."
 msgid "You already repeated that notice."
 msgstr "Vous avez déjà repris cet avis."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:656
 msgid "Repeated"
 msgstr "Repris"
 
@@ -3978,15 +3977,26 @@ msgstr "Aucun code entré"
 msgid "You are not subscribed to that profile."
 msgstr "Vous n’êtes pas abonné(e) à ce profil."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Impossible d’enregistrer l’abonnement."
 
-#: actions/subscribe.php:55
-msgid "Not a local user."
-msgstr "Ceci n’est pas un utilisateur local."
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "Fichier non trouvé."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "Vous n’êtes pas abonné(e) à ce profil."
+
+#: actions/subscribe.php:145
 msgid "Subscribed"
 msgstr "Abonné"
 
@@ -4050,7 +4060,7 @@ msgstr "Vous suivez les avis de ces personnes."
 msgid "These are the people whose notices %s listens to."
 msgstr "Les avis de ces personnes sont suivis par %s."
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4066,16 +4076,16 @@ msgstr ""
 "êtes un [utilisateur de Twitter](%%action.twittersettings%%), vous pouvez "
 "vous abonner automatiquement aux gens auquels vous êtes déjà abonné là-bas."
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s ne suit actuellement personne."
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4506,22 +4516,22 @@ msgstr "Impossible de mettre à jour le message avec un nouvel URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "Erreur de base de donnée en insérant la marque (hashtag) : %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:222
 msgid "Problem saving notice. Too long."
 msgstr "Problème lors de l’enregistrement de l’avis ; trop long."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:226
 msgid "Problem saving notice. Unknown user."
 msgstr "Erreur lors de l’enregistrement de l’avis. Utilisateur inconnu."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Trop d’avis, trop vite ! Faites une pause et publiez à nouveau dans quelques "
 "minutes."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:237
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4529,38 +4539,57 @@ msgstr ""
 "Trop de messages en double trop vite ! Prenez une pause et publiez à nouveau "
 "dans quelques minutes."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr "Il vous est interdit de poster des avis sur ce site."
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:882
 msgid "Problem saving group inbox."
 msgstr "Problème lors de l’enregistrement de la boîte de réception du groupe."
 
-#: classes/Notice.php:848
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "Erreur de base de donnée en insérant la réponse :%s"
-
-#: classes/Notice.php:1235
+#: classes/Notice.php:1407
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "Il vous avez été interdit de vous abonner."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr "Déjà abonné !"
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Cet utilisateur vous a bloqué."
+
+#: classes/Subscription.php:157
+msgid "Not subscribed!"
+msgstr "Pas abonné !"
+
+#: classes/Subscription.php:163
+msgid "Couldn't delete self-subscription."
+msgstr "Impossible de supprimer l’abonnement à soi-même."
+
+#: classes/Subscription.php:179 lib/subs.php:69
+msgid "Couldn't delete subscription."
+msgstr "Impossible de cesser l’abonnement"
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenue à %1$s, @%2$s !"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:423
 msgid "Could not create group."
 msgstr "Impossible de créer le groupe."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:452
 msgid "Could not set group membership."
 msgstr "Impossible d’établir l’inscription au groupe."
 
@@ -4765,25 +4794,37 @@ msgstr ""
 "Le contenu et les données sont sous le droit d’auteur du contributeur. Tous "
 "droits réservés."
 
-#: lib/action.php:826
+#: lib/action.php:827
 msgid "All "
 msgstr "Tous "
 
-#: lib/action.php:831
+#: lib/action.php:833
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1130
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1139
+#: lib/action.php:1141
 msgid "After"
 msgstr "Après"
 
-#: lib/action.php:1147
+#: lib/action.php:1149
 msgid "Before"
 msgstr "Avant"
+
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
+msgstr ""
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5088,82 +5129,92 @@ msgstr "Problème lors de l’enregistrement de l’avis."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Indiquez le nom de l’utilisateur auquel vous souhaitez vous abonner"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+msgid "No such user"
+msgstr "Utilisateur non trouvé."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Abonné à %s"
 
-#: lib/command.php:575
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Indiquez le nom de l’utilisateur duquel vous souhaitez vous désabonner"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Désabonné de %s"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Cette commande n’a pas encore été implémentée."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Avertissements désactivés."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Impossible de désactiver les avertissements."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Avertissements activés."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Impossible d’activer les avertissements."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr "La commande d’ouverture de session est désactivée"
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Ce lien n’est utilisable qu’une seule fois, et est valable uniquement "
 "pendant 2 minutes : %s"
 
-#: lib/command.php:668
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "Désabonné de %s"
+
+#: lib/command.php:709
 msgid "You are not subscribed to anyone."
 msgstr "Vous n’êtes abonné(e) à personne."
 
-#: lib/command.php:670
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Vous êtes abonné à cette personne :"
 msgstr[1] "Vous êtes abonné à ces personnes :"
 
-#: lib/command.php:690
+#: lib/command.php:731
 msgid "No one is subscribed to you."
 msgstr "Personne ne s’est abonné à vous."
 
-#: lib/command.php:692
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Cette personne est abonnée à vous :"
 msgstr[1] "Ces personnes sont abonnées à vous :"
 
-#: lib/command.php:712
+#: lib/command.php:753
 msgid "You are not a member of any groups."
 msgstr "Vous n’êtes membre d’aucun groupe."
 
-#: lib/command.php:714
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Vous êtes membre de ce groupe :"
 msgstr[1] "Vous êtes membre de ces groupes :"
 
-#: lib/command.php:728
+#: lib/command.php:769
+#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5177,6 +5228,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5242,20 +5294,20 @@ msgstr ""
 "tracks - pas encore implémenté.\n"
 "tracking - pas encore implémenté.\n"
 
-#: lib/common.php:135
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Aucun fichier de configuration n’a été trouvé. "
 
-#: lib/common.php:136
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 "J’ai cherché des fichiers de configuration dans les emplacements suivants : "
 
-#: lib/common.php:138
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr "Vous pouvez essayer de lancer l’installeur pour régler ce problème."
 
-#: lib/common.php:139
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Aller au programme d’installation"
 
@@ -5754,7 +5806,7 @@ msgstr ""
 "pour démarrer des conversations avec d’autres utilisateurs. Ceux-ci peuvent "
 "vous envoyer des messages destinés à vous seul(e)."
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:482
 msgid "from"
 msgstr "de"
 
@@ -5880,48 +5932,48 @@ msgstr ""
 "Désolé, l’obtention de votre localisation prend plus de temps que prévu. "
 "Veuillez réessayer plus tard."
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u° %2$u' %3$u\" %4$s %5$u° %6$u' %7$u\" %8$s"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr "N"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr "S"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr "E"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr "O"
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr "chez"
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:558
 msgid "in context"
 msgstr "dans le contexte"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:583
 msgid "Repeated by"
 msgstr "Repris par"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:610
 msgid "Reply to this notice"
 msgstr "Répondre à cet avis"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:611
 msgid "Reply"
 msgstr "Répondre"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:655
 msgid "Notice repeated"
 msgstr "Avis repris"
 
@@ -5952,10 +6004,6 @@ msgstr "Erreur lors de l’insertion du profil distant"
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
 msgstr "Dupliquer l’avis"
-
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "Il vous avez été interdit de vous abonner."
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -6133,34 +6181,6 @@ msgstr "Abonnés de %s"
 msgid "Groups %s is a member of"
 msgstr "Groupes de %s"
 
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr "Déjà abonné !"
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Cet utilisateur vous a bloqué."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Impossible de s’abonner."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Impossible d’abonner une autre personne à votre profil."
-
-#: lib/subs.php:137
-msgid "Not subscribed!"
-msgstr "Pas abonné !"
-
-#: lib/subs.php:142
-msgid "Couldn't delete self-subscription."
-msgstr "Impossible de supprimer l’abonnement à soi-même."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Impossible de cesser l’abonnement"
-
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -6211,67 +6231,67 @@ msgstr "Modifier l’avatar"
 msgid "User actions"
 msgstr "Actions de l’utilisateur"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Modifier les paramètres du profil"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr "Modifier"
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Envoyer un message à cet utilisateur"
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Message"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr "Modérer"
 
-#: lib/util.php:870
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:872
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:874
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:876
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:878
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:880
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:882
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:884
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:886
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:888
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 

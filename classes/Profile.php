@@ -769,7 +769,7 @@ class Profile extends Memcached_DataObject
 
         $xs->elementStart('author');
         $xs->element('name', null, $this->nickname);
-        $xs->element('uri', null, $this->profileurl);
+        $xs->element('uri', null, $this->getUri());
         $xs->elementEnd('author');
 
         return $xs->getString();
@@ -792,51 +792,59 @@ class Profile extends Memcached_DataObject
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
-     * Assumes that 'activity' namespace has been previously defined.
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
      * @return string
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            'http://activitystrea.ms/schema/1.0/person'
-        );
-        $xs->element(
-            'id',
-            null,
-            common_local_url(
-                'userbyid',
-                array('id' => $this->id)
-                )
-            );
-        $xs->element('title', null, $this->getBestName());
-
-        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
-
-        $xs->element(
-            'link', array(
-                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
-                'href' => empty($avatar)
-                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                : $avatar->displayUrl()
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
+        $noun = ActivityObject::fromProfile($this);
+        return $noun->asString('activity:' . $element);
     }
 
-    function getAcctUri()
+    /**
+     * Returns the best URI for a profile. Plugins may override.
+     *
+     * @return string $uri
+     */
+    function getUri()
     {
-        return $this->nickname . '@' . common_config('site', 'server');
+        $uri = null;
+
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
+
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
+
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
+                // return OMB profile if any
+                $remote = Remote_profile::staticGet('id', $this->id);
+                if (!empty($remote)) {
+                    $uri = $remote->uri;
+                }
+            }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
+        }
+
+        return $uri;
     }
 
+    function hasBlocked($other)
+    {
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (empty($block)) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+
+        return $result;
+    }
 }
