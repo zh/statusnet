@@ -55,6 +55,21 @@ class User_group extends Memcached_DataObject
         return $url;
     }
 
+    function getUri()
+    {
+        $uri = null;
+        if (Event::handle('StartUserGroupGetUri', array($this, &$uri))) {
+            if (!empty($this->uri)) {
+                $uri = $this->uri;
+            } else {
+                $uri = common_local_url('groupbyid',
+                                        array('id' => $this->id));
+            }
+        }
+        Event::handle('EndUserGroupGetUri', array($this, &$uri));
+        return $uri;
+    }
+
     function permalink()
     {
         $url = null;
