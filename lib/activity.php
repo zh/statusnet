@@ -223,6 +223,37 @@ class PoCo
         return $poco;
     }
 
+    function fromGroup($group)
+    {
+        if (empty($group)) {
+            return null;
+        }
+
+        $poco = new PoCo();
+
+        $poco->preferredUsername = $group->nickname;
+        $poco->displayName       = $group->getBestName();
+
+        $poco->note = $group->description;
+
+        $paddy = new PoCoAddress();
+        $paddy->formatted = $group->location;
+        $poco->address = $paddy;
+
+        if (!empty($group->homepage)) {
+            array_push(
+                $poco->urls,
+                new PoCoURL(
+                    'homepage',
+                    $group->homepage,
+                    true
+                )
+            );
+        }
+
+        return $poco;
+    }
+
     function getPrimaryURL()
     {
         foreach ($this->urls as $url) {
@@ -621,6 +652,21 @@ class ActivityObject
         return $object;
     }
 
+    static function fromGroup($group)
+    {
+        $object = new ActivityObject();
+
+        $object->type   = ActivityObject::GROUP;
+        $object->id     = $group->getUri();
+        $object->title  = $group->getBestName();
+        $object->link   = $group->getUri();
+        $object->avatar = $group->getAvatar();
+
+        $object->poco = PoCo::fromGroup($group);
+
+        return $object;
+    }
+
     function asString($tag='activity:object')
     {
         $xs = new XMLStringer(true);
@@ -656,8 +702,7 @@ class ActivityObject
             );
         }
 
-        if ($this->type == ActivityObject::PERSON
-            || $this->type == ActivityObject::GROUP) {
+        if ($this->type == ActivityObject::PERSON) {
             $xs->element(
                 'link', array(
                     'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
@@ -665,6 +710,18 @@ class ActivityObject
                     'href' => empty($this->avatar)
                     ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
                     : $this->avatar->displayUrl()
+                ),
+                null
+            );
+        }
+
+        // XXX: Gotta figure out mime-type! Gar.
+
+        if ($this->type == ActivityObject::GROUP) {
+            $xs->element(
+                'link', array(
+                    'rel'  => 'avatar',
+                    'href' => $this->avatar
                 ),
                 null
             );
