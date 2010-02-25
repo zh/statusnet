@@ -247,6 +247,9 @@ class Router
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => '[a-zA-Z0-9]+'));
+                $m->connect('group/:id/id/'.$v,
+                            array('action' => $v.'group'),
+                            array('id' => '[0-9]+'));
             }
 
             foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {

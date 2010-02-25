@@ -223,6 +223,37 @@ class PoCo
         return $poco;
     }
 
+    function fromGroup($group)
+    {
+        if (empty($group)) {
+            return null;
+        }
+
+        $poco = new PoCo();
+
+        $poco->preferredUsername = $group->nickname;
+        $poco->displayName       = $group->getBestName();
+
+        $poco->note = $group->description;
+
+        $paddy = new PoCoAddress();
+        $paddy->formatted = $group->location;
+        $poco->address = $paddy;
+
+        if (!empty($group->homepage)) {
+            array_push(
+                $poco->urls,
+                new PoCoURL(
+                    'homepage',
+                    $group->homepage,
+                    true
+                )
+            );
+        }
+
+        return $poco;
+    }
+
     function getPrimaryURL()
     {
         foreach ($this->urls as $url) {
@@ -610,13 +641,31 @@ class ActivityObject
         $object->id     = $profile->getUri();
         $object->title  = $profile->getBestName();
         $object->link   = $profile->profileurl;
-        $object->avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        if ($avatar) {
+            $object->avatar = $avatar->displayUrl();
+        }
 
         if (isset($profile->lat) && isset($profile->lon)) {
             $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
         }
 
         $object->poco = PoCo::fromProfile($profile);
+
+        return $object;
+    }
+
+    static function fromGroup($group)
+    {
+        $object = new ActivityObject();
+
+        $object->type   = ActivityObject::GROUP;
+        $object->id     = $group->getUri();
+        $object->title  = $group->getBestName();
+        $object->link   = $group->getUri();
+        $object->avatar = $group->getAvatar();
+
+        $object->poco = PoCo::fromGroup($group);
 
         return $object;
     }
@@ -656,15 +705,26 @@ class ActivityObject
             );
         }
 
-        if ($this->type == ActivityObject::PERSON
-            || $this->type == ActivityObject::GROUP) {
+        if ($this->type == ActivityObject::PERSON) {
             $xs->element(
                 'link', array(
                     'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
                     'rel'  => 'avatar',
                     'href' => empty($this->avatar)
                     ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                    : $this->avatar->displayUrl()
+                    : $this->avatar
+                ),
+                null
+            );
+        }
+
+        // XXX: Gotta figure out mime-type! Gar.
+
+        if ($this->type == ActivityObject::GROUP) {
+            $xs->element(
+                'link', array(
+                    'rel'  => 'avatar',
+                    'href' => $this->avatar
                 ),
                 null
             );
@@ -859,6 +919,7 @@ class Activity
     public $content; // HTML content of activity
     public $id;      // ID of the activity
     public $title;   // title of the activity
+    public $categories = array(); // list of AtomCategory objects
 
     /**
      * Turns a regular old Atom <entry> into a magical activity
@@ -947,6 +1008,14 @@ class Activity
         $this->summary = ActivityUtils::childContent($entry, 'summary');
         $this->id      = ActivityUtils::childContent($entry, 'id');
         $this->content = ActivityUtils::getContent($entry);
+
+        $catEls = $entry->getElementsByTagNameNS(self::ATOM, 'category');
+        if ($catEls) {
+            for ($i = 0; $i < $catEls->length; $i++) {
+                $catEl = $catEls->item($i);
+                $this->categories[] = new AtomCategory($catEl);
+            }
+        }
     }
 
     /**
@@ -1011,6 +1080,10 @@ class Activity
             $xs->raw($this->target->asString('activity:target'));
         }
 
+        foreach ($this->categories as $cat) {
+            $xs->raw($cat->asString());
+        }
+
         $xs->elementEnd('entry');
 
         return $xs->getString();
@@ -1019,5 +1092,51 @@ class Activity
     private function _child($element, $tag, $namespace=self::SPEC)
     {
         return ActivityUtils::child($element, $tag, $namespace);
+    }
+}
+
+class AtomCategory
+{
+    public $term;
+    public $scheme;
+    public $label;
+
+    function __construct($element=null)
+    {
+        if ($element && $element->attributes) {
+            $this->term = $this->extract($element, 'term');
+            $this->scheme = $this->extract($element, 'scheme');
+            $this->label = $this->extract($element, 'label');
+        }
+    }
+
+    protected function extract($element, $attrib)
+    {
+        $node = $element->attributes->getNamedItemNS(Activity::ATOM, $attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        $node = $element->attributes->getNamedItem($attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        return null;
+    }
+
+    function asString()
+    {
+        $attribs = array();
+        if ($this->term !== null) {
+            $attribs['term'] = $this->term;
+        }
+        if ($this->scheme !== null) {
+            $attribs['scheme'] = $this->scheme;
+        }
+        if ($this->label !== null) {
+            $attribs['label'] = $this->label;
+        }
+        $xs = new XMLStringer();
+        $xs->element('category', $attribs);
+        return $xs->asString();
     }
 }

@@ -162,7 +162,7 @@ class Ostatus_profile extends Memcached_DataObject
                              'jpg' => 'image/jpeg',
                              'jpeg' => 'image/jpeg',
                              'gif' => 'image/gif');
-                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
+                $extension = pathinfo(parse_url($object->avatar, PHP_URL_PATH), PATHINFO_EXTENSION);
                 if (isset($map[$extension])) {
                     // @fixme this ain't used/saved yet
                     $object->avatarType = $map[$extension];
@@ -332,6 +332,9 @@ class Ostatus_profile extends Memcached_DataObject
      */
     public function unsubscribe() {
         $feedsub = FeedSub::staticGet('uri', $this->feeduri);
+        if (!$feedsub) {
+            return true;
+        }
         if ($feedsub->sub_state == 'active') {
             return $feedsub->unsubscribe();
         } else if ($feedsub->sub_state == '' || $feedsub->sub_state == 'inactive' || $feedsub->sub_state == 'unsubscribe') {
@@ -356,7 +359,7 @@ class Ostatus_profile extends Memcached_DataObject
             $count = $this->localProfile()->subscriberCount();
         }
         if ($count == 0) {
-            common_log(LOG_INFO, "Unsubscribing from now-unused remote feed $oprofile->feeduri");
+            common_log(LOG_INFO, "Unsubscribing from now-unused remote feed $this->feeduri");
             $this->unsubscribe();
             return true;
         } else {
@@ -638,7 +641,9 @@ class Ostatus_profile extends Memcached_DataObject
                         'uri' => $sourceUri,
                         'rendered' => $rendered,
                         'replies' => array(),
-                        'groups' => array());
+                        'groups' => array(),
+                        'tags' => array());
+
 
         // Check for optional attributes...
 
@@ -669,6 +674,16 @@ class Ostatus_profile extends Memcached_DataObject
                 if ($location->location_id) {
                     $options['location_ns'] = $location->location_ns;
                     $options['location_id'] = $location->location_id;
+                }
+            }
+        }
+
+        // Atom categories <-> hashtags
+        foreach ($activity->categories as $cat) {
+            if ($cat->term) {
+                $term = common_canonical_tag($cat->term);
+                if ($term) {
+                    $options['tags'][] = $term;
                 }
             }
         }
@@ -1083,8 +1098,8 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($object->type == ActivityObject::PERSON) {
             $profile = new Profile();
+            $profile->created = common_sql_now();
             self::updateProfile($profile, $object, $hints);
-            $profile->created  = common_sql_now();
 
             $oprofile->profile_id = $profile->insert();
             if (!$oprofile->profile_id) {
@@ -1092,6 +1107,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
         } else {
             $group = new User_group();
+            $group->uri = $homeuri;
             $group->created = common_sql_now();
             self::updateGroup($group, $object, $hints);
 
@@ -1171,19 +1187,19 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $orig = clone($group);
 
-        // @fixme need to make nick unique etc *hack hack*
         $group->nickname = self::getActivityObjectNickname($object, $hints);
         $group->fullname = $object->title;
 
-        // @fixme no canonical profileurl; using homepage instead for now
-        $group->homepage = $object->id;
+        if (!empty($object->link)) {
+            $group->mainpage = $object->link;
+        } else if (array_key_exists('profileurl', $hints)) {
+            $group->mainpage = $hints['profileurl'];
+        }
 
-        // @fixme homepage
-        // @fixme bio
-        // @fixme tags/categories
-        // @fixme location?
         // @todo tags from categories
-        // @todo lat/lon/location?
+        $group->description = self::getActivityObjectBio($object, $hints);
+        $group->location = self::getActivityObjectLocation($object, $hints);
+        $group->homepage = self::getActivityObjectHomepage($object, $hints);
 
         if ($group->id) {
             common_log(LOG_DEBUG, "Updating OStatus group $group->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));

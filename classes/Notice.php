@@ -121,6 +121,9 @@ class Notice extends Memcached_DataObject
         $result = parent::delete();
     }
 
+    /**
+     * Extract #hashtags from this notice's content and save them to the database.
+     */
     function saveTags()
     {
         /* extract all #hastags */
@@ -129,14 +132,22 @@ class Notice extends Memcached_DataObject
             return true;
         }
 
+        /* Add them to the database */
+        return $this->saveKnownTags($match[1]);
+    }
+
+    /**
+     * Record the given set of hash tags in the db for this notice.
+     * Given tag strings will be normalized and checked for dupes.
+     */
+    function saveKnownTags($hashtags)
+    {
         //turn each into their canonical tag
         //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
-        $hashtags = array();
-        for($i=0; $i<count($match[1]); $i++) {
-            $hashtags[] = common_canonical_tag($match[1][$i]);
+        for($i=0; $i<count($hashtags); $i++) {
+            $hashtags[$i] = common_canonical_tag($hashtags[$i]);
         }
 
-        /* Add them to the database */
         foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
@@ -145,6 +156,10 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    /**
+     * Record a single hash tag as associated with this notice.
+     * Tag format and uniqueness must be validated by caller.
+     */
     function saveTag($hashtag)
     {
         $tag = new Notice_tag();
@@ -194,6 +209,8 @@ class Notice extends Memcached_DataObject
      *                              place of extracting @-replies from content.
      *              array 'groups' list of group IDs to deliver to, in place of
      *                              extracting ! tags from content
+     *              array 'tags' list of hashtag strings to save with the notice
+     *                           in place of extracting # tags from content
      * @fixme tag override
      *
      * @return Notice
@@ -343,6 +360,8 @@ class Notice extends Memcached_DataObject
 
         $notice->blowOnInsert();
 
+        // Save per-notice metadata...
+
         if (isset($replies)) {
             $notice->saveKnownReplies($replies);
         } else {
@@ -355,6 +374,16 @@ class Notice extends Memcached_DataObject
             $notice->saveGroups();
         }
 
+        if (isset($tags)) {
+            $notice->saveKnownTags($tags);
+        } else {
+            $notice->saveTags();
+        }
+
+        // @fixme pass in data for URLs too?
+        $notice->saveUrls();
+
+        // Prepare inbox delivery, may be queued to background.
         $notice->distribute();
 
         return $notice;

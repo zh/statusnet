@@ -399,25 +399,41 @@ class User_group extends Memcached_DataObject
         return $xs->getString();
     }
 
+    /**
+     * Returns an XML string fragment with group information as an
+     * Activity Streams <activity:subject> element.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @return string
+     */
     function asActivitySubject()
     {
-        $xs = new XMLStringer(true);
+        return $this->asActivityNoun('subject');
+    }
 
-        $xs->elementStart('activity:subject');
-        $xs->element('activity:object', null, 'http://activitystrea.ms/schema/1.0/group');
-        $xs->element('id', null, $this->permalink());
-        $xs->element('title', null, $this->getBestName());
-        $xs->element(
-            'link', array(
-                'rel'  => 'avatar',
-                'href' =>  empty($this->homepage_logo)
-                    ? User_group::defaultLogo(AVATAR_PROFILE_SIZE)
-                    : $this->homepage_logo
-            )
-        );
-        $xs->elementEnd('activity:subject');
+    /**
+     * Returns an XML string fragment with group information as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
+     *
+     * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $noun = ActivityObject::fromGroup($this);
+        return $noun->asString('activity:' . $element);
+    }
 
-        return $xs->getString();
+    function getAvatar()
+    {
+        return empty($this->homepage_logo)
+            ? User_group::defaultLogo(AVATAR_PROFILE_SIZE)
+            : $this->homepage_logo;
     }
 
     static function register($fields) {
