@@ -154,7 +154,15 @@ class PoCo
                 PoCo::NS
             );
 
-            array_push($urls, new PoCoURL($type, $value, $primary));
+            $isPrimary = false;
+
+            if (isset($primary) && $primary == 'true') {
+                $isPrimary = true;
+            }
+
+            // @todo check to make sure a primary hasn't already been added
+
+            array_push($urls, new PoCoURL($type, $value, $isPrimary));
         }
         return $urls;
     }
@@ -211,6 +219,15 @@ class PoCo
         }
 
         return $poco;
+    }
+
+    function getPrimaryURL()
+    {
+        foreach ($this->urls as $url) {
+            if ($url->primary) {
+                return $url;
+            }
+        }
     }
 
     function asString()
@@ -494,6 +511,12 @@ class ActivityObject
 
         $this->element = $element;
 
+        $this->geopoint = $this->_childContent(
+            $element,
+            ActivityContext::POINT,
+            ActivityContext::GEORSS
+        );
+
         if ($element->tagName == 'author') {
 
             $this->type  = self::PERSON; // XXX: is this fair?
@@ -759,20 +782,27 @@ class ActivityContext
 
         for ($i = 0; $i < $points->length; $i++) {
             $point = $points->item($i)->textContent;
-            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
-            $point = preg_replace('/\s+/', ' ', $point);
-            $point = trim($point);
-            $coords = explode(' ', $point);
-            if (count($coords) == 2) {
-                list($lat, $lon) = $coords;
-                if (is_numeric($lat) && is_numeric($lon)) {
-                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
-                    return Location::fromLatLon($lat, $lon);
-                }
-            }
-            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+            return self::locationFromPoint($point);
         }
 
+        return null;
+    }
+
+    // XXX: Move to ActivityUtils or Location?
+    static function locationFromPoint($point)
+    {
+        $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+        $point = preg_replace('/\s+/', ' ', $point);
+        $point = trim($point);
+        $coords = explode(' ', $point);
+        if (count($coords) == 2) {
+            list($lat, $lon) = $coords;
+            if (is_numeric($lat) && is_numeric($lon)) {
+                common_log(LOG_INFO, "Looking up location for $lat $lon from georss point");
+                return Location::fromLatLon($lat, $lon);
+            }
+        }
+        common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
         return null;
     }
 }

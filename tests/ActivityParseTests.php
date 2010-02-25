@@ -133,6 +133,8 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($poco->urls[0]->type, 'homepage');
         $this->assertEquals($poco->urls[0]->value, 'http://example.com/blog.html');
         $this->assertEquals($poco->urls[0]->primary, 'true');
+        $this->assertEquals($act->actor->geopoint, '37.7749295 -122.4194155');
+
     }
 
 }

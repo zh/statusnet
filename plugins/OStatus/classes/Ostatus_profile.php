@@ -1118,11 +1118,20 @@ class Ostatus_profile extends Memcached_DataObject
             $profile->profileurl = $hints['profileurl'];
         }
 
-        // @fixme bio
+        $profile->bio      = self::getActivityObjectBio($object, $hints);
+        $profile->location = self::getActivityObjectLocation($object, $hints);
+        $profile->homepage = self::getActivityObjectHomepage($object, $hints);
+
+        if (!empty($object->geopoint)) {
+            $location = ActivityContext::locationFromPoint($object->geopoint);
+            if (!empty($location)) {
+                $profile->lat = $location->lat;
+                $profile->lon = $location->lon;
+            }
+        }
+
         // @fixme tags/categories
-        // @fixme location?
         // @todo tags from categories
-        // @todo lat/lon/location?
 
         if ($profile->id) {
             common_log(LOG_DEBUG, "Updating OStatus profile $profile->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
@@ -1152,6 +1161,62 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_DEBUG, "Updating OStatus group $group->id from remote info $object->id: " . var_export($object, true) . var_export($hints, true));
             $group->update($orig);
         }
+    }
+
+    protected static function getActivityObjectHomepage($object, $hints=array())
+    {
+        $homepage = null;
+        $poco     = $object->poco;
+
+        if (!empty($poco)) {
+            $url = $poco->getPrimaryURL();
+            if ($url->type == 'homepage') {
+                $homepage = $url->value;
+            }
+        }
+
+        // @todo Try for a another PoCo URL?
+
+        return $homepage;
+    }
+
+    protected static function getActivityObjectLocation($object, $hints=array())
+    {
+        $location = null;
+
+        if (!empty($object->poco)) {
+            if (isset($object->poco->address->formatted)) {
+                $location = $object->poco->address->formatted;
+                if (mb_strlen($location) > 255) {
+                    $location = mb_substr($note, 0, 255 - 3) . ' … ';
+                }
+            }
+        }
+
+        // @todo Try to find location some othe way? Via goerss point?
+
+        return $location;
+    }
+
+    protected static function getActivityObjectBio($object, $hints=array())
+    {
+        $bio  = null;
+
+        if (!empty($object->poco)) {
+            $note = $object->poco->note;
+            if (!empty($note)) {
+                if (mb_strlen($note) > Profile::maxBio()) {
+                    // XXX: truncate ok?
+                    $bio = mb_substr($note, 0, Profile::maxBio() - 3) . ' … ';
+                } else {
+                    $bio = $note;
+                }
+            }
+        }
+
+        // @todo Try to get bio info some other way?
+
+        return $bio;
     }
 
     protected static function getActivityObjectNickname($object, $hints=array())
