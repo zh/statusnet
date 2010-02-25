@@ -249,6 +249,7 @@ class EditgroupAction extends GroupDesignAction
         $this->group->homepage    = $homepage;
         $this->group->description = $description;
         $this->group->location    = $location;
+        $this->group->mainpage    = common_local_url('showgroup', array('nickname' => $nickname));
 
         $result = $this->group->update($orig);
 

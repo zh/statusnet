@@ -421,6 +421,7 @@ class User_group extends Memcached_DataObject
         $group->description = $description;
         $group->location    = $location;
         $group->uri         = $uri;
+        $group->mainpage    = $mainpage;
         $group->created     = common_sql_now();
 
         $result = $group->insert();
