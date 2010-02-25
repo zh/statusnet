@@ -607,6 +607,32 @@ class Ostatus_profile extends Memcached_DataObject
         $rendered = $this->purify($activity->object->content);
         $content = html_entity_decode(strip_tags($rendered));
 
+        $shortened = content_shorten_links($content);
+
+        // If it's too long, try using the summary, and make the
+        // HTML an attachment.
+
+        $attachment = null;
+
+        if (Notice::contentTooLong($shortened)) {
+            $attachment = $this->saveHTMLFile($activity->object->title, $rendered);
+            $summary = $activity->object->summary;
+            if (empty($summary)) {
+                $summary = $content;
+            }
+            $shortSummary = content_shorten_links($summary);
+            if (Notice::contentTooLong($shortSummary)) {
+                $url = common_shorten_url(common_local_url('attachment',
+                                                           array('attachment' => $attachment->id)));
+                $shortSummary = substr($shortSummary,
+                                       0,
+                                       Notice::maxContent() - (mb_strlen($url) + 2));
+                $shortSummary .= '… ' . $url;
+                $content = $shortSummary;
+                $rendered = common_render_text($content);
+            }
+        }
+
         $options = array('is_local' => Notice::REMOTE_OMB,
                         'url' => $sourceUrl,
                         'uri' => $sourceUri,
@@ -654,6 +680,9 @@ class Ostatus_profile extends Memcached_DataObject
                                      $options);
             if ($saved) {
                 Ostatus_source::saveNew($saved, $this, $method);
+                if (!empty($attachment)) {
+                    File_to_post::processNew($attachment->id, $saved->id);
+                }
             }
         } catch (Exception $e) {
             common_log(LOG_ERR, "OStatus save of remote message $sourceUri failed: " . $e->getMessage());
@@ -1385,5 +1414,36 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         return null;
+    }
+
+    function saveHTMLFile($title, $rendered)
+    {
+        $final = sprintf("<!DOCTYPE html>\n<html><head><title>%s</title></head>".
+                         '<body><div>%s</div></body></html>',
+                         htmlspecialchars($title),
+                         $rendered);
+
+        $filename = File::filename($this->localProfile(),
+                                   'ostatus', // ignored?
+                                   'text/html');
+
+        $filepath = File::path($filename);
+
+        file_put_contents($filepath, $final);
+
+        $file = new File;
+
+        $file->filename = $filename;
+        $file->url      = File::url($filename);
+        $file->size     = filesize($filepath);
+        $file->date     = time();
+        $file->mimetype = 'text/html';
+
+        $file_id = $file->insert();
+
+        if ($file_id === false) {
+            common_log_db_error($file, "INSERT", __FILE__);
+            throw new ServerException(_('Could not store HTML content of long post as file.'));
+        }
     }
 }
