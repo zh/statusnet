@@ -63,7 +63,10 @@ xgettext \
     --output=locale/$domain.po \
     --language=PHP \
     --keyword='' \
-    --keyword="_m:1" \
+    --keyword="_m:1,1t" \
+    --keyword="_m:1c,2,2t" \
+    --keyword="_m:1,2,3t" \
+    --keyword="_m:1c,2,3,4t" \
 
 END;
     foreach ($files as $file) {
@@ -186,6 +189,9 @@ foreach ($args as $arg) {
         $allplugins = true;
     } elseif (substr($arg, 0, 9) == "--plugin=") {
         $plugins[] = substr($arg, 9);
+    } elseif ($arg == '--help') {
+        echo "options: --all --core --plugins --plugin=Foo\n\n";
+        exit(0);
     }
 }
 
