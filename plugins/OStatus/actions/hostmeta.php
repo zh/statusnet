@@ -32,7 +32,7 @@ class HostMetaAction extends Action
         parent::handle();
 
         $domain = common_config('site', 'server');
-        $url = common_local_url('webfinger');
+        $url = common_local_url('xrd');
         $url.= '?uri={uri}';
 
         $xrd = new XRD();

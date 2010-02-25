@@ -43,8 +43,8 @@ class OStatusPlugin extends Plugin
         // Discovery actions
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
-        $m->connect('main/webfinger',
-                    array('action' => 'webfinger'));
+        $m->connect('main/xrd',
+                    array('action' => 'xrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',

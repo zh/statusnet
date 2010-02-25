@@ -24,7 +24,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class WebfingerAction extends Action
+class XrdAction extends Action
 {
 
     public $uri;
@@ -44,7 +44,7 @@ class WebfingerAction extends Action
 
         $xrd = new XRD();
 
-        list($nick, $domain) = explode('@', urldecode($acct));
+        list($nick, $domain) = explode('@', substr(urldecode($acct), 5));
         $nick = common_canonical_nickname($nick);
 
         $this->user = User::staticGet('nickname', $nick);
@@ -91,7 +91,7 @@ class WebfingerAction extends Action
         if (!$magickey) {
             // No keypair yet, let's generate one.
             $magickey = new Magicsig();
-            $magickey->generate();
+            $magickey->generate($this->user->id);
         }
         
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
