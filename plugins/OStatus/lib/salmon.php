@@ -72,8 +72,12 @@ class Salmon
         // TODO: Should probably be getting the signer uri as an argument?
         $signer_uri = $magic_env->getAuthor($text);
 
-        $env = $magic_env->signMessage($text, 'application/atom+xml', $signer_uri);
-
+        try {
+            $env = $magic_env->signMessage($text, 'application/atom+xml', $signer_uri);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Salmon signing failed: ". $e->getMessage());
+            return $text;
+        }
         return $magic_env->unfold($env);
     }
 

@@ -59,7 +59,7 @@ class MagicEnvelope
         $signer_uri = $this->normalizeUser($signer_uri);
 
         if (!$this->checkAuthor($text, $signer_uri)) {
-            return false;
+            throw new Exception("Unable to determine entry author.");
         }
 
         $signature_alg = Magicsig::fromString($this->getKeyPair($signer_uri));
