@@ -23,6 +23,7 @@ class User_group extends Memcached_DataObject
     public $created;                         // datetime   not_null default_0000-00-00%2000%3A00%3A00
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $uri;                             // varchar(255)  unique_key
+    public $mainpage;                        // varchar(255)
 
     /* Static get */
     function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_group',$k,$v); }
@@ -42,8 +43,13 @@ class User_group extends Memcached_DataObject
     {
         $url = null;
         if (Event::handle('StartUserGroupHomeUrl', array($this, &$url))) {
-            $url = common_local_url('showgroup',
-                                    array('nickname' => $this->nickname));
+            // normally stored in mainpage, but older ones may be null
+            if (!empty($this->mainpage)) {
+                $url = $this->mainpage;
+            } else {
+                $url = common_local_url('showgroup',
+                                        array('nickname' => $this->nickname));
+            }
         }
         Event::handle('EndUserGroupHomeUrl', array($this, &$url));
         return $url;

@@ -422,6 +422,7 @@ create table user_group (
     modified timestamp comment 'date this record was modified',
 
     uri varchar(255) unique key comment 'universal identifier',
+    mainpage varchar(255) comment 'page for group info to link to',
 
     index user_group_nickname_idx (nickname)
 
