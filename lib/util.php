@@ -1606,6 +1606,7 @@ function common_database_tablename($tablename)
  */
 function common_shorten_url($long_url)
 {
+    $long_url = trim($long_url);
     $user = common_current_user();
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
@@ -1620,7 +1621,7 @@ function common_shorten_url($long_url)
         return $long_url;
     }else{
         //URL was shortened, so return the result
-        return $shortenedUrl;
+        return trim($shortenedUrl);
     }
 }
 
