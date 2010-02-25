@@ -63,19 +63,7 @@ class DistribQueueHandler
         // XXX: do we need to change this for remote users?
 
         try {
-            $notice->saveTags();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
             $notice->addToInboxes();
-        } catch (Exception $e) {
-            $this->logit($notice, $e);
-        }
-
-        try {
-            $notice->saveUrls();
         } catch (Exception $e) {
             $this->logit($notice, $e);
         }

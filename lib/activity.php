@@ -859,6 +859,7 @@ class Activity
     public $content; // HTML content of activity
     public $id;      // ID of the activity
     public $title;   // title of the activity
+    public $categories = array(); // list of AtomCategory objects
 
     /**
      * Turns a regular old Atom <entry> into a magical activity
@@ -947,6 +948,14 @@ class Activity
         $this->summary = ActivityUtils::childContent($entry, 'summary');
         $this->id      = ActivityUtils::childContent($entry, 'id');
         $this->content = ActivityUtils::getContent($entry);
+
+        $catEls = $entry->getElementsByTagNameNS(self::ATOM, 'category');
+        if ($catEls) {
+            for ($i = 0; $i < $catEls->length; $i++) {
+                $catEl = $catEls->item($i);
+                $this->categories[] = new AtomCategory($catEl);
+            }
+        }
     }
 
     /**
@@ -1011,6 +1020,10 @@ class Activity
             $xs->raw($this->target->asString('activity:target'));
         }
 
+        foreach ($this->categories as $cat) {
+            $xs->raw($cat->asString());
+        }
+
         $xs->elementEnd('entry');
 
         return $xs->getString();
@@ -1019,5 +1032,51 @@ class Activity
     private function _child($element, $tag, $namespace=self::SPEC)
     {
         return ActivityUtils::child($element, $tag, $namespace);
+    }
+}
+
+class AtomCategory
+{
+    public $term;
+    public $scheme;
+    public $label;
+
+    function __construct($element=null)
+    {
+        if ($element && $element->attributes) {
+            $this->term = $this->extract($element, 'term');
+            $this->scheme = $this->extract($element, 'scheme');
+            $this->label = $this->extract($element, 'label');
+        }
+    }
+
+    protected function extract($element, $attrib)
+    {
+        $node = $element->attributes->getNamedItemNS(Activity::ATOM, $attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        $node = $element->attributes->getNamedItem($attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        return null;
+    }
+
+    function asString()
+    {
+        $attribs = array();
+        if ($this->term !== null) {
+            $attribs['term'] = $this->term;
+        }
+        if ($this->scheme !== null) {
+            $attribs['scheme'] = $this->scheme;
+        }
+        if ($this->label !== null) {
+            $attribs['label'] = $this->label;
+        }
+        $xs = new XMLStringer();
+        $xs->element('category', $attribs);
+        return $xs->asString();
     }
 }

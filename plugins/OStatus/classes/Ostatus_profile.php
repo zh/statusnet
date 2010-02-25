@@ -638,7 +638,9 @@ class Ostatus_profile extends Memcached_DataObject
                         'uri' => $sourceUri,
                         'rendered' => $rendered,
                         'replies' => array(),
-                        'groups' => array());
+                        'groups' => array(),
+                        'tags' => array());
+
 
         // Check for optional attributes...
 
@@ -669,6 +671,16 @@ class Ostatus_profile extends Memcached_DataObject
                 if ($location->location_id) {
                     $options['location_ns'] = $location->location_ns;
                     $options['location_id'] = $location->location_id;
+                }
+            }
+        }
+
+        // Atom categories <-> hashtags
+        foreach ($activity->categories as $cat) {
+            if ($cat->term) {
+                $term = common_canonical_tag($cat->term);
+                if ($term) {
+                    $options['tags'][] = $term;
                 }
             }
         }
