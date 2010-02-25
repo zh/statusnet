@@ -668,10 +668,9 @@ class Ostatus_profile extends Memcached_DataObject
      */
     protected function purify($html)
     {
-        // @fixme disable caching or set a sane temp dir
-        require_once(INSTALLDIR.'/extlib/HTMLPurifier/HTMLPurifier.auto.php');
-        $purifier = new HTMLPurifier();
-        return $purifier->purify($html);
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        $config = array('safe' => 1);
+        return htmLawed($html, $config);
     }
 
     /**
@@ -953,7 +952,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param Activity $activity
      * @return mixed matching Ostatus_profile or false if none known
      */
-    protected static function getActorProfile($activity)
+    public static function getActorProfile($activity)
     {
         return self::getActivityObjectProfile($activity->actor);
     }
@@ -1091,7 +1090,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @param ActivityObject $object
      * @param array $hints
      */
-    protected function updateFromActivityObject($object, $hints=array())
+    public function updateFromActivityObject($object, $hints=array())
     {
         if ($this->isGroup()) {
             $group = $this->localGroup();
