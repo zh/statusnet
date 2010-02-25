@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:50:48+0000\n"
+"POT-Creation-Date: 2010-02-25 11:54+0000\n"
+"PO-Revision-Date: 2010-02-25 11:55:22+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62948); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -3984,17 +3984,17 @@ msgstr "Impossible d’enregistrer l’abonnement."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Cette action n'accepte que les requêtes de type POST."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Fichier non trouvé."
+msgstr "Profil non-trouvé."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Vous n’êtes pas abonné(e) à ce profil."
+msgstr ""
+"Vous ne pouvez pas vous abonner  à un profil OMB 0.1 distant par cette "
+"action."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4816,15 +4816,15 @@ msgstr "Avant"
 
 #: lib/activity.php:382
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "Impossible de gérer le contenu distant pour le moment."
 
 #: lib/activity.php:410
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Impossible de gérer le contenu XML embarqué pour le moment."
 
 #: lib/activity.php:414
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "Impossible de gérer le contenu en Base64 embarqué pour le moment."
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5214,7 +5214,6 @@ msgstr[0] "Vous êtes membre de ce groupe :"
 msgstr[1] "Vous êtes membre de ces groupes :"
 
 #: lib/command.php:769
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5267,6 +5266,7 @@ msgstr ""
 "d <nickname> <text> - message direct à l’utilisateur\n"
 "get <nickname> - obtenir le dernier avis de l’utilisateur\n"
 "whois <nickname> - obtenir le profil de l’utilisateur\n"
+"lose <nickname> - forcer un utilisateur à arrêter de vous suivre\n"
 "fav <nickname> - ajouter de dernier avis de l’utilisateur comme favori\n"
 "fav #<notice_id> - ajouter l’avis correspondant à l’identifiant comme "
 "favori\n"
@@ -5500,23 +5500,23 @@ msgstr "Erreur système lors du transfert du fichier."
 msgid "Not an image or corrupt file."
 msgstr "Ceci n’est pas une image, ou c’est un fichier corrompu."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Format de fichier d’image non supporté."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Fichier perdu."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Type de fichier inconnu"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "Mo"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "Ko"
 

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:51:31+0000\n"
+"POT-Creation-Date: 2010-02-25 11:54+0000\n"
+"PO-Revision-Date: 2010-02-25 11:56:23+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62948); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -1100,7 +1100,7 @@ msgstr "Zmień kolory"
 
 #: actions/designadminpanel.php:510 lib/designsettings.php:191
 msgid "Content"
-msgstr "Zawartość"
+msgstr "Treść"
 
 #: actions/designadminpanel.php:523 lib/designsettings.php:204
 msgid "Sidebar"
@@ -2160,7 +2160,7 @@ msgstr "Nie można wysłać wiadomości do tego użytkownika."
 #: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
 #: lib/command.php:475
 msgid "No content!"
-msgstr "Brak zawartości."
+msgstr "Brak treści."
 
 #: actions/newmessage.php:158
 msgid "No recipient specified."
@@ -2198,7 +2198,7 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"Wyszukaj wpisy na %%site.name%% według ich zawartości. Oddziel wyszukiwane "
+"Wyszukaj wpisy na %%site.name%% według ich treści. Oddziel wyszukiwane "
 "terminy spacjami. Terminy muszą mieć trzy znaki lub więcej."
 
 #: actions/noticesearch.php:78
@@ -3925,17 +3925,17 @@ msgstr "Nie można zapisać subskrypcji."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ta czynność przyjmuje tylko żądania POST."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Nie ma takiego pliku."
+msgstr "Nie ma takiego profilu."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Nie jesteś subskrybowany do tego profilu."
+msgstr ""
+"Nie można subskrybować zdalnego profilu profilu OMB 0.1 za pomocą tej "
+"czynności."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4754,15 +4754,15 @@ msgstr "Wcześniej"
 
 #: lib/activity.php:382
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "Nie można jeszcze obsługiwać zdalnej treści."
 
 #: lib/activity.php:410
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Nie można jeszcze obsługiwać zagnieżdżonej treści XML."
 
 #: lib/activity.php:414
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "Nie można jeszcze obsługiwać zagnieżdżonej treści Base64."
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5112,7 +5112,7 @@ msgstr ""
 "minuty: %s."
 
 #: lib/command.php:692
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribed  %s"
 msgstr "Usunięto subskrypcję użytkownika %s"
 
@@ -5150,7 +5150,6 @@ msgstr[1] "Jesteś członkiem tych grup:"
 msgstr[2] "Jesteś członkiem tych grup:"
 
 #: lib/command.php:769
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5195,14 +5194,15 @@ msgstr ""
 "on - włącza powiadomienia\n"
 "off - wyłącza powiadomienia\n"
 "help - wyświetla tę pomoc\n"
-"follow <pseudonim> - włącza obserwowanie użytkownika\n"
+"follow <pseudonim> - subskrybuje użytkownika\n"
 "groups - wyświetla listę grup, do których dołączyłeś\n"
 "subscriptions - wyświetla listę obserwowanych osób\n"
 "subscribers - wyświetla listę osób, które cię obserwują\n"
-"leave <pseudonim> - rezygnuje z obserwowania użytkownika\n"
+"leave <pseudonim> - usuwa subskrypcję użytkownika\n"
 "d <pseudonim> <tekst> - bezpośrednia wiadomość do użytkownika\n"
 "get <pseudonim> - zwraca ostatni wpis użytkownika\n"
 "whois <pseudonim> - zwraca informacje o profilu użytkownika\n"
+"lose <pseudonim> - wymusza użytkownika do zatrzymania obserwowania cię\n"
 "fav <pseudonim> - dodaje ostatni wpis użytkownika jako \"ulubiony\"\n"
 "fav #<identyfikator_wpisu> - dodaje wpis z podanym identyfikatorem jako "
 "\"ulubiony\"\n"
@@ -5433,23 +5433,23 @@ msgstr "Błąd systemu podczas wysyłania pliku."
 msgid "Not an image or corrupt file."
 msgstr "To nie jest obraz lub lub plik jest uszkodzony."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Nieobsługiwany format pliku obrazu."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Utracono plik."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Nieznany typ pliku"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "MB"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "KB"
 
