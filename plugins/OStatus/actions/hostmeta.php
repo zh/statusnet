@@ -31,12 +31,18 @@ class HostMetaAction extends Action
     {
         parent::handle();
 
-        $w = new Webfinger();
-
-
         $domain = common_config('site', 'server');
         $url = common_local_url('webfinger');
         $url.= '?uri={uri}';
-        print $w->getHostMeta($domain, $url);
+
+        $xrd = new XRD();
+        
+        $xrd = new XRD();
+        $xrd->host = $domain;
+        $xrd->links[] = array('rel' => Discovery::LRDD_REL,
+                              'template' => $url,
+                              'title' => array('Resource Descriptor'));
+
+        print $xrd->toXML();
     }
 }
