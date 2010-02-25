@@ -146,12 +146,12 @@ class Discovery
 
 interface Discovery_LRDD
 {
-    public function discovery($uri);
+    public function discover($uri);
 }
 
 class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
-    function discover($uri)
+    public function discover($uri)
     {
         if (Discovery::isWebfinger($uri)) {
             // We have a webfinger acct: - start with host-meta
