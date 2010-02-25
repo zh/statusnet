@@ -68,7 +68,7 @@ class WebfingerAction extends Action
         // hCard
         $xrd->links[] = array('rel' => 'http://microformats.org/profile/hcard',
                               'type' => 'text/html',
-                              'href' => common_profile_url($nick));
+                              'href' => common_local_url('hcard', array('nickname' => $nick)));
 
         // XFN
         $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
@@ -78,8 +78,8 @@ class WebfingerAction extends Action
         $xrd->links[] = array('rel' => 'describedby',
                               'type' => 'application/rdf+xml',
                               'href' => common_local_url('foaf',
-                                                         array('nickname' => $nick)));                        
-        
+                                                         array('nickname' => $nick)));
+
         $salmon_url = common_local_url('salmon',
                                        array('id' => $this->user->id));
 
@@ -93,10 +93,10 @@ class WebfingerAction extends Action
             $magickey = new Magicsig();
             $magickey->generate();
         }
-        
+
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
                               'href' => 'data:application/magic-public-key;'. $magickey->keypair);
-        
+
         // TODO - finalize where the redirect should go on the publisher
         $url = common_local_url('ostatussub') . '?profile={uri}';
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
