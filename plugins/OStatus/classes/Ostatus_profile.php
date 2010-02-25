@@ -607,7 +607,7 @@ class Ostatus_profile extends Memcached_DataObject
         $rendered = $this->purify($activity->object->content);
         $content = html_entity_decode(strip_tags($rendered));
 
-        $shortened = content_shorten_links($content);
+        $shortened = common_shorten_links($content);
 
         // If it's too long, try using the summary, and make the
         // HTML an attachment.
@@ -620,7 +620,7 @@ class Ostatus_profile extends Memcached_DataObject
             if (empty($summary)) {
                 $summary = $content;
             }
-            $shortSummary = content_shorten_links($summary);
+            $shortSummary = common_shorten_links($summary);
             if (Notice::contentTooLong($shortSummary)) {
                 $url = common_shorten_url(common_local_url('attachment',
                                                            array('attachment' => $attachment->id)));
