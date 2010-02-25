@@ -167,7 +167,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
-            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
+            throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
             return false;
         }
         if($config == null) $this->default_ldap=$ldap;
@@ -184,6 +184,9 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     function ldap_get_user($username,$attributes=array(),$ldap=null){
         if($ldap==null) {
             $ldap = $this->ldap_get_connection();
+        }
+        if(! $ldap) {
+            throw new Exception("Could not connect to LDAP");
         }
         $filter = Net_LDAP2_Filter::create($this->attributes['username'], 'equals',  $username);
         $options = array(
