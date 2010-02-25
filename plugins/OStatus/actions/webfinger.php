@@ -40,7 +40,7 @@ class WebfingerAction extends Action
 
     function handle()
     {
-        $acct = Webfinger::normalize($this->uri);
+        $acct = Discovery::normalize($this->uri);
 
         $xrd = new XRD();
 
@@ -55,11 +55,11 @@ class WebfingerAction extends Action
 
         $xrd->subject = $this->uri;
         $xrd->alias[] = common_profile_url($nick);
-        $xrd->links[] = array('rel' => Webfinger::PROFILEPAGE,
+        $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
                               'type' => 'text/html',
                               'href' => common_profile_url($nick));
 
-        $xrd->links[] = array('rel' => Webfinger::UPDATESFROM,
+        $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
                               'href' => common_local_url('ApiTimelineUser',
                                                          array('id' => $this->user->id,
                                                                'format' => 'atom')),

@@ -131,9 +131,9 @@ class OStatusInitAction extends Action
 
     function connectWebfinger($acct)
     {
-        $w = new Webfinger;
+        $disco = new Discovery;
 
-        $result = $w->lookup($acct);
+        $result = $disco->lookup($acct);
         if (!$result) {
             $this->clientError(_m("Couldn't look up OStatus account profile."));
         }

@@ -1328,9 +1328,9 @@ class Ostatus_profile extends Memcached_DataObject
 
         // Now, try some discovery
 
-        $wf = new Webfinger();
+        $disco = new Discovery();
 
-        $result = $wf->lookup($addr);
+        $result = $disco->lookup($addr);
 
         if (!$result) {
             return null;
@@ -1338,13 +1338,13 @@ class Ostatus_profile extends Memcached_DataObject
 
         foreach ($result->links as $link) {
             switch ($link['rel']) {
-            case Webfinger::PROFILEPAGE:
+            case Discovery::PROFILEPAGE:
                 $profileUrl = $link['href'];
                 break;
             case 'salmon':
                 $salmonEndpoint = $link['href'];
                 break;
-            case Webfinger::UPDATESFROM:
+            case Discovery::UPDATESFROM:
                 $feedUrl = $link['href'];
                 break;
             default:
