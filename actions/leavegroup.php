@@ -77,7 +77,14 @@ class LeavegroupAction extends Action
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
+
+        if (!$local) {
+            $this->clientError(_('No such group.'), 404);
+            return false;
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
 
         if (!$this->group) {
             $this->clientError(_('No such group.'), 404);

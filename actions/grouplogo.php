@@ -92,7 +92,10 @@ class GrouplogoAction extends GroupDesignAction
         if ($groupid) {
             $this->group = User_group::staticGet('id', $groupid);
         } else {
-            $this->group = User_group::staticGet('nickname', $nickname);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if ($local) {
+                $this->group = User_group::staticGet('id', $local->group_id);
+            }
         }
 
         if (!$this->group) {

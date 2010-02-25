@@ -2,9 +2,8 @@
 /**
  * Table Definition for local_group
  */
-require_once 'classes/Memcached_DataObject.php';
 
-class Local_group extends Memcached_DataObject 
+class Local_group extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -16,8 +15,32 @@ class Local_group extends Memcached_DataObject
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('Local_group',$k,$v); }
+    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('Local_group',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
+
+    function sequenceKey()
+    {
+        return array(false, false, false);
+    }
+
+    function setNickname($nickname)
+    {
+        $this->decache();
+        $qry = 'UPDATE local_group set nickname = "'.$nickname.'" where group_id = ' . $this->group_id;
+
+        $result = $this->query($qry);
+
+        if ($result) {
+            $this->nickname = $nickname;
+            $this->fixupTimestamps();
+            $this->encache();
+        } else {
+            common_log_db_error($local, 'UPDATE', __FILE__);
+            throw new ServerException(_('Could not update local group.'));
+        }
+
+        return $result;
+    }
 }

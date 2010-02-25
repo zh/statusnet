@@ -10,16 +10,16 @@ class User_group extends Memcached_DataObject
 
     public $__table = 'user_group';                      // table name
     public $id;                              // int(4)  primary_key not_null
-    public $nickname;                        // varchar(64)  
-    public $fullname;                        // varchar(255)  
-    public $homepage;                        // varchar(255)  
-    public $description;                     // text  
-    public $location;                        // varchar(255)  
-    public $original_logo;                   // varchar(255)  
-    public $homepage_logo;                   // varchar(255)  
-    public $stream_logo;                     // varchar(255)  
-    public $mini_logo;                       // varchar(255)  
-    public $design_id;                       // int(4)  
+    public $nickname;                        // varchar(64)
+    public $fullname;                        // varchar(255)
+    public $homepage;                        // varchar(255)
+    public $description;                     // text
+    public $location;                        // varchar(255)
+    public $original_logo;                   // varchar(255)
+    public $homepage_logo;                   // varchar(255)
+    public $stream_logo;                     // varchar(255)
+    public $mini_logo;                       // varchar(255)
+    public $design_id;                       // int(4)
     public $created;                         // datetime   not_null default_0000-00-00%2000%3A00%3A00
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
     public $uri;                             // varchar(255)  unique_key
@@ -414,28 +414,30 @@ class User_group extends Memcached_DataObject
         $group->homepage    = $homepage;
         $group->description = $description;
         $group->location    = $location;
+        $group->uri         = $uri;
         $group->created     = common_sql_now();
 
         $result = $group->insert();
 
         if (!$result) {
             common_log_db_error($group, 'INSERT', __FILE__);
-            $this->serverError(
-                _('Could not create group.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not create group.'));
         }
+
+        if (!isset($uri) || empty($uri)) {
+            $orig = clone($group);
+            $group->uri = common_local_url('groupbyid', array('id' => $group->id));
+            $result = $group->update($orig);
+            if (!$result) {
+                common_log_db_error($group, 'UPDATE', __FILE__);
+                throw new ServerException(_('Could not set group uri.'));
+            }
+        }
+
         $result = $group->setAliases($aliases);
 
         if (!$result) {
-            $this->serverError(
-                _('Could not create aliases.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not create aliases.'));
         }
 
         $member = new Group_member();
@@ -449,12 +451,22 @@ class User_group extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(
-                _('Could not set group membership.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not set group membership.'));
+        }
+
+        if ($local) {
+            $local_group = new Local_group();
+
+            $local_group->group_id = $group->id;
+            $local_group->nickname = $nickname;
+            $local_group->created  = common_sql_now();
+
+            $result = $local_group->insert();
+
+            if (!$result) {
+                common_log_db_error($local_group, 'INSERT', __FILE__);
+                throw new ServerException(_('Could not save local group info.'));
+            }
         }
 
         $group->query('COMMIT');

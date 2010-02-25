@@ -86,10 +86,14 @@ class EditgroupAction extends GroupDesignAction
         }
 
         $groupid = $this->trimmed('groupid');
+
         if ($groupid) {
             $this->group = User_group::staticGet('id', $groupid);
         } else {
-            $this->group = User_group::staticGet('nickname', $nickname);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if ($local) {
+                $this->group = User_group::staticGet('id', $local->group_id);
+            }
         }
 
         if (!$this->group) {
@@ -259,6 +263,12 @@ class EditgroupAction extends GroupDesignAction
             $this->serverError(_('Could not create aliases.'));
         }
 
+        if ($nickname != $orig->nickname) {
+            common_log(LOG_INFO, "Saving local group info.");
+            $local = Local_group::staticGet('group_id', $this->group->id);
+            $local->setNickname($nickname);
+        }
+
         $this->group->query('COMMIT');
 
         if ($this->group->nickname != $orig->nickname) {
@@ -272,7 +282,7 @@ class EditgroupAction extends GroupDesignAction
 
     function nicknameExists($nickname)
     {
-        $group = User_group::staticGet('nickname', $nickname);
+        $group = Local_group::staticGet('nickname', $nickname);
 
         if (!empty($group) &&
             $group->id != $this->group->id) {
