@@ -210,7 +210,7 @@ class OStatusPlugin extends Plugin
      *
      */
 
-    function onStartFindMentions($sender, $text, &$mentions)
+    function onEndFindMentions($sender, $text, &$mentions)
     {
         preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
                        $text,
@@ -233,11 +233,21 @@ class OStatusPlugin extends Plugin
 
                 $this->log(LOG_INFO, "Ostatus_profile found for address '$webfinger'");
 
+                if ($oprofile->isGroup()) {
+                    continue;
+                }
                 $profile = $oprofile->localProfile();
 
+                $pos = $wmatch[1];
+                foreach ($mentions as $i => $other) {
+                    // If we share a common prefix with a local user, override it!
+                    if ($other['position'] == $pos) {
+                        unset($mentions[$i]);
+                    }
+                }
                 $mentions[] = array('mentioned' => array($profile),
                                     'text' => $wmatch[0],
-                                    'position' => $wmatch[1],
+                                    'position' => $pos,
                                     'url' => $profile->profileurl);
             }
         }
