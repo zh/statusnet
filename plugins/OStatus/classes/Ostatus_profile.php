@@ -1445,5 +1445,7 @@ class Ostatus_profile extends Memcached_DataObject
             common_log_db_error($file, "INSERT", __FILE__);
             throw new ServerException(_('Could not store HTML content of long post as file.'));
         }
+
+        return $file;
     }
 }
