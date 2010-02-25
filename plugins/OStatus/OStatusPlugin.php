@@ -644,7 +644,7 @@ class OStatusPlugin extends Plugin
 
     function onStartUserGroupHomeUrl($group, &$url)
     {
-        return $this->onStartUserGroupPermalink($group, &$url);
+        return $this->onStartUserGroupPermalink($group, $url);
     }
 
     function onStartUserGroupPermalink($group, &$url)
