@@ -134,7 +134,7 @@ function common_check_user($nickname, $password)
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
-        $user = User::staticGet('nickname', $nickname);
+        $user = User::staticGet('nickname', common_canonical_nickname($nickname));
         if (!empty($user)) {
             if (!empty($password)) { // never allow login with blank password
                 if (0 == strcmp(common_munge_password($password, $user->id),
