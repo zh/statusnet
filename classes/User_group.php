@@ -404,7 +404,7 @@ class User_group extends Memcached_DataObject
         $xs = new XMLStringer(true);
 
         $xs->elementStart('activity:subject');
-        $xs->element('activity:object', null, 'http://activitystrea.ms/schema/1.0/group');
+        $xs->element('activity:object-type', null, 'http://activitystrea.ms/schema/1.0/group');
         $xs->element('id', null, $this->permalink());
         $xs->element('title', null, $this->getBestName());
         $xs->element(
