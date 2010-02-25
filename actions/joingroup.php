@@ -62,29 +62,32 @@ class JoingroupAction extends Action
         }
 
         $nickname_arg = $this->trimmed('nickname');
-        $nickname = common_canonical_nickname($nickname_arg);
+        $id = intval($this->arg('id'));
+        if ($id) {
+            $this->group = User_group::staticGet('id', $id);
+        } else if ($nickname_arg) {
+            $nickname = common_canonical_nickname($nickname_arg);
 
-        // Permanent redirect on non-canonical nickname
+            // Permanent redirect on non-canonical nickname
 
-        if ($nickname_arg != $nickname) {
-            $args = array('nickname' => $nickname);
-            common_redirect(common_local_url('joingroup', $args), 301);
+            if ($nickname_arg != $nickname) {
+                $args = array('nickname' => $nickname);
+                common_redirect(common_local_url('leavegroup', $args), 301);
+                return false;
+            }
+
+            $local = Local_group::staticGet('nickname', $nickname);
+
+            if (!$local) {
+                $this->clientError(_('No such group.'), 404);
+                return false;
+            }
+
+            $this->group = User_group::staticGet('id', $local->group_id);
+        } else {
+            $this->clientError(_('No nickname or ID.'), 404);
             return false;
         }
-
-        if (!$nickname) {
-            $this->clientError(_('No nickname.'), 404);
-            return false;
-        }
-
-        $local = Local_group::staticGet('nickname', $nickname);
-
-        if (!$local) {
-            $this->clientError(_('No such group.'), 404);
-            return false;
-        }
-
-        $this->group = User_group::staticGet('id', $local->group_id);
 
         if (!$this->group) {
             $this->clientError(_('No such group.'), 404);

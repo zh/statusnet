@@ -333,10 +333,18 @@ class OStatusSubAction extends Action
             $group = $this->oprofile->localGroup();
             if ($user->isMember($group)) {
                 $this->showForm(_m('Already a member!'));
-            } elseif (Group_member::join($this->oprofile->group_id, $user->id)) {
-                $this->successGroup();
+                return;
+            }
+            if (Event::handle('StartJoinGroup', array($group, $user))) {
+                $ok = Group_member::join($this->oprofile->group_id, $user->id);
+                if ($ok) {
+                    Event::handle('EndJoinGroup', array($group, $user));
+                    $this->successGroup();
+                } else {
+                    $this->showForm(_m('Remote group join failed!'));
+                }
             } else {
-                $this->showForm(_m('Remote group join failed!'));
+                $this->showForm(_m('Remote group join aborted!'));
             }
         } else {
             $local = $this->oprofile->localProfile();

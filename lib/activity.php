@@ -641,7 +641,10 @@ class ActivityObject
         $object->id     = $profile->getUri();
         $object->title  = $profile->getBestName();
         $object->link   = $profile->profileurl;
-        $object->avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+        if ($avatar) {
+            $object->avatar = $avatar->displayUrl();
+        }
 
         if (isset($profile->lat) && isset($profile->lon)) {
             $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
@@ -709,7 +712,7 @@ class ActivityObject
                     'rel'  => 'avatar',
                     'href' => empty($this->avatar)
                     ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                    : $this->avatar->displayUrl()
+                    : $this->avatar
                 ),
                 null
             );
