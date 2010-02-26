@@ -1160,6 +1160,8 @@ class Ostatus_profile extends Memcached_DataObject
             $profile->profileurl = $object->link;
         } else if (array_key_exists('profileurl', $hints)) {
             $profile->profileurl = $hints['profileurl'];
+        } else if (Validate::uri($object->id, array('allowed_schemes' => array('http', 'https')))) {
+            $profile->profileurl = $object->id;
         }
 
         $profile->bio      = self::getActivityObjectBio($object, $hints);
