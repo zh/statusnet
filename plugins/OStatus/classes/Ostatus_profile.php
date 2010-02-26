@@ -645,7 +645,6 @@ class Ostatus_profile extends Memcached_DataObject
                         'groups' => array(),
                         'tags' => array());
 
-
         // Check for optional attributes...
 
         if (!empty($activity->time)) {
@@ -1156,7 +1155,13 @@ class Ostatus_profile extends Memcached_DataObject
         $orig = clone($profile);
 
         $profile->nickname = self::getActivityObjectNickname($object, $hints);
-        $profile->fullname = $object->title;
+
+        if (!empty($object->title)) {
+            $profile->fullname = $object->title;
+        } else if (array_key_exists('fullname', $hints)) {
+            $profile->fullname = $hints['fullname'];
+        }
+
         if (!empty($object->link)) {
             $profile->profileurl = $object->link;
         } else if (array_key_exists('profileurl', $hints)) {
@@ -1231,12 +1236,16 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $location = null;
 
-        if (!empty($object->poco)) {
-            if (isset($object->poco->address->formatted)) {
-                $location = $object->poco->address->formatted;
-                if (mb_strlen($location) > 255) {
-                    $location = mb_substr($note, 0, 255 - 3) . ' … ';
-                }
+        if (!empty($object->poco) &&
+            isset($object->poco->address->formatted)) {
+            $location = $object->poco->address->formatted;
+        } else if (array_key_exists('location', $hints)) {
+            $location = $hints['location'];
+        }
+
+        if (!empty($location)) {
+            if (mb_strlen($location) > 255) {
+                $location = mb_substr($note, 0, 255 - 3) . ' … ';
             }
         }
 
@@ -1251,13 +1260,16 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($object->poco)) {
             $note = $object->poco->note;
-            if (!empty($note)) {
-                if (mb_strlen($note) > Profile::maxBio()) {
-                    // XXX: truncate ok?
-                    $bio = mb_substr($note, 0, Profile::maxBio() - 3) . ' … ';
-                } else {
-                    $bio = $note;
-                }
+        } else if (array_key_exists('bio', $hints)) {
+            $note = $hints['bio'];
+        }
+
+        if (!empty($note)) {
+            if (Profile::bioTooLong($note)) {
+                // XXX: truncate ok?
+                $bio = mb_substr($note, 0, Profile::maxBio() - 3) . ' … ';
+            } else {
+                $bio = $note;
             }
         }
 
@@ -1273,8 +1285,13 @@ class Ostatus_profile extends Memcached_DataObject
                 return common_nicknamize($object->poco->preferredUsername);
             }
         }
+
         if (!empty($object->nickname)) {
             return common_nicknamize($object->nickname);
+        }
+
+        if (array_key_exists('nickname', $hints)) {
+            return $hints['nickname'];
         }
 
         // Try the definitive ID
@@ -1321,11 +1338,26 @@ class Ostatus_profile extends Memcached_DataObject
 
     public static function ensureWebfinger($addr)
     {
+        // First, try the cache
+
+        $uri = self::cacheGet(sprintf('ostatus_profile:webfinger:%s', $addr));
+
+        if ($uri !== false) {
+            if (is_null($uri)) {
+                return null;
+            }
+            $oprofile = Ostatus_profile::staticGet('uri', $uri);
+            if (!empty($oprofile)) {
+                return $oprofile;
+            }
+        }
+
         // First, look it up
 
         $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
 
         if (!empty($oprofile)) {
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
             return $oprofile;
         }
 
@@ -1336,6 +1368,7 @@ class Ostatus_profile extends Memcached_DataObject
         $result = $wf->lookup($addr);
 
         if (!$result) {
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
             return null;
         }
 
@@ -1350,6 +1383,9 @@ class Ostatus_profile extends Memcached_DataObject
             case Webfinger::UPDATESFROM:
                 $feedUrl = $link['href'];
                 break;
+            case Webfinger::HCARD:
+                $hcardUrl = $link['href'];
+                break;
             default:
                 common_log(LOG_NOTICE, "Don't know what to do with rel = '{$link['rel']}'");
                 break;
@@ -1361,11 +1397,18 @@ class Ostatus_profile extends Memcached_DataObject
                        'feedurl' => $feedUrl,
                        'salmon' => $salmonEndpoint);
 
+        if (isset($hcardUrl)) {
+            $hcardHints = self::slurpHcard($hcardUrl);
+            // Note: Webfinger > hcard
+            $hints = array_merge($hcardHints, $hints);
+        }
+
         // If we got a feed URL, try that
 
         if (isset($feedUrl)) {
             try {
                 $oprofile = self::ensureProfile($feedUrl, $hints);
+                self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from feed URL '$feedUrl': " . $e->getMessage());
@@ -1378,6 +1421,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (isset($profileUrl)) {
             try {
                 $oprofile = self::ensureProfile($profileUrl, $hints);
+                self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
@@ -1429,6 +1473,7 @@ class Ostatus_profile extends Memcached_DataObject
                 throw new Exception("Couldn't save ostatus_profile for '$addr'");
             }
 
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
             return $oprofile;
         }
 
@@ -1466,5 +1511,68 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         return $file;
+    }
+
+    protected static function slurpHcard($url)
+    {
+        set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/plugins/OStatus/extlib/hkit/');
+        require_once('hkit.class.php');
+
+        $h	= new hKit;
+
+        // Google Buzz hcards need to be tidied. Probably others too.
+
+        $h->tidy_mode = 'proxy'; // 'proxy', 'exec', 'php' or 'none'
+
+        // Get by URL
+        $hcards = $h->getByURL('hcard', $url);
+
+        if (empty($hcards)) {
+            return array();
+        }
+
+        // @fixme more intelligent guess on multi-hcard pages
+        $hcard = $hcards[0];
+
+        $hints = array();
+
+        $hints['profileurl'] = $url;
+
+        if (array_key_exists('nickname', $hcard)) {
+            $hints['nickname'] = $hcard['nickname'];
+        }
+
+        if (array_key_exists('fn', $hcard)) {
+            $hints['fullname'] = $hcard['fn'];
+        } else if (array_key_exists('n', $hcard)) {
+            $hints['fullname'] = implode(' ', $hcard['n']);
+        }
+
+        if (array_key_exists('photo', $hcard)) {
+            $hints['avatar'] = $hcard['photo'];
+        }
+
+        if (array_key_exists('note', $hcard)) {
+            $hints['bio'] = $hcard['note'];
+        }
+
+        if (array_key_exists('adr', $hcard)) {
+            if (is_string($hcard['adr'])) {
+                $hints['location'] = $hcard['adr'];
+            } else if (is_array($hcard['adr'])) {
+                $hints['location'] = implode(' ', $hcard['adr']);
+            }
+        }
+
+        if (array_key_exists('url', $hcard)) {
+            if (is_string($hcard['url'])) {
+                $hints['homepage'] = $hcard['url'];
+            } else if (is_array($hcard['adr'])) {
+                // HACK get the last one; that's how our hcards look
+                $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
+            }
+        }
+
+        return $hints;
     }
 }

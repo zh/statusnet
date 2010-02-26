@@ -37,6 +37,7 @@ class Webfinger
 {
     const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
     const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
+    const HCARD       = 'http://microformats.org/profile/hcard';
 
     /**
      * Perform a webfinger lookup given an account.
