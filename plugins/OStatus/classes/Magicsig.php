@@ -84,6 +84,10 @@ class Magicsig extends Memcached_DataObject
         return array('user_id' => 'K');
     }
 
+    function sequenceKeys() {
+        return array(false, false, false);
+    }
+
     function insert()
     {
         $this->keypair = $this->toString();
