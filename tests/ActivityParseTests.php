@@ -121,10 +121,14 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($act->actor->title, 'Test User');
         $this->assertEquals($act->actor->id, 'http://example.net/mysite/user/3');
         $this->assertEquals($act->actor->link, 'http://example.net/mysite/testuser');
+
+        $avatars = $act->actor->avatarLinks;
+
         $this->assertEquals(
-            $act->actor->avatar,
-            'http://example.net/mysite/avatar/3-96-20100224004207.jpeg'
+                $avatars[0]->url,
+                'http://example.net/mysite/avatar/3-96-20100224004207.jpeg'
         );
+
         $this->assertEquals($act->actor->displayName, 'Test User');
 
         $poco = $act->actor->poco;
