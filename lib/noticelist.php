@@ -540,16 +540,13 @@ class NoticeListItem extends Widget
     function showContext()
     {
         $hasConversation = false;
-        if( !empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id){
-            $hasConversation = true;
-        }else{
-            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
-            if($conversation->N > 0){
+        if (!empty($this->notice->conversation)) {
+            $conversation = Notice::conversationStream($this->notice->conversation, 1, 1);
+            if ($conversation->N > 0) {
                 $hasConversation = true;
             }
         }
-        if ($hasConversation){
+        if ($hasConversation) {
             $this->out->text(' ');
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));
