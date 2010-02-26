@@ -791,11 +791,18 @@ class Ostatus_profile extends Memcached_DataObject
     {
         // Get the canonical feed URI and check it
         $discover = new FeedDiscovery();
-        $feeduri = $discover->discoverFromURL($profile_uri);
+        if ($hints['feedurl']) {
+            $feeduri = $hints['feedurl'];
+            $feeduri = $discover->discoverFromFeedURL($feeduri);
+        } else {
+            $feeduri = $discover->discoverFromURL($profile_uri);
+            $hints['feedurl'] = $feeduri;
+        }
 
-        //$feedsub = FeedSub::ensureFeed($feeduri, $discover->feed);
         $huburi = $discover->getAtomLink('hub');
+        $hints['hub'] = $huburi;
         $salmonuri = $discover->getAtomLink('salmon');
+        $hints['salmon'] = $salmonuri;
 
         if (!$huburi) {
             // We can only deal with folks with a PuSH hub
@@ -810,7 +817,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($subject)) {
             $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri, $hints);
+            return self::ensureActivityObjectProfile($subjObject, $hints);
         }
 
         // Otherwise, try the feed author
@@ -819,7 +826,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($author)) {
             $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
+            return self::ensureActivityObjectProfile($authorObject, $hints);
         }
 
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
@@ -835,7 +842,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($actor)) {
                 $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri, $hints);
+                return self::ensureActivityObjectProfile($actorObject, $hints);
 
             }
 
@@ -843,7 +850,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($author)) {
                 $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
+                return self::ensureActivityObjectProfile($authorObject, $hints);
             }
         }
 
@@ -988,18 +995,18 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      */
 
-    public static function ensureActorProfile($activity, $feeduri=null, $salmonuri=null)
+    public static function ensureActorProfile($activity, $hints=array())
     {
-        return self::ensureActivityObjectProfile($activity->actor, $feeduri, $salmonuri);
+        return self::ensureActivityObjectProfile($activity->actor, $hints);
     }
 
-    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
+    public static function ensureActivityObjectProfile($object, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
         if ($profile) {
             $profile->updateFromActivityObject($object, $hints);
         } else {
-            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri, $hints);
+            $profile = self::createActivityObjectProfile($object, $hints);
         }
         return $profile;
     }
@@ -1045,58 +1052,55 @@ class Ostatus_profile extends Memcached_DataObject
      * @fixme validate stuff somewhere
      */
 
-    protected static function createActorProfile($activity, $feeduri=null, $salmonuri=null)
-    {
-        $actor = $activity->actor;
-
-        self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
-    }
-
     /**
      * Create local ostatus_profile and profile/user_group entries for
      * the provided remote user or group.
      *
      * @param ActivityObject $object
-     * @param string $feeduri
-     * @param string $salmonuri
      * @param array $hints
      *
-     * @fixme fold $feeduri/$salmonuri into $hints
      * @return Ostatus_profile
      */
-    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
+    protected static function createActivityObjectProfile($object, $hints=array())
     {
-        $homeuri  = $object->id;
+        $homeuri = $object->id;
+        $discover = false;
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
             throw new ServerException("No profile URI");
         }
 
-        if (empty($feeduri)) {
-            if (array_key_exists('feedurl', $hints)) {
-                $feeduri = $hints['feedurl'];
-            }
-        }
-
-        if (empty($salmonuri)) {
-            if (array_key_exists('salmon', $hints)) {
-                $salmonuri = $hints['salmon'];
-            }
-        }
-
-        if (!$feeduri || !$salmonuri) {
-            // Get the canonical feed URI and check it
+        if (array_key_exists('feedurl', $hints)) {
+            $feeduri = $hints['feedurl'];
+        } else {
             $discover = new FeedDiscovery();
             $feeduri = $discover->discoverFromURL($homeuri);
+        }
 
-            $huburi = $discover->getAtomLink('hub');
-            $salmonuri = $discover->getAtomLink('salmon');
-
-            if (!$huburi) {
-                // We can only deal with folks with a PuSH hub
-                throw new FeedSubNoHubException();
+        if (array_key_exists('salmon', $hints)) {
+            $salmonuri = $hints['salmon'];
+        } else {
+            if (!$discover) {
+                $discover = new FeedDiscovery();
+                $discover->discoverFromFeedURL($hints['feedurl']);
             }
+            $salmonuri = $discover->getAtomLink('salmon');
+        }
+
+        if (array_key_exists('hub', $hints)) {
+            $huburi = $hints['hub'];
+        } else {
+            if (!$discover) {
+                $discover = new FeedDiscovery();
+                $discover->discoverFromFeedURL($hints['feedurl']);
+            }
+            $huburi = $discover->getAtomLink('hub');
+        }
+
+        if (!$huburi) {
+            // We can only deal with folks with a PuSH hub
+            throw new FeedSubNoHubException();
         }
 
         $oprofile = new Ostatus_profile();
