@@ -66,7 +66,7 @@ class WebfingerAction extends Action
                               'type' => 'application/atom+xml');
 
         // hCard
-        $xrd->links[] = array('rel' => 'http://microformats.org/profile/hcard',
+        $xrd->links[] = array('rel' => Webfinger::HCARD,
                               'type' => 'text/html',
                               'href' => common_local_url('hcard', array('nickname' => $nick)));
 
