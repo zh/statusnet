@@ -206,6 +206,7 @@ class User extends Memcached_DataObject
         if(! User::allowed_nickname($nickname)){
             common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
                        __FILE__);
+            return false;
         }
         $profile->profileurl = common_profile_url($nickname);
 
