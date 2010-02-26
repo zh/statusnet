@@ -707,7 +707,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         $huburi = $discover->getAtomLink('hub');
         $hints['hub'] = $huburi;
-        $salmonuri = $discover->getAtomLink('salmon');
+        $salmonuri = $discover->getAtomLink(Salmon::NS_REPLIES);
         $hints['salmon'] = $salmonuri;
 
         if (!$huburi) {
@@ -991,7 +991,7 @@ class Ostatus_profile extends Memcached_DataObject
                 $discover = new FeedDiscovery();
                 $discover->discoverFromFeedURL($hints['feedurl']);
             }
-            $salmonuri = $discover->getAtomLink('salmon');
+            $salmonuri = $discover->getAtomLink(Salmon::NS_REPLIES);
         }
 
         if (array_key_exists('hub', $hints)) {
@@ -1299,7 +1299,7 @@ class Ostatus_profile extends Memcached_DataObject
             case Discovery::PROFILEPAGE:
                 $profileUrl = $link['href'];
                 break;
-            case 'salmon':
+            case Salmon::NS_REPLIES:
                 $salmonEndpoint = $link['href'];
                 break;
             case Discovery::UPDATESFROM:

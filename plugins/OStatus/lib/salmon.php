@@ -28,6 +28,11 @@
  */
 class Salmon
 {
+
+    const NS_REPLIES = "http://salmon-protocol.org/ns/salmon-replies";
+
+    const NS_MENTIONS = "http://salmon-protocol.org/ns/salmon-mention";
+    
     /**
      * Sign and post the given Atom entry as a Salmon message.
      *
