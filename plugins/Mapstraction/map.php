@@ -142,8 +142,6 @@ class MapAction extends OwnerDesignAction
         // of refactoring from within a plugin, so I'm just abusing
         // the ApiAction method. Don't do this unless you're me!
 
-        require_once(INSTALLDIR.'/lib/api.php');
-
         $act = new ApiAction('/dev/null');
 
         $arr = $act->twitterStatusArray($notice, true);
