@@ -103,7 +103,7 @@ class AdminPanelAction extends Action
 
         $name = mb_substr($name, 0, -10);
 
-        if (!in_array($name, common_config('admin', 'panels'))) {
+        if (!self::canAdmin($name)) {
             $this->clientError(_('Changes to that panel are not allowed.'), 403);
             return false;
         }
@@ -262,6 +262,17 @@ class AdminPanelAction extends Action
 
         return $result;
     }
+
+    function canAdmin($name)
+    {
+        $isOK = false;
+
+        if (Event::handle('AdminPanelCheck', array($name, &$isOK))) {
+            $isOK = in_array($name, common_config('admin', 'panels'));
+        }
+
+        return $isOK;
+    }
 }
 
 /**
@@ -307,32 +318,32 @@ class AdminPanelNav extends Widget
 
         if (Event::handle('StartAdminPanelNav', array($this))) {
 
-            if ($this->canAdmin('site')) {
+            if (AdminPanelAction::canAdmin('site')) {
                 $this->out->menuItem(common_local_url('siteadminpanel'), _('Site'),
                                      _('Basic site configuration'), $action_name == 'siteadminpanel', 'nav_site_admin_panel');
             }
 
-            if ($this->canAdmin('design')) {
+            if (AdminPanelAction::canAdmin('design')) {
                 $this->out->menuItem(common_local_url('designadminpanel'), _('Design'),
                                      _('Design configuration'), $action_name == 'designadminpanel', 'nav_design_admin_panel');
             }
 
-            if ($this->canAdmin('user')) {
+            if (AdminPanelAction::canAdmin('user')) {
                 $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
                                      _('User configuration'), $action_name == 'useradminpanel', 'nav_design_admin_panel');
             }
 
-            if ($this->canAdmin('access')) {
+            if (AdminPanelAction::canAdmin('access')) {
                 $this->out->menuItem(common_local_url('accessadminpanel'), _('Access'),
                                      _('Access configuration'), $action_name == 'accessadminpanel', 'nav_design_admin_panel');
             }
 
-            if ($this->canAdmin('paths')) {
+            if (AdminPanelAction::canAdmin('paths')) {
                 $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
                                     _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
             }
 
-            if ($this->canAdmin('sessions')) {
+            if (AdminPanelAction::canAdmin('sessions')) {
                 $this->out->menuItem(common_local_url('sessionsadminpanel'), _('Sessions'),
                                      _('Sessions configuration'), $action_name == 'sessionsadminpanel', 'nav_design_admin_panel');
             }
@@ -342,8 +353,4 @@ class AdminPanelNav extends Widget
         $this->action->elementEnd('ul');
     }
 
-    function canAdmin($name)
-    {
-        return in_array($name, common_config('admin', 'panels'));
-    }
 }

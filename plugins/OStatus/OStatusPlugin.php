@@ -149,7 +149,8 @@ class OStatusPlugin extends Plugin
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
-            $feed->addLink($salmon, array('rel' => 'salmon'));
+            $feed->addLink($salmon, array('rel' => Salmon::NS_REPLIES));
+            $feed->addLink($salmon, array('rel' => Salmon::NS_MENTIONS));
         }
 
         return true;
@@ -414,7 +415,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($subscriber);
         $act->object  = ActivityObject::fromProfile($other);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $subscriber);
 
         return true;
     }
@@ -462,7 +463,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromProfile($other);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -504,7 +505,7 @@ class OStatusPlugin extends Plugin
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
-            if ($oprofile->notifyActivity($act)) {
+            if ($oprofile->notifyActivity($act, $member)) {
                 return true;
             } else {
                 $oprofile->garbageCollect();
@@ -554,7 +555,7 @@ class OStatusPlugin extends Plugin
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
-            $oprofile->notifyActivity($act);
+            $oprofile->notifyActivity($act, $member);
         }
     }
 
@@ -597,7 +598,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromNotice($notice);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -641,7 +642,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromNotice($notice);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -730,7 +731,7 @@ class OStatusPlugin extends Plugin
         $act->object  = $act->actor;
 
         while ($oprofile->fetch()) {
-            $oprofile->notifyDeferred($act);
+            $oprofile->notifyDeferred($act, $profile);
         }
 
         return true;

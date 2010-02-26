@@ -87,7 +87,7 @@ class OStatusQueueHandler extends QueueHandler
             // remote user or group.
             // @fixme as an optimization we can skip this if the
             // remote profile is subscribed to the author.
-            $oprofile->notifyDeferred($this->notice);
+            $oprofile->notifyDeferred($this->notice, $this->user);
         }
     }
 

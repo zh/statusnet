@@ -80,10 +80,14 @@ class XrdAction extends Action
                               'href' => common_local_url('foaf',
                                                          array('nickname' => $nick)));
 
-        $salmon_url = common_local_url('salmon',
+        // Salmon
+        $salmon_url = common_local_url('usersalmon',
                                        array('id' => $this->user->id));
 
-        $xrd->links[] = array('rel' => 'salmon',
+        $xrd->links[] = array('rel' => Salmon::NS_REPLIES,
+                              'href' => $salmon_url);
+
+        $xrd->links[] = array('rel' => Salmon::NS_MENTIONS,
                               'href' => $salmon_url);
 
         // Get this user's keypair
@@ -95,7 +99,7 @@ class XrdAction extends Action
         }
 
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
-                              'href' => 'data:application/magic-public-key;'. $magickey->keypair);
+                              'href' => 'data:application/magic-public-key;'. $magickey->toString(false));
 
         // TODO - finalize where the redirect should go on the publisher
         $url = common_local_url('ostatussub') . '?profile={uri}';

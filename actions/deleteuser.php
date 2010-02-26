@@ -131,18 +131,21 @@ class DeleteuserAction extends ProfileFormAction
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
         $this->element('legend', _('Delete user'));
-        $this->element('p', null,
-                       _('Are you sure you want to delete this user? '.
-                         'This will clear all data about the user from the '.
-                         'database, without a backup.'));
-        $this->element('input', array('id' => 'deleteuserto-' . $id,
-                                      'name' => 'profileid',
-                                      'type' => 'hidden',
-                                      'value' => $id));
-        foreach ($this->args as $k => $v) {
-            if (substr($k, 0, 9) == 'returnto-') {
-                $this->hidden($k, $v);
+        if (Event::handle('StartDeleteUserForm', array($this, $this->user))) {
+            $this->element('p', null,
+                           _('Are you sure you want to delete this user? '.
+                             'This will clear all data about the user from the '.
+                             'database, without a backup.'));
+            $this->element('input', array('id' => 'deleteuserto-' . $id,
+                                          'name' => 'profileid',
+                                          'type' => 'hidden',
+                                          'value' => $id));
+            foreach ($this->args as $k => $v) {
+                if (substr($k, 0, 9) == 'returnto-') {
+                    $this->hidden($k, $v);
+                }
             }
+            Event::handle('EndDeleteUserForm', array($this, $this->user));
         }
         $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user"));
         $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Delete this user'));
@@ -158,7 +161,9 @@ class DeleteuserAction extends ProfileFormAction
 
     function handlePost()
     {
-        $this->user->delete();
+        if (Event::handle('StartDeleteUser', array($this, $this->user))) {
+            $this->user->delete();
+            Event::handle('EndDeleteUser', array($this, $this->user));
+        }
     }
 }
-

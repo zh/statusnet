@@ -357,7 +357,7 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
-            return $salmon->post($this->salmonuri, $xml);
+            return $salmon->post($this->salmonuri, $xml, $actor);
         }
         return false;
     }
@@ -369,11 +369,11 @@ class Ostatus_profile extends Memcached_DataObject
      * @param mixed $entry XML string, Notice, or Activity
      * @return boolean success
      */
-    public function notifyActivity($entry)
+    public function notifyActivity($entry, $actor)
     {
         if ($this->salmonuri) {
             $salmon = new Salmon();
-            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry));
+            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry), $actor);
         }
 
         return false;
@@ -386,11 +386,12 @@ class Ostatus_profile extends Memcached_DataObject
      * @param mixed $entry XML string, Notice, or Activity
      * @return boolean success
      */
-    public function notifyDeferred($entry)
+    public function notifyDeferred($entry, $actor)
     {
         if ($this->salmonuri) {
             $data = array('salmonuri' => $this->salmonuri,
-                          'entry' => $this->notifyPrepXml($entry));
+                          'entry' => $this->notifyPrepXml($entry),
+                          'actor' => $actor->id);
 
             $qm = QueueManager::get();
             return $qm->enqueue($data, 'salmon');
@@ -707,7 +708,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         $huburi = $discover->getAtomLink('hub');
         $hints['hub'] = $huburi;
-        $salmonuri = $discover->getAtomLink('salmon');
+        $salmonuri = $discover->getAtomLink(Salmon::NS_REPLIES);
         $hints['salmon'] = $salmonuri;
 
         if (!$huburi) {
@@ -991,7 +992,7 @@ class Ostatus_profile extends Memcached_DataObject
                 $discover = new FeedDiscovery();
                 $discover->discoverFromFeedURL($hints['feedurl']);
             }
-            $salmonuri = $discover->getAtomLink('salmon');
+            $salmonuri = $discover->getAtomLink(Salmon::NS_REPLIES);
         }
 
         if (array_key_exists('hub', $hints)) {
@@ -1299,7 +1300,7 @@ class Ostatus_profile extends Memcached_DataObject
             case Discovery::PROFILEPAGE:
                 $profileUrl = $link['href'];
                 break;
-            case 'salmon':
+            case Salmon::NS_REPLIES:
                 $salmonEndpoint = $link['href'];
                 break;
             case Discovery::UPDATESFROM:

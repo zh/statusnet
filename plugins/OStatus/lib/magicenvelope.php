@@ -67,18 +67,8 @@ class MagicEnvelope
     }
 
 
-    public function signMessage($text, $mimetype, $signer_uri)
+    public function signMessage($text, $mimetype, $keypair)
     {
-        $signer_uri = $this->normalizeUser($signer_uri);
-
-        if (!$this->checkAuthor($text, $signer_uri)) {
-            throw new Exception("Unable to determine entry author.");
-        }
-
-        $keypair = $this->getKeyPair($signer_uri);
-        if (!$keypair) {
-            throw new Exception("Unable to retrive keypair for ". $signer_uri);
-        }
         $signature_alg = Magicsig::fromString($keypair);
         $armored_text = base64_encode($text);
 
