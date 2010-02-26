@@ -107,8 +107,6 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $avatar     = $this->group->homepage_logo;
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
-        $taguribase = TagURI::base();
-        $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
 
         $subtitle   = sprintf(
             _('Updates from %1$s on %2$s!'),
@@ -138,19 +136,9 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
             try {
 
-                // If this was called using an integer ID, i.e.: using the canonical
-                // URL for this group's feed, then pass the Group object into the feed, 
-                // so the OStatus plugin, and possibly other plugins, can access it. 
-                // Feels sorta hacky. -- Z
+                $atom = new AtomGroupNoticeFeed($this->group);
 
-                $atom = null;
-                $id = $this->arg('id');
-
-                if (strval(intval($id)) === strval($id)) {
-                    $atom = new AtomGroupNoticeFeed($this->group);
-                } else {
-                    $atom = new AtomGroupNoticeFeed();
-                }
+                // @todo set all this Atom junk up inside the feed class
 
                 $atom->setId($id);
                 $atom->setTitle($title);
@@ -168,6 +156,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
                 if (!empty($id)) {
                     $aargs['id'] = $id;
                 }
+
+                $atom->setId($this->getSelfUri('ApiTimelineGroup', $aargs));
 
                 $atom->addLink(
                     $this->getSelfUri('ApiTimelineGroup', $aargs),

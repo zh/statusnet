@@ -1419,6 +1419,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (isset($feedUrl)) {
             try {
+                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL $feedUrl");
                 $oprofile = self::ensureProfile($feedUrl, $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
@@ -1432,6 +1433,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (isset($profileUrl)) {
             try {
+                common_log(LOG_INFO, "Discovery on acct:$addr with profile URL $profileUrl");
                 $oprofile = self::ensureProfile($profileUrl, $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
