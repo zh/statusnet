@@ -1338,11 +1338,26 @@ class Ostatus_profile extends Memcached_DataObject
 
     public static function ensureWebfinger($addr)
     {
+        // First, try the cache
+
+        $uri = self::cacheGet(sprintf('ostatus_profile:webfinger:%s', $addr));
+
+        if ($uri !== false) {
+            if (is_null($uri)) {
+                return null;
+            }
+            $oprofile = Ostatus_profile::staticGet('uri', $uri);
+            if (!empty($oprofile)) {
+                return $oprofile;
+            }
+        }
+
         // First, look it up
 
         $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
 
         if (!empty($oprofile)) {
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
             return $oprofile;
         }
 
@@ -1353,6 +1368,7 @@ class Ostatus_profile extends Memcached_DataObject
         $result = $wf->lookup($addr);
 
         if (!$result) {
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
             return null;
         }
 
@@ -1392,6 +1408,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (isset($feedUrl)) {
             try {
                 $oprofile = self::ensureProfile($feedUrl, $hints);
+                self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from feed URL '$feedUrl': " . $e->getMessage());
@@ -1404,6 +1421,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (isset($profileUrl)) {
             try {
                 $oprofile = self::ensureProfile($profileUrl, $hints);
+                self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
@@ -1455,6 +1473,7 @@ class Ostatus_profile extends Memcached_DataObject
                 throw new Exception("Couldn't save ostatus_profile for '$addr'");
             }
 
+            self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
             return $oprofile;
         }
 
