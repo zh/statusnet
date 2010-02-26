@@ -199,8 +199,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
-            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
-            return false;
+            throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
         }
         if($config == null) $this->default_ldap=$ldap;
 

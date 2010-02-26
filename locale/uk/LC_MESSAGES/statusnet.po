@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:51:53+0000\n"
+"POT-Creation-Date: 2010-02-25 11:54+0000\n"
+"PO-Revision-Date: 2010-02-25 11:56:43+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62948); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -3934,17 +3934,15 @@ msgstr "Не вдалося зберегти підписку."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Ця дія приймає лише запити POST."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Такого файлу немає."
+msgstr "Немає такого профілю."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Ви не підписані до цього профілю."
+msgstr "Цією дією Ви не зможете підписатися до віддаленого профілю OMB 0.1."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4757,15 +4755,15 @@ msgstr "Назад"
 
 #: lib/activity.php:382
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "Поки що не можу обробити віддалений контент."
 
 #: lib/activity.php:410
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Поки що не можу обробити вбудований XML контент."
 
 #: lib/activity.php:414
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "Поки що не можу обробити вбудований контент Base64."
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5113,9 +5111,9 @@ msgstr ""
 "Це посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s"
 
 #: lib/command.php:692
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribed  %s"
-msgstr "Відписано від %s"
+msgstr "Відписано %s"
 
 #: lib/command.php:709
 msgid "You are not subscribed to anyone."
@@ -5151,7 +5149,6 @@ msgstr[1] "Ви є учасником таких груп:"
 msgstr[2] "Ви є учасником таких груп:"
 
 #: lib/command.php:769
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5429,23 +5426,23 @@ msgstr "Система відповіла помилкою при заванта
 msgid "Not an image or corrupt file."
 msgstr "Це не зображення, або файл зіпсовано."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Формат зображення не підтримується."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Файл втрачено."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Тип файлу не підтримується"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "Мб"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "кб"
 

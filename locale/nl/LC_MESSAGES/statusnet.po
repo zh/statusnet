@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:51:28+0000\n"
+"POT-Creation-Date: 2010-02-25 11:54+0000\n"
+"PO-Revision-Date: 2010-02-25 11:56:20+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r62948); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -3981,17 +3981,17 @@ msgstr "Het was niet mogelijk het abonnement op te slaan."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Deze handeling accepteert alleen POST-verzoeken."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Het bestand bestaat niet."
+msgstr "Het profiel bestaat niet."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "U bent niet geabonneerd op dat profiel."
+msgstr ""
+"U kunt niet abonneren op een OMB 1.0 profiel van een andere omgeving via "
+"deze handeling."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4820,15 +4820,15 @@ msgstr "Eerder"
 
 #: lib/activity.php:382
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "Het is nog niet mogelijk inhoud uit andere omgevingen te verwerken."
 
 #: lib/activity.php:410
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Het is nog niet mogelijk ingebedde XML-inhoud te verwerken"
 
 #: lib/activity.php:414
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "Het is nog niet mogelijk ingebedde Base64-inhoud te verwerken"
 
 #: lib/adminpanelaction.php:96
 msgid "You cannot make changes to this site."
@@ -5182,9 +5182,9 @@ msgstr ""
 "geldig: %s"
 
 #: lib/command.php:692
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribed  %s"
-msgstr "Uw abonnement op %s is opgezegd"
+msgstr "Het abonnement van %s is opgeheven"
 
 #: lib/command.php:709
 msgid "You are not subscribed to anyone."
@@ -5217,7 +5217,6 @@ msgstr[0] "U bent lid van deze groep:"
 msgstr[1] "U bent lid van deze groepen:"
 
 #: lib/command.php:769
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5270,6 +5269,7 @@ msgstr ""
 "d <gebruiker> <tekst> - direct bericht aan gebruiker\n"
 "get <gebruiker> - laatste mededeling van gebruiker opvragen\n"
 "whois <gebruiker> - profielinformatie van gebruiker opvragen\n"
+"lose <gebruiker> - zorgt ervoor dat de gebruiker u niet meer volgt\n"
 "fav <gebruiker> - laatste mededeling van gebruiker op favorietenlijst "
 "zetten\n"
 "fav #<mededeling-ID> - mededelingen met aangegeven ID op favorietenlijst "
@@ -5501,23 +5501,23 @@ msgstr "Er is een systeemfout opgetreden tijdens het uploaden van het bestand."
 msgid "Not an image or corrupt file."
 msgstr "Het bestand is geen afbeelding of het bestand is beschadigd."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Niet ondersteund beeldbestandsformaat."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Het bestand is zoekgeraakt."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Onbekend bestandstype"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "MB"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "kB"
 
