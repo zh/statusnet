@@ -90,7 +90,7 @@ class Magicsig extends Memcached_DataObject
         return parent::insert();
     }
 
-    public function generate($key_length = 512)
+    public function generate($user_id, $key_length = 512)
     {
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
@@ -101,6 +101,7 @@ class Magicsig extends Memcached_DataObject
         $this->_rsa = new Crypt_RSA($params);
         PEAR::popErrorHandling();
 
+        $this->user_id = $user_id;
         $this->insert();
     }
 

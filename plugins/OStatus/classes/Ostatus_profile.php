@@ -150,27 +150,7 @@ class Ostatus_profile extends Memcached_DataObject
     function asActivityObject()
     {
         if ($this->isGroup()) {
-            $object = new ActivityObject();
-            $object->type = 'http://activitystrea.ms/schema/1.0/group';
-            $object->id = $this->uri;
-            $self = $this->localGroup();
-
-            // @fixme put a standard getAvatar() interface on groups too
-            if ($self->homepage_logo) {
-                $object->avatar = $self->homepage_logo;
-                $map = array('png' => 'image/png',
-                             'jpg' => 'image/jpeg',
-                             'jpeg' => 'image/jpeg',
-                             'gif' => 'image/gif');
-                $extension = pathinfo(parse_url($object->avatar, PHP_URL_PATH), PATHINFO_EXTENSION);
-                if (isset($map[$extension])) {
-                    // @fixme this ain't used/saved yet
-                    $object->avatarType = $map[$extension];
-                }
-            }
-
-            $object->link = $this->uri; // @fixme accurate?
-            return $object;
+            return ActivityObject::fromGroup($this->localGroup());
         } else {
             return ActivityObject::fromProfile($this->localProfile());
         }
@@ -189,57 +169,13 @@ class Ostatus_profile extends Memcached_DataObject
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-        $avatarHref = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
-        $avatarType = 'image/png';
         if ($this->isGroup()) {
-            $type = 'http://activitystrea.ms/schema/1.0/group';
-            $self = $this->localGroup();
-
-            // @fixme put a standard getAvatar() interface on groups too
-            if ($self->homepage_logo) {
-                $avatarHref = $self->homepage_logo;
-                $map = array('png' => 'image/png',
-                             'jpg' => 'image/jpeg',
-                             'jpeg' => 'image/jpeg',
-                             'gif' => 'image/gif');
-                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
-                if (isset($map[$extension])) {
-                    $avatarType = $map[$extension];
-                }
-            }
+            $noun = ActivityObject::fromGroup($this->localGroup());
+            return $noun->asString('activity:' . $element);
         } else {
-            $type = 'http://activitystrea.ms/schema/1.0/person';
-            $self = $this->localProfile();
-            $avatar = $self->getAvatar(AVATAR_PROFILE_SIZE);
-            if ($avatar) {
-                  $avatarHref = $avatar->url;
-                  $avatarType = $avatar->mediatype;
-            }
+            $noun = ActivityObject::fromProfile($this->localProfile());
+            return $noun->asString('activity:' . $element);
         }
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            $type
-        );
-        $xs->element(
-            'id',
-            null,
-            $this->uri); // ?
-        $xs->element('title', null, $self->getBestName());
-
-        $xs->element(
-            'link', array(
-                'type' => $avatarType,
-                'href' => $avatarHref
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
     }
 
     /**
@@ -484,36 +420,6 @@ class Ostatus_profile extends Memcached_DataObject
         } else {
             return $this->localProfile()->getBestName();
         }
-    }
-
-    function atomFeed($actor)
-    {
-        $feed = new Atom10Feed();
-        // @fixme should these be set up somewhere else?
-        $feed->addNamespace('activity', 'http://activitystrea.ms/spec/1.0/');
-        $feed->addNamespace('thr', 'http://purl.org/syndication/thread/1.0');
-        $feed->addNamespace('georss', 'http://www.georss.org/georss');
-        $feed->addNamespace('ostatus', 'http://ostatus.org/schema/1.0');
-
-        $taguribase = common_config('integration', 'taguri');
-        $feed->setId("tag:{$taguribase}:UserTimeline:{$actor->id}"); // ???
-
-        $feed->setTitle($actor->getBestName() . ' timeline'); // @fixme
-        $feed->setUpdated(time());
-        $feed->setPublished(time());
-
-        $feed->addLink(common_local_url('ApiTimelineUser',
-                                        array('id' => $actor->id,
-                                              'type' => 'atom')),
-                       array('rel' => 'self',
-                             'type' => 'application/atom+xml'));
-
-        $feed->addLink(common_local_url('userbyid',
-                                        array('id' => $actor->id)),
-                       array('rel' => 'alternate',
-                             'type' => 'text/html'));
-
-        return $feed;
     }
 
     /**
@@ -791,11 +697,18 @@ class Ostatus_profile extends Memcached_DataObject
     {
         // Get the canonical feed URI and check it
         $discover = new FeedDiscovery();
-        $feeduri = $discover->discoverFromURL($profile_uri);
+        if ($hints['feedurl']) {
+            $feeduri = $hints['feedurl'];
+            $feeduri = $discover->discoverFromFeedURL($feeduri);
+        } else {
+            $feeduri = $discover->discoverFromURL($profile_uri);
+            $hints['feedurl'] = $feeduri;
+        }
 
-        //$feedsub = FeedSub::ensureFeed($feeduri, $discover->feed);
         $huburi = $discover->getAtomLink('hub');
+        $hints['hub'] = $huburi;
         $salmonuri = $discover->getAtomLink('salmon');
+        $hints['salmon'] = $salmonuri;
 
         if (!$huburi) {
             // We can only deal with folks with a PuSH hub
@@ -810,7 +723,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($subject)) {
             $subjObject = new ActivityObject($subject);
-            return self::ensureActivityObjectProfile($subjObject, $feeduri, $salmonuri, $hints);
+            return self::ensureActivityObjectProfile($subjObject, $hints);
         }
 
         // Otherwise, try the feed author
@@ -819,7 +732,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($author)) {
             $authorObject = new ActivityObject($author);
-            return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
+            return self::ensureActivityObjectProfile($authorObject, $hints);
         }
 
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
@@ -835,7 +748,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($actor)) {
                 $actorObject = new ActivityObject($actor);
-                return self::ensureActivityObjectProfile($actorObject, $feeduri, $salmonuri, $hints);
+                return self::ensureActivityObjectProfile($actorObject, $hints);
 
             }
 
@@ -843,7 +756,7 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!empty($author)) {
                 $authorObject = new ActivityObject($author);
-                return self::ensureActivityObjectProfile($authorObject, $feeduri, $salmonuri, $hints);
+                return self::ensureActivityObjectProfile($authorObject, $hints);
             }
         }
 
@@ -988,18 +901,18 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      */
 
-    public static function ensureActorProfile($activity, $feeduri=null, $salmonuri=null)
+    public static function ensureActorProfile($activity, $hints=array())
     {
-        return self::ensureActivityObjectProfile($activity->actor, $feeduri, $salmonuri);
+        return self::ensureActivityObjectProfile($activity->actor, $hints);
     }
 
-    public static function ensureActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
+    public static function ensureActivityObjectProfile($object, $hints=array())
     {
         $profile = self::getActivityObjectProfile($object);
         if ($profile) {
             $profile->updateFromActivityObject($object, $hints);
         } else {
-            $profile = self::createActivityObjectProfile($object, $feeduri, $salmonuri, $hints);
+            $profile = self::createActivityObjectProfile($object, $hints);
         }
         return $profile;
     }
@@ -1045,58 +958,55 @@ class Ostatus_profile extends Memcached_DataObject
      * @fixme validate stuff somewhere
      */
 
-    protected static function createActorProfile($activity, $feeduri=null, $salmonuri=null)
-    {
-        $actor = $activity->actor;
-
-        self::createActivityObjectProfile($actor, $feeduri, $salmonuri);
-    }
-
     /**
      * Create local ostatus_profile and profile/user_group entries for
      * the provided remote user or group.
      *
      * @param ActivityObject $object
-     * @param string $feeduri
-     * @param string $salmonuri
      * @param array $hints
      *
-     * @fixme fold $feeduri/$salmonuri into $hints
      * @return Ostatus_profile
      */
-    protected static function createActivityObjectProfile($object, $feeduri=null, $salmonuri=null, $hints=array())
+    protected static function createActivityObjectProfile($object, $hints=array())
     {
-        $homeuri  = $object->id;
+        $homeuri = $object->id;
+        $discover = false;
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
             throw new ServerException("No profile URI");
         }
 
-        if (empty($feeduri)) {
-            if (array_key_exists('feedurl', $hints)) {
-                $feeduri = $hints['feedurl'];
-            }
-        }
-
-        if (empty($salmonuri)) {
-            if (array_key_exists('salmon', $hints)) {
-                $salmonuri = $hints['salmon'];
-            }
-        }
-
-        if (!$feeduri || !$salmonuri) {
-            // Get the canonical feed URI and check it
+        if (array_key_exists('feedurl', $hints)) {
+            $feeduri = $hints['feedurl'];
+        } else {
             $discover = new FeedDiscovery();
             $feeduri = $discover->discoverFromURL($homeuri);
+        }
 
-            $huburi = $discover->getAtomLink('hub');
-            $salmonuri = $discover->getAtomLink('salmon');
-
-            if (!$huburi) {
-                // We can only deal with folks with a PuSH hub
-                throw new FeedSubNoHubException();
+        if (array_key_exists('salmon', $hints)) {
+            $salmonuri = $hints['salmon'];
+        } else {
+            if (!$discover) {
+                $discover = new FeedDiscovery();
+                $discover->discoverFromFeedURL($hints['feedurl']);
             }
+            $salmonuri = $discover->getAtomLink('salmon');
+        }
+
+        if (array_key_exists('hub', $hints)) {
+            $huburi = $hints['hub'];
+        } else {
+            if (!$discover) {
+                $discover = new FeedDiscovery();
+                $discover->discoverFromFeedURL($hints['feedurl']);
+            }
+            $huburi = $discover->getAtomLink('hub');
+        }
+
+        if (!$huburi) {
+            // We can only deal with folks with a PuSH hub
+            throw new FeedSubNoHubException();
         }
 
         $oprofile = new Ostatus_profile();
@@ -1375,9 +1285,9 @@ class Ostatus_profile extends Memcached_DataObject
 
         // Now, try some discovery
 
-        $wf = new Webfinger();
+        $disco = new Discovery();
 
-        $result = $wf->lookup($addr);
+        $result = $disco->lookup($addr);
 
         if (!$result) {
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
@@ -1386,16 +1296,16 @@ class Ostatus_profile extends Memcached_DataObject
 
         foreach ($result->links as $link) {
             switch ($link['rel']) {
-            case Webfinger::PROFILEPAGE:
+            case Discovery::PROFILEPAGE:
                 $profileUrl = $link['href'];
                 break;
             case 'salmon':
                 $salmonEndpoint = $link['href'];
                 break;
-            case Webfinger::UPDATESFROM:
+            case Discovery::UPDATESFROM:
                 $feedUrl = $link['href'];
                 break;
-            case Webfinger::HCARD:
+            case Discovery::HCARD:
                 $hcardUrl = $link['href'];
                 break;
             default:

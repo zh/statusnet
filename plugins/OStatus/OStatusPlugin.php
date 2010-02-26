@@ -43,8 +43,8 @@ class OStatusPlugin extends Plugin
         // Discovery actions
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
-        $m->connect('main/webfinger',
-                    array('action' => 'webfinger'));
+        $m->connect('main/xrd',
+                    array('action' => 'xrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
@@ -102,6 +102,20 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add a link header for LRDD Discovery
+     */
+    function onStartShowHTML($action)
+    {
+        if ($action instanceof ShowstreamAction) {
+            $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
+            $url = common_local_url('xrd');
+            $url.= '?uri='. $acct;
+            
+            header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
+        }
+    }
+    
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
@@ -644,7 +658,7 @@ class OStatusPlugin extends Plugin
 
     function onStartUserGroupHomeUrl($group, &$url)
     {
-        return $this->onStartUserGroupPermalink($group, &$url);
+        return $this->onStartUserGroupPermalink($group, $url);
     }
 
     function onStartUserGroupPermalink($group, &$url)
