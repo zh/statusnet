@@ -144,7 +144,7 @@ class OStatusInitAction extends Action
                 $user = User::staticGet('nickname', $this->nickname);
                 $target_profile = common_local_url('userbyid', array('id' => $user->id));
 
-                $url = $w->applyTemplate($link['template'], $target_profile);
+                $url = Discovery::applyTemplate($link['template'], $target_profile);
                 common_log(LOG_INFO, "Sending remote subscriber $acct to $url");
                 common_redirect($url, 303);
             }

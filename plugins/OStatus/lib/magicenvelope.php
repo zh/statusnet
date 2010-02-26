@@ -52,14 +52,13 @@ class MagicEnvelope
     {
         $disco = new Discovery();
 
-        $links = $disco->lookup($signer_uri);
-        if ($link = Discovery::getService($links, 'magic-public-key')) {
+        $xrd = $disco->lookup($signer_uri);
+        if ($link = Discovery::getService($xrd->links, Magicsig::PUBLICKEYREL)) {
             list($type, $keypair) = explode(';', $link['href']);
             return $keypair;
         }
 
         throw new Exception('Unable to locate signer public key');
-        //return 'RSA.79_L2gq-TD72Nsb5yGS0r9stLLpJZF5AHXyxzWmQmlqKl276LEJEs8CppcerLcR90MbYQUwt-SX9slx40Yq3vA==.AQAB.AR-jo5KMfSISmDAT2iMs2_vNFgWRjl5rbJVvA0SpGIEWyPdCGxlPtCbTexp8-0ZEIe8a4SyjatBECH5hxgMTpw==';
     }
 
 

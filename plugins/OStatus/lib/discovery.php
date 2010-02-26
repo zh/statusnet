@@ -91,7 +91,6 @@ class Discovery
 
         foreach ($this->methods as $class) {
             $links = call_user_func(array($class, 'discover'), $uri);
-
             if ($link = Discovery::getService($links, Discovery::LRDD_REL)) {
                 // Load the LRDD XRD
                 if ($link['template']) {
@@ -141,7 +140,7 @@ class Discovery
         }
 
         return XRD::parse($response->getBody());
-    }    
+    }
 }
 
 interface Discovery_LRDD
@@ -153,13 +152,12 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
     public function discover($uri)
     {
-        if (Discovery::isWebfinger($uri)) {
-            // We have a webfinger acct: - start with host-meta
-            list($name, $domain) = explode('@', $id);
-        } else {
-            $domain = @parse_url($uri, PHP_URL_HOST);
+        if (!Discovery::isWebfinger($uri)) {
+            return false;
         }
 
+        // We have a webfinger acct: - start with host-meta
+        list($name, $domain) = explode('@', $uri);
         $url = 'http://'. $domain .'/.well-known/host-meta';
 
         $xrd = Discovery::fetchXrd($url);
@@ -180,27 +178,29 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
     {
         try {
             $client = new HTTPClient();
-            $response = $client->get($url);
+            $response = $client->get($uri);
         } catch (HTTP_Request2_Exception $e) {
             return false;
         }
-
+             
         if ($response->getStatus() != 200) {
             return false;
         }
 
         $link_header = $response->getHeader('Link');
         if (!$link_header) {
-            return false;
+            //            return false;
         }
         
-        return Discovery_LRDD_Link_Header::parseHeader($header);
+        return Discovery_LRDD_Link_Header::parseHeader($link_header);
     }
 
     protected static function parseHeader($header)
     {
         preg_match('/^<[^>]+>/', $header, $uri_reference);
-        if (empty($uri_reference)) return;
+        //if (empty($uri_reference)) return;
+
+        $links = array();
         
         $link_uri = trim($uri_reference[0], '<>');
         $link_rel = array();
@@ -210,7 +210,7 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
         $header = substr($header, strlen($uri_reference[0]));
         
         // parse link-params
-        $params = explode($header, ';');
+        $params = explode(';', $header);
         
         foreach ($params as $param) {
             if (empty($param)) continue;
@@ -229,11 +229,13 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
                 $link_type = trim($param_value);
             }
         }
-        
-        return array(
+
+        $links[] =  array(
             'href' => $link_uri,
             'rel' => $link_rel,
             'type' => $link_type);
+
+        return $links;
     }
 }
 
@@ -243,7 +245,7 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
     {
         try {
             $client = new HTTPClient();
-            $response = $client->get($url);
+            $response = $client->get($uri);
         } catch (HTTP_Request2_Exception $e) {
             return false;
         }

@@ -103,6 +103,20 @@ class OStatusPlugin extends Plugin
     }
 
     /**
+     * Add a link header for LRDD Discovery
+     */
+    function onStartShowHTML($action)
+    {
+        if ($action instanceof ShowstreamAction) {
+            $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
+            $url = common_local_url('xrd');
+            $url.= '?uri='. $acct;
+            
+            header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
+        }
+    }
+    
+    /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
      */
