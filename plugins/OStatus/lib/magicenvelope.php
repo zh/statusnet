@@ -83,6 +83,28 @@ class MagicEnvelope
             
     }
 
+    public function toXML($env) {
+        $dom = new DOMDocument();
+
+        $envelope = $dom->createElementNS(MagicEnvelope::NS, 'me:env');
+        $envelope->setAttribute('xmlns:me', MagicEnvelope::NS);
+        $data = $dom->createElementNS(MagicEnvelope::NS, 'me:data', $env['data']);
+        $data->setAttribute('type', $env['data_type']);
+        $envelope->appendChild($data);
+        $enc = $dom->createElementNS(MagicEnvelope::NS, 'me:encoding', $env['encoding']);
+        $envelope->appendChild($enc);
+        $alg = $dom->createElementNS(MagicEnvelope::NS, 'me:alg', $env['alg']);
+        $envelope->appendChild($alg);
+        $sig = $dom->createElementNS(MagicEnvelope::NS, 'me:sig', $env['sig']);
+        $envelope->appendChild($sig);
+
+        $dom->appendChild($envelope);
+        
+        
+        return $dom->saveXML();
+    }
+
+    
     public function unfold($env)
     {
         $dom = new DOMDocument();
