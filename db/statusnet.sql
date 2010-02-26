@@ -406,7 +406,7 @@ create table profile_block (
 create table user_group (
     id integer auto_increment primary key comment 'unique identifier',
 
-    nickname varchar(64) unique key comment 'nickname for addressing',
+    nickname varchar(64) comment 'nickname for addressing',
     fullname varchar(255) comment 'display name',
     homepage varchar(255) comment 'URL, cached so we dont regenerate',
     description text comment 'group description',
@@ -420,6 +420,9 @@ create table user_group (
 
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified',
+
+    uri varchar(255) unique key comment 'universal identifier',
+    mainpage varchar(255) comment 'page for group info to link to',
 
     index user_group_nickname_idx (nickname)
 
@@ -639,5 +642,15 @@ create table conversation (
     uri varchar(225) unique comment 'URI of the conversation',
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table local_group (
+
+   group_id integer primary key comment 'group represented' references user_group (id),
+   nickname varchar(64) unique key comment 'group represented',
+
+   created datetime not null comment 'date this record was created',
+   modified timestamp comment 'date this record was modified'
+
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

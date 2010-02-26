@@ -164,7 +164,7 @@ class HubSub extends Memcached_DataObject
                       'token' => $token,
                       'retries' => $retries);
         $qm = QueueManager::get();
-        $qm->enqueue($data, 'hubverify');
+        $qm->enqueue($data, 'hubconf');
     }
 
     /**

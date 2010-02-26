@@ -50,19 +50,26 @@ class MagicEnvelope
 
     public function getKeyPair($signer_uri)
     {
-        return 'RSA.79_L2gq-TD72Nsb5yGS0r9stLLpJZF5AHXyxzWmQmlqKl276LEJEs8CppcerLcR90MbYQUwt-SX9slx40Yq3vA==.AQAB.AR-jo5KMfSISmDAT2iMs2_vNFgWRjl5rbJVvA0SpGIEWyPdCGxlPtCbTexp8-0ZEIe8a4SyjatBECH5hxgMTpw==';
+        $disco = new Discovery();
+
+        try {
+            $xrd = $disco->lookup($signer_uri);
+        } catch (Exception $e) {
+            return false;
+        }
+        if ($xrd->links) {
+            if ($link = Discovery::getService($xrd->links, Magicsig::PUBLICKEYREL)) {
+                list($type, $keypair) = explode(';', $link['href']);
+                return $keypair;
+            }
+        }
+        throw new Exception('Unable to locate signer public key');
     }
 
 
-    public function signMessage($text, $mimetype, $signer_uri)
+    public function signMessage($text, $mimetype, $keypair)
     {
-        $signer_uri = $this->normalizeUser($signer_uri);
-
-        if (!$this->checkAuthor($text, $signer_uri)) {
-            return false;
-        }
-
-        $signature_alg = Magicsig::fromString($this->getKeyPair($signer_uri));
+        $signature_alg = Magicsig::fromString($keypair);
         $armored_text = base64_encode($text);
 
         return array(
@@ -76,6 +83,28 @@ class MagicEnvelope
             
     }
 
+    public function toXML($env) {
+        $dom = new DOMDocument();
+
+        $envelope = $dom->createElementNS(MagicEnvelope::NS, 'me:env');
+        $envelope->setAttribute('xmlns:me', MagicEnvelope::NS);
+        $data = $dom->createElementNS(MagicEnvelope::NS, 'me:data', $env['data']);
+        $data->setAttribute('type', $env['data_type']);
+        $envelope->appendChild($data);
+        $enc = $dom->createElementNS(MagicEnvelope::NS, 'me:encoding', $env['encoding']);
+        $envelope->appendChild($enc);
+        $alg = $dom->createElementNS(MagicEnvelope::NS, 'me:alg', $env['alg']);
+        $envelope->appendChild($alg);
+        $sig = $dom->createElementNS(MagicEnvelope::NS, 'me:sig', $env['sig']);
+        $envelope->appendChild($sig);
+
+        $dom->appendChild($envelope);
+        
+        
+        return $dom->saveXML();
+    }
+
+    
     public function unfold($env)
     {
         $dom = new DOMDocument();

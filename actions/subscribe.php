@@ -145,7 +145,7 @@ class SubscribeAction extends Action
             $this->element('title', null, _('Subscribed'));
             $this->elementEnd('head');
             $this->elementStart('body');
-            $unsubscribe = new UnsubscribeForm($this, $this->other->getProfile());
+            $unsubscribe = new UnsubscribeForm($this, $this->other);
             $unsubscribe->show();
             $this->elementEnd('body');
             $this->elementEnd('html');

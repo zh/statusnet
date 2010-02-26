@@ -81,7 +81,8 @@ background-color:transparent;
 input:focus, textarea:focus, select:focus,
 .form_notice.warning #notice_data-text,
 .form_notice.warning #notice_text-count,
-.form_settings .form_note {
+.form_settings .form_note,
+.entity_actions .dialogbox .form_data input:focus {
 border-color:#9BB43E;
 }
 input.submit {
@@ -197,7 +198,10 @@ button.minimize,
 .entity_clear input.submit,
 .entity_flag input.submit,
 .entity_flag p,
-.entity_subscribe input.submit {
+.entity_subscribe input.submit,
+#realtime_play,
+#realtime_pause,
+#realtime_popup {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -361,6 +365,15 @@ background-position: 5px -2171px;
 }
 .entity_subscribe input.reject {
 background-position: 5px -2237px;
+}
+#realtime_play {
+background-position: 0 -2308px;
+}
+#realtime_pause {
+background-position: 0 -2374px;
+}
+#realtime_popup {
+background-position: 0 -1714px;
 }
 
 /* NOTICES */

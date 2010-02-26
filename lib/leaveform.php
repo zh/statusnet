@@ -100,7 +100,7 @@ class LeaveForm extends Form
     function action()
     {
         return common_local_url('leavegroup',
-                                array('nickname' => $this->group->nickname));
+                                array('id' => $this->group->id));
     }
 
     /**

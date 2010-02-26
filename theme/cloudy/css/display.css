@@ -1628,15 +1628,23 @@ button.close,
 .form_user_unsubscribe input.submit,
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a,
 .entity_moderation p,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
 .entity_delete input.submit,
 .notice-options .repeated,
-.form_notice a#notice_data-geo_name,
 .form_notice label[for=notice_data-geo],
-button.minimize {
+button.minimize,
+.form_reset_key input.submit,
+.entity_clear input.submit,
+.entity_flag input.submit,
+.entity_flag p,
+.entity_subscribe input.submit,
+#realtime_play,
+#realtime_pause,
+#realtime_popup {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -1898,6 +1906,31 @@ background-position: 5px -1445px;
 }
 .entity_delete input.submit {
 background-position: 5px -1511px;
+}
+.form_reset_key input.submit {
+background-position: 5px -1973px;
+}
+.entity_clear input.submit {
+background-position: 5px -2039px;
+}
+.entity_flag input.submit,
+.entity_flag p {
+background-position: 5px -2105px;
+}
+.entity_subscribe input.accept {
+background-position: 5px -2171px;
+}
+.entity_subscribe input.reject {
+background-position: 5px -2237px;
+}
+#realtime_play {
+background-position: 0 -2308px;
+}
+#realtime_pause {
+background-position: 0 -2374px;
+}
+#realtime_popup {
+background-position: 0 -1714px;
 }
 
 

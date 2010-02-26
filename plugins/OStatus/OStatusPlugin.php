@@ -43,8 +43,8 @@ class OStatusPlugin extends Plugin
         // Discovery actions
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
-        $m->connect('main/webfinger',
-                    array('action' => 'webfinger'));
+        $m->connect('main/xrd',
+                    array('action' => 'xrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
@@ -82,14 +82,14 @@ class OStatusPlugin extends Plugin
         $qm->connect('ostatus', 'OStatusQueueHandler');
 
         // Outgoing from our internal PuSH hub
-        $qm->connect('hubverify', 'HubVerifyQueueHandler');
+        $qm->connect('hubconf', 'HubConfQueueHandler');
         $qm->connect('hubout', 'HubOutQueueHandler');
 
         // Outgoing Salmon replies (when we don't need a return value)
-        $qm->connect('salmonout', 'SalmonOutQueueHandler');
+        $qm->connect('salmon', 'SalmonQueueHandler');
 
         // Incoming from a foreign PuSH hub
-        $qm->connect('pushinput', 'PushInputQueueHandler');
+        $qm->connect('pushin', 'PushInQueueHandler');
         return true;
     }
 
@@ -102,6 +102,20 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add a link header for LRDD Discovery
+     */
+    function onStartShowHTML($action)
+    {
+        if ($action instanceof ShowstreamAction) {
+            $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
+            $url = common_local_url('xrd');
+            $url.= '?uri='. $acct;
+            
+            header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
+        }
+    }
+    
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
@@ -135,7 +149,8 @@ class OStatusPlugin extends Plugin
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
-            $feed->addLink($salmon, array('rel' => 'salmon'));
+            $feed->addLink($salmon, array('rel' => Salmon::NS_REPLIES));
+            $feed->addLink($salmon, array('rel' => Salmon::NS_MENTIONS));
         }
 
         return true;
@@ -210,7 +225,7 @@ class OStatusPlugin extends Plugin
      *
      */
 
-    function onStartFindMentions($sender, $text, &$mentions)
+    function onEndFindMentions($sender, $text, &$mentions)
     {
         preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
                        $text,
@@ -221,15 +236,33 @@ class OStatusPlugin extends Plugin
 
             $webfinger = $wmatch[0];
 
+            $this->log(LOG_INFO, "Checking Webfinger for address '$webfinger'");
+
             $oprofile = Ostatus_profile::ensureWebfinger($webfinger);
 
-            if (!empty($oprofile)) {
+            if (empty($oprofile)) {
 
+                $this->log(LOG_INFO, "No Ostatus_profile found for address '$webfinger'");
+
+            } else {
+
+                $this->log(LOG_INFO, "Ostatus_profile found for address '$webfinger'");
+
+                if ($oprofile->isGroup()) {
+                    continue;
+                }
                 $profile = $oprofile->localProfile();
 
+                $pos = $wmatch[1];
+                foreach ($mentions as $i => $other) {
+                    // If we share a common prefix with a local user, override it!
+                    if ($other['position'] == $pos) {
+                        unset($mentions[$i]);
+                    }
+                }
                 $mentions[] = array('mentioned' => array($profile),
                                     'text' => $wmatch[0],
-                                    'position' => $wmatch[1],
+                                    'position' => $pos,
                                     'url' => $profile->profileurl);
             }
         }
@@ -382,7 +415,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($subscriber);
         $act->object  = ActivityObject::fromProfile($other);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $subscriber);
 
         return true;
     }
@@ -430,7 +463,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromProfile($other);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -472,7 +505,7 @@ class OStatusPlugin extends Plugin
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
-            if ($oprofile->notifyActivity($act)) {
+            if ($oprofile->notifyActivity($act, $member)) {
                 return true;
             } else {
                 $oprofile->garbageCollect();
@@ -522,7 +555,7 @@ class OStatusPlugin extends Plugin
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
-            $oprofile->notifyActivity($act);
+            $oprofile->notifyActivity($act, $member);
         }
     }
 
@@ -565,7 +598,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromNotice($notice);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -609,7 +642,7 @@ class OStatusPlugin extends Plugin
         $act->actor   = ActivityObject::fromProfile($profile);
         $act->object  = ActivityObject::fromNotice($notice);
 
-        $oprofile->notifyActivity($act);
+        $oprofile->notifyActivity($act, $profile);
 
         return true;
     }
@@ -626,7 +659,7 @@ class OStatusPlugin extends Plugin
 
     function onStartUserGroupHomeUrl($group, &$url)
     {
-        return $this->onStartUserGroupPermalink($group, &$url);
+        return $this->onStartUserGroupPermalink($group, $url);
     }
 
     function onStartUserGroupPermalink($group, &$url)
@@ -652,6 +685,53 @@ class OStatusPlugin extends Plugin
                                 , _m('Subscribe to remote user'));
             $action->elementEnd('p');
             $action->elementEnd('div');
+        }
+
+        return true;
+    }
+
+    /**
+     * Ping remote profiles with updates to this profile.
+     * Salmon pings are queued for background processing.
+     */
+    function onEndBroadcastProfile(Profile $profile)
+    {
+        $user = User::staticGet('id', $profile->id);
+
+        // Find foreign accounts I'm subscribed to that support Salmon pings.
+        //
+        // @fixme we could run updates through the PuSH feed too,
+        // in which case we can skip Salmon pings to folks who
+        // are also subscribed to me.
+        $sql = "SELECT * FROM ostatus_profile " .
+               "WHERE profile_id IN " .
+               "(SELECT subscribed FROM subscription WHERE subscriber=%d) " .
+               "OR group_id IN " .
+               "(SELECT group_id FROM group_member WHERE profile_id=%d)";
+        $oprofile = new Ostatus_profile();
+        $oprofile->query(sprintf($sql, $profile->id, $profile->id));
+
+        if ($oprofile->N == 0) {
+            common_log(LOG_DEBUG, "No OStatus remote subscribees for $profile->nickname");
+            return true;
+        }
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::UPDATE_PROFILE;
+        $act->id   = TagURI::mint('update-profile:%d:%s',
+                                  $profile->id,
+                                  common_date_iso8601(time()));
+        $act->time    = time();
+        $act->title   = _m("Profile update");
+        $act->content = sprintf(_m("%s has updated their profile page."),
+                               $profile->getBestName());
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = $act->actor;
+
+        while ($oprofile->fetch()) {
+            $oprofile->notifyDeferred($act, $profile);
         }
 
         return true;

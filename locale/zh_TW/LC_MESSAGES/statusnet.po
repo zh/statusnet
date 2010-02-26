@@ -7,16 +7,73 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-13 22:04+0000\n"
-"PO-Revision-Date: 2010-01-13 22:06:27+0000\n"
+"POT-Creation-Date: 2010-02-24 23:49+0000\n"
+"PO-Revision-Date: 2010-02-24 23:52:03+0000\n"
 "Language-Team: Traditional Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r61027); Translate extension (2010-01-04)\n"
+"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hant\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:326
+#, fuzzy
+msgid "Access"
+msgstr "接受"
+
+#: actions/accessadminpanel.php:65
+#, fuzzy
+msgid "Site access settings"
+msgstr "線上即時通設定"
+
+#: actions/accessadminpanel.php:158
+#, fuzzy
+msgid "Registration"
+msgstr "所有訂閱"
+
+#: actions/accessadminpanel.php:161
+msgid "Private"
+msgstr ""
+
+#: actions/accessadminpanel.php:163
+msgid "Prohibit anonymous users (not logged in) from viewing site?"
+msgstr ""
+
+#: actions/accessadminpanel.php:167
+msgid "Invite only"
+msgstr ""
+
+#: actions/accessadminpanel.php:169
+msgid "Make registration invitation only."
+msgstr ""
+
+#: actions/accessadminpanel.php:173
+#, fuzzy
+msgid "Closed"
+msgstr "無此使用者"
+
+#: actions/accessadminpanel.php:175
+msgid "Disable new registrations."
+msgstr ""
+
+#: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
+#: actions/emailsettings.php:195 actions/imsettings.php:163
+#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:336 actions/smssettings.php:181
+#: actions/subscriptions.php:208 actions/tagother.php:154
+#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334 lib/designsettings.php:256
+#: lib/groupeditform.php:202
+msgid "Save"
+msgstr ""
+
+#: actions/accessadminpanel.php:189
+#, fuzzy
+msgid "Save access settings"
+msgstr "線上即時通設定"
 
 #: actions/all.php:63 actions/public.php:97 actions/replies.php:92
 #: actions/showfavorites.php:137 actions/tag.php:51
@@ -33,25 +90,29 @@ msgstr "無此通知"
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
-#: actions/apistatusesupdate.php:144 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:79
+#: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
 #: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38
+#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
 #: actions/showfavorites.php:105 actions/userbyid.php:74
 #: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
 #: lib/command.php:163 lib/command.php:302 lib/command.php:355
 #: lib/command.php:401 lib/command.php:462 lib/command.php:518
 #: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
 msgid "No such user."
 msgstr "無此使用者"
 
+#: actions/all.php:84
+#, fuzzy, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%s與好友"
+
 #: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
-#: actions/apitimelinefriends.php:115 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -92,7 +153,7 @@ msgid ""
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:202
+#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -104,8 +165,8 @@ msgstr ""
 msgid "You and friends"
 msgstr "%s與好友"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:122
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
@@ -115,23 +176,23 @@ msgstr ""
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apidirectmessage.php:156 actions/apifavoritecreate.php:99
-#: actions/apifavoritedestroy.php:100 actions/apifriendshipscreate.php:100
-#: actions/apifriendshipsdestroy.php:100 actions/apifriendshipsshow.php:129
-#: actions/apigroupcreate.php:136 actions/apigroupismember.php:114
-#: actions/apigroupjoin.php:155 actions/apigroupleave.php:141
-#: actions/apigrouplist.php:132 actions/apigrouplistall.php:120
-#: actions/apigroupmembership.php:106 actions/apigroupshow.php:105
-#: actions/apihelptest.php:88 actions/apistatusesdestroy.php:102
-#: actions/apistatusesretweets.php:112 actions/apistatusesshow.php:108
-#: actions/apistatusnetconfig.php:133 actions/apistatusnetversion.php:93
-#: actions/apisubscriptions.php:111 actions/apitimelinefavorites.php:146
-#: actions/apitimelinefriends.php:156 actions/apitimelinegroup.php:150
-#: actions/apitimelinehome.php:156 actions/apitimelinementions.php:151
-#: actions/apitimelinepublic.php:131 actions/apitimelineretweetedbyme.php:122
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
+#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
+#: actions/apigroupshow.php:115 actions/apihelptest.php:88
+#: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "確認碼遺失"
@@ -146,7 +207,7 @@ msgstr "確認碼遺失"
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:114
+#: actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr ""
 
@@ -177,8 +238,9 @@ msgstr "無法儲存個人資料"
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97
-#: actions/apistatusesupdate.php:127 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:122 actions/newnotice.php:94
+#: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
+#: actions/designadminpanel.php:122 actions/editapplication.php:118
+#: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
 msgid ""
@@ -296,12 +358,12 @@ msgstr "無法更新使用者"
 msgid "Two user ids or screen_names must be supplied."
 msgstr ""
 
-#: actions/apifriendshipsshow.php:135
+#: actions/apifriendshipsshow.php:134
 #, fuzzy
 msgid "Could not determine source user."
 msgstr "無法更新使用者"
 
-#: actions/apifriendshipsshow.php:143
+#: actions/apifriendshipsshow.php:142
 #, fuzzy
 msgid "Could not find target user."
 msgstr "無法更新使用者"
@@ -324,7 +386,8 @@ msgstr "此暱稱已有人使用。再試試看別的吧。"
 msgid "Not a valid nickname."
 msgstr ""
 
-#: actions/apigroupcreate.php:196 actions/editgroup.php:195
+#: actions/apigroupcreate.php:196 actions/editapplication.php:215
+#: actions/editgroup.php:195 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
@@ -336,7 +399,8 @@ msgstr "個人首頁位址錯誤"
 msgid "Full name is too long (max 255 chars)."
 msgstr "全名過長（最多255字元）"
 
-#: actions/apigroupcreate.php:213
+#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/newapplication.php:172
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "自我介紹過長(共140個字元)"
@@ -372,7 +436,7 @@ msgstr ""
 
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
-#: actions/apigroupshow.php:90 actions/apitimelinegroup.php:91
+#: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
 msgid "Group not found!"
 msgstr "目前無請求"
@@ -415,6 +479,115 @@ msgstr ""
 msgid "groups on %s"
 msgstr ""
 
+#: actions/apioauthauthorize.php:101
+msgid "No oauth_token parameter provided."
+msgstr ""
+
+#: actions/apioauthauthorize.php:106
+#, fuzzy
+msgid "Invalid token."
+msgstr "尺寸錯誤"
+
+#: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
+#: actions/deletenotice.php:157 actions/disfavor.php:74
+#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
+#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
+#: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/subscribe.php:86 actions/tagother.php:166
+#: actions/unsubscribe.php:69 actions/userauthorization.php:52
+#: lib/designsettings.php:294
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: actions/apioauthauthorize.php:135
+#, fuzzy
+msgid "Invalid nickname / password!"
+msgstr "使用者名稱或密碼無效"
+
+#: actions/apioauthauthorize.php:159
+#, fuzzy
+msgid "Database error deleting OAuth application user."
+msgstr "使用者設定發生錯誤"
+
+#: actions/apioauthauthorize.php:185
+#, fuzzy
+msgid "Database error inserting OAuth application user."
+msgstr "增加回覆時,資料庫發生錯誤: %s"
+
+#: actions/apioauthauthorize.php:214
+#, php-format
+msgid ""
+"The request token %s has been authorized. Please exchange it for an access "
+"token."
+msgstr ""
+
+#: actions/apioauthauthorize.php:227
+#, php-format
+msgid "The request token %s has been denied and revoked."
+msgstr ""
+
+#: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
+#: actions/designadminpanel.php:103 actions/editapplication.php:139
+#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/imsettings.php:220 actions/newapplication.php:121
+#: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
+#: actions/smssettings.php:248 lib/designsettings.php:304
+msgid "Unexpected form submission."
+msgstr ""
+
+#: actions/apioauthauthorize.php:259
+msgid "An application would like to connect to your account"
+msgstr ""
+
+#: actions/apioauthauthorize.php:276
+msgid "Allow or deny access"
+msgstr ""
+
+#: actions/apioauthauthorize.php:292
+#, php-format
+msgid ""
+"The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
+"the ability to <strong>%3$s</strong> your %4$s account data. You should only "
+"give access to your %4$s account to third parties you trust."
+msgstr ""
+
+#: actions/apioauthauthorize.php:310 lib/action.php:441
+#, fuzzy
+msgid "Account"
+msgstr "關於"
+
+#: actions/apioauthauthorize.php:313 actions/login.php:230
+#: actions/profilesettings.php:106 actions/register.php:424
+#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/userauthorization.php:145 lib/groupeditform.php:152
+#: lib/userprofile.php:131
+msgid "Nickname"
+msgstr "暱稱"
+
+#: actions/apioauthauthorize.php:316 actions/login.php:233
+#: actions/register.php:429 lib/accountsettingsaction.php:116
+msgid "Password"
+msgstr ""
+
+#: actions/apioauthauthorize.php:328
+msgid "Deny"
+msgstr ""
+
+#: actions/apioauthauthorize.php:334
+msgid "Allow"
+msgstr ""
+
+#: actions/apioauthauthorize.php:351
+msgid "Allow or deny access to your account information."
+msgstr ""
+
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
 msgstr ""
@@ -447,17 +620,17 @@ msgstr "更新個人圖像"
 msgid "No status with that ID found."
 msgstr ""
 
-#: actions/apistatusesupdate.php:157 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:161 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 
-#: actions/apistatusesupdate.php:198
+#: actions/apistatusesupdate.php:202
 msgid "Not found"
 msgstr ""
 
-#: actions/apistatusesupdate.php:221 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -471,7 +644,7 @@ msgstr ""
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s的狀態是%2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "&s的微型部落格"
@@ -482,7 +655,7 @@ msgstr "&s的微型部落格"
 msgid "%s timeline"
 msgstr ""
 
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -498,19 +671,14 @@ msgstr "%1$s的狀態是%2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr ""
-
-#: actions/apitimelineretweetedbyme.php:112
-#, php-format
-msgid "Repeated by %s"
 msgstr ""
 
 #: actions/apitimelineretweetedtome.php:111
@@ -518,7 +686,7 @@ msgstr ""
 msgid "Repeated to %s"
 msgstr ""
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr ""
@@ -528,7 +696,7 @@ msgstr ""
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "&s的微型部落格"
@@ -591,8 +759,8 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: actions/avatarsettings.php:149 lib/deleteuserform.php:66
-#: lib/noticelist.php:611
+#: actions/avatarsettings.php:149 actions/showapplication.php:252
+#: lib/deleteuserform.php:66 lib/noticelist.php:637
 msgid "Delete"
 msgstr ""
 
@@ -602,29 +770,6 @@ msgstr ""
 
 #: actions/avatarsettings.php:231 actions/grouplogo.php:286
 msgid "Crop"
-msgstr ""
-
-#: actions/avatarsettings.php:268 actions/deletenotice.php:157
-#: actions/disfavor.php:74 actions/emailsettings.php:238 actions/favor.php:75
-#: actions/geocode.php:50 actions/groupblock.php:66 actions/grouplogo.php:309
-#: actions/groupunblock.php:66 actions/imsettings.php:206
-#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
-#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
-#: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
-#: actions/unsubscribe.php:69 actions/userauthorization.php:52
-#: lib/designsettings.php:294
-msgid "There was a problem with your session token. Try again, please."
-msgstr ""
-
-#: actions/avatarsettings.php:281 actions/designadminpanel.php:103
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
-#: actions/imsettings.php:220 actions/recoverpassword.php:44
-#: actions/smssettings.php:248 lib/designsettings.php:304
-msgid "Unexpected form submission."
 msgstr ""
 
 #: actions/avatarsettings.php:328
@@ -665,8 +810,9 @@ msgid ""
 "will not be notified of any @-replies from them."
 msgstr ""
 
-#: actions/block.php:143 actions/deletenotice.php:145
-#: actions/deleteuser.php:147 actions/groupblock.php:178
+#: actions/block.php:143 actions/deleteapplication.php:153
+#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/groupblock.php:178
 msgid "No"
 msgstr ""
 
@@ -675,13 +821,13 @@ msgstr ""
 msgid "Do not block this user"
 msgstr "無此使用者"
 
-#: actions/block.php:144 actions/deletenotice.php:146
-#: actions/deleteuser.php:148 actions/groupblock.php:179
-#: lib/repeatform.php:132
+#: actions/block.php:144 actions/deleteapplication.php:158
+#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr ""
 
-#: actions/block.php:144 actions/groupmembers.php:346 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
 #, fuzzy
 msgid "Block this user"
 msgstr "無此使用者"
@@ -768,7 +914,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "無法取消信箱確認"
 
 #: actions/confirmaddress.php:144
-msgid "Confirm Address"
+#, fuzzy
+msgid "Confirm address"
 msgstr "確認信箱"
 
 #: actions/confirmaddress.php:159
@@ -786,10 +933,54 @@ msgstr "地點"
 msgid "Notices"
 msgstr ""
 
+#: actions/deleteapplication.php:63
+#, fuzzy
+msgid "You must be logged in to delete an application."
+msgstr "無法更新使用者"
+
+#: actions/deleteapplication.php:71
+#, fuzzy
+msgid "Application not found."
+msgstr "確認碼遺失"
+
+#: actions/deleteapplication.php:78 actions/editapplication.php:77
+#: actions/showapplication.php:94
+#, fuzzy
+msgid "You are not the owner of this application."
+msgstr "無法連結到伺服器:%s"
+
+#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/newapplication.php:110 actions/showapplication.php:118
+#: lib/action.php:1197
+msgid "There was a problem with your session token."
+msgstr ""
+
+#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
+#, fuzzy
+msgid "Delete application"
+msgstr "無此通知"
+
+#: actions/deleteapplication.php:149
+msgid ""
+"Are you sure you want to delete this application? This will clear all data "
+"about the application from the database, including all existing user "
+"connections."
+msgstr ""
+
+#: actions/deleteapplication.php:156
+#, fuzzy
+msgid "Do not delete this application"
+msgstr "無此通知"
+
+#: actions/deleteapplication.php:160
+#, fuzzy
+msgid "Delete this application"
+msgstr "請在140個字以內描述你自己與你的興趣"
+
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -819,7 +1010,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "無此通知"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:611
+#: actions/deletenotice.php:146 lib/noticelist.php:637
 msgid "Delete this notice"
 msgstr ""
 
@@ -958,16 +1149,6 @@ msgstr ""
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:586 actions/emailsettings.php:195
-#: actions/imsettings.php:163 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:324 actions/profilesettings.php:174
-#: actions/siteadminpanel.php:388 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:313 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr ""
-
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
@@ -980,9 +1161,83 @@ msgstr ""
 msgid "Add to favorites"
 msgstr ""
 
-#: actions/doc.php:69
-msgid "No such document."
+#: actions/doc.php:158
+#, fuzzy, php-format
+msgid "No such document \"%s\""
 msgstr "無此文件"
+
+#: actions/editapplication.php:54
+#, fuzzy
+msgid "Edit Application"
+msgstr "無此通知"
+
+#: actions/editapplication.php:66
+msgid "You must be logged in to edit an application."
+msgstr ""
+
+#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
+#: actions/showapplication.php:87
+#, fuzzy
+msgid "No such application."
+msgstr "無此通知"
+
+#: actions/editapplication.php:161
+msgid "Use this form to edit your application."
+msgstr ""
+
+#: actions/editapplication.php:177 actions/newapplication.php:159
+msgid "Name is required."
+msgstr ""
+
+#: actions/editapplication.php:180 actions/newapplication.php:165
+#, fuzzy
+msgid "Name is too long (max 255 chars)."
+msgstr "全名過長（最多255字元）"
+
+#: actions/editapplication.php:183 actions/newapplication.php:162
+#, fuzzy
+msgid "Name already in use. Try another one."
+msgstr "此暱稱已有人使用。再試試看別的吧。"
+
+#: actions/editapplication.php:186 actions/newapplication.php:168
+#, fuzzy
+msgid "Description is required."
+msgstr "所有訂閱"
+
+#: actions/editapplication.php:194
+msgid "Source URL is too long."
+msgstr ""
+
+#: actions/editapplication.php:200 actions/newapplication.php:185
+#, fuzzy
+msgid "Source URL is not valid."
+msgstr "個人首頁位址錯誤"
+
+#: actions/editapplication.php:203 actions/newapplication.php:188
+msgid "Organization is required."
+msgstr ""
+
+#: actions/editapplication.php:206 actions/newapplication.php:191
+#, fuzzy
+msgid "Organization is too long (max 255 chars)."
+msgstr "地點過長（共255個字）"
+
+#: actions/editapplication.php:209 actions/newapplication.php:194
+msgid "Organization homepage is required."
+msgstr ""
+
+#: actions/editapplication.php:218 actions/newapplication.php:206
+msgid "Callback is too long."
+msgstr ""
+
+#: actions/editapplication.php:225 actions/newapplication.php:215
+msgid "Callback URL is not valid."
+msgstr ""
+
+#: actions/editapplication.php:258
+#, fuzzy
+msgid "Could not update application."
+msgstr "無法更新使用者"
 
 #: actions/editgroup.php:56
 #, php-format
@@ -1012,7 +1267,7 @@ msgstr "自我介紹過長(共140個字元)"
 msgid "Could not update group."
 msgstr "無法更新使用者"
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:259 classes/User_group.php:433
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "無法存取個人圖像資料"
@@ -1053,7 +1308,8 @@ msgid ""
 msgstr ""
 
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126
+#: actions/smssettings.php:126 lib/applicationeditform.php:331
+#: lib/applicationeditform.php:332
 msgid "Cancel"
 msgstr "取消"
 
@@ -1134,7 +1390,7 @@ msgid "Cannot normalize that email address"
 msgstr ""
 
 #: actions/emailsettings.php:331 actions/register.php:201
-#: actions/siteadminpanel.php:157
+#: actions/siteadminpanel.php:143
 msgid "Not a valid email address."
 msgstr "此信箱無效"
 
@@ -1146,7 +1402,7 @@ msgstr ""
 msgid "That email address already belongs to another user."
 msgstr ""
 
-#: actions/emailsettings.php:353 actions/imsettings.php:317
+#: actions/emailsettings.php:353 actions/imsettings.php:319
 #: actions/smssettings.php:337
 msgid "Couldn't insert confirmation code."
 msgstr "無法輸入確認碼"
@@ -1205,7 +1461,7 @@ msgstr ""
 msgid "Disfavor favorite"
 msgstr ""
 
-#: actions/favorited.php:65 lib/popularnoticesection.php:88
+#: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 #, fuzzy
 msgid "Popular notices"
@@ -1355,7 +1611,7 @@ msgstr ""
 msgid "User is not a member of group."
 msgstr ""
 
-#: actions/groupblock.php:136 actions/groupmembers.php:314
+#: actions/groupblock.php:136 actions/groupmembers.php:316
 #, fuzzy
 msgid "Block user from group"
 msgstr "無此使用者"
@@ -1453,23 +1709,23 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:175 lib/action.php:442 lib/groupnav.php:107
+#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:346 lib/blockform.php:69
+#: actions/groupmembers.php:348 lib/blockform.php:69
 msgid "Block"
 msgstr ""
 
-#: actions/groupmembers.php:441
+#: actions/groupmembers.php:443
 msgid "Make user an admin of the group"
 msgstr ""
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make Admin"
 msgstr ""
 
-#: actions/groupmembers.php:473
+#: actions/groupmembers.php:475
 msgid "Make this user an admin"
 msgstr ""
 
@@ -1636,6 +1892,11 @@ msgstr "確認信已寄到你的線上即時通信箱。%s送給你得訊息要�
 msgid "That is not your Jabber ID."
 msgstr ""
 
+#: actions/inbox.php:59
+#, php-format
+msgid "Inbox for %1$s - page %2$d"
+msgstr ""
+
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
@@ -1712,7 +1973,7 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:237
+#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
 msgid "Send"
 msgstr ""
 
@@ -1786,24 +2047,13 @@ msgstr "使用者名稱或密碼錯誤"
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:460
+#: actions/login.php:188 actions/login.php:241 lib/action.php:466
 #: lib/logingroupnav.php:79
 msgid "Login"
 msgstr "登入"
 
 #: actions/login.php:227
 msgid "Login to site"
-msgstr ""
-
-#: actions/login.php:230 actions/profilesettings.php:106
-#: actions/register.php:424 actions/showgroup.php:236 actions/tagother.php:94
-#: lib/groupeditform.php:152 lib/userprofile.php:131
-msgid "Nickname"
-msgstr "暱稱"
-
-#: actions/login.php:233 actions/register.php:429
-#: lib/accountsettingsaction.php:116
-msgid "Password"
 msgstr ""
 
 #: actions/login.php:236 actions/register.php:478
@@ -1831,21 +2081,21 @@ msgid ""
 "(%%action.register%%) a new account."
 msgstr ""
 
-#: actions/makeadmin.php:91
+#: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
-#: actions/makeadmin.php:95
+#: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr ""
 
-#: actions/makeadmin.php:132
+#: actions/makeadmin.php:133
 #, fuzzy, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "無法從 %s 建立OpenID"
 
-#: actions/makeadmin.php:145
+#: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
 msgstr "無法從 %s 建立OpenID"
@@ -1853,6 +2103,28 @@ msgstr "無法從 %s 建立OpenID"
 #: actions/microsummary.php:69
 msgid "No current status"
 msgstr ""
+
+#: actions/newapplication.php:52
+#, fuzzy
+msgid "New Application"
+msgstr "無此通知"
+
+#: actions/newapplication.php:64
+msgid "You must be logged in to register an application."
+msgstr ""
+
+#: actions/newapplication.php:143
+msgid "Use this form to register a new application."
+msgstr ""
+
+#: actions/newapplication.php:176
+msgid "Source URL is required."
+msgstr ""
+
+#: actions/newapplication.php:258 actions/newapplication.php:267
+#, fuzzy
+msgid "Could not create application."
+msgstr "無法存取個人圖像資料"
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -1958,6 +2230,49 @@ msgstr ""
 msgid "Nudge sent!"
 msgstr ""
 
+#: actions/oauthappssettings.php:59
+msgid "You must be logged in to list your applications."
+msgstr ""
+
+#: actions/oauthappssettings.php:74
+msgid "OAuth applications"
+msgstr ""
+
+#: actions/oauthappssettings.php:85
+msgid "Applications you have registered"
+msgstr ""
+
+#: actions/oauthappssettings.php:135
+#, php-format
+msgid "You have not registered any applications yet."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:72
+msgid "Connected applications"
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:83
+msgid "You have allowed the following applications to access you account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:175
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "無法連結到伺服器:%s"
+
+#: actions/oauthconnectionssettings.php:186
+msgid "Unable to revoke access for app: "
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:198
+#, php-format
+msgid "You have not authorized any applications to use your account."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:211
+msgid "Developers can edit the registration settings for their applications "
+msgstr ""
+
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile"
 msgstr ""
@@ -1976,8 +2291,8 @@ msgstr "連結"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1033
-#: lib/api.php:1061 lib/api.php:1171
+#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
+#: lib/api.php:1068 lib/api.php:1177
 msgid "Not a supported data format."
 msgstr ""
 
@@ -1991,7 +2306,7 @@ msgstr ""
 
 #: actions/othersettings.php:60
 #, fuzzy
-msgid "Other Settings"
+msgid "Other settings"
 msgstr "線上即時通設定"
 
 #: actions/othersettings.php:71
@@ -2045,6 +2360,11 @@ msgstr "新訊息"
 
 #: actions/otp.php:104
 msgid "Login token expired."
+msgstr ""
+
+#: actions/outbox.php:58
+#, php-format
+msgid "Outbox for %1$s - page %2$d"
 msgstr ""
 
 #: actions/outbox.php:61
@@ -2118,7 +2438,7 @@ msgstr "無法存取新密碼"
 msgid "Password saved."
 msgstr ""
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:326
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:331
 msgid "Paths"
 msgstr ""
 
@@ -2126,138 +2446,154 @@ msgstr ""
 msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
-#: actions/pathsadminpanel.php:140
+#: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
 msgid "Theme directory not readable: %s"
 msgstr "個人首頁位址錯誤"
 
-#: actions/pathsadminpanel.php:146
+#: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:152
+#: actions/pathsadminpanel.php:169
 #, php-format
 msgid "Background directory not writable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:160
+#: actions/pathsadminpanel.php:177
 #, php-format
 msgid "Locales directory not readable: %s"
 msgstr ""
 
-#: actions/pathsadminpanel.php:166
+#: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
-#: actions/pathsadminpanel.php:217 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 #: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr ""
 
-#: actions/pathsadminpanel.php:221
+#: actions/pathsadminpanel.php:238
+msgid "Server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:238
+msgid "Site's server hostname."
+msgstr ""
+
+#: actions/pathsadminpanel.php:242
 msgid "Path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:221
+#: actions/pathsadminpanel.php:242
 #, fuzzy
 msgid "Site path"
 msgstr "新訊息"
 
-#: actions/pathsadminpanel.php:225
+#: actions/pathsadminpanel.php:246
 msgid "Path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:225
+#: actions/pathsadminpanel.php:246
 msgid "Directory path to locales"
 msgstr ""
 
-#: actions/pathsadminpanel.php:232
-msgid "Theme"
-msgstr ""
-
-#: actions/pathsadminpanel.php:237
-msgid "Theme server"
-msgstr ""
-
-#: actions/pathsadminpanel.php:241
-msgid "Theme path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:245
-msgid "Theme directory"
+#: actions/pathsadminpanel.php:250
+msgid "Fancy URLs"
 msgstr ""
 
 #: actions/pathsadminpanel.php:252
+msgid "Use fancy (more readable and memorable) URLs?"
+msgstr ""
+
+#: actions/pathsadminpanel.php:259
+msgid "Theme"
+msgstr ""
+
+#: actions/pathsadminpanel.php:264
+msgid "Theme server"
+msgstr ""
+
+#: actions/pathsadminpanel.php:268
+msgid "Theme path"
+msgstr ""
+
+#: actions/pathsadminpanel.php:272
+msgid "Theme directory"
+msgstr ""
+
+#: actions/pathsadminpanel.php:279
 #, fuzzy
 msgid "Avatars"
 msgstr "個人圖像"
 
-#: actions/pathsadminpanel.php:257
+#: actions/pathsadminpanel.php:284
 #, fuzzy
 msgid "Avatar server"
 msgstr "線上即時通設定"
 
-#: actions/pathsadminpanel.php:261
+#: actions/pathsadminpanel.php:288
 #, fuzzy
 msgid "Avatar path"
 msgstr "更新個人圖像"
 
-#: actions/pathsadminpanel.php:265
+#: actions/pathsadminpanel.php:292
 #, fuzzy
 msgid "Avatar directory"
 msgstr "更新個人圖像"
 
-#: actions/pathsadminpanel.php:274
+#: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
 msgstr ""
 
-#: actions/pathsadminpanel.php:278
+#: actions/pathsadminpanel.php:305
 msgid "Background server"
 msgstr ""
 
-#: actions/pathsadminpanel.php:282
+#: actions/pathsadminpanel.php:309
 msgid "Background path"
 msgstr ""
 
-#: actions/pathsadminpanel.php:286
+#: actions/pathsadminpanel.php:313
 msgid "Background directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:293
+#: actions/pathsadminpanel.php:320
 msgid "SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:296 actions/siteadminpanel.php:346
+#: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
 msgid "Never"
 msgstr ""
 
-#: actions/pathsadminpanel.php:297
+#: actions/pathsadminpanel.php:324
 msgid "Sometimes"
 msgstr ""
 
-#: actions/pathsadminpanel.php:298
+#: actions/pathsadminpanel.php:325
 msgid "Always"
 msgstr ""
 
-#: actions/pathsadminpanel.php:302
+#: actions/pathsadminpanel.php:329
 msgid "Use SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:303
+#: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:308
+#: actions/pathsadminpanel.php:335
 #, fuzzy
 msgid "SSL server"
 msgstr "線上即時通設定"
 
-#: actions/pathsadminpanel.php:309
+#: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
 msgstr ""
 
-#: actions/pathsadminpanel.php:325
+#: actions/pathsadminpanel.php:352
 #, fuzzy
 msgid "Save paths"
 msgstr "新訊息"
@@ -2316,7 +2652,7 @@ msgid "Full name"
 msgstr "全名"
 
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/groupeditform.php:161
+#: lib/applicationeditform.php:228 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "個人首頁"
 
@@ -2340,7 +2676,7 @@ msgstr "自我介紹"
 
 #: actions/profilesettings.php:132 actions/register.php:471
 #: actions/showgroup.php:256 actions/tagother.php:112
-#: actions/userauthorization.php:158 lib/groupeditform.php:177
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
 msgstr "地點"
@@ -2364,7 +2700,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:151 actions/siteadminpanel.php:294
+#: actions/profilesettings.php:151 actions/siteadminpanel.php:280
 msgid "Language"
 msgstr ""
 
@@ -2390,7 +2726,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "自我介紹過長(共140個字元)"
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:164
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:150
 msgid "Timezone not selected."
 msgstr ""
 
@@ -2403,25 +2739,25 @@ msgstr ""
 msgid "Invalid tag: \"%s\""
 msgstr "個人首頁連結%s無效"
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr ""
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 #, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "無法儲存個人資料"
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "無法儲存個人資料"
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 #, fuzzy
 msgid "Couldn't save tags."
 msgstr "無法儲存個人資料"
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
 msgid "Settings saved."
 msgstr ""
 
@@ -2443,37 +2779,37 @@ msgstr ""
 msgid "Public timeline"
 msgstr ""
 
-#: actions/public.php:151
+#: actions/public.php:159
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
-#: actions/public.php:155
+#: actions/public.php:163
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
-#: actions/public.php:159
+#: actions/public.php:167
 #, fuzzy
 msgid "Public Stream Feed (Atom)"
 msgstr "%s的公開內容"
 
-#: actions/public.php:179
+#: actions/public.php:187
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
 
-#: actions/public.php:182
+#: actions/public.php:190
 msgid "Be the first to post!"
 msgstr ""
 
-#: actions/public.php:186
+#: actions/public.php:194
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
 
-#: actions/public.php:233
+#: actions/public.php:241
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2482,7 +2818,7 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 
-#: actions/public.php:238
+#: actions/public.php:246
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2515,7 +2851,7 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:131
+#: actions/publictagcloud.php:134
 msgid "Tag cloud"
 msgstr ""
 
@@ -2652,7 +2988,7 @@ msgstr "確認碼發生錯誤"
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:457
+#: actions/register.php:114 actions/register.php:503 lib/action.php:463
 #: lib/logingroupnav.php:85
 msgid "Register"
 msgstr ""
@@ -2692,7 +3028,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:270 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:256 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "電子信箱"
 
@@ -2777,7 +3113,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:368
 msgid "Subscribe"
 msgstr ""
 
@@ -2816,7 +3152,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "無此使用者"
 
-#: actions/repeat.php:114 lib/noticelist.php:629
+#: actions/repeat.php:114 lib/noticelist.php:656
 #, fuzzy
 msgid "Repeated"
 msgstr "新增"
@@ -2831,6 +3167,11 @@ msgstr "新增"
 #, php-format
 msgid "Replies to %s"
 msgstr ""
+
+#: actions/replies.php:127
+#, fuzzy, php-format
+msgid "Replies to %1$s, page %2$d"
+msgstr "&s的微型部落格"
 
 #: actions/replies.php:144
 #, fuzzy, php-format
@@ -2873,6 +3214,11 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "&s的微型部落格"
 
+#: actions/rsd.php:146 actions/version.php:157
+#, fuzzy
+msgid "StatusNet"
+msgstr "更新個人圖像"
+
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 #, fuzzy
 msgid "You cannot sandbox users on this site."
@@ -2881,6 +3227,123 @@ msgstr "無法連結到伺服器:%s"
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
 msgstr ""
+
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:336
+msgid "Sessions"
+msgstr ""
+
+#: actions/sessionsadminpanel.php:65
+msgid "Session settings for this StatusNet site."
+msgstr ""
+
+#: actions/sessionsadminpanel.php:175
+msgid "Handle sessions"
+msgstr ""
+
+#: actions/sessionsadminpanel.php:177
+msgid "Whether to handle sessions ourselves."
+msgstr ""
+
+#: actions/sessionsadminpanel.php:181
+msgid "Session debugging"
+msgstr ""
+
+#: actions/sessionsadminpanel.php:183
+msgid "Turn on debugging output for sessions."
+msgstr ""
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/useradminpanel.php:293
+#, fuzzy
+msgid "Save site settings"
+msgstr "線上即時通設定"
+
+#: actions/showapplication.php:82
+msgid "You must be logged in to view an application."
+msgstr ""
+
+#: actions/showapplication.php:157
+msgid "Application profile"
+msgstr ""
+
+#: actions/showapplication.php:159 lib/applicationeditform.php:180
+msgid "Icon"
+msgstr ""
+
+#: actions/showapplication.php:169 actions/version.php:195
+#: lib/applicationeditform.php:195
+#, fuzzy
+msgid "Name"
+msgstr "暱稱"
+
+#: actions/showapplication.php:178 lib/applicationeditform.php:222
+#, fuzzy
+msgid "Organization"
+msgstr "地點"
+
+#: actions/showapplication.php:187 actions/version.php:198
+#: lib/applicationeditform.php:209 lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "所有訂閱"
+
+#: actions/showapplication.php:192 actions/showgroup.php:429
+#: lib/profileaction.php:174
+msgid "Statistics"
+msgstr ""
+
+#: actions/showapplication.php:203
+#, php-format
+msgid "Created by %1$s - %2$s access by default - %3$d users"
+msgstr ""
+
+#: actions/showapplication.php:213
+msgid "Application actions"
+msgstr ""
+
+#: actions/showapplication.php:236
+msgid "Reset key & secret"
+msgstr ""
+
+#: actions/showapplication.php:261
+msgid "Application info"
+msgstr ""
+
+#: actions/showapplication.php:263
+msgid "Consumer key"
+msgstr ""
+
+#: actions/showapplication.php:268
+msgid "Consumer secret"
+msgstr ""
+
+#: actions/showapplication.php:273
+msgid "Request token URL"
+msgstr ""
+
+#: actions/showapplication.php:278
+msgid "Access token URL"
+msgstr ""
+
+#: actions/showapplication.php:283
+msgid "Authorize URL"
+msgstr ""
+
+#: actions/showapplication.php:288
+msgid ""
+"Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
+"signature method."
+msgstr ""
+
+#: actions/showapplication.php:309
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr ""
+
+#: actions/showfavorites.php:79
+#, fuzzy, php-format
+msgid "%1$s's favorite notices, page %2$d"
+msgstr "%s與好友"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -2931,18 +3394,23 @@ msgstr ""
 msgid "%s group"
 msgstr ""
 
+#: actions/showgroup.php:84
+#, fuzzy, php-format
+msgid "%1$s group, page %2$d"
+msgstr "所有訂閱"
+
 #: actions/showgroup.php:218
 #, fuzzy
 msgid "Group profile"
 msgstr "無此通知"
 
 #: actions/showgroup.php:263 actions/tagother.php:118
-#: actions/userauthorization.php:167 lib/userprofile.php:177
+#: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr ""
 
 #: actions/showgroup.php:274 actions/tagother.php:128
-#: actions/userauthorization.php:179 lib/userprofile.php:194
+#: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr ""
 
@@ -2987,10 +3455,6 @@ msgstr ""
 
 #: actions/showgroup.php:392
 msgid "All members"
-msgstr ""
-
-#: actions/showgroup.php:429 lib/profileaction.php:174
-msgid "Statistics"
 msgstr ""
 
 #: actions/showgroup.php:432
@@ -3049,6 +3513,11 @@ msgstr "更新個人圖像"
 msgid " tagged %s"
 msgstr ""
 
+#: actions/showstream.php:79
+#, fuzzy, php-format
+msgid "%1$s, page %2$d"
+msgstr "%s與好友"
+
 #: actions/showstream.php:122
 #, fuzzy, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
@@ -3074,25 +3543,25 @@ msgstr ""
 msgid "FOAF for %s"
 msgstr ""
 
-#: actions/showstream.php:191
+#: actions/showstream.php:200
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
 
-#: actions/showstream.php:196
+#: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
 
-#: actions/showstream.php:198
+#: actions/showstream.php:207
 #, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to his or her attention](%%%%"
 "action.newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 
-#: actions/showstream.php:234
+#: actions/showstream.php:243
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3101,7 +3570,7 @@ msgid ""
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showstream.php:239
+#: actions/showstream.php:248
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3109,7 +3578,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
-#: actions/showstream.php:313
+#: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr ""
@@ -3126,201 +3595,146 @@ msgstr ""
 msgid "Basic settings for this StatusNet site."
 msgstr ""
 
-#: actions/siteadminpanel.php:146
+#: actions/siteadminpanel.php:132
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:154
+#: actions/siteadminpanel.php:140
 #, fuzzy
 msgid "You must have a valid contact email address."
 msgstr "此信箱無效"
 
-#: actions/siteadminpanel.php:172
+#: actions/siteadminpanel.php:158
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr ""
 
-#: actions/siteadminpanel.php:179
+#: actions/siteadminpanel.php:165
 msgid "Invalid snapshot report URL."
 msgstr ""
 
-#: actions/siteadminpanel.php:185
+#: actions/siteadminpanel.php:171
 msgid "Invalid snapshot run value."
 msgstr ""
 
-#: actions/siteadminpanel.php:191
+#: actions/siteadminpanel.php:177
 msgid "Snapshot frequency must be a number."
 msgstr ""
 
-#: actions/siteadminpanel.php:197
+#: actions/siteadminpanel.php:183
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:203
+#: actions/siteadminpanel.php:189
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:253
+#: actions/siteadminpanel.php:239
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:256
+#: actions/siteadminpanel.php:242
 #, fuzzy
 msgid "Site name"
 msgstr "新訊息"
 
-#: actions/siteadminpanel.php:257
+#: actions/siteadminpanel.php:243
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:261
+#: actions/siteadminpanel.php:247
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:262
+#: actions/siteadminpanel.php:248
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:266
+#: actions/siteadminpanel.php:252
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:267
+#: actions/siteadminpanel.php:253
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:271
+#: actions/siteadminpanel.php:257
 #, fuzzy
 msgid "Contact email address for your site"
 msgstr "查無此使用者所註冊的信箱"
 
-#: actions/siteadminpanel.php:277
+#: actions/siteadminpanel.php:263
 #, fuzzy
 msgid "Local"
 msgstr "地點"
 
-#: actions/siteadminpanel.php:288
+#: actions/siteadminpanel.php:274
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:289
+#: actions/siteadminpanel.php:275
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:295
+#: actions/siteadminpanel.php:281
 msgid "Default site language"
 msgstr ""
 
-#: actions/siteadminpanel.php:303
-msgid "URLs"
-msgstr ""
-
-#: actions/siteadminpanel.php:306
-msgid "Server"
-msgstr ""
-
-#: actions/siteadminpanel.php:306
-msgid "Site's server hostname."
-msgstr ""
-
-#: actions/siteadminpanel.php:310
-msgid "Fancy URLs"
-msgstr ""
-
-#: actions/siteadminpanel.php:312
-msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
-
-#: actions/siteadminpanel.php:318
-#, fuzzy
-msgid "Access"
-msgstr "接受"
-
-#: actions/siteadminpanel.php:321
-msgid "Private"
-msgstr ""
-
-#: actions/siteadminpanel.php:323
-msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
-
-#: actions/siteadminpanel.php:327
-msgid "Invite only"
-msgstr ""
-
-#: actions/siteadminpanel.php:329
-msgid "Make registration invitation only."
-msgstr ""
-
-#: actions/siteadminpanel.php:333
-#, fuzzy
-msgid "Closed"
-msgstr "無此使用者"
-
-#: actions/siteadminpanel.php:335
-msgid "Disable new registrations."
-msgstr ""
-
-#: actions/siteadminpanel.php:341
+#: actions/siteadminpanel.php:289
 msgid "Snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:344
+#: actions/siteadminpanel.php:292
 msgid "Randomly during Web hit"
 msgstr ""
 
-#: actions/siteadminpanel.php:345
+#: actions/siteadminpanel.php:293
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/siteadminpanel.php:347
+#: actions/siteadminpanel.php:295
 msgid "Data snapshots"
 msgstr ""
 
-#: actions/siteadminpanel.php:348
+#: actions/siteadminpanel.php:296
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
-#: actions/siteadminpanel.php:353
+#: actions/siteadminpanel.php:301
 msgid "Frequency"
 msgstr ""
 
-#: actions/siteadminpanel.php:354
+#: actions/siteadminpanel.php:302
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
-#: actions/siteadminpanel.php:359
+#: actions/siteadminpanel.php:307
 msgid "Report URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:360
+#: actions/siteadminpanel.php:308
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:367
+#: actions/siteadminpanel.php:315
 msgid "Limits"
 msgstr ""
 
-#: actions/siteadminpanel.php:370
+#: actions/siteadminpanel.php:318
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:370
+#: actions/siteadminpanel.php:318
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:374
+#: actions/siteadminpanel.php:322
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:374
+#: actions/siteadminpanel.php:322
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
-
-#: actions/siteadminpanel.php:388 actions/useradminpanel.php:313
-#, fuzzy
-msgid "Save site settings"
-msgstr "線上即時通設定"
 
 #: actions/smssettings.php:58
 #, fuzzy
@@ -3421,17 +3835,26 @@ msgstr ""
 msgid "You are not subscribed to that profile."
 msgstr ""
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 #, fuzzy
 msgid "Could not save subscription."
 msgstr "註冊失敗"
 
-#: actions/subscribe.php:55
-#, fuzzy
-msgid "Not a local user."
-msgstr "無此使用者"
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr ""
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "無此通知"
+
+#: actions/subscribe.php:117
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr ""
+
+#: actions/subscribe.php:145
 #, fuzzy
 msgid "Subscribed"
 msgstr "此帳號已註冊"
@@ -3492,7 +3915,7 @@ msgstr ""
 msgid "These are the people whose notices %s listens to."
 msgstr ""
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -3502,19 +3925,24 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, fuzzy, php-format
 msgid "%s is not listening to anyone."
 msgstr "現在%1$s在%2$s成為你的粉絲囉"
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 #, fuzzy
 msgid "Jabber"
 msgstr "查無此Jabber ID"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr ""
+
+#: actions/tag.php:68
+#, fuzzy, php-format
+msgid "Notices tagged with %1$s, page %2$d"
+msgstr "&s的微型部落格"
 
 #: actions/tag.php:86
 #, php-format
@@ -3546,7 +3974,8 @@ msgstr ""
 msgid "User profile"
 msgstr "無此通知"
 
-#: actions/tagother.php:81 lib/userprofile.php:102
+#: actions/tagother.php:81 actions/userauthorization.php:132
+#: lib/userprofile.php:102
 msgid "Photo"
 msgstr ""
 
@@ -3606,7 +4035,7 @@ msgstr "無確認請求"
 msgid "Unsubscribed"
 msgstr "此帳號已註冊"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:330
+#: actions/updateprofile.php:62 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -3621,84 +4050,64 @@ msgstr ""
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:148
 msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:154
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:164
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr ""
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:221
 msgid "Bio Limit"
 msgstr ""
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:222
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:230
 msgid "New users"
 msgstr ""
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:234
 msgid "New user welcome"
 msgstr ""
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:235
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:240
 #, fuzzy
 msgid "Default subscription"
 msgstr "所有訂閱"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:241
 msgid "Automatically subscribe new users to this user."
 msgstr ""
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:250
 #, fuzzy
 msgid "Invitations"
 msgstr "地點"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:255
 msgid "Invitations enabled"
 msgstr ""
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:257
 msgid "Whether to allow users to invite new users."
-msgstr ""
-
-#: actions/useradminpanel.php:265
-msgid "Sessions"
-msgstr ""
-
-#: actions/useradminpanel.php:270
-msgid "Handle sessions"
-msgstr ""
-
-#: actions/useradminpanel.php:272
-msgid "Whether to handle sessions ourselves."
-msgstr ""
-
-#: actions/useradminpanel.php:276
-msgid "Session debugging"
-msgstr ""
-
-#: actions/useradminpanel.php:278
-msgid "Turn on debugging output for sessions."
 msgstr ""
 
 #: actions/userauthorization.php:105
@@ -3712,85 +4121,85 @@ msgid ""
 "click “Reject”."
 msgstr ""
 
-#: actions/userauthorization.php:188 actions/version.php:165
+#: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
 msgstr ""
 
-#: actions/userauthorization.php:209
+#: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "接受"
 
-#: actions/userauthorization.php:210 lib/subscribeform.php:115
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
 msgstr ""
 
-#: actions/userauthorization.php:211
+#: actions/userauthorization.php:219
 msgid "Reject"
 msgstr ""
 
-#: actions/userauthorization.php:212
+#: actions/userauthorization.php:220
 #, fuzzy
 msgid "Reject this subscription"
 msgstr "所有訂閱"
 
-#: actions/userauthorization.php:225
+#: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "無確認請求"
 
-#: actions/userauthorization.php:247
+#: actions/userauthorization.php:254
 msgid "Subscription authorized"
 msgstr ""
 
-#: actions/userauthorization.php:249
+#: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
 
-#: actions/userauthorization.php:259
+#: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr ""
 
-#: actions/userauthorization.php:261
+#: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
 
-#: actions/userauthorization.php:296
+#: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
 msgstr ""
 
-#: actions/userauthorization.php:301
+#: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
 msgstr ""
 
-#: actions/userauthorization.php:307
+#: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr ""
 
-#: actions/userauthorization.php:322
+#: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr ""
 
-#: actions/userauthorization.php:338
+#: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
-#: actions/userauthorization.php:343
+#: actions/userauthorization.php:350
 #, fuzzy, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "無法讀取此%sURL的圖像"
 
-#: actions/userauthorization.php:348
+#: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
@@ -3808,6 +4217,11 @@ msgstr ""
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
 msgstr ""
+
+#: actions/usergroups.php:64
+#, fuzzy, php-format
+msgid "%1$s groups, page %2$d"
+msgstr "所有訂閱"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -3834,11 +4248,6 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
-
-#: actions/version.php:157
-#, fuzzy
-msgid "StatusNet"
-msgstr "更新個人圖像"
 
 #: actions/version.php:161
 msgid "Contributors"
@@ -3871,12 +4280,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:195
-#, fuzzy
-msgid "Name"
-msgstr "暱稱"
-
-#: actions/version.php:196 lib/action.php:741
+#: actions/version.php:196 lib/action.php:747
 #, fuzzy
 msgid "Version"
 msgstr "地點"
@@ -3884,11 +4288,6 @@ msgstr "地點"
 #: actions/version.php:197
 msgid "Author(s)"
 msgstr ""
-
-#: actions/version.php:198 lib/groupeditform.php:172
-#, fuzzy
-msgid "Description"
-msgstr "所有訂閱"
 
 #: classes/File.php:144
 #, php-format
@@ -3939,61 +4338,87 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:171
+#: classes/Notice.php:157
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:225
+#: classes/Notice.php:222
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "儲存使用者發生錯誤"
 
-#: classes/Notice.php:229
+#: classes/Notice.php:226
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "儲存使用者發生錯誤"
 
-#: classes/Notice.php:234
+#: classes/Notice.php:231
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:240
+#: classes/Notice.php:237
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:246
+#: classes/Notice.php:243
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:305 classes/Notice.php:330
+#: classes/Notice.php:309 classes/Notice.php:335
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:1052
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "增加回覆時,資料庫發生錯誤: %s"
+#: classes/Notice.php:882
+#, fuzzy
+msgid "Problem saving group inbox."
+msgstr "儲存使用者發生錯誤"
 
-#: classes/Notice.php:1423
+#: classes/Notice.php:1407
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/User.php:382
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr ""
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr ""
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr ""
+
+#: classes/Subscription.php:157
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "此帳號已註冊"
+
+#: classes/Subscription.php:163
+#, fuzzy
+msgid "Couldn't delete self-subscription."
+msgstr "無法刪除帳號"
+
+#: classes/Subscription.php:179 lib/subs.php:69
+msgid "Couldn't delete subscription."
+msgstr "無法刪除帳號"
+
+#: classes/User.php:372
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:380
+#: classes/User_group.php:423
 #, fuzzy
 msgid "Could not create group."
 msgstr "無法存取個人圖像資料"
 
-#: classes/User_group.php:409
+#: classes/User_group.php:452
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "註冊失敗"
@@ -4037,134 +4462,129 @@ msgstr "%1$s的狀態是%2$s"
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:427
+#: lib/action.php:433
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:439
 msgid "Home"
 msgstr "主頁"
 
-#: lib/action.php:433
+#: lib/action.php:439
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:435
-#, fuzzy
-msgid "Account"
-msgstr "關於"
-
-#: lib/action.php:435
+#: lib/action.php:441
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:438
+#: lib/action.php:444
 msgid "Connect"
 msgstr "連結"
 
-#: lib/action.php:438
+#: lib/action.php:444
 #, fuzzy
 msgid "Connect to services"
 msgstr "無法連結到伺服器:%s"
 
-#: lib/action.php:442
+#: lib/action.php:448
 msgid "Change site configuration"
 msgstr ""
 
-#: lib/action.php:446 lib/subgroupnav.php:105
+#: lib/action.php:452 lib/subgroupnav.php:105
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:447 lib/subgroupnav.php:106
+#: lib/action.php:453 lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:452
+#: lib/action.php:458
 msgid "Logout"
 msgstr "登出"
 
-#: lib/action.php:452
+#: lib/action.php:458
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:457
+#: lib/action.php:463
 #, fuzzy
 msgid "Create an account"
 msgstr "新增帳號"
 
-#: lib/action.php:460
+#: lib/action.php:466
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:463 lib/action.php:726
+#: lib/action.php:469 lib/action.php:732
 msgid "Help"
 msgstr "求救"
 
-#: lib/action.php:463
+#: lib/action.php:469
 #, fuzzy
 msgid "Help me!"
 msgstr "求救"
 
-#: lib/action.php:466 lib/searchaction.php:127
+#: lib/action.php:472 lib/searchaction.php:127
 msgid "Search"
 msgstr ""
 
-#: lib/action.php:466
+#: lib/action.php:472
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:487
+#: lib/action.php:493
 #, fuzzy
 msgid "Site notice"
 msgstr "新訊息"
 
-#: lib/action.php:553
+#: lib/action.php:559
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:619
+#: lib/action.php:625
 #, fuzzy
 msgid "Page notice"
 msgstr "新訊息"
 
-#: lib/action.php:721
+#: lib/action.php:727
 msgid "Secondary site navigation"
 msgstr ""
 
-#: lib/action.php:728
+#: lib/action.php:734
 msgid "About"
 msgstr "關於"
 
-#: lib/action.php:730
+#: lib/action.php:736
 msgid "FAQ"
 msgstr "常見問題"
 
-#: lib/action.php:734
+#: lib/action.php:740
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:737
+#: lib/action.php:743
 msgid "Privacy"
 msgstr ""
 
-#: lib/action.php:739
+#: lib/action.php:745
 msgid "Source"
 msgstr ""
 
-#: lib/action.php:743
+#: lib/action.php:749
 msgid "Contact"
 msgstr "好友名單"
 
-#: lib/action.php:745
+#: lib/action.php:751
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:773
+#: lib/action.php:779
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:776
+#: lib/action.php:782
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4173,12 +4593,12 @@ msgstr ""
 "**%%site.name%%**是由[%%site.broughtby%%](%%site.broughtbyurl%%)所提供的微型"
 "部落格服務"
 
-#: lib/action.php:778
+#: lib/action.php:784
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%**是個微型部落格"
 
-#: lib/action.php:780
+#: lib/action.php:786
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4186,34 +4606,56 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:794
+#: lib/action.php:801
 #, fuzzy
 msgid "Site content license"
 msgstr "新訊息"
 
-#: lib/action.php:803
+#: lib/action.php:806
+#, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr ""
+
+#: lib/action.php:811
+#, php-format
+msgid "Content and data copyright by %1$s. All rights reserved."
+msgstr ""
+
+#: lib/action.php:814
+msgid "Content and data copyright by contributors. All rights reserved."
+msgstr ""
+
+#: lib/action.php:827
 msgid "All "
 msgstr ""
 
-#: lib/action.php:808
+#: lib/action.php:833
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1102
+#: lib/action.php:1132
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1111
+#: lib/action.php:1141
 msgid "After"
 msgstr ""
 
-#: lib/action.php:1119
+#: lib/action.php:1149
 #, fuzzy
 msgid "Before"
 msgstr "之前的內容»"
 
-#: lib/action.php:1167
-msgid "There was a problem with your session token."
+#: lib/activity.php:382
+msgid "Can't handle remote content yet."
+msgstr ""
+
+#: lib/activity.php:410
+msgid "Can't handle embedded XML content yet."
+msgstr ""
+
+#: lib/activity.php:414
+msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
 #: lib/adminpanelaction.php:96
@@ -4246,10 +4688,100 @@ msgstr "確認信箱"
 msgid "Design configuration"
 msgstr "確認信箱"
 
-#: lib/adminpanelaction.php:322 lib/adminpanelaction.php:327
+#: lib/adminpanelaction.php:322
+#, fuzzy
+msgid "User configuration"
+msgstr "確認信箱"
+
+#: lib/adminpanelaction.php:327
+#, fuzzy
+msgid "Access configuration"
+msgstr "確認信箱"
+
+#: lib/adminpanelaction.php:332
 #, fuzzy
 msgid "Paths configuration"
 msgstr "確認信箱"
+
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "確認信箱"
+
+#: lib/apiauth.php:95
+msgid "API resource requires read-write access, but you only have read access."
+msgstr ""
+
+#: lib/apiauth.php:273
+#, php-format
+msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
+msgstr ""
+
+#: lib/applicationeditform.php:136
+msgid "Edit application"
+msgstr ""
+
+#: lib/applicationeditform.php:184
+msgid "Icon for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:204
+#, fuzzy, php-format
+msgid "Describe your application in %d characters"
+msgstr "請在140個字以內描述你自己與你的興趣"
+
+#: lib/applicationeditform.php:207
+#, fuzzy
+msgid "Describe your application"
+msgstr "請在140個字以內描述你自己與你的興趣"
+
+#: lib/applicationeditform.php:216
+msgid "Source URL"
+msgstr ""
+
+#: lib/applicationeditform.php:218
+msgid "URL of the homepage of this application"
+msgstr ""
+
+#: lib/applicationeditform.php:224
+msgid "Organization responsible for this application"
+msgstr ""
+
+#: lib/applicationeditform.php:230
+msgid "URL for the homepage of the organization"
+msgstr ""
+
+#: lib/applicationeditform.php:236
+msgid "URL to redirect to after authentication"
+msgstr ""
+
+#: lib/applicationeditform.php:258
+msgid "Browser"
+msgstr ""
+
+#: lib/applicationeditform.php:274
+msgid "Desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:275
+msgid "Type of application, browser or desktop"
+msgstr ""
+
+#: lib/applicationeditform.php:297
+msgid "Read-only"
+msgstr ""
+
+#: lib/applicationeditform.php:315
+msgid "Read-write"
+msgstr ""
+
+#: lib/applicationeditform.php:316
+msgid "Default access for this application: read-only, or read-write"
+msgstr ""
+
+#: lib/applicationlist.php:154
+msgid "Revoke"
+msgstr ""
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
@@ -4271,11 +4803,11 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:182 lib/authenticationplugin.php:187
+#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
 msgid "Password changing failed"
 msgstr ""
 
-#: lib/authenticationplugin.php:197
+#: lib/authenticationplugin.php:233
 msgid "Password changing is not allowed"
 msgstr ""
 
@@ -4428,80 +4960,90 @@ msgstr "儲存使用者發生錯誤"
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+#, fuzzy
+msgid "No such user"
+msgstr "無此使用者"
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr ""
 
-#: lib/command.php:575
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr ""
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:668
+#: lib/command.php:692
+#, fuzzy, php-format
+msgid "Unsubscribed  %s"
+msgstr "此帳號已註冊"
+
+#: lib/command.php:709
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "此帳號已註冊"
 
-#: lib/command.php:670
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "此帳號已註冊"
 
-#: lib/command.php:690
+#: lib/command.php:731
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "無此訂閱"
 
-#: lib/command.php:692
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "無此訂閱"
 
-#: lib/command.php:712
+#: lib/command.php:753
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "無法連結到伺服器:%s"
 
-#: lib/command.php:714
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "無法連結到伺服器:%s"
 
-#: lib/command.php:728
+#: lib/command.php:769
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -4515,6 +5057,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -4542,20 +5085,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:131
+#: lib/common.php:136
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "無確認碼"
 
-#: lib/common.php:132
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:134
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:135
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr ""
 
@@ -4569,6 +5112,15 @@ msgstr ""
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
+msgstr ""
+
+#: lib/connectsettingsaction.php:120
+#, fuzzy
+msgid "Connections"
+msgstr "連結"
+
+#: lib/connectsettingsaction.php:121
+msgid "Authorized connected applications"
 msgstr ""
 
 #: lib/dberroraction.php:60
@@ -4759,12 +5311,12 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:202
+#: lib/jabber.php:220
 #, php-format
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:385
+#: lib/jabber.php:400
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
@@ -4969,7 +5521,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:482
 msgid "from"
 msgstr ""
 
@@ -5089,59 +5641,55 @@ msgid "Do not share my location"
 msgstr "無法儲存個人資料"
 
 #: lib/noticeform.php:216
-msgid "Hide this info"
-msgstr ""
-
-#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:531
+#: lib/noticelist.php:558
 #, fuzzy
 msgid "in context"
 msgstr "無內容"
 
-#: lib/noticelist.php:556
+#: lib/noticelist.php:583
 #, fuzzy
 msgid "Repeated by"
 msgstr "新增"
 
-#: lib/noticelist.php:585
+#: lib/noticelist.php:610
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:586
+#: lib/noticelist.php:611
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:655
 #, fuzzy
 msgid "Notice repeated"
 msgstr "更新個人圖像"
@@ -5175,11 +5723,7 @@ msgstr "新增外部個人資料發生錯誤(Error inserting remote profile)"
 msgid "Duplicate notice"
 msgstr "新訊息"
 
-#: lib/oauthstore.php:466 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr ""
-
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
 msgstr "無法新增訂閱"
 
@@ -5195,19 +5739,19 @@ msgstr ""
 msgid "Favorites"
 msgstr ""
 
-#: lib/personalgroupnav.php:124
+#: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr ""
 
-#: lib/personalgroupnav.php:125
+#: lib/personalgroupnav.php:126
 msgid "Your incoming messages"
 msgstr ""
 
-#: lib/personalgroupnav.php:129
+#: lib/personalgroupnav.php:130
 msgid "Outbox"
 msgstr ""
 
-#: lib/personalgroupnav.php:130
+#: lib/personalgroupnav.php:131
 msgid "Your sent messages"
 msgstr ""
 
@@ -5288,6 +5832,10 @@ msgstr "無此通知"
 msgid "Repeat this notice"
 msgstr "無此通知"
 
+#: lib/router.php:665
+msgid "No single user defined for single-user mode."
+msgstr ""
+
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr ""
@@ -5358,36 +5906,6 @@ msgstr "此帳號已註冊"
 msgid "Groups %s is a member of"
 msgstr ""
 
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr ""
-
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr ""
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr ""
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr ""
-
-#: lib/subs.php:137
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "此帳號已註冊"
-
-#: lib/subs.php:142
-#, fuzzy
-msgid "Couldn't delete self-subscription."
-msgstr "無法刪除帳號"
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "無法刪除帳號"
-
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -5441,68 +5959,68 @@ msgstr "個人圖像"
 msgid "User actions"
 msgstr ""
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "線上即時通設定"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr ""
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr ""
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:877
+#: lib/util.php:952
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:879
+#: lib/util.php:954
 msgid "about a minute ago"
 msgstr ""
 
-#: lib/util.php:881
+#: lib/util.php:956
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:883
+#: lib/util.php:958
 msgid "about an hour ago"
 msgstr ""
 
-#: lib/util.php:885
+#: lib/util.php:960
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:887
+#: lib/util.php:962
 msgid "about a day ago"
 msgstr ""
 
-#: lib/util.php:889
+#: lib/util.php:964
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:891
+#: lib/util.php:966
 msgid "about a month ago"
 msgstr ""
 
-#: lib/util.php:893
+#: lib/util.php:968
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:895
+#: lib/util.php:970
 msgid "about a year ago"
 msgstr ""
 
@@ -5516,7 +6034,7 @@ msgstr "個人首頁位址錯誤"
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 
-#: scripts/xmppdaemon.php:301
+#: lib/xmppmanager.php:402
 #, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""

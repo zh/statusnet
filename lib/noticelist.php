@@ -380,12 +380,12 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
-            $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        }else{
-            $noticeurl = $this->notice->uri;
-        }
+        $noticeurl = $this->notice->bestUrl();
+
+        // above should always return an URL
+
+        assert(!empty($noticeurl));
+
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                             'class' => 'timestamp',
                                             'href' => $noticeurl));
@@ -540,16 +540,13 @@ class NoticeListItem extends Widget
     function showContext()
     {
         $hasConversation = false;
-        if( !empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id){
-            $hasConversation = true;
-        }else{
-            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
-            if($conversation->N > 0){
+        if (!empty($this->notice->conversation)) {
+            $conversation = Notice::conversationStream($this->notice->conversation, 1, 1);
+            if ($conversation->N > 0) {
                 $hasConversation = true;
             }
         }
-        if ($hasConversation){
+        if ($hasConversation) {
             $this->out->text(' ');
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));

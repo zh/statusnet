@@ -24,35 +24,9 @@
  * @note      Everything in here should eventually migrate over to /js/util.js's SN.
  */
 
-SN.C.S.StatusNetInstance = 'StatusNetInstance';
-
-SN.U.StatusNetInstance = {
-    Set: function(value) {
-        $.cookie(
-            SN.C.S.StatusNetInstance,
-            JSON.stringify(value),
-            {
-                path: '/',
-                expires: SN.U.GetFullYear(2029, 0, 1)
-            });
-    },
-
-    Get: function() {
-        var cookieValue = $.cookie(SN.C.S.StatusNetInstance);
-        if (cookieValue !== null) {
-            return JSON.parse(cookieValue);
-        }
-        return null;
-    },
-
-    Delete: function() {
-        $.cookie(SN.C.S.StatusNetInstance, null);
-    }
-};
-
 SN.Init.OStatusCookie = function() {
     if (SN.U.StatusNetInstance.Get() === null) {
-        SN.U.StatusNetInstance.Set({profile: null});
+        SN.U.StatusNetInstance.Set({RemoteProfile: null});
     }
 };
 
@@ -101,10 +75,10 @@ SN.U.DialogBox = {
 
                         if (form.attr('id') == 'form_ostatus_connect') {
                             SN.Init.OStatusCookie();
-                            form.find('#profile').val(SN.U.StatusNetInstance.Get().profile);
+                            form.find('#profile').val(SN.U.StatusNetInstance.Get().RemoteProfile);
 
                             form.find("[type=submit]").bind('click', function() {
-                                SN.U.StatusNetInstance.Set({profile: form.find('#profile').val()});
+                                SN.U.StatusNetInstance.Set({RemoteProfile: form.find('#profile').val()});
                                 return true;
                             });
                         }
@@ -123,4 +97,6 @@ SN.Init.Subscribe = function() {
 
 $(document).ready(function() {
     SN.Init.Subscribe();
+
+    $('.form_remote_authorize').bind('submit', function() { $(this).addClass(SN.C.S.Processing); return true; });
 });

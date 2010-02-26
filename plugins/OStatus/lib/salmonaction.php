@@ -38,30 +38,32 @@ class SalmonAction extends Action
         parent::prepare($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(_('This method requires a POST.'));
+            $this->clientError(_m('This method requires a POST.'));
         }
 
-        if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
-            $this->clientError(_('Salmon requires application/atom+xml'));
+        if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/magic-envelope+xml') {
+            $this->clientError(_m('Salmon requires application/magic-envelope+xml'));
         }
 
         $xml = file_get_contents('php://input');
 
-        $dom = DOMDocument::loadXML($xml);
 
+        // Check the signature
+        $salmon = new Salmon;
+        if (!$salmon->verifyMagicEnv($xml)) {
+            common_log(LOG_DEBUG, "Salmon signature verification failed.");
+            $this->clientError(_m('Salmon signature verification failed.'));
+        } else {
+            $env = MagicEnvelope::parse($xml);
+            $xml = MagicEnvelope::unfold($env);
+        }
+        
+
+        $dom = DOMDocument::loadXML($xml);
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
             common_log(LOG_DEBUG, "Got invalid Salmon post: $xml");
             $this->clientError(_m('Salmon post must be an Atom entry.'));
-        }
-
-        // Check the signature
-        $salmon = new Salmon;
-        if (!common_config('ostatus', 'skip_signatures')) {
-            if (!$salmon->verifyMagicEnv($dom)) {
-                common_log(LOG_DEBUG, "Salmon signature verification failed.");
-                $this->clientError(_m('Salmon signature verification failed.'));
-            }
         }
 
         $this->act = new Activity($dom->documentElement);
@@ -76,8 +78,7 @@ class SalmonAction extends Action
     {
         StatusNet::setApi(true); // Send smaller error pages
 
-        // TODO : Insert new $xml -> notice code
-
+        common_log(LOG_DEBUG, "Got a " . $this->act->verb);
         if (Event::handle('StartHandleSalmon', array($this->activity))) {
             switch ($this->act->verb)
             {
@@ -106,8 +107,11 @@ class SalmonAction extends Action
             case ActivityVerb::LEAVE:
                 $this->handleLeave();
                 break;
+            case ActivityVerb::UPDATE_PROFILE:
+                $this->handleUpdateProfile();
+                break;
             default:
-                throw new ClientException(_("Unimplemented."));
+                throw new ClientException(_m("Unrecognized activity type."));
             }
             Event::handle('EndHandleSalmon', array($this->activity));
         }
@@ -115,56 +119,57 @@ class SalmonAction extends Action
 
     function handlePost()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand posts."));
     }
 
     function handleFollow()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand follows."));
     }
 
     function handleUnfollow()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand unfollows."));
     }
 
     function handleFavorite()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand favorites."));
     }
-
-    /**
-     * Remote user doesn't like one of our posts after all!
-     * Confirm the post is ours, and delete a local favorite event.
-     */
 
     function handleUnfavorite()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand unfavorites."));
     }
 
-    /**
-     * Hmmmm
-     */
     function handleShare()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand share events."));
     }
 
-    /**
-     * Hmmmm
-     */
     function handleJoin()
     {
-        throw new ClientException(_("Unimplemented!"));
+        throw new ClientException(_m("This target doesn't understand joins."));
+    }
+
+    function handleLeave()
+    {
+        throw new ClientException(_m("This target doesn't understand leave events."));
     }
 
     /**
-     * Hmmmm
+     * Remote user sent us an update to their profile.
+     * If we already know them, accept the updates.
      */
-    function handleLeave()
+    function handleUpdateProfile()
     {
-        throw new ClientException(_("Unimplemented!"));
+        $oprofile = Ostatus_profile::getActorProfile($this->act);
+        if ($oprofile) {
+            common_log(LOG_INFO, "Got a profile-update ping from $oprofile->uri");
+            $oprofile->updateFromActivityObject($this->act->actor);
+        } else {
+            common_log(LOG_INFO, "Ignoring profile-update ping from unknown " . $this->act->actor->id);
+        }
     }
 
     /**

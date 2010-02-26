@@ -54,7 +54,8 @@ var SN = { // StatusNet
             NoticeGeoName: 'notice_data-geo_name',
             NoticeDataGeo: 'notice_data-geo',
             NoticeDataGeoCookie: 'notice_data-geo_cookie',
-            NoticeDataGeoSelected: 'notice_data-geo_selected'
+            NoticeDataGeoSelected: 'notice_data-geo_selected',
+            StatusNetInstance:'StatusNetInstance'
         }
     },
 
@@ -319,18 +320,12 @@ var SN = { // StatusNet
             }
         },
 
-        NoticeReplyTo: function(notice_item) {
-            var notice = notice_item[0];
-            var notice_reply = $('.notice_reply', notice)[0];
-
-            if (jQuery.data(notice_reply, "ElementData") === undefined) {
-                jQuery.data(notice_reply, "ElementData", {Bind:'submit'});
-                $(notice_reply).bind('click', function() {
-                    var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                    SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
-                    return false;
-                });
-            }
+        NoticeReplyTo: function(notice) {
+            notice.find('.notice_reply').live('click', function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
+                SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+                return false;
+            });
         },
 
         NoticeReplySet: function(nick,id) {
@@ -670,6 +665,35 @@ var SN = { // StatusNet
             date.setFullYear(year, month, day);
 
             return date;
+        },
+
+        StatusNetInstance: {
+            Set: function(value) {
+                var SNI = SN.U.StatusNetInstance.Get();
+                if (SNI !== null) {
+                    value = $.extend(SNI, value);
+                }
+
+                $.cookie(
+                    SN.C.S.StatusNetInstance,
+                    JSON.stringify(value),
+                    {
+                        path: '/',
+                        expires: SN.U.GetFullYear(2029, 0, 1)
+                    });
+            },
+
+            Get: function() {
+                var cookieValue = $.cookie(SN.C.S.StatusNetInstance);
+                if (cookieValue !== null) {
+                    return JSON.parse(cookieValue);
+                }
+                return null;
+            },
+
+            Delete: function() {
+                $.cookie(SN.C.S.StatusNetInstance, null);
+            }
         }
     },
 
@@ -707,6 +731,20 @@ var SN = { // StatusNet
 
                 SN.U.NewDirectMessage();
             }
+        },
+
+        Login: function() {
+            if (SN.U.StatusNetInstance.Get() !== null) {
+                var nickname = SN.U.StatusNetInstance.Get().Nickname;
+                if (nickname !== null) {
+                    $('#form_login #nickname').val(nickname);
+                }
+            }
+
+            $('#form_login').bind('submit', function() {
+                SN.U.StatusNetInstance.Set({Nickname: $('#form_login #nickname').val()});
+                return true;
+            });
         }
     }
 };
@@ -720,6 +758,9 @@ $(document).ready(function(){
     }
     if ($('#content .entity_actions').length > 0) {
         SN.Init.EntityActions();
+    }
+    if ($('#form_login').length > 0) {
+        SN.Init.Login();
     }
 });
 
