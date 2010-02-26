@@ -81,11 +81,14 @@ class Webfinger
     function getServiceLinks($domain)
     {
         $url = 'http://'. $domain .'/.well-known/host-meta';
+
         $content = $this->fetchURL($url);
+
         if (empty($content)) {
             common_log(LOG_DEBUG, 'Error fetching host-meta');
             return false;
         }
+
         $result = XRD::parse($content);
 
         // Ensure that the host == domain (spec may include signing later)
@@ -119,6 +122,11 @@ class Webfinger
     function fetchURL($url)
     {
         try {
+            $c = Cache::instance();
+            $content = $c->get('webfinger:url:'.$url);
+            if ($content !== false) {
+                return $content;
+            }
             $client = new HTTPClient();
             $response = $client->get($url);
         } catch (HTTP_Request2_Exception $e) {
@@ -129,7 +137,11 @@ class Webfinger
             return false;
         }
 
-        return $response->getBody();
+        $body = $response->getBody();
+
+        $c->set('webfinger:url:'.$url, $body);
+
+        return $body;
     }
 
     function applyTemplate($template, $id)

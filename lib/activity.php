@@ -360,6 +360,25 @@ class ActivityUtils
         return null;
     }
 
+    static function getLinks(DOMNode $element, $rel, $type=null)
+    {
+        $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
+        $out = array();
+
+        foreach ($links as $link) {
+
+            $linkRel = $link->getAttribute(self::REL);
+            $linkType = $link->getAttribute(self::TYPE);
+
+            if ($linkRel == $rel &&
+                (is_null($type) || $linkType == $type)) {
+                $out[] = $link;
+            }
+        }
+
+        return $out;
+    }
+
     /**
      * Gets the first child element with the given tag
      *
@@ -472,6 +491,24 @@ class AvatarLink
     public $type;
     public $size;
     public $width;
+    public $height;
+
+    function __construct($element=null)
+    {
+        if ($element) {
+            // @fixme use correct namespaces
+            $this->url = $element->getAttribute('href');
+            $this->type = $element->getAttribute('type');
+            $width = $element->getAttribute('media:width');
+            if ($width != null) {
+                $this->width = intval($width);
+            }
+            $height = $element->getAttribute('media:height');
+            if ($height != null) {
+                $this->height = intval($height);
+            }
+        }
+    }
 
     static function fromAvatar($avatar)
     {
@@ -640,8 +677,10 @@ class ActivityObject
         if ($this->type == self::PERSON || $this->type == self::GROUP) {
             $this->displayName = $this->title;
 
-            // @fixme we may have multiple avatars with different resolutions specified
-            $this->avatar = ActivityUtils::getLink($element, 'avatar');
+            $avatars = ActivityUtils::getLinks($element, 'avatar');
+            foreach ($avatars as $link) {
+                $this->avatarLinks[] = new AvatarLink($link);
+            }
 
             $this->poco = new PoCo($element);
         }

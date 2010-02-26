@@ -818,8 +818,20 @@ class Ostatus_profile extends Memcached_DataObject
 
     protected static function getActivityObjectAvatar($object, $hints=array())
     {
-        if ($object->avatar) {
-            return $object->avatar;
+        if ($object->avatarLinks) {
+            $best = false;
+            // Take the exact-size avatar, or the largest avatar, or the first avatar if all sizeless
+            foreach ($object->avatarLinks as $avatar) {
+                if ($avatar->width == AVATAR_PROFILE_SIZE && $avatar->height = AVATAR_PROFILE_SIZE) {
+                    // Exact match!
+                    $best = $avatar;
+                    break;
+                }
+                if (!$best || $avatar->width > $best->width) {
+                    $best = $avatar;
+                }
+            }
+            return $best->url;
         } else if (array_key_exists('avatar', $hints)) {
             return $hints['avatar'];
         }
@@ -1313,6 +1325,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (isset($feedUrl)) {
             try {
+                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL $feedUrl");
                 $oprofile = self::ensureProfile($feedUrl, $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
@@ -1326,6 +1339,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (isset($profileUrl)) {
             try {
+                common_log(LOG_INFO, "Discovery on acct:$addr with profile URL $profileUrl");
                 $oprofile = self::ensureProfile($profileUrl, $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
