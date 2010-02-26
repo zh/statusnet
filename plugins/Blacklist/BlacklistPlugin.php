@@ -60,12 +60,12 @@ class BlacklistPlugin extends Plugin
 
     function initialize()
     {
-        $confNicknames = $this->_configArray('blacklist', 'nicknames')
+        $confNicknames = $this->_configArray('blacklist', 'nicknames');
 
         $this->_nicknamePatterns = array_merge($this->nicknames,
                                                $confNicknames);
 
-        $confURLs = $this->_configArray('blacklist', 'urls')
+        $confURLs = $this->_configArray('blacklist', 'urls');
 
         $this->_urlPatterns = array_merge($this->urls,
                                           $confURLs);
@@ -351,5 +351,94 @@ class BlacklistPlugin extends Plugin
         }
 
         return true;
+    }
+
+    function onEndDeleteUserForm($action, $user)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur) || !$cur->hasRight(Right::CONFIGURESITE)) {
+            return;
+        }
+
+        $profile = $user->getProfile();
+
+        if (empty($profile)) {
+            return;
+        }
+
+        $action->elementStart('ul', 'form_data');
+        $action->elementStart('li');
+        $this->checkboxAndText($action,
+                               'blacklistnickname',
+                               _('Add this nickname pattern to blacklist'),
+                               'blacklistnicknamepattern',
+                               $this->patternizeNickname($user->nickname));
+        $action->elementEnd('li');
+
+        if (!empty($profile->homepage)) {
+            $action->elementStart('li');
+            $this->checkboxAndText($action,
+                                   'blacklisthomepage',
+                                   _('Add this homepage pattern to blacklist'),
+                                   'blacklisthomepagepattern',
+                                   $this->patternizeHomepage($profile->homepage));
+            $action->elementEnd('li');
+        }
+
+        $action->elementEnd('ul');
+    }
+
+    function onEndDeleteUser($action, $user)
+    {
+        common_debug("Action args: " . print_r($action->args, true));
+
+        if ($action->boolean('blacklisthomepage')) {
+            $pattern = $action->trimmed('blacklisthomepagepattern');
+            $confURLs = $this->_configArray('blacklist', 'urls');
+            $confURLs[] = $pattern;
+            Config::save('blacklist', 'urls', implode("\r\n", $confURLs));
+        }
+
+        if ($action->boolean('blacklistnickname')) {
+            $pattern = $action->trimmed('blacklistnicknamepattern');
+            $confNicknames = $this->_configArray('blacklist', 'nicknames');
+            $confNicknames[] = $pattern;
+            Config::save('blacklist', 'nicknames', implode("\r\n", $confNicknames));
+        }
+
+        return true;
+    }
+
+    function checkboxAndText($action, $checkID, $label, $textID, $value)
+    {
+        $action->element('input', array('name' => $checkID,
+                                        'type' => 'checkbox',
+                                        'class' => 'checkbox',
+                                        'id' => $checkID));
+
+        $action->text(' ');
+
+        $action->element('label', array('class' => 'checkbox',
+                                        'for' => $checkID),
+                         $label);
+
+        $action->text(' ');
+
+        $action->element('input', array('name' => $textID,
+                                        'type' => 'text',
+                                        'id' => $textID,
+                                        'value' => $value));
+    }
+
+    function patternizeNickname($nickname)
+    {
+        return $nickname;
+    }
+
+    function patternizeHomepage($homepage)
+    {
+        $hostname = parse_url($homepage, PHP_URL_HOST);
+        return $hostname;
     }
 }
