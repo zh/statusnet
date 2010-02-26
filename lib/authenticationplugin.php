@@ -79,7 +79,7 @@ abstract class AuthenticationPlugin extends Plugin
             $nickname = $username;
         }
         $registration_data = array();
-        $registration_data['nickname'] = $nickname ;
+        $registration_data['nickname'] = common_nicknamize($nickname);
         return User::register($registration_data);
     }
 
