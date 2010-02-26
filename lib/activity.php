@@ -465,6 +465,57 @@ class ActivityUtils
     }
 }
 
+// XXX: Arg! This wouldn't be necessary if we used Avatars conistently
+class AvatarLink
+{
+    public $url;
+    public $type;
+    public $size;
+    public $width;
+
+    static function fromAvatar($avatar)
+    {
+        if (empty($avatar)) {
+            return null;
+        }
+        $alink = new AvatarLink();
+        $alink->type   = $avatar->mediatype;
+        $alink->height = $avatar->mediatype;
+        $alink->width  = $avatar->width;
+        $alink->url    = $avatar->displayUrl();
+        return $alink;
+    }
+
+    static function fromFilename($filename, $size)
+    {
+        $alink = new AvatarLink();
+        $alink->url    = $filename;
+        $alink->height = $size;
+        if (!empty($filename)) {
+            $alink->width  = $size;
+            $alink->type   = self::mediatype($filename);
+        } else {
+            $alink->url    = User_group::defaultLogo($size);
+            $alink->type   = 'image/png';
+        }
+        return $alink;
+    }
+
+    // yuck!
+    static function mediatype($filename) {
+        $ext = strtolower(end(explode('.', $filename)));
+        if ($ext == 'jpeg') {
+            $ext = 'jpg';
+        }
+        // hope we don't support any others
+        $types = array('png', 'gif', 'jpg', 'jpeg');
+        if (in_array($ext, $types)) {
+            return 'image/' . $ext;
+        }
+        return null;
+    }
+}
+
 /**
  * A noun-ish thing in the activity universe
  *
@@ -521,7 +572,7 @@ class ActivityObject
     public $content;
     public $link;
     public $source;
-    public $avatar;
+    public $avatarLinks = array();
     public $geopoint;
     public $poco;
     public $displayName;
@@ -641,13 +692,40 @@ class ActivityObject
         $object->id     = $profile->getUri();
         $object->title  = $profile->getBestName();
         $object->link   = $profile->profileurl;
-        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
-        if ($avatar) {
-            $object->avatar = $avatar->displayUrl();
+
+        $orig = $profile->getOriginalAvatar();
+
+        if (!empty($orig)) {
+            $object->avatarLinks[] = AvatarLink::fromAvatar($orig);
+        }
+
+        $sizes = array(
+            AVATAR_PROFILE_SIZE,
+            AVATAR_STREAM_SIZE,
+            AVATAR_MINI_SIZE
+        );
+
+        foreach ($sizes as $size) {
+
+            $alink  = null;
+            $avatar = $profile->getAvatar($size);
+
+            if (!empty($avatar)) {
+                $alink = AvatarLink::fromAvatar($avatar);
+            } else {
+                $alink = new AvatarLink();
+                $alink->type   = 'image/png';
+                $alink->height = $size;
+                $alink->width  = $size;
+                $alink->url    = Avatar::defaultImage($size);
+            }
+
+            $object->avatarLinks[] = $alink;
         }
 
         if (isset($profile->lat) && isset($profile->lon)) {
-            $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
+            $object->geopoint = (float)$profile->lat
+                . ' ' . (float)$profile->lon;
         }
 
         $object->poco = PoCo::fromProfile($profile);
@@ -663,12 +741,27 @@ class ActivityObject
         $object->id     = $group->getUri();
         $object->title  = $group->getBestName();
         $object->link   = $group->getUri();
-        $object->avatar = $group->getAvatar();
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->homepage_logo,
+            AVATAR_PROFILE_SIZE
+        );
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->stream_logo,
+            AVATAR_STREAM_SIZE
+        );
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->mini_logo,
+            AVATAR_MINI_SIZE
+        );
 
         $object->poco = PoCo::fromGroup($group);
 
         return $object;
     }
+
 
     function asString($tag='activity:object')
     {
@@ -705,29 +798,21 @@ class ActivityObject
             );
         }
 
-        if ($this->type == ActivityObject::PERSON) {
-            $xs->element(
-                'link', array(
-                    'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
-                    'rel'  => 'avatar',
-                    'href' => empty($this->avatar)
-                    ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                    : $this->avatar
-                ),
-                null
-            );
-        }
+        if ($this->type == ActivityObject::PERSON
+            || $this->type == ActivityObject::GROUP) {
 
-        // XXX: Gotta figure out mime-type! Gar.
-
-        if ($this->type == ActivityObject::GROUP) {
-            $xs->element(
-                'link', array(
-                    'rel'  => 'avatar',
-                    'href' => $this->avatar
-                ),
-                null
-            );
+            foreach ($this->avatarLinks as $avatar) {
+                $xs->element(
+                    'link', array(
+                        'rel'  => 'avatar',
+                        'type'         => $avatar->type,
+                        'media:width'  => $avatar->width,
+                        'media:height' => $avatar->height,
+                        'href' => $avatar->url
+                    ),
+                    null
+                );
+            }
         }
 
         if (!empty($this->geopoint)) {
@@ -1038,7 +1123,8 @@ class Activity
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:georss' => 'http://www.georss.org/georss',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
-                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
+                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
+                           'xmlns:media' => 'http://purl.org/syndication/atommedia');
         } else {
             $attrs = array();
         }

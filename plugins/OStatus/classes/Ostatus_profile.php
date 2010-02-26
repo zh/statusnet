@@ -401,7 +401,8 @@ class Ostatus_profile extends Memcached_DataObject
                                 'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                                 'xmlns:georss' => 'http://www.georss.org/georss',
                                 'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
-                                'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
+                                'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
+                                'xmlns:media' => 'http://purl.org/syndication/atommedia');
 
             $entry = new XMLStringer();
             $entry->elementStart('entry', $attributes);
@@ -1165,6 +1166,8 @@ class Ostatus_profile extends Memcached_DataObject
             $profile->profileurl = $object->link;
         } else if (array_key_exists('profileurl', $hints)) {
             $profile->profileurl = $hints['profileurl'];
+        } else if (Validate::uri($object->id, array('allowed_schemes' => array('http', 'https')))) {
+            $profile->profileurl = $object->id;
         }
 
         $profile->bio      = self::getActivityObjectBio($object, $hints);
