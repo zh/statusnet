@@ -99,7 +99,7 @@ class XrdAction extends Action
         }
 
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
-                              'href' => 'data:application/magic-public-key;'. $magickey->keypair);
+                              'href' => 'data:application/magic-public-key;'. $magickey->toString(false));
 
         // TODO - finalize where the redirect should go on the publisher
         $url = common_local_url('ostatussub') . '?profile={uri}';
