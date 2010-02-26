@@ -286,7 +286,7 @@ class EditgroupAction extends GroupDesignAction
         $group = Local_group::staticGet('nickname', $nickname);
 
         if (!empty($group) &&
-            $group->id != $this->group->id) {
+            $group->group_id != $this->group->id) {
             return true;
         }
 
