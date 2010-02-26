@@ -39,7 +39,8 @@ class Discovery
     const LRDD_REL = 'lrdd';
     const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
     const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
-
+    const HCARD = 'http://microformats.org/profile/hcard';
+    
     public $methods = array();
 
     public function __construct()

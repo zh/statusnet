@@ -66,7 +66,7 @@ class XrdAction extends Action
                               'type' => 'application/atom+xml');
 
         // hCard
-        $xrd->links[] = array('rel' => Webfinger::HCARD,
+        $xrd->links[] = array('rel' => Discovery::HCARD,
                               'type' => 'text/html',
                               'href' => common_local_url('hcard', array('nickname' => $nick)));
 
