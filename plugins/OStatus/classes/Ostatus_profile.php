@@ -1288,9 +1288,9 @@ class Ostatus_profile extends Memcached_DataObject
 
         $disco = new Discovery();
 
-        $result = $disco->lookup($addr);
-
-        if (!$result) {
+        try {
+            $result = $disco->lookup($addr);
+        } catch (Exception $e) {
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
             return null;
         }
