@@ -99,7 +99,7 @@ class HubSub extends Memcached_DataObject
         return array_keys($this->keyTypes());
     }
 
-    function sequenceKeys()
+    function sequenceKey()
     {
         return array(false, false, false);
     }

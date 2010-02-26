@@ -856,7 +856,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     return null;
 }
 
-function common_local_url($action, $args=null, $params=null, $fragment=null)
+function common_local_url($action, $args=null, $params=null, $fragment=null, $addSession=true)
 {
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
@@ -864,12 +864,12 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
     $ssl = common_is_sensitive($action);
 
     if (common_config('site','fancy')) {
-        $url = common_path(mb_substr($path, 1), $ssl);
+        $url = common_path(mb_substr($path, 1), $ssl, $addSession);
     } else {
         if (mb_strpos($path, '/index.php') === 0) {
-            $url = common_path(mb_substr($path, 1), $ssl);
+            $url = common_path(mb_substr($path, 1), $ssl, $addSession);
         } else {
-            $url = common_path('index.php'.$path, $ssl);
+            $url = common_path('index.php'.$path, $ssl, $addSession);
         }
     }
     return $url;
@@ -888,7 +888,7 @@ function common_is_sensitive($action)
     return $ssl;
 }
 
-function common_path($relative, $ssl=false)
+function common_path($relative, $ssl=false, $addSession=true)
 {
     $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
 
@@ -912,7 +912,9 @@ function common_path($relative, $ssl=false)
         }
     }
 
-    $relative = common_inject_session($relative, $serverpart);
+    if ($addSession) {
+        $relative = common_inject_session($relative, $serverpart);
+    }
 
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
@@ -1134,14 +1136,15 @@ function common_broadcast_profile(Profile $profile)
 
 function common_profile_url($nickname)
 {
-    return common_local_url('showstream', array('nickname' => $nickname));
+    return common_local_url('showstream', array('nickname' => $nickname),
+                            null, null, false);
 }
 
 // Should make up a reasonable root URL
 
 function common_root_url($ssl=false)
 {
-    $url = common_path('', $ssl);
+    $url = common_path('', $ssl, false);
     $i = strpos($url, '?');
     if ($i !== false) {
         $url = substr($url, 0, $i);
@@ -1426,7 +1429,8 @@ function common_remove_magic_from_request()
 
 function common_user_uri(&$user)
 {
-    return common_local_url('userbyid', array('id' => $user->id));
+    return common_local_url('userbyid', array('id' => $user->id),
+                            null, null, false);
 }
 
 function common_notice_uri(&$notice)

@@ -54,8 +54,9 @@ class SalmonAction extends Action
             common_log(LOG_DEBUG, "Salmon signature verification failed.");
             $this->clientError(_m('Salmon signature verification failed.'));
         } else {
-            $env = MagicEnvelope::parse($xml);
-            $xml = MagicEnvelope::unfold($env);
+            $magic_env = new MagicEnvelope();
+            $env = $magic_env->parse($xml);
+            $xml = $magic_env->unfold($env);
         }
         
 
