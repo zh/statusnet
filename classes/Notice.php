@@ -944,6 +944,8 @@ class Notice extends Memcached_DataObject
                 $reply->profile_id = $user->id;
 
                 $id = $reply->insert();
+
+                self::blow('reply:stream:%d', $user->id);
             }
         }
 
