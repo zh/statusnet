@@ -1698,7 +1698,8 @@ function common_url_to_nickname($url)
             # Strip starting, ending slashes
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
-            if (strpos($path, '/') === false) {
+            $path = basename($path);
+            if ($path) {
                 return common_nicknamize($path);
             }
         }

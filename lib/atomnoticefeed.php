@@ -65,6 +65,11 @@ class AtomNoticeFeed extends Atom10Feed
         );
 
         $this->addNamespace(
+            'media',
+            'http://purl.org/syndication/atommedia'
+        );
+
+        $this->addNamespace(
             'poco',
             'http://portablecontacts.net/spec/1.0'
         );

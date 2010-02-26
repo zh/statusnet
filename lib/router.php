@@ -671,7 +671,7 @@ class Router
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
-                               'replies', 'microsummary') as $a) {
+                               'replies', 'microsummary', 'hcard') as $a) {
                     $m->connect($a,
                                 array('action' => $a,
                                       'nickname' => $nickname));
@@ -737,7 +737,7 @@ class Router
 
                 foreach (array('subscriptions', 'subscribers',
                                'nudge', 'all', 'foaf', 'xrds',
-                               'replies', 'inbox', 'outbox', 'microsummary') as $a) {
+                               'replies', 'inbox', 'outbox', 'microsummary', 'hcard') as $a) {
                     $m->connect(':nickname/'.$a,
                                 array('action' => $a),
                                 array('nickname' => '[a-zA-Z0-9]{1,64}'));
