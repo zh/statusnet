@@ -976,7 +976,7 @@ class Action extends HTMLOutputter // lawsuit
 
         if (is_null($arg)) {
             return $def;
-        } else if (in_array($arg, array('true', 'yes', '1'))) {
+        } else if (in_array($arg, array('true', 'yes', '1', 'on'))) {
             return true;
         } else if (in_array($arg, array('false', 'no', '0'))) {
             return false;
