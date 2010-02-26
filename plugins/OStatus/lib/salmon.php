@@ -57,8 +57,6 @@ class Salmon
 
         $headers = array('Content-Type: application/magic-envelope+xml');
 
-        common_log(LOG_DEBUG, "Salmon: going to post " . $xml);
-        
         try {
             $client = new HTTPClient();
             $client->setBody($xml);
@@ -95,7 +93,6 @@ class Salmon
         try {
             $env = $magic_env->signMessage($text, 'application/atom+xml', $magickey->toString());
         } catch (Exception $e) {
-            common_log(LOG_ERR, "Salmon signing failed: ". $e->getMessage());
             return $text;
         }
         return $magic_env->toXML($env);
@@ -104,7 +101,6 @@ class Salmon
 
     public function verifyMagicEnv($text)
     {
-        common_log(LOG_DEBUG, "Going to verify ". $text);
         $magic_env = new MagicEnvelope();
         
         $env = $magic_env->parse($text);
