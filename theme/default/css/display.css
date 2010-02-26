@@ -1,7 +1,7 @@
 /** theme: default
  *
  * @package   StatusNet
- * @author Sarven Capadisli <csarven@status.net>
+ * @author    Sarven Capadisli <csarven@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -18,7 +18,7 @@ font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 font-size:1em;
 }
 address {
-margin-right:5.7%;
+margin-right:5.3%;
 }
 input, textarea, select {
 border-width:2px;
@@ -30,7 +30,9 @@ border-radius:4px;
 input, textarea, select, option {
 font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
-input, textarea, select {
+input, textarea, select,
+.entity_actions .dialogbox input,
+.mark-top {
 border-color:#AAAAAA;
 }
 
@@ -46,7 +48,8 @@ box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
 .pagination .nav_prev a,
 .pagination .nav_next a,
 .form_settings fieldset fieldset,
-.entity_moderation:hover ul {
+.entity_moderation:hover ul,
+.dialogbox {
 border-color:#DDDDDD;
 }
 
@@ -78,7 +81,8 @@ background-color:transparent;
 input:focus, textarea:focus, select:focus,
 .form_notice.warning #notice_data-text,
 .form_notice.warning #notice_text-count,
-.form_settings .form_note {
+.form_settings .form_note,
+.entity_actions .dialogbox .form_data input:focus {
 border-color:#9BB43E;
 }
 input.submit {
@@ -133,9 +137,6 @@ color:#002FA7;
 #content tbody tr {
 border-top-color:#C8D1D5;
 }
-.mark-top {
-border-color:#AAAAAA;
-}
 
 #aside_primary {
 background-color:#C8D1D5;
@@ -144,7 +145,9 @@ background-color:#C8D1D5;
 #notice_text-count {
 color:#333333;
 }
-.form_notice.warning #notice_text-count {
+.form_notice.warning #notice_text-count,
+.dialogbox,
+.entity_actions .dialogbox input {
 color:#000000;
 }
 .form_notice label[for=notice_data-attach] {
@@ -181,6 +184,7 @@ button.close,
 .form_user_unsubscribe input.submit,
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a,
 .entity_moderation p,
 .entity_sandbox input.submit,
@@ -189,7 +193,14 @@ button.close,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
 button.minimize,
-.form_reset_key input.submit {
+.form_reset_key input.submit,
+.entity_clear input.submit,
+.entity_flag input.submit,
+.entity_flag p,
+.entity_subscribe input.submit,
+#realtime_play,
+#realtime_pause,
+#realtime_popup {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -217,7 +228,8 @@ border-color:transparent;
 #content,
 #site_nav_local_views .current a,
 .entity_send-a-message .form_notice,
-.entity_moderation:hover ul {
+.entity_moderation:hover ul,
+.dialogbox {
 background-color:#FFFFFF;
 }
 
@@ -283,6 +295,7 @@ background-position:0 1px;
 .form_group_leave input.submit,
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a {
 background-color:#AAAAAA;
 color:#FFFFFF;
@@ -293,18 +306,20 @@ background-position:5px -1246px;
 }
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a {
 background-position:5px -1181px;
 }
 
 .entity_edit a {
-background-position: 5px -718px;
+background-position: 5px -719px;
 }
 .entity_send-a-message a {
 background-position: 5px -852px;
 }
 .entity_send-a-message .form_notice,
-.entity_moderation:hover ul {
+.entity_moderation:hover ul,
+.dialogbox {
 box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -webkit-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
@@ -338,6 +353,29 @@ background-position: 5px -1511px;
 .form_reset_key input.submit {
 background-position: 5px -1973px;
 }
+.entity_clear input.submit {
+background-position: 5px -2039px;
+}
+.entity_flag input.submit,
+.entity_flag p {
+background-position: 5px -2105px;
+}
+.entity_subscribe input.accept {
+background-position: 5px -2171px;
+}
+.entity_subscribe input.reject {
+background-position: 5px -2237px;
+}
+#realtime_play {
+background-position: 0 -2308px;
+}
+#realtime_pause {
+background-position: 0 -2374px;
+}
+#realtime_popup {
+background-position: 0 -1714px;
+}
+
 
 /* NOTICES */
 .notice .attachment {

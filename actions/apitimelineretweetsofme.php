@@ -99,6 +99,8 @@ class ApiTimelineRetweetsOfMeAction extends ApiAuthAction
 
         $strm = $this->auth_user->repeatsOfMe($offset, $limit, $this->since_id, $this->max_id);
 
+        common_debug(var_export($strm, true));
+
         switch ($this->format) {
         case 'xml':
             $this->showXmlTimeline($strm);
@@ -110,12 +112,40 @@ class ApiTimelineRetweetsOfMeAction extends ApiAuthAction
             $profile    = $this->auth_user->getProfile();
 
             $title      = sprintf(_("Repeats of %s"), $this->auth_user->nickname);
-            $taguribase = common_config('integration', 'taguri');
+            $taguribase = TagURI::base();
             $id         = "tag:$taguribase:RepeatsOfMe:" . $this->auth_user->id;
-            $link       = common_local_url('showstream',
-                                           array('nickname' => $this->auth_user->nickname));
 
-            $this->showAtomTimeline($strm, $title, $id, $link);
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'showstream',
+                    array('nickname' => $this->auth_user->nickname)
+                )
+            );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
+            }
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineRetweetsOfMe', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addEntryFromNotices($strm);
+
+            $this->raw($atom->getString());
+
             break;
 
         default:

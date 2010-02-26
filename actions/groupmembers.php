@@ -77,7 +77,14 @@ class GroupmembersAction extends GroupDesignAction
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
+
+        if (!$local) {
+            $this->clientError(_('No such group.'), 404);
+            return false;
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
 
         if (!$this->group) {
             $this->clientError(_('No such group.'), 404);
@@ -192,7 +199,9 @@ class GroupMemberListItem extends ProfileListItem
     {
         $user = common_current_user();
 
-        if (!empty($user) && $user->id != $this->profile->id && $user->isAdmin($this->group) &&
+        if (!empty($user) &&
+            $user->id != $this->profile->id &&
+            ($user->isAdmin($this->group) || $user->hasRight(Right::MAKEGROUPADMIN)) &&
             !$this->profile->isAdmin($this->group)) {
             $this->out->elementStart('li', 'entity_make_admin');
             $maf = new MakeAdminForm($this->out, $this->profile, $this->group,

@@ -88,7 +88,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s groups"), $sitename);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
         $link       = common_local_url('groups');
         $subtitle   = sprintf(_("groups on %s"), $sitename);
@@ -134,13 +134,13 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
 
     function getGroups()
     {
-        $groups = array();
-
-        // XXX: Use the $page, $count, $max_id, $since_id, and $since parameters
+        $qry = 'SELECT user_group.* '.
+          'from user_group join local_group on user_group.id = local_group.group_id '.
+          'order by created desc ';
 
         $group = new User_group();
-        $group->orderBy('created DESC');
-        $group->find();
+
+        $group->query($qry);
 
         while ($group->fetch()) {
             $groups[] = clone($group);

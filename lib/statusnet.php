@@ -30,6 +30,7 @@ global $config, $_server, $_path;
 class StatusNet
 {
     protected static $have_config;
+    protected static $is_api;
 
     /**
      * Configure and instantiate a plugin into the current configuration.
@@ -199,6 +200,16 @@ class StatusNet
     public function haveConfig()
     {
         return self::$have_config;
+    }
+
+    public function isApi()
+    {
+        return self::$is_api;
+    }
+    
+    public function setApi($mode)
+    {
+        self::$is_api = $mode;
     }
 
     /**

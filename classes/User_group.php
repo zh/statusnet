@@ -10,21 +10,23 @@ class User_group extends Memcached_DataObject
 
     public $__table = 'user_group';                      // table name
     public $id;                              // int(4)  primary_key not_null
-    public $nickname;                        // varchar(64)  unique_key
+    public $nickname;                        // varchar(64)
     public $fullname;                        // varchar(255)
     public $homepage;                        // varchar(255)
-    public $description;                     // text()
+    public $description;                     // text
     public $location;                        // varchar(255)
     public $original_logo;                   // varchar(255)
     public $homepage_logo;                   // varchar(255)
     public $stream_logo;                     // varchar(255)
     public $mini_logo;                       // varchar(255)
     public $design_id;                       // int(4)
-    public $created;                         // datetime()   not_null
-    public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
+    public $created;                         // datetime   not_null default_0000-00-00%2000%3A00%3A00
+    public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
+    public $uri;                             // varchar(255)  unique_key
+    public $mainpage;                        // varchar(255)
 
     /* Static get */
-    function staticGet($k,$v=NULL) { return Memcached_DataObject::staticGet('User_group',$k,$v); }
+    function staticGet($k,$v=NULL) { return DB_DataObject::staticGet('User_group',$k,$v); }
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
@@ -39,22 +41,52 @@ class User_group extends Memcached_DataObject
 
     function homeUrl()
     {
-        return common_local_url('showgroup',
-                                array('nickname' => $this->nickname));
+        $url = null;
+        if (Event::handle('StartUserGroupHomeUrl', array($this, &$url))) {
+            // normally stored in mainpage, but older ones may be null
+            if (!empty($this->mainpage)) {
+                $url = $this->mainpage;
+            } else {
+                $url = common_local_url('showgroup',
+                                        array('nickname' => $this->nickname));
+            }
+        }
+        Event::handle('EndUserGroupHomeUrl', array($this, &$url));
+        return $url;
+    }
+
+    function getUri()
+    {
+        $uri = null;
+        if (Event::handle('StartUserGroupGetUri', array($this, &$uri))) {
+            if (!empty($this->uri)) {
+                $uri = $this->uri;
+            } else {
+                $uri = common_local_url('groupbyid',
+                                        array('id' => $this->id));
+            }
+        }
+        Event::handle('EndUserGroupGetUri', array($this, &$uri));
+        return $uri;
     }
 
     function permalink()
     {
-        return common_local_url('groupbyid',
-                                array('id' => $this->id));
+        $url = null;
+        if (Event::handle('StartUserGroupPermalink', array($this, &$url))) {
+            $url = common_local_url('groupbyid',
+                                    array('id' => $this->id));
+        }
+        Event::handle('EndUserGroupPermalink', array($this, &$url));
+        return $url;
     }
 
-    function getNotices($offset, $limit)
+    function getNotices($offset, $limit, $since_id=null, $max_id=null)
     {
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'user_group:notice_ids:' . $this->id,
-                              $offset, $limit);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
@@ -355,6 +387,55 @@ class User_group extends Memcached_DataObject
         return $xs->getString();
     }
 
+    function asAtomAuthor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $this->nickname);
+        $xs->element('uri', null, $this->permalink());
+        $xs->elementEnd('author');
+
+        return $xs->getString();
+    }
+
+    /**
+     * Returns an XML string fragment with group information as an
+     * Activity Streams <activity:subject> element.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @return string
+     */
+    function asActivitySubject()
+    {
+        return $this->asActivityNoun('subject');
+    }
+
+    /**
+     * Returns an XML string fragment with group information as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
+     *
+     * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $noun = ActivityObject::fromGroup($this);
+        return $noun->asString('activity:' . $element);
+    }
+
+    function getAvatar()
+    {
+        return empty($this->homepage_logo)
+            ? User_group::defaultLogo(AVATAR_PROFILE_SIZE)
+            : $this->homepage_logo;
+    }
+
     static function register($fields) {
 
         // MAGICALLY put fields into current scope
@@ -370,28 +451,31 @@ class User_group extends Memcached_DataObject
         $group->homepage    = $homepage;
         $group->description = $description;
         $group->location    = $location;
+        $group->uri         = $uri;
+        $group->mainpage    = $mainpage;
         $group->created     = common_sql_now();
 
         $result = $group->insert();
 
         if (!$result) {
             common_log_db_error($group, 'INSERT', __FILE__);
-            $this->serverError(
-                _('Could not create group.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not create group.'));
         }
+
+        if (!isset($uri) || empty($uri)) {
+            $orig = clone($group);
+            $group->uri = common_local_url('groupbyid', array('id' => $group->id));
+            $result = $group->update($orig);
+            if (!$result) {
+                common_log_db_error($group, 'UPDATE', __FILE__);
+                throw new ServerException(_('Could not set group uri.'));
+            }
+        }
+
         $result = $group->setAliases($aliases);
 
         if (!$result) {
-            $this->serverError(
-                _('Could not create aliases.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not create aliases.'));
         }
 
         $member = new Group_member();
@@ -405,12 +489,22 @@ class User_group extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($member, 'INSERT', __FILE__);
-            $this->serverError(
-                _('Could not set group membership.'),
-                500,
-                $this->format
-            );
-            return;
+            throw new ServerException(_('Could not set group membership.'));
+        }
+
+        if ($local) {
+            $local_group = new Local_group();
+
+            $local_group->group_id = $group->id;
+            $local_group->nickname = $nickname;
+            $local_group->created  = common_sql_now();
+
+            $result = $local_group->insert();
+
+            if (!$result) {
+                common_log_db_error($local_group, 'INSERT', __FILE__);
+                throw new ServerException(_('Could not save local group info.'));
+            }
         }
 
         $group->query('COMMIT');

@@ -122,7 +122,15 @@ class ShowgroupAction extends GroupDesignAction
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
+
+        if (!$local) {
+            common_log(LOG_NOTICE, "Couldn't find local group for nickname '$nickname'");
+            $this->clientError(_('No such group.'), 404);
+            return false;
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
 
         if (!$this->group) {
             $alias = Group_alias::staticGet('alias', $nickname);
@@ -330,13 +338,13 @@ class ShowgroupAction extends GroupDesignAction
                      new Feed(Feed::RSS2,
                               common_local_url('ApiTimelineGroup',
                                                array('format' => 'rss',
-                                                     'id' => $this->group->nickname)),
+                                                     'id' => $this->group->id)),
                               sprintf(_('Notice feed for %s group (RSS 2.0)'),
                                       $this->group->nickname)),
                      new Feed(Feed::ATOM,
                               common_local_url('ApiTimelineGroup',
                                                array('format' => 'atom',
-                                                     'id' => $this->group->nickname)),
+                                                     'id' => $this->group->id)),
                               sprintf(_('Notice feed for %s group (Atom)'),
                                       $this->group->nickname)),
                      new Feed(Feed::FOAF,

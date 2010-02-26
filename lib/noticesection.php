@@ -90,6 +90,7 @@ class NoticeSection extends Section
                                          'alt' =>  ($profile->fullname) ?
                                          $profile->fullname :
                                          $profile->nickname));
+        $this->out->text(' ');
         $this->out->element('span', 'fn nickname', $profile->nickname);
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');

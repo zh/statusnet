@@ -77,6 +77,7 @@ class ApiAction extends Action
 
     function prepare($args)
     {
+        StatusNet::setApi(true); // reduce exception reports to aid in debugging
         parent::prepare($args);
 
         $this->format   = $this->arg('format');
@@ -357,7 +358,7 @@ class ApiAction extends Action
         $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
         $entry['published'] = common_date_iso8601($notice->created);
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $entry['id'] = "tag:$taguribase:$entry[link]";
 
         $entry['updated'] = $entry['published'];
@@ -801,7 +802,7 @@ class ApiAction extends Action
         $entry['link'] = common_local_url('showmessage', array('message' => $message->id));
         $entry['published'] = common_date_iso8601($message->created);
 
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
 
         $entry['id'] = "tag:$taguribase:$entry[link]";
         $entry['updated'] = $entry['published'];
@@ -1102,7 +1103,7 @@ class ApiAction extends Action
         }
     }
 
-    function serverError($msg, $code = 500, $content_type = 'json')
+    function serverError($msg, $code = 500, $content_type = 'xml')
     {
         $action = $this->trimmed('action');
 
@@ -1153,7 +1154,6 @@ class ApiAction extends Action
         $this->elementStart('feed', array('xmlns' => 'http://www.w3.org/2005/Atom',
                                           'xml:lang' => 'en-US',
                                           'xmlns:thr' => 'http://purl.org/syndication/thread/1.0'));
-        Event::handle('StartApiAtom', array($this));
     }
 
     function endTwitterAtom()
@@ -1218,7 +1218,12 @@ class ApiAction extends Action
                 return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
@@ -1227,14 +1232,24 @@ class ApiAction extends Action
                 }
             } else if ($this->arg('group_name')) {
                 $nickname = common_canonical_nickname($this->arg('group_name'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             }
 
         } else if (is_numeric($id)) {
             return User_group::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
-            return User_group::staticGet('nickname', $nickname);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if (empty($local)) {
+                return null;
+            } else {
+                return User_group::staticGet('id', $local->id);
+            }
         }
     }
 
@@ -1318,6 +1333,24 @@ class ApiAction extends Action
         } else {
             return $def;
         }
+    }
+
+    function getSelfUri($action, $aargs)
+    {
+        parse_str($_SERVER['QUERY_STRING'], $params);
+        $pstring = '';
+        if (!empty($params)) {
+            unset($params['p']);
+            $pstring = http_build_query($params);
+        }
+
+        $uri = common_local_url($action, $aargs);
+
+        if (!empty($pstring)) {
+            $uri .= '?' . $pstring;
+        }
+
+        return $uri;
     }
 
 }

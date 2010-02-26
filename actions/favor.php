@@ -79,7 +79,7 @@ class FavorAction extends Action
             $this->clientError(_('This notice is already a favorite!'));
             return;
         }
-        $fave = Fave::addNew($user, $notice);
+        $fave = Fave::addNew($user->getProfile(), $notice);
         if (!$fave) {
             $this->serverError(_('Could not create favorite.'));
             return;

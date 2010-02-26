@@ -127,10 +127,10 @@ class UserauthorizationAction extends Action
         $location = $params->getLocation();
         $avatar   = $params->getAvatarURL();
 
-        $this->elementStart('div', array('class' => 'profile'));
         $this->elementStart('div', 'entity_profile vcard');
-        $this->elementStart('a', array('href' => $profile,
-                                            'class' => 'url'));
+        $this->elementStart('dl', 'entity_depiction');
+        $this->element('dt', null, _('Photo'));
+        $this->elementStart('dd');
         if ($avatar) {
             $this->element('img', array('src' => $avatar,
                                         'class' => 'photo avatar',
@@ -138,11 +138,19 @@ class UserauthorizationAction extends Action
                                         'height' => AVATAR_PROFILE_SIZE,
                                         'alt' => $nickname));
         }
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
+
+        $this->elementStart('dl', 'entity_nickname');
+        $this->element('dt', null, _('Nickname'));
+        $this->elementStart('dd');
         $hasFN = ($fullname !== '') ? 'nickname' : 'fn nickname';
-        $this->elementStart('span', $hasFN);
+        $this->elementStart('a', array('href' => $profile,
+                                       'class' => 'url '.$hasFN));
         $this->raw($nickname);
-        $this->elementEnd('span');
         $this->elementEnd('a');
+        $this->elementEnd('dd');
+        $this->elementEnd('dl');
 
         if (!is_null($fullname)) {
             $this->elementStart('dl', 'entity_fn');
@@ -213,7 +221,6 @@ class UserauthorizationAction extends Action
         $this->elementEnd('form');
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->elementEnd('div');
         $this->elementEnd('div');
     }
 

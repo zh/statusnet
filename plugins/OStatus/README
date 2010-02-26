@@ -1,0 +1,34 @@
+Plugin to support importing updates from external RSS and Atom feeds into your timeline.
+
+Uses PubSubHubbub for push feed updates; currently non-PuSH feeds cannot be subscribed.
+
+Configuration options available:
+
+$config['ostatus']['hub']
+    (default internal hub)
+    Set to URL of an external PuSH hub to use it instead of our internal hub.
+
+$config['ostatus']['hub_retries']
+    (default 0)
+    Number of times to retry a PuSH send to consumers if using internal hub
+
+
+For testing, shouldn't be used in production:
+
+$config['ostatus']['skip_signatures']
+    (default use signatures)
+    Disable generation and validation of Salmon magicenv signatures
+
+$config['feedsub']['nohub']
+    (default require hub)
+    Allow low-level feed subscription setup for feeds without hubs.
+    Not actually usable at this stage, OStatus will check for hubs too
+    and we have no polling backend.
+
+
+Todo:
+* fully functional l10n
+* redo non-OStatus feed support
+** rssCloud support?
+** possibly a polling daemon to support non-PuSH feeds?
+* make use of tags/categories from feeds

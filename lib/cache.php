@@ -47,6 +47,8 @@ class Cache
     var $_items   = array();
     static $_inst = null;
 
+    const COMPRESSED = 1;
+
     /**
      * Singleton constructor
      *
@@ -133,7 +135,7 @@ class Cache
      *
      * @param string  $key    The key to use for lookups
      * @param string  $value  The value to store
-     * @param integer $flag   Flags to use, mostly ignored
+     * @param integer $flag   Flags to use, may include Cache::COMPRESSED
      * @param integer $expiry Expiry value, mostly ignored
      *
      * @return boolean success flag

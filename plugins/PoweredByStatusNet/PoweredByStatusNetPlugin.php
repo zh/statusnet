@@ -45,6 +45,7 @@ class PoweredByStatusNetPlugin extends Plugin
 {
     function onEndAddressData($action)
     {
+        $action->text(' ');
         $action->elementStart('span', 'poweredby');
         $action->raw(sprintf(_m('powered by %s'),
                      sprintf('<a href="http://status.net/">%s</a>',

@@ -79,32 +79,37 @@ class SubscriptionsAction extends GalleryAction
 
     function showContent()
     {
-        parent::showContent();
+        if (Event::handle('StartShowSubscriptionsContent', array($this))) {
+            parent::showContent();
 
-        $offset = ($this->page-1) * PROFILES_PER_PAGE;
-        $limit =  PROFILES_PER_PAGE + 1;
+            $offset = ($this->page-1) * PROFILES_PER_PAGE;
+            $limit =  PROFILES_PER_PAGE + 1;
 
-        $cnt = 0;
+            $cnt = 0;
 
-        if ($this->tag) {
-            $subscriptions = $this->user->getTaggedSubscriptions($this->tag, $offset, $limit);
-        } else {
-            $subscriptions = $this->user->getSubscriptions($offset, $limit);
-        }
-
-        if ($subscriptions) {
-            $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);
-            $cnt = $subscriptions_list->show();
-            if (0 == $cnt) {
-                $this->showEmptyListMessage();
+            if ($this->tag) {
+                $subscriptions = $this->user->getTaggedSubscriptions($this->tag, $offset, $limit);
+            } else {
+                $subscriptions = $this->user->getSubscriptions($offset, $limit);
             }
+
+            if ($subscriptions) {
+                $subscriptions_list = new SubscriptionsList($subscriptions, $this->user, $this);
+                $cnt = $subscriptions_list->show();
+                if (0 == $cnt) {
+                    $this->showEmptyListMessage();
+                }
+            }
+
+            $subscriptions->free();
+
+            $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
+                              $this->page, 'subscriptions',
+                              array('nickname' => $this->user->nickname));
+
+
+            Event::handle('EndShowSubscriptionsContent', array($this));
         }
-
-        $subscriptions->free();
-
-        $this->pagination($this->page > 1, $cnt > PROFILES_PER_PAGE,
-                          $this->page, 'subscriptions',
-                          array('nickname' => $this->user->nickname));
     }
 
     function showScripts()

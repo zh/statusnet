@@ -109,17 +109,21 @@ class GroupsAction extends Action
         }
 
         $offset = ($this->page-1) * GROUPS_PER_PAGE;
-        $limit =  GROUPS_PER_PAGE + 1;
+        $limit  = GROUPS_PER_PAGE + 1;
+
+        $qry = 'SELECT user_group.* '.
+          'from user_group join local_group on user_group.id = local_group.group_id '.
+          'order by user_group.created desc '.
+          'limit ' . $limit . ' offset ' . $offset;
 
         $groups = new User_group();
-        $groups->orderBy('created DESC');
-        $groups->limit($offset, $limit);
 
         $cnt = 0;
-        if ($groups->find()) {
-            $gl = new GroupList($groups, null, $this);
-            $cnt = $gl->show();
-        }
+
+        $groups->query($qry);
+
+        $gl = new GroupList($groups, null, $this);
+        $cnt = $gl->show();
 
         $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
                           $this->page, 'groups');

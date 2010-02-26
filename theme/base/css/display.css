@@ -288,7 +288,7 @@ margin-left:18px;
 }
 #site_nav_global_primary li {
 display:inline;
-margin-left:11px;
+margin-left:18px;
 }
 
 .system_notice dt {
@@ -370,7 +370,7 @@ margin-bottom:11px;
 
 #site_nav_global_secondary ul li {
 display:inline;
-margin-right:11px;
+margin-right:18px;
 }
 #export_data li a {
 padding-left:20px;
@@ -383,15 +383,13 @@ padding-left:28px;
 }
 
 #export_data ul {
-display:inline;
+width:100%;
+float:left;
 }
 #export_data li {
 list-style-type:none;
-display:inline;
-margin-left:11px;
-}
-#export_data li:first-child {
-margin-left:0;
+float:left;
+margin-right:11px;
 }
 
 #licenses {
@@ -801,8 +799,8 @@ list-style-type:none;
 display:inline;
 }
 .entity_tags li {
-display:inline;
-margin-right:4px;
+float:left;
+margin-right:11px;
 }
 
 .aside .section {
@@ -820,6 +818,7 @@ font-size:1em;
 #entity_statistics dt,
 #entity_statistics dd {
 display:inline;
+margin-right:11px;
 }
 #entity_statistics dt:after {
 content: ":";
@@ -1036,6 +1035,7 @@ text-decoration:underline;
 
 .notice .entry-title {
 overflow:hidden;
+word-wrap:break-word;
 }
 .notice .entry-title.ov {
 overflow:visible;
@@ -1104,25 +1104,22 @@ left:0;
 
 .dialogbox {
 position:absolute;
-top:-4px;
-right:29px;
+top:-1px;
+right:-1px;
 z-index:9;
-min-width:199px;
 float:none;
-background-color:#FFF;
 padding:11px;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
 border-style:solid;
 border-width:1px;
-border-color:#DDDDDD;
--moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 }
 
 .dialogbox legend {
 display:block !important;
 margin-right:18px;
+margin-bottom:18px;
 }
 
 .dialogbox button.close {
@@ -1131,10 +1128,21 @@ right:3px;
 top:3px;
 }
 
+.dialogbox .form_guide {
+font-weight:normal;
+padding:0;
+}
+
 .dialogbox .submit_dialogbox {
 font-weight:bold;
 text-indent:0;
 min-width:46px;
+}
+.dialogbox input {
+padding-left:4px;
+}
+.dialogbox fieldset {
+margin-bottom:0;
 }
 
 #wrap form.processing input.submit,
@@ -1143,6 +1151,12 @@ min-width:46px;
 cursor:wait;
 outline:none;
 text-indent:-9999px;
+}
+
+.form_repeat.dialogbox {
+top:-4px;
+right:29px;
+min-width:199px;
 }
 
 .notice-options {
@@ -1413,6 +1427,9 @@ margin-bottom:18px;
 .hentry .entry-content li li {
 margin-left:18px;
 }
+.hentry .entry-content .form_settings ul {
+margin-left:0;
+}
 
 #content #plugin_authors {
 min-width:122px;
@@ -1473,12 +1490,18 @@ text-align:center;
 }
 .aside .tag-cloud {
 font-size:0.8em;
+word-wrap:break-word;
 }
 .tag-cloud li {
 display:inline;
 margin-right:7px;
 line-height:1.25;
 }
+
+.tag-cloud li:before {
+content:'\0009';
+}
+
 .aside .tag-cloud li {
 line-height:1.5;
 }

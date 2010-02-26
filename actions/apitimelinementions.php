@@ -117,7 +117,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             _('%1$s / Updates mentioning %2$s'),
             $sitename, $this->user->nickname
         );
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Mentions:" . $this->user->id;
         $link       = common_local_url(
             'replies',
@@ -137,12 +137,36 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
             break;
         case 'atom':
-            $selfuri = common_root_url() .
-                ltrim($_SERVER['QUERY_STRING'], 'p=');
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link, $subtitle,
-                null, $selfuri, $logo
+
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'replies',
+                    array('nickname' => $this->user->nickname)
+                )
             );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
+            }
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineMentions', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

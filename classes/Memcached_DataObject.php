@@ -314,7 +314,7 @@ class Memcached_DataObject extends Safe_DataObject
             $cached[] = clone($inst);
         }
         $inst->free();
-        $c->set($ckey, $cached, MEMCACHE_COMPRESSED, $expiry);
+        $c->set($ckey, $cached, Cache::COMPRESSED, $expiry);
         return new ArrayWrapper($cached);
     }
 
@@ -501,7 +501,11 @@ class Memcached_DataObject extends Safe_DataObject
 
     function raiseError($message, $type = null, $behaviour = null)
     {
-        throw new ServerException("DB_DataObject error [$type]: $message");
+        $id = get_class($this);
+        if ($this->id) {
+            $id .= ':' . $this->id;
+        }
+        throw new ServerException("[$id] DB_DataObject error [$type]: $message");
     }
 
     static function cacheGet($keyPart)

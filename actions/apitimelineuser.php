@@ -116,8 +116,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s timeline"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:UserTimeline:" . $this->user->id;
         $link       = common_local_url(
             'showstream',
             array('nickname' => $this->user->nickname)
@@ -145,18 +143,51 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             );
             break;
         case 'atom':
-            if (isset($apidata['api_arg'])) {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline/' .
-                    $apidata['api_arg'] . '.atom';
-            } else {
-                $selfuri = common_root_url() .
-                    'api/statuses/user_timeline.atom';
-            }
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, $suplink, $selfuri, $logo
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
+
+            // @todo set all this Atom junk up inside the feed class
+
+            $atom = new AtomUserNoticeFeed($this->user);
+
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'showstream',
+                    array('nickname' => $this->user->nickname)
+                )
             );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
+            }
+
+            $atom->setId($this->getSelfUri('ApiTimelineUser', $aargs));
+
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineUser', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
+            );
+
+            $atom->addLink(
+                $suplink,
+                array(
+                    'rel' => 'http://api.friendfeed.com/2008/03#sup',
+                    'type' => 'application/json'
+                )
+            );
+
+            $atom->addEntryFromNotices($this->notices);
+
+            #$this->raw($atom->getString());
+            print $atom->getString(); // temporary for output buffering
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

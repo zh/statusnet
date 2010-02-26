@@ -113,41 +113,69 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
         $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:HomeTimeline:" . $this->user->id;
-        $link       = common_local_url(
-            'all', array('nickname' => $this->user->nickname)
-        );
+
         $subtitle   = sprintf(
             _('Updates from %1$s and friends on %2$s!'),
             $this->user->nickname, $sitename
         );
-        $logo       = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+
+        $logo = (!empty($avatar)) 
+            ? $avatar->displayUrl() 
+            : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
+            $link = common_local_url(
+                'all',
+                array('nickname' => $this->user->nickname)
+            );
+            $this->showRssTimeline(
+                $this->notices,
+                $title,
+                $link,
+                $subtitle,
+                null,
+                $logo
+            );
             break;
         case 'atom':
 
-            $target_id = $this->arg('id');
+            header('Content-Type: application/atom+xml; charset=utf-8');
 
-            if (isset($target_id)) {
-                $selfuri = common_root_url() .
-                    'api/statuses/home_timeline/' .
-                    $target_id . '.atom';
-            } else {
-                $selfuri = common_root_url() .
-                    'api/statuses/home_timeline.atom';
+            $atom = new AtomNoticeFeed();
+
+            $atom->setId($id);
+            $atom->setTitle($title);
+            $atom->setSubtitle($subtitle);
+            $atom->setLogo($logo);
+            $atom->setUpdated('now');
+
+            $atom->addLink(
+                common_local_url(
+                    'all',
+                    array('nickname' => $this->user->nickname)
+                )
+            );
+
+            $id = $this->arg('id');
+            $aargs = array('format' => 'atom');
+            if (!empty($id)) {
+                $aargs['id'] = $id;
             }
 
-            $this->showAtomTimeline(
-                $this->notices, $title, $id, $link,
-                $subtitle, null, $selfuri, $logo
+            $atom->addLink(
+                $this->getSelfUri('ApiTimelineHome', $aargs),
+                array('rel' => 'self', 'type' => 'application/atom+xml')
             );
+
+            $atom->addEntryFromNotices($this->notices);
+            $this->raw($atom->getString());
+
             break;
         case 'json':
             $this->showJsonTimeline($this->notices);

@@ -85,6 +85,7 @@ class ProfileSection extends Section
                                        'href' => $profile->profileurl,
                                        'rel' => 'contact member',
                                        'class' => 'url'));
+        $this->out->text(' ');
         $avatar = $profile->getAvatar(AVATAR_MINI_SIZE);
         $this->out->element('img', array('src' => (($avatar) ? $avatar->displayUrl() :  Avatar::defaultImage(AVATAR_MINI_SIZE)),
                                     'width' => AVATAR_MINI_SIZE,
@@ -93,6 +94,7 @@ class ProfileSection extends Section
                                     'alt' =>  ($profile->fullname) ?
                                     $profile->fullname :
                                     $profile->nickname));
+        $this->out->text(' ');
         $this->out->element('span', 'fn nickname', $profile->nickname);
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');

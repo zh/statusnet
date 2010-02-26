@@ -716,6 +716,7 @@ class Profile extends Memcached_DataObject
             switch ($right)
             {
             case Right::DELETEOTHERSNOTICE:
+            case Right::MAKEGROUPADMIN:
             case Right::SANDBOXUSER:
             case Right::SILENCEUSER:
             case Right::DELETEUSER:
@@ -752,5 +753,98 @@ class Profile extends Memcached_DataObject
                                                       'repeat_of' => $notice_id));
 
         return !empty($notice);
+    }
+
+    /**
+     * Returns an XML string fragment with limited profile information
+     * as an Atom <author> element.
+     *
+     * Assumes that Atom has been previously set up as the base namespace.
+     *
+     * @return string
+     */
+    function asAtomAuthor()
+    {
+        $xs = new XMLStringer(true);
+
+        $xs->elementStart('author');
+        $xs->element('name', null, $this->nickname);
+        $xs->element('uri', null, $this->getUri());
+        $xs->elementEnd('author');
+
+        return $xs->getString();
+    }
+
+    /**
+     * Returns an XML string fragment with profile information as an
+     * Activity Streams <activity:actor> element.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @return string
+     */
+    function asActivityActor()
+    {
+        return $this->asActivityNoun('actor');
+    }
+
+    /**
+     * Returns an XML string fragment with profile information as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
+     *
+     * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $noun = ActivityObject::fromProfile($this);
+        return $noun->asString('activity:' . $element);
+    }
+
+    /**
+     * Returns the best URI for a profile. Plugins may override.
+     *
+     * @return string $uri
+     */
+    function getUri()
+    {
+        $uri = null;
+
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
+
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
+
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
+                // return OMB profile if any
+                $remote = Remote_profile::staticGet('id', $this->id);
+                if (!empty($remote)) {
+                    $uri = $remote->uri;
+                }
+            }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
+        }
+
+        return $uri;
+    }
+
+    function hasBlocked($other)
+    {
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (empty($block)) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+
+        return $result;
     }
 }

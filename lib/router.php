@@ -247,6 +247,9 @@ class Router
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => '[a-zA-Z0-9]+'));
+                $m->connect('group/:id/id/'.$v,
+                            array('action' => $v.'group'),
+                            array('id' => '[0-9]+'));
             }
 
             foreach (array('members', 'logo', 'rss', 'designsettings') as $n) {
@@ -668,7 +671,7 @@ class Router
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
-                               'replies', 'microsummary') as $a) {
+                               'replies', 'microsummary', 'hcard') as $a) {
                     $m->connect($a,
                                 array('action' => $a,
                                       'nickname' => $nickname));
@@ -712,6 +715,10 @@ class Router
                                   'nickname' => $nickname),
                             array('tag' => '[a-zA-Z0-9]+'));
 
+                $m->connect('rsd.xml',
+                            array('action' => 'rsd',
+                                  'nickname' => $nickname));
+
                 $m->connect('',
                             array('action' => 'showstream',
                                   'nickname' => $nickname));
@@ -726,10 +733,11 @@ class Router
                 $m->connect('featured', array('action' => 'featured'));
                 $m->connect('favorited/', array('action' => 'favorited'));
                 $m->connect('favorited', array('action' => 'favorited'));
+                $m->connect('rsd.xml', array('action' => 'rsd'));
 
                 foreach (array('subscriptions', 'subscribers',
                                'nudge', 'all', 'foaf', 'xrds',
-                               'replies', 'inbox', 'outbox', 'microsummary') as $a) {
+                               'replies', 'inbox', 'outbox', 'microsummary', 'hcard') as $a) {
                     $m->connect(':nickname/'.$a,
                                 array('action' => $a),
                                 array('nickname' => '[a-zA-Z0-9]{1,64}'));
@@ -772,6 +780,10 @@ class Router
                             array('action' => 'showstream'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'),
                             array('tag' => '[a-zA-Z0-9]+'));
+
+                $m->connect(':nickname/rsd.xml',
+                            array('action' => 'rsd'),
+                            array('nickname' => '[a-zA-Z0-9]{1,64}'));
 
                 $m->connect(':nickname',
                             array('action' => 'showstream'),

@@ -294,6 +294,7 @@ class NoticeListItem extends Widget
         }
         $this->out->elementStart('a', $attrs);
         $this->showAvatar();
+        $this->out->text(' ');
         $this->showNickname();
         $this->out->elementEnd('a');
         $this->out->elementEnd('span');
@@ -379,12 +380,12 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
-            $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        }else{
-            $noticeurl = $this->notice->uri;
-        }
+        $noticeurl = $this->notice->bestUrl();
+
+        // above should always return an URL
+
+        assert(!empty($noticeurl));
+
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                             'class' => 'timestamp',
                                             'href' => $noticeurl));
@@ -432,17 +433,20 @@ class NoticeListItem extends Widget
 
         $url  = $location->getUrl();
 
+        $this->out->text(' ');
         $this->out->elementStart('span', array('class' => 'location'));
         $this->out->text(_('at'));
+        $this->out->text(' ');
         if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo',
+            $this->out->element('abbr', array('class' => 'geo',
                                               'title' => $latlon),
                                 $name);
         } else {
-            $this->out->element('a', array('class' => 'geo',
-                                           'title' => $latlon,
-                                           'href' => $url),
+            $this->out->elementStart('a', array('href' => $url));
+            $this->out->element('abbr', array('class' => 'geo',
+                                              'title' => $latlon),
                                 $name);
+            $this->out->elementEnd('a');
         }
         $this->out->elementEnd('span');
     }
@@ -473,9 +477,11 @@ class NoticeListItem extends Widget
     function showNoticeSource()
     {
         if ($this->notice->source) {
+            $this->out->text(' ');
             $this->out->elementStart('span', 'source');
             $this->out->text(_('from'));
             $source_name = _($this->notice->source);
+            $this->out->text(' ');
             switch ($this->notice->source) {
              case 'web':
              case 'xmpp':
@@ -487,30 +493,34 @@ class NoticeListItem extends Widget
                 break;
              default:
 
-                $name = null;
+                $name = $source_name;
                 $url  = null;
 
-                $ns = Notice_source::staticGet($this->notice->source);
+                if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
+                    $ns = Notice_source::staticGet($this->notice->source);
 
-                if ($ns) {
-                    $name = $ns->name;
-                    $url  = $ns->url;
-                } else {
-                    $app = Oauth_application::staticGet('name', $this->notice->source);
-                    if ($app) {
-                        $name = $app->name;
-                        $url  = $app->source_url;
+                    if ($ns) {
+                        $name = $ns->name;
+                        $url  = $ns->url;
+                    } else {
+                        $app = Oauth_application::staticGet('name', $this->notice->source);
+                        if ($app) {
+                            $name = $app->name;
+                            $url  = $app->source_url;
+                        }
                     }
                 }
+                Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
 
                 if (!empty($name) && !empty($url)) {
                     $this->out->elementStart('span', 'device');
                     $this->out->element('a', array('href' => $url,
-                                                   'rel' => 'external'),
+                                                   'rel' => 'external',
+                                                   'title' => $title),
                                         $name);
                     $this->out->elementEnd('span');
                 } else {
-                    $this->out->element('span', 'device', $source_name);
+                    $this->out->element('span', 'device', $name);
                 }
                 break;
             }
@@ -540,6 +550,7 @@ class NoticeListItem extends Widget
             }
         }
         if ($hasConversation){
+            $this->out->text(' ');
             $convurl = common_local_url('conversation',
                                          array('id' => $this->notice->conversation));
             $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
@@ -591,12 +602,14 @@ class NoticeListItem extends Widget
     function showReplyLink()
     {
         if (common_logged_in()) {
+            $this->out->text(' ');
             $reply_url = common_local_url('newnotice',
                                           array('replyto' => $this->profile->nickname, 'inreplyto' => $this->notice->id));
             $this->out->elementStart('a', array('href' => $reply_url,
                                                 'class' => 'notice_reply',
                                                 'title' => _('Reply to this notice')));
             $this->out->text(_('Reply'));
+            $this->out->text(' ');
             $this->out->element('span', 'notice_id', $this->notice->id);
             $this->out->elementEnd('a');
         }
@@ -616,7 +629,7 @@ class NoticeListItem extends Widget
 
         if (!empty($user) &&
             ($todel->profile_id == $user->id || $user->hasRight(Right::DELETEOTHERSNOTICE))) {
-
+            $this->out->text(' ');
             $deleteurl = common_local_url('deletenotice',
                                           array('notice' => $todel->id));
             $this->out->element('a', array('href' => $deleteurl,
@@ -635,6 +648,7 @@ class NoticeListItem extends Widget
     {
         $user = common_current_user();
         if ($user && $user->id != $this->notice->profile_id) {
+            $this->out->text(' ');
             $profile = $user->getProfile();
             if ($profile->hasRepeated($this->notice->id)) {
                 $this->out->element('span', array('class' => 'repeated',
