@@ -76,6 +76,32 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
     }
+
+    function onEndShowPageNotice($action)
+    {
+        $name = $action->trimmed('action');
+        $instr = false;
+
+        switch ($name)
+        {
+         case 'register':
+            if($this->autoregistration) {
+                $instr = 'Have an LDAP account? Use your standard username and password.';
+            }
+            break;
+         case 'login':
+            $instr = 'Have an LDAP account? Use your standard username and password.';
+            break;
+         default:
+            return true;
+        }
+
+        if($instr) {
+            $output = common_markup_to_html($instr);
+            $action->raw($output);
+        }
+        return true;
+    }
     
     //---interface implementation---//
 
