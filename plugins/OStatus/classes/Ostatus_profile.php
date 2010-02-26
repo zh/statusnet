@@ -1305,7 +1305,7 @@ class Ostatus_profile extends Memcached_DataObject
             case Discovery::UPDATESFROM:
                 $feedUrl = $link['href'];
                 break;
-            case Webfinger::HCARD:
+            case Discovery::HCARD:
                 $hcardUrl = $link['href'];
                 break;
             default:

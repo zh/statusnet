@@ -111,6 +111,10 @@ class Discovery
     }
 
     public static function getService($links, $service) {
+        if (!is_array($links)) {
+            return false;
+        }
+        
         foreach ($links as $link) {
             if ($link['rel'] == $service) {
                 return $link;
