@@ -480,7 +480,7 @@ class AvatarLink
         }
         $alink = new AvatarLink();
         $alink->type   = $avatar->mediatype;
-        $alink->height = $avatar->mediatype;
+        $alink->height = $avatar->height;
         $alink->width  = $avatar->width;
         $alink->url    = $avatar->displayUrl();
         return $alink;
