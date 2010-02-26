@@ -1219,7 +1219,12 @@ class ApiAction extends Action
                 return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
@@ -1228,14 +1233,24 @@ class ApiAction extends Action
                 }
             } else if ($this->arg('group_name')) {
                 $nickname = common_canonical_nickname($this->arg('group_name'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             }
 
         } else if (is_numeric($id)) {
             return User_group::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
-            return User_group::staticGet('nickname', $nickname);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if (empty($local)) {
+                return null;
+            } else {
+                return User_group::staticGet('id', $local->group_id);
+            }
         }
     }
 

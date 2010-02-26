@@ -40,7 +40,11 @@ class PushInQueueHandler extends QueueHandler
 
         $feedsub = FeedSub::staticGet('id', $feedsub_id);
         if ($feedsub) {
-            $feedsub->receive($post, $hmac);
+            try {
+                $feedsub->receive($post, $hmac);
+            } catch(Exception $e) {
+                common_log(LOG_ERR, "Exception during PuSH input processing for $feedsub->uri: " . $e->getMessage());
+            }
         } else {
             common_log(LOG_ERR, "Discarding POST to unknown feed subscription id $feedsub_id");
         }

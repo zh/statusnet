@@ -320,18 +320,12 @@ var SN = { // StatusNet
             }
         },
 
-        NoticeReplyTo: function(notice_item) {
-            var notice = notice_item[0];
-            var notice_reply = $('.notice_reply', notice)[0];
-
-            if (jQuery.data(notice_reply, "ElementData") === undefined) {
-                jQuery.data(notice_reply, "ElementData", {Bind:'submit'});
-                $(notice_reply).bind('click', function() {
-                    var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
-                    SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
-                    return false;
-                });
-            }
+        NoticeReplyTo: function(notice) {
+            notice.find('.notice_reply').live('click', function() {
+                var nickname = ($('.author .nickname', notice).length > 0) ? $($('.author .nickname', notice)[0]) : $('.author .nickname.uid');
+                SN.U.NoticeReplySet(nickname.text(), $($('.notice_id', notice)[0]).text());
+                return false;
+            });
         },
 
         NoticeReplySet: function(nick,id) {

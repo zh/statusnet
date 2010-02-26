@@ -154,7 +154,15 @@ class PoCo
                 PoCo::NS
             );
 
-            array_push($urls, new PoCoURL($type, $value, $primary));
+            $isPrimary = false;
+
+            if (isset($primary) && $primary == 'true') {
+                $isPrimary = true;
+            }
+
+            // @todo check to make sure a primary hasn't already been added
+
+            array_push($urls, new PoCoURL($type, $value, $isPrimary));
         }
         return $urls;
     }
@@ -213,6 +221,46 @@ class PoCo
         }
 
         return $poco;
+    }
+
+    function fromGroup($group)
+    {
+        if (empty($group)) {
+            return null;
+        }
+
+        $poco = new PoCo();
+
+        $poco->preferredUsername = $group->nickname;
+        $poco->displayName       = $group->getBestName();
+
+        $poco->note = $group->description;
+
+        $paddy = new PoCoAddress();
+        $paddy->formatted = $group->location;
+        $poco->address = $paddy;
+
+        if (!empty($group->homepage)) {
+            array_push(
+                $poco->urls,
+                new PoCoURL(
+                    'homepage',
+                    $group->homepage,
+                    true
+                )
+            );
+        }
+
+        return $poco;
+    }
+
+    function getPrimaryURL()
+    {
+        foreach ($this->urls as $url) {
+            if ($url->primary) {
+                return $url;
+            }
+        }
     }
 
     function asString()
@@ -310,6 +358,25 @@ class ActivityUtils
         }
 
         return null;
+    }
+
+    static function getLinks(DOMNode $element, $rel, $type=null)
+    {
+        $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
+        $out = array();
+
+        foreach ($links as $link) {
+
+            $linkRel = $link->getAttribute(self::REL);
+            $linkType = $link->getAttribute(self::TYPE);
+
+            if ($linkRel == $rel &&
+                (is_null($type) || $linkType == $type)) {
+                $out[] = $link;
+            }
+        }
+
+        return $out;
     }
 
     /**
@@ -417,6 +484,75 @@ class ActivityUtils
     }
 }
 
+// XXX: Arg! This wouldn't be necessary if we used Avatars conistently
+class AvatarLink
+{
+    public $url;
+    public $type;
+    public $size;
+    public $width;
+    public $height;
+
+    function __construct($element=null)
+    {
+        if ($element) {
+            // @fixme use correct namespaces
+            $this->url = $element->getAttribute('href');
+            $this->type = $element->getAttribute('type');
+            $width = $element->getAttribute('media:width');
+            if ($width != null) {
+                $this->width = intval($width);
+            }
+            $height = $element->getAttribute('media:height');
+            if ($height != null) {
+                $this->height = intval($height);
+            }
+        }
+    }
+
+    static function fromAvatar($avatar)
+    {
+        if (empty($avatar)) {
+            return null;
+        }
+        $alink = new AvatarLink();
+        $alink->type   = $avatar->mediatype;
+        $alink->height = $avatar->height;
+        $alink->width  = $avatar->width;
+        $alink->url    = $avatar->displayUrl();
+        return $alink;
+    }
+
+    static function fromFilename($filename, $size)
+    {
+        $alink = new AvatarLink();
+        $alink->url    = $filename;
+        $alink->height = $size;
+        if (!empty($filename)) {
+            $alink->width  = $size;
+            $alink->type   = self::mediatype($filename);
+        } else {
+            $alink->url    = User_group::defaultLogo($size);
+            $alink->type   = 'image/png';
+        }
+        return $alink;
+    }
+
+    // yuck!
+    static function mediatype($filename) {
+        $ext = strtolower(end(explode('.', $filename)));
+        if ($ext == 'jpeg') {
+            $ext = 'jpg';
+        }
+        // hope we don't support any others
+        $types = array('png', 'gif', 'jpg', 'jpeg');
+        if (in_array($ext, $types)) {
+            return 'image/' . $ext;
+        }
+        return null;
+    }
+}
+
 /**
  * A noun-ish thing in the activity universe
  *
@@ -473,7 +609,7 @@ class ActivityObject
     public $content;
     public $link;
     public $source;
-    public $avatar;
+    public $avatarLinks = array();
     public $geopoint;
     public $poco;
     public $displayName;
@@ -495,6 +631,12 @@ class ActivityObject
         }
 
         $this->element = $element;
+
+        $this->geopoint = $this->_childContent(
+            $element,
+            ActivityContext::POINT,
+            ActivityContext::GEORSS
+        );
 
         if ($element->tagName == 'author') {
 
@@ -535,8 +677,10 @@ class ActivityObject
         if ($this->type == self::PERSON || $this->type == self::GROUP) {
             $this->displayName = $this->title;
 
-            // @fixme we may have multiple avatars with different resolutions specified
-            $this->avatar = ActivityUtils::getLink($element, 'avatar');
+            $avatars = ActivityUtils::getLinks($element, 'avatar');
+            foreach ($avatars as $link) {
+                $this->avatarLinks[] = new AvatarLink($link);
+            }
 
             $this->poco = new PoCo($element);
         }
@@ -587,16 +731,76 @@ class ActivityObject
         $object->id     = $profile->getUri();
         $object->title  = $profile->getBestName();
         $object->link   = $profile->profileurl;
-        $object->avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
+
+        $orig = $profile->getOriginalAvatar();
+
+        if (!empty($orig)) {
+            $object->avatarLinks[] = AvatarLink::fromAvatar($orig);
+        }
+
+        $sizes = array(
+            AVATAR_PROFILE_SIZE,
+            AVATAR_STREAM_SIZE,
+            AVATAR_MINI_SIZE
+        );
+
+        foreach ($sizes as $size) {
+
+            $alink  = null;
+            $avatar = $profile->getAvatar($size);
+
+            if (!empty($avatar)) {
+                $alink = AvatarLink::fromAvatar($avatar);
+            } else {
+                $alink = new AvatarLink();
+                $alink->type   = 'image/png';
+                $alink->height = $size;
+                $alink->width  = $size;
+                $alink->url    = Avatar::defaultImage($size);
+            }
+
+            $object->avatarLinks[] = $alink;
+        }
 
         if (isset($profile->lat) && isset($profile->lon)) {
-            $object->geopoint = (float)$profile->lat . ' ' . (float)$profile->lon;
+            $object->geopoint = (float)$profile->lat
+                . ' ' . (float)$profile->lon;
         }
 
         $object->poco = PoCo::fromProfile($profile);
 
         return $object;
     }
+
+    static function fromGroup($group)
+    {
+        $object = new ActivityObject();
+
+        $object->type   = ActivityObject::GROUP;
+        $object->id     = $group->getUri();
+        $object->title  = $group->getBestName();
+        $object->link   = $group->getUri();
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->homepage_logo,
+            AVATAR_PROFILE_SIZE
+        );
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->stream_logo,
+            AVATAR_STREAM_SIZE
+        );
+
+        $object->avatarLinks[] = AvatarLink::fromFilename(
+            $group->mini_logo,
+            AVATAR_MINI_SIZE
+        );
+
+        $object->poco = PoCo::fromGroup($group);
+
+        return $object;
+    }
+
 
     function asString($tag='activity:object')
     {
@@ -635,16 +839,19 @@ class ActivityObject
 
         if ($this->type == ActivityObject::PERSON
             || $this->type == ActivityObject::GROUP) {
-            $xs->element(
-                'link', array(
-                    'type' => empty($this->avatar) ? 'image/png' : $this->avatar->mediatype,
-                    'rel'  => 'avatar',
-                    'href' => empty($this->avatar)
-                    ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                    : $this->avatar->displayUrl()
-                ),
-                null
-            );
+
+            foreach ($this->avatarLinks as $avatar) {
+                $xs->element(
+                    'link', array(
+                        'rel'  => 'avatar',
+                        'type'         => $avatar->type,
+                        'media:width'  => $avatar->width,
+                        'media:height' => $avatar->height,
+                        'href' => $avatar->url
+                    ),
+                    null
+                );
+            }
         }
 
         if (!empty($this->geopoint)) {
@@ -761,20 +968,27 @@ class ActivityContext
 
         for ($i = 0; $i < $points->length; $i++) {
             $point = $points->item($i)->textContent;
-            $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
-            $point = preg_replace('/\s+/', ' ', $point);
-            $point = trim($point);
-            $coords = explode(' ', $point);
-            if (count($coords) == 2) {
-                list($lat, $lon) = $coords;
-                if (is_numeric($lat) && is_numeric($lon)) {
-                    common_log(LOG_INFO, "Looking up location for $lat $lon from georss");
-                    return Location::fromLatLon($lat, $lon);
-                }
-            }
-            common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
+            return self::locationFromPoint($point);
         }
 
+        return null;
+    }
+
+    // XXX: Move to ActivityUtils or Location?
+    static function locationFromPoint($point)
+    {
+        $point = str_replace(',', ' ', $point); // per spec "treat commas as whitespace"
+        $point = preg_replace('/\s+/', ' ', $point);
+        $point = trim($point);
+        $coords = explode(' ', $point);
+        if (count($coords) == 2) {
+            list($lat, $lon) = $coords;
+            if (is_numeric($lat) && is_numeric($lon)) {
+                common_log(LOG_INFO, "Looking up location for $lat $lon from georss point");
+                return Location::fromLatLon($lat, $lon);
+            }
+        }
+        common_log(LOG_ERR, "Ignoring bogus georss:point value $point");
         return null;
     }
 }
@@ -829,6 +1043,7 @@ class Activity
     public $content; // HTML content of activity
     public $id;      // ID of the activity
     public $title;   // title of the activity
+    public $categories = array(); // list of AtomCategory objects
 
     /**
      * Turns a regular old Atom <entry> into a magical activity
@@ -917,6 +1132,14 @@ class Activity
         $this->summary = ActivityUtils::childContent($entry, 'summary');
         $this->id      = ActivityUtils::childContent($entry, 'id');
         $this->content = ActivityUtils::getContent($entry);
+
+        $catEls = $entry->getElementsByTagNameNS(self::ATOM, 'category');
+        if ($catEls) {
+            for ($i = 0; $i < $catEls->length; $i++) {
+                $catEl = $catEls->item($i);
+                $this->categories[] = new AtomCategory($catEl);
+            }
+        }
     }
 
     /**
@@ -939,7 +1162,8 @@ class Activity
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:georss' => 'http://www.georss.org/georss',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
-                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0');
+                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
+                           'xmlns:media' => 'http://purl.org/syndication/atommedia');
         } else {
             $attrs = array();
         }
@@ -981,6 +1205,10 @@ class Activity
             $xs->raw($this->target->asString('activity:target'));
         }
 
+        foreach ($this->categories as $cat) {
+            $xs->raw($cat->asString());
+        }
+
         $xs->elementEnd('entry');
 
         return $xs->getString();
@@ -989,5 +1217,51 @@ class Activity
     private function _child($element, $tag, $namespace=self::SPEC)
     {
         return ActivityUtils::child($element, $tag, $namespace);
+    }
+}
+
+class AtomCategory
+{
+    public $term;
+    public $scheme;
+    public $label;
+
+    function __construct($element=null)
+    {
+        if ($element && $element->attributes) {
+            $this->term = $this->extract($element, 'term');
+            $this->scheme = $this->extract($element, 'scheme');
+            $this->label = $this->extract($element, 'label');
+        }
+    }
+
+    protected function extract($element, $attrib)
+    {
+        $node = $element->attributes->getNamedItemNS(Activity::ATOM, $attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        $node = $element->attributes->getNamedItem($attrib);
+        if ($node) {
+            return trim($node->textContent);
+        }
+        return null;
+    }
+
+    function asString()
+    {
+        $attribs = array();
+        if ($this->term !== null) {
+            $attribs['term'] = $this->term;
+        }
+        if ($this->scheme !== null) {
+            $attribs['scheme'] = $this->scheme;
+        }
+        if ($this->label !== null) {
+            $attribs['label'] = $this->label;
+        }
+        $xs = new XMLStringer();
+        $xs->element('category', $attribs);
+        return $xs->asString();
     }
 }

@@ -24,7 +24,7 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class WebfingerAction extends Action
+class XrdAction extends Action
 {
 
     public $uri;
@@ -40,11 +40,11 @@ class WebfingerAction extends Action
 
     function handle()
     {
-        $acct = Webfinger::normalize($this->uri);
+        $acct = Discovery::normalize($this->uri);
 
         $xrd = new XRD();
 
-        list($nick, $domain) = explode('@', urldecode($acct));
+        list($nick, $domain) = explode('@', substr(urldecode($acct), 5));
         $nick = common_canonical_nickname($nick);
 
         $this->user = User::staticGet('nickname', $nick);
@@ -55,20 +55,20 @@ class WebfingerAction extends Action
 
         $xrd->subject = $this->uri;
         $xrd->alias[] = common_profile_url($nick);
-        $xrd->links[] = array('rel' => Webfinger::PROFILEPAGE,
+        $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
                               'type' => 'text/html',
                               'href' => common_profile_url($nick));
 
-        $xrd->links[] = array('rel' => Webfinger::UPDATESFROM,
+        $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
                               'href' => common_local_url('ApiTimelineUser',
                                                          array('id' => $this->user->id,
                                                                'format' => 'atom')),
                               'type' => 'application/atom+xml');
 
         // hCard
-        $xrd->links[] = array('rel' => 'http://microformats.org/profile/hcard',
+        $xrd->links[] = array('rel' => Discovery::HCARD,
                               'type' => 'text/html',
-                              'href' => common_profile_url($nick));
+                              'href' => common_local_url('hcard', array('nickname' => $nick)));
 
         // XFN
         $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
@@ -78,8 +78,8 @@ class WebfingerAction extends Action
         $xrd->links[] = array('rel' => 'describedby',
                               'type' => 'application/rdf+xml',
                               'href' => common_local_url('foaf',
-                                                         array('nickname' => $nick)));                        
-        
+                                                         array('nickname' => $nick)));
+
         $salmon_url = common_local_url('salmon',
                                        array('id' => $this->user->id));
 
@@ -91,12 +91,12 @@ class WebfingerAction extends Action
         if (!$magickey) {
             // No keypair yet, let's generate one.
             $magickey = new Magicsig();
-            $magickey->generate();
+            $magickey->generate($this->user->id);
         }
-        
+
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
                               'href' => 'data:application/magic-public-key;'. $magickey->keypair);
-        
+
         // TODO - finalize where the redirect should go on the publisher
         $url = common_local_url('ostatussub') . '?profile={uri}';
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',

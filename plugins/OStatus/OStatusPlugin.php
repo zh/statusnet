@@ -43,8 +43,8 @@ class OStatusPlugin extends Plugin
         // Discovery actions
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
-        $m->connect('main/webfinger',
-                    array('action' => 'webfinger'));
+        $m->connect('main/xrd',
+                    array('action' => 'xrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
@@ -102,6 +102,20 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add a link header for LRDD Discovery
+     */
+    function onStartShowHTML($action)
+    {
+        if ($action instanceof ShowstreamAction) {
+            $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
+            $url = common_local_url('xrd');
+            $url.= '?uri='. $acct;
+            
+            header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
+        }
+    }
+    
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
@@ -210,7 +224,7 @@ class OStatusPlugin extends Plugin
      *
      */
 
-    function onStartFindMentions($sender, $text, &$mentions)
+    function onEndFindMentions($sender, $text, &$mentions)
     {
         preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
                        $text,
@@ -233,11 +247,21 @@ class OStatusPlugin extends Plugin
 
                 $this->log(LOG_INFO, "Ostatus_profile found for address '$webfinger'");
 
+                if ($oprofile->isGroup()) {
+                    continue;
+                }
                 $profile = $oprofile->localProfile();
 
+                $pos = $wmatch[1];
+                foreach ($mentions as $i => $other) {
+                    // If we share a common prefix with a local user, override it!
+                    if ($other['position'] == $pos) {
+                        unset($mentions[$i]);
+                    }
+                }
                 $mentions[] = array('mentioned' => array($profile),
                                     'text' => $wmatch[0],
-                                    'position' => $wmatch[1],
+                                    'position' => $pos,
                                     'url' => $profile->profileurl);
             }
         }
@@ -634,7 +658,7 @@ class OStatusPlugin extends Plugin
 
     function onStartUserGroupHomeUrl($group, &$url)
     {
-        return $this->onStartUserGroupPermalink($group, &$url);
+        return $this->onStartUserGroupPermalink($group, $url);
     }
 
     function onStartUserGroupPermalink($group, &$url)

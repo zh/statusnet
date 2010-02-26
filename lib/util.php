@@ -134,7 +134,7 @@ function common_check_user($nickname, $password)
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
-        $user = User::staticGet('nickname', $nickname);
+        $user = User::staticGet('nickname', common_canonical_nickname($nickname));
         if (!empty($user)) {
             if (!empty($password)) { // never allow login with blank password
                 if (0 == strcmp(common_munge_password($password, $user->id),
@@ -1599,6 +1599,7 @@ function common_database_tablename($tablename)
  */
 function common_shorten_url($long_url)
 {
+    $long_url = trim($long_url);
     $user = common_current_user();
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
@@ -1613,7 +1614,7 @@ function common_shorten_url($long_url)
         return $long_url;
     }else{
         //URL was shortened, so return the result
-        return $shortenedUrl;
+        return trim($shortenedUrl);
     }
 }
 
@@ -1690,7 +1691,8 @@ function common_url_to_nickname($url)
             # Strip starting, ending slashes
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
-            if (strpos($path, '/') === false) {
+            $path = basename($path);
+            if ($path) {
                 return common_nicknamize($path);
             }
         }
