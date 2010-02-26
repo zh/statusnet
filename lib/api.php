@@ -1248,7 +1248,7 @@ class ApiAction extends Action
             if (empty($local)) {
                 return null;
             } else {
-                return User_group::staticGet('id', $local->id);
+                return User_group::staticGet('id', $local->group_id);
             }
         }
     }
