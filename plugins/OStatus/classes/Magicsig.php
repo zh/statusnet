@@ -50,7 +50,11 @@ class Magicsig extends Memcached_DataObject
     public /*static*/ function staticGet($k, $v=null)
     {
         $obj =  parent::staticGet(__CLASS__, $k, $v);
-        return Magicsig::fromString($obj->keypair);
+        if (!empty($obj)) {
+            return Magicsig::fromString($obj->keypair);
+        }
+
+        return $obj;
     }
 
 
