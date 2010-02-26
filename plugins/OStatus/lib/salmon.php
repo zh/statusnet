@@ -42,14 +42,14 @@ class Salmon
      * @param string $xml
      * @return boolean success
      */
-    public function post($endpoint_uri, $xml)
+    public function post($endpoint_uri, $xml, $actor)
     {
         if (empty($endpoint_uri)) {
             return false;
         }
 
         if (!common_config('ostatus', 'skip_signatures')) {
-            $xml = $this->createMagicEnv($xml);
+            $xml = $this->createMagicEnv($xml, $actor);
         }
 
         $headers = array('Content-Type: application/atom+xml');
@@ -70,15 +70,27 @@ class Salmon
         return true;
     }
 
-    public function createMagicEnv($text)
+    public function createMagicEnv($text, $actor)
     {
+        common_log(LOG_DEBUG, "Got actor as : ". print_r($actor, true));
         $magic_env = new MagicEnvelope();
 
-        // TODO: Should probably be getting the signer uri as an argument?
-        $signer_uri = $magic_env->getAuthor($text);
+        $user = User::staticGet('id', $actor->id);
+        if ($user->id) {
+            // Use local key
+            $magickey = Magicsig::staticGet('user_id', $user->id);
+            if (!$magickey) {
+                // No keypair yet, let's generate one.
+                $magickey = new Magicsig();
+                $magickey->generate($user->id);
+            } 
+            common_log(LOG_DEBUG, "Salmon: Loaded key for ". $user->id);
+        } else {
+            throw new Exception("Salmon invalid actor for signing");
+        }
 
         try {
-            $env = $magic_env->signMessage($text, 'application/atom+xml', $signer_uri);
+            $env = $magic_env->signMessage($text, 'application/atom+xml', $magickey->toString());
         } catch (Exception $e) {
             common_log(LOG_ERR, "Salmon signing failed: ". $e->getMessage());
             return $text;

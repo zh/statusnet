@@ -357,7 +357,7 @@ class Ostatus_profile extends Memcached_DataObject
             common_log(LOG_INFO, "Posting to Salmon endpoint $this->salmonuri: $xml");
 
             $salmon = new Salmon(); // ?
-            return $salmon->post($this->salmonuri, $xml);
+            return $salmon->post($this->salmonuri, $xml, $actor);
         }
         return false;
     }
@@ -369,11 +369,11 @@ class Ostatus_profile extends Memcached_DataObject
      * @param mixed $entry XML string, Notice, or Activity
      * @return boolean success
      */
-    public function notifyActivity($entry)
+    public function notifyActivity($entry, $actor)
     {
         if ($this->salmonuri) {
             $salmon = new Salmon();
-            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry));
+            return $salmon->post($this->salmonuri, $this->notifyPrepXml($entry), $actor);
         }
 
         return false;
@@ -386,11 +386,12 @@ class Ostatus_profile extends Memcached_DataObject
      * @param mixed $entry XML string, Notice, or Activity
      * @return boolean success
      */
-    public function notifyDeferred($entry)
+    public function notifyDeferred($entry, $actor)
     {
         if ($this->salmonuri) {
             $data = array('salmonuri' => $this->salmonuri,
-                          'entry' => $this->notifyPrepXml($entry));
+                          'entry' => $this->notifyPrepXml($entry),
+                          'actor' => $actor->id);
 
             $qm = QueueManager::get();
             return $qm->enqueue($data, 'salmon');
