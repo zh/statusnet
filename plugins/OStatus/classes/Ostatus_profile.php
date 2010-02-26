@@ -150,27 +150,7 @@ class Ostatus_profile extends Memcached_DataObject
     function asActivityObject()
     {
         if ($this->isGroup()) {
-            $object = new ActivityObject();
-            $object->type = 'http://activitystrea.ms/schema/1.0/group';
-            $object->id = $this->uri;
-            $self = $this->localGroup();
-
-            // @fixme put a standard getAvatar() interface on groups too
-            if ($self->homepage_logo) {
-                $object->avatar = $self->homepage_logo;
-                $map = array('png' => 'image/png',
-                             'jpg' => 'image/jpeg',
-                             'jpeg' => 'image/jpeg',
-                             'gif' => 'image/gif');
-                $extension = pathinfo(parse_url($object->avatar, PHP_URL_PATH), PATHINFO_EXTENSION);
-                if (isset($map[$extension])) {
-                    // @fixme this ain't used/saved yet
-                    $object->avatarType = $map[$extension];
-                }
-            }
-
-            $object->link = $this->uri; // @fixme accurate?
-            return $object;
+            return ActivityObject::fromGroup($this->localGroup());
         } else {
             return ActivityObject::fromProfile($this->localProfile());
         }
@@ -189,57 +169,13 @@ class Ostatus_profile extends Memcached_DataObject
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-        $avatarHref = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
-        $avatarType = 'image/png';
         if ($this->isGroup()) {
-            $type = 'http://activitystrea.ms/schema/1.0/group';
-            $self = $this->localGroup();
-
-            // @fixme put a standard getAvatar() interface on groups too
-            if ($self->homepage_logo) {
-                $avatarHref = $self->homepage_logo;
-                $map = array('png' => 'image/png',
-                             'jpg' => 'image/jpeg',
-                             'jpeg' => 'image/jpeg',
-                             'gif' => 'image/gif');
-                $extension = pathinfo(parse_url($avatarHref, PHP_URL_PATH), PATHINFO_EXTENSION);
-                if (isset($map[$extension])) {
-                    $avatarType = $map[$extension];
-                }
-            }
+            $noun = ActivityObject::fromGroup($this->localGroup());
+            return $noun->asString('activity:' . $element);
         } else {
-            $type = 'http://activitystrea.ms/schema/1.0/person';
-            $self = $this->localProfile();
-            $avatar = $self->getAvatar(AVATAR_PROFILE_SIZE);
-            if ($avatar) {
-                  $avatarHref = $avatar->url;
-                  $avatarType = $avatar->mediatype;
-            }
+            $noun = ActivityObject::fromProfile($this->localProfile());
+            return $noun->asString('activity:' . $element);
         }
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            $type
-        );
-        $xs->element(
-            'id',
-            null,
-            $this->uri); // ?
-        $xs->element('title', null, $self->getBestName());
-
-        $xs->element(
-            'link', array(
-                'type' => $avatarType,
-                'href' => $avatarHref
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
     }
 
     /**
@@ -484,36 +420,6 @@ class Ostatus_profile extends Memcached_DataObject
         } else {
             return $this->localProfile()->getBestName();
         }
-    }
-
-    function atomFeed($actor)
-    {
-        $feed = new Atom10Feed();
-        // @fixme should these be set up somewhere else?
-        $feed->addNamespace('activity', 'http://activitystrea.ms/spec/1.0/');
-        $feed->addNamespace('thr', 'http://purl.org/syndication/thread/1.0');
-        $feed->addNamespace('georss', 'http://www.georss.org/georss');
-        $feed->addNamespace('ostatus', 'http://ostatus.org/schema/1.0');
-
-        $taguribase = common_config('integration', 'taguri');
-        $feed->setId("tag:{$taguribase}:UserTimeline:{$actor->id}"); // ???
-
-        $feed->setTitle($actor->getBestName() . ' timeline'); // @fixme
-        $feed->setUpdated(time());
-        $feed->setPublished(time());
-
-        $feed->addLink(common_local_url('ApiTimelineUser',
-                                        array('id' => $actor->id,
-                                              'type' => 'atom')),
-                       array('rel' => 'self',
-                             'type' => 'application/atom+xml'));
-
-        $feed->addLink(common_local_url('userbyid',
-                                        array('id' => $actor->id)),
-                       array('rel' => 'alternate',
-                             'type' => 'text/html'));
-
-        return $feed;
     }
 
     /**
