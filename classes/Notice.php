@@ -973,7 +973,10 @@ class Notice extends Memcached_DataObject
 
         $sender = Profile::staticGet($this->profile_id);
 
-        $mentions = common_find_mentions($this->profile_id, $this->content);
+        // @todo ideally this parser information would only
+        // be calculated once.
+
+        $mentions = common_find_mentions($this->content, $this);
 
         $replied = array();
 
