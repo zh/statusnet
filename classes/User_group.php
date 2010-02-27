@@ -468,7 +468,7 @@ class User_group extends Memcached_DataObject
             $result = $group->update($orig);
             if (!$result) {
                 common_log_db_error($group, 'UPDATE', __FILE__);
-                throw new ServerException(_('Could not set group uri.'));
+                throw new ServerException(_('Could not set group URI.'));
             }
         }
 
