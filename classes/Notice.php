@@ -282,12 +282,6 @@ class Notice extends Memcached_DataObject
 
         $notice->content = $final;
 
-        if (!empty($rendered)) {
-            $notice->rendered = $rendered;
-        } else {
-            $notice->rendered = common_render_content($final, $notice);
-        }
-
         $notice->source = $source;
         $notice->uri = $uri;
         $notice->url = $url;
@@ -313,6 +307,12 @@ class Notice extends Memcached_DataObject
         if (!empty($location_ns) && !empty($location_id)) {
             $notice->location_id = $location_id;
             $notice->location_ns = $location_ns;
+        }
+
+        if (!empty($rendered)) {
+            $notice->rendered = $rendered;
+        } else {
+            $notice->rendered = common_render_content($final, $notice);
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -944,6 +944,8 @@ class Notice extends Memcached_DataObject
                 $reply->profile_id = $user->id;
 
                 $id = $reply->insert();
+
+                self::blow('reply:stream:%d', $user->id);
             }
         }
 
@@ -971,7 +973,10 @@ class Notice extends Memcached_DataObject
 
         $sender = Profile::staticGet($this->profile_id);
 
-        $mentions = common_find_mentions($this->profile_id, $this->content);
+        // @todo ideally this parser information would only
+        // be calculated once.
+
+        $mentions = common_find_mentions($this->content, $this);
 
         $replied = array();
 

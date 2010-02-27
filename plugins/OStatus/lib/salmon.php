@@ -48,11 +48,14 @@ class Salmon
             return false;
         }
 
-        if (!common_config('ostatus', 'skip_signatures')) {
+        try {
             $xml = $this->createMagicEnv($xml, $actor);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Salmon unable to sign: " . $e->getMessage());
+            return false;
         }
 
-        $headers = array('Content-Type: application/atom+xml');
+        $headers = array('Content-Type: application/magic-envelope+xml');
 
         try {
             $client = new HTTPClient();
@@ -72,7 +75,6 @@ class Salmon
 
     public function createMagicEnv($text, $actor)
     {
-        common_log(LOG_DEBUG, "Got actor as : ". print_r($actor, true));
         $magic_env = new MagicEnvelope();
 
         $user = User::staticGet('id', $actor->id);
@@ -84,7 +86,6 @@ class Salmon
                 $magickey = new Magicsig();
                 $magickey->generate($user->id);
             } 
-            common_log(LOG_DEBUG, "Salmon: Loaded key for ". $user->id);
         } else {
             throw new Exception("Salmon invalid actor for signing");
         }
@@ -92,18 +93,17 @@ class Salmon
         try {
             $env = $magic_env->signMessage($text, 'application/atom+xml', $magickey->toString());
         } catch (Exception $e) {
-            common_log(LOG_ERR, "Salmon signing failed: ". $e->getMessage());
             return $text;
         }
-        return $magic_env->unfold($env);
+        return $magic_env->toXML($env);
     }
 
 
-    public function verifyMagicEnv($dom)
+    public function verifyMagicEnv($text)
     {
         $magic_env = new MagicEnvelope();
         
-        $env = $magic_env->fromDom($dom);
+        $env = $magic_env->parse($text);
 
         return $magic_env->verify($env);
     }
