@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:51:05+0000\n"
+"POT-Creation-Date: 2010-02-27 17:32+0000\n"
+"PO-Revision-Date: 2010-02-27 17:33:51+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,7 +21,7 @@ msgstr ""
 "= 31 && n % 100 != 41 && n % 100 != 51 && n % 100 != 61 && n % 100 != 71 && "
 "n % 100 != 81 && n % 100 != 91);\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:326
+#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:337
 #, fuzzy
 msgid "Access"
 msgstr "Samþykkja"
@@ -99,14 +99,15 @@ msgstr "Ekkert þannig merki."
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
-#: actions/showfavorites.php:105 actions/userbyid.php:74
-#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:302 lib/command.php:355
-#: lib/command.php:401 lib/command.php:462 lib/command.php:518
-#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/otp.php:76 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
+#: lib/command.php:355 lib/command.php:401 lib/command.php:462
+#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
+#: lib/profileaction.php:77
 msgid "No such user."
 msgstr "Enginn svoleiðis notandi."
 
@@ -182,20 +183,20 @@ msgstr "Færslur frá %1$s og vinum á %2$s!"
 #: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
 #: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
 #: actions/apigroupleave.php:141 actions/apigrouplist.php:132
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:185 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:196 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "Aðferð í forritsskilum fannst ekki!"
@@ -229,8 +230,9 @@ msgstr "Gat ekki uppfært notanda."
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
-#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
+#: actions/replies.php:80 actions/usergroups.php:98 lib/galleryaction.php:66
+#: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Notandi hefur enga persónulega síðu."
 
@@ -255,7 +257,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
@@ -372,68 +374,68 @@ msgstr ""
 msgid "Could not find target user."
 msgstr ""
 
-#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Stuttnefni geta bara verið lágstafir og tölustafir en engin bil."
 
-#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Stuttnefni nú þegar í notkun. Prófaðu eitthvað annað."
 
-#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/apigroupcreate.php:182 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "Ekki tækt stuttnefni."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:215
-#: actions/editgroup.php:195 actions/newapplication.php:203
+#: actions/apigroupcreate.php:198 actions/editapplication.php:215
+#: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "Heimasíða er ekki gild vefslóð."
 
-#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/apigroupcreate.php:207 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Fullt nafn er of langt (í mesta lagi 255 stafir)."
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/apigroupcreate.php:215 actions/editapplication.php:190
 #: actions/newapplication.php:172
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
 
-#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "Staðsetning er of löng (í mesta lagi 255 stafir)."
 
-#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/apigroupcreate.php:245 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/apigroupcreate.php:266 actions/editgroup.php:228
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr ""
 
-#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr ""
 
-#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/apigroupcreate.php:288 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr ""
@@ -445,16 +447,16 @@ msgstr ""
 msgid "Group not found!"
 msgstr "Aðferð í forritsskilum fannst ekki!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90
+#: actions/apigroupjoin.php:110 actions/joingroup.php:100
 #, fuzzy
 msgid "You are already a member of that group."
 msgstr "Þú ert nú þegar meðlimur í þessum hópi"
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:124
+#: actions/apigroupjoin.php:138 actions/joingroup.php:134
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Gat ekki bætt notandanum %s í hópinn %s"
@@ -464,7 +466,7 @@ msgstr "Gat ekki bætt notandanum %s í hópinn %s"
 msgid "You are not a member of this group."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:119
+#: actions/apigroupleave.php:124 actions/leavegroup.php:129
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
@@ -496,7 +498,7 @@ msgstr "Ótæk stærð."
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
 #: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
@@ -540,7 +542,7 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:322
 #: actions/imsettings.php:220 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
@@ -569,7 +571,7 @@ msgstr "Aðgangur"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/showgroup.php:244 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
@@ -655,12 +657,12 @@ msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s færslur gerðar að uppáhaldsbabli af %s / %s."
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:131 actions/userrss.php:90
+#: actions/grouprss.php:138 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
 msgstr "Rás %s"
 
-#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:112 actions/apitimelineuser.php:124
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -717,8 +719,7 @@ msgstr ""
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
-#: actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
 msgstr "Ekkert stuttnefni."
 
@@ -730,7 +731,7 @@ msgstr "Engin stærð."
 msgid "Invalid size."
 msgstr "Ótæk stærð."
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: actions/avatarsettings.php:67 actions/showgroup.php:229
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Mynd"
@@ -747,17 +748,17 @@ msgid "User without matching profile"
 msgstr "Notandi með enga persónulega síðu sem passar við"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
-#: actions/grouplogo.php:251
+#: actions/grouplogo.php:254
 msgid "Avatar settings"
 msgstr "Stillingar fyrir mynd"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
-#: actions/grouplogo.php:199 actions/grouplogo.php:259
+#: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
 msgstr "Upphafleg mynd"
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
-#: actions/grouplogo.php:210 actions/grouplogo.php:271
+#: actions/grouplogo.php:213 actions/grouplogo.php:274
 msgid "Preview"
 msgstr "Forsýn"
 
@@ -766,11 +767,11 @@ msgstr "Forsýn"
 msgid "Delete"
 msgstr "Eyða"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+#: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
 msgstr "Hlaða upp"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+#: actions/avatarsettings.php:231 actions/grouplogo.php:289
 msgid "Crop"
 msgstr "Skera af"
 
@@ -779,7 +780,7 @@ msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 "Veldu ferningslaga svæði á upphaflegu myndinni sem einkennismyndina þína"
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+#: actions/avatarsettings.php:343 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Týndum skráargögnunum okkar"
 
@@ -812,23 +813,23 @@ msgid ""
 msgstr ""
 
 #: actions/block.php:143 actions/deleteapplication.php:153
-#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/deletenotice.php:145 actions/deleteuser.php:150
 #: actions/groupblock.php:178
 msgid "No"
 msgstr "Nei"
 
-#: actions/block.php:143 actions/deleteuser.php:147
+#: actions/block.php:143 actions/deleteuser.php:150
 #, fuzzy
 msgid "Do not block this user"
 msgstr "Opna á þennan notanda"
 
 #: actions/block.php:144 actions/deleteapplication.php:158
-#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/deletenotice.php:146 actions/deleteuser.php:151
 #: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Já"
 
-#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Loka á þennan notanda"
 
@@ -836,39 +837,43 @@ msgstr "Loka á þennan notanda"
 msgid "Failed to save block information."
 msgstr "Mistókst að vista upplýsingar um notendalokun"
 
-#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
-#: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
+#: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
+#: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
+#: actions/groupmembers.php:83 actions/groupmembers.php:90
+#: actions/grouprss.php:98 actions/grouprss.php:105
+#: actions/groupunblock.php:86 actions/joingroup.php:82
+#: actions/joingroup.php:93 actions/leavegroup.php:82
+#: actions/leavegroup.php:93 actions/makeadmin.php:86
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
+#: lib/command.php:260
 msgid "No such group."
 msgstr "Enginn þannig hópur."
 
-#: actions/blockedfromgroup.php:90
+#: actions/blockedfromgroup.php:97
 #, php-format
 msgid "%s blocked profiles"
 msgstr ""
 
-#: actions/blockedfromgroup.php:93
+#: actions/blockedfromgroup.php:100
 #, fuzzy, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%s og vinirnir, síða %d"
 
-#: actions/blockedfromgroup.php:108
+#: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr ""
 
-#: actions/blockedfromgroup.php:281
+#: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
 msgstr ""
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
 msgstr "Opna"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
 msgstr "Opna á þennan notanda"
 
@@ -1026,19 +1031,19 @@ msgstr "Þú getur ekki eytt stöðu annars notanda."
 msgid "Delete user"
 msgstr "Eyða"
 
-#: actions/deleteuser.php:135
+#: actions/deleteuser.php:136
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
 
-#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#: actions/deleteuser.php:151 lib/deleteuserform.php:77
 #, fuzzy
 msgid "Delete this user"
 msgstr "Eyða þessu babli"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:316 lib/groupnav.php:119
+#: lib/adminpanelaction.php:327 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1247,30 +1252,30 @@ msgstr "Breyta hópnum %s"
 msgid "You must be logged in to create a group."
 msgstr "Þú verður að hafa skráð þig inn til að búa til hóp."
 
-#: actions/editgroup.php:103 actions/editgroup.php:168
-#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+#: actions/editgroup.php:107 actions/editgroup.php:172
+#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 #, fuzzy
 msgid "You must be an admin to edit the group."
 msgstr "Þú verður að vera stjórnandi til að geta breytt hópnum"
 
-#: actions/editgroup.php:154
+#: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr "Notaðu þetta eyðublað til að breyta hópnum."
 
-#: actions/editgroup.php:201 actions/newgroup.php:145
+#: actions/editgroup.php:205 actions/newgroup.php:145
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
 
-#: actions/editgroup.php:253
+#: actions/editgroup.php:258
 msgid "Could not update group."
 msgstr "Gat ekki uppfært hóp."
 
-#: actions/editgroup.php:259 classes/User_group.php:433
+#: actions/editgroup.php:264 classes/User_group.php:478
 msgid "Could not create aliases."
 msgstr ""
 
-#: actions/editgroup.php:269
+#: actions/editgroup.php:280
 msgid "Options saved."
 msgstr "Valmöguleikar vistaðir."
 
@@ -1615,7 +1620,7 @@ msgstr ""
 msgid "User is not a member of group."
 msgstr ""
 
-#: actions/groupblock.php:136 actions/groupmembers.php:316
+#: actions/groupblock.php:136 actions/groupmembers.php:323
 msgid "Block user from group"
 msgstr ""
 
@@ -1648,87 +1653,87 @@ msgstr "Ekkert einkenni"
 msgid "You must be logged in to edit a group."
 msgstr ""
 
-#: actions/groupdesignsettings.php:141
+#: actions/groupdesignsettings.php:144
 msgid "Group design"
 msgstr ""
 
-#: actions/groupdesignsettings.php:152
+#: actions/groupdesignsettings.php:155
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
 msgid "Couldn't update your design."
 msgstr ""
 
-#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr ""
 
-#: actions/grouplogo.php:139 actions/grouplogo.php:192
+#: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
 msgstr "Einkennismynd hópsins"
 
-#: actions/grouplogo.php:150
+#: actions/grouplogo.php:153
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
 
-#: actions/grouplogo.php:178
+#: actions/grouplogo.php:181
 #, fuzzy
 msgid "User without matching profile."
 msgstr "Notandi með enga persónulega síðu sem passar við"
 
-#: actions/grouplogo.php:362
+#: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
-#: actions/grouplogo.php:396
+#: actions/grouplogo.php:399
 msgid "Logo updated."
 msgstr "Einkennismynd uppfærð."
 
-#: actions/grouplogo.php:398
+#: actions/grouplogo.php:401
 msgid "Failed updating logo."
 msgstr "Tókst ekki að uppfæra einkennismynd"
 
-#: actions/groupmembers.php:93 lib/groupnav.php:92
+#: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "Hópmeðlimir %s"
 
-#: actions/groupmembers.php:96
+#: actions/groupmembers.php:103
 #, fuzzy, php-format
 msgid "%1$s group members, page %2$d"
 msgstr "Hópmeðlimir %s, síða %d"
 
-#: actions/groupmembers.php:111
+#: actions/groupmembers.php:118
 msgid "A list of the users in this group."
 msgstr "Listi yfir notendur í þessum hóp."
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Stjórnandi"
 
-#: actions/groupmembers.php:348 lib/blockform.php:69
+#: actions/groupmembers.php:355 lib/blockform.php:69
 msgid "Block"
 msgstr "Loka"
 
-#: actions/groupmembers.php:443
+#: actions/groupmembers.php:450
 msgid "Make user an admin of the group"
 msgstr ""
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make Admin"
 msgstr ""
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make this user an admin"
 msgstr ""
 
-#: actions/grouprss.php:133
+#: actions/grouprss.php:140
 #, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Færslur frá %1$s á %2$s!"
@@ -2055,7 +2060,12 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Þú verður að hafa skráð þig inn til að bæta þér í hóp."
 
-#: actions/joingroup.php:131
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+#, fuzzy
+msgid "No nickname or ID."
+msgstr "Ekkert stuttnefni."
+
+#: actions/joingroup.php:141
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%s bætti sér í hópinn %s"
@@ -2064,11 +2074,11 @@ msgstr "%s bætti sér í hópinn %s"
 msgid "You must be logged in to leave a group."
 msgstr "Þú verður aða hafa skráð þig inn til að ganga úr hóp."
 
-#: actions/leavegroup.php:90 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
-#: actions/leavegroup.php:127
+#: actions/leavegroup.php:137
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s gekk úr hópnum %s"
@@ -2346,8 +2356,8 @@ msgstr ""
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1040
+#: lib/apiaction.php:1068 lib/apiaction.php:1177
 msgid "Not a supported data format."
 msgstr "Enginn stuðningur við gagnasnið."
 
@@ -2494,7 +2504,7 @@ msgstr "Get ekki vistað nýja lykilorðið."
 msgid "Password saved."
 msgstr "Lykilorð vistað."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:331
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:342
 msgid "Paths"
 msgstr ""
 
@@ -2527,7 +2537,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:311
+#: lib/adminpanelaction.php:322
 #, fuzzy
 msgid "Site"
 msgstr "Bjóða"
@@ -2710,7 +2720,7 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 lágstafir eða tölustafir, engin greinarmerki eða bil"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:247 actions/tagother.php:104
+#: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Fullt nafn"
@@ -2741,7 +2751,7 @@ msgid "Bio"
 msgstr "Lýsing"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/showgroup.php:264 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
@@ -3326,7 +3336,7 @@ msgid "User is already sandboxed."
 msgstr ""
 
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:336
+#: lib/adminpanelaction.php:347
 msgid "Sessions"
 msgstr ""
 
@@ -3386,7 +3396,7 @@ msgstr "Uppröðun"
 msgid "Description"
 msgstr "Lýsing"
 
-#: actions/showapplication.php:192 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:437
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Tölfræði"
@@ -3498,67 +3508,67 @@ msgstr "%s hópurinn"
 msgid "%1$s group, page %2$d"
 msgstr "Hópmeðlimir %s, síða %d"
 
-#: actions/showgroup.php:218
+#: actions/showgroup.php:226
 msgid "Group profile"
 msgstr "Hópssíðan"
 
-#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/showgroup.php:271 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "Vefslóð"
 
-#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/showgroup.php:282 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Athugasemd"
 
-#: actions/showgroup.php:284 lib/groupeditform.php:184
+#: actions/showgroup.php:292 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
-#: actions/showgroup.php:293
+#: actions/showgroup.php:301
 msgid "Group actions"
 msgstr "Hópsaðgerðir"
 
-#: actions/showgroup.php:328
+#: actions/showgroup.php:336
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr ""
 
-#: actions/showgroup.php:334
+#: actions/showgroup.php:342
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr ""
 
-#: actions/showgroup.php:340
+#: actions/showgroup.php:348
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr ""
 
-#: actions/showgroup.php:345
+#: actions/showgroup.php:353
 #, fuzzy, php-format
 msgid "FOAF for %s group"
 msgstr "%s hópurinn"
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+#: actions/showgroup.php:389 actions/showgroup.php:446 lib/groupnav.php:91
 msgid "Members"
 msgstr "Meðlimir"
 
-#: actions/showgroup.php:386 lib/profileaction.php:117
+#: actions/showgroup.php:394 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ekkert)"
 
-#: actions/showgroup.php:392
+#: actions/showgroup.php:400
 msgid "All members"
 msgstr "Allir meðlimir"
 
-#: actions/showgroup.php:432
+#: actions/showgroup.php:440
 msgid "Created"
 msgstr ""
 
-#: actions/showgroup.php:448
+#: actions/showgroup.php:456
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3568,7 +3578,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:454
+#: actions/showgroup.php:462
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3577,7 +3587,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:482
+#: actions/showgroup.php:490
 msgid "Admins"
 msgstr ""
 
@@ -4112,7 +4122,7 @@ msgstr ""
 msgid "No such tag."
 msgstr "Ekkert þannig merki."
 
-#: actions/twitapitrends.php:87
+#: actions/twitapitrends.php:85
 msgid "API method under construction."
 msgstr "Aðferð í forritsskilum er í þróun."
 
@@ -4145,7 +4155,7 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:332
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Notandi"
@@ -4440,6 +4450,11 @@ msgstr "Gat ekki uppfært hóp."
 msgid "Group leave failed."
 msgstr "Hópssíðan"
 
+#: classes/Local_group.php:41
+#, fuzzy
+msgid "Could not update local group."
+msgstr "Gat ekki uppfært hóp."
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -4458,46 +4473,46 @@ msgstr "Gat ekki skeytt skilaboðum inn í."
 msgid "Could not update message with new URI."
 msgstr "Gat ekki uppfært skilaboð með nýju veffangi."
 
-#: classes/Notice.php:157
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Gagnagrunnsvilla við innsetningu myllumerkis: %s"
 
-#: classes/Notice.php:222
+#: classes/Notice.php:239
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:243
 msgid "Problem saving notice. Unknown user."
 msgstr "Gat ekki vistað babl. Óþekktur notandi."
 
-#: classes/Notice.php:231
+#: classes/Notice.php:248
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Of mikið babl í einu; slakaðu aðeins á og haltu svo áfram eftir nokkrar "
 "mínútur."
 
-#: classes/Notice.php:237
+#: classes/Notice.php:254
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:243
+#: classes/Notice.php:260
 msgid "You are banned from posting notices on this site."
 msgstr "Það hefur verið lagt bann við babli frá þér á þessari síðu."
 
-#: classes/Notice.php:309 classes/Notice.php:335
+#: classes/Notice.php:326 classes/Notice.php:352
 msgid "Problem saving notice."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:882
+#: classes/Notice.php:911
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:1407
+#: classes/Notice.php:1437
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4529,18 +4544,28 @@ msgstr "Gat ekki eytt áskrift."
 msgid "Couldn't delete subscription."
 msgstr "Gat ekki eytt áskrift."
 
-#: classes/User.php:372
+#: classes/User.php:373
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:423
+#: classes/User_group.php:462
 msgid "Could not create group."
 msgstr "Gat ekki búið til hóp."
 
-#: classes/User_group.php:452
+#: classes/User_group.php:471
+#, fuzzy
+msgid "Could not set group uri."
+msgstr "Gat ekki skráð hópmeðlimi."
+
+#: classes/User_group.php:492
 msgid "Could not set group membership."
 msgstr "Gat ekki skráð hópmeðlimi."
+
+#: classes/User_group.php:506
+#, fuzzy
+msgid "Could not save local group info."
+msgstr "Gat ekki vistað áskrift."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4764,15 +4789,15 @@ msgstr "Eftir"
 msgid "Before"
 msgstr "Áður"
 
-#: lib/activity.php:382
+#: lib/activity.php:449
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:410
+#: lib/activity.php:477
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:414
+#: lib/activity.php:481
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -4800,41 +4825,41 @@ msgstr "Skipun hefur ekki verið fullbúin"
 msgid "Unable to delete design setting."
 msgstr ""
 
-#: lib/adminpanelaction.php:312
+#: lib/adminpanelaction.php:323
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "Staðfesting tölvupóstfangs"
 
-#: lib/adminpanelaction.php:317
+#: lib/adminpanelaction.php:328
 #, fuzzy
 msgid "Design configuration"
 msgstr "SMS staðfesting"
 
-#: lib/adminpanelaction.php:322
+#: lib/adminpanelaction.php:333
 #, fuzzy
 msgid "User configuration"
 msgstr "SMS staðfesting"
 
-#: lib/adminpanelaction.php:327
+#: lib/adminpanelaction.php:338
 #, fuzzy
 msgid "Access configuration"
 msgstr "SMS staðfesting"
 
-#: lib/adminpanelaction.php:332
+#: lib/adminpanelaction.php:343
 #, fuzzy
 msgid "Paths configuration"
 msgstr "SMS staðfesting"
 
-#: lib/adminpanelaction.php:337
+#: lib/adminpanelaction.php:348
 #, fuzzy
 msgid "Sessions configuration"
 msgstr "SMS staðfesting"
 
-#: lib/apiauth.php:95
+#: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:273
+#: lib/apiauth.php:272
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5420,23 +5445,23 @@ msgstr "Kerfisvilla kom upp við upphal skráar."
 msgid "Not an image or corrupt file."
 msgstr "Annaðhvort ekki mynd eða þá að skráin er gölluð."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Skráarsnið myndar ekki stutt."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Týndum skránni okkar"
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Óþekkt skráargerð"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr ""
 
@@ -5960,7 +5985,7 @@ msgstr "Svara þessu babli"
 msgid "Repeat this notice"
 msgstr "Svara þessu babli"
 
-#: lib/router.php:665
+#: lib/router.php:668
 msgid "No single user defined for single-user mode."
 msgstr ""
 

@@ -8,18 +8,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:51:22+0000\n"
+"POT-Creation-Date: 2010-02-27 17:32+0000\n"
+"PO-Revision-Date: 2010-02-27 17:34:08+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:326
+#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:337
 msgid "Access"
 msgstr "Tilgang"
 
@@ -90,14 +90,15 @@ msgstr "Ingen slik side"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
-#: actions/showfavorites.php:105 actions/userbyid.php:74
-#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:302 lib/command.php:355
-#: lib/command.php:401 lib/command.php:462 lib/command.php:518
-#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/otp.php:76 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
+#: lib/command.php:355 lib/command.php:401 lib/command.php:462
+#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
+#: lib/profileaction.php:77
 msgid "No such user."
 msgstr "Ingen slik bruker"
 
@@ -180,20 +181,20 @@ msgstr "Oppdateringer fra %1$s og venner på %2$s!"
 #: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
 #: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
 #: actions/apigroupleave.php:141 actions/apigrouplist.php:132
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
+#: actions/apitimelinegroup.php:185 actions/apitimelinehome.php:184
 #: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:196 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API-metode ikke funnet!"
@@ -227,8 +228,9 @@ msgstr "Klarte ikke å oppdatere bruker."
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
-#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
+#: actions/replies.php:80 actions/usergroups.php:98 lib/galleryaction.php:66
+#: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Brukeren har ingen profil."
 
@@ -255,7 +257,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
@@ -366,68 +368,68 @@ msgstr "Kunne ikke bestemme kildebruker."
 msgid "Could not find target user."
 msgstr "Kunne ikke finne målbruker."
 
-#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Kallenavn kan kun ha små bokstaver og tall og ingen mellomrom."
 
-#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Det nicket er allerede i bruk. Prøv et annet."
 
-#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/apigroupcreate.php:182 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "Ugyldig nick."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:215
-#: actions/editgroup.php:195 actions/newapplication.php:203
+#: actions/apigroupcreate.php:198 actions/editapplication.php:215
+#: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "Hjemmesiden er ikke en gyldig URL."
 
-#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/apigroupcreate.php:207 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Beklager, navnet er for langt (max 250 tegn)."
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/apigroupcreate.php:215 actions/editapplication.php:190
 #: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Beskrivelsen er for lang (maks %d tegn)."
 
-#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
-msgstr ""
+msgstr "Plassering er for lang (maks 255 tegn)."
 
-#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/apigroupcreate.php:245 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "For mange alias! Maksimum %d."
 
-#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/apigroupcreate.php:266 actions/editgroup.php:228
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Ugyldig alias: «%s»"
 
-#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Aliaset «%s» er allerede i bruk. Prøv et annet."
 
-#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/apigroupcreate.php:288 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr "Alias kan ikke være det samme som kallenavn."
@@ -438,15 +440,15 @@ msgstr "Alias kan ikke være det samme som kallenavn."
 msgid "Group not found!"
 msgstr "Gruppe ikke funnet!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90
+#: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
 msgstr "Du er allerede medlem av den gruppen."
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
 msgstr "Du har blitt blokkert fra den gruppen av administratoren."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:124
+#: actions/apigroupjoin.php:138 actions/joingroup.php:134
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Kunne ikke legge bruker %1$s til gruppe %2$s."
@@ -455,7 +457,7 @@ msgstr "Kunne ikke legge bruker %1$s til gruppe %2$s."
 msgid "You are not a member of this group."
 msgstr "Du er ikke et medlem av denne gruppen."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:119
+#: actions/apigroupleave.php:124 actions/leavegroup.php:129
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Kunne ikke fjerne bruker %1$s fra gruppe %2$s."
@@ -480,14 +482,13 @@ msgid "No oauth_token parameter provided."
 msgstr "Ingen verdi for oauth_token er oppgitt."
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Ugyldig størrelse"
+msgstr "Ugyldig symbol."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
 #: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
@@ -508,11 +509,11 @@ msgstr "Ugyldig kallenavn / passord!"
 
 #: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
-msgstr ""
+msgstr "Databasefeil ved sletting av bruker fra programmet OAuth."
 
 #: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
-msgstr ""
+msgstr "Databasefeil ved innsetting av bruker i programmet OAuth."
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -528,16 +529,16 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:322
 #: actions/imsettings.php:220 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
 msgid "Unexpected form submission."
-msgstr ""
+msgstr "Uventet skjemainnsending."
 
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "Et program ønsker å koble til kontoen din"
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
@@ -550,6 +551,9 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"Programmet <strong>%1$s</strong> av <strong>%2$s</strong> ønsker å kunne "
+"<strong>%3$s</strong> dine %4$s-kontodata. Du bør bare gi tilgang til din %4"
+"$s-konto til tredjeparter du stoler på."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:441
 msgid "Account"
@@ -557,7 +561,7 @@ msgstr "Konto"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/showgroup.php:244 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
@@ -582,7 +586,7 @@ msgstr "Tillat eller nekt tilgang til din kontoinformasjon."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
-msgstr ""
+msgstr "Denne metoden krever en POST eller DELETE."
 
 #: actions/apistatusesdestroy.php:130
 msgid "You may not delete another user's status."
@@ -613,7 +617,7 @@ msgstr "Ingen status med den ID-en funnet."
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr ""
+msgstr "Det er for langt. Maks notisstørrelse er %d tegn."
 
 #: actions/apistatusesupdate.php:202
 msgid "Not found"
@@ -622,7 +626,7 @@ msgstr "Ikke funnet"
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "Maks notisstørrelse er %d tegn, inklusive vedleggs-URL."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
 msgid "Unsupported format."
@@ -639,12 +643,12 @@ msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s oppdateringer markert som favoritt av %2$s / %2$s."
 
 #: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:131 actions/userrss.php:90
+#: actions/grouprss.php:138 actions/userrss.php:90
 #, php-format
 msgid "%s timeline"
 msgstr "%s tidslinje"
 
-#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
+#: actions/apitimelinegroup.php:112 actions/apitimelineuser.php:124
 #: actions/userrss.php:92
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -701,8 +705,7 @@ msgstr "Ingen slike vedlegg."
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
-#: actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
 msgstr "Ingen kallenavn."
 
@@ -714,7 +717,7 @@ msgstr "Ingen størrelse."
 msgid "Invalid size."
 msgstr "Ugyldig størrelse"
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: actions/avatarsettings.php:67 actions/showgroup.php:229
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Brukerbilde"
@@ -722,26 +725,26 @@ msgstr "Brukerbilde"
 #: actions/avatarsettings.php:78
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr ""
+msgstr "Du kan laste opp en personlig avatar. Maks filstørrelse er %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
 #: actions/userrss.php:103
 msgid "User without matching profile"
-msgstr ""
+msgstr "Bruker uten samsvarende profil"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
-#: actions/grouplogo.php:251
+#: actions/grouplogo.php:254
 msgid "Avatar settings"
 msgstr "Avatarinnstillinger"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
-#: actions/grouplogo.php:199 actions/grouplogo.php:259
+#: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
 msgstr "Original"
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
-#: actions/grouplogo.php:210 actions/grouplogo.php:271
+#: actions/grouplogo.php:213 actions/grouplogo.php:274
 msgid "Preview"
 msgstr "Forhåndsvis"
 
@@ -750,21 +753,21 @@ msgstr "Forhåndsvis"
 msgid "Delete"
 msgstr "Slett"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+#: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
 msgstr "Last opp"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+#: actions/avatarsettings.php:231 actions/grouplogo.php:289
 msgid "Crop"
 msgstr "Beskjær"
 
 #: actions/avatarsettings.php:328
 msgid "Pick a square area of the image to be your avatar"
-msgstr ""
+msgstr "Velg et kvadratisk utsnitt av bildet som din avatar."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+#: actions/avatarsettings.php:343 actions/grouplogo.php:380
 msgid "Lost our file data."
-msgstr ""
+msgstr "Mistet våre fildata."
 
 #: actions/avatarsettings.php:366
 msgid "Avatar updated."
@@ -792,66 +795,73 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"Er du sikker på at du vil blokkere denne brukeren? Etter dette vil de ikke "
+"lenger abbonere på deg, vil ikke kunne abbonere på deg i fremtiden og du vil "
+"ikke bli varslet om @-svar fra dem."
 
 #: actions/block.php:143 actions/deleteapplication.php:153
-#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/deletenotice.php:145 actions/deleteuser.php:150
 #: actions/groupblock.php:178
 msgid "No"
 msgstr "Nei"
 
-#: actions/block.php:143 actions/deleteuser.php:147
+#: actions/block.php:143 actions/deleteuser.php:150
 msgid "Do not block this user"
 msgstr "Ikke blokker denne brukeren"
 
 #: actions/block.php:144 actions/deleteapplication.php:158
-#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/deletenotice.php:146 actions/deleteuser.php:151
 #: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Blokker denne brukeren"
 
 #: actions/block.php:167
 msgid "Failed to save block information."
-msgstr ""
+msgstr "Kunne ikke lagre blokkeringsinformasjon."
 
-#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
-#: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
+#: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
+#: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
+#: actions/groupmembers.php:83 actions/groupmembers.php:90
+#: actions/grouprss.php:98 actions/grouprss.php:105
+#: actions/groupunblock.php:86 actions/joingroup.php:82
+#: actions/joingroup.php:93 actions/leavegroup.php:82
+#: actions/leavegroup.php:93 actions/makeadmin.php:86
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
+#: lib/command.php:260
 msgid "No such group."
 msgstr "Ingen slik gruppe."
 
-#: actions/blockedfromgroup.php:90
+#: actions/blockedfromgroup.php:97
 #, php-format
 msgid "%s blocked profiles"
 msgstr "%s blokkerte profiler"
 
-#: actions/blockedfromgroup.php:93
+#: actions/blockedfromgroup.php:100
 #, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%1$s blokkerte profiler, side %2$d"
 
-#: actions/blockedfromgroup.php:108
+#: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
-msgstr ""
+msgstr "En liste over brukere som er blokkert fra å delta i denne gruppen."
 
-#: actions/blockedfromgroup.php:281
+#: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
-msgstr ""
+msgstr "Opphev blokkering av bruker fra gruppe"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
-msgstr ""
+msgstr "Opphev blokkering"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
-msgstr ""
+msgstr "Opphev blokkering av denne brukeren"
 
 #: actions/bookmarklet.php:50
 msgid "Post to "
@@ -867,12 +877,12 @@ msgstr "Fant ikke bekreftelseskode."
 
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr ""
+msgstr "Den bekreftelseskoden er ikke til deg."
 
 #: actions/confirmaddress.php:90
 #, php-format
 msgid "Unrecognized address type %s"
-msgstr ""
+msgstr "Ukjent adressetype %s"
 
 #: actions/confirmaddress.php:94
 msgid "That address has already been confirmed."
@@ -907,7 +917,7 @@ msgstr "Samtale"
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:216 lib/searchgroupnav.php:82
 msgid "Notices"
-msgstr ""
+msgstr "Notiser"
 
 #: actions/deleteapplication.php:63
 msgid "You must be logged in to delete an application."
@@ -1000,7 +1010,7 @@ msgstr "Du kan bare slette lokale brukere."
 msgid "Delete user"
 msgstr "Slett bruker"
 
-#: actions/deleteuser.php:135
+#: actions/deleteuser.php:136
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
@@ -1008,12 +1018,12 @@ msgstr ""
 "Er du sikker på at du vil slette denne brukeren? Dette vil slette alle data "
 "om brukeren fra databasen, uten sikkerhetskopi."
 
-#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#: actions/deleteuser.php:151 lib/deleteuserform.php:77
 msgid "Delete this user"
 msgstr "Slett denne brukeren"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:316 lib/groupnav.php:119
+#: lib/adminpanelaction.php:327 lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1028,7 +1038,7 @@ msgstr "Ugyldig logo-URL."
 #: actions/designadminpanel.php:279
 #, php-format
 msgid "Theme not available: %s"
-msgstr ""
+msgstr "Tema ikke tilgjengelig: %s"
 
 #: actions/designadminpanel.php:375
 msgid "Change logo"
@@ -1039,18 +1049,16 @@ msgid "Site logo"
 msgstr "Nettstedslogo"
 
 #: actions/designadminpanel.php:387
-#, fuzzy
 msgid "Change theme"
-msgstr "Endre"
+msgstr "Endre tema"
 
 #: actions/designadminpanel.php:404
-#, fuzzy
 msgid "Site theme"
-msgstr "Endre"
+msgstr "Nettstedstema"
 
 #: actions/designadminpanel.php:405
 msgid "Theme for the site."
-msgstr ""
+msgstr "Tema for nettstedet."
 
 #: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
@@ -1067,6 +1075,7 @@ msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr ""
+"Du kan laste opp et bakgrunnsbilde for nettstedet. Maks filstørrelse er %1$s."
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
@@ -1209,30 +1218,30 @@ msgstr ""
 msgid "You must be logged in to create a group."
 msgstr "Du må være innlogget for å opprette en gruppe."
 
-#: actions/editgroup.php:103 actions/editgroup.php:168
-#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+#: actions/editgroup.php:107 actions/editgroup.php:172
+#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 #, fuzzy
 msgid "You must be an admin to edit the group."
 msgstr "Gjør brukeren til en administrator for gruppen"
 
-#: actions/editgroup.php:154
+#: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr ""
 
-#: actions/editgroup.php:201 actions/newgroup.php:145
+#: actions/editgroup.php:205 actions/newgroup.php:145
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "beskrivelse er for lang (maks %d tegn)"
 
-#: actions/editgroup.php:253
+#: actions/editgroup.php:258
 msgid "Could not update group."
 msgstr "Kunne ikke oppdatere gruppe."
 
-#: actions/editgroup.php:259 classes/User_group.php:433
+#: actions/editgroup.php:264 classes/User_group.php:478
 msgid "Could not create aliases."
 msgstr "Kunne ikke opprette alias."
 
-#: actions/editgroup.php:269
+#: actions/editgroup.php:280
 msgid "Options saved."
 msgstr ""
 
@@ -1569,7 +1578,7 @@ msgstr "Du er allerede logget inn!"
 msgid "User is not a member of group."
 msgstr ""
 
-#: actions/groupblock.php:136 actions/groupmembers.php:316
+#: actions/groupblock.php:136 actions/groupmembers.php:323
 msgid "Block user from group"
 msgstr ""
 
@@ -1601,88 +1610,88 @@ msgstr "Ingen ID."
 msgid "You must be logged in to edit a group."
 msgstr ""
 
-#: actions/groupdesignsettings.php:141
+#: actions/groupdesignsettings.php:144
 msgid "Group design"
 msgstr ""
 
-#: actions/groupdesignsettings.php:152
+#: actions/groupdesignsettings.php:155
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
 #, fuzzy
 msgid "Couldn't update your design."
 msgstr "Klarte ikke å oppdatere bruker."
 
-#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr ""
 
-#: actions/grouplogo.php:139 actions/grouplogo.php:192
+#: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
 msgstr "Gruppelogo"
 
-#: actions/grouplogo.php:150
+#: actions/grouplogo.php:153
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
 
-#: actions/grouplogo.php:178
+#: actions/grouplogo.php:181
 #, fuzzy
 msgid "User without matching profile."
 msgstr "Brukeren har ingen profil."
 
-#: actions/grouplogo.php:362
+#: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
-#: actions/grouplogo.php:396
+#: actions/grouplogo.php:399
 msgid "Logo updated."
 msgstr "Logo oppdatert."
 
-#: actions/grouplogo.php:398
+#: actions/grouplogo.php:401
 msgid "Failed updating logo."
 msgstr ""
 
-#: actions/groupmembers.php:93 lib/groupnav.php:92
+#: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "%s gruppemedlemmer"
 
-#: actions/groupmembers.php:96
+#: actions/groupmembers.php:103
 #, php-format
 msgid "%1$s group members, page %2$d"
 msgstr ""
 
-#: actions/groupmembers.php:111
+#: actions/groupmembers.php:118
 msgid "A list of the users in this group."
 msgstr "En liste over brukerne i denne gruppen."
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/action.php:448 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Administrator"
 
-#: actions/groupmembers.php:348 lib/blockform.php:69
+#: actions/groupmembers.php:355 lib/blockform.php:69
 msgid "Block"
 msgstr "Blokkér"
 
-#: actions/groupmembers.php:443
+#: actions/groupmembers.php:450
 msgid "Make user an admin of the group"
 msgstr "Gjør brukeren til en administrator for gruppen"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make Admin"
 msgstr "Gjør til administrator"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make this user an admin"
 msgstr "Gjør denne brukeren til administrator"
 
-#: actions/grouprss.php:133
+#: actions/grouprss.php:140
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Oppdateringer fra medlemmer av %1$s på %2$s!"
@@ -1989,7 +1998,12 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Du må være innlogget for å bli med i en gruppe."
 
-#: actions/joingroup.php:131
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+#, fuzzy
+msgid "No nickname or ID."
+msgstr "Ingen kallenavn."
+
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr ""
@@ -1998,11 +2012,11 @@ msgstr ""
 msgid "You must be logged in to leave a group."
 msgstr ""
 
-#: actions/leavegroup.php:90 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr ""
 
-#: actions/leavegroup.php:127
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s forlot gruppe %2$s"
@@ -2264,8 +2278,8 @@ msgstr "innholdstype "
 msgid "Only "
 msgstr "Bare "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1040
+#: lib/apiaction.php:1068 lib/apiaction.php:1177
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2408,7 +2422,7 @@ msgstr "Klarer ikke å lagre nytt passord."
 msgid "Password saved."
 msgstr "Passordet ble lagret"
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:331
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:342
 msgid "Paths"
 msgstr ""
 
@@ -2441,7 +2455,7 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:311
+#: lib/adminpanelaction.php:322
 msgid "Site"
 msgstr ""
 
@@ -2614,7 +2628,7 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 små bokstaver eller nummer, ingen punktum eller mellomrom"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:247 actions/tagother.php:104
+#: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Fullt navn"
@@ -2643,7 +2657,7 @@ msgid "Bio"
 msgstr "Om meg"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/showgroup.php:264 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
@@ -3217,7 +3231,7 @@ msgid "User is already sandboxed."
 msgstr "Du er allerede logget inn!"
 
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:336
+#: lib/adminpanelaction.php:347
 msgid "Sessions"
 msgstr ""
 
@@ -3273,7 +3287,7 @@ msgstr "Organisasjon"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: actions/showapplication.php:192 actions/showgroup.php:429
+#: actions/showapplication.php:192 actions/showgroup.php:437
 #: lib/profileaction.php:174
 msgid "Statistics"
 msgstr "Statistikk"
@@ -3385,70 +3399,70 @@ msgstr ""
 msgid "%1$s group, page %2$d"
 msgstr "Alle abonnementer"
 
-#: actions/showgroup.php:218
+#: actions/showgroup.php:226
 #, fuzzy
 msgid "Group profile"
 msgstr "Klarte ikke å lagre profil."
 
-#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/showgroup.php:271 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/showgroup.php:282 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr ""
 
-#: actions/showgroup.php:284 lib/groupeditform.php:184
+#: actions/showgroup.php:292 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
-#: actions/showgroup.php:293
+#: actions/showgroup.php:301
 msgid "Group actions"
 msgstr ""
 
-#: actions/showgroup.php:328
+#: actions/showgroup.php:336
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr ""
 
-#: actions/showgroup.php:334
+#: actions/showgroup.php:342
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr ""
 
-#: actions/showgroup.php:340
+#: actions/showgroup.php:348
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr ""
 
-#: actions/showgroup.php:345
+#: actions/showgroup.php:353
 #, fuzzy, php-format
 msgid "FOAF for %s group"
 msgstr "Klarte ikke å lagre profil."
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+#: actions/showgroup.php:389 actions/showgroup.php:446 lib/groupnav.php:91
 #, fuzzy
 msgid "Members"
 msgstr "Medlem siden"
 
-#: actions/showgroup.php:386 lib/profileaction.php:117
+#: actions/showgroup.php:394 lib/profileaction.php:117
 #: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
 
-#: actions/showgroup.php:392
+#: actions/showgroup.php:400
 msgid "All members"
 msgstr ""
 
-#: actions/showgroup.php:432
+#: actions/showgroup.php:440
 #, fuzzy
 msgid "Created"
 msgstr "Opprett"
 
-#: actions/showgroup.php:448
+#: actions/showgroup.php:456
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3458,7 +3472,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:454
+#: actions/showgroup.php:462
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3467,7 +3481,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:482
+#: actions/showgroup.php:490
 msgid "Admins"
 msgstr ""
 
@@ -3994,7 +4008,7 @@ msgstr ""
 msgid "No such tag."
 msgstr ""
 
-#: actions/twitapitrends.php:87
+#: actions/twitapitrends.php:85
 msgid "API method under construction."
 msgstr "API-metode under utvikling."
 
@@ -4025,7 +4039,7 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
+#: actions/useradminpanel.php:58 lib/adminpanelaction.php:332
 #: lib/personalgroupnav.php:115
 msgid "User"
 msgstr ""
@@ -4309,6 +4323,11 @@ msgstr "Klarte ikke å oppdatere bruker."
 msgid "Group leave failed."
 msgstr "Klarte ikke å lagre profil."
 
+#: classes/Local_group.php:41
+#, fuzzy
+msgid "Could not update local group."
+msgstr "Kunne ikke oppdatere gruppe."
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -4326,43 +4345,43 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:157
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:222
+#: classes/Notice.php:239
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:226
+#: classes/Notice.php:243
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
-#: classes/Notice.php:231
+#: classes/Notice.php:248
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:237
+#: classes/Notice.php:254
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:243
+#: classes/Notice.php:260
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:309 classes/Notice.php:335
+#: classes/Notice.php:326 classes/Notice.php:352
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:882
+#: classes/Notice.php:911
 msgid "Problem saving group inbox."
 msgstr ""
 
-#: classes/Notice.php:1407
+#: classes/Notice.php:1437
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4393,19 +4412,29 @@ msgstr "Klarte ikke å lagre avatar-informasjonen"
 msgid "Couldn't delete subscription."
 msgstr ""
 
-#: classes/User.php:372
+#: classes/User.php:373
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:423
+#: classes/User_group.php:462
 #, fuzzy
 msgid "Could not create group."
 msgstr "Klarte ikke å lagre avatar-informasjonen"
 
-#: classes/User_group.php:452
+#: classes/User_group.php:471
+#, fuzzy
+msgid "Could not set group uri."
+msgstr "Klarte ikke å lagre avatar-informasjonen"
+
+#: classes/User_group.php:492
 #, fuzzy
 msgid "Could not set group membership."
+msgstr "Klarte ikke å lagre avatar-informasjonen"
+
+#: classes/User_group.php:506
+#, fuzzy
+msgid "Could not save local group info."
 msgstr "Klarte ikke å lagre avatar-informasjonen"
 
 #: lib/accountsettingsaction.php:108
@@ -4626,15 +4655,15 @@ msgstr ""
 msgid "Before"
 msgstr "Tidligere »"
 
-#: lib/activity.php:382
+#: lib/activity.php:449
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:410
+#: lib/activity.php:477
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:414
+#: lib/activity.php:481
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -4658,35 +4687,35 @@ msgstr ""
 msgid "Unable to delete design setting."
 msgstr ""
 
-#: lib/adminpanelaction.php:312
+#: lib/adminpanelaction.php:323
 msgid "Basic site configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:317
+#: lib/adminpanelaction.php:328
 msgid "Design configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:322
+#: lib/adminpanelaction.php:333
 msgid "User configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:327
+#: lib/adminpanelaction.php:338
 msgid "Access configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:332
+#: lib/adminpanelaction.php:343
 msgid "Paths configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:337
+#: lib/adminpanelaction.php:348
 msgid "Sessions configuration"
 msgstr ""
 
-#: lib/apiauth.php:95
+#: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:273
+#: lib/apiauth.php:272
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5273,24 +5302,24 @@ msgstr ""
 msgid "Not an image or corrupt file."
 msgstr ""
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr ""
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 #, fuzzy
 msgid "Lost our file."
 msgstr "Klarte ikke å lagre profil."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr ""
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr ""
 
@@ -5815,7 +5844,7 @@ msgstr "Kan ikke slette notisen."
 msgid "Repeat this notice"
 msgstr "Kan ikke slette notisen."
 
-#: lib/router.php:665
+#: lib/router.php:668
 msgid "No single user defined for single-user mode."
 msgstr ""
 
