@@ -24,7 +24,7 @@ $shortoptions = 'i:n:a';
 $longoptions = array('id=', 'nickname=', 'all');
 
 $helptext = <<<END_OF_UPDATEOSTATUS_HELP
-updateprofileurl.php [options]
+updateostatus.php [options]
 update the OMB subscriptions of a user to use OStatus if possible
 
   -i --id       ID of user to update
@@ -70,6 +70,10 @@ try {
 
 function updateOStatus($user)
 {
+    if (!have_option('q', 'quiet')) {
+        echo "{$user->nickname}...";
+    }
+
     $up = $user->getProfile();
 
     $sp = $user->getSubscriptions();
@@ -84,16 +88,37 @@ function updateOStatus($user)
         }
     }
 
+    if (!have_option('q', 'quiet')) {
+        echo count($rps) . "\n";
+    }
+
     foreach ($rps as $rp) {
         try {
+            if (!have_option('q', 'quiet')) {
+                echo "Checking {$rp->nickname}...";
+            }
+
             $op = Ostatus_profile::ensureProfile($rp->profileurl);
 
-            if (!empty($op)) {
+            if (empty($op)) {
+                echo "can't convert.\n";
+                continue;
+            } else {
+                if (!have_option('q', 'quiet')) {
+                    echo "Converting...";
+                }
                 Subscription::cancel($up, $rp);
                 Subscription::start($up, $op->localProfile());
+                if (!have_option('q', 'quiet')) {
+                    echo "done.\n";
+                }
             }
 
         } catch (Exception $e) {
+            if (!have_option('q', 'quiet')) {
+                echo "fail.\n";
+            }
+            continue;
             common_log(LOG_WARNING, "Couldn't convert OMB subscription (" . $up->nickname . ", " . $rp->nickname .
                        ") to OStatus: " . $e->getMessage());
             continue;
