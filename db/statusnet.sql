@@ -458,7 +458,8 @@ create table group_inbox (
     created datetime not null comment 'date the notice was created',
 
     constraint primary key (group_id, notice_id),
-    index group_inbox_created_idx (created)
+    index group_inbox_created_idx (created),
+    index group_inbox_notice_id_idx (notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
