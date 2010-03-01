@@ -436,7 +436,7 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartPrimaryNav', array($this))) {
             if ($user) {
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                                _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
+                                _('Personal'), _('Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
                 if ($connect) {
