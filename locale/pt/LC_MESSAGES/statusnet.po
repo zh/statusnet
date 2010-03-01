@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:21+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:27+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -755,7 +755,7 @@ msgid "Preview"
 msgstr "Antevisão"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Apagar"
 
@@ -1007,7 +1007,7 @@ msgstr "Tem a certeza de que quer apagar esta nota?"
 msgid "Do not delete this notice"
 msgstr "Não apagar esta nota"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Apagar esta nota"
 
@@ -1991,7 +1991,9 @@ msgstr "Mensagem pessoal"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Pode optar por acrescentar uma mensagem pessoal ao convite"
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Enviar"
 
@@ -3257,7 +3259,7 @@ msgstr "Não pode repetir a sua própria nota."
 msgid "You already repeated that notice."
 msgstr "Já repetiu essa nota."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "Repetida"
 
@@ -4550,7 +4552,7 @@ msgstr "Problema na gravação da nota."
 msgid "Problem saving group inbox."
 msgstr "Problema na gravação da nota."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4590,7 +4592,7 @@ msgstr "Não foi possível criar o grupo."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Não foi possível configurar membros do grupo."
 
 #: classes/User_group.php:492
@@ -5898,6 +5900,12 @@ msgstr "Para"
 msgid "Available characters"
 msgstr "Caracteres disponíveis"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Enviar"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Enviar uma nota"
@@ -5955,23 +5963,23 @@ msgstr "O"
 msgid "at"
 msgstr "coords."
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "no contexto"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Repetida por"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Responder a esta nota"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Responder"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Nota repetida"
 
@@ -6249,47 +6257,47 @@ msgstr "Mensagem"
 msgid "Moderate"
 msgstr "Moderar"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "há alguns segundos"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "há cerca de um minuto"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "há cerca de %d minutos"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "há cerca de uma hora"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "há cerca de %d horas"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "há cerca de um dia"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "há cerca de %d dias"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "há cerca de um mês"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "há cerca de %d meses"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "há cerca de um ano"
 

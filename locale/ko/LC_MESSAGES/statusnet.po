@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:00+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:48:47+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -768,7 +768,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "삭제"
 
@@ -1022,7 +1022,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -2016,7 +2016,9 @@ msgstr "개인적인 메시지"
 msgid "Optionally add a personal message to the invitation."
 msgstr "초대장에 메시지 첨부하기."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "보내기"
 
@@ -3274,7 +3276,7 @@ msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "생성"
@@ -4537,7 +4539,7 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4580,7 +4582,7 @@ msgstr "새 그룹을 만들 수 없습니다."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
 #: classes/User_group.php:492
@@ -5789,6 +5791,12 @@ msgstr "에게"
 msgid "Available characters"
 msgstr "사용 가능한 글자"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "보내기"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "게시글 보내기"
@@ -5848,25 +5856,25 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 #, fuzzy
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."
@@ -6161,47 +6169,47 @@ msgstr "메시지"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "1년 전"
 

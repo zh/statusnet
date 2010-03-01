@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:33:57+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:48:45+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -751,7 +751,7 @@ msgid "Preview"
 msgstr "プレビュー"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "削除"
 
@@ -997,7 +997,7 @@ msgstr "本当にこのつぶやきを削除しますか？"
 msgid "Do not delete this notice"
 msgstr "このつぶやきを削除できません。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "このつぶやきを削除"
 
@@ -1966,7 +1966,9 @@ msgstr "パーソナルメッセージ"
 msgid "Optionally add a personal message to the invitation."
 msgstr "任意に招待にパーソナルメッセージを加えてください。"
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "投稿"
 
@@ -3215,7 +3217,7 @@ msgstr "自分のつぶやきは繰り返せません。"
 msgid "You already repeated that notice."
 msgstr "すでにそのつぶやきを繰り返しています。"
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "繰り返された"
 
@@ -4494,7 +4496,7 @@ msgstr "つぶやきを保存する際に問題が発生しました。"
 msgid "Problem saving group inbox."
 msgstr "グループ受信箱を保存する際に問題が発生しました。"
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4534,7 +4536,7 @@ msgstr "グループを作成できません。"
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "グループメンバーシップをセットできません。"
 
 #: classes/User_group.php:492
@@ -5796,6 +5798,12 @@ msgstr "To"
 msgid "Available characters"
 msgstr "利用可能な文字"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "投稿"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "つぶやきを送る"
@@ -5858,23 +5866,23 @@ msgstr "西"
 msgid "at"
 msgstr "at"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr ""
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "このつぶやきへ返信"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "返信"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "つぶやきを繰り返しました"
 
@@ -6153,47 +6161,47 @@ msgstr "メッセージ"
 msgid "Moderate"
 msgstr "管理"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "数秒前"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "約 1 分前"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "約 %d 分前"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "約 1 時間前"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "約 %d 時間前"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "約 1 日前"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "約 %d 日前"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "約 1 ヵ月前"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "約 %d ヵ月前"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "約 1 年前"
 

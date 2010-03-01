@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:38+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:39+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -748,7 +748,7 @@ msgid "Preview"
 msgstr "మునుజూపు"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "తొలగించు"
 
@@ -989,7 +989,7 @@ msgstr "మీరు నిజంగానే ఈ నోటీసుని త�
 msgid "Do not delete this notice"
 msgstr "ఈ నోటీసుని తొలగించకు"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "ఈ నోటీసుని తొలగించు"
 
@@ -1927,7 +1927,9 @@ msgstr "వ్యక్తిగత సందేశం"
 msgid "Optionally add a personal message to the invitation."
 msgstr "ఐచ్ఛికంగా ఆహ్వానానికి వ్యక్తిగత సందేశం చేర్చండి."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "పంపించు"
 
@@ -2201,9 +2203,8 @@ msgid "You must be logged in to list your applications."
 msgstr "మీ ఉపకరణాలను చూడడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #: actions/oauthappssettings.php:74
-#, fuzzy
 msgid "OAuth applications"
-msgstr "ఇతర ఎంపికలు"
+msgstr "OAuth ఉపకరణాలు"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
@@ -3133,7 +3134,7 @@ msgstr "ఈ లైసెన్సుకి అంగీకరించకపో�
 msgid "You already repeated that notice."
 msgstr "మీరు ఇప్పటికే ఆ వాడుకరిని నిరోధించారు."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "సృష్టితం"
@@ -4350,7 +4351,7 @@ msgstr "సందేశాన్ని భద్రపరచడంలో పొ�
 msgid "Problem saving group inbox."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4392,7 +4393,7 @@ msgstr "గుంపుని సృష్టించలేకపోయాం."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "గుంపు సభ్యత్వాన్ని అమర్చలేకపోయాం."
 
 #: classes/User_group.php:492
@@ -4746,11 +4747,11 @@ msgstr ""
 
 #: lib/applicationeditform.php:297
 msgid "Read-only"
-msgstr ""
+msgstr "చదవడం-మాత్రమే"
 
 #: lib/applicationeditform.php:315
 msgid "Read-write"
-msgstr ""
+msgstr "చదవడం-వ్రాయడం"
 
 #: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
@@ -5602,6 +5603,12 @@ msgstr ""
 msgid "Available characters"
 msgstr "అందుబాటులో ఉన్న అక్షరాలు"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "పంపించు"
+
 #: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
@@ -5661,24 +5668,24 @@ msgstr "ప"
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "సందర్భంలో"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "సృష్టితం"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "ఈ నోటీసుపై స్పందించండి"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "స్పందించండి"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "నోటీసుని తొలగించాం."
@@ -5812,14 +5819,12 @@ msgid "Popular"
 msgstr "ప్రాచుర్యం"
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "ఈ నోటీసుపై స్పందించండి"
+msgstr "ఈ నోటీసుని పునరావృతించాలా?"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "ఈ నోటీసుపై స్పందించండి"
+msgstr "ఈ నోటీసుని పునరావృతించు"
 
 #: lib/router.php:668
 msgid "No single user defined for single-user mode."
@@ -5968,47 +5973,47 @@ msgstr "సందేశం"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "కొన్ని క్షణాల క్రితం"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "ఓ నిమిషం క్రితం"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d నిమిషాల క్రితం"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "ఒక గంట క్రితం"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d గంటల క్రితం"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "ఓ రోజు క్రితం"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "%d రోజుల క్రితం"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "ఓ నెల క్రితం"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "%d నెలల క్రితం"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "ఒక సంవత్సరం క్రితం"
 

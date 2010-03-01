@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:15+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:20+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -770,7 +770,7 @@ msgid "Preview"
 msgstr "Voorvertoning"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Verwijderen"
 
@@ -1016,7 +1016,7 @@ msgstr "Weet u zeker dat u deze aankondiging wilt verwijderen?"
 msgid "Do not delete this notice"
 msgstr "Deze mededeling niet verwijderen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Deze mededeling verwijderen"
 
@@ -1997,7 +1997,9 @@ msgstr "Persoonlijk bericht"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Persoonlijk bericht bij de uitnodiging (optioneel)."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Verzenden"
 
@@ -2068,9 +2070,8 @@ msgid "You must be logged in to join a group."
 msgstr "U moet aangemeld zijn om lid te worden van een groep."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
-msgstr "Geen gebruikersnaam."
+msgstr "Geen gebruikersnaam of ID."
 
 #: actions/joingroup.php:141
 #, php-format
@@ -3264,7 +3265,7 @@ msgstr "U kunt uw eigen mededeling niet herhalen."
 msgid "You already repeated that notice."
 msgstr "U hent die mededeling al herhaald."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "Herhaald"
 
@@ -4502,9 +4503,8 @@ msgid "Group leave failed."
 msgstr "Groepslidmaatschap opzeggen is mislukt."
 
 #: classes/Local_group.php:41
-#, fuzzy
 msgid "Could not update local group."
-msgstr "Het was niet mogelijk de groep bij te werken."
+msgstr "Het was niet mogelijk de lokale groep bij te werken."
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4570,7 +4570,7 @@ msgstr ""
 "Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
 "groep."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4610,17 +4610,16 @@ msgstr "Het was niet mogelijk de groep aan te maken."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
-msgstr "Het was niet mogelijk het groepslidmaatschap in te stellen."
+msgid "Could not set group URI."
+msgstr "Het was niet mogelijk de groeps-URI in te stellen."
 
 #: classes/User_group.php:492
 msgid "Could not set group membership."
 msgstr "Het was niet mogelijk het groepslidmaatschap in te stellen."
 
 #: classes/User_group.php:506
-#, fuzzy
 msgid "Could not save local group info."
-msgstr "Het was niet mogelijk het abonnement op te slaan."
+msgstr "Het was niet mogelijk de lokale groepsinformatie op te slaan."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -5928,6 +5927,12 @@ msgstr "Aan"
 msgid "Available characters"
 msgstr "Beschikbare tekens"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Verzenden"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Mededeling verzenden"
@@ -5986,23 +5991,23 @@ msgstr "W"
 msgid "at"
 msgstr "op"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "in context"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Herhaald door"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Op deze mededeling antwoorden"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Antwoorden"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Mededeling herhaald"
 
@@ -6281,47 +6286,47 @@ msgstr "Bericht"
 msgid "Moderate"
 msgstr "Modereren"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "een paar seconden geleden"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "ongeveer een minuut geleden"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "ongeveer %d minuten geleden"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "ongeveer een uur geleden"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "ongeveer %d uur geleden"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "ongeveer een dag geleden"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "ongeveer %d dagen geleden"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "ongeveer een maand geleden"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "ongeveer %d maanden geleden"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "ongeveer een jaar geleden"
 

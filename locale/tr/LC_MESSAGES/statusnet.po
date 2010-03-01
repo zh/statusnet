@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:40+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:43+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: out-statusnet\n"
@@ -771,7 +771,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr ""
 
@@ -1025,7 +1025,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "Böyle bir durum mesajı yok."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr ""
 
@@ -2008,7 +2008,9 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Gönder"
 
@@ -3226,7 +3228,7 @@ msgstr "Eğer lisansı kabul etmezseniz kayıt olamazsınız."
 msgid "You already repeated that notice."
 msgstr "Zaten giriş yapmış durumdasıznız!"
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "Yarat"
@@ -4471,7 +4473,7 @@ msgstr "Durum mesajını kaydederken hata oluştu."
 msgid "Problem saving group inbox."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4515,7 +4517,7 @@ msgstr "Avatar bilgisi kaydedilemedi"
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Abonelik oluşturulamadı."
 
 #: classes/User_group.php:492
@@ -5739,6 +5741,12 @@ msgstr ""
 msgid "Available characters"
 msgstr "6 veya daha fazla karakter"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Gönder"
+
 #: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
@@ -5798,26 +5806,26 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 #, fuzzy
 msgid "in context"
 msgstr "İçerik yok!"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "Yarat"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 #, fuzzy
 msgid "Reply"
 msgstr "cevapla"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Durum mesajları"
@@ -6111,47 +6119,47 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "birkaç saniye önce"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "yaklaşık bir dakika önce"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "yaklaşık %d dakika önce"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "yaklaşık bir saat önce"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "yaklaşık %d saat önce"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "yaklaşık bir gün önce"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "yaklaşık %d gün önce"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "yaklaşık bir ay önce"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "yaklaşık %d ay önce"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "yaklaşık bir yıl önce"
 

@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:32:58+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:47:51+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -738,7 +738,7 @@ msgid "Preview"
 msgstr "معاينة"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "احذف"
 
@@ -942,9 +942,8 @@ msgid "Do not delete this application"
 msgstr "لا تحذف هذا التطبيق"
 
 #: actions/deleteapplication.php:160
-#, fuzzy
 msgid "Delete this application"
-msgstr "احذف هذا الإشعار"
+msgstr "احذف هذا التطبيق"
 
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
@@ -978,7 +977,7 @@ msgstr "أمتأكد من أنك تريد حذف هذا الإشعار؟"
 msgid "Do not delete this notice"
 msgstr "لا تحذف هذا الإشعار"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "احذف هذا الإشعار"
 
@@ -1124,7 +1123,6 @@ msgid "No such document \"%s\""
 msgstr "لا مستند باسم \"%s\""
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
 msgstr "عدّل التطبيق"
 
@@ -1818,16 +1816,16 @@ msgstr "هذه ليست هويتك في جابر."
 #: actions/inbox.php:59
 #, php-format
 msgid "Inbox for %1$s - page %2$d"
-msgstr ""
+msgstr "صندوق %1$s الوارد - صفحة %2$d"
 
 #: actions/inbox.php:62
 #, php-format
 msgid "Inbox for %s"
-msgstr ""
+msgstr "صندوق %s الوارد"
 
 #: actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
-msgstr ""
+msgstr "هذا صندوق بريدك الوارد، والذي يسرد رسائلك الخاصة الواردة."
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
@@ -1896,7 +1894,9 @@ msgstr "رسالة شخصية"
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "أرسل"
 
@@ -2286,16 +2286,16 @@ msgstr "توكن الدخول انتهى."
 #: actions/outbox.php:58
 #, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr ""
+msgstr "صندوق %1$s الصادر - صفحة %2$d"
 
 #: actions/outbox.php:61
 #, php-format
 msgid "Outbox for %s"
-msgstr ""
+msgstr "صندوق %s الصادر"
 
 #: actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
-msgstr ""
+msgstr "هذا صندوق بريدك الصادر، والذي يسرد الرسائل الخاصة التي أرسلتها."
 
 #: actions/passwordsettings.php:58
 msgid "Change password"
@@ -3063,7 +3063,7 @@ msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
 msgid "You already repeated that notice."
 msgstr "أنت كررت هذه الملاحظة بالفعل."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "مكرر"
 
@@ -3704,7 +3704,7 @@ msgstr ""
 
 #: actions/smssettings.php:374
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "إن رقم التأكيد هذا خاطئ."
 
 #: actions/smssettings.php:405
 msgid "That is not your phone number."
@@ -3727,7 +3727,7 @@ msgstr ""
 
 #: actions/smssettings.php:498
 msgid "No code entered"
-msgstr ""
+msgstr "لم تدخل رمزًا"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -3740,10 +3740,9 @@ msgstr "تعذّر حفظ الاشتراك."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "هذا الإجراء يقبل طلبات POST فقط."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
 msgstr "لا ملف كهذا."
 
@@ -4115,7 +4114,7 @@ msgstr "ابحث عن المزيد من المجموعات"
 #: actions/usergroups.php:153
 #, php-format
 msgid "%s is not a member of any group."
-msgstr ""
+msgstr "%s ليس عضوًا في أي مجموعة."
 
 #: actions/usergroups.php:158
 #, php-format
@@ -4205,9 +4204,8 @@ msgid "Group leave failed."
 msgstr "ترك المجموعة فشل."
 
 #: classes/Local_group.php:41
-#, fuzzy
 msgid "Could not update local group."
-msgstr "تعذر تحديث المجموعة."
+msgstr "تعذر تحديث المجموعة المحلية."
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4263,7 +4261,7 @@ msgstr "مشكلة أثناء حفظ الإشعار."
 msgid "Problem saving group inbox."
 msgstr "مشكلة أثناء حفظ الإشعار."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "آر تي @%1$s %2$s"
@@ -4303,7 +4301,7 @@ msgstr "تعذّر إنشاء المجموعة."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "تعذّر ضبط عضوية المجموعة."
 
 #: classes/User_group.php:492
@@ -4578,18 +4576,16 @@ msgid "User configuration"
 msgstr "ضبط المسارات"
 
 #: lib/adminpanelaction.php:338
-#, fuzzy
 msgid "Access configuration"
-msgstr "ضبط التصميم"
+msgstr "ضبط الحساب"
 
 #: lib/adminpanelaction.php:343
 msgid "Paths configuration"
 msgstr "ضبط المسارات"
 
 #: lib/adminpanelaction.php:348
-#, fuzzy
 msgid "Sessions configuration"
-msgstr "ضبط التصميم"
+msgstr "ضبط الجلسات"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5494,6 +5490,12 @@ msgstr "إلى"
 msgid "Available characters"
 msgstr "المحارف المتوفرة"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "أرسل"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "أرسل إشعارًا"
@@ -5550,23 +5552,23 @@ msgstr "غ"
 msgid "at"
 msgstr "في"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "في السياق"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "مكرر بواسطة"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "رُد على هذا الإشعار"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "رُد"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "الإشعار مكرر"
 
@@ -5844,47 +5846,47 @@ msgstr "رسالة"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "قبل لحظات قليلة"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "قبل دقيقة تقريبًا"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "قبل ساعة تقريبًا"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "قبل يوم تقريبا"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "قبل شهر تقريبًا"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "قبل سنة تقريبًا"
 

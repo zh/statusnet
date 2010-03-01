@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:35+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:36+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -749,7 +749,7 @@ msgid "Preview"
 msgstr "Förhandsgranska"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Ta bort"
 
@@ -995,7 +995,7 @@ msgstr "Är du säker på att du vill ta bort denna notis?"
 msgid "Do not delete this notice"
 msgstr "Ta inte bort denna notis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Ta bort denna notis"
 
@@ -1963,7 +1963,9 @@ msgstr "Personligt meddelande"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Om du vill, skriv ett personligt meddelande till inbjudan."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Skicka"
 
@@ -3218,7 +3220,7 @@ msgstr "Du kan inte upprepa din egna notis."
 msgid "You already repeated that notice."
 msgstr "Du har redan upprepat denna notis."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "Upprepad"
 
@@ -4501,7 +4503,7 @@ msgstr "Problem med att spara notis."
 msgid "Problem saving group inbox."
 msgstr "Problem med att spara gruppinkorg."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4541,7 +4543,7 @@ msgstr "Kunde inte skapa grupp."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Kunde inte ställa in gruppmedlemskap."
 
 #: classes/User_group.php:492
@@ -5841,6 +5843,12 @@ msgstr "Till"
 msgid "Available characters"
 msgstr "Tillgängliga tecken"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Skicka"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Skicka en notis"
@@ -5899,23 +5907,23 @@ msgstr "V"
 msgid "at"
 msgstr "på"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "i sammanhang"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Upprepad av"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Svara på denna notis"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Svara"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Notis upprepad"
 
@@ -6193,47 +6201,47 @@ msgstr "Meddelande"
 msgid "Moderate"
 msgstr "Moderera"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "ett par sekunder sedan"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "för nån minut sedan"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "för %d minuter sedan"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "för en timma sedan"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "för %d timmar sedan"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "för en dag sedan"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "för %d dagar sedan"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "för en månad sedan"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "för %d månader sedan"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "för ett år sedan"
 

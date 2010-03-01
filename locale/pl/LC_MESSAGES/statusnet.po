@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:18+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:23+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -757,7 +757,7 @@ msgid "Preview"
 msgstr "Podgląd"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Usuń"
 
@@ -1001,7 +1001,7 @@ msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 msgid "Do not delete this notice"
 msgstr "Nie usuwaj tego wpisu"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Usuń ten wpis"
 
@@ -1963,7 +1963,9 @@ msgstr "Osobista wiadomość"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Opcjonalnie dodaj osobistą wiadomość do zaproszenia."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Wyślij"
 
@@ -2034,9 +2036,8 @@ msgid "You must be logged in to join a group."
 msgstr "Musisz być zalogowany, aby dołączyć do grupy."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
-msgstr "Brak pseudonimu."
+msgstr "Brak pseudonimu lub identyfikatora."
 
 #: actions/joingroup.php:141
 #, php-format
@@ -3216,7 +3217,7 @@ msgstr "Nie można powtórzyć własnego wpisu."
 msgid "You already repeated that notice."
 msgstr "Już powtórzono ten wpis."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "Powtórzono"
 
@@ -4443,9 +4444,8 @@ msgid "Group leave failed."
 msgstr "Opuszczenie grupy nie powiodło się."
 
 #: classes/Local_group.php:41
-#, fuzzy
 msgid "Could not update local group."
-msgstr "Nie można zaktualizować grupy."
+msgstr "Nie można zaktualizować lokalnej grupy."
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4504,7 +4504,7 @@ msgstr "Problem podczas zapisywania wpisu."
 msgid "Problem saving group inbox."
 msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4544,17 +4544,16 @@ msgstr "Nie można utworzyć grupy."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
-msgstr "Nie można ustawić członkostwa w grupie."
+msgid "Could not set group URI."
+msgstr "Nie można ustawić adresu URI grupy."
 
 #: classes/User_group.php:492
 msgid "Could not set group membership."
 msgstr "Nie można ustawić członkostwa w grupie."
 
 #: classes/User_group.php:506
-#, fuzzy
 msgid "Could not save local group info."
-msgstr "Nie można zapisać subskrypcji."
+msgstr "Nie można zapisać informacji o lokalnej grupie."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -5855,6 +5854,12 @@ msgstr "Do"
 msgid "Available characters"
 msgstr "Dostępne znaki"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Wyślij"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Wyślij wpis"
@@ -5913,23 +5918,23 @@ msgstr "Zachód"
 msgid "at"
 msgstr "w"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "w rozmowie"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Powtórzone przez"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Odpowiedz na ten wpis"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Odpowiedz"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Powtórzono wpis"
 
@@ -6208,47 +6213,47 @@ msgstr "Wiadomość"
 msgid "Moderate"
 msgstr "Moderuj"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "kilka sekund temu"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "około minutę temu"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "około %d minut temu"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "około godzinę temu"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "około %d godzin temu"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "blisko dzień temu"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "około %d dni temu"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "około miesiąc temu"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "około %d miesięcy temu"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "około rok temu"
 

@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:33:51+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:48:38+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: out-statusnet\n"
@@ -763,7 +763,7 @@ msgid "Preview"
 msgstr "Forsýn"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Eyða"
 
@@ -1012,7 +1012,7 @@ msgstr "Ertu viss um að þú viljir eyða þessu babli?"
 msgid "Do not delete this notice"
 msgstr ""
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Eyða þessu babli"
 
@@ -1990,7 +1990,9 @@ msgstr "Persónuleg skilaboð"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Bættu persónulegum skilaboðum við boðskortið ef þú vilt."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Senda"
 
@@ -3260,7 +3262,7 @@ msgstr "Þú getur ekki nýskráð þig nema þú samþykkir leyfið."
 msgid "You already repeated that notice."
 msgstr "Þú hefur nú þegar lokað á þennan notanda."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "Í sviðsljósinu"
@@ -4512,7 +4514,7 @@ msgstr "Vandamál komu upp við að vista babl."
 msgid "Problem saving group inbox."
 msgstr "Vandamál komu upp við að vista babl."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4555,7 +4557,7 @@ msgstr "Gat ekki búið til hóp."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Gat ekki skráð hópmeðlimi."
 
 #: classes/User_group.php:492
@@ -5766,6 +5768,12 @@ msgstr "Til"
 msgid "Available characters"
 msgstr "Leyfileg tákn"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Senda"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Senda babl"
@@ -5825,24 +5833,24 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "Í sviðsljósinu"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Svara þessu babli"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Svara"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Babl sent inn"
@@ -6132,47 +6140,47 @@ msgstr "Skilaboð"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "fyrir nokkrum sekúndum"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fyrir um %d mínútum síðan"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "fyrir um %d klukkutímum síðan"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "fyrir um %d dögum síðan"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "fyrir um %d mánuðum síðan"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "fyrir um einu ári síðan"
 

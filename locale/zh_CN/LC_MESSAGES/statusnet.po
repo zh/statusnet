@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:34:49+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:49:52+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -769,7 +769,7 @@ msgid "Preview"
 msgstr "预览"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 #, fuzzy
 msgid "Delete"
 msgstr "删除"
@@ -1027,7 +1027,7 @@ msgstr "确定要删除这条消息吗？"
 msgid "Do not delete this notice"
 msgstr "无法删除通告。"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 #, fuzzy
 msgid "Delete this notice"
 msgstr "删除通告"
@@ -2025,7 +2025,9 @@ msgstr "个人消息"
 msgid "Optionally add a personal message to the invitation."
 msgstr "在邀请中加几句话(可选)。"
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "发送"
 
@@ -3279,7 +3281,7 @@ msgstr "您必须同意此授权方可注册。"
 msgid "You already repeated that notice."
 msgstr "您已成功阻止该用户："
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "创建"
@@ -4549,7 +4551,7 @@ msgstr "保存通告时出错。"
 msgid "Problem saving group inbox."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4593,7 +4595,7 @@ msgstr "无法创建组。"
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "无法删除订阅。"
 
 #: classes/User_group.php:492
@@ -5831,6 +5833,12 @@ msgstr "到"
 msgid "Available characters"
 msgstr "6 个或更多字符"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "发送"
+
 #: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
@@ -5891,27 +5899,27 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 #, fuzzy
 msgid "in context"
 msgstr "没有内容！"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "创建"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "无法删除通告。"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 #, fuzzy
 msgid "Reply"
 msgstr "回复"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "消息已发布。"
@@ -6217,47 +6225,47 @@ msgstr "新消息"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "几秒前"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "一分钟前"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d 分钟前"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "一小时前"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d 小时前"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "一天前"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "%d 天前"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "一个月前"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "%d 个月前"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "一年前"
 

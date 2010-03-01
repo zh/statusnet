@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:33:14+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:48:06+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -764,7 +764,7 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1011,7 +1011,7 @@ msgstr "Bist du sicher, dass du diese Nachricht löschen möchtest?"
 msgid "Do not delete this notice"
 msgstr "Diese Nachricht nicht löschen"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Nachricht löschen"
 
@@ -1978,7 +1978,9 @@ msgstr ""
 "Wenn du möchtest kannst du zu der Einladung eine persönliche Nachricht "
 "anfügen."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Senden"
 
@@ -3233,7 +3235,7 @@ msgstr "Du kannst deine eigene Nachricht nicht wiederholen."
 msgid "You already repeated that notice."
 msgstr "Du hast diesen Benutzer bereits blockiert."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "Erstellt"
@@ -4504,7 +4506,7 @@ msgstr "Problem bei Speichern der Nachricht."
 msgid "Problem saving group inbox."
 msgstr "Problem bei Speichern der Nachricht."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4546,7 +4548,7 @@ msgstr "Konnte Gruppe nicht erstellen."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Konnte Gruppenmitgliedschaft nicht setzen."
 
 #: classes/User_group.php:492
@@ -5808,6 +5810,12 @@ msgstr "An"
 msgid "Available characters"
 msgstr "Verfügbare Zeichen"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Senden"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Nachricht senden"
@@ -5864,23 +5872,23 @@ msgstr "W"
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "im Zusammenhang"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Wiederholt von"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Auf diese Nachricht antworten"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Antworten"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Nachricht wiederholt"
 
@@ -6162,47 +6170,47 @@ msgstr "Nachricht"
 msgid "Moderate"
 msgstr "Moderieren"
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "vor wenigen Sekunden"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "vor einer Minute"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "vor %d Minuten"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "vor einer Stunde"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "vor %d Stunden"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "vor einem Tag"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "vor %d Tagen"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "vor einem Monat"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "vor %d Monaten"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "vor einem Jahr"
 

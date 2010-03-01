@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-27 17:32+0000\n"
-"PO-Revision-Date: 2010-02-27 17:33:39+0000\n"
+"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"PO-Revision-Date: 2010-03-01 15:48:26+0000\n"
 "Language-Team: Irish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63052); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ga\n"
 "X-Message-Group: out-statusnet\n"
@@ -773,7 +773,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 #, fuzzy
 msgid "Delete"
 msgstr "eliminar"
@@ -1035,7 +1035,7 @@ msgstr "Estas seguro que queres eliminar este chío?"
 msgid "Do not delete this notice"
 msgstr "Non se pode eliminar este chíos."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 #, fuzzy
 msgid "Delete this notice"
 msgstr "Eliminar chío"
@@ -2039,7 +2039,9 @@ msgstr "Mensaxe persoal"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Opcionalmente engadir unha mensaxe persoal á invitación."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#: actions/invite.php:197
+#, fuzzy
+msgctxt "Send button for inviting friends"
 msgid "Send"
 msgstr "Enviar"
 
@@ -3328,7 +3330,7 @@ msgstr "Non podes rexistrarte se non estas de acordo coa licenza."
 msgid "You already repeated that notice."
 msgstr "Xa bloqueaches a este usuario."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 #, fuzzy
 msgid "Repeated"
 msgstr "Crear"
@@ -4619,7 +4621,7 @@ msgstr "Aconteceu un erro ó gardar o chío."
 msgid "Problem saving group inbox."
 msgstr "Aconteceu un erro ó gardar o chío."
 
-#: classes/Notice.php:1437
+#: classes/Notice.php:1442
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4663,7 +4665,7 @@ msgstr "Non se puido crear o favorito."
 
 #: classes/User_group.php:471
 #, fuzzy
-msgid "Could not set group uri."
+msgid "Could not set group URI."
 msgstr "Non se pode gardar a subscrición."
 
 #: classes/User_group.php:492
@@ -5993,6 +5995,12 @@ msgstr "A"
 msgid "Available characters"
 msgstr "6 ou máis caracteres"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Enviar"
+
 #: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
@@ -6053,27 +6061,27 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 #, fuzzy
 msgid "in context"
 msgstr "Sen contido!"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 #, fuzzy
 msgid "Repeated by"
 msgstr "Crear"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "Non se pode eliminar este chíos."
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 #, fuzzy
 msgid "Reply"
 msgstr "contestar"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Chío publicado"
@@ -6380,47 +6388,47 @@ msgstr "Nova mensaxe"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/util.php:993
 msgid "a few seconds ago"
 msgstr "fai uns segundos"
 
-#: lib/util.php:954
+#: lib/util.php:995
 msgid "about a minute ago"
 msgstr "fai un minuto"
 
-#: lib/util.php:956
+#: lib/util.php:997
 #, php-format
 msgid "about %d minutes ago"
 msgstr "fai %d minutos"
 
-#: lib/util.php:958
+#: lib/util.php:999
 msgid "about an hour ago"
 msgstr "fai unha hora"
 
-#: lib/util.php:960
+#: lib/util.php:1001
 #, php-format
 msgid "about %d hours ago"
 msgstr "fai %d horas"
 
-#: lib/util.php:962
+#: lib/util.php:1003
 msgid "about a day ago"
 msgstr "fai un día"
 
-#: lib/util.php:964
+#: lib/util.php:1005
 #, php-format
 msgid "about %d days ago"
 msgstr "fai %d días"
 
-#: lib/util.php:966
+#: lib/util.php:1007
 msgid "about a month ago"
 msgstr "fai un mes"
 
-#: lib/util.php:968
+#: lib/util.php:1009
 #, php-format
 msgid "about %d months ago"
 msgstr "fai %d meses"
 
-#: lib/util.php:970
+#: lib/util.php:1011
 msgid "about a year ago"
 msgstr "fai un ano"
 
