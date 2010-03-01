@@ -172,6 +172,26 @@ class Subscription extends Memcached_DataObject
 
             assert(!empty($sub));
 
+            // @todo: move this block to EndSubscribe handler for
+            // OMB plugin when it exists.
+
+            if (!empty($sub->token)) {
+
+                $token = new Token();
+
+                $token->tok    = $sub->token;
+                $token->secret = $sub->secret;
+
+                if ($token->find(true)) {
+
+                    $result = $token->delete();
+                    if (!$result) {
+                        common_log_db_error($sub, 'DELETE', __FILE__);
+                        throw new Exception(_('Couldn\'t delete subscription OMB token.'));
+                    }
+                }
+            }
+
             $result = $sub->delete();
 
             if (!$result) {
