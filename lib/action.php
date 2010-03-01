@@ -436,40 +436,40 @@ class Action extends HTMLOutputter // lawsuit
         if (Event::handle('StartPrimaryNav', array($this))) {
             if ($user) {
                 $this->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
-                                _('Personal'), _('Personal profile and friends timeline'), false, 'nav_home');
+                                _m('Main menu option when logged in for access to personal profile and friends timeline', 'Personal'), _m('Tooltip for main menu option "Personal"', 'Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
-                                _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
+                                _m('Main menu option when logged in for access to user settings', 'Account'), _m('Tooltip for main menu option "Account"', 'Change your email, avatar, password, profile'), false, 'nav_account');
                 if ($connect) {
                     $this->menuItem(common_local_url($connect),
-                                    _('Connect'), _('Connect to services'), false, 'nav_connect');
+                                    _m('Main menu option when logged in and connection are possible for access to options to connect to other services', 'Connect'), _('Tooltip for main menu option "Services"', 'Connect to services'), false, 'nav_connect');
                 }
                 if ($user->hasRight(Right::CONFIGURESITE)) {
                     $this->menuItem(common_local_url('siteadminpanel'),
-                                    _('Admin'), _('Change site configuration'), false, 'nav_admin');
+                                    _m('Main menu option when logged in and site admin for access to site configuration', 'Admin'), _m('Tooltip for menu option "Admin"', 'Change site configuration'), false, 'nav_admin');
                 }
                 if (common_config('invite', 'enabled')) {
                     $this->menuItem(common_local_url('invite'),
-                                    _('Invite'),
-                                    sprintf(_('Invite friends and colleagues to join you on %s'),
+                                    _m('Main menu option when logged in and invitation are allowed for inviting new users', 'Invite'),
+                                    sprintf(_m('Tooltip for main menu option "Invite"', 'Invite friends and colleagues to join you on %s'),
                                             common_config('site', 'name')),
                                     false, 'nav_invitecontact');
                 }
                 $this->menuItem(common_local_url('logout'),
-                                _('Logout'), _('Logout from the site'), false, 'nav_logout');
+                                _m('Main menu option when logged in to log out the current user', 'Logout'), _m('Tooltip for main menu option "Logout"', 'Logout from the site'), false, 'nav_logout');
             }
             else {
                 if (!common_config('site', 'closed')) {
                     $this->menuItem(common_local_url('register'),
-                                    _('Register'), _('Create an account'), false, 'nav_register');
+                                    _m('Main menu option when not logged in to register a new account', 'Register'), _m('Tooltip for main menu option "Register"', 'Create an account'), false, 'nav_register');
                 }
                 $this->menuItem(common_local_url('login'),
-                                _('Login'), _('Login to the site'), false, 'nav_login');
+                                _m('Main menu option when not logged in to log in', 'Login'), _m('Tooltip for main menu option "Login"', 'Login to the site'), false, 'nav_login');
             }
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
-                            _('Help'), _('Help me!'), false, 'nav_help');
+                            _m('Main menu option for help on the StatusNet site', 'Help'), _m('Tooltip for main menu option "Help"', 'Help me!'), false, 'nav_help');
             if ($user || !common_config('site', 'private')) {
                 $this->menuItem(common_local_url('peoplesearch'),
-                                _('Search'), _('Search for people or text'), false, 'nav_search');
+                                _m('Main menu option when logged in or when the StatusNet instance is not private', 'Search'), _m('Tooltip for main menu option "Search"', 'Search for people or text'), false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($this));
         }

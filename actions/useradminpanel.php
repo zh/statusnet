@@ -55,7 +55,7 @@ class UseradminpanelAction extends AdminPanelAction
 
     function title()
     {
-        return _('User');
+        return _m('User admin panel title', 'User');
     }
 
     /**
