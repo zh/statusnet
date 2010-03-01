@@ -189,15 +189,14 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $entry = $this->ldap_get_user($username, $this->attributes);
         if(!$entry){
             //this really shouldn't happen
-            return $username;
+            $nickname = $username;
         }else{
             $nickname = $entry->getValue($this->attributes['nickname'],'single');
-            if($nickname){
-                return $nickname;
-            }else{
-                return $username;
+            if(!$nickname){
+                $nickname = $username;
             }
         }
+        return common_nicknamize($nickname);
     }
     
     //---utility functions---//
