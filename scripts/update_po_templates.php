@@ -36,9 +36,12 @@ xgettext \
     --default-domain=$domain \
     --output=locale/$domain.po \
     --language=PHP \
-    --keyword="_m:1" \
     --keyword="pgettext:1c,2" \
     --keyword="npgettext:1c,2,3" \
+    --keyword="_m:1,1t" \
+    --keyword="_m:1c,2,2t" \
+    --keyword="_m:1,2,3t" \
+    --keyword="_m:1c,2,3,4t" \
     actions/*.php \
     classes/*.php \
     lib/*.php \
