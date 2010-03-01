@@ -278,7 +278,6 @@ $default =
                                  'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
                                  'Geonames' => null,
                                  'Mapstraction' => null,
-                                 'Linkback' => null,
                                  'WikiHashtags' => null,
                                  'OpenID' => null),
               ),

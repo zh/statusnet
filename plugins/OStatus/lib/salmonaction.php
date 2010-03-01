@@ -41,27 +41,30 @@ class SalmonAction extends Action
             $this->clientError(_m('This method requires a POST.'));
         }
 
-        if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/atom+xml') {
-            $this->clientError(_m('Salmon requires application/atom+xml'));
+        if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/magic-envelope+xml') {
+            $this->clientError(_m('Salmon requires application/magic-envelope+xml'));
         }
 
         $xml = file_get_contents('php://input');
 
-        $dom = DOMDocument::loadXML($xml);
 
+        // Check the signature
+        $salmon = new Salmon;
+        if (!$salmon->verifyMagicEnv($xml)) {
+            common_log(LOG_DEBUG, "Salmon signature verification failed.");
+            $this->clientError(_m('Salmon signature verification failed.'));
+        } else {
+            $magic_env = new MagicEnvelope();
+            $env = $magic_env->parse($xml);
+            $xml = $magic_env->unfold($env);
+        }
+        
+
+        $dom = DOMDocument::loadXML($xml);
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
             common_log(LOG_DEBUG, "Got invalid Salmon post: $xml");
             $this->clientError(_m('Salmon post must be an Atom entry.'));
-        }
-
-        // Check the signature
-        $salmon = new Salmon;
-        if (!common_config('ostatus', 'skip_signatures')) {
-            if (!$salmon->verifyMagicEnv($dom)) {
-                common_log(LOG_DEBUG, "Salmon signature verification failed.");
-                $this->clientError(_m('Salmon signature verification failed.'));
-            }
         }
 
         $this->act = new Activity($dom->documentElement);

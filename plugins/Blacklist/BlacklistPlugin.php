@@ -22,7 +22,7 @@
  * @category  Action
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2009 StatusNet Inc.
+ * @copyright 2010 StatusNet Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -47,6 +47,55 @@ class BlacklistPlugin extends Plugin
 
     public $nicknames = array();
     public $urls      = array();
+    public $canAdmin  = true;
+
+    private $_nicknamePatterns = array();
+    private $_urlPatterns      = array();
+
+    /**
+     * Initialize the plugin
+     *
+     * @return void
+     */
+
+    function initialize()
+    {
+        $confNicknames = $this->_configArray('blacklist', 'nicknames');
+
+        $this->_nicknamePatterns = array_merge($this->nicknames,
+                                               $confNicknames);
+
+        $confURLs = $this->_configArray('blacklist', 'urls');
+
+        $this->_urlPatterns = array_merge($this->urls,
+                                          $confURLs);
+    }
+
+    /**
+     * Retrieve an array from configuration
+     *
+     * Carefully checks a section.
+     *
+     * @param string $section Configuration section
+     * @param string $setting Configuration setting
+     *
+     * @return array configuration values
+     */
+
+    function _configArray($section, $setting)
+    {
+        $config = common_config($section, $setting);
+
+        if (empty($config)) {
+            return array();
+        } else if (is_array($config)) {
+            return $config;
+        } else if (is_string($config)) {
+            return explode("\r\n", $config);
+        } else {
+            throw new Exception("Unknown data type for config $section + $setting");
+        }
+    }
 
     /**
      * Hook registration to prevent blacklisted homepages or nicknames
@@ -173,7 +222,8 @@ class BlacklistPlugin extends Plugin
 
     private function _checkUrl($url)
     {
-        foreach ($this->urls as $pattern) {
+        foreach ($this->_urlPatterns as $pattern) {
+            common_debug("Checking $url against $pattern");
             if (preg_match("/$pattern/", $url)) {
                 return false;
             }
@@ -194,7 +244,8 @@ class BlacklistPlugin extends Plugin
 
     private function _checkNickname($nickname)
     {
-        foreach ($this->nicknames as $pattern) {
+        foreach ($this->_nicknamePatterns as $pattern) {
+            common_debug("Checking $nickname against $pattern");
             if (preg_match("/$pattern/", $nickname)) {
                 return false;
             }
@@ -203,14 +254,191 @@ class BlacklistPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add our actions to the URL router
+     *
+     * @param Net_URL_Mapper $m URL mapper for this hit
+     *
+     * @return boolean hook return
+     */
+
+    function onRouterInitialized($m)
+    {
+        $m->connect('admin/blacklist', array('action' => 'blacklistadminpanel'));
+        return true;
+    }
+
+    /**
+     * Auto-load our classes if called
+     *
+     * @param string $cls Class to load
+     *
+     * @return boolean hook return
+     */
+
+    function onAutoload($cls)
+    {
+        switch (strtolower($cls))
+        {
+        case 'blacklistadminpanelaction':
+            $base = strtolower(mb_substr($cls, 0, -6));
+            include_once INSTALLDIR.'/plugins/Blacklist/'.$base.'.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Plugin version data
+     *
+     * @param array &$versions array of version blocks
+     *
+     * @return boolean hook value
+     */
+
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Blacklist',
                             'version' => self::VERSION,
                             'author' => 'Evan Prodromou',
-                            'homepage' => 'http://status.net/wiki/Plugin:Blacklist',
+                            'homepage' =>
+                            'http://status.net/wiki/Plugin:Blacklist',
                             'description' =>
-                            _m('Keep a blacklist of forbidden nickname and URL patterns.'));
+                            _m('Keep a blacklist of forbidden nickname '.
+                               'and URL patterns.'));
         return true;
+    }
+
+    /**
+     * Determines if our admin panel can be shown
+     *
+     * @param string  $name  name of the admin panel
+     * @param boolean &$isOK result
+     *
+     * @return boolean hook value
+     */
+
+    function onAdminPanelCheck($name, &$isOK)
+    {
+        if ($name == 'blacklist') {
+            $isOK = $this->canAdmin;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add our tab to the admin panel
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('blacklist')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(common_local_url('blacklistadminpanel'),
+                                _('Blacklist'),
+                                _('Blacklist configuration'),
+                                $action_name == 'blacklistadminpanel',
+                                'nav_blacklist_admin_panel');
+        }
+
+        return true;
+    }
+
+    function onEndDeleteUserForm($action, $user)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur) || !$cur->hasRight(Right::CONFIGURESITE)) {
+            return;
+        }
+
+        $profile = $user->getProfile();
+
+        if (empty($profile)) {
+            return;
+        }
+
+        $action->elementStart('ul', 'form_data');
+        $action->elementStart('li');
+        $this->checkboxAndText($action,
+                               'blacklistnickname',
+                               _('Add this nickname pattern to blacklist'),
+                               'blacklistnicknamepattern',
+                               $this->patternizeNickname($user->nickname));
+        $action->elementEnd('li');
+
+        if (!empty($profile->homepage)) {
+            $action->elementStart('li');
+            $this->checkboxAndText($action,
+                                   'blacklisthomepage',
+                                   _('Add this homepage pattern to blacklist'),
+                                   'blacklisthomepagepattern',
+                                   $this->patternizeHomepage($profile->homepage));
+            $action->elementEnd('li');
+        }
+
+        $action->elementEnd('ul');
+    }
+
+    function onEndDeleteUser($action, $user)
+    {
+        common_debug("Action args: " . print_r($action->args, true));
+
+        if ($action->boolean('blacklisthomepage')) {
+            $pattern = $action->trimmed('blacklisthomepagepattern');
+            $confURLs = $this->_configArray('blacklist', 'urls');
+            $confURLs[] = $pattern;
+            Config::save('blacklist', 'urls', implode("\r\n", $confURLs));
+        }
+
+        if ($action->boolean('blacklistnickname')) {
+            $pattern = $action->trimmed('blacklistnicknamepattern');
+            $confNicknames = $this->_configArray('blacklist', 'nicknames');
+            $confNicknames[] = $pattern;
+            Config::save('blacklist', 'nicknames', implode("\r\n", $confNicknames));
+        }
+
+        return true;
+    }
+
+    function checkboxAndText($action, $checkID, $label, $textID, $value)
+    {
+        $action->element('input', array('name' => $checkID,
+                                        'type' => 'checkbox',
+                                        'class' => 'checkbox',
+                                        'id' => $checkID));
+
+        $action->text(' ');
+
+        $action->element('label', array('class' => 'checkbox',
+                                        'for' => $checkID),
+                         $label);
+
+        $action->text(' ');
+
+        $action->element('input', array('name' => $textID,
+                                        'type' => 'text',
+                                        'id' => $textID,
+                                        'value' => $value));
+    }
+
+    function patternizeNickname($nickname)
+    {
+        return $nickname;
+    }
+
+    function patternizeHomepage($homepage)
+    {
+        $hostname = parse_url($homepage, PHP_URL_HOST);
+        return $hostname;
     }
 }

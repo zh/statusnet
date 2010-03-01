@@ -131,9 +131,9 @@ class OStatusInitAction extends Action
 
     function connectWebfinger($acct)
     {
-        $w = new Webfinger;
+        $disco = new Discovery;
 
-        $result = $w->lookup($acct);
+        $result = $disco->lookup($acct);
         if (!$result) {
             $this->clientError(_m("Couldn't look up OStatus account profile."));
         }
@@ -144,7 +144,7 @@ class OStatusInitAction extends Action
                 $user = User::staticGet('nickname', $this->nickname);
                 $target_profile = common_local_url('userbyid', array('id' => $user->id));
 
-                $url = $w->applyTemplate($link['template'], $target_profile);
+                $url = Discovery::applyTemplate($link['template'], $target_profile);
                 common_log(LOG_INFO, "Sending remote subscriber $acct to $url");
                 common_redirect($url, 303);
             }

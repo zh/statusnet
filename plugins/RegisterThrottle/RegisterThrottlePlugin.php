@@ -1,0 +1,249 @@
+<?php
+/**
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2010, StatusNet, Inc.
+ *
+ * Throttle registration by IP address
+ *
+ * PHP version 5
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Spam
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+/**
+ * Throttle registration by IP address
+ *
+ * We a) record IP address of registrants and b) throttle registrations.
+ *
+ * @category  Spam
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+class RegisterThrottlePlugin extends Plugin
+{
+    /**
+     * Array of time spans in seconds to limits.
+     *
+     * Default is 3 registrations per hour, 5 per day, 10 per week.
+     */
+
+    public $regLimits = array(604800 => 10, // per week
+                              86400 => 5, // per day
+                              3600 => 3); // per hour
+
+    /**
+     * Database schema setup
+     *
+     * We store user registrations in a table registration_ip.
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing user-submitted flags on profiles
+
+        $schema->ensureTable('registration_ip',
+                             array(new ColumnDef('user_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('ipaddress', 'varchar', 15, false, 'MUL'),
+                                   new ColumnDef('created', 'timestamp', null, false, 'MUL')));
+
+        return true;
+    }
+
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'Registration_ip':
+            include_once $dir . '/'.$cls.'.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    /**
+     * Called when someone tries to register.
+     *
+     * We check the IP here to determine if it goes over any of our
+     * configured limits.
+     *
+     * @param Action $action Action that is being executed
+     *
+     * @return boolean hook value
+     *
+     */
+
+    function onStartRegistrationTry($action)
+    {
+        $ipaddress = $this->_getIpAddress();
+
+        if (empty($ipaddress)) {
+            throw new ServerException(_m('Cannot find IP address.'));
+        }
+
+        foreach ($this->regLimits as $seconds => $limit) {
+
+            $this->debug("Checking $seconds ($limit)");
+
+            $reg = $this->_getNthReg($ipaddress, $limit);
+
+            if (!empty($reg)) {
+                $this->debug("Got a {$limit}th registration.");
+                $regtime = strtotime($reg->created);
+                $now     = time();
+                $this->debug("Comparing {$regtime} to {$now}");
+                if ($now - $regtime < $seconds) {
+                    throw new Exception(_("Too many registrations. Take a break and try again later."));
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Called after someone registers.
+     *
+     * We record the successful registration and IP address.
+     *
+     * @param Action $action Action that is being executed
+     *
+     * @return boolean hook value
+     *
+     */
+
+    function onEndRegistrationTry($action)
+    {
+        $ipaddress = $this->_getIpAddress();
+
+        if (empty($ipaddress)) {
+            throw new ServerException(_m('Cannot find IP address.'));
+        }
+
+        $user = common_current_user();
+
+        if (empty($user)) {
+            throw new ServerException(_m('Cannot find user after successful registration.'));
+        }
+
+        $reg = new Registration_ip();
+
+        $reg->user_id   = $user->id;
+        $reg->ipaddress = $ipaddress;
+
+        $result = $reg->insert();
+
+        if (!$result) {
+            common_log_db_error($reg, 'INSERT', __FILE__);
+            // @todo throw an exception?
+        }
+
+        return true;
+    }
+
+    /**
+     * Check the version of the plugin.
+     *
+     * @param array &$versions Version array.
+     *
+     * @return boolean hook value
+     */
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'RegisterThrottle',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:RegisterThrottle',
+                            'description' =>
+                            _m('Throttles excessive registration from a single IP.'));
+        return true;
+    }
+
+    /**
+     * Gets the current IP address.
+     *
+     * @return string IP address or null if not found.
+     */
+
+    private function _getIpAddress()
+    {
+        $keys = array('HTTP_X_FORWARDED_FOR',
+                      'CLIENT-IP',
+                      'REMOTE_ADDR');
+
+        foreach ($keys as $k) {
+            if (!empty($_SERVER[$k])) {
+                return $_SERVER[$k];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the Nth registration with the given IP address.
+     *
+     * @param string  $ipaddress Address to key on
+     * @param integer $n         Nth address
+     *
+     * @return Registration_ip nth registration or null if not found.
+     */
+
+    private function _getNthReg($ipaddress, $n)
+    {
+        $reg = new Registration_ip();
+
+        $reg->ipaddress = $ipaddress;
+
+        $reg->orderBy('created DESC');
+        $reg->limit($n - 1, 1);
+
+        if ($reg->find(true)) {
+            return $reg;
+        } else {
+            return null;
+        }
+    }
+}
