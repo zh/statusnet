@@ -140,4 +140,8 @@ create table oauth_application_user (
     constraint primary key (profile_id, application_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+alter table file_to_post
+    add index post_id_idx (post_id);
 
+alter table group_inbox
+    add index group_inbox_notice_id_idx (notice_id);

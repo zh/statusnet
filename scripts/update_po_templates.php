@@ -36,12 +36,13 @@ xgettext \
     --default-domain=$domain \
     --output=locale/$domain.po \
     --language=PHP \
-    --keyword="pgettext:1c,2" \
-    --keyword="npgettext:1c,2,3" \
+    --add-comments=TRANS \
     --keyword="_m:1,1t" \
     --keyword="_m:1c,2,2t" \
     --keyword="_m:1,2,3t" \
     --keyword="_m:1c,2,3,4t" \
+    --keyword="pgettext:1c,2" \
+    --keyword="npgettext:1c,2,3" \
     actions/*.php \
     classes/*.php \
     lib/*.php \
@@ -65,6 +66,7 @@ xgettext \
     --default-domain=$domain \
     --output=locale/$domain.po \
     --language=PHP \
+    --add-comments=TRANS \
     --keyword='' \
     --keyword="_m:1,1t" \
     --keyword="_m:1c,2,2t" \
