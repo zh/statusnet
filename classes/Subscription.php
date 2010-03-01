@@ -180,7 +180,6 @@ class Subscription extends Memcached_DataObject
                 $token = new Token();
 
                 $token->tok    = $sub->token;
-                $token->secret = $sub->secret;
 
                 if ($token->find(true)) {
 
