@@ -523,7 +523,8 @@ create table file_to_post (
     post_id integer comment 'id of the notice it belongs to' references notice (id),
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (file_id, post_id)
+    constraint primary key (file_id, post_id),
+    index post_id_idx (post_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
