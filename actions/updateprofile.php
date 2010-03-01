@@ -79,8 +79,8 @@ class UpdateprofileAction extends Action
             $srv->handleUpdateProfile();
         } catch (OMB_RemoteServiceException $rse) {
             $msg = $rse->getMessage();
-            if (preg_match('/^Revoked accesstoken/', $msg) ||
-                preg_match('/^No subscriber/', $msg)) {
+            if (preg_match('/Revoked accesstoken/', $msg) ||
+                preg_match('/No subscriber/', $msg)) {
                 $this->clientError($msg, 403);
             } else {
                 $this->clientError($msg);
