@@ -54,7 +54,10 @@ class PostnoticeAction extends Action
      */
     function prepare($argarray)
     {
+        StatusNet::setApi(true); // Send smaller error pages
+
         parent::prepare($argarray);
+
         try {
             $this->checkNotice();
         } catch (Exception $e) {
