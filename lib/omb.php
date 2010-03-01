@@ -77,7 +77,7 @@ function omb_broadcast_notice($notice)
     /* Get remote users subscribed to this profile. */
     $rp = new Remote_profile();
 
-    $rp->query('SELECT postnoticeurl, token, secret ' .
+    $rp->query('SELECT remote_profile.* ' .
                'FROM subscription JOIN remote_profile ' .
                'ON subscription.subscriber = remote_profile.id ' .
                'WHERE subscription.subscribed = ' . $notice->profile_id . ' ');
@@ -93,7 +93,8 @@ function omb_broadcast_notice($notice)
 
         /* Post notice. */
         $service = new StatusNet_OMB_Service_Consumer(
-                     array(OMB_ENDPOINT_POSTNOTICE => $rp->postnoticeurl));
+                     array(OMB_ENDPOINT_POSTNOTICE => $rp->postnoticeurl),
+                                                      $rp->uri);
         try {
             $service->setToken($rp->token, $rp->secret);
             $service->postNotice($omb_notice);
@@ -125,7 +126,7 @@ function omb_broadcast_profile($profile)
     /* Get remote users subscribed to this profile. */
     $rp = new Remote_profile();
 
-    $rp->query('SELECT updateprofileurl, token, secret ' .
+    $rp->query('SELECT remote_profile.* ' .
                'FROM subscription JOIN remote_profile ' .
                'ON subscription.subscriber = remote_profile.id ' .
                'WHERE subscription.subscribed = ' . $profile->id . ' ');
@@ -141,7 +142,8 @@ function omb_broadcast_profile($profile)
 
         /* Update profile. */
         $service = new StatusNet_OMB_Service_Consumer(
-                     array(OMB_ENDPOINT_UPDATEPROFILE => $rp->updateprofileurl));
+                     array(OMB_ENDPOINT_UPDATEPROFILE => $rp->updateprofileurl),
+                                                      $rp->uri);
         try {
             $service->setToken($rp->token, $rp->secret);
             $service->updateProfile($omb_profile);
@@ -159,13 +161,14 @@ function omb_broadcast_profile($profile)
 }
 
 class StatusNet_OMB_Service_Consumer extends OMB_Service_Consumer {
-    public function __construct($urls)
+    public function __construct($urls, $listener_uri=null)
     {
         $this->services       = $urls;
         $this->datastore      = omb_oauth_datastore();
         $this->oauth_consumer = omb_oauth_consumer();
         $this->fetcher        = Auth_Yadis_Yadis::getHTTPFetcher();
         $this->fetcher->timeout = intval(common_config('omb', 'timeout'));
+        $this->listener_uri   = $listener_uri;
     }
 
 }
