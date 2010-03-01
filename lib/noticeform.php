@@ -233,6 +233,6 @@ class NoticeForm extends Form
                                            'class' => 'submit',
                                            'name' => 'status_submit',
                                            'type' => 'submit',
-                                           'value' => _('Send')));
+                                           'value' => _m('Send button for sending notice', 'Send')));
     }
 }
