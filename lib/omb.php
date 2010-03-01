@@ -77,7 +77,7 @@ function omb_broadcast_notice($notice)
     /* Get remote users subscribed to this profile. */
     $rp = new Remote_profile();
 
-    $rp->query('SELECT remote_profile.* ' .
+    $rp->query('SELECT remote_profile.*, secret, token ' .
                'FROM subscription JOIN remote_profile ' .
                'ON subscription.subscriber = remote_profile.id ' .
                'WHERE subscription.subscribed = ' . $notice->profile_id . ' ');
@@ -126,7 +126,7 @@ function omb_broadcast_profile($profile)
     /* Get remote users subscribed to this profile. */
     $rp = new Remote_profile();
 
-    $rp->query('SELECT remote_profile.* ' .
+    $rp->query('SELECT remote_profile.*, secret, token ' .
                'FROM subscription JOIN remote_profile ' .
                'ON subscription.subscriber = remote_profile.id ' .
                'WHERE subscription.subscribed = ' . $profile->id . ' ');
