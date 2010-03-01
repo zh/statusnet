@@ -441,7 +441,7 @@ class Action extends HTMLOutputter // lawsuit
                                 _m('Main menu option when logged in for access to user settings', 'Account'), _m('Tooltip for main menu option "Account"', 'Change your email, avatar, password, profile'), false, 'nav_account');
                 if ($connect) {
                     $this->menuItem(common_local_url($connect),
-                                    _m('Main menu option when logged in and connection are possible for access to options to connect to other services', 'Connect'), _('Tooltip for main menu option "Services"', 'Connect to services'), false, 'nav_connect');
+                                    _m('Main menu option when logged in and connection are possible for access to options to connect to other services', 'Connect'), _m('Tooltip for main menu option "Services"', 'Connect to services'), false, 'nav_connect');
                 }
                 if ($user->hasRight(Right::CONFIGURESITE)) {
                     $this->menuItem(common_local_url('siteadminpanel'),
