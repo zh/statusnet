@@ -55,6 +55,8 @@ class UpdateprofileAction extends Action
      */
     function prepare($argarray)
     {
+        StatusNet::setApi(true); // Send smaller error pages
+
         parent::prepare($argarray);
         $license      = $_POST['omb_listenee_license'];
         $site_license = common_config('license', 'url');
