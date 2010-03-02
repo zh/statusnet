@@ -23,7 +23,7 @@
  * @author    Julien C <chaumond@gmail.com>
  * @copyright 2009-2010 Control Yourself, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link      http://laconi.ca/
+ * @link      http://status.net/
  */
 
 if (!defined('STATUSNET')) {
@@ -31,8 +31,6 @@ if (!defined('STATUSNET')) {
 }
 
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
-
-define('TWITTERBRIDGEPLUGIN_VERSION', '0.9');
 
 /**
  * Plugin for sending and importing Twitter statuses
@@ -44,19 +42,41 @@ define('TWITTERBRIDGEPLUGIN_VERSION', '0.9');
  * @author   Zach Copley <zach@status.net>
  * @author   Julien C <chaumond@gmail.com>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
- * @link     http://laconi.ca/
+ * @link     http://status.net/
  * @link     http://twitter.com/
  */
 
 class TwitterBridgePlugin extends Plugin
 {
+
+    const VERSION = STATUSNET_VERSION;
+
     /**
      * Initializer for the plugin.
      */
 
-    function __construct()
+    function initialize()
     {
-        parent::__construct();
+        // Allow the key and secret to be passed in
+        // Control panel will override
+
+        if (isset($this->consumer_key)) {
+            $key = common_config('twitter', 'consumer_key');
+            if (empty($key)) {
+                Config::save('twitter', 'consumer_key', $this->consumer_key);
+            }
+        }
+
+        if (isset($this->consumer_secret)) {
+            $secret = common_config('twitter', 'consumer_secret');
+            if (empty($secret)) {
+                Config::save(
+                    'twitter',
+                    'consumer_secret',
+                    $this->consumer_secret
+                );
+            }
+        }
     }
 
     /**
@@ -71,10 +91,17 @@ class TwitterBridgePlugin extends Plugin
 
     function onRouterInitialized($m)
     {
-        $m->connect('twitter/authorization',
-                    array('action' => 'twitterauthorization'));
+        $m->connect(
+            'twitter/authorization',
+            array('action' => 'twitterauthorization')
+        );
         $m->connect('settings/twitter', array('action' => 'twittersettings'));
-        $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+
+        if (common_config('twitter', 'signin')) {
+            $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+        }
+
+        $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
 
         return true;
     }
@@ -88,13 +115,16 @@ class TwitterBridgePlugin extends Plugin
      */
     function onEndLoginGroupNav(&$action)
     {
-
         $action_name = $action->trimmed('action');
 
-        $action->menuItem(common_local_url('twitterlogin'),
-                                           _('Twitter'),
-                                           _('Login or register using Twitter'),
-                                             'twitterlogin' === $action_name);
+        if (common_config('twitter', 'signin')) {
+            $action->menuItem(
+                common_local_url('twitterlogin'),
+                _m('Twitter'),
+                _m('Login or register using Twitter'),
+                'twitterlogin' === $action_name
+            );
+        }
 
         return true;
     }
@@ -110,10 +140,12 @@ class TwitterBridgePlugin extends Plugin
     {
         $action_name = $action->trimmed('action');
 
-        $action->menuItem(common_local_url('twittersettings'),
-                          _m('Twitter'),
-                          _m('Twitter integration options'),
-                          $action_name === 'twittersettings');
+        $action->menuItem(
+            common_local_url('twittersettings'),
+            _m('Twitter'),
+            _m('Twitter integration options'),
+            $action_name === 'twittersettings'
+        );
 
         return true;
     }
@@ -132,6 +164,7 @@ class TwitterBridgePlugin extends Plugin
         case 'TwittersettingsAction':
         case 'TwitterauthorizationAction':
         case 'TwitterloginAction':
+        case 'TwitteradminpanelAction':
             include_once INSTALLDIR . '/plugins/TwitterBridge/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
@@ -173,12 +206,18 @@ class TwitterBridgePlugin extends Plugin
      */
     function onGetValidDaemons($daemons)
     {
-        array_push($daemons, INSTALLDIR .
-                   '/plugins/TwitterBridge/daemons/synctwitterfriends.php');
+        array_push(
+            $daemons,
+            INSTALLDIR
+            . '/plugins/TwitterBridge/daemons/synctwitterfriends.php'
+        );
 
         if (common_config('twitterimport', 'enabled')) {
-            array_push($daemons, INSTALLDIR
-                . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php');
+            array_push(
+                $daemons,
+                INSTALLDIR
+                . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php'
+            );
         }
 
         return true;
@@ -197,17 +236,55 @@ class TwitterBridgePlugin extends Plugin
         return true;
     }
 
+    /**
+     * Add a Twitter tab to the admin panel
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('twitter')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(
+                common_local_url('twitteradminpanel'),
+                _m('Twitter'),
+                _m('Twitter bridge configuration'),
+                $action_name == 'twitteradminpanel',
+                'nav_twitter_admin_panel'
+            );
+        }
+
+        return true;
+    }
+
+    /**
+     * Plugin version data
+     *
+     * @param array &$versions array of version blocks
+     *
+     * @return boolean hook value
+     */
+
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'TwitterBridge',
-                            'version' => TWITTERBRIDGEPLUGIN_VERSION,
-                            'author' => 'Zach Copley',
-                            'homepage' => 'http://status.net/wiki/Plugin:TwitterBridge',
-                            'rawdescription' =>
-                            _m('The Twitter "bridge" plugin allows you to integrate ' .
-                               'your StatusNet instance with ' .
-                               '<a href="http://twitter.com/">Twitter</a>.'));
+        $versions[] = array(
+            'name' => 'TwitterBridge',
+            'version' => self::VERSION,
+            'author' => 'Zach Copley, Julien C',
+            'homepage' => 'http://status.net/wiki/Plugin:TwitterBridge',
+            'rawdescription' => _m(
+                'The Twitter "bridge" plugin allows you to integrate ' .
+                'your StatusNet instance with ' .
+                '<a href="http://twitter.com/">Twitter</a>.'
+            )
+        );
         return true;
     }
 
 }
+
