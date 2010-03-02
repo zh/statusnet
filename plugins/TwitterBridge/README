@@ -1,7 +1,7 @@
 This Twitter "bridge" plugin allows you to integrate your StatusNet
 instance with Twitter.  Installing it will allow your users to:
 
-    - automatically post notices to thier Twitter accounts
+    - automatically post notices to their Twitter accounts
     - automatically subscribe to other Twitter users who are also using
       your StatusNet install, if possible (requires running a daemon)
     - import their Twitter friends' tweets (requires running a daemon)
@@ -9,18 +9,14 @@ instance with Twitter.  Installing it will allow your users to:
 Installation
 ------------
 
-To enable the plugin, add the following to your config.php:
-
-    addPlugin("TwitterBridge");
-
-OAuth is used to to access protected resources on Twitter (as opposed to
-HTTP Basic Auth)*.  To use Twitter bridging you will need to register
-your instance of StatusNet as an application on Twitter
-(http://twitter.com/apps), and update the following variables in your
-config.php with the consumer key and secret Twitter generates for you:
-
-    $config['twitter']['consumer_key']    = 'YOURKEY';
-    $config['twitter']['consumer_secret'] = 'YOURSECRET';
+OAuth (http://oauth.net) is used to to access protected resources on
+Twitter (as opposed to HTTP Basic Auth)*.  To use Twitter bridging you
+will need to register your instance of StatusNet as an application on
+Twitter (http://twitter.com/apps). During the application registration
+process your application will be assigned a "consumer" key and secret,
+which the plugin will use to make OAuth requests to Twitter.  You can
+either pass the consumer key and secret in when you enable the plugin,
+or set it using the Twitter administration panel.
 
 When registering your application with Twitter set the type to "Browser"
 and your Callback URL to:
@@ -28,6 +24,16 @@ and your Callback URL to:
     http://example.org/mublog/twitter/authorization
 
 The default access type should be, "Read & Write".
+
+To enable the plugin, add the following to your config.php:
+
+    addPlugin(
+        'TwitterBridge',
+        array(
+            'consumer_key'    => 'YOUR_CONSUMER_KEY',
+            'consumer_secret' => 'YOUR_CONSUMER_SECRET'
+        )
+    );
 
 * Note: The plugin will still push notices to Twitter for users who
   have previously setup the Twitter bridge using their Twitter name and
