@@ -144,18 +144,22 @@ class AllAction extends ProfileAction
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        if (Event::handle('StartShowAllContent', array($this))) {
+            $nl = new NoticeList($this->notice, $this);
 
-        $cnt = $nl->show();
+            $cnt = $nl->show();
 
-        if (0 == $cnt) {
-            $this->showEmptyListMessage();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
+
+            $this->pagination(
+                $this->page > 1, $cnt > NOTICES_PER_PAGE,
+                $this->page, 'all', array('nickname' => $this->user->nickname)
+            );
+
+            Event::handle('EndShowAllContent', array($this));
         }
-
-        $this->pagination(
-            $this->page > 1, $cnt > NOTICES_PER_PAGE,
-            $this->page, 'all', array('nickname' => $this->user->nickname)
-        );
     }
 
     function showPageTitle()
