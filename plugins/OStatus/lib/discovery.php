@@ -94,7 +94,7 @@ class Discovery
             $links = call_user_func(array($class, 'discover'), $uri);
             if ($link = Discovery::getService($links, Discovery::LRDD_REL)) {
                 // Load the LRDD XRD
-                if ($link['template']) {
+                if (!empty($link['template'])) {
                     $xrd_uri = Discovery::applyTemplate($link['template'], $uri);
                 } else {
                     $xrd_uri = $link['href'];

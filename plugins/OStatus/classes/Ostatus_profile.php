@@ -1145,7 +1145,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($poco)) {
             $url = $poco->getPrimaryURL();
-            if ($url->type == 'homepage') {
+            if ($url && $url->type == 'homepage') {
                 $homepage = $url->value;
             }
         }
