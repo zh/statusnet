@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 15:47+0000\n"
+"POT-Creation-Date: 2010-03-01 14:58-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -479,6 +479,7 @@ msgstr ""
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
+#: actions/plugindisable.php:69 actions/pluginenable.php:69
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
@@ -537,7 +538,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310
 msgid "Account"
 msgstr ""
 
@@ -939,7 +940,8 @@ msgstr ""
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/plugindisable.php:51
+#: actions/pluginenable.php:51 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:72 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
@@ -1629,7 +1631,7 @@ msgstr ""
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:182 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/groupnav.php:107
 msgid "Admin"
 msgstr ""
 
@@ -1964,8 +1966,7 @@ msgstr ""
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
-#: lib/logingroupnav.php:79
+#: actions/login.php:188 actions/login.php:241 lib/logingroupnav.php:79
 msgid "Login"
 msgstr ""
 
@@ -2518,6 +2519,22 @@ msgstr ""
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
+#: actions/plugindisable.php:76
+msgid "Plugin inactive or missing."
+msgstr ""
+
+#: actions/plugindisable.php:90
+msgid "Disabled"
+msgstr ""
+
+#: actions/pluginenable.php:76
+msgid "Plugin already active."
+msgstr ""
+
+#: actions/pluginenable.php:92
+msgid "Enabled"
+msgstr ""
+
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
 msgstr ""
@@ -2882,8 +2899,7 @@ msgstr ""
 msgid "Registration successful"
 msgstr ""
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
-#: lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
 msgid "Register"
 msgstr ""
 
@@ -3901,8 +3917,8 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:332
-#: lib/personalgroupnav.php:115
+#: actions/useradminpanel.php:58
+msgctxt "User admin panel title"
 msgid "User"
 msgstr ""
 
@@ -4323,67 +4339,112 @@ msgid "Primary site navigation"
 msgstr ""
 
 #: lib/action.php:439
-msgid "Home"
+msgctxt ""
+"Main menu option when logged in for access to personal profile and friends "
+"timeline"
+msgid "Personal"
 msgstr ""
 
 #: lib/action.php:439
+msgctxt "Tooltip for main menu option \"Personal\""
 msgid "Personal profile and friends timeline"
 msgstr ""
 
 #: lib/action.php:441
+msgctxt "Main menu option when logged in for access to user settings"
+msgid "Account"
+msgstr ""
+
+#: lib/action.php:441
+msgctxt "Tooltip for main menu option \"Account\""
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
 #: lib/action.php:444
+msgctxt ""
+"Main menu option when logged in and connection are possible for access to "
+"options to connect to other services"
 msgid "Connect"
 msgstr ""
 
 #: lib/action.php:444
+msgctxt "Tooltip for main menu option \"Services\""
 msgid "Connect to services"
 msgstr ""
 
 #: lib/action.php:448
+msgctxt ""
+"Main menu option when logged in and site admin for access to site "
+"configuration"
+msgid "Admin"
+msgstr ""
+
+#: lib/action.php:448
+msgctxt "Tooltip for menu option \"Admin\""
 msgid "Change site configuration"
 msgstr ""
 
-#: lib/action.php:452 lib/subgroupnav.php:105
+#: lib/action.php:452
+msgctxt ""
+"Main menu option when logged in and invitation are allowed for inviting new "
+"users"
 msgid "Invite"
 msgstr ""
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#: lib/action.php:453
 #, php-format
+msgctxt "Tooltip for main menu option \"Invite\""
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
 #: lib/action.php:458
+msgctxt "Main menu option when logged in to log out the current user"
 msgid "Logout"
 msgstr ""
 
 #: lib/action.php:458
+msgctxt "Tooltip for main menu option \"Logout\""
 msgid "Logout from the site"
 msgstr ""
 
 #: lib/action.php:463
+msgctxt "Main menu option when not logged in to register a new account"
+msgid "Register"
+msgstr ""
+
+#: lib/action.php:463
+msgctxt "Tooltip for main menu option \"Register\""
 msgid "Create an account"
 msgstr ""
 
 #: lib/action.php:466
+msgctxt "Main menu option when not logged in to log in"
+msgid "Login"
+msgstr ""
+
+#: lib/action.php:466
+msgctxt "Tooltip for main menu option \"Login\""
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:469 lib/action.php:732
+#: lib/action.php:469
+msgctxt "Main menu option for help on the StatusNet site"
 msgid "Help"
 msgstr ""
 
 #: lib/action.php:469
+msgctxt "Tooltip for main menu option \"Help\""
 msgid "Help me!"
 msgstr ""
 
-#: lib/action.php:472 lib/searchaction.php:127
+#: lib/action.php:472
+msgctxt ""
+"Main menu option when logged in or when the StatusNet instance is not private"
 msgid "Search"
 msgstr ""
 
 #: lib/action.php:472
+msgctxt "Tooltip for main menu option \"Search\""
 msgid "Search for people or text"
 msgstr ""
 
@@ -4401,6 +4462,10 @@ msgstr ""
 
 #: lib/action.php:727
 msgid "Secondary site navigation"
+msgstr ""
+
+#: lib/action.php:732
+msgid "Help"
 msgstr ""
 
 #: lib/action.php:734
@@ -4533,6 +4598,10 @@ msgstr ""
 msgid "Design configuration"
 msgstr ""
 
+#: lib/adminpanelaction.php:332 lib/personalgroupnav.php:115
+msgid "User"
+msgstr ""
+
 #: lib/adminpanelaction.php:333
 msgid "User configuration"
 msgstr ""
@@ -4643,11 +4712,11 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
+#: lib/authenticationplugin.php:220 lib/authenticationplugin.php:225
 msgid "Password changing failed"
 msgstr ""
 
-#: lib/authenticationplugin.php:233
+#: lib/authenticationplugin.php:235
 msgid "Password changing is not allowed"
 msgstr ""
 
@@ -5660,6 +5729,10 @@ msgstr ""
 msgid "Keyword(s)"
 msgstr ""
 
+#: lib/searchaction.php:127
+msgid "Search"
+msgstr ""
+
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr ""
@@ -5709,6 +5782,15 @@ msgstr ""
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
+msgstr ""
+
+#: lib/subgroupnav.php:105
+msgid "Invite"
+msgstr ""
+
+#: lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
