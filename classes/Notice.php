@@ -559,17 +559,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
                               array(),
                               'public',
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -598,10 +598,6 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('id <= ' . $max_id);
         }
 
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
-        }
-
         $ids = array();
 
         if ($notice->find()) {
@@ -616,17 +612,17 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_conversationStreamDirect'),
                               array($id),
                               'notice:conversation_ids:'.$id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -647,10 +643,6 @@ class Notice extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $ids = array();
@@ -1270,16 +1262,16 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $cache = common_memcache();
 
         if (empty($cache) ||
-            $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
+            $since_id != 0 || $max_id != 0 ||
             is_null($limit) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $max_id, $since)));
+                                                                      $max_id)));
         }
 
         $idkey = common_cache_key($cachekey);

@@ -189,7 +189,7 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
 
         $notice = $this->user->getReplies(
             ($this->page - 1) * $this->count, $this->count,
-            $this->since_id, $this->max_id, $this->since
+            $this->since_id, $this->max_id
         );
 
         while ($notice->fetch()) {

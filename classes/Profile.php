@@ -163,27 +163,27 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array($this, '_streamTaggedDirect'),
                               array($tag),
                               'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id, $since)
+    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
     {
         // XXX It would be nice to do this without a join
 
@@ -200,10 +200,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $query .= " and id < $max_id";
-        }
-
-        if (!is_null($since)) {
-            $query .= " and created > '" . date('Y-m-d H:i:s', $since) . "'";
         }
 
         $query .= ' order by id DESC';
@@ -223,7 +219,7 @@ class Profile extends Memcached_DataObject
         return $ids;
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id, $since = null)
+    function _streamDirect($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
 
@@ -238,10 +234,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $notice->orderBy('id DESC');
