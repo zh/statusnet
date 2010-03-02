@@ -55,7 +55,8 @@ class UseradminpanelAction extends AdminPanelAction
 
     function title()
     {
-        return _m('User admin panel title', 'User');
+        // TRANS: User admin panel title
+        return _m('TITLE', 'User');
     }
 
     /**
