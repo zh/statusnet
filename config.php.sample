@@ -275,6 +275,8 @@ $config['sphinx']['port'] = 3312;
 // Support for file uploads (attachments),
 // select supported mimetypes and quotas (in bytes)
 // $config['attachments']['supported'] = array('image/png', 'application/ogg');
+// $config['attachments']['supported'] = true; //allow all file types to be uploaded
+
 // $config['attachments']['file_quota'] = 5000000;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;
