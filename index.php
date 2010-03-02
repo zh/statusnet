@@ -92,6 +92,12 @@ function handleError($error)
             || $error instanceof DB_Error
             || ($error instanceof PEAR_Exception && $error->getCode() == -24)
         ) {
+            //If we run into a DB error, assume we can't connect to the DB at all
+            //so set the current user to null, so we don't try to access the DB
+            //while rendering the error page.
+            global $_cur;
+            $_cur = null;
+
             $msg = sprintf(
                 _(
                     'The database for %s isn\'t responding correctly, '.
