@@ -425,8 +425,6 @@ class Action extends HTMLOutputter // lawsuit
             $connect = 'imsettings';
         } else if (common_config('sms', 'enabled')) {
             $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
         }
 
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
