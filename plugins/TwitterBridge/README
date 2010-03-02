@@ -1,3 +1,6 @@
+Twitter Bridge Plugin
+=====================
+
 This Twitter "bridge" plugin allows you to integrate your StatusNet
 instance with Twitter.  Installing it will allow your users to:
 
@@ -44,8 +47,8 @@ To enable the plugin, add the following to your config.php:
   password under an older version of StatusNet, but all new Twitter
   bridge connections will use OAuth.
 
-Admin panel
------------
+Administration panel
+--------------------
 
 As of StatusNet 0.9.0 there is a new administration panel that allows
 you to configure Twitter bridge settings within StatusNet itself,
@@ -61,15 +64,15 @@ role (see: scripts/userrole.php).
 Sign in with Twitter
 --------------------
 
-As of 0.9.0 you StatusNet optionally allows users to register and
+With 0.9.0, StatusNet optionally allows users to register and
 authenticate using their Twitter credentials via the "Sign in with
 Twitter" pattern described here:
 
     http://apiwiki.twitter.com/Sign-in-with-Twitter
 
 The option is _on_ by default when you install the plugin, but it can
-disabled via the Twitter bridge admin panel, or by adding the following
-line to your config.php:
+disabled via the Twitter bridge administration panel, or by adding the
+following line to your config.php:
 
     $config['twitter']['signin'] = false;
 
@@ -119,9 +122,9 @@ set up Twitter bridging.
 
 It's not strictly necessary to run this queue handler, and sites that
 haven't enabled queuing are still able to push notices to Twitter, but
-for larger sites and sites that wish to improve performance, this script
+for larger sites and sites that wish to improve performance the script
 allows notices to be sent "offline" via a separate process.
 
 StatusNet will automatically use the TwitterQueueHandler if you have
-enabled the queuing system.  See the "Queues and daemons" section of the
-main README file for more information about how to do that.
+enabled the queuing subsystem.  See the "Queues and daemons" section of
+the main README file for more information about how to do that.
