@@ -61,22 +61,11 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
         if (!empty($user)) {
             $profile = $user->getProfile();
             $this->addAuthor($profile->nickname, $user->uri);
-            $this->setActivitySubject($profile->asActivityNoun('subject'));
         }
     }
 
     function getUser()
     {
         return $this->user;
-    }
-
-    function showSource()
-    {
-        return false;
-    }
-
-    function showAuthor()
-    {
-        return false;
     }
 }

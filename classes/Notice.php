@@ -1090,7 +1090,7 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
-    function asAtomEntry($namespace=false, $source=false, $author=true)
+    function asAtomEntry($namespace=false, $source=false)
     {
         $profile = $this->getProfile();
 
@@ -1135,10 +1135,8 @@ class Notice extends Memcached_DataObject
 
         $xs->element('title', null, $this->content);
 
-        if ($author) {
-            $xs->raw($profile->asAtomAuthor());
-            $xs->raw($profile->asActivityActor());
-        }
+        $xs->raw($profile->asAtomAuthor());
+        $xs->raw($profile->asActivityActor());
 
         $xs->element('link', array('rel' => 'alternate',
                                    'type' => 'text/html',
