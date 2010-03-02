@@ -426,14 +426,14 @@ function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
-    $r = common_linkify_mentions($id, $r);
+    $r = common_linkify_mentions($r, $notice);
     $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
-function common_linkify_mentions($profile_id, $text)
+function common_linkify_mentions($text, $notice)
 {
-    $mentions = common_find_mentions($profile_id, $text);
+    $mentions = common_find_mentions($text, $notice);
 
     // We need to go through in reverse order by position,
     // so our positions stay valid despite our fudging with the
@@ -487,17 +487,41 @@ function common_linkify_mention($mention)
     return $output;
 }
 
-function common_find_mentions($profile_id, $text)
+function common_find_mentions($text, $notice)
 {
     $mentions = array();
 
-    $sender = Profile::staticGet('id', $profile_id);
+    $sender = Profile::staticGet('id', $notice->profile_id);
 
     if (empty($sender)) {
         return $mentions;
     }
 
     if (Event::handle('StartFindMentions', array($sender, $text, &$mentions))) {
+
+        // Get the context of the original notice, if any
+
+        $originalAuthor   = null;
+        $originalNotice   = null;
+        $originalMentions = array();
+
+        // Is it a reply?
+
+        if (!empty($notice) && !empty($notice->reply_to)) {
+            $originalNotice = Notice::staticGet('id', $notice->reply_to);
+            if (!empty($originalNotice)) {
+                $originalAuthor = Profile::staticGet('id', $originalNotice->profile_id);
+
+                $ids = $originalNotice->getReplies();
+
+                foreach ($ids as $id) {
+                    $repliedTo = Profile::staticGet('id', $id);
+                    if (!empty($repliedTo)) {
+                        $originalMentions[$repliedTo->nickname] = $repliedTo;
+                    }
+                }
+            }
+        }
 
         preg_match_all('/^T ([A-Z0-9]{1,64}) /',
                        $text,
@@ -514,7 +538,22 @@ function common_find_mentions($profile_id, $text)
         foreach ($matches as $match) {
 
             $nickname = common_canonical_nickname($match[0]);
-            $mentioned = common_relative_profile($sender, $nickname);
+
+            // Try to get a profile for this nickname.
+            // Start with conversation context, then go to
+            // sender context.
+
+            if (!empty($originalAuthor) && $originalAuthor->nickname == $nickname) {
+
+                $mentioned = $originalAuthor;
+
+            } else if (!empty($originalMentions) &&
+                       array_key_exists($nickname, $originalMentions)) {
+
+                $mention = $originalMentions[$nickname];
+            } else {
+                $mentioned = common_relative_profile($sender, $nickname);
+            }
 
             if (!empty($mentioned)) {
 
@@ -770,8 +809,28 @@ function common_shorten_links($text)
 
 function common_xml_safe_str($str)
 {
-    // Neutralize control codes and surrogates
-	return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
+    // Replace common eol and extra whitespace input chars
+    $unWelcome = array(
+        "\t",  // tab
+        "\n",  // newline
+        "\r",  // cr
+        "\0",  // null byte eos
+        "\x0B" // vertical tab
+    );
+
+    $replacement = array(
+        ' ', // single space
+        ' ',
+        '',  // nothing
+        '',
+        ' '
+    );
+
+    $str = str_replace($unWelcome, $replacement, $str);
+
+    // Neutralize any additional control codes and UTF-16 surrogates
+    // (Twitter uses '*')
+    return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag)

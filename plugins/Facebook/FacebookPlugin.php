@@ -22,7 +22,7 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -32,12 +32,12 @@ if (!defined('STATUSNET')) {
 }
 
 define("FACEBOOK_CONNECT_SERVICE", 3);
-define('FACEBOOKPLUGIN_VERSION', '0.9');
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
 /**
- * Facebook plugin to add a StatusNet Facebook application
+ * Facebook plugin to add a StatusNet Facebook canvas application
+ * and allow registration and authentication via Facebook Connect
  *
  * @category Plugin
  * @package  StatusNet
@@ -48,6 +48,36 @@ require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
 class FacebookPlugin extends Plugin
 {
+
+    const VERSION = STATUSNET_VERSION;
+
+    /**
+     * Initializer for the plugin.
+     */
+
+    function initialize()
+    {
+        // Allow the key and secret to be passed in
+        // Control panel will override
+
+        if (isset($this->apikey)) {
+            $key = common_config('facebook', 'apikey');
+            if (empty($key)) {
+                Config::save('facebook', 'apikey', $this->apikey);
+            }
+        }
+
+        if (isset($this->secret)) {
+            $secret = common_config('facebook', 'secret');
+            if (empty($secret)) {
+                Config::save(
+                    'facebook',
+                    'secret',
+                    $this->secret
+                );
+            }
+        }
+    }
 
     /**
      * Add Facebook app actions to the router table
@@ -70,6 +100,7 @@ class FacebookPlugin extends Plugin
                     array('action' => 'facebooksettings'));
         $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
         $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
+        $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
 
         // Facebook Connect stuff
 
@@ -98,6 +129,7 @@ class FacebookPlugin extends Plugin
         case 'FacebookinviteAction':
         case 'FacebookremoveAction':
         case 'FacebooksettingsAction':
+        case 'FacebookadminpanelAction':
             include_once INSTALLDIR . '/plugins/Facebook/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
@@ -120,6 +152,32 @@ class FacebookPlugin extends Plugin
         default:
             return true;
         }
+    }
+
+    /**
+     * Add a Facebook tab to the admin panels
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('facebook')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(
+                common_local_url('facebookadminpanel'),
+                _m('Facebook'),
+                _m('Facebook integration configuration'),
+                $action_name == 'facebookadminpanel',
+                'nav_facebook_admin_panel'
+            );
+        }
+
+        return true;
     }
 
     /**
@@ -359,8 +417,6 @@ class FacebookPlugin extends Plugin
             $connect = 'imsettings';
         } else if (common_config('sms', 'enabled')) {
             $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
         }
 
         if (!empty($user)) {
@@ -525,15 +581,18 @@ class FacebookPlugin extends Plugin
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Facebook',
-                            'version' => FACEBOOKPLUGIN_VERSION,
-                            'author' => 'Zach Copley',
-                            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
-                            'rawdescription' =>
-                            _m('The Facebook plugin allows you to integrate ' .
-                               'your StatusNet instance with ' .
-                               '<a href="http://facebook.com/">Facebook</a> ' .
-                               'and Facebook Connect.'));
+        $versions[] = array(
+            'name' => 'Facebook',
+            'version' => self::VERSION,
+            'author' => 'Zach Copley',
+            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
+            'rawdescription' => _m(
+                'The Facebook plugin allows you to integrate ' .
+                'your StatusNet instance with ' .
+                '<a href="http://facebook.com/">Facebook</a> ' .
+                'and Facebook Connect.'
+            )
+        );
         return true;
     }
 

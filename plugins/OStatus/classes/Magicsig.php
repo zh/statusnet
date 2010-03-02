@@ -146,8 +146,10 @@ class Magicsig extends Memcached_DataObject
         
         $mod = base64_url_decode($matches[1]);
         $exp = base64_url_decode($matches[2]);
-        if ($matches[4]) {
+        if (!empty($matches[4])) {
             $private_exp = base64_url_decode($matches[4]);
+        } else {
+            $private_exp = false;
         }
 
         $params['public_key'] = new Crypt_RSA_KEY($mod, $exp, 'public');
