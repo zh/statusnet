@@ -5,25 +5,29 @@ instance with Twitter.  Installing it will allow your users to:
     - automatically subscribe to other Twitter users who are also using
       your StatusNet install, if possible (requires running a daemon)
     - import their Twitter friends' tweets (requires running a daemon)
+    - allow users to authenticate using Twitter ('Sign in with Twitter')
 
 Installation
 ------------
 
-OAuth (http://oauth.net) is used to to access protected resources on
-Twitter (as opposed to HTTP Basic Auth)*.  To use Twitter bridging you
-will need to register your instance of StatusNet as an application on
-Twitter (http://twitter.com/apps). During the application registration
-process your application will be assigned a "consumer" key and secret,
-which the plugin will use to make OAuth requests to Twitter.  You can
-either pass the consumer key and secret in when you enable the plugin,
-or set it using the Twitter administration panel.
+OAuth 1.0a (http://oauth.net) is used to to access protected resources
+on Twitter (as opposed to HTTP Basic Auth)*.  To use Twitter bridging
+you will need to register your instance of StatusNet as an application
+on Twitter (http://twitter.com/apps).  During the application
+registration process your application will be assigned a "consumer" key
+and secret, which the plugin will use to make OAuth requests to Twitter.
+You can either pass the consumer key and secret in when you enable the
+plugin, or set it using the Twitter administration panel.
 
 When registering your application with Twitter set the type to "Browser"
 and your Callback URL to:
 
     http://example.org/mublog/twitter/authorization
 
-The default access type should be, "Read & Write".
+(Change "example.org" to your site domain and "mublog" to your site
+path.)
+
+The default access type should be "Read & Write".
 
 To enable the plugin, add the following to your config.php:
 
@@ -36,18 +40,47 @@ To enable the plugin, add the following to your config.php:
     );
 
 * Note: The plugin will still push notices to Twitter for users who
-  have previously setup the Twitter bridge using their Twitter name and
-  password under an older versions of StatusNet, but all new Twitter
+  have previously set up the Twitter bridge using their Twitter name and
+  password under an older version of StatusNet, but all new Twitter
   bridge connections will use OAuth.
 
-Deamons
+Admin panel
+-----------
+
+As of StatusNet 0.9.0 there is a new administration panel that allows
+you to configure Twitter bridge settings within StatusNet itself,
+instead of having to specify them manually in your config.php.  To enable
+the administration panel, you will need to add it to the list of active
+administration panels.  You can do this via your config.php. E.g.:
+
+    $config['admin']['panels'][] = 'twitter';
+
+And to access it, you'll need to use a user with the "administrator"
+role (see: scripts/userrole.php).
+
+Sign in with Twitter
+--------------------
+
+As of 0.9.0 you StatusNet optionally allows users to register and
+authenticate using their Twitter credentials via the "Sign in with
+Twitter" pattern described here:
+
+    http://apiwiki.twitter.com/Sign-in-with-Twitter
+
+The option is _on_ by default when you install the plugin, but it can
+disabled via the Twitter bridge admin panel, or by adding the following
+line to your config.php:
+
+    $config['twitter']['signin'] = false;
+
+Daemons
 -------
 
-For friend syncing and importing notices running two additional daemon
-scripts is necessary (synctwitterfriends.php and
-twitterstatusfetcher.php).
+For friend syncing and importing Twitter tweets, running two
+additional daemon scripts is necessary: synctwitterfriends.php and
+twitterstatusfetcher.php.
 
-In the daemons subidrectory of the plugin are three scripts:
+In the daemons subdirectory of the plugin are three scripts:
 
 * Twitter Friends Syncing (daemons/synctwitterfriends.php)
 
@@ -57,13 +90,13 @@ subscribe to "friends" (people they "follow") on Twitter who also have
 accounts on your StatusNet system, and who have previously set up a link
 for automatically posting notices to Twitter.
 
-The plugin will try to start this daemon when you run
-scripts/startdaemons.sh.
+The plugin will start this daemon when you run scripts/startdaemons.sh.
 
 * Importing statuses from Twitter (daemons/twitterstatusfetcher.php)
 
-To allow your users to import their friends' Twitter statuses, you will
-need to enable the bidirectional Twitter bridge in your config.php:
+You can allow uses to enable importing of your friends' Twitter
+timelines either in the Twitter bridge administration panel or in your
+config.php using the following configuration line:
 
     $config['twitterimport']['enabled'] = true;
 
@@ -72,8 +105,9 @@ other daemons when you run scripts/startdaemons.sh.
 
 Additionally, you will want to set the integration source variable,
 which will keep notices posted to Twitter via StatusNet from looping
-back.  The integration source should be set to the name of your
-application, exactly as you specified it on the settings page for your
+back.  You can do this in the Twitter bridge administration panel, or
+via config.php. The integration source should be set to the name of your
+application _exactly_ as you specified it on the settings page for your
 StatusNet application on Twitter, e.g.:
 
     $config['integration']['source'] = 'YourApp';
@@ -85,7 +119,9 @@ set up Twitter bridging.
 
 It's not strictly necessary to run this queue handler, and sites that
 haven't enabled queuing are still able to push notices to Twitter, but
-for larger sites and sites that wish to improve performance, this
-script allows notices to be sent "offline" via a separate process.
+for larger sites and sites that wish to improve performance, this script
+allows notices to be sent "offline" via a separate process.
 
-The plugin will start this script when you run scripts/startdaemons.sh.
+StatusNet will automatically use the TwitterQueueHandler if you have
+enabled the queuing system.  See the "Queues and daemons" section of the
+main README file for more information about how to do that.

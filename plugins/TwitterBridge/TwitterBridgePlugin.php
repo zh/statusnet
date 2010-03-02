@@ -96,7 +96,11 @@ class TwitterBridgePlugin extends Plugin
             array('action' => 'twitterauthorization')
         );
         $m->connect('settings/twitter', array('action' => 'twittersettings'));
-        $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+
+        if (common_config('twitter', 'signin')) {
+            $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+        }
+
         $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
 
         return true;
@@ -113,12 +117,14 @@ class TwitterBridgePlugin extends Plugin
     {
         $action_name = $action->trimmed('action');
 
-        $action->menuItem(
-            common_local_url('twitterlogin'),
-            _m('Twitter'),
-            _m('Login or register using Twitter'),
-            'twitterlogin' === $action_name
-        );
+        if (common_config('twitter', 'signin')) {
+            $action->menuItem(
+                common_local_url('twitterlogin'),
+                _m('Twitter'),
+                _m('Login or register using Twitter'),
+                'twitterlogin' === $action_name
+            );
+        }
 
         return true;
     }
