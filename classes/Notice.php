@@ -1134,7 +1134,6 @@ class Notice extends Memcached_DataObject
         }
 
         $xs->element('title', null, $this->content);
-        $xs->element('summary', null, $this->content);
 
         if ($author) {
             $xs->raw($profile->asAtomAuthor());
