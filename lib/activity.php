@@ -344,16 +344,18 @@ class ActivityUtils
 
     static function getLink(DOMNode $element, $rel, $type=null)
     {
-        $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
+        $els = $element->childNodes;
 
-        foreach ($links as $link) {
+        foreach ($els as $link) {
+            if ($link->localName == self::LINK && $link->namespaceURI == self::ATOM) {
 
-            $linkRel = $link->getAttribute(self::REL);
-            $linkType = $link->getAttribute(self::TYPE);
+                $linkRel = $link->getAttribute(self::REL);
+                $linkType = $link->getAttribute(self::TYPE);
 
-            if ($linkRel == $rel &&
-                (is_null($type) || $linkType == $type)) {
-                return $link->getAttribute(self::HREF);
+                if ($linkRel == $rel &&
+                    (is_null($type) || $linkType == $type)) {
+                    return $link->getAttribute(self::HREF);
+                }
             }
         }
 
@@ -362,17 +364,19 @@ class ActivityUtils
 
     static function getLinks(DOMNode $element, $rel, $type=null)
     {
-        $links = $element->getElementsByTagnameNS(self::ATOM, self::LINK);
+        $els = $element->childNodes;
         $out = array();
 
-        foreach ($links as $link) {
+        foreach ($els as $link) {
+            if ($link->localName == self::LINK && $link->namespaceURI == self::ATOM) {
 
-            $linkRel = $link->getAttribute(self::REL);
-            $linkType = $link->getAttribute(self::TYPE);
+                $linkRel = $link->getAttribute(self::REL);
+                $linkType = $link->getAttribute(self::TYPE);
 
-            if ($linkRel == $rel &&
-                (is_null($type) || $linkType == $type)) {
-                $out[] = $link;
+                if ($linkRel == $rel &&
+                    (is_null($type) || $linkType == $type)) {
+                    $out[] = $link;
+                }
             }
         }
 
