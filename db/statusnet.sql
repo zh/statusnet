@@ -458,7 +458,8 @@ create table group_inbox (
     created datetime not null comment 'date the notice was created',
 
     constraint primary key (group_id, notice_id),
-    index group_inbox_created_idx (created)
+    index group_inbox_created_idx (created),
+    index group_inbox_notice_id_idx (notice_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
@@ -523,7 +524,8 @@ create table file_to_post (
     post_id integer comment 'id of the notice it belongs to' references notice (id),
     modified timestamp comment 'date this record was modified',
 
-    constraint primary key (file_id, post_id)
+    constraint primary key (file_id, post_id),
+    index post_id_idx (post_id)
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-07 20:38-0800\n"
+"POT-Creation-Date: 2010-03-01 14:08-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,89 +16,297 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: tests/gettext-speedtest.php:57 FeedSubPlugin.php:76
-msgid "Feeds"
+#: actions/groupsalmon.php:51
+msgid "Can't accept remote posts for a remote group."
 msgstr ""
 
-#: FeedSubPlugin.php:77
-msgid "Feed subscription options"
+#: actions/groupsalmon.php:123
+msgid "Can't read profile to set up group membership."
 msgstr ""
 
-#: feedmunger.php:215
+#: actions/groupsalmon.php:126 actions/groupsalmon.php:169
+msgid "Groups can't join groups."
+msgstr ""
+
+#: actions/groupsalmon.php:153
 #, php-format
-msgid "New post: \"%1$s\" %2$s"
+msgid "Could not join remote user %1$s to group %2$s."
 msgstr ""
 
-#: actions/feedsubsettings.php:41
-msgid "Feed subscriptions"
+#: actions/groupsalmon.php:166
+msgid "Can't read profile to cancel group membership."
 msgstr ""
 
-#: actions/feedsubsettings.php:52
-msgid ""
-"You can subscribe to feeds from other sites; updates will appear in your "
-"personal timeline."
+#: actions/groupsalmon.php:182
+#, php-format
+msgid "Could not remove remote user %1$s from group %2$s."
 msgstr ""
 
-#: actions/feedsubsettings.php:96
+#: actions/ostatusinit.php:40
+msgid "You can use the local subscription!"
+msgstr ""
+
+#: actions/ostatusinit.php:61
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: actions/ostatusinit.php:79 actions/ostatussub.php:439
+msgid "Subscribe to user"
+msgstr ""
+
+#: actions/ostatusinit.php:97
+#, php-format
+msgid "Subscribe to %s"
+msgstr ""
+
+#: actions/ostatusinit.php:102
+msgid "User nickname"
+msgstr ""
+
+#: actions/ostatusinit.php:103
+msgid "Nickname of the user you want to follow"
+msgstr ""
+
+#: actions/ostatusinit.php:106
+msgid "Profile Account"
+msgstr ""
+
+#: actions/ostatusinit.php:107
+msgid "Your account id (i.e. user@identi.ca)"
+msgstr ""
+
+#: actions/ostatusinit.php:110 actions/ostatussub.php:115
+#: OStatusPlugin.php:205
 msgid "Subscribe"
 msgstr ""
 
-#: actions/feedsubsettings.php:98
+#: actions/ostatusinit.php:128
+msgid "Must provide a remote profile."
+msgstr ""
+
+#: actions/ostatusinit.php:138
+msgid "Couldn't look up OStatus account profile."
+msgstr ""
+
+#: actions/ostatusinit.php:153
+msgid "Couldn't confirm remote profile address."
+msgstr ""
+
+#: actions/ostatusinit.php:171
+msgid "OStatus Connect"
+msgstr ""
+
+#: actions/ostatussub.php:68
+msgid "Address or profile URL"
+msgstr ""
+
+#: actions/ostatussub.php:70
+msgid "Enter the profile URL of a PubSubHubbub-enabled feed"
+msgstr ""
+
+#: actions/ostatussub.php:74
 msgid "Continue"
 msgstr ""
 
-#: actions/feedsubsettings.php:151
-msgid "Empty feed URL!"
+#: actions/ostatussub.php:112 OStatusPlugin.php:503
+msgid "Join"
 msgstr ""
 
-#: actions/feedsubsettings.php:161
+#: actions/ostatussub.php:113
+msgid "Join this group"
+msgstr ""
+
+#: actions/ostatussub.php:116
+msgid "Subscribe to this user"
+msgstr ""
+
+#: actions/ostatussub.php:137
+msgid "You are already subscribed to this user."
+msgstr ""
+
+#: actions/ostatussub.php:165
+msgid "You are already a member of this group."
+msgstr ""
+
+#: actions/ostatussub.php:286
+msgid "Empty remote profile URL!"
+msgstr ""
+
+#: actions/ostatussub.php:297
+msgid "Invalid address format."
+msgstr ""
+
+#: actions/ostatussub.php:302
 msgid "Invalid URL or could not reach server."
 msgstr ""
 
-#: actions/feedsubsettings.php:164
+#: actions/ostatussub.php:304
 msgid "Cannot read feed; server returned error."
 msgstr ""
 
-#: actions/feedsubsettings.php:167
+#: actions/ostatussub.php:306
 msgid "Cannot read feed; server returned an empty page."
 msgstr ""
 
-#: actions/feedsubsettings.php:170
+#: actions/ostatussub.php:308
 msgid "Bad HTML, could not find feed link."
 msgstr ""
 
-#: actions/feedsubsettings.php:173
+#: actions/ostatussub.php:310
 msgid "Could not find a feed linked from this URL."
 msgstr ""
 
-#: actions/feedsubsettings.php:176
+#: actions/ostatussub.php:312
 msgid "Not a recognized feed type."
 msgstr ""
 
-#: actions/feedsubsettings.php:180
-msgid "Bad feed URL."
+#: actions/ostatussub.php:315
+#, php-format
+msgid "Bad feed URL: %s %s"
 msgstr ""
 
-#: actions/feedsubsettings.php:188
-msgid "Feed is not PuSH-enabled; cannot subscribe."
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatussub.php:336
+msgid "Already a member!"
 msgstr ""
 
-#: actions/feedsubsettings.php:208
-msgid "Feed subscription failed! Bad response from hub."
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatussub.php:346
+msgid "Remote group join failed!"
 msgstr ""
 
-#: actions/feedsubsettings.php:218
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatussub.php:350
+msgid "Remote group join aborted!"
+msgstr ""
+
+#. TRANS: OStatus remote subscription dialog error.
+#: actions/ostatussub.php:356
 msgid "Already subscribed!"
 msgstr ""
 
-#: actions/feedsubsettings.php:220
-msgid "Feed subscribed!"
+#. TRANS: OStatus remote subscription dialog error.
+#: actions/ostatussub.php:361
+msgid "Remote subscription failed!"
 msgstr ""
 
-#: actions/feedsubsettings.php:222
-msgid "Feed subscription failed!"
+#. TRANS: Page title for OStatus remote subscription form
+#: actions/ostatussub.php:459
+msgid "Authorize subscription"
 msgstr ""
 
-#: actions/feedsubsettings.php:231
-msgid "Previewing feed:"
+#: actions/ostatussub.php:470
+msgid ""
+"You can subscribe to users from other supported sites. Paste their address "
+"or profile URI below:"
+msgstr ""
+
+#: classes/Ostatus_profile.php:789
+#, php-format
+msgid "Tried to update avatar for unsaved remote profile %s"
+msgstr ""
+
+#: classes/Ostatus_profile.php:797
+#, php-format
+msgid "Unable to fetch avatar from %s"
+msgstr ""
+
+#: lib/salmonaction.php:41
+msgid "This method requires a POST."
+msgstr ""
+
+#: lib/salmonaction.php:45
+msgid "Salmon requires application/magic-envelope+xml"
+msgstr ""
+
+#: lib/salmonaction.php:55
+msgid "Salmon signature verification failed."
+msgstr ""
+
+#: lib/salmonaction.php:66
+msgid "Salmon post must be an Atom entry."
+msgstr ""
+
+#: lib/salmonaction.php:114
+msgid "Unrecognized activity type."
+msgstr ""
+
+#: lib/salmonaction.php:122
+msgid "This target doesn't understand posts."
+msgstr ""
+
+#: lib/salmonaction.php:127
+msgid "This target doesn't understand follows."
+msgstr ""
+
+#: lib/salmonaction.php:132
+msgid "This target doesn't understand unfollows."
+msgstr ""
+
+#: lib/salmonaction.php:137
+msgid "This target doesn't understand favorites."
+msgstr ""
+
+#: lib/salmonaction.php:142
+msgid "This target doesn't understand unfavorites."
+msgstr ""
+
+#: lib/salmonaction.php:147
+msgid "This target doesn't understand share events."
+msgstr ""
+
+#: lib/salmonaction.php:152
+msgid "This target doesn't understand joins."
+msgstr ""
+
+#: lib/salmonaction.php:157
+msgid "This target doesn't understand leave events."
+msgstr ""
+
+#: OStatusPlugin.php:319
+#, php-format
+msgid "Sent from %s via OStatus"
+msgstr ""
+
+#: OStatusPlugin.php:371
+msgid "Could not set up remote subscription."
+msgstr ""
+
+#: OStatusPlugin.php:487
+msgid "Could not set up remote group membership."
+msgstr ""
+
+#: OStatusPlugin.php:504
+#, php-format
+msgid "%s has joined group %s."
+msgstr ""
+
+#: OStatusPlugin.php:512
+msgid "Failed joining remote group."
+msgstr ""
+
+#: OStatusPlugin.php:553
+msgid "Leave"
+msgstr ""
+
+#: OStatusPlugin.php:554
+#, php-format
+msgid "%s has left group %s."
+msgstr ""
+
+#: OStatusPlugin.php:685
+msgid "Subscribe to remote user"
+msgstr ""
+
+#: OStatusPlugin.php:726
+msgid "Profile update"
+msgstr ""
+
+#: OStatusPlugin.php:727
+#, php-format
+msgid "%s has updated their profile page."
+msgstr ""
+
+#: tests/gettext-speedtest.php:57
+msgid "Feeds"
 msgstr ""

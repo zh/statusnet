@@ -332,6 +332,7 @@ class OStatusSubAction extends Action
         if ($this->oprofile->isGroup()) {
             $group = $this->oprofile->localGroup();
             if ($user->isMember($group)) {
+                // TRANS: OStatus remote group subscription dialog error.
                 $this->showForm(_m('Already a member!'));
                 return;
             }
@@ -341,18 +342,22 @@ class OStatusSubAction extends Action
                     Event::handle('EndJoinGroup', array($group, $user));
                     $this->successGroup();
                 } else {
+                    // TRANS: OStatus remote group subscription dialog error.
                     $this->showForm(_m('Remote group join failed!'));
                 }
             } else {
+                // TRANS: OStatus remote group subscription dialog error.
                 $this->showForm(_m('Remote group join aborted!'));
             }
         } else {
             $local = $this->oprofile->localProfile();
             if ($user->isSubscribed($local)) {
+                // TRANS: OStatus remote subscription dialog error.
                 $this->showForm(_m('Already subscribed!'));
             } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
                 $this->successUser();
             } else {
+                // TRANS: OStatus remote subscription dialog error.
                 $this->showForm(_m('Remote subscription failed!'));
             }
         }
@@ -450,6 +455,7 @@ class OStatusSubAction extends Action
 
     function title()
     {
+        // TRANS: Page title for OStatus remote subscription form
         return _m('Authorize subscription');
     }
 
