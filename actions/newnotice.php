@@ -294,6 +294,9 @@ class NewnoticeAction extends Action
             if ($profile) {
                 $content = '@' . $profile->nickname . ' ';
             }
+        } else {
+            // @fixme most of these bits above aren't being passed on above
+            $inreplyto = null;
         }
 
         $notice_form = new NoticeForm($this, '', $content, null, $inreplyto);
