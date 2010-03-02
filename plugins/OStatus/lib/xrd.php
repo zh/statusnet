@@ -53,17 +53,22 @@ class XRD
         $xrd = new XRD();
 
         $dom = new DOMDocument();
-        $dom->loadXML($xml);
+        if (!$dom->loadXML($xml)) {
+            throw new Exception("Invalid XML");
+        }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);
 
         // Check for host-meta host
-        $host = $xrd_element->getElementsByTagName('Host')->item(0)->nodeValue;
+        $host = $xrd_element->getElementsByTagName('Host')->item(0);
         if ($host) {
-            $xrd->host = $host;
+            $xrd->host = $host->nodeValue;
         }
 
         // Loop through other elements
         foreach ($xrd_element->childNodes as $node) {
+            if (!($node instanceof DOMElement)) {
+                continue;
+            }
             switch ($node->tagName) {
             case 'Expires':
                 $xrd->expires = $node->nodeValue;
