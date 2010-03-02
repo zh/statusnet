@@ -202,11 +202,11 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
         if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
             $notice = $this->user->ownFriendsTimeline(($this->page-1) * $this->count,
                                                       $this->count, $this->since_id,
-                                                      $this->max_id, $this->since);
+                                                      $this->max_id);
         } else {
             $notice = $this->user->friendsTimeline(($this->page-1) * $this->count,
                                                    $this->count, $this->since_id,
-                                                   $this->max_id, $this->since);
+                                                   $this->max_id);
         }
 
         while ($notice->fetch()) {
