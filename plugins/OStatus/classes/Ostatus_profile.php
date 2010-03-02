@@ -698,7 +698,7 @@ class Ostatus_profile extends Memcached_DataObject
     {
         // Get the canonical feed URI and check it
         $discover = new FeedDiscovery();
-        if ($hints['feedurl']) {
+        if (isset($hints['feedurl'])) {
             $feeduri = $hints['feedurl'];
             $feeduri = $discover->discoverFromFeedURL($feeduri);
         } else {
@@ -1145,7 +1145,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($poco)) {
             $url = $poco->getPrimaryURL();
-            if ($url->type == 'homepage') {
+            if ($url && $url->type == 'homepage') {
                 $homepage = $url->value;
             }
         }

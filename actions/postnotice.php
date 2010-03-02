@@ -54,7 +54,10 @@ class PostnoticeAction extends Action
      */
     function prepare($argarray)
     {
+        StatusNet::setApi(true); // Send smaller error pages
+
         parent::prepare($argarray);
+
         try {
             $this->checkNotice();
         } catch (Exception $e) {
@@ -71,6 +74,14 @@ class PostnoticeAction extends Action
             $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
                                             omb_oauth_server());
             $srv->handlePostNotice();
+        } catch (OMB_RemoteServiceException $rse) {
+            $msg = $rse->getMessage();
+            if (preg_match('/Revoked accesstoken/', $msg) ||
+                preg_match('/No subscriber/', $msg)) {
+                $this->clientError($msg, 403);
+            } else {
+                $this->clientError($msg);
+            }
         } catch (Exception $e) {
             $this->serverError($e->getMessage());
             return;

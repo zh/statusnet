@@ -75,7 +75,7 @@ class SphinxSearch extends SearchEngine
     {
         if ('chron' === $mode) {
             $this->sphinx->SetSortMode(SPH_SORT_ATTR_DESC, 'created_ts');
-            return $this->target->orderBy('created desc');
+            return $this->target->orderBy('id desc');
         }
     }
 

@@ -63,7 +63,6 @@ class ApiAction extends Action
     var $count     = null;
     var $max_id    = null;
     var $since_id  = null;
-    var $since     = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
 
@@ -85,7 +84,10 @@ class ApiAction extends Action
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
+
+        if ($this->arg('since')) {
+            $this->clientError(_("since parameter is disabled for performance; use since_id"), 403);
+        }
 
         return true;
     }
@@ -1326,8 +1328,6 @@ class ApiAction extends Action
             case 'max_id':
                 $max_id = (int)$this->args['max_id'];
                 return ($max_id < 1) ? 0 : $max_id;
-            case 'since':
-                return strtotime($this->args['since']);
             default:
                 return parent::arg($key, $def);
             }

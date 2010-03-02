@@ -77,7 +77,7 @@ class Fave extends Memcached_DataObject
         return $ids;
     }
 
-    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id, $since)
+    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id)
     {
         $fav = new Fave();
         $qry = null;
@@ -98,10 +98,6 @@ class Fave extends Memcached_DataObject
 
         if ($max_id != 0) {
             $qry .= 'AND notice_id <= ' . $max_id . ' ';
-        }
-
-        if (!is_null($since)) {
-            $qry .= 'AND modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
         }
 
         // NOTE: we sort by fave time, not by notice time!

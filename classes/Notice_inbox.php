@@ -49,12 +49,12 @@ class Notice_inbox extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $own=false)
     {
         throw new Exception('Notice_inbox no longer used; use Inbox');
     }
 
-    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id, $since)
+    function _streamDirect($user_id, $own, $offset, $limit, $since_id, $max_id)
     {
         throw new Exception('Notice_inbox no longer used; use Inbox');
     }

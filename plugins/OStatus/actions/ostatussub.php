@@ -112,7 +112,7 @@ class OStatusSubAction extends Action
             $this->submit('submit', _m('Join'), 'submit', null,
                          _m('Join this group'));
         } else {
-            $this->submit('submit', _m('Subscribe'), 'submit', null,
+            $this->submit('submit', _m('Confirm'), 'submit', null,
                          _m('Subscribe to this user'));
         }
         $this->elementEnd('fieldset');
