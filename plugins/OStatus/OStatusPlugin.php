@@ -706,22 +706,19 @@ class OStatusPlugin extends Plugin
 
     function onStartShowSubscriptionsContent($action)
     {
-        $user = common_current_user();
-        if ($user && ($user->id == $action->profile->id)) {
-            $action->elementStart('div', 'entity_actions');
-            $action->elementStart('p', array('id' => 'entity_remote_subscribe',
-                                             'class' => 'entity_subscribe'));
-            $action->element('a', array('href' => common_local_url('ostatussub'),
-                                        'class' => 'entity_remote_subscribe')
-                                , _m('Subscribe to remote user'));
-            $action->elementEnd('p');
-            $action->elementEnd('div');
-        }
+        $this->showEntityRemoteSubscribe($action);
 
         return true;
     }
 
     function onStartShowAllContent($action)
+    {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
+    function showEntityRemoteSubscribe($action)
     {
         $user = common_current_user();
         if ($user && ($user->id == $action->profile->id)) {
@@ -734,10 +731,7 @@ class OStatusPlugin extends Plugin
             $action->elementEnd('p');
             $action->elementEnd('div');
         }
-
-        return true;
     }
-
 
     /**
      * Ping remote profiles with updates to this profile.
