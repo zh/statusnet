@@ -9,77 +9,84 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 15:47+0000\n"
-"PO-Revision-Date: 2010-03-01 15:49:06+0000\n"
+"POT-Creation-Date: 2010-03-02 21:02+0000\n"
+"PO-Revision-Date: 2010-03-02 21:03:16+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63115); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63186); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=2; plural= n==1 || n%10==1 ? 0 : 1;\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:337
+#. TRANS: Page title
+#: actions/accessadminpanel.php:55
 msgid "Access"
 msgstr "Пристап"
 
-#: actions/accessadminpanel.php:65
+#. TRANS: Page notice
+#: actions/accessadminpanel.php:67
 msgid "Site access settings"
 msgstr "Нагодувања за пристап на веб-страницата"
 
-#: actions/accessadminpanel.php:158
+#. TRANS: Form legend for registration form.
+#: actions/accessadminpanel.php:161
 msgid "Registration"
 msgstr "Регистрација"
 
-#: actions/accessadminpanel.php:161
-msgid "Private"
-msgstr "Приватен"
-
-#: actions/accessadminpanel.php:163
+#. TRANS: Checkbox instructions for admin setting "Private"
+#: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 "Да им забранам на анонимните (ненајавени) корисници да ја гледаат веб-"
 "страницата?"
 
+#. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-msgid "Invite only"
-msgstr "Само со покана"
+#, fuzzy
+msgctxt "LABEL"
+msgid "Private"
+msgstr "Приватен"
 
-#: actions/accessadminpanel.php:169
+#. TRANS: Checkbox instructions for admin setting "Invite only"
+#: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
 msgstr "Регистрирање само со покана."
 
-#: actions/accessadminpanel.php:173
-msgid "Closed"
-msgstr "Затворен"
+#. TRANS: Checkbox label for configuring site as invite only.
+#: actions/accessadminpanel.php:176
+msgid "Invite only"
+msgstr "Само со покана"
 
-#: actions/accessadminpanel.php:175
+#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
+#: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
 msgstr "Оневозможи нови регистрации."
 
-#: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
-#: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:208 actions/tagother.php:154
-#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr "Зачувај"
+#. TRANS: Checkbox label for disabling new user registrations.
+#: actions/accessadminpanel.php:185
+msgid "Closed"
+msgstr "Затворен"
 
-#: actions/accessadminpanel.php:189
+#. TRANS: Title / tooltip for button to save access settings in site admin panel
+#: actions/accessadminpanel.php:202
 msgid "Save access settings"
 msgstr "Зачувај нагодувања на пристап"
 
-#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
-#: actions/showfavorites.php:137 actions/tag.php:51
+#: actions/accessadminpanel.php:203
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "Зачувај"
+
+#. TRANS: Server error when page not found (404)
+#: actions/all.php:64 actions/public.php:98 actions/replies.php:93
+#: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page"
 msgstr "Нема таква страница"
 
-#: actions/all.php:74 actions/allrss.php:68
+#: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
@@ -105,41 +112,48 @@ msgstr "Нема таква страница"
 msgid "No such user."
 msgstr "Нема таков корисник."
 
-#: actions/all.php:84
+#. TRANS: Page title. %1$s is user nickname, %2$d is page number
+#: actions/all.php:86
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s и пријателите, стр. %2$d"
 
-#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#. TRANS: Page title. %1$s is user nickname
+#. TRANS: H1 text. %1$s is user nickname
+#: actions/all.php:89 actions/all.php:177 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s и пријатели"
 
-#: actions/all.php:99
+#. TRANS: %1$s is user nickname
+#: actions/all.php:103
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Канал со пријатели на %s (RSS 1.0)"
 
-#: actions/all.php:107
+#. TRANS: %1$s is user nickname
+#: actions/all.php:112
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Канал со пријатели на %s (RSS 2.0)"
 
-#: actions/all.php:115
+#. TRANS: %1$s is user nickname
+#: actions/all.php:121
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Канал за пријатели на %S (Atom)"
 
-#: actions/all.php:127
+#. TRANS: %1$s is user nickname
+#: actions/all.php:134
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
 "Ова е историјата за %s и пријателите, но досега никој нема објавено ништо."
 
-#: actions/all.php:132
+#: actions/all.php:139
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -148,7 +162,8 @@ msgstr ""
 "Пробајте да се претплатите на повеќе луѓе, [зачленете се во група](%%action."
 "groups%%) или објавете нешто самите."
 
-#: actions/all.php:134
+#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+#: actions/all.php:142
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -158,7 +173,7 @@ msgstr ""
 "на корисникот или да [објавите нешто што сакате тој да го прочита](%%%%"
 "action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
+#: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -168,7 +183,8 @@ msgstr ""
 "го подбуцнете корисникот %s или да објавите забелешка што сакате тој да ја "
 "прочита."
 
-#: actions/all.php:165
+#. TRANS: H1 text
+#: actions/all.php:174
 msgid "You and friends"
 msgstr "Вие и пријателите"
 
@@ -563,7 +579,7 @@ msgstr ""
 "<strong>%3$s</strong> податоците за Вашата %4$s сметка. Треба да дозволувате "
 "пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310
 msgid "Account"
 msgstr "Сметка"
 
@@ -694,7 +710,7 @@ msgstr "Повторено за %s"
 msgid "Repeats of %s"
 msgstr "Повторувања на %s"
 
-#: actions/apitimelinetag.php:102 actions/tag.php:66
+#: actions/apitimelinetag.php:102 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "Забелешки означени со %s"
@@ -947,7 +963,7 @@ msgstr "Не сте сопственик на овој програм."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1197
+#: lib/action.php:1228
 msgid "There was a problem with your session token."
 msgstr "Се појави проблем со Вашиот сесиски жетон."
 
@@ -973,12 +989,13 @@ msgstr "Не го бриши овој програм"
 msgid "Delete this application"
 msgstr "Избриши го програмов"
 
+#. TRANS: Client error message
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/adminpanelaction.php:73 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Не сте најавени."
@@ -1036,7 +1053,7 @@ msgid "Delete this user"
 msgstr "Избриши овој корисник"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:327 lib/groupnav.php:119
+#: lib/groupnav.php:119
 msgid "Design"
 msgstr "Изглед"
 
@@ -1138,6 +1155,17 @@ msgstr "Врати основно-зададени нагодувања"
 #: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Врати по основно"
+
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/smssettings.php:181 actions/subscriptions.php:208
+#: actions/tagother.php:154 actions/useradminpanel.php:294
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "Зачувај"
 
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
@@ -1695,7 +1723,7 @@ msgstr "Членови на групата %1$s, стр. %2$d"
 msgid "A list of the users in this group."
 msgstr "Листа на корисниците на овааг група."
 
-#: actions/groupmembers.php:182 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Администратор"
 
@@ -1981,18 +2009,19 @@ msgstr "Лична порака"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Можете да додадете и лична порака во поканата."
 
-#: actions/invite.php:197
+#. TRANS: Send button for inviting friends
+#: actions/invite.php:198
 #, fuzzy
-msgctxt "Send button for inviting friends"
+msgctxt "BUTTON"
 msgid "Send"
 msgstr "Испрати"
 
-#: actions/invite.php:226
+#: actions/invite.php:227
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s ве покани да се придружите на %2$s"
 
-#: actions/invite.php:228
+#: actions/invite.php:229
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2087,8 +2116,7 @@ msgstr "Неточно корисничко име или лозинка"
 msgid "Error setting user. You are probably not authorized."
 msgstr "Грешка при поставувањето на корисникот. Веројатно не се заверени."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
-#: lib/logingroupnav.php:79
+#: actions/login.php:188 actions/login.php:241 lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Најава"
 
@@ -2487,7 +2515,7 @@ msgstr "Не можам да ја зачувам новата лозинка."
 msgid "Password saved."
 msgstr "Лозинката е зачувана."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:342
+#: actions/pathsadminpanel.php:59
 msgid "Paths"
 msgstr "Патеки"
 
@@ -2520,7 +2548,6 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Неважечки SSL-сервер. Дозволени се најмногу  255 знаци"
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:322
 msgid "Site"
 msgstr "Веб-страница"
 
@@ -2807,7 +2834,8 @@ msgstr "Не можам да го зачувам профилот."
 msgid "Couldn't save tags."
 msgstr "Не можев да ги зачувам ознаките."
 
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
+#. TRANS: Message after successful saving of administrative settings.
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
 msgid "Settings saved."
 msgstr "Нагодувањата се зачувани"
 
@@ -2820,28 +2848,28 @@ msgstr "Надминато е ограничувањето на страница
 msgid "Could not retrieve public stream."
 msgstr "Не можам да го вратам јавниот поток."
 
-#: actions/public.php:129
+#: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "Јавна историја, стр. %d"
 
-#: actions/public.php:131 lib/publicgroupnav.php:79
+#: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "Јавна историја"
 
-#: actions/public.php:159
+#: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Канал на јавниот поток (RSS 1.0)"
 
-#: actions/public.php:163
+#: actions/public.php:164
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Канал на јавниот поток (RSS 2.0)"
 
-#: actions/public.php:167
+#: actions/public.php:168
 msgid "Public Stream Feed (Atom)"
 msgstr "Канал на јавниот поток (Atom)"
 
-#: actions/public.php:187
+#: actions/public.php:188
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -2849,11 +2877,11 @@ msgid ""
 msgstr ""
 "Ова е јавната историја за %%site.name%%, но досега никој ништо нема објавено."
 
-#: actions/public.php:190
+#: actions/public.php:191
 msgid "Be the first to post!"
 msgstr "Создајте ја првата забелешка!"
 
-#: actions/public.php:194
+#: actions/public.php:195
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -2861,7 +2889,7 @@ msgstr ""
 "Зошто не [регистрирате сметка](%%action.register%%) и станете првиот "
 "објавувач!"
 
-#: actions/public.php:241
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2875,7 +2903,7 @@ msgstr ""
 "споделувате забелешки за себе со приајтелите, семејството и колегите! "
 "([Прочитајте повеќе](%%doc.help%%))"
 
-#: actions/public.php:246
+#: actions/public.php:247
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3055,8 +3083,7 @@ msgstr "Жалиме, неважечки код за поканата."
 msgid "Registration successful"
 msgstr "Регистрацијата е успешна"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
-#: lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Регистрирај се"
 
@@ -3252,33 +3279,33 @@ msgstr "Повторено"
 msgid "Repeated!"
 msgstr "Повторено!"
 
-#: actions/replies.php:125 actions/repliesrss.php:68
+#: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
 msgstr "Одговори испратени до %s"
 
-#: actions/replies.php:127
+#: actions/replies.php:128
 #, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr "Одговори на %1$s, стр. %2$d"
 
-#: actions/replies.php:144
+#: actions/replies.php:145
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr "Канал со одговори за %s (RSS 1.0)"
 
-#: actions/replies.php:151
+#: actions/replies.php:152
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr "Канал со одговори за %s (RSS 2.0)"
 
-#: actions/replies.php:158
+#: actions/replies.php:159
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr "Канал со одговори за %s (Atom)"
 
-#: actions/replies.php:198
+#: actions/replies.php:199
 #, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
@@ -3287,7 +3314,7 @@ msgstr ""
 "Ова е историјата на која се прикажани одговорите на %1$s, но %2$s сè уште "
 "нема добиено порака од некој што сака да ја прочита."
 
-#: actions/replies.php:203
+#: actions/replies.php:204
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
@@ -3296,7 +3323,7 @@ msgstr ""
 "Можете да започнувате разговори со други корисници, да се претплаќате на "
 "други луѓе или да [се зачленувате во групи](%%action.groups%%)."
 
-#: actions/replies.php:205
+#: actions/replies.php:206
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
@@ -3323,7 +3350,6 @@ msgid "User is already sandboxed."
 msgstr "Корисникот е веќе во песочен режим."
 
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:347
 msgid "Sessions"
 msgstr "Сесии"
 
@@ -3348,7 +3374,7 @@ msgid "Turn on debugging output for sessions."
 msgstr "Вклучи извод од поправка на грешки за сесии."
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/useradminpanel.php:293
+#: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr "Зачувај нагодувања на веб-страницата"
 
@@ -3443,22 +3469,22 @@ msgstr "Омилени забелешки на %1$s, стр. %2$d"
 msgid "Could not retrieve favorite notices."
 msgstr "Не можев да ги вратам омилените забелешки."
 
-#: actions/showfavorites.php:170
+#: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr "Канал за омилени забелешки на %s (RSS 1.0)"
 
-#: actions/showfavorites.php:177
+#: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr "Канал за омилени забелешки на %s (RSS 2.0)"
 
-#: actions/showfavorites.php:184
+#: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr "Канал за омилени забелешки на %s (Atom)"
 
-#: actions/showfavorites.php:205
+#: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
@@ -3467,7 +3493,7 @@ msgstr ""
 "омилена забелешка веднаш до самата забелешката што Ви се допаѓа за да ја "
 "обележите за подоцна, или за да ѝ дадете на важност."
 
-#: actions/showfavorites.php:207
+#: actions/showfavorites.php:208
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
@@ -3476,7 +3502,7 @@ msgstr ""
 "%s сè уште нема додадено забелешки како омилени. Објавете нешто интересно, "
 "што корисникот би го обележал како омилено :)"
 
-#: actions/showfavorites.php:211
+#: actions/showfavorites.php:212
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
@@ -3487,7 +3513,7 @@ msgstr ""
 "%%action.register%%%%) и потоа објавите нешто интересно што корисникот би го "
 "додал како омилено :)"
 
-#: actions/showfavorites.php:242
+#: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
 msgstr "Ова е начин да го споделите она што Ви се допаѓа."
 
@@ -4071,22 +4097,22 @@ msgstr "Jabber"
 msgid "SMS"
 msgstr "СМС"
 
-#: actions/tag.php:68
+#: actions/tag.php:69
 #, php-format
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr "Забелешки означени со %1$s, стр. %2$d"
 
-#: actions/tag.php:86
+#: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr "Канал со забелешки за ознаката %s (RSS 1.0)"
 
-#: actions/tag.php:92
+#: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr "Канал со забелешки за ознаката %s (RSS 2.0)"
 
-#: actions/tag.php:98
+#: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Канал со забелешки за ознаката %s (Atom)"
@@ -4172,70 +4198,72 @@ msgstr ""
 "Лиценцата на потокот на следачот „%1$s“ не е компатибилна со лиценцата на "
 "веб-страницата „%2$s“."
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:332
-#: lib/personalgroupnav.php:115
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+#, fuzzy
+msgctxt "TITLE"
 msgid "User"
 msgstr "Корисник"
 
-#: actions/useradminpanel.php:69
+#: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
 msgstr "Кориснички нагодувања за оваа StatusNet веб-страница."
 
-#: actions/useradminpanel.php:148
+#: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Неважечко ограничување за биографијата. Мора да е бројчено."
 
-#: actions/useradminpanel.php:154
+#: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "НЕважечки текст за добредојде. Дозволени се највеќе 255 знаци."
 
-#: actions/useradminpanel.php:164
+#: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Неважечки опис по основно: „%1$s“ не е корисник."
 
-#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профил"
 
-#: actions/useradminpanel.php:221
+#: actions/useradminpanel.php:222
 msgid "Bio Limit"
 msgstr "Ограничување за биографијата"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
 msgstr "Максимална големина на профилната биографија во знаци."
 
-#: actions/useradminpanel.php:230
+#: actions/useradminpanel.php:231
 msgid "New users"
 msgstr "Нови корисници"
 
-#: actions/useradminpanel.php:234
+#: actions/useradminpanel.php:235
 msgid "New user welcome"
 msgstr "Добредојде за нов корисник"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Текст за добредојде на нови корисници (највеќе до 255 знаци)."
 
-#: actions/useradminpanel.php:240
+#: actions/useradminpanel.php:241
 msgid "Default subscription"
 msgstr "Основно-зададена претплата"
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
 msgstr "Автоматски претплатувај нови корисници на овој корисник."
 
-#: actions/useradminpanel.php:250
+#: actions/useradminpanel.php:251
 msgid "Invitations"
 msgstr "Покани"
 
-#: actions/useradminpanel.php:255
+#: actions/useradminpanel.php:256
 msgid "Invitations enabled"
 msgstr "Поканите се овозможени"
 
-#: actions/useradminpanel.php:257
+#: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
 msgstr "Дали да им е дозволено на корисниците да канат други корисници."
 
@@ -4433,7 +4461,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Приклучоци"
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:778
 msgid "Version"
 msgstr "Верзија"
 
@@ -4574,9 +4602,8 @@ msgid "Could not create group."
 msgstr "Не можев да ја создадам групата."
 
 #: classes/User_group.php:471
-#, fuzzy
 msgid "Could not set group URI."
-msgstr "Не можев да поставам uri на групата."
+msgstr "Не можев да поставам URI на групата."
 
 #: classes/User_group.php:492
 msgid "Could not set group membership."
@@ -4627,120 +4654,190 @@ msgstr "Страница без наслов"
 msgid "Primary site navigation"
 msgstr "Главна навигација"
 
+#. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:439
-msgid "Home"
-msgstr "Дома"
-
-#: lib/action.php:439
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Личен профил и историја на пријатели"
 
-#: lib/action.php:441
+#: lib/action.php:442
+#, fuzzy
+msgctxt "MENU"
+msgid "Personal"
+msgstr "Личен"
+
+#. TRANS: Tooltip for main menu option "Account"
+#: lib/action.php:444
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промена на е-пошта, аватар, лозинка, профил"
 
-#: lib/action.php:444
-msgid "Connect"
-msgstr "Поврзи се"
+#: lib/action.php:447
+#, fuzzy
+msgctxt "MENU"
+msgid "Account"
+msgstr "Сметка"
 
-#: lib/action.php:444
+#. TRANS: Tooltip for main menu option "Services"
+#: lib/action.php:450
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Поврзи се со услуги"
 
-#: lib/action.php:448
+#: lib/action.php:453
+#, fuzzy
+msgctxt "MENU"
+msgid "Connect"
+msgstr "Поврзи се"
+
+#. TRANS: Tooltip for menu option "Admin"
+#: lib/action.php:457
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Промена на конфигурацијата на веб-страницата"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
-msgid "Invite"
-msgstr "Покани"
+#: lib/action.php:460
+#, fuzzy
+msgctxt "MENU"
+msgid "Admin"
+msgstr "Администратор"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
-#, php-format
+#. TRANS: Tooltip for main menu option "Invite"
+#: lib/action.php:464
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете пријатели и колеги да Ви се придружат на %s"
 
-#: lib/action.php:458
-msgid "Logout"
-msgstr "Одјави се"
+#: lib/action.php:467
+#, fuzzy
+msgctxt "MENU"
+msgid "Invite"
+msgstr "Покани"
 
-#: lib/action.php:458
+#. TRANS: Tooltip for main menu option "Logout"
+#: lib/action.php:473
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Одјава"
 
-#: lib/action.php:463
+#: lib/action.php:476
+#, fuzzy
+msgctxt "MENU"
+msgid "Logout"
+msgstr "Одјави се"
+
+#. TRANS: Tooltip for main menu option "Register"
+#: lib/action.php:481
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Создај сметка"
 
-#: lib/action.php:466
+#: lib/action.php:484
+#, fuzzy
+msgctxt "MENU"
+msgid "Register"
+msgstr "Регистрирај се"
+
+#. TRANS: Tooltip for main menu option "Login"
+#: lib/action.php:487
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Најава"
 
-#: lib/action.php:469 lib/action.php:732
-msgid "Help"
-msgstr "Помош"
+#: lib/action.php:490
+#, fuzzy
+msgctxt "MENU"
+msgid "Login"
+msgstr "Најава"
 
-#: lib/action.php:469
+#. TRANS: Tooltip for main menu option "Help"
+#: lib/action.php:493
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Напомош!"
 
-#: lib/action.php:472 lib/searchaction.php:127
-msgid "Search"
-msgstr "Барај"
+#: lib/action.php:496
+#, fuzzy
+msgctxt "MENU"
+msgid "Help"
+msgstr "Помош"
 
-#: lib/action.php:472
+#. TRANS: Tooltip for main menu option "Search"
+#: lib/action.php:499
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пребарајте луѓе или текст"
 
-#: lib/action.php:493
+#: lib/action.php:502
+#, fuzzy
+msgctxt "MENU"
+msgid "Search"
+msgstr "Барај"
+
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#: lib/action.php:524
 msgid "Site notice"
 msgstr "Напомена за веб-страницата"
 
-#: lib/action.php:559
+#: lib/action.php:590
 msgid "Local views"
 msgstr "Локални прегледи"
 
-#: lib/action.php:625
+#: lib/action.php:656
 msgid "Page notice"
 msgstr "Напомена за страницата"
 
-#: lib/action.php:727
+#: lib/action.php:758
 msgid "Secondary site navigation"
 msgstr "Споредна навигација"
 
-#: lib/action.php:734
+#: lib/action.php:763
+msgid "Help"
+msgstr "Помош"
+
+#: lib/action.php:765
 msgid "About"
 msgstr "За"
 
-#: lib/action.php:736
+#: lib/action.php:767
 msgid "FAQ"
 msgstr "ЧПП"
 
-#: lib/action.php:740
+#: lib/action.php:771
 msgid "TOS"
 msgstr "Услови"
 
-#: lib/action.php:743
+#: lib/action.php:774
 msgid "Privacy"
 msgstr "Приватност"
 
-#: lib/action.php:745
+#: lib/action.php:776
 msgid "Source"
 msgstr "Изворен код"
 
-#: lib/action.php:749
+#: lib/action.php:780
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:751
+#: lib/action.php:782
 msgid "Badge"
 msgstr "Значка"
 
-#: lib/action.php:779
+#: lib/action.php:810
 msgid "StatusNet software license"
 msgstr "Лиценца на програмот StatusNet"
 
-#: lib/action.php:782
+#: lib/action.php:813
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4749,12 +4846,12 @@ msgstr ""
 "**%%site.name%%** е сервис за микроблогирање што ви го овозможува [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:784
+#: lib/action.php:815
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** е сервис за микроблогирање."
 
-#: lib/action.php:786
+#: lib/action.php:817
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4765,45 +4862,45 @@ msgstr ""
 "верзија %s, достапен пд [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:801
+#: lib/action.php:832
 msgid "Site content license"
 msgstr "Лиценца на содржините на веб-страницата"
 
-#: lib/action.php:806
+#: lib/action.php:837
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Содржината и податоците на %1$s се лични и доверливи."
 
-#: lib/action.php:811
+#: lib/action.php:842
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Авторските права на содржината и податоците се во сопственост на %1$s. Сите "
 "права задржани."
 
-#: lib/action.php:814
+#: lib/action.php:845
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторските права на содржината и податоците им припаѓаат на учесниците. Сите "
 "права задржани."
 
-#: lib/action.php:827
+#: lib/action.php:858
 msgid "All "
 msgstr "Сите "
 
-#: lib/action.php:833
+#: lib/action.php:864
 msgid "license."
 msgstr "лиценца."
 
-#: lib/action.php:1132
+#: lib/action.php:1163
 msgid "Pagination"
 msgstr "Прелом на страници"
 
-#: lib/action.php:1141
+#: lib/action.php:1172
 msgid "After"
 msgstr "По"
 
-#: lib/action.php:1149
+#: lib/action.php:1180
 msgid "Before"
 msgstr "Пред"
 
@@ -4819,49 +4916,102 @@ msgstr "Сè уште не е поддржана обработката на XML
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Сè уште не е достапна обработката на вметната Base64 содржина."
 
-#: lib/adminpanelaction.php:96
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
 msgstr "Не можете да ја менувате оваа веб-страница."
 
-#: lib/adminpanelaction.php:107
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:110
 msgid "Changes to that panel are not allowed."
 msgstr "Менувањето на тој алатник не е дозволено."
 
-#: lib/adminpanelaction.php:206
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:211
 msgid "showForm() not implemented."
 msgstr "showForm() не е имплементирано."
 
-#: lib/adminpanelaction.php:235
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:241
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() не е имплементирано."
 
-#: lib/adminpanelaction.php:258
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:265
 msgid "Unable to delete design setting."
 msgstr "Не можам да ги избришам нагодувањата за изглед."
 
-#: lib/adminpanelaction.php:323
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:330
 msgid "Basic site configuration"
 msgstr "Основни нагодувања на веб-страницата"
 
-#: lib/adminpanelaction.php:328
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:332
+#, fuzzy
+msgctxt "MENU"
+msgid "Site"
+msgstr "Веб-страница"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:338
 msgid "Design configuration"
 msgstr "Конфигурација на изгледот"
 
-#: lib/adminpanelaction.php:333
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:340
+#, fuzzy
+msgctxt "MENU"
+msgid "Design"
+msgstr "Изглед"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:346
 msgid "User configuration"
 msgstr "Конфигурација на корисник"
 
-#: lib/adminpanelaction.php:338
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:348
+#, fuzzy
+msgctxt "MENU"
+msgid "User"
+msgstr "Корисник"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:354
 msgid "Access configuration"
 msgstr "Конфигурација на пристапот"
 
-#: lib/adminpanelaction.php:343
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:356
+#, fuzzy
+msgctxt "MENU"
+msgid "Access"
+msgstr "Пристап"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:362
 msgid "Paths configuration"
 msgstr "Конфигурација на патеки"
 
-#: lib/adminpanelaction.php:348
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:364
+#, fuzzy
+msgctxt "MENU"
+msgid "Paths"
+msgstr "Патеки"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:370
 msgid "Sessions configuration"
 msgstr "Конфигурација на сесиите"
+
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:372
+#, fuzzy
+msgctxt "MENU"
+msgid "Sessions"
+msgstr "Сесии"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -4960,11 +5110,11 @@ msgstr "Забелешки кадешто се јавува овој прило�
 msgid "Tags for this attachment"
 msgstr "Ознаки за овој прилог"
 
-#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
+#: lib/authenticationplugin.php:220 lib/authenticationplugin.php:225
 msgid "Password changing failed"
 msgstr "Менувањето на лозинката не успеа"
 
-#: lib/authenticationplugin.php:233
+#: lib/authenticationplugin.php:235
 msgid "Password changing is not allowed"
 msgstr "Менувањето на лозинка не е дозволено"
 
@@ -5279,19 +5429,19 @@ msgstr ""
 "tracks - сè уште не е имплементирано.\n"
 "tracking - сè уште не е имплементирано.\n"
 
-#: lib/common.php:136
+#: lib/common.php:148
 msgid "No configuration file found. "
 msgstr "Нема пронајдено конфигурациска податотека. "
 
-#: lib/common.php:137
+#: lib/common.php:149
 msgid "I looked for configuration files in the following places: "
 msgstr "Побарав конфигурациони податотеки на следниве места: "
 
-#: lib/common.php:139
+#: lib/common.php:151
 msgid "You may wish to run the installer to fix this."
 msgstr "Препорачуваме да го пуштите инсталатерот за да го поправите ова."
 
-#: lib/common.php:140
+#: lib/common.php:152
 msgid "Go to the installer."
 msgstr "Оди на инсталаторот."
 
@@ -5885,7 +6035,6 @@ msgid "Available characters"
 msgstr "Расположиви знаци"
 
 #: lib/messageform.php:178 lib/noticeform.php:236
-#, fuzzy
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Испрати"
@@ -6012,6 +6161,10 @@ msgstr "Одговори"
 msgid "Favorites"
 msgstr "Омилени"
 
+#: lib/personalgroupnav.php:115
+msgid "User"
+msgstr "Корисник"
+
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr "Примени"
@@ -6121,6 +6274,10 @@ msgstr "Пребарај по веб-страницата"
 msgid "Keyword(s)"
 msgstr "Клучен збор"
 
+#: lib/searchaction.php:127
+msgid "Search"
+msgstr "Барај"
+
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr "Помош со пребарување"
@@ -6171,6 +6328,15 @@ msgstr "Луѓе претплатени на %s"
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "Групи кадешто членува %s"
+
+#: lib/subgroupnav.php:105
+msgid "Invite"
+msgstr "Покани"
+
+#: lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Поканете пријатели и колеги да Ви се придружат на %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6242,47 +6408,47 @@ msgstr "Порака"
 msgid "Moderate"
 msgstr "Модерирај"
 
-#: lib/util.php:993
+#: lib/util.php:1013
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
-#: lib/util.php:995
+#: lib/util.php:1015
 msgid "about a minute ago"
 msgstr "пред една минута"
 
-#: lib/util.php:997
+#: lib/util.php:1017
 #, php-format
 msgid "about %d minutes ago"
 msgstr "пред %d минути"
 
-#: lib/util.php:999
+#: lib/util.php:1019
 msgid "about an hour ago"
 msgstr "пред еден час"
 
-#: lib/util.php:1001
+#: lib/util.php:1021
 #, php-format
 msgid "about %d hours ago"
 msgstr "пред %d часа"
 
-#: lib/util.php:1003
+#: lib/util.php:1023
 msgid "about a day ago"
 msgstr "пред еден ден"
 
-#: lib/util.php:1005
+#: lib/util.php:1025
 #, php-format
 msgid "about %d days ago"
 msgstr "пред %d денови"
 
-#: lib/util.php:1007
+#: lib/util.php:1027
 msgid "about a month ago"
 msgstr "пред еден месец"
 
-#: lib/util.php:1009
+#: lib/util.php:1029
 #, php-format
 msgid "about %d months ago"
 msgstr "пред %d месеца"
 
-#: lib/util.php:1011
+#: lib/util.php:1031
 msgid "about a year ago"
 msgstr "пред една година"
 

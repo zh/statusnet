@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 14:58-0800\n"
+"POT-Creation-Date: 2010-03-02 21:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,64 +17,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:337
+#. TRANS: Page title
+#: actions/accessadminpanel.php:55
 msgid "Access"
 msgstr ""
 
-#: actions/accessadminpanel.php:65
+#. TRANS: Page notice
+#: actions/accessadminpanel.php:67
 msgid "Site access settings"
 msgstr ""
 
-#: actions/accessadminpanel.php:158
+#. TRANS: Form legend for registration form.
+#: actions/accessadminpanel.php:161
 msgid "Registration"
 msgstr ""
 
-#: actions/accessadminpanel.php:161
-msgid "Private"
-msgstr ""
-
-#: actions/accessadminpanel.php:163
+#. TRANS: Checkbox instructions for admin setting "Private"
+#: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
+#. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-msgid "Invite only"
+msgctxt "LABEL"
+msgid "Private"
 msgstr ""
 
-#: actions/accessadminpanel.php:169
+#. TRANS: Checkbox instructions for admin setting "Invite only"
+#: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
 msgstr ""
 
-#: actions/accessadminpanel.php:173
-msgid "Closed"
+#. TRANS: Checkbox label for configuring site as invite only.
+#: actions/accessadminpanel.php:176
+msgid "Invite only"
 msgstr ""
 
-#: actions/accessadminpanel.php:175
+#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
+#: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
 msgstr ""
 
-#: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
-#: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:208 actions/tagother.php:154
-#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
+#. TRANS: Checkbox label for disabling new user registrations.
+#: actions/accessadminpanel.php:185
+msgid "Closed"
 msgstr ""
 
-#: actions/accessadminpanel.php:189
+#. TRANS: Title / tooltip for button to save access settings in site admin panel
+#: actions/accessadminpanel.php:202
 msgid "Save access settings"
 msgstr ""
 
-#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
-#: actions/showfavorites.php:137 actions/tag.php:51
+#: actions/accessadminpanel.php:203
+msgctxt "BUTTON"
+msgid "Save"
+msgstr ""
+
+#. TRANS: Server error when page not found (404)
+#: actions/all.php:64 actions/public.php:98 actions/replies.php:93
+#: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page"
 msgstr ""
 
-#: actions/all.php:74 actions/allrss.php:68
+#: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
@@ -100,61 +105,70 @@ msgstr ""
 msgid "No such user."
 msgstr ""
 
-#: actions/all.php:84
+#. TRANS: Page title. %1$s is user nickname, %2$d is page number
+#: actions/all.php:86
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr ""
 
-#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#. TRANS: Page title. %1$s is user nickname
+#. TRANS: H1 text. %1$s is user nickname
+#: actions/all.php:89 actions/all.php:177 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr ""
 
-#: actions/all.php:99
+#. TRANS: %1$s is user nickname
+#: actions/all.php:103
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr ""
 
-#: actions/all.php:107
+#. TRANS: %1$s is user nickname
+#: actions/all.php:112
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr ""
 
-#: actions/all.php:115
+#. TRANS: %1$s is user nickname
+#: actions/all.php:121
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr ""
 
-#: actions/all.php:127
+#. TRANS: %1$s is user nickname
+#: actions/all.php:134
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
 
-#: actions/all.php:132
+#: actions/all.php:139
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
 
-#: actions/all.php:134
+#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+#: actions/all.php:142
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
+#: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
 
-#: actions/all.php:165
+#. TRANS: H1 text
+#: actions/all.php:174
 msgid "You and friends"
 msgstr ""
 
@@ -479,7 +493,6 @@ msgstr ""
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/plugindisable.php:69 actions/pluginenable.php:69
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
@@ -667,7 +680,7 @@ msgstr ""
 msgid "Repeats of %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:102 actions/tag.php:66
+#: actions/apitimelinetag.php:102 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr ""
@@ -914,7 +927,7 @@ msgstr ""
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1197
+#: lib/action.php:1228
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -937,13 +950,13 @@ msgstr ""
 msgid "Delete this application"
 msgstr ""
 
+#. TRANS: Client error message
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/plugindisable.php:51
-#: actions/pluginenable.php:51 actions/subedit.php:31 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/adminpanelaction.php:73 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr ""
@@ -997,7 +1010,7 @@ msgid "Delete this user"
 msgstr ""
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:327 lib/groupnav.php:119
+#: lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
@@ -1096,6 +1109,17 @@ msgstr ""
 
 #: actions/designadminpanel.php:584 lib/designsettings.php:254
 msgid "Reset back to default"
+msgstr ""
+
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/smssettings.php:181 actions/subscriptions.php:208
+#: actions/tagother.php:154 actions/useradminpanel.php:294
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
 msgstr ""
 
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
@@ -1887,17 +1911,18 @@ msgstr ""
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
 
-#: actions/invite.php:197
-msgctxt "Send button for inviting friends"
+#. TRANS: Send button for inviting friends
+#: actions/invite.php:198
+msgctxt "BUTTON"
 msgid "Send"
 msgstr ""
 
-#: actions/invite.php:226
+#: actions/invite.php:227
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr ""
 
-#: actions/invite.php:228
+#: actions/invite.php:229
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2345,7 +2370,7 @@ msgstr ""
 msgid "Password saved."
 msgstr ""
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:342
+#: actions/pathsadminpanel.php:59
 msgid "Paths"
 msgstr ""
 
@@ -2378,7 +2403,6 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:322
 msgid "Site"
 msgstr ""
 
@@ -2519,22 +2543,6 @@ msgstr ""
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
-#: actions/plugindisable.php:76
-msgid "Plugin inactive or missing."
-msgstr ""
-
-#: actions/plugindisable.php:90
-msgid "Disabled"
-msgstr ""
-
-#: actions/pluginenable.php:76
-msgid "Plugin already active."
-msgstr ""
-
-#: actions/pluginenable.php:92
-msgid "Enabled"
-msgstr ""
-
 #: actions/postnotice.php:84
 msgid "Invalid notice content"
 msgstr ""
@@ -2670,7 +2678,8 @@ msgstr ""
 msgid "Couldn't save tags."
 msgstr ""
 
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
+#. TRANS: Message after successful saving of administrative settings.
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
 msgid "Settings saved."
 msgstr ""
 
@@ -2683,45 +2692,45 @@ msgstr ""
 msgid "Could not retrieve public stream."
 msgstr ""
 
-#: actions/public.php:129
+#: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
 msgstr ""
 
-#: actions/public.php:131 lib/publicgroupnav.php:79
+#: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr ""
 
-#: actions/public.php:159
+#: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
-#: actions/public.php:163
+#: actions/public.php:164
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
-#: actions/public.php:167
+#: actions/public.php:168
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
-#: actions/public.php:187
+#: actions/public.php:188
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
 
-#: actions/public.php:190
+#: actions/public.php:191
 msgid "Be the first to post!"
 msgstr ""
 
-#: actions/public.php:194
+#: actions/public.php:195
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
 
-#: actions/public.php:241
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2730,7 +2739,7 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 
-#: actions/public.php:246
+#: actions/public.php:247
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3066,47 +3075,47 @@ msgstr ""
 msgid "Repeated!"
 msgstr ""
 
-#: actions/replies.php:125 actions/repliesrss.php:68
+#: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
 msgstr ""
 
-#: actions/replies.php:127
+#: actions/replies.php:128
 #, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr ""
 
-#: actions/replies.php:144
+#: actions/replies.php:145
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr ""
 
-#: actions/replies.php:151
+#: actions/replies.php:152
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr ""
 
-#: actions/replies.php:158
+#: actions/replies.php:159
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr ""
 
-#: actions/replies.php:198
+#: actions/replies.php:199
 #, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to his attention yet."
 msgstr ""
 
-#: actions/replies.php:203
+#: actions/replies.php:204
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
 
-#: actions/replies.php:205
+#: actions/replies.php:206
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
@@ -3131,7 +3140,6 @@ msgid "User is already sandboxed."
 msgstr ""
 
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:347
 msgid "Sessions"
 msgstr ""
 
@@ -3156,7 +3164,7 @@ msgid "Turn on debugging output for sessions."
 msgstr ""
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/useradminpanel.php:293
+#: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr ""
 
@@ -3247,35 +3255,35 @@ msgstr ""
 msgid "Could not retrieve favorite notices."
 msgstr ""
 
-#: actions/showfavorites.php:170
+#: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr ""
 
-#: actions/showfavorites.php:177
+#: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr ""
 
-#: actions/showfavorites.php:184
+#: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr ""
 
-#: actions/showfavorites.php:205
+#: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
 
-#: actions/showfavorites.php:207
+#: actions/showfavorites.php:208
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
 "they would add to their favorites :)"
 msgstr ""
 
-#: actions/showfavorites.php:211
+#: actions/showfavorites.php:212
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
@@ -3283,7 +3291,7 @@ msgid ""
 "would add to their favorites :)"
 msgstr ""
 
-#: actions/showfavorites.php:242
+#: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
 msgstr ""
 
@@ -3822,22 +3830,22 @@ msgstr ""
 msgid "SMS"
 msgstr ""
 
-#: actions/tag.php:68
+#: actions/tag.php:69
 #, php-format
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr ""
 
-#: actions/tag.php:86
+#: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr ""
 
-#: actions/tag.php:92
+#: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr ""
 
-#: actions/tag.php:98
+#: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
@@ -3917,70 +3925,71 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58
-msgctxt "User admin panel title"
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+msgctxt "TITLE"
 msgid "User"
 msgstr ""
 
-#: actions/useradminpanel.php:69
+#: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:148
+#: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:154
+#: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 
-#: actions/useradminpanel.php:164
+#: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
-#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr ""
 
-#: actions/useradminpanel.php:221
+#: actions/useradminpanel.php:222
 msgid "Bio Limit"
 msgstr ""
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
-#: actions/useradminpanel.php:230
+#: actions/useradminpanel.php:231
 msgid "New users"
 msgstr ""
 
-#: actions/useradminpanel.php:234
+#: actions/useradminpanel.php:235
 msgid "New user welcome"
 msgstr ""
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
-#: actions/useradminpanel.php:240
+#: actions/useradminpanel.php:241
 msgid "Default subscription"
 msgstr ""
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
 msgstr ""
 
-#: actions/useradminpanel.php:250
+#: actions/useradminpanel.php:251
 msgid "Invitations"
 msgstr ""
 
-#: actions/useradminpanel.php:255
+#: actions/useradminpanel.php:256
 msgid "Invitations enabled"
 msgstr ""
 
-#: actions/useradminpanel.php:257
+#: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
 msgstr ""
 
@@ -4153,7 +4162,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:778
 msgid "Version"
 msgstr ""
 
@@ -4338,181 +4347,183 @@ msgstr ""
 msgid "Primary site navigation"
 msgstr ""
 
+#. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:439
-msgctxt ""
-"Main menu option when logged in for access to personal profile and friends "
-"timeline"
-msgid "Personal"
-msgstr ""
-
-#: lib/action.php:439
-msgctxt "Tooltip for main menu option \"Personal\""
+msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:441
-msgctxt "Main menu option when logged in for access to user settings"
-msgid "Account"
+#: lib/action.php:442
+msgctxt "MENU"
+msgid "Personal"
 msgstr ""
 
-#: lib/action.php:441
-msgctxt "Tooltip for main menu option \"Account\""
+#. TRANS: Tooltip for main menu option "Account"
+#: lib/action.php:444
+msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
-#: lib/action.php:444
-msgctxt ""
-"Main menu option when logged in and connection are possible for access to "
-"options to connect to other services"
-msgid "Connect"
+#: lib/action.php:447
+msgctxt "MENU"
+msgid "Account"
 msgstr ""
 
-#: lib/action.php:444
-msgctxt "Tooltip for main menu option \"Services\""
+#. TRANS: Tooltip for main menu option "Services"
+#: lib/action.php:450
+msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr ""
 
-#: lib/action.php:448
-msgctxt ""
-"Main menu option when logged in and site admin for access to site "
-"configuration"
-msgid "Admin"
+#: lib/action.php:453
+msgctxt "MENU"
+msgid "Connect"
 msgstr ""
 
-#: lib/action.php:448
-msgctxt "Tooltip for menu option \"Admin\""
+#. TRANS: Tooltip for menu option "Admin"
+#: lib/action.php:457
+msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr ""
 
-#: lib/action.php:452
-msgctxt ""
-"Main menu option when logged in and invitation are allowed for inviting new "
-"users"
-msgid "Invite"
+#: lib/action.php:460
+msgctxt "MENU"
+msgid "Admin"
 msgstr ""
 
-#: lib/action.php:453
+#. TRANS: Tooltip for main menu option "Invite"
+#: lib/action.php:464
 #, php-format
-msgctxt "Tooltip for main menu option \"Invite\""
+msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:458
-msgctxt "Main menu option when logged in to log out the current user"
-msgid "Logout"
+#: lib/action.php:467
+msgctxt "MENU"
+msgid "Invite"
 msgstr ""
 
-#: lib/action.php:458
-msgctxt "Tooltip for main menu option \"Logout\""
+#. TRANS: Tooltip for main menu option "Logout"
+#: lib/action.php:473
+msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:463
-msgctxt "Main menu option when not logged in to register a new account"
-msgid "Register"
+#: lib/action.php:476
+msgctxt "MENU"
+msgid "Logout"
 msgstr ""
 
-#: lib/action.php:463
-msgctxt "Tooltip for main menu option \"Register\""
+#. TRANS: Tooltip for main menu option "Register"
+#: lib/action.php:481
+msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr ""
 
-#: lib/action.php:466
-msgctxt "Main menu option when not logged in to log in"
-msgid "Login"
+#: lib/action.php:484
+msgctxt "MENU"
+msgid "Register"
 msgstr ""
 
-#: lib/action.php:466
-msgctxt "Tooltip for main menu option \"Login\""
+#. TRANS: Tooltip for main menu option "Login"
+#: lib/action.php:487
+msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:469
-msgctxt "Main menu option for help on the StatusNet site"
-msgid "Help"
+#: lib/action.php:490
+msgctxt "MENU"
+msgid "Login"
 msgstr ""
 
-#: lib/action.php:469
-msgctxt "Tooltip for main menu option \"Help\""
+#. TRANS: Tooltip for main menu option "Help"
+#: lib/action.php:493
+msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr ""
 
-#: lib/action.php:472
-msgctxt ""
-"Main menu option when logged in or when the StatusNet instance is not private"
-msgid "Search"
-msgstr ""
-
-#: lib/action.php:472
-msgctxt "Tooltip for main menu option \"Search\""
-msgid "Search for people or text"
-msgstr ""
-
-#: lib/action.php:493
-msgid "Site notice"
-msgstr ""
-
-#: lib/action.php:559
-msgid "Local views"
-msgstr ""
-
-#: lib/action.php:625
-msgid "Page notice"
-msgstr ""
-
-#: lib/action.php:727
-msgid "Secondary site navigation"
-msgstr ""
-
-#: lib/action.php:732
+#: lib/action.php:496
+msgctxt "MENU"
 msgid "Help"
 msgstr ""
 
-#: lib/action.php:734
+#. TRANS: Tooltip for main menu option "Search"
+#: lib/action.php:499
+msgctxt "TOOLTIP"
+msgid "Search for people or text"
+msgstr ""
+
+#: lib/action.php:502
+msgctxt "MENU"
+msgid "Search"
+msgstr ""
+
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#: lib/action.php:524
+msgid "Site notice"
+msgstr ""
+
+#: lib/action.php:590
+msgid "Local views"
+msgstr ""
+
+#: lib/action.php:656
+msgid "Page notice"
+msgstr ""
+
+#: lib/action.php:758
+msgid "Secondary site navigation"
+msgstr ""
+
+#: lib/action.php:763
+msgid "Help"
+msgstr ""
+
+#: lib/action.php:765
 msgid "About"
 msgstr ""
 
-#: lib/action.php:736
+#: lib/action.php:767
 msgid "FAQ"
 msgstr ""
 
-#: lib/action.php:740
+#: lib/action.php:771
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:743
+#: lib/action.php:774
 msgid "Privacy"
 msgstr ""
 
-#: lib/action.php:745
+#: lib/action.php:776
 msgid "Source"
 msgstr ""
 
-#: lib/action.php:749
+#: lib/action.php:780
 msgid "Contact"
 msgstr ""
 
-#: lib/action.php:751
+#: lib/action.php:782
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:779
+#: lib/action.php:810
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:782
+#: lib/action.php:813
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
 
-#: lib/action.php:784
+#: lib/action.php:815
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr ""
 
-#: lib/action.php:786
+#: lib/action.php:817
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4520,41 +4531,41 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:801
+#: lib/action.php:832
 msgid "Site content license"
 msgstr ""
 
-#: lib/action.php:806
+#: lib/action.php:837
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:811
+#: lib/action.php:842
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:814
+#: lib/action.php:845
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:827
+#: lib/action.php:858
 msgid "All "
 msgstr ""
 
-#: lib/action.php:833
+#: lib/action.php:864
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1132
+#: lib/action.php:1163
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1141
+#: lib/action.php:1172
 msgid "After"
 msgstr ""
 
-#: lib/action.php:1149
+#: lib/action.php:1180
 msgid "Before"
 msgstr ""
 
@@ -4570,52 +4581,95 @@ msgstr ""
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
-#: lib/adminpanelaction.php:96
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
 msgstr ""
 
-#: lib/adminpanelaction.php:107
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:110
 msgid "Changes to that panel are not allowed."
 msgstr ""
 
-#: lib/adminpanelaction.php:206
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:211
 msgid "showForm() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:235
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:241
 msgid "saveSettings() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:258
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:265
 msgid "Unable to delete design setting."
 msgstr ""
 
-#: lib/adminpanelaction.php:323
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:330
 msgid "Basic site configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:328
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:332
+msgctxt "MENU"
+msgid "Site"
+msgstr ""
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:338
 msgid "Design configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:332 lib/personalgroupnav.php:115
-msgid "User"
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:340
+msgctxt "MENU"
+msgid "Design"
 msgstr ""
 
-#: lib/adminpanelaction.php:333
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:346
 msgid "User configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:338
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:348
+msgctxt "MENU"
+msgid "User"
+msgstr ""
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:354
 msgid "Access configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:343
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:356
+msgctxt "MENU"
+msgid "Access"
+msgstr ""
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:362
 msgid "Paths configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:348
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:364
+msgctxt "MENU"
+msgid "Paths"
+msgstr ""
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:370
 msgid "Sessions configuration"
+msgstr ""
+
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:372
+msgctxt "MENU"
+msgid "Sessions"
 msgstr ""
 
 #: lib/apiauth.php:94
@@ -4988,19 +5042,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:148
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:137
+#: lib/common.php:149
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:151
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:140
+#: lib/common.php:152
 msgid "Go to the installer."
 msgstr ""
 
@@ -5620,6 +5674,10 @@ msgstr ""
 msgid "Favorites"
 msgstr ""
 
+#: lib/personalgroupnav.php:115
+msgid "User"
+msgstr ""
+
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr ""
@@ -5863,47 +5921,47 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:993
+#: lib/util.php:1013
 msgid "a few seconds ago"
 msgstr ""
 
-#: lib/util.php:995
+#: lib/util.php:1015
 msgid "about a minute ago"
 msgstr ""
 
-#: lib/util.php:997
+#: lib/util.php:1017
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
-#: lib/util.php:999
+#: lib/util.php:1019
 msgid "about an hour ago"
 msgstr ""
 
-#: lib/util.php:1001
+#: lib/util.php:1021
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
-#: lib/util.php:1003
+#: lib/util.php:1023
 msgid "about a day ago"
 msgstr ""
 
-#: lib/util.php:1005
+#: lib/util.php:1025
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
-#: lib/util.php:1007
+#: lib/util.php:1027
 msgid "about a month ago"
 msgstr ""
 
-#: lib/util.php:1009
+#: lib/util.php:1029
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
-#: lib/util.php:1011
+#: lib/util.php:1031
 msgid "about a year ago"
 msgstr ""
 
