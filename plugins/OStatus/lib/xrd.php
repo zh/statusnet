@@ -53,17 +53,22 @@ class XRD
         $xrd = new XRD();
 
         $dom = new DOMDocument();
-        $dom->loadXML($xml);
+        if (!$dom->loadXML($xml)) {
+            throw new Exception("Invalid XML");
+        }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);
 
         // Check for host-meta host
-        $host = $xrd_element->getElementsByTagName('Host')->item(0)->nodeValue;
+        $host = $xrd_element->getElementsByTagName('Host')->item(0);
         if ($host) {
-            $xrd->host = $host;
+            $xrd->host = $host->nodeValue;
         }
 
         // Loop through other elements
         foreach ($xrd_element->childNodes as $node) {
+            if (!($node instanceof DOMElement)) {
+                continue;
+            }
             switch ($node->tagName) {
             case 'Expires':
                 $xrd->expires = $node->nodeValue;
@@ -156,20 +161,20 @@ class XRD
     function saveLink($doc, $link)
     {
         $link_element = $doc->createElement('Link');
-        if ($link['rel']) {
+        if (!empty($link['rel'])) {
             $link_element->setAttribute('rel', $link['rel']);
         }
-        if ($link['type']) {
+        if (!empty($link['type'])) {
             $link_element->setAttribute('type', $link['type']);
         }
-        if ($link['href']) {
+        if (!empty($link['href'])) {
             $link_element->setAttribute('href', $link['href']);
         }
-        if ($link['template']) {
+        if (!empty($link['template'])) {
             $link_element->setAttribute('template', $link['template']);
         }
 
-        if (is_array($link['title'])) {
+        if (!empty($link['title']) && is_array($link['title'])) {
             foreach($link['title'] as $title) {
                 $title = $doc->createElement('Title', $title);
                 $link_element->appendChild($title);

@@ -285,6 +285,10 @@ class ProfilesettingsAction extends AccountSettingsAction
                 } else {
                     // Re-initialize language environment if it changed
                     common_init_language();
+                    // Clear the site owner, in case nickname changed
+                    if ($user->hasRole(Profile_role::OWNER)) {
+                        User::blow('user:site_owner');
+                    }
                 }
             }
 

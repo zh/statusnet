@@ -312,8 +312,6 @@ class MobileProfilePlugin extends WAP20Plugin
             $connect = 'imsettings';
         } else if (common_config('sms', 'enabled')) {
             $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
         }
 
         $action->elementStart('ul', array('id' => 'site_nav_global_primary'));

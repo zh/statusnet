@@ -184,6 +184,7 @@ button.close,
 .form_user_unsubscribe input.submit,
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a,
 .entity_moderation p,
 .entity_sandbox input.submit,
@@ -196,7 +197,10 @@ button.minimize,
 .entity_clear input.submit,
 .entity_flag input.submit,
 .entity_flag p,
-.entity_subscribe input.submit {
+.entity_subscribe input.submit,
+#realtime_play,
+#realtime_pause,
+#realtime_popup {
 background-image:url(../../base/images/icons/icons-01.gif);
 background-repeat:no-repeat;
 background-color:transparent;
@@ -291,6 +295,7 @@ background-position:0 1px;
 .form_group_leave input.submit,
 .form_user_subscribe input.submit,
 .form_user_unsubscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a {
 background-color:#AAAAAA;
 color:#FFFFFF;
@@ -301,12 +306,13 @@ background-position:5px -1246px;
 }
 .form_group_join input.submit,
 .form_user_subscribe input.submit,
+.form_remote_authorize input.submit,
 .entity_subscribe a {
 background-position:5px -1181px;
 }
 
 .entity_edit a {
-background-position: 5px -718px;
+background-position: 5px -719px;
 }
 .entity_send-a-message a {
 background-position: 5px -852px;
@@ -360,6 +366,16 @@ background-position: 5px -2171px;
 .entity_subscribe input.reject {
 background-position: 5px -2237px;
 }
+#realtime_play {
+background-position: 0 -2308px;
+}
+#realtime_pause {
+background-position: 0 -2374px;
+}
+#realtime_popup {
+background-position: 0 -1714px;
+}
+
 
 /* NOTICES */
 .notice .attachment {

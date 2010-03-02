@@ -50,23 +50,33 @@ class AtomNoticeFeed extends Atom10Feed
         // Feeds containing notice info use these namespaces
 
         $this->addNamespace(
-            'xmlns:thr',
+            'thr',
             'http://purl.org/syndication/thread/1.0'
         );
 
         $this->addNamespace(
-            'xmlns:georss',
+            'georss',
             'http://www.georss.org/georss'
         );
 
         $this->addNamespace(
-            'xmlns:activity',
+            'activity',
             'http://activitystrea.ms/spec/1.0/'
+        );
+
+        $this->addNamespace(
+            'media',
+            'http://purl.org/syndication/atommedia'
+        );
+
+        $this->addNamespace(
+            'poco',
+            'http://portablecontacts.net/spec/1.0'
         );
 
         // XXX: What should the uri be?
         $this->addNamespace(
-            'xmlns:ostatus',
+            'ostatus',
             'http://ostatus.org/schema/1.0'
         );
     }

@@ -107,8 +107,6 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         $sitename   = common_config('site', 'name');
         $avatar     = $this->group->homepage_logo;
         $title      = sprintf(_("%s timeline"), $this->group->nickname);
-        $taguribase = common_config('integration', 'taguri');
-        $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
 
         $subtitle   = sprintf(
             _('Updates from %1$s on %2$s!'),
@@ -138,19 +136,9 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
             try {
 
-                // If this was called using an integer ID, i.e.: using the canonical
-                // URL for this group's feed, then pass the Group object into the feed, 
-                // so the OStatus plugin, and possibly other plugins, can access it. 
-                // Feels sorta hacky. -- Z
+                $atom = new AtomGroupNoticeFeed($this->group);
 
-                $atom = null;
-                $id = $this->arg('id');
-
-                if (strval(intval($id)) === strval($id)) {
-                    $atom = new AtomGroupNoticeFeed($this->group);
-                } else {
-                    $atom = new AtomGroupNoticeFeed();
-                }
+                // @todo set all this Atom junk up inside the feed class
 
                 $atom->setId($id);
                 $atom->setTitle($title);
@@ -169,6 +157,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
                     $aargs['id'] = $id;
                 }
 
+                $atom->setId($this->getSelfUri('ApiTimelineGroup', $aargs));
+
                 $atom->addLink(
                     $this->getSelfUri('ApiTimelineGroup', $aargs),
                     array('rel' => 'self', 'type' => 'application/atom+xml')
@@ -176,7 +166,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
                 $atom->addEntryFromNotices($this->notices);
 
-                $this->raw($atom->getString());
+                //$this->raw($atom->getString());
+                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
 
             } catch (Atom10FeedException $e) {
                 $this->serverError(
@@ -213,8 +204,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             ($this->page-1) * $this->count,
             $this->count,
             $this->since_id,
-            $this->max_id,
-            $this->since
+            $this->max_id
         );
 
         while ($notice->fetch()) {

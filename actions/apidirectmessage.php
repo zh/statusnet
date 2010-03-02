@@ -79,7 +79,7 @@ class ApiDirectMessageAction extends ApiAuthAction
         }
 
         $server   = common_root_url();
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
 
         if ($this->arg('sent')) {
 
@@ -180,11 +180,6 @@ class ApiDirectMessageAction extends ApiAuthAction
 
         if (!empty($this->since_id)) {
             $message->whereAdd('id > ' . $this->since_id);
-        }
-
-        if (!empty($since)) {
-            $d = date('Y-m-d H:i:s', $this->since);
-            $message->whereAdd("created > '$d'");
         }
 
         $message->orderBy('created DESC, id DESC');

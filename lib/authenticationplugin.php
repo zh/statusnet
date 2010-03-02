@@ -79,7 +79,7 @@ abstract class AuthenticationPlugin extends Plugin
             $nickname = $username;
         }
         $registration_data = array();
-        $registration_data['nickname'] = $nickname ;
+        $registration_data['nickname'] = $nickname;
         return User::register($registration_data);
     }
 
@@ -101,12 +101,14 @@ abstract class AuthenticationPlugin extends Plugin
     * Used during autoregistration
     * Useful if your usernames are ugly, and you want to suggest
     * nice looking nicknames when users initially sign on
+    * All nicknames returned by this function should be valid
+    *  implementations may want to use common_nicknamize() to ensure validity
     * @param username
     * @return string nickname
     */
     function suggestNicknameForUsername($username)
     {
-        return $username;
+        return common_nicknamize($username);
     }
 
     //------------Below are the methods that connect StatusNet to the implementing Auth plugin------------\\
@@ -129,7 +131,7 @@ abstract class AuthenticationPlugin extends Plugin
             $test_user = User::staticGet('nickname', $suggested_nickname);
             if($test_user) {
                 //someone already exists with the suggested nickname, so used the passed nickname
-                $suggested_nickname = $nickname;
+                $suggested_nickname = common_nicknamize($nickname);
             }
             $test_user = User::staticGet('nickname', $suggested_nickname);
             if($test_user) {

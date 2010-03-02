@@ -119,12 +119,14 @@ class HelloAction extends Action
     }
 
     /**
-     * show content in the content area
+     * Show content in the content area
      *
      * The default StatusNet page has a lot of decorations: menus,
      * logos, tabs, all that jazz. This method is used to show
      * content in the content area of the page; it's the main
      * thing you want to overload.
+     *
+     * This method also demonstrates use of a plural localized string.
      *
      * @return void
      */
@@ -138,7 +140,9 @@ class HelloAction extends Action
             $this->element('p', array('class' => 'greeting'),
                            sprintf(_m('Hello, %s'), $this->user->nickname));
             $this->element('p', array('class' => 'greeting_count'),
-                           sprintf(_m('I have greeted you %d time(s).'),
+                           sprintf(_m('I have greeted you %d time.',
+                                      'I have greeted you %d times.',
+                                      $this->gc->greeting_count),
                                    $this->gc->greeting_count));
         }
     }

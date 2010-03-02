@@ -180,6 +180,8 @@ class NewgroupAction extends Action
             }
         }
 
+        $mainpage = common_local_url('showgroup', array('nickname' => $nickname));
+
         $cur = common_current_user();
 
         // Checked in prepare() above
@@ -192,16 +194,18 @@ class NewgroupAction extends Action
                                             'description' => $description,
                                             'location' => $location,
                                             'aliases'  => $aliases,
-                                            'userid'   => $cur->id));
+                                            'userid'   => $cur->id,
+                                            'mainpage' => $mainpage,
+                                            'local'    => true));
 
         common_redirect($group->homeUrl(), 303);
     }
 
     function nicknameExists($nickname)
     {
-        $group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
 
-        if (!empty($group)) {
+        if (!empty($local)) {
             return true;
         }
 

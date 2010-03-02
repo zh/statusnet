@@ -24,7 +24,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-class Subscription extends Memcached_DataObject 
+class Subscription extends Memcached_DataObject
 {
     ###START_AUTOCODE
     /* the code below is auto generated do not remove the above tag */
@@ -34,8 +34,8 @@ class Subscription extends Memcached_DataObject
     public $subscribed;                      // int(4)  primary_key not_null
     public $jabber;                          // tinyint(1)   default_1
     public $sms;                             // tinyint(1)   default_1
-    public $token;                           // varchar(255)  
-    public $secret;                          // varchar(255)  
+    public $token;                           // varchar(255)
+    public $secret;                          // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
 
@@ -45,9 +45,177 @@ class Subscription extends Memcached_DataObject
 
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
-    
+
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Subscription', $kv);
+    }
+
+    /**
+     * Make a new subscription
+     *
+     * @param Profile $subscriber party to receive new notices
+     * @param Profile $other      party sending notices; publisher
+     *
+     * @return Subscription new subscription
+     */
+
+    static function start($subscriber, $other)
+    {
+        if (!$subscriber->hasRight(Right::SUBSCRIBE)) {
+            throw new Exception(_('You have been banned from subscribing.'));
+        }
+
+        if (self::exists($subscriber, $other)) {
+            throw new Exception(_('Already subscribed!'));
+        }
+
+        if ($other->hasBlocked($subscriber)) {
+            throw new Exception(_('User has blocked you.'));
+        }
+
+        if (Event::handle('StartSubscribe', array($subscriber, $other))) {
+
+            $sub = new Subscription();
+
+            $sub->subscriber = $subscriber->id;
+            $sub->subscribed = $other->id;
+            $sub->created    = common_sql_now();
+
+            $result = $sub->insert();
+
+            if (!$result) {
+                common_log_db_error($sub, 'INSERT', __FILE__);
+                throw new Exception(_('Could not save subscription.'));
+            }
+
+            $sub->notify();
+
+            self::blow('user:notices_with_friends:%d', $subscriber->id);
+
+            $subscriber->blowSubscriptionsCount();
+            $other->blowSubscribersCount();
+
+            $otherUser = User::staticGet('id', $other->id);
+
+            if (!empty($otherUser) &&
+                $otherUser->autosubscribe &&
+                !self::exists($other, $subscriber) &&
+                !$subscriber->hasBlocked($other)) {
+
+                $auto = new Subscription();
+
+                $auto->subscriber = $subscriber->id;
+                $auto->subscribed = $other->id;
+                $auto->created    = common_sql_now();
+
+                $result = $auto->insert();
+
+                if (!$result) {
+                    common_log_db_error($auto, 'INSERT', __FILE__);
+                    throw new Exception(_('Could not save subscription.'));
+                }
+
+                $auto->notify();
+            }
+
+            Event::handle('EndSubscribe', array($subscriber, $other));
+        }
+
+        return true;
+    }
+
+    function notify()
+    {
+        # XXX: add other notifications (Jabber, SMS) here
+        # XXX: queue this and handle it offline
+        # XXX: Whatever happens, do it in Twitter-like API, too
+
+        $this->notifyEmail();
+    }
+
+    function notifyEmail()
+    {
+        $subscribedUser = User::staticGet('id', $this->subscribed);
+
+        if (!empty($subscribedUser)) {
+
+            $subscriber = Profile::staticGet('id', $this->subscriber);
+
+            mail_subscribe_notify_profile($subscribedUser, $subscriber);
+        }
+    }
+
+    /**
+     * Cancel a subscription
+     *
+     */
+
+    function cancel($subscriber, $other)
+    {
+        if (!self::exists($subscriber, $other)) {
+            throw new Exception(_('Not subscribed!'));
+        }
+
+        // Don't allow deleting self subs
+
+        if ($subscriber->id == $other->id) {
+            throw new Exception(_('Couldn\'t delete self-subscription.'));
+        }
+
+        if (Event::handle('StartUnsubscribe', array($subscriber, $other))) {
+
+            $sub = Subscription::pkeyGet(array('subscriber' => $subscriber->id,
+                                               'subscribed' => $other->id));
+
+            // note we checked for existence above
+
+            assert(!empty($sub));
+
+            // @todo: move this block to EndSubscribe handler for
+            // OMB plugin when it exists.
+
+            if (!empty($sub->token)) {
+
+                $token = new Token();
+
+                $token->tok    = $sub->token;
+
+                if ($token->find(true)) {
+
+                    $result = $token->delete();
+
+                    if (!$result) {
+                        common_log_db_error($token, 'DELETE', __FILE__);
+                        throw new Exception(_('Couldn\'t delete subscription OMB token.'));
+                    }
+                } else {
+                    common_log(LOG_ERR, "Couldn't find credentials with token {$token->tok}");
+                }
+            }
+
+            $result = $sub->delete();
+
+            if (!$result) {
+                common_log_db_error($sub, 'DELETE', __FILE__);
+                throw new Exception(_('Couldn\'t delete subscription.'));
+            }
+
+            self::blow('user:notices_with_friends:%d', $subscriber->id);
+
+            $subscriber->blowSubscriptionsCount();
+            $other->blowSubscribersCount();
+
+            Event::handle('EndUnsubscribe', array($subscriber, $other));
+        }
+
+        return;
+    }
+
+    function exists($subscriber, $other)
+    {
+        $sub = Subscription::pkeyGet(array('subscriber' => $subscriber->id,
+                                           'subscribed' => $other->id));
+        return (empty($sub)) ? false : true;
     }
 }

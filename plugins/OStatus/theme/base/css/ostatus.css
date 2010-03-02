@@ -7,24 +7,42 @@
  * @link      http://status.net/
  */
 
-#form_ostatus_connect.dialogbox {
+#form_ostatus_connect.dialogbox,
+#form_ostatus_sub.dialogbox {
 width:70%;
 background-image:none;
 }
-#form_ostatus_connect.dialogbox .form_data label {
+#form_ostatus_sub.dialogbox {
+width:65%;
+}
+#form_ostatus_connect.dialogbox .form_data label,
+#form_ostatus_sub.dialogbox .form_data label {
 width:34%;
 }
-#form_ostatus_connect.dialogbox .form_data input {
+#form_ostatus_connect.dialogbox .form_data input,
+#form_ostatus_sub.dialogbox .form_data input {
 width:57%;
 }
-#form_ostatus_connect.dialogbox .form_data .form_guide {
+#form_ostatus_connect.dialogbox .form_data .form_guide,
+#form_ostatus_sub.dialogbox .form_data .form_guide {
 margin-left:36%;
 }
 
-#form_ostatus_connect.dialogbox #ostatus_nickname {
+#form_ostatus_connect.dialogbox #ostatus_nickname,
+#form_ostatus_sub.dialogbox #ostatus_nickname {
 display:none;
 }
 
-#form_ostatus_connect.dialogbox .submit_dialogbox  {
+#form_ostatus_connect.dialogbox .submit_dialogbox,
+#form_ostatus_sub.dialogbox .submit_dialogbox {
 min-width:96px;
+}
+
+#entity_remote_subscribe {
+padding:0;
+float:right;
+}
+
+#all #entity_remote_subscribe {
+margin-top:-52px;
 }

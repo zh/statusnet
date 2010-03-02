@@ -29,7 +29,7 @@ class OStatusInitAction extends Action
 {
 
     var $nickname;
-    var $acct;
+    var $profile;
     var $err;
 
     function prepare($args)
@@ -37,12 +37,15 @@ class OStatusInitAction extends Action
         parent::prepare($args);
 
         if (common_logged_in()) {
-            $this->clientError(_('You can use the local subscription!'));
+            $this->clientError(_m('You can use the local subscription!'));
             return false;
         }
 
-        $this->nickname    = $this->trimmed('nickname');
-        $this->acct = $this->trimmed('acct');
+        // Local user the remote wants to subscribe to
+        $this->nickname = $this->trimmed('nickname');
+        
+        // Webfinger or profile URL of the remote user
+        $this->profile = $this->trimmed('profile');
 
         return true;
     }
@@ -55,7 +58,7 @@ class OStatusInitAction extends Action
             /* Use a session token for CSRF protection. */
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
-                $this->showForm(_('There was a problem with your session token. '.
+                $this->showForm(_m('There was a problem with your session token. '.
                                   'Try again, please.'));
                 return;
             }
@@ -73,7 +76,7 @@ class OStatusInitAction extends Action
             $this->xw->startDocument('1.0', 'UTF-8');
             $this->elementStart('html');
             $this->elementStart('head');
-            $this->element('title', null, _('Subscribe to user'));
+            $this->element('title', null, _m('Subscribe to user'));
             $this->elementEnd('head');
             $this->elementStart('body');
             $this->showContent();
@@ -91,50 +94,81 @@ class OStatusInitAction extends Action
                                           'class' => 'form_settings',
                                           'action' => common_local_url('ostatusinit')));
         $this->elementStart('fieldset');
-        $this->element('legend', null,  sprintf(_('Subscribe to %s'), $this->nickname));
+        $this->element('legend', null,  sprintf(_m('Subscribe to %s'), $this->nickname));
         $this->hidden('token', common_session_token());
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'ostatus_nickname'));
-        $this->input('nickname', _('User nickname'), $this->nickname,
-                     _('Nickname of the user you want to follow'));
+        $this->input('nickname', _m('User nickname'), $this->nickname,
+                     _m('Nickname of the user you want to follow'));
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
-        $this->input('acct', _('Profile Account'), $this->acct,
-                     _('Your account id (i.e. user@identi.ca)'));
+        $this->input('profile', _m('Profile Account'), $this->profile,
+                     _m('Your account id (i.e. user@identi.ca)'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('submit', _('Subscribe'));
+        $this->submit('submit', _m('Subscribe'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
 
     function ostatusConnect()
     {
-      $w = new Webfinger;
-
-      $result = $w->lookup($this->acct);
-      foreach ($result->links as $link) {
-          if ($link['rel'] == 'http://ostatus.org/schema/1.0/subscribe') {
-              // We found a URL - let's redirect!
-
-              $user = User::staticGet('nickname', $this->nickname);
-
-              $feed_url = common_local_url('ApiTimelineUser',
-                                           array('id' => $user->id,
-                                                 'format' => 'atom'));
-              $url = $w->applyTemplate($link['template'], $feed_url);
-
-              common_redirect($url, 303);
-          }
-
-      }
-      
+        $opts = array('allowed_schemes' => array('http', 'https', 'acct'));
+        if (Validate::uri($this->profile, $opts)) {
+            $bits = parse_url($this->profile);
+            if ($bits['scheme'] == 'acct') {
+                $this->connectWebfinger($bits['path']);
+            } else {
+                $this->connectProfile($this->profile);
+            }
+        } elseif (strpos($this->profile, '@') !== false) {
+            $this->connectWebfinger($this->profile);
+        } else {
+            $this->clientError(_m("Must provide a remote profile."));
+        }
     }
-    
+
+    function connectWebfinger($acct)
+    {
+        $disco = new Discovery;
+
+        $result = $disco->lookup($acct);
+        if (!$result) {
+            $this->clientError(_m("Couldn't look up OStatus account profile."));
+        }
+        foreach ($result->links as $link) {
+            if ($link['rel'] == 'http://ostatus.org/schema/1.0/subscribe') {
+                // We found a URL - let's redirect!
+
+                $user = User::staticGet('nickname', $this->nickname);
+                $target_profile = common_local_url('userbyid', array('id' => $user->id));
+
+                $url = Discovery::applyTemplate($link['template'], $target_profile);
+                common_log(LOG_INFO, "Sending remote subscriber $acct to $url");
+                common_redirect($url, 303);
+            }
+
+        }
+        $this->clientError(_m("Couldn't confirm remote profile address."));
+    }
+
+    function connectProfile($subscriber_profile)
+    {
+        $user = User::staticGet('nickname', $this->nickname);
+        $target_profile = common_local_url('userbyid', array('id' => $user->id));
+
+        // @fixme hack hack! We should look up the remote sub URL from XRDS
+        $suburl = preg_replace('!^(.*)/(.*?)$!', '$1/main/ostatussub', $subscriber_profile);
+        $suburl .= '?profile=' . urlencode($target_profile);
+
+        common_log(LOG_INFO, "Sending remote subscriber $subscriber_profile to $suburl");
+        common_redirect($suburl, 303);
+    }
+
     function title()
     {
-      return _('OStatus Connect');  
+      return _m('OStatus Connect');  
     }
   
 }

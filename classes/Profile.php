@@ -163,27 +163,27 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array($this, '_streamTaggedDirect'),
                               array($tag),
                               'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id, $since)
+    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
     {
         // XXX It would be nice to do this without a join
 
@@ -200,10 +200,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $query .= " and id < $max_id";
-        }
-
-        if (!is_null($since)) {
-            $query .= " and created > '" . date('Y-m-d H:i:s', $since) . "'";
         }
 
         $query .= ' order by id DESC';
@@ -223,7 +219,7 @@ class Profile extends Memcached_DataObject
         return $ids;
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id, $since = null)
+    function _streamDirect($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
 
@@ -238,10 +234,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $notice->orderBy('id DESC');
@@ -792,44 +784,17 @@ class Profile extends Memcached_DataObject
      * Returns an XML string fragment with profile information as an
      * Activity Streams noun object with the given element type.
      *
-     * Assumes that 'activity' namespace has been previously defined.
+     * Assumes that 'activity', 'georss', and 'poco' namespace has been
+     * previously defined.
      *
      * @param string $element one of 'actor', 'subject', 'object', 'target'
+     *
      * @return string
      */
     function asActivityNoun($element)
     {
-        $xs = new XMLStringer(true);
-
-        $xs->elementStart('activity:' . $element);
-        $xs->element(
-            'activity:object-type',
-            null,
-            'http://activitystrea.ms/schema/1.0/person'
-        );
-        $xs->element(
-            'id',
-            null,
-            $this->getUri()
-            );
-        $xs->element('title', null, $this->getBestName());
-
-        $avatar = $this->getAvatar(AVATAR_PROFILE_SIZE);
-
-        $xs->element(
-            'link', array(
-                'type' => empty($avatar) ? 'image/png' : $avatar->mediatype,
-                'rel'  => 'avatar',
-                'href' => empty($avatar)
-                ? Avatar::defaultImage(AVATAR_PROFILE_SIZE)
-                : $avatar->displayUrl()
-            ),
-            ''
-        );
-
-        $xs->elementEnd('activity:' . $element);
-
-        return $xs->getString();
+        $noun = ActivityObject::fromProfile($this);
+        return $noun->asString('activity:' . $element);
     }
 
     /**
@@ -841,31 +806,37 @@ class Profile extends Memcached_DataObject
     {
         $uri = null;
 
-        // check for a local user first
-        $user = User::staticGet('id', $this->id);
+        // give plugins a chance to set the URI
+        if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
 
-        if (!empty($user)) {
-            $uri = common_local_url(
-                'userbyid',
-                array('id' => $user->id)
-            );
-        } else {
+            // check for a local user first
+            $user = User::staticGet('id', $this->id);
 
-            // give plugins a chance to set the URI
-            if (Event::handle('StartGetProfileUri', array($this, &$uri))) {
-
+            if (!empty($user)) {
+                $uri = $user->uri;
+            } else {
                 // return OMB profile if any
                 $remote = Remote_profile::staticGet('id', $this->id);
-
                 if (!empty($remote)) {
                     $uri = $remote->uri;
                 }
-
-                Event::handle('EndGetProfileUri', array($this, &$uri));
             }
+            Event::handle('EndGetProfileUri', array($this, &$uri));
         }
 
         return $uri;
     }
 
+    function hasBlocked($other)
+    {
+        $block = Profile_block::get($this->id, $other->id);
+
+        if (empty($block)) {
+            $result = false;
+        } else {
+            $result = true;
+        }
+
+        return $result;
+    }
 }

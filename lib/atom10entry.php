@@ -27,8 +27,7 @@
  * @link      http://status.net/
  */
 
-if (!defined('STATUSNET')
-{
+if (!defined('STATUSNET')) {
     exit(1);
 }
 
@@ -87,7 +86,7 @@ class Atom10Entry extends XMLStringer
      *
      * @return void
      */
-    function validate
+    function validate()
     {
 
     }

@@ -124,12 +124,9 @@ class ApiFriendshipsDestroyAction extends ApiAuthAction
             return;
         }
 
-        $result = subs_unsubscribe_user($this->user, $this->other->nickname);
-
-        if (is_string($result)) {
-            $this->clientError($result, 403, $this->format);
-            return;
-        }
+        // throws an exception on error
+        Subscription::cancel($this->user->getProfile(),
+                             $this->other->getProfile());
 
         $this->initDocument($this->format);
         $this->showProfile($this->other, $this->format);

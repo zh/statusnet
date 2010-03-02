@@ -55,6 +55,8 @@ class UpdateprofileAction extends Action
      */
     function prepare($argarray)
     {
+        StatusNet::setApi(true); // Send smaller error pages
+
         parent::prepare($argarray);
         $license      = $_POST['omb_listenee_license'];
         $site_license = common_config('license', 'url');
@@ -75,6 +77,14 @@ class UpdateprofileAction extends Action
             $srv = new OMB_Service_Provider(null, omb_oauth_datastore(),
                                             omb_oauth_server());
             $srv->handleUpdateProfile();
+        } catch (OMB_RemoteServiceException $rse) {
+            $msg = $rse->getMessage();
+            if (preg_match('/Revoked accesstoken/', $msg) ||
+                preg_match('/No subscriber/', $msg)) {
+                $this->clientError($msg, 403);
+            } else {
+                $this->clientError($msg);
+            }
         } catch (Exception $e) {
             $this->serverError($e->getMessage());
             return;

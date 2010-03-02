@@ -8,147 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-07 20:38-0800\n"
+"POT-Creation-Date: 2010-03-01 14:58-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: openidlogin.php:30 finishopenidlogin.php:34
-msgid "Already logged in."
-msgstr ""
-
-#: openidlogin.php:37 openidsettings.php:194 finishopenidlogin.php:38
-msgid "There was a problem with your session token. Try again, please."
-msgstr ""
-
-#: openidlogin.php:66
-#, php-format
-msgid ""
-"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
-"before changing your settings."
-msgstr ""
-
-#: openidlogin.php:70
-#, php-format
-msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr ""
-
-#: openidlogin.php:95 finishaddopenid.php:170
-msgid "OpenID Login"
-msgstr ""
-
-#: openidlogin.php:112
-msgid "OpenID login"
-msgstr ""
-
-#: openidlogin.php:117 openidsettings.php:107
-msgid "OpenID URL"
-msgstr ""
-
-#: openidlogin.php:119
-msgid "Your OpenID URL"
-msgstr ""
-
-#: openidlogin.php:122
-msgid "Remember me"
-msgstr ""
-
-#: openidlogin.php:123
-msgid "Automatically login in the future; not for shared computers!"
-msgstr ""
-
-#: openidlogin.php:127
-msgid "Login"
-msgstr ""
-
-#: openidserver.php:106
-#, php-format
-msgid "You are not authorized to use the identity %s"
-msgstr ""
-
-#: openidserver.php:126
-msgid "Just an OpenID provider. Nothing to see here, move along..."
-msgstr ""
-
-#: OpenIDPlugin.php:123 OpenIDPlugin.php:135
-msgid "OpenID"
-msgstr ""
-
-#: OpenIDPlugin.php:124
-msgid "Login or register with OpenID"
-msgstr ""
-
-#: OpenIDPlugin.php:136
-msgid "Add or remove OpenIDs"
-msgstr ""
-
-#: openid.php:141
-msgid "Cannot instantiate OpenID consumer object."
-msgstr ""
-
-#: openid.php:151
-msgid "Not a valid OpenID."
-msgstr ""
-
-#: openid.php:153
-#, php-format
-msgid "OpenID failure: %s"
-msgstr ""
-
-#: openid.php:180
-#, php-format
-msgid "Could not redirect to server: %s"
-msgstr ""
-
-#: openid.php:198
-#, php-format
-msgid "Could not create OpenID form: %s"
-msgstr ""
-
-#: openid.php:214
-msgid ""
-"This form should automatically submit itself. If not, click the submit "
-"button to go to your OpenID provider."
-msgstr ""
-
-#: openid.php:246
-msgid "Error saving the profile."
-msgstr ""
-
-#: openid.php:257
-msgid "Error saving the user."
-msgstr ""
-
-#: openid.php:277
-msgid "OpenID Auto-Submit"
-msgstr ""
-
-#: openidtrust.php:51
-msgid "OpenID Identity Verification"
-msgstr ""
-
-#: openidtrust.php:69
-msgid ""
-"This page should only be reached during OpenID processing, not directly."
-msgstr ""
-
-#: openidtrust.php:118
-#, php-format
-msgid ""
-"%s  has asked to verify your identity. Click Continue to verify your "
-"identity and login without creating a new password."
-msgstr ""
-
-#: openidtrust.php:136
-msgid "Continue"
-msgstr ""
-
-#: openidtrust.php:137
-msgid "Cancel"
-msgstr ""
 
 #: finishaddopenid.php:67
 msgid "Not logged in."
@@ -179,69 +45,24 @@ msgstr ""
 msgid "Error updating profile"
 msgstr ""
 
-#: openidsettings.php:59
-msgid "OpenID settings"
+#: finishaddopenid.php:170 openidlogin.php:95
+msgid "OpenID Login"
 msgstr ""
 
-#: openidsettings.php:70
-#, php-format
-msgid ""
-"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
-"account. Manage your associated OpenIDs from here."
+#: finishopenidlogin.php:34 openidlogin.php:30
+msgid "Already logged in."
 msgstr ""
 
-#: openidsettings.php:99
-msgid "Add OpenID"
-msgstr ""
-
-#: openidsettings.php:102
-msgid ""
-"If you want to add an OpenID to your account, enter it in the box below and "
-"click \"Add\"."
-msgstr ""
-
-#: openidsettings.php:117
-msgid "Add"
-msgstr ""
-
-#: openidsettings.php:129
-msgid "Remove OpenID"
-msgstr ""
-
-#: openidsettings.php:134
-msgid ""
-"Removing your only OpenID would make it impossible to log in! If you need to "
-"remove it, add another OpenID first."
-msgstr ""
-
-#: openidsettings.php:149
-msgid ""
-"You can remove an OpenID from your account by clicking the button marked "
-"\"Remove\"."
-msgstr ""
-
-#: openidsettings.php:172
-msgid "Remove"
-msgstr ""
-
-#: openidsettings.php:208 finishopenidlogin.php:52
-msgid "Something weird happened."
-msgstr ""
-
-#: openidsettings.php:228
-msgid "No such OpenID."
-msgstr ""
-
-#: openidsettings.php:233
-msgid "That OpenID does not belong to you."
-msgstr ""
-
-#: openidsettings.php:237
-msgid "OpenID removed."
+#: finishopenidlogin.php:38 openidlogin.php:37 openidsettings.php:194
+msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: finishopenidlogin.php:43
 msgid "You can't register if you don't agree to the license."
+msgstr ""
+
+#: finishopenidlogin.php:52 openidsettings.php:208
+msgid "Something weird happened."
 msgstr ""
 
 #: finishopenidlogin.php:66
@@ -341,4 +162,187 @@ msgstr ""
 
 #: finishopenidlogin.php:345
 msgid "Error connecting user to OpenID."
+msgstr ""
+
+#: openid.php:141
+msgid "Cannot instantiate OpenID consumer object."
+msgstr ""
+
+#: openid.php:151
+msgid "Not a valid OpenID."
+msgstr ""
+
+#: openid.php:153
+#, php-format
+msgid "OpenID failure: %s"
+msgstr ""
+
+#: openid.php:180
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr ""
+
+#: openid.php:198
+#, php-format
+msgid "Could not create OpenID form: %s"
+msgstr ""
+
+#: openid.php:214
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+
+#: openid.php:246
+msgid "Error saving the profile."
+msgstr ""
+
+#: openid.php:257
+msgid "Error saving the user."
+msgstr ""
+
+#: openid.php:277
+msgid "OpenID Auto-Submit"
+msgstr ""
+
+#: openidlogin.php:66
+#, php-format
+msgid ""
+"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
+"before changing your settings."
+msgstr ""
+
+#: openidlogin.php:70
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr ""
+
+#: openidlogin.php:112
+msgid "OpenID login"
+msgstr ""
+
+#: openidlogin.php:117 openidsettings.php:107
+msgid "OpenID URL"
+msgstr ""
+
+#: openidlogin.php:119
+msgid "Your OpenID URL"
+msgstr ""
+
+#: openidlogin.php:122
+msgid "Remember me"
+msgstr ""
+
+#: openidlogin.php:123
+msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+
+#: openidlogin.php:127
+msgid "Login"
+msgstr ""
+
+#: OpenIDPlugin.php:123 OpenIDPlugin.php:135
+msgid "OpenID"
+msgstr ""
+
+#: OpenIDPlugin.php:124
+msgid "Login or register with OpenID"
+msgstr ""
+
+#: OpenIDPlugin.php:136
+msgid "Add or remove OpenIDs"
+msgstr ""
+
+#: OpenIDPlugin.php:324
+msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
+msgstr ""
+
+#: openidserver.php:106
+#, php-format
+msgid "You are not authorized to use the identity %s."
+msgstr ""
+
+#: openidserver.php:126
+msgid "Just an OpenID provider. Nothing to see here, move along..."
+msgstr ""
+
+#: openidsettings.php:59
+msgid "OpenID settings"
+msgstr ""
+
+#: openidsettings.php:70
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
+"account. Manage your associated OpenIDs from here."
+msgstr ""
+
+#: openidsettings.php:99
+msgid "Add OpenID"
+msgstr ""
+
+#: openidsettings.php:102
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+
+#: openidsettings.php:117
+msgid "Add"
+msgstr ""
+
+#: openidsettings.php:129
+msgid "Remove OpenID"
+msgstr ""
+
+#: openidsettings.php:134
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+
+#: openidsettings.php:149
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+
+#: openidsettings.php:172
+msgid "Remove"
+msgstr ""
+
+#: openidsettings.php:228
+msgid "No such OpenID."
+msgstr ""
+
+#: openidsettings.php:233
+msgid "That OpenID does not belong to you."
+msgstr ""
+
+#: openidsettings.php:237
+msgid "OpenID removed."
+msgstr ""
+
+#: openidtrust.php:51
+msgid "OpenID Identity Verification"
+msgstr ""
+
+#: openidtrust.php:69
+msgid ""
+"This page should only be reached during OpenID processing, not directly."
+msgstr ""
+
+#: openidtrust.php:118
+#, php-format
+msgid ""
+"%s  has asked to verify your identity. Click Continue to verify your "
+"identity and login without creating a new password."
+msgstr ""
+
+#: openidtrust.php:136
+msgid "Continue"
+msgstr ""
+
+#: openidtrust.php:137
+msgid "Cancel"
 msgstr ""

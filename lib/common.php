@@ -22,7 +22,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.0beta5');
+define('STATUSNET_VERSION', '0.9.0beta6+bugfix1');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
 define('STATUSNET_CODENAME', 'Stand');
@@ -71,6 +71,7 @@ if (!function_exists('dl')) {
 # global configuration object
 
 require_once('PEAR.php');
+require_once('PEAR/Exception.php');
 require_once('DB/DataObject.php');
 require_once('DB/DataObject/Cast.php'); # for dates
 
@@ -123,9 +124,21 @@ require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
+require_once INSTALLDIR.'/lib/activity.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';
+
+
+//set PEAR error handling to use regular PHP exceptions
+function PEAR_ErrorToPEAR_Exception($err)
+{
+    if ($err->getCode()) {
+        throw new PEAR_Exception($err->getMessage(), $err->getCode());
+    }
+    throw new PEAR_Exception($err->getMessage());
+}
+PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'PEAR_ErrorToPEAR_Exception');
 
 try {
     StatusNet::init(@$server, @$path, @$conffile);

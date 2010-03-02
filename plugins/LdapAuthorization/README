@@ -11,7 +11,10 @@ You *cannot* use this plugin without the LDAP Authentication plugin
 
 Settings
 ========
-provider_name*: name of the LDAP authentication provider that this plugin works with.
+provider_name*: This is a identifier designated to the connection.
+    It's how StatusNet will refer to the authentication source.
+    For the most part, any name can be used, so long as each authentication source has a different identifier.
+    In most cases there will be only one authentication source used.
 authoritative (false): should this plugin be authoritative for
     authorization?
 uniqueMember_attribute ('uniqueMember')*: the attribute of a group

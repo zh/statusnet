@@ -38,7 +38,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
 require_once INSTALLDIR . '/lib/apioauth.php';
 
 /**

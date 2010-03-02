@@ -122,9 +122,9 @@ class ShowgroupAction extends GroupDesignAction
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
 
-        if (!$this->group) {
+        if (!$local) {
             $alias = Group_alias::staticGet('alias', $nickname);
             if ($alias) {
                 $args = array('id' => $alias->group_id);
@@ -134,9 +134,17 @@ class ShowgroupAction extends GroupDesignAction
                 common_redirect(common_local_url('groupbyid', $args), 301);
                 return false;
             } else {
+                common_log(LOG_NOTICE, "Couldn't find local group for nickname '$nickname'");
                 $this->clientError(_('No such group.'), 404);
                 return false;
             }
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
+
+        if (!$this->group) {
+            $this->clientError(_('No such group.'), 404);
+            return false;
         }
 
         common_set_returnto($this->selfUrl());

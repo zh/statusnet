@@ -175,10 +175,10 @@ $default =
         array('enabled' => false),
         'integration' =>
         array('source' => 'StatusNet', # source attribute for Twitter
-              'taguri' => $_server.',2009'), # base for tag URIs
+              'taguri' => null), # base for tag URIs
         'twitter' =>
-        array('enabled'       => true,
-              'consumer_key'    => null,
+        array('signin' => true,
+              'consumer_key' => null,
               'consumer_secret' => null),
         'cache' =>
         array('base' => null),
@@ -278,9 +278,7 @@ $default =
                                  'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
                                  'Geonames' => null,
                                  'Mapstraction' => null,
-                                 'Linkback' => null,
                                  'WikiHashtags' => null,
-                                 'PubSubHubBub' => null,
                                  'RSSCloud' => null,
                                  'OpenID' => null),
               ),
