@@ -550,7 +550,7 @@ function common_find_mentions($text, $notice)
             } else if (!empty($originalMentions) &&
                        array_key_exists($nickname, $originalMentions)) {
 
-                $mention = $originalMentions[$nickname];
+                $mentioned = $originalMentions[$nickname];
             } else {
                 $mentioned = common_relative_profile($sender, $nickname);
             }
