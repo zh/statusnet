@@ -222,31 +222,62 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     *
+     * Find any explicit remote mentions. Accepted forms:
+     *   Webfinger: @user@example.com
+     *   Profile link: @example.com/mublog/user
+     * @param Profile $sender (os user?)
+     * @param string $text input markup text
+     * @param array &$mention in/out param: set of found mentions
+     * @return boolean hook return value
      */
 
     function onEndFindMentions($sender, $text, &$mentions)
     {
-        preg_match_all('/(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)/',
+        preg_match_all('!(?:^|\s+)
+                        @(                                # Webfinger:
+                          (?:\w+\.)*\w+                   #   user
+                          @                               #   @
+                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
+                         |                                # Profile:
+                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
+                          (?:/\w+)+                       #   /path1(/path2...)
+                         )!x',
                        $text,
                        $wmatches,
                        PREG_OFFSET_CAPTURE);
 
         foreach ($wmatches[1] as $wmatch) {
+            $target = $wmatch[0];
+            $oprofile = null;
 
-            $webfinger = $wmatch[0];
-
-            $this->log(LOG_INFO, "Checking Webfinger for address '$webfinger'");
-
-            $oprofile = Ostatus_profile::ensureWebfinger($webfinger);
+            if (strpos($target, '/') === false) {
+                $this->log(LOG_INFO, "Checking Webfinger for address '$target'");
+                try {
+                    $oprofile = Ostatus_profile::ensureWebfinger($target);
+                } catch (Exception $e) {
+                    $this->log(LOG_ERR, "Webfinger check failed: " . $e->getMessage());
+                }
+            } else {
+                $schemes = array('https', 'http');
+                foreach ($schemes as $scheme) {
+                    $url = "$scheme://$target";
+                    $this->log(LOG_INFO, "Checking profile address '$url'");
+                    try {
+                        $oprofile = Ostatus_profile::ensureProfile($url);
+                        if ($oprofile) {
+                            continue;
+                        }
+                    } catch (Exception $e) {
+                        $this->log(LOG_ERR, "Profile check failed: " . $e->getMessage());
+                    }
+                }
+            }
 
             if (empty($oprofile)) {
-
-                $this->log(LOG_INFO, "No Ostatus_profile found for address '$webfinger'");
-
+                $this->log(LOG_INFO, "No Ostatus_profile found for address '$target'");
             } else {
 
-                $this->log(LOG_INFO, "Ostatus_profile found for address '$webfinger'");
+                $this->log(LOG_INFO, "Ostatus_profile found for address '$target'");
 
                 if ($oprofile->isGroup()) {
                     continue;
@@ -261,7 +292,7 @@ class OStatusPlugin extends Plugin
                     }
                 }
                 $mentions[] = array('mentioned' => array($profile),
-                                    'text' => $wmatch[0],
+                                    'text' => $target,
                                     'position' => $pos,
                                     'url' => $profile->profileurl);
             }
