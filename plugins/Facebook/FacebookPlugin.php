@@ -359,8 +359,6 @@ class FacebookPlugin extends Plugin
             $connect = 'imsettings';
         } else if (common_config('sms', 'enabled')) {
             $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
         }
 
         if (!empty($user)) {
