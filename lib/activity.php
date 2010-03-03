@@ -1044,6 +1044,7 @@ class Activity
     public $id;      // ID of the activity
     public $title;   // title of the activity
     public $categories = array(); // list of AtomCategory objects
+    public $enclosures = array(); // list of enclosure URL references
 
     /**
      * Turns a regular old Atom <entry> into a magical activity
@@ -1139,6 +1140,10 @@ class Activity
                 $catEl = $catEls->item($i);
                 $this->categories[] = new AtomCategory($catEl);
             }
+        }
+
+        foreach (ActivityUtils::getLinks($entry, 'enclosure') as $link) {
+            $this->enclosures[] = $link->getAttribute('href');
         }
     }
 

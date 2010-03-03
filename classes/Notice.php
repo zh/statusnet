@@ -211,6 +211,8 @@ class Notice extends Memcached_DataObject
      *                              extracting ! tags from content
      *              array 'tags' list of hashtag strings to save with the notice
      *                           in place of extracting # tags from content
+     *              array 'urls' list of attached/referred URLs to save with the
+     *                           notice in place of extracting links from content
      * @fixme tag override
      *
      * @return Notice
@@ -380,8 +382,11 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
         }
 
-        // @fixme pass in data for URLs too?
-        $notice->saveUrls();
+        if (isset($urls)) {
+            $notice->saveKnownUrls($urls);
+        } else {
+            $notice->saveUrls();
+        }
 
         // Prepare inbox delivery, may be queued to background.
         $notice->distribute();
@@ -427,6 +432,25 @@ class Notice extends Memcached_DataObject
         common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
     }
 
+    /**
+     * Save the given URLs as related links/attachments to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @return void
+     */
+    function saveKnownUrls($urls)
+    {
+        // @fixme validation?
+        foreach ($urls as $url) {
+            File::processNew($url, $this->id);
+        }
+    }
+
+    /**
+     * @private callback
+     */
     function saveUrl($data) {
         list($url, $notice_id) = $data;
         File::processNew($url, $notice_id);

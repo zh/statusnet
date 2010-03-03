@@ -423,8 +423,11 @@ var SN = { // StatusNet
             };
 
             notice.find('a.attachment').click(function() {
-                $().jOverlay({url: $('address .url')[0].href+'attachment/' + ($(this).attr('id').substring('attachment'.length + 1)) + '/ajax'});
-                return false;
+                var attachId = ($(this).attr('id').substring('attachment'.length + 1));
+                if (attachId) {
+                    $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
+                    return false;
+                }
             });
 
             if ($('#shownotice').length == 0) {
