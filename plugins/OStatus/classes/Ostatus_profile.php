@@ -1500,7 +1500,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (array_key_exists('url', $hcard)) {
             if (is_string($hcard['url'])) {
                 $hints['homepage'] = $hcard['url'];
-            } else if (is_array($hcard['adr'])) {
+            } else if (is_array($hcard['url'])) {
                 // HACK get the last one; that's how our hcards look
                 $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
             }
