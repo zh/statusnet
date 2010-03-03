@@ -80,6 +80,30 @@ class TwitterBridgePlugin extends Plugin
     }
 
     /**
+     * Check to see if there is a consumer key and secret defined
+     * for Twitter integration.
+     *
+     * @return boolean result
+     */
+
+    static function hasKeys()
+    {
+        $key    = common_config('twitter', 'consumer_key');
+        $secret = common_config('twitter', 'consumer_secret');
+
+        if (empty($key) && empty($secret)) {
+            $key    = common_config('twitter', 'global_consumer_key');
+            $secret = common_config('twitter', 'global_consumer_secret');
+        }
+
+        if (!empty($key) && !empty($secret)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Add Twitter-related paths to the router table
      *
      * Hook for RouterInitialized event.
@@ -91,14 +115,22 @@ class TwitterBridgePlugin extends Plugin
 
     function onRouterInitialized($m)
     {
-        $m->connect(
-            'twitter/authorization',
-            array('action' => 'twitterauthorization')
-        );
-        $m->connect('settings/twitter', array('action' => 'twittersettings'));
-
-        if (common_config('twitter', 'signin')) {
-            $m->connect('main/twitterlogin', array('action' => 'twitterlogin'));
+        if (self::hasKeys()) {
+            $m->connect(
+                'twitter/authorization',
+                array('action' => 'twitterauthorization')
+            );
+            $m->connect(
+                'settings/twitter', array(
+                    'action' => 'twittersettings'
+                    )
+                );
+            if (common_config('twitter', 'signin')) {
+                $m->connect(
+                    'main/twitterlogin',
+                    array('action' => 'twitterlogin')
+                );
+            }
         }
 
         $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
@@ -117,7 +149,7 @@ class TwitterBridgePlugin extends Plugin
     {
         $action_name = $action->trimmed('action');
 
-        if (common_config('twitter', 'signin')) {
+        if (self::hasKeys() && common_config('twitter', 'signin')) {
             $action->menuItem(
                 common_local_url('twitterlogin'),
                 _m('Twitter'),
@@ -138,15 +170,16 @@ class TwitterBridgePlugin extends Plugin
      */
     function onEndConnectSettingsNav(&$action)
     {
-        $action_name = $action->trimmed('action');
+        if (self::hasKeys()) {
+            $action_name = $action->trimmed('action');
 
-        $action->menuItem(
-            common_local_url('twittersettings'),
-            _m('Twitter'),
-            _m('Twitter integration options'),
-            $action_name === 'twittersettings'
-        );
-
+            $action->menuItem(
+                common_local_url('twittersettings'),
+                _m('Twitter'),
+                _m('Twitter integration options'),
+                $action_name === 'twittersettings'
+            );
+        }
         return true;
     }
 
@@ -188,12 +221,12 @@ class TwitterBridgePlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        // Avoid a possible loop
-
-        if ($notice->source != 'twitter') {
-            array_push($transports, 'twitter');
+        if (self::hasKeys()) {
+            // Avoid a possible loop
+            if ($notice->source != 'twitter') {
+                array_push($transports, 'twitter');
+            }
         }
-
         return true;
     }
 
@@ -206,18 +239,19 @@ class TwitterBridgePlugin extends Plugin
      */
     function onGetValidDaemons($daemons)
     {
-        array_push(
-            $daemons,
-            INSTALLDIR
-            . '/plugins/TwitterBridge/daemons/synctwitterfriends.php'
-        );
-
-        if (common_config('twitterimport', 'enabled')) {
+        if (self::hasKeys()) {
             array_push(
                 $daemons,
                 INSTALLDIR
-                . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php'
+                . '/plugins/TwitterBridge/daemons/synctwitterfriends.php'
             );
+            if (common_config('twitterimport', 'enabled')) {
+                array_push(
+                    $daemons,
+                    INSTALLDIR
+                    . '/plugins/TwitterBridge/daemons/twitterstatusfetcher.php'
+                    );
+            }
         }
 
         return true;
@@ -232,7 +266,9 @@ class TwitterBridgePlugin extends Plugin
      */
     function onEndInitializeQueueManager($manager)
     {
-        $manager->connect('twitter', 'TwitterQueueHandler');
+        if (self::hasKeys()) {
+            $manager->connect('twitter', 'TwitterQueueHandler');
+        }
         return true;
     }
 
