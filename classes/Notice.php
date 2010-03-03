@@ -877,7 +877,7 @@ class Notice extends Memcached_DataObject
 
         foreach (array_unique($match[1]) as $nickname) {
             /* XXX: remote groups. */
-            $group = User_group::getForNickname($nickname);
+            $group = User_group::getForNickname($nickname, $profile);
 
             if (empty($group)) {
                 continue;
