@@ -729,6 +729,13 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    function onStartShowUserGroupsContent($action)
+    {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
     function onEndShowSubscriptionsMiniList($action)
     {
         $this->showEntityRemoteSubscribe($action);
