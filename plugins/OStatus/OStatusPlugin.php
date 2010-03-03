@@ -49,6 +49,8 @@ class OStatusPlugin extends Plugin
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatus?group=:group',
+                  array('action' => 'ostatusinit'), array('group' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
                     array('action' => 'ostatussub'));
         $m->connect('main/ostatusgroup',
@@ -217,7 +219,7 @@ class OStatusPlugin extends Plugin
         if (empty($cur)) {
             // Add an OStatus subscribe
             $url = common_local_url('ostatusinit',
-                                    array('nickname' => $group->nickname));
+                                    array('group' => $group->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
                                 _m('Join'));
