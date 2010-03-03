@@ -277,8 +277,8 @@ class SiteAdminPanelForm extends AdminForm
         $this->unli();
 
         $this->li();
-        $this->out->dropdown('language', _('Language'),
-                             get_nice_language_list(), _('Default site language'),
+        $this->out->dropdown('language', _('Default language'),
+                             get_nice_language_list(), _('Site language when autodetection from browser settings is not available'),
                              false, $this->value('language'));
         $this->unli();
 

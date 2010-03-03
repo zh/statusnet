@@ -172,6 +172,24 @@ class AdminPanelAction extends Action
     }
 
     /**
+     * Show content block. Overrided just to add a special class
+     * to the content div to allow styling. 
+     *
+     * @return nothing
+     */
+    function showContentBlock()
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'admin'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
+
+    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
