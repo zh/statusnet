@@ -190,6 +190,16 @@ class AdminPanelAction extends Action
     }
 
     /**
+     * There is no data for aside, so, we don't output
+     *
+     * @return nothing
+     */
+    function showAside()
+    {
+
+    }
+
+    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
