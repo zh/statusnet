@@ -111,11 +111,11 @@ class OStatusPlugin extends Plugin
             $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
             $url = common_local_url('xrd');
             $url.= '?uri='. $acct;
-            
+
             header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
         }
     }
-    
+
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
@@ -228,7 +228,6 @@ class OStatusPlugin extends Plugin
 
         return false;
     }
-
 
     /**
      * Check if we've got remote replies to send via Salmon.
@@ -587,7 +586,6 @@ class OStatusPlugin extends Plugin
             // Drop the PuSH subscription if there are no other subscribers.
             $oprofile->garbageCollect();
 
-
             $member = Profile::staticGet($user->id);
 
             $act = new Activity();
@@ -802,6 +800,30 @@ class OStatusPlugin extends Plugin
 
         while ($oprofile->fetch()) {
             $oprofile->notifyDeferred($act, $profile);
+        }
+
+        return true;
+    }
+
+    function onStartProfileListItemActionElements($item)
+    {
+        if (!common_logged_in()) {
+
+            $profileUser = User::staticGet('id', $item->profile->id);
+
+            if (!empty($profileUser)) {
+
+                $output = $item->out;
+
+                // Add an OStatus subscribe
+                $output->elementStart('li', 'entity_subscribe');
+                $url = common_local_url('ostatusinit',
+                                        array('nickname' => $profileUser->nickname));
+                $output->element('a', array('href' => $url,
+                                            'class' => 'entity_remote_subscribe'),
+                                 _m('Subscribe'));
+                $output->elementEnd('li');
+            }
         }
 
         return true;
