@@ -253,7 +253,6 @@ function main()
     $user = common_current_user();
 
     // initialize language env
-common_log(LOG_DEBUG, "XXX: WAIII");
 
     common_init_language();
 
