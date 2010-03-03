@@ -88,15 +88,15 @@ class TwitterBridgePlugin extends Plugin
 
     static function hasKeys()
     {
-        $key    = common_config('twitter', 'consumer_key');
-        $secret = common_config('twitter', 'consumer_secret');
+        $ckey    = common_config('twitter', 'consumer_key');
+        $csecret = common_config('twitter', 'consumer_secret');
 
-        if (empty($key) && empty($secret)) {
-            $key    = common_config('twitter', 'global_consumer_key');
-            $secret = common_config('twitter', 'global_consumer_secret');
+        if (empty($ckey) && empty($csecret)) {
+            $ckey    = common_config('twitter', 'global_consumer_key');
+            $csecret = common_config('twitter', 'global_consumer_secret');
         }
 
-        if (!empty($key) && !empty($secret)) {
+        if (!empty($ckey) && !empty($csecret)) {
             return true;
         }
 
@@ -115,6 +115,8 @@ class TwitterBridgePlugin extends Plugin
 
     function onRouterInitialized($m)
     {
+        $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
+
         if (self::hasKeys()) {
             $m->connect(
                 'twitter/authorization',
@@ -132,8 +134,6 @@ class TwitterBridgePlugin extends Plugin
                 );
             }
         }
-
-        $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
 
         return true;
     }
