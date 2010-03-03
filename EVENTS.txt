@@ -363,6 +363,14 @@ EndProfileRemoteSubscribe: After showing the link to remote subscription
 - $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
+StartGroupSubscribe: Before showing the link to remote subscription
+- $action: the current action
+- $group: the group being shown
+
+EndGroupSubscribe: After showing the link to remote subscription
+- $action: the current action
+- $group: the group being shown
+
 StartProfilePageProfileSection: Starting to show the section of the
                               profile page with the actual profile data;
                               hook to prevent showing the profile (e.g.)
