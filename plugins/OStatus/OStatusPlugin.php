@@ -210,6 +210,26 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
+    function onStartGroupSubscribe($output, $group)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            // Add an OStatus subscribe
+            $output->elementStart('li', 'entity_subscribe');
+            $url = common_local_url('ostatusinit',
+                                    array('nickname' => $group->nickname));
+            $output->element('a', array('href' => $url,
+                                        'class' => 'entity_remote_subscribe'),
+                                _m('Join'));
+
+            $output->elementEnd('li');
+        }
+
+        return false;
+    }
+
+
     /**
      * Check if we've got remote replies to send via Salmon.
      *
