@@ -738,6 +738,13 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    function onEndShowGroupsMiniList($action)
+    {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
     function showEntityRemoteSubscribe($action)
     {
         $user = common_current_user();
