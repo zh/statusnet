@@ -455,6 +455,11 @@ class User_group extends Memcached_DataObject
         $group = new User_group();
 
         $group->query('BEGIN');
+        
+        if (empty($uri)) {
+            // fill in later...
+            $uri = null;
+        }
 
         $group->nickname    = $nickname;
         $group->fullname    = $fullname;
