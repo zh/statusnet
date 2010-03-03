@@ -105,7 +105,6 @@ class ProfileAction extends OwnerDesignAction
 
         $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
-
         if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
             $this->element('h2', null, _('Subscriptions'));
 
@@ -229,27 +228,29 @@ class ProfileAction extends OwnerDesignAction
 
         $this->elementStart('div', array('id' => 'entity_groups',
                                          'class' => 'section'));
+        if (Event::handle('StartShowGroupsMiniList', array($this))) {
+            $this->element('h2', null, _('Groups'));
 
-        $this->element('h2', null, _('Groups'));
-
-        if ($groups) {
-            $gml = new GroupMiniList($groups, $this->user, $this);
-            $cnt = $gml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
+            if ($groups) {
+                $gml = new GroupMiniList($groups, $this->user, $this);
+                $cnt = $gml->show();
+                if ($cnt == 0) {
+                    $this->element('p', null, _('(None)'));
+                }
             }
-        }
 
-        if ($cnt > GROUPS_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('usergroups',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All groups'));
-            $this->elementEnd('p');
-        }
+            if ($cnt > GROUPS_PER_MINILIST) {
+                $this->elementStart('p');
+                $this->element('a', array('href' => common_local_url('usergroups',
+                                                                     array('nickname' => $this->profile->nickname)),
+                                          'class' => 'more'),
+                               _('All groups'));
+                $this->elementEnd('p');
+            }
 
-        $this->elementEnd('div');
+            Event::handle('EndShowGroupsMiniList', array($this));
+        }
+            $this->elementEnd('div');
     }
 }
 

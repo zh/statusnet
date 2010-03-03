@@ -853,7 +853,7 @@ function common_valid_profile_tag($str)
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
-    $group = User_group::getForNickname($nickname);
+    $group = User_group::getForNickname($nickname, $sender);
     if ($sender && $group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');

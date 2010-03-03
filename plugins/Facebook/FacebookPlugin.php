@@ -436,16 +436,7 @@ class FacebookPlugin extends Plugin
     function onStartPrimaryNav($action)
     {
         if (self::hasKeys()) {
-
             $user = common_current_user();
-
-            $connect = 'FBConnectSettings';
-            if (common_config('xmpp', 'enabled')) {
-                $connect = 'imsettings';
-            } else if (common_config('sms', 'enabled')) {
-                $connect = 'smssettings';
-            }
-
             if (!empty($user)) {
 
                 $fbuid = $this->loggedIn();
@@ -472,7 +463,6 @@ class FacebookPlugin extends Plugin
                         'src' => $iconurl));
 
                     $action->elementEnd('li');
-
                 }
             }
         }
