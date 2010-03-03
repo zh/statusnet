@@ -286,5 +286,12 @@ class File extends Memcached_DataObject
         }
         return $enclosure;
     }
+
+    // quick back-compat hack, since there's still code using this
+    function isEnclosure()
+    {
+        $enclosure = $this->getEnclosure();
+        return !empty($enclosure);
+    }
 }
 
