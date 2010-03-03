@@ -233,69 +233,69 @@ class OStatusPlugin extends Plugin
 
     function onEndFindMentions($sender, $text, &$mentions)
     {
-        preg_match_all('!(?:^|\s+)
-                        @(                                # Webfinger:
-                          (?:\w+\.)*\w+                   #   user
-                          @                               #   @
-                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
-                         |                                # Profile:
-                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
-                          (?:/\w+)+                       #   /path1(/path2...)
-                         )!x',
+        $matches = array();
+
+        // Webfinger matches: @user@example.com
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
                        $text,
                        $wmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        foreach ($wmatches[1] as $wmatch) {
-            $target = $wmatch[0];
-            $oprofile = null;
-
-            if (strpos($target, '/') === false) {
-                $this->log(LOG_INFO, "Checking Webfinger for address '$target'");
+                       PREG_OFFSET_CAPTURE)) {
+            foreach ($wmatches[1] as $wmatch) {
+                list($target, $pos) = $wmatch;
+                $this->log(LOG_INFO, "Checking webfinger '$target'");
                 try {
                     $oprofile = Ostatus_profile::ensureWebfinger($target);
+                    if ($oprofile && !$oprofile->isGroup()) {
+                        $profile = $oprofile->localProfile();
+                        $matches[$pos] = array('mentioned' => array($profile),
+                                               'text' => $target,
+                                               'position' => $pos,
+                                               'url' => $profile->profileurl);
+                    }
                 } catch (Exception $e) {
                     $this->log(LOG_ERR, "Webfinger check failed: " . $e->getMessage());
                 }
-            } else {
-                $schemes = array('https', 'http');
+            }
+        }
+
+        // Profile matches: @example.com/mublog/user
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+(?:/\w+)+)!',
+                       $text,
+                       $wmatches,
+                       PREG_OFFSET_CAPTURE)) {
+            foreach ($wmatches[1] as $wmatch) {
+                list($target, $pos) = $wmatch;
+                $schemes = array('http', 'https');
                 foreach ($schemes as $scheme) {
                     $url = "$scheme://$target";
                     $this->log(LOG_INFO, "Checking profile address '$url'");
                     try {
                         $oprofile = Ostatus_profile::ensureProfile($url);
-                        if ($oprofile) {
-                            continue;
+                        if ($oprofile && !$oprofile->isGroup()) {
+                            $profile = $oprofile->localProfile();
+                            $matches[$pos] = array('mentioned' => array($profile),
+                                                   'text' => $target,
+                                                   'position' => $pos,
+                                                   'url' => $profile->profileurl);
+                            break;
                         }
                     } catch (Exception $e) {
                         $this->log(LOG_ERR, "Profile check failed: " . $e->getMessage());
                     }
                 }
             }
+        }
 
-            if (empty($oprofile)) {
-                $this->log(LOG_INFO, "No Ostatus_profile found for address '$target'");
-            } else {
-
-                $this->log(LOG_INFO, "Ostatus_profile found for address '$target'");
-
-                if ($oprofile->isGroup()) {
-                    continue;
-                }
-                $profile = $oprofile->localProfile();
-
-                $pos = $wmatch[1];
-                foreach ($mentions as $i => $other) {
-                    // If we share a common prefix with a local user, override it!
-                    if ($other['position'] == $pos) {
-                        unset($mentions[$i]);
-                    }
-                }
-                $mentions[] = array('mentioned' => array($profile),
-                                    'text' => $target,
-                                    'position' => $pos,
-                                    'url' => $profile->profileurl);
+        foreach ($mentions as $i => $other) {
+            // If we share a common prefix with a local user, override it!
+            $pos = $other['position'];
+            if (isset($matches[$pos])) {
+                $mentions[$i] = $matches[$pos];
+                unset($matches[$pos]);
             }
+        }
+        foreach ($matches as $mention) {
+            $mentions[] = $mention;
         }
 
         return true;
