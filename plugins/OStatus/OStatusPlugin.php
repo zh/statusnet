@@ -711,7 +711,7 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
-    function onStartShowAllContent($action)
+    function onEndShowSubscriptionsMiniList($action)
     {
         $this->showEntityRemoteSubscribe($action);
 
