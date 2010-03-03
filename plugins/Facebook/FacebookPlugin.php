@@ -22,7 +22,7 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -32,12 +32,12 @@ if (!defined('STATUSNET')) {
 }
 
 define("FACEBOOK_CONNECT_SERVICE", 3);
-define('FACEBOOKPLUGIN_VERSION', '0.9');
 
 require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
 /**
- * Facebook plugin to add a StatusNet Facebook application
+ * Facebook plugin to add a StatusNet Facebook canvas application
+ * and allow registration and authentication via Facebook Connect
  *
  * @category Plugin
  * @package  StatusNet
@@ -48,6 +48,55 @@ require_once INSTALLDIR . '/plugins/Facebook/facebookutil.php';
 
 class FacebookPlugin extends Plugin
 {
+
+    const VERSION = STATUSNET_VERSION;
+
+    /**
+     * Initializer for the plugin.
+     */
+
+    function initialize()
+    {
+        // Allow the key and secret to be passed in
+        // Control panel will override
+
+        if (isset($this->apikey)) {
+            $key = common_config('facebook', 'apikey');
+            if (empty($key)) {
+                Config::save('facebook', 'apikey', $this->apikey);
+            }
+        }
+
+        if (isset($this->secret)) {
+            $secret = common_config('facebook', 'secret');
+            if (empty($secret)) {
+                Config::save(
+                    'facebook',
+                    'secret',
+                    $this->secret
+                );
+            }
+        }
+    }
+
+    /**
+     * Check to see if there is an API key and secret defined
+     * for Facebook integration.
+     *
+     * @return boolean result
+     */
+
+    static function hasKeys()
+    {
+        $apiKey    = common_config('facebook', 'apikey');
+        $apiSecret = common_config('facebook', 'secret');
+
+        if (!empty($apiKey) && !empty($apiSecret)) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * Add Facebook app actions to the router table
@@ -61,22 +110,26 @@ class FacebookPlugin extends Plugin
 
     function onStartInitializeRouter($m)
     {
+        $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
 
-        // Facebook App stuff
+        if (self::hasKeys()) {
 
-        $m->connect('facebook/app', array('action' => 'facebookhome'));
-        $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/app/settings.php',
-                    array('action' => 'facebooksettings'));
-        $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
-        $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
+            // Facebook App stuff
 
-        // Facebook Connect stuff
+            $m->connect('facebook/app', array('action' => 'facebookhome'));
+            $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
+            $m->connect('facebook/app/settings.php',
+                        array('action' => 'facebooksettings'));
+            $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
+            $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
 
-        $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
-        $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
-        $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
-        $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
+            // Facebook Connect stuff
+
+            $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
+            $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
+            $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
+            $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
+        }
 
         return true;
     }
@@ -98,6 +151,7 @@ class FacebookPlugin extends Plugin
         case 'FacebookinviteAction':
         case 'FacebookremoveAction':
         case 'FacebooksettingsAction':
+        case 'FacebookadminpanelAction':
             include_once INSTALLDIR . '/plugins/Facebook/' .
               strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
@@ -120,6 +174,32 @@ class FacebookPlugin extends Plugin
         default:
             return true;
         }
+    }
+
+    /**
+     * Add a Facebook tab to the admin panels
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('facebook')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(
+                common_local_url('facebookadminpanel'),
+                _m('Facebook'),
+                _m('Facebook integration configuration'),
+                $action_name == 'facebookadminpanel',
+                'nav_facebook_admin_panel'
+            );
+        }
+
+        return true;
     }
 
     /**
@@ -280,6 +360,9 @@ class FacebookPlugin extends Plugin
 
     function reqFbScripts($action)
     {
+        if (!self::hasKeys()) {
+            return false;
+        }
 
         // If you're logged in w/FB Connect, you always need the FB stuff
 
@@ -352,44 +435,45 @@ class FacebookPlugin extends Plugin
 
     function onStartPrimaryNav($action)
     {
-        $user = common_current_user();
+        if (self::hasKeys()) {
 
-        $connect = 'FBConnectSettings';
-        if (common_config('xmpp', 'enabled')) {
-            $connect = 'imsettings';
-        } else if (common_config('sms', 'enabled')) {
-            $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
-        }
+            $user = common_current_user();
 
-        if (!empty($user)) {
+            $connect = 'FBConnectSettings';
+            if (common_config('xmpp', 'enabled')) {
+                $connect = 'imsettings';
+            } else if (common_config('sms', 'enabled')) {
+                $connect = 'smssettings';
+            }
 
-            $fbuid = $this->loggedIn();
+            if (!empty($user)) {
 
-            if (!empty($fbuid)) {
+                $fbuid = $this->loggedIn();
 
-                /* Default FB silhouette pic for FB users who haven't
-                   uploaded a profile pic yet. */
+                if (!empty($fbuid)) {
 
-                $silhouetteUrl =
-                    'http://static.ak.fbcdn.net/pics/q_silhouette.gif';
+                    /* Default FB silhouette pic for FB users who haven't
+                       uploaded a profile pic yet. */
 
-                $url = $this->getProfilePicURL($fbuid);
+                    $silhouetteUrl =
+                        'http://static.ak.fbcdn.net/pics/q_silhouette.gif';
 
-                $action->elementStart('li', array('id' => 'nav_fb'));
+                    $url = $this->getProfilePicURL($fbuid);
 
-                $action->element('img', array('id' => 'fbc_profile-pic',
-                    'src' => (!empty($url)) ? $url : $silhouetteUrl,
-                    'alt' => 'Facebook Connect User',
-                    'width' => '16'), '');
+                    $action->elementStart('li', array('id' => 'nav_fb'));
 
-                $iconurl =  common_path('plugins/Facebook/fbfavicon.ico');
-                $action->element('img', array('id' => 'fb_favicon',
-                    'src' => $iconurl));
+                    $action->element('img', array('id' => 'fbc_profile-pic',
+                        'src' => (!empty($url)) ? $url : $silhouetteUrl,
+                        'alt' => 'Facebook Connect User',
+                        'width' => '16'), '');
 
-                $action->elementEnd('li');
+                    $iconurl =  common_path('plugins/Facebook/fbfavicon.ico');
+                    $action->element('img', array('id' => 'fb_favicon',
+                        'src' => $iconurl));
 
+                    $action->elementEnd('li');
+
+                }
             }
         }
 
@@ -406,14 +490,15 @@ class FacebookPlugin extends Plugin
 
     function onEndLoginGroupNav(&$action)
     {
+        if (self::hasKeys()) {
 
-        $action_name = $action->trimmed('action');
+            $action_name = $action->trimmed('action');
 
-        $action->menuItem(common_local_url('FBConnectLogin'),
-                                           _m('Facebook'),
-                                           _m('Login or register using Facebook'),
-                                           'FBConnectLogin' === $action_name);
-
+            $action->menuItem(common_local_url('FBConnectLogin'),
+                                               _m('Facebook'),
+                                               _m('Login or register using Facebook'),
+                                               'FBConnectLogin' === $action_name);
+        }
         return true;
     }
 
@@ -427,13 +512,15 @@ class FacebookPlugin extends Plugin
 
     function onEndConnectSettingsNav(&$action)
     {
-        $action_name = $action->trimmed('action');
+        if (self::hasKeys()) {
 
-        $action->menuItem(common_local_url('FBConnectSettings'),
-                          _m('Facebook'),
-                          _m('Facebook Connect Settings'),
-                          $action_name === 'FBConnectSettings');
+            $action_name = $action->trimmed('action');
 
+            $action->menuItem(common_local_url('FBConnectSettings'),
+                              _m('Facebook'),
+                              _m('Facebook Connect Settings'),
+                              $action_name === 'FBConnectSettings');
+        }
         return true;
     }
 
@@ -447,20 +534,22 @@ class FacebookPlugin extends Plugin
 
     function onStartLogout($action)
     {
-        $action->logout();
-        $fbuid = $this->loggedIn();
+        if (self::hasKeys()) {
 
-        if (!empty($fbuid)) {
-            try {
-                $facebook = getFacebook();
-                $facebook->expire_session();
-            } catch (Exception $e) {
-                common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
-                           'Could\'t logout of Facebook: ' .
-                           $e->getMessage());
+            $action->logout();
+            $fbuid = $this->loggedIn();
+
+            if (!empty($fbuid)) {
+                try {
+                    $facebook = getFacebook();
+                    $facebook->expire_session();
+                } catch (Exception $e) {
+                    common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                               'Could\'t logout of Facebook: ' .
+                               $e->getMessage());
+                }
             }
         }
-
         return true;
     }
 
@@ -506,7 +595,9 @@ class FacebookPlugin extends Plugin
 
     function onStartEnqueueNotice($notice, &$transports)
     {
-        array_push($transports, 'facebook');
+        if (self::hasKeys()) {
+            array_push($transports, 'facebook');
+        }
         return true;
     }
 
@@ -519,21 +610,26 @@ class FacebookPlugin extends Plugin
      */
     function onEndInitializeQueueManager($manager)
     {
-        $manager->connect('facebook', 'FacebookQueueHandler');
+        if (self::hasKeys()) {
+            $manager->connect('facebook', 'FacebookQueueHandler');
+        }
         return true;
     }
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Facebook',
-                            'version' => FACEBOOKPLUGIN_VERSION,
-                            'author' => 'Zach Copley',
-                            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
-                            'rawdescription' =>
-                            _m('The Facebook plugin allows you to integrate ' .
-                               'your StatusNet instance with ' .
-                               '<a href="http://facebook.com/">Facebook</a> ' .
-                               'and Facebook Connect.'));
+        $versions[] = array(
+            'name' => 'Facebook',
+            'version' => self::VERSION,
+            'author' => 'Zach Copley',
+            'homepage' => 'http://status.net/wiki/Plugin:Facebook',
+            'rawdescription' => _m(
+                'The Facebook plugin allows you to integrate ' .
+                'your StatusNet instance with ' .
+                '<a href="http://facebook.com/">Facebook</a> ' .
+                'and Facebook Connect.'
+            )
+        );
         return true;
     }
 

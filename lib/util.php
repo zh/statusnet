@@ -770,20 +770,13 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if ($f->isEnclosure()) {
+        if ($f->getEnclosure()) {
             $is_attachment = true;
             $attachment_id = $f->id;
-        } else {
-            $foe = File_oembed::staticGet('file_id', $f->id);
-            if (!empty($foe)) {
-                // if it has OEmbed info, it's an attachment, too
-                $is_attachment = true;
-                $attachment_id = $f->id;
 
-                $thumb = File_thumbnail::staticGet('file_id', $f->id);
-                if (!empty($thumb)) {
-                    $has_thumb = true;
-                }
+            $thumb = File_thumbnail::staticGet('file_id', $f->id);
+            if (!empty($thumb)) {
+                $has_thumb = true;
             }
         }
     }
@@ -809,8 +802,28 @@ function common_shorten_links($text)
 
 function common_xml_safe_str($str)
 {
-    // Neutralize control codes and surrogates
-	return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
+    // Replace common eol and extra whitespace input chars
+    $unWelcome = array(
+        "\t",  // tab
+        "\n",  // newline
+        "\r",  // cr
+        "\0",  // null byte eos
+        "\x0B" // vertical tab
+    );
+
+    $replacement = array(
+        ' ', // single space
+        ' ',
+        '',  // nothing
+        '',
+        ' '
+    );
+
+    $str = str_replace($unWelcome, $replacement, $str);
+
+    // Neutralize any additional control codes and UTF-16 surrogates
+    // (Twitter uses '*')
+    return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag)
