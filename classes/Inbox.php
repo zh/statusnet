@@ -137,7 +137,7 @@ class Inbox extends Memcached_DataObject
         }
     }
 
-    function stream($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
+    function stream($user_id, $offset, $limit, $since_id, $max_id, $own=false)
     {
         $inbox = Inbox::staticGet('user_id', $user_id);
 
@@ -195,15 +195,15 @@ class Inbox extends Memcached_DataObject
      * @param int $limit
      * @param mixed $since_id return only notices after but not including this id
      * @param mixed $max_id return only notices up to and including this id
-     * @param mixed $since obsolete/ignored
      * @param mixed $own ignored?
      * @return array of Notice objects
      *
      * @todo consider repacking the inbox when this happens?
+     * @fixme reimplement $own if we need it?
      */
-    function streamNotices($user_id, $offset, $limit, $since_id, $max_id, $since, $own=false)
+    function streamNotices($user_id, $offset, $limit, $since_id, $max_id, $own=false)
     {
-        $ids = self::stream($user_id, $offset, self::MAX_NOTICES, $since_id, $max_id, $since, $own);
+        $ids = self::stream($user_id, $offset, self::MAX_NOTICES, $since_id, $max_id, $own);
 
         // Do a bulk lookup for the first $limit items
         // Fast path when nothing's deleted.

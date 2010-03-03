@@ -200,13 +200,13 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $notice = $this->user->noticeInbox(
                 ($this->page-1) * $this->count,
                 $this->count, $this->since_id,
-                $this->max_id, $this->since
+                $this->max_id
             );
         } else {
             $notice = $this->user->noticesWithFriends(
                 ($this->page-1) * $this->count,
                 $this->count, $this->since_id,
-                $this->max_id, $this->since
+                $this->max_id
             );
         }
 

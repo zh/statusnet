@@ -260,9 +260,15 @@ class HubSub extends Memcached_DataObject
             $retries = intval(common_config('ostatus', 'hub_retries'));
         }
 
-        $data = array('sub' => clone($this),
+        // We dare not clone() as when the clone is discarded it'll
+        // destroy the result data for the parent query.
+        // @fixme use clone() again when it's safe to copy an
+        // individual item from a multi-item query again.
+        $sub = HubSub::staticGet($this->topic, $this->callback);
+        $data = array('sub' => $sub,
                       'atom' => $atom,
                       'retries' => $retries);
+        common_log(LOG_INFO, "Queuing PuSH: $this->topic to $this->callback");
         $qm = QueueManager::get();
         $qm->enqueue($data, 'hubout');
     }

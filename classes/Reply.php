@@ -22,16 +22,16 @@ class Reply extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Reply', '_streamDirect'),
                               array($user_id),
                               'reply:stream:' . $user_id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
         return $ids;
     }
 
-    function _streamDirect($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function _streamDirect($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $reply = new Reply();
         $reply->profile_id = $user_id;
@@ -42,10 +42,6 @@ class Reply extends Memcached_DataObject
 
         if ($max_id != 0) {
             $reply->whereAdd('notice_id < ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $reply->whereAdd('modified > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $reply->orderBy('notice_id DESC');
