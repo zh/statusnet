@@ -41,8 +41,22 @@ min-width:96px;
 #entity_remote_subscribe {
 padding:0;
 float:right;
+position:relative;
 }
 
-#all #entity_remote_subscribe {
-margin-top:-52px;
+.section .entity_actions {
+margin-bottom:0;
+}
+
+.section #entity_remote_subscribe .entity_remote_subscribe {
+border-color:#AAAAAA;
+}
+
+.section #entity_remote_subscribe .dialogbox {
+width:405px;
+}
+
+
+.aside #entity_subscriptions .more {
+float:left;
 }
