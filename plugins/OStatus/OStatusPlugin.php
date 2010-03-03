@@ -49,10 +49,12 @@ class OStatusPlugin extends Plugin
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatus?group=:group',
+                  array('action' => 'ostatusinit'), array('group' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
                     array('action' => 'ostatussub'));
-        $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));
+        $m->connect('main/ostatusgroup',
+                    array('action' => 'ostatusgroup'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -216,17 +218,14 @@ class OStatusPlugin extends Plugin
 
         if (empty($cur)) {
             // Add an OStatus subscribe
-            $output->elementStart('li', 'entity_subscribe');
             $url = common_local_url('ostatusinit',
-                                    array('nickname' => $group->nickname));
+                                    array('group' => $group->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
                                 _m('Join'));
-
-            $output->elementEnd('li');
         }
 
-        return false;
+        return true;
     }
 
     /**
@@ -729,6 +728,13 @@ class OStatusPlugin extends Plugin
         return true;
     }
 
+    function onStartShowUserGroupsContent($action)
+    {
+        $this->showEntityRemoteSubscribe($action, 'ostatusgroup');
+
+        return true;
+    }
+
     function onEndShowSubscriptionsMiniList($action)
     {
         $this->showEntityRemoteSubscribe($action);
@@ -738,19 +744,19 @@ class OStatusPlugin extends Plugin
 
     function onEndShowGroupsMiniList($action)
     {
-        $this->showEntityRemoteSubscribe($action);
+        $this->showEntityRemoteSubscribe($action, 'ostatusgroup');
 
         return true;
     }
 
-    function showEntityRemoteSubscribe($action)
+    function showEntityRemoteSubscribe($action, $target='ostatussub')
     {
         $user = common_current_user();
         if ($user && ($user->id == $action->profile->id)) {
             $action->elementStart('div', 'entity_actions');
             $action->elementStart('p', array('id' => 'entity_remote_subscribe',
                                              'class' => 'entity_subscribe'));
-            $action->element('a', array('href' => common_local_url('ostatussub'),
+            $action->element('a', array('href' => common_local_url($target),
                                         'class' => 'entity_remote_subscribe')
                                 , _m('Remote'));
             $action->elementEnd('p');

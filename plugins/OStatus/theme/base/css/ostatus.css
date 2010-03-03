@@ -41,9 +41,6 @@ min-width:96px;
 #entity_remote_subscribe {
 padding:0;
 float:right;
-}
-
-.section #entity_remote_subscribe {
 position:relative;
 }
 
@@ -51,15 +48,26 @@ position:relative;
 margin-bottom:0;
 }
 
-.section #entity_remote_subscribe .entity_remote_subscribe {
-border-color:#AAAAAA;
-}
-
-.section #entity_remote_subscribe .dialogbox {
+#entity_remote_subscribe .dialogbox {
 width:405px;
 }
 
-
 .aside #entity_subscriptions .more {
 float:left;
+}
+
+.section #entity_remote_subscribe {
+border:0;
+}
+
+.section .entity_remote_subscribe {
+color:#002FA7;
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+background-color:transparent;
+background-position:0 -1183px;
+padding:0 0 0 23px;
+border:0;
+
 }
