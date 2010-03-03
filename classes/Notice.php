@@ -211,6 +211,8 @@ class Notice extends Memcached_DataObject
      *                              extracting ! tags from content
      *              array 'tags' list of hashtag strings to save with the notice
      *                           in place of extracting # tags from content
+     *              array 'urls' list of attached/referred URLs to save with the
+     *                           notice in place of extracting links from content
      * @fixme tag override
      *
      * @return Notice
@@ -380,8 +382,11 @@ class Notice extends Memcached_DataObject
             $notice->saveTags();
         }
 
-        // @fixme pass in data for URLs too?
-        $notice->saveUrls();
+        if (isset($urls)) {
+            $notice->saveKnownUrls($urls);
+        } else {
+            $notice->saveUrls();
+        }
 
         // Prepare inbox delivery, may be queued to background.
         $notice->distribute();
@@ -427,6 +432,25 @@ class Notice extends Memcached_DataObject
         common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
     }
 
+    /**
+     * Save the given URLs as related links/attachments to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @return void
+     */
+    function saveKnownUrls($urls)
+    {
+        // @fixme validation?
+        foreach ($urls as $url) {
+            File::processNew($url, $this->id);
+        }
+    }
+
+    /**
+     * @private callback
+     */
     function saveUrl($data) {
         list($url, $notice_id) = $data;
         File::processNew($url, $notice_id);
@@ -559,17 +583,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
                               array(),
                               'public',
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -598,10 +622,6 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('id <= ' . $max_id);
         }
 
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
-        }
-
         $ids = array();
 
         if ($notice->find()) {
@@ -616,17 +636,17 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_conversationStreamDirect'),
                               array($id),
                               'notice:conversation_ids:'.$id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -647,10 +667,6 @@ class Notice extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $ids = array();
@@ -1134,7 +1150,6 @@ class Notice extends Memcached_DataObject
         }
 
         $xs->element('title', null, $this->content);
-        $xs->element('summary', null, $this->content);
 
         $xs->raw($profile->asAtomAuthor());
         $xs->raw($profile->asActivityActor());
@@ -1270,16 +1285,16 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $cache = common_memcache();
 
         if (empty($cache) ||
-            $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
+            $since_id != 0 || $max_id != 0 ||
             is_null($limit) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $max_id, $since)));
+                                                                      $max_id)));
         }
 
         $idkey = common_cache_key($cachekey);

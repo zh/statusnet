@@ -182,11 +182,6 @@ class ApiDirectMessageAction extends ApiAuthAction
             $message->whereAdd('id > ' . $this->since_id);
         }
 
-        if (!empty($since)) {
-            $d = date('Y-m-d H:i:s', $this->since);
-            $message->whereAdd("created > '$d'");
-        }
-
         $message->orderBy('created DESC, id DESC');
         $message->limit((($this->page - 1) * $this->count), $this->count);
         $message->find();

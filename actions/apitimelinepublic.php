@@ -75,10 +75,6 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
 
         $this->notices = $this->getNotices();
 
-        if ($this->since) {
-            throw new ServerException("since parameter is disabled for performance; use since_id", 403);
-        }
-
         return true;
     }
 

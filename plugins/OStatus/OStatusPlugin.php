@@ -706,6 +706,20 @@ class OStatusPlugin extends Plugin
 
     function onStartShowSubscriptionsContent($action)
     {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
+    function onStartShowAllContent($action)
+    {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
+    function showEntityRemoteSubscribe($action)
+    {
         $user = common_current_user();
         if ($user && ($user->id == $action->profile->id)) {
             $action->elementStart('div', 'entity_actions');
@@ -717,8 +731,6 @@ class OStatusPlugin extends Plugin
             $action->elementEnd('p');
             $action->elementEnd('div');
         }
-
-        return true;
     }
 
     /**

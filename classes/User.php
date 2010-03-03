@@ -456,28 +456,28 @@ class User extends Memcached_DataObject
         return $user;
     }
 
-    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function getReplies($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id, $since);
+        $ids = Reply::stream($this->id, $offset, $limit, $since_id, $before_id);
         return Notice::getStreamByIds($ids);
     }
 
-    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null) {
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         } else {
-            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id, $since);
+            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id);
         }
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         } else {
-            return $profile->getNotices($offset, $limit, $since_id, $before_id, $since);
+            return $profile->getNotices($offset, $limit, $since_id, $before_id);
         }
     }
 
@@ -487,24 +487,24 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
-    function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function noticesWithFriends($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, $since, false);
+        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, false);
     }
 
-    function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function noticeInbox($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, $since, true);
+        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, true);
     }
 
-    function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function friendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, $since, false);
+        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, false);
     }
 
-    function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0, $since=null)
+    function ownFriendsTimeline($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
-        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, $since, true);
+        return Inbox::streamNotices($this->id, $offset, $limit, $since_id, $before_id, true);
     }
 
     function blowFavesCache()
@@ -789,7 +789,7 @@ class User extends Memcached_DataObject
         return Notice::getStreamByIds($ids);
     }
 
-    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id, $since)
+    function _repeatedByMeDirect($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
 
@@ -813,10 +813,6 @@ class User extends Memcached_DataObject
             $notice->whereAdd('id <= ' . $max_id);
         }
 
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
-        }
-
         $ids = array();
 
         if ($notice->find()) {
@@ -836,12 +832,12 @@ class User extends Memcached_DataObject
         $ids = Notice::stream(array($this, '_repeatsOfMeDirect'),
                               array(),
                               'user:repeats_of_me:'.$this->id,
-                              $offset, $limit, $since_id, $max_id, null);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id, $since)
+    function _repeatsOfMeDirect($offset, $limit, $since_id, $max_id)
     {
         $qry =
           'SELECT DISTINCT original.id AS id ' .
@@ -854,10 +850,6 @@ class User extends Memcached_DataObject
 
         if ($max_id != 0) {
             $qry .= 'AND original.id <= ' . $max_id . ' ';
-        }
-
-        if (!is_null($since)) {
-            $qry .= 'AND original.modified > \'' . date('Y-m-d H:i:s', $since) . '\' ';
         }
 
         // NOTE: we sort by fave time, not by notice time!

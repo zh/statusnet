@@ -144,9 +144,6 @@ function omb_broadcast_profile($profile)
         $service = new StatusNet_OMB_Service_Consumer(
                      array(OMB_ENDPOINT_UPDATEPROFILE => $rp->updateprofileurl),
                                                       $rp->uri);
-
-        common_debug('service = ' . print_r($service, true));
-
         try {
             $service->setToken($rp->token, $rp->secret);
             $service->updateProfile($omb_profile);

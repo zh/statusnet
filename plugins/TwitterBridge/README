@@ -20,7 +20,7 @@ on Twitter (http://twitter.com/apps).  During the application
 registration process your application will be assigned a "consumer" key
 and secret, which the plugin will use to make OAuth requests to Twitter.
 You can either pass the consumer key and secret in when you enable the
-plugin, or set it using the Twitter administration panel.
+plugin, or set it using the Twitter administration panel**.
 
 When registering your application with Twitter set the type to "Browser"
 and your Callback URL to:
@@ -42,10 +42,25 @@ To enable the plugin, add the following to your config.php:
         )
     );
 
+or just:
+
+   addPlugin('TwitterBridge');
+
+if you want to set the consumer key and secret from the Twitter bridge
+administration panel.  (The Twitter bridge wont work at all
+unless you configure it with a consumer key and secret.)
+
 * Note: The plugin will still push notices to Twitter for users who
   have previously set up the Twitter bridge using their Twitter name and
   password under an older version of StatusNet, but all new Twitter
   bridge connections will use OAuth.
+
+** For multi-site setups you can also set a global consumer key and
+   secret.  The Twitter bridge will fall back on the global key pair if
+   it can't find a local pair, e.g.:
+
+   $config['twitter']['global_consumer_key']    = 'YOUR_CONSUMER_KEY'
+   $config['twitter']['global_consumer_secret'] = 'YOUR_CONSUMER_SECRET'
 
 Administration panel
 --------------------
