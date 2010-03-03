@@ -80,6 +80,25 @@ class FacebookPlugin extends Plugin
     }
 
     /**
+     * Check to see if there is an API key and secret defined
+     * for Facebook integration.
+     *
+     * @return boolean result
+     */
+
+    static function hasKeys()
+    {
+        $apiKey    = common_config('facebook', 'apikey');
+        $apiSecret = common_config('facebook', 'secret');
+
+        if (!empty($apiKey) && !empty($apiSecret)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Add Facebook app actions to the router table
      *
      * Hook for RouterInitialized event.
@@ -91,23 +110,26 @@ class FacebookPlugin extends Plugin
 
     function onStartInitializeRouter($m)
     {
-
-        // Facebook App stuff
-
-        $m->connect('facebook/app', array('action' => 'facebookhome'));
-        $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
-        $m->connect('facebook/app/settings.php',
-                    array('action' => 'facebooksettings'));
-        $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
-        $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
         $m->connect('admin/facebook', array('action' => 'facebookadminpanel'));
 
-        // Facebook Connect stuff
+        if (self::hasKeys()) {
 
-        $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
-        $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
-        $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
-        $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
+            // Facebook App stuff
+
+            $m->connect('facebook/app', array('action' => 'facebookhome'));
+            $m->connect('facebook/app/index.php', array('action' => 'facebookhome'));
+            $m->connect('facebook/app/settings.php',
+                        array('action' => 'facebooksettings'));
+            $m->connect('facebook/app/invite.php', array('action' => 'facebookinvite'));
+            $m->connect('facebook/app/remove', array('action' => 'facebookremove'));
+
+            // Facebook Connect stuff
+
+            $m->connect('main/facebookconnect', array('action' => 'FBConnectAuth'));
+            $m->connect('main/facebooklogin', array('action' => 'FBConnectLogin'));
+            $m->connect('settings/facebook', array('action' => 'FBConnectSettings'));
+            $m->connect('xd_receiver.html', array('action' => 'FBC_XDReceiver'));
+        }
 
         return true;
     }
@@ -338,6 +360,9 @@ class FacebookPlugin extends Plugin
 
     function reqFbScripts($action)
     {
+        if (!self::hasKeys()) {
+            return false;
+        }
 
         // If you're logged in w/FB Connect, you always need the FB stuff
 
@@ -410,42 +435,45 @@ class FacebookPlugin extends Plugin
 
     function onStartPrimaryNav($action)
     {
-        $user = common_current_user();
+        if (self::hasKeys()) {
 
-        $connect = 'FBConnectSettings';
-        if (common_config('xmpp', 'enabled')) {
-            $connect = 'imsettings';
-        } else if (common_config('sms', 'enabled')) {
-            $connect = 'smssettings';
-        }
+            $user = common_current_user();
 
-        if (!empty($user)) {
+            $connect = 'FBConnectSettings';
+            if (common_config('xmpp', 'enabled')) {
+                $connect = 'imsettings';
+            } else if (common_config('sms', 'enabled')) {
+                $connect = 'smssettings';
+            }
 
-            $fbuid = $this->loggedIn();
+            if (!empty($user)) {
 
-            if (!empty($fbuid)) {
+                $fbuid = $this->loggedIn();
 
-                /* Default FB silhouette pic for FB users who haven't
-                   uploaded a profile pic yet. */
+                if (!empty($fbuid)) {
 
-                $silhouetteUrl =
-                    'http://static.ak.fbcdn.net/pics/q_silhouette.gif';
+                    /* Default FB silhouette pic for FB users who haven't
+                       uploaded a profile pic yet. */
 
-                $url = $this->getProfilePicURL($fbuid);
+                    $silhouetteUrl =
+                        'http://static.ak.fbcdn.net/pics/q_silhouette.gif';
 
-                $action->elementStart('li', array('id' => 'nav_fb'));
+                    $url = $this->getProfilePicURL($fbuid);
 
-                $action->element('img', array('id' => 'fbc_profile-pic',
-                    'src' => (!empty($url)) ? $url : $silhouetteUrl,
-                    'alt' => 'Facebook Connect User',
-                    'width' => '16'), '');
+                    $action->elementStart('li', array('id' => 'nav_fb'));
 
-                $iconurl =  common_path('plugins/Facebook/fbfavicon.ico');
-                $action->element('img', array('id' => 'fb_favicon',
-                    'src' => $iconurl));
+                    $action->element('img', array('id' => 'fbc_profile-pic',
+                        'src' => (!empty($url)) ? $url : $silhouetteUrl,
+                        'alt' => 'Facebook Connect User',
+                        'width' => '16'), '');
 
-                $action->elementEnd('li');
+                    $iconurl =  common_path('plugins/Facebook/fbfavicon.ico');
+                    $action->element('img', array('id' => 'fb_favicon',
+                        'src' => $iconurl));
 
+                    $action->elementEnd('li');
+
+                }
             }
         }
 
@@ -462,14 +490,15 @@ class FacebookPlugin extends Plugin
 
     function onEndLoginGroupNav(&$action)
     {
+        if (self::hasKeys()) {
 
-        $action_name = $action->trimmed('action');
+            $action_name = $action->trimmed('action');
 
-        $action->menuItem(common_local_url('FBConnectLogin'),
-                                           _m('Facebook'),
-                                           _m('Login or register using Facebook'),
-                                           'FBConnectLogin' === $action_name);
-
+            $action->menuItem(common_local_url('FBConnectLogin'),
+                                               _m('Facebook'),
+                                               _m('Login or register using Facebook'),
+                                               'FBConnectLogin' === $action_name);
+        }
         return true;
     }
 
@@ -483,13 +512,15 @@ class FacebookPlugin extends Plugin
 
     function onEndConnectSettingsNav(&$action)
     {
-        $action_name = $action->trimmed('action');
+        if (self::hasKeys()) {
 
-        $action->menuItem(common_local_url('FBConnectSettings'),
-                          _m('Facebook'),
-                          _m('Facebook Connect Settings'),
-                          $action_name === 'FBConnectSettings');
+            $action_name = $action->trimmed('action');
 
+            $action->menuItem(common_local_url('FBConnectSettings'),
+                              _m('Facebook'),
+                              _m('Facebook Connect Settings'),
+                              $action_name === 'FBConnectSettings');
+        }
         return true;
     }
 
@@ -503,20 +534,22 @@ class FacebookPlugin extends Plugin
 
     function onStartLogout($action)
     {
-        $action->logout();
-        $fbuid = $this->loggedIn();
+        if (self::hasKeys()) {
 
-        if (!empty($fbuid)) {
-            try {
-                $facebook = getFacebook();
-                $facebook->expire_session();
-            } catch (Exception $e) {
-                common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
-                           'Could\'t logout of Facebook: ' .
-                           $e->getMessage());
+            $action->logout();
+            $fbuid = $this->loggedIn();
+
+            if (!empty($fbuid)) {
+                try {
+                    $facebook = getFacebook();
+                    $facebook->expire_session();
+                } catch (Exception $e) {
+                    common_log(LOG_WARNING, 'Facebook Connect Plugin - ' .
+                               'Could\'t logout of Facebook: ' .
+                               $e->getMessage());
+                }
             }
         }
-
         return true;
     }
 
@@ -562,7 +595,9 @@ class FacebookPlugin extends Plugin
 
     function onStartEnqueueNotice($notice, &$transports)
     {
-        array_push($transports, 'facebook');
+        if (self::hasKeys()) {
+            array_push($transports, 'facebook');
+        }
         return true;
     }
 
@@ -575,7 +610,9 @@ class FacebookPlugin extends Plugin
      */
     function onEndInitializeQueueManager($manager)
     {
-        $manager->connect('facebook', 'FacebookQueueHandler');
+        if (self::hasKeys()) {
+            $manager->connect('facebook', 'FacebookQueueHandler');
+        }
         return true;
     }
 
