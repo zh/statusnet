@@ -216,17 +216,14 @@ class OStatusPlugin extends Plugin
 
         if (empty($cur)) {
             // Add an OStatus subscribe
-            $output->elementStart('li', 'entity_subscribe');
             $url = common_local_url('ostatusinit',
                                     array('nickname' => $group->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
                                 _m('Join'));
-
-            $output->elementEnd('li');
         }
 
-        return false;
+        return true;
     }
 
     /**

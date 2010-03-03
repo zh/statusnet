@@ -300,8 +300,8 @@ class ShowgroupAction extends GroupDesignAction
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
+        $this->elementStart('li', 'entity_subscribe');
         if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
-            $this->elementStart('li', 'entity_subscribe');
             $cur = common_current_user();
             if ($cur) {
                 if ($cur->isMember($this->group)) {
@@ -312,10 +312,9 @@ class ShowgroupAction extends GroupDesignAction
                     $jf->show();
                 }
             }
-            $this->elementEnd('li');
             Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
-
+        $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }
