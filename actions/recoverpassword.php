@@ -21,7 +21,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 # You have 24 hours to claim your password
 
-define(MAX_RECOVERY_TIME, 24 * 60 * 60);
+define('MAX_RECOVERY_TIME', 24 * 60 * 60);
 
 class RecoverpasswordAction extends Action
 {
