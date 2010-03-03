@@ -40,7 +40,8 @@ $default =
               'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
-              'language' => 'en_US',
+              'language' => 'en',
+              'langdetect' => true,
               'languages' => get_all_languages(),
               'email' =>
               array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : null,
