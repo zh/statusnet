@@ -98,6 +98,7 @@ class Router
                           'groupblock', 'groupunblock',
                           'sandbox', 'unsandbox',
                           'silence', 'unsilence',
+                          'grantrole', 'revokerole',
                           'repeat',
                           'deleteuser',
                           'geocode',
