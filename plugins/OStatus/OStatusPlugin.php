@@ -727,7 +727,7 @@ class OStatusPlugin extends Plugin
                                              'class' => 'entity_subscribe'));
             $action->element('a', array('href' => common_local_url('ostatussub'),
                                         'class' => 'entity_remote_subscribe')
-                                , _m('Subscribe to remote user'));
+                                , _m('New'));
             $action->elementEnd('p');
             $action->elementEnd('div');
         }
