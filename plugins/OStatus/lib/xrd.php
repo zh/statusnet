@@ -149,9 +149,11 @@ class XRD
         $link['href'] = $element->getAttribute('href');
         $link['template'] = $element->getAttribute('template');
         foreach ($element->childNodes as $node) {
-            switch($node->tagName) {
-            case 'Title':
-                $link['title'][] = $node->nodeValue;
+            if ($node instanceof DOMElement) {
+                switch($node->tagName) {
+                case 'Title':
+                    $link['title'][] = $node->nodeValue;
+                }
             }
         }
 
