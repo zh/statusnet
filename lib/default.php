@@ -54,10 +54,11 @@ $default =
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
-              'dupelimit' => 60, # default for same person saying the same thing
+              'dupelimit' => 60, // default for same person saying the same thing
               'textlimit' => 140,
               'indent' => true,
-              'use_x_sendfile' => false
+              'use_x_sendfile' => false,
+              'notice' => null // site wide notice text
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -283,7 +284,7 @@ $default =
                                  'OpenID' => null),
               ),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
