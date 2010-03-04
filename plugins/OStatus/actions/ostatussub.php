@@ -64,7 +64,7 @@ class OStatusSubAction extends Action
         $this->input('profile',
                      _m('Subscribe to'),
                      $this->profile_uri,
-                     _m("OStatus user's address, like nickname@example.com or http://example.net/user/nickname"));
+                     _m("OStatus user's address, like nickname@example.com or http://example.net/nickname"));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -244,25 +244,33 @@ class OStatusSubAction extends Action
             } else if (Validate::uri($this->profile_uri)) {
                 $this->oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
             } else {
-                $this->error = _m("Invalid address format.");
+                $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+                common_debug('Invalid address format.', __FILE__);
                 return false;
             }
             return true;
         } catch (FeedSubBadURLException $e) {
-            $this->error = _m('Invalid URL or could not reach server.');
+            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+            common_debug('Invalid URL or could not reach server.', __FILE__);
         } catch (FeedSubBadResponseException $e) {
-            $this->error = _m('Cannot read feed; server returned error.');
+            $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
+            common_debug('Cannot read feed; server returned error.', __FILE__);
         } catch (FeedSubEmptyException $e) {
-            $this->error = _m('Cannot read feed; server returned an empty page.');
+            $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
+            common_debug('Cannot read feed; server returned an empty page.', __FILE__);
         } catch (FeedSubBadHTMLException $e) {
-            $this->error = _m('Bad HTML, could not find feed link.');
+            $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
+            common_debug('Bad HTML, could not find feed link.', __FILE__);
         } catch (FeedSubNoFeedException $e) {
-            $this->error = _m('Could not find a feed linked from this URL.');
+            $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
+            common_debug('Could not find a feed linked from this URL.', __FILE__);
         } catch (FeedSubUnrecognizedTypeException $e) {
-            $this->error = _m('Not a recognized feed type.');
+            $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
+            common_debug('Not a recognized feed type.', __FILE__);
         } catch (Exception $e) {
             // Any new ones we forgot about
-            $this->error = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
+            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+            common_debug(sprintf('Bad feed URL: %s %s', get_class($e), $e->getMessage()), __FILE__);
         }
 
         return false;
