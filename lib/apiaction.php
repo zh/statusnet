@@ -86,7 +86,7 @@ class ApiAction extends Action
         $this->since_id = (int)$this->arg('since_id', 0);
 
         if ($this->arg('since')) {
-            $this->clientError(_("since parameter is disabled for performance; use since_id"), 403);
+            header('X-StatusNet-Warning: since parameter is disabled; use since_id');
         }
 
         return true;
