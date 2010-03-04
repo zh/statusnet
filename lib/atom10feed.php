@@ -49,6 +49,8 @@ class Atom10FeedException extends Exception
 class Atom10Feed extends XMLStringer
 {
     public  $xw;
+
+    // @fixme most of these should probably be read-only properties
     private $namespaces;
     private $authors;
     private $subject;
@@ -57,10 +59,12 @@ class Atom10Feed extends XMLStringer
     private $generator;
     private $icon;
     private $links;
-    private $logo;
+    private $selfLink;
+    private $selfLinkType;
+    public $logo;
     private $rights;
-    private $subtitle;
-    private $title;
+    public $subtitle;
+    public $title;
     private $published;
     private $updated;
     private $entries;
@@ -184,6 +188,10 @@ class Atom10Feed extends XMLStringer
 
         $this->renderAuthors();
 
+        if ($this->selfLink) {
+            $this->addLink($this->selfLink, array('rel' => 'self',
+                                                  'type' => $this->selfLinkType));
+        }
         $this->renderLinks();
     }
 
@@ -251,6 +259,12 @@ class Atom10Feed extends XMLStringer
     function setId($id)
     {
         $this->id = $id;
+    }
+
+    function setSelfLink($url, $type='application/atom+xml')
+    {
+        $this->selfLink = $url;
+        $this->selfLinkType = $type;
     }
 
     function setTitle($title)
