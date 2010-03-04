@@ -435,15 +435,39 @@ E_O_T;
 E_O_T;
 }
 
+/**
+ * Helper class for building form
+ */
+class Posted {
+    function value($name)
+    {
+        if (isset($_POST[$name])) {
+            return htmlspecialchars(strval($_POST[$name]));
+        } else {
+            return '';
+        }
+    }
+}
+
 function showForm()
 {
     global $dbModules;
+    $post = new Posted();
     $dbRadios = '';
-    $checked = 'checked="checked" '; // Check the first one which exists
+    if (isset($_POST['dbtype'])) {
+        $dbtype = $_POST['dbtype'];
+    } else {
+        $dbtype = null;
+    }
     foreach ($dbModules as $type => $info) {
         if (checkExtension($info['check_module'])) {
+            if ($dbtype == null || $dbtype == $type) {
+                $checked = 'checked="checked" ';
+                $dbtype = $type; // if we didn't have one checked, hit the first
+            } else {
+                $checked = '';
+            }
             $dbRadios .= "<input type=\"radio\" name=\"dbtype\" id=\"dbtype-$type\" value=\"$type\" $checked/> $info[name]<br />\n";
-            $checked = '';
         }
     }
     echo<<<E_O_T
@@ -464,7 +488,7 @@ function showForm()
         <ul class="form_data">
             <li>
                 <label for="sitename">Site name</label>
-                <input type="text" id="sitename" name="sitename" />
+                <input type="text" id="sitename" name="sitename" value="{$post->value('sitename')}" />
                 <p class="form_guide">The name of your site</p>
             </li>
             <li>
@@ -475,7 +499,7 @@ function showForm()
             </li>
             <li>
                 <label for="host">Hostname</label>
-                <input type="text" id="host" name="host" />
+                <input type="text" id="host" name="host" value="{$post->value('host')}" />
                 <p class="form_guide">Database hostname</p>
             </li>
             <li>
@@ -487,28 +511,37 @@ function showForm()
 
             <li>
                 <label for="database">Name</label>
-                <input type="text" id="database" name="database" />
+                <input type="text" id="database" name="database" value="{$post->value('database')}" />
                 <p class="form_guide">Database name</p>
             </li>
             <li>
-                <label for="username">DB username</label>
-                <input type="text" id="username" name="username" />
+                <label for="dbusername">DB username</label>
+                <input type="text" id="dbusername" name="dbusername" value="{$post->value('dbusername')}" />
                 <p class="form_guide">Database username</p>
             </li>
             <li>
-                <label for="password">DB password</label>
-                <input type="password" id="password" name="password" />
+                <label for="dbpassword">DB password</label>
+                <input type="password" id="dbpassword" name="dbpassword" value="{$post->value('dbpassword')}" />
                 <p class="form_guide">Database password (optional)</p>
             </li>
             <li>
                 <label for="admin_nickname">Administrator nickname</label>
-                <input type="text" id="admin_nickname" name="admin_nickname" />
+                <input type="text" id="admin_nickname" name="admin_nickname" value="{$post->value('admin_nickname')}" />
                 <p class="form_guide">Nickname for the initial StatusNet user (administrator)</p>
             </li>
             <li>
-                <label for="initial_user_password">Administrator password</label>
-                <input type="password" id="admin_password" name="admin_password" />
+                <label for="admin_password">Administrator password</label>
+                <input type="password" id="admin_password" name="admin_password" value="{$post->value('admin_password')}" />
                 <p class="form_guide">Password for the initial StatusNet user (administrator)</p>
+            </li>
+            <li>
+                <label for="admin_password2">Confirm password</label>
+                <input type="password" id="admin_password2" name="admin_password2" value="{$post->value('admin_password2')}" />
+            </li>
+            <li>
+                <label for="admin_email">Administrator e-mail</label>
+                <input id="admin_email" name="admin_email" value="{$post->value('admin_email')}" />
+                <p class="form_guide">Optional email address for the initial StatusNet user (administrator)</p>
             </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -528,13 +561,15 @@ function handlePost()
     $host     = $_POST['host'];
     $dbtype   = $_POST['dbtype'];
     $database = $_POST['database'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $_POST['dbusername'];
+    $password = $_POST['dbpassword'];
     $sitename = $_POST['sitename'];
     $fancy    = !empty($_POST['fancy']);
 
     $adminNick = $_POST['admin_nickname'];
     $adminPass = $_POST['admin_password'];
+    $adminPass2 = $_POST['admin_password2'];
+    $adminEmail = $_POST['admin_email'];
 
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
@@ -576,6 +611,11 @@ STR;
         updateStatus("No initial StatusNet user password specified.", true);
         $fail = true;
     }
+    
+    if ($adminPass != $adminPass2) {
+        updateStatus("Administrator passwords do not match. Did you mistype?", true);
+        $fail = true;
+    }
 
     if ($fail) {
         showForm();
@@ -600,7 +640,7 @@ STR;
     }
 
     // Okay, cross fingers and try to register an initial user
-    if (registerInitialUser($adminNick, $adminPass)) {
+    if (registerInitialUser($adminNick, $adminPass, $adminEmail)) {
         updateStatus(
             "An initial user with the administrator role has been created."
         );
@@ -797,19 +837,20 @@ function runDbScript($filename, $conn, $type = 'mysqli')
     return true;
 }
 
-function registerInitialUser($nickname, $password)
+function registerInitialUser($nickname, $password, $email)
 {
     define('STATUSNET', true);
     define('LACONICA', true); // compatibility
 
     require_once INSTALLDIR . '/lib/common.php';
 
-    $user = User::register(
-        array('nickname' => $nickname,
-              'password' => $password,
-              'fullname' => $nickname
-        )
-    );
+    $data = array('nickname' => $nickname,
+                  'password' => $password,
+                  'fullname' => $nickname);
+    if ($email) {
+        $data['email'] = $email;
+    }
+    $user = User::register($data);
 
     if (empty($user)) {
         return false;
