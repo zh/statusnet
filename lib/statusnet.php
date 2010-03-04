@@ -354,10 +354,10 @@ class StatusNet
 
 class NoConfigException extends Exception
 {
-    public $config_files;
+    public $configFiles;
 
-    function __construct($msg, $config_files) {
+    function __construct($msg, $configFiles) {
         parent::__construct($msg);
-        $this->config_files = $config_files;
+        $this->configFiles = $configFiles;
     }
 }
