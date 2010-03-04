@@ -115,6 +115,8 @@ Notable changes this version:
 - Plugin to support RSSCloud
 - A framework for adding advertisements to a public site,
   and plugins for Google AdSense and OpenX server
+- Plugins to throttle excessive subscriptions and registrations.
+- A plugin to blacklist particular URLs or nicknames.
 
 There are also literally thousands of bugs fixed and minor features
 added. A full changelog is available at http://status.net/wiki/StatusNet_0.9.0.
@@ -622,14 +624,10 @@ not visible to non-logged-in users. This might be useful for
 workgroups who want to share a microblogging site for project
 management, but host it on a public server.
 
-Note that this is an experimental feature; total privacy is not
-guaranteed or ensured. Also, privacy is all-or-nothing for a site; you
-can't have some accounts or notices private, and others public.
-Finally, the interaction of private sites with OStatus is
-undefined. Remote users won't be able to subscribe to users on a
-private site, but users of the private site may be able to subscribe
-to users on a remote site. (Or not... it's not well tested.) The
-"proper behaviour" hasn't been defined here, so handle with care.
+Total privacy is not guaranteed or ensured. Also, privacy is
+all-or-nothing for a site; you can't have some accounts or notices
+private, and others public. The interaction of private sites
+with OStatus is undefined.
 
 Access to file attachments can also be restricted to logged-in users only.
 1. Add a directory outside the web root where your file uploads will be
@@ -694,10 +692,10 @@ instructions; read to the end first before trying them.
     reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't
     do it without a known-good backup!
 
-    If your database is at version 0.7.4, you can run a special upgrade
-    script:
+    If your database is at version 0.8.0 or above, you can run a
+    special upgrade script:
 
-    mysql -u<rootuser> -p<rootpassword> <database> db/074to080.sql
+    mysql -u<rootuser> -p<rootpassword> <database> db/08to09.sql
 
     Otherwise, go to your StatusNet directory and AFTER YOU MAKE A
     BACKUP run the rebuilddb.sh script like this:
@@ -762,9 +760,16 @@ Configuration options
 
 The main configuration file for StatusNet (excepting configurations for
 dependency software) is config.php in your StatusNet directory. If you
-edit any other file in the directory, like lib/common.php (where most
+edit any other file in the directory, like lib/default.php (where most
 of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
+
+Starting with version 0.9.0, a Web based configuration panel has been
+added to StatusNet. The preferred method for changing config options is
+to use this panel.
+
+A command-line script, setconfig.php, can be used to set individual
+configuration options. It's in the scripts/ directory.
 
 Starting with version 0.7.1, you can put config files in the
 /etc/statusnet/ directory on your server, if it exists. Config files
@@ -1578,8 +1583,8 @@ Feedback
 * Microblogging messages to http://support.status.net/ are very welcome.
 * The microblogging group http://identi.ca/group/statusnet is a good
   place to discuss the software.
-* StatusNet's Trac server has a bug tracker for any defects you may find,
-  or ideas for making things better. http://status.net/trac/
+* StatusNet has a bug tracker for any defects you may find, or ideas for
+  making things better. http://status.net/bugs
 
 Credits
 =======
