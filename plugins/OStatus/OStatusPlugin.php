@@ -836,4 +836,17 @@ class OStatusPlugin extends Plugin
 
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'OStatus',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou, James Walker, Brion Vibber, Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:OStatus',
+                            'rawdescription' =>
+                            _m('Follow people across social networks that implement '.
+                               '<a href="http://ostatus.org/">OStatus</a>.'));
+
+        return true;
+    }
 }
