@@ -86,8 +86,9 @@ Notable changes this version:
 - Support for the new distributed status update standard OStatus
   <http://ostatus.org>, based on PubSubHubbub, Salmon, Webfinger,
   and Activity Streams.
-- Support for location. Notices are (optionally) marked with lat-long
-  information, and can be shown on a map.
+- Support for location using the Geolocation API. Notices are (optionally) 
+  marked with lat-long information with geo microformats, and can be shown
+  on a map.
 - No fixed content size. Notice size is configurable, from 1 to
   unlimited number of characters. Default is still 140!
 - An authorization framework, allowing different levels of users.
@@ -97,6 +98,8 @@ Notable changes this version:
 - A flag system that lets users flag profiles for moderator review.
 - Support for OAuth <http://oauth.net> authentication in the Twitter
   API.
+- User roles system that lets the owner of the site to assign
+  administrator and moderator roles to other users.
 - A pluggable authentication system.
 - An authentication plugin for LDAP servers.
 - Many features that were core in 0.8.x are now plugins, such
