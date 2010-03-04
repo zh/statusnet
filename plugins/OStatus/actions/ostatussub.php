@@ -62,9 +62,9 @@ class OStatusSubAction extends Action
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('profile',
-                     _m('Address or profile URL'),
+                     _m('Subscribe to'),
                      $this->profile_uri,
-                     _m('Enter the profile URL of a PubSubHubbub-enabled feed'));
+                     _m("OStatus user's address, like nickname@example.com or http://example.net/user/nickname"));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
