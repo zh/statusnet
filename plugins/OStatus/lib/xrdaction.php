@@ -28,32 +28,24 @@ class XrdAction extends Action
 {
 
     public $uri;
+    
+    public $user;
 
-    function prepare($args)
-    {
-        parent::prepare($args);
-
-        $this->uri = $this->trimmed('uri');
-
-        return true;
-    }
-
+    public $xrd;
+    
     function handle()
     {
-        $acct = Discovery::normalize($this->uri);
+        $nick =  $this->user->nickname;
 
-        $xrd = new XRD();
-
-        list($nick, $domain) = explode('@', substr(urldecode($acct), 5));
-        $nick = common_canonical_nickname($nick);
-
-        $this->user = User::staticGet('nickname', $nick);
-        if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
-            return false;
+        if (empty($this->xrd)) {
+            $xrd = new XRD();
+        } else {
+            $xrd = $this->xrd;
         }
 
-        $xrd->subject = $this->uri;
+        if (empty($xrd->subject)) {
+            $xrd->subject = Discovery::normalize($this->uri);
+        }
         $xrd->alias[] = common_profile_url($nick);
         $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
                               'type' => 'text/html',

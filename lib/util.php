@@ -105,11 +105,13 @@ function common_language()
 
     // Otherwise, find the best match for the languages requested by the
     // user's browser...
-    $httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
-    if (!empty($httplang)) {
-        $language = client_prefered_language($httplang);
-        if ($language)
-          return $language;
+    if (common_config('site', 'langdetect')) {
+        $httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
+        if (!empty($httplang)) {
+            $language = client_prefered_language($httplang);
+            if ($language)
+              return $language;
+        }
     }
 
     // Finally, if none of the above worked, use the site's default...
@@ -853,7 +855,7 @@ function common_valid_profile_tag($str)
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
-    $group = User_group::getForNickname($nickname);
+    $group = User_group::getForNickname($nickname, $sender);
     if ($sender && $group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');

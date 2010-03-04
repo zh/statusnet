@@ -57,6 +57,9 @@ class XRD
             throw new Exception("Invalid XML");
         }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);
+        if (!$xrd_element) {
+            throw new Exception("Invalid XML, missing XRD root");
+        }
 
         // Check for host-meta host
         $host = $xrd_element->getElementsByTagName('Host')->item(0);
@@ -149,9 +152,11 @@ class XRD
         $link['href'] = $element->getAttribute('href');
         $link['template'] = $element->getAttribute('template');
         foreach ($element->childNodes as $node) {
-            switch($node->tagName) {
-            case 'Title':
-                $link['title'][] = $node->nodeValue;
+            if ($node instanceof DOMElement) {
+                switch($node->tagName) {
+                case 'Title':
+                    $link['title'][] = $node->nodeValue;
+                }
             }
         }
 

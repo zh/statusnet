@@ -22,7 +22,7 @@
  * @category  Integration
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -61,8 +61,23 @@ class TwitterOAuthClient extends OAuthClient
         $consumer_key    = common_config('twitter', 'consumer_key');
         $consumer_secret = common_config('twitter', 'consumer_secret');
 
-        parent::__construct($consumer_key, $consumer_secret,
-                            $oauth_token, $oauth_token_secret);
+        if (empty($consumer_key) && empty($consumer_secret)) {
+            $consumer_key = common_config(
+                'twitter',
+                'global_consumer_key'
+            );
+            $consumer_secret = common_config(
+                'twitter',
+                'global_consumer_secret'
+            );
+        }
+
+        parent::__construct(
+            $consumer_key,
+            $consumer_secret,
+            $oauth_token,
+            $oauth_token_secret
+        );
     }
 
     // XXX: the following two functions are to support the horrible hack

@@ -176,6 +176,34 @@ class AdminPanelAction extends Action
     }
 
     /**
+     * Show content block. Overrided just to add a special class
+     * to the content div to allow styling.
+     *
+     * @return nothing
+     */
+    function showContentBlock()
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'admin'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
+
+    /**
+     * There is no data for aside, so, we don't output
+     *
+     * @return nothing
+     */
+    function showAside()
+    {
+
+    }
+
+    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
@@ -345,32 +373,48 @@ class AdminPanelNav extends Widget
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('User configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('useradminpanel'), _m('MENU', 'User'),
-                                     $menu_title, $action_name == 'useradminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
+                                     $menu_title, $action_name == 'useradminpanel', 'nav_user_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('access')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Access configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('accessadminpanel'), _m('MENU', 'Access'),
-                                     $menu_title, $action_name == 'accessadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('accessadminpanel'), _('Access'),
+                                     $menu_title, $action_name == 'accessadminpanel', 'nav_access_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('paths')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Paths configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('pathsadminpanel'), _m('MENU', 'Paths'),
-                                    $menu_title, $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
+                                    $menu_title, $action_name == 'pathsadminpanel', 'nav_paths_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('sessions')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Sessions configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('sessionsadminpanel'), _m('MENU', 'Sessions'),
-                                     $menu_title, $action_name == 'sessionsadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('sessionsadminpanel'), _('Sessions'),
+                                     $menu_title, $action_name == 'sessionsadminpanel', 'nav_sessions_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('sitenotice')) {
+                // TRANS: Menu item title/tooltip
+                $menu_title = _('Edit site notice');
+                // TRANS: Menu item for site administration
+                $this->out->menuItem(common_local_url('sitenoticeadminpanel'), _('Site notice'),
+                                     $menu_title, $action_name == 'sitenoticeadminpanel', 'nav_sitenotice_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('snapshot')) {
+                // TRANS: Menu item title/tooltip
+                $menu_title = _('Snapshots configuration');
+                // TRANS: Menu item for site administration
+                $this->out->menuItem(common_local_url('snapshotadminpanel'), _('Snapshots'),
+                                     $menu_title, $action_name == 'snapshotadminpanel', 'nav_snapshot_admin_panel');
             }
 
             Event::handle('EndAdminPanelNav', array($this));

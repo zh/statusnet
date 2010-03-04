@@ -550,7 +550,8 @@ class Ostatus_profile extends Memcached_DataObject
                         'rendered' => $rendered,
                         'replies' => array(),
                         'groups' => array(),
-                        'tags' => array());
+                        'tags' => array(),
+                        'urls' => array());
 
         // Check for optional attributes...
 
@@ -595,6 +596,12 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
+        // Atom enclosures -> attachment URLs
+        foreach ($activity->enclosures as $href) {
+            // @fixme save these locally or....?
+            $options['urls'][] = $href;
+        }
+
         try {
             $saved = Notice::saveNew($oprofile->profile_id,
                                      $content,
@@ -620,7 +627,8 @@ class Ostatus_profile extends Memcached_DataObject
     protected function purify($html)
     {
         require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
-        $config = array('safe' => 1);
+        $config = array('safe' => 1,
+                        'deny_attribute' => 'id,style,on*');
         return htmLawed($html, $config);
     }
 
@@ -1259,6 +1267,11 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
+    /**
+     * @param string $addr webfinger address
+     * @return Ostatus_profile
+     * @throws Exception on error conditions
+     */
     public static function ensureWebfinger($addr)
     {
         // First, try the cache
@@ -1267,7 +1280,8 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($uri !== false) {
             if (is_null($uri)) {
-                return null;
+                // Negative cache entry
+                throw new Exception('Not a valid webfinger address.');
             }
             $oprofile = Ostatus_profile::staticGet('uri', $uri);
             if (!empty($oprofile)) {
@@ -1291,20 +1305,24 @@ class Ostatus_profile extends Memcached_DataObject
         try {
             $result = $disco->lookup($addr);
         } catch (Exception $e) {
+            // Save negative cache entry so we don't waste time looking it up again.
+            // @fixme distinguish temporary failures?
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
-            return null;
+            throw new Exception('Not a valid webfinger address.');
         }
+
+        $hints = array('webfinger' => $addr);
 
         foreach ($result->links as $link) {
             switch ($link['rel']) {
             case Discovery::PROFILEPAGE:
-                $profileUrl = $link['href'];
+                $hints['profileurl'] = $profileUrl = $link['href'];
                 break;
             case Salmon::NS_REPLIES:
-                $salmonEndpoint = $link['href'];
+                $hints['salmon'] = $salmonEndpoint = $link['href'];
                 break;
             case Discovery::UPDATESFROM:
-                $feedUrl = $link['href'];
+                $hints['feedurl'] = $feedUrl = $link['href'];
                 break;
             case Discovery::HCARD:
                 $hcardUrl = $link['href'];
@@ -1314,11 +1332,6 @@ class Ostatus_profile extends Memcached_DataObject
                 break;
             }
         }
-
-        $hints = array('webfinger' => $addr,
-                       'profileurl' => $profileUrl,
-                       'feedurl' => $feedUrl,
-                       'salmon' => $salmonEndpoint);
 
         if (isset($hcardUrl)) {
             $hcardHints = self::slurpHcard($hcardUrl);
@@ -1402,7 +1415,7 @@ class Ostatus_profile extends Memcached_DataObject
             return $oprofile;
         }
 
-        return null;
+        throw new Exception("Couldn't find a valid profile for '$addr'");
     }
 
     function saveHTMLFile($title, $rendered)
@@ -1492,7 +1505,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (array_key_exists('url', $hcard)) {
             if (is_string($hcard['url'])) {
                 $hints['homepage'] = $hcard['url'];
-            } else if (is_array($hcard['adr'])) {
+            } else if (is_array($hcard['url'])) {
                 // HACK get the last one; that's how our hcards look
                 $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
             }

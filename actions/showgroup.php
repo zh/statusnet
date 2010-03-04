@@ -301,19 +301,20 @@ class ShowgroupAction extends GroupDesignAction
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
         $this->elementStart('li', 'entity_subscribe');
-        $cur = common_current_user();
-        if ($cur) {
-            if ($cur->isMember($this->group)) {
-                $lf = new LeaveForm($this, $this->group);
-                $lf->show();
-            } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
-                $jf = new JoinForm($this, $this->group);
-                $jf->show();
+        if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
+            $cur = common_current_user();
+            if ($cur) {
+                if ($cur->isMember($this->group)) {
+                    $lf = new LeaveForm($this, $this->group);
+                    $lf->show();
+                } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                    $jf = new JoinForm($this, $this->group);
+                    $jf->show();
+                }
             }
+            Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
-
         $this->elementEnd('li');
-
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }

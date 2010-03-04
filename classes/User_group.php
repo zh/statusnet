@@ -279,12 +279,26 @@ class User_group extends Memcached_DataObject
         return true;
     }
 
-    static function getForNickname($nickname)
+    static function getForNickname($nickname, $profile=null)
     {
         $nickname = common_canonical_nickname($nickname);
-        $group = User_group::staticGet('nickname', $nickname);
+
+        // Are there any matching remote groups this profile's in?
+        if ($profile) {
+            $group = $profile->getGroups();
+            while ($group->fetch()) {
+                if ($group->nickname == $nickname) {
+                    // @fixme is this the best way?
+                    return clone($group);
+                }
+            }
+        }
+
+        // If not, check local groups.
+    
+        $group = Local_group::staticGet('nickname', $nickname);
         if (!empty($group)) {
-            return $group;
+            return User_group::staticGet('id', $group->group_id);
         }
         $alias = Group_alias::staticGet('alias', $nickname);
         if (!empty($alias)) {
@@ -441,6 +455,11 @@ class User_group extends Memcached_DataObject
         $group = new User_group();
 
         $group->query('BEGIN');
+        
+        if (empty($uri)) {
+            // fill in later...
+            $uri = null;
+        }
 
         $group->nickname    = $nickname;
         $group->fullname    = $fullname;

@@ -420,13 +420,6 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
-        $connect = '';
-        if (common_config('xmpp', 'enabled')) {
-            $connect = 'imsettings';
-        } else if (common_config('sms', 'enabled')) {
-            $connect = 'smssettings';
-        }
-
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
         $this->elementStart('dd');
@@ -442,14 +435,12 @@ class Action extends HTMLOutputter // lawsuit
                 $tooltip = _m('TOOLTIP', 'Change your email, avatar, password, profile');
                 // TRANS: Main menu option when logged in for access to user settings
                 $this->menuItem(common_local_url('profilesettings'),
-                                _m('MENU', 'Account'), $tooltip, false, 'nav_account');
-                if ($connect) {
-                    // TRANS: Tooltip for main menu option "Services"
-                    $tooltip = _m('TOOLTIP', 'Connect to services');
-                    // TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-                    $this->menuItem(common_local_url($connect),
-                                    _m('MENU', 'Connect'), $tooltip, false, 'nav_connect');
-                }
+                                _('Account'), $tooltip, false, 'nav_account');
+                // TRANS: Tooltip for main menu option "Services"
+                $tooltip = _m('TOOLTIP', 'Connect to services');
+                // TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
+                $this->menuItem(common_local_url('oauthconnectionssettings'),
+                                _('Connect'), $tooltip, false, 'nav_connect');
                 if ($user->hasRight(Right::CONFIGURESITE)) {
                     // TRANS: Tooltip for menu option "Admin"
                     $tooltip = _m('TOOLTIP', 'Change site configuration');

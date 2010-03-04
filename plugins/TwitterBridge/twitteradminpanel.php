@@ -225,6 +225,15 @@ class TwitterAdminPanelForm extends AdminForm
         );
         $this->unli();
 
+        $globalConsumerKey = common_config('twitter', 'global_consumer_key');
+        $globalConsumerSec = common_config('twitter', 'global_consumer_secret');
+
+        if (!empty($globalConsumerKey) && !empty($globalConsumerSec)) {
+            $this->li();
+            $this->out->element('p', 'form_guide', _('Note: a global consumer key and secret are set.'));
+            $this->unli();
+        }
+
         $this->li();
         $this->input(
             'source',

@@ -31,6 +31,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
+ * @author   Zach Copley <zach@status.net>
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * @version  0.9.x
  * @link     http://status.net
@@ -490,14 +491,24 @@ function showForm()
                 <p class="form_guide">Database name</p>
             </li>
             <li>
-                <label for="username">Username</label>
+                <label for="username">DB username</label>
                 <input type="text" id="username" name="username" />
                 <p class="form_guide">Database username</p>
             </li>
             <li>
-                <label for="password">Password</label>
+                <label for="password">DB password</label>
                 <input type="password" id="password" name="password" />
                 <p class="form_guide">Database password (optional)</p>
+            </li>
+            <li>
+                <label for="admin_nickname">Administrator nickname</label>
+                <input type="text" id="admin_nickname" name="admin_nickname" />
+                <p class="form_guide">Nickname for the initial StatusNet user (administrator)</p>
+            </li>
+            <li>
+                <label for="initial_user_password">Administrator password</label>
+                <input type="password" id="admin_password" name="admin_password" />
+                <p class="form_guide">Password for the initial StatusNet user (administrator)</p>
             </li>
         </ul>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -521,6 +532,10 @@ function handlePost()
     $password = $_POST['password'];
     $sitename = $_POST['sitename'];
     $fancy    = !empty($_POST['fancy']);
+
+    $adminNick = $_POST['admin_nickname'];
+    $adminPass = $_POST['admin_password'];
+
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
 
@@ -552,6 +567,16 @@ STR;
         $fail = true;
     }
 
+    if (empty($adminNick)) {
+        updateStatus("No initial StatusNet user nickname specified.", true);
+        $fail = true;
+    }
+
+    if (empty($adminPass)) {
+        updateStatus("No initial StatusNet user password specified.", true);
+        $fail = true;
+    }
+
     if ($fail) {
         showForm();
         return;
@@ -574,13 +599,29 @@ STR;
         return;
     }
 
+    // Okay, cross fingers and try to register an initial user
+    if (registerInitialUser($adminNick, $adminPass)) {
+        updateStatus(
+            "An initial user with the administrator role has been created."
+        );
+    } else {
+        updateStatus(
+            "Could not create initial StatusNet user (administrator).",
+            true
+        );
+        showForm();
+        return;
+    }
+
     /*
         TODO https needs to be considered
     */
     $link = "http://".$server.'/'.$path;
 
     updateStatus("StatusNet has been installed at $link");
-    updateStatus("You can visit your <a href='$link'>new StatusNet site</a>.");
+    updateStatus(
+        "You can visit your <a href='$link'>new StatusNet site</a> (login as '$adminNick')."
+    );
 }
 
 function Pgsql_Db_installer($host, $database, $username, $password)
@@ -756,6 +797,33 @@ function runDbScript($filename, $conn, $type = 'mysqli')
     return true;
 }
 
+function registerInitialUser($nickname, $password)
+{
+    define('STATUSNET', true);
+    define('LACONICA', true); // compatibility
+
+    require_once INSTALLDIR . '/lib/common.php';
+
+    $user = User::register(
+        array('nickname' => $nickname,
+              'password' => $password,
+              'fullname' => $nickname
+        )
+    );
+
+    if (empty($user)) {
+        return false;
+    }
+
+    // give initial user carte blanche
+
+    $user->grantRole('owner');
+    $user->grantRole('moderator');
+    $user->grantRole('administrator');
+
+    return true;
+}
+
 ?>
 <?php echo"<?"; ?> xml version="1.0" encoding="UTF-8" <?php echo "?>"; ?>
 <!DOCTYPE html
@@ -765,10 +833,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     <head>
         <title>Install StatusNet</title>
 	<link rel="shortcut icon" href="favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
-        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
-        <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css?version=0.8" /><![endif]-->
-        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/default/css/ie.css?version=0.8" /><![endif]-->
+        <link rel="stylesheet" type="text/css" href="theme/default/css/display.css" media="screen, projection, tv"/>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css" /><![endif]-->
+        <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css" /><![endif]-->
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/default/css/ie.css" /><![endif]-->
         <script src="js/jquery.min.js"></script>
         <script src="js/install.js"></script>
     </head>
@@ -784,8 +852,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
             </div>
             <div id="core">
                 <div id="content">
-                    <h1>Install StatusNet</h1>
+                     <div id="content_inner">
+                        <h1>Install StatusNet</h1>
 <?php main(); ?>
+                   </div>
                 </div>
             </div>
         </div>
