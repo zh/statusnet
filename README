@@ -78,7 +78,8 @@ New this version
 ================
 
 This is a major feature release since version 0.8.3, released Feb 1
-2010. It is the final release version of 0.9.0.
+2010. It is the final release version of 0.9.0, replacing any beta
+versions.
 
 Notable changes this version:
 
@@ -952,7 +953,7 @@ queue_basename: a root name to use for queues (stomp only). Typically
                 multiple instances on the same server, make sure that
                 either this setting or $config['site']['nickname'] are
                 unique for each site to keep them separate.
-                
+
 stomp_username: username for connecting to the stomp server; defaults
                 to null.
 stomp_password: password for connecting to the stomp server; defaults
@@ -1229,10 +1230,6 @@ profile
 
 Profile management.
 
-banned: an array of usernames and/or profile IDs of 'banned' profiles.
-        The site will reject any notices by these users -- they will
-        not be accepted at all. (Compare with blacklisted users above,
-        whose posts just won't show up in the public stream.)
 biolimit: max character length of bio; 0 means no limit; null means to use
           the site text limit default.
 
