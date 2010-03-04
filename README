@@ -241,34 +241,34 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv statusnet-0.9.0 /var/www/mublog
+   	   mv statusnet-0.9.0 /var/www/statusnet
 
-   This will make your StatusNet instance available in the mublog path of
-   your server, like "http://example.net/mublog". "microblog" or
+   This will make your StatusNet instance available in the statusnet path of
+   your server, like "http://example.net/statusnet". "microblog" or
    "statusnet" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
 3. Make your target directory writeable by the Web server.
 
-   	  chmod a+w /var/www/mublog/
+   	  chmod a+w /var/www/statusnet/
 
    On some systems, this will probably work:
 
-      	   chgrp www-data /var/www/mublog/
-	   chmod g+w /var/www/mublog/
+      	   chgrp www-data /var/www/statusnet/
+	   chmod g+w /var/www/statusnet/
 
    If your Web server runs as another user besides "www-data", try
    that user's default group instead. As a last resort, you can create
-   a new group like "mublog" and add the Web server's user to the group.
+   a new group like "statusnet" and add the Web server's user to the group.
 
 4. You should also take this moment to make your avatar, background, and
    file subdirectories writeable by the Web server. An insecure way to do
    this is:
 
-   	  chmod a+w /var/www/mublog/avatar
-   	  chmod a+w /var/www/mublog/background
-   	  chmod a+w /var/www/mublog/file
+   	  chmod a+w /var/www/statusnet/avatar
+   	  chmod a+w /var/www/statusnet/background
+   	  chmod a+w /var/www/statusnet/file
 
    You can also make the avatar, background, and file directories
    writeable by the Web server group, as noted above.
@@ -300,7 +300,7 @@ especially if you've previously installed PHP/MySQL packages.
 
 7. In a browser, navigate to the StatusNet install script; something like:
 
-           http://yourserver.example.com/mublog/install.php
+           http://yourserver.example.com/statusnet/install.php
 
    Enter the database connection information and your site name. The
    install program will configure your site and install the initial,
@@ -320,16 +320,16 @@ By default, StatusNet will use URLs that include the main PHP program's
 name in them. For example, a user's home profile might be
 found at:
 
-    http://example.org/mublog/index.php/mublog/fred
+    http://example.org/statusnet/index.php/statusnet/fred
 
 On certain systems that don't support this kind of syntax, they'll
 look like this:
 
-    http://example.org/mublog/index.php?p=mublog/fred
+    http://example.org/statusnet/index.php?p=statusnet/fred
 
 It's possible to configure the software so it looks like this instead:
 
-    http://example.org/mublog/fred
+    http://example.org/statusnet/fred
 
 These "fancy URLs" are more readable and memorable for users. To use
 fancy URLs, you must either have Apache 2.x with .htaccess enabled and
@@ -354,7 +354,7 @@ your server.
 You should now be able to navigate to a "fancy" URL on your server,
 like:
 
-     http://example.net/mublog/main/register
+     http://example.net/statusnet/main/register
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
@@ -632,17 +632,17 @@ Access to file attachments can also be restricted to logged-in users only.
 1. Add a directory outside the web root where your file uploads will be
    stored. Usually a command like this will work:
 
-           mkdir /var/www/mublog-files
+           mkdir /var/www/statusnet-files
 
 2. Make the file uploads directory writeable by the web server. An
    insecure way to do this is:
 
-           chmod a+x /var/www/mublog-files
+           chmod a+x /var/www/statusnet-files
 
 3. Tell StatusNet to use this directory for file uploads. Add a line
    like this to your config.php:
 
-           $config['attachments']['dir'] = '/var/www/mublog-files';
+           $config['attachments']['dir'] = '/var/www/statusnet-files';
 
 Upgrading
 =========
@@ -677,8 +677,8 @@ instructions; read to the end first before trying them.
    maildaemon.php file, and running something like "newaliases".
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
-6. Move your StatusNet directory to a backup spot, like "mublog.bak".
-7. Unpack your StatusNet 0.9.0 tarball and move it to "mublog" or
+6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
+7. Unpack your StatusNet 0.9.0 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -788,7 +788,7 @@ This section is a catch-all for site-wide variables.
 
 name: the name of your site, like 'YourCompany Microblog'.
 server: the server part of your site's URLs, like 'example.net'.
-path: The path part of your site's URLs, like 'mublog' or ''
+path: The path part of your site's URLs, like 'statusnet' or ''
       (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
        section above). Default is false.
