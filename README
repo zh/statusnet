@@ -291,10 +291,10 @@ especially if you've previously installed PHP/MySQL packages.
    MySQL shell:
 
           GRANT ALL on statusnet.*
-	  TO 'lacuser'@'localhost'
-	  IDENTIFIED BY 'lacpassword';
+	  TO 'statusnetuser'@'localhost'
+	  IDENTIFIED BY 'statusnetpassword';
 
-   You should change 'lacuser' and 'lacpassword' to your preferred new
+   You should change 'statusnetuser' and 'statusnetpassword' to your preferred new
    username and password. You may want to test logging in to MySQL as
    this new user.
 
@@ -406,7 +406,7 @@ For this to work, there *must* be a domain or sub-domain for which all
 1. Run the SQL script carrier.sql in your StatusNet database. This will
    usually work:
 
-   	   mysql -u "lacuser" --password="lacpassword" statusnet < db/carrier.sql
+   	   mysql -u "statusnetuser" --password="statusnetpassword" statusnet < db/carrier.sql
 
    This will populate your database with a list of wireless carriers
    that support email SMS gateways.
