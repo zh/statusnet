@@ -550,7 +550,8 @@ class Ostatus_profile extends Memcached_DataObject
                         'rendered' => $rendered,
                         'replies' => array(),
                         'groups' => array(),
-                        'tags' => array());
+                        'tags' => array(),
+                        'urls' => array());
 
         // Check for optional attributes...
 
@@ -595,6 +596,12 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
+        // Atom enclosures -> attachment URLs
+        foreach ($activity->enclosures as $href) {
+            // @fixme save these locally or....?
+            $options['urls'][] = $href;
+        }
+
         try {
             $saved = Notice::saveNew($oprofile->profile_id,
                                      $content,
@@ -620,7 +627,8 @@ class Ostatus_profile extends Memcached_DataObject
     protected function purify($html)
     {
         require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
-        $config = array('safe' => 1);
+        $config = array('safe' => 1,
+                        'deny_attribute' => 'id,style,on*');
         return htmLawed($html, $config);
     }
 
@@ -1492,7 +1500,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (array_key_exists('url', $hcard)) {
             if (is_string($hcard['url'])) {
                 $hints['homepage'] = $hcard['url'];
-            } else if (is_array($hcard['adr'])) {
+            } else if (is_array($hcard['url'])) {
                 // HACK get the last one; that's how our hcards look
                 $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
             }

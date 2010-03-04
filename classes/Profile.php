@@ -282,6 +282,32 @@ class Profile extends Memcached_DataObject
         }
     }
 
+    function getGroups($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT user_group.* ' .
+          'FROM user_group JOIN group_member '.
+          'ON user_group.id = group_member.group_id ' .
+          'WHERE group_member.profile_id = %d ' .
+          'ORDER BY group_member.created DESC ';
+
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
+            }
+        }
+
+        $groups = new User_group();
+
+        $cnt = $groups->query(sprintf($qry, $this->id));
+
+        return $groups;
+    }
+
     function avatarUrl($size=AVATAR_PROFILE_SIZE)
     {
         $avatar = $this->getAvatar($size);

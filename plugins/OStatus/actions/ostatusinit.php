@@ -29,6 +29,7 @@ class OStatusInitAction extends Action
 {
 
     var $nickname;
+    var $group;
     var $profile;
     var $err;
 
@@ -41,8 +42,9 @@ class OStatusInitAction extends Action
             return false;
         }
 
-        // Local user the remote wants to subscribe to
+        // Local user or group the remote wants to subscribe to
         $this->nickname = $this->trimmed('nickname');
+        $this->group = $this->trimmed('group');
         
         // Webfinger or profile URL of the remote user
         $this->profile = $this->trimmed('profile');
@@ -89,25 +91,33 @@ class OStatusInitAction extends Action
 
     function showContent()
     {
+        if ($this->group) {
+            $header = sprintf(_m('Join group %s'), $this->group);
+            $submit = _m('Join');
+        } else {
+            $header = sprintf(_m('Subscribe to %s'), $this->nickname);
+            $submit = _m('Subscribe');
+        }
         $this->elementStart('form', array('id' => 'form_ostatus_connect',
                                           'method' => 'post',
                                           'class' => 'form_settings',
                                           'action' => common_local_url('ostatusinit')));
         $this->elementStart('fieldset');
-        $this->element('legend', null,  sprintf(_m('Subscribe to %s'), $this->nickname));
+        $this->element('legend', null,  $header);
         $this->hidden('token', common_session_token());
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'ostatus_nickname'));
         $this->input('nickname', _m('User nickname'), $this->nickname,
                      _m('Nickname of the user you want to follow'));
+        $this->hidden('group', $this->group); // pass-through for magic links
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
         $this->input('profile', _m('Profile Account'), $this->profile,
                      _m('Your account id (i.e. user@identi.ca)'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('submit', _m('Subscribe'));
+        $this->submit('submit', $submit);
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -131,19 +141,17 @@ class OStatusInitAction extends Action
 
     function connectWebfinger($acct)
     {
-        $disco = new Discovery;
+        $target_profile = $this->targetProfile();
 
+        $disco = new Discovery;
         $result = $disco->lookup($acct);
         if (!$result) {
             $this->clientError(_m("Couldn't look up OStatus account profile."));
         }
+
         foreach ($result->links as $link) {
             if ($link['rel'] == 'http://ostatus.org/schema/1.0/subscribe') {
                 // We found a URL - let's redirect!
-
-                $user = User::staticGet('nickname', $this->nickname);
-                $target_profile = common_local_url('userbyid', array('id' => $user->id));
-
                 $url = Discovery::applyTemplate($link['template'], $target_profile);
                 common_log(LOG_INFO, "Sending remote subscriber $acct to $url");
                 common_redirect($url, 303);
@@ -155,8 +163,7 @@ class OStatusInitAction extends Action
 
     function connectProfile($subscriber_profile)
     {
-        $user = User::staticGet('nickname', $this->nickname);
-        $target_profile = common_local_url('userbyid', array('id' => $user->id));
+        $target_profile = $this->targetProfile();
 
         // @fixme hack hack! We should look up the remote sub URL from XRDS
         $suburl = preg_replace('!^(.*)/(.*?)$!', '$1/main/ostatussub', $subscriber_profile);
@@ -164,6 +171,30 @@ class OStatusInitAction extends Action
 
         common_log(LOG_INFO, "Sending remote subscriber $subscriber_profile to $suburl");
         common_redirect($suburl, 303);
+    }
+
+    /**
+     * Build the canonical profile URI+URL of the requested user or group
+     */
+    function targetProfile()
+    {
+        if ($this->nickname) {
+            $user = User::staticGet('nickname', $this->nickname);
+            if ($user) {
+                return common_local_url('userbyid', array('id' => $user->id));
+            } else {
+                $this->clientError("No such user.");
+            }
+        } else if ($this->group) {
+            $group = Local_group::staticGet('id', $this->group);
+            if ($group) {
+                return common_local_url('groupbyid', array('id' => $group->group_id));
+            } else {
+                $this->clientError("No such group.");
+            }
+        } else {
+            $this->clientError("No local user or group nickname provided.");
+        }
     }
 
     function title()

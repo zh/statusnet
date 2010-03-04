@@ -140,7 +140,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
                 // @todo set all this Atom junk up inside the feed class
 
-                $atom->setId($id);
+                #$atom->setId($id);
                 $atom->setTitle($title);
                 $atom->setSubtitle($subtitle);
                 $atom->setLogo($logo);

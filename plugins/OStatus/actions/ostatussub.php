@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,11 +31,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
  *                    We end up back here on errors
  *
  *  showPreviewForm() - surrounding form for preview-and-confirm
- *    previewUser() - display profile for a remote user
- *    previewGroup() - display profile for a remote group
+ *    preview() - display profile for a remote user
  *
- *  successUser() - redirects to subscriptions page on subscribe
- *  successGroup() - redirects to groups page on join
+ *  success() - redirects to subscriptions page on subscribe
  */
 class OStatusSubAction extends Action
 {
@@ -55,8 +53,7 @@ class OStatusSubAction extends Action
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_ostatus_sub',
                                           'class' => 'form_settings',
-                                          'action' =>
-                                          common_local_url('ostatussub')));
+                                          'action' => $this->selfLink()));
 
         $this->hidden('token', common_session_token());
 
@@ -87,11 +84,7 @@ class OStatusSubAction extends Action
      */
     function showPreviewForm()
     {
-        if ($this->oprofile->isGroup()) {
-            $ok = $this->previewGroup();
-        } else {
-            $ok = $this->previewUser();
-        }
+        $ok = $this->preview();
         if (!$ok) {
             // @fixme maybe provide a cancel button or link back?
             return;
@@ -104,7 +97,7 @@ class OStatusSubAction extends Action
                                           'id' => 'form_ostatus_sub',
                                           'class' => 'form_remote_authorize',
                                           'action' =>
-                                          common_local_url('ostatussub')));
+                                          $this->selfLink()));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
         $this->hidden('profile', $this->profile_uri);
@@ -112,7 +105,7 @@ class OStatusSubAction extends Action
             $this->submit('submit', _m('Join'), 'submit', null,
                          _m('Join this group'));
         } else {
-            $this->submit('submit', _m('Subscribe'), 'submit', null,
+            $this->submit('submit', _m('Confirm'), 'submit', null,
                          _m('Subscribe to this user'));
         }
         $this->elementEnd('fieldset');
@@ -126,7 +119,7 @@ class OStatusSubAction extends Action
      * Show a preview for a remote user's profile
      * @return boolean true if we're ok to try subscribing
      */
-    function previewUser()
+    function preview()
     {
         $oprofile = $this->oprofile;
         $profile = $oprofile->localProfile();
@@ -149,32 +142,6 @@ class OStatusSubAction extends Action
                           $profile->bio);
         return $ok;
     }
-
-    /**
-     * Show a preview for a remote group's profile
-     * @return boolean true if we're ok to try joining
-     */
-    function previewGroup()
-    {
-        $oprofile = $this->oprofile;
-        $group = $oprofile->localGroup();
-
-        $cur = common_current_user();
-        if ($cur->isMember($group)) {
-            $this->element('div', array('class' => 'error'),
-                           _m("You are already a member of this group."));
-            $ok = false;
-        } else {
-            $ok = true;
-        }
-
-        $this->showEntity($group,
-                          $group->getProfileUrl(),
-                          $group->homepage_logo,
-                          $group->description);
-        return $ok;
-    }
-
 
     function showEntity($entity, $profile, $avatar, $note)
     {
@@ -254,20 +221,10 @@ class OStatusSubAction extends Action
     /**
      * Redirect on successful remote user subscription
      */
-    function successUser()
+    function success()
     {
         $cur = common_current_user();
         $url = common_local_url('subscriptions', array('nickname' => $cur->nickname));
-        common_redirect($url, 303);
-    }
-
-    /**
-     * Redirect on successful remote group join
-     */
-    function successGroup()
-    {
-        $cur = common_current_user();
-        $url = common_local_url('usergroups', array('nickname' => $cur->nickname));
         common_redirect($url, 303);
     }
 
@@ -278,16 +235,9 @@ class OStatusSubAction extends Action
      *
      * @return boolean
      */
-    function validateFeed()
+    function pullRemoteProfile()
     {
-        $profile_uri = trim($this->arg('profile'));
-
-        if ($profile_uri == '') {
-            $this->showForm(_m('Empty remote profile URL!'));
-            return;
-        }
-        $this->profile_uri = $profile_uri;
-
+        $this->profile_uri = $this->trimmed('profile');
         try {
             if (Validate::email($this->profile_uri)) {
                 $this->oprofile = Ostatus_profile::ensureWebfinger($this->profile_uri);
@@ -318,48 +268,34 @@ class OStatusSubAction extends Action
         return false;
     }
 
+    function validateRemoteProfile()
+    {
+        if ($this->oprofile->isGroup()) {
+            // Send us to the group subscription form for conf
+            $target = common_local_url('ostatusgroup', array(), array('profile' => $this->profile_uri));
+            common_redirect($target, 303);
+        }
+    }
+
     /**
      * Attempt to finalize subscription.
      * validateFeed must have been run first.
      *
-     * Calls showForm on failure or successUser/successGroup on success.
+     * Calls showForm on failure or success on success.
      */
     function saveFeed()
     {
         // And subscribe the current user to the local profile
         $user = common_current_user();
-
-        if ($this->oprofile->isGroup()) {
-            $group = $this->oprofile->localGroup();
-            if ($user->isMember($group)) {
-                // TRANS: OStatus remote group subscription dialog error.
-                $this->showForm(_m('Already a member!'));
-                return;
-            }
-            if (Event::handle('StartJoinGroup', array($group, $user))) {
-                $ok = Group_member::join($this->oprofile->group_id, $user->id);
-                if ($ok) {
-                    Event::handle('EndJoinGroup', array($group, $user));
-                    $this->successGroup();
-                } else {
-                    // TRANS: OStatus remote group subscription dialog error.
-                    $this->showForm(_m('Remote group join failed!'));
-                }
-            } else {
-                // TRANS: OStatus remote group subscription dialog error.
-                $this->showForm(_m('Remote group join aborted!'));
-            }
+        $local = $this->oprofile->localProfile();
+        if ($user->isSubscribed($local)) {
+            // TRANS: OStatus remote subscription dialog error.
+            $this->showForm(_m('Already subscribed!'));
+        } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
+            $this->success();
         } else {
-            $local = $this->oprofile->localProfile();
-            if ($user->isSubscribed($local)) {
-                // TRANS: OStatus remote subscription dialog error.
-                $this->showForm(_m('Already subscribed!'));
-            } elseif ($this->oprofile->subscribeLocalToRemote($user)) {
-                $this->successUser();
-            } else {
-                // TRANS: OStatus remote subscription dialog error.
-                $this->showForm(_m('Remote subscription failed!'));
-            }
+            // TRANS: OStatus remote subscription dialog error.
+            $this->showForm(_m('Remote subscription failed!'));
         }
     }
 
@@ -376,7 +312,9 @@ class OStatusSubAction extends Action
             return false;
         }
 
-        $this->profile_uri = $this->arg('profile');
+        if ($this->pullRemoteProfile()) {
+            $this->validateRemoteProfile();
+        }
 
         return true;
     }
@@ -390,9 +328,6 @@ class OStatusSubAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
         } else {
-            if ($this->arg('profile')) {
-                $this->validateFeed();
-            }
             $this->showForm();
         }
     }
@@ -414,7 +349,7 @@ class OStatusSubAction extends Action
             return;
         }
 
-        if ($this->validateFeed()) {
+        if ($this->oprofile) {
             if ($this->arg('submit')) {
                 $this->saveFeed();
                 return;
@@ -499,5 +434,10 @@ class OStatusSubAction extends Action
     {
         parent::showScripts();
         $this->autofocus('feedurl');
+    }
+
+    function selfLink()
+    {
+        return common_local_url('ostatussub');
     }
 }

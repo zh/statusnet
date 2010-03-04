@@ -172,6 +172,34 @@ class AdminPanelAction extends Action
     }
 
     /**
+     * Show content block. Overrided just to add a special class
+     * to the content div to allow styling.
+     *
+     * @return nothing
+     */
+    function showContentBlock()
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'admin'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
+
+    /**
+     * There is no data for aside, so, we don't output
+     *
+     * @return nothing
+     */
+    function showAside()
+    {
+
+    }
+
+    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
@@ -330,22 +358,27 @@ class AdminPanelNav extends Widget
 
             if (AdminPanelAction::canAdmin('user')) {
                 $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
-                                     _('User configuration'), $action_name == 'useradminpanel', 'nav_design_admin_panel');
+                                     _('User configuration'), $action_name == 'useradminpanel', 'nav_user_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('access')) {
                 $this->out->menuItem(common_local_url('accessadminpanel'), _('Access'),
-                                     _('Access configuration'), $action_name == 'accessadminpanel', 'nav_design_admin_panel');
+                                     _('Access configuration'), $action_name == 'accessadminpanel', 'nav_access_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('paths')) {
                 $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
-                                    _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+                                    _('Paths configuration'), $action_name == 'pathsadminpanel', 'nav_paths_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('sessions')) {
                 $this->out->menuItem(common_local_url('sessionsadminpanel'), _('Sessions'),
-                                     _('Sessions configuration'), $action_name == 'sessionsadminpanel', 'nav_design_admin_panel');
+                                     _('Sessions configuration'), $action_name == 'sessionsadminpanel', 'nav_sessions_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('sitenotice')) {
+                $this->out->menuItem(common_local_url('sitenoticeadminpanel'), _('Site notice'),
+                                     _('Edit site notice'), $action_name == 'sitenoticeadminpanel', 'nav_sitenotice_admin_panel');
             }
 
             Event::handle('EndAdminPanelNav', array($this));

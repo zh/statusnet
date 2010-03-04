@@ -105,28 +105,30 @@ class ProfileAction extends OwnerDesignAction
 
         $this->elementStart('div', array('id' => 'entity_subscriptions',
                                          'class' => 'section'));
+        if (Event::handle('StartShowSubscriptionsMiniList', array($this))) {
+            $this->element('h2', null, _('Subscriptions'));
 
-        $this->element('h2', null, _('Subscriptions'));
+            $cnt = 0;
 
-        $cnt = 0;
-
-        if (!empty($profile)) {
-            $pml = new ProfileMiniList($profile, $this);
-            $cnt = $pml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
+            if (!empty($profile)) {
+                $pml = new ProfileMiniList($profile, $this);
+                $cnt = $pml->show();
+                if ($cnt == 0) {
+                    $this->element('p', null, _('(None)'));
+                }
             }
-        }
 
-        if ($cnt > PROFILES_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('subscriptions',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All subscriptions'));
-            $this->elementEnd('p');
-        }
+            if ($cnt > PROFILES_PER_MINILIST) {
+                $this->elementStart('p');
+                $this->element('a', array('href' => common_local_url('subscriptions',
+                                                                     array('nickname' => $this->profile->nickname)),
+                                          'class' => 'more'),
+                               _('All subscriptions'));
+                $this->elementEnd('p');
+            }
 
+            Event::handle('EndShowSubscriptionsMiniList', array($this));
+        }
         $this->elementEnd('div');
     }
 
@@ -226,27 +228,29 @@ class ProfileAction extends OwnerDesignAction
 
         $this->elementStart('div', array('id' => 'entity_groups',
                                          'class' => 'section'));
+        if (Event::handle('StartShowGroupsMiniList', array($this))) {
+            $this->element('h2', null, _('Groups'));
 
-        $this->element('h2', null, _('Groups'));
-
-        if ($groups) {
-            $gml = new GroupMiniList($groups, $this->user, $this);
-            $cnt = $gml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
+            if ($groups) {
+                $gml = new GroupMiniList($groups, $this->user, $this);
+                $cnt = $gml->show();
+                if ($cnt == 0) {
+                    $this->element('p', null, _('(None)'));
+                }
             }
-        }
 
-        if ($cnt > GROUPS_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('usergroups',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All groups'));
-            $this->elementEnd('p');
-        }
+            if ($cnt > GROUPS_PER_MINILIST) {
+                $this->elementStart('p');
+                $this->element('a', array('href' => common_local_url('usergroups',
+                                                                     array('nickname' => $this->profile->nickname)),
+                                          'class' => 'more'),
+                               _('All groups'));
+                $this->elementEnd('p');
+            }
 
-        $this->elementEnd('div');
+            Event::handle('EndShowGroupsMiniList', array($this));
+        }
+            $this->elementEnd('div');
     }
 }
 

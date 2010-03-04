@@ -420,15 +420,6 @@ class Action extends HTMLOutputter // lawsuit
     function showPrimaryNav()
     {
         $user = common_current_user();
-        $connect = '';
-        if (common_config('xmpp', 'enabled')) {
-            $connect = 'imsettings';
-        } else if (common_config('sms', 'enabled')) {
-            $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
-        }
-
         $this->elementStart('dl', array('id' => 'site_nav_global_primary'));
         $this->element('dt', null, _('Primary site navigation'));
         $this->elementStart('dd');
@@ -439,10 +430,8 @@ class Action extends HTMLOutputter // lawsuit
                                 _('Home'), _('Personal profile and friends timeline'), false, 'nav_home');
                 $this->menuItem(common_local_url('profilesettings'),
                                 _('Account'), _('Change your email, avatar, password, profile'), false, 'nav_account');
-                if ($connect) {
-                    $this->menuItem(common_local_url($connect),
-                                    _('Connect'), _('Connect to services'), false, 'nav_connect');
-                }
+                $this->menuItem(common_local_url('oauthconnectionssettings'),
+                                _('Connect'), _('Connect to services'), false, 'nav_connect');
                 if ($user->hasRight(Right::CONFIGURESITE)) {
                     $this->menuItem(common_local_url('siteadminpanel'),
                                     _('Admin'), _('Change site configuration'), false, 'nav_admin');

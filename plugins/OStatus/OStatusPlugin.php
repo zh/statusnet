@@ -49,10 +49,12 @@ class OStatusPlugin extends Plugin
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
                   array('action' => 'ostatusinit'), array('nickname' => '[A-Za-z0-9_-]+'));
+        $m->connect('main/ostatus?group=:group',
+                  array('action' => 'ostatusinit'), array('group' => '[A-Za-z0-9_-]+'));
         $m->connect('main/ostatussub',
                     array('action' => 'ostatussub'));
-        $m->connect('main/ostatussub',
-                    array('action' => 'ostatussub'), array('feed' => '[A-Za-z0-9\.\/\:]+'));
+        $m->connect('main/ostatusgroup',
+                    array('action' => 'ostatusgroup'));
 
         // PuSH actions
         $m->connect('main/push/hub', array('action' => 'pushhub'));
@@ -111,11 +113,11 @@ class OStatusPlugin extends Plugin
             $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
             $url = common_local_url('xrd');
             $url.= '?uri='. $acct;
-            
+
             header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
         }
     }
-    
+
     /**
      * Set up a PuSH hub link to our internal link for canonical timeline
      * Atom feeds for users and groups.
@@ -210,6 +212,22 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
+    function onStartGroupSubscribe($output, $group)
+    {
+        $cur = common_current_user();
+
+        if (empty($cur)) {
+            // Add an OStatus subscribe
+            $url = common_local_url('ostatusinit',
+                                    array('group' => $group->nickname));
+            $output->element('a', array('href' => $url,
+                                        'class' => 'entity_remote_subscribe'),
+                                _m('Join'));
+        }
+
+        return true;
+    }
+
     /**
      * Check if we've got remote replies to send via Salmon.
      *
@@ -233,69 +251,69 @@ class OStatusPlugin extends Plugin
 
     function onEndFindMentions($sender, $text, &$mentions)
     {
-        preg_match_all('!(?:^|\s+)
-                        @(                                # Webfinger:
-                          (?:\w+\.)*\w+                   #   user
-                          @                               #   @
-                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
-                         |                                # Profile:
-                          (?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+ #   domain
-                          (?:/\w+)+                       #   /path1(/path2...)
-                         )!x',
+        $matches = array();
+
+        // Webfinger matches: @user@example.com
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
                        $text,
                        $wmatches,
-                       PREG_OFFSET_CAPTURE);
-
-        foreach ($wmatches[1] as $wmatch) {
-            $target = $wmatch[0];
-            $oprofile = null;
-
-            if (strpos($target, '/') === false) {
-                $this->log(LOG_INFO, "Checking Webfinger for address '$target'");
+                       PREG_OFFSET_CAPTURE)) {
+            foreach ($wmatches[1] as $wmatch) {
+                list($target, $pos) = $wmatch;
+                $this->log(LOG_INFO, "Checking webfinger '$target'");
                 try {
                     $oprofile = Ostatus_profile::ensureWebfinger($target);
+                    if ($oprofile && !$oprofile->isGroup()) {
+                        $profile = $oprofile->localProfile();
+                        $matches[$pos] = array('mentioned' => array($profile),
+                                               'text' => $target,
+                                               'position' => $pos,
+                                               'url' => $profile->profileurl);
+                    }
                 } catch (Exception $e) {
                     $this->log(LOG_ERR, "Webfinger check failed: " . $e->getMessage());
                 }
-            } else {
-                $schemes = array('https', 'http');
+            }
+        }
+
+        // Profile matches: @example.com/mublog/user
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+(?:/\w+)+)!',
+                       $text,
+                       $wmatches,
+                       PREG_OFFSET_CAPTURE)) {
+            foreach ($wmatches[1] as $wmatch) {
+                list($target, $pos) = $wmatch;
+                $schemes = array('http', 'https');
                 foreach ($schemes as $scheme) {
                     $url = "$scheme://$target";
                     $this->log(LOG_INFO, "Checking profile address '$url'");
                     try {
                         $oprofile = Ostatus_profile::ensureProfile($url);
-                        if ($oprofile) {
-                            continue;
+                        if ($oprofile && !$oprofile->isGroup()) {
+                            $profile = $oprofile->localProfile();
+                            $matches[$pos] = array('mentioned' => array($profile),
+                                                   'text' => $target,
+                                                   'position' => $pos,
+                                                   'url' => $profile->profileurl);
+                            break;
                         }
                     } catch (Exception $e) {
                         $this->log(LOG_ERR, "Profile check failed: " . $e->getMessage());
                     }
                 }
             }
+        }
 
-            if (empty($oprofile)) {
-                $this->log(LOG_INFO, "No Ostatus_profile found for address '$target'");
-            } else {
-
-                $this->log(LOG_INFO, "Ostatus_profile found for address '$target'");
-
-                if ($oprofile->isGroup()) {
-                    continue;
-                }
-                $profile = $oprofile->localProfile();
-
-                $pos = $wmatch[1];
-                foreach ($mentions as $i => $other) {
-                    // If we share a common prefix with a local user, override it!
-                    if ($other['position'] == $pos) {
-                        unset($mentions[$i]);
-                    }
-                }
-                $mentions[] = array('mentioned' => array($profile),
-                                    'text' => $target,
-                                    'position' => $pos,
-                                    'url' => $profile->profileurl);
+        foreach ($mentions as $i => $other) {
+            // If we share a common prefix with a local user, override it!
+            $pos = $other['position'];
+            if (isset($matches[$pos])) {
+                $mentions[$i] = $matches[$pos];
+                unset($matches[$pos]);
             }
+        }
+        foreach ($matches as $mention) {
+            $mentions[] = $mention;
         }
 
         return true;
@@ -567,7 +585,6 @@ class OStatusPlugin extends Plugin
             // Drop the PuSH subscription if there are no other subscribers.
             $oprofile->garbageCollect();
 
-
             $member = Profile::staticGet($user->id);
 
             $act = new Activity();
@@ -706,19 +723,45 @@ class OStatusPlugin extends Plugin
 
     function onStartShowSubscriptionsContent($action)
     {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
+    function onStartShowUserGroupsContent($action)
+    {
+        $this->showEntityRemoteSubscribe($action, 'ostatusgroup');
+
+        return true;
+    }
+
+    function onEndShowSubscriptionsMiniList($action)
+    {
+        $this->showEntityRemoteSubscribe($action);
+
+        return true;
+    }
+
+    function onEndShowGroupsMiniList($action)
+    {
+        $this->showEntityRemoteSubscribe($action, 'ostatusgroup');
+
+        return true;
+    }
+
+    function showEntityRemoteSubscribe($action, $target='ostatussub')
+    {
         $user = common_current_user();
         if ($user && ($user->id == $action->profile->id)) {
             $action->elementStart('div', 'entity_actions');
             $action->elementStart('p', array('id' => 'entity_remote_subscribe',
                                              'class' => 'entity_subscribe'));
-            $action->element('a', array('href' => common_local_url('ostatussub'),
+            $action->element('a', array('href' => common_local_url($target),
                                         'class' => 'entity_remote_subscribe')
-                                , _m('Subscribe to remote user'));
+                                , _m('Remote'));
             $action->elementEnd('p');
             $action->elementEnd('div');
         }
-
-        return true;
     }
 
     /**
@@ -763,6 +806,30 @@ class OStatusPlugin extends Plugin
 
         while ($oprofile->fetch()) {
             $oprofile->notifyDeferred($act, $profile);
+        }
+
+        return true;
+    }
+
+    function onStartProfileListItemActionElements($item)
+    {
+        if (!common_logged_in()) {
+
+            $profileUser = User::staticGet('id', $item->profile->id);
+
+            if (!empty($profileUser)) {
+
+                $output = $item->out;
+
+                // Add an OStatus subscribe
+                $output->elementStart('li', 'entity_subscribe');
+                $url = common_local_url('ostatusinit',
+                                        array('nickname' => $profileUser->nickname));
+                $output->element('a', array('href' => $url,
+                                            'class' => 'entity_remote_subscribe'),
+                                 _m('Subscribe'));
+                $output->elementEnd('li');
+            }
         }
 
         return true;

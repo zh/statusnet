@@ -279,10 +279,19 @@ class File extends Memcached_DataObject
                         if($oembed->modified) $enclosure->modified=$oembed->modified;
                         unset($oembed->size);
                     }
+                } else {
+                    return false;
                 }
             }
         }
         return $enclosure;
+    }
+
+    // quick back-compat hack, since there's still code using this
+    function isEnclosure()
+    {
+        $enclosure = $this->getEnclosure();
+        return !empty($enclosure);
     }
 }
 

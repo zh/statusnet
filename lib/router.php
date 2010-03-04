@@ -649,6 +649,7 @@ class Router
 	        $m->connect('admin/access', array('action' => 'accessadminpanel'));
             $m->connect('admin/paths', array('action' => 'pathsadminpanel'));
             $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
+            $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
