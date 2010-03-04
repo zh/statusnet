@@ -107,9 +107,19 @@ class AtomNoticeFeed extends Atom10Feed
      */
     function addEntryFromNotice($notice)
     {
-        $this->addEntryRaw($notice->asAtomEntry());
+        $source = $this->showSource();
+        $author = $this->showAuthor();
+
+        $this->addEntryRaw($notice->asAtomEntry(false, $source, $author));
     }
 
+    function showSource()
+    {
+        return true;
+    }
+
+    function showAuthor()
+    {
+        return true;
+    }
 }
-
-

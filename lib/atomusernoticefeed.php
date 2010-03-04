@@ -61,6 +61,7 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
         if (!empty($user)) {
             $profile = $user->getProfile();
             $this->addAuthor($profile->nickname, $user->uri);
+            $this->setActivitySubject($profile->asActivityNoun('subject'));
         }
 
         $title      = sprintf(_("%s timeline"), $user->nickname);
@@ -104,5 +105,15 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
     function getUser()
     {
         return $this->user;
+    }
+
+    function showSource()
+    {
+        return false;
+    }
+
+    function showAuthor()
+    {
+        return false;
     }
 }

@@ -1060,6 +1060,18 @@ class Activity
         }
 
         $this->entry = $entry;
+
+        // @fixme Don't send in a DOMDocument
+        if ($feed instanceof DOMDocument) {
+            common_log(
+                LOG_WARNING,
+                'Activity::__construct() - '
+                . 'DOMDocument passed in for feed by mistake. '
+                . "Expecting a 'feed' DOMElement."
+            );
+            $feed = $feed->getElementsByTagName('feed')->item(0);
+        }
+
         $this->feed  = $feed;
 
         $pubEl = $this->_child($entry, self::PUBLISHED, self::ATOM);

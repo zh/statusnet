@@ -398,7 +398,7 @@ class OStatusSubAction extends Action
     function title()
     {
         // TRANS: Page title for OStatus remote subscription form
-        return _m('Authorize subscription');
+        return _m('Confirm');
     }
 
     /**
