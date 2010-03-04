@@ -664,7 +664,7 @@ STR;
 
     updateStatus("StatusNet has been installed at $link");
     updateStatus(
-        "You can visit your <a href='$link'>new StatusNet site</a> (login as '$adminNick')."
+        "<strong>DONE!</strong> You can visit your <a href='$link'>new StatusNet site</a> (login as '$adminNick'). If this is your first StatusNet install, you may want to poke around our <a href='http://status.net/wiki/Getting_started'>Getting Started guide</a>."
     );
 }
 
