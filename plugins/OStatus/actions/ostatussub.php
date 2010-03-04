@@ -260,7 +260,7 @@ class OStatusSubAction extends Action
             $this->error = _m('Could not find a feed linked from this URL.');
         } catch (FeedSubUnrecognizedTypeException $e) {
             $this->error = _m('Not a recognized feed type.');
-        } catch (FeedSubException $e) {
+        } catch (Exception $e) {
             // Any new ones we forgot about
             $this->error = sprintf(_m('Bad feed URL: %s %s'), get_class($e), $e->getMessage());
         }
@@ -315,7 +315,6 @@ class OStatusSubAction extends Action
         if ($this->pullRemoteProfile()) {
             $this->validateRemoteProfile();
         }
-
         return true;
     }
 

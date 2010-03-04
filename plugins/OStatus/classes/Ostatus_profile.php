@@ -1267,6 +1267,11 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
+    /**
+     * @param string $addr webfinger address
+     * @return Ostatus_profile
+     * @throws Exception on error conditions
+     */
     public static function ensureWebfinger($addr)
     {
         // First, try the cache
@@ -1275,7 +1280,8 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($uri !== false) {
             if (is_null($uri)) {
-                return null;
+                // Negative cache entry
+                throw new Exception('Not a valid webfinger address.');
             }
             $oprofile = Ostatus_profile::staticGet('uri', $uri);
             if (!empty($oprofile)) {
@@ -1299,8 +1305,9 @@ class Ostatus_profile extends Memcached_DataObject
         try {
             $result = $disco->lookup($addr);
         } catch (Exception $e) {
+            // Save negative cache entry so we don't waste time looking it up again.
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
-            return null;
+            throw new Exception('Not a valid webfinger address.');
         }
 
         foreach ($result->links as $link) {
@@ -1410,7 +1417,7 @@ class Ostatus_profile extends Memcached_DataObject
             return $oprofile;
         }
 
-        return null;
+        throw new Exception("Couldn't find a valid profile for '$addr'");
     }
 
     function saveHTMLFile($title, $rendered)
