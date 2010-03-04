@@ -14,19 +14,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 21:02+0000\n"
-"PO-Revision-Date: 2010-03-02 21:02:48+0000\n"
+"POT-Creation-Date: 2010-03-04 18:55+0000\n"
+"PO-Revision-Date: 2010-03-04 18:56:25+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63186); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. TRANS: Page title
-#: actions/accessadminpanel.php:55
+#. TRANS: Menu item for site administration
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
 msgid "Access"
 msgstr "Accès"
 
@@ -47,7 +48,6 @@ msgstr "Interdire aux utilisateurs anonymes (non connectés) de voir le site ?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-#, fuzzy
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Privé"
@@ -78,7 +78,6 @@ msgid "Save access settings"
 msgstr "Sauvegarder les paramètres d’accès"
 
 #: actions/accessadminpanel.php:203
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Enregistrer"
@@ -123,7 +122,7 @@ msgstr "%1$s et ses amis, page %2$d"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
-#: actions/all.php:89 actions/all.php:177 actions/allrss.php:115
+#: actions/all.php:89 actions/all.php:181 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -187,7 +186,7 @@ msgstr ""
 "un clin d’œil à %s ou poster un avis à son intention."
 
 #. TRANS: H1 text
-#: actions/all.php:174
+#: actions/all.php:178
 msgid "You and friends"
 msgstr "Vous et vos amis"
 
@@ -214,11 +213,11 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:185 actions/apitimelinehome.php:184
-#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
+#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:196 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "Méthode API non trouvée !"
 
@@ -590,7 +589,7 @@ msgstr ""
 "devriez donner l’accès à votre compte %4$s qu’aux tiers à qui vous faites "
 "confiance."
 
-#: actions/apioauthauthorize.php:310
+#: actions/apioauthauthorize.php:310 lib/action.php:438
 msgid "Account"
 msgstr "Compte"
 
@@ -679,18 +678,6 @@ msgstr "%1$s / Favoris de %2$s"
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s statuts favoris de %2$s / %2$s."
 
-#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:138 actions/userrss.php:90
-#, php-format
-msgid "%s timeline"
-msgstr "Activité de %s"
-
-#: actions/apitimelinegroup.php:112 actions/apitimelineuser.php:124
-#: actions/userrss.php:92
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr "Statuts de %1$s dans %2$s!"
-
 #: actions/apitimelinementions.php:117
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
@@ -701,12 +688,12 @@ msgstr "%1$s / Mises à jour mentionnant %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s statuts en réponses aux statuts de %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Activité publique %s"
 
-#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s statuts de tout le monde !"
@@ -954,7 +941,7 @@ msgid "Conversation"
 msgstr "Conversation"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+#: lib/profileaction.php:218 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Avis"
 
@@ -973,7 +960,7 @@ msgstr "Vous n’êtes pas le propriétaire de cette application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1228
+#: lib/action.php:1217
 msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
@@ -1169,8 +1156,9 @@ msgstr "Revenir aux valeurs par défaut"
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:208
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -1286,7 +1274,7 @@ msgstr "la description est trop longue (%d caractères maximum)."
 msgid "Could not update group."
 msgstr "Impossible de mettre à jour le groupe."
 
-#: actions/editgroup.php:264 classes/User_group.php:478
+#: actions/editgroup.php:264 classes/User_group.php:493
 msgid "Could not create aliases."
 msgstr "Impossible de créer les alias."
 
@@ -1410,7 +1398,7 @@ msgid "Cannot normalize that email address"
 msgstr "Impossible d’utiliser cette adresse courriel"
 
 #: actions/emailsettings.php:331 actions/register.php:201
-#: actions/siteadminpanel.php:143
+#: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Adresse courriel invalide."
 
@@ -1602,6 +1590,26 @@ msgstr "Fichier non trouvé."
 msgid "Cannot read file."
 msgstr "Impossible de lire le fichier"
 
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "Jeton incorrect."
+
+#: actions/grantrole.php:66 actions/revokerole.php:66
+msgid "This role is reserved and cannot be set."
+msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr ""
+"Vous ne pouvez pas mettre des utilisateur dans le bac à sable sur ce site."
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "Cet utilisateur est déjà réduit au silence."
+
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:70
@@ -1750,12 +1758,18 @@ msgstr "Faire un administrateur"
 msgid "Make this user an admin"
 msgstr "Faire de cet utilisateur un administrateur"
 
+#: actions/grouprss.php:138 actions/userrss.php:90
+#: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
+#, php-format
+msgid "%s timeline"
+msgstr "Activité de %s"
+
 #: actions/grouprss.php:140
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Mises à jour des membres de %1$s dans %2$s !"
 
-#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groupes"
@@ -2023,7 +2037,6 @@ msgstr "Ajouter un message personnel à l’invitation (optionnel)."
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
 msgstr "Envoyer"
@@ -2394,8 +2407,8 @@ msgstr "type de contenu "
 msgid "Only "
 msgstr "Seulement "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1040
-#: lib/apiaction.php:1068 lib/apiaction.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
+#: lib/apiaction.php:1070 lib/apiaction.php:1179
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
 
@@ -2535,7 +2548,8 @@ msgstr "Impossible de sauvegarder le nouveau mot de passe."
 msgid "Password saved."
 msgstr "Mot de passe enregistré."
 
-#: actions/pathsadminpanel.php:59
+#. TRANS: Menu item for site administration
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:382
 msgid "Paths"
 msgstr "Chemins"
 
@@ -2655,7 +2669,7 @@ msgstr "Dossier des arrière plans"
 msgid "SSL"
 msgstr "SSL"
 
-#: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
+#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "Jamais"
 
@@ -2711,11 +2725,11 @@ msgstr "Cette marque est invalide : %s"
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Utilisateurs marqués par eux-mêmes avec %1$s - page %2$d"
 
-#: actions/postnotice.php:84
+#: actions/postnotice.php:95
 msgid "Invalid notice content"
 msgstr "Contenu de l’avis invalide"
 
-#: actions/postnotice.php:90
+#: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
@@ -2797,7 +2811,7 @@ msgstr ""
 "Marques pour vous-même (lettres, chiffres, -, ., et _), séparées par des "
 "virgules ou des espaces"
 
-#: actions/profilesettings.php:151 actions/siteadminpanel.php:280
+#: actions/profilesettings.php:151
 msgid "Language"
 msgstr "Langue"
 
@@ -2825,7 +2839,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "La bio est trop longue (%d caractères maximum)."
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:150
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "Aucun fuseau horaire n’a été choisi."
 
@@ -3148,7 +3162,7 @@ msgid "Same as password above. Required."
 msgstr "Identique au mot de passe ci-dessus. Requis."
 
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:256 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Courriel"
 
@@ -3257,7 +3271,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL de votre profil sur un autre service de micro-blogging compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:368
+#: lib/userprofile.php:394
 msgid "Subscribe"
 msgstr "S’abonner"
 
@@ -3362,6 +3376,16 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "Réponses à %1$s sur %2$s !"
 
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "Vous ne pouvez pas réduire des utilisateurs au silence sur ce site."
+
+#: actions/revokerole.php:82
+#, fuzzy
+msgid "User doesn't have this role."
+msgstr "Utilisateur sans profil correspondant."
+
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
 msgstr "StatusNet"
@@ -3375,7 +3399,9 @@ msgstr ""
 msgid "User is already sandboxed."
 msgstr "L’utilisateur est déjà dans le bac à sable."
 
+#. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:390
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -3399,7 +3425,7 @@ msgstr "Déboguage de session"
 msgid "Turn on debugging output for sessions."
 msgstr "Activer la sortie de déboguage pour les sessions."
 
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr "Sauvegarder les paramètres du site"
@@ -3430,8 +3456,8 @@ msgstr "Organisation"
 msgid "Description"
 msgstr "Description"
 
-#: actions/showapplication.php:192 actions/showgroup.php:437
-#: lib/profileaction.php:174
+#: actions/showapplication.php:192 actions/showgroup.php:438
+#: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -3573,45 +3599,45 @@ msgstr "Alias"
 msgid "Group actions"
 msgstr "Actions du groupe"
 
-#: actions/showgroup.php:336
+#: actions/showgroup.php:337
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Fil des avis du groupe %s (RSS 1.0)"
 
-#: actions/showgroup.php:342
+#: actions/showgroup.php:343
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Fil des avis du groupe %s (RSS 2.0)"
 
-#: actions/showgroup.php:348
+#: actions/showgroup.php:349
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Fil des avis du groupe %s (Atom)"
 
-#: actions/showgroup.php:353
+#: actions/showgroup.php:354
 #, php-format
 msgid "FOAF for %s group"
 msgstr "ami d’un ami pour le groupe %s"
 
-#: actions/showgroup.php:389 actions/showgroup.php:446 lib/groupnav.php:91
+#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
 msgid "Members"
 msgstr "Membres"
 
-#: actions/showgroup.php:394 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: actions/showgroup.php:395 lib/profileaction.php:117
+#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(aucun)"
 
-#: actions/showgroup.php:400
+#: actions/showgroup.php:401
 msgid "All members"
 msgstr "Tous les membres"
 
-#: actions/showgroup.php:440
+#: actions/showgroup.php:441
 msgid "Created"
 msgstr "Créé"
 
-#: actions/showgroup.php:456
+#: actions/showgroup.php:457
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3627,7 +3653,7 @@ msgstr ""
 "action.register%%%%) pour devenir membre de ce groupe et bien plus ! ([En "
 "lire plus](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:462
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3640,7 +3666,7 @@ msgstr ""
 "logiciel libre [StatusNet](http://status.net/). Ses membres partagent des "
 "messages courts à propos de leur vie et leurs intérêts. "
 
-#: actions/showgroup.php:490
+#: actions/showgroup.php:491
 msgid "Admins"
 msgstr "Administrateurs"
 
@@ -3765,147 +3791,138 @@ msgid "User is already silenced."
 msgstr "Cet utilisateur est déjà réduit au silence."
 
 #: actions/siteadminpanel.php:69
-msgid "Basic settings for this StatusNet site."
+#, fuzzy
+msgid "Basic settings for this StatusNet site"
 msgstr "Paramètres basiques pour ce site StatusNet."
 
-#: actions/siteadminpanel.php:132
+#: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr "Le nom du site ne peut pas être vide."
 
-#: actions/siteadminpanel.php:140
+#: actions/siteadminpanel.php:141
 msgid "You must have a valid contact email address."
 msgstr "Vous devez avoir une adresse électronique de contact valide."
 
-#: actions/siteadminpanel.php:158
+#: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr "Langue « %s » inconnue."
 
 #: actions/siteadminpanel.php:165
-msgid "Invalid snapshot report URL."
-msgstr "URL de rapport d’instantanés invalide."
-
-#: actions/siteadminpanel.php:171
-msgid "Invalid snapshot run value."
-msgstr "Valeur de lancement d’instantanés invalide."
-
-#: actions/siteadminpanel.php:177
-msgid "Snapshot frequency must be a number."
-msgstr "La fréquence des instantanés doit être un nombre."
-
-#: actions/siteadminpanel.php:183
 msgid "Minimum text limit is 140 characters."
 msgstr "La limite minimale de texte est de 140 caractères."
 
-#: actions/siteadminpanel.php:189
+#: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
 msgstr "La limite de doublon doit être d’une seconde ou plus."
 
-#: actions/siteadminpanel.php:239
+#: actions/siteadminpanel.php:221
 msgid "General"
 msgstr "Général"
 
-#: actions/siteadminpanel.php:242
+#: actions/siteadminpanel.php:224
 msgid "Site name"
 msgstr "Nom du site"
 
-#: actions/siteadminpanel.php:243
+#: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "Le nom de votre site, comme « Microblog de votre compagnie »"
 
-#: actions/siteadminpanel.php:247
+#: actions/siteadminpanel.php:229
 msgid "Brought by"
 msgstr "Apporté par"
 
-#: actions/siteadminpanel.php:248
+#: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
 msgstr "Texte utilisé pour le lien de crédits au bas de chaque page"
 
-#: actions/siteadminpanel.php:252
+#: actions/siteadminpanel.php:234
 msgid "Brought by URL"
 msgstr "Apporté par URL"
 
-#: actions/siteadminpanel.php:253
+#: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr "URL utilisée pour le lien de crédits au bas de chaque page"
 
-#: actions/siteadminpanel.php:257
+#: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
 msgstr "Adresse de courriel de contact de votre site"
 
-#: actions/siteadminpanel.php:263
+#: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Local"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr "Zone horaire par défaut"
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr "Zone horaire par défaut pour ce site ; généralement UTC."
 
-#: actions/siteadminpanel.php:281
-msgid "Default site language"
+#: actions/siteadminpanel.php:262
+#, fuzzy
+msgid "Default language"
 msgstr "Langue du site par défaut"
 
-#: actions/siteadminpanel.php:289
-msgid "Snapshots"
-msgstr "Instantanés"
+#: actions/siteadminpanel.php:263
+msgid "Site language when autodetection from browser settings is not available"
+msgstr ""
 
-#: actions/siteadminpanel.php:292
-msgid "Randomly during Web hit"
-msgstr "Au hasard lors des requêtes web"
-
-#: actions/siteadminpanel.php:293
-msgid "In a scheduled job"
-msgstr "Dans une tâche programée"
-
-#: actions/siteadminpanel.php:295
-msgid "Data snapshots"
-msgstr "Instantanés de données"
-
-#: actions/siteadminpanel.php:296
-msgid "When to send statistical data to status.net servers"
-msgstr "Quand envoyer des données statistiques aux serveurs status.net"
-
-#: actions/siteadminpanel.php:301
-msgid "Frequency"
-msgstr "Fréquence"
-
-#: actions/siteadminpanel.php:302
-msgid "Snapshots will be sent once every N web hits"
-msgstr "Les instantanés seront envoyés une fois tous les N requêtes"
-
-#: actions/siteadminpanel.php:307
-msgid "Report URL"
-msgstr "URL de rapport"
-
-#: actions/siteadminpanel.php:308
-msgid "Snapshots will be sent to this URL"
-msgstr "Les instantanés seront envoyés à cette URL"
-
-#: actions/siteadminpanel.php:315
+#: actions/siteadminpanel.php:271
 msgid "Limits"
 msgstr "Limites"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Text limit"
 msgstr "Limite de texte"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
 msgstr "Nombre maximal de caractères pour les avis."
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "Dupe limit"
 msgstr "Limite de doublons"
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Combien de temps (en secondes) les utilisateurs doivent attendre pour poster "
 "la même chose de nouveau."
+
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "Notice du site"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "Nouveau message"
+
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "Impossible de sauvegarder les parmètres de la conception."
+
+#: actions/sitenoticeadminpanel.php:113
+msgid "Max length for the site-wide notice is 255 chars"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "Notice du site"
+
+#: actions/sitenoticeadminpanel.php:178
+msgid "Site-wide notice text (255 chars max; HTML okay)"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "Notice du site"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4009,6 +4026,66 @@ msgstr ""
 #: actions/smssettings.php:498
 msgid "No code entered"
 msgstr "Aucun code entré"
+
+#. TRANS: Menu item for site administration
+#: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
+#: lib/adminpanelaction.php:406
+msgid "Snapshots"
+msgstr "Instantanés"
+
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "Modifier la configuration du site"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr "Valeur de lancement d’instantanés invalide."
+
+#: actions/snapshotadminpanel.php:133
+msgid "Snapshot frequency must be a number."
+msgstr "La fréquence des instantanés doit être un nombre."
+
+#: actions/snapshotadminpanel.php:144
+msgid "Invalid snapshot report URL."
+msgstr "URL de rapport d’instantanés invalide."
+
+#: actions/snapshotadminpanel.php:200
+msgid "Randomly during Web hit"
+msgstr "Au hasard lors des requêtes web"
+
+#: actions/snapshotadminpanel.php:201
+msgid "In a scheduled job"
+msgstr "Dans une tâche programée"
+
+#: actions/snapshotadminpanel.php:206
+msgid "Data snapshots"
+msgstr "Instantanés de données"
+
+#: actions/snapshotadminpanel.php:208
+msgid "When to send statistical data to status.net servers"
+msgstr "Quand envoyer des données statistiques aux serveurs status.net"
+
+#: actions/snapshotadminpanel.php:217
+msgid "Frequency"
+msgstr "Fréquence"
+
+#: actions/snapshotadminpanel.php:218
+msgid "Snapshots will be sent once every N web hits"
+msgstr "Les instantanés seront envoyés une fois tous les N requêtes"
+
+#: actions/snapshotadminpanel.php:226
+msgid "Report URL"
+msgstr "URL de rapport"
+
+#: actions/snapshotadminpanel.php:227
+msgid "Snapshots will be sent to this URL"
+msgstr "Les instantanés seront envoyés à cette URL"
+
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "Sauvegarder les paramètres du site"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4220,7 +4297,7 @@ msgstr "Aucune identité de profil dans la requête."
 msgid "Unsubscribed"
 msgstr "Désabonné"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:337
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4230,7 +4307,6 @@ msgstr ""
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:59
-#, fuzzy
 msgctxt "TITLE"
 msgid "User"
 msgstr "Utilisateur"
@@ -4427,17 +4503,23 @@ msgstr "Groupes %1$s, page %2$d"
 msgid "Search for more groups"
 msgstr "Rechercher pour plus de groupes"
 
-#: actions/usergroups.php:153
+#: actions/usergroups.php:157
 #, php-format
 msgid "%s is not a member of any group."
 msgstr "%s n’est pas membre d’un groupe."
 
-#: actions/usergroups.php:158
+#: actions/usergroups.php:162
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 "Essayez de [rechercher un groupe](%%action.groupsearch%%) et de vous y "
 "inscrire."
+
+#: actions/userrss.php:92 lib/atomgroupnoticefeed.php:66
+#: lib/atomusernoticefeed.php:72
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr "Statuts de %1$s dans %2$s!"
 
 #: actions/version.php:73
 #, php-format
@@ -4494,7 +4576,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Extensions"
 
-#: actions/version.php:196 lib/action.php:778
+#: actions/version.php:196 lib/action.php:767
 msgid "Version"
 msgstr "Version"
 
@@ -4559,22 +4641,22 @@ msgstr "Impossible de mettre à jour le message avec un nouvel URI."
 msgid "DB error inserting hashtag: %s"
 msgstr "Erreur de base de donnée en insérant la marque (hashtag) : %s"
 
-#: classes/Notice.php:239
+#: classes/Notice.php:241
 msgid "Problem saving notice. Too long."
 msgstr "Problème lors de l’enregistrement de l’avis ; trop long."
 
-#: classes/Notice.php:243
+#: classes/Notice.php:245
 msgid "Problem saving notice. Unknown user."
 msgstr "Erreur lors de l’enregistrement de l’avis. Utilisateur inconnu."
 
-#: classes/Notice.php:248
+#: classes/Notice.php:250
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Trop d’avis, trop vite ! Faites une pause et publiez à nouveau dans quelques "
 "minutes."
 
-#: classes/Notice.php:254
+#: classes/Notice.php:256
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4582,19 +4664,19 @@ msgstr ""
 "Trop de messages en double trop vite ! Prenez une pause et publiez à nouveau "
 "dans quelques minutes."
 
-#: classes/Notice.php:260
+#: classes/Notice.php:262
 msgid "You are banned from posting notices on this site."
 msgstr "Il vous est interdit de poster des avis sur ce site."
 
-#: classes/Notice.php:326 classes/Notice.php:352
+#: classes/Notice.php:328 classes/Notice.php:354
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: classes/Notice.php:911
+#: classes/Notice.php:927
 msgid "Problem saving group inbox."
 msgstr "Problème lors de l’enregistrement de la boîte de réception du groupe."
 
-#: classes/Notice.php:1442
+#: classes/Notice.php:1459
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4619,7 +4701,12 @@ msgstr "Pas abonné !"
 msgid "Couldn't delete self-subscription."
 msgstr "Impossible de supprimer l’abonnement à soi-même."
 
-#: classes/Subscription.php:179 lib/subs.php:69
+#: classes/Subscription.php:190
+#, fuzzy
+msgid "Couldn't delete subscription OMB token."
+msgstr "Impossible de cesser l’abonnement"
+
+#: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
 msgstr "Impossible de cesser l’abonnement"
 
@@ -4628,20 +4715,19 @@ msgstr "Impossible de cesser l’abonnement"
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bienvenue à %1$s, @%2$s !"
 
-#: classes/User_group.php:462
+#: classes/User_group.php:477
 msgid "Could not create group."
 msgstr "Impossible de créer le groupe."
 
-#: classes/User_group.php:471
-#, fuzzy
+#: classes/User_group.php:486
 msgid "Could not set group URI."
 msgstr "Impossible de définir l'URI du groupe."
 
-#: classes/User_group.php:492
+#: classes/User_group.php:507
 msgid "Could not set group membership."
 msgstr "Impossible d’établir l’inscription au groupe."
 
-#: classes/User_group.php:506
+#: classes/User_group.php:521
 msgid "Could not save local group info."
 msgstr "Impossible d’enregistrer les informations du groupe local."
 
@@ -4682,194 +4768,171 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "Page sans nom"
 
-#: lib/action.php:433
+#: lib/action.php:424
 msgid "Primary site navigation"
 msgstr "Navigation primaire du site"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:439
-#, fuzzy
+#: lib/action.php:430
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Profil personnel et flux des amis"
 
-#: lib/action.php:442
-#, fuzzy
+#: lib/action.php:433
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Personnel"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:444
-#, fuzzy
+#: lib/action.php:435
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
-msgstr "Modifier votre courriel, avatar, mot de passe, profil"
-
-#: lib/action.php:447
-#, fuzzy
-msgctxt "MENU"
-msgid "Account"
-msgstr "Compte"
+msgstr "Modifier votre adresse électronique, avatar, mot de passe, profil"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:450
-#, fuzzy
+#: lib/action.php:440
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Se connecter aux services"
 
-#: lib/action.php:453
+#: lib/action.php:443
 #, fuzzy
-msgctxt "MENU"
 msgid "Connect"
 msgstr "Connecter"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:457
-#, fuzzy
+#: lib/action.php:446
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Modifier la configuration du site"
 
-#: lib/action.php:460
-#, fuzzy
+#: lib/action.php:449
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Administrer"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:464
-#, fuzzy, php-format
+#: lib/action.php:453
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "Inviter des amis et collègues à vous rejoindre dans %s"
+msgstr "Inviter des amis et collègues à vous rejoindre sur %s"
 
-#: lib/action.php:467
-#, fuzzy
+#: lib/action.php:456
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Inviter"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:473
-#, fuzzy
+#: lib/action.php:462
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Fermer la session"
 
-#: lib/action.php:476
-#, fuzzy
+#: lib/action.php:465
 msgctxt "MENU"
 msgid "Logout"
-msgstr "Fermeture de session"
+msgstr "Déconnexion"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:481
-#, fuzzy
+#: lib/action.php:470
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: lib/action.php:484
-#, fuzzy
+#: lib/action.php:473
 msgctxt "MENU"
 msgid "Register"
-msgstr "Créer un compte"
+msgstr "S'inscrire"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:487
-#, fuzzy
+#: lib/action.php:476
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Ouvrir une session"
 
-#: lib/action.php:490
-#, fuzzy
+#: lib/action.php:479
 msgctxt "MENU"
 msgid "Login"
-msgstr "Ouvrir une session"
+msgstr "Connexion"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:493
-#, fuzzy
+#: lib/action.php:482
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "À l’aide !"
 
-#: lib/action.php:496
-#, fuzzy
+#: lib/action.php:485
 msgctxt "MENU"
 msgid "Help"
 msgstr "Aide"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:499
-#, fuzzy
+#: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Rechercher des personnes ou du texte"
 
-#: lib/action.php:502
-#, fuzzy
+#: lib/action.php:491
 msgctxt "MENU"
 msgid "Search"
 msgstr "Rechercher"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
-#: lib/action.php:524
+#. TRANS: Menu item for site administration
+#: lib/action.php:513 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "Notice du site"
 
-#: lib/action.php:590
+#: lib/action.php:579
 msgid "Local views"
 msgstr "Vues locales"
 
-#: lib/action.php:656
+#: lib/action.php:645
 msgid "Page notice"
 msgstr "Avis de la page"
 
-#: lib/action.php:758
+#: lib/action.php:747
 msgid "Secondary site navigation"
 msgstr "Navigation secondaire du site"
 
-#: lib/action.php:763
+#: lib/action.php:752
 msgid "Help"
 msgstr "Aide"
 
-#: lib/action.php:765
+#: lib/action.php:754
 msgid "About"
 msgstr "À propos"
 
-#: lib/action.php:767
+#: lib/action.php:756
 msgid "FAQ"
 msgstr "FAQ"
 
-#: lib/action.php:771
+#: lib/action.php:760
 msgid "TOS"
 msgstr "CGU"
 
-#: lib/action.php:774
+#: lib/action.php:763
 msgid "Privacy"
 msgstr "Confidentialité"
 
-#: lib/action.php:776
+#: lib/action.php:765
 msgid "Source"
 msgstr "Source"
 
-#: lib/action.php:780
+#: lib/action.php:769
 msgid "Contact"
 msgstr "Contact"
 
-#: lib/action.php:782
+#: lib/action.php:771
 msgid "Badge"
 msgstr "Insigne"
 
-#: lib/action.php:810
+#: lib/action.php:799
 msgid "StatusNet software license"
 msgstr "Licence du logiciel StatusNet"
 
-#: lib/action.php:813
+#: lib/action.php:802
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4878,12 +4941,12 @@ msgstr ""
 "**%%site.name%%** est un service de microblogging qui vous est proposé par  "
 "[%%site.broughtby%%](%%site.broughtbyurl%%)."
 
-#: lib/action.php:815
+#: lib/action.php:804
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** est un service de micro-blogging."
 
-#: lib/action.php:817
+#: lib/action.php:806
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4894,57 +4957,57 @@ msgstr ""
 "version %s, disponible sous la licence [GNU Affero General Public License] "
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:832
+#: lib/action.php:821
 msgid "Site content license"
 msgstr "Licence du contenu du site"
 
-#: lib/action.php:837
+#: lib/action.php:826
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Le contenu et les données de %1$s sont privés et confidentiels."
 
-#: lib/action.php:842
+#: lib/action.php:831
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Le contenu et les données sont sous le droit d’auteur de %1$s. Tous droits "
 "réservés."
 
-#: lib/action.php:845
+#: lib/action.php:834
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Le contenu et les données sont sous le droit d’auteur du contributeur. Tous "
 "droits réservés."
 
-#: lib/action.php:858
+#: lib/action.php:847
 msgid "All "
 msgstr "Tous "
 
-#: lib/action.php:864
+#: lib/action.php:853
 msgid "license."
 msgstr "licence."
 
-#: lib/action.php:1163
+#: lib/action.php:1152
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1172
+#: lib/action.php:1161
 msgid "After"
 msgstr "Après"
 
-#: lib/action.php:1180
+#: lib/action.php:1169
 msgid "Before"
 msgstr "Avant"
 
-#: lib/activity.php:449
+#: lib/activity.php:453
 msgid "Can't handle remote content yet."
 msgstr "Impossible de gérer le contenu distant pour le moment."
 
-#: lib/activity.php:477
+#: lib/activity.php:481
 msgid "Can't handle embedded XML content yet."
 msgstr "Impossible de gérer le contenu XML embarqué pour le moment."
 
-#: lib/activity.php:481
+#: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Impossible de gérer le contenu en Base64 embarqué pour le moment."
 
@@ -4959,91 +5022,78 @@ msgid "Changes to that panel are not allowed."
 msgstr "La modification de ce panneau n’est pas autorisée."
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:211
+#: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr "showForm() n’a pas été implémentée."
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:241
+#: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() n’a pas été implémentée."
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:265
+#: lib/adminpanelaction.php:283
 msgid "Unable to delete design setting."
 msgstr "Impossible de supprimer les paramètres de conception."
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:330
+#: lib/adminpanelaction.php:348
 msgid "Basic site configuration"
 msgstr "Configuration basique du site"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:332
-#, fuzzy
+#: lib/adminpanelaction.php:350
 msgctxt "MENU"
 msgid "Site"
 msgstr "Site"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:338
+#: lib/adminpanelaction.php:356
 msgid "Design configuration"
 msgstr "Configuration de la conception"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:340
-#, fuzzy
+#: lib/adminpanelaction.php:358
 msgctxt "MENU"
 msgid "Design"
 msgstr "Conception"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:346
+#: lib/adminpanelaction.php:364
 msgid "User configuration"
 msgstr "Configuration utilisateur"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:348
-#, fuzzy
-msgctxt "MENU"
+#: lib/adminpanelaction.php:366 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Utilisateur"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:354
+#: lib/adminpanelaction.php:372
 msgid "Access configuration"
 msgstr "Configuration d’accès"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:356
-#, fuzzy
-msgctxt "MENU"
-msgid "Access"
-msgstr "Accès"
-
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:362
+#: lib/adminpanelaction.php:380
 msgid "Paths configuration"
 msgstr "Configuration des chemins"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:364
-#, fuzzy
-msgctxt "MENU"
-msgid "Paths"
-msgstr "Chemins"
-
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:370
+#: lib/adminpanelaction.php:388
 msgid "Sessions configuration"
 msgstr "Configuration des sessions"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:372
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:396
 #, fuzzy
-msgctxt "MENU"
-msgid "Sessions"
-msgstr "Sessions"
+msgid "Edit site notice"
+msgstr "Notice du site"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:404
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "Configuration des chemins"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5581,6 +5631,11 @@ msgstr "Choissez une marque pour réduire la liste"
 msgid "Go"
 msgstr "Aller"
 
+#: lib/grantroleform.php:91
+#, php-format
+msgid "Grant this user the \"%s\" role"
+msgstr ""
+
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
 msgstr "URL du site Web ou blogue du groupe ou sujet "
@@ -6075,7 +6130,6 @@ msgid "Available characters"
 msgstr "Caractères restants"
 
 #: lib/messageform.php:178 lib/noticeform.php:236
-#, fuzzy
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Envoyer"
@@ -6202,10 +6256,6 @@ msgstr "Réponses"
 msgid "Favorites"
 msgstr "Favoris"
 
-#: lib/personalgroupnav.php:115
-msgid "User"
-msgstr "Utilisateur"
-
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr "Boîte de réception"
@@ -6231,7 +6281,7 @@ msgstr "Marques dans les avis de %s"
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonnements"
 
@@ -6239,23 +6289,23 @@ msgstr "Abonnements"
 msgid "All subscriptions"
 msgstr "Tous les abonnements"
 
-#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abonnés"
 
-#: lib/profileaction.php:157
+#: lib/profileaction.php:159
 msgid "All subscribers"
 msgstr "Tous les abonnés"
 
-#: lib/profileaction.php:178
+#: lib/profileaction.php:180
 msgid "User ID"
 msgstr "ID de l’utilisateur"
 
-#: lib/profileaction.php:183
+#: lib/profileaction.php:185
 msgid "Member since"
 msgstr "Membre depuis"
 
-#: lib/profileaction.php:245
+#: lib/profileaction.php:247
 msgid "All groups"
 msgstr "Tous les groupes"
 
@@ -6295,7 +6345,12 @@ msgstr "Reprendre cet avis ?"
 msgid "Repeat this notice"
 msgstr "Reprendre cet avis"
 
-#: lib/router.php:668
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Bloquer cet utilisateur de de groupe"
+
+#: lib/router.php:671
 msgid "No single user defined for single-user mode."
 msgstr "Aucun utilisateur unique défini pour le mode mono-utilisateur."
 
@@ -6449,47 +6504,64 @@ msgstr "Message"
 msgid "Moderate"
 msgstr "Modérer"
 
-#: lib/util.php:1013
+#: lib/userprofile.php:352
+#, fuzzy
+msgid "User role"
+msgstr "Profil de l’utilisateur"
+
+#: lib/userprofile.php:354
+#, fuzzy
+msgctxt "role"
+msgid "Administrator"
+msgstr "Administrateurs"
+
+#: lib/userprofile.php:355
+#, fuzzy
+msgctxt "role"
+msgid "Moderator"
+msgstr "Modérer"
+
+#: lib/util.php:1015
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:1015
+#: lib/util.php:1017
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:1017
+#: lib/util.php:1019
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:1019
+#: lib/util.php:1021
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:1021
+#: lib/util.php:1023
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:1023
+#: lib/util.php:1025
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:1025
+#: lib/util.php:1027
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:1027
+#: lib/util.php:1029
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:1029
+#: lib/util.php:1031
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:1031
+#: lib/util.php:1033
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 
