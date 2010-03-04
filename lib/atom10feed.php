@@ -176,6 +176,14 @@ class Atom10Feed extends XMLStringer
         }
         $this->elementStart('feed', $commonAttrs);
 
+        $this->element(
+            'generator', array(
+                'url'     => 'http://status.net',
+                'version' => STATUSNET_VERSION
+            ),
+            'StatusNet'
+        );
+
         $this->element('id', null, $this->id);
         $this->element('title', null, $this->title);
         $this->element('subtitle', null, $this->subtitle);
