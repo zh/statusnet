@@ -490,17 +490,17 @@ function showForm()
                     <input type="radio" name="fancy" id="fancy-disable" value="" /> disable<br />
                     <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
                 </li>
-                <li>
-                    <label for="host">Hostname</label>
-                    <input type="text" id="host" name="host" value="{$post->value('host')}" />
-                    <p class="form_guide">Database hostname</p>
-                </li>
             </ul>
         </fieldset>
 
         <fieldset id="settings_db">
             <legend>Database settings</legend>
             <ul class="form_data">
+                <li>
+                    <label for="host">Hostname</label>
+                    <input type="text" id="host" name="host" value="{$post->value('host')}" />
+                    <p class="form_guide">Database hostname</p>
+                </li>
                 <li>
                     <label for="dbtype">Type</label>
                     $dbRadios
