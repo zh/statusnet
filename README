@@ -498,7 +498,7 @@ consider setting up queues and daemons.
 Queues and daemons
 ------------------
 
-Some activities that StatusNet needs to do, like broadcast OMB, SMS,
+Some activities that StatusNet needs to do, like broadcast OStatus, SMS,
 and XMPP messages, can be 'queued' and done by off-line bots instead.
 For this to work, you must be able to run long-running offline
 processes, either on your main Web server or on another server you
@@ -524,14 +524,12 @@ server is probably a good idea for high-volume sites.
    options, you'll need to create that user and/or group by hand.
    They're not created automatically.
 
-4. On the queues server, run the command scripts/startdaemons.sh. It
-   needs as a parameter the install path; if you run it from the
-   StatusNet dir, "." should suffice.
+4. On the queues server, run the command scripts/startdaemons.sh.
 
 This will run the queue handlers:
 
 * queuedaemon.php - polls for queued items for inbox processing and
-  pushing out to OMB, SMS, XMPP, etc.
+  pushing out to OStatus, SMS, XMPP, etc.
 * xmppdaemon.php - listens for new XMPP messages from users and stores
   them as notices in the database; also pulls queued XMPP output from
   queuedaemon.php to push out to clients.
@@ -539,6 +537,9 @@ This will run the queue handlers:
 These two daemons will automatically restart in most cases of failure
 including memory leaks (if a memory_limit is set), but may still die
 or behave oddly if they lose connections to the XMPP or queue servers.
+
+Additional daemons may be also started by this script for certain
+plugins, such as the Twitter bridge.
 
 It may be a good idea to use a daemon-monitoring service, like 'monit',
 to check their status and keep them running.
@@ -548,9 +549,11 @@ default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
 Since version 0.8.0, it's now possible to use a STOMP server instead of
-our kind of hacky home-grown DB-based queue solution. See the "queues"
-config section below for how to configure to use STOMP. As of this
-writing, the software has been tested with ActiveMQ.
+our kind of hacky home-grown DB-based queue solution. This is strongly
+recommended for best response time, especially when using XMPP.
+
+See the "queues" config section below for how to configure to use STOMP.
+As of this writing, the software has been tested with ActiveMQ 5.3.
 
 Themes
 ------
@@ -945,11 +948,45 @@ stomp_server: "broker URI" for stomp server. Something like
               possible; see your stomp server's documentation for
               details.
 queue_basename: a root name to use for queues (stomp only). Typically
-                something like '/queue/sitename/' makes sense.
+                something like '/queue/sitename/' makes sense. If running
+                multiple instances on the same server, make sure that
+                either this setting or $config['site']['nickname'] are
+                unique for each site to keep them separate.
+                
 stomp_username: username for connecting to the stomp server; defaults
                 to null.
 stomp_password: password for connecting to the stomp server; defaults
                 to null.
+
+stomp_persistent: keep items across queue server restart, if enabled.
+
+softlimit: an absolute or relative "soft memory limit"; daemons will
+           restart themselves gracefully when they find they've hit
+           this amount of memory usage. Defaults to 90% of PHP's global
+           memory_limit setting.
+
+inboxes: delivery of messages to receiver's inboxes can be delayed to
+         queue time for best interactive performance on the sender.
+         This may however be annoyingly slow when using the DB queues,
+         so you can set this to false if it's causing trouble.
+
+breakout: for stomp, individual queues are by default grouped up for
+          best scalability. If some need to be run by separate daemons,
+          etc they can be manually adjusted here.
+
+          Default will share all queues for all sites within each group.
+          Specify as <group>/<queue> or <group>/<queue>/<site>,
+          using nickname identifier as site.
+
+          'main/distrib' separate "distrib" queue covering all sites
+          'xmpp/xmppout/mysite' separate "xmppout" queue covering just 'mysite'
+
+max_retries: for stomp, drop messages after N failed attempts to process.
+             Defaults to 10.
+
+dead_letter_dir: for stomp, optional directory to dump data on failed
+                 queue processing events after discarding them.
+
 license
 -------
 
@@ -1542,8 +1579,8 @@ Feedback
 * Microblogging messages to http://support.status.net/ are very welcome.
 * The microblogging group http://identi.ca/group/statusnet is a good
   place to discuss the software.
-* StatusNet's Trac server has a bug tracker for any defects you may find,
-  or ideas for making things better. http://status.net/trac/
+* StatusNet has a bug tracker for any defects you may find, or ideas for
+  making things better. http://status.net/bugs
 
 Credits
 =======
