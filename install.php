@@ -833,10 +833,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     <head>
         <title>Install StatusNet</title>
 	<link rel="shortcut icon" href="favicon.ico"/>
-        <link rel="stylesheet" type="text/css" href="theme/default/css/display.css?version=0.8" media="screen, projection, tv"/>
-        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css?version=0.8" /><![endif]-->
-        <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css?version=0.8" /><![endif]-->
-        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/default/css/ie.css?version=0.8" /><![endif]-->
+        <link rel="stylesheet" type="text/css" href="theme/default/css/display.css" media="screen, projection, tv"/>
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/base/css/ie.css" /><![endif]-->
+        <!--[if lte IE 6]><link rel="stylesheet" type="text/css" theme/base/css/ie6.css" /><![endif]-->
+        <!--[if IE]><link rel="stylesheet" type="text/css" href="theme/default/css/ie.css" /><![endif]-->
         <script src="js/jquery.min.js"></script>
         <script src="js/install.js"></script>
     </head>
@@ -852,8 +852,10 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
             </div>
             <div id="core">
                 <div id="content">
-                    <h1>Install StatusNet</h1>
+                     <div id="content_inner">
+                        <h1>Install StatusNet</h1>
 <?php main(); ?>
+                   </div>
                 </div>
             </div>
         </div>
