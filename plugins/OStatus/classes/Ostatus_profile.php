@@ -1306,20 +1306,23 @@ class Ostatus_profile extends Memcached_DataObject
             $result = $disco->lookup($addr);
         } catch (Exception $e) {
             // Save negative cache entry so we don't waste time looking it up again.
+            // @fixme distinguish temporary failures?
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
             throw new Exception('Not a valid webfinger address.');
         }
 
+        $hints = array('webfinger' => $addr);
+
         foreach ($result->links as $link) {
             switch ($link['rel']) {
             case Discovery::PROFILEPAGE:
-                $profileUrl = $link['href'];
+                $hints['profileurl'] = $profileUrl = $link['href'];
                 break;
             case Salmon::NS_REPLIES:
-                $salmonEndpoint = $link['href'];
+                $hints['salmon'] = $salmonEndpoint = $link['href'];
                 break;
             case Discovery::UPDATESFROM:
-                $feedUrl = $link['href'];
+                $hints['feedurl'] = $feedUrl = $link['href'];
                 break;
             case Discovery::HCARD:
                 $hcardUrl = $link['href'];
@@ -1329,11 +1332,6 @@ class Ostatus_profile extends Memcached_DataObject
                 break;
             }
         }
-
-        $hints = array('webfinger' => $addr,
-                       'profileurl' => $profileUrl,
-                       'feedurl' => $feedUrl,
-                       'salmon' => $salmonEndpoint);
 
         if (isset($hcardUrl)) {
             $hcardHints = self::slurpHcard($hcardUrl);
