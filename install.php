@@ -474,76 +474,80 @@ function showForm()
         </ul>
     </dd>
 </dl>
-<dl id="page_notice" class="system_notice">
-    <dt>Page notice</dt>
-    <dd>
-        <div class="instructions">
-            <p>Enter your database connection information below to initialize the database.</p>
-        </div>
-    </dd>
-</dl>
 <form method="post" action="install.php" class="form_settings" id="form_install">
     <fieldset>
-        <legend>Connection settings</legend>
-        <ul class="form_data">
-            <li>
-                <label for="sitename">Site name</label>
-                <input type="text" id="sitename" name="sitename" value="{$post->value('sitename')}" />
-                <p class="form_guide">The name of your site</p>
-            </li>
-            <li>
-                <label for="fancy-enable">Fancy URLs</label>
-                <input type="radio" name="fancy" id="fancy-enable" value="enable" checked='checked' /> enable<br />
-                <input type="radio" name="fancy" id="fancy-disable" value="" /> disable<br />
-                <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
-            </li>
-            <li>
-                <label for="host">Hostname</label>
-                <input type="text" id="host" name="host" value="{$post->value('host')}" />
-                <p class="form_guide">Database hostname</p>
-            </li>
-            <li>
+        <fieldset id="settings_site">
+            <legend>Site settings</legend>
+            <ul class="form_data">
+                <li>
+                    <label for="sitename">Site name</label>
+                    <input type="text" id="sitename" name="sitename" value="{$post->value('sitename')}" />
+                    <p class="form_guide">The name of your site</p>
+                </li>
+                <li>
+                    <label for="fancy-enable">Fancy URLs</label>
+                    <input type="radio" name="fancy" id="fancy-enable" value="enable" checked='checked' /> enable<br />
+                    <input type="radio" name="fancy" id="fancy-disable" value="" /> disable<br />
+                    <p class="form_guide" id='fancy-form_guide'>Enable fancy (pretty) URLs. Auto-detection failed, it depends on Javascript.</p>
+                </li>
+                <li>
+                    <label for="host">Hostname</label>
+                    <input type="text" id="host" name="host" value="{$post->value('host')}" />
+                    <p class="form_guide">Database hostname</p>
+                </li>
+            </ul>
+        </fieldset>
 
-                <label for="dbtype">Type</label>
-                $dbRadios
-                <p class="form_guide">Database type</p>
-            </li>
+        <fieldset id="settings_db">
+            <legend>Database settings</legend>
+            <ul class="form_data">
+                <li>
+                    <label for="dbtype">Type</label>
+                    $dbRadios
+                    <p class="form_guide">Database type</p>
+                </li>
+                <li>
+                    <label for="database">Name</label>
+                    <input type="text" id="database" name="database" value="{$post->value('database')}" />
+                    <p class="form_guide">Database name</p>
+                </li>
+                <li>
+                    <label for="dbusername">DB username</label>
+                    <input type="text" id="dbusername" name="dbusername" value="{$post->value('dbusername')}" />
+                    <p class="form_guide">Database username</p>
+                </li>
+                <li>
+                    <label for="dbpassword">DB password</label>
+                    <input type="password" id="dbpassword" name="dbpassword" value="{$post->value('dbpassword')}" />
+                    <p class="form_guide">Database password (optional)</p>
+                </li>
+            </ul>
+        </fieldset>
 
-            <li>
-                <label for="database">Name</label>
-                <input type="text" id="database" name="database" value="{$post->value('database')}" />
-                <p class="form_guide">Database name</p>
-            </li>
-            <li>
-                <label for="dbusername">DB username</label>
-                <input type="text" id="dbusername" name="dbusername" value="{$post->value('dbusername')}" />
-                <p class="form_guide">Database username</p>
-            </li>
-            <li>
-                <label for="dbpassword">DB password</label>
-                <input type="password" id="dbpassword" name="dbpassword" value="{$post->value('dbpassword')}" />
-                <p class="form_guide">Database password (optional)</p>
-            </li>
-            <li>
-                <label for="admin_nickname">Administrator nickname</label>
-                <input type="text" id="admin_nickname" name="admin_nickname" value="{$post->value('admin_nickname')}" />
-                <p class="form_guide">Nickname for the initial StatusNet user (administrator)</p>
-            </li>
-            <li>
-                <label for="admin_password">Administrator password</label>
-                <input type="password" id="admin_password" name="admin_password" value="{$post->value('admin_password')}" />
-                <p class="form_guide">Password for the initial StatusNet user (administrator)</p>
-            </li>
-            <li>
-                <label for="admin_password2">Confirm password</label>
-                <input type="password" id="admin_password2" name="admin_password2" value="{$post->value('admin_password2')}" />
-            </li>
-            <li>
-                <label for="admin_email">Administrator e-mail</label>
-                <input id="admin_email" name="admin_email" value="{$post->value('admin_email')}" />
-                <p class="form_guide">Optional email address for the initial StatusNet user (administrator)</p>
-            </li>
-        </ul>
+        <fieldset id="settings_admin">
+            <legend>Administrator settings</legend>
+            <ul class="form_data">
+                <li>
+                    <label for="admin_nickname">Administrator nickname</label>
+                    <input type="text" id="admin_nickname" name="admin_nickname" value="{$post->value('admin_nickname')}" />
+                    <p class="form_guide">Nickname for the initial StatusNet user (administrator)</p>
+                </li>
+                <li>
+                    <label for="admin_password">Administrator password</label>
+                    <input type="password" id="admin_password" name="admin_password" value="{$post->value('admin_password')}" />
+                    <p class="form_guide">Password for the initial StatusNet user (administrator)</p>
+                </li>
+                <li>
+                    <label for="admin_password2">Confirm password</label>
+                    <input type="password" id="admin_password2" name="admin_password2" value="{$post->value('admin_password2')}" />
+                </li>
+                <li>
+                    <label for="admin_email">Administrator e-mail</label>
+                    <input id="admin_email" name="admin_email" value="{$post->value('admin_email')}" />
+                    <p class="form_guide">Optional email address for the initial StatusNet user (administrator)</p>
+                </li>
+            </ul>
+        </fieldset>
         <input type="submit" name="submit" class="submit" value="Submit" />
     </fieldset>
 </form>
