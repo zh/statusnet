@@ -186,7 +186,7 @@ class OStatusInitAction extends Action
                 $this->clientError("No such user.");
             }
         } else if ($this->group) {
-            $group = Local_group::staticGet('id', $this->group);
+            $group = Local_group::staticGet('nickname', $this->group);
             if ($group) {
                 return common_local_url('groupbyid', array('id' => $group->group_id));
             } else {
