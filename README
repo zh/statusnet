@@ -5,10 +5,10 @@ README
 StatusNet 0.9.0 ("Stand")
 4 Mar 2010
 
-This is the README file for StatusNet (formerly Laconica), the Open
-Source microblogging platform. It includes installation instructions,
-descriptions of options you can set, warnings, tips, and general info
-for administrators. Information on using StatusNet can be found in the
+This is the README file for StatusNet, the Open Source microblogging
+platform. It includes installation instructions, descriptions of
+options you can set, warnings, tips, and general info for
+administrators. Information on using StatusNet can be found in the
 "doc" subdirectory or in the "help" section on-line.
 
 About
@@ -160,6 +160,8 @@ For some functionality, you will also need the following extensions:
 - Sphinx Search. A client for the sphinx server, an alternative
   to MySQL or Postgresql fulltext search. You will also need a
   Sphinx server to serve the search queries.
+- bcmath or gmp. For Salmon signatures (part of OStatus). Needed
+  if you have OStatus configured.
 
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
@@ -209,6 +211,9 @@ and the URLs are listed here for your convenience.
 - PEAR Validate is an oEmbed dependency.
 - PEAR Net_URL2 is an oEmbed dependency.
 - Console_GetOpt for parsing command-line options.
+- libomb. a library for implementing OpenMicroBlogging 0.1, the
+  predecessor to OStatus.
+- HTTP_Request2, a library for making HTTP requests.
 
 A design goal of StatusNet is that the basic Web functionality should
 work on even the most restrictive commercial hosting services.
@@ -226,9 +231,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf statusnet-0.8.2.tar.gz
+   	   tar zxf statusnet-0.9.0.tar.gz
 
-   ...which will make a statusnet-0.8.2 subdirectory in your current
+   ...which will make a statusnet-0.9.0 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -236,34 +241,34 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv statusnet-0.8.2 /var/www/mublog
+   	   mv statusnet-0.9.0 /var/www/statusnet
 
-   This will make your StatusNet instance available in the mublog path of
-   your server, like "http://example.net/mublog". "microblog" or
+   This will make your StatusNet instance available in the statusnet path of
+   your server, like "http://example.net/statusnet". "microblog" or
    "statusnet" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
 3. Make your target directory writeable by the Web server.
 
-   	  chmod a+w /var/www/mublog/
+   	  chmod a+w /var/www/statusnet/
 
    On some systems, this will probably work:
 
-      	   chgrp www-data /var/www/mublog/
-	   chmod g+w /var/www/mublog/
+      	   chgrp www-data /var/www/statusnet/
+	   chmod g+w /var/www/statusnet/
 
    If your Web server runs as another user besides "www-data", try
    that user's default group instead. As a last resort, you can create
-   a new group like "mublog" and add the Web server's user to the group.
+   a new group like "statusnet" and add the Web server's user to the group.
 
 4. You should also take this moment to make your avatar, background, and
    file subdirectories writeable by the Web server. An insecure way to do
    this is:
 
-   	  chmod a+w /var/www/mublog/avatar
-   	  chmod a+w /var/www/mublog/background
-   	  chmod a+w /var/www/mublog/file
+   	  chmod a+w /var/www/statusnet/avatar
+   	  chmod a+w /var/www/statusnet/background
+   	  chmod a+w /var/www/statusnet/file
 
    You can also make the avatar, background, and file directories
    writeable by the Web server group, as noted above.
@@ -286,16 +291,16 @@ especially if you've previously installed PHP/MySQL packages.
    MySQL shell:
 
           GRANT ALL on statusnet.*
-	  TO 'lacuser'@'localhost'
-	  IDENTIFIED BY 'lacpassword';
+	  TO 'statusnetuser'@'localhost'
+	  IDENTIFIED BY 'statusnetpassword';
 
-   You should change 'lacuser' and 'lacpassword' to your preferred new
+   You should change 'statusnetuser' and 'statusnetpassword' to your preferred new
    username and password. You may want to test logging in to MySQL as
    this new user.
 
 7. In a browser, navigate to the StatusNet install script; something like:
 
-           http://yourserver.example.com/mublog/install.php
+           http://yourserver.example.com/statusnet/install.php
 
    Enter the database connection information and your site name. The
    install program will configure your site and install the initial,
@@ -315,16 +320,16 @@ By default, StatusNet will use URLs that include the main PHP program's
 name in them. For example, a user's home profile might be
 found at:
 
-    http://example.org/mublog/index.php/mublog/fred
+    http://example.org/statusnet/index.php/statusnet/fred
 
 On certain systems that don't support this kind of syntax, they'll
 look like this:
 
-    http://example.org/mublog/index.php?p=mublog/fred
+    http://example.org/statusnet/index.php?p=statusnet/fred
 
 It's possible to configure the software so it looks like this instead:
 
-    http://example.org/mublog/fred
+    http://example.org/statusnet/fred
 
 These "fancy URLs" are more readable and memorable for users. To use
 fancy URLs, you must either have Apache 2.x with .htaccess enabled and
@@ -349,7 +354,7 @@ your server.
 You should now be able to navigate to a "fancy" URL on your server,
 like:
 
-     http://example.net/mublog/main/register
+     http://example.net/statusnet/main/register
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
@@ -401,7 +406,7 @@ For this to work, there *must* be a domain or sub-domain for which all
 1. Run the SQL script carrier.sql in your StatusNet database. This will
    usually work:
 
-   	   mysql -u "lacuser" --password="lacpassword" statusnet < db/carrier.sql
+   	   mysql -u "statusnetuser" --password="statusnetpassword" statusnet < db/carrier.sql
 
    This will populate your database with a list of wireless carriers
    that support email SMS gateways.
@@ -545,43 +550,6 @@ our kind of hacky home-grown DB-based queue solution. See the "queues"
 config section below for how to configure to use STOMP. As of this
 writing, the software has been tested with ActiveMQ.
 
-Sitemaps
---------
-
-Sitemap files <http://sitemaps.org/> are a very nice way of telling
-search engines and other interested bots what's available on your site
-and what's changed recently. You can generate sitemap files for your
-StatusNet instance.
-
-1. Choose your sitemap URL layout. StatusNet creates a number of
-   sitemap XML files for different parts of your site. You may want to
-   put these in a sub-directory of your StatusNet directory to avoid
-   clutter. The sitemap index file tells the search engines and other
-   bots where to find all the sitemap files; it *must* be in the main
-   installation directory or higher. Both types of file must be
-   available through HTTP.
-
-2. To generate your sitemaps, run the following command on your server:
-
-   php scripts/sitemap.php -f index-file-path -d sitemap-directory -u URL-prefix-for-sitemaps
-
-   Here, index-file-path is the full path to the sitemap index file,
-   like './sitemapindex.xml'. sitemap-directory is the directory where
-   you want the sitemaps stored, like './sitemaps/' (make sure the dir
-   exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
-   typically something like <http://example.net/mublog/sitemaps/>.
-
-You can use several methods for submitting your sitemap index to
-search engines to get your site indexed. One is to add a line like the
-following to your robots.txt file:
-
-   Sitemap: /mublog/sitemapindex.xml
-
-This is a good idea for letting *all* Web spiders know about your
-sitemap. You can also submit sitemap files to major search engines
-using their respective "Webmaster centres"; see sitemaps.org for links
-to these resources.
-
 Themes
 ------
 
@@ -664,17 +632,17 @@ Access to file attachments can also be restricted to logged-in users only.
 1. Add a directory outside the web root where your file uploads will be
    stored. Usually a command like this will work:
 
-           mkdir /var/www/mublog-files
+           mkdir /var/www/statusnet-files
 
 2. Make the file uploads directory writeable by the web server. An
    insecure way to do this is:
 
-           chmod a+x /var/www/mublog-files
+           chmod a+x /var/www/statusnet-files
 
 3. Tell StatusNet to use this directory for file uploads. Add a line
    like this to your config.php:
 
-           $config['attachments']['dir'] = '/var/www/mublog-files';
+           $config['attachments']['dir'] = '/var/www/statusnet-files';
 
 Upgrading
 =========
@@ -689,7 +657,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.8.2. Try these step-by-step
+upgrade procedure in StatusNet 0.9.0. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -709,8 +677,8 @@ instructions; read to the end first before trying them.
    maildaemon.php file, and running something like "newaliases".
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
-6. Move your StatusNet directory to a backup spot, like "mublog.bak".
-7. Unpack your StatusNet 0.8.2 tarball and move it to "mublog" or
+6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
+7. Unpack your StatusNet 0.9.0 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -820,7 +788,7 @@ This section is a catch-all for site-wide variables.
 
 name: the name of your site, like 'YourCompany Microblog'.
 server: the server part of your site's URLs, like 'example.net'.
-path: The path part of your site's URLs, like 'mublog' or ''
+path: The path part of your site's URLs, like 'statusnet' or ''
       (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
        section above). Default is false.
@@ -1510,7 +1478,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.8.2 without reading the "Notice
+If you upgraded to StatusNet 0.9.0 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 
@@ -1565,16 +1533,16 @@ There are several ways to get more information about StatusNet.
 * The #statusnet IRC channel on freenode.net <http://www.freenode.net/>.
 * The StatusNet wiki, http://status.net/wiki/
 * The StatusNet blog, http://status.net/blog/
-* The StatusNet status update, <http://status.status.net/status> (!)
+* The StatusNet status update, <http://status.status.net/> (!)
 
 Feedback
 ========
 
-* Microblogging messages to http://identi.ca/evan are very welcome.
+* Microblogging messages to http://support.status.net/ are very welcome.
+* The microblogging group http://identi.ca/group/statusnet is a good
+  place to discuss the software.
 * StatusNet's Trac server has a bug tracker for any defects you may find,
   or ideas for making things better. http://status.net/trac/
-* e-mail to evan@status.net will usually be read and responded to very
-  quickly, unless the question is really hard.
 
 Credits
 =======
