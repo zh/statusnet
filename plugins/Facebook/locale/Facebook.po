@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-07 20:38-0800\n"
+"POT-Creation-Date: 2010-03-01 14:58-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,61 +59,29 @@ msgstr ""
 msgid "Lost or forgotten password?"
 msgstr ""
 
-#: facebookaction.php:386 facebookhome.php:248
+#: facebookaction.php:330 facebookhome.php:248
 msgid "Pagination"
 msgstr ""
 
-#: facebookaction.php:395 facebookhome.php:257
+#: facebookaction.php:339 facebookhome.php:257
 msgid "After"
 msgstr ""
 
-#: facebookaction.php:403 facebookhome.php:265
+#: facebookaction.php:347 facebookhome.php:265
 msgid "Before"
 msgstr ""
 
-#: facebookaction.php:421
+#: facebookaction.php:365
 msgid "No notice content!"
 msgstr ""
 
-#: facebookaction.php:427
+#: facebookaction.php:371
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 
-#: facebookaction.php:523
+#: facebookaction.php:430
 msgid "Notices"
-msgstr ""
-
-#: facebookutil.php:280
-#, php-format
-msgid "Your %1$s Facebook application access has been disabled."
-msgstr ""
-
-#: facebookutil.php:283
-#, php-format
-msgid ""
-"Hi, %1$s. We're sorry to inform you that we are unable to update your "
-"Facebook status from %2$s, and have disabled the Facebook application for "
-"your account. This may be because you have removed the Facebook "
-"application's authorization, or have deleted your Facebook account.  You can "
-"re-enable the Facebook application and automatic status updating by re-"
-"installing the %2$s Facebook application.\n"
-"\n"
-"Regards,\n"
-"\n"
-"%2$s"
-msgstr ""
-
-#: FBConnectLogin.php:33
-msgid "Already logged in."
-msgstr ""
-
-#: FBConnectLogin.php:41
-msgid "Login with your Facebook Account"
-msgstr ""
-
-#: FBConnectLogin.php:55
-msgid "Facebook Login"
 msgstr ""
 
 #: facebookhome.php:111
@@ -147,6 +115,56 @@ msgstr ""
 
 #: facebookhome.php:219
 msgid "Skip"
+msgstr ""
+
+#: facebookinvite.php:72
+#, php-format
+msgid "Thanks for inviting your friends to use %s"
+msgstr ""
+
+#: facebookinvite.php:74
+msgid "Invitations have been sent to the following users:"
+msgstr ""
+
+#: facebookinvite.php:94
+#, php-format
+msgid "You have been invited to %s"
+msgstr ""
+
+#: facebookinvite.php:103
+#, php-format
+msgid "Invite your friends to use %s"
+msgstr ""
+
+#: facebookinvite.php:125
+#, php-format
+msgid "Friends already using %s:"
+msgstr ""
+
+#: facebookinvite.php:143
+msgid "Send invitations"
+msgstr ""
+
+#: FacebookPlugin.php:413 FacebookPlugin.php:433
+msgid "Facebook"
+msgstr ""
+
+#: FacebookPlugin.php:414
+msgid "Login or register using Facebook"
+msgstr ""
+
+#: FacebookPlugin.php:434 FBConnectSettings.php:56
+msgid "Facebook Connect Settings"
+msgstr ""
+
+#: FacebookPlugin.php:533
+msgid ""
+"The Facebook plugin allows you to integrate your StatusNet instance with <a "
+"href=\"http://facebook.com/\">Facebook</a> and Facebook Connect."
+msgstr ""
+
+#: facebookremove.php:58
+msgid "Couldn't remove Facebook user."
 msgstr ""
 
 #: facebooksettings.php:74
@@ -193,89 +211,19 @@ msgstr ""
 msgid "Sync preferences"
 msgstr ""
 
-#: facebookinvite.php:72
+#: facebookutil.php:285
 #, php-format
-msgid "Thanks for inviting your friends to use %s"
-msgstr ""
-
-#: facebookinvite.php:74
-msgid "Invitations have been sent to the following users:"
-msgstr ""
-
-#: facebookinvite.php:94
-#, php-format
-msgid "You have been invited to %s"
-msgstr ""
-
-#: facebookinvite.php:103
-#, php-format
-msgid "Invite your friends to use %s"
-msgstr ""
-
-#: facebookinvite.php:125
-#, php-format
-msgid "Friends already using %s:"
-msgstr ""
-
-#: facebookinvite.php:143
-msgid "Send invitations"
-msgstr ""
-
-#: facebookremove.php:58
-msgid "Couldn't remove Facebook user."
-msgstr ""
-
-#: FBConnectSettings.php:56 FacebookPlugin.php:430
-msgid "Facebook Connect Settings"
-msgstr ""
-
-#: FBConnectSettings.php:67
-msgid "Manage how your account connects to Facebook"
-msgstr ""
-
-#: FBConnectSettings.php:92
-msgid "There is no Facebook user connected to this account."
-msgstr ""
-
-#: FBConnectSettings.php:100
-msgid "Connected Facebook user"
-msgstr ""
-
-#: FBConnectSettings.php:119
-msgid "Disconnect my account from Facebook"
-msgstr ""
-
-#: FBConnectSettings.php:124
 msgid ""
-"Disconnecting your Faceboook would make it impossible to log in! Please "
-msgstr ""
-
-#: FBConnectSettings.php:128
-msgid "set a password"
-msgstr ""
-
-#: FBConnectSettings.php:130
-msgid " first."
-msgstr ""
-
-#: FBConnectSettings.php:142
-msgid "Disconnect"
-msgstr ""
-
-#: FBConnectSettings.php:164 FBConnectAuth.php:90
-msgid "There was a problem with your session token. Try again, please."
-msgstr ""
-
-#: FBConnectSettings.php:178
-msgid "Couldn't delete link to Facebook."
-msgstr ""
-
-#: FBConnectSettings.php:194
-msgid "You have disconnected from Facebook."
-msgstr ""
-
-#: FBConnectSettings.php:197
-msgid "Not sure what you're trying to do."
+"Hi, %1$s. We're sorry to inform you that we are unable to update your "
+"Facebook status from %2$s, and have disabled the Facebook application for "
+"your account. This may be because you have removed the Facebook "
+"application's authorization, or have deleted your Facebook account.  You can "
+"re-enable the Facebook application and automatic status updating by re-"
+"installing the %2$s Facebook application.\n"
+"\n"
+"Regards,\n"
+"\n"
+"%2$s"
 msgstr ""
 
 #: FBConnectAuth.php:51
@@ -284,6 +232,10 @@ msgstr ""
 
 #: FBConnectAuth.php:77
 msgid "There is already a local user linked with this Facebook."
+msgstr ""
+
+#: FBConnectAuth.php:90 FBConnectSettings.php:164
+msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
 #: FBConnectAuth.php:95
@@ -385,10 +337,59 @@ msgstr ""
 msgid "Invalid username or password."
 msgstr ""
 
-#: FacebookPlugin.php:409 FacebookPlugin.php:429
-msgid "Facebook"
+#: FBConnectLogin.php:33
+msgid "Already logged in."
 msgstr ""
 
-#: FacebookPlugin.php:410
-msgid "Login or register using Facebook"
+#: FBConnectLogin.php:41
+msgid "Login with your Facebook Account"
+msgstr ""
+
+#: FBConnectLogin.php:55
+msgid "Facebook Login"
+msgstr ""
+
+#: FBConnectSettings.php:67
+msgid "Manage how your account connects to Facebook"
+msgstr ""
+
+#: FBConnectSettings.php:92
+msgid "There is no Facebook user connected to this account."
+msgstr ""
+
+#: FBConnectSettings.php:100
+msgid "Connected Facebook user"
+msgstr ""
+
+#: FBConnectSettings.php:119
+msgid "Disconnect my account from Facebook"
+msgstr ""
+
+#: FBConnectSettings.php:124
+msgid ""
+"Disconnecting your Faceboook would make it impossible to log in! Please "
+msgstr ""
+
+#: FBConnectSettings.php:128
+msgid "set a password"
+msgstr ""
+
+#: FBConnectSettings.php:130
+msgid " first."
+msgstr ""
+
+#: FBConnectSettings.php:142
+msgid "Disconnect"
+msgstr ""
+
+#: FBConnectSettings.php:178
+msgid "Couldn't delete link to Facebook."
+msgstr ""
+
+#: FBConnectSettings.php:194
+msgid "You have disconnected from Facebook."
+msgstr ""
+
+#: FBConnectSettings.php:197
+msgid "Not sure what you're trying to do."
 msgstr ""
