@@ -49,6 +49,7 @@ box-shadow:3px 3px 7px rgba(194, 194, 194, 0.3);
 .pagination .nav_next a,
 .form_settings fieldset fieldset,
 .entity_moderation:hover ul,
+.entity_role:hover ul,
 .dialogbox {
 border-color:#DDDDDD;
 }
@@ -67,6 +68,7 @@ input.submit,
 .entity_actions a,
 .entity_actions input,
 .entity_moderation p,
+.entity_role p,
 button {
 box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
@@ -128,7 +130,8 @@ a,
 .notice-options input,
 .entity_actions a,
 .entity_actions input,
-.entity_moderation p {
+.entity_moderation p,
+.entity_role p {
 color:#002FA7;
 }
 
@@ -191,6 +194,9 @@ button.close,
 .entity_sandbox input.submit,
 .entity_silence input.submit,
 .entity_delete input.submit,
+.entity_role p,
+.entity_role_administrator input.submit,
+.entity_role_moderator input.submit,
 .notice-options .repeated,
 .form_notice label[for=notice_data-geo],
 button.minimize,
@@ -230,6 +236,7 @@ border-color:transparent;
 #site_nav_local_views .current a,
 .entity_send-a-message .form_notice,
 .entity_moderation:hover ul,
+.entity_role:hover ul,
 .dialogbox {
 background-color:#FFFFFF;
 }
@@ -319,6 +326,7 @@ background-position: 5px -852px;
 }
 .entity_send-a-message .form_notice,
 .entity_moderation:hover ul,
+.entity_role:hover ul,
 .dialogbox {
 box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 -moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
@@ -349,6 +357,15 @@ background-position: 5px -1445px;
 }
 .entity_delete input.submit {
 background-position: 5px -1511px;
+}
+.entity_role p {
+background-position: 5px -2436px;
+}
+.entity_role_administrator input.submit {
+background-position: 5px -983px;
+}
+.entity_role_moderator input.submit {
+background-position: 5px -1313px;
 }
 .form_reset_key input.submit {
 background-position: 5px -1973px;
