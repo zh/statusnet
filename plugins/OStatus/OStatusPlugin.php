@@ -44,7 +44,9 @@ class OStatusPlugin extends Plugin
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
         $m->connect('main/xrd',
-                    array('action' => 'xrd'));
+                    array('action' => 'userxrd'));
+        $m->connect('main/ownerxrd',
+                    array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
