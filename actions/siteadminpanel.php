@@ -66,7 +66,7 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('Basic settings for this StatusNet site.');
+        return _('Basic settings for this StatusNet site');
     }
 
     /**
@@ -90,10 +90,11 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
-                                                 'email', 'timezone', 'language',
-                                                 'site', 'textlimit', 'dupelimit'),
-                                 'snapshot' => array('run', 'reporturl', 'frequency'));
+        static $settings = array(
+            'site' => array('name', 'broughtby', 'broughtbyurl',
+            'email', 'timezone', 'language',
+            'site', 'textlimit', 'dupelimit'),
+        );
 
         $values = array();
 
@@ -156,25 +157,6 @@ class SiteadminpanelAction extends AdminPanelAction
         if (!is_null($values['site']['language']) &&
             !in_array($values['site']['language'], array_keys(get_nice_language_list()))) {
             $this->clientError(sprintf(_('Unknown language "%s".'), $values['site']['language']));
-        }
-
-        // Validate report URL
-
-        if (!is_null($values['snapshot']['reporturl']) &&
-            !Validate::uri($values['snapshot']['reporturl'], array('allowed_schemes' => array('http', 'https')))) {
-            $this->clientError(_("Invalid snapshot report URL."));
-        }
-
-        // Validate snapshot run value
-
-        if (!in_array($values['snapshot']['run'], array('web', 'cron', 'never'))) {
-            $this->clientError(_("Invalid snapshot run value."));
-        }
-
-        // Validate snapshot run value
-
-        if (!Validate::number($values['snapshot']['frequency'])) {
-            $this->clientError(_("Snapshot frequency must be a number."));
         }
 
         // Validate text limit
@@ -282,32 +264,6 @@ class SiteAdminPanelForm extends AdminForm
                              false, $this->value('language'));
         $this->unli();
 
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart('fieldset', array('id' => 'settings_admin_snapshots'));
-        $this->out->element('legend', null, _('Snapshots'));
-        $this->out->elementStart('ul', 'form_data');
-        $this->li();
-        $snapshot = array('web' => _('Randomly during Web hit'),
-                          'cron' => _('In a scheduled job'),
-                          'never' => _('Never'));
-        $this->out->dropdown('run', _('Data snapshots'),
-                             $snapshot, _('When to send statistical data to status.net servers'),
-                             false, $this->value('run', 'snapshot'));
-        $this->unli();
-
-        $this->li();
-        $this->input('frequency', _('Frequency'),
-                     _('Snapshots will be sent once every N web hits'),
-                     'snapshot');
-        $this->unli();
-
-        $this->li();
-        $this->input('reporturl', _('Report URL'),
-                     _('Snapshots will be sent to this URL'),
-                     'snapshot');
-        $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
