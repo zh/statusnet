@@ -358,14 +358,26 @@ background-position: 5px -1445px;
 .entity_delete input.submit {
 background-position: 5px -1511px;
 }
+.entity_sandbox .form_user_unsandbox input.submit {
+background-position: 5px -2568px;
+}
+.entity_silence .form_user_unsilence input.submit {
+background-position: 5px -2633px;
+}
 .entity_role p {
 background-position: 5px -2436px;
 }
-.entity_role_administrator input.submit {
+.entity_role_administrator .form_user_grantrole input.submit {
 background-position: 5px -983px;
 }
-.entity_role_moderator input.submit {
+.entity_role_moderator .form_user_grantrole input.submit {
 background-position: 5px -1313px;
+}
+.entity_role_administrator .form_user_revokerole input.submit {
+background-position: 5px -2699px;
+}
+.entity_role_moderator .form_user_revokerole input.submit {
+background-position: 5px -2501px;
 }
 .form_reset_key input.submit {
 background-position: 5px -1973px;
