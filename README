@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand") Beta 5
-1 Feb 2010
+StatusNet 0.9.0 ("Stand")
+4 Mar 2010
 
 This is the README file for StatusNet (formerly Laconica), the Open
 Source microblogging platform. It includes installation instructions,
@@ -14,21 +14,21 @@ for administrators. Information on using StatusNet can be found in the
 About
 =====
 
-StatusNet (formerly Laconica) is a Free and Open Source microblogging
-platform. It helps people in a community, company or group to exchange
-short (140 characters, by default) messages over the Web. Users can
-choose which people to "follow" and receive only their friends' or
-colleagues' status messages. It provides a similar service to sites
-like Twitter, Jaiku, Yammer, and Plurk.
+StatusNet is a Free and Open Source microblogging platform. It helps
+people in a community, company or group to exchange short (140
+characters, by default) messages over the Web. Users can choose which
+people to "follow" and receive only their friends' or colleagues'
+status messages. It provides a similar service to sites like Twitter,
+Google Buzz, or Yammer.
 
 With a little work, status messages can be sent to mobile phones,
 instant messenger programs (GTalk/Jabber), and specially-designed
 desktop clients that support the Twitter API.
 
-StatusNet supports an open standard called OpenMicroBlogging
-<http://openmicroblogging.org/> that lets users on different Web sites
-or in different companies subscribe to each others' notices. It
-enables a distributed social network spread all across the Web.
+StatusNet supports an open standard called OStatus
+<http://ostatus.org/> that lets users in different networks follow
+each other. It enables a distributed social network spread all across
+the Web.
 
 StatusNet was originally developed for the Open Software Service,
 Identi.ca <http://identi.ca/>. It is shared with you in hope that you
@@ -77,203 +77,51 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release since version 0.8.2, released Nov 1 2009.
-It is also a security release since 0.9.0beta4 January 27 2010. Beta
-users are strongly encouraged to upgrade to deal with a security alert.
-
-http://status.net/wiki/Security_alert_0000002
+This is a major feature release since version 0.8.3, released Feb 1
+2010. It is the final release version of 0.9.0.
 
 Notable changes this version:
 
-- Records of deleted notices are stored without the notice content.
-- Much of the optional core featureset has been moved to plugins.
-- OpenID support moved from core to a plugin. Helps test the strength of
-  our plugin architecture and makes it easy to disable this
-  functionality for e.g. intranet sites.
-- Many additional hook events (see EVENTS.txt for details).
-- OMB 0.1 support re-implemented using libomb.
-- Re-structure database so notices, messages, bios and group
-  descriptions can be over 140 characters. Limit defined by
-  site administrator as configuration option; can be unlimited.
-- Configuration data now optionally stored in the database, which
-  overrides any settings in config files.
-- Twitter integration re-implemented as a plugin.
-- Facebook integration re-implemented as a plugin.
-- Role-based authorization framework. Users can have named roles, and
-  roles can have rights (e.g., to delete notices, change configuration
-  data, or ban uncooperative users). Default roles 'admin' (for
-  configuration) and 'moderator' (for community management) added.
-- Plugin for PubSubHubBub (PuSH) support.
-- Considerable code style cleanup to meet PEAR code standards.
-- Made a common library for HTTP-client access which uses available
-  HTTP libraries where possible.
-- Added statuses/home_timeline method to API.
-- Hooks for plugins to handle notices offline, either by defining
-  their own queue handler scripts or to use a default plugin queue
-  handler script.
-- Plugins can now modify the database schema, adding their own tables
-  or modifying existing ones.
-- Groups API.
-- Twitter API supports Web caching for some methods.
-- Twitter API refactored into one-action-per-method.
-- Realtime plugin supports a tear-off window.
-- FOAF for groups.
-- Moved all JavaScript tags to just before </body> by default,
-  significantly speeding up apparent page load time.
-- Added a Realtime plugin for Orbited server.
-- Added a mobile plugin to give a more mobile-phone-friendly layout
-  when a mobile browser is detected.
-- Use CSS sprites for most common icons.
-- Fixes for images and buttons on Web output.
-- New plugin requires that users validate their email before posting.
-- New plugin UserFlag lets users flag other profiles for review.
-- Considerably better i18n support. Use TranslateWiki to update
-  translations.
-- Notices and profiles now store location information.
-- New plugin, Geonames, for turning location names and lat/long pairs
-  into structured IDs and vice versa. Architecture reusable for other
-  systems.
-- Better check of license compatibility between site licenses.
-- Some improvements in XMPP output.
-- Media upload in the API.
-- Replies appear in the user's inbox.
-- Improved the UI on the bookmarklet.
-- StatusNet identities can be used as OpenID identities.
-- Script to register a user.
-- Script to make someone a group admin.
-- Script to make someone a site admin or moderator.
-- 'login' command.
-- Pluggable authentication.
-- LDAP authentication plugin.
-- Script for console interaction with the site (!).
-- Users don't see group posts from people they've blocked.
-- Admin panel interface for changing site configuration.
-- Users can be sandboxed (limited contributions) or silenced
-  (no contributions) by moderators.
-- Many changes to make language usage more consistent.
-- Sphinx search moved to a plugin.
-- GeoURL plugin.
-- Profile and group lists support hAtom.
-- Massive refactoring of util.js.
-- Mapstraction plugin to show maps on inbox and profile pages.
-- Play/pause buttons for realtime notices.
-- Support for geo microformat.
-- Partial support for feed subscriptions, RSSCloud, PubSubHubBub.
-- Support for geolocation in browser (Chrome, Firefox).
-- Quit trying to negotiate HTML format. Always use text/html.
-  We lose, and so do Web standards. Boo.
-- Better logging of request info.
-- Better output for errors in Web interface.
-- No longer store .mo files; these need to be generated.
-- Minify plugin.
-- Events to allow pluginizing logger.
-- New framework for plugin localization.
-- Gravatar plugin.
-- Add support for "repeats" (similar to Twitter's "retweets").
-- Support for repeats in Twitter API.
-- Better notification of direct messages.
-- New plugin to add "powered by StatusNet" to logo.
-- Returnto works for private sites.
-- Localisation updates, including new Persian translation.
-- CAS authentication plugin
-- Get rid of DB_DataObject native cache (big memory leaker)
-- setconfig.php script to set configuration variables
-- Blacklist plugin, to blacklist URLs and nicknames
-- Users can set flag whether they want to share location
-  both in notice form (for one notice) and profile settings
-  (any notice)
-- notice inboxes moved from normalized notice_inbox table to
-  denormalized inbox table
-- Automatic compression of Memcache
-- Memory caching pluginized
-- Memcache, XCache, APC and Diskcache plugins
-- A script to update user locations
-- cache empty query results
-- A sample plugin to show best plugin practices
-- CacheLog plugin to debug cache accesses
-- Require users to login to view attachments on private sites
-- Plugin to use Mollom spam detection service
-- Plugin for RSSCloud
-- Add an array of default plugins
-- A version action to give credit to contributors and plugin
-  developers
-- Daemon to read IMAP mailbox instead of using a mailbox script
-- Pass session information between SSL and non-SSL server
-  when SSL set to 'sometimes'
-- Major refactoring of queue handlers to manage very
-  large hosting site (like status.net)
-- SubscriptionThrottle plugin to prevent subscription spamming
-- Don't enqueue into plugin or SMS queues when disabled (breaks unqueuehandler if SMS queue isn't attached)
-- Improve name validation checks on local File references
-- fix local file include vulnerability in doc.php
-- Reusing fixed selector name for 'processing' in util.js
-- Removed hAtom pattern from registration page.
-- restructuring of User::registerNew() lost password munging
-- Add a script to clear the cache for a given key
-- buggy fetch for site owner
-- Added missing concat of </li> in Realtime response
-- Updated XHR binded events to work better in jQuery 1.4.1. Using .live() for event delegation instead of jQuery.data() and checking to see if an element was previously binded.
-- Updated jQuery Form Plugin from v2.17 to v2.36
-- Updated jQuery JavaScript Library from v1.3.2 to v1.4.1
-- move schema.type.php to typeschema.php like other files
-- Add Really Simple Discovery (RSD) support
-- Add a robots.txt URL to the site root
-- error clearing tags for profiles from memcached
-- on exceptions, stomp logs the error and reenqueues
-- add lat, lon, location and remove closing tag from geocode.php
-- Use passed-in lat long in geocode.php
-- better handling of null responses from geonames.org
-- Globalized form notice data geo values
-- Using jQuery chaining in FormNoticeXHR
-- Using form object instead of form_id and find(). Slightly faster and easier to read.
-- removed describeTable from base class, and fixed it up in pgsql
-- getTableDef() mostly working in postgres
-- move the schema DDL sql off into seperate files for each db we support
-- plugin to limit number of registered users
-- add hooks for user registration
-- live fast, die young in bash scripts
-- for single-user mode, retrieve either site owner or defined nickname
-- method to get the site owner
-- define a constant for the 'owner' role of a site
-- add simple cache getter/setter static functions to Memcached_DataObject
-- Adds notice author's name to @title in Realtime response
-- Hides .author from XHR response in showstream
-- Hides .author from XHR response in showstream
-- Fix more fatal errors in queue edge cases
-- Don't attempt to resend XMPP messages that can't be broadcast due to the profile being deleted.
-- Wrap each bit of distrib queue handler's saving operation in a try/catch; log exceptions but let everything else continue.
-- Log exceptions from queuedaemon.php if they're not already caught
-- Move sessions settings to its own panel
-- Fixes for status_network db object .ini and tag setter script
-- Add a script to set tags for sites
-- Adjust API authentication to also check for OAuth protocol params in the HTTP Authorization header, as defined in OAuth HTTP Authorization Scheme.
-- Last-chance distribution if enqueueing fails
-- Manual failover for stomp queues.
-- lost config in index.php made all traffic go to master
-- "Revert "move RW setup above user get in index.php so remember_me works""
-- Revert "move RW setup above user get in index.php so remember_me works"
-- move RW setup above user get in index.php so remember_me works
-- hide most DB_DataObject errors
-- always set up database_rw, regardless, so cached sessions work
-- update mysqltimestamps on insert and update
-- additional debugging data for Sessions
-- 'Sign in with Twitter' button img
-- Update to biz theme
-- Remove redundant session token field from form (was already being added by base class).
-- 'Sign in with Twitter' button img
-- Can now set $config['queue']['stomp_persistent'] = false; to explicitly disable persistence when we queue items
-- Showing processing indicator for form_repeat on submit instead of form
-- Removed avatar from repeat of username (matches noticelist)
-- Removed unused variable assignment for avatar URL and added missing fn
-- Don't preemptively close existing DB connections for web views (needed to keep # of conns from going insane on multi-site queue daemons, so just doing for CLI) May, or may not, help with mystery session problems
-- dropping the setcookie() call from common_ensure_session() since we're pretty sure it's unnecessary
-- append '/' on cookie path for now (may still need some refactoring)
-- set session cookie correctly
-- Fix for Mapstraction plugin's zoomed map links
-- debug log line for control channel sub
-- Move faceboookapp.js to the Facebook plugin
-- fix for fix for bad realtime JS load
-- default 24-hour expiry on Memcached objects where not specified.
+- Support for the new distributed status update standard OStatus
+  <http://ostatus.org>, based on PubSubHubbub, Salmon, Webfinger,
+  and Activity Streams.
+- Support for location. Notices are (optionally) marked with lat-long
+  information, and can be shown on a map.
+- No fixed content size. Notice size is configurable, from 1 to
+  unlimited number of characters. Default is still 140!
+- An authorization framework, allowing different levels of users.
+- A Web-based administration panel.
+- A moderation system that lets site moderators sandbox, silence,
+  or delete uncooperative users.
+- A flag system that lets users flag profiles for moderator review.
+- Support for OAuth <http://oauth.net> authentication in the Twitter
+  API.
+- A pluggable authentication system.
+- An authentication plugin for LDAP servers.
+- Many features that were core in 0.8.x are now plugins, such
+  as OpenID, Twitter integration, Facebook integration
+- A much-improved offline processing system
+- In-browser "realtime" updates using a number of realtime
+  servers (Meteor, Orbited, Cometd)
+- A plugin to provide an interface optimized for mobile browsers
+- Support for Facebook Connect
+- Support for logging in with a Twitter account
+- Vastly improved translation with additional languages and
+  translation in plugins
+- Support for all-SSL instances
+- Core support for "repeats" (like Twitter's "retweets")
+- Pluggable caching system, with plugins for Memcached,
+  APC, XCache, and a disk-based cache
+- Plugin to support RSSCloud
+- A framework for adding advertisements to a public site,
+  and plugins for Google AdSense and OpenX server
+
+There are also literally thousands of bugs fixed and minor features
+added. A full changelog is available at http://status.net/wiki/StatusNet_0.9.0.
+
+Under the covers, the software has a vastly improved plugin and
+extension mechanism that makes writing powerful and flexible additions
+to the core functionality much easier.
 
 Prerequisites
 =============
@@ -806,7 +654,7 @@ management, but host it on a public server.
 Note that this is an experimental feature; total privacy is not
 guaranteed or ensured. Also, privacy is all-or-nothing for a site; you
 can't have some accounts or notices private, and others public.
-Finally, the interaction of private sites with OpenMicroBlogging is
+Finally, the interaction of private sites with OStatus is
 undefined. Remote users won't be able to subscribe to users on a
 private site, but users of the private site may be able to subscribe
 to users on a remote site. (Or not... it's not well tested.) The
