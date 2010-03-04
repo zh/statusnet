@@ -72,9 +72,9 @@ class OStatusGroupAction extends OStatusSubAction
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->input('profile',
-                     _m('Group profile URL'),
+                     _m('Join group'),
                      $this->profile_uri,
-                     _m('Enter the profile URL of a group on another StatusNet site'));
+                     _m("OStatus group's address, like http://example.net/group/nickname"));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 

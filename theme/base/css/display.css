@@ -771,10 +771,12 @@ display:none;
 text-align:center;
 }
 
-.entity_moderation {
+.entity_moderation,
+.entity_role {
 position:relative;
 }
-.entity_moderation p {
+.entity_moderation p,
+.entity_role p {
 border-radius:4px;
 -moz-border-radius:4px;
 -webkit-border-radius:4px;
@@ -782,13 +784,14 @@ font-weight:bold;
 padding-bottom:2px;
 margin-bottom:7px;
 }
-.entity_moderation ul {
+.entity_moderation ul,
+.entity_role ul {
 display:none;
 }
-.entity_moderation:hover ul {
+.entity_moderation:hover ul,
+.entity_role:hover ul {
 display:block;
-min-width:21%;
-width:100%;
+width:110%;
 padding:11px;
 position:absolute;
 top:-1px;

@@ -104,30 +104,21 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
     function showTimeline()
     {
-        $sitename   = common_config('site', 'name');
-        $avatar     = $this->group->homepage_logo;
-        $title      = sprintf(_("%s timeline"), $this->group->nickname);
-
-        $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->group->nickname,
-            $sitename
-        );
-
-        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+        // We'll pull common formatting out of this for other formats
+        $atom = new AtomGroupNoticeFeed($this->group);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-                $this->showRssTimeline(
+            $this->showRssTimeline(
                 $this->notices,
-                $title,
+                $atom->title,
                 $this->group->homeUrl(),
-                $subtitle,
+                $atom->subtitle,
                 null,
-                $logo
+                $atom->logo
             );
             break;
         case 'atom':
@@ -136,38 +127,22 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
             try {
 
-                $atom = new AtomGroupNoticeFeed($this->group);
-
-                // @todo set all this Atom junk up inside the feed class
-
-                #$atom->setId($id);
-                $atom->setTitle($title);
-                $atom->setSubtitle($subtitle);
-                $atom->setLogo($logo);
-                $atom->setUpdated('now');
-
                 $atom->addAuthorRaw($this->group->asAtomAuthor());
                 $atom->setActivitySubject($this->group->asActivitySubject());
-
-                $atom->addLink($this->group->homeUrl());
 
                 $id = $this->arg('id');
                 $aargs = array('format' => 'atom');
                 if (!empty($id)) {
                     $aargs['id'] = $id;
                 }
+                $self = $this->getSelfUri('ApiTimelineGroup', $aargs);
 
-                $atom->setId($this->getSelfUri('ApiTimelineGroup', $aargs));
-
-                $atom->addLink(
-                    $this->getSelfUri('ApiTimelineGroup', $aargs),
-                    array('rel' => 'self', 'type' => 'application/atom+xml')
-                );
+                $atom->setId($self);
+                $atom->setSelfLink($self);
 
                 $atom->addEntryFromNotices($this->notices);
 
-                //$this->raw($atom->getString());
-                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
+                $this->raw($atom->getString());
 
             } catch (Atom10FeedException $e) {
                 $this->serverError(

@@ -49,14 +49,42 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
     /**
      * Constructor
      *
-     * @param Group   $group   the group for the feed (optional)
+     * @param Group   $group   the group for the feed
      * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
      */
-    function __construct($group = null, $indent = true) {
+    function __construct($group, $indent = true) {
         parent::__construct($indent);
         $this->group = $group;
+
+        $title      = sprintf(_("%s timeline"), $group->nickname);
+        $this->setTitle($title);
+
+        $sitename   = common_config('site', 'name');
+        $subtitle   = sprintf(
+            _('Updates from %1$s on %2$s!'),
+            $group->nickname,
+            $sitename
+        );
+        $this->setSubtitle($subtitle);
+
+        $avatar = $group->homepage_logo;
+        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+        $this->setLogo($logo);
+
+        $this->setUpdated('now');
+
+        $self = common_local_url('ApiTimelineGroup',
+                                 array('id' => $group->id,
+                                       'format' => 'atom'));
+        $this->setId($self);
+        $this->setSelfLink($self);
+
+        $this->addAuthorRaw($group->asAtomAuthor());
+        $this->setActivitySubject($group->asActivitySubject());
+
+        $this->addLink($group->homeUrl());
     }
 
     function getGroup()

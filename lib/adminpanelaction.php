@@ -381,6 +381,11 @@ class AdminPanelNav extends Widget
                                      _('Edit site notice'), $action_name == 'sitenoticeadminpanel', 'nav_sitenotice_admin_panel');
             }
 
+            if (AdminPanelAction::canAdmin('snapshot')) {
+                $this->out->menuItem(common_local_url('snapshotadminpanel'), _('Snapshots'),
+                                     _('Snapshots configuration'), $action_name == 'snapshotadminpanel', 'nav_snapshot_admin_panel');
+            }
+
             Event::handle('EndAdminPanelNav', array($this));
         }
         $this->action->elementEnd('ul');

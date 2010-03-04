@@ -99,7 +99,7 @@ class SitenoticeadminpanelAction extends AdminPanelAction
 
         $result = Config::save('site', 'notice', $siteNotice);
 
-        if (!result) {
+        if (!$result) {
             $this->ServerError(_("Unable to save site notice."));
         }
     }

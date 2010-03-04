@@ -24,25 +24,33 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
-class HostMetaAction extends Action
+class OwnerxrdAction extends XrdAction
 {
 
-    function handle()
+    public $uri;
+
+    function prepare($args)
     {
-        parent::handle();
-
-        $domain = common_config('site', 'server');
-        $url = common_local_url('userxrd');
-        $url.= '?uri={uri}';
-
-        $xrd = new XRD();
+        $this->user = User::siteOwner();
         
-        $xrd = new XRD();
-        $xrd->host = $domain;
-        $xrd->links[] = array('rel' => Discovery::LRDD_REL,
-                              'template' => $url,
-                              'title' => array('Resource Descriptor'));
+        if (!$this->user) {
+            $this->clientError(_('No such user.'), 404);
+            return false;
+        }
 
-        print $xrd->toXML();
+        $nick = common_canonical_nickname($this->user->nickname);
+        $acct = 'acct:' . $nick . '@' . common_config('site', 'server');
+        
+        $this->xrd = new XRD();
+
+        // Check to see if a $config['webfinger']['owner'] has been set
+        if ($owner = common_config('webfinger', 'owner')) {
+            $this->xrd->subject = Discovery::normalize($owner);
+            $this->xrd->alias[] = $acct;
+        } else {
+            $this->xrd->subject = $acct;
+        }
+
+        return true;
     }
 }

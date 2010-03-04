@@ -156,18 +156,32 @@ class MagicEnvelope
     public function verify($env)
     {
         if ($env['alg'] != 'RSA-SHA256') {
+            common_log(LOG_DEBUG, "Salmon error: bad algorithm");
             return false;
         }
 
         if ($env['encoding'] != MagicEnvelope::ENCODING) {
+            common_log(LOG_DEBUG, "Salmon error: bad encoding");
             return false;
         }
 
         $text = base64_decode($env['data']);
         $signer_uri = $this->getAuthor($text);
 
-        $verifier = Magicsig::fromString($this->getKeyPair($signer_uri));
+        try {
+            $keypair = $this->getKeyPair($signer_uri);
+        } catch (Exception $e) {
+            common_log(LOG_DEBUG, "Salmon error: ".$e->getMessage());
+            return false;
+        }
+        
+        $verifier = Magicsig::fromString($keypair);
 
+        if (!$verifier) {
+            common_log(LOG_DEBUG, "Salmon error: unable to parse keypair");
+            return false;
+        }
+        
         return $verifier->verify($env['data'], $env['sig']);
     }
 
