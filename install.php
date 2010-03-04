@@ -865,6 +865,19 @@ function registerInitialUser($nickname, $password, $email)
     $user->grantRole('owner');
     $user->grantRole('moderator');
     $user->grantRole('administrator');
+    
+    // Attempt to do a remote subscribe to update@status.net
+    // Will fail if instance is on a private network.
+
+    if (class_exists('Ostatus_profile')) {
+        try {
+            $oprofile = Ostatus_profile::ensureProfile('http://update.status.net/');
+            Subscription::start($user->getProfile(), $oprofile->localProfile());
+            updateStatus("Set up subscription to <a href='http://update.status.net/'>update@status.net</a>.");
+        } catch (Exception $e) {
+            updateStatus("Could not set up subscription to <a href='http://update.status.net/'>update@status.net</a>.");
+        }
+    }
 
     return true;
 }

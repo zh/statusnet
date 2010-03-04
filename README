@@ -5,10 +5,10 @@ README
 StatusNet 0.9.0 ("Stand")
 4 Mar 2010
 
-This is the README file for StatusNet (formerly Laconica), the Open
-Source microblogging platform. It includes installation instructions,
-descriptions of options you can set, warnings, tips, and general info
-for administrators. Information on using StatusNet can be found in the
+This is the README file for StatusNet, the Open Source microblogging
+platform. It includes installation instructions, descriptions of
+options you can set, warnings, tips, and general info for
+administrators. Information on using StatusNet can be found in the
 "doc" subdirectory or in the "help" section on-line.
 
 About
@@ -35,7 +35,7 @@ Identi.ca <http://identi.ca/>. It is shared with you in hope that you
 too make an Open Software Service available to your users. To learn
 more, please see the Open Software Service Definition 1.1:
 
-      http://www.opendefinition.org/ossd
+    http://www.opendefinition.org/ossd
 
 StatusNet, Inc. <http://status.net/> also offers this software as a
 Web service, requiring no installation on your part. The software run
@@ -78,15 +78,17 @@ New this version
 ================
 
 This is a major feature release since version 0.8.3, released Feb 1
-2010. It is the final release version of 0.9.0.
+2010. It is the final release version of 0.9.0, replacing any beta
+versions.
 
 Notable changes this version:
 
 - Support for the new distributed status update standard OStatus
   <http://ostatus.org>, based on PubSubHubbub, Salmon, Webfinger,
   and Activity Streams.
-- Support for location. Notices are (optionally) marked with lat-long
-  information, and can be shown on a map.
+- Support for location using the Geolocation API. Notices are (optionally) 
+  marked with lat-long information with geo microformats, and can be shown
+  on a map.
 - No fixed content size. Notice size is configurable, from 1 to
   unlimited number of characters. Default is still 140!
 - An authorization framework, allowing different levels of users.
@@ -96,6 +98,8 @@ Notable changes this version:
 - A flag system that lets users flag profiles for moderator review.
 - Support for OAuth <http://oauth.net> authentication in the Twitter
   API.
+- User roles system that lets the owner of the site to assign
+  administrator and moderator roles to other users.
 - A pluggable authentication system.
 - An authentication plugin for LDAP servers.
 - Many features that were core in 0.8.x are now plugins, such
@@ -115,6 +119,8 @@ Notable changes this version:
 - Plugin to support RSSCloud
 - A framework for adding advertisements to a public site,
   and plugins for Google AdSense and OpenX server
+- Plugins to throttle excessive subscriptions and registrations.
+- A plugin to blacklist particular URLs or nicknames.
 
 There are also literally thousands of bugs fixed and minor features
 added. A full changelog is available at http://status.net/wiki/StatusNet_0.9.0.
@@ -160,6 +166,8 @@ For some functionality, you will also need the following extensions:
 - Sphinx Search. A client for the sphinx server, an alternative
   to MySQL or Postgresql fulltext search. You will also need a
   Sphinx server to serve the search queries.
+- bcmath or gmp. For Salmon signatures (part of OStatus). Needed
+  if you have OStatus configured.
 
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
@@ -209,6 +217,9 @@ and the URLs are listed here for your convenience.
 - PEAR Validate is an oEmbed dependency.
 - PEAR Net_URL2 is an oEmbed dependency.
 - Console_GetOpt for parsing command-line options.
+- libomb. a library for implementing OpenMicroBlogging 0.1, the
+  predecessor to OStatus.
+- HTTP_Request2, a library for making HTTP requests.
 
 A design goal of StatusNet is that the basic Web functionality should
 work on even the most restrictive commercial hosting services.
@@ -226,9 +237,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-   	   tar zxf statusnet-0.8.2.tar.gz
+       tar zxf statusnet-0.9.0.tar.gz
 
-   ...which will make a statusnet-0.8.2 subdirectory in your current
+   ...which will make a statusnet-0.9.0 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -236,34 +247,34 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-   	   mv statusnet-0.8.2 /var/www/mublog
+       mv statusnet-0.9.0 /var/www/statusnet
 
-   This will make your StatusNet instance available in the mublog path of
-   your server, like "http://example.net/mublog". "microblog" or
+   This will make your StatusNet instance available in the statusnet path of
+   your server, like "http://example.net/statusnet". "microblog" or
    "statusnet" might also be good path names. If you know how to
    configure virtual hosts on your web server, you can try setting up
    "http://micro.example.net/" or the like.
 
 3. Make your target directory writeable by the Web server.
 
-   	  chmod a+w /var/www/mublog/
+       chmod a+w /var/www/statusnet/
 
    On some systems, this will probably work:
 
-      	   chgrp www-data /var/www/mublog/
-	   chmod g+w /var/www/mublog/
+       chgrp www-data /var/www/statusnet/
+       chmod g+w /var/www/statusnet/
 
    If your Web server runs as another user besides "www-data", try
    that user's default group instead. As a last resort, you can create
-   a new group like "mublog" and add the Web server's user to the group.
+   a new group like "statusnet" and add the Web server's user to the group.
 
 4. You should also take this moment to make your avatar, background, and
    file subdirectories writeable by the Web server. An insecure way to do
    this is:
 
-   	  chmod a+w /var/www/mublog/avatar
-   	  chmod a+w /var/www/mublog/background
-   	  chmod a+w /var/www/mublog/file
+       chmod a+w /var/www/statusnet/avatar
+       chmod a+w /var/www/statusnet/background
+       chmod a+w /var/www/statusnet/file
 
    You can also make the avatar, background, and file directories
    writeable by the Web server group, as noted above.
@@ -271,7 +282,7 @@ especially if you've previously installed PHP/MySQL packages.
 5. Create a database to hold your microblog data. Something like this
    should work:
 
-   	  mysqladmin -u "username" --password="password" create statusnet
+       mysqladmin -u "username" --password="password" create statusnet
 
    Note that StatusNet must have its own database; you can't share the
    database with another program. You can name it whatever you want,
@@ -285,17 +296,17 @@ especially if you've previously installed PHP/MySQL packages.
    database. If you have shell access, this will probably work from the
    MySQL shell:
 
-          GRANT ALL on statusnet.*
-	  TO 'lacuser'@'localhost'
-	  IDENTIFIED BY 'lacpassword';
+       GRANT ALL on statusnet.*
+       TO 'statusnetuser'@'localhost'
+       IDENTIFIED BY 'statusnetpassword';
 
-   You should change 'lacuser' and 'lacpassword' to your preferred new
+   You should change 'statusnetuser' and 'statusnetpassword' to your preferred new
    username and password. You may want to test logging in to MySQL as
    this new user.
 
 7. In a browser, navigate to the StatusNet install script; something like:
 
-           http://yourserver.example.com/mublog/install.php
+       http://yourserver.example.com/statusnet/install.php
 
    Enter the database connection information and your site name. The
    install program will configure your site and install the initial,
@@ -315,16 +326,16 @@ By default, StatusNet will use URLs that include the main PHP program's
 name in them. For example, a user's home profile might be
 found at:
 
-    http://example.org/mublog/index.php/mublog/fred
+    http://example.org/statusnet/index.php/statusnet/fred
 
 On certain systems that don't support this kind of syntax, they'll
 look like this:
 
-    http://example.org/mublog/index.php?p=mublog/fred
+    http://example.org/statusnet/index.php?p=statusnet/fred
 
 It's possible to configure the software so it looks like this instead:
 
-    http://example.org/mublog/fred
+    http://example.org/statusnet/fred
 
 These "fancy URLs" are more readable and memorable for users. To use
 fancy URLs, you must either have Apache 2.x with .htaccess enabled and
@@ -349,7 +360,7 @@ your server.
 You should now be able to navigate to a "fancy" URL on your server,
 like:
 
-     http://example.net/mublog/main/register
+    http://example.net/statusnet/main/register
 
 If you changed your HTTP server configuration, you may need to restart
 the server first.
@@ -360,11 +371,11 @@ directory is 'All' in your Apache configuration file. This is usually
 /etc/apache2/sites-available/default. See the Apache documentation for
 .htaccess files for more details:
 
-   http://httpd.apache.org/docs/2.2/howto/htaccess.html
+    http://httpd.apache.org/docs/2.2/howto/htaccess.html
 
 Also, check that mod_rewrite is installed and enabled:
 
-   http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
+    http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
 
 Sphinx
 ------
@@ -372,8 +383,8 @@ Sphinx
 To use a Sphinx server to search users and notices, you'll need to
 enable the SphinxSearch plugin. Add to your config.php:
 
-  addPlugin('SphinxSearch');
-  $config['sphinx']['server'] = 'searchhost.local';
+    addPlugin('SphinxSearch');
+    $config['sphinx']['server'] = 'searchhost.local';
 
 You also need to install, compile and enable the sphinx pecl extension for
 php on the client side, which itself depends on the sphinx development files.
@@ -401,33 +412,33 @@ For this to work, there *must* be a domain or sub-domain for which all
 1. Run the SQL script carrier.sql in your StatusNet database. This will
    usually work:
 
-   	   mysql -u "lacuser" --password="lacpassword" statusnet < db/carrier.sql
+       mysql -u "statusnetuser" --password="statusnetpassword" statusnet < db/carrier.sql
 
    This will populate your database with a list of wireless carriers
    that support email SMS gateways.
 
 2. Make sure the maildaemon.php file is executable:
 
-   	chmod +x scripts/maildaemon.php
+       chmod +x scripts/maildaemon.php
 
    Note that "daemon" is kind of a misnomer here; the script is more
    of a filter than a daemon.
 
 2. Edit /etc/aliases on your mail server and add the following line:
 
-      *: /path/to/statusnet/scripts/maildaemon.php
+       *: /path/to/statusnet/scripts/maildaemon.php
 
 3. Run whatever code you need to to update your aliases database. For
    many mail servers (Postfix, Exim, Sendmail), this should work:
 
-      newaliases
+       newaliases
 
    You may need to restart your mail server for the new database to
    take effect.
 
 4. Set the following in your config.php file:
 
-   $config['mail']['domain'] = 'yourdomain.example.net';
+       $config['mail']['domain'] = 'yourdomain.example.net';
 
 At this point, post-by-email and post-by-SMS-gateway should work. Note
 that if your mail server is on a different computer from your email
@@ -481,7 +492,7 @@ search, indexing, bridging, or other cool services.
 To configure a downstream site to receive your public stream, add
 their "JID" (Jabber ID) to your config.php as follows:
 
-      $config['xmpp']['public'][] = 'downstream@example.net';
+    $config['xmpp']['public'][] = 'downstream@example.net';
 
 (Don't miss those square brackets at the end.) Note that your XMPP
 broadcasting must be configured as mentioned above. Although you can
@@ -491,7 +502,7 @@ consider setting up queues and daemons.
 Queues and daemons
 ------------------
 
-Some activities that StatusNet needs to do, like broadcast OMB, SMS,
+Some activities that StatusNet needs to do, like broadcast OStatus, SMS,
 and XMPP messages, can be 'queued' and done by off-line bots instead.
 For this to work, you must be able to run long-running offline
 processes, either on your main Web server or on another server you
@@ -510,21 +521,19 @@ server is probably a good idea for high-volume sites.
 3. In your config.php files (both the Web server and the queues
    server!), set the following variable:
 
-   $config['queue']['enabled'] = true;
+       $config['queue']['enabled'] = true;
 
    You may also want to look at the 'daemon' section of this file for
    more daemon options. Note that if you set the 'user' and/or 'group'
    options, you'll need to create that user and/or group by hand.
    They're not created automatically.
 
-4. On the queues server, run the command scripts/startdaemons.sh. It
-   needs as a parameter the install path; if you run it from the
-   StatusNet dir, "." should suffice.
+4. On the queues server, run the command scripts/startdaemons.sh.
 
 This will run the queue handlers:
 
 * queuedaemon.php - polls for queued items for inbox processing and
-  pushing out to OMB, SMS, XMPP, etc.
+  pushing out to OStatus, SMS, XMPP, etc.
 * xmppdaemon.php - listens for new XMPP messages from users and stores
   them as notices in the database; also pulls queued XMPP output from
   queuedaemon.php to push out to clients.
@@ -532,6 +541,9 @@ This will run the queue handlers:
 These two daemons will automatically restart in most cases of failure
 including memory leaks (if a memory_limit is set), but may still die
 or behave oddly if they lose connections to the XMPP or queue servers.
+
+Additional daemons may be also started by this script for certain
+plugins, such as the Twitter bridge.
 
 It may be a good idea to use a daemon-monitoring service, like 'monit',
 to check their status and keep them running.
@@ -541,46 +553,11 @@ default. This can be useful for starting, stopping, and monitoring the
 daemons.
 
 Since version 0.8.0, it's now possible to use a STOMP server instead of
-our kind of hacky home-grown DB-based queue solution. See the "queues"
-config section below for how to configure to use STOMP. As of this
-writing, the software has been tested with ActiveMQ.
+our kind of hacky home-grown DB-based queue solution. This is strongly
+recommended for best response time, especially when using XMPP.
 
-Sitemaps
---------
-
-Sitemap files <http://sitemaps.org/> are a very nice way of telling
-search engines and other interested bots what's available on your site
-and what's changed recently. You can generate sitemap files for your
-StatusNet instance.
-
-1. Choose your sitemap URL layout. StatusNet creates a number of
-   sitemap XML files for different parts of your site. You may want to
-   put these in a sub-directory of your StatusNet directory to avoid
-   clutter. The sitemap index file tells the search engines and other
-   bots where to find all the sitemap files; it *must* be in the main
-   installation directory or higher. Both types of file must be
-   available through HTTP.
-
-2. To generate your sitemaps, run the following command on your server:
-
-   php scripts/sitemap.php -f index-file-path -d sitemap-directory -u URL-prefix-for-sitemaps
-
-   Here, index-file-path is the full path to the sitemap index file,
-   like './sitemapindex.xml'. sitemap-directory is the directory where
-   you want the sitemaps stored, like './sitemaps/' (make sure the dir
-   exists). URL-prefix-for-sitemaps is the full URL for the sitemap dir,
-   typically something like <http://example.net/mublog/sitemaps/>.
-
-You can use several methods for submitting your sitemap index to
-search engines to get your site indexed. One is to add a line like the
-following to your robots.txt file:
-
-   Sitemap: /mublog/sitemapindex.xml
-
-This is a good idea for letting *all* Web spiders know about your
-sitemap. You can also submit sitemap files to major search engines
-using their respective "Webmaster centres"; see sitemaps.org for links
-to these resources.
+See the "queues" config section below for how to configure to use STOMP.
+As of this writing, the software has been tested with ActiveMQ 5.3.
 
 Themes
 ------
@@ -603,15 +580,15 @@ following files:
 
 display.css: a CSS2 file for "default" styling for all browsers.
 ie6.css: a CSS2 file for override styling for fixing up Internet
-	 Explorer 6.
+    Explorer 6.
 ie7.css: a CSS2 file for override styling for fixing up Internet
-	 Explorer 7.
+    Explorer 7.
 logo.png: a logo image for the site.
 default-avatar-profile.png: a 96x96 pixel image to use as the avatar for
-			    users who don't upload their own.
+    users who don't upload their own.
 default-avatar-stream.png: Ditto, but 48x48. For streams of notices.
 default-avatar-mini.png: Ditto ditto, but 24x24. For subscriptions
-			 listing on profile pages.
+    listing on profile pages.
 
 You may want to start by copying the files from the default theme to
 your own directory.
@@ -651,30 +628,26 @@ not visible to non-logged-in users. This might be useful for
 workgroups who want to share a microblogging site for project
 management, but host it on a public server.
 
-Note that this is an experimental feature; total privacy is not
-guaranteed or ensured. Also, privacy is all-or-nothing for a site; you
-can't have some accounts or notices private, and others public.
-Finally, the interaction of private sites with OStatus is
-undefined. Remote users won't be able to subscribe to users on a
-private site, but users of the private site may be able to subscribe
-to users on a remote site. (Or not... it's not well tested.) The
-"proper behaviour" hasn't been defined here, so handle with care.
+Total privacy is not guaranteed or ensured. Also, privacy is
+all-or-nothing for a site; you can't have some accounts or notices
+private, and others public. The interaction of private sites
+with OStatus is undefined.
 
 Access to file attachments can also be restricted to logged-in users only.
 1. Add a directory outside the web root where your file uploads will be
    stored. Usually a command like this will work:
 
-           mkdir /var/www/mublog-files
+       mkdir /var/www/statusnet-files
 
 2. Make the file uploads directory writeable by the web server. An
    insecure way to do this is:
 
-           chmod a+x /var/www/mublog-files
+       chmod a+x /var/www/statusnet-files
 
 3. Tell StatusNet to use this directory for file uploads. Add a line
    like this to your config.php:
 
-           $config['attachments']['dir'] = '/var/www/mublog-files';
+       $config['attachments']['dir'] = '/var/www/statusnet-files';
 
 Upgrading
 =========
@@ -689,7 +662,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.8.2. Try these step-by-step
+upgrade procedure in StatusNet 0.9.0. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -709,8 +682,8 @@ instructions; read to the end first before trying them.
    maildaemon.php file, and running something like "newaliases".
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
-6. Move your StatusNet directory to a backup spot, like "mublog.bak".
-7. Unpack your StatusNet 0.8.2 tarball and move it to "mublog" or
+6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
+7. Unpack your StatusNet 0.9.0 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -723,15 +696,15 @@ instructions; read to the end first before trying them.
     reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't
     do it without a known-good backup!
 
-    If your database is at version 0.7.4, you can run a special upgrade
-    script:
+    If your database is at version 0.8.0 or above, you can run a
+    special upgrade script:
 
-    mysql -u<rootuser> -p<rootpassword> <database> db/074to080.sql
+        mysql -u<rootuser> -p<rootpassword> <database> db/08to09.sql
 
     Otherwise, go to your StatusNet directory and AFTER YOU MAKE A
     BACKUP run the rebuilddb.sh script like this:
 
-    ./scripts/rebuilddb.sh rootuser rootpassword database db/statusnet.sql
+        ./scripts/rebuilddb.sh rootuser rootpassword database db/statusnet.sql
 
     Here, rootuser and rootpassword are the username and password for a
     user who can drop and create databases as well as tables; typically
@@ -791,9 +764,16 @@ Configuration options
 
 The main configuration file for StatusNet (excepting configurations for
 dependency software) is config.php in your StatusNet directory. If you
-edit any other file in the directory, like lib/common.php (where most
+edit any other file in the directory, like lib/default.php (where most
 of the defaults are defined), you will lose your configuration options
 in any upgrade, and you will wish that you had been more careful.
+
+Starting with version 0.9.0, a Web based configuration panel has been
+added to StatusNet. The preferred method for changing config options is
+to use this panel.
+
+A command-line script, setconfig.php, can be used to set individual
+configuration options. It's in the scripts/ directory.
 
 Starting with version 0.7.1, you can put config files in the
 /etc/statusnet/ directory on your server, if it exists. Config files
@@ -808,7 +788,7 @@ Almost all configuration options are made through a two-dimensional
 associative array, cleverly named $config. A typical configuration
 line will be:
 
-     $config['section']['option'] = value;
+    $config['section']['option'] = value;
 
 For brevity, the following documentation describes each section and
 option.
@@ -820,79 +800,79 @@ This section is a catch-all for site-wide variables.
 
 name: the name of your site, like 'YourCompany Microblog'.
 server: the server part of your site's URLs, like 'example.net'.
-path: The path part of your site's URLs, like 'mublog' or ''
-      (installed in root).
+path: The path part of your site's URLs, like 'statusnet' or ''
+    (installed in root).
 fancy: whether or not your site uses fancy URLs (see Fancy URLs
-       section above). Default is false.
+    section above). Default is false.
 logfile: full path to a file for StatusNet to save logging
-	 information to. You may want to use this if you don't have
-	 access to syslog.
+    information to. You may want to use this if you don't have
+    access to syslog.
 logdebug: whether to log additional debug info like backtraces on
-          hard errors. Default false.
+    hard errors. Default false.
 locale_path: full path to the directory for locale data. Unless you
-	     store all your locale data in one place, you probably
-	     don't need to use this.
+    store all your locale data in one place, you probably
+    don't need to use this.
 language: default language for your site. Defaults to US English.
-          Note that this is overridden if a user is logged in and has
-          selected a different language. It is also overridden if the
-          user is NOT logged in, but their browser requests a different
-          langauge. Since pretty much everybody's browser requests a
-          language, that means that changing this setting has little or
-          no effect in practice.
+    Note that this is overridden if a user is logged in and has
+    selected a different language. It is also overridden if the
+    user is NOT logged in, but their browser requests a different
+    langauge. Since pretty much everybody's browser requests a
+    language, that means that changing this setting has little or
+    no effect in practice.
 languages: A list of languages supported on your site. Typically you'd
-	   only change this if you wanted to disable support for one
-	   or another language:
-	   "unset($config['site']['languages']['de'])" will disable
-	   support for German.
+    only change this if you wanted to disable support for one
+    or another language:
+    "unset($config['site']['languages']['de'])" will disable
+    support for German.
 theme: Theme for your site (see Theme section). Two themes are
-       provided by default: 'default' and 'stoica' (the one used by
-       Identi.ca). It's appreciated if you don't use the 'stoica' theme
-       except as the basis for your own.
+    provided by default: 'default' and 'stoica' (the one used by
+    Identi.ca). It's appreciated if you don't use the 'stoica' theme
+    except as the basis for your own.
 email: contact email address for your site. By default, it's extracted
-       from your Web server environment; you may want to customize it.
+    from your Web server environment; you may want to customize it.
 broughtbyurl: name of an organization or individual who provides the
-	   service. Each page will include a link to this name in the
-	   footer. A good way to link to the blog, forum, wiki,
-	   corporate portal, or whoever is making the service available.
+    service. Each page will include a link to this name in the
+    footer. A good way to link to the blog, forum, wiki,
+    corporate portal, or whoever is making the service available.
 broughtby: text used for the "brought by" link.
 timezone: default timezone for message display. Users can set their
-	  own time zone. Defaults to 'UTC', which is a pretty good default.
+    own time zone. Defaults to 'UTC', which is a pretty good default.
 closed: If set to 'true', will disallow registration on your site.
-	This is a cheap way to restrict accounts to only one
-	individual or group; just register the accounts you want on
-	the service, *then* set this variable to 'true'.
+    This is a cheap way to restrict accounts to only one
+    individual or group; just register the accounts you want on
+    the service, *then* set this variable to 'true'.
 inviteonly: If set to 'true', will only allow registration if the user
-	    was invited by an existing user.
+    was invited by an existing user.
 private: If set to 'true', anonymous users will be redirected to the
-         'login' page. Also, API methods that normally require no
-         authentication will require it. Note that this does not turn
-         off registration; use 'closed' or 'inviteonly' for the
-         behaviour you want.
+    'login' page. Also, API methods that normally require no
+    authentication will require it. Note that this does not turn
+    off registration; use 'closed' or 'inviteonly' for the
+    behaviour you want.
 notice: A plain string that will appear on every page. A good place
-	to put introductory information about your service, or info about
-	upgrades and outages, or other community info. Any HTML will
-        be escaped.
+    to put introductory information about your service, or info about
+    upgrades and outages, or other community info. Any HTML will
+    be escaped.
 logo: URL of an image file to use as the logo for the site. Overrides
-      the logo in the theme, if any.
+    the logo in the theme, if any.
 ssl: Whether to use SSL and https:// URLs for some or all pages.
-     Possible values are 'always' (use it for all pages), 'never'
-     (don't use it for any pages), or 'sometimes' (use it for
-     sensitive pages that include passwords like login and registration,
-     but not for regular pages). Default to 'never'.
+    Possible values are 'always' (use it for all pages), 'never'
+    (don't use it for any pages), or 'sometimes' (use it for
+    sensitive pages that include passwords like login and registration,
+    but not for regular pages). Default to 'never'.
 sslserver: use an alternate server name for SSL URLs, like
-           'secure.example.org'. You should be careful to set cookie
-           parameters correctly so that both the SSL server and the
-           "normal" server can access the session cookie and
-           preferably other cookies as well.
+    'secure.example.org'. You should be careful to set cookie
+    parameters correctly so that both the SSL server and the
+    "normal" server can access the session cookie and
+    preferably other cookies as well.
 shorturllength: Length of URL at which URLs in a message exceeding 140
-                characters will be sent to the user's chosen
-                shortening service.
+    characters will be sent to the user's chosen
+    shortening service.
 dupelimit: minimum time allowed for one person to say the same thing
-           twice. Default 60s. Anything lower is considered a user
-           or UI error.
+    twice. Default 60s. Anything lower is considered a user
+    or UI error.
 textlimit: default max size for texts in the site. Defaults to 140.
-           0 means no limit. Can be fine-tuned for notices, messages,
-           profile bios and group descriptions.
+    0 means no limit. Can be fine-tuned for notices, messages,
+    profile bios and group descriptions.
 
 db
 --
@@ -902,44 +882,44 @@ DB_DataObject (see <http://ur1.ca/7xp>). The ones that you may want to
 set are listed below for clarity.
 
 database: a DSN (Data Source Name) for your StatusNet database. This is
-	  in the format 'protocol://username:password@hostname/databasename',
-	  where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
-	  really know what you're doing), 'username' is the username,
-	  'password' is the password, and etc.
+    in the format 'protocol://username:password@hostname/databasename',
+    where 'protocol' is 'mysql' or 'mysqli' (or possibly 'postgresql', if you
+    really know what you're doing), 'username' is the username,
+    'password' is the password, and etc.
 ini_yourdbname: if your database is not named 'statusnet', you'll need
-		to set this to point to the location of the
-		statusnet.ini file. Note that the real name of your database
-		should go in there, not literally 'yourdbname'.
+    to set this to point to the location of the
+    statusnet.ini file. Note that the real name of your database
+    should go in there, not literally 'yourdbname'.
 db_driver: You can try changing this to 'MDB2' to use the other driver
-	   type for DB_DataObject, but note that it breaks the OpenID
-	   libraries, which only support PEAR::DB.
+    type for DB_DataObject, but note that it breaks the OpenID
+    libraries, which only support PEAR::DB.
 debug: On a database error, you may get a message saying to set this
-       value to 5 to see debug messages in the browser. This breaks
-       just about all pages, and will also expose the username and
-       password
+    value to 5 to see debug messages in the browser. This breaks
+    just about all pages, and will also expose the username and
+    password
 quote_identifiers: Set this to true if you're using postgresql.
 type: either 'mysql' or 'postgresql' (used for some bits of
-      database-type-specific SQL in the code). Defaults to mysql.
+    database-type-specific SQL in the code). Defaults to mysql.
 mirror: you can set this to an array of DSNs, like the above
-	'database' value. If it's set, certain read-only actions will
-	use a random value out of this array for the database, rather
-	than the one in 'database' (actually, 'database' is overwritten).
-	You can offload a busy DB server by setting up MySQL replication
-	and adding the slaves to this array. Note that if you want some
-	requests to go to the 'database' (master) server, you'll need
-	to include it in this array, too.
+    'database' value. If it's set, certain read-only actions will
+    use a random value out of this array for the database, rather
+    than the one in 'database' (actually, 'database' is overwritten).
+    You can offload a busy DB server by setting up MySQL replication
+    and adding the slaves to this array. Note that if you want some
+    requests to go to the 'database' (master) server, you'll need
+    to include it in this array, too.
 utf8: whether to talk to the database in UTF-8 mode. This is the default
-      with new installations, but older sites may want to turn it off
-      until they get their databases fixed up. See "UTF-8 database"
-      above for details.
+    with new installations, but older sites may want to turn it off
+    until they get their databases fixed up. See "UTF-8 database"
+    above for details.
 schemacheck: when to let plugins check the database schema to add
-             tables or update them. Values can be 'runtime' (default)
-             or 'script'. 'runtime' can be costly (plugins check the
-             schema on every hit, adding potentially several db
-             queries, some quite long), but not everyone knows how to
-             run a script. If you can, set this to 'script' and run
-             scripts/checkschema.php whenever you install or upgrade a
-             plugin.
+    tables or update them. Values can be 'runtime' (default)
+    or 'script'. 'runtime' can be costly (plugins check the
+    schema on every hit, adding potentially several db
+    queries, some quite long), but not everyone knows how to
+    run a script. If you can, set this to 'script' and run
+    scripts/checkschema.php whenever you install or upgrade a
+    plugin.
 
 syslog
 ------
@@ -948,13 +928,13 @@ By default, StatusNet sites log error messages to the syslog facility.
 (You can override this using the 'logfile' parameter described above).
 
 appname: The name that StatusNet uses to log messages. By default it's
-	 "statusnet", but if you have more than one installation on the
-	 server, you may want to change the name for each instance so
-	 you can track log messages more easily.
+    "statusnet", but if you have more than one installation on the
+    server, you may want to change the name for each instance so
+    you can track log messages more easily.
 priority: level to log at. Currently ignored.
 facility: what syslog facility to used. Defaults to LOG_USER, only
-          reset if you know what syslog is and have a good reason
-          to change it.
+    reset if you know what syslog is and have a good reason
+    to change it.
 
 queue
 -----
@@ -965,18 +945,52 @@ sending out SMS email or XMPP messages, for off-line processing. See
 
 enabled: Whether to uses queues. Defaults to false.
 subsystem: Which kind of queueserver to use. Values include "db" for
-           our hacked-together database queuing (no other server
-           required) and "stomp" for a stomp server.
+    our hacked-together database queuing (no other server
+    required) and "stomp" for a stomp server.
 stomp_server: "broker URI" for stomp server. Something like
-              "tcp://hostname:61613". More complicated ones are
-              possible; see your stomp server's documentation for
-              details.
+    "tcp://hostname:61613". More complicated ones are
+    possible; see your stomp server's documentation for
+    details.
 queue_basename: a root name to use for queues (stomp only). Typically
-                something like '/queue/sitename/' makes sense.
+    something like '/queue/sitename/' makes sense. If running
+    multiple instances on the same server, make sure that
+    either this setting or $config['site']['nickname'] are
+    unique for each site to keep them separate.
+
 stomp_username: username for connecting to the stomp server; defaults
-                to null.
+    to null.
 stomp_password: password for connecting to the stomp server; defaults
-                to null.
+    to null.
+
+stomp_persistent: keep items across queue server restart, if enabled.
+
+softlimit: an absolute or relative "soft memory limit"; daemons will
+    restart themselves gracefully when they find they've hit
+    this amount of memory usage. Defaults to 90% of PHP's global
+    memory_limit setting.
+
+inboxes: delivery of messages to receiver's inboxes can be delayed to
+    queue time for best interactive performance on the sender.
+    This may however be annoyingly slow when using the DB queues,
+    so you can set this to false if it's causing trouble.
+
+breakout: for stomp, individual queues are by default grouped up for
+    best scalability. If some need to be run by separate daemons,
+    etc they can be manually adjusted here.
+
+        Default will share all queues for all sites within each group.
+        Specify as <group>/<queue> or <group>/<queue>/<site>,
+        using nickname identifier as site.
+
+        'main/distrib' separate "distrib" queue covering all sites
+        'xmpp/xmppout/mysite' separate "xmppout" queue covering just 'mysite'
+
+max_retries: for stomp, drop messages after N failed attempts to process.
+    Defaults to 10.
+
+dead_letter_dir: for stomp, optional directory to dump data on failed
+    queue processing events after discarding them.
+
 license
 -------
 
@@ -986,11 +1000,11 @@ choice for any public site. Note that some other servers will not
 accept notices if you apply a stricter license than this.
 
 type: one of 'cc' (for Creative Commons licenses), 'allrightsreserved'
-      (default copyright), or 'private' (for private and confidential
-      information).
+    (default copyright), or 'private' (for private and confidential
+    information).
 owner: for 'allrightsreserved' or 'private', an assigned copyright
-       holder (for example, an employer for a private site). If
-       not specified, will be attributed to 'contributors'.
+    holder (for example, an employer for a private site). If
+    not specified, will be attributed to 'contributors'.
 url: URL of the license, used for links.
 title: Title for the license, like 'Creative Commons Attribution 3.0'.
 image: A button shown on each page for the license.
@@ -1002,9 +1016,9 @@ This is for configuring out-going email. We use PEAR's Mail module,
 see: http://pear.php.net/manual/en/package.mail.mail.factory.php
 
 backend: the backend to use for mail, one of 'mail', 'sendmail', and
-	 'smtp'. Defaults to PEAR's default, 'mail'.
+    'smtp'. Defaults to PEAR's default, 'mail'.
 params: if the mail backend requires any parameters, you can provide
-	them in an associative array.
+    them in an associative array.
 
 nickname
 --------
@@ -1012,36 +1026,36 @@ nickname
 This is for configuring nicknames in the service.
 
 blacklist: an array of strings for usernames that may not be
-	   registered. A default array exists for strings that are
-	   used by StatusNet (e.g. 'doc', 'main', 'avatar', 'theme')
-	   but you may want to add others if you have other software
-	   installed in a subdirectory of StatusNet or if you just
-	   don't want certain words used as usernames.
+    registered. A default array exists for strings that are
+    used by StatusNet (e.g. 'doc', 'main', 'avatar', 'theme')
+    but you may want to add others if you have other software
+    installed in a subdirectory of StatusNet or if you just
+    don't want certain words used as usernames.
 featured: an array of nicknames of 'featured' users of the site.
-	  Can be useful to draw attention to well-known users, or
-	  interesting people, or whatever.
+    Can be useful to draw attention to well-known users, or
+    interesting people, or whatever.
 
 avatar
 ------
 
 For configuring avatar access.
 
-dir:    Directory to look for avatar files and to put them into.
-	Defaults to avatar subdirectory of install directory; if
-	you change it, make sure to change path, too.
-path:	Path to avatars. Defaults to path for avatar subdirectory,
-	but you can change it if you wish. Note that this will
-	be included with the avatar server, too.
+dir: Directory to look for avatar files and to put them into.
+    Defaults to avatar subdirectory of install directory; if
+    you change it, make sure to change path, too.
+path: Path to avatars. Defaults to path for avatar subdirectory,
+    but you can change it if you wish. Note that this will
+    be included with the avatar server, too.
 server: If set, defines another server where avatars are stored in the
-	root directory. Note that the 'avatar' subdir still has to be
-	writeable. You'd typically use this to split HTTP requests on
-	the client to speed up page loading, either with another
-	virtual server or with an NFS or SAMBA share. Clients
-	typically only make 2 connections to a single server at a
-	time <http://ur1.ca/6ih>, so this can parallelize the job.
-	Defaults to null.
-ssl:    Whether to access avatars using HTTPS. Defaults to null, meaning
-        to guess based on site-wide SSL settings.
+    root directory. Note that the 'avatar' subdir still has to be
+    writeable. You'd typically use this to split HTTP requests on
+    the client to speed up page loading, either with another
+    virtual server or with an NFS or SAMBA share. Clients
+    typically only make 2 connections to a single server at a
+    time <http://ur1.ca/6ih>, so this can parallelize the job.
+    Defaults to null.
+ssl: Whether to access avatars using HTTPS. Defaults to null, meaning
+    to guess based on site-wide SSL settings.
 
 public
 ------
@@ -1049,41 +1063,41 @@ public
 For configuring the public stream.
 
 localonly: If set to true, only messages posted by users of this
-	   service (rather than other services, filtered through OMB)
-	   are shown in the public stream. Default true.
+    service (rather than other services, filtered through OMB)
+    are shown in the public stream. Default true.
 blacklist: An array of IDs of users to hide from the public stream.
-	   Useful if you have someone making excessive Twitterfeed posts
-	   to the site, other kinds of automated posts, testing bots, etc.
+    Useful if you have someone making excessive Twitterfeed posts
+    to the site, other kinds of automated posts, testing bots, etc.
 autosource: Sources of notices that are from automatic posters, and thus
-            should be kept off the public timeline. Default empty.
+    should be kept off the public timeline. Default empty.
 
 theme
 -----
 
 server: Like avatars, you can speed up page loading by pointing the
-	theme file lookup to another server (virtual or real).
-	Defaults to NULL, meaning to use the site server.
-dir:    Directory where theme files are stored. Used to determine
-	whether to show parts of a theme file. Defaults to the theme
-	subdirectory of the install directory.
-path:	Path part of theme URLs, before the theme name. Relative to the
-	theme server. It may make sense to change this path when upgrading,
-	(using version numbers as the path) to make sure that all files are
-	reloaded by caching clients or proxies. Defaults to null,
-	which means to use the site path + '/theme'.
-ssl:	Whether to use SSL for theme elements. Default is null, which means
-	guess based on site SSL settings.
+    theme file lookup to another server (virtual or real).
+    Defaults to NULL, meaning to use the site server.
+dir: Directory where theme files are stored. Used to determine
+    whether to show parts of a theme file. Defaults to the theme
+    subdirectory of the install directory.
+path: Path part of theme URLs, before the theme name. Relative to the
+    theme server. It may make sense to change this path when upgrading,
+    (using version numbers as the path) to make sure that all files are
+    reloaded by caching clients or proxies. Defaults to null,
+    which means to use the site path + '/theme'.
+ssl: Whether to use SSL for theme elements. Default is null, which means
+    guess based on site SSL settings.
 
 javascript
 ----------
 
 server: You can speed up page loading by pointing the
-	theme file lookup to another server (virtual or real).
-	Defaults to NULL, meaning to use the site server.
-path:	Path part of Javascript URLs. Defaults to null,
-	which means to use the site path + '/js/'.
-ssl:	Whether to use SSL for JavaScript files. Default is null, which means
-	guess based on site SSL settings.
+    theme file lookup to another server (virtual or real).
+    Defaults to NULL, meaning to use the site server.
+path: Path part of Javascript URLs. Defaults to null,
+    which means to use the site path + '/js/'.
+ssl: Whether to use SSL for JavaScript files. Default is null, which means
+    guess based on site SSL settings.
 
 xmpp
 ----
@@ -1093,27 +1107,27 @@ For configuring the XMPP sub-system.
 enabled: Whether to accept and send messages by XMPP. Default false.
 server: server part of XMPP ID for update user.
 port: connection port for clients. Default 5222, which you probably
-      shouldn't need to change.
+    shouldn't need to change.
 user: username for the client connection. Users will receive messages
-      from 'user'@'server'.
+    from 'user'@'server'.
 resource: a unique identifier for the connection to the server. This
-	  is actually used as a prefix for each XMPP component in the system.
+    is actually used as a prefix for each XMPP component in the system.
 password: password for the user account.
 host: some XMPP domains are served by machines with a different
-      hostname. (For example, @gmail.com GTalk users connect to
-      talk.google.com). Set this to the correct hostname if that's the
-      case with your server.
+    hostname. (For example, @gmail.com GTalk users connect to
+    talk.google.com). Set this to the correct hostname if that's the
+    case with your server.
 encryption: Whether to encrypt the connection between StatusNet and the
-	    XMPP server. Defaults to true, but you can get
-	    considerably better performance turning it off if you're
-	    connecting to a server on the same machine or on a
-	    protected network.
+    XMPP server. Defaults to true, but you can get
+    considerably better performance turning it off if you're
+    connecting to a server on the same machine or on a
+    protected network.
 debug: if turned on, this will make the XMPP library blurt out all of
-       the incoming and outgoing messages as XML stanzas. Use as a
-       last resort, and never turn it on if you don't have queues
-       enabled, since it will spit out sensitive data to the browser.
+    the incoming and outgoing messages as XML stanzas. Use as a
+    last resort, and never turn it on if you don't have queues
+    enabled, since it will spit out sensitive data to the browser.
 public: an array of JIDs to send _all_ notices to. This is useful for
-	participating in third-party search and archiving services.
+    participating in third-party search and archiving services.
 
 invite
 ------
@@ -1128,8 +1142,8 @@ tag
 Miscellaneous tagging stuff.
 
 dropoff: Decay factor for tag listing, in seconds.
-	 Defaults to exponential decay over ten days; you can twiddle
-	 with it to try and get better results for your site.
+    Defaults to exponential decay over ten days; you can twiddle
+    with it to try and get better results for your site.
 
 popular
 -------
@@ -1137,8 +1151,8 @@ popular
 Settings for the "popular" section of the site.
 
 dropoff: Decay factor for popularity listing, in seconds.
-	 Defaults to exponential decay over ten days; you can twiddle
-	 with it to try and get better results for your site.
+    Defaults to exponential decay over ten days; you can twiddle
+    with it to try and get better results for your site.
 
 daemon
 ------
@@ -1146,14 +1160,14 @@ daemon
 For daemon processes.
 
 piddir: directory that daemon processes should write their PID file
-	(process ID) to. Defaults to /var/run/, which is where this
-	stuff should usually go on Unix-ish systems.
+    (process ID) to. Defaults to /var/run/, which is where this
+    stuff should usually go on Unix-ish systems.
 user: If set, the daemons will try to change their effective user ID
-      to this user before running. Probably a good idea, especially if
-      you start the daemons as root. Note: user name, like 'daemon',
-      not 1001.
+    to this user before running. Probably a good idea, especially if
+    you start the daemons as root. Note: user name, like 'daemon',
+    not 1001.
 group: If set, the daemons will try to change their effective group ID
-       to this named group. Again, a name, not a numerical ID.
+    to this named group. Again, a name, not a numerical ID.
 
 memcached
 ---------
@@ -1163,13 +1177,13 @@ database data in memcached <http://www.danga.com/memcached/>.
 
 enabled: Set to true to enable. Default false.
 server: a string with the hostname of the memcached server. Can also
-	be an array of hostnames, if you've got more than one server.
+    be an array of hostnames, if you've got more than one server.
 base: memcached uses key-value pairs to store data. We build long,
-      funny-looking keys to make sure we don't have any conflicts. The
-      base of the key is usually a simplified version of the site name
-      (like "Identi.ca" => "identica"), but you can overwrite this if
-      you need to. You can safely ignore it if you only have one
-      StatusNet site using your memcached server.
+    funny-looking keys to make sure we don't have any conflicts. The
+    base of the key is usually a simplified version of the site name
+    (like "Identi.ca" => "identica"), but you can overwrite this if
+    you need to. You can safely ignore it if you only have one
+    StatusNet site using your memcached server.
 port: Port to connect to; defaults to 11211.
 
 emailpost
@@ -1178,7 +1192,7 @@ emailpost
 For post-by-email.
 
 enabled: Whether to enable post-by-email. Defaults to true. You will
-         also need to set up maildaemon.php.
+    also need to set up maildaemon.php.
 
 sms
 ---
@@ -1186,7 +1200,7 @@ sms
 For SMS integration.
 
 enabled: Whether to enable SMS integration. Defaults to true. Queues
-         should also be enabled.
+    should also be enabled.
 
 integration
 -----------
@@ -1201,7 +1215,7 @@ inboxes
 For notice inboxes.
 
 enabled: No longer used. If you set this to something other than true,
-	 StatusNet will no longer run.
+    StatusNet will no longer run.
 
 throttle
 --------
@@ -1210,8 +1224,8 @@ For notice-posting throttles.
 
 enabled: Whether to throttle posting. Defaults to false.
 count: Each user can make this many posts in 'timespan' seconds. So, if count
-       is 100 and timespan is 3600, then there can be only 100 posts
-       from a user every hour.
+    is 100 and timespan is 3600, then there can be only 100 posts
+    from a user every hour.
 timespan: see 'count'.
 
 profile
@@ -1219,12 +1233,8 @@ profile
 
 Profile management.
 
-banned: an array of usernames and/or profile IDs of 'banned' profiles.
-        The site will reject any notices by these users -- they will
-        not be accepted at all. (Compare with blacklisted users above,
-        whose posts just won't show up in the public stream.)
 biolimit: max character length of bio; 0 means no limit; null means to use
-          the site text limit default.
+    the site text limit default.
 
 newuser
 -------
@@ -1232,13 +1242,13 @@ newuser
 Options with new users.
 
 default: nickname of a user account to automatically subscribe new
-	 users to. Typically this would be system account for e.g.
-         service updates or announcements. Users are able to unsub
-         if they want. Default is null; no auto subscribe.
+    users to. Typically this would be system account for e.g.
+    service updates or announcements. Users are able to unsub
+    if they want. Default is null; no auto subscribe.
 welcome: nickname of a user account that sends welcome messages to new
-         users. Can be the same as 'default' account, although on
-         busy servers it may be a good idea to keep that one just for
-         'urgent' messages. Default is null; no message.
+    users. Can be the same as 'default' account, although on
+    busy servers it may be a good idea to keep that one just for
+    'urgent' messages. Default is null; no message.
 
 If either of these special user accounts are specified, the users should
 be created before the configuration is updated.
@@ -1255,19 +1265,19 @@ helps StatusNet developers take your needs into account when updating
 the software.
 
 run: string indicating when to run the statistics. Values can be 'web'
-     (run occasionally at Web time), 'cron' (run from a cron script),
-     or 'never' (don't ever run). If you set it to 'cron', remember to
-     schedule the script to run on a regular basis.
+    (run occasionally at Web time), 'cron' (run from a cron script),
+    or 'never' (don't ever run). If you set it to 'cron', remember to
+    schedule the script to run on a regular basis.
 frequency: if run value is 'web', how often to report statistics.
-           Measured in Web hits; depends on how active your site is.
-           Default is 10000 -- that is, one report every 10000 Web hits,
-           on average.
+    Measured in Web hits; depends on how active your site is.
+    Default is 10000 -- that is, one report every 10000 Web hits,
+    on average.
 reporturl: URL to post statistics to. Defaults to StatusNet developers'
-           report system, but if they go evil or disappear you may
-           need to update this to another value. Note: if you
-           don't want to report stats, it's much better to
-           set 'run' to 'never' than to set this value to something
-           nonsensical.
+    report system, but if they go evil or disappear you may
+    need to update this to another value. Note: if you
+    don't want to report stats, it's much better to
+    set 'run' to 'never' than to set this value to something
+    nonsensical.
 
 attachments
 -----------
@@ -1280,14 +1290,14 @@ We suggest the use of the pecl file_info extension to handle mime type
 detection.
 
 supported: an array of mime types you accept to store and distribute,
-           like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
-           setup your server to properly recognize the types you want to
-           support.
-uploads:   false to disable uploading files with notices (true by default).
+    like 'image/gif', 'video/mpeg', 'audio/mpeg', etc. Make sure you
+    setup your server to properly recognize the types you want to
+    support.
+uploads: false to disable uploading files with notices (true by default).
 filecommand: The required MIME_Type library may need to use the 'file'
-	     command. It tries the one in the Web server's path, but if
-	     you're having problems with uploads, try setting this to the
-	     correct value. Note: 'file' must accept '-b' and '-i' options.
+    command. It tries the one in the Web server's path, but if
+    you're having problems with uploads, try setting this to the
+    correct value. Note: 'file' must accept '-b' and '-i' options.
 
 For quotas, be sure you've set the upload_max_filesize and post_max_size
 in php.ini to be large enough to handle your upload. In httpd.conf
@@ -1295,26 +1305,26 @@ in php.ini to be large enough to handle your upload. In httpd.conf
 set too low (it's optional, so it may not be there at all).
 
 file_quota: maximum size for a single file upload in bytes. A user can send
-            any amount of notices with attachments as long as each attachment
-            is smaller than file_quota.
+    any amount of notices with attachments as long as each attachment
+    is smaller than file_quota.
 user_quota: total size in bytes a user can store on this server. Each user
-            can store any number of files as long as their total size does
-            not exceed the user_quota.
+    can store any number of files as long as their total size does
+    not exceed the user_quota.
 monthly_quota: total size permitted in the current month. This is the total
-            size in bytes that a user can upload each month.
+    size in bytes that a user can upload each month.
 dir: directory accessible to the Web process where uploads should go.
-     Defaults to the 'file' subdirectory of the install directory, which
-     should be writeable by the Web user.
+    Defaults to the 'file' subdirectory of the install directory, which
+    should be writeable by the Web user.
 server: server name to use when creating URLs for uploaded files.
-        Defaults to null, meaning to use the default Web server. Using
-        a virtual server here can speed up Web performance.
+    Defaults to null, meaning to use the default Web server. Using
+    a virtual server here can speed up Web performance.
 path: URL path, relative to the server, to find files. Defaults to
-      main path + '/file/'.
+    main path + '/file/'.
 ssl: whether to use HTTPS for file URLs. Defaults to null, meaning to
-     guess based on other SSL settings.
+    guess based on other SSL settings.
 filecommand: command to use for determining the type of a file. May be
-             skipped if fileinfo extension is installed. Defaults to
-             '/usr/bin/file'.
+    skipped if fileinfo extension is installed. Defaults to
+    '/usr/bin/file'.
 
 group
 -----
@@ -1322,10 +1332,10 @@ group
 Options for group functionality.
 
 maxaliases: maximum number of aliases a group can have. Default 3. Set
-            to 0 or less to prevent aliases in a group.
+    to 0 or less to prevent aliases in a group.
 desclimit: maximum number of characters to allow in group descriptions.
-           null (default) means to use the site-wide text limits. 0
-           means no limit.
+    null (default) means to use the site-wide text limits. 0
+    means no limit.
 
 oohembed
 --------
@@ -1340,11 +1350,11 @@ search
 Some stuff for search.
 
 type: type of search. Ignored if PostgreSQL or Sphinx are enabled. Can either
-      be 'fulltext' (default) or 'like'. The former is faster and more efficient
-      but requires the lame old MyISAM engine for MySQL. The latter
-      will work with InnoDB but could be miserably slow on large
-      systems. We'll probably add another type sometime in the future,
-      with our own indexing system (maybe like MediaWiki's).
+    be 'fulltext' (default) or 'like'. The former is faster and more efficient
+    but requires the lame old MyISAM engine for MySQL. The latter
+    will work with InnoDB but could be miserably slow on large
+    systems. We'll probably add another type sometime in the future,
+    with our own indexing system (maybe like MediaWiki's).
 
 sessions
 --------
@@ -1352,11 +1362,11 @@ sessions
 Session handling.
 
 handle: boolean. Whether we should register our own PHP session-handling
-	code (using the database and memcache if enabled). Defaults to false.
-	Setting this to true makes some sense on large or multi-server
-	sites, but it probably won't hurt for smaller ones, either.
+    code (using the database and memcache if enabled). Defaults to false.
+    Setting this to true makes some sense on large or multi-server
+    sites, but it probably won't hurt for smaller ones, either.
 debug: whether to output debugging info for session storage. Can help
-       with weird session bugs, sometimes. Default false.
+    with weird session bugs, sometimes. Default false.
 
 background
 ----------
@@ -1365,14 +1375,14 @@ Users can upload backgrounds for their pages; this section defines
 their use.
 
 server: the server to use for background. Using a separate (even
-        virtual) server for this can speed up load times. Default is
-        null; same as site server.
+    virtual) server for this can speed up load times. Default is
+    null; same as site server.
 dir: directory to write backgrounds too. Default is '/background/'
-     subdir of install dir.
+    subdir of install dir.
 path: path to backgrounds. Default is sub-path of install path; note
-      that you may need to change this if you change site-path too.
+    that you may need to change this if you change site-path too.
 ssl: Whether or not to use HTTPS for background files. Defaults to
-     null, meaning to guess from site-wide SSL settings.
+    null, meaning to guess from site-wide SSL settings.
 
 ping
 ----
@@ -1381,7 +1391,7 @@ Using the "XML-RPC Ping" method initiated by weblogs.com, the site can
 notify third-party servers of updates.
 
 notify: an array of URLs for ping endpoints. Default is the empty
-        array (no notification).
+    array (no notification).
 
 design
 ------
@@ -1403,8 +1413,8 @@ notice
 Configuration options specific to notices.
 
 contentlimit: max length of the plain-text content of a notice.
-              Default is null, meaning to use the site-wide text limit.
-              0 means no limit.
+    Default is null, meaning to use the site-wide text limit.
+    0 means no limit.
 
 message
 -------
@@ -1412,8 +1422,8 @@ message
 Configuration options specific to messages.
 
 contentlimit: max length of the plain-text content of a message.
-              Default is null, meaning to use the site-wide text limit.
-              0 means no limit.
+    Default is null, meaning to use the site-wide text limit.
+    0 means no limit.
 
 logincommand
 ------------
@@ -1421,14 +1431,14 @@ logincommand
 Configuration options for the login command.
 
 disabled: whether to enable this command. If enabled, users who send
-	  the text 'login' to the site through any channel will
-	  receive a link to login to the site automatically in return.
-	  Possibly useful for users who primarily use an XMPP or SMS
-	  interface and can't be bothered to remember their site
-	  password. Note that the security implications of this are
-	  pretty serious and have not been thoroughly tested. You
-	  should enable it only after you've convinced yourself that
-	  it is safe. Default is 'false'.
+    the text 'login' to the site through any channel will
+    receive a link to login to the site automatically in return.
+    Possibly useful for users who primarily use an XMPP or SMS
+    interface and can't be bothered to remember their site
+    password. Note that the security implications of this are
+    pretty serious and have not been thoroughly tested. You
+    should enable it only after you've convinced yourself that
+    it is safe. Default is 'false'.
 
 singleuser
 ----------
@@ -1447,11 +1457,11 @@ Web crawlers. See http://www.robotstxt.org/ for more information
 on the format of this file.
 
 crawldelay: if non-empty, this value is provided as the Crawl-Delay:
-            for the robots.txt file. see http://ur1.ca/l5a0
-            for more information. Default is zero, no explicit delay.
+    for the robots.txt file. see http://ur1.ca/l5a0
+    for more information. Default is zero, no explicit delay.
 disallow: Array of (virtual) directories to disallow. Default is 'main',
-          'search', 'message', 'settings', 'admin'. Ignored when site
-          is private, in which case the entire site ('/') is disallowed.
+    'search', 'message', 'settings', 'admin'. Ignored when site
+    is private, in which case the entire site ('/') is disallowed.
 
 Plugins
 =======
@@ -1510,7 +1520,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.8.2 without reading the "Notice
+If you upgraded to StatusNet 0.9.0 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 
@@ -1543,7 +1553,7 @@ If you're adventurous or impatient, you may want to install the
 development version of StatusNet. To get it, use the git version
 control tool <http://git-scm.com/> like so:
 
-	git clone git@gitorious.org:statusnet/mainline.git
+    git clone git@gitorious.org:statusnet/mainline.git
 
 This is the version of the software that runs on Identi.ca and the
 status.net hosted service. Using it is a mixed bag. On the positive
@@ -1565,16 +1575,16 @@ There are several ways to get more information about StatusNet.
 * The #statusnet IRC channel on freenode.net <http://www.freenode.net/>.
 * The StatusNet wiki, http://status.net/wiki/
 * The StatusNet blog, http://status.net/blog/
-* The StatusNet status update, <http://status.status.net/status> (!)
+* The StatusNet status update, <http://status.status.net/> (!)
 
 Feedback
 ========
 
-* Microblogging messages to http://identi.ca/evan are very welcome.
-* StatusNet's Trac server has a bug tracker for any defects you may find,
-  or ideas for making things better. http://status.net/trac/
-* e-mail to evan@status.net will usually be read and responded to very
-  quickly, unless the question is really hard.
+* Microblogging messages to http://support.status.net/ are very welcome.
+* The microblogging group http://identi.ca/group/statusnet is a good
+  place to discuss the software.
+* StatusNet has a bug tracker for any defects you may find, or ideas for
+  making things better. http://status.net/bugs
 
 Credits
 =======
