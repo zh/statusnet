@@ -99,7 +99,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $application = $profile->getApplications($offset, $limit);
 
-        $cnt == 0;
+        $cnt = 0;
 
         if (!empty($application)) {
             $al = new ApplicationList($application, $user, $this, true);
@@ -112,7 +112,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $this->pagination($this->page > 1, $cnt > APPS_PER_PAGE,
                           $this->page, 'connectionssettings',
-                          array('nickname' => $this->user->nickname));
+                          array('nickname' => $user->nickname));
     }
 
     /**

@@ -125,8 +125,7 @@ class ApiGroupMembershipAction extends ApiPrivateAuthAction
             ($this->page - 1) * $this->count,
             $this->count,
             $this->since_id,
-            $this->max_id,
-            $this->since
+            $this->max_id
         );
 
         while ($profile->fetch()) {

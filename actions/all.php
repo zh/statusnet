@@ -60,6 +60,7 @@ class AllAction extends ProfileAction
         }
 
         if ($this->page > 1 && $this->notice->N == 0) {
+            // TRANS: Server error when page not found (404)
             $this->serverError(_('No such page'), $code = 404);
         }
 
@@ -81,8 +82,10 @@ class AllAction extends ProfileAction
     function title()
     {
         if ($this->page > 1) {
+            // TRANS: Page title. %1$s is user nickname, %2$d is page number
             return sprintf(_('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
         } else {
+            // TRANS: Page title. %1$s is user nickname
             return sprintf(_("%s and friends"), $this->user->nickname);
         }
     }
@@ -96,6 +99,7 @@ class AllAction extends ProfileAction
                         'nickname' =>
                         $this->user->nickname)
                 ),
+            // TRANS: %1$s is user nickname
                 sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
             new Feed(Feed::RSS2,
                 common_local_url(
@@ -104,6 +108,7 @@ class AllAction extends ProfileAction
                         'id' => $this->user->nickname
                     )
                 ),
+            // TRANS: %1$s is user nickname
                 sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
             new Feed(Feed::ATOM,
                 common_local_url(
@@ -112,6 +117,7 @@ class AllAction extends ProfileAction
                         'id' => $this->user->nickname
                     )
                 ),
+                // TRANS: %1$s is user nickname
                 sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname))
         );
     }
@@ -124,6 +130,7 @@ class AllAction extends ProfileAction
 
     function showEmptyListMessage()
     {
+        // TRANS: %1$s is user nickname
         $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
@@ -131,6 +138,7 @@ class AllAction extends ProfileAction
             if ($this->user->id === $current_user->id) {
                 $message .= _('Try subscribing to more people, [join a group](%%action.groups%%) or post something yourself.');
             } else {
+                // TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
                 $message .= sprintf(_('You can try to [nudge %1$s](../%2$s) from his profile or [post something to his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
         } else {
@@ -144,26 +152,32 @@ class AllAction extends ProfileAction
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        if (Event::handle('StartShowAllContent', array($this))) {
+            $nl = new NoticeList($this->notice, $this);
 
-        $cnt = $nl->show();
+            $cnt = $nl->show();
 
-        if (0 == $cnt) {
-            $this->showEmptyListMessage();
+            if (0 == $cnt) {
+                $this->showEmptyListMessage();
+            }
+
+            $this->pagination(
+                $this->page > 1, $cnt > NOTICES_PER_PAGE,
+                $this->page, 'all', array('nickname' => $this->user->nickname)
+            );
+
+            Event::handle('EndShowAllContent', array($this));
         }
-
-        $this->pagination(
-            $this->page > 1, $cnt > NOTICES_PER_PAGE,
-            $this->page, 'all', array('nickname' => $this->user->nickname)
-        );
     }
 
     function showPageTitle()
     {
         $user = common_current_user();
         if ($user && ($user->id == $this->user->id)) {
+            // TRANS: H1 text
             $this->element('h1', null, _("You and friends"));
         } else {
+            // TRANS: H1 text. %1$s is user nickname
             $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }

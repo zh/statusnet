@@ -93,7 +93,7 @@ class ApiGroupListAction extends ApiBareAuthAction
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s's groups"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
         $link       = common_local_url(
             'usergroups',
@@ -152,8 +152,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             ($this->page - 1) * $this->count,
             $this->count,
             $this->since_id,
-            $this->max_id,
-            $this->since
+            $this->max_id
         );
 
         while ($group->fetch()) {

@@ -264,6 +264,9 @@ abstract class QueueManager extends IoManager
                 $this->connect('sms', 'SmsQueueHandler');
             }
 
+            // Broadcasting profile updates to OMB remote subscribers
+            $this->connect('profile', 'ProfileQueueHandler');
+
             // XMPP output handlers...
             if (common_config('xmpp', 'enabled')) {
                 // Delivery prep, read by queuedaemon.php:

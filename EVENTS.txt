@@ -363,6 +363,14 @@ EndProfileRemoteSubscribe: After showing the link to remote subscription
 - $userprofile: UserProfile widget
 - &$profile: the profile being shown
 
+StartGroupSubscribe: Before showing the link to remote subscription
+- $action: the current action
+- $group: the group being shown
+
+EndGroupSubscribe: After showing the link to remote subscription
+- $action: the current action
+- $group: the group being shown
+
 StartProfilePageProfileSection: Starting to show the section of the
                               profile page with the actual profile data;
                               hook to prevent showing the profile (e.g.)
@@ -729,3 +737,84 @@ StartGetProfileUri: When determining the canonical URI for a given profile
 EndGetProfileUri: After determining the canonical URI for a given profile
 - $profile: the current profile
 - &$uri: the URI
+
+StartFavorNotice: Saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+- &$fave: Favor object; null to start off with, but feel free to override.
+
+EndFavorNotice: After saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+
+StartDisfavorNotice: Saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+- &$result: result of the disfavoring (if you override)
+
+EndDisfavorNotice: After saving a notice as a favorite
+- $profile: profile of the person faving (can be remote!)
+- $notice: notice being faved
+
+StartFindMentions: start finding mentions in a block of text
+- $sender: sender profile
+- $text: plain text version of the notice
+- &$mentions: mentions found so far. Array of arrays; each array
+  has 'mentioned' (array of mentioned profiles), 'url' (url to link as),
+  'title' (title of the link), 'position' (position of the text to
+  replace), 'text' (text to replace)
+
+EndFindMentions: end finding mentions in a block of text
+- $sender: sender profile
+- $text: plain text version of the notice
+- &$mentions: mentions found so far. Array of arrays; each array
+  has 'mentioned' (array of mentioned profiles), 'url' (url to link as),
+  'title' (title of the link), 'position' (position of the text to
+  replace), 'text' (text to replace)
+
+StartShowSubscriptionsContent: before showing the subscriptions content
+- $action: the current action
+
+EndShowSubscriptionsContent: after showing the subscriptions content
+- $action: the current action
+
+StartShowUserGroupsContent: before showing the user groups content
+- $action: the current action
+
+EndShowUserGroupsContent: after showing the user groups content
+- $action: the current action
+
+StartShowAllContent: before showing the all (you and friends) content
+- $action: the current action
+
+EndShowAllContent: after showing the all (you and friends) content
+- $action: the current action
+
+StartShowSubscriptionsMiniList: at the start of subscriptions mini list
+- $action: the current action
+
+EndShowSubscriptionsMiniList: at the end of subscriptions mini list
+- $action: the current action
+
+StartShowGroupsMiniList: at the start of groups mini list
+- $action: the current action
+
+EndShowGroupsMiniList: at the end of groups mini list
+- $action: the current action
+
+StartDeleteUserForm: starting the data in the form for deleting a user
+- $action: action being shown
+- $user: user being deleted
+
+EndDeleteUserForm: Ending the data in the form for deleting a user
+- $action: action being shown
+- $user: user being deleted
+
+StartDeleteUser: handling the post for deleting a user
+- $action: action being shown
+- $user: user being deleted
+
+EndDeleteUser: handling the post for deleting a user
+- $action: action being shown
+- $user: user being deleted
+

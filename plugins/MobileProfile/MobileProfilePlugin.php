@@ -307,25 +307,14 @@ class MobileProfilePlugin extends WAP20Plugin
     function _showPrimaryNav($action)
     {
         $user    = common_current_user();
-        $connect = '';
-        if (common_config('xmpp', 'enabled')) {
-            $connect = 'imsettings';
-        } else if (common_config('sms', 'enabled')) {
-            $connect = 'smssettings';
-        } else if (common_config('twitter', 'enabled')) {
-            $connect = 'twittersettings';
-        }
-
         $action->elementStart('ul', array('id' => 'site_nav_global_primary'));
         if ($user) {
             $action->menuItem(common_local_url('all', array('nickname' => $user->nickname)),
                             _('Home'));
             $action->menuItem(common_local_url('profilesettings'),
                             _('Account'));
-            if ($connect) {
-                $action->menuItem(common_local_url($connect),
+            $action->menuItem(common_local_url('oauthconnectionssettings'),
                                 _('Connect'));
-            }
             if ($user->hasRight(Right::CONFIGURESITE)) {
                 $action->menuItem(common_local_url('siteadminpanel'),
                                 _('Admin'), _('Change site configuration'), false, 'nav_admin');

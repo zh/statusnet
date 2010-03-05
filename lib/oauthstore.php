@@ -390,7 +390,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         $sub->subscribed = $user->id;
 
         if (!$sub->find(true)) {
-            return 0;
+            return array();
         }
 
         /* Since we do not use OMB_Service_Provider’s action methods, there

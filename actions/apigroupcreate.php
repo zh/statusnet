@@ -123,7 +123,9 @@ class ApiGroupCreateAction extends ApiAuthAction
                                             'description' => $this->description,
                                             'location' => $this->location,
                                             'aliases'  => $this->aliases,
-                                            'userid'   => $this->user->id));
+                                            'userid'   => $this->user->id,
+                                            'local'    => true));
+
         switch($this->format) {
         case 'xml':
             $this->showSingleXmlGroup($group);
@@ -306,9 +308,9 @@ class ApiGroupCreateAction extends ApiAuthAction
 
     function groupNicknameExists($nickname)
     {
-        $group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
 
-        if (!empty($group)) {
+        if (!empty($local)) {
             return true;
         }
 

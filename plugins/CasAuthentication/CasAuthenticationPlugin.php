@@ -137,6 +137,7 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
         $casSettings['server']=$this->server;
         $casSettings['port']=$this->port;
         $casSettings['path']=$this->path;
+        $casSettings['takeOverLogin']=$this->takeOverLogin;
     }
 
     function onPluginVersion(&$versions)

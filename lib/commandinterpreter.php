@@ -47,6 +47,17 @@ class CommandInterpreter
             } else {
                 return new LoginCommand($user);
             }
+         case 'lose':
+            if ($arg) {
+                list($other, $extra) = $this->split_arg($arg);
+                if ($extra) {
+                    return null;
+                } else {
+                    return new LoseCommand($user, $other);
+                }
+            } else {
+              return null;
+            }
          case 'subscribers':
             if ($arg) {
                 return null;

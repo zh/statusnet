@@ -262,7 +262,7 @@ class MediaFile
             $filetype = MIME_Type::autoDetect($stream['uri']);
         }
 
-        if (in_array($filetype, common_config('attachments', 'supported'))) {
+        if (common_config('attachments', 'supported') === true || in_array($filetype, common_config('attachments', 'supported'))) {
             return $filetype;
         }
         $media = MIME_Type::getMedia($filetype);

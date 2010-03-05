@@ -380,12 +380,12 @@ class NoticeListItem extends Widget
 
     function showNoticeLink()
     {
-        if($this->notice->is_local == Notice::LOCAL_PUBLIC || $this->notice->is_local == Notice::LOCAL_NONPUBLIC){
-            $noticeurl = common_local_url('shownotice',
-                                      array('notice' => $this->notice->id));
-        }else{
-            $noticeurl = $this->notice->uri;
-        }
+        $noticeurl = $this->notice->bestUrl();
+
+        // above should always return an URL
+
+        assert(!empty($noticeurl));
+
         $this->out->elementStart('a', array('rel' => 'bookmark',
                                             'class' => 'timestamp',
                                             'href' => $noticeurl));
@@ -438,14 +438,15 @@ class NoticeListItem extends Widget
         $this->out->text(_('at'));
         $this->out->text(' ');
         if (empty($url)) {
-            $this->out->element('span', array('class' => 'geo',
+            $this->out->element('abbr', array('class' => 'geo',
                                               'title' => $latlon),
                                 $name);
         } else {
-            $this->out->element('a', array('class' => 'geo',
-                                           'title' => $latlon,
-                                           'href' => $url),
+            $this->out->elementStart('a', array('href' => $url));
+            $this->out->element('abbr', array('class' => 'geo',
+                                              'title' => $latlon),
                                 $name);
+            $this->out->elementEnd('a');
         }
         $this->out->elementEnd('span');
     }
@@ -539,22 +540,40 @@ class NoticeListItem extends Widget
     function showContext()
     {
         $hasConversation = false;
-        if( !empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id){
-            $hasConversation = true;
-        }else{
-            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
-            if($conversation->N > 0){
+        if (!empty($this->notice->conversation)) {
+            $conversation = Notice::conversationStream(
+                $this->notice->conversation,
+                1,
+                1
+            );
+            if ($conversation->N > 0) {
                 $hasConversation = true;
             }
         }
-        if ($hasConversation){
-            $this->out->text(' ');
-            $convurl = common_local_url('conversation',
-                                         array('id' => $this->notice->conversation));
-            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
-                                           'class' => 'response'),
-                                _('in context'));
+        if ($hasConversation) {
+            $conv = Conversation::staticGet(
+                'id',
+                $this->notice->conversation
+            );
+            $convurl = $conv->uri;
+            if (!empty($convurl)) {
+                $this->out->text(' ');
+                $this->out->element(
+                    'a',
+                    array(
+                    'href' => $convurl.'#notice-'.$this->notice->id,
+                    'class' => 'response'),
+                    _('in context')
+                );
+            } else {
+                $msg = sprintf(
+                    "Couldn't find Conversation ID %d to make 'in context'"
+                    . "link for Notice ID %d",
+                    $this->notice->conversation,
+                    $this->notice->id
+                );
+                common_log(LOG_WARNING, $msg);
+            }
         }
     }
 

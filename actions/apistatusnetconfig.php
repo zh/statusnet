@@ -32,8 +32,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/api.php';
-
 /**
  * Gives a full dump of configuration variables for this instance
  * of StatusNet, minus variables that may be security-sensitive (like

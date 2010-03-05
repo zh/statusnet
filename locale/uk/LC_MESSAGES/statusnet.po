@@ -10,78 +10,84 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-11 08:14+0000\n"
-"PO-Revision-Date: 2010-02-11 08:16:16+0000\n"
+"POT-Creation-Date: 2010-03-04 18:55+0000\n"
+"PO-Revision-Date: 2010-03-04 18:57:28+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.16alpha (r62295); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10< =4 && (n%100<10 or n%100>=20) ? 1 : 2);\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:326
+#. TRANS: Page title
+#. TRANS: Menu item for site administration
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
 msgid "Access"
 msgstr "Погодитись"
 
-#: actions/accessadminpanel.php:65
+#. TRANS: Page notice
+#: actions/accessadminpanel.php:67
 msgid "Site access settings"
 msgstr "Параметри доступу на сайт"
 
-#: actions/accessadminpanel.php:158
+#. TRANS: Form legend for registration form.
+#: actions/accessadminpanel.php:161
 msgid "Registration"
 msgstr "Реєстрація"
 
-#: actions/accessadminpanel.php:161
-msgid "Private"
-msgstr "Приватно"
-
-#: actions/accessadminpanel.php:163
+#. TRANS: Checkbox instructions for admin setting "Private"
+#: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 "Заборонити анонімним відвідувачам (ті, що не увійшли до системи) переглядати "
 "сайт?"
 
+#. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-msgid "Invite only"
-msgstr "Лише за запрошеннями"
+msgctxt "LABEL"
+msgid "Private"
+msgstr "Приватно"
 
-#: actions/accessadminpanel.php:169
+#. TRANS: Checkbox instructions for admin setting "Invite only"
+#: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
 msgstr "Зробити регістрацію лише за запрошеннями."
 
-#: actions/accessadminpanel.php:173
-msgid "Closed"
-msgstr "Закрито"
+#. TRANS: Checkbox label for configuring site as invite only.
+#: actions/accessadminpanel.php:176
+msgid "Invite only"
+msgstr "Лише за запрошеннями"
 
-#: actions/accessadminpanel.php:175
+#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
+#: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
 msgstr "Скасувати подальшу регістрацію."
 
-#: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
-#: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:203 actions/tagother.php:154
-#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr "Зберегти"
+#. TRANS: Checkbox label for disabling new user registrations.
+#: actions/accessadminpanel.php:185
+msgid "Closed"
+msgstr "Закрито"
 
-#: actions/accessadminpanel.php:189
+#. TRANS: Title / tooltip for button to save access settings in site admin panel
+#: actions/accessadminpanel.php:202
 msgid "Save access settings"
 msgstr "Зберегти параметри доступу"
 
-#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
-#: actions/showfavorites.php:137 actions/tag.php:51
+#: actions/accessadminpanel.php:203
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "Зберегти"
+
+#. TRANS: Server error when page not found (404)
+#: actions/all.php:64 actions/public.php:98 actions/replies.php:93
+#: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page"
 msgstr "Немає такої сторінки"
 
-#: actions/all.php:74 actions/allrss.php:68
+#: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
@@ -95,52 +101,59 @@ msgstr "Немає такої сторінки"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
-#: actions/showfavorites.php:105 actions/userbyid.php:74
-#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:302 lib/command.php:355
-#: lib/command.php:401 lib/command.php:462 lib/command.php:518
-#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
-#: lib/subs.php:34 lib/subs.php:125
+#: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/otp.php:76 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
+#: lib/command.php:355 lib/command.php:401 lib/command.php:462
+#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
+#: lib/profileaction.php:77
 msgid "No such user."
 msgstr "Такого користувача немає."
 
-#: actions/all.php:84
+#. TRANS: Page title. %1$s is user nickname, %2$d is page number
+#: actions/all.php:86
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s та друзі, сторінка %2$d"
 
-#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#. TRANS: Page title. %1$s is user nickname
+#. TRANS: H1 text. %1$s is user nickname
+#: actions/all.php:89 actions/all.php:181 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s з друзями"
 
-#: actions/all.php:99
+#. TRANS: %1$s is user nickname
+#: actions/all.php:103
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 1.0)"
 
-#: actions/all.php:107
+#. TRANS: %1$s is user nickname
+#: actions/all.php:112
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 2.0)"
 
-#: actions/all.php:115
+#. TRANS: %1$s is user nickname
+#: actions/all.php:121
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Стрічка дописів для друзів %s (Atom)"
 
-#: actions/all.php:127
+#. TRANS: %1$s is user nickname
+#: actions/all.php:134
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr "Це стрічка дописів %s і друзів, але вона поки що порожня."
 
-#: actions/all.php:132
+#: actions/all.php:139
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -149,7 +162,8 @@ msgstr ""
 "Спробуйте до когось підписатись, [приєднатись до групи](%%action.groups%%) "
 "або напишіть щось самі."
 
-#: actions/all.php:134
+#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+#: actions/all.php:142
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -158,7 +172,7 @@ msgstr ""
 "Ви можете [«розштовхати» %1$s](../%2$s) зі сторінки його профілю або [щось "
 "йому написати](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
+#: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -167,12 +181,13 @@ msgstr ""
 "Чому б не [зареєструватись](%%%%action.register%%%%) і не спробувати "
 "«розштовхати» %s або щось йому написати."
 
-#: actions/all.php:165
+#. TRANS: H1 text
+#: actions/all.php:178
 msgid "You and friends"
 msgstr "Ви з друзями"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:121
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:119 actions/apitimelinefriends.php:119
+#: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Оновлення від %1$s та друзів на %2$s!"
@@ -185,20 +200,20 @@ msgstr "Оновлення від %1$s та друзів на %2$s!"
 #: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
 #: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
 #: actions/apigroupleave.php:141 actions/apigrouplist.php:132
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:146 actions/apitimelinefriends.php:155
-#: actions/apitimelinegroup.php:150 actions/apitimelinehome.php:156
-#: actions/apitimelinementions.php:151 actions/apitimelinepublic.php:131
+#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
+#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:122 actions/apitimelinetag.php:141
-#: actions/apitimelineuser.php:166 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "API метод не знайдено."
 
@@ -231,8 +246,9 @@ msgstr "Не вдалося оновити користувача."
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
-#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
+#: actions/replies.php:80 actions/usergroups.php:98 lib/galleryaction.php:66
+#: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Користувач не має профілю."
 
@@ -258,7 +274,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
@@ -369,7 +385,7 @@ msgstr "Не вдалось встановити джерело користув
 msgid "Could not find target user."
 msgstr "Не вдалося знайти цільового користувача."
 
-#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
@@ -377,62 +393,62 @@ msgstr ""
 "Ім’я користувача повинно складатись з літер нижнього регістру і цифр, ніяких "
 "інтервалів."
 
-#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "Це ім’я вже використовується. Спробуйте інше."
 
-#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/apigroupcreate.php:182 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "Це недійсне ім’я користувача."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:215
-#: actions/editgroup.php:195 actions/newapplication.php:203
+#: actions/apigroupcreate.php:198 actions/editapplication.php:215
+#: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "Веб-сторінка має недійсну URL-адресу."
 
-#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/apigroupcreate.php:207 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "Повне ім’я задовге (255 знаків максимум)"
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/apigroupcreate.php:215 actions/editapplication.php:190
 #: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Опис надто довгий (%d знаків максимум)."
 
-#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "Локація надто довга (255 знаків максимум)."
 
-#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/apigroupcreate.php:245 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "Забагато додаткових імен! Максимум становить %d."
 
-#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/apigroupcreate.php:266 actions/editgroup.php:228
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Помилкове додаткове ім’я: \"%s\""
 
-#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Додаткове ім’я \"%s\" вже використовується. Спробуйте інше."
 
-#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/apigroupcreate.php:288 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr "Додаткове ім’я не може бути таким самим що й основне."
@@ -443,15 +459,15 @@ msgstr "Додаткове ім’я не може бути таким сами�
 msgid "Group not found!"
 msgstr "Групу не знайдено!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90
+#: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
 msgstr "Ви вже є учасником цієї групи."
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
 msgstr "Адмін цієї групи заблокував Вашу присутність в ній."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:124
+#: actions/apigroupjoin.php:138 actions/joingroup.php:134
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Не вдалось долучити користувача %1$s до групи %2$s."
@@ -460,7 +476,7 @@ msgstr "Не вдалось долучити користувача %1$s до г
 msgid "You are not a member of this group."
 msgstr "Ви не є учасником цієї групи."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:119
+#: actions/apigroupleave.php:124 actions/leavegroup.php:129
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Не вдалось видалити користувача %1$s з групи %2$s."
@@ -491,7 +507,7 @@ msgstr "Невірний токен."
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
 #: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
@@ -500,7 +516,7 @@ msgstr "Невірний токен."
 #: actions/profilesettings.php:194 actions/recoverpassword.php:337
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
-#: actions/subscribe.php:46 actions/tagother.php:166
+#: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
@@ -535,7 +551,7 @@ msgstr "Токен запиту %s було скасовано і відхиле
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:322
 #: actions/imsettings.php:220 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
@@ -562,13 +578,13 @@ msgstr ""
 "на доступ до Вашого акаунту %4$s лише тим стороннім додаткам, яким Ви "
 "довіряєте."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:438
 msgid "Account"
 msgstr "Акаунт"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/showgroup.php:244 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
@@ -646,22 +662,10 @@ msgstr "Формат не підтримується."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Обрані від %2$s"
 
-#: actions/apitimelinefavorites.php:120
+#: actions/apitimelinefavorites.php:117
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%1$s оновлення обраних від %2$s / %2$s."
-
-#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:131 actions/userrss.php:90
-#, php-format
-msgid "%s timeline"
-msgstr "%s стрічка"
-
-#: actions/apitimelinegroup.php:117 actions/apitimelineuser.php:126
-#: actions/userrss.php:92
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr "Оновлення від %1$s на %2$s!"
 
 #: actions/apitimelinementions.php:117
 #, php-format
@@ -688,17 +692,17 @@ msgstr "%s оновлення від усіх!"
 msgid "Repeated to %s"
 msgstr "Вторування за %s"
 
-#: actions/apitimelineretweetsofme.php:112
+#: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
 msgstr "Вторування %s"
 
-#: actions/apitimelinetag.php:102 actions/tag.php:66
+#: actions/apitimelinetag.php:102 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "Дописи позначені з %s"
 
-#: actions/apitimelinetag.php:108 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:64
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Оновлення позначені з %1$s на %2$s!"
@@ -714,8 +718,7 @@ msgstr "Такого вкладення немає."
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
-#: actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
 msgstr "Немає імені."
 
@@ -727,7 +730,7 @@ msgstr "Немає розміру."
 msgid "Invalid size."
 msgstr "Недійсний розмір."
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: actions/avatarsettings.php:67 actions/showgroup.php:229
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Аватара"
@@ -744,30 +747,30 @@ msgid "User without matching profile"
 msgstr "Користувач з невідповідним профілем"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
-#: actions/grouplogo.php:251
+#: actions/grouplogo.php:254
 msgid "Avatar settings"
 msgstr "Налаштування аватари"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
-#: actions/grouplogo.php:199 actions/grouplogo.php:259
+#: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
 msgstr "Оригінал"
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
-#: actions/grouplogo.php:210 actions/grouplogo.php:271
+#: actions/grouplogo.php:213 actions/grouplogo.php:274
 msgid "Preview"
 msgstr "Перегляд"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:624
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "Видалити"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+#: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
 msgstr "Завантажити"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+#: actions/avatarsettings.php:231 actions/grouplogo.php:289
 msgid "Crop"
 msgstr "Втяти"
 
@@ -775,7 +778,7 @@ msgstr "Втяти"
 msgid "Pick a square area of the image to be your avatar"
 msgstr "Оберіть квадратну ділянку зображення, яка й буде Вашою автарою."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+#: actions/avatarsettings.php:343 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Дані Вашого файлу десь загубились."
 
@@ -810,22 +813,22 @@ msgstr ""
 "більше не отримуватимете жодних дописів від нього."
 
 #: actions/block.php:143 actions/deleteapplication.php:153
-#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/deletenotice.php:145 actions/deleteuser.php:150
 #: actions/groupblock.php:178
 msgid "No"
 msgstr "Ні"
 
-#: actions/block.php:143 actions/deleteuser.php:147
+#: actions/block.php:143 actions/deleteuser.php:150
 msgid "Do not block this user"
 msgstr "Не блокувати цього користувача"
 
 #: actions/block.php:144 actions/deleteapplication.php:158
-#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/deletenotice.php:146 actions/deleteuser.php:151
 #: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Так"
 
-#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Блокувати користувача"
 
@@ -833,39 +836,43 @@ msgstr "Блокувати користувача"
 msgid "Failed to save block information."
 msgstr "Збереження інформації про блокування завершилось невдачею."
 
-#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
-#: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
+#: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
+#: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
+#: actions/groupmembers.php:83 actions/groupmembers.php:90
+#: actions/grouprss.php:98 actions/grouprss.php:105
+#: actions/groupunblock.php:86 actions/joingroup.php:82
+#: actions/joingroup.php:93 actions/leavegroup.php:82
+#: actions/leavegroup.php:93 actions/makeadmin.php:86
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
+#: lib/command.php:260
 msgid "No such group."
 msgstr "Такої групи немає."
 
-#: actions/blockedfromgroup.php:90
+#: actions/blockedfromgroup.php:97
 #, php-format
 msgid "%s blocked profiles"
 msgstr "Заблоковані профілі %s"
 
-#: actions/blockedfromgroup.php:93
+#: actions/blockedfromgroup.php:100
 #, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "Заблоковані профілі %1$s, сторінка %2$d"
 
-#: actions/blockedfromgroup.php:108
+#: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr "Список користувачів блокованих в цій групі."
 
-#: actions/blockedfromgroup.php:281
+#: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
 msgstr "Розблокувати користувача"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
 msgstr "Розблокувати"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
 msgstr "Розблокувати цього користувача"
 
@@ -921,7 +928,7 @@ msgid "Conversation"
 msgstr "Розмова"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+#: lib/profileaction.php:218 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Дописи"
 
@@ -940,7 +947,7 @@ msgstr "Ви не є власником цього додатку."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1195
+#: lib/action.php:1217
 msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
@@ -966,12 +973,13 @@ msgstr "Не видаляти додаток"
 msgid "Delete this application"
 msgstr "Видалити додаток"
 
+#. TRANS: Client error message
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:30
+#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/adminpanelaction.php:73 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Не увійшли."
@@ -998,7 +1006,7 @@ msgstr "Ви впевненні, що бажаєте видалити цей д�
 msgid "Do not delete this notice"
 msgstr "Не видаляти цей допис"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:624
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "Видалити допис"
 
@@ -1014,7 +1022,7 @@ msgstr "Ви можете видаляти лише локальних кори�
 msgid "Delete user"
 msgstr "Видалити користувача"
 
-#: actions/deleteuser.php:135
+#: actions/deleteuser.php:136
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
@@ -1022,12 +1030,12 @@ msgstr ""
 "Впевнені, що бажаєте видалити цього користувача? Усі дані буде знищено без "
 "можливості відновлення."
 
-#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#: actions/deleteuser.php:151 lib/deleteuserform.php:77
 msgid "Delete this user"
 msgstr "Видалити цього користувача"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:316 lib/groupnav.php:119
+#: lib/groupnav.php:119
 msgid "Design"
 msgstr "Дизайн"
 
@@ -1130,6 +1138,18 @@ msgstr "Оновити налаштування за замовчуванням"
 msgid "Reset back to default"
 msgstr "Повернутись до початкових налаштувань"
 
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/tagother.php:154 actions/useradminpanel.php:294
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "Зберегти"
+
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Зберегти дизайн"
@@ -1221,29 +1241,29 @@ msgstr "Редагувати групу %s"
 msgid "You must be logged in to create a group."
 msgstr "Ви маєте спочатку увійти, аби мати змогу створити групу."
 
-#: actions/editgroup.php:103 actions/editgroup.php:168
-#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+#: actions/editgroup.php:107 actions/editgroup.php:172
+#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 msgid "You must be an admin to edit the group."
 msgstr "Ви маєте бути наділені правами адмінистратора, аби редагувати групу"
 
-#: actions/editgroup.php:154
+#: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr "Скористайтесь цією формою, щоб відредагувати групу."
 
-#: actions/editgroup.php:201 actions/newgroup.php:145
+#: actions/editgroup.php:205 actions/newgroup.php:145
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "опис надто довгий (%d знаків максимум)."
 
-#: actions/editgroup.php:253
+#: actions/editgroup.php:258
 msgid "Could not update group."
 msgstr "Не вдалося оновити групу."
 
-#: actions/editgroup.php:259 classes/User_group.php:390
+#: actions/editgroup.php:264 classes/User_group.php:493
 msgid "Could not create aliases."
 msgstr "Неможна призначити додаткові імена."
 
-#: actions/editgroup.php:269
+#: actions/editgroup.php:280
 msgid "Options saved."
 msgstr "Опції збережено."
 
@@ -1361,7 +1381,7 @@ msgid "Cannot normalize that email address"
 msgstr "Не можна полагодити цю поштову адресу"
 
 #: actions/emailsettings.php:331 actions/register.php:201
-#: actions/siteadminpanel.php:143
+#: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Це недійсна електронна адреса."
 
@@ -1552,6 +1572,25 @@ msgstr "Такого файлу немає."
 msgid "Cannot read file."
 msgstr "Не можу прочитати файл."
 
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "Невірний токен."
+
+#: actions/grantrole.php:66 actions/revokerole.php:66
+msgid "This role is reserved and cannot be set."
+msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr "Ви не можете нікого ізолювати на цьому сайті."
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "Користувачу наразі заклеїли рота скотчем."
+
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:70
@@ -1581,7 +1620,7 @@ msgstr "Користувача заблоковано в цій групі."
 msgid "User is not a member of group."
 msgstr "Користувач не є учасником групи."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:316
+#: actions/groupblock.php:136 actions/groupmembers.php:323
 msgid "Block user from group"
 msgstr "Блокувати користувача в групі"
 
@@ -1616,11 +1655,11 @@ msgstr "Немає ID."
 msgid "You must be logged in to edit a group."
 msgstr "Ви маєте спочатку увійти, аби мати змогу редагувати групу."
 
-#: actions/groupdesignsettings.php:141
+#: actions/groupdesignsettings.php:144
 msgid "Group design"
 msgstr "Дизайн групи"
 
-#: actions/groupdesignsettings.php:152
+#: actions/groupdesignsettings.php:155
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
@@ -1628,20 +1667,20 @@ msgstr ""
 "Налаштуйте вигляд сторінки групи, використовуючи фонове зображення і кольори "
 "на свій смак."
 
-#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
 msgid "Couldn't update your design."
 msgstr "Не вдалося оновити дизайн."
 
-#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr "Преференції дизайну збережно."
 
-#: actions/grouplogo.php:139 actions/grouplogo.php:192
+#: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
 msgstr "Логотип групи"
 
-#: actions/grouplogo.php:150
+#: actions/grouplogo.php:153
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
@@ -1649,62 +1688,68 @@ msgstr ""
 "Ви маєте можливість завантажити логотип для Вашої группи. Максимальний "
 "розмір файлу %s."
 
-#: actions/grouplogo.php:178
+#: actions/grouplogo.php:181
 msgid "User without matching profile."
 msgstr "Користувач без відповідного профілю."
 
-#: actions/grouplogo.php:362
+#: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr "Оберіть квадратну ділянку зображення, яка й буде логотипом групи."
 
-#: actions/grouplogo.php:396
+#: actions/grouplogo.php:399
 msgid "Logo updated."
 msgstr "Логотип оновлено."
 
-#: actions/grouplogo.php:398
+#: actions/grouplogo.php:401
 msgid "Failed updating logo."
 msgstr "Оновлення логотипу завершилось невдачею."
 
-#: actions/groupmembers.php:93 lib/groupnav.php:92
+#: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "Учасники групи %s"
 
-#: actions/groupmembers.php:96
+#: actions/groupmembers.php:103
 #, php-format
 msgid "%1$s group members, page %2$d"
 msgstr "Учасники групи %1$s, сторінка %2$d"
 
-#: actions/groupmembers.php:111
+#: actions/groupmembers.php:118
 msgid "A list of the users in this group."
 msgstr "Список учасників цієї групи."
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/groupnav.php:107
 msgid "Admin"
 msgstr "Адмін"
 
-#: actions/groupmembers.php:348 lib/blockform.php:69
+#: actions/groupmembers.php:355 lib/blockform.php:69
 msgid "Block"
 msgstr "Блок"
 
-#: actions/groupmembers.php:443
+#: actions/groupmembers.php:450
 msgid "Make user an admin of the group"
 msgstr "Надати користувачеві права адміністратора"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make Admin"
 msgstr "Зробити адміном"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make this user an admin"
 msgstr "Надати цьому користувачеві права адміністратора"
 
-#: actions/grouprss.php:133
+#: actions/grouprss.php:138 actions/userrss.php:90
+#: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
+#, php-format
+msgid "%s timeline"
+msgstr "%s стрічка"
+
+#: actions/grouprss.php:140
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Оновлення членів %1$s на %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Групи"
@@ -1965,16 +2010,18 @@ msgstr "Особисті повідомлення"
 msgid "Optionally add a personal message to the invitation."
 msgstr "Можна додати персональне повідомлення до запрошення (опціонально)."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#. TRANS: Send button for inviting friends
+#: actions/invite.php:198
+msgctxt "BUTTON"
 msgid "Send"
-msgstr "Так!"
+msgstr "Надіслати"
 
-#: actions/invite.php:226
+#: actions/invite.php:227
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s запросив(ла) Вас приєднатися до нього(неї) на %2$s"
 
-#: actions/invite.php:228
+#: actions/invite.php:229
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2036,7 +2083,11 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Ви повинні спочатку увійти на сайт, аби приєднатися до групи."
 
-#: actions/joingroup.php:131
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+msgid "No nickname or ID."
+msgstr "Немає імені або ІД."
+
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s приєднався до групи %2$s"
@@ -2045,11 +2096,11 @@ msgstr "%1$s приєднався до групи %2$s"
 msgid "You must be logged in to leave a group."
 msgstr "Ви повинні спочатку увійти на сайт, аби залишити групу."
 
-#: actions/leavegroup.php:90 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "Ви не є учасником цієї групи."
 
-#: actions/leavegroup.php:127
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s залишив групу %2$s"
@@ -2066,8 +2117,7 @@ msgstr "Неточне ім’я або пароль."
 msgid "Error setting user. You are probably not authorized."
 msgstr "Помилка. Можливо, Ви не авторизовані."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
-#: lib/logingroupnav.php:79
+#: actions/login.php:188 actions/login.php:241 lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Увійти"
 
@@ -2323,8 +2373,8 @@ msgstr "тип змісту "
 msgid "Only "
 msgstr "Лише "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1178
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
+#: lib/apiaction.php:1070 lib/apiaction.php:1179
 msgid "Not a supported data format."
 msgstr "Такий формат даних не підтримується."
 
@@ -2465,7 +2515,8 @@ msgstr "Неможна зберегти новий пароль."
 msgid "Password saved."
 msgstr "Пароль збережено."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:331
+#. TRANS: Menu item for site administration
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:382
 msgid "Paths"
 msgstr "Шлях"
 
@@ -2498,7 +2549,6 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Помилковий SSL-сервер. Максимальна довжина 255 знаків."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "Сайт"
 
@@ -2586,7 +2636,7 @@ msgstr "Директорія фонів"
 msgid "SSL"
 msgstr "SSL-шифрування"
 
-#: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
+#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "Ніколи"
 
@@ -2642,11 +2692,11 @@ msgstr "Це недійсний особистий теґ: %s"
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Користувачі з особистим теґом %1$s — сторінка %2$d"
 
-#: actions/postnotice.php:84
+#: actions/postnotice.php:95
 msgid "Invalid notice content"
 msgstr "Недійсний зміст допису"
 
-#: actions/postnotice.php:90
+#: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr "Ліцензія допису «%1$s» є несумісною з ліцензією сайту «%2$s»."
@@ -2671,7 +2721,7 @@ msgstr ""
 "1-64 літери нижнього регістру і цифри, ніякої пунктуації або інтервалів"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:247 actions/tagother.php:104
+#: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "Повне ім’я"
@@ -2699,7 +2749,7 @@ msgid "Bio"
 msgstr "Про себе"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/showgroup.php:264 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
@@ -2726,7 +2776,7 @@ msgstr ""
 "Позначте себе теґами (літери, цифри, -, . та _), відокремлюючи кожен комою "
 "або пробілом"
 
-#: actions/profilesettings.php:151 actions/siteadminpanel.php:280
+#: actions/profilesettings.php:151
 msgid "Language"
 msgstr "Мова"
 
@@ -2753,7 +2803,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "Ви перевищили ліміт (%d знаків максимум)."
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:150
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "Часовий пояс не обрано."
 
@@ -2766,23 +2816,24 @@ msgstr "Мова задовга (50 знаків максимум)."
 msgid "Invalid tag: \"%s\""
 msgstr "Недійсний теґ: \"%s\""
 
-#: actions/profilesettings.php:302
+#: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
 msgstr "Не вдалося оновити користувача для автопідписки."
 
-#: actions/profilesettings.php:359
+#: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
 msgstr "Не вдалося зберегти налаштування розташування."
 
-#: actions/profilesettings.php:371
+#: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Не вдалося зберегти профіль."
 
-#: actions/profilesettings.php:379
+#: actions/profilesettings.php:383
 msgid "Couldn't save tags."
 msgstr "Не вдалося зберегти теґи."
 
-#: actions/profilesettings.php:387 lib/adminpanelaction.php:137
+#. TRANS: Message after successful saving of administrative settings.
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
 msgid "Settings saved."
 msgstr "Налаштування збережено."
 
@@ -2795,28 +2846,28 @@ msgstr "Досягнуто ліміту сторінки (%s)"
 msgid "Could not retrieve public stream."
 msgstr "Не вдається відновити загальну стрічку."
 
-#: actions/public.php:129
+#: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "Загальний стрічка, сторінка %d"
 
-#: actions/public.php:131 lib/publicgroupnav.php:79
+#: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "Загальна стрічка"
 
-#: actions/public.php:159
+#: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr "Стрічка публічних дописів (RSS 1.0)"
 
-#: actions/public.php:163
+#: actions/public.php:164
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "Стрічка публічних дописів (RSS 2.0)"
 
-#: actions/public.php:167
+#: actions/public.php:168
 msgid "Public Stream Feed (Atom)"
 msgstr "Стрічка публічних дописів (Atom)"
 
-#: actions/public.php:187
+#: actions/public.php:188
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
@@ -2824,11 +2875,11 @@ msgid ""
 msgstr ""
 "Це публічна стрічка дописів сайту %%site.name%%, але вона поки що порожня."
 
-#: actions/public.php:190
+#: actions/public.php:191
 msgid "Be the first to post!"
 msgstr "Станьте першим! Напишіть щось!"
 
-#: actions/public.php:194
+#: actions/public.php:195
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
@@ -2836,7 +2887,7 @@ msgstr ""
 "Чому б не [зареєструватись](%%action.register%%) і не зробити свій перший "
 "допис!"
 
-#: actions/public.php:241
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2850,7 +2901,7 @@ msgstr ""
 "розділити своє життя з друзями, родиною і колегами! ([Дізнатися більше](%%"
 "doc.help%%))"
 
-#: actions/public.php:246
+#: actions/public.php:247
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -3030,8 +3081,7 @@ msgstr "Даруйте, помилка у коді запрошення."
 msgid "Registration successful"
 msgstr "Реєстрація успішна"
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
-#: lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Реєстрація"
 
@@ -3074,7 +3124,7 @@ msgid "Same as password above. Required."
 msgstr "Такий само, як і пароль вище. Неодмінно."
 
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:256 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Пошта"
 
@@ -3179,7 +3229,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL-адреса Вашого профілю на іншому сумісному сервісі"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:365
+#: lib/userprofile.php:394
 msgid "Subscribe"
 msgstr "Підписатись"
 
@@ -3216,7 +3266,7 @@ msgstr "Ви не можете вторувати своїм власним до
 msgid "You already repeated that notice."
 msgstr "Ви вже вторували цьому допису."
 
-#: actions/repeat.php:114 lib/noticelist.php:642
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr "Вторування"
 
@@ -3224,33 +3274,33 @@ msgstr "Вторування"
 msgid "Repeated!"
 msgstr "Вторувати!"
 
-#: actions/replies.php:125 actions/repliesrss.php:68
+#: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
 msgstr "Відповіді до %s"
 
-#: actions/replies.php:127
+#: actions/replies.php:128
 #, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr "Відповіді до %1$s, сторінка %2$d"
 
-#: actions/replies.php:144
+#: actions/replies.php:145
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr "Стрічка відповідей до %s (RSS 1.0)"
 
-#: actions/replies.php:151
+#: actions/replies.php:152
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr "Стрічка відповідей до %s (RSS 2.0)"
 
-#: actions/replies.php:158
+#: actions/replies.php:159
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr "Стрічка відповідей до %s (Atom)"
 
-#: actions/replies.php:198
+#: actions/replies.php:199
 #, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
@@ -3259,7 +3309,7 @@ msgstr ""
 "Ця стрічка дописів містить відповіді для %1$s, але %2$s поки що нічого не "
 "отримав у відповідь."
 
-#: actions/replies.php:203
+#: actions/replies.php:204
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
@@ -3268,7 +3318,7 @@ msgstr ""
 "Ви можете долучити інших користувачів до спілкування, підписавшись до "
 "більшої кількості людей або [приєднавшись до груп](%%action.groups%%)."
 
-#: actions/replies.php:205
+#: actions/replies.php:206
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
@@ -3282,6 +3332,16 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "Відповіді до %1$s на %2$s!"
 
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "Ви не можете позбавляти користувачів права голосу на цьому сайті."
+
+#: actions/revokerole.php:82
+#, fuzzy
+msgid "User doesn't have this role."
+msgstr "Користувач без відповідного профілю."
+
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
 msgstr "StatusNet"
@@ -3294,8 +3354,9 @@ msgstr "Ви не можете нікого ізолювати на цьому �
 msgid "User is already sandboxed."
 msgstr "Користувача ізольовано доки набереться уму-розуму."
 
+#. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:336
+#: lib/adminpanelaction.php:390
 msgid "Sessions"
 msgstr "Сесії"
 
@@ -3319,8 +3380,8 @@ msgstr "Сесія наладки"
 msgid "Turn on debugging output for sessions."
 msgstr "Виводити дані сесії наладки."
 
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/useradminpanel.php:293
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr "Зберегти налаштування сайту"
 
@@ -3350,8 +3411,8 @@ msgstr "Організація"
 msgid "Description"
 msgstr "Опис"
 
-#: actions/showapplication.php:192 actions/showgroup.php:429
-#: lib/profileaction.php:174
+#: actions/showapplication.php:192 actions/showgroup.php:438
+#: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "Статистика"
 
@@ -3413,22 +3474,22 @@ msgstr "Обрані дописи %1$s, сторінка %2$d"
 msgid "Could not retrieve favorite notices."
 msgstr "Не можна відновити обрані дописи."
 
-#: actions/showfavorites.php:170
+#: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr "Стрічка обраних дописів %s (RSS 1.0)"
 
-#: actions/showfavorites.php:177
+#: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr "Стрічка обраних дописів %s (RSS 2.0)"
 
-#: actions/showfavorites.php:184
+#: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr "Стрічка обраних дописів %s (Atom)"
 
-#: actions/showfavorites.php:205
+#: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
@@ -3437,7 +3498,7 @@ msgstr ""
 "дописі який Ви вподобали, аби повернутись до нього пізніше, або звернути на "
 "нього увагу інших."
 
-#: actions/showfavorites.php:207
+#: actions/showfavorites.php:208
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
@@ -3446,7 +3507,7 @@ msgstr ""
 "%s поки що не вподобав жодних дописів. Може Ви б написали йому щось "
 "цікаве? :)"
 
-#: actions/showfavorites.php:211
+#: actions/showfavorites.php:212
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
@@ -3457,7 +3518,7 @@ msgstr ""
 "action.register%%%%) і не написати щось цікаве, що мало б сподобатись цьому "
 "користувачеві :)"
 
-#: actions/showfavorites.php:242
+#: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
 msgstr "Це спосіб поділитись з усіма тим, що вам подобається."
 
@@ -3471,67 +3532,67 @@ msgstr "Група %s"
 msgid "%1$s group, page %2$d"
 msgstr "Група %1$s, сторінка %2$d"
 
-#: actions/showgroup.php:218
+#: actions/showgroup.php:226
 msgid "Group profile"
 msgstr "Профіль групи"
 
-#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/showgroup.php:271 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr "URL"
 
-#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/showgroup.php:282 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr "Зауваження"
 
-#: actions/showgroup.php:284 lib/groupeditform.php:184
+#: actions/showgroup.php:292 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "Додаткові імена"
 
-#: actions/showgroup.php:293
+#: actions/showgroup.php:301
 msgid "Group actions"
 msgstr "Діяльність групи"
 
-#: actions/showgroup.php:328
+#: actions/showgroup.php:337
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Стрічка дописів групи %s (RSS 1.0)"
 
-#: actions/showgroup.php:334
+#: actions/showgroup.php:343
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Стрічка дописів групи %s (RSS 2.0)"
 
-#: actions/showgroup.php:340
+#: actions/showgroup.php:349
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Стрічка дописів групи %s (Atom)"
 
-#: actions/showgroup.php:345
+#: actions/showgroup.php:354
 #, php-format
 msgid "FOAF for %s group"
 msgstr "FOAF для групи %s"
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
 msgid "Members"
 msgstr "Учасники"
 
-#: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: actions/showgroup.php:395 lib/profileaction.php:117
+#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Пусто)"
 
-#: actions/showgroup.php:392
+#: actions/showgroup.php:401
 msgid "All members"
 msgstr "Всі учасники"
 
-#: actions/showgroup.php:432
+#: actions/showgroup.php:441
 msgid "Created"
 msgstr "Створено"
 
-#: actions/showgroup.php:448
+#: actions/showgroup.php:457
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3546,7 +3607,7 @@ msgstr ""
 "короткі дописи про своє життя та інтереси. [Приєднуйтесь](%%action.register%"
 "%) зараз і долучіться до спілкування! ([Дізнатися більше](%%doc.help%%))"
 
-#: actions/showgroup.php:454
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3559,7 +3620,7 @@ msgstr ""
 "забезпеченні [StatusNet](http://status.net/). Члени цієї групи роблять "
 "короткі дописи про своє життя та інтереси. "
 
-#: actions/showgroup.php:482
+#: actions/showgroup.php:491
 msgid "Admins"
 msgstr "Адміни"
 
@@ -3681,149 +3742,140 @@ msgid "User is already silenced."
 msgstr "Користувачу наразі заклеїли рота скотчем."
 
 #: actions/siteadminpanel.php:69
-msgid "Basic settings for this StatusNet site."
+#, fuzzy
+msgid "Basic settings for this StatusNet site"
 msgstr "Загальні налаштування цього сайту StatusNet."
 
-#: actions/siteadminpanel.php:132
+#: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr "Ім’я сайту не може бути порожнім."
 
-#: actions/siteadminpanel.php:140
+#: actions/siteadminpanel.php:141
 msgid "You must have a valid contact email address."
 msgstr "Електронна адреса має бути чинною."
 
-#: actions/siteadminpanel.php:158
+#: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr "Невідома мова «%s»."
 
 #: actions/siteadminpanel.php:165
-msgid "Invalid snapshot report URL."
-msgstr "Помилковий снепшот URL."
-
-#: actions/siteadminpanel.php:171
-msgid "Invalid snapshot run value."
-msgstr "Помилкове значення снепшоту."
-
-#: actions/siteadminpanel.php:177
-msgid "Snapshot frequency must be a number."
-msgstr "Частота повторення снепшотів має містити цифру."
-
-#: actions/siteadminpanel.php:183
 msgid "Minimum text limit is 140 characters."
 msgstr "Ліміт текстових повідомлень становить 140 знаків."
 
-#: actions/siteadminpanel.php:189
+#: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 "Часове обмеження при надсиланні дублікату повідомлення має становити від 1 і "
 "більше секунд."
 
-#: actions/siteadminpanel.php:239
+#: actions/siteadminpanel.php:221
 msgid "General"
 msgstr "Основні"
 
-#: actions/siteadminpanel.php:242
+#: actions/siteadminpanel.php:224
 msgid "Site name"
 msgstr "Назва сайту"
 
-#: actions/siteadminpanel.php:243
+#: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "Назва Вашого сайту, штибу \"Мікроблоґи компанії ...\""
 
-#: actions/siteadminpanel.php:247
+#: actions/siteadminpanel.php:229
 msgid "Brought by"
 msgstr "Надано"
 
-#: actions/siteadminpanel.php:248
+#: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
 msgstr "Текст використаний для посілань кредитів унизу кожної сторінки"
 
-#: actions/siteadminpanel.php:252
+#: actions/siteadminpanel.php:234
 msgid "Brought by URL"
 msgstr "Наданий URL"
 
-#: actions/siteadminpanel.php:253
+#: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr "URL використаний для посілань кредитів унизу кожної сторінки"
 
-#: actions/siteadminpanel.php:257
+#: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
 msgstr "Контактна електронна адреса для Вашого сайту"
 
-#: actions/siteadminpanel.php:263
+#: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Локаль"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr "Часовий пояс за замовчуванням"
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr "Часовий пояс за замовчуванням для сайту; зазвичай UTC."
 
-#: actions/siteadminpanel.php:281
-msgid "Default site language"
+#: actions/siteadminpanel.php:262
+#, fuzzy
+msgid "Default language"
 msgstr "Мова сайту за замовчуванням"
 
-#: actions/siteadminpanel.php:289
-msgid "Snapshots"
-msgstr "Снепшоти"
+#: actions/siteadminpanel.php:263
+msgid "Site language when autodetection from browser settings is not available"
+msgstr ""
 
-#: actions/siteadminpanel.php:292
-msgid "Randomly during Web hit"
-msgstr "Випадково під час веб-хіта"
-
-#: actions/siteadminpanel.php:293
-msgid "In a scheduled job"
-msgstr "Згідно плану робіт"
-
-#: actions/siteadminpanel.php:295
-msgid "Data snapshots"
-msgstr "Снепшоти даних"
-
-#: actions/siteadminpanel.php:296
-msgid "When to send statistical data to status.net servers"
-msgstr "Коли надсилати статистичні дані до серверів status.net"
-
-#: actions/siteadminpanel.php:301
-msgid "Frequency"
-msgstr "Частота"
-
-#: actions/siteadminpanel.php:302
-msgid "Snapshots will be sent once every N web hits"
-msgstr "Снепшоти надсилатимуться раз на N веб-хітів"
-
-#: actions/siteadminpanel.php:307
-msgid "Report URL"
-msgstr "Звітня URL-адреса"
-
-#: actions/siteadminpanel.php:308
-msgid "Snapshots will be sent to this URL"
-msgstr "Снепшоти надсилатимуться на цю URL-адресу"
-
-#: actions/siteadminpanel.php:315
+#: actions/siteadminpanel.php:271
 msgid "Limits"
 msgstr "Обмеження"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Text limit"
 msgstr "Текстові обмеження"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
 msgstr "Максимальна кількість знаків у дописі."
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "Dupe limit"
 msgstr "Часове обмеження"
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "Як довго користувачі мають зачекати (в секундах) аби надіслати той самий "
 "допис ще раз."
+
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "Зауваження сайту"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "Нове повідомлення"
+
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "Не маю можливості зберегти налаштування дизайну."
+
+#: actions/sitenoticeadminpanel.php:113
+msgid "Max length for the site-wide notice is 255 chars"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "Зауваження сайту"
+
+#: actions/sitenoticeadminpanel.php:178
+msgid "Site-wide notice text (255 chars max; HTML okay)"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "Зауваження сайту"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3924,19 +3976,88 @@ msgstr ""
 msgid "No code entered"
 msgstr "Код не введено"
 
+#. TRANS: Menu item for site administration
+#: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
+#: lib/adminpanelaction.php:406
+msgid "Snapshots"
+msgstr "Снепшоти"
+
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "Змінити конфігурацію сайту"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr "Помилкове значення снепшоту."
+
+#: actions/snapshotadminpanel.php:133
+msgid "Snapshot frequency must be a number."
+msgstr "Частота повторення снепшотів має містити цифру."
+
+#: actions/snapshotadminpanel.php:144
+msgid "Invalid snapshot report URL."
+msgstr "Помилковий снепшот URL."
+
+#: actions/snapshotadminpanel.php:200
+msgid "Randomly during Web hit"
+msgstr "Випадково під час веб-хіта"
+
+#: actions/snapshotadminpanel.php:201
+msgid "In a scheduled job"
+msgstr "Згідно плану робіт"
+
+#: actions/snapshotadminpanel.php:206
+msgid "Data snapshots"
+msgstr "Снепшоти даних"
+
+#: actions/snapshotadminpanel.php:208
+msgid "When to send statistical data to status.net servers"
+msgstr "Коли надсилати статистичні дані до серверів status.net"
+
+#: actions/snapshotadminpanel.php:217
+msgid "Frequency"
+msgstr "Частота"
+
+#: actions/snapshotadminpanel.php:218
+msgid "Snapshots will be sent once every N web hits"
+msgstr "Снепшоти надсилатимуться раз на N веб-хітів"
+
+#: actions/snapshotadminpanel.php:226
+msgid "Report URL"
+msgstr "Звітня URL-адреса"
+
+#: actions/snapshotadminpanel.php:227
+msgid "Snapshots will be sent to this URL"
+msgstr "Снепшоти надсилатимуться на цю URL-адресу"
+
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "Зберегти налаштування сайту"
+
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
 msgstr "Ви не підписані до цього профілю."
 
-#: actions/subedit.php:83
+#: actions/subedit.php:83 classes/Subscription.php:89
+#: classes/Subscription.php:116
 msgid "Could not save subscription."
 msgstr "Не вдалося зберегти підписку."
 
-#: actions/subscribe.php:55
-msgid "Not a local user."
-msgstr "Такого користувача немає."
+#: actions/subscribe.php:77
+msgid "This action only accepts POST requests."
+msgstr "Ця дія приймає лише запити POST."
 
-#: actions/subscribe.php:69
+#: actions/subscribe.php:107
+msgid "No such profile."
+msgstr "Немає такого профілю."
+
+#: actions/subscribe.php:117
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "Цією дією Ви не зможете підписатися до віддаленого профілю OMB 0.1."
+
+#: actions/subscribe.php:145
 msgid "Subscribed"
 msgstr "Підписані"
 
@@ -4000,7 +4121,7 @@ msgstr "Тут представлені ті, за чиїми дописами �
 msgid "These are the people whose notices %s listens to."
 msgstr "Тут представлені ті, за чиїми дописами слідкує %s."
 
-#: actions/subscriptions.php:121
+#: actions/subscriptions.php:126
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4016,35 +4137,35 @@ msgstr ""
 "action.twittersettings%%), то можете автоматично підписатись до людей, за "
 "якими слідкуєте там."
 
-#: actions/subscriptions.php:123 actions/subscriptions.php:127
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s не відслідковує нічого"
 
-#: actions/subscriptions.php:194
+#: actions/subscriptions.php:199
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:199 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "СМС"
 
-#: actions/tag.php:68
+#: actions/tag.php:69
 #, php-format
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr "Дописи з теґом %1$s, сторінка %2$d"
 
-#: actions/tag.php:86
+#: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr "Стрічка дописів для теґу %s (RSS 1.0)"
 
-#: actions/tag.php:92
+#: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr "Стрічка дописів для теґу %s (RSS 2.0)"
 
-#: actions/tag.php:98
+#: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Стрічка дописів для теґу %s (Atom)"
@@ -4098,7 +4219,7 @@ msgstr "Скористайтесь цією формою, щоб додати т
 msgid "No such tag."
 msgstr "Такого теґу немає."
 
-#: actions/twitapitrends.php:87
+#: actions/twitapitrends.php:85
 msgid "API method under construction."
 msgstr "API метод наразі знаходиться у розробці."
 
@@ -4122,76 +4243,77 @@ msgstr "У запиті відсутній ID профілю."
 msgid "Unsubscribed"
 msgstr "Відписано"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:337
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr "Ліцензія «%1$s» не відповідає ліцензії сайту «%2$s»."
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
-#: lib/personalgroupnav.php:115
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+msgctxt "TITLE"
 msgid "User"
 msgstr "Користувач"
 
-#: actions/useradminpanel.php:69
+#: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
 msgstr "Власні налаштування користувача для цього сайту StatusNet."
 
-#: actions/useradminpanel.php:148
+#: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Помилкове обмеження біо. Це мають бути цифри."
 
-#: actions/useradminpanel.php:154
+#: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Помилковий текст привітання. Максимальна довжина 255 знаків."
 
-#: actions/useradminpanel.php:164
+#: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Помилкова підписка за замовчуванням: '%1$s' не є користувачем."
 
-#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профіль"
 
-#: actions/useradminpanel.php:221
+#: actions/useradminpanel.php:222
 msgid "Bio Limit"
 msgstr "Обмеження біо"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
 msgstr "Максимальна довжина біо користувача в знаках."
 
-#: actions/useradminpanel.php:230
+#: actions/useradminpanel.php:231
 msgid "New users"
 msgstr "Нові користувачі"
 
-#: actions/useradminpanel.php:234
+#: actions/useradminpanel.php:235
 msgid "New user welcome"
 msgstr "Привітання нового користувача"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Текст привітання нових користувачів (255 знаків)."
 
-#: actions/useradminpanel.php:240
+#: actions/useradminpanel.php:241
 msgid "Default subscription"
 msgstr "Підписка за замовчуванням"
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
 msgstr "Автоматично підписувати нових користувачів до цього користувача."
 
-#: actions/useradminpanel.php:250
+#: actions/useradminpanel.php:251
 msgid "Invitations"
 msgstr "Запрошення"
 
-#: actions/useradminpanel.php:255
+#: actions/useradminpanel.php:256
 msgid "Invitations enabled"
 msgstr "Запрошення скасовано"
 
-#: actions/useradminpanel.php:257
+#: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
 msgstr ""
 "В той чи інший спосіб дозволити користувачам вітати нових користувачів."
@@ -4323,16 +4445,22 @@ msgstr "Групи %1$s, сторінка %2$d"
 msgid "Search for more groups"
 msgstr "Шукати групи ще"
 
-#: actions/usergroups.php:153
+#: actions/usergroups.php:157
 #, php-format
 msgid "%s is not a member of any group."
 msgstr "%s не є учасником жодної групи."
 
-#: actions/usergroups.php:158
+#: actions/usergroups.php:162
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 "Спробуйте [знайти якісь групи](%%action.groupsearch%%) і приєднайтеся до них."
+
+#: actions/userrss.php:92 lib/atomgroupnoticefeed.php:66
+#: lib/atomusernoticefeed.php:72
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr "Оновлення від %1$s на %2$s!"
 
 #: actions/version.php:73
 #, php-format
@@ -4389,7 +4517,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Додатки"
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:767
 msgid "Version"
 msgstr "Версія"
 
@@ -4428,6 +4556,10 @@ msgstr "Не є частиною групи."
 msgid "Group leave failed."
 msgstr "Не вдалося залишити групу."
 
+#: classes/Local_group.php:41
+msgid "Could not update local group."
+msgstr "Не вдається оновити локальну групу."
+
 #: classes/Login_token.php:76
 #, php-format
 msgid "Could not create login token for %s"
@@ -4445,27 +4577,27 @@ msgstr "Не можна долучити повідомлення."
 msgid "Could not update message with new URI."
 msgstr "Не можна оновити повідомлення з новим URI."
 
-#: classes/Notice.php:157
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні теґу: %s"
 
-#: classes/Notice.php:214
+#: classes/Notice.php:241
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні допису. Надто довге."
 
-#: classes/Notice.php:218
+#: classes/Notice.php:245
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при збереженні допису. Невідомий користувач."
 
-#: classes/Notice.php:223
+#: classes/Notice.php:250
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Дуже багато дописів за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:229
+#: classes/Notice.php:256
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4473,40 +4605,72 @@ msgstr ""
 "Дуже багато повідомлень за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:235
+#: classes/Notice.php:262
 msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
-#: classes/Notice.php:294 classes/Notice.php:319
+#: classes/Notice.php:328 classes/Notice.php:354
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:788
+#: classes/Notice.php:927
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
-#: classes/Notice.php:848
-#, php-format
-msgid "DB error inserting reply: %s"
-msgstr "Помилка бази даних при додаванні відповіді: %s"
-
-#: classes/Notice.php:1235
+#: classes/Notice.php:1459
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/User.php:385
+#: classes/Subscription.php:66 lib/oauthstore.php:465
+msgid "You have been banned from subscribing."
+msgstr "Вас позбавлено можливості підписатись."
+
+#: classes/Subscription.php:70
+msgid "Already subscribed!"
+msgstr "Вже підписаний!"
+
+#: classes/Subscription.php:74
+msgid "User has blocked you."
+msgstr "Користувач заблокував Вас."
+
+#: classes/Subscription.php:157
+msgid "Not subscribed!"
+msgstr "Не підписано!"
+
+#: classes/Subscription.php:163
+msgid "Couldn't delete self-subscription."
+msgstr "Не можу видалити самопідписку."
+
+#: classes/Subscription.php:190
+#, fuzzy
+msgid "Couldn't delete subscription OMB token."
+msgstr "Не вдалося видалити підписку."
+
+#: classes/Subscription.php:201 lib/subs.php:69
+msgid "Couldn't delete subscription."
+msgstr "Не вдалося видалити підписку."
+
+#: classes/User.php:373
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Вітаємо на %1$s, @%2$s!"
 
-#: classes/User_group.php:380
+#: classes/User_group.php:477
 msgid "Could not create group."
 msgstr "Не вдалося створити нову групу."
 
-#: classes/User_group.php:409
+#: classes/User_group.php:486
+msgid "Could not set group URI."
+msgstr "Не вдалося встановити URI групи."
+
+#: classes/User_group.php:507
 msgid "Could not set group membership."
 msgstr "Не вдалося встановити членство."
+
+#: classes/User_group.php:521
+msgid "Could not save local group info."
+msgstr "Не вдалося зберегти інформацію про локальну групу."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4545,124 +4709,171 @@ msgstr "%1$s — %2$s"
 msgid "Untitled page"
 msgstr "Сторінка без заголовку"
 
-#: lib/action.php:433
+#: lib/action.php:424
 msgid "Primary site navigation"
 msgstr "Відправна навігація по сайту"
 
-#: lib/action.php:439
-msgid "Home"
-msgstr "Дім"
-
-#: lib/action.php:439
+#. TRANS: Tooltip for main menu option "Personal"
+#: lib/action.php:430
+msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Персональний профіль і стрічка друзів"
 
-#: lib/action.php:441
+#: lib/action.php:433
+msgctxt "MENU"
+msgid "Personal"
+msgstr "Особисте"
+
+#. TRANS: Tooltip for main menu option "Account"
+#: lib/action.php:435
+msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Змінити електронну адресу, аватару, пароль, профіль"
 
-#: lib/action.php:444
-msgid "Connect"
-msgstr "З’єднання"
-
-#: lib/action.php:444
+#. TRANS: Tooltip for main menu option "Services"
+#: lib/action.php:440
+msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "З’єднання з сервісами"
 
-#: lib/action.php:448
+#: lib/action.php:443
+#, fuzzy
+msgid "Connect"
+msgstr "З’єднання"
+
+#. TRANS: Tooltip for menu option "Admin"
+#: lib/action.php:446
+msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Змінити конфігурацію сайту"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
-msgid "Invite"
-msgstr "Запросити"
+#: lib/action.php:449
+msgctxt "MENU"
+msgid "Admin"
+msgstr "Адмін"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
+#. TRANS: Tooltip for main menu option "Invite"
+#: lib/action.php:453
 #, php-format
+msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Запросіть друзів та колег приєднатись до Вас на %s"
 
-#: lib/action.php:458
-msgid "Logout"
-msgstr "Вийти"
+#: lib/action.php:456
+msgctxt "MENU"
+msgid "Invite"
+msgstr "Запросити"
 
-#: lib/action.php:458
+#. TRANS: Tooltip for main menu option "Logout"
+#: lib/action.php:462
+msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Вийти з сайту"
 
-#: lib/action.php:463
+#: lib/action.php:465
+msgctxt "MENU"
+msgid "Logout"
+msgstr "Вийти"
+
+#. TRANS: Tooltip for main menu option "Register"
+#: lib/action.php:470
+msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Створити новий акаунт"
 
-#: lib/action.php:466
+#: lib/action.php:473
+msgctxt "MENU"
+msgid "Register"
+msgstr "Реєстрація"
+
+#. TRANS: Tooltip for main menu option "Login"
+#: lib/action.php:476
+msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Увійти на сайт"
 
-#: lib/action.php:469 lib/action.php:732
-msgid "Help"
-msgstr "Допомога"
+#: lib/action.php:479
+msgctxt "MENU"
+msgid "Login"
+msgstr "Увійти"
 
-#: lib/action.php:469
+#. TRANS: Tooltip for main menu option "Help"
+#: lib/action.php:482
+msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Допоможіть!"
 
-#: lib/action.php:472 lib/searchaction.php:127
-msgid "Search"
-msgstr "Пошук"
+#: lib/action.php:485
+msgctxt "MENU"
+msgid "Help"
+msgstr "Довідка"
 
-#: lib/action.php:472
+#. TRANS: Tooltip for main menu option "Search"
+#: lib/action.php:488
+msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пошук людей або текстів"
 
-#: lib/action.php:493
+#: lib/action.php:491
+msgctxt "MENU"
+msgid "Search"
+msgstr "Пошук"
+
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#. TRANS: Menu item for site administration
+#: lib/action.php:513 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "Зауваження сайту"
 
-#: lib/action.php:559
+#: lib/action.php:579
 msgid "Local views"
 msgstr "Огляд"
 
-#: lib/action.php:625
+#: lib/action.php:645
 msgid "Page notice"
 msgstr "Зауваження сторінки"
 
-#: lib/action.php:727
+#: lib/action.php:747
 msgid "Secondary site navigation"
 msgstr "Другорядна навігація по сайту"
 
-#: lib/action.php:734
+#: lib/action.php:752
+msgid "Help"
+msgstr "Допомога"
+
+#: lib/action.php:754
 msgid "About"
 msgstr "Про"
 
-#: lib/action.php:736
+#: lib/action.php:756
 msgid "FAQ"
 msgstr "ЧаПи"
 
-#: lib/action.php:740
+#: lib/action.php:760
 msgid "TOS"
 msgstr "Умови"
 
-#: lib/action.php:743
+#: lib/action.php:763
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: lib/action.php:745
+#: lib/action.php:765
 msgid "Source"
 msgstr "Джерело"
 
-#: lib/action.php:749
+#: lib/action.php:769
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:751
+#: lib/action.php:771
 msgid "Badge"
 msgstr "Бедж"
 
-#: lib/action.php:779
+#: lib/action.php:799
 msgid "StatusNet software license"
 msgstr "Ліцензія програмного забезпечення StatusNet"
 
-#: lib/action.php:782
+#: lib/action.php:802
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4671,12 +4882,12 @@ msgstr ""
 "**%%site.name%%** — це сервіс мікроблоґів наданий вам [%%site.broughtby%%](%%"
 "site.broughtbyurl%%). "
 
-#: lib/action.php:784
+#: lib/action.php:804
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** — це сервіс мікроблоґів. "
 
-#: lib/action.php:786
+#: lib/action.php:806
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4687,96 +4898,148 @@ msgstr ""
 "для мікроблоґів, версія %s, доступному під [GNU Affero General Public "
 "License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:801
+#: lib/action.php:821
 msgid "Site content license"
 msgstr "Ліцензія змісту сайту"
 
-#: lib/action.php:806
+#: lib/action.php:826
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Зміст і дані %1$s є приватними і конфіденційними."
 
-#: lib/action.php:811
+#: lib/action.php:831
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "Авторські права на зміст і дані належать %1$s. Всі права захищено."
 
-#: lib/action.php:814
+#: lib/action.php:834
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторські права на зміст і дані належать розробникам. Всі права захищено."
 
-#: lib/action.php:826
+#: lib/action.php:847
 msgid "All "
 msgstr "Всі "
 
-#: lib/action.php:831
+#: lib/action.php:853
 msgid "license."
 msgstr "ліцензія."
 
-#: lib/action.php:1130
+#: lib/action.php:1152
 msgid "Pagination"
 msgstr "Нумерація сторінок"
 
-#: lib/action.php:1139
+#: lib/action.php:1161
 msgid "After"
 msgstr "Вперед"
 
-#: lib/action.php:1147
+#: lib/action.php:1169
 msgid "Before"
 msgstr "Назад"
 
-#: lib/adminpanelaction.php:96
+#: lib/activity.php:453
+msgid "Can't handle remote content yet."
+msgstr "Поки що не можу обробити віддалений контент."
+
+#: lib/activity.php:481
+msgid "Can't handle embedded XML content yet."
+msgstr "Поки що не можу обробити вбудований XML контент."
+
+#: lib/activity.php:485
+msgid "Can't handle embedded Base64 content yet."
+msgstr "Поки що не можу обробити вбудований контент Base64."
+
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
 msgstr "Ви не можете щось змінювати на цьому сайті."
 
-#: lib/adminpanelaction.php:107
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:110
 msgid "Changes to that panel are not allowed."
 msgstr "Для цієї панелі зміни не припустимі."
 
-#: lib/adminpanelaction.php:206
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr "showForm() не виконано."
 
-#: lib/adminpanelaction.php:235
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() не виконано."
 
-#: lib/adminpanelaction.php:258
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:283
 msgid "Unable to delete design setting."
 msgstr "Немає можливості видалити налаштування дизайну."
 
-#: lib/adminpanelaction.php:312
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:348
 msgid "Basic site configuration"
 msgstr "Основна конфігурація сайту"
 
-#: lib/adminpanelaction.php:317
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:350
+msgctxt "MENU"
+msgid "Site"
+msgstr "Сайт"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:356
 msgid "Design configuration"
 msgstr "Конфігурація дизайну"
 
-#: lib/adminpanelaction.php:322
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:358
+msgctxt "MENU"
+msgid "Design"
+msgstr "Дизайн"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:364
 msgid "User configuration"
 msgstr "Конфігурація користувача"
 
-#: lib/adminpanelaction.php:327
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:366 lib/personalgroupnav.php:115
+msgid "User"
+msgstr "Користувач"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:372
 msgid "Access configuration"
 msgstr "Прийняти конфігурацію"
 
-#: lib/adminpanelaction.php:332
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:380
 msgid "Paths configuration"
 msgstr "Конфігурація шляху"
 
-#: lib/adminpanelaction.php:337
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:388
 msgid "Sessions configuration"
 msgstr "Конфігурація сесій"
 
-#: lib/apiauth.php:95
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:396
+#, fuzzy
+msgid "Edit site notice"
+msgstr "Зауваження сайту"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:404
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "Конфігурація шляху"
+
+#: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "API-ресурс вимагає дозвіл типу «читання-запис», але у вас є лише доступ для "
 "читання."
 
-#: lib/apiauth.php:273
+#: lib/apiauth.php:272
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -4868,11 +5131,11 @@ msgstr "Дописи, до яких прикріплено це вкладенн
 msgid "Tags for this attachment"
 msgstr "Теґи для цього вкладення"
 
-#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
+#: lib/authenticationplugin.php:220 lib/authenticationplugin.php:225
 msgid "Password changing failed"
 msgstr "Не вдалося змінити пароль"
 
-#: lib/authenticationplugin.php:233
+#: lib/authenticationplugin.php:235
 msgid "Password changing is not allowed"
 msgstr "Змінювати пароль не дозволено"
 
@@ -5023,84 +5286,93 @@ msgstr "Проблема при збереженні допису."
 msgid "Specify the name of the user to subscribe to"
 msgstr "Зазначте ім’я користувача, до якого бажаєте підписатись"
 
-#: lib/command.php:554
+#: lib/command.php:554 lib/command.php:589
+msgid "No such user"
+msgstr "Такого користувача немає."
+
+#: lib/command.php:561
 #, php-format
 msgid "Subscribed to %s"
 msgstr "Підписано до %s"
 
-#: lib/command.php:575
+#: lib/command.php:582 lib/command.php:685
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "Зазначте ім’я користувача, від якого бажаєте відписатись"
 
-#: lib/command.php:582
+#: lib/command.php:595
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "Відписано від %s"
 
-#: lib/command.php:600 lib/command.php:623
+#: lib/command.php:613 lib/command.php:636
 msgid "Command not yet implemented."
 msgstr "Виконання команди ще не завершено."
 
-#: lib/command.php:603
+#: lib/command.php:616
 msgid "Notification off."
 msgstr "Сповіщення вимкнуто."
 
-#: lib/command.php:605
+#: lib/command.php:618
 msgid "Can't turn off notification."
 msgstr "Не можна вимкнути сповіщення."
 
-#: lib/command.php:626
+#: lib/command.php:639
 msgid "Notification on."
 msgstr "Сповіщення увімкнуто."
 
-#: lib/command.php:628
+#: lib/command.php:641
 msgid "Can't turn on notification."
 msgstr "Не можна увімкнути сповіщення."
 
-#: lib/command.php:641
+#: lib/command.php:654
 msgid "Login command is disabled"
 msgstr "Команду входу відключено"
 
-#: lib/command.php:652
+#: lib/command.php:665
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 "Це посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s"
 
-#: lib/command.php:668
+#: lib/command.php:692
+#, php-format
+msgid "Unsubscribed  %s"
+msgstr "Відписано %s"
+
+#: lib/command.php:709
 msgid "You are not subscribed to anyone."
 msgstr "Ви не маєте жодних підписок."
 
-#: lib/command.php:670
+#: lib/command.php:711
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ви підписані до цієї особи:"
 msgstr[1] "Ви підписані до цих людей:"
 msgstr[2] "Ви підписані до цих людей:"
 
-#: lib/command.php:690
+#: lib/command.php:731
 msgid "No one is subscribed to you."
 msgstr "До Вас ніхто не підписаний."
 
-#: lib/command.php:692
+#: lib/command.php:733
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ця особа є підписаною до Вас:"
 msgstr[1] "Ці люди підписані до Вас:"
 msgstr[2] "Ці люди підписані до Вас:"
 
-#: lib/command.php:712
+#: lib/command.php:753
 msgid "You are not a member of any groups."
 msgstr "Ви не є учасником жодної групи."
 
-#: lib/command.php:714
+#: lib/command.php:755
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ви є учасником групи:"
 msgstr[1] "Ви є учасником таких груп:"
 msgstr[2] "Ви є учасником таких груп:"
 
-#: lib/command.php:728
+#: lib/command.php:769
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5114,6 +5386,7 @@ msgid ""
 "d <nickname> <text> - direct message to user\n"
 "get <nickname> - get last notice from user\n"
 "whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
 "fav <nickname> - add user's last notice as a 'fave'\n"
 "fav #<notice_id> - add notice with the given id as a 'fave'\n"
 "repeat #<notice_id> - repeat a notice with a given id\n"
@@ -5176,19 +5449,19 @@ msgstr ""
 "tracks — наразі не виконується\n"
 "tracking — наразі не виконується\n"
 
-#: lib/common.php:135
+#: lib/common.php:148
 msgid "No configuration file found. "
 msgstr "Файлу конфігурації не знайдено. "
 
-#: lib/common.php:136
+#: lib/common.php:149
 msgid "I looked for configuration files in the following places: "
 msgstr "Шукав файли конфігурації в цих місцях: "
 
-#: lib/common.php:138
+#: lib/common.php:151
 msgid "You may wish to run the installer to fix this."
 msgstr "Запустіть файл інсталяції, аби полагодити це."
 
-#: lib/common.php:139
+#: lib/common.php:152
 msgid "Go to the installer."
 msgstr "Іти до файлу інсталяції."
 
@@ -5287,6 +5560,11 @@ msgstr "Оберіть теґ до звуженого списку"
 msgid "Go"
 msgstr "Вперед"
 
+#: lib/grantroleform.php:91
+#, php-format
+msgid "Grant this user the \"%s\" role"
+msgstr ""
+
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
 msgstr "URL-адреса веб-сторінки, блоґу групи, або тематичного блоґу"
@@ -5377,23 +5655,23 @@ msgstr "Система відповіла помилкою при заванта
 msgid "Not an image or corrupt file."
 msgstr "Це не зображення, або файл зіпсовано."
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "Формат зображення не підтримується."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Файл втрачено."
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "Тип файлу не підтримується"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "Мб"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "кб"
 
@@ -5683,7 +5961,7 @@ msgstr ""
 "повідомлення аби долучити користувачів до розмови. Такі повідомлення бачите "
 "лише Ви."
 
-#: lib/mailbox.php:227 lib/noticelist.php:477
+#: lib/mailbox.php:227 lib/noticelist.php:482
 msgid "from"
 msgstr "від"
 
@@ -5775,6 +6053,11 @@ msgstr "До"
 msgid "Available characters"
 msgstr "Лишилось знаків"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Так!"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Надіслати допис"
@@ -5808,48 +6091,48 @@ msgstr ""
 "На жаль, отримання інформації щодо Вашого місцезнаходження займе більше "
 "часу, ніж очікувалось; будь ласка, спробуйте пізніше"
 
-#: lib/noticelist.php:428
+#: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "N"
 msgstr "Півн."
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 msgid "S"
 msgstr "Півд."
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "E"
 msgstr "Сх."
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "W"
 msgstr "Зах."
 
-#: lib/noticelist.php:436
+#: lib/noticelist.php:438
 msgid "at"
 msgstr "в"
 
-#: lib/noticelist.php:547
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "в контексті"
 
-#: lib/noticelist.php:572
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "Вторуванні"
 
-#: lib/noticelist.php:598
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "Відповісти на цей допис"
 
-#: lib/noticelist.php:599
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "Відповісти"
 
-#: lib/noticelist.php:641
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "Допис вторували"
 
@@ -5880,10 +6163,6 @@ msgstr "Помилка при додаванні віддаленого проф
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
 msgstr "Дублікат допису"
-
-#: lib/oauthstore.php:465 lib/subs.php:48
-msgid "You have been banned from subscribing."
-msgstr "Вас позбавлено можливості підписатись."
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -5926,7 +6205,7 @@ msgstr "Теґи у дописах %s"
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Підписки"
 
@@ -5934,23 +6213,23 @@ msgstr "Підписки"
 msgid "All subscriptions"
 msgstr "Всі підписки"
 
-#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Підписчики"
 
-#: lib/profileaction.php:157
+#: lib/profileaction.php:159
 msgid "All subscribers"
 msgstr "Всі підписчики"
 
-#: lib/profileaction.php:178
+#: lib/profileaction.php:180
 msgid "User ID"
 msgstr "ІД"
 
-#: lib/profileaction.php:183
+#: lib/profileaction.php:185
 msgid "Member since"
 msgstr "З нами від"
 
-#: lib/profileaction.php:245
+#: lib/profileaction.php:247
 msgid "All groups"
 msgstr "Всі групи"
 
@@ -5990,7 +6269,12 @@ msgstr "Повторити цей допис?"
 msgid "Repeat this notice"
 msgstr "Вторувати цьому допису"
 
-#: lib/router.php:665
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Блокувати користувача цієї групи"
+
+#: lib/router.php:671
 msgid "No single user defined for single-user mode."
 msgstr "Користувача для однокористувацького режиму не визначено."
 
@@ -6009,6 +6293,10 @@ msgstr "Пошук"
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
 msgstr "Ключові слова"
+
+#: lib/searchaction.php:127
+msgid "Search"
+msgstr "Пошук"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -6061,33 +6349,14 @@ msgstr "Люди підписані до %s"
 msgid "Groups %s is a member of"
 msgstr "%s бере участь в цих групах"
 
-#: lib/subs.php:52
-msgid "Already subscribed!"
-msgstr "Вже підписаний!"
+#: lib/subgroupnav.php:105
+msgid "Invite"
+msgstr "Запросити"
 
-#: lib/subs.php:56
-msgid "User has blocked you."
-msgstr "Користувач заблокував Вас."
-
-#: lib/subs.php:63
-msgid "Could not subscribe."
-msgstr "Невдала підписка."
-
-#: lib/subs.php:82
-msgid "Could not subscribe other to you."
-msgstr "Не вдалося підписати інших до Вас."
-
-#: lib/subs.php:137
-msgid "Not subscribed!"
-msgstr "Не підписано!"
-
-#: lib/subs.php:142
-msgid "Couldn't delete self-subscription."
-msgstr "Не можу видалити самопідписку."
-
-#: lib/subs.php:158
-msgid "Couldn't delete subscription."
-msgstr "Не вдалося видалити підписку."
+#: lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Запросіть друзів та колег приєднатись до Вас на %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6139,67 +6408,84 @@ msgstr "Аватара"
 msgid "User actions"
 msgstr "Діяльність користувача"
 
-#: lib/userprofile.php:248
+#: lib/userprofile.php:251
 msgid "Edit profile settings"
 msgstr "Налаштування профілю"
 
-#: lib/userprofile.php:249
+#: lib/userprofile.php:252
 msgid "Edit"
 msgstr "Правка"
 
-#: lib/userprofile.php:272
+#: lib/userprofile.php:275
 msgid "Send a direct message to this user"
 msgstr "Надіслати пряме повідомлення цьому користувачеві"
 
-#: lib/userprofile.php:273
+#: lib/userprofile.php:276
 msgid "Message"
 msgstr "Повідомлення"
 
-#: lib/userprofile.php:311
+#: lib/userprofile.php:314
 msgid "Moderate"
 msgstr "Модерувати"
 
-#: lib/util.php:870
+#: lib/userprofile.php:352
+#, fuzzy
+msgid "User role"
+msgstr "Профіль користувача."
+
+#: lib/userprofile.php:354
+#, fuzzy
+msgctxt "role"
+msgid "Administrator"
+msgstr "Адміни"
+
+#: lib/userprofile.php:355
+#, fuzzy
+msgctxt "role"
+msgid "Moderator"
+msgstr "Модерувати"
+
+#: lib/util.php:1015
 msgid "a few seconds ago"
 msgstr "мить тому"
 
-#: lib/util.php:872
+#: lib/util.php:1017
 msgid "about a minute ago"
 msgstr "хвилину тому"
 
-#: lib/util.php:874
+#: lib/util.php:1019
 #, php-format
 msgid "about %d minutes ago"
 msgstr "близько %d хвилин тому"
 
-#: lib/util.php:876
+#: lib/util.php:1021
 msgid "about an hour ago"
 msgstr "годину тому"
 
-#: lib/util.php:878
+#: lib/util.php:1023
 #, php-format
 msgid "about %d hours ago"
 msgstr "близько %d годин тому"
 
-#: lib/util.php:880
+#: lib/util.php:1025
 msgid "about a day ago"
 msgstr "день тому"
 
-#: lib/util.php:882
+#: lib/util.php:1027
 #, php-format
 msgid "about %d days ago"
 msgstr "близько %d днів тому"
 
-#: lib/util.php:884
+#: lib/util.php:1029
 msgid "about a month ago"
 msgstr "місяць тому"
 
-#: lib/util.php:886
+#: lib/util.php:1031
 #, php-format
 msgid "about %d months ago"
 msgstr "близько %d місяців тому"
 
-#: lib/util.php:888
+#: lib/util.php:1033
 msgid "about a year ago"
 msgstr "рік тому"
 

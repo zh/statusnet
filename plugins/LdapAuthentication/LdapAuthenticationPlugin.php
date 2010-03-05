@@ -76,6 +76,32 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
     }
+
+    function onEndShowPageNotice($action)
+    {
+        $name = $action->trimmed('action');
+        $instr = false;
+
+        switch ($name)
+        {
+         case 'register':
+            if($this->autoregistration) {
+                $instr = 'Have an LDAP account? Use your standard username and password.';
+            }
+            break;
+         case 'login':
+            $instr = 'Have an LDAP account? Use your standard username and password.';
+            break;
+         default:
+            return true;
+        }
+
+        if($instr) {
+            $output = common_markup_to_html($instr);
+            $action->raw($output);
+        }
+        return true;
+    }
     
     //---interface implementation---//
 
@@ -163,15 +189,14 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $entry = $this->ldap_get_user($username, $this->attributes);
         if(!$entry){
             //this really shouldn't happen
-            return $username;
+            $nickname = $username;
         }else{
             $nickname = $entry->getValue($this->attributes['nickname'],'single');
-            if($nickname){
-                return $nickname;
-            }else{
-                return $username;
+            if(!$nickname){
+                $nickname = $username;
             }
         }
+        return common_nicknamize($nickname);
     }
     
     //---utility functions---//
@@ -199,8 +224,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
-            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
-            return false;
+            throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
         }
         if($config == null) $this->default_ldap=$ldap;
 

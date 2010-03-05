@@ -40,7 +40,8 @@ $default =
               'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
-              'language' => 'en_US',
+              'language' => 'en',
+              'langdetect' => true,
               'languages' => get_all_languages(),
               'email' =>
               array_key_exists('SERVER_ADMIN', $_SERVER) ? $_SERVER['SERVER_ADMIN'] : null,
@@ -53,10 +54,11 @@ $default =
               'ssl' => 'never',
               'sslserver' => null,
               'shorturllength' => 30,
-              'dupelimit' => 60, # default for same person saying the same thing
+              'dupelimit' => 60, // default for same person saying the same thing
               'textlimit' => 140,
               'indent' => true,
-              'use_x_sendfile' => false
+              'use_x_sendfile' => false,
+              'notice' => null // site wide notice text
               ),
         'db' =>
         array('database' => 'YOU HAVE TO SET THIS IN config.php',
@@ -91,10 +93,13 @@ $default =
               'spawndelay' => 1, // Wait at least N seconds between (re)spawns of child processes to avoid slamming the queue server with subscription startup
               'debug_memory' => false, // true to spit memory usage to log
               'inboxes' => true, // true to do inbox distribution & output queueing from in background via 'distrib' queue
-              'breakout' => array('*' => 'shared'), // set global or per-handler queue breakout
-                                      // 'shared': use a shared queue for all sites
-                                      // 'handler': share each/this handler over multiple sites
-                                      // 'site': break out for each/this handler on this site
+              'breakout' => array(), // List queue specifiers to break out when using Stomp queue.
+                                     // Default will share all queues for all sites within each group.
+                                     // Specify as <group>/<queue> or <group>/<queue>/<site>,
+                                     // using nickname identifier as site.
+                                     //
+                                     // 'main/distrib' separate "distrib" queue covering all sites
+                                     // 'xmpp/xmppout/mysite' separate "xmppout" queue covering just 'mysite'
               'max_retries' => 10, // drop messages after N failed attempts to process (Stomp)
               'dead_letter_dir' => false, // set to directory to save dropped messages into (Stomp)
               ),
@@ -172,10 +177,10 @@ $default =
         array('enabled' => false),
         'integration' =>
         array('source' => 'StatusNet', # source attribute for Twitter
-              'taguri' => $_server.',2009'), # base for tag URIs
+              'taguri' => null), # base for tag URIs
         'twitter' =>
-        array('enabled'       => true,
-              'consumer_key'    => null,
+        array('signin' => true,
+              'consumer_key' => null,
               'consumer_secret' => null),
         'cache' =>
         array('base' => null),
@@ -275,14 +280,13 @@ $default =
                                  'TightUrl' => array('shortenerName' => '2tu.us', 'freeService' => true,'serviceUrl'=>'http://2tu.us/?save=y&url=%1$s'),
                                  'Geonames' => null,
                                  'Mapstraction' => null,
-                                 'Linkback' => null,
+                                 'OStatus' => null,
                                  'WikiHashtags' => null,
-                                 'PubSubHubBub' => null,
                                  'RSSCloud' => null,
                                  'OpenID' => null),
               ),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),

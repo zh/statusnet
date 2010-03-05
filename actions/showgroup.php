@@ -122,9 +122,9 @@ class ShowgroupAction extends GroupDesignAction
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
 
-        if (!$this->group) {
+        if (!$local) {
             $alias = Group_alias::staticGet('alias', $nickname);
             if ($alias) {
                 $args = array('id' => $alias->group_id);
@@ -134,9 +134,17 @@ class ShowgroupAction extends GroupDesignAction
                 common_redirect(common_local_url('groupbyid', $args), 301);
                 return false;
             } else {
+                common_log(LOG_NOTICE, "Couldn't find local group for nickname '$nickname'");
                 $this->clientError(_('No such group.'), 404);
                 return false;
             }
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
+
+        if (!$this->group) {
+            $this->clientError(_('No such group.'), 404);
+            return false;
         }
 
         common_set_returnto($this->selfUrl());
@@ -293,19 +301,20 @@ class ShowgroupAction extends GroupDesignAction
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
         $this->elementStart('li', 'entity_subscribe');
-        $cur = common_current_user();
-        if ($cur) {
-            if ($cur->isMember($this->group)) {
-                $lf = new LeaveForm($this, $this->group);
-                $lf->show();
-            } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
-                $jf = new JoinForm($this, $this->group);
-                $jf->show();
+        if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
+            $cur = common_current_user();
+            if ($cur) {
+                if ($cur->isMember($this->group)) {
+                    $lf = new LeaveForm($this, $this->group);
+                    $lf->show();
+                } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                    $jf = new JoinForm($this, $this->group);
+                    $jf->show();
+                }
             }
+            Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
-
         $this->elementEnd('li');
-
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }

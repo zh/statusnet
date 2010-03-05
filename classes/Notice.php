@@ -121,6 +121,9 @@ class Notice extends Memcached_DataObject
         $result = parent::delete();
     }
 
+    /**
+     * Extract #hashtags from this notice's content and save them to the database.
+     */
     function saveTags()
     {
         /* extract all #hastags */
@@ -129,14 +132,22 @@ class Notice extends Memcached_DataObject
             return true;
         }
 
+        /* Add them to the database */
+        return $this->saveKnownTags($match[1]);
+    }
+
+    /**
+     * Record the given set of hash tags in the db for this notice.
+     * Given tag strings will be normalized and checked for dupes.
+     */
+    function saveKnownTags($hashtags)
+    {
         //turn each into their canonical tag
         //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
-        $hashtags = array();
-        for($i=0; $i<count($match[1]); $i++) {
-            $hashtags[] = common_canonical_tag($match[1][$i]);
+        for($i=0; $i<count($hashtags); $i++) {
+            $hashtags[$i] = common_canonical_tag($hashtags[$i]);
         }
 
-        /* Add them to the database */
         foreach(array_unique($hashtags) as $hashtag) {
             /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
@@ -145,6 +156,10 @@ class Notice extends Memcached_DataObject
         return true;
     }
 
+    /**
+     * Record a single hash tag as associated with this notice.
+     * Tag format and uniqueness must be validated by caller.
+     */
     function saveTag($hashtag)
     {
         $tag = new Notice_tag();
@@ -187,13 +202,25 @@ class Notice extends Memcached_DataObject
      *              int 'location_ns' geoname namespace to interpret location_id
      *              int 'reply_to'; notice ID this is a reply to
      *              int 'repeat_of'; notice ID this is a repeat of
-     *              string 'uri' permalink to notice; defaults to local notice URL
+     *              string 'uri' unique ID for notice; defaults to local notice URL
+     *              string 'url' permalink to notice; defaults to local notice URL
+     *              string 'rendered' rendered HTML version of content
+     *              array 'replies' list of profile URIs for reply delivery in
+     *                              place of extracting @-replies from content.
+     *              array 'groups' list of group IDs to deliver to, in place of
+     *                              extracting ! tags from content
+     *              array 'tags' list of hashtag strings to save with the notice
+     *                           in place of extracting # tags from content
+     *              array 'urls' list of attached/referred URLs to save with the
+     *                           notice in place of extracting links from content
+     * @fixme tag override
      *
      * @return Notice
      * @throws ClientException
      */
     static function saveNew($profile_id, $content, $source, $options=null) {
         $defaults = array('uri' => null,
+                          'url' => null,
                           'reply_to' => null,
                           'repeat_of' => null);
 
@@ -256,9 +283,10 @@ class Notice extends Memcached_DataObject
         }
 
         $notice->content = $final;
-        $notice->rendered = common_render_content($final, $notice);
+
         $notice->source = $source;
         $notice->uri = $uri;
+        $notice->url = $url;
 
         // Handle repeat case
 
@@ -281,6 +309,12 @@ class Notice extends Memcached_DataObject
         if (!empty($location_ns) && !empty($location_id)) {
             $notice->location_id = $location_id;
             $notice->location_ns = $location_ns;
+        }
+
+        if (!empty($rendered)) {
+            $notice->rendered = $rendered;
+        } else {
+            $notice->rendered = common_render_content($final, $notice);
         }
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -325,8 +359,36 @@ class Notice extends Memcached_DataObject
 
         # Clear the cache for subscribed users, so they'll update at next request
         # XXX: someone clever could prepend instead of clearing the cache
+
         $notice->blowOnInsert();
 
+        // Save per-notice metadata...
+
+        if (isset($replies)) {
+            $notice->saveKnownReplies($replies);
+        } else {
+            $notice->saveReplies();
+        }
+
+        if (isset($groups)) {
+            $notice->saveKnownGroups($groups);
+        } else {
+            $notice->saveGroups();
+        }
+
+        if (isset($tags)) {
+            $notice->saveKnownTags($tags);
+        } else {
+            $notice->saveTags();
+        }
+
+        if (isset($urls)) {
+            $notice->saveKnownUrls($urls);
+        } else {
+            $notice->saveUrls();
+        }
+
+        // Prepare inbox delivery, may be queued to background.
         $notice->distribute();
 
         return $notice;
@@ -370,6 +432,25 @@ class Notice extends Memcached_DataObject
         common_replace_urls_callback($this->content, array($this, 'saveUrl'), $this->id);
     }
 
+    /**
+     * Save the given URLs as related links/attachments to the db
+     *
+     * follow redirects and save all available file information
+     * (mimetype, date, size, oembed, etc.)
+     *
+     * @return void
+     */
+    function saveKnownUrls($urls)
+    {
+        // @fixme validation?
+        foreach ($urls as $url) {
+            File::processNew($url, $this->id);
+        }
+    }
+
+    /**
+     * @private callback
+     */
     function saveUrl($data) {
         list($url, $notice_id) = $data;
         File::processNew($url, $notice_id);
@@ -502,17 +583,17 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function publicStream($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_publicStreamDirect'),
                               array(),
                               'public',
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _publicStreamDirect($offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -541,10 +622,6 @@ class Notice extends Memcached_DataObject
             $notice->whereAdd('id <= ' . $max_id);
         }
 
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
-        }
-
         $ids = array();
 
         if ($notice->find()) {
@@ -559,17 +636,17 @@ class Notice extends Memcached_DataObject
         return $ids;
     }
 
-    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function conversationStream($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Notice', '_conversationStreamDirect'),
                               array($id),
                               'notice:conversation_ids:'.$id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function _conversationStreamDirect($id, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $notice = new Notice();
 
@@ -590,10 +667,6 @@ class Notice extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $ids = array();
@@ -677,11 +750,39 @@ class Notice extends Memcached_DataObject
         return $ni;
     }
 
-    function addToInboxes($groups, $recipients)
+    /**
+     * Adds this notice to the inboxes of each local user who should receive
+     * it, based on author subscriptions, group memberships, and @-replies.
+     *
+     * Warning: running a second time currently will make items appear
+     * multiple times in users' inboxes.
+     *
+     * @fixme make more robust against errors
+     * @fixme break up massive deliveries to smaller background tasks
+     *
+     * @param array $groups optional list of Group objects;
+     *              if left empty, will be loaded from group_inbox records
+     * @param array $recipient optional list of reply profile ids
+     *              if left empty, will be loaded from reply records
+     */
+    function addToInboxes($groups=null, $recipients=null)
     {
         $ni = $this->whoGets($groups, $recipients);
 
-        Inbox::bulkInsert($this->id, array_keys($ni));
+        $ids = array_keys($ni);
+
+        // We remove the author (if they're a local user),
+        // since we'll have already done this in distribute()
+
+        $i = array_search($this->profile_id, $ids);
+
+        if ($i !== false) {
+            unset($ids[$i]);
+        }
+
+        // Bulk insert
+
+        Inbox::bulkInsert($this->id, $ids);
 
         return;
     }
@@ -714,6 +815,42 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Record this notice to the given group inboxes for delivery.
+     * Overrides the regular parsing of !group markup.
+     *
+     * @param string $group_ids
+     * @fixme might prefer URIs as identifiers, as for replies?
+     *        best with generalizations on user_group to support
+     *        remote groups better.
+     */
+    function saveKnownGroups($group_ids)
+    {
+        if (!is_array($group_ids)) {
+            throw new ServerException("Bad type provided to saveKnownGroups");
+        }
+
+        $groups = array();
+        foreach ($group_ids as $id) {
+            $group = User_group::staticGet('id', $id);
+            if ($group) {
+                common_log(LOG_ERR, "Local delivery to group id $id, $group->nickname");
+                $result = $this->addToGroupInbox($group);
+                if (!$result) {
+                    common_log_db_error($gi, 'INSERT', __FILE__);
+                }
+
+                // @fixme should we save the tags here or not?
+                $groups[] = clone($group);
+            } else {
+                common_log(LOG_ERR, "Local delivery to group id $id skipped, doesn't exist");
+            }
+        }
+
+        return $groups;
+    }
+
+    /**
+     * Parse !group delivery and record targets into group_inbox.
      * @return array of Group objects
      */
     function saveGroups()
@@ -740,7 +877,7 @@ class Notice extends Memcached_DataObject
 
         foreach (array_unique($match[1]) as $nickname) {
             /* XXX: remote groups. */
-            $group = User_group::getForNickname($nickname);
+            $group = User_group::getForNickname($nickname, $profile);
 
             if (empty($group)) {
                 continue;
@@ -797,8 +934,51 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Save reply records indicating that this notice needs to be
+     * delivered to the local users with the given URIs.
+     *
+     * Since this is expected to be used when saving foreign-sourced
+     * messages, we won't deliver to any remote targets as that's the
+     * source service's responsibility.
+     *
+     * @fixme Unlike saveReplies() there's no mail notification here.
+     *        Move that to distrib queue handler?
+     *
+     * @param array of unique identifier URIs for recipients
+     */
+    function saveKnownReplies($uris)
+    {
+        foreach ($uris as $uri) {
+
+            $user = User::staticGet('uri', $uri);
+
+            if (!empty($user)) {
+
+                $reply = new Reply();
+
+                $reply->notice_id  = $this->id;
+                $reply->profile_id = $user->id;
+
+                $id = $reply->insert();
+
+                self::blow('reply:stream:%d', $user->id);
+            }
+        }
+
+        return;
+    }
+
+    /**
+     * Pull @-replies from this message's content in StatusNet markup format
+     * and save reply records indicating that this message needs to be
+     * delivered to those users.
+     *
+     * Side effect: local recipients get e-mail notifications here.
+     * @fixme move mail notifications to distrib?
+     *
      * @return array of integer profile IDs
      */
+
     function saveReplies()
     {
         // Don't save reply data for repeats
@@ -807,76 +987,47 @@ class Notice extends Memcached_DataObject
             return array();
         }
 
-        // Alternative reply format
-        $tname = false;
-        if (preg_match('/^T ([A-Z0-9]{1,64}) /', $this->content, $match)) {
-            $tname = $match[1];
-        }
-        // extract all @messages
-        $cnt = preg_match_all('/(?:^|\s)@([a-z0-9]{1,64})/', $this->content, $match);
-
-        $names = array();
-
-        if ($cnt || $tname) {
-            // XXX: is there another way to make an array copy?
-            $names = ($tname) ? array_unique(array_merge(array(strtolower($tname)), $match[1])) : array_unique($match[1]);
-        }
-
         $sender = Profile::staticGet($this->profile_id);
+
+        // @todo ideally this parser information would only
+        // be calculated once.
+
+        $mentions = common_find_mentions($this->content, $this);
 
         $replied = array();
 
         // store replied only for first @ (what user/notice what the reply directed,
         // we assume first @ is it)
 
-        for ($i=0; $i<count($names); $i++) {
-            $nickname = $names[$i];
-            $recipient = common_relative_profile($sender, $nickname, $this->created);
-            if (empty($recipient)) {
-                continue;
-            }
-            // Don't save replies from blocked profile to local user
-            $recipient_user = User::staticGet('id', $recipient->id);
-            if (!empty($recipient_user) && $recipient_user->hasBlocked($sender)) {
-                continue;
-            }
-            $reply = new Reply();
-            $reply->notice_id = $this->id;
-            $reply->profile_id = $recipient->id;
-            $id = $reply->insert();
-            if (!$id) {
-                $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-                common_log(LOG_ERR, 'DB error inserting reply: ' . $last_error->message);
-                common_server_error(sprintf(_('DB error inserting reply: %s'), $last_error->message));
-                return array();
-            } else {
-                $replied[$recipient->id] = 1;
-            }
-        }
+        foreach ($mentions as $mention) {
 
-        // Hash format replies, too
-        $cnt = preg_match_all('/(?:^|\s)@#([a-z0-9]{1,64})/', $this->content, $match);
-        if ($cnt) {
-            foreach ($match[1] as $tag) {
-                $tagged = Profile_tag::getTagged($sender->id, $tag);
-                foreach ($tagged as $t) {
-                    if (!$replied[$t->id]) {
-                        // Don't save replies from blocked profile to local user
-                        $t_user = User::staticGet('id', $t->id);
-                        if ($t_user && $t_user->hasBlocked($sender)) {
-                            continue;
-                        }
-                        $reply = new Reply();
-                        $reply->notice_id = $this->id;
-                        $reply->profile_id = $t->id;
-                        $id = $reply->insert();
-                        if (!$id) {
-                            common_log_db_error($reply, 'INSERT', __FILE__);
-                            return array();
-                        } else {
-                            $replied[$recipient->id] = 1;
-                        }
-                    }
+            foreach ($mention['mentioned'] as $mentioned) {
+
+                // skip if they're already covered
+
+                if (!empty($replied[$mentioned->id])) {
+                    continue;
+                }
+
+                // Don't save replies from blocked profile to local user
+
+                $mentioned_user = User::staticGet('id', $mentioned->id);
+                if (!empty($mentioned_user) && $mentioned_user->hasBlocked($sender)) {
+                    continue;
+                }
+
+                $reply = new Reply();
+
+                $reply->notice_id  = $this->id;
+                $reply->profile_id = $mentioned->id;
+
+                $id = $reply->insert();
+
+                if (!$id) {
+                    common_log_db_error($reply, 'INSERT', __FILE__);
+                    throw new ServerException("Couldn't save reply for {$this->id}, {$mentioned->id}");
+                } else {
+                    $replied[$mentioned->id] = 1;
                 }
             }
         }
@@ -917,9 +1068,10 @@ class Notice extends Memcached_DataObject
     }
 
     /**
-     * Same calculation as saveGroups but without the saving
-     * @fixme merge the functions
-     * @return array of Group_inbox objects
+     * Pull list of groups this notice needs to be delivered to,
+     * as previously recorded by saveGroups() or saveKnownGroups().
+     *
+     * @return array of Group objects
      */
     function getGroups()
     {
@@ -942,7 +1094,10 @@ class Notice extends Memcached_DataObject
 
         if ($gi->find()) {
             while ($gi->fetch()) {
-                $groups[] = clone($gi);
+                $group = User_group::staticGet('id', $gi->group_id);
+                if ($group) {
+                    $groups[] = $group;
+                }
             }
         }
 
@@ -951,7 +1106,7 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
-    function asAtomEntry($namespace=false, $source=false)
+    function asAtomEntry($namespace=false, $source=false, $author=true)
     {
         $profile = $this->getProfile();
 
@@ -962,6 +1117,8 @@ class Notice extends Memcached_DataObject
                            'xmlns:thr' => 'http://purl.org/syndication/thread/1.0',
                            'xmlns:georss' => 'http://www.georss.org/georss',
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
+                           'xmlns:media' => 'http://purl.org/syndication/atommedia',
+                           'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
         } else {
             $attrs = array();
@@ -993,12 +1150,14 @@ class Notice extends Memcached_DataObject
         }
 
         $xs->element('title', null, $this->content);
-        $xs->element('summary', null, $this->content);
 
-        $xs->raw($profile->asAtomAuthor());
-        $xs->raw($profile->asActivityActor());
+        if ($author) {
+            $xs->raw($profile->asAtomAuthor());
+            $xs->raw($profile->asActivityActor());
+        }
 
         $xs->element('link', array('rel' => 'alternate',
+                                   'type' => 'text/html',
                                    'href' => $this->bestUrl()));
 
         $xs->element('id', null, $this->uri);
@@ -1043,6 +1202,17 @@ class Notice extends Memcached_DataObject
                     )
                 );
             }
+        }
+
+        $groups = $this->getGroups();
+
+        foreach ($groups as $group) {
+            $xs->element(
+                'link', array(
+                    'rel' => 'ostatus:attention',
+                    'href' => $group->permalink()
+                )
+            );
         }
 
         if (!empty($this->repeat_of)) {
@@ -1090,6 +1260,21 @@ class Notice extends Memcached_DataObject
         return $xs->getString();
     }
 
+    /**
+     * Returns an XML string fragment with a reference to a notice as an
+     * Activity Streams noun object with the given element type.
+     *
+     * Assumes that 'activity' namespace has been previously defined.
+     *
+     * @param string $element one of 'subject', 'object', 'target'
+     * @return string
+     */
+    function asActivityNoun($element)
+    {
+        $noun = ActivityObject::fromNotice($this);
+        return $noun->asString('activity:' . $element);
+    }
+
     function bestUrl()
     {
         if (!empty($this->url)) {
@@ -1102,16 +1287,16 @@ class Notice extends Memcached_DataObject
         }
     }
 
-    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0, $since=null)
+    function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
         $cache = common_memcache();
 
         if (empty($cache) ||
-            $since_id != 0 || $max_id != 0 || (!is_null($since) && $since > 0) ||
+            $since_id != 0 || $max_id != 0 ||
             is_null($limit) ||
             ($offset + $limit) > NOTICE_CACHE_WINDOW) {
             return call_user_func_array($fn, array_merge($args, array($offset, $limit, $since_id,
-                                                                      $max_id, $since)));
+                                                                      $max_id)));
         }
 
         $idkey = common_cache_key($cachekey);
@@ -1487,6 +1672,14 @@ class Notice extends Memcached_DataObject
 
     function distribute()
     {
+        // We always insert for the author so they don't
+        // have to wait
+
+        $user = User::staticGet('id', $this->profile_id);
+        if (!empty($user)) {
+            Inbox::insertNotice($user->id, $this->id);
+        }
+
         if (common_config('queue', 'inboxes')) {
             // If there's a failure, we want to _force_
             // distribution at this point.

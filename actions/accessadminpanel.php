@@ -51,6 +51,7 @@ class AccessadminpanelAction extends AdminPanelAction
 
     function title()
     {
+        // TRANS: Page title
         return _('Access');
     }
 
@@ -62,6 +63,7 @@ class AccessadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
+    	// TRANS: Page notice
         return _('Site access settings');
     }
 
@@ -155,24 +157,34 @@ class AccessAdminPanelForm extends AdminForm
     function formData()
     {
 	$this->out->elementStart('fieldset', array('id' => 'settings_admin_access'));
+	// TRANS: Form legend for registration form.
         $this->out->element('legend', null, _('Registration'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
-        $this->out->checkbox('private', _('Private'),
+        // TRANS: Checkbox instructions for admin setting "Private"
+        $instructions = _('Prohibit anonymous users (not logged in) from viewing site?');
+        // TRANS: Checkbox label for prohibiting anonymous users from viewing site.
+        $this->out->checkbox('private', _m('LABEL', 'Private'),
                              (bool) $this->value('private'),
-                             _('Prohibit anonymous users (not logged in) from viewing site?'));
+                             $instructions);
         $this->unli();
 
         $this->li();
+        // TRANS: Checkbox instructions for admin setting "Invite only"
+        $instructions = _('Make registration invitation only.');
+        // TRANS: Checkbox label for configuring site as invite only.
         $this->out->checkbox('inviteonly', _('Invite only'),
                              (bool) $this->value('inviteonly'),
-                             _('Make registration invitation only.'));
+                             $instructions);
         $this->unli();
 
         $this->li();
+        // TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
+        $instructions = _('Disable new registrations.');
+        // TRANS: Checkbox label for disabling new user registrations.
         $this->out->checkbox('closed', _('Closed'),
                              (bool) $this->value('closed'),
-                             _('Disable new registrations.'));
+                             $instructions);
         $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
@@ -186,7 +198,9 @@ class AccessAdminPanelForm extends AdminForm
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'), 'submit', null, _('Save access settings'));
+        // TRANS: Title / tooltip for button to save access settings in site admin panel
+        $title = _('Save access settings');
+        $this->out->submit('submit', _m('BUTTON', 'Save'), 'submit', null, $title);
     }
 
 }

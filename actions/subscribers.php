@@ -143,9 +143,12 @@ class SubscribersListItem extends SubscriptionListItem
     function showActions()
     {
         $this->startActions();
-        $this->showSubscribeButton();
-        // Relevant code!
-        $this->showBlockForm();
+        if (Event::handle('StartProfileListItemActionElements', array($this))) {
+            $this->showSubscribeButton();
+            // Relevant code!
+            $this->showBlockForm();
+            Event::handle('EndProfileListItemActionElements', array($this));
+        }
         $this->endActions();
     }
 

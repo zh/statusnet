@@ -113,7 +113,7 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
         $avatar     = $profile->getAvatar(AVATAR_PROFILE_SIZE);
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s and friends"), $this->user->nickname);
-        $taguribase = common_config('integration', 'taguri');
+        $taguribase = TagURI::base();
         $id         = "tag:$taguribase:HomeTimeline:" . $this->user->id;
 
         $subtitle   = sprintf(
@@ -200,13 +200,13 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $notice = $this->user->noticeInbox(
                 ($this->page-1) * $this->count,
                 $this->count, $this->since_id,
-                $this->max_id, $this->since
+                $this->max_id
             );
         } else {
             $notice = $this->user->noticesWithFriends(
                 ($this->page-1) * $this->count,
                 $this->count, $this->since_id,
-                $this->max_id, $this->since
+                $this->max_id
             );
         }
 
