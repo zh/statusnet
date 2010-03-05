@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-04 18:57:28+0000\n"
+"PO-Revision-Date: 2010-03-05 22:36:45+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63299); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -622,11 +622,11 @@ msgstr "Такого допису немає."
 
 #: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
-msgstr "Не можу вторувати Вашому власному допису."
+msgstr "Не можу повторити Ваш власний допис."
 
 #: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
-msgstr "Цьому допису вже вторували."
+msgstr "Цей допис вже повторено."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
@@ -690,12 +690,12 @@ msgstr "%s оновлення від усіх!"
 #: actions/apitimelineretweetedtome.php:111
 #, php-format
 msgid "Repeated to %s"
-msgstr "Вторування за %s"
+msgstr "Повторено для %s"
 
 #: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
-msgstr "Вторування %s"
+msgstr "Повторення %s"
 
 #: actions/apitimelinetag.php:102 actions/tag.php:67
 #, php-format
@@ -1573,23 +1573,20 @@ msgid "Cannot read file."
 msgstr "Не можу прочитати файл."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Невірний токен."
+msgstr "Невірна роль."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Цю роль вже зарезервовано і не може бути встановлено."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Ви не можете нікого ізолювати на цьому сайті."
+msgstr "Ви не можете надавати користувачеві жодних ролей на цьому сайті."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "Користувачу наразі заклеїли рота скотчем."
+msgstr "Користувач вже має цю роль."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -3252,7 +3249,7 @@ msgstr "Не вдалося отримати токен запиту."
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
-msgstr "Лише користувачі, що знаходяться у системі, можуть вторувати дописам."
+msgstr "Лише користувачі, що знаходяться у системі, можуть повторювати дописи."
 
 #: actions/repeat.php:64 actions/repeat.php:71
 msgid "No notice specified."
@@ -3260,19 +3257,19 @@ msgstr "Зазначеного допису немає."
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
-msgstr "Ви не можете вторувати своїм власним дописам."
+msgstr "Ви не можете повторювати свої власні дописи."
 
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
-msgstr "Ви вже вторували цьому допису."
+msgstr "Ви вже повторили цей допис."
 
 #: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
-msgstr "Вторування"
+msgstr "Повторено"
 
 #: actions/repeat.php:119
 msgid "Repeated!"
-msgstr "Вторувати!"
+msgstr "Повторено!"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3333,14 +3330,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Відповіді до %1$s на %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Ви не можете позбавляти користувачів права голосу на цьому сайті."
+msgstr "Ви не можете позбавляти користувачів ролей на цьому сайті."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Користувач без відповідного профілю."
+msgstr "Користувач не має цієї ролі."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3731,7 +3726,7 @@ msgstr ""
 #: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
-msgstr "Вторування %s"
+msgstr "Повторення за %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -3742,9 +3737,8 @@ msgid "User is already silenced."
 msgstr "Користувачу наразі заклеїли рота скотчем."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "Загальні налаштування цього сайту StatusNet."
+msgstr "Основні налаштування цього сайту StatusNet"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
@@ -3814,13 +3808,14 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Часовий пояс за замовчуванням для сайту; зазвичай UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Мова сайту за замовчуванням"
+msgstr "Мова за замовчуванням"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Мова сайту на випадок, коли автовизначення мови за настройками браузера не "
+"доступно"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3845,37 +3840,32 @@ msgstr ""
 "допис ще раз."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Зауваження сайту"
+msgstr "Повідомлення сайту"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Нове повідомлення"
+msgstr "Змінити повідомлення сайту"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Не маю можливості зберегти налаштування дизайну."
+msgstr "Не вдається зберегти повідомлення сайту."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "Максимальна довжина повідомлення сайту становить 255 символів"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Зауваження сайту"
+msgstr "Текст повідомлення сайту"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "Текст повідомлення сайту (255 символів максимум; HTML дозволено)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Зауваження сайту"
+msgstr "Зберегти повідомлення сайту"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3983,9 +3973,8 @@ msgid "Snapshots"
 msgstr "Снепшоти"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Змінити конфігурацію сайту"
+msgstr "Керування конфігурацією знімку"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4032,9 +4021,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Снепшоти надсилатимуться на цю URL-адресу"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Зберегти налаштування сайту"
+msgstr "Зберегти налаштування знімку"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4643,9 +4631,8 @@ msgid "Couldn't delete self-subscription."
 msgstr "Не можу видалити самопідписку."
 
 #: classes/Subscription.php:190
-#, fuzzy
 msgid "Couldn't delete subscription OMB token."
-msgstr "Не вдалося видалити підписку."
+msgstr "Не вдається видалити токен підписки OMB."
 
 #: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
@@ -4737,7 +4724,6 @@ msgid "Connect to services"
 msgstr "З’єднання з сервісами"
 
 #: lib/action.php:443
-#, fuzzy
 msgid "Connect"
 msgstr "З’єднання"
 
@@ -5023,15 +5009,13 @@ msgstr "Конфігурація сесій"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Зауваження сайту"
+msgstr "Редагувати повідомлення сайту"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
-#, fuzzy
 msgid "Snapshots configuration"
-msgstr "Конфігурація шляху"
+msgstr "Конфігурація знімків"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5253,20 +5237,20 @@ msgstr "Помилка при відправці прямого повідомл
 
 #: lib/command.php:413
 msgid "Cannot repeat your own notice"
-msgstr "Не можу вторувати Вашому власному допису"
+msgstr "Не можу повторити Ваш власний допис"
 
 #: lib/command.php:418
 msgid "Already repeated that notice"
-msgstr "Цьому допису вже вторували"
+msgstr "Цей допис вже повторили"
 
 #: lib/command.php:426
 #, php-format
 msgid "Notice from %s repeated"
-msgstr "Допису від %s вторували"
+msgstr "Допис %s повторили"
 
 #: lib/command.php:428
 msgid "Error repeating notice."
-msgstr "Помилка із вторуванням допису."
+msgstr "Помилка при повторенні допису."
 
 #: lib/command.php:482
 #, php-format
@@ -5563,7 +5547,7 @@ msgstr "Вперед"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Надати цьому користувачеві роль \"%s\""
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6122,7 +6106,7 @@ msgstr "в контексті"
 
 #: lib/noticelist.php:601
 msgid "Repeated by"
-msgstr "Вторуванні"
+msgstr "Повторено"
 
 #: lib/noticelist.php:628
 msgid "Reply to this notice"
@@ -6134,7 +6118,7 @@ msgstr "Відповісти"
 
 #: lib/noticelist.php:673
 msgid "Notice repeated"
-msgstr "Допис вторували"
+msgstr "Допис повторили"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -6267,12 +6251,12 @@ msgstr "Повторити цей допис?"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
-msgstr "Вторувати цьому допису"
+msgstr "Повторити цей допис"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Блокувати користувача цієї групи"
+msgstr "Відкликати роль \"%s\" для цього користувача"
 
 #: lib/router.php:671
 msgid "No single user defined for single-user mode."
@@ -6429,21 +6413,18 @@ msgid "Moderate"
 msgstr "Модерувати"
 
 #: lib/userprofile.php:352
-#, fuzzy
 msgid "User role"
-msgstr "Профіль користувача."
+msgstr "Роль користувача"
 
 #: lib/userprofile.php:354
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Адміни"
+msgstr "Адміністратор"
 
 #: lib/userprofile.php:355
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Модерувати"
+msgstr "Модератор"
 
 #: lib/util.php:1015
 msgid "a few seconds ago"

@@ -15,11 +15,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-04 18:56:25+0000\n"
+"PO-Revision-Date: 2010-03-05 22:35:34+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63298); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -1591,24 +1591,20 @@ msgid "Cannot read file."
 msgstr "Impossible de lire le fichier"
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Jeton incorrect."
+msgstr "Rôle invalide."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Ce rôle est réservé et ne peut pas être défini."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr ""
-"Vous ne pouvez pas mettre des utilisateur dans le bac à sable sur ce site."
+msgstr "Vous ne pouvez pas attribuer des rôles aux utilisateurs sur ce site."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "Cet utilisateur est déjà réduit au silence."
+msgstr "L'utilisateur a déjà ce rôle."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -3377,14 +3373,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Réponses à %1$s sur %2$s !"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Vous ne pouvez pas réduire des utilisateurs au silence sur ce site."
+msgstr "Vous ne pouvez pas révoquer les rôles des utilisateurs sur ce site."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Utilisateur sans profil correspondant."
+msgstr "L'utilisateur ne possède pas ce rôle."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3791,9 +3785,8 @@ msgid "User is already silenced."
 msgstr "Cet utilisateur est déjà réduit au silence."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "Paramètres basiques pour ce site StatusNet."
+msgstr "Paramètres basiques pour ce site StatusNet"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
@@ -3861,13 +3854,14 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Zone horaire par défaut pour ce site ; généralement UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Langue du site par défaut"
+msgstr "Langue par défaut"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Langue du site lorsque la détection automatique des paramètres du navigateur "
+"n'est pas disponible"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3892,37 +3886,33 @@ msgstr ""
 "la même chose de nouveau."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Notice du site"
+msgstr "Avis du site"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Nouveau message"
+msgstr "Modifier un message portant sur tout le site"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Impossible de sauvegarder les parmètres de la conception."
+msgstr "Impossible d'enregistrer l'avis du site."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "La longueur maximale pour l'avis du site est de 255 caractères"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Notice du site"
+msgstr "Texte de l'avis du site"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+"Texte de l'avis portant sur tout le site (max. 255 caractères ; HTML activé)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Notice du site"
+msgstr "Enregistrer l'avis du site"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4034,9 +4024,8 @@ msgid "Snapshots"
 msgstr "Instantanés"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Modifier la configuration du site"
+msgstr "Gérer la configuration des instantanés"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4083,9 +4072,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Les instantanés seront envoyés à cette URL"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Sauvegarder les paramètres du site"
+msgstr "Sauvegarder les paramètres des instantanés"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4702,9 +4690,8 @@ msgid "Couldn't delete self-subscription."
 msgstr "Impossible de supprimer l’abonnement à soi-même."
 
 #: classes/Subscription.php:190
-#, fuzzy
 msgid "Couldn't delete subscription OMB token."
-msgstr "Impossible de cesser l’abonnement"
+msgstr "Impossible de supprimer le jeton OMB de l'abonnement ."
 
 #: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
@@ -4796,7 +4783,6 @@ msgid "Connect to services"
 msgstr "Se connecter aux services"
 
 #: lib/action.php:443
-#, fuzzy
 msgid "Connect"
 msgstr "Connecter"
 
@@ -5085,15 +5071,13 @@ msgstr "Configuration des sessions"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Notice du site"
+msgstr "Modifier l'avis du site"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
-#, fuzzy
 msgid "Snapshots configuration"
-msgstr "Configuration des chemins"
+msgstr "Configuration des instantanés"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5634,7 +5618,7 @@ msgstr "Aller"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Accorder le rôle « %s » à cet utilisateur"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6346,9 +6330,9 @@ msgid "Repeat this notice"
 msgstr "Reprendre cet avis"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Bloquer cet utilisateur de de groupe"
+msgstr "Révoquer le rôle « %s » de cet utilisateur"
 
 #: lib/router.php:671
 msgid "No single user defined for single-user mode."
@@ -6505,21 +6489,18 @@ msgid "Moderate"
 msgstr "Modérer"
 
 #: lib/userprofile.php:352
-#, fuzzy
 msgid "User role"
-msgstr "Profil de l’utilisateur"
+msgstr "Rôle de l'utilisateur"
 
 #: lib/userprofile.php:354
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Administrateurs"
+msgstr "Administrateur"
 
 #: lib/userprofile.php:355
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Modérer"
+msgstr "Modérateur"
 
 #: lib/util.php:1015
 msgid "a few seconds ago"
