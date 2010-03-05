@@ -278,7 +278,7 @@ class TwitterauthorizationAction extends Action
         $result = $flink->find(true);
 
         if (!empty($result)) {
-            $flink->delete();
+            $flink->safeDelete();
         }
 
         $flink->user_id     = $user_id;
