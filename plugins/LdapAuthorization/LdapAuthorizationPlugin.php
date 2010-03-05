@@ -167,6 +167,11 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
+            // if we were called with a config, assume caller will handle
+            // incorrect username/password (LDAP_INVALID_CREDENTIALS)
+            if (isset($config) && $err->getCode() == 0x31) {
+                return null;
+            }
             throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
             return false;
         }
