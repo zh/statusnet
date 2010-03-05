@@ -53,4 +53,21 @@ class Profile_role extends Memcached_DataObject
     const ADMINISTRATOR = 'administrator';
     const SANDBOXED     = 'sandboxed';
     const SILENCED      = 'silenced';
+
+    public static function isValid($role)
+    {
+        // @fixme could probably pull this from class constants
+        $known = array(self::OWNER,
+                       self::MODERATOR,
+                       self::ADMINISTRATOR,
+                       self::SANDBOXED,
+                       self::SILENCED);
+        return in_array($role, $known);
+    }
+
+    public static function isSettable($role)
+    {
+        $allowedRoles = array('administrator', 'moderator');
+        return self::isValid($role) && in_array($role, $allowedRoles);
+    }
 }

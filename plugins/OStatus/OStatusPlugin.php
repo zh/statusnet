@@ -44,7 +44,9 @@ class OStatusPlugin extends Plugin
         $m->connect('.well-known/host-meta',
                     array('action' => 'hostmeta'));
         $m->connect('main/xrd',
-                    array('action' => 'xrd'));
+                    array('action' => 'userxrd'));
+        $m->connect('main/ownerxrd',
+                    array('action' => 'ownerxrd'));
         $m->connect('main/ostatus',
                     array('action' => 'ostatusinit'));
         $m->connect('main/ostatus?nickname=:nickname',
@@ -111,7 +113,7 @@ class OStatusPlugin extends Plugin
     {
         if ($action instanceof ShowstreamAction) {
             $acct = 'acct:'. $action->profile->nickname .'@'. common_config('site', 'server');
-            $url = common_local_url('xrd');
+            $url = common_local_url('userxrd');
             $url.= '?uri='. $acct;
 
             header('Link: <'.$url.'>; rel="'. Discovery::LRDD_REL.'"; type="application/xrd+xml"');
@@ -831,6 +833,19 @@ class OStatusPlugin extends Plugin
                 $output->elementEnd('li');
             }
         }
+
+        return true;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'OStatus',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou, James Walker, Brion Vibber, Zach Copley',
+                            'homepage' => 'http://status.net/wiki/Plugin:OStatus',
+                            'rawdescription' =>
+                            _m('Follow people across social networks that implement '.
+                               '<a href="http://ostatus.org/">OStatus</a>.'));
 
         return true;
     }

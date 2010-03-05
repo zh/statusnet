@@ -57,6 +57,9 @@ class XRD
             throw new Exception("Invalid XML");
         }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);
+        if (!$xrd_element) {
+            throw new Exception("Invalid XML, missing XRD root");
+        }
 
         // Check for host-meta host
         $host = $xrd_element->getElementsByTagName('Host')->item(0);

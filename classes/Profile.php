@@ -743,6 +743,10 @@ class Profile extends Memcached_DataObject
             case Right::CONFIGURESITE:
                 $result = $this->hasRole(Profile_role::ADMINISTRATOR);
                 break;
+            case Right::GRANTROLE:
+            case Right::REVOKEROLE:
+                $result = $this->hasRole(Profile_role::OWNER);
+                break;
             case Right::NEWNOTICE:
             case Right::NEWMESSAGE:
             case Right::SUBSCRIBE:

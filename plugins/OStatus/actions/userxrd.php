@@ -22,27 +22,27 @@
  * @maintainer James Walker <james@status.net>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) { exit(1); }
 
-class HostMetaAction extends Action
+class UserxrdAction extends XrdAction
 {
 
-    function handle()
+    function prepare($args)
     {
-        parent::handle();
+        parent::prepare($args);
 
-        $domain = common_config('site', 'server');
-        $url = common_local_url('userxrd');
-        $url.= '?uri={uri}';
+        $this->uri = $this->trimmed('uri');
+        $acct = Discovery::normalize($this->uri);
 
-        $xrd = new XRD();
-        
-        $xrd = new XRD();
-        $xrd->host = $domain;
-        $xrd->links[] = array('rel' => Discovery::LRDD_REL,
-                              'template' => $url,
-                              'title' => array('Resource Descriptor'));
+        list($nick, $domain) = explode('@', substr(urldecode($acct), 5));
+        $nick = common_canonical_nickname($nick);
 
-        print $xrd->toXML();
+        $this->user = User::staticGet('nickname', $nick);
+        if (!$this->user) {
+            $this->clientError(_('No such user.'), 404);
+            return false;
+        }
+
+        return true;
     }
 }

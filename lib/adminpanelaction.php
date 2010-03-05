@@ -190,16 +190,6 @@ class AdminPanelAction extends Action
     }
 
     /**
-     * There is no data for aside, so, we don't output
-     *
-     * @return nothing
-     */
-    function showAside()
-    {
-
-    }
-
-    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
@@ -379,6 +369,11 @@ class AdminPanelNav extends Widget
             if (AdminPanelAction::canAdmin('sitenotice')) {
                 $this->out->menuItem(common_local_url('sitenoticeadminpanel'), _('Site notice'),
                                      _('Edit site notice'), $action_name == 'sitenoticeadminpanel', 'nav_sitenotice_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('snapshot')) {
+                $this->out->menuItem(common_local_url('snapshotadminpanel'), _('Snapshots'),
+                                     _('Snapshots configuration'), $action_name == 'snapshotadminpanel', 'nav_snapshot_admin_panel');
             }
 
             Event::handle('EndAdminPanelNav', array($this));
