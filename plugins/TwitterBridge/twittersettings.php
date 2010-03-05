@@ -250,7 +250,16 @@ class TwittersettingsAction extends ConnectSettingsAction
         $user = common_current_user();
         $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
-        $result = $flink->delete();
+        $result = false;
+
+        // Be extra careful to make sure we have a good flink
+        // before deleting
+        if (!empty($flink->user_id)
+            && !empty($flink->foreign_id)
+            && !empty($flink->service))
+        {
+            $result = $flink->delete();
+        }
 
         if (empty($result)) {
             common_log_db_error($flink, 'DELETE', __FILE__);

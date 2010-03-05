@@ -273,7 +273,13 @@ class TwitterauthorizationAction extends Action
 
         $flink->user_id = $user_id;
         $flink->service = TWITTER_SERVICE;
-        $flink->delete(); // delete stale flink, if any
+
+        // delete stale flink, if any
+        $result = $flink->find(true);
+
+        if (!empty($result)) {
+            $flink->delete();
+        }
 
         $flink->user_id     = $user_id;
         $flink->foreign_id  = $twuid;
@@ -454,6 +460,11 @@ class TwitterauthorizationAction extends Action
         }
 
         $user = User::register($args);
+
+        if (empty($user)) {
+            $this->serverError(_('Error registering user.'));
+            return;
+        }
 
         $result = $this->saveForeignLink($user->id,
                                          $this->twuid,
