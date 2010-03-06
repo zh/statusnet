@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-05 22:35:02+0000\n"
+"POT-Creation-Date: 2010-03-06 23:49+0000\n"
+"PO-Revision-Date: 2010-03-06 23:49:29+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63298); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -109,7 +109,7 @@ msgstr "No existeix la pàgina."
 #: actions/otp.php:76 actions/remotesubscribe.php:145
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
 #: lib/command.php:355 lib/command.php:401 lib/command.php:462
 #: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
@@ -713,7 +713,7 @@ msgstr "Repeticions de %s"
 msgid "Notices tagged with %s"
 msgstr "Aviso etiquetats amb %s"
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:65
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualitzacions etiquetades amb %1$s el %2$s!"
@@ -754,7 +754,7 @@ msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:103
+#: actions/userrss.php:106
 msgid "User without matching profile"
 msgstr "Usuari sense perfil coincident"
 
@@ -1772,7 +1772,7 @@ msgstr "Fes-lo administrador"
 msgid "Make this user an admin"
 msgstr "Fes l'usuari administrador"
 
-#: actions/grouprss.php:138 actions/userrss.php:90
+#: actions/grouprss.php:138 actions/userrss.php:93
 #: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
 #, php-format
 msgid "%s timeline"
@@ -4478,7 +4478,7 @@ msgstr "%s no és membre de cap grup."
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
-#: actions/userrss.php:92 lib/atomgroupnoticefeed.php:66
+#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
 #: lib/atomusernoticefeed.php:72
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -5268,12 +5268,12 @@ msgstr "%s ha abandonat el grup %s"
 msgid "Fullname: %s"
 msgstr "Nom complet: %s"
 
-#: lib/command.php:312 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
 msgstr "Localització: %s"
 
-#: lib/command.php:315 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
 msgstr "Pàgina web: %s"
@@ -5713,11 +5713,11 @@ msgstr "Accedir amb el nom d'usuari i contrasenya"
 msgid "Sign up for a new account"
 msgstr "Crear nou compte"
 
-#: lib/mail.php:172
+#: lib/mail.php:173
 msgid "Email address confirmation"
 msgstr "Confirmació de l'adreça de correu electrònic"
 
-#: lib/mail.php:174
+#: lib/mail.php:175
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5734,12 +5734,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:236
+#: lib/mail.php:240
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s ara està escoltant els teus avisos a %2$s."
 
-#: lib/mail.php:241
+#: lib/mail.php:245
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5760,19 +5760,19 @@ msgstr ""
 "Atentament,\n"
 "%4$s.\n"
 
-#: lib/mail.php:258
+#: lib/mail.php:262
 #, fuzzy, php-format
 msgid "Bio: %s"
 msgstr ""
 "Biografia: %s\n"
 "\n"
 
-#: lib/mail.php:286
+#: lib/mail.php:290
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Nou correu electrònic per publicar a %s"
 
-#: lib/mail.php:289
+#: lib/mail.php:293
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5793,21 +5793,21 @@ msgstr ""
 "Sincerament teus,\n"
 "%4$s"
 
-#: lib/mail.php:413
+#: lib/mail.php:417
 #, php-format
 msgid "%s status"
 msgstr "%s estat"
 
-#: lib/mail.php:439
+#: lib/mail.php:443
 msgid "SMS confirmation"
 msgstr "Confirmació SMS"
 
-#: lib/mail.php:463
+#: lib/mail.php:467
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "Has estat reclamat per %s"
 
-#: lib/mail.php:467
+#: lib/mail.php:471
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5823,12 +5823,12 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:510
+#: lib/mail.php:517
 #, php-format
 msgid "New private message from %s"
 msgstr "Nou missatge privat de %s"
 
-#: lib/mail.php:514
+#: lib/mail.php:521
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5847,12 +5847,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:559
+#: lib/mail.php:568
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s ha afegit la teva nota com a favorita"
 
-#: lib/mail.php:561
+#: lib/mail.php:570
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -5873,12 +5873,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:624
+#: lib/mail.php:635
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:626
+#: lib/mail.php:637
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
