@@ -41,9 +41,9 @@ class UserrssAction extends Rss10Action
             return false;
         } else {
             if (!empty($this->tag)) {
-                $this->notices = $this->getTaggedNotices($this->tag, $this->limit);
+                $this->notices = $this->getTaggedNotices();
             } else {
-                $this->notices = $this->getNotices($this->limit);
+                $this->notices = $this->getNotices();
             }
             return true;
         }
