@@ -188,9 +188,6 @@ $config['sphinx']['port'] = 3312;
 // Disable SMS
 // $config['sms']['enabled'] = false;
 
-// Disable Twitter integration
-// $config['twitter']['enabled'] = false;
-
 // Twitter integration source attribute. Note: default is StatusNet
 // $config['integration']['source'] = 'StatusNet';
 
@@ -198,7 +195,7 @@ $config['sphinx']['port'] = 3312;
 //
 // NOTE: if you enable this you must also set $config['avatar']['path']
 //
-// $config['twitterbridge']['enabled'] = true;
+// $config['twitterimport']['enabled'] = true;
 
 // Twitter OAuth settings
 // $config['twitter']['consumer_key']    = 'YOURKEY';
@@ -211,10 +208,6 @@ $config['sphinx']['port'] = 3312;
 // $config['throttle']['enabled'] = true;
 // $config['throttle']['count'] = 100;
 // $config['throttle']['timespan'] = 3600;
-
-// List of users banned from posting (nicknames and/or IDs)
-// $config['profile']['banned'][] = 'hacker';
-// $config['profile']['banned'][] = 12345;
 
 // Config section for the built-in Facebook application
 // $config['facebook']['apikey'] = 'APIKEY';
