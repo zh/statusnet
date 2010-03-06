@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-04 18:56:50+0000\n"
+"PO-Revision-Date: 2010-03-05 22:36:01+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63299); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -1583,23 +1583,20 @@ msgid "Cannot read file."
 msgstr "Податотеката не може да се прочита."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Погрешен жетон."
+msgstr "Погрешна улога."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Оваа улога е резервирана и не може да се зададе."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Не можете да ставате корисници во песочен режим на оваа веб-страница."
+msgstr "Не можете да им доделувате улоги на корисниците на оваа веб-страница."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "Корисникот е веќе замолчен."
+msgstr "Корисникот веќе ја има таа улога."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -3351,14 +3348,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Одговори на %1$s на %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Не можете да замолчувате корисници на оваа веб-страница."
+msgstr "На оваа веб-страница не можете да одземате кориснички улоги."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Корисник без соодветен профил."
+msgstr "Корисникот ја нема оваа улога."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3763,9 +3758,8 @@ msgid "User is already silenced."
 msgstr "Корисникот е веќе замолчен."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "Основни нагодувања за оваа StatusNet веб-страница."
+msgstr "Основни поставки за оваа StatusNet веб-страница."
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
@@ -3837,13 +3831,12 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Матична часовна зона за веб-страницата; обично UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
 msgstr "Основен јазик"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
-msgstr ""
+msgstr "Јазик на веб-страницата ако прелистувачот не може да го препознае сам"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3868,37 +3861,34 @@ msgstr ""
 "да го објават истото."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Напомена за веб-страницата"
+msgstr "Објава на страница"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Нова порака"
+msgstr "Уреди објава за цела веб-страница"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Не можам да ги зачувам Вашите нагодувања за изглед."
+msgstr "Не можам да ја зачувам објавата за веб-страницата."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "Објавата за цела веб-страница не треба да има повеќе од 255 знаци"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Напомена за веб-страницата"
+msgstr "Текст на објавата за веб-страницата"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+"Текст за главна објава по цела веб-страница (највеќе до 255 знаци; дозволено "
+"и HTML)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Напомена за веб-страницата"
+msgstr "Зачувај ја објавава"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4006,9 +3996,8 @@ msgid "Snapshots"
 msgstr "Снимки"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Промена на поставките на веб-страницата"
+msgstr "Раководење со поставки за снимки"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4055,9 +4044,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Снимките ќе се испраќаат на оваа URL-адреса"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Зачувај нагодувања на веб-страницата"
+msgstr "Зачувај поставки за снимки"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4670,9 +4658,8 @@ msgid "Couldn't delete self-subscription."
 msgstr "Не можам да ја избришам самопретплатата."
 
 #: classes/Subscription.php:190
-#, fuzzy
 msgid "Couldn't delete subscription OMB token."
-msgstr "Претплата не може да се избрише."
+msgstr "Не можете да го избришете OMB-жетонот за претплата."
 
 #: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
@@ -4764,7 +4751,6 @@ msgid "Connect to services"
 msgstr "Поврзи се со услуги"
 
 #: lib/action.php:443
-#, fuzzy
 msgid "Connect"
 msgstr "Поврзи се"
 
@@ -5053,15 +5039,13 @@ msgstr "Конфигурација на сесиите"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Напомена за веб-страницата"
+msgstr "Уреди објава за веб-страницата"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
-#, fuzzy
 msgid "Snapshots configuration"
-msgstr "Конфигурација на патеки"
+msgstr "Поставки за снимки"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5593,7 +5577,7 @@ msgstr "Оди"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Додели улога „%s“ на корисников"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6306,9 +6290,9 @@ msgid "Repeat this notice"
 msgstr "Повтори ја забелешкава"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Блокирај го овој корисник од оваа група"
+msgstr "Одземи му ја улогата „%s“ на корисников"
 
 #: lib/router.php:671
 msgid "No single user defined for single-user mode."
@@ -6465,21 +6449,18 @@ msgid "Moderate"
 msgstr "Модерирај"
 
 #: lib/userprofile.php:352
-#, fuzzy
 msgid "User role"
-msgstr "Кориснички профил"
+msgstr "Корисничка улога"
 
 #: lib/userprofile.php:354
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Администратори"
+msgstr "Администратор"
 
 #: lib/userprofile.php:355
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Модерирај"
+msgstr "Модератор"
 
 #: lib/util.php:1015
 msgid "a few seconds ago"

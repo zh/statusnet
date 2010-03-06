@@ -13,11 +13,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-04 18:57:17+0000\n"
+"PO-Revision-Date: 2010-03-05 22:36:33+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63299); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -1589,24 +1589,20 @@ msgid "Cannot read file."
 msgstr "Не удалось прочесть файл."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Неправильный токен"
+msgstr "Неверная роль."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Эта роль зарезервирована и не может быть установлена."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr ""
-"Вы не можете устанавливать режим песочницы для пользователей этого сайта."
+msgstr "Вы не можете назначать пользователю роли на этом сайте."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "Пользователь уже заглушён."
+msgstr "Пользователь уже имеет эту роль."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -3342,14 +3338,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Ответы на записи %1$s на %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Вы не можете заглушать пользователей на этом сайте."
+msgstr "Вы не можете снимать роли пользователей на этом сайте."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Пользователь без соответствующего профиля."
+msgstr "Пользователь не имеет этой роли."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3756,9 +3750,8 @@ msgid "User is already silenced."
 msgstr "Пользователь уже заглушён."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "Основные настройки для этого сайта StatusNet."
+msgstr "Основные настройки для этого сайта StatusNet"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
@@ -3828,13 +3821,13 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Часовой пояс по умолчанию для сайта; обычно UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Язык сайта по умолчанию"
+msgstr "Язык по умолчанию"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Язык сайта в случае, если автоопределение из настроек браузера не сработало"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3858,37 +3851,32 @@ msgstr ""
 "Сколько нужно ждать пользователям (в секундах) для отправки того же ещё раз."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Новая запись"
+msgstr "Уведомление сайта"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Новое сообщение"
+msgstr "Изменить уведомление для всего сайта"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Не удаётся сохранить ваши настройки оформления!"
+msgstr "Не удаётся сохранить уведомление сайта."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "Максимальная длина уведомления сайта составляет 255 символов"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Новая запись"
+msgstr "Текст уведомления сайта"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "Текст уведомления сайта (максимум 255 символов; допустим HTML)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Новая запись"
+msgstr "Сохранить уведомление сайта"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3998,9 +3986,8 @@ msgid "Snapshots"
 msgstr "Снимки"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Изменить конфигурацию сайта"
+msgstr "Управление снимками конфигурации"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4047,9 +4034,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Снимки будут отправляться по этому URL-адресу"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Сохранить настройки сайта"
+msgstr "Сохранить настройки снимка"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4660,9 +4646,8 @@ msgid "Couldn't delete self-subscription."
 msgstr "Невозможно удалить самоподписку."
 
 #: classes/Subscription.php:190
-#, fuzzy
 msgid "Couldn't delete subscription OMB token."
-msgstr "Не удаётся удалить подписку."
+msgstr "Не удаётся удалить подписочный жетон OMB."
 
 #: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
@@ -4754,7 +4739,6 @@ msgid "Connect to services"
 msgstr "Соединить с сервисами"
 
 #: lib/action.php:443
-#, fuzzy
 msgid "Connect"
 msgstr "Соединить"
 
@@ -5043,15 +5027,13 @@ msgstr "Конфигурация сессий"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Новая запись"
+msgstr "Изменить уведомление сайта"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
-#, fuzzy
 msgid "Snapshots configuration"
-msgstr "Конфигурация путей"
+msgstr "Конфигурация снимков"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5586,7 +5568,7 @@ msgstr "Перейти"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Назначить этому пользователю роль «%s»"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6294,9 +6276,9 @@ msgid "Repeat this notice"
 msgstr "Повторить эту запись"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Заблокировать этого пользователя из этой группы"
+msgstr "Отозвать у этого пользователя роль «%s»"
 
 #: lib/router.php:671
 msgid "No single user defined for single-user mode."
@@ -6453,21 +6435,18 @@ msgid "Moderate"
 msgstr "Модерировать"
 
 #: lib/userprofile.php:352
-#, fuzzy
 msgid "User role"
-msgstr "Профиль пользователя"
+msgstr "Роль пользователя"
 
 #: lib/userprofile.php:354
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Администраторы"
+msgstr "Администратор"
 
 #: lib/userprofile.php:355
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Модерировать"
+msgstr "Модератор"
 
 #: lib/util.php:1015
 msgid "a few seconds ago"
