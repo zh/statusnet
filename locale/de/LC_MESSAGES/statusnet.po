@@ -16,11 +16,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-03-06 23:49+0000\n"
-"PO-Revision-Date: 2010-03-06 23:49:34+0000\n"
+"PO-Revision-Date: 2010-03-08 21:10:39+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63415); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -3364,14 +3364,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Antworten an %1$s auf %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Du kannst Nutzer dieser Seite nicht ruhig stellen."
+msgstr "Du kannst die Rollen von Nutzern dieser Seite nicht widerrufen."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Benutzer ohne passendes Profil"
+msgstr "Benutzer verfügt nicht über diese Rolle."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -4289,11 +4287,11 @@ msgstr "Profil"
 
 #: actions/useradminpanel.php:222
 msgid "Bio Limit"
-msgstr ""
+msgstr "Bio Limit"
 
 #: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
-msgstr ""
+msgstr "Maximale Länge in Zeichen der Profil Bio."
 
 #: actions/useradminpanel.php:231
 msgid "New users"
@@ -4412,7 +4410,7 @@ msgstr ""
 #: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
-msgstr ""
+msgstr "Profiladresse '%s' ist für einen lokalen Benutzer."
 
 #: actions/userauthorization.php:345
 #, php-format
@@ -4515,6 +4513,8 @@ msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
 msgstr ""
+"Du hast eine Kopie der GNU Affero General Public License zusammen mit diesem "
+"Programm erhalten. Wenn nicht, siehe %s."
 
 #: actions/version.php:189
 msgid "Plugins"
@@ -4534,16 +4534,20 @@ msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
+"Keine Datei darf größer als %d Bytes sein und die Datei die du verschicken "
+"wolltest ist %d Bytes groß. Bitte eine kleinere Datei hoch laden."
 
 #: classes/File.php:154
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
-msgstr ""
+msgstr "Eine Datei dieser Größe überschreitet deine User Quota von %d Byte."
 
 #: classes/File.php:161
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
+"Eine Datei dieser Größe würde deine monatliche Quota von %d Byte "
+"überschreiten."
 
 #: classes/Group_member.php:41
 msgid "Group join failed."
@@ -4599,7 +4603,6 @@ msgstr ""
 "ein paar Minuten ab."
 
 #: classes/Notice.php:256
-#, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4915,6 +4918,8 @@ msgstr ""
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
+"Inhalt und Daten urheberrechtlich geschützt durch %1$s. Alle Rechte "
+"vorbehalten."
 
 #: lib/action.php:834
 msgid "Content and data copyright by contributors. All rights reserved."
@@ -4946,7 +4951,7 @@ msgstr ""
 
 #: lib/activity.php:481
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Kann eingebundenen XML Inhalt nicht verarbeiten."
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
@@ -4959,9 +4964,8 @@ msgstr "Du kannst keine Änderungen an dieser Seite vornehmen."
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:110
-#, fuzzy
 msgid "Changes to that panel are not allowed."
-msgstr "Registrierung nicht gestattet"
+msgstr "Änderungen an dieser Seite sind nicht erlaubt."
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:229
@@ -5054,9 +5058,9 @@ msgid "Icon for this application"
 msgstr "Programmsymbol"
 
 #: lib/applicationeditform.php:204
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Beschreibe die Gruppe oder das Thema in 140 Zeichen"
+msgstr "Beschreibe dein Programm in %d Zeichen"
 
 #: lib/applicationeditform.php:207
 msgid "Describe your application"
@@ -5075,9 +5079,8 @@ msgid "Organization responsible for this application"
 msgstr ""
 
 #: lib/applicationeditform.php:230
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "URL der Homepage oder Blogs der Gruppe oder des Themas"
+msgstr "Homepage der Gruppe oder des Themas"
 
 #: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
@@ -6213,9 +6216,9 @@ msgid "Repeat this notice"
 msgstr "Diese Nachricht wiederholen"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Diesen Nutzer von der Gruppe sperren"
+msgstr "Widerrufe die \"%s\" Rolle von diesem Benutzer"
 
 #: lib/router.php:671
 msgid "No single user defined for single-user mode."
