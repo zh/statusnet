@@ -270,13 +270,14 @@ class RSSCloudRequestNotifyAction extends Action
 
     function userFromFeed($feed)
     {
-        // We only do profile feeds
+        // We only do canonical RSS2 profile feeds (specified by ID), e.g.:
+        // http://www.example.com/api/statuses/user_timeline/2.rss
 
         $path  = common_path('api/statuses/user_timeline/');
-        $valid = '%^' . $path . '(?<nickname>.*)\.rss$%';
+        $valid = '%^' . $path . '(?<id>.*)\.rss$%';
 
         if (preg_match($valid, $feed, $matches)) {
-            $user = User::staticGet('nickname', $matches['nickname']);
+            $user = User::staticGet('id', $matches['id']);
             if (!empty($user)) {
                 return $user;
             }
