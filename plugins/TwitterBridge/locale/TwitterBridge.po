@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-12-07 20:38-0800\n"
+"POT-Creation-Date: 2010-03-01 14:58-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,21 +16,46 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: twitterauthorization.php:81
-msgid "Not logged in."
+#: twitter.php:320
+msgid "Your Twitter bridge has been disabled."
 msgstr ""
 
-#: twitterauthorization.php:131 twitterauthorization.php:150
-#: twitterauthorization.php:170 twitterauthorization.php:217
+#: twitter.php:324
+#, php-format
+msgid ""
+"Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
+"disabled. We no longer seem to have permission to update your Twitter "
+"status. (Did you revoke %3$s's access?)\n"
+"\n"
+"You can re-enable your Twitter bridge by visiting your Twitter settings "
+"page:\n"
+"\n"
+"\t%2$s\n"
+"\n"
+"Regards,\n"
+"%3$s\n"
+msgstr ""
+
+#: twitterauthorization.php:181 twitterauthorization.php:229
 msgid "Couldn't link your Twitter account."
 msgstr ""
 
-#: TwitterBridgePlugin.php:89
+#: twitterauthorization.php:201
+msgid "Couldn't link your Twitter account: oauth_token mismatch."
+msgstr ""
+
+#: TwitterBridgePlugin.php:114
 msgid "Twitter"
 msgstr ""
 
-#: TwitterBridgePlugin.php:90
+#: TwitterBridgePlugin.php:115
 msgid "Twitter integration options"
+msgstr ""
+
+#: TwitterBridgePlugin.php:207
+msgid ""
+"The Twitter \"bridge\" plugin allows you to integrate your StatusNet "
+"instance with <a href=\"http://twitter.com/\">Twitter</a>."
 msgstr ""
 
 #: twittersettings.php:59
@@ -51,78 +76,81 @@ msgstr ""
 msgid "Connected Twitter account"
 msgstr ""
 
-#: twittersettings.php:125
-msgid "Remove"
+#: twittersettings.php:128
+msgid "Disconnect my account from Twitter"
 msgstr ""
 
-#: twittersettings.php:131
-msgid "Preferences"
+#: twittersettings.php:133
+msgid "Disconnecting your Twitter could make it impossible to log in! Please "
 msgstr ""
 
-#: twittersettings.php:135
-msgid "Automatically send my notices to Twitter."
+#: twittersettings.php:137
+msgid "set a password"
 msgstr ""
 
-#: twittersettings.php:142
-msgid "Send local \"@\" replies to Twitter."
+#: twittersettings.php:139
+msgid " first."
 msgstr ""
 
-#: twittersettings.php:149
-msgid "Subscribe to my Twitter friends here."
+#: twittersettings.php:143
+#, php-format
+msgid ""
+"Keep your %1$s account but disconnect from Twitter. You can use your %1$s "
+"password to log in."
+msgstr ""
+
+#: twittersettings.php:151
+msgid "Disconnect"
 msgstr ""
 
 #: twittersettings.php:158
-msgid "Import my Friends Timeline."
+msgid "Preferences"
 msgstr ""
 
-#: twittersettings.php:174
-msgid "Save"
+#: twittersettings.php:162
+msgid "Automatically send my notices to Twitter."
+msgstr ""
+
+#: twittersettings.php:169
+msgid "Send local \"@\" replies to Twitter."
 msgstr ""
 
 #: twittersettings.php:176
-msgid "Add"
+msgid "Subscribe to my Twitter friends here."
+msgstr ""
+
+#: twittersettings.php:185
+msgid "Import my Friends Timeline."
 msgstr ""
 
 #: twittersettings.php:201
+msgid "Save"
+msgstr ""
+
+#: twittersettings.php:203
+msgid "Add"
+msgstr ""
+
+#: twittersettings.php:228
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#: twittersettings.php:211
+#: twittersettings.php:238
 msgid "Unexpected form submission."
 msgstr ""
 
-#: twittersettings.php:230
+#: twittersettings.php:257
 msgid "Couldn't remove Twitter user."
 msgstr ""
 
-#: twittersettings.php:234
-msgid "Twitter account removed."
+#: twittersettings.php:261
+msgid "Twitter account disconnected."
 msgstr ""
 
-#: twittersettings.php:255 twittersettings.php:265
+#: twittersettings.php:282 twittersettings.php:292
 msgid "Couldn't save Twitter preferences."
 msgstr ""
 
-#: twittersettings.php:269
+#: twittersettings.php:296
 msgid "Twitter preferences saved."
-msgstr ""
-
-#: twitter.php:333
-msgid "Your Twitter bridge has been disabled."
-msgstr ""
-
-#: twitter.php:337
-#, php-format
-msgid ""
-"Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
-"disabled. We no longer seem to have permission to update your Twitter "
-"status. (Did you revoke %3$s's access?)\n"
-"\n"
-"You can re-enable your Twitter bridge by visiting your Twitter settings "
-"page:\n"
-"\n"
-"\t%2$s\n"
-"\n"
-"Regards,\n"
-"%3$s\n"
 msgstr ""

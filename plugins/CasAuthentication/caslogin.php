@@ -54,9 +54,18 @@ class CasloginAction extends Action
                 // We don't have to return to it again
                 common_set_returnto(null);
             } else {
-                $url = common_local_url('all',
-                                    array('nickname' =>
-                                          $user->nickname));
+                if(common_config('site', 'private') && $casSettings['takeOverLogin']) {
+                    //SSO users expect to just go to the URL they entered
+                    //if we don't have a returnto set, the user entered the
+                    //main StatusNet url, so send them there.
+                    $url = common_local_url('public');
+                } else {
+                    //With normal logins (regular form-based username/password),
+                    //the user would expect to go to their home after logging in.
+                    $url = common_local_url('public',
+                                        array('nickname' =>
+                                              $user->nickname));
+                }
             }
 
             common_redirect($url, 303);

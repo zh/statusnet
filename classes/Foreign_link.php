@@ -113,4 +113,21 @@ class Foreign_link extends Memcached_DataObject
         return User::staticGet($this->user_id);
     }
 
+    // Make sure we only ever delete one record at a time
+    function safeDelete()
+    {
+        if (!empty($this->user_id)
+            && !empty($this->foreign_id)
+            && !empty($this->service))
+        {
+            return $this->delete();
+        } else {
+            common_debug(LOG_WARNING,
+                'Foreign_link::safeDelete() tried to delete a '
+                . 'Foreign_link without a fully specified compound key: '
+                . var_export($this, true));
+            return false;
+        }
+    }
+
 }

@@ -29,6 +29,8 @@ class UserrssAction extends Rss10Action
 
     function prepare($args)
     {
+        common_debug("UserrssAction");
+
         parent::prepare($args);
         $nickname   = $this->trimmed('nickname');
         $this->user = User::staticGet('nickname', $nickname);
@@ -38,20 +40,24 @@ class UserrssAction extends Rss10Action
             $this->clientError(_('No such user.'));
             return false;
         } else {
-            $this->notices = $this->getNotices($this->limit);
+            if (!empty($this->tag)) {
+                $this->notices = $this->getTaggedNotices();
+            } else {
+                $this->notices = $this->getNotices();
+            }
             return true;
         }
     }
 
-    function getTaggedNotices($tag = null, $limit=0)
+    function getTaggedNotices()
     {
-        $user = $this->user;
-
-        if (is_null($user)) {
-            return null;
-        }
-
-        $notice = $user->getTaggedNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit, 0, 0, null, $tag);
+        $notice = $this->user->getTaggedNotices(
+            $this->tag,
+            0,
+            ($this->limit == 0) ? NOTICES_PER_PAGE : $this->limit,
+            0,
+            0
+        );
 
         $notices = array();
         while ($notice->fetch()) {
@@ -62,15 +68,12 @@ class UserrssAction extends Rss10Action
     }
 
 
-    function getNotices($limit=0)
+    function getNotices()
     {
-        $user = $this->user;
-        
-        if (is_null($user)) {
-            return null;
-        }
-
-        $notice = $user->getNotices(0, ($limit == 0) ? NOTICES_PER_PAGE : $limit);
+        $notice = $this->user->getNotices(
+            0,
+            ($limit == 0) ? NOTICES_PER_PAGE : $limit
+        );
 
         $notices = array();
         while ($notice->fetch()) {

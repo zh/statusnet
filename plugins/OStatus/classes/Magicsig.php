@@ -49,7 +49,12 @@ class Magicsig extends Memcached_DataObject
     
     public /*static*/ function staticGet($k, $v=null)
     {
-        return parent::staticGet(__CLASS__, $k, $v);
+        $obj =  parent::staticGet(__CLASS__, $k, $v);
+        if (!empty($obj)) {
+            return Magicsig::fromString($obj->keypair);
+        }
+
+        return $obj;
     }
 
 
@@ -83,6 +88,10 @@ class Magicsig extends Memcached_DataObject
         return array('user_id' => 'K');
     }
 
+    function sequenceKey() {
+        return array(false, false, false);
+    }
+
     function insert()
     {
         $this->keypair = $this->toString();
@@ -90,7 +99,7 @@ class Magicsig extends Memcached_DataObject
         return parent::insert();
     }
 
-    public function generate($key_length = 512)
+    public function generate($user_id, $key_length = 512)
     {
         PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
 
@@ -101,6 +110,7 @@ class Magicsig extends Memcached_DataObject
         $this->_rsa = new Crypt_RSA($params);
         PEAR::popErrorHandling();
 
+        $this->user_id = $user_id;
         $this->insert();
     }
 
@@ -136,8 +146,10 @@ class Magicsig extends Memcached_DataObject
         
         $mod = base64_url_decode($matches[1]);
         $exp = base64_url_decode($matches[2]);
-        if ($matches[4]) {
+        if (!empty($matches[4])) {
             $private_exp = base64_url_decode($matches[4]);
+        } else {
+            $private_exp = false;
         }
 
         $params['public_key'] = new Crypt_RSA_KEY($mod, $exp, 'public');
@@ -171,14 +183,15 @@ class Magicsig extends Memcached_DataObject
         switch ($this->alg) {
 
         case 'RSA-SHA256':
-            return 'sha256';
+            return 'magicsig_sha256';
         }
 
     }
     
     public function sign($bytes)
     {
-        $sig = $this->_rsa->createSign($bytes, null, 'sha256');
+        $hash = $this->getHash();
+        $sig = $this->_rsa->createSign($bytes, null, $hash);
         if ($this->_rsa->isError()) {
             $error = $this->_rsa->getLastError();
             common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
@@ -190,7 +203,8 @@ class Magicsig extends Memcached_DataObject
 
     public function verify($signed_bytes, $signature)
     {
-        $result =  $this->_rsa->validateSign($signed_bytes, $signature, null, 'sha256');
+        $hash = $this->getHash();
+        $result =  $this->_rsa->validateSign($signed_bytes, $signature, null, $hash);
         if ($this->_rsa->isError()) {
             $error = $this->keypair->getLastError();
             common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
@@ -203,7 +217,7 @@ class Magicsig extends Memcached_DataObject
 
 // Define a sha256 function for hashing
 // (Crypt_RSA should really be updated to use hash() )
-function sha256($bytes)
+function magicsig_sha256($bytes)
 {
     return hash('sha256', $bytes);
 }

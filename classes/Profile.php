@@ -163,27 +163,27 @@ class Profile extends Memcached_DataObject
         return null;
     }
 
-    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array($this, '_streamTaggedDirect'),
                               array($tag),
                               'profile:notice_ids_tagged:' . $this->id . ':' . $tag,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
-    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0, $since=null)
+    function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         // XXX: I'm not sure this is going to be any faster. It probably isn't.
         $ids = Notice::stream(array($this, '_streamDirect'),
                               array(),
                               'profile:notice_ids:' . $this->id,
-                              $offset, $limit, $since_id, $max_id, $since);
+                              $offset, $limit, $since_id, $max_id);
 
         return Notice::getStreamByIds($ids);
     }
 
-    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id, $since)
+    function _streamTaggedDirect($tag, $offset, $limit, $since_id, $max_id)
     {
         // XXX It would be nice to do this without a join
 
@@ -200,10 +200,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $query .= " and id < $max_id";
-        }
-
-        if (!is_null($since)) {
-            $query .= " and created > '" . date('Y-m-d H:i:s', $since) . "'";
         }
 
         $query .= ' order by id DESC';
@@ -223,7 +219,7 @@ class Profile extends Memcached_DataObject
         return $ids;
     }
 
-    function _streamDirect($offset, $limit, $since_id, $max_id, $since = null)
+    function _streamDirect($offset, $limit, $since_id, $max_id)
     {
         $notice = new Notice();
 
@@ -238,10 +234,6 @@ class Profile extends Memcached_DataObject
 
         if ($max_id != 0) {
             $notice->whereAdd('id <= ' . $max_id);
-        }
-
-        if (!is_null($since)) {
-            $notice->whereAdd('created > \'' . date('Y-m-d H:i:s', $since) . '\'');
         }
 
         $notice->orderBy('id DESC');
@@ -288,6 +280,32 @@ class Profile extends Memcached_DataObject
         } else {
             return false;
         }
+    }
+
+    function getGroups($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT user_group.* ' .
+          'FROM user_group JOIN group_member '.
+          'ON user_group.id = group_member.group_id ' .
+          'WHERE group_member.profile_id = %d ' .
+          'ORDER BY group_member.created DESC ';
+
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
+            }
+        }
+
+        $groups = new User_group();
+
+        $cnt = $groups->query(sprintf($qry, $this->id));
+
+        return $groups;
     }
 
     function avatarUrl($size=AVATAR_PROFILE_SIZE)
@@ -724,6 +742,10 @@ class Profile extends Memcached_DataObject
                 break;
             case Right::CONFIGURESITE:
                 $result = $this->hasRole(Profile_role::ADMINISTRATOR);
+                break;
+            case Right::GRANTROLE:
+            case Right::REVOKEROLE:
+                $result = $this->hasRole(Profile_role::OWNER);
                 break;
             case Right::NEWNOTICE:
             case Right::NEWMESSAGE:

@@ -63,7 +63,6 @@ class ApiAction extends Action
     var $count     = null;
     var $max_id    = null;
     var $since_id  = null;
-    var $since     = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
 
@@ -85,7 +84,10 @@ class ApiAction extends Action
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
         $this->since_id = (int)$this->arg('since_id', 0);
-        $this->since    = $this->arg('since');
+
+        if ($this->arg('since')) {
+            header('X-StatusNet-Warning: since parameter is disabled; use since_id');
+        }
 
         return true;
     }
@@ -1219,7 +1221,12 @@ class ApiAction extends Action
                 return User_group::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
                 $nickname = common_canonical_nickname($this->arg('id'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             } else if ($this->arg('group_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
@@ -1228,14 +1235,24 @@ class ApiAction extends Action
                 }
             } else if ($this->arg('group_name')) {
                 $nickname = common_canonical_nickname($this->arg('group_name'));
-                return User_group::staticGet('nickname', $nickname);
+                $local = Local_group::staticGet('nickname', $nickname);
+                if (empty($local)) {
+                    return null;
+                } else {
+                    return User_group::staticGet('id', $local->id);
+                }
             }
 
         } else if (is_numeric($id)) {
             return User_group::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
-            return User_group::staticGet('nickname', $nickname);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if (empty($local)) {
+                return null;
+            } else {
+                return User_group::staticGet('id', $local->group_id);
+            }
         }
     }
 
@@ -1311,8 +1328,6 @@ class ApiAction extends Action
             case 'max_id':
                 $max_id = (int)$this->args['max_id'];
                 return ($max_id < 1) ? 0 : $max_id;
-            case 'since':
-                return strtotime($this->args['since']);
             default:
                 return parent::arg($key, $def);
             }

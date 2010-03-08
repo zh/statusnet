@@ -104,32 +104,21 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
     function showTimeline()
     {
-        $sitename   = common_config('site', 'name');
-        $avatar     = $this->group->homepage_logo;
-        $title      = sprintf(_("%s timeline"), $this->group->nickname);
-        $taguribase = TagURI::base();
-        $id         = "tag:$taguribase:GroupTimeline:" . $this->group->id;
-
-        $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->group->nickname,
-            $sitename
-        );
-
-        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+        // We'll pull common formatting out of this for other formats
+        $atom = new AtomGroupNoticeFeed($this->group);
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-                $this->showRssTimeline(
+            $this->showRssTimeline(
                 $this->notices,
-                $title,
+                $atom->title,
                 $this->group->homeUrl(),
-                $subtitle,
+                $atom->subtitle,
                 null,
-                $logo
+                $atom->logo
             );
             break;
         case 'atom':
@@ -138,46 +127,22 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
             try {
 
-                // If this was called using an integer ID, i.e.: using the canonical
-                // URL for this group's feed, then pass the Group object into the feed, 
-                // so the OStatus plugin, and possibly other plugins, can access it. 
-                // Feels sorta hacky. -- Z
-
-                $atom = null;
-                $id = $this->arg('id');
-
-                if (strval(intval($id)) === strval($id)) {
-                    $atom = new AtomGroupNoticeFeed($this->group);
-                } else {
-                    $atom = new AtomGroupNoticeFeed();
-                }
-
-                $atom->setId($id);
-                $atom->setTitle($title);
-                $atom->setSubtitle($subtitle);
-                $atom->setLogo($logo);
-                $atom->setUpdated('now');
-
                 $atom->addAuthorRaw($this->group->asAtomAuthor());
                 $atom->setActivitySubject($this->group->asActivitySubject());
-
-                $atom->addLink($this->group->homeUrl());
 
                 $id = $this->arg('id');
                 $aargs = array('format' => 'atom');
                 if (!empty($id)) {
                     $aargs['id'] = $id;
                 }
+                $self = $this->getSelfUri('ApiTimelineGroup', $aargs);
 
-                $atom->addLink(
-                    $this->getSelfUri('ApiTimelineGroup', $aargs),
-                    array('rel' => 'self', 'type' => 'application/atom+xml')
-                );
+                $atom->setId($self);
+                $atom->setSelfLink($self);
 
                 $atom->addEntryFromNotices($this->notices);
 
-                //$this->raw($atom->getString());
-                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
+                $this->raw($atom->getString());
 
             } catch (Atom10FeedException $e) {
                 $this->serverError(
@@ -214,8 +179,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             ($this->page-1) * $this->count,
             $this->count,
             $this->since_id,
-            $this->max_id,
-            $this->since
+            $this->max_id
         );
 
         while ($notice->fetch()) {

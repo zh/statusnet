@@ -65,6 +65,11 @@ class AtomNoticeFeed extends Atom10Feed
         );
 
         $this->addNamespace(
+            'media',
+            'http://purl.org/syndication/atommedia'
+        );
+
+        $this->addNamespace(
             'poco',
             'http://portablecontacts.net/spec/1.0'
         );
@@ -102,9 +107,19 @@ class AtomNoticeFeed extends Atom10Feed
      */
     function addEntryFromNotice($notice)
     {
-        $this->addEntryRaw($notice->asAtomEntry());
+        $source = $this->showSource();
+        $author = $this->showAuthor();
+
+        $this->addEntryRaw($notice->asAtomEntry(false, $source, $author));
     }
 
+    function showSource()
+    {
+        return true;
+    }
+
+    function showAuthor()
+    {
+        return true;
+    }
 }
-
-

@@ -28,6 +28,11 @@
  */
 class Salmon
 {
+
+    const NS_REPLIES = "http://salmon-protocol.org/ns/salmon-replies";
+
+    const NS_MENTIONS = "http://salmon-protocol.org/ns/salmon-mention";
+    
     /**
      * Sign and post the given Atom entry as a Salmon message.
      *
@@ -37,17 +42,20 @@ class Salmon
      * @param string $xml
      * @return boolean success
      */
-    public function post($endpoint_uri, $xml)
+    public function post($endpoint_uri, $xml, $actor)
     {
         if (empty($endpoint_uri)) {
             return false;
         }
 
-        if (!common_config('ostatus', 'skip_signatures')) {
-            $xml = $this->createMagicEnv($xml);
+        try {
+            $xml = $this->createMagicEnv($xml, $actor);
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Salmon unable to sign: " . $e->getMessage());
+            return false;
         }
 
-        $headers = array('Content-Type: application/atom+xml');
+        $headers = array('Content-Type: application/magic-envelope+xml');
 
         try {
             $client = new HTTPClient();
@@ -65,24 +73,37 @@ class Salmon
         return true;
     }
 
-    public function createMagicEnv($text)
+    public function createMagicEnv($text, $actor)
     {
         $magic_env = new MagicEnvelope();
 
-        // TODO: Should probably be getting the signer uri as an argument?
-        $signer_uri = $magic_env->getAuthor($text);
+        $user = User::staticGet('id', $actor->id);
+        if ($user->id) {
+            // Use local key
+            $magickey = Magicsig::staticGet('user_id', $user->id);
+            if (!$magickey) {
+                // No keypair yet, let's generate one.
+                $magickey = new Magicsig();
+                $magickey->generate($user->id);
+            } 
+        } else {
+            throw new Exception("Salmon invalid actor for signing");
+        }
 
-        $env = $magic_env->signMessage($text, 'application/atom+xml', $signer_uri);
-
-        return $magic_env->unfold($env);
+        try {
+            $env = $magic_env->signMessage($text, 'application/atom+xml', $magickey->toString());
+        } catch (Exception $e) {
+            return $text;
+        }
+        return $magic_env->toXML($env);
     }
 
 
-    public function verifyMagicEnv($dom)
+    public function verifyMagicEnv($text)
     {
         $magic_env = new MagicEnvelope();
         
-        $env = $magic_env->fromDom($dom);
+        $env = $magic_env->parse($text);
 
         return $magic_env->verify($env);
     }

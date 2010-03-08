@@ -169,7 +169,11 @@ class File extends Memcached_DataObject
     {
         require_once 'MIME/Type/Extension.php';
         $mte = new MIME_Type_Extension();
-        $ext = $mte->getExtension($mimetype);
+        try {
+            $ext = $mte->getExtension($mimetype);
+        } catch ( Exception $e) {
+            $ext = strtolower(preg_replace('/\W/', '', $mimetype));
+        }
         $nickname = $profile->nickname;
         $datestamp = strftime('%Y%m%dT%H%M%S', time());
         $random = strtolower(common_confirmation_code(32));
@@ -285,6 +289,13 @@ class File extends Memcached_DataObject
             }
         }
         return $enclosure;
+    }
+
+    // quick back-compat hack, since there's still code using this
+    function isEnclosure()
+    {
+        $enclosure = $this->getEnclosure();
+        return !empty($enclosure);
     }
 }
 

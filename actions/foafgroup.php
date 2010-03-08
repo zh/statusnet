@@ -56,7 +56,14 @@ class FoafGroupAction extends Action
             return false;
         }
 
-        $this->group = User_group::staticGet('nickname', $this->nickname);
+        $local = Local_group::staticGet('nickname', $nickname);
+
+        if (!$local) {
+            $this->clientError(_('No such group.'), 404);
+            return false;
+        }
+
+        $this->group = User_group::staticGet('id', $local->group_id);
 
         if (!$this->group) {
             $this->clientError(_('No such group.'), 404);
@@ -113,7 +120,7 @@ class FoafGroupAction extends Action
         if ($this->group->homepage_logo) {
             $this->element('depiction', array('rdf:resource' => $this->group->homepage_logo));
         }
-        
+
         $members = $this->group->getMembers();
         $member_details = array();
         while ($members->fetch()) {
@@ -123,7 +130,7 @@ class FoafGroupAction extends Action
                                         );
             $this->element('member', array('rdf:resource' => $member_uri));
         }
-        
+
         $admins = $this->group->getAdmins();
         while ($admins->fetch()) {
             $admin_uri = common_local_url('userbyid', array('id'=>$admins->id));
@@ -132,7 +139,7 @@ class FoafGroupAction extends Action
         }
 
         $this->elementEnd('Group');
-        
+
         ksort($member_details);
         foreach ($member_details as $uri => $details) {
             if ($details['is_admin'])
@@ -158,7 +165,7 @@ class FoafGroupAction extends Action
                                         ));
             }
         }
-        
+
         $this->elementEnd('rdf:RDF');
         $this->endXML();
     }

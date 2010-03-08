@@ -104,7 +104,7 @@ class PushHubAction extends Action
             throw new ClientException("Invalid hub.secret $secret; must be under 200 bytes.");
         }
 
-        $sub = HubSub::staticGet($sub->topic, $sub->callback);
+        $sub = HubSub::staticGet($topic, $callback);
         if (!$sub) {
             // Creating a new one!
             $sub = new HubSub();

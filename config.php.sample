@@ -124,6 +124,8 @@ $config['sphinx']['port'] = 3312;
 
 // Email info, used for all outbound email
 // $config['mail']['notifyfrom'] = 'microblog@example.net';
+// Domain for generating no-reply and incoming email addresses, if enabled.
+// Defaults to site server name.
 // $config['mail']['domain'] = 'microblog.example.net';
 // See http://pear.php.net/manual/en/package.mail.mail.factory.php for options
 // $config['mail']['backend'] = 'smtp';
@@ -131,8 +133,6 @@ $config['sphinx']['port'] = 3312;
 // 							'host' => 'localhost',
 // 							'port' => 25,
 // 							);
-// For incoming email, if enabled. Defaults to site server name.
-// $config['mail']['domain'] = 'incoming.example.net';
 
 // exponential decay factor for tags, default 10 days
 // raise this if traffic is slow, lower it if it's fast
@@ -188,9 +188,6 @@ $config['sphinx']['port'] = 3312;
 // Disable SMS
 // $config['sms']['enabled'] = false;
 
-// Disable Twitter integration
-// $config['twitter']['enabled'] = false;
-
 // Twitter integration source attribute. Note: default is StatusNet
 // $config['integration']['source'] = 'StatusNet';
 
@@ -198,7 +195,7 @@ $config['sphinx']['port'] = 3312;
 //
 // NOTE: if you enable this you must also set $config['avatar']['path']
 //
-// $config['twitterbridge']['enabled'] = true;
+// $config['twitterimport']['enabled'] = true;
 
 // Twitter OAuth settings
 // $config['twitter']['consumer_key']    = 'YOURKEY';
@@ -211,10 +208,6 @@ $config['sphinx']['port'] = 3312;
 // $config['throttle']['enabled'] = true;
 // $config['throttle']['count'] = 100;
 // $config['throttle']['timespan'] = 3600;
-
-// List of users banned from posting (nicknames and/or IDs)
-// $config['profile']['banned'][] = 'hacker';
-// $config['profile']['banned'][] = 12345;
 
 // Config section for the built-in Facebook application
 // $config['facebook']['apikey'] = 'APIKEY';
@@ -275,6 +268,8 @@ $config['sphinx']['port'] = 3312;
 // Support for file uploads (attachments),
 // select supported mimetypes and quotas (in bytes)
 // $config['attachments']['supported'] = array('image/png', 'application/ogg');
+// $config['attachments']['supported'] = true; //allow all file types to be uploaded
+
 // $config['attachments']['file_quota'] = 5000000;
 // $config['attachments']['user_quota'] = 50000000;
 // $config['attachments']['monthly_quota'] = 15000000;

@@ -273,10 +273,9 @@ class ProfileListItem extends Widget
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
             } else {
-                // Is it a local user? can't remote sub from a list
-                // XXX: make that possible!
-                $other = User::staticGet('id', $this->profile->id);
-                if (!empty($other)) {
+                // We can't initiate sub for a remote OMB profile.
+                $remote = Remote_profile::staticGet('id', $this->profile->id);
+                if (empty($remote)) {
                     $sf = new SubscribeForm($this->out, $this->profile);
                     $sf->show();
                 }

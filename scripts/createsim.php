@@ -119,6 +119,9 @@ function newSub($i)
 
 function main($usercount, $noticeavg, $subsavg, $tagmax)
 {
+    global $config;
+    $config['site']['dupelimit'] = -1;
+
     $n = 1;
 
     newUser(0);

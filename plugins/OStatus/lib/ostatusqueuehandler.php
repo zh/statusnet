@@ -87,7 +87,7 @@ class OStatusQueueHandler extends QueueHandler
             // remote user or group.
             // @fixme as an optimization we can skip this if the
             // remote profile is subscribed to the author.
-            $oprofile->notifyDeferred($this->notice);
+            $oprofile->notifyDeferred($this->notice, $this->user);
         }
     }
 
@@ -164,46 +164,21 @@ class OStatusQueueHandler extends QueueHandler
      */
     function userFeedForNotice()
     {
-        // @fixme this feels VERY hacky...
-        // should probably be a cleaner way to do it
+        $atom = new AtomUserNoticeFeed($this->user);
+        $atom->addEntryFromNotice($this->notice);
+        $feed = $atom->getString();
 
-        ob_start();
-        $api = new ApiTimelineUserAction();
-        $api->prepare(array('id' => $this->notice->profile_id,
-                            'format' => 'atom',
-                            'max_id' => $this->notice->id,
-                            'since_id' => $this->notice->id - 1));
-        $api->showTimeline();
-        $feed = ob_get_clean();
-        
-        // ...and override the content-type back to something normal... eww!
-        // hope there's no other headers that got set while we weren't looking.
-        header('Content-Type: text/html; charset=utf-8');
-
-        common_log(LOG_DEBUG, $feed);
         return $feed;
     }
 
     function groupFeedForNotice($group_id)
     {
-        // @fixme this feels VERY hacky...
-        // should probably be a cleaner way to do it
+        $group = User_group::staticGet('id', $group_id);
 
-        ob_start();
-        $api = new ApiTimelineGroupAction();
-        $args = array('id' => $group_id,
-                      'format' => 'atom',
-                      'max_id' => $this->notice->id,
-                      'since_id' => $this->notice->id - 1);
-        $api->prepare($args);
-        $api->handle($args);
-        $feed = ob_get_clean();
-        
-        // ...and override the content-type back to something normal... eww!
-        // hope there's no other headers that got set while we weren't looking.
-        header('Content-Type: text/html; charset=utf-8');
+        $atom = new AtomGroupNoticeFeed($group);
+        $atom->addEntryFromNotice($this->notice);
+        $feed = $atom->getString();
 
-        common_log(LOG_DEBUG, $feed);
         return $feed;
     }
 

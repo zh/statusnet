@@ -341,7 +341,11 @@ class StatusNet
         // Backwards compatibility
         if (array_key_exists('memcached', $config)) {
             if ($config['memcached']['enabled']) {
-                addPlugin('Memcache', array('servers' => $config['memcached']['server']));
+                if(class_exists('Memcached')) {
+                    addPlugin('Memcached', array('servers' => $config['memcached']['server']));
+                } else {
+                    addPlugin('Memcache', array('servers' => $config['memcached']['server']));
+                }
             }
 
             if (!empty($config['memcached']['base'])) {
@@ -368,10 +372,10 @@ class StatusNet
 
 class NoConfigException extends Exception
 {
-    public $config_files;
+    public $configFiles;
 
-    function __construct($msg, $config_files) {
+    function __construct($msg, $configFiles) {
         parent::__construct($msg);
-        $this->config_files = $config_files;
+        $this->configFiles = $configFiles;
     }
 }

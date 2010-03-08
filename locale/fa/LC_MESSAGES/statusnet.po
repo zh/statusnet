@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-24 23:49+0000\n"
-"PO-Revision-Date: 2010-02-24 23:50:38+0000\n"
+"POT-Creation-Date: 2010-03-06 23:49+0000\n"
+"PO-Revision-Date: 2010-03-06 23:49:48+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -20,70 +20,78 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r62925); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
-#: actions/accessadminpanel.php:54 lib/adminpanelaction.php:326
+#. TRANS: Page title
+#. TRANS: Menu item for site administration
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
 msgid "Access"
 msgstr "دسترسی"
 
-#: actions/accessadminpanel.php:65
+#. TRANS: Page notice
+#: actions/accessadminpanel.php:67
 #, fuzzy
 msgid "Site access settings"
 msgstr "تنظیمات دیگر"
 
-#: actions/accessadminpanel.php:158
+#. TRANS: Form legend for registration form.
+#: actions/accessadminpanel.php:161
 #, fuzzy
 msgid "Registration"
 msgstr "ثبت نام"
 
-#: actions/accessadminpanel.php:161
-msgid "Private"
-msgstr "خصوصی"
-
-#: actions/accessadminpanel.php:163
+#. TRANS: Checkbox instructions for admin setting "Private"
+#: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
 
+#. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-msgid "Invite only"
-msgstr "فقط دعوت کردن"
+#, fuzzy
+msgctxt "LABEL"
+msgid "Private"
+msgstr "خصوصی"
 
-#: actions/accessadminpanel.php:169
+#. TRANS: Checkbox instructions for admin setting "Invite only"
+#: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
 msgstr "تنها آماده کردن دعوت نامه های ثبت نام."
 
-#: actions/accessadminpanel.php:173
-msgid "Closed"
-msgstr "مسدود"
+#. TRANS: Checkbox label for configuring site as invite only.
+#: actions/accessadminpanel.php:176
+msgid "Invite only"
+msgstr "فقط دعوت کردن"
 
-#: actions/accessadminpanel.php:175
+#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
+#: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
 msgstr "غیر فعال کردن نام نوبسی جدید"
 
-#: actions/accessadminpanel.php:189 actions/designadminpanel.php:586
-#: actions/emailsettings.php:195 actions/imsettings.php:163
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
-#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
-#: actions/siteadminpanel.php:336 actions/smssettings.php:181
-#: actions/subscriptions.php:208 actions/tagother.php:154
-#: actions/useradminpanel.php:293 lib/applicationeditform.php:333
-#: lib/applicationeditform.php:334 lib/designsettings.php:256
-#: lib/groupeditform.php:202
-msgid "Save"
-msgstr "ذخیره‌کردن"
+#. TRANS: Checkbox label for disabling new user registrations.
+#: actions/accessadminpanel.php:185
+msgid "Closed"
+msgstr "مسدود"
 
-#: actions/accessadminpanel.php:189
+#. TRANS: Title / tooltip for button to save access settings in site admin panel
+#: actions/accessadminpanel.php:202
 #, fuzzy
 msgid "Save access settings"
 msgstr "تنظیمات چهره"
 
-#: actions/all.php:63 actions/public.php:97 actions/replies.php:92
-#: actions/showfavorites.php:137 actions/tag.php:51
+#: actions/accessadminpanel.php:203
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Save"
+msgstr "ذخیره‌کردن"
+
+#. TRANS: Server error when page not found (404)
+#: actions/all.php:64 actions/public.php:98 actions/replies.php:93
+#: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page"
 msgstr "چنین صفحه‌ای وجود ندارد"
 
-#: actions/all.php:74 actions/allrss.php:68
+#: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
@@ -97,51 +105,59 @@ msgstr "چنین صفحه‌ای وجود ندارد"
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
-#: actions/microsummary.php:62 actions/newmessage.php:116 actions/otp.php:76
-#: actions/remotesubscribe.php:145 actions/remotesubscribe.php:154
-#: actions/replies.php:73 actions/repliesrss.php:38 actions/rsd.php:116
-#: actions/showfavorites.php:105 actions/userbyid.php:74
-#: actions/usergroups.php:91 actions/userrss.php:38 actions/xrds.php:71
-#: lib/command.php:163 lib/command.php:302 lib/command.php:355
-#: lib/command.php:401 lib/command.php:462 lib/command.php:518
-#: lib/galleryaction.php:59 lib/mailbox.php:82 lib/profileaction.php:77
+#: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
+#: actions/otp.php:76 actions/remotesubscribe.php:145
+#: actions/remotesubscribe.php:154 actions/replies.php:73
+#: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
+#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
+#: lib/command.php:355 lib/command.php:401 lib/command.php:462
+#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
+#: lib/profileaction.php:77
 msgid "No such user."
 msgstr "چنین کاربری وجود ندارد."
 
-#: actions/all.php:84
+#. TRANS: Page title. %1$s is user nickname, %2$d is page number
+#: actions/all.php:86
 #, fuzzy, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%s کاربران مسدود شده، صفحه‌ی %d"
 
-#: actions/all.php:86 actions/all.php:167 actions/allrss.php:115
+#. TRANS: Page title. %1$s is user nickname
+#. TRANS: H1 text. %1$s is user nickname
+#: actions/all.php:89 actions/all.php:181 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s و دوستان"
 
-#: actions/all.php:99
+#. TRANS: %1$s is user nickname
+#: actions/all.php:103
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "خوراک دوستان %s (RSS 1.0)"
 
-#: actions/all.php:107
+#. TRANS: %1$s is user nickname
+#: actions/all.php:112
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "خوراک دوستان %s (RSS 2.0)"
 
-#: actions/all.php:115
+#. TRANS: %1$s is user nickname
+#: actions/all.php:121
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "خوراک دوستان %s (Atom)"
 
-#: actions/all.php:127
+#. TRANS: %1$s is user nickname
+#: actions/all.php:134
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
 
-#: actions/all.php:132
+#: actions/all.php:139
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -150,7 +166,8 @@ msgstr ""
 "پیگیری افراد بیش‌تری بشوید [به یک گروه بپیوندید](%%action.groups%%) یا خودتان "
 "چیزی را ارسال کنید."
 
-#: actions/all.php:134
+#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+#: actions/all.php:142
 #, fuzzy, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -159,7 +176,7 @@ msgstr ""
 "اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
 "s) پیام می‌فرستد."
 
-#: actions/all.php:137 actions/replies.php:209 actions/showstream.php:211
+#: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -168,7 +185,8 @@ msgstr ""
 "چرا [ثبت نام](%%%%action.register%%%%) نمی‌کنید و سپس با فرستادن پیام توجه %s "
 "را جلب کنید."
 
-#: actions/all.php:165
+#. TRANS: H1 text
+#: actions/all.php:178
 msgid "You and friends"
 msgstr "شما و دوستان"
 
@@ -186,20 +204,20 @@ msgstr "به روز رسانی از %1$ و دوستان در %2$"
 #: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
 #: actions/apifavoritecreate.php:99 actions/apifavoritedestroy.php:100
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:136
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
 #: actions/apigroupleave.php:141 actions/apigrouplist.php:132
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:137
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:195 actions/apitimelinehome.php:184
-#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
+#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:207 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 msgid "API method not found."
 msgstr "رابط مورد نظر پیدا نشد."
 
@@ -231,8 +249,9 @@ msgstr "نمی‌توان کاربر را به‌هنگام‌سازی کرد."
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/replies.php:80
-#: actions/usergroups.php:98 lib/galleryaction.php:66 lib/profileaction.php:84
+#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
+#: actions/replies.php:80 actions/usergroups.php:98 lib/galleryaction.php:66
+#: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "کاربر هیچ شناس‌نامه‌ای ندارد."
 
@@ -257,7 +276,7 @@ msgstr ""
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
 #: actions/apiaccountupdateprofilecolors.php:164
 #: actions/apiaccountupdateprofilecolors.php:174
-#: actions/groupdesignsettings.php:287 actions/groupdesignsettings.php:297
+#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
@@ -370,68 +389,68 @@ msgstr "نمی‌توان کاربر منبع را تعیین کرد."
 msgid "Could not find target user."
 msgstr "نمی‌توان کاربر هدف را پیدا کرد."
 
-#: actions/apigroupcreate.php:164 actions/editgroup.php:182
+#: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:205
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "لقب باید شامل حروف کوچک و اعداد و بدون فاصله باشد."
 
-#: actions/apigroupcreate.php:173 actions/editgroup.php:186
+#: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:208
 msgid "Nickname already in use. Try another one."
 msgstr "این لقب در حال حاضر ثبت شده است. لطفا یکی دیگر انتخاب کنید."
 
-#: actions/apigroupcreate.php:180 actions/editgroup.php:189
+#: actions/apigroupcreate.php:182 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:210
 msgid "Not a valid nickname."
 msgstr "لقب نا معتبر."
 
-#: actions/apigroupcreate.php:196 actions/editapplication.php:215
-#: actions/editgroup.php:195 actions/newapplication.php:203
+#: actions/apigroupcreate.php:198 actions/editapplication.php:215
+#: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:217
 msgid "Homepage is not a valid URL."
 msgstr "برگهٔ آغازین یک نشانی معتبر نیست."
 
-#: actions/apigroupcreate.php:205 actions/editgroup.php:198
+#: actions/apigroupcreate.php:207 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:220
 msgid "Full name is too long (max 255 chars)."
 msgstr "نام کامل طولانی است (۲۵۵ حرف در حالت بیشینه(."
 
-#: actions/apigroupcreate.php:213 actions/editapplication.php:190
+#: actions/apigroupcreate.php:215 actions/editapplication.php:190
 #: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
 
-#: actions/apigroupcreate.php:224 actions/editgroup.php:204
+#: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
 msgstr "مکان طولانی است (حداکثر ۲۵۵ حرف)"
 
-#: actions/apigroupcreate.php:243 actions/editgroup.php:215
+#: actions/apigroupcreate.php:245 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "نام‌های مستعار بسیار زیاد هستند! حداکثر %d."
 
-#: actions/apigroupcreate.php:264 actions/editgroup.php:224
+#: actions/apigroupcreate.php:266 actions/editgroup.php:228
 #: actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "نام‌مستعار غیر مجاز: «%s»"
 
-#: actions/apigroupcreate.php:273 actions/editgroup.php:228
+#: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "نام‌مستعار «%s» ازپیش گرفته‌شده‌است. یکی دیگر را امتحان کنید."
 
-#: actions/apigroupcreate.php:286 actions/editgroup.php:234
+#: actions/apigroupcreate.php:288 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr "نام و نام مستعار شما نمی تواند یکی باشد ."
@@ -442,15 +461,15 @@ msgstr "نام و نام مستعار شما نمی تواند یکی باشد .
 msgid "Group not found!"
 msgstr "گروه یافت نشد!"
 
-#: actions/apigroupjoin.php:110 actions/joingroup.php:90
+#: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
 msgstr "شما از پیش یک عضو این گروه هستید."
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:95 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
 msgid "You have been blocked from that group by the admin."
 msgstr "دسترسی شما به گروه توسط مدیر آن محدود شده است."
 
-#: actions/apigroupjoin.php:138 actions/joingroup.php:124
+#: actions/apigroupjoin.php:138 actions/joingroup.php:134
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "عضویت %s در گروه %s نا موفق بود."
@@ -459,7 +478,7 @@ msgstr "عضویت %s در گروه %s نا موفق بود."
 msgid "You are not a member of this group."
 msgstr "شما یک عضو این گروه نیستید."
 
-#: actions/apigroupleave.php:124 actions/leavegroup.php:119
+#: actions/apigroupleave.php:124 actions/leavegroup.php:129
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "خارج شدن %s از گروه %s نا موفق بود"
@@ -491,7 +510,7 @@ msgstr "اندازه‌ی نادرست"
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:157 actions/disfavor.php:74
 #: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
-#: actions/groupblock.php:66 actions/grouplogo.php:309
+#: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:206
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
@@ -533,7 +552,7 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:103 actions/editapplication.php:139
-#: actions/emailsettings.php:256 actions/grouplogo.php:319
+#: actions/emailsettings.php:256 actions/grouplogo.php:322
 #: actions/imsettings.php:220 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:248 lib/designsettings.php:304
@@ -556,13 +575,13 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:441
+#: actions/apioauthauthorize.php:310 lib/action.php:438
 msgid "Account"
 msgstr "حساب کاربری"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:236 actions/tagother.php:94
+#: actions/showgroup.php:244 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:131
 msgid "Nickname"
@@ -645,18 +664,6 @@ msgstr "%s / دوست داشتنی از %s"
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s به روز رسانی های دوست داشتنی %s / %s"
 
-#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:131 actions/userrss.php:90
-#, php-format
-msgid "%s timeline"
-msgstr "خط زمانی %s"
-
-#: actions/apitimelinegroup.php:114 actions/apitimelineuser.php:126
-#: actions/userrss.php:92
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr "به روز رسانی‌های %1$s در %2$s"
-
 #: actions/apitimelinementions.php:117
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
@@ -667,12 +674,12 @@ msgstr "%$1s / به روز رسانی های شامل %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s به روز رسانی هایی که در پاسخ به $2$s / %3$s"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s خط‌زمانی عمومی"
 
-#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s به روز رسانی های عموم"
@@ -687,12 +694,12 @@ msgstr ""
 msgid "Repeats of %s"
 msgstr "تکرار %s"
 
-#: actions/apitimelinetag.php:102 actions/tag.php:66
+#: actions/apitimelinetag.php:102 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "پیام‌هایی که با %s نشانه گزاری شده اند."
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:65
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "پیام‌های نشانه گزاری شده با %1$s در %2$s"
@@ -708,8 +715,7 @@ msgstr "چنین پیوستی وجود ندارد."
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/joingroup.php:76 actions/leavegroup.php:76
-#: actions/showgroup.php:121
+#: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
 msgstr "بدون لقب."
 
@@ -721,7 +727,7 @@ msgstr "بدون اندازه."
 msgid "Invalid size."
 msgstr "اندازه‌ی نادرست"
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:221
+#: actions/avatarsettings.php:67 actions/showgroup.php:229
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "چهره"
@@ -734,35 +740,35 @@ msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:103
+#: actions/userrss.php:106
 msgid "User without matching profile"
 msgstr "کاربر بدون مشخصات"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
-#: actions/grouplogo.php:251
+#: actions/grouplogo.php:254
 msgid "Avatar settings"
 msgstr "تنظیمات چهره"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
-#: actions/grouplogo.php:199 actions/grouplogo.php:259
+#: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
 msgstr "اصلی"
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
-#: actions/grouplogo.php:210 actions/grouplogo.php:271
+#: actions/grouplogo.php:213 actions/grouplogo.php:274
 msgid "Preview"
 msgstr "پیش‌نمایش"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:637
+#: lib/deleteuserform.php:66 lib/noticelist.php:655
 msgid "Delete"
 msgstr "حذف"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:233
+#: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
 msgstr "پایین‌گذاری"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:286
+#: actions/avatarsettings.php:231 actions/grouplogo.php:289
 msgid "Crop"
 msgstr "برش"
 
@@ -770,7 +776,7 @@ msgstr "برش"
 msgid "Pick a square area of the image to be your avatar"
 msgstr "یک مربع از عکس خود را انتخاب کنید تا چهره‌ی شما باشد."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:377
+#: actions/avatarsettings.php:343 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "فایل اطلاعات خود را گم کرده ایم."
 
@@ -806,22 +812,22 @@ msgstr ""
 "نخواهید شد"
 
 #: actions/block.php:143 actions/deleteapplication.php:153
-#: actions/deletenotice.php:145 actions/deleteuser.php:147
+#: actions/deletenotice.php:145 actions/deleteuser.php:150
 #: actions/groupblock.php:178
 msgid "No"
 msgstr "خیر"
 
-#: actions/block.php:143 actions/deleteuser.php:147
+#: actions/block.php:143 actions/deleteuser.php:150
 msgid "Do not block this user"
 msgstr "کاربر را مسدود نکن"
 
 #: actions/block.php:144 actions/deleteapplication.php:158
-#: actions/deletenotice.php:146 actions/deleteuser.php:148
+#: actions/deletenotice.php:146 actions/deleteuser.php:151
 #: actions/groupblock.php:179 lib/repeatform.php:132
 msgid "Yes"
 msgstr "بله"
 
-#: actions/block.php:144 actions/groupmembers.php:348 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
 msgid "Block this user"
 msgstr "کاربر را مسدود کن"
 
@@ -829,39 +835,43 @@ msgstr "کاربر را مسدود کن"
 msgid "Failed to save block information."
 msgstr ""
 
-#: actions/blockedfromgroup.php:80 actions/editgroup.php:96
-#: actions/foafgroup.php:44 actions/foafgroup.php:62 actions/groupblock.php:86
-#: actions/groupbyid.php:83 actions/groupdesignsettings.php:97
-#: actions/grouplogo.php:99 actions/groupmembers.php:83
-#: actions/grouprss.php:98 actions/groupunblock.php:86
-#: actions/joingroup.php:83 actions/leavegroup.php:83 actions/makeadmin.php:86
-#: actions/showgroup.php:137 lib/command.php:212 lib/command.php:260
+#: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
+#: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
+#: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
+#: actions/groupmembers.php:83 actions/groupmembers.php:90
+#: actions/grouprss.php:98 actions/grouprss.php:105
+#: actions/groupunblock.php:86 actions/joingroup.php:82
+#: actions/joingroup.php:93 actions/leavegroup.php:82
+#: actions/leavegroup.php:93 actions/makeadmin.php:86
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
+#: lib/command.php:260
 msgid "No such group."
 msgstr "چنین گروهی وجود ندارد."
 
-#: actions/blockedfromgroup.php:90
+#: actions/blockedfromgroup.php:97
 #, php-format
 msgid "%s blocked profiles"
 msgstr "%s کاربران مسدود شده"
 
-#: actions/blockedfromgroup.php:93
+#: actions/blockedfromgroup.php:100
 #, fuzzy, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%s کاربران مسدود شده، صفحه‌ی %d"
 
-#: actions/blockedfromgroup.php:108
+#: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr "فهرستی از افراد مسدود شده در پیوستن به این گروه."
 
-#: actions/blockedfromgroup.php:281
+#: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
 msgstr "آزاد کردن کاربر در پیوستن به گروه"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:69
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
 msgstr "آزاد سازی"
 
-#: actions/blockedfromgroup.php:313 lib/unblockform.php:80
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
 msgstr "آزاد سازی کاربر"
 
@@ -918,7 +928,7 @@ msgid "Conversation"
 msgstr "مکالمه"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+#: lib/profileaction.php:218 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "پیام‌ها"
 
@@ -940,7 +950,7 @@ msgstr "شما یک عضو این گروه نیستید."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1197
+#: lib/action.php:1217
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -969,12 +979,13 @@ msgstr "این پیام را پاک نکن"
 msgid "Delete this application"
 msgstr "این پیام را پاک کن"
 
+#. TRANS: Client error message
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:72 lib/profileformaction.php:63
+#: lib/adminpanelaction.php:73 lib/profileformaction.php:63
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "شما به سیستم وارد نشده اید."
@@ -1003,7 +1014,7 @@ msgstr "آیا اطمینان دارید که می‌خواهید این پیا�
 msgid "Do not delete this notice"
 msgstr "این پیام را پاک نکن"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:637
+#: actions/deletenotice.php:146 lib/noticelist.php:655
 msgid "Delete this notice"
 msgstr "این پیام را پاک کن"
 
@@ -1019,7 +1030,7 @@ msgstr "شما فقط می‌توانید کاربران محلی را پاک ک
 msgid "Delete user"
 msgstr "حذف کاربر"
 
-#: actions/deleteuser.php:135
+#: actions/deleteuser.php:136
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
@@ -1027,12 +1038,12 @@ msgstr ""
 "آیا مطمئن هستید که می‌خواهید این کاربر را پاک کنید؟ با این کار تمام اطلاعات "
 "پاک و بدون برگشت خواهند بود."
 
-#: actions/deleteuser.php:148 lib/deleteuserform.php:77
+#: actions/deleteuser.php:151 lib/deleteuserform.php:77
 msgid "Delete this user"
 msgstr "حذف این کاربر"
 
 #: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
-#: lib/adminpanelaction.php:316 lib/groupnav.php:119
+#: lib/groupnav.php:119
 msgid "Design"
 msgstr "طرح"
 
@@ -1135,6 +1146,18 @@ msgstr "بازگرداندن طرح‌های پیش‌فرض"
 msgid "Reset back to default"
 msgstr "برگشت به حالت پیش گزیده"
 
+#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/tagother.php:154 actions/useradminpanel.php:294
+#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
+#: lib/designsettings.php:256 lib/groupeditform.php:202
+msgid "Save"
+msgstr "ذخیره‌کردن"
+
 #: actions/designadminpanel.php:587 lib/designsettings.php:257
 msgid "Save design"
 msgstr "ذخیره‌کردن طرح"
@@ -1235,30 +1258,30 @@ msgstr "ویرایش گروه %s"
 msgid "You must be logged in to create a group."
 msgstr "برای ساخت یک گروه، باید وارد شده باشید."
 
-#: actions/editgroup.php:103 actions/editgroup.php:168
-#: actions/groupdesignsettings.php:104 actions/grouplogo.php:106
+#: actions/editgroup.php:107 actions/editgroup.php:172
+#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 #, fuzzy
 msgid "You must be an admin to edit the group."
 msgstr "برای ویرایش گروه، باید یک مدیر باشید."
 
-#: actions/editgroup.php:154
+#: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr "از این روش برای ویرایش گروه استفاده کنید."
 
-#: actions/editgroup.php:201 actions/newgroup.php:145
+#: actions/editgroup.php:205 actions/newgroup.php:145
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "توصیف بسیار زیاد است (حداکثر %d حرف)."
 
-#: actions/editgroup.php:253
+#: actions/editgroup.php:258
 msgid "Could not update group."
 msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
 
-#: actions/editgroup.php:259 classes/User_group.php:433
+#: actions/editgroup.php:264 classes/User_group.php:493
 msgid "Could not create aliases."
 msgstr "نمی‌توان نام‌های مستعار را ساخت."
 
-#: actions/editgroup.php:269
+#: actions/editgroup.php:280
 msgid "Options saved."
 msgstr "گزینه‌ها ذخیره شدند."
 
@@ -1377,7 +1400,7 @@ msgid "Cannot normalize that email address"
 msgstr "نمی‌توان نشانی را قانونی کرد"
 
 #: actions/emailsettings.php:331 actions/register.php:201
-#: actions/siteadminpanel.php:143
+#: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "یک آدرس ایمیل معتبر نیست."
 
@@ -1567,6 +1590,25 @@ msgstr "چنین پرونده‌ای وجود ندارد."
 msgid "Cannot read file."
 msgstr "نمی‌توان پرونده را خواند."
 
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "اندازه‌ی نادرست"
+
+#: actions/grantrole.php:66 actions/revokerole.php:66
+msgid "This role is reserved and cannot be set."
+msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr "شما نمی توانید کاربری را در این سایت ساکت کنید."
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "کاربر قبلا ساکت شده است."
+
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:70
@@ -1596,7 +1638,7 @@ msgstr "هم اکنون دسترسی کاربر به گروه مسدود شده 
 msgid "User is not a member of group."
 msgstr "کاربر عضو گروه نیست."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:316
+#: actions/groupblock.php:136 actions/groupmembers.php:323
 msgid "Block user from group"
 msgstr "دسترسی کاربر به گروه را مسدود کن"
 
@@ -1628,92 +1670,98 @@ msgstr ""
 msgid "You must be logged in to edit a group."
 msgstr "برای ویرایش گروه باید وارد شوید."
 
-#: actions/groupdesignsettings.php:141
+#: actions/groupdesignsettings.php:144
 msgid "Group design"
 msgstr "ظاهر گروه"
 
-#: actions/groupdesignsettings.php:152
+#: actions/groupdesignsettings.php:155
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr "ظاهر گروه را تغییر دهید تا شما را راضی کند."
 
-#: actions/groupdesignsettings.php:263 actions/userdesignsettings.php:186
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
 msgid "Couldn't update your design."
 msgstr "نمی‌توان ظاهر را به روز کرد."
 
-#: actions/groupdesignsettings.php:308 actions/userdesignsettings.php:231
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
 msgid "Design preferences saved."
 msgstr "ترجیحات طرح ذخیره شد."
 
-#: actions/grouplogo.php:139 actions/grouplogo.php:192
+#: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
 msgstr "نشان گروه"
 
-#: actions/grouplogo.php:150
+#: actions/grouplogo.php:153
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "شما می‌توانید یک نشان برای گروه خود با بیشینه حجم %s بفرستید."
 
-#: actions/grouplogo.php:178
+#: actions/grouplogo.php:181
 #, fuzzy
 msgid "User without matching profile."
 msgstr "کاربر بدون مشخصات"
 
-#: actions/grouplogo.php:362
+#: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr "یک ناحیه‌ی مربع از تصویر را انتخاب کنید تا به عنوان نشان باشد."
 
-#: actions/grouplogo.php:396
+#: actions/grouplogo.php:399
 msgid "Logo updated."
 msgstr "نشان به‌هنگام‌سازی شد."
 
-#: actions/grouplogo.php:398
+#: actions/grouplogo.php:401
 msgid "Failed updating logo."
 msgstr "اشکال در ارسال نشان."
 
-#: actions/groupmembers.php:93 lib/groupnav.php:92
+#: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
 msgstr "اعضای گروه %s"
 
-#: actions/groupmembers.php:96
+#: actions/groupmembers.php:103
 #, fuzzy, php-format
 msgid "%1$s group members, page %2$d"
 msgstr "اعضای گروه %s، صفحهٔ %d"
 
-#: actions/groupmembers.php:111
+#: actions/groupmembers.php:118
 msgid "A list of the users in this group."
 msgstr "یک فهرست از کاربران در این گروه"
 
-#: actions/groupmembers.php:175 lib/action.php:448 lib/groupnav.php:107
+#: actions/groupmembers.php:182 lib/groupnav.php:107
 msgid "Admin"
 msgstr "مدیر"
 
-#: actions/groupmembers.php:348 lib/blockform.php:69
+#: actions/groupmembers.php:355 lib/blockform.php:69
 msgid "Block"
 msgstr "بازداشتن"
 
-#: actions/groupmembers.php:443
+#: actions/groupmembers.php:450
 msgid "Make user an admin of the group"
 msgstr "کاربر یک مدیر گروه شود"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make Admin"
 msgstr "مدیر شود"
 
-#: actions/groupmembers.php:475
+#: actions/groupmembers.php:482
 msgid "Make this user an admin"
 msgstr "این کاربر یک مدیر شود"
 
-#: actions/grouprss.php:133
+#: actions/grouprss.php:138 actions/userrss.php:93
+#: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
+#, php-format
+msgid "%s timeline"
+msgstr "خط زمانی %s"
+
+#: actions/grouprss.php:140
 #, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "به روز رسانی کابران %1$s در %2$s"
 
-#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "گروه‌ها"
@@ -1967,16 +2015,19 @@ msgstr "پیام خصوصی"
 msgid "Optionally add a personal message to the invitation."
 msgstr "اگر دوست دارید می‌توانید یک پیام به همراه دعوت نامه ارسال کنید."
 
-#: actions/invite.php:197 lib/messageform.php:178 lib/noticeform.php:236
+#. TRANS: Send button for inviting friends
+#: actions/invite.php:198
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Send"
 msgstr "فرستادن"
 
-#: actions/invite.php:226
+#: actions/invite.php:227
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s شما را دعوت کرده است که در %2$s به آن‌ها بپیوندید."
 
-#: actions/invite.php:228
+#: actions/invite.php:229
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2011,7 +2062,12 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "برای پیوستن به یک گروه، باید وارد شده باشید."
 
-#: actions/joingroup.php:131
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+#, fuzzy
+msgid "No nickname or ID."
+msgstr "بدون لقب."
+
+#: actions/joingroup.php:141
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "ملحق شدن به گروه"
@@ -2020,11 +2076,11 @@ msgstr "ملحق شدن به گروه"
 msgid "You must be logged in to leave a group."
 msgstr "برای ترک یک گروه، شما باید وارد شده باشید."
 
-#: actions/leavegroup.php:90 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:265
 msgid "You are not a member of that group."
 msgstr "شما یک کاربر این گروه نیستید."
 
-#: actions/leavegroup.php:127
+#: actions/leavegroup.php:137
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s گروه %s را ترک کرد."
@@ -2041,8 +2097,7 @@ msgstr "نام کاربری یا رمز عبور نادرست."
 msgid "Error setting user. You are probably not authorized."
 msgstr "خطا در تنظیم کاربر. شما احتمالا اجازه ی این کار را ندارید."
 
-#: actions/login.php:188 actions/login.php:241 lib/action.php:466
-#: lib/logingroupnav.php:79
+#: actions/login.php:188 actions/login.php:241 lib/logingroupnav.php:79
 msgid "Login"
 msgstr "ورود"
 
@@ -2300,8 +2355,8 @@ msgstr "نوع محتوا "
 msgid "Only "
 msgstr " فقط"
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/api.php:1040
-#: lib/api.php:1068 lib/api.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
+#: lib/apiaction.php:1070 lib/apiaction.php:1179
 msgid "Not a supported data format."
 msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
@@ -2447,7 +2502,8 @@ msgstr "نمی‌توان گذرواژه جدید را ذخیره کرد."
 msgid "Password saved."
 msgstr "گذرواژه ذخیره شد."
 
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:331
+#. TRANS: Menu item for site administration
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:382
 msgid "Paths"
 msgstr "مسیر ها"
 
@@ -2480,7 +2536,6 @@ msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#: lib/adminpanelaction.php:311
 msgid "Site"
 msgstr "سایت"
 
@@ -2568,7 +2623,7 @@ msgstr "شاخهٔ تصاویر پیش‌زمینه"
 msgid "SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
+#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "هیچ وقت"
 
@@ -2624,11 +2679,11 @@ msgstr "یک برچسب کاربری معتبر نیست: %s"
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "کاربران خود برچسب‌گذاری شده با %s - صفحهٔ %d"
 
-#: actions/postnotice.php:84
+#: actions/postnotice.php:95
 msgid "Invalid notice content"
 msgstr "محتوای آگهی نامعتبر"
 
-#: actions/postnotice.php:90
+#: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
@@ -2653,7 +2708,7 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "۱-۶۴ کاراکتر کوچک یا اعداد، بدون نقطه گذاری یا فاصله"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:247 actions/tagother.php:104
+#: actions/showgroup.php:255 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:149
 msgid "Full name"
 msgstr "نام‌کامل"
@@ -2681,7 +2736,7 @@ msgid "Bio"
 msgstr "شرح‌حال"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:256 actions/tagother.php:112
+#: actions/showgroup.php:264 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:164
 msgid "Location"
@@ -2706,7 +2761,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:151 actions/siteadminpanel.php:280
+#: actions/profilesettings.php:151
 msgid "Language"
 msgstr "زبان"
 
@@ -2732,7 +2787,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr ""
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:150
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "منطقه‌ی زمانی انتخاب نشده است."
 
@@ -2761,7 +2816,8 @@ msgstr "نمی‌توان شناسه را ذخیره کرد."
 msgid "Couldn't save tags."
 msgstr "نمی‌توان نشان را ذخیره کرد."
 
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:137
+#. TRANS: Message after successful saving of administrative settings.
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
 msgid "Settings saved."
 msgstr "تنظیمات ذخیره شد."
 
@@ -2774,45 +2830,45 @@ msgstr ""
 msgid "Could not retrieve public stream."
 msgstr ""
 
-#: actions/public.php:129
+#: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
 msgstr "خط زمانی عمومی، صفحه‌ی %d"
 
-#: actions/public.php:131 lib/publicgroupnav.php:79
+#: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "خط زمانی عمومی"
 
-#: actions/public.php:159
+#: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
 msgstr ""
 
-#: actions/public.php:163
+#: actions/public.php:164
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
-#: actions/public.php:167
+#: actions/public.php:168
 msgid "Public Stream Feed (Atom)"
 msgstr ""
 
-#: actions/public.php:187
+#: actions/public.php:188
 #, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
 
-#: actions/public.php:190
+#: actions/public.php:191
 msgid "Be the first to post!"
 msgstr "اولین کسی باشید که پیام می‌فرستد!"
 
-#: actions/public.php:194
+#: actions/public.php:195
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr "چرا [ثبت نام](%%action.register%%) نمی‌کنید و اولین پیام را نمی‌فرستید؟"
 
-#: actions/public.php:241
+#: actions/public.php:242
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2821,7 +2877,7 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 
-#: actions/public.php:246
+#: actions/public.php:247
 #, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
@@ -2994,8 +3050,7 @@ msgstr "با عرض تاسف، کد دعوت نا معتبر است."
 msgid "Registration successful"
 msgstr "ثبت نام با موفقیت انجام شد."
 
-#: actions/register.php:114 actions/register.php:503 lib/action.php:463
-#: lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "ثبت نام"
 
@@ -3034,7 +3089,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:256 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "پست الکترونیکی"
 
@@ -3122,7 +3177,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:368
+#: lib/userprofile.php:394
 msgid "Subscribe"
 msgstr ""
 
@@ -3158,7 +3213,7 @@ msgstr "شما نمی توانید آگهی خودتان را تکرار کنی�
 msgid "You already repeated that notice."
 msgstr "شما قبلا آن آگهی را تکرار کردید."
 
-#: actions/repeat.php:114 lib/noticelist.php:656
+#: actions/repeat.php:114 lib/noticelist.php:674
 msgid "Repeated"
 msgstr ""
 
@@ -3166,47 +3221,47 @@ msgstr ""
 msgid "Repeated!"
 msgstr ""
 
-#: actions/replies.php:125 actions/repliesrss.php:68
+#: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
 msgstr "پاسخ‌های به %s"
 
-#: actions/replies.php:127
+#: actions/replies.php:128
 #, fuzzy, php-format
 msgid "Replies to %1$s, page %2$d"
 msgstr "پاسخ‌های به %s"
 
-#: actions/replies.php:144
+#: actions/replies.php:145
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
 msgstr "خوراک پاسخ‌ها برای %s (RSS 1.0)"
 
-#: actions/replies.php:151
+#: actions/replies.php:152
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
 msgstr "خوراک پاسخ‌ها برای %s (RSS 2.0)"
 
-#: actions/replies.php:158
+#: actions/replies.php:159
 #, php-format
 msgid "Replies feed for %s (Atom)"
 msgstr "خوراک پاسخ‌ها برای %s (Atom)"
 
-#: actions/replies.php:198
+#: actions/replies.php:199
 #, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to his attention yet."
 msgstr "این خط‌زمانی %s و دوستانش است، اما هیچ‌یک تاکنون چیزی پست نکرده‌اند."
 
-#: actions/replies.php:203
+#: actions/replies.php:204
 #, php-format
 msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
 
-#: actions/replies.php:205
+#: actions/replies.php:206
 #, fuzzy, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
@@ -3219,6 +3274,16 @@ msgstr ""
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr ""
+
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "شما نمی توانید کاربری را در این سایت ساکت کنید."
+
+#: actions/revokerole.php:82
+#, fuzzy
+msgid "User doesn't have this role."
+msgstr "کاربر بدون مشخصات"
 
 #: actions/rsd.php:146 actions/version.php:157
 #, fuzzy
@@ -3233,8 +3298,9 @@ msgstr ""
 msgid "User is already sandboxed."
 msgstr ""
 
+#. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:336
+#: lib/adminpanelaction.php:390
 msgid "Sessions"
 msgstr ""
 
@@ -3259,8 +3325,8 @@ msgstr ""
 msgid "Turn on debugging output for sessions."
 msgstr ""
 
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/useradminpanel.php:293
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr ""
 
@@ -3294,8 +3360,8 @@ msgstr "صفحه بندى"
 msgid "Description"
 msgstr ""
 
-#: actions/showapplication.php:192 actions/showgroup.php:429
-#: lib/profileaction.php:174
+#: actions/showapplication.php:192 actions/showgroup.php:438
+#: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "آمار"
 
@@ -3357,35 +3423,35 @@ msgstr "دوست داشتنی های %s"
 msgid "Could not retrieve favorite notices."
 msgstr "ناتوان در بازیابی آگهی های محبوب."
 
-#: actions/showfavorites.php:170
+#: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr ""
 
-#: actions/showfavorites.php:177
+#: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
 msgstr ""
 
-#: actions/showfavorites.php:184
+#: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
 msgstr ""
 
-#: actions/showfavorites.php:205
+#: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
 
-#: actions/showfavorites.php:207
+#: actions/showfavorites.php:208
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
 "they would add to their favorites :)"
 msgstr ""
 
-#: actions/showfavorites.php:211
+#: actions/showfavorites.php:212
 #, php-format
 msgid ""
 "%s hasn't added any notices to his favorites yet. Why not [register an "
@@ -3393,7 +3459,7 @@ msgid ""
 "would add to their favorites :)"
 msgstr ""
 
-#: actions/showfavorites.php:242
+#: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
 msgstr "این یک راه است برای به اشتراک گذاشتن آنچه که دوست دارید."
 
@@ -3407,67 +3473,67 @@ msgstr ""
 msgid "%1$s group, page %2$d"
 msgstr "اعضای گروه %s، صفحهٔ %d"
 
-#: actions/showgroup.php:218
+#: actions/showgroup.php:226
 msgid "Group profile"
 msgstr ""
 
-#: actions/showgroup.php:263 actions/tagother.php:118
+#: actions/showgroup.php:271 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:177
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:274 actions/tagother.php:128
+#: actions/showgroup.php:282 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:194
 msgid "Note"
 msgstr ""
 
-#: actions/showgroup.php:284 lib/groupeditform.php:184
+#: actions/showgroup.php:292 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "نام های مستعار"
 
-#: actions/showgroup.php:293
+#: actions/showgroup.php:301
 msgid "Group actions"
 msgstr ""
 
-#: actions/showgroup.php:328
+#: actions/showgroup.php:337
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr ""
 
-#: actions/showgroup.php:334
+#: actions/showgroup.php:343
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr ""
 
-#: actions/showgroup.php:340
+#: actions/showgroup.php:349
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr ""
 
-#: actions/showgroup.php:345
+#: actions/showgroup.php:354
 #, php-format
 msgid "FOAF for %s group"
 msgstr ""
 
-#: actions/showgroup.php:381 actions/showgroup.php:438 lib/groupnav.php:91
+#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
 msgid "Members"
 msgstr "اعضا"
 
-#: actions/showgroup.php:386 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: actions/showgroup.php:395 lib/profileaction.php:117
+#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "هیچ"
 
-#: actions/showgroup.php:392
+#: actions/showgroup.php:401
 msgid "All members"
 msgstr "همه ی اعضا"
 
-#: actions/showgroup.php:432
+#: actions/showgroup.php:441
 msgid "Created"
 msgstr "ساخته شد"
 
-#: actions/showgroup.php:448
+#: actions/showgroup.php:457
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3477,7 +3543,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:454
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3486,7 +3552,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:482
+#: actions/showgroup.php:491
 msgid "Admins"
 msgstr ""
 
@@ -3600,148 +3666,139 @@ msgid "User is already silenced."
 msgstr "کاربر قبلا ساکت شده است."
 
 #: actions/siteadminpanel.php:69
-msgid "Basic settings for this StatusNet site."
+#, fuzzy
+msgid "Basic settings for this StatusNet site"
 msgstr "تنظیمات پایه ای برای این سایت StatusNet."
 
-#: actions/siteadminpanel.php:132
+#: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr "نام سایت باید طولی غیر صفر داشته باشد."
 
-#: actions/siteadminpanel.php:140
+#: actions/siteadminpanel.php:141
 #, fuzzy
 msgid "You must have a valid contact email address."
 msgstr "شما باید یک آدرس ایمیل قابل قبول برای ارتباط داشته باشید"
 
-#: actions/siteadminpanel.php:158
+#: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:165
-msgid "Invalid snapshot report URL."
-msgstr ""
-
-#: actions/siteadminpanel.php:171
-msgid "Invalid snapshot run value."
-msgstr ""
-
-#: actions/siteadminpanel.php:177
-msgid "Snapshot frequency must be a number."
-msgstr ""
-
-#: actions/siteadminpanel.php:183
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:189
+#: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:239
+#: actions/siteadminpanel.php:221
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:242
+#: actions/siteadminpanel.php:224
 msgid "Site name"
 msgstr "نام وب‌گاه"
 
-#: actions/siteadminpanel.php:243
+#: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "نام وب‌گاه شما، مانند «میکروبلاگ شرکت شما»"
 
-#: actions/siteadminpanel.php:247
+#: actions/siteadminpanel.php:229
 msgid "Brought by"
 msgstr "أورده شده به وسیله ی"
 
-#: actions/siteadminpanel.php:248
+#: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:252
+#: actions/siteadminpanel.php:234
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:253
+#: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:257
+#: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
 msgstr ""
 
-#: actions/siteadminpanel.php:263
+#: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "محلی"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr "منطقه ی زمانی پیش فرض"
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr "منظقه ی زمانی پیش فرض برای سایت؛ معمولا UTC."
 
-#: actions/siteadminpanel.php:281
-msgid "Default site language"
+#: actions/siteadminpanel.php:262
+#, fuzzy
+msgid "Default language"
 msgstr "زبان پیش فرض سایت"
 
-#: actions/siteadminpanel.php:289
-msgid "Snapshots"
+#: actions/siteadminpanel.php:263
+msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
 
-#: actions/siteadminpanel.php:292
-msgid "Randomly during Web hit"
-msgstr ""
-
-#: actions/siteadminpanel.php:293
-msgid "In a scheduled job"
-msgstr ""
-
-#: actions/siteadminpanel.php:295
-msgid "Data snapshots"
-msgstr ""
-
-#: actions/siteadminpanel.php:296
-msgid "When to send statistical data to status.net servers"
-msgstr ""
-
-#: actions/siteadminpanel.php:301
-msgid "Frequency"
-msgstr ""
-
-#: actions/siteadminpanel.php:302
-msgid "Snapshots will be sent once every N web hits"
-msgstr ""
-
-#: actions/siteadminpanel.php:307
-msgid "Report URL"
-msgstr ""
-
-#: actions/siteadminpanel.php:308
-msgid "Snapshots will be sent to this URL"
-msgstr ""
-
-#: actions/siteadminpanel.php:315
+#: actions/siteadminpanel.php:271
 msgid "Limits"
 msgstr "محدودیت ها"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Text limit"
 msgstr "محدودیت متن"
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
 msgstr "بیشینهٔ تعداد حروف برای آگهی‌ها"
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "چه مدت کاربران باید منتظر بمانند ( به ثانیه ) تا همان چیز را مجددا ارسال "
 "کنند."
+
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "خبر سایت"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "پیام جدید"
+
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "نمی‌توان تنظیمات طرح‌تان را ذخیره کرد."
+
+#: actions/sitenoticeadminpanel.php:113
+msgid "Max length for the site-wide notice is 255 chars"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "خبر سایت"
+
+#: actions/sitenoticeadminpanel.php:178
+msgid "Site-wide notice text (255 chars max; HTML okay)"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "خبر سایت"
 
 #: actions/smssettings.php:58
 #, fuzzy
@@ -3838,6 +3895,66 @@ msgstr ""
 #: actions/smssettings.php:498
 msgid "No code entered"
 msgstr "کدی وارد نشد"
+
+#. TRANS: Menu item for site administration
+#: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
+#: lib/adminpanelaction.php:406
+msgid "Snapshots"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "تغییر پیکربندی سایت"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:133
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:200
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:201
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:206
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:208
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:217
+msgid "Frequency"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:218
+msgid "Snapshots will be sent once every N web hits"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:226
+msgid "Report URL"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:227
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "تنظیمات چهره"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -3945,22 +4062,22 @@ msgstr ""
 msgid "SMS"
 msgstr ""
 
-#: actions/tag.php:68
+#: actions/tag.php:69
 #, fuzzy, php-format
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr "کاربران خود برچسب‌گذاری شده با %s - صفحهٔ %d"
 
-#: actions/tag.php:86
+#: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr ""
 
-#: actions/tag.php:92
+#: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr ""
 
-#: actions/tag.php:98
+#: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr ""
@@ -4010,7 +4127,7 @@ msgstr ""
 msgid "No such tag."
 msgstr ""
 
-#: actions/twitapitrends.php:87
+#: actions/twitapitrends.php:85
 msgid "API method under construction."
 msgstr "روش API در دست ساخت."
 
@@ -4034,76 +4151,78 @@ msgstr ""
 msgid "Unsubscribed"
 msgstr ""
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:337
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:58 lib/adminpanelaction.php:321
-#: lib/personalgroupnav.php:115
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+#, fuzzy
+msgctxt "TITLE"
 msgid "User"
 msgstr "کاربر"
 
-#: actions/useradminpanel.php:69
+#: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
 msgstr ""
 
-#: actions/useradminpanel.php:148
+#: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:154
+#: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 
-#: actions/useradminpanel.php:164
+#: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
-#: actions/useradminpanel.php:217 lib/accountsettingsaction.php:108
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr ""
 
-#: actions/useradminpanel.php:221
+#: actions/useradminpanel.php:222
 msgid "Bio Limit"
 msgstr ""
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
 msgstr "حداکثر طول یک زندگی نامه(در پروفایل) بر حسب کاراکتر."
 
-#: actions/useradminpanel.php:230
+#: actions/useradminpanel.php:231
 msgid "New users"
 msgstr ""
 
-#: actions/useradminpanel.php:234
+#: actions/useradminpanel.php:235
 msgid "New user welcome"
 msgstr "خوشامدگویی کاربر جدید"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "پیام خوشامدگویی برای کاربران جدید( حداکثر 255 کاراکتر)"
 
-#: actions/useradminpanel.php:240
+#: actions/useradminpanel.php:241
 msgid "Default subscription"
 msgstr ""
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
 msgstr ""
 
-#: actions/useradminpanel.php:250
+#: actions/useradminpanel.php:251
 msgid "Invitations"
 msgstr "دعوت نامه ها"
 
-#: actions/useradminpanel.php:255
+#: actions/useradminpanel.php:256
 msgid "Invitations enabled"
 msgstr "دعوت نامه ها فعال شدند"
 
-#: actions/useradminpanel.php:257
+#: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
 msgstr "خواه به کاربران اجازه ی دعوت کردن کاربران جدید داده شود."
 
@@ -4223,15 +4342,21 @@ msgstr "اعضای گروه %s، صفحهٔ %d"
 msgid "Search for more groups"
 msgstr "جستجو برای گروه های بیشتر"
 
-#: actions/usergroups.php:153
+#: actions/usergroups.php:157
 #, php-format
 msgid "%s is not a member of any group."
 msgstr ""
 
-#: actions/usergroups.php:158
+#: actions/usergroups.php:162
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
+
+#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
+#: lib/atomusernoticefeed.php:72
+#, php-format
+msgid "Updates from %1$s on %2$s!"
+msgstr "به روز رسانی‌های %1$s در %2$s"
 
 #: actions/version.php:73
 #, fuzzy, php-format
@@ -4276,7 +4401,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:747
+#: actions/version.php:196 lib/action.php:767
 #, fuzzy
 msgid "Version"
 msgstr "شخصی"
@@ -4316,6 +4441,11 @@ msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
 msgid "Group leave failed."
 msgstr ""
 
+#: classes/Local_group.php:41
+#, fuzzy
+msgid "Could not update local group."
+msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
+
 #: classes/Login_token.php:76
 #, fuzzy, php-format
 msgid "Could not create login token for %s"
@@ -4333,27 +4463,27 @@ msgstr "پیغام نمی تواند درج گردد"
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:157
+#: classes/Notice.php:172
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:222
+#: classes/Notice.php:241
 msgid "Problem saving notice. Too long."
 msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
 
-#: classes/Notice.php:226
+#: classes/Notice.php:245
 msgid "Problem saving notice. Unknown user."
 msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
 
-#: classes/Notice.php:231
+#: classes/Notice.php:250
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "تعداد خیلی زیاد آگهی و بسیار سریع؛ استراحت کنید و مجددا دقایقی دیگر ارسال "
 "کنید."
 
-#: classes/Notice.php:237
+#: classes/Notice.php:256
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4361,20 +4491,20 @@ msgstr ""
 "تعداد زیاد پیام های دو نسخه ای و بسرعت؛ استراحت کنید و دقایقی دیگر مجددا "
 "ارسال کنید."
 
-#: classes/Notice.php:243
+#: classes/Notice.php:262
 msgid "You are banned from posting notices on this site."
 msgstr "شما از فرستادن پست در این سایت مردود شدید ."
 
-#: classes/Notice.php:309 classes/Notice.php:335
+#: classes/Notice.php:328 classes/Notice.php:354
 msgid "Problem saving notice."
 msgstr "مشکل در ذخیره کردن آگهی."
 
-#: classes/Notice.php:882
+#: classes/Notice.php:927
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "مشکل در ذخیره کردن آگهی."
 
-#: classes/Notice.php:1407
+#: classes/Notice.php:1459
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4399,22 +4529,37 @@ msgstr "تایید نشده!"
 msgid "Couldn't delete self-subscription."
 msgstr ""
 
-#: classes/Subscription.php:179 lib/subs.php:69
+#: classes/Subscription.php:190
+#, fuzzy
+msgid "Couldn't delete subscription OMB token."
+msgstr "نمی‌توان تصدیق پست الکترونیک را پاک کرد."
+
+#: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
 msgstr ""
 
-#: classes/User.php:372
+#: classes/User.php:373
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "خوش امدید به %1$s , @%2$s!"
 
-#: classes/User_group.php:423
+#: classes/User_group.php:477
 msgid "Could not create group."
 msgstr "نمیتوان گروه را تشکیل داد"
 
-#: classes/User_group.php:452
+#: classes/User_group.php:486
+#, fuzzy
+msgid "Could not set group URI."
+msgstr "نمیتوان گروه را تشکیل داد"
+
+#: classes/User_group.php:507
 msgid "Could not set group membership."
 msgstr ""
+
+#: classes/User_group.php:521
+#, fuzzy
+msgid "Could not save local group info."
+msgstr "نمی‌توان شناس‌نامه را ذخیره کرد."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4453,136 +4598,198 @@ msgstr "%s گروه %s را ترک کرد."
 msgid "Untitled page"
 msgstr "صفحه ی بدون عنوان"
 
-#: lib/action.php:433
+#: lib/action.php:424
 msgid "Primary site navigation"
 msgstr ""
 
-#: lib/action.php:439
-msgid "Home"
-msgstr "خانه"
-
-#: lib/action.php:439
+#. TRANS: Tooltip for main menu option "Personal"
+#: lib/action.php:430
+msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:441
+#: lib/action.php:433
+#, fuzzy
+msgctxt "MENU"
+msgid "Personal"
+msgstr "شخصی"
+
+#. TRANS: Tooltip for main menu option "Account"
+#: lib/action.php:435
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "آدرس ایمیل، آواتار، کلمه ی عبور، پروفایل خود را تغییر دهید"
 
-#: lib/action.php:444
-msgid "Connect"
-msgstr "وصل‌شدن"
-
-#: lib/action.php:444
+#. TRANS: Tooltip for main menu option "Services"
+#: lib/action.php:440
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "متصل شدن به خدمات"
 
-#: lib/action.php:448
+#: lib/action.php:443
+msgid "Connect"
+msgstr "وصل‌شدن"
+
+#. TRANS: Tooltip for menu option "Admin"
+#: lib/action.php:446
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "تغییر پیکربندی سایت"
 
-#: lib/action.php:452 lib/subgroupnav.php:105
-msgid "Invite"
-msgstr "دعوت‌کردن"
+#: lib/action.php:449
+#, fuzzy
+msgctxt "MENU"
+msgid "Admin"
+msgstr "مدیر"
 
-#: lib/action.php:453 lib/subgroupnav.php:106
-#, php-format
+#. TRANS: Tooltip for main menu option "Invite"
+#: lib/action.php:453
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr " به شما ملحق شوند  %s دوستان و همکاران را دعوت کنید تا در"
 
-#: lib/action.php:458
-msgid "Logout"
-msgstr "خروج"
+#: lib/action.php:456
+#, fuzzy
+msgctxt "MENU"
+msgid "Invite"
+msgstr "دعوت‌کردن"
 
-#: lib/action.php:458
+#. TRANS: Tooltip for main menu option "Logout"
+#: lib/action.php:462
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "خارج شدن از سایت ."
 
-#: lib/action.php:463
+#: lib/action.php:465
+#, fuzzy
+msgctxt "MENU"
+msgid "Logout"
+msgstr "خروج"
+
+#. TRANS: Tooltip for main menu option "Register"
+#: lib/action.php:470
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "یک حساب کاربری بسازید"
 
-#: lib/action.php:466
+#: lib/action.php:473
+#, fuzzy
+msgctxt "MENU"
+msgid "Register"
+msgstr "ثبت نام"
+
+#. TRANS: Tooltip for main menu option "Login"
+#: lib/action.php:476
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "ورود به وب‌گاه"
 
-#: lib/action.php:469 lib/action.php:732
-msgid "Help"
-msgstr "کمک"
+#: lib/action.php:479
+#, fuzzy
+msgctxt "MENU"
+msgid "Login"
+msgstr "ورود"
 
-#: lib/action.php:469
+#. TRANS: Tooltip for main menu option "Help"
+#: lib/action.php:482
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "به من کمک کنید!"
 
-#: lib/action.php:472 lib/searchaction.php:127
-msgid "Search"
-msgstr "جست‌وجو"
+#: lib/action.php:485
+#, fuzzy
+msgctxt "MENU"
+msgid "Help"
+msgstr "کمک"
 
-#: lib/action.php:472
+#. TRANS: Tooltip for main menu option "Search"
+#: lib/action.php:488
+#, fuzzy
+msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "جستجو برای شخص با متن"
 
-#: lib/action.php:493
+#: lib/action.php:491
+#, fuzzy
+msgctxt "MENU"
+msgid "Search"
+msgstr "جست‌وجو"
+
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#. TRANS: Menu item for site administration
+#: lib/action.php:513 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "خبر سایت"
 
-#: lib/action.php:559
+#: lib/action.php:579
 msgid "Local views"
 msgstr "دید محلی"
 
-#: lib/action.php:625
+#: lib/action.php:645
 msgid "Page notice"
 msgstr "خبر صفحه"
 
-#: lib/action.php:727
+#: lib/action.php:747
 msgid "Secondary site navigation"
 msgstr ""
 
-#: lib/action.php:734
+#: lib/action.php:752
+msgid "Help"
+msgstr "کمک"
+
+#: lib/action.php:754
 msgid "About"
 msgstr "دربارهٔ"
 
-#: lib/action.php:736
+#: lib/action.php:756
 msgid "FAQ"
 msgstr "سوال‌های رایج"
 
-#: lib/action.php:740
+#: lib/action.php:760
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:743
+#: lib/action.php:763
 msgid "Privacy"
 msgstr "خصوصی"
 
-#: lib/action.php:745
+#: lib/action.php:765
 msgid "Source"
 msgstr "منبع"
 
-#: lib/action.php:749
+#: lib/action.php:769
 msgid "Contact"
 msgstr "تماس"
 
-#: lib/action.php:751
+#: lib/action.php:771
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:779
+#: lib/action.php:799
 msgid "StatusNet software license"
 msgstr "StatusNet مجوز نرم افزار"
 
-#: lib/action.php:782
+#: lib/action.php:802
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
 
-#: lib/action.php:784
+#: lib/action.php:804
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr ""
 
-#: lib/action.php:786
+#: lib/action.php:806
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4590,109 +4797,151 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:801
+#: lib/action.php:821
 msgid "Site content license"
 msgstr "مجوز محتویات سایت"
 
-#: lib/action.php:806
+#: lib/action.php:826
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:811
+#: lib/action.php:831
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:814
+#: lib/action.php:834
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:827
+#: lib/action.php:847
 msgid "All "
 msgstr "همه "
 
-#: lib/action.php:833
+#: lib/action.php:853
 msgid "license."
 msgstr "مجوز."
 
-#: lib/action.php:1132
+#: lib/action.php:1152
 msgid "Pagination"
 msgstr "صفحه بندى"
 
-#: lib/action.php:1141
+#: lib/action.php:1161
 msgid "After"
 msgstr "بعد از"
 
-#: lib/action.php:1149
+#: lib/action.php:1169
 msgid "Before"
 msgstr "قبل از"
 
-#: lib/activity.php:382
+#: lib/activity.php:453
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:410
+#: lib/activity.php:481
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:414
+#: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
-#: lib/adminpanelaction.php:96
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
 msgstr "شما نمی توانید در این سایت تغیری ایجاد کنید"
 
-#: lib/adminpanelaction.php:107
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:110
 #, fuzzy
 msgid "Changes to that panel are not allowed."
 msgstr "اجازه‌ی ثبت نام داده نشده است."
 
-#: lib/adminpanelaction.php:206
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:235
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
 msgstr ""
 
-#: lib/adminpanelaction.php:258
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:283
 msgid "Unable to delete design setting."
 msgstr "نمی توان تنظیمات طراحی شده را پاک کرد ."
 
-#: lib/adminpanelaction.php:312
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:348
 msgid "Basic site configuration"
 msgstr "پیکره بندی اصلی سایت"
 
-#: lib/adminpanelaction.php:317
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:350
+#, fuzzy
+msgctxt "MENU"
+msgid "Site"
+msgstr "سایت"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:356
 msgid "Design configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:322
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:358
+#, fuzzy
+msgctxt "MENU"
+msgid "Design"
+msgstr "طرح"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:364
 #, fuzzy
 msgid "User configuration"
 msgstr "پیکره بندی اصلی سایت"
 
-#: lib/adminpanelaction.php:327
+#. TRANS: Menu item for site administration
+#: lib/adminpanelaction.php:366 lib/personalgroupnav.php:115
+msgid "User"
+msgstr "کاربر"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:372
 #, fuzzy
 msgid "Access configuration"
 msgstr "پیکره بندی اصلی سایت"
 
-#: lib/adminpanelaction.php:332
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:380
 msgid "Paths configuration"
 msgstr ""
 
-#: lib/adminpanelaction.php:337
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:388
 #, fuzzy
 msgid "Sessions configuration"
 msgstr "پیکره بندی اصلی سایت"
 
-#: lib/apiauth.php:95
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:396
+#, fuzzy
+msgid "Edit site notice"
+msgstr "خبر سایت"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:404
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "پیکره بندی اصلی سایت"
+
+#: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:273
+#: lib/apiauth.php:272
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -4784,12 +5033,12 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:218 lib/authenticationplugin.php:223
+#: lib/authenticationplugin.php:220 lib/authenticationplugin.php:225
 #, fuzzy
 msgid "Password changing failed"
 msgstr "تغییر گذرواژه"
 
-#: lib/authenticationplugin.php:233
+#: lib/authenticationplugin.php:235
 #, fuzzy
 msgid "Password changing is not allowed"
 msgstr "تغییر گذرواژه"
@@ -4877,12 +5126,12 @@ msgstr "%s گروه %s را ترک کرد."
 msgid "Fullname: %s"
 msgstr "نام کامل : %s"
 
-#: lib/command.php:312 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
 msgstr "موقعیت : %s"
 
-#: lib/command.php:315 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
 msgstr "صفحه خانگی : %s"
@@ -5067,19 +5316,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:148
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:137
+#: lib/common.php:149
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:151
 msgid "You may wish to run the installer to fix this."
 msgstr "شما ممکن است بخواهید نصاب را اجرا کنید تا این را تعمیر کند."
 
-#: lib/common.php:140
+#: lib/common.php:152
 msgid "Go to the installer."
 msgstr "برو به نصاب."
 
@@ -5177,6 +5426,11 @@ msgstr ""
 msgid "Go"
 msgstr "برو"
 
+#: lib/grantroleform.php:91
+#, php-format
+msgid "Grant this user the \"%s\" role"
+msgstr ""
+
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
 msgstr ""
@@ -5267,23 +5521,23 @@ msgstr "خطای سیستم ارسال فایل."
 msgid "Not an image or corrupt file."
 msgstr "تصویر یا فایل خرابی نیست"
 
-#: lib/imagefile.php:105
+#: lib/imagefile.php:109
 msgid "Unsupported image file format."
 msgstr "فرمت(فایل) عکس پشتیبانی نشده."
 
-#: lib/imagefile.php:118
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "فایلمان گم شده"
 
-#: lib/imagefile.php:150 lib/imagefile.php:197
+#: lib/imagefile.php:166 lib/imagefile.php:231
 msgid "Unknown file type"
 msgstr "نوع فایل پشتیبانی نشده"
 
-#: lib/imagefile.php:217
+#: lib/imagefile.php:251
 msgid "MB"
 msgstr "مگابایت"
 
-#: lib/imagefile.php:219
+#: lib/imagefile.php:253
 msgid "kB"
 msgstr "کیلوبایت"
 
@@ -5313,11 +5567,11 @@ msgstr "وارد شدن با یک نام کاربری و کلمه ی عبور"
 msgid "Sign up for a new account"
 msgstr "عضویت برای حساب کاربری جدید"
 
-#: lib/mail.php:172
+#: lib/mail.php:173
 msgid "Email address confirmation"
 msgstr "تاییدیه ی آدرس ایمیل"
 
-#: lib/mail.php:174
+#: lib/mail.php:175
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5334,12 +5588,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:236
+#: lib/mail.php:240
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%2$s از حالا به خبر های شما گوش میده  %1$s"
 
-#: lib/mail.php:241
+#: lib/mail.php:245
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5354,17 +5608,17 @@ msgid ""
 "Change your email address or notification options at %8$s\n"
 msgstr ""
 
-#: lib/mail.php:258
+#: lib/mail.php:262
 #, fuzzy, php-format
 msgid "Bio: %s"
 msgstr "موقعیت : %s"
 
-#: lib/mail.php:286
+#: lib/mail.php:290
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "%s ادرس ایمیل جدید برای"
 
-#: lib/mail.php:289
+#: lib/mail.php:293
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5383,21 +5637,21 @@ msgstr ""
 ", ازروی وفاداری خود شما \n"
 "%4$s"
 
-#: lib/mail.php:413
+#: lib/mail.php:417
 #, php-format
 msgid "%s status"
 msgstr "وضعیت %s"
 
-#: lib/mail.php:439
+#: lib/mail.php:443
 msgid "SMS confirmation"
 msgstr "تایید پیامک"
 
-#: lib/mail.php:463
+#: lib/mail.php:467
 #, php-format
 msgid "You've been nudged by %s"
 msgstr ""
 
-#: lib/mail.php:467
+#: lib/mail.php:471
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5413,12 +5667,12 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:510
+#: lib/mail.php:517
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:514
+#: lib/mail.php:521
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5437,12 +5691,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:559
+#: lib/mail.php:568
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr " خبر شما را به علایق خود اضافه کرد %s (@%s)"
 
-#: lib/mail.php:561
+#: lib/mail.php:570
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -5463,12 +5717,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:624
+#: lib/mail.php:635
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr "به توجه شما یک خبر فرستاده شده %s (@%s)"
 
-#: lib/mail.php:626
+#: lib/mail.php:637
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -5584,6 +5838,12 @@ msgstr "به"
 msgid "Available characters"
 msgstr "کاراکترهای موجود"
 
+#: lib/messageform.php:178 lib/noticeform.php:236
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "فرستادن"
+
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "یک آگهی بفرستید"
@@ -5642,23 +5902,23 @@ msgstr ""
 msgid "at"
 msgstr "در"
 
-#: lib/noticelist.php:558
+#: lib/noticelist.php:566
 msgid "in context"
 msgstr "در زمینه"
 
-#: lib/noticelist.php:583
+#: lib/noticelist.php:601
 msgid "Repeated by"
 msgstr "تکرار از"
 
-#: lib/noticelist.php:610
+#: lib/noticelist.php:628
 msgid "Reply to this notice"
 msgstr "به این آگهی جواب دهید"
 
-#: lib/noticelist.php:611
+#: lib/noticelist.php:629
 msgid "Reply"
 msgstr "جواب دادن"
 
-#: lib/noticelist.php:655
+#: lib/noticelist.php:673
 msgid "Notice repeated"
 msgstr "آگهی تکرار شد"
 
@@ -5731,7 +5991,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "اشتراک‌ها"
 
@@ -5739,23 +5999,23 @@ msgstr "اشتراک‌ها"
 msgid "All subscriptions"
 msgstr "تمام اشتراک‌ها"
 
-#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "مشترک‌ها"
 
-#: lib/profileaction.php:157
+#: lib/profileaction.php:159
 msgid "All subscribers"
 msgstr "تمام مشترک‌ها"
 
-#: lib/profileaction.php:178
+#: lib/profileaction.php:180
 msgid "User ID"
 msgstr "شناسه کاربر"
 
-#: lib/profileaction.php:183
+#: lib/profileaction.php:185
 msgid "Member since"
 msgstr "عضو شده از"
 
-#: lib/profileaction.php:245
+#: lib/profileaction.php:247
 msgid "All groups"
 msgstr "تمام گروه‌ها"
 
@@ -5796,7 +6056,12 @@ msgstr "به این آگهی جواب دهید"
 msgid "Repeat this notice"
 msgstr ""
 
-#: lib/router.php:665
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "دسترسی کاربر را به گروه مسدود کن"
+
+#: lib/router.php:671
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -5815,6 +6080,10 @@ msgstr "جست‌وجوی وب‌گاه"
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
 msgstr "کلمه(های) کلیدی"
+
+#: lib/searchaction.php:127
+msgid "Search"
+msgstr "جست‌وجو"
 
 #: lib/searchaction.php:162
 msgid "Search help"
@@ -5866,6 +6135,15 @@ msgstr ""
 #, php-format
 msgid "Groups %s is a member of"
 msgstr "هست عضو %s گروه"
+
+#: lib/subgroupnav.php:105
+msgid "Invite"
+msgstr "دعوت‌کردن"
+
+#: lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr " به شما ملحق شوند  %s دوستان و همکاران را دعوت کنید تا در"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -5937,47 +6215,62 @@ msgstr "پیام"
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:952
+#: lib/userprofile.php:352
+#, fuzzy
+msgid "User role"
+msgstr "پروفایل کاربر"
+
+#: lib/userprofile.php:354
+msgctxt "role"
+msgid "Administrator"
+msgstr ""
+
+#: lib/userprofile.php:355
+msgctxt "role"
+msgid "Moderator"
+msgstr ""
+
+#: lib/util.php:1015
 msgid "a few seconds ago"
 msgstr "چند ثانیه پیش"
 
-#: lib/util.php:954
+#: lib/util.php:1017
 msgid "about a minute ago"
 msgstr "حدود یک دقیقه پیش"
 
-#: lib/util.php:956
+#: lib/util.php:1019
 #, php-format
 msgid "about %d minutes ago"
 msgstr "حدود %d دقیقه پیش"
 
-#: lib/util.php:958
+#: lib/util.php:1021
 msgid "about an hour ago"
 msgstr "حدود یک ساعت پیش"
 
-#: lib/util.php:960
+#: lib/util.php:1023
 #, php-format
 msgid "about %d hours ago"
 msgstr "حدود %d ساعت پیش"
 
-#: lib/util.php:962
+#: lib/util.php:1025
 msgid "about a day ago"
 msgstr "حدود یک روز پیش"
 
-#: lib/util.php:964
+#: lib/util.php:1027
 #, php-format
 msgid "about %d days ago"
 msgstr "حدود %d روز پیش"
 
-#: lib/util.php:966
+#: lib/util.php:1029
 msgid "about a month ago"
 msgstr "حدود یک ماه پیش"
 
-#: lib/util.php:968
+#: lib/util.php:1031
 #, php-format
 msgid "about %d months ago"
 msgstr "حدود %d ماه پیش"
 
-#: lib/util.php:970
+#: lib/util.php:1033
 msgid "about a year ago"
 msgstr "حدود یک سال پیش"
 

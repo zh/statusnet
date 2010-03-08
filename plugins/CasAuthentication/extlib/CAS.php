@@ -14,7 +14,7 @@ if (!$_SERVER['REQUEST_URI']) {
 // another one by Vangelis Haniotakis also to make phpCAS work with PHP5
 //
 if (version_compare(PHP_VERSION,'5','>=')) {
-	require_once(dirname(__FILE__).'/CAS/domxml-php4-php5.php');
+	require_once(dirname(__FILE__).'/CAS/domxml-php4-to-php5.php');
 }
 
 /**
@@ -35,7 +35,7 @@ if (version_compare(PHP_VERSION,'5','>=')) {
 /**
  * phpCAS version. accessible for the user by phpCAS::getVersion().
  */
-define('PHPCAS_VERSION','1.0.1');
+define('PHPCAS_VERSION','1.1.0RC6');
 
 // ------------------------------------------------------------------------
 //  CAS VERSIONS
@@ -53,6 +53,63 @@ define("CAS_VERSION_1_0",'1.0');
  * CAS version 2.0
  */
 define("CAS_VERSION_2_0",'2.0');
+
+// ------------------------------------------------------------------------
+//  SAML defines
+// ------------------------------------------------------------------------
+
+/**
+ * SAML protocol
+ */
+define("SAML_VERSION_1_1", 'S1');
+
+/**
+ * XML header for SAML POST
+ */
+define("SAML_XML_HEADER", '<?xml version="1.0" encoding="UTF-8"?>');
+
+/**
+ * SOAP envelope for SAML POST
+ */
+define ("SAML_SOAP_ENV", '<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/>');
+
+/**
+ * SOAP body for SAML POST
+ */
+define ("SAML_SOAP_BODY", '<SOAP-ENV:Body>');
+
+/**
+ * SAMLP request
+ */
+define ("SAMLP_REQUEST", '<samlp:Request xmlns:samlp="urn:oasis:names:tc:SAML:1.0:protocol"  MajorVersion="1" MinorVersion="1" RequestID="_192.168.16.51.1024506224022" IssueInstant="2002-06-19T17:03:44.022Z">');
+define ("SAMLP_REQUEST_CLOSE", '</samlp:Request>');
+
+/**
+ * SAMLP artifact tag (for the ticket)
+ */
+define ("SAML_ASSERTION_ARTIFACT", '<samlp:AssertionArtifact>');
+
+/**
+ * SAMLP close
+ */
+define ("SAML_ASSERTION_ARTIFACT_CLOSE", '</samlp:AssertionArtifact>');
+
+/**
+ * SOAP body close
+ */
+define ("SAML_SOAP_BODY_CLOSE", '</SOAP-ENV:Body>');
+
+/**
+ * SOAP envelope close
+ */
+define ("SAML_SOAP_ENV_CLOSE", '</SOAP-ENV:Envelope>');
+
+/**
+ * SAML Attributes
+ */
+define("SAML_ATTRIBUTES", 'SAMLATTRIBS');
+
+
 
 /** @} */
  /**
@@ -304,7 +361,7 @@ class phpCAS
 			phpCAS::error('type mismatched for parameter $server_uri (should be `string\')');
 		}
 		
-		// store where the initialzer is called from
+		// store where the initializer is called from
 		$dbg = phpCAS::backtrace();
 		$PHPCAS_INIT_CALL = array('done' => TRUE,
 			'file' => $dbg[0]['file'],
@@ -739,7 +796,7 @@ class phpCAS
 		if ( gettype($table) != 'string' ) {
 			phpCAS::error('type mismatched for parameter $table (should be `string\')');
 		}
-		$PHPCAS_CLIENT->setPGTStorageDB($this,$user,$password,$hostname,$port,$database,$table);
+		$PHPCAS_CLIENT->setPGTStorageDB($user,$password,$database_type,$hostname,$port,$database,$table);
 		phpCAS::traceEnd();
 		}
 	
@@ -797,6 +854,7 @@ class phpCAS
 	 * 
 	 * @param $url a string giving the URL of the service, including the mailing box
 	 * for IMAP URLs, as accepted by imap_open().
+	 * @param $service a string giving for CAS retrieve Proxy ticket
 	 * @param $flags options given to imap_open().
 	 * @param $err_code an error code Possible values are PHPCAS_SERVICE_OK (on
 	 * success), PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE, PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE,
@@ -808,7 +866,7 @@ class phpCAS
 	 * @return an IMAP stream on success, FALSE otherwise (in this later case, $err_code
 	 * gives the reason why it failed and $err_msg contains an error message).
 	 */
-	function serviceMail($url,$flags,&$err_code,&$err_msg,&$pt)
+	function serviceMail($url,$service,$flags,&$err_code,&$err_msg,&$pt)
 		{
 		global $PHPCAS_CLIENT, $PHPCAS_AUTH_CHECK_CALL;
 		
@@ -833,7 +891,7 @@ class phpCAS
 			phpCAS::error('type mismatched for parameter $flags (should be `integer\')');
 		}
 		
-		$res = $PHPCAS_CLIENT->serviceMail($url,$flags,$err_code,$err_msg,$pt);
+		$res = $PHPCAS_CLIENT->serviceMail($url,$service,$flags,$err_code,$err_msg,$pt);
 		
 		phpCAS::traceEnd($res);
 		return $res;
@@ -893,7 +951,7 @@ class phpCAS
 		phpCAS::traceEnd($auth);
 		return $auth; 
 		}
-	
+
 	/**
 	 * This method is called to force authentication if the user was not already 
 	 * authenticated. If the user is not authenticated, halt by redirecting to 
@@ -1022,6 +1080,27 @@ class phpCAS
 		return $PHPCAS_CLIENT->getUser();
 		}
 	
+	/**
+	 * This method returns the CAS user's login name.
+	 * @warning should not be called only after phpCAS::forceAuthentication()
+	 * or phpCAS::checkAuthentication().
+	 *
+	 * @return the login name of the authenticated user
+	 */
+	function getAttributes()
+		{
+		global $PHPCAS_CLIENT, $PHPCAS_AUTH_CHECK_CALL;
+		if ( !is_object($PHPCAS_CLIENT) ) {
+			phpCAS::error('this method should not be called before '.__CLASS__.'::client() or '.__CLASS__.'::proxy()');
+		}
+		if ( !$PHPCAS_AUTH_CHECK_CALL['done'] ) {
+			phpCAS::error('this method should only be called after '.__CLASS__.'::forceAuthentication() or '.__CLASS__.'::isAuthenticated()');
+		}
+		if ( !$PHPCAS_AUTH_CHECK_CALL['result'] ) {
+			phpCAS::error('authentication was checked (by '.$PHPCAS_AUTH_CHECK_CALL['method'].'() at '.$PHPCAS_AUTH_CHECK_CALL['file'].':'.$PHPCAS_AUTH_CHECK_CALL['line'].') but the method returned FALSE');
+		}
+		return $PHPCAS_CLIENT->getAttributes();
+		}
     /**
      * Handle logout requests.
      */
@@ -1069,6 +1148,71 @@ class phpCAS
 		$PHPCAS_CLIENT->setServerLoginURL($url);
 		phpCAS::traceEnd();
 		}
+		
+		
+	/**
+	 * Set the serviceValidate URL of the CAS server.
+	 * @param $url the serviceValidate URL
+	 * @since 1.1.0 by Joachim Fritschi
+	 */
+	function setServerServiceValidateURL($url='')
+		{
+		global $PHPCAS_CLIENT;
+		phpCAS::traceBegin();
+		if ( !is_object($PHPCAS_CLIENT) ) {
+			phpCAS::error('this method should only be called after
+				'.__CLASS__.'::client()');
+		}
+		if ( gettype($url) != 'string' ) {
+			phpCAS::error('type mismatched for parameter $url (should be
+			`string\')');
+		}
+		$PHPCAS_CLIENT->setServerServiceValidateURL($url);
+		phpCAS::traceEnd();
+		}
+		
+		
+	 /**
+	 * Set the proxyValidate URL of the CAS server.
+	 * @param $url the proxyValidate URL
+	 * @since 1.1.0 by Joachim Fritschi
+	 */
+	function setServerProxyValidateURL($url='')
+		{
+		global $PHPCAS_CLIENT;
+		phpCAS::traceBegin();
+		if ( !is_object($PHPCAS_CLIENT) ) {
+			phpCAS::error('this method should only be called after
+				'.__CLASS__.'::client()');
+		}
+		if ( gettype($url) != 'string' ) {
+			phpCAS::error('type mismatched for parameter $url (should be
+			`string\')');
+		}
+		$PHPCAS_CLIENT->setServerProxyValidateURL($url);
+		phpCAS::traceEnd();
+		}
+		
+     /**
+	 * Set the samlValidate URL of the CAS server.
+	 * @param $url the samlValidate URL
+	 * @since 1.1.0 by Joachim Fritschi
+	 */
+	function setServerSamlValidateURL($url='')
+		{
+		global $PHPCAS_CLIENT;
+		phpCAS::traceBegin();
+		if ( !is_object($PHPCAS_CLIENT) ) {
+			phpCAS::error('this method should only be called after
+				'.__CLASS__.'::client()');
+		}
+		if ( gettype($url) != 'string' ) {
+			phpCAS::error('type mismatched for parameter $url (should be
+			`string\')');
+		}
+		$PHPCAS_CLIENT->setServerSamlValidateURL($url);
+		phpCAS::traceEnd();
+		}			
 	
 	/**
 	 * This method returns the URL to be used to login.

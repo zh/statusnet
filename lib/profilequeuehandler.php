@@ -39,7 +39,11 @@ class ProfileQueueHandler extends QueueHandler
 
         if (Event::handle('StartBroadcastProfile', array($profile))) {
             require_once(INSTALLDIR.'/lib/omb.php');
-            omb_broadcast_profile($profile);
+            try {
+                omb_broadcast_profile($profile);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, "Failed sending OMB profiles: " . $e->getMessage());
+            }
         }
         Event::handle('EndBroadcastProfile', array($profile));
         return true;

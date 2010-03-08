@@ -112,21 +112,17 @@ class ApiTimelineUserAction extends ApiBareAuthAction
     function showTimeline()
     {
         $profile = $this->user->getProfile();
-        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s timeline"), $this->user->nickname);
-        $taguribase = TagURI::base();
-        $id         = "tag:$taguribase:UserTimeline:" . $this->user->id;
+        // We'll use the shared params from the Atom stub
+        // for other feed types.
+        $atom = new AtomUserNoticeFeed($this->user);
+        $title      = $atom->title;
         $link       = common_local_url(
             'showstream',
             array('nickname' => $this->user->nickname)
         );
-        $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->user->nickname, $sitename
-        );
-        $logo = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        $subtitle = $atom->subtitle;
+        $logo = $atom->logo;
 
         // FriendFeed's SUP protocol
         // Also added RSS and Atom feeds
@@ -148,56 +144,18 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            // If this was called using an integer ID, i.e.: using the canonical
-            // URL for this user's feed, then pass the User object into the feed,
-            // so the OStatus plugin, and possibly other plugins, can access it.
-            // Feels sorta hacky. -- Z
-
-            $atom = null;
-            $id = $this->arg('id');
-
-            if (strval(intval($id)) === strval($id)) {
-                $atom = new AtomUserNoticeFeed($this->user);
-            } else {
-                $atom = new AtomUserNoticeFeed();
-            }
-
-            $atom->setId($id);
-            $atom->setTitle($title);
-            $atom->setSubtitle($subtitle);
-            $atom->setLogo($logo);
-            $atom->setUpdated('now');
-
-            $atom->addLink(
-                common_local_url(
-                    'showstream',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
             $id = $this->arg('id');
             $aargs = array('format' => 'atom');
             if (!empty($id)) {
                 $aargs['id'] = $id;
             }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineUser', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
-
-            $atom->addLink(
-                $suplink,
-                array(
-                    'rel' => 'http://api.friendfeed.com/2008/03#sup',
-                    'type' => 'application/json'
-                )
-            );
+            $self = $this->getSelfUri('ApiTimelineUser', $aargs);
+            $atom->setId($self);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
 
-            #$this->raw($atom->getString());
-            print $atom->getString(); // temporary for output buffering
+            $this->raw($atom->getString());
 
             break;
         case 'json':
@@ -222,7 +180,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         $notice = $this->user->getNotices(
             ($this->page-1) * $this->count, $this->count,
-            $this->since_id, $this->max_id, $this->since
+            $this->since_id, $this->max_id
         );
 
         while ($notice->fetch()) {

@@ -49,10 +49,20 @@ class Fake_XMPP extends XMPPHP_XMPP
 	 */
 	public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null)
 	{
-		parent::__construct($host, $port, $user, $password, $resource, $server, $printlog, $loglevel);
-		// Normally the fulljid isn't filled out until resource binding time;
-		// we need to save it here since we're not talking to a real server.
-		$this->fulljid = "{$this->basejid}/{$this->resource}";
+        parent::__construct($host, $port, $user, $password, $resource, $server, $printlog, $loglevel);
+
+        // We use $host to connect, but $server to build JIDs if specified.
+        // This seems to fix an upstream bug where $host was used to build
+        // $this->basejid, never seen since it isn't actually used in the base
+        // classes.
+        if (!$server) {
+            $server = $this->host;
+        }
+        $this->basejid = $this->user . '@' . $server;
+
+        // Normally the fulljid is filled out by the server at resource binding
+        // time, but we need to do it since we're not talking to a real server.
+        $this->fulljid = "{$this->basejid}/{$this->resource}";
     }
 
     /**

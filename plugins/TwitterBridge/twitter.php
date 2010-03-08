@@ -273,7 +273,7 @@ function remove_twitter_link($flink)
     common_log(LOG_INFO, 'Removing Twitter bridge Foreign link for ' .
                "user $user->nickname (user id: $user->id).");
 
-    $result = $flink->delete();
+    $result = $flink->safeDelete();
 
     if (empty($result)) {
         common_log(LOG_ERR, 'Could not remove Twitter bridge ' .

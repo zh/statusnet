@@ -105,11 +105,13 @@ function common_language()
 
     // Otherwise, find the best match for the languages requested by the
     // user's browser...
-    $httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
-    if (!empty($httplang)) {
-        $language = client_prefered_language($httplang);
-        if ($language)
-          return $language;
+    if (common_config('site', 'langdetect')) {
+        $httplang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? $_SERVER['HTTP_ACCEPT_LANGUAGE'] : null;
+        if (!empty($httplang)) {
+            $language = client_prefered_language($httplang);
+            if ($language)
+              return $language;
+        }
     }
 
     // Finally, if none of the above worked, use the site's default...
@@ -134,7 +136,7 @@ function common_check_user($nickname, $password)
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
-        $user = User::staticGet('nickname', $nickname);
+        $user = User::staticGet('nickname', common_canonical_nickname($nickname));
         if (!empty($user)) {
             if (!empty($password)) { // never allow login with blank password
                 if (0 == strcmp(common_munge_password($password, $user->id),
@@ -426,14 +428,14 @@ function common_render_content($text, $notice)
 {
     $r = common_render_text($text);
     $id = $notice->profile_id;
-    $r = common_linkify_mentions($id, $r);
+    $r = common_linkify_mentions($r, $notice);
     $r = preg_replace('/(^|[\s\.\,\:\;]+)!([A-Za-z0-9]{1,64})/e', "'\\1!'.common_group_link($id, '\\2')", $r);
     return $r;
 }
 
-function common_linkify_mentions($profile_id, $text)
+function common_linkify_mentions($text, $notice)
 {
-    $mentions = common_find_mentions($profile_id, $text);
+    $mentions = common_find_mentions($text, $notice);
 
     // We need to go through in reverse order by position,
     // so our positions stay valid despite our fudging with the
@@ -487,17 +489,41 @@ function common_linkify_mention($mention)
     return $output;
 }
 
-function common_find_mentions($profile_id, $text)
+function common_find_mentions($text, $notice)
 {
     $mentions = array();
 
-    $sender = Profile::staticGet('id', $profile_id);
+    $sender = Profile::staticGet('id', $notice->profile_id);
 
     if (empty($sender)) {
         return $mentions;
     }
 
     if (Event::handle('StartFindMentions', array($sender, $text, &$mentions))) {
+
+        // Get the context of the original notice, if any
+
+        $originalAuthor   = null;
+        $originalNotice   = null;
+        $originalMentions = array();
+
+        // Is it a reply?
+
+        if (!empty($notice) && !empty($notice->reply_to)) {
+            $originalNotice = Notice::staticGet('id', $notice->reply_to);
+            if (!empty($originalNotice)) {
+                $originalAuthor = Profile::staticGet('id', $originalNotice->profile_id);
+
+                $ids = $originalNotice->getReplies();
+
+                foreach ($ids as $id) {
+                    $repliedTo = Profile::staticGet('id', $id);
+                    if (!empty($repliedTo)) {
+                        $originalMentions[$repliedTo->nickname] = $repliedTo;
+                    }
+                }
+            }
+        }
 
         preg_match_all('/^T ([A-Z0-9]{1,64}) /',
                        $text,
@@ -514,7 +540,22 @@ function common_find_mentions($profile_id, $text)
         foreach ($matches as $match) {
 
             $nickname = common_canonical_nickname($match[0]);
-            $mentioned = common_relative_profile($sender, $nickname);
+
+            // Try to get a profile for this nickname.
+            // Start with conversation context, then go to
+            // sender context.
+
+            if (!empty($originalAuthor) && $originalAuthor->nickname == $nickname) {
+
+                $mentioned = $originalAuthor;
+
+            } else if (!empty($originalMentions) &&
+                       array_key_exists($nickname, $originalMentions)) {
+
+                $mentioned = $originalMentions[$nickname];
+            } else {
+                $mentioned = common_relative_profile($sender, $nickname);
+            }
 
             if (!empty($mentioned)) {
 
@@ -763,8 +804,28 @@ function common_shorten_links($text)
 
 function common_xml_safe_str($str)
 {
-    // Neutralize control codes and surrogates
-	return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
+    // Replace common eol and extra whitespace input chars
+    $unWelcome = array(
+        "\t",  // tab
+        "\n",  // newline
+        "\r",  // cr
+        "\0",  // null byte eos
+        "\x0B" // vertical tab
+    );
+
+    $replacement = array(
+        ' ', // single space
+        ' ',
+        '',  // nothing
+        '',
+        ' '
+    );
+
+    $str = str_replace($unWelcome, $replacement, $str);
+
+    // Neutralize any additional control codes and UTF-16 surrogates
+    // (Twitter uses '*')
+    return preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
 }
 
 function common_tag_link($tag)
@@ -794,7 +855,7 @@ function common_valid_profile_tag($str)
 function common_group_link($sender_id, $nickname)
 {
     $sender = Profile::staticGet($sender_id);
-    $group = User_group::getForNickname($nickname);
+    $group = User_group::getForNickname($nickname, $sender);
     if ($sender && $group && $sender->isMember($group)) {
         $attrs = array('href' => $group->permalink(),
                        'class' => 'url');
@@ -849,7 +910,7 @@ function common_relative_profile($sender, $nickname, $dt=null)
     return null;
 }
 
-function common_local_url($action, $args=null, $params=null, $fragment=null)
+function common_local_url($action, $args=null, $params=null, $fragment=null, $addSession=true)
 {
     $r = Router::get();
     $path = $r->build($action, $args, $params, $fragment);
@@ -857,12 +918,12 @@ function common_local_url($action, $args=null, $params=null, $fragment=null)
     $ssl = common_is_sensitive($action);
 
     if (common_config('site','fancy')) {
-        $url = common_path(mb_substr($path, 1), $ssl);
+        $url = common_path(mb_substr($path, 1), $ssl, $addSession);
     } else {
         if (mb_strpos($path, '/index.php') === 0) {
-            $url = common_path(mb_substr($path, 1), $ssl);
+            $url = common_path(mb_substr($path, 1), $ssl, $addSession);
         } else {
-            $url = common_path('index.php'.$path, $ssl);
+            $url = common_path('index.php'.$path, $ssl, $addSession);
         }
     }
     return $url;
@@ -881,7 +942,7 @@ function common_is_sensitive($action)
     return $ssl;
 }
 
-function common_path($relative, $ssl=false)
+function common_path($relative, $ssl=false, $addSession=true)
 {
     $pathpart = (common_config('site', 'path')) ? common_config('site', 'path')."/" : '';
 
@@ -905,7 +966,9 @@ function common_path($relative, $ssl=false)
         }
     }
 
-    $relative = common_inject_session($relative, $serverpart);
+    if ($addSession) {
+        $relative = common_inject_session($relative, $serverpart);
+    }
 
     return $proto.'://'.$serverpart.'/'.$pathpart.$relative;
 }
@@ -1118,14 +1181,15 @@ function common_broadcast_profile(Profile $profile)
 
 function common_profile_url($nickname)
 {
-    return common_local_url('showstream', array('nickname' => $nickname));
+    return common_local_url('showstream', array('nickname' => $nickname),
+                            null, null, false);
 }
 
 // Should make up a reasonable root URL
 
 function common_root_url($ssl=false)
 {
-    $url = common_path('', $ssl);
+    $url = common_path('', $ssl, false);
     $i = strpos($url, '?');
     if ($i !== false) {
         $url = substr($url, 0, $i);
@@ -1410,7 +1474,8 @@ function common_remove_magic_from_request()
 
 function common_user_uri(&$user)
 {
-    return common_local_url('userbyid', array('id' => $user->id));
+    return common_local_url('userbyid', array('id' => $user->id),
+                            null, null, false);
 }
 
 function common_notice_uri(&$notice)
@@ -1590,6 +1655,7 @@ function common_database_tablename($tablename)
  */
 function common_shorten_url($long_url)
 {
+    $long_url = trim($long_url);
     $user = common_current_user();
     if (empty($user)) {
         // common current user does not find a user when called from the XMPP daemon
@@ -1604,7 +1670,7 @@ function common_shorten_url($long_url)
         return $long_url;
     }else{
         //URL was shortened, so return the result
-        return $shortenedUrl;
+        return trim($shortenedUrl);
     }
 }
 
@@ -1681,7 +1747,8 @@ function common_url_to_nickname($url)
             # Strip starting, ending slashes
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
-            if (strpos($path, '/') === false) {
+            $path = basename($path);
+            if ($path) {
                 return common_nicknamize($path);
             }
         }

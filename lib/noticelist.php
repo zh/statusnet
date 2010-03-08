@@ -540,22 +540,40 @@ class NoticeListItem extends Widget
     function showContext()
     {
         $hasConversation = false;
-        if( !empty($this->notice->conversation)
-            && $this->notice->conversation != $this->notice->id){
-            $hasConversation = true;
-        }else{
-            $conversation = Notice::conversationStream($this->notice->id, 1, 1);
-            if($conversation->N > 0){
+        if (!empty($this->notice->conversation)) {
+            $conversation = Notice::conversationStream(
+                $this->notice->conversation,
+                1,
+                1
+            );
+            if ($conversation->N > 0) {
                 $hasConversation = true;
             }
         }
-        if ($hasConversation){
-            $this->out->text(' ');
-            $convurl = common_local_url('conversation',
-                                         array('id' => $this->notice->conversation));
-            $this->out->element('a', array('href' => $convurl.'#notice-'.$this->notice->id,
-                                           'class' => 'response'),
-                                _('in context'));
+        if ($hasConversation) {
+            $conv = Conversation::staticGet(
+                'id',
+                $this->notice->conversation
+            );
+            $convurl = $conv->uri;
+            if (!empty($convurl)) {
+                $this->out->text(' ');
+                $this->out->element(
+                    'a',
+                    array(
+                    'href' => $convurl.'#notice-'.$this->notice->id,
+                    'class' => 'response'),
+                    _('in context')
+                );
+            } else {
+                $msg = sprintf(
+                    "Couldn't find Conversation ID %d to make 'in context'"
+                    . "link for Notice ID %d",
+                    $this->notice->conversation,
+                    $this->notice->id
+                );
+                common_log(LOG_WARNING, $msg);
+            }
         }
     }
 
