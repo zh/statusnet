@@ -55,7 +55,7 @@ class User_username extends Memcached_DataObject
 
     // now define the keys.
     function keys() {
-        return array('provider_name', 'username');
+        return array('provider_name' => 'K', 'username' => 'K');
     }
 
 }
