@@ -35,6 +35,7 @@ class TagrssAction extends Rss10Action
             $this->clientError(_('No such tag.'));
             return false;
         } else {
+            $this->notices = $this->getNotices($this->limit);
             return true;
         }
     }
