@@ -966,6 +966,9 @@ class Auth_OpenID_GenericConsumer {
             // framework will not want to block on this call to
             // _checkAuth.
             if (!$this->_checkAuth($message, $server_url)) {
+                var_dump($message);
+                var_dump($server_url);
+                var_dump($this);
                 return new Auth_OpenID_FailureResponse(null,
                              "Server denied check_authentication");
             }
