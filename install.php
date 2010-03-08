@@ -308,7 +308,7 @@ function checkPrereqs()
         printf('<p class="error">PHP is linked to a version of the PCRE library ' .
                'that does not support Unicode properties. ' .
                'If you are running Red Hat Enterprise Linux / ' .
-               'CentOS 5.4 or earlier, see <a href="' .
+               'CentOS 5.3 or earlier, see <a href="' .
                'http://status.net/wiki/Red_Hat_Enterprise_Linux#PCRE_library' .
                '">our documentation page</a> on fixing this.</p>');
         $pass = false;
