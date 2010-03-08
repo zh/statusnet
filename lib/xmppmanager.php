@@ -36,6 +36,7 @@ class XmppManager extends IoManager
     protected $site = null;
     protected $pingid = 0;
     protected $lastping = null;
+    protected $conn = null;
 
     static protected $singletons = array();
     

@@ -428,10 +428,18 @@ class Ostatus_profile extends Memcached_DataObject
      * Currently assumes that all items in the feed are new,
      * coming from a PuSH hub.
      *
-     * @param DOMDocument $feed
+     * @param DOMDocument $doc
+     * @param string $source identifier ("push")
      */
-    public function processFeed($feed, $source)
+    public function processFeed(DOMDocument $doc, $source)
     {
+        $feed = $doc->documentElement;
+
+        if ($feed->localName != 'feed' || $feed->namespaceURI != Activity::ATOM) {
+            common_log(LOG_ERR, __METHOD__ . ": not an Atom feed, ignoring");
+            return;
+        }
+
         $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
         if ($entries->length == 0) {
             common_log(LOG_ERR, __METHOD__ . ": no entries in feed update, ignoring");
@@ -449,6 +457,7 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @param DOMElement $entry
      * @param DOMElement $feed for context
+     * @param string $source identifier ("push" or "salmon")
      */
     public function processEntry($entry, $feed, $source)
     {
