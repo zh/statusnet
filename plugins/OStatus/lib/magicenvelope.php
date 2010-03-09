@@ -193,11 +193,12 @@ class MagicEnvelope
 
     public function fromDom($dom)
     {
-        if ($dom->documentElement->tagName == 'entry') {
+        $env_element = $dom->getElementsByTagNameNS(MagicEnvelope::NS, 'env')->item(0);
+        if (!$env_element) {
             $env_element = $dom->getElementsByTagNameNS(MagicEnvelope::NS, 'provenance')->item(0);
-        } else if ($dom->documentElement->tagName == 'me:env') {
-            $env_element = $dom->documentElement;
-        } else {
+        }
+
+        if (!$env_element) {
             return false;
         }
 
