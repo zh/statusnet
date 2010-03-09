@@ -294,4 +294,6 @@ $default =
         array('crawldelay' => 0,
               'disallow' => array('main', 'settings', 'admin', 'search', 'message')
               ),
+        'api' =>
+        array('realm' => null),
         );

@@ -235,7 +235,11 @@ class ApiAuthAction extends ApiAction
     {
         $this->basicAuthProcessHeader();
 
-        $realm = common_config('site', 'name') . ' API';
+        $realm = common_config('api', 'realm');
+
+        if (empty($realm)) {
+            $realm = common_config('site', 'name') . ' API';
+        }
 
         if (!isset($this->auth_user_nickname) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
