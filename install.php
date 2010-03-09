@@ -589,7 +589,7 @@ function handlePost()
     $sitename = $_POST['sitename'];
     $fancy    = !empty($_POST['fancy']);
 
-    $adminNick = $_POST['admin_nickname'];
+    $adminNick = strtolower($_POST['admin_nickname']);
     $adminPass = $_POST['admin_password'];
     $adminPass2 = $_POST['admin_password2'];
     $adminEmail = $_POST['admin_email'];
@@ -628,6 +628,19 @@ STR;
 
     if (empty($adminNick)) {
         updateStatus("No initial StatusNet user nickname specified.", true);
+        $fail = true;
+    }
+    if ($adminNick && !preg_match('/^[0-9a-z]{1,64}$/', $adminNick)) {
+        updateStatus('The user nickname "' . htmlspecialchars($adminNick) .
+                     '" is invalid; should be plain letters and numbers no longer than 64 characters.', true);
+        $fail = true;
+    }
+    // @fixme hardcoded list; should use User::allowed_nickname()
+    // if/when it's safe to have loaded the infrastructure here
+    $blacklist = array('main', 'admin', 'twitter', 'settings', 'rsd.xml', 'favorited', 'featured', 'favoritedrss', 'featuredrss', 'rss', 'getfile', 'api', 'groups', 'group', 'peopletag', 'tag', 'user', 'message', 'conversation', 'bookmarklet', 'notice', 'attachment', 'search', 'index.php', 'doc', 'opensearch', 'robots.txt', 'xd_receiver.html', 'facebook');
+    if (in_array($adminNick, $blacklist)) {
+        updateStatus('The user nickname "' . htmlspecialchars($adminNick) .
+                     '" is reserved.', true);
         $fail = true;
     }
 
