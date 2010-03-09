@@ -483,6 +483,7 @@ function showForm()
             $dbRadios .= "<input type=\"radio\" name=\"dbtype\" id=\"dbtype-$type\" value=\"$type\" $checked/> $info[name]<br />\n";
         }
     }
+
     echo<<<E_O_T
         </ul>
     </dd>
@@ -559,6 +560,11 @@ function showForm()
                     <input id="admin_email" name="admin_email" value="{$post->value('admin_email')}" />
                     <p class="form_guide">Optional email address for the initial StatusNet user (administrator)</p>
                 </li>
+                <li>
+                    <label for="admin_updates">Subscribe to announcements</label>
+                    <input type="checkbox" id="admin_updates" name="admin_updates" value="true" checked="checked" />
+                    <p class="form_guide">Release and security feed from <a href="http://update.status.net/">update@status.net</a> (recommended)</p>
+                </li>
             </ul>
         </fieldset>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -587,6 +593,7 @@ function handlePost()
     $adminPass = $_POST['admin_password'];
     $adminPass2 = $_POST['admin_password2'];
     $adminEmail = $_POST['admin_email'];
+    $adminUpdates = $_POST['admin_updates'];
 
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
@@ -657,7 +664,7 @@ STR;
     }
 
     // Okay, cross fingers and try to register an initial user
-    if (registerInitialUser($adminNick, $adminPass, $adminEmail)) {
+    if (registerInitialUser($adminNick, $adminPass, $adminEmail, $adminUpdates)) {
         updateStatus(
             "An initial user with the administrator role has been created."
         );
@@ -854,7 +861,7 @@ function runDbScript($filename, $conn, $type = 'mysqli')
     return true;
 }
 
-function registerInitialUser($nickname, $password, $email)
+function registerInitialUser($nickname, $password, $email, $adminUpdates)
 {
     define('STATUSNET', true);
     define('LACONICA', true); // compatibility
@@ -882,7 +889,7 @@ function registerInitialUser($nickname, $password, $email)
     // Attempt to do a remote subscribe to update@status.net
     // Will fail if instance is on a private network.
 
-    if (class_exists('Ostatus_profile')) {
+    if (class_exists('Ostatus_profile') && $adminUpdates) {
         try {
             $oprofile = Ostatus_profile::ensureProfile('http://update.status.net/');
             Subscription::start($user->getProfile(), $oprofile->localProfile());
