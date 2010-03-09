@@ -52,8 +52,8 @@ class FirePHPPlugin extends Plugin
     {
         static $firephp_priorities = array(FirePHP::ERROR, FirePHP::ERROR, FirePHP::ERROR, FirePHP::ERROR,
                                       FirePHP::WARN, FirePHP::LOG, FirePHP::LOG, FirePHP::INFO);
-        $priority = $firephp_priorities[$priority];
-        $this->firephp->fb($msg, $priority);
+        $fp_priority = $firephp_priorities[$priority];
+        $this->firephp->fb($msg, $fp_priority);
     }
 
     function onPluginVersion(&$versions)
