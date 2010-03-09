@@ -70,7 +70,7 @@ class MagicEnvelope
     public function signMessage($text, $mimetype, $keypair)
     {
         $signature_alg = Magicsig::fromString($keypair);
-        $armored_text = base64_encode($text);
+        $armored_text = base64_url_encode($text);
 
         return array(
             'data' => $armored_text,
@@ -108,7 +108,7 @@ class MagicEnvelope
     public function unfold($env)
     {
         $dom = new DOMDocument();
-        $dom->loadXML(base64_decode($env['data']));
+        $dom->loadXML(base64_url_decode($env['data']));
 
         if ($dom->documentElement->tagName != 'entry') {
             return false;
@@ -165,7 +165,7 @@ class MagicEnvelope
             return false;
         }
 
-        $text = base64_decode($env['data']);
+        $text = base64_url_decode($env['data']);
         $signer_uri = $this->getAuthor($text);
 
         try {
