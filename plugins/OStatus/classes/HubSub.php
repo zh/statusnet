@@ -192,7 +192,7 @@ class HubSub extends Memcached_DataObject
 
         // Any existing query string parameters must be preserved
         $url = $this->callback;
-        if (strpos('?', $url) !== false) {
+        if (strpos($url, '?') !== false) {
             $url .= '&';
         } else {
             $url .= '?';

@@ -129,7 +129,7 @@ class FeedDiscovery
     function initFromResponse($response)
     {
         if (!$response->isOk()) {
-            throw new FeedSubBadResponseException($response->getCode());
+            throw new FeedSubBadResponseException($response->getStatus());
         }
 
         $sourceurl = $response->getUrl();
