@@ -55,7 +55,7 @@ class XMPPDaemon extends SpawningDaemon
     {
         common_log(LOG_INFO, 'Waiting to listen to XMPP and queues');
 
-        $master = new XmppMaster($this->get_id());
+        $master = new XmppMaster($this->get_id(), $this->processManager());
         $master->init($this->allsites);
         $master->service();
 
@@ -68,6 +68,14 @@ class XMPPDaemon extends SpawningDaemon
 
 class XmppMaster extends IoMaster
 {
+    protected $processManager;
+
+    function __construct($id, $processManager)
+    {
+        parent::__construct($id);
+        $this->processManager = $processManager;
+    }
+
     /**
      * Initialize IoManagers for the currently configured site
      * which are appropriate to this instance.
@@ -79,6 +87,7 @@ class XmppMaster extends IoMaster
             $qm->setActiveGroup('xmpp');
             $this->instantiate($qm);
             $this->instantiate(XmppManager::get());
+            $this->instantiate($this->processManager);
         }
     }
 }
