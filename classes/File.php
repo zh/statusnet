@@ -67,7 +67,14 @@ class File extends Memcached_DataObject
         return $att;
     }
 
-    function saveNew($redir_data, $given_url) {
+    /**
+     * Save a new file record.
+     *
+     * @param array $redir_data lookup data eg from File_redirection::where()
+     * @param string $given_url
+     * @return File
+     */
+    function saveNew(array $redir_data, $given_url) {
         $x = new File;
         $x->url = $given_url;
         if (!empty($redir_data['protected'])) $x->protected = $redir_data['protected'];

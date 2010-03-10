@@ -81,7 +81,13 @@ class File_oembed extends Memcached_DataObject
         }
     }
 
-    function saveNew($data, $file_id) {
+    /**
+     * Save embedding info for a new file.
+     *
+     * @param array $data lookup data as from File_redirection::where
+     * @param int $file_id
+     */
+    function saveNew(array $data, $file_id) {
         $file_oembed = new File_oembed;
         $file_oembed->file_id = $file_id;
         $file_oembed->version = $data->version;
