@@ -152,7 +152,7 @@ class RSSCloudNotifier
     function notify($profile)
     {
         $feed = common_path('api/statuses/user_timeline/') .
-          $profile->nickname . '.rss';
+          $profile->id . '.rss';
 
         $cloudSub = new RSSCloudSubscription();
 

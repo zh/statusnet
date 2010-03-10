@@ -235,9 +235,13 @@ class ApiAuthAction extends ApiAction
     {
         $this->basicAuthProcessHeader();
 
-        $realm = common_config('site', 'name') . ' API';
+        $realm = common_config('api', 'realm');
 
-        if (!isset($this->auth_user_nickname) && $required) {
+        if (empty($realm)) {
+            $realm = common_config('site', 'name') . ' API';
+        }
+
+        if (empty($this->auth_user_nickname) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'

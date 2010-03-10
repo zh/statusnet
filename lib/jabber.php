@@ -88,22 +88,30 @@ class Sharing_XMPP extends XMPPHP_XMPP
 /**
  * Build an XMPP proxy connection that'll save outgoing messages
  * to the 'xmppout' queue to be picked up by xmppdaemon later.
+ *
+ * If queueing is disabled, we'll grab a live connection.
+ *
+ * @return XMPPHP
  */
 function jabber_proxy()
 {
-	$proxy = new Queued_XMPP(common_config('xmpp', 'host') ?
-                             common_config('xmpp', 'host') :
-                             common_config('xmpp', 'server'),
-                             common_config('xmpp', 'port'),
-                             common_config('xmpp', 'user'),
-                             common_config('xmpp', 'password'),
-                             common_config('xmpp', 'resource') . 'daemon',
-                             common_config('xmpp', 'server'),
-                             common_config('xmpp', 'debug') ?
-                             true : false,
-                             common_config('xmpp', 'debug') ?
-                             XMPPHP_Log::LEVEL_VERBOSE :  null);
-    return $proxy;
+    if (common_config('queue', 'enabled')) {
+	    $proxy = new Queued_XMPP(common_config('xmpp', 'host') ?
+                                 common_config('xmpp', 'host') :
+                                 common_config('xmpp', 'server'),
+                                 common_config('xmpp', 'port'),
+                                 common_config('xmpp', 'user'),
+                                 common_config('xmpp', 'password'),
+                                 common_config('xmpp', 'resource') . 'daemon',
+                                 common_config('xmpp', 'server'),
+                                 common_config('xmpp', 'debug') ?
+                                 true : false,
+                                 common_config('xmpp', 'debug') ?
+                                 XMPPHP_Log::LEVEL_VERBOSE :  null);
+        return $proxy;
+    } else {
+        return jabber_connect();
+    }
 }
 
 /**
