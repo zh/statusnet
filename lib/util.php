@@ -52,16 +52,42 @@ function common_init_language()
 {
     mb_internal_encoding('UTF-8');
 
-    // gettext seems very picky... We first need to setlocale()
-    // to a locale which _does_ exist on the system, and _then_
-    // we can set in another locale that may not be set up
-    // (say, ga_ES for Galego/Galician) it seems to take it.
-    common_init_locale("en_US");
-
     // Note that this setlocale() call may "fail" but this is harmless;
     // gettext will still select the right language.
     $language = common_language();
     $locale_set = common_init_locale($language);
+
+    if (!$locale_set) {
+        // The requested locale doesn't exist on the system.
+        //
+        // gettext seems very picky... We first need to setlocale()
+        // to a locale which _does_ exist on the system, and _then_
+        // we can set in another locale that may not be set up
+        // (say, ga_ES for Galego/Galician) it seems to take it.
+        //
+        // For some reason C and POSIX which are guaranteed to work
+        // don't do the job. en_US.UTF-8 should be there most of the
+        // time, but not guaranteed.
+        $ok = common_init_locale("en_US");
+        if (!$ok) {
+            // Try to find a complete, working locale...
+            // @fixme shelling out feels awfully inefficient
+            // but I don't think there's a more standard way.
+            $all = `locale -a`;
+            foreach (explode("\n", $all) as $locale) {
+                if (preg_match('/\.utf[-_]?8$/i', $locale)) {
+                    $ok = setlocale(LC_ALL, $locale);
+                    if ($ok) {
+                        break;
+                    }
+                }
+            }
+            if (!$ok) {
+                common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
+            }
+        }
+        $locale_set = common_init_locale($language);
+    }
 
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
@@ -133,6 +159,11 @@ function common_munge_password($password, $id)
 
 function common_check_user($nickname, $password)
 {
+    // empty nickname always unacceptable
+    if (empty($nickname)) {
+        return false;
+    }
+
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {

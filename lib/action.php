@@ -798,11 +798,14 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->element('dt', array('id' => 'site_statusnet_license'), _('StatusNet software license'));
         $this->elementStart('dd', null);
+        // @fixme drop the final spaces in the messages when at good spot
+        // to let translations get updated.
         if (common_config('site', 'broughtby')) {
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%). ');
         } else {
             $instr = _('**%%site.name%%** is a microblogging service. ');
         }
+        $instr .= ' ';
         $instr .= sprintf(_('It runs the [StatusNet](http://status.net/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), STATUSNET_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
