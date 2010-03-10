@@ -120,6 +120,16 @@ class HTTPClient extends HTTP_Request2
     {
         $this->config['max_redirs'] = 10;
         $this->config['follow_redirects'] = true;
+        
+        // We've had some issues with keepalive breaking with
+        // HEAD requests, such as to youtube which seems to be
+        // emitting chunked encoding info for an empty body
+        // instead of not emitting anything. This may be a
+        // bug on YouTube's end, but the upstream libray
+        // ought to be investigated to see if we can handle
+        // it gracefully in that case as well.
+        $this->config['protocol_version'] = '1.0';
+        
         parent::__construct($url, $method, $config);
         $this->setHeader('User-Agent', $this->userAgent());
     }
