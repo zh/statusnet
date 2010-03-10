@@ -54,9 +54,30 @@ class RequireValidatedEmailPlugin extends Plugin
         $user = User::staticGet('id', $notice->profile_id);
         if (!empty($user)) { // it's a remote notice
             if (!$this->validated($user)) {
-                throw new ClientException(_("You must validate your email address before posting."));
+                throw new ClientException(_m("You must validate your email address before posting."));
             }
         }
+        return true;
+    }
+
+    /**
+     * Event handler for registration attempts; rejects the registration
+     * if email field is missing.
+     *
+     * @param RegisterAction $action
+     * @return bool hook result code
+     */
+    function onStartRegistrationTry($action)
+    {
+        $email = $action->trimmed('email');
+
+        if (empty($email)) {
+            $action->showForm(_m('You must provide an email address to register.'));
+            return false;
+        }
+
+        // Default form will run address format validation and reject if bad.
+
         return true;
     }
 
