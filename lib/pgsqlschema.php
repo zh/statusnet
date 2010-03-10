@@ -1,3 +1,4 @@
+
 <?php
 /**
  * StatusNet, the distributed open-source microblogging tool
@@ -61,7 +62,8 @@ class PgsqlSchema extends Schema
 
     public function getTableDef($name)
     {
-        $res = $this->conn->query("select *, column_default as default, is_nullable as Null, udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
+        $res = $this->conn->query("SELECT *, column_default as default, is_nullable as Null,
+        udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -72,6 +74,9 @@ class PgsqlSchema extends Schema
         $td->name    = $name;
         $td->columns = array();
 
+        if ($res->numRows() == 0 ) {
+          throw new Exception('no such table'); //pretend to be the msyql error. yeah, this sucks.
+        }
         $row = array();
 
         while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
@@ -359,6 +364,7 @@ class PgsqlSchema extends Schema
 
         try {
             $td = $this->getTableDef($tableName);
+            
         } catch (Exception $e) {
             if (preg_match('/no such table/', $e->getMessage())) {
                 return $this->createTable($tableName, $columns);
