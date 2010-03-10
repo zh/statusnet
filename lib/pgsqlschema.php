@@ -171,12 +171,10 @@ class PgsqlSchema extends Schema
         }
 
         if (count($primary) > 0) { // it really should be...
-            $sql .= ",\nconstraint primary key (" . implode(',', $primary) . ")";
+            $sql .= ",\n primary key (" . implode(',', $primary) . ")";
         }
 
-        foreach ($uniques as $u) {
-            $sql .= ",\nunique index {$name}_{$u}_idx ($u)";
-        }
+
 
         foreach ($indices as $i) {
             $sql .= ",\nindex {$name}_{$i}_idx ($i)";
@@ -184,6 +182,10 @@ class PgsqlSchema extends Schema
 
         $sql .= "); ";
 
+
+        foreach ($uniques as $u) {
+            $sql .= "\n CREATE index {$name}_{$u}_idx ON {$name} ($u); ";
+        }
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
