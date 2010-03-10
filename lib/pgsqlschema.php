@@ -502,7 +502,7 @@ class PgsqlSchema extends Schema
     {
         $sql = "{$cd->name} ";
         $type = $this->_columnTypeTranslation($cd->type);
-var_dump($type);
+
         if (!empty($cd->size)) {
             $sql .= "{$type}({$cd->size}) ";
         } else {
