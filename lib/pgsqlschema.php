@@ -217,6 +217,22 @@ class PgsqlSchema extends Schema
     }
 
     /**
+     * Translate the (mostly) mysql-ish column types into somethings more standard
+     * @param string column type
+     *
+     * @return string postgres happy column type
+     */
+    private function _columnTypeTranslation($type) {
+      $map = array(
+      'datetime' => 'timestamp'
+      );
+      if(!empty($map[$type])) {
+        return $map[$type];
+      }
+      return $type;
+    }
+
+    /**
      * Adds an index to a table.
      *
      * If no name is provided, a name will be made up based
@@ -485,11 +501,12 @@ class PgsqlSchema extends Schema
     private function _columnSql($cd)
     {
         $sql = "{$cd->name} ";
-
+        $type = $this->_columnTypeTranslation($cd->type);
+var_dump($type);
         if (!empty($cd->size)) {
-            $sql .= "{$cd->type}({$cd->size}) ";
+            $sql .= "{$type}({$cd->size}) ";
         } else {
-            $sql .= "{$cd->type} ";
+            $sql .= "{$type} ";
         }
 
         if (!empty($cd->default)) {
