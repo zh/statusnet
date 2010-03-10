@@ -13,7 +13,7 @@
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -168,14 +168,28 @@ class DocAction extends Action
 
     function getFilename()
     {
-        if (file_exists(INSTALLDIR.'/local/doc-src/'.$this->title)) {
-            $localDef = INSTALLDIR.'/local/doc-src/'.$this->title;
-        }
+        $localDef = null;
+        $local    = null;
 
-        $local = glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*');
-        if ($local === false) {
-            // Some systems return false, others array(), if dir didn't exist.
-            $local = array();
+        $site = StatusNet::currentSite();
+
+        if (!empty($site) && file_exists(INSTALLDIR.'/local/doc-src/'.$site.'/'.$this->title)) {
+            $localDef = INSTALLDIR.'/local/doc-src/'.$site.'/'.$this->title;
+
+            $local = glob(INSTALLDIR.'/local/doc-src/'.$site.'/'.$this->title.'.*');
+            if ($local === false) {
+                // Some systems return false, others array(), if dir didn't exist.
+                $local = array();
+            }
+        } else {
+            if (file_exists(INSTALLDIR.'/local/doc-src/'.$this->title)) {
+                $localDef = INSTALLDIR.'/local/doc-src/'.$this->title;
+            }
+
+            $local = glob(INSTALLDIR.'/local/doc-src/'.$this->title.'.*');
+            if ($local === false) {
+                $local = array();
+            }
         }
 
         if (count($local) || isset($localDef)) {
