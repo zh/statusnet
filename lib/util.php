@@ -133,6 +133,11 @@ function common_munge_password($password, $id)
 
 function common_check_user($nickname, $password)
 {
+    // empty nickname always unacceptable
+    if (empty($nickname)) {
+        return false;
+    }
+
     $authenticatedUser = false;
 
     if (Event::handle('StartCheckPassword', array($nickname, $password, &$authenticatedUser))) {
