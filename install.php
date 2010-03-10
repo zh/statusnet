@@ -301,6 +301,19 @@ function checkPrereqs()
         $pass = false;
     }
 
+    // Look for known library bugs
+    $str = "abcdefghijklmnopqrstuvwxyz";
+    $replaced = preg_replace('/[\p{Cc}\p{Cs}]/u', '*', $str);
+    if ($str != $replaced) {
+        printf('<p class="error">PHP is linked to a version of the PCRE library ' .
+               'that does not support Unicode properties. ' .
+               'If you are running Red Hat Enterprise Linux / ' .
+               'CentOS 5.4 or earlier, see <a href="' .
+               'http://status.net/wiki/Red_Hat_Enterprise_Linux#PCRE_library' .
+               '">our documentation page</a> on fixing this.</p>');
+        $pass = false;
+    }
+
     $reqs = array('gd', 'curl',
                   'xmlwriter', 'mbstring', 'xml', 'dom', 'simplexml');
 
@@ -470,6 +483,7 @@ function showForm()
             $dbRadios .= "<input type=\"radio\" name=\"dbtype\" id=\"dbtype-$type\" value=\"$type\" $checked/> $info[name]<br />\n";
         }
     }
+
     echo<<<E_O_T
         </ul>
     </dd>
@@ -546,6 +560,11 @@ function showForm()
                     <input id="admin_email" name="admin_email" value="{$post->value('admin_email')}" />
                     <p class="form_guide">Optional email address for the initial StatusNet user (administrator)</p>
                 </li>
+                <li>
+                    <label for="admin_updates">Subscribe to announcements</label>
+                    <input type="checkbox" id="admin_updates" name="admin_updates" value="true" checked="checked" />
+                    <p class="form_guide">Release and security feed from <a href="http://update.status.net/">update@status.net</a> (recommended)</p>
+                </li>
             </ul>
         </fieldset>
         <input type="submit" name="submit" class="submit" value="Submit" />
@@ -570,10 +589,11 @@ function handlePost()
     $sitename = $_POST['sitename'];
     $fancy    = !empty($_POST['fancy']);
 
-    $adminNick = $_POST['admin_nickname'];
+    $adminNick = strtolower($_POST['admin_nickname']);
     $adminPass = $_POST['admin_password'];
     $adminPass2 = $_POST['admin_password2'];
     $adminEmail = $_POST['admin_email'];
+    $adminUpdates = $_POST['admin_updates'];
 
     $server = $_SERVER['HTTP_HOST'];
     $path = substr(dirname($_SERVER['PHP_SELF']), 1);
@@ -610,6 +630,19 @@ STR;
         updateStatus("No initial StatusNet user nickname specified.", true);
         $fail = true;
     }
+    if ($adminNick && !preg_match('/^[0-9a-z]{1,64}$/', $adminNick)) {
+        updateStatus('The user nickname "' . htmlspecialchars($adminNick) .
+                     '" is invalid; should be plain letters and numbers no longer than 64 characters.', true);
+        $fail = true;
+    }
+    // @fixme hardcoded list; should use User::allowed_nickname()
+    // if/when it's safe to have loaded the infrastructure here
+    $blacklist = array('main', 'admin', 'twitter', 'settings', 'rsd.xml', 'favorited', 'featured', 'favoritedrss', 'featuredrss', 'rss', 'getfile', 'api', 'groups', 'group', 'peopletag', 'tag', 'user', 'message', 'conversation', 'bookmarklet', 'notice', 'attachment', 'search', 'index.php', 'doc', 'opensearch', 'robots.txt', 'xd_receiver.html', 'facebook');
+    if (in_array($adminNick, $blacklist)) {
+        updateStatus('The user nickname "' . htmlspecialchars($adminNick) .
+                     '" is reserved.', true);
+        $fail = true;
+    }
 
     if (empty($adminPass)) {
         updateStatus("No initial StatusNet user password specified.", true);
@@ -644,7 +677,7 @@ STR;
     }
 
     // Okay, cross fingers and try to register an initial user
-    if (registerInitialUser($adminNick, $adminPass, $adminEmail)) {
+    if (registerInitialUser($adminNick, $adminPass, $adminEmail, $adminUpdates)) {
         updateStatus(
             "An initial user with the administrator role has been created."
         );
@@ -841,7 +874,7 @@ function runDbScript($filename, $conn, $type = 'mysqli')
     return true;
 }
 
-function registerInitialUser($nickname, $password, $email)
+function registerInitialUser($nickname, $password, $email, $adminUpdates)
 {
     define('STATUSNET', true);
     define('LACONICA', true); // compatibility
@@ -869,7 +902,7 @@ function registerInitialUser($nickname, $password, $email)
     // Attempt to do a remote subscribe to update@status.net
     // Will fail if instance is on a private network.
 
-    if (class_exists('Ostatus_profile')) {
+    if (class_exists('Ostatus_profile') && $adminUpdates) {
         try {
             $oprofile = Ostatus_profile::ensureProfile('http://update.status.net/');
             Subscription::start($user->getProfile(), $oprofile->localProfile());

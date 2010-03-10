@@ -342,7 +342,11 @@ class StatusNet
 
         if (array_key_exists('memcached', $config)) {
             if ($config['memcached']['enabled']) {
-                addPlugin('Memcache', array('servers' => $config['memcached']['server']));
+                if(class_exists('Memcached')) {
+                    addPlugin('Memcached', array('servers' => $config['memcached']['server']));
+                } else {
+                    addPlugin('Memcache', array('servers' => $config['memcached']['server']));
+                }
             }
 
             if (!empty($config['memcached']['base'])) {

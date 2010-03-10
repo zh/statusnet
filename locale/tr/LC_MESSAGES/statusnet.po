@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-04 18:55+0000\n"
-"PO-Revision-Date: 2010-03-05 22:36:42+0000\n"
+"POT-Creation-Date: 2010-03-06 23:49+0000\n"
+"PO-Revision-Date: 2010-03-06 23:51:04+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63299); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: out-statusnet\n"
@@ -109,7 +109,7 @@ msgstr "Böyle bir durum mesajı yok."
 #: actions/otp.php:76 actions/remotesubscribe.php:145
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
 #: lib/command.php:355 lib/command.php:401 lib/command.php:462
 #: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
@@ -712,7 +712,7 @@ msgstr "%s için cevaplar"
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:65
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%s adli kullanicinin durum mesajlari"
@@ -754,7 +754,7 @@ msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:103
+#: actions/userrss.php:106
 msgid "User without matching profile"
 msgstr ""
 
@@ -1788,7 +1788,7 @@ msgstr ""
 msgid "Make this user an admin"
 msgstr ""
 
-#: actions/grouprss.php:138 actions/userrss.php:90
+#: actions/grouprss.php:138 actions/userrss.php:93
 #: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
 #, php-format
 msgid "%s timeline"
@@ -4430,7 +4430,7 @@ msgstr "Bize o profili yollamadınız"
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
-#: actions/userrss.php:92 lib/atomgroupnoticefeed.php:66
+#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
 #: lib/atomusernoticefeed.php:72
 #, php-format
 msgid "Updates from %1$s on %2$s!"
@@ -5224,12 +5224,12 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 msgid "Fullname: %s"
 msgstr "Tam İsim"
 
-#: lib/command.php:312 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
-#: lib/command.php:315 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
@@ -5684,11 +5684,11 @@ msgstr "Geçersiz kullanıcı adı veya parola."
 msgid "Sign up for a new account"
 msgstr "Yeni hesap oluştur"
 
-#: lib/mail.php:172
+#: lib/mail.php:173
 msgid "Email address confirmation"
 msgstr "Eposta adresi onayı"
 
-#: lib/mail.php:174
+#: lib/mail.php:175
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5705,12 +5705,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:236
+#: lib/mail.php:240
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
-#: lib/mail.php:241
+#: lib/mail.php:245
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5731,17 +5731,17 @@ msgstr ""
 "Kendisini durumsuz bırakmayın!,\n"
 "%4$s.\n"
 
-#: lib/mail.php:258
+#: lib/mail.php:262
 #, fuzzy, php-format
 msgid "Bio: %s"
 msgstr "Hakkında"
 
-#: lib/mail.php:286
+#: lib/mail.php:290
 #, php-format
 msgid "New email address for posting to %s"
 msgstr ""
 
-#: lib/mail.php:289
+#: lib/mail.php:293
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5754,21 +5754,21 @@ msgid ""
 "%4$s"
 msgstr ""
 
-#: lib/mail.php:413
+#: lib/mail.php:417
 #, php-format
 msgid "%s status"
 msgstr "%s durum"
 
-#: lib/mail.php:439
+#: lib/mail.php:443
 msgid "SMS confirmation"
 msgstr ""
 
-#: lib/mail.php:463
+#: lib/mail.php:467
 #, php-format
 msgid "You've been nudged by %s"
 msgstr ""
 
-#: lib/mail.php:467
+#: lib/mail.php:471
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5784,12 +5784,12 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:510
+#: lib/mail.php:517
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:514
+#: lib/mail.php:521
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5808,12 +5808,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:559
+#: lib/mail.php:568
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
-#: lib/mail.php:561
+#: lib/mail.php:570
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -5834,12 +5834,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:624
+#: lib/mail.php:635
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:626
+#: lib/mail.php:637
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"

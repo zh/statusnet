@@ -131,13 +131,13 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
     {
         $ldap = $this->ldap_get_connection();
         $link = $ldap->getLink();
-        $r = ldap_compare($link, $groupDn, $this->uniqueMember_attribute, $userDn);
+        $r = @ldap_compare($link, $groupDn, $this->uniqueMember_attribute, $userDn);
         if ($r === true){
             return true;
         }else if($r === false){
             return false;
         }else{
-            common_log(LOG_ERR, ldap_error($r));
+            common_log(LOG_ERR, "LDAP error determining if userDn=$userDn is a member of groupDn=groupDn using uniqueMember_attribute=$this->uniqueMember_attribute error: ".ldap_error($link));
             return false;
         }
     }
@@ -167,6 +167,11 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
+            // if we were called with a config, assume caller will handle
+            // incorrect username/password (LDAP_INVALID_CREDENTIALS)
+            if (isset($config) && $err->getCode() == 0x31) {
+                return null;
+            }
             throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
             return false;
         }

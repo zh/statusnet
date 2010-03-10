@@ -124,6 +124,8 @@ $config['sphinx']['port'] = 3312;
 
 // Email info, used for all outbound email
 // $config['mail']['notifyfrom'] = 'microblog@example.net';
+// Domain for generating no-reply and incoming email addresses, if enabled.
+// Defaults to site server name.
 // $config['mail']['domain'] = 'microblog.example.net';
 // See http://pear.php.net/manual/en/package.mail.mail.factory.php for options
 // $config['mail']['backend'] = 'smtp';
@@ -131,8 +133,6 @@ $config['sphinx']['port'] = 3312;
 // 							'host' => 'localhost',
 // 							'port' => 25,
 // 							);
-// For incoming email, if enabled. Defaults to site server name.
-// $config['mail']['domain'] = 'incoming.example.net';
 
 // exponential decay factor for tags, default 10 days
 // raise this if traffic is slow, lower it if it's fast

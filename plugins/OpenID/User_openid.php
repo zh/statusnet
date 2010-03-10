@@ -39,9 +39,21 @@ class User_openid extends Memcached_DataObject
                      );
     }
 
+    /**
+     * List primary and unique keys in this table.
+     * Unique keys used for lookup *MUST* be listed to ensure proper caching.
+     */
     function keys()
     {
-        return array('canonical' => 'K', 'display' => 'U');
+        return array('canonical' => 'K', 'display' => 'U', 'user_id' => 'U');
+    }
+
+    /**
+     * No sequence keys in this table.
+     */
+    function sequenceKey()
+    {
+        return array(false, false, false);
     }
 
     Static function hasOpenID($user_id)
