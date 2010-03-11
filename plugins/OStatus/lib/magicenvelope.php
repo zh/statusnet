@@ -59,7 +59,11 @@ class MagicEnvelope
         }
         if ($xrd->links) {
             if ($link = Discovery::getService($xrd->links, Magicsig::PUBLICKEYREL)) {
-                list($type, $keypair) = explode(';', $link['href']);
+                list($type, $keypair) = explode(',', $link['href']);
+                if (empty($keypair)) {
+                    // Backwards compatibility check for separator bug in 0.9.0
+                    list($type, $keypair) = explode(';', $link['href']);
+                }
                 return $keypair;
             }
         }
