@@ -58,23 +58,29 @@ class File_redirection extends Memcached_DataObject
         return $request;
     }
 
-    function _redirectWhere_imp($short_url, $redirs = 10, $protected = false) {
+    /**
+     * Check if this URL is a redirect and return redir info.
+     *
+     * Most code should call File_redirection::where instead, to check if we
+     * already know that redirection and avoid extra hits to the web.
+     *
+     * The URL is hit and any redirects are followed, up to 10 levels or until
+     * a protected URL is reached.
+     *
+     * @param string $in_url
+     * @return mixed one of:
+     *         string - target URL, if this is a direct link or can't be followed
+     *         array - redirect info if this is an *unknown* redirect:
+     *              associative array with the following elements:
+     *                code: HTTP status code
+     *                redirects: count of redirects followed
+     *                url: URL string of final target
+     *                type (optional): MIME type from Content-Type header
+     *                size (optional): byte size from Content-Length header
+     *                time (optional): timestamp from Last-Modified header
+     */
+    public function lookupWhere($short_url, $redirs = 10, $protected = false) {
         if ($redirs < 0) return false;
-
-        // let's see if we know this...
-        $a = File::staticGet('url', $short_url);
-
-        if (!empty($a)) {
-            // this is a direct link to $a->url
-            return $a->url;
-        } else {
-            $b = File_redirection::staticGet('url', $short_url);
-            if (!empty($b)) {
-                // this is a redirect to $b->file_id
-                $a = File::staticGet('id', $b->file_id);
-                return $a->url;
-            }
-        }
 
         if(strpos($short_url,'://') === false){
             return $short_url;
@@ -93,12 +99,13 @@ class File_redirection extends Memcached_DataObject
             }
         } catch (Exception $e) {
             // Invalid URL or failure to reach server
+            common_log(LOG_ERR, "Error while following redirects for $short_url: " . $e->getMessage());
             return $short_url;
         }
 
         if ($response->getRedirectCount() && File::isProtected($response->getUrl())) {
             // Bump back up the redirect chain until we find a non-protected URL
-            return self::_redirectWhere_imp($short_url, $response->getRedirectCount() - 1, true);
+            return self::lookupWhere($short_url, $response->getRedirectCount() - 1, true);
         }
 
         $ret = array('code' => $response->getStatus()
@@ -115,11 +122,60 @@ class File_redirection extends Memcached_DataObject
         return $ret;
     }
 
-    function where($in_url) {
-        $ret = File_redirection::_redirectWhere_imp($in_url);
+    /**
+     * Check if this URL is a redirect and return redir info.
+     * If a File record is present for this URL, it is not considered a redirect.
+     * If a File_redirection record is present for this URL, the recorded target is returned.
+     *
+     * If no File or File_redirect record is present, the URL is hit and any
+     * redirects are followed, up to 10 levels or until a protected URL is
+     * reached.
+     *
+     * @param string $in_url
+     * @return mixed one of:
+     *         string - target URL, if this is a direct link or a known redirect
+     *         array - redirect info if this is an *unknown* redirect:
+     *              associative array with the following elements:
+     *                code: HTTP status code
+     *                redirects: count of redirects followed
+     *                url: URL string of final target
+     *                type (optional): MIME type from Content-Type header
+     *                size (optional): byte size from Content-Length header
+     *                time (optional): timestamp from Last-Modified header
+     */
+    public function where($in_url) {
+        // let's see if we know this...
+        $a = File::staticGet('url', $in_url);
+
+        if (!empty($a)) {
+            // this is a direct link to $a->url
+            return $a->url;
+        } else {
+            $b = File_redirection::staticGet('url', $in_url);
+            if (!empty($b)) {
+                // this is a redirect to $b->file_id
+                $a = File::staticGet('id', $b->file_id);
+                return $a->url;
+            }
+        }
+
+        $ret = File_redirection::lookupWhere($in_url);
         return $ret;
     }
 
+    /**
+     * Shorten a URL with the current user's configured shortening
+     * options, if applicable.
+     *
+     * If it cannot be shortened or the "short" URL is longer than the
+     * original, the original is returned.
+     *
+     * If the referenced item has not been seen before, embedding data
+     * may be saved.
+     *
+     * @param string $long_url
+     * @return string
+     */
     function makeShort($long_url) {
 
         $canon = File_redirection::_canonUrl($long_url);
@@ -141,11 +197,20 @@ class File_redirection extends Memcached_DataObject
             // store it
             $file = File::staticGet('url', $long_url);
             if (empty($file)) {
+                // Check if the target URL is itself a redirect...
                 $redir_data = File_redirection::where($long_url);
-                $file = File::saveNew($redir_data, $long_url);
-                $file_id = $file->id;
-                if (!empty($redir_data['oembed']['json'])) {
-                    File_oembed::saveNew($redir_data['oembed']['json'], $file_id);
+                if (is_array($redir_data)) {
+                    // We haven't seen the target URL before.
+                    // Save file and embedding data about it!
+                    $file = File::saveNew($redir_data, $long_url);
+                    $file_id = $file->id;
+                    if (!empty($redir_data['oembed']['json'])) {
+                        File_oembed::saveNew($redir_data['oembed']['json'], $file_id);
+                    }
+                } else if (is_string($redir_data)) {
+                    // The file is a known redirect target.
+                    $file = File::staticGet('url', $redir_data);
+                    $file_id = $file->id;
                 }
             } else {
                 $file_id = $file->id;
