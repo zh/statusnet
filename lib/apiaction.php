@@ -541,13 +541,12 @@ class ApiAction extends Action
 
     function showGeoRSS($geo)
     {
-        if (empty($geo)) {
-            // empty geo element
-            $this->element('geo');
-        } else {
-            $this->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
-            $this->element('georss:point', null, $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]);
-            $this->elementEnd('geo');
+        if (!empty($geo)) {
+            $this->element(
+                'georss:point',
+                null,
+                $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]
+            );
         }
     }
 
@@ -1138,7 +1137,14 @@ class ApiAction extends Action
     function initTwitterRss()
     {
         $this->startXML();
-        $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
+        $this->elementStart(
+            'rss',
+            array(
+                'version'      => '2.0',
+                'xmlns:atom'   => 'http://www.w3.org/2005/Atom',
+                'xmlns:georss' => 'http://www.georss.org/georss'
+            )
+        );
         $this->elementStart('channel');
         Event::handle('StartApiRss', array($this));
     }
