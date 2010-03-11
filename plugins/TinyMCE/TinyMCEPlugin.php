@@ -49,6 +49,8 @@ if (!defined('STATUSNET')) {
 
 class TinyMCEPlugin extends Plugin
 {
+    var $html;
+
     function onEndShowScripts($action)
     {
         if (common_logged_in()) {
@@ -73,6 +75,39 @@ class TinyMCEPlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:TinyMCE',
                             'rawdescription' =>
                             _m('Use TinyMCE library to allow rich text editing in the browser'));
+        return true;
+    }
+
+    function onArgsInitialize(&$args)
+    {
+        if (!array_key_exists('action', $args) ||
+            $args['action'] != 'newnotice') {
+            return true;
+        }
+
+        $raw = $args['status_textarea'];
+
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+
+        $config = array('safe' => 1,
+                        'deny_attribute' => 'id,style,on*');
+
+        $this->html = htmLawed($raw, $config);
+
+        $text = html_entity_decode(strip_tags($this->html));
+
+        $args['status_textarea'] = $text;
+
+        return true;
+    }
+
+    function onStartNoticeSave($notice)
+    {
+        if (!empty($this->html)) {
+            // Stomp on any rendering
+            $notice->rendered = $this->html;
+        }
+
         return true;
     }
 
