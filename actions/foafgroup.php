@@ -146,7 +146,7 @@ class FoafGroupAction extends Action
             {
                 $this->elementStart('Agent', array('rdf:about' => $uri));
                 $this->element('nick', null, $details['nickname']);
-                $this->elementStart('holdsAccount');
+                $this->elementStart('account');
                 $this->elementStart('sioc:User', array('rdf:about'=>$uri.'#acct'));
                 $this->elementStart('sioc:has_function');
                 $this->elementStart('statusnet:GroupAdminRole');
@@ -154,7 +154,7 @@ class FoafGroupAction extends Action
                 $this->elementEnd('statusnet:GroupAdminRole');
                 $this->elementEnd('sioc:has_function');
                 $this->elementEnd('sioc:User');
-                $this->elementEnd('holdsAccount');
+                $this->elementEnd('account');
                 $this->elementEnd('Agent');
             }
             else
