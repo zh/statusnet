@@ -618,13 +618,25 @@ class ApiAction extends Action
         $this->endDocument('xml');
     }
 
-    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null, $logo=null)
+    function showRssTimeline($notice, $title, $link, $subtitle, $suplink = null, $logo = null, $self = null)
     {
 
         $this->initDocument('rss');
 
         $this->element('title', null, $title);
         $this->element('link', null, $link);
+
+        if (!is_null($self)) {
+            $this->element(
+                'atom:link',
+                array(
+                    'type' => 'application/rss+xml',
+                    'href' => $self,
+                    'rel'  => 'self'
+                )
+           );
+        }
+
         if (!is_null($suplink)) {
             // For FriendFeed's SUP protocol
             $this->element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
