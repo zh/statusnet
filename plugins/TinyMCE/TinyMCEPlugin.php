@@ -85,7 +85,7 @@ class TinyMCEPlugin extends Plugin
             return true;
         }
 
-        $raw = $args['status_textarea'];
+        $raw = $this->_scrub($args['status_textarea']);
 
         require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
 
@@ -126,6 +126,16 @@ class TinyMCEPlugin extends Plugin
 END_OF_SCRIPT;
 
         return $scr;
+    }
+
+    function _scrub($txt)
+    {
+        $strip = get_magic_quotes_gpc();
+        if ($strip) {
+            return stripslashes($txt);
+        } else {
+            return $txt;
+        }
     }
 }
 
