@@ -72,7 +72,7 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-        common_debug("api home_timeline");
+
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
@@ -121,8 +121,15 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $this->user->nickname, $sitename
         );
 
-        $logo = (!empty($avatar)) 
-            ? $avatar->displayUrl() 
+        $link = common_local_url(
+            'all',
+            array('nickname' => $this->user->nickname)
+        );
+
+        $self = $this->getSelfUri();
+
+        $logo = (!empty($avatar))
+            ? $avatar->displayUrl()
             : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
@@ -130,17 +137,14 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $link = common_local_url(
-                'all',
-                array('nickname' => $this->user->nickname)
-            );
             $this->showRssTimeline(
                 $this->notices,
                 $title,
                 $link,
                 $subtitle,
                 null,
-                $logo
+                $logo,
+                $self
             );
             break;
         case 'atom':
@@ -155,23 +159,8 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $atom->setLogo($logo);
             $atom->setUpdated('now');
 
-            $atom->addLink(
-                common_local_url(
-                    'all',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineHome', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
             $this->raw($atom->getString());
