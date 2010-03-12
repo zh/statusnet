@@ -1151,7 +1151,7 @@ class Notice extends Memcached_DataObject
             $xs->elementEnd('source');
         }
 
-        $xs->element('title', null, $this->content);
+        $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
             $xs->raw($profile->asAtomAuthor());
@@ -1227,7 +1227,11 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        $xs->element('content', array('type' => 'html'), $this->rendered);
+        $xs->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($this->rendered)
+        );
 
         $tag = new Notice_tag();
         $tag->notice_id = $this->id;

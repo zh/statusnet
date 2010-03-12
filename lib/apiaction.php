@@ -743,8 +743,12 @@ class ApiAction extends Action
     function showTwitterAtomEntry($entry)
     {
         $this->elementStart('entry');
-        $this->element('title', null, $entry['title']);
-        $this->element('content', array('type' => 'html'), $entry['content']);
+        $this->element('title', null, common_xml_safe_str($entry['title']));
+        $this->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($entry['content'])
+        );
         $this->element('id', null, $entry['id']);
         $this->element('published', null, $entry['published']);
         $this->element('updated', null, $entry['updated']);
@@ -859,7 +863,7 @@ class ApiAction extends Action
 
         $this->initDocument('atom');
 
-        $this->element('title', null, $title);
+        $this->element('title', null, common_xml_safe_str($title));
         $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
 
@@ -869,7 +873,7 @@ class ApiAction extends Action
         }
 
         $this->element('updated', null, common_date_iso8601('now'));
-        $this->element('subtitle', null, $subtitle);
+        $this->element('subtitle', null, common_xml_safe_str($subtitle));
 
         if (is_array($group)) {
             foreach ($group as $g) {
