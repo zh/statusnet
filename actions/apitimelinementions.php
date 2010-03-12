@@ -123,6 +123,9 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             'replies',
             array('nickname' => $this->user->nickname)
         );
+
+        $self = $this->getSelfUri();
+
         $subtitle   = sprintf(
             _('%1$s updates that reply to updates from %2$s / %3$s.'),
             $sitename, $this->user->nickname, $profile->getBestName()
@@ -134,9 +137,19 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $logo);
+            $this->showRssTimeline(
+                $this->notices,
+                $title,
+                $link,
+                $subtitle,
+                null,
+                $logo,
+                $self
+            );
             break;
         case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
 
             $atom = new AtomNoticeFeed();
 
@@ -146,23 +159,8 @@ class ApiTimelineMentionsAction extends ApiBareAuthAction
             $atom->setLogo($logo);
             $atom->setUpdated('now');
 
-            $atom->addLink(
-                common_local_url(
-                    'replies',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineMentions', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
             $this->raw($atom->getString());

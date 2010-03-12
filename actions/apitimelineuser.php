@@ -116,13 +116,13 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         // We'll use the shared params from the Atom stub
         // for other feed types.
         $atom = new AtomUserNoticeFeed($this->user);
-        $title      = $atom->title;
-        $link       = common_local_url(
+
+        $link = common_local_url(
             'showstream',
             array('nickname' => $this->user->nickname)
         );
-        $subtitle = $atom->subtitle;
-        $logo = $atom->logo;
+
+        $self = $this->getSelfUri();
 
         // FriendFeed's SUP protocol
         // Also added RSS and Atom feeds
@@ -136,25 +136,22 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             break;
         case 'rss':
             $this->showRssTimeline(
-                $this->notices, $title, $link,
-                $subtitle, $suplink, $logo
+                $this->notices,
+                $atom->title,
+                $link,
+                $atom->subtitle,
+                $suplink,
+                $atom->logo,
+                $self
             );
             break;
         case 'atom':
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-            $self = $this->getSelfUri('ApiTimelineUser', $aargs);
             $atom->setId($self);
             $atom->setSelfLink($self);
-
             $atom->addEntryFromNotices($this->notices);
-
             $this->raw($atom->getString());
 
             break;
