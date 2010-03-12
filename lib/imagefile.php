@@ -60,6 +60,21 @@ class ImageFile
         $this->filepath = $filepath;
 
         $info = @getimagesize($this->filepath);
+
+        if (!(
+            ($info[2] == IMAGETYPE_GIF && function_exists('imagecreatefromgif')) ||
+            ($info[2] == IMAGETYPE_JPEG && function_exists('imagecreatefromjpeg')) ||
+            $info[2] == IMAGETYPE_BMP ||
+            ($info[2] == IMAGETYPE_WBMP && function_exists('imagecreatefromwbmp')) ||
+            ($info[2] == IMAGETYPE_XBM && function_exists('imagecreatefromxbm')) ||
+            ($info[2] == IMAGETYPE_XPM && function_exists('imagecreatefromxpm')) ||
+            ($info[2] == IMAGETYPE_PNG && function_exists('imagecreatefrompng')))) {
+
+            @unlink($_FILES[$param]['tmp_name']);
+            throw new Exception(_('Unsupported image file format.'));
+            return;
+        }
+
         $this->type = ($info) ? $info[2]:$type;
         $this->width = ($info) ? $info[0]:$width;
         $this->height = ($info) ? $info[1]:$height;
@@ -94,19 +109,6 @@ class ImageFile
         if (!$info) {
             @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Not an image or corrupt file.'));
-            return;
-        }
-
-        if ($info[2] !== IMAGETYPE_GIF &&
-            $info[2] !== IMAGETYPE_JPEG &&
-            $info[2] !== IMAGETYPE_BMP &&
-            $info[2] !== IMAGETYPE_WBMP &&
-            $info[2] !== IMAGETYPE_XBM &&
-            $info[2] !== IMAGETYPE_XPM &&
-            $info[2] !== IMAGETYPE_PNG) {
-
-            @unlink($_FILES[$param]['tmp_name']);
-            throw new Exception(_('Unsupported image file format.'));
             return;
         }
 
