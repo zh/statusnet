@@ -225,11 +225,11 @@ function oid_update_user(&$user, &$sreg)
 
     $orig_profile = clone($profile);
 
-    if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+    if (!empty($sreg['fullname']) && strlen($sreg['fullname']) <= 255) {
         $profile->fullname = $sreg['fullname'];
     }
 
-    if ($sreg['country']) {
+    if (!empty($sreg['country'])) {
         if ($sreg['postcode']) {
             # XXX: use postcode to get city and region
             # XXX: also, store postcode somewhere -- it's valuable!
@@ -249,7 +249,7 @@ function oid_update_user(&$user, &$sreg)
 
     $orig_user = clone($user);
 
-    if ($sreg['email'] && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
+    if (!empty($sreg['email']) && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
         $user->email = $sreg['email'];
     }
 
