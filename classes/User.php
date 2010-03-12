@@ -132,13 +132,18 @@ class User extends Memcached_DataObject
         return !in_array($nickname, $blacklist);
     }
 
-    function getCurrentNotice($dt=null)
+    /**
+     * Get the most recent notice posted by this user, if any.
+     *
+     * @return mixed Notice or null
+     */
+    function getCurrentNotice()
     {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         }
-        return $profile->getCurrentNotice($dt);
+        return $profile->getCurrentNotice();
     }
 
     function getCarrier()

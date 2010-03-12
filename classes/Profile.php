@@ -147,14 +147,16 @@ class Profile extends Memcached_DataObject
         return ($this->fullname) ? $this->fullname : $this->nickname;
     }
 
-    # Get latest notice on or before date; default now
-    function getCurrentNotice($dt=null)
+    /**
+     * Get the most recent notice posted by this user, if any.
+     *
+     * @return mixed Notice or null
+     */
+    function getCurrentNotice()
     {
         $notice = new Notice();
         $notice->profile_id = $this->id;
-        if ($dt) {
-            $notice->whereAdd('created < "' . $dt . '"');
-        }
+        // @fixme change this to sort on notice.id only when indexes are updated
         $notice->orderBy('created DESC, notice.id DESC');
         $notice->limit(1);
         if ($notice->find(true)) {

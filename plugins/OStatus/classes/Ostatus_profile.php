@@ -675,13 +675,10 @@ class Ostatus_profile extends Memcached_DataObject
             }
 
             // Is the recipient a local group?
-            // @fixme we need a uri on user_group
+            // @fixme uri on user_group isn't reliable yet
             // $group = User_group::staticGet('uri', $recipient);
-            $template = common_local_url('groupbyid', array('id' => '31337'));
-            $template = preg_quote($template, '/');
-            $template = str_replace('31337', '(\d+)', $template);
-            if (preg_match("/$template/", $recipient, $matches)) {
-                $id = $matches[1];
+            $id = OStatusPlugin::localGroupFromUrl($recipient);
+            if ($id) {
                 $group = User_group::staticGet('id', $id);
                 if ($group) {
                     // Deliver to all members of this local group if allowed.
@@ -992,7 +989,15 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!$homeuri) {
             common_log(LOG_DEBUG, __METHOD__ . " empty actor profile URI: " . var_export($activity, true));
-            throw new ServerException("No profile URI");
+            throw new Exception("No profile URI");
+        }
+
+        if (OStatusPlugin::localProfileFromUrl($homeuri)) {
+            throw new Exception("Local user can't be referenced as remote.");
+        }
+
+        if (OStatusPlugin::localGroupFromUrl($homeuri)) {
+            throw new Exception("Local group can't be referenced as remote.");
         }
 
         if (array_key_exists('feedurl', $hints)) {
