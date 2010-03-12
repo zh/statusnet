@@ -1374,6 +1374,11 @@ class ApiAction extends Action
             $aargs['id'] = $id;
         }
 
+        $tag = $this->arg('tag');
+        if (!empty($tag)) {
+            $aargs['tag'] = $tag;
+        }
+
         parse_str($_SERVER['QUERY_STRING'], $params);
         $pstring = '';
         if (!empty($params)) {
