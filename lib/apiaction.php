@@ -491,7 +491,7 @@ class ApiAction extends Action
                 $this->showXmlAttachments($twitter_status['attachments']);
                 break;
             case 'geo':
-                $this->showGeoRSS($value);
+                $this->showGeoXML($value);
                 break;
             case 'retweeted_status':
                 $this->showTwitterXmlStatus($value, 'retweeted_status');
@@ -536,6 +536,18 @@ class ApiAction extends Action
                 $this->element('enclosure', $attrs, '');
             }
             $this->elementEnd('attachments');
+        }
+    }
+
+    function showGeoXML($geo)
+    {
+        if (empty($geo)) {
+            // empty geo element
+            $this->element('geo');
+        } else {
+            $this->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
+            $this->element('georss:point', null, $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]);
+            $this->elementEnd('geo');
         }
     }
 
