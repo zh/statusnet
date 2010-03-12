@@ -1128,6 +1128,7 @@ class Notice extends Memcached_DataObject
 
         if ($source) {
             $xs->elementStart('source');
+            $xs->element('id', null, $profile->profileurl);
             $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
             $xs->element('link', array('href' => $profile->profileurl));
             $user = User::staticGet('id', $profile->id);
@@ -1143,6 +1144,7 @@ class Notice extends Memcached_DataObject
             }
 
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+            $xs->element('updated', null, common_date_w3dtf($this->created));
         }
 
         if ($source) {

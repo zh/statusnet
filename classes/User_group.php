@@ -295,7 +295,7 @@ class User_group extends Memcached_DataObject
         }
 
         // If not, check local groups.
-    
+
         $group = Local_group::staticGet('nickname', $nickname);
         if (!empty($group)) {
             return User_group::staticGet('id', $group->group_id);
@@ -371,11 +371,10 @@ class User_group extends Memcached_DataObject
 
         if ($source) {
             $xs->elementStart('source');
+            $xs->element('id', null, $this->permalink());
             $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
             $xs->element('link', array('href' => $this->permalink()));
-        }
-
-        if ($source) {
+            $xs->element('updated', null, $this->modified);
             $xs->elementEnd('source');
         }
 
@@ -455,7 +454,7 @@ class User_group extends Memcached_DataObject
         $group = new User_group();
 
         $group->query('BEGIN');
-        
+
         if (empty($uri)) {
             // fill in later...
             $uri = null;
