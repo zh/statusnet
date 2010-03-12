@@ -729,7 +729,7 @@ class LoseCommand extends Command
             return;
         }
 
-        $result = Subscription::cancel($this->other, $this->user);
+        $result = Subscription::cancel($this->getProfile($this->other), $this->user->getProfile());
 
         if ($result) {
             $channel->output($this->user, sprintf(_('Unsubscribed  %s'), $this->other));
