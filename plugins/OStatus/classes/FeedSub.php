@@ -110,7 +110,7 @@ class FeedSub extends Memcached_DataObject
                                    /*size*/ null,
                                    /*nullable*/ false,
                                    /*key*/ 'PRI',
-                                   /*default*/ '0',
+                                   /*default*/ null,
                                    /*extra*/ null,
                                    /*auto_increment*/ true),
                      new ColumnDef('uri', 'varchar',
@@ -450,3 +450,4 @@ class FeedSub extends Memcached_DataObject
     }
 
 }
+

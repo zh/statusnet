@@ -70,7 +70,7 @@ class Magicsig extends Memcached_DataObject
     static function schemaDef()
     {
         return array(new ColumnDef('user_id', 'integer',
-                                   null, true, 'PRI'),
+                                   null, false, 'PRI'),
                      new ColumnDef('keypair', 'varchar',
                                    255, false),
                      new ColumnDef('alg', 'varchar',
