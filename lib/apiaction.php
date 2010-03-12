@@ -1358,8 +1358,22 @@ class ApiAction extends Action
         }
     }
 
-    function getSelfUri($action, $aargs)
+    /**
+     * Calculate the complete URI that called up this action.  Used for
+     * Atom rel="self" links.  Warning: this is funky.
+     *
+     * @return string URL    a URL suitable for rel="self" Atom links
+     */
+    function getSelfUri()
     {
+        $action = mb_substr(get_class($this), 0, -6); // remove 'Action'
+
+        $id = $this->arg('id');
+        $aargs = array('format' => $this->format);
+        if (!empty($id)) {
+            $aargs['id'] = $id;
+        }
+
         parse_str($_SERVER['QUERY_STRING'], $params);
         $pstring = '';
         if (!empty($params)) {

@@ -122,13 +122,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             array('nickname' => $this->user->nickname)
         );
 
-        // Calculate self link
-        $id = $this->arg('id');
-        $aargs = array('format' => $this->format);
-        if (!empty($id)) {
-            $aargs['id'] = $id;
-        }
-        $self = $this->getSelfUri('ApiTimelineUser', $aargs);
+        $self = $this->getSelfUri();
 
         // FriendFeed's SUP protocol
         // Also added RSS and Atom feeds

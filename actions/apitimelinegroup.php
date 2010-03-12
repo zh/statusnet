@@ -107,13 +107,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         // We'll pull common formatting out of this for other formats
         $atom = new AtomGroupNoticeFeed($this->group);
 
-        // Calculate self link
-        $id = $this->arg('id');
-        $aargs = array('format' => $this->format);
-        if (!empty($id)) {
-            $aargs['id'] = $id;
-        }
-        $self = $this->getSelfUri('ApiTimelineGroup', $aargs);
+        $self = $this->getSelfUri();
 
         switch($this->format) {
         case 'xml':
