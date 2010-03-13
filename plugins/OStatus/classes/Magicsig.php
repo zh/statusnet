@@ -40,8 +40,8 @@ class Magicsig extends Memcached_DataObject
     public $keypair;
     public $alg;
     
-    private $publicKey;
-    private $privateKey;
+    public $publicKey;
+    public $privateKey;
     
     public function __construct($alg = 'RSA-SHA256')
     {
@@ -100,18 +100,19 @@ class Magicsig extends Memcached_DataObject
         return parent::insert();
     }
 
-    public function generate($user_id, $key_length = 512)
+    public function generate($user_id)
     {
         $rsa = new Crypt_RSA();
+        
+        $keypair = $rsa->createKey();
 
-        extract($rsa->createKey());
+        $rsa->loadKey($keypair['privatekey']);
 
-        $rsa->loadKey($privatekey);
-
-        $this->privateKey = $rsa;
+        $this->privateKey = new Crypt_RSA();
+        $this->privateKey->loadKey($keypair['privatekey']);
 
         $this->publicKey = new Crypt_RSA();
-        $this->publicKey->loadKey($publickey);
+        $this->publicKey->loadKey($keypair['publickey']);
         
         $this->user_id = $user_id;
         $this->insert();
@@ -186,7 +187,7 @@ class Magicsig extends Memcached_DataObject
         switch ($this->alg) {
 
         case 'RSA-SHA256':
-            return 'magicsig_sha256';
+            return 'sha256';
         }
 
     }
