@@ -40,8 +40,9 @@ class Magicsig extends Memcached_DataObject
     public $keypair;
     public $alg;
     
-    private $_rsa;
-
+    private $publicKey;
+    private $privateKey;
+    
     public function __construct($alg = 'RSA-SHA256')
     {
         $this->alg = $alg;
@@ -101,15 +102,7 @@ class Magicsig extends Memcached_DataObject
 
     public function generate($user_id, $key_length = 512)
     {
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
-
-        $keypair = new Crypt_RSA_KeyPair($key_length);
-        $params['public_key'] = $keypair->getPublicKey();
-        $params['private_key'] = $keypair->getPrivateKey();
-
-        $this->_rsa = new Crypt_RSA($params);
-        PEAR::popErrorHandling();
-
+        // @fixme new key generation
         $this->user_id = $user_id;
         $this->insert();
     }
@@ -132,8 +125,6 @@ class Magicsig extends Memcached_DataObject
     
     public static function fromString($text)
     {
-        PEAR::pushErrorHandling(PEAR_ERROR_RETURN);
-
         $magic_sig = new Magicsig();
         
         // remove whitespace
@@ -144,35 +135,40 @@ class Magicsig extends Memcached_DataObject
             return false;
         }
         
-        $mod = base64_url_decode($matches[1]);
-        $exp = base64_url_decode($matches[2]);
+        $mod = $matches[1];
+        $exp = $matches[2];
         if (!empty($matches[4])) {
-            $private_exp = base64_url_decode($matches[4]);
+            $private_exp = $matches[4];
         } else {
             $private_exp = false;
         }
 
-        $params['public_key'] = new Crypt_RSA_KEY($mod, $exp, 'public');
-        if ($params['public_key']->isError()) {
-            $error = $params['public_key']->getLastError();
-            common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
-            return false;
-        }
+        $magic_sig->loadKey($mod, $exp, 'public');
         if ($private_exp) {
-            $params['private_key'] = new Crypt_RSA_KEY($mod, $private_exp, 'private');
-            if ($params['private_key']->isError()) {
-                $error = $params['private_key']->getLastError();
-                common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
-                return false;
-            }
+            $magic_sig->loadKey($mod, $private_exp, 'private');
         }
-
-        $magic_sig->_rsa = new Crypt_RSA($params);
-        PEAR::popErrorHandling();
 
         return $magic_sig;
     }
 
+    public function loadKey($mod, $exp, $type = 'public')
+    {
+        common_log(LOG_DEBUG, "Adding ".$type." key: (".$mod .', '. $exp .")");
+
+        $rsa = new Crypt_RSA();
+        $rsa->signatureMode = CRYPT_RSA_SIGNATURE_PKCS1;
+        $rsa->setHash('sha256');
+        $rsa->modulus = new Math_BigInteger(base64_url_decode($mod), 256);
+        $rsa->k = strlen($rsa->modulus->toBytes());
+        $rsa->exponent = new Math_BigInteger(base64_url_decode($exp), 256);
+
+        if ($type == 'private') {
+            $this->privateKey = $rsa;
+        } else {
+            $this->publicKey = $rsa;
+        }
+    }
+    
     public function getName()
     {
         return $this->alg;
@@ -190,36 +186,16 @@ class Magicsig extends Memcached_DataObject
     
     public function sign($bytes)
     {
-        $hash = $this->getHash();
-        $sig = $this->_rsa->createSign($bytes, null, $hash);
-        if ($this->_rsa->isError()) {
-            $error = $this->_rsa->getLastError();
-            common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
-            return false;
-        }
-
-        return $sig;
+        $sig = $this->privateKey->sign($bytes);
+        return base64_url_encode($sig);
     }
 
     public function verify($signed_bytes, $signature)
     {
-        $hash = $this->getHash();
-        $result =  $this->_rsa->validateSign($signed_bytes, $signature, null, $hash);
-        if ($this->_rsa->isError()) {
-            $error = $this->keypair->getLastError();
-            common_log(LOG_DEBUG, 'RSA Error: '. $error->getMessage());
-            return false;
-        }
-        return $result;
+        $signature = base64_url_decode($signature);
+        return $this->publicKey->verify($signed_bytes, $signature);
     }
         
-}
-
-// Define a sha256 function for hashing
-// (Crypt_RSA should really be updated to use hash() )
-function magicsig_sha256($bytes)
-{
-    return hash('sha256', $bytes);
 }
 
 function base64_url_encode($input)
