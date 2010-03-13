@@ -72,8 +72,8 @@ class Magicsig extends Memcached_DataObject
     {
         return array(new ColumnDef('user_id', 'integer',
                                    null, false, 'PRI'),
-                     new ColumnDef('keypair', 'varchar',
-                                   255, false),
+                     new ColumnDef('keypair', 'text',
+                                   false, false),
                      new ColumnDef('alg', 'varchar',
                                    64, false));
     }
