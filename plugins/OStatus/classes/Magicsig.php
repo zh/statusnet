@@ -102,7 +102,17 @@ class Magicsig extends Memcached_DataObject
 
     public function generate($user_id, $key_length = 512)
     {
-        // @fixme new key generation
+        $rsa = new Crypt_RSA();
+
+        extract($rsa->createKey());
+
+        $rsa->loadKey($privatekey);
+
+        $this->privateKey = $rsa;
+
+        $this->publicKey = new Crypt_RSA();
+        $this->publicKey->loadKey($publickey);
+        
         $this->user_id = $user_id;
         $this->insert();
     }
@@ -113,7 +123,7 @@ class Magicsig extends Memcached_DataObject
         $mod = base64_url_encode($this->publicKey->modulus->toBytes());
         $exp = base64_url_encode($this->publicKey->exponent->toBytes());
         $private_exp = '';
-        if ($full_pair && $private_key->getExponent()) {
+        if ($full_pair && $this->privateKey->exponent->toBytes()) {
             $private_exp = '.' . base64_url_encode($this->privateKey->exponent->toBytes());
         }
 
