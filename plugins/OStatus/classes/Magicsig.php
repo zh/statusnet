@@ -110,14 +110,11 @@ class Magicsig extends Memcached_DataObject
 
     public function toString($full_pair = true)
     {
-        $public_key = $this->_rsa->_public_key;
-        $private_key = $this->_rsa->_private_key;
-
-        $mod = base64_url_encode($public_key->getModulus());
-        $exp = base64_url_encode($public_key->getExponent());
+        $mod = base64_url_encode($this->publicKey->modulus->toBytes());
+        $exp = base64_url_encode($this->publicKey->exponent->toBytes());
         $private_exp = '';
         if ($full_pair && $private_key->getExponent()) {
-            $private_exp = '.' . base64_url_encode($private_key->getExponent());
+            $private_exp = '.' . base64_url_encode($this->privateKey->exponent->toBytes());
         }
 
         return 'RSA.' . $mod . '.' . $exp . $private_exp; 
