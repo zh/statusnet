@@ -457,7 +457,7 @@ class ActivityUtils
 
             // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
 
-            if ($type == 'text') {
+            if (empty($type) || $type == 'text') {
                 return $contentEl->textContent;
             } else if ($type == 'html') {
                 $text = $contentEl->textContent;
@@ -476,7 +476,7 @@ class ActivityUtils
                     $text .= $doc->saveXML($child);
                 }
                 return trim($text);
-            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
+            } else if (in_array($type, array('text/xml', 'application/xml')) ||
                        preg_match('#(+|/)xml$#', $type)) {
                 throw new ClientException(_("Can't handle embedded XML content yet."));
             } else if (strncasecmp($type, 'text/', 5)) {
