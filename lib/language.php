@@ -202,16 +202,19 @@ function _mdomain($backtrace)
     static $cached;
     $path = $backtrace[0]['file'];
     if (!isset($cached[$path])) {
+        $final = 'statusnet'; // assume default domain
         if (DIRECTORY_SEPARATOR !== '/') {
             $path = strtr($path, DIRECTORY_SEPARATOR, '/');
         }
-        $cut = strpos($path, '/plugins/') + 9;
-        $cut2 = strpos($path, '/', $cut);
-        if ($cut && $cut2) {
-            $cached[$path] = substr($path, $cut, $cut2 - $cut);
-        } else {
-            return null;
+        $cut = strpos($path, '/plugins/');
+        if ($cut) {
+            $cut += strlen('/plugins/');
+            $cut2 = strpos($path, '/', $cut);
+            if ($cut && $cut2) {
+                $final = substr($path, $cut, $cut2 - $cut);
+            }
         }
+        $cached[$path] = $final;
     }
     return $cached[$path];
 }
