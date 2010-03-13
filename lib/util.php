@@ -1493,7 +1493,15 @@ function common_copy_args($from)
     $to = array();
     $strip = get_magic_quotes_gpc();
     foreach ($from as $k => $v) {
-        $to[$k] = ($strip) ? stripslashes($v) : $v;
+        if($strip) {
+            if(is_array($v)) {
+                $to[$k] = common_copy_args($v);
+            } else {
+                $to[$k] = stripslashes($v);
+            }
+        } else {
+            $to[$k] = $v;
+        }
     }
     return $to;
 }

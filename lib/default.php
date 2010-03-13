@@ -282,6 +282,7 @@ $default =
                                  'Mapstraction' => null,
                                  'OStatus' => null,
                                  'WikiHashtags' => null,
+                                 'RSSCloud' => null,
                                  'OpenID' => null),
               ),
         'admin' =>

@@ -1128,6 +1128,7 @@ class Notice extends Memcached_DataObject
 
         if ($source) {
             $xs->elementStart('source');
+            $xs->element('id', null, $profile->profileurl);
             $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
             $xs->element('link', array('href' => $profile->profileurl));
             $user = User::staticGet('id', $profile->id);
@@ -1143,13 +1144,14 @@ class Notice extends Memcached_DataObject
             }
 
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+            $xs->element('updated', null, common_date_w3dtf($this->created));
         }
 
         if ($source) {
             $xs->elementEnd('source');
         }
 
-        $xs->element('title', null, $this->content);
+        $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
             $xs->raw($profile->asAtomAuthor());
@@ -1225,7 +1227,11 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        $xs->element('content', array('type' => 'html'), $this->rendered);
+        $xs->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($this->rendered)
+        );
 
         $tag = new Notice_tag();
         $tag->notice_id = $this->id;

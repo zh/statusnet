@@ -77,9 +77,9 @@ class OrbitedPlugin extends RealtimePlugin
         $root = 'http://'.$server.(($port == 80) ? '':':'.$port);
 
         $scripts[] = $root.'/static/Orbited.js';
-        $scripts[] = common_path('plugins/Orbited/orbitedextra.js');
+        $scripts[] = 'plugins/Orbited/orbitedextra.js';
         $scripts[] = $root.'/static/protocols/stomp/stomp.js';
-        $scripts[] = common_path('plugins/Orbited/orbitedupdater.js');
+        $scripts[] = 'plugins/Orbited/orbitedupdater.js';
 
         return $scripts;
     }

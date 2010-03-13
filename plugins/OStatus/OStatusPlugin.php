@@ -415,12 +415,12 @@ class OStatusPlugin extends Plugin
     }
 
     function onEndShowStatusNetStyles($action) {
-        $action->cssLink(common_path('plugins/OStatus/theme/base/css/ostatus.css'));
+        $action->cssLink('plugins/OStatus/theme/base/css/ostatus.css');
         return true;
     }
 
     function onEndShowStatusNetScripts($action) {
-        $action->script(common_path('plugins/OStatus/js/ostatus.js'));
+        $action->script('plugins/OStatus/js/ostatus.js');
         return true;
     }
 
@@ -929,4 +929,41 @@ class OStatusPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Utility function to check if the given URL is a canonical group profile
+     * page, and if so return the ID number.
+     *
+     * @param string $url
+     * @return mixed int or false
+     */
+    public static function localGroupFromUrl($url)
+    {
+        $template = common_local_url('groupbyid', array('id' => '31337'));
+        $template = preg_quote($template, '/');
+        $template = str_replace('31337', '(\d+)', $template);
+        if (preg_match("/$template/", $url, $matches)) {
+            return intval($matches[1]);
+        }
+        return false;
+    }
+
+    /**
+     * Utility function to check if the given URL is a canonical user profile
+     * page, and if so return the ID number.
+     *
+     * @param string $url
+     * @return mixed int or false
+     */
+    public static function localProfileFromUrl($url)
+    {
+        $template = common_local_url('userbyid', array('id' => '31337'));
+        $template = preg_quote($template, '/');
+        $template = str_replace('31337', '(\d+)', $template);
+        if (preg_match("/$template/", $url, $matches)) {
+            return intval($matches[1]);
+        }
+        return false;
+    }
+
 }

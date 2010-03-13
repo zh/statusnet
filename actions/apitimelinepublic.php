@@ -107,7 +107,8 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
         $title      = sprintf(_("%s public timeline"), $sitename);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:PublicTimeline";
-        $link       = common_root_url();
+        $link       = common_local_url('public');
+        $self       = $this->getSelfUri();
         $subtitle   = sprintf(_("%s updates from everyone!"), $sitename);
 
         switch($this->format) {
@@ -115,9 +116,19 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $this->showRssTimeline($this->notices, $title, $link, $subtitle, null, $sitelogo);
+            $this->showRssTimeline(
+                $this->notices,
+                $title,
+                $link,
+                $subtitle,
+                null,
+                $sitelogo,
+                $self
+            );
             break;
         case 'atom':
+
+            header('Content-Type: application/atom+xml; charset=utf-8');
 
             $atom = new AtomNoticeFeed();
 
@@ -126,16 +137,8 @@ class ApiTimelinePublicAction extends ApiPrivateAuthAction
             $atom->setSubtitle($subtitle);
             $atom->setLogo($sitelogo);
             $atom->setUpdated('now');
-
             $atom->addLink(common_local_url('public'));
-
-            $atom->addLink(
-                $this->getSelfUri(
-                    'ApiTimelinePublic', array('format' => 'atom')
-                ),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
-
+            $atom->setSelfLink($self);
             $atom->addEntryFromNotices($this->notices);
 
             $this->raw($atom->getString());

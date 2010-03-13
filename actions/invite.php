@@ -194,7 +194,8 @@ class InviteAction extends CurrentUserDesignAction
                         _('Optionally add a personal message to the invitation.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('send', _('Send'));
+        // TRANS: Send button for inviting friends
+        $this->submit('send', _m('BUTTON', 'Send'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }

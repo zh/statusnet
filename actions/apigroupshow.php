@@ -45,6 +45,7 @@ require_once INSTALLDIR . '/lib/apiprivateauth.php';
  * @author   Evan Prodromou <evan@status.net>
  * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Zach Copley <zach@status.net>
+ * @author   Michele <macno@macno.org>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
@@ -68,6 +69,24 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
 
         $this->group = $this->getTargetGroup($this->arg('id'));
 
+        if (empty($this->group)) {
+            $alias = Group_alias::staticGet(
+                'alias',
+                common_canonical_nickname($this->arg('id'))
+            );
+            if (!empty($alias)) {
+                $args = array('id' => $alias->group_id, 'format' => $this->format);
+                common_redirect(common_local_url('ApiGroupShow', $args), 301);
+            } else {
+                $this->clientError(
+                    _('Group not found!'),
+                    404,
+                    $this->format
+                );
+            }
+            return;
+        }
+
         return true;
     }
 
@@ -85,15 +104,6 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
-        if (empty($this->group)) {
-            $this->clientError(
-                _('Group not found!'),
-                404,
-                $this->format
-            );
-            return;
-        }
-
         switch($this->format) {
         case 'xml':
             $this->showSingleXmlGroup($this->group);
@@ -105,7 +115,6 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
             $this->clientError(_('API method not found.'), 404, $this->format);
             break;
         }
-
     }
 
     /**

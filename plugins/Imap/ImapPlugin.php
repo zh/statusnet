@@ -86,7 +86,7 @@ class ImapPlugin extends Plugin
         }
     }
 
-    function onStartIoManagerClasses(&$classes)
+    function onStartQueueDaemonIoManagers(&$classes)
     {
         $classes[] = new ImapManager($this);
     }

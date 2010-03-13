@@ -221,7 +221,7 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
             // Twitter friend
 
             if (!save_twitter_user($friend_id, $friend_name)) {
-                common_log(LOG_WARNING, $this-name() .
+                common_log(LOG_WARNING, $this->name() .
                            " - Couldn't save $screen_name's friend, $friend_name.");
                 continue;
             }

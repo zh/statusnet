@@ -132,13 +132,18 @@ class User extends Memcached_DataObject
         return !in_array($nickname, $blacklist);
     }
 
-    function getCurrentNotice($dt=null)
+    /**
+     * Get the most recent notice posted by this user, if any.
+     *
+     * @return mixed Notice or null
+     */
+    function getCurrentNotice()
     {
         $profile = $this->getProfile();
         if (!$profile) {
             return null;
         }
-        return $profile->getCurrentNotice($dt);
+        return $profile->getCurrentNotice();
     }
 
     function getCarrier()
@@ -206,6 +211,7 @@ class User extends Memcached_DataObject
         if(! User::allowed_nickname($nickname)){
             common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
                        __FILE__);
+            return false;
         }
         $profile->profileurl = common_profile_url($nickname);
 

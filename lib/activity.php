@@ -78,7 +78,7 @@ class PoCoAddress
         if (!empty($this->formatted)) {
             $xs = new XMLStringer(true);
             $xs->elementStart('poco:address');
-            $xs->element('poco:formatted', null, $this->formatted);
+            $xs->element('poco:formatted', null, common_xml_safe_str($this->formatted));
             $xs->elementEnd('poco:address');
             return $xs->getString();
         }
@@ -279,7 +279,7 @@ class PoCo
         );
 
         if (!empty($this->note)) {
-            $xs->element('poco:note', null, $this->note);
+            $xs->element('poco:note', null, common_xml_safe_str($this->note));
         }
 
         if (!empty($this->address)) {
@@ -805,7 +805,6 @@ class ActivityObject
         return $object;
     }
 
-
     function asString($tag='activity:object')
     {
         $xs = new XMLStringer(true);
@@ -817,16 +816,28 @@ class ActivityObject
         $xs->element(self::ID, null, $this->id);
 
         if (!empty($this->title)) {
-            $xs->element(self::TITLE, null, $this->title);
+            $xs->element(
+                self::TITLE,
+                null,
+                common_xml_safe_str($this->title)
+            );
         }
 
         if (!empty($this->summary)) {
-            $xs->element(self::SUMMARY, null, $this->summary);
+            $xs->element(
+                self::SUMMARY,
+                null,
+                common_xml_safe_str($this->summary)
+            );
         }
 
         if (!empty($this->content)) {
             // XXX: assuming HTML content here
-            $xs->element(ActivityUtils::CONTENT, array('type' => 'html'), $this->content);
+            $xs->element(
+                ActivityUtils::CONTENT,
+                array('type' => 'html'),
+                common_xml_safe_str($this->content)
+            );
         }
 
         if (!empty($this->link)) {

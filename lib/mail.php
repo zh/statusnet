@@ -133,12 +133,13 @@ function mail_notify_from()
  * @param User   &$user   user to send email to
  * @param string $subject subject of the email
  * @param string $body    body of the email
+ * @param array  $headers optional list of email headers
  * @param string $address optional specification of email address
  *
  * @return boolean success flag
  */
 
-function mail_to_user(&$user, $subject, $body, $address=null)
+function mail_to_user(&$user, $subject, $body, $headers=array(), $address=null)
 {
     if (!$address) {
         $address = $user->email;
@@ -180,7 +181,9 @@ function mail_confirm_address($user, $code, $nickname, $address)
                     $nickname, common_config('site', 'name'),
                     common_local_url('confirmaddress', array('code' => $code)),
                     common_config('site', 'name'));
-    return mail_to_user($user, $subject, $body, $address);
+    $headers = array();
+
+    return mail_to_user($user, $subject, $body, $headers, $address);
 }
 
 /**
@@ -231,6 +234,7 @@ function mail_subscribe_notify_profile($listenee, $other)
 
         $recipients = $listenee->email;
 
+        $headers = _mail_prepare_headers('subscribe', $listenee->nickname, $other->nickname);
         $headers['From']    = mail_notify_from();
         $headers['To']      = $name . ' <' . $listenee->email . '>';
         $headers['Subject'] = sprintf(_('%1$s is now listening to '.
@@ -476,7 +480,10 @@ function mail_notify_nudge($from, $to)
                     common_local_url('all', array('nickname' => $to->nickname)),
                     common_config('site', 'name'));
     common_init_locale();
-    return mail_to_user($to, $subject, $body);
+
+    $headers = _mail_prepare_headers('nudge', $to->nickname, $from->nickname);
+
+    return mail_to_user($to, $subject, $body, $headers);
 }
 
 /**
@@ -526,8 +533,10 @@ function mail_notify_message($message, $from=null, $to=null)
                     common_local_url('newmessage', array('to' => $from->id)),
                     common_config('site', 'name'));
 
+    $headers = _mail_prepare_headers('message', $to->nickname, $from->nickname);
+
     common_init_locale();
-    return mail_to_user($to, $subject, $body);
+    return mail_to_user($to, $subject, $body, $headers);
 }
 
 /**
@@ -578,8 +587,10 @@ function mail_notify_fave($other, $user, $notice)
                     common_config('site', 'name'),
                     $user->nickname);
 
+    $headers = _mail_prepare_headers('fave', $other->nickname, $user->nickname);
+
     common_init_locale();
-    mail_to_user($other, $subject, $body);
+    mail_to_user($other, $subject, $body, $headers);
 }
 
 /**
@@ -611,19 +622,19 @@ function mail_notify_attn($user, $notice)
 
     common_init_locale($user->language);
 
-	if ($notice->conversation != $notice->id) {
-		$conversationEmailText = "The full conversation can be read here:\n\n".
-								 "\t%5\$s\n\n ";
-		$conversationUrl 	   = common_local_url('conversation',
+        if ($notice->conversation != $notice->id) {
+                $conversationEmailText = "The full conversation can be read here:\n\n".
+                                                                 "\t%5\$s\n\n ";
+                $conversationUrl            = common_local_url('conversation',
                                  array('id' => $notice->conversation)).'#notice-'.$notice->id;
-	} else {
-		$conversationEmailText = "%5\$s";
-		$conversationUrl = null;
-	}
+        } else {
+                $conversationEmailText = "%5\$s";
+                $conversationUrl = null;
+        }
 
     $subject = sprintf(_('%s (@%s) sent a notice to your attention'), $bestname, $sender->nickname);
 
-	$body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
+        $body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
                       "It reads:\n\n".
@@ -641,7 +652,7 @@ function mail_notify_attn($user, $notice)
                     common_local_url('shownotice',
                                      array('notice' => $notice->id)),//%3
                     $notice->content,//%4
-					$conversationUrl,//%5
+                                        $conversationUrl,//%5
                     common_local_url('newnotice',
                                      array('replyto' => $sender->nickname, 'inreplyto' => $notice->id)),//%6
                     common_local_url('replies',
@@ -649,6 +660,30 @@ function mail_notify_attn($user, $notice)
                     common_local_url('emailsettings'), //%8
                     $sender->nickname); //%9
 
+    $headers = _mail_prepare_headers('mention', $user->nickname, $sender->nickname);
+
     common_init_locale();
-    mail_to_user($user, $subject, $body);
+    mail_to_user($user, $subject, $body, $headers);
 }
+
+/**
+ * Prepare the common mail headers used in notification emails
+ *
+ * @param string $msg_type type of message being sent to the user
+ * @param string $to       nickname of the receipient
+ * @param string $from     nickname of the user triggering the notification
+ *
+ * @return array list of mail headers to include in the message
+ */
+function _mail_prepare_headers($msg_type, $to, $from)
+{
+    $headers = array(
+        'X-StatusNet-MessageType' => $msg_type,
+        'X-StatusNet-TargetUser'  => $to,
+        'X-StatusNet-SourceUser'  => $from,
+        'X-StatusNet-Domain'      => common_config('site', 'server')
+    );
+
+    return $headers;
+}
+

@@ -213,7 +213,9 @@ abstract class QueueManager extends IoManager
     {
         if (isset($this->handlers[$queue])) {
             $class = $this->handlers[$queue];
-            if (class_exists($class)) {
+            if(is_object($class)) {
+                return $class;
+            } else if (class_exists($class)) {
                 return new $class();
             } else {
                 $this->_log(LOG_ERR, "Nonexistent handler class '$class' for queue '$queue'");
@@ -286,7 +288,7 @@ abstract class QueueManager extends IoManager
      * Only registered transports will be reliably picked up!
      *
      * @param string $transport
-     * @param string $class
+     * @param string $class class name or object instance
      * @param string $group
      */
     public function connect($transport, $class, $group='main')

@@ -77,7 +77,7 @@ class HubSub extends Memcached_DataObject
                      new ColumnDef('topic', 'varchar',
                                    /*size*/255,
                                    /*nullable*/false,
-                                   /*key*/'KEY'),
+                                   /*key*/'MUL'),
                      new ColumnDef('callback', 'varchar',
                                    255, false),
                      new ColumnDef('secret', 'text',

@@ -69,13 +69,17 @@ abstract class AuthenticationPlugin extends Plugin
     /**
     * Automatically register a user when they attempt to login with valid credentials.
     * User::register($data) is a very useful method for this implementation
-    * @param username
+    * @param username username (that is used to login and find the user in the authentication provider) of the user to be registered
+    * @param nickname nickname of the user in the SN system. If nickname is null, then set nickname = username
     * @return mixed instance of User, or false (if user couldn't be created)
     */
-    function autoRegister($username)
+    function autoRegister($username, $nickname = null)
     {
+        if(is_null($nickname)){
+            $nickname = $username;
+        }
         $registration_data = array();
-        $registration_data['nickname'] = $username ;
+        $registration_data['nickname'] = $nickname;
         return User::register($registration_data);
     }
 
@@ -90,6 +94,21 @@ abstract class AuthenticationPlugin extends Plugin
     function changePassword($username,$oldpassword,$newpassword)
     {
         return false;
+    }
+
+    /**
+    * Given a username, suggest what the nickname should be
+    * Used during autoregistration
+    * Useful if your usernames are ugly, and you want to suggest
+    * nice looking nicknames when users initially sign on
+    * All nicknames returned by this function should be valid
+    *  implementations may want to use common_nicknamize() to ensure validity
+    * @param username
+    * @return string nickname
+    */
+    function suggestNicknameForUsername($username)
+    {
+        return common_nicknamize($username);
     }
 
     //------------Below are the methods that connect StatusNet to the implementing Auth plugin------------\\
@@ -108,10 +127,22 @@ abstract class AuthenticationPlugin extends Plugin
     function onAutoRegister($nickname, $provider_name, &$user)
     {
         if($provider_name == $this->provider_name && $this->autoregistration){
-            $user = $this->autoregister($nickname);
-            if($user){
-                User_username::register($user,$nickname,$this->provider_name);
-                return false;
+            $suggested_nickname = $this->suggestNicknameForUsername($nickname);
+            $test_user = User::staticGet('nickname', $suggested_nickname);
+            if($test_user) {
+                //someone already exists with the suggested nickname, so used the passed nickname
+                $suggested_nickname = common_nicknamize($nickname);
+            }
+            $test_user = User::staticGet('nickname', $suggested_nickname);
+            if($test_user) {
+                //someone already exists with the suggested nickname
+                //not much else we can do
+            }else{
+                $user = $this->autoRegister($nickname, $suggested_nickname);
+                if($user){
+                    User_username::register($user,$nickname,$this->provider_name);
+                    return false;
+                }
             }
         }
     }
@@ -122,23 +153,30 @@ abstract class AuthenticationPlugin extends Plugin
         $user_username->username=$nickname;
         $user_username->provider_name=$this->provider_name;
         if($user_username->find() && $user_username->fetch()){
-            $username = $user_username->username;
-            $authenticated = $this->checkPassword($username, $password);
+            $authenticated = $this->checkPassword($user_username->username, $password);
             if($authenticated){
                 $authenticatedUser = User::staticGet('id', $user_username->user_id);
                 return false;
             }
         }else{
-            $user = User::staticGet('nickname', $nickname);
+            //$nickname is the username used to login
+            //$suggested_nickname is the nickname the auth provider suggests for that username
+            $suggested_nickname = $this->suggestNicknameForUsername($nickname);
+            $user = User::staticGet('nickname', $suggested_nickname);
             if($user){
-                //make sure a different provider isn't handling this nickname
+                //make sure this user isn't claimed
                 $user_username = new User_username();
-                $user_username->username=$nickname;
-                if(!$user_username->find()){
-                    //no other provider claims this username, so it's safe for us to handle it
+                $user_username->user_id=$user->id;
+                $we_can_handle = false;
+                if($user_username->find()){
+                    //either this provider, or another one, has already claimed this user
+                    //so we cannot. Let another plugin try.
+                    return;
+                }else{
+                    //no other provider claims this user, so it's safe for us to handle it
                     $authenticated = $this->checkPassword($nickname, $password);
                     if($authenticated){
-                        $authenticatedUser = User::staticGet('nickname', $nickname);
+                        $authenticatedUser = $user;
                         User_username::register($authenticatedUser,$nickname,$this->provider_name);
                         return false;
                     }

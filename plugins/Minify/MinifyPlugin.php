@@ -86,7 +86,11 @@ class MinifyPlugin extends Plugin
         $url = parse_url($src);
         if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
         {
-            $src = $this->minifyUrl($src);
+            if (strpos($src, 'plugins/') === 0 || strpos($src, 'local/') === 0) {
+                $src = $this->minifyUrl($src);
+            } else {
+                $src = $this->minifyUrl('js/'.$src);
+            }
         }
     }
 

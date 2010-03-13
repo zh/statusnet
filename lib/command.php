@@ -711,6 +711,34 @@ class LoginCommand extends Command
     }
 }
 
+class LoseCommand extends Command
+{
+
+    var $other = null;
+
+    function __construct($user, $other)
+    {
+        parent::__construct($user);
+        $this->other = $other;
+    }
+
+    function execute($channel)
+    {
+        if(!$this->other) {
+            $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
+            return;
+        }
+
+        $result = Subscription::cancel($this->getProfile($this->other), $this->user->getProfile());
+
+        if ($result) {
+            $channel->output($this->user, sprintf(_('Unsubscribed  %s'), $this->other));
+        } else {
+            $channel->error($this->user, $result);
+        }
+    }
+}
+
 class SubscriptionsCommand extends Command
 {
     function handle($channel)
@@ -793,6 +821,7 @@ class HelpCommand extends Command
                            "d <nickname> <text> - direct message to user\n".
                            "get <nickname> - get last notice from user\n".
                            "whois <nickname> - get profile info on user\n".
+                           "lose <nickname> - force user to stop following you\n".
                            "fav <nickname> - add user's last notice as a 'fave'\n".
                            "fav #<notice_id> - add notice with the given id as a 'fave'\n".
                            "repeat #<notice_id> - repeat a notice with a given id\n".

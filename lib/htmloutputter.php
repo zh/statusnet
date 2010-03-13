@@ -356,40 +356,47 @@ class HTMLOutputter extends XMLOutputter
 
             if( empty($url['scheme']) && empty($url['host']) && empty($url['query']) && empty($url['fragment']))
             {
-                $path = common_config('javascript', 'path');
+                if (strpos($src, 'plugins/') === 0 || strpos($src, 'local/') === 0) {
 
-                if (empty($path)) {
-                    $path = common_config('site', 'path') . '/js/';
-                }
+                    $src = common_path($src) . '?version=' . STATUSNET_VERSION;
 
-                if ($path[strlen($path)-1] != '/') {
-                    $path .= '/';
-                }
+                }else{
 
-                if ($path[0] != '/') {
-                    $path = '/'.$path;
-                }
+                    $path = common_config('javascript', 'path');
 
-                $server = common_config('javascript', 'server');
-
-                if (empty($server)) {
-                    $server = common_config('site', 'server');
-                }
-
-                $ssl = common_config('javascript', 'ssl');
-
-                if (is_null($ssl)) { // null -> guess
-                    if (common_config('site', 'ssl') == 'always' &&
-                        !common_config('javascript', 'server')) {
-                        $ssl = true;
-                    } else {
-                        $ssl = false;
+                    if (empty($path)) {
+                        $path = common_config('site', 'path') . '/js/';
                     }
+
+                    if ($path[strlen($path)-1] != '/') {
+                        $path .= '/';
+                    }
+
+                    if ($path[0] != '/') {
+                        $path = '/'.$path;
+                    }
+
+                    $server = common_config('javascript', 'server');
+
+                    if (empty($server)) {
+                        $server = common_config('site', 'server');
+                    }
+
+                    $ssl = common_config('javascript', 'ssl');
+
+                    if (is_null($ssl)) { // null -> guess
+                        if (common_config('site', 'ssl') == 'always' &&
+                            !common_config('javascript', 'server')) {
+                            $ssl = true;
+                        } else {
+                            $ssl = false;
+                        }
+                    }
+
+                    $protocol = ($ssl) ? 'https' : 'http';
+
+                    $src = $protocol.'://'.$server.$path.$src . '?version=' . STATUSNET_VERSION;
                 }
-
-                $protocol = ($ssl) ? 'https' : 'http';
-
-                $src = $protocol.'://'.$server.$path.$src . '?version=' . STATUSNET_VERSION;
             }
 
             $this->element('script', array('type' => $type,

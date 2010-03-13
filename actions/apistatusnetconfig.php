@@ -50,13 +50,17 @@ if (!defined('STATUSNET')) {
 class ApiStatusnetConfigAction extends ApiAction
 {
     var $keys = array(
-        'site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
-                        'email', 'broughtby', 'broughtbyurl', 'closed',
-                        'inviteonly', 'private','textlimit'),
-        'license' => array('url', 'title', 'image'),
+        'site' => array('name', 'server', 'theme', 'path', 'logo', 'fancy', 'language',
+                        'email', 'broughtby', 'broughtbyurl', 'timezone', 'closed',
+                        'inviteonly', 'private', 'textlimit', 'ssl', 'sslserver', 'shorturllength'),
+        'license' => array('type', 'owner', 'url', 'title', 'image'),
         'nickname' => array('featured'),
+        'profile' => array('biolimit'),
+        'group' => array('desclimit'),
+        'notice' => array('contentlimit'),
         'throttle' => array('enabled', 'count', 'timespan'),
-        'xmpp' => array('enabled', 'server', 'user')
+        'xmpp' => array('enabled', 'server', 'port', 'user'),
+        'integration' => array('source')
     );
 
     /**

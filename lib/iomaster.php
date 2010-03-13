@@ -330,7 +330,7 @@ abstract class IoMaster
      * for per-queue and per-site records.
      *
      * @param string $key counter name
-     * @param array $owners list of owner keys like 'queue:jabber' or 'site:stat01'
+     * @param array $owners list of owner keys like 'queue:xmpp' or 'site:stat01'
      */
     public function stats($key, $owners=array())
     {
