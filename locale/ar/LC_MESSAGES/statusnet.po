@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-12 23:41+0000\n"
-"PO-Revision-Date: 2010-03-12 23:42:03+0000\n"
+"POT-Creation-Date: 2010-03-14 22:26+0000\n"
+"PO-Revision-Date: 2010-03-14 22:26:37+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63655); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -563,9 +563,9 @@ msgstr "الحساب"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:244 actions/tagother.php:94
+#: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
-#: lib/userprofile.php:131
+#: lib/userprofile.php:132
 msgid "Nickname"
 msgstr "الاسم المستعار"
 
@@ -707,7 +707,7 @@ msgstr "لا حجم."
 msgid "Invalid size."
 msgstr "حجم غير صالح."
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:229
+#: actions/avatarsettings.php:67 actions/showgroup.php:230
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "أفتار"
@@ -739,7 +739,7 @@ msgid "Preview"
 msgstr "معاينة"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:657
+#: lib/deleteuserform.php:66 lib/noticelist.php:658
 msgid "Delete"
 msgstr "احذف"
 
@@ -977,7 +977,7 @@ msgstr "أمتأكد من أنك تريد حذف هذا الإشعار؟"
 msgid "Do not delete this notice"
 msgstr "لا تحذف هذا الإشعار"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:657
+#: actions/deletenotice.php:146 lib/noticelist.php:658
 msgid "Delete this notice"
 msgstr "احذف هذا الإشعار"
 
@@ -2595,8 +2595,8 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 حرفًا إنجليزيًا أو رقمًا بدون نقاط أو مسافات"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:255 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:149
+#: actions/showgroup.php:256 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "الاسم الكامل"
 
@@ -2623,9 +2623,9 @@ msgid "Bio"
 msgstr "السيرة"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:264 actions/tagother.php:112
+#: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
-#: lib/userprofile.php:164
+#: lib/userprofile.php:165
 msgid "Location"
 msgstr "الموقع"
 
@@ -2639,7 +2639,7 @@ msgstr "شارك مكاني الحالي عند إرسال إشعارات"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+#: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
 msgstr "الوسوم"
 
@@ -3063,7 +3063,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:394
+#: lib/userprofile.php:395
 msgid "Subscribe"
 msgstr "اشترك"
 
@@ -3099,7 +3099,7 @@ msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
 msgid "You already repeated that notice."
 msgstr "أنت كررت هذه الملاحظة بالفعل."
 
-#: actions/repeat.php:114 lib/noticelist.php:676
+#: actions/repeat.php:114 lib/noticelist.php:677
 msgid "Repeated"
 msgstr "مكرر"
 
@@ -3239,7 +3239,7 @@ msgstr "المنظمة"
 msgid "Description"
 msgstr "الوصف"
 
-#: actions/showapplication.php:192 actions/showgroup.php:438
+#: actions/showapplication.php:192 actions/showgroup.php:439
 #: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "إحصاءات"
@@ -3355,67 +3355,67 @@ msgstr "مجموعة %s"
 msgid "%1$s group, page %2$d"
 msgstr "%1$s أعضاء المجموعة, الصفحة %2$d"
 
-#: actions/showgroup.php:226
+#: actions/showgroup.php:227
 msgid "Group profile"
 msgstr "ملف المجموعة الشخصي"
 
-#: actions/showgroup.php:271 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:177
+#: actions/showgroup.php:272 actions/tagother.php:118
+#: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr "مسار"
 
-#: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:194
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
 msgstr "ملاحظة"
 
-#: actions/showgroup.php:292 lib/groupeditform.php:184
+#: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "الكنى"
 
-#: actions/showgroup.php:301
+#: actions/showgroup.php:302
 msgid "Group actions"
 msgstr ""
 
-#: actions/showgroup.php:337
+#: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr ""
 
-#: actions/showgroup.php:343
+#: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr ""
 
-#: actions/showgroup.php:349
+#: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr ""
 
-#: actions/showgroup.php:354
+#: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
 msgstr ""
 
-#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
+#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
 msgid "Members"
 msgstr "الأعضاء"
 
-#: actions/showgroup.php:395 lib/profileaction.php:117
+#: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(لا شيء)"
 
-#: actions/showgroup.php:401
+#: actions/showgroup.php:402
 msgid "All members"
 msgstr "جميع الأعضاء"
 
-#: actions/showgroup.php:441
+#: actions/showgroup.php:442
 msgid "Created"
 msgstr "أنشئ"
 
-#: actions/showgroup.php:457
+#: actions/showgroup.php:458
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3430,7 +3430,7 @@ msgstr ""
 "[انضم الآن](%%%%action.register%%%%) لتصبح عضوًا في هذه المجموعة ومجموعات "
 "أخرى عديدة! ([اقرأ المزيد](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:464
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3442,7 +3442,7 @@ msgstr ""
 "en.wikipedia.org/wiki/Micro-blogging) المبنية على البرنامج الحر [StatusNet]"
 "(http://status.net/). يتشارك أعضاؤها رسائل قصيرة عن حياتهم واهتماماتهم. "
 
-#: actions/showgroup.php:491
+#: actions/showgroup.php:492
 msgid "Admins"
 msgstr "الإداريون"
 
@@ -3967,12 +3967,12 @@ msgstr "لا مدخل هوية."
 msgid "Tag %s"
 msgstr ""
 
-#: actions/tagother.php:77 lib/userprofile.php:75
+#: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "ملف المستخدم الشخصي"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:102
+#: lib/userprofile.php:103
 msgid "Photo"
 msgstr "صورة"
 
@@ -4867,11 +4867,11 @@ msgstr "اسحب"
 msgid "Attachments"
 msgstr "مرفقات"
 
-#: lib/attachmentlist.php:265
+#: lib/attachmentlist.php:263
 msgid "Author"
 msgstr "المؤلف"
 
-#: lib/attachmentlist.php:278
+#: lib/attachmentlist.php:276
 msgid "Provider"
 msgstr "المزود"
 
@@ -5668,7 +5668,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:484
+#: lib/mailbox.php:227 lib/noticelist.php:485
 msgid "from"
 msgstr "من"
 
@@ -5818,23 +5818,23 @@ msgstr "غ"
 msgid "at"
 msgstr "في"
 
-#: lib/noticelist.php:568
+#: lib/noticelist.php:569
 msgid "in context"
 msgstr "في السياق"
 
-#: lib/noticelist.php:603
+#: lib/noticelist.php:604
 msgid "Repeated by"
 msgstr "مكرر بواسطة"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply to this notice"
 msgstr "رُد على هذا الإشعار"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply"
 msgstr "رُد"
 
-#: lib/noticelist.php:675
+#: lib/noticelist.php:676
 msgid "Notice repeated"
 msgstr "الإشعار مكرر"
 
@@ -6102,45 +6102,45 @@ msgstr "ألغِ الاشتراك مع هذا المستخدم"
 msgid "Unsubscribe"
 msgstr "ألغِ الاشتراك"
 
-#: lib/userprofile.php:116
+#: lib/userprofile.php:117
 msgid "Edit Avatar"
 msgstr "عدّل الأفتار"
 
-#: lib/userprofile.php:236
+#: lib/userprofile.php:237
 msgid "User actions"
 msgstr "تصرفات المستخدم"
 
-#: lib/userprofile.php:251
+#: lib/userprofile.php:252
 msgid "Edit profile settings"
 msgstr "عدّل إعدادات الملف الشخصي"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:253
 msgid "Edit"
 msgstr "عدّل"
 
-#: lib/userprofile.php:275
+#: lib/userprofile.php:276
 msgid "Send a direct message to this user"
 msgstr "أرسل رسالة مباشرة إلى هذا المستخدم"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:277
 msgid "Message"
 msgstr "رسالة"
 
-#: lib/userprofile.php:314
+#: lib/userprofile.php:315
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:352
+#: lib/userprofile.php:353
 #, fuzzy
 msgid "User role"
 msgstr "ملف المستخدم الشخصي"
 
-#: lib/userprofile.php:354
+#: lib/userprofile.php:355
 msgctxt "role"
 msgid "Administrator"
 msgstr "إداري"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:356
 msgctxt "role"
 msgid "Moderator"
 msgstr "مراقب"

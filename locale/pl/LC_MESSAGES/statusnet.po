@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-12 23:41+0000\n"
-"PO-Revision-Date: 2010-03-12 23:43:49+0000\n"
+"POT-Creation-Date: 2010-03-14 22:26+0000\n"
+"PO-Revision-Date: 2010-03-14 22:28:05+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r63655); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -582,9 +582,9 @@ msgstr "Konto"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:244 actions/tagother.php:94
+#: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
-#: lib/userprofile.php:131
+#: lib/userprofile.php:132
 msgid "Nickname"
 msgstr "Pseudonim"
 
@@ -726,7 +726,7 @@ msgstr "Brak rozmiaru."
 msgid "Invalid size."
 msgstr "Nieprawidłowy rozmiar."
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:229
+#: actions/avatarsettings.php:67 actions/showgroup.php:230
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Awatar"
@@ -758,7 +758,7 @@ msgid "Preview"
 msgstr "Podgląd"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:657
+#: lib/deleteuserform.php:66 lib/noticelist.php:658
 msgid "Delete"
 msgstr "Usuń"
 
@@ -1003,7 +1003,7 @@ msgstr "Jesteś pewien, że chcesz usunąć ten wpis?"
 msgid "Do not delete this notice"
 msgstr "Nie usuwaj tego wpisu"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:657
+#: actions/deletenotice.php:146 lib/noticelist.php:658
 msgid "Delete this notice"
 msgstr "Usuń ten wpis"
 
@@ -2707,8 +2707,8 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 małe litery lub liczby, bez spacji i znaków przestankowych"
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:255 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:149
+#: actions/showgroup.php:256 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "Imię i nazwisko"
 
@@ -2735,9 +2735,9 @@ msgid "Bio"
 msgstr "O mnie"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:264 actions/tagother.php:112
+#: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
-#: lib/userprofile.php:164
+#: lib/userprofile.php:165
 msgid "Location"
 msgstr "Położenie"
 
@@ -2751,7 +2751,7 @@ msgstr "Podziel się swoim obecnym położeniem podczas wysyłania wpisów"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+#: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
 msgstr "Znaczniki"
 
@@ -3214,7 +3214,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Adres URL profilu na innej, zgodnej usłudze mikroblogowania"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:394
+#: lib/userprofile.php:395
 msgid "Subscribe"
 msgstr "Subskrybuj"
 
@@ -3252,7 +3252,7 @@ msgstr "Nie można powtórzyć własnego wpisu."
 msgid "You already repeated that notice."
 msgstr "Już powtórzono ten wpis."
 
-#: actions/repeat.php:114 lib/noticelist.php:676
+#: actions/repeat.php:114 lib/noticelist.php:677
 msgid "Repeated"
 msgstr "Powtórzono"
 
@@ -3395,7 +3395,7 @@ msgstr "Organizacja"
 msgid "Description"
 msgstr "Opis"
 
-#: actions/showapplication.php:192 actions/showgroup.php:438
+#: actions/showapplication.php:192 actions/showgroup.php:439
 #: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "Statystyki"
@@ -3516,67 +3516,67 @@ msgstr "Grupa %s"
 msgid "%1$s group, page %2$d"
 msgstr "Grupa %1$s, strona %2$d"
 
-#: actions/showgroup.php:226
+#: actions/showgroup.php:227
 msgid "Group profile"
 msgstr "Profil grupy"
 
-#: actions/showgroup.php:271 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:177
+#: actions/showgroup.php:272 actions/tagother.php:118
+#: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr "Adres URL"
 
-#: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:194
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
 msgstr "Wpis"
 
-#: actions/showgroup.php:292 lib/groupeditform.php:184
+#: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "Aliasy"
 
-#: actions/showgroup.php:301
+#: actions/showgroup.php:302
 msgid "Group actions"
 msgstr "Działania grupy"
 
-#: actions/showgroup.php:337
+#: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Kanał wpisów dla grupy %s (RSS 1.0)"
 
-#: actions/showgroup.php:343
+#: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Kanał wpisów dla grupy %s (RSS 2.0)"
 
-#: actions/showgroup.php:349
+#: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Kanał wpisów dla grupy %s (Atom)"
 
-#: actions/showgroup.php:354
+#: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
 msgstr "FOAF dla grupy %s"
 
-#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
+#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
 msgid "Members"
 msgstr "Członkowie"
 
-#: actions/showgroup.php:395 lib/profileaction.php:117
+#: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Brak)"
 
-#: actions/showgroup.php:401
+#: actions/showgroup.php:402
 msgid "All members"
 msgstr "Wszyscy członkowie"
 
-#: actions/showgroup.php:441
+#: actions/showgroup.php:442
 msgid "Created"
 msgstr "Utworzono"
 
-#: actions/showgroup.php:457
+#: actions/showgroup.php:458
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3592,7 +3592,7 @@ msgstr ""
 "action.register%%%%), aby stać się częścią tej grupy i wiele więcej. "
 "([Przeczytaj więcej](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:464
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3605,7 +3605,7 @@ msgstr ""
 "narzędziu [StatusNet](http://status.net/). Jej członkowie dzielą się "
 "krótkimi wiadomościami o swoim życiu i zainteresowaniach. "
 
-#: actions/showgroup.php:491
+#: actions/showgroup.php:492
 msgid "Admins"
 msgstr "Administratorzy"
 
@@ -4159,12 +4159,12 @@ msgstr "Brak parametru identyfikatora."
 msgid "Tag %s"
 msgstr "Znacznik %s"
 
-#: actions/tagother.php:77 lib/userprofile.php:75
+#: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "Profil użytkownika"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:102
+#: lib/userprofile.php:103
 msgid "Photo"
 msgstr "Zdjęcie"
 
@@ -5098,11 +5098,11 @@ msgstr "Unieważnij"
 msgid "Attachments"
 msgstr "Załączniki"
 
-#: lib/attachmentlist.php:265
+#: lib/attachmentlist.php:263
 msgid "Author"
 msgstr "Autor"
 
-#: lib/attachmentlist.php:278
+#: lib/attachmentlist.php:276
 msgid "Provider"
 msgstr "Dostawca"
 
@@ -5148,9 +5148,9 @@ msgid "Could not find a user with nickname %s"
 msgstr "Nie można odnaleźć użytkownika z pseudonimem %s."
 
 #: lib/command.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr "Nie można odnaleźć użytkownika z pseudonimem %s."
+msgstr "Nie można odnaleźć lokalnego użytkownika z pseudonimem %s."
 
 #: lib/command.php:176
 msgid "Sorry, this command is not yet implemented."
@@ -5230,6 +5230,8 @@ msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
+"%s to zdalny profil; można wysyłać bezpośrednie wiadomości tylko do "
+"użytkowników na tym samym serwerze."
 
 #: lib/command.php:450
 #, php-format
@@ -5281,9 +5283,8 @@ msgid "Specify the name of the user to subscribe to"
 msgstr "Podaj nazwę użytkownika do subskrybowania."
 
 #: lib/command.php:602
-#, fuzzy
 msgid "Can't subscribe to OMB profiles by command."
-msgstr "Nie jesteś subskrybowany do tego profilu."
+msgstr "Nie można subskrybować profili OMB za pomocą polecenia."
 
 #: lib/command.php:608
 #, php-format
@@ -5964,7 +5965,7 @@ msgstr ""
 "rozmowę z innymi użytkownikami. Inni mogą wysyłać ci wiadomości tylko dla "
 "twoich oczu."
 
-#: lib/mailbox.php:227 lib/noticelist.php:484
+#: lib/mailbox.php:227 lib/noticelist.php:485
 msgid "from"
 msgstr "z"
 
@@ -6117,23 +6118,23 @@ msgstr "Zachód"
 msgid "at"
 msgstr "w"
 
-#: lib/noticelist.php:568
+#: lib/noticelist.php:569
 msgid "in context"
 msgstr "w rozmowie"
 
-#: lib/noticelist.php:603
+#: lib/noticelist.php:604
 msgid "Repeated by"
 msgstr "Powtórzone przez"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply to this notice"
 msgstr "Odpowiedz na ten wpis"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply"
 msgstr "Odpowiedz"
 
-#: lib/noticelist.php:675
+#: lib/noticelist.php:676
 msgid "Notice repeated"
 msgstr "Powtórzono wpis"
 
@@ -6402,44 +6403,44 @@ msgstr "Zrezygnuj z subskrypcji tego użytkownika"
 msgid "Unsubscribe"
 msgstr "Zrezygnuj z subskrypcji"
 
-#: lib/userprofile.php:116
+#: lib/userprofile.php:117
 msgid "Edit Avatar"
 msgstr "Zmodyfikuj awatar"
 
-#: lib/userprofile.php:236
+#: lib/userprofile.php:237
 msgid "User actions"
 msgstr "Czynności użytkownika"
 
-#: lib/userprofile.php:251
+#: lib/userprofile.php:252
 msgid "Edit profile settings"
 msgstr "Zmodyfikuj ustawienia profilu"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:253
 msgid "Edit"
 msgstr "Edycja"
 
-#: lib/userprofile.php:275
+#: lib/userprofile.php:276
 msgid "Send a direct message to this user"
 msgstr "Wyślij bezpośrednią wiadomość do tego użytkownika"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:277
 msgid "Message"
 msgstr "Wiadomość"
 
-#: lib/userprofile.php:314
+#: lib/userprofile.php:315
 msgid "Moderate"
 msgstr "Moderuj"
 
-#: lib/userprofile.php:352
+#: lib/userprofile.php:353
 msgid "User role"
 msgstr "Rola użytkownika"
 
-#: lib/userprofile.php:354
+#: lib/userprofile.php:355
 msgctxt "role"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:356
 msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
