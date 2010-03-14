@@ -681,9 +681,16 @@ class ActivityObject
         if ($this->type == self::PERSON || $this->type == self::GROUP) {
             $this->displayName = $this->title;
 
-            $avatars = ActivityUtils::getLinks($element, 'avatar');
-            foreach ($avatars as $link) {
-                $this->avatarLinks[] = new AvatarLink($link);
+            $photos = ActivityUtils::getLinks($element, 'photo');
+            if (count($photos)) {
+                foreach ($photos as $link) {
+                    $this->avatarLinks[] = new AvatarLink($link);
+                }
+            } else {
+                $avatars = ActivityUtils::getLinks($element, 'avatar');
+                foreach ($avatars as $link) {
+                    $this->avatarLinks[] = new AvatarLink($link);
+                }
             }
 
             $this->poco = new PoCo($element);
