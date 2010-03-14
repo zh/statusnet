@@ -248,9 +248,7 @@ class Attachment extends AttachmentListItem
         $this->out->elementStart('div', array('id' => 'attachment_view',
                                               'class' => 'hentry'));
         $this->out->elementStart('div', 'entry-title');
-        $this->out->elementStart('a', $this->linkAttr());
-        $this->out->element('span', null, $this->linkTitle());
-        $this->out->elementEnd('a');
+        $this->out->element('a', $this->linkAttr(), $this->linkTitle());
         $this->out->elementEnd('div');
 
         $this->out->elementStart('div', 'entry-content');
@@ -296,7 +294,7 @@ class Attachment extends AttachmentListItem
     }
 
     function linkAttr() {
-        return array('class' => 'external', 'href' => $this->attachment->url);
+        return array('rel' => 'external', 'href' => $this->attachment->url);
     }
 
     function linkTitle() {
