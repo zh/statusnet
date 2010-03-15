@@ -228,6 +228,17 @@ class UserProfile extends Widget
 
     function showEntityActions()
     {
+        if ($this->profile->hasRole(Profile_role::DELETED)) {
+            $this->out->elementStart('div', 'entity_actions');
+            $this->out->element('h2', null, _('User actions'));
+            $this->out->elementStart('ul');
+            $this->out->elementStart('p', array('class' => 'profile_deleted'));
+            $this->out->text(_('User deletion in progress...'));
+            $this->out->elementEnd('p');
+            $this->out->elementEnd('ul');
+            $this->out->elementEnd('div');
+            return;
+        }
         if (Event::handle('StartProfilePageActionsSection', array(&$this->out, $this->profile))) {
 
             $cur = common_current_user();
