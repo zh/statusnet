@@ -463,7 +463,7 @@ class ActivityUtils
                 $text = $contentEl->textContent;
                 return htmlspecialchars_decode($text, ENT_QUOTES);
             } else if ($type == 'xhtml') {
-                $divEl = ActivityUtils::child($contentEl, 'div');
+                $divEl = ActivityUtils::child($contentEl, 'div', 'http://www.w3.org/1999/xhtml');
                 if (empty($divEl)) {
                     return null;
                 }

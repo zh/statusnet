@@ -211,11 +211,11 @@ class FeedDiscovery
                 $type = $node->attributes->getNamedItem('type');
                 $href = $node->attributes->getNamedItem('href');
                 if ($rel && $type && $href) {
-                    $rel = trim($rel->value);
+                    $rel = array_filter(explode(" ", $rel->value));
                     $type = trim($type->value);
                     $href = trim($href->value);
 
-                    if (trim($rel) == 'alternate' && array_key_exists($type, $feeds) && empty($feeds[$type])) {
+                    if (in_array('alternate', $rel) && array_key_exists($type, $feeds) && empty($feeds[$type])) {
                         // Save the first feed found of each type...
                         $feeds[$type] = $this->resolveURI($href, $base);
                     }
