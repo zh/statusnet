@@ -43,6 +43,25 @@ class Safe_DataObject extends DB_DataObject
     }
 
     /**
+     * Magic function called at clone() time.
+     *
+     * We use this to drop connection with some global resources.
+     * This supports the fairly common pattern where individual
+     * items being read in a loop via a single object are cloned
+     * for individual processing, then fall out of scope when the
+     * loop comes around again.
+     *
+     * As that triggers the destructor, we want to make sure that
+     * the original object doesn't have its database result killed.
+     * It will still be freed properly when the original object
+     * gets destroyed.
+     */
+    function __clone()
+    {
+        $this->_DB_resultid = false;
+    }
+
+    /**
      * Magic function called at serialize() time.
      *
      * We use this to drop a couple process-specific references
