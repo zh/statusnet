@@ -97,8 +97,6 @@ class ApiStatusnetConfigAction extends ApiAction
 
             // XXX: check that all sections and settings are legal XML elements
 
-            common_debug(var_export($this->keys, true));
-
             foreach ($this->keys as $section => $settings) {
                 $this->elementStart($section);
                 foreach ($settings as $setting) {
@@ -110,6 +108,14 @@ class ApiStatusnetConfigAction extends ApiAction
                     } else if ($value === true) {
                         $value = 'true';
                     }
+
+                    // return theme logo if there's no site specific one
+                    if (empty($value)) {
+                        if ($section == 'site' && $setting == 'logo') {
+                            $value = Theme::path('logo.png');
+                        }
+                    }
+
                     $this->element($setting, null, $value);
                 }
                 $this->elementEnd($section);
