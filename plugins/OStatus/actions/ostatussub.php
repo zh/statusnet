@@ -149,7 +149,7 @@ class OStatusSubAction extends Action
         $fullname = $entity->fullname;
         $homepage = $entity->homepage;
         $location = $entity->location;
-        
+
         if (!$avatar) {
             $avatar = Avatar::defaultImage(AVATAR_PROFILE_SIZE);
         }
@@ -242,7 +242,7 @@ class OStatusSubAction extends Action
             if (Validate::email($this->profile_uri)) {
                 $this->oprofile = Ostatus_profile::ensureWebfinger($this->profile_uri);
             } else if (Validate::uri($this->profile_uri)) {
-                $this->oprofile = Ostatus_profile::ensureProfile($this->profile_uri);
+                $this->oprofile = Ostatus_profile::ensureProfileURL($this->profile_uri);
             } else {
                 $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
                 common_debug('Invalid address format.', __FILE__);
@@ -338,7 +338,6 @@ class OStatusSubAction extends Action
             $this->showForm();
         }
     }
-
 
     /**
      * Handle posts to this form
