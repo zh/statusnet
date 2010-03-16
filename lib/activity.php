@@ -1083,15 +1083,11 @@ class Activity
 
         $this->entry = $entry;
 
-        // @fixme Don't send in a DOMDocument
+        // Insist on a feed's root DOMElement; don't allow a DOMDocument
         if ($feed instanceof DOMDocument) {
-            common_log(
-                LOG_WARNING,
-                'Activity::__construct() - '
-                . 'DOMDocument passed in for feed by mistake. '
-                . "Expecting a 'feed' DOMElement."
+            throw new ClientException(
+                _("Expecting a root feed element but got a whole XML document.")
             );
-            $feed = $feed->getElementsByTagName('feed')->item(0);
         }
 
         $this->feed  = $feed;
