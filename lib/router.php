@@ -658,6 +658,13 @@ class Router
             $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
             $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
             $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
+            $m->connect('admin/plugins', array('action' => 'pluginsadminpanel'));
+            $m->connect('admin/plugins/enable/:plugin',
+                        array('action' => 'pluginenable'),
+                        array('plugin' => '[A-Za-z0-9_]+'));
+            $m->connect('admin/plugins/disable/:plugin',
+                        array('action' => 'plugindisable'),
+                        array('plugin' => '[A-Za-z0-9_]+'));
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),

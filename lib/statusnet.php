@@ -163,6 +163,11 @@ class StatusNet
     {
         // Load default plugins
         foreach (common_config('plugins', 'default') as $name => $params) {
+            $key = 'disable-' . $name;
+            if (common_config('plugins', $key)) {
+                continue;
+            }
+
             if (is_null($params)) {
                 addPlugin($name);
             } else if (is_array($params)) {
