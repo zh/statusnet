@@ -86,7 +86,7 @@ var SN = { // StatusNet
                 $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
-            if ($('body')[0].id != 'conversation') {
+            if ($('body')[0].id != 'conversation' && window.location.hash.length === 0) {
                 $('#'+form_id+' textarea').focus();
             }
         },
