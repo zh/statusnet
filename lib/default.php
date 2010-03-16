@@ -285,8 +285,9 @@ $default =
                                  'RSSCloud' => null,
                                  'OpenID' => null),
               ),
+        'pluginlist' => array(),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'plugins')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
