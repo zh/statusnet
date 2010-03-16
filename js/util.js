@@ -61,10 +61,8 @@ var SN = { // StatusNet
 
     U: { // Utils
         FormNoticeEnhancements: function(form) {
-            form_id = form.attr('id');
-
             if (jQuery.data(form[0], 'ElementData') === undefined) {
-                MaxLength = $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text();
+                MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
                 if (typeof(MaxLength) == 'undefined') {
                      MaxLength = SN.C.I.MaxLength;
                 }
@@ -72,7 +70,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = $('#'+form_id+' #'+SN.C.S.NoticeDataText);
+                NDT = form.find('#'+SN.C.S.NoticeDataText);
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -83,11 +81,11 @@ var SN = { // StatusNet
                 });
             }
             else {
-                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+                form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
             if ($('body')[0].id != 'conversation' && window.location.hash.length === 0) {
-                $('#'+form_id+' textarea').focus();
+                form.find('textarea').focus();
             }
         },
 
@@ -105,7 +103,6 @@ var SN = { // StatusNet
 
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
-            form_id = form.attr('id');
 
             var MaxLength = jQuery.data(form[0], 'ElementData').MaxLength;
 
@@ -113,8 +110,8 @@ var SN = { // StatusNet
                 return;
             }
 
-            var remaining = MaxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
-            var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
+            var remaining = MaxLength - form.find('#'+SN.C.S.NoticeDataText).val().length;
+            var counter = form.find('#'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining === 0) {
@@ -174,7 +171,6 @@ var SN = { // StatusNet
 
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
-            form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
