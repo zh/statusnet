@@ -5,6 +5,11 @@
 
   RewriteBase /mublog/
 
+  ## Uncomment these if having trouble with API authentication
+  ## when PHP is running in CGI or FastCGI mode.
+  #RewriteCond %{HTTP:Authorization} ^(.*)
+  #RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]
+
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule (.*) index.php?p=$1 [L,QSA]
