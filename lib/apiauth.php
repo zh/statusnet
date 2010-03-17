@@ -294,11 +294,15 @@ class ApiAuthAction extends ApiAction
 
     function basicAuthProcessHeader()
     {
-        if (isset($_SERVER['AUTHORIZATION'])
-            || isset($_SERVER['HTTP_AUTHORIZATION'])
-            ) {
-            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])
-              ? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+        $authHeaders = array('AUTHORIZATION',
+                             'HTTP_AUTHORIZATION',
+                             'REDIRECT_HTTP_AUTHORIZATION'); // rewrite for CGI
+        $authorization_header = null;
+        foreach ($authHeaders as $header) {
+            if (isset($_SERVER[$header])) {
+                $authorization_header = $_SERVER[$header];
+                break;
+            }
         }
 
         if (isset($_SERVER['PHP_AUTH_USER'])) {
