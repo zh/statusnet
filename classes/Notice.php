@@ -119,6 +119,9 @@ class Notice extends Memcached_DataObject
         // NOTE: we don't clear queue items
 
         $result = parent::delete();
+
+        $this->blowOnDelete();
+        return $result;
     }
 
     /**
@@ -421,6 +424,18 @@ class Notice extends Memcached_DataObject
         $profile->blowNoticeCount();
     }
 
+    /**
+     * Clear cache entries related to this notice at delete time.
+     * Necessary to avoid breaking paging on public, profile timelines.
+     */
+    function blowOnDelete()
+    {
+        $this->blowOnInsert();
+
+        self::blow('profile:notice_ids:%d;last', $this->profile_id);
+        self::blow('public;last');
+    }
+
     /** save all urls in the notice to the db
      *
      * follow redirects and save all available file information
@@ -589,7 +604,6 @@ class Notice extends Memcached_DataObject
                               array(),
                               'public',
                               $offset, $limit, $since_id, $max_id);
-
         return Notice::getStreamByIds($ids);
     }
 

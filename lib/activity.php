@@ -457,13 +457,13 @@ class ActivityUtils
 
             // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
 
-            if ($type == 'text') {
+            if (empty($type) || $type == 'text') {
                 return $contentEl->textContent;
             } else if ($type == 'html') {
                 $text = $contentEl->textContent;
                 return htmlspecialchars_decode($text, ENT_QUOTES);
             } else if ($type == 'xhtml') {
-                $divEl = ActivityUtils::child($contentEl, 'div');
+                $divEl = ActivityUtils::child($contentEl, 'div', 'http://www.w3.org/1999/xhtml');
                 if (empty($divEl)) {
                     return null;
                 }
@@ -476,7 +476,7 @@ class ActivityUtils
                     $text .= $doc->saveXML($child);
                 }
                 return trim($text);
-            } else if (in_array(array('text/xml', 'application/xml'), $type) ||
+            } else if (in_array($type, array('text/xml', 'application/xml')) ||
                        preg_match('#(+|/)xml$#', $type)) {
                 throw new ClientException(_("Can't handle embedded XML content yet."));
             } else if (strncasecmp($type, 'text/', 5)) {
@@ -681,9 +681,16 @@ class ActivityObject
         if ($this->type == self::PERSON || $this->type == self::GROUP) {
             $this->displayName = $this->title;
 
-            $avatars = ActivityUtils::getLinks($element, 'avatar');
-            foreach ($avatars as $link) {
-                $this->avatarLinks[] = new AvatarLink($link);
+            $photos = ActivityUtils::getLinks($element, 'photo');
+            if (count($photos)) {
+                foreach ($photos as $link) {
+                    $this->avatarLinks[] = new AvatarLink($link);
+                }
+            } else {
+                $avatars = ActivityUtils::getLinks($element, 'avatar');
+                foreach ($avatars as $link) {
+                    $this->avatarLinks[] = new AvatarLink($link);
+                }
             }
 
             $this->poco = new PoCo($element);
@@ -1076,15 +1083,11 @@ class Activity
 
         $this->entry = $entry;
 
-        // @fixme Don't send in a DOMDocument
+        // Insist on a feed's root DOMElement; don't allow a DOMDocument
         if ($feed instanceof DOMDocument) {
-            common_log(
-                LOG_WARNING,
-                'Activity::__construct() - '
-                . 'DOMDocument passed in for feed by mistake. '
-                . "Expecting a 'feed' DOMElement."
+            throw new ClientException(
+                _("Expecting a root feed element but got a whole XML document.")
             );
-            $feed = $feed->getElementsByTagName('feed')->item(0);
         }
 
         $this->feed  = $feed;

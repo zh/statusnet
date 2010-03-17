@@ -154,12 +154,13 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
     public function discover($uri)
     {
-        if (!Discovery::isWebfinger($uri)) {
-            return false;
+        if (Discovery::isWebfinger($uri)) {
+            // We have a webfinger acct: - start with host-meta
+            list($name, $domain) = explode('@', $uri);
+        } else {
+            $domain = parse_url($uri, PHP_URL_HOST);
         }
-
-        // We have a webfinger acct: - start with host-meta
-        list($name, $domain) = explode('@', $uri);
+        
         $url = 'http://'. $domain .'/.well-known/host-meta';
 
         $xrd = Discovery::fetchXrd($url);
