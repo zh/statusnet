@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 22:26+0000\n"
-"PO-Revision-Date: 2010-03-14 22:27:15+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:40:32+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -47,7 +47,6 @@ msgstr "¿Prohibir a los usuarios anónimos (no conectados) ver el sitio?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-#, fuzzy
 msgctxt "LABEL"
 msgid "Private"
 msgstr "Privado"
@@ -78,7 +77,6 @@ msgid "Save access settings"
 msgstr "Guardar la configuración de acceso"
 
 #: actions/accessadminpanel.php:203
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Guardar"
@@ -208,7 +206,7 @@ msgstr "¡Actualizaciones de %1$s y amigos en %2$s!"
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
@@ -228,8 +226,8 @@ msgstr "Método de API no encontrado."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Este método requiere un POST."
 
@@ -260,7 +258,7 @@ msgid "Could not save profile."
 msgstr "No se pudo guardar el perfil."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -1584,23 +1582,20 @@ msgid "Cannot read file."
 msgstr "No se puede leer archivo."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Token inválido."
+msgstr "Función no válida."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Esta función es reservada y no puede asignarse."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "No puedes enviar mensaje a este usuario."
+msgstr "No puedes conceder funciones de usuario en este sitio."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "El usuario te ha bloqueado."
+msgstr "El usuario ya tiene esta función."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -2023,7 +2018,6 @@ msgstr "Opcionalmente añada un mensaje personalizado a su invitación."
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
 msgstr "Enviar"
@@ -2095,9 +2089,8 @@ msgid "You must be logged in to join a group."
 msgstr "Debes estar conectado para unirte a un grupo."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
-msgstr "Ningún apodo."
+msgstr "Ningún nombre de usuario o ID."
 
 #: actions/joingroup.php:141
 #, php-format
@@ -2374,7 +2367,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "Aviso sin perfil"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "estado de %1$s en %2$s"
@@ -2536,6 +2529,7 @@ msgstr "Rutas"
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
 msgstr ""
+"Configuración de la ruta de acceso y del servidor de este sitio StatusNet."
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -2578,9 +2572,8 @@ msgid "Path"
 msgstr "Ruta"
 
 #: actions/pathsadminpanel.php:242
-#, fuzzy
 msgid "Site path"
-msgstr "Aviso de sitio"
+msgstr "Ruta del sitio"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2608,7 +2601,7 @@ msgstr "Servidor de los temas"
 
 #: actions/pathsadminpanel.php:268
 msgid "Theme path"
-msgstr ""
+msgstr "Ruta del tema"
 
 #: actions/pathsadminpanel.php:272
 msgid "Theme directory"
@@ -2641,7 +2634,7 @@ msgstr "Servidor de fondo"
 
 #: actions/pathsadminpanel.php:309
 msgid "Background path"
-msgstr ""
+msgstr "Ruta del fondo"
 
 #: actions/pathsadminpanel.php:313
 msgid "Background directory"
@@ -2680,9 +2673,8 @@ msgid "Server to direct SSL requests to"
 msgstr "Servidor hacia el cual dirigir las solicitudes SSL"
 
 #: actions/pathsadminpanel.php:352
-#, fuzzy
 msgid "Save paths"
-msgstr "Aviso de sitio"
+msgstr "Guardar rutas"
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -3242,7 +3234,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "El URL de tu perfil en otro servicio de microblogueo compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:395
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Suscribirse"
 
@@ -3341,14 +3333,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Respuestas a %1$s en %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "No puedes enviar mensaje a este usuario."
+msgstr "No puedes revocar funciones de usuario en este sitio."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Usuario sin perfil coincidente."
+msgstr "El usuario no tiene esta función."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3577,7 +3567,6 @@ msgid "FOAF for %s group"
 msgstr "Bandeja de salida para %s"
 
 #: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
-#, fuzzy
 msgid "Members"
 msgstr "Miembros"
 
@@ -3804,9 +3793,8 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Zona horaria predeterminada del sitio; generalmente UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Idioma predeterminado del sitio"
+msgstr "!Idioma predeterminado"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
@@ -3833,9 +3821,8 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr "Cuántos segundos es necesario esperar para publicar lo mismo de nuevo."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Aviso de sitio"
+msgstr "Aviso del sitio"
 
 #: actions/sitenoticeadminpanel.php:67
 #, fuzzy
@@ -4554,27 +4541,27 @@ msgstr "No se pudo insertar mensaje."
 msgid "Could not update message with new URI."
 msgstr "No se pudo actualizar mensaje con nuevo URI."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Error de la BD al insertar la etiqueta clave: %s"
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 msgid "Problem saving notice. Too long."
 msgstr "Ha habido un problema al guardar el mensaje. Es muy largo."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr "Ha habido un problema al guardar el mensaje. Usuario desconocido."
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Demasiados avisos demasiado rápido; para y publicar nuevamente en unos "
 "minutos."
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4583,20 +4570,20 @@ msgstr ""
 "Demasiados avisos demasiado rápido; para y publicar nuevamente en unos "
 "minutos."
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr "Tienes prohibido publicar avisos en este sitio."
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "Hubo un problema al guardar el aviso."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Hubo un problema al guardar el aviso."
 
-#: classes/Notice.php:1465
+#: classes/Notice.php:1479
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4948,6 +4935,10 @@ msgstr ""
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
+msgstr ""
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5432,19 +5423,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:148
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Ningún archivo de configuración encontrado. "
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:152
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Ir al instalador."
 
@@ -6198,7 +6189,7 @@ msgstr "Responder este aviso."
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Bloquear este usuario de este grupo"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -6335,42 +6326,46 @@ msgstr "Cancelar suscripción"
 msgid "Edit Avatar"
 msgstr "editar avatar"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "Acciones de usuario"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 msgid "Edit profile settings"
 msgstr "Editar configuración del perfil"
 
-#: lib/userprofile.php:253
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Editar"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "Enviar un mensaje directo a este usuario"
 
-#: lib/userprofile.php:277
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "Mensaje"
 
-#: lib/userprofile.php:315
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr "Moderar"
 
-#: lib/userprofile.php:353
+#: lib/userprofile.php:364
 #, fuzzy
 msgid "User role"
 msgstr "Perfil de usuario"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:366
 #, fuzzy
 msgctxt "role"
 msgid "Administrator"
 msgstr "Administradores"
 
-#: lib/userprofile.php:356
+#: lib/userprofile.php:367
 #, fuzzy
 msgctxt "role"
 msgid "Moderator"

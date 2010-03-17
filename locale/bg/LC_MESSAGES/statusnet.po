@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 22:26+0000\n"
-"PO-Revision-Date: 2010-03-14 22:26:42+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:40:00+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -196,7 +196,7 @@ msgstr "Бележки от %1$s и приятели в %2$s."
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
@@ -216,8 +216,8 @@ msgstr "Не е открит методът в API."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Този метод изисква заявка POST."
 
@@ -246,7 +246,7 @@ msgid "Could not save profile."
 msgstr "Грешка при запазване на профила."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -2362,7 +2362,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "Бележката няма профил"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "Бележка на %1$s от %2$s"
@@ -3216,7 +3216,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Адрес на профила ви в друга, съвместима услуга за микроблогване"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:395
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Абониране"
 
@@ -4524,28 +4524,28 @@ msgstr "Грешка при вмъкване на съобщението."
 msgid "Could not update message with new URI."
 msgstr "Грешка при обновяване на бележката с нов URL-адрес."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr "Грешка при записване на бележката. Непознат потребител."
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Твърде много бележки за кратко време. Спрете, поемете дъх и публикувайте "
 "отново след няколко минути."
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4554,20 +4554,20 @@ msgstr ""
 "Твърде много бележки за кратко време. Спрете, поемете дъх и публикувайте "
 "отново след няколко минути."
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr "Забранено ви е да публикувате бележки в този сайт."
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:1465
+#: classes/Notice.php:1479
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4921,6 +4921,10 @@ msgstr ""
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
+msgstr ""
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5411,19 +5415,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:148
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Не е открит файл с настройки. "
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:152
+#: lib/common.php:140
 #, fuzzy
 msgid "Go to the installer."
 msgstr "Влизане в сайта"
@@ -6167,7 +6171,7 @@ msgstr "Повтаряне на тази бележка"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Списък с потребителите в тази група."
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -6303,42 +6307,46 @@ msgstr "Отписване"
 msgid "Edit Avatar"
 msgstr "Редактиране на аватара"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "Потребителски действия"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 msgid "Edit profile settings"
 msgstr "Редактиране на профила"
 
-#: lib/userprofile.php:253
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Редактиране"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "Изпращате на пряко съобщение до този потребител."
 
-#: lib/userprofile.php:277
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "Съобщение"
 
-#: lib/userprofile.php:315
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:353
+#: lib/userprofile.php:364
 #, fuzzy
 msgid "User role"
 msgstr "Потребителски профил"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:366
 #, fuzzy
 msgctxt "role"
 msgid "Administrator"
 msgstr "Администратори"
 
-#: lib/userprofile.php:356
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
 msgstr ""

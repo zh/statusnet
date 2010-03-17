@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 22:26+0000\n"
-"PO-Revision-Date: 2010-03-14 22:28:18+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:41:33+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -202,7 +202,7 @@ msgstr "Uppdateringar från %1$s och vänner på %2$s!"
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
@@ -222,8 +222,8 @@ msgstr "API-metod hittades inte."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Denna metod kräver en POST."
 
@@ -252,7 +252,7 @@ msgid "Could not save profile."
 msgstr "Kunde inte spara profil."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -2346,7 +2346,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "Notisen har ingen profil"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$ss status den %2$s"
@@ -3216,7 +3216,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL till din profil på en annan kompatibel mikrobloggtjänst"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:395
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Prenumerera"
 
@@ -3325,9 +3325,8 @@ msgid "You cannot revoke user roles on this site."
 msgstr "Du kan inte återkalla användarroller på denna webbplats."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Användare utan matchande profil."
+msgstr "Användare har inte denna roll."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3729,7 +3728,6 @@ msgid "User is already silenced."
 msgstr "Användaren är redan nedtystad."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
 msgstr "Grundinställningar för din StatusNet-webbplats"
 
@@ -3799,13 +3797,14 @@ msgid "Default timezone for the site; usually UTC."
 msgstr "Standardtidzon för denna webbplats; vanligtvis UTC."
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Webbplatsens standardspråk"
+msgstr "Standardspråk"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Webbplatsspråk när automatisk identifiering av inställningar i webbläsaren "
+"inte är tillgänglig"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3829,37 +3828,32 @@ msgstr ""
 "Hur länge användare måste vänta (i sekunder) för att posta samma sak igen."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
 msgstr "Webbplatsnotis"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Nytt meddelande"
+msgstr "Redigera webbplastsnotis"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Kunde inte spara dina utseendeinställningar."
+msgstr "Kunde inte spara webbplatsnotis."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "Maximal längd för webbplatsnotisen är 255 tecken"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Webbplatsnotis"
+msgstr "Text för webbplatsnotis"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "Text för webbplatsnotis (max 255 tecken; HTML ok)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Webbplatsnotis"
+msgstr "Spara webbplatsnotis"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3964,12 +3958,11 @@ msgstr "Ingen kod ifylld"
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:406
 msgid "Snapshots"
-msgstr "Ögonblicksbild"
+msgstr "Ögonblicksbilder"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Ändra webbplatskonfiguration"
+msgstr "Hantera konfiguration för ögonblicksbild"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4016,9 +4009,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr "Ögonblicksbild kommer skickat till denna URL"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Spara webbplatsinställningar"
+msgstr "Spara inställningar för ögonblicksbild"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -4564,27 +4556,27 @@ msgstr "Kunde inte infoga meddelande."
 msgid "Could not update message with new URI."
 msgstr "Kunde inte uppdatera meddelande med ny URI."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Databasfel vid infogning av hashtag: %s"
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 msgid "Problem saving notice. Too long."
 msgstr "Problem vid sparande av notis. För långt."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem vid sparande av notis. Okänd användare."
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "För många notiser för snabbt; ta en vilopaus och posta igen om ett par "
 "minuter."
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4592,19 +4584,19 @@ msgstr ""
 "För många duplicerade meddelanden för snabbt; ta en vilopaus och posta igen "
 "om ett par minuter."
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr "Du är utestängd från att posta notiser på denna webbplats."
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "Problem med att spara notis."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 msgid "Problem saving group inbox."
 msgstr "Problem med att spara gruppinkorg."
 
-#: classes/Notice.php:1465
+#: classes/Notice.php:1479
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4630,9 +4622,8 @@ msgid "Couldn't delete self-subscription."
 msgstr "Kunde inte ta bort själv-prenumeration."
 
 #: classes/Subscription.php:190
-#, fuzzy
 msgid "Couldn't delete subscription OMB token."
-msgstr "Kunde inte ta bort prenumeration."
+msgstr "Kunde inte radera OMB prenumerations-token."
 
 #: classes/Subscription.php:201
 msgid "Couldn't delete subscription."
@@ -4935,6 +4926,10 @@ msgstr "Kan inte hantera inbäddat XML-innehåll ännu."
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Kan inte hantera inbäddat Base64-innehåll ännu."
 
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
@@ -5009,15 +5004,13 @@ msgstr "Konfiguration av sessioner"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Webbplatsnotis"
+msgstr "Redigera webbplatsnotis"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
-#, fuzzy
 msgid "Snapshots configuration"
-msgstr "Konfiguration av sökvägar"
+msgstr "Konfiguration av ögonblicksbilder"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5151,9 +5144,9 @@ msgid "Could not find a user with nickname %s"
 msgstr "Kunde inte hitta en användare med smeknamnet %s"
 
 #: lib/command.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr "Kunde inte hitta en användare med smeknamnet %s"
+msgstr "Kunde inte hitta en lokal användare med smeknamnet %s"
 
 #: lib/command.php:176
 msgid "Sorry, this command is not yet implemented."
@@ -5233,6 +5226,8 @@ msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
+"%s är en fjärrprofil; du kan bara skicka direktmeddelanden till användare på "
+"samma server."
 
 #: lib/command.php:450
 #, php-format
@@ -5284,9 +5279,8 @@ msgid "Specify the name of the user to subscribe to"
 msgstr "Ange namnet på användaren att prenumerara på"
 
 #: lib/command.php:602
-#, fuzzy
 msgid "Can't subscribe to OMB profiles by command."
-msgstr "Du är inte prenumerat hos den profilen."
+msgstr "Kan inte prenumera på OMB-profiler via kommando."
 
 #: lib/command.php:608
 #, php-format
@@ -5447,19 +5441,19 @@ msgstr ""
 "tracks - inte implementerat än.\n"
 "tracking - inte implementerat än.\n"
 
-#: lib/common.php:148
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Ingen konfigurationsfil hittades. "
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr "Jag letade efter konfigurationsfiler på följande platser: "
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr "Du kanske vill köra installeraren för att åtgärda detta."
 
-#: lib/common.php:152
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Gå till installeraren."
 
@@ -5561,7 +5555,7 @@ msgstr "Gå"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Bevilja denna användare \"%s\"-rollen"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6267,11 +6261,11 @@ msgid "Repeat this notice"
 msgstr "Upprepa denna notis"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Blockera denna användare från denna grupp"
+msgstr "Återkalla rollen \"%s\" från denna användare"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr "Ingen enskild användare definierad för enanvändarläge."
 
@@ -6401,46 +6395,47 @@ msgstr "Avsluta pren."
 msgid "Edit Avatar"
 msgstr "Redigera avatar"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "Åtgärder för användare"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 msgid "Edit profile settings"
 msgstr "Redigera profilinställningar"
 
-#: lib/userprofile.php:253
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Redigera"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "Skicka ett direktmeddelande till denna användare"
 
-#: lib/userprofile.php:277
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "Meddelande"
 
-#: lib/userprofile.php:315
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr "Moderera"
 
-#: lib/userprofile.php:353
-#, fuzzy
+#: lib/userprofile.php:364
 msgid "User role"
-msgstr "Användarprofil"
+msgstr "Användarroll"
 
-#: lib/userprofile.php:355
-#, fuzzy
+#: lib/userprofile.php:366
 msgctxt "role"
 msgid "Administrator"
-msgstr "Administratörer"
+msgstr "Administratör"
 
-#: lib/userprofile.php:356
-#, fuzzy
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
-msgstr "Moderera"
+msgstr "Moderator"
 
 #: lib/util.php:1046
 msgid "a few seconds ago"

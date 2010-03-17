@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 22:26+0000\n"
-"PO-Revision-Date: 2010-03-14 22:27:32+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:40:50+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: out-statusnet\n"
@@ -195,7 +195,7 @@ msgstr ""
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
@@ -215,8 +215,8 @@ msgstr "API-metoda njenamakana."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Tuta metoda wužaduje sej POST."
 
@@ -245,7 +245,7 @@ msgid "Could not save profile."
 msgstr "Profil njeje so składować dał."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -2237,7 +2237,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "Zdźělenka nima profil"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr ""
@@ -3053,7 +3053,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:395
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Abonować"
 
@@ -4300,43 +4300,43 @@ msgstr ""
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 msgid "Problem saving group inbox."
 msgstr ""
 
-#: classes/Notice.php:1465
+#: classes/Notice.php:1479
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4658,6 +4658,10 @@ msgstr ""
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
+msgstr ""
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5129,19 +5133,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:148
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Žana konfiguraciska dataja namakana. "
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:152
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr ""
 
@@ -5860,7 +5864,7 @@ msgstr "Tutu zdźělenku wospjetować"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Rólu \"%s\" tutoho wužiwarja wotwołać"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -5990,40 +5994,44 @@ msgstr "Wotskazać"
 msgid "Edit Avatar"
 msgstr "Awatar wobdźěłać"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "Wužiwarske akcije"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 msgid "Edit profile settings"
 msgstr "Profilowe nastajenja wobdźěłać"
 
-#: lib/userprofile.php:253
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Wobdźěłać"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "Tutomu wužiwarja direktnu powěsć pósłać"
 
-#: lib/userprofile.php:277
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "Powěsć"
 
-#: lib/userprofile.php:315
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:353
+#: lib/userprofile.php:364
 msgid "User role"
 msgstr "Wužiwarska róla"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:366
 msgctxt "role"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: lib/userprofile.php:356
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
 msgstr ""

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-14 22:26+0000\n"
-"PO-Revision-Date: 2010-03-14 22:28:05+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:41:20+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r63757); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -207,7 +207,7 @@ msgstr "Aktualizacje z %1$s i przyjaciół na %2$s."
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
@@ -227,8 +227,8 @@ msgstr "Nie odnaleziono metody API."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Ta metoda wymaga POST."
 
@@ -258,7 +258,7 @@ msgid "Could not save profile."
 msgstr "Nie można zapisać profilu."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -2346,7 +2346,7 @@ msgstr "Programiści mogą zmodyfikować ustawienia rejestracji swoich aplikacji
 msgid "Notice has no profile"
 msgstr "Wpis nie posiada profilu"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "Stan użytkownika %1$s na %2$s"
@@ -3214,7 +3214,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "Adres URL profilu na innej, zgodnej usłudze mikroblogowania"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:395
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Subskrybuj"
 
@@ -4560,27 +4560,27 @@ msgstr "Nie można wprowadzić wiadomości."
 msgid "Could not update message with new URI."
 msgstr "Nie można zaktualizować wiadomości za pomocą nowego adresu URL."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Błąd bazy danych podczas wprowadzania znacznika mieszania: %s"
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 msgid "Problem saving notice. Too long."
 msgstr "Problem podczas zapisywania wpisu. Za długi."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem podczas zapisywania wpisu. Nieznany użytkownik."
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Za dużo wpisów w za krótkim czasie, weź głęboki oddech i wyślij ponownie za "
 "kilka minut."
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4588,19 +4588,19 @@ msgstr ""
 "Za dużo takich samych wiadomości w za krótkim czasie, weź głęboki oddech i "
 "wyślij ponownie za kilka minut."
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr "Zabroniono ci wysyłania wpisów na tej witrynie."
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "Problem podczas zapisywania wpisu."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 msgid "Problem saving group inbox."
 msgstr "Problem podczas zapisywania skrzynki odbiorczej grupy."
 
-#: classes/Notice.php:1465
+#: classes/Notice.php:1479
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4932,6 +4932,10 @@ msgstr "Nie można jeszcze obsługiwać zagnieżdżonej treści XML."
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Nie można jeszcze obsługiwać zagnieżdżonej treści Base64."
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:98
@@ -5451,19 +5455,19 @@ msgstr ""
 "tracks - jeszcze nie zaimplementowano\n"
 "tracking - jeszcze nie zaimplementowano\n"
 
-#: lib/common.php:148
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Nie odnaleziono pliku konfiguracji."
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr "Szukano plików konfiguracji w następujących miejscach: "
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr "Należy uruchomić instalator, aby to naprawić."
 
-#: lib/common.php:152
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr "Przejdź do instalatora."
 
@@ -6276,7 +6280,7 @@ msgstr "Powtórz ten wpis"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Unieważnij rolę \"%s\" tego użytkownika"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 "Nie określono pojedynczego użytkownika dla trybu pojedynczego użytkownika."
@@ -6407,40 +6411,44 @@ msgstr "Zrezygnuj z subskrypcji"
 msgid "Edit Avatar"
 msgstr "Zmodyfikuj awatar"
 
-#: lib/userprofile.php:237
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "Czynności użytkownika"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 msgid "Edit profile settings"
 msgstr "Zmodyfikuj ustawienia profilu"
 
-#: lib/userprofile.php:253
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Edycja"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "Wyślij bezpośrednią wiadomość do tego użytkownika"
 
-#: lib/userprofile.php:277
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "Wiadomość"
 
-#: lib/userprofile.php:315
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr "Moderuj"
 
-#: lib/userprofile.php:353
+#: lib/userprofile.php:364
 msgid "User role"
 msgstr "Rola użytkownika"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:366
 msgctxt "role"
 msgid "Administrator"
 msgstr "Administrator"
 
-#: lib/userprofile.php:356
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
 msgstr "Moderator"
