@@ -105,8 +105,8 @@ class Subscription extends Memcached_DataObject
 
                 $auto = new Subscription();
 
-                $auto->subscriber = $subscriber->id;
-                $auto->subscribed = $other->id;
+                $auto->subscriber = $other->id;
+                $auto->subscribed = $subscriber->id;
                 $auto->created    = common_sql_now();
 
                 $result = $auto->insert();

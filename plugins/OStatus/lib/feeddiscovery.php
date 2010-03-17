@@ -117,7 +117,7 @@ class FeedDiscovery
                 return $this->discoverFromURL($target, false);
             }
         }
-        
+
         return $this->initFromResponse($response);
     }
 
@@ -202,7 +202,7 @@ class FeedDiscovery
             'application/atom+xml' => false,
             'application/rss+xml' => false,
         );
-        
+
         $nodes = $dom->getElementsByTagName('link');
         for ($i = 0; $i < $nodes->length; $i++) {
             $node = $nodes->item($i);

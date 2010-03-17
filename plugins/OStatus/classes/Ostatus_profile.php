@@ -708,17 +708,121 @@ class Ostatus_profile extends Memcached_DataObject
      * @return Ostatus_profile
      * @throws FeedSubException
      */
-    public static function ensureProfile($profile_uri, $hints=array())
+
+    public static function ensureProfileURL($profile_url, $hints=array())
     {
-        // Get the canonical feed URI and check it
-        $discover = new FeedDiscovery();
-        if (isset($hints['feedurl'])) {
-            $feeduri = $hints['feedurl'];
-            $feeduri = $discover->discoverFromFeedURL($feeduri);
-        } else {
-            $feeduri = $discover->discoverFromURL($profile_uri);
-            $hints['feedurl'] = $feeduri;
+        $oprofile = self::getFromProfileURL($profile_url);
+
+        if (!empty($oprofile)) {
+            return $oprofile;
         }
+
+        $hints['profileurl'] = $profile_url;
+
+        // Fetch the URL
+        // XXX: HTTP caching
+
+        $client = new HTTPClient();
+        $client->setHeader('Accept', 'text/html,application/xhtml+xml');
+        $response = $client->get($profile_url);
+
+        if (!$response->isOk()) {
+            return null;
+        }
+
+        // Check if we have a non-canonical URL
+
+        $finalUrl = $response->getUrl();
+
+        if ($finalUrl != $profile_url) {
+
+            $hints['profileurl'] = $finalUrl;
+
+            $oprofile = self::getFromProfileURL($finalUrl);
+
+            if (!empty($oprofile)) {
+                return $oprofile;
+            }
+        }
+
+        // Try to get some hCard data
+
+        $body = $response->getBody();
+
+        $hcardHints = DiscoveryHints::hcardHints($body, $finalUrl);
+
+        if (!empty($hcardHints)) {
+            $hints = array_merge($hints, $hcardHints);
+        }
+
+        // Check if they've got an LRDD header
+
+        $lrdd = LinkHeader::getLink($response, 'lrdd', 'application/xrd+xml');
+
+        if (!empty($lrdd)) {
+
+            $xrd = Discovery::fetchXrd($lrdd);
+            $xrdHints = DiscoveryHints::fromXRD($xrd);
+
+            $hints = array_merge($hints, $xrdHints);
+        }
+
+        // If discovery found a feedurl (probably from LRDD), use it.
+
+        if (array_key_exists('feedurl', $hints)) {
+            return self::ensureFeedURL($hints['feedurl'], $hints);
+        }
+
+        // Get the feed URL from HTML
+
+        $discover = new FeedDiscovery();
+
+        $feedurl = $discover->discoverFromHTML($finalUrl, $body);
+
+        if (!empty($feedurl)) {
+            $hints['feedurl'] = $feedurl;
+
+            return self::ensureFeedURL($feedurl, $hints);
+        }
+    }
+
+    static function getFromProfileURL($profile_url)
+    {
+        $profile = Profile::staticGet('profileurl', $profile_url);
+
+        if (empty($profile)) {
+            return null;
+        }
+
+        // Is it a known Ostatus profile?
+
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+
+        if (!empty($oprofile)) {
+            return $oprofile;
+        }
+
+        // Is it a local user?
+
+        $user = User::staticGet('id', $profile->id);
+
+        if (!empty($user)) {
+            throw new Exception("'$profile_url' is the profile for local user '{$user->nickname}'.");
+        }
+
+        // Continue discovery; it's a remote profile
+        // for OMB or some other protocol, may also
+        // support OStatus
+
+        return null;
+    }
+
+    public static function ensureFeedURL($feed_url, $hints=array())
+    {
+        $discover = new FeedDiscovery();
+
+        $feeduri = $discover->discoverFromFeedURL($feed_url);
+        $hints['feedurl'] = $feeduri;
 
         $huburi = $discover->getAtomLink('hub');
         $hints['hub'] = $huburi;
@@ -1303,7 +1407,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
         }
 
-        // First, look it up
+        // Try looking it up
 
         $oprofile = Ostatus_profile::staticGet('uri', 'acct:'.$addr);
 
@@ -1317,7 +1421,7 @@ class Ostatus_profile extends Memcached_DataObject
         $disco = new Discovery();
 
         try {
-            $result = $disco->lookup($addr);
+            $xrd = $disco->lookup($addr);
         } catch (Exception $e) {
             // Save negative cache entry so we don't waste time looking it up again.
             // @fixme distinguish temporary failures?
@@ -1327,38 +1431,26 @@ class Ostatus_profile extends Memcached_DataObject
 
         $hints = array('webfinger' => $addr);
 
-        foreach ($result->links as $link) {
-            switch ($link['rel']) {
-            case Discovery::PROFILEPAGE:
-                $hints['profileurl'] = $profileUrl = $link['href'];
-                break;
-            case Salmon::NS_REPLIES:
-                $hints['salmon'] = $salmonEndpoint = $link['href'];
-                break;
-            case Discovery::UPDATESFROM:
-                $hints['feedurl'] = $feedUrl = $link['href'];
-                break;
-            case Discovery::HCARD:
-                $hcardUrl = $link['href'];
-                break;
-            default:
-                common_log(LOG_NOTICE, "Don't know what to do with rel = '{$link['rel']}'");
-                break;
-            }
-        }
+        $dhints = DiscoveryHints::fromXRD($xrd);
 
-        if (isset($hcardUrl)) {
-            $hcardHints = self::slurpHcard($hcardUrl);
-            // Note: Webfinger > hcard
-            $hints = array_merge($hcardHints, $hints);
+        $hints = array_merge($hints, $dhints);
+
+        // If there's an Hcard, let's grab its info
+
+        if (array_key_exists('hcard', $hints)) {
+            if (!array_key_exists('profileurl', $hints) ||
+                $hints['hcard'] != $hints['profileurl']) {
+                $hcardHints = DiscoveryHints::fromHcardUrl($hints['hcard']);
+                $hints = array_merge($hcardHints, $hints);
+            }
         }
 
         // If we got a feed URL, try that
 
-        if (isset($feedUrl)) {
+        if (array_key_exists('feedurl', $hints)) {
             try {
                 common_log(LOG_INFO, "Discovery on acct:$addr with feed URL $feedUrl");
-                $oprofile = self::ensureProfile($feedUrl, $hints);
+                $oprofile = self::ensureFeedURL($hints['feedurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
@@ -1369,10 +1461,10 @@ class Ostatus_profile extends Memcached_DataObject
 
         // If we got a profile page, try that!
 
-        if (isset($profileUrl)) {
+        if (array_key_exists('profileurl', $hints)) {
             try {
                 common_log(LOG_INFO, "Discovery on acct:$addr with profile URL $profileUrl");
-                $oprofile = self::ensureProfile($profileUrl, $hints);
+                $oprofile = self::ensureProfile($hints['profileurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
@@ -1384,7 +1476,9 @@ class Ostatus_profile extends Memcached_DataObject
         // XXX: try hcard
         // XXX: try FOAF
 
-        if (isset($salmonEndpoint)) {
+        if (array_key_exists('salmon', $hints)) {
+
+            $salmonEndpoint = $hints['salmon'];
 
             // An account URL, a salmon endpoint, and a dream? Not much to go
             // on, but let's give it a try
@@ -1463,68 +1557,5 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         return $file;
-    }
-
-    protected static function slurpHcard($url)
-    {
-        set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/plugins/OStatus/extlib/hkit/');
-        require_once('hkit.class.php');
-
-        $h	= new hKit;
-
-        // Google Buzz hcards need to be tidied. Probably others too.
-
-        $h->tidy_mode = 'proxy'; // 'proxy', 'exec', 'php' or 'none'
-
-        // Get by URL
-        $hcards = $h->getByURL('hcard', $url);
-
-        if (empty($hcards)) {
-            return array();
-        }
-
-        // @fixme more intelligent guess on multi-hcard pages
-        $hcard = $hcards[0];
-
-        $hints = array();
-
-        $hints['profileurl'] = $url;
-
-        if (array_key_exists('nickname', $hcard)) {
-            $hints['nickname'] = $hcard['nickname'];
-        }
-
-        if (array_key_exists('fn', $hcard)) {
-            $hints['fullname'] = $hcard['fn'];
-        } else if (array_key_exists('n', $hcard)) {
-            $hints['fullname'] = implode(' ', $hcard['n']);
-        }
-
-        if (array_key_exists('photo', $hcard)) {
-            $hints['avatar'] = $hcard['photo'];
-        }
-
-        if (array_key_exists('note', $hcard)) {
-            $hints['bio'] = $hcard['note'];
-        }
-
-        if (array_key_exists('adr', $hcard)) {
-            if (is_string($hcard['adr'])) {
-                $hints['location'] = $hcard['adr'];
-            } else if (is_array($hcard['adr'])) {
-                $hints['location'] = implode(' ', $hcard['adr']);
-            }
-        }
-
-        if (array_key_exists('url', $hcard)) {
-            if (is_string($hcard['url'])) {
-                $hints['homepage'] = $hcard['url'];
-            } else if (is_array($hcard['url'])) {
-                // HACK get the last one; that's how our hcards look
-                $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
-            }
-        }
-
-        return $hints;
     }
 }
