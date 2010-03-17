@@ -542,14 +542,25 @@ class Ostatus_profile extends Memcached_DataObject
             }
             $shortSummary = common_shorten_links($summary);
             if (Notice::contentTooLong($shortSummary)) {
-                $url = common_shorten_url(common_local_url('attachment',
-                                                           array('attachment' => $attachment->id)));
+                $url = common_shorten_url($sourceUrl);
                 $shortSummary = substr($shortSummary,
                                        0,
                                        Notice::maxContent() - (mb_strlen($url) + 2));
-                $shortSummary .= '… ' . $url;
-                $content = $shortSummary;
-                $rendered = common_render_text($content);
+                $shortSummary .= '…';
+                $content = $shortSummary . ' ' . $url;
+
+                // We mark up the attachment link specially for the HTML output
+                // so we can fold-out the full version inline.
+                $attachUrl = common_local_url('attachment',
+                                              array('attachment' => $attachment->id));
+                $rendered = common_render_text($shortSummary) .
+                            ' ' .
+                            '<a href="' .
+                            htmlspecialchars($attachUrl) .
+                            '" class="attachment more">' .
+                            // TRANS: expansion link for too-long remote messages
+                            htmlspecialchars(_m('more')) .
+                            '</a>';
             }
         }
 
@@ -1526,10 +1537,18 @@ class Ostatus_profile extends Memcached_DataObject
         throw new Exception("Couldn't find a valid profile for '$addr'");
     }
 
+    /**
+     * Store the full-length scrubbed HTML of a remote notice to an attachment
+     * file on our server. We'll link to this at the end of the cropped version.
+     *
+     * @param string $title plaintext for HTML page's title
+     * @param string $rendered HTML fragment for HTML page's body
+     * @return File
+     */
     function saveHTMLFile($title, $rendered)
     {
         $final = sprintf("<!DOCTYPE html>\n<html><head><title>%s</title></head>".
-                         '<body><div>%s</div></body></html>',
+                         '<body>%s</body></html>',
                          htmlspecialchars($title),
                          $rendered);
 
