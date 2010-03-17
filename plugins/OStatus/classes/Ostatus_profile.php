@@ -542,8 +542,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
             $shortSummary = common_shorten_links($summary);
             if (Notice::contentTooLong($shortSummary)) {
-                $url = common_shorten_url(common_local_url('attachment',
-                                                           array('attachment' => $attachment->id)));
+                $url = common_shorten_url($sourceUrl);
                 $shortSummary = substr($shortSummary,
                                        0,
                                        Notice::maxContent() - (mb_strlen($url) + 2));
@@ -552,10 +551,12 @@ class Ostatus_profile extends Memcached_DataObject
 
                 // We mark up the attachment link specially for the HTML output
                 // so we can fold-out the full version inline.
+                $attachUrl = common_local_url('attachment',
+                                              array('attachment' => $attachment->id));
                 $rendered = common_render_text($shortSummary) .
                             ' ' .
                             '<a href="' .
-                            htmlspecialchars($url) .
+                            htmlspecialchars($attachUrl) .
                             '" class="attachment more">' .
                             // TRANS: expansion link for too-long remote messages
                             htmlspecialchars(_m('(more)')) .
