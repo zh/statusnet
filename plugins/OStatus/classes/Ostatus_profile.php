@@ -547,9 +547,19 @@ class Ostatus_profile extends Memcached_DataObject
                 $shortSummary = substr($shortSummary,
                                        0,
                                        Notice::maxContent() - (mb_strlen($url) + 2));
-                $shortSummary .= '… ' . $url;
-                $content = $shortSummary;
-                $rendered = common_render_text($content);
+                $shortSummary .= '…';
+                $content = $shortSummary . ' ' . $url;
+
+                // We mark up the attachment link specially for the HTML output
+                // so we can fold-out the full version inline.
+                $rendered = common_render_text($shortSummary) .
+                            ' ' .
+                            '<a href="' .
+                            htmlspecialchars($url) .
+                            '" class="attachment more">' .
+                            // TRANS: expansion link for too-long remote messages
+                            htmlspecialchars(_m('(more)')) .
+                            '</a>';
             }
         }
 
