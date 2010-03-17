@@ -559,7 +559,7 @@ class Ostatus_profile extends Memcached_DataObject
                             htmlspecialchars($attachUrl) .
                             '" class="attachment more">' .
                             // TRANS: expansion link for too-long remote messages
-                            htmlspecialchars(_m('(more)')) .
+                            htmlspecialchars(_m('more')) .
                             '</a>';
             }
         }

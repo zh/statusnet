@@ -368,9 +368,7 @@ class Attachment extends AttachmentListItem
     {
         $body = $this->scrubHtmlFile($attachment);
         if ($body) {
-            $this->out->elementStart('div', array('class' => 'inline-attachment'));
             $this->out->raw($body);
-            $this->out->elementEnd('div');
         }
     }
 
