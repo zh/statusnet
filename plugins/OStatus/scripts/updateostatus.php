@@ -112,8 +112,8 @@ function updateOStatus($user)
                 if (!have_option('q', 'quiet')) {
                     echo "Converting...";
                 }
-                Subscription::cancel($up, $rp);
                 Subscription::start($up, $op->localProfile());
+                Subscription::cancel($up, $rp);
                 if (!have_option('q', 'quiet')) {
                     echo "done.\n";
                 }
