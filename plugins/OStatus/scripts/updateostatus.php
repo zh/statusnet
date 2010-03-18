@@ -56,7 +56,12 @@ try {
         $user = new User();
         if ($user->find()) {
             while ($user->fetch()) {
-                updateOStatus($user);
+                try {
+                    updateOStatus($user);
+                } catch (Exception $e) {
+                    common_log(LOG_NOTICE, "Couldn't convert OMB subscriptions ".
+                               "for {$user->nickname} to OStatus: " . $e->getMessage());
+                }
             }
         }
     } else {
@@ -118,8 +123,7 @@ function updateOStatus($user)
             if (!have_option('q', 'quiet')) {
                 echo "fail.\n";
             }
-            continue;
-            common_log(LOG_WARNING, "Couldn't convert OMB subscription (" . $up->nickname . ", " . $rp->nickname .
+            common_log(LOG_NOTICE, "Couldn't convert OMB subscription (" . $up->nickname . ", " . $rp->nickname .
                        ") to OStatus: " . $e->getMessage());
             continue;
         }
