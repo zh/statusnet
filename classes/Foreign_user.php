@@ -41,6 +41,7 @@ class Foreign_user extends Memcached_DataObject
 
     function updateKeys(&$orig)
     {
+        $this->_connect();
         $parts = array();
         foreach (array('id', 'service', 'uri', 'nickname') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {
