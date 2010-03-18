@@ -87,6 +87,7 @@ class User extends Memcached_DataObject
 
     function updateKeys(&$orig)
     {
+        $this->_connect();
         $parts = array();
         foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {
