@@ -1403,7 +1403,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (array_key_exists('feedurl', $hints)) {
             try {
-                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL $feedUrl");
+                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL " . $hints['feedurl']);
                 $oprofile = self::ensureFeedURL($hints['feedurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
