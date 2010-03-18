@@ -75,7 +75,11 @@ class User extends Memcached_DataObject
 
     function getProfile()
     {
-        return Profile::staticGet('id', $this->id);
+        $profile = Profile::staticGet('id', $this->id);
+        if (empty($profile)) {
+            throw new UserNoProfileException($this);
+        }
+        return $profile;
     }
 
     function isSubscribed($other)
@@ -140,9 +144,6 @@ class User extends Memcached_DataObject
     function getCurrentNotice()
     {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        }
         return $profile->getCurrentNotice();
     }
 
@@ -469,21 +470,13 @@ class User extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        } else {
-            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id);
-        }
+        return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        } else {
-            return $profile->getNotices($offset, $limit, $since_id, $before_id);
-        }
+        return $profile->getNotices($offset, $limit, $since_id, $before_id);
     }
 
     function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
@@ -624,14 +617,12 @@ class User extends Memcached_DataObject
     function getSubscriptions($offset=0, $limit=null)
     {
         $profile = $this->getProfile();
-        assert(!empty($profile));
         return $profile->getSubscriptions($offset, $limit);
     }
 
     function getSubscribers($offset=0, $limit=null)
     {
         $profile = $this->getProfile();
-        assert(!empty($profile));
         return $profile->getSubscribers($offset, $limit);
     }
 
@@ -695,9 +686,7 @@ class User extends Memcached_DataObject
     function delete()
     {
         $profile = $this->getProfile();
-        if ($profile) {
-            $profile->delete();
-        }
+        $profile->delete();
 
         $related = array('Fave',
                          'Confirm_address',
