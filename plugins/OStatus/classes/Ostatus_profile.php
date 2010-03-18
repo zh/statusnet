@@ -1464,7 +1464,7 @@ class Ostatus_profile extends Memcached_DataObject
         if (array_key_exists('profileurl', $hints)) {
             try {
                 common_log(LOG_INFO, "Discovery on acct:$addr with profile URL $profileUrl");
-                $oprofile = self::ensureProfile($hints['profileurl'], $hints);
+                $oprofile = self::ensureProfileURL($hints['profileurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
             } catch (Exception $e) {
