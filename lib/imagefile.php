@@ -67,10 +67,8 @@ class ImageFile
             $info[2] == IMAGETYPE_BMP ||
             ($info[2] == IMAGETYPE_WBMP && function_exists('imagecreatefromwbmp')) ||
             ($info[2] == IMAGETYPE_XBM && function_exists('imagecreatefromxbm')) ||
-            ($info[2] == IMAGETYPE_XPM && function_exists('imagecreatefromxpm')) ||
             ($info[2] == IMAGETYPE_PNG && function_exists('imagecreatefrompng')))) {
 
-            @unlink($_FILES[$param]['tmp_name']);
             throw new Exception(_('Unsupported image file format.'));
             return;
         }
@@ -161,9 +159,6 @@ class ImageFile
          case IMAGETYPE_XBM:
             $image_src = imagecreatefromxbm($this->filepath);
             break;
-         case IMAGETYPE_XPM:
-            $image_src = imagecreatefromxpm($this->filepath);
-            break;
          default:
             throw new Exception(_('Unknown file type'));
             return;
@@ -204,10 +199,6 @@ class ImageFile
             $this->type = IMAGETYPE_PNG;
         } else if($this->type == IMAGETYPE_XBM) {
             //we don't want to save XBM... it's a rare format that we can't guarantee clients will support
-            //save png instead
-            $this->type = IMAGETYPE_PNG;
-        } else if($this->type == IMAGETYPE_XPM) {
-            //we don't want to save XPM... it's a rare format that we can't guarantee clients will support
             //save png instead
             $this->type = IMAGETYPE_PNG;
         }
