@@ -98,7 +98,15 @@ class XmppMaster extends IoMaster
 // don't have to find an XMPP site to start up when using --all mode.
 if (common_config('xmpp','enabled')==false) {
     print "Aborting daemon - xmpp is disabled\n";
-    exit();
+    exit(1);
+}
+
+if (version_compare(PHP_VERSION, '5.2.6', '<')) {
+    $arch = php_uname('m');
+    if ($arch == 'x86_64' || $arch == 'amd64') {
+        print "Aborting daemon - 64-bit PHP prior to 5.2.6 has known bugs in stream_select; you are running " . PHP_VERSION . " on $arch.\n";
+        exit(1);
+    }
 }
 
 if (have_option('i', 'id')) {
