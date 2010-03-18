@@ -462,7 +462,7 @@ class ActivityUtils
                 return htmlspecialchars($contentEl->textContent);
             } else if ($type == 'html') {
                 // The XML text decoding gives us an HTML string ready to roll.
-                return $contentEl->textContent, ENT_QUOTES;
+                return $contentEl->textContent;
             } else if ($type == 'xhtml') {
                 // Embedded XHTML; we have to pull it out of the document tree,
                 // then serialize it back out to an HTML fragment string.
