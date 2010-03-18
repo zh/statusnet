@@ -458,11 +458,14 @@ class ActivityUtils
             // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
 
             if (empty($type) || $type == 'text') {
-                return $contentEl->textContent;
+                // Plain text source -- let's turn it into HTML!
+                return htmlspecialchars($contentEl->textContent);
             } else if ($type == 'html') {
-                $text = $contentEl->textContent;
-                return htmlspecialchars_decode($text, ENT_QUOTES);
+                // The XML text decoding gives us an HTML string ready to roll.
+                return $contentEl->textContent, ENT_QUOTES;
             } else if ($type == 'xhtml') {
+                // Embedded XHTML; we have to pull it out of the document tree,
+                // then serialize it back out to an HTML fragment string.
                 $divEl = ActivityUtils::child($contentEl, 'div', 'http://www.w3.org/1999/xhtml');
                 if (empty($divEl)) {
                     return null;
