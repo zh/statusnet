@@ -788,9 +788,20 @@ class Ostatus_profile extends Memcached_DataObject
             throw new FeedSubNoHubException();
         }
 
-        // Try to get a profile from the feed activity:subject
+        $feedEl = $discover->root;
 
-        $feedEl = $discover->feed->documentElement;
+        if ($feedEl->tagName == 'feed') {
+            return self::ensureAtomFeed($feedEl, $hints);
+        } else if ($feedEl->tagName == 'channel') {
+            return self::ensureRssChannel($feedEl, $hints);
+        } else {
+            throw new FeedSubBadXmlException($feeduri);
+        }
+    }
+
+    public static function ensureAtomFeed($feedEl, $hints)
+    {
+        // Try to get a profile from the feed activity:subject
 
         $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
 
@@ -836,6 +847,17 @@ class Ostatus_profile extends Memcached_DataObject
         // XXX: make some educated guesses here
 
         throw new FeedSubException("Can't find enough profile information to make a feed.");
+    }
+
+    public static function ensureRssChannel($feedEl, $hints)
+    {
+        // @fixme we should check whether this feed has elements
+        // with different <author> or <dc:creator> elements, and... I dunno.
+        // Do something about that.
+
+        $obj = ActivityObject::fromRssChannel($feedEl);
+
+        return self::ensureActivityObjectProfile($obj, $hints);
     }
 
     /**
