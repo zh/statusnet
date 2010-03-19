@@ -839,8 +839,8 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     *
      * Download and update given avatar image
+     *
      * @param string $url
      * @throws Exception in various failure cases
      */
@@ -849,6 +849,9 @@ class Ostatus_profile extends Memcached_DataObject
         if ($url == $this->avatar) {
             // We've already got this one.
             return;
+        }
+        if (!common_valid_http_url($url)) {
+            throw new ServerException(_m("Invalid avatar URL %s"), $url);
         }
 
         if ($this->isGroup()) {
