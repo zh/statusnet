@@ -195,52 +195,6 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Subscribe a local user to this remote user.
-     * PuSH subscription will be started if necessary, and we'll
-     * send a Salmon notification to the remote server if available
-     * notifying them of the sub.
-     *
-     * @param User $user
-     * @return boolean success
-     * @throws FeedException
-     */
-    public function subscribeLocalToRemote(User $user)
-    {
-        if ($this->isGroup()) {
-            throw new ServerException("Can't subscribe to a remote group");
-        }
-
-        if ($this->subscribe()) {
-            if ($user->subscribeTo($this->localProfile())) {
-                $this->notify($user->getProfile(), ActivityVerb::FOLLOW, $this);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Mark this remote profile as subscribing to the given local user,
-     * and send appropriate notifications to the user.
-     *
-     * This will generally be in response to a subscription notification
-     * from a foreign site to our local Salmon response channel.
-     *
-     * @param User $user
-     * @return boolean success
-     */
-    public function subscribeRemoteToLocal(User $user)
-    {
-        if ($this->isGroup()) {
-            throw new ServerException("Remote groups can't subscribe to local users");
-        }
-
-        Subscription::start($this->localProfile(), $user->getProfile());
-
-        return true;
-    }
-
-    /**
      * Send a subscription request to the hub for this feed.
      * The hub will later send us a confirmation POST to /main/push/callback.
      *
@@ -1449,7 +1403,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (array_key_exists('feedurl', $hints)) {
             try {
-                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL $feedUrl");
+                common_log(LOG_INFO, "Discovery on acct:$addr with feed URL " . $hints['feedurl']);
                 $oprofile = self::ensureFeedURL($hints['feedurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;

@@ -720,7 +720,7 @@ class ActivityObject
         }
     }
 
-    static function fromNotice($notice)
+    static function fromNotice(Notice $notice)
     {
         $object = new ActivityObject();
 
@@ -734,7 +734,7 @@ class ActivityObject
         return $object;
     }
 
-    static function fromProfile($profile)
+    static function fromProfile(Profile $profile)
     {
         $object = new ActivityObject();
 
