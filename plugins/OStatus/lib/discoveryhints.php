@@ -174,6 +174,26 @@ class DiscoveryHints {
         error_reporting($old);
         
         if ($ok) {
+            // If the original had xmlns or xml:lang attributes on the
+            // <html>, we seen to end up with duplicates, which causes
+            // parse errors. Remove em!
+            //
+            // For some reason we have to iterate and remove them twice,
+            // *plus* they don't show up on hasAttribute() or removeAttribute().
+            // This might be some weird bug in PHP or libxml2, uncertain if
+            // it affects other folks consistently.
+            $root = $dom->documentElement;
+            foreach ($root->attributes as $i => $x) {
+                if ($i == 'xmlns' || $i == 'xml:lang') {
+                    $root->removeAttributeNode($x);
+                }
+            }
+            foreach ($root->attributes as $i => $x) {
+                if ($i == 'xmlns' || $i == 'xml:lang') {
+                    $root->removeAttributeNode($x);
+                }
+            }
+
             // hKit doesn't give us a chance to pass the source URL for
             // resolving relative links, such as the avatar photo on a
             // Google profile. We'll slip it into a <base> tag if there's
@@ -192,7 +212,6 @@ class DiscoveryHints {
                     $head = $heads->item(0);
                 } else {
                     $head = $dom->createElement('head');
-                    $root = $dom->documentRoot;
                     if ($root->firstChild) {
                         $root->insertBefore($head, $root->firstChild);
                     } else {
