@@ -301,6 +301,10 @@ class AvatarsettingsAction extends AccountSettingsAction
             $this->showForm($e->getMessage());
             return;
         }
+        if ($imagefile === null) {
+            $this->showForm(_('No file uploaded.'));
+            return;
+        }
 
         $cur = common_current_user();
 
