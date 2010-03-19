@@ -65,16 +65,21 @@ class DiscoveryHints {
     {
         common_debug("starting tidy");
 
-        $body = self::_tidy($body);
+        $body = self::_tidy($body, $url);
 
         common_debug("done with tidy");
 
         set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/plugins/OStatus/extlib/hkit/');
         require_once('hkit.class.php');
 
-        $h	= new hKit;
+        // hKit code is not clean for notices and warnings
+        $old = error_reporting();
+        error_reporting($old & ~E_NOTICE & ~E_WARNING);
 
+        $h	= new hKit;
         $hcards = $h->getByString('hcard', $body);
+
+        error_reporting($old);
 
         if (empty($hcards)) {
             return array();
@@ -144,39 +149,61 @@ class DiscoveryHints {
         return $hints;
     }
 
-    private static function _tidy($body)
+    /**
+     * hKit needs well-formed XML for its parsing.
+     * We'll take the HTML body here and normalize it to XML.
+     *
+     * @param string $body HTML document source, possibly not-well-formed
+     * @param string $url source URL
+     * @return string well-formed XML document source
+     * @throws Exception if HTML parsing failed.
+     */
+    private static function _tidy($body, $url)
     {
-        if (function_exists('tidy_parse_string')) {
-            common_debug("Tidying with extension");
-            $text = tidy_parse_string($body);
-            $text = tidy_clean_repair($text);
-            return $body;
-        } else if ($fullpath = self::_findProgram('tidy')) {
-            common_debug("Tidying with program $fullpath");
-            $tempfile = tempnam('/tmp', 'snht'); // statusnet hcard tidy
-            file_put_contents($tempfile, $source);
-            exec("$fullpath -utf8 -indent -asxhtml -numeric -bare -quiet $tempfile", $tidy);
-            unlink($tempfile);
-            return implode("\n", $tidy);
-        } else {
-            common_debug("Not tidying.");
-            return $body;
+        if (empty($body)) {
+            throw new Exception("Empty HTML could not be parsed.");
         }
-    }
+        $dom = new DOMDocument();
 
-    private static function _findProgram($name)
-    {
-        $path = $_ENV['PATH'];
+        // Some HTML errors will trigger warnings, but still work.
+        $old = error_reporting();
+        error_reporting($old & ~E_WARNING);
+        
+        $ok = $dom->loadHTML($body);
 
-        $parts = explode(':', $path);
-
-        foreach ($parts as $part) {
-            $fullpath = $part . '/' . $name;
-            if (is_executable($fullpath)) {
-                return $fullpath;
+        error_reporting($old);
+        
+        if ($ok) {
+            // hKit doesn't give us a chance to pass the source URL for
+            // resolving relative links, such as the avatar photo on a
+            // Google profile. We'll slip it into a <base> tag if there's
+            // not already one present.
+            $bases = $dom->getElementsByTagName('base');
+            if ($bases && $bases->length >= 1) {
+                $base = $bases->item(0);
+                if ($base->hasAttribute('href')) {
+                    $base->setAttribute('href', $url);
+                }
+            } else {
+                $base = $dom->createElement('base');
+                $base->setAttribute('href', $url);
+                $heads = $dom->getElementsByTagName('head');
+                if ($heads || $heads->length) {
+                    $head = $heads->item(0);
+                } else {
+                    $head = $dom->createElement('head');
+                    $root = $dom->documentRoot;
+                    if ($root->firstChild) {
+                        $root->insertBefore($head, $root->firstChild);
+                    } else {
+                        $root->appendChild($head);
+                    }
+                }
+                $head->appendChild($base);
             }
+            return $dom->saveXML();
+        } else {
+            throw new Exception("Invalid HTML could not be parsed.");
         }
-
-        return null;
     }
 }

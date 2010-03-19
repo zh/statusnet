@@ -62,6 +62,14 @@ class Subscription extends Memcached_DataObject
 
     static function start($subscriber, $other)
     {
+        // @fixme should we enforce this as profiles in callers instead?
+        if ($subscriber instanceof User) {
+            $subscriber = $subscriber->getProfile();
+        }
+        if ($other instanceof User) {
+            $other = $other->getProfile();
+        }
+
         if (!$subscriber->hasRight(Right::SUBSCRIBE)) {
             throw new Exception(_('You have been banned from subscribing.'));
         }
