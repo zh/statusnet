@@ -799,20 +799,24 @@ class ActivityObject
 
         $obj->type = ActivityObject::PERSON; // @fixme guess better
 
-        $obj->title = ActivityUtils::childContent($el, ActivityObject::TITLE, self::RSS);
-        $obj->link  = ActivityUtils::childContent($el, ActivityUtils::LINK, self::RSS);
-        $obj->id    = ActivityUtils::getLink($el, self::SELF);
+        $obj->title = ActivityUtils::childContent($el, ActivityObject::TITLE, Activity::RSS);
+        $obj->link  = ActivityUtils::childContent($el, ActivityUtils::LINK, Activity::RSS);
+        $obj->id    = ActivityUtils::getLink($el, Activity::SELF);
 
-        $desc = ActivityUtils::childContent($el, self::DESCRIPTION, self::RSS);
+        if (empty($obj->id)) {
+            $obj->id = $obj->link;
+        }
+
+        $desc = ActivityUtils::childContent($el, Activity::DESCRIPTION, Activity::RSS);
 
         if (!empty($desc)) {
             $obj->content = htmlspecialchars_decode($desc, ENT_QUOTES);
         }
 
-        $imageEl = ActivityUtils::child($el, self::IMAGE, self::RSS);
+        $imageEl = ActivityUtils::child($el, Activity::IMAGE, Activity::RSS);
 
         if (!empty($imageEl)) {
-            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, self::URL, self::RSS);
+            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
         }
 
         return $obj;
