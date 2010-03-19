@@ -741,6 +741,83 @@ class ActivityObject
         }
     }
 
+    public static function fromRssAuthor($el)
+    {
+        $text = $el->textContent;
+
+        if (preg_match('/^(.*?) \((.*)\)$/', $text, $match)) {
+            $email = $match[1];
+            $name = $match[2];
+        } else if (preg_match('/^(.*?) <(.*)>$/', $text, $match)) {
+            $name = $match[1];
+            $email = $match[2];
+        } else if (preg_match('/.*@.*/', $text)) {
+            $email = $text;
+            $name = null;
+        } else {
+            $name = $text;
+            $email = null;
+        }
+
+        // Not really enough info
+
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->type  = ActivityObject::PERSON;
+        $obj->title = $name;
+
+        if (!empty($email)) {
+            $obj->id = 'mailto:'.$email;
+        }
+
+        return $obj;
+    }
+
+    public static function fromDcCreator($el)
+    {
+        // Not really enough info
+
+        $text = $el->textContent;
+
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->title = $text;
+        $obj->type  = ActivityObject::PERSON;
+
+        return $obj;
+    }
+
+    public static function fromRssChannel($el)
+    {
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->type = ActivityObject::PERSON; // @fixme guess better
+
+        $obj->title = ActivityUtils::childContent($el, ActivityObject::TITLE, self::RSS);
+        $obj->link  = ActivityUtils::childContent($el, ActivityUtils::LINK, self::RSS);
+        $obj->id    = ActivityUtils::getLink($el, self::SELF);
+
+        $desc = ActivityUtils::childContent($el, self::DESCRIPTION, self::RSS);
+
+        if (!empty($desc)) {
+            $obj->content = htmlspecialchars_decode($desc, ENT_QUOTES);
+        }
+
+        $imageEl = ActivityUtils::child($el, self::IMAGE, self::RSS);
+
+        if (!empty($imageEl)) {
+            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, self::URL, self::RSS);
+        }
+
+        return $obj;
+    }
+
     private function _childContent($element, $tag, $namespace=ActivityUtils::ATOM)
     {
         return ActivityUtils::childContent($element, $tag, $namespace);
@@ -1268,13 +1345,13 @@ class Activity
         $authorEl = $this->_child($item, self::AUTHOR, self::RSS);
 
         if (!empty($authorEl)) {
-            $this->actor = $this->_fromRssAuthor($authorEl);
+            $this->actor = ActivityObject::fromRssAuthor($authorEl);
         } else {
             $dcCreatorEl = $this->_child($item, self::CREATOR, self::DC);
             if (!empty($dcCreatorEl)) {
-                $this->actor = $this->_fromDcCreator($dcCreatorEl);
+                $this->actor = ActivityObject::fromDcCreator($dcCreatorEl);
             } else if (!empty($rss)) {
-                $this->actor = $this->_fromRss($rss);
+                $this->actor = ActivityObject::fromRssChannel($rss);
             }
         }
 
@@ -1381,83 +1458,6 @@ class Activity
         $xs->elementEnd('entry');
 
         return $xs->getString();
-    }
-
-    function _fromRssAuthor($el)
-    {
-        $text = $el->textContent;
-
-        if (preg_match('/^(.*?) \((.*)\)$/', $text, $match)) {
-            $email = $match[1];
-            $name = $match[2];
-        } else if (preg_match('/^(.*?) <(.*)>$/', $text, $match)) {
-            $name = $match[1];
-            $email = $match[2];
-        } else if (preg_match('/.*@.*/', $text)) {
-            $email = $text;
-            $name = null;
-        } else {
-            $name = $text;
-            $email = null;
-        }
-
-        // Not really enough info
-
-        $actor = new ActivityObject();
-
-        $actor->element = $el;
-
-        $actor->type  = ActivityObject::PERSON;
-        $actor->title = $name;
-
-        if (!empty($email)) {
-            $actor->id = 'mailto:'.$email;
-        }
-
-        return $actor;
-    }
-
-    function _fromDcCreator($el)
-    {
-        // Not really enough info
-
-        $text = $el->textContent;
-
-        $actor = new ActivityObject();
-
-        $actor->element = $el;
-
-        $actor->title = $text;
-        $actor->type  = ActivityObject::PERSON;
-
-        return $actor;
-    }
-
-    function _fromRss($el)
-    {
-        $actor = new ActivityObject();
-
-        $actor->element = $el;
-
-        $actor->type = ActivityObject::PERSON; // @fixme guess better
-
-        $actor->title = ActivityUtils::childContent($el, ActivityObject::TITLE, self::RSS);
-        $actor->link  = ActivityUtils::childContent($el, ActivityUtils::LINK, self::RSS);
-        $actor->id    = ActivityUtils::getLink($el, self::SELF);
-
-        $desc = ActivityUtils::childContent($el, self::DESCRIPTION, self::RSS);
-
-        if (!empty($desc)) {
-            $actor->content = htmlspecialchars_decode($desc, ENT_QUOTES);
-        }
-
-        $imageEl = ActivityUtils::child($el, self::IMAGE, self::RSS);
-
-        if (!empty($imageEl)) {
-            $actor->avatarLinks[] = ActivityUtils::childContent($imageEl, self::URL, self::RSS);
-        }
-
-        return $actor;
     }
 
     private function _child($element, $tag, $namespace=self::SPEC)
