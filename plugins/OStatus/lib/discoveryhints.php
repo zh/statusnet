@@ -65,6 +65,10 @@ class DiscoveryHints {
     {
         $hcard = self::_hcard($body, $url);
 
+        if (empty($hcard)) {
+            return array();
+        }
+
         $hints = array();
 
         // XXX: don't copy stuff into an array and then copy it again
