@@ -290,7 +290,7 @@ class OStatusPlugin extends Plugin
                     $url = "$scheme://$target";
                     $this->log(LOG_INFO, "Checking profile address '$url'");
                     try {
-                        $oprofile = Ostatus_profile::ensureProfile($url);
+                        $oprofile = Ostatus_profile::ensureProfileURL($url);
                         if ($oprofile && !$oprofile->isGroup()) {
                             $profile = $oprofile->localProfile();
                             $matches[$pos] = array('mentioned' => array($profile),
@@ -392,7 +392,7 @@ class OStatusPlugin extends Plugin
 
         foreach ($urls as $url) {
             try {
-                return Ostatus_profile::ensureProfile($url);
+                return Ostatus_profile::ensureProfileURL($url);
             } catch (Exception $e) {
                 common_log(LOG_ERR, 'Profile lookup failed for ' .
                                     $arg . ': ' . $e->getMessage());

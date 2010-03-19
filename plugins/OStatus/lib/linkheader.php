@@ -43,21 +43,21 @@ class LinkHeader
     static function getLink($response, $rel=null, $type=null)
     {
         $headers = $response->getHeader('Link');
+        if ($headers) {
+            // Can get an array or string, so try to simplify the path
+            if (!is_array($headers)) {
+                $headers = array($headers);
+            }
 
-        // Can get an array or string, so try to simplify the path
-        if (!is_array($headers)) {
-            $headers = array($headers);
-        }
+            foreach ($headers as $header) {
+                $lh = new LinkHeader($header);
 
-        foreach ($headers as $header) {
-            $lh = new LinkHeader($header);
-
-            if ((is_null($rel) || $lh->rel == $rel) &&
-                (is_null($type) || $lh->type == $type)) {
-                return $lh->href;
+                if ((is_null($rel) || $lh->rel == $rel) &&
+                    (is_null($type) || $lh->type == $type)) {
+                    return $lh->href;
+                }
             }
         }
-
         return null;
     }
 }
