@@ -73,6 +73,7 @@ class FeedDiscovery
     public $uri;
     public $type;
     public $feed;
+    public $root;
 
     /** Post-initialize query helper... */
     public function getLink($rel, $type=null)
@@ -83,7 +84,7 @@ class FeedDiscovery
 
     public function getAtomLink($rel, $type=null)
     {
-        return ActivityUtils::getLink($this->feed->documentElement, $rel, $type);
+        return ActivityUtils::getLink($this->root, $rel, $type);
     }
 
     /**
@@ -154,9 +155,27 @@ class FeedDiscovery
             $this->uri = $sourceurl;
             $this->type = $type;
             $this->feed = $feed;
+
+            $el = $this->feed->documentElement;
+
+            // Looking for the "root" element: RSS channel or Atom feed
+
+            if ($el->tagName == 'rss') {
+                $channels = $el->getElementsByTagName('channel');
+                if ($channels->length > 0) {
+                    $this->root = $channels->item(0);
+                } else {
+                    throw new FeedSubBadXmlException($sourceurl);
+                }
+            } else if ($el->tagName == 'feed') {
+                $this->root = $el;
+            } else {
+                throw new FeedSubBadXmlException($sourceurl);
+            }
+
             return $this->uri;
         } else {
-            throw new FeedSubBadXmlException($url);
+            throw new FeedSubBadXmlException($sourceurl);
         }
     }
 
