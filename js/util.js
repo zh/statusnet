@@ -402,6 +402,7 @@ var SN = { // StatusNet
             var attachment_more = notice.find('.attachment.more');
             if (attachment_more.length > 0) {
                 attachment_more.click(function() {
+                    $(this).addClass(SN.C.S.Processing);
                     $.get($(this).attr('href')+'/ajax', null, function(data) {
                         notice.find('.entry-title .entry-content').html($(data).find('#attachment_view .entry-content').html());
                     });
