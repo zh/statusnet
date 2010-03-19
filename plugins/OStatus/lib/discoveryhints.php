@@ -63,53 +63,15 @@ class DiscoveryHints {
 
     static function hcardHints($body, $url)
     {
-        common_debug("starting tidy");
+        $hcard = self::_hcard($body, $url);
 
-        $body = self::_tidy($body, $url);
-
-        common_debug("done with tidy");
-
-        set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/plugins/OStatus/extlib/hkit/');
-        require_once('hkit.class.php');
-
-        // hKit code is not clean for notices and warnings
-        $old = error_reporting();
-        error_reporting($old & ~E_NOTICE & ~E_WARNING);
-
-        $h	= new hKit;
-        $hcards = $h->getByString('hcard', $body);
-
-        error_reporting($old);
-
-        if (empty($hcards)) {
+        if (empty($hcard)) {
             return array();
         }
 
-        if (count($hcards) == 1) {
-            $hcard = $hcards[0];
-        } else {
-            foreach ($hcards as $try) {
-                if (array_key_exists('url', $try)) {
-                    if (is_string($try['url']) && $try['url'] == $url) {
-                        $hcard = $try;
-                        break;
-                    } else if (is_array($try['url'])) {
-                        foreach ($try['url'] as $tryurl) {
-                            if ($tryurl == $url) {
-                                $hcard = $try;
-                                break 2;
-                            }
-                        }
-                    }
-                }
-            }
-            // last chance; grab the first one
-            if (empty($hcard)) {
-                $hcard = $hcards[0];
-            }
-        }
-
         $hints = array();
+
+        // XXX: don't copy stuff into an array and then copy it again
 
         if (array_key_exists('nickname', $hcard)) {
             $hints['nickname'] = $hcard['nickname'];
@@ -122,7 +84,7 @@ class DiscoveryHints {
         }
 
         if (array_key_exists('photo', $hcard)) {
-            $hints['avatar'] = $hcard['photo'];
+            $hints['avatar'] = $hcard['photo'][0];
         }
 
         if (array_key_exists('note', $hcard)) {
@@ -149,80 +111,142 @@ class DiscoveryHints {
         return $hints;
     }
 
-    /**
-     * hKit needs well-formed XML for its parsing.
-     * We'll take the HTML body here and normalize it to XML.
-     *
-     * @param string $body HTML document source, possibly not-well-formed
-     * @param string $url source URL
-     * @return string well-formed XML document source
-     * @throws Exception if HTML parsing failed.
-     */
-    private static function _tidy($body, $url)
+    static function _hcard($body, $url)
     {
-        if (empty($body)) {
-            throw new Exception("Empty HTML could not be parsed.");
-        }
-        $dom = new DOMDocument();
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements.
 
-        // Some HTML errors will trigger warnings, but still work.
-        $old = error_reporting();
-        error_reporting($old & ~E_WARNING);
-        
-        $ok = $dom->loadHTML($body);
+        $old = error_reporting(error_reporting() & ~E_WARNING);
+
+        $doc = new DOMDocument();
+        $doc->loadHTML($body);
 
         error_reporting($old);
-        
-        if ($ok) {
-            // If the original had xmlns or xml:lang attributes on the
-            // <html>, we seen to end up with duplicates, which causes
-            // parse errors. Remove em!
-            //
-            // For some reason we have to iterate and remove them twice,
-            // *plus* they don't show up on hasAttribute() or removeAttribute().
-            // This might be some weird bug in PHP or libxml2, uncertain if
-            // it affects other folks consistently.
-            $root = $dom->documentElement;
-            foreach ($root->attributes as $i => $x) {
-                if ($i == 'xmlns' || $i == 'xml:lang') {
-                    $root->removeAttributeNode($x);
-                }
+
+        $xp = new DOMXPath($doc);
+
+        $hcardNodes = self::_getChildrenByClass($doc->documentElement, 'vcard', $xp);
+
+        $hcards = array();
+
+        for ($i = 0; $i < $hcardNodes->length; $i++) {
+
+            $hcardNode = $hcardNodes->item($i);
+
+            $hcard = self::_hcardFromNode($hcardNode, $xp, $url);
+
+            $hcards[] = $hcard;
+        }
+
+        $repr = null;
+
+        foreach ($hcards as $hcard) {
+            if (in_array($url, $hcard['url'])) {
+                $repr = $hcard;
+                break;
             }
-            foreach ($root->attributes as $i => $x) {
-                if ($i == 'xmlns' || $i == 'xml:lang') {
-                    $root->removeAttributeNode($x);
-                }
+        }
+
+        if (!is_null($repr)) {
+            return $repr;
+        } else if (count($hcards) > 0) {
+            return $hcards[0];
+        } else {
+            return null;
+        }
+    }
+
+    function _getChildrenByClass($el, $cls, $xp)
+    {
+        // borrowed from hkit. Thanks dudes!
+
+        $qry = ".//*[contains(concat(' ',normalize-space(@class),' '),' $cls ')]";
+
+        $nodes = $xp->query($qry, $el);
+
+        return $nodes;
+    }
+
+    function _hcardFromNode($hcardNode, $xp, $base)
+    {
+        $hcard = array();
+
+        $hcard['url'] = array();
+
+        $urlNodes = self::_getChildrenByClass($hcardNode, 'url', $xp);
+
+        for ($j = 0; $j < $urlNodes->length; $j++) {
+
+            $urlNode = $urlNodes->item($j);
+
+            if ($urlNode->hasAttribute('href')) {
+                $url = $urlNode->getAttribute('href');
+            } else {
+                $url = $urlNode->textContent;
             }
 
-            // hKit doesn't give us a chance to pass the source URL for
-            // resolving relative links, such as the avatar photo on a
-            // Google profile. We'll slip it into a <base> tag if there's
-            // not already one present.
-            $bases = $dom->getElementsByTagName('base');
-            if ($bases && $bases->length >= 1) {
-                $base = $bases->item(0);
-                if ($base->hasAttribute('href')) {
-                    $base->setAttribute('href', $url);
-                }
-            } else {
-                $base = $dom->createElement('base');
-                $base->setAttribute('href', $url);
-                $heads = $dom->getElementsByTagName('head');
-                if ($heads || $heads->length) {
-                    $head = $heads->item(0);
-                } else {
-                    $head = $dom->createElement('head');
-                    if ($root->firstChild) {
-                        $root->insertBefore($head, $root->firstChild);
-                    } else {
-                        $root->appendChild($head);
-                    }
-                }
-                $head->appendChild($base);
-            }
-            return $dom->saveXML();
-        } else {
-            throw new Exception("Invalid HTML could not be parsed.");
+            $hcard['url'][] = self::_rel2abs($url, $base);
         }
+
+        $hcard['photo'] = array();
+
+        $photoNodes = self::_getChildrenByClass($hcardNode, 'photo', $xp);
+
+        for ($j = 0; $j < $photoNodes->length; $j++) {
+            $photoNode = $photoNodes->item($j);
+            if ($photoNode->hasAttribute('src')) {
+                $url = $photoNode->getAttribute('src');
+            } else if ($photoNode->hasAttribute('href')) {
+                $url = $photoNode->getAttribute('href');
+            } else {
+                $url = $photoNode->textContent;
+            }
+            $hcard['photo'][] = self::_rel2abs($url, $base);
+        }
+
+        $singles = array('nickname', 'note', 'fn', 'n', 'adr');
+
+        foreach ($singles as $single) {
+
+            $nodes = self::_getChildrenByClass($hcardNode, $single, $xp);
+
+            if ($nodes->length > 0) {
+                $node = $nodes->item(0);
+                $hcard[$single] = $node->textContent;
+            }
+        }
+
+        return $hcard;
+    }
+
+    // XXX: this is a first pass; we probably need
+    // to handle things like ../ and ./ and so on
+
+    static function _rel2abs($rel, $wrt)
+    {
+        $parts = parse_url($rel);
+
+        if ($parts === false) {
+            return false;
+        }
+
+        // If it's got a scheme, use it
+
+        if ($parts['scheme'] != '') {
+            return $rel;
+        }
+
+        $w = parse_url($wrt);
+
+        $base = $w['scheme'].'://'.$w['host'];
+
+        if ($rel[0] == '/') {
+            return $base.$rel;
+        }
+
+        $wp = explode('/', $w['path']);
+
+        array_pop($wp);
+
+        return $base.implode('/', $wp).'/'.$rel;
     }
 }

@@ -347,6 +347,11 @@ class ActivityUtils
         $els = $element->childNodes;
 
         foreach ($els as $link) {
+
+            if (!($link instanceof DOMElement)) {
+                continue;
+            }
+
             if ($link->localName == self::LINK && $link->namespaceURI == self::ATOM) {
 
                 $linkRel = $link->getAttribute(self::REL);
@@ -646,38 +651,11 @@ class ActivityObject
         );
 
         if ($element->tagName == 'author') {
-
-            $this->type  = self::PERSON; // XXX: is this fair?
-            $this->title = $this->_childContent($element, self::NAME);
-            $this->id    = $this->_childContent($element, self::URI);
-
-            if (empty($this->id)) {
-                $email = $this->_childContent($element, self::EMAIL);
-                if (!empty($email)) {
-                    // XXX: acct: ?
-                    $this->id = 'mailto:'.$email;
-                }
-            }
-
+            $this->_fromAuthor($element);
+        } else if ($element->tagName == 'item') {
+            $this->_fromRssItem($element);
         } else {
-
-            $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
-                                               Activity::SPEC);
-
-            if (empty($this->type)) {
-                $this->type = ActivityObject::NOTE;
-            }
-
-            $this->id      = $this->_childContent($element, self::ID);
-            $this->title   = $this->_childContent($element, self::TITLE);
-            $this->summary = $this->_childContent($element, self::SUMMARY);
-
-            $this->source  = $this->_getSource($element);
-
-            $this->content = ActivityUtils::getContent($element);
-
-            $this->link = ActivityUtils::getPermalink($element);
-
+            $this->_fromAtomEntry($element);
         }
 
         // Some per-type attributes...
@@ -698,6 +676,149 @@ class ActivityObject
 
             $this->poco = new PoCo($element);
         }
+    }
+
+    private function _fromAuthor($element)
+    {
+        $this->type  = self::PERSON; // XXX: is this fair?
+        $this->title = $this->_childContent($element, self::NAME);
+        $this->id    = $this->_childContent($element, self::URI);
+
+        if (empty($this->id)) {
+            $email = $this->_childContent($element, self::EMAIL);
+            if (!empty($email)) {
+                // XXX: acct: ?
+                $this->id = 'mailto:'.$email;
+            }
+        }
+    }
+
+    private function _fromAtomEntry($element)
+    {
+        $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
+                                           Activity::SPEC);
+
+        if (empty($this->type)) {
+            $this->type = ActivityObject::NOTE;
+        }
+
+        $this->id      = $this->_childContent($element, self::ID);
+        $this->title   = $this->_childContent($element, self::TITLE);
+        $this->summary = $this->_childContent($element, self::SUMMARY);
+
+        $this->source  = $this->_getSource($element);
+
+        $this->content = ActivityUtils::getContent($element);
+
+        $this->link = ActivityUtils::getPermalink($element);
+    }
+
+    // @fixme rationalize with Activity::_fromRssItem()
+
+    private function _fromRssItem($item)
+    {
+        $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, Activity::RSS);
+
+        $contentEl = ActivityUtils::child($item, ActivityUtils::CONTENT, Activity::CONTENTNS);
+
+        if (!empty($contentEl)) {
+            $this->content = htmlspecialchars_decode($contentEl->textContent, ENT_QUOTES);
+        } else {
+            $descriptionEl = ActivityUtils::child($item, Activity::DESCRIPTION, Activity::RSS);
+            if (!empty($descriptionEl)) {
+                $this->content = htmlspecialchars_decode($descriptionEl->textContent, ENT_QUOTES);
+            }
+        }
+
+        $this->link = ActivityUtils::childContent($item, ActivityUtils::LINK, Activity::RSS);
+
+        $guidEl = ActivityUtils::child($item, Activity::GUID, Activity::RSS);
+
+        if (!empty($guidEl)) {
+            $this->id = $guidEl->textContent;
+
+            if ($guidEl->hasAttribute('isPermaLink')) {
+                // overwrites <link>
+                $this->link = $this->id;
+            }
+        }
+    }
+
+    public static function fromRssAuthor($el)
+    {
+        $text = $el->textContent;
+
+        if (preg_match('/^(.*?) \((.*)\)$/', $text, $match)) {
+            $email = $match[1];
+            $name = $match[2];
+        } else if (preg_match('/^(.*?) <(.*)>$/', $text, $match)) {
+            $name = $match[1];
+            $email = $match[2];
+        } else if (preg_match('/.*@.*/', $text)) {
+            $email = $text;
+            $name = null;
+        } else {
+            $name = $text;
+            $email = null;
+        }
+
+        // Not really enough info
+
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->type  = ActivityObject::PERSON;
+        $obj->title = $name;
+
+        if (!empty($email)) {
+            $obj->id = 'mailto:'.$email;
+        }
+
+        return $obj;
+    }
+
+    public static function fromDcCreator($el)
+    {
+        // Not really enough info
+
+        $text = $el->textContent;
+
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->title = $text;
+        $obj->type  = ActivityObject::PERSON;
+
+        return $obj;
+    }
+
+    public static function fromRssChannel($el)
+    {
+        $obj = new ActivityObject();
+
+        $obj->element = $el;
+
+        $obj->type = ActivityObject::PERSON; // @fixme guess better
+
+        $obj->title = ActivityUtils::childContent($el, ActivityObject::TITLE, self::RSS);
+        $obj->link  = ActivityUtils::childContent($el, ActivityUtils::LINK, self::RSS);
+        $obj->id    = ActivityUtils::getLink($el, self::SELF);
+
+        $desc = ActivityUtils::childContent($el, self::DESCRIPTION, self::RSS);
+
+        if (!empty($desc)) {
+            $obj->content = htmlspecialchars_decode($desc, ENT_QUOTES);
+        }
+
+        $imageEl = ActivityUtils::child($el, self::IMAGE, self::RSS);
+
+        if (!empty($imageEl)) {
+            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, self::URL, self::RSS);
+        }
+
+        return $obj;
     }
 
     private function _childContent($element, $tag, $namespace=ActivityUtils::ATOM)
@@ -1054,6 +1175,21 @@ class Activity
     const PUBLISHED = 'published';
     const UPDATED   = 'updated';
 
+    const RSS = null; // no namespace!
+
+    const PUBDATE     = 'pubDate';
+    const DESCRIPTION = 'description';
+    const GUID        = 'guid';
+    const SELF        = 'self';
+    const IMAGE       = 'image';
+    const URL         = 'url';
+
+    const DC = 'http://purl.org/dc/elements/1.1/';
+
+    const CREATOR = 'creator';
+
+    const CONTENTNS = 'http://purl.org/rss/1.0/modules/content/';
+
     public $actor;   // an ActivityObject
     public $verb;    // a string (the URL)
     public $object;  // an ActivityObject
@@ -1084,8 +1220,6 @@ class Activity
             return;
         }
 
-        $this->entry = $entry;
-
         // Insist on a feed's root DOMElement; don't allow a DOMDocument
         if ($feed instanceof DOMDocument) {
             throw new ClientException(
@@ -1093,8 +1227,22 @@ class Activity
             );
         }
 
+        $this->entry = $entry;
         $this->feed  = $feed;
 
+        if ($entry->namespaceURI == Activity::ATOM &&
+            $entry->localName == 'entry') {
+            $this->_fromAtomEntry($entry, $feed);
+        } else if ($entry->namespaceURI == Activity::RSS &&
+                   $entry->localName == 'item') {
+            $this->_fromRssItem($entry, $feed);
+        } else {
+            throw new Exception("Unknown DOM element: {$entry->namespaceURI} {$entry->localName}");
+        }
+    }
+
+    function _fromAtomEntry($entry, $feed)
+    {
         $pubEl = $this->_child($entry, self::PUBLISHED, self::ATOM);
 
         if (!empty($pubEl)) {
@@ -1178,6 +1326,69 @@ class Activity
         foreach (ActivityUtils::getLinks($entry, 'enclosure') as $link) {
             $this->enclosures[] = $link->getAttribute('href');
         }
+    }
+
+    function _fromRssItem($item, $rss)
+    {
+        $verbEl = $this->_child($item, self::VERB);
+
+        if (!empty($verbEl)) {
+            $this->verb = trim($verbEl->textContent);
+        } else {
+            $this->verb = ActivityVerb::POST;
+            // XXX: do other implied stuff here
+        }
+
+        $pubDateEl = $this->_child($item, self::PUBDATE, self::RSS);
+
+        if (!empty($pubDateEl)) {
+            $this->time = strtotime($pubDateEl->textContent);
+        }
+
+        $authorEl = $this->_child($item, self::AUTHOR, self::RSS);
+
+        if (!empty($authorEl)) {
+            $this->actor = ActivityObject::fromRssAuthor($authorEl);
+        } else {
+            $dcCreatorEl = $this->_child($item, self::CREATOR, self::DC);
+            if (!empty($dcCreatorEl)) {
+                $this->actor = ActivityObject::fromDcCreator($dcCreatorEl);
+            } else if (!empty($rss)) {
+                $this->actor = ActivityObject::fromRssChannel($rss);
+            }
+        }
+
+        $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, self::RSS);
+
+        $contentEl = ActivityUtils::child($item, ActivityUtils::CONTENT, self::CONTENTNS);
+
+        if (!empty($contentEl)) {
+            $this->content = htmlspecialchars_decode($contentEl->textContent, ENT_QUOTES);
+        } else {
+            $descriptionEl = ActivityUtils::child($item, self::DESCRIPTION, self::RSS);
+            if (!empty($descriptionEl)) {
+                $this->content = htmlspecialchars_decode($descriptionEl->textContent, ENT_QUOTES);
+            }
+        }
+
+        $this->link = ActivityUtils::childContent($item, ActivityUtils::LINK, self::RSS);
+
+        // @fixme enclosures
+        // @fixme thumbnails... maybe
+
+        $guidEl = ActivityUtils::child($item, self::GUID, self::RSS);
+
+        if (!empty($guidEl)) {
+            $this->id = $guidEl->textContent;
+
+            if ($guidEl->hasAttribute('isPermaLink') && $guidEl->getAttribute('isPermaLink') != 'false') {
+                // overwrites <link>
+                $this->link = $this->id;
+            }
+        }
+
+        $this->object  = new ActivityObject($item);
+        $this->context = new ActivityContext($item);
     }
 
     /**
