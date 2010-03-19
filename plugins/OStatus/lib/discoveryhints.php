@@ -63,48 +63,11 @@ class DiscoveryHints {
 
     static function hcardHints($body, $url)
     {
-        common_debug("starting tidy");
-
-        $body = self::_tidy($body);
-
-        common_debug("done with tidy");
-
-        set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/plugins/OStatus/extlib/hkit/');
-        require_once('hkit.class.php');
-
-        $h	= new hKit;
-
-        $hcards = $h->getByString('hcard', $body);
-
-        if (empty($hcards)) {
-            return array();
-        }
-
-        if (count($hcards) == 1) {
-            $hcard = $hcards[0];
-        } else {
-            foreach ($hcards as $try) {
-                if (array_key_exists('url', $try)) {
-                    if (is_string($try['url']) && $try['url'] == $url) {
-                        $hcard = $try;
-                        break;
-                    } else if (is_array($try['url'])) {
-                        foreach ($try['url'] as $tryurl) {
-                            if ($tryurl == $url) {
-                                $hcard = $try;
-                                break 2;
-                            }
-                        }
-                    }
-                }
-            }
-            // last chance; grab the first one
-            if (empty($hcard)) {
-                $hcard = $hcards[0];
-            }
-        }
+        $hcard = self::_hcard($body, $url);
 
         $hints = array();
+
+        // XXX: don't copy stuff into an array and then copy it again
 
         if (array_key_exists('nickname', $hcard)) {
             $hints['nickname'] = $hcard['nickname'];
@@ -117,7 +80,7 @@ class DiscoveryHints {
         }
 
         if (array_key_exists('photo', $hcard)) {
-            $hints['avatar'] = $hcard['photo'];
+            $hints['avatar'] = $hcard['photo'][0];
         }
 
         if (array_key_exists('note', $hcard)) {
@@ -144,39 +107,142 @@ class DiscoveryHints {
         return $hints;
     }
 
-    private static function _tidy($body)
+    static function _hcard($body, $url)
     {
-        if (function_exists('tidy_parse_string')) {
-            common_debug("Tidying with extension");
-            $text = tidy_parse_string($body);
-            $text = tidy_clean_repair($text);
-            return $body;
-        } else if ($fullpath = self::_findProgram('tidy')) {
-            common_debug("Tidying with program $fullpath");
-            $tempfile = tempnam('/tmp', 'snht'); // statusnet hcard tidy
-            file_put_contents($tempfile, $source);
-            exec("$fullpath -utf8 -indent -asxhtml -numeric -bare -quiet $tempfile", $tidy);
-            unlink($tempfile);
-            return implode("\n", $tidy);
-        } else {
-            common_debug("Not tidying.");
-            return $body;
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements.
+
+        $old = error_reporting(error_reporting() & ~E_WARNING);
+
+        $doc = new DOMDocument();
+        $doc->loadHTML($body);
+
+        error_reporting($old);
+
+        $xp = new DOMXPath($doc);
+
+        $hcardNodes = self::_getChildrenByClass($doc->documentElement, 'vcard', $xp);
+
+        $hcards = array();
+
+        for ($i = 0; $i < $hcardNodes->length; $i++) {
+
+            $hcardNode = $hcardNodes->item($i);
+
+            $hcard = self::_hcardFromNode($hcardNode, $xp, $url);
+
+            $hcards[] = $hcard;
         }
-    }
 
-    private static function _findProgram($name)
-    {
-        $path = $_ENV['PATH'];
+        $repr = null;
 
-        $parts = explode(':', $path);
-
-        foreach ($parts as $part) {
-            $fullpath = $part . '/' . $name;
-            if (is_executable($fullpath)) {
-                return $fullpath;
+        foreach ($hcards as $hcard) {
+            if (in_array($url, $hcard['url'])) {
+                $repr = $hcard;
+                break;
             }
         }
 
-        return null;
+        if (!is_null($repr)) {
+            return $repr;
+        } else if (count($hcards) > 0) {
+            return $hcards[0];
+        } else {
+            return null;
+        }
+    }
+
+    function _getChildrenByClass($el, $cls, $xp)
+    {
+        // borrowed from hkit. Thanks dudes!
+
+        $qry = ".//*[contains(concat(' ',normalize-space(@class),' '),' $cls ')]";
+
+        $nodes = $xp->query($qry, $el);
+
+        return $nodes;
+    }
+
+    function _hcardFromNode($hcardNode, $xp, $base)
+    {
+        $hcard = array();
+
+        $hcard['url'] = array();
+
+        $urlNodes = self::_getChildrenByClass($hcardNode, 'url', $xp);
+
+        for ($j = 0; $j < $urlNodes->length; $j++) {
+
+            $urlNode = $urlNodes->item($j);
+
+            if ($urlNode->hasAttribute('href')) {
+                $url = $urlNode->getAttribute('href');
+            } else {
+                $url = $urlNode->textContent;
+            }
+
+            $hcard['url'][] = self::_rel2abs($url, $base);
+        }
+
+        $hcard['photo'] = array();
+
+        $photoNodes = self::_getChildrenByClass($hcardNode, 'photo', $xp);
+
+        for ($j = 0; $j < $photoNodes->length; $j++) {
+            $photoNode = $photoNodes->item($j);
+            if ($photoNode->hasAttribute('src')) {
+                $url = $photoNode->getAttribute('src');
+            } else if ($photoNode->hasAttribute('href')) {
+                $url = $photoNode->getAttribute('href');
+            } else {
+                $url = $photoNode->textContent;
+            }
+            $hcard['photo'][] = self::_rel2abs($url, $base);
+        }
+
+        $singles = array('nickname', 'note', 'fn', 'n', 'adr');
+
+        foreach ($singles as $single) {
+
+            $nodes = self::_getChildrenByClass($hcardNode, $single, $xp);
+
+            if ($nodes->length > 0) {
+                $node = $nodes->item(0);
+                $hcard[$single] = $node->textContent;
+            }
+        }
+
+        return $hcard;
+    }
+
+    // XXX: this is a first pass; we probably need
+    // to handle things like ../ and ./ and so on
+
+    static function _rel2abs($rel, $wrt)
+    {
+        $parts = parse_url($rel);
+
+        if ($parts === false) {
+            return false;
+        }
+
+        // If it's got a scheme, use it
+
+        if ($parts['scheme'] != '') {
+            return $rel;
+        }
+
+        $w = parse_url($wrt);
+
+        $base = $w['scheme'].'://'.$w['host'];
+
+        if ($rel[0] == '/') {
+            return $base.$rel;
+        }
+
+        $wp = explode('/', $w['path']);
+
+        array_pop($wp);
+
+        return $base.implode('/', $wp).'/'.$rel;
     }
 }
