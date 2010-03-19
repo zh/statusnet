@@ -455,6 +455,12 @@ box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -moz-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 -webkit-box-shadow:3px 3px 3px rgba(194, 194, 194, 0.3);
 }
+.attachment.more:focus {
+box-shadow:none;
+-moz-box-shadow:none;
+-webkit-box-shadow:none;
+outline:none;
+}
 #content .notices li:hover,
 #content .applications li:hover,
 #content tbody tr:hover {
