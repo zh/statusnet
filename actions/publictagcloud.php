@@ -109,7 +109,7 @@ class PublictagcloudAction extends Action
         $cutoff = sprintf("notice_tag.created > '%s'",
                           common_sql_date(time() - common_config('tag', 'cutoff')));
         $tags->selectAdd($calc . ' as weight');
-        $tags->addWhere($cutoff);
+        $tags->whereAdd($cutoff);
         $tags->groupBy('tag');
         $tags->orderBy('weight DESC');
 
