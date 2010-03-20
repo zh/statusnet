@@ -893,6 +893,20 @@ class Ostatus_profile extends Memcached_DataObject
 
     public static function ensureRssChannel($feedEl, $hints)
     {
+        // Special-case for Posterous. They have some nice metadata in their
+        // posterous:author elements. We should use them instead of the channel.
+
+        $items = $feedEl->getElementsByTagName('item');
+
+        if ($items->length > 0) {
+            $item = $items->item(0);
+            $authorEl = ActivityUtils::child($item, ActivityObject::AUTHOR, ActivityObject::POSTEROUS);
+            if (!empty($authorEl)) {
+                $obj = ActivityObject::fromPosterousAuthor($authorEl);
+                return self::ensureActivityObjectProfile($obj, $hints);
+            }
+        }
+
         // @fixme we should check whether this feed has elements
         // with different <author> or <dc:creator> elements, and... I dunno.
         // Do something about that.
