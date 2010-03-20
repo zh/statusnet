@@ -864,7 +864,7 @@ class Ostatus_profile extends Memcached_DataObject
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
         // entries.
 
-        $entries = $discover->feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+        $entries = $feedEl->getElementsByTagNameNS(Activity::ATOM, 'entry');
 
         if (!empty($entries) && $entries->length > 0) {
 
