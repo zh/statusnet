@@ -481,10 +481,14 @@ class Ostatus_profile extends Memcached_DataObject
             $oprofile = $this;
         }
 
+        // It's not always an ActivityObject::NOTE, but... let's just say it is.
+
+        $note = $activity->object;
+
         // The id URI will be used as a unique identifier for for the notice,
         // protecting against duplicate saves. It isn't required to be a URL;
         // tag: URIs for instance are found in Google Buzz feeds.
-        $sourceUri = $activity->object->id;
+        $sourceUri = $note->id;
         $dupe = Notice::staticGet('uri', $sourceUri);
         if ($dupe) {
             common_log(LOG_INFO, "OStatus: ignoring duplicate post: $sourceUri");
@@ -493,16 +497,30 @@ class Ostatus_profile extends Memcached_DataObject
 
         // We'll also want to save a web link to the original notice, if provided.
         $sourceUrl = null;
-        if ($activity->object->link) {
-            $sourceUrl = $activity->object->link;
+        if ($note->link) {
+            $sourceUrl = $note->link;
         } else if ($activity->link) {
             $sourceUrl = $activity->link;
-        } else if (preg_match('!^https?://!', $activity->object->id)) {
-            $sourceUrl = $activity->object->id;
+        } else if (preg_match('!^https?://!', $note->id)) {
+            $sourceUrl = $note->id;
+        }
+
+        // Use summary as fallback for content
+
+        if (!empty($note->content)) {
+            $sourceContent = $note->content;
+        } else if (!empty($note->summary)) {
+            $sourceContent = $note->summary;
+        } else if (!empty($note->title)) {
+            $sourceContent = $note->title;
+        } else {
+            // @fixme fetch from $sourceUrl?
+            throw new ClientException("No content for notice {$sourceUri}");
         }
 
         // Get (safe!) HTML and text versions of the content
-        $rendered = $this->purify($activity->object->content);
+
+        $rendered = $this->purify($sourceContent);
         $content = html_entity_decode(strip_tags($rendered));
 
         $shortened = common_shorten_links($content);
@@ -513,8 +531,8 @@ class Ostatus_profile extends Memcached_DataObject
         $attachment = null;
 
         if (Notice::contentTooLong($shortened)) {
-            $attachment = $this->saveHTMLFile($activity->object->title, $rendered);
-            $summary = $activity->object->summary;
+            $attachment = $this->saveHTMLFile($note->title, $rendered);
+            $summary = html_entity_decode(strip_tags($note->summary));
             if (empty($summary)) {
                 $summary = $content;
             }
