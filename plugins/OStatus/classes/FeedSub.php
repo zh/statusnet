@@ -61,7 +61,7 @@ class FeedSub extends Memcached_DataObject
     public $__table = 'feedsub';
 
     public $id;
-    public $feeduri;
+    public $uri;
 
     // PuSH subscription data
     public $huburi;
@@ -238,7 +238,7 @@ class FeedSub extends Memcached_DataObject
     public function subscribe($mode='subscribe')
     {
         if ($this->sub_state && $this->sub_state != 'inactive') {
-            throw new ServerException("Attempting to start PuSH subscription to feed in state $this->sub_state");
+            common_log(LOG_WARNING, "Attempting to (re)start PuSH subscription to $this->uri in unexpected state $this->sub_state");
         }
         if (empty($this->huburi)) {
             if (common_config('feedsub', 'nohub')) {
@@ -261,7 +261,7 @@ class FeedSub extends Memcached_DataObject
      */
     public function unsubscribe() {
         if ($this->sub_state != 'active') {
-            throw new ServerException("Attempting to end PuSH subscription to feed in state $this->sub_state");
+            common_log(LOG_WARNING, "Attempting to (re)end PuSH subscription to $this->uri in unexpected state $this->sub_state");
         }
         if (empty($this->huburi)) {
             if (common_config('feedsub', 'nohub')) {

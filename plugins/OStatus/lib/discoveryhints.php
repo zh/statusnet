@@ -102,7 +102,7 @@ class DiscoveryHints {
         if (array_key_exists('url', $hcard)) {
             if (is_string($hcard['url'])) {
                 $hints['homepage'] = $hcard['url'];
-            } else if (is_array($hcard['url'])) {
+            } else if (is_array($hcard['url']) && !empty($hcard['url'])) {
                 // HACK get the last one; that's how our hcards look
                 $hints['homepage'] = $hcard['url'][count($hcard['url'])-1];
             }
@@ -231,7 +231,7 @@ class DiscoveryHints {
 
         // If it's got a scheme, use it
 
-        if ($parts['scheme'] != '') {
+        if (!empty($parts['scheme'])) {
             return $rel;
         }
 

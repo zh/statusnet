@@ -204,12 +204,13 @@ class Ostatus_profile extends Memcached_DataObject
     public function subscribe()
     {
         $feedsub = FeedSub::ensureFeed($this->feeduri);
-        if ($feedsub->sub_state == 'active' || $feedsub->sub_state == 'subscribe') {
+        if ($feedsub->sub_state == 'active') {
+            // Active subscription, we don't need to do anything.
             return true;
-        } else if ($feedsub->sub_state == '' || $feedsub->sub_state == 'inactive') {
+        } else {
+            // Inactive or we got left in an inconsistent state.
+            // Run a subscription request to make sure we're current!
             return $feedsub->subscribe();
-        } else if ('unsubscribe') {
-            throw new FeedSubException("Unsub is pending, can't subscribe...");
         }
     }
 
@@ -222,15 +223,13 @@ class Ostatus_profile extends Memcached_DataObject
      */
     public function unsubscribe() {
         $feedsub = FeedSub::staticGet('uri', $this->feeduri);
-        if (!$feedsub) {
+        if (!$feedsub || $feedsub->sub_state == '' || $feedsub->sub_state == 'inactive') {
+            // No active PuSH subscription, we can just leave it be.
             return true;
-        }
-        if ($feedsub->sub_state == 'active') {
+        } else {
+            // PuSH subscription is either active or in an indeterminate state.
+            // Send an unsubscribe.
             return $feedsub->unsubscribe();
-        } else if ($feedsub->sub_state == '' || $feedsub->sub_state == 'inactive' || $feedsub->sub_state == 'unsubscribe') {
-            return true;
-        } else if ($feedsub->sub_state == 'subscribe') {
-            throw new FeedSubException("Feed is awaiting subscription, can't unsub...");
         }
     }
 
