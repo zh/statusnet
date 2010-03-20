@@ -1329,7 +1329,7 @@ class Activity
         }
     }
 
-    function _fromRssItem($item, $rss)
+    function _fromRssItem($item, $channel)
     {
         $verbEl = $this->_child($item, self::VERB);
 
@@ -1354,8 +1354,8 @@ class Activity
             $dcCreatorEl = $this->_child($item, self::CREATOR, self::DC);
             if (!empty($dcCreatorEl)) {
                 $this->actor = ActivityObject::fromDcCreator($dcCreatorEl);
-            } else if (!empty($rss)) {
-                $this->actor = ActivityObject::fromRssChannel($rss);
+            } else if (!empty($channel)) {
+                $this->actor = ActivityObject::fromRssChannel($channel);
             }
         }
 
