@@ -388,11 +388,17 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $feed = $doc->documentElement;
 
-        if ($feed->localName != 'feed' || $feed->namespaceURI != Activity::ATOM) {
-            common_log(LOG_ERR, __METHOD__ . ": not an Atom feed, ignoring");
-            return;
+        if ($feed->localName == 'feed' && $feed->namespaceURI == Activity::ATOM) {
+            $this->processAtomFeed($feed, $source);
+        } else if ($feed->localName == 'rss') { // @fixme check namespace
+            $this->processRssFeed($feed, $source);
+        } else {
+            throw new Exception("Unknown feed format.");
         }
+    }
 
+    public function processAtomFeed(DOMElement $feed, $source)
+    {
         $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
         if ($entries->length == 0) {
             common_log(LOG_ERR, __METHOD__ . ": no entries in feed update, ignoring");
@@ -402,6 +408,26 @@ class Ostatus_profile extends Memcached_DataObject
         for ($i = 0; $i < $entries->length; $i++) {
             $entry = $entries->item($i);
             $this->processEntry($entry, $feed, $source);
+        }
+    }
+
+    public function processRssFeed(DOMElement $rss, $source)
+    {
+        $channels = $rss->getElementsByTagName('channel');
+
+        if ($channels->length == 0) {
+            throw new Exception("RSS feed without a channel.");
+        } else if ($channels->length > 1) {
+            common_log(LOG_WARNING, __METHOD__ . ": more than one channel in an RSS feed");
+        }
+
+        $channel = $channels->item(0);
+
+        $items = $channel->getElementsByTagName('item');
+
+        for ($i = 0; $i < $items->length; $i++) {
+            $item = $items->item($i);
+            $this->processEntry($item, $channel, $source);
         }
     }
 
@@ -442,24 +468,27 @@ class Ostatus_profile extends Memcached_DataObject
                 return false;
             }
         } else {
-            // Individual user feeds may contain only posts from themselves.
-            // Authorship is validated against the profile URI on upper layers,
-            // through PuSH setup or Salmon signature checks.
-            $actorUri = self::getActorProfileURI($activity);
-            if ($actorUri == $this->uri) {
-                // Check if profile info has changed and update it
-                $this->updateFromActivityObject($activity->actor);
+            $actor = $activity->actor;
+
+            if (empty($actor)) {
+                // OK here! assume the default
+            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
+                $this->updateFromActivityObject($actor);
             } else {
-                common_log(LOG_WARNING, "OStatus: skipping post with bad author: got $actorUri expected $this->uri");
-                return false;
+                throw new Exception("Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
             }
+
             $oprofile = $this;
         }
+
+        // It's not always an ActivityObject::NOTE, but... let's just say it is.
+
+        $note = $activity->object;
 
         // The id URI will be used as a unique identifier for for the notice,
         // protecting against duplicate saves. It isn't required to be a URL;
         // tag: URIs for instance are found in Google Buzz feeds.
-        $sourceUri = $activity->object->id;
+        $sourceUri = $note->id;
         $dupe = Notice::staticGet('uri', $sourceUri);
         if ($dupe) {
             common_log(LOG_INFO, "OStatus: ignoring duplicate post: $sourceUri");
@@ -468,16 +497,30 @@ class Ostatus_profile extends Memcached_DataObject
 
         // We'll also want to save a web link to the original notice, if provided.
         $sourceUrl = null;
-        if ($activity->object->link) {
-            $sourceUrl = $activity->object->link;
+        if ($note->link) {
+            $sourceUrl = $note->link;
         } else if ($activity->link) {
             $sourceUrl = $activity->link;
-        } else if (preg_match('!^https?://!', $activity->object->id)) {
-            $sourceUrl = $activity->object->id;
+        } else if (preg_match('!^https?://!', $note->id)) {
+            $sourceUrl = $note->id;
+        }
+
+        // Use summary as fallback for content
+
+        if (!empty($note->content)) {
+            $sourceContent = $note->content;
+        } else if (!empty($note->summary)) {
+            $sourceContent = $note->summary;
+        } else if (!empty($note->title)) {
+            $sourceContent = $note->title;
+        } else {
+            // @fixme fetch from $sourceUrl?
+            throw new ClientException("No content for notice {$sourceUri}");
         }
 
         // Get (safe!) HTML and text versions of the content
-        $rendered = $this->purify($activity->object->content);
+
+        $rendered = $this->purify($sourceContent);
         $content = html_entity_decode(strip_tags($rendered));
 
         $shortened = common_shorten_links($content);
@@ -488,8 +531,8 @@ class Ostatus_profile extends Memcached_DataObject
         $attachment = null;
 
         if (Notice::contentTooLong($shortened)) {
-            $attachment = $this->saveHTMLFile($activity->object->title, $rendered);
-            $summary = $activity->object->summary;
+            $attachment = $this->saveHTMLFile($note->title, $rendered);
+            $summary = html_entity_decode(strip_tags($note->summary));
             if (empty($summary)) {
                 $summary = $content;
             }
@@ -795,9 +838,20 @@ class Ostatus_profile extends Memcached_DataObject
             throw new FeedSubNoHubException();
         }
 
-        // Try to get a profile from the feed activity:subject
+        $feedEl = $discover->root;
 
-        $feedEl = $discover->feed->documentElement;
+        if ($feedEl->tagName == 'feed') {
+            return self::ensureAtomFeed($feedEl, $hints);
+        } else if ($feedEl->tagName == 'channel') {
+            return self::ensureRssChannel($feedEl, $hints);
+        } else {
+            throw new FeedSubBadXmlException($feeduri);
+        }
+    }
+
+    public static function ensureAtomFeed($feedEl, $hints)
+    {
+        // Try to get a profile from the feed activity:subject
 
         $subject = ActivityUtils::child($feedEl, Activity::SUBJECT, Activity::SPEC);
 
@@ -818,7 +872,7 @@ class Ostatus_profile extends Memcached_DataObject
         // Sheesh. Not a very nice feed! Let's try fingerpoken in the
         // entries.
 
-        $entries = $discover->feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
+        $entries = $feedEl->getElementsByTagNameNS(Activity::ATOM, 'entry');
 
         if (!empty($entries) && $entries->length > 0) {
 
@@ -843,6 +897,17 @@ class Ostatus_profile extends Memcached_DataObject
         // XXX: make some educated guesses here
 
         throw new FeedSubException("Can't find enough profile information to make a feed.");
+    }
+
+    public static function ensureRssChannel($feedEl, $hints)
+    {
+        // @fixme we should check whether this feed has elements
+        // with different <author> or <dc:creator> elements, and... I dunno.
+        // Do something about that.
+
+        $obj = ActivityObject::fromRssChannel($feedEl);
+
+        return self::ensureActivityObjectProfile($obj, $hints);
     }
 
     /**
@@ -1307,9 +1372,19 @@ class Ostatus_profile extends Memcached_DataObject
             return $hints['nickname'];
         }
 
-        // Try the definitive ID
+        // Try the profile url (like foo.example.com or example.com/user/foo)
 
-        $nickname = self::nicknameFromURI($object->id);
+        $profileUrl = ($object->link) ? $object->link : $hints['profileurl'];
+
+        if (!empty($profileUrl)) {
+            $nickname = self::nicknameFromURI($profileUrl);
+        }
+
+        // Try the URI (may be a tag:, http:, acct:, ...
+
+        if (empty($nickname)) {
+            $nickname = self::nicknameFromURI($object->id);
+        }
 
         // Try a Webfinger if one was passed (way) down
 
