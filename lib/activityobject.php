@@ -297,7 +297,10 @@ class ActivityObject
         $imageEl = ActivityUtils::child($el, Activity::IMAGE, Activity::RSS);
 
         if (!empty($imageEl)) {
-            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
+            $url = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
+            $al = new AvatarLink();
+            $al->url = $url;
+            $obj->avatarLinks[] = $al;
         }
 
         return $obj;
@@ -312,7 +315,9 @@ class ActivityObject
         $userImage = ActivityUtils::childContent($el, self::USERIMAGE, self::POSTEROUS);
 
         if (!empty($userImage)) {
-            $obj->avatarLinks[] = $userImage;
+            $al = new AvatarLink();
+            $al->url = $userImage;
+            $obj->avatarLinks[] = $al;
         }
 
         $obj->link = ActivityUtils::childContent($el, self::PROFILEURL, self::POSTEROUS);
