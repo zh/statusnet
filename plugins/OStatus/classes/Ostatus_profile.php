@@ -388,11 +388,17 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $feed = $doc->documentElement;
 
-        if ($feed->localName != 'feed' || $feed->namespaceURI != Activity::ATOM) {
-            common_log(LOG_ERR, __METHOD__ . ": not an Atom feed, ignoring");
-            return;
+        if ($feed->localName == 'feed' && $feed->namespaceURI == Activity::ATOM) {
+            $this->processAtomFeed($feed, $source);
+        } else if ($feed->localName == 'rss') { // @fixme check namespace
+            $this->processRssFeed($feed, $source);
+        } else {
+            throw new Exception("Unknown feed format.");
         }
+    }
 
+    public function processAtomFeed(DOMElement $feed, $source)
+    {
         $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
         if ($entries->length == 0) {
             common_log(LOG_ERR, __METHOD__ . ": no entries in feed update, ignoring");
@@ -402,6 +408,26 @@ class Ostatus_profile extends Memcached_DataObject
         for ($i = 0; $i < $entries->length; $i++) {
             $entry = $entries->item($i);
             $this->processEntry($entry, $feed, $source);
+        }
+    }
+
+    public function processRssFeed(DOMElement $rss, $source)
+    {
+        $channels = $rss->getElementsByTagName('channel');
+
+        if ($channels->length == 0) {
+            throw new Exception("RSS feed without a channel.");
+        } else if ($channels->length > 1) {
+            common_log(LOG_WARNING, __METHOD__ . ": more than one channel in an RSS feed");
+        }
+
+        $channel = $channels->item(0);
+
+        $items = $channel->getElementsByTagName('item');
+
+        for ($i = 0; $i < $items->length; $i++) {
+            $item = $items->item($i);
+            $this->processEntry($item, $channel, $source);
         }
     }
 
