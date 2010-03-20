@@ -1322,9 +1322,19 @@ class Ostatus_profile extends Memcached_DataObject
             return $hints['nickname'];
         }
 
-        // Try the definitive ID
+        // Try the profile url (like foo.example.com or example.com/user/foo)
 
-        $nickname = self::nicknameFromURI($object->id);
+        $profileUrl = ($object->link) ? $object->link : $hints['profileurl'];
+
+        if (!empty($profileUrl)) {
+            $nickname = self::nicknameFromURI($profileUrl);
+        }
+
+        // Try the URI (may be a tag:, http:, acct:, ...
+
+        if (empty($nickname)) {
+            $nickname = self::nicknameFromURI($object->id);
+        }
 
         // Try a Webfinger if one was passed (way) down
 
