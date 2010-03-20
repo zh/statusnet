@@ -67,7 +67,7 @@ abstract class AuthorizationPlugin extends Plugin
 
     //------------Below are the methods that connect StatusNet to the implementing Auth plugin------------\\
 
-    function onStartSetUser(&$user) {
+    function onStartSetUser($user) {
         $loginAllowed = $this->loginAllowed($user);
         if($loginAllowed === true){
             return;
@@ -84,7 +84,7 @@ abstract class AuthorizationPlugin extends Plugin
         }
     }
 
-    function onStartSetApiUser(&$user) {
+    function onStartSetApiUser($user) {
         return $this->onStartSetUser($user);
     }
 
