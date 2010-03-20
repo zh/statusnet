@@ -434,6 +434,17 @@ class ActivityUtils
         }
     }
 
+    static function childHtmlContent(DOMNode $element, $tag, $namespace=self::ATOM)
+    {
+        $el = self::child($element, $tag, $namespace);
+
+        if (empty($el)) {
+            return null;
+        } else {
+            return self::textConstruct($el);
+        }
+    }
+
     /**
      * Get the content of an atom:entry-like object
      *
@@ -448,47 +459,47 @@ class ActivityUtils
 
     static function getContent($element)
     {
-        $contentEl = ActivityUtils::child($element, self::CONTENT);
+        return self::childHtmlContent($element, self::CONTENT, self::ATOM);
+    }
 
-        if (!empty($contentEl)) {
+    static function textConstruct($el)
+    {
+        $src  = $el->getAttribute(self::SRC);
 
-            $src  = $contentEl->getAttribute(self::SRC);
+        if (!empty($src)) {
+            throw new ClientException(_("Can't handle remote content yet."));
+        }
 
-            if (!empty($src)) {
-                throw new ClientException(_("Can't handle remote content yet."));
+        $type = $el->getAttribute(self::TYPE);
+
+        // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
+
+        if (empty($type) || $type == 'text') {
+            return $el->textContent;
+        } else if ($type == 'html') {
+            $text = $el->textContent;
+            return htmlspecialchars_decode($text, ENT_QUOTES);
+        } else if ($type == 'xhtml') {
+            $divEl = ActivityUtils::child($el, 'div', 'http://www.w3.org/1999/xhtml');
+            if (empty($divEl)) {
+                return null;
             }
+            $doc = $divEl->ownerDocument;
+            $text = '';
+            $children = $divEl->childNodes;
 
-            $type = $contentEl->getAttribute(self::TYPE);
-
-            // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
-
-            if (empty($type) || $type == 'text') {
-                return $contentEl->textContent;
-            } else if ($type == 'html') {
-                $text = $contentEl->textContent;
-                return htmlspecialchars_decode($text, ENT_QUOTES);
-            } else if ($type == 'xhtml') {
-                $divEl = ActivityUtils::child($contentEl, 'div', 'http://www.w3.org/1999/xhtml');
-                if (empty($divEl)) {
-                    return null;
-                }
-                $doc = $divEl->ownerDocument;
-                $text = '';
-                $children = $divEl->childNodes;
-
-                for ($i = 0; $i < $children->length; $i++) {
-                    $child = $children->item($i);
-                    $text .= $doc->saveXML($child);
-                }
-                return trim($text);
-            } else if (in_array($type, array('text/xml', 'application/xml')) ||
-                       preg_match('#(+|/)xml$#', $type)) {
-                throw new ClientException(_("Can't handle embedded XML content yet."));
-            } else if (strncasecmp($type, 'text/', 5)) {
-                return $contentEl->textContent;
-            } else {
-                throw new ClientException(_("Can't handle embedded Base64 content yet."));
+            for ($i = 0; $i < $children->length; $i++) {
+                $child = $children->item($i);
+                $text .= $doc->saveXML($child);
             }
+            return trim($text);
+        } else if (in_array($type, array('text/xml', 'application/xml')) ||
+                   preg_match('#(+|/)xml$#', $type)) {
+            throw new ClientException(_("Can't handle embedded XML content yet."));
+        } else if (strncasecmp($type, 'text/', 5)) {
+            return $el->textContent;
+        } else {
+            throw new ClientException(_("Can't handle embedded Base64 content yet."));
         }
     }
 }
@@ -700,12 +711,16 @@ class ActivityObject
         }
 
         $this->id      = $this->_childContent($element, self::ID);
-        $this->title   = $this->_childContent($element, self::TITLE);
-        $this->summary = $this->_childContent($element, self::SUMMARY);
+        $this->summary = ActivityUtils::childHtmlContent($element, self::SUMMARY);
+        $this->content = ActivityUtils::getContent($element);
+
+        // We don't like HTML in our titles, although it's technically allowed
+
+        $title = ActivityUtils::childHtmlContent($element, self::TITLE);
+
+        $this->title = html_entity_decode(strip_tags($title));
 
         $this->source  = $this->_getSource($element);
-
-        $this->content = ActivityUtils::getContent($element);
 
         $this->link = ActivityUtils::getPermalink($element);
     }
