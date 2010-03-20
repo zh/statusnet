@@ -80,6 +80,13 @@ class ActivityObject
     const URI   = 'uri';
     const EMAIL = 'email';
 
+    const POSTEROUS   = 'http://posterous.com/help/rss/1.0';
+    const AUTHOR      = 'author';
+    const USERIMAGE   = 'userImage';
+    const PROFILEURL  = 'profileUrl';
+    const NICKNAME    = 'nickName';
+    const DISPLAYNAME = 'displayName';
+
     public $element;
     public $type;
     public $id;
@@ -292,6 +299,31 @@ class ActivityObject
         if (!empty($imageEl)) {
             $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
         }
+
+        return $obj;
+    }
+
+    public static function fromPosterousAuthor($el)
+    {
+        $obj = new ActivityObject();
+
+        $obj->type = ActivityObject::PERSON; // @fixme any others...?
+
+        $userImage = ActivityUtils::childContent($el, self::USERIMAGE, self::POSTEROUS);
+
+        if (!empty($userImage)) {
+            $obj->avatarLinks[] = $userImage;
+        }
+
+        $obj->link = ActivityUtils::childContent($el, self::PROFILEURL, self::POSTEROUS);
+        $obj->id   = $obj->link;
+
+        $obj->poco = new PoCo();
+
+        $obj->poco->preferredUsername = ActivityUtils::childContent($el, self::NICKNAME, self::POSTEROUS);
+        $obj->poco->displayName       = ActivityUtils::childContent($el, self::DISPLAYNAME, self::POSTEROUS);
+
+        $obj->title = $obj->poco->displayName;
 
         return $obj;
     }

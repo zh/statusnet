@@ -238,17 +238,17 @@ class Activity
             $this->time = strtotime($pubDateEl->textContent);
         }
 
-        $authorEl = $this->_child($item, self::AUTHOR, self::RSS);
-
-        if (!empty($authorEl)) {
+        if ($authorEl = $this->_child($item, self::AUTHOR, self::RSS)) {
             $this->actor = ActivityObject::fromRssAuthor($authorEl);
+        } else if ($dcCreatorEl = $this->_child($item, self::CREATOR, self::DC)) {
+            $this->actor = ActivityObject::fromDcCreator($dcCreatorEl);
+        } else if ($posterousEl = $this->_child($item, ActivityObject::AUTHOR, ActivityObject::POSTEROUS)) {
+            // Special case for Posterous.com
+            $this->actor = ActivityObject::fromPosterousAuthor($posterousEl);
+        } else if (!empty($channel)) {
+            $this->actor = ActivityObject::fromRssChannel($channel);
         } else {
-            $dcCreatorEl = $this->_child($item, self::CREATOR, self::DC);
-            if (!empty($dcCreatorEl)) {
-                $this->actor = ActivityObject::fromDcCreator($dcCreatorEl);
-            } else if (!empty($channel)) {
-                $this->actor = ActivityObject::fromRssChannel($channel);
-            }
+            // No actor!
         }
 
         $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, self::RSS);
