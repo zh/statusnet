@@ -468,17 +468,16 @@ class Ostatus_profile extends Memcached_DataObject
                 return false;
             }
         } else {
-            // Individual user feeds may contain only posts from themselves.
-            // Authorship is validated against the profile URI on upper layers,
-            // through PuSH setup or Salmon signature checks.
-            $actorUri = self::getActorProfileURI($activity);
-            if ($actorUri == $this->uri) {
-                // Check if profile info has changed and update it
-                $this->updateFromActivityObject($activity->actor);
+            $actor = $activity->actor;
+
+            if (empty($actor)) {
+                // OK here! assume the default
+            } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
+                $this->updateFromActivityObject($actor);
             } else {
-                common_log(LOG_WARNING, "OStatus: skipping post with bad author: got $actorUri expected $this->uri");
-                return false;
+                throw new Exception("Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
             }
+
             $oprofile = $this;
         }
 
