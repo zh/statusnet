@@ -1170,11 +1170,7 @@ class Ostatus_profile extends Memcached_DataObject
     protected static function getActivityObjectProfileURI($object)
     {
         if ($object->id) {
-            // Possibly an upstream bug; tag: URIs are rejected unless you
-            // explicitly ask for them. All other schemes are accepted for
-            // basic URI validation without asking.
-            if (Validate::uri($object->id) ||
-                Validate::uri($object->id, array('allowed_scheme' => array('tag')))) {
+            if (ActivityUtils::validateUri($object->id)) {
                 return $object->id;
             }
         }
