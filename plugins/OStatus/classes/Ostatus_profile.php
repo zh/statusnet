@@ -1140,35 +1140,49 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * @param Activity $activity
      * @return mixed matching Ostatus_profile or false if none known
+     * @throws ServerException if feed info invalid
      */
     public static function getActorProfile($activity)
     {
         return self::getActivityObjectProfile($activity->actor);
     }
 
+    /**
+     * @param ActivityObject $activity
+     * @return mixed matching Ostatus_profile or false if none known
+     * @throws ServerException if feed info invalid
+     */
     protected static function getActivityObjectProfile($object)
     {
         $uri = self::getActivityObjectProfileURI($object);
         return Ostatus_profile::staticGet('uri', $uri);
     }
 
-    protected static function getActorProfileURI($activity)
-    {
-        return self::getActivityObjectProfileURI($activity->actor);
-    }
-
     /**
-     * @param Activity $activity
+     * Get the identifier URI for the remote entity described
+     * by this ActivityObject. This URI is *not* guaranteed to be
+     * a resolvable HTTP/HTTPS URL.
+     *
+     * @param ActivityObject $object
      * @return string
-     * @throws ServerException
+     * @throws ServerException if feed info invalid
      */
     protected static function getActivityObjectProfileURI($object)
     {
-        $opts = array('allowed_schemes' => array('http', 'https'));
-        if ($object->id && Validate::uri($object->id, $opts)) {
-            return $object->id;
+        if ($object->id) {
+            // Possibly an upstream bug; tag: URIs are rejected unless you
+            // explicitly ask for them. All other schemes are accepted for
+            // basic URI validation without asking.
+            if (Validate::uri($object->id) ||
+                Validate::uri($object->id, array('allowed_scheme' => array('tag')))) {
+                return $object->id;
+            }
         }
-        if ($object->link && Validate::uri($object->link, $opts)) {
+
+        // If the id is missing or invalid (we've seen feeds mistakenly listing
+        // things like local usernames in that field) then we'll use the profile
+        // page link, if valid.
+        if ($object->link && common_valid_http_url($object->link)) {
             return $object->link;
         }
         throw new ServerException("No author ID URI found");
