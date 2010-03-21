@@ -903,7 +903,13 @@ class Ostatus_profile extends Memcached_DataObject
             $authorEl = ActivityUtils::child($item, ActivityObject::AUTHOR, ActivityObject::POSTEROUS);
             if (!empty($authorEl)) {
                 $obj = ActivityObject::fromPosterousAuthor($authorEl);
-                return self::ensureActivityObjectProfile($obj, $hints);
+                // Posterous has multiple authors per feed, and multiple feeds
+                // per author. We check if this is the "main" feed for this author.
+                if (array_key_exists('profileurl', $hints) &&
+                    !empty($obj->poco) &&
+                    common_url_to_nickname($hints['profileurl']) == $obj->poco->preferredUsername) {
+                    return self::ensureActivityObjectProfile($obj, $hints);
+                }
             }
         }
 
