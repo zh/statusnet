@@ -170,6 +170,51 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertFalse(empty($actor));
         $this->assertEquals($actor->title, "Joseph Scott");
     }
+
+    public function testExample7()
+    {
+        global $_example7;
+
+        $dom = DOMDocument::loadXML($_example7);
+
+        $rss = $dom->documentElement;
+
+        $channels = $dom->getElementsByTagName('channel');
+
+        $channel = $channels->item(0);
+
+        $items = $channel->getElementsByTagName('item');
+
+        $item = $items->item(0);
+
+        $act = new Activity($item, $channel);
+
+        $this->assertEquals(ActivityVerb::POST, $act->verb);
+        $this->assertEquals('http://evanpro.posterous.com/checking-out-captain-bones', $act->link);
+        $this->assertEquals('http://evanpro.posterous.com/checking-out-captain-bones', $act->id);
+        $this->assertEquals('Checking out captain bones', $act->title);
+        $this->assertEquals(1269095551, $act->time);
+
+        $actor = $act->actor;
+
+        $this->assertEquals(ActivityObject::PERSON, $actor->type);
+        $this->assertEquals('http://posterous.com/people/3sDslhaepotz', $actor->id);
+        $this->assertEquals('Evan Prodromou', $actor->title);
+        $this->assertNull($actor->summary);
+        $this->assertNull($actor->content);
+        $this->assertEquals('http://posterous.com/people/3sDslhaepotz', $actor->link);
+        $this->assertNull($actor->source);
+        $this->assertTrue(is_array($actor->avatarLinks));
+        $this->assertEquals(1, count($actor->avatarLinks));
+        $this->assertEquals('http://files.posterous.com/user_profile_pics/480326/2009-08-05-142447.jpg',
+                            $actor->avatarLinks[0]);
+        $this->assertNotNull($actor->poco);
+        $this->assertEquals('evanpro', $actor->poco->preferredUsername);
+        $this->assertEquals('Evan Prodromou', $actor->poco->displayName);
+        $this->assertNull($actor->poco->note);
+        $this->assertNull($actor->poco->address);
+        $this->assertEquals(0, count($actor->poco->urls));
+    }
 }
 
 $_example1 = <<<EXAMPLE1
@@ -423,3 +468,43 @@ $_example6 = <<<EXAMPLE6
 </rss>
 EXAMPLE6;
 
+$_example7 = <<<EXAMPLE7
+<?xml version="1.0" encoding="UTF-8"?>
+	<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:posterous="http://posterous.com/help/rss/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+	  <channel>
+	    <title>evanpro's posterous</title>
+	    <link>http://evanpro.posterous.com</link>
+	    <description>Most recent posts at evanpro's posterous</description>
+	    <generator>posterous.com</generator>
+	    <link type="application/json" xmlns="http://www.w3.org/2005/Atom" rel="http://api.friendfeed.com/2008/03#sup" href="http://posterous.com/api/sup_update#56bcc5eb7"/>
+	    <atom:link rel="self" href="http://evanpro.posterous.com/rss.xml"/>
+	    <atom:link rel="hub" href="http://posterous.superfeedr.com"/>
+	    <item>
+	      <pubDate>Sat, 20 Mar 2010 07:32:31 -0700</pubDate>
+	      <title>Checking out captain bones</title>
+	      <link>http://evanpro.posterous.com/checking-out-captain-bones</link>
+	      <guid>http://evanpro.posterous.com/checking-out-captain-bones</guid>
+	      <description>
+	        <![CDATA[<p>
+		<p>Bones!</p>
+
+	</p>
+
+	<p><a href="http://evanpro.posterous.com/checking-out-captain-bones">Permalink</a>
+
+		| <a href="http://evanpro.posterous.com/checking-out-captain-bones#comment">Leave a comment&nbsp;&nbsp;&raquo;</a>
+
+	</p>]]>
+	      </description>
+	      <posterous:author>
+	        <posterous:userImage>http://files.posterous.com/user_profile_pics/480326/2009-08-05-142447.jpg</posterous:userImage>
+	        <posterous:profileUrl>http://posterous.com/people/3sDslhaepotz</posterous:profileUrl>
+	        <posterous:firstName>Evan</posterous:firstName>
+	        <posterous:lastnNme>Prodromou</posterous:lastnNme>
+	        <posterous:nickName>evanpro</posterous:nickName>
+	        <posterous:displayName>Evan Prodromou</posterous:displayName>
+	      </posterous:author>
+	    </item>
+	</channel>
+</rss>
+EXAMPLE7;

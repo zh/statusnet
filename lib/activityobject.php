@@ -80,6 +80,13 @@ class ActivityObject
     const URI   = 'uri';
     const EMAIL = 'email';
 
+    const POSTEROUS   = 'http://posterous.com/help/rss/1.0';
+    const AUTHOR      = 'author';
+    const USERIMAGE   = 'userImage';
+    const PROFILEURL  = 'profileUrl';
+    const NICKNAME    = 'nickName';
+    const DISPLAYNAME = 'displayName';
+
     public $element;
     public $type;
     public $id;
@@ -149,7 +156,11 @@ class ActivityObject
     {
         $this->type  = self::PERSON; // XXX: is this fair?
         $this->title = $this->_childContent($element, self::NAME);
-        $this->id    = $this->_childContent($element, self::URI);
+
+        $id = $this->_childContent($element, self::URI);
+        if (ActivityUtils::validateUri($id)) {
+            $this->id = $id;
+        }
 
         if (empty($this->id)) {
             $email = $this->_childContent($element, self::EMAIL);
@@ -162,6 +173,15 @@ class ActivityObject
 
     private function _fromAtomEntry($element)
     {
+        if ($element->localName == 'actor') {
+            // Old-fashioned <activity:actor>...
+            // First pull anything from <author>, then we'll add on top.
+            $author = ActivityUtils::child($element->parentNode, 'author');
+            if ($author) {
+                $this->_fromAuthor($author);
+            }
+        }
+
         $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
                                            Activity::SPEC);
 
@@ -169,7 +189,11 @@ class ActivityObject
             $this->type = ActivityObject::NOTE;
         }
 
-        $this->id      = $this->_childContent($element, self::ID);
+        $id = $this->_childContent($element, self::ID);
+        if (ActivityUtils::validateUri($id)) {
+            $this->id = $id;
+        }
+
         $this->summary = ActivityUtils::childHtmlContent($element, self::SUMMARY);
         $this->content = ActivityUtils::getContent($element);
 
@@ -290,8 +314,38 @@ class ActivityObject
         $imageEl = ActivityUtils::child($el, Activity::IMAGE, Activity::RSS);
 
         if (!empty($imageEl)) {
-            $obj->avatarLinks[] = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
+            $url = ActivityUtils::childContent($imageEl, Activity::URL, Activity::RSS);
+            $al = new AvatarLink();
+            $al->url = $url;
+            $obj->avatarLinks[] = $al;
         }
+
+        return $obj;
+    }
+
+    public static function fromPosterousAuthor($el)
+    {
+        $obj = new ActivityObject();
+
+        $obj->type = ActivityObject::PERSON; // @fixme any others...?
+
+        $userImage = ActivityUtils::childContent($el, self::USERIMAGE, self::POSTEROUS);
+
+        if (!empty($userImage)) {
+            $al = new AvatarLink();
+            $al->url = $userImage;
+            $obj->avatarLinks[] = $al;
+        }
+
+        $obj->link = ActivityUtils::childContent($el, self::PROFILEURL, self::POSTEROUS);
+        $obj->id   = $obj->link;
+
+        $obj->poco = new PoCo();
+
+        $obj->poco->preferredUsername = ActivityUtils::childContent($el, self::NICKNAME, self::POSTEROUS);
+        $obj->poco->displayName       = ActivityUtils::childContent($el, self::DISPLAYNAME, self::POSTEROUS);
+
+        $obj->title = $obj->poco->displayName;
 
         return $obj;
     }

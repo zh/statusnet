@@ -947,23 +947,4 @@ class OStatusPlugin extends Plugin
         }
         return false;
     }
-
-    /**
-     * Utility function to check if the given URL is a canonical user profile
-     * page, and if so return the ID number.
-     *
-     * @param string $url
-     * @return mixed int or false
-     */
-    public static function localProfileFromUrl($url)
-    {
-        $template = common_local_url('userbyid', array('id' => '31337'));
-        $template = preg_quote($template, '/');
-        $template = str_replace('31337', '(\d+)', $template);
-        if (preg_match("/$template/", $url, $matches)) {
-            return intval($matches[1]);
-        }
-        return false;
-    }
-
 }

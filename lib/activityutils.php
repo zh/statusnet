@@ -240,4 +240,26 @@ class ActivityUtils
             throw new ClientException(_("Can't handle embedded Base64 content yet."));
         }
     }
+
+    /**
+     * Is this a valid URI for remote profile/notice identification?
+     * Does not have to be a resolvable URL.
+     * @param string $uri
+     * @return boolean
+     */
+    static function validateUri($uri)
+    {
+        if (Validate::uri($uri)) {
+            return true;
+        }
+
+        // Possibly an upstream bug; tag: URIs aren't validated properly
+        // unless you explicitly ask for them. All other schemes are accepted
+        // for basic URI validation without asking.
+        if (Validate::uri($uri, array('allowed_scheme' => array('tag')))) {
+            return true;
+        }
+
+        return false;
+    }
 }
