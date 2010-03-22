@@ -207,7 +207,7 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_array($actor->avatarLinks));
         $this->assertEquals(1, count($actor->avatarLinks));
         $this->assertEquals('http://files.posterous.com/user_profile_pics/480326/2009-08-05-142447.jpg',
-                            $actor->avatarLinks[0]);
+                            $actor->avatarLinks[0]->url);
         $this->assertNotNull($actor->poco);
         $this->assertEquals('evanpro', $actor->poco->preferredUsername);
         $this->assertEquals('Evan Prodromou', $actor->poco->displayName);
