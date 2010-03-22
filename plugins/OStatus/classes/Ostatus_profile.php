@@ -442,6 +442,17 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $activity = new Activity($entry, $feed);
 
+        switch ($activity->object->type) {
+        case ActivityObject::ARTICLE:
+        case ActivityObject::BLOGENTRY:
+        case ActivityObject::NOTE:
+        case ActivityObject::STATUS:
+        case ActivityObject::COMMENT:
+            break;
+        default:
+            throw new ClientException("Can't handle that kind of post.");
+        }
+
         if ($activity->verb == ActivityVerb::POST) {
             $this->processPost($activity, $source);
         } else {

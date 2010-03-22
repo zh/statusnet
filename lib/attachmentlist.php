@@ -304,7 +304,7 @@ class Attachment extends AttachmentListItem
     function showRepresentation() {
         if (empty($this->oembed->type)) {
             if (empty($this->attachment->mimetype)) {
-                $this->out->element('pre', null, 'oh well... not sure how to handle the following: ' . print_r($this->attachment, true));
+                $this->showFallback();
             } else {
                 switch ($this->attachment->mimetype) {
                 case 'image/gif':
@@ -335,8 +335,12 @@ class Attachment extends AttachmentListItem
                     if ($this->attachment->filename) {
                         // Locally-uploaded HTML. Scrub and display inline.
                         $this->showHtmlFile($this->attachment);
+                        break;
                     }
-                    break;
+                    // Fall through to default
+
+                default:
+                    $this->showFallback();
                 }
             }
         } else {
@@ -359,7 +363,7 @@ class Attachment extends AttachmentListItem
                 break;
 
             default:
-                $this->out->element('pre', null, 'oh well... not sure how to handle the following oembed: ' . print_r($this->oembed, true));
+                $this->showFallback();
             }
         }
     }
@@ -415,6 +419,20 @@ class Attachment extends AttachmentListItem
         $scrubbed = htmLawed($body, $config);
 
         return $scrubbed;
+    }
+
+    function showFallback()
+    {
+        // If we don't know how to display an attachment inline, we probably
+        // shouldn't have gotten to this point.
+        //
+        // But, here we are... displaying details on a file or remote URL
+        // either on the main view or in an ajax-loaded lightbox. As a lesser
+        // of several evils, we'll try redirecting to the actual target via
+        // client-side JS.
+
+        common_log(LOG_ERR, "Empty or unknown type for file id {$this->attachment->id}; falling back to client-side redirect.");
+        $this->out->raw('<script>window.location = ' . json_encode($this->attachment->url) . ';</script>');
     }
 }
 
