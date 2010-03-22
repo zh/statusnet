@@ -137,7 +137,7 @@ class LdapAuthorizationPlugin extends AuthorizationPlugin
         }else if($r === false){
             return false;
         }else{
-            common_log(LOG_ERR, "LDAP error determining if userDn=$userDn is a member of groupDn=groupDn using uniqueMember_attribute=$this->uniqueMember_attribute error: ".ldap_error($link));
+            common_log(LOG_ERR, "LDAP error determining if userDn=$userDn is a member of groupDn=$groupDn using uniqueMember_attribute=$this->uniqueMember_attribute error: ".ldap_error($link));
             return false;
         }
     }
