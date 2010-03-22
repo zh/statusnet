@@ -96,11 +96,13 @@ class SitemapPlugin extends Plugin
     {
         $m->connect('sitemapindex.xml',
                     array('action' => 'sitemapindex'));
-        $m->connect('/sitemaps/notice/:year/:month/:day.xml',
+        $m->connect('/sitemaps/notice/:year/:month/:day/:index.xml',
                     array('action' => 'noticesitemap'),
                     array('year' => '[0-9]{4}',
                           'month' => '[1]?[0-9]',
-                          'day' => '[123]?[0-9]'));
+                          'day' => '[123]?[0-9]',
+                          'index' => '[0-9]+'));
+
         $m->connect('/sitemaps/user/:index.xml',
                     array('action' => 'usersitemap'),
                     array('index' => '[0-9]+',
