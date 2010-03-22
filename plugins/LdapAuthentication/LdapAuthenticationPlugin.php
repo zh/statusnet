@@ -84,7 +84,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
     function checkPassword($username, $password)
     {
-        return $this->ldapCommon->checkPassword($username);
+        return $this->ldapCommon->checkPassword($username,$password);
     }
 
     function autoRegister($username, $nickname)
