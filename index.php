@@ -37,6 +37,8 @@ define('INSTALLDIR', dirname(__FILE__));
 define('STATUSNET', true);
 define('LACONICA', true); // compatibility
 
+require_once INSTALLDIR . '/lib/common.php';
+
 $user = null;
 $action = null;
 
@@ -66,68 +68,51 @@ function getPath($req)
  */
 function handleError($error)
 {
-    try {
-
-        if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
-            return;
-        }
-
-        $logmsg = "PEAR error: " . $error->getMessage();
-        if ($error instanceof PEAR_Exception && common_config('site', 'logdebug')) {
-            $logmsg .= " : ". $error->toText();
-        }
-        // DB queries often end up with a lot of newlines; merge to a single line
-        // for easier grepability...
-        $logmsg = str_replace("\n", " ", $logmsg);
-        common_log(LOG_ERR, $logmsg);
-
-        // @fixme backtrace output should be consistent with exception handling
-        if (common_config('site', 'logdebug')) {
-            $bt = $error->getTrace();
-            foreach ($bt as $n => $line) {
-                common_log(LOG_ERR, formatBacktraceLine($n, $line));
-            }
-        }
-        if ($error instanceof DB_DataObject_Error
-            || $error instanceof DB_Error
-            || ($error instanceof PEAR_Exception && $error->getCode() == -24)
-        ) {
-            //If we run into a DB error, assume we can't connect to the DB at all
-            //so set the current user to null, so we don't try to access the DB
-            //while rendering the error page.
-            global $_cur;
-            $_cur = null;
-
-            $msg = sprintf(
-                _(
-                    'The database for %s isn\'t responding correctly, '.
-                    'so the site won\'t work properly. '.
-                    'The site admins probably know about the problem, '.
-                    'but you can contact them at %s to make sure. '.
-                    'Otherwise, wait a few minutes and try again.'
-                ),
-                common_config('site', 'name'),
-                common_config('site', 'email')
-            );
-        } else {
-            $msg = _(
-                'An important error occured, probably related to email setup. '.
-                'Check logfiles for more info..'
-            );
-        }
-
-        $dac = new DBErrorAction($msg, 500);
-        $dac->showPage();
-
-    } catch (Exception $e) {
-        echo _('An error occurred.');
+    if ($error->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
+        return;
     }
+
+    $logmsg = "PEAR error: " . $error->getMessage();
+    if (common_config('site', 'logdebug')) {
+        $logmsg .= " : ". $error->getDebugInfo();
+    }
+    // DB queries often end up with a lot of newlines; merge to a single line
+    // for easier grepability...
+    $logmsg = str_replace("\n", " ", $logmsg);
+    common_log(LOG_ERR, $logmsg);
+
+    // @fixme backtrace output should be consistent with exception handling
+    if (common_config('site', 'logdebug')) {
+        $bt = $error->getBacktrace();
+        foreach ($bt as $n => $line) {
+            common_log(LOG_ERR, formatBacktraceLine($n, $line));
+        }
+    }
+    if ($error instanceof DB_DataObject_Error
+        || $error instanceof DB_Error
+    ) {
+        $msg = sprintf(
+            _(
+                'The database for %s isn\'t responding correctly, '.
+                'so the site won\'t work properly. '.
+                'The site admins probably know about the problem, '.
+                'but you can contact them at %s to make sure. '.
+                'Otherwise, wait a few minutes and try again.'
+            ),
+            common_config('site', 'name'),
+            common_config('site', 'email')
+        );
+    } else {
+        $msg = _(
+            'An important error occured, probably related to email setup. '.
+            'Check logfiles for more info..'
+        );
+    }
+
+    $dac = new DBErrorAction($msg, 500);
+    $dac->showPage();
     exit(-1);
 }
-
-set_exception_handler('handleError');
-
-require_once INSTALLDIR . '/lib/common.php';
 
 /**
  * Format a backtrace line for debug output roughly like debug_print_backtrace() does.
@@ -200,7 +185,7 @@ function checkMirror($action_obj, $args)
 
 function isLoginAction($action)
 {
-    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp');
+    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp', 'opensearch');
 
     $login = null;
 
@@ -252,6 +237,10 @@ function main()
         $sac->showPage();
         return;
     }
+
+    // For database errors
+
+    PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
 
     // Make sure RW database is setup
 
@@ -335,10 +324,10 @@ function main()
             $cac = new ClientErrorAction($cex->getMessage(), $cex->getCode());
             $cac->showPage();
         } catch (ServerException $sex) { // snort snort guffaw
-            $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode());
+            $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode(), $sex);
             $sac->showPage();
         } catch (Exception $ex) {
-            $sac = new ServerErrorAction($ex->getMessage());
+            $sac = new ServerErrorAction($ex->getMessage(), 500, $ex);
             $sac->showPage();
         }
     }

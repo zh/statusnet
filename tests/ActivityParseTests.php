@@ -138,9 +138,83 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($poco->urls[0]->value, 'http://example.com/blog.html');
         $this->assertEquals($poco->urls[0]->primary, 'true');
         $this->assertEquals($act->actor->geopoint, '37.7749295 -122.4194155');
-
     }
 
+    public function testExample6()
+    {
+        global $_example6;
+
+        $dom = DOMDocument::loadXML($_example6);
+
+        $rss = $dom->documentElement;
+
+        $channels = $dom->getElementsByTagName('channel');
+
+        $channel = $channels->item(0);
+
+        $items = $channel->getElementsByTagName('item');
+
+        $item = $items->item(0);
+
+        $act = new Activity($item, $channel);
+
+        $this->assertEquals($act->verb, ActivityVerb::POST);
+
+        $this->assertEquals($act->id, 'http://en.blog.wordpress.com/?p=3857');
+        $this->assertEquals($act->link, 'http://en.blog.wordpress.com/2010/03/03/rub-a-dub-dub-in-the-pubsubhubbub/');
+        $this->assertEquals($act->title, 'Rub-a-Dub-Dub in the PubSubHubbub');
+        $this->assertEquals($act->time, 1267634892);
+
+        $actor = $act->actor;
+
+        $this->assertFalse(empty($actor));
+        $this->assertEquals($actor->title, "Joseph Scott");
+    }
+
+    public function testExample7()
+    {
+        global $_example7;
+
+        $dom = DOMDocument::loadXML($_example7);
+
+        $rss = $dom->documentElement;
+
+        $channels = $dom->getElementsByTagName('channel');
+
+        $channel = $channels->item(0);
+
+        $items = $channel->getElementsByTagName('item');
+
+        $item = $items->item(0);
+
+        $act = new Activity($item, $channel);
+
+        $this->assertEquals(ActivityVerb::POST, $act->verb);
+        $this->assertEquals('http://evanpro.posterous.com/checking-out-captain-bones', $act->link);
+        $this->assertEquals('http://evanpro.posterous.com/checking-out-captain-bones', $act->id);
+        $this->assertEquals('Checking out captain bones', $act->title);
+        $this->assertEquals(1269095551, $act->time);
+
+        $actor = $act->actor;
+
+        $this->assertEquals(ActivityObject::PERSON, $actor->type);
+        $this->assertEquals('http://posterous.com/people/3sDslhaepotz', $actor->id);
+        $this->assertEquals('Evan Prodromou', $actor->title);
+        $this->assertNull($actor->summary);
+        $this->assertNull($actor->content);
+        $this->assertEquals('http://posterous.com/people/3sDslhaepotz', $actor->link);
+        $this->assertNull($actor->source);
+        $this->assertTrue(is_array($actor->avatarLinks));
+        $this->assertEquals(1, count($actor->avatarLinks));
+        $this->assertEquals('http://files.posterous.com/user_profile_pics/480326/2009-08-05-142447.jpg',
+                            $actor->avatarLinks[0]);
+        $this->assertNotNull($actor->poco);
+        $this->assertEquals('evanpro', $actor->poco->preferredUsername);
+        $this->assertEquals('Evan Prodromou', $actor->poco->displayName);
+        $this->assertNull($actor->poco->note);
+        $this->assertNull($actor->poco->address);
+        $this->assertEquals(0, count($actor->poco->urls));
+    }
 }
 
 $_example1 = <<<EXAMPLE1
@@ -330,3 +404,107 @@ $_example5 = <<<EXAMPLE5
 </entry>
 </feed>
 EXAMPLE5;
+
+$_example6 = <<<EXAMPLE6
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:georss="http://www.georss.org/georss" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:media="http://search.yahoo.com/mrss/"
+	>
+
+	<channel>
+		<title>WordPress.com News</title>
+		<atom:link href="http://en.blog.wordpress.com/feed/" rel="self" type="application/rss+xml" />
+		<link>http://en.blog.wordpress.com</link>
+		<description>The latest news on WordPress.com and the WordPress community.</description>
+		<lastBuildDate>Thu, 18 Mar 2010 23:25:35 +0000</lastBuildDate>
+
+		<generator>http://wordpress.com/</generator>
+		<language>en</language>
+		<sy:updatePeriod>hourly</sy:updatePeriod>
+		<sy:updateFrequency>1</sy:updateFrequency>
+		<cloud domain='en.blog.wordpress.com' port='80' path='/?rsscloud=notify' registerProcedure='' protocol='http-post' />
+		<image>
+			<url>http://www.gravatar.com/blavatar/e6392390e3bcfadff3671c5a5653d95b?s=96&#038;d=http://s2.wp.com/i/buttonw-com.png</url>
+			<title>WordPress.com News</title>
+			<link>http://en.blog.wordpress.com</link>
+		</image>
+		<atom:link rel="search" type="application/opensearchdescription+xml" href="http://en.blog.wordpress.com/osd.xml" title="WordPress.com News" />
+		<atom:link rel='hub' href='http://en.blog.wordpress.com/?pushpress=hub'/>
+
+		<item>
+			<title>Rub-a-Dub-Dub in the PubSubHubbub</title>
+			<link>http://en.blog.wordpress.com/2010/03/03/rub-a-dub-dub-in-the-pubsubhubbub/</link>
+			<comments>http://en.blog.wordpress.com/2010/03/03/rub-a-dub-dub-in-the-pubsubhubbub/#comments</comments>
+			<pubDate>Wed, 03 Mar 2010 16:48:12 +0000</pubDate>
+			<dc:creator>Joseph Scott</dc:creator>
+
+			<category><![CDATA[Feeds]]></category>
+			<category><![CDATA[atom]]></category>
+			<category><![CDATA[pubsubhubbub]]></category>
+			<category><![CDATA[rss]]></category>
+
+			<guid isPermaLink="false">http://en.blog.wordpress.com/?p=3857</guid>
+			<description><![CDATA[From the tongue twisting name department we welcome PubSubHubbub, or as some people have shortened it to: PuSH.  Like rssCloud, PuSH is a way for services that subscribe to updates from your blog (think Google Reader, Bloglines or Netvibes) to get updates even faster.  In a nutshell, instead of having to periodically ask [...]<img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=en.blog.wordpress.com&blog=3584907&post=3857&subd=en.blog&ref=&feed=1" />]]></description>
+				<content:encoded><![CDATA[<p>From the tongue twisting name department we welcome <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubbub</a>, or as some people have shortened it to: PuSH.  Like <a href="http://en.blog.wordpress.com/2009/09/07/rss-in-the-clouds/">rssCloud</a>, PuSH is a way for services that subscribe to updates from your blog (think Google Reader, Bloglines or Netvibes) to get updates even faster.  In a nutshell, instead of having to periodically ask your blog if there are any updates they can now register to automatically receive updates each time you publish new content.  In most cases these updates are sent out within a second or two of when you hit the publish button.</p>
+	<p>Today we&#8217;ve turned on PuSH support for the more than 10.5 million blogs on WordPress.com.  There&#8217;s nothing to configure, it&#8217;s working right now behind the scenes to help others keep up to date with your posts.</p>
+	<p>For those using the WordPress.org software we are releasing a new PuSH plugin: <a href="http://wordpress.org/extend/plugins/pushpress/">PuSHPress</a>.  This plugin differs from the current PuSH related plugins by including a built-in hub.</p>
+	<p>For more PuSH related reading check out the <a href="http://code.google.com/p/pubsubhubbub/">PubSubHubbub project site</a> and <a href="http://groups.google.com/group/pubsubhubbub?pli=1">Google Group</a>.  And if you really want to geek out there&#8217;s always the <a href="http://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html">PubSubHubbub Spec</a> <img src='http://s.wordpress.com/wp-includes/images/smilies/icon_smile.gif' alt=':-)' class='wp-smiley' /> </p>
+	<br />  <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gocomments/en.blog.wordpress.com/3857/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/comments/en.blog.wordpress.com/3857/" /></a> <a rel="nofollow" href="http://feeds.wordpress.com/1.0/godelicious/en.blog.wordpress.com/3857/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/delicious/en.blog.wordpress.com/3857/" /></a> <a rel="nofollow" href="http://feeds.wordpress.com/1.0/gostumble/en.blog.wordpress.com/3857/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/stumble/en.blog.wordpress.com/3857/" /></a> <a rel="nofollow" href="http://feeds.wordpress.com/1.0/godigg/en.blog.wordpress.com/3857/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/digg/en.blog.wordpress.com/3857/" /></a> <a rel="nofollow" href="http://feeds.wordpress.com/1.0/goreddit/en.blog.wordpress.com/3857/"><img alt="" border="0" src="http://feeds.wordpress.com/1.0/reddit/en.blog.wordpress.com/3857/" /></a> <img alt="" border="0" src="http://stats.wordpress.com/b.gif?host=en.blog.wordpress.com&blog=3584907&post=3857&subd=en.blog&ref=&feed=1" />]]></content:encoded>
+				<wfw:commentRss>http://en.blog.wordpress.com/2010/03/03/rub-a-dub-dub-in-the-pubsubhubbub/feed/</wfw:commentRss>
+
+			<slash:comments>96</slash:comments>
+
+			<media:content url="http://1.gravatar.com/avatar/582b66ad5ae1b69c7601a990cb9a661a?s=96&#38;d=identicon" medium="image">
+				<media:title type="html">josephscott</media:title>
+			</media:content>
+		</item>
+	</channel>
+</rss>
+EXAMPLE6;
+
+$_example7 = <<<EXAMPLE7
+<?xml version="1.0" encoding="UTF-8"?>
+	<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0" xmlns:posterous="http://posterous.com/help/rss/1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/">
+	  <channel>
+	    <title>evanpro's posterous</title>
+	    <link>http://evanpro.posterous.com</link>
+	    <description>Most recent posts at evanpro's posterous</description>
+	    <generator>posterous.com</generator>
+	    <link type="application/json" xmlns="http://www.w3.org/2005/Atom" rel="http://api.friendfeed.com/2008/03#sup" href="http://posterous.com/api/sup_update#56bcc5eb7"/>
+	    <atom:link rel="self" href="http://evanpro.posterous.com/rss.xml"/>
+	    <atom:link rel="hub" href="http://posterous.superfeedr.com"/>
+	    <item>
+	      <pubDate>Sat, 20 Mar 2010 07:32:31 -0700</pubDate>
+	      <title>Checking out captain bones</title>
+	      <link>http://evanpro.posterous.com/checking-out-captain-bones</link>
+	      <guid>http://evanpro.posterous.com/checking-out-captain-bones</guid>
+	      <description>
+	        <![CDATA[<p>
+		<p>Bones!</p>
+
+	</p>
+
+	<p><a href="http://evanpro.posterous.com/checking-out-captain-bones">Permalink</a>
+
+		| <a href="http://evanpro.posterous.com/checking-out-captain-bones#comment">Leave a comment&nbsp;&nbsp;&raquo;</a>
+
+	</p>]]>
+	      </description>
+	      <posterous:author>
+	        <posterous:userImage>http://files.posterous.com/user_profile_pics/480326/2009-08-05-142447.jpg</posterous:userImage>
+	        <posterous:profileUrl>http://posterous.com/people/3sDslhaepotz</posterous:profileUrl>
+	        <posterous:firstName>Evan</posterous:firstName>
+	        <posterous:lastnNme>Prodromou</posterous:lastnNme>
+	        <posterous:nickName>evanpro</posterous:nickName>
+	        <posterous:displayName>Evan Prodromou</posterous:displayName>
+	      </posterous:author>
+	    </item>
+	</channel>
+</rss>
+EXAMPLE7;

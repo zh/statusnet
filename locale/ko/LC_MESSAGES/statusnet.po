@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 23:49+0000\n"
-"PO-Revision-Date: 2010-03-06 23:50:22+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:41:05+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -100,7 +100,7 @@ msgstr "그러한 태그가 없습니다."
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
+#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -109,10 +109,8 @@ msgstr "그러한 태그가 없습니다."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
-#: lib/command.php:355 lib/command.php:401 lib/command.php:462
-#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
-#: lib/profileaction.php:77
+#: actions/xrds.php:71 lib/command.php:456 lib/galleryaction.php:59
+#: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "그러한 사용자는 없습니다."
 
@@ -204,14 +202,14 @@ msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
-#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
+#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
+#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:151
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
+#: actions/apitimelineuser.php:162 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "API 메서드를 찾을 수 없습니다."
@@ -225,8 +223,8 @@ msgstr "API 메서드를 찾을 수 없습니다."
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "이 메서드는 등록을 요구합니다."
 
@@ -257,7 +255,7 @@ msgid "Could not save profile."
 msgstr "프로필을 저장 할 수 없습니다."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -345,7 +343,7 @@ msgstr "그 ID로 발견된 상태가 없습니다."
 msgid "This status is already a favorite."
 msgstr "이 게시글은 이미 좋아하는 게시글입니다."
 
-#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
+#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:279
 msgid "Could not create favorite."
 msgstr "좋아하는 게시글을 생성할 수 없습니다."
 
@@ -471,7 +469,7 @@ msgstr "API 메서드를 찾을 수 없습니다."
 msgid "You are already a member of that group."
 msgstr "당신은 이미 이 그룹의 멤버입니다."
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:321
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
@@ -523,7 +521,7 @@ msgstr "옳지 않은 크기"
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/profilesettings.php:194 actions/recoverpassword.php:350
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
 #: actions/subscribe.php:86 actions/tagother.php:166
@@ -590,9 +588,9 @@ msgstr "계정"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:244 actions/tagother.php:94
+#: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
-#: lib/userprofile.php:131
+#: lib/userprofile.php:132
 msgid "Nickname"
 msgstr "별명"
 
@@ -666,12 +664,12 @@ msgstr ""
 msgid "Unsupported format."
 msgstr "지원하지 않는 그림 파일 형식입니다."
 
-#: actions/apitimelinefavorites.php:108
+#: actions/apitimelinefavorites.php:109
 #, fuzzy, php-format
 msgid "%1$s / Favorites from %2$s"
 msgstr "%s / %s의 좋아하는 글들"
 
-#: actions/apitimelinefavorites.php:117
+#: actions/apitimelinefavorites.php:118
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s 좋아하는 글이 업데이트 됐습니다. %S에 의해 / %s."
@@ -681,7 +679,7 @@ msgstr "%s 좋아하는 글이 업데이트 됐습니다. %S에 의해 / %s."
 msgid "%1$s / Updates mentioning %2$s"
 msgstr "%1$s / %2$s에게 답신 업데이트"
 
-#: actions/apitimelinementions.php:127
+#: actions/apitimelinementions.php:130
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s님이 %2$s/%3$s의 업데이트에 답변했습니다."
@@ -691,7 +689,7 @@ msgstr "%1$s님이 %2$s/%3$s의 업데이트에 답변했습니다."
 msgid "%s public timeline"
 msgstr "%s 공개 타임라인"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:112 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "모두로부터의 업데이트 %s개!"
@@ -706,12 +704,12 @@ msgstr "%s에 답신"
 msgid "Repeats of %s"
 msgstr "%s에 답신"
 
-#: actions/apitimelinetag.php:102 actions/tag.php:67
+#: actions/apitimelinetag.php:104 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "%s 태그된 통지"
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:65
+#: actions/apitimelinetag.php:106 actions/tagrss.php:65
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s에 있는 %1$s의 업데이트!"
@@ -740,7 +738,7 @@ msgstr "사이즈가 없습니다."
 msgid "Invalid size."
 msgstr "옳지 않은 크기"
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:229
+#: actions/avatarsettings.php:67 actions/showgroup.php:230
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "아바타"
@@ -772,7 +770,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:655
+#: lib/deleteuserform.php:66 lib/noticelist.php:658
 msgid "Delete"
 msgstr "삭제"
 
@@ -855,8 +853,8 @@ msgstr "정보차단을 저장하는데 실패했습니다."
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
-#: lib/command.php:260
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:162
+#: lib/command.php:358
 msgid "No such group."
 msgstr "그러한 그룹이 없습니다."
 
@@ -965,7 +963,7 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1217
+#: lib/action.php:1220
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -1027,7 +1025,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:655
+#: actions/deletenotice.php:146 lib/noticelist.php:658
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1302,7 +1300,7 @@ msgstr "설명이 너무 길어요. (최대 140글자)"
 msgid "Could not update group."
 msgstr "그룹을 업데이트 할 수 없습니다."
 
-#: actions/editgroup.php:264 classes/User_group.php:493
+#: actions/editgroup.php:264 classes/User_group.php:496
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "좋아하는 게시글을 생성할 수 없습니다."
@@ -2015,7 +2013,7 @@ msgstr "새 사용자를 초대"
 msgid "You are already subscribed to these users:"
 msgstr "당신은 다음 사용자를 이미 구독하고 있습니다."
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:398
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2140,7 +2138,7 @@ msgstr "%s 는 그룹 %s에 가입했습니다."
 msgid "You must be logged in to leave a group."
 msgstr "그룹을 떠나기 위해서는 로그인해야 합니다."
 
-#: actions/leavegroup.php:100 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:363
 msgid "You are not a member of that group."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
@@ -2258,12 +2256,12 @@ msgstr "새 그룹을 만들기 위해 이 양식을 사용하세요."
 msgid "New message"
 msgstr "새로운 메시지입니다."
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:459
 msgid "You can't send a message to this user."
 msgstr "당신은 이 사용자에게 메시지를 보낼 수 없습니다."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
-#: lib/command.php:475
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:443
+#: lib/command.php:529
 msgid "No content!"
 msgstr "내용이 없습니다!"
 
@@ -2271,7 +2269,7 @@ msgstr "내용이 없습니다!"
 msgid "No recipient specified."
 msgstr "수신자를 지정하지 않았습니다."
 
-#: actions/newmessage.php:164 lib/command.php:361
+#: actions/newmessage.php:164 lib/command.php:462
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -2287,7 +2285,7 @@ msgstr "메시지"
 msgid "Direct message to %s sent."
 msgstr "%s에게 보낸 직접 메시지"
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax 에러입니다."
 
@@ -2404,7 +2402,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "통지에 프로필이 없습니다."
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s의 상태 (%2$s에서)"
@@ -2418,8 +2416,8 @@ msgstr "연결"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
-#: lib/apiaction.php:1070 lib/apiaction.php:1179
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
+#: lib/apiaction.php:1097 lib/apiaction.php:1213
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -2557,7 +2555,7 @@ msgstr "기존 비밀 번호가 틀렸습니다"
 msgid "Error saving user; invalid."
 msgstr "사용자 저장 오류; 무효한 사용자"
 
-#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:381
 msgid "Can't save new password."
 msgstr "새 비밀번호를 저장 할 수 없습니다."
 
@@ -2782,8 +2780,8 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64자 사이에 영소문자, 숫자로만 씁니다. 기호나 공백을 쓰면 안 됩니다."
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:255 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:149
+#: actions/showgroup.php:256 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "실명"
 
@@ -2811,9 +2809,9 @@ msgid "Bio"
 msgstr "자기소개"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:264 actions/tagother.php:112
+#: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
-#: lib/userprofile.php:164
+#: lib/userprofile.php:165
 msgid "Location"
 msgstr "위치"
 
@@ -2827,7 +2825,7 @@ msgstr ""
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+#: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
 msgstr "태그"
 
@@ -3057,7 +3055,7 @@ msgstr "비밀 번호 초기화"
 msgid "Recover password"
 msgstr "비밀 번호 복구"
 
-#: actions/recoverpassword.php:210 actions/recoverpassword.php:322
+#: actions/recoverpassword.php:210 actions/recoverpassword.php:335
 msgid "Password recovery requested"
 msgstr "비밀 번호 복구가 요청되었습니다."
 
@@ -3077,41 +3075,41 @@ msgstr "초기화"
 msgid "Enter a nickname or email address."
 msgstr "별명이나 이메일 계정을 입력하십시오."
 
-#: actions/recoverpassword.php:272
+#: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
 msgstr "그러한 이메일 주소나 계정을 가진 사용자는 없습니다."
 
-#: actions/recoverpassword.php:287
+#: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
 msgstr "그 사용자는 등록된 메일주소가 없습니다."
 
-#: actions/recoverpassword.php:301
+#: actions/recoverpassword.php:313
 msgid "Error saving address confirmation."
 msgstr "주소 확인 저장 에러"
 
-#: actions/recoverpassword.php:325
+#: actions/recoverpassword.php:338
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr "가입하신 이메일로 비밀 번호 재발급에 관한 안내를 보냈습니다."
 
-#: actions/recoverpassword.php:344
+#: actions/recoverpassword.php:357
 msgid "Unexpected password reset."
 msgstr "잘못된 비밀 번호 지정"
 
-#: actions/recoverpassword.php:352
+#: actions/recoverpassword.php:365
 msgid "Password must be 6 chars or more."
 msgstr "비밀 번호는 6자 이상이어야 합니다."
 
-#: actions/recoverpassword.php:356
+#: actions/recoverpassword.php:369
 msgid "Password and confirmation do not match."
 msgstr "비밀 번호가 일치하지 않습니다."
 
-#: actions/recoverpassword.php:375 actions/register.php:248
+#: actions/recoverpassword.php:388 actions/register.php:248
 msgid "Error setting user."
 msgstr "사용자 세팅 오류"
 
-#: actions/recoverpassword.php:382
+#: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
 msgstr ""
 "새로운 비밀 번호를 성공적으로 저장했습니다. 귀하는 이제 로그인 되었습니다."
@@ -3275,7 +3273,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "다른 마이크로블로깅 서비스의 귀하의 프로필 URL"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:394
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "구독"
 
@@ -3318,7 +3316,7 @@ msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:674
+#: actions/repeat.php:114 lib/noticelist.php:677
 #, fuzzy
 msgid "Repeated"
 msgstr "생성"
@@ -3467,7 +3465,7 @@ msgstr "페이지수"
 msgid "Description"
 msgstr "설명"
 
-#: actions/showapplication.php:192 actions/showgroup.php:438
+#: actions/showapplication.php:192 actions/showgroup.php:439
 #: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "통계"
@@ -3579,68 +3577,68 @@ msgstr "%s 그룹"
 msgid "%1$s group, page %2$d"
 msgstr "%s 그룹 회원, %d페이지"
 
-#: actions/showgroup.php:226
+#: actions/showgroup.php:227
 msgid "Group profile"
 msgstr "그룹 프로필"
 
-#: actions/showgroup.php:271 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:177
+#: actions/showgroup.php:272 actions/tagother.php:118
+#: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr "URL"
 
-#: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:194
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
 msgstr "설명"
 
-#: actions/showgroup.php:292 lib/groupeditform.php:184
+#: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
-#: actions/showgroup.php:301
+#: actions/showgroup.php:302
 msgid "Group actions"
 msgstr "그룹 행동"
 
-#: actions/showgroup.php:337
+#: actions/showgroup.php:338
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "%s 그룹을 위한 공지피드"
 
-#: actions/showgroup.php:343
+#: actions/showgroup.php:344
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "%s 그룹을 위한 공지피드"
 
-#: actions/showgroup.php:349
+#: actions/showgroup.php:350
 #, fuzzy, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "%s 그룹을 위한 공지피드"
 
-#: actions/showgroup.php:354
+#: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
 msgstr "%s의 보낸쪽지함"
 
-#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
+#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
 msgid "Members"
 msgstr "회원"
 
-#: actions/showgroup.php:395 lib/profileaction.php:117
+#: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(없습니다.)"
 
-#: actions/showgroup.php:401
+#: actions/showgroup.php:402
 msgid "All members"
 msgstr "모든 회원"
 
-#: actions/showgroup.php:441
+#: actions/showgroup.php:442
 #, fuzzy
 msgid "Created"
 msgstr "생성"
 
-#: actions/showgroup.php:457
+#: actions/showgroup.php:458
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3650,7 +3648,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:464
 #, fuzzy, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3661,7 +3659,7 @@ msgstr ""
 "**%s** 는 %%%%site.name%%%% [마이크로블로깅)(http://en.wikipedia.org/wiki/"
 "Micro-blogging)의 사용자 그룹입니다. "
 
-#: actions/showgroup.php:491
+#: actions/showgroup.php:492
 #, fuzzy
 msgid "Admins"
 msgstr "관리자"
@@ -4208,12 +4206,12 @@ msgstr "id 인자가 없습니다."
 msgid "Tag %s"
 msgstr "태그 %s"
 
-#: actions/tagother.php:77 lib/userprofile.php:75
+#: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "이용자 프로필"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:102
+#: lib/userprofile.php:103
 msgid "Photo"
 msgstr "사진"
 
@@ -4551,19 +4549,19 @@ msgstr "개인적인"
 msgid "Author(s)"
 msgstr ""
 
-#: classes/File.php:144
+#: classes/File.php:169
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:154
+#: classes/File.php:179
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:161
+#: classes/File.php:186
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
@@ -4606,28 +4604,28 @@ msgstr "메시지를 삽입할 수 없습니다."
 msgid "Could not update message with new URI."
 msgstr "새 URI와 함께 메시지를 업데이트할 수 없습니다."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
 msgstr "게시글 저장문제. 알려지지않은 회원"
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
 "해보세요."
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4636,20 +4634,20 @@ msgstr ""
 "너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
 "해보세요."
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었습니다."
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1459
+#: classes/Notice.php:1479
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4682,29 +4680,29 @@ msgstr "예약 구독을 삭제 할 수 없습니다."
 msgid "Couldn't delete subscription OMB token."
 msgstr "예약 구독을 삭제 할 수 없습니다."
 
-#: classes/Subscription.php:201 lib/subs.php:69
+#: classes/Subscription.php:201
 msgid "Couldn't delete subscription."
 msgstr "예약 구독을 삭제 할 수 없습니다."
 
-#: classes/User.php:373
+#: classes/User.php:378
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
 
-#: classes/User_group.php:477
+#: classes/User_group.php:480
 msgid "Could not create group."
 msgstr "새 그룹을 만들 수 없습니다."
 
-#: classes/User_group.php:486
+#: classes/User_group.php:489
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
-#: classes/User_group.php:507
+#: classes/User_group.php:510
 msgid "Could not set group membership."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
-#: classes/User_group.php:521
+#: classes/User_group.php:524
 #, fuzzy
 msgid "Could not save local group info."
 msgstr "구독을 저장할 수 없습니다."
@@ -4928,7 +4926,7 @@ msgstr "찔러 보기"
 msgid "StatusNet software license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:802
+#: lib/action.php:804
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4937,12 +4935,12 @@ msgstr ""
 "**%%site.name%%** 는 [%%site.broughtby%%](%%site.broughtbyurl%%)가 제공하는 "
 "마이크로블로깅서비스입니다."
 
-#: lib/action.php:804
+#: lib/action.php:806
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
 
-#: lib/action.php:806
+#: lib/action.php:809
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4953,42 +4951,42 @@ msgstr ""
 "을 사용합니다. StatusNet는 [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html) 라이선스에 따라 사용할 수 있습니다."
 
-#: lib/action.php:821
+#: lib/action.php:824
 #, fuzzy
 msgid "Site content license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:826
+#: lib/action.php:829
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:831
+#: lib/action.php:834
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:837
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:847
+#: lib/action.php:850
 msgid "All "
 msgstr "모든 것"
 
-#: lib/action.php:853
+#: lib/action.php:856
 msgid "license."
 msgstr "라이선스"
 
-#: lib/action.php:1152
+#: lib/action.php:1155
 msgid "Pagination"
 msgstr "페이지수"
 
-#: lib/action.php:1161
+#: lib/action.php:1164
 msgid "After"
 msgstr "뒷 페이지"
 
-#: lib/action.php:1169
+#: lib/action.php:1172
 msgid "Before"
 msgstr "앞 페이지"
 
@@ -5002,6 +5000,10 @@ msgstr ""
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
+msgstr ""
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5105,7 +5107,7 @@ msgstr "SMS 인증"
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:272
+#: lib/apiauth.php:276
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5184,11 +5186,11 @@ msgstr "삭제"
 msgid "Attachments"
 msgstr ""
 
-#: lib/attachmentlist.php:265
+#: lib/attachmentlist.php:263
 msgid "Author"
 msgstr ""
 
-#: lib/attachmentlist.php:278
+#: lib/attachmentlist.php:276
 #, fuzzy
 msgid "Provider"
 msgstr "프로필"
@@ -5211,37 +5213,51 @@ msgstr "비밀번호 변경"
 msgid "Password changing is not allowed"
 msgstr "비밀번호 변경"
 
-#: lib/channel.php:138 lib/channel.php:158
+#: lib/channel.php:157 lib/channel.php:177
 msgid "Command results"
 msgstr "실행결과"
 
-#: lib/channel.php:210 lib/mailhandler.php:142
+#: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr "실행 완료"
 
-#: lib/channel.php:221
+#: lib/channel.php:240
 msgid "Command failed"
 msgstr "실행 실패"
 
-#: lib/command.php:44
-msgid "Sorry, this command is not yet implemented."
-msgstr "죄송합니다. 이 명령은 아직 실행되지 않았습니다."
+#: lib/command.php:83 lib/command.php:105
+#, fuzzy
+msgid "Notice with that id does not exist"
+msgstr "해당 id의 프로필이 없습니다."
 
-#: lib/command.php:88
+#: lib/command.php:99 lib/command.php:570
+msgid "User has no last notice"
+msgstr "이용자의 지속적인 게시글이 없습니다."
+
+#: lib/command.php:125
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
 
-#: lib/command.php:92
+#: lib/command.php:143
+#, fuzzy, php-format
+msgid "Could not find a local user with nickname %s"
+msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
+
+#: lib/command.php:176
+msgid "Sorry, this command is not yet implemented."
+msgstr "죄송합니다. 이 명령은 아직 실행되지 않았습니다."
+
+#: lib/command.php:221
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#: lib/command.php:99
+#: lib/command.php:228
 #, fuzzy, php-format
 msgid "Nudge sent to %s"
 msgstr "찔러 보기를 보냈습니다."
 
-#: lib/command.php:126
+#: lib/command.php:254
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5249,200 +5265,198 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:390 lib/command.php:451
-#, fuzzy
-msgid "Notice with that id does not exist"
-msgstr "해당 id의 프로필이 없습니다."
-
-#: lib/command.php:168 lib/command.php:406 lib/command.php:467
-#: lib/command.php:523
-msgid "User has no last notice"
-msgstr "이용자의 지속적인 게시글이 없습니다."
-
-#: lib/command.php:190
+#: lib/command.php:296
 msgid "Notice marked as fave."
 msgstr "게시글이 좋아하는 글로 지정되었습니다."
 
-#: lib/command.php:217
+#: lib/command.php:317
 msgid "You are already a member of that group"
 msgstr "당신은 이미 이 그룹의 멤버입니다."
 
-#: lib/command.php:231
+#: lib/command.php:331
 #, php-format
 msgid "Could not join user %s to group %s"
 msgstr "그룹 %s에 %s는 가입할 수 없습니다."
 
-#: lib/command.php:236
+#: lib/command.php:336
 #, php-format
 msgid "%s joined group %s"
 msgstr "%s 는 그룹 %s에 가입했습니다."
 
-#: lib/command.php:275
+#: lib/command.php:373
 #, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
-#: lib/command.php:280
+#: lib/command.php:378
 #, php-format
 msgid "%s left group %s"
 msgstr "%s가 그룹%s를 떠났습니다."
 
-#: lib/command.php:309
+#: lib/command.php:401
 #, php-format
 msgid "Fullname: %s"
 msgstr "전체이름: %s"
 
-#: lib/command.php:312 lib/mail.php:258
+#: lib/command.php:404 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
 msgstr "위치: %s"
 
-#: lib/command.php:315 lib/mail.php:260
+#: lib/command.php:407 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
 msgstr "홈페이지: %s"
 
-#: lib/command.php:318
+#: lib/command.php:410
 #, php-format
 msgid "About: %s"
 msgstr "자기소개: %s"
 
-#: lib/command.php:349
+#: lib/command.php:437
+#, php-format
+msgid ""
+"%s is a remote profile; you can only send direct messages to users on the "
+"same server."
+msgstr ""
+
+#: lib/command.php:450
 #, fuzzy, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
 
-#: lib/command.php:367
+#: lib/command.php:468
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "%s에게 보낸 직접 메시지"
 
-#: lib/command.php:369
+#: lib/command.php:470
 msgid "Error sending direct message."
 msgstr "직접 메시지 보내기 오류."
 
-#: lib/command.php:413
+#: lib/command.php:490
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "알림을 켤 수 없습니다."
 
-#: lib/command.php:418
+#: lib/command.php:495
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "이 게시글 삭제하기"
 
-#: lib/command.php:426
+#: lib/command.php:503
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "게시글이 등록되었습니다."
 
-#: lib/command.php:428
+#: lib/command.php:505
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: lib/command.php:482
+#: lib/command.php:536
 #, fuzzy, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
 
-#: lib/command.php:491
+#: lib/command.php:545
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/command.php:493
+#: lib/command.php:547
 #, fuzzy
 msgid "Error saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: lib/command.php:547
+#: lib/command.php:594
 msgid "Specify the name of the user to subscribe to"
 msgstr "구독하려는 사용자의 이름을 지정하십시오."
 
-#: lib/command.php:554 lib/command.php:589
-msgid "No such user"
-msgstr "그러한 사용자는 없습니다."
+#: lib/command.php:602
+#, fuzzy
+msgid "Can't subscribe to OMB profiles by command."
+msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: lib/command.php:561
+#: lib/command.php:608
 #, php-format
 msgid "Subscribed to %s"
 msgstr "%s에게 구독되었습니다."
 
-#: lib/command.php:582 lib/command.php:685
+#: lib/command.php:629 lib/command.php:728
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "구독을 해제하려는 사용자의 이름을 지정하십시오."
 
-#: lib/command.php:595
+#: lib/command.php:638
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "%s에서 구독을 해제했습니다."
 
-#: lib/command.php:613 lib/command.php:636
+#: lib/command.php:656 lib/command.php:679
 msgid "Command not yet implemented."
 msgstr "명령이 아직 실행되지 않았습니다."
 
-#: lib/command.php:616
+#: lib/command.php:659
 msgid "Notification off."
 msgstr "알림끄기."
 
-#: lib/command.php:618
+#: lib/command.php:661
 msgid "Can't turn off notification."
 msgstr "알림을 끌 수 없습니다."
 
-#: lib/command.php:639
+#: lib/command.php:682
 msgid "Notification on."
 msgstr "알림이 켜졌습니다."
 
-#: lib/command.php:641
+#: lib/command.php:684
 msgid "Can't turn on notification."
 msgstr "알림을 켤 수 없습니다."
 
-#: lib/command.php:654
+#: lib/command.php:697
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:665
+#: lib/command.php:708
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:692
+#: lib/command.php:735
 #, fuzzy, php-format
 msgid "Unsubscribed  %s"
 msgstr "%s에서 구독을 해제했습니다."
 
-#: lib/command.php:709
+#: lib/command.php:752
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: lib/command.php:711
+#: lib/command.php:754
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
 
-#: lib/command.php:731
+#: lib/command.php:774
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:733
+#: lib/command.php:776
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:753
+#: lib/command.php:796
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:755
+#: lib/command.php:798
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:769
+#: lib/command.php:812
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5484,20 +5498,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:148
+#: lib/common.php:136
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "확인 코드가 없습니다."
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:152
+#: lib/common.php:140
 #, fuzzy
 msgid "Go to the installer."
 msgstr "이 사이트 로그인"
@@ -5678,49 +5692,49 @@ msgstr "%s 그룹 게시글의 태그"
 msgid "This page is not available in a media type you accept"
 msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
 
-#: lib/imagefile.php:75
+#: lib/imagefile.php:74
+msgid "Unsupported image file format."
+msgstr "지원하지 않는 그림 파일 형식입니다."
+
+#: lib/imagefile.php:90
 #, fuzzy, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "당신그룹의 로고 이미지를 업로드할 수 있습니다."
 
-#: lib/imagefile.php:80
+#: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "불완전한 업로드."
 
-#: lib/imagefile.php:88 lib/mediafile.php:170
+#: lib/imagefile.php:103 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "파일을 올리는데 시스템 오류 발생"
 
-#: lib/imagefile.php:96
+#: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
 msgstr "그림 파일이 아니거나 손상된 파일 입니다."
 
-#: lib/imagefile.php:109
-msgid "Unsupported image file format."
-msgstr "지원하지 않는 그림 파일 형식입니다."
-
-#: lib/imagefile.php:122
+#: lib/imagefile.php:124
 msgid "Lost our file."
 msgstr "파일을 잃어버렸습니다."
 
-#: lib/imagefile.php:166 lib/imagefile.php:231
+#: lib/imagefile.php:168 lib/imagefile.php:233
 msgid "Unknown file type"
 msgstr "알 수 없는 종류의 파일입니다"
 
-#: lib/imagefile.php:251
+#: lib/imagefile.php:253
 msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:255
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:220
+#: lib/jabber.php:228
 #, php-format
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:400
+#: lib/jabber.php:408
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
@@ -5923,7 +5937,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:482
+#: lib/mailbox.php:227 lib/noticelist.php:485
 #, fuzzy
 msgid "from"
 msgstr "다음에서:"
@@ -6079,25 +6093,25 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:566
+#: lib/noticelist.php:569
 #, fuzzy
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:601
+#: lib/noticelist.php:604
 #, fuzzy
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:631
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:632
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:673
+#: lib/noticelist.php:676
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."
@@ -6246,7 +6260,7 @@ msgstr "이 게시글에 대해 답장하기"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "이 그룹의 회원리스트"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -6380,93 +6394,97 @@ msgstr "이 사용자로부터 구독취소합니다."
 msgid "Unsubscribe"
 msgstr "구독 해제"
 
-#: lib/userprofile.php:116
+#: lib/userprofile.php:117
 #, fuzzy
 msgid "Edit Avatar"
 msgstr "아바타"
 
-#: lib/userprofile.php:236
+#: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
 msgstr "사용자 동작"
 
-#: lib/userprofile.php:251
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "프로필 세팅"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:275
+#: lib/userprofile.php:287
 msgid "Send a direct message to this user"
 msgstr "이 회원에게 직접 메시지를 보냅니다."
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:288
 msgid "Message"
 msgstr "메시지"
 
-#: lib/userprofile.php:314
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:352
+#: lib/userprofile.php:364
 #, fuzzy
 msgid "User role"
 msgstr "이용자 프로필"
 
-#: lib/userprofile.php:354
+#: lib/userprofile.php:366
 #, fuzzy
 msgctxt "role"
 msgid "Administrator"
 msgstr "관리자"
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
-#: lib/util.php:1015
+#: lib/util.php:1046
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:1017
+#: lib/util.php:1048
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:1019
+#: lib/util.php:1050
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:1021
+#: lib/util.php:1052
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:1023
+#: lib/util.php:1054
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:1025
+#: lib/util.php:1056
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:1027
+#: lib/util.php:1058
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:1029
+#: lib/util.php:1060
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:1031
+#: lib/util.php:1062
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:1033
+#: lib/util.php:1064
 msgid "about a year ago"
 msgstr "1년 전"
 
@@ -6480,7 +6498,7 @@ msgstr "홈페이지 주소형식이 올바르지 않습니다."
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 
-#: lib/xmppmanager.php:402
+#: lib/xmppmanager.php:403
 #, fuzzy, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."

@@ -103,11 +103,6 @@ class ShownoticeAction extends OwnerDesignAction
 
         $this->user = User::staticGet('id', $this->profile->id);
 
-        if ($this->notice->is_local == Notice::REMOTE_OMB) {
-            common_redirect($this->notice->uri);
-            return false;
-        }
-
         $this->avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
 
         return true;
@@ -172,7 +167,7 @@ class ShownoticeAction extends OwnerDesignAction
     function title()
     {
         if (!empty($this->profile->fullname)) {
-            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
+            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
         } else {
             $base = $this->profile->nickname;
         }
@@ -198,13 +193,20 @@ class ShownoticeAction extends OwnerDesignAction
 
         if ($this->notice->is_local == Notice::REMOTE_OMB) {
             if (!empty($this->notice->url)) {
-                common_redirect($this->notice->url, 301);
+                $target = $this->notice->url;
             } else if (!empty($this->notice->uri) && preg_match('/^https?:/', $this->notice->uri)) {
-                common_redirect($this->notice->uri, 301);
+                // Old OMB posts saved the remote URL only into the URI field.
+                $target = $this->notice->uri;
+            } else {
+                // Shouldn't happen.
+                $target = false;
             }
-        } else {
-            $this->showPage();
+            if ($target && $target != $this->selfUrl()) {
+                common_redirect($target, 301);
+                return false;
+            }
         }
+        $this->showPage();
     }
 
     /**

@@ -43,6 +43,11 @@ class User_openid_trustroot extends Memcached_DataObject
 
     function keys()
     {
+        return array_keys($this->keyTypes());
+    }
+
+    function keyTypes()
+    {
         return array('trustroot' => 'K', 'user_id' => 'K');
     }
 

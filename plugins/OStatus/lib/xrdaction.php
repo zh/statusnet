@@ -46,10 +46,10 @@ class XrdAction extends Action
         if (empty($xrd->subject)) {
             $xrd->subject = Discovery::normalize($this->uri);
         }
-        $xrd->alias[] = common_profile_url($nick);
+        $xrd->alias[] = $this->user->uri;
         $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
                               'type' => 'text/html',
-                              'href' => common_profile_url($nick));
+                              'href' => $this->user->uri);
 
         $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
                               'href' => common_local_url('ApiTimelineUser',
@@ -65,7 +65,7 @@ class XrdAction extends Action
         // XFN
         $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
                               'type' => 'text/html',
-                              'href' => common_profile_url($nick));
+                              'href' => $this->user->uri);
         // FOAF
         $xrd->links[] = array('rel' => 'describedby',
                               'type' => 'application/rdf+xml',
@@ -91,7 +91,7 @@ class XrdAction extends Action
         }
 
         $xrd->links[] = array('rel' => Magicsig::PUBLICKEYREL,
-                              'href' => 'data:application/magic-public-key;'. $magickey->toString(false));
+                              'href' => 'data:application/magic-public-key,'. $magickey->toString(false));
 
         // TODO - finalize where the redirect should go on the publisher
         $url = common_local_url('ostatussub') . '?profile={uri}';

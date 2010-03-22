@@ -628,6 +628,12 @@ class Router
                         array('action' => 'ApiTimelineTag',
                               'format' => '(xmljson|rss|atom)'));
 
+            // media related
+            $m->connect(
+                'api/statusnet/media/upload',
+                array('action' => 'ApiMediaUpload')
+            );
+
             // search
             $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
             $m->connect('api/search.json', array('action' => 'twitapisearchjson'));

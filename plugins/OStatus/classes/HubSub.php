@@ -77,7 +77,7 @@ class HubSub extends Memcached_DataObject
                      new ColumnDef('topic', 'varchar',
                                    /*size*/255,
                                    /*nullable*/false,
-                                   /*key*/'KEY'),
+                                   /*key*/'MUL'),
                      new ColumnDef('callback', 'varchar',
                                    255, false),
                      new ColumnDef('secret', 'text',
@@ -192,7 +192,7 @@ class HubSub extends Memcached_DataObject
 
         // Any existing query string parameters must be preserved
         $url = $this->callback;
-        if (strpos('?', $url) !== false) {
+        if (strpos($url, '?') !== false) {
             $url .= '&';
         } else {
             $url .= '?';

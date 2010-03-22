@@ -161,8 +161,8 @@ class SiteadminpanelAction extends AdminPanelAction
 
         // Validate text limit
 
-        if (!Validate::number($values['site']['textlimit'], array('min' => 140))) {
-            $this->clientError(_("Minimum text limit is 140 characters."));
+        if (!Validate::number($values['site']['textlimit'], array('min' => 0))) {
+            $this->clientError(_("Minimum text limit is 0 (unlimited)."));
         }
 
         // Validate dupe limit

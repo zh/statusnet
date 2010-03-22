@@ -162,7 +162,15 @@ class DeleteuserAction extends ProfileFormAction
     function handlePost()
     {
         if (Event::handle('StartDeleteUser', array($this, $this->user))) {
-            $this->user->delete();
+            // Mark the account as deleted and shove low-level deletion tasks
+            // to background queues. Removing a lot of posts can take a while...
+            if (!$this->user->hasRole(Profile_role::DELETED)) {
+                $this->user->grantRole(Profile_role::DELETED);
+            }
+
+            $qm = QueueManager::get();
+            $qm->enqueue($this->user, 'deluser');
+
             Event::handle('EndDeleteUser', array($this, $this->user));
         }
     }

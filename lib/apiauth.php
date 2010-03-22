@@ -235,9 +235,13 @@ class ApiAuthAction extends ApiAction
     {
         $this->basicAuthProcessHeader();
 
-        $realm = common_config('site', 'name') . ' API';
+        $realm = common_config('api', 'realm');
 
-        if (!isset($this->auth_user_nickname) && $required) {
+        if (empty($realm)) {
+            $realm = common_config('site', 'name') . ' API';
+        }
+
+        if (empty($this->auth_user_nickname) && $required) {
             header('WWW-Authenticate: Basic realm="' . $realm . '"');
 
             // show error if the user clicks 'cancel'
@@ -290,11 +294,15 @@ class ApiAuthAction extends ApiAction
 
     function basicAuthProcessHeader()
     {
-        if (isset($_SERVER['AUTHORIZATION'])
-            || isset($_SERVER['HTTP_AUTHORIZATION'])
-            ) {
-            $authorization_header = isset($_SERVER['HTTP_AUTHORIZATION'])
-              ? $_SERVER['HTTP_AUTHORIZATION'] : $_SERVER['AUTHORIZATION'];
+        $authHeaders = array('AUTHORIZATION',
+                             'HTTP_AUTHORIZATION',
+                             'REDIRECT_HTTP_AUTHORIZATION'); // rewrite for CGI
+        $authorization_header = null;
+        foreach ($authHeaders as $header) {
+            if (isset($_SERVER[$header])) {
+                $authorization_header = $_SERVER[$header];
+                break;
+            }
         }
 
         if (isset($_SERVER['PHP_AUTH_USER'])) {

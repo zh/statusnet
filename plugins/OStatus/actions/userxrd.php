@@ -32,12 +32,19 @@ class UserxrdAction extends XrdAction
         parent::prepare($args);
 
         $this->uri = $this->trimmed('uri');
-        $acct = Discovery::normalize($this->uri);
-
-        list($nick, $domain) = explode('@', substr(urldecode($acct), 5));
-        $nick = common_canonical_nickname($nick);
-
-        $this->user = User::staticGet('nickname', $nick);
+        $this->uri = Discovery::normalize($this->uri);
+        
+        if (Discovery::isWebfinger($this->uri)) {
+            $parts = explode('@', substr(urldecode($this->uri), 5));
+            if (count($parts) == 2) {
+                list($nick, $domain) = $parts;
+                // @fixme confirm the domain too
+                $nick = common_canonical_nickname($nick);
+                $this->user = User::staticGet('nickname', $nick);
+            }
+        } else {
+            $this->user = User::staticGet('uri', $this->uri);
+        }
         if (!$this->user) {
             $this->clientError(_('No such user.'), 404);
             return false;

@@ -59,8 +59,8 @@ unless you configure it with a consumer key and secret.)
    secret.  The Twitter bridge will fall back on the global key pair if
    it can't find a local pair, e.g.:
 
-   $config['twitter']['global_consumer_key']    = 'YOUR_CONSUMER_KEY'
-   $config['twitter']['global_consumer_secret'] = 'YOUR_CONSUMER_SECRET'
+   $config['twitter']['global_consumer_key']    = 'YOUR_CONSUMER_KEY';
+   $config['twitter']['global_consumer_secret'] = 'YOUR_CONSUMER_SECRET';
 
 Administration panel
 --------------------

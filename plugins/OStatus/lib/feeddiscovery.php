@@ -73,6 +73,7 @@ class FeedDiscovery
     public $uri;
     public $type;
     public $feed;
+    public $root;
 
     /** Post-initialize query helper... */
     public function getLink($rel, $type=null)
@@ -83,7 +84,7 @@ class FeedDiscovery
 
     public function getAtomLink($rel, $type=null)
     {
-        return ActivityUtils::getLink($this->feed->documentElement, $rel, $type);
+        return ActivityUtils::getLink($this->root, $rel, $type);
     }
 
     /**
@@ -117,7 +118,7 @@ class FeedDiscovery
                 return $this->discoverFromURL($target, false);
             }
         }
-        
+
         return $this->initFromResponse($response);
     }
 
@@ -129,7 +130,7 @@ class FeedDiscovery
     function initFromResponse($response)
     {
         if (!$response->isOk()) {
-            throw new FeedSubBadResponseException($response->getCode());
+            throw new FeedSubBadResponseException($response->getStatus());
         }
 
         $sourceurl = $response->getUrl();
@@ -154,9 +155,27 @@ class FeedDiscovery
             $this->uri = $sourceurl;
             $this->type = $type;
             $this->feed = $feed;
+
+            $el = $this->feed->documentElement;
+
+            // Looking for the "root" element: RSS channel or Atom feed
+
+            if ($el->tagName == 'rss') {
+                $channels = $el->getElementsByTagName('channel');
+                if ($channels->length > 0) {
+                    $this->root = $channels->item(0);
+                } else {
+                    throw new FeedSubBadXmlException($sourceurl);
+                }
+            } else if ($el->tagName == 'feed') {
+                $this->root = $el;
+            } else {
+                throw new FeedSubBadXmlException($sourceurl);
+            }
+
             return $this->uri;
         } else {
-            throw new FeedSubBadXmlException($url);
+            throw new FeedSubBadXmlException($sourceurl);
         }
     }
 
@@ -202,7 +221,7 @@ class FeedDiscovery
             'application/atom+xml' => false,
             'application/rss+xml' => false,
         );
-        
+
         $nodes = $dom->getElementsByTagName('link');
         for ($i = 0; $i < $nodes->length; $i++) {
             $node = $nodes->item($i);
@@ -211,11 +230,11 @@ class FeedDiscovery
                 $type = $node->attributes->getNamedItem('type');
                 $href = $node->attributes->getNamedItem('href');
                 if ($rel && $type && $href) {
-                    $rel = trim($rel->value);
+                    $rel = array_filter(explode(" ", $rel->value));
                     $type = trim($type->value);
                     $href = trim($href->value);
 
-                    if (trim($rel) == 'alternate' && array_key_exists($type, $feeds) && empty($feeds[$type])) {
+                    if (in_array('alternate', $rel) && array_key_exists($type, $feeds) && empty($feeds[$type])) {
                         // Save the first feed found of each type...
                         $feeds[$type] = $this->resolveURI($href, $base);
                     }

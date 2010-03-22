@@ -107,6 +107,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         // We'll pull common formatting out of this for other formats
         $atom = new AtomGroupNoticeFeed($this->group);
 
+        $self = $this->getSelfUri();
+
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
@@ -118,7 +120,8 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
                 $this->group->homeUrl(),
                 $atom->subtitle,
                 null,
-                $atom->logo
+                $atom->logo,
+                $self
             );
             break;
         case 'atom':
@@ -126,24 +129,12 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             header('Content-Type: application/atom+xml; charset=utf-8');
 
             try {
-
                 $atom->addAuthorRaw($this->group->asAtomAuthor());
                 $atom->setActivitySubject($this->group->asActivitySubject());
-
-                $id = $this->arg('id');
-                $aargs = array('format' => 'atom');
-                if (!empty($id)) {
-                    $aargs['id'] = $id;
-                }
-                $self = $this->getSelfUri('ApiTimelineGroup', $aargs);
-
                 $atom->setId($self);
                 $atom->setSelfLink($self);
-
                 $atom->addEntryFromNotices($this->notices);
-
                 $this->raw($atom->getString());
-
             } catch (Atom10FeedException $e) {
                 $this->serverError(
                     'Could not generate feed for group - ' . $e->getMessage()

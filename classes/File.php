@@ -67,7 +67,14 @@ class File extends Memcached_DataObject
         return $att;
     }
 
-    function saveNew($redir_data, $given_url) {
+    /**
+     * Save a new file record.
+     *
+     * @param array $redir_data lookup data eg from File_redirection::where()
+     * @param string $given_url
+     * @return File
+     */
+    function saveNew(array $redir_data, $given_url) {
         $x = new File;
         $x->url = $given_url;
         if (!empty($redir_data['protected'])) $x->protected = $redir_data['protected'];
@@ -77,19 +84,36 @@ class File extends Memcached_DataObject
         if (isset($redir_data['time']) && $redir_data['time'] > 0) $x->date = intval($redir_data['time']);
         $file_id = $x->insert();
 
+        $x->saveOembed($redir_data, $given_url);
+        return $x;
+    }
+
+    /**
+     * Save embedding information for this file, if applicable.
+     *
+     * Normally this won't need to be called manually, as File::saveNew()
+     * takes care of it.
+     *
+     * @param array $redir_data lookup data eg from File_redirection::where()
+     * @param string $given_url
+     * @return boolean success
+     */
+    public function saveOembed($redir_data, $given_url)
+    {
         if (isset($redir_data['type'])
             && (('text/html' === substr($redir_data['type'], 0, 9) || 'application/xhtml+xml' === substr($redir_data['type'], 0, 21)))
             && ($oembed_data = File_oembed::_getOembed($given_url))) {
 
-            $fo = File_oembed::staticGet('file_id', $file_id);
+            $fo = File_oembed::staticGet('file_id', $this->id);
 
             if (empty($fo)) {
-                File_oembed::saveNew($oembed_data, $file_id);
+                File_oembed::saveNew($oembed_data, $this->id);
+                return true;
             } else {
                 common_log(LOG_WARNING, "Strangely, a File_oembed object exists for new file $file_id", __FILE__);
             }
         }
-        return $x;
+        return false;
     }
 
     function processNew($given_url, $notice_id=null) {
@@ -105,6 +129,7 @@ class File extends Memcached_DataObject
                     $redir_url = $redir_data['url'];
                 } elseif (is_string($redir_data)) {
                     $redir_url = $redir_data;
+                    $redir_data = array();
                 } else {
                     throw new ServerException("Can't process url '$given_url'");
                 }
@@ -260,7 +285,7 @@ class File extends Memcached_DataObject
         $enclosure->mimetype=$this->mimetype;
 
         if(! isset($this->filename)){
-            $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
+            $notEnclosureMimeTypes = array(null,'text/html','application/xhtml+xml');
             $mimetype = strtolower($this->mimetype);
             $semicolon = strpos($mimetype,';');
             if($semicolon){

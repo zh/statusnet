@@ -251,7 +251,7 @@ class FoafAction extends Action
         }
 
         // Their account
-        $this->elementStart('holdsAccount');
+        $this->elementStart('account');
         $this->elementStart('OnlineAccount', $attr);
         if ($service) {
             $this->element('accountServiceHomepage', array('rdf:resource' =>
@@ -306,7 +306,7 @@ class FoafAction extends Action
         }
 
         $this->elementEnd('OnlineAccount');
-        $this->elementEnd('holdsAccount');
+        $this->elementEnd('account');
 
         return $person;
     }

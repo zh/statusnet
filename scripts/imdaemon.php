@@ -53,7 +53,7 @@ class ImDaemon extends SpawningDaemon
     {
         common_log(LOG_INFO, 'Waiting to listen to IM connections and queues');
 
-        $master = new ImMaster($this->get_id());
+        $master = new ImMaster($this->get_id(), $this->processManager());
         $master->init($this->allsites);
         $master->service();
 
@@ -66,6 +66,14 @@ class ImDaemon extends SpawningDaemon
 
 class ImMaster extends IoMaster
 {
+    protected $processManager;
+
+    function __construct($id, $processManager)
+    {
+        parent::__construct($id);
+        $this->processManager = $processManager;
+    }
+
     /**
      * Initialize IoManagers for the currently configured site
      * which are appropriate to this instance.
@@ -77,11 +85,20 @@ class ImMaster extends IoMaster
             $qm = QueueManager::get();
             $qm->setActiveGroup('im');
             $classes[] = $qm;
+            $classes[] = $this->processManager;
         }
         Event::handle('EndImDaemonIoManagers', array(&$classes));
         foreach ($classes as $class) {
             $this->instantiate($class);
         }
+    }
+}
+
+if (version_compare(PHP_VERSION, '5.2.6', '<')) {
+    $arch = php_uname('m');
+    if ($arch == 'x86_64' || $arch == 'amd64') {
+        print "Aborting daemon - 64-bit PHP prior to 5.2.6 has known bugs in stream_select; you are running " . PHP_VERSION . " on $arch.\n";
+        exit(1);
     }
 }
 

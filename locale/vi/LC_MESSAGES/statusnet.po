@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-06 23:49+0000\n"
-"PO-Revision-Date: 2010-03-06 23:51:10+0000\n"
+"POT-Creation-Date: 2010-03-17 21:39+0000\n"
+"PO-Revision-Date: 2010-03-17 21:41:45+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -100,7 +100,7 @@ msgstr "Không có tin nhắn nào."
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:90
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:78
+#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -109,10 +109,8 @@ msgstr "Không có tin nhắn nào."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
-#: lib/command.php:355 lib/command.php:401 lib/command.php:462
-#: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
-#: lib/profileaction.php:77
+#: actions/xrds.php:71 lib/command.php:456 lib/galleryaction.php:59
+#: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Không có user nào."
 
@@ -204,14 +202,14 @@ msgstr ""
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
+#: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
-#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
+#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
+#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:151
 #: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
+#: actions/apitimelineuser.php:162 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "Phương thức API không tìm thấy!"
@@ -225,8 +223,8 @@ msgstr "Phương thức API không tìm thấy!"
 #: actions/apifavoritecreate.php:90 actions/apifavoritedestroy.php:91
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
-#: actions/apigroupleave.php:91 actions/apistatusesretweet.php:65
-#: actions/apistatusesupdate.php:118
+#: actions/apigroupleave.php:91 actions/apimediaupload.php:67
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
 msgstr "Phương thức này yêu cầu là POST."
 
@@ -257,7 +255,7 @@ msgid "Could not save profile."
 msgstr "Không thể lưu hồ sơ cá nhân."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97
+#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:122 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
@@ -347,7 +345,7 @@ msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 msgid "This status is already a favorite."
 msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
 
-#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:176
+#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:279
 msgid "Could not create favorite."
 msgstr "Không thể tạo favorite."
 
@@ -473,7 +471,7 @@ msgstr "Phương thức API không tìm thấy!"
 msgid "You are already a member of that group."
 msgstr "Bạn đã theo những người này:"
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:221
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:321
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
@@ -525,7 +523,7 @@ msgstr "Kích thước không hợp lệ."
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:337
+#: actions/profilesettings.php:194 actions/recoverpassword.php:350
 #: actions/register.php:165 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
 #: actions/subscribe.php:86 actions/tagother.php:166
@@ -593,9 +591,9 @@ msgstr "Giới thiệu"
 
 #: actions/apioauthauthorize.php:313 actions/login.php:230
 #: actions/profilesettings.php:106 actions/register.php:424
-#: actions/showgroup.php:244 actions/tagother.php:94
+#: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
-#: lib/userprofile.php:131
+#: lib/userprofile.php:132
 msgid "Nickname"
 msgstr "Biệt danh"
 
@@ -668,12 +666,12 @@ msgstr ""
 msgid "Unsupported format."
 msgstr "Không hỗ trợ kiểu file ảnh này."
 
-#: actions/apitimelinefavorites.php:108
+#: actions/apitimelinefavorites.php:109
 #, fuzzy, php-format
 msgid "%1$s / Favorites from %2$s"
 msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
 
-#: actions/apitimelinefavorites.php:117
+#: actions/apitimelinefavorites.php:118
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "Tất cả các cập nhật của %s"
@@ -683,7 +681,7 @@ msgstr "Tất cả các cập nhật của %s"
 msgid "%1$s / Updates mentioning %2$s"
 msgstr "%1$s / Các cập nhật đang trả lời tới %2$s"
 
-#: actions/apitimelinementions.php:127
+#: actions/apitimelinementions.php:130
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
@@ -693,7 +691,7 @@ msgstr ""
 msgid "%s public timeline"
 msgstr "Dòng tin công cộng"
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:112 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s cập nhật từ tất cả mọi người!"
@@ -708,12 +706,12 @@ msgstr "Trả lời cho %s"
 msgid "Repeats of %s"
 msgstr "Trả lời cho %s"
 
-#: actions/apitimelinetag.php:102 actions/tag.php:67
+#: actions/apitimelinetag.php:104 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "Thông báo được gắn thẻ %s"
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:65
+#: actions/apitimelinetag.php:106 actions/tagrss.php:65
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Dòng tin nhắn cho %s"
@@ -743,7 +741,7 @@ msgstr "Không có kích thước."
 msgid "Invalid size."
 msgstr "Kích thước không hợp lệ."
 
-#: actions/avatarsettings.php:67 actions/showgroup.php:229
+#: actions/avatarsettings.php:67 actions/showgroup.php:230
 #: lib/accountsettingsaction.php:112
 msgid "Avatar"
 msgstr "Hình đại diện"
@@ -778,7 +776,7 @@ msgid "Preview"
 msgstr "Xem trước"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:655
+#: lib/deleteuserform.php:66 lib/noticelist.php:658
 #, fuzzy
 msgid "Delete"
 msgstr "Xóa tin nhắn"
@@ -865,8 +863,8 @@ msgstr ""
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:212
-#: lib/command.php:260
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:162
+#: lib/command.php:358
 #, fuzzy
 msgid "No such group."
 msgstr "Không có tin nhắn nào."
@@ -974,7 +972,7 @@ msgstr "Bạn chưa cập nhật thông tin riêng"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1217
+#: lib/action.php:1220
 #, fuzzy
 msgid "There was a problem with your session token."
 msgstr "Có lỗi xảy ra khi thao tác. Hãy thử lại lần nữa."
@@ -1036,7 +1034,7 @@ msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
 msgid "Do not delete this notice"
 msgstr "Không thể xóa tin nhắn này."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:655
+#: actions/deletenotice.php:146 lib/noticelist.php:658
 #, fuzzy
 msgid "Delete this notice"
 msgstr "Xóa tin nhắn"
@@ -1320,7 +1318,7 @@ msgstr "Lý lịch quá dài (không quá 140 ký tự)"
 msgid "Could not update group."
 msgstr "Không thể cập nhật thành viên."
 
-#: actions/editgroup.php:264 classes/User_group.php:493
+#: actions/editgroup.php:264 classes/User_group.php:496
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "Không thể tạo favorite."
@@ -2055,7 +2053,7 @@ msgstr "Gửi thư mời đến những người chưa có tài khoản"
 msgid "You are already subscribed to these users:"
 msgstr "Bạn đã theo những người này:"
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:306
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:398
 #, fuzzy, php-format
 msgid "%1$s (%2$s)"
 msgstr "%s (%s)"
@@ -2192,7 +2190,7 @@ msgstr "%s và nhóm"
 msgid "You must be logged in to leave a group."
 msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
 
-#: actions/leavegroup.php:100 lib/command.php:265
+#: actions/leavegroup.php:100 lib/command.php:363
 #, fuzzy
 msgid "You are not a member of that group."
 msgstr "Bạn chưa cập nhật thông tin riêng"
@@ -2313,13 +2311,13 @@ msgstr ""
 msgid "New message"
 msgstr "Tin mới nhất"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:358
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:459
 #, fuzzy
 msgid "You can't send a message to this user."
 msgstr "Bạn đã theo những người này:"
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:342
-#: lib/command.php:475
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:443
+#: lib/command.php:529
 msgid "No content!"
 msgstr "Không có nội dung!"
 
@@ -2327,7 +2325,7 @@ msgstr "Không có nội dung!"
 msgid "No recipient specified."
 msgstr ""
 
-#: actions/newmessage.php:164 lib/command.php:361
+#: actions/newmessage.php:164 lib/command.php:462
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -2342,7 +2340,7 @@ msgstr "Tin mới nhất"
 msgid "Direct message to %s sent."
 msgstr "Tin nhắn riêng"
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:170
+#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
 #, fuzzy
 msgid "Ajax Error"
 msgstr "Lỗi"
@@ -2461,7 +2459,7 @@ msgstr ""
 msgid "Notice has no profile"
 msgstr "Tin nhắn không có hồ sơ cá nhân"
 
-#: actions/oembed.php:86 actions/shownotice.php:180
+#: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "Trạng thái của %1$s vào %2$s"
@@ -2475,8 +2473,8 @@ msgstr "Kết nối"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
-#: lib/apiaction.php:1070 lib/apiaction.php:1179
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
+#: lib/apiaction.php:1097 lib/apiaction.php:1213
 msgid "Not a supported data format."
 msgstr "Không hỗ trợ định dạng dữ liệu này."
 
@@ -2620,7 +2618,7 @@ msgstr "Mật khẩu cũ sai"
 msgid "Error saving user; invalid."
 msgstr "Lỗi xảy ra khi lưu thành viên;  không hợp lệ."
 
-#: actions/passwordsettings.php:186 actions/recoverpassword.php:368
+#: actions/passwordsettings.php:186 actions/recoverpassword.php:381
 msgid "Can't save new password."
 msgstr "Không thể lưu mật khẩu mới"
 
@@ -2850,8 +2848,8 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 chữ cái thường hoặc là chữ số, không có dấu chấm hay "
 
 #: actions/profilesettings.php:111 actions/register.php:448
-#: actions/showgroup.php:255 actions/tagother.php:104
-#: lib/groupeditform.php:157 lib/userprofile.php:149
+#: actions/showgroup.php:256 actions/tagother.php:104
+#: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "Tên đầy đủ"
 
@@ -2879,9 +2877,9 @@ msgid "Bio"
 msgstr "Lý lịch"
 
 #: actions/profilesettings.php:132 actions/register.php:471
-#: actions/showgroup.php:264 actions/tagother.php:112
+#: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
-#: lib/userprofile.php:164
+#: lib/userprofile.php:165
 msgid "Location"
 msgstr "Thành phố"
 
@@ -2895,7 +2893,7 @@ msgstr ""
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
-#: lib/subscriptionlist.php:108 lib/userprofile.php:209
+#: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
 msgstr "Từ khóa"
 
@@ -3128,7 +3126,7 @@ msgstr "Khởi tạo lại mật khẩu"
 msgid "Recover password"
 msgstr "Khôi phục mật khẩu"
 
-#: actions/recoverpassword.php:210 actions/recoverpassword.php:322
+#: actions/recoverpassword.php:210 actions/recoverpassword.php:335
 msgid "Password recovery requested"
 msgstr "Yêu cầu khôi phục lại mật khẩu đã được gửi"
 
@@ -3148,20 +3146,20 @@ msgstr "Khởi tạo"
 msgid "Enter a nickname or email address."
 msgstr "Nhập biệt hiệu hoặc email."
 
-#: actions/recoverpassword.php:272
+#: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
 msgstr ""
 "Không tìm thấy người dùng nào tương ứng với địa chỉ email hoặc username đó."
 
-#: actions/recoverpassword.php:287
+#: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
 msgstr "Thành viên này đã không đăng ký địa chỉ email."
 
-#: actions/recoverpassword.php:301
+#: actions/recoverpassword.php:313
 msgid "Error saving address confirmation."
 msgstr "Lỗi xảy ra khi lưu địa chỉ đã được xác nhận."
 
-#: actions/recoverpassword.php:325
+#: actions/recoverpassword.php:338
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
@@ -3169,23 +3167,23 @@ msgstr ""
 "Hướng dẫn cách khôi phục mật khẩu đã được gửi đến địa chỉ email đăng ký "
 "trong tài khoản của bạn."
 
-#: actions/recoverpassword.php:344
+#: actions/recoverpassword.php:357
 msgid "Unexpected password reset."
 msgstr "Bất ngờ reset mật khẩu."
 
-#: actions/recoverpassword.php:352
+#: actions/recoverpassword.php:365
 msgid "Password must be 6 chars or more."
 msgstr "Mật khẩu phải nhiều hơn 6 ký tự."
 
-#: actions/recoverpassword.php:356
+#: actions/recoverpassword.php:369
 msgid "Password and confirmation do not match."
 msgstr "Mật khẩu và mật khẩu xác nhận không khớp nhau."
 
-#: actions/recoverpassword.php:375 actions/register.php:248
+#: actions/recoverpassword.php:388 actions/register.php:248
 msgid "Error setting user."
 msgstr "Lỗi xảy ra khi tạo thành viên."
 
-#: actions/recoverpassword.php:382
+#: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
 msgstr "Mật khẩu mới đã được lưu. Bạn có thể đăng nhập ngay bây giờ."
 
@@ -3348,7 +3346,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr "URL trong hồ sơ cá nhân của bạn ở trên các trang microblogging khác"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:394
+#: lib/userprofile.php:406
 msgid "Subscribe"
 msgstr "Theo bạn này"
 
@@ -3389,7 +3387,7 @@ msgstr "Bạn không thể đăng ký nếu không đồng ý các điều kho�
 msgid "You already repeated that notice."
 msgstr "Bạn đã theo những người này:"
 
-#: actions/repeat.php:114 lib/noticelist.php:674
+#: actions/repeat.php:114 lib/noticelist.php:677
 #, fuzzy
 msgid "Repeated"
 msgstr "Tạo"
@@ -3538,7 +3536,7 @@ msgstr "Thư mời đã gửi"
 msgid "Description"
 msgstr "Mô tả"
 
-#: actions/showapplication.php:192 actions/showgroup.php:438
+#: actions/showapplication.php:192 actions/showgroup.php:439
 #: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "Số liệu thống kê"
@@ -3650,72 +3648,72 @@ msgstr "%s và nhóm"
 msgid "%1$s group, page %2$d"
 msgstr "Thành viên"
 
-#: actions/showgroup.php:226
+#: actions/showgroup.php:227
 #, fuzzy
 msgid "Group profile"
 msgstr "Thông tin nhóm"
 
-#: actions/showgroup.php:271 actions/tagother.php:118
-#: actions/userauthorization.php:175 lib/userprofile.php:177
+#: actions/showgroup.php:272 actions/tagother.php:118
+#: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:282 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:194
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
 #, fuzzy
 msgid "Note"
 msgstr "Tin nhắn"
 
-#: actions/showgroup.php:292 lib/groupeditform.php:184
+#: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
-#: actions/showgroup.php:301
+#: actions/showgroup.php:302
 #, fuzzy
 msgid "Group actions"
 msgstr "Mã nhóm"
 
-#: actions/showgroup.php:337
+#: actions/showgroup.php:338
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/showgroup.php:343
+#: actions/showgroup.php:344
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/showgroup.php:349
+#: actions/showgroup.php:350
 #, fuzzy, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/showgroup.php:354
+#: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
 msgstr "Hộp thư đi của %s"
 
-#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
+#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
 msgid "Members"
 msgstr "Thành viên"
 
-#: actions/showgroup.php:395 lib/profileaction.php:117
+#: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
 
-#: actions/showgroup.php:401
+#: actions/showgroup.php:402
 #, fuzzy
 msgid "All members"
 msgstr "Thành viên"
 
-#: actions/showgroup.php:441
+#: actions/showgroup.php:442
 #, fuzzy
 msgid "Created"
 msgstr "Tạo"
 
-#: actions/showgroup.php:457
+#: actions/showgroup.php:458
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3725,7 +3723,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:464
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3734,7 +3732,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:491
+#: actions/showgroup.php:492
 msgid "Admins"
 msgstr ""
 
@@ -4292,13 +4290,13 @@ msgstr "Không có tài liệu nào."
 msgid "Tag %s"
 msgstr "Từ khóa"
 
-#: actions/tagother.php:77 lib/userprofile.php:75
+#: actions/tagother.php:77 lib/userprofile.php:76
 #, fuzzy
 msgid "User profile"
 msgstr "Hồ sơ"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
-#: lib/userprofile.php:102
+#: lib/userprofile.php:103
 msgid "Photo"
 msgstr ""
 
@@ -4638,19 +4636,19 @@ msgstr "Cá nhân"
 msgid "Author(s)"
 msgstr ""
 
-#: classes/File.php:144
+#: classes/File.php:169
 #, php-format
 msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:154
+#: classes/File.php:179
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:161
+#: classes/File.php:186
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
@@ -4695,46 +4693,46 @@ msgstr "Không thể chèn thêm vào đăng nhận."
 msgid "Could not update message with new URI."
 msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
 
-#: classes/Notice.php:172
+#: classes/Notice.php:175
 #, fuzzy, php-format
 msgid "DB error inserting hashtag: %s"
 msgstr "Lỗi cơ sở dữ liệu khi chèn trả lời: %s"
 
-#: classes/Notice.php:241
+#: classes/Notice.php:244
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/Notice.php:245
+#: classes/Notice.php:248
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/Notice.php:250
+#: classes/Notice.php:253
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:256
+#: classes/Notice.php:259
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:262
+#: classes/Notice.php:265
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:328 classes/Notice.php:354
+#: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/Notice.php:927
+#: classes/Notice.php:941
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: classes/Notice.php:1459
+#: classes/Notice.php:1479
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%s (%s)"
@@ -4767,31 +4765,31 @@ msgstr "Không thể xóa đăng nhận."
 msgid "Couldn't delete subscription OMB token."
 msgstr "Không thể xóa đăng nhận."
 
-#: classes/Subscription.php:201 lib/subs.php:69
+#: classes/Subscription.php:201
 msgid "Couldn't delete subscription."
 msgstr "Không thể xóa đăng nhận."
 
-#: classes/User.php:373
+#: classes/User.php:378
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%s chào mừng bạn "
 
-#: classes/User_group.php:477
+#: classes/User_group.php:480
 #, fuzzy
 msgid "Could not create group."
 msgstr "Không thể tạo favorite."
 
-#: classes/User_group.php:486
+#: classes/User_group.php:489
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "Không thể tạo đăng nhận."
 
-#: classes/User_group.php:507
+#: classes/User_group.php:510
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "Không thể tạo đăng nhận."
 
-#: classes/User_group.php:521
+#: classes/User_group.php:524
 #, fuzzy
 msgid "Could not save local group info."
 msgstr "Không thể tạo đăng nhận."
@@ -5017,7 +5015,7 @@ msgstr "Tin đã gửi"
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:802
+#: lib/action.php:804
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5026,12 +5024,12 @@ msgstr ""
 "**%%site.name%%** là dịch vụ gửi tin nhắn được cung cấp từ [%%site.broughtby%"
 "%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:804
+#: lib/action.php:806
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** là dịch vụ gửi tin nhắn. "
 
-#: lib/action.php:806
+#: lib/action.php:809
 #, fuzzy, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5042,43 +5040,43 @@ msgstr ""
 "quyền [GNU Affero General Public License](http://www.fsf.org/licensing/"
 "licenses/agpl-3.0.html)."
 
-#: lib/action.php:821
+#: lib/action.php:824
 #, fuzzy
 msgid "Site content license"
 msgstr "Tìm theo nội dung của tin nhắn"
 
-#: lib/action.php:826
+#: lib/action.php:829
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:831
+#: lib/action.php:834
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:837
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:847
+#: lib/action.php:850
 msgid "All "
 msgstr ""
 
-#: lib/action.php:853
+#: lib/action.php:856
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1152
+#: lib/action.php:1155
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1161
+#: lib/action.php:1164
 #, fuzzy
 msgid "After"
 msgstr "Sau"
 
-#: lib/action.php:1169
+#: lib/action.php:1172
 #, fuzzy
 msgid "Before"
 msgstr "Trước"
@@ -5093,6 +5091,10 @@ msgstr ""
 
 #: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
+msgstr ""
+
+#: lib/activity.php:1089
+msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5194,7 +5196,7 @@ msgstr "Xác nhận SMS"
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#: lib/apiauth.php:272
+#: lib/apiauth.php:276
 #, php-format
 msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
 msgstr ""
@@ -5273,11 +5275,11 @@ msgstr "Xóa"
 msgid "Attachments"
 msgstr ""
 
-#: lib/attachmentlist.php:265
+#: lib/attachmentlist.php:263
 msgid "Author"
 msgstr ""
 
-#: lib/attachmentlist.php:278
+#: lib/attachmentlist.php:276
 #, fuzzy
 msgid "Provider"
 msgstr "Hồ sơ "
@@ -5300,39 +5302,54 @@ msgstr "Đã lưu mật khẩu."
 msgid "Password changing is not allowed"
 msgstr "Đã lưu mật khẩu."
 
-#: lib/channel.php:138 lib/channel.php:158
+#: lib/channel.php:157 lib/channel.php:177
 #, fuzzy
 msgid "Command results"
 msgstr "Không có kết quả nào"
 
-#: lib/channel.php:210 lib/mailhandler.php:142
+#: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr ""
 
-#: lib/channel.php:221
+#: lib/channel.php:240
 #, fuzzy
 msgid "Command failed"
 msgstr " và bạn bè"
 
-#: lib/command.php:44
-msgid "Sorry, this command is not yet implemented."
-msgstr ""
+#: lib/command.php:83 lib/command.php:105
+#, fuzzy
+msgid "Notice with that id does not exist"
+msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 
-#: lib/command.php:88
+#: lib/command.php:99 lib/command.php:570
+#, fuzzy
+msgid "User has no last notice"
+msgstr "Người dùng không có thông tin."
+
+#: lib/command.php:125
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
 
-#: lib/command.php:92
+#: lib/command.php:143
+#, fuzzy, php-format
+msgid "Could not find a local user with nickname %s"
+msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
+
+#: lib/command.php:176
+msgid "Sorry, this command is not yet implemented."
+msgstr ""
+
+#: lib/command.php:221
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#: lib/command.php:99
+#: lib/command.php:228
 #, fuzzy, php-format
 msgid "Nudge sent to %s"
 msgstr "Tin đã gửi"
 
-#: lib/command.php:126
+#: lib/command.php:254
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5340,207 +5357,203 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:152 lib/command.php:390 lib/command.php:451
-#, fuzzy
-msgid "Notice with that id does not exist"
-msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
-
-#: lib/command.php:168 lib/command.php:406 lib/command.php:467
-#: lib/command.php:523
-#, fuzzy
-msgid "User has no last notice"
-msgstr "Người dùng không có thông tin."
-
-#: lib/command.php:190
+#: lib/command.php:296
 #, fuzzy
 msgid "Notice marked as fave."
 msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
 
-#: lib/command.php:217
+#: lib/command.php:317
 #, fuzzy
 msgid "You are already a member of that group"
 msgstr "Bạn đã theo những người này:"
 
-#: lib/command.php:231
+#: lib/command.php:331
 #, fuzzy, php-format
 msgid "Could not join user %s to group %s"
 msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
 
-#: lib/command.php:236
+#: lib/command.php:336
 #, fuzzy, php-format
 msgid "%s joined group %s"
 msgstr "%s và nhóm"
 
-#: lib/command.php:275
+#: lib/command.php:373
 #, fuzzy, php-format
 msgid "Could not remove user %s to group %s"
 msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
 
-#: lib/command.php:280
+#: lib/command.php:378
 #, fuzzy, php-format
 msgid "%s left group %s"
 msgstr "%s và nhóm"
 
-#: lib/command.php:309
+#: lib/command.php:401
 #, fuzzy, php-format
 msgid "Fullname: %s"
 msgstr "Tên đầy đủ"
 
-#: lib/command.php:312 lib/mail.php:258
+#: lib/command.php:404 lib/mail.php:258
 #, fuzzy, php-format
 msgid "Location: %s"
 msgstr "Thành phố: %s"
 
-#: lib/command.php:315 lib/mail.php:260
+#: lib/command.php:407 lib/mail.php:260
 #, fuzzy, php-format
 msgid "Homepage: %s"
 msgstr "Trang chủ hoặc Blog: %s"
 
-#: lib/command.php:318
+#: lib/command.php:410
 #, fuzzy, php-format
 msgid "About: %s"
 msgstr "Giới thiệu"
 
-#: lib/command.php:349
+#: lib/command.php:437
+#, php-format
+msgid ""
+"%s is a remote profile; you can only send direct messages to users on the "
+"same server."
+msgstr ""
+
+#: lib/command.php:450
 #, php-format
 msgid "Message too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:367
+#: lib/command.php:468
 #, fuzzy, php-format
 msgid "Direct message to %s sent"
 msgstr "Tin nhắn riêng"
 
-#: lib/command.php:369
+#: lib/command.php:470
 #, fuzzy
 msgid "Error sending direct message."
 msgstr "Thư bạn đã gửi"
 
-#: lib/command.php:413
+#: lib/command.php:490
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
 
-#: lib/command.php:418
+#: lib/command.php:495
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "Xóa tin nhắn"
 
-#: lib/command.php:426
+#: lib/command.php:503
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "Tin đã gửi"
 
-#: lib/command.php:428
+#: lib/command.php:505
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: lib/command.php:482
+#: lib/command.php:536
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr ""
 
-#: lib/command.php:491
+#: lib/command.php:545
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "Trả lời tin nhắn này"
 
-#: lib/command.php:493
+#: lib/command.php:547
 #, fuzzy
 msgid "Error saving notice."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
-#: lib/command.php:547
+#: lib/command.php:594
 msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
-#: lib/command.php:554 lib/command.php:589
+#: lib/command.php:602
 #, fuzzy
-msgid "No such user"
-msgstr "Không có user nào."
+msgid "Can't subscribe to OMB profiles by command."
+msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: lib/command.php:561
+#: lib/command.php:608
 #, fuzzy, php-format
 msgid "Subscribed to %s"
 msgstr "Theo nhóm này"
 
-#: lib/command.php:582 lib/command.php:685
+#: lib/command.php:629 lib/command.php:728
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
-#: lib/command.php:595
+#: lib/command.php:638
 #, fuzzy, php-format
 msgid "Unsubscribed from %s"
 msgstr "Hết theo"
 
-#: lib/command.php:613 lib/command.php:636
+#: lib/command.php:656 lib/command.php:679
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:616
+#: lib/command.php:659
 #, fuzzy
 msgid "Notification off."
 msgstr "Không có mã số xác nhận."
 
-#: lib/command.php:618
+#: lib/command.php:661
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:639
+#: lib/command.php:682
 #, fuzzy
 msgid "Notification on."
 msgstr "Không có mã số xác nhận."
 
-#: lib/command.php:641
+#: lib/command.php:684
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:654
+#: lib/command.php:697
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:665
+#: lib/command.php:708
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:692
+#: lib/command.php:735
 #, fuzzy, php-format
 msgid "Unsubscribed  %s"
 msgstr "Hết theo"
 
-#: lib/command.php:709
+#: lib/command.php:752
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: lib/command.php:711
+#: lib/command.php:754
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Bạn đã theo những người này:"
 
-#: lib/command.php:731
+#: lib/command.php:774
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "Không thể tạo favorite."
 
-#: lib/command.php:733
+#: lib/command.php:776
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Không thể tạo favorite."
 
-#: lib/command.php:753
+#: lib/command.php:796
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: lib/command.php:755
+#: lib/command.php:798
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Bạn chưa cập nhật thông tin riêng"
 
-#: lib/command.php:769
+#: lib/command.php:812
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5582,20 +5595,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:148
+#: lib/common.php:136
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "Không có mã số xác nhận."
 
-#: lib/common.php:149
+#: lib/common.php:137
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:151
+#: lib/common.php:139
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:152
+#: lib/common.php:140
 msgid "Go to the installer."
 msgstr ""
 
@@ -5785,53 +5798,53 @@ msgstr ""
 msgid "This page is not available in a media type you accept"
 msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
 
-#: lib/imagefile.php:75
+#: lib/imagefile.php:74
+msgid "Unsupported image file format."
+msgstr "Không hỗ trợ kiểu file ảnh này."
+
+#: lib/imagefile.php:90
 #, fuzzy, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr ""
 "Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
 "về bạn."
 
-#: lib/imagefile.php:80
+#: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "Upload từng phần."
 
-#: lib/imagefile.php:88 lib/mediafile.php:170
+#: lib/imagefile.php:103 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "Hệ thống xảy ra lỗi trong khi tải file."
 
-#: lib/imagefile.php:96
+#: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
 msgstr "File hỏng hoặc không phải là file ảnh."
 
-#: lib/imagefile.php:109
-msgid "Unsupported image file format."
-msgstr "Không hỗ trợ kiểu file ảnh này."
-
-#: lib/imagefile.php:122
+#: lib/imagefile.php:124
 #, fuzzy
 msgid "Lost our file."
 msgstr "Không có tin nhắn nào."
 
-#: lib/imagefile.php:166 lib/imagefile.php:231
+#: lib/imagefile.php:168 lib/imagefile.php:233
 #, fuzzy
 msgid "Unknown file type"
 msgstr "Không hỗ trợ kiểu file ảnh này."
 
-#: lib/imagefile.php:251
+#: lib/imagefile.php:253
 msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:255
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:220
+#: lib/jabber.php:228
 #, php-format
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:400
+#: lib/jabber.php:408
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
@@ -6086,7 +6099,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:482
+#: lib/mailbox.php:227 lib/noticelist.php:485
 #, fuzzy
 msgid "from"
 msgstr " từ "
@@ -6246,26 +6259,26 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:566
+#: lib/noticelist.php:569
 #, fuzzy
 msgid "in context"
 msgstr "Không có nội dung!"
 
-#: lib/noticelist.php:601
+#: lib/noticelist.php:604
 #, fuzzy
 msgid "Repeated by"
 msgstr "Tạo"
 
-#: lib/noticelist.php:628
+#: lib/noticelist.php:631
 #, fuzzy
 msgid "Reply to this notice"
 msgstr "Trả lời tin nhắn này"
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:632
 msgid "Reply"
 msgstr "Trả lời"
 
-#: lib/noticelist.php:673
+#: lib/noticelist.php:676
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Tin đã gửi"
@@ -6421,7 +6434,7 @@ msgstr "Trả lời tin nhắn này"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Ban user"
 
-#: lib/router.php:671
+#: lib/router.php:677
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -6560,95 +6573,99 @@ msgstr "Ngừng đăng ký từ người dùng này"
 msgid "Unsubscribe"
 msgstr "Hết theo"
 
-#: lib/userprofile.php:116
+#: lib/userprofile.php:117
 #, fuzzy
 msgid "Edit Avatar"
 msgstr "Hình đại diện"
 
-#: lib/userprofile.php:236
+#: lib/userprofile.php:234 lib/userprofile.php:248
 #, fuzzy
 msgid "User actions"
 msgstr "Không tìm thấy action"
 
-#: lib/userprofile.php:251
+#: lib/userprofile.php:237
+msgid "User deletion in progress..."
+msgstr ""
+
+#: lib/userprofile.php:263
 #, fuzzy
 msgid "Edit profile settings"
 msgstr "Các thiết lập cho Hồ sơ cá nhân"
 
-#: lib/userprofile.php:252
+#: lib/userprofile.php:264
 msgid "Edit"
 msgstr ""
 
-#: lib/userprofile.php:275
+#: lib/userprofile.php:287
 #, fuzzy
 msgid "Send a direct message to this user"
 msgstr "Bạn đã theo những người này:"
 
-#: lib/userprofile.php:276
+#: lib/userprofile.php:288
 #, fuzzy
 msgid "Message"
 msgstr "Tin mới nhất"
 
-#: lib/userprofile.php:314
+#: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
 
-#: lib/userprofile.php:352
+#: lib/userprofile.php:364
 #, fuzzy
 msgid "User role"
 msgstr "Hồ sơ"
 
-#: lib/userprofile.php:354
+#: lib/userprofile.php:366
 msgctxt "role"
 msgid "Administrator"
 msgstr ""
 
-#: lib/userprofile.php:355
+#: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
-#: lib/util.php:1015
+#: lib/util.php:1046
 msgid "a few seconds ago"
 msgstr "vài giây trước"
 
-#: lib/util.php:1017
+#: lib/util.php:1048
 msgid "about a minute ago"
 msgstr "1 phút trước"
 
-#: lib/util.php:1019
+#: lib/util.php:1050
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d phút trước"
 
-#: lib/util.php:1021
+#: lib/util.php:1052
 msgid "about an hour ago"
 msgstr "1 giờ trước"
 
-#: lib/util.php:1023
+#: lib/util.php:1054
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d giờ trước"
 
-#: lib/util.php:1025
+#: lib/util.php:1056
 msgid "about a day ago"
 msgstr "1 ngày trước"
 
-#: lib/util.php:1027
+#: lib/util.php:1058
 #, php-format
 msgid "about %d days ago"
 msgstr "%d ngày trước"
 
-#: lib/util.php:1029
+#: lib/util.php:1060
 msgid "about a month ago"
 msgstr "1 tháng trước"
 
-#: lib/util.php:1031
+#: lib/util.php:1062
 #, php-format
 msgid "about %d months ago"
 msgstr "%d tháng trước"
 
-#: lib/util.php:1033
+#: lib/util.php:1064
 msgid "about a year ago"
 msgstr "1 năm trước"
 
@@ -6662,7 +6679,7 @@ msgstr "Trang chủ không phải là URL"
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 
-#: lib/xmppmanager.php:402
+#: lib/xmppmanager.php:403
 #, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""

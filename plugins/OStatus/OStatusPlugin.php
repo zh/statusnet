@@ -290,7 +290,7 @@ class OStatusPlugin extends Plugin
                     $url = "$scheme://$target";
                     $this->log(LOG_INFO, "Checking profile address '$url'");
                     try {
-                        $oprofile = Ostatus_profile::ensureProfile($url);
+                        $oprofile = Ostatus_profile::ensureProfileURL($url);
                         if ($oprofile && !$oprofile->isGroup()) {
                             $profile = $oprofile->localProfile();
                             $matches[$pos] = array('mentioned' => array($profile),
@@ -319,6 +319,86 @@ class OStatusPlugin extends Plugin
         }
 
         return true;
+    }
+
+    /**
+     * Allow remote profile references to be used in commands:
+     *   sub update@status.net
+     *   whois evan@identi.ca
+     *   reply http://identi.ca/evan hey what's up
+     *
+     * @param Command $command
+     * @param string $arg
+     * @param Profile &$profile
+     * @return hook return code
+     */
+    function onStartCommandGetProfile($command, $arg, &$profile)
+    {
+        $oprofile = $this->pullRemoteProfile($arg);
+        if ($oprofile && !$oprofile->isGroup()) {
+            $profile = $oprofile->localProfile();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * Allow remote group references to be used in commands:
+     *   join group+statusnet@identi.ca
+     *   join http://identi.ca/group/statusnet
+     *   drop identi.ca/group/statusnet
+     *
+     * @param Command $command
+     * @param string $arg
+     * @param User_group &$group
+     * @return hook return code
+     */
+    function onStartCommandGetGroup($command, $arg, &$group)
+    {
+        $oprofile = $this->pullRemoteProfile($arg);
+        if ($oprofile && $oprofile->isGroup()) {
+            $group = $oprofile->localGroup();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    protected function pullRemoteProfile($arg)
+    {
+        $oprofile = null;
+        if (preg_match('!^((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)$!', $arg)) {
+            // webfinger lookup
+            try {
+                return Ostatus_profile::ensureWebfinger($arg);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, 'Webfinger lookup failed for ' .
+                                    $arg . ': ' . $e->getMessage());
+            }
+        }
+
+        // Look for profile URLs, with or without scheme:
+        $urls = array();
+        if (preg_match('!^https?://((?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+(?:/\w+)+)$!', $arg)) {
+            $urls[] = $arg;
+        }
+        if (preg_match('!^((?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+(?:/\w+)+)$!', $arg)) {
+            $schemes = array('http', 'https');
+            foreach ($schemes as $scheme) {
+                $urls[] = "$scheme://$arg";
+            }
+        }
+
+        foreach ($urls as $url) {
+            try {
+                return Ostatus_profile::ensureProfileURL($url);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, 'Profile lookup failed for ' .
+                                    $arg . ': ' . $e->getMessage());
+            }
+        }
+        return null;
     }
 
     /**
@@ -848,5 +928,23 @@ class OStatusPlugin extends Plugin
                                '<a href="http://ostatus.org/">OStatus</a>.'));
 
         return true;
+    }
+
+    /**
+     * Utility function to check if the given URL is a canonical group profile
+     * page, and if so return the ID number.
+     *
+     * @param string $url
+     * @return mixed int or false
+     */
+    public static function localGroupFromUrl($url)
+    {
+        $template = common_local_url('groupbyid', array('id' => '31337'));
+        $template = preg_quote($template, '/');
+        $template = str_replace('31337', '(\d+)', $template);
+        if (preg_match("/$template/", $url, $matches)) {
+            return intval($matches[1]);
+        }
+        return false;
     }
 }

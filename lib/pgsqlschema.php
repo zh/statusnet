@@ -61,7 +61,8 @@ class PgsqlSchema extends Schema
 
     public function getTableDef($name)
     {
-        $res = $this->conn->query("select *, column_default as default, is_nullable as Null, udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
+        $res = $this->conn->query("SELECT *, column_default as default, is_nullable as Null,
+        udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
@@ -72,6 +73,9 @@ class PgsqlSchema extends Schema
         $td->name    = $name;
         $td->columns = array();
 
+        if ($res->numRows() == 0 ) {
+          throw new Exception('no such table'); //pretend to be the msyql error. yeah, this sucks.
+        }
         $row = array();
 
         while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
@@ -166,12 +170,10 @@ class PgsqlSchema extends Schema
         }
 
         if (count($primary) > 0) { // it really should be...
-            $sql .= ",\nconstraint primary key (" . implode(',', $primary) . ")";
+            $sql .= ",\n primary key (" . implode(',', $primary) . ")";
         }
 
-        foreach ($uniques as $u) {
-            $sql .= ",\nunique index {$name}_{$u}_idx ($u)";
-        }
+
 
         foreach ($indices as $i) {
             $sql .= ",\nindex {$name}_{$i}_idx ($i)";
@@ -179,6 +181,10 @@ class PgsqlSchema extends Schema
 
         $sql .= "); ";
 
+
+        foreach ($uniques as $u) {
+            $sql .= "\n CREATE index {$name}_{$u}_idx ON {$name} ($u); ";
+        }
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
@@ -207,6 +213,22 @@ class PgsqlSchema extends Schema
         }
 
         return true;
+    }
+
+    /**
+     * Translate the (mostly) mysql-ish column types into somethings more standard
+     * @param string column type
+     *
+     * @return string postgres happy column type
+     */
+    private function _columnTypeTranslation($type) {
+      $map = array(
+      'datetime' => 'timestamp'
+      );
+      if(!empty($map[$type])) {
+        return $map[$type];
+      }
+      return $type;
     }
 
     /**
@@ -359,6 +381,7 @@ class PgsqlSchema extends Schema
 
         try {
             $td = $this->getTableDef($tableName);
+            
         } catch (Exception $e) {
             if (preg_match('/no such table/', $e->getMessage())) {
                 return $this->createTable($tableName, $columns);
@@ -477,11 +500,12 @@ class PgsqlSchema extends Schema
     private function _columnSql($cd)
     {
         $sql = "{$cd->name} ";
+        $type = $this->_columnTypeTranslation($cd->type);
 
         if (!empty($cd->size)) {
-            $sql .= "{$cd->type}({$cd->size}) ";
+            $sql .= "{$type}({$cd->size}) ";
         } else {
-            $sql .= "{$cd->type} ";
+            $sql .= "{$type} ";
         }
 
         if (!empty($cd->default)) {

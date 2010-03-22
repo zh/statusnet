@@ -105,7 +105,7 @@ class QueueDaemon extends SpawningDaemon
     {
         $this->log(LOG_INFO, 'checking for queued notices');
 
-        $master = new QueueMaster($this->get_id());
+        $master = new QueueMaster($this->get_id(), $this->processManager());
         $master->init($this->allsites);
         try {
             $master->service();
@@ -125,6 +125,14 @@ class QueueDaemon extends SpawningDaemon
 
 class QueueMaster extends IoMaster
 {
+    protected $processManager;
+
+    function __construct($id, $processManager)
+    {
+        parent::__construct($id);
+        $this->processManager = $processManager;
+    }
+
     /**
      * Initialize IoManagers which are appropriate to this instance.
      */
@@ -135,6 +143,7 @@ class QueueMaster extends IoMaster
             $qm = QueueManager::get();
             $qm->setActiveGroup('main');
             $managers[] = $qm;
+            $managers[] = $this->processManager;
         }
         Event::handle('EndQueueDaemonIoManagers', array(&$managers));
 
