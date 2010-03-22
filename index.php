@@ -324,10 +324,10 @@ function main()
             $cac = new ClientErrorAction($cex->getMessage(), $cex->getCode());
             $cac->showPage();
         } catch (ServerException $sex) { // snort snort guffaw
-            $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode());
+            $sac = new ServerErrorAction($sex->getMessage(), $sex->getCode(), $sex);
             $sac->showPage();
         } catch (Exception $ex) {
-            $sac = new ServerErrorAction($ex->getMessage());
+            $sac = new ServerErrorAction($ex->getMessage(), 500, $ex);
             $sac->showPage();
         }
     }
