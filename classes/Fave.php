@@ -21,7 +21,15 @@ class Fave extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function addNew($profile, $notice) {
+    /**
+     * Save a favorite record.
+     * @fixme post-author notification should be moved here
+     *
+     * @param Profile $profile the local or remote user who likes
+     * @param Notice $notice the notice that is liked
+     * @return mixed false on failure, or Fave record on success
+     */
+    static function addNew(Profile $profile, Notice $notice) {
 
         $fave = null;
 

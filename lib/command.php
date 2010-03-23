@@ -273,7 +273,7 @@ class FavCommand extends Command
     function handle($channel)
     {
         $notice = $this->getNotice($this->other);
-        $fave = Fave::addNew($this->user, $notice);
+        $fave = Fave::addNew($this->user->getProfile(), $notice);
 
         if (!$fave) {
             $channel->error($this->user, _('Could not create favorite.'));

@@ -123,7 +123,7 @@ class ApiFavoriteCreateAction extends ApiAuthAction
             return;
         }
 
-        $fave = Fave::addNew($this->user, $this->notice);
+        $fave = Fave::addNew($this->user->getProfile(), $this->notice);
 
         if (empty($fave)) {
             $this->clientError(
