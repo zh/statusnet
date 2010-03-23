@@ -45,13 +45,11 @@ if (!defined('STATUSNET')) {
 
 class OpenIDPlugin extends Plugin
 {
-    /**
-     * Initializer for the plugin.
-     */
+    public $openidOnly = false;
 
-    function __construct()
+    function initialize()
     {
-        parent::__construct();
+        common_debug("OpenID plugin running with openidonly = {$this->openidOnly}");
     }
 
     /**
@@ -142,6 +140,61 @@ class OpenIDPlugin extends Plugin
         $xrdsOutputter->elementEnd('XRD');
     }
 
+    function onStartPrimaryNav($action)
+    {
+        if ($this->openidOnly && !common_logged_in()) {
+            // TRANS: Tooltip for main menu option "Login"
+            $tooltip = _m('TOOLTIP', 'Login to the site');
+            // TRANS: Main menu option when not logged in to log in
+            $action->menuItem(common_local_url('openidlogin'),
+                              _m('MENU', 'Login'),
+                              $tooltip,
+                              false,
+                              'nav_login');
+            // TRANS: Tooltip for main menu option "Help"
+            $tooltip = _m('TOOLTIP', 'Help me!');
+            // TRANS: Main menu option for help on the StatusNet site
+            $action->menuItem(common_local_url('doc', array('title' => 'help')),
+                              _m('MENU', 'Help'),
+                              $tooltip,
+                              false,
+                              'nav_help');
+            if (!common_config('site', 'private')) {
+                // TRANS: Tooltip for main menu option "Search"
+                $tooltip = _m('TOOLTIP', 'Search for people or text');
+                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
+                $action->menuItem(common_local_url('peoplesearch'),
+                                  _m('MENU', 'Search'), $tooltip, false, 'nav_search');
+            }
+            Event::handle('EndPrimaryNav', array($action));
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Menu for login
+     *
+     * If we're in openidOnly mode, we disable the menu for all other login.
+     *
+     * @param Action &$action Action being executed
+     *
+     * @return boolean hook return
+     */
+
+    function onStartLoginGroupNav(&$action)
+    {
+        if ($this->openidOnly) {
+            $this->showOpenIDLoginTab($action);
+            // Even though we replace this code, we
+            // DON'T run the End* hook, to keep others from
+            // adding tabs. Not nice, but.
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Menu item for login
      *
@@ -152,18 +205,49 @@ class OpenIDPlugin extends Plugin
 
     function onEndLoginGroupNav(&$action)
     {
+        $this->showOpenIDLoginTab($action);
+
+        return true;
+    }
+
+    /**
+     * Show menu item for login
+     *
+     * @param Action $action Action being executed
+     *
+     * @return void
+     */
+
+    function showOpenIDLoginTab($action)
+    {
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('openidlogin'),
                           _m('OpenID'),
                           _m('Login or register with OpenID'),
                           $action_name === 'openidlogin');
+    }
 
+    /**
+     * Show menu item for password
+     *
+     * We hide it in openID-only mode
+     *
+     * @param Action $menu    Widget for menu
+     * @param void   &$unused Unused value
+     *
+     * @return void
+     */
+
+    function onStartAccountSettingsPasswordMenuItem($menu, &$unused) {
+        if ($this->openidOnly) {
+            return false;
+        }
         return true;
     }
 
     /**
-     * Menu item for OpenID admin
+     * Menu item for OpenID settings
      *
      * @param Action &$action Action being executed
      *
@@ -301,7 +385,7 @@ class OpenIDPlugin extends Plugin
 
     function onRedirectToLogin($action, $user)
     {
-        if (!empty($user) && User_openid::hasOpenID($user->id)) {
+        if ($this->openidOnly || (!empty($user) && User_openid::hasOpenID($user->id))) {
             common_redirect(common_local_url('openidlogin'), 303);
             return false;
         }
