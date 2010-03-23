@@ -442,7 +442,8 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $activity = new Activity($entry, $feed);
 
-        switch ($activity->object->type) {
+        // @todo process all activity objects
+        switch ($activity->objects[0]->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:
