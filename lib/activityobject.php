@@ -156,7 +156,11 @@ class ActivityObject
     {
         $this->type  = self::PERSON; // XXX: is this fair?
         $this->title = $this->_childContent($element, self::NAME);
-        $this->id    = $this->_childContent($element, self::URI);
+
+        $id = $this->_childContent($element, self::URI);
+        if (ActivityUtils::validateUri($id)) {
+            $this->id = $id;
+        }
 
         if (empty($this->id)) {
             $email = $this->_childContent($element, self::EMAIL);
@@ -169,6 +173,15 @@ class ActivityObject
 
     private function _fromAtomEntry($element)
     {
+        if ($element->localName == 'actor') {
+            // Old-fashioned <activity:actor>...
+            // First pull anything from <author>, then we'll add on top.
+            $author = ActivityUtils::child($element->parentNode, 'author');
+            if ($author) {
+                $this->_fromAuthor($author);
+            }
+        }
+
         $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
                                            Activity::SPEC);
 
@@ -176,7 +189,11 @@ class ActivityObject
             $this->type = ActivityObject::NOTE;
         }
 
-        $this->id      = $this->_childContent($element, self::ID);
+        $id = $this->_childContent($element, self::ID);
+        if (ActivityUtils::validateUri($id)) {
+            $this->id = $id;
+        }
+
         $this->summary = ActivityUtils::childHtmlContent($element, self::SUMMARY);
         $this->content = ActivityUtils::getContent($element);
 

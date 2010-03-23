@@ -1,0 +1,392 @@
+<?php
+
+if (php_sapi_name() != 'cli') {
+    die('not for web');
+}
+
+define('INSTALLDIR', dirname(dirname(dirname(dirname(__FILE__)))));
+set_include_path(INSTALLDIR . '/extlib' . PATH_SEPARATOR . get_include_path());
+
+require_once 'PEAR.php';
+require_once 'Net/URL2.php';
+require_once 'HTTP/Request2.php';
+
+
+// ostatus test script, client-side :)
+
+class TestBase
+{
+    function log($str)
+    {
+        $args = func_get_args();
+        array_shift($args);
+
+        $msg = vsprintf($str, $args);
+        print $msg . "\n";
+    }
+
+    function assertEqual($a, $b)
+    {
+        if ($a != $b) {
+            throw new Exception("Failed to assert equality: expected $a, got $b");
+        }
+        return true;
+    }
+
+    function assertNotEqual($a, $b)
+    {
+        if ($a == $b) {
+            throw new Exception("Failed to assert inequality: expected not $a, got $b");
+        }
+        return true;
+    }
+}
+
+class OStatusTester extends TestBase
+{
+    /**
+     * @param string $a base URL of test site A (eg http://localhost/mublog)
+     * @param string $b base URL of test site B (eg http://localhost/mublog2)
+     */
+    function __construct($a, $b) {
+        $this->a = $a;
+        $this->b = $b;
+
+        $base = 'test' . mt_rand(1, 1000000);
+        $this->pub = new SNTestClient($this->a, 'pub' . $base, 'pw-' . mt_rand(1, 1000000));
+        $this->sub = new SNTestClient($this->b, 'sub' . $base, 'pw-' . mt_rand(1, 1000000));
+    }
+
+    function run()
+    {
+        $this->setup();
+        $this->testLocalPost();
+        $this->testMentionUrl();
+        $this->log("DONE!");
+    }
+
+    function setup()
+    {
+        $this->pub->register();
+        $this->pub->assertRegistered();
+
+        $this->sub->register();
+        $this->sub->assertRegistered();
+    }
+
+    function testLocalPost()
+    {
+        $post = $this->pub->post("Local post, no subscribers yet.");
+        $this->assertNotEqual('', $post);
+
+        $post = $this->sub->post("Local post, no subscriptions yet.");
+        $this->assertNotEqual('', $post);
+    }
+
+    /**
+     * pub posts: @b/sub
+     */
+    function testMentionUrl()
+    {
+        $bits = parse_url($this->b);
+        $base = $bits['host'];
+        if (isset($bits['path'])) {
+            $base .= $bits['path'];
+        }
+        $name = $this->sub->username;
+
+        $post = $this->pub->post("@$base/$name should have this in home and replies");
+        $this->sub->assertReceived($post);
+    }
+}
+
+class SNTestClient extends TestBase
+{
+    function __construct($base, $username, $password)
+    {
+        $this->basepath = $base;
+        $this->username = $username;
+        $this->password = $password;
+
+        $this->fullname = ucfirst($username) . ' Smith';
+        $this->homepage = 'http://example.org/' . $username;
+        $this->bio = 'Stub account for OStatus tests.';
+        $this->location = 'Montreal, QC';
+    }
+
+    /**
+     * Make a low-level web hit to this site, with authentication.
+     * @param string $path URL fragment for something under the base path
+     * @param array $params POST parameters to send
+     * @param boolean $auth whether to include auth data
+     * @return string
+     * @throws Exception on low-level error conditions
+     */
+    protected function hit($path, $params=array(), $auth=false, $cookies=array())
+    {
+        $url = $this->basepath . '/' . $path;
+
+        $http = new HTTP_Request2($url, 'POST');
+        if ($auth) {
+            $http->setAuth($this->username, $this->password, HTTP_Request2::AUTH_BASIC);
+        }
+        foreach ($cookies as $name => $val) {
+            $http->addCookie($name, $val);
+        }
+        $http->addPostParameter($params);
+        $response = $http->send();
+
+        $code = $response->getStatus();
+        if ($code < '200' || $code >= '400') {
+            throw new Exception("Failed API hit to $url: $code\n" . $response->getBody());
+        }
+
+        return $response;
+    }
+
+    /**
+     * Make a hit to a web form, without authentication but with a session.
+     * @param string $path URL fragment relative to site base
+     * @param string $form id of web form to pull initial parameters from
+     * @param array $params POST parameters, will be merged with defaults in form
+     */
+    protected function web($path, $form, $params=array())
+    {
+        $url = $this->basepath . '/' . $path;
+        $http = new HTTP_Request2($url, 'GET');
+        $response = $http->send();
+
+        $dom = $this->checkWeb($url, 'GET', $response);
+        $cookies = array();
+        foreach ($response->getCookies() as $cookie) {
+            // @fixme check for expirations etc
+            $cookies[$cookie['name']] = $cookie['value'];
+        }
+
+        $form = $dom->getElementById($form);
+        if (!$form) {
+            throw new Exception("Form $form not found on $url");
+        }
+        $inputs = $form->getElementsByTagName('input');
+        foreach ($inputs as $item) {
+            $type = $item->getAttribute('type');
+            if ($type != 'check') {
+                $name = $item->getAttribute('name');
+                $val = $item->getAttribute('value');
+                if ($name && $val && !isset($params[$name])) {
+                    $params[$name] = $val;
+                }
+            }
+        }
+
+        $response = $this->hit($path, $params, false, $cookies);
+        $dom = $this->checkWeb($url, 'POST', $response);
+
+        return $dom;
+    }
+
+    protected function checkWeb($url, $method, $response)
+    {
+        $dom = new DOMDocument();
+        if (!$dom->loadHTML($response->getBody())) {
+            throw new Exception("Invalid HTML from $method to $url");
+        }
+
+        $xpath = new DOMXPath($dom);
+        $error = $xpath->query('//p[@class="error"]');
+        if ($error && $error->length) {
+            throw new Exception("Error on $method to $url: " .
+                                $error->item(0)->textContent);
+        }
+
+        return $dom;
+    }
+
+    /**
+     * Make an API hit to this site, with authentication.
+     * @param string $path URL fragment for something under 'api' folder
+     * @param string $style one of 'json', 'xml', or 'atom'
+     * @param array $params POST parameters to send
+     * @return mixed associative array for JSON, DOMDocument for XML/Atom
+     * @throws Exception on low-level error conditions
+     */
+    protected function api($path, $style, $params=array())
+    {
+        $response = $this->hit("api/$path.$style", $params, true);
+        $body = $response->getBody();
+        if ($style == 'json') {
+            $data = json_decode($body, true);
+            if ($data !== null) {
+                if (!empty($data['error'])) {
+                    throw new Exception("JSON API returned error: " . $data['error']);
+                }
+                return $data;
+            } else {
+                throw new Exception("Bogus JSON data from $path:\n$body");
+            }
+        } else if ($style == 'xml' || $style == 'atom') {
+            $dom = new DOMDocument();
+            if ($dom->loadXML($body)) {
+                return $dom;
+            } else {
+                throw new Exception("Bogus XML data from $path:\n$body");
+            }
+        } else {
+            throw new Exception("API needs to be JSON, XML, or Atom");
+        }
+    }
+
+    /**
+     * Register the account.
+     *
+     * Unfortunately there's not an API method for registering, so we fake it.
+     */
+    function register()
+    {
+        $this->log("Registering user %s on %s",
+                   $this->username,
+                   $this->basepath);
+        $ret = $this->web('main/register', 'form_register',
+            array('nickname' => $this->username,
+                  'password' => $this->password,
+                  'confirm' => $this->password,
+                  'fullname' => $this->fullname,
+                  'homepage' => $this->homepage,
+                  'bio' => $this->bio,
+                  'license' => 1,
+                  'submit' => 'Register'));
+    }
+
+    /**
+     * Check that the account has been registered and can be used.
+     * On failure, throws a test failure exception.
+     */
+    function assertRegistered()
+    {
+        $this->log("Confirming %s is registered on %s",
+                   $this->username,
+                   $this->basepath);
+        $data = $this->api('account/verify_credentials', 'json');
+        $this->assertEqual($this->username, $data['screen_name']);
+        $this->assertEqual($this->fullname, $data['name']);
+        $this->assertEqual($this->homepage, $data['url']);
+        $this->assertEqual($this->bio, $data['description']);
+    }
+
+    /**
+     * Post a given message from this account
+     * @param string $message
+     * @return string URL/URI of notice
+     * @todo reply, location options
+     */
+    function post($message)
+    {
+        $this->log("Posting notice as %s on %s: %s",
+                   $this->username,
+                   $this->basepath,
+                   $message);
+        $data = $this->api('statuses/update', 'json',
+            array('status' => $message));
+
+        $url = $this->basepath . '/notice/' . $data['id'];
+        return $url;
+    }
+
+    /**
+     * Check that this account has received the notice.
+     * @param string $notice_uri URI for the notice to check for
+     */
+    function assertReceived($notice_uri)
+    {
+        $timeout = 5;
+        $tries = 6;
+        while ($tries) {
+            $ok = $this->checkReceived($notice_uri);
+            if ($ok) {
+                return true;
+            }
+            $tries--;
+            if ($tries) {
+                $this->log("Didn't see it yet, waiting $timeout seconds");
+                sleep($timeout);
+            }
+        }
+        throw new Exception("Message $notice_uri not received by $this->username");
+    }
+
+    /**
+     * Pull the user's home timeline to check if a notice with the given
+     * source URL has been received recently.
+     * If we don't see it, we'll try a couple more times up to 10 seconds.
+     *
+     * @param string $notice_uri
+     */
+    function checkReceived($notice_uri)
+    {
+        $this->log("Checking if %s on %s received notice %s",
+                   $this->username,
+                   $this->basepath,
+                   $notice_uri);
+        $params = array();
+        $dom = $this->api('statuses/home_timeline', 'atom', $params);
+
+        $xml = simplexml_import_dom($dom);
+        if (!$xml->entry) {
+            return false;
+        }
+        if (is_array($xml->entry)) {
+            $entries = $xml->entry;
+        } else {
+            $entries = array($xml->entry);
+        }
+        foreach ($entries as $entry) {
+            if ($entry->id == $notice_uri) {
+                $this->log("found it $notice_uri");
+                return true;
+            }
+            //$this->log("nope... " . $entry->id);
+        }
+        return false;
+    }
+
+    /**
+     * Check that this account is subscribed to the given profile.
+     * @param string $profile_uri URI for the profile to check for
+     */
+    function assertHasSubscription($profile_uri)
+    {
+        throw new Exception('tbi');
+    }
+
+    /**
+     * Check that this account is subscribed to by the given profile.
+     * @param string $profile_uri URI for the profile to check for
+     */
+    function assertHasSubscriber($profile_uri)
+    {
+        throw new Exception('tbi');
+    }
+
+}
+
+$args = array_slice($_SERVER['argv'], 1);
+if (count($args) < 2) {
+    print <<<END_HELP
+remote-tests.php <url1> <url2>
+  url1: base URL of a StatusNet instance
+  url2: base URL of another StatusNet instance
+
+This will register user accounts on the two given StatusNet instances
+and run some tests to confirm that OStatus subscription and posting
+between the two sites works correctly.
+
+END_HELP;
+exit(1);
+}
+
+$a = $args[0];
+$b = $args[1];
+
+$tester = new OStatusTester($a, $b);
+$tester->run();
+

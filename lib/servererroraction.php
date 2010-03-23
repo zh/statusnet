@@ -62,15 +62,18 @@ class ServerErrorAction extends ErrorAction
                            504 => 'Gateway Timeout',
                            505 => 'HTTP Version Not Supported');
 
-    function __construct($message='Error', $code=500)
+    function __construct($message='Error', $code=500, $ex=null)
     {
         parent::__construct($message, $code);
 
         $this->default = 500;
 
         // Server errors must be logged.
-
-        common_log(LOG_ERR, "ServerErrorAction: $code $message");
+        $log = "ServerErrorAction: $code $message";
+        if ($ex) {
+            $log .= "\n" . $ex->getTraceAsString();
+        }
+        common_log(LOG_ERR, $log);
     }
 
     // XXX: Should these error actions even be invokable via URI?
