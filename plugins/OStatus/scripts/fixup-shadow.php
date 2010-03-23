@@ -50,7 +50,7 @@ $encGroup = str_replace($marker, '%', $encGroup);
 $sql = "SELECT * FROM ostatus_profile WHERE uri LIKE '%s' OR uri LIKE '%s'";
 $oprofile->query(sprintf($sql, $encProfile, $encGroup));
 
-echo "Found $oprofile->N bogus ostatus_profile entries:\n";
+echo "Found $oprofile->N bogus ostatus_profile entries for local users and groups:\n";
 
 while ($oprofile->fetch()) {
     echo "$oprofile->uri";
@@ -58,7 +58,7 @@ while ($oprofile->fetch()) {
     if ($dry) {
         echo " (unchanged)\n";
     } else {
-        echo " deleting...";
+        echo " removing bogus ostatus_profile entry...";
         $evil = clone($oprofile);
         $evil->delete();
         echo "  ok\n";
