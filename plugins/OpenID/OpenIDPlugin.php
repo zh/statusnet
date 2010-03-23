@@ -47,11 +47,6 @@ class OpenIDPlugin extends Plugin
 {
     public $openidOnly = false;
 
-    function initialize()
-    {
-        common_debug("OpenID plugin running with openidonly = {$this->openidOnly}");
-    }
-
     /**
      * Add OpenID-related paths to the router table
      *
@@ -73,6 +68,60 @@ class OpenIDPlugin extends Plugin
                     array('action' => 'finishaddopenid'));
         $m->connect('main/openidserver', array('action' => 'openidserver'));
 
+        return true;
+    }
+
+    /**
+     * In OpenID-only mode, disable paths for password stuff
+     *
+     * @param string $path     path to connect
+     * @param array  $defaults path defaults
+     * @param array  $rules    path rules
+     * @param array  $result   unused
+     *
+     * @return boolean hook return
+     */
+
+    function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
+    {
+        if ($this->openidOnly) {
+            static $block = array('main/login',
+                                  'main/register',
+                                  'main/recoverpassword',
+                                  'settings/password');
+
+            if (in_array($path, $block)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * If we've been hit with password-login args, redirect
+     *
+     * @param array $args args (URL, Get, post)
+     *
+     * @return boolean hook return
+     */
+
+    function onArgsInitialize($args)
+    {
+        if ($this->openidOnly) {
+            if (array_key_exists('action', $args)) {
+                $action = trim($args['action']);
+                if (in_array($action, array('login', 'register'))) {
+                    common_redirect(common_local_url('openidlogin'));
+                    exit(0);
+                } else if ($action == 'passwordsettings') {
+                    common_redirect(common_local_url('openidsettings'));
+                    exit(0);
+                } else if ($action == 'recoverpassword') {
+                    throw new ClientException('Unavailable action');
+                }
+            }
+        }
         return true;
     }
 
@@ -139,6 +188,14 @@ class OpenIDPlugin extends Plugin
                                         common_profile_url($action->user->nickname));
         $xrdsOutputter->elementEnd('XRD');
     }
+
+    /**
+     * If we're in OpenID-only mode, hide all the main menu except OpenID login.
+     *
+     * @param Action $action Action being run
+     *
+     * @return boolean hook return
+     */
 
     function onStartPrimaryNav($action)
     {
