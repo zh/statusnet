@@ -25,11 +25,11 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($act->time, 1243860840);
         $this->assertEquals($act->verb, ActivityVerb::POST);
 
-        $this->assertFalse(empty($act->object));
-        $this->assertEquals($act->object->title, 'Punctuation Changeset');
-        $this->assertEquals($act->object->type, 'http://versioncentral.example.org/activity/changeset');
-        $this->assertEquals($act->object->summary, 'Fixing punctuation because it makes it more readable.');
-        $this->assertEquals($act->object->id, 'tag:versioncentral.example.org,2009:/change/1643245');
+        $this->assertFalse(empty($act->objects[0]));
+        $this->assertEquals($act->objects[0]->title, 'Punctuation Changeset');
+        $this->assertEquals($act->objects[0]->type, 'http://versioncentral.example.org/activity/changeset');
+        $this->assertEquals($act->objects[0]->summary, 'Fixing punctuation because it makes it more readable.');
+        $this->assertEquals($act->objects[0]->id, 'tag:versioncentral.example.org,2009:/change/1643245');
     }
 
     public function testExample3()
@@ -56,12 +56,12 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($act->actor->title, 'John Doe');
         $this->assertEquals($act->actor->id, 'mailto:johndoe@example.com');
 
-        $this->assertFalse(empty($act->object));
-        $this->assertEquals($act->object->type, ActivityObject::NOTE);
-        $this->assertEquals($act->object->id, 'urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a');
-        $this->assertEquals($act->object->title, 'Atom-Powered Robots Run Amok');
-        $this->assertEquals($act->object->summary, 'Some text.');
-        $this->assertEquals($act->object->link, 'http://example.org/2003/12/13/atom03.html');
+        $this->assertFalse(empty($act->objects[0]));
+        $this->assertEquals($act->objects[0]->type, ActivityObject::NOTE);
+        $this->assertEquals($act->objects[0]->id, 'urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a');
+        $this->assertEquals($act->objects[0]->title, 'Atom-Powered Robots Run Amok');
+        $this->assertEquals($act->objects[0]->summary, 'Some text.');
+        $this->assertEquals($act->objects[0]->link, 'http://example.org/2003/12/13/atom03.html');
 
         $this->assertFalse(empty($act->context));
 
@@ -90,8 +90,8 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://example.net/conversation/11', $act->context->conversation);
         $this->assertEquals(array('http://example.net/user/1'), $act->context->attention);
 
-        $this->assertFalse(empty($act->object));
-        $this->assertEquals($act->object->content,
+        $this->assertFalse(empty($act->objects[0]));
+        $this->assertEquals($act->objects[0]->content,
                             '@<span class="vcard"><a href="http://example.net/user/1" class="url"><span class="fn nickname">evan</span></a></span> now is the time for all good men to come to the aid of their country. #<span class="tag"><a href="http://example.net/tag/thetime" rel="tag">thetime</a></span>');
 
         $this->assertFalse(empty($act->actor));
@@ -215,6 +215,96 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertNull($actor->poco->address);
         $this->assertEquals(0, count($actor->poco->urls));
     }
+
+    // Media test - cliqset
+    public function testExample8()
+    {
+        global $_example8;
+        $dom = DOMDocument::loadXML($_example8);
+
+        $feed = $dom->documentElement;
+
+        $entries = $feed->getElementsByTagName('entry');
+
+        $entry = $entries->item(0);
+
+        $act = new Activity($entry, $feed);
+
+        $this->assertFalse(empty($act));
+        $this->assertEquals($act->time, 1269221753);
+        $this->assertEquals($act->verb, ActivityVerb::POST);
+        $this->assertEquals($act->summary, 'zcopley posted 5 photos on Flickr');
+
+        $this->assertFalse(empty($act->objects));
+        $this->assertEquals(sizeof($act->objects), 5);
+
+        $this->assertEquals($act->objects[0]->type, ActivityObject::PHOTO);
+        $this->assertEquals($act->objects[0]->title, 'IMG_1368');
+        $this->assertNull($act->objects[0]->description);
+        $this->assertEquals(
+            $act->objects[0]->thumbnail,
+            'http://media.cliqset.com/6f6fbee9d7dfbffc73b6ef626275eb5f_thumb.jpg'
+        );
+        $this->assertEquals(
+            $act->objects[0]->link,
+            'http://www.flickr.com/photos/zcopley/4452933806/'
+        );
+
+        $this->assertEquals($act->objects[1]->type, ActivityObject::PHOTO);
+        $this->assertEquals($act->objects[1]->title, 'IMG_1365');
+        $this->assertNull($act->objects[1]->description);
+        $this->assertEquals(
+            $act->objects[1]->thumbnail,
+            'http://media.cliqset.com/b8f3932cd0bba1b27f7c8b3ef986915e_thumb.jpg'
+        );
+        $this->assertEquals(
+            $act->objects[1]->link,
+            'http://www.flickr.com/photos/zcopley/4442630390/'
+        );
+
+        $this->assertEquals($act->objects[2]->type, ActivityObject::PHOTO);
+        $this->assertEquals($act->objects[2]->title, 'Classic');
+        $this->assertEquals(
+            $act->objects[2]->description,
+            '-Powered by pikchur.com/n0u'
+        );
+        $this->assertEquals(
+            $act->objects[2]->thumbnail,
+            'http://media.cliqset.com/fc54c15f850b7a9a8efa644087a48c91_thumb.jpg'
+        );
+        $this->assertEquals(
+            $act->objects[2]->link,
+            'http://www.flickr.com/photos/zcopley/4430754103/'
+        );
+
+        $this->assertEquals($act->objects[3]->type, ActivityObject::PHOTO);
+        $this->assertEquals($act->objects[3]->title, 'IMG_1363');
+        $this->assertNull($act->objects[3]->description);
+
+        $this->assertEquals(
+            $act->objects[3]->thumbnail,
+            'http://media.cliqset.com/4b1d307c9217e2114391a8b229d612cb_thumb.jpg'
+        );
+        $this->assertEquals(
+            $act->objects[3]->link,
+            'http://www.flickr.com/photos/zcopley/4416969717/'
+        );
+
+        $this->assertEquals($act->objects[4]->type, ActivityObject::PHOTO);
+        $this->assertEquals($act->objects[4]->title, 'IMG_1361');
+        $this->assertNull($act->objects[4]->description);
+
+        $this->assertEquals(
+            $act->objects[4]->thumbnail,
+            'http://media.cliqset.com/23d9b4b96b286e0347d36052f22f6e60_thumb.jpg'
+        );
+        $this->assertEquals(
+            $act->objects[4]->link,
+            'http://www.flickr.com/photos/zcopley/4417734232/'
+        );
+
+    }
+
 }
 
 $_example1 = <<<EXAMPLE1
@@ -508,3 +598,120 @@ $_example7 = <<<EXAMPLE7
 	</channel>
 </rss>
 EXAMPLE7;
+
+$_example8 = <<<EXAMPLE8
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <link href="http://pubsubhubbub.appspot.com/" rel="hub"/>
+    <title type="text">Activity Stream for: zcopley</title>
+    <id>http://cliqset.com/feed/atom?uid=zcopley</id>
+    <entry xmlns:service="http://activitystrea.ms/service-provider" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+        <thr:total xmlns:thr="http://purl.org/syndication/thread/1.0">0</thr:total>
+        <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+        <published>2010-03-22T01:35:53.000Z</published>
+        <service:provider>
+            <name>flickr</name>
+            <uri>http://flickr.com</uri>
+            <icon>http://cliqset-services.s3.amazonaws.com/flickr.png</icon>
+        </service:provider>
+        <activity:object>
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <title type="text">IMG_1368</title>
+            <link type="image/jpeg" rel="preview" href="http://media.cliqset.com/6f6fbee9d7dfbffc73b6ef626275eb5f_thumb.jpg"/>
+            <link rel="alternate" type="text/html" href="http://www.flickr.com/photos/zcopley/4452933806/"/>
+        </activity:object>
+        <activity:object>
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <title type="text">IMG_1365</title>
+            <link type="image/jpeg" rel="preview" href="http://media.cliqset.com/b8f3932cd0bba1b27f7c8b3ef986915e_thumb.jpg"/>
+            <link rel="alternate" type="text/html" href="http://www.flickr.com/photos/zcopley/4442630390/"/>
+        </activity:object>
+        <activity:object xmlns:media="http://purl.org/syndication/atommedia">
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <title type="text">Classic</title>
+            <link type="image/jpeg" rel="preview" href="http://media.cliqset.com/fc54c15f850b7a9a8efa644087a48c91_thumb.jpg"/>
+            <link rel="alternate" type="text/html" href="http://www.flickr.com/photos/zcopley/4430754103/"/>
+            <media:description type="text">-Powered by pikchur.com/n0u</media:description>
+        </activity:object>
+        <activity:object>
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <title type="text">IMG_1363</title>
+            <link type="image/jpeg" rel="preview" href="http://media.cliqset.com/4b1d307c9217e2114391a8b229d612cb_thumb.jpg"/>
+            <link rel="alternate" type="text/html" href="http://www.flickr.com/photos/zcopley/4416969717/"/>
+        </activity:object>
+        <activity:object>
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <title type="text">IMG_1361</title>
+            <link type="image/jpeg" rel="preview" href="http://media.cliqset.com/23d9b4b96b286e0347d36052f22f6e60_thumb.jpg"/>
+            <link rel="alternate" type="text/html" href="http://www.flickr.com/photos/zcopley/4417734232/"/>
+        </activity:object>
+        <title type="text">zcopley posted some photos on Flickr</title>
+        <summary type="text">zcopley posted 5 photos on Flickr</summary>
+        <category scheme="http://schemas.cliqset.com/activity/categories/1.0" term="PhotoPosted" label="Photo Posted"/>
+        <updated>2010-03-22T20:46:42.778Z</updated>
+        <id>tag:cliqset.com,2010-03-22:/user/zcopley/SVgAZubGhtAnSAee</id>
+        <link href="http://cliqset.com/user/zcopley/SVgAZubGhtAnSAee" type="text/xhtml" rel="alternate" title="zcopley posted some photos on Flickr"/>
+        <author>
+            <name>zcopley</name>
+            <uri>http://cliqset.com/user/zcopley</uri>
+        </author>
+        <activity:actor xmlns:poco="http://portablecontacts.net/spec/1.0">
+            <activity:object-type>http://activitystrea.ms/schema/1.0/person</activity:object-type>
+            <id>zcopley</id>
+            <poco:name>
+                <poco:givenName>Zach</poco:givenName>
+                <poco:familyName>Copley</poco:familyName>
+            </poco:name>
+            <link xmlns:media="http://purl.org/syndication/atommedia" type="image/png" rel="avatar" href="http://dynamic.cliqset.com/avatar/zcopley?s=80" media:height="80" media:width="80"/>
+            <link xmlns:media="http://purl.org/syndication/atommedia" type="image/png" rel="avatar" href="http://dynamic.cliqset.com/avatar/zcopley?s=120" media:height="120" media:width="120"/>
+            <link xmlns:media="http://purl.org/syndication/atommedia" type="image/png" rel="avatar" href="http://dynamic.cliqset.com/avatar/zcopley?s=200" media:height="200" media:width="200"/>
+        </activity:actor>
+    </entry>
+</feed>
+EXAMPLE8;
+
+$_example9 = <<<EXAMPLE9
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:media="http://search.yahoo.com/mrss" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+    <link rel="self" type="application/atom+xml" href="http://buzz.googleapis.com/feeds/117848251937215158042/public/posted"/>
+    <link rel="hub" href="http://pubsubhubbub.appspot.com/"/>
+    <title type="text">Google Buzz</title>
+    <updated>2010-03-22T01:55:53.596Z</updated>
+    <id>tag:google.com,2009:buzz-feed/public/posted/117848251937215158042</id>
+    <generator>Google - Google Buzz</generator>
+    <entry>
+        <title type="html">Buzz by Zach Copley from Flickr</title>
+        <summary type="text">IMG_1366</summary>
+        <published>2010-03-18T04:29:23.000Z</published>
+        <updated>2010-03-18T05:14:03.325Z</updated>
+        <id>tag:google.com,2009:buzz/z12zwdhxowq2d13q204cjr04kzu0cns5gh0</id>
+        <link rel="alternate" type="text/html" href="http://www.google.com/buzz/117848251937215158042/ZU7b6mHJEmC/IMG-1366"/>
+        <author>
+            <name>Zach Copley</name>
+            <uri>http://www.google.com/profiles/zcopley</uri>
+        </author>
+        <content type="html">&lt;div&gt;IMG_1366&lt;/div&gt;</content>
+        <link rel="enclosure" href="http://www.flickr.com/photos/22823034@N00/4442630700" type="image/jpeg" title="IMG_1366"/>
+        <media:content url="http://www.flickr.com/photos/22823034@N00/4442630700" type="image/jpeg" medium="image">
+            <media:title>IMG_1366</media:title>
+            <media:player url="http://farm5.static.flickr.com/4053/4442630700_980b19a1a6_o.jpg" height="1600" width="1200"/>
+        </media:content>
+        <link rel="enclosure" href="http://www.flickr.com/photos/22823034@N00/4442630390" type="image/jpeg" title="IMG_1365"/>
+        <media:content url="http://www.flickr.com/photos/22823034@N00/4442630390" type="image/jpeg" medium="image">
+            <media:title>IMG_1365</media:title>
+            <media:player url="http://farm5.static.flickr.com/4043/4442630390_62da5560ae_o.jpg" height="1200" width="1600"/>
+        </media:content>
+        <activity:verb>http://activitystrea.ms/schema/1.0/post</activity:verb>
+        <activity:object>
+            <activity:object-type>http://activitystrea.ms/schema/1.0/photo</activity:object-type>
+            <id>tag:google.com,2009:buzz/z12zwdhxowq2d13q204cjr04kzu0cns5gh0</id>
+            <title>Buzz by Zach Copley from Flickr</title>
+            <content type="html">&lt;div&gt;IMG_1366&lt;/div&gt;</content>
+            <link rel="enclosure" href="http://www.flickr.com/photos/22823034@N00/4442630700" type="image/jpeg" title="IMG_1366"/>
+            <link rel="enclosure" href="http://www.flickr.com/photos/22823034@N00/4442630390" type="image/jpeg" title="IMG_1365"/>
+        </activity:object>
+        <link rel="replies" type="application/atom+xml" href="http://buzz.googleapis.com/feeds/117848251937215158042/comments/z12zwdhxowq2d13q204cjr04kzu0cns5gh0" thr:count="0"/>
+        <thr:total>0</thr:total>
+    </entry>
+</feed>
+EXAMPLE9;

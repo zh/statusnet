@@ -494,7 +494,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         // It's not always an ActivityObject::NOTE, but... let's just say it is.
 
-        $note = $activity->object;
+        $note = $activity->objects[0];
 
         // The id URI will be used as a unique identifier for for the notice,
         // protecting against duplicate saves. It isn't required to be a URL;

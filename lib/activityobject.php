@@ -100,6 +100,13 @@ class ActivityObject
     public $poco;
     public $displayName;
 
+    // @todo move this stuff to it's own PHOTO activity object
+    const MEDIA_DESCRIPTION = 'description';
+
+    public $thumbnail;
+    public $largerImage;
+    public $description;
+
     /**
      * Constructor
      *
@@ -149,6 +156,19 @@ class ActivityObject
             }
 
             $this->poco = new PoCo($element);
+        }
+
+        if ($this->type == self::PHOTO) {
+
+            $this->thumbnail   = ActivityUtils::getLink($element, 'preview');
+            $this->largerImage = ActivityUtils::getLink($element, 'enclosure');
+
+            $this->description = ActivityUtils::childContent(
+                $element,
+                ActivityObject::MEDIA_DESCRIPTION,
+                Activity::MEDIA
+            );
+
         }
     }
 

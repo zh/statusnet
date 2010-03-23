@@ -102,7 +102,7 @@ function importActivityStream($user, $doc)
     for ($i = $entries->length - 1; $i >= 0; $i--) {
         $entry = $entries->item($i);
         $activity = new Activity($entry, $feed);
-        $object = $activity->object;
+        $object = $activity->objects[0];
         if (!have_option('q', 'quiet')) {
             print $activity->content . "\n";
         }
