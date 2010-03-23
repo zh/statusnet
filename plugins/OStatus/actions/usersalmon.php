@@ -55,9 +55,10 @@ class UsersalmonAction extends SalmonAction
      */
     function handlePost()
     {
-        common_log(LOG_INFO, "Received post of '{$this->act->object->id}' from '{$this->act->actor->id}'");
+        common_log(LOG_INFO, "Received post of '{$this->act->objects[0]->id}' from '{$this->act->actor->id}'");
 
-        switch ($this->act->object->type) {
+        // @fixme: process all activity objects?
+        switch ($this->act->objects[0]->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:
