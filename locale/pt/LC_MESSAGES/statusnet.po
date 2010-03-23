@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:41:23+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:10:52+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -770,23 +770,28 @@ msgstr "Carregar"
 msgid "Crop"
 msgstr "Cortar"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "Não foi especificado um perfil."
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "Escolha uma área quadrada da imagem para ser o seu avatar"
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Perdi os dados do nosso ficheiro."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "Avatar actualizado."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "Falha ao actualizar avatar."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "Avatar apagado."
 
@@ -925,7 +930,7 @@ msgid "Conversation"
 msgstr "Conversação"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Notas"
 
@@ -1772,7 +1777,7 @@ msgstr "Notas de %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Actualizações dos membros de %1$s em %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupos"
@@ -3450,7 +3455,7 @@ msgid "Description"
 msgstr "Descrição"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "Estatísticas"
 
@@ -3617,7 +3622,7 @@ msgid "Members"
 msgstr "Membros"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Nenhum)"
@@ -3799,7 +3804,8 @@ msgid "Unknown language \"%s\"."
 msgstr "Língua desconhecida \"%s\"."
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+#, fuzzy
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr "O valor mínimo de limite para o texto é 140 caracteres."
 
 #: actions/siteadminpanel.php:171
@@ -4078,8 +4084,7 @@ msgstr "Gravar configurações do site"
 msgid "You are not subscribed to that profile."
 msgstr "Não subscreveu esse perfil."
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr "Não foi possível gravar a subscrição."
 
@@ -4668,36 +4673,36 @@ msgstr "Problema na gravação da nota."
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr "Foi bloqueado de fazer subscrições"
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr "Já subscrito!"
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr "O utilizador bloqueou-o."
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr "Não subscrito!"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr "Não foi possível apagar a auto-subscrição."
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 #, fuzzy
 msgid "Couldn't delete subscription OMB token."
 msgstr "Não foi possível apagar a subscrição."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr "Não foi possível apagar a subscrição."
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%1$s dá-lhe as boas-vindas, @%2$s!"
@@ -5000,20 +5005,20 @@ msgstr "Posteriores"
 msgid "Before"
 msgstr "Anteriores"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5535,19 +5540,19 @@ msgstr ""
 "tracks - ainda não implementado.\n"
 "tracking - ainda não implementado.\n"
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Ficheiro de configuração não encontrado. "
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Procurei ficheiros de configuração nos seguintes sítios: "
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "Talvez queira correr o instalador para resolver esta questão."
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Ir para o instalador."
 
@@ -5725,40 +5730,40 @@ msgstr "Categorias nas notas do grupo %s"
 msgid "This page is not available in a media type you accept"
 msgstr "Esta página não está disponível num formato que você aceite"
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "Formato do ficheiro da imagem não é suportado."
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "Esse ficheiro é demasiado grande. O tamanho máximo de ficheiro é %s."
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "Transferência parcial."
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "Ocorreu um erro de sistema ao transferir o ficheiro."
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "Ficheiro não é uma imagem ou está corrompido."
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Perdi o nosso ficheiro."
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "Tipo do ficheiro é desconhecido"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "MB"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "kB"
 
@@ -6293,7 +6298,7 @@ msgstr "Categorias nas notas de %s"
 msgid "Unknown"
 msgstr "Desconhecida"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Subscrições"
 
@@ -6301,7 +6306,7 @@ msgstr "Subscrições"
 msgid "All subscriptions"
 msgstr "Todas as subscrições"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Subscritores"
 
@@ -6309,15 +6314,20 @@ msgstr "Subscritores"
 msgid "All subscribers"
 msgstr "Todos os subscritores"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "ID do utilizador"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "Membro desde"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "Todos os grupos"
 
@@ -6487,6 +6497,11 @@ msgstr "Deixar de subscrever este utilizador"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Abandonar"
+
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "Utilizador não tem perfil."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

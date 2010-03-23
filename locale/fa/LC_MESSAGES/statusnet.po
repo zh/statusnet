@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:40:38+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:09:43+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #. TRANS: Page title
@@ -770,23 +770,28 @@ msgstr "پایین‌گذاری"
 msgid "Crop"
 msgstr "برش"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "کاربری مشخص نشده است."
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "یک مربع از عکس خود را انتخاب کنید تا چهره‌ی شما باشد."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "فایل اطلاعات خود را گم کرده ایم."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "چهره به روز رسانی شد."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "به روز رسانی چهره موفقیت آمیر نبود."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "چهره پاک شد."
 
@@ -926,7 +931,7 @@ msgid "Conversation"
 msgstr "مکالمه"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "پیام‌ها"
 
@@ -1759,7 +1764,7 @@ msgstr "خط زمانی %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "به روز رسانی کابران %1$s در %2$s"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "گروه‌ها"
@@ -3359,7 +3364,7 @@ msgid "Description"
 msgstr ""
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "آمار"
 
@@ -3518,7 +3523,7 @@ msgid "Members"
 msgstr "اعضا"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "هیچ"
@@ -3683,7 +3688,7 @@ msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
@@ -3958,8 +3963,7 @@ msgstr "تنظیمات چهره"
 msgid "You are not subscribed to that profile."
 msgstr "شما به این پروفيل متعهد نشدید"
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr ""
 
@@ -4507,36 +4511,36 @@ msgstr "مشکل در ذخیره کردن آگهی."
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr ""
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr "قبلا تایید شده !"
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr ""
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr "تایید نشده!"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr ""
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 #, fuzzy
 msgid "Couldn't delete subscription OMB token."
 msgstr "نمی‌توان تصدیق پست الکترونیک را پاک کرد."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr ""
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "خوش امدید به %1$s , @%2$s!"
@@ -4833,20 +4837,20 @@ msgstr "بعد از"
 msgid "Before"
 msgstr "قبل از"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5329,19 +5333,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "شما ممکن است بخواهید نصاب را اجرا کنید تا این را تعمیر کند."
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "برو به نصاب."
 
@@ -5516,41 +5520,41 @@ msgstr ""
 msgid "This page is not available in a media type you accept"
 msgstr ""
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "فرمت(فایل) عکس پشتیبانی نشده."
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr ""
 "است . این فایل بسیار یزرگ است  %s بیشترین مقدار قابل قبول برای اندازه ی فایل."
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr ""
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "خطای سیستم ارسال فایل."
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "تصویر یا فایل خرابی نیست"
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "فایلمان گم شده"
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "نوع فایل پشتیبانی نشده"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "مگابایت"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "کیلوبایت"
 
@@ -6004,7 +6008,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "اشتراک‌ها"
 
@@ -6012,7 +6016,7 @@ msgstr "اشتراک‌ها"
 msgid "All subscriptions"
 msgstr "تمام اشتراک‌ها"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "مشترک‌ها"
 
@@ -6020,15 +6024,20 @@ msgstr "مشترک‌ها"
 msgid "All subscribers"
 msgstr "تمام مشترک‌ها"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "شناسه کاربر"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "عضو شده از"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "تمام گروه‌ها"
 
@@ -6199,6 +6208,11 @@ msgstr ""
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr ""
+
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "کاربر هیچ شناس‌نامه‌ای ندارد."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

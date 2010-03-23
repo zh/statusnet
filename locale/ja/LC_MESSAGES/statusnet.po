@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:41:02+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:10:29+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: out-statusnet\n"
@@ -766,23 +766,28 @@ msgstr "アップロード"
 msgid "Crop"
 msgstr "切り取り"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "プロファイル記述がありません。"
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "あなたのアバターとなるイメージを正方形で指定"
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "ファイルデータを紛失しました。"
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "アバターが更新されました。"
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "アバターの更新に失敗しました。"
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "アバターが削除されました。"
 
@@ -921,7 +926,7 @@ msgid "Conversation"
 msgstr "会話"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "つぶやき"
 
@@ -1749,7 +1754,7 @@ msgstr "%s のタイムライン"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%2$s 上の %1$s のメンバーから更新する"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "グループ"
@@ -3404,7 +3409,7 @@ msgid "Description"
 msgstr "概要"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "統計データ"
 
@@ -3572,7 +3577,7 @@ msgid "Members"
 msgstr "メンバー"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(なし)"
@@ -3753,7 +3758,8 @@ msgid "Unknown language \"%s\"."
 msgstr "不明な言語 \"%s\""
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+#, fuzzy
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr "最小のテキスト制限は140字です。"
 
 #: actions/siteadminpanel.php:171
@@ -4035,8 +4041,7 @@ msgstr "サイト設定の保存"
 msgid "You are not subscribed to that profile."
 msgstr "あなたはそのプロファイルにフォローされていません。"
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr "フォローを保存できません。"
 
@@ -4612,36 +4617,36 @@ msgstr "グループ受信箱を保存する際に問題が発生しました。
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr "あなたはフォローが禁止されました。"
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr "すでにフォローしています!"
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr "ユーザはあなたをブロックしました。"
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr "フォローしていません！"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr "自己フォローを削除できません。"
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 #, fuzzy
 msgid "Couldn't delete subscription OMB token."
 msgstr "フォローを削除できません"
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr "フォローを削除できません"
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "ようこそ %1$s、@%2$s!"
@@ -4944,20 +4949,20 @@ msgstr "<<後"
 msgid "Before"
 msgstr "前>>"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5432,21 +5437,21 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "コンフィギュレーションファイルがありません。 "
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "私は以下の場所でコンフィギュレーションファイルを探しました: "
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "あなたは、これを修理するためにインストーラを動かしたがっているかもしれませ"
 "ん。"
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "インストーラへ。"
 
@@ -5622,40 +5627,40 @@ msgstr "%s グループのつぶやきにあるタグ"
 msgid "This page is not available in a media type you accept"
 msgstr "このページはあなたが承認したメディアタイプでは利用できません。"
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "サポート外の画像形式です。"
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "ファイルが大きすぎます。最大ファイルサイズは %s 。"
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "不完全なアップロード。"
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "ファイルのアップロードでシステムエラー"
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "画像ではないかファイルが破損しています。"
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "ファイルを紛失。"
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "不明なファイルタイプ"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "MB"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "kB"
 
@@ -6196,7 +6201,7 @@ msgstr "%s のつぶやきのタグ"
 msgid "Unknown"
 msgstr "不明"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "フォロー"
 
@@ -6204,7 +6209,7 @@ msgstr "フォロー"
 msgid "All subscriptions"
 msgstr "すべてのフォロー"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "フォローされている"
 
@@ -6212,15 +6217,20 @@ msgstr "フォローされている"
 msgid "All subscribers"
 msgstr "すべてのフォローされている"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "ユーザＩＤ"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "利用開始日"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "全てのグループ"
 
@@ -6390,6 +6400,11 @@ msgstr "この利用者からのフォローを解除する"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "フォロー解除"
+
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "ユーザはプロフィールをもっていません。"
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

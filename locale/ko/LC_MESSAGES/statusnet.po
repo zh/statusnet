@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:41:05+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:10:33+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -782,23 +782,28 @@ msgstr "올리기"
 msgid "Crop"
 msgstr "자르기"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "프로필을 지정하지 않았습니다."
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "당신의 아바타가 될 이미지영역을 지정하세요."
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "파일 데이터를 잃어버렸습니다."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "아바타가 업데이트 되었습니다."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "아바타 업데이트 실패"
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 #, fuzzy
 msgid "Avatar deleted."
 msgstr "아바타가 업데이트 되었습니다."
@@ -941,7 +946,7 @@ msgid "Conversation"
 msgstr "인증 코드"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "통지"
 
@@ -1807,7 +1812,7 @@ msgstr "%s 타임라인"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%2$s에 있는 %1$s의 업데이트!"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "그룹"
@@ -3466,7 +3471,7 @@ msgid "Description"
 msgstr "설명"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "통계"
 
@@ -3624,7 +3629,7 @@ msgid "Members"
 msgstr "회원"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(없습니다.)"
@@ -3793,7 +3798,7 @@ msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
@@ -4074,8 +4079,7 @@ msgstr "아바타 설정"
 msgid "You are not subscribed to that profile."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr "구독을 저장할 수 없습니다."
 
@@ -4652,39 +4656,39 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 #, fuzzy
 msgid "You have been banned from subscribing."
 msgstr "이 회원은 구독으로부터 당신을 차단해왔다."
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr ""
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr "회원이 당신을 차단해왔습니다."
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 #, fuzzy
 msgid "Not subscribed!"
 msgstr "구독하고 있지 않습니다!"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 #, fuzzy
 msgid "Couldn't delete self-subscription."
 msgstr "예약 구독을 삭제 할 수 없습니다."
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 #, fuzzy
 msgid "Couldn't delete subscription OMB token."
 msgstr "예약 구독을 삭제 할 수 없습니다."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr "예약 구독을 삭제 할 수 없습니다."
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, fuzzy, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
@@ -4990,20 +4994,20 @@ msgstr "뒷 페이지"
 msgid "Before"
 msgstr "앞 페이지"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5498,20 +5502,20 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:135
 #, fuzzy
 msgid "No configuration file found. "
 msgstr "확인 코드가 없습니다."
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:140
+#: lib/common.php:139
 #, fuzzy
 msgid "Go to the installer."
 msgstr "이 사이트 로그인"
@@ -5692,40 +5696,40 @@ msgstr "%s 그룹 게시글의 태그"
 msgid "This page is not available in a media type you accept"
 msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "지원하지 않는 그림 파일 형식입니다."
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, fuzzy, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "당신그룹의 로고 이미지를 업로드할 수 있습니다."
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "불완전한 업로드."
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "파일을 올리는데 시스템 오류 발생"
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "그림 파일이 아니거나 손상된 파일 입니다."
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "파일을 잃어버렸습니다."
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "알 수 없는 종류의 파일입니다"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr ""
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr ""
 
@@ -6187,7 +6191,7 @@ msgstr "%s의 게시글의 태그"
 msgid "Unknown"
 msgstr "알려지지 않은 행동"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "구독"
 
@@ -6195,7 +6199,7 @@ msgstr "구독"
 msgid "All subscriptions"
 msgstr "모든 예약 구독"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "구독자"
 
@@ -6203,16 +6207,21 @@ msgstr "구독자"
 msgid "All subscribers"
 msgstr "모든 구독자"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 #, fuzzy
 msgid "User ID"
 msgstr "이용자"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "가입한 때"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "모든 그룹"
 
@@ -6393,6 +6402,11 @@ msgstr "이 사용자로부터 구독취소합니다."
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "구독 해제"
+
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "이용자가 프로필을 가지고 있지 않습니다."
 
 #: lib/userprofile.php:117
 #, fuzzy

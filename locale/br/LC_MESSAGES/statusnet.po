@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:40:14+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:09:18+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: out-statusnet\n"
@@ -750,23 +750,28 @@ msgstr "Enporzhiañ"
 msgid "Crop"
 msgstr "Adframmañ"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "N'eo bet resisaet profil ebet"
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Kollet eo bet roadennoù."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "Hizivaet eo bet an avatar."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "Ur gudenn 'zo bet e-pad hizivadenn an avatar."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "Dilammet eo bet an Avatar."
 
@@ -902,7 +907,7 @@ msgid "Conversation"
 msgstr "Kaozeadenn"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Ali"
 
@@ -1697,7 +1702,7 @@ msgstr "Oberezhioù %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Hizivadenn izili %1$s e %2$s !"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Strolladoù"
@@ -3238,7 +3243,7 @@ msgid "Description"
 msgstr ""
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "Stadegoù"
 
@@ -3395,7 +3400,7 @@ msgid "Members"
 msgstr "Izili"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(hini ebet)"
@@ -3555,7 +3560,7 @@ msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
@@ -3607,9 +3612,8 @@ msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "Yezh d'ober ganti da gentañ"
+msgstr "Yezh dre ziouer"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
@@ -3663,9 +3667,8 @@ msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Dilemel un ali"
+msgstr "Enrollañ ali ul lec'hienn"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -3822,8 +3825,7 @@ msgstr "Enrollañ an arventennoù moned"
 msgid "You are not subscribed to that profile."
 msgstr ""
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr ""
 
@@ -4359,36 +4361,36 @@ msgstr ""
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr ""
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr ""
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr ""
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr ""
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr ""
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 #, fuzzy
 msgid "Couldn't delete subscription OMB token."
 msgstr "Diposubl eo dilemel ar postel kadarnadur."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr ""
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
@@ -4667,20 +4669,20 @@ msgstr "War-lerc'h"
 msgid "Before"
 msgstr "Kent"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -4757,9 +4759,8 @@ msgstr ""
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Eilañ an ali"
+msgstr "Kemmañ ali al lec'hienn"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
@@ -4818,7 +4819,7 @@ msgstr "Merdeer"
 
 #: lib/applicationeditform.php:274
 msgid "Desktop"
-msgstr ""
+msgstr "Burev"
 
 #: lib/applicationeditform.php:275
 msgid "Type of application, browser or desktop"
@@ -4826,11 +4827,11 @@ msgstr ""
 
 #: lib/applicationeditform.php:297
 msgid "Read-only"
-msgstr ""
+msgstr "Lenn hepken"
 
 #: lib/applicationeditform.php:315
 msgid "Read-write"
-msgstr ""
+msgstr "Lenn-skrivañ"
 
 #: lib/applicationeditform.php:316
 msgid "Default access for this application: read-only, or read-write"
@@ -4842,7 +4843,7 @@ msgstr ""
 
 #: lib/attachmentlist.php:87
 msgid "Attachments"
-msgstr ""
+msgstr "Pezhioù stag"
 
 #: lib/attachmentlist.php:263
 msgid "Author"
@@ -4909,7 +4910,7 @@ msgstr ""
 #: lib/command.php:228
 #, php-format
 msgid "Nudge sent to %s"
-msgstr ""
+msgstr "Blinkadenn kaset da %s"
 
 #: lib/command.php:254
 #, php-format
@@ -4955,12 +4956,12 @@ msgstr "Anv klok : %s"
 #: lib/command.php:404 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
-msgstr ""
+msgstr "Lec'hiadur : %s"
 
 #: lib/command.php:407 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
-msgstr ""
+msgstr "Lec'hienn Web : %s"
 
 #: lib/command.php:410
 #, php-format
@@ -5013,7 +5014,7 @@ msgstr ""
 #: lib/command.php:545
 #, php-format
 msgid "Reply to %s sent"
-msgstr ""
+msgstr "Respont kaset da %s"
 
 #: lib/command.php:547
 msgid "Error saving notice."
@@ -5150,19 +5151,19 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr ""
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr ""
 
@@ -5336,40 +5337,40 @@ msgstr ""
 msgid "This page is not available in a media type you accept"
 msgstr ""
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr ""
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr ""
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr ""
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr ""
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr ""
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr ""
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr ""
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "Mo"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "Ko"
 
@@ -5665,7 +5666,7 @@ msgstr ""
 #: lib/messageform.php:178 lib/noticeform.php:236
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr ""
+msgstr "Kas"
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
@@ -5729,7 +5730,7 @@ msgstr ""
 
 #: lib/noticelist.php:604
 msgid "Repeated by"
-msgstr ""
+msgstr "Adkemeret gant"
 
 #: lib/noticelist.php:631
 msgid "Reply to this notice"
@@ -5812,7 +5813,7 @@ msgstr ""
 msgid "Unknown"
 msgstr "Dianav"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Koumanantoù"
 
@@ -5820,7 +5821,7 @@ msgstr "Koumanantoù"
 msgid "All subscriptions"
 msgstr ""
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Ar re koumanantet"
 
@@ -5828,15 +5829,20 @@ msgstr "Ar re koumanantet"
 msgid "All subscribers"
 msgstr "An holl re koumanantet"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "ID an implijer"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "Ezel abaoe"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "An holl strolladoù"
 
@@ -6007,6 +6013,11 @@ msgstr ""
 msgid "Unsubscribe"
 msgstr ""
 
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "An implijer-mañ n'eus profil ebet dezhañ."
+
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
 msgstr "Kemmañ an Avatar"
@@ -6045,16 +6056,14 @@ msgid "User role"
 msgstr "Strolladoù implijerien"
 
 #: lib/userprofile.php:366
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Merourien"
+msgstr "Merour"
 
 #: lib/userprofile.php:367
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Habaskaat"
+msgstr "Habasker"
 
 #: lib/util.php:1046
 msgid "a few seconds ago"
@@ -6103,7 +6112,7 @@ msgstr "bloaz zo well-wazh"
 #: lib/webcolor.php:82
 #, php-format
 msgid "%s is not a valid color!"
-msgstr ""
+msgstr "n'eo ket %s ul liv reizh !"
 
 #: lib/webcolor.php:123
 #, php-format

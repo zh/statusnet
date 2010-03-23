@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:41:17+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:10:46+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -783,24 +783,29 @@ msgstr "Uploaden"
 msgid "Crop"
 msgstr "Uitsnijden"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "Er is geen profiel opgegeven."
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 "Selecteer een vierkant in de afbeelding om deze als uw avatar in te stellen"
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Ons bestand is verloren gegaan."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "De avatar is bijgewerkt."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "Het bijwerken van de avatar is mislukt."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "De avatar is verwijderd."
 
@@ -938,7 +943,7 @@ msgid "Conversation"
 msgstr "Dialoog"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Mededelingen"
 
@@ -1770,7 +1775,7 @@ msgstr "%s tijdlijn"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Updates voor leden van %1$s op %2$s."
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Groepen"
@@ -3444,7 +3449,7 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "Statistieken"
 
@@ -3613,7 +3618,7 @@ msgid "Members"
 msgstr "Leden"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(geen)"
@@ -3796,7 +3801,8 @@ msgid "Unknown language \"%s\"."
 msgstr "De taal \"%s\" is niet bekend."
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+#, fuzzy
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr "De minimale tekstlimiet is 140 tekens."
 
 #: actions/siteadminpanel.php:171
@@ -4075,8 +4081,7 @@ msgstr "Snapshotinstellingen opslaan"
 msgid "You are not subscribed to that profile."
 msgstr "U bent niet geabonneerd op dat profiel."
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr "Het was niet mogelijk het abonnement op te slaan."
 
@@ -4672,36 +4677,36 @@ msgstr ""
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr "U mag zich niet abonneren."
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr "U bent al gebonneerd!"
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr "Deze gebruiker negeert u."
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr "Niet geabonneerd!"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr "Het was niet mogelijk het abonnement op uzelf te verwijderen."
 
-#: classes/Subscription.php:190
+#: classes/Subscription.php:200
 msgid "Couldn't delete subscription OMB token."
 msgstr ""
 "Het was niet mogelijk om het OMB-token voor het abonnement te verwijderen."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr "Kon abonnement niet verwijderen."
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welkom bij %1$s, @%2$s!"
@@ -4989,21 +4994,21 @@ msgstr "Later"
 msgid "Before"
 msgstr "Eerder"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr "Verwachtte een root-feed element maar kreeg een heel XML-document."
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr "Het is nog niet mogelijk inhoud uit andere omgevingen te verwerken."
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr "Het is nog niet mogelijk ingebedde XML-inhoud te verwerken"
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Het is nog niet mogelijk ingebedde Base64-inhoud te verwerken"
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
-msgstr ""
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:98
@@ -5524,20 +5529,20 @@ msgstr ""
 "tracks - nog niet beschikbaar\n"
 "tracking - nog niet beschikbaar\n"
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Er is geen instellingenbestand aangetroffen. "
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen: "
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 "U kunt proberen de installer uit te voeren om dit probleem op te lossen."
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Naar het installatieprogramma gaan."
 
@@ -5715,40 +5720,40 @@ msgstr "Labels in de groepsmededelingen van %s"
 msgid "This page is not available in a media type you accept"
 msgstr "Deze pagina is niet beschikbaar in een mediatype dat u accepteert"
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "Niet ondersteund beeldbestandsformaat."
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "Dat bestand is te groot. De maximale bestandsgrootte is %s."
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "Gedeeltelijke upload."
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "Er is een systeemfout opgetreden tijdens het uploaden van het bestand."
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "Het bestand is geen afbeelding of het bestand is beschadigd."
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Het bestand is zoekgeraakt."
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "Onbekend bestandstype"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "MB"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "kB"
 
@@ -6287,7 +6292,7 @@ msgstr "Labels in de mededelingen van %s"
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonnementen"
 
@@ -6295,7 +6300,7 @@ msgstr "Abonnementen"
 msgid "All subscriptions"
 msgstr "Alle abonnementen"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abonnees"
 
@@ -6303,15 +6308,20 @@ msgstr "Abonnees"
 msgid "All subscribers"
 msgstr "Alle abonnees"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "Gebruikers-ID"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "Lid sinds"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "Alle groepen"
 
@@ -6482,6 +6492,11 @@ msgstr "Uitschrijven van deze gebruiker"
 msgid "Unsubscribe"
 msgstr "Abonnement opheffen"
 
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "Deze gebruiker heeft geen profiel."
+
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
 msgstr "Avatar bewerken"
@@ -6492,7 +6507,7 @@ msgstr "Gebruikershandelingen"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Bezig met het verwijderen van de gebruiker..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
