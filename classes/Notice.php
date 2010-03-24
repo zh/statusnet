@@ -421,7 +421,9 @@ class Notice extends Memcached_DataObject
         }
 
         $profile = Profile::staticGet($this->profile_id);
-        $profile->blowNoticeCount();
+        if (!empty($profile)) {
+            $profile->blowNoticeCount();
+        }
     }
 
     /**
