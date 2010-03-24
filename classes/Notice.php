@@ -418,7 +418,9 @@ class Notice extends Memcached_DataObject
         }
 
         $profile = Profile::staticGet($this->profile_id);
-        $profile->blowNoticeCount();
+        if (!empty($profile)) {
+            $profile->blowNoticeCount();
+        }
     }
 
     /** save all urls in the notice to the db
