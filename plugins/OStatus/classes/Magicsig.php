@@ -108,16 +108,16 @@ class Magicsig extends Memcached_DataObject
 
     public function generate($user_id)
     {
-        $rsa = new SafeCrypt_RSA();
+        $rsa = new Crypt_RSA();
         
         $keypair = $rsa->createKey();
 
         $rsa->loadKey($keypair['privatekey']);
 
-        $this->privateKey = new SafeCrypt_RSA();
+        $this->privateKey = new Crypt_RSA();
         $this->privateKey->loadKey($keypair['privatekey']);
 
-        $this->publicKey = new SafeCrypt_RSA();
+        $this->publicKey = new Crypt_RSA();
         $this->publicKey->loadKey($keypair['publickey']);
         
         $this->user_id = $user_id;
@@ -169,7 +169,7 @@ class Magicsig extends Memcached_DataObject
     {
         common_log(LOG_DEBUG, "Adding ".$type." key: (".$mod .', '. $exp .")");
 
-        $rsa = new SafeCrypt_RSA();
+        $rsa = new Crypt_RSA();
         $rsa->signatureMode = CRYPT_RSA_SIGNATURE_PKCS1;
         $rsa->setHash('sha256');
         $rsa->modulus = new Math_BigInteger(base64_url_decode($mod), 256);
