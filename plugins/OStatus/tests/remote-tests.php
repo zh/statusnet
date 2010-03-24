@@ -78,6 +78,8 @@ class OStatusTester extends TestBase
         $this->testLocalPost();
         $this->testMentionUrl();
         $this->testSubscribe();
+        $this->testPush();
+        $this->testMentionSubscribee();
         $this->testUnsubscribe();
 
         $this->log("DONE!");
@@ -124,6 +126,26 @@ class OStatusTester extends TestBase
         $this->sub->subscribe($this->pub->getProfileLink());
         $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
         $this->assertTrue($this->pub->hasSubscriber($this->sub->getProfileUri()));
+    }
+
+    function testPush()
+    {
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertTrue($this->pub->hasSubscriber($this->sub->getProfileUri()));
+
+        $name = $this->sub->username;
+        $post = $this->pub->post("Regular post, which $name should get via PuSH");
+        $this->sub->assertReceived($post);
+    }
+
+    function testMentionSubscribee()
+    {
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertFalse($this->pub->hasSubscription($this->sub->getProfileUri()));
+
+        $name = $this->pub->username;
+        $post = $this->sub->post("Just a quick note back to my remote subscribee @$name");
+        $this->pub->assertReceived($post);
     }
 
     function testUnsubscribe()
