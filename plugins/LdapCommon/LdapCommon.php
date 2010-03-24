@@ -31,6 +31,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+// We bundle the Net/LDAP2 library...
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
+
 class LdapCommon
 {
     protected static $ldap_connections = array();
