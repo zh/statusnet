@@ -792,24 +792,29 @@ margin-right:11px;
 
 /* NOTICE */
 .notice,
-.profile {
+.profile,
+.application {
 position:relative;
-padding:11px 2%;
+padding-top:11px;
+padding-bottom:11px;
 clear:both;
 float:left;
-width:95.7%;
-border-width:1px;
-border-style:solid;
-margin-bottom:11px;
+width:100%;
+border-top-width:1px;
+border-top-style:dotted;
 }
 .notices li {
 list-style-type:none;
 }
 .notices .notices {
 margin-top:7px;
-margin-left:5%;
-width:95%;
+margin-left:2%;
+width:98%;
 float:left;
+}
+.mark-top {
+border-top-width:1px;
+border-top-style:solid;
 }
 
 #aside_primary .notice,
@@ -970,36 +975,38 @@ outline:none;
 text-indent:-9999px;
 }
 
+.form_repeat.dialogbox {
+top:-4px;
+right:29px;
+min-width:199px;
+}
+
 .notice-options {
 position:relative;
 font-size:0.95em;
-width:90px;
+width:113px;
 float:right;
-margin-right:11px;
+margin-top:3px;
+margin-right:4px;
 }
-
 .notice-options a {
 float:left;
 }
-.notice-options .notice_delete,
 .notice-options .notice_reply,
+.notice-options .form_repeat,
+.notice-options .form_favor,
+.notice-options .form_disfavor,
+.notice-options .repeated {
+float:left;
+margin-left:14.2%;
+}
 .notice-options .form_favor,
 .notice-options .form_disfavor {
-position:absolute;
-top:0;
-}
-.notice-options .form_favor,
-.notice-options .form_disfavor {
-left:0;
-}
-.notice-options .notice_reply {
-left:29px;
-}
-.notice-options .notice_delete {
-right:0;
+margin-left:0;
 }
 .notice-options input,
-.notice-options a {
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
@@ -1010,27 +1017,51 @@ border:0;
 .notice-options .notice_reply,
 .notice-options .notice_delete {
 text-decoration:none;
-padding-left:16px;
+}
+.notice .notice-options .notice_delete {
+float:right;
 }
 .notice-options form input.submit {
 width:16px;
-padding:2px 0;
+height:16px;
+padding:0;
+border-radius:0;
+-moz-border-radius:0;
+-webkit-border-radius:0;
 }
+.notice-options .form_repeat legend,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
+.notice-options .form_repeat fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
+}
+.notice-options a,
+.notice-options .repeated {
+width:16px;
+height:16px;
 }
 
 .notice .attachment {
 position:relative;
 padding-left:16px;
 }
-#attachments .attachment {
+.notice .attachment.more {
+text-indent:-9999px;
+width:16px;
+height:16px;
+display:inline-block;
+overflow:hidden;
+vertical-align:middle;
+margin-left:4px;
+}
+
+#attachments .attachment,
+.notice .attachment.more {
 padding-left:0;
 }
 .notice .attachment img {
