@@ -27,6 +27,8 @@
  * @link      http://status.net/
  */
 
+require_once 'Crypt/RSA.php';
+
 class Magicsig extends Memcached_DataObject
 {
 
