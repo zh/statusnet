@@ -647,7 +647,7 @@ create table user_im_prefs (
 
     constraint primary key (user_id, transport),
     constraint unique key `transport_screenname_key` ( `transport` , `screenname` )
-);
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
 create table conversation (
     id integer auto_increment primary key comment 'unique identifier',
