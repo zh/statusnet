@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(base.css);
+@import url(base.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 html {
 background-color:#144A6E;
 }

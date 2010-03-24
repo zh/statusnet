@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(../../base/css/display.css);
+@import url(../../base/css/display.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 body,
 a:active {
 background-color:#F0F2F5;
@@ -515,3 +516,4 @@ background-position:90% 47%;
 background-position:10% 47%;
 }
 
+}/*end of @media screen, projection, tv*/

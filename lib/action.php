@@ -198,8 +198,7 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->cssLink('css/display.css',null,'screen, projection, tv');
-                $this->cssLink('css/print.css','base','print');
+                $this->cssLink('css/display.css',null, 'screen, projection, tv, print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
