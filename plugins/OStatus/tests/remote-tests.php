@@ -75,13 +75,16 @@ class OStatusTester extends TestBase
     {
         $this->setup();
 
-        $this->testLocalPost();
-        $this->testMentionUrl();
-        $this->testSubscribe();
-        $this->testPush();
-        $this->testMentionSubscribee();
-        $this->testUnsubscribe();
+        $methods = get_class_methods($this);
+        foreach ($methods as $method) {
+            if (strtolower(substr($method, 0, 4)) == 'test') {
+                print "\n";
+                print "== $method ==\n";
+                call_user_func(array($this, $method));
+            }
+        }
 
+        print "\n";
         $this->log("DONE!");
     }
 
@@ -372,6 +375,7 @@ class SNTestClient extends TestBase
         $this->assertEqual($this->fullname, $data['name']);
         $this->assertEqual($this->homepage, $data['url']);
         $this->assertEqual($this->bio, $data['description']);
+        $this->log("  looks good!");
     }
 
     /**
@@ -408,11 +412,11 @@ class SNTestClient extends TestBase
             }
             $tries--;
             if ($tries) {
-                $this->log("Didn't see it yet, waiting $timeout seconds");
+                $this->log("  didn't see it yet, waiting $timeout seconds");
                 sleep($timeout);
             }
         }
-        throw new Exception("Message $notice_uri not received by $this->username");
+        throw new Exception("  message $notice_uri not received by $this->username");
     }
 
     /**
@@ -442,10 +446,9 @@ class SNTestClient extends TestBase
         }
         foreach ($entries as $entry) {
             if ($entry->id == $notice_uri) {
-                $this->log("found it $notice_uri");
+                $this->log("  found it $notice_uri");
                 return true;
             }
-            //$this->log("nope... " . $entry->id);
         }
         return false;
     }
@@ -515,15 +518,15 @@ class SNTestClient extends TestBase
                 foreach ($follows as $follow) {
                     $target = $follow->getAttributeNS($ns_rdf, 'resource');
                     if ($target == ($subscribed . '#acct')) {
-                        $this->log("Confirmed $subscriber subscribed to $subscribed");
+                        $this->log("  confirmed $subscriber subscribed to $subscribed");
                         return true;
                     }
                 }
-                $this->log("We found $subscriber but they don't follow $subscribed");
+                $this->log("  we found $subscriber but they don't follow $subscribed");
                 return false;
             }
         }
-        $this->log("Can't find $subscriber in {$this->username}'s social graph.");
+        $this->log("  can't find $subscriber in {$this->username}'s social graph.");
         return false;
     }
 
