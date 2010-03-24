@@ -92,7 +92,7 @@ class UsersalmonAction extends SalmonAction
             throw new ClientException("Not to anyone in reply to anything!");
         }
 
-        $existing = Notice::staticGet('uri', $this->act->object->id);
+        $existing = Notice::staticGet('uri', $this->act->objects[0]->id);
 
         if (!empty($existing)) {
             common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
@@ -143,7 +143,7 @@ class UsersalmonAction extends SalmonAction
 
     function handleFavorite()
     {
-        $notice = $this->getNotice($this->act->object);
+        $notice = $this->getNotice($this->act->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $old = Fave::pkeyGet(array('user_id' => $profile->id,
@@ -164,7 +164,7 @@ class UsersalmonAction extends SalmonAction
      */
     function handleUnfavorite()
     {
-        $notice = $this->getNotice($this->act->object);
+        $notice = $this->getNotice($this->act->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $fave = Fave::pkeyGet(array('user_id' => $profile->id,
