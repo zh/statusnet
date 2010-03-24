@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(base.css);
+@import url(base.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 html {
 background:url(../images/illustrations/illu_pigeons-01.png) no-repeat 0 100%;
 }
@@ -496,3 +497,4 @@ background-position:90% 47%;
 background-position:10% 47%;
 }
 
+}/*end of @media screen, projection, tv*/

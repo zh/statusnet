@@ -196,12 +196,30 @@ class SubscriptionsListItem extends SubscriptionListItem
         $this->out->hidden('token', common_session_token());
         $this->out->hidden('profile', $this->profile->id);
         if (common_config('xmpp', 'enabled')) {
-            $this->out->checkbox('jabber', _('Jabber'), $sub->jabber);
+            $attrs = array('name' => 'jabber',
+                           'type' => 'checkbox',
+                           'class' => 'checkbox',
+                           'id' => 'jabber-'.$this->profile->id);
+            if ($sub->jabber) {
+                $attrs['checked'] = 'checked';
+            }
+
+            $this->out->element('input', $attrs);
+            $this->out->element('label', array('for' => 'jabber-'.$this->profile->id), _('Jabber'));
         } else {
             $this->out->hidden('jabber', $sub->jabber);
         }
         if (common_config('sms', 'enabled')) {
-            $this->out->checkbox('sms', _('SMS'), $sub->sms);
+            $attrs = array('name' => 'sms',
+                           'type' => 'checkbox',
+                           'class' => 'checkbox',
+                           'id' => 'sms-'.$this->profile->id);
+            if ($sub->sms) {
+                $attrs['checked'] = 'checked';
+            }
+
+            $this->out->element('input', $attrs);
+            $this->out->element('label', array('for' => 'sms-'.$this->profile->id), _('SMS'));
         } else {
             $this->out->hidden('sms', $sub->sms);
         }

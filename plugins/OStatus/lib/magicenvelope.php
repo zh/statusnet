@@ -59,12 +59,21 @@ class MagicEnvelope
         }
         if ($xrd->links) {
             if ($link = Discovery::getService($xrd->links, Magicsig::PUBLICKEYREL)) {
-                list($type, $keypair) = explode(',', $link['href']);
-                if (empty($keypair)) {
+                $keypair = false;
+                $parts = explode(',', $link['href']);
+                if (count($parts) == 2) {
+                    $keypair = $parts[1];
+                } else {
                     // Backwards compatibility check for separator bug in 0.9.0
-                    list($type, $keypair) = explode(';', $link['href']);
+                    $parts = explode(';', $link['href']);
+                    if (count($parts) == 2) {
+                        $keypair = $parts[1];
+                    }
                 }
-                return $keypair;
+                
+                if ($keypair) {
+                    return $keypair;
+                }
             }
         }
         throw new Exception('Unable to locate signer public key');

@@ -1520,7 +1520,8 @@ function common_user_uri(&$user)
 function common_notice_uri(&$notice)
 {
     return common_local_url('shownotice',
-                            array('notice' => $notice->id));
+                            array('notice' => $notice->id),
+                            null, null, false);
 }
 
 // 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits

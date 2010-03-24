@@ -53,7 +53,14 @@ class XRD
         $xrd = new XRD();
 
         $dom = new DOMDocument();
-        if (!$dom->loadXML($xml)) {
+
+        // Don't spew XML warnings to output
+        $old = error_reporting();
+        error_reporting($old & ~E_WARNING);
+        $ok = $dom->loadXML($xml);
+        error_reporting($old);
+
+        if (!$ok) {
             throw new Exception("Invalid XML");
         }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);

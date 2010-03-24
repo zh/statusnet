@@ -31,6 +31,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+// We bundle the Net/LDAP2 library...
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib');
+
 class LdapCommon
 {
     protected static $ldap_connections = array();
@@ -47,7 +50,7 @@ class LdapCommon
     public $uniqueMember_attribute = null;
     public $attributes=array();
     public $password_encoding=null;
-    
+
     public function __construct($config)
     {
         Event::addHandler('Autoload',array($this,'onAutoload'));
@@ -68,7 +71,7 @@ class LdapCommon
     }
 
     function onAutoload($cls)
-    {   
+    {
         switch ($cls)
         {
          case 'MemcacheSchemaCache':
@@ -76,6 +79,15 @@ class LdapCommon
             return false;
          case 'Net_LDAP2':
             require_once 'Net/LDAP2.php';
+            return false;
+         case 'Net_LDAP2_Filter':
+            require_once 'Net/LDAP2/Filter.php';
+            return false;
+         case 'Net_LDAP2_Filter':
+            require_once 'Net/LDAP2/Filter.php';
+            return false;
+         case 'Net_LDAP2_Entry':
+            require_once 'Net/LDAP2/Entry.php';
             return false;
         }
     }
@@ -97,8 +109,9 @@ class LdapCommon
             $config = $this->ldap_config;
         }
         $config_id = crc32(serialize($config));
-        $ldap = self::$ldap_connections[$config_id];
-        if(! isset($ldap)) {
+        if(array_key_exists($config_id,self::$ldap_connections)) {
+            $ldap = self::$ldap_connections[$config_id];
+        } else {
             //cannot use Net_LDAP2::connect() as StatusNet uses
             //PEAR::setErrorHandling(PEAR_ERROR_CALLBACK, 'handleError');
             //PEAR handling can be overridden on instance objects, so we do that.
@@ -197,10 +210,10 @@ class LdapCommon
             return false;
         }
     }
-    
+
     /**
      * get an LDAP entry for a user with a given username
-     * 
+     *
      * @param string $username
      * $param array $attributes LDAP attributes to retrieve
      * @return string DN
@@ -212,7 +225,7 @@ class LdapCommon
             'attributes' => $attributes
         );
         $search = $ldap->search(null,$filter,$options);
-        
+
         if (PEAR::isError($search)) {
             common_log(LOG_WARNING, 'Error while getting DN for user: '.$search->getMessage());
             return false;

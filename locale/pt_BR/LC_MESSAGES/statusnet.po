@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-17 21:39+0000\n"
-"PO-Revision-Date: 2010-03-17 21:41:27+0000\n"
+"POT-Creation-Date: 2010-03-23 20:09+0000\n"
+"PO-Revision-Date: 2010-03-23 20:10:55+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63880); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -46,10 +46,9 @@ msgstr "Impedir usuários anônimos (não autenticados) de visualizar o site?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-#, fuzzy
 msgctxt "LABEL"
 msgid "Private"
-msgstr "Particular"
+msgstr "Privado"
 
 #. TRANS: Checkbox instructions for admin setting "Invite only"
 #: actions/accessadminpanel.php:174
@@ -627,7 +626,7 @@ msgstr "Essa mensagem não existe."
 
 #: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
-msgstr "Você não pode repetria sua própria mensagem."
+msgstr "Você não pode repetir a sua própria mensagem."
 
 #: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
@@ -778,23 +777,28 @@ msgstr "Enviar"
 msgid "Crop"
 msgstr "Cortar"
 
-#: actions/avatarsettings.php:328
+#: actions/avatarsettings.php:305
+#, fuzzy
+msgid "No file uploaded."
+msgstr "Não foi especificado nenhum perfil."
+
+#: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "Selecione uma área quadrada da imagem para ser seu avatar"
 
-#: actions/avatarsettings.php:343 actions/grouplogo.php:380
+#: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Os dados do nosso arquivo foram perdidos."
 
-#: actions/avatarsettings.php:366
+#: actions/avatarsettings.php:370
 msgid "Avatar updated."
 msgstr "O avatar foi atualizado."
 
-#: actions/avatarsettings.php:369
+#: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "Não foi possível atualizar o avatar."
 
-#: actions/avatarsettings.php:393
+#: actions/avatarsettings.php:397
 msgid "Avatar deleted."
 msgstr "O avatar foi excluído."
 
@@ -933,7 +937,7 @@ msgid "Conversation"
 msgstr "Conversa"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:218 lib/searchgroupnav.php:82
+#: lib/profileaction.php:224 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Mensagens"
 
@@ -1587,23 +1591,20 @@ msgid "Cannot read file."
 msgstr "Não foi possível ler o arquivo."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Token inválido."
+msgstr "Papel inválido."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Este papel está reservado e não pode ser definido."
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Você não pode colocar usuários deste site em isolamento."
+msgstr "Você não pode definir papéis para os usuários neste site."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "O usuário já está silenciado."
+msgstr "O usuário já possui este papel."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1764,7 +1765,7 @@ msgstr "Mensagens de %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Atualizações dos membros de %1$s no %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
+#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupos"
@@ -2098,9 +2099,8 @@ msgid "You must be logged in to join a group."
 msgstr "Você deve estar autenticado para se associar a um grupo."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
-msgstr "Nenhuma identificação."
+msgstr "Nenhum apelido ou identificação."
 
 #: actions/joingroup.php:141
 #, php-format
@@ -3358,14 +3358,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Respostas para %1$s no %2$s"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Você não pode silenciar os usuários neste site."
+msgstr "Não é possível revogar os papéis dos usuários neste site."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Usuário sem um perfil correspondente"
+msgstr "O usuário não possui este papel."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
@@ -3395,7 +3393,7 @@ msgstr "Gerenciar sessões"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
-msgstr "Define se nós cuidamos do gerenciamento das sessões."
+msgstr "Define se as sessões terão gerenciamento próprio."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
@@ -3437,7 +3435,7 @@ msgid "Description"
 msgstr "Descrição"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:176
+#: lib/profileaction.php:182
 msgid "Statistics"
 msgstr "Estatísticas"
 
@@ -3604,7 +3602,7 @@ msgid "Members"
 msgstr "Membros"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
+#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Nenhum)"
@@ -3770,7 +3768,6 @@ msgid "User is already silenced."
 msgstr "O usuário já está silenciado."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
 msgstr "Configurações básicas para esta instância do StatusNet."
 
@@ -3788,7 +3785,8 @@ msgid "Unknown language \"%s\"."
 msgstr "Idioma \"%s\" desconhecido."
 
 #: actions/siteadminpanel.php:165
-msgid "Minimum text limit is 140 characters."
+#, fuzzy
+msgid "Minimum text limit is 0 (unlimited)."
 msgstr "O comprimento máximo do texto é de 140 caracteres."
 
 #: actions/siteadminpanel.php:171
@@ -3846,6 +3844,8 @@ msgstr "Idioma padrão"
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Idioma do site quando as configurações de autodetecção a partir do navegador "
+"não estiverem disponíveis"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3870,37 +3870,32 @@ msgstr ""
 "coisa novamente."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Mensagem do site"
+msgstr "Avisos do site"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "Nova mensagem"
+msgstr "Editar os avisos do site (exibidos em todas as páginas)"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "Não foi possível salvar suas configurações de aparência."
+msgstr "Não foi possível salvar os avisos do site."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
-msgstr ""
+msgstr "O tamanho máximo para os avisos é de 255 caracteres."
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Mensagem do site"
+msgstr "Texto dos avisos"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "Texto dos avisos do site (no máximo 255 caracteres; pode usar HTML)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Mensagem do site"
+msgstr "Salvar os avisos do site"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4007,9 +4002,8 @@ msgid "Snapshots"
 msgstr "Estatísticas"
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Mude as configurações do site"
+msgstr "Gerenciar as configurações das estatísticas"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4056,32 +4050,28 @@ msgid "Snapshots will be sent to this URL"
 msgstr "As estatísticas serão enviadas para esta URL"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Salvar as configurações do site"
+msgstr "Salvar as configurações de estatísticas"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
 msgstr "Você não está assinando esse perfil."
 
-#: actions/subedit.php:83 classes/Subscription.php:89
-#: classes/Subscription.php:116
+#: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
 msgstr "Não foi possível salvar a assinatura."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Esta ação aceita somente requisições POST."
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Esse arquivo não existe."
+msgstr "Este perfil não existe."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Você não está assinando esse perfil."
+msgstr "Não é possível assinar um perfil OMB 0.1 remoto com essa ação."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4586,9 +4576,8 @@ msgid "Group leave failed."
 msgstr "Não foi possível deixar o grupo."
 
 #: classes/Local_group.php:41
-#, fuzzy
 msgid "Could not update local group."
-msgstr "Não foi possível atualizar o grupo."
+msgstr "Não foi possível atualizar o grupo local."
 
 #: classes/Login_token.php:76
 #, php-format
@@ -4652,36 +4641,35 @@ msgstr "Problema no salvamento das mensagens recebidas do grupo."
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/Subscription.php:66 lib/oauthstore.php:465
+#: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr "Você está proibido de assinar."
 
-#: classes/Subscription.php:70
+#: classes/Subscription.php:78
 msgid "Already subscribed!"
 msgstr "Já assinado!"
 
-#: classes/Subscription.php:74
+#: classes/Subscription.php:82
 msgid "User has blocked you."
 msgstr "O usuário bloqueou você."
 
-#: classes/Subscription.php:157
+#: classes/Subscription.php:167
 msgid "Not subscribed!"
 msgstr "Não assinado!"
 
-#: classes/Subscription.php:163
+#: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
 msgstr "Não foi possível excluir a auto-assinatura."
 
-#: classes/Subscription.php:190
-#, fuzzy
+#: classes/Subscription.php:200
 msgid "Couldn't delete subscription OMB token."
-msgstr "Não foi possível excluir a assinatura."
+msgstr "Não foi possível excluir o token de assinatura OMB."
 
-#: classes/Subscription.php:201
+#: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
 msgstr "Não foi possível excluir a assinatura."
 
-#: classes/User.php:378
+#: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bem vindo(a) a %1$s, @%2$s!"
@@ -4691,18 +4679,16 @@ msgid "Could not create group."
 msgstr "Não foi possível criar o grupo."
 
 #: classes/User_group.php:489
-#, fuzzy
 msgid "Could not set group URI."
-msgstr "Não foi possível configurar a associação ao grupo."
+msgstr "Não foi possível definir a URI do grupo."
 
 #: classes/User_group.php:510
 msgid "Could not set group membership."
 msgstr "Não foi possível configurar a associação ao grupo."
 
 #: classes/User_group.php:524
-#, fuzzy
 msgid "Could not save local group info."
-msgstr "Não foi possível salvar a assinatura."
+msgstr "Não foi possível salvar a informação do grupo local."
 
 #: lib/accountsettingsaction.php:108
 msgid "Change your profile settings"
@@ -4747,27 +4733,23 @@ msgstr "Navegação primária no site"
 
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:430
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Perfil pessoal e fluxo de mensagens dos amigos"
 
 #: lib/action.php:433
-#, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Pessoal"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:435
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
-msgstr "Mude seu e-mail, avatar, senha, perfil"
+msgstr "Altere seu e-mail, avatar, senha, perfil"
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:440
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Conecte-se a outros serviços"
@@ -4778,16 +4760,14 @@ msgstr "Conectar"
 
 #. TRANS: Tooltip for menu option "Admin"
 #: lib/action.php:446
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
-msgstr "Mude as configurações do site"
+msgstr "Altere as configurações do site"
 
 #: lib/action.php:449
-#, fuzzy
 msgctxt "MENU"
 msgid "Admin"
-msgstr "Admin"
+msgstr "Administrar"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:453
@@ -4979,20 +4959,20 @@ msgstr "Próximo"
 msgid "Before"
 msgstr "Anterior"
 
-#: lib/activity.php:453
+#: lib/activity.php:120
+msgid "Expecting a root feed element but got a whole XML document."
+msgstr ""
+
+#: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:485
+#: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
-
-#: lib/activity.php:1089
-msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client error message
@@ -5214,9 +5194,9 @@ msgid "Could not find a user with nickname %s"
 msgstr "Não foi possível encontrar um usuário com a identificação %s"
 
 #: lib/command.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr "Não foi possível encontrar um usuário com a identificação %s"
+msgstr "Não foi possível encontrar um usuário local com a identificação %s"
 
 #: lib/command.php:176
 msgid "Sorry, this command is not yet implemented."
@@ -5296,6 +5276,8 @@ msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
+"%s é um perfil remoto; você pode só pode enviar mensagens diretas para "
+"usuários do mesmo servidor."
 
 #: lib/command.php:450
 #, php-format
@@ -5349,9 +5331,8 @@ msgid "Specify the name of the user to subscribe to"
 msgstr "Especifique o nome do usuário que será assinado"
 
 #: lib/command.php:602
-#, fuzzy
 msgid "Can't subscribe to OMB profiles by command."
-msgstr "Você não está assinando esse perfil."
+msgstr "Não é possível assinar perfis OMB com comandos."
 
 #: lib/command.php:608
 #, php-format
@@ -5399,7 +5380,7 @@ msgstr ""
 "s"
 
 #: lib/command.php:735
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribed  %s"
 msgstr "Cancelada a assinatura de %s"
 
@@ -5434,7 +5415,6 @@ msgstr[0] "Você é membro deste grupo:"
 msgstr[1] "Você é membro destes grupos:"
 
 #: lib/command.php:812
-#, fuzzy
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5485,8 +5465,9 @@ msgstr ""
 "subscribers - lista as pessoas que seguem você\n"
 "leave <identificação> - deixa de assinar o usuário\n"
 "d <identificação> <texto> - mensagem direta para o usuário\n"
-"get <nickname> - obtém a última mensagem do usuário\n"
-"whois <nickname> - obtém as informações do perfil do usuário\n"
+"get <identificação> - obtém a última mensagem do usuário\n"
+"whois <identificação> - obtém as informações do perfil do usuário\n"
+"lose <identificação> - obriga o usuário a deixar de segui-lo\n"
 "fav <identificação> - adiciona a último mensagem do usuário como uma "
 "'favorita'\n"
 "fav #<id_da_mensagem> - adiciona a mensagem identificada como 'favorita'\n"
@@ -5514,19 +5495,19 @@ msgstr ""
 "tracks -  não implementado ainda\n"
 "tracking -  não implementado ainda\n"
 
-#: lib/common.php:136
+#: lib/common.php:135
 msgid "No configuration file found. "
 msgstr "Não foi encontrado nenhum arquivo de configuração. "
 
-#: lib/common.php:137
+#: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "Eu procurei pelos arquivos de configuração nos seguintes lugares: "
 
-#: lib/common.php:139
+#: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
 msgstr "Você pode querer executar o instalador para corrigir isto."
 
-#: lib/common.php:140
+#: lib/common.php:139
 msgid "Go to the installer."
 msgstr "Ir para o instalador."
 
@@ -5627,7 +5608,7 @@ msgstr "Ir"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Associa o papel \"%s\" a este usuário"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -5704,40 +5685,40 @@ msgstr "Etiquetas nas mensagens do grupo %s"
 msgid "This page is not available in a media type you accept"
 msgstr "Esta página não está disponível em um tipo de mídia que você aceita"
 
-#: lib/imagefile.php:74
+#: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "Formato de imagem não suportado."
 
-#: lib/imagefile.php:90
+#: lib/imagefile.php:88
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "O arquivo é muito grande. O tamanho máximo é de %s."
 
-#: lib/imagefile.php:95
+#: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "Envio parcial."
 
-#: lib/imagefile.php:103 lib/mediafile.php:170
+#: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr "Erro no sistema durante o envio do arquivo."
 
-#: lib/imagefile.php:111
+#: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "Imagem inválida ou arquivo corrompido."
 
-#: lib/imagefile.php:124
+#: lib/imagefile.php:122
 msgid "Lost our file."
 msgstr "Nosso arquivo foi perdido."
 
-#: lib/imagefile.php:168 lib/imagefile.php:233
+#: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
 msgstr "Tipo de arquivo desconhecido"
 
-#: lib/imagefile.php:253
+#: lib/imagefile.php:244
 msgid "MB"
 msgstr "Mb"
 
-#: lib/imagefile.php:255
+#: lib/imagefile.php:246
 msgid "kB"
 msgstr "Kb"
 
@@ -6273,7 +6254,7 @@ msgstr "Etiquetas nas mensagens de %s"
 msgid "Unknown"
 msgstr "Desconhecido"
 
-#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Assinaturas"
 
@@ -6281,7 +6262,7 @@ msgstr "Assinaturas"
 msgid "All subscriptions"
 msgstr "Todas as assinaturas"
 
-#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Assinantes"
 
@@ -6289,15 +6270,20 @@ msgstr "Assinantes"
 msgid "All subscribers"
 msgstr "Todos os assinantes"
 
-#: lib/profileaction.php:180
+#: lib/profileaction.php:186
 msgid "User ID"
 msgstr "ID do usuário"
 
-#: lib/profileaction.php:185
+#: lib/profileaction.php:191
 msgid "Member since"
 msgstr "Membro desde"
 
-#: lib/profileaction.php:247
+#. TRANS: Average count of posts made per day since account registration
+#: lib/profileaction.php:230
+msgid "Daily average"
+msgstr ""
+
+#: lib/profileaction.php:259
 msgid "All groups"
 msgstr "Todos os grupos"
 
@@ -6338,9 +6324,9 @@ msgid "Repeat this notice"
 msgstr "Repetir esta mensagem"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Bloquear este usuário neste grupo"
+msgstr "Revoga o papel \"%s\" deste usuário"
 
 #: lib/router.php:677
 msgid "No single user defined for single-user mode."
@@ -6468,6 +6454,11 @@ msgstr "Cancelar a assinatura deste usuário"
 msgid "Unsubscribe"
 msgstr "Cancelar"
 
+#: lib/usernoprofileexception.php:58
+#, fuzzy, php-format
+msgid "User %s (%d) has no profile record."
+msgstr "O usuário não tem perfil."
+
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
 msgstr "Editar o avatar"
@@ -6478,7 +6469,7 @@ msgstr "Ações do usuário"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Exclusão do usuário em andamento..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
@@ -6501,9 +6492,8 @@ msgid "Moderate"
 msgstr "Moderar"
 
 #: lib/userprofile.php:364
-#, fuzzy
 msgid "User role"
-msgstr "Perfil do usuário"
+msgstr "Papel do usuário"
 
 #: lib/userprofile.php:366
 msgctxt "role"
@@ -6511,10 +6501,9 @@ msgid "Administrator"
 msgstr "Administrador"
 
 #: lib/userprofile.php:367
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Moderar"
+msgstr "Moderador"
 
 #: lib/util.php:1046
 msgid "a few seconds ago"

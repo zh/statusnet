@@ -118,7 +118,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
     function suggestNicknameForUsername($username)
     {
-        $entry = $this->ldap_get_user($username, $this->attributes);
+        $entry = $this->ldapCommon->get_user($username, $this->attributes);
         if(!$entry){
             //this really shouldn't happen
             $nickname = $username;

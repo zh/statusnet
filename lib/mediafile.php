@@ -171,7 +171,7 @@ class MediaFile
             return;
         }
 
-        if (!MediaFile::respectsQuota($user, $_FILES['attach']['size'])) {
+        if (!MediaFile::respectsQuota($user, $_FILES[$param]['size'])) {
 
             // Should never actually get here
 

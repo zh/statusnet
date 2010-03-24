@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(base.css);
+@import url(base.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 html,
 body,
 a:active {
@@ -234,3 +235,5 @@ background-position:10% 45%;
 background-image:url(../../base/images/icons/twotone/green/arrow-right.gif);
 background-position:90% 45%;
 }
+
+}/*end of @media screen, projection, tv*/

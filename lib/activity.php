@@ -53,6 +53,7 @@ class Activity
 {
     const SPEC   = 'http://activitystrea.ms/spec/1.0/';
     const SCHEMA = 'http://activitystrea.ms/schema/1.0/';
+    const MEDIA  = 'http://purl.org/syndication/atommedia';
 
     const VERB       = 'verb';
     const OBJECT     = 'object';
@@ -85,7 +86,7 @@ class Activity
 
     public $actor;   // an ActivityObject
     public $verb;    // a string (the URL)
-    public $object;  // an ActivityObject
+    public $objects = array();  // an array of ActivityObjects
     public $target;  // an ActivityObject
     public $context; // an ActivityObject
     public $time;    // Time of the activity
@@ -161,12 +162,15 @@ class Activity
             // XXX: do other implied stuff here
         }
 
-        $objectEl = $this->_child($entry, self::OBJECT);
+        $objectEls = $entry->getElementsByTagNameNS(self::SPEC, self::OBJECT);
 
-        if (!empty($objectEl)) {
-            $this->object = new ActivityObject($objectEl);
+        if ($objectEls->length > 0) {
+            for ($i = 0; $i < $objectEls->length; $i++) {
+                $objectEl = $objectEls->item($i);
+                $this->objects[] = new ActivityObject($objectEl);
+            }
         } else {
-            $this->object = new ActivityObject($entry);
+            $this->objects[] = new ActivityObject($entry);
         }
 
         $actorEl = $this->_child($entry, self::ACTOR);
@@ -280,8 +284,8 @@ class Activity
             }
         }
 
-        $this->object  = new ActivityObject($item);
-        $this->context = new ActivityContext($item);
+        $this->objects[] = new ActivityObject($item);
+        $this->context   = new ActivityContext($item);
     }
 
     /**
@@ -339,8 +343,10 @@ class Activity
 
         $xs->element('activity:verb', null, $this->verb);
 
-        if ($this->object) {
-            $xs->raw($this->object->asString());
+        if (!empty($this->objects)) {
+            foreach($this->objects as $object) {
+                $xs->raw($object->asString());
+            }
         }
 
         if ($this->target) {
