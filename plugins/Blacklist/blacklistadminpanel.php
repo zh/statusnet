@@ -88,35 +88,24 @@ class BlacklistadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array(
-                'blacklist' => array('nicknames', 'urls'),
-        );
+        $nickPatterns = array();
 
-        $values = array();
+        $rawNickPatterns = explode("\n", $this->trimmed('blacklist-nicknames'));
 
-        foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                $values[$section][$setting] = $this->trimmed("$section-$setting");
-            }
+        foreach ($rawNickPatterns as $raw) {
+            $nickPatterns[] = trim($raw);
         }
 
-        // This throws an exception on validation errors
+        Nickname_blacklist::saveNew($nickPatterns);
 
-        $this->validate($values);
+        $rawUrlPatterns = explode("\n", $this->trimmed('blacklist-urls'));
+        $urlPatterns  = array();
 
-        // assert(all values are valid);
-
-        $config = new Config();
-
-        $config->query('BEGIN');
-
-        foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                Config::save($section, $setting, $values[$section][$setting]);
-            }
+        foreach ($rawUrlPatterns as $raw) {
+            $urlPatterns[] = trim($raw);
         }
 
-        $config->query('COMMIT');
+        Homepage_blacklist::saveNew($urlPatterns);
 
         return;
     }
@@ -191,14 +180,19 @@ class BlacklistAdminPanelForm extends Form
         $this->out->elementStart('ul', 'form_data');
 
         $this->out->elementStart('li');
+
+        $nickPatterns = Nickname_blacklist::getPatterns();
+
         $this->out->textarea('blacklist-nicknames', _m('Nicknames'),
-                             common_config('blacklist', 'nicknames'),
+                             implode("\r\n", $nickPatterns),
                              _('Patterns of nicknames to block, one per line'));
         $this->out->elementEnd('li');
 
+        $urlPatterns = Homepage_blacklist::getPatterns();
+
         $this->out->elementStart('li');
         $this->out->textarea('blacklist-urls', _m('URLs'),
-                             common_config('blacklist', 'urls'),
+                             implode("\r\n", $urlPatterns),
                              _('Patterns of URLs to block, one per line'));
         $this->out->elementEnd('li');
 
