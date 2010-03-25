@@ -40,6 +40,20 @@ class TestBase
         }
         return true;
     }
+
+    function assertTrue($a)
+    {
+        if (!$a) {
+            throw new Exception("Failed to assert true: got false");
+        }
+    }
+
+    function assertFalse($a)
+    {
+        if ($a) {
+            throw new Exception("Failed to assert false: got true");
+        }
+    }
 }
 
 class OStatusTester extends TestBase
@@ -60,8 +74,17 @@ class OStatusTester extends TestBase
     function run()
     {
         $this->setup();
-        $this->testLocalPost();
-        $this->testMentionUrl();
+
+        $methods = get_class_methods($this);
+        foreach ($methods as $method) {
+            if (strtolower(substr($method, 0, 4)) == 'test') {
+                print "\n";
+                print "== $method ==\n";
+                call_user_func(array($this, $method));
+            }
+        }
+
+        print "\n";
         $this->log("DONE!");
     }
 
@@ -98,6 +121,45 @@ class OStatusTester extends TestBase
         $post = $this->pub->post("@$base/$name should have this in home and replies");
         $this->sub->assertReceived($post);
     }
+
+    function testSubscribe()
+    {
+        $this->assertFalse($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertFalse($this->pub->hasSubscriber($this->sub->getProfileUri()));
+        $this->sub->subscribe($this->pub->getProfileLink());
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertTrue($this->pub->hasSubscriber($this->sub->getProfileUri()));
+    }
+
+    function testPush()
+    {
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertTrue($this->pub->hasSubscriber($this->sub->getProfileUri()));
+
+        $name = $this->sub->username;
+        $post = $this->pub->post("Regular post, which $name should get via PuSH");
+        $this->sub->assertReceived($post);
+    }
+
+    function testMentionSubscribee()
+    {
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertFalse($this->pub->hasSubscription($this->sub->getProfileUri()));
+
+        $name = $this->pub->username;
+        $post = $this->sub->post("Just a quick note back to my remote subscribee @$name");
+        $this->pub->assertReceived($post);
+    }
+
+    function testUnsubscribe()
+    {
+        $this->assertTrue($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertTrue($this->pub->hasSubscriber($this->sub->getProfileUri()));
+        $this->sub->unsubscribe($this->pub->getProfileLink());
+        $this->assertFalse($this->sub->hasSubscription($this->pub->getProfileUri()));
+        $this->assertFalse($this->pub->hasSubscriber($this->sub->getProfileUri()));
+    }
+
 }
 
 class SNTestClient extends TestBase
@@ -202,6 +264,43 @@ class SNTestClient extends TestBase
         return $dom;
     }
 
+    protected function parseXml($path, $body)
+    {
+        $dom = new DOMDocument();
+        if ($dom->loadXML($body)) {
+            return $dom;
+        } else {
+            throw new Exception("Bogus XML data from $path:\n$body");
+        }
+    }
+
+    /**
+     * Make a hit to a REST-y XML page on the site, without authentication.
+     * @param string $path URL fragment for something relative to base
+     * @param array $params POST parameters to send
+     * @return DOMDocument
+     * @throws Exception on low-level error conditions
+     */
+    protected function xml($path, $params=array())
+    {
+        $response = $this->hit($path, $params, true);
+        $body = $response->getBody();
+        return $this->parseXml($path, $body);
+    }
+
+    protected function parseJson($path, $body)
+    {
+        $data = json_decode($body, true);
+        if ($data !== null) {
+            if (!empty($data['error'])) {
+                throw new Exception("JSON API returned error: " . $data['error']);
+            }
+            return $data;
+        } else {
+            throw new Exception("Bogus JSON data from $path:\n$body");
+        }
+    }
+
     /**
      * Make an API hit to this site, with authentication.
      * @param string $path URL fragment for something under 'api' folder
@@ -215,22 +314,9 @@ class SNTestClient extends TestBase
         $response = $this->hit("api/$path.$style", $params, true);
         $body = $response->getBody();
         if ($style == 'json') {
-            $data = json_decode($body, true);
-            if ($data !== null) {
-                if (!empty($data['error'])) {
-                    throw new Exception("JSON API returned error: " . $data['error']);
-                }
-                return $data;
-            } else {
-                throw new Exception("Bogus JSON data from $path:\n$body");
-            }
+            return $this->parseJson($path, $body);
         } else if ($style == 'xml' || $style == 'atom') {
-            $dom = new DOMDocument();
-            if ($dom->loadXML($body)) {
-                return $dom;
-            } else {
-                throw new Exception("Bogus XML data from $path:\n$body");
-            }
+            return $this->parseXml($path, $body);
         } else {
             throw new Exception("API needs to be JSON, XML, or Atom");
         }
@@ -258,6 +344,24 @@ class SNTestClient extends TestBase
     }
 
     /**
+     * @return string canonical URI/URL to profile page
+     */
+    function getProfileUri()
+    {
+        $data = $this->api('account/verify_credentials', 'json');
+        $id = $data['id'];
+        return $this->basepath . '/user/' . $id;
+    }
+
+    /**
+     * @return string human-friendly URL to profile page
+     */
+    function getProfileLink()
+    {
+        return $this->basepath . '/' . $this->username;
+    }
+
+    /**
      * Check that the account has been registered and can be used.
      * On failure, throws a test failure exception.
      */
@@ -271,6 +375,7 @@ class SNTestClient extends TestBase
         $this->assertEqual($this->fullname, $data['name']);
         $this->assertEqual($this->homepage, $data['url']);
         $this->assertEqual($this->bio, $data['description']);
+        $this->log("  looks good!");
     }
 
     /**
@@ -307,11 +412,11 @@ class SNTestClient extends TestBase
             }
             $tries--;
             if ($tries) {
-                $this->log("Didn't see it yet, waiting $timeout seconds");
+                $this->log("  didn't see it yet, waiting $timeout seconds");
                 sleep($timeout);
             }
         }
-        throw new Exception("Message $notice_uri not received by $this->username");
+        throw new Exception("  message $notice_uri not received by $this->username");
     }
 
     /**
@@ -341,30 +446,88 @@ class SNTestClient extends TestBase
         }
         foreach ($entries as $entry) {
             if ($entry->id == $notice_uri) {
-                $this->log("found it $notice_uri");
+                $this->log("  found it $notice_uri");
                 return true;
             }
-            //$this->log("nope... " . $entry->id);
         }
         return false;
     }
 
     /**
+     * @param string $profile user page link or webfinger
+     */
+    function subscribe($profile)
+    {
+        // This uses the command interface, since there's not currently
+        // a friendly Twit-API way to do a fresh remote subscription and
+        // the web form's a pain to use.
+        $this->post('follow ' . $profile);
+    }
+
+    /**
+     * @param string $profile user page link or webfinger
+     */
+    function unsubscribe($profile)
+    {
+        // This uses the command interface, since there's not currently
+        // a friendly Twit-API way to do a fresh remote subscription and
+        // the web form's a pain to use.
+        $this->post('leave ' . $profile);
+    }
+
+    /**
      * Check that this account is subscribed to the given profile.
      * @param string $profile_uri URI for the profile to check for
+     * @return boolean
      */
-    function assertHasSubscription($profile_uri)
+    function hasSubscription($profile_uri)
     {
-        throw new Exception('tbi');
+        $this->log("Checking if $this->username has a subscription to $profile_uri");
+
+        $me = $this->getProfileUri();
+        return $this->checkSubscription($me, $profile_uri);
     }
 
     /**
      * Check that this account is subscribed to by the given profile.
      * @param string $profile_uri URI for the profile to check for
+     * @return boolean
      */
-    function assertHasSubscriber($profile_uri)
+    function hasSubscriber($profile_uri)
     {
-        throw new Exception('tbi');
+        $this->log("Checking if $this->username is subscribed to by $profile_uri");
+
+        $me = $this->getProfileUri();
+        return $this->checkSubscription($profile_uri, $me);
+    }
+    
+    protected function checkSubscription($subscriber, $subscribed)
+    {
+        // Using FOAF as the API methods for checking the social graph
+        // currently are unfriendly to remote profiles
+        $ns_foaf = 'http://xmlns.com/foaf/0.1/';
+        $ns_sioc = 'http://rdfs.org/sioc/ns#';
+        $ns_rdf = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#';
+
+        $dom = $this->xml($this->username . '/foaf');
+        $agents = $dom->getElementsByTagNameNS($ns_foaf, 'Agent');
+        foreach ($agents as $agent) {
+            $agent_uri = $agent->getAttributeNS($ns_rdf, 'about');
+            if ($agent_uri == $subscriber) {
+                $follows = $agent->getElementsByTagNameNS($ns_sioc, 'follows');
+                foreach ($follows as $follow) {
+                    $target = $follow->getAttributeNS($ns_rdf, 'resource');
+                    if ($target == ($subscribed . '#acct')) {
+                        $this->log("  confirmed $subscriber subscribed to $subscribed");
+                        return true;
+                    }
+                }
+                $this->log("  we found $subscriber but they don't follow $subscribed");
+                return false;
+            }
+        }
+        $this->log("  can't find $subscriber in {$this->username}'s social graph.");
+        return false;
     }
 
 }

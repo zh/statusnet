@@ -27,6 +27,8 @@
  * @link      http://status.net/
  */
 
+require_once 'Crypt/RSA.php';
+
 class Magicsig extends Memcached_DataObject
 {
 
@@ -50,7 +52,15 @@ class Magicsig extends Memcached_DataObject
     {
         $obj =  parent::staticGet(__CLASS__, $k, $v);
         if (!empty($obj)) {
-            return Magicsig::fromString($obj->keypair);
+            $obj = Magicsig::fromString($obj->keypair);
+
+            // Double check keys: Crypt_RSA did not
+            // consistently generate good keypairs.
+            // We've also moved to 1024 bit keys.
+            if (strlen($obj->publicKey->modulus->toBits()) != 1024) {
+                $obj->delete();
+                return false;
+            }
         }
 
         return $obj;
@@ -100,16 +110,16 @@ class Magicsig extends Memcached_DataObject
 
     public function generate($user_id)
     {
-        $rsa = new SafeCrypt_RSA();
+        $rsa = new Crypt_RSA();
         
         $keypair = $rsa->createKey();
 
         $rsa->loadKey($keypair['privatekey']);
 
-        $this->privateKey = new SafeCrypt_RSA();
+        $this->privateKey = new Crypt_RSA();
         $this->privateKey->loadKey($keypair['privatekey']);
 
-        $this->publicKey = new SafeCrypt_RSA();
+        $this->publicKey = new Crypt_RSA();
         $this->publicKey->loadKey($keypair['publickey']);
         
         $this->user_id = $user_id;
@@ -161,7 +171,7 @@ class Magicsig extends Memcached_DataObject
     {
         common_log(LOG_DEBUG, "Adding ".$type." key: (".$mod .', '. $exp .")");
 
-        $rsa = new SafeCrypt_RSA();
+        $rsa = new Crypt_RSA();
         $rsa->signatureMode = CRYPT_RSA_SIGNATURE_PKCS1;
         $rsa->setHash('sha256');
         $rsa->modulus = new Math_BigInteger(base64_url_decode($mod), 256);
