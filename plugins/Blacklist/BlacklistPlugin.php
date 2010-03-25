@@ -62,13 +62,56 @@ class BlacklistPlugin extends Plugin
     {
         $confNicknames = $this->_configArray('blacklist', 'nicknames');
 
+        $dbNicknames = Nickname_blacklist::getPatterns();
+
         $this->_nicknamePatterns = array_merge($this->nicknames,
-                                               $confNicknames);
+                                               $confNicknames,
+                                               $dbNicknames);
 
         $confURLs = $this->_configArray('blacklist', 'urls');
 
+        $dbURLs = Homepage_blacklist::getPatterns();
+
         $this->_urlPatterns = array_merge($this->urls,
-                                          $confURLs);
+                                          $confURLs,
+                                          $dbURLs);
+    }
+
+    /**
+     * Database schema setup
+     *
+     * @return boolean hook value
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing blacklist patterns for nicknames
+
+        $schema->ensureTable('nickname_blacklist',
+                             array(new ColumnDef('pattern',
+                                                 'varchar',
+                                                 255,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('created',
+                                                 'datetime',
+                                                 null,
+                                                 false)));
+
+        $schema->ensureTable('homepage_blacklist',
+                             array(new ColumnDef('pattern',
+                                                 'varchar',
+                                                 255,
+                                                 false,
+                                                 'PRI'),
+                                   new ColumnDef('created',
+                                                 'datetime',
+                                                 null,
+                                                 false)));
+
+        return true;
     }
 
     /**
@@ -280,6 +323,10 @@ class BlacklistPlugin extends Plugin
     {
         switch (strtolower($cls))
         {
+        case 'nickname_blacklist':
+        case 'homepage_blacklist':
+            include_once INSTALLDIR.'/plugins/Blacklist/'.ucfirst($cls).'.php';
+            return false;
         case 'blacklistadminpanelaction':
             $base = strtolower(mb_substr($cls, 0, -6));
             include_once INSTALLDIR.'/plugins/Blacklist/'.$base.'.php';
@@ -391,20 +438,14 @@ class BlacklistPlugin extends Plugin
 
     function onEndDeleteUser($action, $user)
     {
-        common_debug("Action args: " . print_r($action->args, true));
-
         if ($action->boolean('blacklisthomepage')) {
             $pattern = $action->trimmed('blacklisthomepagepattern');
-            $confURLs = $this->_configArray('blacklist', 'urls');
-            $confURLs[] = $pattern;
-            Config::save('blacklist', 'urls', implode("\r\n", $confURLs));
+            Homepage_blacklist::ensurePattern($pattern);
         }
 
         if ($action->boolean('blacklistnickname')) {
             $pattern = $action->trimmed('blacklistnicknamepattern');
-            $confNicknames = $this->_configArray('blacklist', 'nicknames');
-            $confNicknames[] = $pattern;
-            Config::save('blacklist', 'nicknames', implode("\r\n", $confNicknames));
+            Nickname_blacklist::ensurePattern($pattern);
         }
 
         return true;
