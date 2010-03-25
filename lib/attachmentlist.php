@@ -330,6 +330,15 @@ class Attachment extends AttachmentListItem
                     $this->out->element('param', array('name' => 'autoStart', 'value' => 1));
                     $this->out->elementEnd('object');
                     break;
+
+                case 'text/html':
+                    if ($this->attachment->filename) {
+                        // Locally-uploaded HTML. Scrub and display inline.
+                        $this->showHtmlFile($this->attachment);
+                        break;
+                    }
+                    // Fall through to default.
+
                 default:
                     $this->showFallback();
                 }
