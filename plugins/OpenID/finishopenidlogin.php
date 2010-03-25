@@ -48,7 +48,6 @@ class FinishopenidloginAction extends Action
             } else if ($this->arg('connect')) {
                 $this->connectUser();
             } else {
-                common_debug(print_r($this->args, true), __FILE__);
                 $this->showForm(_m('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
