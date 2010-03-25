@@ -48,7 +48,6 @@ class FinishopenidloginAction extends Action
             } else if ($this->arg('connect')) {
                 $this->connectUser();
             } else {
-                common_debug(print_r($this->args, true), __FILE__);
                 $this->showForm(_m('Something weird happened.'),
                                 $this->trimmed('newname'));
             }
@@ -158,6 +157,9 @@ class FinishopenidloginAction extends Action
             $display = $response->getDisplayIdentifier();
             $canonical = ($response->endpoint->canonicalID) ?
               $response->endpoint->canonicalID : $response->getDisplayIdentifier();
+
+            oid_assert_allowed($display);
+            oid_assert_allowed($canonical);
 
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 
