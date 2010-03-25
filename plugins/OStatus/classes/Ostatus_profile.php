@@ -550,8 +550,7 @@ class Ostatus_profile extends Memcached_DataObject
             }
             $shortSummary = common_shorten_links($summary);
             if (Notice::contentTooLong($shortSummary)) {
-                $url = common_shorten_url(common_local_url('attachment',
-                                                           array('attachment' => $attachment->id)));
+                $url = common_shorten_url($sourceUrl);
                 $shortSummary = substr($shortSummary,
                                        0,
                                        Notice::maxContent() - (mb_strlen($url) + 2));
