@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(base.css);
+@import url(base.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 html,
 body,
 a:active {
@@ -199,13 +200,18 @@ background:transparent url(../../base/images/icons/twotone/green/disfavourite.gi
 background:transparent url(../../base/images/icons/twotone/green/trash.gif) no-repeat 0 45%;
 }
 
+.notices .attachment.more,
 .notices div.entry-content,
 .notices div.notice-options {
 opacity:0.4;
 }
-.notices li.hover div.entry-content,
-.notices li.hover div.notice-options {
+.notices li:hover .attachment.more,
+.notices li:hover div.entry-content,
+.notices li:hover div.notice-options {
 opacity:1;
+}
+.opaque {
+opacity:1 !important;
 }
 div.entry-content {
 color:#ccc;
@@ -234,3 +240,5 @@ background-position:10% 45%;
 background-image:url(../../base/images/icons/twotone/green/arrow-right.gif);
 background-position:90% 45%;
 }
+
+}/*end of @media screen, projection, tv*/

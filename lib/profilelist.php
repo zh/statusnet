@@ -213,7 +213,7 @@ class ProfileListItem extends Widget
     {
         if (!empty($this->profile->location)) {
             $this->out->text(' ');
-            $this->out->elementStart('span', 'location');
+            $this->out->elementStart('span', 'label');
             $this->out->raw($this->highlight($this->profile->location));
             $this->out->elementEnd('span');
         }
