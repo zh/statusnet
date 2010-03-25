@@ -359,6 +359,59 @@ class Attachment extends AttachmentListItem
         }
     }
 
+    protected function showHtmlFile(File $attachment)
+    {
+        $body = $this->scrubHtmlFile($attachment);
+        if ($body) {
+            $this->out->raw($body);
+        }
+    }
+
+    /**
+     * @return mixed false on failure, HTML fragment string on success
+     */
+    protected function scrubHtmlFile(File $attachment)
+    {
+        $path = File::path($attachment->filename);
+        if (!file_exists($path) || !is_readable($path)) {
+            common_log(LOG_ERR, "Missing local HTML attachment $path");
+            return false;
+        }
+        $raw = file_get_contents($path);
+
+        // Normalize...
+        $dom = new DOMDocument();
+        if(!$dom->loadHTML($raw)) {
+            common_log(LOG_ERR, "Bad HTML in local HTML attachment $path");
+            return false;
+        }
+
+        // Remove <script>s or htmlawed will dump their contents into output!
+        // Note: removing child nodes while iterating seems to mess things up,
+        // hence the double loop.
+        $scripts = array();
+        foreach ($dom->getElementsByTagName('script') as $script) {
+            $scripts[] = $script;
+        }
+        foreach ($scripts as $script) {
+            common_log(LOG_DEBUG, $script->textContent);
+            $script->parentNode->removeChild($script);
+        }
+
+        // Trim out everything outside the body...
+        $body = $dom->saveHTML();
+        $body = preg_replace('/^.*<body[^>]*>/is', '', $body);
+        $body = preg_replace('/<\/body[^>]*>.*$/is', '', $body);
+
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        $config = array('safe' => 1,
+                        'deny_attribute' => 'id,style,on*',
+                        'comment' => 1); // remove comments
+        $scrubbed = htmLawed($body, $config);
+
+        return $scrubbed;
+    }
+
     function showFallback()
     {
         // If we don't know how to display an attachment inline, we probably
