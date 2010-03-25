@@ -257,6 +257,35 @@ function oid_update_user(&$user, &$sreg)
     return true;
 }
 
+function oid_assert_allowed($url)
+{
+    $blacklist = common_config('openid', 'blacklist');
+    $whitelist = common_config('openid', 'whitelist');
+
+    if (empty($blacklist)) {
+        $blacklist = array();
+    }
+
+    if (empty($whitelist)) {
+        $whitelist = array();
+    }
+
+    foreach ($blacklist as $pattern) {
+        if (preg_match("/$pattern/", $url)) {
+            common_log(LOG_INFO, "Matched OpenID blacklist pattern {$pattern} with {$url}");
+            foreach ($whitelist as $exception) {
+                if (preg_match("/$exception/", $url)) {
+                    common_log(LOG_INFO, "Matched OpenID whitelist pattern {$exception} with {$url}");
+                    return;
+                }
+            }
+            throw new ClientException(_m("Unauthorized URL used for OpenID login."), 403);
+        }
+    }
+
+    return;
+}
+
 class AutosubmitAction extends Action
 {
     var $form_html = null;

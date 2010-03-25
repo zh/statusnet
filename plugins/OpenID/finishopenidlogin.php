@@ -158,6 +158,9 @@ class FinishopenidloginAction extends Action
             $canonical = ($response->endpoint->canonicalID) ?
               $response->endpoint->canonicalID : $response->getDisplayIdentifier();
 
+            oid_assert_allowed($display);
+            oid_assert_allowed($canonical);
+
             $sreg_resp = Auth_OpenID_SRegResponse::fromSuccessResponse($response);
 
             if ($sreg_resp) {
