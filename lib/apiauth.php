@@ -267,7 +267,7 @@ class ApiAuthAction extends ApiAction
 
             $this->access = self::READ_WRITE;
 
-            if (empty($this->auth_user) && $required) {
+            if (empty($this->auth_user) && ($required || isset($_SERVER['PHP_AUTH_USER']))) {
 
                 // basic authentication failed
 
