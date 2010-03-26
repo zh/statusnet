@@ -31,6 +31,8 @@ class OpenidloginAction extends Action
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $openid_url = $this->trimmed('openid_url');
 
+            oid_assert_allowed($openid_url);
+
             # CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
