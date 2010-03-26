@@ -266,7 +266,6 @@ class BlacklistPlugin extends Plugin
     private function _checkUrl($url)
     {
         foreach ($this->_urlPatterns as $pattern) {
-            common_debug("Checking $url against $pattern");
             if (preg_match("/$pattern/", $url)) {
                 return false;
             }
@@ -288,7 +287,6 @@ class BlacklistPlugin extends Plugin
     private function _checkNickname($nickname)
     {
         foreach ($this->_nicknamePatterns as $pattern) {
-            common_debug("Checking $nickname against $pattern");
             if (preg_match("/$pattern/", $nickname)) {
                 return false;
             }
