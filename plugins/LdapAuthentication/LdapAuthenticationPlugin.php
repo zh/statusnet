@@ -76,6 +76,32 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             return false;
         }
     }
+
+    function onEndShowPageNotice($action)
+    {
+        $name = $action->trimmed('action');
+        $instr = false;
+
+        switch ($name)
+        {
+         case 'register':
+            if($this->autoregistration) {
+                $instr = 'Have an LDAP account? Use your standard username and password.';
+            }
+            break;
+         case 'login':
+            $instr = 'Have an LDAP account? Use your standard username and password.';
+            break;
+         default:
+            return true;
+        }
+
+        if($instr) {
+            $output = common_markup_to_html($instr);
+            $action->raw($output);
+        }
+        return true;
+    }
     
     //---interface implementation---//
 
@@ -96,8 +122,11 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         }
     }
 
-    function autoRegister($username)
+    function autoRegister($username, $nickname)
     {
+        if(is_null($nickname)){
+            $nickname = $username;
+        }
         $entry = $this->ldap_get_user($username,$this->attributes);
         if($entry){
             $registration_data = array();
@@ -107,6 +136,7 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
             if(isset($registration_data['email']) && !empty($registration_data['email'])){
                 $registration_data['email_confirmed']=true;
             }
+            $registration_data['nickname'] = $nickname;
             //set the database saved password to a random string.
             $registration_data['password']=common_good_rand(16);
             return User::register($registration_data);
@@ -153,6 +183,21 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
 
         return false;
     }
+
+    function suggestNicknameForUsername($username)
+    {
+        $entry = $this->ldap_get_user($username, $this->attributes);
+        if(!$entry){
+            //this really shouldn't happen
+            $nickname = $username;
+        }else{
+            $nickname = $entry->getValue($this->attributes['nickname'],'single');
+            if(!$nickname){
+                $nickname = $username;
+            }
+        }
+        return common_nicknamize($nickname);
+    }
     
     //---utility functions---//
     function ldap_get_config(){
@@ -179,8 +224,12 @@ class LdapAuthenticationPlugin extends AuthenticationPlugin
         $ldap->setErrorHandling(PEAR_ERROR_RETURN);
         $err=$ldap->bind();
         if (Net_LDAP2::isError($err)) {
-            common_log(LOG_WARNING, 'Could not connect to LDAP server: '.$err->getMessage());
-            return false;
+            // if we were called with a config, assume caller will handle
+            // incorrect username/password (LDAP_INVALID_CREDENTIALS)
+            if (isset($config) && $err->getCode() == 0x31) {
+                return null;
+            }
+            throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
         }
         if($config == null) $this->default_ldap=$ldap;
 

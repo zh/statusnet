@@ -244,11 +244,17 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                 $options = array_merge($options, $locOptions);
             }
 
-            $this->notice =
-              Notice::saveNew($this->auth_user->id,
-                              $content,
-                              $this->source,
-                              $options);
+            try {
+                $this->notice = Notice::saveNew(
+                    $this->auth_user->id,
+                    $content,
+                    $this->source,
+                    $options
+                );
+            } catch (Exception $e) {
+                $this->clientError($e->getMessage());
+                return;
+            }
 
             if (isset($upload)) {
                 $upload->attachToNotice($this->notice);

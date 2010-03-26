@@ -33,6 +33,33 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 require_once 'Net/URL/Mapper.php';
 
+class StatusNet_URL_Mapper extends Net_URL_Mapper {
+
+    private static $_singleton = null;
+
+    private function __construct()
+    {
+    }
+
+    public static function getInstance($id = '__default__')
+    {
+        if (empty(self::$_singleton)) {
+            self::$_singleton = new StatusNet_URL_Mapper();
+        }
+        return self::$_singleton;
+    }
+
+    public function connect($path, $defaults = array(), $rules = array())
+    {
+        $result = null;
+        if (Event::handle('StartConnectPath', array(&$path, &$defaults, &$rules, &$result))) {
+            $result = parent::connect($path, $defaults, $rules);
+            Event::handle('EndConnectPath', array($path, $defaults, $rules, $result));
+        }
+        return $result;
+    }
+}
+
 /**
  * URL Router
  *
@@ -69,7 +96,7 @@ class Router
 
     function initialize()
     {
-        $m = Net_URL_Mapper::getInstance();
+        $m = StatusNet_URL_Mapper::getInstance();
 
         if (Event::handle('StartInitializeRouter', array(&$m))) {
 
@@ -627,6 +654,12 @@ class Router
             $m->connect('api/statusnet/tags/timeline/:tag.:format',
                         array('action' => 'ApiTimelineTag',
                               'format' => '(xmljson|rss|atom)'));
+
+            // media related
+            $m->connect(
+                'api/statusnet/media/upload',
+                array('action' => 'ApiMediaUpload')
+            );
 
             // search
             $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));

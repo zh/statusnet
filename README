@@ -137,7 +137,9 @@ run correctly.
 
 - PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
-  in PHP 5.2 or above.
+  in PHP 5.2 or above. 5.2.6 or later is needed for XMPP background
+  daemons on 64-bit platforms. PHP 5.3.x should work but is known
+  to cause some failures for OpenID.
 - MySQL 5.x. The StatusNet database is stored, by default, in a MySQL
   server. It has been primarily tested on 5.x servers, although it may
   be possible to install on earlier (or later!) versions. The server
@@ -690,7 +692,7 @@ instructions; read to the end first before trying them.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
 10. Rebuild the database. (You can safely skip this step and go to #12
-    if you're upgrading from another 0.8.x version).
+    if you're upgrading from another 0.9.x version).
 
     NOTE: this step is destructive and cannot be
     reversed. YOU CAN EASILY DESTROY YOUR SITE WITH THIS STEP. Don't

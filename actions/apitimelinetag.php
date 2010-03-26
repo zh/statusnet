@@ -25,7 +25,7 @@
  * @author    Evan Prodromou <evan@status.net>
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -66,6 +66,8 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
     function prepare($args)
     {
         parent::prepare($args);
+
+        common_debug("apitimelinetag prepare()");
 
         $this->tag     = $this->arg('tag');
         $this->notices = $this->getNotices();
@@ -108,22 +110,28 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:TagTimeline:".$tag;
 
+        $link = common_local_url(
+            'tag',
+            array('tag' => $this->tag)
+        );
+
+        $self = $this->getSelfUri();
+
+        common_debug("self link is: $self");
+
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $link = common_local_url(
-                'tag',
-                array('tag' => $this->tag)
-            );
             $this->showRssTimeline(
                 $this->notices,
                 $title,
                 $link,
                 $subtitle,
                 null,
-                $sitelogo
+                $sitelogo,
+                $self
             );
             break;
         case 'atom':
@@ -138,22 +146,8 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
             $atom->setLogo($logo);
             $atom->setUpdated('now');
 
-            $atom->addLink(
-                common_local_url(
-                    'tag',
-                    array('tag' => $this->tag)
-                )
-            );
-
-            $aargs = array('format' => 'atom');
-            if (!empty($this->tag)) {
-                $aargs['tag'] = $this->tag;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineTag', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
             $this->raw($atom->getString());

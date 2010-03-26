@@ -442,11 +442,14 @@ class NoticeListItem extends Widget
                                               'title' => $latlon),
                                 $name);
         } else {
-            $this->out->elementStart('a', array('href' => $url));
-            $this->out->element('abbr', array('class' => 'geo',
-                                              'title' => $latlon),
-                                $name);
-            $this->out->elementEnd('a');
+            $xstr = new XMLStringer(false);
+            $xstr->elementStart('a', array('href' => $url,
+                                           'rel' => 'external'));
+            $xstr->element('abbr', array('class' => 'geo',
+                                         'title' => $latlon),
+                           $name);
+            $xstr->elementEnd('a');
+            $this->out->raw($xstr->getString());
         }
         $this->out->elementEnd('span');
     }

@@ -252,7 +252,16 @@ function format_status($notice)
     $statustxt = preg_replace('/^@/', ' @', $notice->content);
 
     // Convert !groups to #hashes
+
+    // XXX: Make this an optional setting?
+
     $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
+
+    if (mb_strlen($statustxt) > 140) {
+        $noticeUrl = common_shorten_url($notice->uri);
+        $urlLen = mb_strlen($noticeUrl);
+        $statustxt = mb_substr($statustxt, 0, 140 - ($urlLen + 3)) . ' … ' . $noticeUrl;
+    }
 
     return $statustxt;
 }

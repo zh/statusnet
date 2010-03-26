@@ -61,10 +61,8 @@ var SN = { // StatusNet
 
     U: { // Utils
         FormNoticeEnhancements: function(form) {
-            form_id = form.attr('id');
-
             if (jQuery.data(form[0], 'ElementData') === undefined) {
-                MaxLength = $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text();
+                MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
                 if (typeof(MaxLength) == 'undefined') {
                      MaxLength = SN.C.I.MaxLength;
                 }
@@ -72,7 +70,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = $('#'+form_id+' #'+SN.C.S.NoticeDataText);
+                NDT = form.find('#'+SN.C.S.NoticeDataText);
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -83,11 +81,11 @@ var SN = { // StatusNet
                 });
             }
             else {
-                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+                form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
-            if ($('body')[0].id != 'conversation') {
-                $('#'+form_id+' textarea').focus();
+            if ($('body')[0].id != 'conversation' && window.location.hash.length === 0) {
+                form.find('textarea').focus();
             }
         },
 
@@ -105,7 +103,6 @@ var SN = { // StatusNet
 
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
-            form_id = form.attr('id');
 
             var MaxLength = jQuery.data(form[0], 'ElementData').MaxLength;
 
@@ -113,8 +110,8 @@ var SN = { // StatusNet
                 return;
             }
 
-            var remaining = MaxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
-            var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
+            var remaining = MaxLength - form.find('#'+SN.C.S.NoticeDataText).val().length;
+            var counter = form.find('#'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining === 0) {
@@ -174,7 +171,6 @@ var SN = { // StatusNet
 
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
-            form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
@@ -403,58 +399,71 @@ var SN = { // StatusNet
                 return;
             }
 
-            $.fn.jOverlay.options = {
-                method : 'GET',
-                data : '',
-                url : '',
-                color : '#000',
-                opacity : '0.6',
-                zIndex : 9999,
-                center : false,
-                imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-                bgClickToClose : true,
-                success : function() {
-                    $('#jOverlayContent').append('<button class="close">&#215;</button>');
-                    $('#jOverlayContent button').click($.closeOverlay);
-                },
-                timeout : 0,
-                autoHide : true,
-                css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-            };
+            var attachment_more = notice.find('.attachment.more');
+            if (attachment_more.length > 0) {
+                attachment_more.click(function() {
+                    $(this).addClass(SN.C.S.Processing);
+                    $.get($(this).attr('href')+'/ajax', null, function(data) {
+                        notice.find('.entry-title .entry-content').html($(data).find('#attachment_view .entry-content').html());
+                    });
 
-            notice.find('a.attachment').click(function() {
-                var attachId = ($(this).attr('id').substring('attachment'.length + 1));
-                if (attachId) {
-                    $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
                     return false;
-                }
-            });
-
-            if ($('#shownotice').length == 0) {
-                var t;
-                notice.find('a.thumbnail').hover(
-                    function() {
-                        var anchor = $(this);
-                        $('a.thumbnail').children('img').hide();
-                        anchor.closest(".entry-title").addClass('ov');
-
-                        if (anchor.children('img').length === 0) {
-                            t = setTimeout(function() {
-                                $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                                    anchor.append(data);
-                                });
-                            }, 500);
-                        }
-                        else {
-                            anchor.children('img').show();
-                        }
+                });
+            }
+            else {
+                $.fn.jOverlay.options = {
+                    method : 'GET',
+                    data : '',
+                    url : '',
+                    color : '#000',
+                    opacity : '0.6',
+                    zIndex : 9999,
+                    center : false,
+                    imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+                    bgClickToClose : true,
+                    success : function() {
+                        $('#jOverlayContent').append('<button class="close">&#215;</button>');
+                        $('#jOverlayContent button').click($.closeOverlay);
                     },
-                    function() {
-                        clearTimeout(t);
-                        $('a.thumbnail').children('img').hide();
-                        $(this).closest('.entry-title').removeClass('ov');
+                    timeout : 0,
+                    autoHide : true,
+                    css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
+                };
+
+                notice.find('a.attachment').click(function() {
+                    var attachId = ($(this).attr('id').substring('attachment'.length + 1));
+                    if (attachId) {
+                        $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
+                        return false;
                     }
-                );
+                });
+
+                if ($('#shownotice').length == 0) {
+                    var t;
+                    notice.find('a.thumbnail').hover(
+                        function() {
+                            var anchor = $(this);
+                            $('a.thumbnail').children('img').hide();
+                            anchor.closest(".entry-title").addClass('ov');
+
+                            if (anchor.children('img').length === 0) {
+                                t = setTimeout(function() {
+                                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                                        anchor.append(data);
+                                    });
+                                }, 500);
+                            }
+                            else {
+                                anchor.children('img').show();
+                            }
+                        },
+                        function() {
+                            clearTimeout(t);
+                            $('a.thumbnail').children('img').hide();
+                            $(this).closest('.entry-title').removeClass('ov');
+                        }
+                    );
+                }
             }
         },
 

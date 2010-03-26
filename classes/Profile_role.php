@@ -53,6 +53,7 @@ class Profile_role extends Memcached_DataObject
     const ADMINISTRATOR = 'administrator';
     const SANDBOXED     = 'sandboxed';
     const SILENCED      = 'silenced';
+    const DELETED       = 'deleted'; // Pending final deletion of notices...
 
     public static function isValid($role)
     {

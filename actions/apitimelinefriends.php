@@ -117,8 +117,16 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
 
         $subtitle = sprintf(
             _('Updates from %1$s and friends on %2$s!'),
-            $this->user->nickname, $sitename
+            $this->user->nickname,
+            $sitename
         );
+
+        $link = common_local_url(
+            'all',
+             array('nickname' => $this->user->nickname)
+        );
+
+        $self = $this->getSelfUri();
 
         $logo = (!empty($avatar))
             ? $avatar->displayUrl()
@@ -130,19 +138,14 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             break;
         case 'rss':
 
-            $link = common_local_url(
-                'all', array(
-                    'nickname' => $this->user->nickname
-                )
-            );
-
             $this->showRssTimeline(
                 $this->notices,
                 $title,
                 $link,
                 $subtitle,
                 null,
-                $logo
+                $logo,
+                $self
             );
             break;
         case 'atom':
@@ -156,24 +159,8 @@ class ApiTimelineFriendsAction extends ApiBareAuthAction
             $atom->setSubtitle($subtitle);
             $atom->setLogo($logo);
             $atom->setUpdated('now');
-
-            $atom->addLink(
-                common_local_url(
-                    'all',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineFriends', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
 

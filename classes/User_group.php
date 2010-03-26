@@ -295,7 +295,7 @@ class User_group extends Memcached_DataObject
         }
 
         // If not, check local groups.
-    
+
         $group = Local_group::staticGet('nickname', $nickname);
         if (!empty($group)) {
             return User_group::staticGet('id', $group->group_id);
@@ -371,16 +371,15 @@ class User_group extends Memcached_DataObject
 
         if ($source) {
             $xs->elementStart('source');
+            $xs->element('id', null, $this->permalink());
             $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
             $xs->element('link', array('href' => $this->permalink()));
-        }
-
-        if ($source) {
+            $xs->element('updated', null, $this->modified);
             $xs->elementEnd('source');
         }
 
         $xs->element('title', null, $this->nickname);
-        $xs->element('summary', null, $this->description);
+        $xs->element('summary', null, common_xml_safe_str($this->description));
 
         $xs->element('link', array('rel' => 'alternate',
                                    'href' => $this->permalink()));
@@ -390,7 +389,11 @@ class User_group extends Memcached_DataObject
         $xs->element('published', null, common_date_w3dtf($this->created));
         $xs->element('updated', null, common_date_w3dtf($this->modified));
 
-        $xs->element('content', array('type' => 'html'), $this->description);
+        $xs->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($this->description)
+        );
 
         $xs->elementEnd('entry');
 
@@ -455,7 +458,7 @@ class User_group extends Memcached_DataObject
         $group = new User_group();
 
         $group->query('BEGIN');
-        
+
         if (empty($uri)) {
             // fill in later...
             $uri = null;
@@ -483,7 +486,7 @@ class User_group extends Memcached_DataObject
             $result = $group->update($orig);
             if (!$result) {
                 common_log_db_error($group, 'UPDATE', __FILE__);
-                throw new ServerException(_('Could not set group uri.'));
+                throw new ServerException(_('Could not set group URI.'));
             }
         }
 

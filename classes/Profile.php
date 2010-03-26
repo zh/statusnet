@@ -732,6 +732,9 @@ class Profile extends Memcached_DataObject
     function hasRight($right)
     {
         $result = false;
+        if ($this->hasRole(Profile_role::DELETED)) {
+            return false;
+        }
         if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
             switch ($right)
             {

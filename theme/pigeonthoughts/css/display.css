@@ -7,8 +7,9 @@
  * @link      http://status.net/
  */
 
-@import url(base.css);
+@import url(base.css) screen, projection, tv, print;
 
+@media screen, projection, tv {
 html {
 background:url(../images/illustrations/illu_pigeons-01.png) no-repeat 0 100%;
 }
@@ -140,7 +141,6 @@ background-color:transparent;
 color:#000000;
 }
 
-
 .aside .section {
 border-color:#FFFFFF;
 background-color:#FFFFFF;
@@ -171,6 +171,11 @@ color:#7F1114;
 .aside .section:nth-child(3n) a {
 color:#FFFFFF;
 }
+
+.aside .section .dialogbox {
+color:#000000;
+}
+
 
 
 .section .profile {
@@ -245,12 +250,19 @@ background-color:transparent;
 
 
 #wrap form.processing input.submit,
-.entity_actions a.processing,
+#core a.processing,
 .dialogbox.processing .submit_dialogbox {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 }
 .notice-options .form_repeat.processing {
 background-image:none;
+}
+
+.entity_send-a-message .form_notice,
+.entity_moderation:hover ul,
+.entity_role:hover ul,
+.dialogbox {
+background-color:#FFFFFF;
 }
 
 #content,
@@ -413,6 +425,9 @@ background-position: 0 -1714px;
 .notice .attachment {
 background-position:0 -394px;
 }
+.notice .attachment.more {
+background-position:0 -2770px;
+}
 #attachments .attachment {
 background:none;
 }
@@ -435,14 +450,18 @@ background-position:0 -1582px;
 background-position:0 -1648px;
 }
 
-
+.notices .attachment.more,
 .notices div.entry-content,
 .notices div.notice-options {
 opacity:0.4;
 }
+.notices li:hover .attachment.more,
 .notices li:hover div.entry-content,
 .notices li:hover div.notice-options {
 opacity:1;
+}
+.opaque {
+opacity:1 !important;
 }
 div.entry-content {
 color:#333333;
@@ -496,3 +515,4 @@ background-position:90% 47%;
 background-position:10% 47%;
 }
 
+}/*end of @media screen, projection, tv*/

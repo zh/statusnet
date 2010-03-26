@@ -485,3 +485,9 @@ class Schema
         return $sql;
     }
 }
+
+class SchemaTableMissingException extends Exception
+{
+    // no-op
+}
+

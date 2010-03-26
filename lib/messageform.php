@@ -175,6 +175,6 @@ class MessageForm extends Form
                                            'class' => 'submit',
                                            'name' => 'message_send',
                                            'type' => 'submit',
-                                           'value' => _('Send')));
+                                           'value' => _m('Send button for sending notice', 'Send')));
     }
 }

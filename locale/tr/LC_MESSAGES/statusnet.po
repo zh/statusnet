@@ -9,19 +9,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-02 21:02+0000\n"
-"PO-Revision-Date: 2010-03-02 21:03:53+0000\n"
+"POT-Creation-Date: 2010-03-06 23:49+0000\n"
+"PO-Revision-Date: 2010-03-06 23:51:04+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r63186); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r63350); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. TRANS: Page title
-#: actions/accessadminpanel.php:55
+#. TRANS: Menu item for site administration
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
 #, fuzzy
 msgid "Access"
 msgstr "Kabul et"
@@ -108,7 +109,7 @@ msgstr "Böyle bir durum mesajı yok."
 #: actions/otp.php:76 actions/remotesubscribe.php:145
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:38
+#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
 #: actions/xrds.php:71 lib/command.php:163 lib/command.php:302
 #: lib/command.php:355 lib/command.php:401 lib/command.php:462
 #: lib/command.php:518 lib/galleryaction.php:59 lib/mailbox.php:82
@@ -124,7 +125,7 @@ msgstr "%s ve arkadaşları"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
-#: actions/all.php:89 actions/all.php:177 actions/allrss.php:115
+#: actions/all.php:89 actions/all.php:181 actions/allrss.php:115
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -179,7 +180,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: H1 text
-#: actions/all.php:174
+#: actions/all.php:178
 #, fuzzy
 msgid "You and friends"
 msgstr "%s ve arkadaşları"
@@ -207,11 +208,11 @@ msgstr ""
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:135
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:183 actions/apitimelinefriends.php:187
-#: actions/apitimelinegroup.php:185 actions/apitimelinehome.php:184
-#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:152
+#: actions/apitimelinegroup.php:160 actions/apitimelinehome.php:184
+#: actions/apitimelinementions.php:175 actions/apitimelinepublic.php:148
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:166
-#: actions/apitimelineuser.php:196 actions/apiusershow.php:101
+#: actions/apitimelineuser.php:165 actions/apiusershow.php:101
 #, fuzzy
 msgid "API method not found."
 msgstr "Onay kodu bulunamadı."
@@ -583,7 +584,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310
+#: actions/apioauthauthorize.php:310 lib/action.php:438
 #, fuzzy
 msgid "Account"
 msgstr "Hakkında"
@@ -676,18 +677,6 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 msgid "%1$s updates favorited by %2$s / %2$s."
 msgstr "%s adli kullanicinin durum mesajlari"
 
-#: actions/apitimelinegroup.php:109 actions/apitimelineuser.php:118
-#: actions/grouprss.php:138 actions/userrss.php:90
-#, php-format
-msgid "%s timeline"
-msgstr ""
-
-#: actions/apitimelinegroup.php:112 actions/apitimelineuser.php:124
-#: actions/userrss.php:92
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr ""
-
 #: actions/apitimelinementions.php:117
 #, fuzzy, php-format
 msgid "%1$s / Updates mentioning %2$s"
@@ -698,12 +687,12 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
-#: actions/apitimelinepublic.php:111 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr ""
 
-#: actions/apitimelinepublic.php:115 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:111 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -723,7 +712,7 @@ msgstr "%s için cevaplar"
 msgid "Notices tagged with %s"
 msgstr ""
 
-#: actions/apitimelinetag.php:104 actions/tagrss.php:64
+#: actions/apitimelinetag.php:104 actions/tagrss.php:65
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%s adli kullanicinin durum mesajlari"
@@ -765,7 +754,7 @@ msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:103
+#: actions/userrss.php:106
 msgid "User without matching profile"
 msgstr ""
 
@@ -959,7 +948,7 @@ msgid "Conversation"
 msgstr "Yer"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:216 lib/searchgroupnav.php:82
+#: lib/profileaction.php:218 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Durum mesajları"
 
@@ -981,7 +970,7 @@ msgstr "Bize o profili yollamadınız"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1228
+#: lib/action.php:1217
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1185,8 +1174,9 @@ msgstr ""
 #: actions/designadminpanel.php:586 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
-#: actions/smssettings.php:181 actions/subscriptions.php:208
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -1311,7 +1301,7 @@ msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
 msgid "Could not update group."
 msgstr "Kullanıcı güncellenemedi."
 
-#: actions/editgroup.php:264 classes/User_group.php:478
+#: actions/editgroup.php:264 classes/User_group.php:493
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "Avatar bilgisi kaydedilemedi"
@@ -1435,7 +1425,7 @@ msgid "Cannot normalize that email address"
 msgstr ""
 
 #: actions/emailsettings.php:331 actions/register.php:201
-#: actions/siteadminpanel.php:143
+#: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Geçersiz bir eposta adresi."
 
@@ -1628,6 +1618,25 @@ msgstr "Böyle bir durum mesajı yok."
 msgid "Cannot read file."
 msgstr "Böyle bir durum mesajı yok."
 
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "Geçersiz büyüklük."
+
+#: actions/grantrole.php:66 actions/revokerole.php:66
+msgid "This role is reserved and cannot be set."
+msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "Kullanıcının profili yok."
+
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:70
@@ -1779,12 +1788,18 @@ msgstr ""
 msgid "Make this user an admin"
 msgstr ""
 
+#: actions/grouprss.php:138 actions/userrss.php:93
+#: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
+#, php-format
+msgid "%s timeline"
+msgstr ""
+
 #: actions/grouprss.php:140
 #, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%s adli kullanicinin durum mesajlari"
 
-#: actions/groups.php:62 lib/profileaction.php:210 lib/profileaction.php:230
+#: actions/groups.php:62 lib/profileaction.php:212 lib/profileaction.php:232
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr ""
@@ -2371,8 +2386,8 @@ msgstr "Bağlan"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1040
-#: lib/apiaction.php:1068 lib/apiaction.php:1177
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1042
+#: lib/apiaction.php:1070 lib/apiaction.php:1179
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2520,7 +2535,8 @@ msgstr "Yeni parola kaydedilemedi."
 msgid "Password saved."
 msgstr "Parola kaydedildi."
 
-#: actions/pathsadminpanel.php:59
+#. TRANS: Menu item for site administration
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:382
 msgid "Paths"
 msgstr ""
 
@@ -2645,7 +2661,7 @@ msgstr ""
 msgid "SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:323 actions/siteadminpanel.php:294
+#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 #, fuzzy
 msgid "Never"
 msgstr "Geri al"
@@ -2705,11 +2721,11 @@ msgstr "Geçersiz bir eposta adresi."
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%s adli kullanicinin durum mesajlari"
 
-#: actions/postnotice.php:84
+#: actions/postnotice.php:95
 msgid "Invalid notice content"
 msgstr "Geçersiz durum mesajı"
 
-#: actions/postnotice.php:90
+#: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
@@ -2792,7 +2808,7 @@ msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
 
-#: actions/profilesettings.php:151 actions/siteadminpanel.php:280
+#: actions/profilesettings.php:151
 msgid "Language"
 msgstr ""
 
@@ -2818,7 +2834,7 @@ msgstr ""
 msgid "Bio is too long (max %d chars)."
 msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:150
+#: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr ""
 
@@ -3125,7 +3141,7 @@ msgid "Same as password above. Required."
 msgstr ""
 
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:256 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:120
 msgid "Email"
 msgstr "Eposta"
 
@@ -3214,7 +3230,7 @@ msgid "URL of your profile on another compatible microblogging service"
 msgstr ""
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:368
+#: lib/userprofile.php:394
 msgid "Subscribe"
 msgstr "Abone ol"
 
@@ -3316,6 +3332,16 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "%s için cevaplar"
 
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/revokerole.php:82
+#, fuzzy
+msgid "User doesn't have this role."
+msgstr "Kullanıcının profili yok."
+
 #: actions/rsd.php:146 actions/version.php:157
 #, fuzzy
 msgid "StatusNet"
@@ -3331,7 +3357,9 @@ msgstr "Bize o profili yollamadınız"
 msgid "User is already sandboxed."
 msgstr "Kullanıcının profili yok."
 
+#. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:390
 msgid "Sessions"
 msgstr ""
 
@@ -3355,7 +3383,7 @@ msgstr ""
 msgid "Turn on debugging output for sessions."
 msgstr ""
 
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:336
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
 #, fuzzy
 msgid "Save site settings"
@@ -3391,8 +3419,8 @@ msgstr "Yer"
 msgid "Description"
 msgstr "Abonelikler"
 
-#: actions/showapplication.php:192 actions/showgroup.php:437
-#: lib/profileaction.php:174
+#: actions/showapplication.php:192 actions/showgroup.php:438
+#: lib/profileaction.php:176
 msgid "Statistics"
 msgstr "İstatistikler"
 
@@ -3526,47 +3554,47 @@ msgstr ""
 msgid "Group actions"
 msgstr ""
 
-#: actions/showgroup.php:336
+#: actions/showgroup.php:337
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "%s için durum RSS beslemesi"
 
-#: actions/showgroup.php:342
+#: actions/showgroup.php:343
 #, fuzzy, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "%s için durum RSS beslemesi"
 
-#: actions/showgroup.php:348
+#: actions/showgroup.php:349
 #, fuzzy, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "%s için durum RSS beslemesi"
 
-#: actions/showgroup.php:353
+#: actions/showgroup.php:354
 #, fuzzy, php-format
 msgid "FOAF for %s group"
 msgstr "%s için durum RSS beslemesi"
 
-#: actions/showgroup.php:389 actions/showgroup.php:446 lib/groupnav.php:91
+#: actions/showgroup.php:390 actions/showgroup.php:447 lib/groupnav.php:91
 #, fuzzy
 msgid "Members"
 msgstr "Üyelik başlangıcı"
 
-#: actions/showgroup.php:394 lib/profileaction.php:117
-#: lib/profileaction.php:148 lib/profileaction.php:236 lib/section.php:95
+#: actions/showgroup.php:395 lib/profileaction.php:117
+#: lib/profileaction.php:150 lib/profileaction.php:238 lib/section.php:95
 #: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
 
-#: actions/showgroup.php:400
+#: actions/showgroup.php:401
 msgid "All members"
 msgstr ""
 
-#: actions/showgroup.php:440
+#: actions/showgroup.php:441
 #, fuzzy
 msgid "Created"
 msgstr "Yarat"
 
-#: actions/showgroup.php:456
+#: actions/showgroup.php:457
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3576,7 +3604,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:462
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3585,7 +3613,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:490
+#: actions/showgroup.php:491
 msgid "Admins"
 msgstr ""
 
@@ -3697,149 +3725,137 @@ msgid "User is already silenced."
 msgstr "Kullanıcının profili yok."
 
 #: actions/siteadminpanel.php:69
-msgid "Basic settings for this StatusNet site."
+msgid "Basic settings for this StatusNet site"
 msgstr ""
 
-#: actions/siteadminpanel.php:132
+#: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr ""
 
-#: actions/siteadminpanel.php:140
+#: actions/siteadminpanel.php:141
 #, fuzzy
 msgid "You must have a valid contact email address."
 msgstr "Geçersiz bir eposta adresi."
 
-#: actions/siteadminpanel.php:158
+#: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
 msgstr ""
 
 #: actions/siteadminpanel.php:165
-msgid "Invalid snapshot report URL."
-msgstr ""
-
-#: actions/siteadminpanel.php:171
-msgid "Invalid snapshot run value."
-msgstr ""
-
-#: actions/siteadminpanel.php:177
-msgid "Snapshot frequency must be a number."
-msgstr ""
-
-#: actions/siteadminpanel.php:183
 msgid "Minimum text limit is 140 characters."
 msgstr ""
 
-#: actions/siteadminpanel.php:189
+#: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
 msgstr ""
 
-#: actions/siteadminpanel.php:239
+#: actions/siteadminpanel.php:221
 msgid "General"
 msgstr ""
 
-#: actions/siteadminpanel.php:242
+#: actions/siteadminpanel.php:224
 #, fuzzy
 msgid "Site name"
 msgstr "Yeni durum mesajı"
 
-#: actions/siteadminpanel.php:243
+#: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
 
-#: actions/siteadminpanel.php:247
+#: actions/siteadminpanel.php:229
 msgid "Brought by"
 msgstr ""
 
-#: actions/siteadminpanel.php:248
+#: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:252
+#: actions/siteadminpanel.php:234
 msgid "Brought by URL"
 msgstr ""
 
-#: actions/siteadminpanel.php:253
+#: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:257
+#: actions/siteadminpanel.php:239
 #, fuzzy
 msgid "Contact email address for your site"
 msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
 
-#: actions/siteadminpanel.php:263
+#: actions/siteadminpanel.php:245
 #, fuzzy
 msgid "Local"
 msgstr "Yer"
 
-#: actions/siteadminpanel.php:274
+#: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr ""
 
-#: actions/siteadminpanel.php:275
+#: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
 
-#: actions/siteadminpanel.php:281
-msgid "Default site language"
+#: actions/siteadminpanel.php:262
+msgid "Default language"
 msgstr ""
 
-#: actions/siteadminpanel.php:289
-msgid "Snapshots"
+#: actions/siteadminpanel.php:263
+msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
 
-#: actions/siteadminpanel.php:292
-msgid "Randomly during Web hit"
-msgstr ""
-
-#: actions/siteadminpanel.php:293
-msgid "In a scheduled job"
-msgstr ""
-
-#: actions/siteadminpanel.php:295
-msgid "Data snapshots"
-msgstr ""
-
-#: actions/siteadminpanel.php:296
-msgid "When to send statistical data to status.net servers"
-msgstr ""
-
-#: actions/siteadminpanel.php:301
-msgid "Frequency"
-msgstr ""
-
-#: actions/siteadminpanel.php:302
-msgid "Snapshots will be sent once every N web hits"
-msgstr ""
-
-#: actions/siteadminpanel.php:307
-msgid "Report URL"
-msgstr ""
-
-#: actions/siteadminpanel.php:308
-msgid "Snapshots will be sent to this URL"
-msgstr ""
-
-#: actions/siteadminpanel.php:315
+#: actions/siteadminpanel.php:271
 msgid "Limits"
 msgstr ""
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Text limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:318
+#: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
 msgstr ""
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "Dupe limit"
 msgstr ""
 
-#: actions/siteadminpanel.php:322
+#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "Yeni durum mesajı"
+
+#: actions/sitenoticeadminpanel.php:67
+msgid "Edit site-wide message"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#: actions/sitenoticeadminpanel.php:113
+msgid "Max length for the site-wide notice is 255 chars"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "Yeni durum mesajı"
+
+#: actions/sitenoticeadminpanel.php:178
+msgid "Site-wide notice text (255 chars max; HTML okay)"
+msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "Yeni durum mesajı"
 
 #: actions/smssettings.php:58
 #, fuzzy
@@ -3935,6 +3951,66 @@ msgstr ""
 #: actions/smssettings.php:498
 msgid "No code entered"
 msgstr ""
+
+#. TRANS: Menu item for site administration
+#: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
+#: lib/adminpanelaction.php:406
+msgid "Snapshots"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "Abonelikler"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:133
+msgid "Snapshot frequency must be a number."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+msgid "Invalid snapshot report URL."
+msgstr ""
+
+#: actions/snapshotadminpanel.php:200
+msgid "Randomly during Web hit"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:201
+msgid "In a scheduled job"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:206
+msgid "Data snapshots"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:208
+msgid "When to send statistical data to status.net servers"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:217
+msgid "Frequency"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:218
+msgid "Snapshots will be sent once every N web hits"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:226
+msgid "Report URL"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:227
+msgid "Snapshots will be sent to this URL"
+msgstr ""
+
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "Ayarlar"
 
 #: actions/subedit.php:70
 #, fuzzy
@@ -4144,7 +4220,7 @@ msgstr "Yetkilendirme isteği yok!"
 msgid "Unsubscribed"
 msgstr "Aboneliği sonlandır"
 
-#: actions/updateprofile.php:62 actions/userauthorization.php:337
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
@@ -4344,14 +4420,20 @@ msgstr "Bütün abonelikler"
 msgid "Search for more groups"
 msgstr ""
 
-#: actions/usergroups.php:153
+#: actions/usergroups.php:157
 #, fuzzy, php-format
 msgid "%s is not a member of any group."
 msgstr "Bize o profili yollamadınız"
 
-#: actions/usergroups.php:158
+#: actions/usergroups.php:162
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
+msgstr ""
+
+#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
+#: lib/atomusernoticefeed.php:72
+#, php-format
+msgid "Updates from %1$s on %2$s!"
 msgstr ""
 
 #: actions/version.php:73
@@ -4397,7 +4479,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:778
+#: actions/version.php:196 lib/action.php:767
 #, fuzzy
 msgid "Version"
 msgstr "Kişisel"
@@ -4465,41 +4547,41 @@ msgstr ""
 msgid "DB error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:239
+#: classes/Notice.php:241
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/Notice.php:243
+#: classes/Notice.php:245
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/Notice.php:248
+#: classes/Notice.php:250
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:254
+#: classes/Notice.php:256
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:260
+#: classes/Notice.php:262
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:326 classes/Notice.php:352
+#: classes/Notice.php:328 classes/Notice.php:354
 msgid "Problem saving notice."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/Notice.php:911
+#: classes/Notice.php:927
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
-#: classes/Notice.php:1442
+#: classes/Notice.php:1459
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4527,7 +4609,12 @@ msgstr "Bu kullanıcıyı zaten takip etmiyorsunuz!"
 msgid "Couldn't delete self-subscription."
 msgstr "Abonelik silinemedi."
 
-#: classes/Subscription.php:179 lib/subs.php:69
+#: classes/Subscription.php:190
+#, fuzzy
+msgid "Couldn't delete subscription OMB token."
+msgstr "Abonelik silinemedi."
+
+#: classes/Subscription.php:201 lib/subs.php:69
 msgid "Couldn't delete subscription."
 msgstr "Abonelik silinemedi."
 
@@ -4536,22 +4623,22 @@ msgstr "Abonelik silinemedi."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:462
+#: classes/User_group.php:477
 #, fuzzy
 msgid "Could not create group."
 msgstr "Avatar bilgisi kaydedilemedi"
 
-#: classes/User_group.php:471
+#: classes/User_group.php:486
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "Abonelik oluşturulamadı."
 
-#: classes/User_group.php:492
+#: classes/User_group.php:507
 #, fuzzy
 msgid "Could not set group membership."
 msgstr "Abonelik oluşturulamadı."
 
-#: classes/User_group.php:506
+#: classes/User_group.php:521
 #, fuzzy
 msgid "Could not save local group info."
 msgstr "Abonelik oluşturulamadı."
@@ -4595,192 +4682,185 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:424
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:439
+#: lib/action.php:430
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:442
+#: lib/action.php:433
 #, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Kişisel"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:444
+#: lib/action.php:435
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Parolayı değiştir"
 
-#: lib/action.php:447
-#, fuzzy
-msgctxt "MENU"
-msgid "Account"
-msgstr "Hakkında"
-
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:450
+#: lib/action.php:440
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Sunucuya yönlendirme yapılamadı: %s"
 
-#: lib/action.php:453
-#, fuzzy
-msgctxt "MENU"
+#: lib/action.php:443
 msgid "Connect"
 msgstr "Bağlan"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:457
+#: lib/action.php:446
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Abonelikler"
 
-#: lib/action.php:460
+#: lib/action.php:449
 msgctxt "MENU"
 msgid "Admin"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:464
+#: lib/action.php:453
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:467
+#: lib/action.php:456
 #, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Geçersiz büyüklük."
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:473
+#: lib/action.php:462
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:476
+#: lib/action.php:465
 #, fuzzy
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Çıkış"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:481
+#: lib/action.php:470
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Yeni hesap oluştur"
 
-#: lib/action.php:484
+#: lib/action.php:473
 #, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "Kayıt"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:487
+#: lib/action.php:476
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:490
+#: lib/action.php:479
 #, fuzzy
 msgctxt "MENU"
 msgid "Login"
 msgstr "Giriş"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:493
+#: lib/action.php:482
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Yardım"
 
-#: lib/action.php:496
+#: lib/action.php:485
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "Yardım"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:499
+#: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:502
+#: lib/action.php:491
 #, fuzzy
 msgctxt "MENU"
 msgid "Search"
 msgstr "Ara"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
-#: lib/action.php:524
+#. TRANS: Menu item for site administration
+#: lib/action.php:513 lib/adminpanelaction.php:398
 #, fuzzy
 msgid "Site notice"
 msgstr "Yeni durum mesajı"
 
-#: lib/action.php:590
+#: lib/action.php:579
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:656
+#: lib/action.php:645
 #, fuzzy
 msgid "Page notice"
 msgstr "Yeni durum mesajı"
 
-#: lib/action.php:758
+#: lib/action.php:747
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "Abonelikler"
 
-#: lib/action.php:763
+#: lib/action.php:752
 msgid "Help"
 msgstr "Yardım"
 
-#: lib/action.php:765
+#: lib/action.php:754
 msgid "About"
 msgstr "Hakkında"
 
-#: lib/action.php:767
+#: lib/action.php:756
 msgid "FAQ"
 msgstr "SSS"
 
-#: lib/action.php:771
+#: lib/action.php:760
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:774
+#: lib/action.php:763
 msgid "Privacy"
 msgstr "Gizlilik"
 
-#: lib/action.php:776
+#: lib/action.php:765
 msgid "Source"
 msgstr "Kaynak"
 
-#: lib/action.php:780
+#: lib/action.php:769
 msgid "Contact"
 msgstr "İletişim"
 
-#: lib/action.php:782
+#: lib/action.php:771
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:810
+#: lib/action.php:799
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:813
+#: lib/action.php:802
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4789,12 +4869,12 @@ msgstr ""
 "**%%site.name%%** [%%site.broughtby%%](%%site.broughtbyurl%%)\" tarafından "
 "hazırlanan anında mesajlaşma ağıdır. "
 
-#: lib/action.php:815
+#: lib/action.php:804
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** bir aninda mesajlaşma sosyal ağıdır."
 
-#: lib/action.php:817
+#: lib/action.php:806
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4805,56 +4885,56 @@ msgstr ""
 "licenses/agpl-3.0.html) lisansı ile korunan [StatusNet](http://status.net/) "
 "microbloglama yazılımının %s. versiyonunu kullanmaktadır."
 
-#: lib/action.php:832
+#: lib/action.php:821
 #, fuzzy
 msgid "Site content license"
 msgstr "Yeni durum mesajı"
 
-#: lib/action.php:837
+#: lib/action.php:826
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:842
+#: lib/action.php:831
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:845
+#: lib/action.php:834
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:858
+#: lib/action.php:847
 msgid "All "
 msgstr ""
 
-#: lib/action.php:864
+#: lib/action.php:853
 msgid "license."
 msgstr ""
 
-#: lib/action.php:1163
+#: lib/action.php:1152
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1172
+#: lib/action.php:1161
 #, fuzzy
 msgid "After"
 msgstr "« Sonra"
 
-#: lib/action.php:1180
+#: lib/action.php:1169
 #, fuzzy
 msgid "Before"
 msgstr "Önce »"
 
-#: lib/activity.php:449
+#: lib/activity.php:453
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activity.php:477
+#: lib/activity.php:481
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activity.php:481
+#: lib/activity.php:485
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -4869,95 +4949,86 @@ msgid "Changes to that panel are not allowed."
 msgstr ""
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:211
+#: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr ""
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:241
+#: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
 msgstr ""
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:265
+#: lib/adminpanelaction.php:283
 msgid "Unable to delete design setting."
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:330
+#: lib/adminpanelaction.php:348
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "Eposta adresi onayı"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:332
+#: lib/adminpanelaction.php:350
 #, fuzzy
 msgctxt "MENU"
 msgid "Site"
 msgstr "Yeni durum mesajı"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:338
+#: lib/adminpanelaction.php:356
 #, fuzzy
 msgid "Design configuration"
 msgstr "Eposta adresi onayı"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:340
+#: lib/adminpanelaction.php:358
 #, fuzzy
 msgctxt "MENU"
 msgid "Design"
 msgstr "Kişisel"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:346
+#: lib/adminpanelaction.php:364
 #, fuzzy
 msgid "User configuration"
 msgstr "Eposta adresi onayı"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:348
-msgctxt "MENU"
+#: lib/adminpanelaction.php:366 lib/personalgroupnav.php:115
 msgid "User"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:354
+#: lib/adminpanelaction.php:372
 #, fuzzy
 msgid "Access configuration"
 msgstr "Eposta adresi onayı"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:356
-#, fuzzy
-msgctxt "MENU"
-msgid "Access"
-msgstr "Kabul et"
-
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:362
+#: lib/adminpanelaction.php:380
 #, fuzzy
 msgid "Paths configuration"
 msgstr "Eposta adresi onayı"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:364
-msgctxt "MENU"
-msgid "Paths"
-msgstr ""
-
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:370
+#: lib/adminpanelaction.php:388
 #, fuzzy
 msgid "Sessions configuration"
 msgstr "Eposta adresi onayı"
 
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:372
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:396
 #, fuzzy
-msgctxt "MENU"
-msgid "Sessions"
-msgstr "Kişisel"
+msgid "Edit site notice"
+msgstr "Yeni durum mesajı"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:404
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "Eposta adresi onayı"
 
 #: lib/apiauth.php:94
 msgid "API resource requires read-write access, but you only have read access."
@@ -5153,12 +5224,12 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 msgid "Fullname: %s"
 msgstr "Tam İsim"
 
-#: lib/command.php:312 lib/mail.php:254
+#: lib/command.php:312 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
 msgstr ""
 
-#: lib/command.php:315 lib/mail.php:256
+#: lib/command.php:315 lib/mail.php:260
 #, php-format
 msgid "Homepage: %s"
 msgstr ""
@@ -5461,6 +5532,11 @@ msgstr ""
 msgid "Go"
 msgstr ""
 
+#: lib/grantroleform.php:91
+#, php-format
+msgid "Grant this user the \"%s\" role"
+msgstr ""
+
 #: lib/groupeditform.php:163
 #, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
@@ -5608,11 +5684,11 @@ msgstr "Geçersiz kullanıcı adı veya parola."
 msgid "Sign up for a new account"
 msgstr "Yeni hesap oluştur"
 
-#: lib/mail.php:172
+#: lib/mail.php:173
 msgid "Email address confirmation"
 msgstr "Eposta adresi onayı"
 
-#: lib/mail.php:174
+#: lib/mail.php:175
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5629,12 +5705,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:236
+#: lib/mail.php:240
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
-#: lib/mail.php:241
+#: lib/mail.php:245
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5655,17 +5731,17 @@ msgstr ""
 "Kendisini durumsuz bırakmayın!,\n"
 "%4$s.\n"
 
-#: lib/mail.php:258
+#: lib/mail.php:262
 #, fuzzy, php-format
 msgid "Bio: %s"
 msgstr "Hakkında"
 
-#: lib/mail.php:286
+#: lib/mail.php:290
 #, php-format
 msgid "New email address for posting to %s"
 msgstr ""
 
-#: lib/mail.php:289
+#: lib/mail.php:293
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5678,21 +5754,21 @@ msgid ""
 "%4$s"
 msgstr ""
 
-#: lib/mail.php:413
+#: lib/mail.php:417
 #, php-format
 msgid "%s status"
 msgstr "%s durum"
 
-#: lib/mail.php:439
+#: lib/mail.php:443
 msgid "SMS confirmation"
 msgstr ""
 
-#: lib/mail.php:463
+#: lib/mail.php:467
 #, php-format
 msgid "You've been nudged by %s"
 msgstr ""
 
-#: lib/mail.php:467
+#: lib/mail.php:471
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5708,12 +5784,12 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:510
+#: lib/mail.php:517
 #, php-format
 msgid "New private message from %s"
 msgstr ""
 
-#: lib/mail.php:514
+#: lib/mail.php:521
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5732,12 +5808,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:559
+#: lib/mail.php:568
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
-#: lib/mail.php:561
+#: lib/mail.php:570
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -5758,12 +5834,12 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:624
+#: lib/mail.php:635
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:626
+#: lib/mail.php:637
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -6013,10 +6089,6 @@ msgstr "Cevaplar"
 msgid "Favorites"
 msgstr ""
 
-#: lib/personalgroupnav.php:115
-msgid "User"
-msgstr ""
-
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr ""
@@ -6042,7 +6114,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:192 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:194 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonelikler"
 
@@ -6050,24 +6122,24 @@ msgstr "Abonelikler"
 msgid "All subscriptions"
 msgstr "Bütün abonelikler"
 
-#: lib/profileaction.php:140 lib/profileaction.php:201 lib/subgroupnav.php:90
+#: lib/profileaction.php:142 lib/profileaction.php:203 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abone olanlar"
 
-#: lib/profileaction.php:157
+#: lib/profileaction.php:159
 #, fuzzy
 msgid "All subscribers"
 msgstr "Abone olanlar"
 
-#: lib/profileaction.php:178
+#: lib/profileaction.php:180
 msgid "User ID"
 msgstr ""
 
-#: lib/profileaction.php:183
+#: lib/profileaction.php:185
 msgid "Member since"
 msgstr "Üyelik başlangıcı"
 
-#: lib/profileaction.php:245
+#: lib/profileaction.php:247
 msgid "All groups"
 msgstr ""
 
@@ -6111,7 +6183,12 @@ msgstr "Böyle bir durum mesajı yok."
 msgid "Repeat this notice"
 msgstr "Böyle bir durum mesajı yok."
 
-#: lib/router.php:668
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/router.php:671
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -6274,47 +6351,62 @@ msgstr ""
 msgid "Moderate"
 msgstr ""
 
-#: lib/util.php:1013
+#: lib/userprofile.php:352
+#, fuzzy
+msgid "User role"
+msgstr "Kullanıcının profili yok."
+
+#: lib/userprofile.php:354
+msgctxt "role"
+msgid "Administrator"
+msgstr ""
+
+#: lib/userprofile.php:355
+msgctxt "role"
+msgid "Moderator"
+msgstr ""
+
+#: lib/util.php:1015
 msgid "a few seconds ago"
 msgstr "birkaç saniye önce"
 
-#: lib/util.php:1015
+#: lib/util.php:1017
 msgid "about a minute ago"
 msgstr "yaklaşık bir dakika önce"
 
-#: lib/util.php:1017
+#: lib/util.php:1019
 #, php-format
 msgid "about %d minutes ago"
 msgstr "yaklaşık %d dakika önce"
 
-#: lib/util.php:1019
+#: lib/util.php:1021
 msgid "about an hour ago"
 msgstr "yaklaşık bir saat önce"
 
-#: lib/util.php:1021
+#: lib/util.php:1023
 #, php-format
 msgid "about %d hours ago"
 msgstr "yaklaşık %d saat önce"
 
-#: lib/util.php:1023
+#: lib/util.php:1025
 msgid "about a day ago"
 msgstr "yaklaşık bir gün önce"
 
-#: lib/util.php:1025
+#: lib/util.php:1027
 #, php-format
 msgid "about %d days ago"
 msgstr "yaklaşık %d gün önce"
 
-#: lib/util.php:1027
+#: lib/util.php:1029
 msgid "about a month ago"
 msgstr "yaklaşık bir ay önce"
 
-#: lib/util.php:1029
+#: lib/util.php:1031
 #, php-format
 msgid "about %d months ago"
 msgstr "yaklaşık %d ay önce"
 
-#: lib/util.php:1031
+#: lib/util.php:1033
 msgid "about a year ago"
 msgstr "yaklaşık bir yıl önce"
 

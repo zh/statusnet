@@ -59,8 +59,21 @@ class MagicEnvelope
         }
         if ($xrd->links) {
             if ($link = Discovery::getService($xrd->links, Magicsig::PUBLICKEYREL)) {
-                list($type, $keypair) = explode(';', $link['href']);
-                return $keypair;
+                $keypair = false;
+                $parts = explode(',', $link['href']);
+                if (count($parts) == 2) {
+                    $keypair = $parts[1];
+                } else {
+                    // Backwards compatibility check for separator bug in 0.9.0
+                    $parts = explode(';', $link['href']);
+                    if (count($parts) == 2) {
+                        $keypair = $parts[1];
+                    }
+                }
+                
+                if ($keypair) {
+                    return $keypair;
+                }
             }
         }
         throw new Exception('Unable to locate signer public key');
@@ -70,7 +83,7 @@ class MagicEnvelope
     public function signMessage($text, $mimetype, $keypair)
     {
         $signature_alg = Magicsig::fromString($keypair);
-        $armored_text = base64_encode($text);
+        $armored_text = base64_url_encode($text);
 
         return array(
             'data' => $armored_text,
@@ -108,7 +121,7 @@ class MagicEnvelope
     public function unfold($env)
     {
         $dom = new DOMDocument();
-        $dom->loadXML(base64_decode($env['data']));
+        $dom->loadXML(base64_url_decode($env['data']));
 
         if ($dom->documentElement->tagName != 'entry') {
             return false;
@@ -165,7 +178,7 @@ class MagicEnvelope
             return false;
         }
 
-        $text = base64_decode($env['data']);
+        $text = base64_url_decode($env['data']);
         $signer_uri = $this->getAuthor($text);
 
         try {
@@ -193,11 +206,12 @@ class MagicEnvelope
 
     public function fromDom($dom)
     {
-        if ($dom->documentElement->tagName == 'entry') {
+        $env_element = $dom->getElementsByTagNameNS(MagicEnvelope::NS, 'env')->item(0);
+        if (!$env_element) {
             $env_element = $dom->getElementsByTagNameNS(MagicEnvelope::NS, 'provenance')->item(0);
-        } else if ($dom->documentElement->tagName == 'me:env') {
-            $env_element = $dom->documentElement;
-        } else {
+        }
+
+        if (!$env_element) {
             return false;
         }
 

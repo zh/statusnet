@@ -115,11 +115,11 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
 
         $original = clone($profile);
 
-        if (empty($this->name)) {
+        if (!empty($this->name)) {
             $profile->fullname = $this->name;
         }
 
-        if (empty($this->url)) {
+        if (!empty($this->url)) {
             $profile->homepage = $this->url;
         }
 

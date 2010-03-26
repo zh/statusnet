@@ -22,10 +22,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.0');
+define('STATUSNET_VERSION', '0.9.1rc1');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Stand');
+define('STATUSNET_CODENAME', 'Everybody Hurts');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -123,7 +123,6 @@ require_once INSTALLDIR.'/lib/util.php';
 require_once INSTALLDIR.'/lib/action.php';
 require_once INSTALLDIR.'/lib/mail.php';
 require_once INSTALLDIR.'/lib/subs.php';
-require_once INSTALLDIR.'/lib/activity.php';
 
 require_once INSTALLDIR.'/lib/clientexception.php';
 require_once INSTALLDIR.'/lib/serverexception.php';

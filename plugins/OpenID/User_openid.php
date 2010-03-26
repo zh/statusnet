@@ -45,6 +45,11 @@ class User_openid extends Memcached_DataObject
      */
     function keys()
     {
+        return array_keys($this->keyTypes());
+    }
+
+    function keyTypes()
+    {
         return array('canonical' => 'K', 'display' => 'U', 'user_id' => 'U');
     }
 

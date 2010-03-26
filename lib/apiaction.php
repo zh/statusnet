@@ -491,7 +491,7 @@ class ApiAction extends Action
                 $this->showXmlAttachments($twitter_status['attachments']);
                 break;
             case 'geo':
-                $this->showGeoRSS($value);
+                $this->showGeoXML($value);
                 break;
             case 'retweeted_status':
                 $this->showTwitterXmlStatus($value, 'retweeted_status');
@@ -539,7 +539,7 @@ class ApiAction extends Action
         }
     }
 
-    function showGeoRSS($geo)
+    function showGeoXML($geo)
     {
         if (empty($geo)) {
             // empty geo element
@@ -548,6 +548,17 @@ class ApiAction extends Action
             $this->elementStart('geo', array('xmlns:georss' => 'http://www.georss.org/georss'));
             $this->element('georss:point', null, $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]);
             $this->elementEnd('geo');
+        }
+    }
+
+    function showGeoRSS($geo)
+    {
+        if (!empty($geo)) {
+            $this->element(
+                'georss:point',
+                null,
+                $geo['coordinates'][0] . ' ' . $geo['coordinates'][1]
+            );
         }
     }
 
@@ -619,13 +630,25 @@ class ApiAction extends Action
         $this->endDocument('xml');
     }
 
-    function showRssTimeline($notice, $title, $link, $subtitle, $suplink=null, $logo=null)
+    function showRssTimeline($notice, $title, $link, $subtitle, $suplink = null, $logo = null, $self = null)
     {
 
         $this->initDocument('rss');
 
         $this->element('title', null, $title);
         $this->element('link', null, $link);
+
+        if (!is_null($self)) {
+            $this->element(
+                'atom:link',
+                array(
+                    'type' => 'application/rss+xml',
+                    'href' => $self,
+                    'rel'  => 'self'
+                )
+           );
+        }
+
         if (!is_null($suplink)) {
             // For FriendFeed's SUP protocol
             $this->element('link', array('xmlns' => 'http://www.w3.org/2005/Atom',
@@ -732,8 +755,12 @@ class ApiAction extends Action
     function showTwitterAtomEntry($entry)
     {
         $this->elementStart('entry');
-        $this->element('title', null, $entry['title']);
-        $this->element('content', array('type' => 'html'), $entry['content']);
+        $this->element('title', null, common_xml_safe_str($entry['title']));
+        $this->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($entry['content'])
+        );
         $this->element('id', null, $entry['id']);
         $this->element('published', null, $entry['published']);
         $this->element('updated', null, $entry['updated']);
@@ -848,7 +875,7 @@ class ApiAction extends Action
 
         $this->initDocument('atom');
 
-        $this->element('title', null, $title);
+        $this->element('title', null, common_xml_safe_str($title));
         $this->element('id', null, $id);
         $this->element('link', array('href' => $link, 'rel' => 'alternate', 'type' => 'text/html'), null);
 
@@ -858,7 +885,7 @@ class ApiAction extends Action
         }
 
         $this->element('updated', null, common_date_iso8601('now'));
-        $this->element('subtitle', null, $subtitle);
+        $this->element('subtitle', null, common_xml_safe_str($subtitle));
 
         if (is_array($group)) {
             foreach ($group as $g) {
@@ -1138,7 +1165,14 @@ class ApiAction extends Action
     function initTwitterRss()
     {
         $this->startXML();
-        $this->elementStart('rss', array('version' => '2.0', 'xmlns:atom'=>'http://www.w3.org/2005/Atom'));
+        $this->elementStart(
+            'rss',
+            array(
+                'version'      => '2.0',
+                'xmlns:atom'   => 'http://www.w3.org/2005/Atom',
+                'xmlns:georss' => 'http://www.georss.org/georss'
+            )
+        );
         $this->elementStart('channel');
         Event::handle('StartApiRss', array($this));
     }
@@ -1336,8 +1370,27 @@ class ApiAction extends Action
         }
     }
 
-    function getSelfUri($action, $aargs)
+    /**
+     * Calculate the complete URI that called up this action.  Used for
+     * Atom rel="self" links.  Warning: this is funky.
+     *
+     * @return string URL    a URL suitable for rel="self" Atom links
+     */
+    function getSelfUri()
     {
+        $action = mb_substr(get_class($this), 0, -6); // remove 'Action'
+
+        $id = $this->arg('id');
+        $aargs = array('format' => $this->format);
+        if (!empty($id)) {
+            $aargs['id'] = $id;
+        }
+
+        $tag = $this->arg('tag');
+        if (!empty($tag)) {
+            $aargs['tag'] = $tag;
+        }
+
         parse_str($_SERVER['QUERY_STRING'], $params);
         $pstring = '';
         if (!empty($params)) {

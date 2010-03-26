@@ -153,19 +153,12 @@ class User extends Memcached_DataObject
         return Sms_carrier::staticGet('id', $this->carrier);
     }
 
+    /**
+     * @deprecated use Subscription::start($sub, $other);
+     */
     function subscribeTo($other)
     {
-        $sub = new Subscription();
-        $sub->subscriber = $this->id;
-        $sub->subscribed = $other->id;
-
-        $sub->created = common_sql_now(); // current time
-
-        if (!$sub->insert()) {
-            return false;
-        }
-
-        return true;
+        return Subscription::start($this->getProfile(), $other);
     }
 
     function hasBlocked($other)
@@ -213,6 +206,7 @@ class User extends Memcached_DataObject
         if(! User::allowed_nickname($nickname)){
             common_log(LOG_WARNING, sprintf("Attempted to register a nickname that is not allowed: %s", $profile->nickname),
                        __FILE__);
+            return false;
         }
         $profile->profileurl = common_profile_url($nickname);
 
@@ -345,17 +339,7 @@ class User extends Memcached_DataObject
                     common_log(LOG_WARNING, sprintf("Default user %s does not exist.", $defnick),
                                __FILE__);
                 } else {
-                    $defsub = new Subscription();
-                    $defsub->subscriber = $user->id;
-                    $defsub->subscribed = $defuser->id;
-                    $defsub->created = $user->created;
-
-                    $result = $defsub->insert();
-
-                    if (!$result) {
-                        common_log_db_error($defsub, 'INSERT', __FILE__);
-                        return false;
-                    }
+                    Subscription::start($user, $defuser);
                 }
             }
 

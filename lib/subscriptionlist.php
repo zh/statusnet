@@ -113,12 +113,13 @@ class SubscriptionListItem extends ProfileListItem
             $this->out->elementStart('ul', 'tags xoxo');
             foreach ($tags as $tag) {
                 $this->out->elementStart('li');
-                $this->out->element('span', 'mark_hash', '#');
-                $this->out->element('a', array('rel' => 'tag',
-                                               'href' => common_local_url($this->action->trimmed('action'),
-                                                                          array('nickname' => $this->owner->nickname,
-                                                                                'tag' => $tag))),
-                                    $tag);
+                // Avoid space by using raw output.
+                $pt = '<span class="mark_hash">#</span><a rel="tag" href="' .
+                  common_local_url($this->action->trimmed('action'),
+                                   array('nickname' => $this->owner->nickname,
+                                   'tag' => $tag)) .
+                  '">' . $tag . '</a>';
+                $this->out->raw($pt);
                 $this->out->elementEnd('li');
             }
             $this->out->elementEnd('ul');

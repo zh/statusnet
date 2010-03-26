@@ -103,7 +103,7 @@ function updateOStatus($user)
                 echo "Checking {$rp->nickname}...";
             }
 
-            $op = Ostatus_profile::ensureProfile($rp->profileurl);
+            $op = Ostatus_profile::ensureProfileURL($rp->profileurl);
 
             if (empty($op)) {
                 echo "can't convert.\n";

@@ -40,7 +40,7 @@ class Discovery
     const PROFILEPAGE = 'http://webfinger.net/rel/profile-page';
     const UPDATESFROM = 'http://schemas.google.com/g/2010#updates-from';
     const HCARD = 'http://microformats.org/profile/hcard';
-    
+
     public $methods = array();
 
     public function __construct()
@@ -50,12 +50,11 @@ class Discovery
         $this->registerMethod('Discovery_LRDD_Link_HTML');
     }
 
-
     public function registerMethod($class)
     {
         $this->methods[] = $class;
     }
-    
+
     /**
      * Given a "user id" make sure it's normalized to either a webfinger
      * acct: uri or a profile HTTP URL.
@@ -78,7 +77,7 @@ class Discovery
     public static function isWebfinger($user_id)
     {
         $uri = Discovery::normalize($user_id);
-        
+
         return (substr($uri, 0, 5) == 'acct:');
     }
 
@@ -99,7 +98,7 @@ class Discovery
                 } else {
                     $xrd_uri = $link['href'];
                 }
-                
+
                 $xrd = $this->fetchXrd($xrd_uri);
                 if ($xrd) {
                     return $xrd;
@@ -114,14 +113,13 @@ class Discovery
         if (!is_array($links)) {
             return false;
         }
-        
+
         foreach ($links as $link) {
             if ($link['rel'] == $service) {
                 return $link;
             }
         }
     }
-    
 
     public static function applyTemplate($template, $id)
     {
@@ -130,7 +128,6 @@ class Discovery
         return $template;
     }
 
-    
     public static function fetchXrd($url)
     {
         try {
@@ -157,12 +154,13 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
 {
     public function discover($uri)
     {
-        if (!Discovery::isWebfinger($uri)) {
-            return false;
+        if (Discovery::isWebfinger($uri)) {
+            // We have a webfinger acct: - start with host-meta
+            list($name, $domain) = explode('@', $uri);
+        } else {
+            $domain = parse_url($uri, PHP_URL_HOST);
         }
-
-        // We have a webfinger acct: - start with host-meta
-        list($name, $domain) = explode('@', $uri);
+        
         $url = 'http://'. $domain .'/.well-known/host-meta';
 
         $xrd = Discovery::fetchXrd($url);
@@ -171,7 +169,7 @@ class Discovery_LRDD_Host_Meta implements Discovery_LRDD
             if ($xrd->host != $domain) {
                 return false;
             }
-            
+
             return $xrd->links;
         }
     }
@@ -187,7 +185,7 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
         } catch (HTTP_Request2_Exception $e) {
             return false;
         }
-             
+
         if ($response->getStatus() != 200) {
             return false;
         }
@@ -196,51 +194,17 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
         if (!$link_header) {
             //            return false;
         }
-        
-        return Discovery_LRDD_Link_Header::parseHeader($link_header);
+
+        return array(Discovery_LRDD_Link_Header::parseHeader($link_header));
     }
 
     protected static function parseHeader($header)
     {
-        preg_match('/^<[^>]+>/', $header, $uri_reference);
-        //if (empty($uri_reference)) return;
+        $lh = new LinkHeader($header);
 
-        $links = array();
-        
-        $link_uri = trim($uri_reference[0], '<>');
-        $link_rel = array();
-        $link_type = null;
-        
-        // remove uri-reference from header
-        $header = substr($header, strlen($uri_reference[0]));
-        
-        // parse link-params
-        $params = explode(';', $header);
-        
-        foreach ($params as $param) {
-            if (empty($param)) continue;
-            list($param_name, $param_value) = explode('=', $param, 2);
-            $param_name = trim($param_name);
-            $param_value = preg_replace('(^"|"$)', '', trim($param_value));
-            
-            // for now we only care about 'rel' and 'type' link params
-            // TODO do something with the other links-params
-            switch ($param_name) {
-            case 'rel':
-                $link_rel = trim($param_value);
-                break;
-                
-            case 'type':
-                $link_type = trim($param_value);
-            }
-        }
-
-        $links[] =  array(
-            'href' => $link_uri,
-            'rel' => $link_rel,
-            'type' => $link_type);
-
-        return $links;
+        return array('href' => $lh->href,
+                     'rel'  => $lh->rel,
+                     'type' => $lh->type);
     }
 }
 
@@ -262,49 +226,48 @@ class Discovery_LRDD_Link_HTML implements Discovery_LRDD
         return Discovery_LRDD_Link_HTML::parse($response->getBody());
     }
 
-
     public function parse($html)
     {
         $links = array();
-        
+
         preg_match('/<head(\s[^>]*)?>(.*?)<\/head>/is', $html, $head_matches);
         $head_html = $head_matches[2];
-        
+
         preg_match_all('/<link\s[^>]*>/i', $head_html, $link_matches);
-        
+
         foreach ($link_matches[0] as $link_html) {
             $link_url = null;
             $link_rel = null;
             $link_type = null;
-            
+
             preg_match('/\srel=(("|\')([^\\2]*?)\\2|[^"\'\s]+)/i', $link_html, $rel_matches);
             if ( isset($rel_matches[3]) ) {
                 $link_rel = $rel_matches[3];
             } else if ( isset($rel_matches[1]) ) {
                 $link_rel = $rel_matches[1];
             }
-            
+
             preg_match('/\shref=(("|\')([^\\2]*?)\\2|[^"\'\s]+)/i', $link_html, $href_matches);
             if ( isset($href_matches[3]) ) {
                 $link_uri = $href_matches[3];
             } else if ( isset($href_matches[1]) ) {
                 $link_uri = $href_matches[1];
             }
-            
+
             preg_match('/\stype=(("|\')([^\\2]*?)\\2|[^"\'\s]+)/i', $link_html, $type_matches);
             if ( isset($type_matches[3]) ) {
                 $link_type = $type_matches[3];
             } else if ( isset($type_matches[1]) ) {
                 $link_type = $type_matches[1];
             }
-            
+
             $links[] = array(
                 'href' => $link_url,
                 'rel' => $link_rel,
                 'type' => $link_type,
             );
         }
-        
+
         return $links;
     }
 }

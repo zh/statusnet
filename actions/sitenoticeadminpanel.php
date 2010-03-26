@@ -93,7 +93,7 @@ class SitenoticeadminpanelAction extends AdminPanelAction
         // assert(all values are valid);
         // This throws an exception on validation errors
 
-        $this->validate(&$siteNotice);
+        $this->validate($siteNotice);
 
         $config = new Config();
 

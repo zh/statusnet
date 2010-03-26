@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-define('RECAPTCHA', '0.2');
-
 require_once(INSTALLDIR.'/plugins/Recaptcha/recaptchalib.php');
 
 class RecaptchaPlugin extends Plugin
@@ -87,5 +85,17 @@ class RecaptchaPlugin extends Plugin
             $action->showForm("Captcha does not match!");
             return false;
         }
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'Recaptcha',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Eric Helgeson',
+                            'homepage' => 'http://status.net/wiki/Plugin:Recaptcha',
+                            'rawdescription' =>
+                            _m('Uses <a href="http://recaptcha.org/">Recaptcha</a> service to add a  '.
+                               'captcha to the registration page.'));
+        return true;
     }
 }

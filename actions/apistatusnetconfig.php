@@ -50,13 +50,17 @@ if (!defined('STATUSNET')) {
 class ApiStatusnetConfigAction extends ApiAction
 {
     var $keys = array(
-        'site' => array('name', 'server', 'theme', 'path', 'fancy', 'language',
-                        'email', 'broughtby', 'broughtbyurl', 'closed',
-                        'inviteonly', 'private','textlimit'),
-        'license' => array('url', 'title', 'image'),
+        'site' => array('name', 'server', 'theme', 'path', 'logo', 'fancy', 'language',
+                        'email', 'broughtby', 'broughtbyurl', 'timezone', 'closed',
+                        'inviteonly', 'private', 'textlimit', 'ssl', 'sslserver', 'shorturllength'),
+        'license' => array('type', 'owner', 'url', 'title', 'image'),
         'nickname' => array('featured'),
+        'profile' => array('biolimit'),
+        'group' => array('desclimit'),
+        'notice' => array('contentlimit'),
         'throttle' => array('enabled', 'count', 'timespan'),
-        'xmpp' => array('enabled', 'server', 'user')
+        'xmpp' => array('enabled', 'server', 'port', 'user'),
+        'integration' => array('source')
     );
 
     /**
@@ -93,8 +97,6 @@ class ApiStatusnetConfigAction extends ApiAction
 
             // XXX: check that all sections and settings are legal XML elements
 
-            common_debug(var_export($this->keys, true));
-
             foreach ($this->keys as $section => $settings) {
                 $this->elementStart($section);
                 foreach ($settings as $setting) {
@@ -106,6 +108,14 @@ class ApiStatusnetConfigAction extends ApiAction
                     } else if ($value === true) {
                         $value = 'true';
                     }
+
+                    // return theme logo if there's no site specific one
+                    if (empty($value)) {
+                        if ($section == 'site' && $setting == 'logo') {
+                            $value = Theme::path('logo.png');
+                        }
+                    }
+
                     $this->element($setting, null, $value);
                 }
                 $this->elementEnd($section);

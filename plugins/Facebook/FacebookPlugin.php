@@ -261,7 +261,7 @@ class FacebookPlugin extends Plugin
         if ($this->reqFbScripts($action)) {
 
             $apikey      = common_config('facebook', 'apikey');
-            $plugin_path = common_path('plugins/Facebook');
+            $plugin_path = 'plugins/Facebook';
 
             $login_url  = common_local_url('FBConnectAuth');
             $logout_url = common_local_url('logout');

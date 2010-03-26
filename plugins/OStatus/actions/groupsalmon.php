@@ -60,7 +60,8 @@ class GroupsalmonAction extends SalmonAction
 
     function handlePost()
     {
-        switch ($this->act->object->type) {
+        // @fixme process all objects?
+        switch ($this->act->objects[0]->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:

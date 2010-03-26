@@ -119,6 +119,9 @@ class Notice extends Memcached_DataObject
         // NOTE: we don't clear queue items
 
         $result = parent::delete();
+
+        $this->blowOnDelete();
+        return $result;
     }
 
     /**
@@ -423,6 +426,18 @@ class Notice extends Memcached_DataObject
         }
     }
 
+    /**
+     * Clear cache entries related to this notice at delete time.
+     * Necessary to avoid breaking paging on public, profile timelines.
+     */
+    function blowOnDelete()
+    {
+        $this->blowOnInsert();
+
+        self::blow('profile:notice_ids:%d;last', $this->profile_id);
+        self::blow('public;last');
+    }
+
     /** save all urls in the notice to the db
      *
      * follow redirects and save all available file information
@@ -591,7 +606,6 @@ class Notice extends Memcached_DataObject
                               array(),
                               'public',
                               $offset, $limit, $since_id, $max_id);
-
         return Notice::getStreamByIds($ids);
     }
 
@@ -1130,6 +1144,7 @@ class Notice extends Memcached_DataObject
 
         if ($source) {
             $xs->elementStart('source');
+            $xs->element('id', null, $profile->profileurl);
             $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
             $xs->element('link', array('href' => $profile->profileurl));
             $user = User::staticGet('id', $profile->id);
@@ -1145,13 +1160,14 @@ class Notice extends Memcached_DataObject
             }
 
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+            $xs->element('updated', null, common_date_w3dtf($this->created));
         }
 
         if ($source) {
             $xs->elementEnd('source');
         }
 
-        $xs->element('title', null, $this->content);
+        $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
             $xs->raw($profile->asAtomAuthor());
@@ -1227,7 +1243,11 @@ class Notice extends Memcached_DataObject
             }
         }
 
-        $xs->element('content', array('type' => 'html'), $this->rendered);
+        $xs->element(
+            'content',
+            array('type' => 'html'),
+            common_xml_safe_str($this->rendered)
+        );
 
         $tag = new Notice_tag();
         $tag->notice_id = $this->id;
