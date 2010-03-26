@@ -94,7 +94,6 @@ function oid_link_user($id, $canonical, $display)
 
     if (!$oid->insert()) {
         $err = PEAR::getStaticProperty('DB_DataObject','lastError');
-        common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
         return false;
     }
 
@@ -119,13 +118,10 @@ function oid_check_immediate($openid_url, $backto=null)
         unset($args['action']);
         $backto = common_local_url($action, $args);
     }
-    common_debug('going back to "' . $backto . '"', __FILE__);
 
     common_ensure_session();
 
     $_SESSION['openid_immediate_backto'] = $backto;
-    common_debug('passed-in variable is "' . $backto . '"', __FILE__);
-    common_debug('session variable is "' . $_SESSION['openid_immediate_backto'] . '"', __FILE__);
 
     oid_authenticate($openid_url,
                      'finishimmediate',
@@ -261,6 +257,35 @@ function oid_update_user(&$user, &$sreg)
     return true;
 }
 
+function oid_assert_allowed($url)
+{
+    $blacklist = common_config('openid', 'blacklist');
+    $whitelist = common_config('openid', 'whitelist');
+
+    if (empty($blacklist)) {
+        $blacklist = array();
+    }
+
+    if (empty($whitelist)) {
+        $whitelist = array();
+    }
+
+    foreach ($blacklist as $pattern) {
+        if (preg_match("/$pattern/", $url)) {
+            common_log(LOG_INFO, "Matched OpenID blacklist pattern {$pattern} with {$url}");
+            foreach ($whitelist as $exception) {
+                if (preg_match("/$exception/", $url)) {
+                    common_log(LOG_INFO, "Matched OpenID whitelist pattern {$exception} with {$url}");
+                    return;
+                }
+            }
+            throw new ClientException(_m("Unauthorized URL used for OpenID login."), 403);
+        }
+    }
+
+    return;
+}
+
 class AutosubmitAction extends Action
 {
     var $form_html = null;
@@ -281,7 +306,7 @@ class AutosubmitAction extends Action
     {
         $this->raw($this->form_html);
     }
-    
+
     function showScripts()
     {
         parent::showScripts();
