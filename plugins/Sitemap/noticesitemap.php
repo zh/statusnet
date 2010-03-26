@@ -68,9 +68,12 @@ class NoticesitemapAction extends SitemapAction
 
         $this->notice = new Notice();
 
-        $this->notice->whereAdd("created > '$y-$m-$d 00:00:00'");
-        $this->notice->whereAdd("created <= '$y-$m-$d 11:59:59'");
-        $this->notice->whereAdd('is_local = 1');
+        $dt = sprintf('%04d-%02d-%02d', $y, $m, $d);
+
+        $this->notice->whereAdd("created > '$dt 00:00:00'");
+        $this->notice->whereAdd("created <= '$dt 23:59:59'");
+
+        $this->notice->whereAdd('is_local != 0');
 
         $this->notice->orderBy('id');
         $this->notice->limit($offset, $limit);
