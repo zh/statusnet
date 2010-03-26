@@ -803,7 +803,7 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if ($f->getEnclosure()) {
+        if ($f->getEnclosure() || File_oembed::staticGet('file_id',$f->id)) {
             $is_attachment = true;
             $attachment_id = $f->id;
 
