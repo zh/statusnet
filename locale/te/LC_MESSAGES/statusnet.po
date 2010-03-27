@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 20:09+0000\n"
-"PO-Revision-Date: 2010-03-23 20:11:06+0000\n"
+"POT-Creation-Date: 2010-03-27 17:43+0000\n"
+"PO-Revision-Date: 2010-03-27 17:45:25+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -563,7 +563,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:438
+#: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
 msgstr "ఖాతా"
 
@@ -631,7 +631,7 @@ msgstr "అది చాలా పొడవుంది. గరిష్ఠ న�
 msgid "Not found"
 msgstr "దొరకలేదు"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "గరిష్ఠ నోటీసు పొడవు %d అక్షరాలు, జోడింపు URLని కలుపుకుని."
@@ -937,7 +937,7 @@ msgstr "మీరు ఈ ఉపకరణం యొక్క యజమాని �
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1220
+#: lib/action.php:1219
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1130,7 +1130,7 @@ msgstr ""
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -2167,7 +2167,7 @@ msgstr "సందేశాన్ని పంపించాం"
 msgid "Direct message to %s sent."
 msgstr "%sకి నేరు సందేశాన్ని పంపించాం"
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "అజాక్స్ పొరపాటు"
 
@@ -2175,7 +2175,7 @@ msgstr "అజాక్స్ పొరపాటు"
 msgid "New notice"
 msgstr "కొత్త సందేశం"
 
-#: actions/newnotice.php:211
+#: actions/newnotice.php:212
 #, fuzzy
 msgid "Notice posted"
 msgstr "సందేశాలు"
@@ -3481,7 +3481,7 @@ msgstr "సభ్యులు"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
-#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(ఏమీలేదు)"
 
@@ -3724,7 +3724,6 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
 msgstr "సైటు గమనిక"
 
@@ -3743,18 +3742,16 @@ msgid "Max length for the site-wide notice is 255 chars"
 msgstr "సైటు-వారీ నోటీసుకి గరిష్ఠ పొడవు 255 అక్షరాలు"
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "సైటు గమనిక"
+msgstr "సైటు గమనిక పాఠ్యం"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr "సైటు-వారీ నోటీసు పాఠ్యం (255 అక్షరాలు గరిష్ఠం; HTML పర్లేదు)"
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "సైటు గమనిక"
+msgstr "సైటు గమనికని భద్రపరచు"
 
 #: actions/smssettings.php:58
 msgid "SMS settings"
@@ -4009,11 +4006,11 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr "%s ప్రస్తుతం ఎవరినీ వినడంలేదు."
 
-#: actions/subscriptions.php:199
+#: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "జాబర్"
 
-#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr ""
 
@@ -4360,7 +4357,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:767
+#: actions/version.php:196 lib/action.php:766
 msgid "Version"
 msgstr "సంచిక"
 
@@ -4452,12 +4449,12 @@ msgstr "ఈ సైటులో నోటీసులు రాయడం ను�
 msgid "Problem saving notice."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
-#: classes/Notice.php:941
+#: classes/Notice.php:943
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
-#: classes/Notice.php:1479
+#: classes/Notice.php:1481
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4554,173 +4551,173 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "శీర్షికలేని పేజీ"
 
-#: lib/action.php:424
+#: lib/action.php:423
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:430
+#: lib/action.php:429
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgctxt "MENU"
 msgid "Personal"
 msgstr "వ్యక్తిగత"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:435
+#: lib/action.php:434
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "మీ ఈమెయిలు, అవతారం, సంకేతపదం మరియు ప్రౌఫైళ్ళను మార్చుకోండి"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:440
+#: lib/action.php:439
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "అనుసంధానాలు"
 
-#: lib/action.php:443
+#: lib/action.php:442
 msgid "Connect"
 msgstr "అనుసంధానించు"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:446
+#: lib/action.php:445
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "సైటు స్వరూపణాన్ని మార్చండి"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgctxt "MENU"
 msgid "Admin"
 msgstr "నిర్వాహకులు"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:453
+#: lib/action.php:452
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "ఈ ఫారాన్ని ఉపయోగించి మీ స్నేహితులను మరియు సహోద్యోగులను ఈ సేవను వినియోగించుకోమని ఆహ్వానించండి."
 
-#: lib/action.php:456
+#: lib/action.php:455
 msgctxt "MENU"
 msgid "Invite"
 msgstr "ఆహ్వానించు"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:462
+#: lib/action.php:461
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "సైటు నుండి నిష్క్రమించు"
 
-#: lib/action.php:465
+#: lib/action.php:464
 msgctxt "MENU"
 msgid "Logout"
 msgstr "నిష్క్రమించు"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:470
+#: lib/action.php:469
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "ఖాతాని సృష్టించుకోండి"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgctxt "MENU"
 msgid "Register"
 msgstr "నమోదు"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:476
+#: lib/action.php:475
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "సైటు లోనికి ప్రవేశించండి"
 
-#: lib/action.php:479
+#: lib/action.php:478
 msgctxt "MENU"
 msgid "Login"
 msgstr "ప్రవేశించు"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:482
+#: lib/action.php:481
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "సహాయం కావాలి!"
 
-#: lib/action.php:485
+#: lib/action.php:484
 msgctxt "MENU"
 msgid "Help"
 msgstr "సహాయం"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:488
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "ప్రజలు లేదా పాఠ్యం కొరకు వెతకండి"
 
-#: lib/action.php:491
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Search"
 msgstr "వెతుకు"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:513 lib/adminpanelaction.php:398
+#: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "సైటు గమనిక"
 
-#: lib/action.php:579
+#: lib/action.php:578
 msgid "Local views"
 msgstr "స్థానిక వీక్షణలు"
 
-#: lib/action.php:645
+#: lib/action.php:644
 msgid "Page notice"
 msgstr "పేజీ గమనిక"
 
-#: lib/action.php:747
+#: lib/action.php:746
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "చందాలు"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Help"
 msgstr "సహాయం"
 
-#: lib/action.php:754
+#: lib/action.php:753
 msgid "About"
 msgstr "గురించి"
 
-#: lib/action.php:756
+#: lib/action.php:755
 msgid "FAQ"
 msgstr "ప్రశ్నలు"
 
-#: lib/action.php:760
+#: lib/action.php:759
 msgid "TOS"
 msgstr "సేవా నియమాలు"
 
-#: lib/action.php:763
+#: lib/action.php:762
 msgid "Privacy"
 msgstr "అంతరంగికత"
 
-#: lib/action.php:765
+#: lib/action.php:764
 msgid "Source"
 msgstr "మూలము"
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "Contact"
 msgstr "సంప్రదించు"
 
-#: lib/action.php:771
+#: lib/action.php:770
 msgid "Badge"
 msgstr "బాడ్జి"
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "StatusNet software license"
 msgstr "స్టేటస్‌నెట్ మృదూపకరణ లైసెన్సు"
 
-#: lib/action.php:804
+#: lib/action.php:803
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4729,12 +4726,12 @@ msgstr ""
 "**%%site.name%%** అనేది [%%site.broughtby%%](%%site.broughtbyurl%%) వారు "
 "అందిస్తున్న మైక్రో బ్లాగింగు సదుపాయం. "
 
-#: lib/action.php:806
+#: lib/action.php:805
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** అనేది మైక్రో బ్లాగింగు సదుపాయం."
 
-#: lib/action.php:809
+#: lib/action.php:808
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4745,42 +4742,42 @@ msgstr ""
 "html) కింద లభ్యమయ్యే [స్టేటస్&zwnj;నెట్](http://status.net/) మైక్రోబ్లాగింగ్ ఉపకరణం సంచిక %s "
 "పై నడుస్తుంది."
 
-#: lib/action.php:824
+#: lib/action.php:823
 #, fuzzy
 msgid "Site content license"
 msgstr "కొత్త సందేశం"
 
-#: lib/action.php:829
+#: lib/action.php:828
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:833
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:837
+#: lib/action.php:836
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:850
+#: lib/action.php:849
 msgid "All "
 msgstr "అన్నీ "
 
-#: lib/action.php:856
+#: lib/action.php:855
 msgid "license."
 msgstr "లైసెన్సు."
 
-#: lib/action.php:1155
+#: lib/action.php:1154
 msgid "Pagination"
 msgstr "పేజీకరణ"
 
-#: lib/action.php:1164
+#: lib/action.php:1163
 msgid "After"
 msgstr "తర్వాత"
 
-#: lib/action.php:1172
+#: lib/action.php:1171
 msgid "Before"
 msgstr "ఇంతక్రితం"
 
@@ -5835,7 +5832,7 @@ msgstr ""
 msgid "Available characters"
 msgstr "అందుబాటులో ఉన్న అక్షరాలు"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:242
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "పంపించు"
@@ -5850,25 +5847,25 @@ msgstr "కొత్త సందేశం"
 msgid "What's up, %s?"
 msgstr "%s, సంగతులేమిటి?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:195
 msgid "Attach"
 msgstr "జోడించు"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:200 lib/noticeform.php:222
 msgid "Attach a file"
 msgstr "ఒక ఫైలుని జోడించు"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:216
 #, fuzzy
 msgid "Share my location"
 msgstr "ట్యాగులని భద్రపరచలేకున్నాం."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:219
 #, fuzzy
 msgid "Do not share my location"
 msgstr "ట్యాగులని భద్రపరచలేకున్నాం."
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:220
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6069,7 +6066,7 @@ msgstr "ఈ నోటీసుని పునరావృతించు"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "ఈ గుంపునుండి ఈ వాడుకరిని నిరోధించు"
 
-#: lib/router.php:677
+#: lib/router.php:704
 msgid "No single user defined for single-user mode."
 msgstr ""
 

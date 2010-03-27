@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 20:09+0000\n"
-"PO-Revision-Date: 2010-03-23 20:09:18+0000\n"
+"POT-Creation-Date: 2010-03-27 17:43+0000\n"
+"PO-Revision-Date: 2010-03-27 17:43:41+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: out-statusnet\n"
@@ -556,7 +556,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:438
+#: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
 msgstr "Kont"
 
@@ -624,7 +624,7 @@ msgstr "Re hir eo ! Ment hirañ an ali a zo a %d arouezenn."
 msgid "Not found"
 msgstr "N'eo ket bet kavet"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -751,9 +751,8 @@ msgid "Crop"
 msgstr "Adframmañ"
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "N'eo bet resisaet profil ebet"
+msgstr "N'eus bet enporzhiet restr ebet."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -926,7 +925,7 @@ msgstr "N'oc'h ket perc'henn ar poellad-se."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1220
+#: lib/action.php:1219
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1115,7 +1114,7 @@ msgstr "Adlakaat an arventennoù dre ziouer"
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -2142,7 +2141,7 @@ msgstr "Kemennadenn kaset"
 msgid "Direct message to %s sent."
 msgstr "Kaset eo bet da %s ar gemennadenn war-eeun."
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Fazi Ajax"
 
@@ -2150,7 +2149,7 @@ msgstr "Fazi Ajax"
 msgid "New notice"
 msgstr "Ali nevez"
 
-#: actions/newnotice.php:211
+#: actions/newnotice.php:212
 msgid "Notice posted"
 msgstr "Ali embannet"
 
@@ -3226,7 +3225,7 @@ msgstr ""
 
 #: actions/showapplication.php:159 lib/applicationeditform.php:180
 msgid "Icon"
-msgstr ""
+msgstr "Arlun"
 
 #: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:195
@@ -3235,12 +3234,12 @@ msgstr "Anv"
 
 #: actions/showapplication.php:178 lib/applicationeditform.php:222
 msgid "Organization"
-msgstr ""
+msgstr "Aozadur"
 
 #: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:209 lib/groupeditform.php:172
 msgid "Description"
-msgstr ""
+msgstr "Deskrivadur"
 
 #: actions/showapplication.php:192 actions/showgroup.php:439
 #: lib/profileaction.php:182
@@ -3262,15 +3261,15 @@ msgstr ""
 
 #: actions/showapplication.php:261
 msgid "Application info"
-msgstr ""
+msgstr "Titouroù ar poelad"
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
-msgstr ""
+msgstr "Alc'hwez an implijer"
 
 #: actions/showapplication.php:268
 msgid "Consumer secret"
-msgstr ""
+msgstr "Sekred an implijer"
 
 #: actions/showapplication.php:273
 msgid "Request token URL"
@@ -3316,7 +3315,7 @@ msgstr ""
 #: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr ""
+msgstr "Gwazh evit mignoned %s (Atom)"
 
 #: actions/showfavorites.php:206
 msgid ""
@@ -3341,7 +3340,7 @@ msgstr ""
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
-msgstr ""
+msgstr "Un doare eo evit kevranañ ar pezh a blij deoc'h."
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
@@ -3351,7 +3350,7 @@ msgstr "strollad %s"
 #: actions/showgroup.php:84
 #, php-format
 msgid "%1$s group, page %2$d"
-msgstr ""
+msgstr "Strollad %1$s, pajenn %2$d"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
@@ -3393,7 +3392,7 @@ msgstr ""
 #: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
-msgstr ""
+msgstr "Mignon ur mignon evit ar strollad %s"
 
 #: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
 msgid "Members"
@@ -3401,7 +3400,7 @@ msgstr "Izili"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
-#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(hini ebet)"
 
@@ -3443,20 +3442,22 @@ msgstr "N'eus ket eus ar gemennadenn-se."
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
 msgstr ""
+"Ne c'hell bezañ lennet ar gemenadenn-mañ nemet gant ar c'haser hag ar "
+"resever."
 
 #: actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Kemanadenn kaset da %1$s d'an %2$s"
 
 #: actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Kemenadenn resevet eus %1$s d'an %2$s"
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
-msgstr ""
+msgstr "Ali dilammet."
 
 #: actions/showstream.php:73
 #, php-format
@@ -3466,7 +3467,7 @@ msgstr " merket %s"
 #: actions/showstream.php:79
 #, php-format
 msgid "%1$s, page %2$d"
-msgstr ""
+msgstr "%1$s, pajenn %2$d"
 
 #: actions/showstream.php:122
 #, php-format
@@ -3486,7 +3487,7 @@ msgstr ""
 #: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr ""
+msgstr "Gwazh alioù %s (Atom)"
 
 #: actions/showstream.php:148
 #, php-format
@@ -3539,7 +3540,7 @@ msgstr ""
 
 #: actions/silence.php:72
 msgid "User is already silenced."
-msgstr ""
+msgstr "Lakaet eo bet da mut an implijer-mañ dija."
 
 #: actions/siteadminpanel.php:69
 #, fuzzy
@@ -3916,11 +3917,11 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr ""
 
-#: actions/subscriptions.php:199
+#: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4023,7 +4024,7 @@ msgstr ""
 #: actions/useradminpanel.php:59
 msgctxt "TITLE"
 msgid "User"
-msgstr ""
+msgstr "Implijer"
 
 #: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
@@ -4197,7 +4198,7 @@ msgstr ""
 #: actions/usergroups.php:64
 #, php-format
 msgid "%1$s groups, page %2$d"
-msgstr ""
+msgstr "Strolladoù %1$s, pajenn %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4206,7 +4207,7 @@ msgstr "Klask muioc'h a strolladoù"
 #: actions/usergroups.php:157
 #, php-format
 msgid "%s is not a member of any group."
-msgstr ""
+msgstr "N'eo ket ezel %s eus ur strollad."
 
 #: actions/usergroups.php:162
 #, php-format
@@ -4262,7 +4263,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Pluginoù"
 
-#: actions/version.php:196 lib/action.php:767
+#: actions/version.php:196 lib/action.php:766
 msgid "Version"
 msgstr "Stumm"
 
@@ -4352,11 +4353,11 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:941
+#: classes/Notice.php:943
 msgid "Problem saving group inbox."
 msgstr ""
 
-#: classes/Notice.php:1479
+#: classes/Notice.php:1481
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4371,7 +4372,7 @@ msgstr ""
 
 #: classes/Subscription.php:82
 msgid "User has blocked you."
-msgstr ""
+msgstr "An implijer-mañ en deus stanket ac'hanoc'h."
 
 #: classes/Subscription.php:167
 msgid "Not subscribed!"
@@ -4393,7 +4394,7 @@ msgstr ""
 #: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr ""
+msgstr "Deuet mat da %1$s, @%2$s !"
 
 #: classes/User_group.php:480
 msgid "Could not create group."
@@ -4448,182 +4449,182 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr ""
 
-#: lib/action.php:424
+#: lib/action.php:423
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:430
+#: lib/action.php:429
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgctxt "MENU"
 msgid "Personal"
-msgstr ""
+msgstr "Personel"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:435
+#: lib/action.php:434
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:440
+#: lib/action.php:439
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr ""
 
-#: lib/action.php:443
+#: lib/action.php:442
 msgid "Connect"
 msgstr "Kevreañ"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:446
+#: lib/action.php:445
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr ""
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgctxt "MENU"
 msgid "Admin"
-msgstr ""
+msgstr "Merañ"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:453
+#: lib/action.php:452
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:456
+#: lib/action.php:455
 msgctxt "MENU"
 msgid "Invite"
-msgstr ""
+msgstr "Pediñ"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:462
+#: lib/action.php:461
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
-#: lib/action.php:465
+#: lib/action.php:464
 msgctxt "MENU"
 msgid "Logout"
-msgstr ""
+msgstr "Digevreañ"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:470
+#: lib/action.php:469
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr ""
+msgstr "Krouiñ ur gont"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgctxt "MENU"
 msgid "Register"
-msgstr ""
+msgstr "En em enskrivañ"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:476
+#: lib/action.php:475
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:479
+#: lib/action.php:478
 msgctxt "MENU"
 msgid "Login"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:482
+#: lib/action.php:481
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr ""
 
-#: lib/action.php:485
+#: lib/action.php:484
 msgctxt "MENU"
 msgid "Help"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:488
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
-msgstr ""
+msgstr "Klask tud pe un tamm testenn"
 
-#: lib/action.php:491
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Search"
-msgstr ""
+msgstr "Klask"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:513 lib/adminpanelaction.php:398
+#: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr ""
 
-#: lib/action.php:579
+#: lib/action.php:578
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:645
+#: lib/action.php:644
 msgid "Page notice"
 msgstr ""
 
-#: lib/action.php:747
+#: lib/action.php:746
 msgid "Secondary site navigation"
 msgstr ""
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Help"
 msgstr "Skoazell"
 
-#: lib/action.php:754
+#: lib/action.php:753
 msgid "About"
 msgstr "Diwar-benn"
 
-#: lib/action.php:756
+#: lib/action.php:755
 msgid "FAQ"
 msgstr "FAG"
 
-#: lib/action.php:760
+#: lib/action.php:759
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:763
+#: lib/action.php:762
 msgid "Privacy"
 msgstr "Prevezded"
 
-#: lib/action.php:765
+#: lib/action.php:764
 msgid "Source"
 msgstr "Mammenn"
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "Contact"
 msgstr "Darempred"
 
-#: lib/action.php:771
+#: lib/action.php:770
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "StatusNet software license"
 msgstr ""
 
-#: lib/action.php:804
+#: lib/action.php:803
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 msgstr ""
 
-#: lib/action.php:806
+#: lib/action.php:805
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr ""
 
-#: lib/action.php:809
+#: lib/action.php:808
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4631,41 +4632,41 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:824
+#: lib/action.php:823
 msgid "Site content license"
 msgstr ""
 
-#: lib/action.php:829
+#: lib/action.php:828
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:833
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:837
+#: lib/action.php:836
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:850
+#: lib/action.php:849
 msgid "All "
 msgstr "Pep tra "
 
-#: lib/action.php:856
+#: lib/action.php:855
 msgid "license."
 msgstr "aotre implijout."
 
-#: lib/action.php:1155
+#: lib/action.php:1154
 msgid "Pagination"
 msgstr "Pajennadur"
 
-#: lib/action.php:1164
+#: lib/action.php:1163
 msgid "After"
 msgstr "War-lerc'h"
 
-#: lib/action.php:1172
+#: lib/action.php:1171
 msgid "Before"
 msgstr "Kent"
 
@@ -4719,7 +4720,7 @@ msgstr ""
 #: lib/adminpanelaction.php:350
 msgctxt "MENU"
 msgid "Site"
-msgstr ""
+msgstr "Lec'hienn"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:356
@@ -5584,7 +5585,7 @@ msgstr ""
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
-msgstr ""
+msgstr "N'eo ket un implijer enrollet."
 
 #: lib/mailhandler.php:46
 msgid "Sorry, that is not your incoming email address."
@@ -5653,7 +5654,7 @@ msgstr ""
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
-msgstr ""
+msgstr "Kas ur gemennadenn war-eeun"
 
 #: lib/messageform.php:146
 msgid "To"
@@ -5663,7 +5664,7 @@ msgstr "Da"
 msgid "Available characters"
 msgstr ""
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:242
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Kas"
@@ -5677,23 +5678,23 @@ msgstr "Kas un ali"
 msgid "What's up, %s?"
 msgstr "Penaos 'mañ kont, %s ?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:195
 msgid "Attach"
 msgstr "Stagañ"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:200 lib/noticeform.php:222
 msgid "Attach a file"
 msgstr "Stagañ ur restr"
 
-#: lib/noticeform.php:212
-msgid "Share my location"
-msgstr ""
-
-#: lib/noticeform.php:215
-msgid "Do not share my location"
-msgstr ""
-
 #: lib/noticeform.php:216
+msgid "Share my location"
+msgstr "Rannañ va lec'hiadur."
+
+#: lib/noticeform.php:219
+msgid "Do not share my location"
+msgstr "Chom hep rannañ va lec'hiadur."
+
+#: lib/noticeform.php:220
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -5702,7 +5703,7 @@ msgstr ""
 #: lib/noticelist.php:429
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:430
 msgid "N"
@@ -5726,7 +5727,7 @@ msgstr "e"
 
 #: lib/noticelist.php:569
 msgid "in context"
-msgstr ""
+msgstr "en amdro"
 
 #: lib/noticelist.php:604
 msgid "Repeated by"
@@ -5734,7 +5735,7 @@ msgstr "Adkemeret gant"
 
 #: lib/noticelist.php:631
 msgid "Reply to this notice"
-msgstr ""
+msgstr "Respont d'an ali-mañ"
 
 #: lib/noticelist.php:632
 msgid "Reply"
@@ -5742,7 +5743,7 @@ msgstr "Respont"
 
 #: lib/noticelist.php:676
 msgid "Notice repeated"
-msgstr ""
+msgstr "Ali adkemeret"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5887,7 +5888,7 @@ msgstr "Adkregiñ gant an ali-mañ"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Stankañ an implijer-mañ eus ar strollad-se"
 
-#: lib/router.php:677
+#: lib/router.php:704
 msgid "No single user defined for single-user mode."
 msgstr ""
 

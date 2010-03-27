@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 20:09+0000\n"
-"PO-Revision-Date: 2010-03-23 20:10:33+0000\n"
+"POT-Creation-Date: 2010-03-27 17:43+0000\n"
+"PO-Revision-Date: 2010-03-27 17:44:45+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -582,7 +582,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:438
+#: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
 msgstr "계정"
 
@@ -654,7 +654,7 @@ msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 msgid "Not found"
 msgstr "찾지 못함"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -968,7 +968,7 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1220
+#: lib/action.php:1219
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -1177,7 +1177,7 @@ msgstr ""
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -2290,7 +2290,7 @@ msgstr "메시지"
 msgid "Direct message to %s sent."
 msgstr "%s에게 보낸 직접 메시지"
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax 에러입니다."
 
@@ -2298,7 +2298,7 @@ msgstr "Ajax 에러입니다."
 msgid "New notice"
 msgstr "새로운 통지"
 
-#: actions/newnotice.php:211
+#: actions/newnotice.php:212
 msgid "Notice posted"
 msgstr "게시글이 등록되었습니다."
 
@@ -3630,7 +3630,7 @@ msgstr "회원"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
-#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(없습니다.)"
 
@@ -4172,11 +4172,11 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr "%1$s 는 지금 듣고 있습니다."
 
-#: actions/subscriptions.php:199
+#: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
@@ -4544,7 +4544,7 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#: actions/version.php:196 lib/action.php:767
+#: actions/version.php:196 lib/action.php:766
 #, fuzzy
 msgid "Version"
 msgstr "개인적인"
@@ -4646,12 +4646,12 @@ msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었�
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:941
+#: classes/Notice.php:943
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1479
+#: classes/Notice.php:1481
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4749,127 +4749,127 @@ msgstr "%1$s (%2$s)"
 msgid "Untitled page"
 msgstr "제목없는 페이지"
 
-#: lib/action.php:424
+#: lib/action.php:423
 msgid "Primary site navigation"
 msgstr "주 사이트 네비게이션"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:430
+#: lib/action.php:429
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "개인 프로필과 친구 타임라인"
 
-#: lib/action.php:433
+#: lib/action.php:432
 #, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "개인적인"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:435
+#: lib/action.php:434
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 이메일, 아바타, 비밀 번호, 프로필을 변경하세요."
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:440
+#: lib/action.php:439
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "서버에 재접속 할 수 없습니다 : %s"
 
-#: lib/action.php:443
+#: lib/action.php:442
 msgid "Connect"
 msgstr "연결"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:446
+#: lib/action.php:445
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "주 사이트 네비게이션"
 
-#: lib/action.php:449
+#: lib/action.php:448
 #, fuzzy
 msgctxt "MENU"
 msgid "Admin"
 msgstr "관리자"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:453
+#: lib/action.php:452
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
-#: lib/action.php:456
+#: lib/action.php:455
 #, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "초대"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:462
+#: lib/action.php:461
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "이 사이트로부터 로그아웃"
 
-#: lib/action.php:465
+#: lib/action.php:464
 #, fuzzy
 msgctxt "MENU"
 msgid "Logout"
 msgstr "로그아웃"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:470
+#: lib/action.php:469
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "계정 만들기"
 
-#: lib/action.php:473
+#: lib/action.php:472
 #, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "회원가입"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:476
+#: lib/action.php:475
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "이 사이트 로그인"
 
-#: lib/action.php:479
+#: lib/action.php:478
 #, fuzzy
 msgctxt "MENU"
 msgid "Login"
 msgstr "로그인"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:482
+#: lib/action.php:481
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "도움이 필요해!"
 
-#: lib/action.php:485
+#: lib/action.php:484
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "도움말"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:488
+#: lib/action.php:487
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "프로필이나 텍스트 검색"
 
-#: lib/action.php:491
+#: lib/action.php:490
 #, fuzzy
 msgctxt "MENU"
 msgid "Search"
@@ -4877,60 +4877,60 @@ msgstr "검색"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:513 lib/adminpanelaction.php:398
+#: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "사이트 공지"
 
-#: lib/action.php:579
+#: lib/action.php:578
 msgid "Local views"
 msgstr "로컬 뷰"
 
-#: lib/action.php:645
+#: lib/action.php:644
 msgid "Page notice"
 msgstr "페이지 공지"
 
-#: lib/action.php:747
+#: lib/action.php:746
 msgid "Secondary site navigation"
 msgstr "보조 사이트 네비게이션"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Help"
 msgstr "도움말"
 
-#: lib/action.php:754
+#: lib/action.php:753
 msgid "About"
 msgstr "정보"
 
-#: lib/action.php:756
+#: lib/action.php:755
 msgid "FAQ"
 msgstr "자주 묻는 질문"
 
-#: lib/action.php:760
+#: lib/action.php:759
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:763
+#: lib/action.php:762
 msgid "Privacy"
 msgstr "개인정보 취급방침"
 
-#: lib/action.php:765
+#: lib/action.php:764
 msgid "Source"
 msgstr "소스 코드"
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "Contact"
 msgstr "연락하기"
 
-#: lib/action.php:771
+#: lib/action.php:770
 #, fuzzy
 msgid "Badge"
 msgstr "찔러 보기"
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "StatusNet software license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:804
+#: lib/action.php:803
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4939,12 +4939,12 @@ msgstr ""
 "**%%site.name%%** 는 [%%site.broughtby%%](%%site.broughtbyurl%%)가 제공하는 "
 "마이크로블로깅서비스입니다."
 
-#: lib/action.php:806
+#: lib/action.php:805
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
 
-#: lib/action.php:809
+#: lib/action.php:808
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4955,42 +4955,42 @@ msgstr ""
 "을 사용합니다. StatusNet는 [GNU Affero General Public License](http://www."
 "fsf.org/licensing/licenses/agpl-3.0.html) 라이선스에 따라 사용할 수 있습니다."
 
-#: lib/action.php:824
+#: lib/action.php:823
 #, fuzzy
 msgid "Site content license"
 msgstr "라코니카 소프트웨어 라이선스"
 
-#: lib/action.php:829
+#: lib/action.php:828
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:833
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:837
+#: lib/action.php:836
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:850
+#: lib/action.php:849
 msgid "All "
 msgstr "모든 것"
 
-#: lib/action.php:856
+#: lib/action.php:855
 msgid "license."
 msgstr "라이선스"
 
-#: lib/action.php:1155
+#: lib/action.php:1154
 msgid "Pagination"
 msgstr "페이지수"
 
-#: lib/action.php:1164
+#: lib/action.php:1163
 msgid "After"
 msgstr "뒷 페이지"
 
-#: lib/action.php:1172
+#: lib/action.php:1171
 msgid "Before"
 msgstr "앞 페이지"
 
@@ -6032,7 +6032,7 @@ msgstr "에게"
 msgid "Available characters"
 msgstr "사용 가능한 글자"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:242
 #, fuzzy
 msgctxt "Send button for sending notice"
 msgid "Send"
@@ -6047,25 +6047,25 @@ msgstr "게시글 보내기"
 msgid "What's up, %s?"
 msgstr "뭐하세요? %?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:195
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:200 lib/noticeform.php:222
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:216
 #, fuzzy
 msgid "Share my location"
 msgstr "태그를 저장할 수 없습니다."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:219
 #, fuzzy
 msgid "Do not share my location"
 msgstr "태그를 저장할 수 없습니다."
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:220
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6269,7 +6269,7 @@ msgstr "이 게시글에 대해 답장하기"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "이 그룹의 회원리스트"
 
-#: lib/router.php:677
+#: lib/router.php:704
 msgid "No single user defined for single-user mode."
 msgstr ""
 
