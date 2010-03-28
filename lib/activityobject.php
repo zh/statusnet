@@ -177,10 +177,7 @@ class ActivityObject
         $this->type  = self::PERSON; // XXX: is this fair?
         $this->title = $this->_childContent($element, self::NAME);
 
-        $id = $this->_childContent($element, self::URI);
-        if (ActivityUtils::validateUri($id)) {
-            $this->id = $id;
-        }
+        $this->id = $this->_childContent($element, self::URI);
 
         if (empty($this->id)) {
             $email = $this->_childContent($element, self::EMAIL);
@@ -193,25 +190,11 @@ class ActivityObject
 
     private function _fromAtomEntry($element)
     {
-        if ($element->localName == 'actor') {
-            // Old-fashioned <activity:actor>...
-            // First pull anything from <author>, then we'll add on top.
-            $author = ActivityUtils::child($element->parentNode, 'author');
-            if ($author) {
-                $this->_fromAuthor($author);
-            }
-        }
-
         $this->type = $this->_childContent($element, Activity::OBJECTTYPE,
                                            Activity::SPEC);
 
         if (empty($this->type)) {
             $this->type = ActivityObject::NOTE;
-        }
-
-        $id = $this->_childContent($element, self::ID);
-        if (ActivityUtils::validateUri($id)) {
-            $this->id = $id;
         }
 
         $this->summary = ActivityUtils::childHtmlContent($element, self::SUMMARY);
@@ -226,6 +209,12 @@ class ActivityObject
         $this->source  = $this->_getSource($element);
 
         $this->link = ActivityUtils::getPermalink($element);
+
+        $this->id = $this->_childContent($element, self::ID);
+
+        if (empty($this->id) && !empty($this->link)) { // fallback if there's no ID
+            $this->id = $this->link;
+        }
     }
 
     // @fixme rationalize with Activity::_fromRssItem()
