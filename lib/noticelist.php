@@ -443,7 +443,8 @@ class NoticeListItem extends Widget
                                 $name);
         } else {
             $xstr = new XMLStringer(false);
-            $xstr->elementStart('a', array('href' => $url));
+            $xstr->elementStart('a', array('href' => $url,
+                                           'rel' => 'external'));
             $xstr->element('abbr', array('class' => 'geo',
                                          'title' => $latlon),
                            $name);

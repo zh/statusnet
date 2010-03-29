@@ -248,9 +248,7 @@ class Attachment extends AttachmentListItem
         $this->out->elementStart('div', array('id' => 'attachment_view',
                                               'class' => 'hentry'));
         $this->out->elementStart('div', 'entry-title');
-        $this->out->elementStart('a', $this->linkAttr());
-        $this->out->element('span', null, $this->linkTitle());
-        $this->out->elementEnd('a');
+        $this->out->element('a', $this->linkAttr(), $this->linkTitle());
         $this->out->elementEnd('div');
 
         $this->out->elementStart('div', 'entry-content');
@@ -296,7 +294,7 @@ class Attachment extends AttachmentListItem
     }
 
     function linkAttr() {
-        return array('class' => 'external', 'href' => $this->attachment->url);
+        return array('rel' => 'external', 'href' => $this->attachment->url);
     }
 
     function linkTitle() {
@@ -332,6 +330,15 @@ class Attachment extends AttachmentListItem
                     $this->out->element('param', array('name' => 'autoStart', 'value' => 1));
                     $this->out->elementEnd('object');
                     break;
+
+                case 'text/html':
+                    if ($this->attachment->filename) {
+                        // Locally-uploaded HTML. Scrub and display inline.
+                        $this->showHtmlFile($this->attachment);
+                        break;
+                    }
+                    // Fall through to default.
+
                 default:
                     $this->showFallback();
                 }
@@ -359,6 +366,59 @@ class Attachment extends AttachmentListItem
                 $this->showFallback();
             }
         }
+    }
+
+    protected function showHtmlFile(File $attachment)
+    {
+        $body = $this->scrubHtmlFile($attachment);
+        if ($body) {
+            $this->out->raw($body);
+        }
+    }
+
+    /**
+     * @return mixed false on failure, HTML fragment string on success
+     */
+    protected function scrubHtmlFile(File $attachment)
+    {
+        $path = File::path($attachment->filename);
+        if (!file_exists($path) || !is_readable($path)) {
+            common_log(LOG_ERR, "Missing local HTML attachment $path");
+            return false;
+        }
+        $raw = file_get_contents($path);
+
+        // Normalize...
+        $dom = new DOMDocument();
+        if(!$dom->loadHTML($raw)) {
+            common_log(LOG_ERR, "Bad HTML in local HTML attachment $path");
+            return false;
+        }
+
+        // Remove <script>s or htmlawed will dump their contents into output!
+        // Note: removing child nodes while iterating seems to mess things up,
+        // hence the double loop.
+        $scripts = array();
+        foreach ($dom->getElementsByTagName('script') as $script) {
+            $scripts[] = $script;
+        }
+        foreach ($scripts as $script) {
+            common_log(LOG_DEBUG, $script->textContent);
+            $script->parentNode->removeChild($script);
+        }
+
+        // Trim out everything outside the body...
+        $body = $dom->saveHTML();
+        $body = preg_replace('/^.*<body[^>]*>/is', '', $body);
+        $body = preg_replace('/<\/body[^>]*>.*$/is', '', $body);
+
+        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        $config = array('safe' => 1,
+                        'deny_attribute' => 'id,style,on*',
+                        'comment' => 1); // remove comments
+        $scrubbed = htmLawed($body, $config);
+
+        return $scrubbed;
     }
 
     function showFallback()

@@ -7,6 +7,7 @@
  * @link      http://status.net/
  */
 
+@media screen, projection, tv {
 * { margin:0; padding:0; }
 img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
@@ -857,6 +858,9 @@ display:inline;
 display:inline;
 margin-right:7px;
 }
+.entity_tags li:before {
+content:'\0009';
+}
 
 .aside .section {
 margin-bottom:29px;
@@ -925,7 +929,7 @@ display:inline;
 }
 
 .profile .entity_profile .fn,
-.profile .entity_profile .location {
+.profile .entity_profile .label {
 margin-left:11px;
 margin-bottom:4px;
 width:auto;
@@ -1284,7 +1288,18 @@ height:16px;
 position:relative;
 padding-left:16px;
 }
-#attachments .attachment {
+.notice .attachment.more {
+text-indent:-9999px;
+width:16px;
+height:16px;
+display:inline-block;
+overflow:hidden;
+vertical-align:middle;
+margin-left:4px;
+}
+
+#attachments .attachment,
+.notice .attachment.more {
 padding-left:0;
 }
 .notice .attachment img {
@@ -1326,7 +1341,7 @@ margin-bottom:0;
 padding:11px;
 min-height:auto;
 }
-#jOverlayContent .external span {
+#jOverlayContent .entry-title {
 display:block;
 margin-bottom:11px;
 }
@@ -1677,3 +1692,34 @@ width:auto;
 #bookmarklet #wrap {
 min-width:0;
 }
+
+}/*end of @media screen, projection, tv*/
+
+
+@media print {
+a:after { background-color:#FFFFFF; }
+a:not([href^="#"]):after { content:" <"attr(href)"> "; }
+img { border:none; }
+p { orphans: 2; widows: 1; }
+
+#site_nav_global_primary,
+#site_nav_local_views,
+#form_notice,
+.pagination,
+#site_nav_global_secondary,
+.entity_actions,
+.notice-options,
+#aside_primary,
+.form_subscription_edit .submit {
+display:none;
+}
+.timestamp dt, .timestamp dd,
+.device dt, .device dd {
+display:inline;
+}
+.profiles li,
+.notices li {
+margin-bottom:18px;
+}
+
+}/*end of @media print*/

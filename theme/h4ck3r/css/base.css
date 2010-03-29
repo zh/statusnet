@@ -7,6 +7,7 @@
  * @link      http://status.net/
  */
 
+@media screen, projection, tv {
 * { margin:0; padding:0; }
 img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
@@ -700,7 +701,8 @@ margin-right:11px;
 
 /* NOTICE */
 .notice,
-.profile {
+.profile,
+.application {
 position:relative;
 padding-top:11px;
 padding-bottom:11px;
@@ -708,10 +710,20 @@ clear:both;
 float:left;
 width:100%;
 border-top-width:1px;
-border-top-style:dashed;
+border-top-style:dotted;
 }
 .notices li {
 list-style-type:none;
+}
+.notices .notices {
+margin-top:7px;
+margin-left:2%;
+width:98%;
+float:left;
+}
+.mark-top {
+border-top-width:1px;
+border-top-style:solid;
 }
 
 
@@ -812,74 +824,248 @@ text-transform:lowercase;
 }
 
 
-.notice-options {
-padding-left:2%;
+.notice .notice-options a,
+.notice .notice-options input {
 float:left;
-width:50%;
-position:relative;
-font-size:0.95em;
-width:12.5%;
-float:right;
+font-size:1.025em;
 }
 
-.notice-options a {
-float:left;
+.notice div.entry-content .timestamp {
+display:inline-block;
 }
-.notice-options .notice_delete,
-.notice-options .notice_reply,
-.notice-options .form_favor,
-.notice-options .form_disfavor {
-position:absolute;
-top:0;
+
+.entry-content .repeat {
+display:block;
 }
-.notice-options .form_favor,
-.notice-options .form_disfavor {
+.entry-content .repeat .photo {
+float:none;
+margin-right:1px;
+position:relative;
+top:4px;
 left:0;
 }
-.notice-options .notice_reply {
-left:29px;
-}
-.notice-options .notice_delete {
-right:0;
-}
-.notice-options .notice_reply dt {
-display:none;
+
+.dialogbox {
+position:absolute;
+top:-1px;
+right:-1px;
+z-index:9;
+float:none;
+padding:11px;
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+border-style:solid;
+border-width:1px;
 }
 
-.notice-options input,
+.dialogbox legend {
+display:block !important;
+margin-right:18px;
+margin-bottom:18px;
+}
+
+.dialogbox button.close {
+position:absolute;
+right:3px;
+top:3px;
+}
+
+.dialogbox .form_guide {
+font-weight:normal;
+padding:0;
+}
+
+.dialogbox .submit_dialogbox {
+font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+.dialogbox input {
+padding-left:4px;
+}
+.dialogbox fieldset {
+margin-bottom:0;
+}
+
+#wrap form.processing input.submit,
+.entity_actions a.processing,
+.dialogbox.processing .submit_dialogbox {
+cursor:wait;
+outline:none;
+text-indent:-9999px;
+}
+
+.form_repeat.dialogbox {
+top:-4px;
+right:29px;
+min-width:199px;
+}
+
+.notice-options {
+position:relative;
+font-size:0.95em;
+width:113px;
+float:right;
+margin-top:3px;
+margin-right:4px;
+}
+
 .notice-options a {
+float:left;
+}
+.notice-options .notice_reply,
+.notice-options .form_repeat,
+.notice-options .form_favor,
+.notice-options .form_disfavor,
+.notice-options .repeated {
+float:left;
+margin-left:14.2%;
+}
+.notice-options .form_favor,
+.notice-options .form_disfavor {
+margin-left:0;
+}
+.notice-options input,
+.notice-options a,
+.notice-options .repeated {
 text-indent:-9999px;
 outline:none;
 }
-
-.notice-options .notice_reply a,
 .notice-options input.submit {
 display:block;
 border:0;
 }
-.notice-options .notice_reply a,
-.notice-options .notice_delete a {
+.notice-options .notice_reply,
+.notice-options .notice_delete {
 text-decoration:none;
-padding-left:16px;
 }
-
+.notice .notice-options .notice_delete {
+float:right;
+}
 .notice-options form input.submit {
 width:16px;
-padding:2px 0;
+height:16px;
+padding:0;
+border-radius:0;
+-moz-border-radius:0;
+-webkit-border-radius:0;
 }
-
-.notice-options .notice_delete dt,
+.notice-options .form_repeat legend,
 .notice-options .form_favor legend,
 .notice-options .form_disfavor legend {
 display:none;
 }
-.notice-options .notice_delete fieldset,
+.notice-options .form_repeat fieldset,
 .notice-options .form_favor fieldset,
 .notice-options .form_disfavor fieldset {
 border:0;
 padding:0;
 }
+.notice-options a,
+.notice-options .repeated {
+width:16px;
+height:16px;
+}
 
+
+.notice .attachment {
+position:relative;
+padding-left:16px;
+}
+.notice .attachment.more {
+text-indent:-9999px;
+width:16px;
+height:16px;
+display:inline-block;
+overflow:hidden;
+vertical-align:middle;
+margin-left:4px;
+}
+
+#attachments .attachment,
+.notice .attachment.more {
+padding-left:0;
+}
+.notice .attachment img {
+position:absolute;
+top:18px;
+left:0;
+z-index:99;
+}
+#shownotice .notice .attachment img {
+position:static;
+}
+
+#attachments {
+clear:both;
+float:left;
+width:100%;
+margin-top:18px;
+}
+#attachments dt {
+font-weight:bold;
+font-size:1.3em;
+margin-bottom:4px;
+}
+
+#attachments ol li {
+margin-bottom:18px;
+list-style-type:decimal;
+float:left;
+clear:both;
+}
+
+#jOverlayContent,
+#jOverlayContent #content,
+#jOverlayContent #content_inner {
+width: auto !important;
+margin-bottom:0;
+}
+#jOverlayContent #content {
+padding:11px;
+min-height:auto;
+}
+#jOverlayContent .entry-title {
+display:block;
+margin-bottom:11px;
+}
+#jOverlayContent button {
+position:absolute;
+top:0;
+right:0;
+}
+#jOverlayContent h1 {
+max-width:425px;
+}
+#jOverlayContent #content {
+border-radius:7px;
+-moz-border-radius:7px;
+-webkit-border-radius:7px;
+}
+#jOverlayLoading {
+top:5%;
+left:40%;
+}
+#attachment_view img {
+max-width:480px;
+max-height:480px;
+}
+#attachment_view #oembed_info {
+margin-top:11px;
+}
+#attachment_view #oembed_info dt,
+#attachment_view #oembed_info dd {
+float:left;
+}
+#attachment_view #oembed_info dt {
+clear:left;
+margin-right:11px;
+font-weight:bold;
+}
+#attachment_view #oembed_info dt:after {
+content: ":";
+}
 
 #usergroups #new_group {
 float: left;
@@ -1137,3 +1323,34 @@ display:none;
 .guide {
 clear:both;
 }
+
+}/*end of @media screen, projection, tv*/
+
+
+@media print {
+a:after { background-color:#FFFFFF; }
+a:not([href^="#"]):after { content:" <"attr(href)"> "; }
+img { border:none; }
+p { orphans: 2; widows: 1; }
+
+#site_nav_global_primary,
+#site_nav_local_views,
+#form_notice,
+.pagination,
+#site_nav_global_secondary,
+.entity_actions,
+.notice-options,
+#aside_primary,
+.form_subscription_edit .submit {
+display:none;
+}
+.timestamp dt, .timestamp dd,
+.device dt, .device dd {
+display:inline;
+}
+.profiles li,
+.notices li {
+margin-bottom:18px;
+}
+
+}/*end of @media print*/
