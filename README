@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand")
-4 Mar 2010
+StatusNet 0.9.1 ("Everybody Hurts")
+28 Mar 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -77,57 +77,34 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release since version 0.8.3, released Feb 1
-2010. It is the final release version of 0.9.0, replacing any beta
-versions.
+This is a minor bug and feature release since version 0.9.0 released 4
+March 2010.
+
+Because of fixes to OStatus bugs, it is highly recommended that all
+public sites upgrade to the new version immediately.
 
 Notable changes this version:
 
-- Support for the new distributed status update standard OStatus
-  <http://ostatus.org>, based on PubSubHubbub, Salmon, Webfinger,
-  and Activity Streams.
-- Support for location using the Geolocation API. Notices are (optionally) 
-  marked with lat-long information with geo microformats, and can be shown
-  on a map.
-- No fixed content size. Notice size is configurable, from 1 to
-  unlimited number of characters. Default is still 140!
-- An authorization framework, allowing different levels of users.
-- A Web-based administration panel.
-- A moderation system that lets site moderators sandbox, silence,
-  or delete uncooperative users.
-- A flag system that lets users flag profiles for moderator review.
-- Support for OAuth <http://oauth.net> authentication in the Twitter
-  API.
-- User roles system that lets the owner of the site to assign
-  administrator and moderator roles to other users.
-- A pluggable authentication system.
-- An authentication plugin for LDAP servers.
-- Many features that were core in 0.8.x are now plugins, such
-  as OpenID, Twitter integration, Facebook integration
-- A much-improved offline processing system
-- In-browser "realtime" updates using a number of realtime
-  servers (Meteor, Orbited, Cometd)
-- A plugin to provide an interface optimized for mobile browsers
-- Support for Facebook Connect
-- Support for logging in with a Twitter account
-- Vastly improved translation with additional languages and
-  translation in plugins
-- Support for all-SSL instances
-- Core support for "repeats" (like Twitter's "retweets")
-- Pluggable caching system, with plugins for Memcached,
-  APC, XCache, and a disk-based cache
-- Plugin to support RSSCloud
-- A framework for adding advertisements to a public site,
-  and plugins for Google AdSense and OpenX server
-- Plugins to throttle excessive subscriptions and registrations.
-- A plugin to blacklist particular URLs or nicknames.
+- Twitter bridge truncates and links back to original for long
+  notices.
+- Changed "Home" link in main menu to "Personal".
+- A new memcached plugin (using pecl/memcached versus pecl/memcache)
+- Opt-in subscription to update@status.net
+- Script to run commands on behalf of a user.
+- Better Web UI for long notices.
+- A plugin to open external links in their own window or tab
+- Fixes to Salmon protocol for compatibility with other systems.
+- Updates to latest ActivityStreams definition.
+- Twitpic-compatible API for image upload.
+- Background deletion of user accounts.
+- Better support for HTTP basic authentication with CGI/FastCGI
+- Better discovery on OStatus
+- Support for PuSH-enabled RSS 2.0 feeds
+- OpenID-only mode
+- OpenID blacklist/whitelist
+- OStatus unit tests
 
-There are also literally thousands of bugs fixed and minor features
-added. A full changelog is available at http://status.net/wiki/StatusNet_0.9.0.
-
-Under the covers, the software has a vastly improved plugin and
-extension mechanism that makes writing powerful and flexible additions
-to the core functionality much easier.
+A full changelog is available at http://status.net/wiki/StatusNet_0.9.1.
 
 Prerequisites
 =============
@@ -239,9 +216,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-       tar zxf statusnet-0.9.0.tar.gz
+       tar zxf statusnet-0.9.1.tar.gz
 
-   ...which will make a statusnet-0.9.0 subdirectory in your current
+   ...which will make a statusnet-0.9.1 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -249,7 +226,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-       mv statusnet-0.9.0 /var/www/statusnet
+       mv statusnet-0.9.1 /var/www/statusnet
 
    This will make your StatusNet instance available in the statusnet path of
    your server, like "http://example.net/statusnet". "microblog" or
@@ -664,7 +641,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.9.0. Try these step-by-step
+upgrade procedure in StatusNet 0.9.1. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -685,7 +662,7 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
-7. Unpack your StatusNet 0.9.0 tarball and move it to "statusnet" or
+7. Unpack your StatusNet 0.9.1 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -1522,7 +1499,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.9.0 without reading the "Notice
+If you upgraded to StatusNet 0.9.1 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 

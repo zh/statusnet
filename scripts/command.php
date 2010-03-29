@@ -20,8 +20,8 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'i:n:';
-$longoptions = array('id=', 'nickname=');
+$shortoptions = 'i:n:o';
+$longoptions = array('id=', 'nickname=', 'owner');
 
 $helptext = <<<END_OF_USERROLE_HELP
 command.php [options] [command line]
@@ -29,12 +29,11 @@ Perform commands on behalf of a user, such as sub, unsub, join, drop
 
   -i --id       ID of the user
   -n --nickname nickname of the user
+  -o --owner    use the site owner
 
 END_OF_USERROLE_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
-
-
 
 function interpretCommand($user, $body)
 {
@@ -50,8 +49,6 @@ function interpretCommand($user, $body)
     }
 }
 
-
-
 if (have_option('i', 'id')) {
     $id = get_option_value('i', 'id');
     $user = User::staticGet('id', $id);
@@ -64,6 +61,12 @@ if (have_option('i', 'id')) {
     $user = User::staticGet('nickname', $nickname);
     if (empty($user)) {
         print "Can't find user with nickname '$nickname'\n";
+        exit(1);
+    }
+} else if (have_option('o', 'owner')) {
+    $user = User::siteOwner();
+    if (empty($user)) {
+        print "Site has no owner.\n";
         exit(1);
     }
 } else {

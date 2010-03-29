@@ -670,8 +670,12 @@ class User extends Memcached_DataObject
 
     function delete()
     {
-        $profile = $this->getProfile();
-        $profile->delete();
+        try {
+            $profile = $this->getProfile();
+            $profile->delete();
+        } catch (UserNoProfileException $unp) {
+            common_log(LOG_INFO, "User {$this->nickname} has no profile; continuing deletion.");
+        }
 
         $related = array('Fave',
                          'Confirm_address',
@@ -679,6 +683,7 @@ class User extends Memcached_DataObject
                          'Foreign_link',
                          'Invitation',
                          );
+
         Event::handle('UserDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {
