@@ -39,7 +39,8 @@ class StompQueueManager extends QueueManager
     protected $base;
     protected $control;
 
-    protected $useTransactions = true;
+    protected $useTransactions;
+    protected $useAcks;
 
     protected $sites = array();
     protected $subscriptions = array();
@@ -64,6 +65,8 @@ class StompQueueManager extends QueueManager
         $this->base     = common_config('queue', 'queue_basename');
         $this->control  = common_config('queue', 'control_channel');
         $this->breakout = common_config('queue', 'breakout');
+        $this->useTransactions = !common_config('queue', 'stomp_no_transactions');
+        $this->useAcks = !common_config('queue', 'stomp_no_acks');
     }
 
     /**
@@ -703,13 +706,15 @@ class StompQueueManager extends QueueManager
 
     protected function ack($idx, $frame)
     {
-        if ($this->useTransactions) {
-            if (empty($this->transaction[$idx])) {
-                throw new Exception("Tried to ack but not in a transaction");
+        if ($this->useAcks) {
+            if ($this->useTransactions) {
+                if (empty($this->transaction[$idx])) {
+                    throw new Exception("Tried to ack but not in a transaction");
+                }
+                $this->cons[$idx]->ack($frame, $this->transaction[$idx]);
+            } else {
+                $this->cons[$idx]->ack($frame);
             }
-            $this->cons[$idx]->ack($frame, $this->transaction[$idx]);
-        } else {
-            $this->cons[$idx]->ack($frame);
         }
     }
 

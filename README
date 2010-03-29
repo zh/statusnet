@@ -970,6 +970,12 @@ max_retries: for stomp, drop messages after N failed attempts to process.
 dead_letter_dir: for stomp, optional directory to dump data on failed
     queue processing events after discarding them.
 
+stomp_no_transactions: for stomp, the server does not support transactions,
+    so do not try to user them. This is needed for http://www.morbidq.com/.
+
+stomp_no_acks: for stomp, the server does not support acknowledgements.
+    so do not try to user them. This is needed for http://www.morbidq.com/.
+
 license
 -------
 
