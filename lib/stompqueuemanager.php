@@ -60,13 +60,13 @@ class StompQueueManager extends QueueManager
         } else {
             $this->servers = array($server);
         }
-        $this->username = common_config('queue', 'stomp_username');
-        $this->password = common_config('queue', 'stomp_password');
-        $this->base     = common_config('queue', 'queue_basename');
-        $this->control  = common_config('queue', 'control_channel');
-        $this->breakout = common_config('queue', 'breakout');
-        $this->useTransactions = !common_config('queue', 'stomp_no_transactions');
-        $this->useAcks = !common_config('queue', 'stomp_no_acks');
+        $this->username        = common_config('queue', 'stomp_username');
+        $this->password        = common_config('queue', 'stomp_password');
+        $this->base            = common_config('queue', 'queue_basename');
+        $this->control         = common_config('queue', 'control_channel');
+        $this->breakout        = common_config('queue', 'breakout');
+        $this->useTransactions = common_config('queue', 'stomp_transactions');
+        $this->useAcks         = common_config('queue', 'stomp_acks');
     }
 
     /**
