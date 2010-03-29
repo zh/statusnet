@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 20:09+0000\n"
-"PO-Revision-Date: 2010-03-23 20:10:59+0000\n"
+"POT-Creation-Date: 2010-03-27 17:43+0000\n"
+"PO-Revision-Date: 2010-03-27 17:45:18+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -579,7 +579,7 @@ msgstr ""
 "предоставлять разрешение на доступ к вашей учётной записи %4$s только тем "
 "сторонним приложениям, которым вы доверяете."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:438
+#: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
 msgstr "Настройки"
 
@@ -647,7 +647,7 @@ msgstr "Слишком длинная запись. Максимальная д�
 msgid "Not found"
 msgstr "Не найдено"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Максимальная длина записи — %d символов, включая URL вложения."
@@ -775,9 +775,8 @@ msgid "Crop"
 msgstr "Обрезать"
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "Профиль не определен."
+msgstr "Файл не загружен."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -952,7 +951,7 @@ msgstr "Вы не являетесь владельцем этого прило�
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1220
+#: lib/action.php:1219
 msgid "There was a problem with your session token."
 msgstr "Проблема с Вашей сессией. Попробуйте ещё раз, пожалуйста."
 
@@ -1150,7 +1149,7 @@ msgstr "Восстановить значения по умолчанию"
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -2252,7 +2251,7 @@ msgstr "Сообщение отправлено"
 msgid "Direct message to %s sent."
 msgstr "Прямое сообщение для %s послано."
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ошибка AJAX"
 
@@ -2260,7 +2259,7 @@ msgstr "Ошибка AJAX"
 msgid "New notice"
 msgstr "Новая запись"
 
-#: actions/newnotice.php:211
+#: actions/newnotice.php:212
 msgid "Notice posted"
 msgstr "Запись опубликована"
 
@@ -3587,7 +3586,7 @@ msgstr "Участники"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
-#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(пока ничего нет)"
 
@@ -3770,9 +3769,8 @@ msgid "Unknown language \"%s\"."
 msgstr "Неизвестный язык «%s»."
 
 #: actions/siteadminpanel.php:165
-#, fuzzy
 msgid "Minimum text limit is 0 (unlimited)."
-msgstr "Минимальное ограничение текста составляет 140 символов."
+msgstr "Минимальное ограничение текста составляет 0 (без ограничений)."
 
 #: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
@@ -4148,11 +4146,11 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr "%s не просматривает ничьи записи."
 
-#: actions/subscriptions.php:199
+#: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "СМС"
 
@@ -4523,7 +4521,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Плагины"
 
-#: actions/version.php:196 lib/action.php:767
+#: actions/version.php:196 lib/action.php:766
 msgid "Version"
 msgstr "Версия"
 
@@ -4619,11 +4617,11 @@ msgstr "Вам запрещено поститься на этом сайте (�
 msgid "Problem saving notice."
 msgstr "Проблемы с сохранением записи."
 
-#: classes/Notice.php:941
+#: classes/Notice.php:943
 msgid "Problem saving group inbox."
 msgstr "Проблемы с сохранением входящих сообщений группы."
 
-#: classes/Notice.php:1479
+#: classes/Notice.php:1481
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4714,170 +4712,170 @@ msgstr "%1$s — %2$s"
 msgid "Untitled page"
 msgstr "Страница без названия"
 
-#: lib/action.php:424
+#: lib/action.php:423
 msgid "Primary site navigation"
 msgstr "Главная навигация"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:430
+#: lib/action.php:429
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Личный профиль и лента друзей"
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Личное"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:435
+#: lib/action.php:434
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Изменить ваш email, аватар, пароль, профиль"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:440
+#: lib/action.php:439
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Соединить с сервисами"
 
-#: lib/action.php:443
+#: lib/action.php:442
 msgid "Connect"
 msgstr "Соединить"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:446
+#: lib/action.php:445
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Изменить конфигурацию сайта"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Настройки"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:453
+#: lib/action.php:452
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Пригласите друзей и коллег стать такими же как Вы участниками %s"
 
-#: lib/action.php:456
+#: lib/action.php:455
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Пригласить"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:462
+#: lib/action.php:461
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Выйти"
 
-#: lib/action.php:465
+#: lib/action.php:464
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Выход"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:470
+#: lib/action.php:469
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Создать новый аккаунт"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgctxt "MENU"
 msgid "Register"
 msgstr "Регистрация"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:476
+#: lib/action.php:475
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Войти"
 
-#: lib/action.php:479
+#: lib/action.php:478
 msgctxt "MENU"
 msgid "Login"
 msgstr "Вход"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:482
+#: lib/action.php:481
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Помощь"
 
-#: lib/action.php:485
+#: lib/action.php:484
 msgctxt "MENU"
 msgid "Help"
 msgstr "Помощь"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:488
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Искать людей или текст"
 
-#: lib/action.php:491
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Search"
 msgstr "Поиск"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:513 lib/adminpanelaction.php:398
+#: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr "Новая запись"
 
-#: lib/action.php:579
+#: lib/action.php:578
 msgid "Local views"
 msgstr "Локальные виды"
 
-#: lib/action.php:645
+#: lib/action.php:644
 msgid "Page notice"
 msgstr "Новая запись"
 
-#: lib/action.php:747
+#: lib/action.php:746
 msgid "Secondary site navigation"
 msgstr "Навигация по подпискам"
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Help"
 msgstr "Помощь"
 
-#: lib/action.php:754
+#: lib/action.php:753
 msgid "About"
 msgstr "О проекте"
 
-#: lib/action.php:756
+#: lib/action.php:755
 msgid "FAQ"
 msgstr "ЧаВо"
 
-#: lib/action.php:760
+#: lib/action.php:759
 msgid "TOS"
 msgstr "TOS"
 
-#: lib/action.php:763
+#: lib/action.php:762
 msgid "Privacy"
 msgstr "Пользовательское соглашение"
 
-#: lib/action.php:765
+#: lib/action.php:764
 msgid "Source"
 msgstr "Исходный код"
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "Contact"
 msgstr "Контактная информация"
 
-#: lib/action.php:771
+#: lib/action.php:770
 msgid "Badge"
 msgstr "Бедж"
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "StatusNet software license"
 msgstr "StatusNet лицензия"
 
-#: lib/action.php:804
+#: lib/action.php:803
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4886,12 +4884,12 @@ msgstr ""
 "**%%site.name%%** — это сервис микроблогинга, созданный для вас при помощи [%"
 "%site.broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:806
+#: lib/action.php:805
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** — сервис микроблогинга. "
 
-#: lib/action.php:809
+#: lib/action.php:808
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4903,44 +4901,44 @@ msgstr ""
 "лицензией [GNU Affero General Public License](http://www.fsf.org/licensing/"
 "licenses/agpl-3.0.html)."
 
-#: lib/action.php:824
+#: lib/action.php:823
 msgid "Site content license"
 msgstr "Лицензия содержимого сайта"
 
-#: lib/action.php:829
+#: lib/action.php:828
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Содержание и данные %1$s являются личными и конфиденциальными."
 
-#: lib/action.php:834
+#: lib/action.php:833
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Авторские права на содержание и данные принадлежат %1$s. Все права защищены."
 
-#: lib/action.php:837
+#: lib/action.php:836
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторские права на содержание и данные принадлежат разработчикам. Все права "
 "защищены."
 
-#: lib/action.php:850
+#: lib/action.php:849
 msgid "All "
 msgstr "All "
 
-#: lib/action.php:856
+#: lib/action.php:855
 msgid "license."
 msgstr "license."
 
-#: lib/action.php:1155
+#: lib/action.php:1154
 msgid "Pagination"
 msgstr "Разбиение на страницы"
 
-#: lib/action.php:1164
+#: lib/action.php:1163
 msgid "After"
 msgstr "Сюда"
 
-#: lib/action.php:1172
+#: lib/action.php:1171
 msgid "Before"
 msgstr "Туда"
 
@@ -6079,7 +6077,7 @@ msgstr "Для"
 msgid "Available characters"
 msgstr "6 или больше знаков"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:242
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Отправить"
@@ -6093,23 +6091,23 @@ msgstr "Послать запись"
 msgid "What's up, %s?"
 msgstr "Что нового, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:195
 msgid "Attach"
 msgstr "Прикрепить"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:200 lib/noticeform.php:222
 msgid "Attach a file"
 msgstr "Прикрепить файл"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:216
 msgid "Share my location"
 msgstr "Поделиться своим местоположением."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:219
 msgid "Do not share my location"
 msgstr "Не публиковать своё местоположение"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:220
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6258,7 +6256,7 @@ msgstr "Регистрация"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:230
 msgid "Daily average"
-msgstr ""
+msgstr "Среднесуточная"
 
 #: lib/profileaction.php:259
 msgid "All groups"
@@ -6305,7 +6303,7 @@ msgstr "Повторить эту запись"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Отозвать у этого пользователя роль «%s»"
 
-#: lib/router.php:677
+#: lib/router.php:704
 msgid "No single user defined for single-user mode."
 msgstr "Ни задан пользователь для однопользовательского режима."
 
@@ -6432,9 +6430,9 @@ msgid "Unsubscribe"
 msgstr "Отписаться"
 
 #: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "User %s (%d) has no profile record."
-msgstr "У пользователя нет профиля."
+msgstr "У пользователя %s (%d) нет профильной записи."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

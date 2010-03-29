@@ -49,32 +49,26 @@ class BlacklistPlugin extends Plugin
     public $urls      = array();
     public $canAdmin  = true;
 
-    private $_nicknamePatterns = array();
-    private $_urlPatterns      = array();
-
-    /**
-     * Initialize the plugin
-     *
-     * @return void
-     */
-
-    function initialize()
+    function _getNicknamePatterns()
     {
         $confNicknames = $this->_configArray('blacklist', 'nicknames');
 
         $dbNicknames = Nickname_blacklist::getPatterns();
 
-        $this->_nicknamePatterns = array_merge($this->nicknames,
-                                               $confNicknames,
-                                               $dbNicknames);
+        return array_merge($this->nicknames,
+                           $confNicknames,
+                           $dbNicknames);
+    }
 
+    function _getUrlPatterns()
+    {
         $confURLs = $this->_configArray('blacklist', 'urls');
 
         $dbURLs = Homepage_blacklist::getPatterns();
 
-        $this->_urlPatterns = array_merge($this->urls,
-                                          $confURLs,
-                                          $dbURLs);
+        return array_merge($this->urls,
+                           $confURLs,
+                           $dbURLs);
     }
 
     /**
@@ -265,8 +259,9 @@ class BlacklistPlugin extends Plugin
 
     private function _checkUrl($url)
     {
-        foreach ($this->_urlPatterns as $pattern) {
-            common_debug("Checking $url against $pattern");
+        $patterns = $this->_getUrlPatterns();
+
+        foreach ($patterns as $pattern) {
             if (preg_match("/$pattern/", $url)) {
                 return false;
             }
@@ -287,8 +282,9 @@ class BlacklistPlugin extends Plugin
 
     private function _checkNickname($nickname)
     {
-        foreach ($this->_nicknamePatterns as $pattern) {
-            common_debug("Checking $nickname against $pattern");
+        $patterns = $this->_getNicknamePatterns();
+
+        foreach ($patterns as $pattern) {
             if (preg_match("/$pattern/", $nickname)) {
                 return false;
             }

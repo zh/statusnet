@@ -337,7 +337,7 @@ class Attachment extends AttachmentListItem
                         $this->showHtmlFile($this->attachment);
                         break;
                     }
-                    // Fall through to default
+                    // Fall through to default.
 
                 default:
                     $this->showFallback();

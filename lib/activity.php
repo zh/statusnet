@@ -179,6 +179,17 @@ class Activity
 
             $this->actor = new ActivityObject($actorEl);
 
+            // Cliqset has bad actor IDs (just nickname of user). We
+            // work around it by getting the author data and using its
+            // id instead
+
+            if (!preg_match('/^\w+:/', $this->actor->id)) {
+                $authorEl = ActivityUtils::child($entry, 'author');
+                if (!empty($authorEl)) {
+                    $authorObj = new ActivityObject($authorEl);
+                    $this->actor->id = $authorObj->id;
+                }
+            }
         } else if (!empty($feed) &&
                    $subjectEl = $this->_child($feed, self::SUBJECT)) {
 

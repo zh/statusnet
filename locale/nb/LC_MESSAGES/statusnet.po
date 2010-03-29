@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-23 20:09+0000\n"
-"PO-Revision-Date: 2010-03-23 20:10:40+0000\n"
+"POT-Creation-Date: 2010-03-27 17:43+0000\n"
+"PO-Revision-Date: 2010-03-27 17:44:51+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64087); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -569,7 +569,7 @@ msgstr ""
 "<strong>%3$s</strong> dine %4$s-kontodata. Du bør bare gi tilgang til din %4"
 "$s-konto til tredjeparter du stoler på."
 
-#: actions/apioauthauthorize.php:310 lib/action.php:438
+#: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
 msgstr "Konto"
 
@@ -637,7 +637,7 @@ msgstr "Det er for langt. Maks notisstørrelse er %d tegn."
 msgid "Not found"
 msgstr "Ikke funnet"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Maks notisstørrelse er %d tegn, inklusive vedleggs-URL."
@@ -764,9 +764,8 @@ msgid "Crop"
 msgstr "Beskjær"
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "Ingen profil oppgitt."
+msgstr "Ingen fil lastet opp."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -941,7 +940,7 @@ msgstr "Du er ikke eieren av dette programmet."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1220
+#: lib/action.php:1219
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1139,7 +1138,7 @@ msgstr "Tilbakestill til standardverdier"
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:208
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
 #: lib/applicationeditform.php:333 lib/applicationeditform.php:334
 #: lib/designsettings.php:256 lib/groupeditform.php:202
@@ -1337,7 +1336,7 @@ msgstr "Innstillinger"
 
 #: actions/emailsettings.php:158
 msgid "Send me notices of new subscriptions through email."
-msgstr ""
+msgstr "Send meg varsler om nye abonnementer gjennom e-post."
 
 #: actions/emailsettings.php:163
 msgid "Send me email when someone adds my notice as a favorite."
@@ -1353,7 +1352,7 @@ msgstr "Send meg en e-post når noen sender meg et «@-svar»."
 
 #: actions/emailsettings.php:179
 msgid "Allow friends to nudge me and send me an email."
-msgstr ""
+msgstr "Tillat venner å knuffe meg og sende meg en e-post."
 
 #: actions/emailsettings.php:185
 msgid "I want to post notices by email."
@@ -1668,12 +1667,11 @@ msgstr "Gruppelogo"
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
-msgstr ""
+msgstr "Du kan laste opp en logo for gruppen din. Maks filstørrelse er %s."
 
 #: actions/grouplogo.php:181
-#, fuzzy
 msgid "User without matching profile."
-msgstr "Brukeren har ingen profil."
+msgstr "Bruker uten samsvarende profil."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1751,6 +1749,11 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"%%%%site.name%%%%-grupper lar deg finne og snakke med mennesker med lignende "
+"interesser. Etter at du blir med i en gruppe kan du sende meldinger til alle "
+"andre medlemmer med syntaksen «!gruppenavn». Ser du ikke en gruppe du liker? "
+"Prøv å [søke etter en](%%%%action.groupsearch%%%%) eller [start din egen.](%%"
+"%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1762,6 +1765,8 @@ msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"Søk etter grupper på %%site.name%% etter navn, lokasjon eller beskrivelse. "
+"Skill nøkkelord med mellomrom; de må være minst 3 tegn eller lengre."
 
 #: actions/groupsearch.php:58
 msgid "Group search"
@@ -1778,6 +1783,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"Om du ikke finner gruppen du søker etter kan du [opprette den](%%action."
+"newgroup%%) selv."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1792,7 +1799,7 @@ msgstr ""
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
-msgstr ""
+msgstr "Bruker er ikke blokkert fra gruppe."
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
 msgid "Error removing the block."
@@ -1899,6 +1906,7 @@ msgstr "Innboks for %s"
 #: actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
+"Dette er innboksen din som innholder dine innkommende private meldinger."
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
@@ -1907,7 +1915,7 @@ msgstr "Invitasjoner har blitt deaktivert."
 #: actions/invite.php:41
 #, php-format
 msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+msgstr "Du må være innlogget for å invitere andre brukere til å bruke %s"
 
 #: actions/invite.php:72
 #, php-format
@@ -2041,11 +2049,11 @@ msgstr "ngen kallenavn eller ID."
 #: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
-msgstr ""
+msgstr "%1$s ble med i gruppen %2$s"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
-msgstr ""
+msgstr "Du må være innlogget for å forlate en gruppe."
 
 #: actions/leavegroup.php:100 lib/command.php:363
 msgid "You are not a member of that group."
@@ -2102,15 +2110,17 @@ msgid ""
 "Login with your username and password. Don't have a username yet? [Register]"
 "(%%action.register%%) a new account."
 msgstr ""
+"Logg inn med ditt brukernavn og passord. Har du ikke et brukernavn ennå? "
+"[Opprett](%%action.register%%) en ny konto."
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
-msgstr ""
+msgstr "Bare en administrator kan gjøre en annen bruker til administrator."
 
 #: actions/makeadmin.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "Du er allerede logget inn!"
+msgstr "%1$s er allerede en administrator for gruppen «%2$s»."
 
 #: actions/makeadmin.php:133
 #, fuzzy, php-format
@@ -2186,7 +2196,7 @@ msgstr "Melding sendt"
 msgid "Direct message to %s sent."
 msgstr "Direktemelding til %s sendt."
 
-#: actions/newmessage.php:210 actions/newnotice.php:245 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax-feil"
 
@@ -2194,7 +2204,7 @@ msgstr "Ajax-feil"
 msgid "New notice"
 msgstr "Ny notis"
 
-#: actions/newnotice.php:211
+#: actions/newnotice.php:212
 msgid "Notice posted"
 msgstr "Notis postet"
 
@@ -2242,6 +2252,8 @@ msgstr "Oppdateringer som samsvarer søkestrengen «%1$s» på %2$s."
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
+"Denne brukeren tillater ikke knuffing eller har ikke bekreftet eller angitt "
+"sin e-post ennå."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2313,15 +2325,15 @@ msgstr "Bare "
 #: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
 #: lib/apiaction.php:1097 lib/apiaction.php:1213
 msgid "Not a supported data format."
-msgstr ""
+msgstr "Ikke et støttet dataformat."
 
 #: actions/opensearch.php:64
 msgid "People Search"
-msgstr ""
+msgstr "Personsøk"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr ""
+msgstr "Notissøk"
 
 #: actions/othersettings.php:60
 msgid "Other settings"
@@ -2357,9 +2369,8 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Bioen er for lang (max 140 tegn)"
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Nytt nick"
+msgstr "Ingen bruker-ID spesifisert."
 
 #: actions/otp.php:83
 #, fuzzy
@@ -2444,7 +2455,7 @@ msgstr "Feil gammelt passord"
 
 #: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
-msgstr ""
+msgstr "Feil ved lagring av bruker; ugyldig."
 
 #: actions/passwordsettings.php:186 actions/recoverpassword.php:381
 msgid "Can't save new password."
@@ -2485,11 +2496,11 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "Ugyldig SSL-tjener. Maks lengde er 255 tegn."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 msgid "Site"
-msgstr ""
+msgstr "Nettsted"
 
 #: actions/pathsadminpanel.php:238
 msgid "Server"
@@ -2497,7 +2508,7 @@ msgstr "Tjener"
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
-msgstr ""
+msgstr "Vertsnavn for nettstedets tjener."
 
 #: actions/pathsadminpanel.php:242
 msgid "Path"
@@ -2525,55 +2536,51 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: actions/pathsadminpanel.php:264
 msgid "Theme server"
-msgstr ""
+msgstr "Tematjener"
 
 #: actions/pathsadminpanel.php:268
 msgid "Theme path"
-msgstr ""
+msgstr "Temasti"
 
 #: actions/pathsadminpanel.php:272
 msgid "Theme directory"
-msgstr ""
+msgstr "Temamappe"
 
 #: actions/pathsadminpanel.php:279
-#, fuzzy
 msgid "Avatars"
-msgstr "Brukerbilde"
+msgstr "Avatarer"
 
 #: actions/pathsadminpanel.php:284
-#, fuzzy
 msgid "Avatar server"
-msgstr "Innstillinger for IM"
+msgstr "Avatartjener"
 
 #: actions/pathsadminpanel.php:288
-#, fuzzy
 msgid "Avatar path"
-msgstr "Brukerbildet har blitt oppdatert."
+msgstr "Avatarsti"
 
 #: actions/pathsadminpanel.php:292
-#, fuzzy
 msgid "Avatar directory"
-msgstr "Brukerbildet har blitt oppdatert."
+msgstr "Avatarmappe"
 
 #: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
-msgstr ""
+msgstr "Bakgrunner"
 
 #: actions/pathsadminpanel.php:305
 msgid "Background server"
-msgstr ""
+msgstr "Bakgrunnstjener"
 
 #: actions/pathsadminpanel.php:309
 msgid "Background path"
-msgstr ""
+msgstr "Bakgrunnssti"
 
 #: actions/pathsadminpanel.php:313
 msgid "Background directory"
-msgstr ""
+msgstr "Bakgrunnsmappe"
 
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
@@ -2597,16 +2604,15 @@ msgstr "Bruk SSL"
 
 #: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
-msgstr ""
+msgstr "Når SSL skal brukes"
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
-msgstr "Gjenopprett"
+msgstr "SSL-tjener"
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "Tjener SSL-forespørsler skal vises til"
 
 #: actions/pathsadminpanel.php:352
 msgid "Save paths"
@@ -2618,10 +2624,12 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"Søk etter personer på %%site.name%% etter deres navn, lokasjon eller "
+"interesser. Skill nøkkelord med mellomrom; de må være 3 tegn eller lengre."
 
 #: actions/peoplesearch.php:58
 msgid "People search"
-msgstr ""
+msgstr "Personsøk"
 
 #: actions/peopletag.php:70
 #, fuzzy, php-format
@@ -2644,16 +2652,18 @@ msgstr ""
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
-msgstr ""
+msgstr "Profilinnstillinger"
 
 #: actions/profilesettings.php:71
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Du kan oppdater din personlige profilinformasjon slik at personer får vite "
+"mer om deg."
 
 #: actions/profilesettings.php:99
 msgid "Profile information"
-msgstr ""
+msgstr "Profilinformasjon"
 
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
@@ -2675,14 +2685,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL til din hjemmeside, blogg, eller profil på annen nettside."
 
 #: actions/profilesettings.php:122 actions/register.php:461
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Beskriv degselv og dine interesser med 140 tegn"
+msgstr "Beskriv degselv og dine interesser med %d tegn"
 
 #: actions/profilesettings.php:125 actions/register.php:464
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Beskriv degselv og dine interesser med 140 tegn"
+msgstr "Beskriv degselv og dine interesser"
 
 #: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
@@ -2775,16 +2784,16 @@ msgstr "Klarte ikke å lagre profil."
 #. TRANS: Message after successful saving of administrative settings.
 #: actions/profilesettings.php:391 lib/adminpanelaction.php:141
 msgid "Settings saved."
-msgstr ""
+msgstr "Innstillinger lagret."
 
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)"
-msgstr ""
+msgstr "Over sidegrensen (%s)"
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "Kunne ikke hente offentlig strøm."
 
 #: actions/public.php:130
 #, php-format
@@ -2797,16 +2806,15 @@ msgstr ""
 
 #: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
-msgstr ""
+msgstr "Offentlig strømmating (RSS 1.0)"
 
 #: actions/public.php:164
 msgid "Public Stream Feed (RSS 2.0)"
-msgstr ""
+msgstr "Offentlig strømmating (RSS 2.0)"
 
 #: actions/public.php:168
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "%s offentlig strøm"
+msgstr "Offentlig strømmating (Atom)"
 
 #: actions/public.php:188
 #, php-format
@@ -2889,11 +2897,11 @@ msgstr ""
 
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr ""
+msgstr "Bekreftelseskodefeil."
 
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
-msgstr ""
+msgstr "Denne bekreftelseskoden er for gammel. Start på nytt."
 
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
@@ -2939,7 +2947,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:213
 msgid "Unknown action"
-msgstr ""
+msgstr "Ukjent handling"
 
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
@@ -3458,11 +3466,11 @@ msgstr ""
 
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Alias"
 
 #: actions/showgroup.php:302
 msgid "Group actions"
-msgstr ""
+msgstr "Gruppehandlinger"
 
 #: actions/showgroup.php:338
 #, php-format
@@ -3490,7 +3498,7 @@ msgstr "Medlemmer"
 
 #: actions/showgroup.php:396 lib/profileaction.php:117
 #: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
-#: lib/subscriptionlist.php:126 lib/tagcloudsection.php:71
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ingen)"
 
@@ -3731,28 +3739,28 @@ msgstr ""
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
-msgstr ""
+msgstr "Grenser"
 
 #: actions/siteadminpanel.php:274
 msgid "Text limit"
-msgstr ""
+msgstr "Tekstgrense"
 
 #: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Maks antall tegn for notiser."
 
 #: actions/siteadminpanel.php:278
 msgid "Dupe limit"
-msgstr ""
+msgstr "Duplikatsgrense"
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Hvor lenge en bruker må vente (i sekund) for å poste den samme tingen igjen."
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Notiser"
+msgstr "Nettstedsnotis"
 
 #: actions/sitenoticeadminpanel.php:67
 msgid "Edit site-wide message"
@@ -3782,18 +3790,17 @@ msgid "Save site notice"
 msgstr "Innstillinger for IM"
 
 #: actions/smssettings.php:58
-#, fuzzy
 msgid "SMS settings"
-msgstr "Innstillinger for SMS"
+msgstr "SMS-innstillinger"
 
 #: actions/smssettings.php:69
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
+msgstr "Du kan motta SMS-meldinger gjennom e-post fra %%site.name%%."
 
 #: actions/smssettings.php:91
 msgid "SMS is not available."
-msgstr ""
+msgstr "SMS er ikke tilgjengelig."
 
 #: actions/smssettings.php:112
 msgid "Current confirmed SMS-enabled phone number."
@@ -3809,10 +3816,9 @@ msgstr "Bekreftelseskode"
 
 #: actions/smssettings.php:131
 msgid "Enter the code you received on your phone."
-msgstr ""
+msgstr "Skriv inn koden du mottok på telefonen din."
 
 #: actions/smssettings.php:138
-#, fuzzy
 msgid "SMS phone number"
 msgstr "Telefonnummer for SMS"
 
@@ -3828,11 +3834,11 @@ msgstr ""
 
 #: actions/smssettings.php:306
 msgid "No phone number."
-msgstr ""
+msgstr "Ingen telefonnummer."
 
 #: actions/smssettings.php:311
 msgid "No carrier selected."
-msgstr ""
+msgstr "Ingen operatør valgt."
 
 #: actions/smssettings.php:318
 msgid "That is already your phone number."
@@ -3861,11 +3867,11 @@ msgstr "Det er ikke ditt telefonnummer."
 
 #: actions/smssettings.php:465
 msgid "Mobile carrier"
-msgstr ""
+msgstr "Mobiloperatør"
 
 #: actions/smssettings.php:469
 msgid "Select a carrier"
-msgstr ""
+msgstr "Velg en operatør"
 
 #: actions/smssettings.php:476
 #, php-format
@@ -3918,7 +3924,7 @@ msgstr ""
 
 #: actions/snapshotadminpanel.php:217
 msgid "Frequency"
-msgstr ""
+msgstr "Frekvens"
 
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
@@ -4030,18 +4036,17 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:128 actions/subscriptions.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s lytter nå til dine notiser på %2$s."
+msgstr "%s lytter ikke til noen."
 
-#: actions/subscriptions.php:199
-#, fuzzy
+#: actions/subscriptions.php:208
 msgid "Jabber"
-msgstr "Ingen Jabber ID."
+msgstr "Jabber"
 
-#: actions/subscriptions.php:204 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #: actions/tag.php:69
 #, fuzzy, php-format
@@ -4073,14 +4078,13 @@ msgid "Tag %s"
 msgstr "Tagger"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
-#, fuzzy
 msgid "User profile"
-msgstr "Klarte ikke å lagre profil."
+msgstr "Brukerprofil"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
 msgid "Photo"
-msgstr ""
+msgstr "Foto"
 
 #: actions/tagother.php:141
 #, fuzzy
@@ -4387,7 +4391,7 @@ msgstr ""
 msgid "Plugins"
 msgstr "Programtillegg"
 
-#: actions/version.php:196 lib/action.php:767
+#: actions/version.php:196 lib/action.php:766
 msgid "Version"
 msgstr "Versjon"
 
@@ -4456,11 +4460,11 @@ msgstr ""
 
 #: classes/Notice.php:244
 msgid "Problem saving notice. Too long."
-msgstr ""
+msgstr "Problem ved lagring av notis. For lang."
 
 #: classes/Notice.php:248
 msgid "Problem saving notice. Unknown user."
-msgstr ""
+msgstr "Problem ved lagring av notis. Ukjent bruker."
 
 #: classes/Notice.php:253
 msgid ""
@@ -4479,13 +4483,13 @@ msgstr ""
 
 #: classes/Notice.php:331 classes/Notice.php:357
 msgid "Problem saving notice."
-msgstr ""
+msgstr "Problem ved lagring av notis."
 
-#: classes/Notice.php:941
+#: classes/Notice.php:943
 msgid "Problem saving group inbox."
-msgstr ""
+msgstr "Problem ved lagring av gruppeinnboks."
 
-#: classes/Notice.php:1479
+#: classes/Notice.php:1481
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4548,7 +4552,7 @@ msgstr "Endre profilinnstillingene dine"
 
 #: lib/accountsettingsaction.php:112
 msgid "Upload an avatar"
-msgstr ""
+msgstr "Last opp en avatar"
 
 #: lib/accountsettingsaction.php:116
 msgid "Change your password"
@@ -4580,171 +4584,171 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "Side uten tittel"
 
-#: lib/action.php:424
+#: lib/action.php:423
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:430
+#: lib/action.php:429
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:433
+#: lib/action.php:432
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Personlig"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:435
+#: lib/action.php:434
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Endre passordet ditt"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:440
+#: lib/action.php:439
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Koble til tjenester"
 
-#: lib/action.php:443
+#: lib/action.php:442
 msgid "Connect"
 msgstr "Koble til"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:446
+#: lib/action.php:445
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Endre nettstedskonfigurasjon"
 
-#: lib/action.php:449
+#: lib/action.php:448
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Administrator"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:453
+#: lib/action.php:452
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
-#: lib/action.php:456
+#: lib/action.php:455
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Inviter"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:462
+#: lib/action.php:461
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Logg ut fra nettstedet"
 
-#: lib/action.php:465
+#: lib/action.php:464
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Logg ut"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:470
+#: lib/action.php:469
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Opprett en konto"
 
-#: lib/action.php:473
+#: lib/action.php:472
 msgctxt "MENU"
 msgid "Register"
 msgstr "Registrer"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:476
+#: lib/action.php:475
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Log inn på nettstedet"
 
-#: lib/action.php:479
+#: lib/action.php:478
 msgctxt "MENU"
 msgid "Login"
 msgstr "Logg inn"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:482
+#: lib/action.php:481
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Hjelp meg."
 
-#: lib/action.php:485
+#: lib/action.php:484
 msgctxt "MENU"
 msgid "Help"
 msgstr "Hjelp"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:488
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Søk etter personer eller tekst"
 
-#: lib/action.php:491
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Search"
 msgstr "Søk"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:513 lib/adminpanelaction.php:398
+#: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
 msgstr ""
 
-#: lib/action.php:579
+#: lib/action.php:578
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:645
+#: lib/action.php:644
 msgid "Page notice"
 msgstr ""
 
-#: lib/action.php:747
+#: lib/action.php:746
 msgid "Secondary site navigation"
 msgstr ""
 
-#: lib/action.php:752
+#: lib/action.php:751
 msgid "Help"
 msgstr "Hjelp"
 
-#: lib/action.php:754
+#: lib/action.php:753
 msgid "About"
 msgstr "Om"
 
-#: lib/action.php:756
+#: lib/action.php:755
 msgid "FAQ"
 msgstr "OSS/FAQ"
 
-#: lib/action.php:760
+#: lib/action.php:759
 msgid "TOS"
 msgstr ""
 
-#: lib/action.php:763
+#: lib/action.php:762
 msgid "Privacy"
 msgstr ""
 
-#: lib/action.php:765
+#: lib/action.php:764
 msgid "Source"
 msgstr "Kilde"
 
-#: lib/action.php:769
+#: lib/action.php:768
 msgid "Contact"
 msgstr "Kontakt"
 
-#: lib/action.php:771
+#: lib/action.php:770
 msgid "Badge"
 msgstr ""
 
-#: lib/action.php:799
+#: lib/action.php:798
 msgid "StatusNet software license"
-msgstr ""
+msgstr "Programvarelisens for StatusNet"
 
-#: lib/action.php:804
+#: lib/action.php:803
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -4753,12 +4757,12 @@ msgstr ""
 "**%%site.name%%** er en mikrobloggingtjeneste av [%%site.broughtby%%](%%site."
 "broughtbyurl%%). "
 
-#: lib/action.php:806
+#: lib/action.php:805
 #, php-format
 msgid "**%%site.name%%** is a microblogging service. "
 msgstr "**%%site.name%%** er en mikrobloggingtjeneste. "
 
-#: lib/action.php:809
+#: lib/action.php:808
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4766,41 +4770,41 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#: lib/action.php:824
+#: lib/action.php:823
 msgid "Site content license"
 msgstr ""
 
-#: lib/action.php:829
+#: lib/action.php:828
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:834
+#: lib/action.php:833
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:837
+#: lib/action.php:836
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#: lib/action.php:850
+#: lib/action.php:849
 msgid "All "
 msgstr "Alle "
 
-#: lib/action.php:856
+#: lib/action.php:855
 msgid "license."
 msgstr "lisens."
 
-#: lib/action.php:1155
+#: lib/action.php:1154
 msgid "Pagination"
 msgstr ""
 
-#: lib/action.php:1164
+#: lib/action.php:1163
 msgid "After"
 msgstr "Etter"
 
-#: lib/action.php:1172
+#: lib/action.php:1171
 msgid "Before"
 msgstr "Før"
 
@@ -4895,9 +4899,8 @@ msgstr ""
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:396
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Slett notis"
+msgstr "Rediger nettstedsnotis"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:404
@@ -4943,9 +4946,8 @@ msgid "Organization responsible for this application"
 msgstr ""
 
 #: lib/applicationeditform.php:230
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "URL til din hjemmeside, blogg, eller profil på annen nettside."
+msgstr "URL til organisasjonens hjemmeside"
 
 #: lib/applicationeditform.php:236
 msgid "URL to redirect to after authentication"
@@ -5048,9 +5050,9 @@ msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Det gir ikke så mye mening å knuffe seg selv."
 
 #: lib/command.php:228
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Svar til %s"
+msgstr "Knuff sendt til %s"
 
 #: lib/command.php:254
 #, php-format
@@ -5077,14 +5079,14 @@ msgid "Could not join user %s to group %s"
 msgstr "Klarte ikke å oppdatere bruker."
 
 #: lib/command.php:336
-#, fuzzy, php-format
+#, php-format
 msgid "%s joined group %s"
-msgstr "%1$s sin status på %2$s"
+msgstr "%s ble med i gruppen %s"
 
 #: lib/command.php:373
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %s to group %s"
-msgstr "Klarte ikke å oppdatere bruker."
+msgstr "Kunne ikke fjerne brukeren %s fra gruppen %s"
 
 #: lib/command.php:378
 #, php-format
@@ -5295,13 +5297,12 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:135
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "Fant ikke bekreftelseskode."
+msgstr "Ingen konfigurasjonsfil funnet. "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "Jeg så etter konfigurasjonfiler på følgende seter: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
@@ -5321,12 +5322,11 @@ msgstr ""
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr ""
+msgstr "Oppdatert med SMS"
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "Koble til"
+msgstr "Tilkoblinger"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
@@ -5334,12 +5334,11 @@ msgstr ""
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Databasefeil"
 
 #: lib/designsettings.php:105
-#, fuzzy
 msgid "Upload file"
-msgstr "Last opp"
+msgstr "Last opp fil"
 
 #: lib/designsettings.php:109
 msgid ""
@@ -5364,23 +5363,23 @@ msgstr ""
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "Venn av en venn"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Eksporter data"
 
 #: lib/galleryaction.php:121
 #, fuzzy
@@ -5389,7 +5388,7 @@ msgstr "Feed for taggen %s"
 
 #: lib/galleryaction.php:131
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: lib/galleryaction.php:139
 msgid "Select tag to filter"
@@ -5411,7 +5410,7 @@ msgstr ""
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Innvilg denne brukeren rollen «%s»"
 
 #: lib/groupeditform.php:163
 #, fuzzy
@@ -5898,7 +5897,7 @@ msgstr "Til"
 msgid "Available characters"
 msgstr "Tilgjengelige tegn"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:242
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Send"
@@ -5912,23 +5911,23 @@ msgstr "Send en notis"
 msgid "What's up, %s?"
 msgstr "Hva skjer %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:195
 msgid "Attach"
 msgstr "Legg ved"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:200 lib/noticeform.php:222
 msgid "Attach a file"
 msgstr "Legg ved en fil"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:216
 msgid "Share my location"
 msgstr "Del min posisjon"
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:219
 msgid "Do not share my location"
 msgstr "Ikke del min posisjon"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:220
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6125,7 +6124,7 @@ msgstr "Repeter denne notisen"
 msgid "Revoke the \"%s\" role from this user"
 msgstr ""
 
-#: lib/router.php:677
+#: lib/router.php:704
 msgid "No single user defined for single-user mode."
 msgstr ""
 

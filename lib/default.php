@@ -72,6 +72,7 @@ $default =
               'quote_identifiers' => false,
               'type' => 'mysql',
               'schemacheck' => 'runtime', // 'runtime' or 'script'
+              'annotate_queries' => false, // true to add caller comments to queries, eg /* POST Notice::saveNew */
               'log_queries' => false, // true to log all DB queries
               'log_slow_queries' => 0), // if set, log queries taking over N seconds
         'syslog' =>

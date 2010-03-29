@@ -129,11 +129,11 @@ class Magicsig extends Memcached_DataObject
 
     public function toString($full_pair = true)
     {
-        $mod = base64_url_encode($this->publicKey->modulus->toBytes());
-        $exp = base64_url_encode($this->publicKey->exponent->toBytes());
+        $mod = Magicsig::base64_url_encode($this->publicKey->modulus->toBytes());
+        $exp = Magicsig::base64_url_encode($this->publicKey->exponent->toBytes());
         $private_exp = '';
         if ($full_pair && $this->privateKey->exponent->toBytes()) {
-            $private_exp = '.' . base64_url_encode($this->privateKey->exponent->toBytes());
+            $private_exp = '.' . Magicsig::base64_url_encode($this->privateKey->exponent->toBytes());
         }
 
         return 'RSA.' . $mod . '.' . $exp . $private_exp; 
@@ -174,9 +174,9 @@ class Magicsig extends Memcached_DataObject
         $rsa = new Crypt_RSA();
         $rsa->signatureMode = CRYPT_RSA_SIGNATURE_PKCS1;
         $rsa->setHash('sha256');
-        $rsa->modulus = new Math_BigInteger(base64_url_decode($mod), 256);
+        $rsa->modulus = new Math_BigInteger(Magicsig::base64_url_decode($mod), 256);
         $rsa->k = strlen($rsa->modulus->toBytes());
-        $rsa->exponent = new Math_BigInteger(base64_url_decode($exp), 256);
+        $rsa->exponent = new Math_BigInteger(Magicsig::base64_url_decode($exp), 256);
 
         if ($type == 'private') {
             $this->privateKey = $rsa;
@@ -203,23 +203,25 @@ class Magicsig extends Memcached_DataObject
     public function sign($bytes)
     {
         $sig = $this->privateKey->sign($bytes);
-        return base64_url_encode($sig);
+        return Magicsig::base64_url_encode($sig);
     }
 
     public function verify($signed_bytes, $signature)
     {
-        $signature = base64_url_decode($signature);
+        $signature = Magicsig::base64_url_decode($signature);
         return $this->publicKey->verify($signed_bytes, $signature);
     }
-        
+
+
+    public static function base64_url_encode($input)
+    {
+        return strtr(base64_encode($input), '+/', '-_');
+    }
+
+    public static function base64_url_decode($input)
+    {
+        return base64_decode(strtr($input, '-_', '+/'));
+    }
 }
 
-function base64_url_encode($input)
-{
-    return strtr(base64_encode($input), '+/', '-_');
-}
 
-function base64_url_decode($input)
-{
-    return base64_decode(strtr($input, '-_', '+/'));
-}

@@ -22,14 +22,14 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
 
         $this->assertFalse(empty($act));
 
-        $this->assertEquals($act->time, 1243860840);
-        $this->assertEquals($act->verb, ActivityVerb::POST);
+        $this->assertEquals(1243860840, $act->time);
+        $this->assertEquals(ActivityVerb::POST, $act->verb);
 
         $this->assertFalse(empty($act->objects[0]));
-        $this->assertEquals($act->objects[0]->title, 'Punctuation Changeset');
-        $this->assertEquals($act->objects[0]->type, 'http://versioncentral.example.org/activity/changeset');
-        $this->assertEquals($act->objects[0]->summary, 'Fixing punctuation because it makes it more readable.');
-        $this->assertEquals($act->objects[0]->id, 'tag:versioncentral.example.org,2009:/change/1643245');
+        $this->assertEquals('Punctuation Changeset', $act->objects[0]->title);
+        $this->assertEquals('http://versioncentral.example.org/activity/changeset', $act->objects[0]->type);
+        $this->assertEquals('Fixing punctuation because it makes it more readable.', $act->objects[0]->summary);
+        $this->assertEquals('tag:versioncentral.example.org,2009:/change/1643245', $act->objects[0]->id);
     }
 
     public function testExample3()
@@ -46,22 +46,22 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $act = new Activity($entry, $feed);
 
         $this->assertFalse(empty($act));
-        $this->assertEquals($act->time, 1071340202);
-        $this->assertEquals($act->link, 'http://example.org/2003/12/13/atom03.html');
+        $this->assertEquals(1071340202, $act->time);
+        $this->assertEquals('http://example.org/2003/12/13/atom03.html', $act->link);
 
         $this->assertEquals($act->verb, ActivityVerb::POST);
 
         $this->assertFalse(empty($act->actor));
-        $this->assertEquals($act->actor->type, ActivityObject::PERSON);
-        $this->assertEquals($act->actor->title, 'John Doe');
-        $this->assertEquals($act->actor->id, 'mailto:johndoe@example.com');
+        $this->assertEquals(ActivityObject::PERSON, $act->actor->type);
+        $this->assertEquals('John Doe', $act->actor->title);
+        $this->assertEquals('mailto:johndoe@example.com', $act->actor->id);
 
         $this->assertFalse(empty($act->objects[0]));
-        $this->assertEquals($act->objects[0]->type, ActivityObject::NOTE);
-        $this->assertEquals($act->objects[0]->id, 'urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a');
-        $this->assertEquals($act->objects[0]->title, 'Atom-Powered Robots Run Amok');
-        $this->assertEquals($act->objects[0]->summary, 'Some text.');
-        $this->assertEquals($act->objects[0]->link, 'http://example.org/2003/12/13/atom03.html');
+        $this->assertEquals(ActivityObject::NOTE, $act->objects[0]->type);
+        $this->assertEquals('urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a', $act->objects[0]->id);
+        $this->assertEquals('Atom-Powered Robots Run Amok', $act->objects[0]->title);
+        $this->assertEquals('Some text.', $act->objects[0]->summary);
+        $this->assertEquals('http://example.org/2003/12/13/atom03.html', $act->objects[0]->link);
 
         $this->assertFalse(empty($act->context));
 
