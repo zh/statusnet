@@ -904,7 +904,7 @@ function registerInitialUser($nickname, $password, $email, $adminUpdates)
 
     if (class_exists('Ostatus_profile') && $adminUpdates) {
         try {
-            $oprofile = Ostatus_profile::ensureProfile('http://update.status.net/');
+            $oprofile = Ostatus_profile::ensureProfileURL('http://update.status.net/');
             Subscription::start($user->getProfile(), $oprofile->localProfile());
             updateStatus("Set up subscription to <a href='http://update.status.net/'>update@status.net</a>.");
         } catch (Exception $e) {
