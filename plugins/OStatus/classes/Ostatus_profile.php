@@ -1685,7 +1685,11 @@ class Ostatus_profile extends Memcached_DataObject
      */
     function saveHTMLFile($title, $rendered)
     {
-        $final = sprintf("<!DOCTYPE html>\n<html><head><title>%s</title></head>".
+        $final = sprintf("<!DOCTYPE html>\n" .
+                         '<html><head>' .
+                         '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' .
+                         '<title>%s</title>' .
+                         '</head>' .
                          '<body>%s</body></html>',
                          htmlspecialchars($title),
                          $rendered);
