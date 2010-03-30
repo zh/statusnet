@@ -66,7 +66,7 @@ class ApiGroupListAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->getTargetUser($id);
+        $this->user   = $this->getTargetUser(null);
         $this->groups = $this->getGroups();
 
         return true;
@@ -100,7 +100,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             array('nickname' => $this->user->nickname)
         );
         $subtitle   = sprintf(
-            _("Groups %1$s is a member of on %2$s."),
+            _("Groups %1\$s is a member of on %2\$s."),
             $this->user->nickname,
             $sitename
         );
