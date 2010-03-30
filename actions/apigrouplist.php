@@ -67,6 +67,12 @@ class ApiGroupListAction extends ApiBareAuthAction
         parent::prepare($args);
 
         $this->user   = $this->getTargetUser(null);
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user.'), 404, $this->format);
+            return false;
+        }
+
         $this->groups = $this->getGroups();
 
         return true;
@@ -85,11 +91,6 @@ class ApiGroupListAction extends ApiBareAuthAction
     function handle($args)
     {
         parent::handle($args);
-
-        if (empty($this->user)) {
-            $this->clientError(_('No such user.'), 404, $this->format);
-            return;
-        }
 
         $sitename   = common_config('site', 'name');
         $title      = sprintf(_("%s's groups"), $this->user->nickname);
