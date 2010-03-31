@@ -126,7 +126,7 @@ class FoafAction extends Action
                 $this->element('geo:lat', null, $location->lat);
             }
             if ($location->lon) {
-                $this->element('geo:long', null, $location->lat);
+                $this->element('geo:long', null, $location->lon);
             }
             if ($location->getURL()) {
                 $this->element('page', array('rdf:resource'=>$location->getURL()));

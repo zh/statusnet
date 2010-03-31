@@ -292,7 +292,7 @@ class ImsettingsAction extends ConnectSettingsAction
             $this->showForm(_('Cannot normalize that Jabber ID'));
             return;
         }
-        if (!jabber_valid_base_jid($jabber)) {
+        if (!jabber_valid_base_jid($jabber, common_config('email', 'domain_check'))) {
             $this->showForm(_('Not a valid Jabber ID'));
             return;
         } else if ($user->jabber == $jabber) {

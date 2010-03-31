@@ -1397,6 +1397,55 @@ function common_valid_tag($tag)
     return false;
 }
 
+/**
+ * Determine if given domain or address literal is valid
+ * eg for use in JIDs and URLs. Does not check if the domain
+ * exists!
+ * 
+ * @param string $domain
+ * @return boolean valid or not
+ */
+function common_valid_domain($domain)
+{
+    $octet = "(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])";
+    $ipv4 = "(?:$octet(?:\.$octet){3})";
+    if (preg_match("/^$ipv4$/u", $domain)) return true;
+
+    $group = "(?:[0-9a-f]{1,4})";
+    $ipv6 = "(?:\[($group(?::$group){0,7})?(::)?($group(?::$group){0,7})?\])"; // http://tools.ietf.org/html/rfc3513#section-2.2
+
+    if (preg_match("/^$ipv6$/ui", $domain, $matches)) {
+        $before = explode(":", $matches[1]);
+        $zeroes = $matches[2];
+        $after = explode(":", $matches[3]);
+        if ($zeroes) {
+            $min = 0;
+            $max = 7;
+        } else {
+            $min = 1;
+            $max = 8;
+        }
+        $explicit = count($before) + count($after);
+        if ($explicit < $min || $explicit > $max) {
+            return false;
+        }
+        return true;
+    }
+
+    try {
+        require_once "Net/IDNA.php";
+        $idn = Net_IDNA::getInstance();
+        $domain = $idn->encode($domain);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    $subdomain = "(?:[a-z0-9][a-z0-9-]*)"; // @fixme
+    $fqdn = "(?:$subdomain(?:\.$subdomain)*\.?)";
+
+    return preg_match("/^$fqdn$/ui", $domain);
+}
+
 /* Following functions are copied from MediaWiki GlobalFunctions.php
  * and written by Evan Prodromou. */
 
