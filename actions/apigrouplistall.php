@@ -66,7 +66,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->getTargetUser($id);
+        $this->user   = $this->getTargetUser(null);
         $this->groups = $this->getGroups();
 
         return true;
@@ -137,11 +137,18 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
         $qry = 'SELECT user_group.* '.
           'from user_group join local_group on user_group.id = local_group.group_id '.
           'order by created desc ';
-
+        $offset = intval($this->page - 1) * intval($this->count);
+        $limit = intval($this->count);
+        if (common_config('db', 'type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
         $group = new User_group();
 
         $group->query($qry);
 
+        $groups = array();
         while ($group->fetch()) {
             $groups[] = clone($group);
         }
