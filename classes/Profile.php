@@ -577,11 +577,41 @@ class Profile extends Memcached_DataObject
     {
         $sub = new Subscription();
         $sub->subscriber = $this->id;
-        $sub->delete();
+
+        $sub->find();
+
+        while ($sub->fetch()) {
+            $other = Profile::staticGet('id', $sub->subscribed);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($this, $other);
+        }
 
         $subd = new Subscription();
         $subd->subscribed = $this->id;
-        $subd->delete();
+        $subd->find();
+
+        while ($subd->fetch()) {
+            $other = Profile::staticGet('id', $subd->subscriber);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($other, $this);
+        }
+
+        $self = new Subscription();
+
+        $self->subscriber = $this->id;
+        $self->subscribed = $this->id;
+
+        $self->delete();
     }
 
     function _deleteMessages()
