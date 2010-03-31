@@ -550,19 +550,19 @@ float:left;
 font-size:1.3em;
 margin-bottom:7px;
 }
-.form_notice .attach-label,
-.form_notice .attach {
+.form_notice label[for=notice_data-attach],
+.form_notice #notice_data-attach {
 position:absolute;
 top:25px;
 right:10.5%;
 cursor:pointer;
 }
-.form_notice .attach-label {
+.form_notice label[for=notice_data-attach] {
 text-indent:-9999px;
 width:16px;
 height:16px;
 }
-.form_notice .attach {
+.form_notice #notice_data-attach {
 padding:0;
 height:16px;
 }
@@ -606,7 +606,7 @@ width:81.5%;
 margin-bottom:0;
 line-height:1.618;
 }
-.form_notice code {
+.form_notice #notice_data-attach_selected code {
 float:left;
 width:80%;
 display:block;
@@ -614,7 +614,7 @@ overflow:auto;
 margin-right:2.5%;
 font-size:1.1em;
 }
-.form_notice button.close {
+.form_notice #notice_data-attach_selected button.close {
 float:right;
 font-size:0.8em;
 }

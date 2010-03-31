@@ -164,25 +164,22 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
-        $uploads = array();
-        foreach($_FILES as $name => $value) {
-            if(substr($name, 0, 6) == "attach") {
-                $upload = MediaFile::fromUpload($name);
-                if (isset($upload)) {
-                    $content_shortened .= ' ' . $upload->shortUrl();
-                }
-            }
-        }
-        if (Notice::contentTooLong($content_shortened)) {
-            foreach($uploads as $upload) {
+        $upload = null;
+        $upload = MediaFile::fromUpload('attach');
+
+        if (isset($upload)) {
+
+            $content_shortened .= ' ' . $upload->shortUrl();
+
+            if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();
+                $this->clientError(
+                    sprintf(
+                        _('Max notice size is %d chars, including attachment URL.'),
+                          Notice::maxContent()
+                    )
+                );
             }
-            $this->clientError(
-                sprintf(
-                    _('Max notice size is %d chars, including attachment URL.'),
-                      Notice::maxContent()
-                )
-            );
         }
 
         $options = array('reply_to' => ($replyto == 'false') ? null : $replyto);
@@ -200,9 +197,11 @@ class NewnoticeAction extends Action
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);
 
-        foreach($uploads as $upload) {
+        if (isset($upload)) {
             $upload->attachToNotice($notice);
         }
+
+
 
         if ($this->boolean('ajax')) {
             header('Content-Type: text/xml;charset=utf-8');

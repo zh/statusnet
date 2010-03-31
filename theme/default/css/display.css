@@ -154,15 +154,14 @@ color:#333333;
 .entity_actions .dialogbox input {
 color:#000000;
 }
-.form_notice .attach-label {
+.form_notice label[for=notice_data-attach] {
 background-position:0 -328px;
 }
-.form_notice .attach {
-position: absolute;
+.form_notice #notice_data-attach {
 opacity:0;
 }
 
-.form_notice .attach-label,
+.form_notice label[for=notice_data-attach],
 #export_data li a.rss,
 #export_data li a.atom,
 #export_data li a.foaf,
