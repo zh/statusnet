@@ -114,6 +114,16 @@ class Inbox extends Memcached_DataObject
             return false;
         }
 
+        $ids = unpack('N*', $inbox->notice_ids);
+
+        // bulk inserts sometimes fail and get restarted.
+        // Skip if this one has been inserted before.
+
+        if (in_array($notice_id, $ids)) {
+            // effectively successful
+            return true;
+        }
+
         $result = $inbox->query(sprintf('UPDATE inbox '.
                                         'set notice_ids = concat(cast(0x%08x as binary(4)), '.
                                         'substr(notice_ids, 1, %d)) '.
