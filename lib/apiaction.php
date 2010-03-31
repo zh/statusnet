@@ -32,6 +32,66 @@
  * @link      http://status.net/
  */
 
+/* External API usage documentation. Please update when you change how the API works. */
+
+/*! @mainpage StatusNet REST API
+
+    @section Introduction
+
+    Some explanatory text about the API would be nice.
+
+    @section API Methods
+
+    @subsection timelinesmethods_sec Timeline Methods
+
+    @li @ref friendstimeline
+
+    @subsection statusmethods_sec Status Methods
+
+    @li @ref statusesupdate
+
+    @subsection usermethods_sec User Methods
+
+    @subsection directmessagemethods_sec Direct Message Methods
+
+    @subsection friendshipmethods_sec Friendship Methods
+
+    @subsection socialgraphmethods_sec Social Graph Methods
+
+    @subsection accountmethods_sec Account Methods
+
+    @subsection favoritesmethods_sec Favorites Methods
+
+    @subsection blockmethods_sec Block Methods
+
+    @subsection oauthmethods_sec OAuth Methods
+
+    @subsection helpmethods_sec Help Methods
+
+    @subsection groupmethods_sec Group Methods
+
+    @page apiroot API Root
+
+    The URLs for methods referred to in this API documentation are
+    relative to the StatusNet API root. The API root is determined by the
+    site's @b server and @b path variables, which are generally specified
+    in config.php. For example:
+
+    @code
+    $config['site']['server'] = 'example.org';
+    $config['site']['path'] = 'statusnet'
+    @endcode
+
+    The pattern for a site's API root is: @c protocol://server/path/api E.g:
+
+    @c http://example.org/statusnet/api
+
+    The @b path can be empty.  In that case the API root would simply be:
+
+    @c http://example.org/api
+
+*/
+
 if (!defined('STATUSNET')) {
     exit(1);
 }
