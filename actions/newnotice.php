@@ -184,21 +184,13 @@ class NewnoticeAction extends Action
 
         $options = array('reply_to' => ($replyto == 'false') ? null : $replyto);
 
-        if ($user->shareLocation()) {
-            // use browser data if checked; otherwise profile data
-            if ($this->arg('notice_data-geo')) {
-                $locOptions = Notice::locationOptions($this->trimmed('lat'),
-                                                      $this->trimmed('lon'),
-                                                      $this->trimmed('location_id'),
-                                                      $this->trimmed('location_ns'),
-                                                      $user->getProfile());
-            } else {
-                $locOptions = Notice::locationOptions(null,
-                                                      null,
-                                                      null,
-                                                      null,
-                                                      $user->getProfile());
-            }
+        if ($user->shareLocation() && $this->arg('notice_data-geo')) {
+
+            $locOptions = Notice::locationOptions($this->trimmed('lat'),
+                                                  $this->trimmed('lon'),
+                                                  $this->trimmed('location_id'),
+                                                  $this->trimmed('location_ns'),
+                                                  $user->getProfile());
 
             $options = array_merge($options, $locOptions);
         }
@@ -208,6 +200,8 @@ class NewnoticeAction extends Action
         if (isset($upload)) {
             $upload->attachToNotice($notice);
         }
+
+
 
         if ($this->boolean('ajax')) {
             header('Content-Type: text/xml;charset=utf-8');
