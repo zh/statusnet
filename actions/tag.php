@@ -111,7 +111,7 @@ class TagAction extends Action
             $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
                               $this->page, 'tag', array('tag' => $this->tag));
 
-            Event::handle('EndTagShowContent', array($this))
+            Event::handle('EndTagShowContent', array($this));
         }
     }
 
