@@ -340,8 +340,9 @@ class NoticeListItem extends Widget
 
     function showNickname()
     {
-        $this->out->element('span', array('class' => 'nickname fn'),
-                            $this->profile->nickname);
+        $this->out->raw('<span class="nickname fn">' .
+                        htmlspecialchars($this->profile->nickname) .
+                        '</span>');
     }
 
     /**

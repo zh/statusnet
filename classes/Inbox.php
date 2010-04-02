@@ -96,12 +96,23 @@ class Inbox extends Memcached_DataObject
         $inbox = new Inbox();
 
         $inbox->user_id = $user_id;
-        $inbox->notice_ids = call_user_func_array('pack', array_merge(array('N*'), $ids));
+        $inbox->pack($ids);
         $inbox->fake = true;
 
         return $inbox;
     }
 
+    /**
+     * Append the given notice to the given user's inbox.
+     * Caching updates are managed for the inbox itself.
+     *
+     * If the notice is already in this inbox, the second
+     * add will be silently dropped.
+     *
+     * @param int @user_id
+     * @param int $notice_id
+     * @return boolean success
+     */
     static function insertNotice($user_id, $notice_id)
     {
         $inbox = DB_DataObject::staticGet('inbox', 'user_id', $user_id);
@@ -112,6 +123,13 @@ class Inbox extends Memcached_DataObject
 
         if (empty($inbox)) {
             return false;
+        }
+
+        $ids = $inbox->unpack();
+        if (in_array(intval($notice_id), $ids)) {
+            // Already in there, we probably re-ran some inbox adds
+            // due to an error. Skip the dupe silently.
+            return true;
         }
 
         $result = $inbox->query(sprintf('UPDATE inbox '.
@@ -150,7 +168,7 @@ class Inbox extends Memcached_DataObject
             }
         }
 
-        $ids = unpack('N*', $inbox->notice_ids);
+        $ids = $inbox->unpack();
 
         if (!empty($since_id)) {
             $newids = array();
@@ -228,5 +246,22 @@ class Inbox extends Memcached_DataObject
             }
         }
         return new ArrayWrapper($items);
+    }
+
+    /**
+     * Saves a list of integer notice_ids into a packed blob in this object.
+     * @param array $ids list of integer notice_ids
+     */
+    protected function pack(array $ids)
+    {
+        $this->notice_ids = call_user_func_array('pack', array_merge(array('N*'), $ids));
+    }
+
+    /**
+     * @return array of integer notice_ids
+     */
+    protected function unpack()
+    {
+        return unpack('N*', $this->notice_ids);
     }
 }
