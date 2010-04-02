@@ -942,6 +942,26 @@ stomp_password: password for connecting to the stomp server; defaults
     to null.
 
 stomp_persistent: keep items across queue server restart, if enabled.
+    Under ActiveMQ, the server configuration determines if and how
+    persistent storage is actually saved.
+
+    If using a message queue server other than ActiveMQ, you may
+    need to disable this if it does not support persistence.
+
+stomp_transactions: use transactions to aid in error detection.
+    A broken transaction will be seen quickly, allowing a message
+    to be redelivered immediately if a daemon crashes.
+
+    If using a message queue server other than ActiveMQ, you may
+    need to disable this if it does not support transactions.
+
+stomp_acks: send acknowledgements to aid in flow control.
+    An acknowledgement of successful processing tells the server
+    we're ready for more and can help keep things moving smoothly.
+
+    This should *not* be turned off when running with ActiveMQ, but
+    if using another message queue server that does not support
+    acknowledgements you might need to disable this.
 
 softlimit: an absolute or relative "soft memory limit"; daemons will
     restart themselves gracefully when they find they've hit
@@ -969,6 +989,12 @@ max_retries: for stomp, drop messages after N failed attempts to process.
 
 dead_letter_dir: for stomp, optional directory to dump data on failed
     queue processing events after discarding them.
+
+stomp_no_transactions: for stomp, the server does not support transactions,
+    so do not try to user them. This is needed for http://www.morbidq.com/.
+
+stomp_no_acks: for stomp, the server does not support acknowledgements.
+    so do not try to user them. This is needed for http://www.morbidq.com/.
 
 license
 -------

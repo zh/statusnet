@@ -225,31 +225,62 @@ class Profile extends Memcached_DataObject
     {
         $notice = new Notice();
 
-        $notice->profile_id = $this->id;
+        // Temporary hack until notice_profile_id_idx is updated
+        // to (profile_id, id) instead of (profile_id, created, id).
+        // It's been falling back to PRIMARY instead, which is really
+        // very inefficient for a profile that hasn't posted in a few
+        // months. Even though forcing the index will cause a filesort,
+        // it's usually going to be better.
+        if (common_config('db', 'type') == 'mysql') {
+            $index = '';
+            $query =
+              "select id from notice force index (notice_profile_id_idx) ".
+              "where profile_id=" . $notice->escape($this->id);
 
-        $notice->selectAdd();
-        $notice->selectAdd('id');
+            if ($since_id != 0) {
+                $query .= " and id > $since_id";
+            }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
+            if ($max_id != 0) {
+                $query .= " and id < $max_id";
+            }
 
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+            $query .= ' order by id DESC';
 
-        $notice->orderBy('id DESC');
+            if (!is_null($offset)) {
+                $query .= " LIMIT $limit OFFSET $offset";
+            }
 
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
+            $notice->query($query);
+        } else {
+            $index = '';
+
+            $notice->profile_id = $this->id;
+
+            $notice->selectAdd();
+            $notice->selectAdd('id');
+
+            if ($since_id != 0) {
+                $notice->whereAdd('id > ' . $since_id);
+            }
+
+            if ($max_id != 0) {
+                $notice->whereAdd('id <= ' . $max_id);
+            }
+
+            $notice->orderBy('id DESC');
+
+            if (!is_null($offset)) {
+                $notice->limit($offset, $limit);
+            }
+
+            $notice->find();
         }
 
         $ids = array();
 
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
         }
 
         return $ids;
@@ -577,11 +608,41 @@ class Profile extends Memcached_DataObject
     {
         $sub = new Subscription();
         $sub->subscriber = $this->id;
-        $sub->delete();
+
+        $sub->find();
+
+        while ($sub->fetch()) {
+            $other = Profile::staticGet('id', $sub->subscribed);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($this, $other);
+        }
 
         $subd = new Subscription();
         $subd->subscribed = $this->id;
-        $subd->delete();
+        $subd->find();
+
+        while ($subd->fetch()) {
+            $other = Profile::staticGet('id', $subd->subscriber);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($other, $this);
+        }
+
+        $self = new Subscription();
+
+        $self->subscriber = $this->id;
+        $self->subscribed = $this->id;
+
+        $self->delete();
     }
 
     function _deleteMessages()

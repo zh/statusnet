@@ -55,6 +55,8 @@ class GeonamesPlugin extends Plugin
     public $username = null;
     public $token    = null;
     public $expiry   = 7776000; // 90-day expiry
+    public $cachePrefix = null; // Optional shared memcache prefix override
+                                // to share lookups between local instances.
 
     /**
      * convert a name into a Location object
@@ -408,9 +410,14 @@ class GeonamesPlugin extends Plugin
 
     function cacheKey($attrs)
     {
-        return common_cache_key('geonames:'.
-                                implode(',', array_keys($attrs)) . ':'.
-                                common_keyize(implode(',', array_values($attrs))));
+        $key = 'geonames:' .
+               implode(',', array_keys($attrs)) . ':'.
+               common_keyize(implode(',', array_values($attrs)));
+        if ($this->cachePrefix) {
+            return $this->cachePrefix . ':' . $key;
+        } else {
+            return common_cache_key($key);
+        }
     }
 
     function wsUrl($method, $params)

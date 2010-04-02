@@ -520,8 +520,8 @@ class User extends Memcached_DataObject
             common_log(LOG_WARNING,
                 sprintf(
                     "Profile ID %d (%s) tried to block his or herself.",
-                    $profile->id,
-                    $profile->nickname
+                    $this->id,
+                    $this->nickname
                 )
             );
             return false;
@@ -543,13 +543,7 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        // Cancel their subscription, if it exists
-
-        $otherUser = User::staticGet('id', $other->id);
-
-        if (!empty($otherUser)) {
-            subs_unsubscribe_to($otherUser, $this->getProfile());
-        }
+        Subscription::cancel($other, $this->getProfile());
 
         $block->query('COMMIT');
 

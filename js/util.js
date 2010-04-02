@@ -30,8 +30,7 @@ var SN = { // StatusNet
             CounterBlackout: false,
             MaxLength: 140,
             PatternUsername: /^[0-9a-zA-Z\-_.]*$/,
-            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307],
-            UploadCounter: 0
+            HTTP20x30x: [200, 201, 202, 203, 204, 205, 206, 300, 301, 302, 303, 304, 305, 306, 307]
         },
 
         S: { // Selector
@@ -173,7 +172,6 @@ var SN = { // StatusNet
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
             form.append('<input type="hidden" name="ajax" value="1"/>');
-            
             form.ajaxForm({
                 dataType: 'xml',
                 timeout: '60000',
@@ -230,10 +228,9 @@ var SN = { // StatusNet
                         }
                         else {
                             if (parseInt(xhr.status) === 0 || jQuery.inArray(parseInt(xhr.status), SN.C.I.HTTP20x30x) >= 0) {
-                                form.resetForm();
-                                SN.U.NoticeClearAttachments(form);
-                                SN.C.I.UploadCounter = 0;
-                                SN.U.NoticeNewAttachment($('fieldset', form));
+                                form
+                                    .resetForm()
+                                    .find('#'+SN.C.S.NoticeDataAttachSelected).remove();
                                 SN.U.FormNoticeEnhancements(form);
                             }
                             else {
@@ -290,9 +287,8 @@ var SN = { // StatusNet
                             }
                         }
                         form.resetForm();
-                        SN.U.NoticeClearAttachments(form);
-                        SN.C.I.UploadCounter = 0;
-                        SN.U.NoticeNewAttachment($('fieldset', form));
+                        form.find('#'+SN.C.S.NoticeInReplyTo).val('');
+                        form.find('#'+SN.C.S.NoticeDataAttachSelected).remove();
                         SN.U.FormNoticeEnhancements(form);
                     }
                 },
@@ -312,11 +308,6 @@ var SN = { // StatusNet
                     $('#'+SN.C.S.NoticeDataGeo).attr('checked', SN.C.I.NoticeDataGeo.NDG);
                 }
             });
-        },
-        
-        NoticeClearAttachments: function(form) {
-            $('input:file', form).remove();
-            $('div[class=' + SN.C.S.Success + ']', form).remove();
         },
 
         NoticeReply: function() {
@@ -477,30 +468,24 @@ var SN = { // StatusNet
             }
         },
 
-        NoticeDataAttach: function(NDANum) {
-            NDA = $('#'+SN.C.S.NoticeDataAttach+NDANum);
+        NoticeDataAttach: function() {
+            NDA = $('#'+SN.C.S.NoticeDataAttach);
             NDA.change(function() {
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+SN.C.I.UploadCounter+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
-                $('#'+SN.C.S.FormNotice).append(S);
-                
-                $('#'+SN.C.S.NoticeDataAttachSelected+SN.C.I.UploadCounter+' button').click(function(){
-                    $('#'+this.parentNode.getAttribute("id")).remove();
-                    $('#'+this.parentNode.getAttribute("id").replace("_selected", "")).remove();
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
+                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
+                if (NDAS.length > 0) {
+                    NDAS.replaceWith(S);
+                }
+                else {
+                    $('#'+SN.C.S.FormNotice).append(S);
+                }
+                $('#'+SN.C.S.NoticeDataAttachSelected+' button').click(function(){
+                    $('#'+SN.C.S.NoticeDataAttachSelected).remove();
                     NDA.val('');
 
                     return false;
                 });
-                SN.C.I.UploadCounter++;
-                NDA.attr('style', 'display: none;');
-                SN.U.NoticeNewAttachment(NDA.parent());
-                $('#notice_data-attach-label').attr('for', SN.C.S.NoticeDataAttach+SN.C.I.UploadCounter);
             });
-        },
-        
-        NoticeNewAttachment: function(parent) {
-            NEWFILE = '<input id="'+SN.C.S.NoticeDataAttach+SN.C.I.UploadCounter+'" class="attach" type="file" name="attach'+SN.C.I.UploadCounter+'" title="'+NoticeAttachment_text.AttachFile+'"/>';
-            parent.append(NEWFILE);
-            SN.U.NoticeDataAttach(SN.C.I.UploadCounter);            
         },
 
         NoticeLocationAttach: function() {
@@ -735,7 +720,7 @@ var SN = { // StatusNet
                     SN.U.FormNoticeEnhancements($(this));
                 });
 
-                SN.U.NoticeDataAttach("");
+                SN.U.NoticeDataAttach();
             }
         },
 

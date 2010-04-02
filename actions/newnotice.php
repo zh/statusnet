@@ -164,43 +164,48 @@ class NewnoticeAction extends Action
             $replyto = 'false';
         }
 
-        $uploads = array();
-        foreach($_FILES as $name => $value) {
-            if(substr($name, 0, 6) == "attach") {
-                $upload = MediaFile::fromUpload($name);
-                if (isset($upload)) {
-                    $content_shortened .= ' ' . $upload->shortUrl();
-                }
-            }
-        }
-        if (Notice::contentTooLong($content_shortened)) {
-            foreach($uploads as $upload) {
+        $upload = null;
+        $upload = MediaFile::fromUpload('attach');
+
+        if (isset($upload)) {
+
+            $content_shortened .= ' ' . $upload->shortUrl();
+
+            if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();
+                $this->clientError(
+                    sprintf(
+                        _('Max notice size is %d chars, including attachment URL.'),
+                          Notice::maxContent()
+                    )
+                );
             }
-            $this->clientError(
-                sprintf(
-                    _('Max notice size is %d chars, including attachment URL.'),
-                      Notice::maxContent()
-                )
-            );
         }
 
         $options = array('reply_to' => ($replyto == 'false') ? null : $replyto);
 
-        if ($user->shareLocation() && $this->arg('notice_data-geo')) {
-
-            $locOptions = Notice::locationOptions($this->trimmed('lat'),
-                                                  $this->trimmed('lon'),
-                                                  $this->trimmed('location_id'),
-                                                  $this->trimmed('location_ns'),
-                                                  $user->getProfile());
+        if ($user->shareLocation()) {
+            // use browser data if checked; otherwise profile data
+            if ($this->arg('notice_data-geo')) {
+                $locOptions = Notice::locationOptions($this->trimmed('lat'),
+                                                      $this->trimmed('lon'),
+                                                      $this->trimmed('location_id'),
+                                                      $this->trimmed('location_ns'),
+                                                      $user->getProfile());
+            } else {
+                $locOptions = Notice::locationOptions(null,
+                                                      null,
+                                                      null,
+                                                      null,
+                                                      $user->getProfile());
+            }
 
             $options = array_merge($options, $locOptions);
         }
 
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);
 
-        foreach($uploads as $upload) {
+        if (isset($upload)) {
             $upload->attachToNotice($notice);
         }
 

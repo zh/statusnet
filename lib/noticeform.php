@@ -189,14 +189,10 @@ class NoticeForm extends Form
             }
 
             if (common_config('attachments', 'uploads')) {
-                $this->out->element('label', array('id' => 'notice_data-attach-label',
-                                                   'class' => 'attach-label',
-                                                   'for' => 'notice_data-attach'),
-                                                   _('Attach'));
+                $this->out->element('label', array('for' => 'notice_data-attach'),_('Attach'));
                 $this->out->element('input', array('id' => 'notice_data-attach',
-                                                   'class' => 'attach',
                                                    'type' => 'file',
-                                                   'name' => 'attach0',
+                                                   'name' => 'attach',
                                                    'title' => _('Attach a file')));
                 $this->out->hidden('MAX_FILE_SIZE', common_config('attachments', 'file_quota'));
             }
@@ -216,10 +212,8 @@ class NoticeForm extends Form
                 $this->out->checkbox('notice_data-geo', _('Share my location'), true);
                 $this->out->elementEnd('div');
                 $this->out->inlineScript(' var NoticeDataGeo_text = {'.
-                    'ShareDisable: ' .json_encode(_('Do not share my location')).','.
-                    'ErrorTimeout: ' .json_encode(_('Sorry, retrieving your geo location is taking longer than expected, please try again later')).
-                    '} ; var NoticeAttachment_text = {'.
-                    'AttachFile: ' . json_encode(_('Attach a file')) .
+                    'ShareDisable: "'._('Do not share my location').'",'.
+                    'ErrorTimeout: "'._('Sorry, retrieving your geo location is taking longer than expected, please try again later').'"'.
                     '}');
             }
 

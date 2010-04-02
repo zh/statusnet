@@ -318,7 +318,6 @@ class ApiAction extends Action
         $twitter_group['url']=$group->permalink();
         $twitter_group['nickname']=$group->nickname;
         $twitter_group['fullname']=$group->fullname;
-        $twitter_group['homepage_url']=$group->homepage_url;
         $twitter_group['original_logo']=$group->original_logo;
         $twitter_group['homepage_logo']=$group->homepage_logo;
         $twitter_group['stream_logo']=$group->stream_logo;
