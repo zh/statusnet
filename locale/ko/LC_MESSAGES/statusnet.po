@@ -1,5 +1,6 @@
 # Translation of StatusNet to Korean
 #
+# Author@translatewiki.net: Twkang
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -7,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:43+0000\n"
-"PO-Revision-Date: 2010-03-27 17:44:45+0000\n"
+"POT-Creation-Date: 2010-04-03 13:27+0000\n"
+"PO-Revision-Date: 2010-04-03 13:28:46+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,64 +22,56 @@ msgstr ""
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
 #: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
-#, fuzzy
 msgid "Access"
-msgstr "수락"
+msgstr "접근"
 
 #. TRANS: Page notice
 #: actions/accessadminpanel.php:67
-#, fuzzy
 msgid "Site access settings"
-msgstr "아바타 설정"
+msgstr "사이트 접근 설정"
 
 #. TRANS: Form legend for registration form.
 #: actions/accessadminpanel.php:161
-#, fuzzy
 msgid "Registration"
-msgstr "회원가입"
+msgstr "등록"
 
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
+msgstr "로그인하지 않은 익명 이용자의 사이트 보기 금지"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
-#, fuzzy
 msgctxt "LABEL"
 msgid "Private"
-msgstr "개인정보 취급방침"
+msgstr "비공개"
 
 #. TRANS: Checkbox instructions for admin setting "Invite only"
 #: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "초대받은 경우만 등록허용"
 
 #. TRANS: Checkbox label for configuring site as invite only.
 #: actions/accessadminpanel.php:176
-#, fuzzy
 msgid "Invite only"
-msgstr "초대"
+msgstr "초대 전용"
 
 #. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
 #: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
-msgstr ""
+msgstr "신규회원등록 기능차단"
 
 #. TRANS: Checkbox label for disabling new user registrations.
 #: actions/accessadminpanel.php:185
-#, fuzzy
 msgid "Closed"
-msgstr "차단하기"
+msgstr "폐쇄"
 
 #. TRANS: Title / tooltip for button to save access settings in site admin panel
 #: actions/accessadminpanel.php:202
-#, fuzzy
 msgid "Save access settings"
-msgstr "아바타 설정"
+msgstr "접근 설정을 저장"
 
 #: actions/accessadminpanel.php:203
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "저장"
@@ -86,9 +79,8 @@ msgstr "저장"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
 msgid "No such page"
-msgstr "그러한 태그가 없습니다."
+msgstr "해당하는 페이지 없음"
 
 #: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -98,7 +90,7 @@ msgstr "그러한 태그가 없습니다."
 #: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
-#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:72
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
@@ -112,13 +104,13 @@ msgstr "그러한 태그가 없습니다."
 #: actions/xrds.php:71 lib/command.php:456 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
-msgstr "그러한 사용자는 없습니다."
+msgstr "해당하는 이용자 없음"
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
 #: actions/all.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%s 와 친구들, %d 페이지"
+msgstr "%s 및 친구들, %d 페이지"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
@@ -131,28 +123,28 @@ msgstr "%s 및 친구들"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "%s의 친구들을 위한 피드"
+msgstr "%s의 친구들에 대한 피드 (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:112
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "%s의 친구들을 위한 피드"
+msgstr "%s의 친구들에 대한 피드 (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:121
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "%s의 친구들을 위한 피드"
+msgstr "%s의 친구들에 대한 피드 (Atom)"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:134
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
-msgstr ""
+msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
 
 #: actions/all.php:139
 #, php-format
@@ -160,6 +152,8 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
+"더 많은 사람들을 구독해 보거나, [그룹에 참가](%%action.groups%%) 또는 직접 뭔"
+"가 글을 써보세요."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:142
@@ -178,15 +172,14 @@ msgstr ""
 
 #. TRANS: H1 text
 #: actions/all.php:178
-#, fuzzy
 msgid "You and friends"
-msgstr "%s 및 친구들"
+msgstr "당신 및 친구들"
 
 #: actions/allrss.php:119 actions/apitimelinefriends.php:119
 #: actions/apitimelinehome.php:120
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
+msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 
 #: actions/apiaccountratelimitstatus.php:70
 #: actions/apiaccountupdatedeliverydevice.php:93
@@ -198,7 +191,7 @@ msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -210,9 +203,8 @@ msgstr "%1$s 및 %2$s에 있는 친구들의 업데이트!"
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
 #: actions/apitimelineuser.php:162 actions/apiusershow.php:101
-#, fuzzy
 msgid "API method not found."
-msgstr "API 메서드를 찾을 수 없습니다."
+msgstr "API 메서드 발견 안 됨."
 
 #: actions/apiaccountupdatedeliverydevice.php:85
 #: actions/apiaccountupdateprofile.php:89
@@ -226,7 +218,7 @@ msgstr "API 메서드를 찾을 수 없습니다."
 #: actions/apigroupleave.php:91 actions/apimediaupload.php:67
 #: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
 msgid "This method requires a POST."
-msgstr "이 메서드는 등록을 요구합니다."
+msgstr "이 메서드는 POST를 요구합니다."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
@@ -235,9 +227,8 @@ msgid ""
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
-#, fuzzy
 msgid "Could not update user."
-msgstr "사용자를 업데이트 할 수 없습니다."
+msgstr "이용자를 업데이트 할 수 없습니다."
 
 #: actions/apiaccountupdateprofile.php:112
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
@@ -250,7 +241,6 @@ msgid "User has no profile."
 msgstr "이용자가 프로필을 가지고 있지 않습니다."
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
 msgstr "프로필을 저장 할 수 없습니다."
 
@@ -265,6 +255,8 @@ msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr ""
+"현재 설정으로 인해 너무 많은 POST 데이터(%s 바이트)는 서버에서 처리할 수 없습"
+"니다."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
@@ -273,33 +265,30 @@ msgstr ""
 #: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings."
-msgstr "트위터 환경설정을 저장할 수 없습니다."
+msgstr "디자인 설정을 저장할 수 없습니다."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
-msgstr "사용자를 업데이트 할 수 없습니다."
+msgstr "디자인을 업데이트 할 수 없습니다."
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "사용자를 업데이트 할 수 없습니다."
+msgstr "자기 자신은 차단할 수 없습니다."
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
-msgstr "사용자 차단에 실패했습니다."
+msgstr "이용자 차단에 실패했습니다."
 
 #: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
-msgstr "사용자 차단 해제에 실패했습니다."
+msgstr "이용자 차단 해제에 실패했습니다."
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "%s에게 직접 메시지"
+msgstr "%s으로부터 직접 메시지"
 
 #: actions/apidirectmessage.php:93
 #, php-format
@@ -321,9 +310,9 @@ msgid "No message text!"
 msgstr "메시지 내용이 없습니다!"
 
 #: actions/apidirectmessagenew.php:135 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "메시지가 너무 길어요. 최대로 140자까지 입력하실 수 있습니다."
+msgstr "너무 깁니다. 최대 메시지 길이는 %d 자까지입니다."
 
 #: actions/apidirectmessagenew.php:146
 msgid "Recipient user not found."
@@ -358,36 +347,32 @@ msgstr "favorite을 삭제할 수 없습니다."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
-msgstr "따라가실 수 없습니다 : 사용자가 없습니다."
+msgstr "팔로우할 수 없습니다: 이용자 없음."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr "따라가실 수 없습니다 : %s 님은 이미 리스트에 있습니다."
+msgstr "팔로우할 수 없습니다 : %s 님은 이미 리스트에 있습니다."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "따라가실 수 없습니다 : 사용자가 없습니다."
+msgstr "언팔로우할 수 없습니다: 이용자 없음."
 
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "사용자를 업데이트 할 수 없습니다."
+msgstr "자기 자신을 언팔로우할 수 없습니다."
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
 msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 
 #: actions/apifriendshipsshow.php:134
-#, fuzzy
 msgid "Could not determine source user."
-msgstr "공개 stream을 불러올 수 없습니다."
+msgstr "소스 이용자를 확인할 수 없습니다."
 
 #: actions/apifriendshipsshow.php:142
-#, fuzzy
 msgid "Could not find target user."
-msgstr "어떠한 상태도 찾을 수 없습니다."
+msgstr "타겟 이용자를 찾을 수 없습니다."
 
 #: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
@@ -424,9 +409,9 @@ msgstr "실명이 너무 깁니다. (최대 255글자)"
 
 #: actions/apigroupcreate.php:215 actions/editapplication.php:190
 #: actions/newapplication.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "설명이 너무 길어요. (최대 140글자)"
+msgstr "설명이 너무 깁니다. (최대 %d 글자)"
 
 #: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
@@ -442,15 +427,15 @@ msgstr ""
 
 #: actions/apigroupcreate.php:266 actions/editgroup.php:228
 #: actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "유효하지 않은태그: \"%s\""
+msgstr "사용할 수 없는 별명 : \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
+msgstr "별명 \"%s\" 이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
 
 #: actions/apigroupcreate.php:288 actions/editgroup.php:238
 #: actions/newgroup.php:178
@@ -460,9 +445,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found!"
-msgstr "API 메서드를 찾을 수 없습니다."
+msgstr "그룹을 찾을 수 없습니다."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
 #, fuzzy
@@ -474,9 +458,9 @@ msgid "You have been blocked from that group by the admin."
 msgstr ""
 
 #: actions/apigroupjoin.php:138 actions/joingroup.php:134
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "그룹 %s에 %s는 가입할 수 없습니다."
+msgstr "이용자 %1$s 의 그룹 %2$s 가입에 실패했습니다."
 
 #: actions/apigroupleave.php:114
 #, fuzzy
@@ -488,10 +472,15 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
-#: actions/apigrouplist.php:95
-#, fuzzy, php-format
+#: actions/apigrouplist.php:96
+#, php-format
 msgid "%s's groups"
-msgstr "%s 그룹"
+msgstr "%s의 그룹들"
+
+#: actions/apigrouplist.php:104
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s."
+msgstr "%s 그룹들은  의 멤버입니다."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -499,9 +488,9 @@ msgid "%s groups"
 msgstr "%s 그룹"
 
 #: actions/apigrouplistall.php:94
-#, fuzzy, php-format
+#, php-format
 msgid "groups on %s"
-msgstr "그룹 행동"
+msgstr "%s 상의 그룹들"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -536,14 +525,12 @@ msgid "Invalid nickname / password!"
 msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "사용자 세팅 오류"
+msgstr "OAuth 응용프로그램 사용자 삭제 중 데이터베이스 오류"
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
+msgstr "OAuth 응용 프로그램 사용자 추가 중 데이터베이스 오류"
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -568,11 +555,11 @@ msgstr "잘못된 폼 제출"
 
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
-msgstr ""
+msgstr "응용 프로그램이 계정에 연결하려고 할 것입니다."
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
-msgstr ""
+msgstr "접근 허용 또는 거부"
 
 #: actions/apioauthauthorize.php:292
 #, php-format
@@ -581,6 +568,9 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"<strong>%2$s</strong>의 응용 프로그램 <strong>%1$s</strong>이 %4$s 계정 정보"
+"에 대해 <strong>%3$s</strong> 할 수 있습니다  .믿을 수 있는 써드파티에게만 %4"
+"$s 계정의 접근을 허용해야 합니다."
 
 #: actions/apioauthauthorize.php:310 lib/action.php:437
 msgid "Account"
@@ -601,20 +591,19 @@ msgstr "비밀 번호"
 
 #: actions/apioauthauthorize.php:328
 msgid "Deny"
-msgstr ""
+msgstr "거부"
 
 #: actions/apioauthauthorize.php:334
-#, fuzzy
 msgid "Allow"
-msgstr "모든 것"
+msgstr "허용"
 
 #: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
-msgstr ""
+msgstr "계정 정보에 대한 접근을 허용 또는 거부합니다."
 
 #: actions/apistatusesdestroy.php:107
 msgid "This method requires a POST or DELETE."
-msgstr "이 메서드는 등록 또는 삭제를 요구합니다."
+msgstr "이 메서드는 POST 또는 DELETE를 요구합니다."
 
 #: actions/apistatusesdestroy.php:130
 msgid "You may not delete another user's status."
@@ -626,19 +615,16 @@ msgid "No such notice."
 msgstr "그러한 통지는 없습니다."
 
 #: actions/apistatusesretweet.php:83
-#, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "알림을 켤 수 없습니다."
+msgstr "자기 자신의 소식은 재전송할 수 없습니다."
 
 #: actions/apistatusesretweet.php:91
-#, fuzzy
 msgid "Already repeated that notice."
-msgstr "이 게시글 삭제하기"
+msgstr "이미 재전송된 소식입니다."
 
 #: actions/apistatusesshow.php:138
-#, fuzzy
 msgid "Status deleted."
-msgstr "아바타가 업데이트 되었습니다."
+msgstr "삭제된 소식입니다."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -654,15 +640,14 @@ msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
 msgid "Not found"
 msgstr "찾지 못함"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "소식의 최대 길이는 첨부 URL을 포함하여 %d 글자입니다."
 
 #: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
-#, fuzzy
 msgid "Unsupported format."
-msgstr "지원하지 않는 그림 파일 형식입니다."
+msgstr "지원하지 않는 형식입니다."
 
 #: actions/apitimelinefavorites.php:109
 #, fuzzy, php-format
@@ -719,9 +704,8 @@ msgid "Not found."
 msgstr "찾을 수가 없습니다."
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "그러한 문서는 없습니다."
+msgstr "해당하는 첨부파일이 없습니다."
 
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
@@ -744,9 +728,9 @@ msgid "Avatar"
 msgstr "아바타"
 
 #: actions/avatarsettings.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "당신의 개인적인 아바타를 업로드할 수 있습니다."
+msgstr "당신의 개인 아바타를 업로드할 수 있습니다. 최대 파일 크기는 %s 입니다."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/remotesubscribe.php:191 actions/userauthorization.php:72
@@ -770,7 +754,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:658
+#: lib/deleteuserform.php:66 lib/noticelist.php:659
 msgid "Delete"
 msgstr "삭제"
 
@@ -804,14 +788,12 @@ msgid "Failed updating avatar."
 msgstr "아바타 업데이트 실패"
 
 #: actions/avatarsettings.php:397
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "아바타가 업데이트 되었습니다."
+msgstr "아바타가 삭제되었습니다."
 
 #: actions/block.php:69
-#, fuzzy
 msgid "You already blocked that user."
-msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
+msgstr "이미 차단된 이용자입니다."
 
 #: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
 msgid "Block user"
@@ -823,6 +805,8 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"정말 이용자를 차단하시겠습니까? 차단된 이용자는 구독해제되고, 이후 당신을 구"
+"독할 수 없으며, 차단된 이용자로부터 @-답장의 통보를 받지 않게 됩니다."
 
 #: actions/block.php:143 actions/deleteapplication.php:153
 #: actions/deletenotice.php:145 actions/deleteuser.php:150
@@ -831,9 +815,8 @@ msgid "No"
 msgstr "아니오"
 
 #: actions/block.php:143 actions/deleteuser.php:150
-#, fuzzy
 msgid "Do not block this user"
-msgstr "이 사용자를 차단해제합니다."
+msgstr "이용자를 차단하지 않는다."
 
 #: actions/block.php:144 actions/deleteapplication.php:158
 #: actions/deletenotice.php:146 actions/deleteuser.php:151
@@ -879,9 +862,8 @@ msgid "A list of the users blocked from joining this group."
 msgstr "이 그룹의 회원리스트"
 
 #: actions/blockedfromgroup.php:288
-#, fuzzy
 msgid "Unblock user from group"
-msgstr "사용자 차단 해제에 실패했습니다."
+msgstr "그룹 이용자는 차단해제"
 
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
@@ -931,9 +913,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "이메일 승인을 삭제 할 수 없습니다."
 
 #: actions/confirmaddress.php:144
-#, fuzzy
 msgid "Confirm address"
-msgstr "주소 인증"
+msgstr "주소 확인"
 
 #: actions/confirmaddress.php:159
 #, php-format
@@ -1030,7 +1011,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:658
+#: actions/deletenotice.php:146 lib/noticelist.php:659
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1045,9 +1026,8 @@ msgid "You can only delete local users."
 msgstr "당신은 다른 사용자의 상태를 삭제하지 않아도 된다."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "삭제"
+msgstr "이용자 삭제"
 
 #: actions/deleteuser.php:136
 msgid ""
@@ -1070,24 +1050,21 @@ msgid "Design settings for this StatusNet site."
 msgstr ""
 
 #: actions/designadminpanel.php:275
-#, fuzzy
 msgid "Invalid logo URL."
-msgstr "옳지 않은 크기"
+msgstr "잘못된 로고 URL 입니다."
 
 #: actions/designadminpanel.php:279
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s"
-msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
+msgstr "테마를 이용할 수 없습니다: %s"
 
 #: actions/designadminpanel.php:375
-#, fuzzy
 msgid "Change logo"
-msgstr "비밀번호 바꾸기"
+msgstr "로고 변경"
 
 #: actions/designadminpanel.php:380
-#, fuzzy
 msgid "Site logo"
-msgstr "초대"
+msgstr "사이트 로고"
 
 #: actions/designadminpanel.php:387
 #, fuzzy
@@ -1114,32 +1091,32 @@ msgid "Background"
 msgstr ""
 
 #: actions/designadminpanel.php:427
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
-msgstr "당신그룹의 로고 이미지를 업로드할 수 있습니다."
+msgstr ""
+"사이트의 배경 이미지를 업로드할 수 있습니다. 최대 파일 크기는 %1$s 입니다."
 
 #: actions/designadminpanel.php:457 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "켜기"
 
 #: actions/designadminpanel.php:473 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "끄기"
 
 #: actions/designadminpanel.php:474 lib/designsettings.php:156
 msgid "Turn background image on or off."
-msgstr ""
+msgstr "배경 이미지를 켜거나 끈다."
 
 #: actions/designadminpanel.php:479 lib/designsettings.php:161
 msgid "Tile background image"
-msgstr ""
+msgstr "배경 이미지를 반복 나열"
 
 #: actions/designadminpanel.php:488 lib/designsettings.php:170
-#, fuzzy
 msgid "Change colours"
-msgstr "비밀번호 바꾸기"
+msgstr "색상 변경"
 
 #: actions/designadminpanel.php:510 lib/designsettings.php:191
 #, fuzzy
@@ -1202,14 +1179,12 @@ msgid "No such document \"%s\""
 msgstr "그러한 문서는 없습니다."
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
-msgstr "다른 옵션들"
+msgstr "응용 프로그램 수정"
 
 #: actions/editapplication.php:66
-#, fuzzy
 msgid "You must be logged in to edit an application."
-msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
+msgstr "응용 프로그램 수정을 위해서는 로그인해야 합니다."
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
@@ -1256,9 +1231,8 @@ msgid "Organization is required."
 msgstr ""
 
 #: actions/editapplication.php:206 actions/newapplication.php:191
-#, fuzzy
 msgid "Organization is too long (max 255 chars)."
-msgstr "위치가 너무 깁니다. (최대 255글자)"
+msgstr "기관명이 너무 깁니다. (최대 255글자)"
 
 #: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
@@ -1288,7 +1262,6 @@ msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
 
 #: actions/editgroup.php:107 actions/editgroup.php:172
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
-#, fuzzy
 msgid "You must be an admin to edit the group."
 msgstr "관리자만 그룹을 편집할 수 있습니다."
 
@@ -1297,9 +1270,9 @@ msgid "Use this form to edit the group."
 msgstr "다음 양식을 이용해 그룹을 편집하십시오."
 
 #: actions/editgroup.php:205 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "설명이 너무 길어요. (최대 140글자)"
+msgstr "설명이 너무 길어요. (최대 %d글자)"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1315,9 +1288,8 @@ msgid "Options saved."
 msgstr "옵션들이 저장되었습니다."
 
 #: actions/emailsettings.php:60
-#, fuzzy
 msgid "Email settings"
-msgstr "이메일 세팅"
+msgstr "이메일 설정"
 
 #: actions/emailsettings.php:71
 #, php-format
@@ -1354,7 +1326,6 @@ msgid "Cancel"
 msgstr "취소"
 
 #: actions/emailsettings.php:121
-#, fuzzy
 msgid "Email address"
 msgstr "이메일 주소"
 
@@ -1618,14 +1589,12 @@ msgid "Error updating remote profile"
 msgstr "리모트 프로필 업데이트 오류"
 
 #: actions/getfile.php:79
-#, fuzzy
 msgid "No such file."
-msgstr "그러한 통지는 없습니다."
+msgstr "해당하는 파일이 없습니다."
 
 #: actions/getfile.php:83
-#, fuzzy
 msgid "Cannot read file."
-msgstr "파일을 잃어버렸습니다."
+msgstr "파일을 읽을 수 없습니다."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
 #, fuzzy
@@ -1728,9 +1697,8 @@ msgstr ""
 
 #: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
-#, fuzzy
 msgid "Couldn't update your design."
-msgstr "사용자를 업데이트 할 수 없습니다."
+msgstr "디자인을 수정할 수 없습니다."
 
 #: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
 #, fuzzy
@@ -1753,9 +1721,8 @@ msgid "User without matching profile."
 msgstr "프로필 매칭이 없는 사용자"
 
 #: actions/grouplogo.php:365
-#, fuzzy
 msgid "Pick a square area of the image to be the logo."
-msgstr "당신의 아바타가 될 이미지영역을 지정하세요."
+msgstr "이미지에서 로고로 사용할 사각 영역을 지정하세요."
 
 #: actions/grouplogo.php:399
 msgid "Logo updated."
@@ -1799,7 +1766,7 @@ msgstr "관리자"
 
 #: actions/groupmembers.php:482
 msgid "Make this user an admin"
-msgstr ""
+msgstr "이 이용자를 관리자로 만듦"
 
 #: actions/grouprss.php:138 actions/userrss.php:93
 #: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
@@ -2226,9 +2193,8 @@ msgid "No current status"
 msgstr "현재 상태가 없습니다."
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
-msgstr "그러한 통지는 없습니다."
+msgstr "신규 응용 프로그램"
 
 #: actions/newapplication.php:64
 #, fuzzy
@@ -2290,7 +2256,7 @@ msgstr "메시지"
 msgid "Direct message to %s sent."
 msgstr "%s에게 보낸 직접 메시지"
 
-#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax 에러입니다."
 
@@ -2298,7 +2264,7 @@ msgstr "Ajax 에러입니다."
 msgid "New notice"
 msgstr "새로운 통지"
 
-#: actions/newnotice.php:212
+#: actions/newnotice.php:217
 msgid "Notice posted"
 msgstr "게시글이 등록되었습니다."
 
@@ -2383,7 +2349,7 @@ msgstr ""
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
-msgstr ""
+msgstr "다음 응용 프로그램이 계정에 접근하도록 허용되어 있습니다."
 
 #: actions/oauthconnectionssettings.php:175
 #, fuzzy
@@ -2421,8 +2387,8 @@ msgstr "연결"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
-#: lib/apiaction.php:1097 lib/apiaction.php:1213
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -2585,7 +2551,7 @@ msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할
 #: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s"
-msgstr ""
+msgstr "아바타 디렉토리에 쓸 수 없습니다 : %s"
 
 #: actions/pathsadminpanel.php:169
 #, php-format
@@ -2642,7 +2608,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
-msgstr ""
+msgstr "테마"
 
 #: actions/pathsadminpanel.php:264
 msgid "Theme server"
@@ -2713,7 +2679,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:329
 msgid "Use SSL"
-msgstr ""
+msgstr "SSL 사용"
 
 #: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
@@ -2939,6 +2905,7 @@ msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
+"%%site.name%% 의 공개 타임라인이지만, 아직 아무도 글을 쓰지 않았습니다."
 
 #: actions/public.php:191
 msgid "Be the first to post!"
@@ -2985,7 +2952,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "글을 올린 첫번째 사람이 되세요!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -3312,24 +3279,21 @@ msgid "No notice specified."
 msgstr "프로필을 지정하지 않았습니다."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "라이선스에 동의하지 않는다면 등록할 수 없습니다."
+msgstr "자신의 글은 재전송할 수 없습니다."
 
 #: actions/repeat.php:90
 #, fuzzy
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:677
-#, fuzzy
+#: actions/repeat.php:114 lib/noticelist.php:678
 msgid "Repeated"
-msgstr "생성"
+msgstr "재전송됨"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "생성"
+msgstr "재전송됨!"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3399,9 +3363,8 @@ msgid "StatusNet"
 msgstr "아바타가 업데이트 되었습니다."
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "당신은 이 사용자에게 메시지를 보낼 수 없습니다."
+msgstr "이 사이트의 이용자에 대해 권한정지 할 수 없습니다."
 
 #: actions/sandbox.php:72
 #, fuzzy
@@ -3605,19 +3568,19 @@ msgid "Group actions"
 msgstr "그룹 행동"
 
 #: actions/showgroup.php:338
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "%s 그룹을 위한 공지피드"
+msgstr "%s 그룹을 위한 공지피드 (RSS 1.0)"
 
 #: actions/showgroup.php:344
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "%s 그룹을 위한 공지피드"
+msgstr "%s 그룹을 위한 공지피드 (RSS 2.0)"
 
 #: actions/showgroup.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "%s 그룹을 위한 공지피드"
+msgstr "%s 그룹을 위한 공지피드 (Atom)"
 
 #: actions/showgroup.php:355
 #, php-format
@@ -3737,6 +3700,8 @@ msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
+"최근에 재미있는 일들이 있었나요? 아직 올린 글이 없느데, 지금 시작해 보면 어떨"
+"까요. :)"
 
 #: actions/showstream.php:207
 #, php-format
@@ -4545,9 +4510,8 @@ msgid "Plugins"
 msgstr ""
 
 #: actions/version.php:196 lib/action.php:766
-#, fuzzy
 msgid "Version"
-msgstr "개인적인"
+msgstr "버젼"
 
 #: actions/version.php:197
 msgid "Author(s)"
@@ -4571,9 +4535,8 @@ msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #: classes/Group_member.php:41
-#, fuzzy
 msgid "Group join failed."
-msgstr "그룹 프로필"
+msgstr "그룹에 가입하지 못했습니다."
 
 #: classes/Group_member.php:53
 #, fuzzy
@@ -4591,9 +4554,9 @@ msgid "Could not update local group."
 msgstr "그룹을 업데이트 할 수 없습니다."
 
 #: classes/Login_token.php:76
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "OpenID를 작성 할 수 없습니다 : %s"
+msgstr "%s 에 대한 로그인 토큰을 만들 수 없습니다."
 
 #: classes/Message.php:45
 #, fuzzy
@@ -4768,7 +4731,6 @@ msgstr "개인적인"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:434
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 이메일, 아바타, 비밀 번호, 프로필을 변경하세요."
@@ -4805,7 +4767,6 @@ msgid "Invite friends and colleagues to join you on %s"
 msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
 #: lib/action.php:455
-#, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "초대"
@@ -5733,12 +5694,12 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:228
+#: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:408
+#: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
@@ -5941,7 +5902,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:485
+#: lib/mailbox.php:227 lib/noticelist.php:486
 #, fuzzy
 msgid "from"
 msgstr "다음에서:"
@@ -6032,7 +5993,7 @@ msgstr "에게"
 msgid "Available characters"
 msgstr "사용 가능한 글자"
 
-#: lib/messageform.php:178 lib/noticeform.php:242
+#: lib/messageform.php:178 lib/noticeform.php:236
 #, fuzzy
 msgctxt "Send button for sending notice"
 msgid "Send"
@@ -6047,75 +6008,75 @@ msgstr "게시글 보내기"
 msgid "What's up, %s?"
 msgstr "뭐하세요? %?"
 
-#: lib/noticeform.php:195
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:200 lib/noticeform.php:222
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:212
 #, fuzzy
 msgid "Share my location"
 msgstr "태그를 저장할 수 없습니다."
 
-#: lib/noticeform.php:219
+#: lib/noticeform.php:215
 #, fuzzy
 msgid "Do not share my location"
 msgstr "태그를 저장할 수 없습니다."
 
-#: lib/noticeform.php:220
+#: lib/noticeform.php:216
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 #, fuzzy
 msgid "N"
 msgstr "아니오"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:439
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:569
+#: lib/noticelist.php:570
 #, fuzzy
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:604
+#: lib/noticelist.php:605
 #, fuzzy
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:633
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:676
+#: lib/noticelist.php:677
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."

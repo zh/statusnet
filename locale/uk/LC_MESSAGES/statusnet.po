@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:43+0000\n"
-"PO-Revision-Date: 2010-03-27 17:45:31+0000\n"
+"POT-Creation-Date: 2010-04-03 13:27+0000\n"
+"PO-Revision-Date: 2010-04-03 13:29:26+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -95,7 +95,7 @@ msgstr "Немає такої сторінки"
 #: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
-#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:72
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
@@ -200,7 +200,7 @@ msgstr "Оновлення від %1$s та друзів на %2$s!"
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -426,7 +426,7 @@ msgstr "Опис надто довгий (%d знаків максимум)."
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:227
 msgid "Location is too long (max 255 chars)."
-msgstr "Локація надто довга (255 знаків максимум)."
+msgstr "Розташування надто довге (255 знаків максимум)."
 
 #: actions/apigroupcreate.php:245 actions/editgroup.php:219
 #: actions/newgroup.php:159
@@ -479,10 +479,15 @@ msgstr "Ви не є учасником цієї групи."
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Не вдалось видалити користувача %1$s з групи %2$s."
 
-#: actions/apigrouplist.php:95
+#: actions/apigrouplist.php:96
 #, php-format
 msgid "%s's groups"
 msgstr "%s групи"
+
+#: actions/apigrouplist.php:104
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s."
+msgstr "%s бере участь в цих групах"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -644,7 +649,7 @@ msgstr "Надто довго. Максимальний розмір допис�
 msgid "Not found"
 msgstr "Не знайдено"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -760,7 +765,7 @@ msgid "Preview"
 msgstr "Перегляд"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:658
+#: lib/deleteuserform.php:66 lib/noticelist.php:659
 msgid "Delete"
 msgstr "Видалити"
 
@@ -1008,7 +1013,7 @@ msgstr "Ви впевненні, що бажаєте видалити цей д�
 msgid "Do not delete this notice"
 msgstr "Не видаляти цей допис"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:658
+#: actions/deletenotice.php:146 lib/noticelist.php:659
 msgid "Delete this notice"
 msgstr "Видалити допис"
 
@@ -1783,7 +1788,7 @@ msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Пошук груп на %%site.name%% за їхньою назвою, локацією або описом. "
+"Пошук груп на %%site.name%% за їхньою назвою, розташуванням або описом. "
 "Відокремлюйте пошукові умови інтервалами; вони повинні складатись з 3 знаків "
 "або більше."
 
@@ -2239,7 +2244,7 @@ msgstr "Повідомлення надіслано"
 msgid "Direct message to %s sent."
 msgstr "Пряме повідомлення для %s надіслано."
 
-#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Помилка в Ajax"
 
@@ -2247,7 +2252,7 @@ msgstr "Помилка в Ajax"
 msgid "New notice"
 msgstr "Новий допис"
 
-#: actions/newnotice.php:212
+#: actions/newnotice.php:217
 msgid "Notice posted"
 msgstr "Допис надіслано"
 
@@ -2372,8 +2377,8 @@ msgstr "тип змісту "
 msgid "Only "
 msgstr "Лише "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
-#: lib/apiaction.php:1097 lib/apiaction.php:1213
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "Такий формат даних не підтримується."
 
@@ -2395,11 +2400,11 @@ msgstr "Керування деякими іншими опціями."
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr " (безкоштовно)"
+msgstr " (вільний сервіс)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
-msgstr "Зручні URL"
+msgstr "Скорочення URL-адрес"
 
 #: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
@@ -2673,7 +2678,7 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Пошук людей на %%site.name%% за їх ім’ям, локацією або інтересами. "
+"Пошук людей на %%site.name%% за їх ім’ям, розташуванням або інтересами. "
 "Відокремлюйте пошукові умови інтервалами; вони повинні складатись з 3 знаків "
 "або більше."
 
@@ -2756,11 +2761,11 @@ msgstr "Розташування"
 
 #: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "Де Ви живете, штибу \"Місто, область (регіон), країна\""
+msgstr "Де Ви живете, на кшталт «Місто, область (регіон), країна»"
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr "Показувати мою поточну локацію при надсиланні дописів"
+msgstr "Показувати моє місцезнаходження при надсиланні дописів"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2895,7 +2900,7 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 "Це %%site.name%% — сервіс [мікроблоґів](http://uk.wikipedia.org/wiki/"
-"Мікроблоґ), який працює на вільному програмному забезпеченні [StatusNet]"
+"Мікроблоггінг), який працює на вільному програмному забезпеченні [StatusNet]"
 "(http://status.net/). [Приєднуйтесь](%%action.register%%) зараз і зможете "
 "розділити своє життя з друзями, родиною і колегами! ([Дізнатися більше](%%"
 "doc.help%%))"
@@ -2908,7 +2913,7 @@ msgid ""
 "tool."
 msgstr ""
 "Це %%site.name%% — сервіс [мікроблоґів](http://uk.wikipedia.org/wiki/"
-"Мікроблоґ), який працює на вільному програмному забезпеченні [StatusNet]"
+"Мікроблоггінг), який працює на вільному програмному забезпеченні [StatusNet]"
 "(http://status.net/)."
 
 #: actions/publictagcloud.php:57
@@ -3265,7 +3270,7 @@ msgstr "Ви не можете повторювати свої власні до
 msgid "You already repeated that notice."
 msgstr "Ви вже повторили цей допис."
 
-#: actions/repeat.php:114 lib/noticelist.php:677
+#: actions/repeat.php:114 lib/noticelist.php:678
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -3599,7 +3604,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 "**%s** це група на %%%%site.name%%%% — сервісі [мікроблоґів](http://uk."
-"wikipedia.org/wiki/Мікроблоґ), який працює на вільному програмному "
+"wikipedia.org/wiki/Мікроблоггінг), який працює на вільному програмному "
 "забезпеченні [StatusNet](http://status.net/). Члени цієї групи роблять "
 "короткі дописи про своє життя та інтереси. [Приєднуйтесь](%%action.register%"
 "%) зараз і долучіться до спілкування! ([Дізнатися більше](%%doc.help%%))"
@@ -3613,7 +3618,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 "**%s** це група користувачів на %%site.name%% — сервісі [мікроблоґів](http://"
-"uk.wikipedia.org/wiki/Мікроблоґ), який працює на вільному програмному "
+"uk.wikipedia.org/wiki/Мікроблоггінг), який працює на вільному програмному "
 "забезпеченні [StatusNet](http://status.net/). Члени цієї групи роблять "
 "короткі дописи про своє життя та інтереси. "
 
@@ -3722,7 +3727,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 "**%s** є власником акаунту на сайті %%%%site.name%%%% — сервісі [мікроблоґів]"
-"(http://uk.wikipedia.org/wiki/Мікроблоґ), який працює на вільному "
+"(http://uk.wikipedia.org/wiki/Мікроблоггінг), який працює на вільному "
 "програмному забезпеченні [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
@@ -3775,7 +3780,7 @@ msgstr "Назва сайту"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr "Назва Вашого сайту, штибу \"Мікроблоґи компанії ...\""
+msgstr "Назва Вашого сайту, щось на зразок «Мікроблоґи компанії ...»"
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
@@ -4810,7 +4815,7 @@ msgstr "Пошук"
 #. TRANS: Menu item for site administration
 #: lib/action.php:512 lib/adminpanelaction.php:398
 msgid "Site notice"
-msgstr "Зауваження сайту"
+msgstr "Об’яви на сайті"
 
 #: lib/action.php:578
 msgid "Local views"
@@ -4834,7 +4839,7 @@ msgstr "Про"
 
 #: lib/action.php:755
 msgid "FAQ"
-msgstr "ЧаПи"
+msgstr "ЧаП"
 
 #: lib/action.php:759
 msgid "TOS"
@@ -4842,7 +4847,7 @@ msgstr "Умови"
 
 #: lib/action.php:762
 msgid "Privacy"
-msgstr "Конфіденційність"
+msgstr "Приватність"
 
 #: lib/action.php:764
 msgid "Source"
@@ -5219,7 +5224,7 @@ msgstr "Повне ім’я: %s"
 #: lib/command.php:404 lib/mail.php:258
 #, php-format
 msgid "Location: %s"
-msgstr "Локація: %s"
+msgstr "Розташування: %s"
 
 #: lib/command.php:407 lib/mail.php:260
 #, php-format
@@ -5584,7 +5589,7 @@ msgstr "Опишіть групу або тему, вкладаючись у %d 
 #: lib/groupeditform.php:179
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Локація групи, штибу \"Місто, область (або регіон), країна\""
+msgstr "Розташування групи, на кшталт «Місто, область (або регіон), країна»"
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -5678,12 +5683,12 @@ msgstr "Мб"
 msgid "kB"
 msgstr "кб"
 
-#: lib/jabber.php:228
+#: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
 
-#: lib/jabber.php:408
+#: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr "Невідоме джерело вхідного повідомлення %d."
@@ -5964,7 +5969,7 @@ msgstr ""
 "повідомлення аби долучити користувачів до розмови. Такі повідомлення бачите "
 "лише Ви."
 
-#: lib/mailbox.php:227 lib/noticelist.php:485
+#: lib/mailbox.php:227 lib/noticelist.php:486
 msgid "from"
 msgstr "від"
 
@@ -6056,7 +6061,7 @@ msgstr "До"
 msgid "Available characters"
 msgstr "Лишилось знаків"
 
-#: lib/messageform.php:178 lib/noticeform.php:242
+#: lib/messageform.php:178 lib/noticeform.php:236
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Так!"
@@ -6070,23 +6075,23 @@ msgstr "Надіслати допис"
 msgid "What's up, %s?"
 msgstr "Що нового, %s?"
 
-#: lib/noticeform.php:195
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "Вкласти"
 
-#: lib/noticeform.php:200 lib/noticeform.php:222
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "Вкласти файл"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:212
 msgid "Share my location"
-msgstr "Показувати локацію."
+msgstr "Показувати місцезнаходження."
 
-#: lib/noticeform.php:219
+#: lib/noticeform.php:215
 msgid "Do not share my location"
-msgstr "Приховувати мою локацію"
+msgstr "Приховувати моє місцезнаходження"
 
-#: lib/noticeform.php:220
+#: lib/noticeform.php:216
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6094,48 +6099,48 @@ msgstr ""
 "На жаль, отримання інформації щодо Вашого місцезнаходження займе більше "
 "часу, ніж очікувалось; будь ласка, спробуйте пізніше"
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "N"
 msgstr "Півн."
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "S"
 msgstr "Півд."
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "E"
 msgstr "Сх."
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "W"
 msgstr "Зах."
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:439
 msgid "at"
 msgstr "в"
 
-#: lib/noticelist.php:569
+#: lib/noticelist.php:570
 msgid "in context"
 msgstr "в контексті"
 
-#: lib/noticelist.php:604
+#: lib/noticelist.php:605
 msgid "Repeated by"
 msgstr "Повторено"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply to this notice"
 msgstr "Відповісти на цей допис"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:633
 msgid "Reply"
 msgstr "Відповісти"
 
-#: lib/noticelist.php:676
+#: lib/noticelist.php:677
 msgid "Notice repeated"
 msgstr "Допис повторили"
 
