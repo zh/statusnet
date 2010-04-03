@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:43+0000\n"
-"PO-Revision-Date: 2010-03-27 17:44:38+0000\n"
+"POT-Creation-Date: 2010-04-03 13:27+0000\n"
+"PO-Revision-Date: 2010-04-03 13:28:39+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -93,7 +93,7 @@ msgstr "Pagina inesistente."
 #: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
-#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:72
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
@@ -201,7 +201,7 @@ msgstr "Messaggi da %1$s e amici su %2$s!"
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -480,10 +480,15 @@ msgstr "Non fai parte di questo gruppo."
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Impossibile rimuovere l'utente %1$s dal gruppo %2$s."
 
-#: actions/apigrouplist.php:95
+#: actions/apigrouplist.php:96
 #, php-format
 msgid "%s's groups"
 msgstr "Gruppi di %s"
+
+#: actions/apigrouplist.php:104
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s."
+msgstr "Gruppi di cui %s fa parte"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -644,7 +649,7 @@ msgstr "Troppo lungo. Lunghezza massima %d caratteri."
 msgid "Not found"
 msgstr "Non trovato"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -760,7 +765,7 @@ msgid "Preview"
 msgstr "Anteprima"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:658
+#: lib/deleteuserform.php:66 lib/noticelist.php:659
 msgid "Delete"
 msgstr "Elimina"
 
@@ -1009,7 +1014,7 @@ msgstr "Vuoi eliminare questo messaggio?"
 msgid "Do not delete this notice"
 msgstr "Non eliminare il messaggio"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:658
+#: actions/deletenotice.php:146 lib/noticelist.php:659
 msgid "Delete this notice"
 msgstr "Elimina questo messaggio"
 
@@ -2240,7 +2245,7 @@ msgstr "Messaggio inviato"
 msgid "Direct message to %s sent."
 msgstr "Messaggio diretto a %s inviato."
 
-#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Errore di Ajax"
 
@@ -2248,7 +2253,7 @@ msgstr "Errore di Ajax"
 msgid "New notice"
 msgstr "Nuovo messaggio"
 
-#: actions/newnotice.php:212
+#: actions/newnotice.php:217
 msgid "Notice posted"
 msgstr "Messaggio inviato"
 
@@ -2374,8 +2379,8 @@ msgstr "tipo di contenuto "
 msgid "Only "
 msgstr "Solo "
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
-#: lib/apiaction.php:1097 lib/apiaction.php:1213
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "Non è un formato di dati supportato."
 
@@ -3268,7 +3273,7 @@ msgstr "Non puoi ripetere i tuoi stessi messaggi."
 msgid "You already repeated that notice."
 msgstr "Hai già ripetuto quel messaggio."
 
-#: actions/repeat.php:114 lib/noticelist.php:677
+#: actions/repeat.php:114 lib/noticelist.php:678
 msgid "Repeated"
 msgstr "Ripetuti"
 
@@ -5689,12 +5694,12 @@ msgstr "MB"
 msgid "kB"
 msgstr "kB"
 
-#: lib/jabber.php:228
+#: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
 
-#: lib/jabber.php:408
+#: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr "Sorgente casella in arrivo %d sconosciuta."
@@ -5975,7 +5980,7 @@ msgstr ""
 "iniziare una conversazione con altri utenti. Altre persone possono mandare "
 "messaggi riservati solamente a te."
 
-#: lib/mailbox.php:227 lib/noticelist.php:485
+#: lib/mailbox.php:227 lib/noticelist.php:486
 msgid "from"
 msgstr "via"
 
@@ -6067,7 +6072,7 @@ msgstr "A"
 msgid "Available characters"
 msgstr "Caratteri disponibili"
 
-#: lib/messageform.php:178 lib/noticeform.php:242
+#: lib/messageform.php:178 lib/noticeform.php:236
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Invia"
@@ -6081,23 +6086,23 @@ msgstr "Invia un messaggio"
 msgid "What's up, %s?"
 msgstr "Cosa succede, %s?"
 
-#: lib/noticeform.php:195
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "Allega"
 
-#: lib/noticeform.php:200 lib/noticeform.php:222
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "Allega un file"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:212
 msgid "Share my location"
 msgstr "Condividi la mia posizione"
 
-#: lib/noticeform.php:219
+#: lib/noticeform.php:215
 msgid "Do not share my location"
 msgstr "Non condividere la mia posizione"
 
-#: lib/noticeform.php:220
+#: lib/noticeform.php:216
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6105,48 +6110,48 @@ msgstr ""
 "Il recupero della tua posizione geografica sta impiegando più tempo del "
 "previsto. Riprova più tardi."
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "N"
 msgstr "N"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "S"
 msgstr "S"
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "E"
 msgstr "E"
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "W"
 msgstr "O"
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:439
 msgid "at"
 msgstr "presso"
 
-#: lib/noticelist.php:569
+#: lib/noticelist.php:570
 msgid "in context"
 msgstr "in una discussione"
 
-#: lib/noticelist.php:604
+#: lib/noticelist.php:605
 msgid "Repeated by"
 msgstr "Ripetuto da"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply to this notice"
 msgstr "Rispondi a questo messaggio"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:633
 msgid "Reply"
 msgstr "Rispondi"
 
-#: lib/noticelist.php:676
+#: lib/noticelist.php:677
 msgid "Notice repeated"
 msgstr "Messaggio ripetuto"
 

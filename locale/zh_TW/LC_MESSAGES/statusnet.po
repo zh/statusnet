@@ -7,12 +7,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:43+0000\n"
-"PO-Revision-Date: 2010-03-27 17:45:51+0000\n"
+"POT-Creation-Date: 2010-04-03 13:27+0000\n"
+"PO-Revision-Date: 2010-04-03 13:29:38+0000\n"
 "Language-Team: Traditional Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hant\n"
 "X-Message-Group: out-statusnet\n"
@@ -95,7 +95,7 @@ msgstr "無此通知"
 #: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
-#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:72
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
@@ -195,7 +195,7 @@ msgstr ""
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -479,10 +479,15 @@ msgstr "無法連結到伺服器:%s"
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "無法從 %s 建立OpenID"
 
-#: actions/apigrouplist.php:95
+#: actions/apigrouplist.php:96
 #, fuzzy, php-format
 msgid "%s's groups"
 msgstr "無此通知"
+
+#: actions/apigrouplist.php:104
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s."
+msgstr "無法連結到伺服器:%s"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -645,7 +650,7 @@ msgstr ""
 msgid "Not found"
 msgstr ""
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -762,7 +767,7 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:658
+#: lib/deleteuserform.php:66 lib/noticelist.php:659
 msgid "Delete"
 msgstr ""
 
@@ -1021,7 +1026,7 @@ msgstr ""
 msgid "Do not delete this notice"
 msgstr "無此通知"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:658
+#: actions/deletenotice.php:146 lib/noticelist.php:659
 msgid "Delete this notice"
 msgstr ""
 
@@ -2218,7 +2223,7 @@ msgstr ""
 msgid "Direct message to %s sent."
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
 msgid "Ajax Error"
 msgstr ""
 
@@ -2226,7 +2231,7 @@ msgstr ""
 msgid "New notice"
 msgstr "新訊息"
 
-#: actions/newnotice.php:212
+#: actions/newnotice.php:217
 msgid "Notice posted"
 msgstr ""
 
@@ -2344,8 +2349,8 @@ msgstr "連結"
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
-#: lib/apiaction.php:1097 lib/apiaction.php:1213
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr ""
 
@@ -3205,7 +3210,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr "無此使用者"
 
-#: actions/repeat.php:114 lib/noticelist.php:677
+#: actions/repeat.php:114 lib/noticelist.php:678
 #, fuzzy
 msgid "Repeated"
 msgstr "新增"
@@ -5563,12 +5568,12 @@ msgstr ""
 msgid "kB"
 msgstr ""
 
-#: lib/jabber.php:228
+#: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:408
+#: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
@@ -5773,7 +5778,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:485
+#: lib/mailbox.php:227 lib/noticelist.php:486
 msgid "from"
 msgstr ""
 
@@ -5864,7 +5869,7 @@ msgstr ""
 msgid "Available characters"
 msgstr "6個以上字元"
 
-#: lib/messageform.php:178 lib/noticeform.php:242
+#: lib/messageform.php:178 lib/noticeform.php:236
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr ""
@@ -5879,74 +5884,74 @@ msgstr "新訊息"
 msgid "What's up, %s?"
 msgstr ""
 
-#: lib/noticeform.php:195
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:200 lib/noticeform.php:222
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:212
 #, fuzzy
 msgid "Share my location"
 msgstr "無法儲存個人資料"
 
-#: lib/noticeform.php:219
+#: lib/noticeform.php:215
 #, fuzzy
 msgid "Do not share my location"
 msgstr "無法儲存個人資料"
 
-#: lib/noticeform.php:220
+#: lib/noticeform.php:216
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "N"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "S"
 msgstr ""
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "E"
 msgstr ""
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:439
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:569
+#: lib/noticelist.php:570
 #, fuzzy
 msgid "in context"
 msgstr "無內容"
 
-#: lib/noticelist.php:604
+#: lib/noticelist.php:605
 #, fuzzy
 msgid "Repeated by"
 msgstr "新增"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply to this notice"
 msgstr ""
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:633
 msgid "Reply"
 msgstr ""
 
-#: lib/noticelist.php:676
+#: lib/noticelist.php:677
 #, fuzzy
 msgid "Notice repeated"
 msgstr "更新個人圖像"

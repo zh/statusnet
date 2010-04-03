@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-27 17:43+0000\n"
-"PO-Revision-Date: 2010-03-27 17:43:30+0000\n"
+"POT-Creation-Date: 2010-04-03 13:27+0000\n"
+"PO-Revision-Date: 2010-04-03 13:27:34+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64252); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -92,7 +92,7 @@ msgstr "لا صفحة كهذه"
 #: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
-#: actions/apigroupleave.php:99 actions/apigrouplist.php:90
+#: actions/apigroupleave.php:99 actions/apigrouplist.php:72
 #: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
@@ -191,7 +191,7 @@ msgstr ""
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:132
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -464,10 +464,15 @@ msgstr "لست عضوًا في هذه المجموعة"
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "لم يمكن إزالة المستخدم %1$s من المجموعة %2$s."
 
-#: actions/apigrouplist.php:95
+#: actions/apigrouplist.php:96
 #, php-format
 msgid "%s's groups"
 msgstr "مجموعات %s"
+
+#: actions/apigrouplist.php:104
+#, fuzzy, php-format
+msgid "Groups %1$s is a member of on %2$s."
+msgstr "المجموعات التي %s عضو فيها"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -625,7 +630,7 @@ msgstr ""
 msgid "Not found"
 msgstr "لم يوجد"
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:182
+#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -739,7 +744,7 @@ msgid "Preview"
 msgstr "معاينة"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:658
+#: lib/deleteuserform.php:66 lib/noticelist.php:659
 msgid "Delete"
 msgstr "احذف"
 
@@ -752,9 +757,8 @@ msgid "Crop"
 msgstr ""
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "لا ملف شخصي مُحدّد."
+msgstr "لم يُرفع ملف."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -982,7 +986,7 @@ msgstr "أمتأكد من أنك تريد حذف هذا الإشعار؟"
 msgid "Do not delete this notice"
 msgstr "لا تحذف هذا الإشعار"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:658
+#: actions/deletenotice.php:146 lib/noticelist.php:659
 msgid "Delete this notice"
 msgstr "احذف هذا الإشعار"
 
@@ -1724,6 +1728,10 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"تتيح لك مجموعات %%%%site.name%%%% إيجاد أشخاص ذوي اهتمامات مشتركة والتحدث "
+"معهم. تستطيع إرسال رسائل إلى جميع أعضاء المجموعة الآخرين بعد الانضمام إليها "
+"عبر الصياغة \"!اسم_المجموعة\". ألا ترى مجموعة تعجبك؟ جرّب [البحث عن مجموعة](%%"
+"%%action.groupsearch%%%%) أو [ابدأ مجموعتك!](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1735,6 +1743,8 @@ msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"ابحث عن مجموعات على %%site.name%% بدلالة الاسم أو الموقع أو الوصف. افصل "
+"عبارات البحث بمسافات؛ ويجب أن تتكون تلك العبارات من 3 أحرف أو أكثر."
 
 #: actions/groupsearch.php:58
 msgid "Group search"
@@ -2133,7 +2143,7 @@ msgstr "أُرسلت الرسالة"
 msgid "Direct message to %s sent."
 msgstr "رسالة مباشرة ل%s تم إرسالها."
 
-#: actions/newmessage.php:210 actions/newnotice.php:246 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "خطأ أجاكس"
 
@@ -2141,7 +2151,7 @@ msgstr "خطأ أجاكس"
 msgid "New notice"
 msgstr "إشعار جديد"
 
-#: actions/newnotice.php:212
+#: actions/newnotice.php:217
 msgid "Notice posted"
 msgstr "أُرسل الإشعار"
 
@@ -2259,8 +2269,8 @@ msgstr "نوع المحتوى "
 msgid "Only "
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1069
-#: lib/apiaction.php:1097 lib/apiaction.php:1213
+#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "ليس نسق بيانات مدعوم."
 
@@ -2558,6 +2568,8 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
+"ابحث عن أشخاص على %%site.name%% بدلالة الاسم أو الموقع أو الاهتمامات. افصل "
+"عبارات البحث بمسافات؛ ويجب أن تتكون تلك العبارات من 3 أحرف أو أكثر."
 
 #: actions/peoplesearch.php:58
 msgid "People search"
@@ -2901,7 +2913,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
-msgstr ""
+msgstr "لا يوجد عنوان بريد إلكتروني مُسجّل لهذا المستخدم."
 
 #: actions/recoverpassword.php:313
 msgid "Error saving address confirmation."
@@ -3104,7 +3116,7 @@ msgstr "لا يمكنك تكرار ملاحظتك الشخصية."
 msgid "You already repeated that notice."
 msgstr "أنت كررت هذه الملاحظة بالفعل."
 
-#: actions/repeat.php:114 lib/noticelist.php:677
+#: actions/repeat.php:114 lib/noticelist.php:678
 msgid "Repeated"
 msgstr "مكرر"
 
@@ -3356,9 +3368,9 @@ msgid "%s group"
 msgstr "مجموعة %s"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%1$s أعضاء المجموعة, الصفحة %2$d"
+msgstr "مجموعة %1$، الصفحة %2$d"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
@@ -3418,7 +3430,7 @@ msgstr "جميع الأعضاء"
 
 #: actions/showgroup.php:442
 msgid "Created"
-msgstr "أنشئ"
+msgstr "أنشئت"
 
 #: actions/showgroup.php:458
 #, php-format
@@ -3534,7 +3546,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"لدى **%s** حساب على  %%site.name%%، خدمة [التدوين المُصغّر](http://en."
+"لدى **%s** حساب على  %%%%site.name%%%%، خدمة [التدوين المُصغّر](http://en."
 "wikipedia.org/wiki/Micro-blogging) المبنية على البرنامج الحر [StatusNet]"
 "(http://status.net/). يتشارك أعضاؤها رسائل قصيرة عن حياتهم واهتماماتهم. "
 "[انضم الآن](%%%%action.register%%%%) لتتابع إشعارت **%s** وغيره! ([اقرأ "
@@ -3547,6 +3559,9 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
+"لدى **%s** حساب على  %%%%site.name%%%%، خدمة [التدوين المُصغّر](http://en."
+"wikipedia.org/wiki/Micro-blogging) المبنية على البرنامج الحر [StatusNet]"
+"(http://status.net/). "
 
 #: actions/showstream.php:305
 #, php-format
@@ -3668,9 +3683,8 @@ msgid "Edit site-wide message"
 msgstr "عدّل رسالة الموقع العامة"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "مشكلة أثناء حفظ الإشعار."
+msgstr "تعذّر حفظ إشعار الموقع."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars"
@@ -3944,9 +3958,9 @@ msgid "SMS"
 msgstr "رسائل قصيرة"
 
 #: actions/tag.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "الإشعارات الموسومة ب%s"
+msgstr "الإشعارات الموسومة ب%s، الصفحة %2$d"
 
 #: actions/tag.php:87
 #, php-format
@@ -4030,7 +4044,7 @@ msgstr ""
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
-msgstr ""
+msgstr "غير مشترك"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
@@ -4214,9 +4228,9 @@ msgid "Enjoy your hotdog!"
 msgstr "استمتع بالنقانق!"
 
 #: actions/usergroups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%1$s أعضاء المجموعة, الصفحة %2$d"
+msgstr "مجموعات %1$s، الصفحة %2$d"
 
 #: actions/usergroups.php:130
 msgid "Search for more groups"
@@ -4230,7 +4244,7 @@ msgstr "%s ليس عضوًا في أي مجموعة."
 #: actions/usergroups.php:162
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
-msgstr ""
+msgstr "جرّب [البحث عن مجموعات](%%action.groupsearch%%) والانضمام إليها."
 
 #: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
 #: lib/atomusernoticefeed.php:72
@@ -5258,7 +5272,7 @@ msgstr ""
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr ""
+msgstr "تحديثات عبر الرسائل القصيرة"
 
 #: lib/connectsettingsaction.php:120
 msgid "Connections"
@@ -5352,7 +5366,7 @@ msgstr ""
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
-msgstr ""
+msgstr "صِف المجموعة أو الموضوع"
 
 #: lib/groupeditform.php:170
 #, php-format
@@ -5412,7 +5426,7 @@ msgstr "المجموعات الأكثر مرسلات"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "وسوم في إشعارات المجموعة %s"
+msgstr "وسوم في إشعارات مجموعة %s"
 
 #: lib/htmloutputter.php:103
 msgid "This page is not available in a media type you accept"
@@ -5455,12 +5469,12 @@ msgstr "ميجابايت"
 msgid "kB"
 msgstr "كيلوبايت"
 
-#: lib/jabber.php:228
+#: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
 
-#: lib/jabber.php:408
+#: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr "مصدر صندوق وارد غير معروف %d."
@@ -5677,7 +5691,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:485
+#: lib/mailbox.php:227 lib/noticelist.php:486
 msgid "from"
 msgstr "من"
 
@@ -5766,7 +5780,7 @@ msgstr "إلى"
 msgid "Available characters"
 msgstr "المحارف المتوفرة"
 
-#: lib/messageform.php:178 lib/noticeform.php:242
+#: lib/messageform.php:178 lib/noticeform.php:236
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "أرسل"
@@ -5780,70 +5794,70 @@ msgstr "أرسل إشعارًا"
 msgid "What's up, %s?"
 msgstr "ما الأخبار يا %s؟"
 
-#: lib/noticeform.php:195
+#: lib/noticeform.php:192
 msgid "Attach"
 msgstr "أرفق"
 
-#: lib/noticeform.php:200 lib/noticeform.php:222
+#: lib/noticeform.php:196
 msgid "Attach a file"
 msgstr "أرفق ملفًا"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:212
 msgid "Share my location"
 msgstr "شارك موقعي"
 
-#: lib/noticeform.php:219
+#: lib/noticeform.php:215
 msgid "Do not share my location"
 msgstr "لا تشارك موقعي"
 
-#: lib/noticeform.php:220
+#: lib/noticeform.php:216
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
 
-#: lib/noticelist.php:429
+#: lib/noticelist.php:430
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "N"
 msgstr "ش"
 
-#: lib/noticelist.php:430
+#: lib/noticelist.php:431
 msgid "S"
 msgstr "ج"
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "E"
 msgstr "ر"
 
-#: lib/noticelist.php:431
+#: lib/noticelist.php:432
 msgid "W"
 msgstr "غ"
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:439
 msgid "at"
 msgstr "في"
 
-#: lib/noticelist.php:569
+#: lib/noticelist.php:570
 msgid "in context"
 msgstr "في السياق"
 
-#: lib/noticelist.php:604
+#: lib/noticelist.php:605
 msgid "Repeated by"
 msgstr "مكرر بواسطة"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:632
 msgid "Reply to this notice"
 msgstr "رُد على هذا الإشعار"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:633
 msgid "Reply"
 msgstr "رُد"
 
-#: lib/noticelist.php:676
+#: lib/noticelist.php:677
 msgid "Notice repeated"
 msgstr "الإشعار مكرر"
 
@@ -5943,7 +5957,7 @@ msgstr "عضو منذ"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:230
 msgid "Daily average"
-msgstr ""
+msgstr "المُعدّل اليومي"
 
 #: lib/profileaction.php:259
 msgid "All groups"
@@ -6131,7 +6145,7 @@ msgstr "تصرفات المستخدم"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "حذف المستخدم قيد التنفيذ..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
@@ -6151,7 +6165,7 @@ msgstr "رسالة"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
-msgstr ""
+msgstr "راقب"
 
 #: lib/userprofile.php:364
 #, fuzzy
