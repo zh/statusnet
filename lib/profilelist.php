@@ -181,9 +181,8 @@ class ProfileListItem extends Widget
     function showAvatar()
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                            'class' => 'url entry-title',
-                                            'rel' => 'contact'));
+        $aAttrs = $this->linkAttributes();
+        $this->out->elementStart('a', $aAttrs);
         $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                          'class' => 'photo avatar',
                                          'width' => AVATAR_STREAM_SIZE,
@@ -223,8 +222,8 @@ class ProfileListItem extends Widget
     {
         if (!empty($this->profile->homepage)) {
             $this->out->text(' ');
-            $this->out->elementStart('a', array('href' => $this->profile->homepage,
-                                                'class' => 'url'));
+            $aAttrs = $this->homepageAttributes();
+            $this->out->elementStart('a', $aAttrs);
             $this->out->raw($this->highlight($this->profile->homepage));
             $this->out->elementEnd('a');
         }
@@ -298,5 +297,18 @@ class ProfileListItem extends Widget
     function highlight($text)
     {
         return htmlspecialchars($text);
+    }
+
+    function linkAttributes()
+    {
+        return array('href' => $this->profile->profileurl,
+                     'class' => 'url entry-title',
+                     'rel' => 'contact');
+    }
+
+    function homepageAttributes()
+    {
+        return array('href' => $this->profile->homepage,
+                     'class' => 'url');
     }
 }

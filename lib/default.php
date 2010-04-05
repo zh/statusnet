@@ -299,4 +299,8 @@ $default =
               ),
         'api' =>
         array('realm' => null),
+        'nofollow' =>
+        array('subscribers' => true,
+              'members' => true,
+              'peopletag' => true),
         );

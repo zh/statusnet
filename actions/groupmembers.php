@@ -212,6 +212,7 @@ class GroupMemberListItem extends ProfileListItem
         }
 
     }
+
     function showGroupBlockForm()
     {
         $user = common_current_user();
@@ -224,7 +225,24 @@ class GroupMemberListItem extends ProfileListItem
             $bf->show();
             $this->out->elementEnd('li');
         }
+    }
 
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'members')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+
+    function homepageAttributes()
+    {
+        if (common_config('nofollow', 'members')) {
+            $aAttrs['rel'] = 'nofollow';
+        }
     }
 }
 

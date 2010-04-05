@@ -388,18 +388,23 @@ class ShowgroupAction extends GroupDesignAction
         $this->elementStart('div', array('id' => 'entity_members',
                                          'class' => 'section'));
 
-        $this->element('h2', null, _('Members'));
+        if (Event::handle('StartShowGroupMembersMiniList', array($this))) {
 
-        $pml = new ProfileMiniList($member, $this);
-        $cnt = $pml->show();
-        if ($cnt == 0) {
-             $this->element('p', null, _('(None)'));
-        }
+            $this->element('h2', null, _('Members'));
 
-        if ($cnt > MEMBERS_PER_SECTION) {
-            $this->element('a', array('href' => common_local_url('groupmembers',
-                                                                 array('nickname' => $this->group->nickname))),
-                           _('All members'));
+            $gmml = new GroupMembersMiniList($member, $this);
+            $cnt = $gmml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
+            }
+
+            if ($cnt > MEMBERS_PER_SECTION) {
+                $this->element('a', array('href' => common_local_url('groupmembers',
+                                                                     array('nickname' => $this->group->nickname))),
+                               _('All members'));
+            }
+
+            Event::handle('EndShowGroupMembersMiniList', array($this));
         }
 
         $this->elementEnd('div');
@@ -502,3 +507,26 @@ class GroupAdminSection extends ProfileSection
         return null;
     }
 }
+
+class GroupMembersMiniList extends ProfileMiniList
+{
+    function newListItem($profile)
+    {
+        return new GroupMembersMiniListItem($profile, $this->action);
+    }
+}
+
+class GroupMembersMiniListItem extends ProfileMiniListItem
+{
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'members')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+}
+
