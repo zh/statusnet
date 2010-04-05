@@ -101,4 +101,5 @@ class ProfileMiniListItem extends ProfileListItem
             }
             $this->out->elementEnd('li');
         }
+    }
 }
