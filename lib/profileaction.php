@@ -146,8 +146,8 @@ class ProfileAction extends OwnerDesignAction
             $cnt = 0;
 
             if (!empty($profile)) {
-                $pml = new ProfileMiniList($profile, $this);
-                $cnt = $pml->show();
+                $sml = new SubscribersMiniList($profile, $this);
+                $cnt = $sml->show();
                 if ($cnt == 0) {
                     $this->element('p', null, _('(None)'));
                 }
@@ -256,6 +256,42 @@ class ProfileAction extends OwnerDesignAction
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
+    }
+}
+
+class SubscribersMiniList extends ProfileMiniList
+{
+    function newListItem($profile)
+    {
+        return new SubscribersMiniListItem($profile, $this->action);
+    }
+}
+
+class SubscribersMiniListItem extends ProfileMiniListItem
+{
+    function show()
+    {
+        $this->out->elementStart('li', 'vcard');
+        if (Event::handle('StartProfileListItemProfileElements', array($this))) {
+            if (Event::handle('StartProfileListItemAvatar', array($this))) {
+                $this->out->elementStart('a', array('title' => $this->profile->getBestName(),
+                                                    'href' => $this->profile->profileurl,
+                                                    'rel' => 'contact member',
+                                                    'class' => 'url'));
+                $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
+                $this->out->element('img', array('src' => (($avatar) ? $avatar->displayUrl() :  Avatar::defaultImage(AVATAR_MINI_SIZE)),
+                                                 'width' => AVATAR_MINI_SIZE,
+                                                 'height' => AVATAR_MINI_SIZE,
+                                                 'class' => 'avatar photo',
+                                                 'alt' =>  ($this->profile->fullname) ?
+                                                 $this->profile->fullname :
+                                                 $this->profile->nickname));
+                $this->out->element('span', 'fn nickname', $this->profile->nickname);
+                $this->out->elementEnd('a');
+                Event::handle('EndProfileListItemAvatar', array($this));
+            }
+            $this->out->elementEnd('li');
+        }
     }
 }
 
