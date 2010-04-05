@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-03 13:27+0000\n"
-"PO-Revision-Date: 2010-04-05 15:04:27+0000\n"
+"POT-Creation-Date: 2010-04-05 18:54+0000\n"
+"PO-Revision-Date: 2010-04-05 18:55:03+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64614); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -202,7 +202,7 @@ msgstr "¡Actualizaciones de %1$s y sus amistades en %2$s!"
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:136
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -481,15 +481,17 @@ msgstr "No eres miembro de este grupo."
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "No se pudo eliminar al usuario %1$s del grupo %2$s."
 
-#: actions/apigrouplist.php:96
+#. TRANS: %s is a user name
+#: actions/apigrouplist.php:97
 #, php-format
 msgid "%s's groups"
 msgstr "Grupos de %s"
 
-#: actions/apigrouplist.php:104
-#, php-format
-msgid "Groups %1$s is a member of on %2$s."
-msgstr "Grupos de los cuales %1$s es miembro en %2$s."
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:107
+#, fuzzy, php-format
+msgid "%1$s groups %2$s is a member of."
+msgstr "%s es miembro de los grupos"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -5476,17 +5478,16 @@ msgid "Updates by SMS"
 msgstr "Actualizaciones por sms"
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
-msgstr "Conectarse"
+msgstr "Conecciones"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
-msgstr ""
+msgstr "Aplicaciones conectadas autorizadas"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "Error de la base de datos"
 
 #: lib/designsettings.php:105
 msgid "Upload file"
@@ -5971,9 +5972,8 @@ msgid "File could not be moved to destination directory."
 msgstr ""
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
-#, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "No se pudo acceder a corriente pública."
+msgstr "No se pudo determinar tipo MIME del archivo"
 
 #: lib/mediafile.php:270
 #, php-format
@@ -5983,7 +5983,7 @@ msgstr "Pruebe a usar otro formato %s."
 #: lib/mediafile.php:275
 #, php-format
 msgid "%s is not a supported file type on this server."
-msgstr ""
+msgstr "%s no es un tipo de archivo soportado en este servidor."
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
@@ -6183,9 +6183,8 @@ msgid "All groups"
 msgstr "Todos los grupos"
 
 #: lib/profileformaction.php:123
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "No existe argumento de ID."
+msgstr "No hay respuesta a los argumentos."
 
 #: lib/profileformaction.php:137
 msgid "Unimplemented method."
@@ -6212,9 +6211,8 @@ msgid "Popular"
 msgstr "Popular"
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Responder este aviso."
+msgstr "Responder este aviso?"
 
 #: lib/repeatform.php:132
 #, fuzzy

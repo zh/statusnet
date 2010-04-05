@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 15:03+0000\n"
+"POT-Creation-Date: 2010-04-05 18:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -187,7 +187,7 @@ msgstr ""
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:136
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -460,14 +460,16 @@ msgstr ""
 msgid "Could not remove user %1$s from group %2$s."
 msgstr ""
 
-#: actions/apigrouplist.php:96
+#. TRANS: %s is a user name
+#: actions/apigrouplist.php:97
 #, php-format
 msgid "%s's groups"
 msgstr ""
 
-#: actions/apigrouplist.php:104
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:107
 #, php-format
-msgid "Groups %1$s is a member of on %2$s."
+msgid "%1$s groups %2$s is a member of."
 msgstr ""
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
