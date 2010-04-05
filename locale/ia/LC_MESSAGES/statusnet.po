@@ -9,11 +9,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-03 13:27+0000\n"
-"PO-Revision-Date: 2010-04-03 13:28:32+0000\n"
+"PO-Revision-Date: 2010-04-05 15:04:52+0000\n"
 "Language-Team: Interlingua\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64614); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: out-statusnet\n"
@@ -480,9 +480,9 @@ msgid "%s's groups"
 msgstr "Gruppos de %s"
 
 #: actions/apigrouplist.php:104
-#, fuzzy, php-format
+#, php-format
 msgid "Groups %1$s is a member of on %2$s."
-msgstr "Gruppos del quales %s es membro"
+msgstr "Gruppos del quales %1$s es membro in %2$s."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -777,9 +777,8 @@ msgid "Crop"
 msgstr "Taliar"
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "Nulle profilo specificate."
+msgstr "Nulle file incargate."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -3766,9 +3765,8 @@ msgid "Unknown language \"%s\"."
 msgstr "Lingua \"%s\" incognite."
 
 #: actions/siteadminpanel.php:165
-#, fuzzy
 msgid "Minimum text limit is 0 (unlimited)."
-msgstr "Le limite minimal del texto es 140 characteres."
+msgstr "Le limite minimal del texto es 0 (illimitate)."
 
 #: actions/siteadminpanel.php:171
 msgid "Dupe limit must 1 or more seconds."
@@ -4938,6 +4936,8 @@ msgstr "Ante"
 #: lib/activity.php:120
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
+"Expectava le elemento-radice de un syndication, ma recipeva un documento XML "
+"integre."
 
 #: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
@@ -6250,7 +6250,7 @@ msgstr "Membro depost"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:230
 msgid "Daily average"
-msgstr ""
+msgstr "Media de cata die"
 
 #: lib/profileaction.php:259
 msgid "All groups"
@@ -6424,9 +6424,9 @@ msgid "Unsubscribe"
 msgstr "Cancellar subscription"
 
 #: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "User %s (%d) has no profile record."
-msgstr "Le usator non ha un profilo."
+msgstr "Le usator %s (%d) non ha un profilo."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -6438,7 +6438,7 @@ msgstr "Actiones de usator"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Deletion del usator in curso…"
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
