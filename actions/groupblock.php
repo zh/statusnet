@@ -214,5 +214,12 @@ class GroupblockAction extends Action
                             303);
         }
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('form_action-yes');
+    }
+
 }
 
