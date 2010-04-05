@@ -269,29 +269,13 @@ class SubscribersMiniList extends ProfileMiniList
 
 class SubscribersMiniListItem extends ProfileMiniListItem
 {
-    function show()
+    function linkAttributes()
     {
-        $this->out->elementStart('li', 'vcard');
-        if (Event::handle('StartProfileListItemProfileElements', array($this))) {
-            if (Event::handle('StartProfileListItemAvatar', array($this))) {
-                $this->out->elementStart('a', array('title' => $this->profile->getBestName(),
-                                                    'href' => $this->profile->profileurl,
-                                                    'rel' => 'contact member',
-                                                    'class' => 'url'));
-                $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
-                $this->out->element('img', array('src' => (($avatar) ? $avatar->displayUrl() :  Avatar::defaultImage(AVATAR_MINI_SIZE)),
-                                                 'width' => AVATAR_MINI_SIZE,
-                                                 'height' => AVATAR_MINI_SIZE,
-                                                 'class' => 'avatar photo',
-                                                 'alt' =>  ($this->profile->fullname) ?
-                                                 $this->profile->fullname :
-                                                 $this->profile->nickname));
-                $this->out->element('span', 'fn nickname', $this->profile->nickname);
-                $this->out->elementEnd('a');
-                Event::handle('EndProfileListItemAvatar', array($this));
-            }
-            $this->out->elementEnd('li');
+        $aAttrs = parent::linkAttributes();
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] .= ' nofollow';
         }
+        return $aAttrs;
     }
 }
 
