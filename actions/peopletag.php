@@ -166,18 +166,10 @@ class PeopleTagListItem extends ProfileListItem
         return $aAttrs;
     }
 
-    function showHomepage()
+    function homepageAttributes()
     {
-        if (!empty($this->profile->homepage)) {
-            $this->out->text(' ');
-            $aAttrs = array('href' => $this->profile->homepage,
-                            'class' => 'url');
-            if (common_config('nofollow', 'peopletag')) {
-                $aAttrs['rel'] = 'nofollow';
-            }
-            $this->out->elementStart('a', $aAttrs);
-            $this->out->raw($this->highlight($this->profile->homepage));
-            $this->out->elementEnd('a');
+        if (common_config('nofollow', 'peopletag')) {
+            $aAttrs['rel'] = 'nofollow';
         }
     }
 }
