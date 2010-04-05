@@ -392,8 +392,8 @@ class ShowgroupAction extends GroupDesignAction
 
             $this->element('h2', null, _('Members'));
 
-            $pml = new ProfileMiniList($member, $this);
-            $cnt = $pml->show();
+            $gmml = new GroupMembersMiniList($member, $this);
+            $cnt = $gmml->show();
             if ($cnt == 0) {
                 $this->element('p', null, _('(None)'));
             }
@@ -507,3 +507,26 @@ class GroupAdminSection extends ProfileSection
         return null;
     }
 }
+
+class GroupMembersMiniList extends ProfileMiniList
+{
+    function newListItem($profile)
+    {
+        return new GroupMembersMiniListItem($profile, $this->action);
+    }
+}
+
+class GroupMembersMiniListItem extends ProfileMiniListItem
+{
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'members')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+}
+
