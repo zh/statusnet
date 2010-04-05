@@ -83,10 +83,8 @@ class ProfileMiniListItem extends ProfileListItem
         $this->out->elementStart('li', 'vcard');
         if (Event::handle('StartProfileListItemProfileElements', array($this))) {
             if (Event::handle('StartProfileListItemAvatar', array($this))) {
-                $this->out->elementStart('a', array('title' => $this->profile->getBestName(),
-                                                    'href' => $this->profile->profileurl,
-                                                    'rel' => 'contact member',
-                                                    'class' => 'url'));
+                $aAttrs = $this->linkAttributes();
+                $this->out->elementStart('a', $aAttrs);
                 $avatar = $this->profile->getAvatar(AVATAR_MINI_SIZE);
                 $this->out->element('img', array('src' => (($avatar) ? $avatar->displayUrl() :  Avatar::defaultImage(AVATAR_MINI_SIZE)),
                                                  'width' => AVATAR_MINI_SIZE,
@@ -101,5 +99,18 @@ class ProfileMiniListItem extends ProfileListItem
             }
             $this->out->elementEnd('li');
         }
+    }
+
+    // default; overridden for nofollow lists
+
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        $aAttrs['title'] = $this->profile->getBestName();
+        $aAttrs['rel']   = 'contact member'; // @todo: member? always?
+        $aAttrs['class'] = 'url';
+
+        return $aAttrs;
     }
 }
