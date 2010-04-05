@@ -100,10 +100,12 @@ class ApiGroupListAction extends ApiBareAuthAction
             'usergroups',
             array('nickname' => $this->user->nickname)
         );
+
+        // TRANS: Meant to convey the user is a member of each of the groups listed
         $subtitle   = sprintf(
-            _("Groups %1\$s is a member of on %2\$s."),
-            $this->user->nickname,
-            $sitename
+            _("%1\$s groups %2\$s is a member of."),
+            $sitename,
+            $this->user->nickname
         );
 
         switch($this->format) {
