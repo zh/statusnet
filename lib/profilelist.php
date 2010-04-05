@@ -222,8 +222,8 @@ class ProfileListItem extends Widget
     {
         if (!empty($this->profile->homepage)) {
             $this->out->text(' ');
-            $this->out->elementStart('a', array('href' => $this->profile->homepage,
-                                                'class' => 'url'));
+            $aAttrs = $this->homepageAttributes();
+            $this->out->elementStart('a', $aAttrs);
             $this->out->raw($this->highlight($this->profile->homepage));
             $this->out->elementEnd('a');
         }
@@ -304,5 +304,11 @@ class ProfileListItem extends Widget
         return array('href' => $this->profile->profileurl,
                      'class' => 'url entry-title',
                      'rel' => 'contact');
+    }
+
+    function homepageAttributes()
+    {
+        return array('href' => $this->profile->homepage,
+                     'class' => 'url');
     }
 }
