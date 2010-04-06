@@ -163,4 +163,22 @@ class SubscribersListItem extends SubscriptionListItem
             $bf->show();
         }
     }
+
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+
+    function homepageAttributes()
+    {
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] = 'nofollow';
+        }
+    }
 }
