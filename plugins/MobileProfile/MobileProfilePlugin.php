@@ -73,9 +73,11 @@ class MobileProfilePlugin extends WAP20Plugin
             $this->serveMobile = true;
         } else {
             // If they like the WAP 2.0 mimetype, serve them MP
-            if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
-                $this->serveMobile = true;
-            } else {
+            // @fixme $type is undefined, making this if case useless and spewing errors.
+            // What's the intent?
+            //if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
+            //    $this->serveMobile = true;
+            //} else {
                 // If they are a mobile device that supports WAP 2.0, 
                 // serve them MP
 
@@ -149,7 +151,7 @@ class MobileProfilePlugin extends WAP20Plugin
                         break;
                     }
                 }
-            }
+            //}
 
             // If they are okay with MP, and the site has a mobile server, 
             // redirect there
@@ -167,7 +169,9 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
-        if (!$type) {
+        // @fixme $type is undefined, making this if case useless and spewing errors.
+        // What's the intent?
+        //if (!$type) {
             $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
               $_SERVER['HTTP_ACCEPT'] : null;
 
@@ -180,7 +184,7 @@ class MobileProfilePlugin extends WAP20Plugin
                 throw new ClientException(_('This page is not available in a '.
                                             'media type you accept'), 406);
             }
-        }
+        //}
 
         header('Content-Type: '.$type);
 
@@ -221,9 +225,12 @@ class MobileProfilePlugin extends WAP20Plugin
 
     function onStartShowHeadElements($action)
     {
-        if (!$action->serveMobile) {
-            return true;
-        }
+        // @fixme nothing appears to set a serveMobile on any action,
+        // so this is useless and spews errors. Is this supposed to be
+        // checking $this?
+        //if (!$action->serveMobile) {
+        //    return true;
+        //}
 
         $action->showTitle();
         $action->showShortcutIcon();
