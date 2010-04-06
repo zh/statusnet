@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 18:54+0000\n"
-"PO-Revision-Date: 2010-04-05 18:55:03+0000\n"
+"POT-Creation-Date: 2010-04-06 22:53+0000\n"
+"PO-Revision-Date: 2010-04-06 22:54:17+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64665); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -840,7 +840,7 @@ msgstr "No bloquear a este usuario"
 msgid "Yes"
 msgstr "Sí"
 
-#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquear este usuario."
 
@@ -941,7 +941,7 @@ msgid "Conversation"
 msgstr "Conversación"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:224 lib/searchgroupnav.php:82
+#: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Avisos"
 
@@ -1637,7 +1637,7 @@ msgstr "Usuario ya está bloqueado del grupo."
 msgid "User is not a member of group."
 msgstr "Usuario no es miembro del grupo"
 
-#: actions/groupblock.php:136 actions/groupmembers.php:323
+#: actions/groupblock.php:136 actions/groupmembers.php:341
 msgid "Block user from group"
 msgstr "Bloquear usuario de grupo"
 
@@ -1741,19 +1741,19 @@ msgstr "Lista de los usuarios en este grupo."
 msgid "Admin"
 msgstr "Admin"
 
-#: actions/groupmembers.php:355 lib/blockform.php:69
+#: actions/groupmembers.php:373 lib/blockform.php:69
 msgid "Block"
 msgstr "Bloquear"
 
-#: actions/groupmembers.php:450
+#: actions/groupmembers.php:468
 msgid "Make user an admin of the group"
 msgstr "Convertir al usuario en administrador del grupo"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make Admin"
 msgstr "Convertir en administrador"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make this user an admin"
 msgstr "Convertir a este usuario en administrador"
 
@@ -1768,7 +1768,7 @@ msgstr "línea temporal de %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "¡Actualizaciones de miembros de %1$s en %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
+#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupos"
@@ -2699,12 +2699,12 @@ msgstr ""
 msgid "People search"
 msgstr "Buscador de gente"
 
-#: actions/peopletag.php:70
+#: actions/peopletag.php:68
 #, php-format
 msgid "Not a valid people tag: %s"
 msgstr "No es una etiqueta válida para personas: %s"
 
-#: actions/peopletag.php:144
+#: actions/peopletag.php:142
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Usuarios auto etiquetados con %1$s - página %2$d"
@@ -3435,8 +3435,8 @@ msgstr "Organización"
 msgid "Description"
 msgstr "Descripción"
 
-#: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:182
+#: actions/showapplication.php:192 actions/showgroup.php:444
+#: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Estadísticas"
 
@@ -3597,25 +3597,25 @@ msgstr "Canal de avisos del grupo %s (Atom)"
 msgid "FOAF for %s group"
 msgstr "Amistades de amistades del grupo %s"
 
-#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
 msgstr "Miembros"
 
-#: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ninguno)"
 
-#: actions/showgroup.php:402
+#: actions/showgroup.php:404
 msgid "All members"
 msgstr "Todos los miembros"
 
-#: actions/showgroup.php:442
+#: actions/showgroup.php:447
 msgid "Created"
 msgstr "Creado"
 
-#: actions/showgroup.php:458
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3631,7 +3631,7 @@ msgstr ""
 "action.register%%%%) para formar parte de este y muchos más grupos! ([Más "
 "información](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:464
+#: actions/showgroup.php:469
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3644,7 +3644,7 @@ msgstr ""
 "herramienta de software libre [StatusNet](http://status.net/). Sus miembros "
 "comparten mensajes cortos acerca de su vida e intereses. "
 
-#: actions/showgroup.php:492
+#: actions/showgroup.php:497
 msgid "Admins"
 msgstr "Administradores"
 
@@ -5681,7 +5681,7 @@ msgstr "kB"
 #: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
-msgstr ""
+msgstr "[%s]"
 
 #: lib/jabber.php:567
 #, php-format
@@ -6149,7 +6149,7 @@ msgstr "Tags en avisos de %s"
 msgid "Unknown"
 msgstr "Desconocido"
 
-#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Suscripciones"
 
@@ -6157,28 +6157,28 @@ msgstr "Suscripciones"
 msgid "All subscriptions"
 msgstr "Todas las suscripciones"
 
-#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
+#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Suscriptores"
 
-#: lib/profileaction.php:159
+#: lib/profileaction.php:161
 msgid "All subscribers"
 msgstr "Todos los suscriptores"
 
-#: lib/profileaction.php:186
+#: lib/profileaction.php:191
 msgid "User ID"
 msgstr "ID de usuario"
 
-#: lib/profileaction.php:191
+#: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Miembro desde"
 
 #. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:230
+#: lib/profileaction.php:235
 msgid "Daily average"
 msgstr "Promedio diario"
 
-#: lib/profileaction.php:259
+#: lib/profileaction.php:264
 msgid "All groups"
 msgstr "Todos los grupos"
 
@@ -6215,23 +6215,21 @@ msgid "Repeat this notice?"
 msgstr "Responder este aviso?"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
 msgstr "Responder este aviso."
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Bloquear este usuario de este grupo"
+msgstr "Revocar el rol \"%s\" de este usuario"
 
 #: lib/router.php:704
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Ningún usuario sólo definido para modo monousuario."
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Bandeja de Entrada"
+msgstr "Cajón de sastre"
 
 #: lib/sandboxform.php:78
 #, fuzzy
@@ -6239,13 +6237,12 @@ msgid "Sandbox this user"
 msgstr "Desbloquear este usuario"
 
 #: lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
-msgstr "Buscar"
+msgstr "Buscar sitio"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Palabra(s) clave"
 
 #: lib/searchaction.php:127
 msgid "Search"
@@ -6280,14 +6277,12 @@ msgid "More..."
 msgstr "Más..."
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Aviso de sitio"
+msgstr "Silencio"
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Bloquear este usuario."
+msgstr "Silenciar este usuario"
 
 #: lib/subgroupnav.php:83
 #, fuzzy, php-format
@@ -6395,21 +6390,18 @@ msgid "Moderate"
 msgstr "Moderar"
 
 #: lib/userprofile.php:364
-#, fuzzy
 msgid "User role"
-msgstr "Perfil de usuario"
+msgstr "Rol de usuario"
 
 #: lib/userprofile.php:366
-#, fuzzy
 msgctxt "role"
 msgid "Administrator"
-msgstr "Administradores"
+msgstr "Administrador"
 
 #: lib/userprofile.php:367
-#, fuzzy
 msgctxt "role"
 msgid "Moderator"
-msgstr "Moderar"
+msgstr "Moderador"
 
 #: lib/util.php:1046
 msgid "a few seconds ago"
@@ -6463,9 +6455,9 @@ msgstr "¡%s no es un color válido!"
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
+msgstr "%s no es un color válido! Usar 3 o 6 caracteres hexagesimales"
 
 #: lib/xmppmanager.php:403
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "Mensaje muy largo - máximo 140 caracteres, enviaste %d"
+msgstr "Mensaje muy largo - máximo %1$d caracteres, enviaste %2$d"
