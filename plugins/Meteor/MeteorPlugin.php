@@ -65,6 +65,26 @@ class MeteorPlugin extends RealtimePlugin
         parent::__construct();
     }
 
+    /**
+     * Pull settings from config file/database if set.
+     */
+    function initialize()
+    {
+        $settings = array('webserver',
+                          'webport',
+                          'controlport',
+                          'controlserver',
+                          'channelbase');
+        foreach ($settings as $name) {
+            $val = common_config('meteor', $name);
+            if ($val !== false) {
+                $this->$name = $val;
+            }
+        }
+
+        return parent::initialize();
+    }
+
     function _getScripts()
     {
         $scripts = parent::_getScripts();
