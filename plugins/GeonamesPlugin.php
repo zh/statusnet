@@ -55,8 +55,12 @@ class GeonamesPlugin extends Plugin
     public $username = null;
     public $token    = null;
     public $expiry   = 7776000; // 90-day expiry
+    public $timeout  = 2;       // Web service timeout in seconds.
+    public $timeoutWindow = 60; // Further lookups in this process will be disabled for N seconds after a timeout.
     public $cachePrefix = null; // Optional shared memcache prefix override
                                 // to share lookups between local instances.
+
+    protected $lastTimeout = null; // timestamp of last web service timeout
 
     /**
      * convert a name into a Location object
@@ -437,9 +441,21 @@ class GeonamesPlugin extends Plugin
 
     function getGeonames($method, $params)
     {
-        $client = HTTPClient::start();
+        if ($this->lastTimeout && (time() - $this->lastTimeout < $this->timeoutWindow)) {
+            throw new Exception("skipping due to recent web service timeout");
+        }
 
-        $result = $client->get($this->wsUrl($method, $params));
+        $client = HTTPClient::start();
+        $client->setConfig('connect_timeout', $this->timeout);
+        $client->setConfig('timeout', $this->timeout);
+
+        try {
+            $result = $client->get($this->wsUrl($method, $params));
+        } catch (Exception $e) {
+            common_log(LOG_ERR, __METHOD__ . ": " . $e->getMessage());
+            $this->lastTimeout = time();
+            throw $e;
+        }
 
         if (!$result->isOk()) {
             throw new Exception("HTTP error code " . $result->code);
