@@ -141,7 +141,18 @@ class MobileProfilePlugin extends WAP20Plugin
                     'windows ce'
                 );
 
+                $blacklist = array(
+                    'ipad', // Larger screen handles the full theme fairly well.
+                );
+
                 $httpuseragent = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+                foreach ($blacklist as $md) {
+                    if (strstr($httpuseragent, $md) !== false) {
+                        $this->serveMobile = false;
+                        return true;
+                    }
+                }
 
                 foreach ($this->mobiledevices as $md) {
                     if (strstr($httpuseragent, $md) !== false) {
