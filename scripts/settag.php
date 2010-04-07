@@ -33,13 +33,12 @@ END_OF_SETTAG_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-if (count($args) != 2) {
+if (count($args) < 1) {
     show_help();
     exit(1);
 }
 
 $nickname = $args[0];
-$tag = strtolower($args[1]);
 
 $sn = Status_network::memGet('nickname', $nickname);
 
@@ -49,6 +48,12 @@ if (empty($sn)) {
 }
 
 $tags = $sn->getTags();
+
+if (count($args) == 1) {
+	print(implode(', ', $tags) . "\n");
+	exit(0);
+}
+$tag = $args[1];
 
 $i = array_search($tag, $tags);
 
