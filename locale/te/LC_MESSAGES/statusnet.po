@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-03 13:27+0000\n"
-"PO-Revision-Date: 2010-04-03 13:29:19+0000\n"
+"POT-Creation-Date: 2010-04-06 22:53+0000\n"
+"PO-Revision-Date: 2010-04-06 22:55:23+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64665); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -190,7 +190,7 @@ msgstr ""
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:136
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -470,14 +470,16 @@ msgstr "మీరు ఈ గుంపులో సభ్యులు కాద�
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "వాడుకరి %sని %s గుంపు నుండి తొలగించలేకపోయాం."
 
-#: actions/apigrouplist.php:96
+#. TRANS: %s is a user name
+#: actions/apigrouplist.php:97
 #, php-format
 msgid "%s's groups"
 msgstr "%s యొక్క గుంపులు"
 
-#: actions/apigrouplist.php:104
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:107
 #, fuzzy, php-format
-msgid "Groups %1$s is a member of on %2$s."
+msgid "%1$s groups %2$s is a member of."
 msgstr "%s సభ్యులుగా ఉన్న గుంపులు"
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
@@ -821,7 +823,7 @@ msgstr "ఈ వాడుకరిని నిరోధించకు"
 msgid "Yes"
 msgstr "అవును"
 
-#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
 msgid "Block this user"
 msgstr "ఈ వాడుకరిని నిరోధించు"
 
@@ -923,7 +925,7 @@ msgid "Conversation"
 msgstr "సంభాషణ"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:224 lib/searchgroupnav.php:82
+#: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "సందేశాలు"
 
@@ -1605,7 +1607,7 @@ msgstr "వాడుకరిని ఇప్పటికే గుంపున�
 msgid "User is not a member of group."
 msgstr "వాడుకరి ఈ గుంపులో సభ్యులు కాదు."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:323
+#: actions/groupblock.php:136 actions/groupmembers.php:341
 msgid "Block user from group"
 msgstr "వాడుకరిని గుంపు నుండి నిరోధించు"
 
@@ -1705,19 +1707,19 @@ msgstr "ఈ గుంపులో వాడుకరులు జాబితా
 msgid "Admin"
 msgstr "నిర్వాహకులు"
 
-#: actions/groupmembers.php:355 lib/blockform.php:69
+#: actions/groupmembers.php:373 lib/blockform.php:69
 msgid "Block"
 msgstr "నిరోధించు"
 
-#: actions/groupmembers.php:450
+#: actions/groupmembers.php:468
 msgid "Make user an admin of the group"
 msgstr "వాడుకరిని గుంపుకి ఒక నిర్వాహకునిగా చేయి"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make Admin"
 msgstr "నిర్వాహకున్ని చేయి"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make this user an admin"
 msgstr "ఈ వాడుకరిని నిర్వాహకున్ని చేయి"
 
@@ -1732,7 +1734,7 @@ msgstr "%s కాలరేఖ"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%s యొక్క మైక్రోబ్లాగు"
 
-#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
+#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "గుంపులు"
@@ -2589,7 +2591,7 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
-msgstr ""
+msgstr "SSLని ఎప్పుడు ఉపయోగించాలి"
 
 #: actions/pathsadminpanel.php:335
 #, fuzzy
@@ -2618,12 +2620,12 @@ msgstr ""
 msgid "People search"
 msgstr "వ్యక్తుల అన్వేషణ"
 
-#: actions/peopletag.php:70
+#: actions/peopletag.php:68
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s"
 msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
 
-#: actions/peopletag.php:144
+#: actions/peopletag.php:142
 #, fuzzy, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%s యొక్క మైక్రోబ్లాగు"
@@ -3325,8 +3327,8 @@ msgstr "సంస్ధ"
 msgid "Description"
 msgstr "వివరణ"
 
-#: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:182
+#: actions/showapplication.php:192 actions/showgroup.php:444
+#: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "గణాంకాలు"
 
@@ -3480,25 +3482,25 @@ msgstr "%s యొక్క సందేశముల ఫీడు"
 msgid "FOAF for %s group"
 msgstr "%s గుంపు"
 
-#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
 msgstr "సభ్యులు"
 
-#: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(ఏమీలేదు)"
 
-#: actions/showgroup.php:402
+#: actions/showgroup.php:404
 msgid "All members"
 msgstr "అందరు సభ్యులూ"
 
-#: actions/showgroup.php:442
+#: actions/showgroup.php:447
 msgid "Created"
 msgstr "సృష్టితం"
 
-#: actions/showgroup.php:458
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3508,7 +3510,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:464
+#: actions/showgroup.php:469
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3517,7 +3519,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:492
+#: actions/showgroup.php:497
 msgid "Admins"
 msgstr "నిర్వాహకులు"
 
@@ -3669,7 +3671,7 @@ msgstr "మీ సైటు యొక్క పేరు, ఇలా \"మీక�
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
-msgstr ""
+msgstr "అందిస్తున్నవారు"
 
 #: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
@@ -3677,16 +3679,15 @@ msgstr ""
 
 #: actions/siteadminpanel.php:234
 msgid "Brought by URL"
-msgstr ""
+msgstr "అందిస్తున్నవారి URL"
 
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
 #: actions/siteadminpanel.php:239
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "ఈ వాడుకరికై నమోదైన ఈమెయిల్ చిరునామాలు ఏమీ లేవు."
+msgstr "మీ సైటుకి సంప్రదింపుల ఈమెయిల్ చిరునామా"
 
 #: actions/siteadminpanel.php:245
 msgid "Local"
@@ -5996,7 +5997,7 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "చందాలు"
 
@@ -6004,28 +6005,28 @@ msgstr "చందాలు"
 msgid "All subscriptions"
 msgstr "అన్ని చందాలు"
 
-#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
+#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "చందాదార్లు"
 
-#: lib/profileaction.php:159
+#: lib/profileaction.php:161
 msgid "All subscribers"
 msgstr "అందరు చందాదార్లు"
 
-#: lib/profileaction.php:186
+#: lib/profileaction.php:191
 msgid "User ID"
 msgstr "వాడుకరి ID"
 
-#: lib/profileaction.php:191
+#: lib/profileaction.php:196
 msgid "Member since"
 msgstr "సభ్యులైన తేదీ"
 
 #. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:230
+#: lib/profileaction.php:235
 msgid "Daily average"
 msgstr ""
 
-#: lib/profileaction.php:259
+#: lib/profileaction.php:264
 msgid "All groups"
 msgstr "అన్ని గుంపులు"
 

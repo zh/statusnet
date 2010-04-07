@@ -32,8 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR.'/lib/profilelist.php';
-
 /**
  * This class outputs a paginated list of profiles self-tagged with a given tag
  *
@@ -124,8 +122,8 @@ class PeopletagAction extends Action
 
         $profile->query(sprintf($qry, $this->tag, $lim));
 
-        $pl  = new ProfileList($profile, $this);
-        $cnt = $pl->show();
+        $ptl = new PeopleTagList($profile, $this); // pass the ammunition
+        $cnt = $ptl->show();
 
         $this->pagination($this->page > 1,
                           $cnt > PROFILES_PER_PAGE,
@@ -146,3 +144,33 @@ class PeopletagAction extends Action
     }
 
 }
+
+class PeopleTagList extends ProfileList
+{
+    function newListItem($profile)
+    {
+        return new PeopleTagListItem($profile, $this->action);
+    }
+}
+
+class PeopleTagListItem extends ProfileListItem
+{
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'peopletag')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+
+    function homepageAttributes()
+    {
+        if (common_config('nofollow', 'peopletag')) {
+            $aAttrs['rel'] = 'nofollow';
+        }
+    }
+}
+

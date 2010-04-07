@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-03 13:27+0000\n"
-"PO-Revision-Date: 2010-04-03 13:28:46+0000\n"
+"POT-Creation-Date: 2010-04-05 18:54+0000\n"
+"PO-Revision-Date: 2010-04-05 18:55:43+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64515); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -191,7 +191,7 @@ msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 #: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
-#: actions/apigroupleave.php:141 actions/apigrouplist.php:133
+#: actions/apigroupleave.php:141 actions/apigrouplist.php:136
 #: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
@@ -328,22 +328,20 @@ msgid "No status found with that ID."
 msgstr "그 ID로 발견된 상태가 없습니다."
 
 #: actions/apifavoritecreate.php:119
-#, fuzzy
 msgid "This status is already a favorite."
-msgstr "이 게시글은 이미 좋아하는 게시글입니다."
+msgstr "이 소식은 이미 관심소식으로 등록되어 있습니다."
 
 #: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:279
 msgid "Could not create favorite."
-msgstr "좋아하는 게시글을 생성할 수 없습니다."
+msgstr "관심소식을 생성할 수 없습니다."
 
 #: actions/apifavoritedestroy.php:122
-#, fuzzy
 msgid "That status is not a favorite."
-msgstr "이 메시지는 favorite이 아닙니다."
+msgstr "이 소식은 관심소식이 아닙니다."
 
 #: actions/apifavoritedestroy.php:134 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr "favorite을 삭제할 수 없습니다."
+msgstr "관심소식을 삭제할 수 없습니다."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
@@ -449,7 +447,6 @@ msgid "Group not found!"
 msgstr "그룹을 찾을 수 없습니다."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
-#, fuzzy
 msgid "You are already a member of that group."
 msgstr "당신은 이미 이 그룹의 멤버입니다."
 
@@ -463,7 +460,6 @@ msgid "Could not join user %1$s to group %2$s."
 msgstr "이용자 %1$s 의 그룹 %2$s 가입에 실패했습니다."
 
 #: actions/apigroupleave.php:114
-#, fuzzy
 msgid "You are not a member of this group."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
@@ -472,14 +468,16 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
-#: actions/apigrouplist.php:96
+#. TRANS: %s is a user name
+#: actions/apigrouplist.php:97
 #, php-format
 msgid "%s's groups"
 msgstr "%s의 그룹들"
 
-#: actions/apigrouplist.php:104
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:107
 #, fuzzy, php-format
-msgid "Groups %1$s is a member of on %2$s."
+msgid "%1$s groups %2$s is a member of."
 msgstr "%s 그룹들은  의 멤버입니다."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
@@ -632,9 +630,9 @@ msgstr "발견된 ID의 상태가 없습니다."
 
 #: actions/apistatusesupdate.php:161 actions/newnotice.php:155
 #: lib/mailhandler.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "너무 깁니다. 통지의 최대 길이는 140글자 입니다."
+msgstr "너무 깁니다. 통지의 최대 길이는 %d 글자 입니다."
 
 #: actions/apistatusesupdate.php:202
 msgid "Not found"
@@ -1047,7 +1045,7 @@ msgstr ""
 
 #: actions/designadminpanel.php:73
 msgid "Design settings for this StatusNet site."
-msgstr ""
+msgstr "이 StatusNet 사이트에 대한 디자인 설정"
 
 #: actions/designadminpanel.php:275
 msgid "Invalid logo URL."
@@ -1067,28 +1065,25 @@ msgid "Site logo"
 msgstr "사이트 로고"
 
 #: actions/designadminpanel.php:387
-#, fuzzy
 msgid "Change theme"
-msgstr "변환"
+msgstr "테마 바꾸기"
 
 #: actions/designadminpanel.php:404
-#, fuzzy
 msgid "Site theme"
-msgstr "사이트 공지"
+msgstr "사이트 테마"
 
 #: actions/designadminpanel.php:405
-#, fuzzy
 msgid "Theme for the site."
-msgstr "이 사이트로부터 로그아웃"
+msgstr "사이트에 대한 테마"
 
 #: actions/designadminpanel.php:417 lib/designsettings.php:101
 msgid "Change background image"
-msgstr ""
+msgstr "배경 이미지 바꾸기"
 
 #: actions/designadminpanel.php:422 actions/designadminpanel.php:497
 #: lib/designsettings.php:178
 msgid "Background"
-msgstr ""
+msgstr "배경"
 
 #: actions/designadminpanel.php:427
 #, php-format
@@ -1864,9 +1859,8 @@ msgstr ""
 "래 당신의 주소와 환경설정을 조정하세요."
 
 #: actions/imsettings.php:89
-#, fuzzy
 msgid "IM is not available."
-msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
+msgstr "인스턴트 메신저를 사용할 수 없습니다."
 
 #: actions/imsettings.php:106
 msgid "Current confirmed Jabber/GTalk address."

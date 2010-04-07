@@ -573,6 +573,9 @@ class Memcached_DataObject extends Safe_DataObject
         if (!empty($this->id)) {
             $id .= ':' . $this->id;
         }
+        if ($message instanceof PEAR_Error) {
+            $message = $message->getMessage();
+        }
         throw new ServerException("[$id] DB_DataObject error [$type]: $message");
     }
 

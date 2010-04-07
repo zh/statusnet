@@ -168,4 +168,11 @@ class BlockAction extends ProfileFormAction
             return;
         }
     }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('form_action-yes');
+    }
+
 }

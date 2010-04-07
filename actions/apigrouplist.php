@@ -93,6 +93,7 @@ class ApiGroupListAction extends ApiBareAuthAction
         parent::handle($args);
 
         $sitename   = common_config('site', 'name');
+        // TRANS: %s is a user name
         $title      = sprintf(_("%s's groups"), $this->user->nickname);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
@@ -100,10 +101,12 @@ class ApiGroupListAction extends ApiBareAuthAction
             'usergroups',
             array('nickname' => $this->user->nickname)
         );
+
         $subtitle   = sprintf(
-            _("Groups %1\$s is a member of on %2\$s."),
-            $this->user->nickname,
-            $sitename
+            // TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+            _("%1\$s groups %2\$s is a member of."),
+            $sitename,
+            $this->user->nickname
         );
 
         switch($this->format) {
