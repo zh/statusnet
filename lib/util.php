@@ -862,14 +862,7 @@ function common_xml_safe_str($str)
 function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
-    if (common_config('singleuser', 'enabled')) {
-        // regular TagAction isn't set up in 1user mode
-        $url = common_local_url('showstream',
-                                array('nickname' => common_config('singleuser', 'nickname'),
-                                      'tag' => $canonical));
-    } else {
-        $url = common_local_url('tag', array('tag' => $canonical));
-    }
+    $url = common_local_url('tag', array('tag' => $canonical));
     $xs = new XMLStringer();
     $xs->elementStart('span', 'tag');
     $xs->element('a', array('href' => $url,
