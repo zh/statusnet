@@ -8,11 +8,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-05 18:54+0000\n"
-"PO-Revision-Date: 2010-04-05 18:56:28+0000\n"
+"PO-Revision-Date: 2010-04-08 23:10:07+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64753); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -857,7 +857,7 @@ msgstr "Bỏ chặn người dùng này"
 msgid "Yes"
 msgstr "Có"
 
-#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
 #, fuzzy
 msgid "Block this user"
 msgstr "Ban user"
@@ -962,7 +962,7 @@ msgid "Conversation"
 msgstr "Không có mã số xác nhận."
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:224 lib/searchgroupnav.php:82
+#: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Tin nhắn"
 
@@ -1718,7 +1718,7 @@ msgstr "Người dùng không có thông tin."
 msgid "User is not a member of group."
 msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: actions/groupblock.php:136 actions/groupmembers.php:323
+#: actions/groupblock.php:136 actions/groupmembers.php:341
 #, fuzzy
 msgid "Block user from group"
 msgstr "Ban user"
@@ -1825,20 +1825,20 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:355 lib/blockform.php:69
+#: actions/groupmembers.php:373 lib/blockform.php:69
 msgid "Block"
 msgstr ""
 
-#: actions/groupmembers.php:450
+#: actions/groupmembers.php:468
 #, fuzzy
 msgid "Make user an admin of the group"
 msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make Admin"
 msgstr ""
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 #, fuzzy
 msgid "Make this user an admin"
 msgstr "Kênh mà bạn tham gia"
@@ -1854,7 +1854,7 @@ msgstr "Dòng tin nhắn của %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
+#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 #, fuzzy
 msgid "Groups"
@@ -2820,12 +2820,12 @@ msgstr ""
 msgid "People search"
 msgstr "Tìm kiếm nhiều người"
 
-#: actions/peopletag.php:70
+#: actions/peopletag.php:68
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s"
 msgstr "Địa chỉ email không hợp lệ."
 
-#: actions/peopletag.php:144
+#: actions/peopletag.php:142
 #, fuzzy, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Dòng tin nhắn cho %s"
@@ -3548,8 +3548,8 @@ msgstr "Thư mời đã gửi"
 msgid "Description"
 msgstr "Mô tả"
 
-#: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:182
+#: actions/showapplication.php:192 actions/showgroup.php:444
+#: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Số liệu thống kê"
 
@@ -3705,27 +3705,27 @@ msgstr "Dòng tin nhắn cho %s"
 msgid "FOAF for %s group"
 msgstr "Hộp thư đi của %s"
 
-#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
 msgstr "Thành viên"
 
-#: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
 
-#: actions/showgroup.php:402
+#: actions/showgroup.php:404
 #, fuzzy
 msgid "All members"
 msgstr "Thành viên"
 
-#: actions/showgroup.php:442
+#: actions/showgroup.php:447
 #, fuzzy
 msgid "Created"
 msgstr "Tạo"
 
-#: actions/showgroup.php:458
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3735,7 +3735,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:464
+#: actions/showgroup.php:469
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3744,7 +3744,7 @@ msgid ""
 "their life and interests. "
 msgstr ""
 
-#: actions/showgroup.php:492
+#: actions/showgroup.php:497
 msgid "Admins"
 msgstr ""
 
@@ -6368,7 +6368,7 @@ msgstr "cảnh báo tin nhắn"
 msgid "Unknown"
 msgstr "Không tìm thấy action"
 
-#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Tôi theo bạn này"
 
@@ -6376,29 +6376,29 @@ msgstr "Tôi theo bạn này"
 msgid "All subscriptions"
 msgstr "Tất cả đăng nhận"
 
-#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
+#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Bạn này theo tôi"
 
-#: lib/profileaction.php:159
+#: lib/profileaction.php:161
 #, fuzzy
 msgid "All subscribers"
 msgstr "Bạn này theo tôi"
 
-#: lib/profileaction.php:186
+#: lib/profileaction.php:191
 msgid "User ID"
 msgstr ""
 
-#: lib/profileaction.php:191
+#: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Gia nhập từ"
 
 #. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:230
+#: lib/profileaction.php:235
 msgid "Daily average"
 msgstr ""
 
-#: lib/profileaction.php:259
+#: lib/profileaction.php:264
 #, fuzzy
 msgid "All groups"
 msgstr "Nhóm"

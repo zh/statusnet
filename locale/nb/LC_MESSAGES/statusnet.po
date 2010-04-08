@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-05 18:54+0000\n"
-"PO-Revision-Date: 2010-04-05 18:55:50+0000\n"
+"PO-Revision-Date: 2010-04-08 23:09:26+0000\n"
 "Language-Team: Norwegian (bokmål)‬\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64753); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: out-statusnet\n"
@@ -484,9 +484,9 @@ msgstr "%s sine grupper"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "%s er ikke medlem av noen gruppe."
+msgstr "%1$s grupper %2$s er et medlem av."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -828,7 +828,7 @@ msgstr "Ikke blokker denne brukeren"
 msgid "Yes"
 msgstr "Ja"
 
-#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Blokker denne brukeren"
 
@@ -928,7 +928,7 @@ msgid "Conversation"
 msgstr "Samtale"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:224 lib/searchgroupnav.php:82
+#: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Notiser"
 
@@ -1116,9 +1116,8 @@ msgid "Content"
 msgstr "Innhold"
 
 #: actions/designadminpanel.php:523 lib/designsettings.php:204
-#, fuzzy
 msgid "Sidebar"
-msgstr "Søk"
+msgstr "Sidelinje"
 
 #: actions/designadminpanel.php:536 lib/designsettings.php:217
 msgid "Text"
@@ -1224,11 +1223,11 @@ msgstr "Hjemmeside for organisasjon kreves."
 
 #: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
-msgstr ""
+msgstr "Anrop er for langt."
 
 #: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
-msgstr ""
+msgstr "Anrops-URL er ikke gyldig."
 
 #: actions/editapplication.php:258
 msgid "Could not update application."
@@ -1411,7 +1410,7 @@ msgstr ""
 #: actions/emailsettings.php:379 actions/imsettings.php:351
 #: actions/smssettings.php:370
 msgid "No pending confirmation to cancel."
-msgstr ""
+msgstr "Ingen ventende bekreftelse å avbryte."
 
 #: actions/emailsettings.php:383 actions/imsettings.php:355
 msgid "That is the wrong IM address."
@@ -1442,7 +1441,7 @@ msgstr ""
 
 #: actions/emailsettings.php:459 actions/smssettings.php:531
 msgid "Incoming email address removed."
-msgstr ""
+msgstr "Inkommende e-postadresse fjernet."
 
 #: actions/emailsettings.php:481 actions/smssettings.php:555
 msgid "New incoming email address added."
@@ -1468,17 +1467,21 @@ msgstr "Populære notiser, side %d"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr ""
+msgstr "De mest populære notisene på nettstedet akkurat nå."
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
 msgstr ""
+"Favorittnotiser vises på denne siden, men det er ingen som har noen "
+"favoritter ennå."
 
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
 msgstr ""
+"Vær den første til å legge en notis til dine favoritter ved å klikke på "
+"favoritt-knappen ved siden av notisen du liker."
 
 #: actions/favorited.php:156
 #, php-format
@@ -1486,6 +1489,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
 msgstr ""
+"Hvorfor ikke [registrere en konto](%%action.register%%) og vær den første "
+"til å legge notisen til dine favoritter."
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
@@ -1614,7 +1619,7 @@ msgstr "Bruker er allerede blokkert fra gruppe."
 msgid "User is not a member of group."
 msgstr "Bruker er ikke et medlem av gruppa."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:323
+#: actions/groupblock.php:136 actions/groupmembers.php:341
 msgid "Block user from group"
 msgstr "Blokker bruker fra gruppe"
 
@@ -1710,19 +1715,19 @@ msgstr "En liste over brukerne i denne gruppen."
 msgid "Admin"
 msgstr "Administrator"
 
-#: actions/groupmembers.php:355 lib/blockform.php:69
+#: actions/groupmembers.php:373 lib/blockform.php:69
 msgid "Block"
 msgstr "Blokkér"
 
-#: actions/groupmembers.php:450
+#: actions/groupmembers.php:468
 msgid "Make user an admin of the group"
 msgstr "Gjør brukeren til en administrator for gruppen"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make Admin"
 msgstr "Gjør til administrator"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make this user an admin"
 msgstr "Gjør denne brukeren til administrator"
 
@@ -1737,7 +1742,7 @@ msgstr "%s tidslinje"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Oppdateringer fra medlemmer av %1$s på %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
+#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Grupper"
@@ -2638,12 +2643,12 @@ msgstr ""
 msgid "People search"
 msgstr "Personsøk"
 
-#: actions/peopletag.php:70
+#: actions/peopletag.php:68
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s"
 msgstr "Ugyldig e-postadresse"
 
-#: actions/peopletag.php:144
+#: actions/peopletag.php:142
 #, fuzzy, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Mikroblogg av %s"
@@ -3345,8 +3350,8 @@ msgstr "Organisasjon"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:182
+#: actions/showapplication.php:192 actions/showgroup.php:444
+#: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Statistikk"
 
@@ -3499,25 +3504,25 @@ msgstr "Notismating for %s gruppe (Atom)"
 msgid "FOAF for %s group"
 msgstr "Klarte ikke å lagre profil."
 
-#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
 msgstr "Medlemmer"
 
-#: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ingen)"
 
-#: actions/showgroup.php:402
+#: actions/showgroup.php:404
 msgid "All members"
 msgstr "Alle medlemmer"
 
-#: actions/showgroup.php:442
+#: actions/showgroup.php:447
 msgid "Created"
 msgstr "Opprettet"
 
-#: actions/showgroup.php:458
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3533,7 +3538,7 @@ msgstr ""
 "%%%) for å bli medlem av denne gruppen og mange fler. ([Les mer](%%%%doc.help"
 "%%%%))"
 
-#: actions/showgroup.php:464
+#: actions/showgroup.php:469
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3546,7 +3551,7 @@ msgstr ""
 "programvareverktøyet [StatusNet](http://status.net/). Dets medlemmer deler "
 "korte meldinger om deres liv og interesser. "
 
-#: actions/showgroup.php:492
+#: actions/showgroup.php:497
 msgid "Admins"
 msgstr "Administratorer"
 
@@ -6056,7 +6061,7 @@ msgstr ""
 msgid "Unknown"
 msgstr "Ukjent"
 
-#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abonnement"
 
@@ -6064,28 +6069,28 @@ msgstr "Abonnement"
 msgid "All subscriptions"
 msgstr "Alle abonnementer"
 
-#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
+#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abonnenter"
 
-#: lib/profileaction.php:159
+#: lib/profileaction.php:161
 msgid "All subscribers"
 msgstr "Alle abonnenter"
 
-#: lib/profileaction.php:186
+#: lib/profileaction.php:191
 msgid "User ID"
 msgstr "Bruker-ID"
 
-#: lib/profileaction.php:191
+#: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Medlem siden"
 
 #. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:230
+#: lib/profileaction.php:235
 msgid "Daily average"
 msgstr ""
 
-#: lib/profileaction.php:259
+#: lib/profileaction.php:264
 msgid "All groups"
 msgstr "Alle grupper"
 

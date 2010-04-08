@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-05 18:54+0000\n"
-"PO-Revision-Date: 2010-04-05 18:55:36+0000\n"
+"PO-Revision-Date: 2010-04-08 23:09:09+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64621); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64753); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -488,9 +488,9 @@ msgstr "Gruppi di %s"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "Gruppi di cui %s fa parte"
+msgstr "Gruppi del sito %1$s a cui %2$s è iscritto."
 
 #: actions/apigrouplistall.php:90 actions/usergroups.php:62
 #, php-format
@@ -837,7 +837,7 @@ msgstr "Non bloccare questo utente"
 msgid "Yes"
 msgstr "Sì"
 
-#: actions/block.php:144 actions/groupmembers.php:355 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Blocca questo utente"
 
@@ -937,7 +937,7 @@ msgid "Conversation"
 msgstr "Conversazione"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:224 lib/searchgroupnav.php:82
+#: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Messaggi"
 
@@ -1318,7 +1318,7 @@ msgstr "Annulla"
 
 #: actions/emailsettings.php:121
 msgid "Email address"
-msgstr "Indirizzi email"
+msgstr "Indirizzo e-mail"
 
 #: actions/emailsettings.php:123
 msgid "Email address, like \"UserName@example.org\""
@@ -1633,7 +1633,7 @@ msgstr "L'utente è già bloccato dal gruppo."
 msgid "User is not a member of group."
 msgstr "L'utente non fa parte del gruppo."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:323
+#: actions/groupblock.php:136 actions/groupmembers.php:341
 msgid "Block user from group"
 msgstr "Blocca l'utente dal gruppo"
 
@@ -1735,19 +1735,19 @@ msgstr "Un elenco degli utenti in questo gruppo."
 msgid "Admin"
 msgstr "Amministra"
 
-#: actions/groupmembers.php:355 lib/blockform.php:69
+#: actions/groupmembers.php:373 lib/blockform.php:69
 msgid "Block"
 msgstr "Blocca"
 
-#: actions/groupmembers.php:450
+#: actions/groupmembers.php:468
 msgid "Make user an admin of the group"
 msgstr "Rende l'utente amministratore del gruppo"
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make Admin"
 msgstr "Rendi amm."
 
-#: actions/groupmembers.php:482
+#: actions/groupmembers.php:500
 msgid "Make this user an admin"
 msgstr "Rende questo utente un amministratore"
 
@@ -1762,7 +1762,7 @@ msgstr "Attività di %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Messaggi dai membri di %1$s su %2$s!"
 
-#: actions/groups.php:62 lib/profileaction.php:218 lib/profileaction.php:244
+#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
 msgstr "Gruppi"
@@ -2689,12 +2689,12 @@ msgstr ""
 msgid "People search"
 msgstr "Cerca persone"
 
-#: actions/peopletag.php:70
+#: actions/peopletag.php:68
 #, php-format
 msgid "Not a valid people tag: %s"
 msgstr "Non è un'etichetta valida di persona: %s"
 
-#: actions/peopletag.php:144
+#: actions/peopletag.php:142
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Utenti auto-etichettati con %1$s - pagina %2$d"
@@ -3418,8 +3418,8 @@ msgstr "Organizzazione"
 msgid "Description"
 msgstr "Descrizione"
 
-#: actions/showapplication.php:192 actions/showgroup.php:439
-#: lib/profileaction.php:182
+#: actions/showapplication.php:192 actions/showgroup.php:444
+#: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Statistiche"
 
@@ -3580,25 +3580,25 @@ msgstr "Feed dei messaggi per il gruppo %s (Atom)"
 msgid "FOAF for %s group"
 msgstr "FOAF per il gruppo %s"
 
-#: actions/showgroup.php:391 actions/showgroup.php:448 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
 msgstr "Membri"
 
-#: actions/showgroup.php:396 lib/profileaction.php:117
-#: lib/profileaction.php:150 lib/profileaction.php:250 lib/section.php:95
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(nessuno)"
 
-#: actions/showgroup.php:402
+#: actions/showgroup.php:404
 msgid "All members"
 msgstr "Tutti i membri"
 
-#: actions/showgroup.php:442
+#: actions/showgroup.php:447
 msgid "Created"
 msgstr "Creato"
 
-#: actions/showgroup.php:458
+#: actions/showgroup.php:463
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3614,7 +3614,7 @@ msgstr ""
 "stesso](%%%%action.register%%%%) per far parte di questo gruppo e di molti "
 "altri! ([Maggiori informazioni](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:464
+#: actions/showgroup.php:469
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3626,7 +3626,7 @@ msgstr ""
 "(http://it.wikipedia.org/wiki/Microblogging) basato sul software libero "
 "[StatusNet](http://status.net/)."
 
-#: actions/showgroup.php:492
+#: actions/showgroup.php:497
 msgid "Admins"
 msgstr "Amministratori"
 
@@ -5616,7 +5616,7 @@ msgstr "Gruppo"
 
 #: lib/groupnav.php:101
 msgid "Blocked"
-msgstr "Bloccati"
+msgstr "Bloccato"
 
 #: lib/groupnav.php:102
 #, php-format
@@ -6226,7 +6226,7 @@ msgstr "Etichette nei messaggi di %s"
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: lib/profileaction.php:109 lib/profileaction.php:200 lib/subgroupnav.php:82
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Abbonamenti"
 
@@ -6234,28 +6234,28 @@ msgstr "Abbonamenti"
 msgid "All subscriptions"
 msgstr "Tutti gli abbonamenti"
 
-#: lib/profileaction.php:142 lib/profileaction.php:209 lib/subgroupnav.php:90
+#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Abbonati"
 
-#: lib/profileaction.php:159
+#: lib/profileaction.php:161
 msgid "All subscribers"
 msgstr "Tutti gli abbonati"
 
-#: lib/profileaction.php:186
+#: lib/profileaction.php:191
 msgid "User ID"
 msgstr "ID utente"
 
-#: lib/profileaction.php:191
+#: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Membro dal"
 
 #. TRANS: Average count of posts made per day since account registration
-#: lib/profileaction.php:230
+#: lib/profileaction.php:235
 msgid "Daily average"
 msgstr "Media giornaliera"
 
-#: lib/profileaction.php:259
+#: lib/profileaction.php:264
 msgid "All groups"
 msgstr "Tutti i gruppi"
 
