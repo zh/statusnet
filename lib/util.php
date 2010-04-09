@@ -1279,12 +1279,38 @@ function common_mtrand($bytes)
     return $enc;
 }
 
+/**
+ * Record the given URL as the return destination for a future
+ * form submission, to be read by common_get_returnto().
+ * 
+ * @param string $url
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_set_returnto($url)
 {
     common_ensure_session();
     $_SESSION['returnto'] = $url;
 }
 
+/**
+ * Fetch a return-destination URL previously recorded by
+ * common_set_returnto().
+ * 
+ * @return mixed URL string or null
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_get_returnto()
 {
     common_ensure_session();
