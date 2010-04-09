@@ -79,7 +79,7 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
                 common_redirect(common_local_url('ApiGroupShow', $args), 301);
             } else {
                 $this->clientError(
-                    _('Group not found!'),
+                    _('Group not found.'),
                     404,
                     $this->format
                 );

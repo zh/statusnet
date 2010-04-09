@@ -66,7 +66,7 @@ class BlockAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if ($cur->hasBlocked($this->profile)) {
-            $this->clientError(_("You already blocked that user."));
+            $this->clientError(_('You already blocked that user.'));
             return false;
         }
 

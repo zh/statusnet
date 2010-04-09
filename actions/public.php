@@ -80,7 +80,7 @@ class PublicAction extends Action
         $this->page = ($this->arg('page')) ? ($this->arg('page')+0) : 1;
 
         if ($this->page > MAX_PUBLIC_PAGE) {
-            $this->clientError(sprintf(_("Beyond the page limit (%s)"), MAX_PUBLIC_PAGE));
+            $this->clientError(sprintf(_("Beyond the page limit (%s)."), MAX_PUBLIC_PAGE));
         }
 
         common_set_returnto($this->selfUrl());

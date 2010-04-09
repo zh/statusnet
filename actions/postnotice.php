@@ -92,7 +92,7 @@ class PostnoticeAction extends Action
     {
         $content = common_shorten_links($_POST['omb_notice_content']);
         if (Notice::contentTooLong($content)) {
-            $this->clientError(_('Invalid notice content'), 400);
+            $this->clientError(_('Invalid notice content.'), 400);
             return false;
         }
         $license      = $_POST['omb_notice_license'];

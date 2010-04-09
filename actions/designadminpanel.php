@@ -272,11 +272,11 @@ class DesignadminpanelAction extends AdminPanelAction
     {
         if (!empty($values['logo']) &&
             !Validate::uri($values['logo'], array('allowed_schemes' => array('http', 'https')))) {
-            $this->clientError(_("Invalid logo URL."));
+            $this->clientError(_('Invalid logo URL.'));
         }
 
         if (!in_array($values['theme'], Theme::listAvailable())) {
-            $this->clientError(sprintf(_("Theme not available: %s"), $values['theme']));
+            $this->clientError(sprintf(_("Theme not available: %s."), $values['theme']));
         }
     }
 

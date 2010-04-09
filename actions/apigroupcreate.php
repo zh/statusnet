@@ -263,7 +263,7 @@ class ApiGroupCreateAction extends ApiAuthAction
 
             if (!$valid) {
                 $this->clientError(
-                    sprintf(_('Invalid alias: "%s"'), $alias),
+                    sprintf(_('Invalid alias: "%s".'), $alias),
                     403,
                     $this->format
                 );

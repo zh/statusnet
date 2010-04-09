@@ -64,14 +64,14 @@ class DeleteuserAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if (!$cur->hasRight(Right::DELETEUSER)) {
-            $this->clientError(_("You cannot delete users."));
+            $this->clientError(_('You cannot delete users.'));
             return false;
         }
 
         $this->user = User::staticGet('id', $this->profile->id);
 
         if (empty($this->user)) {
-            $this->clientError(_("You can only delete local users."));
+            $this->clientError(_('You can only delete local users.'));
             return false;
         }
 

@@ -124,13 +124,13 @@ class SnapshotadminpanelAction extends AdminPanelAction
         // Validate snapshot run value
 
         if (!in_array($values['snapshot']['run'], array('web', 'cron', 'never'))) {
-            $this->clientError(_("Invalid snapshot run value."));
+            $this->clientError(_('Invalid snapshot run value.'));
         }
 
         // Validate snapshot frequency value
 
         if (!Validate::number($values['snapshot']['frequency'])) {
-            $this->clientError(_("Snapshot frequency must be a number."));
+            $this->clientError(_('Snapshot frequency must be a number.'));
         }
 
         // Validate report URL
@@ -141,7 +141,7 @@ class SnapshotadminpanelAction extends AdminPanelAction
                 array('allowed_schemes' => array('http', 'https')
             )
         )) {
-            $this->clientError(_("Invalid snapshot report URL."));
+            $this->clientError(_('Invalid snapshot report URL.'));
         }
     }
 }
