@@ -154,10 +154,12 @@ class OembedAction extends Action
                     $this->end_document('json');
                     break;
                 default:
-                    $this->serverError(_('content type ' . $apidata['content-type'] . ' not supported'), 501);
+                    // TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+                    $this->serverError(sprintf(_('content type %s not supported'), $apidata['content-type']), 501);
             }
         }else{
-            $this->serverError(_('Only ' . common_root_url() . ' urls over plain http please'), 404);
+            // TRANS: Error message displaying attachments. %s is the site's base URL.
+            $this->serverError(sprintf(_('Only %s urls over plain http please'), common_root_url()), 404);
         }
     }
 
