@@ -543,18 +543,7 @@ class NoticeListItem extends Widget
 
     function showContext()
     {
-        $hasConversation = false;
-        if (!empty($this->notice->conversation)) {
-            $conversation = Notice::conversationStream(
-                $this->notice->conversation,
-                1,
-                1
-            );
-            if ($conversation->N > 0) {
-                $hasConversation = true;
-            }
-        }
-        if ($hasConversation) {
+        if ($this->notice->hasConversation()) {
             $conv = Conversation::staticGet(
                 'id',
                 $this->notice->conversation
