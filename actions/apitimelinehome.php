@@ -117,6 +117,7 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
         $id         = "tag:$taguribase:HomeTimeline:" . $this->user->id;
 
         $subtitle   = sprintf(
+            // TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
             _('Updates from %1$s and friends on %2$s!'),
             $this->user->nickname, $sitename
         );

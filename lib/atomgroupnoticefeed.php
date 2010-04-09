@@ -63,6 +63,7 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
 
         $sitename   = common_config('site', 'name');
         $subtitle   = sprintf(
+            // TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
             _('Updates from %1$s on %2$s!'),
             $group->nickname,
             $sitename
