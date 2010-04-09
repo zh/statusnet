@@ -72,7 +72,7 @@ class UserrssAction extends Rss10Action
     {
         $notice = $this->user->getNotices(
             0,
-            ($limit == 0) ? NOTICES_PER_PAGE : $limit
+            ($this->limit == 0) ? NOTICES_PER_PAGE : $this->limit
         );
 
         $notices = array();
