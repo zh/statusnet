@@ -79,6 +79,11 @@ class FinishopenidloginAction extends Action
         $this->showPage();
     }
 
+    /**
+     * @fixme much of this duplicates core code, which is very fragile.
+     * Should probably be replaced with an extensible mini version of
+     * the core registration form.
+     */
     function showContent()
     {
         if (!empty($this->message_text)) {
@@ -110,10 +115,15 @@ class FinishopenidloginAction extends Action
                                       'value' => 'true'));
         $this->elementStart('label', array('for' => 'license',
                                           'class' => 'checkbox'));
-        $this->text(_m('My text and files are available under '));
-        $this->element('a', array('href' => common_config('license', 'url')),
-                       common_config('license', 'title'));
-        $this->text(_m(' except this private data: password, email address, IM address, phone number.'));
+        $message = _('My text and files are available under %s ' .
+                     'except this private data: password, ' .
+                     'email address, IM address, and phone number.');
+        $link = '<a href="' .
+                htmlspecialchars(common_config('license', 'url')) .
+                '">' .
+                htmlspecialchars(common_config('license', 'title')) .
+                '</a>';
+        $this->raw(sprintf(htmlspecialchars($message), $link));
         $this->elementEnd('label');
         $this->elementEnd('li');
         $this->elementEnd('ul');
