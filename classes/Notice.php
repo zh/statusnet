@@ -964,11 +964,19 @@ class Notice extends Memcached_DataObject
      */
     function saveKnownReplies($uris)
     {
+        if (empty($uris)) {
+            return;
+        }
+        $sender = Profile::staticGet($this->profile_id);
+
         foreach ($uris as $uri) {
 
             $user = User::staticGet('uri', $uri);
 
             if (!empty($user)) {
+                if ($user->hasBlocked($sender)) {
+                    continue;
+                }
 
                 $reply = new Reply();
 
