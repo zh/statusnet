@@ -56,7 +56,7 @@ class FoafGroupAction extends Action
             return false;
         }
 
-        $local = Local_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $this->nickname);
 
         if (!$local) {
             $this->clientError(_('No such group.'), 404);
