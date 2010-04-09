@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-05 18:54+0000\n"
-"PO-Revision-Date: 2010-04-08 23:09:19+0000\n"
+"POT-Creation-Date: 2010-04-09 21:26+0000\n"
+"PO-Revision-Date: 2010-04-09 21:27:45+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64753); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64832); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -752,7 +752,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:659
+#: lib/deleteuserform.php:66 lib/noticelist.php:648
 msgid "Delete"
 msgstr "삭제"
 
@@ -793,7 +793,7 @@ msgstr "아바타가 삭제되었습니다."
 msgid "You already blocked that user."
 msgstr "이미 차단된 이용자입니다."
 
-#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:158
 msgid "Block user"
 msgstr "사용자를 차단합니다."
 
@@ -808,7 +808,7 @@ msgstr ""
 
 #: actions/block.php:143 actions/deleteapplication.php:153
 #: actions/deletenotice.php:145 actions/deleteuser.php:150
-#: actions/groupblock.php:178
+#: actions/groupblock.php:176
 msgid "No"
 msgstr "아니오"
 
@@ -818,11 +818,11 @@ msgstr "이용자를 차단하지 않는다."
 
 #: actions/block.php:144 actions/deleteapplication.php:158
 #: actions/deletenotice.php:146 actions/deleteuser.php:151
-#: actions/groupblock.php:179 lib/repeatform.php:132
+#: actions/groupblock.php:177 lib/repeatform.php:132
 msgid "Yes"
 msgstr "네, 맞습니다."
 
-#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:388 lib/blockform.php:80
 msgid "Block this user"
 msgstr "이 사용자 차단하기"
 
@@ -871,9 +871,10 @@ msgstr "차단해제"
 msgid "Unblock this user"
 msgstr "이 사용자를 차단해제합니다."
 
-#: actions/bookmarklet.php:50
-#, fuzzy
-msgid "Post to "
+#. TRANS: Title for mini-posting window loaded from bookmarklet.
+#: actions/bookmarklet.php:51
+#, fuzzy, php-format
+msgid "Post to %s"
 msgstr "사진"
 
 #: actions/confirmaddress.php:75
@@ -947,7 +948,7 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1219
+#: lib/action.php:1221
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -1009,7 +1010,7 @@ msgstr "정말로 통지를 삭제하시겠습니까?"
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:659
+#: actions/deletenotice.php:146 lib/noticelist.php:648
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1642,12 +1643,12 @@ msgstr "회원이 당신을 차단해왔습니다."
 msgid "User is not a member of group."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:341
+#: actions/groupblock.php:134 actions/groupmembers.php:356
 #, fuzzy
 msgid "Block user from group"
 msgstr "사용자를 차단합니다."
 
-#: actions/groupblock.php:162
+#: actions/groupblock.php:160
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
@@ -1655,17 +1656,17 @@ msgid ""
 "the group in the future."
 msgstr ""
 
-#: actions/groupblock.php:178
+#: actions/groupblock.php:176
 #, fuzzy
 msgid "Do not block this user from this group"
 msgstr "이 그룹의 회원리스트"
 
-#: actions/groupblock.php:179
+#: actions/groupblock.php:177
 #, fuzzy
 msgid "Block this user from this group"
 msgstr "이 그룹의 회원리스트"
 
-#: actions/groupblock.php:196
+#: actions/groupblock.php:194
 msgid "Database error blocking user from group."
 msgstr ""
 
@@ -1745,21 +1746,21 @@ msgstr "이 그룹의 회원리스트"
 msgid "Admin"
 msgstr "관리자"
 
-#: actions/groupmembers.php:373 lib/blockform.php:69
+#: actions/groupmembers.php:388 lib/blockform.php:69
 msgid "Block"
 msgstr "차단하기"
 
-#: actions/groupmembers.php:468
+#: actions/groupmembers.php:483
 #, fuzzy
 msgid "Make user an admin of the group"
 msgstr "관리자만 그룹을 편집할 수 있습니다."
 
-#: actions/groupmembers.php:500
+#: actions/groupmembers.php:515
 #, fuzzy
 msgid "Make Admin"
 msgstr "관리자"
 
-#: actions/groupmembers.php:500
+#: actions/groupmembers.php:515
 msgid "Make this user an admin"
 msgstr "이 이용자를 관리자로 만듦"
 
@@ -2029,12 +2030,14 @@ msgctxt "BUTTON"
 msgid "Send"
 msgstr "보내기"
 
-#: actions/invite.php:227
+#. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
+#: actions/invite.php:228
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s님이 귀하를 %2$s에 초대하였습니다."
 
-#: actions/invite.php:229
+#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
+#: actions/invite.php:231
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2372,16 +2375,19 @@ msgstr "통지에 프로필이 없습니다."
 msgid "%1$s's status on %2$s"
 msgstr "%1$s의 상태 (%2$s에서)"
 
-#: actions/oembed.php:157
-#, fuzzy
-msgid "content type "
+#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+#: actions/oembed.php:158
+#, fuzzy, php-format
+msgid "content type %s not supported"
 msgstr "연결"
 
-#: actions/oembed.php:160
-msgid "Only "
+#. TRANS: Error message displaying attachments. %s is the site's base URL.
+#: actions/oembed.php:162
+#, php-format
+msgid "Only %s urls over plain http please"
 msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
 #: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
@@ -3093,7 +3099,7 @@ msgstr "확인 코드 오류"
 msgid "Registration successful"
 msgstr "회원 가입이 성공적입니다."
 
-#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "회원가입"
 
@@ -3147,21 +3153,13 @@ msgid "Longer name, preferably your \"real\" name"
 msgstr "더욱 긴 이름을 요구합니다."
 
 #: actions/register.php:494
-msgid "My text and files are available under "
-msgstr "나의 글과 파일의 라이선스는 다음과 같습니다 "
-
-#: actions/register.php:496
-msgid "Creative Commons Attribution 3.0"
-msgstr ""
-
-#: actions/register.php:497
-#, fuzzy
+#, fuzzy, php-format
 msgid ""
-" except this private data: password, email address, IM address, and phone "
-"number."
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
 msgstr "다음 개인정보 제외: 비밀 번호, 메일 주소, 메신저 주소, 전화 번호"
 
-#: actions/register.php:538
+#: actions/register.php:542
 #, fuzzy, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3194,7 +3192,7 @@ msgstr ""
 "\n"
 "다시 한번 가입하신 것을 환영하면서 즐거운 서비스가 되셨으면 합니다."
 
-#: actions/register.php:562
+#: actions/register.php:566
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -3281,7 +3279,7 @@ msgstr "자신의 글은 재전송할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:678
+#: actions/repeat.php:114 lib/noticelist.php:667
 msgid "Repeated"
 msgstr "재전송됨"
 
@@ -4603,12 +4601,12 @@ msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었�
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:943
+#: classes/Notice.php:964
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:1481
+#: classes/Notice.php:1510
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -4929,23 +4927,21 @@ msgstr ""
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
+#. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
 #: lib/action.php:849
-msgid "All "
-msgstr "모든 것"
+#, php-format
+msgid "All %1$s content and data are available under the %2$s license."
+msgstr ""
 
-#: lib/action.php:855
-msgid "license."
-msgstr "라이선스"
-
-#: lib/action.php:1154
+#: lib/action.php:1156
 msgid "Pagination"
 msgstr "페이지수"
 
-#: lib/action.php:1163
+#: lib/action.php:1165
 msgid "After"
 msgstr "뒷 페이지"
 
-#: lib/action.php:1171
+#: lib/action.php:1173
 msgid "Before"
 msgstr "앞 페이지"
 
@@ -5257,12 +5253,14 @@ msgstr "%s가 그룹%s를 떠났습니다."
 msgid "Fullname: %s"
 msgstr "전체이름: %s"
 
-#: lib/command.php:404 lib/mail.php:258
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/command.php:404 lib/mail.php:263
 #, php-format
 msgid "Location: %s"
 msgstr "위치: %s"
 
-#: lib/command.php:407 lib/mail.php:260
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/command.php:407 lib/mail.php:266
 #, php-format
 msgid "Homepage: %s"
 msgstr "홈페이지: %s"
@@ -5714,11 +5712,13 @@ msgstr "사용자 이름과 비밀번호로 로그인"
 msgid "Sign up for a new account"
 msgstr "새 계정을 위한 회원가입"
 
-#: lib/mail.php:173
+#. TRANS: Subject for address confirmation email
+#: lib/mail.php:174
 msgid "Email address confirmation"
 msgstr "이메일 주소 확인서"
 
-#: lib/mail.php:175
+#. TRANS: Body for address confirmation email.
+#: lib/mail.php:177
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5735,12 +5735,14 @@ msgid ""
 "%s\n"
 msgstr ""
 
-#: lib/mail.php:240
+#. TRANS: Subject of new-subscriber notification e-mail
+#: lib/mail.php:243
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s님이 귀하의 알림 메시지를 %2$s에서 듣고 있습니다."
 
-#: lib/mail.php:245
+#. TRANS: Main body of new-subscriber notification e-mail
+#: lib/mail.php:249
 #, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5759,19 +5761,22 @@ msgstr ""
 "\n"
 "그럼 이만,%4$s.\n"
 
-#: lib/mail.php:262
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:269
 #, fuzzy, php-format
 msgid "Bio: %s"
 msgstr ""
 "소개: %s\n"
 "\n"
 
-#: lib/mail.php:290
+#. TRANS: Subject of notification mail for new posting email address
+#: lib/mail.php:298
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "%s에 포스팅 할 새로운 이메일 주소"
 
-#: lib/mail.php:293
+#. TRANS: Body of notification mail for new posting email address
+#: lib/mail.php:302
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5786,21 +5791,31 @@ msgstr ""
 "포스팅 주소는 %1$s입니다.새 메시지를 등록하려면 %2$ 주소로 이메일을 보내십시"
 "오.이메일 사용법은 %3$s 페이지를 보십시오.안녕히,%4$s"
 
-#: lib/mail.php:417
+#. TRANS: Subject line for SMS-by-email notification messages
+#: lib/mail.php:427
 #, php-format
 msgid "%s status"
 msgstr "%s 상태"
 
-#: lib/mail.php:443
+#. TRANS: Subject line for SMS-by-email address confirmation message
+#: lib/mail.php:454
 msgid "SMS confirmation"
 msgstr "SMS 인증"
 
-#: lib/mail.php:467
+#. TRANS: Main body heading for SMS-by-email address confirmation message
+#: lib/mail.php:457
+#, fuzzy, php-format
+msgid "%s: confirm you own this phone number with this code:"
+msgstr "이 전화 번호는 인증 대기중입니다."
+
+#. TRANS: Subject for 'nudge' notification email
+#: lib/mail.php:478
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "%s 사용자가 찔러 봤습니다."
 
-#: lib/mail.php:471
+#. TRANS: Body for 'nudge' notification email
+#: lib/mail.php:483
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5816,12 +5831,14 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#: lib/mail.php:517
+#. TRANS: Subject for direct-message notification email
+#: lib/mail.php:530
 #, php-format
 msgid "New private message from %s"
 msgstr "%s로부터 새로운 비밀 메시지가 도착하였습니다."
 
-#: lib/mail.php:521
+#. TRANS: Body for direct-message notification email
+#: lib/mail.php:535
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5840,12 +5857,14 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
-#: lib/mail.php:568
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:583
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s님이 당신의 게시글을 좋아하는 글로 추가했습니다."
 
-#: lib/mail.php:570
+#. TRANS: Body for favorite notification email
+#: lib/mail.php:586
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -5866,12 +5885,22 @@ msgid ""
 "%6$s\n"
 msgstr ""
 
-#: lib/mail.php:635
+#. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
+#: lib/mail.php:645
+#, php-format
+msgid ""
+"The full conversation can be read here:\n"
+"\n"
+"\t%s"
+msgstr ""
+
+#: lib/mail.php:651
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
-#: lib/mail.php:637
+#. TRANS: Body of @-reply notification e-mail.
+#: lib/mail.php:654
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -5884,6 +5913,18 @@ msgid ""
 "\n"
 "\t%4$s\n"
 "\n"
+"%5$sYou can reply back here:\n"
+"\n"
+"\t%6$s\n"
+"\n"
+"The list of all @-replies for you here:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Faithfully yours,\n"
+"%2$s\n"
+"\n"
+"P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
 
 #: lib/mailbox.php:89
@@ -6052,25 +6093,25 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:570
+#: lib/noticelist.php:559
 #, fuzzy
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:605
+#: lib/noticelist.php:594
 #, fuzzy
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:621
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:633
+#: lib/noticelist.php:622
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:677
+#: lib/noticelist.php:666
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."
@@ -6180,12 +6221,7 @@ msgstr ""
 msgid "All groups"
 msgstr "모든 그룹"
 
-#: lib/profileformaction.php:123
-#, fuzzy
-msgid "No return-to arguments."
-msgstr "id 인자가 없습니다."
-
-#: lib/profileformaction.php:137
+#: lib/profileformaction.php:114
 msgid "Unimplemented method."
 msgstr ""
 
@@ -6208,6 +6244,11 @@ msgstr "피쳐링됨"
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "인기있는"
+
+#: lib/redirectingaction.php:94
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "id 인자가 없습니다."
 
 #: lib/repeatform.php:107
 #, fuzzy
@@ -6413,47 +6454,47 @@ msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
-#: lib/util.php:1046
+#: lib/util.php:1053
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:1048
+#: lib/util.php:1055
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:1050
+#: lib/util.php:1057
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:1052
+#: lib/util.php:1059
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:1054
+#: lib/util.php:1061
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:1056
+#: lib/util.php:1063
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:1058
+#: lib/util.php:1065
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:1060
+#: lib/util.php:1067
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:1062
+#: lib/util.php:1069
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:1064
+#: lib/util.php:1071
 msgid "about a year ago"
 msgstr "1년 전"
 

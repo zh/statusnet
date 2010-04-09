@@ -61,7 +61,7 @@ class AllAction extends ProfileAction
 
         if ($this->page > 1 && $this->notice->N == 0) {
             // TRANS: Server error when page not found (404)
-            $this->serverError(_('No such page'), $code = 404);
+            $this->serverError(_('No such page.'), $code = 404);
         }
 
         return true;
