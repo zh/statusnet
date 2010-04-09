@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-06 22:53+0000\n"
-"PO-Revision-Date: 2010-04-08 23:08:48+0000\n"
+"POT-Creation-Date: 2010-04-09 21:26+0000\n"
+"PO-Revision-Date: 2010-04-09 21:27:17+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64753); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64832); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -780,7 +780,7 @@ msgid "Preview"
 msgstr "Aperçu"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:659
+#: lib/deleteuserform.php:66 lib/noticelist.php:648
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -820,7 +820,7 @@ msgstr "Avatar supprimé."
 msgid "You already blocked that user."
 msgstr "Vous avez déjà bloqué cet utilisateur."
 
-#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:160
+#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:158
 msgid "Block user"
 msgstr "Bloquer cet utilisateur"
 
@@ -836,7 +836,7 @@ msgstr ""
 
 #: actions/block.php:143 actions/deleteapplication.php:153
 #: actions/deletenotice.php:145 actions/deleteuser.php:150
-#: actions/groupblock.php:178
+#: actions/groupblock.php:176
 msgid "No"
 msgstr "Non"
 
@@ -846,11 +846,11 @@ msgstr "Ne pas bloquer cet utilisateur"
 
 #: actions/block.php:144 actions/deleteapplication.php:158
 #: actions/deletenotice.php:146 actions/deleteuser.php:151
-#: actions/groupblock.php:179 lib/repeatform.php:132
+#: actions/groupblock.php:177 lib/repeatform.php:132
 msgid "Yes"
 msgstr "Oui"
 
-#: actions/block.php:144 actions/groupmembers.php:373 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:388 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquer cet utilisateur"
 
@@ -898,8 +898,10 @@ msgstr "Débloquer"
 msgid "Unblock this user"
 msgstr "Débloquer cet utilisateur"
 
-#: actions/bookmarklet.php:50
-msgid "Post to "
+#. TRANS: Title for mini-posting window loaded from bookmarklet.
+#: actions/bookmarklet.php:51
+#, fuzzy, php-format
+msgid "Post to %s"
 msgstr "Poster sur "
 
 #: actions/confirmaddress.php:75
@@ -969,7 +971,7 @@ msgstr "Vous n’êtes pas le propriétaire de cette application."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1219
+#: lib/action.php:1221
 msgid "There was a problem with your session token."
 msgstr "Un problème est survenu avec votre jeton de session."
 
@@ -1030,7 +1032,7 @@ msgstr "Voulez-vous vraiment supprimer cet avis ?"
 msgid "Do not delete this notice"
 msgstr "Ne pas supprimer cet avis"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:659
+#: actions/deletenotice.php:146 lib/noticelist.php:648
 msgid "Delete this notice"
 msgstr "Supprimer cet avis"
 
@@ -1644,11 +1646,11 @@ msgstr "Cet utilisateur est déjà bloqué pour le groupe."
 msgid "User is not a member of group."
 msgstr "L’utilisateur n’est pas membre du groupe."
 
-#: actions/groupblock.php:136 actions/groupmembers.php:341
+#: actions/groupblock.php:134 actions/groupmembers.php:356
 msgid "Block user from group"
 msgstr "Bloquer cet utilisateur du groupe"
 
-#: actions/groupblock.php:162
+#: actions/groupblock.php:160
 #, php-format
 msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
@@ -1659,15 +1661,15 @@ msgstr ""
 "seront supprimés du groupe ; il leur sera interdit d’y poster et de s’y "
 "abonner à l’avenir."
 
-#: actions/groupblock.php:178
+#: actions/groupblock.php:176
 msgid "Do not block this user from this group"
 msgstr "Ne pas bloquer cet utilisateur pour ce groupe"
 
-#: actions/groupblock.php:179
+#: actions/groupblock.php:177
 msgid "Block this user from this group"
 msgstr "Bloquer cet utilisateur de de groupe"
 
-#: actions/groupblock.php:196
+#: actions/groupblock.php:194
 msgid "Database error blocking user from group."
 msgstr ""
 "Erreur de la base de données lors du blocage de l’utilisateur du groupe."
@@ -1747,19 +1749,19 @@ msgstr "Liste des utilisateurs inscrits à ce groupe."
 msgid "Admin"
 msgstr "Administrer"
 
-#: actions/groupmembers.php:373 lib/blockform.php:69
+#: actions/groupmembers.php:388 lib/blockform.php:69
 msgid "Block"
 msgstr "Bloquer"
 
-#: actions/groupmembers.php:468
+#: actions/groupmembers.php:483
 msgid "Make user an admin of the group"
 msgstr "Faire de cet utilisateur un administrateur du groupe"
 
-#: actions/groupmembers.php:500
+#: actions/groupmembers.php:515
 msgid "Make Admin"
 msgstr "Faire un administrateur"
 
-#: actions/groupmembers.php:500
+#: actions/groupmembers.php:515
 msgid "Make this user an admin"
 msgstr "Faire de cet utilisateur un administrateur"
 
@@ -2046,12 +2048,14 @@ msgctxt "BUTTON"
 msgid "Send"
 msgstr "Envoyer"
 
-#: actions/invite.php:227
+#. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
+#: actions/invite.php:228
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s vous invite à vous inscrire sur %2$s"
 
-#: actions/invite.php:229
+#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
+#: actions/invite.php:231
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2404,15 +2408,19 @@ msgstr "L’avis n’a pas de profil"
 msgid "%1$s's status on %2$s"
 msgstr "Statut de %1$s sur %2$s"
 
-#: actions/oembed.php:157
-msgid "content type "
+#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+#: actions/oembed.php:158
+#, fuzzy, php-format
+msgid "content type %s not supported"
 msgstr "type de contenu "
 
-#: actions/oembed.php:160
-msgid "Only "
-msgstr "Seulement "
+#. TRANS: Error message displaying attachments. %s is the site's base URL.
+#: actions/oembed.php:162
+#, php-format
+msgid "Only %s urls over plain http please"
+msgstr ""
 
-#: actions/oembed.php:181 actions/oembed.php:200 lib/apiaction.php:1068
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
 #: lib/apiaction.php:1096 lib/apiaction.php:1212
 msgid "Not a supported data format."
 msgstr "Format de données non supporté."
@@ -3125,7 +3133,7 @@ msgstr "Désolé, code d’invitation invalide."
 msgid "Registration successful"
 msgstr "Compte créé avec succès"
 
-#: actions/register.php:114 actions/register.php:503 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Créer un compte"
 
@@ -3182,22 +3190,15 @@ msgid "Longer name, preferably your \"real\" name"
 msgstr "Nom plus long, votre \"vrai\" nom de préférence"
 
 #: actions/register.php:494
-msgid "My text and files are available under "
-msgstr "Mes textes et mes fichiers sont disponibles sous"
-
-#: actions/register.php:496
-msgid "Creative Commons Attribution 3.0"
-msgstr "Creative Commons Paternité 3.0"
-
-#: actions/register.php:497
+#, fuzzy, php-format
 msgid ""
-" except this private data: password, email address, IM address, and phone "
-"number."
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
 msgstr ""
 " à l’exception de ces données personnelles : mot de passe, adresse e-mail, "
 "adresse de messagerie instantanée, numéro de téléphone."
 
-#: actions/register.php:538
+#: actions/register.php:542
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3231,7 +3232,7 @@ msgstr ""
 "Merci pour votre inscription ! Nous vous souhaitons d’apprécier notre "
 "service."
 
-#: actions/register.php:562
+#: actions/register.php:566
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -3313,7 +3314,7 @@ msgstr "Vous ne pouvez pas reprendre votre propre avis."
 msgid "You already repeated that notice."
 msgstr "Vous avez déjà repris cet avis."
 
-#: actions/repeat.php:114 lib/noticelist.php:678
+#: actions/repeat.php:114 lib/noticelist.php:667
 msgid "Repeated"
 msgstr "Repris"
 
@@ -4668,11 +4669,11 @@ msgstr "Il vous est interdit de poster des avis sur ce site."
 msgid "Problem saving notice."
 msgstr "Problème lors de l’enregistrement de l’avis."
 
-#: classes/Notice.php:943
+#: classes/Notice.php:964
 msgid "Problem saving group inbox."
 msgstr "Problème lors de l’enregistrement de la boîte de réception du groupe."
 
-#: classes/Notice.php:1481
+#: classes/Notice.php:1510
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4973,23 +4974,21 @@ msgstr ""
 "Le contenu et les données sont sous le droit d’auteur du contributeur. Tous "
 "droits réservés."
 
+#. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
 #: lib/action.php:849
-msgid "All "
-msgstr "Tous "
+#, php-format
+msgid "All %1$s content and data are available under the %2$s license."
+msgstr ""
 
-#: lib/action.php:855
-msgid "license."
-msgstr "licence."
-
-#: lib/action.php:1154
+#: lib/action.php:1156
 msgid "Pagination"
 msgstr "Pagination"
 
-#: lib/action.php:1163
+#: lib/action.php:1165
 msgid "After"
 msgstr "Après"
 
-#: lib/action.php:1171
+#: lib/action.php:1173
 msgid "Before"
 msgstr "Avant"
 
@@ -5286,12 +5285,14 @@ msgstr "%s a quitté le groupe %s"
 msgid "Fullname: %s"
 msgstr "Nom complet : %s"
 
-#: lib/command.php:404 lib/mail.php:258
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/command.php:404 lib/mail.php:263
 #, php-format
 msgid "Location: %s"
 msgstr "Emplacement : %s"
 
-#: lib/command.php:407 lib/mail.php:260
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/command.php:407 lib/mail.php:266
 #, php-format
 msgid "Homepage: %s"
 msgstr "Site Web : %s"
@@ -5785,11 +5786,13 @@ msgstr "Ouvrez une session avec un identifiant et un mot de passe"
 msgid "Sign up for a new account"
 msgstr "Créer un nouveau compte"
 
-#: lib/mail.php:173
+#. TRANS: Subject for address confirmation email
+#: lib/mail.php:174
 msgid "Email address confirmation"
 msgstr "Confirmation de l’adresse courriel"
 
-#: lib/mail.php:175
+#. TRANS: Body for address confirmation email.
+#: lib/mail.php:177
 #, php-format
 msgid ""
 "Hey, %s.\n"
@@ -5819,12 +5822,14 @@ msgstr ""
 "Merci de votre attention,\n"
 "%s\n"
 
-#: lib/mail.php:240
+#. TRANS: Subject of new-subscriber notification e-mail
+#: lib/mail.php:243
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s suit maintenant vos avis sur %2$s."
 
-#: lib/mail.php:245
+#. TRANS: Main body of new-subscriber notification e-mail
+#: lib/mail.php:249
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -5849,17 +5854,20 @@ msgstr ""
 "----\n"
 "Changez votre adresse de courriel ou vos options de notification sur %8$s\n"
 
-#: lib/mail.php:262
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:269
 #, php-format
 msgid "Bio: %s"
 msgstr "Bio : %s"
 
-#: lib/mail.php:290
+#. TRANS: Subject of notification mail for new posting email address
+#: lib/mail.php:298
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Nouvelle adresse courriel pour poster dans %s"
 
-#: lib/mail.php:293
+#. TRANS: Body of notification mail for new posting email address
+#: lib/mail.php:302
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -5880,21 +5888,31 @@ msgstr ""
 "Cordialement,\n"
 "%4$s"
 
-#: lib/mail.php:417
+#. TRANS: Subject line for SMS-by-email notification messages
+#: lib/mail.php:427
 #, php-format
 msgid "%s status"
 msgstr "Statut de %s"
 
-#: lib/mail.php:443
+#. TRANS: Subject line for SMS-by-email address confirmation message
+#: lib/mail.php:454
 msgid "SMS confirmation"
 msgstr "Confirmation SMS"
 
-#: lib/mail.php:467
+#. TRANS: Main body heading for SMS-by-email address confirmation message
+#: lib/mail.php:457
+#, fuzzy, php-format
+msgid "%s: confirm you own this phone number with this code:"
+msgstr "Numéro de téléphone en attente de confirmation."
+
+#. TRANS: Subject for 'nudge' notification email
+#: lib/mail.php:478
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "Vous avez reçu un clin d’œil de %s"
 
-#: lib/mail.php:471
+#. TRANS: Body for 'nudge' notification email
+#: lib/mail.php:483
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -5921,12 +5939,14 @@ msgstr ""
 "Bien à vous,\n"
 "%4$s\n"
 
-#: lib/mail.php:517
+#. TRANS: Subject for direct-message notification email
+#: lib/mail.php:530
 #, php-format
 msgid "New private message from %s"
 msgstr "Nouveau message personnel de %s"
 
-#: lib/mail.php:521
+#. TRANS: Body for direct-message notification email
+#: lib/mail.php:535
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -5959,12 +5979,14 @@ msgstr ""
 "Bien à vous,\n"
 "%5$s\n"
 
-#: lib/mail.php:568
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:583
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s (@%s) a ajouté un de vos avis à ses favoris"
 
-#: lib/mail.php:570
+#. TRANS: Body for favorite notification email
+#: lib/mail.php:586
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -6002,12 +6024,22 @@ msgstr ""
 "Cordialement,\n"
 "%6$s\n"
 
-#: lib/mail.php:635
+#. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
+#: lib/mail.php:645
+#, php-format
+msgid ""
+"The full conversation can be read here:\n"
+"\n"
+"\t%s"
+msgstr ""
+
+#: lib/mail.php:651
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr "%s (@%s) vous a envoyé un avis"
 
-#: lib/mail.php:637
+#. TRANS: Body of @-reply notification e-mail.
+#: lib/mail.php:654
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -6020,17 +6052,19 @@ msgid ""
 "\n"
 "\t%4$s\n"
 "\n"
+"%5$sYou can reply back here:\n"
+"\n"
+"\t%6$s\n"
+"\n"
+"The list of all @-replies for you here:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Faithfully yours,\n"
+"%2$s\n"
+"\n"
+"P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
-"%1$s (@%9$s) vient de vous envoyer un avis (une réponse « @ ») sur %2$s.\n"
-"\n"
-"L’avis est là :\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"Il dit :\n"
-"\n"
-"\t%4$s\n"
-"\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6201,23 +6235,23 @@ msgstr "O"
 msgid "at"
 msgstr "chez"
 
-#: lib/noticelist.php:570
+#: lib/noticelist.php:559
 msgid "in context"
 msgstr "dans le contexte"
 
-#: lib/noticelist.php:605
+#: lib/noticelist.php:594
 msgid "Repeated by"
 msgstr "Repris par"
 
-#: lib/noticelist.php:632
+#: lib/noticelist.php:621
 msgid "Reply to this notice"
 msgstr "Répondre à cet avis"
 
-#: lib/noticelist.php:633
+#: lib/noticelist.php:622
 msgid "Reply"
 msgstr "Répondre"
 
-#: lib/noticelist.php:677
+#: lib/noticelist.php:666
 msgid "Notice repeated"
 msgstr "Avis repris"
 
@@ -6323,11 +6357,7 @@ msgstr "Moyenne journalière"
 msgid "All groups"
 msgstr "Tous les groupes"
 
-#: lib/profileformaction.php:123
-msgid "No return-to arguments."
-msgstr "Aucun argument de retour."
-
-#: lib/profileformaction.php:137
+#: lib/profileformaction.php:114
 msgid "Unimplemented method."
 msgstr "Méthode non implémentée."
 
@@ -6350,6 +6380,10 @@ msgstr "En vedette"
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Populaires"
+
+#: lib/redirectingaction.php:94
+msgid "No return-to arguments."
+msgstr "Aucun argument de retour."
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
@@ -6541,47 +6575,47 @@ msgctxt "role"
 msgid "Moderator"
 msgstr "Modérateur"
 
-#: lib/util.php:1046
+#: lib/util.php:1053
 msgid "a few seconds ago"
 msgstr "il y a quelques secondes"
 
-#: lib/util.php:1048
+#: lib/util.php:1055
 msgid "about a minute ago"
 msgstr "il y a 1 minute"
 
-#: lib/util.php:1050
+#: lib/util.php:1057
 #, php-format
 msgid "about %d minutes ago"
 msgstr "il y a %d minutes"
 
-#: lib/util.php:1052
+#: lib/util.php:1059
 msgid "about an hour ago"
 msgstr "il y a 1 heure"
 
-#: lib/util.php:1054
+#: lib/util.php:1061
 #, php-format
 msgid "about %d hours ago"
 msgstr "il y a %d heures"
 
-#: lib/util.php:1056
+#: lib/util.php:1063
 msgid "about a day ago"
 msgstr "il y a 1 jour"
 
-#: lib/util.php:1058
+#: lib/util.php:1065
 #, php-format
 msgid "about %d days ago"
 msgstr "il y a %d jours"
 
-#: lib/util.php:1060
+#: lib/util.php:1067
 msgid "about a month ago"
 msgstr "il y a 1 mois"
 
-#: lib/util.php:1062
+#: lib/util.php:1069
 #, php-format
 msgid "about %d months ago"
 msgstr "il y a %d mois"
 
-#: lib/util.php:1064
+#: lib/util.php:1071
 msgid "about a year ago"
 msgstr "il y a environ 1 an"
 
