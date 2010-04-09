@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:28:26+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:29+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,7 +80,8 @@ msgstr "భద్రపరచు"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "అటువంటి పేజీ లేదు"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -223,7 +224,7 @@ msgstr ""
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -425,10 +426,9 @@ msgstr "ప్రాంతం పేరు మరీ పెద్దగా ఉ�
 msgid "Too many aliases! Maximum %d."
 msgstr "చాలా మారుపేర్లు! %d గరిష్ఠం."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "తప్పుడు మారుపేరు: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -445,7 +445,8 @@ msgstr "మారుపేరు పేరుతో సమానంగా ఉం
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "గుంపు దొరకలేదు!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -634,9 +635,9 @@ msgstr "ఆ IDతో ఏ నోటీసు కనబడలేదు."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "అది చాలా పొడవుంది. గరిష్ఠ నోటీసు పరిమాణం %d అక్షరాలు."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "దొరకలేదు"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "కనబడలేదు."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -697,10 +698,6 @@ msgstr ""
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%s యొక్క మైక్రోబ్లాగు"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "కనబడలేదు."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "అటువంటి జోడింపు లేదు."
@@ -732,10 +729,11 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "మీ వ్యక్తిగత అవతారాన్ని మీరు ఎక్కించవచ్చు. గరిష్ఠ ఫైలు పరిమాణం %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr ""
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
+msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -892,8 +890,8 @@ msgid "That confirmation code is not for you!"
 msgstr "ఆ నిర్ధారణా సంకేతం మీది కాదు!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "గుర్తుతెలియని చిరునామా రకం %s"
 
 #: actions/confirmaddress.php:94
@@ -1046,8 +1044,8 @@ msgid "Invalid logo URL."
 msgstr "చిహ్నపు URL చెల్లదు."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "అలంకారం అందుబాటులో లేదు: %s"
 
 #: actions/designadminpanel.php:375
@@ -1252,6 +1250,11 @@ msgstr "గుంపుని మార్చడానికి ఈ ఫారా
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "వివరణ చాలా పెద్దదిగా ఉంది (140 అక్షరాలు గరిష్ఠం)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "తప్పుడు మారుపేరు: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1552,8 +1555,9 @@ msgstr ""
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "దూరపు ప్రొపైలుని తాజాకరించటంలో పొరపాటు"
 
 #: actions/getfile.php:79
@@ -1673,11 +1677,6 @@ msgstr "గుంపు చిహ్నం"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "మీ గుంపుకి మీరు ఒక చిహ్నాన్ని ఎక్కించవచ్చు. ఆ ఫైలు యొక్క గరిష్ఠ పరిమాణం %s."
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1914,8 +1913,8 @@ msgid "Invites have been disabled."
 msgstr "ఆహ్వానాలని అచేతనం చేసారు."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "%sని ఉపయోగించమని ఇతర వాడుకరులని ఆహ్వానించడానికి మీరు ప్రవేశించి ఉండాలి"
 
 #: actions/invite.php:72
@@ -2115,7 +2114,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "%s ఇప్పటికే \"%s\" గుంపు యొక్క ఒక నిర్వాకులు."
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "ప్రస్తుత స్థితి ఏమీ లేదు"
 
 #: actions/newapplication.php:52
@@ -2278,11 +2278,11 @@ msgid "You are not a user of that application."
 msgstr "మీరు ఆ ఉపకరణం యొక్క వాడుకరి కాదు."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2291,8 +2291,9 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
-msgstr ""
+#, fuzzy
+msgid "Notice has no profile."
+msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
@@ -2302,13 +2303,13 @@ msgstr "%2$sలో %1$s యొక్క స్థితి"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "విషయ రకం "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2467,23 +2468,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "హోమ్ పేజీ URL సరైనది కాదు."
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "హోమ్ పేజీ URL సరైనది కాదు."
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "నేపథ్యాల సంచయం"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "హోమ్ పేజీ URL సరైనది కాదు."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2630,7 +2631,7 @@ msgstr "వ్యక్తుల అన్వేషణ"
 
 #: actions/peopletag.php:68
 #, fuzzy, php-format
-msgid "Not a valid people tag: %s"
+msgid "Not a valid people tag: %s."
 msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
 
 #: actions/peopletag.php:142
@@ -2639,7 +2640,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%s యొక్క మైక్రోబ్లాగు"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "సందేశపు విషయం సరైనది కాదు"
 
 #: actions/postnotice.php:101
@@ -2783,7 +2785,7 @@ msgstr "అమరికలు భద్రమయ్యాయి."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3655,7 +3657,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "కనిష్ఠ పాఠ్య పరిమితి 140 అక్షరాలు."
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3745,7 +3747,8 @@ msgid "Unable to save site notice."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+#, fuzzy
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr "సైటు-వారీ నోటీసుకి గరిష్ఠ పొడవు 255 అక్షరాలు"
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4106,8 +4109,9 @@ msgid "User is not silenced."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
-msgstr ""
+#, fuzzy
+msgid "No profile ID in request."
+msgstr "అధీకరణ అభ్యర్థన లేదు!"
 
 #: actions/unsubscribe.php:98
 #, fuzzy
@@ -5980,6 +5984,10 @@ msgstr "కొత్త ప్రొపైలుని చేర్చటంల�
 #, fuzzy
 msgid "Error inserting avatar"
 msgstr "అవతారాన్ని పెట్టడంలో పొరపాటు"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "దూరపు ప్రొపైలుని తాజాకరించటంలో పొరపాటు"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

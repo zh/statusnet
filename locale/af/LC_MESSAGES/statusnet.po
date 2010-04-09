@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:26:32+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 22:59:38+0000\n"
 "Language-Team: Afrikaans\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -79,7 +79,8 @@ msgstr "Stoor"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "Hierdie bladsy bestaan nie"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -223,7 +224,7 @@ msgstr "Hierdie metode benodig 'n POST."
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -426,10 +427,9 @@ msgstr "Ligging is te lank is (maksimum 255 karakters)."
 msgid "Too many aliases! Maximum %d."
 msgstr "Te veel aliasse! Die maksimum aantal is %d."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "Ongeldige alias: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -446,7 +446,8 @@ msgstr "Die alias kan nie dieselfde as die gebruikersnaam wees nie."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "Groep nie gevind nie!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -632,9 +633,9 @@ msgstr "Geen status met die ID gevind nie."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Die kennisgewing is te lank. Gebruik maksimum %d karakters."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Nie gevind nie"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Nie gevind nie."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -695,10 +696,6 @@ msgstr ""
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr ""
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Nie gevind nie."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Die aanhangsel bestaan nie."
@@ -729,9 +726,9 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+msgid "User without matching profile."
 msgstr ""
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -885,7 +882,7 @@ msgstr ""
 
 #: actions/confirmaddress.php:90
 #, php-format
-msgid "Unrecognized address type %s"
+msgid "Unrecognized address type %s."
 msgstr ""
 
 #: actions/confirmaddress.php:94
@@ -1034,8 +1031,8 @@ msgid "Invalid logo URL."
 msgstr "Die logo-URL is ongeldig."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "Tema is nie beskikbaar nie: %s"
 
 #: actions/designadminpanel.php:375
@@ -1238,6 +1235,11 @@ msgstr "Gebruik hierdie vorm om die groep te wysig."
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "Die beskrywing is te lank (die maksimum is %d karakters)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Ongeldige alias: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1535,9 +1537,10 @@ msgstr ""
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
-msgstr ""
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
+msgstr "Kon nie die profiel stoor nie."
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -1651,10 +1654,6 @@ msgstr "Groepslogo"
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
-msgstr ""
-
-#: actions/grouplogo.php:181
-msgid "User without matching profile."
 msgstr ""
 
 #: actions/grouplogo.php:365
@@ -1883,9 +1882,9 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
+msgstr "U moet aanteken alvorens u by groep kan aansluit."
 
 #: actions/invite.php:72
 #, php-format
@@ -2080,7 +2079,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr ""
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Geen huidige status"
 
 #: actions/newapplication.php:52
@@ -2237,11 +2237,11 @@ msgid "You are not a user of that application."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2250,8 +2250,9 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
-msgstr ""
+#, fuzzy
+msgid "Notice has no profile."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
 
 #: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
@@ -2261,13 +2262,13 @@ msgstr "Status van %1$s op %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2420,23 +2421,23 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
+msgstr "Tema is nie beskikbaar nie: %s"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Avatar-gids"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Agtergrond-gids"
 
 #: actions/pathsadminpanel.php:177
 #, php-format
-msgid "Locales directory not readable: %s"
+msgid "Locales directory not readable: %s."
 msgstr ""
 
 #: actions/pathsadminpanel.php:183
@@ -2575,9 +2576,9 @@ msgid "People search"
 msgstr "Soek gebruikers"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
+msgstr "Nie 'n geldige e-posadres nie."
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2585,8 +2586,9 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
-msgstr ""
+#, fuzzy
+msgid "Invalid notice content."
+msgstr "Ongeldige token."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -2726,7 +2728,7 @@ msgstr "Voorkeure is gestoor."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3559,7 +3561,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3647,7 +3649,7 @@ msgid "Unable to save site notice."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -3997,8 +3999,9 @@ msgid "User is not silenced."
 msgstr ""
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
-msgstr ""
+#, fuzzy
+msgid "No profile ID in request."
+msgstr "Daar is geen profiel met daardie ID nie."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
@@ -5792,6 +5795,10 @@ msgstr ""
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
+msgstr ""
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
 msgstr ""
 
 #: lib/oauthstore.php:311

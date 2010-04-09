@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:27:49+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:00:59+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,7 +82,8 @@ msgstr "Зачувај"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "Нема таква страница"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -231,9 +232,10 @@ msgid "This method requires a POST."
 msgstr "Овој метод бара POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
+#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 "Мора да назначите параметар со име 'device' со една од следниве вредности: "
 "sms, im, none"
@@ -436,10 +438,9 @@ msgstr "Локацијата е предолга (максимумот е 255 з
 msgid "Too many aliases! Maximum %d."
 msgstr "Премногу алијаси! Дозволено е највеќе %d."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "Неважечки алијас: „%s“"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -456,7 +457,8 @@ msgstr "Алијасот не може да биде ист како прека�
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "Групата не е пронајдена!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -647,9 +649,9 @@ msgstr "Нема пронајдено статус со тој ID."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Не е пронајдено"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Не е пронајдено."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -712,10 +714,6 @@ msgstr "Забелешки означени со %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Подновувањата се означени со %1$s на %2$s!"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Не е пронајдено."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Нема таков прилог."
@@ -748,10 +746,10 @@ msgstr ""
 "податотеката изнесува %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr "Корисник без соодветен профил"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+msgid "User without matching profile."
+msgstr "Корисник без соодветен профил."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -907,8 +905,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Овој код за потврда не е за Вас!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Непознат тип на адреса %s"
 
 #: actions/confirmaddress.php:94
@@ -1064,8 +1062,8 @@ msgid "Invalid logo URL."
 msgstr "Погрешен URL на лого."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "Непосточка тема: %s"
 
 #: actions/designadminpanel.php:375
@@ -1270,6 +1268,11 @@ msgstr "ОБразецов служи за уредување на групат�
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "описот е предолг (максимум  %d знаци)"
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Неважечки алијас: „%s“"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1581,8 +1584,9 @@ msgstr "Не можев да ги претворам жетоните за ба�
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Далечинската служба користи непозната верзија на OMB протокол."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Грешка во подновувањето на далечинскиот профил"
 
 #: actions/getfile.php:79
@@ -1707,10 +1711,6 @@ msgid ""
 msgstr ""
 "Можете да подигнете слика за логото на Вашата група. Максималната дозволена "
 "големина на податотеката е %s."
-
-#: actions/grouplogo.php:181
-msgid "User without matching profile."
-msgstr "Корисник без соодветен профил."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1962,8 +1962,8 @@ msgid "Invites have been disabled."
 msgstr "Поканите се оневозможени."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr ""
 "Мора да сте најавени за да можете да каните други корисници да користат %s"
 
@@ -2197,7 +2197,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Не можам да го направам корисникот %1$s администратор на групата %2$s."
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Нема тековен статус"
 
 #: actions/newapplication.php:52
@@ -2365,11 +2366,11 @@ msgid "You are not a user of that application."
 msgstr "Не сте корисник на тој програм."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, fuzzy, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr "Не можам да му го одземам пристапот на програмот: "
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr "Му немате дозволено пристап до Вашата сметка на ниеден програм."
 
@@ -2379,7 +2380,8 @@ msgstr ""
 "Развивачите можат да ги нагодат регистрациските поставки за нивните програми "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Забелешката нема профил"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2390,13 +2392,13 @@ msgstr "%1$s статус на %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "тип на содржини "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2551,23 +2553,23 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Нагодувања за патеки и сервери за оваа StatusNet веб-страница."
 
 #: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s"
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
 msgstr "Директориумот на темата е нечитлив: %s"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
 msgstr "Директориумот на аватарот е недостапен за пишување: %s"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
 msgstr "Директориумот на позадината е нечитлив: %s"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
 msgstr "Директориумот на локалите е нечитлив: %s"
 
 #: actions/pathsadminpanel.php:183
@@ -2709,8 +2711,8 @@ msgid "People search"
 msgstr "Пребарување на луѓе"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Не е важечка ознака за луѓе: %s"
 
 #: actions/peopletag.php:142
@@ -2719,7 +2721,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Користници самоозначени со %1$s - стр. %2$d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Неважечка содржина на забелешката"
 
 #: actions/postnotice.php:101
@@ -2867,8 +2870,8 @@ msgid "Settings saved."
 msgstr "Нагодувањата се зачувани"
 
 #: actions/public.php:83
-#, php-format
-msgid "Beyond the page limit (%s)"
+#, fuzzy, php-format
+msgid "Beyond the page limit (%s)."
 msgstr "Надминато е ограничувањето на страницата (%s)"
 
 #: actions/public.php:92
@@ -3789,7 +3792,8 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "Минималниот дозволен текст изнесува 0 (неограничено)."
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+#, fuzzy
+msgid "Dupe limit must be one or more seconds."
 msgstr "Ограничувањето на дуплирањето мора да изнесува барем 1 секунда."
 
 #: actions/siteadminpanel.php:221
@@ -3883,7 +3887,8 @@ msgid "Unable to save site notice."
 msgstr "Не можам да ја зачувам објавата за веб-страницата."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+#, fuzzy
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr "Објавата за цела веб-страница не треба да има повеќе од 255 знаци"
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4256,7 +4261,8 @@ msgid "User is not silenced."
 msgstr "Корисникот не е замолчен."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "Во барањето нема id на профилот."
 
 #: actions/unsubscribe.php:98
@@ -6233,6 +6239,10 @@ msgstr "Грешка во внесувањето на новиот профил"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Грешка во внесувањето на аватарот"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Грешка во подновувањето на далечинскиот профил"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

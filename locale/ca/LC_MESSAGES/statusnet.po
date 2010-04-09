@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:26:48+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 22:59:55+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,8 @@ msgstr "Guardar"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "No existeix la pàgina."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -233,7 +234,7 @@ msgstr "Aquest mètode requereix POST."
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -444,10 +445,9 @@ msgstr "La ubicació és massa llarga (màx. 255 caràcters)."
 msgid "Too many aliases! Maximum %d."
 msgstr "Hi ha massa àlies! Màxim %d."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "L'àlies no és vàlid «%s»"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -464,7 +464,8 @@ msgstr "L'àlies no pot ser el mateix que el sobrenom."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "No s'ha trobat el grup!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -660,9 +661,9 @@ msgstr "No s'ha trobat cap estatus amb la ID trobada."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Massa llarg. La longitud màxima és de %d caràcters."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "No s'ha trobat"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "No s'ha trobat."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -723,10 +724,6 @@ msgstr "Aviso etiquetats amb %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualitzacions etiquetades amb %1$s el %2$s!"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "No s'ha trobat."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "No existeix l'adjunció."
@@ -758,9 +755,10 @@ msgstr ""
 "Podeu pujar el vostre avatar personal. La mida màxima del fitxer és %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
 msgstr "Usuari sense perfil coincident"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -917,8 +915,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Aquest codi de confirmació no és per a tu!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Tipus d'adreça %s desconeguda"
 
 #: actions/confirmaddress.php:94
@@ -1079,8 +1077,8 @@ msgid "Invalid logo URL."
 msgstr "L'URL del logotip no és vàlid."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "El tema no és disponible: %s"
 
 #: actions/designadminpanel.php:375
@@ -1295,6 +1293,11 @@ msgstr "Utilitza aquest formulari per editar el grup."
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "la descripció és massa llarga (màx. %d caràcters)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "L'àlies no és vàlid «%s»"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1606,8 +1609,9 @@ msgstr "No s'han pogut convertir els senyals de petició a senyals d'accés."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Versió desconeguda del protocol OMB."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Error en actualitzar el perfil remot"
 
 #: actions/getfile.php:79
@@ -1732,11 +1736,6 @@ msgstr "Logo del grup"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Pots pujar una imatge de logo per al grup."
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "Usuari sense perfil coincident"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1980,8 +1979,8 @@ msgid "Invites have been disabled."
 msgstr "S'han inhabilitat les invitacions."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr ""
 "Has d'estar dins del servei per poder convidar altres usuaris a utilitzar-lo "
 "%s"
@@ -2220,7 +2219,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "No es pot fer %s un administrador del grup %s"
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "No té cap estatus ara mateix"
 
 #: actions/newapplication.php:52
@@ -2387,11 +2387,11 @@ msgid "You are not a user of that application."
 msgstr "No sou usuari de l'aplicació."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2400,7 +2400,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Avís sense perfil"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2411,13 +2412,13 @@ msgstr "estat de %1$s a %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "tipus de contingut "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2578,23 +2579,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "Aquesta pàgina no està disponible en "
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "No es pot escriure al directori de fons: %s"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
 msgstr "No es pot escriure al directori de fons: %s"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Aquesta pàgina no està disponible en "
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2736,8 +2737,8 @@ msgid "People search"
 msgstr "Cerca de gent"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Etiqueta no vàlida per a la gent: %s"
 
 #: actions/peopletag.php:142
@@ -2746,7 +2747,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Usuaris que s'han etiquetat %s - pàgina %d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "El contingut de l'avís és invàlid"
 
 #: actions/postnotice.php:101
@@ -2894,8 +2896,8 @@ msgid "Settings saved."
 msgstr "Configuració guardada."
 
 #: actions/public.php:83
-#, php-format
-msgid "Beyond the page limit (%s)"
+#, fuzzy, php-format
+msgid "Beyond the page limit (%s)."
 msgstr "Més enllà del límit de la pàgina (%s)"
 
 #: actions/public.php:92
@@ -3793,7 +3795,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3887,7 +3889,7 @@ msgid "Unable to save site notice."
 msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4266,7 +4268,8 @@ msgid "User is not silenced."
 msgstr "L'usuari no està silenciat."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "No id en el perfil sol·licitat."
 
 #: actions/unsubscribe.php:98
@@ -6166,6 +6169,10 @@ msgstr "Error en inserir el nou perfil"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Error en inserir avatar"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Error en actualitzar el perfil remot"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

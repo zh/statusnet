@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:27:36+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:00:44+0000\n"
 "Language-Team: Icelandic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,7 +89,7 @@ msgstr "Vista"
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
-msgid "No such page"
+msgid "No such page."
 msgstr "Ekkert þannig merki."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -232,7 +232,7 @@ msgstr "Þessi aðferð krefst POST."
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -437,11 +437,10 @@ msgstr "Staðsetning er of löng (í mesta lagi 255 stafir)."
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
-msgstr ""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
+msgstr "Ógilt merki: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -458,7 +457,7 @@ msgstr ""
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
-msgid "Group not found!"
+msgid "Group not found."
 msgstr "Aðferð í forritsskilum fannst ekki!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -653,9 +652,9 @@ msgstr "Engin staða með þessu kenni fannst."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Þetta er of langt. Hámarkslengd babls er 140 tákn."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Fannst ekki"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Fannst ekki."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -717,10 +716,6 @@ msgstr "Babl merkt með %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr ""
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Fannst ekki."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr ""
@@ -751,9 +746,10 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
 msgstr "Notandi með enga persónulega síðu sem passar við"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -910,8 +906,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Þessi staðfestingarlykill er ekki fyrir þig!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Óþekkt gerð tölvupóstfangs %s"
 
 #: actions/confirmaddress.php:94
@@ -1074,7 +1070,7 @@ msgstr "Ótæk stærð."
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "Þessi síða er ekki aðgengileg í "
 
 #: actions/designadminpanel.php:375
@@ -1294,6 +1290,11 @@ msgstr "Notaðu þetta eyðublað til að breyta hópnum."
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "Lýsing er of löng (í mesta lagi 140 tákn)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr ""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1605,8 +1606,9 @@ msgstr "Gat ekki breytt beiðnistókum í aðgangstóka."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Óþekkt útgáfa OMB samskiptamátans."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
 #: actions/getfile.php:79
@@ -1728,11 +1730,6 @@ msgstr "Einkennismynd hópsins"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "Notandi með enga persónulega síðu sem passar við"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1976,8 +1973,8 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "Þú verður að vera innskráð(ur) til að geta boðið öðrum að nota %s"
 
 #: actions/invite.php:72
@@ -2214,7 +2211,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Gat ekki fjarlægt notandann %s úr hópnum %s"
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Engin núverandi staða"
 
 #: actions/newapplication.php:52
@@ -2384,11 +2382,11 @@ msgid "You are not a user of that application."
 msgstr "Þú ert ekki meðlimur í þessum hópi."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2397,7 +2395,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Babl hefur enga persónulega síðu"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2408,13 +2407,13 @@ msgstr "Staða %1$s á %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2576,23 +2575,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "Þessi síða er ekki aðgengileg í "
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Þessi síða er ekki aðgengileg í "
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Þessi síða er ekki aðgengileg í "
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Þessi síða er ekki aðgengileg í "
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2743,8 +2742,8 @@ msgid "People search"
 msgstr "Leit að fólki"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Ekki gilt persónumerki: %s"
 
 #: actions/peopletag.php:142
@@ -2753,7 +2752,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Notendur sjálfmerktir með %s - síða %d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Ótækt bablinnihald"
 
 #: actions/postnotice.php:101
@@ -2904,7 +2904,7 @@ msgstr "Stillingar vistaðar."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3786,7 +3786,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3881,7 +3881,7 @@ msgid "Unable to save site notice."
 msgstr "Vandamál komu upp við að vista babl."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4255,7 +4255,8 @@ msgid "User is not silenced."
 msgstr "Notandi hefur enga persónulega síðu."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "Ekkert einkenni persónulegrar síðu í beiðni."
 
 #: actions/unsubscribe.php:98
@@ -6165,6 +6166,10 @@ msgstr "Villa kom upp við að setja inn nýja persónulega síðu"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Villa kom upp við að setja inn mynd"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Villa kom upp í uppfærslu persónulegrar fjarsíðu"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

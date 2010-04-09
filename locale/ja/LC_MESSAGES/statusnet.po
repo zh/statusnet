@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:27:42+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:00:52+0000\n"
 "Language-Team: Japanese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,7 +84,8 @@ msgstr "保存"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "そのようなページはありません。"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -230,9 +231,10 @@ msgid "This method requires a POST."
 msgstr "このメソッドには POST が必要です。"
 
 #: actions/apiaccountupdatedeliverydevice.php:105
+#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 "「device」という名前の引数を、次の中から値を選んで、指定する必要があります: "
 "sms, im, none"
@@ -435,10 +437,9 @@ msgstr "場所が長すぎます。（255字まで）"
 msgid "Too many aliases! Maximum %d."
 msgstr "別名が多すぎます! 最大 %d。"
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "不正な別名: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -455,7 +456,8 @@ msgstr "別名はニックネームと同じではいけません。"
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "グループが見つかりません!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -643,9 +645,9 @@ msgstr "そのＩＤでのステータスはありません。"
 msgid "That's too long. Max notice size is %d chars."
 msgstr "長すぎます。つぶやきは最大 140 字までです。"
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "みつかりません"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "見つかりません。"
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -706,10 +708,6 @@ msgstr "%s とタグ付けされたつぶやき"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s に %1$s による更新があります！"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "見つかりません。"
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "そのような添付はありません。"
@@ -740,9 +738,9 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "自分のアバターをアップロードできます。最大サイズは%sです。"
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+msgid "User without matching profile."
 msgstr "合っているプロフィールのないユーザ"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -900,8 +898,8 @@ msgid "That confirmation code is not for you!"
 msgstr "その確認コードはあなたのものではありません！"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "不明なアドレスタイプ %s"
 
 #: actions/confirmaddress.php:94
@@ -1057,8 +1055,8 @@ msgid "Invalid logo URL."
 msgstr "不正なロゴ URL"
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "テーマが利用できません： %s"
 
 #: actions/designadminpanel.php:375
@@ -1263,6 +1261,11 @@ msgstr "このフォームを使ってグループを編集します。"
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "記述が長すぎます。（最長 %d 字）"
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "不正な別名: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1575,8 +1578,9 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 "リモートサービスは、不明なバージョンの OMB プロトコルを使用しています。"
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "リモートプロファイル更新エラー"
 
 #: actions/getfile.php:79
@@ -1701,10 +1705,6 @@ msgid ""
 msgstr ""
 "あなたのグループ用にロゴイメージをアップロードできます。最大ファイルサイズは "
 "%s。"
-
-#: actions/grouplogo.php:181
-msgid "User without matching profile."
-msgstr "合っているプロフィールのないユーザ"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1954,8 +1954,8 @@ msgid "Invites have been disabled."
 msgstr "招待は無効にされました。"
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "他のユーザが%sを使用するよう誘うためにはログインしなければなりません。"
 
 #: actions/invite.php:72
@@ -2188,7 +2188,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "%1$s をグループ %2$s の管理者にすることはできません"
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "現在のステータスはありません"
 
 #: actions/newapplication.php:52
@@ -2353,11 +2354,11 @@ msgid "You are not a user of that application."
 msgstr "あなたはそのアプリケーションのユーザではありません。"
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, fuzzy, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr "アプリケーションのための取消しアクセスができません: "
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 "あなたは、どんなアプリケーションもあなたのアカウントを使用するのを認可してい"
@@ -2368,7 +2369,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr "開発者は彼らのアプリケーションのために登録設定を編集できます "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "つぶやきにはプロファイルはありません。"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2379,13 +2381,13 @@ msgstr "%2$s における %1$ のステータス"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "内容種別 "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2540,23 +2542,23 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "パスと StatusNet サイトのサーバー設定"
 
 #: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s"
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
 msgstr "テーマディレクトリが読み込めません: %s"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
 msgstr "アバターディレクトリに書き込みできません: %s"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
 msgstr "バックグラウンドディレクトリに書き込みできません : %s"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
 msgstr "場所ディレクトリが読み込めません: %s"
 
 #: actions/pathsadminpanel.php:183
@@ -2697,8 +2699,8 @@ msgid "People search"
 msgstr "ピープルサーチ"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "正しいタグではありません： %s"
 
 #: actions/peopletag.php:142
@@ -2707,7 +2709,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "ユーザ自身がつけたタグ %1$s  - ページ %2$d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "不正なつぶやき内容"
 
 #: actions/postnotice.php:101
@@ -2852,8 +2855,8 @@ msgid "Settings saved."
 msgstr "設定が保存されました。"
 
 #: actions/public.php:83
-#, php-format
-msgid "Beyond the page limit (%s)"
+#, fuzzy, php-format
+msgid "Beyond the page limit (%s)."
 msgstr "ページ制限を超えました (%s)"
 
 #: actions/public.php:92
@@ -3771,7 +3774,8 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "最小のテキスト制限は140字です。"
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+#, fuzzy
+msgid "Dupe limit must be one or more seconds."
 msgstr "デュープ制限は1秒以上でなければなりません。"
 
 #: actions/siteadminpanel.php:221
@@ -3868,7 +3872,7 @@ msgid "Unable to save site notice."
 msgstr "あなたのデザイン設定を保存できません。"
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4245,7 +4249,8 @@ msgid "User is not silenced."
 msgstr "ユーザはサイレンスではありません。"
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "リクエスト内にプロファイルIDがありません。"
 
 #: actions/unsubscribe.php:98
@@ -6192,6 +6197,10 @@ msgstr "プロファイル追加エラー"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "アバター追加エラー"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "リモートプロファイル更新エラー"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

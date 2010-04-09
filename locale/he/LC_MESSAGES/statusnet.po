@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:27:27+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:00:35+0000\n"
 "Language-Team: Hebrew\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -86,7 +86,7 @@ msgstr "שמור"
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
-msgid "No such page"
+msgid "No such page."
 msgstr "אין הודעה כזו."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -230,7 +230,7 @@ msgstr ""
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -435,10 +435,9 @@ msgstr "שם המיקום ארוך מידי (מותר עד 255 אותיות)."
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
+#: actions/apigroupcreate.php:266
 #, fuzzy, php-format
-msgid "Invalid alias: \"%s\""
+msgid "Invalid alias: \"%s\"."
 msgstr "כתובת אתר הבית '%s' אינה חוקית"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -456,7 +455,7 @@ msgstr ""
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
-msgid "Group not found!"
+msgid "Group not found."
 msgstr "לא נמצא"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -652,8 +651,9 @@ msgstr ""
 msgid "That's too long. Max notice size is %d chars."
 msgstr "זה ארוך מידי. אורך מירבי להודעה הוא 140 אותיות."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+#, fuzzy
+msgid "Not found."
 msgstr "לא נמצא"
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
@@ -716,11 +716,6 @@ msgstr ""
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "מיקרובלוג מאת %s"
 
-#: actions/apiusershow.php:96
-#, fuzzy
-msgid "Not found."
-msgstr "לא נמצא"
-
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
@@ -752,10 +747,11 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr ""
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
+msgstr "למשתמש אין פרופיל."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -918,8 +914,8 @@ msgid "That confirmation code is not for you!"
 msgstr "קוד האישור הזה אינו מיועד לך!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "סוג לא מזוהה של כתובת %s"
 
 #: actions/confirmaddress.php:94
@@ -1083,7 +1079,7 @@ msgstr "גודל לא חוקי."
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "עמוד זה אינו זמין בסוג מדיה שאתה יכול לקבל"
 
 #: actions/designadminpanel.php:375
@@ -1303,6 +1299,11 @@ msgstr ""
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "הביוגרפיה ארוכה מידי (לכל היותר 140 אותיות)"
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "כתובת אתר הבית '%s' אינה חוקית"
 
 #: actions/editgroup.php:258
 #, fuzzy
@@ -1614,8 +1615,9 @@ msgstr "המרת אסימון הבקשה לאסימון גישה לא הצליח
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "גירסה לא מוכרת של פרוטוקול OMB"
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "שגיאה בעדכון פרופיל מרוחק"
 
 #: actions/getfile.php:79
@@ -1745,11 +1747,6 @@ msgstr ""
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "למשתמש אין פרופיל."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1997,9 +1994,9 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
+msgstr "עידכון המשתמש נכשל."
 
 #: actions/invite.php:72
 #, php-format
@@ -2200,8 +2197,9 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "למשתמש אין פרופיל."
 
 #: actions/microsummary.php:69
-msgid "No current status"
-msgstr ""
+#, fuzzy
+msgid "No current status."
+msgstr "אין תוצאות"
 
 #: actions/newapplication.php:52
 #, fuzzy
@@ -2364,11 +2362,11 @@ msgid "You are not a user of that application."
 msgstr "לא שלחנו אלינו את הפרופיל הזה"
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2377,7 +2375,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "להודעה אין פרופיל"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2388,13 +2387,13 @@ msgstr "הסטטוס של %1$s ב-%2$s "
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "התחבר"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2557,23 +2556,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "עמוד זה אינו זמין בסוג מדיה שאתה יכול לקבל"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "עמוד זה אינו זמין בסוג מדיה שאתה יכול לקבל"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "עמוד זה אינו זמין בסוג מדיה שאתה יכול לקבל"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "עמוד זה אינו זמין בסוג מדיה שאתה יכול לקבל"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2725,7 +2724,7 @@ msgstr "חיפוש סיסמה"
 
 #: actions/peopletag.php:68
 #, fuzzy, php-format
-msgid "Not a valid people tag: %s"
+msgid "Not a valid people tag: %s."
 msgstr "לא עומד בכללים ל-OpenID."
 
 #: actions/peopletag.php:142
@@ -2734,7 +2733,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "מיקרובלוג מאת %s"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "תוכן ההודעה לא חוקי"
 
 #: actions/postnotice.php:101
@@ -2879,7 +2879,7 @@ msgstr "ההגדרות נשמרו."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3744,7 +3744,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3837,7 +3837,7 @@ msgid "Unable to save site notice."
 msgstr "בעיה בשמירת ההודעה."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4208,7 +4208,7 @@ msgstr "למשתמש אין פרופיל."
 
 #: actions/unsubscribe.php:77
 #, fuzzy
-msgid "No profile id in request."
+msgid "No profile ID in request."
 msgstr "השרת לא החזיר כתובת פרופיל"
 
 #: actions/unsubscribe.php:98
@@ -6122,6 +6122,10 @@ msgstr "שגיאה בהכנסת הפרופיל"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "שגיאה בהכנסת התמונה."
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "שגיאה בעדכון פרופיל מרוחק"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

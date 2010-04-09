@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:28:02+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:11+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,7 +85,8 @@ msgstr "Zapisz"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "Nie ma takiej strony"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -234,9 +235,10 @@ msgid "This method requires a POST."
 msgstr "Ta metoda wymaga POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
+#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 "Należy podać parametr o nazwie \"device\" z jedną z wartości: sms, im, none"
 
@@ -438,10 +440,9 @@ msgstr "Położenie jest za długie (maksymalnie 255 znaków)."
 msgid "Too many aliases! Maximum %d."
 msgstr "Za dużo aliasów. Maksymalnie %d."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "Nieprawidłowy alias: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -458,7 +459,8 @@ msgstr "Alias nie może być taki sam jak pseudonim."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "Nie odnaleziono grupy."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -648,9 +650,9 @@ msgstr "Nie odnaleziono stanów z tym identyfikatorem."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Wpis jest za długi. Maksymalna długość wynosi %d znaków."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Nie odnaleziono"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Nie odnaleziono."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -711,10 +713,6 @@ msgstr "Wpisy ze znacznikiem %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Aktualizacje ze znacznikiem %1$s na %2$s."
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Nie odnaleziono."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Nie ma takiego załącznika."
@@ -745,10 +743,10 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Można wysłać osobisty awatar. Maksymalny rozmiar pliku to %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr "Użytkownik bez odpowiadającego profilu"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+msgid "User without matching profile."
+msgstr "Użytkownik bez odpowiadającego profilu."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -886,9 +884,9 @@ msgstr "Odblokuj tego użytkownika"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #: actions/bookmarklet.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Post to %s"
-msgstr "Wyślij do "
+msgstr "Wyślij do %s"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -903,8 +901,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Ten kod potwierdzający nie jest przeznaczony dla ciebie."
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Nierozpoznany typ adresu %s"
 
 #: actions/confirmaddress.php:94
@@ -1059,8 +1057,8 @@ msgid "Invalid logo URL."
 msgstr "Nieprawidłowy adres URL logo."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "Motyw nie jest dostępny: %s"
 
 #: actions/designadminpanel.php:375
@@ -1263,6 +1261,11 @@ msgstr "Użyj tego formularza, aby zmodyfikować grupę."
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "opis jest za długi (maksymalnie %d znaków)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Nieprawidłowy alias: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1572,8 +1575,9 @@ msgstr "Nie można przekonwertować tokenów żądań na tokeny dostępu."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Zdalna usługa używa nieznanej wersji protokołu OMB."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Błąd podczas aktualizowania zdalnego profilu"
 
 #: actions/getfile.php:79
@@ -1692,10 +1696,6 @@ msgstr "Logo grupy"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Można wysłać obraz logo grupy. Maksymalny rozmiar pliku to %s."
-
-#: actions/grouplogo.php:181
-msgid "User without matching profile."
-msgstr "Użytkownik bez odpowiadającego profilu."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1945,8 +1945,8 @@ msgid "Invites have been disabled."
 msgstr "Zaproszenia zostały wyłączone."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr ""
 "Należy być zalogowanym, aby zapraszać innych użytkowników do używania %s"
 
@@ -2180,7 +2180,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Nie można uczynić %1$s administratorem grupy %2$s."
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Brak obecnego stanu"
 
 #: actions/newapplication.php:52
@@ -2346,11 +2347,11 @@ msgid "You are not a user of that application."
 msgstr "Nie jesteś użytkownikiem tej aplikacji."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, fuzzy, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr "Nie można unieważnić dostępu dla aplikacji: "
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr "Nie upoważniono żadnych aplikacji do używania konta."
 
@@ -2359,7 +2360,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr "Programiści mogą zmodyfikować ustawienia rejestracji swoich aplikacji "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Wpis nie posiada profilu"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2370,14 +2372,14 @@ msgstr "Stan użytkownika %1$s na %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
-msgstr "typ zawartości "
+msgid "Content type %s not supported."
+msgstr "typ zawartości %s jest nieobsługiwany"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
-#, php-format
-msgid "Only %s urls over plain http please"
-msgstr ""
+#, fuzzy, php-format
+msgid "Only %s URLs over plain HTTP please."
+msgstr "Dozwolone są tylko adresy URL %s przez zwykły protokół HTTP"
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
 #: lib/apiaction.php:1096 lib/apiaction.php:1212
@@ -2529,23 +2531,23 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Ustawienia ścieżki i serwera dla tej witryny StatusNet."
 
 #: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s"
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
 msgstr "Katalog motywu jest nieczytelny: %s"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
 msgstr "Katalog awatara jest niezapisywalny: %s"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
 msgstr "Katalog tła jest niezapisywalny: %s"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
 msgstr "Katalog lokalizacji jest nieczytelny: %s"
 
 #: actions/pathsadminpanel.php:183
@@ -2689,8 +2691,8 @@ msgid "People search"
 msgstr "Wyszukiwanie osób"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Nieprawidłowy znacznik osób: %s"
 
 #: actions/peopletag.php:142
@@ -2699,7 +2701,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Użytkownicy używający znacznika %1$s - strona %2$d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Nieprawidłowa zawartość wpisu"
 
 #: actions/postnotice.php:101
@@ -2844,8 +2847,8 @@ msgid "Settings saved."
 msgstr "Zapisano ustawienia."
 
 #: actions/public.php:83
-#, php-format
-msgid "Beyond the page limit (%s)"
+#, fuzzy, php-format
+msgid "Beyond the page limit (%s)."
 msgstr "Poza ograniczeniem strony (%s)"
 
 #: actions/public.php:92
@@ -3141,13 +3144,13 @@ msgid "Longer name, preferably your \"real\" name"
 msgstr "Dłuższa nazwa, najlepiej twoje \"prawdziwe\" imię i nazwisko"
 
 #: actions/register.php:494
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-" poza tymi prywatnymi danymi: hasło, adres e-mail, adres komunikatora i "
-"numer telefonu."
+"Tekst i pliki są dostępne na warunkach licencji %s, poza tymi prywatnymi "
+"danymi: hasło, adres e-mail, adres komunikatora i numer telefonu."
 
 #: actions/register.php:542
 #, php-format
@@ -3762,7 +3765,8 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "Minimalne ograniczenie tekstu to 0 (bez ograniczenia)."
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+#, fuzzy
+msgid "Dupe limit must be one or more seconds."
 msgstr "Ograniczenie duplikatów musi wynosić jedną lub więcej sekund."
 
 #: actions/siteadminpanel.php:221
@@ -3854,7 +3858,8 @@ msgid "Unable to save site notice."
 msgstr "Nie można zapisać wpisu witryny."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+#, fuzzy
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr "Maksymalna długość wpisu witryny to 255 znaków"
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4229,7 +4234,8 @@ msgid "User is not silenced."
 msgstr "Użytkownik nie jest wyciszony."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "Brak identyfikatora profilu w żądaniu."
 
 #: actions/unsubscribe.php:98
@@ -4918,6 +4924,8 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
+"Wszystkie treści i dane na stronie %1$s są dostępne na warunkach licencji %2"
+"$s."
 
 #: lib/action.php:1156
 msgid "Pagination"
@@ -5835,9 +5843,9 @@ msgstr "Potwierdzenie SMS"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:457
-#, fuzzy, php-format
+#, php-format
 msgid "%s: confirm you own this phone number with this code:"
-msgstr "Oczekiwanie na potwierdzenie tego numeru telefonu."
+msgstr "%s: proszę potwierdzić własny numer telefonu za pomocą tego kodu:"
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:478
@@ -5966,6 +5974,9 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"Pełną rozmowę można przeczytać tutaj:\n"
+"\n"
+"%s"
 
 #: lib/mail.php:651
 #, php-format
@@ -5999,6 +6010,29 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"Użytkownik %1$s (@%9$s) właśnie wysłał wpis dla ciebie (odpowiedź \\\"@\\\") "
+"na %2$s.\n"
+"\n"
+"Wpis:\n"
+"\n"
+"%3$s\n"
+"\n"
+"O treści:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%5$sMożna odpowiedzieć tutaj:\n"
+"\n"
+"%6$s\n"
+"\n"
+"Lista wszystkich odpowiedzi \\\"@\\\" do ciebie znajduje się tutaj:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Z poważaniem,\n"
+"%2$s\n"
+"\n"
+"PS Można wyłączyć powiadomienia przez e-mail tutaj: %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6205,6 +6239,10 @@ msgstr "Błąd podczas wprowadzania nowego profilu"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Błąd podczas wprowadzania awatara"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Błąd podczas aktualizowania zdalnego profilu"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:28:39+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:41+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,7 +89,8 @@ msgstr "保存"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "没有该页面"
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -233,7 +234,7 @@ msgstr "此方法接受POST请求。"
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -440,10 +441,9 @@ msgstr "位置过长(不能超过255个字符)。"
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
+#: actions/apigroupcreate.php:266
 #, fuzzy, php-format
-msgid "Invalid alias: \"%s\""
+msgid "Invalid alias: \"%s\"."
 msgstr "主页'%s'不正确"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -461,7 +461,7 @@ msgstr ""
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
-msgid "Group not found!"
+msgid "Group not found."
 msgstr "API 方法未实现！"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -657,8 +657,9 @@ msgstr "没有找到此ID的信息。"
 msgid "That's too long. Max notice size is %d chars."
 msgstr "超出长度限制。不能超过 140 个字符。"
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+#, fuzzy
+msgid "Not found."
 msgstr "未找到"
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
@@ -721,11 +722,6 @@ msgstr "带 %s 标签的通告"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s 上 %1$s 的更新！"
 
-#: actions/apiusershow.php:96
-#, fuzzy
-msgid "Not found."
-msgstr "未找到"
-
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
@@ -757,9 +753,10 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "您可以在这里上传个人头像。"
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
 msgstr "找不到匹配的用户。"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -922,8 +919,8 @@ msgid "That confirmation code is not for you!"
 msgstr "此确认码不适用！"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "不可识别的地址类型 %s"
 
 #: actions/confirmaddress.php:94
@@ -1090,7 +1087,7 @@ msgstr "大小不正确。"
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "这个页面不提供您想要的媒体类型"
 
 #: actions/designadminpanel.php:375
@@ -1314,6 +1311,11 @@ msgstr "使用这个表单来编辑组"
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "描述过长(不能超过140字符)。"
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "主页'%s'不正确"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1630,8 +1632,9 @@ msgstr "无法将请求标记转换为访问令牌。"
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "此OMB协议版本无效。"
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "更新远程的个人信息时出错"
 
 #: actions/getfile.php:79
@@ -1765,11 +1768,6 @@ msgstr "组logo"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "你可以给你的组上载一个logo图。"
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "找不到匹配的用户。"
 
 #: actions/grouplogo.php:365
 #, fuzzy
@@ -2016,8 +2014,8 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "您必须登录才能邀请其他人使用 %s"
 
 #: actions/invite.php:72
@@ -2241,7 +2239,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "只有admin才能编辑这个组"
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "没有当前状态"
 
 #: actions/newapplication.php:52
@@ -2408,11 +2407,11 @@ msgid "You are not a user of that application."
 msgstr "您未告知此个人信息"
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2421,7 +2420,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "通告没有关联个人信息"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2432,13 +2432,13 @@ msgstr "%1$s 的 %2$s 状态"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "连接"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2602,23 +2602,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "这个页面不提供您想要的媒体类型"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "这个页面不提供您想要的媒体类型"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "这个页面不提供您想要的媒体类型"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "这个页面不提供您想要的媒体类型"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2771,7 +2771,7 @@ msgstr "搜索用户"
 
 #: actions/peopletag.php:68
 #, fuzzy, php-format
-msgid "Not a valid people tag: %s"
+msgid "Not a valid people tag: %s."
 msgstr "不是有效的电子邮件"
 
 #: actions/peopletag.php:142
@@ -2780,7 +2780,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "用户自加标签 %s - 第 %d 页"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "通告内容不正确"
 
 #: actions/postnotice.php:101
@@ -2925,7 +2926,7 @@ msgstr "设置已保存。"
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3816,7 +3817,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3911,7 +3912,7 @@ msgid "Unable to save site notice."
 msgstr "无法保存 Twitter 设置！"
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4290,7 +4291,7 @@ msgstr "用户没有个人信息。"
 
 #: actions/unsubscribe.php:77
 #, fuzzy
-msgid "No profile id in request."
+msgid "No profile ID in request."
 msgstr "服务器没有返回个人信息URL。"
 
 #: actions/unsubscribe.php:98
@@ -6230,6 +6231,10 @@ msgstr "添加个人信息出错"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "添加头像出错"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "更新远程的个人信息时出错"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

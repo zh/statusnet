@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:27:56+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:05+0000\n"
 "Language-Team: Norwegian Nynorsk\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,7 @@ msgstr "Lagra"
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
-msgid "No such page"
+msgid "No such page."
 msgstr "Dette emneord finst ikkje."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -232,7 +232,7 @@ msgstr "Dette krev ein POST."
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -439,10 +439,9 @@ msgstr "Plassering er for lang (maksimalt 255 teikn)."
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
+#: actions/apigroupcreate.php:266
 #, fuzzy, php-format
-msgid "Invalid alias: \"%s\""
+msgid "Invalid alias: \"%s\"."
 msgstr "Ugyldig merkelapp: %s"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -460,7 +459,7 @@ msgstr ""
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
-msgid "Group not found!"
+msgid "Group not found."
 msgstr "Fann ikkje API-metode."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -656,9 +655,9 @@ msgstr "Fann ingen status med den ID-en."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Det er for langt! Ein notis kan berre innehalde 140 teikn."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Fann ikkje"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Finst ikkje."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -720,10 +719,6 @@ msgstr "Notisar merka med %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Oppdateringar frå %1$s på %2$s!"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Finst ikkje."
-
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
@@ -755,9 +750,10 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Du kan laste opp ein personleg avatar."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
 msgstr "Kan ikkje finne brukar"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -916,8 +912,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Den godkjenningskoden er ikkje for deg!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Ukjend adressetype %s"
 
 #: actions/confirmaddress.php:94
@@ -1084,7 +1080,7 @@ msgstr "Ugyldig storleik."
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: actions/designadminpanel.php:375
@@ -1308,6 +1304,11 @@ msgstr "Bruk dette skjemaet for å redigere gruppa"
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "skildringa er for lang (maks 140 teikn)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Ugyldig merkelapp: %s"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1622,8 +1623,9 @@ msgstr "Kan ikkje konvertera spyrjebillett til tilgongsbillett."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Ukjend versjon av OMB-protokollen."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Feil ved oppdatering av ekstern profil"
 
 #: actions/getfile.php:79
@@ -1755,11 +1757,6 @@ msgstr "Logo åt gruppa"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Du kan lasta opp ein logo for gruppa."
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "Kan ikkje finne brukar"
 
 #: actions/grouplogo.php:365
 #, fuzzy
@@ -2005,8 +2002,8 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "Du må verta logga inn for å invitera andre brukarar til %s"
 
 #: actions/invite.php:72
@@ -2236,7 +2233,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Du må være administrator for å redigere gruppa"
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Ingen status"
 
 #: actions/newapplication.php:52
@@ -2407,11 +2405,11 @@ msgid "You are not a user of that application."
 msgstr "Du er ikkje medlem av den gruppa."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2420,7 +2418,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Notisen har ingen profil"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2431,13 +2430,13 @@ msgstr "%1$s sin status på %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "Kopla til"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2598,23 +2597,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Denne sida er ikkje tilgjengleg i eit"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2765,8 +2764,8 @@ msgid "People search"
 msgstr "Søk etter folk"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Ikkje gyldig merkelapp: %s"
 
 #: actions/peopletag.php:142
@@ -2775,7 +2774,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Brukarar sjølv-merka med %s, side %d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Ugyldig notisinnhald"
 
 #: actions/postnotice.php:101
@@ -2924,7 +2924,7 @@ msgstr "Lagra innstillingar."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3820,7 +3820,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3915,7 +3915,7 @@ msgid "Unable to save site notice."
 msgstr "Klarte ikkje å lagra Twitter-innstillingane dine!"
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4291,7 +4291,8 @@ msgid "User is not silenced."
 msgstr "Brukaren har inga profil."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "Ingen profil-ID i førespurnaden."
 
 #: actions/unsubscribe.php:98
@@ -6214,6 +6215,10 @@ msgstr "Feil med å henta inn ny profil"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Feil med innhenting av brukarbilete."
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Feil ved oppdatering av ekstern profil"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:26:42+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 22:59:48+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -81,7 +81,8 @@ msgstr "Запазване"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "Няма такака страница."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -223,7 +224,7 @@ msgstr "Този метод изисква заявка POST."
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -426,10 +427,9 @@ msgstr "Името на местоположението е твърде дъл�
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "Неправилен псевдоним: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -446,7 +446,8 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "Групата не е открита."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -636,8 +637,8 @@ msgstr "Не е открита бележка с такъв идентифика
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Твърде дълга бележка. Трябва да е най-много 140 знака."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
 msgstr "Не е открито."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
@@ -699,10 +700,6 @@ msgstr "Бележки с етикет %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Бележки от %1$s в %2$s."
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Не е открито."
-
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
@@ -735,9 +732,10 @@ msgstr ""
 "Можете да качите личен аватар тук. Максималната големина на файла е %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
 msgstr "Потребител без съответстващ профил"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
@@ -891,8 +889,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Този код за потвърждение не е за вас!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Неразпознат вид адрес %s"
 
 #: actions/confirmaddress.php:94
@@ -1049,7 +1047,7 @@ msgstr "Неправилен размер."
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
 #: actions/designadminpanel.php:375
@@ -1262,6 +1260,11 @@ msgstr ""
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "Описанието е твърде дълго (до %d символа)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Неправилен псевдоним: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1572,8 +1575,9 @@ msgstr "Грешка при преобразуване на tokens за одоб
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Непозната версия на протокола OMB."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Грешка при обновяване на отдалечен профил"
 
 #: actions/getfile.php:79
@@ -1698,11 +1702,6 @@ msgstr "Лого на групата"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Може да качите лого за групата ви."
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "Потребител без съответстващ профил"
 
 #: actions/grouplogo.php:365
 #, fuzzy
@@ -1947,8 +1946,8 @@ msgid "Invites have been disabled."
 msgstr "Поканите са изключени."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr "За да каните хора в %s, трябва да сте влезли."
 
 #: actions/invite.php:72
@@ -2181,8 +2180,9 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "За да редактирате групата, трябва да сте й администратор."
 
 #: actions/microsummary.php:69
-msgid "No current status"
-msgstr ""
+#, fuzzy
+msgid "No current status."
+msgstr "Няма резултати."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2348,11 +2348,11 @@ msgid "You are not a user of that application."
 msgstr "Не членувате в тази група."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2361,7 +2361,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Бележката няма профил"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2372,13 +2373,13 @@ msgstr "Бележка на %1$s от %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "вид съдържание "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2539,23 +2540,23 @@ msgstr "Пътища и сървърни настройки за тази инс
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Страницата не е достъпна във вида медия, който приемате"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Директория на фона"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Страницата не е достъпна във вида медия, който приемате"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2696,7 +2697,7 @@ msgstr "Търсене на хора"
 
 #: actions/peopletag.php:68
 #, fuzzy, php-format
-msgid "Not a valid people tag: %s"
+msgid "Not a valid people tag: %s."
 msgstr "Това не е правилен адрес на е-поща."
 
 #: actions/peopletag.php:142
@@ -2705,7 +2706,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Бележки с етикет %s, страница %d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Невалидно съдържание на бележка"
 
 #: actions/postnotice.php:101
@@ -2849,7 +2851,7 @@ msgstr "Настройките са запазени."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3722,7 +3724,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "Минималното ограничение на текста е 140 знака."
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3814,7 +3816,7 @@ msgid "Unable to save site notice."
 msgstr "Грешка при записване настройките за Twitter"
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4184,7 +4186,7 @@ msgstr "Потребителят не е заглушен."
 
 #: actions/unsubscribe.php:77
 #, fuzzy
-msgid "No profile id in request."
+msgid "No profile ID in request."
 msgstr "Сървърът не е върнал адрес на профила."
 
 #: actions/unsubscribe.php:98
@@ -6079,6 +6081,10 @@ msgstr "Грешка при вмъкване на нов профил"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Грешка при вмъкване на аватар"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Грешка при обновяване на отдалечен профил"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:28:29+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:32+0000\n"
 "Language-Team: Turkish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +88,7 @@ msgstr "Kaydet"
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
-msgid "No such page"
+msgid "No such page."
 msgstr "Böyle bir durum mesajı yok."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -232,7 +232,7 @@ msgstr ""
 #: actions/apiaccountupdatedeliverydevice.php:105
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 
 #: actions/apiaccountupdatedeliverydevice.php:132
@@ -440,10 +440,9 @@ msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
+#: actions/apigroupcreate.php:266
 #, fuzzy, php-format
-msgid "Invalid alias: \"%s\""
+msgid "Invalid alias: \"%s\"."
 msgstr "%s Geçersiz başlangıç sayfası"
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -461,7 +460,7 @@ msgstr ""
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
 #, fuzzy
-msgid "Group not found!"
+msgid "Group not found."
 msgstr "İstek bulunamadı!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -658,9 +657,10 @@ msgid "That's too long. Max notice size is %d chars."
 msgstr ""
 "Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr ""
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+#, fuzzy
+msgid "Not found."
+msgstr "İstek bulunamadı!"
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -722,11 +722,6 @@ msgstr ""
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%s adli kullanicinin durum mesajlari"
 
-#: actions/apiusershow.php:96
-#, fuzzy
-msgid "Not found."
-msgstr "İstek bulunamadı!"
-
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
@@ -758,10 +753,11 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr ""
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+#, fuzzy
+msgid "User without matching profile."
+msgstr "Kullanıcının profili yok."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -923,8 +919,8 @@ msgid "That confirmation code is not for you!"
 msgstr "O onay kodu sizin için değil!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Tanınmayan adres türü %s"
 
 #: actions/confirmaddress.php:94
@@ -1087,7 +1083,7 @@ msgstr "Geçersiz büyüklük."
 
 #: actions/designadminpanel.php:279
 #, fuzzy, php-format
-msgid "Theme not available: %s"
+msgid "Theme not available: %s."
 msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: actions/designadminpanel.php:375
@@ -1307,6 +1303,11 @@ msgstr ""
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
 msgstr "Hakkında bölümü çok uzun (azm 140 karakter)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "%s Geçersiz başlangıç sayfası"
 
 #: actions/editgroup.php:258
 #, fuzzy
@@ -1616,8 +1617,9 @@ msgstr ""
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "OMB protokolünün bilinmeğen sürümü."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Uzaktaki profili güncellemede hata oluştu"
 
 #: actions/getfile.php:79
@@ -1746,11 +1748,6 @@ msgstr ""
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
-
-#: actions/grouplogo.php:181
-#, fuzzy
-msgid "User without matching profile."
-msgstr "Kullanıcının profili yok."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -2000,9 +1997,9 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
+msgstr "Kullanıcı güncellenemedi."
 
 #: actions/invite.php:72
 #, php-format
@@ -2207,8 +2204,9 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Kullanıcının profili yok."
 
 #: actions/microsummary.php:69
-msgid "No current status"
-msgstr ""
+#, fuzzy
+msgid "No current status."
+msgstr "Sonuç yok"
 
 #: actions/newapplication.php:52
 #, fuzzy
@@ -2370,11 +2368,11 @@ msgid "You are not a user of that application."
 msgstr "Bize o profili yollamadınız"
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2383,7 +2381,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Bu durum mesajının ait oldugu kullanıcı profili yok"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2394,13 +2393,13 @@ msgstr "%1$s'in %2$s'deki durum mesajları "
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "Bağlan"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2563,23 +2562,23 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, fuzzy, php-format
-msgid "Theme directory not readable: %s"
+msgid "Theme directory not readable: %s."
 msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
-msgstr ""
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2730,7 +2729,7 @@ msgstr "Kişi Arama"
 
 #: actions/peopletag.php:68
 #, fuzzy, php-format
-msgid "Not a valid people tag: %s"
+msgid "Not a valid people tag: %s."
 msgstr "Geçersiz bir eposta adresi."
 
 #: actions/peopletag.php:142
@@ -2739,7 +2738,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Geçersiz durum mesajı"
 
 #: actions/postnotice.php:101
@@ -2889,7 +2889,7 @@ msgstr "Ayarlar kaydedildi."
 
 #: actions/public.php:83
 #, php-format
-msgid "Beyond the page limit (%s)"
+msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
@@ -3756,7 +3756,7 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr ""
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+msgid "Dupe limit must be one or more seconds."
 msgstr ""
 
 #: actions/siteadminpanel.php:221
@@ -3849,7 +3849,7 @@ msgid "Unable to save site notice."
 msgstr "Durum mesajını kaydederken hata oluştu."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4220,7 +4220,7 @@ msgstr "Kullanıcının profili yok."
 
 #: actions/unsubscribe.php:77
 #, fuzzy
-msgid "No profile id in request."
+msgid "No profile ID in request."
 msgstr "Yetkilendirme isteği yok!"
 
 #: actions/unsubscribe.php:98
@@ -6129,6 +6129,10 @@ msgstr "Yeni profil eklemede hata oluştu"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Avatar eklemede hata oluştu"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Uzaktaki profili güncellemede hata oluştu"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"

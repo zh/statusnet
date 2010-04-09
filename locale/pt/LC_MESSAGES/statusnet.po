@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 21:26+0000\n"
-"PO-Revision-Date: 2010-04-09 21:28:06+0000\n"
+"POT-Creation-Date: 2010-04-09 22:59+0000\n"
+"PO-Revision-Date: 2010-04-09 23:01:14+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -85,7 +85,8 @@ msgstr "Gravar"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-msgid "No such page"
+#, fuzzy
+msgid "No such page."
 msgstr "Página não encontrada."
 
 #: actions/all.php:75 actions/allrss.php:68
@@ -232,9 +233,10 @@ msgid "This method requires a POST."
 msgstr "Este método requer um POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
+#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
-"none"
+"none."
 msgstr ""
 "Tem de especificar um parâmetro 'aparelho' com um dos valores: sms, im, none"
 
@@ -435,10 +437,9 @@ msgstr "Localidade demasiado longa (máx. 255 caracteres)."
 msgid "Too many aliases! Maximum %d."
 msgstr "Demasiados sinónimos (máx. %d)."
 
-#: actions/apigroupcreate.php:266 actions/editgroup.php:228
-#: actions/newgroup.php:168
-#, php-format
-msgid "Invalid alias: \"%s\""
+#: actions/apigroupcreate.php:266
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
 msgstr "Sinónimo inválido: \"%s\""
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
@@ -455,7 +456,8 @@ msgstr "Os sinónimos não podem ser iguais ao nome do utilizador."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-msgid "Group not found!"
+#, fuzzy
+msgid "Group not found."
 msgstr "Grupo não foi encontrado!"
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
@@ -647,9 +649,9 @@ msgstr "Não foi encontrado um estado com esse ID."
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Demasiado longo. Tamanho máx. das notas é %d caracteres."
 
-#: actions/apistatusesupdate.php:202
-msgid "Not found"
-msgstr "Não encontrado"
+#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Não encontrado."
 
 #: actions/apistatusesupdate.php:225 actions/newnotice.php:178
 #, php-format
@@ -710,10 +712,6 @@ msgstr "Notas categorizadas com %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualizações categorizadas com %1$s em %2$s!"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Não encontrado."
-
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Anexo não encontrado."
@@ -744,10 +742,10 @@ msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Pode carregar o seu avatar pessoal. O tamanho máximo do ficheiro é %s."
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/remotesubscribe.php:191 actions/userauthorization.php:72
-#: actions/userrss.php:106
-msgid "User without matching profile"
-msgstr "Utilizador sem perfil correspondente"
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:106
+msgid "User without matching profile."
+msgstr "Utilizador sem perfil correspondente."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -903,8 +901,8 @@ msgid "That confirmation code is not for you!"
 msgstr "Esse código de confirmação não é para si!"
 
 #: actions/confirmaddress.php:90
-#, php-format
-msgid "Unrecognized address type %s"
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
 msgstr "Tipo do endereço %s não reconhecido"
 
 #: actions/confirmaddress.php:94
@@ -1067,8 +1065,8 @@ msgid "Invalid logo URL."
 msgstr "URL do logotipo inválida."
 
 #: actions/designadminpanel.php:279
-#, php-format
-msgid "Theme not available: %s"
+#, fuzzy, php-format
+msgid "Theme not available: %s."
 msgstr "Tema não está disponível: %s"
 
 #: actions/designadminpanel.php:375
@@ -1285,6 +1283,11 @@ msgstr "Use este formulário para editar o grupo."
 #, php-format
 msgid "description is too long (max %d chars)."
 msgstr "descrição é demasiada extensa (máx. %d caracteres)."
+
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "Sinónimo inválido: \"%s\""
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1597,8 +1600,9 @@ msgstr "Não foi possível converter a chave de pedido numa chave de acesso."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "Serviço remoto usa uma versão desconhecida do protocolo OMB."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
-msgid "Error updating remote profile"
+#: actions/finishremotesubscribe.php:138
+#, fuzzy
+msgid "Error updating remote profile."
 msgstr "Erro ao actualizar o perfil remoto"
 
 #: actions/getfile.php:79
@@ -1724,10 +1728,6 @@ msgid ""
 msgstr ""
 "Pode carregar uma imagem para logotipo do seu grupo. O tamanho máximo do "
 "ficheiro é %s."
-
-#: actions/grouplogo.php:181
-msgid "User without matching profile."
-msgstr "Utilizador sem perfil correspondente."
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1978,8 +1978,8 @@ msgid "Invites have been disabled."
 msgstr "Convites foram desabilitados."
 
 #: actions/invite.php:41
-#, php-format
-msgid "You must be logged in to invite other users to use %s"
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
 msgstr ""
 "Precisa de iniciar uma sessão para convidar outros utilizadores a usarem o "
 "site %s."
@@ -2214,7 +2214,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Não é possível tornar %1$s administrador do grupo %2$s."
 
 #: actions/microsummary.php:69
-msgid "No current status"
+#, fuzzy
+msgid "No current status."
 msgstr "Sem estado actual"
 
 #: actions/newapplication.php:52
@@ -2386,11 +2387,11 @@ msgid "You are not a user of that application."
 msgstr "Não é um membro desse grupo."
 
 #: actions/oauthconnectionssettings.php:186
-msgid "Unable to revoke access for app: "
+#, php-format
+msgid "Unable to revoke access for app: %s."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
-#, php-format
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
@@ -2399,7 +2400,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-msgid "Notice has no profile"
+#, fuzzy
+msgid "Notice has no profile."
 msgstr "Nota não tem perfil"
 
 #: actions/oembed.php:86 actions/shownotice.php:175
@@ -2410,13 +2412,13 @@ msgstr "Estado de %1$s em %2$s"
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
 #, fuzzy, php-format
-msgid "content type %s not supported"
+msgid "Content type %s not supported."
 msgstr "tipo de conteúdo "
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
-msgid "Only %s urls over plain http please"
+msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
@@ -2576,23 +2578,23 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Configurações de localização e servidor deste site StatusNet."
 
 #: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s"
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
 msgstr "Sem acesso de leitura do directório do tema: %s"
 
 #: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s"
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
 msgstr "Sem acesso de escrita no directório do avatar: %s"
 
 #: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s"
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
 msgstr "Sem acesso de escrita no directório do fundo: %s"
 
 #: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s"
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
 msgstr "Sem acesso de leitura ao directório de idiomas: %s"
 
 #: actions/pathsadminpanel.php:183
@@ -2734,8 +2736,8 @@ msgid "People search"
 msgstr "Pesquisa de pessoas"
 
 #: actions/peopletag.php:68
-#, php-format
-msgid "Not a valid people tag: %s"
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
 msgstr "Categoria de pessoas inválida: %s"
 
 #: actions/peopletag.php:142
@@ -2744,7 +2746,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Utilizadores auto-categorizados com %1$s - página %2$d"
 
 #: actions/postnotice.php:95
-msgid "Invalid notice content"
+#, fuzzy
+msgid "Invalid notice content."
 msgstr "Conteúdo da nota é inválido"
 
 #: actions/postnotice.php:101
@@ -2889,8 +2892,8 @@ msgid "Settings saved."
 msgstr "Configurações gravadas."
 
 #: actions/public.php:83
-#, php-format
-msgid "Beyond the page limit (%s)"
+#, fuzzy, php-format
+msgid "Beyond the page limit (%s)."
 msgstr "Além do limite de página (%s)"
 
 #: actions/public.php:92
@@ -3817,7 +3820,8 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "O valor mínimo de limite para o texto é 140 caracteres."
 
 #: actions/siteadminpanel.php:171
-msgid "Dupe limit must 1 or more seconds."
+#, fuzzy
+msgid "Dupe limit must be one or more seconds."
 msgstr "O limite de duplicados tem de ser 1 ou mais segundos."
 
 #: actions/siteadminpanel.php:221
@@ -3911,7 +3915,7 @@ msgid "Unable to save site notice."
 msgstr "Não foi possível gravar as configurações do estilo."
 
 #: actions/sitenoticeadminpanel.php:113
-msgid "Max length for the site-wide notice is 255 chars"
+msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
@@ -4289,7 +4293,8 @@ msgid "User is not silenced."
 msgstr "Utilizador não está silenciado."
 
 #: actions/unsubscribe.php:77
-msgid "No profile id in request."
+#, fuzzy
+msgid "No profile ID in request."
 msgstr "O pedido não tem a identificação do perfil."
 
 #: actions/unsubscribe.php:98
@@ -6288,6 +6293,10 @@ msgstr "Erro ao inserir perfil novo"
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
 msgstr "Erro ao inserir avatar"
+
+#: lib/oauthstore.php:306
+msgid "Error updating remote profile"
+msgstr "Erro ao actualizar o perfil remoto"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
