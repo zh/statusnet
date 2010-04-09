@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-09 22:59+0000\n"
-"PO-Revision-Date: 2010-04-09 23:01:08+0000\n"
+"PO-Revision-Date: 2010-04-09 23:16:50+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -81,9 +81,8 @@ msgstr "Opslaan"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
 msgid "No such page."
-msgstr "Deze pagina bestaat niet"
+msgstr "Deze pagina bestaat niet."
 
 #: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -231,13 +230,12 @@ msgid "This method requires a POST."
 msgstr "Deze methode vereist een POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
-#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 "U moet een parameter met de naam \"device\" opgeven met een van de volgende "
-"waardes: sms, im, none"
+"waardes: sms, im, none."
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 msgid "Could not update user."
@@ -443,9 +441,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr "Te veel aliassen! Het maximale aantal is %d."
 
 #: actions/apigroupcreate.php:266
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Ongeldige alias: \"%s\""
+msgstr "Ongeldige alias: \"%s\"."
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -461,9 +459,8 @@ msgstr "Een alias kan niet hetzelfde zijn als de gebruikersnaam."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found."
-msgstr "De groep is niet aangetroffen!"
+msgstr "De groep is niet aangetroffen."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
@@ -914,9 +911,9 @@ msgid "That confirmation code is not for you!"
 msgstr "Dit is niet uw bevestigingscode!"
 
 #: actions/confirmaddress.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Onbekend adrestype %s"
+msgstr "Onbekend adrestype %s."
 
 #: actions/confirmaddress.php:94
 msgid "That address has already been confirmed."
@@ -1072,9 +1069,9 @@ msgid "Invalid logo URL."
 msgstr "De logo-URL is ongeldig."
 
 #: actions/designadminpanel.php:279
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "De vormgeving is niet beschikbaar: %s"
+msgstr "De vormgeving is niet beschikbaar: %s."
 
 #: actions/designadminpanel.php:375
 msgid "Change logo"
@@ -1598,7 +1595,6 @@ msgstr ""
 "De diensten op afstand gebruiken een onbekende versie van het OMB-protocol."
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
 msgstr ""
 "Er is een fout opgetreden tijdens het bijwerken van het profiel op afstand."
@@ -1976,10 +1972,11 @@ msgid "Invites have been disabled."
 msgstr "Het is niet mogelijk uitnodigingen te verzenden."
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
 msgstr ""
-"U moet aangemeld zijn om anderen te kunnen uitnodigen gebruik te maken van %s"
+"U moet aangemeld zijn om anderen te kunnen uitnodigen gebruik te maken van %"
+"s."
 
 #: actions/invite.php:72
 #, php-format
@@ -2213,9 +2210,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Het is niet mogelijk %1$s beheerder te maken van de groep %2$s."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Geen huidige status"
+msgstr "Geen huidige status."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2382,10 +2378,11 @@ msgid "You are not a user of that application."
 msgstr "U bent geen gebruiker van die applicatie."
 
 #: actions/oauthconnectionssettings.php:186
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to revoke access for app: %s."
 msgstr ""
-"Het was niet mogelijk de toegang te ontzeggen voor de volgende applicatie: "
+"Het was niet mogelijk de toegang te ontzeggen voor de volgende applicatie: %"
+"s."
 
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
@@ -2399,9 +2396,8 @@ msgstr ""
 "Ontwikkelaars kunnen de registratiegegevens voor hun applicaties bewerken "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-#, fuzzy
 msgid "Notice has no profile."
-msgstr "Mededeling heeft geen profiel"
+msgstr "Mededeling heeft geen profiel."
 
 #: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
@@ -2410,15 +2406,15 @@ msgstr "Status van %1$s op %2$s"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "inhoudstype %s wordt niet ondersteund"
+msgstr "Inhoudstype %s wordt niet ondersteund."
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "Alleen URL's voor %s via normale HTTP alstublieft."
 
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
 #: lib/apiaction.php:1096 lib/apiaction.php:1212
@@ -2570,24 +2566,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Pad- en serverinstellingen voor de StatusNet-website."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Er kan niet uit de vormgevingmap gelezen worden: %s"
+msgstr "Er kan niet uit de vormgevingmap gelezen worden: %s."
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Er kan niet in de avatarmap geschreven worden: %s"
+msgstr "Er kan niet in de avatarmap geschreven worden: %s."
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Er kan niet in de achtergrondmap geschreven worden: %s"
+msgstr "Er kan niet in de achtergrondmap geschreven worden: %s."
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Er kan niet uit de talenmap gelezen worden: %s"
+msgstr "Er kan niet uit de talenmap gelezen worden: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2728,9 +2724,9 @@ msgid "People search"
 msgstr "Gebruikers zoeken"
 
 #: actions/peopletag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s."
-msgstr "Geen geldig gebruikerslabel: %s"
+msgstr "Geen geldig gebruikerslabel: %s."
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2738,9 +2734,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Gebruikers die zichzelf met %1$s hebben gelabeld - pagina %2$d"
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "Ongeldige mededelinginhoud"
+msgstr "Ongeldige mededelinginhoud."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -2889,9 +2884,9 @@ msgid "Settings saved."
 msgstr "De instellingen zijn opgeslagen."
 
 #: actions/public.php:83
-#, fuzzy, php-format
+#, php-format
 msgid "Beyond the page limit (%s)."
-msgstr "Meer dan de paginalimiet (%s)"
+msgstr "Meer dan de paginalimiet (%s)."
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -3816,7 +3811,6 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "De minimale tekstlimiet is 0 tekens (ongelimiteerd)."
 
 #: actions/siteadminpanel.php:171
-#, fuzzy
 msgid "Dupe limit must be one or more seconds."
 msgstr "De duplicaatlimiet moet één of meer seconden zijn."
 
@@ -3913,9 +3907,8 @@ msgid "Unable to save site notice."
 msgstr "Het was niet mogelijk om de websitebrede mededeling op te slaan."
 
 #: actions/sitenoticeadminpanel.php:113
-#, fuzzy
 msgid "Max length for the site-wide notice is 255 chars."
-msgstr "De maximale lengte voor de websitebrede aankondiging is 255 tekens"
+msgstr "De maximale lengte voor de websitebrede aankondiging is 255 tekens."
 
 #: actions/sitenoticeadminpanel.php:176
 msgid "Site notice text"
@@ -4292,7 +4285,6 @@ msgid "User is not silenced."
 msgstr "Deze gebruiker is niet gemuilkorfd."
 
 #: actions/unsubscribe.php:77
-#, fuzzy
 msgid "No profile ID in request."
 msgstr "Het profiel-ID was niet aanwezig in het verzoek."
 
@@ -4992,6 +4984,7 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
+"Alle inhoud en gegevens van %1$s zijn beschikbaar onder de licentie %2$s."
 
 #: lib/action.php:1156
 msgid "Pagination"
@@ -6080,6 +6073,29 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"%1$s (@%9$s) heeft u zojuist een mededeling gezonden (een '@-antwoord') op %2"
+"$s.\n"
+"\n"
+"De mededeling is hier te vinden:\n"
+"\n"
+"%3$s\n"
+"\n"
+"De inhoud is:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%5$sHier kunt u antwoorden:\n"
+"\n"
+"%6$s\n"
+"\n"
+"De lijst met alle @-antwoorden aan u:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Groet,\n"
+"%2$s\n"
+"\n"
+"Ps. U kunt de e-mailmeldingen hier uitschakelen: %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
