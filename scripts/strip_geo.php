@@ -21,7 +21,7 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 $shortoptions = 'i::n::y';
-$longoptions = array('id=', 'nickname=', 'yes', 'dry-run');
+$longoptions = array('id=', 'nickname=', 'yes', 'dry-run', 'all');
 
 $helptext = <<<END_OF_HELP
 strip_geo.php [options]
@@ -31,6 +31,8 @@ Removes geolocation info from the given user's notices.
   -n --nickname nickname of the user
   -y --yes      do not wait for confirmation
      --dry-run  list affected notices without deleting
+     --all      run over and decache all messages, even if they don't
+                have geo data now (helps to fix cache bugs)
 
 END_OF_HELP;
 
@@ -67,10 +69,14 @@ if (!have_option('y', 'yes') && !have_option('--dry-run')) {
 }
 
 // @fixme for a very prolific poster this could be too many.
-print "Finding notices with geolocation data...";
 $notice = new Notice();
 $notice->profile_id = $profile->id;
-$notice->whereAdd("lat != ''");
+if (have_option('--all')) {
+    print "Finding all notices by $profile->nickname...";
+} else {
+    print "Finding notices by $profile->nickname with geolocation data...";
+    $notice->whereAdd("lat != ''");
+}
 $notice->find();
 
 if ($notice->N) {
@@ -101,10 +107,10 @@ if ($notice->N) {
             $ok = $update->query($query);
             if ($ok) {
                 // And now we decache him manually, as query() doesn't know what we're doing...
-                $orig->blow();
+                $orig->decache();
                 echo "(removed)";
             } else {
-                echo "(failed?)";
+                echo "(unchanged?)";
             }
         }
         print "\n";
