@@ -54,21 +54,21 @@ class RepeatAction extends Action
         $this->user = common_current_user();
 
         if (empty($this->user)) {
-            $this->clientError(_("Only logged-in users can repeat notices."));
+            $this->clientError(_('Only logged-in users can repeat notices.'));
             return false;
         }
 
         $id = $this->trimmed('notice');
 
         if (empty($id)) {
-            $this->clientError(_("No notice specified."));
+            $this->clientError(_('No notice specified.'));
             return false;
         }
 
         $this->notice = Notice::staticGet('id', $id);
 
         if (empty($this->notice)) {
-            $this->clientError(_("No notice specified."));
+            $this->clientError(_('No notice specified.'));
             return false;
         }
 
@@ -80,14 +80,14 @@ class RepeatAction extends Action
         $token  = $this->trimmed('token-'.$id);
 
         if (empty($token) || $token != common_session_token()) {
-            $this->clientError(_("There was a problem with your session token. Try again, please."));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return false;
         }
 
         $profile = $this->user->getProfile();
 
         if ($profile->hasRepeated($id)) {
-            $this->clientError(_("You already repeated that notice."));
+            $this->clientError(_('You already repeated that notice.'));
             return false;
         }
 

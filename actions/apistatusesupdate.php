@@ -199,7 +199,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                     $reply_to = $this->in_reply_to_status_id;
                 } else {
                     $this->clientError(
-                        _('Not found'),
+                        _('Not found.'),
                         $code = 404,
                         $this->format
                     );
