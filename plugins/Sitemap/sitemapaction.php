@@ -56,13 +56,13 @@ class SitemapAction extends Action
         header('Content-Type: text/xml; charset=UTF-8');
         $this->startXML();
 
-        $this->elementStart('sitemap');
+        $this->elementStart('urlset', array('xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9'));
 
         while (list($url, $lm, $cf, $p) = $this->nextUrl()) {
             $this->showUrl($url, $lm, $cf, $p);
         }
 
-        $this->elementEnd('sitemap');
+        $this->elementEnd('urlset');
 
         $this->endXML();
     }
