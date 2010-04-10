@@ -273,8 +273,8 @@ class ApiAuthAction extends ApiAction
 
                 list($proxy, $ip) = common_client_ip();
 
-                $msg = sprintf(_('Failed API auth attempt, nickname = %1$s, ' .
-                         'proxy = %2$s, ip = %3$s'),
+                $msg = sprintf( 'Failed API auth attempt, nickname = %1$s, ' .
+                         'proxy = %2$s, ip = %3$s',
                                $this->auth_user_nickname,
                                $proxy,
                                $ip);
