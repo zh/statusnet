@@ -43,8 +43,6 @@ if (!defined('STATUSNET')) {
 
 class UsersitemapAction extends SitemapAction
 {
-    const USERS_PER_MAP = 25000;
-
     var $user = null;
 
     function prepare($args)
@@ -55,8 +53,8 @@ class UsersitemapAction extends SitemapAction
 
         $i += 0;
 
-        $offset = ($i-1) * self::USERS_PER_MAP;
-        $limit  = self::USERS_PER_MAP;
+        $offset = ($i-1) * SitemapPlugin::USERS_PER_MAP;
+        $limit  = SitemapPlugin::USERS_PER_MAP;
 
         $this->user = new User();
 

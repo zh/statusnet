@@ -47,6 +47,8 @@ if (!defined('STATUSNET')) {
 
 class SitemapPlugin extends Plugin
 {
+    const USERS_PER_MAP = 25000;
+
     /**
      * Load related modules when needed
      *
@@ -85,6 +87,7 @@ class SitemapPlugin extends Plugin
     {
         $m->connect('sitemapindex.xml',
                     array('action' => 'sitemapindex'));
+
         $m->connect('/sitemaps/notice/:year/:month/:day/:index.xml',
                     array('action' => 'noticesitemap'),
                     array('year' => '[0-9]{4}',
