@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-09 22:59+0000\n"
-"PO-Revision-Date: 2010-04-09 22:59:48+0000\n"
+"POT-Creation-Date: 2010-04-10 19:12+0000\n"
+"PO-Revision-Date: 2010-04-10 19:13:03+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64832); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64895); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -103,7 +103,7 @@ msgstr "Няма такака страница."
 #: actions/otp.php:76 actions/remotesubscribe.php:145
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
-#: actions/userbyid.php:74 actions/usergroups.php:91 actions/userrss.php:40
+#: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
 #: actions/xrds.php:71 lib/command.php:456 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
@@ -117,7 +117,8 @@ msgstr "%1$s и приятели, страница %2$d"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
-#: actions/all.php:89 actions/all.php:181 actions/allrss.php:115
+#. TRANS: Message is used as link title. %s is a user nickname.
+#: actions/all.php:89 actions/all.php:181 actions/allrss.php:116
 #: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -176,8 +177,10 @@ msgstr ""
 msgid "You and friends"
 msgstr "Вие и приятелите"
 
-#: actions/allrss.php:119 actions/apitimelinefriends.php:119
-#: actions/apitimelinehome.php:120
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
+#: actions/allrss.php:121 actions/apitimelinefriends.php:120
+#: actions/apitimelinehome.php:121
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Бележки от %1$s и приятели в %2$s."
@@ -193,13 +196,13 @@ msgstr "Бележки от %1$s и приятели в %2$s."
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:138
 #: actions/apigroupismember.php:114 actions/apigroupjoin.php:155
 #: actions/apigroupleave.php:141 actions/apigrouplist.php:136
-#: actions/apigrouplistall.php:120 actions/apigroupmembership.php:106
+#: actions/apigrouplistall.php:121 actions/apigroupmembership.php:106
 #: actions/apigroupshow.php:115 actions/apihelptest.php:88
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:174
-#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:175
+#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:174
 #: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:151
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
@@ -236,7 +239,7 @@ msgstr "Грешка при обновяване на потребителя."
 #: actions/apiaccountupdateprofilecolors.php:185
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
-#: actions/replies.php:80 actions/usergroups.php:98 lib/galleryaction.php:66
+#: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Потребителят няма профил."
@@ -248,7 +251,7 @@ msgstr "Грешка при запазване на профила."
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
 #: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:122 actions/editapplication.php:118
+#: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
@@ -484,12 +487,14 @@ msgstr "Групи на %s"
 msgid "%1$s groups %2$s is a member of."
 msgstr "Групи, в които участва %s"
 
-#: actions/apigrouplistall.php:90 actions/usergroups.php:62
+#. TRANS: Message is used as a title. %s is a site name.
+#. TRANS: Message is used as a page title. %s is a nick name.
+#: actions/apigrouplistall.php:91 actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
 msgstr "Групи на %s"
 
-#: actions/apigrouplistall.php:94
+#: actions/apigrouplistall.php:95
 #, php-format
 msgid "groups on %s"
 msgstr "групи в %s"
@@ -548,7 +553,7 @@ msgid "The request token %s has been denied and revoked."
 msgstr ""
 
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
-#: actions/designadminpanel.php:103 actions/editapplication.php:139
+#: actions/designadminpanel.php:104 actions/editapplication.php:139
 #: actions/emailsettings.php:256 actions/grouplogo.php:322
 #: actions/imsettings.php:220 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
@@ -572,7 +577,8 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#: actions/apioauthauthorize.php:310 lib/action.php:437
+#. TRANS: Main menu option when logged in for access to user settings
+#: actions/apioauthauthorize.php:310 lib/action.php:440
 msgid "Account"
 msgstr "Сметка"
 
@@ -584,8 +590,9 @@ msgstr "Сметка"
 msgid "Nickname"
 msgstr "Псевдоним"
 
+#. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:316 actions/login.php:233
-#: actions/register.php:429 lib/accountsettingsaction.php:116
+#: actions/register.php:429 lib/accountsettingsaction.php:125
 msgid "Password"
 msgstr "Парола"
 
@@ -720,8 +727,9 @@ msgstr "Няма размер."
 msgid "Invalid size."
 msgstr "Неправилен размер."
 
+#. TRANS: Link description in user account settings menu.
 #: actions/avatarsettings.php:67 actions/showgroup.php:230
-#: lib/accountsettingsaction.php:112
+#: lib/accountsettingsaction.php:118
 msgid "Avatar"
 msgstr "Аватар"
 
@@ -733,7 +741,7 @@ msgstr ""
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/grouplogo.php:181 actions/remotesubscribe.php:191
-#: actions/userauthorization.php:72 actions/userrss.php:106
+#: actions/userauthorization.php:72 actions/userrss.php:108
 #, fuzzy
 msgid "User without matching profile."
 msgstr "Потребител без съответстващ профил"
@@ -754,7 +762,7 @@ msgid "Preview"
 msgstr "Преглед"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:648
+#: lib/deleteuserform.php:66 lib/noticelist.php:656
 msgid "Delete"
 msgstr "Изтриване"
 
@@ -888,16 +896,18 @@ msgstr "Кодът за потвърждение не е открит."
 msgid "That confirmation code is not for you!"
 msgstr "Този код за потвърждение не е за вас!"
 
-#: actions/confirmaddress.php:90
+#. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
+#: actions/confirmaddress.php:91
 #, fuzzy, php-format
 msgid "Unrecognized address type %s."
 msgstr "Неразпознат вид адрес %s"
 
-#: actions/confirmaddress.php:94
+#. TRANS: Client error for an already confirmed email/jabbel/sms address.
+#: actions/confirmaddress.php:96
 msgid "That address has already been confirmed."
 msgstr "Този адрес е вече потвърден."
 
-#: actions/confirmaddress.php:114 actions/emailsettings.php:296
+#: actions/confirmaddress.php:116 actions/emailsettings.php:296
 #: actions/emailsettings.php:427 actions/imsettings.php:258
 #: actions/imsettings.php:401 actions/othersettings.php:174
 #: actions/profilesettings.php:283 actions/smssettings.php:278
@@ -905,16 +915,16 @@ msgstr "Този адрес е вече потвърден."
 msgid "Couldn't update user."
 msgstr "Грешка при обновяване на потребителя."
 
-#: actions/confirmaddress.php:126 actions/emailsettings.php:391
+#: actions/confirmaddress.php:128 actions/emailsettings.php:391
 #: actions/imsettings.php:363 actions/smssettings.php:382
 msgid "Couldn't delete email confirmation."
 msgstr "Грешка при изтриване потвърждението по е-поща."
 
-#: actions/confirmaddress.php:144
+#: actions/confirmaddress.php:146
 msgid "Confirm address"
 msgstr "Потвърждаване на адрес"
 
-#: actions/confirmaddress.php:159
+#: actions/confirmaddress.php:161
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Адресът \"%s\" е потвърден за сметката ви."
@@ -946,7 +956,7 @@ msgstr "Не членувате в тази група."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1221
+#: lib/action.php:1253
 msgid "There was a problem with your session token."
 msgstr "Имаше проблем със сесията ви в сайта."
 
@@ -1005,7 +1015,7 @@ msgstr "Наистина ли искате да изтриете тази бел
 msgid "Do not delete this notice"
 msgstr "Да не се изтрива бележката"
 
-#: actions/deletenotice.php:146 lib/noticelist.php:648
+#: actions/deletenotice.php:146 lib/noticelist.php:656
 msgid "Delete this notice"
 msgstr "Изтриване на бележката"
 
@@ -1031,114 +1041,118 @@ msgstr ""
 msgid "Delete this user"
 msgstr "Изтриване на този потребител"
 
-#: actions/designadminpanel.php:62 lib/accountsettingsaction.php:124
+#. TRANS: Message used as title for design settings for the site.
+#. TRANS: Link description in user account settings menu.
+#: actions/designadminpanel.php:63 lib/accountsettingsaction.php:139
 #: lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
-#: actions/designadminpanel.php:73
+#: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:275
+#: actions/designadminpanel.php:276
 #, fuzzy
 msgid "Invalid logo URL."
 msgstr "Неправилен размер."
 
-#: actions/designadminpanel.php:279
+#: actions/designadminpanel.php:280
 #, fuzzy, php-format
 msgid "Theme not available: %s."
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
-#: actions/designadminpanel.php:375
+#: actions/designadminpanel.php:376
 msgid "Change logo"
 msgstr "Смяна на логото"
 
-#: actions/designadminpanel.php:380
+#: actions/designadminpanel.php:381
 msgid "Site logo"
 msgstr "Лого на сайта"
 
-#: actions/designadminpanel.php:387
+#: actions/designadminpanel.php:388
 #, fuzzy
 msgid "Change theme"
 msgstr "Промяна"
 
-#: actions/designadminpanel.php:404
+#: actions/designadminpanel.php:405
 #, fuzzy
 msgid "Site theme"
 msgstr "Нова бележка"
 
-#: actions/designadminpanel.php:405
+#: actions/designadminpanel.php:406
 #, fuzzy
 msgid "Theme for the site."
 msgstr "Излизане от сайта"
 
-#: actions/designadminpanel.php:417 lib/designsettings.php:101
+#: actions/designadminpanel.php:418 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Смяна на изображението за фон"
 
-#: actions/designadminpanel.php:422 actions/designadminpanel.php:497
+#: actions/designadminpanel.php:423 actions/designadminpanel.php:500
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Фон"
 
-#: actions/designadminpanel.php:427
+#: actions/designadminpanel.php:428
 #, fuzzy, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
 msgstr "Може да качите лого за групата ви."
 
-#: actions/designadminpanel.php:457 lib/designsettings.php:139
+#. TRANS: Used as radio button label to add a background image.
+#: actions/designadminpanel.php:459 lib/designsettings.php:139
 msgid "On"
 msgstr "Вкл."
 
-#: actions/designadminpanel.php:473 lib/designsettings.php:155
+#. TRANS: Used as radio button label to not add a background image.
+#: actions/designadminpanel.php:476 lib/designsettings.php:155
 msgid "Off"
 msgstr "Изкл."
 
-#: actions/designadminpanel.php:474 lib/designsettings.php:156
+#: actions/designadminpanel.php:477 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr ""
 
-#: actions/designadminpanel.php:479 lib/designsettings.php:161
+#: actions/designadminpanel.php:482 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr ""
 
-#: actions/designadminpanel.php:488 lib/designsettings.php:170
+#: actions/designadminpanel.php:491 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Смяна на цветовете"
 
-#: actions/designadminpanel.php:510 lib/designsettings.php:191
+#: actions/designadminpanel.php:513 lib/designsettings.php:191
 msgid "Content"
 msgstr "Съдържание"
 
-#: actions/designadminpanel.php:523 lib/designsettings.php:204
+#: actions/designadminpanel.php:526 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Страничен панел"
 
-#: actions/designadminpanel.php:536 lib/designsettings.php:217
+#: actions/designadminpanel.php:539 lib/designsettings.php:217
 msgid "Text"
 msgstr "Текст"
 
-#: actions/designadminpanel.php:549 lib/designsettings.php:230
+#: actions/designadminpanel.php:552 lib/designsettings.php:230
 #, fuzzy
 msgid "Links"
 msgstr "Списък"
 
-#: actions/designadminpanel.php:577 lib/designsettings.php:247
+#: actions/designadminpanel.php:580 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:578 lib/designsettings.php:248
+#: actions/designadminpanel.php:581 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:584 lib/designsettings.php:254
+#: actions/designadminpanel.php:587 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
-#: actions/designadminpanel.php:586 actions/emailsettings.php:195
+#: actions/designadminpanel.php:589 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
@@ -1150,7 +1164,7 @@ msgstr ""
 msgid "Save"
 msgstr "Запазване"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:257
+#: actions/designadminpanel.php:590 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -1751,13 +1765,15 @@ msgstr ""
 msgid "Make this user an admin"
 msgstr ""
 
-#: actions/grouprss.php:138 actions/userrss.php:93
+#. TRANS: Message is used as link title. %s is a user nickname.
+#: actions/grouprss.php:139 actions/userrss.php:94
 #: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
 #, php-format
 msgid "%s timeline"
 msgstr "Поток на %s"
 
-#: actions/grouprss.php:140
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#: actions/grouprss.php:142
 #, fuzzy, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "Бележки от %1$s в %2$s."
@@ -1782,7 +1798,7 @@ msgid ""
 "%%%%)"
 msgstr ""
 
-#: actions/groups.php:107 actions/usergroups.php:124 lib/groupeditform.php:122
+#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
 msgid "Create a new group"
 msgstr "Създаване на нова група"
 
@@ -3100,7 +3116,7 @@ msgstr "Неправилно име или парола."
 
 #: actions/register.php:343
 msgid ""
-"With this form you can create  a new account. You can then post notices and "
+"With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
 
@@ -3118,8 +3134,9 @@ msgstr "6 или повече знака. Задължително поле."
 msgid "Same as password above. Required."
 msgstr "Същото като паролата по-горе. Задължително поле."
 
+#. TRANS: Link description in user account settings menu.
 #: actions/register.php:438 actions/register.php:442
-#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:120
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:132
 msgid "Email"
 msgstr "Е-поща"
 
@@ -3254,7 +3271,7 @@ msgstr "Не можете да повтаряте собствена бележ�
 msgid "You already repeated that notice."
 msgstr "Вече сте повторили тази бележка."
 
-#: actions/repeat.php:114 lib/noticelist.php:667
+#: actions/repeat.php:114 lib/noticelist.php:675
 msgid "Repeated"
 msgstr "Повторено"
 
@@ -4223,7 +4240,8 @@ msgstr ""
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:108
+#. TRANS: Link description in user account settings menu.
+#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профил"
@@ -4390,27 +4408,30 @@ msgstr ""
 msgid "Enjoy your hotdog!"
 msgstr ""
 
-#: actions/usergroups.php:64
+#. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
+#: actions/usergroups.php:66
 #, fuzzy, php-format
 msgid "%1$s groups, page %2$d"
 msgstr "Членове на групата %s, страница %d"
 
-#: actions/usergroups.php:130
+#: actions/usergroups.php:132
 msgid "Search for more groups"
 msgstr "Търсене на още групи"
 
-#: actions/usergroups.php:157
+#: actions/usergroups.php:159
 #, php-format
 msgid "%s is not a member of any group."
 msgstr "%s не членува в никоя група."
 
-#: actions/usergroups.php:162
+#: actions/usergroups.php:164
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
 
-#: actions/userrss.php:95 lib/atomgroupnoticefeed.php:66
-#: lib/atomusernoticefeed.php:72
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
+#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:67
+#: lib/atomusernoticefeed.php:73
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr "Бележки от %1$s в %2$s."
@@ -4458,7 +4479,8 @@ msgstr ""
 msgid "Plugins"
 msgstr "Приставки"
 
-#: actions/version.php:196 lib/action.php:766
+#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+#: actions/version.php:196 lib/action.php:779
 msgid "Version"
 msgstr "Версия"
 
@@ -4625,235 +4647,265 @@ msgstr "Грешка при създаване на нов абонамент."
 msgid "Could not save local group info."
 msgstr "Грешка при създаване на нов абонамент."
 
-#: lib/accountsettingsaction.php:108
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
 msgstr "Промяна настройките на профила"
 
-#: lib/accountsettingsaction.php:112
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:116
 msgid "Upload an avatar"
 msgstr "Качване на аватар"
 
-#: lib/accountsettingsaction.php:116
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:123
 msgid "Change your password"
 msgstr "Смяна на паролата"
 
-#: lib/accountsettingsaction.php:120
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:130
 msgid "Change email handling"
 msgstr "Промяна обработката на писмата"
 
-#: lib/accountsettingsaction.php:124
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:137
 #, fuzzy
 msgid "Design your profile"
 msgstr "Потребителски профил"
 
-#: lib/accountsettingsaction.php:128
-msgid "Other"
-msgstr "Друго"
-
-#: lib/accountsettingsaction.php:128
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:144
 msgid "Other options"
 msgstr "Други настройки"
 
-#: lib/action.php:144
+#. TRANS: Link description in user account settings menu.
+#: lib/accountsettingsaction.php:146
+msgid "Other"
+msgstr "Друго"
+
+#. TRANS: Page title. %1$s is the title, %2$s is the site name.
+#: lib/action.php:145
 #, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s - %2$s"
 
-#: lib/action.php:159
+#. TRANS: Page title for a page without a title set.
+#: lib/action.php:161
 msgid "Untitled page"
 msgstr "Неозаглавена страница"
 
-#: lib/action.php:423
+#. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
+#: lib/action.php:426
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:429
+#: lib/action.php:432
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#: lib/action.php:432
+#. TRANS: Main menu option when logged in for access to personal profile and friends timeline
+#: lib/action.php:435
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Лично"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:434
+#: lib/action.php:437
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промяна на поща, аватар, парола, профил"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:439
+#: lib/action.php:442
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Свързване към услуги"
 
-#: lib/action.php:442
+#. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
+#: lib/action.php:445
 msgid "Connect"
 msgstr "Свързване"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:445
+#: lib/action.php:448
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Промяна настройките на сайта"
 
-#: lib/action.php:448
+#. TRANS: Main menu option when logged in and site admin for access to site configuration
+#: lib/action.php:451
 #, fuzzy
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Настройки"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:452
+#: lib/action.php:455
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете приятели и колеги да се присъединят към вас в %s"
 
-#: lib/action.php:455
+#. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
+#: lib/action.php:458
 #, fuzzy
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Покани"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:461
+#: lib/action.php:464
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Излизане от сайта"
 
-#: lib/action.php:464
+#. TRANS: Main menu option when logged in to log out the current user
+#: lib/action.php:467
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Изход"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:469
+#: lib/action.php:472
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Създаване на нова сметка"
 
-#: lib/action.php:472
+#. TRANS: Main menu option when not logged in to register a new account
+#: lib/action.php:475
 #, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "Регистриране"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:475
+#: lib/action.php:478
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Влизане в сайта"
 
-#: lib/action.php:478
+#: lib/action.php:481
 msgctxt "MENU"
 msgid "Login"
 msgstr "Вход"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:481
+#: lib/action.php:484
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Помощ"
 
-#: lib/action.php:484
+#: lib/action.php:487
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "Помощ"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:487
+#: lib/action.php:490
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Търсене за хора или бележки"
 
-#: lib/action.php:490
+#: lib/action.php:493
 msgctxt "MENU"
 msgid "Search"
 msgstr "Търсене"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:512 lib/adminpanelaction.php:398
+#: lib/action.php:515 lib/adminpanelaction.php:398
 #, fuzzy
 msgid "Site notice"
 msgstr "Нова бележка"
 
-#: lib/action.php:578
+#. TRANS: DT element for local views block. String is hidden in default CSS.
+#: lib/action.php:582
 msgid "Local views"
 msgstr ""
 
-#: lib/action.php:644
+#. TRANS: DT element for page notice. String is hidden in default CSS.
+#: lib/action.php:649
 #, fuzzy
 msgid "Page notice"
 msgstr "Нова бележка"
 
-#: lib/action.php:746
+#. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
+#: lib/action.php:752
 #, fuzzy
 msgid "Secondary site navigation"
 msgstr "Абонаменти"
 
-#: lib/action.php:751
+#. TRANS: Secondary navigation menu option leading to help on StatusNet.
+#: lib/action.php:758
 msgid "Help"
 msgstr "Помощ"
 
-#: lib/action.php:753
+#. TRANS: Secondary navigation menu option leading to text about StatusNet site.
+#: lib/action.php:761
 msgid "About"
 msgstr "Относно"
 
-#: lib/action.php:755
+#. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
+#: lib/action.php:764
 msgid "FAQ"
 msgstr "Въпроси"
 
-#: lib/action.php:759
+#. TRANS: Secondary navigation menu option leading to Terms of Service.
+#: lib/action.php:769
 msgid "TOS"
 msgstr "Условия"
 
-#: lib/action.php:762
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+#: lib/action.php:773
 msgid "Privacy"
 msgstr "Поверителност"
 
-#: lib/action.php:764
+#. TRANS: Secondary navigation menu option.
+#: lib/action.php:776
 msgid "Source"
 msgstr "Изходен код"
 
-#: lib/action.php:768
+#. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
+#: lib/action.php:782
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:770
+#: lib/action.php:784
 msgid "Badge"
 msgstr "Табелка"
 
-#: lib/action.php:798
+#. TRANS: DT element for StatusNet software license.
+#: lib/action.php:813
 msgid "StatusNet software license"
 msgstr "Лиценз на програмата StatusNet"
 
-#: lib/action.php:803
-#, php-format
+#. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
+#: lib/action.php:817
+#, fuzzy, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
-"broughtby%%](%%site.broughtbyurl%%). "
+"broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
 "**%%site.name%%** е услуга за микроблогване, предоставена ви от [%%site."
 "broughtby%%](%%site.broughtbyurl%%). "
 
-#: lib/action.php:805
-#, php-format
-msgid "**%%site.name%%** is a microblogging service. "
+#. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
+#: lib/action.php:820
+#, fuzzy, php-format
+msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** е услуга за микроблогване. "
 
-#: lib/action.php:808
+#. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
+#: lib/action.php:824
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -4864,39 +4916,50 @@ msgstr ""
 "достъпна под [GNU Affero General Public License](http://www.fsf.org/"
 "licensing/licenses/agpl-3.0.html)."
 
-#: lib/action.php:823
+#. TRANS: DT element for StatusNet site content license.
+#: lib/action.php:840
 msgid "Site content license"
 msgstr "Лиценз на съдържанието"
 
-#: lib/action.php:828
+#. TRANS: Content license displayed when license is set to 'private'.
+#. TRANS: %1$s is the site name.
+#: lib/action.php:847
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
-#: lib/action.php:833
+#. TRANS: Content license displayed when license is set to 'allrightsreserved'.
+#. TRANS: %1$s is the copyright owner.
+#: lib/action.php:854
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
-#: lib/action.php:836
+#. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
+#: lib/action.php:858
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:849
+#: lib/action.php:871
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
-#: lib/action.php:1156
+#. TRANS: DT element for pagination (previous/next, etc.).
+#: lib/action.php:1182
 msgid "Pagination"
 msgstr "Страниране"
 
-#: lib/action.php:1165
+#. TRANS: Pagination message to go to a page displaying information more in the
+#. TRANS: present than the currently displayed information.
+#: lib/action.php:1193
 msgid "After"
 msgstr "След"
 
-#: lib/action.php:1173
+#. TRANS: Pagination message to go to a page displaying information more in the
+#. TRANS: past than the currently displayed information.
+#: lib/action.php:1203
 msgid "Before"
 msgstr "Преди"
 
@@ -5593,7 +5656,8 @@ msgstr "Групи с най-много бележки"
 msgid "Tags in %s group's notices"
 msgstr "Етикети в бележките към групата %s"
 
-#: lib/htmloutputter.php:103
+#. TRANS: Client exception 406
+#: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
 msgstr "Страницата не е достъпна във вида медия, който приемате"
 
@@ -5888,7 +5952,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:486
+#: lib/mailbox.php:227 lib/noticelist.php:494
 msgid "from"
 msgstr "от"
 
@@ -6017,48 +6081,52 @@ msgid ""
 "try again later"
 msgstr ""
 
+#. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:430
+msgid "N"
+msgstr "С"
+
+#. TRANS: Used in coordinates as abbreviation of south
+#: lib/noticelist.php:432
+msgid "S"
+msgstr "Ю"
+
+#. TRANS: Used in coordinates as abbreviation of east
+#: lib/noticelist.php:434
+msgid "E"
+msgstr "И"
+
+#. TRANS: Used in coordinates as abbreviation of west
+#: lib/noticelist.php:436
+msgid "W"
+msgstr "З"
+
+#: lib/noticelist.php:438
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:431
-msgid "N"
-msgstr "С"
-
-#: lib/noticelist.php:431
-msgid "S"
-msgstr "Ю"
-
-#: lib/noticelist.php:432
-msgid "E"
-msgstr "И"
-
-#: lib/noticelist.php:432
-msgid "W"
-msgstr "З"
-
-#: lib/noticelist.php:439
+#: lib/noticelist.php:447
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:559
+#: lib/noticelist.php:567
 msgid "in context"
 msgstr "в контекст"
 
-#: lib/noticelist.php:594
+#: lib/noticelist.php:602
 msgid "Repeated by"
 msgstr "Повторено от"
 
-#: lib/noticelist.php:621
+#: lib/noticelist.php:629
 msgid "Reply to this notice"
 msgstr "Отговаряне на тази бележка"
 
-#: lib/noticelist.php:622
+#: lib/noticelist.php:630
 msgid "Reply"
 msgstr "Отговор"
 
-#: lib/noticelist.php:666
+#: lib/noticelist.php:674
 msgid "Notice repeated"
 msgstr "Бележката е повторена."
 
