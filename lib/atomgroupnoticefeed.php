@@ -58,12 +58,14 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
         parent::__construct($indent);
         $this->group = $group;
 
+        // TRANS: Title in atom group notice feed. %s is a group name.
         $title      = sprintf(_("%s timeline"), $group->nickname);
         $this->setTitle($title);
 
         $sitename   = common_config('site', 'name');
         $subtitle   = sprintf(
-            // TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
+            // TRANS: Message is used as a subtitle in atom group notice feed.
+            // TRANS: %1$s is a group name, %2$s is a site name.
             _('Updates from %1$s on %2$s!'),
             $group->nickname,
             $sitename

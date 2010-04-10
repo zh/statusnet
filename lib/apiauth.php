@@ -91,6 +91,7 @@ class ApiAuthAction extends ApiAction
 
         if ($this->isReadOnly($args) == false) {
             if ($this->access != self::READ_WRITE) {
+                // TRANS: Client error 401.
                 $msg = _('API resource requires read-write access, ' .
                          'but you only have read access.');
                 $this->clientError($msg, 401, $this->format);
