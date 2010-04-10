@@ -95,11 +95,12 @@ class SitemapPlugin extends Plugin
                           'day' => '[0123][0-9]',
                           'index' => '[1-9][0-9]*'));
 
-        $m->connect('/sitemaps/user/:index.xml',
+        $m->connect('/sitemaps/user/:year/:month/:day/:index.xml',
                     array('action' => 'usersitemap'),
-                    array('index' => '[0-9]+',
-                          'month' => '[1]?[0-9]',
-                          'day' => '[123]?[0-9]'));
+                    array('year' => '[0-9]{4}',
+                          'month' => '[01][0-9]',
+                          'day' => '[0123][0-9]',
+                          'index' => '[1-9][0-9]*'));
         return true;
     }
 }
