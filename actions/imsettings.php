@@ -127,7 +127,7 @@ class ImsettingsAction extends ConnectSettingsAction
                                          '(Did you add %s to your buddy list?)'),
                                        jabber_daemon_address()));
                 $this->hidden('jabber', $confirm->address);
-                // TRANS: Button label to cancel a IM address confirmation procedure.
+                // TRANS: Button label to cancel an IM address confirmation procedure.
                 $this->submit('cancel', _m('BUTTON','Cancel'));
             } else {
                 $this->elementStart('ul', 'form_data');
@@ -135,7 +135,7 @@ class ImsettingsAction extends ConnectSettingsAction
                 // TRANS: Field label for IM address input in IM settings form.
                 $this->input('jabber', _('IM address'),
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
-                             // TRANS: Form note in IM settings form.
+                             // TRANS: IM address input field instructions in IM settings form.
                              // TRANS: %s is the IM address set for the site.
                              sprintf(_('Jabber or GTalk address, '.
                                        'like "UserName@example.org". '.
