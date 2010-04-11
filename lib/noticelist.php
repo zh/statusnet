@@ -427,16 +427,16 @@ class NoticeListItem extends Widget
             $latdms = $this->decimalDegreesToDMS(abs($lat));
             $londms = $this->decimalDegreesToDMS(abs($lon));
             // TRANS: Used in coordinates as abbreviation of north
-            $north = _('N')
+            $north = _('N');
             // TRANS: Used in coordinates as abbreviation of south
-            $south = _('S')
+            $south = _('S');
             // TRANS: Used in coordinates as abbreviation of east
-            $east = _('E')
+            $east = _('E');
             // TRANS: Used in coordinates as abbreviation of west
-            $west = _('W')
+            $west = _('W');
             $name = sprintf(
                 _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
-                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0? $north:$south)),
+                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0? $north:$south),
                 $londms['deg'],$londms['min'], $londms['sec'],($lon>0? $east:$west));
         }
 
