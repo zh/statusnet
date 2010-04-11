@@ -382,7 +382,7 @@ class DropCommand extends Command
         } catch (Exception $e) {
             // TRANS: Message given having failed to remove a user from a group.
             // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-            $channel->error($cur, sprintf(_('Could not remove user %s from group %s'),
+            $channel->error($cur, sprintf(_('Could not remove user %1$s from group %2$s'),
                                           $cur->nickname, $group->nickname));
             return;
         }
