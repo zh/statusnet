@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 18:34+0000\n"
-"PO-Revision-Date: 2010-04-11 18:36:38+0000\n"
+"POT-Creation-Date: 2010-04-11 21:42+0000\n"
+"PO-Revision-Date: 2010-04-11 21:44:18+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64941); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64948); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -71,8 +71,13 @@ msgstr "폐쇄"
 msgid "Save access settings"
 msgstr "접근 설정을 저장"
 
+#. TRANS: Button label to save e-mail preferences.
+#. TRANS: Button label to save IM preferences.
+#. TRANS: Button label to save SMS preferences.
 #. TRANS: Button label
-#: actions/accessadminpanel.php:203 lib/applicationeditform.php:361
+#: actions/accessadminpanel.php:203 actions/emailsettings.php:224
+#: actions/imsettings.php:184 actions/smssettings.php:209
+#: lib/applicationeditform.php:361
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "저장"
@@ -103,7 +108,7 @@ msgstr "해당하는 페이지 없음"
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:456 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "해당하는 이용자 없음"
@@ -336,7 +341,7 @@ msgstr "그 ID로 발견된 상태가 없습니다."
 msgid "This status is already a favorite."
 msgstr "이 소식은 이미 관심소식으로 등록되어 있습니다."
 
-#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:279
+#: actions/apifavoritecreate.php:130 actions/favor.php:84 lib/command.php:285
 msgid "Could not create favorite."
 msgstr "관심소식을 생성할 수 없습니다."
 
@@ -455,7 +460,7 @@ msgstr "그룹을 찾을 수 없습니다."
 msgid "You are already a member of that group."
 msgstr "당신은 이미 이 그룹의 멤버입니다."
 
-#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:321
+#: actions/apigroupjoin.php:119 actions/joingroup.php:105 lib/command.php:327
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
@@ -507,17 +512,17 @@ msgid "Invalid token."
 msgstr "옳지 않은 크기"
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
-#: actions/deletenotice.php:157 actions/disfavor.php:74
-#: actions/emailsettings.php:238 actions/favor.php:75 actions/geocode.php:54
+#: actions/deletenotice.php:169 actions/disfavor.php:74
+#: actions/emailsettings.php:267 actions/favor.php:75 actions/geocode.php:54
 #: actions/groupblock.php:66 actions/grouplogo.php:312
-#: actions/groupunblock.php:66 actions/imsettings.php:206
+#: actions/groupunblock.php:66 actions/imsettings.php:227
 #: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:350
 #: actions/register.php:165 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:228 actions/subedit.php:38
+#: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:38
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
@@ -549,12 +554,15 @@ msgstr ""
 msgid "The request token %s has been denied and revoked."
 msgstr ""
 
+#. TRANS: Message given submitting a form with an unknown action in e-mail settings.
+#. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:139
-#: actions/emailsettings.php:256 actions/grouplogo.php:322
-#: actions/imsettings.php:220 actions/newapplication.php:121
+#: actions/emailsettings.php:286 actions/grouplogo.php:322
+#: actions/imsettings.php:242 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
-#: actions/smssettings.php:248 lib/designsettings.php:304
+#: actions/smssettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "잘못된 폼 제출"
 
@@ -813,27 +821,44 @@ msgstr ""
 "정말 이용자를 차단하시겠습니까? 차단된 이용자는 구독해제되고, 이후 당신을 구"
 "독할 수 없으며, 차단된 이용자로부터 @-답장의 통보를 받지 않게 됩니다."
 
-#: actions/block.php:143 actions/deleteapplication.php:153
-#: actions/deletenotice.php:145 actions/deleteuser.php:150
-#: actions/groupblock.php:176
+#. TRANS: Button label on the user block form.
+#. TRANS: Button label on the delete application form.
+#. TRANS: Button label on the delete notice form.
+#. TRANS: Button label on the delete user form.
+#. TRANS: Button label on the form to block a user from a group.
+#: actions/block.php:145 actions/deleteapplication.php:154
+#: actions/deletenotice.php:147 actions/deleteuser.php:152
+#: actions/groupblock.php:178
+#, fuzzy
+msgctxt "BUTTON"
 msgid "No"
 msgstr "아니오"
 
-#: actions/block.php:143 actions/deleteuser.php:150
+#. TRANS: Submit button title for 'No' when blocking a user.
+#. TRANS: Submit button title for 'No' when deleting a user.
+#: actions/block.php:149 actions/deleteuser.php:156
 msgid "Do not block this user"
 msgstr "이용자를 차단하지 않는다."
 
-#: actions/block.php:144 actions/deleteapplication.php:158
-#: actions/deletenotice.php:146 actions/deleteuser.php:151
-#: actions/groupblock.php:177 lib/repeatform.php:132
+#. TRANS: Button label on the user block form.
+#. TRANS: Button label on the delete application form.
+#. TRANS: Button label on the delete notice form.
+#. TRANS: Button label on the delete user form.
+#. TRANS: Button label on the form to block a user from a group.
+#: actions/block.php:152 actions/deleteapplication.php:161
+#: actions/deletenotice.php:154 actions/deleteuser.php:159
+#: actions/groupblock.php:185
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Yes"
 msgstr "네, 맞습니다."
 
-#: actions/block.php:144 actions/groupmembers.php:392 lib/blockform.php:80
+#. TRANS: Submit button title for 'Yes' when blocking a user.
+#: actions/block.php:156 actions/groupmembers.php:392 lib/blockform.php:80
 msgid "Block this user"
 msgstr "이 사용자 차단하기"
 
-#: actions/block.php:167
+#: actions/block.php:179
 msgid "Failed to save block information."
 msgstr "정보차단을 저장하는데 실패했습니다."
 
@@ -846,8 +871,8 @@ msgstr "정보차단을 저장하는데 실패했습니다."
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:162
-#: lib/command.php:358
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
+#: lib/command.php:368
 msgid "No such group."
 msgstr "그러한 그룹이 없습니다."
 
@@ -907,16 +932,24 @@ msgstr "인식되지않은 주소유형 %s"
 msgid "That address has already been confirmed."
 msgstr "그 주소는 이미 승인되었습니다."
 
-#: actions/confirmaddress.php:116 actions/emailsettings.php:296
-#: actions/emailsettings.php:427 actions/imsettings.php:258
-#: actions/imsettings.php:401 actions/othersettings.php:174
-#: actions/profilesettings.php:283 actions/smssettings.php:278
-#: actions/smssettings.php:420
+#. TRANS: Server error thrown on database error updating e-mail preferences.
+#. TRANS: Server error thrown on database error removing a registered e-mail address.
+#. TRANS: Server error thrown on database error updating IM preferences.
+#. TRANS: Server error thrown on database error removing a registered IM address.
+#. TRANS: Server error thrown on database error updating SMS preferences.
+#. TRANS: Server error thrown on database error removing a registered SMS phone number.
+#: actions/confirmaddress.php:116 actions/emailsettings.php:327
+#: actions/emailsettings.php:473 actions/imsettings.php:280
+#: actions/imsettings.php:439 actions/othersettings.php:174
+#: actions/profilesettings.php:283 actions/smssettings.php:308
+#: actions/smssettings.php:464
 msgid "Couldn't update user."
 msgstr "사용자를 업데이트 할 수 없습니다."
 
-#: actions/confirmaddress.php:128 actions/emailsettings.php:391
-#: actions/imsettings.php:363 actions/smssettings.php:382
+#. TRANS: Server error thrown on database error canceling e-mail address confirmation.
+#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
+#: actions/confirmaddress.php:128 actions/emailsettings.php:433
+#: actions/smssettings.php:422
 msgid "Couldn't delete email confirmation."
 msgstr "이메일 승인을 삭제 할 수 없습니다."
 
@@ -973,12 +1006,14 @@ msgid ""
 "connections."
 msgstr ""
 
-#: actions/deleteapplication.php:156
+#. TRANS: Submit button title for 'No' when deleting an application.
+#: actions/deleteapplication.php:158
 #, fuzzy
 msgid "Do not delete this application"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deleteapplication.php:160
+#. TRANS: Submit button title for 'Yes' when deleting an application.
+#: actions/deleteapplication.php:164
 #, fuzzy
 msgid "Delete this application"
 msgstr "이 게시글 삭제하기"
@@ -1014,12 +1049,14 @@ msgstr "통지 삭제"
 msgid "Are you sure you want to delete this notice?"
 msgstr "정말로 통지를 삭제하시겠습니까?"
 
-#: actions/deletenotice.php:145
+#. TRANS: Submit button title for 'No' when deleting a notice.
+#: actions/deletenotice.php:151
 #, fuzzy
 msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
-#: actions/deletenotice.php:146 lib/noticelist.php:656
+#. TRANS: Submit button title for 'Yes' when deleting a notice.
+#: actions/deletenotice.php:158 lib/noticelist.php:656
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1043,7 +1080,8 @@ msgid ""
 "the user from the database, without a backup."
 msgstr ""
 
-#: actions/deleteuser.php:151 lib/deleteuserform.php:77
+#. TRANS: Submit button title for 'Yes' when deleting a user.
+#: actions/deleteuser.php:163 lib/deleteuserform.php:77
 #, fuzzy
 msgid "Delete this user"
 msgstr "이 게시글 삭제하기"
@@ -1159,15 +1197,13 @@ msgid "Reset back to default"
 msgstr ""
 
 #. TRANS: Submit button title
-#: actions/designadminpanel.php:589 actions/emailsettings.php:195
-#: actions/imsettings.php:163 actions/othersettings.php:126
+#: actions/designadminpanel.php:589 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
-#: actions/tagother.php:154 actions/useradminpanel.php:294
-#: lib/applicationeditform.php:363 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
+#: actions/subscriptions.php:226 actions/tagother.php:154
+#: actions/useradminpanel.php:294 lib/applicationeditform.php:363
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "저장"
 
@@ -1302,31 +1338,43 @@ msgstr "좋아하는 게시글을 생성할 수 없습니다."
 msgid "Options saved."
 msgstr "옵션들이 저장되었습니다."
 
-#: actions/emailsettings.php:60
+#. TRANS: Title for e-mail settings.
+#: actions/emailsettings.php:61
 msgid "Email settings"
 msgstr "이메일 설정"
 
-#: actions/emailsettings.php:71
+#. TRANS: E-mail settings page instructions.
+#. TRANS: %%site.name%% is the name of the site.
+#: actions/emailsettings.php:76
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
 msgstr "%%site.name%%에서 어떻게 이메일을 받을지 정하십시오."
 
-#: actions/emailsettings.php:100 actions/imsettings.php:100
-#: actions/smssettings.php:104
-msgid "Address"
-msgstr "주소"
+#. TRANS: Form legend for e-mail settings form.
+#. TRANS: Field label for e-mail address input in e-mail settings form.
+#: actions/emailsettings.php:106 actions/emailsettings.php:132
+msgid "Email address"
+msgstr "이메일 주소"
 
-#: actions/emailsettings.php:105
+#. TRANS: Form note in e-mail settings form.
+#: actions/emailsettings.php:112
 msgid "Current confirmed email address."
 msgstr "확인된 최신의 이메일 계정"
 
-#: actions/emailsettings.php:107 actions/emailsettings.php:140
-#: actions/imsettings.php:108 actions/smssettings.php:115
-#: actions/smssettings.php:158
+#. TRANS: Button label to remove a confirmed e-mail address.
+#. TRANS: Button label for removing a set sender e-mail address to post notices from.
+#. TRANS: Button label to remove a confirmed IM address.
+#. TRANS: Button label to remove a confirmed SMS address.
+#. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
+#: actions/emailsettings.php:115 actions/emailsettings.php:158
+#: actions/imsettings.php:116 actions/smssettings.php:124
+#: actions/smssettings.php:180
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Remove"
 msgstr "삭제"
 
-#: actions/emailsettings.php:113
+#: actions/emailsettings.php:122
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
@@ -1334,107 +1382,142 @@ msgstr ""
 "이 주소는 인증 대기중입니다. 수신함(또는 스팸함)을 확인하셔서 지침을 확인해 "
 "주시기 바랍니다."
 
-#. TRANS: Submit button title
-#: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:359
+#. TRANS: Button label to cancel an e-mail address confirmation procedure.
+#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel a SMS address confirmation procedure.
+#. TRANS: Button label
+#: actions/emailsettings.php:127 actions/imsettings.php:131
+#: actions/smssettings.php:137 lib/applicationeditform.php:357
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "취소"
 
-#: actions/emailsettings.php:121
-msgid "Email address"
-msgstr "이메일 주소"
-
-#: actions/emailsettings.php:123
+#. TRANS: Instructions for e-mail address input form.
+#: actions/emailsettings.php:135
 msgid "Email address, like \"UserName@example.org\""
 msgstr "\"UserName@example.org\" 와 같은 이메일 계정"
 
-#: actions/emailsettings.php:126 actions/imsettings.php:133
-#: actions/smssettings.php:145
+#. TRANS: Button label for adding an e-mail address in e-mail settings form.
+#. TRANS: Button label for adding an IM address in IM settings form.
+#. TRANS: Button label for adding a SMS phone number in SMS settings form.
+#: actions/emailsettings.php:139 actions/imsettings.php:148
+#: actions/smssettings.php:162
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Add"
 msgstr "추가"
 
-#: actions/emailsettings.php:133 actions/smssettings.php:152
+#. TRANS: Form legend for incoming e-mail settings form.
+#. TRANS: Form legend for incoming SMS settings form.
+#: actions/emailsettings.php:147 actions/smssettings.php:171
 msgid "Incoming email"
 msgstr "받은 이메일"
 
-#: actions/emailsettings.php:138 actions/smssettings.php:157
+#. TRANS: Form instructions for incoming e-mail form in e-mail settings.
+#. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
+#: actions/emailsettings.php:155 actions/smssettings.php:178
 msgid "Send email to this address to post new notices."
 msgstr "새로운 통지를 올리려면 이 주소로 메일을 보내십시오/"
 
-#: actions/emailsettings.php:145 actions/smssettings.php:162
+#. TRANS: Instructions for incoming e-mail address input form.
+#. TRANS: Instructions for incoming SMS e-mail address input form.
+#: actions/emailsettings.php:164 actions/smssettings.php:186
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr "포스팅을 위한 새 이메일 계정의 생성; 전 이메일 계정은 취소."
 
-#: actions/emailsettings.php:148 actions/smssettings.php:164
+#. TRANS: Button label for adding an e-mail address to send notices from.
+#. TRANS: Button label for adding an SMS e-mail address to send notices from.
+#: actions/emailsettings.php:168 actions/smssettings.php:189
+#, fuzzy
+msgctxt "BUTTON"
 msgid "New"
 msgstr "새로운"
 
-#: actions/emailsettings.php:153 actions/imsettings.php:139
-#: actions/smssettings.php:169
-msgid "Preferences"
+#. TRANS: Form legend for e-mail preferences form.
+#: actions/emailsettings.php:174
+#, fuzzy
+msgid "Email preferences"
 msgstr "설정"
 
-#: actions/emailsettings.php:158
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:180
 msgid "Send me notices of new subscriptions through email."
 msgstr "새로운 예약 구독의 통지를 이메일로 보내주세요."
 
-#: actions/emailsettings.php:163
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:186
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr "누군가 내 글을 좋아하는 게시글로 추가했을때, 이메일을 보냅니다."
 
-#: actions/emailsettings.php:169
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:193
 msgid "Send me email when someone sends me a private message."
 msgstr "누군가 내게 비밀메시지를 보냈을때, 이메일을 보냅니다."
 
-#: actions/emailsettings.php:174
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:199
 #, fuzzy
 msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr "누군가 내게 비밀메시지를 보냈을때, 이메일을 보냅니다."
 
-#: actions/emailsettings.php:179
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:205
 msgid "Allow friends to nudge me and send me an email."
 msgstr "친구들이 내게 이메일이나 쪽지를 보낼 수 있도록 허용합니다."
 
-#: actions/emailsettings.php:185
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:212
 msgid "I want to post notices by email."
 msgstr "이메일로 통보를 포스트 하길 원합니다."
 
-#: actions/emailsettings.php:191
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:219
 msgid "Publish a MicroID for my email address."
 msgstr "이메일 주소를 위한 MicroID의 생성"
 
-#: actions/emailsettings.php:302 actions/imsettings.php:264
-#: actions/othersettings.php:180 actions/smssettings.php:284
-msgid "Preferences saved."
-msgstr "설정이 저장되었습니다."
+#. TRANS: Confirmation message for successful e-mail preferences save.
+#: actions/emailsettings.php:334
+#, fuzzy
+msgid "Email preferences saved."
+msgstr "싱크설정이 저장되었습니다."
 
-#: actions/emailsettings.php:320
+#. TRANS: Message given saving e-mail address without having provided one.
+#: actions/emailsettings.php:353
 msgid "No email address."
 msgstr "이메일이 추가 되지 않았습니다."
 
-#: actions/emailsettings.php:327
+#. TRANS: Message given saving e-mail address that cannot be normalised.
+#: actions/emailsettings.php:361
 msgid "Cannot normalize that email address"
 msgstr "그 이메일 주소를 정규화 할 수 없습니다."
 
-#: actions/emailsettings.php:331 actions/register.php:201
+#. TRANS: Message given saving e-mail address that not valid.
+#: actions/emailsettings.php:366 actions/register.php:201
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "유효한 이메일 주소가 아닙니다."
 
-#: actions/emailsettings.php:334
+#. TRANS: Message given saving e-mail address that is already set.
+#: actions/emailsettings.php:370
 msgid "That is already your email address."
 msgstr "그 이메일 주소는 이미 귀하의 것입니다."
 
-#: actions/emailsettings.php:337
+#. TRANS: Message given saving e-mail address that is already set for another user.
+#: actions/emailsettings.php:374
 msgid "That email address already belongs to another user."
 msgstr "그 이메일 주소는 이미 다른 사용자의 소유입니다."
 
-#: actions/emailsettings.php:353 actions/imsettings.php:319
-#: actions/smssettings.php:337
+#. TRANS: Server error thrown on database error adding e-mail confirmation code.
+#. TRANS: Server error thrown on database error adding IM confirmation code.
+#. TRANS: Server error thrown on database error adding SMS confirmation code.
+#: actions/emailsettings.php:391 actions/imsettings.php:348
+#: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "확인 코드를 추가 할 수 없습니다."
 
-#: actions/emailsettings.php:359
+#. TRANS: Message given saving valid e-mail address that is to be confirmed.
+#: actions/emailsettings.php:398
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -1442,43 +1525,56 @@ msgstr ""
 "추가한 이메일로 인증 코드를 보냈습니다. 수신함(또는 스팸함)을 확인하셔서 코드"
 "와 사용법을 확인하여 주시기 바랍니다."
 
-#: actions/emailsettings.php:379 actions/imsettings.php:351
-#: actions/smssettings.php:370
+#. TRANS: Message given canceling e-mail address confirmation that is not pending.
+#. TRANS: Message given canceling IM address confirmation that is not pending.
+#. TRANS: Message given canceling SMS phone number confirmation that is not pending.
+#: actions/emailsettings.php:419 actions/imsettings.php:383
+#: actions/smssettings.php:408
 msgid "No pending confirmation to cancel."
 msgstr "취소 할 대기중인 인증이 없습니다."
 
-#: actions/emailsettings.php:383 actions/imsettings.php:355
-msgid "That is the wrong IM address."
+#. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
+#: actions/emailsettings.php:424
+#, fuzzy
+msgid "That is the wrong email address."
 msgstr "옳지 않은 메신저 계정 입니다."
 
-#: actions/emailsettings.php:395 actions/imsettings.php:367
-#: actions/smssettings.php:386
-msgid "Confirmation cancelled."
+#. TRANS: Message given after successfully canceling e-mail address confirmation.
+#: actions/emailsettings.php:438
+#, fuzzy
+msgid "Email confirmation cancelled."
 msgstr "인증 취소"
 
-#: actions/emailsettings.php:413
+#. TRANS: Message given trying to remove an e-mail address that is not
+#. TRANS: registered for the active user.
+#: actions/emailsettings.php:458
 msgid "That is not your email address."
 msgstr "그 이메일 주소는 귀하의 것이 아닙니다."
 
-#: actions/emailsettings.php:432 actions/imsettings.php:408
-#: actions/smssettings.php:425
-msgid "The address was removed."
+#. TRANS: Message given after successfully removing a registered e-mail address.
+#: actions/emailsettings.php:479
+#, fuzzy
+msgid "The email address was removed."
 msgstr "주소가 삭제되었습니다."
 
-#: actions/emailsettings.php:446 actions/smssettings.php:518
+#: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
 msgstr "이메일 주소가 없습니다."
 
-#: actions/emailsettings.php:456 actions/emailsettings.php:478
-#: actions/smssettings.php:528 actions/smssettings.php:552
+#. TRANS: Server error thrown on database error removing incoming e-mail address.
+#. TRANS: Server error thrown on database error adding incoming e-mail address.
+#: actions/emailsettings.php:504 actions/emailsettings.php:528
+#: actions/smssettings.php:578 actions/smssettings.php:602
 msgid "Couldn't update user record."
 msgstr "사용자 기록을 업데이트 할 수 없습니다."
 
-#: actions/emailsettings.php:459 actions/smssettings.php:531
+#. TRANS: Message given after successfully removing an incoming e-mail address.
+#: actions/emailsettings.php:508 actions/smssettings.php:581
 msgid "Incoming email address removed."
 msgstr "받은 이메일 계정 삭제"
 
-#: actions/emailsettings.php:481 actions/smssettings.php:555
+#. TRANS: Message given after successfully adding an incoming e-mail address.
+#: actions/emailsettings.php:532 actions/smssettings.php:605
 msgid "New incoming email address added."
 msgstr "새로운 이메일 주소가 추가 되었습니다."
 
@@ -1676,17 +1772,19 @@ msgid ""
 "the group in the future."
 msgstr ""
 
-#: actions/groupblock.php:176
+#. TRANS: Submit button title for 'No' when blocking a user from a group.
+#: actions/groupblock.php:182
 #, fuzzy
 msgid "Do not block this user from this group"
 msgstr "이 그룹의 회원리스트"
 
-#: actions/groupblock.php:177
+#. TRANS: Submit button title for 'Yes' when blocking a user from a group.
+#: actions/groupblock.php:189
 #, fuzzy
 msgid "Block this user from this group"
 msgstr "이 그룹의 회원리스트"
 
-#: actions/groupblock.php:194
+#: actions/groupblock.php:206
 msgid "Database error blocking user from group."
 msgstr ""
 
@@ -1864,12 +1962,16 @@ msgstr "회원이 당신을 차단해왔습니다."
 msgid "Error removing the block."
 msgstr "차단 제거 에러!"
 
-#: actions/imsettings.php:59
+#. TRANS: Title for instance messaging settings.
+#: actions/imsettings.php:60
 #, fuzzy
 msgid "IM settings"
 msgstr "메신저 설정"
 
-#: actions/imsettings.php:70
+#. TRANS: Instant messaging settings page instructions.
+#. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
+#. TRANS: the order and formatting of link text and link should remain unchanged.
+#: actions/imsettings.php:74
 #, php-format
 msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
@@ -1878,15 +1980,25 @@ msgstr ""
 "당신은 Jabber나 구글토크(%%doc.im%%)를 통해 메시지를 주고받을 수 있습니다. 아"
 "래 당신의 주소와 환경설정을 조정하세요."
 
-#: actions/imsettings.php:89
+#. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
+#: actions/imsettings.php:94
 msgid "IM is not available."
 msgstr "인스턴트 메신저를 사용할 수 없습니다."
 
-#: actions/imsettings.php:106
+#. TRANS: Form legend for IM settings form.
+#. TRANS: Field label for IM address input in IM settings form.
+#: actions/imsettings.php:106 actions/imsettings.php:136
+#, fuzzy
+msgid "IM address"
+msgstr "메신저 주소"
+
+#: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
 msgstr "확인된 최신의 Jabber/GTalk 계정"
 
-#: actions/imsettings.php:114
+#. TRANS: Form note in IM settings form.
+#. TRANS: %s is the IM address set for the site.
+#: actions/imsettings.php:124
 #, php-format
 msgid ""
 "Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
@@ -1895,12 +2007,9 @@ msgstr ""
 "이 주소는 인증 대기 중입니다. Jabber/Gtalk로 메시지를 확인해 주십시오.(%s 항"
 "목을 추가하셨습니까?)"
 
-#: actions/imsettings.php:124
-#, fuzzy
-msgid "IM address"
-msgstr "메신저 주소"
-
-#: actions/imsettings.php:126
+#. TRANS: IM address input field instructions in IM settings form.
+#. TRANS: %s is the IM address set for the site.
+#: actions/imsettings.php:140
 #, php-format
 msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
@@ -1909,44 +2018,66 @@ msgstr ""
 "\"UserName@example.org\" 와 같은 Jabber 또는 GTalk 계정은 귀하의 메신저나 "
 "GTalk 친구목록에 반드시 %s 주소를 추가하여 주십시오."
 
-#: actions/imsettings.php:143
+#. TRANS: Form legend for IM preferences form.
+#: actions/imsettings.php:155
+#, fuzzy
+msgid "IM preferences"
+msgstr "설정"
+
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:160
 msgid "Send me notices through Jabber/GTalk."
 msgstr "Jabber/GTalk 로 통지를 보내주세요."
 
-#: actions/imsettings.php:148
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:166
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr "Jabber/GTalk의 상태가 변경되었을 때 통지를 보냅니다."
 
-#: actions/imsettings.php:153
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:172
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 "내가 구독하지 않는 사람으로 부터의 답장을  Jabber/GTalk을 통해 보내주세요."
 
-#: actions/imsettings.php:159
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:179
 msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr "Jabber/GTalk 계정을 위한 MicroID의 생성"
 
-#: actions/imsettings.php:285
+#. TRANS: Confirmation message for successful IM preferences save.
+#: actions/imsettings.php:287 actions/othersettings.php:180
+msgid "Preferences saved."
+msgstr "설정이 저장되었습니다."
+
+#. TRANS: Message given saving IM address without having provided one.
+#: actions/imsettings.php:309
 msgid "No Jabber ID."
 msgstr "Jabber ID가 아닙니다."
 
-#: actions/imsettings.php:292
+#. TRANS: Message given saving IM address that cannot be normalised.
+#: actions/imsettings.php:317
 msgid "Cannot normalize that Jabber ID"
 msgstr "그 Jabbar ID를 정규화 할 수 없습니다."
 
-#: actions/imsettings.php:296
+#. TRANS: Message given saving IM address that not valid.
+#: actions/imsettings.php:322
 msgid "Not a valid Jabber ID"
 msgstr "유효한 Jabber ID가 아닙니다."
 
-#: actions/imsettings.php:299
+#. TRANS: Message given saving IM address that is already set.
+#: actions/imsettings.php:326
 msgid "That is already your Jabber ID."
 msgstr "그 Jabber ID는 이미 귀하의 것입니다."
 
-#: actions/imsettings.php:302
+#. TRANS: Message given saving IM address that is already set for another user.
+#: actions/imsettings.php:330
 msgid "Jabber ID already belongs to another user."
 msgstr "Jabber ID가 이미 다른 사용자에 의하여 사용되고 있습니다."
 
-#: actions/imsettings.php:327
+#. TRANS: Message given saving valid IM address that is to be confirmed.
+#. TRANS: %s is the IM address set for the site.
+#: actions/imsettings.php:358
 #, php-format
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
@@ -1955,9 +2086,34 @@ msgstr ""
 "추가한 메신저 주소로 인증 코드를 보냈습니다. %s 사용자를 허락해야 메시지를 전"
 "달할 수 있습니다."
 
-#: actions/imsettings.php:387
+#. TRANS: Message given canceling IM address confirmation for the wrong IM address.
+#: actions/imsettings.php:388
+msgid "That is the wrong IM address."
+msgstr "옳지 않은 메신저 계정 입니다."
+
+#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#: actions/imsettings.php:397
+#, fuzzy
+msgid "Couldn't delete IM confirmation."
+msgstr "이메일 승인을 삭제 할 수 없습니다."
+
+#. TRANS: Message given after successfully canceling IM address confirmation.
+#: actions/imsettings.php:402
+#, fuzzy
+msgid "IM confirmation cancelled."
+msgstr "인증 취소"
+
+#. TRANS: Message given trying to remove an IM address that is not
+#. TRANS: registered for the active user.
+#: actions/imsettings.php:424
 msgid "That is not your Jabber ID."
 msgstr "그 Jabber ID는 귀하의 것이 아닙니다."
+
+#. TRANS: Message given after successfully removing a registered IM address.
+#: actions/imsettings.php:447
+#, fuzzy
+msgid "The IM address was removed."
+msgstr "주소가 삭제되었습니다."
 
 #: actions/inbox.php:59
 #, fuzzy, php-format
@@ -1999,7 +2155,9 @@ msgstr "새 사용자를 초대"
 msgid "You are already subscribed to these users:"
 msgstr "당신은 다음 사용자를 이미 구독하고 있습니다."
 
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:398
+#. TRANS: Whois output.
+#. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2117,7 +2275,9 @@ msgstr "그룹가입을 위해서는 로그인이 필요합니다."
 msgid "No nickname or ID."
 msgstr "별명이 없습니다."
 
-#: actions/joingroup.php:141
+#. TRANS: Message given having added a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/joingroup.php:141 lib/command.php:346
 #, fuzzy, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%s 는 그룹 %s에 가입했습니다."
@@ -2126,11 +2286,13 @@ msgstr "%s 는 그룹 %s에 가입했습니다."
 msgid "You must be logged in to leave a group."
 msgstr "그룹을 떠나기 위해서는 로그인해야 합니다."
 
-#: actions/leavegroup.php:100 lib/command.php:363
+#: actions/leavegroup.php:100 lib/command.php:373
 msgid "You are not a member of that group."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: actions/leavegroup.php:137
+#. TRANS: Message given having removed a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/leavegroup.php:137 lib/command.php:392
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
 msgstr "%s가 그룹%s를 떠났습니다."
@@ -2244,12 +2406,12 @@ msgstr "새 그룹을 만들기 위해 이 양식을 사용하세요."
 msgid "New message"
 msgstr "새로운 메시지입니다."
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:459
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
 msgid "You can't send a message to this user."
 msgstr "당신은 이 사용자에게 메시지를 보낼 수 없습니다."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:443
-#: lib/command.php:529
+#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: lib/command.php:555
 msgid "No content!"
 msgstr "내용이 없습니다!"
 
@@ -2257,7 +2419,7 @@ msgstr "내용이 없습니다!"
 msgid "No recipient specified."
 msgstr "수신자를 지정하지 않았습니다."
 
-#: actions/newmessage.php:164 lib/command.php:462
+#: actions/newmessage.php:164 lib/command.php:484
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -2520,7 +2682,7 @@ msgid "6 or more characters"
 msgstr "6글자 이상"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:433 actions/smssettings.php:134
+#: actions/register.php:433
 msgid "Confirm"
 msgstr "인증"
 
@@ -3900,48 +4062,78 @@ msgstr ""
 msgid "Save site notice"
 msgstr "사이트 공지"
 
-#: actions/smssettings.php:58
+#. TRANS: Title for SMS settings.
+#: actions/smssettings.php:59
 #, fuzzy
 msgid "SMS settings"
 msgstr "SMS 세팅"
 
-#: actions/smssettings.php:69
+#. TRANS: SMS settings page instructions.
+#. TRANS: %%site.name%% is the name of the site.
+#: actions/smssettings.php:74
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr ""
 "당신은 %%site.name%% 로부터 이메일을 통해 SMS메시지를 받을 수 있습니다."
 
-#: actions/smssettings.php:91
+#. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
+#: actions/smssettings.php:97
 #, fuzzy
 msgid "SMS is not available."
 msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
 
-#: actions/smssettings.php:112
+#. TRANS: Form legend for SMS settings form.
+#: actions/smssettings.php:111
+#, fuzzy
+msgid "SMS address"
+msgstr "메신저 주소"
+
+#. TRANS: Form guide in SMS settings form.
+#: actions/smssettings.php:120
 msgid "Current confirmed SMS-enabled phone number."
 msgstr "확인된 최신의 SMS가 가능한 휴대폰 번호"
 
-#: actions/smssettings.php:123
+#. TRANS: Form guide in IM settings form.
+#: actions/smssettings.php:133
 msgid "Awaiting confirmation on this phone number."
 msgstr "이 전화 번호는 인증 대기중입니다."
 
-#: actions/smssettings.php:130
+#. TRANS: Field label for SMS address input in SMS settings form.
+#: actions/smssettings.php:142
 msgid "Confirmation code"
 msgstr "인증 코드"
 
-#: actions/smssettings.php:131
+#. TRANS: Form field instructions in SMS settings form.
+#: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
 msgstr "휴대폰으로 받으신 인증번호를 입력하십시오."
 
-#: actions/smssettings.php:138
+#. TRANS: Button label to confirm SMS confirmation code in SMS settings.
+#: actions/smssettings.php:148
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Confirm"
+msgstr "인증"
+
+#. TRANS: Field label for SMS phone number input in SMS settings form.
+#: actions/smssettings.php:153
 #, fuzzy
 msgid "SMS phone number"
 msgstr "SMS 휴대폰 번호"
 
-#: actions/smssettings.php:140
+#. TRANS: SMS phone number input field instructions in SMS settings form.
+#: actions/smssettings.php:156
 msgid "Phone number, no punctuation or spaces, with area code"
 msgstr "지역번호와 함께 띄어쓰기 없이 번호를 적어 주세요."
 
-#: actions/smssettings.php:174
+#. TRANS: Form legend for SMS preferences form.
+#: actions/smssettings.php:195
+#, fuzzy
+msgid "SMS preferences"
+msgstr "설정"
+
+#. TRANS: Checkbox label in SMS preferences form.
+#: actions/smssettings.php:201
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
@@ -3949,23 +4141,34 @@ msgstr ""
 "통지를 SMS로 보내주세요; 물론 통신사로부터 바가지 요금을 문다는 것은 알고 있"
 "습니다."
 
-#: actions/smssettings.php:306
+#. TRANS: Confirmation message for successful SMS preferences save.
+#: actions/smssettings.php:315
+#, fuzzy
+msgid "SMS preferences saved."
+msgstr "설정이 저장되었습니다."
+
+#. TRANS: Message given saving SMS phone number without having provided one.
+#: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "휴대폰 번호가 없습니다."
 
-#: actions/smssettings.php:311
+#. TRANS: Message given saving SMS phone number without having selected a carrier.
+#: actions/smssettings.php:344
 msgid "No carrier selected."
 msgstr "통신회사가 선택 되지 않았습니다."
 
-#: actions/smssettings.php:318
+#. TRANS: Message given saving SMS phone number that is already set.
+#: actions/smssettings.php:352
 msgid "That is already your phone number."
 msgstr "그 휴대폰 번호는 이미 귀하의 것입니다."
 
-#: actions/smssettings.php:321
+#. TRANS: Message given saving SMS phone number that is already set for another user.
+#: actions/smssettings.php:356
 msgid "That phone number already belongs to another user."
 msgstr "그 휴대폰 번호는 이미 다른 사용자의 것입니다."
 
-#: actions/smssettings.php:347
+#. TRANS: Message given saving valid SMS phone number that is to be confirmed.
+#: actions/smssettings.php:384
 #, fuzzy
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
@@ -3974,30 +4177,50 @@ msgstr ""
 "추가한 휴대폰으로 인증 코드를 보냈습니다. 수신함(또는 스팸함)을 확인하셔서 코"
 "드와 사용법을 확인하여 주시기 바랍니다."
 
-#: actions/smssettings.php:374
+#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
+#: actions/smssettings.php:413
 msgid "That is the wrong confirmation number."
 msgstr "옳지 않은 인증 번호 입니다."
 
-#: actions/smssettings.php:405
+#. TRANS: Message given after successfully canceling SMS phone number confirmation.
+#: actions/smssettings.php:427
+#, fuzzy
+msgid "SMS confirmation cancelled."
+msgstr "인증 취소"
+
+#. TRANS: Message given trying to remove an SMS phone number that is not
+#. TRANS: registered for the active user.
+#: actions/smssettings.php:448
 msgid "That is not your phone number."
 msgstr "그 휴대폰 번호는 귀하의 것이 아닙니다."
 
-#: actions/smssettings.php:465
+#. TRANS: Message given after successfully removing a registered SMS phone number.
+#: actions/smssettings.php:470
+#, fuzzy
+msgid "The SMS phone number was removed."
+msgstr "SMS 휴대폰 번호"
+
+#. TRANS: Label for mobile carrier dropdown menu in SMS settings.
+#: actions/smssettings.php:511
 msgid "Mobile carrier"
 msgstr "휴대전화 사업자"
 
-#: actions/smssettings.php:469
+#. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
+#: actions/smssettings.php:516
 msgid "Select a carrier"
 msgstr "통신 회사를 선택 하세요."
 
-#: actions/smssettings.php:476
+#. TRANS: Form instructions for mobile carrier dropdown menu in SMS settings.
+#. TRANS: %s is an administrative contact's e-mail address.
+#: actions/smssettings.php:525
 #, php-format
 msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr "귀하의 휴대폰의 통신회사는 무엇입니까?"
 
-#: actions/smssettings.php:498
+#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
+#: actions/smssettings.php:548
 msgid "No code entered"
 msgstr "코드가 입력 되지 않았습니다."
 
@@ -5227,10 +5450,8 @@ msgstr ""
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
-#. TRANS: Button label
-#: lib/applicationeditform.php:357
-#, fuzzy
-msgctxt "BUTTON"
+#. TRANS: Submit button title
+#: lib/applicationeditform.php:359
 msgid "Cancel"
 msgstr "취소"
 
@@ -5308,34 +5529,40 @@ msgstr "실행 실패"
 msgid "Notice with that id does not exist"
 msgstr "해당 id의 프로필이 없습니다."
 
-#: lib/command.php:99 lib/command.php:570
+#: lib/command.php:99 lib/command.php:596
 msgid "User has no last notice"
 msgstr "이용자의 지속적인 게시글이 없습니다."
 
-#: lib/command.php:125
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:127
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
 msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
 
-#: lib/command.php:143
+#. TRANS: Message given getting a non-existing user.
+#. TRANS: %s is the nickname of the user that could not be found.
+#: lib/command.php:147
 #, fuzzy, php-format
 msgid "Could not find a local user with nickname %s"
 msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
 
-#: lib/command.php:176
+#: lib/command.php:180
 msgid "Sorry, this command is not yet implemented."
 msgstr "죄송합니다. 이 명령은 아직 실행되지 않았습니다."
 
-#: lib/command.php:221
+#: lib/command.php:225
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#: lib/command.php:228
+#. TRANS: Message given having nudged another user.
+#. TRANS: %s is the nickname of the user that was nudged.
+#: lib/command.php:234
 #, fuzzy, php-format
 msgid "Nudge sent to %s"
 msgstr "찔러 보기를 보냈습니다."
 
-#: lib/command.php:254
+#: lib/command.php:260
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5343,200 +5570,204 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:296
+#: lib/command.php:302
 msgid "Notice marked as fave."
 msgstr "게시글이 좋아하는 글로 지정되었습니다."
 
-#: lib/command.php:317
+#: lib/command.php:323
 msgid "You are already a member of that group"
 msgstr "당신은 이미 이 그룹의 멤버입니다."
 
-#: lib/command.php:331
-#, php-format
-msgid "Could not join user %s to group %s"
-msgstr "그룹 %s에 %s는 가입할 수 없습니다."
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:339
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s"
+msgstr "이용자 %1$s 의 그룹 %2$s 가입에 실패했습니다."
 
-#: lib/command.php:336
-#, php-format
-msgid "%s joined group %s"
-msgstr "%s 는 그룹 %s에 가입했습니다."
-
-#: lib/command.php:373
-#, php-format
-msgid "Could not remove user %s to group %s"
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:385
+#, fuzzy, php-format
+msgid "Could not remove user %s from group %s"
 msgstr "그룹 %s에서 %s 사용자를 제거할 수 없습니다."
 
-#: lib/command.php:378
-#, php-format
-msgid "%s left group %s"
-msgstr "%s가 그룹%s를 떠났습니다."
-
-#: lib/command.php:401
+#. TRANS: Whois output. %s is the full name of the queried user.
+#: lib/command.php:418
 #, php-format
 msgid "Fullname: %s"
 msgstr "전체이름: %s"
 
+#. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:404 lib/mail.php:263
+#: lib/command.php:422 lib/mail.php:263
 #, php-format
 msgid "Location: %s"
 msgstr "위치: %s"
 
+#. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:407 lib/mail.php:266
+#: lib/command.php:426 lib/mail.php:266
 #, php-format
 msgid "Homepage: %s"
 msgstr "홈페이지: %s"
 
-#: lib/command.php:410
+#. TRANS: Whois output. %s is the bio information of the queried user.
+#: lib/command.php:430
 #, php-format
 msgid "About: %s"
 msgstr "자기소개: %s"
 
-#: lib/command.php:437
+#: lib/command.php:457
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
 
-#: lib/command.php:450
+#. TRANS: Message given if content is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:472
 #, fuzzy, php-format
-msgid "Message too long - maximum is %d characters, you sent %d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d"
 msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
 
-#: lib/command.php:468
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: lib/command.php:492
 #, php-format
 msgid "Direct message to %s sent"
 msgstr "%s에게 보낸 직접 메시지"
 
-#: lib/command.php:470
+#: lib/command.php:494
 msgid "Error sending direct message."
 msgstr "직접 메시지 보내기 오류."
 
-#: lib/command.php:490
+#: lib/command.php:514
 #, fuzzy
 msgid "Cannot repeat your own notice"
 msgstr "알림을 켤 수 없습니다."
 
-#: lib/command.php:495
+#: lib/command.php:519
 #, fuzzy
 msgid "Already repeated that notice"
 msgstr "이 게시글 삭제하기"
 
-#: lib/command.php:503
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:529
 #, fuzzy, php-format
 msgid "Notice from %s repeated"
 msgstr "게시글이 등록되었습니다."
 
-#: lib/command.php:505
+#: lib/command.php:531
 #, fuzzy
 msgid "Error repeating notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: lib/command.php:536
+#: lib/command.php:562
 #, fuzzy, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
 
-#: lib/command.php:545
+#: lib/command.php:571
 #, fuzzy, php-format
 msgid "Reply to %s sent"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/command.php:547
+#: lib/command.php:573
 #, fuzzy
 msgid "Error saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: lib/command.php:594
+#: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
 msgstr "구독하려는 사용자의 이름을 지정하십시오."
 
-#: lib/command.php:602
+#: lib/command.php:628
 #, fuzzy
 msgid "Can't subscribe to OMB profiles by command."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: lib/command.php:608
+#: lib/command.php:634
 #, php-format
 msgid "Subscribed to %s"
 msgstr "%s에게 구독되었습니다."
 
-#: lib/command.php:629 lib/command.php:728
+#: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
 msgstr "구독을 해제하려는 사용자의 이름을 지정하십시오."
 
-#: lib/command.php:638
+#: lib/command.php:664
 #, php-format
 msgid "Unsubscribed from %s"
 msgstr "%s에서 구독을 해제했습니다."
 
-#: lib/command.php:656 lib/command.php:679
+#: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
 msgstr "명령이 아직 실행되지 않았습니다."
 
-#: lib/command.php:659
+#: lib/command.php:685
 msgid "Notification off."
 msgstr "알림끄기."
 
-#: lib/command.php:661
+#: lib/command.php:687
 msgid "Can't turn off notification."
 msgstr "알림을 끌 수 없습니다."
 
-#: lib/command.php:682
+#: lib/command.php:708
 msgid "Notification on."
 msgstr "알림이 켜졌습니다."
 
-#: lib/command.php:684
+#: lib/command.php:710
 msgid "Can't turn on notification."
 msgstr "알림을 켤 수 없습니다."
 
-#: lib/command.php:697
+#: lib/command.php:723
 msgid "Login command is disabled"
 msgstr ""
 
-#: lib/command.php:708
+#: lib/command.php:734
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
 
-#: lib/command.php:735
+#: lib/command.php:761
 #, fuzzy, php-format
 msgid "Unsubscribed  %s"
 msgstr "%s에서 구독을 해제했습니다."
 
-#: lib/command.php:752
+#: lib/command.php:778
 #, fuzzy
 msgid "You are not subscribed to anyone."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
-#: lib/command.php:754
+#: lib/command.php:780
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
 
-#: lib/command.php:774
+#: lib/command.php:800
 #, fuzzy
 msgid "No one is subscribed to you."
 msgstr "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:776
+#: lib/command.php:802
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "다른 사람을 구독 하실 수 없습니다."
 
-#: lib/command.php:796
+#: lib/command.php:822
 #, fuzzy
 msgid "You are not a member of any groups."
 msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:798
+#: lib/command.php:824
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "당신은 해당 그룹의 멤버가 아닙니다."
 
-#: lib/command.php:812
+#: lib/command.php:838
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -6388,6 +6619,10 @@ msgid "Repeat this notice?"
 msgstr "이 게시글에 대해 답장하기"
 
 #: lib/repeatform.php:132
+msgid "Yes"
+msgstr "네, 맞습니다."
+
+#: lib/repeatform.php:132
 #, fuzzy
 msgid "Repeat this notice"
 msgstr "이 게시글에 대해 답장하기"
@@ -6586,47 +6821,57 @@ msgctxt "role"
 msgid "Moderator"
 msgstr ""
 
-#: lib/util.php:1053
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1054
 msgid "a few seconds ago"
 msgstr "몇 초 전"
 
-#: lib/util.php:1055
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1057
 msgid "about a minute ago"
 msgstr "1분 전"
 
-#: lib/util.php:1057
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1061
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d분 전"
 
-#: lib/util.php:1059
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1064
 msgid "about an hour ago"
 msgstr "1시간 전"
 
-#: lib/util.php:1061
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1068
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d시간 전"
 
-#: lib/util.php:1063
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1071
 msgid "about a day ago"
 msgstr "하루 전"
 
-#: lib/util.php:1065
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1075
 #, php-format
 msgid "about %d days ago"
 msgstr "%d일 전"
 
-#: lib/util.php:1067
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1078
 msgid "about a month ago"
 msgstr "1달 전"
 
-#: lib/util.php:1069
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1082
 #, php-format
 msgid "about %d months ago"
 msgstr "%d달 전"
 
-#: lib/util.php:1071
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1085
 msgid "about a year ago"
 msgstr "1년 전"
 
