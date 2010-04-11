@@ -3,6 +3,7 @@
 # Author@translatewiki.net: AS
 # Author@translatewiki.net: Boogie
 # Author@translatewiki.net: Prima klasy4na
+# Author@translatewiki.net: Тест
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -10,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-10 19:12+0000\n"
-"PO-Revision-Date: 2010-04-10 19:14:43+0000\n"
+"POT-Creation-Date: 2010-04-11 18:34+0000\n"
+"PO-Revision-Date: 2010-04-11 18:37:29+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64895); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64941); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -24,7 +25,7 @@ msgstr ""
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:374
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:375
 msgid "Access"
 msgstr "Погодитись"
 
@@ -76,7 +77,8 @@ msgstr "Закрито"
 msgid "Save access settings"
 msgstr "Зберегти параметри доступу"
 
-#: actions/accessadminpanel.php:203
+#. TRANS: Button label
+#: actions/accessadminpanel.php:203 lib/applicationeditform.php:361
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зберегти"
@@ -840,7 +842,7 @@ msgstr "Не блокувати цього користувача"
 msgid "Yes"
 msgstr "Так"
 
-#: actions/block.php:144 actions/groupmembers.php:388 lib/blockform.php:80
+#: actions/block.php:144 actions/groupmembers.php:392 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Блокувати користувача"
 
@@ -989,7 +991,7 @@ msgstr "Не видаляти додаток"
 msgid "Delete this application"
 msgstr "Видалити додаток"
 
-#. TRANS: Client error message
+#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
@@ -1158,6 +1160,7 @@ msgstr "Оновити налаштування за замовчуванням"
 msgid "Reset back to default"
 msgstr "Повернутись до початкових налаштувань"
 
+#. TRANS: Submit button title
 #: actions/designadminpanel.php:589 actions/emailsettings.php:195
 #: actions/imsettings.php:163 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
@@ -1165,8 +1168,8 @@ msgstr "Повернутись до початкових налаштувань"
 #: actions/sitenoticeadminpanel.php:195 actions/smssettings.php:181
 #: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:294
-#: lib/applicationeditform.php:333 lib/applicationeditform.php:334
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: lib/applicationeditform.php:363 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Зберегти"
 
@@ -1324,9 +1327,9 @@ msgstr ""
 "Очікування підтвердження цієї адреси. Перевірте вхідну пошту (і теку зі "
 "спамом також!), там має бути повідомлення з подальшими інструкціями."
 
+#. TRANS: Submit button title
 #: actions/emailsettings.php:117 actions/imsettings.php:120
-#: actions/smssettings.php:126 lib/applicationeditform.php:331
-#: lib/applicationeditform.php:332
+#: actions/smssettings.php:126 lib/applicationeditform.php:359
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -1642,7 +1645,7 @@ msgstr "Користувача заблоковано в цій групі."
 msgid "User is not a member of group."
 msgstr "Користувач не є учасником групи."
 
-#: actions/groupblock.php:134 actions/groupmembers.php:356
+#: actions/groupblock.php:134 actions/groupmembers.php:360
 msgid "Block user from group"
 msgstr "Блокувати користувача в групі"
 
@@ -1740,25 +1743,27 @@ msgstr "Список учасників цієї групи."
 msgid "Admin"
 msgstr "Адмін"
 
-#: actions/groupmembers.php:388 lib/blockform.php:69
+#: actions/groupmembers.php:392 lib/blockform.php:69
 msgid "Block"
 msgstr "Блок"
 
-#: actions/groupmembers.php:483
+#: actions/groupmembers.php:487
 msgid "Make user an admin of the group"
 msgstr "Надати користувачеві права адміністратора"
 
-#: actions/groupmembers.php:515
+#: actions/groupmembers.php:519
 msgid "Make Admin"
 msgstr "Зробити адміном"
 
-#: actions/groupmembers.php:515
+#: actions/groupmembers.php:519
 msgid "Make this user an admin"
 msgstr "Надати цьому користувачеві права адміністратора"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title in atom group notice feed. %s is a group name.
+#. TRANS: Title in atom user notice feed. %s is a user name.
 #: actions/grouprss.php:139 actions/userrss.php:94
-#: lib/atomgroupnoticefeed.php:61 lib/atomusernoticefeed.php:67
+#: lib/atomgroupnoticefeed.php:62 lib/atomusernoticefeed.php:68
 #, php-format
 msgid "%s timeline"
 msgstr "%s стрічка"
@@ -2399,8 +2404,9 @@ msgstr "Тип змісту %s не підтримується."
 msgid "Only %s URLs over plain HTTP please."
 msgstr "URL-адреса %s лише в простому HTTP, будь ласка."
 
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1068
-#: lib/apiaction.php:1096 lib/apiaction.php:1212
+#. TRANS: Client error on an API request with an unsupported data format.
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
+#: lib/apiaction.php:1098 lib/apiaction.php:1215
 msgid "Not a supported data format."
 msgstr "Такий формат даних не підтримується."
 
@@ -2542,7 +2548,7 @@ msgid "Password saved."
 msgstr "Пароль збережено."
 
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:382
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:383
 msgid "Paths"
 msgstr "Шлях"
 
@@ -2752,8 +2758,9 @@ msgstr ""
 msgid "Full name"
 msgstr "Повне ім’я"
 
+#. TRANS: Form input field label.
 #: actions/profilesettings.php:115 actions/register.php:453
-#: lib/applicationeditform.php:228 lib/groupeditform.php:161
+#: lib/applicationeditform.php:244 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Веб-сторінка"
 
@@ -3128,13 +3135,12 @@ msgid "Invalid username or password."
 msgstr "Недійсне ім’я або пароль."
 
 #: actions/register.php:343
-#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
-"Ця форма дозволить створити новий акаунт. Ви зможете робити дописи і будете "
-"в курсі справ Ваших друзів та колег. "
+"Ця форма дозволить вам створити новий акаунт. Ви зможете робити дописи і "
+"будете в курсі справ ваших друзів та колег. "
 
 #: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -3375,7 +3381,7 @@ msgstr "Користувача ізольовано доки наберетьс�
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:390
+#: lib/adminpanelaction.php:391
 msgid "Sessions"
 msgstr "Сесії"
 
@@ -3412,21 +3418,25 @@ msgstr "Ви повинні спочатку увійти, аби перегля
 msgid "Application profile"
 msgstr "Профіль додатку"
 
-#: actions/showapplication.php:159 lib/applicationeditform.php:180
+#. TRANS: Form input field label for application icon.
+#: actions/showapplication.php:159 lib/applicationeditform.php:182
 msgid "Icon"
 msgstr "Іконка"
 
+#. TRANS: Form input field label for application name.
 #: actions/showapplication.php:169 actions/version.php:195
-#: lib/applicationeditform.php:195
+#: lib/applicationeditform.php:199
 msgid "Name"
 msgstr "Ім’я"
 
-#: actions/showapplication.php:178 lib/applicationeditform.php:222
+#. TRANS: Form input field label.
+#: actions/showapplication.php:178 lib/applicationeditform.php:235
 msgid "Organization"
 msgstr "Організація"
 
+#. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:198
-#: lib/applicationeditform.php:209 lib/groupeditform.php:172
+#: lib/applicationeditform.php:216 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Опис"
 
@@ -3992,7 +4002,7 @@ msgstr "Код не введено"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:406
+#: lib/adminpanelaction.php:407
 msgid "Snapshots"
 msgstr "Снепшоти"
 
@@ -4013,7 +4023,8 @@ msgid "Invalid snapshot report URL."
 msgstr "Помилковий снепшот URL."
 
 #: actions/snapshotadminpanel.php:200
-msgid "Randomly during Web hit"
+#, fuzzy
+msgid "Randomly during web hit"
 msgstr "Випадково під час веб-хіта"
 
 #: actions/snapshotadminpanel.php:201
@@ -4470,9 +4481,12 @@ msgstr ""
 "Спробуйте [знайти якісь групи](%%action.groupsearch%%) і приєднайтеся до них."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:67
-#: lib/atomusernoticefeed.php:73
+#. TRANS: Message is used as a subtitle in atom group notice feed.
+#. TRANS: %1$s is a group name, %2$s is a site name.
+#. TRANS: Message is used as a subtitle in atom user notice feed.
+#. TRANS: %1$s is a user name, %2$s is a site name.
+#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:69
+#: lib/atomusernoticefeed.php:75
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr "Оновлення від %1$s на %2$s!"
@@ -4593,27 +4607,28 @@ msgstr "Не можна долучити повідомлення."
 msgid "Could not update message with new URI."
 msgstr "Не можна оновити повідомлення з новим URI."
 
-#: classes/Notice.php:175
-#, php-format
-msgid "DB error inserting hashtag: %s"
+#. TRANS: Server exception. %s are the error details.
+#: classes/Notice.php:176
+#, fuzzy, php-format
+msgid "Database error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні теґу: %s"
 
-#: classes/Notice.php:244
+#: classes/Notice.php:245
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні допису. Надто довге."
 
-#: classes/Notice.php:248
+#: classes/Notice.php:249
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при збереженні допису. Невідомий користувач."
 
-#: classes/Notice.php:253
+#: classes/Notice.php:254
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Дуже багато дописів за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:259
+#: classes/Notice.php:260
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4621,19 +4636,21 @@ msgstr ""
 "Дуже багато повідомлень за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:265
+#: classes/Notice.php:266
 msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
-#: classes/Notice.php:331 classes/Notice.php:357
+#: classes/Notice.php:332 classes/Notice.php:358
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:964
+#: classes/Notice.php:965
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
-#: classes/Notice.php:1510
+#. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+#. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+#: classes/Notice.php:1513
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4851,7 +4868,7 @@ msgstr "Пошук"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:515 lib/adminpanelaction.php:398
+#: lib/action.php:515 lib/adminpanelaction.php:399
 msgid "Site notice"
 msgstr "Об’яви на сайті"
 
@@ -4916,19 +4933,19 @@ msgstr "Ліцензія програмного забезпечення StatusN
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:817
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
 "**%%site.name%%** — це сервіс мікроблоґів наданий вам [%%site.broughtby%%](%%"
-"site.broughtbyurl%%). "
+"site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:820
-#, fuzzy, php-format
+#, php-format
 msgid "**%%site.name%%** is a microblogging service."
-msgstr "**%%site.name%%** — це сервіс мікроблоґів. "
+msgstr "**%%site.name%%** — це сервіс мікроблоґів."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
 #: lib/action.php:824
@@ -4990,7 +5007,8 @@ msgstr "Вперед"
 msgid "Before"
 msgstr "Назад"
 
-#: lib/activity.php:120
+#. TRANS: Client exception thrown when a feed instance is a DOMDocument.
+#: lib/activity.php:121
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 "В очікуванні кореневого елементу веб-стрічки, отримали цілий документ XML."
@@ -5007,17 +5025,17 @@ msgstr "Поки що не можу обробити вбудований XML к
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Поки що не можу обробити вбудований контент Base64."
 
-#. TRANS: Client error message
+#. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
 #: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
 msgstr "Ви не можете щось змінювати на цьому сайті."
 
-#. TRANS: Client error message
+#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:110
 msgid "Changes to that panel are not allowed."
 msgstr "Для цієї панелі зміни не припустимі."
 
-#. TRANS: Client error message
+#. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr "showForm() не виконано."
@@ -5027,155 +5045,197 @@ msgstr "showForm() не виконано."
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() не виконано."
 
-#. TRANS: Client error message
-#: lib/adminpanelaction.php:283
+#. TRANS: Client error message thrown if design settings could not be deleted in
+#. TRANS: the admin panel Design.
+#: lib/adminpanelaction.php:284
 msgid "Unable to delete design setting."
 msgstr "Немає можливості видалити налаштування дизайну."
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:348
+#: lib/adminpanelaction.php:349
 msgid "Basic site configuration"
 msgstr "Основна конфігурація сайту"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:350
+#: lib/adminpanelaction.php:351
 msgctxt "MENU"
 msgid "Site"
 msgstr "Сайт"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:356
+#: lib/adminpanelaction.php:357
 msgid "Design configuration"
 msgstr "Конфігурація дизайну"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:358
+#: lib/adminpanelaction.php:359
 msgctxt "MENU"
 msgid "Design"
 msgstr "Дизайн"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:364
+#: lib/adminpanelaction.php:365
 msgid "User configuration"
 msgstr "Конфігурація користувача"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:366 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:367 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Користувач"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:372
+#: lib/adminpanelaction.php:373
 msgid "Access configuration"
 msgstr "Прийняти конфігурацію"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:380
+#: lib/adminpanelaction.php:381
 msgid "Paths configuration"
 msgstr "Конфігурація шляху"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:388
+#: lib/adminpanelaction.php:389
 msgid "Sessions configuration"
 msgstr "Конфігурація сесій"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:396
+#: lib/adminpanelaction.php:397
 msgid "Edit site notice"
 msgstr "Редагувати повідомлення сайту"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:404
+#: lib/adminpanelaction.php:405
 msgid "Snapshots configuration"
 msgstr "Конфігурація знімків"
 
-#: lib/apiauth.php:94
+#. TRANS: Client error 401.
+#: lib/apiauth.php:95
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 "API-ресурс вимагає дозвіл типу «читання-запис», але у вас є лише доступ для "
 "читання."
 
-#: lib/apiauth.php:276
-#, php-format
-msgid "Failed API auth attempt, nickname = %1$s, proxy = %2$s, ip = %3$s"
-msgstr ""
-"Невдала спроба авторизації API, nickname = %1$s, proxy = %2$s, ip = %3$s"
-
-#: lib/applicationeditform.php:136
+#. TRANS: Form legend.
+#: lib/applicationeditform.php:137
 msgid "Edit application"
 msgstr "Керувати додатками"
 
-#: lib/applicationeditform.php:184
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:187
 msgid "Icon for this application"
 msgstr "Іконка для цього додатку"
 
-#: lib/applicationeditform.php:204
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:209
 #, php-format
 msgid "Describe your application in %d characters"
 msgstr "Опишіть додаток, вкладаючись у %d знаків"
 
-#: lib/applicationeditform.php:207
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:213
 msgid "Describe your application"
 msgstr "Опишіть Ваш додаток"
 
-#: lib/applicationeditform.php:216
-msgid "Source URL"
-msgstr "URL-адреса"
-
-#: lib/applicationeditform.php:218
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:224
 msgid "URL of the homepage of this application"
 msgstr "URL-адреса веб-сторінки цього додатку"
 
-#: lib/applicationeditform.php:224
+#. TRANS: Form input field label.
+#: lib/applicationeditform.php:226
+msgid "Source URL"
+msgstr "URL-адреса"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:233
 msgid "Organization responsible for this application"
 msgstr "Організація, відповідальна за цей додаток"
 
-#: lib/applicationeditform.php:230
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:242
 msgid "URL for the homepage of the organization"
 msgstr "URL-адреса веб-сторінки організації"
 
-#: lib/applicationeditform.php:236
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:251
 msgid "URL to redirect to after authentication"
 msgstr "URL-адреса, на яку перенаправляти після автентифікації"
 
-#: lib/applicationeditform.php:258
+#. TRANS: Radio button label for application type
+#: lib/applicationeditform.php:278
 msgid "Browser"
 msgstr "Браузер"
 
-#: lib/applicationeditform.php:274
+#. TRANS: Radio button label for application type
+#: lib/applicationeditform.php:295
 msgid "Desktop"
 msgstr "Десктоп"
 
-#: lib/applicationeditform.php:275
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:297
 msgid "Type of application, browser or desktop"
 msgstr "Тип додатку, браузер або десктоп"
 
-#: lib/applicationeditform.php:297
+#. TRANS: Radio button label for access type.
+#: lib/applicationeditform.php:320
 msgid "Read-only"
 msgstr "Лише читання"
 
-#: lib/applicationeditform.php:315
+#. TRANS: Radio button label for access type.
+#: lib/applicationeditform.php:339
 msgid "Read-write"
 msgstr "Читати-писати"
 
-#: lib/applicationeditform.php:316
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:341
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Дозвіл за замовчуванням для цього додатку: лише читання або читати-писати"
 
-#: lib/applicationlist.php:154
+#. TRANS: Button label
+#: lib/applicationeditform.php:357
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Cancel"
+msgstr "Скасувати"
+
+#. TRANS: Application access type
+#: lib/applicationlist.php:136
+#, fuzzy
+msgid "read-write"
+msgstr "Читати-писати"
+
+#. TRANS: Application access type
+#: lib/applicationlist.php:138
+#, fuzzy
+msgid "read-only"
+msgstr "Лише читання"
+
+#. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
+#: lib/applicationlist.php:144
+#, php-format
+msgid "Approved %1$s - \"%2$s\" access."
+msgstr ""
+
+#. TRANS: Button label
+#: lib/applicationlist.php:159
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Відкликати"
 
-#: lib/attachmentlist.php:87
+#. TRANS: DT element label in attachment list.
+#: lib/attachmentlist.php:88
 msgid "Attachments"
 msgstr "Вкладення"
 
-#: lib/attachmentlist.php:263
+#. TRANS: DT element label in attachment list item.
+#: lib/attachmentlist.php:265
 msgid "Author"
 msgstr "Автор"
 
-#: lib/attachmentlist.php:276
+#. TRANS: DT element label in attachment list item.
+#: lib/attachmentlist.php:279
 msgid "Provider"
 msgstr "Провайдер"
 
