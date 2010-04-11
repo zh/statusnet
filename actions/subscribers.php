@@ -181,8 +181,12 @@ class SubscribersListItem extends SubscriptionListItem
 
     function homepageAttributes()
     {
+        $aAttrs = parent::linkAttributes();
+
         if (common_config('nofollow', 'subscribers')) {
             $aAttrs['rel'] = 'nofollow';
         }
+
+        return $aAttrs;
     }
 }

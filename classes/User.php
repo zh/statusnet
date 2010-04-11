@@ -548,7 +548,10 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        Subscription::cancel($other, $this->getProfile());
+        $self = $this->getProfile();
+        if (Subscription::exists($other, $self)) {
+            Subscription::cancel($other, $self);
+        }
 
         $block->query('COMMIT');
 

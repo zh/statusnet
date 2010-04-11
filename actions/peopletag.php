@@ -168,9 +168,13 @@ class PeopleTagListItem extends ProfileListItem
 
     function homepageAttributes()
     {
+        $aAttrs = parent::linkAttributes();
+
         if (common_config('nofollow', 'peopletag')) {
             $aAttrs['rel'] = 'nofollow';
         }
+
+        return $aAttrs;
     }
 }
 
