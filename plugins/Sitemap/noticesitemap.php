@@ -84,37 +84,52 @@ class NoticesitemapAction extends SitemapAction
 
     function getNotices($y, $m, $d, $i)
     {
-        $offset = ($i-1) * SitemapPlugin::NOTICES_PER_MAP;
-        $limit  = SitemapPlugin::NOTICES_PER_MAP;
+        $n = Notice::cacheGet("sitemap:notice:$y:$m:$d:$i");
 
-        $notice = new Notice();
+        if ($n === false) {
 
-        $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
+            $notice = new Notice();
 
-        // XXX: estimates 1d == 24h, which screws up days
-        // with leap seconds (1d == 24h + 1s). Thankfully they're
-        // few and far between.
+            $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
 
-        $enddt   = common_sql_date(strtotime($begindt) + (24 * 60 * 60));
+            // XXX: estimates 1d == 24h, which screws up days
+            // with leap seconds (1d == 24h + 1s). Thankfully they're
+            // few and far between.
 
-        $notice->selectAdd();
-        $notice->selectAdd('id, created');
+            $theend = strtotime($begindt) + (24 * 60 * 60);
+            $enddt  = common_sql_date($theend);
 
-        $notice->whereAdd("created >= '$begindt'");
-        $notice->whereAdd("created <  '$enddt'");
+            $notice->selectAdd();
+            $notice->selectAdd('id, created');
 
-        $notice->whereAdd('is_local != 0');
+            $notice->whereAdd("created >= '$begindt'");
+            $notice->whereAdd("created <  '$enddt'");
 
-        $notice->orderBy('created');
+            $notice->whereAdd('is_local != 0');
 
-        $notice->limit($offset, $limit);
+            $notice->orderBy('created');
 
-        $notice->find();
+            $offset = ($i-1) * SitemapPlugin::NOTICES_PER_MAP;
+            $limit  = SitemapPlugin::NOTICES_PER_MAP;
 
-        $n = array();
+            $notice->limit($offset, $limit);
 
-        while ($notice->fetch()) {
-            $n[] = array($notice->id, $notice->created);
+            $notice->find();
+
+            $n = array();
+
+            while ($notice->fetch()) {
+                $n[] = array($notice->id, $notice->created);
+            }
+
+            $c = Cache::instance();
+
+            if (!empty($c)) {
+                $c->set(Cache::key("sitemap:notice:$y:$m:$d:$i"),
+                        $n,
+                        Cache::COMPRESSED,
+                        ((time() > $theend) ? (time() + 90 * 24 * 60 * 60) : (time() + 5 * 60)));
+            }
         }
 
         return $n;
