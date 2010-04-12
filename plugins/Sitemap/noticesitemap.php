@@ -68,14 +68,21 @@ class NoticesitemapAction extends SitemapAction
 
         $this->notice = new Notice();
 
-        $dt = sprintf('%04d-%02d-%02d', $y, $m, $d);
+        $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
 
-        $this->notice->whereAdd("created > '$dt 00:00:00'");
-        $this->notice->whereAdd("created <= '$dt 23:59:59'");
+        // XXX: estimates 1d == 24h, which screws up days
+        // with leap seconds (1d == 24h + 1s). Thankfully they're
+        // few and far between.
+
+        $enddt   = common_sql_date(strtotime($begindt) + (24 * 60 * 60));
+
+        $this->notice->whereAdd("created >= '$begindt'");
+        $this->notice->whereAdd("created <  '$enddt'");
 
         $this->notice->whereAdd('is_local != 0');
 
-        $this->notice->orderBy('id');
+        $this->notice->orderBy('created');
+
         $this->notice->limit($offset, $limit);
 
         $this->notice->find();
