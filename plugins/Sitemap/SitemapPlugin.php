@@ -47,8 +47,8 @@ if (!defined('STATUSNET')) {
 
 class SitemapPlugin extends Plugin
 {
-    const USERS_PER_MAP   = 25000;
-    const NOTICES_PER_MAP = 25000;
+    const USERS_PER_MAP   = 50000;
+    const NOTICES_PER_MAP = 50000;
 
     /**
      * Load related modules when needed
