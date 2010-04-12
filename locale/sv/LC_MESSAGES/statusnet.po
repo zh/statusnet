@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 21:42+0000\n"
-"PO-Revision-Date: 2010-04-11 21:44:46+0000\n"
+"POT-Creation-Date: 2010-04-12 21:47+0000\n"
+"PO-Revision-Date: 2010-04-12 21:49:49+0000\n"
 "Language-Team: Swedish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64948); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: sv\n"
 "X-Message-Group: out-statusnet\n"
@@ -831,7 +831,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Nej"
@@ -850,7 +849,6 @@ msgstr "Blockera inte denna användare"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Ja"
@@ -1354,7 +1352,6 @@ msgstr "Aktuell, bekräftad e-postadress."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Ta bort"
@@ -1387,7 +1384,6 @@ msgstr "E-postadress, såsom \"användarnamn@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Lägg till"
@@ -1414,16 +1410,14 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Ny"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Inställningar"
+msgstr "E-postinställningar"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1462,9 +1456,8 @@ msgstr "Publicera ett MicroID för min e-postadress."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "Utseendeinställningar sparade."
+msgstr "E-postinställningar sparade."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1520,15 +1513,13 @@ msgstr "Ingen väntande bekräftelse att avbryta."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "Detta är fel IM-adress."
+msgstr "Detta är fel e-postadress."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Bekräftelse avbruten."
+msgstr "E-postbekräftelse avbruten."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1538,9 +1529,8 @@ msgstr "Det är inte din e-postadress."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "Adressen togs bort."
+msgstr "E-postadressen togs bort."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1999,9 +1989,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Inställningar"
+msgstr "Inställningar för snabbmeddelanden"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2073,15 +2062,13 @@ msgstr "Detta är fel IM-adress."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "Kunde inte ta bort e-postbekräftelse."
+msgstr "Kunde inte ta bort bekräftelse för snabbmeddelanden."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Bekräftelse avbruten."
+msgstr "Bekräftelse för snabbmeddelanden avbruten."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2091,9 +2078,8 @@ msgstr "Detta är inte ditt Jabber-ID."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "Adressen togs bort."
+msgstr "Adressen för snabbmeddelanden togs bort."
 
 #: actions/inbox.php:59
 #, php-format
@@ -4070,9 +4056,8 @@ msgstr "SMS är inte tillgängligt."
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "Adress för snabbmeddelanden"
+msgstr "SMS-adress"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4096,7 +4081,6 @@ msgstr "Fyll i koden du mottog i din telefon."
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Bekräfta"
@@ -4113,9 +4097,8 @@ msgstr "Telefonnummer, inga punkter eller mellanslag, med landskod"
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Inställningar"
+msgstr "SMS-inställningar"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4128,9 +4111,8 @@ msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "Inställningar sparade."
+msgstr "SMS-inställningar sparade."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
@@ -4168,9 +4150,8 @@ msgstr "Detta är fel bekräftelsenummer."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Bekräftelse avbruten."
+msgstr "SMS-bekräftelse avbruten."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
@@ -4180,9 +4161,8 @@ msgstr "Detta är inte ditt telefonnummer."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Telefonnummer för SMS"
+msgstr "Telefonnummer för SMS togs bort."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -5532,7 +5512,7 @@ msgstr "Du är redan en medlem i denna grupp"
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s"
 msgstr "Kunde inte ansluta användare %1$s till grupp %2$s."
 
@@ -5540,8 +5520,8 @@ msgstr "Kunde inte ansluta användare %1$s till grupp %2$s."
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
-msgstr "Kunde inte ta bort användare %s från grupp %s"
+msgid "Could not remove user %1$s from group %2$s"
+msgstr "Kunde inte ta bort användare %1$s från grupp %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5581,9 +5561,9 @@ msgstr ""
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr "Meddelande för långt - maximum är %1$d tecken, du skickade %2$d."
+msgstr "Meddelande för långt - maximum är %1$d tecken, du skickade %2$d"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.

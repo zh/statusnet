@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 21:42+0000\n"
-"PO-Revision-Date: 2010-04-11 21:44:49+0000\n"
+"POT-Creation-Date: 2010-04-12 21:47+0000\n"
+"PO-Revision-Date: 2010-04-12 21:49:52+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64948); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -846,7 +846,6 @@ msgstr "ఈ వాడుకరిని నిరోధించకు"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "అవును"
@@ -1408,16 +1407,14 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "కొత్తది"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "అభిరుచులు"
+msgstr "ఈమెయిలు అభిరుచులు"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1456,9 +1453,8 @@ msgstr ""
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "అభిరుచులు భద్రమయ్యాయి."
+msgstr "ఈమెయిలు అభిరుచులు భద్రమయ్యాయి."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1511,15 +1507,13 @@ msgstr "రద్దుచేయడానికి వేచివున్న �
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "ఆ IM చిరునామా సరైనది కాదు."
+msgstr "ఆ ఈమెయిలు చిరునామా సరైనది కాదు."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "నిర్ధారణ రద్దయింది."
+msgstr "ఈమెయిలు నిర్ధారణ రద్దయింది."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1529,9 +1523,8 @@ msgstr "అది మీ ఈమెయిలు చిరునామా కా�
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "ఆ చిరునామాని తొలగించాం."
+msgstr "ఆ ఈమెయిలు చిరునామాని తొలగించాం."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1708,7 +1701,7 @@ msgstr ""
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
 msgid "No group specified."
-msgstr ""
+msgstr "గుంపు ఏమీ పేర్కొనలేదు."
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
@@ -1975,9 +1968,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "అభిరుచులు"
+msgstr "IM అభిరుచులు"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2293,9 +2285,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "%1$sని %2$s గుంపు యొక్క నిర్వాహకున్ని చేయలేకపోయాం."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "ప్రస్తుత స్థితి ఏమీ లేదు"
+msgstr "ప్రస్తుత స్థితి ఏమీ లేదు."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2314,9 +2305,8 @@ msgid "Source URL is required."
 msgstr ""
 
 #: actions/newapplication.php:258 actions/newapplication.php:267
-#, fuzzy
 msgid "Could not create application."
-msgstr "మారుపేర్లని సృష్టించలేకపోయాం."
+msgstr "ఉపకరణాన్ని సృష్టించలేకపోయాం."
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2384,7 +2374,7 @@ msgid "Text search"
 msgstr "పాఠ్య అన్వేషణ"
 
 #: actions/noticesearch.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Search results for \"%1$s\" on %2$s"
 msgstr "%2$sలో \"%1$s\"కై అన్వేషణ ఫలితాలు"
 
@@ -3993,7 +3983,6 @@ msgstr ""
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "నిర్థారించు"
@@ -4010,9 +3999,8 @@ msgstr ""
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "అభిరుచులు"
+msgstr "SMS అభిరుచులు"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4185,9 +4173,8 @@ msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 
 #: actions/subscribe.php:145
-#, fuzzy
 msgid "Subscribed"
-msgstr "చందాదార్లు"
+msgstr "చందాచేరారు"
 
 #: actions/subscribers.php:50
 #, php-format
@@ -5412,7 +5399,7 @@ msgstr "మీరు ఇప్పటికే ఆ గుంపులో సభ�
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s"
 msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్చలేకపోయాం"
 
@@ -5420,8 +5407,8 @@ msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
-msgstr "వాడుకరి %sని %s గుంపు నుండి తొలగించలేకపోయాం"
+msgid "Could not remove user %1$s from group %2$s"
+msgstr "వాడుకరి %1$sని %2$s గుంపు నుండి తొలగించలేకపోయాం."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5490,9 +5477,8 @@ msgid "Notice from %s repeated"
 msgstr "సందేశాలు"
 
 #: lib/command.php:531
-#, fuzzy
 msgid "Error repeating notice."
-msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
+msgstr "నోటీసుని పునరావృతించడంలో పొరపాటు."
 
 #: lib/command.php:562
 #, php-format
@@ -5500,14 +5486,13 @@ msgid "Notice too long - maximum is %d characters, you sent %d"
 msgstr "నోటిసు చాలా పొడవుగా ఉంది - %d అక్షరాలు గరిష్ఠం, మీరు %d పంపించారు"
 
 #: lib/command.php:571
-#, fuzzy, php-format
+#, php-format
 msgid "Reply to %s sent"
-msgstr "%sకి స్పందనలు"
+msgstr "%sకి స్పందనని పంపించాం"
 
 #: lib/command.php:573
-#, fuzzy
 msgid "Error saving notice."
-msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
+msgstr "నోటీసుని భద్రపరచడంలో పొరపాటు."
 
 #: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
@@ -5916,6 +5901,18 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"హోయి, %s.\n"
+"\n"
+"%sలో ఎవరో మీ ఈమెయిలు చిరునామాని ఇచ్చారు.\n"
+"\n"
+"అది మీరే అయితే, మరియు మీ పద్దుని మీరు నిర్ధారించాలనుకుంటే, క్రింది చిరునామాపై నొక్కండి:\n"
+"\n"
+"%s\n"
+"\n"
+"మీరు కాకపోతే, ఈ సందేశాన్ని పట్టించుకోకండి.\n"
+"\n"
+"మీ సమయానికి కృతజ్ఞతలు, \n"
+"%s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
@@ -5959,7 +5956,7 @@ msgstr "స్వపరిచయం: %s"
 #: lib/mail.php:298
 #, php-format
 msgid "New email address for posting to %s"
-msgstr ""
+msgstr "%sకి నోటీసులు పంపించడానికి కొత్త ఈమెయిలు చిరునామా"
 
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:302
@@ -6059,7 +6056,7 @@ msgstr ""
 #: lib/mail.php:583
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr ""
+msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డారు"
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:586
@@ -6082,6 +6079,22 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%2$s లోని మీ నోటీసుని %1$s (@%7$s) తన ఇష్టాంశాలలో ఇప్పుడే చేర్చుకున్నారు.\n"
+"\n"
+"మీ నోటీసు యొక్క చిరునామా ఇదీ:\n"
+"\n"
+"%3$s\n"
+"\n"
+"మీ నోటీసు యొక్క పాఠ్యం ఇదీ:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%1$s యొక్క ఇష్టాంశాల జాబితాని మీరు ఇక్కడ చూడవచ్చు:\n"
+"\n"
+"%5$s\n"
+"\n"
+"మీ విధేయులు,\n"
+"%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:645
@@ -6091,6 +6104,9 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"పూర్తి సంభాషణని ఇక్కడ చదవవచ్చు:\n"
+"\n"
+"%s"
 
 #: lib/mail.php:651
 #, php-format
@@ -6124,6 +6140,28 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"%2$sలో %1$s (@%9$s) ఒక నోటీసుని మీ దృష్టికి ('@-స్పందన') పంపించారు.\n"
+"\n"
+"ఈదీ నోటీసు:\n"
+"\n"
+"%3$s\n"
+"\n"
+"నోటీసు పాఠ్యం:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%5$sమీరు ఇక్కడ ప్రతిస్పందించవచ్చు:\n"
+"\n"
+"%6$s\n"
+"\n"
+"మీకు వచ్చిన అన్ని @-స్పందనలని ఇక్కడ చూడవచ్చు:\n"
+"\n"
+"%7$s\n"
+"\n"
+"మీ విధేయులు,\n"
+"%2$s\n"
+"\n"
+"తా.క. ఈ ఈమెయిలు గమనింపులని మీరు ఇక్కడ నిలిపివేసుకోవచ్చు: %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."

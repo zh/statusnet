@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 21:42+0000\n"
-"PO-Revision-Date: 2010-04-11 21:43:48+0000\n"
+"POT-Creation-Date: 2010-04-12 21:47+0000\n"
+"PO-Revision-Date: 2010-04-12 21:48:53+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64943); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -86,9 +86,8 @@ msgstr "Gardar"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
 msgid "No such page."
-msgstr "Non existe tal páxina"
+msgstr "Esa páxina non existe."
 
 #: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -238,13 +237,12 @@ msgid "This method requires a POST."
 msgstr "Este método require un POST."
 
 #: actions/apiaccountupdatedeliverydevice.php:105
-#, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 "Ten que especificar un parámetro chamado \"device\" cun destes valores: sms, "
-"im, none"
+"im, none."
 
 #: actions/apiaccountupdatedeliverydevice.php:132
 msgid "Could not update user."
@@ -446,9 +444,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr "Demasiados pseudónimos! O número máximo é %d."
 
 #: actions/apigroupcreate.php:266
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Pseudónimo inválido: \"%s\""
+msgstr "Pseudónimo incorrecto: \"%s\"."
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -464,9 +462,8 @@ msgstr "O pseudónimo non pode coincidir co alcume."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found."
-msgstr "Non se atopou o grupo!"
+msgstr "Non se atopou o grupo."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
@@ -846,7 +843,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Non"
@@ -865,7 +861,6 @@ msgstr "Non bloquear este usuario"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Si"
@@ -921,9 +916,9 @@ msgstr "Desbloquear este usuario"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #: actions/bookmarklet.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Post to %s"
-msgstr "Publicar en "
+msgstr "Publicar en %s"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -939,9 +934,9 @@ msgstr "Ese código de confirmación non é para vostede!"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Non se recoñeceu o tipo de enderezo %s"
+msgstr "Non se recoñeceu o tipo de enderezo %s."
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -1112,9 +1107,9 @@ msgid "Invalid logo URL."
 msgstr "URL do logo incorrecto."
 
 #: actions/designadminpanel.php:280
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "O tema visual non está dispoñible: %s"
+msgstr "O tema visual non está dispoñible: %s."
 
 #: actions/designadminpanel.php:376
 msgid "Change logo"
@@ -1368,7 +1363,6 @@ msgstr "Enderezo de correo electrónico confirmado actualmente."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Borrar"
@@ -1387,7 +1381,6 @@ msgstr ""
 #. TRANS: Button label
 #: actions/emailsettings.php:127 actions/imsettings.php:131
 #: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1402,7 +1395,6 @@ msgstr "Enderezo de correo electrónico, coma \"nomedeusuario@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Engadir"
@@ -1431,16 +1423,14 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Novo"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de correo electrónico"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1483,9 +1473,8 @@ msgstr "Publicar unha MicroID para o meu enderezo de correo electrónico."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "Gardáronse as preferencias de deseño."
+msgstr "Gardáronse as preferencias de correo electrónico."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1541,15 +1530,13 @@ msgstr "Non hai ningunha confirmación pendente que cancelar."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "Ese enderezo de mensaxería instantánea é incorrecto."
+msgstr "Ese enderezo de correo electrónico é incorrecto."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Cancelouse a confirmación."
+msgstr "Cancelouse a confirmación por correo electrónico."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1559,9 +1546,8 @@ msgstr "Ese non é o seu enderezo de correo electrónico."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "Borrouse o enderezo."
+msgstr "Borrouse o enderezo de correo electrónico."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1698,9 +1684,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr "O servizo remoto utiliza unha versión descoñecida do protocolo OMB."
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
-msgstr "Houbo un erro ao actualizar o perfil remoto"
+msgstr "Houbo un erro ao actualizar o perfil remoto."
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -1905,7 +1890,7 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
-"Os grupos de %%%%site.name%%%% permiten atopar e pórse en contacto con "
+"Os grupos de %%%%site.name%%%% permiten atopar e porse en contacto con "
 "persoas de intereses similares aos seus. Tras unirse a un grupo pode enviar "
 "mensaxes a todos os membros utilizando a sintaxe \"!nomedogrupo\". Non atopa "
 "un grupo que lle guste? Probe a [buscar un](%%%%action.groupsearch%%%%) ou "
@@ -2020,9 +2005,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de mensaxería instantánea"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2094,15 +2078,13 @@ msgstr "Ese enderezo de mensaxería instantánea é incorrecto."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "Non se puido borrar a confirmación por correo electrónico."
+msgstr "Non se puido borrar a confirmación por mensaxería instantánea."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Cancelouse a confirmación."
+msgstr "Cancelouse a confirmación por mensaxería instantánea."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2112,9 +2094,8 @@ msgstr "Esa ID de Jabber non é súa."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "Borrouse o enderezo."
+msgstr "Borrouse o enderezo de mensaxería instantánea."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2136,9 +2117,9 @@ msgid "Invites have been disabled."
 msgstr "As invitacións están desactivadas."
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
-msgstr "Ten que identificarse para invitar a outros a usar %s"
+msgstr "Ten que identificarse para invitar a outros a usar %s."
 
 #: actions/invite.php:72
 #, php-format
@@ -2378,9 +2359,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Non se pode converter a %1$s en administrador do grupo %2$s."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Sen estado actual"
+msgstr "Sen estado actual."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2544,9 +2524,9 @@ msgid "You are not a user of that application."
 msgstr "Non é usuario desa aplicación."
 
 #: actions/oauthconnectionssettings.php:186
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to revoke access for app: %s."
-msgstr "Non se puido revogar o acceso da aplicación: "
+msgstr "Non se puido revogar o acceso da aplicación: %s."
 
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
@@ -2559,9 +2539,8 @@ msgstr ""
 "aplicacións "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-#, fuzzy
 msgid "Notice has no profile."
-msgstr "Non hai perfil para a nota"
+msgstr "Non hai perfil para a nota."
 
 #: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
@@ -2570,15 +2549,15 @@ msgstr "Estado de %1$s en %2$s"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "tipo de contido "
+msgstr "Non se soporta o tipo de contido %s."
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "Só %s enderezos URL sobre HTTP simple."
 
 #. TRANS: Client error on an API request with an unsupported data format.
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
@@ -2734,24 +2713,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Configuración do servidor e das rutas para este sitio StatusNet."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Non se pode ler o directorio de temas visuais: %s"
+msgstr "Non se pode ler o directorio de temas visuais: %s."
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Non se pode escribir no directorio de avatares:  %s"
+msgstr "Non se pode escribir no directorio de avatares: %s."
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Non se pode escribir no directorio de fondos: %s"
+msgstr "Non se pode escribir no directorio de fondos: %s."
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Non se pode ler o directorio de traducións: %s"
+msgstr "Non se pode ler o directorio de traducións: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2891,9 +2870,9 @@ msgid "People search"
 msgstr "Busca de xente"
 
 #: actions/peopletag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s."
-msgstr "A etiqueta de persoa non é correcta: %s"
+msgstr "A etiqueta de persoa non é correcta: %s."
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2901,9 +2880,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "Usuarios etiquetados por si mesmos con %1$s - páxina %2$d"
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "O contido da nota é incorrecto"
+msgstr "O contido da nota é incorrecto."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -3052,9 +3030,9 @@ msgid "Settings saved."
 msgstr "Gardouse a configuración."
 
 #: actions/public.php:83
-#, fuzzy, php-format
+#, php-format
 msgid "Beyond the page limit (%s)."
-msgstr "Alén do límite da páxina (%s)"
+msgstr "Alén do límite da páxina (%s)."
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -3134,16 +3112,16 @@ msgstr "Nube de etiquetas públicas"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "Estas son as etiquetas máis populares en %s "
 
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr ""
+msgstr "Ninguén publicou aínda ningunha nota cunha [etiqueta](%%doc.tags%%)."
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
-msgstr ""
+msgstr "Sexa o primeiro en publicar unha!"
 
 #: actions/publictagcloud.php:75
 #, php-format
@@ -3151,194 +3129,211 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr ""
+"Por que non [rexistrar unha conta](%%action.register%%) e ser o primeiro en "
+"publicar unha?"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
-msgstr ""
+msgstr "Nube de etiquetas"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
-msgstr ""
+msgstr "Xa está identificado!"
 
 #: actions/recoverpassword.php:62
 msgid "No such recovery code."
-msgstr ""
+msgstr "Ese código de recuperación non existe."
 
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr ""
+msgstr "Iso non é un código de recuperación."
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr ""
+msgstr "Código de recuperación para un usuario descoñecido."
 
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
-msgstr ""
+msgstr "Houbo un erro co código de confirmación."
 
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
-msgstr ""
+msgstr "Este código de confirmación é vello de máis. Volva empezar."
 
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
 msgstr ""
+"Non se puido actualizar o usuario co enderezo de correo electrónico "
+"confirmado."
 
 #: actions/recoverpassword.php:152
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Se esqueceu ou perdeu o seu contrasinal, pode solicitar que se lle envíe un "
+"novo ao enderezo de correo electrónico da conta."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
+msgstr "Acaba de identificarse. Introduza un contrasinal novo a continuación. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
-msgstr ""
+msgstr "Recuperación do contrasinal"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Alcume ou enderezo de correo electrónico"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
+"O seu alcume neste servidor, ou o enderezo de correo electrónico co que se "
+"rexistrou."
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
-msgstr ""
+msgstr "Recuperar"
 
 #: actions/recoverpassword.php:208
 msgid "Reset password"
-msgstr ""
+msgstr "Restablecer o contrasinal"
 
 #: actions/recoverpassword.php:209
 msgid "Recover password"
-msgstr ""
+msgstr "Recuperar o contrasinal"
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:335
 msgid "Password recovery requested"
-msgstr ""
+msgstr "Solicitouse a recuperación do contrasinal"
 
 #: actions/recoverpassword.php:213
 msgid "Unknown action"
-msgstr ""
+msgstr "Non se coñece esa acción"
 
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
-msgstr ""
+msgstr "Seis ou máis caracteres, e non o esqueza!"
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
-msgstr ""
+msgstr "Restablecer"
 
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
-msgstr ""
+msgstr "Introduza un alcume ou enderezo de correo electrónico."
 
 #: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
 msgstr ""
+"Non hai ningún usuario con ese enderezo de correo electrónico ou alcume."
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
 msgstr ""
+"Non se rexistrou ningún enderezo de correo electrónico para ese usuario."
 
 #: actions/recoverpassword.php:313
 msgid "Error saving address confirmation."
-msgstr ""
+msgstr "Houbo un erro ao gardar a confirmación do enderezo."
 
 #: actions/recoverpassword.php:338
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+"Enviáronse instrucións para a recuperación do seu contrasinal ao enderezo de "
+"correo electrónico rexistrado para a súa conta."
 
 #: actions/recoverpassword.php:357
 msgid "Unexpected password reset."
-msgstr ""
+msgstr "Restablecemento de contrasinal inesperado."
 
 #: actions/recoverpassword.php:365
 msgid "Password must be 6 chars or more."
-msgstr ""
+msgstr "O contrasinal debe ter seis ou máis caracteres."
 
 #: actions/recoverpassword.php:369
 msgid "Password and confirmation do not match."
-msgstr ""
+msgstr "O contrasinal e a confirmación non coinciden."
 
 #: actions/recoverpassword.php:388 actions/register.php:248
 msgid "Error setting user."
-msgstr ""
+msgstr "Houbo un erro ao configurar o usuario."
 
 #: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
-msgstr ""
+msgstr "O novo contrasinal gardouse correctamente. Agora está identificado."
 
 #: actions/register.php:85 actions/register.php:189 actions/register.php:405
 msgid "Sorry, only invited people can register."
-msgstr ""
+msgstr "Só se pode rexistrar mediante invitación."
 
 #: actions/register.php:92
 msgid "Sorry, invalid invitation code."
-msgstr ""
+msgstr "O código da invitación é incorrecto."
 
 #: actions/register.php:112
 msgid "Registration successful"
-msgstr ""
+msgstr "Rexistrouse correctamente"
 
 #: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
 msgid "Register"
-msgstr ""
+msgstr "Rexistrarse"
 
 #: actions/register.php:135
 msgid "Registration not allowed."
-msgstr ""
+msgstr "Non se permite o rexistro."
 
 #: actions/register.php:198
 msgid "You can't register if you don't agree to the license."
-msgstr ""
+msgstr "Non pode rexistrarse se non acepta a licenza."
 
 #: actions/register.php:212
 msgid "Email address already exists."
-msgstr ""
+msgstr "O enderezo de correo electrónico xa existe."
 
 #: actions/register.php:243 actions/register.php:265
 msgid "Invalid username or password."
-msgstr ""
+msgstr "O nome de usuario ou contrasinal non son correctos."
 
 #: actions/register.php:343
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
+"Con este formulario pode crear unha conta nova. Entón poderá publicar notas "
+"e porse en contacto con amigos e compañeiros. "
 
 #: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
+"Entre 1 e 64 letras minúsculas ou números, sen signos de puntuación, "
+"espazos, tiles ou eñes. Obrigatorio."
 
 #: actions/register.php:430
 msgid "6 or more characters. Required."
-msgstr ""
+msgstr "6 ou máis caracteres. Obrigatorio."
 
 #: actions/register.php:434
 msgid "Same as password above. Required."
-msgstr ""
+msgstr "O mesmo contrasinal que o anterior. Obrigatorio."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:438 actions/register.php:442
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:132
 msgid "Email"
-msgstr ""
+msgstr "Correo electrónico"
 
 #: actions/register.php:439 actions/register.php:443
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
+"Só se utiliza para actualizacións, anuncios e recuperación de contrasinais"
 
 #: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
-msgstr ""
+msgstr "Nome longo, preferiblemente o seu nome \"real\""
 
 #: actions/register.php:494
 #, php-format
@@ -3346,6 +3341,9 @@ msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
+"Os meus textos e ficheiros están dispoñibles baixo %s, salvo os seguintes "
+"datos privados: contrasinais, enderezos de correo electrónico e mensaxería "
+"instantánea e números de teléfono."
 
 #: actions/register.php:542
 #, php-format
@@ -3365,12 +3363,27 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
+"Parabéns, %1$s! E benvido a %%%%site.name%%%%. Agora quizais queira...\n"
+"\n"
+"* Ir ao [seu perfil](%2$s) e publicar a súa primeira mensaxe.\n"
+"* Engadir un [enderezo de Jabber ou GTalk](%%%%action.imsettings%%%%) para "
+"poder enviar notas por medio de mensaxes instantáneas.\n"
+"* [Buscar xente](%%%%action.peoplesearch%%%%) que coñeza ou que comparta os "
+"seus intereses. \n"
+"* Actualizar a [configuración do seu perfil](%%%%action.profilesettings%%%%) "
+"para que os outros saiban máis de vostede. \n"
+"* Botar unha ollada á [documentación en liña](%%%%doc.help%%%%) en busca de "
+"funcionalidades que ao mellor non coñecía. \n"
+"\n"
+"Grazas por rexistrarse. Esperamos que goce deste servizo."
 
 #: actions/register.php:566
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
+"(Debería recibir unha mensaxe por correo electrónico nuns intres, con "
+"instrucións para a confirmación do seu enderezo de correo electrónico.)"
 
 #: actions/remotesubscribe.php:98
 #, php-format
@@ -3379,101 +3392,107 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
+"Para subscribirse, pode [identificarse](%%action.login%%) ou [rexistrar](%%"
+"action.register%%) unha conta nova. Se xa ten unha conta nun [sitio de "
+"microblogging compatible](%%doc.openmublog%%), introduza a continuación o "
+"URL do seu perfil."
 
 #: actions/remotesubscribe.php:112
 msgid "Remote subscribe"
-msgstr ""
+msgstr "Subscribirse remotamente"
 
 #: actions/remotesubscribe.php:124
 msgid "Subscribe to a remote user"
-msgstr ""
+msgstr "Subscribirse a un usuario remoto"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
-msgstr ""
+msgstr "Alcume do usuario"
 
 #: actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
-msgstr ""
+msgstr "Alcume do usuario ao que quere seguir"
 
 #: actions/remotesubscribe.php:133
 msgid "Profile URL"
-msgstr ""
+msgstr "URL do perfil"
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
-msgstr ""
+msgstr "URL do seu perfil noutro servizo de microblogging compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
 #: lib/userprofile.php:406
 msgid "Subscribe"
-msgstr ""
+msgstr "Subscribirse"
 
 #: actions/remotesubscribe.php:159
 msgid "Invalid profile URL (bad format)"
-msgstr ""
+msgstr "O enderezo URL do perfil é incorrecto (formato erróneo)"
 
 #: actions/remotesubscribe.php:168
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
+"Non é un URL de perfil correcto (non hai un documento YADIS ou definiuse un "
+"XRDS incorrecto)."
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
-msgstr ""
+msgstr "Ese é un perfil local! Identifíquese para subscribirse."
 
 #: actions/remotesubscribe.php:183
 msgid "Couldn’t get a request token."
-msgstr ""
+msgstr "Non se puido obter o pase solicitado."
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
-msgstr ""
+msgstr "Só os usuarios identificados poden repetir notas."
 
 #: actions/repeat.php:64 actions/repeat.php:71
 msgid "No notice specified."
-msgstr ""
+msgstr "Non se especificou nota ningunha."
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
-msgstr ""
+msgstr "Non pode repetir a súa propia nota."
 
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
-msgstr ""
+msgstr "Xa repetiu esa nota."
 
 #: actions/repeat.php:114 lib/noticelist.php:675
 msgid "Repeated"
-msgstr ""
+msgstr "Repetida"
 
 #: actions/repeat.php:119
 msgid "Repeated!"
-msgstr ""
+msgstr "Repetida!"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
-msgstr ""
+msgstr "Respostas a %s"
 
 #: actions/replies.php:128
 #, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr ""
+msgstr "Respostas a %1$s, páxina %2$d"
 
 #: actions/replies.php:145
 #, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas coas respostas a %s (RSS 1.0)"
 
 #: actions/replies.php:152
 #, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de novas coas respostas a %s (RSS 2.0)"
 
 #: actions/replies.php:159
 #, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr ""
+msgstr "Fonte de novas coas respostas a %s (Atom)"
 
 #: actions/replies.php:199
 #, php-format
@@ -3481,6 +3500,8 @@ msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to his attention yet."
 msgstr ""
+"Esta é a liña do tempo coas respostas a %1$s, pero a %2$s aínda non lle "
+"mandaron ningunha nota."
 
 #: actions/replies.php:204
 #, php-format
@@ -5433,7 +5454,7 @@ msgstr "O usuario %1$s non se puido engadir ao grupo %2$s."
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
+msgid "Could not remove user %1$s from group %2$s"
 msgstr "O usuario %1$s non se puido eliminar do grupo %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.

@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 21:42+0000\n"
-"PO-Revision-Date: 2010-04-11 21:44:43+0000\n"
+"POT-Creation-Date: 2010-04-12 21:47+0000\n"
+"PO-Revision-Date: 2010-04-12 21:49:46+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64948); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -845,7 +845,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Нет"
@@ -864,7 +863,6 @@ msgstr "Не блокировать этого пользователя"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Да"
@@ -1367,10 +1365,9 @@ msgstr "Подтверждённый в настоящее время элект
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
-msgstr "Убрать"
+msgstr "Удалить"
 
 #: actions/emailsettings.php:122
 msgid ""
@@ -1386,10 +1383,9 @@ msgstr ""
 #. TRANS: Button label
 #: actions/emailsettings.php:127 actions/imsettings.php:131
 #: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel"
-msgstr "Отменить"
+msgstr "Отмена"
 
 #. TRANS: Instructions for e-mail address input form.
 #: actions/emailsettings.php:135
@@ -1401,7 +1397,6 @@ msgstr "Электронный адрес вида \"UserName@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Добавить"
@@ -1430,16 +1425,14 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Новый"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Предпочтения"
+msgstr "Настройки эл. почты"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1485,9 +1478,8 @@ msgstr "Опубликовать MicroID для моего электронно�
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "Настройки оформления сохранены."
+msgstr "Настройки эл. почты сохранены."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1543,15 +1535,13 @@ msgstr "Нет подтверждения отказа."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "Это неверный IM-адрес."
+msgstr "Это неверный адрес эл. почты."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Подтверждение отменено."
+msgstr "Подтверждение эл. почты отменено."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1561,9 +1551,8 @@ msgstr "Это не Ваш электронный адрес."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "Адрес удалён."
+msgstr "Адрес эл. почты удалён."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -2024,9 +2013,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Предпочтения"
+msgstr "Настройки IM"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2097,15 +2085,13 @@ msgstr "Это неверный IM-адрес."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "Не удаётся удалить подверждение по электронному адресу."
+msgstr "Не удаётся удалить подверждение IM."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Подтверждение отменено."
+msgstr "Подтверждение IM отменено."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2115,9 +2101,8 @@ msgstr "Это не Ваш Jabber ID."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "Адрес удалён."
+msgstr "Адрес IM удалён."
 
 #: actions/inbox.php:59
 #, php-format
@@ -4094,9 +4079,8 @@ msgstr "Отправка СМС недоступна."
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "IM-адрес"
+msgstr "SMS-адрес"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4121,10 +4105,9 @@ msgstr "Введите код, который вы получили по тел�
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
-msgstr "Подтверждение"
+msgstr "Подтвердить"
 
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
@@ -4138,9 +4121,8 @@ msgstr "Номер телефона, без пробелов, с кодом зо
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Предпочтения"
+msgstr "Настройки SMS"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4153,9 +4135,8 @@ msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "Предпочтения сохранены."
+msgstr "Настройки SMS сохранены."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
@@ -4193,9 +4174,8 @@ msgstr "Это неверный номер подтверждения."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Подтверждение отменено."
+msgstr "Подтверждение SMS отменено."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
@@ -4205,9 +4185,8 @@ msgstr "Это не Ваш номер телефона."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Номер телефона для СМС"
+msgstr "Номер SMS телефона удалён."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4259,9 +4238,8 @@ msgid "Invalid snapshot report URL."
 msgstr "Неверный URL отчёта снимка."
 
 #: actions/snapshotadminpanel.php:200
-#, fuzzy
 msgid "Randomly during web hit"
-msgstr "При случайном посещении"
+msgstr "При случайном веб-обращении"
 
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
@@ -4847,9 +4825,9 @@ msgstr "Не удаётся обновить сообщение с новым UR
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Ошибка баз данных при вставке хеш-тегов для %s"
+msgstr "Ошибка баз данных при вставке хеш-тегов: %s"
 
 #: classes/Notice.php:245
 msgid "Problem saving notice. Too long."
@@ -5439,25 +5417,22 @@ msgstr "Отменить"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
-#, fuzzy
 msgid "read-write"
-msgstr "Чтение и запись"
+msgstr "чтение/запись"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:138
-#, fuzzy
 msgid "read-only"
-msgstr "Только чтение"
+msgstr "только чтение"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr ""
+msgstr "Подтверждён доступ %1$s — «%2$s»."
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Отозвать"
@@ -5564,7 +5539,7 @@ msgstr "Вы уже являетесь членом этой группы."
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s"
 msgstr "Не удаётся присоединить пользователя %1$s к группе %2$s."
 
@@ -5572,7 +5547,7 @@ msgstr "Не удаётся присоединить пользователя %1
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
+msgid "Could not remove user %1$s from group %2$s"
 msgstr "Не удаётся удалить пользователя %1$s из группы %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
@@ -5613,10 +5588,11 @@ msgstr ""
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
 msgstr ""
-"Сообщение слишком длинное — не больше %1$d символов, вы отправили %2$d."
+"Сообщение слишком велико. Предельно допустимая длина составляет %1$d "
+"символов, вы отправили %2$d."
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.

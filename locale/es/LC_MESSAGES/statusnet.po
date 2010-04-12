@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-11 21:42+0000\n"
-"PO-Revision-Date: 2010-04-11 21:43:33+0000\n"
+"POT-Creation-Date: 2010-04-12 21:47+0000\n"
+"PO-Revision-Date: 2010-04-12 21:48:36+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64943); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -176,8 +176,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Trata de suscribirte a más personas, [unirte a un grupo] (%%action.groups%%) "
-"o publicar algo."
+"Puedes intentar [darle un toque a %1$s](../%2$s) desde su perfil o [publicar "
+"algo a su atención](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
@@ -185,8 +185,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
-"Puede intentar [guiñar a %1$s](../%2$s) desde su perfil o [publicar algo a "
-"su atención ](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"¿Por qué no [registrar una cuenta](%%%%action.register%%%%) y luego darle un "
+"toque a %s o publicar algo a su atención?"
 
 #. TRANS: H1 text
 #: actions/all.php:178
@@ -723,7 +723,7 @@ msgstr "Repeticiones de %s"
 #: actions/apitimelinetag.php:104 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
-msgstr "Avisos marcados con %s"
+msgstr "Avisos etiquetados con %s"
 
 #: actions/apitimelinetag.php:106 actions/tagrss.php:65
 #, php-format
@@ -844,7 +844,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "No"
@@ -863,7 +862,6 @@ msgstr "No bloquear a este usuario"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Sí"
@@ -1156,12 +1154,12 @@ msgstr ""
 #. TRANS: Used as radio button label to add a background image.
 #: actions/designadminpanel.php:459 lib/designsettings.php:139
 msgid "On"
-msgstr "Activado"
+msgstr "Activar"
 
 #. TRANS: Used as radio button label to not add a background image.
 #: actions/designadminpanel.php:476 lib/designsettings.php:155
 msgid "Off"
-msgstr "Desactivado"
+msgstr "Desactivar"
 
 #: actions/designadminpanel.php:477 lib/designsettings.php:156
 msgid "Turn background image on or off."
@@ -1367,7 +1365,6 @@ msgstr "Actual dirección de correo electrónico confirmada"
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Eliminar"
@@ -1386,7 +1383,6 @@ msgstr ""
 #. TRANS: Button label
 #: actions/emailsettings.php:127 actions/imsettings.php:131
 #: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Cancelar"
@@ -1401,7 +1397,6 @@ msgstr "Correo electrónico, como \"NombredeUsuario@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Añadir"
@@ -1427,16 +1422,14 @@ msgstr "Hace una nueva dirección de correo para postear; cancela la anterior."
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Nuevo"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de correo electrónico"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1478,9 +1471,8 @@ msgstr "Publicar un MicroID para mi dirección de correo."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "Preferencias de diseño guardadas."
+msgstr "Preferencias de correo electrónico guardadas."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1536,15 +1528,13 @@ msgstr "Ninguna confirmación pendiente para cancelar."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "Esa dirección de mensajería instantánea es incorrecta."
+msgstr "Esa es la dirección de correo electrónico incorrecta."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Confirmación cancelada."
+msgstr "Confirmación de correo electrónico cancelada."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1554,9 +1544,8 @@ msgstr "Esa no es tu dirección de correo electrónico"
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "La dirección fue eliminada."
+msgstr "La dirección de correo electrónico ha sido eliminada."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -2019,9 +2008,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de mensajería instantánea"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2093,15 +2081,13 @@ msgstr "Esa dirección de mensajería instantánea es incorrecta."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "No se pudo eliminar la confirmación de correo electrónico."
+msgstr "No se pudo eliminar la confirmación de mensajería instantánea."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Confirmación cancelada."
+msgstr "Confirmación de mensajería instantánea cancelada."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2111,9 +2097,8 @@ msgstr "Ese no es tu Jabber ID."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "La dirección fue eliminada."
+msgstr "La dirección de mensajería instantánea ha sido eliminada."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2501,16 +2486,16 @@ msgstr ""
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set his email yet."
 msgstr ""
-"Este usuario no permite zumbidos o todavía no confirma o configura su correo "
+"Este usuario no permite toques o todavía no confirma o configura su correo "
 "electrónico."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr "Se envió zumbido"
+msgstr "Toque enviado"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr "¡Codazo enviado!"
+msgstr "¡Toque enviado!"
 
 #: actions/oauthappssettings.php:59
 msgid "You must be logged in to list your applications."
@@ -2745,9 +2730,9 @@ msgid "Background directory not writable: %s."
 msgstr "Directorio de fondo no escribible: %s."
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Directorio de configuración regional ilegible: $s"
+msgstr "Directorio de configuración regional ilegible: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2974,12 +2959,14 @@ msgstr "Compartir mi ubicación actual al publicar los mensajes"
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
-msgstr "Tags"
+msgstr "Etiquetas"
 
 #: actions/profilesettings.php:147
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
-msgstr "Tags para ti (letras, números, -, ., y _), coma - o espacio - separado"
+msgstr ""
+"Etiquetas para ti (letras, números, -, ., y _), separadas por comas o "
+"espacios"
 
 #: actions/profilesettings.php:151
 msgid "Language"
@@ -3126,12 +3113,13 @@ msgstr "Nube de etiquetas pública"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr "Éstos son los tags recientes más populares en %s"
+msgstr "Estas son las etiquetas recientes más populares en %s "
 
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr "Aún nadie a publicado un aviso con [hashtags] (%%doc.tags%%)"
+msgstr ""
+"Aún nadie ha publicado un aviso con una [etiqueta clave] (%%doc.tags%%)"
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
@@ -3148,7 +3136,7 @@ msgstr ""
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
-msgstr "Nube de tags"
+msgstr "Nube de etiquetas"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
@@ -3555,11 +3543,11 @@ msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
-msgstr "No puedes enviar usuarios a la zona de pruebas en este sitio."
+msgstr "No puedes imponer restricciones a los usuarios en este sitio."
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
-msgstr "El usuario ya está en la zona de pruebas."
+msgstr "Al usuario ya se le ha impuesto restricciones."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3974,7 +3962,6 @@ msgid "Minimum text limit is 0 (unlimited)."
 msgstr "El límite mínimo de texto es 0 (sin límite)."
 
 #: actions/siteadminpanel.php:171
-#, fuzzy
 msgid "Dupe limit must be one or more seconds."
 msgstr "El límite de duplicación debe ser de 1 o más segundos."
 
@@ -4104,9 +4091,8 @@ msgstr "SMS no está disponible."
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "Dirección de mensajería instantánea"
+msgstr "Dirección de SMS"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4130,7 +4116,6 @@ msgstr "Ingrese el código recibido en su teléfono"
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Confirmar"
@@ -4147,9 +4132,8 @@ msgstr "Número telefónico, sin puntuación ni espacios, incluya código de ár
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Preferencias"
+msgstr "Preferencias de SMS"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4162,9 +4146,8 @@ msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "Preferencias guardadas."
+msgstr "Preferencias de SMS guardadas."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
@@ -4203,9 +4186,8 @@ msgstr "Ese no es el número de confirmación"
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Confirmación cancelada."
+msgstr "Confirmación de SMS cancelada."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
@@ -4215,9 +4197,8 @@ msgstr "Ese no es tu número telefónico"
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Número de teléfono de SMS"
+msgstr "El número de teléfono para SMS ha sido eliminado."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4269,7 +4250,6 @@ msgid "Invalid snapshot report URL."
 msgstr "URL de instantánea de reporte inválido"
 
 #: actions/snapshotadminpanel.php:200
-#, fuzzy
 msgid "Randomly during web hit"
 msgstr "Aleatoriamente durante visita Web"
 
@@ -4445,7 +4425,7 @@ msgstr "No existe argumento de ID."
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
-msgstr "%s tag"
+msgstr "%s etiqueta"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
@@ -4458,14 +4438,15 @@ msgstr "Foto"
 
 #: actions/tagother.php:141
 msgid "Tag user"
-msgstr "Usuario de tag"
+msgstr "Etiquetar usuario"
 
 #: actions/tagother.php:151
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
-"Tags de este usuario (letras, números, -, ., y _), coma- o espacio- separado"
+"Etiquetas para este usuario (letras, números, -, ., y _), separadas por "
+"comas o espacios"
 
 #: actions/tagother.php:193
 msgid ""
@@ -4481,11 +4462,12 @@ msgstr "No se han podido guardar las etiquetas."
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
-"Usar este formulario para agregar tags a tus suscriptores o suscripciones."
+"Usa este formulario para agregar etiquetas a tus suscriptores o "
+"suscripciones."
 
 #: actions/tagrss.php:35
 msgid "No such tag."
-msgstr "No existe ese tag."
+msgstr "No existe tal etiqueta."
 
 #: actions/twitapitrends.php:85
 msgid "API method under construction."
@@ -4497,7 +4479,7 @@ msgstr "No has bloqueado ese usuario."
 
 #: actions/unsandbox.php:72
 msgid "User is not sandboxed."
-msgstr "El usuario no está en la zona de pruebas."
+msgstr "Al usuario no se le ha impuesto restricciones."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -4856,7 +4838,7 @@ msgstr "No se pudo actualizar mensaje con nuevo URI."
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Error de la BD al insertar la etiqueta clave: %s"
 
@@ -5181,13 +5163,13 @@ msgstr "Licencia de software de StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:817
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** es un servicio de microblogueo de [%%site.broughtby%%**](%%"
-"site.broughtbyurl%%)."
+"**%%site.name%%** es un servicio de microblogueo traido a ti por cortesía de "
+"[%%site.broughtby%%**](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:820
@@ -5239,6 +5221,8 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
+"Todo el contenido%1$s y la información están disponibles bajo la licencia 2%"
+"$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
 #: lib/action.php:1182
@@ -5450,25 +5434,22 @@ msgstr "Cancelar"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
-#, fuzzy
 msgid "read-write"
-msgstr "Solo escritura"
+msgstr "lectura y escritura"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:138
-#, fuzzy
 msgid "read-only"
-msgstr "Solo lectura"
+msgstr "sólo lectura"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr ""
+msgstr "Aprobado el %1$s - acceso \"%2$s\"."
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Revocar"
@@ -5552,7 +5533,7 @@ msgstr "¡No tiene sentido darte un toque a ti mismo!"
 #: lib/command.php:234
 #, php-format
 msgid "Nudge sent to %s"
-msgstr "zumbido enviado a %s"
+msgstr "Toque enviado a %s"
 
 #: lib/command.php:260
 #, php-format
@@ -5576,7 +5557,7 @@ msgstr "Ya eres parte de ese grupo"
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s"
 msgstr "No se pudo unir el usuario %s al grupo %s"
 
@@ -5584,8 +5565,8 @@ msgstr "No se pudo unir el usuario %s al grupo %s"
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, fuzzy, php-format
-msgid "Could not remove user %s from group %s"
-msgstr "No se pudo eliminar al usuario %s del grupo %s"
+msgid "Could not remove user %1$s from group %2$s"
+msgstr "No se pudo eliminar al usuario %1$s del grupo %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5625,9 +5606,11 @@ msgstr ""
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr "Mensaje muy largo - máximo %1$d caracteres, enviaste %2$d"
+msgstr ""
+"Mensaje muy largo - la cantidad máxima es de %1$d caracteres y has enviado %2"
+"$d"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
@@ -5801,6 +5784,44 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
+"comandos:\n"
+"activar - activar notificaciones\n"
+"desactivar - desactivar notificaciones\n"
+"ayuda - mostrar esta ayuda\n"
+"seguir <usuario> - suscribirse al usuario\n"
+"grupos - listar los grupos que sigues\n"
+"suscripciones - listar las personas que sigues\n"
+"suscriptores - listar los grupos que te siguen\n"
+"abandonar <usuario> - cancelar la suscripción al usuario\n"
+"d <usuario> <text> - dirigir mensaje al usuario\n"
+"obtener <usuario> - obtener último aviso del usuario\n"
+"quienes <usuario> - obtener información del perfil del usuario\n"
+"bloquear <usuario> - obligar al usuario a que deje de seguirte\n"
+"fav <usuario> - añadir el último aviso del usario a tus favoritos\n"
+"fav #<id_aviso> - añadir el aviso con el ID dado a tus favoritos\n"
+"repetir #<id_aviso> - repetir el aviso con el ID dado\n"
+"repetir <usuario> - repetir el último aviso del usuario\n"
+"responder #<id_aviso> - responder al aviso del ID dado\n"
+"responder <usuario> - responder al último aviso del usuario\n"
+"unirse <grupo> - unirse a un grupo\n"
+"entrar - obtener un vínculo para iniciar sesión en la interfaz Web\n"
+"abandonar <grupo> - abandonar el grupo\n"
+"estadísticas - obtener tus estadísticas\n"
+"detener - igual que 'desactivar'\n"
+"parar - igual que 'desactivar'\n"
+"sus <usuario> - igual que 'seguir'\n"
+"desus <usuario> - igual que 'abandonar'\n"
+"último <usuario> - igual que 'obtener'\n"
+"activado <usuario> - aún sin implementar.\n"
+"desactivado <usuario> - aún sin implementar.\n"
+"toque <usuario> - recordarle a un ausuario que actualice.\n"
+"invitar <phone number> - aún sin implementar.\n"
+"rastrear <word> - aún sin implementar.\n"
+"no rastrear <word> - aún sin implementar.\n"
+"dejar de rastrear - aún sin implementar.\n"
+"dejar de rastrear todos - aún sin implementar.\n"
+"rastrear - aún sin implementar.\n"
+"rastreando - aún sin implementar.\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
@@ -5808,11 +5829,11 @@ msgstr "Ningún archivo de configuración encontrado. "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "He buscado archivos de configuración en los siguientes lugares: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr ""
+msgstr "Quizá desees ejecutar el instalador para solucionar este problema."
 
 #: lib/common.php:139
 msgid "Go to the installer."
@@ -5855,16 +5876,15 @@ msgstr ""
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
-msgstr ""
+msgstr "Diseño predeterminado restaurado."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
 msgstr "Sacar este aviso"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "Aceptar este aviso"
+msgstr "Incluir este aviso en tus favoritos"
 
 #: lib/favorform.php:140
 msgid "Favor"
@@ -5880,11 +5900,11 @@ msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "Amistad de amistad"
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -5892,7 +5912,7 @@ msgstr "Exportar datos"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr "Filtrar tags"
+msgstr "Filtrar etiquetas"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -5904,11 +5924,11 @@ msgstr "Seleccione una etiqueta a filtrar"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
-msgstr "Tag"
+msgstr "Etiqueta"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
-msgstr "Elegir tag para reducir lista"
+msgstr "Elegir una etiqueta para reducir la lista"
 
 #: lib/galleryaction.php:143
 msgid "Go"
@@ -5917,12 +5937,11 @@ msgstr "Ir"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "Otorgar al usuario el papel de \"%$\""
 
 #: lib/groupeditform.php:163
-#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "El URL de página de inicio o blog del grupo or tema"
+msgstr "URL de página de inicio o blog del grupo o tema"
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
@@ -5944,6 +5963,7 @@ msgstr ""
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
+"Nombres adicionales para el grupo, separados por comas o espacios. Máximo: %d"
 
 #: lib/groupnav.php:85
 msgid "Group"
@@ -5988,7 +6008,7 @@ msgstr "Grupos con más publicaciones"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "Tags en avisos del grupo %s"
+msgstr "Etiquetas en avisos del grupo %s"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -6040,7 +6060,7 @@ msgstr "[%s]"
 #: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
-msgstr ""
+msgstr "Origen de bandeja de entrada %d desconocido."
 
 #: lib/joinform.php:114
 msgid "Join"
@@ -6048,7 +6068,7 @@ msgstr "Unirse"
 
 #: lib/leaveform.php:114
 msgid "Leave"
-msgstr "Salir"
+msgstr "Abandonar"
 
 #: lib/logingroupnav.php:80
 msgid "Login with a username and password"
@@ -6080,6 +6100,19 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"¡Hola, %s!\n"
+"\n"
+"Hace un momento, alguien introdujo esta dirección de correo electrónico en %"
+"s.\n"
+"\n"
+"Si has sido tú y deseas confirmarlo, haz clic en el vínculo de abajo:\n"
+"\n"
+"%s\n"
+"\n"
+"Si no, simplemente ignora este mensaje.\n"
+"\n"
+"Gracias por tu tiempo, \n"
+"%s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
@@ -6089,7 +6122,7 @@ msgstr "%1$s ahora está escuchando tus avisos en %2$s"
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:249
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -6102,12 +6135,18 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
-"\t%1$s ahora está escuchando tus avisos en  %2$s.\n"
+"%1$s ahora está escuchando tus avisos en  %2$s.\n"
 "\n"
-"\t%3$s\n"
+"%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
 "\n"
 "Atentamente,\n"
-"%4$s.\n"
+"\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Cambia tus preferencias de notificaciones a tu correo electrónico en  %8$s\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:269
@@ -6156,15 +6195,15 @@ msgstr "SMS confirmación"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:457
-#, fuzzy, php-format
+#, php-format
 msgid "%s: confirm you own this phone number with this code:"
-msgstr "Esperando confirmación de este número de teléfono."
+msgstr "%s: Confirma que este es tu número de teléfono mediante este código:"
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:478
 #, php-format
 msgid "You've been nudged by %s"
-msgstr "%s te mandó un zumbido "
+msgstr "%s te ha dado un toque"
 
 #. TRANS: Body for 'nudge' notification email
 #: lib/mail.php:483
@@ -6219,6 +6258,20 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+"%1$s (%2$s) Te ha enviado un mensaje privado:\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"Puedes responder a este mensaje aquí:\n"
+"\n"
+"%4$s\n"
+"\n"
+"No respondas a este correo electrónico. No llegará a ningún sitio.\n"
+"\n"
+"Saludos cordiales,\n"
+"%5$s\n"
 
 #. TRANS: Subject for favorite notification email
 #: lib/mail.php:583
@@ -6247,6 +6300,22 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%1$s (@%7$s) acaba de añadir un aviso de %2$s a su listado de favoritos.\n"
+"\n"
+"El URL de tu aviso es:\n"
+"\n"
+"%3$s\n"
+"\n"
+"El texto de tu aviso es:\n"
+"\n"
+"%4$s\n"
+"\n"
+"Puedes ver el listado de los favoritos de %1$s aquí:\n"
+"\n"
+"%5$s\n"
+"\n"
+"Saludos,\n"
+"%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:645
@@ -6256,11 +6325,14 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"La conversación completa puede leerse aquí:\n"
+"\n"
+"%s"
 
 #: lib/mail.php:651
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr ""
+msgstr "%s (@%s) ha enviado un aviso a tu atención"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:654
@@ -6289,6 +6361,29 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"%1$s (@%9$s) ha enviado un aviso a tu atención (una '@-respuesta') en %2$s.\n"
+"\n"
+"El anuncio está aquí:\n"
+"\n"
+"%3$s\n"
+"\n"
+"El anuncio dice:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%5$sPuedes responder aquí:\n"
+"\n"
+"%6$s\n"
+"\n"
+"Aquí encontrarás un listado de todas las @-respuestas dirigidas a ti:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Saludos,\n"
+"%2$s\n"
+"\n"
+"P.D. Puedes desactivar las notificaciones que recibes en tu correo "
+"electrónico aquí: %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6299,6 +6394,9 @@ msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
+"No tienes mensajes privados. Puede enviar mensajes privados para hacer a "
+"otros usuarios partícipes de la conversación. La gente puede enviarte "
+"mensajes que sólo puedas leer tú."
 
 #: lib/mailbox.php:227 lib/noticelist.php:494
 msgid "from"
@@ -6366,7 +6464,7 @@ msgstr "Archivo sobrepasa la cuota del usuario."
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
 msgid "File could not be moved to destination directory."
-msgstr ""
+msgstr "El archivo no se pudo mover al directorio de destino."
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
 msgid "Could not determine file's MIME type."
@@ -6483,15 +6581,15 @@ msgstr "Aviso repetido"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
-msgstr "Enviar zumbido a este usuario"
+msgstr "Dar un toque a este usuario"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr "Zumbido "
+msgstr "Dar un toque a "
 
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
-msgstr "Enviar zumbido a este usuario"
+msgstr "Dar un toque a este usuario"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
@@ -6548,7 +6646,7 @@ msgstr "Mensajes enviados"
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr "Tags en avisos de %s"
+msgstr "Etiquetas en avisos de %s"
 
 #: lib/plugin.php:114
 msgid "Unknown"
@@ -6601,7 +6699,7 @@ msgstr "Grupos de usuario"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr "Tags recientes"
+msgstr "Etiquetas recientes"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
@@ -6638,12 +6736,11 @@ msgstr "Ningún usuario sólo definido para modo monousuario."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
-msgstr "Cajón de sastre"
+msgstr "Restringir"
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Desbloquear este usuario"
+msgstr "Imponer restricciones a este usuario"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -6687,14 +6784,14 @@ msgstr "Más..."
 
 #: lib/silenceform.php:67
 msgid "Silence"
-msgstr "Silencio"
+msgstr "Silenciar"
 
 #: lib/silenceform.php:78
 msgid "Silence this user"
-msgstr "Silenciar este usuario"
+msgstr "Silenciar a este usuario"
 
 #: lib/subgroupnav.php:83
-#, fuzzy, php-format
+#, php-format
 msgid "People %s subscribes to"
 msgstr "Personas a las que %s está suscrito"
 
@@ -6720,12 +6817,12 @@ msgstr "Invita a amigos y colegas a unirse a %s"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "Nube de etiquetas de personas auto-etiquetadas"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "Nube de etiquetas de personas etiquetadas"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
@@ -6737,21 +6834,19 @@ msgstr "Principales posteadores"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
-msgstr ""
+msgstr "Eliminar restricciones"
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Desbloquear este usuario"
+msgstr "Eliminar restricciones impuestas a este usuario"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
-msgstr ""
+msgstr "Dejar de silenciar"
 
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
-msgstr "Desbloquear este usuario"
+msgstr "Dejar de silenciar este usuario"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -6762,9 +6857,9 @@ msgid "Unsubscribe"
 msgstr "Cancelar suscripción"
 
 #: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "User %s (%d) has no profile record."
-msgstr "El usuario no tiene un perfil."
+msgstr "El usuario %s (%d) no tiene un registro de su perfil."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -6776,7 +6871,7 @@ msgstr "Acciones de usuario"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Eliminación de usuario en curso..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
