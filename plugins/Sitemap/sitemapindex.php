@@ -41,7 +41,7 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  */
 
-class SitemapAction extends Action
+class SitemapindexAction extends Action
 {
     /**
      * handle the action
@@ -68,8 +68,97 @@ class SitemapAction extends Action
 
     function showUserSitemaps()
     {
-        $user = new User();
-        $cnt = $user->count();
+        $userCounts = $this->getUserCounts();
 
+        foreach ($userCounts as $dt => $cnt) {
+            $cnt = $cnt+0;
+            assert($cnt != 0);
+            $n = (int)$cnt / (int)SitemapPlugin::USERS_PER_MAP;
+            if (($cnt % SitemapPlugin::USERS_PER_MAP) != 0) {
+                $n++;
+            }
+            for ($i = 1; $i <= $n; $i++) {
+                $this->showSitemap('user', $dt, $i);
+            }
+        }
+    }
+
+    function showNoticeSitemaps()
+    {
+        $noticeCounts = $this->getNoticeCounts();
+
+        foreach ($noticeCounts as $dt => $cnt) {
+            assert($cnt != 0);
+            $n = $cnt / SitemapPlugin::NOTICES_PER_MAP;
+            if ($cnt % SitemapPlugin::NOTICES_PER_MAP) {
+                $n++;
+            }
+            for ($i = 1; $i <= $n; $i++) {
+                $this->showSitemap('notice', $dt, $i);
+            }
+        }
+    }
+
+    function getUserCounts()
+    {
+        // XXX: cachemeplease
+
+        $user = new User();
+
+        $user->selectAdd();
+        $user->selectAdd('date(created) as regdate, count(*) as regcount');
+        $user->groupBy('regdate');
+
+        $user->find();
+
+        $userCounts = array();
+
+        while ($user->fetch()) {
+            $userCounts[$user->regdate] = $user->regcount;
+        }
+
+        return $userCounts;
+    }
+
+    function getNoticeCounts()
+    {
+        // XXX: cachemeplease
+
+        $notice = new Notice();
+
+        $notice->selectAdd();
+        $notice->selectAdd('date(created) as postdate, count(*) as postcount');
+        $notice->groupBy('postdate');
+
+        $notice->find();
+
+        $noticeCounts = array();
+
+        while ($notice->fetch()) {
+            $noticeCounts[$notice->postdate] = $notice->postcount;
+        }
+
+        return $noticeCounts;
+    }
+
+    function showSitemap($prefix, $dt, $i)
+    {
+        list($y, $m, $d) = explode('-', $dt);
+
+        $this->elementStart('sitemap');
+        $this->element('loc', null, common_local_url($prefix.'sitemap',
+                                                     array('year' => $y,
+                                                           'month' => $m,
+                                                           'day' => $d,
+                                                           'index' => $i)));
+
+        $begdate = strtotime("$y-$m-$d 00:00:00");
+        $enddate = $begdate + (24 * 60 * 60);
+
+        if ($enddate < time()) {
+            $this->element('lastmod', null, date(DATE_W3C, $enddate));
+        }
+
+        $this->elementEnd('sitemap');
     }
 }
