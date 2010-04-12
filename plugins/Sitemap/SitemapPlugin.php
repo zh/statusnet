@@ -77,6 +77,23 @@ class SitemapPlugin extends Plugin
     }
 
     /**
+     * Add sitemap-related information at the end of robots.txt
+     *
+     * @param Action $action Action being run
+     *
+     * @return boolean hook value.
+     */
+
+    function onEndRobotsTxt($action)
+    {
+        $url = common_local_url('sitemapindex');
+
+        print "\nSitemap: $url\n";
+
+        return true;
+    }
+
+    /**
      * Map URLs to actions
      *
      * @param Net_URL_Mapper $m path-to-action mapper
