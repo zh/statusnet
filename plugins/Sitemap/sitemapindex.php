@@ -101,20 +101,25 @@ class SitemapindexAction extends Action
 
     function getUserCounts()
     {
-        // XXX: cachemeplease
+        $userCounts = User::cacheGet('sitemap:user:counts');
 
-        $user = new User();
+        if ($userCounts === false) {
 
-        $user->selectAdd();
-        $user->selectAdd('date(created) as regdate, count(*) as regcount');
-        $user->groupBy('regdate');
+            $user = new User();
 
-        $user->find();
+            $user->selectAdd();
+            $user->selectAdd('date(created) as regdate, count(*) as regcount');
+            $user->groupBy('regdate');
 
-        $userCounts = array();
+            $user->find();
 
-        while ($user->fetch()) {
-            $userCounts[$user->regdate] = $user->regcount;
+            $userCounts = array();
+
+            while ($user->fetch()) {
+                $userCounts[$user->regdate] = $user->regcount;
+            }
+
+            User::cacheSet('sitemap:user:counts', $userCounts);
         }
 
         return $userCounts;
@@ -122,20 +127,25 @@ class SitemapindexAction extends Action
 
     function getNoticeCounts()
     {
-        // XXX: cachemeplease
+        $noticeCounts = Notice::cacheGet('sitemap:notice:counts');
 
-        $notice = new Notice();
+        if ($noticeCounts === false) {
 
-        $notice->selectAdd();
-        $notice->selectAdd('date(created) as postdate, count(*) as postcount');
-        $notice->groupBy('postdate');
+            $notice = new Notice();
 
-        $notice->find();
+            $notice->selectAdd();
+            $notice->selectAdd('date(created) as postdate, count(*) as postcount');
+            $notice->groupBy('postdate');
 
-        $noticeCounts = array();
+            $notice->find();
 
-        while ($notice->fetch()) {
-            $noticeCounts[$notice->postdate] = $notice->postcount;
+            $noticeCounts = array();
+
+            while ($notice->fetch()) {
+                $noticeCounts[$notice->postdate] = $notice->postcount;
+            }
+
+            Notice::cacheSet('sitemap:notice:counts', $noticeCounts);
         }
 
         return $noticeCounts;
