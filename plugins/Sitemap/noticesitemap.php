@@ -43,7 +43,8 @@ if (!defined('STATUSNET')) {
 
 class NoticesitemapAction extends SitemapAction
 {
-    var $notice = null;
+    var $notices = null;
+    var $j = 0;
 
     function prepare($args)
     {
@@ -61,10 +62,32 @@ class NoticesitemapAction extends SitemapAction
         $d += 0;
         $i += 0;
 
+        $this->notices = $this->getNotices($y, $m, $d, $i);
+        $this->j       = 0;
+
+        return true;
+    }
+
+    function nextUrl()
+    {
+        if ($this->j < count($this->notices)) {
+            $n = $this->notices[$this->j];
+            $this->j++;
+            return array(common_local_url('shownotice', array('notice' => $n[0])),
+                         common_date_w3dtf($n[1]),
+                         null,
+                         null);
+        } else {
+            return null;
+        }
+    }
+
+    function getNotices($y, $m, $d, $i)
+    {
         $offset = ($i-1) * SitemapPlugin::NOTICES_PER_MAP;
         $limit  = SitemapPlugin::NOTICES_PER_MAP;
 
-        $this->notice = new Notice();
+        $notice = new Notice();
 
         $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
 
@@ -74,29 +97,26 @@ class NoticesitemapAction extends SitemapAction
 
         $enddt   = common_sql_date(strtotime($begindt) + (24 * 60 * 60));
 
-        $this->notice->whereAdd("created >= '$begindt'");
-        $this->notice->whereAdd("created <  '$enddt'");
+        $notice->selectAdd();
+        $notice->selectAdd('id, created');
 
-        $this->notice->whereAdd('is_local != 0');
+        $notice->whereAdd("created >= '$begindt'");
+        $notice->whereAdd("created <  '$enddt'");
 
-        $this->notice->orderBy('created');
+        $notice->whereAdd('is_local != 0');
 
-        $this->notice->limit($offset, $limit);
+        $notice->orderBy('created');
 
-        $this->notice->find();
+        $notice->limit($offset, $limit);
 
-        return true;
-    }
+        $notice->find();
 
-    function nextUrl()
-    {
-        if ($this->notice->fetch()) {
-            return array(common_local_url('shownotice', array('notice' => $this->notice->id)),
-                         common_date_w3dtf($this->notice->created),
-                         null,
-                         null);
-        } else {
-            return null;
+        $n = array();
+
+        while ($notice->fetch()) {
+            $n[] = array($notice->id, $notice->created);
         }
+
+        return $n;
     }
 }
