@@ -43,8 +43,6 @@ if (!defined('STATUSNET')) {
 
 class NoticesitemapAction extends SitemapAction
 {
-    const NOTICES_PER_MAP = 25000;
-
     var $notice = null;
 
     function prepare($args)
@@ -63,8 +61,8 @@ class NoticesitemapAction extends SitemapAction
         $d += 0;
         $i += 0;
 
-        $offset = ($i-1) * self::NOTICES_PER_MAP;
-        $limit  = self::NOTICES_PER_MAP;
+        $offset = ($i-1) * SitemapPlugin::NOTICES_PER_MAP;
+        $limit  = SitemapPlugin::NOTICES_PER_MAP;
 
         $this->notice = new Notice();
 
