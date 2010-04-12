@@ -240,9 +240,13 @@ class GroupMemberListItem extends ProfileListItem
 
     function homepageAttributes()
     {
+        $aAttrs = parent::linkAttributes();
+
         if (common_config('nofollow', 'members')) {
             $aAttrs['rel'] = 'nofollow';
         }
+
+        return $aAttrs;
     }
 }
 
