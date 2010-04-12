@@ -49,8 +49,16 @@ class UsersitemapAction extends SitemapAction
     {
         parent::prepare($args);
 
+        $y = $this->trimmed('year');
+
+        $m = $this->trimmed('month');
+        $d = $this->trimmed('day');
+
         $i = $this->trimmed('index');
 
+        $y += 0;
+        $m += 0;
+        $d += 0;
         $i += 0;
 
         $offset = ($i-1) * SitemapPlugin::USERS_PER_MAP;
@@ -58,7 +66,19 @@ class UsersitemapAction extends SitemapAction
 
         $this->user = new User();
 
-        $this->user->orderBy('id');
+        $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
+
+        // XXX: estimates 1d == 24h, which screws up days
+        // with leap seconds (1d == 24h + 1s). Thankfully they're
+        // few and far between.
+
+        $enddt   = common_sql_date(strtotime($begindt) + (24 * 60 * 60));
+
+        $this->user->whereAdd("created >= '$begindt'");
+        $this->user->whereAdd("created <  '$enddt'");
+
+        $this->user->orderBy('created');
+
         $this->user->limit($offset, $limit);
 
         $this->user->find();
