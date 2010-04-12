@@ -43,7 +43,8 @@ if (!defined('STATUSNET')) {
 
 class UsersitemapAction extends SitemapAction
 {
-    var $user = null;
+    var $users = null;
+    var $j     = 0;
 
     function prepare($args)
     {
@@ -61,37 +62,67 @@ class UsersitemapAction extends SitemapAction
         $d += 0;
         $i += 0;
 
-        $offset = ($i-1) * SitemapPlugin::USERS_PER_MAP;
-        $limit  = SitemapPlugin::USERS_PER_MAP;
-
-        $this->user = new User();
-
-        $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
-
-        // XXX: estimates 1d == 24h, which screws up days
-        // with leap seconds (1d == 24h + 1s). Thankfully they're
-        // few and far between.
-
-        $enddt   = common_sql_date(strtotime($begindt) + (24 * 60 * 60));
-
-        $this->user->whereAdd("created >= '$begindt'");
-        $this->user->whereAdd("created <  '$enddt'");
-
-        $this->user->orderBy('created');
-
-        $this->user->limit($offset, $limit);
-
-        $this->user->find();
-
+        $this->users = $this->getUsers($y, $m, $d, $i);
+        $this->j     = 0;
         return true;
     }
 
     function nextUrl()
     {
-        if ($this->user->fetch()) {
-            return array(common_profile_url($this->user->nickname), null, null, null);
+        if ($this->j < count($this->users)) {
+            $nickname = $this->users[$this->j];
+            $this->j++;
+            return array(common_profile_url($nickname), null, null, null);
         } else {
             return null;
         }
+    }
+
+    function getUsers($y, $m, $d, $i)
+    {
+        $u = User::cacheGet("sitemap:user:$y:$m:$d:$i");
+
+        if ($u === false) {
+
+            $user = new User();
+
+            $begindt = sprintf('%04d-%02d-%02d 00:00:00', $y, $m, $d);
+
+            // XXX: estimates 1d == 24h, which screws up days
+            // with leap seconds (1d == 24h + 1s). Thankfully they're
+            // few and far between.
+
+            $theend = strtotime($begindt) + (24 * 60 * 60);
+            $enddt  = common_sql_date($theend);
+
+            $user->selectAdd();
+            $user->selectAdd('nickname');
+            $user->whereAdd("created >= '$begindt'");
+            $user->whereAdd("created <  '$enddt'");
+
+            $user->orderBy('created');
+
+            $offset = ($i-1) * SitemapPlugin::USERS_PER_MAP;
+            $limit  = SitemapPlugin::USERS_PER_MAP;
+
+            $user->limit($offset, $limit);
+
+            $user->find();
+
+            while ($user->fetch()) {
+                $u[] = $user->nickname;
+            }
+
+            $c = Cache::instance();
+
+            if (!empty($c)) {
+                $c->set(Cache::key("sitemap:user:$y:$m:$d:$i"),
+                        $u,
+                        Cache::COMPRESSED,
+                        ((time() > $theend) ? (time() + 90 * 24 * 60 * 60) : (time() + 5 * 60)));
+            }
+        }
+
+        return $u;
     }
 }
