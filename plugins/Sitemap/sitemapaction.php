@@ -87,4 +87,9 @@ class SitemapAction extends Action
     {
         return null;
     }
+
+    function isReadOnly()
+    {
+        return true;
+    }
 }
