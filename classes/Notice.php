@@ -148,11 +148,11 @@ class Notice extends Memcached_DataObject
         //turn each into their canonical tag
         //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
         for($i=0; $i<count($hashtags); $i++) {
+            /* elide characters we don't want in the tag */
             $hashtags[$i] = common_canonical_tag($hashtags[$i]);
         }
 
         foreach(array_unique($hashtags) as $hashtag) {
-            /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
             self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, $hashtag);
         }
@@ -373,16 +373,18 @@ class Notice extends Memcached_DataObject
             $notice->saveReplies();
         }
 
-        if (isset($groups)) {
-            $notice->saveKnownGroups($groups);
-        } else {
-            $notice->saveGroups();
-        }
-
         if (isset($tags)) {
             $notice->saveKnownTags($tags);
         } else {
             $notice->saveTags();
+        }
+
+        // Note: groups may save tags, so must be run after tags are saved
+        // to avoid errors on duplicates.
+        if (isset($groups)) {
+            $notice->saveKnownGroups($groups);
+        } else {
+            $notice->saveGroups();
         }
 
         if (isset($urls)) {
