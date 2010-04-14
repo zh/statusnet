@@ -373,16 +373,18 @@ class Notice extends Memcached_DataObject
             $notice->saveReplies();
         }
 
-        if (isset($groups)) {
-            $notice->saveKnownGroups($groups);
-        } else {
-            $notice->saveGroups();
-        }
-
         if (isset($tags)) {
             $notice->saveKnownTags($tags);
         } else {
             $notice->saveTags();
+        }
+
+        // Note: groups may save tags, so must be run after tags are saved
+        // to avoid errors on duplicates.
+        if (isset($groups)) {
+            $notice->saveKnownGroups($groups);
+        } else {
+            $notice->saveGroups();
         }
 
         if (isset($urls)) {
