@@ -124,15 +124,36 @@ function broadcast_twitter($notice)
     return true;
 }
 
+/**
+ * Pull any extra information from a notice that we should transfer over
+ * to Twitter beyond the notice text itself.
+ *
+ * @param Notice $notice
+ * @return array of key-value pairs for Twitter update submission
+ * @access private
+ */
+function twitter_update_params($notice)
+{
+    $params = array();
+    if ($notice->lat || $notice->lon) {
+        $params['lat'] = $notice->lat;
+        $params['long'] = $notice->lon;
+    }
+    return $params;
+}
+
+
 function broadcast_oauth($notice, $flink) {
     $user = $flink->getUser();
     $statustxt = format_status($notice);
+    $params = twitter_update_params($notice);
+
     $token = TwitterOAuthClient::unpackToken($flink->credentials);
     $client = new TwitterOAuthClient($token->key, $token->secret);
     $status = null;
 
     try {
-        $status = $client->statusesUpdate($statustxt);
+        $status = $client->statusesUpdate($statustxt, $params);
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }
@@ -171,12 +192,13 @@ function broadcast_basicauth($notice, $flink)
     $user = $flink->getUser();
 
     $statustxt = format_status($notice);
+    $params = twitter_update_params($notice);
 
     $client = new TwitterBasicAuthClient($flink);
     $status = null;
 
     try {
-        $status = $client->statusesUpdate($statustxt);
+        $status = $client->statusesUpdate($statustxt, $params);
     } catch (BasicAuthException $e) {
         return process_error($e, $flink, $notice);
     }
