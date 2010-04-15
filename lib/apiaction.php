@@ -102,6 +102,7 @@ class ApiAction extends Action
 
     function handle($args)
     {
+        header('Access-Control-Allow-Origin: *');
         parent::handle($args);
     }
 
