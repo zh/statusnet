@@ -44,6 +44,7 @@
 
     @subsection timelinesmethods_sec Timeline Methods
 
+    @li @ref publictimeline
     @li @ref friendstimeline
 
     @subsection statusmethods_sec Status Methods
