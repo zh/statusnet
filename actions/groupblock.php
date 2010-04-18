@@ -41,7 +41,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-class GroupblockAction extends Action
+class GroupblockAction extends RedirectingAction
 {
     var $profile = null;
     var $group = null;
@@ -117,9 +117,7 @@ class GroupblockAction extends Action
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                common_redirect(common_local_url('groupmembers',
-                                                 array('nickname' => $this->group->nickname)),
-                                303);
+                $this->returnToArgs();
             } elseif ($this->arg('yes')) {
                 $this->blockProfile();
             } elseif ($this->arg('blockto')) {
@@ -175,8 +173,20 @@ class GroupblockAction extends Action
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user from this group"));
-        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user from this group'));
+        $this->submit('form_action-no',
+                      // TRANS: Button label on the form to block a user from a group.
+                      _m('BUTTON','No'),
+                      'submit form_action-primary',
+                      'no',
+                      // TRANS: Submit button title for 'No' when blocking a user from a group.
+                      _('Do not block this user from this group'));
+        $this->submit('form_action-yes',
+                      // TRANS: Button label on the form to block a user from a group.
+                      _m('BUTTON','Yes'),
+                      'submit form_action-secondary',
+                      'yes',
+                      // TRANS: Submit button title for 'Yes' when blocking a user from a group.
+                      _('Block this user from this group'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -196,23 +206,20 @@ class GroupblockAction extends Action
             $this->serverError(_("Database error blocking user from group."));
             return false;
         }
+        
+        $this->returnToArgs();
+    }
 
-        // Now, gotta figure where we go back to
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } elseif (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-
-        if ($action) {
-            common_redirect(common_local_url($action, $args), 303);
-        } else {
-            common_redirect(common_local_url('groupmembers',
-                                             array('nickname' => $this->group->nickname)),
-                            303);
-        }
+    /**
+     * If we reached this form without returnto arguments, default to
+     * the top of the group's member list.
+     * 
+     * @return string URL
+     */
+    function defaultReturnTo()
+    {
+        return common_local_url('groupmembers',
+                                array('nickname' => $this->group->nickname));
     }
 
     function showScripts()

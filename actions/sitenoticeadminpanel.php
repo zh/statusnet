@@ -110,7 +110,7 @@ class SitenoticeadminpanelAction extends AdminPanelAction
 
         if (mb_strlen($siteNotice) > 255)  {
             $this->clientError(
-                _('Max length for the site-wide notice is 255 chars')
+                _('Max length for the site-wide notice is 255 chars.')
             );
         }
 

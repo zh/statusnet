@@ -66,7 +66,7 @@ class BlockAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if ($cur->hasBlocked($this->profile)) {
-            $this->clientError(_("You already blocked that user."));
+            $this->clientError(_('You already blocked that user.'));
             return false;
         }
 
@@ -140,8 +140,20 @@ class BlockAction extends ProfileFormAction
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user"));
-        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user'));
+        $this->submit('form_action-no',
+                      // TRANS: Button label on the user block form.
+                      _m('BUTTON','No'),
+                      'submit form_action-primary',
+                      'no',
+                      // TRANS: Submit button title for 'No' when blocking a user.
+                      _('Do not block this user'));
+        $this->submit('form_action-yes',
+                      // TRANS: Button label on the user block form.
+                      _m('BUTTON','Yes'),
+                      'submit form_action-secondary',
+                      'yes',
+                      // TRANS: Submit button title for 'Yes' when blocking a user.
+                      _('Block this user'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }

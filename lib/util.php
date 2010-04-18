@@ -862,7 +862,14 @@ function common_xml_safe_str($str)
 function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
-    $url = common_local_url('tag', array('tag' => $canonical));
+    if (common_config('singleuser', 'enabled')) {
+        // regular TagAction isn't set up in 1user mode
+        $url = common_local_url('showstream',
+                                array('nickname' => common_config('singleuser', 'nickname'),
+                                      'tag' => $canonical));
+    } else {
+        $url = common_local_url('tag', array('tag' => $canonical));
+    }
     $xs = new XMLStringer();
     $xs->elementStart('span', 'tag');
     $xs->element('a', array('href' => $url,
@@ -1043,24 +1050,38 @@ function common_date_string($dt)
     if ($now < $t) { // that shouldn't happen!
         return common_exact_date($dt);
     } else if ($diff < 60) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('a few seconds ago');
     } else if ($diff < 92) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a minute ago');
     } else if ($diff < 3300) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d minutes ago'), round($diff/60));
     } else if ($diff < 5400) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about an hour ago');
     } else if ($diff < 22 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d hours ago'), round($diff/3600));
     } else if ($diff < 37 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a day ago');
     } else if ($diff < 24 * 24 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d days ago'), round($diff/(24*3600)));
     } else if ($diff < 46 * 24 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a month ago');
     } else if ($diff < 330 * 24 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d months ago'), round($diff/(30*24*3600)));
     } else if ($diff < 480 * 24 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a year ago');
     } else {
         return common_exact_date($dt);
@@ -1263,12 +1284,38 @@ function common_mtrand($bytes)
     return $enc;
 }
 
+/**
+ * Record the given URL as the return destination for a future
+ * form submission, to be read by common_get_returnto().
+ * 
+ * @param string $url
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_set_returnto($url)
 {
     common_ensure_session();
     $_SESSION['returnto'] = $url;
 }
 
+/**
+ * Fetch a return-destination URL previously recorded by
+ * common_set_returnto().
+ * 
+ * @return mixed URL string or null
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_get_returnto()
 {
     common_ensure_session();

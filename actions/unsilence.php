@@ -62,14 +62,14 @@ class UnsilenceAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if (!$cur->hasRight(Right::SILENCEUSER)) {
-            $this->clientError(_("You cannot silence users on this site."));
+            $this->clientError(_('You cannot silence users on this site.'));
             return false;
         }
 
         assert(!empty($this->profile)); // checked by parent
 
         if (!$this->profile->isSilenced()) {
-            $this->clientError(_("User is not silenced."));
+            $this->clientError(_('User is not silenced.'));
             return false;
         }
 

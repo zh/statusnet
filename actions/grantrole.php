@@ -59,11 +59,11 @@ class GrantRoleAction extends ProfileFormAction
         
         $this->role = $this->arg('role');
         if (!Profile_role::isValid($this->role)) {
-            $this->clientError(_("Invalid role."));
+            $this->clientError(_('Invalid role.'));
             return false;
         }
         if (!Profile_role::isSettable($this->role)) {
-            $this->clientError(_("This role is reserved and cannot be set."));
+            $this->clientError(_('This role is reserved and cannot be set.'));
             return false;
         }
 
@@ -72,14 +72,14 @@ class GrantRoleAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if (!$cur->hasRight(Right::GRANTROLE)) {
-            $this->clientError(_("You cannot grant user roles on this site."));
+            $this->clientError(_('You cannot grant user roles on this site.'));
             return false;
         }
 
         assert(!empty($this->profile)); // checked by parent
 
         if ($this->profile->hasRole($this->role)) {
-            $this->clientError(_("User already has this role."));
+            $this->clientError(_('User already has this role.'));
             return false;
         }
 

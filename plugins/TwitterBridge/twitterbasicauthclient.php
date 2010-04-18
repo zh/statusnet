@@ -76,18 +76,21 @@ class TwitterBasicAuthClient
     /**
      * Calls Twitter's /statuses/update API method
      *
-     * @param string $status                text of the status
-     * @param int    $in_reply_to_status_id optional id of the status it's
-     *                                      a reply to
+     * @param string $status  text of the status
+     * @param mixed  $params  optional other parameters to pass to Twitter,
+     *                        as defined. For back-compatibility, if an int
+     *                        is passed we'll consider it a reply-to ID.
      *
      * @return mixed the status
      */
     function statusesUpdate($status, $in_reply_to_status_id = null)
     {
         $url      = 'https://twitter.com/statuses/update.json';
-        $params   = array('status' => $status,
-                          'source' => common_config('integration', 'source'),
-                          'in_reply_to_status_id' => $in_reply_to_status_id);
+        if (is_numeric($params)) {
+            $params = array('in_reply_to_status_id' => intval($params));
+        }
+        $params['status'] = $status;
+        $params['source'] = common_config('integration', 'source');
         $response = $this->httpRequest($url, $params);
         $status   = json_decode($response);
         return $status;

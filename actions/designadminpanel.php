@@ -59,6 +59,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function title()
     {
+        // TRANS: Message used as title for design settings for the site.
         return _('Design');
     }
 
@@ -272,11 +273,11 @@ class DesignadminpanelAction extends AdminPanelAction
     {
         if (!empty($values['logo']) &&
             !Validate::uri($values['logo'], array('allowed_schemes' => array('http', 'https')))) {
-            $this->clientError(_("Invalid logo URL."));
+            $this->clientError(_('Invalid logo URL.'));
         }
 
         if (!in_array($values['theme'], Theme::listAvailable())) {
-            $this->clientError(sprintf(_("Theme not available: %s"), $values['theme']));
+            $this->clientError(sprintf(_("Theme not available: %s."), $values['theme']));
         }
     }
 
@@ -454,6 +455,7 @@ class DesignAdminPanelForm extends AdminForm
 
             $this->out->element('label', array('for' => 'design_background-image_on',
                                           'class' => 'radio'),
+                                          // TRANS: Used as radio button label to add a background image.
                                           _('On'));
 
             $attrs = array('name' => 'design_background-image_onoff',
@@ -470,6 +472,7 @@ class DesignAdminPanelForm extends AdminForm
 
             $this->out->element('label', array('for' => 'design_background-image_off',
                                           'class' => 'radio'),
+                                          // TRANS: Used as radio button label to not add a background image.
                                           _('Off'));
             $this->out->element('p', 'form_guide', _('Turn background image on or off.'));
             $this->unli();

@@ -69,7 +69,7 @@ class ApiTimelineRetweetedByMeAction extends ApiAuthAction
     {
         parent::prepare($args);
 
-        $this->serverError('Unimplemented', 503);
+        $this->serverError('Unimplemented.', 503);
 
         return false;
     }

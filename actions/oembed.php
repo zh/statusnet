@@ -60,7 +60,7 @@ class OembedAction extends Action
             $proxy_args = $r->map($path);
 
             if (!$proxy_args) {
-                $this->serverError(_("$path not found"), 404);
+                $this->serverError(_("$path not found."), 404);
             }
             $oembed=array();
             $oembed['version']='1.0';
@@ -72,11 +72,11 @@ class OembedAction extends Action
                     $id = $proxy_args['notice'];
                     $notice = Notice::staticGet($id);
                     if(empty($notice)){
-                        $this->serverError(_("notice $id not found"), 404);
+                        $this->serverError(_("Notice $id not found."), 404);
                     }
                     $profile = $notice->getProfile();
                     if (empty($profile)) {
-                        $this->serverError(_('Notice has no profile'), 500);
+                        $this->serverError(_('Notice has no profile.'), 500);
                     }
                     if (!empty($profile->fullname)) {
                         $authorname = $profile->fullname . ' (' . $profile->nickname . ')';
@@ -95,7 +95,7 @@ class OembedAction extends Action
                     $id = $proxy_args['attachment'];
                     $attachment = File::staticGet($id);
                     if(empty($attachment)){
-                        $this->serverError(_("attachment $id not found"), 404);
+                        $this->serverError(_("Attachment $id not found."), 404);
                     }
                     if(empty($attachment->filename) && $file_oembed = File_oembed::staticGet('file_id', $attachment->id)){
                         // Proxy the existing oembed information
@@ -123,7 +123,7 @@ class OembedAction extends Action
                     if($attachment->title) $oembed['title']=$attachment->title;
                     break;
                 default:
-                    $this->serverError(_("$path not supported for oembed requests"), 501);
+                    $this->serverError(_("$path not supported for oembed requests."), 501);
             }
             switch($args['format']){
                 case 'xml':
@@ -154,10 +154,12 @@ class OembedAction extends Action
                     $this->end_document('json');
                     break;
                 default:
-                    $this->serverError(_('content type ' . $apidata['content-type'] . ' not supported'), 501);
+                    // TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+                    $this->serverError(sprintf(_('Content type %s not supported.'), $apidata['content-type']), 501);
             }
         }else{
-            $this->serverError(_('Only ' . common_root_url() . ' urls over plain http please'), 404);
+            // TRANS: Error message displaying attachments. %s is the site's base URL.
+            $this->serverError(sprintf(_('Only %s URLs over plain HTTP please.'), common_root_url()), 404);
         }
     }
 
