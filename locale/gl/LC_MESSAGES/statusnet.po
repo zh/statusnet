@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 21:47+0000\n"
-"PO-Revision-Date: 2010-04-12 21:48:53+0000\n"
+"POT-Creation-Date: 2010-04-18 19:48+0000\n"
+"PO-Revision-Date: 2010-04-18 19:49:53+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -2560,8 +2560,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Só %s enderezos URL sobre HTTP simple."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
-#: lib/apiaction.php:1098 lib/apiaction.php:1215
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1070
+#: lib/apiaction.php:1099 lib/apiaction.php:1216
 msgid "Not a supported data format."
 msgstr "Non se soporta ese formato de datos."
 
@@ -3509,6 +3509,8 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
+"Pode conversar con outros usuarios, subscribirse a máis xente ou [unirse a "
+"grupos](%%action.groups%%)."
 
 #: actions/replies.php:206
 #, php-format
@@ -3516,23 +3518,25 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
 "attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
+"Pode probar a [facerlle un aceno a %1$s](../%2$s) ou [publicar algo dirixido "
+"a el ou ela](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/repliesrss.php:72
 #, php-format
 msgid "Replies to %1$s on %2$s!"
-msgstr ""
+msgstr "Respostas a %1$s en %2$s!"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
-msgstr ""
+msgstr "Non pode revogar os roles dos usuarios neste sitio."
 
 #: actions/revokerole.php:82
 msgid "User doesn't have this role."
-msgstr ""
+msgstr "O usuario non ten este rol."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
-msgstr ""
+msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
@@ -3546,144 +3550,150 @@ msgstr ""
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:391
 msgid "Sessions"
-msgstr ""
+msgstr "Sesións"
 
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site."
-msgstr ""
+msgstr "Configuración da sesión para este sitio StatusNet."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
-msgstr ""
+msgstr "Manexar as sesións"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
-msgstr ""
+msgstr "Se manexar as sesións nós mesmos."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
-msgstr ""
+msgstr "Depuración da sesión"
 
 #: actions/sessionsadminpanel.php:183
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "Activar a saída de depuración para as sesións."
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
 msgid "Save site settings"
-msgstr ""
+msgstr "Gardar a configuración do sitio"
 
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
-msgstr ""
+msgstr "Debe estar identificado para ver unha aplicación."
 
 #: actions/showapplication.php:157
 msgid "Application profile"
-msgstr ""
+msgstr "Perfil da aplicación"
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "Icona"
 
 #. TRANS: Form input field label for application name.
 #: actions/showapplication.php:169 actions/version.php:195
 #: lib/applicationeditform.php:199
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:178 lib/applicationeditform.php:235
 msgid "Organization"
-msgstr ""
+msgstr "Organización"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:198
 #: lib/applicationeditform.php:216 lib/groupeditform.php:172
 msgid "Description"
-msgstr ""
+msgstr "Descrición"
 
 #: actions/showapplication.php:192 actions/showgroup.php:444
 #: lib/profileaction.php:187
 msgid "Statistics"
-msgstr ""
+msgstr "Estatísticas"
 
 #: actions/showapplication.php:203
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr ""
+msgstr "Creado por %1$s - acceso %2$s por defecto - %3$d usuarios"
 
 #: actions/showapplication.php:213
 msgid "Application actions"
-msgstr ""
+msgstr "Accións da aplicación"
 
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
-msgstr ""
+msgstr "Restablecer o contrasinal ou a pregunta secreta"
 
 #: actions/showapplication.php:261
 msgid "Application info"
-msgstr ""
+msgstr "Información da aplicación"
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
-msgstr ""
+msgstr "Clave do consumidor"
 
 #: actions/showapplication.php:268
 msgid "Consumer secret"
-msgstr ""
+msgstr "Pregunta secreta do consumidor"
 
 #: actions/showapplication.php:273
 msgid "Request token URL"
-msgstr ""
+msgstr "Solicitar un URL de pase"
 
 #: actions/showapplication.php:278
 msgid "Access token URL"
-msgstr ""
+msgstr "Acceder ao URL do pase"
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
-msgstr ""
+msgstr "Autorizar o URL"
 
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+"Nota: sopórtanse as sinaturas HMAC-SHA1. Non se soporta o método de asinado "
+"con texto sinxelo."
 
 #: actions/showapplication.php:309
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
+"Seguro que quere restablecer a súa clave e maila súa pregunta secreta de "
+"consumidor?"
 
 #: actions/showfavorites.php:79
 #, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr ""
+msgstr "Notas favoritas de %1$s, páxina %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
-msgstr ""
+msgstr "Non se puideron obter as notas favoritas."
 
 #: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas para os favoritos de %s (RSS 1.0)"
 
 #: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de novas para os favoritos de %s (RSS 2.0)"
 
 #: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr ""
+msgstr "Fonte de novas para os favoritos de %s (Atom)"
 
 #: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
+"Aínda non escolleu ningunha nota favorita. Prema no botón de favorita das "
+"notas que lle gusten para marcalas para logo ou salientalas."
 
 #: actions/showfavorites.php:208
 #, php-format
@@ -3691,6 +3701,8 @@ msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
 "they would add to their favorites :)"
 msgstr ""
+"%s aínda non marcou ningunha nota como favorita. Publica algo interesante "
+"que poida querer engadir aos seus favoritos :)"
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -3699,80 +3711,83 @@ msgid ""
 "account](%%%%action.register%%%%) and then post something interesting they "
 "would add to their favorites :)"
 msgstr ""
+"%s aínda non marcou ningunha nota como favorita. Que lle parece [rexistrar "
+"unha conta](%%%%action.register%%%%) e publicar algo interesante que puidese "
+"querer engadir aos seus favoritos? :)"
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
-msgstr ""
+msgstr "Isto é un modo de compartir o que che gusta."
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "Grupo %s"
 
 #: actions/showgroup.php:84
 #, php-format
 msgid "%1$s group, page %2$d"
-msgstr ""
+msgstr "Grupo %1$s, páxina %2$d"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
-msgstr ""
+msgstr "Perfil do grupo"
 
 #: actions/showgroup.php:272 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: actions/showgroup.php:283 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
-msgstr ""
+msgstr "Nota"
 
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr ""
+msgstr "Alias"
 
 #: actions/showgroup.php:302
 msgid "Group actions"
-msgstr ""
+msgstr "Accións do grupo"
 
 #: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas nas notas do grupo %s (RSS 1.0)"
 
 #: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de novas nas notas do grupo %s (RSS 2.0)"
 
 #: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr ""
+msgstr "Fonte de novas nas notas do grupo %s (Atom)"
 
 #: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
-msgstr ""
+msgstr "FOAF para o grupo %s"
 
 #: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
-msgstr ""
+msgstr "Membros"
 
 #: actions/showgroup.php:398 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr ""
+msgstr "(Ningún)"
 
 #: actions/showgroup.php:404
 msgid "All members"
-msgstr ""
+msgstr "Todos os membros"
 
 #: actions/showgroup.php:447
 msgid "Created"
-msgstr ""
+msgstr "Creado"
 
 #: actions/showgroup.php:463
 #, php-format
@@ -3783,6 +3798,12 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de [micro-"
+"blogging](http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado "
+"na ferramenta de software libre [StatusNet](http://status.net/). Os seus "
+"membros compartes mensaxes curtas sobre as súas vidas e intereses. [Únase](%%"
+"%%action.register%%%%) para pasar a formar parte deste grupo e de moitos "
+"máis! ([Máis información](%%%%doc.help%%%%))"
 
 #: actions/showgroup.php:469
 #, php-format
@@ -3792,78 +3813,84 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
+"**%s** é un gupo de usuarios de %%%%site.name%%%%, un servizo de [micro-"
+"blogging](http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado "
+"na ferramenta de software libre [StatusNet](http://status.net/). Os seus "
+"membros comparten mensaxes curtas sobre a súa vida e intereses. "
 
 #: actions/showgroup.php:497
 msgid "Admins"
-msgstr ""
+msgstr "Administradores"
 
 #: actions/showmessage.php:81
 msgid "No such message."
-msgstr ""
+msgstr "EsNon se atopou esa mensaxe."
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
-msgstr ""
+msgstr "Esta mensaxe só a poden ler o destinatario e mais o remitente."
 
 #: actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Mensaxe a %1$s en %2$s"
 
 #: actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Mensaxe de %1$s en %2$s"
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
-msgstr ""
+msgstr "Borrouse a nota."
 
 #: actions/showstream.php:73
 #, php-format
 msgid " tagged %s"
-msgstr ""
+msgstr "etiquetouse %s"
 
 #: actions/showstream.php:79
 #, php-format
 msgid "%1$s, page %2$d"
-msgstr ""
+msgstr "%1$s, páxina %2$d"
 
 #: actions/showstream.php:122
 #, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas notas para %1$s etiquetadas con %2$s (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas notas para %s (RSS 1.0)"
 
 #: actions/showstream.php:136
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de novas notas para %s (RSS 2.0)"
 
 #: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr ""
+msgstr "Fonte de novas notas para %s (Atom)"
 
 #: actions/showstream.php:148
 #, php-format
 msgid "FOAF for %s"
-msgstr ""
+msgstr "FOAF para %s"
 
 #: actions/showstream.php:200
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
-msgstr ""
+msgstr "Esta é a liña do tempo para %1$s pero %2$s aínda non publicou nada."
 
 #: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
+"Viu algo interesante hoxe? Aínda non pblicou ningunha nota, este sería un bo "
+"momento para comezar :)"
 
 #: actions/showstream.php:207
 #, php-format
@@ -3871,6 +3898,8 @@ msgid ""
 "You can try to nudge %1$s or [post something to his or her attention](%%%%"
 "action.newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
+"Pode probar a facerlle un aceno a %1$s ou [publicar algo dirixido a el ou "
+"ela](%%%%action.newnotice%%%%?status_textarea=%2$s)."
 
 #: actions/showstream.php:243
 #, php-format
@@ -3880,6 +3909,11 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado na "
+"ferramenta de software libre [StatusNet](http://status.net/). [Únase](%%%%"
+"action.register%%%%) para seguir as notas de **%s** e de moita máis xente! "
+"([Máis información](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:248
 #, php-format
@@ -3888,11 +3922,14 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [micro-blogging]"
+"(http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado na "
+"ferramenta de software libre [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
-msgstr ""
+msgstr "Repeticións de %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
@@ -4072,7 +4109,6 @@ msgstr ""
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Confirmar"
@@ -4781,13 +4817,13 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:965
+#: classes/Notice.php:967
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1513
+#: classes/Notice.php:1515
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -5342,10 +5378,9 @@ msgstr ""
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
-msgstr "Borrar"
+msgstr "Revogar"
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88

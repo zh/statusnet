@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 21:47+0000\n"
-"PO-Revision-Date: 2010-04-12 21:50:08+0000\n"
+"POT-Creation-Date: 2010-04-18 19:48+0000\n"
+"PO-Revision-Date: 2010-04-18 19:51:26+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -43,7 +43,7 @@ msgstr "注册"
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
+msgstr "要禁止匿名用户（未登录）浏览网站吗？"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
@@ -55,7 +55,7 @@ msgstr "隐私"
 #. TRANS: Checkbox instructions for admin setting "Invite only"
 #: actions/accessadminpanel.php:174
 msgid "Make registration invitation only."
-msgstr ""
+msgstr "只允许邀请注册。"
 
 #. TRANS: Checkbox label for configuring site as invite only.
 #: actions/accessadminpanel.php:176
@@ -66,13 +66,13 @@ msgstr "邀请"
 #. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
 #: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
-msgstr ""
+msgstr "禁止新用户注册"
 
 #. TRANS: Checkbox label for disabling new user registrations.
 #: actions/accessadminpanel.php:185
 #, fuzzy
 msgid "Closed"
-msgstr "阻止"
+msgstr "已关闭"
 
 #. TRANS: Title / tooltip for button to save access settings in site admin panel
 #: actions/accessadminpanel.php:202
@@ -125,9 +125,9 @@ msgstr "没有这个用户。"
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
 #: actions/all.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%s 及好友"
+msgstr "%1$s 和好友，第%2$d页"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
@@ -188,9 +188,8 @@ msgstr ""
 
 #. TRANS: H1 text
 #: actions/all.php:178
-#, fuzzy
 msgid "You and friends"
-msgstr "%s 及好友"
+msgstr "你和好友"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -1038,6 +1037,8 @@ msgid ""
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
+"你确定要删除这个组件吗？这将从数据库中清除有关这个组件的所有数据，包括所有的"
+"用户联系。"
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:158
@@ -2624,8 +2625,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
-#: lib/apiaction.php:1098 lib/apiaction.php:1215
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1070
+#: lib/apiaction.php:1099 lib/apiaction.php:1216
 msgid "Not a supported data format."
 msgstr "不支持的数据格式。"
 
@@ -4923,14 +4924,14 @@ msgstr "在这个网站你被禁止发布消息。"
 msgid "Problem saving notice."
 msgstr "保存通告时出错。"
 
-#: classes/Notice.php:965
+#: classes/Notice.php:967
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "保存通告时出错。"
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1513
+#: classes/Notice.php:1515
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -6783,7 +6784,7 @@ msgstr "无标题章节"
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
+msgstr "更多..."
 
 #: lib/silenceform.php:67
 #, fuzzy
@@ -6892,7 +6893,7 @@ msgstr "个人设置"
 
 #: lib/userprofile.php:264
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: lib/userprofile.php:287
 #, fuzzy

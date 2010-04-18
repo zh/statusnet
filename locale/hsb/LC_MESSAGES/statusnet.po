@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 21:47+0000\n"
-"PO-Revision-Date: 2010-04-12 21:48:59+0000\n"
+"POT-Creation-Date: 2010-04-18 19:48+0000\n"
+"PO-Revision-Date: 2010-04-18 19:50:14+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: out-statusnet\n"
@@ -87,9 +87,8 @@ msgstr "Składować"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:64 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
 msgid "No such page."
-msgstr "Strona njeeksistuje"
+msgstr "Strona njeeksistuje."
 
 #: actions/all.php:75 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:113
@@ -430,9 +429,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr "Přewjele aliasow! Maksimum: %d."
 
 #: actions/apigroupcreate.php:266
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Njepłaćiwy alias: \"%s\""
+msgstr "Njepłaćiwy alias: \"%s\"."
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -448,9 +447,8 @@ msgstr "Alias njemóže samsny kaž přimjeno być."
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found."
-msgstr "Skupina njenamakana!"
+msgstr "Skupina njenamakana."
 
 #: actions/apigroupjoin.php:110 actions/joingroup.php:100
 msgid "You are already a member of that group."
@@ -817,7 +815,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Ně"
@@ -836,7 +833,6 @@ msgstr "Tutoho wužiwarja njeblokować"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Haj"
@@ -892,9 +888,9 @@ msgstr ""
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #: actions/bookmarklet.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Post to %s"
-msgstr "skupiny na %s"
+msgstr "Na %s pósłać"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -910,9 +906,9 @@ msgstr "Tutón wobkrućenski kod njeje za tebje!"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Njespóznany adresowy typ %s"
+msgstr "Njespóznaty adresowy typ %s."
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -1076,9 +1072,9 @@ msgid "Invalid logo URL."
 msgstr "Njepłaćiwy logowy URL."
 
 #: actions/designadminpanel.php:280
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "Šat njesteji k dispoziciji: %s"
+msgstr "Šat njesteji k dispoziciji: %s."
 
 #: actions/designadminpanel.php:376
 msgid "Change logo"
@@ -1230,7 +1226,7 @@ msgstr "Wopisanje je trěbne."
 
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
-msgstr ""
+msgstr "Žórłowy URL je předołhi."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
@@ -1331,7 +1327,6 @@ msgstr "Aktualna wobkrućena e-mejlowa adresa."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Wotstronić"
@@ -1348,7 +1343,6 @@ msgstr ""
 #. TRANS: Button label
 #: actions/emailsettings.php:127 actions/imsettings.php:131
 #: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Přetorhnyć"
@@ -1363,7 +1357,6 @@ msgstr "E-mejlowa adresa, kaž na př. \"WužiwarskeMjeno@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Přidać"
@@ -1389,16 +1382,14 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
 msgstr "Nowy"
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Nastajenja"
+msgstr "E-mejlowe nastajenja"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1437,9 +1428,8 @@ msgstr "MicroID za moju e-mejlowu adresu publikować"
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
-#, fuzzy
 msgid "Email preferences saved."
-msgstr "Designowe nastajenja składowane."
+msgstr "E-mejlowe nastajenja składowane."
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
@@ -1492,15 +1482,13 @@ msgstr ""
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:424
-#, fuzzy
 msgid "That is the wrong email address."
-msgstr "to je wopačna IM-adresa."
+msgstr "To je wopačna e-mejlowa adresa."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Wobkrućenje přetorhnjene."
+msgstr "E-mejlowe wobkrućenje přetorhnjene."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1510,9 +1498,8 @@ msgstr "To njeje twoja e-mejlowa adresa."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "Adresa bu wotstronjena."
+msgstr "E-mejlowa adresa bu wotstronjena."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1645,9 +1632,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
-msgstr "Zmylk při zasunjenju zdaleneho profila"
+msgstr "Zmylk při aktualizaciji zdaleneho profila."
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -1782,7 +1768,7 @@ msgstr ""
 #: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
-msgstr ""
+msgstr "%s skupinskich čłonow"
 
 #: actions/groupmembers.php:103
 #, php-format
@@ -1803,11 +1789,11 @@ msgstr "Blokować"
 
 #: actions/groupmembers.php:487
 msgid "Make user an admin of the group"
-msgstr ""
+msgstr "Wužiwarja k administratorej skupiny činić"
 
 #: actions/groupmembers.php:519
 msgid "Make Admin"
-msgstr ""
+msgstr "Za administratora pomjenować"
 
 #: actions/groupmembers.php:519
 msgid "Make this user an admin"
@@ -1888,7 +1874,7 @@ msgstr ""
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
-msgstr ""
+msgstr "Wužiwar njeje zablokowany za skupinu."
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
 msgid "Error removing the block."
@@ -1944,9 +1930,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Nastajenja"
+msgstr "IM-nastajenja"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2014,15 +1999,13 @@ msgstr "to je wopačna IM-adresa."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "Abonoment njeje so dał zničić."
+msgstr "IM-wobkrućenje njeda so zhašeć."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Wobkrućenje přetorhnjene."
+msgstr "IM-wobkrućenje přetorhnjene."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2032,9 +2015,8 @@ msgstr "To njeje twój ID Jabber."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "Adresa bu wotstronjena."
+msgstr "IM-adresa bu wotstronjena."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2055,9 +2037,11 @@ msgid "Invites have been disabled."
 msgstr "Přeprošenja buchu znjemóžnjene."
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
-msgstr "Dyrbiš přizjewjeny być, zo by skupinu wobdźěłał."
+msgstr ""
+"Dyrbiš přizjewjeny być, zo by druheho wužiwarja přeprosył, zo by wón %s "
+"wužiwał."
 
 #: actions/invite.php:72
 #, php-format
@@ -2260,9 +2244,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Njeje móžno %1$S k administratorej w skupinje %2$s činić."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Žadyn aktualny status"
+msgstr "Žadyn aktualny status."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2278,7 +2261,7 @@ msgstr "Wužij tutón formular, zo by nowu aplikaciju registrował."
 
 #: actions/newapplication.php:176
 msgid "Source URL is required."
-msgstr ""
+msgstr "Žórłowy URL je trěbny."
 
 #: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
@@ -2368,7 +2351,7 @@ msgstr ""
 #: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
-msgstr ""
+msgstr "Aktualizacije z \"%s\""
 
 #: actions/noticesearchrss.php:98
 #, php-format
@@ -2407,7 +2390,7 @@ msgstr ""
 
 #: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
-msgstr ""
+msgstr "Zwjazane aplikacije"
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
@@ -2431,9 +2414,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:79 actions/shownotice.php:100
-#, fuzzy
 msgid "Notice has no profile."
-msgstr "Zdźělenka nima profil"
+msgstr "Zdźělenka nima profil."
 
 #: actions/oembed.php:86 actions/shownotice.php:175
 #, php-format
@@ -2444,7 +2426,7 @@ msgstr ""
 #: actions/oembed.php:158
 #, php-format
 msgid "Content type %s not supported."
-msgstr ""
+msgstr "Wobsahowy typ %s so njepodpěruje."
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:162
@@ -2453,8 +2435,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
-#: lib/apiaction.php:1098 lib/apiaction.php:1215
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1070
+#: lib/apiaction.php:1099 lib/apiaction.php:1216
 msgid "Not a supported data format."
 msgstr "Njeje podpěrany datowy format."
 
@@ -2583,11 +2565,11 @@ msgstr "Wopačne stare hesło"
 
 #: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
-msgstr ""
+msgstr "Zmylk při składowanju wužiwarja; njepłaćiwy."
 
 #: actions/passwordsettings.php:186 actions/recoverpassword.php:381
 msgid "Can't save new password."
-msgstr ""
+msgstr "Nowe hesło njeda so składować."
 
 #: actions/passwordsettings.php:192 actions/recoverpassword.php:211
 msgid "Password saved."
@@ -2603,19 +2585,19 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Šćežka a serwerowe nastajenja za tute sydło StatusNet."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Šat njesteji k dispoziciji: %s"
+msgstr "Šatowy zapis njeda so čitać: %s"
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Awatarowy zapis"
+msgstr "Do awataroweho zapisa njeda so pisać: %s."
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Pozadkowy zapis"
+msgstr "Do pozadkoweho zapisa njeda so pisać: %s."
 
 #: actions/pathsadminpanel.php:177
 #, php-format
@@ -2758,9 +2740,9 @@ msgid "People search"
 msgstr "Za ludźimi pytać"
 
 #: actions/peopletag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s."
-msgstr "Njepłaćiwa e-mejlowa adresa."
+msgstr "Njepłaćiwa wosobowa taflička: %s."
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2768,9 +2750,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "Njepłaćiwy wobsah zdźělenki"
+msgstr "Njepłaćiwy wobsah zdźělenki."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -2898,7 +2879,7 @@ msgstr "Nastajenja městna njedachu so składować."
 
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
-msgstr ""
+msgstr "Profil njeda so składować."
 
 #: actions/profilesettings.php:383
 msgid "Couldn't save tags."
@@ -3051,6 +3032,7 @@ msgstr ""
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
+"Twoje přimjeno na tutym serwerje abo twoje zregistrowana e-mejlowa adresa."
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
@@ -3533,7 +3515,7 @@ msgstr ""
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
-msgstr ""
+msgstr "skupina %s"
 
 #: actions/showgroup.php:84
 #, php-format
@@ -3872,9 +3854,8 @@ msgstr "SMS k dispoziciji njesteji."
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "IM-adresa"
+msgstr "SMS-adresa"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -3898,7 +3879,6 @@ msgstr ""
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Wobkrućić"
@@ -3915,9 +3895,8 @@ msgstr ""
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Nastajenja"
+msgstr "SMS-nastajenja"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -3928,9 +3907,8 @@ msgstr ""
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "Nastajenja składowane."
+msgstr "SMS-nastajenja składowane."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
@@ -3966,21 +3944,19 @@ msgstr ""
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Wobkrućenje přetorhnjene."
+msgstr "SMS-wobkrućenje přetorhnjene."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
 #: actions/smssettings.php:448
 msgid "That is not your phone number."
-msgstr ""
+msgstr "To twoje telefonowe čisło njeje."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "SMS telefonowe čisło"
+msgstr "Telefonowe čisło za SMS bu wotstronjene."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4249,9 +4225,8 @@ msgid "User is not silenced."
 msgstr ""
 
 #: actions/unsubscribe.php:77
-#, fuzzy
 msgid "No profile ID in request."
-msgstr "Žadyn profil z tym ID."
+msgstr "Žadyn profilowy ID w naprašowanju."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
@@ -4574,9 +4549,9 @@ msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Zmylk datoweje banki při zasunjenju wužiwarja OAuth-aplikacije."
+msgstr "Zmylk datoweje banki při zasunjenju hašeje taflički: %s"
 
 #: classes/Notice.php:245
 msgid "Problem saving notice. Too long."
@@ -4605,13 +4580,13 @@ msgstr ""
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:965
+#: classes/Notice.php:967
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1513
+#: classes/Notice.php:1515
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -5116,7 +5091,7 @@ msgstr ""
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:278
 msgid "Browser"
-msgstr ""
+msgstr "Wobhladowak"
 
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:295
@@ -5166,7 +5141,6 @@ msgstr ""
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Wotwołać"
@@ -5277,9 +5251,9 @@ msgstr "Njebě móžno wužiwarja %1$s skupinje %2%s přidać."
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "Njebě móžno wužiwarja %1$s ze skupiny %2$s wotstronić."
+msgstr "Njebě móžno, wužiwarja %1$s ze skupiny %2$s wotstronić"
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5582,7 +5556,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Daty eksportować"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -6359,7 +6333,7 @@ msgstr ""
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
-msgstr ""
+msgstr "Ludźo, kotřiž su %s abonowali"
 
 #: lib/subgroupnav.php:99
 #, php-format
