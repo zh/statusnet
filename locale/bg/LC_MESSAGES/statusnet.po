@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 19:48+0000\n"
-"PO-Revision-Date: 2010-04-18 19:49:13+0000\n"
+"POT-Creation-Date: 2010-04-19 17:11+0000\n"
+"PO-Revision-Date: 2010-04-19 17:11:58+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -455,7 +455,6 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found."
 msgstr "Групата не е открита."
 
@@ -830,7 +829,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Не"
@@ -849,7 +847,6 @@ msgstr "Да не се блокира този потребител"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Да"
@@ -973,20 +970,17 @@ msgid "Notices"
 msgstr "Бележки"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "За да редактирате група, трябва да сте влезли."
+msgstr "За да изтриете приложение, трябва да сте влезли."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Бележката няма профил"
+msgstr "Приложението не е открито."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "Не членувате в тази група."
+msgstr "Не сте собственик на това приложение."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
@@ -995,9 +989,8 @@ msgid "There was a problem with your session token."
 msgstr "Имаше проблем със сесията ви в сайта."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Няма такава бележка."
+msgstr "Изтриване на приложението"
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1008,15 +1001,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:158
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Да не се изтрива бележката"
+msgstr "Да не се изтрива приложението"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
-#, fuzzy
 msgid "Delete this application"
-msgstr "Изтриване на бележката"
+msgstr "Изтриване на това приложение"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
@@ -1362,7 +1353,6 @@ msgstr "Текущ потвърден адрес на е-поща."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Премахване"
@@ -1396,7 +1386,6 @@ msgstr "Адрес на е-поща, като \"UserName@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Добавяне"
@@ -2334,10 +2323,14 @@ msgstr ""
 "при промяна на настройките."
 
 #: actions/login.php:270
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Вход с име и парола"
+
+#: actions/login.php:273
 #, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "Влезте с име и парола. Нямате такива? [Регистрирайте](%%action.register%%) "
 "нова сметка или опитайте с [OpenID](%%action.openidlogin%%). "
@@ -2588,7 +2581,7 @@ msgstr "Управление на различни други настройки
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (безплатна услуга)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
@@ -3556,14 +3549,12 @@ msgid "Save site settings"
 msgstr "Запазване настройките на сайта"
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "За напуснете група, трябва да сте влезли."
+msgstr "За прегледате приложение, трябва да сте влезли."
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Бележката няма профил"
+msgstr "Профил на приложението"
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
@@ -4277,9 +4268,9 @@ msgid "%s subscribers"
 msgstr "%s абоната"
 
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "Абонаменти на %s, страница %d"
+msgstr "Абонати на %1$s, страница %2$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4314,9 +4305,9 @@ msgid "%s subscriptions"
 msgstr "Абонаменти на %s"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr "Абонаменти на %s, страница %d"
+msgstr "Абонаменти на %1$s, страница %2$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -4952,14 +4943,12 @@ msgstr "Лично"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:437
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промяна на поща, аватар, парола, профил"
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:442
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Свързване към услуги"
@@ -4971,7 +4960,6 @@ msgstr "Свързване"
 
 #. TRANS: Tooltip for menu option "Admin"
 #: lib/action.php:448
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Промяна настройките на сайта"
@@ -4985,7 +4973,7 @@ msgstr "Настройки"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:455
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете приятели и колеги да се присъединят към вас в %s"
@@ -5011,14 +4999,12 @@ msgstr "Изход"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:472
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Създаване на нова сметка"
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:475
-#, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "Регистриране"
@@ -5049,7 +5035,6 @@ msgstr "Помощ"
 
 #. TRANS: Tooltip for main menu option "Search"
 #: lib/action.php:490
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Търсене за хора или бележки"
@@ -6355,14 +6340,12 @@ msgid "Attach a file"
 msgstr "Прикрепяне на файл"
 
 #: lib/noticeform.php:212
-#, fuzzy
 msgid "Share my location"
-msgstr "Грешка при запазване етикетите."
+msgstr "Споделяне на местоположението ми"
 
 #: lib/noticeform.php:215
-#, fuzzy
 msgid "Do not share my location"
-msgstr "Грешка при запазване етикетите."
+msgstr "Без споделяне на местоположението ми"
 
 #: lib/noticeform.php:216
 msgid ""
@@ -6557,9 +6540,8 @@ msgid "No return-to arguments."
 msgstr "Липсват аргументи return-to."
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Повтаряне на тази бележка"
+msgstr "Да се повтори ли тази бележка?"
 
 #: lib/repeatform.php:132
 msgid "Yes"
@@ -6602,9 +6584,8 @@ msgid "Search"
 msgstr "Търсене"
 
 #: lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Търсене"
+msgstr "Помощ за търсенето"
 
 #: lib/searchgroupnav.php:80
 msgid "People"

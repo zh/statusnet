@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 19:48+0000\n"
-"PO-Revision-Date: 2010-04-18 19:51:12+0000\n"
+"POT-Creation-Date: 2010-04-19 17:11+0000\n"
+"PO-Revision-Date: 2010-04-19 17:13:29+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -335,7 +335,7 @@ msgstr "మీ స్నేహితులు కాని వాడుకరు
 #: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:109
 #: actions/apistatusesdestroy.php:113
 msgid "No status found with that ID."
-msgstr ""
+msgstr "ఆ IDతో ఏ నోటీసూ కనబడలేదు."
 
 #: actions/apifavoritecreate.php:119
 msgid "This status is already a favorite."
@@ -778,9 +778,8 @@ msgid "Crop"
 msgstr "కత్తిరించు"
 
 #: actions/avatarsettings.php:305
-#, fuzzy
 msgid "No file uploaded."
-msgstr "పాక్షిక ఎగుమతి."
+msgstr "ఏ దస్త్రమూ ఎక్కింపబడలేదు."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -2039,9 +2038,8 @@ msgstr "ఈమెయిల్ నిర్ధారణని తొలగిం�
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "నిర్ధారణ రద్దయింది."
+msgstr "IM నిర్ధారణ రద్దయింది."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2051,9 +2049,8 @@ msgstr "ఇది మీ Jabber ID కాదు"
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "ఆ చిరునామాని తొలగించాం."
+msgstr "ఆ IM చిరునామాని తొలగించాం."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2181,6 +2178,29 @@ msgid ""
 "\n"
 "Sincerely, %2$s\n"
 msgstr ""
+"%2$s (%3$s) లో వారితో చేరమని %1$s మిమ్మల్ని ఆహ్వానించారు.\n"
+"\n"
+"%2$s అనేది మీకు తెలిసిన మరియు మీకు ఆసక్తి ఉన్న వ్యక్తులతో ఎప్పటికప్పుడు పరిచయంలో ఉండేదుకు "
+"వీలుకల్పించే ఒక సూక్ష్మ-బ్లాగింగు సేవ.\n"
+"\n"
+"మీరు కూడా మీ గురించి, మీ ఆలోచనల గురించి లేదా మీ జీవితం గురించిన విశేషాలను మీకు తెలిసిన వారితో "
+"పంచుకోవచ్చు. అలానే ఇది మీలాంటి ఆసక్తులు కలిగిన కొత్త వ్యక్తులని కలుసుకునేందుకు గొప్ప ప్రదేశం.\n"
+"\n"
+"%1$s అన్నారు:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%2$sలో %1$s యొక్క ప్రొఫైలుని మీరు ఇక్కడ చూడవచ్చు:\n"
+"\n"
+"%5$s\n"
+"\n"
+"మీరు దీన్ని ప్రయత్నించి చూడాలనుకుంటే, ఈ ఆహ్వానాన్ని అంగీకరించడానికి ఈ క్రింద లంకెపై నొక్కండి.\n"
+"\n"
+"%6$s\n"
+"\n"
+"కాదనుకుంటే, ఈ సందేశాన్ని పట్టించుకోకండి. మీ ఓపిక మరియు సమయానికి ధన్యవాదాలు.\n"
+"\n"
+"వినమ్రతతో, %2$s\n"
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
@@ -2253,10 +2273,14 @@ msgstr ""
 "భద్రతా కారణాల దృష్ట్యా, అమరికలు మార్చే ముందు మీ వాడుకరి పేరుని మరియు సంకేతపదాన్ని మరోసారి ఇవ్వండి."
 
 #: actions/login.php:270
-#, php-format
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "వాడుకరిపేరు మరియు సంకేతపదాలతో ప్రవేశించండి"
+
+#: actions/login.php:273
+#, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "మీ వాడుకరిపేరు మరియు సంకేతపదాలతో ప్రవేశించండి. మీకు ఇంకా వాడుకరిపేరు లేదా? కొత్త ఖాతాని [నమోదుచేసుకోండి]"
 "(%%action.register%%)."
@@ -3473,9 +3497,8 @@ msgid "Save site settings"
 msgstr "సైటు అమరికలను భద్రపరచు"
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
+msgstr "ఉపకరణాలని చూడడానికి మీరు తప్పనిసరిగా ప్రవేశించి ఉండాలి."
 
 #: actions/showapplication.php:157
 msgid "Application profile"
@@ -4369,7 +4392,7 @@ msgstr ""
 
 #: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr ""
+msgstr "చెల్లని స్వాగత పాఠ్యం. గరిష్ఠ పొడవు 255 అక్షరాలు."
 
 #: actions/useradminpanel.php:165
 #, php-format
@@ -4706,9 +4729,9 @@ msgstr "సందేశాన్ని భద్రపరచడంలో పొ�
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #: classes/Notice.php:1515
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
@@ -5618,13 +5641,12 @@ msgid ""
 msgstr ""
 
 #: lib/common.php:135
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "నిర్ధారణ సంకేతం లేదు."
+msgstr "స్వరూపణపు దస్త్రమేమీ కనబడలేదు. "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "స్వరూపణపు దస్త్రాల కొరకు ఈ ప్రదేశాలతో చూసాం: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
@@ -5739,9 +5761,8 @@ msgid "URL of the homepage or blog of the group or topic"
 msgstr "మీ హోమ్ పేజీ, బ్లాగు, లేదా వేరే సేటులోని మీ ప్రొఫైలు యొక్క చిరునామా"
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "మీ గురించి మరియు మీ ఆసక్తుల గురించి 140 అక్షరాల్లో చెప్పండి"
+msgstr "గుంపుని లేదా విషయాన్ని వివరించండి"
 
 #: lib/groupeditform.php:170
 #, php-format
@@ -5763,9 +5784,8 @@ msgid "Group"
 msgstr "గుంపు"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "అటువంటి వాడుకరి లేరు."
+msgstr "నిరోధించారు"
 
 #: lib/groupnav.php:102
 #, php-format
@@ -6006,6 +6026,17 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
+"%1$s (%2$s) మీరేం చేస్తున్నారో అని విస్మయం చెందుతున్నారు మరియు ఏవైనా విశేషాలని వ్రాయమని మిమ్మల్ని "
+"ఆహ్వానిస్తున్నారు.\n"
+"\n"
+"కాబట్టి మిమ్మల్ని విననివ్వండి :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"ఈ ఈమెయిలుకే స్పందించకండి; ఇది వారికి వెళ్ళదు.\n"
+"\n"
+"శుభాశీస్సులతో,\n"
+"%4$s\n"
 
 #. TRANS: Subject for direct-message notification email
 #: lib/mail.php:530
@@ -6636,9 +6667,9 @@ msgid "Unsubscribe"
 msgstr "చందామాను"
 
 #: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "User %s (%d) has no profile record."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
+msgstr "వాడుకరి %s (%d) కి ప్రొఫైలు లేదు."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

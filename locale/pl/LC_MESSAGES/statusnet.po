@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 19:48+0000\n"
-"PO-Revision-Date: 2010-04-18 19:50:53+0000\n"
+"POT-Creation-Date: 2010-04-19 17:11+0000\n"
+"PO-Revision-Date: 2010-04-19 17:13:14+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -2315,10 +2315,14 @@ msgstr ""
 "zmienianiem ustawień."
 
 #: actions/login.php:270
-#, php-format
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Zaloguj się za pomocą nazwy użytkownika i hasła"
+
+#: actions/login.php:273
+#, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "Zaloguj się za pomocą nazwy użytkownika i hasła. Nie masz ich jeszcze? "
 "[Zarejestruj](%%action.register%%) nowe konto."

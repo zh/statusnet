@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 19:48+0000\n"
-"PO-Revision-Date: 2010-04-18 19:49:20+0000\n"
+"POT-Creation-Date: 2010-04-19 17:11+0000\n"
+"PO-Revision-Date: 2010-04-19 17:12:05+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65249); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -839,7 +839,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "No"
@@ -858,7 +857,6 @@ msgstr "No bloquis l'usuari"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Sí"
@@ -892,14 +890,13 @@ msgid "%s blocked profiles"
 msgstr "%s perfils blocats"
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "%s perfils blocats, pàgina %d"
+msgstr "%1$s perfils blocats, pàgina %2$d"
 
 #: actions/blockedfromgroup.php:115
-#, fuzzy
 msgid "A list of the users blocked from joining this group."
-msgstr "La llista dels usuaris d'aquest grup."
+msgstr "Una llista d'usuaris que han estat blocats d'afegir-se a aquest grup."
 
 #: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
@@ -982,9 +979,8 @@ msgid "Notices"
 msgstr "Avisos"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Heu d'iniciar una sessió per editar un grup."
+msgstr "Heu d'haver iniciat una sessió per a suprimir una aplicació."
 
 #: actions/deleteapplication.php:71
 msgid "Application not found."
@@ -1011,12 +1007,14 @@ msgid ""
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
+"Esteu segur que voler suprimir l'aplicació? Això netejarà totes les dades de "
+"l'aplicació de la base de dades, incloent-hi totes les connexions d'usuari "
+"existents."
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:158
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "No es pot esborrar la notificació."
+msgstr "No suprimeixis l'aplicació"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
@@ -2339,10 +2337,14 @@ msgstr ""
 "contrasenya abans de canviar la teva configuració."
 
 #: actions/login.php:270
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Accedir amb el nom d'usuari i contrasenya"
+
+#: actions/login.php:273
 #, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "Inicia una sessió amb el teu nom d'usuari i la teva contrasenya. Encara no "
 "tens un nom d'usuari? [Crea](%%action.register%%) un nou compte o prova "
@@ -2514,20 +2516,20 @@ msgstr "Aplicacions OAuth"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
-msgstr ""
+msgstr "Aplicacions que heu registrat"
 
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr ""
+msgstr "No teniu cap aplicació registrada encara."
 
 #: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
-msgstr ""
+msgstr "Aplicacions connectades"
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
-msgstr ""
+msgstr "Heu permès les aplicacions següents accedir al vostre compte."
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."

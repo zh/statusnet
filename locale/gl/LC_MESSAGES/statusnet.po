@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-18 19:48+0000\n"
-"PO-Revision-Date: 2010-04-18 19:49:53+0000\n"
+"POT-Creation-Date: 2010-04-19 17:11+0000\n"
+"PO-Revision-Date: 2010-04-19 17:12:36+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65251); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -2330,10 +2330,14 @@ msgstr ""
 "contrasinal antes de cambiar a súa configuración."
 
 #: actions/login.php:270
-#, php-format
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Nome de usuario ou contrasinal incorrectos."
+
+#: actions/login.php:273
+#, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "Identifíquese co seu nome de usuario e contrasinal. Aínda non ten un nome de "
 "usuario? [Rexistre](%%action.register%%) unha conta nova."
@@ -3089,10 +3093,10 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 "Isto é %%site.name%%, un servizo de [microblogging](http://en.wikipedia.org/"
-"wiki/Microblogging) baseado na ferramenta de software libre [StatusNet]"
-"(http://status.net/). [Únase agora](%%action.register%%) para compartir "
-"notas persoais cos amigos, a familia e os compañeiros! ([Ler máis](%%doc.help"
-"%%))"
+"wiki/Microblogging) (en inglés) baseado na ferramenta de software libre "
+"[StatusNet](http://status.net/). [Únase agora](%%action.register%%) para "
+"compartir notas persoais cos amigos, a familia e os compañeiros! ([Máis "
+"información](%%doc.help%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3102,8 +3106,8 @@ msgid ""
 "tool."
 msgstr ""
 "Isto é %%site.name%%, un servizo de [microblogging](http://en.wikipedia.org/"
-"wiki/Microblogging) baseado na ferramenta de software libre [StatusNet]"
-"(http://status.net/)."
+"wiki/Microblogging) (en inglés) baseado na ferramenta de software libre "
+"[StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -3540,11 +3544,11 @@ msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
-msgstr ""
+msgstr "Non pode illar usuarios neste sitio."
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
-msgstr ""
+msgstr "O usuario xa está illado."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3562,7 +3566,7 @@ msgstr "Manexar as sesións"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
-msgstr "Se manexar as sesións nós mesmos."
+msgstr "Manexar ou non as sesións nós mesmos."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
@@ -3675,25 +3679,25 @@ msgstr "Non se puideron obter as notas favoritas."
 #: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Fonte de novas para os favoritos de %s (RSS 1.0)"
+msgstr "Fonte de novas dos favoritos de %s (RSS 1.0)"
 
 #: actions/showfavorites.php:178
 #, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Fonte de novas para os favoritos de %s (RSS 2.0)"
+msgstr "Fonte de novas dos favoritos de %s (RSS 2.0)"
 
 #: actions/showfavorites.php:185
 #, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Fonte de novas para os favoritos de %s (Atom)"
+msgstr "Fonte de novas dos favoritos de %s (Atom)"
 
 #: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
-"Aínda non escolleu ningunha nota favorita. Prema no botón de favorita das "
-"notas que lle gusten para marcalas para logo ou salientalas."
+"Aínda non escolleu ningunha nota favorita. Prema no botón de nota favorita "
+"naquelas notas que lle gusten para marcalas para logo ou para salientalas."
 
 #: actions/showfavorites.php:208
 #, php-format
@@ -3701,7 +3705,7 @@ msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
 "they would add to their favorites :)"
 msgstr ""
-"%s aínda non marcou ningunha nota como favorita. Publica algo interesante "
+"%s aínda non marcou ningunha nota como favorita. Publique algo interesante "
 "que poida querer engadir aos seus favoritos :)"
 
 #: actions/showfavorites.php:212
@@ -3711,13 +3715,13 @@ msgid ""
 "account](%%%%action.register%%%%) and then post something interesting they "
 "would add to their favorites :)"
 msgstr ""
-"%s aínda non marcou ningunha nota como favorita. Que lle parece [rexistrar "
-"unha conta](%%%%action.register%%%%) e publicar algo interesante que puidese "
+"%s aínda non marcou ningunha nota como favorita. Por que non [rexistrar unha "
+"conta](%%%%action.register%%%%) e publicar algo interesante que puidese "
 "querer engadir aos seus favoritos? :)"
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
-msgstr "Isto é un modo de compartir o que che gusta."
+msgstr "Isto é un modo de compartir o que lle gusta."
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
@@ -3745,7 +3749,7 @@ msgstr "Nota"
 
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
-msgstr "Alias"
+msgstr "Pseudónimos"
 
 #: actions/showgroup.php:302
 msgid "Group actions"
@@ -3754,22 +3758,22 @@ msgstr "Accións do grupo"
 #: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "Fonte de novas nas notas do grupo %s (RSS 1.0)"
+msgstr "Fonte de novas das notas do grupo %s (RSS 1.0)"
 
 #: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "Fonte de novas nas notas do grupo %s (RSS 2.0)"
+msgstr "Fonte de novas das notas do grupo %s (RSS 2.0)"
 
 #: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "Fonte de novas nas notas do grupo %s (Atom)"
+msgstr "Fonte de novas das notas do grupo %s (Atom)"
 
 #: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
-msgstr "FOAF para o grupo %s"
+msgstr "Amigo dun amigo para o grupo %s"
 
 #: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
 msgid "Members"
@@ -3798,12 +3802,12 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado "
-"na ferramenta de software libre [StatusNet](http://status.net/). Os seus "
-"membros compartes mensaxes curtas sobre as súas vidas e intereses. [Únase](%%"
-"%%action.register%%%%) para pasar a formar parte deste grupo e de moitos "
-"máis! ([Máis información](%%%%doc.help%%%%))"
+"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de "
+"[microblogging](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"baseado na ferramenta de software libre [StatusNet](http://status.net/). Os "
+"seus membros comparten mensaxes curtas sobre as súas vidas e intereses. "
+"[Únase agora](%%%%action.register%%%%) para pasar a formar parte deste grupo "
+"e de moitos máis! ([Máis información](%%%%doc.help%%%%))"
 
 #: actions/showgroup.php:469
 #, php-format
@@ -3813,10 +3817,10 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** é un gupo de usuarios de %%%%site.name%%%%, un servizo de [micro-"
-"blogging](http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado "
-"na ferramenta de software libre [StatusNet](http://status.net/). Os seus "
-"membros comparten mensaxes curtas sobre a súa vida e intereses. "
+"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de "
+"[microblogging](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"baseado na ferramenta de software libre [StatusNet](http://status.net/). Os "
+"seus membros comparten mensaxes curtas sobre as súas vidas e intereses. "
 
 #: actions/showgroup.php:497
 msgid "Admins"
@@ -3824,7 +3828,7 @@ msgstr "Administradores"
 
 #: actions/showmessage.php:81
 msgid "No such message."
-msgstr "EsNon se atopou esa mensaxe."
+msgstr "Non se atopou esa mensaxe."
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
@@ -3847,7 +3851,7 @@ msgstr "Borrouse a nota."
 #: actions/showstream.php:73
 #, php-format
 msgid " tagged %s"
-msgstr "etiquetouse %s"
+msgstr " etiquetouse %s"
 
 #: actions/showstream.php:79
 #, php-format
@@ -3857,27 +3861,27 @@ msgstr "%1$s, páxina %2$d"
 #: actions/showstream.php:122
 #, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Fonte de novas notas para %1$s etiquetadas con %2$s (RSS 1.0)"
+msgstr "Fonte de novas das notas para %1$s etiquetadas con %2$s (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Fonte de novas notas para %s (RSS 1.0)"
+msgstr "Fonte de novas das notas para %s (RSS 1.0)"
 
 #: actions/showstream.php:136
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Fonte de novas notas para %s (RSS 2.0)"
+msgstr "Fonte de novas das notas para %s (RSS 2.0)"
 
 #: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Fonte de novas notas para %s (Atom)"
+msgstr "Fonte de novas das notas para %s (Atom)"
 
 #: actions/showstream.php:148
 #, php-format
 msgid "FOAF for %s"
-msgstr "FOAF para %s"
+msgstr "Amigo dun amigo para %s"
 
 #: actions/showstream.php:200
 #, php-format
@@ -3889,8 +3893,8 @@ msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr ""
-"Viu algo interesante hoxe? Aínda non pblicou ningunha nota, este sería un bo "
-"momento para comezar :)"
+"Viu algo interesante hoxe? Aínda non publicou ningunha nota, este sería un "
+"bo momento para comezar :)"
 
 #: actions/showstream.php:207
 #, php-format
@@ -3909,11 +3913,11 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [micro-blogging]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado na "
-"ferramenta de software libre [StatusNet](http://status.net/). [Únase](%%%%"
-"action.register%%%%) para seguir as notas de **%s** e de moita máis xente! "
-"([Máis información](%%%%doc.help%%%%))"
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [microblogging]"
+"(http://en.wikipedia.org/wiki/Microblogging) (en inglés) baseado na "
+"ferramenta de software libre [StatusNet](http://status.net/). [Únase agora](%"
+"%%%action.register%%%%) para seguir as notas de **%s** e de moita máis "
+"xente! ([Máis información](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:248
 #, php-format
@@ -3922,8 +3926,8 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [micro-blogging]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) (en inglés) baseado na "
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [microblogging]"
+"(http://en.wikipedia.org/wiki/Microblogging) (en inglés) baseado na "
 "ferramenta de software libre [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
@@ -3933,179 +3937,184 @@ msgstr "Repeticións de %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
-msgstr ""
+msgstr "Non pode silenciar usuarios neste sitio."
 
 #: actions/silence.php:72
 msgid "User is already silenced."
-msgstr ""
+msgstr "O usuario xa está silenciado."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
-msgstr ""
+msgstr "Configuración básica para este sitio StatusNet"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "O nome do sitio non pode quedar baleiro."
 
 #: actions/siteadminpanel.php:141
 msgid "You must have a valid contact email address."
-msgstr ""
+msgstr "Ten que ter un enderezo de correo electrónico de contacto correcto."
 
 #: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
-msgstr ""
+msgstr "Non se coñece a lingua \"%s\"."
 
 #: actions/siteadminpanel.php:165
 msgid "Minimum text limit is 0 (unlimited)."
-msgstr ""
+msgstr "O límite mínimo de texto é 0 (ilimitado)."
 
 #: actions/siteadminpanel.php:171
 msgid "Dupe limit must be one or more seconds."
-msgstr ""
+msgstr "O tempo límite de repetición debe ser de 1 ou máis segundos."
 
 #: actions/siteadminpanel.php:221
 msgid "General"
-msgstr ""
+msgstr "Xeral"
 
 #: actions/siteadminpanel.php:224
 msgid "Site name"
-msgstr ""
+msgstr "Nome do sitio"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
+"O nome do seu sitio, como por exemplo \"O microblogue da miña empresa\""
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
-msgstr ""
+msgstr "Publicado por"
 
 #: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
-msgstr ""
+msgstr "Texto utilizado para a ligazón aos créditos ao pé de cada páxina"
 
 #: actions/siteadminpanel.php:234
 msgid "Brought by URL"
-msgstr ""
+msgstr "URL do publicador"
 
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
-msgstr ""
+msgstr "URL utilizado para a ligazón aos créditos ao pé de cada páxina"
 
 #: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
-msgstr ""
+msgstr "Enderezo de correo electrónico de contacto para o seu sitio"
 
 #: actions/siteadminpanel.php:245
 msgid "Local"
-msgstr ""
+msgstr "Local"
 
 #: actions/siteadminpanel.php:256
 msgid "Default timezone"
-msgstr ""
+msgstr "Fuso horario por defecto"
 
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Fuso horario por defecto para este sitio. Adoita poñerse o UTC."
 
 #: actions/siteadminpanel.php:262
 msgid "Default language"
-msgstr ""
+msgstr "Lingua por defecto"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
 msgstr ""
+"Lingua do sitio para cando a detección automática a partir do navegador non "
+"sexa posible"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
-msgstr ""
+msgstr "Límites"
 
 #: actions/siteadminpanel.php:274
 msgid "Text limit"
-msgstr ""
+msgstr "Límite de texto"
 
 #: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "Número máximo de caracteres para as notas."
 
 #: actions/siteadminpanel.php:278
 msgid "Dupe limit"
-msgstr ""
+msgstr "Tempo límite de repetición"
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
+"Tempo (en segundos) que teñen que agardar os usuarios para publicar unha "
+"nota de novo."
 
 #: actions/sitenoticeadminpanel.php:56
 msgid "Site Notice"
-msgstr ""
+msgstr "Nota do sitio"
 
 #: actions/sitenoticeadminpanel.php:67
 msgid "Edit site-wide message"
-msgstr ""
+msgstr "Editar a mensaxe global do sitio"
 
 #: actions/sitenoticeadminpanel.php:103
 msgid "Unable to save site notice."
-msgstr ""
+msgstr "Non se puido gardar a nota do sitio."
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
-msgstr ""
+msgstr "O tamaño máximo da nota global do sitio é de 255 caracteres."
 
 #: actions/sitenoticeadminpanel.php:176
 msgid "Site notice text"
-msgstr ""
+msgstr "Texto da nota do sitio"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+"Texto da nota global do sitio (255 caracteres como máximo, pode conter HTML)"
 
 #: actions/sitenoticeadminpanel.php:198
 msgid "Save site notice"
-msgstr ""
+msgstr "Gardar a nota do sitio"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
 msgid "SMS settings"
-msgstr ""
+msgstr "Configuración dos SMS"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
 #: actions/smssettings.php:74
 #, php-format
 msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr ""
+msgstr "Pode recibir mensaxes SMS de %%site.name%% por correo electrónico."
 
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
 #: actions/smssettings.php:97
 msgid "SMS is not available."
-msgstr ""
+msgstr "Os SMS non están dispoñibles."
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "Enderezo de mensaxería instantánea"
+msgstr "Enderezo dos SMS"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
 msgid "Current confirmed SMS-enabled phone number."
-msgstr ""
+msgstr "Número de teléfono cos SMS activados confirmado actualmente."
 
 #. TRANS: Form guide in IM settings form.
 #: actions/smssettings.php:133
 msgid "Awaiting confirmation on this phone number."
-msgstr ""
+msgstr "Agardando pola confirmación do número de teléfono."
 
 #. TRANS: Field label for SMS address input in SMS settings form.
 #: actions/smssettings.php:142
 msgid "Confirmation code"
-msgstr ""
+msgstr "Código de confirmación"
 
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
-msgstr ""
+msgstr "Introduza o código que recibiu no teléfono."
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
@@ -4116,18 +4125,19 @@ msgstr "Confirmar"
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
 msgid "SMS phone number"
-msgstr ""
+msgstr "Número de teléfono para os SMS"
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:156
 msgid "Phone number, no punctuation or spaces, with area code"
 msgstr ""
+"Número de teléfono, sen signos de puntuación nin espazos en branco, co "
+"código da zona"
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Preferencias"
+msgstr "Preferencias dos SMS"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4135,32 +4145,33 @@ msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
+"Enviádeme notas por SMS. Comprendo que isto podería supoñerme uns custos "
+"exorbitantes na factura da miña compañía."
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "Gardáronse as preferencias."
+msgstr "Gardáronse as preferencias dos SMS."
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
 msgid "No phone number."
-msgstr ""
+msgstr "Non hai ningún número de teléfono."
 
 #. TRANS: Message given saving SMS phone number without having selected a carrier.
 #: actions/smssettings.php:344
 msgid "No carrier selected."
-msgstr ""
+msgstr "Non se escolleu unha compañía."
 
 #. TRANS: Message given saving SMS phone number that is already set.
 #: actions/smssettings.php:352
 msgid "That is already your phone number."
-msgstr ""
+msgstr "Ese xa é o seu número de teléfono."
 
 #. TRANS: Message given saving SMS phone number that is already set for another user.
 #: actions/smssettings.php:356
 msgid "That phone number already belongs to another user."
-msgstr ""
+msgstr "Ese número de teléfono xa pertence a outro usuario."
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
 #: actions/smssettings.php:384
@@ -4168,29 +4179,29 @@ msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
 msgstr ""
+"Enviouse un código de confirmación ao número de teléfono que engadiu. "
+"Comprobe no seu teléfono o código e as instrucións para utilizalo."
 
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
 #: actions/smssettings.php:413
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "Ese número de confirmación é incorrecto."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Cancelouse a confirmación."
+msgstr "Cancelouse a confirmación para os SMS."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
 #: actions/smssettings.php:448
 msgid "That is not your phone number."
-msgstr ""
+msgstr "Ese número de teléfono non é seu."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Borrouse o enderezo."
+msgstr "Borrouse o número de teléfono para os SMS."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
