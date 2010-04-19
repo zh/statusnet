@@ -467,7 +467,7 @@ class Action extends HTMLOutputter // lawsuit
                                 _m('MENU', 'Logout'), $tooltip, false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'closed')) {
+                if (!common_config('site', 'closed') && !common_config('site', 'inviteonly')) {
                     // TRANS: Tooltip for main menu option "Register"
                     $tooltip = _m('TOOLTIP', 'Create an account');
                     $this->menuItem(common_local_url('register'),
