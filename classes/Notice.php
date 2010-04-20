@@ -981,8 +981,7 @@ class Notice extends Memcached_DataObject
      * messages, we won't deliver to any remote targets as that's the
      * source service's responsibility.
      *
-     * @fixme Unlike saveReplies() there's no mail notification here.
-     *        Move that to distrib queue handler?
+     * Mail notifications etc will be handled later.
      *
      * @param array of unique identifier URIs for recipients
      */
@@ -1021,8 +1020,7 @@ class Notice extends Memcached_DataObject
      * and save reply records indicating that this message needs to be
      * delivered to those users.
      *
-     * Side effect: local recipients get e-mail notifications here.
-     * @fixme move mail notifications to distrib?
+     * Mail notifications to local profiles will be sent later.
      *
      * @return array of integer profile IDs
      */
@@ -1082,17 +1080,14 @@ class Notice extends Memcached_DataObject
 
         $recipientIds = array_keys($replied);
 
-        foreach ($recipientIds as $recipientId) {
-            $user = User::staticGet('id', $recipientId);
-            if (!empty($user)) {
-                self::blow('reply:stream:%d', $reply->profile_id);
-                mail_notify_attn($user, $this);
-            }
-        }
-
         return $recipientIds;
     }
 
+    /**
+     * Pull the complete list of @-reply targets for this notice.
+     *
+     * @return array of integer profile ids
+     */
     function getReplies()
     {
         // XXX: cache me
@@ -1113,6 +1108,31 @@ class Notice extends Memcached_DataObject
         $reply->free();
 
         return $ids;
+    }
+
+    /**
+     * Send e-mail notifications to local @-reply targets.
+     *
+     * Replies must already have been saved; this is expected to be run
+     * from the distrib queue handler.
+     */
+    function sendReplyNotifications()
+    {
+        // Don't send reply notifications for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
+        $recipientIds = $this->getReplies();
+
+        foreach ($recipientIds as $recipientId) {
+            $user = User::staticGet('id', $recipientId);
+            if (!empty($user)) {
+                self::blow('reply:stream:%d', $recipientId);
+                mail_notify_attn($user, $this);
+            }
+        }
     }
 
     /**
