@@ -620,7 +620,7 @@ function mail_notify_attn($user, $notice)
 
     $bestname = $sender->getBestName();
 
-    common_init_locale($user->language);
+    common_switch_locale($user->language);
 
         if ($notice->conversation != $notice->id) {
                 $conversationEmailText = "The full conversation can be read here:\n\n".
@@ -662,7 +662,7 @@ function mail_notify_attn($user, $notice)
 
     $headers = _mail_prepare_headers('mention', $user->nickname, $sender->nickname);
 
-    common_init_locale();
+    common_switch_locale();
     mail_to_user($user, $subject, $body, $headers);
 }
 
