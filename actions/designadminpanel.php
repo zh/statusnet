@@ -370,7 +370,14 @@ class DesignAdminPanelForm extends AdminForm
 
     function formData()
     {
+        $this->showLogo();
+        $this->showTheme();
+        $this->showBackground();
+        $this->showColors();
+    }
 
+    function showLogo()
+    {
         $this->out->elementStart('fieldset', array('id' => 'settings_design_logo'));
         $this->out->element('legend', null, _('Change logo'));
 
@@ -383,6 +390,11 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
 
         $this->out->elementEnd('fieldset');
+
+    }
+
+    function showTheme()
+    {
         $this->out->elementStart('fieldset', array('id' => 'settings_design_theme'));
         $this->out->element('legend', null, _('Change theme'));
 
@@ -409,7 +421,10 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementEnd('ul');
 
         $this->out->elementEnd('fieldset');
+    }
 
+    function showBackground()
+    {
         $design = $this->out->design;
 
         $this->out->elementStart('fieldset', array('id' =>
@@ -483,13 +498,17 @@ class DesignAdminPanelForm extends AdminForm
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
+    }
 
+    function showColors()
+    {
         $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->out->element('legend', null, _('Change colours'));
 
         $this->out->elementStart('ul', 'form_data');
 
         try {
+            // @fixme avoid loop unrolling in non-performance-critical contexts like this
 
             $bgcolor = new WebColor($design->backgroundcolor);
 
@@ -557,6 +576,7 @@ class DesignAdminPanelForm extends AdminForm
             $this->unli();
 
         } catch (WebColorException $e) {
+            // @fixme normalize them individually!
             common_log(LOG_ERR, 'Bad color values in site design: ' .
                 $e->getMessage());
         }
