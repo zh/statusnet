@@ -855,10 +855,10 @@ function common_linkify($url) {
     return XMLStringer::estring('a', $attrs, $url);
 }
 
-function common_shorten_links($text)
+function common_shorten_links($text, $always = false)
 {
     $maxLength = Notice::maxContent();
-    if ($maxLength == 0 || mb_strlen($text) <= $maxLength) return $text;
+    if (!$always && ($maxLength == 0 || mb_strlen($text) <= $maxLength)) return $text;
     return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
