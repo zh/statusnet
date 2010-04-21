@@ -125,9 +125,19 @@ class DesignadminpanelAction extends AdminPanelAction
             return;
         }
 
-        // check for an image upload
+        // check for file uploads
 
         $bgimage = $this->saveBackgroundImage();
+        $customTheme = $this->saveCustomTheme();
+
+        $oldtheme = common_config('site', 'theme');
+        if ($customTheme) {
+            // This feels pretty hacky :D
+            $this->args['theme'] = $customTheme;
+            $themeChanged = true;
+        } else {
+            $themeChanged = ($this->trimmed('theme') != $oldtheme);
+        }
 
         static $settings = array('theme', 'logo');
 
@@ -139,15 +149,13 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $this->validate($values);
 
-        $oldtheme = common_config('site', 'theme');
-
         $config = new Config();
 
         $config->query('BEGIN');
 
         // Only update colors if the theme has not changed.
 
-        if ($oldtheme == $values['theme']) {
+        if (!$themeChanged) {
 
             $bgcolor = new WebColor($this->trimmed('design_background'));
             $ccolor  = new WebColor($this->trimmed('design_content'));
@@ -187,6 +195,13 @@ class DesignadminpanelAction extends AdminPanelAction
 
         if (isset($bgimage)) {
             Config::save('design', 'backgroundimage', $bgimage);
+        }
+
+        if (common_config('custom_css', 'enabled')) {
+            $css = $this->arg('css');
+            if ($css != common_config('custom_css', 'css')) {
+                Config::save('custom_css', 'css', $css);
+            }
         }
 
         $config->query('COMMIT');
@@ -259,6 +274,33 @@ class DesignadminpanelAction extends AdminPanelAction
             }
 
             return $filename;
+        }
+    }
+
+    /**
+     * Save the custom theme if the user uploaded one.
+     * 
+     * @return mixed custom theme name, if succesful, or null if no theme upload.
+     * @throws ClientException for invalid theme archives
+     * @throws ServerException if trouble saving the theme files
+     */
+
+    function saveCustomTheme()
+    {
+        if (common_config('theme_upload', 'enabled') &&
+            $_FILES['design_upload_theme']['error'] == UPLOAD_ERR_OK) {
+
+            $upload = ThemeUploader::fromUpload('design_upload_theme');
+            $basedir = common_config('local', 'dir');
+            if (empty($basedir)) {
+                $basedir = INSTALLDIR . '/local';
+            }
+            $name = 'custom'; // @todo allow multiples, custom naming?
+            $outdir = $basedir . '/theme/' . $name;
+            $upload->extract($outdir);
+            return $name;
+        } else {
+            return null;
         }
     }
 
@@ -374,6 +416,7 @@ class DesignAdminPanelForm extends AdminForm
         $this->showTheme();
         $this->showBackground();
         $this->showColors();
+        $this->showAdvanced();
     }
 
     function showLogo()
@@ -417,6 +460,16 @@ class DesignAdminPanelForm extends AdminForm
                              $themes, _('Theme for the site.'),
                              false, $this->value('theme'));
         $this->unli();
+
+        if (common_config('theme_upload', 'enabled')) {
+            $this->li();
+            $this->out->element('label', array('for' => 'design_upload_theme'), _('Custom theme'));
+            $this->out->element('input', array('id' => 'design_upload_theme',
+                                               'name' => 'design_upload_theme',
+                                               'type' => 'file'));
+            $this->out->element('p', 'form_guide', _('You can upload a custom StatusNet theme as a .ZIP archive.'));
+            $this->unli();
+        }
 
         $this->out->elementEnd('ul');
 
@@ -502,6 +555,8 @@ class DesignAdminPanelForm extends AdminForm
 
     function showColors()
     {
+        $design = $this->out->design;
+
         $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
         $this->out->element('legend', null, _('Change colours'));
 
@@ -584,6 +639,27 @@ class DesignAdminPanelForm extends AdminForm
         $this->out->elementEnd('fieldset');
 
         $this->out->elementEnd('ul');
+    }
+
+    function showAdvanced()
+    {
+        if (common_config('custom_css', 'enabled')) {
+            $this->out->elementStart('fieldset', array('id' => 'settings_design_advanced'));
+            $this->out->element('legend', null, _('Advanced'));
+            $this->out->elementStart('ul', 'form_data');
+
+            $this->li();
+            $this->out->element('label', array('for' => 'css'), _('Custom CSS'));
+            $this->out->element('textarea', array('name' => 'css',
+                                            'id' => 'css',
+                                            'cols' => '50',
+                                            'rows' => '10'),
+                                strval(common_config('custom_css', 'css')));
+            $this->unli();
+
+            $this->out->elementEnd('fieldset');
+            $this->out->elementEnd('ul');
+        }
     }
 
     /**
