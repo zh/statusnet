@@ -31,13 +31,21 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once(INSTALLDIR.'/plugins/Autocomplete/autocomplete.php');
-
 class AutocompletePlugin extends Plugin
 {
     function __construct()
     {
         parent::__construct();
+    }
+
+    function onAutoload($cls)
+    {
+        switch ($cls)
+        {
+         case 'AutocompleteAction':
+            require_once(INSTALLDIR.'/plugins/Autocomplete/autocomplete.php');
+            return false;
+        }
     }
 
     function onEndShowScripts($action){
