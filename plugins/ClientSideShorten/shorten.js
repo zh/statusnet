@@ -31,21 +31,11 @@
 
     })(jQuery,'smartkeypress');
 
-    $(document).ready(function(){
-        $noticeDataText = $('#'+SN.C.S.NoticeDataText);
-        $noticeDataText.smartkeypress(function(e){
-            if(e.charCode == '32') {
-                shorten();
-            }
-        });
-        $noticeDataText.bind('paste', shorten);
-    });
-
     function shorten()
     {
         $noticeDataText = $('#'+SN.C.S.NoticeDataText);
         var original = $noticeDataText.val();
-        $.ajax({
+        shortenAjax = $.ajax({
             url: $('address .url')[0].href+'/plugins/ClientSideShorten/shorten',
             data: { text: $noticeDataText.val() },
             dataType: 'text',
@@ -56,4 +46,19 @@
             }
         });
     }
+
+    $(document).ready(function(){
+        $noticeDataText = $('#'+SN.C.S.NoticeDataText);
+        $noticeDataText.smartkeypress(function(e){
+            if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
+            if(e.charCode == '32') {
+                shorten();
+            }
+        });
+        $noticeDataText.bind('paste', function() {
+            if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
+            setTimeout(shorten,1);
+        });
+    });
+
 })();
