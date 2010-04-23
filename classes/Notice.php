@@ -1006,8 +1006,6 @@ class Notice extends Memcached_DataObject
                 $reply->profile_id = $user->id;
 
                 $id = $reply->insert();
-
-                self::blow('reply:stream:%d', $user->id);
             }
         }
 
@@ -1073,6 +1071,7 @@ class Notice extends Memcached_DataObject
                     throw new ServerException("Couldn't save reply for {$this->id}, {$mentioned->id}");
                 } else {
                     $replied[$mentioned->id] = 1;
+                    self::blow('reply:stream:%d', $mentioned->id);
                 }
             }
         }
@@ -1128,7 +1127,6 @@ class Notice extends Memcached_DataObject
         foreach ($recipientIds as $recipientId) {
             $user = User::staticGet('id', $recipientId);
             if (!empty($user)) {
-                self::blow('reply:stream:%d', $recipientId);
                 mail_notify_attn($user, $this);
             }
         }
