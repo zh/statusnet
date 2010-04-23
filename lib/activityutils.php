@@ -213,11 +213,19 @@ class ActivityUtils
         // slavishly following http://atompub.org/rfc4287.html#rfc.section.4.1.3.3
 
         if (empty($type) || $type == 'text') {
-            return $el->textContent;
+            // We have plaintext saved as the XML text content.
+            // Since we want HTML, we need to escape any special chars.
+            return htmlspecialchars($el->textContent);
         } else if ($type == 'html') {
+            // We have HTML saved as the XML text content.
+            // No additional processing required once we've got it.
             $text = $el->textContent;
-            return htmlspecialchars_decode($text, ENT_QUOTES);
+            return $text;
         } else if ($type == 'xhtml') {
+            // Per spec, the <content type="xhtml"> contains a single
+            // HTML <div> with XHTML namespace on it as a child node.
+            // We need to pull all of that <div>'s child nodes and
+            // serialize them back to an (X)HTML source fragment.
             $divEl = ActivityUtils::child($el, 'div', 'http://www.w3.org/1999/xhtml');
             if (empty($divEl)) {
                 return null;
