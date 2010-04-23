@@ -91,7 +91,7 @@ class BlacklistadminpanelAction extends AdminPanelAction
         $nickPatterns = $this->splitPatterns($this->trimmed('blacklist-nicknames'));
         Nickname_blacklist::saveNew($nickPatterns);
 
-        $urlPatterns = $this->splitPatterns($this->trimmed('url-nicknames'));
+        $urlPatterns = $this->splitPatterns($this->trimmed('blacklist-urls'));
         Homepage_blacklist::saveNew($urlPatterns);
 
         return;
