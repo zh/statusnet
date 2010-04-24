@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-19 17:11+0000\n"
-"PO-Revision-Date: 2010-04-19 17:12:36+0000\n"
+"POT-Creation-Date: 2010-04-24 14:16+0000\n"
+"PO-Revision-Date: 2010-04-24 14:18:29+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65277); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65510); Translate extension (2010-01-16)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -98,8 +98,8 @@ msgstr "Esa páxina non existe."
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:72
-#: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
+#: actions/apistatusesupdate.php:239 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:173
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -123,7 +123,7 @@ msgstr "%1$s e amigos, páxina %2$d"
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
 #: actions/all.php:89 actions/all.php:181 actions/allrss.php:116
-#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:209 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -191,7 +191,7 @@ msgstr "Vostede e mailos seus amigos"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:121 actions/apitimelinefriends.php:120
+#: actions/allrss.php:121 actions/apitimelinefriends.php:215
 #: actions/apitimelinehome.php:121
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -213,9 +213,9 @@ msgstr "Actualizacións de %1$s e amigos en %2$s!"
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:175
+#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:270
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:174
-#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:151
+#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:240
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
 #: actions/apitimelineuser.php:162 actions/apiusershow.php:101
@@ -232,7 +232,7 @@ msgstr "Non se atopou o método da API."
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apimediaupload.php:67
-#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:209
 msgid "This method requires a POST."
 msgstr "Este método require un POST."
 
@@ -264,7 +264,7 @@ msgstr "Non se puido gardar o perfil."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:222 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -656,17 +656,17 @@ msgstr "Borrouse o estado."
 msgid "No status with that ID found."
 msgstr "Non se atopou ningún estado con esa ID."
 
-#: actions/apistatusesupdate.php:161 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:252 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Iso é longo de máis. A nota non pode exceder os %d caracteres."
 
-#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:293 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Non se atopou."
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:316 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -697,12 +697,12 @@ msgstr "%1$s / Actualizacións que mencionan %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s actualizacións que responden a actualizacións de %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:196 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Liña do tempo pública de %s"
 
-#: actions/apitimelinepublic.php:112 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:201 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s actualizacións de todos!"
@@ -2330,17 +2330,16 @@ msgstr ""
 "contrasinal antes de cambiar a súa configuración."
 
 #: actions/login.php:270
-#, fuzzy
 msgid "Login with your username and password."
-msgstr "Nome de usuario ou contrasinal incorrectos."
+msgstr "Identifíquese co seu nome de usuario e contrasinal."
 
 #: actions/login.php:273
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Identifíquese co seu nome de usuario e contrasinal. Aínda non ten un nome de "
-"usuario? [Rexistre](%%action.register%%) unha conta nova."
+"Aínda non ten un nome de usuario? [Rexistre](%%action.register%%) unha conta "
+"nova."
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
@@ -2564,8 +2563,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Só %s enderezos URL sobre HTTP simple."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1070
-#: lib/apiaction.php:1099 lib/apiaction.php:1216
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1131
+#: lib/apiaction.php:1160 lib/apiaction.php:1277
 msgid "Not a supported data format."
 msgstr "Non se soporta ese formato de datos."
 
@@ -4206,12 +4205,12 @@ msgstr "Borrouse o número de teléfono para os SMS."
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
 msgid "Mobile carrier"
-msgstr ""
+msgstr "Compañía"
 
 #. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:516
 msgid "Select a carrier"
-msgstr ""
+msgstr "Escolla unha compañía"
 
 #. TRANS: Form instructions for mobile carrier dropdown menu in SMS settings.
 #. TRANS: %s is an administrative contact's e-mail address.
@@ -4221,123 +4220,128 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
+"Compañía de telecomunicacións coa que contratou o seu móbil. Se sabe "
+"dalgunha compañía que permita SMS sobre correo electrónico pero non aparece "
+"nesta lista, envíenos un correo electrónico para notificárnolo a %s."
 
 #. TRANS: Message given saving SMS phone number confirmation code without having provided one.
 #: actions/smssettings.php:548
 msgid "No code entered"
-msgstr ""
+msgstr "Non se introduciu ningún código"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:407
 msgid "Snapshots"
-msgstr ""
+msgstr "Instantáneas"
 
 #: actions/snapshotadminpanel.php:65
 msgid "Manage snapshot configuration"
-msgstr ""
+msgstr "Xestione a configuración das instantáneas"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
-msgstr ""
+msgstr "Valor de execución da instantánea incorrecto."
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "A frecuencia das instantáneas debe ser un número."
 
 #: actions/snapshotadminpanel.php:144
 msgid "Invalid snapshot report URL."
-msgstr ""
+msgstr "URL de envío das instantáneas incorrecto."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
-msgstr ""
+msgstr "Ao chou durante o acceso á rede"
 
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
-msgstr ""
+msgstr "Nun proceso programado"
 
 #: actions/snapshotadminpanel.php:206
 msgid "Data snapshots"
-msgstr ""
+msgstr "Instantáneas de datos"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
-msgstr ""
+msgstr "Cando enviar información estatística aos servidores status.net"
 
 #: actions/snapshotadminpanel.php:217
 msgid "Frequency"
-msgstr ""
+msgstr "Frecuencia"
 
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
-msgstr ""
+msgstr "As instantáneas enviaranse unha vez cada N accesos á rede"
 
 #: actions/snapshotadminpanel.php:226
 msgid "Report URL"
-msgstr ""
+msgstr "URL de envío"
 
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "As instantáneas enviaranse a este URL"
 
 #: actions/snapshotadminpanel.php:248
 msgid "Save snapshot settings"
-msgstr ""
+msgstr "Gardar a configuración das instantáneas"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
-msgstr ""
+msgstr "Non está subscrito a ese perfil."
 
 #: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
-msgstr ""
+msgstr "Non se puido gardar a subscrición."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Esta acción só permite solicitudes POST."
 
 #: actions/subscribe.php:107
 msgid "No such profile."
-msgstr ""
+msgstr "Non existe ese perfil."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr ""
+msgstr "Non se pode subscribir a un perfil remoto OMB 0.1 con esta acción."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
-msgstr ""
+msgstr "Subscrito"
 
 #: actions/subscribers.php:50
 #, php-format
 msgid "%s subscribers"
-msgstr ""
+msgstr "%s subscritores"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr ""
+msgstr "%1$s subscritores, páxina %2$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
-msgstr ""
+msgstr "Estas son as persoas que seguen as súas notas."
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr ""
+msgstr "Estas son as persoas que están seguindo as notas de %s."
 
 #: actions/subscribers.php:108
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
 msgstr ""
+"Non ten subscritores. Probe a subscribirse a xente que coñeza e pode que lle "
+"devolvan o favor"
 
 #: actions/subscribers.php:110
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
-msgstr ""
+msgstr "%s non ten subscritores. Quere ser o primeiro?"
 
 #: actions/subscribers.php:114
 #, php-format
@@ -4345,25 +4349,27 @@ msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
 msgstr ""
+"%s non ten subscritores. Por que non [rexistrar unha conta](%%%%action."
+"register%%%%) e ser o primeiro?"
 
 #: actions/subscriptions.php:52
 #, php-format
 msgid "%s subscriptions"
-msgstr ""
+msgstr "%s subscricións"
 
 #: actions/subscriptions.php:54
 #, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr ""
+msgstr "%1$s subscricións, páxina %2$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr ""
+msgstr "Estas son as persoas cuxas notas segue."
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "Estas son as persoas cuxas notas segue %s."
 
 #: actions/subscriptions.php:126
 #, php-format
@@ -4374,188 +4380,200 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
+"Agora mesmo non está a seguir as notas de ninguén, probe a subscribirse a "
+"xente que coñeza. Intente [buscar xente](%%action.peoplesearch%%), buscar "
+"xente en grupos que lle interesen e nos nosos [usuarios destacados](%%action."
+"featured%%). Se é [usuario do Twitter](%%action.twittersettings%%), pode "
+"subscribirse automaticamente á xente que segue alí."
 
 #: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
-msgstr ""
+msgstr "%s non está seguindo a ninguén."
 
 #: actions/subscriptions.php:208
 msgid "Jabber"
-msgstr ""
+msgstr "Jabber"
 
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #: actions/tag.php:69
 #, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr ""
+msgstr "Notas etiquetadas con %1$s, páxina %2$d"
 
 #: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr ""
+msgstr "Fonte de novas das notas para a etiqueta %s (RSS 1.0)"
 
 #: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr ""
+msgstr "Fonte de novas das notas para a etiqueta %s (RSS 2.0)"
 
 #: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr ""
+msgstr "Fonte de novas das notas para a etiqueta %s (Atom)"
 
 #: actions/tagother.php:39
 msgid "No ID argument."
-msgstr ""
+msgstr "Sen argumento ID."
 
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
-msgstr ""
+msgstr "Etiqueta %s"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
-msgstr ""
+msgstr "Perfil do usuario"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
 msgid "Photo"
-msgstr ""
+msgstr "Fotografía"
 
 #: actions/tagother.php:141
 msgid "Tag user"
-msgstr ""
+msgstr "Etiquetar ao usuario"
 
 #: actions/tagother.php:151
 msgid ""
 "Tags for this user (letters, numbers, -, ., and _), comma- or space- "
 "separated"
 msgstr ""
+"Etiquetas para este usuario (letras, números, -, ., e _), separadas por "
+"comas ou espazos en branco"
 
 #: actions/tagother.php:193
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
+"Só pode etiquetar a xente á que estea subscrito ou que estean subscritos a "
+"vostede."
 
 #: actions/tagother.php:200
 msgid "Could not save tags."
-msgstr ""
+msgstr "Non se puideron gardar as etiquetas."
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
+"Utilice este formulario para engadir etiquetas aos seus subscritores ou "
+"subscricións."
 
 #: actions/tagrss.php:35
 msgid "No such tag."
-msgstr ""
+msgstr "Esa etiqueta non existe."
 
 #: actions/twitapitrends.php:85
 msgid "API method under construction."
-msgstr ""
+msgstr "Método API en desenvolvemento."
 
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
-msgstr ""
+msgstr "Non bloqueou a ese usuario."
 
 #: actions/unsandbox.php:72
 msgid "User is not sandboxed."
-msgstr ""
+msgstr "O usuario non está illado."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
-msgstr ""
+msgstr "O usuario non está silenciado."
 
 #: actions/unsubscribe.php:77
-#, fuzzy
 msgid "No profile ID in request."
-msgstr "Non se solicitou ningún pase."
+msgstr "Á solicitude fáltalle o ID do perfil."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
-msgstr ""
+msgstr "Cancelouse a subscrición"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
+"A licenza \"%1$s\" das transmisións da persoa seguida non é compatible coa "
+"licenza deste sitio: \"%2$s\"."
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:59
 msgctxt "TITLE"
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #: actions/useradminpanel.php:70
 msgid "User settings for this StatusNet site."
-msgstr ""
+msgstr "Preferencias de usuario para este sitio StatusNet."
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
-msgstr ""
+msgstr "Límite da biografía incorrecto. Debe ser numérico."
 
 #: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr ""
+msgstr "Texto de benvida incorrecto. A extensión máxima é de 255 caracteres."
 
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr ""
+msgstr "Subscrición por defecto incorrecta. \"%1$s\" non é un usuario."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
 #: lib/personalgroupnav.php:109
 msgid "Profile"
-msgstr ""
+msgstr "Perfil"
 
 #: actions/useradminpanel.php:222
 msgid "Bio Limit"
-msgstr ""
+msgstr "Límite da biografía"
 
 #: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
-msgstr ""
+msgstr "Extensión máxima da biografía dun perfil en caracteres."
 
 #: actions/useradminpanel.php:231
 msgid "New users"
-msgstr ""
+msgstr "Novos usuarios"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
-msgstr ""
+msgstr "Nova benvida para os usuarios"
 
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
-msgstr ""
+msgstr "Texto de benvida para os novos usuarios (255 caracteres como máximo)."
 
 #: actions/useradminpanel.php:241
 msgid "Default subscription"
-msgstr ""
+msgstr "Subscrición por defecto"
 
 #: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
-msgstr ""
+msgstr "Subscribir automaticamente aos novos usuarios a este usuario."
 
 #: actions/useradminpanel.php:251
 msgid "Invitations"
-msgstr ""
+msgstr "Invitacións"
 
 #: actions/useradminpanel.php:256
 msgid "Invitations enabled"
-msgstr ""
+msgstr "Activáronse as invitacións"
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
-msgstr ""
+msgstr "Se se permite aos usuarios invitar a novos usuarios."
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
-msgstr ""
+msgstr "Autorizar a subscrición"
 
 #: actions/userauthorization.php:110
 msgid ""
@@ -4563,35 +4581,38 @@ msgid ""
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
+"Verifique estes detalles para asegurar que quere subscribirse ás notas deste "
+"usuario. Se non acaba de pedir subscribirse ás notas de alguén, prema en "
+"«Rexeitar»."
 
 #: actions/userauthorization.php:196 actions/version.php:165
 msgid "License"
-msgstr ""
+msgstr "Licenza"
 
 #: actions/userauthorization.php:217
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr ""
+msgstr "Subscribirse a este usuario"
 
 #: actions/userauthorization.php:219
 msgid "Reject"
-msgstr ""
+msgstr "Rexeitar"
 
 #: actions/userauthorization.php:220
 msgid "Reject this subscription"
-msgstr ""
+msgstr "Rexeitar esta subscrición"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
-msgstr ""
+msgstr "Non se solicitou a autorización!"
 
 #: actions/userauthorization.php:254
 msgid "Subscription authorized"
-msgstr ""
+msgstr "Autorizouse a subscrición"
 
 #: actions/userauthorization.php:256
 msgid ""
@@ -4599,10 +4620,13 @@ msgid ""
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
+"Autorizouse a subscrición, pero non se devolveu ningún URL. Bote unha ollada "
+"ás instrucións do sitio para saber máis sobre como autorizar a subscrición. "
+"O pase da súa subscrición é:"
 
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
-msgstr ""
+msgstr "Rexeitouse a subscrición"
 
 #: actions/userauthorization.php:268
 msgid ""
@@ -4610,75 +4634,80 @@ msgid ""
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
+"Rexeitouse a subscrición, pero non se devolveu ningún URL. Bote unha ollada "
+"ás instrucións do sitio para obter máis información sobre como rexeitar "
+"completamente a subscrición."
 
 #: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
-msgstr ""
+msgstr "Non se atopou o URI do seguidor, «%s», aquí."
 
 #: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr ""
+msgstr "O URI do seguido, «%s», é longa de máis."
 
 #: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr ""
+msgstr "O URI do seguido, «%s», é dun usuario local."
 
 #: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
-msgstr ""
+msgstr "O URL de perfil «%s» pertence a un usuario local."
 
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr ""
+msgstr "O URL do avatar, «%s», é incorrecto."
 
 #: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr ""
+msgstr "Non se puido ler o URL do avatar, «%s»."
 
 #: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr ""
+msgstr "O tipo de imaxe do URL do avatar, «%s», é incorrecto."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
-msgstr ""
+msgstr "Deseño do perfil"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+"Personalice a aparencia do seu perfil cunha imaxe de fondo e unha paleta de "
+"cores escollida por vostede."
 
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
-msgstr ""
+msgstr "Bo proveito!"
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #: actions/usergroups.php:66
 #, php-format
 msgid "%1$s groups, page %2$d"
-msgstr ""
+msgstr "%1$s grupos, páxina %2$d"
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
-msgstr ""
+msgstr "Buscar máis grupos"
 
 #: actions/usergroups.php:159
 #, php-format
 msgid "%s is not a member of any group."
-msgstr ""
+msgstr "%s non pertence a ningún grupo."
 
 #: actions/usergroups.php:164
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
-msgstr ""
+msgstr "Probe a [buscar grupos](%%action.groupsearch%%) e unirse a el."
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle in atom group notice feed.
@@ -4689,12 +4718,12 @@ msgstr ""
 #: lib/atomusernoticefeed.php:75
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr ""
+msgstr "Actualizacións de %1$s en %2$s!"
 
 #: actions/version.php:73
 #, php-format
 msgid "StatusNet %s"
-msgstr ""
+msgstr "%s de StatusNet"
 
 #: actions/version.php:153
 #, php-format
@@ -4702,10 +4731,12 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
+"Este sitio foi desenvolvido sobre a versión %2$s de %1$s, propiedade de "
+"StatusNet, Inc. e contribuidores, 2008-2010."
 
 #: actions/version.php:161
 msgid "Contributors"
-msgstr ""
+msgstr "Contribuidores"
 
 #: actions/version.php:168
 msgid ""
@@ -4714,6 +4745,10 @@ msgid ""
 "Software Foundation, either version 3 of the License, or (at your option) "
 "any later version. "
 msgstr ""
+"StatusNet é software libre: pode redistribuílo e modificalo baixo os termos "
+"da Licenza Pública Xeral Affero de GNU, tal e como a publicou a Free "
+"Software Foundation, ben a versión 3 ben calquera versión posterior (a "
+"elección do usuario) da licenza. "
 
 #: actions/version.php:174
 msgid ""
@@ -4722,6 +4757,10 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
 "for more details. "
 msgstr ""
+"Este programa distribúese coa esperanza de que resulte útil, pero SEN "
+"NINGUNHA GARANTÍA, nin sequera as garantías implícitas de COMERCIALIDADE ou "
+"IDONEIDADE PARA UN PROPÓSITO PARTICULAR. Lea a Licenza Pública Xeral Affero "
+"de GNU para máis información. "
 
 #: actions/version.php:180
 #, php-format
@@ -4729,19 +4768,21 @@ msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
 msgstr ""
+"Debeu recibir unha copia da Licenza Pública Xeral Affero de GNU xunto co "
+"programa. En caso contrario, vexa %s."
 
 #: actions/version.php:189
 msgid "Plugins"
-msgstr ""
+msgstr "Engadidos"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
 #: actions/version.php:196 lib/action.php:779
 msgid "Version"
-msgstr ""
+msgstr "Versión"
 
 #: actions/version.php:197
 msgid "Author(s)"
-msgstr ""
+msgstr "Autores"
 
 #: classes/File.php:169
 #, php-format
@@ -4749,371 +4790,376 @@ msgid ""
 "No file may be larger than %d bytes and the file you sent was %d bytes. Try "
 "to upload a smaller version."
 msgstr ""
+"Ningún ficheiro pode superar os %d bytes e o que enviou ocupaba %d. Probe a "
+"subir un ficheiro máis pequeno."
 
 #: classes/File.php:179
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
+"Un ficheiro deste tamaño excedería da súa cota de usuario, que é de %d bytes."
 
 #: classes/File.php:186
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
-msgstr ""
+msgstr "Un ficheiro deste tamaño excedería a súa cota mensual de %d bytes."
 
 #: classes/Group_member.php:41
 msgid "Group join failed."
-msgstr ""
+msgstr "Non se puido unir ao grupo."
 
 #: classes/Group_member.php:53
 msgid "Not part of group."
-msgstr ""
+msgstr "Non forma parte do grupo."
 
 #: classes/Group_member.php:60
 msgid "Group leave failed."
-msgstr ""
+msgstr "Non se puido deixar o grupo."
 
 #: classes/Local_group.php:41
 msgid "Could not update local group."
-msgstr ""
+msgstr "Non se puido actualizar o grupo local."
 
 #: classes/Login_token.php:76
 #, php-format
 msgid "Could not create login token for %s"
-msgstr ""
+msgstr "Non se puido crear un pase de sesión para %s"
 
 #: classes/Message.php:45
 msgid "You are banned from sending direct messages."
-msgstr ""
+msgstr "Prohibíuselle enviar mensaxes directas de momento."
 
 #: classes/Message.php:61
 msgid "Could not insert message."
-msgstr ""
+msgstr "Non se puido inserir a mensaxe."
 
 #: classes/Message.php:71
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "Non se puido actualizar a mensaxe co novo URI."
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:176
-#, fuzzy, php-format
+#, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr ""
-"Houbo un erro na base de datos ao intentar inserir o usuario da aplicación "
-"OAuth."
+msgstr "Houbo un erro na base de datos ao intentar inserir a etiqueta %s"
 
 #: classes/Notice.php:245
 msgid "Problem saving notice. Too long."
-msgstr ""
+msgstr "Houbo un problema ao gardar a nota. É longa de máis."
 
 #: classes/Notice.php:249
 msgid "Problem saving notice. Unknown user."
-msgstr ""
+msgstr "Houbo un problema ao gardar a nota. Descoñécese o usuario."
 
 #: classes/Notice.php:254
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
+"Escribiu demasiadas notas en moi pouco tempo. Tómese un respiro e volva "
+"publicar nuns minutos."
 
 #: classes/Notice.php:260
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
+"Repetiu demasiadas mensaxes en moi pouco tempo. Tómese un respiro e volva "
+"publicar nuns minutos."
 
 #: classes/Notice.php:266
 msgid "You are banned from posting notices on this site."
-msgstr ""
+msgstr "Prohibíuselle publicar notas neste sitio de momento."
 
 #: classes/Notice.php:332 classes/Notice.php:358
 msgid "Problem saving notice."
-msgstr ""
+msgstr "Houbo un problema ao gardar a nota."
 
 #: classes/Notice.php:967
 msgid "Problem saving group inbox."
-msgstr ""
+msgstr "Houbo un problema ao gardar a caixa de entrada do grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1515
+#: classes/Notice.php:1535
 #, php-format
 msgid "RT @%1$s %2$s"
-msgstr ""
+msgstr "♻ @%1$s %2$s"
 
 #: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
-msgstr ""
+msgstr "Prohibíuselle realizar subscricións de momento."
 
 #: classes/Subscription.php:78
 msgid "Already subscribed!"
-msgstr ""
+msgstr "Xa está subscrito!"
 
 #: classes/Subscription.php:82
 msgid "User has blocked you."
-msgstr ""
+msgstr "O usuario bloqueouno."
 
 #: classes/Subscription.php:167
 msgid "Not subscribed!"
-msgstr ""
+msgstr "Non está subscrito!"
 
 #: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
-msgstr ""
+msgstr "Non se puido borrar a subscrición automática."
 
 #: classes/Subscription.php:200
 msgid "Couldn't delete subscription OMB token."
-msgstr ""
+msgstr "Non se puido borrar o pase de subscrición OMB."
 
 #: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
-msgstr ""
+msgstr "Non se puido borrar a subscrición."
 
 #: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr ""
+msgstr "Benvido a %1$s, @%2$s!"
 
 #: classes/User_group.php:480
 msgid "Could not create group."
-msgstr ""
+msgstr "Non se puido crear o grupo."
 
 #: classes/User_group.php:489
 msgid "Could not set group URI."
-msgstr ""
+msgstr "Non se puido establecer o URI do grupo."
 
 #: classes/User_group.php:510
 msgid "Could not set group membership."
-msgstr ""
+msgstr "Non se puido establecer a pertenza ao grupo."
 
 #: classes/User_group.php:524
 msgid "Could not save local group info."
-msgstr ""
+msgstr "Non se puido gardar a información do grupo local."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Cambie a configuración do seu perfil"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:116
 msgid "Upload an avatar"
-msgstr ""
+msgstr "Cargue un avatar"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
 msgid "Change your password"
-msgstr ""
+msgstr "Cambie o seu contrasinal"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
 msgid "Change email handling"
-msgstr ""
+msgstr "Cambie a xestión do correo electrónico"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:137
 msgid "Design your profile"
-msgstr ""
+msgstr "Deseñe o seu perfil"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
 msgid "Other options"
-msgstr ""
+msgstr "Outras opcións"
 
 #. TRANS: Link description in user account settings menu.
 #: lib/accountsettingsaction.php:146
 msgid "Other"
-msgstr ""
+msgstr "Outros"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
 #: lib/action.php:145
 #, php-format
 msgid "%1$s - %2$s"
-msgstr ""
+msgstr "%1$s - %2$s"
 
 #. TRANS: Page title for a page without a title set.
 #: lib/action.php:161
 msgid "Untitled page"
-msgstr ""
+msgstr "Páxina sen título"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
 #: lib/action.php:426
 msgid "Primary site navigation"
-msgstr ""
+msgstr "Navegación principal do sitio"
 
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:432
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
-msgstr ""
+msgstr "Liña do tempo do perfil persoal e os amigos"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
 #: lib/action.php:435
 msgctxt "MENU"
 msgid "Personal"
-msgstr ""
+msgstr "Persoal"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:437
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
-msgstr ""
+msgstr "Cambie o seu correo electrónico, avatar, contrasinal ou perfil"
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:442
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr ""
+msgstr "Conectarse a servizos"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:445
 msgid "Connect"
-msgstr ""
+msgstr "Conectarse"
 
 #. TRANS: Tooltip for menu option "Admin"
 #: lib/action.php:448
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
-msgstr ""
+msgstr "Cambiar a configuración do sitio"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #: lib/action.php:451
 msgctxt "MENU"
 msgid "Admin"
-msgstr ""
+msgstr "Administrador"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:455
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
-msgstr ""
+msgstr "Convide a amigos e compañeiros a unírselle en %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
 #: lib/action.php:458
 msgctxt "MENU"
 msgid "Invite"
-msgstr ""
+msgstr "Convidar"
 
 #. TRANS: Tooltip for main menu option "Logout"
 #: lib/action.php:464
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
-msgstr ""
+msgstr "Saír do anonimato"
 
 #. TRANS: Main menu option when logged in to log out the current user
 #: lib/action.php:467
 msgctxt "MENU"
 msgid "Logout"
-msgstr ""
+msgstr "Saír"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:472
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr ""
+msgstr "Crear unha conta"
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:475
 msgctxt "MENU"
 msgid "Register"
-msgstr ""
+msgstr "Rexistrarse"
 
 #. TRANS: Tooltip for main menu option "Login"
 #: lib/action.php:478
 msgctxt "TOOLTIP"
 msgid "Login to the site"
-msgstr ""
+msgstr "Identificarse no sitio"
 
 #: lib/action.php:481
 msgctxt "MENU"
 msgid "Login"
-msgstr ""
+msgstr "Identificarse"
 
 #. TRANS: Tooltip for main menu option "Help"
 #: lib/action.php:484
 msgctxt "TOOLTIP"
 msgid "Help me!"
-msgstr ""
+msgstr "Axuda!"
 
 #: lib/action.php:487
 msgctxt "MENU"
 msgid "Help"
-msgstr ""
+msgstr "Axuda"
 
 #. TRANS: Tooltip for main menu option "Search"
 #: lib/action.php:490
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
-msgstr ""
+msgstr "Buscar persoas ou palabras"
 
 #: lib/action.php:493
 msgctxt "MENU"
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
 #: lib/action.php:515 lib/adminpanelaction.php:399
 msgid "Site notice"
-msgstr ""
+msgstr "Nota do sitio"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
 #: lib/action.php:582
 msgid "Local views"
-msgstr ""
+msgstr "Vistas locais"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
 #: lib/action.php:649
 msgid "Page notice"
-msgstr ""
+msgstr "Nota da páxina"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:752
 msgid "Secondary site navigation"
-msgstr ""
+msgstr "Navegación secundaria do sitio"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
 #: lib/action.php:758
 msgid "Help"
-msgstr ""
+msgstr "Axuda"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
 #: lib/action.php:761
 msgid "About"
-msgstr ""
+msgstr "Acerca de"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
 #: lib/action.php:764
 msgid "FAQ"
-msgstr ""
+msgstr "Preguntas máis frecuentes"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
 #: lib/action.php:769
 msgid "TOS"
-msgstr ""
+msgstr "Condicións do servicio"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
 #: lib/action.php:773
 msgid "Privacy"
-msgstr ""
+msgstr "Privacidade"
 
 #. TRANS: Secondary navigation menu option.
 #: lib/action.php:776
 msgid "Source"
-msgstr ""
+msgstr "Código fonte"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
 #: lib/action.php:782
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: lib/action.php:784
 msgid "Badge"
-msgstr ""
+msgstr "Insignia"
 
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:813
 msgid "StatusNet software license"
-msgstr ""
+msgstr "Licenza do software StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:817
@@ -5122,12 +5168,14 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
+"**%%site.name%%** é un servizo de microblogue ofrecido por [%%site.broughtby%"
+"%](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:820
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
-msgstr ""
+msgstr "**%%site.name%%** é un servizo de microblogue."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
 #: lib/action.php:824
@@ -5137,18 +5185,21 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
+"Utiliza a versión %s do software de microblogue [StatusNet](http://status."
+"net/), dispoñible baixo a [Licenza Pública Xeral Affero de GNU](http://www."
+"fsf.org/licensing/licenses/agpl-3.0.html) (en inglés)."
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:840
 msgid "Site content license"
-msgstr ""
+msgstr "Licenza dos contidos do sitio"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
 #: lib/action.php:847
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
-msgstr ""
+msgstr "O contido e os datos de %1$s son privados e confidenciais."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
@@ -5156,215 +5207,223 @@ msgstr ""
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
+"os contidos e datos son propiedade intelectual de %1$s. Quedan reservados "
+"todos os dereitos."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
 #: lib/action.php:858
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
+"Os contidos e datos son propiedade intelectual dos contribuidores. Quedan "
+"reservados todos os dereitos."
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
 #: lib/action.php:871
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
-msgstr ""
+msgstr "Todos os contidos e datos de %1$s están baixo a licenza %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
 #: lib/action.php:1182
 msgid "Pagination"
-msgstr ""
+msgstr "Paxinación"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
 #: lib/action.php:1193
 msgid "After"
-msgstr ""
+msgstr "Posteriores"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
 #: lib/action.php:1203
 msgid "Before"
-msgstr ""
+msgstr "Anteriores"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
 #: lib/activity.php:121
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
+"Esperábase unha fonte de novas raíz pero recibiuse un documento XML completo."
 
 #: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "Aínda non é posible manexar contidos remotos."
 
 #: lib/activityutils.php:236
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "Aínda non se poden manexar contidos XML integrados."
 
 #: lib/activityutils.php:240
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "Aínda non se poden manexar contidos Base64."
 
 #. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
 #: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
-msgstr ""
+msgstr "Non pode realizar cambios neste sitio."
 
 #. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:110
 msgid "Changes to that panel are not allowed."
-msgstr ""
+msgstr "Non se permite realizar cambios nese panel."
 
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
-msgstr ""
+msgstr "showForm() non está integrado."
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
-msgstr ""
+msgstr "saveSettings() non está integrado."
 
 #. TRANS: Client error message thrown if design settings could not be deleted in
 #. TRANS: the admin panel Design.
 #: lib/adminpanelaction.php:284
 msgid "Unable to delete design setting."
-msgstr ""
+msgstr "Non se puido borrar a configuración do deseño."
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:349
 msgid "Basic site configuration"
-msgstr ""
+msgstr "Configuración básica do sitio"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:351
 msgctxt "MENU"
 msgid "Site"
-msgstr ""
+msgstr "Sitio"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:357
 msgid "Design configuration"
-msgstr ""
+msgstr "Configuración do deseño"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:359
 msgctxt "MENU"
 msgid "Design"
-msgstr ""
+msgstr "Deseño"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:365
 msgid "User configuration"
-msgstr ""
+msgstr "Configuración do usuario"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:367 lib/personalgroupnav.php:115
 msgid "User"
-msgstr ""
+msgstr "Usuario"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:373
 msgid "Access configuration"
-msgstr ""
+msgstr "Configuración do acceso"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:381
 msgid "Paths configuration"
-msgstr ""
+msgstr "Configuración das rutas"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:389
 msgid "Sessions configuration"
-msgstr ""
+msgstr "Configuración das sesións"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:397
 msgid "Edit site notice"
-msgstr ""
+msgstr "Modificar a nota do sitio"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:405
 msgid "Snapshots configuration"
-msgstr ""
+msgstr "Configuración das instantáneas"
 
 #. TRANS: Client error 401.
-#: lib/apiauth.php:95
+#: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
+"O recurso API precisa permisos de lectura e escritura, pero só dispón de "
+"permisos de lectura."
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:137
 msgid "Edit application"
-msgstr ""
+msgstr "Modificar a aplicación"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:187
 msgid "Icon for this application"
-msgstr ""
+msgstr "Icona para esta aplicación"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:209
 #, php-format
 msgid "Describe your application in %d characters"
-msgstr ""
+msgstr "Describa a súa aplicación en %d caracteres"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:213
 msgid "Describe your application"
-msgstr ""
+msgstr "Describa a súa aplicación"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
 msgid "URL of the homepage of this application"
-msgstr ""
+msgstr "URL do sitio web desta aplicación"
 
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:226
 msgid "Source URL"
-msgstr ""
+msgstr "URL de orixe"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
 msgid "Organization responsible for this application"
-msgstr ""
+msgstr "Organización responsable desta aplicación"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
 msgid "URL for the homepage of the organization"
-msgstr ""
+msgstr "URL ao sitio web da organización"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:251
 msgid "URL to redirect to after authentication"
-msgstr ""
+msgstr "URL ao que ir tras a autenticación"
 
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:278
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:295
 msgid "Desktop"
-msgstr ""
+msgstr "Escritorio"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:297
 msgid "Type of application, browser or desktop"
-msgstr ""
+msgstr "Tipo de aplicación, de navegador ou de escritorio"
 
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:320
 msgid "Read-only"
-msgstr ""
+msgstr "Lectura"
 
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:339
 msgid "Read-write"
-msgstr ""
+msgstr "Lectura e escritura"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:341
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
+"Permisos por defecto para esta aplicación: lectura, ou lectura e escritura"
 
 #. TRANS: Submit button title
 #: lib/applicationeditform.php:359
@@ -5374,18 +5433,18 @@ msgstr "Cancelar"
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
 msgid "read-write"
-msgstr ""
+msgstr "lectura e escritura"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:138
 msgid "read-only"
-msgstr ""
+msgstr "lectura"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr ""
+msgstr "Aprobado o %1$s - Permisos de «%2$s»."
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
@@ -5396,82 +5455,82 @@ msgstr "Revogar"
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
 msgid "Attachments"
-msgstr ""
+msgstr "Ficheiros anexos"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:265
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
 msgid "Provider"
-msgstr ""
+msgstr "Provedor"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
-msgstr ""
+msgstr "Notas nas que se anexou este ficheiro"
 
 #: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
-msgstr ""
+msgstr "Etiquetas para este ficheiro"
 
 #: lib/authenticationplugin.php:220 lib/authenticationplugin.php:225
 msgid "Password changing failed"
-msgstr ""
+msgstr "Non se puido cambiar o contrasinal"
 
 #: lib/authenticationplugin.php:235
 msgid "Password changing is not allowed"
-msgstr ""
+msgstr "Non se permite cambiar o contrasinal"
 
 #: lib/channel.php:157 lib/channel.php:177
 msgid "Command results"
-msgstr ""
+msgstr "Resultados da orde"
 
 #: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
-msgstr ""
+msgstr "Completouse a orde"
 
 #: lib/channel.php:240
 msgid "Command failed"
-msgstr ""
+msgstr "A orde fallou"
 
 #: lib/command.php:83 lib/command.php:105
 msgid "Notice with that id does not exist"
-msgstr ""
+msgstr "Non hai ningunha nota con esa id"
 
 #: lib/command.php:99 lib/command.php:596
 msgid "User has no last notice"
-msgstr ""
+msgstr "O usuario non ten ningunha última nota"
 
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
 #: lib/command.php:127
 #, php-format
 msgid "Could not find a user with nickname %s"
-msgstr ""
+msgstr "Non se deu atopado ningún usuario co alcume %s"
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:147
 #, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr ""
+msgstr "Non se deu atopado un usuario local co alcume %s"
 
 #: lib/command.php:180
 msgid "Sorry, this command is not yet implemented."
-msgstr ""
+msgstr "Esta orde aínda non está integrada."
 
 #: lib/command.php:225
 msgid "It does not make a lot of sense to nudge yourself!"
-msgstr ""
+msgstr "Non ten sentido ningún facerse un aceno a un mesmo!"
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
 #: lib/command.php:234
 #, php-format
 msgid "Nudge sent to %s"
-msgstr ""
+msgstr "Fíxoselle un aceno a %s"
 
 #: lib/command.php:260
 #, php-format
@@ -5480,54 +5539,57 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
+"Subscricións: %1$s\n"
+"Subscritores: %2$s\n"
+"Notas: %3$s"
 
 #: lib/command.php:302
 msgid "Notice marked as fave."
-msgstr ""
+msgstr "Marcouse a nota como  favorita."
 
 #: lib/command.php:323
 msgid "You are already a member of that group"
-msgstr ""
+msgstr "Xa forma parte dese grupo"
 
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s"
-msgstr "O usuario %1$s non se puido engadir ao grupo %2$s."
+msgstr "Non se puido meter ao usuario %1$s no grupo %2$s"
 
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "O usuario %1$s non se puido eliminar do grupo %2$s."
+msgstr "Non se puido eliminar ao usuario %1$s do grupo %2$s"
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
 #, php-format
 msgid "Fullname: %s"
-msgstr ""
+msgstr "Nome completo: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/command.php:422 lib/mail.php:263
 #, php-format
 msgid "Location: %s"
-msgstr ""
+msgstr "Localidade: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/command.php:426 lib/mail.php:266
 #, php-format
 msgid "Homepage: %s"
-msgstr ""
+msgstr "Sitio web: %s"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
 #: lib/command.php:430
 #, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "Acerca de: %s"
 
 #: lib/command.php:457
 #, php-format
@@ -5535,117 +5597,120 @@ msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
+"%s é un perfil remoto. Só pode enviarlle mensaxes persoais aos usuarios do "
+"mesmo servidor."
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
 #, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr ""
+msgstr "A mensaxe é longa de máis. O límite son %1$d caracteres, e enviou %2$d"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
 #: lib/command.php:492
 #, php-format
 msgid "Direct message to %s sent"
-msgstr ""
+msgstr "Envióuselle a mensaxe directa a %s"
 
 #: lib/command.php:494
 msgid "Error sending direct message."
-msgstr ""
+msgstr "Houbo un erro ao enviar a mensaxe directa."
 
 #: lib/command.php:514
 msgid "Cannot repeat your own notice"
-msgstr ""
+msgstr "Non pode repetir unha nota propia"
 
 #: lib/command.php:519
 msgid "Already repeated that notice"
-msgstr ""
+msgstr "Xa repetiu esa nota"
 
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
 #: lib/command.php:529
 #, php-format
 msgid "Notice from %s repeated"
-msgstr ""
+msgstr "Repetiuse a nota de %s"
 
 #: lib/command.php:531
 msgid "Error repeating notice."
-msgstr ""
+msgstr "Houbo un erro ao repetir a nota."
 
 #: lib/command.php:562
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr ""
+msgstr "A nota é longa de máis. O límite son %d caracteres, e enviou %d"
 
 #: lib/command.php:571
 #, php-format
 msgid "Reply to %s sent"
-msgstr ""
+msgstr "Enviouse a resposta a %s"
 
 #: lib/command.php:573
 msgid "Error saving notice."
-msgstr ""
+msgstr "Houbo un erro ao gardar a nota."
 
 #: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
-msgstr ""
+msgstr "Introduza o  nome do usuario ao que quere subscribirse"
 
 #: lib/command.php:628
 msgid "Can't subscribe to OMB profiles by command."
-msgstr ""
+msgstr "Non se pode subscribirse aos perfís OMB cunha orde."
 
 #: lib/command.php:634
 #, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "Subscribiuse a %s"
 
 #: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
+msgstr "Introduza o nome do usuario ao que quer deixar de estar subscrito"
 
 #: lib/command.php:664
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "Cancelar a subscrición a %s"
 
 #: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
-msgstr ""
+msgstr "Aínda non se integrou esa orde."
 
 #: lib/command.php:685
 msgid "Notification off."
-msgstr ""
+msgstr "Desactivar a notificación."
 
 #: lib/command.php:687
 msgid "Can't turn off notification."
-msgstr ""
+msgstr "Non se pode desactivar a notificación."
 
 #: lib/command.php:708
 msgid "Notification on."
-msgstr ""
+msgstr "Activar a notificación."
 
 #: lib/command.php:710
 msgid "Can't turn on notification."
-msgstr ""
+msgstr "Non se pode activar a notificación."
 
 #: lib/command.php:723
 msgid "Login command is disabled"
-msgstr ""
+msgstr "A orde de identificación está desactivada"
 
 #: lib/command.php:734
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
 msgstr ""
+"Esta ligazón só se pode utilizar unha vez, e só nos próximos dous minutos: %s"
 
 #: lib/command.php:761
 #, php-format
 msgid "Unsubscribed  %s"
-msgstr ""
+msgstr "Cancelou a subscrición a %s"
 
 #: lib/command.php:778
 msgid "You are not subscribed to anyone."
-msgstr ""
+msgstr "Non está subscrito a ninguén."
 
 #: lib/command.php:780
 msgid "You are subscribed to this person:"
@@ -5655,7 +5720,7 @@ msgstr[1] "Vostede está subscrito a estas persoas:"
 
 #: lib/command.php:800
 msgid "No one is subscribed to you."
-msgstr ""
+msgstr "Non hai ninguén subscrito a vostede."
 
 #: lib/command.php:802
 msgid "This person is subscribed to you:"
@@ -5665,7 +5730,7 @@ msgstr[1] "Estas persoas están subscritas a vostede:"
 
 #: lib/command.php:822
 msgid "You are not a member of any groups."
-msgstr ""
+msgstr "Non forma parte de ningún grupo."
 
 #: lib/command.php:824
 msgid "You are a member of this group:"
@@ -5714,26 +5779,64 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
+"Ordes:\n"
+"on - activa as notificacións\n"
+"off - desactiva as notificacións\n"
+"help - amosa esta axuda\n"
+"follow <alcume> - subscribirse ao usuario\n"
+"groups - lista os grupos nos que está\n"
+"subscriptions - lista a xente á que segue\n"
+"subscribers - lista a xente que o segue\n"
+"leave <alcume> - cancela a subscrición ao usuario\n"
+"d <alcume> <texto> - mensaxe directa a un usuario\n"
+"get <alcume> - obter a última nota do usuario\n"
+"whois <alcume> - obtén a información do perfil do usuario\n"
+"lose <alcume> - facer que o usuario deixe de seguilo\n"
+"fav <alcume> - marcar como “favorita” a última nota do usuario\n"
+"fav #<id da nota> - marcar como “favorita” a nota coa id indicada\n"
+"repeat #<id da nota> - repetir a nota doa id indicada\n"
+"repeat <alcume> - repetir a última nota do usuario\n"
+"reply #<id da nota> - responder a unha nota coa id indicada\n"
+"reply <alcume> - responder á última nota do usuario\n"
+"join <grupo> - unirse ao grupo indicado\n"
+"login - obter un enderezo para identificarse na interface web\n"
+"drop <grupo> - deixar o grupo indicado\n"
+"stats - obter as súas estatísticas\n"
+"stop - idéntico a “off”\n"
+"quit - idéntico a “off”\n"
+"sub <alcume> - idéntico a “follow”\n"
+"unsub <alcume> - idéntico a “leave”\n"
+"last <alcume> - idéntico a “get”\n"
+"on <alcume> - aínda non se integrou\n"
+"off <alcume> - aínda non se integrou\n"
+"nudge <alcume> - facerlle un aceno ao usuario indicado\n"
+"invite <número de teléfono> - aínda non se integrou\n"
+"track <palabra> - aínda non se integrou\n"
+"untrack <palabra> - aínda non se integrou\n"
+"track off - aínda non se integrou\n"
+"untrack all - aínda non se integrou\n"
+"tracks - aínda non se integrou\n"
+"tracking - aínda non se integrou\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
-msgstr ""
+msgstr "Non se atopou ningún ficheiro de configuración. "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "Buscáronse ficheiros de configuración nos seguintes lugares: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr ""
+msgstr "Pode que queira executar o instalador para arranxalo."
 
 #: lib/common.php:139
 msgid "Go to the installer."
-msgstr ""
+msgstr "Ir ao instalador."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr ""
+msgstr "MI"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
@@ -6685,56 +6788,56 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1054
+#: lib/util.php:1083
 msgid "a few seconds ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1057
+#: lib/util.php:1086
 msgid "about a minute ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1061
+#: lib/util.php:1090
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1064
+#: lib/util.php:1093
 msgid "about an hour ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1068
+#: lib/util.php:1097
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1071
+#: lib/util.php:1100
 msgid "about a day ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1075
+#: lib/util.php:1104
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1078
+#: lib/util.php:1107
 msgid "about a month ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1082
+#: lib/util.php:1111
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1085
+#: lib/util.php:1114
 msgid "about a year ago"
 msgstr ""
 
