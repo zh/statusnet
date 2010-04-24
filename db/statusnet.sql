@@ -665,3 +665,16 @@ create table local_group (
    modified timestamp comment 'date this record was modified'
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
+create table user_urlshortener_prefs (
+
+   user_id integer not null comment 'user' references user (id),
+   urlshorteningservice varchar(50) default 'ur1.ca' comment 'service to use for auto-shortening URLs',
+   maxurllength integer not null comment 'urls greater than this length will be shortened, 0 = always, null = never',
+   maxnoticelength integer not null comment 'notices with content greater than this value will have all urls shortened, 0 = always, null = never',
+
+   created datetime not null comment 'date this record was created',
+   modified timestamp comment 'date this record was modified',
+
+   constraint primary key (user_id)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
