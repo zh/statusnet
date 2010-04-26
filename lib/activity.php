@@ -83,6 +83,7 @@ class Activity
     const CREATOR = 'creator';
 
     const CONTENTNS = 'http://purl.org/rss/1.0/modules/content/';
+    const ENCODED = 'encoded';
 
     public $actor;   // an ActivityObject
     public $verb;    // a string (the URL)
@@ -268,14 +269,21 @@ class Activity
 
         $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, self::RSS);
 
-        $contentEl = ActivityUtils::child($item, ActivityUtils::CONTENT, self::CONTENTNS);
+        $contentEl = ActivityUtils::child($item, self::ENCODED, self::CONTENTNS);
 
         if (!empty($contentEl)) {
-            $this->content = htmlspecialchars_decode($contentEl->textContent, ENT_QUOTES);
+            // <content:encoded> XML node's text content is HTML; no further processing needed.
+            $this->content = $contentEl->textContent;
         } else {
             $descriptionEl = ActivityUtils::child($item, self::DESCRIPTION, self::RSS);
             if (!empty($descriptionEl)) {
-                $this->content = htmlspecialchars_decode($descriptionEl->textContent, ENT_QUOTES);
+                // Per spec, <description> must be plaintext.
+                // In practice, often there's HTML... but these days good
+                // feeds are using <content:encoded> which is explicitly
+                // real HTML.
+                // We'll treat this following spec, and do HTML escaping
+                // to convert from plaintext to HTML.
+                $this->content = htmlspecialchars($descriptionEl->textContent);
             }
         }
 

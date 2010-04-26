@@ -262,7 +262,7 @@ class BlacklistPlugin extends Plugin
         $patterns = $this->_getUrlPatterns();
 
         foreach ($patterns as $pattern) {
-            if (preg_match("/$pattern/", $url)) {
+            if ($pattern != '' && preg_match("/$pattern/", $url)) {
                 return false;
             }
         }
@@ -285,7 +285,7 @@ class BlacklistPlugin extends Plugin
         $patterns = $this->_getNicknamePatterns();
 
         foreach ($patterns as $pattern) {
-            if (preg_match("/$pattern/", $nickname)) {
+            if ($pattern != '' && preg_match("/$pattern/", $nickname)) {
                 return false;
             }
         }
