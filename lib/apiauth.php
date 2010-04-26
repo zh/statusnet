@@ -91,6 +91,7 @@ class ApiAuthAction extends ApiAction
 
         if ($this->isReadOnly($args) == false) {
             if ($this->access != self::READ_WRITE) {
+                // TRANS: Client error 401.
                 $msg = _('API resource requires read-write access, ' .
                          'but you only have read access.');
                 $this->clientError($msg, 401, $this->format);
@@ -273,8 +274,8 @@ class ApiAuthAction extends ApiAction
 
                 list($proxy, $ip) = common_client_ip();
 
-                $msg = sprintf(_('Failed API auth attempt, nickname = %1$s, ' .
-                         'proxy = %2$s, ip = %3$s'),
+                $msg = sprintf( 'Failed API auth attempt, nickname = %1$s, ' .
+                         'proxy = %2$s, ip = %3$s',
                                $this->auth_user_nickname,
                                $proxy,
                                $ip);

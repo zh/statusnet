@@ -586,7 +586,9 @@ abstract class ImPlugin extends Plugin
 
     function onGetImTransports(&$transports)
     {
-        $transports[$this->transport] = array('display' => $this->getDisplayName());
+        $transports[$this->transport] = array(
+            'display' => $this->getDisplayName(),
+            'daemon_screenname' => $this->daemon_screenname());
     }
 
     function onSendImConfirmationCode($transport, $screenname, $code, $user)

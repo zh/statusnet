@@ -135,7 +135,7 @@ class FinishremotesubscribeAction extends Action
                             $service->getServiceURI(OMB_ENDPOINT_UPDATEPROFILE);
 
         if (!$remote->update($orig_remote)) {
-                $this->serverError(_('Error updating remote profile'));
+                $this->serverError(_('Error updating remote profile.'));
                 return;
         }
 

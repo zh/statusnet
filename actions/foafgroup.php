@@ -56,7 +56,7 @@ class FoafGroupAction extends Action
             return false;
         }
 
-        $local = Local_group::staticGet('nickname', $nickname);
+        $local = Local_group::staticGet('nickname', $this->nickname);
 
         if (!$local) {
             $this->clientError(_('No such group.'), 404);
@@ -126,7 +126,8 @@ class FoafGroupAction extends Action
         while ($members->fetch()) {
             $member_uri = common_local_url('userbyid', array('id'=>$members->id));
             $member_details[$member_uri] = array(
-                                        'nickname' => $members->nickname
+                                        'nickname' => $members->nickname,
+                                        'is_admin' => false,
                                         );
             $this->element('member', array('rdf:resource' => $member_uri));
         }

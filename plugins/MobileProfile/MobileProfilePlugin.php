@@ -234,24 +234,6 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
-    function onStartShowHeadElements($action)
-    {
-        // @fixme nothing appears to set a serveMobile on any action,
-        // so this is useless and spews errors. Is this supposed to be
-        // checking $this?
-        //if (!$action->serveMobile) {
-        //    return true;
-        //}
-
-        $action->showTitle();
-        $action->showShortcutIcon();
-        $action->showStylesheets();
-        $action->showFeeds();
-        $action->showDescription();
-        $action->extraHead();
-    }
-
-
     function onStartShowStatusNetStyles($action)
     {
         if (!$this->serveMobile) {

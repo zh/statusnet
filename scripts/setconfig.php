@@ -20,8 +20,8 @@
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
-$shortoptions = 'd';
-$longoptions = array('delete');
+$shortoptions = 'da';
+$longoptions = array('delete', 'all');
 
 $helptext = <<<END_OF_SETCONFIG_HELP
 setconfig.php [options] [section] [setting] <value>
@@ -35,22 +35,34 @@ With no args, lists all currently set values.
   <value>     value to set (optional)
 
   -d --delete delete the setting (no value)
+  -a --all    list all configuration, not just the database values
 
 END_OF_SETCONFIG_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 if (empty($args)) {
-    $count = 0;
-    $config = new Config();
-    $config->find();
-    while ($config->fetch()) {
-        $count++;
-        printf("%-20s %-20s %s\n", $config->section, $config->setting,
-               var_export($config->value, true));
-    }
-    if ($count == 0) {
-        print "No configuration set in database for this site.\n";
+    if (have_option('a', 'all')) {
+        foreach ($config as $section => $section_value) {
+            foreach ($section_value as $setting => $value) {
+                if (have_option('v', 'verbose') || !is_array($value)) {
+                    # Don't print array's without the verbose flag
+                    printf("%-20s %-20s %s\n", $section, $setting, var_export($value, true));
+                }
+            }
+        }
+    } else {
+        $count = 0;
+        $config = new Config();
+        $config->find();
+        while ($config->fetch()) {
+            $count++;
+            printf("%-20s %-20s %s\n", $config->section, $config->setting,
+                   var_export($config->value, true));
+        }
+        if ($count == 0) {
+            print "No configuration set in database for this site.\n";
+        }
     }
     exit(0);
 }
