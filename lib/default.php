@@ -304,4 +304,8 @@ $default =
         array('subscribers' => true,
               'members' => true,
               'peopletag' => true),
+        'url' =>
+        array('shortener' => 'ur1.ca',
+              'maxlength' => 25,
+              'maxnoticelength' => -1)
         );
