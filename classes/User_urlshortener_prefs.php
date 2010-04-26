@@ -75,6 +75,23 @@ class User_urlshortener_prefs extends Memcached_DataObject
         }
     }
 
+    static function urlShorteningService($user)
+    {
+        $def = common_config('url', 'shortener');
+
+        $prefs = self::getPrefs($user);
+
+        if (empty($prefs)) {
+            if (!empty($user)) {
+                return $user->urlshorteningservice;
+            } else {
+                return $def;
+            }
+        } else {
+            return $prefs->urlshorteningservice;
+        }
+    }
+
     static function getPrefs($user)
     {
         if (empty($user)) {
