@@ -34,29 +34,31 @@
     function shorten()
     {
         $noticeDataText = $('#'+SN.C.S.NoticeDataText);
-        var original = $noticeDataText.val();
-        shortenAjax = $.ajax({
-            url: $('address .url')[0].href+'/plugins/ClientSideShorten/shorten',
-            data: { text: $noticeDataText.val() },
-            dataType: 'text',
-            success: function(data) {
-                if(original == $noticeDataText.val()) {
-                    $noticeDataText.val(data).keyup();
+        if(Notice_maxContent > 0 && $noticeDataText.val().length > Notice_maxContent){
+            var original = $noticeDataText.val();
+            shortenAjax = $.ajax({
+                url: $('address .url')[0].href+'/plugins/ClientSideShorten/shorten',
+                data: { text: $noticeDataText.val() },
+                dataType: 'text',
+                success: function(data) {
+                    if(original == $noticeDataText.val()) {
+                        $noticeDataText.val(data).keyup();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     $(document).ready(function(){
         $noticeDataText = $('#'+SN.C.S.NoticeDataText);
         $noticeDataText.smartkeypress(function(e){
-            if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
+            //if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
             if(e.charCode == '32') {
                 shorten();
             }
         });
         $noticeDataText.bind('paste', function() {
-            if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
+            //if(typeof(shortenAjax) !== 'undefined') shortenAjax.abort();
             setTimeout(shorten,1);
         });
     });

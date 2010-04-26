@@ -61,7 +61,7 @@ class ShortenAction extends Action
     {
         parent::handle($args);
         header('Content-Type: text/plain');
-        $shortened_text = common_shorten_links($this->text, true);
+        $shortened_text = common_shorten_links($this->text);
         print $shortened_text;
     }
 }

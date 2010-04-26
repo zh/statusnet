@@ -51,6 +51,7 @@ class ClientSideShortenPlugin extends Plugin
     }
 
     function onEndShowScripts($action){
+        $action->inlineScript('var Notice_maxContent = ' . Notice::maxContent());
         if (common_logged_in()) {
             $action->script('plugins/ClientSideShorten/shorten.js');
         }
