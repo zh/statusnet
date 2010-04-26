@@ -44,4 +44,45 @@ class User_urlshortener_prefs extends Memcached_DataObject
     {
         return array(false, false, false);
     }
+
+    static function maxUrlLength($user)
+    {
+        $def = common_config('url', 'maxlength');
+
+        $prefs = self::getPrefs($user);
+
+        if (empty($prefs)) {
+            return $def;
+        } else {
+            return $prefs->maxurllength;
+        }
+    }
+
+    static function maxNoticeLength($user)
+    {
+        $def = common_config('url', 'maxnoticelength');
+
+        if ($def == -1) {
+            $def = Notice::maxContent();
+        }
+
+        $prefs = self::getPrefs($user);
+
+        if (empty($prefs)) {
+            return $def;
+        } else {
+            return $prefs->maxnoticelength;
+        }
+    }
+
+    static function getPrefs($user)
+    {
+        if (empty($user)) {
+            return null;
+        }
+
+        $prefs = User_urlshortener_prefs::staticGet('user_id', $user->id);
+
+        return $prefs;
+    }
 }
