@@ -16,39 +16,14 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: MapstractionPlugin.php:182
-msgid "Map"
+#: RegisterThrottlePlugin.php:122 RegisterThrottlePlugin.php:161
+msgid "Cannot find IP address."
 msgstr ""
 
-#: MapstractionPlugin.php:193
-msgid "Full size"
+#: RegisterThrottlePlugin.php:167
+msgid "Cannot find user after successful registration."
 msgstr ""
 
-#: MapstractionPlugin.php:205
-msgid ""
-"Show maps of users' and friends' notices with <a href=\"http://www."
-"mapstraction.com/\">Mapstraction</a> JavaScript library."
-msgstr ""
-
-#: map.php:72
-msgid "No such user."
-msgstr ""
-
-#: map.php:79
-msgid "User has no profile."
-msgstr ""
-
-#: allmap.php:71
-#, php-format
-msgid "%s friends map"
-msgstr ""
-
-#: allmap.php:74
-#, php-format
-msgid "%s friends map, page %d"
-msgstr ""
-
-#: usermap.php:71
-#, php-format
-msgid "%s map, page %d"
+#: RegisterThrottlePlugin.php:200
+msgid "Throttles excessive registration from a single IP."
 msgstr ""
