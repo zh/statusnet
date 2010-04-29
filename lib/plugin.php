@@ -91,6 +91,7 @@ class Plugin
             $path = INSTALLDIR . "/plugins/$name/locale";
             if (file_exists($path) && is_dir($path)) {
                 bindtextdomain($name, $path);
+                bind_textdomain_codeset($name, 'UTF-8');
             }
         }
     }

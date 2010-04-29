@@ -299,11 +299,21 @@ class AutosubmitAction extends Action
 
     function title()
     {
-        return _m('OpenID Auto-Submit');
+        return _m('OpenID Login Submission');
     }
 
     function showContent()
     {
+        $this->raw('<p style="margin: 20px 80px">');
+        // @fixme this would be better using standard CSS class, but the present theme's a bit scary.
+        $this->element('img', array('src' => Theme::path('images/icons/icon_processing.gif', 'base'),
+                                    // for some reason the base CSS sets <img>s as block display?!
+                                    'style' => 'display: inline'));
+        $this->text(_m('Requesting authorization from your login provider...'));
+        $this->raw('</p>');
+        $this->raw('<p style="margin-top: 60px; font-style: italic">');
+        $this->text(_m('If you are not redirected to your login provider in a few seconds, try pushing the button below.'));
+        $this->raw('</p>');
         $this->raw($this->form_html);
     }
 
@@ -311,8 +321,6 @@ class AutosubmitAction extends Action
     {
         parent::showScripts();
         $this->element('script', null,
-                       '$(document).ready(function() { ' .
-                       '    $(\'#'. $this->form_id .'\').submit(); '.
-                       '});');
+                       'document.getElementById(\'' . $this->form_id . '\').submit();');
     }
 }

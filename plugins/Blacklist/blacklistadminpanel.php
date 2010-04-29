@@ -88,26 +88,25 @@ class BlacklistadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        $nickPatterns = array();
-
-        $rawNickPatterns = explode("\n", $this->trimmed('blacklist-nicknames'));
-
-        foreach ($rawNickPatterns as $raw) {
-            $nickPatterns[] = trim($raw);
-        }
-
+        $nickPatterns = $this->splitPatterns($this->trimmed('blacklist-nicknames'));
         Nickname_blacklist::saveNew($nickPatterns);
 
-        $rawUrlPatterns = explode("\n", $this->trimmed('blacklist-urls'));
-        $urlPatterns  = array();
-
-        foreach ($rawUrlPatterns as $raw) {
-            $urlPatterns[] = trim($raw);
-        }
-
+        $urlPatterns = $this->splitPatterns($this->trimmed('blacklist-urls'));
         Homepage_blacklist::saveNew($urlPatterns);
 
         return;
+    }
+
+    protected function splitPatterns($text)
+    {
+        $patterns = array();
+        foreach (explode("\n", $text) as $raw) {
+            $trimmed = trim($raw);
+            if ($trimmed != '') {
+                $patterns[] = $trimmed;
+            }
+        }
+        return $patterns;
     }
 
     /**
