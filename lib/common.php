@@ -25,7 +25,7 @@ if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 define('STATUSNET_VERSION', '0.9.2');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Everybody Hurts');
+define('STATUSNET_CODENAME', 'King of Birds');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
