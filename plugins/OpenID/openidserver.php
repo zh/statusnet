@@ -103,6 +103,7 @@ class OpenidserverAction extends Action
                 $response = $this->generateDenyResponse($request);
             } else {
                 //invalid
+                // TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
                 $this->clientError(sprintf(_m('You are not authorized to use the identity %s.'),$request->identity),$code=403);
             }
         } else {
@@ -123,6 +124,7 @@ class OpenidserverAction extends Action
             }
             $this->raw($response->body);
         }else{
+            // TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
             $this->clientError(_m('Just an OpenID provider. Nothing to see here, move along...'),$code=500);
         }
     }
