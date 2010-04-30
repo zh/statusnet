@@ -51,7 +51,7 @@ abstract class Installer
     public static $dbModules = array(
         'mysql' => array(
             'name' => 'MySQL',
-            'check_module' => 'mysql', // mysqli?
+            'check_module' => 'mysqli',
             'installer' => 'mysql_db_installer',
         ),
         'pgsql' => array(
@@ -341,7 +341,6 @@ abstract class Installer
      * @param string $password
      * @return mixed array of database connection params on success, false on failure
      * 
-     * @fixme be consistent about using mysqli vs mysql!
      * @fixme escape things in the connection string in case we have a funny pass etc
      */
     function Mysql_Db_installer($host, $database, $username, $password)
@@ -349,14 +348,13 @@ abstract class Installer
         $this->updateStatus("Starting installation...");
         $this->updateStatus("Checking database...");
 
-        $conn = mysql_connect($host, $username, $password);
-        if (!$conn) {
+        $conn = mysqli_init();
+        if (!$conn->real_connect($host, $username, $password)) {
             $this->updateStatus("Can't connect to server '$host' as '$username'.", true);
             return false;
         }
         $this->updateStatus("Changing to database...");
-        $res = mysql_select_db($database, $conn);
-        if (!$res) {
+        if (!$conn->select_db($database)) {
             $this->updateStatus("Can't change to database.", true);
             return false;
         }
@@ -438,9 +436,9 @@ abstract class Installer
             // FIXME: use PEAR::DB or PDO instead of our own switch
             switch ($type) {
             case 'mysqli':
-                $res = mysql_query($stmt, $conn);
+                $res = $conn->query($stmt);
                 if ($res === false) {
-                    $error = mysql_error();
+                    $error = $conn->error();
                 }
                 break;
             case 'pgsql':

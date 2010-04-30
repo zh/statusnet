@@ -123,6 +123,10 @@ require_once INSTALLDIR . '/lib/common.php';
 
 set_error_handler('common_error_handler');
 
+// Set up the language infrastructure so we can localize anything that
+// needs to be sent out to users, such as mail notifications.
+common_init_language();
+
 function _make_matches($opt, $alt)
 {
     $matches = array();

@@ -100,7 +100,7 @@ class RSSCloudPlugin extends Plugin
      *
      * Hook for RouterInitialized event.
      *
-     * @param Mapper &$m URL parser and mapper
+     * @param Mapper $m URL parser and mapper
      *
      * @return boolean hook return
      */

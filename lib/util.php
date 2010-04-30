@@ -41,11 +41,13 @@ function common_init_locale($language=null)
     }
     putenv('LANGUAGE='.$language);
     putenv('LANG='.$language);
-    return setlocale(LC_ALL, $language . ".utf8",
+    $ok =  setlocale(LC_ALL, $language . ".utf8",
                      $language . ".UTF8",
                      $language . ".utf-8",
                      $language . ".UTF-8",
                      $language);
+
+    return $ok;
 }
 
 function common_init_language()
@@ -89,6 +91,14 @@ function common_init_language()
         $locale_set = common_init_locale($language);
     }
 
+    common_init_gettext();
+}
+
+/**
+ * @access private
+ */
+function common_init_gettext()
+{
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
@@ -96,6 +106,25 @@ function common_init_language()
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
 }
+
+/**
+ * Switch locale during runtime, and poke gettext until it cries uncle.
+ * Otherwise, sometimes it doesn't actually switch away from the old language.
+ *
+ * @param string $language code for locale ('en', 'fr', 'pt_BR' etc)
+ */
+function common_switch_locale($language=null)
+{
+    common_init_locale($language);
+
+    setlocale(LC_CTYPE, 'C');
+    // So we do not have to make people install the gettext locales
+    $path = common_config('site','locale_path');
+    bindtextdomain("statusnet", $path);
+    bind_textdomain_codeset("statusnet", "UTF-8");
+    textdomain("statusnet");
+}
+
 
 function common_timezone()
 {
@@ -826,7 +855,7 @@ function common_linkify($url) {
     return XMLStringer::estring('a', $attrs, $url);
 }
 
-function common_shorten_links($text)
+function common_shorten_links($text, $always = false)
 {
     common_debug("common_shorten_links() called");
 
@@ -836,7 +865,7 @@ function common_shorten_links($text)
 
     common_debug("maxLength = $maxLength");
 
-    if (mb_strlen($text) > $maxLength) {
+    if ($always || mb_strlen($text) > $maxLength) {
         common_debug("Forcing shortening");
         return common_replace_urls_callback($text, array('File_redirection', 'forceShort'));
     } else {

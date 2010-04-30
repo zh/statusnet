@@ -34,6 +34,24 @@
  * @link      http://status.net/
  */
 
+/* External API usage documentation. Please update when you change how this method works. */
+
+/*! @page authentication Authentication
+
+    StatusNet supports HTTP Basic Authentication and OAuth for API calls.
+
+    @warning Currently, users who have created accounts without setting a
+    password via OpenID, Facebook Connect, etc., cannot use the API until
+    they set a password with their account settings panel.
+
+    @section HTTP Basic Auth
+
+
+
+    @section OAuth
+
+*/
+
 if (!defined('STATUSNET')) {
     exit(1);
 }

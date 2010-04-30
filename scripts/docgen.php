@@ -17,10 +17,30 @@ Options:
 ENDOFHELP;
 
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
-require_once INSTALLDIR.'/scripts/commandline.inc';
+set_include_path(INSTALLDIR . DIRECTORY_SEPARATOR . 'extlib' . PATH_SEPARATOR . get_include_path());
 
 $pattern = "*.php *.inc";
 $exclude = 'config.php */extlib/* */local/* */plugins/* */scripts/*';
+$plugin = false;
+
+require_once 'Console/Getopt.php';
+$parser = new Console_Getopt();
+$result = $parser->getopt($_SERVER['argv'], $shortoptions, $longoptions);
+if (PEAR::isError($result)) {
+    print $result->getMessage() . "\n";
+    exit(1);
+}
+list($options, $args) = $result;
+
+foreach ($options as $option) {
+    $arg = $option[0];
+    if ($arg == '--plugin') {
+        $plugin = $options[1];
+    } else if ($arg == 'h' || $arg == '--help') {
+        print $helptext;
+        exit(0);
+    }
+}
 
 if (isset($args[0])) {
     $outdir = $args[0];
@@ -33,8 +53,7 @@ if (isset($args[0])) {
     exit(1);
 }
 
-if (have_option('p', 'plugin')) {
-    $plugin = get_option_value('plugin');
+if ($plugin) {
     $exclude = "*/extlib/*";
     $indir = INSTALLDIR . "/plugins/" . $plugin;
     if (!is_dir($indir)) {
@@ -51,8 +70,19 @@ if (have_option('p', 'plugin')) {
     $indir = INSTALLDIR;
 }
 
+function getVersion()
+{
+    // define('STATUSNET_VERSION', '0.9.1');
+    $source = file_get_contents(INSTALLDIR . '/lib/common.php');
+    if (preg_match('/^\s*define\s*\(\s*[\'"]STATUSNET_VERSION[\'"]\s*,\s*[\'"](.*)[\'"]\s*\)\s*;/m', $source, $matches)) {
+        return $matches[1];
+    }
+    return 'unknown';
+}
+
+
 $replacements = array(
-    '%%version%%' => STATUSNET_VERSION,
+    '%%version%%' => getVersion(),
     '%%indir%%' => $indir,
     '%%pattern%%' => $pattern,
     '%%outdir%%' => $outdir,

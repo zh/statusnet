@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-12 21:47+0000\n"
-"PO-Revision-Date: 2010-04-12 21:48:11+0000\n"
+"POT-Creation-Date: 2010-04-24 14:16+0000\n"
+"PO-Revision-Date: 2010-04-26 22:16:09+0000\n"
 "Language-Team: Bulgarian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r64984); Translate extension (2010-01-16)\n"
+"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: bg\n"
 "X-Message-Group: out-statusnet\n"
@@ -100,8 +100,8 @@ msgstr "Няма такака страница."
 #: actions/apidirectmessagenew.php:75 actions/apigroupcreate.php:112
 #: actions/apigroupismember.php:90 actions/apigroupjoin.php:99
 #: actions/apigroupleave.php:99 actions/apigrouplist.php:72
-#: actions/apistatusesupdate.php:148 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:78
+#: actions/apistatusesupdate.php:239 actions/apisubscriptions.php:87
+#: actions/apitimelinefavorites.php:71 actions/apitimelinefriends.php:173
 #: actions/apitimelinehome.php:79 actions/apitimelinementions.php:79
 #: actions/apitimelineuser.php:81 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
@@ -125,7 +125,7 @@ msgstr "%1$s и приятели, страница %2$d"
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
 #: actions/all.php:89 actions/all.php:181 actions/allrss.php:116
-#: actions/apitimelinefriends.php:114 actions/apitimelinehome.php:115
+#: actions/apitimelinefriends.php:209 actions/apitimelinehome.php:115
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
@@ -185,7 +185,7 @@ msgstr "Вие и приятелите"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:121 actions/apitimelinefriends.php:120
+#: actions/allrss.php:121 actions/apitimelinefriends.php:215
 #: actions/apitimelinehome.php:121
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
@@ -207,9 +207,9 @@ msgstr "Бележки от %1$s и приятели в %2$s."
 #: actions/apistatusesdestroy.php:102 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:108 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:175
+#: actions/apitimelinefavorites.php:173 actions/apitimelinefriends.php:270
 #: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:174
-#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:151
+#: actions/apitimelinementions.php:173 actions/apitimelinepublic.php:240
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:160
 #: actions/apitimelineuser.php:162 actions/apiusershow.php:101
@@ -226,7 +226,7 @@ msgstr "Не е открит методът в API."
 #: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
 #: actions/apigroupcreate.php:104 actions/apigroupjoin.php:91
 #: actions/apigroupleave.php:91 actions/apimediaupload.php:67
-#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:118
+#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:209
 msgid "This method requires a POST."
 msgstr "Този метод изисква заявка POST."
 
@@ -256,7 +256,7 @@ msgstr "Грешка при запазване на профила."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:131 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:222 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -455,7 +455,6 @@ msgstr ""
 #: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
 #: actions/apigroupleave.php:104 actions/apigroupmembership.php:91
 #: actions/apigroupshow.php:82 actions/apitimelinegroup.php:91
-#, fuzzy
 msgid "Group not found."
 msgstr "Групата не е открита."
 
@@ -647,17 +646,17 @@ msgstr "Бележката е изтрита."
 msgid "No status with that ID found."
 msgstr "Не е открита бележка с такъв идентификатор."
 
-#: actions/apistatusesupdate.php:161 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:252 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Твърде дълга бележка. Трябва да е най-много 140 знака."
 
-#: actions/apistatusesupdate.php:202 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:293 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Не е открито."
 
-#: actions/apistatusesupdate.php:225 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:316 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -686,12 +685,12 @@ msgstr "%1$s / Реплики на %2$s"
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%1$s реплики на съобщения от %2$s / %3$s."
 
-#: actions/apitimelinepublic.php:107 actions/publicrss.php:103
+#: actions/apitimelinepublic.php:196 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "Общ поток на %s"
 
-#: actions/apitimelinepublic.php:112 actions/publicrss.php:105
+#: actions/apitimelinepublic.php:201 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr ""
@@ -830,7 +829,6 @@ msgstr ""
 #: actions/block.php:145 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Не"
@@ -849,7 +847,6 @@ msgstr "Да не се блокира този потребител"
 #: actions/block.php:152 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Да"
@@ -973,20 +970,17 @@ msgid "Notices"
 msgstr "Бележки"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "За да редактирате група, трябва да сте влезли."
+msgstr "За да изтриете приложение, трябва да сте влезли."
 
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Бележката няма профил"
+msgstr "Приложението не е открито."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
-#, fuzzy
 msgid "You are not the owner of this application."
-msgstr "Не членувате в тази група."
+msgstr "Не сте собственик на това приложение."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
@@ -995,9 +989,8 @@ msgid "There was a problem with your session token."
 msgstr "Имаше проблем със сесията ви в сайта."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Няма такава бележка."
+msgstr "Изтриване на приложението"
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1008,15 +1001,13 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:158
-#, fuzzy
 msgid "Do not delete this application"
-msgstr "Да не се изтрива бележката"
+msgstr "Да не се изтрива приложението"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
-#, fuzzy
 msgid "Delete this application"
-msgstr "Изтриване на бележката"
+msgstr "Изтриване на това приложение"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
@@ -1362,7 +1353,6 @@ msgstr "Текущ потвърден адрес на е-поща."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
 msgstr "Премахване"
@@ -1396,7 +1386,6 @@ msgstr "Адрес на е-поща, като \"UserName@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
 msgstr "Добавяне"
@@ -2334,10 +2323,14 @@ msgstr ""
 "при промяна на настройките."
 
 #: actions/login.php:270
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Вход с име и парола"
+
+#: actions/login.php:273
 #, fuzzy, php-format
 msgid ""
-"Login with your username and password. Don't have a username yet? [Register]"
-"(%%action.register%%) a new account."
+"Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
 "Влезте с име и парола. Нямате такива? [Регистрирайте](%%action.register%%) "
 "нова сметка или опитайте с [OpenID](%%action.openidlogin%%). "
@@ -2565,8 +2558,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1069
-#: lib/apiaction.php:1098 lib/apiaction.php:1215
+#: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1131
+#: lib/apiaction.php:1160 lib/apiaction.php:1277
 msgid "Not a supported data format."
 msgstr "Неподдържан формат на данните"
 
@@ -2588,7 +2581,7 @@ msgstr "Управление на различни други настройки
 
 #: actions/othersettings.php:108
 msgid " (free service)"
-msgstr ""
+msgstr " (безплатна услуга)"
 
 #: actions/othersettings.php:116
 msgid "Shorten URLs with"
@@ -3556,14 +3549,12 @@ msgid "Save site settings"
 msgstr "Запазване настройките на сайта"
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "За напуснете група, трябва да сте влезли."
+msgstr "За прегледате приложение, трябва да сте влезли."
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Бележката няма профил"
+msgstr "Профил на приложението"
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
@@ -4277,9 +4268,9 @@ msgid "%s subscribers"
 msgstr "%s абоната"
 
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "Абонаменти на %s, страница %d"
+msgstr "Абонати на %1$s, страница %2$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4314,9 +4305,9 @@ msgid "%s subscriptions"
 msgstr "Абонаменти на %s"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr "Абонаменти на %s, страница %d"
+msgstr "Абонаменти на %1$s, страница %2$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -4818,14 +4809,14 @@ msgstr "Забранено ви е да публикувате бележки в
 msgid "Problem saving notice."
 msgstr "Проблем при записване на бележката."
 
-#: classes/Notice.php:965
+#: classes/Notice.php:967
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Проблем при записване на бележката."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1513
+#: classes/Notice.php:1535
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4952,14 +4943,12 @@ msgstr "Лично"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:437
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промяна на поща, аватар, парола, профил"
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:442
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Свързване към услуги"
@@ -4971,7 +4960,6 @@ msgstr "Свързване"
 
 #. TRANS: Tooltip for menu option "Admin"
 #: lib/action.php:448
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Промяна настройките на сайта"
@@ -4985,7 +4973,7 @@ msgstr "Настройки"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:455
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете приятели и колеги да се присъединят към вас в %s"
@@ -5011,14 +4999,12 @@ msgstr "Изход"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:472
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Създаване на нова сметка"
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:475
-#, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "Регистриране"
@@ -5049,7 +5035,6 @@ msgstr "Помощ"
 
 #. TRANS: Tooltip for main menu option "Search"
 #: lib/action.php:490
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Търсене за хора или бележки"
@@ -5313,7 +5298,7 @@ msgid "Snapshots configuration"
 msgstr "Настройка на пътищата"
 
 #. TRANS: Client error 401.
-#: lib/apiauth.php:95
+#: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
@@ -6355,14 +6340,12 @@ msgid "Attach a file"
 msgstr "Прикрепяне на файл"
 
 #: lib/noticeform.php:212
-#, fuzzy
 msgid "Share my location"
-msgstr "Грешка при запазване етикетите."
+msgstr "Споделяне на местоположението ми"
 
 #: lib/noticeform.php:215
-#, fuzzy
 msgid "Do not share my location"
-msgstr "Грешка при запазване етикетите."
+msgstr "Без споделяне на местоположението ми"
 
 #: lib/noticeform.php:216
 msgid ""
@@ -6557,9 +6540,8 @@ msgid "No return-to arguments."
 msgstr "Липсват аргументи return-to."
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Повтаряне на тази бележка"
+msgstr "Да се повтори ли тази бележка?"
 
 #: lib/repeatform.php:132
 msgid "Yes"
@@ -6602,9 +6584,8 @@ msgid "Search"
 msgstr "Търсене"
 
 #: lib/searchaction.php:162
-#, fuzzy
 msgid "Search help"
-msgstr "Търсене"
+msgstr "Помощ за търсенето"
 
 #: lib/searchgroupnav.php:80
 msgid "People"
@@ -6758,56 +6739,56 @@ msgid "Moderator"
 msgstr "Модератор"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1054
+#: lib/util.php:1083
 msgid "a few seconds ago"
 msgstr "преди няколко секунди"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1057
+#: lib/util.php:1086
 msgid "about a minute ago"
 msgstr "преди около минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1061
+#: lib/util.php:1090
 #, php-format
 msgid "about %d minutes ago"
 msgstr "преди около %d минути"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1064
+#: lib/util.php:1093
 msgid "about an hour ago"
 msgstr "преди около час"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1068
+#: lib/util.php:1097
 #, php-format
 msgid "about %d hours ago"
 msgstr "преди около %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1071
+#: lib/util.php:1100
 msgid "about a day ago"
 msgstr "преди около ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1075
+#: lib/util.php:1104
 #, php-format
 msgid "about %d days ago"
 msgstr "преди около %d дни"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1078
+#: lib/util.php:1107
 msgid "about a month ago"
 msgstr "преди около месец"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1082
+#: lib/util.php:1111
 #, php-format
 msgid "about %d months ago"
 msgstr "преди около %d месеца"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1085
+#: lib/util.php:1114
 msgid "about a year ago"
 msgstr "преди около година"
 

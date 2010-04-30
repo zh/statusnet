@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Plugin to enable nickname completion in the enter status box
+ * Plugin to enable client side url shortening in the status box
  *
  * PHP version 5
  *
@@ -31,7 +31,9 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-class AutocompletePlugin extends Plugin
+require_once(INSTALLDIR.'/plugins/ClientSideShorten/shorten.php');
+
+class ClientSideShortenPlugin extends Plugin
 {
     function __construct()
     {
@@ -42,43 +44,36 @@ class AutocompletePlugin extends Plugin
     {
         switch ($cls)
         {
-         case 'AutocompleteAction':
-            require_once(INSTALLDIR.'/plugins/Autocomplete/autocomplete.php');
+         case 'ShortenAction':
+            require_once(INSTALLDIR.'/plugins/ClientSideShorten/shorten.php');
             return false;
         }
     }
 
     function onEndShowScripts($action){
+        $action->inlineScript('var Notice_maxContent = ' . Notice::maxContent());
         if (common_logged_in()) {
-            $action->script('plugins/Autocomplete/jquery-autocomplete/jquery.autocomplete.pack.js');
-            $action->script('plugins/Autocomplete/Autocomplete.js');
-        }
-    }
-
-    function onEndShowStatusNetStyles($action)
-    {
-        if (common_logged_in()) {
-            $action->cssLink('plugins/Autocomplete/jquery-autocomplete/jquery.autocomplete.css');
+            $action->script('plugins/ClientSideShorten/shorten.js');
         }
     }
 
     function onRouterInitialized($m)
     {
         if (common_logged_in()) {
-            $m->connect('plugins/Autocomplete/autocomplete.json', array('action'=>'autocomplete'));
+            $m->connect('plugins/ClientSideShorten/shorten', array('action'=>'shorten'));
         }
     }
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Autocomplete',
+        $versions[] = array('name' => 'Shorten',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Craig Andrews',
-                            'homepage' => 'http://status.net/wiki/Plugin:Autocomplete',
+                            'homepage' => 'http://status.net/wiki/Plugin:ClientSideShorten',
                             'rawdescription' =>
-                            _m('The autocomplete plugin allows users to autocomplete screen names in @ replies. When an "@" is typed into the notice text area, an autocomplete box is displayed populated with the user\'s friend\' screen names.'));
+                            _m('ClientSideShorten causes the web interface\'s notice form to automatically shorten urls as they entered, and before the notice is submitted.'));
         return true;
     }
 
 }
-?>
+
