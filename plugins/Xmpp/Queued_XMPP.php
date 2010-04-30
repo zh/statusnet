@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Instead of sending XMPP messages, retrieve the raw XML that would be sent
+ * Queue-mediated proxy class for outgoing XMPP messages.
  *
  * PHP version 5
  *
@@ -31,13 +31,17 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-class Fake_XMPP extends XMPPHP_XMPP
+class Queued_XMPP extends XMPPHP_XMPP
 {
-    public $would_be_sent = null;
+    /**
+     * Reference to the XmppPlugin object we're hooked up to.
+     */
+    public $plugin;
 
 	/**
 	 * Constructor
 	 *
+     * @param XmppPlugin $plugin
 	 * @param string  $host
 	 * @param integer $port
 	 * @param string  $user
@@ -47,8 +51,10 @@ class Fake_XMPP extends XMPPHP_XMPP
 	 * @param boolean $printlog
 	 * @param string  $loglevel
 	 */
-	public function __construct($host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null)
+	public function __construct($plugin, $host, $port, $user, $password, $resource, $server = null, $printlog = false, $loglevel = null)
 	{
+        $this->plugin = $plugin;
+
         parent::__construct($host, $port, $user, $password, $resource, $server, $printlog, $loglevel);
 
         // We use $host to connect, but $server to build JIDs if specified.
@@ -73,7 +79,7 @@ class Fake_XMPP extends XMPPHP_XMPP
      */
     public function send($msg, $timeout=NULL)
     {
-        $this->would_be_sent = $msg;
+        $this->plugin->enqueue_outgoing_raw($msg);
     }
 
     //@{
@@ -110,5 +116,6 @@ class Fake_XMPP extends XMPPHP_XMPP
         throw new Exception("Can't read stream from fake XMPP.");
     }
     //@}
+
 }
 

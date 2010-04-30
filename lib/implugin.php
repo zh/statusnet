@@ -107,10 +107,15 @@ abstract class ImPlugin extends Plugin
      * receive a raw message
      * Raw IM data is taken from the incoming queue, and passed to this function.
      * It should parse the raw message and call handle_incoming()
+     * 
+     * Returning false may CAUSE REPROCESSING OF THE QUEUE ITEM, and should
+     * be used for temporary failures only. For permanent failures such as
+     * unrecognized addresses, return true to indicate your processing has
+     * completed.
      *
      * @param object $data raw IM data
      *
-     * @return boolean success value
+     * @return boolean true if processing completed, false for temporary failures
      */
     abstract function receive_raw_message($data);
 
@@ -185,9 +190,12 @@ abstract class ImPlugin extends Plugin
      */
     function get_user_im_prefs_from_screenname($screenname)
     {
-        if($user_im_prefs = User_im_prefs::pkeyGet( array('transport' => $this->transport, 'screenname' => $screenname) )){
+        $user_im_prefs = User_im_prefs::pkeyGet(
+            array('transport' => $this->transport,
+                  'screenname' => $this->normalize($screenname)));
+        if ($user_im_prefs) {
             return $user_im_prefs;
-        }else{
+        } else {
             return false;
         }
     }
@@ -203,9 +211,9 @@ abstract class ImPlugin extends Plugin
     function get_screenname($user)
     {
         $user_im_prefs = $this->get_user_im_prefs_from_user($user);
-        if($user_im_prefs){
+        if ($user_im_prefs) {
             return $user_im_prefs->screenname;
-        }else{
+        } else {
             return false;
         }
     }
@@ -220,9 +228,12 @@ abstract class ImPlugin extends Plugin
      */
     function get_user_im_prefs_from_user($user)
     {
-        if($user_im_prefs = User_im_prefs::pkeyGet( array('transport' => $this->transport, 'user_id' => $user->id) )){
+        $user_im_prefs = User_im_prefs::pkeyGet(
+            array('transport' => $this->transport,
+                  'user_id' => $user->id));
+        if ($user_im_prefs){
             return $user_im_prefs;
-        }else{
+        } else {
             return false;
         }
     }
