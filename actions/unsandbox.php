@@ -62,14 +62,14 @@ class UnsandboxAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if (!$cur->hasRight(Right::SANDBOXUSER)) {
-            $this->clientError(_("You cannot sandbox users on this site."));
+            $this->clientError(_('You cannot sandbox users on this site.'));
             return false;
         }
 
         assert(!empty($this->profile)); // checked by parent
 
         if (!$this->profile->isSandboxed()) {
-            $this->clientError(_("User is not sandboxed."));
+            $this->clientError(_('User is not sandboxed.'));
             return false;
         }
 

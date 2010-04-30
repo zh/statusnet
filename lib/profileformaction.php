@@ -41,7 +41,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-class ProfileFormAction extends Action
+class ProfileFormAction extends RedirectingAction
 {
     var $profile = null;
 
@@ -98,29 +98,6 @@ class ProfileFormAction extends Action
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
             $this->returnToArgs();
-        }
-    }
-
-    /**
-     * Return to the calling page based on hidden arguments
-     *
-     * @return void
-     */
-
-    function returnToArgs()
-    {
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } else if (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-
-        if ($action) {
-            common_redirect(common_local_url($action, $args), 303);
-        } else {
-            $this->clientError(_("No return-to arguments."));
         }
     }
 

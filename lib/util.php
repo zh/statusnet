@@ -1308,12 +1308,38 @@ function common_mtrand($bytes)
     return $enc;
 }
 
+/**
+ * Record the given URL as the return destination for a future
+ * form submission, to be read by common_get_returnto().
+ * 
+ * @param string $url
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_set_returnto($url)
 {
     common_ensure_session();
     $_SESSION['returnto'] = $url;
 }
 
+/**
+ * Fetch a return-destination URL previously recorded by
+ * common_set_returnto().
+ * 
+ * @return mixed URL string or null
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_get_returnto()
 {
     common_ensure_session();
@@ -1431,6 +1457,55 @@ function common_valid_tag($tag)
                 preg_match('/^([\w-\.]+)$/', $matches[1]));
     }
     return false;
+}
+
+/**
+ * Determine if given domain or address literal is valid
+ * eg for use in JIDs and URLs. Does not check if the domain
+ * exists!
+ * 
+ * @param string $domain
+ * @return boolean valid or not
+ */
+function common_valid_domain($domain)
+{
+    $octet = "(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])";
+    $ipv4 = "(?:$octet(?:\.$octet){3})";
+    if (preg_match("/^$ipv4$/u", $domain)) return true;
+
+    $group = "(?:[0-9a-f]{1,4})";
+    $ipv6 = "(?:\[($group(?::$group){0,7})?(::)?($group(?::$group){0,7})?\])"; // http://tools.ietf.org/html/rfc3513#section-2.2
+
+    if (preg_match("/^$ipv6$/ui", $domain, $matches)) {
+        $before = explode(":", $matches[1]);
+        $zeroes = $matches[2];
+        $after = explode(":", $matches[3]);
+        if ($zeroes) {
+            $min = 0;
+            $max = 7;
+        } else {
+            $min = 1;
+            $max = 8;
+        }
+        $explicit = count($before) + count($after);
+        if ($explicit < $min || $explicit > $max) {
+            return false;
+        }
+        return true;
+    }
+
+    try {
+        require_once "Net/IDNA.php";
+        $idn = Net_IDNA::getInstance();
+        $domain = $idn->encode($domain);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    $subdomain = "(?:[a-z0-9][a-z0-9-]*)"; // @fixme
+    $fqdn = "(?:$subdomain(?:\.$subdomain)*\.?)";
+
+    return preg_match("/^$fqdn$/ui", $domain);
 }
 
 /* Following functions are copied from MediaWiki GlobalFunctions.php

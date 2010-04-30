@@ -205,8 +205,7 @@ class GroupMemberListItem extends ProfileListItem
             !$this->profile->isAdmin($this->group)) {
             $this->out->elementStart('li', 'entity_make_admin');
             $maf = new MakeAdminForm($this->out, $this->profile, $this->group,
-                                     array('action' => 'groupmembers',
-                                           'nickname' => $this->group->nickname));
+                                     $this->returnToArgs());
             $maf->show();
             $this->out->elementEnd('li');
         }
@@ -220,8 +219,7 @@ class GroupMemberListItem extends ProfileListItem
         if (!empty($user) && $user->id != $this->profile->id && $user->isAdmin($this->group)) {
             $this->out->elementStart('li', 'entity_block');
             $bf = new GroupBlockForm($this->out, $this->profile, $this->group,
-                                array('action' => 'groupmembers',
-                                      'nickname' => $this->group->nickname));
+                                     $this->returnToArgs());
             $bf->show();
             $this->out->elementEnd('li');
         }
@@ -247,6 +245,23 @@ class GroupMemberListItem extends ProfileListItem
         }
 
         return $aAttrs;
+    }
+
+    /**
+     * Fetch necessary return-to arguments for the profile forms
+     * to return to this list when they're done.
+     * 
+     * @return array
+     */
+    protected function returnToArgs()
+    {
+        $args = array('action' => 'groupmembers',
+                      'nickname' => $this->group->nickname);
+        $page = $this->out->arg('page');
+        if ($page) {
+            $args['param-page'] = $page;
+        }
+        return $args;
     }
 }
 
