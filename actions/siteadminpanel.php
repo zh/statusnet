@@ -130,7 +130,7 @@ class SiteadminpanelAction extends AdminPanelAction
         // Validate site name
 
         if (empty($values['site']['name'])) {
-            $this->clientError(_("Site name must have non-zero length."));
+            $this->clientError(_('Site name must have non-zero length.'));
         }
 
         // Validate email
@@ -168,7 +168,7 @@ class SiteadminpanelAction extends AdminPanelAction
         // Validate dupe limit
 
         if (!Validate::number($values['site']['dupelimit'], array('min' => 1))) {
-            $this->clientError(_("Dupe limit must 1 or more seconds."));
+            $this->clientError(_("Dupe limit must be one or more seconds."));
         }
 
     }

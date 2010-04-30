@@ -59,11 +59,11 @@ class RevokeRoleAction extends ProfileFormAction
         
         $this->role = $this->arg('role');
         if (!Profile_role::isValid($this->role)) {
-            $this->clientError(_("Invalid role."));
+            $this->clientError(_('Invalid role.'));
             return false;
         }
         if (!Profile_role::isSettable($this->role)) {
-            $this->clientError(_("This role is reserved and cannot be set."));
+            $this->clientError(_('This role is reserved and cannot be set.'));
             return false;
         }
 
@@ -72,7 +72,7 @@ class RevokeRoleAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if (!$cur->hasRight(Right::REVOKEROLE)) {
-            $this->clientError(_("You cannot revoke user roles on this site."));
+            $this->clientError(_('You cannot revoke user roles on this site.'));
             return false;
         }
 

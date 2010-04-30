@@ -702,6 +702,27 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Is this notice part of an active conversation?
+     * 
+     * @return boolean true if other messages exist in the same
+     *                 conversation, false if this is the only one
+     */
+    function hasConversation()
+    {
+        if (!empty($this->conversation)) {
+            $conversation = Notice::conversationStream(
+                $this->conversation,
+                1,
+                1
+            );
+            if ($conversation->N > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param $groups array of Group *objects*
      * @param $recipients array of profile *ids*
      */
