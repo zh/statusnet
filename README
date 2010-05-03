@@ -85,18 +85,27 @@ public sites upgrade to the new version immediately.
 
 Notable changes this version:
 
+- Installer no longer fails with a PHP fatal error when trying to set up the
+  subscription to update@status.net
 - Fixed email notifications for @-replies that come in via OStatus
-- OStatus related Fixes to the cloudy theme 
-- Pass geo locations over Twitter bridge (will only be used if enabled on the Twitter side)
-- scripts/showplugins.php - script to dump the list of activated plugins and their settings
-- scripts/fixup_blocks.php - script to finds any stray subscriptions in violation of blocks, and removes them
-- Allow blocking someone who's not currently subscribed to you (prevents seeing @-replies from them, or them subbing to you in future)
-- Default 2-second timeout on Geonames web service lookups 
+- OStatus related Fixes to the cloudy theme
+- Pass geo locations over Twitter bridge (will only be used if enabled on the
+  Twitter side)
+- scripts/showplugins.php - script to dump the list of activated plugins and
+  their settings
+- scripts/fixup_blocks.php - script to finds any stray subscriptions in
+  violation of blocks, and removes them
+- Allow blocking someone who's not currently subscribed to you (prevents
+  seeing @-replies from them, or them subbing to you in future)
+- Default 2-second timeout on Geonames web service lookups
 - Improved localization for plugins
-- New anti-spam measures: added nofollow rels to group members list, subscribers list
-- Shared cache key option for Geonames plugin (lets multi-instance sites share their cached geoname lookups)
+- New anti-spam measures: added nofollow rels to group members list,
+  subscribers list
+- Shared cache key option for Geonames plugin (lets multi-instance sites
+  share their cached geoname lookups)
 - Stability fixes to the TwitterStatusFetcher
-- If user allows location sharing but turned off browser location use profile location
+- If user allows location sharing but turned off browser location use profile
+  location
 - Improved group listing via the API
 - Improved FOAF output
 - Several other bugfixes
