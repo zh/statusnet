@@ -13,11 +13,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:18:12+0000\n"
+"PO-Revision-Date: 2010-05-03 19:18:56+0000\n"
 "Language-Team: Brazilian Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: out-statusnet\n"
@@ -1536,9 +1536,8 @@ msgstr "Esse é o endereço de e-mail errado."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "A confirmação foi cancelada."
+msgstr "A confirmação por e-mail foi cancelada."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1548,9 +1547,8 @@ msgstr "Esse não é seu endereço de email."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "O endereço foi removido."
+msgstr "O endereço de e-mail foi removido."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1690,9 +1688,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr "O serviço remoto usa uma versão desconhecida do protocolo OMB."
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
-msgstr "Ocorreu um erro na atualização do perfil remoto"
+msgstr "Ocorreu um erro durante a atualização do perfil remoto."
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -2014,9 +2011,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Preferências"
+msgstr "Preferências do mensageiro instantâneo"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2088,15 +2084,13 @@ msgstr "Isso é um endereço de MI errado."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "Não foi possível excluir a confirmação de e-mail."
+msgstr "Não foi possível excluir a confirmação do mensageiro instantâneo."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "A confirmação foi cancelada."
+msgstr "A confirmação do mensageiro instantâneo foi cancelada."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2106,9 +2100,8 @@ msgstr "Essa não é sua ID do Jabber."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "O endereço foi removido."
+msgstr "O endereço de mensageiro instantâneo foi removido."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2131,10 +2124,10 @@ msgid "Invites have been disabled."
 msgstr "Os convites foram desabilitados."
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
 msgstr ""
-"Você deve estar autenticado para convidar outros usuários para usar o %s"
+"Você deve estar autenticado para convidar outros usuários para usar o %s."
 
 #: actions/invite.php:72
 #, php-format
@@ -2344,17 +2337,15 @@ msgstr ""
 "senha antes de alterar suas configurações."
 
 #: actions/login.php:270
-#, fuzzy
 msgid "Login with your username and password."
-msgstr "Autentique-se com um nome de usuário e uma senha"
+msgstr "Autentique-se com seu nome de usuário e senha."
 
 #: actions/login.php:273
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Digite seu nome de usuário e senha. Ainda não possui um usuário? [Registre](%"
-"%action.register%%) uma nova conta."
+"Ainda não possui um usuário? [Registre](%%action.register%%) uma nova conta."
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
@@ -2378,9 +2369,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "Não foi possível tornar %1$s um administrador do grupo %2$s."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Nenhuma mensagem atual"
+msgstr "Nenhuma mensagem atual."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2547,9 +2537,9 @@ msgid "You are not a user of that application."
 msgstr "Você não é um usuário dessa aplicação."
 
 #: actions/oauthconnectionssettings.php:186
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to revoke access for app: %s."
-msgstr "Não foi possível revogar o acesso para a aplicação: "
+msgstr "Não foi possível revogar o acesso para a aplicação: %s."
 
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
@@ -4903,7 +4893,7 @@ msgstr "Problema no salvamento das mensagens recebidas do grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5262,7 +5252,7 @@ msgid "Before"
 msgstr "Anterior"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 "Era esperado um elemento raiz da fonte, mas foi obtido o documento XML "
@@ -5272,11 +5262,11 @@ msgstr ""
 msgid "Can't handle remote content yet."
 msgstr "Ainda não é possível manipular conteúdo remoto."
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr "Ainda não é possível manipular conteúdo XML incorporado."
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Ainda não é possível manipular conteúdo Base64."
 
@@ -6643,7 +6633,7 @@ msgstr "Suas mensagens enviadas"
 msgid "Tags in %s's notices"
 msgstr "Etiquetas nas mensagens de %s"
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr "Desconhecido"
 
