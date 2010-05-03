@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:16:02+0000\n"
+"POT-Creation-Date: 2010-04-29 23:21+0000\n"
+"PO-Revision-Date: 2010-05-03 19:17:11+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -1227,7 +1227,7 @@ msgstr "الوصف مطلوب."
 
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
-msgstr ""
+msgstr "المسار المصدر طويل جدًا."
 
 #: actions/editapplication.php:200 actions/newapplication.php:185
 msgid "Source URL is not valid."
@@ -2008,15 +2008,13 @@ msgstr "هذا عنوان محادثة فورية خاطئ."
 
 #. TRANS: Server error thrown on database error canceling IM address confirmation.
 #: actions/imsettings.php:397
-#, fuzzy
 msgid "Couldn't delete IM confirmation."
-msgstr "تعذّر حذف تأكيد البريد الإلكتروني."
+msgstr "تعذّر حذف تأكيد البريد المراسلة الفورية."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "أُلغي التأكيد."
+msgstr "أُلغي تأكيد المراسلة الفورية."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2026,9 +2024,8 @@ msgstr "هذه ليست هويتك في جابر."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "أزيل هذا العنوان."
+msgstr "أزيل عنوان المراسلة الفورية هذا."
 
 #: actions/inbox.php:59
 #, php-format
@@ -2046,7 +2043,7 @@ msgstr "هذا صندوق بريدك الوارد، والذي يسرد رسائ
 
 #: actions/invite.php:39
 msgid "Invites have been disabled."
-msgstr ""
+msgstr "تم تعطيل الدعوات."
 
 #: actions/invite.php:41
 #, fuzzy, php-format
@@ -2258,9 +2255,8 @@ msgid "Can't make %1$s an admin for group %2$s."
 msgstr "لم يمكن جعل %1$s إداريا للمجموعة %2$s."
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "لا حالة حالية"
+msgstr "لا حالة جارية."
 
 #: actions/newapplication.php:52
 msgid "New Application"
@@ -2603,24 +2599,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "لا يمكن قراءة دليل السمات: %s"
+msgstr "لا يمكن قراءة دليل السمات: %s."
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "لا يمكن الكتابة في دليل الأفتارات: %s"
+msgstr "لا يمكن الكتابة في دليل الأفتارات: %s."
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "لا يمكن الكتابة في دليل الخلفيات: %s"
+msgstr "لا يمكن الكتابة في دليل الخلفيات: %s."
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "لا يمكن قراءة دليل المحليات: %s"
+msgstr "لا يمكن قراءة دليل المحليات: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2760,9 +2756,9 @@ msgid "People search"
 msgstr "بحث في الأشخاص"
 
 #: actions/peopletag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s."
-msgstr "ليس وسم أشخاص صالح: %s"
+msgstr "ليس وسم أشخاص صالح: %s."
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2770,9 +2766,8 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "المستخدمون الذين وسموا أنفسهم ب%1$s - الصفحة %2$d"
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "محتوى إشعار غير صالح"
+msgstr "محتوى إشعار غير صالح."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -2913,9 +2908,9 @@ msgid "Settings saved."
 msgstr "حُفظت الإعدادات."
 
 #: actions/public.php:83
-#, fuzzy, php-format
+#, php-format
 msgid "Beyond the page limit (%s)."
-msgstr "وراء حد الصفحة (%s)"
+msgstr "بعد حد الصفحة (%s)."
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -3385,9 +3380,8 @@ msgid "Sessions"
 msgstr "الجلسات"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "الإعدادات الأساسية لموقع StatusNet هذا."
+msgstr "إعدادات جلسة موقع StatusNet هذا."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -4641,7 +4635,7 @@ msgstr "مشكلة أثناء حفظ الإشعار."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "آر تي @%1$s %2$s"
@@ -5002,7 +4996,7 @@ msgid "Before"
 msgstr "قبل"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
@@ -5010,11 +5004,11 @@ msgstr ""
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -6318,7 +6312,7 @@ msgstr "رسائلك المُرسلة"
 msgid "Tags in %s's notices"
 msgstr "وسوم في إشعارات %s"
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr "غير معروفة"
 

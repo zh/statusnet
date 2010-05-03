@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 14:58-0800\n"
+"POT-Creation-Date: 2010-04-29 23:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,11 +16,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: twitter.php:320
+#: twitter.php:342
 msgid "Your Twitter bridge has been disabled."
 msgstr ""
 
-#: twitter.php:324
+#: twitter.php:346
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that your link to Twitter has been "
@@ -36,26 +36,95 @@ msgid ""
 "%3$s\n"
 msgstr ""
 
+#: TwitterBridgePlugin.php:155 TwitterBridgePlugin.php:178
+#: TwitterBridgePlugin.php:291 twitteradminpanel.php:54
+msgid "Twitter"
+msgstr ""
+
+#: TwitterBridgePlugin.php:156
+msgid "Login or register using Twitter"
+msgstr ""
+
+#: TwitterBridgePlugin.php:179
+msgid "Twitter integration options"
+msgstr ""
+
+#: TwitterBridgePlugin.php:292
+msgid "Twitter bridge configuration"
+msgstr ""
+
+#: TwitterBridgePlugin.php:317
+msgid ""
+"The Twitter \"bridge\" plugin allows you to integrate your StatusNet "
+"instance with <a href=\"http://twitter.com/\">Twitter</a>."
+msgstr ""
+
+#: twitteradminpanel.php:65
+msgid "Twitter bridge settings"
+msgstr ""
+
+#: twitteradminpanel.php:148
+msgid "Invalid consumer key. Max length is 255 characters."
+msgstr ""
+
+#: twitteradminpanel.php:154
+msgid "Invalid consumer secret. Max length is 255 characters."
+msgstr ""
+
+#: twitteradminpanel.php:207
+msgid "Twitter application settings"
+msgstr ""
+
+#: twitteradminpanel.php:213
+msgid "Consumer key"
+msgstr ""
+
+#: twitteradminpanel.php:214
+msgid "Consumer key assigned by Twitter"
+msgstr ""
+
+#: twitteradminpanel.php:222
+msgid "Consumer secret"
+msgstr ""
+
+#: twitteradminpanel.php:223
+msgid "Consumer secret assigned by Twitter"
+msgstr ""
+
+#: twitteradminpanel.php:240
+msgid "Integration source"
+msgstr ""
+
+#: twitteradminpanel.php:241
+msgid "Name of your Twitter application"
+msgstr ""
+
+#: twitteradminpanel.php:253
+msgid "Options"
+msgstr ""
+
+#: twitteradminpanel.php:260
+msgid "Enable \"Sign-in with Twitter\""
+msgstr ""
+
+#: twitteradminpanel.php:262
+msgid "Allow users to login with their Twitter credentials"
+msgstr ""
+
+#: twitteradminpanel.php:268
+msgid "Enable Twitter import"
+msgstr ""
+
+#: twitteradminpanel.php:270
+msgid "Allow users to import their Twitter friends' timelines"
+msgstr ""
+
 #: twitterauthorization.php:181 twitterauthorization.php:229
 msgid "Couldn't link your Twitter account."
 msgstr ""
 
 #: twitterauthorization.php:201
 msgid "Couldn't link your Twitter account: oauth_token mismatch."
-msgstr ""
-
-#: TwitterBridgePlugin.php:114
-msgid "Twitter"
-msgstr ""
-
-#: TwitterBridgePlugin.php:115
-msgid "Twitter integration options"
-msgstr ""
-
-#: TwitterBridgePlugin.php:207
-msgid ""
-"The Twitter \"bridge\" plugin allows you to integrate your StatusNet "
-"instance with <a href=\"http://twitter.com/\">Twitter</a>."
 msgstr ""
 
 #: twittersettings.php:59
