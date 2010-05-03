@@ -20,7 +20,7 @@
  * Sendmail implementation of the PEAR Mail:: interface.
  * @access public
  * @package Mail
- * @version $Revision: 294744 $
+ * @version $Revision: 1.19 $
  */
 class Mail_sendmail extends Mail {
 
@@ -117,7 +117,7 @@ class Mail_sendmail extends Mail {
         if (is_a($recipients, 'PEAR_Error')) {
             return $recipients;
         }
-        $recipients = implode(' ', array_map('escapeshellarg', $recipients));
+        $recipients = escapeShellCmd(implode(' ', $recipients));
 
         $headerElements = $this->prepareHeaders($headers);
         if (is_a($headerElements, 'PEAR_Error')) {
@@ -141,8 +141,7 @@ class Mail_sendmail extends Mail {
             return PEAR::raiseError('From address specified with dangerous characters.');
         }
 
-        $from = escapeshellarg($from); // Security bug #16200
-
+        $from = escapeShellCmd($from);
         $mail = @popen($this->sendmail_path . (!empty($this->sendmail_args) ? ' ' . $this->sendmail_args : '') . " -f$from -- $recipients", 'w');
         if (!$mail) {
             return PEAR::raiseError('Failed to open sendmail [' . $this->sendmail_path . '] for execution.');
