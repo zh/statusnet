@@ -121,4 +121,40 @@ class SitemapPlugin extends Plugin
                           'index' => '[1-9][0-9]*'));
         return true;
     }
+
+    /**
+     * Database schema setup
+     *
+     * We cache some data persistently to avoid overlong queries.
+     *
+     * @see Sitemap_user_count
+     * @see Sitemap_notice_count
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing user-submitted flags on profiles
+
+        $schema->ensureTable('sitemap_user_count',
+                             array(new ColumnDef('registration_date', 'date', null,
+                                                 true, 'PRI'),
+                                   new ColumnDef('user_count', 'integer'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+
+        $schema->ensureTable('sitemap_notice_count',
+                             array(new ColumnDef('notice_date', 'date', null,
+                                                 true, 'PRI'),
+                                   new ColumnDef('notice_count', 'integer'),
+                                   new ColumnDef('created', 'datetime',
+                                                 null, false),
+                                   new ColumnDef('modified', 'timestamp')));
+
+        return true;
+    }
 }
