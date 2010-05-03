@@ -75,7 +75,7 @@ class NoticesitemapAction extends SitemapAction
             $this->j++;
             return array(common_local_url('shownotice', array('notice' => $n[0])),
                          common_date_w3dtf($n[1]),
-                         null,
+                         'never',
                          null);
         } else {
             return null;
