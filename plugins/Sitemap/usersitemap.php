@@ -72,7 +72,7 @@ class UsersitemapAction extends SitemapAction
         if ($this->j < count($this->users)) {
             $nickname = $this->users[$this->j];
             $this->j++;
-            return array(common_profile_url($nickname), null, null, null);
+            return array(common_profile_url($nickname), null, null, '1.0');
         } else {
             return null;
         }
