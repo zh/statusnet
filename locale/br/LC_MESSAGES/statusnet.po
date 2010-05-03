@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:16:12+0000\n"
+"PO-Revision-Date: 2010-05-03 19:17:27+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: out-statusnet\n"
@@ -2105,7 +2105,7 @@ msgstr "Kemennadenn bersonel"
 
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
-msgstr ""
+msgstr "Ouzhpennañ ur gemennadenn bersonel d'ar bedadenn (diret)."
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
@@ -2772,6 +2772,8 @@ msgstr "Danvez direizh an ali."
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
+"Aotre-implijout ar menegoù \"%1$s\" ne ya ket gant aotre-implijout al "
+"lec'hienn \"%2$s\"."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2781,6 +2783,8 @@ msgstr "Arventennoù ar profil"
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr ""
+"Gellout a reoc'h hizivaat titouroù ho profil evit ma ouifemp muioc'h a draoù "
+"diwar ho penn."
 
 #: actions/profilesettings.php:99
 msgid "Profile information"
@@ -2788,7 +2792,7 @@ msgstr "Titouroù ar profil"
 
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr ""
+msgstr "1 da 64 lizherenn vihan pe sifr, hep poentaouiñ nag esaouenn"
 
 #: actions/profilesettings.php:111 actions/register.php:448
 #: actions/showgroup.php:256 actions/tagother.php:104
@@ -2804,12 +2808,12 @@ msgstr "Pajenn degemer"
 
 #: actions/profilesettings.php:117 actions/register.php:455
 msgid "URL of your homepage, blog, or profile on another site"
-msgstr ""
+msgstr "URL ho pajenn degemer, ho blog, pe ho profil en ul lec'hienn all"
 
 #: actions/profilesettings.php:122 actions/register.php:461
 #, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr ""
+msgstr "Deskrivit ac'hanoc'h hag ho interestoù, gant %d arouezenn"
 
 #: actions/profilesettings.php:125 actions/register.php:464
 msgid "Describe yourself and your interests"
@@ -2844,6 +2848,8 @@ msgstr "Balizennoù"
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr ""
+"Merkoù evidoc'h oc'h unan (lizherennoù, sifroù, -, ., ha _), dispartiet gant "
+"virgulennoù pe esaouennoù"
 
 #: actions/profilesettings.php:151
 msgid "Language"
@@ -2859,12 +2865,14 @@ msgstr "Takad eur"
 
 #: actions/profilesettings.php:162
 msgid "What timezone are you normally in?"
-msgstr ""
+msgstr "Pehini eo gwerzhid-eur boaz ?"
 
 #: actions/profilesettings.php:167
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
+"En em enskrivañ ez emgefre d'an holl re hag en em goumanant din (erbedet "
+"evit an implijerien nann-denel)"
 
 #: actions/profilesettings.php:228 actions/register.php:223
 #, php-format
@@ -2886,7 +2894,7 @@ msgstr "Balizenn direizh : \"%s\""
 
 #: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
-msgstr ""
+msgstr "Dibosupl eo hizivaat ar c'houmanant ez emgefre."
 
 #: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
@@ -2912,16 +2920,16 @@ msgstr "Dreist da bevennoù ar bajenn (%s)."
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "Dibosupl eo adtapout al lanv foran."
 
 #: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
-msgstr ""
+msgstr "Lanv foran - pajenn %d"
 
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
-msgstr ""
+msgstr "Lanv foran"
 
 #: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
@@ -2941,6 +2949,7 @@ msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
+"Kronologiezh foran %%site.name%% eo, met den n'en deus skrivet tra ebet."
 
 #: actions/public.php:191
 msgid "Be the first to post!"
@@ -2951,6 +2960,8 @@ msgstr "Bezit an hini gentañ da bostañ !"
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
 
 #: actions/public.php:242
 #, php-format
@@ -2968,10 +2979,12 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
-msgstr ""
+msgstr "Koumoulenn a merkoù foran"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -2993,10 +3006,12 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
-msgstr ""
+msgstr "Koumoulenn merkoù"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
@@ -3024,17 +3039,19 @@ msgstr "Re gozh eo ar c'hod gwiriañ. Adkrogit mar plij."
 
 #: actions/recoverpassword.php:111
 msgid "Could not update user with confirmed email address."
-msgstr ""
+msgstr "Dibosupl eo hizivaat an implijer gant ar chomlec'h postel gwiriekaet."
 
 #: actions/recoverpassword.php:152
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"M'o peus disoñjet pe kollet ho ger-tremen, e c'helloc'h kaout unan nevez hag "
+"a vo kaset deoc'h d'ar chomlec'h postel termenet en ho kont."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
+msgstr "Diskleriet oc'h bet. Lakait ur ger-tremen nevez amañ da heul. "
 
 #: actions/recoverpassword.php:188
 msgid "Password recovery"
@@ -3046,7 +3063,7 @@ msgstr "Lesanv pe chomlec'h postel"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Ho lesanv war ar servijer-mañ, pe ar chomlec'h postel o peus enrollet."
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
@@ -3097,10 +3114,12 @@ msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+"Kaset eo bet deoc'h, d'ar chomlec'h postel termenet en ho kont, an titouroù "
+"ret evit gouzout penaos adtapout o ger-tremen."
 
 #: actions/recoverpassword.php:357
 msgid "Unexpected password reset."
-msgstr ""
+msgstr "Adderaouekadur dic'hortoz ar ger-tremen."
 
 #: actions/recoverpassword.php:365
 msgid "Password must be 6 chars or more."
@@ -3217,6 +3236,8 @@ msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
 msgstr ""
+"(Resevout a reoc'h a-benn nebeut ur postel gant an titouroù evit kadarnaat "
+"ho chomlec'h.)"
 
 #: actions/remotesubscribe.php:98
 #, php-format
@@ -3265,7 +3286,7 @@ msgstr ""
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
-msgstr ""
+msgstr "Lec'hel eo ar profil-mañ ! Kevreit evit koumananti."
 
 #: actions/remotesubscribe.php:183
 msgid "Couldn’t get a request token."
@@ -3461,11 +3482,11 @@ msgstr "Sekred an implijer"
 
 #: actions/showapplication.php:273
 msgid "Request token URL"
-msgstr ""
+msgstr "URL ar jedouer reked"
 
 #: actions/showapplication.php:278
 msgid "Access token URL"
-msgstr ""
+msgstr "URL ar jedouer moned"
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
@@ -3480,6 +3501,7 @@ msgstr ""
 #: actions/showapplication.php:309
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
+"Ha sur oc'h o peus c'hoant adderaouekaat ho alc'hwez bevezer ha sekred ?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -4614,7 +4636,7 @@ msgstr "Ur gudenn 'zo bet pa veze enrollet boest degemer ar strollad."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4908,7 +4930,7 @@ msgstr ""
 #: lib/action.php:820
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
-msgstr ""
+msgstr "**%%site.name%%** a zo ur servij microblogging."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
 #: lib/action.php:824
@@ -4967,7 +4989,7 @@ msgid "Before"
 msgstr "Kent"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
@@ -4975,11 +4997,11 @@ msgstr ""
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -5532,7 +5554,7 @@ msgstr ""
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr ""
+msgstr "Hizivadennoù dre SMS"
 
 #: lib/connectsettingsaction.php:120
 msgid "Connections"
@@ -5759,7 +5781,7 @@ msgstr "Digeriñ ur gont nevez"
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
 msgid "Email address confirmation"
-msgstr ""
+msgstr "Kadarnadur ar chomlec'h postel"
 
 #. TRANS: Body for address confirmation email.
 #: lib/mail.php:177
@@ -5811,7 +5833,7 @@ msgstr ""
 #: lib/mail.php:298
 #, php-format
 msgid "New email address for posting to %s"
-msgstr ""
+msgstr "Chomlec'h postel nevez evit embann e %s"
 
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:302
@@ -6018,7 +6040,7 @@ msgstr ""
 
 #: lib/mediafile.php:159
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "Mankout a ra un doser padennek."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
@@ -6216,7 +6238,7 @@ msgstr "Ar c'hemenadennoù kaset ganeoc'h"
 msgid "Tags in %s's notices"
 msgstr ""
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr "Dianav"
 
