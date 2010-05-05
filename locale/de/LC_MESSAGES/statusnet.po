@@ -15,12 +15,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:16:22+0000\n"
+"POT-Creation-Date: 2010-04-29 23:21+0000\n"
+"PO-Revision-Date: 2010-05-03 19:17:36+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -506,9 +506,9 @@ msgstr "%s’s Gruppen"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "Gruppen in denen %s Mitglied ist"
+msgstr "%1$s Gruppen in denen %2$s Mitglied ist"
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
@@ -3316,13 +3316,12 @@ msgid "Invalid username or password."
 msgstr "Benutzername oder Passwort falsch."
 
 #: actions/register.php:343
-#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
-"Hier kannst du einen neuen Zugang einrichten. Danach kannst du Nachrichten "
-"und Links an deine Freunde und Kollegen schicken. "
+"Hier kannst du einen neuen Zugang einrichten. Anschließend kannst du "
+"Nachrichten und Links mit deinen Freunden und Kollegen teilen. "
 
 #: actions/register.php:425
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
@@ -3355,13 +3354,13 @@ msgid "Longer name, preferably your \"real\" name"
 msgstr "Längerer Name, bevorzugt dein „echter“ Name"
 
 #: actions/register.php:494
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-"außer folgende private Daten: Passwort, E-Mail-Adresse, IM-Adresse und "
-"Telefonnummer."
+"Abgesehen von folgenden Daten: Passwort, Email Adresse, IM Adresse und "
+"Telefonnummer, sind all meine Texte und Dateien unter %s verfügbar."
 
 #: actions/register.php:542
 #, php-format
@@ -4898,7 +4897,7 @@ msgstr "Problem bei Speichern der Nachricht."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5260,7 +5259,7 @@ msgid "Before"
 msgstr "Vorher"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr "root-Element eines Feeds erwartet aber ganzes XML Dokument erhalten."
 
@@ -5268,11 +5267,11 @@ msgstr "root-Element eines Feeds erwartet aber ganzes XML Dokument erhalten."
 msgid "Can't handle remote content yet."
 msgstr "Fremdinhalt kann noch nicht eingebunden werden."
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr "Kann eingebundenen XML Inhalt nicht verarbeiten."
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Eingebundener Base64 Inhalt kann noch nicht verarbeitet werden."
 
@@ -6657,7 +6656,7 @@ msgstr "Deine gesendeten Nachrichten"
 msgid "Tags in %s's notices"
 msgstr "Stichworte in %ss Nachrichten"
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr "Unbekannter Befehl"
 
