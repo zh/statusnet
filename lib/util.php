@@ -138,23 +138,38 @@ function common_timezone()
     return common_config('site', 'timezone');
 }
 
+function common_valid_language($lang)
+{
+    if ($lang) {
+        // Validate -- we don't want to end up with a bogus code
+        // left over from some old junk.
+        foreach (common_config('site', 'languages') as $code => $info) {
+            if ($info['lang'] == $lang) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function common_language()
 {
+    // Allow ?uselang=xx override, very useful for debugging
+    // and helping translators check usage and context.
+    if (isset($_GET['uselang'])) {
+        $uselang = strval($_GET['uselang']);
+        if (common_valid_language($uselang)) {
+            return $uselang;
+        }
+    }
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
     if (_have_config() && common_logged_in()) {
         $user = common_current_user();
-        $user_language = $user->language;
 
-        if ($user->language) {
-            // Validate -- we don't want to end up with a bogus code
-            // left over from some old junk.
-            foreach (common_config('site', 'languages') as $code => $info) {
-                if ($info['lang'] == $user_language) {
-                    return $user_language;
-                }
-            }
+        if (common_valid_language($user->language)) {
+            return $user->language;
         }
     }
 
