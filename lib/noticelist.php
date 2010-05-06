@@ -530,7 +530,6 @@ class NoticeListItem extends Widget
                 } else {
                     $this->out->element('span', 'device', $name);
                 }
-                break;
             }
             $this->out->elementEnd('span');
         }
