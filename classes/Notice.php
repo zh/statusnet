@@ -1216,8 +1216,14 @@ class Notice extends Memcached_DataObject
             $noticeInfoAttr = array(
                 'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
                 'source'     => $this->source // the client name (source attribution)
-                // @todo source source_link
-                );
+            );
+
+            $ns = $this->getSource();
+            if ($ns) {
+                if (!empty($ns->url)) {
+                    $noticeInfoAttr['source_link'] = htmlentities($ns->url);
+                }
+            }
 
             if (!empty($cur)) {
                 $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
