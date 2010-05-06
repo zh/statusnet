@@ -89,7 +89,7 @@ class FavoritesrssAction extends Rss10Action
     function getNotices($limit=0)
     {
         $user    = $this->user;
-        $notice  = $user->favoriteNotices(0, $limit);
+        $notice  = $user->favoriteNotices(false, 0, $limit);
         $notices = array();
         while ($notice->fetch()) {
             $notices[] = clone($notice);

@@ -45,7 +45,15 @@ function ping_broadcast_notice($notice) {
 											   $tags));
 
             $request = HTTPClient::start();
-            $httpResponse = $request->post($notify_url, array('Content-Type: text/xml'), $req);
+            $request->setConfig('connect_timeout', common_config('ping', 'timeout'));
+            $request->setConfig('timeout', common_config('ping', 'timeout'));
+            try {
+                $httpResponse = $request->post($notify_url, array('Content-Type: text/xml'), $req);
+            } catch (Exception $e) {
+                common_log(LOG_ERR,
+                           "Exception pinging $notify_url: " . $e->getMessage());
+                continue;
+            }
 
             if (!$httpResponse || mb_strlen($httpResponse->getBody()) == 0) {
                 common_log(LOG_WARNING,
