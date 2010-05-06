@@ -497,40 +497,37 @@ class NoticeListItem extends Widget
             $this->out->text(_('from'));
             $this->out->text(' ');
 
+            $name  = $source_name;
+            $url   = $ns->url;
+            $title = null;
+
+            if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
+                $name = $source_name;
+                $url  = $ns->url;
+            }
+            Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
+
             // if $ns->name and $ns->url are populated we have
             // configured a source attr somewhere
-            if (empty($ns->name) && empty($ns->url)) {
-                // otherwise it's from normal channel such as web or api
-                $this->out->element('span', 'device', $source_name);
+            if (!empty($name) && !empty($url)) {
+
+                $this->out->elementStart('span', 'device');
+
+                $attrs = array(
+                    'href' => $url,
+                    'rel' => 'external'
+                );
+
+                if (!empty($title)) {
+                    $attrs['title'] = $title;
+                }
+
+                $this->out->element('a', $attrs, $name);
+                $this->out->elementEnd('span');
             } else {
-                $name  = null;
-                $url   = null;
-                $title = null;
-
-                if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
-                    $name = $source_name;
-                    $url  = $ns->url;
-                }
-                Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
-
-                if (!empty($name) && !empty($url)) {
-                    $this->out->elementStart('span', 'device');
-
-                    $attrs = array(
-                        'href' => $url,
-                        'rel' => 'external'
-                    );
-
-                    if (isset($title)) {
-                        $attrs['title'] = $title;
-                    }
-
-                    $this->out->element('a', $attrs, $name);
-                    $this->out->elementEnd('span');
-                } else {
-                    $this->out->element('span', 'device', $name);
-                }
+                $this->out->element('span', 'device', $name);
             }
+
             $this->out->elementEnd('span');
         }
     }
