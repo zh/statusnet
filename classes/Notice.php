@@ -1221,7 +1221,7 @@ class Notice extends Memcached_DataObject
             $ns = $this->getSource();
             if ($ns) {
                 if (!empty($ns->url)) {
-                    $noticeInfoAttr['source_link'] = htmlentities($ns->url);
+                    $noticeInfoAttr['source_link'] = $ns->url;
                 }
             }
 

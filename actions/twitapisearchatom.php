@@ -349,14 +349,17 @@ class TwitapisearchatomAction extends ApiAction
         $ns = $notice->getSource();
         if ($ns) {
             if (!empty($ns->name) && !empty($ns->url)) {
-                $source = '<a href="' . $ns->url . '" rel="nofollow">' . $ns->name . '</a>';
+                $source = '<a href="'
+		   . htmlspecialchars($ns->url)
+		   . '" rel="nofollow">'
+		   . htmlspecialchars($ns->name)
+		   . '</a>';
             } else {
                 $source = $ns->code;
             }
         }
 
-        $this->element("twitter:source", null,
-            htmlentities($source));
+        $this->element("twitter:source", null, $source);
 
         $this->elementStart('author');
 
