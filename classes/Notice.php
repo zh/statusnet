@@ -1172,7 +1172,7 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
-    function asAtomEntry($namespace=false, $source=false, $author=true)
+    function asAtomEntry($namespace=false, $source=false, $author=true, $cur=null)
     {
         $profile = $this->getProfile();
 
@@ -1185,7 +1185,8 @@ class Notice extends Memcached_DataObject
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:media' => 'http://purl.org/syndication/atommedia',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
-                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                           'xmlns:statusnet' => 'http://status.net/ont/');
         } else {
             $attrs = array();
         }
@@ -1211,6 +1212,18 @@ class Notice extends Memcached_DataObject
 
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
             $xs->element('updated', null, common_date_w3dtf($this->created));
+
+            $noticeInfoAttr = array(
+                'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
+                'source'     => $this->source // the client name (source attribution)
+                // @todo source source_link
+                );
+
+            if (!empty($cur)) {
+                $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
+            }
+
+            $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
         }
 
         if ($source) {

@@ -79,6 +79,11 @@ class AtomNoticeFeed extends Atom10Feed
             'ostatus',
             'http://ostatus.org/schema/1.0'
         );
+
+        $this->addNamespace(
+            'statusnet',
+            'http://status.net/ont/'
+        );
     }
 
     /**
@@ -110,7 +115,9 @@ class AtomNoticeFeed extends Atom10Feed
         $source = $this->showSource();
         $author = $this->showAuthor();
 
-        $this->addEntryRaw($notice->asAtomEntry(false, $source, $author));
+        $cur = common_current_user();
+
+        $this->addEntryRaw($notice->asAtomEntry(false, $source, $author, $cur));
     }
 
     function showSource()
