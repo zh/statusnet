@@ -488,48 +488,44 @@ class NoticeListItem extends Widget
 
     function showNoticeSource()
     {
-        if ($this->notice->source) {
+        $ns = $this->notice->getSource();
+
+        if ($ns) {
+            $source_name = _($ns->code);
             $this->out->text(' ');
             $this->out->elementStart('span', 'source');
             $this->out->text(_('from'));
-            $source_name = _($this->notice->source);
             $this->out->text(' ');
-            switch ($this->notice->source) {
-             case 'web':
-             case 'xmpp':
-             case 'mail':
-             case 'omb':
-             case 'system':
-             case 'api':
-                $this->out->element('span', 'device', $source_name);
-                break;
-             default:
 
-                $name = $source_name;
-                $url  = null;
+            // if $ns->name and $ns->url are populated we have
+            // configured a source attr somewhere
+            if (empty($ns->name) && empty($ns->url)) {
+                // otherwise it's from normal channel such as web or api
+                $this->out->element('span', 'device', $source_name);
+            } else {
+                $name  = null;
+                $url   = null;
+                $title = null;
 
                 if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
-                    $ns = Notice_source::staticGet($this->notice->source);
-
-                    if ($ns) {
-                        $name = $ns->name;
-                        $url  = $ns->url;
-                    } else {
-                        $app = Oauth_application::staticGet('name', $this->notice->source);
-                        if ($app) {
-                            $name = $app->name;
-                            $url  = $app->source_url;
-                        }
-                    }
+                    $name = $source_name;
+                    $url  = $ns->url;
                 }
                 Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
 
                 if (!empty($name) && !empty($url)) {
                     $this->out->elementStart('span', 'device');
-                    $this->out->element('a', array('href' => $url,
-                                                   'rel' => 'external',
-                                                   'title' => $title),
-                                        $name);
+
+                    $attrs = array(
+                        'href' => $url,
+                        'rel' => 'external'
+                    );
+
+                    if (isset($title)) {
+                        $attrs['title'] = $title;
+                    }
+
+                    $this->out->element('a', $attrs, $name);
                     $this->out->elementEnd('span');
                 } else {
                     $this->out->element('span', 'device', $name);

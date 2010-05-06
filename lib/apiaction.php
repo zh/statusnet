@@ -313,7 +313,19 @@ class ApiAction extends Action
         $twitter_status['created_at'] = $this->dateTwitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
-        $twitter_status['source'] = $this->sourceLink($notice->source);
+
+        $source = null;
+
+        $ns = $notice->getSource();
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
+
+        $twitter_status['source'] = $source;
         $twitter_status['id'] = intval($notice->id);
 
         $replier_profile = null;
@@ -1352,43 +1364,6 @@ class ApiAction extends Action
                 return User_group::staticGet('id', $local->group_id);
             }
         }
-    }
-
-    function sourceLink($source)
-    {
-        $source_name = _($source);
-        switch ($source) {
-        case 'web':
-        case 'xmpp':
-        case 'mail':
-        case 'omb':
-        case 'api':
-            break;
-        default:
-
-            $name = null;
-            $url  = null;
-
-            $ns = Notice_source::staticGet($source);
-
-            if ($ns) {
-                $name = $ns->name;
-                $url  = $ns->url;
-            } else {
-                $app = Oauth_application::staticGet('name', $source);
-                if ($app) {
-                    $name = $app->name;
-                    $url  = $app->source_url;
-                }
-            }
-
-            if (!empty($name) && !empty($url)) {
-                $source_name = '<a href="' . $url . '">' . $name . '</a>';
-            }
-
-            break;
-        }
-        return $source_name;
     }
 
     /**

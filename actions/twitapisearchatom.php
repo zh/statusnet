@@ -342,10 +342,21 @@ class TwitapisearchatomAction extends ApiAction
                                      'rel' => 'related',
                                      'href' => $profile->avatarUrl()));
 
-        // TODO: Here is where we'd put in a link to an atom feed for threads
+        // @todo: Here is where we'd put in a link to an atom feed for threads
+
+        $source = null;
+
+        $ns = $notice->getSource();
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
 
         $this->element("twitter:source", null,
-            htmlentities($this->sourceLink($notice->source)));
+            htmlentities($source));
 
         $this->elementStart('author');
 
