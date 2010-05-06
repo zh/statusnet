@@ -319,13 +319,13 @@ class ApiAction extends Action
         $ns = $notice->getSource();
         if ($ns) {
             if (!empty($ns->name) && !empty($ns->url)) {
-                $source = '<a href="' . $ns->url . '">' . $ns->name . '</a>';
+                $source = '<a href="' . $ns->url . '" rel="nofollow">' . $ns->name . '</a>';
             } else {
                 $source = $ns->code;
             }
         }
 
-        $twitter_status['source'] = $source;
+        $twitter_status['source'] = htmlentities($source);
         $twitter_status['id'] = intval($notice->id);
 
         $replier_profile = null;
