@@ -121,11 +121,11 @@ class ShowfavoritesAction extends OwnerDesignAction
             // Show imported/gateway notices as well as local if
             // the user is looking at his own favorites
 
-            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, true);
+            $this->notice = $this->user->favoriteNotices(true, ($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1);
         } else {
-            $this->notice = $this->user->favoriteNotices(($this->page-1)*NOTICES_PER_PAGE,
-                                                   NOTICES_PER_PAGE + 1, false);
+            $this->notice = $this->user->favoriteNotices(false, ($this->page-1)*NOTICES_PER_PAGE,
+                                                   NOTICES_PER_PAGE + 1);
         }
 
         if (empty($this->notice)) {
