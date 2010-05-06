@@ -138,6 +138,7 @@ class MobileProfilePlugin extends WAP20Plugin
                     'vodafone',
                     'wap1',
                     'wap2',
+                    'webos',
                     'windows ce'
                 );
 
