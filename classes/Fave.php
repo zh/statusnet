@@ -75,13 +75,13 @@ class Fave extends Memcached_DataObject
         return Memcached_DataObject::pkeyGet('Fave', $kv);
     }
 
-    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Fave', '_streamDirect'),
                               array($user_id, $own),
                               ($own) ? 'fave:ids_by_user_own:'.$user_id :
                               'fave:ids_by_user:'.$user_id,
-                              $offset, $limit);
+                              $offset, $limit, $since_id, $max_id);
         return $ids;
     }
 

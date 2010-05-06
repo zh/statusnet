@@ -12,11 +12,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-05-03 19:17:30+0000\n"
+"PO-Revision-Date: 2010-05-05 22:19:09+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r65963); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -176,6 +176,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
+"Podeu provar d'[avisar %1$s](../%2$s) des del seu perfil o [enviar quelcom "
+"per reclamar-li l'atenció](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:145 actions/replies.php:210 actions/showstream.php:211
 #, php-format
@@ -183,6 +185,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to his or her attention."
 msgstr ""
+"Per què no [registreu un compte](%%%%action.register%%%%) i aviseu %s o "
+"envieu un avís a la seva atenció."
 
 #. TRANS: H1 text
 #: actions/all.php:178
@@ -558,11 +562,13 @@ msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
 msgstr ""
+"S'ha autoritzat el testimoni de sol·licitud %s. Si us plau, canvieu-lo per "
+"un testimoni d'accés."
 
 #: actions/apioauthauthorize.php:227
 #, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr ""
+msgstr "S'ha denegat i revocat el testimoni de sol·licitud %s."
 
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
@@ -591,6 +597,9 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"L'aplicació <strong>%1$s</strong>, de <strong>%2$s</strong>, voldria obtenir "
+"l'habilitat de <strong>%3$s</strong> les dades del vostre compte %4$s. Només "
+"hauríeu de donar accés al compte %4$s a terceres parts en què confieu."
 
 #. TRANS: Main menu option when logged in for access to user settings
 #: actions/apioauthauthorize.php:310 lib/action.php:440
@@ -826,6 +835,9 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
+"Esteu segur que voleu blocar l'usuari? Tot seguit, deixarà la vostra "
+"subscripció, no us podrà subscriure en el futur, i no en rebreu cap avís de "
+"respostes @."
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -1273,11 +1285,11 @@ msgstr "Cal una pàgina d'inici de l'organització."
 
 #: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
-msgstr ""
+msgstr "La crida de retorn és massa llarga."
 
 #: actions/editapplication.php:225 actions/newapplication.php:215
 msgid "Callback URL is not valid."
-msgstr ""
+msgstr "L'URL de la crida de retorn no és vàlid."
 
 #: actions/editapplication.php:258
 msgid "Could not update application."
@@ -1666,9 +1678,8 @@ msgid "You are not authorized."
 msgstr "No esteu autoritzat."
 
 #: actions/finishremotesubscribe.php:113
-#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "No s'han pogut convertir els senyals de petició a senyals d'accés."
+msgstr "No s'ha pogut convertir el testimoni de sol·licitud a un d'accés."
 
 #: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
@@ -1880,6 +1891,11 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
+"Els grups de %%%%site.name%%%% us permeten trobar-vos i parlar amb gent "
+"d'interessos semblants. Després d'unir-vos a un grup, podeu enviar missatges "
+"a altres membres emprant la sintaxi «!groupname». No veieu cap grup que us "
+"agradi? Proveu de [cercar-ne un](%%%%action.groupsearch%%%%) o [comenceu-ne "
+"un de propi!](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1909,6 +1925,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"Si no podeu trobar el grup que cerqueu, podeu provar de [crear-lo](%%action."
+"newgroup%%) també."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1916,6 +1934,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
+"Per què no [registreu un compte](%%action.register%%) i proveu de [crear-hi "
+"un grup](%%action.newgroup%%)!"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
@@ -2444,6 +2464,8 @@ msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
+"Sigueu el primer en [enviar sobre aquest tema](%%%%action.newnotice%%%%?"
+"status_textarea=%s)!"
 
 #: actions/noticesearch.php:124
 #, php-format
@@ -2451,6 +2473,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
+"Per què no [registreu un compte](%%%%action.register%%%%) i sou el primer "
+"[en parlar del tema](%%%%action.newnotice%%%%?status_textarea=%s)!"
 
 #: actions/noticesearchrss.php:96
 #, php-format
@@ -2510,15 +2534,17 @@ msgstr "No sou usuari de l'aplicació."
 #: actions/oauthconnectionssettings.php:186
 #, php-format
 msgid "Unable to revoke access for app: %s."
-msgstr ""
+msgstr "No s'ha pogut revocar l'accés de l'aplicació: %s"
 
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
-msgstr ""
+msgstr "No heu autoritzat cap aplicació perquè utilitzi el vostre compte."
 
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
+"Els desenvolupadors poden editar els paràmetres de registre de llurs "
+"aplicacions "
 
 #: actions/oembed.php:79 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -2539,7 +2565,7 @@ msgstr "El tipus de contingut %s no està permès."
 #: actions/oembed.php:162
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "Si us plau, només URL %s sobre HTTP pla."
 
 #. TRANS: Client error on an API request with an unsupported data format.
 #: actions/oembed.php:183 actions/oembed.php:202 lib/apiaction.php:1131
@@ -2593,29 +2619,25 @@ msgid "No user ID specified."
 msgstr "No s'ha especificat cap ID d'usuari."
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
-msgstr "No s'ha especificat perfil."
+msgstr "No s'ha especificat cap testimoni d'inici de sessió."
 
 #: actions/otp.php:90
-#, fuzzy
 msgid "No login token requested."
-msgstr "No id en el perfil sol·licitat."
+msgstr "No s'ha sol·licitat cap testimoni d'inici de sessió."
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "El contingut de l'avís és invàlid"
+msgstr "No s'ha especificat un testimoni d'inici de sessió vàlid."
 
 #: actions/otp.php:104
-#, fuzzy
 msgid "Login token expired."
-msgstr "Accedir al lloc"
+msgstr "El testimoni d'inici de sessió ha vençut."
 
 #: actions/outbox.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "Outbox for %1$s - page %2$d"
-msgstr "Safata de sortida per %s"
+msgstr "Safata de sortida de %1$s - pàgina %2$d"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2696,31 +2718,31 @@ msgstr "Camins"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
-msgstr ""
+msgstr "Camí i paràmetres del servidor d'aquest lloc StatusNet."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Aquesta pàgina no està disponible en "
+msgstr "No es pot llegir el directori de temes: %s"
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "No es pot escriure al directori de fons: %s"
+msgstr "No es pot escriure al directori d'avatars: %s"
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
 msgstr "No es pot escriure al directori de fons: %s"
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Aquesta pàgina no està disponible en "
+msgstr "No es pot llegir el directori de les traduccions: %s"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "El servidor SSL no és vàlid. La mida màxima és de 255 caràcters."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 msgid "Site"
@@ -2744,11 +2766,11 @@ msgstr "Camí del lloc"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
-msgstr ""
+msgstr "El camí a les traduccions"
 
 #: actions/pathsadminpanel.php:246
 msgid "Directory path to locales"
-msgstr ""
+msgstr "El camí del directori a les traduccions"
 
 #: actions/pathsadminpanel.php:250
 msgid "Fancy URLs"
@@ -2856,9 +2878,9 @@ msgid "People search"
 msgstr "Cerca de gent"
 
 #: actions/peopletag.php:68
-#, fuzzy, php-format
+#, php-format
 msgid "Not a valid people tag: %s."
-msgstr "Etiqueta no vàlida per a la gent: %s"
+msgstr "No és una etiqueta de gent vàlida: %s"
 
 #: actions/peopletag.php:142
 #, php-format
@@ -2873,6 +2895,8 @@ msgstr "El contingut de l'avís no és vàlid."
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
+"La llicència ‘%1$s’ de l'avís no és compatible amb la llicència ‘%2$s’ del "
+"lloc."
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2916,9 +2940,8 @@ msgid "Describe yourself and your interests in %d chars"
 msgstr "Descriviu qui sou i els vostres interessos en %d caràcters"
 
 #: actions/profilesettings.php:125 actions/register.php:464
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Explica'ns alguna cosa sobre tu "
+msgstr "Feu una descripció personal i interessos"
 
 #: actions/profilesettings.php:127 actions/register.php:466
 msgid "Bio"
@@ -3073,16 +3096,20 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+"Això és %%site.name%%, un servei de [micro-blogging](http://en.wikipedia.org/"
+"wiki/Micro-blogging) basat en l'eina lliure [StatusNet](http://status.net/). "
+"[Uniu-vos-hi ara](%%action.register%%) per a compartir què feu amb els "
+"vostres amics, familiars, i companys! ([Més informació](%%doc.help%%))"
 
 #: actions/public.php:247
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
 "Això és %%site.name%%, un servei de [microblogging](http://ca.wikipedia.org/"
-"wiki/Microblogging) "
+"wiki/Microblogging) basat en l'eina lliure [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -3108,6 +3135,8 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr ""
+"Per què no hi [registreu un compte](%%action.register%%) i sou el primer en "
+"escriure'n un!"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
@@ -3272,7 +3301,6 @@ msgid "Invalid username or password."
 msgstr "Nom d'usuari o contrasenya invàlids."
 
 #: actions/register.php:343
-#, fuzzy
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -3309,13 +3337,14 @@ msgid "Longer name, preferably your \"real\" name"
 msgstr "Nom llarg, preferiblement el teu nom \"real\""
 
 #: actions/register.php:494
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-"excepte les següents dades privades: contrasenya, adreça de correu "
-"electrònic, adreça de missatgeria instantània, número de telèfon."
+"El meu text i fitxers es troben disponibles sota %s, excepte pel que fa a "
+"les dades privades: contrasenya, adreça de correu electrònic, adreça de "
+"missatgeria instantània i número de telèfon."
 
 #: actions/register.php:542
 #, fuzzy, php-format
@@ -3335,7 +3364,8 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Felicitats, %s! I benvingut/da a %%%%site.name%%%%. Des d'aquí, podries...\n"
+"Enhorabona, %1$s! Us donem la benvinguda a %%%%site.name%%%%. Des d'aquí, "
+"podríeu voler...\n"
 "\n"
 "* Anar al teu [teu perfil](%s) i publicar el teu primer missatge.\n"
 "* Afegir una [direcció Jabber/GTalk](%%%%action.imsettings%%%%) i així poder "
@@ -3402,18 +3432,18 @@ msgid "Invalid profile URL (bad format)"
 msgstr "L'URL del perfil és invàlid (format incorrecte)"
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "URL de perfil no vàlid (cap document YADIS)."
+msgstr ""
+"L'URL del perfil no és vàlid (no és un document YADIS o no s'ha definit un "
+"XRDS vàlid)."
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
 msgstr "Aquest és un perfil local! Inicieu una sessió per a subscriure-us-hi."
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "No s'ha pogut obtenir un senyal de petició."
+msgstr "No s'ha pogut obtenir un testimoni de sol·licitud."
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
@@ -3424,9 +3454,8 @@ msgid "No notice specified."
 msgstr "No s'ha especificat cap avís."
 
 #: actions/repeat.php:76
-#, fuzzy
 msgid "You can't repeat your own notice."
-msgstr "No pots registrar-te si no estàs d'acord amb la llicència."
+msgstr "No podeu repetir el vostre propi avís."
 
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
@@ -3467,13 +3496,13 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Feed d'avisos de %s"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to his attention yet."
 msgstr ""
-"Aquesta és la línia temporal de %s i amics, però ningú hi ha enviat res "
-"encara."
+"Aquesta és la línia temporal que mostra les respostes a %1$s, però %2$s "
+"encara no ha rebut cap avís a la seva atenció."
 
 #: actions/replies.php:204
 #, php-format
@@ -3481,6 +3510,8 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
+"Podeu animar altres usuaris a una conversa, subscriviu-vos a més gent o "
+"[uniu-vos a grups](%%action.groups%%)."
 
 #: actions/replies.php:206
 #, php-format
@@ -3488,6 +3519,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to his or her "
 "attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
+"Podeu provar d'[avisar %1$s](../%2$s) o [enviar quelcom per demanar la seva "
+"atenció](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -3495,28 +3528,24 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Respostes a %1$s el %2$s!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "No podeu silenciar els usuaris d'aquest lloc."
+msgstr "No podeu revocar els rols d'usuari en aquest lloc."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Usuari sense perfil coincident"
+msgstr "L'usuari no té aquest rol."
 
 #: actions/rsd.php:146 actions/version.php:157
 msgid "StatusNet"
 msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "No pots enviar un missatge a aquest usuari."
+msgstr "No podeu posar els usuaris en un entorn de prova en aquest lloc."
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Un usuari t'ha bloquejat."
+msgstr "L'usuari ja es troba en un entorn de proves."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3525,9 +3554,8 @@ msgid "Sessions"
 msgstr "Sessions"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "Paràmetres de disseny d'aquest lloc StatusNet."
+msgstr "Paràmetres de sessió d'aquest lloc StatusNet."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3551,9 +3579,8 @@ msgid "Save site settings"
 msgstr "Desa els paràmetres del lloc"
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "Has d'haver entrat per a poder marxar d'un grup."
+msgstr "Heu d'haver iniciat una sessió per a visualitzar una aplicació."
 
 #: actions/showapplication.php:157
 msgid "Application profile"
@@ -3613,11 +3640,11 @@ msgstr ""
 
 #: actions/showapplication.php:273
 msgid "Request token URL"
-msgstr ""
+msgstr "Sol·licita l'URL del testimoni"
 
 #: actions/showapplication.php:278
 msgid "Access token URL"
-msgstr ""
+msgstr "Accedeix a l'URL del testimoni"
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
@@ -3628,6 +3655,8 @@ msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+"Nota: Les signatures HMAC-SHA1 són vàlides; però no es permet el mètode de "
+"signatures en text net."
 
 #: actions/showapplication.php:309
 #, fuzzy
@@ -3635,9 +3664,9 @@ msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr "N'estàs segur que vols eliminar aquesta notificació?"
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%s's notes favorites"
+msgstr "Avisos preferits de %1$s, pàgina %2$d"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3663,6 +3692,9 @@ msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
+"No heu triat cap avís preferit encara. Feu clic al botó de preferit dels "
+"avisos que us agraden per a arxivar-los per a més endavant i fer-los "
+"conèixer."
 
 #: actions/showfavorites.php:208
 #, php-format
@@ -3670,6 +3702,8 @@ msgid ""
 "%s hasn't added any notices to his favorites yet. Post something interesting "
 "they would add to their favorites :)"
 msgstr ""
+"%s no ha afegit cap avís als seus preferits encara. Envieu quelcom "
+"interessant que pugui afegir-hi."
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -3678,6 +3712,9 @@ msgid ""
 "account](%%%%action.register%%%%) and then post something interesting they "
 "would add to their favorites :)"
 msgstr ""
+"%s no ha afegit cap avís als seus preferits encara. Per què no [registreu un "
+"compte](%%%%action.register%%%%) i llavors envieu quelcom interessant que "
+"pugui afegir-hi."
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
@@ -3689,9 +3726,9 @@ msgid "%s group"
 msgstr "%s grup"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%s membre/s en el grup, pàgina %d"
+msgstr "grup %1$s, pàgina %2$d"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
@@ -3811,36 +3848,35 @@ msgid "%1$s, page %2$d"
 msgstr "%1$s, pàgina %2$d"
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Feed d'avisos del grup %s"
+msgstr "Canal d'avisos de %1$s etiquetats amb %2$s (RSS 1.0)"
 
 #: actions/showstream.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos de %s (RSS 1.0)"
 
 #: actions/showstream.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos de %s (RSS 2.0)"
 
 #: actions/showstream.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos de %s (Atom)"
 
 #: actions/showstream.php:148
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s"
-msgstr "Safata de sortida per %s"
+msgstr "FOAF de %s"
 
 #: actions/showstream.php:200
-#, fuzzy, php-format
+#, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
-"Aquesta és la línia temporal de %s i amics, però ningú hi ha enviat res "
-"encara."
+"Aquesta és la línia temporal de %1$s, però %2$s no hi ha enviat res encara."
 
 #: actions/showstream.php:205
 msgid ""
@@ -3888,18 +3924,16 @@ msgid "User is already silenced."
 msgstr "L'usuari ja està silenciat."
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "Paràmetres bàsic d'aquest lloc basat en l'StatusNet."
+msgstr "Paràmetres bàsics d'aquest lloc basat en l'StatusNet."
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr "El nom del lloc ha de tenir una longitud superior a zero."
 
 #: actions/siteadminpanel.php:141
-#, fuzzy
 msgid "You must have a valid contact email address."
-msgstr "Heu de tenir una adreça electrònica de contacte vàlida"
+msgstr "Heu de tenir una adreça electrònica de contacte vàlida."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -3928,7 +3962,7 @@ msgstr "El nom del vostre lloc, com ara «El microblog de l'empresa»"
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
-msgstr ""
+msgstr "Funciona gràcies a"
 
 #: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
@@ -3936,11 +3970,11 @@ msgstr "El text que s'utilitza a l'enllaç dels crèdits al peu de cada pàgina"
 
 #: actions/siteadminpanel.php:234
 msgid "Brought by URL"
-msgstr ""
+msgstr "URL de «Funciona gràcies a»"
 
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
-msgstr ""
+msgstr "L'URL que s'utilitza en els enllaços de crèdits al peu de cada pàgina"
 
 #: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
@@ -4135,9 +4169,8 @@ msgstr "Aquest és un número de confirmació incorrecte."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Confirmació cancel·lada."
+msgstr "La confirmació d'SMS s'ha cancel·lat."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
@@ -4147,9 +4180,8 @@ msgstr "Aquest no és el teu número de telèfon."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Número de telèfon per als SMS"
+msgstr "S'ha suprimit el número de telèfon de l'SMS."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4248,7 +4280,7 @@ msgstr "No s'ha pogut guardar la subscripció."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "Aquesta acció només accepta sol·licituds POST."
 
 #: actions/subscribe.php:107
 msgid "No such profile."
@@ -4352,19 +4384,19 @@ msgid "Notices tagged with %1$s, page %2$d"
 msgstr "Usuaris que s'han etiquetat %s - pàgina %d"
 
 #: actions/tag.php:87
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos per a l'etiqueta %s (RSS 1.0)"
 
 #: actions/tag.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos per a l'etiqueta %s (RSS 2.0)"
 
 #: actions/tag.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Feed d'avisos de %s"
+msgstr "Canal d'avisos per a l'etiqueta %s (Atom)"
 
 #: actions/tagother.php:39
 #, fuzzy
@@ -4427,9 +4459,8 @@ msgid "You haven't blocked that user."
 msgstr "No heu blocat l'usuari."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
-msgstr "Un usuari t'ha bloquejat."
+msgstr "L'usuari no està a l'entorn de proves."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -4607,22 +4638,22 @@ msgstr ""
 #: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
-msgstr ""
+msgstr "L'URL del perfil «%s» és només per a un usuari local."
 
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr ""
+msgstr "L'URL de l'avatar «%s» no és vàlid."
 
 #: actions/userauthorization.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "No es pot llegir l'URL de l'avatar '%s'"
+msgstr "No es pot llegir l'URL de l'avatar «%s»."
 
 #: actions/userauthorization.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Tipus d'imatge incorrecte per a '%s'"
+msgstr "Tipus d'imatge incorrecta per a l'URL de l'avatar «%s»."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -4642,9 +4673,9 @@ msgstr "Gaudiu de l'entrepà!"
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #: actions/usergroups.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%s membre/s en el grup, pàgina %d"
+msgstr "Grups de %1$s, pàgina %2$d"
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
@@ -4753,9 +4784,8 @@ msgid "Group leave failed."
 msgstr "La sortida del grup ha fallat."
 
 #: classes/Local_group.php:41
-#, fuzzy
 msgid "Could not update local group."
-msgstr "No s'ha pogut actualitzar el grup."
+msgstr "No s'ha pogut actualitzar el grup local."
 
 #: classes/Login_token.php:76
 #, fuzzy, php-format
@@ -4813,9 +4843,8 @@ msgid "Problem saving notice."
 msgstr "Problema en guardar l'avís."
 
 #: classes/Notice.php:967
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "Problema en guardar l'avís."
+msgstr "S'ha produït un problema en desar la safata d'entrada del grup."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
@@ -5203,28 +5232,24 @@ msgstr "No podeu fer canvis al lloc."
 
 #. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:110
-#, fuzzy
 msgid "Changes to that panel are not allowed."
-msgstr "Registre no permès."
+msgstr "No es permeten canvis a aquell tauler."
 
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
-#, fuzzy
 msgid "showForm() not implemented."
-msgstr "Comanda encara no implementada."
+msgstr "El showForm() no està implementat."
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:259
-#, fuzzy
 msgid "saveSettings() not implemented."
-msgstr "Comanda encara no implementada."
+msgstr "El saveSettings() no està implementat."
 
 #. TRANS: Client error message thrown if design settings could not be deleted in
 #. TRANS: the admin panel Design.
 #: lib/adminpanelaction.php:284
-#, fuzzy
 msgid "Unable to delete design setting."
-msgstr "No s'ha pogut guardar la teva configuració de Twitter!"
+msgstr "No s'ha pogut suprimir el paràmetre de disseny."
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:349
@@ -5275,9 +5300,8 @@ msgstr "Configuració de les sessions"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:397
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Avís del lloc"
+msgstr "Edita l'avís del lloc"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:405
@@ -5652,9 +5676,9 @@ msgstr ""
 "minuts: %s"
 
 #: lib/command.php:761
-#, fuzzy, php-format
+#, php-format
 msgid "Unsubscribed  %s"
-msgstr "Has deixat d'estar subscrit a %s"
+msgstr "S'ha dessubscrit %s"
 
 #: lib/command.php:778
 #, fuzzy
@@ -5775,10 +5799,11 @@ msgid "Upload file"
 msgstr "Puja un fitxer"
 
 #: lib/designsettings.php:109
-#, fuzzy
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
-msgstr "Pots pujar el teu avatar personal."
+msgstr ""
+"Podeu pujar la vostra imatge de fons personal. La mida màxima del fitxer és "
+"2MB."
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
@@ -6266,15 +6291,15 @@ msgstr "No s'ha pogut escriure el fitxer al disc."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
-msgstr ""
+msgstr "L'extensió ha aturat la càrrega del fitxer."
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
 msgid "File exceeds user's quota."
-msgstr ""
+msgstr "El fitxer excedeix la quota de l'usuari."
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
 msgid "File could not be moved to destination directory."
-msgstr ""
+msgstr "No s'ha pogut moure el fitxer al directori de destinació."
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
 msgid "Could not determine file's MIME type."
@@ -6283,16 +6308,16 @@ msgstr "No s'ha pogut determinar el tipus MIME del fitxer."
 #: lib/mediafile.php:270
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "Proveu d'emprar un altre format %s."
 
 #: lib/mediafile.php:275
 #, php-format
 msgid "%s is not a supported file type on this server."
-msgstr ""
+msgstr "%s no és un tipus de fitxer permès al servidor."
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
-msgstr "Enviar notificació directa"
+msgstr "Envia un avís directe"
 
 #: lib/messageform.php:146
 msgid "To"
@@ -6309,7 +6334,7 @@ msgstr "Envia"
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
-msgstr "Enviar notificació"
+msgstr "Envia un avís"
 
 #: lib/noticeform.php:173
 #, php-format
@@ -6542,17 +6567,15 @@ msgstr "Revoca el rol «%s» de l'usuari"
 
 #: lib/router.php:704
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "No s'ha definit cap usuari únic per al mode d'usuari únic."
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "Safata d'entrada"
+msgstr "Entorn de proves"
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Desbloquejar aquest usuari"
+msgstr "Posa l'usuari a l'entorn de proves"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -6646,12 +6669,11 @@ msgstr "Que més publiquen"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
-msgstr ""
+msgstr "Treu de l'entorn de proves"
 
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Desbloquejar aquest usuari"
+msgstr "Treu l'usuari de l'entorn de proves"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"

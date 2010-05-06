@@ -459,9 +459,9 @@ class User extends Memcached_DataObject
         return $profile->getNotices($offset, $limit, $since_id, $before_id);
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own);
+        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 

@@ -38,7 +38,7 @@ class DirectionDetectorPlugin extends Plugin {
 	 * @param object $notice notice is going to be saved
 	 */
 	public function onStartNoticeSave(&$notice){
-		if(self::isRTL($notice->content))
+		if(!preg_match('/<span class="rtl">/', $notice->rendered) && self::isRTL($notice->content))
 			$notice->rendered = '<span class="rtl">'.$notice->rendered.'</span>';
 		return true;
 	}
@@ -48,7 +48,7 @@ class DirectionDetectorPlugin extends Plugin {
 	 *
 	 * @param 
 	 */
-	public function onEndShowStatusNetStyles(&$xml){
+	public function onEndShowStatusNetStyles($xml){
 		$xml->element('style', array('type' => 'text/css'), 'span.rtl {display:block;direction:rtl;text-align:right;float:right;width:490px;} .notice .author {float:left}');
 	}
 	/**
@@ -102,7 +102,7 @@ class DirectionDetectorPlugin extends Plugin {
 	 *
 	 * Returns false if the input string isn't a valid UTF-8 octet sequence.
 	 */
-	private static function utf8ToUnicode(&$str){
+	private static function utf8ToUnicode($str){
 		$mState = 0;	   // cached expected number of octets after the current octet
 				   // until the beginning of the next UTF8 character sequence
 		$mUcs4	= 0;     // cached Unicode character
