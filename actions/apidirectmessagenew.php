@@ -52,7 +52,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiDirectMessageNewAction extends ApiAuthAction
 {
-    var $source  = null;
     var $other   = null;
     var $content = null;
 
@@ -74,13 +73,6 @@ class ApiDirectMessageNewAction extends ApiAuthAction
         if (empty($this->user)) {
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
-        }
-
-        $this->source = $this->trimmed('source'); // Not supported by Twitter.
-
-        $reserved_sources = array('web', 'omb', 'mail', 'xmpp', 'api');
-        if (empty($this->source) || in_array($this->source, $reserved_sources)) {
-            $source = 'api';
         }
 
         $this->content = $this->trimmed('text');
