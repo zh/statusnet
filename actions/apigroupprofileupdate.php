@@ -33,8 +33,6 @@ if (!defined('STATUSNET')) {
 
 require_once INSTALLDIR . '/lib/apiauth.php';
 
-class ApiValidationException extends Exception { }
-
 /**
  * API analog to the group edit page
  *
@@ -62,6 +60,7 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
         parent::prepare($args);
 
         $this->nickname    = common_canonical_nickname($this->trimmed('nickname'));
+
         $this->fullname    = $this->trimmed('fullname');
         $this->homepage    = $this->trimmed('homepage');
         $this->description = $this->trimmed('description');
@@ -172,12 +171,12 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
             $this->serverError(_('Could not update group.'));
         }
 
-        $aliases = null;
+        $aliases = array();
 
         try {
 
-            if (!empty($this->aliasstring)) {
-                $aliases = $this->parseAliases();
+			if (!empty($this->aliasstring)) {
+				$aliases = $this->validateAliases();
             }
 
         } catch (ApiValidationException $ave) {
@@ -195,7 +194,7 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
             $this->serverError(_('Could not create aliases.'));
         }
 
-        if (!empty($this->nickname) && $this->nickname != $orig->nickname) {
+        if (!empty($this->nickname) && ($this->nickname != $orig->nickname)) {
             common_log(LOG_INFO, "Saving local group info.");
             $local = Local_group::staticGet('group_id', $this->group->id);
             $local->setNickname($this->nickname);
@@ -260,6 +259,8 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
                 _('Not a valid nickname.')
             );
         }
+
+		return true;
     }
 
     function validateHomepage()
@@ -319,10 +320,6 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
             )
         );
 
-        if (empty($aliases)) {
-            $aliases = array();
-        }
-
         if (count($aliases) > common_config('group', 'maxaliases')) {
             throw new ApiValidationException(
                 sprintf(
@@ -357,7 +354,7 @@ class ApiGroupProfileUpdateAction extends ApiAuthAction
             }
 
             // XXX assumes alphanum nicknames
-            if (strcmp($alias, $nickname) == 0) {
+            if (strcmp($alias, $this->nickname) == 0) {
                 throw new ApiValidationException(
                     _('Alias can\'t be the same as nickname.')
                 );
