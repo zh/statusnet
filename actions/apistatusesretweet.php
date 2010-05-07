@@ -79,7 +79,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
 
         $this->user = $this->auth_user;
 
-        if ($this->user->id == $notice->profile_id) {
+        if ($this->user->id == $this->original->profile_id) {
             $this->clientError(_('Cannot repeat your own notice.'),
                                400, $this->format);
             return false;
