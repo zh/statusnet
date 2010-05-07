@@ -287,6 +287,7 @@ $default =
                                  'OStatus' => null,
                                  'WikiHashtags' => null,
                                  'RSSCloud' => null,
+                                 'ClientSideShorten' => null,
                                  'OpenID' => null),
               ),
         'pluginlist' => array(),
