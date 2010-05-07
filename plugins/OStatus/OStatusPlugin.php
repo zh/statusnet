@@ -452,6 +452,7 @@ class OStatusPlugin extends Plugin
                 return false;
             }
         }
+	return true;
     }
 
     /**

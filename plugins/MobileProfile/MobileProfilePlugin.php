@@ -138,6 +138,7 @@ class MobileProfilePlugin extends WAP20Plugin
                     'vodafone',
                     'wap1',
                     'wap2',
+                    'webos',
                     'windows ce'
                 );
 
@@ -253,6 +254,10 @@ class MobileProfilePlugin extends WAP20Plugin
         } else {
             $action->cssLink('plugins/MobileProfile/mp-handheld.css',null,'handheld');
         }
+
+        // Allow other plugins to load their styles.
+        Event::handle('EndShowStatusNetStyles', array($action));
+        Event::handle('EndShowLaconicaStyles', array($action));
 
         return false;
     }
