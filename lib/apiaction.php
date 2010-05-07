@@ -126,8 +126,11 @@ class ApiAction extends Action
     var $count     = null;
     var $max_id    = null;
     var $since_id  = null;
+    var $source    = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
+
+    static $reserved_sources = array('web', 'omb', 'ostatus', 'mail', 'xmpp', 'api');
 
     /**
      * Initialization.
@@ -150,6 +153,12 @@ class ApiAction extends Action
 
         if ($this->arg('since')) {
             header('X-StatusNet-Warning: since parameter is disabled; use since_id');
+        }
+
+        $this->source = $this->trimmed('source');
+
+        if (empty($this->source) || in_array($this->source, self::$reserved_sources)) {
+            $this->source = 'api';
         }
 
         return true;
