@@ -132,6 +132,12 @@ require_once INSTALLDIR.'/lib/serverexception.php';
 //set PEAR error handling to use regular PHP exceptions
 function PEAR_ErrorToPEAR_Exception($err)
 {
+    //DB_DataObject throws error when an empty set would be returned
+    //That behavior is weird, and not how the rest of StatusNet works.
+    //So just ignore those errors.
+    if ($err->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
+        return;
+    }
     if ($err->getCode()) {
         throw new PEAR_Exception($err->getMessage(), $err->getCode());
     }
