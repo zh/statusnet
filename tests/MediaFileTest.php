@@ -34,43 +34,62 @@ class MediaFileTest extends PHPUnit_Framework_TestCase
         if (!file_exists($filename)) {
             throw new Exception("WTF? $filename test file missing");
         }
-        $this->assertEquals($expectedType, MediaFile::getUploadedFileType($filename));
+
+        $type = MediaFile::getUploadedFileType($filename, basename($filename));
+        $this->assertEquals($expectedType, $type);
+    }
+
+    /**
+     * @dataProvider fileTypeCases
+     *
+     */
+    public function testUploadedFileType($filename, $expectedType)
+    {
+        if (!file_exists($filename)) {
+            throw new Exception("WTF? $filename test file missing");
+        }
+        $tmp = tmpfile();
+        fwrite($tmp, file_get_contents($filename));
+
+        $type = MediaFile::getUploadedFileType($tmp, basename($filename));
+        $this->assertEquals($expectedType, $type);
     }
 
     static public function fileTypeCases()
     {
         $base = dirname(__FILE__);
         $dir = "$base/sample-uploads";
-        return array(
-            array("$dir/office.pdf", "application/pdf"),
+        $files = array(
+            "image.png" => "image/png",
+            "image.gif" => "image/gif",
+            "image.jpg" => "image/jpeg",
+            "image.jpeg" => "image/jpeg",
+        
+            "office.pdf" => "application/pdf",
             
-            array("$dir/wordproc.odt", "application/vnd.oasis.opendocument.text"),
-            array("$dir/wordproc.ott", "application/vnd.oasis.opendocument.text-template"),
-            array("$dir/wordproc.doc", "application/msword"),
-            array("$dir/wordproc.docx",
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"),
-            array("$dir/wordproc.rtf", "text/rtf"),
+            "wordproc.odt" => "application/vnd.oasis.opendocument.text",
+            "wordproc.ott" => "application/vnd.oasis.opendocument.text-template",
+            "wordproc.doc" => "application/msword",
+            "wordproc.docx" => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "wordproc.rtf" => "text/rtf",
             
-            array("$dir/spreadsheet.ods",
-                "application/vnd.oasis.opendocument.spreadsheet"),
-            array("$dir/spreadsheet.ots",
-                "application/vnd.oasis.opendocument.spreadsheet-template"),
-            array("$dir/spreadsheet.xls", "application/vnd.ms-excel"),
-            array("$dir/spreadsheet.xlt", "application/vnd.ms-excel"),
-            array("$dir/spreadsheet.xlsx",
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+            "spreadsheet.ods" => "application/vnd.oasis.opendocument.spreadsheet",
+            "spreadsheet.ots" => "application/vnd.oasis.opendocument.spreadsheet-template",
+            "spreadsheet.xls" => "application/vnd.ms-excel",
+            "spreadsheet.xlt" => "application/vnd.ms-excel",
+            "spreadsheet.xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             
-            array("$dir/presentation.odp",
-                "application/vnd.oasis-opendocument.presentation"),
-            array("$dir/presentation.otp",
-                "application/vnd.oasis-opendocument.presentation-template"),
-            array("$dir/presentation.ppt",
-                "application/vnd.ms-powerpoint"),
-            array("$dir/presentation.pot",
-                "application/vnd.ms-powerpoint"),
-            array("$dir/presentation.pptx",
-                "application/vnd.openxmlformats-officedocument.presentationml.presentation"),
+            "presentation.odp" => "application/vnd.oasis.opendocument.presentation",
+            "presentation.otp" => "application/vnd.oasis.opendocument.presentation-template",
+            "presentation.ppt" => "application/vnd.ms-powerpoint",
+            "presentation.pptx" => "application/vnd.openxmlformats-officedocument.presentationml.presentation",
         );
+
+        $dataset = array();
+        foreach ($files as $file => $type) {
+            $dataset[] = array("$dir/$file", $type);
+        }
+        return $dataset;
     }
 
 }
