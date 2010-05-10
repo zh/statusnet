@@ -255,6 +255,10 @@ class MobileProfilePlugin extends WAP20Plugin
             $action->cssLink('plugins/MobileProfile/mp-handheld.css',null,'handheld');
         }
 
+        // Allow other plugins to load their styles.
+        Event::handle('EndShowStatusNetStyles', array($action));
+        Event::handle('EndShowLaconicaStyles', array($action));
+
         return false;
     }
 
