@@ -128,6 +128,7 @@ abstract class Installer
             $pass = false;
         }
 
+        // @fixme this check seems to be insufficient with Windows ACLs
         if (!is_writable(INSTALLDIR)) {
             $this->warning(sprintf('Cannot write config file to: <code>%s</code></p>', INSTALLDIR),
                            sprintf('On your server, try this command: <code>chmod a+w %s</code>', INSTALLDIR));
@@ -409,6 +410,10 @@ abstract class Installer
                 "\$config['db']['database'] = '{$this->db['database']}';\n\n".
                 ($this->db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
                 "\$config['db']['type'] = '{$this->db['type']}';\n\n";
+
+        // Normalize line endings for Windows servers
+        $cfg = str_replace("\n", PHP_EOL, $cfg);
+
         // write configuration file out to install directory
         $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
 
