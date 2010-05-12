@@ -1211,24 +1211,6 @@ class Notice extends Memcached_DataObject
 
             $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
             $xs->element('updated', null, common_date_w3dtf($this->created));
-
-            $noticeInfoAttr = array(
-                'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
-                'source'     => $this->source // the client name (source attribution)
-            );
-
-            $ns = $this->getSource();
-            if ($ns) {
-                if (!empty($ns->url)) {
-                    $noticeInfoAttr['source_link'] = $ns->url;
-                }
-            }
-
-            if (!empty($cur)) {
-                $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
-            }
-
-            $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
         }
 
         if ($source) {
@@ -1250,6 +1232,24 @@ class Notice extends Memcached_DataObject
 
         $xs->element('published', null, common_date_w3dtf($this->created));
         $xs->element('updated', null, common_date_w3dtf($this->created));
+
+        $noticeInfoAttr = array(
+            'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
+            'source'     => $this->source // the client name (source attribution)
+        );
+
+        $ns = $this->getSource();
+        if ($ns) {
+            if (!empty($ns->url)) {
+                $noticeInfoAttr['source_link'] = $ns->url;
+            }
+        }
+
+        if (!empty($cur)) {
+            $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
+        }
+
+        $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
 
         if ($this->reply_to) {
             $reply_notice = Notice::staticGet('id', $this->reply_to);
