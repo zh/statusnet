@@ -491,6 +491,45 @@ class RegisterAction extends Action
             $this->elementStart('li');
             $this->element('input', $attrs);
             $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
+            $this->raw($this->licenseCheckbox());
+            $this->elementEnd('label');
+            $this->elementEnd('li');
+        }
+        $this->elementEnd('ul');
+        $this->submit('submit', _('Register'));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
+    }
+
+    function licenseCheckbox()
+    {
+        $out = '';
+        switch (common_config('license', 'type')) {
+        case 'private':
+            // TRANS: Copyright checkbox label in registration dialog, for private sites.
+            $out .= htmlspecialchars(sprintf(
+                _('I understand that content and data of %1$s are private and confidential.'),
+                common_config('site', 'name')));
+            // fall through
+        case 'allrightsreserved':
+            if ($out != '') {
+                $out .= ' ';
+            }
+            if (common_config('license', 'owner')) {
+                // TRANS: Copyright checkbox label in registration dialog, for all rights reserved with a specified copyright owner.
+                $out .= htmlspecialchars(sprintf(
+                    _('My text and files are copyright by %1$s.'),
+                    common_config('license', 'owner')));
+            } else {
+                // TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+                $out .= htmlspecialchars(_('My text and files remain under my own copyright.'));
+            }
+            // TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+            $out .= ' ' . _('All rights reserved.');
+            break;
+        case 'cc': // fall through
+        default:
+            // TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
             $message = _('My text and files are available under %s ' .
                          'except this private data: password, ' .
                          'email address, IM address, and phone number.');
@@ -499,14 +538,9 @@ class RegisterAction extends Action
                     '">' .
                     htmlspecialchars(common_config('license', 'title')) .
                     '</a>';
-            $this->raw(sprintf(htmlspecialchars($message), $link));
-            $this->elementEnd('label');
-            $this->elementEnd('li');
+            $out .= sprintf(htmlspecialchars($message), $link);
         }
-        $this->elementEnd('ul');
-        $this->submit('submit', _('Register'));
-        $this->elementEnd('fieldset');
-        $this->elementEnd('form');
+        return $out;
     }
 
     /**
