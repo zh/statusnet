@@ -169,7 +169,7 @@ class PgsqlSchema extends Schema
         }
 
         if (count($primary) > 0) { // it really should be...
-            $sql .= ",\n primary key (" . implode(',', $primary) . ")";
+            $sql .= ",\n PRIMARY KEY (" . implode(',', $primary) . ")";
         }
 
         $sql .= "); ";
@@ -180,7 +180,7 @@ class PgsqlSchema extends Schema
         }
 
         foreach ($indices as $i) {
-            $sql .= "CREATE index {$name}_{$i}_idx on {$name} ($i)";
+            $sql .= "CREATE index {$name}_{$i}_idx ON {$name} ($i)";
         }
         $res = $this->conn->query($sql);
 
