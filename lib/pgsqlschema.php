@@ -434,7 +434,6 @@ class PgsqlSchema extends Schema
         }
 
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
-        echo "<p>$sql</p>";
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
