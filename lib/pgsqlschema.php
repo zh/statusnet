@@ -520,9 +520,9 @@ class PgsqlSchema extends Schema
             $sql .= ($cd->nullable) ? "null " : "not null ";
         }
 
-        if (!empty($cd->extra)) {
-            $sql .= "{$cd->extra} ";
-        }
+//         if (!empty($cd->extra)) {
+//             $sql .= "{$cd->extra} ";
+//         }
 
         return $sql;
     }
