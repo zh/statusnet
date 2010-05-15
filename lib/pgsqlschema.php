@@ -172,17 +172,15 @@ class PgsqlSchema extends Schema
             $sql .= ",\n primary key (" . implode(',', $primary) . ")";
         }
 
-
-
-        foreach ($indices as $i) {
-            $sql .= ",\nindex {$name}_{$i}_idx ($i)";
-        }
-
         $sql .= "); ";
 
 
         foreach ($uniques as $u) {
             $sql .= "\n CREATE index {$name}_{$u}_idx ON {$name} ($u); ";
+        }
+
+        foreach ($indices as $i) {
+            $sql .= "CREATE index {$name}_{$i}_idx on {$name} ($i)";
         }
         $res = $this->conn->query($sql);
 
