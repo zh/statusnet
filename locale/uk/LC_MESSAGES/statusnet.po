@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-05-13 20:53:07+0000\n"
+"POT-Creation-Date: 2010-05-16 15:39+0000\n"
+"PO-Revision-Date: 2010-05-16 15:41:15+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66391); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -3264,7 +3264,7 @@ msgstr "Даруйте, помилка у коді запрошення."
 msgid "Registration successful"
 msgstr "Реєстрація успішна"
 
-#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Реєстрація"
 
@@ -3320,7 +3320,29 @@ msgstr "Використовується лише для оновлень, ог�
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Повне ім’я, звісно ж Ваше справжнє ім’я :)"
 
-#: actions/register.php:494
+#: actions/register.php:511
+#, fuzzy, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr "Зміст і дані %1$s є приватними і конфіденційними."
+
+#: actions/register.php:521
+#, php-format
+msgid "My text and files are copyright by %1$s."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+#: actions/register.php:525
+msgid "My text and files remain under my own copyright."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+#: actions/register.php:528
+msgid "All rights reserved."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:533
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -3329,7 +3351,7 @@ msgstr ""
 "Мої тексти і файли доступні під %s, окрім цих приватних даних: пароль, "
 "електронна адреса, адреса IM, телефонний номер."
 
-#: actions/register.php:542
+#: actions/register.php:576
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3362,7 +3384,7 @@ msgstr ""
 "Дякуємо, що зареєструвались у нас, і, сподіваємось, Вам сподобається наш "
 "сервіс."
 
-#: actions/register.php:566
+#: actions/register.php:600
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"

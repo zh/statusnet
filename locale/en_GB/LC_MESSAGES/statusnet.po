@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-09 17:09+0000\n"
-"PO-Revision-Date: 2010-05-13 20:51:11+0000\n"
+"POT-Creation-Date: 2010-05-16 15:39+0000\n"
+"PO-Revision-Date: 2010-05-16 15:39:44+0000\n"
 "Language-Team: British English\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66391); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: out-statusnet\n"
@@ -1908,6 +1908,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"If you can't find the group you're looking for, you can [create it](%%action."
+"newgroup%%) yourself."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1915,10 +1917,12 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
+"Why not [register an account](%%action.register%%) and [create the group](%%"
+"action.newgroup%%) yourself!"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr ""
+msgstr "Only an admin can unblock group members."
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
@@ -3228,7 +3232,7 @@ msgstr "Sorry, invalid invitation code."
 msgid "Registration successful"
 msgstr "Registration successful"
 
-#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Register"
 
@@ -3280,7 +3284,29 @@ msgstr "Used only for updates, announcements, and password recovery"
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Longer name, preferably your \"real\" name"
 
-#: actions/register.php:494
+#: actions/register.php:511
+#, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr ""
+
+#: actions/register.php:521
+#, php-format
+msgid "My text and files are copyright by %1$s."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+#: actions/register.php:525
+msgid "My text and files remain under my own copyright."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+#: actions/register.php:528
+msgid "All rights reserved."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:533
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -3289,7 +3315,7 @@ msgstr ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 
-#: actions/register.php:542
+#: actions/register.php:576
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3322,7 +3348,7 @@ msgstr ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 
-#: actions/register.php:566
+#: actions/register.php:600
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -4251,6 +4277,8 @@ msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
 msgstr ""
+"You have no subscribers. Try subscribing to people you know and they might "
+"return the favour"
 
 #: actions/subscribers.php:110
 #, php-format
@@ -5115,7 +5143,7 @@ msgstr ""
 #: lib/action.php:871
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
-msgstr ""
+msgstr "All %1$s content and data are available under the %2$s licence."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
 #: lib/action.php:1182
@@ -5663,6 +5691,44 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
+"Commands:\n"
+"on - turn on notifications\n"
+"off - turn off notifications\n"
+"help - show this help\n"
+"follow <nickname> - subscribe to user\n"
+"groups - lists the groups you have joined\n"
+"subscriptions - list the people you follow\n"
+"subscribers - list the people that follow you\n"
+"leave <nickname> - unsubscribe from user\n"
+"d <nickname> <text> - direct message to user\n"
+"get <nickname> - get last notice from user\n"
+"whois <nickname> - get profile info on user\n"
+"lose <nickname> - force user to stop following you\n"
+"fav <nickname> - add user's last notice as a 'fave'\n"
+"fav #<notice_id> - add notice with the given id as a 'fave'\n"
+"repeat #<notice_id> - repeat a notice with a given id\n"
+"repeat <nickname> - repeat the last notice from user\n"
+"reply #<notice_id> - reply to notice with a given id\n"
+"reply <nickname> - reply to the last notice from user\n"
+"join <group> - join group\n"
+"login - Get a link to login to the web interface\n"
+"drop <group> - leave group\n"
+"stats - get your stats\n"
+"stop - same as 'off'\n"
+"quit - same as 'off'\n"
+"sub <nickname> - same as 'follow'\n"
+"unsub <nickname> - same as 'leave'\n"
+"last <nickname> - same as 'get'\n"
+"on <nickname> - not yet implemented.\n"
+"off <nickname> - not yet implemented.\n"
+"nudge <nickname> - remind a user to update.\n"
+"invite <phone number> - not yet implemented.\n"
+"track <word> - not yet implemented.\n"
+"untrack <word> - not yet implemented.\n"
+"track off - not yet implemented.\n"
+"untrack all - not yet implemented.\n"
+"tracks - not yet implemented.\n"
+"tracking - not yet implemented.\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
@@ -6625,7 +6691,7 @@ msgstr "Edit profile settings"
 
 #: lib/userprofile.php:264
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 #: lib/userprofile.php:287
 msgid "Send a direct message to this user"
@@ -6637,7 +6703,7 @@ msgstr "Message"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
-msgstr ""
+msgstr "Moderate"
 
 #: lib/userprofile.php:364
 msgid "User role"
@@ -6651,7 +6717,7 @@ msgstr "Administrator"
 #: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
-msgstr ""
+msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1083

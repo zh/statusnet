@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-05-13 20:50:46+0000\n"
+"POT-Creation-Date: 2010-05-16 15:39+0000\n"
+"PO-Revision-Date: 2010-05-16 15:39:28+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66391); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: out-statusnet\n"
@@ -3151,7 +3151,7 @@ msgstr "Digarezit, kod pedadenn direizh."
 msgid "Registration successful"
 msgstr "Krouet eo bet ar gont."
 
-#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Krouiñ ur gont"
 
@@ -3205,14 +3205,36 @@ msgstr ""
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Anv hiroc'h, ho anv \"gwir\" a zo gwelloc'h"
 
-#: actions/register.php:494
+#: actions/register.php:511
+#, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr ""
+
+#: actions/register.php:521
+#, php-format
+msgid "My text and files are copyright by %1$s."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+#: actions/register.php:525
+msgid "My text and files remain under my own copyright."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+#: actions/register.php:528
+msgid "All rights reserved."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:533
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
 
-#: actions/register.php:542
+#: actions/register.php:576
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3231,7 +3253,7 @@ msgid ""
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
 
-#: actions/register.php:566
+#: actions/register.php:600
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5951,11 +5973,14 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"Ar gaozeadenn klok a c'hell bezañ lennet amañ :\n"
+"\n"
+"%s"
 
 #: lib/mail.php:651
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr ""
+msgstr "%s (@%s) en deus kaset deoc'h ur c'hemenn"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:654
@@ -6065,7 +6090,7 @@ msgstr ""
 #: lib/mediafile.php:270
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "Klaskit implijout ur furmad %s all."
 
 #: lib/mediafile.php:275
 #, php-format
@@ -6183,11 +6208,11 @@ msgstr "Kas ur blinkadenn d'an implijer-mañ"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
-msgstr ""
+msgstr "Ur fazi 'zo bet en ur ensoc'hañ ar profil nevez"
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
-msgstr ""
+msgstr "Ur fazi 'zo bet en ur ensoc'hañ an avatar"
 
 #: lib/oauthstore.php:306
 msgid "Error updating remote profile"
@@ -6289,7 +6314,7 @@ msgstr "Strolladoù implijerien"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr ""
+msgstr "Merkoù nevez"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
@@ -6559,7 +6584,7 @@ msgstr "n'eo ket %s ul liv reizh !"
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
+msgstr "N'eo ket %s ul liv reizh ! Implijit 3 pe 6 arouezenn heksdekvedennel."
 
 #: lib/xmppmanager.php:403
 #, php-format

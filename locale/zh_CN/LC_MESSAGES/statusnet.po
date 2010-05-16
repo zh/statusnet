@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-05-13 20:53:21+0000\n"
+"POT-Creation-Date: 2010-05-16 15:39+0000\n"
+"PO-Revision-Date: 2010-05-16 15:41:21+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66391); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -3346,7 +3346,7 @@ msgstr "验证码出错。"
 msgid "Registration successful"
 msgstr "注册成功。"
 
-#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "注册"
 
@@ -3398,14 +3398,36 @@ msgstr "只用于更新、通告或密码恢复"
 msgid "Longer name, preferably your \"real\" name"
 msgstr "长名字，最好是“实名”"
 
-#: actions/register.php:494
+#: actions/register.php:511
+#, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr ""
+
+#: actions/register.php:521
+#, php-format
+msgid "My text and files are copyright by %1$s."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+#: actions/register.php:525
+msgid "My text and files remain under my own copyright."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+#: actions/register.php:528
+msgid "All rights reserved."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:533
 #, fuzzy, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr "除了隐私内容：密码，电子邮件，即时通讯帐号，电话号码。"
 
-#: actions/register.php:542
+#: actions/register.php:576
 #, fuzzy, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3436,7 +3458,7 @@ msgstr ""
 "\n"
 "感谢您的注册，希望您喜欢这个服务。"
 
-#: actions/register.php:566
+#: actions/register.php:600
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
