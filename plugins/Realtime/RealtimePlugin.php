@@ -313,6 +313,8 @@ class RealtimePlugin extends Plugin
                 );
 
                 common_log(LOG_WARNING, $msg);
+            } else {
+                $convurl .= '#notice-' . $notice->id;
             }
         }
 
