@@ -30,6 +30,7 @@ class DiscoveryHints {
             case Discovery::PROFILEPAGE:
                 $hints['profileurl'] = $link['href'];
                 break;
+            case Salmon::NS_MENTIONS:
             case Salmon::NS_REPLIES:
                 $hints['salmon'] = $link['href'];
                 break;

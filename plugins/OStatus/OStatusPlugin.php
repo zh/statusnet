@@ -257,7 +257,7 @@ class OStatusPlugin extends Plugin
         $matches = array();
 
         // Webfinger matches: @user@example.com
-        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\-?\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
                        $text,
                        $wmatches,
                        PREG_OFFSET_CAPTURE)) {
