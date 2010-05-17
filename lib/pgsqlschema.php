@@ -143,6 +143,7 @@ class PgsqlSchema extends Schema
         $uniques = array();
         $primary = array();
         $indices = array();
+	$onupdate = array();
 
         $sql = "CREATE TABLE $name (\n";
 
@@ -321,7 +322,7 @@ class PgsqlSchema extends Schema
 
     public function modifyColumn($table, $columndef)
     {
-        $sql = "ALTER TABLE $table MODIFY COLUMN " .
+        $sql = "ALTER TABLE $table ALTER COLUMN TYPE " .
           $this->_columnSql($columndef);
 
         $res = $this->conn->query($sql);
@@ -428,7 +429,9 @@ class PgsqlSchema extends Schema
         foreach ($tomod as $columnName) {
             $cd = $this->_byName($columns, $columnName);
 
-            $phrase[] = 'MODIFY COLUMN ' . $this->_columnSql($cd);
+	/* brute force */
+            $phrase[] = 'DROP COLUMN ' . $columnName;
+            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
         }
 
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
@@ -505,7 +508,7 @@ class PgsqlSchema extends Schema
           return $sql;
         }
         if (!empty($cd->auto_increment)) {
-          $type = 'serial';
+	    $type = "bigserial"; // FIXME: creates the wrong name for the sequence for some internal sequence-lookup function, so better fix this to do the real 'create sequence' dance.
         }
 
         if (!empty($cd->size)) {
