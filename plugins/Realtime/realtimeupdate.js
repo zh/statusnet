@@ -149,8 +149,8 @@ RealtimeUpdate = {
                "from "+
                 "<span class=\"device\">"+source+"</span>"+ // may have a link
                "</span>";
-          if (data['in_reply_to_status_id']) {
-               ni = ni+" <a class=\"response\" href=\""+data['in_reply_to_status_url']+"\">in context</a>";
+          if (data['conversation_url']) {
+               ni = ni+" <a class=\"response\" href=\""+data['conversation_url']+"\">in context</a>";
           }
 
           if (repeat) {

@@ -250,14 +250,7 @@ class RealtimePlugin extends Plugin
         $arr['url'] = $notice->bestUrl();
         $arr['html'] = htmlspecialchars($notice->rendered);
         $arr['source'] = htmlspecialchars($arr['source']);
-
-        if (!empty($notice->reply_to)) {
-            $reply_to = Notice::staticGet('id', $notice->reply_to);
-            if (!empty($reply_to)) {
-                $arr['in_reply_to_status_url'] = $reply_to->bestUrl();
-            }
-            $reply_to = null;
-        }
+        $arr['conversation_url'] = $this->getConversationUrl($notice);
 
         $profile = $notice->getProfile();
         $arr['user']['profile_url'] = $profile->profileurl;
@@ -272,10 +265,7 @@ class RealtimePlugin extends Plugin
                 $arr['retweeted_status']['source'] = htmlspecialchars($original->source);
                 $originalProfile = $original->getProfile();
                 $arr['retweeted_status']['user']['profile_url'] = $originalProfile->profileurl;
-                if (!empty($original->reply_to)) {
-                    $originalReply = Notice::staticGet('id', $original->reply_to);
-                    $arr['retweeted_status']['in_reply_to_status_url'] = $originalReply->bestUrl();
-                }
+                $arr['retweeted_status']['conversation_url'] = $this->getConversationUrl($original);
             }
             $original = null;
         }
@@ -301,6 +291,34 @@ class RealtimePlugin extends Plugin
         $nt = null;
 
         return $tags;
+    }
+
+    function getConversationUrl($notice)
+    {
+        $convurl = null;
+
+        if ($notice->hasConversation()) {
+            $conv = Conversation::staticGet(
+                'id',
+                $notice->conversation
+            );
+            $convurl = $conv->uri;
+
+            if(empty($convurl)) {
+                $msg = sprintf(
+                    "Couldn't find Conversation ID %d to make 'in context'"
+                    . "link for Notice ID %d",
+                    $notice->conversation,
+                    $notice->id
+                );
+
+                common_log(LOG_WARNING, $msg);
+            } else {
+                $convurl .= '#notice-' . $notice->id;
+            }
+        }
+
+        return $convurl;
     }
 
     function _getScripts()
