@@ -106,6 +106,12 @@ class FinishaddopenidAction extends Action
                 $sreg = $sreg_resp->contents();
             }
 
+            // Launchpad teams extension
+            if (!oid_check_teams($response)) {
+                $this->message(_m('OpenID authentication aborted: you are not allowed to login to this site.'));
+                return;
+            }
+
             $cur = common_current_user();
 
             $other = oid_get_user($canonical);

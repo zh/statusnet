@@ -20,7 +20,7 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -45,7 +45,19 @@ if (!defined('STATUSNET')) {
 
 class OpenIDPlugin extends Plugin
 {
-    public $openidOnly = false;
+    // Plugin parameter: set true to disallow non-OpenID logins
+    // If set, overrides the setting in database or $config['site']['openidonly']
+    public $openidOnly = null;
+
+    function initialize()
+    {
+        parent::initialize();
+        if ($this->openidOnly !== null) {
+            global $config;
+            $config['site']['openidonly'] = (bool)$this->openidOnly;
+        }
+
+    }
 
     /**
      * Add OpenID-related paths to the router table
@@ -67,6 +79,7 @@ class OpenIDPlugin extends Plugin
         $m->connect('index.php?action=finishaddopenid',
                     array('action' => 'finishaddopenid'));
         $m->connect('main/openidserver', array('action' => 'openidserver'));
+        $m->connect('admin/openid', array('action' => 'openidadminpanel'));
 
         return true;
     }
@@ -84,7 +97,7 @@ class OpenIDPlugin extends Plugin
 
     function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
     {
-        if ($this->openidOnly) {
+        if (common_config('site', 'openidonly')) {
             static $block = array('main/login',
                                   'main/register',
                                   'main/recoverpassword',
@@ -108,7 +121,7 @@ class OpenIDPlugin extends Plugin
 
     function onArgsInitialize($args)
     {
-        if ($this->openidOnly) {
+        if (common_config('site', 'openidonly')) {
             if (array_key_exists('action', $args)) {
                 $action = trim($args['action']);
                 if (in_array($action, array('login', 'register'))) {
@@ -199,7 +212,7 @@ class OpenIDPlugin extends Plugin
 
     function onStartPrimaryNav($action)
     {
-        if ($this->openidOnly && !common_logged_in()) {
+        if (common_config('site', 'openidonly') && !common_logged_in()) {
             // TRANS: Tooltip for main menu option "Login"
             $tooltip = _m('TOOLTIP', 'Login to the site');
             $action->menuItem(common_local_url('openidlogin'),
@@ -241,7 +254,7 @@ class OpenIDPlugin extends Plugin
 
     function onStartLoginGroupNav(&$action)
     {
-        if ($this->openidOnly) {
+        if (common_config('site', 'openidonly')) {
             $this->showOpenIDLoginTab($action);
             // Even though we replace this code, we
             // DON'T run the End* hook, to keep others from
@@ -299,7 +312,7 @@ class OpenIDPlugin extends Plugin
      */
 
     function onStartAccountSettingsPasswordMenuItem($menu, &$unused) {
-        if ($this->openidOnly) {
+        if (common_config('site', 'openidonly')) {
             return false;
         }
         return true;
@@ -349,13 +362,19 @@ class OpenIDPlugin extends Plugin
         case 'OpenidsettingsAction':
         case 'OpenidserverAction':
         case 'OpenidtrustAction':
-            require_once INSTALLDIR.'/plugins/OpenID/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+        case 'OpenidadminpanelAction':
+            require_once dirname(__FILE__) . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'User_openid':
-            require_once INSTALLDIR.'/plugins/OpenID/User_openid.php';
+            require_once dirname(__FILE__) . '/User_openid.php';
             return false;
         case 'User_openid_trustroot':
-            require_once INSTALLDIR.'/plugins/OpenID/User_openid_trustroot.php';
+            require_once dirname(__FILE__) . '/User_openid_trustroot.php';
+            return false;
+        case 'Auth_OpenID_TeamsExtension':
+        case 'Auth_OpenID_TeamsRequest':
+        case 'Auth_OpenID_TeamsResponse':
+            require_once dirname(__FILE__) . '/extlib/teams-extension.php';
             return false;
         default:
             return true;
@@ -446,7 +465,7 @@ class OpenIDPlugin extends Plugin
 
     function onRedirectToLogin($action, $user)
     {
-        if ($this->openidOnly || (!empty($user) && User_openid::hasOpenID($user->id))) {
+        if (common_config('site', 'openid_only') || (!empty($user) && User_openid::hasOpenID($user->id))) {
             common_redirect(common_local_url('openidlogin'), 303);
             return false;
         }
@@ -578,6 +597,32 @@ class OpenIDPlugin extends Plugin
     {
         $tables[] = 'User_openid';
         $tables[] = 'User_openid_trustroot';
+        return true;
+    }
+
+    /**
+     * Add an OpenID tab to the admin panel
+     *
+     * @param Widget $nav Admin panel nav
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('openid')) {
+
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(
+                common_local_url('openidadminpanel'),
+                _m('OpenID'),
+                _m('OpenID configuration'),
+                $action_name == 'openidadminpanel',
+                'nav_openid_admin_panel'
+            );
+        }
+
         return true;
     }
 

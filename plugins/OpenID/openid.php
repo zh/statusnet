@@ -168,6 +168,15 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         $auth_request->addExtension($sreg_request);
     }
 
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        // LaunchPad OpenID extension
+        $team_request = new Auth_OpenID_TeamsRequest(array($requiredTeam));
+        if ($team_request) {
+            $auth_request->addExtension($team_request);
+        }
+    }
+
     $trust_root = common_root_url(true);
     $process_url = common_local_url($returnto);
 
@@ -296,6 +305,33 @@ function oid_assert_allowed($url)
     }
 
     return;
+}
+
+/**
+ * Check the teams available in the given OpenID response
+ * Using Launchpad's OpenID teams extension
+ *
+ * @return boolean whether this user is acceptable
+ */
+function oid_check_teams($response)
+{
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        $team_resp = new Auth_OpenID_TeamsResponse($response);
+        if ($team_resp) {
+            $teams = $team_resp->getTeams();
+        } else {
+            $teams = array();
+        }
+
+        $match = in_array($requiredTeam, $teams);
+        $is = $match ? 'is' : 'is not';
+        common_log(LOG_DEBUG, "Remote user $is in required team $requiredTeam: [" . implode(', ', $teams) . "]");
+
+        return $match;
+    }
+
+    return true;
 }
 
 class AutosubmitAction extends Action

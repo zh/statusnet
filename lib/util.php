@@ -34,6 +34,14 @@ function common_user_error($msg, $code=400)
     $err->showPage();
 }
 
+/**
+ * This should only be used at setup; processes switching languages
+ * to send text to other users should use common_switch_locale().
+ * 
+ * @param string $language Locale language code (optional; empty uses
+ *                         current user's preference or site default)
+ * @return mixed success
+ */
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -50,6 +58,15 @@ function common_init_locale($language=null)
     return $ok;
 }
 
+/**
+ * Initialize locale and charset settings and gettext with our message catalog,
+ * using the current user's language preference or the site default.
+ * 
+ * This should generally only be run at framework initialization; code switching
+ * languages at runtime should call common_switch_language().
+ * 
+ * @access private
+ */
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');

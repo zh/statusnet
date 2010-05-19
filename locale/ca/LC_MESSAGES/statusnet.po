@@ -1,7 +1,6 @@
 # Translation of StatusNet to Catalan
 #
 # Author@translatewiki.net: Aleator
-# Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Paucabot
 # Author@translatewiki.net: Toniher
 # --
@@ -11,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-09 17:09+0000\n"
-"PO-Revision-Date: 2010-05-13 20:50:56+0000\n"
+"POT-Creation-Date: 2010-05-16 15:39+0000\n"
+"PO-Revision-Date: 2010-05-16 15:39:32+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66391); Translate extension (2010-05-01)\n"
+"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -451,7 +450,7 @@ msgstr "Hi ha massa àlies! Màxim %d."
 #: actions/apigroupcreate.php:266
 #, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "L'àlies no és vàlid: \"%s\"."
+msgstr "L'àlies no és vàlid: «%s»."
 
 #: actions/apigroupcreate.php:275 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -655,7 +654,7 @@ msgstr "Avís duplicat."
 
 #: actions/apistatusesshow.php:138
 msgid "Status deleted."
-msgstr "S'ha suprimit l'estat."
+msgstr "S'ha eliminat l'estat."
 
 #: actions/apistatusesshow.php:144
 msgid "No status with that ID found."
@@ -819,7 +818,7 @@ msgstr "Error en actualitzar avatar."
 
 #: actions/avatarsettings.php:397
 msgid "Avatar deleted."
-msgstr "S'ha suprimit l'avatar."
+msgstr "S'ha eliminat l'avatar."
 
 #: actions/block.php:69
 msgid "You already blocked that user."
@@ -1228,7 +1227,7 @@ msgstr "Afegeix als preferits"
 #: actions/doc.php:158
 #, php-format
 msgid "No such document \"%s\""
-msgstr "No existeix el document \"%s\""
+msgstr "No existeix el document «%s»"
 
 #: actions/editapplication.php:54
 msgid "Edit Application"
@@ -1544,7 +1543,7 @@ msgstr "Aquest no és el teu correu electrònic"
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
 msgid "The email address was removed."
-msgstr "S'ha suprimit l'adreça de correu electrònic."
+msgstr "S'ha eliminat l'adreça de correu electrònic."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1750,8 +1749,8 @@ msgid ""
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
 msgstr ""
-"Esteu segur que voleu blocar l'usuari «%1$s» del grup «%2$s»? Se suprimiran "
-"del grup, i no podran enviar-hi res ni subscriure-s'hi en el futur."
+"Esteu segur que voleu blocar l'usuari «%1$s» del grup «%2$s»? S'eliminarà del "
+"grup, i no podrà enviar-hi res ni subscriure-s'hi en el futur."
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:182
@@ -1998,9 +1997,9 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Adreça Jabber o GTalk, per exemple \"NomUsuari@example.org\". Primer, "
-"assegura't d'afegir a %s a la teva llista d'amics en el teu client de "
-"missatgeria instantània o a GTalk."
+"Adreça Jabber o GTalk, per exemple «NomUsuari@example.org». Primer, assegureu-"
+"vos d'afegir %s a la vostra llista d'amics en el vostre client de "
+"missatgeria instantània o al GTalk."
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
@@ -2953,7 +2952,7 @@ msgstr "Ubicació"
 
 #: actions/profilesettings.php:134 actions/register.php:473
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr "On ets, per exemple \"Ciutat, Estat (o Regió), País\""
+msgstr "On us trobeu, per exemple «ciutat, comarca (o illa), país»"
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
@@ -3011,7 +3010,7 @@ msgstr "L'idioma és massa llarg (màx 50 caràcters)."
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Etiqueta no vàlida: \"%s\""
+msgstr "L'etiqueta no és vàlida: «%s»"
 
 #: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
@@ -3279,7 +3278,7 @@ msgstr "El codi d'invitació no és vàlid."
 msgid "Registration successful"
 msgstr "Registre satisfactori"
 
-#: actions/register.php:114 actions/register.php:507 lib/logingroupnav.php:85
+#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Registre"
 
@@ -3333,9 +3332,31 @@ msgstr ""
 
 #: actions/register.php:450
 msgid "Longer name, preferably your \"real\" name"
-msgstr "Nom llarg, preferiblement el teu nom \"real\""
+msgstr "Nom llarg, preferiblement el vostre nom «real»"
 
-#: actions/register.php:494
+#: actions/register.php:511
+#, fuzzy, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr "El contingut i les dades de %1$s són privades i confidencials."
+
+#: actions/register.php:521
+#, php-format
+msgid "My text and files are copyright by %1$s."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+#: actions/register.php:525
+msgid "My text and files remain under my own copyright."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+#: actions/register.php:528
+msgid "All rights reserved."
+msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:533
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -3345,7 +3366,7 @@ msgstr ""
 "les dades privades: contrasenya, adreça de correu electrònic, adreça de "
 "missatgeria instantània i número de telèfon."
 
-#: actions/register.php:542
+#: actions/register.php:576
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3378,7 +3399,7 @@ msgstr ""
 "\n"
 "Gràcies per registrar-vos-hi i esperem que en gaudiu."
 
-#: actions/register.php:566
+#: actions/register.php:600
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -3842,7 +3863,7 @@ msgstr "Missatge de %1$s a %2$s"
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
-msgstr "S'ha suprimit l'avís."
+msgstr "S'ha eliminat l'avís."
 
 #: actions/showstream.php:73
 #, php-format
@@ -4198,7 +4219,7 @@ msgstr "Aquest no és el teu número de telèfon."
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
 msgid "The SMS phone number was removed."
-msgstr "S'ha suprimit el número de telèfon de l'SMS."
+msgstr "S'ha eliminat el número de telèfon de l'SMS."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4905,15 +4926,15 @@ msgstr "No hi esteu subscrit!"
 
 #: classes/Subscription.php:173
 msgid "Couldn't delete self-subscription."
-msgstr "No s'ha pogut suprimir l'autosubscripció."
+msgstr "No s'ha pogut eliminar l'autosubscripció."
 
 #: classes/Subscription.php:200
 msgid "Couldn't delete subscription OMB token."
-msgstr "No s'ha pogut suprimir el testimoni OMB de la subscripció."
+msgstr "No s'ha pogut eliminar el testimoni OMB de la subscripció."
 
 #: classes/Subscription.php:211
 msgid "Couldn't delete subscription."
-msgstr "No s'ha pogut suprimir la subscripció."
+msgstr "No s'ha pogut eliminar la subscripció."
 
 #: classes/User.php:363
 #, php-format
@@ -5112,7 +5133,7 @@ msgstr "Vistes locals"
 #. TRANS: DT element for page notice. String is hidden in default CSS.
 #: lib/action.php:649
 msgid "Page notice"
-msgstr "Notificació pàgina"
+msgstr "Avís de pàgina"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:752
@@ -5286,7 +5307,7 @@ msgstr "El saveSettings() no està implementat."
 #. TRANS: the admin panel Design.
 #: lib/adminpanelaction.php:284
 msgid "Unable to delete design setting."
-msgstr "No s'ha pogut suprimir el paràmetre de disseny."
+msgstr "No s'ha pogut eliminar el paràmetre de disseny."
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:349
@@ -5567,7 +5588,7 @@ msgstr "No s'ha pogut afegir l'usuari %1$s al grup %2$s."
 #: lib/command.php:385
 #, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "No s'ha pogut suprimir l'usuari %1$s del grup %2$s."
+msgstr "No s'ha pogut eliminar l'usuari %1$s del grup %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5671,12 +5692,12 @@ msgstr "Subscrit a %s"
 
 #: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
-msgstr "Especifiqueu el nom de l'usuari de qui voleu deixar d'estar subscrit"
+msgstr "Especifiqueu el nom de l'usuari de qui voleu cancel·lar la subscripció"
 
 #: lib/command.php:664
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr "Has deixat d'estar subscrit a %s"
+msgstr "Heu cancel·lat la subscripció a %s"
 
 #: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
@@ -5684,19 +5705,19 @@ msgstr "Comanda encara no implementada."
 
 #: lib/command.php:685
 msgid "Notification off."
-msgstr "Notificacions off."
+msgstr "Avisos desactivats."
 
 #: lib/command.php:687
 msgid "Can't turn off notification."
-msgstr "No es poden posar en off les notificacions."
+msgstr "No es poden desactivar els avisos."
 
 #: lib/command.php:708
 msgid "Notification on."
-msgstr "Notificacions on."
+msgstr "Avisos activitats."
 
 #: lib/command.php:710
 msgid "Can't turn on notification."
-msgstr "No es poden posar en on les notificacions."
+msgstr "No es poden activar els avisos."
 
 #: lib/command.php:723
 msgid "Login command is disabled"
@@ -5712,7 +5733,7 @@ msgstr ""
 #: lib/command.php:761
 #, php-format
 msgid "Unsubscribed  %s"
-msgstr "S'ha dessubscrit %s"
+msgstr "S'ha cancel·lat la subscripció de %s"
 
 #: lib/command.php:778
 msgid "You are not subscribed to anyone."
@@ -5793,7 +5814,7 @@ msgstr ""
 "groups - llista els grups on us heu unit\n"
 "subscriptions - llista la gent que seguiu\n"
 "subscribers - llista la gent que us segueix\n"
-"leave <nickname> - dessubscriu de l'usuari\n"
+"leave <nickname> - cancel·la la subscripció de l'usuari\n"
 "d <nickname> <text> - missatge directe a l'usuari\n"
 "get <nickname> - s'obté el darrer avís de l'usuari\n"
 "whois <nickname> - s'obté la informació del perfil de l'usuari\n"
@@ -5834,7 +5855,7 @@ msgstr "S'han cercat fitxers de configuracions en els llocs següents: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr "Podeu voler executar l'instal·lador per a corregir-ho."
+msgstr "Podeu voler executar l'instal·lador per corregir-ho."
 
 #: lib/common.php:139
 msgid "Go to the installer."
@@ -5842,11 +5863,11 @@ msgstr "Vés a l'instal·lador."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr "Missatgeria Instantània"
+msgstr "MI"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
-msgstr "Actualitzacions per Missatgeria Instantània"
+msgstr "Actualitzacions per missatgeria instantània (MI)"
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
@@ -5929,7 +5950,7 @@ msgstr "Etiqueta"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
-msgstr "Trieu una etiqueta per a escurçar la llista"
+msgstr "Trieu una etiqueta per escurçar la llista"
 
 #: lib/galleryaction.php:143
 msgid "Go"
@@ -5942,16 +5963,16 @@ msgstr "Atorga a l'usuari el rol «%s»"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "URL del teu web, blog del grup u tema"
+msgstr "URL del teu web, blog del grup o de la temàtica"
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
-msgstr "Descriviu el grup o el tema"
+msgstr "Descriviu el grup o la temàtica"
 
 #: lib/groupeditform.php:170
 #, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Descriviu el grup o el tema en %d caràcters"
+msgstr "Descriviu el grup o la temàtica en %d caràcters"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -5962,7 +5983,7 @@ msgstr ""
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
-msgstr "Sobrenoms addicionals del grup, separats per coma o espai, màx. %d"
+msgstr "Sobrenoms addicionals del grup, separats amb comes o espais, màx. %d"
 
 #: lib/groupnav.php:85
 msgid "Group"
@@ -5975,7 +5996,7 @@ msgstr "Blocat"
 #: lib/groupnav.php:102
 #, php-format
 msgid "%s blocked users"
-msgstr "%susuaris blocats"
+msgstr "%s usuaris blocats"
 
 #: lib/groupnav.php:108
 #, php-format
@@ -5989,7 +6010,7 @@ msgstr "Logo"
 #: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
-msgstr "Afegir o editar logo %s"
+msgstr "Afegeix o edita el logo %s"
 
 #: lib/groupnav.php:120
 #, php-format
@@ -6007,7 +6028,7 @@ msgstr "Grups amb més entrades"
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr "Etiquetes en les notificacions del grup %s"
+msgstr "Etiquetes en els avisos del grup %s"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -6037,7 +6058,7 @@ msgstr "No és una imatge o és un fitxer corrupte."
 
 #: lib/imagefile.php:122
 msgid "Lost our file."
-msgstr "Hem perdut el nostre arxiu."
+msgstr "Hem perdut el nostre fitxer."
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -6075,7 +6096,7 @@ msgstr "Accedir amb el nom d'usuari i contrasenya"
 
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
-msgstr "Registreu-vos-hi per a un compte nou"
+msgstr "Registreu-vos-hi si voleu un compte nou"
 
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
@@ -6143,7 +6164,7 @@ msgstr ""
 "%7$s.\n"
 "\n"
 "----\n"
-"Canvieu la vostra adreça electrònica o les opcions de notificació a %8$s\n"
+"Canvieu la vostra adreça electrònica o les opcions d'avís a %8$s\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:269
@@ -6170,13 +6191,13 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
-"Tens una nova direcció per publicar a %1$s.\n"
+"Teniu una nova adreça per publicar a %1$s.\n"
 "\n"
-"Envia un correu electrònic a %2$s per publicar un nou missatge.\n"
+"Envieu un correu electrònic a %2$s per publicar un nou missatge.\n"
 "\n"
 "Més instruccions per al correu electrònic a %3$s.\n"
 "\n"
-"Sincerament teus,\n"
+"Atentament,\n"
 "%4$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages
@@ -6218,7 +6239,7 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
-"%1$s (%2$s) què tal us trobeu is us convida a enviar algunes notícies.\n"
+"%1$s (%2$s) què tal us trobeu is us convida a publicar algunes notícies.\n"
 "\n"
 "Esperem sentir-vos aviat :)\n"
 "\n"
@@ -6379,7 +6400,7 @@ msgstr ""
 "Atentament,\n"
 "%2$s\n"
 "\n"
-"P.S. Podeu desactivar les notificacions per correu aquí: %8$s\n"
+"P.S. Podeu desactivar els avisos per correu aquí: %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6390,7 +6411,7 @@ msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
-"No teniu missatges privats. Podeu enviar un missatge per a animar altres "
+"No teniu missatges privats. Podeu enviar un missatge per animar altres "
 "usuaris en la conversa. La gent pot enviar-vos missatges només per als "
 "vostres ulls."
 
@@ -6643,7 +6664,7 @@ msgstr "Els teus missatges enviats"
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr "Etiquetes en les notificacions de %s's"
+msgstr "Etiquetes en els avisos de %s"
 
 #: lib/plugin.php:115
 msgid "Unknown"
@@ -6761,15 +6782,15 @@ msgstr "Gent"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr "Trobar gent en aquest lloc"
+msgstr "Cerca gent en aquest lloc"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr "Trobar contingut de les notes"
+msgstr "Cerca el contingut dels avisos"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr "Trobar un grup en aquest lloc"
+msgstr "Cerca grups en aquest lloc"
 
 #: lib/section.php:89
 msgid "Untitled section"
@@ -6777,7 +6798,7 @@ msgstr "Secció sense títol"
 
 #: lib/section.php:106
 msgid "More..."
-msgstr "Més…"
+msgstr "Més..."
 
 #: lib/silenceform.php:67
 msgid "Silence"
@@ -6795,7 +6816,7 @@ msgstr "Persones %s subscrites a"
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
-msgstr "Persones subscrites a %s"
+msgstr "Gent subscrita a %s"
 
 #: lib/subgroupnav.php:99
 #, php-format
@@ -6809,7 +6830,7 @@ msgstr "Convida"
 #: lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "Convidar amics i companys perquè participin a %s"
+msgstr "Convida amics i companys perquè participin a %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6827,7 +6848,7 @@ msgstr "Cap"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr "Que més publiquen"
+msgstr "Qui més publica"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
@@ -6847,7 +6868,7 @@ msgstr "Dessilencia l'usuari"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr "Deixar d'estar subscrit des d'aquest usuari"
+msgstr "Cancel·la la subscripció d'aquest usuari"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
@@ -6868,7 +6889,7 @@ msgstr "Accions de l'usuari"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr "S'està suprimint l'usuari..."
+msgstr "S'està eliminant l'usuari..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
