@@ -74,6 +74,13 @@ class RegisterAction extends Action
         parent::prepare($args);
         $this->code = $this->trimmed('code');
 
+        // @todo this check should really be in index.php for all sensitive actions
+        $ssl = common_config('site', 'ssl');
+        if (empty($_SERVER['HTTPS']) && ($ssl == 'always' || $ssl == 'sometimes')) {
+            common_redirect(common_local_url('register'));
+            // exit
+        }
+
         if (empty($this->code)) {
             common_ensure_session();
             if (array_key_exists('invitecode', $_SESSION)) {
