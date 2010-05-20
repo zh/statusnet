@@ -335,9 +335,9 @@ function remove_twitter_link($flink)
 
 function mail_twitter_bridge_removed($user)
 {
-    common_init_locale($user->language);
-
     $profile = $user->getProfile();
+
+    common_switch_locale($user->language);
 
     $subject = sprintf(_m('Your Twitter bridge has been disabled.'));
 
@@ -354,7 +354,7 @@ function mail_twitter_bridge_removed($user)
         common_local_url('twittersettings'),
         common_config('site', 'name'));
 
-    common_init_locale();
+    common_switch_locale();
     return mail_to_user($user, $subject, $body);
 }
 
