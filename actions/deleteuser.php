@@ -92,10 +92,10 @@ class DeleteuserAction extends ProfileFormAction
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                $this->returnToArgs();
+                $this->returnToPrevious();
             } elseif ($this->arg('yes')) {
                 $this->handlePost();
-                $this->returnToArgs();
+                $this->returnToPrevious();
             } else {
                 $this->showPage();
             }
