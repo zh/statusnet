@@ -68,11 +68,15 @@ class SitemapindexAction extends Action
 
     function showUserSitemaps()
     {
-        $userCounts = $this->getUserCounts();
+        $userCounts = Sitemap_user_count::getAll();
 
         foreach ($userCounts as $dt => $cnt) {
             $cnt = $cnt+0;
-            assert($cnt != 0);
+
+            if ($cnt == 0) {
+                continue;
+            }
+
             $n = (int)$cnt / (int)SitemapPlugin::USERS_PER_MAP;
             if (($cnt % SitemapPlugin::USERS_PER_MAP) != 0) {
                 $n++;
@@ -88,7 +92,9 @@ class SitemapindexAction extends Action
         $noticeCounts = $this->getNoticeCounts();
 
         foreach ($noticeCounts as $dt => $cnt) {
-            assert($cnt != 0);
+            if ($cnt == 0) {
+                continue;
+            }
             $n = $cnt / SitemapPlugin::NOTICES_PER_MAP;
             if ($cnt % SitemapPlugin::NOTICES_PER_MAP) {
                 $n++;
@@ -101,28 +107,7 @@ class SitemapindexAction extends Action
 
     function getUserCounts()
     {
-        $userCounts = User::cacheGet('sitemap:user:counts');
-
-        if ($userCounts === false) {
-
-            $user = new User();
-
-            $user->selectAdd();
-            $user->selectAdd('date(created) as regdate, count(*) as regcount');
-            $user->groupBy('regdate');
-
-            $user->find();
-
-            $userCounts = array();
-
-            while ($user->fetch()) {
-                $userCounts[$user->regdate] = $user->regcount;
-            }
-
-            User::cacheSet('sitemap:user:counts', $userCounts);
-        }
-
-        return $userCounts;
+        return Sitemap_user_count::getAll();
     }
 
     function getNoticeCounts()

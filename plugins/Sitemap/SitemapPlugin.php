@@ -64,6 +64,9 @@ class SitemapPlugin extends Plugin
 
         switch ($cls)
         {
+        case 'Sitemap_user_count':
+            require_once $dir . '/' . $cls . '.php';
+            return false;
         case 'SitemapindexAction':
         case 'NoticesitemapAction':
         case 'UsersitemapAction':
@@ -71,6 +74,7 @@ class SitemapPlugin extends Plugin
             return false;
         case 'SitemapAction':
             require_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
         default:
             return true;
         }

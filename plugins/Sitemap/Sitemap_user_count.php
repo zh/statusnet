@@ -105,6 +105,11 @@ class Sitemap_user_count extends Memcached_DataObject
         return array('registration_date' => 'K');
     }
 
+    function sequenceKey()
+    {
+        return array(false, false, false);
+    }
+
     /**
      * return key definitions for Memcached_DataObject
      *
@@ -117,5 +122,166 @@ class Sitemap_user_count extends Memcached_DataObject
     function keyTypes()
     {
         return $this->keys();
+    }
+
+    static function getAll()
+    {
+        $userCounts = self::cacheGet('sitemap:user:counts');
+
+        if ($userCounts === false) {
+
+            $suc = new Sitemap_user_count();
+            $suc->orderBy('registration_date DESC');
+
+            // Fetch the first one to check up-to-date-itude
+
+            $n = $suc->find(true);
+
+            $today = self::today();
+            $userCounts = array();
+
+            if (!$n) { // No counts saved yet
+                $userCounts = self::initializeCounts();
+            } else if ($suc->registration_date < $today) { // There are counts but not up to today
+                $userCounts = self::fillInCounts($suc->registration_date);
+            } else if ($suc->registration_date == $today) { // Refresh today's
+                $userCounts[$today] = self::updateToday();
+            }
+
+            // starts with second-to-last date
+
+            while ($suc->fetch()) {
+                $userCounts[$suc->registration_date] = $suc->user_count;
+            }
+
+            self::cacheSet('sitemap:user:counts', $userCounts);
+        }
+
+        return $userCounts;
+    }
+
+    static function initializeCounts()
+    {
+        $firstDate = self::getFirstDate(); // awww
+        $today     = self::today();
+
+        $counts = array();
+
+        for ($d = $firstDate; $d <= $today; $d = self::incrementDay($d)) {
+            common_debug("Date = '$d'");
+            $n = self::getCount($d);
+            self::insertCount($d, $n);
+            $counts[$d] = $n;
+        }
+
+        return $counts;
+    }
+
+    static function fillInCounts($lastDate)
+    {
+        $today = self::today();
+
+        $counts = array();
+
+        $n = self::getCount($lastDate);
+        self::updateCount($lastDate, $n);
+
+        $counts[$lastDate] = $n;
+
+        for ($d = self::incrementDay($lastDate); $d <= $today; $d = self::incrementDay($d)) {
+            $n = self::getCount($d);
+            self::insertCount($d, $n);
+        }
+
+        return $counts;
+    }
+
+    static function updateToday()
+    {
+        $today = self::today();
+
+        $n = self::getCount($today);
+        self::updateCount($today, $n);
+
+        return $n;
+    }
+
+    static function getCount($d)
+    {
+        $user = new User();
+        $user->whereAdd('created BETWEEN "'.$d.' 00:00:00" AND "'.self::incrementDay($d).' 00:00:00"');
+        $n = $user->count();
+
+        return $n;
+    }
+
+    static function insertCount($d, $n)
+    {
+        common_debug("Inserting count '$n' for '$d'");
+
+        $suc = new Sitemap_user_count();
+
+        $suc->registration_date = DB_DataObject_Cast::date($d);
+        $suc->user_count        = $n;
+        $suc->created           = common_sql_now();
+        $suc->modified          = $suc->created;
+
+        if (!$suc->insert()) {
+            common_log(LOG_WARNING, "Could not save user counts for '$d'");
+        }
+    }
+
+    static function updateCount($d, $n)
+    {
+        $suc = Sitemap_user_count::staticGet('registration_date', DB_DataObject_Cast::date($d));
+
+        if (empty($suc)) {
+            throw new Exception("No such registration date: $d");
+        }
+
+        $orig = clone($suc);
+
+        $suc->registration_date = DB_DataObject_Cast::date($d);
+        $suc->user_count        = $n;
+        $suc->created           = common_sql_now();
+        $suc->modified          = $suc->created;
+
+        if (!$suc->update($orig)) {
+            common_log(LOG_WARNING, "Could not save user counts for '$d'");
+        }
+    }
+
+    static function incrementDay($d)
+    {
+        $dt = self::dateStrToInt($d);
+        return self::dateIntToStr($dt + 24 * 60 * 60);
+    }
+
+    static function dateStrToInt($d)
+    {
+        return strtotime($d.' 00:00:00');
+    }
+
+    static function dateIntToStr($dt)
+    {
+        return date('Y-m-d', $dt);
+    }
+
+    static function getFirstDate()
+    {
+        $u = new User();
+        $u->selectAdd();
+        $u->selectAdd('date(min(created)) as first_date');
+        if ($u->find(true)) {
+            return $u->first_date;
+        } else {
+            // Is this right?
+            return self::dateIntToStr(time());
+        }
+    }
+
+    static function today()
+    {
+        return self::dateIntToStr(time());
     }
 }
