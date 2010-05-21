@@ -187,6 +187,7 @@ create index fave_modified_idx on fave using btree(modified);
 
 create table consumer (
     consumer_key varchar(255) primary key /* comment 'unique identifier, root URL' */,
+    consumer_secret varchar(255) not null /* comment 'secret value', */,
     seed char(32) not null /* comment 'seed for new tokens by this consumer' */,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
