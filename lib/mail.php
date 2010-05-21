@@ -245,6 +245,11 @@ function mail_subscribe_notify_profile($listenee, $other)
                                       $other->getBestName(),
                                       common_config('site', 'name'));
 
+        $blocklink = sprintf(_("If you believe this account is being used abusively, " .
+                               "you can block them from your subscribers list and " .
+                               "report as spam to site administrators at %s"),
+                             common_local_url('block', array('profileid' => $other->id)));
+
         // TRANS: Main body of new-subscriber notification e-mail
         $body = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
                           "\t".'%3$s'."\n\n".
@@ -264,9 +269,10 @@ function mail_subscribe_notify_profile($listenee, $other)
                         ($other->homepage) ?
                         // TRANS: Profile info line in new-subscriber notification e-mail
                         sprintf(_("Homepage: %s"), $other->homepage) . "\n" : '',
-                        ($other->bio) ?
+                        (($other->bio) ?
                         // TRANS: Profile info line in new-subscriber notification e-mail
-                        sprintf(_("Bio: %s"), $other->bio) . "\n\n" : '',
+                            sprintf(_("Bio: %s"), $other->bio) . "\n" : '') .
+                            "\n\n" . $blocklink . "\n",
                         common_config('site', 'name'),
                         common_local_url('emailsettings'));
 
