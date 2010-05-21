@@ -30,6 +30,7 @@ class DiscoveryHints {
             case Discovery::PROFILEPAGE:
                 $hints['profileurl'] = $link['href'];
                 break;
+            case Salmon::NS_MENTIONS:
             case Salmon::NS_REPLIES:
                 $hints['salmon'] = $link['href'];
                 break;
@@ -83,7 +84,7 @@ class DiscoveryHints {
             $hints['fullname'] = implode(' ', $hcard['n']);
         }
 
-        if (array_key_exists('photo', $hcard)) {
+        if (array_key_exists('photo', $hcard) && count($hcard['photo'])) {
             $hints['avatar'] = $hcard['photo'][0];
         }
 

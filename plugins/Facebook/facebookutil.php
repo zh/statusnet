@@ -104,8 +104,12 @@ function facebookBroadcastNotice($notice)
 
             $status = "$prefix $notice->content";
 
+            common_debug("FacebookPlugin - checking for publish_stream permission for user $user->id");
+
             $can_publish = $facebook->api_client->users_hasAppPermission('publish_stream',
                                                                          $fbuid);
+
+            common_debug("FacebookPlugin - checking for status_update permission for user $user->id");
 
             $can_update  = $facebook->api_client->users_hasAppPermission('status_update',
                                                                          $fbuid);
@@ -114,15 +118,15 @@ function facebookBroadcastNotice($notice)
                 $facebook->api_client->stream_publish($status, $fbattachment,
                                                       null, null, $fbuid);
                 common_log(LOG_INFO,
-                           "Posted notice $notice->id w/attachment " .
+                           "FacebookPlugin - Posted notice $notice->id w/attachment " .
                            "to Facebook user's stream (fbuid = $fbuid).");
             } elseif ($can_update == 1 || $can_publish == 1) {
                 $facebook->api_client->users_setStatus($status, $fbuid, false, true);
                 common_log(LOG_INFO,
-                           "Posted notice $notice->id to Facebook " .
+                           "FacebookPlugin - Posted notice $notice->id to Facebook " .
                            "as a status update (fbuid = $fbuid).");
             } else {
-                $msg = "Not sending notice $notice->id to Facebook " .
+                $msg = "FacebookPlugin - Not sending notice $notice->id to Facebook " .
                   "because user $user->nickname hasn't given the " .
                   'Facebook app \'status_update\' or \'publish_stream\' permission.';
                 common_log(LOG_WARNING, $msg);
@@ -138,7 +142,7 @@ function facebookBroadcastNotice($notice)
 
             $code = $e->getCode();
 
-            $msg = "Facebook returned error code $code: " .
+            $msg = "FacebookPlugin - Facebook returned error code $code: " .
               $e->getMessage() . ' - ' .
               "Unable to update Facebook status (notice $notice->id) " .
               "for $user->nickname (user id: $user->id)!";
@@ -272,11 +276,11 @@ function remove_facebook_app($flink)
 
 function mail_facebook_app_removed($user)
 {
-    common_init_locale($user->language);
-
     $profile = $user->getProfile();
 
     $site_name = common_config('site', 'name');
+
+    common_switch_locale($user->language);
 
     $subject = sprintf(
         _m('Your %1$s Facebook application access has been disabled.',
@@ -291,7 +295,7 @@ function mail_facebook_app_removed($user)
         "re-installing the %2\$s Facebook application.\n\nRegards,\n\n%2\$s"),
         $user->nickname, $site_name);
 
-    common_init_locale();
+    common_switch_locale();
     return mail_to_user($user, $subject, $body);
 
 }

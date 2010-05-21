@@ -54,7 +54,6 @@ class ApiAuthAction extends ApiAction
 {
     var $auth_user_nickname = null;
     var $auth_user_password = null;
-    var $oauth_source       = null;
 
     /**
      * Take arguments for running, looks for an OAuth request,
@@ -162,7 +161,7 @@ class ApiAuthAction extends ApiAction
 
             // set the source attr
 
-            $this->oauth_source = $app->name;
+            $this->source = $app->name;
 
             $appUser = Oauth_application_user::staticGet('token', $access_token);
 

@@ -104,7 +104,7 @@ class FeedDiscovery
             $response = $client->get($url);
         } catch (HTTP_Request2_Exception $e) {
             common_log(LOG_ERR, __METHOD__ . " Failure for $url - " . $e->getMessage());
-            throw new FeedSubBadURLException($e);
+            throw new FeedSubBadURLException($e->getMessage());
         }
 
         if ($htmlOk) {

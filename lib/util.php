@@ -34,6 +34,14 @@ function common_user_error($msg, $code=400)
     $err->showPage();
 }
 
+/**
+ * This should only be used at setup; processes switching languages
+ * to send text to other users should use common_switch_locale().
+ * 
+ * @param string $language Locale language code (optional; empty uses
+ *                         current user's preference or site default)
+ * @return mixed success
+ */
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -50,6 +58,15 @@ function common_init_locale($language=null)
     return $ok;
 }
 
+/**
+ * Initialize locale and charset settings and gettext with our message catalog,
+ * using the current user's language preference or the site default.
+ * 
+ * This should generally only be run at framework initialization; code switching
+ * languages at runtime should call common_switch_language().
+ * 
+ * @access private
+ */
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');
@@ -1365,7 +1382,7 @@ function common_log_line($priority, $msg)
 {
     static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
                                       'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
-    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . PHP_EOL;
 }
 
 function common_request_id()
@@ -1908,6 +1925,15 @@ function common_url_to_nickname($url)
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
             $path = basename($path);
+
+            // Hack for MediaWiki user pages, in the form:
+            // http://example.com/wiki/User:Myname
+            // ('User' may be localized.)
+            if (strpos($path, ':')) {
+                $parts = array_filter(explode(':', $path));
+                $path = $parts[count($parts) - 1];
+            }
+
             if ($path) {
                 return common_nicknamize($path);
             }

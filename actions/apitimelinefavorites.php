@@ -185,17 +185,23 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
     {
         $notices = array();
 
+        common_debug("since id = " . $this->since_id . " max id = " . $this->max_id);
+
         if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
             $notice = $this->user->favoriteNotices(
+                true,
                 ($this->page-1) * $this->count,
                 $this->count,
-                true
+                $this->since_id,
+                $this->max_id
             );
         } else {
             $notice = $this->user->favoriteNotices(
+                false,
                 ($this->page-1) * $this->count,
                 $this->count,
-                false
+                $this->since_id,
+                $this->max_id
             );
         }
 

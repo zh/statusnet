@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:17:07+0000\n"
+"POT-Creation-Date: 2010-04-29 23:21+0000\n"
+"PO-Revision-Date: 2010-05-03 19:18:08+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -4880,7 +4880,7 @@ msgstr "Houbo un problema ao gardar a caixa de entrada do grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "♻ @%1$s %2$s"
@@ -5242,7 +5242,7 @@ msgid "Before"
 msgstr "Anteriores"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 "Esperábase unha fonte de novas raíz pero recibiuse un documento XML completo."
@@ -5251,11 +5251,11 @@ msgstr ""
 msgid "Can't handle remote content yet."
 msgstr "Aínda non é posible manexar contidos remotos."
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr "Aínda non se poden manexar contidos XML integrados."
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr "Aínda non se poden manexar contidos Base64."
 
@@ -5793,8 +5793,8 @@ msgstr ""
 "get <alcume> - obter a última nota do usuario\n"
 "whois <alcume> - obtén a información do perfil do usuario\n"
 "lose <alcume> - facer que o usuario deixe de seguilo\n"
-"fav <alcume> - marcar como “favorita” a última nota do usuario\n"
-"fav #<id da nota> - marcar como “favorita” a nota coa id indicada\n"
+"fav <alcume> - marcar como \"favorita\" a última nota do usuario\n"
+"fav #<id da nota> - marcar como \"favorita\" a nota coa id indicada\n"
 "repeat #<id da nota> - repetir a nota doa id indicada\n"
 "repeat <alcume> - repetir a última nota do usuario\n"
 "reply #<id da nota> - responder a unha nota coa id indicada\n"
@@ -5803,11 +5803,11 @@ msgstr ""
 "login - obter un enderezo para identificarse na interface web\n"
 "drop <grupo> - deixar o grupo indicado\n"
 "stats - obter as súas estatísticas\n"
-"stop - idéntico a “off”\n"
-"quit - idéntico a “off”\n"
-"sub <alcume> - idéntico a “follow”\n"
-"unsub <alcume> - idéntico a “leave”\n"
-"last <alcume> - idéntico a “get”\n"
+"stop - idéntico a \"off\"\n"
+"quit - idéntico a \"off\"\n"
+"sub <alcume> - idéntico a \"follow\"\n"
+"unsub <alcume> - idéntico a \"leave\"\n"
+"last <alcume> - idéntico a \"get\"\n"
 "on <alcume> - aínda non se integrou\n"
 "off <alcume> - aínda non se integrou\n"
 "nudge <alcume> - facerlle un aceno ao usuario indicado\n"
@@ -5841,7 +5841,7 @@ msgstr "MI"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
-msgstr ""
+msgstr "Actualizacións por mensaxería instantánea (MI)"
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
@@ -5868,7 +5868,7 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "Pode cargar a súa imaxe de fondo persoal. O ficheiro non pode ocupar máis de "
-"2 MiB."
+"2MB."
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
@@ -5900,7 +5900,7 @@ msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr "FOAF"
+msgstr "Amigo dun amigo"
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -5908,7 +5908,7 @@ msgstr "Exportar os datos"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr "Filtrar etiquetas"
+msgstr "Filtrar as etiquetas"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -5933,7 +5933,7 @@ msgstr "Continuar"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr "Atribuírlle a este usuario o rol «%s»"
+msgstr "Outorgarlle a este usuario o rol \"%s\""
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -5952,8 +5952,8 @@ msgstr "Describa o grupo ou o tema en %d caracteres"
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
 msgstr ""
-"Localidade do grupo, e a ten, como por exemplo «Cidade, Provincia, "
-"Comunidade, País»."
+"Localidade do grupo, se a ten, como por exemplo \"Cidade, Provincia, "
+"Comunidade, País\""
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -6043,11 +6043,11 @@ msgstr "Non se coñece o tipo de ficheiro"
 
 #: lib/imagefile.php:244
 msgid "MB"
-msgstr "MiB"
+msgstr "MB"
 
 #: lib/imagefile.php:246
 msgid "kB"
-msgstr "KiB"
+msgstr "kB"
 
 #: lib/jabber.php:387
 #, php-format
@@ -6264,7 +6264,7 @@ msgstr ""
 "\n"
 "%4$s\n"
 "\n"
-"Non responda a este correo, non lle chegará ao remitente.\n"
+"Non responda a esta mensaxe, non lle chegará ao remitente.\n"
 "\n"
 "Atentamente,\n"
 "%5$s\n"
@@ -6322,7 +6322,7 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
-"Pode ler a conversación completa en:\n"
+"Pode ler a conversa completa en:\n"
 "\n"
 "%s"
 
@@ -6358,7 +6358,7 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
-"%1$s (@%9$s) acaba de enviar unha nota á súa atención (un “respost@”) en %2"
+"%1$s (@%9$s) acaba de enviar unha nota á súa atención (unha resposta) en %2"
 "$s.\n"
 "\n"
 "A nota está en:\n"
@@ -6373,14 +6373,14 @@ msgstr ""
 "\n"
 "%6$s\n"
 "\n"
-"A lista de todas as notas á súa @tención está en:\n"
+"A lista de todas as respostas está en:\n"
 "\n"
 "%7$s\n"
 "\n"
 "Atentamente,\n"
 "%2$s\n"
 "\n"
-"P.S: pode desactivar estas notificacións por correo electrónico en %8$s\n"
+"P.S.: pode desactivar estas notificacións por correo electrónico en %8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6417,7 +6417,7 @@ msgstr "Non se permite recibir correo electrónico."
 #: lib/mailhandler.php:228
 #, php-format
 msgid "Unsupported message type: %s"
-msgstr "Non se soporta o tipo de mensaxe %s"
+msgstr "Non se soporta o tipo de mensaxe: %s"
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
@@ -6446,7 +6446,7 @@ msgstr "Falta un cartafol temporal."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
-msgstr "Non se puido escribir o ficheiro en disco."
+msgstr "Non se puido escribir o ficheiro no disco."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
@@ -6480,7 +6480,7 @@ msgstr "Enviar unha nota directa"
 
 #: lib/messageform.php:146
 msgid "To"
-msgstr "a"
+msgstr "A"
 
 #: lib/messageform.php:159 lib/noticeform.php:185
 msgid "Available characters"
@@ -6522,7 +6522,7 @@ msgid ""
 "try again later"
 msgstr ""
 "Estase tardando máis do esperado en obter a súa xeolocalización, vólvao "
-"intentar máis tarde."
+"intentar máis tarde"
 
 #. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:430
@@ -6547,7 +6547,7 @@ msgstr "O"
 #: lib/noticelist.php:438
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr "1% u $ ½% 2 $ u '% 3 $ u \"s% 4% 5 $ u $ ½% 6 $ u' 7% $ u\" 8% $ s"
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:447
 msgid "at"
@@ -6642,7 +6642,7 @@ msgstr "As mensaxes enviadas"
 msgid "Tags in %s's notices"
 msgstr "Etiquetas nas notas de %s"
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr "Descoñecida"
 
@@ -6705,11 +6705,11 @@ msgstr "Populares"
 
 #: lib/redirectingaction.php:94
 msgid "No return-to arguments."
-msgstr "Sen argumentos “return-to”."
+msgstr "Sen argumentos \"return-to\"."
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
-msgstr "Quere repetir esta nova?"
+msgstr "Quere repetir esta nota?"
 
 #: lib/repeatform.php:132
 msgid "Yes"
@@ -6717,12 +6717,12 @@ msgstr "Si"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
-msgstr "Repetir esta nova"
+msgstr "Repetir esta nota"
 
 #: lib/revokeroleform.php:91
 #, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Revogarlle o rol “%s” a este usuario"
+msgstr "Revogarlle o rol \"%s\" a este usuario"
 
 #: lib/router.php:704
 msgid "No single user defined for single-user mode."
@@ -6806,7 +6806,7 @@ msgstr "Convidar"
 #: lib/subgroupnav.php:106
 #, php-format
 msgid "Invite friends and colleagues to join you on %s"
-msgstr "Convida a amigos e compañeiros a unírseche en %s"
+msgstr "Convide a amigos e compañeiros a unírselle en %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48

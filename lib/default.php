@@ -188,7 +188,8 @@ $default =
         'cache' =>
         array('base' => null),
         'ping' =>
-        array('notify' => array()),
+        array('notify' => array(),
+              'timeout' => 2),
         'inboxes' =>
         array('enabled' => true), # ignored after 0.9.x
         'newuser' =>
@@ -303,4 +304,7 @@ $default =
         array('subscribers' => true,
               'members' => true,
               'peopletag' => true),
+        'http' => // HTTP client settings when contacting other sites
+        array('ssl_cafile' => false // To enable SSL cert validation, point to a CA bundle (eg '/usr/lib/ssl/certs/ca-certificates.crt')
+              ),
         );

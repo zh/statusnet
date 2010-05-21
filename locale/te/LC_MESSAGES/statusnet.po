@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-24 14:16+0000\n"
-"PO-Revision-Date: 2010-04-26 22:18:38+0000\n"
+"POT-Creation-Date: 2010-04-29 23:21+0000\n"
+"PO-Revision-Date: 2010-05-03 19:19:06+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r65552); Translate extension (2010-04-25)\n"
+"X-Generator: MediaWiki 1.17alpha (r65870); Translate extension (2010-05-01)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -2113,6 +2113,8 @@ msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+"ఆహ్వానితులు మీ ఆహ్వానాన్ని అంగీకరించి సైటులో నమోదైనప్పుడు మీకు తెలియజేస్తాము. ఇక్కడి ప్రజని "
+"పెంచుతున్నందుకు ధన్యవాదాలు!"
 
 #: actions/invite.php:162
 msgid ""
@@ -2450,7 +2452,7 @@ msgstr "మీరు నమోదు చేసివున్న ఉపకరణ
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
-msgstr ""
+msgstr "మీరు ఇంకా ఏ ఉపకరణాన్నీ నమోదు చేసుకోలేదు."
 
 #: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
@@ -2471,7 +2473,7 @@ msgstr ""
 
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
-msgstr ""
+msgstr "మీ ఖాతాని ఉపయోగించుకోడానికి మీరు ఏ ఉపకరణాన్నీ అధీకరించలేదు."
 
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
@@ -3907,7 +3909,7 @@ msgstr "అప్రమేయ భాష"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
-msgstr ""
+msgstr "విహారిణి అమరికల నుండి భాషని స్వయంచాలకంగా పొందలేకపోయినప్పుడు ఉపయోగించే సైటు భాష"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
@@ -3927,7 +3929,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
-msgstr ""
+msgstr "అదే విషయాన్ని మళ్ళీ టపా చేయడానికి వాడుకరులు ఎంత సమయం (క్షణాల్లో) వేచివుండాలి."
 
 #: actions/sitenoticeadminpanel.php:56
 msgid "Site Notice"
@@ -4234,6 +4236,8 @@ msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
 msgstr ""
+"%sకి చందాదార్లు ఎవరూ లేరు. [ఒక ఖాతాని నమోదు చేసుకుని](%%%%action.register%%%%) మీరు "
+"ఎందుకు మొదటి చందాదారు కాకూడదు?"
 
 #: actions/subscriptions.php:52
 #, php-format
@@ -4247,12 +4251,12 @@ msgstr "%1$s చందాలు, పేజీ %2$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr ""
+msgstr "మీరు ఈ వ్యక్తుల నోటీసులని వింటున్నారు."
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr ""
+msgstr "%s వీరి నోటీసులని వింటున్నారు."
 
 #: actions/subscriptions.php:126
 #, php-format
@@ -4729,7 +4733,7 @@ msgstr "సందేశాన్ని భద్రపరచడంలో పొ�
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1535
+#: classes/Notice.php:1533
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5096,7 +5100,7 @@ msgid "Before"
 msgstr "ఇంతక్రితం"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:121
+#: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
@@ -5104,11 +5108,11 @@ msgstr ""
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activityutils.php:236
+#: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activityutils.php:240
+#: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -5465,9 +5469,9 @@ msgstr ""
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr "నోటిసు చాలా పొడవుగా ఉంది - %1$d అక్షరాలు గరిష్ఠం, మీరు %2$d పంపించారు."
+msgstr "సందేశం చాలా పొడవుగా ఉంది - %1$d అక్షరాలు గరిష్ఠం, మీరు %2$d పంపించారు"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
@@ -6452,7 +6456,7 @@ msgstr "మీరు పంపిన సందేశాలు"
 msgid "Tags in %s's notices"
 msgstr ""
 
-#: lib/plugin.php:114
+#: lib/plugin.php:115
 msgid "Unknown"
 msgstr ""
 
