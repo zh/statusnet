@@ -53,12 +53,13 @@ class RedirectingAction extends Action
      * 
      * To be called only after successful processing.
      * 
-     * @fixme rename this -- it obscures Action::returnToArgs() which
-     * returns a list of arguments, and is a bit confusing.
+     * Note: this was named returnToArgs() up through 0.9.2, which
+     * caused problems because there's an Action::returnToArgs()
+     * already which does something different.
      * 
      * @return void
      */
-    function returnToArgs()
+    function returnToPrevious()
     {
         // Now, gotta figure where we go back to
         $action = false;
@@ -77,7 +78,7 @@ class RedirectingAction extends Action
         if ($action) {
             common_redirect(common_local_url($action, $args, $params), 303);
         } else {
-            $url = $this->defaultReturnToUrl();
+            $url = $this->defaultReturnTo();
         }
         common_redirect($url, 303);
     }
