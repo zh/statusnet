@@ -81,3 +81,5 @@ ALTER TABLE profile ADD COLUMN lon decimal(10,7) /*comment 'longitude'*/;
 ALTER TABLE profile ADD COLUMN location_id integer /* comment 'location id if possible'*/;
 ALTER TABLE profile ADD COLUMN location_ns integer /* comment 'namespace for location'*/;
 
+ALTER TABLE consumer add COLUMN consumer_secret varchar(255) not null ; /*comment 'secret value'*/
+
