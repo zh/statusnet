@@ -1939,6 +1939,15 @@ function common_url_to_nickname($url)
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
             $path = basename($path);
+
+            // Hack for MediaWiki user pages, in the form:
+            // http://example.com/wiki/User:Myname
+            // ('User' may be localized.)
+            if (strpos($path, ':')) {
+                $parts = array_filter(explode(':', $path));
+                $path = $parts[count($parts) - 1];
+            }
+
             if ($path) {
                 return common_nicknamize($path);
             }

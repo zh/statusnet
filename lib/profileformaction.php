@@ -60,7 +60,16 @@ class ProfileFormAction extends RedirectingAction
         $this->checkSessionToken();
 
         if (!common_logged_in()) {
-            $this->clientError(_('Not logged in.'));
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $this->clientError(_('Not logged in.'));
+            } else {
+                // Redirect to login.
+                common_set_returnto($this->selfUrl());
+                $user = common_current_user();
+                if (Event::handle('RedirectToLogin', array($this, $user))) {
+                    common_redirect(common_local_url('login'), 303);
+                }
+            }
             return false;
         }
 
@@ -97,7 +106,7 @@ class ProfileFormAction extends RedirectingAction
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->handlePost();
-            $this->returnToArgs();
+            $this->returnToPrevious();
         }
     }
 

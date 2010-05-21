@@ -37,6 +37,20 @@ class RequireValidatedEmailPlugin extends Plugin
     // without the validation requirement.
     public $grandfatherCutoff=null;
 
+    // If OpenID plugin is installed, users with a verified OpenID
+    // association whose provider URL matches one of these regexes
+    // will be considered to be sufficiently valid for our needs.
+    //
+    // For example, to trust WikiHow and Wikipedia OpenID users:
+    //
+    // addPlugin('RequireValidatedEmailPlugin', array(
+    //    'trustedOpenIDs' => array(
+    //        '!^http://\w+\.wikihow\.com/!',
+    //        '!^http://\w+\.wikipedia\.org/!',
+    //    ),
+    // ));
+    public $trustedOpenIDs=array();
+
     function __construct()
     {
         parent::__construct();
@@ -90,13 +104,17 @@ class RequireValidatedEmailPlugin extends Plugin
      */
     protected function validated($user)
     {
-        if ($this->grandfathered($user)) {
-            return true;
-        }
-
         // The email field is only stored after validation...
         // Until then you'll find them in confirm_address.
-        return !empty($user->email);
+        $knownGood = !empty($user->email) ||
+                     $this->grandfathered($user) ||
+                     $this->hasTrustedOpenID($user);
+
+        // Give other plugins a chance to override, if they can validate
+        // that somebody's ok despite a non-validated email.
+        Event::handle('RequireValidatedEmailPlugin_Override', array($user, &$knownGood));
+
+        return $knownGood;
     }
 
     /**
@@ -113,6 +131,28 @@ class RequireValidatedEmailPlugin extends Plugin
             $cutoff = strtotime($this->grandfatherCutoff);
             if ($created < $cutoff) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Override for RequireValidatedEmail plugin. If we have a user who's
+     * not validated an e-mail, but did come from a trusted provider,
+     * we'll consider them ok.
+     */
+    function hasTrustedOpenID($user)
+    {
+        if ($this->trustedOpenIDs && class_exists('User_openid')) {
+            foreach ($this->trustedOpenIDs as $regex) {
+                $oid = new User_openid();
+                $oid->user_id = $user->id;
+                $oid->find();
+                while ($oid->fetch()) {
+                    if (preg_match($regex, $oid->canonical)) {
+                        return true;
+                    }
+                }
             }
         }
         return false;

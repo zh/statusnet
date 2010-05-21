@@ -136,6 +136,11 @@ class Router
                 $m->connect('main/'.$a, array('action' => $a));
             }
 
+            // Also need a block variant accepting ID on URL for mail links
+            $m->connect('main/block/:profileid',
+                        array('action' => 'block'),
+                        array('profileid' => '[0-9]+'));
+
             $m->connect('main/sup/:seconds', array('action' => 'sup'),
                         array('seconds' => '[0-9]+'));
 
