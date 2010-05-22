@@ -83,3 +83,6 @@ ALTER TABLE profile ADD COLUMN location_ns integer /* comment 'namespace for loc
 
 ALTER TABLE consumer add COLUMN consumer_secret varchar(255) not null ; /*comment 'secret value'*/
 
+ALTER TABLE token ADD COLUMN verifier varchar(255); /* comment 'verifier string for OAuth 1.0a',*/
+ALTER TABLE token ADD COLUMN verified_callback varchar(255); /* comment 'verified callback URL for OAuth 1.0a',*/
+
