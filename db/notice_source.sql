@@ -54,6 +54,7 @@ VALUES
     ('tr.im','tr.im','http://tr.im/', now()),
     ('triklepost', 'Tricklepost', 'http://github.com/zcopley/tricklepost/tree/master', now()),
     ('tweenky','Tweenky','http://beta.tweenky.com/', now()),
+    ('TweetDeck', 'TweetDeck', 'http://www.tweetdeck.com/', now()),
     ('twhirl','Twhirl','http://www.twhirl.org/', now()),
     ('twibble','twibble','http://www.twibble.de/', now()),
     ('Twidge','Twidge','http://software.complete.org/twidge', now()),

@@ -304,4 +304,7 @@ $default =
         array('subscribers' => true,
               'members' => true,
               'peopletag' => true),
+        'http' => // HTTP client settings when contacting other sites
+        array('ssl_cafile' => false // To enable SSL cert validation, point to a CA bundle (eg '/usr/lib/ssl/certs/ca-certificates.crt')
+              ),
         );

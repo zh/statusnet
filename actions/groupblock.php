@@ -117,7 +117,7 @@ class GroupblockAction extends RedirectingAction
         parent::handle($args);
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                $this->returnToArgs();
+                $this->returnToPrevious();
             } elseif ($this->arg('yes')) {
                 $this->blockProfile();
             } elseif ($this->arg('blockto')) {
@@ -207,7 +207,7 @@ class GroupblockAction extends RedirectingAction
             return false;
         }
         
-        $this->returnToArgs();
+        $this->returnToPrevious();
     }
 
     /**

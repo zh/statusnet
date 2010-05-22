@@ -12,6 +12,20 @@ registered prior to that timestamp.
   addPlugin('RequireValidatedEmail',
             array('grandfatherCutoff' => 'Dec 7, 2009');
 
+You can also exclude the validation checks from OpenID accounts
+connected to a trusted provider, by providing a list of regular
+expressions to match their provider URLs.
+
+For example, to trust WikiHow and Wikipedia users:
+
+  addPlugin('RequireValidatedEmailPlugin', array(
+     'trustedOpenIDs' => array(
+         '!^http://\w+\.wikihow\.com/!',
+         '!^http://\w+\.wikipedia\.org/!',
+     ),
+  ));
+
+
 
 Todo:
 * add a more visible indicator that validation is still outstanding
