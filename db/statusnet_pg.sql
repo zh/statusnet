@@ -287,14 +287,12 @@ create table remember_me (
 );
 
 create table queue_item (
-
-    notice_id integer not null /* comment 'notice queued' */ references notice (id) ,
-    transport varchar(8) not null /* comment 'queue for what? "email", "jabber", "sms", "irc", ...' */,
-    created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
-    claimed timestamp /* comment 'date this item was claimed' */,
-
-    primary key (notice_id, transport)
-
+     id serial /* comment 'unique identifier'*/,
+     frame bytea not null /* comment 'data: object reference or opaque string'*/,
+     transport varchar(8) not null /*comment 'queue for what? "email", "jabber", "sms", "irc", ...'*/,
+     created timestamp not null default CURRENT_TIMESTAMP /*comment 'date this record was created'*/,
+     claimed timestamp /*comment 'date this item was claimed'*/,
+     PRIMARY KEY (id)
 );
 create index queue_item_created_idx on queue_item using btree(created);
 
