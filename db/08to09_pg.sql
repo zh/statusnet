@@ -86,3 +86,18 @@ ALTER TABLE consumer add COLUMN consumer_secret varchar(255) not null ; /*commen
 ALTER TABLE token ADD COLUMN verifier varchar(255); /* comment 'verifier string for OAuth 1.0a',*/
 ALTER TABLE token ADD COLUMN verified_callback varchar(255); /* comment 'verified callback URL for OAuth 1.0a',*/
 
+create table queue_item_new (
+     id serial /* comment 'unique identifier'*/,
+     frame bytea not null /* comment 'data: object reference or opaque string'*/,
+     transport varchar(8) not null /*comment 'queue for what? "email", "jabber", "sms", "irc", ...'*/,
+     created timestamp not null default CURRENT_TIMESTAMP /*comment 'date this record was created'*/,
+     claimed timestamp /*comment 'date this item was claimed'*/,
+     PRIMARY KEY (id)
+);
+ 
+insert into queue_item_new (frame,transport,created,claimed)
+    select ('0x' || notice_id::text)::bytea,transport,created,claimed from queue_item;
+alter table queue_item rename to queue_item_old;
+alter table queue_item_new rename to queue_item;
+
+
