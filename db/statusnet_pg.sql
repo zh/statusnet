@@ -201,8 +201,8 @@ create table token (
     type integer not null default 0 /* comment 'request or access' */,
     state integer default 0 /* comment 'for requests 0 = initial, 1 = authorized, 2 = used' */,
 
-    verifier varchar(255) comment 'verifier string for OAuth 1.0a',
-    verified_callback varchar(255) comment 'verified callback URL for OAuth 1.0a',
+    verifier varchar(255) /*comment 'verifier string for OAuth 1.0a'*/,
+    verified_callback varchar(255) /*comment 'verified callback URL for OAuth 1.0a'*/,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
