@@ -158,9 +158,22 @@ function facebookBroadcastNotice($notice)
 
                 remove_facebook_app($flink);
 
-        } else {
+            } else if ($code == 341) {
+                // 341 Feed action request limit reached - Unable to update Facebook status
+                // Reposting immediately probably won't work, so drop the message for now. :(
+
+                common_log(LOG_ERR, "Facebook rate limit hit: dropping notice $notice->id");
+                return true;
+            } else {
 
                 // Try sending again later.
+                //
+                // @fixme at the moment, returning false here could lead to an infinite loop
+                // if the error condition isn't actually transitory.
+                //
+                // Temporarily throwing an exception to kill the process so it'll hit our
+                // retry limits.
+                throw new Exception("Facebook error $code on notice $notice->id");
 
                 return false;
             }
