@@ -147,7 +147,7 @@ function facebookBroadcastNotice($notice)
                 common_debug(
                     "FacebookPlugin - $user->nickname ($user->id), Facebook UID: $fbuid "
                     .'does NOT have status_update permission. Facebook '
-                    . 'returned: ' . var_export($can_publish, true)
+                    . 'returned: ' . var_export($canPublish, true)
                 );
             }
 
@@ -297,8 +297,6 @@ function publishStream($notice, $user, $fbuid)
         $fbuid
     );
 
-    common_debug('Facebook returned: ' . var_export($result, true));
-
     common_log(
         LOG_INFO,
         "FacebookPlugin - Posted notice $notice->id as a stream "
@@ -306,7 +304,6 @@ function publishStream($notice, $user, $fbuid)
         . "Facebook UID: $fbuid"
     );
 }
-
 
 function formatNotice($notice, $user, $fbuid)
 {
@@ -349,6 +346,8 @@ function updateProfileBox($facebook, $flink, $notice, $user) {
         $facebook,
         $flink
     );
+
+    $fbuid = $flink->foreign_id;
 
     common_debug(
           'FacebookPlugin - Attempting to update profile box with '
