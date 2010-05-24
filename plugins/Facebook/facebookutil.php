@@ -192,7 +192,7 @@ function handleFacebookError($e, $notice, $flink)
             . "\"%s\" (Notice details: nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). "
             . "Removing notice from the Facebook queue for safety.";
         common_log(
-            LOG_ERROR, sprintf(
+            LOG_ERR, sprintf(
                 $msg,
                 $notice->id,
                 $errmsg,
@@ -232,7 +232,7 @@ function handleFacebookError($e, $notice, $flink)
             . "nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). Re-queueing "
             . "notice, and will try to send again later.";
         common_log(
-            LOG_ERROR, sprintf(
+            LOG_ERR, sprintf(
                 $msg,
                 $notice->id,
                 $code,
@@ -351,7 +351,7 @@ function updateProfileBox($facebook, $flink, $notice, $user) {
 
     common_debug(
           'FacebookPlugin - Attempting to update profile box with '
-          . "content from notice $notice->id for $user->nickname ($user->id)"
+          . "content from notice $notice->id for $user->nickname ($user->id), "
           . "Facebook UID: $fbuid"
     );
 
