@@ -84,7 +84,7 @@ class DiscoveryHints {
             $hints['fullname'] = implode(' ', $hcard['n']);
         }
 
-        if (array_key_exists('photo', $hcard)) {
+        if (array_key_exists('photo', $hcard) && count($hcard['photo'])) {
             $hints['avatar'] = $hcard['photo'][0];
         }
 

@@ -122,7 +122,19 @@ class StompQueueManager extends QueueManager
     public function enqueue($object, $queue)
     {
         $this->_connect();
-        return $this->_doEnqueue($object, $queue, $this->defaultIdx);
+        if (common_config('queue', 'stomp_enqueue_on')) {
+            // We're trying to force all writes to a single server.
+            // WARNING: this might do odd things if that server connection dies.
+            $idx = array_search(common_config('queue', 'stomp_enqueue_on'),
+                                $this->servers);
+            if ($idx === false) {
+                common_log(LOG_ERR, 'queue stomp_enqueue_on setting does not match our server list.');
+                $idx = $this->defaultIdx;
+            }
+        } else {
+            $idx = $this->defaultIdx;
+        }
+        return $this->_doEnqueue($object, $queue, $idx);
     }
 
     /**
