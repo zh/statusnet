@@ -116,7 +116,11 @@ class File extends Memcached_DataObject
         return false;
     }
 
-    function processNew($given_url, $notice_id=null) {
+    /**
+     * @fixme refactor this mess, it's gotten pretty scary.
+     * @param bool $followRedirects
+     */
+    function processNew($given_url, $notice_id=null, $followRedirects=true) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -124,6 +128,10 @@ class File extends Memcached_DataObject
         if (empty($file)) {
             $file_redir = File_redirection::staticGet('url', $given_url);
             if (empty($file_redir)) {
+                // @fixme for new URLs this also looks up non-redirect data
+                // such as target content type, size, etc, which we need
+                // for File::saveNew(); so we call it even if not following
+                // new redirects.
                 $redir_data = File_redirection::where($given_url);
                 if (is_array($redir_data)) {
                     $redir_url = $redir_data['url'];
@@ -134,11 +142,19 @@ class File extends Memcached_DataObject
                     throw new ServerException("Can't process url '$given_url'");
                 }
                 // TODO: max field length
-                if ($redir_url === $given_url || strlen($redir_url) > 255) {
+                if ($redir_url === $given_url || strlen($redir_url) > 255 || !$followRedirects) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
                 } else {
-                    $x = File::processNew($redir_url, $notice_id);
+                    // This seems kind of messed up... for now skipping this part
+                    // if we're already under a redirect, so we don't go into
+                    // horrible infinite loops if we've been given an unstable
+                    // redirect (where the final destination of the first request
+                    // doesn't match what we get when we ask for it again).
+                    //
+                    // Seen in the wild with clojure.org, which redirects through
+                    // wikispaces for auth and appends session data in the URL params.
+                    $x = File::processNew($redir_url, $notice_id, /*followRedirects*/false);
                     $file_id = $x->id;
                     File_redirection::saveNew($redir_data, $file_id, $given_url);
                 }
