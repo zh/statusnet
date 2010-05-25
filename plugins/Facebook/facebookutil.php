@@ -461,11 +461,11 @@ function remove_facebook_app($flink)
 
 function mail_facebook_app_removed($user)
 {
-    common_init_locale($user->language);
-
     $profile = $user->getProfile();
 
     $site_name = common_config('site', 'name');
+
+    common_switch_locale($user->language);
 
     $subject = sprintf(
         _m('Your %1$s Facebook application access has been disabled.',
@@ -480,7 +480,7 @@ function mail_facebook_app_removed($user)
         "re-installing the %2\$s Facebook application.\n\nRegards,\n\n%2\$s"),
         $user->nickname, $site_name);
 
-    common_init_locale();
+    common_switch_locale();
     return mail_to_user($user, $subject, $body);
 
 }
