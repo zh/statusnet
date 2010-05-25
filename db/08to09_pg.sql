@@ -100,4 +100,5 @@ insert into queue_item_new (frame,transport,created,claimed)
 alter table queue_item rename to queue_item_old;
 alter table queue_item_new rename to queue_item;
 
+ALTER TABLE confirm_address ALTER column sent set default CURRENT_TIMESTAMP;
 
