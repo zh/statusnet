@@ -224,6 +224,9 @@ function mail_subscribe_notify_profile($listenee, $other)
     if ($other->hasRight(Right::EMAILONSUBSCRIBE) &&
         $listenee->email && $listenee->emailnotifysub) {
 
+        // use the recipient's localization
+        common_init_locale($listenee->language);
+
         $profile = $listenee->getProfile();
 
         $name = $profile->getBestName();
@@ -232,9 +235,6 @@ function mail_subscribe_notify_profile($listenee, $other)
           ($other->fullname . ' (' . $other->nickname . ')') : $other->nickname;
 
         $recipients = $listenee->email;
-
-        // use the recipient's localization
-        common_switch_locale($listenee->language);
 
         $headers = _mail_prepare_headers('subscribe', $listenee->nickname, $other->nickname);
         $headers['From']    = mail_notify_from();
@@ -277,7 +277,7 @@ function mail_subscribe_notify_profile($listenee, $other)
                         common_local_url('emailsettings'));
 
         // reset localization
-        common_switch_locale();
+        common_init_locale();
         mail_send($recipients, $headers, $body);
     }
 }
@@ -479,7 +479,7 @@ function mail_confirm_sms($code, $nickname, $address)
 
 function mail_notify_nudge($from, $to)
 {
-    common_switch_locale($to->language);
+    common_init_locale($to->language);
     // TRANS: Subject for 'nudge' notification email
     $subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
 
@@ -497,7 +497,7 @@ function mail_notify_nudge($from, $to)
                     $from->nickname,
                     common_local_url('all', array('nickname' => $to->nickname)),
                     common_config('site', 'name'));
-    common_switch_locale();
+    common_init_locale();
 
     $headers = _mail_prepare_headers('nudge', $to->nickname, $from->nickname);
 
@@ -531,7 +531,7 @@ function mail_notify_message($message, $from=null, $to=null)
         return true;
     }
 
-    common_switch_locale($to->language);
+    common_init_locale($to->language);
     // TRANS: Subject for direct-message notification email
     $subject = sprintf(_('New private message from %s'), $from->nickname);
 
@@ -555,7 +555,7 @@ function mail_notify_message($message, $from=null, $to=null)
 
     $headers = _mail_prepare_headers('message', $to->nickname, $from->nickname);
 
-    common_switch_locale();
+    common_init_locale();
     return mail_to_user($to, $subject, $body, $headers);
 }
 
@@ -583,7 +583,7 @@ function mail_notify_fave($other, $user, $notice)
 
     $bestname = $profile->getBestName();
 
-    common_switch_locale($other->language);
+    common_init_locale($other->language);
 
     // TRANS: Subject for favorite notification email
     $subject = sprintf(_('%s (@%s) added your notice as a favorite'), $bestname, $user->nickname);
@@ -611,7 +611,7 @@ function mail_notify_fave($other, $user, $notice)
 
     $headers = _mail_prepare_headers('fave', $other->nickname, $user->nickname);
 
-    common_switch_locale();
+    common_init_locale();
     mail_to_user($other, $subject, $body, $headers);
 }
 
