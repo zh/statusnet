@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-16 15:39+0000\n"
-"PO-Revision-Date: 2010-05-16 15:40:10+0000\n"
+"POT-Creation-Date: 2010-05-25 11:36+0000\n"
+"PO-Revision-Date: 2010-05-25 11:37:21+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r66533); Translate extension (2010-05-15)\n"
+"X-Generator: MediaWiki 1.17alpha (r66863); Translate extension (2010-05-24)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -394,7 +394,7 @@ msgstr "Non se puido atopar o usuario de destino."
 
 #: actions/apigroupcreate.php:166 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
-#: actions/register.php:205
+#: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "O alcume debe ter só letras en minúscula e números, e non pode ter espazos "
@@ -402,26 +402,26 @@ msgstr ""
 
 #: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
-#: actions/register.php:208
+#: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "Ese alcume xa está en uso. Probe con outro."
 
 #: actions/apigroupcreate.php:182 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
-#: actions/register.php:210
+#: actions/register.php:217
 msgid "Not a valid nickname."
 msgstr "O formato do alcume non é correcto."
 
 #: actions/apigroupcreate.php:198 actions/editapplication.php:215
 #: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
-#: actions/register.php:217
+#: actions/register.php:224
 msgid "Homepage is not a valid URL."
 msgstr "O URL da páxina persoal non é correcto."
 
 #: actions/apigroupcreate.php:207 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
-#: actions/register.php:220
+#: actions/register.php:227
 msgid "Full name is too long (max 255 chars)."
 msgstr "O nome completo é longo de máis (o máximo son 255 caracteres)."
 
@@ -433,7 +433,7 @@ msgstr "A descrición é longa de máis (o máximo son %d caracteres)."
 
 #: actions/apigroupcreate.php:226 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
-#: actions/register.php:227
+#: actions/register.php:234
 msgid "Location is too long (max 255 chars)."
 msgstr "A localidade é longa de máis (o máximo son 255 caracteres)."
 
@@ -524,12 +524,12 @@ msgstr "Pase incorrecto."
 #: actions/emailsettings.php:267 actions/favor.php:75 actions/geocode.php:54
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:227
-#: actions/invite.php:56 actions/login.php:115 actions/makeadmin.php:66
+#: actions/invite.php:56 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:194 actions/recoverpassword.php:350
-#: actions/register.php:165 actions/remotesubscribe.php:77
+#: actions/register.php:172 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:38
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
@@ -601,8 +601,8 @@ msgstr ""
 msgid "Account"
 msgstr "Conta"
 
-#: actions/apioauthauthorize.php:313 actions/login.php:230
-#: actions/profilesettings.php:106 actions/register.php:424
+#: actions/apioauthauthorize.php:313 actions/login.php:252
+#: actions/profilesettings.php:106 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:132
@@ -610,8 +610,8 @@ msgid "Nickname"
 msgstr "Alcume"
 
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:316 actions/login.php:233
-#: actions/register.php:429 lib/accountsettingsaction.php:125
+#: actions/apioauthauthorize.php:316 actions/login.php:255
+#: actions/register.php:436 lib/accountsettingsaction.php:125
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -821,11 +821,11 @@ msgstr "Borrouse o avatar."
 msgid "You already blocked that user."
 msgstr "Xa bloqueou ese usuario."
 
-#: actions/block.php:105 actions/block.php:128 actions/groupblock.php:158
+#: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
 msgid "Block user"
 msgstr "Bloquear o usuario"
 
-#: actions/block.php:130
+#: actions/block.php:138
 msgid ""
 "Are you sure you want to block this user? Afterwards, they will be "
 "unsubscribed from you, unable to subscribe to you in the future, and you "
@@ -840,7 +840,7 @@ msgstr ""
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:145 actions/deleteapplication.php:154
+#: actions/block.php:153 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
 msgctxt "BUTTON"
@@ -849,7 +849,7 @@ msgstr "Non"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #. TRANS: Submit button title for 'No' when deleting a user.
-#: actions/block.php:149 actions/deleteuser.php:156
+#: actions/block.php:157 actions/deleteuser.php:156
 msgid "Do not block this user"
 msgstr "Non bloquear este usuario"
 
@@ -858,7 +858,7 @@ msgstr "Non bloquear este usuario"
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:152 actions/deleteapplication.php:161
+#: actions/block.php:160 actions/deleteapplication.php:161
 #: actions/deletenotice.php:154 actions/deleteuser.php:159
 #: actions/groupblock.php:185
 msgctxt "BUTTON"
@@ -866,11 +866,11 @@ msgid "Yes"
 msgstr "Si"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#: actions/block.php:156 actions/groupmembers.php:392 lib/blockform.php:80
+#: actions/block.php:164 actions/groupmembers.php:392 lib/blockform.php:80
 msgid "Block this user"
 msgstr "Bloquear este usuario"
 
-#: actions/block.php:179
+#: actions/block.php:187
 msgid "Failed to save block information."
 msgstr "Non se puido gardar a información do bloqueo."
 
@@ -1031,7 +1031,7 @@ msgstr "Borrar a aplicación"
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:73 lib/profileformaction.php:63
+#: lib/adminpanelaction.php:73 lib/profileformaction.php:64
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Non iniciou sesión."
@@ -1487,7 +1487,7 @@ msgid "Cannot normalize that email address"
 msgstr "Non se pode normalizar ese enderezo de correo electrónico"
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:366 actions/register.php:201
+#: actions/emailsettings.php:366 actions/register.php:208
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "O enderezo de correo electrónico é incorrecto."
@@ -1713,13 +1713,13 @@ msgstr "O usuario xa ten este rol."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
-#: lib/profileformaction.php:70
+#: lib/profileformaction.php:79
 msgid "No profile specified."
 msgstr "Non se especificou ningún perfil."
 
 #: actions/groupblock.php:76 actions/groupunblock.php:76
 #: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: actions/unsubscribe.php:84 lib/profileformaction.php:77
+#: actions/unsubscribe.php:84 lib/profileformaction.php:86
 msgid "No profile with that ID."
 msgstr "Ningún perfil ten esa ID."
 
@@ -2231,8 +2231,8 @@ msgid ""
 msgstr ""
 "%1$s convidouno a unirse a el en %2$s (%3$s).\n"
 "\n"
-"%2$s é un servizo de microblogue que lle permite estar ao día coas persoas "
-"que coñece e coas que lle interesen.\n"
+"%2$s é un servizo de mensaxes de blogue curtas que lle permite estar ao día "
+"coas persoas que coñece e coas que lle interesen.\n"
 "\n"
 "Tamén pode compartir novas persoais, pensamentos ou a súa vida en liña con "
 "outros coñecidos. Tamén está moi ben para coñecer xente con intereses "
@@ -2285,43 +2285,43 @@ msgstr "Non pertence a ese grupo."
 msgid "%1$s left group %2$s"
 msgstr "%1$s deixou o grupo %2$s"
 
-#: actions/login.php:80 actions/otp.php:62 actions/register.php:137
+#: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
 msgstr "Xa se identificou."
 
-#: actions/login.php:126
+#: actions/login.php:148
 msgid "Incorrect username or password."
 msgstr "Nome de usuario ou contrasinal incorrectos."
 
-#: actions/login.php:132 actions/otp.php:120
+#: actions/login.php:154 actions/otp.php:120
 msgid "Error setting user. You are probably not authorized."
 msgstr ""
 "Houbo un erro ao configurar o usuario. Probablemente non estea autorizado "
 "para facelo."
 
-#: actions/login.php:188 actions/login.php:241 lib/logingroupnav.php:79
+#: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Identificarse"
 
-#: actions/login.php:227
+#: actions/login.php:249
 msgid "Login to site"
 msgstr "Identificarse no sitio"
 
-#: actions/login.php:236 actions/register.php:478
+#: actions/login.php:258 actions/register.php:485
 msgid "Remember me"
 msgstr "Lembrádeme"
 
-#: actions/login.php:237 actions/register.php:480
+#: actions/login.php:259 actions/register.php:487
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Identificarse automaticamente no futuro. Non se aconsella en computadoras "
 "compartidas!"
 
-#: actions/login.php:247
+#: actions/login.php:269
 msgid "Lost or forgotten password?"
 msgstr "Esqueceu ou perdeu o contrasinal?"
 
-#: actions/login.php:266
+#: actions/login.php:288
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
@@ -2329,11 +2329,11 @@ msgstr ""
 "Por razóns de seguridade, volva introducir o seu nome de usuario e "
 "contrasinal antes de cambiar a súa configuración."
 
-#: actions/login.php:270
+#: actions/login.php:292
 msgid "Login with your username and password."
 msgstr "Identifíquese co seu nome de usuario e contrasinal."
 
-#: actions/login.php:273
+#: actions/login.php:295
 #, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
@@ -2670,7 +2670,7 @@ msgid "6 or more characters"
 msgstr "Seis ou máis caracteres"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:433
+#: actions/register.php:440
 msgid "Confirm"
 msgstr "Confirmar"
 
@@ -2682,11 +2682,11 @@ msgstr "Igual ao contrasinal anterior"
 msgid "Change"
 msgstr "Cambiar"
 
-#: actions/passwordsettings.php:154 actions/register.php:230
+#: actions/passwordsettings.php:154 actions/register.php:237
 msgid "Password must be 6 or more characters."
 msgstr "O contrasinal debe conter seis ou máis caracteres."
 
-#: actions/passwordsettings.php:157 actions/register.php:233
+#: actions/passwordsettings.php:157 actions/register.php:240
 msgid "Passwords don't match."
 msgstr "Os contrasinais non coinciden."
 
@@ -2913,43 +2913,43 @@ msgstr ""
 "Entre 1 e 64 letras minúsculas ou números, sen signos de puntuación, "
 "espazos, tiles ou eñes"
 
-#: actions/profilesettings.php:111 actions/register.php:448
+#: actions/profilesettings.php:111 actions/register.php:455
 #: actions/showgroup.php:256 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "Nome completo"
 
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:115 actions/register.php:453
+#: actions/profilesettings.php:115 actions/register.php:460
 #: lib/applicationeditform.php:244 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Páxina persoal"
 
-#: actions/profilesettings.php:117 actions/register.php:455
+#: actions/profilesettings.php:117 actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL da súa páxina persoal, blogue ou perfil noutro sitio"
 
-#: actions/profilesettings.php:122 actions/register.php:461
+#: actions/profilesettings.php:122 actions/register.php:468
 #, php-format
 msgid "Describe yourself and your interests in %d chars"
 msgstr "Descríbase a vostede e mailos seus intereses en %d caracteres"
 
-#: actions/profilesettings.php:125 actions/register.php:464
+#: actions/profilesettings.php:125 actions/register.php:471
 msgid "Describe yourself and your interests"
 msgstr "Descríbase a vostede e mailos seus intereses"
 
-#: actions/profilesettings.php:127 actions/register.php:466
+#: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
 msgstr "Biografía"
 
-#: actions/profilesettings.php:132 actions/register.php:471
+#: actions/profilesettings.php:132 actions/register.php:478
 #: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:165
 msgid "Location"
 msgstr "Lugar"
 
-#: actions/profilesettings.php:134 actions/register.php:473
+#: actions/profilesettings.php:134 actions/register.php:480
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Onde está a vivir, coma “localidade, provincia (ou comunidade), país”"
 
@@ -2993,7 +2993,7 @@ msgstr ""
 "Subscribirse automaticamente a quen se subscriba a min (o mellor para os "
 "bots)"
 
-#: actions/profilesettings.php:228 actions/register.php:223
+#: actions/profilesettings.php:228 actions/register.php:230
 #, php-format
 msgid "Bio is too long (max %d chars)."
 msgstr "A biografía é longa de máis (o límite son %d caracteres)."
@@ -3091,11 +3091,11 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
-"Isto é %%site.name%%, un servizo de [microblogue](http://en.wikipedia.org/"
-"wiki/Microblogging) (en inglés) baseado na ferramenta de software libre "
-"[StatusNet](http://status.net/). [Únase agora](%%action.register%%) para "
-"compartir notas persoais cos amigos, a familia e os compañeiros! ([Máis "
-"información](%%doc.help%%))"
+"Isto é %%site.name%%, un servizo de [mensaxes de blogue curtas](http://en."
+"wikipedia.org/wiki/Microblogging) (en inglés) baseado na ferramenta de "
+"software libre [StatusNet](http://status.net/). [Únase agora](%%action."
+"register%%) para compartir notas persoais cos amigos, a familia e os "
+"compañeiros! ([Máis información](%%doc.help%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3104,9 +3104,9 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
-"Isto é %%site.name%%, un servizo de [microblogue](http://en.wikipedia.org/"
-"wiki/Microblogging) (en inglés) baseado na ferramenta de software libre "
-"[StatusNet](http://status.net/)."
+"Isto é %%site.name%%, un servizo de [mensaxes de blogue curtas](http://en."
+"wikipedia.org/wiki/Microblogging) (en inglés) baseado na ferramenta de "
+"software libre [StatusNet](http://status.net/)."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -3261,7 +3261,7 @@ msgstr "O contrasinal debe ter seis ou máis caracteres."
 msgid "Password and confirmation do not match."
 msgstr "O contrasinal e a confirmación non coinciden."
 
-#: actions/recoverpassword.php:388 actions/register.php:248
+#: actions/recoverpassword.php:388 actions/register.php:255
 msgid "Error setting user."
 msgstr "Houbo un erro ao configurar o usuario."
 
@@ -3269,39 +3269,39 @@ msgstr "Houbo un erro ao configurar o usuario."
 msgid "New password successfully saved. You are now logged in."
 msgstr "O novo contrasinal gardouse correctamente. Agora está identificado."
 
-#: actions/register.php:85 actions/register.php:189 actions/register.php:405
+#: actions/register.php:92 actions/register.php:196 actions/register.php:412
 msgid "Sorry, only invited people can register."
 msgstr "Só se pode rexistrar mediante invitación."
 
-#: actions/register.php:92
+#: actions/register.php:99
 msgid "Sorry, invalid invitation code."
 msgstr "O código da invitación é incorrecto."
 
-#: actions/register.php:112
+#: actions/register.php:119
 msgid "Registration successful"
 msgstr "Rexistrouse correctamente"
 
-#: actions/register.php:114 actions/register.php:499 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:506 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Rexistrarse"
 
-#: actions/register.php:135
+#: actions/register.php:142
 msgid "Registration not allowed."
 msgstr "Non se permite o rexistro."
 
-#: actions/register.php:198
+#: actions/register.php:205
 msgid "You can't register if you don't agree to the license."
 msgstr "Non pode rexistrarse se non acepta a licenza."
 
-#: actions/register.php:212
+#: actions/register.php:219
 msgid "Email address already exists."
 msgstr "O enderezo de correo electrónico xa existe."
 
-#: actions/register.php:243 actions/register.php:265
+#: actions/register.php:250 actions/register.php:272
 msgid "Invalid username or password."
 msgstr "O nome de usuario ou contrasinal non son correctos."
 
-#: actions/register.php:343
+#: actions/register.php:350
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -3309,58 +3309,61 @@ msgstr ""
 "Con este formulario pode crear unha conta nova. Entón poderá publicar notas "
 "e porse en contacto con amigos e compañeiros. "
 
-#: actions/register.php:425
+#: actions/register.php:432
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "Entre 1 e 64 letras minúsculas ou números, sen signos de puntuación, "
 "espazos, tiles ou eñes. Obrigatorio."
 
-#: actions/register.php:430
+#: actions/register.php:437
 msgid "6 or more characters. Required."
 msgstr "6 ou máis caracteres. Obrigatorio."
 
-#: actions/register.php:434
+#: actions/register.php:441
 msgid "Same as password above. Required."
 msgstr "O mesmo contrasinal que o anterior. Obrigatorio."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:438 actions/register.php:442
+#: actions/register.php:445 actions/register.php:449
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:132
 msgid "Email"
 msgstr "Correo electrónico"
 
-#: actions/register.php:439 actions/register.php:443
+#: actions/register.php:446 actions/register.php:450
 msgid "Used only for updates, announcements, and password recovery"
 msgstr ""
 "Só se utiliza para actualizacións, anuncios e recuperación de contrasinais"
 
-#: actions/register.php:450
+#: actions/register.php:457
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Nome longo, preferiblemente o seu nome \"real\""
 
-#: actions/register.php:511
-#, fuzzy, php-format
+#: actions/register.php:518
+#, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
-msgstr "O contido e os datos de %1$s son privados e confidenciais."
+msgstr "Entendo que o contido e os datos de %1$s son privados e confidenciais."
 
-#: actions/register.php:521
+#: actions/register.php:528
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr ""
+"Os meus textos e ficheiros están protexidos polos dereitos de autor de %1$s."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:525
+#: actions/register.php:532
 msgid "My text and files remain under my own copyright."
 msgstr ""
+"Os meus textos e ficheiros están protexidos polos meus propios dereitos de "
+"autor."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:528
+#: actions/register.php:535
 msgid "All rights reserved."
-msgstr ""
+msgstr "Todos os dereitos reservados."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:533
+#: actions/register.php:540
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -3370,7 +3373,7 @@ msgstr ""
 "datos privados: contrasinais, enderezos de correo electrónico e mensaxería "
 "instantánea e números de teléfono."
 
-#: actions/register.php:576
+#: actions/register.php:583
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -3402,7 +3405,7 @@ msgstr ""
 "\n"
 "Grazas por rexistrarse. Esperamos que goce deste servizo."
 
-#: actions/register.php:600
+#: actions/register.php:607
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -3419,8 +3422,8 @@ msgid ""
 msgstr ""
 "Para subscribirse, pode [identificarse](%%action.login%%) ou [rexistrar](%%"
 "action.register%%) unha conta nova. Se xa ten unha conta nun [sitio de "
-"microblogging compatible](%%doc.openmublog%%), introduza a continuación o "
-"URL do seu perfil."
+"mensaxes de blogue curtas compatible](%%doc.openmublog%%), introduza a "
+"continuación o URL do seu perfil."
 
 #: actions/remotesubscribe.php:112
 msgid "Remote subscribe"
@@ -3444,7 +3447,8 @@ msgstr "URL do perfil"
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
-msgstr "URL do seu perfil noutro servizo de microblogue compatible"
+msgstr ""
+"URL do seu perfil noutro servizo de mensaxes de blogue curtas compatible"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
 #: lib/userprofile.php:406
@@ -3823,8 +3827,8 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de "
-"[microblogue](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de [mensaxes "
+"de blogue curtas](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
 "baseado na ferramenta de software libre [StatusNet](http://status.net/). Os "
 "seus membros comparten mensaxes curtas sobre as súas vidas e intereses. "
 "[Únase agora](%%%%action.register%%%%) para pasar a formar parte deste grupo "
@@ -3838,8 +3842,8 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de "
-"[microblogue](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"**%s** é un grupo de usuarios de %%%%site.name%%%%, un servizo de [mensaxes "
+"de blogue curtas](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
 "baseado na ferramenta de software libre [StatusNet](http://status.net/). Os "
 "seus membros comparten mensaxes curtas sobre as súas vidas e intereses. "
 
@@ -3934,11 +3938,11 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [microblogue]"
-"(http://en.wikipedia.org/wiki/Microblogging) (en inglés) baseado na "
-"ferramenta de software libre [StatusNet](http://status.net/). [Únase agora](%"
-"%%%action.register%%%%) para seguir as notas de **%s** e de moita máis "
-"xente! ([Máis información](%%%%doc.help%%%%))"
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [mensaxes de "
+"blogue curtas](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"baseado na ferramenta de software libre [StatusNet](http://status.net/). "
+"[Únase agora](%%%%action.register%%%%) para seguir as notas de **%s** e de "
+"moita máis xente! ([Máis información](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:248
 #, php-format
@@ -3947,9 +3951,9 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [microblogue]"
-"(http://en.wikipedia.org/wiki/Microblogging) (en inglés) baseado na "
-"ferramenta de software libre [StatusNet](http://status.net/). "
+"**%s** ten unha conta en %%%%site.name%%%%, un servizo de [mensaxes de "
+"blogue curtas](http://en.wikipedia.org/wiki/Microblogging) (en inglés) "
+"baseado na ferramenta de software libre [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
 #, php-format
@@ -4000,7 +4004,8 @@ msgstr "Nome do sitio"
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr ""
-"O nome do seu sitio, como por exemplo \"O microblogue da miña empresa\""
+"O nome do seu sitio, como por exemplo \"O sitio de mensaxes de blogue curtas "
+"da miña empresa\""
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
@@ -5190,14 +5195,14 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** é un servizo de microblogue ofrecido por [%%site.broughtby%"
-"%](%%site.broughtbyurl%%)."
+"**%%site.name%%** é un servizo de mensaxes de blogue curtas ofrecido por [%%"
+"site.broughtby%%](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:820
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
-msgstr "**%%site.name%%** é un servizo de microblogue."
+msgstr "**%%site.name%%** é un servizo de mensaxes de blogue curtas."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
 #: lib/action.php:824
@@ -5207,9 +5212,9 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"Utiliza a versión %s do software de microblogue [StatusNet](http://status."
-"net/), dispoñible baixo a [Licenza Pública Xeral Affero de GNU](http://www."
-"fsf.org/licensing/licenses/agpl-3.0.html) (en inglés)."
+"Utiliza a versión %s do software de mensaxes de blogue curtas [StatusNet]"
+"(http://status.net/), dispoñible baixo a [Licenza Pública Xeral Affero de "
+"GNU](http://www.fsf.org/licensing/licenses/agpl-3.0.html) (en inglés)."
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:840
@@ -5596,14 +5601,14 @@ msgstr "Nome completo: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:263
+#: lib/command.php:422 lib/mail.php:268
 #, php-format
 msgid "Location: %s"
 msgstr "Localidade: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:266
+#: lib/command.php:426 lib/mail.php:271
 #, php-format
 msgid "Homepage: %s"
 msgstr "Sitio web: %s"
@@ -6138,8 +6143,15 @@ msgstr ""
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "Agora %1$s segue as súas notas en %2$s."
 
+#: lib/mail.php:248
+#, php-format
+msgid ""
+"If you believe this account is being used abusively, you can block them from "
+"your subscribers list and report as spam to site administrators at %s"
+msgstr ""
+
 #. TRANS: Main body of new-subscriber notification e-mail
-#: lib/mail.php:249
+#: lib/mail.php:254
 #, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
@@ -6166,19 +6178,19 @@ msgstr ""
 "notificación en %8$s\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/mail.php:269
+#: lib/mail.php:274
 #, php-format
 msgid "Bio: %s"
 msgstr "Biografía: %s"
 
 #. TRANS: Subject of notification mail for new posting email address
-#: lib/mail.php:298
+#: lib/mail.php:304
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "Novo enderezo de correo electrónico para publicar en %s"
 
 #. TRANS: Body of notification mail for new posting email address
-#: lib/mail.php:302
+#: lib/mail.php:308
 #, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
@@ -6200,31 +6212,31 @@ msgstr ""
 "%4$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages
-#: lib/mail.php:427
+#: lib/mail.php:433
 #, php-format
 msgid "%s status"
 msgstr "Estado de %s"
 
 #. TRANS: Subject line for SMS-by-email address confirmation message
-#: lib/mail.php:454
+#: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "Confirmación dos SMS"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
-#: lib/mail.php:457
+#: lib/mail.php:463
 #, php-format
 msgid "%s: confirm you own this phone number with this code:"
 msgstr ""
 "%s: utilice o seguinte código para confirmar que o número de teléfono é seu:"
 
 #. TRANS: Subject for 'nudge' notification email
-#: lib/mail.php:478
+#: lib/mail.php:484
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "%s fíxolle un aceno"
 
 #. TRANS: Body for 'nudge' notification email
-#: lib/mail.php:483
+#: lib/mail.php:489
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -6252,13 +6264,13 @@ msgstr ""
 "%4$s\n"
 
 #. TRANS: Subject for direct-message notification email
-#: lib/mail.php:530
+#: lib/mail.php:536
 #, php-format
 msgid "New private message from %s"
 msgstr "Nova mensaxe privada de %s"
 
 #. TRANS: Body for direct-message notification email
-#: lib/mail.php:535
+#: lib/mail.php:541
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -6292,13 +6304,13 @@ msgstr ""
 "%5$s\n"
 
 #. TRANS: Subject for favorite notification email
-#: lib/mail.php:583
+#: lib/mail.php:589
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
 msgstr "%s (@%s) marcou a súa nota como favorita"
 
 #. TRANS: Body for favorite notification email
-#: lib/mail.php:586
+#: lib/mail.php:592
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -6337,7 +6349,7 @@ msgstr ""
 "%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:645
+#: lib/mail.php:651
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -6348,13 +6360,13 @@ msgstr ""
 "\n"
 "%s"
 
-#: lib/mail.php:651
+#: lib/mail.php:657
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
 msgstr "%s (@%s) enviou unha nota á súa atención"
 
 #. TRANS: Body of @-reply notification e-mail.
-#: lib/mail.php:654
+#: lib/mail.php:660
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -6701,7 +6713,7 @@ msgstr "Media diaria"
 msgid "All groups"
 msgstr "Todos os grupos"
 
-#: lib/profileformaction.php:114
+#: lib/profileformaction.php:123
 msgid "Unimplemented method."
 msgstr "Aínda non se implantou o método."
 
@@ -6725,7 +6737,7 @@ msgstr "Salientadas"
 msgid "Popular"
 msgstr "Populares"
 
-#: lib/redirectingaction.php:94
+#: lib/redirectingaction.php:95
 msgid "No return-to arguments."
 msgstr "Sen argumentos \"return-to\"."
 
@@ -6746,7 +6758,7 @@ msgstr "Repetir esta nota"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Revogarlle o rol \"%s\" a este usuario"
 
-#: lib/router.php:704
+#: lib/router.php:709
 msgid "No single user defined for single-user mode."
 msgstr "Non se estableceu ningún usuario único para o modo de usuario único."
 
@@ -6924,56 +6936,56 @@ msgid "Moderator"
 msgstr "Moderador"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1083
+#: lib/util.php:1100
 msgid "a few seconds ago"
 msgstr "hai uns segundos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1086
+#: lib/util.php:1103
 msgid "about a minute ago"
 msgstr "hai como un minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1090
+#: lib/util.php:1107
 #, php-format
 msgid "about %d minutes ago"
 msgstr "hai como %d minutos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1093
+#: lib/util.php:1110
 msgid "about an hour ago"
 msgstr "hai como unha hora"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1097
+#: lib/util.php:1114
 #, php-format
 msgid "about %d hours ago"
 msgstr "hai como %d horas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1117
 msgid "about a day ago"
 msgstr "hai como un día"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1104
+#: lib/util.php:1121
 #, php-format
 msgid "about %d days ago"
 msgstr "hai como %d días"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1124
 msgid "about a month ago"
 msgstr "hai como un mes"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1111
+#: lib/util.php:1128
 #, php-format
 msgid "about %d months ago"
 msgstr "hai como %d meses"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1131
 msgid "about a year ago"
 msgstr "hai como un ano"
 
