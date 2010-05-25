@@ -229,8 +229,8 @@ function handleFacebookError($e, $notice, $flink)
      default:
         $msg = "FacebookPlugin - Facebook returned an error we don't know how to deal with while trying to "
             . "post notice %d. Error code: %d, error message: \"%s\". (Notice details: "
-            . "nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). Re-queueing "
-            . "notice, and will try to send again later.";
+            . "nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). Removing notice "
+	    . "from the Facebook queue for safety.";
         common_log(
             LOG_ERR, sprintf(
                 $msg,
@@ -243,8 +243,7 @@ function handleFacebookError($e, $notice, $flink)
                 $notice->content
             )
         );
-        // Re-queue and try again later
-        return false;
+        return true; // dequeue
         break;
     }
 }
