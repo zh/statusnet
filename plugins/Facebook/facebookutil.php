@@ -256,11 +256,9 @@ function statusUpdate($notice, $user, $fbuid)
         . "Facebook UID: $fbuid"
     );
 
-    $text = formatNotice($notice, $user, $fbuid);
-
     $facebook = getFacebook();
     $result = $facebook->api_client->users_setStatus(
-         $text,
+         $notice->content,
          $fbuid,
          false,
          true
@@ -284,12 +282,11 @@ function publishStream($notice, $user, $fbuid)
         . "Facebook UID: $fbuid"
     );
 
-    $text = formatNotice($notice, $user, $fbuid);
     $fbattachment = format_attachments($notice->attachments());
 
     $facebook = getFacebook();
     $facebook->api_client->stream_publish(
-        $text,
+        $notice->content,
         $fbattachment,
         null,
         null,
@@ -302,38 +299,6 @@ function publishStream($notice, $user, $fbuid)
         . "item with attachment for $user->nickname ($user->id), "
         . "Facebook UID: $fbuid"
     );
-}
-
-function formatNotice($notice, $user, $fbuid)
-{
-    // Get the status 'verb' the user has set, if any
-
-    common_debug(
-        "FacebookPlugin - Looking to see if $user->nickname ($user->id), "
-        . "Facebook UID: $fbuid has set a verb for Facebook posting..."
-    );
-
-    $facebook = getFacebook();
-    $verb = trim(
-        $facebook->api_client->data_getUserPreference(
-            FACEBOOK_NOTICE_PREFIX,
-            $fbuid
-        )
-    );
-
-    common_debug("Facebook returned " . var_export($verb, true));
-
-    $text = null;
-
-    if (!empty($verb)) {
-        common_debug("FacebookPlugin - found a verb: $verb");
-        $text = trim($verb) . ' ' . $notice->content;
-    } else {
-        common_debug("FacebookPlugin - no verb found.");
-        $text = $notice->content;
-    }
-
-    return $text;
 }
 
 function updateProfileBox($facebook, $flink, $notice, $user) {
