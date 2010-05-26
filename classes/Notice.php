@@ -1240,7 +1240,7 @@ class Notice extends Memcached_DataObject
 
         $noticeInfoAttr = array(
             'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
-            'source'     => $this->source // the client name (source attribution)
+            'source'     => $this->source, // the client name (source attribution)
         );
 
         $ns = $this->getSource();
@@ -1251,7 +1251,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (!empty($cur)) {
-            $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
+            $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+        }
+
+        if (!empty($this->repeat_of)) {
+            $noticeInfoAttr['repeat_of'] = $this->repeat_of;
         }
 
         $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
