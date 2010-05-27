@@ -111,4 +111,12 @@ create table user_location_prefs (
     primary key (user_id)
 );
  
+create table inbox (
+
+    user_id integer not null /* comment 'user receiving the notice' */ references "user" (id),
+    notice_ids bytea /* comment 'packed list of notice ids' */,
+
+    primary key (user_id)
+
+);
 
