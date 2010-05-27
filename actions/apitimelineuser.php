@@ -115,7 +115,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         // We'll use the shared params from the Atom stub
         // for other feed types.
-        $atom = new AtomUserNoticeFeed($this->user);
+        $atom = new AtomUserNoticeFeed($this->user, $this->auth_user);
 
         $link = common_local_url(
             'showstream',
