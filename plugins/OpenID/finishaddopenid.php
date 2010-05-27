@@ -132,12 +132,15 @@ class FinishaddopenidAction extends Action
                 $this->message(_m('Error connecting user.'));
                 return;
             }
-            if ($sreg) {
-                if (!oid_update_user($cur, $sreg)) {
-                    $this->message(_m('Error updating profile'));
-                    return;
+            if (Event::handle('StartOpenIDUpdateUser', array($cur, $canonical, &$sreg))) {
+                if ($sreg) {
+                    if (!oid_update_user($cur, $sreg)) {
+                        $this->message(_m('Error updating profile'));
+                        return;
+                    }
                 }
             }
+            Event::handle('EndOpenIDUpdateUser', array($cur, $canonical, $sreg));
 
             // success!
 

@@ -221,11 +221,14 @@ function _oid_print_instructions()
                       'OpenID provider.'));
 }
 
-# update a user from sreg parameters
-
-function oid_update_user(&$user, &$sreg)
+/**
+ * Update a user from sreg parameters
+ * @param User $user
+ * @param array $sreg fields from OpenID sreg response
+ * @access private
+ */
+function oid_update_user($user, $sreg)
 {
-
     $profile = $user->getProfile();
 
     $orig_profile = clone($profile);
