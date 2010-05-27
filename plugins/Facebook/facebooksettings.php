@@ -54,21 +54,10 @@ class FacebooksettingsAction extends FacebookAction
 
         $noticesync = $this->boolean('noticesync');
         $replysync  = $this->boolean('replysync');
-        $prefix     = $this->trimmed('prefix');
 
         $original = clone($this->flink);
         $this->flink->set_flags($noticesync, false, $replysync, false);
         $result = $this->flink->update($original);
-
-        if ($prefix == '' || $prefix == '0') {
-            // Facebook bug: saving empty strings to prefs now fails
-            // http://bugs.developers.facebook.com/show_bug.cgi?id=7110
-            $trimmed = $prefix . ' ';
-        } else {
-            $trimmed = substr($prefix, 0, 128);
-        }
-        $this->facebook->api_client->data_setUserPreference(FACEBOOK_NOTICE_PREFIX,
-            $trimmed);
 
         if ($result === false) {
             $this->showForm(_m('There was a problem saving your sync preferences!'));
@@ -105,16 +94,6 @@ class FacebooksettingsAction extends FacebookAction
 
             $this->checkbox('replysync', _m('Send "@" replies to Facebook.'),
                              ($this->flink) ? ($this->flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) : true);
-
-            $this->elementEnd('li');
-
-            $this->elementStart('li');
-
-            $prefix = trim($this->facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX));
-
-            $this->input('prefix', _m('Prefix'),
-                         ($prefix) ? $prefix : null,
-                         _m('A string to prefix notices with.'));
 
             $this->elementEnd('li');
 

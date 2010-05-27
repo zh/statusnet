@@ -105,7 +105,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
     function showTimeline()
     {
         // We'll pull common formatting out of this for other formats
-        $atom = new AtomGroupNoticeFeed($this->group);
+        $atom = new AtomGroupNoticeFeed($this->group, $this->auth_user);
 
         $self = $this->getSelfUri();
 

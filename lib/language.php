@@ -206,12 +206,19 @@ function _mdomain($backtrace)
         if (DIRECTORY_SEPARATOR !== '/') {
             $path = strtr($path, DIRECTORY_SEPARATOR, '/');
         }
-        $cut = strpos($path, '/plugins/');
-        if ($cut) {
-            $cut += strlen('/plugins/');
+        $plug = strpos($path, '/plugins/');
+        if ($plug === false) {
+            // We're not in a plugin; return null for the default domain.
+            return null;
+        } else {
+            $cut = $plug + 9;
             $cut2 = strpos($path, '/', $cut);
-            if ($cut && $cut2) {
-                $final = substr($path, $cut, $cut2 - $cut);
+            if ($cut2) {
+                $cached[$path] = substr($path, $cut, $cut2 - $cut);
+            } else {
+                // We might be running directly from the plugins dir?
+                // If so, there's no place to store locale info.
+                return null;
             }
         }
         $cached[$path] = $final;

@@ -138,13 +138,16 @@ class FinishaddopenidAction extends Action
                 $this->message(_m('Error connecting user.'));
                 return;
             }
-            if ($sreg) {
-                if (!oid_update_user($cur, $sreg)) {
-                    // TRANS: message in case the user or the user profile cannot be saved in StatusNet.
-                    $this->message(_m('Error updating profile'));
-                    return;
+            if (Event::handle('StartOpenIDUpdateUser', array($cur, $canonical, &$sreg))) {
+                if ($sreg) {
+                    if (!oid_update_user($cur, $sreg)) {
+                        // TRANS: message in case the user or the user profile cannot be saved in StatusNet.
+                        $this->message(_m('Error updating profile'));
+                        return;
+                    }
                 }
             }
+            Event::handle('EndOpenIDUpdateUser', array($cur, $canonical, $sreg));
 
             // success!
 
