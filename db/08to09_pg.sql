@@ -102,3 +102,13 @@ alter table queue_item_new rename to queue_item;
 
 ALTER TABLE confirm_address ALTER column sent set default CURRENT_TIMESTAMP;
 
+create table user_location_prefs (
+    user_id integer not null /*comment 'user who has the preference'*/ references "user" (id),
+    share_location int default 1 /* comment 'Whether to share location data'*/,
+    created timestamp not null /*comment 'date this record was created'*/,
+    modified timestamp /* comment 'date this record was modified'*/,
+
+    primary key (user_id)
+);
+ 
+
