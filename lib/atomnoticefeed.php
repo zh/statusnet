@@ -44,8 +44,21 @@ if (!defined('STATUSNET'))
  */
 class AtomNoticeFeed extends Atom10Feed
 {
-    function __construct($indent = true) {
+    var $cur;
+
+    /**
+     * Constructor - adds a bunch of XML namespaces we need in our
+     * notice-specific Atom feeds, and allows setting the current
+     * authenticated user (useful for API methods).
+     *
+     * @param User    $cur     the current authenticated user (optional)
+     * @param boolean $indent  Whether to indent XML output
+     *
+     */
+    function __construct($cur = null, $indent = true) {
         parent::__construct($indent);
+
+        $this->cur = $cur;
 
         // Feeds containing notice info use these namespaces
 
@@ -115,7 +128,7 @@ class AtomNoticeFeed extends Atom10Feed
         $source = $this->showSource();
         $author = $this->showAuthor();
 
-        $cur = common_current_user();
+        $cur = empty($this->cur) ? common_current_user() : $this->cur;
 
         $this->addEntryRaw($notice->asAtomEntry(false, $source, $author, $cur));
     }

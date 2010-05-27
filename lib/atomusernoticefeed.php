@@ -50,13 +50,14 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
      * Constructor
      *
      * @param User    $user    the user for the feed
+     * @param User    $cur     the current authenticated user, if any
      * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
      */
 
-    function __construct($user, $indent = true) {
-        parent::__construct($indent);
+    function __construct($user, $cur = null, $indent = true) {
+        parent::__construct($cur, $indent);
         $this->user = $user;
         if (!empty($user)) {
             $profile = $user->getProfile();
