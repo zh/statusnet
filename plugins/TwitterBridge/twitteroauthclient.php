@@ -225,7 +225,7 @@ class TwitterOAuthClient extends OAuthClient
      * @param int $cnt      number of statuses to show
      * @param int $page     page number
      *
-     * @return mixed an array of statuses, similare to friends_timeline, except including retweets
+     * @return mixed an array of statuses, similar to friends_timeline but including retweets
      */
     function statusesHomeTimeline($since_id = null, $max_id = null,
                                      $cnt = null, $page = null)
