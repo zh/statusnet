@@ -144,8 +144,10 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 
     // Handle failure status return values.
     if (!$auth_request) {
+        common_log(LOG_ERR, __METHOD__ . ": mystery fail contacting $openid_url");
         return _m('Not a valid OpenID.');
     } else if (Auth_OpenID::isFailure($auth_request)) {
+        common_log(LOG_ERR, __METHOD__ . ": OpenID fail to $openid_url: $auth_request->message");
         return sprintf(_m('OpenID failure: %s'), $auth_request->message);
     }
 
