@@ -102,6 +102,7 @@ class ApiAction extends Action
 
     function handle($args)
     {
+        header('Access-Control-Allow-Origin: *');
         parent::handle($args);
     }
 
@@ -1065,6 +1066,7 @@ class ApiAction extends Action
             $this->initTwitterAtom();
             break;
         default:
+            // TRANS: Client error on an API request with an unsupported data format.
             $this->clientError(_('Not a supported data format.'));
             break;
         }
@@ -1093,6 +1095,7 @@ class ApiAction extends Action
             $this->endTwitterRss();
             break;
         default:
+            // TRANS: Client error on an API request with an unsupported data format.
             $this->clientError(_('Not a supported data format.'));
             break;
         }
@@ -1209,6 +1212,7 @@ class ApiAction extends Action
             $this->showJsonObjects($profile_array);
             break;
         default:
+            // TRANS: Client error on an API request with an unsupported data format.
             $this->clientError(_('Not a supported data format.'));
             return;
         }

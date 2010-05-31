@@ -166,17 +166,22 @@ class TwitterOAuthClient extends OAuthClient
     /**
      * Calls Twitter's /statuses/update API method
      *
-     * @param string $status                text of the status
-     * @param int    $in_reply_to_status_id optional id of the status it's
-     *                                      a reply to
+     * @param string $status  text of the status
+     * @param mixed  $params  optional other parameters to pass to Twitter,
+     *                        as defined. For back-compatibility, if an int
+     *                        is passed we'll consider it a reply-to ID.
      *
      * @return mixed the status
      */
-    function statusesUpdate($status, $in_reply_to_status_id = null)
+    function statusesUpdate($status, $params=array())
     {
         $url      = 'https://twitter.com/statuses/update.json';
-        $params   = array('status' => $status,
-            'in_reply_to_status_id' => $in_reply_to_status_id);
+        if (is_numeric($params)) {
+            $params = array('in_reply_to_status_id' => intval($params));
+        }
+        $params['status'] = $status;
+        // We don't have to pass 'source' as the oauth key is tied to an app.
+
         $response = $this->oAuthPost($url, $params);
         $status   = json_decode($response);
         return $status;

@@ -183,7 +183,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         if (!$result) {
             common_log_db_error($orig, 'DELETE', __FILE__);
-            $this->clientError(_('Unable to revoke access for app: ' . $app->id));
+            $this->clientError(sprintf(_('Unable to revoke access for app: %s.'), $app->id));
             return false;
         }
 
@@ -195,7 +195,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function showEmptyListMessage()
     {
-        $message = sprintf(_('You have not authorized any applications to use your account.'));
+        $message = _('You have not authorized any applications to use your account.');
 
         $this->elementStart('div', 'guide');
         $this->raw(common_markup_to_html($message));

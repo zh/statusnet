@@ -89,6 +89,7 @@ class ConfirmaddressAction extends Action
         $transports = array();
         Event::handle('GetImTransports', array(&$transports));
         if (!in_array($type, array('email', 'sms')) && !in_array($type, array_keys($transports))) {
+            // TRANS: Server error for an unknown address type, which can be 'email', 'sms', or the name of an IM network (such as 'xmpp' or 'aim')
             $this->serverError(sprintf(_('Unrecognized address type %s'), $type));
             return;
         }

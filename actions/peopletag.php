@@ -65,7 +65,7 @@ class PeopletagAction extends Action
         $this->tag = $this->trimmed('tag');
 
         if (!common_valid_profile_tag($this->tag)) {
-            $this->clientError(sprintf(_('Not a valid people tag: %s'),
+            $this->clientError(sprintf(_('Not a valid people tag: %s.'),
                 $this->tag));
             return;
         }
@@ -168,9 +168,13 @@ class PeopleTagListItem extends ProfileListItem
 
     function homepageAttributes()
     {
+        $aAttrs = parent::linkAttributes();
+
         if (common_config('nofollow', 'peopletag')) {
             $aAttrs['rel'] = 'nofollow';
         }
+
+        return $aAttrs;
     }
 }
 

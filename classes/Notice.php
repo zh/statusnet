@@ -148,11 +148,11 @@ class Notice extends Memcached_DataObject
         //turn each into their canonical tag
         //this is needed to remove dupes before saving e.g. #hash.tag = #hashtag
         for($i=0; $i<count($hashtags); $i++) {
+            /* elide characters we don't want in the tag */
             $hashtags[$i] = common_canonical_tag($hashtags[$i]);
         }
 
         foreach(array_unique($hashtags) as $hashtag) {
-            /* elide characters we don't want in the tag */
             $this->saveTag($hashtag);
             self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, $hashtag);
         }
@@ -172,7 +172,8 @@ class Notice extends Memcached_DataObject
         $id = $tag->insert();
 
         if (!$id) {
-            throw new ServerException(sprintf(_('DB error inserting hashtag: %s'),
+            // TRANS: Server exception. %s are the error details.
+            throw new ServerException(sprintf(_('Database error inserting hashtag: %s'),
                                               $last_error->message));
             return;
         }
@@ -373,16 +374,18 @@ class Notice extends Memcached_DataObject
             $notice->saveReplies();
         }
 
-        if (isset($groups)) {
-            $notice->saveKnownGroups($groups);
-        } else {
-            $notice->saveGroups();
-        }
-
         if (isset($tags)) {
             $notice->saveKnownTags($tags);
         } else {
             $notice->saveTags();
+        }
+
+        // Note: groups may save tags, so must be run after tags are saved
+        // to avoid errors on duplicates.
+        if (isset($groups)) {
+            $notice->saveKnownGroups($groups);
+        } else {
+            $notice->saveGroups();
         }
 
         if (isset($urls)) {
@@ -700,6 +703,27 @@ class Notice extends Memcached_DataObject
     }
 
     /**
+     * Is this notice part of an active conversation?
+     * 
+     * @return boolean true if other messages exist in the same
+     *                 conversation, false if this is the only one
+     */
+    function hasConversation()
+    {
+        if (!empty($this->conversation)) {
+            $conversation = Notice::conversationStream(
+                $this->conversation,
+                1,
+                1
+            );
+            if ($conversation->N > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param $groups array of Group *objects*
      * @param $recipients array of profile *ids*
      */
@@ -964,11 +988,19 @@ class Notice extends Memcached_DataObject
      */
     function saveKnownReplies($uris)
     {
+        if (empty($uris)) {
+            return;
+        }
+        $sender = Profile::staticGet($this->profile_id);
+
         foreach ($uris as $uri) {
 
             $user = User::staticGet('uri', $uri);
 
             if (!empty($user)) {
+                if ($user->hasBlocked($sender)) {
+                    continue;
+                }
 
                 $reply = new Reply();
 
@@ -1478,6 +1510,8 @@ class Notice extends Memcached_DataObject
     {
         $author = Profile::staticGet('id', $this->profile_id);
 
+        // TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+        // TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
         $content = sprintf(_('RT @%1$s %2$s'),
                            $author->nickname,
                            $this->content);

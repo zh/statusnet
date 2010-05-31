@@ -71,7 +71,7 @@ class OpenidserverAction extends Action
                 }else{
                     /* Go log in, and then come back. */
                     common_set_returnto($_SERVER['REQUEST_URI']);
-                    common_redirect(common_local_url('login'));
+                    common_redirect(common_local_url('login'), 303);
                     return;
                 }
             }else if(common_profile_url($user->nickname) == $request->identity || $request->idSelect()){
@@ -91,7 +91,7 @@ class OpenidserverAction extends Action
                         $_SESSION['openid_allow_url'] = $allowResponse->encodeToUrl();
                         $_SESSION['openid_deny_url'] = $denyResponse->encodeToUrl();
                         //ask the user to trust this trust root
-                        common_redirect(common_local_url('openidtrust'));
+                        common_redirect(common_local_url('openidtrust'), 303);
                         return;
                     }
                 }else{

@@ -87,6 +87,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
         parent::handle($args);
 
         $sitename   = common_config('site', 'name');
+        // TRANS: Message is used as a title. %s is a site name.
         $title      = sprintf(_("%s groups"), $sitename);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";

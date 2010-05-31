@@ -88,7 +88,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         parent::handle($args);
 
         if (empty($this->group)) {
-            $this->clientError(_('Group not found!'), 404, $this->format);
+            $this->clientError(_('Group not found.'), 404, $this->format);
             return false;
         }
 

@@ -154,19 +154,19 @@ class PathsadminpanelAction extends AdminPanelAction
         // Validate theme dir
 
         if (!empty($values['theme']['dir']) && !is_readable($values['theme']['dir'])) {
-            $this->clientError(sprintf(_("Theme directory not readable: %s"), $values['theme']['dir']));
+            $this->clientError(sprintf(_("Theme directory not readable: %s."), $values['theme']['dir']));
         }
 
         // Validate avatar dir
 
         if (empty($values['avatar']['dir']) || !is_writable($values['avatar']['dir'])) {
-            $this->clientError(sprintf(_("Avatar directory not writable: %s"), $values['avatar']['dir']));
+            $this->clientError(sprintf(_("Avatar directory not writable: %s."), $values['avatar']['dir']));
         }
 
         // Validate background dir
 
         if (empty($values['background']['dir']) || !is_writable($values['background']['dir'])) {
-            $this->clientError(sprintf(_("Background directory not writable: %s"), $values['background']['dir']));
+            $this->clientError(sprintf(_("Background directory not writable: %s."), $values['background']['dir']));
         }
 
         // Validate locales dir
@@ -174,13 +174,13 @@ class PathsadminpanelAction extends AdminPanelAction
         // XXX: What else do we need to validate for lacales path here? --Z
 
         if (!empty($values['site']['locale_path']) && !is_readable($values['site']['locale_path'])) {
-            $this->clientError(sprintf(_("Locales directory not readable: %s"), $values['site']['locale_path']));
+            $this->clientError(sprintf(_("Locales directory not readable: %s."), $values['site']['locale_path']));
         }
 
         // Validate SSL setup
 
         if (mb_strlen($values['site']['sslserver']) > 255) {
-            $this->clientError(_("Invalid SSL server. The maximum length is 255 characters."));
+            $this->clientError(_('Invalid SSL server. The maximum length is 255 characters.'));
         }
     }
 

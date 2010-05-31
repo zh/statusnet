@@ -458,7 +458,7 @@ class GeonamesPlugin extends Plugin
         }
 
         if (!$result->isOk()) {
-            throw new Exception("HTTP error code " . $result->code);
+            throw new Exception("HTTP error code " . $result->getStatus());
         }
 
         $body = $result->getBody();

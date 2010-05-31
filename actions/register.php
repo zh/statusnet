@@ -341,7 +341,7 @@ class RegisterAction extends Action
         } else {
             $instr =
               common_markup_to_html(_('With this form you can create '.
-                                      ' a new account. ' .
+                                      'a new account. ' .
                                       'You can then post notices and '.
                                       'link up to friends and colleagues. '));
 
@@ -491,11 +491,15 @@ class RegisterAction extends Action
             $this->elementStart('li');
             $this->element('input', $attrs);
             $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
-            $this->text(_('My text and files are available under '));
-            $this->element('a', array('href' => common_config('license', 'url')),
-                           common_config('license', 'title'), _("Creative Commons Attribution 3.0"));
-            $this->text(_(' except this private data: password, '.
-                          'email address, IM address, and phone number.'));
+            $message = _('My text and files are available under %s ' .
+                         'except this private data: password, ' .
+                         'email address, IM address, and phone number.');
+            $link = '<a href="' .
+                    htmlspecialchars(common_config('license', 'url')) .
+                    '">' .
+                    htmlspecialchars(common_config('license', 'title')) .
+                    '</a>';
+            $this->raw(sprintf(htmlspecialchars($message), $link));
             $this->elementEnd('label');
             $this->elementEnd('li');
         }

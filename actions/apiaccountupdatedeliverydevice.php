@@ -103,7 +103,7 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
             $this->clientError(
                 _(
                     'You must specify a parameter named ' .
-                    '\'device\' with a value of one of: sms, im, none'
+                    '\'device\' with a value of one of: sms, im, none.'
                 )
             );
             return;

@@ -31,6 +31,7 @@ class StatusNet
 {
     protected static $have_config;
     protected static $is_api;
+    protected static $plugins = array();
 
     /**
      * Configure and instantiate a plugin into the current configuration.
@@ -74,7 +75,20 @@ class StatusNet
                 $inst->$aname = $avalue;
             }
         }
+
+        // Record activated plugins for later display/config dump
+        self::$plugins[] = array($name, $attrs);
+
         return true;
+    }
+
+    /**
+     * Get a list of activated plugins in this process.
+     * @return array of (string $name, array $args) pairs
+     */
+    public static function getActivePlugins()
+    {
+        return self::$plugins;
     }
 
     /**
@@ -237,6 +251,7 @@ class StatusNet
         global $_server, $_path, $config;
 
         Event::clearHandlers();
+        self::$plugins = array();
 
         // try to figure out where we are. $server and $path
         // can be set by including module, else we guess based
