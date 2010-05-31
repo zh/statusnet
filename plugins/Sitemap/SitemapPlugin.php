@@ -65,6 +65,7 @@ class SitemapPlugin extends Plugin
         switch ($cls)
         {
         case 'Sitemap_user_count':
+        case 'Sitemap_notice_count':
             require_once $dir . '/' . $cls . '.php';
             return false;
         case 'SitemapindexAction':
@@ -140,8 +141,6 @@ class SitemapPlugin extends Plugin
     function onCheckSchema()
     {
         $schema = Schema::get();
-
-        // For storing user-submitted flags on profiles
 
         $schema->ensureTable('sitemap_user_count',
                              array(new ColumnDef('registration_date', 'date', null,
