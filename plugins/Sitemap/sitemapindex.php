@@ -58,8 +58,8 @@ class SitemapindexAction extends Action
 
         $this->elementStart('sitemapindex', array('xmlns' => 'http://www.sitemaps.org/schemas/sitemap/0.9'));
 
-        $this->showUserSitemaps();
         $this->showNoticeSitemaps();
+        $this->showUserSitemaps();
 
         $this->elementEnd('sitemapindex');
 
@@ -89,7 +89,9 @@ class SitemapindexAction extends Action
 
     function showNoticeSitemaps()
     {
-        $noticeCounts = $this->getNoticeCounts();
+        $noticeCounts = Sitemap_notice_count::getAll();
+
+        common_debug(sprintf("Got %d notice counts", count($noticeCounts)));
 
         foreach ($noticeCounts as $dt => $cnt) {
             if ($cnt == 0) {
@@ -103,37 +105,6 @@ class SitemapindexAction extends Action
                 $this->showSitemap('notice', $dt, $i);
             }
         }
-    }
-
-    function getUserCounts()
-    {
-        return Sitemap_user_count::getAll();
-    }
-
-    function getNoticeCounts()
-    {
-        $noticeCounts = Notice::cacheGet('sitemap:notice:counts');
-
-        if ($noticeCounts === false) {
-
-            $notice = new Notice();
-
-            $notice->selectAdd();
-            $notice->selectAdd('date(created) as postdate, count(*) as postcount');
-            $notice->groupBy('postdate');
-
-            $notice->find();
-
-            $noticeCounts = array();
-
-            while ($notice->fetch()) {
-                $noticeCounts[$notice->postdate] = $notice->postcount;
-            }
-
-            Notice::cacheSet('sitemap:notice:counts', $noticeCounts);
-        }
-
-        return $noticeCounts;
     }
 
     function showSitemap($prefix, $dt, $i)
