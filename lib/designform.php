@@ -122,6 +122,29 @@ class DesignForm extends Form
 
     function formData()
     {
+        $this->backgroundData();
+
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
+        $this->out->element('legend', null, _('Change colours'));
+        $this->colourData();
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset');
+
+        $this->out->submit('defaults', _('Use defaults'), 'submit form_action-default',
+                           'defaults', _('Restore default designs'));
+
+        $this->out->element('input', array('id' => 'settings_design_reset',
+                                           'type' => 'reset',
+                                           'value' => 'Reset',
+                                           'class' => 'submit form_action-primary',
+                                           'title' => _('Reset back to default')));
+    }
+
+    function backgroundData()
+    {
         $this->out->elementStart('ul', 'form_data');
         $this->out->elementStart('li');
         $this->out->element('label', array('for' => 'design_background-image_file'),
@@ -187,10 +210,10 @@ class DesignForm extends Form
         }
 
         $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
+    }
 
-        $this->out->elementStart('fieldset', array('id' => 'settings_design_color'));
-        $this->out->element('legend', null, _('Change colours'));
+    function colourData()
+    {
         $this->out->elementStart('ul', 'form_data');
 
         try {
@@ -265,18 +288,6 @@ class DesignForm extends Form
         }
 
         $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart('fieldset');
-
-        $this->out->submit('defaults', _('Use defaults'), 'submit form_action-default',
-                           'defaults', _('Restore default designs'));
-
-        $this->out->element('input', array('id' => 'settings_design_reset',
-                                           'type' => 'reset',
-                                           'value' => 'Reset',
-                                           'class' => 'submit form_action-primary',
-                                           'title' => _('Reset back to default')));
     }
 
     /**
