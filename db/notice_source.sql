@@ -9,6 +9,7 @@ VALUES
     ('bti','bti','http://gregkh.github.com/bti/', now()),
     ('choqok', 'Choqok', 'http://choqok.gnufolks.org/', now()),
     ('cliqset', 'Cliqset', 'http://www.cliqset.com/', now()),
+    ('DarterosStatus', 'Darteros Status', 'http://www.darteros.com/doc/Darteros_Status', now()),
     ('deskbar','Deskbar-Applet','http://www.gnome.org/projects/deskbar-applet/', now()),
     ('Do','Gnome Do','http://do.davebsd.com/wiki/index.php?title=Microblog_Plugin', now()),
     ('drupal','Drupal','http://drupal.org/', now()),
