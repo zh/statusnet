@@ -144,8 +144,10 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 
     // Handle failure status return values.
     if (!$auth_request) {
+        common_log(LOG_ERR, __METHOD__ . ": mystery fail contacting $openid_url");
         return _m('Not a valid OpenID.');
     } else if (Auth_OpenID::isFailure($auth_request)) {
+        common_log(LOG_ERR, __METHOD__ . ": OpenID fail to $openid_url: $auth_request->message");
         return sprintf(_m('OpenID failure: %s'), $auth_request->message);
     }
 
@@ -162,6 +164,15 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 
     if ($sreg_request) {
         $auth_request->addExtension($sreg_request);
+    }
+
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        // LaunchPad OpenID extension
+        $team_request = new Auth_OpenID_TeamsRequest(array($requiredTeam));
+        if ($team_request) {
+            $auth_request->addExtension($team_request);
+        }
     }
 
     $trust_root = common_root_url(true);
@@ -287,6 +298,33 @@ function oid_assert_allowed($url)
     }
 
     return;
+}
+
+/**
+ * Check the teams available in the given OpenID response
+ * Using Launchpad's OpenID teams extension
+ *
+ * @return boolean whether this user is acceptable
+ */
+function oid_check_teams($response)
+{
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        $team_resp = new Auth_OpenID_TeamsResponse($response);
+        if ($team_resp) {
+            $teams = $team_resp->getTeams();
+        } else {
+            $teams = array();
+        }
+
+        $match = in_array($requiredTeam, $teams);
+        $is = $match ? 'is' : 'is not';
+        common_log(LOG_DEBUG, "Remote user $is in required team $requiredTeam: [" . implode(', ', $teams) . "]");
+
+        return $match;
+    }
+
+    return true;
 }
 
 class AutosubmitAction extends Action
