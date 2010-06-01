@@ -57,7 +57,7 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiStatusesDestroyAction extends ApiAuthAction
 {
-    var $status                = null;
+    var $status = null;
 
     /**
      * Take arguments for running
@@ -120,18 +120,11 @@ class ApiStatusesDestroyAction extends ApiAuthAction
              $replies->get('notice_id', $this->notice_id);
              $replies->delete();
              $this->notice->delete();
-
-             if ($this->format == 'xml') {
-                 $this->showSingleXmlStatus($this->notice);
-             } elseif ($this->format == 'json') {
-                 $this->show_single_json_status($this->notice);
-             }
+	     $this->showNotice();
          } else {
              $this->clientError(_('You may not delete another user\'s status.'),
                  403, $this->format);
          }
-
-        $this->showNotice();
     }
 
     /**

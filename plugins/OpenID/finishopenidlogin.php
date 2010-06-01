@@ -177,6 +177,12 @@ class FinishopenidloginAction extends Action
                 $sreg = $sreg_resp->contents();
             }
 
+            // Launchpad teams extension
+            if (!oid_check_teams($response)) {
+                $this->message(_m('OpenID authentication aborted: you are not allowed to login to this site.'));
+                return;
+            }
+
             $user = oid_get_user($canonical);
 
             if ($user) {
@@ -280,6 +286,8 @@ class FinishopenidloginAction extends Action
             return;
         }
 
+        Event::handle('StartOpenIDCreateNewUser', array($canonical, &$sreg));
+
         $location = '';
         if (!empty($sreg['country'])) {
             if ($sreg['postcode']) {
@@ -318,6 +326,8 @@ class FinishopenidloginAction extends Action
         $user = User::register($args);
 
         $result = oid_link_user($user->id, $canonical, $display);
+
+        Event::handle('EndOpenIDCreateNewUser', array($user, $canonical, $sreg));
 
         oid_set_last($display);
         common_set_user($user);
@@ -358,7 +368,11 @@ class FinishopenidloginAction extends Action
             return;
         }
 
-        oid_update_user($user, $sreg);
+        if (Event::handle('StartOpenIDUpdateUser', array($user, $canonical, &$sreg))) {
+            oid_update_user($user, $sreg);
+        }
+        Event::handle('EndOpenIDUpdateUser', array($user, $canonical, $sreg));
+
         oid_set_last($display);
         common_set_user($user);
         common_real_login(true);

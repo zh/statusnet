@@ -138,7 +138,7 @@ class ApiTimelineTagAction extends ApiPrivateAuthAction
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            $atom = new AtomNoticeFeed();
+            $atom = new AtomNoticeFeed($this->auth_user);
 
             $atom->setId($id);
             $atom->setTitle($title);

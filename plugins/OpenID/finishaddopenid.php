@@ -103,6 +103,12 @@ class FinishaddopenidAction extends Action
                 $sreg = $sreg_resp->contents();
             }
 
+            // Launchpad teams extension
+            if (!oid_check_teams($response)) {
+                $this->message(_m('OpenID authentication aborted: you are not allowed to login to this site.'));
+                return;
+            }
+
             $cur = common_current_user();
 
             $other = oid_get_user($canonical);
@@ -126,12 +132,15 @@ class FinishaddopenidAction extends Action
                 $this->message(_m('Error connecting user.'));
                 return;
             }
-            if ($sreg) {
-                if (!oid_update_user($cur, $sreg)) {
-                    $this->message(_m('Error updating profile'));
-                    return;
+            if (Event::handle('StartOpenIDUpdateUser', array($cur, $canonical, &$sreg))) {
+                if ($sreg) {
+                    if (!oid_update_user($cur, $sreg)) {
+                        $this->message(_m('Error updating profile'));
+                        return;
+                    }
                 }
             }
+            Event::handle('EndOpenIDUpdateUser', array($cur, $canonical, $sreg));
 
             // success!
 

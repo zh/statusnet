@@ -29,7 +29,15 @@ class OpenidloginAction extends Action
         if (common_is_real_login()) {
             $this->clientError(_m('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $openid_url = $this->trimmed('openid_url');
+            $provider = common_config('openid', 'trusted_provider');
+            if ($provider) {
+                $openid_url = $provider;
+                if (common_config('openid', 'append_username')) {
+                    $openid_url .= $this->trimmed('openid_username');
+                }
+            } else {
+                $openid_url = $this->trimmed('openid_url');
+            }
 
             oid_assert_allowed($openid_url);
 
@@ -89,7 +97,15 @@ class OpenidloginAction extends Action
     function showScripts()
     {
         parent::showScripts();
-        $this->autofocus('openid_url');
+        if (common_config('openid', 'trusted_provider')) {
+            if (common_config('openid', 'append_username')) {
+                $this->autofocus('openid_username');
+            } else {
+                $this->autofocus('rememberme');
+            }
+        } else {
+            $this->autofocus('openid_url');
+        }
     }
 
     function title()
@@ -116,9 +132,25 @@ class OpenidloginAction extends Action
 
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
-        $this->input('openid_url', _m('OpenID URL'),
-                     $this->openid_url,
-                     _m('Your OpenID URL'));
+        $provider = common_config('openid', 'trusted_provider');
+        $appendUsername = common_config('openid', 'append_username');
+        if ($provider) {
+            $this->element('label', array(), _m('OpenID provider'));
+            $this->element('span', array(), $provider);
+            if ($appendUsername) {
+                $this->element('input', array('id' => 'openid_username',
+                                              'name' => 'openid_username',
+                                              'style' => 'float: none'));
+            }
+            $this->element('p', 'form_guide',
+                           ($appendUsername ? _m('Enter your username.') . ' ' : '') .
+                           _m('You will be sent to the provider\'s site for authentication.'));
+            $this->hidden('openid_url', $provider);
+        } else {
+            $this->input('openid_url', _m('OpenID URL'),
+                         $this->openid_url,
+                         _m('Your OpenID URL'));
+        }
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'settings_rememberme'));
         $this->checkbox('rememberme', _m('Remember me'), false,
