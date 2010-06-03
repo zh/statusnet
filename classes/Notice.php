@@ -1861,4 +1861,16 @@ class Notice extends Memcached_DataObject
         return $ns;
     }
 
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @return boolean locality
+     */
+
+    public function isLocal()
+    {
+        return ($this->is_local == Notice::LOCAL_PUBLIC ||
+                $this->is_local == Notice::LOCAL_NONPUBLIC);
+    }
+
 }

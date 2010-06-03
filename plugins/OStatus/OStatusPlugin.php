@@ -102,8 +102,10 @@ class OStatusPlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        // put our transport first, in case there's any conflict (like OMB)
-        array_unshift($transports, 'ostatus');
+        if ($notice->isLocal()) {
+            // put our transport first, in case there's any conflict (like OMB)
+            array_unshift($transports, 'ostatus');
+        }
         return true;
     }
 
