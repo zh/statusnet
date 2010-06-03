@@ -91,8 +91,6 @@ class SitemapindexAction extends Action
     {
         $noticeCounts = Sitemap_notice_count::getAll();
 
-        common_debug(sprintf("Got %d notice counts", count($noticeCounts)));
-
         foreach ($noticeCounts as $dt => $cnt) {
             if ($cnt == 0) {
                 continue;

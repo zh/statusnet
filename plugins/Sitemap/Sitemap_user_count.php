@@ -168,7 +168,6 @@ class Sitemap_user_count extends Memcached_DataObject
         $counts = array();
 
         for ($d = $firstDate; $d <= $today; $d = self::incrementDay($d)) {
-            common_debug("Date = '$d'");
             $n = self::getCount($d);
             self::insertCount($d, $n);
             $counts[$d] = $n;
@@ -217,8 +216,6 @@ class Sitemap_user_count extends Memcached_DataObject
 
     static function insertCount($d, $n)
     {
-        common_debug("Inserting count '$n' for '$d'");
-
         $suc = new Sitemap_user_count();
 
         $suc->registration_date = DB_DataObject_Cast::date($d);
