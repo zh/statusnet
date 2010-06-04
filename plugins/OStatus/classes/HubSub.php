@@ -305,6 +305,26 @@ class HubSub extends Memcached_DataObject
     }
 
     /**
+     * Queue up a large batch of pushes to multiple subscribers
+     * for this same topic update.
+     * 
+     * If queues are disabled, this will run immediately.
+     * 
+     * @param string $atom well-formed Atom feed
+     * @param array $pushCallbacks list of callback URLs
+     */
+    function bulkDistribute($atom, $pushCallbacks)
+    {
+        $data = array('atom' => $atom,
+                      'topic' => $this->topic,
+                      'pushCallbacks' => $pushCallbacks);
+        common_log(LOG_INFO, "Queuing PuSH batch: $this->topic to " .
+                             count($pushCallbacks) . " sites");
+        $qm = QueueManager::get();
+        $qm->enqueue($data, 'hubprep');
+    }
+
+    /**
      * Send a 'fat ping' to the subscriber's callback endpoint
      * containing the given Atom feed chunk.
      *
