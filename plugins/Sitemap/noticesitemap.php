@@ -105,7 +105,7 @@ class NoticesitemapAction extends SitemapAction
             $notice->whereAdd("created >= '$begindt'");
             $notice->whereAdd("created <  '$enddt'");
 
-            $notice->whereAdd('is_local != 0');
+            $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
 
             $notice->orderBy('created');
 
