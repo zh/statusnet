@@ -133,25 +133,7 @@ class Memcached_DataObject extends Safe_DataObject
             common_log(LOG_ERR, __METHOD__ . ' object in param: ' .
                 str_replace("\n", " ", $e->getTraceAsString()));
         }
-        if (is_object($v) && $v instanceof DB_DataObject_Cast) {
-            switch ($v->type) {
-            case 'date':
-                $vstr = $v->year . '-' . $v->month . '-' . $v->day;
-                break;
-            case 'blob':
-            case 'string':
-            case 'sql':
-            case 'datetime':
-            case 'time':
-                throw new ServerException("Unhandled DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
-                break;
-            default:
-                throw new ServerException("Unknown DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
-                break;
-            }
-        } else {
-            $vstr = $v;
-        }
+        $vstr = self::valueString($v);
         return common_cache_key(strtolower($cls).':'.$k.':'.$vstr);
     }
 
@@ -248,10 +230,10 @@ class Memcached_DataObject extends Safe_DataObject
                 if (empty($this->$key)) {
                     continue;
                 }
-                $ckeys[] = $this->cacheKey($this->tableName(), $key, $this->$key);
+                $ckeys[] = $this->cacheKey($this->tableName(), $key, self::valueString($this->$key));
             } else if ($type == 'K' || $type == 'N') {
                 $pkey[] = $key;
-                $pval[] = $this->$key;
+                $pval[] = self::valueString($this->$key);
             } else {
                 throw new Exception("Unknown key type $key => $type for " . $this->tableName());
             }
@@ -622,6 +604,31 @@ class Memcached_DataObject extends Safe_DataObject
         $cacheKey = common_cache_key($keyPart);
 
         return $c->set($cacheKey, $value);
+    }
+
+    static function valueString($v)
+    {
+        $vstr = null;
+        if (is_object($v) && $v instanceof DB_DataObject_Cast) {
+            switch ($v->type) {
+            case 'date':
+                $vstr = $v->year . '-' . $v->month . '-' . $v->day;
+                break;
+            case 'blob':
+            case 'string':
+            case 'sql':
+            case 'datetime':
+            case 'time':
+                throw new ServerException("Unhandled DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
+                break;
+            default:
+                throw new ServerException("Unknown DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
+                break;
+            }
+        } else {
+            $vstr = strval($v);
+        }
+        return $vstr;
     }
 }
 
