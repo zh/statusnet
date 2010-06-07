@@ -1249,9 +1249,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    // @fixme move these checks into QueueManager and/or individual handlers
-    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
-        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+    // We can skip these for gatewayed notices.
+    if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';

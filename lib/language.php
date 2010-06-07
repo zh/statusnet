@@ -61,7 +61,7 @@ if (!function_exists('dpgettext')) {
      * Not currently exposed in PHP's gettext module; implemented to be compat
      * with gettext.h's macros.
      *
-     * @param string $domain domain identifier, or null for default domain
+     * @param string $domain domain identifier
      * @param string $context context identifier, should be some key like "menu|file"
      * @param string $msgid English source text
      * @return string original or translated message
@@ -106,7 +106,7 @@ if (!function_exists('dnpgettext')) {
      * Not currently exposed in PHP's gettext module; implemented to be compat
      * with gettext.h's macros.
      *
-     * @param string $domain domain identifier, or null for default domain
+     * @param string $domain domain identifier
      * @param string $context context identifier, should be some key like "menu|file"
      * @param string $msg singular English source text
      * @param string $plural plural English source text
@@ -180,7 +180,11 @@ function _m($msg/*, ...*/)
 }
 
 /**
- * Looks for which plugin we've been called from to set the gettext domain.
+ * Looks for which plugin we've been called from to set the gettext domain;
+ * if not in a plugin subdirectory, we'll use the default 'statusnet'.
+ *
+ * Note: we can't return null for default domain since most of the PHP gettext
+ * wrapper functions turn null into "" before passing to the backend library.
  *
  * @param array $backtrace debug_backtrace() output
  * @return string
@@ -208,8 +212,8 @@ function _mdomain($backtrace)
         }
         $plug = strpos($path, '/plugins/');
         if ($plug === false) {
-            // We're not in a plugin; return null for the default domain.
-            return null;
+            // We're not in a plugin; return default domain.
+            return 'statusnet';
         } else {
             $cut = $plug + 9;
             $cut2 = strpos($path, '/', $cut);
@@ -218,7 +222,7 @@ function _mdomain($backtrace)
             } else {
                 // We might be running directly from the plugins dir?
                 // If so, there's no place to store locale info.
-                return null;
+                return 'statusnet';
             }
         }
         $cached[$path] = $final;
