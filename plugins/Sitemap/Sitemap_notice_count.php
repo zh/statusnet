@@ -208,6 +208,7 @@ class Sitemap_notice_count extends Memcached_DataObject
     {
         $notice = new Notice();
         $notice->whereAdd('created BETWEEN "'.$d.' 00:00:00" AND "'.self::incrementDay($d).' 00:00:00"');
+        $notice->whereAdd('is_local = ' . Notice::LOCAL_PUBLIC);
         $n = $notice->count();
 
         return $n;
