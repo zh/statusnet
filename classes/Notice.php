@@ -1252,6 +1252,8 @@ class Notice extends Memcached_DataObject
 
         if (!empty($cur)) {
             $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+	    $profile = $cur->getProfile();
+	    $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
         }
 
         if (!empty($this->repeat_of)) {
