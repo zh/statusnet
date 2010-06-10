@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-25 11:36+0000\n"
-"PO-Revision-Date: 2010-06-03 23:01:55+0000\n"
+"POT-Creation-Date: 2010-06-10 22:48+0000\n"
+"PO-Revision-Date: 2010-06-10 22:50:14+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r67833); Translate extension (2010-06-10)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: out-statusnet\n"
@@ -40,7 +40,7 @@ msgstr "Registrowanje"
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr ""
+msgstr "Anonymnym wužiwarjam (njepřizjewjenym) wobhladowanje sydła zakazć?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
@@ -85,13 +85,13 @@ msgid "Save"
 msgstr "Składować"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "Strona njeeksistuje."
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -115,7 +115,7 @@ msgid "No such user."
 msgstr "Wužiwar njeeksistuje"
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s a přećeljo, strona %2$d"
@@ -123,7 +123,7 @@ msgstr "%1$s a přećeljo, strona %2$d"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -131,31 +131,31 @@ msgid "%s and friends"
 msgstr "%s a přećeljo"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Kanal za přećelow wužiwarja %s (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Kanal za přećelow wužiwarja %s (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Kanal za přećelow wužiwarja %s (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -163,14 +163,14 @@ msgid ""
 msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -178,7 +178,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "Ty a přećeljo"
 
@@ -190,8 +190,8 @@ msgstr "Ty a přećeljo"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Aktualizacije wot %1$s a přećelow na %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -215,7 +215,7 @@ msgstr "Aktualizacije wot %1$s a přećelow na %2$s!"
 msgid "API method not found."
 msgstr "API-metoda njenamakana."
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -229,13 +229,13 @@ msgstr "API-metoda njenamakana."
 msgid "This method requires a POST."
 msgstr "Tuta metoda wužaduje sej POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "Wužiwar njeje so dał aktualizować."
 
@@ -328,6 +328,8 @@ msgstr "Přijimowar njenamakany."
 #: actions/apidirectmessagenew.php:142
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
+"Njeje móžno, direktne powěsće wužiwarjam pósłać, kotřiž twoji přećeljo "
+"njejsu."
 
 #: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
 #: actions/apistatusesdestroy.php:114
@@ -340,7 +342,7 @@ msgstr "Tutón status je hižo faworit."
 
 #: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
 msgid "Could not create favorite."
-msgstr ""
+msgstr "Faworit njeda so wutworić."
 
 #: actions/apifavoritedestroy.php:123
 msgid "That status is not a favorite."
@@ -348,7 +350,7 @@ msgstr "Tón status faworit njeje."
 
 #: actions/apifavoritedestroy.php:135 actions/disfavor.php:87
 msgid "Could not delete favorite."
-msgstr ""
+msgstr "Faworit njeda so zhašeć."
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: User not found."
@@ -369,7 +371,7 @@ msgstr "Njemóžeš slědowanje swójskich aktiwitow blokować."
 
 #: actions/apifriendshipsexists.php:94
 msgid "Two user ids or screen_names must be supplied."
-msgstr ""
+msgstr "Dwaj wužiwarskej ID abo wužiwarskej mjenje dyrbitej so podać."
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -556,7 +558,7 @@ msgstr ""
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
-msgstr ""
+msgstr "Njewočakowane wotpósłanje formulara."
 
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
@@ -609,7 +611,7 @@ msgstr "Přistup ke kontowym informacijam dowolić abo wotpokazać."
 msgid "This method requires a POST or DELETE."
 msgstr "Tuta metoda wužaduje sej POST abo DELETE."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:126
 msgid "You may not delete another user's status."
 msgstr "Njemóžeš status druheho wužiwarja zničić."
 
@@ -1510,7 +1512,7 @@ msgstr "Žana adresa za dochadźace e-mejle."
 #: actions/emailsettings.php:504 actions/emailsettings.php:528
 #: actions/smssettings.php:578 actions/smssettings.php:602
 msgid "Couldn't update user record."
-msgstr ""
+msgstr "Datowa sadźba wužiwarja njeda so aktualizować."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
 #: actions/emailsettings.php:508 actions/smssettings.php:581
@@ -1585,7 +1587,7 @@ msgstr ""
 #: actions/featured.php:99
 #, php-format
 msgid "A selection of some great users on %s"
-msgstr ""
+msgstr "Wuběr wulkotnych wužiwarjow na %s"
 
 #: actions/file.php:34
 msgid "No notice ID."
@@ -1649,7 +1651,7 @@ msgstr "Njepłaćiwa róla."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "Tuta róla je wuměnjena a njeda so stajić."
 
 #: actions/grantrole.php:75
 msgid "You cannot grant user roles on this site."
@@ -1712,7 +1714,7 @@ msgstr "Tutoho wužiwarja za tutu skupinu blokować"
 
 #: actions/groupblock.php:206
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "Zmylk datoweje banki blokuje wužiwarja za skupinu."
 
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
@@ -1763,7 +1765,7 @@ msgstr "Logo zaktualizowane."
 
 #: actions/grouplogo.php:401
 msgid "Failed updating logo."
-msgstr ""
+msgstr "Aktualizowanje loga je so njeporadźiło."
 
 #: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
@@ -1860,6 +1862,8 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
+"Jeli njemóžeš skupinu namakać, kotruž pytaš, móžeš [ju wutworić] (%%action."
+"newgroup%%)."
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -2152,7 +2156,7 @@ msgstr ""
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
-msgstr ""
+msgstr "Dyrbiš přizjewjeny być, zo by do skupiny zastupił."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
 msgid "No nickname or ID."
@@ -2217,6 +2221,8 @@ msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
+"Prošu zapodaj z přičinow wěstoty swoje wužiwarske mjeno znowa, prjedy hač "
+"změniš swoje nastajenja."
 
 #: actions/login.php:292
 msgid "Login with your username and password."
@@ -2227,6 +2233,7 @@ msgstr "Přizjewjenje z twojim wužiwarskim mjenom a hesłom."
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
+"Hišće nimaš wužiwarske mjeno? [Zregistruj (%%action.register%%) nowe konto."
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
@@ -2819,7 +2826,7 @@ msgstr "Městno"
 
 #: actions/profilesettings.php:134 actions/register.php:480
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr ""
+msgstr "Hdźež sy, na př. \"město, zwjazkowy kraj (abo region) , kraj\""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
@@ -2899,7 +2906,7 @@ msgstr "Nastajenja składowane."
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
-msgstr ""
+msgstr "Limit stronow (%s) překročeny."
 
 #: actions/public.php:92
 msgid "Could not retrieve public stream."
@@ -3644,12 +3651,12 @@ msgstr ""
 #: actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
-msgstr ""
+msgstr "Powěsć do %1$s na %2$s"
 
 #: actions/showmessage.php:113
 #, php-format
 msgid "Message from %1$s on %2$s"
-msgstr ""
+msgstr "Powěsć wot %1$s na %2$s"
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
@@ -3773,7 +3780,7 @@ msgstr "Sydłowe mjeno"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
+msgstr "Mjeno twojeho sydła, kaž \"TwojePředewzaće Microblog\""
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
@@ -3805,7 +3812,7 @@ msgstr "Standardne časowe pasmo"
 
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "Standardne časowe pasmo za sydło; zwjetša UTC."
 
 #: actions/siteadminpanel.php:262
 msgid "Default language"
@@ -3968,7 +3975,7 @@ msgstr ""
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
 #: actions/smssettings.php:413
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "To je wopačne wobkrućenske čisło."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
@@ -4074,7 +4081,7 @@ msgstr "Njejsy tón profil abonował."
 
 #: actions/subedit.php:83 classes/Subscription.php:132
 msgid "Could not save subscription."
-msgstr ""
+msgstr "Abonement njeda so składować."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
@@ -4287,7 +4294,7 @@ msgstr ""
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr ""
+msgstr "Njepłaćiwy standardny abonement: '%1$s' wužiwar njeje."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
@@ -4369,7 +4376,7 @@ msgstr "Tutón abonement wotpokazać"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
-msgstr ""
+msgstr "Žane awtorizaciske naprašowanje!"
 
 #: actions/userauthorization.php:254
 msgid "Subscription authorized"
@@ -4416,7 +4423,7 @@ msgstr ""
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr ""
+msgstr "URL awatara '%s' njeje płaćiwy"
 
 #: actions/userauthorization.php:350
 #, php-format
@@ -4569,7 +4576,7 @@ msgstr ""
 
 #: classes/Message.php:61
 msgid "Could not insert message."
-msgstr ""
+msgstr "Powěsć njeda so zasunyć."
 
 #: classes/Message.php:71
 msgid "Could not update message with new URI."
@@ -4650,11 +4657,11 @@ msgstr "Abonoment njeje so dał zničić."
 #: classes/User.php:363
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr ""
+msgstr "Witaj do %1$s, @%2$s!"
 
 #: classes/User_group.php:480
 msgid "Could not create group."
-msgstr ""
+msgstr "Skupina njeda so wutowrić."
 
 #: classes/User_group.php:489
 msgid "Could not set group URI."
@@ -4662,7 +4669,7 @@ msgstr "URI skupiny njeda so nastajić."
 
 #: classes/User_group.php:510
 msgid "Could not set group membership."
-msgstr ""
+msgstr "Skupinske čłonstwo njeda so stajić."
 
 #: classes/User_group.php:524
 msgid "Could not save local group info."
@@ -4671,17 +4678,17 @@ msgstr "Informacije wo lokalnej skupinje njedachu so składować."
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Twoje profilowe nastajenja změnić"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:116
 msgid "Upload an avatar"
-msgstr ""
+msgstr "Awatar nahrać"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
 msgid "Change your password"
-msgstr ""
+msgstr "Twoje hesło změnić"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
@@ -4985,7 +4992,7 @@ msgstr ""
 #. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
 #: lib/adminpanelaction.php:98
 msgid "You cannot make changes to this site."
-msgstr ""
+msgstr "Njemóžeš tute sydło změnić."
 
 #. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:110
@@ -4995,12 +5002,12 @@ msgstr "Změny na tutym woknje njejsu dowolene."
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
-msgstr ""
+msgstr "showForm() njeimplementowany."
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
-msgstr ""
+msgstr "saveSettings() njeimplementowany."
 
 #. TRANS: Client error message thrown if design settings could not be deleted in
 #. TRANS: the admin panel Design.
@@ -5011,7 +5018,7 @@ msgstr ""
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:349
 msgid "Basic site configuration"
-msgstr ""
+msgstr "Zakładna sydłowa konfiguracija"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:351
@@ -5104,12 +5111,12 @@ msgstr "URL žórła"
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
 msgid "Organization responsible for this application"
-msgstr ""
+msgstr "Organizacija, kotraž je za tutu aplikaciju zamołwita"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
 msgid "URL for the homepage of the organization"
-msgstr ""
+msgstr "URL za startowu stronu organizacije"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:251
@@ -5134,12 +5141,12 @@ msgstr ""
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:320
 msgid "Read-only"
-msgstr ""
+msgstr "Jenož čitajomny"
 
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:339
 msgid "Read-write"
-msgstr ""
+msgstr "Popisujomny"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:341
@@ -5154,12 +5161,12 @@ msgstr "Přetorhnyć"
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
 msgid "read-write"
-msgstr ""
+msgstr "popisujomny"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:138
 msgid "read-only"
-msgstr ""
+msgstr "jenož čitajomny"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:144
@@ -5229,18 +5236,18 @@ msgstr "Wužiwar nima poslednju powěsć"
 #: lib/command.php:127
 #, php-format
 msgid "Could not find a user with nickname %s"
-msgstr ""
+msgstr "Wužiwar z přimjenom %s njeda so namakać"
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:147
 #, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr ""
+msgstr "Lokalny wužiwar z přimjenom %s njeda so namakać"
 
 #: lib/command.php:180
 msgid "Sorry, this command is not yet implemented."
-msgstr ""
+msgstr "Tutón přikaz hišće njeje implementowany."
 
 #: lib/command.php:225
 msgid "It does not make a lot of sense to nudge yourself!"
@@ -5370,7 +5377,7 @@ msgstr ""
 
 #: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
-msgstr ""
+msgstr "Podaj mjeno wužiwarja, kotrehož chceš abonować"
 
 #: lib/command.php:628
 msgid "Can't subscribe to OMB profiles by command."
@@ -5379,16 +5386,16 @@ msgstr "OMB-profile njedadźa so přez přikaz abonować."
 #: lib/command.php:634
 #, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "%s abonowany"
 
 #: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
+msgstr "Podaj mjeno wužiwarja, kotrehož chceš wotskazać"
 
 #: lib/command.php:664
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "%s wotskazany"
 
 #: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
@@ -5412,7 +5419,7 @@ msgstr ""
 
 #: lib/command.php:723
 msgid "Login command is disabled"
-msgstr ""
+msgstr "Přizjewjenski přikaz je znjemóžnjeny"
 
 #: lib/command.php:734
 #, php-format
@@ -5426,7 +5433,7 @@ msgstr "%s wotskazany"
 
 #: lib/command.php:778
 msgid "You are not subscribed to anyone."
-msgstr ""
+msgstr "Njejsy nikoho abonował."
 
 #: lib/command.php:780
 msgid "You are subscribed to this person:"
@@ -5438,7 +5445,7 @@ msgstr[3] "Sy tute wosoby abonował:"
 
 #: lib/command.php:800
 msgid "No one is subscribed to you."
-msgstr ""
+msgstr "Nichtó njeje će abonował."
 
 #: lib/command.php:802
 msgid "This person is subscribed to you:"
@@ -5508,15 +5515,15 @@ msgstr "Žana konfiguraciska dataja namakana. "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "Sym na slědowacych městnach za konfiguraciskimi datajemi pytał: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr ""
+msgstr "Móže być, zo chceš instalaciski program startować, zo by to porjedźił."
 
 #: lib/common.php:139
 msgid "Go to the installer."
-msgstr ""
+msgstr "K instalaciji"
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -5536,7 +5543,7 @@ msgstr "Zwiski"
 
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
-msgstr ""
+msgstr "Awtorizowane zwjazane aplikacije"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
@@ -5611,7 +5618,7 @@ msgstr ""
 
 #: lib/galleryaction.php:143
 msgid "Go"
-msgstr ""
+msgstr "Start"
 
 #: lib/grantroleform.php:91
 #, php-format
@@ -5635,6 +5642,8 @@ msgstr "Skupinu abo temu w %d znamješkach wopisać"
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
 msgstr ""
+"Městno za skupinu, jeli eksistuje, na př. \"město, zwjazkowy kraj (abo "
+"region), kraj\""
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -5657,7 +5666,7 @@ msgstr ""
 #: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Kajkosće skupiny %s wobdźěłać"
 
 #: lib/groupnav.php:113
 msgid "Logo"
@@ -5690,6 +5699,8 @@ msgstr ""
 #: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
 msgstr ""
+"Tuta strona we wot  tebje akceptowanym medijowym typje k dispoziciji "
+"njesteji."
 
 #: lib/imagefile.php:72
 msgid "Unsupported image file format."
@@ -5740,7 +5751,7 @@ msgstr "Njeznate žórło postoweho kašćika %d."
 
 #: lib/joinform.php:114
 msgid "Join"
-msgstr ""
+msgstr "Zastupić"
 
 #: lib/leaveform.php:114
 msgid "Leave"
@@ -5934,6 +5945,9 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"Dospołnu rozmołwu móžes tu čitać:\n"
+"\n"
+"%s"
 
 #: lib/mail.php:657
 #, php-format
@@ -5970,7 +5984,7 @@ msgstr ""
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
-msgstr ""
+msgstr "Jenož wužiwar móže swoje póstowe kašćiki čitać."
 
 #: lib/mailbox.php:139
 msgid ""
@@ -5984,7 +5998,7 @@ msgstr "wot"
 
 #: lib/mailhandler.php:37
 msgid "Could not parse message."
-msgstr ""
+msgstr "Powěsć njeda so analyzować."
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
@@ -6006,6 +6020,8 @@ msgstr "Njepodpěrany powěsćowy typ: %s"
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
+"Při składowanju twojeje dataje je zmylk w datowej bance wustupił. Prošu "
+"spytaj hišće raz."
 
 #: lib/mediafile.php:142
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
@@ -6027,11 +6043,11 @@ msgstr "Temporerny rjadowka faluje."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
-msgstr ""
+msgstr "Dataju njeda so na tačel pisać."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
-msgstr ""
+msgstr "Datajowe nahraće přez rozšěrjenje zastajene."
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
 msgid "File exceeds user's quota."
@@ -6039,16 +6055,16 @@ msgstr ""
 
 #: lib/mediafile.php:196 lib/mediafile.php:233
 msgid "File could not be moved to destination directory."
-msgstr ""
+msgstr "Dataja njeda so do ciloweho zapisa přesunyć."
 
 #: lib/mediafile.php:201 lib/mediafile.php:237
 msgid "Could not determine file's MIME type."
-msgstr ""
+msgstr "MIME-typ dataje njeda so zwěsćić."
 
 #: lib/mediafile.php:270
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "Spytaj druhi format %s."
 
 #: lib/mediafile.php:275
 #, php-format
@@ -6174,7 +6190,7 @@ msgstr "Zmylk při zasunjenju awatara"
 
 #: lib/oauthstore.php:306
 msgid "Error updating remote profile"
-msgstr ""
+msgstr "Zmylk při aktualizowanju zdaleneho profila"
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
@@ -6186,7 +6202,7 @@ msgstr "Dwójna zdźělenka"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
-msgstr ""
+msgstr "Nowy abonement njeda so zasunyć."
 
 #: lib/personalgroupnav.php:99
 msgid "Personal"
@@ -6305,7 +6321,7 @@ msgstr "Rólu \"%s\" tutoho wužiwarja wotwołać"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Žadyn jednotliwy wužiwar za modus jednotliweho wužiwarja definowany."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -6366,7 +6382,7 @@ msgstr ""
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
-msgstr ""
+msgstr "Ludźo, kotrychž %s abonuje"
 
 #: lib/subgroupnav.php:91
 #, php-format
@@ -6376,7 +6392,7 @@ msgstr "Ludźo, kotřiž su %s abonowali"
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
-msgstr ""
+msgstr "Skupiny, w kotrychž %s je čłon"
 
 #: lib/subgroupnav.php:105
 msgid "Invite"
@@ -6444,7 +6460,7 @@ msgstr "Wužiwarske akcije"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Wužiwar so haša..."
 
 #: lib/userprofile.php:263
 msgid "Edit profile settings"
@@ -6464,7 +6480,7 @@ msgstr "Powěsć"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
-msgstr ""
+msgstr "Moderěrować"
 
 #: lib/userprofile.php:364
 msgid "User role"
@@ -6478,7 +6494,7 @@ msgstr "Administrator"
 #: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
-msgstr ""
+msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1100

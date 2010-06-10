@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-27 22:55+0000\n"
-"PO-Revision-Date: 2010-06-03 23:02:57+0000\n"
+"POT-Creation-Date: 2010-06-10 22:48+0000\n"
+"PO-Revision-Date: 2010-06-10 22:51:44+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r67833); Translate extension (2010-06-10)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -89,13 +89,13 @@ msgid "Save"
 msgstr "Зберегти"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "Немає такої сторінки."
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -119,7 +119,7 @@ msgid "No such user."
 msgstr "Такого користувача немає."
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s та друзі, сторінка %2$d"
@@ -127,7 +127,7 @@ msgstr "%1$s та друзі, сторінка %2$d"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -135,31 +135,31 @@ msgid "%s and friends"
 msgstr "%s з друзями"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Стрічка дописів для друзів %s (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr "Це стрічка дописів %s і друзів, але вона поки що порожня."
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -169,7 +169,7 @@ msgstr ""
 "або напишіть щось самі."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -178,7 +178,7 @@ msgstr ""
 "Ви можете [«розштовхати» %1$s](../%2$s) зі сторінки його профілю або [щось "
 "йому написати](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -188,7 +188,7 @@ msgstr ""
 "«розштовхати» %s або щось йому написати."
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "Ви з друзями"
 
@@ -200,8 +200,8 @@ msgstr "Ви з друзями"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Оновлення від %1$s та друзів на %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -225,7 +225,7 @@ msgstr "Оновлення від %1$s та друзів на %2$s!"
 msgid "API method not found."
 msgstr "API метод не знайдено."
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -239,14 +239,14 @@ msgstr "API метод не знайдено."
 msgid "This method requires a POST."
 msgstr "Цей метод потребує POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 "Ви мусите встановити параметр «device» з одним зі значень: sms, im, none."
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "Не вдалося оновити користувача."
 
@@ -453,7 +453,7 @@ msgstr "Помилкове додаткове ім’я: «%s»."
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "Додаткове ім’я \"%s\" вже використовується. Спробуйте інше."
+msgstr "Додаткове ім’я «%s» вже використовується. Спробуйте інше."
 
 #: actions/apigroupcreate.php:289 actions/editgroup.php:238
 #: actions/newgroup.php:178
@@ -632,7 +632,7 @@ msgstr "Дозволити або заборонити доступ до Ваш�
 msgid "This method requires a POST or DELETE."
 msgstr "Цей метод потребує або НАПИСАТИ, або ВИДАЛИТИ."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:126
 msgid "You may not delete another user's status."
 msgstr "Ви не можете видалити статус іншого користувача."
 
@@ -970,7 +970,7 @@ msgstr "Підтвердити адресу"
 #: actions/confirmaddress.php:161
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
-msgstr "Адресу \"%s\" було підтверджено для Вашого акаунту."
+msgstr "Адресу «%s» було підтверджено для Вашого акаунту."
 
 #: actions/conversation.php:99
 msgid "Conversation"
@@ -1315,7 +1315,7 @@ msgstr "опис надто довгий (%d знаків максимум)."
 #: actions/editgroup.php:228 actions/newgroup.php:168
 #, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Помилкове додаткове ім’я: \"%s\""
+msgstr "Помилкове додаткове ім’я: «%s»"
 
 #: actions/editgroup.php:258
 msgid "Could not update group."
@@ -1385,7 +1385,7 @@ msgstr "Скасувати"
 #. TRANS: Instructions for e-mail address input form.
 #: actions/emailsettings.php:135
 msgid "Email address, like \"UserName@example.org\""
-msgstr "Електронна адреса, на зразок \"UserName@example.org\""
+msgstr "Електронна адреса, на зразок «UserName@example.org»"
 
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
@@ -1444,7 +1444,7 @@ msgstr "Надсилати мені листа, коли хтось має пр�
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:199
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr "Надсилати мені листа, коли на мій допис з’являється \"@-відповідь\"."
+msgstr "Надсилати мені листа, коли на мій допис з’являється «@-відповідь»."
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:205
@@ -1882,9 +1882,9 @@ msgid ""
 msgstr ""
 "Групи на сайті %%%%site.name%%%% дозволять Вам відшукати людей зі спільними "
 "інтересами. Лише приєднайтеся до групи і надсилайте повідомлення до усіх її "
-"учасників використовуючи просту команду \"!groupname\" у тексті "
-"повідомлення. Не бачите групу, яка Вас цікавить? Спробуйте її [знайти](%%%%"
-"action.groupsearch%%%%) або [створіть власну!](%%%%action.newgroup%%%%)"
+"учасників використовуючи просту команду «!groupname» у тексті повідомлення. "
+"Не бачите групу, яка Вас цікавить? Спробуйте її [знайти](%%%%action."
+"groupsearch%%%%) або [створіть власну!](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -1991,7 +1991,7 @@ msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
 "add %s to your buddy list in your IM client or on GTalk."
 msgstr ""
-"Jabber або GTalk адреса, на зразок \"UserName@example.org\". Але спершу "
+"Jabber або GTalk адреса, на зразок «UserName@example.org». Але спершу "
 "переконайтеся, що додали %s до списку контактів в своєму IM-клієнті або в "
 "GTalk."
 
@@ -2468,12 +2468,12 @@ msgstr ""
 #: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
-msgstr "Оновлення з \"%s\""
+msgstr "Оновлення з «%s»"
 
 #: actions/noticesearchrss.php:98
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Всі оновлення за збігом з \"%s\" на %2$s!"
+msgstr "Всі оновлення за збігом з «%s» на %2$s!"
 
 #: actions/nudge.php:85
 msgid ""
@@ -2997,7 +2997,7 @@ msgstr "Мова задовга (50 знаків максимум)."
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Недійсний теґ: \"%s\""
+msgstr "Недійсний теґ: «%s»"
 
 #: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
@@ -3079,7 +3079,7 @@ msgid ""
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
 "Це %%site.name%% — сервіс [мікроблоґів](http://uk.wikipedia.org/wiki/"
-"Мікроблоггінг), який працює на вільному програмному забезпеченні [StatusNet]"
+"Мікроблогінг), який працює на вільному програмному забезпеченні [StatusNet]"
 "(http://status.net/). [Приєднуйтесь](%%action.register%%) зараз і зможете "
 "розділити своє життя з друзями, родиною і колегами! ([Дізнатися більше](%%"
 "doc.help%%))"
@@ -3092,7 +3092,7 @@ msgid ""
 "tool."
 msgstr ""
 "Це %%site.name%% — сервіс [мікроблоґів](http://uk.wikipedia.org/wiki/"
-"Мікроблоггінг), який працює на вільному програмному забезпеченні [StatusNet]"
+"Мікроблогінг), який працює на вільному програмному забезпеченні [StatusNet]"
 "(http://status.net/)."
 
 #: actions/publictagcloud.php:57
@@ -3803,7 +3803,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 "**%s** це група на %%%%site.name%%%% — сервісі [мікроблоґів](http://uk."
-"wikipedia.org/wiki/Мікроблоггінг), який працює на вільному програмному "
+"wikipedia.org/wiki/Мікроблогінг), який працює на вільному програмному "
 "забезпеченні [StatusNet](http://status.net/). Члени цієї групи роблять "
 "короткі дописи про своє життя та інтереси. [Приєднуйтесь](%%%%action.register"
 "%%%%) зараз і долучіться до спілкування! ([Дізнатися більше](%%%%doc.help%%%"
@@ -3817,10 +3817,10 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** це група користувачів на %%site.name%% — сервісі [мікроблоґів](http://"
-"uk.wikipedia.org/wiki/Мікроблоггінг), який працює на вільному програмному "
-"забезпеченні [StatusNet](http://status.net/). Члени цієї групи роблять "
-"короткі дописи про своє життя та інтереси. "
+"**%s** це група користувачів на %%%%site.name%%%% — сервісі [мікроблоґів]"
+"(http://uk.wikipedia.org/wiki/Мікроблогінг), який працює на вільному "
+"програмному забезпеченні [StatusNet](http://status.net/). Члени цієї групи "
+"роблять короткі дописи про своє життя та інтереси. "
 
 #: actions/showgroup.php:497
 msgid "Admins"
@@ -3914,7 +3914,7 @@ msgid ""
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 "**%s** користується %%%%site.name%%%% — сервісом [мікроблоґів](http://uk."
-"wikipedia.org/wiki/Мікроблоґ), який працює на вільному програмному "
+"wikipedia.org/wiki/Мікроблогінг), який працює на вільному програмному "
 "забезпеченні [StatusNet](http://status.net/). [Приєднуйтесь](%%%%action."
 "register%%%%) зараз і слідкуйте за дописами **%s**, також на Вас чекає "
 "багато іншого! ([Дізнатися більше](%%%%doc.help%%%%))"
@@ -3927,7 +3927,7 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 "**%s** є власником акаунту на сайті %%%%site.name%%%% — сервісі [мікроблоґів]"
-"(http://uk.wikipedia.org/wiki/Мікроблоггінг), який працює на вільному "
+"(http://uk.wikipedia.org/wiki/Мікроблогінг), який працює на вільному "
 "програмному забезпеченні [StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
@@ -4064,11 +4064,12 @@ msgstr "Максимальна довжина повідомлення сайт�
 
 #: actions/sitenoticeadminpanel.php:176
 msgid "Site notice text"
-msgstr "Текст повідомлення сайту"
+msgstr "Текст повідомлення"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr "Текст повідомлення сайту (255 символів максимум; HTML дозволено)"
+msgstr ""
+"Текст повідомлення сайту (255 символів максимум; деякий HTML дозволено)"
 
 #: actions/sitenoticeadminpanel.php:198
 msgid "Save site notice"
@@ -4519,7 +4520,7 @@ msgstr "Помилковий текст привітання. Максималь
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr "Помилкова підписка за замовчуванням: '%1$s' не є користувачем."
+msgstr "Помилкова підписка за замовчуванням: «%1$s» не є користувачем."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
@@ -4643,32 +4644,32 @@ msgstr "URI слухача «%s» тут не знайдено"
 #: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr "URI слухача ‘%s’ задовге."
+msgstr "URI слухача «%s» задовге."
 
 #: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr "URI слухача ‘%s’ це локальний користувач"
+msgstr "URI слухача «%s» це локальний користувач"
 
 #: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
-msgstr "URL-адреса профілю ‘%s’ для локального користувача."
+msgstr "URL-адреса профілю «%s» для локального користувача."
 
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr "URL-адреса автари ‘%s’ помилкова."
+msgstr "URL-адреса аватари «%s» помилкова."
 
 #: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Не можна прочитати URL аватари ‘%s’."
+msgstr "Не можна прочитати URL аватари «%s»."
 
 #: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Неправильний тип зображення для URL-адреси аватари ‘%s’."
+msgstr "Неправильний тип зображення для URL-адреси аватари «%s»."
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
@@ -5928,7 +5929,7 @@ msgstr "Вперед"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr "Надати цьому користувачеві роль \"%s\""
+msgstr "Надати цьому користувачеві роль «%s»"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6670,7 +6671,7 @@ msgstr "ІД"
 
 #: lib/profileaction.php:196
 msgid "Member since"
-msgstr "З нами від"
+msgstr "Реєстрація"
 
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
@@ -6724,7 +6725,7 @@ msgstr "Повторити цей допис"
 #: lib/revokeroleform.php:91
 #, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Відкликати роль \"%s\" для цього користувача"
+msgstr "Відкликати роль «%s» для цього користувача"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."

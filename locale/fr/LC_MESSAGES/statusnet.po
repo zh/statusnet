@@ -15,12 +15,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-25 11:36+0000\n"
-"PO-Revision-Date: 2010-06-03 23:01:38+0000\n"
+"POT-Creation-Date: 2010-06-10 22:48+0000\n"
+"PO-Revision-Date: 2010-06-10 22:49:53+0000\n"
 "Language-Team: French\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r67833); Translate extension (2010-06-10)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: out-statusnet\n"
@@ -90,13 +90,13 @@ msgid "Save"
 msgstr "Enregistrer"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "Page non trouvée."
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -120,7 +120,7 @@ msgid "No such user."
 msgstr "Utilisateur non trouvé."
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s et ses amis, page %2$d"
@@ -128,7 +128,7 @@ msgstr "%1$s et ses amis, page %2$d"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -136,25 +136,25 @@ msgid "%s and friends"
 msgstr "%s et ses amis"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Flux pour les amis de %s (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Flux pour les amis de %s (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Flux pour les amis de %s (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
@@ -162,7 +162,7 @@ msgstr ""
 "Ceci est le flux pour %s et ses amis mais personne n’a rien posté pour le "
 "moment."
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -172,7 +172,7 @@ msgstr ""
 "(%%action.groups%%) ou de poster quelque chose vous-même."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -182,7 +182,7 @@ msgstr ""
 "profil ou [poster quelque chose à son intention](%%%%action.newnotice%%%%?"
 "status_textarea=%3$s)."
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -192,7 +192,7 @@ msgstr ""
 "un clin d’œil à %s ou poster un avis à son intention."
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "Vous et vos amis"
 
@@ -204,8 +204,8 @@ msgstr "Vous et vos amis"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Statuts de %1$s et ses amis dans %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -229,7 +229,7 @@ msgstr "Statuts de %1$s et ses amis dans %2$s!"
 msgid "API method not found."
 msgstr "Méthode API non trouvée !"
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -243,7 +243,7 @@ msgstr "Méthode API non trouvée !"
 msgid "This method requires a POST."
 msgstr "Ce processus requiert un POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
@@ -251,7 +251,7 @@ msgstr ""
 "Vous devez spécifier un paramètre « device » avec une des valeurs suivantes : "
 "sms, im, none."
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "Impossible de mettre à jour l’utilisateur."
 
@@ -643,7 +643,7 @@ msgstr "Autoriser ou refuser l’accès à votre compte."
 msgid "This method requires a POST or DELETE."
 msgstr "Ce processus requiert un POST ou un DELETE."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:126
 msgid "You may not delete another user's status."
 msgstr "Vous ne pouvez pas supprimer le statut d’un autre utilisateur."
 
@@ -6188,6 +6188,9 @@ msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
+"Si vous pensez que ce compte est utilisé à des fins abusives, vous pouvez le "
+"bloquer de votre liste d'abonnés et le signaler comme spam aux "
+"administrateurs du site, sur %s."
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
