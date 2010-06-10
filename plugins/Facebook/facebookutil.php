@@ -81,97 +81,251 @@ function isFacebookBound($notice, $flink) {
 function facebookBroadcastNotice($notice)
 {
     $facebook = getFacebook();
-    $flink = Foreign_link::getByUserID($notice->profile_id, FACEBOOK_SERVICE);
+    $flink = Foreign_link::getByUserID(
+        $notice->profile_id,
+        FACEBOOK_SERVICE
+    );
 
     if (isFacebookBound($notice, $flink)) {
 
         // Okay, we're good to go, update the FB status
 
-        $status = null;
         $fbuid = $flink->foreign_id;
         $user = $flink->getUser();
-        $attachments  = $notice->attachments();
 
         try {
 
-            // Get the status 'verb' (prefix) the user has set
+            // Check permissions
 
-            // XXX: Does this call count against our per user FB request limit?
-            // If so we should consider storing verb elsewhere or not storing
+            common_debug(
+                'FacebookPlugin - checking for publish_stream permission for user '
+                . "$user->nickname ($user->id), Facebook UID: $fbuid"
+            );
 
-            $prefix = trim($facebook->api_client->data_getUserPreference(FACEBOOK_NOTICE_PREFIX,
-                                                                         $fbuid));
+            // NOTE: $facebook->api_client->users_hasAppPermission('publish_stream', $fbuid)
+            // has been returning bogus results, so we're using FQL to check for
+            // publish_stream permission now
 
-            $status = "$prefix $notice->content";
+            $fql = "SELECT publish_stream FROM permissions WHERE uid = $fbuid";
+            $result = $facebook->api_client->fql_query($fql);
 
-            $can_publish = $facebook->api_client->users_hasAppPermission('publish_stream',
-                                                                         $fbuid);
+            $canPublish = 0;
 
-            $can_update  = $facebook->api_client->users_hasAppPermission('status_update',
-                                                                         $fbuid);
-            if (!empty($attachments) && $can_publish == 1) {
-                $fbattachment = format_attachments($attachments);
-                $facebook->api_client->stream_publish($status, $fbattachment,
-                                                      null, null, $fbuid);
-                common_log(LOG_INFO,
-                           "Posted notice $notice->id w/attachment " .
-                           "to Facebook user's stream (fbuid = $fbuid).");
-            } elseif ($can_update == 1 || $can_publish == 1) {
-                $facebook->api_client->users_setStatus($status, $fbuid, false, true);
-                common_log(LOG_INFO,
-                           "Posted notice $notice->id to Facebook " .
-                           "as a status update (fbuid = $fbuid).");
+            if (!empty($result)) {
+                $canPublish = $result[0]['publish_stream'];
+            }
+
+            if ($canPublish == 1) {
+                common_debug(
+                    "FacebookPlugin - $user->nickname ($user->id), Facebook UID: $fbuid "
+                    . 'has publish_stream permission.'
+                );
             } else {
-                $msg = "Not sending notice $notice->id to Facebook " .
-                  "because user $user->nickname hasn't given the " .
+                common_debug(
+                    "FacebookPlugin - $user->nickname ($user->id), Facebook UID: $fbuid "
+                    . 'does NOT have publish_stream permission. Facebook '
+                    . 'returned: ' . var_export($result, true)
+                );
+            }
+
+            common_debug(
+                'FacebookPlugin - checking for status_update permission for user '
+                . "$user->nickname ($user->id), Facebook UID: $fbuid. "
+            );
+
+            $canUpdate = $facebook->api_client->users_hasAppPermission(
+                'status_update',
+                $fbuid
+            );
+
+            if ($canUpdate == 1) {
+                common_debug(
+                    "FacebookPlugin - $user->nickname ($user->id), Facebook UID: $fbuid "
+                    . 'has status_update permission.'
+                );
+            } else {
+                common_debug(
+                    "FacebookPlugin - $user->nickname ($user->id), Facebook UID: $fbuid "
+                    .'does NOT have status_update permission. Facebook '
+                    . 'returned: ' . var_export($canPublish, true)
+                );
+            }
+
+            // Post to Facebook
+
+            if ($notice->hasAttachments() && $canPublish == 1) {
+                publishStream($notice, $user, $fbuid);
+            } elseif ($canUpdate == 1 || $canPublish == 1) {
+                statusUpdate($notice, $user, $fbuid);
+            } else {
+                $msg = "FacebookPlugin - Not sending notice $notice->id to Facebook " .
+                  "because user $user->nickname has not given the " .
                   'Facebook app \'status_update\' or \'publish_stream\' permission.';
                 common_log(LOG_WARNING, $msg);
             }
 
             // Finally, attempt to update the user's profile box
 
-            if ($can_publish == 1 || $can_update == 1) {
-                updateProfileBox($facebook, $flink, $notice);
+            if ($canPublish == 1 || $canUpdate == 1) {
+                updateProfileBox($facebook, $flink, $notice, $user);
             }
 
         } catch (FacebookRestClientException $e) {
-
-            $code = $e->getCode();
-
-            $msg = "Facebook returned error code $code: " .
-              $e->getMessage() . ' - ' .
-              "Unable to update Facebook status (notice $notice->id) " .
-              "for $user->nickname (user id: $user->id)!";
-
-            common_log(LOG_WARNING, $msg);
-
-            if ($code == 100 || $code == 200 || $code == 250) {
-
-                // 100 The account is 'inactive' (probably - this is not well documented)
-                // 200 The application does not have permission to operate on the passed in uid parameter.
-                // 250 Updating status requires the extended permission status_update or publish_stream.
-                // see: http://wiki.developers.facebook.com/index.php/Users.setStatus#Example_Return_XML
-
-                remove_facebook_app($flink);
-
-        } else {
-
-                // Try sending again later.
-
-                return false;
-            }
-
+            return handleFacebookError($e, $notice, $flink);
         }
     }
 
     return true;
-
 }
 
-function updateProfileBox($facebook, $flink, $notice) {
-    $fbaction = new FacebookAction($output = 'php://output',
-                                   $indent = null, $facebook, $flink);
+function handleFacebookError($e, $notice, $flink)
+{
+    $fbuid  = $flink->foreign_id;
+    $user   = $flink->getUser();
+    $code   = $e->getCode();
+    $errmsg = $e->getMessage();
+
+    // XXX: Check for any others?
+    switch($code) {
+     case 100: // Invalid parameter
+        $msg = "FacebookPlugin - Facebook claims notice %d was posted with an invalid parameter (error code 100):"
+            . "\"%s\" (Notice details: nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). "
+            . "Removing notice from the Facebook queue for safety.";
+        common_log(
+            LOG_ERR, sprintf(
+                $msg,
+                $notice->id,
+                $errmsg,
+                $user->nickname,
+                $user->id,
+                $fbuid,
+                $notice->content
+            )
+        );
+        return true;
+        break;
+     case 200: // Permissions error
+     case 250: // Updating status requires the extended permission status_update
+        remove_facebook_app($flink);
+        return true; // dequeue
+        break;
+     case 341: // Feed action request limit reached
+            $msg = "FacebookPlugin - User %s (User ID=%d, Facebook ID=%d) has exceeded "
+                   . "his/her limit for posting notices to Facebook today. Dequeuing "
+                   . "notice %d.";
+            common_log(
+                LOG_INFO, sprintf(
+                    $msg,
+                    $user->nickname,
+                    $user->id,
+                    $fbuid,
+                    $notice->id
+                )
+            );
+	// @fixme: We want to rety at a later time when the throttling has expired
+	// instead of just giving up.
+        return true;
+        break;
+     default:
+        $msg = "FacebookPlugin - Facebook returned an error we don't know how to deal with while trying to "
+            . "post notice %d. Error code: %d, error message: \"%s\". (Notice details: "
+            . "nickname=%s, user ID=%d, Facebook ID=%d, notice content=\"%s\"). Removing notice "
+	    . "from the Facebook queue for safety.";
+        common_log(
+            LOG_ERR, sprintf(
+                $msg,
+                $notice->id,
+                $code,
+                $errmsg,
+                $user->nickname,
+                $user->id,
+                $fbuid,
+                $notice->content
+            )
+        );
+        return true; // dequeue
+        break;
+    }
+}
+
+function statusUpdate($notice, $user, $fbuid)
+{
+    common_debug(
+        "FacebookPlugin - Attempting to post notice $notice->id "
+        . "as a status update for $user->nickname ($user->id), "
+        . "Facebook UID: $fbuid"
+    );
+
+    $facebook = getFacebook();
+    $result = $facebook->api_client->users_setStatus(
+         $notice->content,
+         $fbuid,
+         false,
+         true
+    );
+
+    common_debug('Facebook returned: ' . var_export($result, true));
+
+    common_log(
+        LOG_INFO,
+        "FacebookPlugin - Posted notice $notice->id as a status "
+        . "update for $user->nickname ($user->id), "
+        . "Facebook UID: $fbuid"
+    );
+}
+
+function publishStream($notice, $user, $fbuid)
+{
+    common_debug(
+        "FacebookPlugin - Attempting to post notice $notice->id "
+        . "as stream item with attachment for $user->nickname ($user->id), "
+        . "Facebook UID: $fbuid"
+    );
+
+    $fbattachment = format_attachments($notice->attachments());
+
+    $facebook = getFacebook();
+    $facebook->api_client->stream_publish(
+        $notice->content,
+        $fbattachment,
+        null,
+        null,
+        $fbuid
+    );
+
+    common_log(
+        LOG_INFO,
+        "FacebookPlugin - Posted notice $notice->id as a stream "
+        . "item with attachment for $user->nickname ($user->id), "
+        . "Facebook UID: $fbuid"
+    );
+}
+
+function updateProfileBox($facebook, $flink, $notice, $user) {
+
+    $facebook = getFacebook();
+    $fbaction = new FacebookAction(
+        $output = 'php://output',
+        $indent = null,
+        $facebook,
+        $flink
+    );
+
+    $fbuid = $flink->foreign_id;
+
+    common_debug(
+          'FacebookPlugin - Attempting to update profile box with '
+          . "content from notice $notice->id for $user->nickname ($user->id), "
+          . "Facebook UID: $fbuid"
+    );
+
     $fbaction->updateProfileBox($notice);
+
+    common_debug(
+        'FacebookPlugin - finished updating profile box for '
+        . "$user->nickname ($user->id) Facebook UID: $fbuid"
+    );
+
 }
 
 function format_attachments($attachments)

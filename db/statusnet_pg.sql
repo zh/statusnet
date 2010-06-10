@@ -187,6 +187,7 @@ create index fave_modified_idx on fave using btree(modified);
 
 create table consumer (
     consumer_key varchar(255) primary key /* comment 'unique identifier, root URL' */,
+    consumer_secret varchar(255) not null /* comment 'secret value', */,
     seed char(32) not null /* comment 'seed for new tokens by this consumer' */,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
@@ -199,6 +200,9 @@ create table token (
     secret char(32) not null /* comment 'secret value' */,
     type integer not null default 0 /* comment 'request or access' */,
     state integer default 0 /* comment 'for requests 0 = initial, 1 = authorized, 2 = used' */,
+
+    verifier varchar(255) /*comment 'verifier string for OAuth 1.0a'*/,
+    verified_callback varchar(255) /*comment 'verified callback URL for OAuth 1.0a'*/,
 
     created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
     modified timestamp /* comment 'date this record was modified' */,
@@ -272,7 +276,7 @@ create table confirm_address (
     address_extra varchar(255) not null default '' /* comment 'carrier ID, for SMS' */,
     address_type varchar(8) not null /* comment 'address type ("email", "jabber", "sms")' */,
     claimed timestamp /* comment 'date this was claimed for queueing' */,
-    sent timestamp /* comment 'date this was sent for queueing' */,
+    sent timestamp default CURRENT_TIMESTAMP /* comment 'date this was sent for queueing' */,
     modified timestamp /* comment 'date this record was modified' */
 );
 
@@ -283,14 +287,12 @@ create table remember_me (
 );
 
 create table queue_item (
-
-    notice_id integer not null /* comment 'notice queued' */ references notice (id) ,
-    transport varchar(8) not null /* comment 'queue for what? "email", "jabber", "sms", "irc", ...' */,
-    created timestamp not null default CURRENT_TIMESTAMP /* comment 'date this record was created' */,
-    claimed timestamp /* comment 'date this item was claimed' */,
-
-    primary key (notice_id, transport)
-
+     id serial /* comment 'unique identifier'*/,
+     frame bytea not null /* comment 'data: object reference or opaque string'*/,
+     transport varchar(8) not null /*comment 'queue for what? "email", "jabber", "sms", "irc", ...'*/,
+     created timestamp not null default CURRENT_TIMESTAMP /*comment 'date this record was created'*/,
+     claimed timestamp /*comment 'date this item was claimed'*/,
+     PRIMARY KEY (id)
 );
 create index queue_item_created_idx on queue_item using btree(created);
 

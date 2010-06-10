@@ -115,14 +115,27 @@ class StompQueueManager extends QueueManager
      *
      * @param mixed $object
      * @param string $queue
+     * @param string $siteNickname optional override to drop into another site's queue
      *
      * @return boolean true on success
      * @throws StompException on connection or send error
      */
-    public function enqueue($object, $queue)
+    public function enqueue($object, $queue, $siteNickname=null)
     {
         $this->_connect();
-        return $this->_doEnqueue($object, $queue, $this->defaultIdx);
+        if (common_config('queue', 'stomp_enqueue_on')) {
+            // We're trying to force all writes to a single server.
+            // WARNING: this might do odd things if that server connection dies.
+            $idx = array_search(common_config('queue', 'stomp_enqueue_on'),
+                                $this->servers);
+            if ($idx === false) {
+                common_log(LOG_ERR, 'queue stomp_enqueue_on setting does not match our server list.');
+                $idx = $this->defaultIdx;
+            }
+        } else {
+            $idx = $this->defaultIdx;
+        }
+        return $this->_doEnqueue($object, $queue, $idx, $siteNickname);
     }
 
     /**
@@ -132,10 +145,10 @@ class StompQueueManager extends QueueManager
      * @return boolean true on success
      * @throws StompException on connection or send error
      */
-    protected function _doEnqueue($object, $queue, $idx)
+    protected function _doEnqueue($object, $queue, $idx, $siteNickname=null)
     {
         $rep = $this->logrep($object);
-        $envelope = array('site' => common_config('site', 'nickname'),
+        $envelope = array('site' => $siteNickname ? $siteNickname : common_config('site', 'nickname'),
                           'handler' => $queue,
                           'payload' => $this->encode($object));
         $msg = serialize($envelope);

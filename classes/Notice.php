@@ -29,6 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
@@ -97,15 +98,20 @@ class Notice extends Memcached_DataObject
         // For auditing purposes, save a record that the notice
         // was deleted.
 
-        $deleted = new Deleted_notice();
+        // @fixme we have some cases where things get re-run and so the
+        // insert fails.
+        $deleted = Deleted_notice::staticGet('id', $this->id);
+        if (!$deleted) {
+            $deleted = new Deleted_notice();
 
-        $deleted->id         = $this->id;
-        $deleted->profile_id = $this->profile_id;
-        $deleted->uri        = $this->uri;
-        $deleted->created    = $this->created;
-        $deleted->deleted    = common_sql_now();
+            $deleted->id         = $this->id;
+            $deleted->profile_id = $this->profile_id;
+            $deleted->uri        = $this->uri;
+            $deleted->created    = $this->created;
+            $deleted->deleted    = common_sql_now();
 
-        $deleted->insert();
+            $deleted->insert();
+        }
 
         // Clear related records
 
@@ -1236,7 +1242,7 @@ class Notice extends Memcached_DataObject
 
         $noticeInfoAttr = array(
             'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
-            'source'     => $this->source // the client name (source attribution)
+            'source'     => $this->source, // the client name (source attribution)
         );
 
         $ns = $this->getSource();
@@ -1247,7 +1253,11 @@ class Notice extends Memcached_DataObject
         }
 
         if (!empty($cur)) {
-            $noticeInfoAttr['favorited'] = ($cur->hasFave($this)) ? 'true' : 'false';
+            $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+        }
+
+        if (!empty($this->repeat_of)) {
+            $noticeInfoAttr['repeat_of'] = $this->repeat_of;
         }
 
         $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
@@ -1853,6 +1863,18 @@ class Notice extends Memcached_DataObject
             }
         }
         return $ns;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @return boolean locality
+     */
+
+    public function isLocal()
+    {
+        return ($this->is_local == Notice::LOCAL_PUBLIC ||
+                $this->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
 }

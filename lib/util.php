@@ -1270,9 +1270,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'plugin';
     }
 
-    // @fixme move these checks into QueueManager and/or individual handlers
-    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
-        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+    // We can skip these for gatewayed notices.
+    if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
     }
 
@@ -1969,6 +1968,15 @@ function common_url_to_nickname($url)
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
             $path = basename($path);
+
+            // Hack for MediaWiki user pages, in the form:
+            // http://example.com/wiki/User:Myname
+            // ('User' may be localized.)
+            if (strpos($path, ':')) {
+                $parts = array_filter(explode(':', $path));
+                $path = $parts[count($parts) - 1];
+            }
+
             if ($path) {
                 return common_nicknamize($path);
             }

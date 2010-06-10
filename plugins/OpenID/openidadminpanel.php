@@ -91,6 +91,7 @@ class OpenidadminpanelAction extends AdminPanelAction
         );
 
         static $booleans = array(
+            'openid' => array('append_username'),
             'site' => array('openidonly')
         );
 
@@ -219,6 +220,15 @@ class OpenIDAdminPanelForm extends AdminForm
             _m('Provider URL'),
             _m('All OpenID logins will be sent to this URL; other providers may not be used.'),
             'openid'
+        );
+        $this->unli();
+
+        $this->li();
+        $this->out->checkbox(
+            'append_username', _m('Append a username to base URL'),
+            (bool) $this->value('append_username', 'openid'),
+            _m('Login form will show the base URL and prompt for a username to add at the end. Use when OpenID provider URL should be the profile page for individual users.'),
+            'true'
         );
         $this->unli();
 
