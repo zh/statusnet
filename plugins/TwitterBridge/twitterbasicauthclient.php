@@ -135,7 +135,7 @@ class TwitterBasicAuthClient
      *
      * @return mixed an array of statuses similar to friends timeline but including retweets
      */
-    function statusesFriendsTimeline($since_id = null, $max_id = null,
+    function statusesHomeTimeline($since_id = null, $max_id = null,
                                      $cnt = null, $page = null)
     {
         $url    = 'https://twitter.com/statuses/home_timeline.json';
