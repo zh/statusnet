@@ -154,7 +154,9 @@ class FoafAction extends Action
         }
 
         $person = $this->showMicrobloggingAccount($this->profile,
-                                     common_root_url(), $this->user->uri, false);
+                                     common_root_url(), $this->user->uri,
+                                     /*$fetchSubscriptions*/true,
+                                     /*$isSubscriber*/false);
 
         // Get people who subscribe to user
 
@@ -209,7 +211,8 @@ class FoafAction extends Action
             $this->showMicrobloggingAccount($profile,
                                    ($local == 'local') ? common_root_url() : null,
                                    $uri,
-                                   true);
+                                   /*$fetchSubscriptions*/false,
+                                   /*$isSubscriber*/($type == LISTENER || $type == BOTH));
             if ($foaf_url) {
                 $this->element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
@@ -234,7 +237,21 @@ class FoafAction extends Action
         $this->elementEnd('PersonalProfileDocument');
     }
 
-    function showMicrobloggingAccount($profile, $service=null, $useruri=null, $isSubscriber=false)
+    /**
+     * Output FOAF <account> bit for the given profile.
+     * 
+     * @param Profile $profile
+     * @param mixed $service Root URL of this StatusNet instance for a local
+     *                       user, otherwise null.
+     * @param mixed $useruri URI string for the referenced profile..
+     * @param boolean $fetchSubscriptions Should we load and list all their subscriptions?
+     * @param boolean $isSubscriber if not fetching subs, we can still mark the user as following the current page.
+     * 
+     * @return array if $fetchSubscribers is set, return a list of info on those
+     *               subscriptions.
+     */
+
+    function showMicrobloggingAccount($profile, $service=null, $useruri=null, $fetchSubscriptions=false, $isSubscriber=false)
     {
         $attr = array();
         if ($useruri) {
@@ -256,9 +273,7 @@ class FoafAction extends Action
 
         $person = array();
 
-        if ($isSubscriber) {
-             $this->element('sioc:follows', array('rdf:resource'=>$this->user->uri . '#acct'));
-        } else {
+        if ($fetchSubscriptions) {
             // Get people user is subscribed to
             $sub = new Subscription();
             $sub->subscriber = $profile->id;
@@ -283,6 +298,9 @@ class FoafAction extends Action
             }
 
             unset($sub);
+        } else if ($isSubscriber) {
+            // Just declare that they follow the user whose FOAF we're showing.
+            $this->element('sioc:follows', array('rdf:resource' => $this->user->uri . '#acct'));
         }
 
         $this->elementEnd('OnlineAccount');

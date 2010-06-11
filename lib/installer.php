@@ -82,9 +82,12 @@ abstract class Installer
     {
         $pass = true;
 
-        if (file_exists(INSTALLDIR.'/config.php')) {
-            $this->warning('Config file "config.php" already exists.');
-            $pass = false;
+        $config = INSTALLDIR.'/config.php';
+        if (file_exists($config)) {
+            if (!is_writable($config) || filesize($config) > 0) {
+                $this->warning('Config file "config.php" already exists.');
+                $pass = false;
+            }
         }
 
         if (version_compare(PHP_VERSION, '5.2.3', '<')) {
