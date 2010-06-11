@@ -149,21 +149,15 @@ class Status_network extends Safe_DataObject
         $this->decache(); # while we still have the values!
         return parent::delete();
     }
-
+    
     /**
      * @param string $servername hostname
-     * @param string $pathname URL base path
      * @param string $wildcard hostname suffix to match wildcard config
+     * @return mixed Status_network or null
      */
-    static function setupSite($servername, $pathname, $wildcard)
+    static function getFromHostname($servername, $wildcard)
     {
-        global $config;
-
         $sn = null;
-
-        // XXX I18N, probably not crucial for hostnames
-        // XXX This probably needs a tune up
-
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
             // special case for exact match
             if (0 == strcasecmp($servername, $wildcard)) {
@@ -182,6 +176,23 @@ class Status_network extends Safe_DataObject
                 }
             }
         }
+        return $sn;
+    }
+
+    /**
+     * @param string $servername hostname
+     * @param string $pathname URL base path
+     * @param string $wildcard hostname suffix to match wildcard config
+     */
+    static function setupSite($servername, $pathname, $wildcard)
+    {
+        global $config;
+
+        $sn = null;
+
+        // XXX I18N, probably not crucial for hostnames
+        // XXX This probably needs a tune up
+        $sn = self::getFromHostname($servername, $wildcard);
 
         if (!empty($sn)) {
 

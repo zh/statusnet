@@ -283,9 +283,10 @@ class AdminPanelAction extends Action
                 $this->clientError(_("Unable to delete design setting."));
                 return null;
             }
+            return $result;
         }
 
-        return $result;
+        return null;
     }
 
     function canAdmin($name)
