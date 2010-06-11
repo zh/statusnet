@@ -297,6 +297,10 @@ class ApiAction extends Action
             }
         }
 
+        // StatusNet-specific
+
+        $twitter_user['statusnet:profile_url'] = $profile->profileurl;
+
         return $twitter_user;
     }
 
@@ -397,6 +401,10 @@ class ApiAction extends Action
             $twitter_user = $this->twitterUserArray($profile, false);
             $twitter_status['user'] = $twitter_user;
         }
+
+        // StatusNet-specific
+
+        $twitter_status['statusnet:html'] = $notice->rendered;
 
         return $twitter_status;
     }
@@ -565,9 +573,13 @@ class ApiAction extends Action
         }
     }
 
-    function showTwitterXmlStatus($twitter_status, $tag='status')
+    function showTwitterXmlStatus($twitter_status, $tag='status', $namespaces=false)
     {
-        $this->elementStart($tag);
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart($tag, $attrs);
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
@@ -601,9 +613,13 @@ class ApiAction extends Action
         $this->elementEnd('group');
     }
 
-    function showTwitterXmlUser($twitter_user, $role='user')
+    function showTwitterXmlUser($twitter_user, $role='user', $namespaces=false)
     {
-        $this->elementStart($role);
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart($role, $attrs);
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
                 $this->showTwitterXmlStatus($twitter_user['status']);
@@ -685,7 +701,7 @@ class ApiAction extends Action
     {
         $this->initDocument('xml');
         $twitter_status = $this->twitterStatusArray($notice);
-        $this->showTwitterXmlStatus($twitter_status);
+        $this->showTwitterXmlStatus($twitter_status, 'status', true);
         $this->endDocument('xml');
     }
 
@@ -701,7 +717,8 @@ class ApiAction extends Action
     {
 
         $this->initDocument('xml');
-        $this->elementStart('statuses', array('type' => 'array'));
+        $this->elementStart('statuses', array('type' => 'array',
+                                              'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
@@ -868,9 +885,13 @@ class ApiAction extends Action
         $this->elementEnd('entry');
     }
 
-    function showXmlDirectMessage($dm)
+    function showXmlDirectMessage($dm, $namespaces=false)
     {
-        $this->elementStart('direct_message');
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart('direct_message', $attrs);
         foreach($dm as $element => $value) {
             switch ($element) {
             case 'sender':
@@ -947,7 +968,7 @@ class ApiAction extends Action
     {
         $this->initDocument('xml');
         $dmsg = $this->directMessageArray($message);
-        $this->showXmlDirectMessage($dmsg);
+        $this->showXmlDirectMessage($dmsg, true);
         $this->endDocument('xml');
     }
 
@@ -1064,7 +1085,8 @@ class ApiAction extends Action
     {
 
         $this->initDocument('xml');
-        $this->elementStart('users', array('type' => 'array'));
+        $this->elementStart('users', array('type' => 'array',
+                                           'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($user)) {
             foreach ($user as $u) {
