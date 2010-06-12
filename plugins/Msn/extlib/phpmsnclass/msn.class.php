@@ -3203,13 +3203,6 @@ X-OIM-Sequence-Num: 1
         $data = $this->ns_readln();
         /*if($data===false)
         {
-            //If No NS Message Process SendMessageFileQueue
-            if (time()-$this->LastPing > $this->ping_wait)
-            {
-                // NS: >>> PNG
-                $this->ns_writeln("PNG");
-                $this->LastPing = time();
-            }
             if(count($this->ChildProcess)<$this->MAXChildProcess)
             {
                 $Index=0;
@@ -3626,8 +3619,8 @@ X-OIM-Sequence-Num: 1
                 break;
             case 'QNG':
                 // NS: <<< QNG {time}
-                @list(/* QNG */, $this->ping_wait) = @explode(' ', $data);
-                if ($this->ping_wait == 0) $this->ping_wait = 50;
+                //@list(/* QNG */, $this->ping_wait) = @explode(' ', $data);
+                //if ($this->ping_wait == 0) $this->ping_wait = 50;
                 //if (is_int($use_ping) && $use_ping > 0) $ping_wait = $use_ping;
                 //Mod by Ricky Set Online
                 break;
@@ -3682,31 +3675,100 @@ X-OIM-Sequence-Num: 1
         }
     }
     
-    public function SendMessage($Message, $To) {
-        if(!is_array($To))
-            $To=array($To);
-        $Receiver='';
-        foreach($To as $Email)
+    public function sendMessageViaSB($message, $to) {
+        $socket = $this->switchBoardSessions[$to]['socket'];
+        $lastActive = $this->switchBoardSessions[$to]['lastActive'];
+        $joined = $this->switchBoardSessions[$to]['joined'];
+        
+        //TODO Probably not needed (we're not running in a loop anymore)
+        /*if($this->kill_me)
         {
-            list($name,$host,$network)=explode('@',$Email);
-            $network=$network==''?1:$network;
-            if($network==1 && isset($this->switchBoardSessions[$Email]) ) {
-                $this->debug_message("*** SendMessage to $Receiver use SB message queue.");
-                array_push($this->SwitchBoardMessageQueue,$Message);
-                continue;
-            }
-            $Receiver.="$name@$host@$network,";
+            $this->log_message("*** SB Okay, kill me now!");
+            endSBSession($socket);
+        }*/
+        
+        if(!$Joined) {
+            // If our participant has not joined the session yet we can't message them!
+            //TODO Check the behaviour of the queue runner when we return false
+            return false;
         }
-        if($Receiver=='') return;
-        $Receiver=substr($Receiver,0,-1);
-        $this->debug_message("*** SendMessage to $Receiver use File queue.");
-        file_put_contents($FileName,"TO: $Receiver\n$Message\n");
+        
+        $aMessage = $this->getMessage($Message);
+        //CheckEmotion...
+        $MsnObjDefine=$this->GetMsnObjDefine($aMessage);
+        if($MsnObjDefine !== '')
+        {
+            $SendString="MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
+            $len = strlen($SendString);
+            $this->SB_writeln("MSG $id N $len");
+            $id++;
+            $this->SB_writedata($SendString);
+            $this->id++;
+        }
+        $len = strlen($aMessage);
+        $this->SB_writeln("MSG $id N $len");
+        
+        // Increment the trID
+        $this->switchBoardSessions[$to]['id']++;
+        
+        $this->SB_writedata($aMessage);
+        
+        if (feof($this->SBFp))
+        {
+            // lost connection? error? try OIM later
+            @fclose($this->SBFp);
+            //TODO introduce callback to add offline message to queue?
+            return false;
+        }
+        $this->SB_writeln("OUT");
+        @fclose($this->SBFp);
+        return true;
+    }
+    
+    //TODO Not sure if this is needed?
+    private function endSBSession($socket) {
+        if (feof($this->SBFp))
+        {
+            // lost connection? error? try OIM later
+            @fclose($this->SBFp);
+            return false;
+        }
+        $this->SB_writeln("OUT");
+        @fclose($this->SBFp);
+        return true;
+    }
+    
+    public function sendMessage($message, $to) {
+        if($message != '') {
+            list($name,$host,$network)=explode('@',$to);
+            $network=$network==''?1:$network;
+            
+            if($network === 1 && isset($this->switchBoardSessions[$to])) {
+                $recipient = $name . $host;
+                $this->debug_message("*** Sending Message to $recipient using existing SB session");
+                $this->sendMessageViaSB($message, $recipient);
+            } else {
+                $this->debug_message("*** Not MSN network or no existing SB session");
+                
+            }
+        }
+    }
+    
+    /**
+     * Sends a ping command
+     * 
+     * Should be called about every 50 seconds
+     */
+    public function send_ping() {
+        // NS: >>> PNG
+        $this->ns_writeln("PNG");
     }
     
     public function getNSSocket() {
         return $this->NSfp;
     }
     
+    // TODO Allow for multiple SB session sockets
     public function getSBSocket() {
         return $this->SBfp;
     }

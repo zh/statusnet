@@ -32,8 +32,12 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class MsnManager extends ImManager
 {
-
     public $conn = null;
+    
+    protected $lastping = null;
+    
+    const PING_INTERVAL = 50;
+    
     /**
      * Initialize connection to server.
      * @return boolean true on success
@@ -58,9 +62,21 @@ class MsnManager extends ImManager
             return array();
         }
     }
-
+    
     /**
-     * Process AIM events that have come in over the wire.
+     * Idle processing for io manager's execution loop.
+     * Send keepalive pings to server.
+     */
+    public function idle($timeout=0)
+    {
+        $now = time();
+        if (empty($this->lastping) || $now - $this->lastping > self::PING_INTERVAL) {
+            $this->send_ping();
+        }
+    }
+    
+    /**
+     * Process MSN events that have come in over the wire.
      * @param resource $socket
      */
     public function handleInput($socket)
@@ -83,10 +99,24 @@ class MsnManager extends ImManager
                         );
             $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
             $this->conn->signon();
+            $this->lastping = time();
         }
         return $this->conn;
     }
-
+    
+    function send_ping() {
+        $this->connect();
+        if (!$this->conn) {
+            return false;
+        }
+        
+        $now = time();
+        
+        $this->conn->send_ping();
+        $this->lastping = $now;
+        return true;
+    }
+    
     function handle_msn_message($data)
     {
         $this->plugin->enqueue_incoming_raw($data);
