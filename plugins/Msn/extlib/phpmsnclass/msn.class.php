@@ -108,6 +108,18 @@ class MSN {
     // for YIM: 518 bytes
     public $max_msn_message_len = 1664;
     public $max_yahoo_message_len = 518;
+    
+    // Begin added for StatusNet
+    
+    private $aContactList = array();
+    private $switchBoardSessions = array();
+    
+    /**
+    * Event Handler Functions
+    */
+    private $myEventHandlers = array();
+    
+    // End added for StatusNet
 
     private function Array2SoapVar($Array,$ReturnSoapVarObj=true,$TypeName=null,$TypeNameSpace=null)
     {
