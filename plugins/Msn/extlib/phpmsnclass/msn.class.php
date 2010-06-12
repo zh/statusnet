@@ -60,6 +60,7 @@ class MSN {
     private $ABAuthHeader;
     private $ABService;
     private $Contacts;
+    private $IgnoreList;
 
     public $server = 'messenger.hotmail.com';
     public $port = 1863;
@@ -107,18 +108,6 @@ class MSN {
     // for YIM: 518 bytes
     public $max_msn_message_len = 1664;
     public $max_yahoo_message_len = 518;
-    
-    // Begin added for StatusNet
-    
-    private $aContactList = array();
-    private $switchBoardSessions = array();
-    
-    /** 
-     * Event Handler Functions
-     */
-    private $myEventHandlers = array();
-    
-    // End added for StatusNet
 
     private function Array2SoapVar($Array,$ReturnSoapVarObj=true,$TypeName=null,$TypeNameSpace=null)
     {
@@ -158,6 +147,15 @@ class MSN {
         $this->log_message("*** someone kill me ***");
         $this->kill_me=true;
     }
+    private function IsIgnoreMail($Email)
+    {        
+        if($this->IgnoreList==false) return false;
+        foreach($this->IgnoreList as $Pattern)
+        {
+            if(preg_match($Pattern,$Email)) return true;
+        }
+        return false;
+    }
     public function __construct ($Configs=array(), $timeout = 15, $client_id = 0x7000800C)
     {
         $this->user = $Configs['user'];
@@ -171,6 +169,7 @@ class MSN {
         $this->backup_file = isset($Configs['backup_file']) ? $Configs['backup_file'] : true;
         $this->update_pending = isset($Configs['update_pending']) ? $Configs['update_pending'] : true;
         $this->PhotoStickerFile=$Configs['PhotoSticker'];
+        $this->IgnoreList=isset($Configs['IgnoreList'])?$Configs['IgnoreList']:false;
         if($this->Emotions = isset($Configs['Emotions']) ? $Configs['Emotions']:false)
         {
             foreach($this->Emotions as $EmotionFilePath)
@@ -532,99 +531,6 @@ class MSN {
         }
         $this->UpdateContacts();
         return true;
-
-
-        $ABContactAdd=new SoapParam($this->Array2SoapVar($ABContactAddArray),'ABContactAdd');
-
-        // add contact for WLM
-        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
-        $displayName = htmlspecialchars($display);
-        $user = $email;
-
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>CFE80F9D-180F-4399-82AB-413F33A1FA11</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>ContactSave</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <ABContactAdd xmlns="http://www.msn.com/webservices/AddressBook">
-        <abId>00000000-0000-0000-0000-000000000000</abId>
-        <contacts>
-            <Contact xmlns="http://www.msn.com/webservices/AddressBook">
-                <contactInfo>
-                    <contactType>LivePending</contactType>
-                    <passportName>'.$user.'</passportName>
-                    <isMessengerUser>true</isMessengerUser>
-                    <MessengerMemberInfo>
-                        <DisplayName>'.$displayName.'</DisplayName>
-                    </MessengerMemberInfo>
-                </contactInfo>
-            </Contact>
-        </contacts>
-        <options>
-            <EnableAllowListManagement>true</EnableAllowListManagement>
-        </options>
-    </ABContactAdd>
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->addcontact_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
-            );
-
-            $this->debug_message("*** URL: $this->addcontact_url");
-            $this->debug_message("*** Sending SOAP:\n$XML");
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_URL, $this->addcontact_url);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-            if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-            $data = curl_exec($curl);
-            $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            curl_close($curl);
-            $this->debug_message("*** Get Result:\n$data");
-
-            if ($http_code != 200) {
-                preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
-                if (count($matches) == 0) {
-                    $this->log_message("*** can't add contact (network: $network) $email");
-                    return false;
-                }
-                $faultcode = trim($matches[1]);
-                $faultstring = trim($matches[2]);
-                $this->log_message("*** can't add contact (network: $network) $email, error code: $faultcode, $faultstring");
-                return false;
-            }
-            $this->log_message("*** add contact (network: $network) $email");
-            if ($sendADL && !feof($this->NSfp)) {
-                @list($u_name, $u_domain) = @explode('@', $email);
-                foreach (array('1', '2') as $l) {
-                    $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="'.$l.'" t="'.$network.'" /></d></ml>';
-                    $len = strlen($str);
-                    // NS: >>> ADL {id} {size}
-                    $this->ns_writeln("ADL $this->id $len");
-                    $this->ns_writedata($str);
-                }
-            }
-            $this->UpdateContacts();
-            return true;
     }
 
     function delMemberFromList($memberID, $email, $network, $list) {
@@ -934,7 +840,7 @@ class MSN {
             $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
             $this->debug_message("*** Get Result:\n$data");
-            if(($http_code != 200)||(!$returnData)) return array();
+            if($http_code != 200) return array();
             $p = $data;
             $aMemberships = array();
             while (1) {
@@ -1562,7 +1468,7 @@ class MSN {
                 $start_tm = time();
                 $ping_tm = time();
                 stream_set_timeout($this->NSfp, $this->NSStreamTimeout);
-                    $aContactList = $this->getMembershipList(true);
+                    $aContactList = $this->getMembershipList();
                     if ($this->update_pending) {
                         if (is_array($aContactList)) {
                             $pending = 'Pending';
@@ -2102,6 +2008,11 @@ class MSN {
                     $this->log_message("NS: <<< RNG $data");
                     @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name, ) = @explode(' ', $data);
                     @list($sb_ip, $sb_port) = @explode(':', $server);
+                    if($this->IsIgnoreMail($email)) 
+                    {
+                     $this->log_message("*** Ignore RNG from $email");
+                     break;   
+                    }
                     $this->log_message("*** RING from $email, $sb_ip:$sb_port");
                     $this->addContact($email,1,$email, true);
                     $pid=pcntl_fork();
@@ -2132,7 +2043,7 @@ class MSN {
                     break;
 
                 default:
-                	$code = substr($data,0,3);
+                    $code = substr($data,0,3);
                     if (is_numeric($code)) {
                         $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
                         $this->debug_message("*** NS: $this->error");
@@ -2329,7 +2240,7 @@ class MSN {
                     $this->SB_writedata($aMessage);
                 }
                 $this->SwitchBoardMessageQueue=array();
-                $LastActive=time();
+                if(!$this->IsIgnoreMail($user)) $LastActive = time();
                 continue;
             }
             $code = substr($data, 0, 3);
@@ -2725,7 +2636,7 @@ class MSN {
                     }
                     break;
             }
-            $LastActive = time();
+            if(!$this->IsIgnoreMail($user)) $LastActive = time();
         }
         if (feof($this->SBFp))
         {
@@ -3089,7 +3000,7 @@ X-OIM-Sequence-Num: 1
         $start_tm = time();
         $ping_tm = time();
         stream_set_timeout($this->NSfp, $this->NSStreamTimeout);
-        $this->aContactList = $this->getMembershipList(true);
+        $this->aContactList = $this->getMembershipList();
         if ($this->update_pending) {
             if (is_array($this->aContactList)) {
                 $pending = 'Pending';
@@ -3182,7 +3093,7 @@ X-OIM-Sequence-Num: 1
         // NS: >>> CHG {id} {status} {clientid} {msnobj}
         $this->ns_writeln("CHG $this->id NLN $this->clientid");
         if($this->PhotoStickerFile!==false)
-        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+            $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
         // NS: >>> UUX {id} length
         $str = '<Data><PSM>'.htmlspecialchars($this->psm).'</PSM><CurrentMedia></CurrentMedia><MachineGuid></MachineGuid></Data>';
         $len = strlen($str);
@@ -3201,477 +3112,465 @@ X-OIM-Sequence-Num: 1
         }
         
         $data = $this->ns_readln();
-        /*if($data===false)
-        {
-            if(count($this->ChildProcess)<$this->MAXChildProcess)
+        if($data === false) {
+            // There was no data / an error when reading from the socket so reconnect
+            $this->signon();
+        } else {
+            switch (substr($data,0,3))
             {
-                $Index=0;
-                foreach($this->MessageQueue as $User => $Message)
-                {
-                    if(!trim($User)) continue;
-                    if($Inxdex>=$this->MAXChildProcess-count($this->ChildProcess)) break;
-                    if((!$Message['XFRSent'])||($Message['XFRSent']&&(time()-$this->MessageQueue[$User]['ReqTime']>$this->ReqSBXFRTimeout)))
-                    {
-                        $this->MessageQueue[$User]['XFRSent']=true;
-                        $this->MessageQueue[$User]['ReqTime']=time();
-                        $this->log_message("*** Request SB for $User");
-                        $this->ns_writeln("XFR $this->id SB");
-                        $Index++;
+                case 'SBS':
+                    // after 'USR {id} OK {user} {verify} 0' response, the server will send SBS and profile to us
+                    // NS: <<< SBS 0 null
+                    break;
+    
+                case 'RFS':
+                    // FIXME:
+                    // NS: <<< RFS ???
+                    // refresh ADL, so we re-send it again
+                    if (is_array($aADL)) {
+                        foreach ($aADL as $str) {
+                            $len = strlen($str);
+                            // NS: >>> ADL {id} {size}
+                            $this->ns_writeln("ADL $this->id $len");
+                            $this->ns_writedata($str);
+                        }
                     }
-                }
-            }
-            if($this->ProcessSendMessageFileQueue()) continue;
-            break;
-        }*/
-        switch (substr($data,0,3))
-        {
-            case 'SBS':
-                // after 'USR {id} OK {user} {verify} 0' response, the server will send SBS and profile to us
-                // NS: <<< SBS 0 null
-                break;
-
-            case 'RFS':
-                // FIXME:
-                // NS: <<< RFS ???
-                // refresh ADL, so we re-send it again
-                if (is_array($aADL)) {
-                    foreach ($aADL as $str) {
-                        $len = strlen($str);
-                        // NS: >>> ADL {id} {size}
-                        $this->ns_writeln("ADL $this->id $len");
-                        $this->ns_writedata($str);
+                    break;
+    
+                case 'LST':
+                    // NS: <<< LST {email} {alias} 11 0
+                    @list(/* LST */, $email, /* alias */, ) = @explode(' ', $data);
+                    @list($u_name, $u_domain) = @explode('@', $email);
+                    if (!isset($this->aContactList[$u_domain][$u_name][1])) {
+                        $this->aContactList[$u_domain][$u_name][1]['Allow'] = 'Allow';
+                        $this->log_message("*** add to our contact list: $u_name@$u_domain");
                     }
-                }
-                break;
-
-            case 'LST':
-                // NS: <<< LST {email} {alias} 11 0
-                @list(/* LST */, $email, /* alias */, ) = @explode(' ', $data);
-                @list($u_name, $u_domain) = @explode('@', $email);
-                if (!isset($this->aContactList[$u_domain][$u_name][1])) {
-                    $this->aContactList[$u_domain][$u_name][1]['Allow'] = 'Allow';
-                    $this->log_message("*** add to our contact list: $u_name@$u_domain");
-                }
-                break;
-
-            case 'ADL':
-                // randomly, we get ADL command, someome add us to their contact list for MSNP15
-                // NS: <<< ADL 0 {size}
-                @list(/* ADL */, /* 0 */, $size,) = @explode(' ', $data);
-                if (is_numeric($size) && $size > 0)
-                {
-                    $data = $this->ns_readdata($size);
-                    preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
-                    if (is_array($matches) && count($matches) > 0)
+                    break;
+    
+                case 'ADL':
+                    // randomly, we get ADL command, someome add us to their contact list for MSNP15
+                    // NS: <<< ADL 0 {size}
+                    @list(/* ADL */, /* 0 */, $size,) = @explode(' ', $data);
+                    if (is_numeric($size) && $size > 0)
                     {
-                        $u_domain = $matches[1];
-                        $u_name = $matches[2];
-                        $network = $matches[4];
-                        if (isset($this->aContactList[$u_domain][$u_name][$network]))
-                        $this->log_message("*** someone (network: $network) add us to their list (but already in our list): $u_name@$u_domain");
-                        else
+                        $data = $this->ns_readdata($size);
+                        preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
+                        if (is_array($matches) && count($matches) > 0)
                         {
-                            $re_login = false;
-                            $cnt = 0;
-                            foreach (array('Allow', 'Reverse') as $list)
+                            $u_domain = $matches[1];
+                            $u_name = $matches[2];
+                            $network = $matches[4];
+                            if (isset($this->aContactList[$u_domain][$u_name][$network]))
+                            $this->log_message("*** someone (network: $network) add us to their list (but already in our list): $u_name@$u_domain");
+                            else
                             {
-                                if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
+                                $re_login = false;
+                                $cnt = 0;
+                                foreach (array('Allow', 'Reverse') as $list)
                                 {
-                                    if ($re_login) {
-                                        $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
-                                        continue;
-                                    }
-                                    $aTickets = $this->get_passport_ticket();
-                                    if (!$aTickets || !is_array($aTickets)) {
-                                        // failed to login? ignore it
-                                        $this->log_message("*** can't re-login, something wrong here");
-                                        $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
-                                        continue;
-                                    }
-                                    $re_login = true;
-                                    $this->ticket = $aTickets;
-                                    $this->log_message("**** get new ticket, try it again");
                                     if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
                                     {
-                                        $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
-                                        continue;
+                                        if ($re_login) {
+                                            $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                            continue;
+                                        }
+                                        $aTickets = $this->get_passport_ticket();
+                                        if (!$aTickets || !is_array($aTickets)) {
+                                            // failed to login? ignore it
+                                            $this->log_message("*** can't re-login, something wrong here");
+                                            $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                            continue;
+                                        }
+                                        $re_login = true;
+                                        $this->ticket = $aTickets;
+                                        $this->log_message("**** get new ticket, try it again");
+                                        if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
+                                        {
+                                            $this->log_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                            continue;
+                                        }
                                     }
+                                    $this->aContactList[$u_domain][$u_name][$network][$list] = false;
+                                    $cnt++;
                                 }
-                                $this->aContactList[$u_domain][$u_name][$network][$list] = false;
-                                $cnt++;
+                                $this->log_message("*** someone (network: $network) add us to their list: $u_name@$u_domain");
                             }
-                            $this->log_message("*** someone (network: $network) add us to their list: $u_name@$u_domain");
-                        }
-                        $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="3" t="'.$network.'" /></d></ml>';
-                        $len = strlen($str);
-                    }
-                    else
-                    $this->log_message("*** someone add us to their list: $data");
-                    $this->AddUsToMemberList($u_name.'@'.$u_domain, $network);
-                }
-                break;
-
-            case 'RML':
-                // randomly, we get RML command, someome remove us to their contact list for MSNP15
-                // NS: <<< RML 0 {size}
-                @list(/* RML */, /* 0 */, $size,) = @explode(' ', $data);
-                if (is_numeric($size) && $size > 0)
-                {
-                    $data = $this->ns_readdata($size);
-                    preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
-                    if (is_array($matches) && count($matches) > 0)
-                    {
-                        $u_domain = $matches[1];
-                        $u_name = $matches[2];
-                        $network = $matches[4];
-                        if (isset($this->aContactList[$u_domain][$u_name][$network]))
-                        {
-                            $aData = $this->aContactList[$u_domain][$u_name][$network];
-                            foreach ($aData as $list => $id)
-                            $this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $list);
-                            unset($this->aContactList[$u_domain][$u_name][$network]);
-                            $this->log_message("*** someone (network: $network) remove us from their list: $u_name@$u_domain");
+                            $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="3" t="'.$network.'" /></d></ml>';
+                            $len = strlen($str);
                         }
                         else
-                        $this->log_message("*** someone (network: $network) remove us from their list (but not in our list): $u_name@$u_domain");
-                        $this->RemoveUsFromMemberList($u_name.'@'.$u_domain, $network);
+                        $this->log_message("*** someone add us to their list: $data");
+                        $this->AddUsToMemberList($u_name.'@'.$u_domain, $network);
                     }
-                    else
-                    $this->log_message("*** someone remove us from their list: $data");
-                }
-                break;
-
-            case 'MSG':
-                // randomly, we get MSG notification from server
-                // NS: <<< MSG Hotmail Hotmail {size}
-                @list(/* MSG */, /* Hotmail */, /* Hotmail */, $size,) = @explode(' ', $data);
-                if (is_numeric($size) && $size > 0) {
-                    $data = $this->ns_readdata($size);
-                    $aLines = @explode("\n", $data);
-                    $header = true;
-                    $ignore = false;
-                    $maildata = '';
-                    foreach ($aLines as $line) {
-                        $line = rtrim($line);
-                        if ($header) {
-                            if ($line === '') {
-                                $header = false;
+                    break;
+    
+                case 'RML':
+                    // randomly, we get RML command, someome remove us to their contact list for MSNP15
+                    // NS: <<< RML 0 {size}
+                    @list(/* RML */, /* 0 */, $size,) = @explode(' ', $data);
+                    if (is_numeric($size) && $size > 0)
+                    {
+                        $data = $this->ns_readdata($size);
+                        preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
+                        if (is_array($matches) && count($matches) > 0)
+                        {
+                            $u_domain = $matches[1];
+                            $u_name = $matches[2];
+                            $network = $matches[4];
+                            if (isset($this->aContactList[$u_domain][$u_name][$network]))
+                            {
+                                $aData = $this->aContactList[$u_domain][$u_name][$network];
+                                foreach ($aData as $list => $id)
+                                $this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $list);
+                                unset($this->aContactList[$u_domain][$u_name][$network]);
+                                $this->log_message("*** someone (network: $network) remove us from their list: $u_name@$u_domain");
+                            }
+                            else
+                            $this->log_message("*** someone (network: $network) remove us from their list (but not in our list): $u_name@$u_domain");
+                            $this->RemoveUsFromMemberList($u_name.'@'.$u_domain, $network);
+                        }
+                        else
+                        $this->log_message("*** someone remove us from their list: $data");
+                    }
+                    break;
+    
+                case 'MSG':
+                    // randomly, we get MSG notification from server
+                    // NS: <<< MSG Hotmail Hotmail {size}
+                    @list(/* MSG */, /* Hotmail */, /* Hotmail */, $size,) = @explode(' ', $data);
+                    if (is_numeric($size) && $size > 0) {
+                        $data = $this->ns_readdata($size);
+                        $aLines = @explode("\n", $data);
+                        $header = true;
+                        $ignore = false;
+                        $maildata = '';
+                        foreach ($aLines as $line) {
+                            $line = rtrim($line);
+                            if ($header) {
+                                if ($line === '') {
+                                    $header = false;
+                                    continue;
+                                }
+                                if (strncasecmp($line, 'Content-Type:', 13) == 0) {
+                                    if (strpos($line, 'text/x-msmsgsinitialmdatanotification') === false &&
+                                    strpos($line, 'text/x-msmsgsoimnotification') === false) {
+                                        // we just need text/x-msmsgsinitialmdatanotification
+                                        // or text/x-msmsgsoimnotification
+                                        $ignore = true;
+                                        break;
+                                    }
+                                }
                                 continue;
                             }
-                            if (strncasecmp($line, 'Content-Type:', 13) == 0) {
-                                if (strpos($line, 'text/x-msmsgsinitialmdatanotification') === false &&
-                                strpos($line, 'text/x-msmsgsoimnotification') === false) {
-                                    // we just need text/x-msmsgsinitialmdatanotification
-                                    // or text/x-msmsgsoimnotification
-                                    $ignore = true;
+                            if (strncasecmp($line, 'Mail-Data:', 10) == 0) {
+                                $maildata = trim(substr($line, 10));
+                                break;
+                            }
+                        }
+                        if ($ignore) {
+                            $this->log_message("*** ingnore MSG for: $line");
+                            break;
+                        }
+                        if ($maildata == '') {
+                            $this->log_message("*** ingnore MSG not for OIM");
+                            break;
+                        }
+                        $re_login = false;
+                        if (strcasecmp($maildata, 'too-large') == 0) {
+                            $this->log_message("*** large mail-data, need to get the data via SOAP");
+                            $maildata = $this->getOIM_maildata();
+                            if ($maildata === false) {
+                                $this->log_message("*** can't get mail-data via SOAP");
+                                // maybe we need to re-login again
+                                $aTickets = $this->get_passport_ticket();
+                                if (!$aTickets || !is_array($aTickets)) {
+                                    // failed to login? ignore it
+                                    $this->log_message("*** can't re-login, something wrong here, ignore this OIM");
+                                    break;
+                                }
+                                $re_login = true;
+                                $this->ticket = $aTickets;
+                                $this->log_message("**** get new ticket, try it again");
+                                $maildata = $this->getOIM_maildata();
+                                if ($maildata === false) {
+                                    $this->log_message("*** can't get mail-data via SOAP, and we already re-login again, so ignore this OIM");
                                     break;
                                 }
                             }
-                            continue;
                         }
-                        if (strncasecmp($line, 'Mail-Data:', 10) == 0) {
-                            $maildata = trim(substr($line, 10));
+                        // could be a lots of <M>...</M>, so we can't use preg_match here
+                        $p = $maildata;
+                        $aOIMs = array();
+                        while (1) {
+                            $start = strpos($p, '<M>');
+                            $end = strpos($p, '</M>');
+                            if ($start === false || $end === false || $start > $end) break;
+                            $end += 4;
+                            $sOIM = substr($p, $start, $end - $start);
+                            $aOIMs[] = $sOIM;
+                            $p = substr($p, $end);
+                        }
+                        if (count($aOIMs) == 0) {
+                            $this->log_message("*** ingnore empty OIM");
                             break;
                         }
-                    }
-                    if ($ignore) {
-                        $this->log_message("*** ingnore MSG for: $line");
-                        break;
-                    }
-                    if ($maildata == '') {
-                        $this->log_message("*** ingnore MSG not for OIM");
-                        break;
-                    }
-                    $re_login = false;
-                    if (strcasecmp($maildata, 'too-large') == 0) {
-                        $this->log_message("*** large mail-data, need to get the data via SOAP");
-                        $maildata = $this->getOIM_maildata();
-                        if ($maildata === false) {
-                            $this->log_message("*** can't get mail-data via SOAP");
-                            // maybe we need to re-login again
-                            $aTickets = $this->get_passport_ticket();
-                            if (!$aTickets || !is_array($aTickets)) {
-                                // failed to login? ignore it
-                                $this->log_message("*** can't re-login, something wrong here, ignore this OIM");
-                                break;
-                            }
-                            $re_login = true;
-                            $this->ticket = $aTickets;
-                            $this->log_message("**** get new ticket, try it again");
-                            $maildata = $this->getOIM_maildata();
-                            if ($maildata === false) {
-                                $this->log_message("*** can't get mail-data via SOAP, and we already re-login again, so ignore this OIM");
-                                break;
-                            }
-                        }
-                    }
-                    // could be a lots of <M>...</M>, so we can't use preg_match here
-                    $p = $maildata;
-                    $aOIMs = array();
-                    while (1) {
-                        $start = strpos($p, '<M>');
-                        $end = strpos($p, '</M>');
-                        if ($start === false || $end === false || $start > $end) break;
-                        $end += 4;
-                        $sOIM = substr($p, $start, $end - $start);
-                        $aOIMs[] = $sOIM;
-                        $p = substr($p, $end);
-                    }
-                    if (count($aOIMs) == 0) {
-                        $this->log_message("*** ingnore empty OIM");
-                        break;
-                    }
-                    foreach ($aOIMs as $maildata) {
-                        // T: 11 for MSN, 13 for Yahoo
-                        // S: 6 for MSN, 7 for Yahoo
-                        // RT: the datetime received by server
-                        // RS: already read or not
-                        // SZ: size of message
-                        // E: sender
-                        // I: msgid
-                        // F: always 00000000-0000-0000-0000-000000000009
-                        // N: sender alias
-                        preg_match('#<T>(.*)</T>#', $maildata, $matches);
-                        if (count($matches) == 0) {
-                            $this->log_message("*** ingnore OIM maildata without <T>type</T>");
-                            continue;
-                        }
-                        $oim_type = $matches[1];
-                        if ($oim_type = 13)
-                        $network = 32;
-                        else
-                        $network = 1;
-                        preg_match('#<E>(.*)</E>#', $maildata, $matches);
-                        if (count($matches) == 0) {
-                            $this->log_message("*** ingnore OIM maildata without <E>sender</E>");
-                            continue;
-                        }
-                        $oim_sender = $matches[1];
-                        preg_match('#<I>(.*)</I>#', $maildata, $matches);
-                        if (count($matches) == 0) {
-                            $this->log_message("*** ingnore OIM maildata without <I>msgid</I>");
-                            continue;
-                        }
-                        $oim_msgid = $matches[1];
-                        preg_match('#<SZ>(.*)</SZ>#', $maildata, $matches);
-                        $oim_size = (count($matches) == 0) ? 0 : $matches[1];
-                        preg_match('#<RT>(.*)</RT>#', $maildata, $matches);
-                        $oim_time = (count($matches) == 0) ? 0 : $matches[1];
-                        $this->log_message("*** You've OIM sent by $oim_sender, Time: $oim_time, MSGID: $oim_msgid, size: $oim_size");
-                        $sMsg = $this->getOIM_message($oim_msgid);
-                        if ($sMsg === false) {
-                            $this->log_message("*** can't get OIM, msgid = $oim_msgid");
-                            if ($re_login) {
-                                $this->log_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                        foreach ($aOIMs as $maildata) {
+                            // T: 11 for MSN, 13 for Yahoo
+                            // S: 6 for MSN, 7 for Yahoo
+                            // RT: the datetime received by server
+                            // RS: already read or not
+                            // SZ: size of message
+                            // E: sender
+                            // I: msgid
+                            // F: always 00000000-0000-0000-0000-000000000009
+                            // N: sender alias
+                            preg_match('#<T>(.*)</T>#', $maildata, $matches);
+                            if (count($matches) == 0) {
+                                $this->log_message("*** ingnore OIM maildata without <T>type</T>");
                                 continue;
                             }
-                            $aTickets = $this->get_passport_ticket();
-                            if (!$aTickets || !is_array($aTickets)) {
-                                // failed to login? ignore it
-                                $this->log_message("*** can't re-login, something wrong here, ignore this OIM");
+                            $oim_type = $matches[1];
+                            if ($oim_type = 13)
+                            $network = 32;
+                            else
+                            $network = 1;
+                            preg_match('#<E>(.*)</E>#', $maildata, $matches);
+                            if (count($matches) == 0) {
+                                $this->log_message("*** ingnore OIM maildata without <E>sender</E>");
                                 continue;
                             }
-                            $re_login = true;
-                            $this->ticket = $aTickets;
-                            $this->log_message("**** get new ticket, try it again");
+                            $oim_sender = $matches[1];
+                            preg_match('#<I>(.*)</I>#', $maildata, $matches);
+                            if (count($matches) == 0) {
+                                $this->log_message("*** ingnore OIM maildata without <I>msgid</I>");
+                                continue;
+                            }
+                            $oim_msgid = $matches[1];
+                            preg_match('#<SZ>(.*)</SZ>#', $maildata, $matches);
+                            $oim_size = (count($matches) == 0) ? 0 : $matches[1];
+                            preg_match('#<RT>(.*)</RT>#', $maildata, $matches);
+                            $oim_time = (count($matches) == 0) ? 0 : $matches[1];
+                            $this->log_message("*** You've OIM sent by $oim_sender, Time: $oim_time, MSGID: $oim_msgid, size: $oim_size");
                             $sMsg = $this->getOIM_message($oim_msgid);
                             if ($sMsg === false) {
-                                $this->log_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                                $this->log_message("*** can't get OIM, msgid = $oim_msgid");
+                                if ($re_login) {
+                                    $this->log_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                                    continue;
+                                }
+                                $aTickets = $this->get_passport_ticket();
+                                if (!$aTickets || !is_array($aTickets)) {
+                                    // failed to login? ignore it
+                                    $this->log_message("*** can't re-login, something wrong here, ignore this OIM");
+                                    continue;
+                                }
+                                $re_login = true;
+                                $this->ticket = $aTickets;
+                                $this->log_message("**** get new ticket, try it again");
+                                $sMsg = $this->getOIM_message($oim_msgid);
+                                if ($sMsg === false) {
+                                    $this->log_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                                    continue;
+                                }
+                            }
+                            $this->log_message("*** MSG (Offline) from $oim_sender (network: $network): $sMsg");
+    
+                            //$this->ReceivedMessage($oim_sender,$sMsg,$network,true);
+                            $this->callHandler('IMin', array('sender' => $oim_sender, 'message' => $sMsg, 'network' => $network, 'offline' => true));
+                        }
+                    }
+                    break;
+    
+                case 'UBM':
+                    // randomly, we get UBM, this is the message from other network, like Yahoo!
+                    // NS: <<< UBM {email} $network $type {size}
+                    @list(/* UBM */, $from_email, $network, $type, $size,) = @explode(' ', $data);
+                    if (is_numeric($size) && $size > 0)
+                    {
+                        $data = $this->ns_readdata($size);
+                        $aLines = @explode("\n", $data);
+                        $header = true;
+                        $ignore = false;
+                        $sMsg = '';
+                        foreach ($aLines as $line) {
+                            $line = rtrim($line);
+                            if ($header) {
+                                if ($line === '') {
+                                    $header = false;
+                                    continue;
+                                }
+                                if (strncasecmp($line, 'TypingUser:', 11) == 0) {
+                                    $ignore = true;
+                                    break;
+                                }
                                 continue;
+                            }
+                            $aSubLines = @explode("\r", $line);
+                            foreach ($aSubLines as $str) {
+                                if ($sMsg !== '')
+                                $sMsg .= "\n";
+                                $sMsg .= $str;
                             }
                         }
-                        $this->log_message("*** MSG (Offline) from $oim_sender (network: $network): $sMsg");
-
-                        //$this->ReceivedMessage($oim_sender,$sMsg,$network,true);
-                        $this->callHandler('IMin', array('sender' => $oim_sender, 'message' => $sMsg, 'network' => $network, 'offline' => true));
+                        if($ignore)
+                        {
+                            $this->log_message("*** ingnore from $from_email: $line");
+                            break;
+                        }
+                        $this->log_message("*** MSG from $from_email (network: $network): $sMsg");
+                        //$this->ReceivedMessage($from_email,$sMsg,$network,false);
+                        $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
                     }
-                }
-                break;
-
-            case 'UBM':
-                // randomly, we get UBM, this is the message from other network, like Yahoo!
-                // NS: <<< UBM {email} $network $type {size}
-                @list(/* UBM */, $from_email, $network, $type, $size,) = @explode(' ', $data);
-                if (is_numeric($size) && $size > 0)
-                {
-                    $data = $this->ns_readdata($size);
-                    $aLines = @explode("\n", $data);
-                    $header = true;
-                    $ignore = false;
-                    $sMsg = '';
-                    foreach ($aLines as $line) {
-                        $line = rtrim($line);
-                        if ($header) {
-                            if ($line === '') {
-                                $header = false;
-                                continue;
-                            }
-                            if (strncasecmp($line, 'TypingUser:', 11) == 0) {
-                                $ignore = true;
+                    break;
+    
+                case 'UBX':
+                    // randomly, we get UBX notification from server
+                    // NS: <<< UBX email {network} {size}
+                    @list(/* UBX */, /* email */, /* network */, $size,) = @explode(' ', $data);
+                    // we don't need the notification data, so just ignore it
+                    if (is_numeric($size) && $size > 0)
+                    $this->ns_readdata($size);
+                    break;
+    
+                case 'CHL':
+                    // randomly, we'll get challenge from server
+                    // NS: <<< CHL 0 {code}
+                    @list(/* CHL */, /* 0 */, $chl_code,) = @explode(' ', $data);
+                    $fingerprint = $this->getChallenge($chl_code);
+                    // NS: >>> QRY {id} {product_id} 32
+                    // NS: >>> fingerprint
+                    $this->ns_writeln("QRY $this->id $this->prod_id 32");
+                    $this->ns_writedata($fingerprint);
+                    $this->ns_writeln("CHG $this->id NLN $this->clientid");                    
+                    if($this->PhotoStickerFile!==false)
+                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                    break;
+                case 'CHG':
+                    // NS: <<< CHG {id} {status} {code}
+                    // ignore it
+                    // change our status to online first
+                    break;
+    
+                case 'XFR':
+                    // sometimes, NS will redirect to another NS
+                    // MSNP9
+                    // NS: <<< XFR {id} NS {server} 0 {server}
+                    // MSNP15
+                    // NS: <<< XFR {id} NS {server} U D
+                    // for normal switchboard XFR
+                    // NS: <<< XFR {id} SB {server} CKI {cki} U messenger.msn.com 0
+                    @list(/* XFR */, /* {id} */, $server_type, $server, /* CKI */, $cki_code, /* ... */) = @explode(' ', $data);
+                    @list($ip, $port) = @explode(':', $server);
+                    if ($server_type != 'SB') {
+                        // maybe exit?
+                        // this connection will close after XFR
+                        $this->NSLogout();
+                        continue;
+                    }
+                    if(count($this->MessageQueue))
+                    {
+                        foreach($this->MessageQueue as $User => $Message)
+                        {
+                            //$this->ChildProcess[$ChildPid]
+                            $this->log_message("*** XFR SB $User");
+                            $pid=pcntl_fork();
+                            if($pid)
+                            {
+                                //Parrent Process
+                                $this->ChildProcess[$pid]=$User;
                                 break;
                             }
-                            continue;
+                            elseif($pid==-1)
+                            {
+                                $this->log_message("*** Fork Error $User");
+                                break;
+                            }
+                            else
+                            {
+                                //Child Process
+                                $this->log_message("*** Child Process Start for $User");
+                                unset($Message['XFRSent']);
+                                unset($Message['ReqTime']);
+                                $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
+                                if ($bSBresult === false)
+                                {
+                                    // error for switchboard
+                                    $this->log_message("!!! error for sending message to ".$User);
+                                }
+                                die;
+                            }
                         }
-                        $aSubLines = @explode("\r", $line);
-                        foreach ($aSubLines as $str) {
-                            if ($sMsg !== '')
-                            $sMsg .= "\n";
-                            $sMsg .= $str;
-                        }
+                        unset($this->MessageQueue[$User]);
                     }
-                    if($ignore)
+                    /*
+                     $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $aMSNUsers[$nCurrentUser], $sMessage);
+                     if ($bSBresult === false) {
+                     // error for switchboard
+                     $this->log_message("!!! error for sending message to ".$aMSNUsers[$nCurrentUser]);
+                     $aOfflineUsers[] = $aMSNUsers[$nCurrentUser];
+                     }*/
+                    break;
+                case 'QNG':
+                    // NS: <<< QNG {time}
+                    //@list(/* QNG */, $this->ping_wait) = @explode(' ', $data);
+                    //if ($this->ping_wait == 0) $this->ping_wait = 50;
+                    //if (is_int($use_ping) && $use_ping > 0) $ping_wait = $use_ping;
+                    //Mod by Ricky Set Online
+                    break;
+    
+                case 'RNG':
+                    if($this->PhotoStickerFile!==false)
+                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                    else
+                    $this->ns_writeln("CHG $this->id NLN $this->clientid");
+                    // someone is trying to talk to us
+                    // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
+                    $this->log_message("NS: <<< RNG $data");
+                    @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name, ) = @explode(' ', $data);
+                    @list($sb_ip, $sb_port) = @explode(':', $server);
+                    if($this->IsIgnoreMail($email))
                     {
-                        $this->log_message("*** ingnore from $from_email: $line");
+                        $this->log_message("*** Ignore RNG from $email");
                         break;
                     }
-                    $this->log_message("*** MSG from $from_email (network: $network): $sMsg");
-                    //$this->ReceivedMessage($from_email,$sMsg,$network,false);
-                    $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
-                }
-                break;
-
-            case 'UBX':
-                // randomly, we get UBX notification from server
-                // NS: <<< UBX email {network} {size}
-                @list(/* UBX */, /* email */, /* network */, $size,) = @explode(' ', $data);
-                // we don't need the notification data, so just ignore it
-                if (is_numeric($size) && $size > 0)
-                $this->ns_readdata($size);
-                break;
-
-            case 'CHL':
-                // randomly, we'll get challenge from server
-                // NS: <<< CHL 0 {code}
-                @list(/* CHL */, /* 0 */, $chl_code,) = @explode(' ', $data);
-                $fingerprint = $this->getChallenge($chl_code);
-                // NS: >>> QRY {id} {product_id} 32
-                // NS: >>> fingerprint
-                $this->ns_writeln("QRY $this->id $this->prod_id 32");
-                $this->ns_writedata($fingerprint);
-                $this->ns_writeln("CHG $this->id NLN $this->clientid");                    
-                if($this->PhotoStickerFile!==false)
-                $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
-                break;
-            case 'CHG':
-                // NS: <<< CHG {id} {status} {code}
-                // ignore it
-                // change our status to online first
-                break;
-
-            case 'XFR':
-                // sometimes, NS will redirect to another NS
-                // MSNP9
-                // NS: <<< XFR {id} NS {server} 0 {server}
-                // MSNP15
-                // NS: <<< XFR {id} NS {server} U D
-                // for normal switchboard XFR
-                // NS: <<< XFR {id} SB {server} CKI {cki} U messenger.msn.com 0
-                @list(/* XFR */, /* {id} */, $server_type, $server, /* CKI */, $cki_code, /* ... */) = @explode(' ', $data);
-                @list($ip, $port) = @explode(':', $server);
-                if ($server_type != 'SB') {
-                    // maybe exit?
-                    // this connection will close after XFR
-                    $this->NSLogout();
-                    continue;
-                }
-                if(count($this->MessageQueue))
-                {
-                    foreach($this->MessageQueue as $User => $Message)
+                    $this->log_message("*** RING from $email, $sb_ip:$sb_port");
+                    $this->addContact($email,1,$email, true);
+                    $pid=pcntl_fork();
+                    if($pid)
                     {
-                        //$this->ChildProcess[$ChildPid]
-                        $this->log_message("*** XFR SB $User");
-                        $pid=pcntl_fork();
-                        if($pid)
-                        {
-                            //Parrent Process
-                            $this->ChildProcess[$pid]=$User;
-                            break;
-                        }
-                        elseif($pid==-1)
-                        {
-                            $this->log_message("*** Fork Error $User");
-                            break;
-                        }
-                        else
-                        {
-                            //Child Process
-                            $this->log_message("*** Child Process Start for $User");
-                            unset($Message['XFRSent']);
-                            unset($Message['ReqTime']);
-                            $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
-                            if ($bSBresult === false)
-                            {
-                                // error for switchboard
-                                $this->log_message("!!! error for sending message to ".$User);
-                            }
-                            die;
-                        }
+                        //Parrent Process
+                        $this->ChildProcess[$pid]='RNG';
+                        break;
                     }
-                    unset($this->MessageQueue[$User]);
-                }
-                /*
-                 $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $aMSNUsers[$nCurrentUser], $sMessage);
-                 if ($bSBresult === false) {
-                 // error for switchboard
-                 $this->log_message("!!! error for sending message to ".$aMSNUsers[$nCurrentUser]);
-                 $aOfflineUsers[] = $aMSNUsers[$nCurrentUser];
-                 }*/
-                break;
-            case 'QNG':
-                // NS: <<< QNG {time}
-                //@list(/* QNG */, $this->ping_wait) = @explode(' ', $data);
-                //if ($this->ping_wait == 0) $this->ping_wait = 50;
-                //if (is_int($use_ping) && $use_ping > 0) $ping_wait = $use_ping;
-                //Mod by Ricky Set Online
-                break;
-
-            case 'RNG':
-                if($this->PhotoStickerFile!==false)
-                $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
-                else
-                $this->ns_writeln("CHG $this->id NLN $this->clientid");
-                // someone is trying to talk to us
-                // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
-                $this->log_message("NS: <<< RNG $data");
-                @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name, ) = @explode(' ', $data);
-                @list($sb_ip, $sb_port) = @explode(':', $server);
-                $this->log_message("*** RING from $email, $sb_ip:$sb_port");
-                $this->addContact($email,1,$email, true);
-                $pid=pcntl_fork();
-                if($pid)
-                {
-                    //Parrent Process
-                    $this->ChildProcess[$pid]='RNG';
+                    elseif($pid==-1)
+                    {
+                        $this->log_message("*** Fork Error $User");
+                        break;
+                    }
+                    else
+                    {
+                        //Child Process
+                        $this->log_message("*** Ring Child Process Start for $User");
+                        $this->switchboard_ring($sb_ip, $sb_port, $sid, $ticket,$email);
+                        die;
+                    }
                     break;
-                }
-                elseif($pid==-1)
-                {
-                    $this->log_message("*** Fork Error $User");
-                    break;
-                }
-                else
-                {
-                    //Child Process
-                    $this->log_message("*** Ring Child Process Start for $User");
-                    $this->switchboard_ring($sb_ip, $sb_port, $sid, $ticket,$email);
-                    die;
-                }
-                break;
-            case 'OUT':
-                // force logout from NS
-                // NS: <<< OUT xxx
-                $this->log_message("*** LOGOUT from NS");
-                return $this->NsLogout();
-
-            default:
-                $code = substr($data,0,3);
-                if (is_numeric($code)) {
-                    $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
-                    $this->debug_message("*** NS: $this->error");
-
+                case 'OUT':
+                    // force logout from NS
+                    // NS: <<< OUT xxx
+                    $this->log_message("*** LOGOUT from NS");
                     return $this->NsLogout();
-                }
-                break;
+    
+                default:
+                    $code = substr($data,0,3);
+                    if (is_numeric($code)) {
+                        $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
+                        $this->debug_message("*** NS: $this->error");
+    
+                        return $this->NsLogout();
+                    }
+                    break;
+            }
         }
     }
     
@@ -3680,7 +3579,7 @@ X-OIM-Sequence-Num: 1
         $lastActive = $this->switchBoardSessions[$to]['lastActive'];
         $joined = $this->switchBoardSessions[$to]['joined'];
         
-        //TODO Probably not needed (we're not running in a loop anymore)
+        //FIXME Probably not needed (we're not running in a loop anymore)
         /*if($this->kill_me)
         {
             $this->log_message("*** SB Okay, kill me now!");
@@ -3725,7 +3624,7 @@ X-OIM-Sequence-Num: 1
         return true;
     }
     
-    //TODO Not sure if this is needed?
+    //FIXME Not sure if this is needed?
     private function endSBSession($socket) {
         if (feof($this->SBFp))
         {
@@ -3746,12 +3645,13 @@ X-OIM-Sequence-Num: 1
             if($network === 1 && isset($this->switchBoardSessions[$to])) {
                 $recipient = $name . $host;
                 $this->debug_message("*** Sending Message to $recipient using existing SB session");
-                $this->sendMessageViaSB($message, $recipient);
+                return $this->sendMessageViaSB($message, $recipient);
             } else {
                 $this->debug_message("*** Not MSN network or no existing SB session");
-                
+                //TODO implement creation of SB session etc
             }
         }
+        return true;
     }
     
     /**
