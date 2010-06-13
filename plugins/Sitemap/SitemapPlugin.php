@@ -71,6 +71,7 @@ class SitemapPlugin extends Plugin
         case 'SitemapindexAction':
         case 'NoticesitemapAction':
         case 'UsersitemapAction':
+        case 'SitemapadminpanelAction':
             require_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'SitemapAction':
@@ -124,6 +125,10 @@ class SitemapPlugin extends Plugin
                           'month' => '[01][0-9]',
                           'day' => '[0123][0-9]',
                           'index' => '[1-9][0-9]*'));
+
+        $m->connect('admin/sitemap',
+                    array('action' => 'sitemapadminpanel'));
+
         return true;
     }
 
@@ -197,6 +202,17 @@ class SitemapPlugin extends Plugin
                                                  null, false),
                                    new ColumnDef('modified', 'timestamp')));
 
+        return true;
+    }
+
+    function onEndAdminPanelNav($menu) {
+        if (AdminPanelAction::canAdmin('sitemap')) {
+            // TRANS: Menu item title/tooltip
+            $menu_title = _('Sitemap configuration');
+            // TRANS: Menu item for site administration
+            $menu->out->menuItem(common_local_url('sitemapadminpanel'), _('Sitemap'),
+                                 $menu_title, $action_name == 'sitemapadminpanel', 'nav_sitemap_admin_panel');
+        }
         return true;
     }
 }
