@@ -112,6 +112,7 @@ class MSN {
     // Begin added for StatusNet
     
     private $aContactList = array();
+    private $aADL = array();
     private $switchBoardSessions = array();
     
     /**
@@ -2172,9 +2173,9 @@ class MSN {
         $msg_header = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-MMS-IM-Format: FN=$this->font_fn; EF=$this->font_ef; CO=$this->font_co; CS=0; PF=22\r\n\r\n";
         $msg_header_len = strlen($msg_header);
         if ($network == 1)
-        $maxlen = $this->max_msn_message_len - $msg_header_len;
+            $maxlen = $this->max_msn_message_len - $msg_header_len;
         else
-        $maxlen = $this->max_yahoo_message_len - $msg_header_len;
+            $maxlen = $this->max_yahoo_message_len - $msg_header_len;
         $sMessage=str_replace("\r", '', $sMessage);
         $msg=substr($sMessage,0,$maxlen);
         return $msg_header.$msg;
@@ -3004,7 +3005,8 @@ X-OIM-Sequence-Num: 1
         while(!$this->connect($this->user, $this->password))
         {
             $this->log_message("!!! Can't connect to server: $this->error");
-            if(!$this->NSRetryWait($this->retry_wait)) return;
+            $this->callHandler('ConnectFailed', NULL);
+            $this->NSRetryWait($this->retry_wait);
         }
         $this->UpdateContacts();
         $this->LastPing=time();
@@ -3061,7 +3063,7 @@ X-OIM-Sequence-Num: 1
                 $str = '<d n="'.$u_domain.'">';
                 $len += strlen($str);
                 if ($len > 7400) {
-                    $aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+                    $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
                     $n++;
                     $sList = '';
                     $len = strlen($str);
@@ -3075,7 +3077,7 @@ X-OIM-Sequence-Num: 1
                         // so we use 7475
                         if ($len > 7475) {
                             $sList .= '</d>';
-                            $aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+                            $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
                             $n++;
                             $sList = '<d n="'.$u_domain.'">'.$str;
                             $len = strlen($sList);
@@ -3087,10 +3089,10 @@ X-OIM-Sequence-Num: 1
                 $sList .= '</d>';
             }
         }
-        $aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+        $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
         // NS: >>> BLP {id} BL
         $this->ns_writeln("BLP $this->id BL");
-        foreach ($aADL as $str) {
+        foreach ($this->aADL as $str) {
             $len = strlen($str);
             // NS: >>> ADL {id} {size}
             $this->ns_writeln("ADL $this->id $len");
@@ -3116,16 +3118,16 @@ X-OIM-Sequence-Num: 1
     public function NSreceive() {
         $this->log_message("*** startup ***");
         
-        $aADL = array();
-        
         // Sign in again if not signed in or socket failed
         if (!is_resource($this->NSfp) || feof($this->NSfp)) {
+            $this->callHandler('Reconnect', NULL);
             $this->signon();
         }
         
         $data = $this->ns_readln();
         if($data === false) {
             // There was no data / an error when reading from the socket so reconnect
+            $this->callHandler('Reconnect', NULL);
             $this->signon();
         } else {
             switch (substr($data,0,3))
@@ -3139,8 +3141,8 @@ X-OIM-Sequence-Num: 1
                     // FIXME:
                     // NS: <<< RFS ???
                     // refresh ADL, so we re-send it again
-                    if (is_array($aADL)) {
-                        foreach ($aADL as $str) {
+                    if (is_array($this->aADL)) {
+                        foreach ($this->aADL as $str) {
                             $len = strlen($str);
                             // NS: >>> ADL {id} {size}
                             $this->ns_writeln("ADL $this->id $len");
@@ -3701,8 +3703,6 @@ X-OIM-Sequence-Num: 1
     private function callHandler($event, $data) {
         if (isset($this->myEventHandlers[$event])) {
             call_user_func($this->myEventHandlers[$event], $data);
-        } else {
-            $this->noHandler($data);
         }
     }
     
@@ -3710,7 +3710,7 @@ X-OIM-Sequence-Num: 1
      * Registers a user handler
      * 
      * Handler List
-     * IMIn, Pong
+     * IMIn, Pong, ConnectFailed, Reconnect
      *
      * @param String $event Event name
      * @param String $handler User function to call

@@ -99,6 +99,8 @@ class MsnManager extends ImManager
                         );
             $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
             $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
+            $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
+            $this->conn->registerHandler('Reconnect', array($this, 'handle_reconnect'));
             $this->conn->signon();
             $this->lastping = time();
         }
@@ -130,6 +132,14 @@ class MsnManager extends ImManager
     {
         $this->plugin->enqueue_incoming_raw($data);
         return true;
+    }
+    
+    function handle_connect_failed($data) {
+        common_log(LOG_NOTICE, 'MSN connect failed, retrying');
+    }
+    
+    function handle_reconnect($data) {
+        common_log(LOG_NOTICE, 'MSN reconnecting');
     }
 
     function send_raw_message($data)
