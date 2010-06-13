@@ -1573,7 +1573,7 @@ class MSN {
                     // NS: >>> CHG {id} {status} {clientid} {msnobj}
                     $this->ns_writeln("CHG $this->id NLN $this->clientid");                    
                     if($this->PhotoStickerFile!==false)
-                     $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     // NS: >>> UUX {id} length
                     $str = '<Data><PSM>'.htmlspecialchars($this->psm).'</PSM><CurrentMedia></CurrentMedia><MachineGuid></MachineGuid></Data>';
                     $len = strlen($str);
@@ -1935,7 +1935,7 @@ class MSN {
                     $this->ns_writedata($fingerprint);
                     $this->ns_writeln("CHG $this->id NLN $this->clientid");                    
                     if($this->PhotoStickerFile!==false)
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     break;
                 case 'CHG':
                     // NS: <<< CHG {id} {status} {code}
@@ -2012,9 +2012,9 @@ class MSN {
 
                 case 'RNG':
                     if($this->PhotoStickerFile!==false)
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     else
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid");
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid");
                     // someone is trying to talk to us
                     // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
                     $this->log_message("NS: <<< RNG $data");
@@ -2022,8 +2022,8 @@ class MSN {
                     @list($sb_ip, $sb_port) = @explode(':', $server);
                     if($this->IsIgnoreMail($email)) 
                     {
-                     $this->log_message("*** Ignore RNG from $email");
-                     break;   
+                        $this->log_message("*** Ignore RNG from $email");
+                        break;
                     }
                     $this->log_message("*** RING from $email, $sb_ip:$sb_port");
                     $this->addContact($email,1,$email, true);
@@ -3455,7 +3455,7 @@ X-OIM-Sequence-Num: 1
                     $this->ns_writedata($fingerprint);
                     $this->ns_writeln("CHG $this->id NLN $this->clientid");                    
                     if($this->PhotoStickerFile!==false)
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     break;
                 case 'CHG':
                     // NS: <<< CHG {id} {status} {code}
@@ -3524,17 +3524,19 @@ X-OIM-Sequence-Num: 1
                     break;
                 case 'QNG':
                     // NS: <<< QNG {time}
-                    //@list(/* QNG */, $this->ping_wait) = @explode(' ', $data);
+                    @list(/* QNG */, $ping_wait) = @explode(' ', $data);
                     //if ($this->ping_wait == 0) $this->ping_wait = 50;
                     //if (is_int($use_ping) && $use_ping > 0) $ping_wait = $use_ping;
                     //Mod by Ricky Set Online
+                    
+                    $this->callHandler('Pong', $ping_wait);
                     break;
     
                 case 'RNG':
                     if($this->PhotoStickerFile!==false)
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     else
-                    $this->ns_writeln("CHG $this->id NLN $this->clientid");
+                        $this->ns_writeln("CHG $this->id NLN $this->clientid");
                     // someone is trying to talk to us
                     // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
                     $this->log_message("NS: <<< RNG $data");
@@ -3711,7 +3713,7 @@ X-OIM-Sequence-Num: 1
      * Registers a user handler
      * 
      * Handler List
-     * IMIn
+     * IMIn, Pong
      *
      * @param String $event Event name
      * @param String $handler User function to call

@@ -36,7 +36,7 @@ class MsnManager extends ImManager
     
     protected $lastping = null;
     
-    const PING_INTERVAL = 50;
+    private $pingInterval;
     
     /**
      * Initialize connection to server.
@@ -70,7 +70,7 @@ class MsnManager extends ImManager
     public function idle($timeout=0)
     {
         $now = time();
-        if (empty($this->lastping) || $now - $this->lastping > self::PING_INTERVAL) {
+        if (empty($this->lastping) || $now - $this->lastping > $pingInterval) {
             $this->send_ping();
         }
     }
@@ -98,6 +98,7 @@ class MsnManager extends ImManager
                                 )
                         );
             $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
+            $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
             $this->conn->signon();
             $this->lastping = time();
         }
@@ -115,6 +116,14 @@ class MsnManager extends ImManager
         $this->conn->send_ping();
         $this->lastping = $now;
         return true;
+    }
+    
+    /**
+     * Update the time till the next ping
+     * @param $data Time till next ping
+     */
+    function update_ping_time($data) {
+        $pingInterval = $data;
     }
     
     function handle_msn_message($data)
