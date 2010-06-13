@@ -128,6 +128,45 @@ class SitemapPlugin extends Plugin
     }
 
     /**
+     * Meta tags for "claiming" a site
+     *
+     * We add extra meta tags that search engines like Yahoo!, Google, and Bing
+     * require to let you claim your site.
+     *
+     * @param Action $action Action being executed
+     *
+     * @return boolean hook value.
+     */
+
+    function onStartShowHeadElements($action)
+    {
+        $actionName = $action->trimmed('action');
+
+        $singleUser = common_config('singleuser', 'enabled');
+
+        // Different "top" pages if it's single user or not
+
+        if (($singleUser && $actionName == 'showstream') ||
+            (!$singleUser && $actionName == 'public')) {
+
+            $keys = array('googlekey' => 'google-site-verification',
+                          'yahookey' => 'y_key',
+                          'bingkey' => 'msvalidate.01'); // XXX: is this the same for all sites?
+
+            foreach ($keys as $config => $metaname) {
+                $content = common_config('sitemap', $config);
+
+                if (!empty($content)) {
+                    $action->element('meta', array('name' => $metaname,
+                                                   'content' => $content));
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
      * Database schema setup
      *
      * We cache some data persistently to avoid overlong queries.
