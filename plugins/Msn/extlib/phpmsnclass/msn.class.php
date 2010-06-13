@@ -180,7 +180,7 @@ class MSN {
         $this->retry_wait = isset($Configs['retry_wait']) ? $Configs['retry_wait'] : 30;
         $this->backup_file = isset($Configs['backup_file']) ? $Configs['backup_file'] : true;
         $this->update_pending = isset($Configs['update_pending']) ? $Configs['update_pending'] : true;
-        $this->PhotoStickerFile=$Configs['PhotoSticker'];
+        $this->PhotoStickerFile=isset($Configs['PhotoSticker']) ? $Configs['PhotoSticker'] : false;
         $this->IgnoreList=isset($Configs['IgnoreList'])?$Configs['IgnoreList']:false;
         if($this->Emotions = isset($Configs['Emotions']) ? $Configs['Emotions']:false)
         {
@@ -3626,15 +3626,8 @@ X-OIM-Sequence-Num: 1
         
         $this->SB_writedata($aMessage);
         
-        if (feof($this->SBFp))
-        {
-            // lost connection? error? try OIM later
-            @fclose($this->SBFp);
-            //TODO introduce callback to add offline message to queue?
-            return false;
-        }
-        $this->SB_writeln("OUT");
-        @fclose($this->SBFp);
+        // Don't close the SB session, we might as well leave it open
+        
         return true;
     }
     
@@ -3649,6 +3642,10 @@ X-OIM-Sequence-Num: 1
         $this->SB_writeln("OUT");
         @fclose($this->SBFp);
         return true;
+    }
+    
+    private function getSBSession($to) {
+        
     }
     
     public function sendMessage($message, $to) {

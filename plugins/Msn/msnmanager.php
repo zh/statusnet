@@ -139,6 +139,10 @@ class MsnManager extends ImManager
             return false;
         }
         $this->conn->sflapSend($data[0],$data[1],$data[2],$data[3]);
+        
+        // Sending a command updates the time till next ping
+        $this->lastping = time();
+        $this->pingInterval = 50;
         return true;
     }
 }
