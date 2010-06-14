@@ -3,7 +3,7 @@
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2009, StatusNet, Inc.
  *
- * Send and receive notices using the AIM network
+ * Send and receive notices using the MSN network
  *
  * PHP version 5
  *
@@ -22,8 +22,8 @@
  *
  * @category  IM
  * @package   StatusNet
- * @author    Craig Andrews <candrews@integralblue.com>
- * @copyright 2009 StatusNet, Inc.
+ * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com>
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
@@ -33,46 +33,64 @@ if (!defined('STATUSNET')) {
     // your code file can't be executed directly from the web.
     exit(1);
 }
-// We bundle the phptoclib library...
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/phptoclib');
+// We bundle the phpmsnclass library...
+set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/phpmsnclass');
 
 /**
- * Plugin for AIM
+ * Plugin for MSN
  *
  * @category  Plugin
  * @package   StatusNet
- * @author    Craig Andrews <candrews@integralblue.com>
- * @copyright 2009 StatusNet, Inc.
+ * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com>
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-class MsnPlugin extends ImPlugin
-{
-    public $user =  null;
+class MsnPlugin extends ImPlugin {
+    public $user = null;
     public $password = null;
-    public $publicFeed = array();
-
+    public $nickname = null;
     public $transport = 'msnim';
 
-    function getDisplayName()
-    {
+    /**
+     * Get the internationalized/translated display name of this IM service
+     *
+     * @return string Name of service
+     */
+    function getDisplayName() {
         return _m('MSN');
     }
 
-    function normalize($screenname)
-    {
+    /**
+     * Normalize a screenname for comparison
+     *
+     * @param string $screenname screenname to normalize
+     * @return string an equivalent screenname in normalized form
+     */
+    function normalize($screenname) {
 		$screenname = str_replace(" ","", $screenname);
         return strtolower($screenname);
     }
 
-    function daemon_screenname()
-    {
+    /**
+     * Get the screenname of the daemon that sends and receives messages
+     *
+     * @return string Screenname
+     */
+    function daemon_screenname() {
         return $this->user;
     }
 
-    function validate($screenname)
-    {
+    /**
+     * Validate (ensure the validity of) a screenname
+     *
+     * @param string $screenname screenname to validate
+     *
+     * @return boolean
+     */
+    function validate($screenname) {
+        //TODO Correct this for MSN screennames
         if(preg_match('/^[a-z]\w{2,15}$/i', $screenname)) {
             return true;
         }else{
@@ -87,80 +105,80 @@ class MsnPlugin extends ImPlugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-    function onAutoload($cls)
-    {
+    public function onAutoload($cls) {
         $dir = dirname(__FILE__);
 
-        switch ($cls)
-        {
-        case 'Msn':
-            require_once(INSTALLDIR.'/plugins/Msn/extlib/phpmsnclass/msn.class.php');
-            return false;
-        case 'MsnManager':
-            include_once $dir . '/'.strtolower($cls).'.php';
-            return false;
-        case 'Fake_Msn':
-            include_once $dir . '/'. $cls .'.php';
-            return false;
-        default:
-            return true;
+        switch ($cls) {
+            case 'Msn':
+                require_once(INSTALLDIR.'/plugins/Msn/extlib/phpmsnclass/msn.class.php');
+                return false;
+            case 'MsnManager':
+                include_once $dir . '/'.strtolower($cls).'.php';
+                return false;
+            default:
+                return true;
         }
     }
 
-    function onStartImDaemonIoManagers(&$classes)
-    {
+    public function onStartImDaemonIoManagers(&$classes) {
         parent::onStartImDaemonIoManagers(&$classes);
         $classes[] = new MsnManager($this); // handles sending/receiving
         return true;
     }
 
-    function microiduri($screenname)
-    {
-        return 'msnim:' . $screenname;    
+    /**
+    * Get a microid URI for the given screenname
+    *
+    * @param string $screenname
+    * @return string microid URI
+    */
+    public function microiduri($screenname) {
+        return 'msnim:' . $screenname;
     }
 
-    function send_message($screenname, $body)
-    {
-        //$this->fake_aim->sendIm($screenname, $body);
-	    //$this->enqueue_outgoing_raw($this->fake_aim->would_be_sent);
-	    $this->enqueue_outgoing_raw(array($screenname, $body));
+    /**
+     * Send a message to a given screenname
+     *
+     * @param string $screenname Screenname to send to
+     * @param string $body Text to send
+     * @return boolean success value
+     */
+    public function send_message($screenname, $body) {
+	    $this->enqueue_outgoing_raw(array('to' => $screenname, 'message' => $body));
         return true;
     }
 
     /**
      * Accept a queued input message.
      *
+     * @param array $data Data
      * @return true if processing completed, false if message should be reprocessed
      */
-    function receive_raw_message($message)
-    {
-        $info=Aim::getMessageInfo($message);
-        $from = $info['from'];
-        $user = $this->get_user($from);
-        $notice_text = $info['message'];
+    public function receive_raw_message($data) {
+        $this->handle_incoming($data['sender'], $data['message']);
+        return true;
+    }
 
-        $this->handle_incoming($from, $notice_text);
+    /**
+    * Initialize plugin
+    *
+    * @return void
+    */
+    public function initialize() {
+        if (!isset($this->user)) {
+            throw new Exception("Must specify a user");
+        }
+        if (!isset($this->password)) {
+            throw new Exception("Must specify a password");
+        }
+        if (!isset($this->nickname)) {
+            throw new Exception("Must specify a nickname");
+        }
 
         return true;
     }
 
-    function initialize(){
-        if(!isset($this->user)){
-            throw new Exception("must specify a user");
-        }
-        if(!isset($this->password)){
-            throw new Exception("must specify a password");
-        }
-        if(!isset($this->nickname)) {
-            throw new Exception("must specify a nickname");
-        }
-
-        $this->fake_msn = new Fake_Msn($this->user,$this->password,4);
-        return true;
-    }
-
-    function onPluginVersion(&$versions)
-    {
+    function onPluginVersion(&$versions) {
         $versions[] = array('name' => 'MSN',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Luke Fitzgerald',

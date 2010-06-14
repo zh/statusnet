@@ -20,83 +20,86 @@
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 /**
- * AIM background connection manager for AIM-using queue handlers,
+ * MSN background connection manager for MSN-using queue handlers,
  * allowing them to send outgoing messages on the right connection.
  *
  * Input is handled during socket select loop, keepalive pings during idle.
  * Any incoming messages will be handled.
  *
  * In a multi-site queuedaemon.php run, one connection will be instantiated
- * for each site being handled by the current process that has XMPP enabled.
+ * for each site being handled by the current process that has MSN enabled.
  */
 
-class MsnManager extends ImManager
-{
+class MsnManager extends ImManager {
     public $conn = null;
-    
-    protected $lastping = null;
-    
+    private $lastping = null;
     private $pingInterval;
-    
+
     /**
-     * Initialize connection to server.
+     * Initialise connection to server.
+     *
      * @return boolean true on success
      */
-    public function start($master)
-    {
-        if(parent::start($master))
-        {
+    public function start($master) {
+        if (parent::start($master)) {
             $this->connect();
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public function getSockets()
-    {
+    /**
+    * Return any open sockets that the run loop should listen
+    * for input on.
+    *
+    * @return array Array of socket resources
+    */
+    public function getSockets() {
         $this->connect();
-        if($this->conn){
+        if ($this->conn) {
             return $this->conn->getSockets();
-        }else{
+        } else {
             return array();
         }
     }
-    
+
     /**
      * Idle processing for io manager's execution loop.
      * Send keepalive pings to server.
+     *
+     * @return void
      */
-    public function idle($timeout=0)
-    {
-        $now = time();
-        if (empty($this->lastping) || $now - $this->lastping > $pingInterval) {
+    public function idle($timeout = 0) {
+        if (empty($this->lastping) || time() - $this->lastping > $this->pingInterval) {
             $this->send_ping();
         }
     }
-    
+
     /**
      * Process MSN events that have come in over the wire.
-     * @param resource $socket
+     *
+     * @param resource $socket Socket ready
+     * @return void
      */
-    public function handleInput($socket)
-    {
-        common_log(LOG_DEBUG, "Servicing the MSN queue.");
+    public function handleInput($socket) {
+        common_log(LOG_DEBUG, 'Servicing the MSN queue.');
         $this->stats('msn_process');
         $this->conn->receive();
     }
 
-    function connect()
-    {
+    /**
+    * Initiate connection
+    *
+    * @return void
+    */
+    function connect() {
         if (!$this->conn) {
-            $this->conn=new MSN(array(
-                                      'user' => $this->plugin->user,
-                                      'password' => $this->plugin->password,
-                                      'alias' => $this->plugin->nickname,
-                                      'psm' => 'Send me a message to post a notice',
-                                      'debug' => true
-                                )
-                        );
+            $this->conn = new MSN(array('user' => $this->plugin->user,
+                                        'password' => $this->plugin->password,
+                                        'alias' => $this->plugin->nickname,
+                                        'psm' => 'Send me a message to post a notice',
+                                        'debug' => true));
             $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
             $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
             $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
@@ -106,50 +109,72 @@ class MsnManager extends ImManager
         }
         return $this->conn;
     }
-    
-    function send_ping() {
+
+    /**
+    * Called by the idle process to send a ping
+    * when necessary
+    *
+    * @return void
+    */
+    private function send_ping() {
         $this->connect();
         if (!$this->conn) {
             return false;
         }
-        
-        $now = time();
-        
+
         $this->conn->sendPing();
-        $this->lastping = $now;
+        $this->lastping = time();
         return true;
     }
-    
+
     /**
      * Update the time till the next ping
      * @param $data Time till next ping
      */
-    function update_ping_time($data) {
+    private function update_ping_time($data) {
         $pingInterval = $data;
     }
-    
-    function handle_msn_message($data)
-    {
+
+    /**
+    * Called via a callback when a message is received
+    *
+    * Passes it back to the queuing system
+    *
+    * @param array $data Data
+    */
+    private function handle_msn_message($data) {
         $this->plugin->enqueue_incoming_raw($data);
         return true;
     }
-    
+
+    /**
+    * Called by callback to log failure during connect
+    *
+    * @param void $data Not used (there to keep callback happy)
+    */
     function handle_connect_failed($data) {
         common_log(LOG_NOTICE, 'MSN connect failed, retrying');
     }
-    
+
+    /**
+    * Called by callback to log reconnection
+    *
+    * @param void $data Not used (there to keep callback happy)
+    */
     function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');
     }
 
-    function send_raw_message($data)
-    {
+    function send_raw_message($data) {
         $this->connect();
         if (!$this->conn) {
             return false;
         }
-        $this->conn->sflapSend($data[0],$data[1],$data[2],$data[3]);
-        
+
+        if (!$this->conn->sendMessage($data['to'], $data['message'])) {
+            return false;
+        }
+
         // Sending a command updates the time till next ping
         $this->lastping = time();
         $this->pingInterval = 50;
