@@ -139,6 +139,7 @@ class MSN {
         }        
         $this->debug = isset($Configs['debug']) ? $Configs['debug'] : false;
         $this->timeout = $timeout;
+        
         // check support
         if (!function_exists('curl_init')) throw new Exception("We need curl module!\n");
         if (!function_exists('preg_match')) throw new Exception("We need pcre module!\n");
@@ -1089,123 +1090,131 @@ class MSN {
      */
     public function signon() {
         $this->log_message("*** try to connect to MSN network");
-        while(!$this->connect($this->user, $this->password))
-        {
-            $this->signonFailed("!!! Can't connect to server: $this->error");
-        }
-        if(!$this->UpdateContacts()) {
-            $this->signonFailed('!!! Could not update contacts');
-            return $this->signon();
-        }
-        $this->LastPing=time();
-        $this->log_message("*** connected, wait for command");
-        $start_tm = time();
-        $ping_tm = time();
-        if(($this->aContactList = $this->getMembershipList()) === false) {
-            $this->signonFailed('!!! Could not get Membership List');
-            return $this->signon();
-        }
-        if ($this->update_pending) {
-            if (is_array($this->aContactList)) {
-                $pending = 'Pending';
-                foreach ($this->aContactList as $u_domain => $aUserList) {
-                    foreach ($aUserList as $u_name => $aNetworks) {
-                        foreach ($aNetworks as $network => $aData) {
-                            if (isset($aData[$pending])) {
-                                // pending list
-                                $cnt = 0;
-                                foreach (array('Allow', 'Reverse') as $list) {
-                                    if (isset($aData[$list]))
-                                        $cnt++;
-                                    else {
-                                        if ($this->addMemberToList($u_name.'@'.$u_domain, $network, $list)) {
-                                            $this->aContactList[$u_domain][$u_name][$network][$list] = false;
+        
+        while(true) {
+            while(!$this->connect($this->user, $this->password))
+            {
+                $this->signonFailure("!!! Can't connect to server: $this->error");
+            }
+            if($this->UpdateContacts() === false) {
+                $this->signonFailure('!!! Update Contacts failed');
+                continue;
+            }
+            $this->LastPing=time();
+            $this->log_message("*** connected, wait for command");
+            $start_tm = time();
+            $ping_tm = time();
+            if(($this->aContactList = $this->getMembershipList()) === false) {
+                continue;
+            }
+            if ($this->update_pending) {
+                if (is_array($this->aContactList)) {
+                    $pending = 'Pending';
+                    foreach ($this->aContactList as $u_domain => $aUserList) {
+                        foreach ($aUserList as $u_name => $aNetworks) {
+                            foreach ($aNetworks as $network => $aData) {
+                                if (isset($aData[$pending])) {
+                                    // pending list
+                                    $cnt = 0;
+                                    foreach (array('Allow', 'Reverse') as $list) {
+                                        if (isset($aData[$list]))
                                             $cnt++;
+                                        else {
+                                            if ($this->addMemberToList($u_name.'@'.$u_domain, $network, $list)) {
+                                                $this->aContactList[$u_domain][$u_name][$network][$list] = false;
+                                                $cnt++;
+                                            }
+                                        }
+                                    }
+                                    if ($cnt >= 2) {
+                                        $id = $aData[$pending];
+                                        // we can delete it from pending now
+                                        if ($this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $pending))
+                                            unset($this->aContactList[$u_domain][$u_name][$network][$pending]);
+                                    }
+                                }
+                                else {
+                                    // sync list
+                                    foreach (array('Allow', 'Reverse') as $list) {
+                                        if (!isset($aData[$list])) {
+                                            if ($this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
+                                                $this->aContactList[$u_domain][$u_name][$network][$list] = false;
                                         }
                                     }
                                 }
-                                if ($cnt >= 2) {
-                                    $id = $aData[$pending];
-                                    // we can delete it from pending now
-                                    if ($this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $pending))
-                                        unset($this->aContactList[$u_domain][$u_name][$network][$pending]);
-                                }
-                            }
-                            else {
-                                // sync list
-                                foreach (array('Allow', 'Reverse') as $list) {
-                                    if (!isset($aData[$list])) {
-                                        if ($this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
-                                            $this->aContactList[$u_domain][$u_name][$network][$list] = false;
-                                    }
-                                }
                             }
                         }
                     }
                 }
             }
-        }
-        $n = 0;
-        $sList = '';
-        $len = 0;
-        if (is_array($this->aContactList)) {
-            foreach ($this->aContactList as $u_domain => $aUserList) {
-                $str = '<d n="'.$u_domain.'">';
-                $len += strlen($str);
-                if ($len > 7400) {
-                    $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
-                    $n++;
-                    $sList = '';
-                    $len = strlen($str);
-                }
-                $sList .= $str;
-                foreach ($aUserList as $u_name => $aNetworks) {
-                    foreach ($aNetworks as $network => $status) {
-                        $str = '<c n="'.$u_name.'" l="3" t="'.$network.'" />';
-                        $len += strlen($str);
-                        // max: 7500, but <ml l="1"></d></ml> is 19,
-                        // so we use 7475
-                        if ($len > 7475) {
-                            $sList .= '</d>';
-                            $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
-                            $n++;
-                            $sList = '<d n="'.$u_domain.'">'.$str;
-                            $len = strlen($sList);
-                        }
-                        else
-                            $sList .= $str;
+            $n = 0;
+            $sList = '';
+            $len = 0;
+            if (is_array($this->aContactList)) {
+                foreach ($this->aContactList as $u_domain => $aUserList) {
+                    $str = '<d n="'.$u_domain.'">';
+                    $len += strlen($str);
+                    if ($len > 7400) {
+                        $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+                        $n++;
+                        $sList = '';
+                        $len = strlen($str);
                     }
+                    $sList .= $str;
+                    foreach ($aUserList as $u_name => $aNetworks) {
+                        foreach ($aNetworks as $network => $status) {
+                            $str = '<c n="'.$u_name.'" l="3" t="'.$network.'" />';
+                            $len += strlen($str);
+                            // max: 7500, but <ml l="1"></d></ml> is 19,
+                            // so we use 7475
+                            if ($len > 7475) {
+                                $sList .= '</d>';
+                                $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+                                $n++;
+                                $sList = '<d n="'.$u_domain.'">'.$str;
+                                $len = strlen($sList);
+                            }
+                            else
+                                $sList .= $str;
+                        }
+                    }
+                    $sList .= '</d>';
                 }
-                $sList .= '</d>';
             }
-        }
-        $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
-        // NS: >>> BLP {id} BL
-        $this->ns_writeln("BLP $this->id BL");
-        foreach ($this->aADL as $str) {
+            $this->aADL[$n] = '<ml l="1">'.$sList.'</ml>';
+            // NS: >>> BLP {id} BL
+            $this->ns_writeln("BLP $this->id BL");
+            foreach ($this->aADL as $str) {
+                $len = strlen($str);
+                // NS: >>> ADL {id} {size}
+                $this->ns_writeln("ADL $this->id $len");
+                $this->ns_writedata($str);
+            }
+            // NS: >>> PRP {id} MFN name
+            if ($this->alias == '') $this->alias = $user;
+            $aliasname = rawurlencode($this->alias);
+            $this->ns_writeln("PRP $this->id MFN $aliasname");
+            //設定個人大頭貼
+            //$MsnObj=$this->PhotoStckObj();
+            // NS: >>> CHG {id} {status} {clientid} {msnobj}
+            $this->ns_writeln("CHG $this->id NLN $this->clientid");
+            if($this->PhotoStickerFile!==false)
+                $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
+            // NS: >>> UUX {id} length
+            $str = '<Data><PSM>'.htmlspecialchars($this->psm).'</PSM><CurrentMedia></CurrentMedia><MachineGuid></MachineGuid></Data>';
             $len = strlen($str);
-            // NS: >>> ADL {id} {size}
-            $this->ns_writeln("ADL $this->id $len");
+            $this->ns_writeln("UUX $this->id $len");
             $this->ns_writedata($str);
+            break;
         }
-        // NS: >>> PRP {id} MFN name
-        if ($this->alias == '') $this->alias = $user;
-        $aliasname = rawurlencode($this->alias);
-        $this->ns_writeln("PRP $this->id MFN $aliasname");
-        //設定個人大頭貼
-        //$MsnObj=$this->PhotoStckObj();
-        // NS: >>> CHG {id} {status} {clientid} {msnobj}
-        $this->ns_writeln("CHG $this->id NLN $this->clientid");
-        if($this->PhotoStickerFile!==false)
-            $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
-        // NS: >>> UUX {id} length
-        $str = '<Data><PSM>'.htmlspecialchars($this->psm).'</PSM><CurrentMedia></CurrentMedia><MachineGuid></MachineGuid></Data>';
-        $len = strlen($str);
-        $this->ns_writeln("UUX $this->id $len");
-        $this->ns_writedata($str);
     }
     
-    private function signonFailed($message) {
+    /**
+    * Called if there is an error during signon
+    * 
+    * @param $message Error message to log
+    */
+    private function signonFailure($message) {
         $this->log_message($message);
         $this->callHandler('ConnectFailed', NULL);
         $this->NSRetryWait($this->retry_wait);
