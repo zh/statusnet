@@ -1097,7 +1097,7 @@ class MSN {
                 $this->signonFailure("!!! Can't connect to server: $this->error");
             }
             if($this->UpdateContacts() === false) {
-                $this->signonFailure('!!! Update Contacts failed');
+                $this->signonFailure('!!! Update contacts failed');
                 continue;
             }
             $this->LastPing=time();
@@ -1105,6 +1105,7 @@ class MSN {
             $start_tm = time();
             $ping_tm = time();
             if(($this->aContactList = $this->getMembershipList()) === false) {
+                $this->signonFailure('!!! Get Membership list failed');
                 continue;
             }
             if ($this->update_pending) {
