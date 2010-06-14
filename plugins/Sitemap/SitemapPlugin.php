@@ -71,6 +71,7 @@ class SitemapPlugin extends Plugin
         case 'SitemapindexAction':
         case 'NoticesitemapAction':
         case 'UsersitemapAction':
+        case 'SitemapadminpanelAction':
             require_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'SitemapAction':
@@ -124,6 +125,49 @@ class SitemapPlugin extends Plugin
                           'month' => '[01][0-9]',
                           'day' => '[0123][0-9]',
                           'index' => '[1-9][0-9]*'));
+
+        $m->connect('admin/sitemap',
+                    array('action' => 'sitemapadminpanel'));
+
+        return true;
+    }
+
+    /**
+     * Meta tags for "claiming" a site
+     *
+     * We add extra meta tags that search engines like Yahoo!, Google, and Bing
+     * require to let you claim your site.
+     *
+     * @param Action $action Action being executed
+     *
+     * @return boolean hook value.
+     */
+
+    function onStartShowHeadElements($action)
+    {
+        $actionName = $action->trimmed('action');
+
+        $singleUser = common_config('singleuser', 'enabled');
+
+        // Different "top" pages if it's single user or not
+
+        if (($singleUser && $actionName == 'showstream') ||
+            (!$singleUser && $actionName == 'public')) {
+
+            $keys = array('googlekey' => 'google-site-verification',
+                          'yahookey' => 'y_key',
+                          'bingkey' => 'msvalidate.01'); // XXX: is this the same for all sites?
+
+            foreach ($keys as $config => $metaname) {
+                $content = common_config('sitemap', $config);
+
+                if (!empty($content)) {
+                    $action->element('meta', array('name' => $metaname,
+                                                   'content' => $content));
+                }
+            }
+        }
+
         return true;
     }
 
@@ -158,6 +202,17 @@ class SitemapPlugin extends Plugin
                                                  null, false),
                                    new ColumnDef('modified', 'timestamp')));
 
+        return true;
+    }
+
+    function onEndAdminPanelNav($menu) {
+        if (AdminPanelAction::canAdmin('sitemap')) {
+            // TRANS: Menu item title/tooltip
+            $menu_title = _('Sitemap configuration');
+            // TRANS: Menu item for site administration
+            $menu->out->menuItem(common_local_url('sitemapadminpanel'), _('Sitemap'),
+                                 $menu_title, $action_name == 'sitemapadminpanel', 'nav_sitemap_admin_panel');
+        }
         return true;
     }
 }
