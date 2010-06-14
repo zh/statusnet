@@ -170,4 +170,3 @@ class MsnPlugin extends ImPlugin
         return true;
     }
 }
-

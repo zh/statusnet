@@ -115,7 +115,7 @@ class MsnManager extends ImManager
         
         $now = time();
         
-        $this->conn->send_ping();
+        $this->conn->sendPing();
         $this->lastping = $now;
         return true;
     }
