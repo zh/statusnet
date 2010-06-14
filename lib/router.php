@@ -263,7 +263,7 @@ class Router
             $m->connect('tag', array('action' => 'publictagcloud'));
             $m->connect('tag/:tag/rss',
                         array('action' => 'tagrss'),
-                        array('tag' => '[a-zA-Z0-9]+'));
+                        array('tag' => '[\pL\pN_\-\.]{1,64}'));
             $m->connect('tag/:tag',
                         array('action' => 'tag'),
                         array('tag' => '[\pL\pN_\-\.]{1,64}'));
@@ -749,12 +749,12 @@ class Router
                 $m->connect('tag/:tag/rss',
                             array('action' => 'userrss',
                                   'nickname' => $nickname),
-                            array('tag' => '[a-zA-Z0-9]+'));
+                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
                 $m->connect('tag/:tag',
                             array('action' => 'showstream',
                                   'nickname' => $nickname),
-                            array('tag' => '[a-zA-Z0-9]+'));
+                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
                 $m->connect('rsd.xml',
                             array('action' => 'rsd',
@@ -815,12 +815,12 @@ class Router
                 $m->connect(':nickname/tag/:tag/rss',
                             array('action' => 'userrss'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'),
-                            array('tag' => '[a-zA-Z0-9]+'));
+                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
                 $m->connect(':nickname/tag/:tag',
                             array('action' => 'showstream'),
                             array('nickname' => '[a-zA-Z0-9]{1,64}'),
-                            array('tag' => '[a-zA-Z0-9]+'));
+                            array('tag' => '[\pL\pN_\-\.]{1,64}'));
 
                 $m->connect(':nickname/rsd.xml',
                             array('action' => 'rsd'),
