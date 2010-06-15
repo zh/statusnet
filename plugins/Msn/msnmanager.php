@@ -146,6 +146,7 @@ class MsnManager extends ImManager {
     * Passes it back to the queuing system
     *
     * @param array $data Data
+    * @return void
     */
     private function handle_msn_message($data) {
         $this->plugin->enqueue_incoming_raw($data);
@@ -156,6 +157,7 @@ class MsnManager extends ImManager {
     * Called by callback to log failure during connect
     *
     * @param void $data Not used (there to keep callback happy)
+    * @return void
     */
     function handle_connect_failed($data) {
         common_log(LOG_NOTICE, 'MSN connect failed, retrying');
@@ -165,6 +167,7 @@ class MsnManager extends ImManager {
     * Called by callback to log reconnection
     *
     * @param void $data Not used (there to keep callback happy)
+    * @return void
     */
     function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');

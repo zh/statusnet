@@ -58,7 +58,7 @@ class MsnPlugin extends ImPlugin {
      *
      * @return string Name of service
      */
-    function getDisplayName() {
+    public function getDisplayName() {
         return _m('MSN');
     }
 
@@ -68,7 +68,7 @@ class MsnPlugin extends ImPlugin {
      * @param string $screenname screenname to normalize
      * @return string an equivalent screenname in normalized form
      */
-    function normalize($screenname) {
+    public function normalize($screenname) {
 		$screenname = str_replace(" ","", $screenname);
         return strtolower($screenname);
     }
@@ -78,7 +78,7 @@ class MsnPlugin extends ImPlugin {
      *
      * @return string Screenname
      */
-    function daemon_screenname() {
+    public function daemon_screenname() {
         return $this->user;
     }
 
@@ -86,20 +86,21 @@ class MsnPlugin extends ImPlugin {
      * Validate (ensure the validity of) a screenname
      *
      * @param string $screenname screenname to validate
-     *
      * @return boolean
      */
-    function validate($screenname) {
-        //TODO Correct this for MSN screennames
-        //if(preg_match('/^[a-z]\w{2,15}$/i', $screenname)) {
-        return true;
+    public function validate($screenname) {
+        // RFC 2822 (simplified) regexp
+        if(preg_match('/[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i', $screenname)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
      * Load related modules when needed
      *
      * @param string $cls Name of the class to be loaded
-     *
      * @return boolean hook value; true means continue processing, false means stop.
      */
     public function onAutoload($cls) {
@@ -159,7 +160,7 @@ class MsnPlugin extends ImPlugin {
     /**
     * Initialize plugin
     *
-    * @return void
+    * @return boolean
     */
     public function initialize() {
         if (!isset($this->user)) {
@@ -175,7 +176,13 @@ class MsnPlugin extends ImPlugin {
         return true;
     }
 
-    function onPluginVersion(&$versions) {
+    /**
+     * Get plugin information
+     * 
+     * @param array $versions array to insert information into
+     * @return void
+     */
+    public function onPluginVersion(&$versions) {
         $versions[] = array(
             'name' => 'MSN',
             'version' => STATUSNET_VERSION,
