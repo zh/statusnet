@@ -91,11 +91,8 @@ class MsnPlugin extends ImPlugin {
      */
     function validate($screenname) {
         //TODO Correct this for MSN screennames
-        if(preg_match('/^[a-z]\w{2,15}$/i', $screenname)) {
-            return true;
-        }else{
-            return false;
-        }
+        //if(preg_match('/^[a-z]\w{2,15}$/i', $screenname)) {
+        return true;
     }
 
     /**
@@ -109,7 +106,7 @@ class MsnPlugin extends ImPlugin {
         $dir = dirname(__FILE__);
 
         switch ($cls) {
-            case 'Msn':
+            case 'MSN':
                 require_once(INSTALLDIR.'/plugins/Msn/extlib/phpmsnclass/msn.class.php');
                 return false;
             case 'MsnManager':
@@ -179,12 +176,14 @@ class MsnPlugin extends ImPlugin {
     }
 
     function onPluginVersion(&$versions) {
-        $versions[] = array('name' => 'MSN',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Luke Fitzgerald',
-                            'homepage' => 'http://status.net/wiki/Plugin:MSN',
-                            'rawdescription' =>
-                            _m('The MSN plugin allows users to send and receive notices over the MSN network.'));
+        $versions[] = array(
+            'name' => 'MSN',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Luke Fitzgerald',
+            'homepage' => 'http://status.net/wiki/Plugin:MSN',
+            'rawdescription' =>
+            _m('The MSN plugin allows users to send and receive notices over the MSN network.')
+        );
         return true;
     }
 }

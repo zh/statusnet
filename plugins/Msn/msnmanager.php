@@ -95,11 +95,15 @@ class MsnManager extends ImManager {
     */
     function connect() {
         if (!$this->conn) {
-            $this->conn = new MSN(array('user' => $this->plugin->user,
-                                        'password' => $this->plugin->password,
-                                        'alias' => $this->plugin->nickname,
-                                        'psm' => 'Send me a message to post a notice',
-                                        'debug' => true));
+            $this->conn = new MSN(
+                array(
+                    'user' => $this->plugin->user,
+                    'password' => $this->plugin->password,
+                    'alias' => $this->plugin->nickname,
+                    'psm' => 'Send me a message to post a notice',
+                    'debug' => true
+                )
+            );
             $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
             $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
             $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
@@ -124,6 +128,7 @@ class MsnManager extends ImManager {
 
         $this->conn->sendPing();
         $this->lastping = time();
+        $this->pingInterval = 50;
         return true;
     }
 

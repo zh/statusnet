@@ -37,7 +37,7 @@ class MSN {
     private $update_pending;
     private $PhotoStickerFile=false;
     private $Emotions=false;
-    private $ReqSBXFRTimeout=60;
+    private $XFRReqTimeout=60;
     private $LastPing;
     private $ping_wait=50;
     private $SBIdleTimeout=10;
@@ -47,7 +47,6 @@ class MSN {
     private $ABAuthHeader;
     private $ABService;
     private $Contacts;
-    private $IgnoreList;
 
     private $server = 'messenger.hotmail.com';
     private $port = 1863;
@@ -81,10 +80,6 @@ class MSN {
 
     public $oim_try = 3;
 
-    public $log_file = '';
-
-    public $log_path = false;
-
     public $font_fn = 'Arial';
     public $font_co = '333333';
     public $font_ef = '';
@@ -100,8 +95,27 @@ class MSN {
 
     private $aContactList = array();
     private $aADL = array();
+
+    /**
+    * Holds session information indexed by screenname if
+    * session has no socket or socket if socket present
+    *
+    * @var array
+    */
     private $switchBoardSessions = array();
-    private $switchBoardSockets = array();
+
+    /**
+    * Holds sockets indexed by screenname
+    *
+    * @var array
+    */
+    private $switchBoardSessionLookup = array();
+
+    /**
+    * Holds references to sessions waiting for XFR
+    *
+    * @var array
+    */
     private $waitingForXFR = array();
 
     /**
@@ -127,8 +141,7 @@ class MSN {
     * @param integer $client_id Client id (hexadecimal)
     * @return MSN
     */
-    public function __construct ($Configs=array(), $timeout = 15, $client_id = 0x7000800C)
-    {
+    public function __construct ($Configs=array(), $timeout = 15, $client_id = 0x7000800C) {
         $this->user = $Configs['user'];
         $this->password = $Configs['password'];
         $this->alias = isset($Configs['alias']) ? $Configs['alias'] : '';
@@ -137,7 +150,7 @@ class MSN {
         $this->update_pending = isset($Configs['update_pending']) ? $Configs['update_pending'] : true;
         $this->PhotoStickerFile=isset($Configs['PhotoSticker']) ? $Configs['PhotoSticker'] : false;
 
-        if($this->Emotions = isset($Configs['Emotions']) ? $Configs['Emotions']:false) {
+        if ($this->Emotions = isset($Configs['Emotions']) ? $Configs['Emotions']:false) {
             foreach($this->Emotions as $EmotionFilePath)
                 $this->MsnObj($EmotionFilePath,$Type=2);
         }
@@ -169,36 +182,31 @@ class MSN {
         $this->ABService=new SoapClient(realpath(dirname(__FILE__)).'/soap/msnab_sharingservice.wsdl',array('trace' => 1));
     }
 
-    private function Array2SoapVar($Array,$ReturnSoapVarObj=true,$TypeName=null,$TypeNameSpace=null)
-    {
-        $ArrayString='';
-        foreach($Array as $Key => $Val)
-        {
-            if($Key{0}==':') continue;
-            $Attrib='';
-            if(is_array($Val[':']))
-            {
-                foreach($Val[':'] as $AttribName => $AttribVal)
-                $Attrib.=" $AttribName='$AttribVal'";
+    private function Array2SoapVar($Array, $ReturnSoapVarObj = true, $TypeName = null, $TypeNameSpace = null) {
+        $ArrayString = '';
+        foreach($Array as $Key => $Val) {
+            if ($Key{0} == ':') continue;
+            $Attrib = '';
+            if (is_array($Val[':'])) {
+                foreach ($Val[':'] as $AttribName => $AttribVal)
+                $Attrib .= " $AttribName='$AttribVal'";
             }
-            if($Key{0}=='!')
-            {
+            if ($Key{0} == '!') {
                 //List Type Define
-                $Key=substr($Key,1);
-                foreach($Val as $ListKey => $ListVal)
-                {
-                    if($ListKey{0}==':') continue;
-                    if(is_array($ListVal)) $ListVal=$this->Array2SoapVar($ListVal,false);
-                    elseif(is_bool($ListVal)) $ListVal=$ListVal?'true':'false';
-                    $ArrayString.="<$Key$Attrib>$ListVal</$Key>";
+                $Key = substr($Key,1);
+                foreach ($Val as $ListKey => $ListVal) {
+                    if ($ListKey{0} == ':') continue;
+                    if (is_array($ListVal)) $ListVal = $this->Array2SoapVar($ListVal, false);
+                    elseif (is_bool($ListVal)) $ListVal = $ListVal ? 'true' : 'false';
+                    $ArrayString .= "<$Key$Attrib>$ListVal</$Key>";
                 }
                 continue;
             }
-            if(is_array($Val)) $Val=$this->Array2SoapVar($Val,false);
-            elseif(is_bool($Val)) $Val=$Val?'true':'false';
-            $ArrayString.="<$Key$Attrib>$Val</$Key>";
+            if (is_array($Val)) $Val = $this->Array2SoapVar($Val, false);
+            elseif (is_bool($Val)) $Val = $Val ? 'true' : 'false';
+            $ArrayString .= "<$Key$Attrib>$Val</$Key>";
         }
-        if($ReturnSoapVarObj) return new SoapVar($ArrayString,XSD_ANYXML,$TypeName,$TypeNameSpace);
+        if ($ReturnSoapVarObj) return new SoapVar($ArrayString, XSD_ANYXML, $TypeName, $TypeNameSpace);
         return $ArrayString;
     }
 
@@ -208,8 +216,7 @@ class MSN {
     * @param string $url URL string (Optional)
     * @return mixed Array of tickets or false on failure
     */
-    private function get_passport_ticket($url = '')
-    {
+    private function get_passport_ticket($url = '') {
         $user = $this->user;
         $password = htmlspecialchars($this->password);
 
@@ -310,8 +317,8 @@ class MSN {
 </Body>
 </Envelope>';
 
-        $this->debug_message("*** URL: $passport_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $passport_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $passport_url);
         if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
@@ -323,33 +330,33 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200) {
-            // sometimes, rediret to another URL
+            // sometimes, redirect to another URL
             // MSNP15
             //<faultcode>psf:Redirect</faultcode>
             //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
             //<faultstring>Authentication Failure</faultstring>
             if (strpos($data, '<faultcode>psf:Redirect</faultcode>') === false) {
-                $this->debug_message("*** Can't get passport ticket! http code = $http_code");
+                $this->debug_message("*** Could not get passport ticket! http code = $http_code");
                 return false;
             }
             preg_match("#<psf\:redirectUrl>(.*)</psf\:redirectUrl>#", $data, $matches);
             if (count($matches) == 0) {
-                $this->debug_message("*** redirect, but can't get redirect URL!");
+                $this->debug_message('*** Redirected, but could not get redirect URL!');
                 return false;
             }
             $redirect_url = $matches[1];
             if ($redirect_url == $passport_url) {
-                $this->debug_message("*** redirect, but redirect to same URL!");
+                $this->debug_message('*** Redirected, but to same URL!');
                 return false;
             }
-            $this->debug_message("*** redirect to $redirect_url");
+            $this->debug_message("*** Redirected to $redirect_url");
             return $this->get_passport_ticket($redirect_url);
         }
 
-        // sometimes, rediret to another URL, also return 200
+        // sometimes, redirect to another URL, also return 200
         // MSNP15
         //<faultcode>psf:Redirect</faultcode>
         //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
@@ -359,10 +366,10 @@ class MSN {
             if (count($matches) != 0) {
                 $redirect_url = $matches[1];
                 if ($redirect_url == $passport_url) {
-                    $this->debug_message("*** redirect, but redirect to same URL!");
+                    $this->debug_message('*** Redirected, but to same URL!');
                     return false;
                 }
-                $this->debug_message("*** redirect to $redirect_url");
+                $this->debug_message("*** Redirected to $redirect_url");
                 return $this->get_passport_ticket($redirect_url);
             }
         }
@@ -397,7 +404,7 @@ class MSN {
 
         // no ticket found!
         if (count($matches) == 0) {
-            $this->debug_message("*** Can't get passport ticket!");
+            $this->debug_message('*** Could not get passport ticket!');
             return false;
         }
 
@@ -437,94 +444,100 @@ class MSN {
             'space_ticket' => html_entity_decode($matches[11]),
             'storage_ticket' => html_entity_decode($matches[13])
         );
-        $this->ticket=$aTickets;
-        $this->debug_message(var_export($aTickets, true));
-        $ABAuthHeaderArray=array(
-            'ABAuthHeader'=>array(
-                ':'=>array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                'ManagedGroupRequest'=>false,
-                'TicketToken'=>htmlspecialchars($this->ticket['contact_ticket']),
+        $this->ticket = $aTickets;
+        //$this->debug_message(var_export($aTickets, true));
+        $ABAuthHeaderArray = array(
+            'ABAuthHeader' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'ManagedGroupRequest' => false,
+                'TicketToken' => htmlspecialchars($this->ticket['contact_ticket']),
             )
         );
-        $this->ABAuthHeader=new SoapHeader("http://www.msn.com/webservices/AddressBook","ABAuthHeader", $this->Array2SoapVar($ABAuthHeaderArray));
+        $this->ABAuthHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABAuthHeader', $this->Array2SoapVar($ABAuthHeaderArray));
         return $aTickets;
     }
 
-    private function UpdateContacts()
-    {
-        $ABApplicationHeaderArray=array(
-            'ABApplicationHeader'=>array(
-                ':'=>array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                'ApplicationId'=>'CFE80F9D-180F-4399-82AB-413F33A1FA11',
-                'IsMigration'=>false,
-                'PartnerScenario'=>'ContactSave'
+    /**
+    * Fetch contact list
+    *
+    * @return boolean true on success
+    */
+    private function UpdateContacts() {
+        $ABApplicationHeaderArray = array(
+            'ABApplicationHeader' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'ApplicationId' => 'CFE80F9D-180F-4399-82AB-413F33A1FA11',
+                'IsMigration' => false,
+                'PartnerScenario' => 'ContactSave'
              )
         );
 
-        $ABApplicationHeader=new SoapHeader("http://www.msn.com/webservices/AddressBook",'ABApplicationHeader', $this->Array2SoapVar($ABApplicationHeaderArray));
-        $ABFindAllArray=array(
-            'ABFindAll'=>array(
-                ':'=>array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                'abId'=>'00000000-0000-0000-0000-000000000000',
-                'abView'=>'Full',
-                'lastChange'=>'0001-01-01T00:00:00.0000000-08:00',
+        $ABApplicationHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABApplicationHeader', $this->Array2SoapVar($ABApplicationHeaderArray));
+        $ABFindAllArray = array(
+            'ABFindAll' => array(
+                ':' => array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
+                'abId' => '00000000-0000-0000-0000-000000000000',
+                'abView' => 'Full',
+                'lastChange' => '0001-01-01T00:00:00.0000000-08:00',
             )
         );
-        $ABFindAll=new SoapParam($this->Array2SoapVar($ABFindAllArray),'ABFindAll');
-        $this->ABService->__setSoapHeaders(array($ABApplicationHeader,$this->ABAuthHeader));
-        $this->Contacts=array();
-        try
-        {
-            $this->debug_message("*** Update Contacts...");
-            $Result=$this->ABService->ABFindAll($ABFindAll);
-            $this->debug_message("*** Result:\n".print_r($Result,true)."\n".$this->ABService->__getLastResponse());
+        $ABFindAll = new SoapParam($this->Array2SoapVar($ABFindAllArray), 'ABFindAll');
+        $this->ABService->__setSoapHeaders(array($ABApplicationHeader, $this->ABAuthHeader));
+        $this->Contacts = array();
+        try {
+            $this->debug_message('*** Updating Contacts...');
+            $Result = $this->ABService->ABFindAll($ABFindAll);
+            $this->debug_message("*** Result:\n".print_r($Result, true)."\n".$this->ABService->__getLastResponse());
             foreach($Result->ABFindAllResult->contacts->Contact as $Contact)
-                $this->Contacts[$Contact->contactInfo->passportName]=$Contact;
-        }
-        catch(Exception $e)
-        {
+                $this->Contacts[$Contact->contactInfo->passportName] = $Contact;
+        } catch(Exception $e) {
             $this->debug_message("*** Update Contacts Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
             return false;
         }
         return true;
     }
 
-    private function addContact($email, $network, $display = '', $sendADL = false)
-    {
+    /**
+    * Add contact
+    *
+    * @param string $email
+    * @param integer $network
+    * @param string $display
+    * @param boolean $sendADL
+    * @return boolean true on success
+    */
+    private function addContact($email, $network, $display = '', $sendADL = false) {
         if ($network != 1) return true;
-        if(isset($this->Contacts[$email])) return true;
+        if (isset($this->Contacts[$email])) return true;
 
-        $ABContactAddArray=array(
-            'ABContactAdd'=>array(
-                ':'=>array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                'abId'=>'00000000-0000-0000-0000-000000000000',
-                'contacts'=>array(
-                    'Contact'=>array(
-                        ':'=>array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                        'contactInfo'=>array(
-                            'contactType'=>'LivePending',
-                            'passportName'=>$email,
-                            'isMessengerUser'=>true,
-                            'MessengerMemberInfo'=>array(
-                                'DisplayName'=>$email
+        $ABContactAddArray = array(
+            'ABContactAdd' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'abId' => '00000000-0000-0000-0000-000000000000',
+                'contacts' => array(
+                    'Contact' => array(
+                        ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                        'contactInfo' => array(
+                            'contactType' => 'LivePending',
+                            'passportName' => $email,
+                            'isMessengerUser' => true,
+                            'MessengerMemberInfo' => array(
+                                'DisplayName' => $email
                             )
                         )
                     )
                 ),
-                'options'=>array(
-                    'EnableAllowListManagement'=>true
+                'options' => array(
+                    'EnableAllowListManagement' => true
                 )
             )
         );
-        $ABContactAdd=new SoapParam($this->Array2SoapVar($ABContactAddArray),'ABContactAdd');
-        try
-        {
-            $this->debug_message("*** Add Contacts $email...");
+        $ABContactAdd = new SoapParam($this->Array2SoapVar($ABContactAddArray), 'ABContactAdd');
+        try {
+            $this->debug_message("*** Adding Contact $email...");
             $this->ABService->ABContactAdd($ABContactAdd);
-        }
-        catch(Exception $e)
-        {
-            $this->debug_message("*** Add Contacts Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
+        } catch(Exception $e) {
+            $this->debug_message("*** Add Contact Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
             return false;
         }
         if ($sendADL && !feof($this->NSfp)) {
@@ -533,6 +546,7 @@ class MSN {
                 $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="'.$l.'" t="'.$network.'" /></d></ml>';
                 $len = strlen($str);
                 // NS: >>> ADL {id} {size}
+                //TODO introduce error checking
                 $this->ns_writeln("ADL $this->id $len");
                 $this->ns_writedata($str);
             }
@@ -541,8 +555,15 @@ class MSN {
         return true;
     }
 
-    function delMemberFromList($memberID, $email, $network, $list)
-    {
+    /**
+    * Remove contact from list
+    *
+    * @param integer $memberID
+    * @param string $email
+    * @param integer $network
+    * @param string $list
+    */
+    function delMemberFromList($memberID, $email, $network, $list) {
         if ($network != 1 && $network != 32) return true;
         if ($memberID === false) return true;
         $user = $email;
@@ -632,8 +653,8 @@ class MSN {
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
 
-        $this->debug_message("*** URL: $this->delmember_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->delmember_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->delmember_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -646,29 +667,35 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200) {
             preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
             if (count($matches) == 0) {
-                $this->debug_message("*** can't delete member (network: $network) $email ($memberID) to $list");
+                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list");
                 return false;
             }
             $faultcode = trim($matches[1]);
             $faultstring = trim($matches[2]);
             if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member does not exist') === false) {
-                $this->debug_message("*** can't delete member (network: $network) $email ($memberID) to $list, error code: $faultcode, $faultstring");
+                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, error code: $faultcode, $faultstring");
                 return false;
             }
-            $this->debug_message("*** delete member (network: $network) $email ($memberID) from $list, not exist");
+            $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, not present in list");
             return true;
         }
-        $this->debug_message("*** delete member (network: $network) $email ($memberID) from $list");
+        $this->debug_message("*** Member successfully deleted (network: $network) $email ($memberID) from $list list");
         return true;
     }
 
-    function addMemberToList($email, $network, $list)
-    {
+    /**
+    * Add contact to list
+    *
+    * @param string $email
+    * @param integer $network
+    * @param string $list
+    */
+    function addMemberToList($email, $network, $list) {
         if ($network != 1 && $network != 32) return true;
         $ticket = htmlspecialchars($this->ticket['contact_ticket']);
         $user = $email;
@@ -763,8 +790,8 @@ class MSN {
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
 
-        $this->debug_message("*** URL: $this->addmember_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->addmember_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->addmember_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -777,29 +804,33 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200) {
             preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
             if (count($matches) == 0) {
-                $this->debug_message("*** can't add member (network: $network) $email to $list");
+                $this->debug_message("*** Could not add member (network: $network) $email to $list list");
                 return false;
             }
             $faultcode = trim($matches[1]);
             $faultstring = trim($matches[2]);
             if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member already exists') === false) {
-                $this->debug_message("*** can't add member (network: $network) $email to $list, error code: $faultcode, $faultstring");
+                $this->debug_message("*** Could not add member (network: $network) $email to $list list, error code: $faultcode, $faultstring");
                 return false;
             }
-            $this->debug_message("*** add member (network: $network) $email to $list, already exist!");
+            $this->debug_message("*** Could not add member (network: $network) $email to $list list, already present");
             return true;
         }
-        $this->debug_message("*** add member (network: $network) $email to $list");
+        $this->debug_message("*** Member successfully added (network: $network) $email to $list list");
         return true;
     }
 
-    function getMembershipList($returnData=false)
-    {
+    /**
+    * Get membership lists
+    *
+    * @param mixed $returnData Membership list or false on failure
+    */
+    function getMembershipList($returnData = false) {
         $ticket = htmlspecialchars($this->ticket['contact_ticket']);
         $XML = '<?xml version="1.0" encoding="utf-8"?>
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
@@ -836,8 +867,8 @@ class MSN {
             'Content-Type: text/xml; charset=utf-8',
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
-        $this->debug_message("*** URL: $this->membership_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->membership_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->membership_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -850,8 +881,8 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
-        if($http_code != 200) return false;
+        //$this->debug_message("*** Get Result:\n$data");
+        if ($http_code != 200) return false;
         $p = $data;
         $aMemberships = array();
         while (1) {
@@ -924,7 +955,7 @@ class MSN {
                     @list($u_name, $u_domain) = @explode('@', $email);
                     if ($u_domain == NULL) continue;
                     $aContactList[$u_domain][$u_name][$network][$sMemberRole] = $id;
-                    $this->debug_message("*** add new contact (network: $network, status: $sMemberRole): $u_name@$u_domain ($id)");
+                    $this->debug_message("*** Adding new contact (network: $network, status: $sMemberRole): $u_name@$u_domain ($id)");
                 }
             }
         }
@@ -933,6 +964,7 @@ class MSN {
 
     /**
      * Connect to the NS server
+     *
      * @param String $user Username
      * @param String $password Password
      * @param String $redirect_server Redirect server
@@ -942,21 +974,19 @@ class MSN {
     private function connect($user, $password, $redirect_server = '', $redirect_port = 1863) {
         $this->id = 1;
         if ($redirect_server === '') {
-            $this->NSfp = @fsockopen($this->server, $this->port, $errno, $errstr, 5);
+            $this->NSfp = @fsockopen($this->server, $this->port, $errno, $errstr, $this->timeout);
             if (!$this->NSfp) {
-                $this->error = "Can't connect to $this->server:$this->port, error => $errno, $errstr";
+                $this->error = "!!! Could not connect to $this->server:$this->port, error => $errno, $errstr";
                 return false;
             }
         }
         else {
-            $this->NSfp = @fsockopen($redirect_server, $redirect_port, $errno, $errstr, 5);
+            $this->NSfp = @fsockopen($redirect_server, $redirect_port, $errno, $errstr, $this->timeout);
             if (!$this->NSfp) {
-                $this->error = "Can't connect to $redirect_server:$redirect_port, error => $errno, $errstr";
+                $this->error = "!!! Could not connect to $redirect_server:$redirect_port, error => $errno, $errstr";
                 return false;
             }
         }
-
-        stream_set_timeout($this->NSfp, $this->timeout);
         $this->authed = false;
         // MSNP9
         // NS: >> VER {id} MSNP9 CVR0
@@ -965,8 +995,7 @@ class MSN {
         $this->ns_writeln("VER $this->id $this->protocol CVR0");
 
         $start_tm = time();
-        while (!self::socketcheck($this->NSfp))
-        {
+        while (!self::socketcheck($this->NSfp)) {
             $data = $this->ns_readln();
             // no data?
             if ($data === false) {
@@ -975,7 +1004,6 @@ class MSN {
                 $this->ns_writeln("OUT");
                 @fclose($this->NSfp);
                 $this->error = 'Timeout, maybe protocol changed!';
-                $this->debug_message("*** $this->error");
                 return false;
             }
 
@@ -1024,7 +1052,6 @@ class MSN {
                         $this->ns_writeln("OUT");
                         @fclose($this->NSfp);
                         $this->error = 'Passport authenticated fail!';
-                        $this->debug_message("*** $this->error");
                         return false;
                     }
 
@@ -1045,19 +1072,17 @@ class MSN {
                     // MSNP15
                     // NS: <<< XFR {id} NS {server} U D
                     @list(/* XFR */, /* id */, $Type, $server, /* ... */) = @explode(' ', $data);
-                    if($Type!='NS') break;
+                    if ($Type!='NS') break;
                     @list($ip, $port) = @explode(':', $server);
                     // this connection will close after XFR
                     @fclose($this->NSfp);
 
-                    $this->NSfp = @fsockopen($ip, $port, $errno, $errstr, 5);
+                    $this->NSfp = @fsockopen($ip, $port, $errno, $errstr, $this->timeout);
                     if (!$this->NSfp) {
                         $this->error = "Can't connect to $ip:$port, error => $errno, $errstr";
-                        $this->debug_message("*** $this->error");
                         return false;
                     }
 
-                    stream_set_timeout($this->NSfp, $this->timeout);
                     // MSNP9
                     // NS: >> VER {id} MSNP9 CVR0
                     // MSNP15
@@ -1071,7 +1096,7 @@ class MSN {
                     @list(/* GCF */, /* 0 */, $size,) = @explode(' ', $data);
                     // we don't need the data, just read it and drop
                     if (is_numeric($size) && $size > 0)
-                    $this->ns_readdata($size);
+                        $this->ns_readdata($size);
                     break;
 
                 default:
@@ -1082,7 +1107,6 @@ class MSN {
                         $this->ns_writeln("OUT");
                         @fclose($this->NSfp);
                         $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
-                        $this->debug_message("*** $this->error");
                         return false;
                     }
                     // unknown response from server, just ignore it
@@ -1098,23 +1122,26 @@ class MSN {
      * @return void
      */
     public function signon() {
-        $this->debug_message("*** try to connect to MSN network");
+        /* FIXME Don't implement the signon as a loop or we could hang
+        *        the queue handler! */
+        $this->debug_message('*** Trying to connect to MSN network');
 
-        while(true) {
-            while(!$this->connect($this->user, $this->password)) {
-                $this->signonFailure("!!! Can't connect to server: $this->error");
-            }
-            if($this->UpdateContacts() === false) {
-                $this->signonFailure('!!! Update contacts failed');
+        while (true) {
+            // Connect
+            if (!$this->connect($this->user, $this->password)) {
+                $this->signonFailure("!!! Could not connect to server: $this->error");
                 continue;
             }
-            $this->LastPing=time();
-            $start_tm = time();
-            $ping_tm = time();
-            if(($this->aContactList = $this->getMembershipList()) === false) {
+
+            // Update contacts
+            if ($this->UpdateContacts() === false) continue;
+
+            // Get membership lists
+            if (($this->aContactList = $this->getMembershipList()) === false) {
                 $this->signonFailure('!!! Get membership list failed');
                 continue;
             }
+
             if ($this->update_pending) {
                 if (is_array($this->aContactList)) {
                     $pending = 'Pending';
@@ -1206,15 +1233,15 @@ class MSN {
             //$MsnObj=$this->PhotoStckObj();
             // NS: >>> CHG {id} {status} {clientid} {msnobj}
             $this->ns_writeln("CHG $this->id NLN $this->clientid");
-            if($this->PhotoStickerFile!==false)
+            if ($this->PhotoStickerFile !== false)
                 $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
             // NS: >>> UUX {id} length
             $str = '<Data><PSM>'.htmlspecialchars($this->psm).'</PSM><CurrentMedia></CurrentMedia><MachineGuid></MachineGuid></Data>';
             $len = strlen($str);
             $this->ns_writeln("UUX $this->id $len");
             $this->ns_writedata($str);
-            if(!socketcheck($this->NSfp)) {
-                $this->debug_message("*** connected, wait for command");
+            if (!self::socketcheck($this->NSfp)) {
+                $this->debug_message('*** Connected, waiting for commands');
                 break;
             } else {
                 $this->NSRetryWait($this->retry_wait);
@@ -1262,10 +1289,15 @@ class MSN {
         return base64_encode($blob);
     }
 
+    /**
+    * Get OIM mail data
+    *
+    * @return string mail data or false on failure
+    */
     function getOIM_maildata() {
         preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
         if (count($matches) == 0) {
-            $this->debug_message('*** no web ticket?');
+            $this->debug_message('*** No web ticket?');
             return false;
         }
         $t = htmlspecialchars($matches[1]);
@@ -1291,8 +1323,8 @@ class MSN {
             'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
         );
 
-        $this->debug_message("*** URL: $this->oim_maildata_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->oim_maildata_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->oim_maildata_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -1305,26 +1337,32 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200) {
-            $this->debug_message("*** Can't get OIM maildata! http code: $http_code");
+            $this->debug_message("*** Could not get OIM maildata! http code: $http_code");
             return false;
         }
 
         // <GetMetadataResponse xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">See #XML_Data</GetMetadataResponse>
         preg_match('#<GetMetadataResponse([^>]*)>(.*)</GetMetadataResponse>#', $data, $matches);
         if (count($matches) == 0) {
-            $this->debug_message("*** Can't get OIM maildata");
-            return '';
+            $this->debug_message('*** Could not get OIM maildata');
+            return false;
         }
         return $matches[2];
     }
 
+    /**
+    * Fetch OIM message with given id
+    *
+    * @param string $msgid
+    * @return string Message or false on failure
+    */
     function getOIM_message($msgid) {
         preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
         if (count($matches) == 0) {
-            $this->debug_message('*** no web ticket?');
+            $this->debug_message('*** No web ticket?');
             return false;
         }
         $t = htmlspecialchars($matches[1]);
@@ -1355,8 +1393,8 @@ class MSN {
             'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
         );
 
-        $this->debug_message("*** URL: $this->oim_read_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->oim_read_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->oim_read_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -1369,7 +1407,7 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200) {
             $this->debug_message("*** Can't get OIM: $msgid, http code = $http_code");
@@ -1403,7 +1441,7 @@ class MSN {
             $sOIM .= $line;
         }
         $sMsg = base64_decode($sOIM);
-        $this->debug_message("*** we get OIM ($msgid): $sMsg");
+        //$this->debug_message("*** we get OIM ($msgid): $sMsg");
 
         // delete OIM
         $XML = '<?xml version="1.0" encoding="utf-8"?>
@@ -1431,8 +1469,8 @@ class MSN {
             'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
         );
 
-        $this->debug_message("*** URL: $this->oim_del_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
+        //$this->debug_message("*** URL: $this->oim_del_url");
+        //$this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $this->oim_del_url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
@@ -1445,15 +1483,20 @@ class MSN {
         $data = curl_exec($curl);
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
+        //$this->debug_message("*** Get Result:\n$data");
 
         if ($http_code != 200)
-            $this->debug_message("*** Can't delete OIM: $msgid, http code = $http_code");
+            $this->debug_message("*** Could not delete OIM: $msgid, http code = $http_code");
         else
             $this->debug_message("*** OIM ($msgid) deleted");
         return $sMsg;
     }
 
+    /**
+    * Log out and close the NS connection
+    *
+    * @return void
+    */
     private function NSLogout() {
         if (is_resource($this->NSfp) && !feof($this->NSfp)) {
             // logout now
@@ -1461,18 +1504,27 @@ class MSN {
             $this->ns_writeln("OUT");
             fclose($this->NSfp);
             $this->NSfp = false;
-            $this->debug_message("*** logout now!");
+            $this->debug_message("*** Logged out");
         }
-
     }
 
+    /**
+    * Sleep for the given number of seconds
+    *
+    * @param integer $wait Number of seconds to sleep for
+    */
     private function NSRetryWait($wait) {
-        $this->debug_message("*** wait for $Wait seconds");
+        $this->debug_message("*** Sleeping for $wait seconds before retrying");
         sleep($wait);
     }
 
-    function getChallenge($code)
-    {
+    /**
+    * Generate challenge response
+    *
+    * @param string $code
+    * @return string challenge response code
+    */
+    function getChallenge($code) {
         // MSNP15
         // http://msnpiki.msnfanatic.com/index.php/MSNP11:Challenges
         // Step 1: The MD5 Hash
@@ -1546,514 +1598,23 @@ class MSN {
         return $hash;
     }
 
-    private function getMessage($sMessage, $network = 1)
-    {
+    /**
+    * Generate the data to send a message
+    *
+    * @param string $sMessage Message
+    * @param integer $network Network
+    */
+    private function getMessage($sMessage, $network = 1) {
         $msg_header = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-MMS-IM-Format: FN=$this->font_fn; EF=$this->font_ef; CO=$this->font_co; CS=0; PF=22\r\n\r\n";
         $msg_header_len = strlen($msg_header);
         if ($network == 1)
             $maxlen = $this->max_msn_message_len - $msg_header_len;
         else
             $maxlen = $this->max_yahoo_message_len - $msg_header_len;
-        $sMessage=str_replace("\r", '', $sMessage);
-        $msg=substr($sMessage,0,$maxlen);
+        $sMessage = str_replace("\r", '', $sMessage);
+        $msg = substr($sMessage, 0, $maxlen);
         return $msg_header.$msg;
     }
-    /**
-     *
-     * @param $Action 連線模式 'Active' => 主動傳送訊息,'Passive' => 接收訊息
-     * @param $Param
-     * @return boolean
-     */
-    private function DoSwitchBoard($Action,$Param)
-    {
-        $SessionEnd=false;
-        $Joined=false;
-        $this->id=1;
-        $LastActive=time();
-        stream_set_timeout($this->SBfp, $this->SBStreamTimeout);
-        switch($Action)
-        {
-            case 'Active':
-                $cki_code=$Param['cki'];
-                $user=$Param['user'];
-                $this->SwitchBoardMessageQueue=$Param['Msg'];
-                // SB: >>> USR {id} {user} {cki}
-                $this->SB_writeln("USR $this->id $this->user $cki_code");
-                $this->SwitchBoardSessionUser=$user;
-                break;
-            case 'Passive':
-                $ticket=$Param['ticket'];
-                $sid=$Param['sid'];
-                $user=$Param['user'];
-                // SB: >>> ANS {id} {user} {ticket} {session_id}
-                $this->SB_writeln("ANS $this->id $this->user $ticket $sid");
-                $this->SwitchBoardSessionUser=$user;
-                break;
-            default:
-                return false;
-        }
-        while((!feof($this->SBfp))&&(!$SessionEnd))
-        {
-            $data = $this->SB_readln();
-            if($this->kill_me)
-            {
-                $this->debug_message("*** SB Okay, kill me now!");
-                break;
-            }
-            if($data === false)
-            {
-                if(time()-$LastActive > $this->SBIdleTimeout)
-                {
-                    $this->debug_message("*** SB Idle Timeout!");
-                    break;
-                }
-                if(!$Joined) continue;
-                foreach($this->SwitchBoardMessageQueue as $Message)
-                {
-                    if($Message=='') continue;
-                    $aMessage = $this->getMessage($Message);
-                    //CheckEmotion...
-                    $MsnObjDefine=$this->GetMsnObjDefine($aMessage);
-                    if($MsnObjDefine!=='')
-                    {
-                        $SendString="MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
-                        $len = strlen($SendString);
-                        $this->SB_writeln("MSG $this->id N $len");
-                        $this->SB_writedata($SendString);
-                        $this->id++;
-                    }
-                    $len = strlen($aMessage);
-                    $this->SB_writeln("MSG $this->id N $len");
-                    $this->SB_writedata($aMessage);
-                }
-                $this->SwitchBoardMessageQueue=array();
-                if(!$this->IsIgnoreMail($user)) $LastActive = time();
-                continue;
-            }
-            $code = substr($data, 0, 3);
-            switch($code)
-            {
-                case 'IRO':
-                    // SB: <<< IRO {id} {rooster} {roostercount} {email} {alias} {clientid}
-                    @list(/* IRO */, /* id */, $cur_num, $total, $email, $alias, $clientid) = @explode(' ', $data);
-                    $this->debug_message("*** $email join us");
-                    $Joined=true;
-                    break;
-                case 'BYE':
-                    $this->debug_message("*** Quit for BYE");
-                    $SessionEnd=true;
-                    break;
-                case 'USR':
-                    // SB: <<< USR {id} OK {user} {alias}
-                    // we don't need the data, just ignore it
-                    // request user to join this switchboard
-                    // SB: >>> CAL {id} {user}
-                    $this->SB_writeln("CAL $this->id $user");
-                    break;
-                case 'CAL':
-                    // SB: <<< CAL {id} RINGING {?}
-                    // we don't need this, just ignore, and wait for other response
-                    $this->id++;
-                    break;
-                case 'JOI':
-                    // SB: <<< JOI {user} {alias} {clientid?}
-                    // someone join us
-                    // we don't need the data, just ignore it
-                    // no more user here
-                    $Joined=true;
-                    break;
-                case 'MSG':
-                    // SB: <<< MSG {email} {alias} {len}
-                    @list(/* MSG */, $from_email, /* alias */, $len, ) = @explode(' ', $data);
-                    $len = trim($len);
-                    $data = $this->SB_readdata($len);
-                    $aLines = @explode("\n", $data);
-                    $header = true;
-                    $ignore = false;
-                    $is_p2p = false;
-                    $sMsg = '';
-                    foreach ($aLines as $line)
-                    {
-                        $line = rtrim($line);
-                        if ($header) {
-                            if ($line === '') {
-                                $header = false;
-                                continue;
-                            }
-                            if (strncasecmp($line, 'TypingUser:', 11) == 0) {
-                                // typing notification, just ignore
-                                $ignore = true;
-                                break;
-                            }
-                            if (strncasecmp($line, 'Chunk:', 6) == 0) {
-                                // we don't handle any split message, just ignore
-                                $ignore = true;
-                                break;
-                            }
-                            if (strncasecmp($line, 'Content-Type: application/x-msnmsgrp2p', 38) == 0) {
-                                // p2p message, ignore it, but we need to send acknowledgement for it...
-                                $is_p2p = true;
-                                $p = strstr($data, "\n\n");
-                                $sMsg = '';
-                                if ($p === false) {
-                                    $p = strstr($data, "\r\n\r\n");
-                                    if ($p !== false)
-                                    $sMsg = substr($p, 4);
-                                }
-                                else
-                                $sMsg = substr($p, 2);
-                                break;
-                            }
-                            if (strncasecmp($line, 'Content-Type: application/x-', 28) == 0) {
-                                // ignore all application/x-... message
-                                // for example:
-                                //      application/x-ms-ink        => ink message
-                                $ignore = true;
-                                break;
-                            }
-                            if (strncasecmp($line, 'Content-Type: text/x-', 21) == 0) {
-                                // ignore all text/x-... message
-                                // for example:
-                                //      text/x-msnmsgr-datacast         => nudge, voice clip....
-                                //      text/x-mms-animemoticon         => customized animemotion word
-                                $ignore = true;
-                                break;
-                            }
-                            continue;
-                        }
-                        if ($sMsg !== '')
-                        $sMsg .= "\n";
-                        $sMsg .= $line;
-                    }
-                    if ($ignore)
-                    {
-                        $this->debug_message("*** ingnore from $from_email: $line");
-                        break;
-                    }
-                    if ($is_p2p)
-                    {
-                        // we will ignore any p2p message after sending acknowledgement
-                        $ignore = true;
-                        $len = strlen($sMsg);
-                        $this->debug_message("*** p2p message from $from_email, size $len");
-                        // header = 48 bytes
-                        // content >= 0 bytes
-                        // footer = 4 bytes
-                        // so it need to >= 52 bytes
-                        /*if ($len < 52) {
-                            $this->debug_message("*** p2p: size error, less than 52!");
-                            break;
-                        }*/
-                        $aDwords = @unpack("V12dword", $sMsg);
-                        if (!is_array($aDwords)) {
-                            $this->debug_message("*** p2p: header unpack error!");
-                            break;
-                        }
-                        $this->debug_message("*** p2p: dump received message:\n".$this->dump_binary($sMsg));
-                        $hdr_SessionID = $aDwords['dword1'];
-                        $hdr_Identifier = $aDwords['dword2'];
-                        $hdr_DataOffsetLow = $aDwords['dword3'];
-                        $hdr_DataOffsetHigh = $aDwords['dword4'];
-                        $hdr_TotalDataSizeLow = $aDwords['dword5'];
-                        $hdr_TotalDataSizeHigh = $aDwords['dword6'];
-                        $hdr_MessageLength = $aDwords['dword7'];
-                        $hdr_Flag = $aDwords['dword8'];
-                        $hdr_AckID = $aDwords['dword9'];
-                        $hdr_AckUID = $aDwords['dword10'];
-                        $hdr_AckSizeLow = $aDwords['dword11'];
-                        $hdr_AckSizeHigh = $aDwords['dword12'];
-                        $this->debug_message("*** p2p: header SessionID = $hdr_SessionID");
-                        $this->debug_message("*** p2p: header Inentifier = $hdr_Identifier");
-                        $this->debug_message("*** p2p: header Data Offset Low = $hdr_DataOffsetLow");
-                        $this->debug_message("*** p2p: header Data Offset High = $hdr_DataOffsetHigh");
-                        $this->debug_message("*** p2p: header Total Data Size Low = $hdr_TotalDataSizeLow");
-                        $this->debug_message("*** p2p: header Total Data Size High = $hdr_TotalDataSizeHigh");
-                        $this->debug_message("*** p2p: header MessageLength = $hdr_MessageLength");
-                        $this->debug_message("*** p2p: header Flag = $hdr_Flag");
-                        $this->debug_message("*** p2p: header AckID = $hdr_AckID");
-                        $this->debug_message("*** p2p: header AckUID = $hdr_AckUID");
-                        $this->debug_message("*** p2p: header AckSize Low = $hdr_AckSizeLow");
-                        $this->debug_message("*** p2p: header AckSize High = $hdr_AckSizeHigh");
-                        if($hdr_Flag==2) {
-                            //This is an ACK from SB ignore....
-                            $this->debug_message("*** p2p: //This is an ACK from SB ignore....:\n");
-                            break;
-                        }
-                        $MsgBody=$this->linetoArray(substr($sMsg,48,-4));
-                        $this->debug_message("*** p2p: body".print_r($MsgBody,true));
-                        if(($MsgBody['EUF-GUID']=='{A4268EEC-FEC5-49E5-95C3-F126696BDBF6}')&&($PictureFilePath=$this->GetPictureFilePath($MsgBody['Context'])))
-                        {
-                            while(true)
-                            {
-                                if($this->SB_readln()===false) break;
-                            }
-                            $this->debug_message("*** p2p: Inv hdr:\n".$this->dump_binary(substr($sMsg,0,48)));
-                            preg_match('/{([0-9A-F\-]*)}/i',$MsgBody['Via'],$Matches);
-                            $BranchGUID=$Matches[1];
-                            //it's an invite to send a display picture.
-                            $new_id = ~$hdr_Identifier;
-                            $hdr = pack("LLLLLLLLLLLL", $hdr_SessionID,
-                            $new_id,
-                            0, 0,
-                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
-                            0,
-                            2,
-                            $hdr_Identifier,
-                            $hdr_AckID,
-                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh);
-                            $footer = pack("L", 0);
-                            $message = "MIME-Version: 1.0\r\nContent-Type: application/x-msnmsgrp2p\r\nP2P-Dest: $from_email\r\n\r\n$hdr$footer";
-                            $len = strlen($message);
-                            $this->SB_writeln("MSG $this->id D $len");
-                            $this->SB_writedata($message);
-                            $this->debug_message("*** p2p: send display picture acknowledgement for $hdr_SessionID");
-                            $this->debug_message("*** p2p: Invite ACK message:\n".$this->dump_binary($message));
-                            $this->SB_readln();//Read ACK;
-                            $this->debug_message("*** p2p: Invite ACK Hdr:\n".$this->dump_binary($hdr));
-                            $new_id-=3;
-                            //Send 200 OK message
-                            $MessageContent="SessionID: ".$MsgBody['SessionID']."\r\n\r\n".pack("C", 0);
-                            $MessagePayload=
-                                "MSNSLP/1.0 200 OK\r\n".
-                                "To: <msnmsgr:".$from_email.">\r\n".
-                                "From: <msnmsgr:".$this->user.">\r\n".
-                                "Via: ".$MsgBody['Via']."\r\n".
-                                "CSeq: ".($MsgBody['CSeq']+1)."\r\n".
-                                "Call-ID: ".$MsgBody['Call-ID']."\r\n".
-                                "Max-Forwards: 0\r\n".
-                                "Content-Type: application/x-msnmsgr-sessionreqbody\r\n".
-                                "Content-Length: ".strlen($MessageContent)."\r\n\r\n".
-                            $MessageContent;
-                            $hdr_TotalDataSizeLow=strlen($MessagePayload);
-                            $hdr_TotalDataSizeHigh=0;
-                            $hdr = pack("LLLLLLLLLLLL", $hdr_SessionID,
-                            $new_id,
-                            0, 0,
-                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
-                            strlen($MessagePayload),
-                            0,
-                            rand(),
-                            0,
-                            0,0);
-
-                            $message =
-                                "MIME-Version: 1.0\r\n".
-                                "Content-Type: application/x-msnmsgrp2p\r\n".
-                                "P2P-Dest: $from_email\r\n\r\n$hdr$MessagePayload$footer";
-                            $this->SB_writeln("MSG $this->id D ".strlen($message));
-                            $this->SB_writedata($message);
-                            $this->debug_message("*** p2p: dump 200 ok message:\n".$this->dump_binary($message));
-                            $this->SB_readln();//Read ACK;
-
-                            $this->debug_message("*** p2p: 200 ok:\n".$this->dump_binary($hdr));
-                            //send Data preparation message
-                            //send 4 null bytes as data
-                            $hdr_TotalDataSizeLow=4;
-                            $hdr_TotalDataSizeHigh=0;
-                            $new_id++;
-                            $hdr = pack("LLLLLLLLLLLL",
-                            $MsgBody['SessionID'],
-                            $new_id,
-                            0, 0,
-                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
-                            $hdr_TotalDataSizeLow,
-                            0,
-                            rand(),
-                            0,
-                            0,0);
-                            $message =
-                                "MIME-Version: 1.0\r\n".
-                                "Content-Type: application/x-msnmsgrp2p\r\n".
-                                "P2P-Dest: $from_email\r\n\r\n$hdr".pack('L',0)."$footer";
-                            $this->SB_writeln("MSG $this->id D ".strlen($message));
-                            $this->SB_writedata($message);
-                            $this->debug_message("*** p2p: dump send Data preparation message:\n".$this->dump_binary($message));
-                            $this->debug_message("*** p2p: Data Prepare Hdr:\n".$this->dump_binary($hdr));
-                            $this->SB_readln();//Read ACK;
-
-                            //send Data Content..
-                            $footer=pack('N',1);
-                            $new_id++;
-                            $FileSize=filesize($PictureFilePath);
-                            if($hTitle=fopen($PictureFilePath,'rb'))
-                            {
-                                $Offset=0;
-                                //$new_id++;
-                                while(!feof($hTitle))
-                                {
-                                    $FileContent=fread($hTitle,1024);
-                                    $FileContentSize=strlen($FileContent);
-                                    $hdr = pack("LLLLLLLLLLLL",
-                                    $MsgBody['SessionID'],
-                                    $new_id,
-                                    $Offset, 0,
-                                    $FileSize,0,
-                                    $FileContentSize,
-                                    0x20,
-                                    rand(),
-                                    0,
-                                    0,0
-                                    );
-                                    $message =
-                                        "MIME-Version: 1.0\r\n".
-                                        "Content-Type: application/x-msnmsgrp2p\r\n".
-                                        "P2P-Dest: $from_email\r\n\r\n$hdr$FileContent$footer";
-                                    $this->SB_writeln("MSG $this->id D ".strlen($message));
-                                    $this->SB_writedata($message);
-                                    $this->debug_message("*** p2p: dump send Data Content message  $Offset / $FileSize :\n".$this->dump_binary($message));
-                                    $this->debug_message("*** p2p: Data Content Hdr:\n".$this->dump_binary($hdr));
-                                    //$this->SB_readln();//Read ACK;
-                                    $Offset+=$FileContentSize;
-                                }
-                            }
-                            //Send Bye
-                            /*
-                            $MessageContent="\r\n".pack("C", 0);
-                            $MessagePayload=
-                                "BYE MSNMSGR:MSNSLP/1.0\r\n".
-                                "To: <msnmsgr:$from_email>\r\n".
-                                "From: <msnmsgr:".$this->user.">\r\n".
-                                "Via: MSNSLP/1.0/TLP ;branch={".$BranchGUID."}\r\n".
-                                "CSeq: 0\r\n".
-                                "Call-ID: ".$MsgBody['Call-ID']."\r\n".
-                                "Max-Forwards: 0\r\n".
-                                "Content-Type: application/x-msnmsgr-sessionclosebody\r\n".
-                                "Content-Length: ".strlen($MessageContent)."\r\n\r\n".$MessageContent;
-                            $footer=pack('N',0);
-                            $hdr_TotalDataSizeLow=strlen($MessagePayload);
-                            $hdr_TotalDataSizeHigh=0;
-                            $new_id++;
-                            $hdr = pack("LLLLLLLLLLLL",
-                            0,
-                            $new_id,
-                            0, 0,
-                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
-                            0,
-                            0,
-                            rand(),
-                            0,
-                            0,0);
-                            $message =
-                                        "MIME-Version: 1.0\r\n".
-                                        "Content-Type: application/x-msnmsgrp2p\r\n".
-                                        "P2P-Dest: $from_email\r\n\r\n$hdr$MessagePayload$footer";
-                            $this->SB_writeln("MSG $id D ".strlen($message));
-                            $id++;
-                            $this->SB_writedata($message);
-                            $this->debug_message("*** p2p: dump send BYE message :\n".$this->dump_binary($message));
-                            */
-                            break;
-                        }
-                        //TODO:
-                        //if ($hdr_Flag == 2) {
-                        // just send ACK...
-                        //    $this->SB_writeln("ACK $id");
-                        //    break;
-                        //}
-                        if ($hdr_SessionID == 4) {
-                            // ignore?
-                            $this->debug_message("*** p2p: ignore flag 4");
-                            break;
-                        }
-                        $finished = false;
-                        if ($hdr_TotalDataSizeHigh == 0) {
-                            // only 32 bites size
-                            if (($hdr_MessageLength + $hdr_DataOffsetLow) == $hdr_TotalDataSizeLow)
-                            $finished = true;
-                        }
-                        else {
-                            // we won't accept any file transfer
-                            // so I think we won't get any message size need to use 64 bits
-                            // 64 bits size here, can't count directly...
-                            $totalsize = base_convert(sprintf("%X%08X", $hdr_TotalDataSizeHigh, $hdr_TotalDataSizeLow), 16, 10);
-                            $dataoffset = base_convert(sprintf("%X%08X", $hdr_DataOffsetHigh, $hdr_DataOffsetLow), 16, 10);
-                            $messagelength = base_convert(sprintf("%X", $hdr_MessageLength), 16, 10);
-                            $now_size = bcadd($dataoffset, $messagelength);
-                            if (bccomp($now_size, $totalsize) >= 0)
-                            $finished = true;
-                        }
-                        if (!$finished) {
-                            // ignore not finished split packet
-                            $this->debug_message("*** p2p: ignore split packet, not finished");
-                            break;
-                        }
-                        //$new_id = ~$hdr_Identifier;
-                        /*
-                         $new_id++;
-                         $hdr = pack("LLLLLLLLLLLL", $hdr_SessionID,
-                         $new_id,
-                         0, 0,
-                         $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
-                         0,
-                         2,
-                         $hdr_Identifier,
-                         $hdr_AckID,
-                         $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh);
-                         $footer = pack("L", 0);
-                         $message = "MIME-Version: 1.0\r\nContent-Type: application/x-msnmsgrp2p\r\nP2P-Dest: $from_email\r\n\r\n$hdr$footer";
-                         $len = strlen($message);
-                         $this->SB_writeln("MSG $id D $len");
-                         $id++;
-                         $this->SB_writedata($message);
-                         $this->debug_message("*** p2p: send acknowledgement for $hdr_SessionID");
-                         $this->debug_message("*** p2p: dump sent message:\n".$this->dump_binary($hdr.$footer));
-                         */
-                        break;
-                    }
-                    $this->debug_message("*** MSG from $from_email: $sMsg");
-                    $this->ReceivedMessage($from_email,$sMsg,$network,false);
-                    break;
-                case '217':
-                    $this->debug_message("*** User $user is offline. Try OIM.");
-                    foreach($this->SwitchBoardMessageQueue as $Message)
-                    $this->SendMessage($Message,"$user@Offline");
-                    $SessionEnd=true;
-                    break;
-                default:
-                    if (is_numeric($code))
-                    {
-                        $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
-                        $this->debug_message("*** SB: $this->error");
-                        $SessionEnd=true;
-                    }
-                    break;
-            }
-            if(!$this->IsIgnoreMail($user)) $LastActive = time();
-        }
-        if (feof($this->SBfp))
-        {
-            // lost connection? error? try OIM later
-            @fclose($this->SBfp);
-            return false;
-        }
-        $this->SB_writeln("OUT");
-        @fclose($this->SBfp);
-        return true;
-    }
-    /*private function switchboard_control($ip, $port, $cki_code, $user, $Messages)
-    {
-        $this->SwitchBoardProcess=1;
-        $this->debug_message("*** SB: try to connect to switchboard server $ip:$port");
-        $this->SBfp = @fsockopen($ip, $port, $errno, $errstr, 5);
-        if (!$this->SBfp)
-        {
-            $this->debug_message("*** SB: Can't connect to $ip:$port, error => $errno, $errstr");
-            return false;
-        }
-        return $this->DoSwitchBoard('Active',array('cki'=>$cki_code, 'user'=>$user,'Msg'=>$Messages));
-    }
-    private function switchboard_ring($ip, $port, $sid, $ticket,$user)
-    {
-        $this->SwitchBoardProcess=2;
-        $this->debug_message("*** SB: try to connect to switchboard server $ip:$port");
-        $this->SBfp = @fsockopen($ip, $port, $errno, $errstr, 5);
-        if (!$this->SBfp)
-        {
-            $this->debug_message("*** SB: Can't connect to $ip:$port, error => $errno, $errstr");
-            return false;
-        }
-        return $this->DoSwitchBoard('Passive',array('sid'=>$sid,'user'=>$user,'ticket'=>$ticket));
-    }*/
 
     // read data for specified size
     private function ns_readdata($size) {
@@ -2098,8 +1659,8 @@ class MSN {
     private function sb_readdata($socket, $size) {
         $data = '';
         $count = 0;
-        while (!feof($this->SBfp)) {
-            $buf = @fread($this->SBfp, $size - $count);
+        while (!feof($socket)) {
+            $buf = @fread($socket, $size - $count);
             $data .= $buf;
             $count += strlen($buf);
             if ($count >= $size) break;
@@ -2137,7 +1698,7 @@ class MSN {
     // show debug information
     function debug_message($str) {
         if (!$this->debug) return;
-        if($this->debug===STDOUT) echo $str."\n";
+        if ($this->debug===STDOUT) echo $str."\n";
         /*$fname=MSN_CLASS_LOG_DIR.DIRECTORY_SEPARATOR.'msn_'.strftime('%Y%m%d').'.debug';
         $fp = fopen($fname, 'at');
         if ($fp) {
@@ -2184,55 +1745,54 @@ class MSN {
      */
     private function MsnObj($FilePath,$Type=3)
     {
-        if(!($FileSize=filesize($FilePath))) return '';
-        $Location=md5($FilePath);
-        $Friendly=md5($FilePath.$Type);
-        if(isset($this->MsnObjMap[$Location])) return $this->MsnObjMap[$Location];
-        $sha1d=base64_encode(sha1(file_get_contents($FilePath),true));
-        $sha1c=base64_encode(sha1("Creator".$this->user."Size$FileSize"."Type$Type"."Location$Location"."Friendly".$Friendly."SHA1D$sha1d",true));
-        $this->MsnObjArray[$Location]=$FilePath;
-        $MsnObj='<msnobj Creator="'.$this->user.'" Size="'.$FileSize.'" Type="'.$Type.'" Location="'.$Location.'" Friendly="'.$Friendly.'" SHA1D="'.$sha1d.'" SHA1C="'.$sha1c.'"/>';
-        $this->MsnObjMap[$Location]=$MsnObj;
+        if (!($FileSize=filesize($FilePath))) return '';
+        $Location = md5($FilePath);
+        $Friendly = md5($FilePath.$Type);
+        if (isset($this->MsnObjMap[$Location])) return $this->MsnObjMap[$Location];
+        $sha1d = base64_encode(sha1(file_get_contents($FilePath), true));
+        $sha1c = base64_encode(sha1("Creator".$this->user."Size$FileSize"."Type$Type"."Location$Location"."Friendly".$Friendly."SHA1D$sha1d",true));
+        $this->MsnObjArray[$Location] = $FilePath;
+        $MsnObj = '<msnobj Creator="'.$this->user.'" Size="'.$FileSize.'" Type="'.$Type.'" Location="'.$Location.'" Friendly="'.$Friendly.'" SHA1D="'.$sha1d.'" SHA1C="'.$sha1c.'"/>';
+        $this->MsnObjMap[$Location] = $MsnObj;
         $this->debug_message("*** p2p: addMsnObj $FilePath::$MsnObj\n");
         return $MsnObj;
     }
 
     private function linetoArray($lines) {
-        $lines=str_replace("\r",'',$lines);
-        $lines=explode("\n",$lines);
-        foreach($lines as $line) {
-            if(!isset($line{3})) continue;
-            list($Key,$Val)=explode(':',$line);
-            $Data[trim($Key)]=trim($Val);
+        $lines = str_replace("\r", '', $lines);
+        $lines = explode("\n", $lines);
+        foreach ($lines as $line) {
+            if (!isset($line{3})) continue;
+            list($Key,$Val) = explode(':', $line);
+            $Data[trim($Key)] = trim($Val);
         }
         return $Data;
     }
 
-    private function GetPictureFilePath($Context)
-    {
-        $MsnObj=base64_decode($Context);
-        if(preg_match('/location="(.*?)"/i',$MsnObj,$Match))
-        $location=$Match[1];
+    private function GetPictureFilePath($Context) {
+        $MsnObj = base64_decode($Context);
+        if (preg_match('/location="(.*?)"/i', $MsnObj, $Match))
+            $location = $Match[1];
         $this->debug_message("*** p2p: PictureFile[$location] ::All".print_r($this->MsnObjArray,true)."\n");
-        if($location&&(isset($this->MsnObjArray[$location])))
-        return $this->MsnObjArray[$location];
+        if ($location && isset($this->MsnObjArray[$location]))
+            return $this->MsnObjArray[$location];
         return false;
     }
 
-    private function GetMsnObjDefine($Message)
-    {
-        $DefineString='';
-        if(is_array($this->Emotions))
-        foreach($this->Emotions as $Pattern => $FilePath)
-        {
-            if(strpos($Message,$Pattern)!==false)
-            $DefineString.="$Pattern\t".$this->MsnObj($FilePath,2)."\t";
-        }
+    private function GetMsnObjDefine($Message) {
+        $DefineString = '';
+        if (is_array($this->Emotions))
+            foreach ($this->Emotions as $Pattern => $FilePath) {
+                if (strpos($Message, $Pattern)!==false)
+                $DefineString .= "$Pattern\t".$this->MsnObj($FilePath, 2)."\t";
+            }
         return $DefineString;
     }
 
     /**
      * Read and handle incoming command from NS
+     *
+     * @return void
      */
     private function nsReceive() {
         // Sign in again if not signed in or socket failed
@@ -2244,15 +1804,14 @@ class MSN {
         }
 
         $data = $this->ns_readln();
-        if($data === false) {
+        if ($data === false) {
             // There was no data / an error when reading from the socket so reconnect
             $this->callHandler('Reconnect');
             $this->NSRetryWait($this->retry_wait);
             $this->signon();
             return;
         } else {
-            switch (substr($data,0,3))
-            {
+            switch (substr($data, 0, 3)) {
                 case 'SBS':
                     // after 'USR {id} OK {user} {verify} 0' response, the server will send SBS and profile to us
                     // NS: <<< SBS 0 null
@@ -2274,67 +1833,63 @@ class MSN {
 
                 case 'LST':
                     // NS: <<< LST {email} {alias} 11 0
-                    @list(/* LST */, $email, /* alias */, ) = @explode(' ', $data);
+                    @list(/* LST */, $email, /* alias */,) = @explode(' ', $data);
                     @list($u_name, $u_domain) = @explode('@', $email);
                     if (!isset($this->aContactList[$u_domain][$u_name][1])) {
                         $this->aContactList[$u_domain][$u_name][1]['Allow'] = 'Allow';
-                        $this->debug_message("*** add to our contact list: $u_name@$u_domain");
+                        $this->debug_message("*** Added to contact list: $u_name@$u_domain");
                     }
                     break;
 
                 case 'ADL':
-                    // randomly, we get ADL command, someome add us to their contact list for MSNP15
+                    // randomly, we get ADL command, someone add us to their contact list for MSNP15
                     // NS: <<< ADL 0 {size}
                     @list(/* ADL */, /* 0 */, $size,) = @explode(' ', $data);
-                    if (is_numeric($size) && $size > 0)
-                    {
+                    if (is_numeric($size) && $size > 0) {
                         $data = $this->ns_readdata($size);
                         preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
-                        if (is_array($matches) && count($matches) > 0)
-                        {
+                        if (is_array($matches) && count($matches) > 0) {
                             $u_domain = $matches[1];
                             $u_name = $matches[2];
                             $network = $matches[4];
                             if (isset($this->aContactList[$u_domain][$u_name][$network]))
-                                $this->debug_message("*** someone (network: $network) add us to their list (but already in our list): $u_name@$u_domain");
+                                $this->debug_message("*** Someone (network: $network) added us to their list (but already in our list): $u_name@$u_domain");
                             else {
                                 $re_login = false;
                                 $cnt = 0;
-                                foreach (array('Allow', 'Reverse') as $list)
-                                {
-                                    if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
-                                    {
+                                foreach (array('Allow', 'Reverse') as $list) {
+                                    if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list)) {
                                         if ($re_login) {
-                                            $this->debug_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                            $this->debug_message("*** Could not add $u_name@$u_domain (network: $network) to $list list");
                                             continue;
                                         }
                                         $aTickets = $this->get_passport_ticket();
                                         if (!$aTickets || !is_array($aTickets)) {
                                             // failed to login? ignore it
-                                            $this->debug_message("*** can't re-login, something wrong here");
-                                            $this->debug_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                            $this->debug_message("*** Could not re-login, something wrong here");
+                                            $this->debug_message("*** Could not add $u_name@$u_domain (network: $network) to $list list");
                                             continue;
                                         }
                                         $re_login = true;
                                         $this->ticket = $aTickets;
-                                        $this->debug_message("**** get new ticket, try it again");
-                                        if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list))
-                                        {
-                                            $this->debug_message("*** can't add $u_name@$u_domain (network: $network) to $list");
+                                        $this->debug_message("**** Got new ticket, trying again");
+                                        if (!$this->addMemberToList($u_name.'@'.$u_domain, $network, $list)) {
+                                            $this->debug_message("*** Could not add $u_name@$u_domain (network: $network) to $list list");
                                             continue;
                                         }
                                     }
                                     $this->aContactList[$u_domain][$u_name][$network][$list] = false;
                                     $cnt++;
                                 }
-                                $this->debug_message("*** someone (network: $network) add us to their list: $u_name@$u_domain");
+                                $this->debug_message("*** Someone (network: $network) added us to their list: $u_name@$u_domain");
                             }
                             $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="3" t="'.$network.'" /></d></ml>';
                             $len = strlen($str);
+
+                            $this->callHandler('AddedToList', array('screenname' => $u_name.'@'.$u_domain, 'network' => $network));
                         }
                         else
-                        $this->debug_message("*** someone add us to their list: $data");
-                        $this->AddUsToMemberList($u_name.'@'.$u_domain, $network);
+                            $this->debug_message("*** Someone added us to their list: $data");
                     }
                     break;
 
@@ -2342,29 +1897,29 @@ class MSN {
                     // randomly, we get RML command, someome remove us to their contact list for MSNP15
                     // NS: <<< RML 0 {size}
                     @list(/* RML */, /* 0 */, $size,) = @explode(' ', $data);
-                    if (is_numeric($size) && $size > 0)
-                    {
+                    if (is_numeric($size) && $size > 0) {
                         $data = $this->ns_readdata($size);
                         preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
-                        if (is_array($matches) && count($matches) > 0)
-                        {
+                        if (is_array($matches) && count($matches) > 0) {
                             $u_domain = $matches[1];
                             $u_name = $matches[2];
                             $network = $matches[4];
-                            if (isset($this->aContactList[$u_domain][$u_name][$network]))
-                            {
+                            if (isset($this->aContactList[$u_domain][$u_name][$network])) {
                                 $aData = $this->aContactList[$u_domain][$u_name][$network];
+
                                 foreach ($aData as $list => $id)
-                                $this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $list);
+                                    $this->delMemberFromList($id, $u_name.'@'.$u_domain, $network, $list);
+
                                 unset($this->aContactList[$u_domain][$u_name][$network]);
-                                $this->debug_message("*** someone (network: $network) remove us from their list: $u_name@$u_domain");
+                                $this->debug_message("*** Someone (network: $network) removed us from their list: $u_name@$u_domain");
                             }
                             else
-                            $this->debug_message("*** someone (network: $network) remove us from their list (but not in our list): $u_name@$u_domain");
-                            $this->RemoveUsFromMemberList($u_name.'@'.$u_domain, $network);
+                                $this->debug_message("*** Someone (network: $network) removed us from their list (but not in our list): $u_name@$u_domain");
+
+                            $this->callHandler('RemovedFromList', array('screenname' => $u_name.'@'.$u_domain, 'network' => $network));
                         }
                         else
-                        $this->debug_message("*** someone remove us from their list: $data");
+                            $this->debug_message("*** Someone removed us from their list: $data");
                     }
                     break;
 
@@ -2386,8 +1941,7 @@ class MSN {
                                     continue;
                                 }
                                 if (strncasecmp($line, 'Content-Type:', 13) == 0) {
-                                    if (strpos($line, 'text/x-msmsgsinitialmdatanotification') === false &&
-                                    strpos($line, 'text/x-msmsgsoimnotification') === false) {
+                                    if (strpos($line, 'text/x-msmsgsinitialmdatanotification') === false && strpos($line, 'text/x-msmsgsoimnotification') === false) {
                                         // we just need text/x-msmsgsinitialmdatanotification
                                         // or text/x-msmsgsoimnotification
                                         $ignore = true;
@@ -2402,32 +1956,33 @@ class MSN {
                             }
                         }
                         if ($ignore) {
-                            $this->debug_message("*** ingnore MSG for: $line");
+                            $this->debug_message("*** Ignoring MSG for: $line");
                             break;
                         }
                         if ($maildata == '') {
-                            $this->debug_message("*** ingnore MSG not for OIM");
+                            $this->debug_message("*** Ignoring MSG not for OIM");
                             break;
                         }
                         $re_login = false;
                         if (strcasecmp($maildata, 'too-large') == 0) {
-                            $this->debug_message("*** large mail-data, need to get the data via SOAP");
+                            $this->debug_message("*** Large mail-data, need to get the data via SOAP");
                             $maildata = $this->getOIM_maildata();
                             if ($maildata === false) {
-                                $this->debug_message("*** can't get mail-data via SOAP");
+                                $this->debug_message("*** Could not get mail-data via SOAP");
+
                                 // maybe we need to re-login again
                                 $aTickets = $this->get_passport_ticket();
                                 if (!$aTickets || !is_array($aTickets)) {
                                     // failed to login? ignore it
-                                    $this->debug_message("*** can't re-login, something wrong here, ignore this OIM");
+                                    $this->debug_message("*** Could not re-login, something wrong here, ignoring this OIM");
                                     break;
                                 }
                                 $re_login = true;
                                 $this->ticket = $aTickets;
-                                $this->debug_message("*** get new ticket, try it again");
+                                $this->debug_message("*** Got new ticket, trying again");
                                 $maildata = $this->getOIM_maildata();
                                 if ($maildata === false) {
-                                    $this->debug_message("*** can't get mail-data via SOAP, and we already re-login again, so ignore this OIM");
+                                    $this->debug_message("*** Could not get mail-data via SOAP, and re-login already attempted, ignoring this OIM");
                                     break;
                                 }
                             }
@@ -2445,7 +2000,7 @@ class MSN {
                             $p = substr($p, $end);
                         }
                         if (count($aOIMs) == 0) {
-                            $this->debug_message("*** ingnore empty OIM");
+                            $this->debug_message("*** Ignoring empty OIM");
                             break;
                         }
                         foreach ($aOIMs as $maildata) {
@@ -2460,23 +2015,23 @@ class MSN {
                             // N: sender alias
                             preg_match('#<T>(.*)</T>#', $maildata, $matches);
                             if (count($matches) == 0) {
-                                $this->debug_message("*** ingnore OIM maildata without <T>type</T>");
+                                $this->debug_message("*** Ignoring OIM maildata without <T>type</T>");
                                 continue;
                             }
                             $oim_type = $matches[1];
                             if ($oim_type = 13)
-                            $network = 32;
+                                $network = 32;
                             else
-                            $network = 1;
+                                $network = 1;
                             preg_match('#<E>(.*)</E>#', $maildata, $matches);
                             if (count($matches) == 0) {
-                                $this->debug_message("*** ingnore OIM maildata without <E>sender</E>");
+                                $this->debug_message("*** Ignoring OIM maildata without <E>sender</E>");
                                 continue;
                             }
                             $oim_sender = $matches[1];
                             preg_match('#<I>(.*)</I>#', $maildata, $matches);
                             if (count($matches) == 0) {
-                                $this->debug_message("*** ingnore OIM maildata without <I>msgid</I>");
+                                $this->debug_message("*** Ignoring OIM maildata without <I>msgid</I>");
                                 continue;
                             }
                             $oim_msgid = $matches[1];
@@ -2484,18 +2039,18 @@ class MSN {
                             $oim_size = (count($matches) == 0) ? 0 : $matches[1];
                             preg_match('#<RT>(.*)</RT>#', $maildata, $matches);
                             $oim_time = (count($matches) == 0) ? 0 : $matches[1];
-                            $this->debug_message("*** You've OIM sent by $oim_sender, Time: $oim_time, MSGID: $oim_msgid, size: $oim_size");
+                            $this->debug_message("*** OIM received from $oim_sender, Time: $oim_time, MSGID: $oim_msgid, size: $oim_size");
                             $sMsg = $this->getOIM_message($oim_msgid);
                             if ($sMsg === false) {
-                                $this->debug_message("*** can't get OIM, msgid = $oim_msgid");
+                                $this->debug_message("*** Could not get OIM, msgid = $oim_msgid");
                                 if ($re_login) {
-                                    $this->debug_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                                    $this->debug_message("*** Could not get OIM via SOAP, and re-login already attempted, ignoring this OIM");
                                     continue;
                                 }
                                 $aTickets = $this->get_passport_ticket();
                                 if (!$aTickets || !is_array($aTickets)) {
                                     // failed to login? ignore it
-                                    $this->debug_message("*** can't re-login, something wrong here, ignore this OIM");
+                                    $this->debug_message("*** Could not re-login, something wrong here, ignoring this OIM");
                                     continue;
                                 }
                                 $re_login = true;
@@ -2503,13 +2058,11 @@ class MSN {
                                 $this->debug_message("*** get new ticket, try it again");
                                 $sMsg = $this->getOIM_message($oim_msgid);
                                 if ($sMsg === false) {
-                                    $this->debug_message("*** can't get OIM via SOAP, and we already re-login again, so ignore this OIM");
+                                    $this->debug_message("*** Could not get OIM via SOAP, and re-login already attempted, ignoring this OIM");
                                     continue;
                                 }
                             }
                             $this->debug_message("*** MSG (Offline) from $oim_sender (network: $network): $sMsg");
-
-                            //$this->ReceivedMessage($oim_sender,$sMsg,$network,true);
                             $this->callHandler('IMin', array('sender' => $oim_sender, 'message' => $sMsg, 'network' => $network, 'offline' => true));
                         }
                     }
@@ -2519,8 +2072,7 @@ class MSN {
                     // randomly, we get UBM, this is the message from other network, like Yahoo!
                     // NS: <<< UBM {email} $network $type {size}
                     @list(/* UBM */, $from_email, $network, $type, $size,) = @explode(' ', $data);
-                    if (is_numeric($size) && $size > 0)
-                    {
+                    if (is_numeric($size) && $size > 0) {
                         $data = $this->ns_readdata($size);
                         $aLines = @explode("\n", $data);
                         $header = true;
@@ -2546,13 +2098,11 @@ class MSN {
                                 $sMsg .= $str;
                             }
                         }
-                        if($ignore)
-                        {
-                            $this->debug_message("*** ingnore from $from_email: $line");
+                        if ($ignore) {
+                            $this->debug_message("*** Ignoring message from $from_email: $line");
                             break;
                         }
                         $this->debug_message("*** MSG from $from_email (network: $network): $sMsg");
-                        //$this->ReceivedMessage($from_email,$sMsg,$network,false);
                         $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
                     }
                     break;
@@ -2563,7 +2113,7 @@ class MSN {
                     @list(/* UBX */, /* email */, /* network */, $size,) = @explode(' ', $data);
                     // we don't need the notification data, so just ignore it
                     if (is_numeric($size) && $size > 0)
-                    $this->ns_readdata($size);
+                        $this->ns_readdata($size);
                     break;
 
                 case 'CHL':
@@ -2576,7 +2126,7 @@ class MSN {
                     $this->ns_writeln("QRY $this->id $this->prod_id 32");
                     $this->ns_writedata($fingerprint);
                     $this->ns_writeln("CHG $this->id NLN $this->clientid");
-                    if($this->PhotoStickerFile!==false)
+                    if ($this->PhotoStickerFile !== false)
                         $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     break;
                 case 'CHG':
@@ -2601,41 +2151,10 @@ class MSN {
                         $this->NSLogout();
                         continue;
                     }
-                    if(count($this->MessageQueue))
-                    {
-                        foreach($this->MessageQueue as $User => $Message)
-                        {
-                            //$this->ChildProcess[$ChildPid]
-                            $this->debug_message("*** XFR SB $User");
-                            $pid=pcntl_fork();
-                            if($pid)
-                            {
-                                //Parrent Process
-                                $this->ChildProcess[$pid]=$User;
-                                break;
-                            }
-                            elseif($pid==-1)
-                            {
-                                $this->debug_message("*** Fork Error $User");
-                                break;
-                            }
-                            else
-                            {
-                                //Child Process
-                                $this->debug_message("*** Child Process Start for $User");
-                                unset($Message['XFRSent']);
-                                unset($Message['ReqTime']);
+
+                    $this->debug_message("NS: <<< XFR SB");
+                    $user = array_shift($this->waitingForXFR);
                                 $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
-                                if ($bSBresult === false)
-                                {
-                                    // error for switchboard
-                                    $this->debug_message("!!! error for sending message to ".$User);
-                                }
-                                die;
-                            }
-                        }
-                        unset($this->MessageQueue[$User]);
-                    }
                     /*
                      $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $aMSNUsers[$nCurrentUser], $sMessage);
                      if ($bSBresult === false) {
@@ -2651,7 +2170,7 @@ class MSN {
                     break;
 
                 case 'RNG':
-                    if($this->PhotoStickerFile!==false)
+                    if ($this->PhotoStickerFile !== false)
                         $this->ns_writeln("CHG $this->id NLN $this->clientid ".rawurlencode($this->MsnObj($this->PhotoStickerFile)));
                     else
                         $this->ns_writeln("CHG $this->id NLN $this->clientid");
@@ -2660,32 +2179,9 @@ class MSN {
                     $this->debug_message("NS: <<< RNG $data");
                     @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name, ) = @explode(' ', $data);
                     @list($sb_ip, $sb_port) = @explode(':', $server);
-                    if($this->IsIgnoreMail($email))
-                    {
-                        $this->debug_message("*** Ignore RNG from $email");
-                        break;
-                    }
                     $this->debug_message("*** RING from $email, $sb_ip:$sb_port");
-                    $this->addContact($email,1,$email, true);
-                    $pid=pcntl_fork();
-                    if($pid)
-                    {
-                        //Parrent Process
-                        $this->ChildProcess[$pid]='RNG';
-                        break;
-                    }
-                    elseif($pid==-1)
-                    {
-                        $this->debug_message("*** Fork Error $User");
-                        break;
-                    }
-                    else
-                    {
-                        //Child Process
-                        $this->debug_message("*** Ring Child Process Start for $User");
-                        $this->switchboard_ring($sb_ip, $sb_port, $sid, $ticket,$email);
-                        die;
-                    }
+                    $this->addContact($email, 1, $email, true);
+                    $this->connectToSBSession('Passive', $sb_ip, $sb_port, $email, array('sid' => $sid, 'ticket' => $ticket));
                     break;
                 case 'OUT':
                     // force logout from NS
@@ -2710,8 +2206,428 @@ class MSN {
      * Read and handle incoming command/message from
      * a switchboard session socket
      */
-    private function sbReceive() {
+    private function sbReceive($socket) {
+        $intsocket = (int) $socket;
+        $session = &$this->switchBoardSessions[$intsocket];
 
+        if (feof($socket)) {
+            // Unset session lookup value
+            unset($this->switchBoardSessionLookup[$session['to']]);
+
+            // Unset session itself
+            unset($this->switchBoardSessions[$intsocket]);
+            return;
+        }
+
+        $id = &$session['id'];
+
+        $data = $this->sb_readln($socket);
+        $code = substr($data, 0, 3);
+        switch($code) {
+            case 'IRO':
+                // SB: <<< IRO {id} {rooster} {roostercount} {email} {alias} {clientid}
+                @list(/* IRO */, /* id */, $cur_num, $total, $email, $alias, $clientid) = @explode(' ', $data);
+                $this->debug_message("*** $email joined session");
+                $session['joined'] = true;
+                break;
+            case 'BYE':
+                $this->debug_message("*** Quit for BYE");
+                $this->endSBSession();
+                break;
+            case 'USR':
+                // SB: <<< USR {id} OK {user} {alias}
+                // we don't need the data, just ignore it
+                // request user to join this switchboard
+                // SB: >>> CAL {id} {user}
+                $this->sb_writeln($socket, $id, "CAL $this->id $user");
+                break;
+            case 'CAL':
+                // SB: <<< CAL {id} RINGING {?}
+                // we don't need this, just ignore, and wait for other response
+                $session['id']++;
+                break;
+            case 'JOI':
+                // SB: <<< JOI {user} {alias} {clientid?}
+                // someone join us
+                // we don't need the data, just ignore it
+                // no more user here
+                $session['joined'] = true;
+                break;
+            case 'MSG':
+                // SB: <<< MSG {email} {alias} {len}
+                @list(/* MSG */, $from_email, /* alias */, $len, ) = @explode(' ', $data);
+                $len = trim($len);
+                $data = $this->sb_readdata($socket, $len);
+                $aLines = @explode("\n", $data);
+                $header = true;
+                $ignore = false;
+                $is_p2p = false;
+                $sMsg = '';
+                foreach ($aLines as $line) {
+                    $line = rtrim($line);
+                    if ($header) {
+                        if ($line === '') {
+                            $header = false;
+                            continue;
+                        }
+                        if (strncasecmp($line, 'TypingUser:', 11) == 0) {
+                            // typing notification, just ignore
+                            $ignore = true;
+                            break;
+                        }
+                        if (strncasecmp($line, 'Chunk:', 6) == 0) {
+                            // we don't handle any split message, just ignore
+                            $ignore = true;
+                            break;
+                        }
+                        if (strncasecmp($line, 'Content-Type: application/x-msnmsgrp2p', 38) == 0) {
+                            // p2p message, ignore it, but we need to send acknowledgement for it...
+                            $is_p2p = true;
+                            $p = strstr($data, "\n\n");
+                            $sMsg = '';
+                            if ($p === false) {
+                                $p = strstr($data, "\r\n\r\n");
+                                if ($p !== false)
+                                $sMsg = substr($p, 4);
+                            }
+                            else
+                            $sMsg = substr($p, 2);
+                            break;
+                        }
+                        if (strncasecmp($line, 'Content-Type: application/x-', 28) == 0) {
+                            // ignore all application/x-... message
+                            // for example:
+                            //      application/x-ms-ink        => ink message
+                            $ignore = true;
+                            break;
+                        }
+                        if (strncasecmp($line, 'Content-Type: text/x-', 21) == 0) {
+                            // ignore all text/x-... message
+                            // for example:
+                            //      text/x-msnmsgr-datacast         => nudge, voice clip....
+                            //      text/x-mms-animemoticon         => customized animemotion word
+                            $ignore = true;
+                            break;
+                        }
+                        continue;
+                    }
+                    if ($sMsg !== '')
+                        $sMsg .= "\n";
+                    $sMsg .= $line;
+                }
+                if ($ignore) {
+                    $this->debug_message("*** Ignoring SB data from $from_email: $line");
+                    break;
+                }
+                if ($is_p2p) {
+                    // we will ignore any p2p message after sending acknowledgement
+                    $ignore = true;
+                    $len = strlen($sMsg);
+                    $this->debug_message("*** p2p message from $from_email, size $len");
+                    // header = 48 bytes
+                    // content >= 0 bytes
+                    // footer = 4 bytes
+                    // so it need to >= 52 bytes
+                    /*if ($len < 52) {
+                        $this->debug_message("*** p2p: size error, less than 52!");
+                        break;
+                    }*/
+                    $aDwords = @unpack("V12dword", $sMsg);
+                    if (!is_array($aDwords)) {
+                        $this->debug_message("*** p2p: header unpack error!");
+                        break;
+                    }
+                    $this->debug_message("*** p2p: dump received message:\n".$this->dump_binary($sMsg));
+                    $hdr_SessionID = $aDwords['dword1'];
+                    $hdr_Identifier = $aDwords['dword2'];
+                    $hdr_DataOffsetLow = $aDwords['dword3'];
+                    $hdr_DataOffsetHigh = $aDwords['dword4'];
+                    $hdr_TotalDataSizeLow = $aDwords['dword5'];
+                    $hdr_TotalDataSizeHigh = $aDwords['dword6'];
+                    $hdr_MessageLength = $aDwords['dword7'];
+                    $hdr_Flag = $aDwords['dword8'];
+                    $hdr_AckID = $aDwords['dword9'];
+                    $hdr_AckUID = $aDwords['dword10'];
+                    $hdr_AckSizeLow = $aDwords['dword11'];
+                    $hdr_AckSizeHigh = $aDwords['dword12'];
+                    $this->debug_message("*** p2p: header SessionID = $hdr_SessionID");
+                    $this->debug_message("*** p2p: header Inentifier = $hdr_Identifier");
+                    $this->debug_message("*** p2p: header Data Offset Low = $hdr_DataOffsetLow");
+                    $this->debug_message("*** p2p: header Data Offset High = $hdr_DataOffsetHigh");
+                    $this->debug_message("*** p2p: header Total Data Size Low = $hdr_TotalDataSizeLow");
+                    $this->debug_message("*** p2p: header Total Data Size High = $hdr_TotalDataSizeHigh");
+                    $this->debug_message("*** p2p: header MessageLength = $hdr_MessageLength");
+                    $this->debug_message("*** p2p: header Flag = $hdr_Flag");
+                    $this->debug_message("*** p2p: header AckID = $hdr_AckID");
+                    $this->debug_message("*** p2p: header AckUID = $hdr_AckUID");
+                    $this->debug_message("*** p2p: header AckSize Low = $hdr_AckSizeLow");
+                    $this->debug_message("*** p2p: header AckSize High = $hdr_AckSizeHigh");
+                    if ($hdr_Flag == 2) {
+                        //This is an ACK from SB ignore....
+                        $this->debug_message("*** p2p: //This is an ACK from SB ignore....:\n");
+                        break;
+                    }
+                    $MsgBody = $this->linetoArray(substr($sMsg, 48, -4));
+                    $this->debug_message("*** p2p: body".print_r($MsgBody, true));
+                    if (($MsgBody['EUF-GUID']=='{A4268EEC-FEC5-49E5-95C3-F126696BDBF6}')&&($PictureFilePath=$this->GetPictureFilePath($MsgBody['Context']))) {
+                        while (true) {
+                            if ($this->sb_readln($socket) === false) break;
+                        }
+                        $this->debug_message("*** p2p: Inv hdr:\n".$this->dump_binary(substr($sMsg, 0, 48)));
+                        preg_match('/{([0-9A-F\-]*)}/i', $MsgBody['Via'], $Matches);
+                        $BranchGUID = $Matches[1];
+                        //it's an invite to send a display picture.
+                        $new_id = ~$hdr_Identifier;
+                        $hdr = pack(
+                            "LLLLLLLLLLLL", $hdr_SessionID,
+                            $new_id,
+                            0, 0,
+                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
+                            0,
+                            2,
+                            $hdr_Identifier,
+                            $hdr_AckID,
+                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh
+                        );
+                        $footer = pack("L", 0);
+                        $message = "MIME-Version: 1.0\r\nContent-Type: application/x-msnmsgrp2p\r\nP2P-Dest: $from_email\r\n\r\n$hdr$footer";
+                        $len = strlen($message);
+                        $this->sb_writeln($socket, $id, "MSG $this->id D $len");
+                        $this->sb_writedata($socket, $message);
+                        $this->debug_message("*** p2p: send display picture acknowledgement for $hdr_SessionID");
+                        $this->debug_message("*** p2p: Invite ACK message:\n".$this->dump_binary($message));
+                        $this->sb_readln($socket); // Read ACK;
+                        $this->debug_message("*** p2p: Invite ACK Hdr:\n".$this->dump_binary($hdr));
+                        $new_id -= 3;
+                        //Send 200 OK message
+                        $MessageContent="SessionID: ".$MsgBody['SessionID']."\r\n\r\n".pack("C", 0);
+                        $MessagePayload=
+                            "MSNSLP/1.0 200 OK\r\n".
+                            "To: <msnmsgr:".$from_email.">\r\n".
+                            "From: <msnmsgr:".$this->user.">\r\n".
+                            "Via: ".$MsgBody['Via']."\r\n".
+                            "CSeq: ".($MsgBody['CSeq']+1)."\r\n".
+                            "Call-ID: ".$MsgBody['Call-ID']."\r\n".
+                            "Max-Forwards: 0\r\n".
+                            "Content-Type: application/x-msnmsgr-sessionreqbody\r\n".
+                            "Content-Length: ".strlen($MessageContent)."\r\n\r\n".
+                        $MessageContent;
+                        $hdr_TotalDataSizeLow=strlen($MessagePayload);
+                        $hdr_TotalDataSizeHigh=0;
+                        $hdr = pack(
+                            "LLLLLLLLLLLL", $hdr_SessionID,
+                            $new_id,
+                            0, 0,
+                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
+                            strlen($MessagePayload),
+                            0,
+                            rand(),
+                            0,
+                            0, 0
+                        );
+
+                        $message =
+                            "MIME-Version: 1.0\r\n".
+                            "Content-Type: application/x-msnmsgrp2p\r\n".
+                            "P2P-Dest: $from_email\r\n\r\n$hdr$MessagePayload$footer";
+                        $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                        $this->sb_writedata($socket, $message);
+                        $this->debug_message("*** p2p: dump 200 ok message:\n".$this->dump_binary($message));
+                        $this->sb_readln($socket); // Read ACK;
+
+                        $this->debug_message("*** p2p: 200 ok:\n".$this->dump_binary($hdr));
+                        // send data preparation message
+                        // send 4 null bytes as data
+                        $hdr_TotalDataSizeLow = 4;
+                        $hdr_TotalDataSizeHigh = 0 ;
+                        $new_id++;
+                        $hdr = pack(
+                            "LLLLLLLLLLLL",
+                            $MsgBody['SessionID'],
+                            $new_id,
+                            0, 0,
+                            $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
+                            $hdr_TotalDataSizeLow,
+                            0,
+                            rand(),
+                            0,
+                            0, 0
+                        );
+                        $message =
+                            "MIME-Version: 1.0\r\n".
+                            "Content-Type: application/x-msnmsgrp2p\r\n".
+                            "P2P-Dest: $from_email\r\n\r\n$hdr".pack('L', 0)."$footer";
+                        $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                        $this->sb_writedata($socket, $message);
+                        $this->debug_message("*** p2p: dump send Data preparation message:\n".$this->dump_binary($message));
+                        $this->debug_message("*** p2p: Data Prepare Hdr:\n".$this->dump_binary($hdr));
+                        $this->sb_readln($socket); // Read ACK;
+
+                        // send Data Content..
+                        $footer=pack('N',1);
+                        $new_id++;
+                        $FileSize=filesize($PictureFilePath);
+                        if ($hTitle=fopen($PictureFilePath,'rb')) {
+                            $Offset = 0;
+                            //$new_id++;
+                            while (!feof($hTitle)) {
+                                $FileContent = fread($hTitle, 1024);
+                                $FileContentSize = strlen($FileContent);
+                                $hdr = pack(
+                                    "LLLLLLLLLLLL",
+                                    $MsgBody['SessionID'],
+                                    $new_id,
+                                    $Offset, 0,
+                                    $FileSize, 0,
+                                    $FileContentSize,
+                                    0x20,
+                                    rand(),
+                                    0,
+                                    0, 0
+                                );
+                                $message =
+                                    "MIME-Version: 1.0\r\n".
+                                    "Content-Type: application/x-msnmsgrp2p\r\n".
+                                    "P2P-Dest: $from_email\r\n\r\n$hdr$FileContent$footer";
+                                $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                                $this->sb_writedata($socket, $message);
+                                $this->debug_message("*** p2p: dump send Data Content message  $Offset / $FileSize :\n".$this->dump_binary($message));
+                                $this->debug_message("*** p2p: Data Content Hdr:\n".$this->dump_binary($hdr));
+                                //$this->SB_readln($socket);//Read ACK;
+                                $Offset += $FileContentSize;
+                            }
+                        }
+                        //Send Bye
+                        /*
+                        $MessageContent="\r\n".pack("C", 0);
+                        $MessagePayload=
+                            "BYE MSNMSGR:MSNSLP/1.0\r\n".
+                            "To: <msnmsgr:$from_email>\r\n".
+                            "From: <msnmsgr:".$this->user.">\r\n".
+                            "Via: MSNSLP/1.0/TLP ;branch={".$BranchGUID."}\r\n".
+                            "CSeq: 0\r\n".
+                            "Call-ID: ".$MsgBody['Call-ID']."\r\n".
+                            "Max-Forwards: 0\r\n".
+                            "Content-Type: application/x-msnmsgr-sessionclosebody\r\n".
+                            "Content-Length: ".strlen($MessageContent)."\r\n\r\n".$MessageContent;
+                        $footer=pack('N',0);
+                        $hdr_TotalDataSizeLow=strlen($MessagePayload);
+                        $hdr_TotalDataSizeHigh=0;
+                        $new_id++;
+                        $hdr = pack("LLLLLLLLLLLL",
+                        0,
+                        $new_id,
+                        0, 0,
+                        $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
+                        0,
+                        0,
+                        rand(),
+                        0,
+                        0,0);
+                        $message =
+                                    "MIME-Version: 1.0\r\n".
+                                    "Content-Type: application/x-msnmsgrp2p\r\n".
+                                    "P2P-Dest: $from_email\r\n\r\n$hdr$MessagePayload$footer";
+                        $this->sb_writeln($socket, $id, "MSG $id D ".strlen($message));
+                        $id++;
+                        $this->sb_writedata($socket, $message);
+                        $this->debug_message("*** p2p: dump send BYE message :\n".$this->dump_binary($message));
+                        */
+                        break;
+                    }
+                    //TODO:
+                    //if ($hdr_Flag == 2) {
+                    // just send ACK...
+                    //    $this->sb_writeln($socket, $id, "ACK $id");
+                    //    break;
+                    //}
+                    if ($hdr_SessionID == 4) {
+                        // ignore?
+                        $this->debug_message("*** p2p: ignore flag 4");
+                        break;
+                    }
+                    $finished = false;
+                    if ($hdr_TotalDataSizeHigh == 0) {
+                        // only 32 bites size
+                        if (($hdr_MessageLength + $hdr_DataOffsetLow) == $hdr_TotalDataSizeLow)
+                        $finished = true;
+                    }
+                    else {
+                        // we won't accept any file transfer
+                        // so I think we won't get any message size need to use 64 bits
+                        // 64 bits size here, can't count directly...
+                        $totalsize = base_convert(sprintf("%X%08X", $hdr_TotalDataSizeHigh, $hdr_TotalDataSizeLow), 16, 10);
+                        $dataoffset = base_convert(sprintf("%X%08X", $hdr_DataOffsetHigh, $hdr_DataOffsetLow), 16, 10);
+                        $messagelength = base_convert(sprintf("%X", $hdr_MessageLength), 16, 10);
+                        $now_size = bcadd($dataoffset, $messagelength);
+                        if (bccomp($now_size, $totalsize) >= 0)
+                        $finished = true;
+                    }
+                    if (!$finished) {
+                        // ignore not finished split packet
+                        $this->debug_message("*** p2p: ignore split packet, not finished");
+                        break;
+                    }
+                    //$new_id = ~$hdr_Identifier;
+                    /*
+                     $new_id++;
+                     $hdr = pack("LLLLLLLLLLLL", $hdr_SessionID,
+                     $new_id,
+                     0, 0,
+                     $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh,
+                     0,
+                     2,
+                     $hdr_Identifier,
+                     $hdr_AckID,
+                     $hdr_TotalDataSizeLow, $hdr_TotalDataSizeHigh);
+                     $footer = pack("L", 0);
+                     $message = "MIME-Version: 1.0\r\nContent-Type: application/x-msnmsgrp2p\r\nP2P-Dest: $from_email\r\n\r\n$hdr$footer";
+                     $len = strlen($message);
+                     $this->sb_writeln($socket, $id, "MSG $id D $len");
+                     $id++;
+                     $this->sb_writedata($socket, $message);
+                     $this->debug_message("*** p2p: send acknowledgement for $hdr_SessionID");
+                     $this->debug_message("*** p2p: dump sent message:\n".$this->dump_binary($hdr.$footer));
+                     */
+                    break;
+                }
+                $this->debug_message("*** MSG from $from_email: $sMsg");
+                $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
+                break;
+            case '217':
+                $this->debug_message("*** User $user is offline. Trying OIM.");
+                $session['offline'] = true;
+                break;
+            default:
+                if (is_numeric($code)) {
+                    $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
+                    $this->debug_message("*** SB: $this->error");
+                    $sessionEnd=true;
+                }
+                break;
+        }
+    }
+
+    /**
+    * Called when we want to end a switchboard session
+    * or a switchboard session ends
+    *
+    * @param resource $socket Socket
+    * @param boolean $killsession Whether to delete the session
+    * @return void
+    */
+    private function endSBSession($socket, $killsession = false) {
+        if (!self::socketcheck($socket)) {
+            $this->sb_writeln($socket, $fake = 0, 'OUT');
+        }
+        @fclose($socket);
+
+        // Unset session lookup value
+        $intsocket = (int) $socket;
+        unset($this->switchBoardSessionLookup[$this->switchBoardSessions[$intsocket]['to']]);
+
+        // Unset session itself
+        unset($this->switchBoardSessions[$intsocket]);
     }
 
     /**
@@ -2722,16 +2638,16 @@ class MSN {
      * @return void
      */
     public function receive() {
-        //First, get an array of sockets that have data that is ready to be read
+        // First, get an array of sockets that have data that is ready to be read
         $ready = array();
         $ready = $this->getSockets();
-        $numrdy = stream_select($ready, $w = NULL, $x = NULL,NULL);
+        $numrdy = stream_select($ready, $w = NULL, $x = NULL, NULL);
 
-        //Now that we've waited for something, go through the $ready
-        //array and read appropriately
+        // Now that we've waited for something, go through the $ready
+        // array and read appropriately
 
-        for($i = 0;$i<sizeof($ready);$i++) {
-            if ($ready[$i] == $this->NSfp) {
+        foreach ($ready as $socket) {
+            if ($socket == $this->NSfp) {
                 $this->nsReceive();
             } else {
                 $this->sbReceive($socket);
@@ -2741,21 +2657,29 @@ class MSN {
 
     /**
      * Send a request for a switchboard session
-     * @param String $to Target email for switchboard session
+     *
+     * @param string $to Target email for switchboard session
      */
     private function reqSBSession($to) {
         $this->debug_message("*** Request SB for $to");
         $this->ns_writeln("XFR $this->id SB");
 
         // Add to the queue of those waiting for a switchboard session reponse
-        $this->switchBoardSessions[$to] = array('socket' => NULL, 'id' => 1, 'lastActive' => NULL, 'joined' => false, 'XFRReqTime' => time());
+        $this->switchBoardSessions[$to] = array(
+            'to' => $to,
+            'socket' => NULL,
+            'id' => 1,
+            'joined' => false,
+            'offline' => false,
+            'XFRReqTime' => time()
+        );
         $this->waitingForXFR[] = &$this->switchBoardSessions[$to];
     }
 
     /**
      * Following an XFR or RNG, connect to the switchboard session
      *
-     * @param string $mode Mode, either 'Active' (in the case of XFR) or 'Passive' (in the case or RNG)
+     * @param string $mode Mode, either 'Active' (in the case of XFR) or 'Passive' (in the case of RNG)
      * @param string $ip IP of Switchboard
      * @param integer $port Port of Switchboard
      * @param string $to User on other end of Switchboard
@@ -2763,21 +2687,35 @@ class MSN {
      * @return boolean true if successful
      */
     private function connectToSBSession($mode, $ip, $port, $to, $param) {
-        $this->debug_message("*** SB: try to connect to switchboard server $ip:$port");
+        $this->debug_message("*** SB: Trying to connect to switchboard server $ip:$port");
 
-        $this->switchBoardSessions[$to]['socket'] = @fsockopen($ip, $port, $errno, $errstr, 5);
-        $socket = $this->switchBoardSessions[$to]['socket'];
-        if(!$socket) {
+        $socket = @fsockopen($ip, $port, $errno, $errstr, $this->timeout);
+        if (!$socket) {
             $this->debug_message("*** SB: Can't connect to $ip:$port, error => $errno, $errstr");
             return false;
         }
-        $this->switchBoardSockets[(int) $socket] = $socket;
 
-        stream_set_timeout($socket, $this->SBStreamTimeout);
+        // Store the socket in the lookup array
+        $this->switchBoardSessionLookup[$to] = $socket;
 
-        $id = &$this->switchBoardSessions[$to]['id'];
+        // Store the socket in the sessions array
+        $intsocket = (int) $socket;
+        $this->switchBoardSessions[$to] = array(
+            'to' => $to,
+            'socket' => $socket,
+            'id' => 1,
+            'joined' => false,
+            'offline' => false,
+            'XFRReqTime' => time()
+        );
 
-        if($mode == 'Active') {
+        // Change the index of the session to the socket
+        $this->switchBoardSessions[$intsocket] = $this->switchBoardSessions[$to];
+        unset($this->switchBoardSessions[$to]);
+
+        $id = &$this->switchBoardSessions[$intsocket]['id'];
+
+        if ($mode == 'Active') {
             $cki_code = $param['cki'];
 
             // SB: >>> USR {id} {user} {cki}
@@ -2790,8 +2728,6 @@ class MSN {
             // SB: >>> ANS {id} {user} {ticket} {session_id}
             $this->sb_writeln($socket, $id, "ANS $id $this->user $ticket $sid");
         }
-
-        $this->switchBoardSessions[$to]['lastActive'] = time();
     }
 
     /**
@@ -2802,24 +2738,23 @@ class MSN {
      * @return boolean true on success
      */
     private function sendMessageViaSB($to, $message) {
-        if(socketcheck($this->switchBoardSessions[$to]['socket'])) {
-            $this->reqSBSession($to);
+        $socket = $this->switchBoardSessionLookup[$to];
+        if (self::socketcheck($socket)) {
             return false;
         }
 
-        if(!$this->switchBoardSessions[$to]['joined']) {
+        if (!$this->switchBoardSessions[$to]['joined']) {
             // If our participant has not joined the session yet we can't message them!
             return false;
         }
 
-        $id = &$this->switchBoardSessions[$to]['id'];
-        $socket = $this->switchBoardSessions[$to]['socket'];
+        $intsocket = (int) $socket;
+        $id = &$this->switchBoardSessions[$intsocket]['id'];
 
         $aMessage = $this->getMessage($Message);
         //CheckEmotion...
         $MsnObjDefine=$this->GetMsnObjDefine($aMessage);
-        if($MsnObjDefine !== '')
-        {
+        if ($MsnObjDefine !== '') {
             $SendString="MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
             $len = strlen($SendString);
             // TODO handle failure during write to socket
@@ -2838,9 +2773,11 @@ class MSN {
 
     /**
      * Send offline message
+     *
      * @param string $to Intended recipient
      * @param string $sMessage Message
      * @param string $lockkey Lock key
+     * @return mixed true on success or error data
      */
     private function sendOIM($to, $sMessage, $lockkey) {
         $XML = '<?xml version="1.0" encoding="utf-8"?>
@@ -2949,17 +2886,19 @@ X-OIM-Sequence-Num: 1
     /**
      * Send a message to a user on another network
      *
-     * @param $message Message
-     * @param $to Intended recipient
-     * @param $network Network
+     * @param string $to Intended recipient
+     * @param string $message Message
+     * @param integer $network Network
      * @return void
      */
-    private function sendOtherNetworkMessage($message, $to, $network) {
+    private function sendOtherNetworkMessage($to, $message, $network) {
         $message = $this->getMessage($message, $network);
         $len = strlen($message);
+        // TODO Introduce error checking for message sending
         $this->ns_writeln("UUM $this->id $to $network 1 $len");
         $this->ns_writedata($Message);
         $this->debug_message("*** Sent to $to (network: $network):\n$Message");
+        return true;
     }
 
     /**
@@ -2971,21 +2910,35 @@ X-OIM-Sequence-Num: 1
      * @param string $message Message
      */
     public function sendMessage($to, $message) {
-        if($message != '') {
+        if ($message != '') {
             list($name, $host, $network) = explode('@', $to);
             $network = $network == '' ? 1 : $network;
+            $recipient = $name.$host;
 
-            if ($network === 1 && $this->switchBoardSessions[$to]['socket'] !== NULL) {
-                $recipient = $name . $host;
-                $this->debug_message("*** Attempting to send message to $recipient using existing SB session");
-
-                if ($this->sendMessageViaSB($message, $recipient)) {
-                    $this->debug_message('*** Message sent successfully');
-                    return true;
-                } else {
-                    $this->debug_message('*** Message sending failed, requesting new SB session');
-                    $this->reqSBSession($to);
+            if ($network === 1) {
+                if (!isset($this->switchBoardSessionLookup[$recipient]) && (!isset($this->switchBoardSessions[$recipient])
+                    || time() - $this->switchBoardSessions[$recipient]['XFRReqTime'] > $this->XFRReqTimeout)) {
+                    $this->debug_message("*** No existing SB session or request has timed out");
+                    $this->reqSBSession($recipient);
                     return false;
+                } else {
+                    $socket = $this->switchBoardSessionLookup[$to];
+                    if ($this->switchBoardSessions[(int) $socket]['offline']) {
+                        $this->debug_message("*** Contact ($recipient) offline, sending OIM");
+                        $this->endSBSession($socket);
+                        return $this->sendMessage($recipient.'@Offline', $message);
+                    } else {
+                        $this->debug_message("*** Attempting to send message to $recipient using existing SB session");
+
+                        if ($this->sendMessageViaSB($recipient, $message)) {
+                            $this->debug_message('*** Message sent successfully');
+                            return true;
+                        } else {
+                            $this->debug_message('*** Message sending failed, requesting new SB session');
+                            $this->reqSBSession($to);
+                            return false;
+                        }
+                    }
                 }
             } elseif ($network == 'Offline') {
                 //Send OIM
@@ -2993,7 +2946,7 @@ X-OIM-Sequence-Num: 1
                 $lockkey = '';
                 $re_login = false;
                 for ($i = 0; $i < $this->oim_try; $i++) {
-                    if (($oim_result = $this->sendOIM($to, $message, $lockkey)) === true) break;
+                    if (($oim_result = $this->sendOIM($recipient, $message, $lockkey)) === true) break;
                     if (is_array($oim_result) && $oim_result['challenge'] !== false) {
                         // need challenge lockkey
                         $this->debug_message("*** Need challenge code for ".$oim_result['challenge']);
@@ -3002,14 +2955,14 @@ X-OIM-Sequence-Num: 1
                     }
                     if ($oim_result === false || $oim_result['auth_policy'] !== false) {
                         if ($re_login) {
-                            $this->debug_message("*** Can't send OIM, but we already re-logged-in again, so ignore this OIM");
-                            return true;
+                            $this->debug_message("*** Can't send OIM, but we already re-logged-in again, so returning false");
+                            return false;
                         }
                         $this->debug_message("*** Can't send OIM, maybe ticket expired, trying to login again");
 
                         // Maybe we need to re-login again
                         if (!$this->get_passport_ticket()) {
-                            $this->debug_message("*** Can't re-login, something went wrong here, ignore this OIM");
+                            $this->debug_message("*** Can't re-login, something went wrong here, returning false");
                             return false;
                         }
                         $this->debug_message("*** Getting new ticket and trying again");
@@ -3017,24 +2970,10 @@ X-OIM-Sequence-Num: 1
                     }
                 }
             } else {
-                $this->debug_message("*** Not MSN network or no existing SB session");
-                $this->reqSBSession($to);
-                return false;
+                // Other network
+                return $this->sendOtherNetworkMessage($recipient, $message, $network);
             }
         }
-        return true;
-    }
-
-    //FIXME Not sure if this is needed?
-    private function endSBSession($socket) {
-        if (feof($socket)) {
-            // lost connection? error? try OIM later
-            @fclose($socket);
-            return false;
-        }
-        $fake = 0;
-        $this->sb_writeln($socket, $fake, "OUT");
-        @fclose($socket);
         return true;
     }
 
@@ -3069,7 +3008,7 @@ X-OIM-Sequence-Num: 1
      * @return array Array of Switchboard sockets
      */
     public function getSBSockets() {
-        return $this->switchBoardSockets;
+        return $this->switchBoardSessionLookup;
     }
 
     /**
@@ -3078,7 +3017,7 @@ X-OIM-Sequence-Num: 1
      * @return array Array of socket resources
      */
     public function getSockets() {
-        return array_merge($this->NSfp, $this->switchBoardSockets);
+        return array_merge(array($this->NSfp), $this->switchBoardSessionLookup);
     }
 
     /**
@@ -3120,7 +3059,8 @@ X-OIM-Sequence-Num: 1
      * Registers a user handler
      *
      * Handler List
-     * IMIn, Pong, ConnectFailed, Reconnect
+     * IMIn, Pong, ConnectFailed, Reconnect,
+     * AddedToList, RemovedFromList
      *
      * @param string $event Event name
      * @param string $handler User function to call
