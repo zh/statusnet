@@ -2,6 +2,7 @@
 /*
 
 phpmsnclass ver 2.0s
+Luke Fitzgerald <lw.fitzgerald@googlemail.com>
 
 Based on MSN class ver 2.0 by Tommy Wu, Ricky Su
 License: GPL
@@ -344,6 +345,10 @@ class MSN {
         /* FIXME Don't implement the signon as a loop or we could hang
         *        the queue handler! */
         $this->debug_message('*** Trying to connect to MSN network');
+        
+        // Remove any remaining switchboard sessions
+        $this->switchBoardSessions = array();
+        $this->switchBoardSessionLookup = array();
 
         while (true) {
             // Connect
