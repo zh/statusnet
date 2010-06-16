@@ -1497,10 +1497,8 @@ class MSN {
     private function sendOtherNetworkMessage($to, $message, $network) {
         $message = $this->getMessage($message, $network);
         $len = strlen($message);
-        if ($this->ns_writeln("UUM $this->id $to $network 1 $len") === false) {
-            return false;
-        }
-        if ($this->ns_writedata($Message)) {
+        if ($this->ns_writeln("UUM $this->id $to $network 1 $len") === false ||
+            $this->ns_writedata($Message) === false) {
             return false;
         }
         $this->debug_message("*** Sent to $to (network: $network):\n$Message");
