@@ -212,10 +212,10 @@ class MSN {
         // NS: >> VER {id} MSNP9 CVR0
         // MSNP15
         // NS: >>> VER {id} MSNP15 CVR0
-        $this->ns_writeln("VER $this->id ".PROTOCOL.' CVR0');
+        $this->ns_writeln("VER $this->id ".self::PROTOCOL.' CVR0');
 
         $start_tm = time();
-        while (!socketcheck($this->NSfp)) {
+        while (!self::socketcheck($this->NSfp)) {
             $data = $this->ns_readln();
             // no data?
             if ($data === false) {
@@ -238,7 +238,7 @@ class MSN {
                     // MSNP15
                     // NS: <<< VER {id} MSNP15 CVR0
                     // NS: >>> CVR {id} 0x0409 winnt 5.1 i386 MSMSGS 8.1.0178 msmsgs {user}
-                    $this->ns_writeln("CVR $this->id 0x0409 winnt 5.1 i386 MSMSGS ".BUILDVER." msmsgs $user");
+                    $this->ns_writeln("CVR $this->id 0x0409 winnt 5.1 i386 MSMSGS ".self::BUILDVER." msmsgs $user");
                     break;
 
                 case 'CVR':
@@ -248,7 +248,7 @@ class MSN {
                     // MSNP15
                     // NS: <<< CVR {id} {ver_list} {download_serve} ....
                     // NS: >>> USR {id} SSO I {user}
-                    $this->ns_writeln("USR $this->id ".LOGIN_METHOD." I $user");
+                    $this->ns_writeln("USR $this->id ".self::LOGIN_METHOD." I $user");
                     break;
 
                 case 'USR':
@@ -281,7 +281,7 @@ class MSN {
                     $login_code = $this->generateLoginBLOB($secret, $nonce);
 
                     // NS: >>> USR {id} SSO S {ticket} {login_code}
-                    $this->ns_writeln("USR $this->id ".LOGIN_METHOD." S $ticket $login_code");
+                    $this->ns_writeln("USR $this->id ".self::LOGIN_METHOD." S $ticket $login_code");
                     $this->authed = true;
                     break;
 
@@ -307,7 +307,7 @@ class MSN {
                     // NS: >> VER {id} MSNP9 CVR0
                     // MSNP15
                     // NS: >>> VER {id} MSNP15 CVR0
-                    $this->ns_writeln("VER $this->id ".PROTOCOL.' CVR0');
+                    $this->ns_writeln("VER $this->id ".self::PROTOCOL.' CVR0');
                     break;
 
                 case 'GCF':
@@ -460,7 +460,7 @@ class MSN {
             $len = strlen($str);
             $this->ns_writeln("UUX $this->id $len");
             $this->ns_writedata($str);
-            if (!socketcheck($this->NSfp)) {
+            if (!self::socketcheck($this->NSfp)) {
                 $this->debug_message('*** Connected, waiting for commands');
                 break;
             } else {
@@ -508,7 +508,7 @@ class MSN {
      */
     private function nsReceive() {
         // Sign in again if not signed in or socket failed
-        if (!is_resource($this->NSfp) || socketcheck($this->NSfp)) {
+        if (!is_resource($this->NSfp) || self::socketcheck($this->NSfp)) {
             $this->callHandler('Reconnect');
             $this->NSRetryWait($this->retry_wait);
             $this->signon();
@@ -836,7 +836,7 @@ class MSN {
                 $fingerprint = $this->getChallenge($chl_code);
                 // NS: >>> QRY {id} {product_id} 32
                 // NS: >>> fingerprint
-                $this->ns_writeln("QRY $this->id ".PROD_ID.' 32');
+                $this->ns_writeln("QRY $this->id ".self::PROD_ID.' 32');
                 $this->ns_writedata($fingerprint);
                 $this->ns_writeln("CHG $this->id NLN $this->clientid");
                 if ($this->PhotoStickerFile !== false)
@@ -1433,7 +1433,7 @@ class MSN {
     * @return void
     */
     private function endSBSession($socket, $killsession = false) {
-        if (!socketcheck($socket)) {
+        if (!self::socketcheck($socket)) {
             $this->sb_writeln($socket, $fake = 0, 'OUT');
         }
         @fclose($socket);
@@ -1455,7 +1455,7 @@ class MSN {
      */
     private function sendMessageViaSB($to, $message) {
         $socket = $this->switchBoardSessionLookup[$to];
-        if (socketcheck($socket)) {
+        if (self::socketcheck($socket)) {
             return false;
         }
 
@@ -1614,15 +1614,15 @@ class MSN {
 </soap:Envelope>';
 
         $header_array = array(
-            'SOAPAction: '.OIM_MAILDATA_SOAP,
+            'SOAPAction: '.self::OIM_MAILDATA_SOAP,
             'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.self::BUILDVER.')'
         );
 
-        $this->debug_message('*** URL: '.OIM_MAILDATA_URL);
+        $this->debug_message('*** URL: '.self::OIM_MAILDATA_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, OIM_MAILDATA_URL);
+        curl_setopt($curl, CURLOPT_URL, self::OIM_MAILDATA_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -1684,15 +1684,15 @@ class MSN {
 </soap:Envelope>';
 
         $header_array = array(
-            'SOAPAction: '.OIM_READ_SOAP,
+            'SOAPAction: '.self::OIM_READ_SOAP,
             'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.self::BUILDVER.')'
         );
 
-        $this->debug_message('*** URL: '.OIM_READ_URL);
+        $this->debug_message('*** URL: '.self::OIM_READ_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, OIM_READ_URL);
+        curl_setopt($curl, CURLOPT_URL, self::OIM_READ_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -1760,15 +1760,15 @@ class MSN {
 </soap:Envelope>';
 
         $header_array = array(
-            'SOAPAction: '.OIM_DEL_SOAP,
+            'SOAPAction: '.self::OIM_DEL_SOAP,
             'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.self::BUILDVER.')'
         );
 
-        $this->debug_message('*** URL: '.OIM_DEL_URL);
+        $this->debug_message('*** URL: '.self::OIM_DEL_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, OIM_DEL_URL);
+        curl_setopt($curl, CURLOPT_URL, self::OIM_DEL_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -1807,11 +1807,11 @@ class MSN {
         xml:lang="zh-TW"
         proxy="MSNMSGR"
         xmlns="http://messenger.msn.com/ws/2004/09/oim/"
-        msnpVer="'.PROTOCOL.'"
-        buildVer="'.BUILDVER.'"/>
+        msnpVer="'.self::PROTOCOL.'"
+        buildVer="'.self::BUILDVER.'"/>
   <To memberName="'.$to.'" xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
   <Ticket passport="'.htmlspecialchars($this->ticket['oim_ticket']).'"
-          appid="'.PROD_ID.'"
+          appid="'.self::PROD_ID.'"
           lockkey="'.$lockkey.'"
           xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
   <Sequence xmlns="http://schemas.xmlsoap.org/ws/2003/03/rm">
@@ -1834,15 +1834,15 @@ X-OIM-Sequence-Num: 1
 </soap:Envelope>';
 
         $header_array = array(
-            'SOAPAction: '.OIM_SEND_SOAP,
+            'SOAPAction: '.self::OIM_SEND_SOAP,
             'Content-Type: text/xml',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.self::BUILDVER.')'
         );
 
-        $this->debug_message('*** URL: '.OIM_SEND_URL);
+        $this->debug_message('*** URL: '.self::OIM_SEND_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, OIM_SEND_URL);
+        curl_setopt($curl, CURLOPT_URL, self::OIM_SEND_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -2095,15 +2095,15 @@ X-OIM-Sequence-Num: 1
 </soap:Envelope>';
 
         $header_array = array(
-            'SOAPAction: '.DELMEMBER_SOAP,
+            'SOAPAction: '.self::DELMEMBER_SOAP,
             'Content-Type: text/xml; charset=utf-8',
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
 
-        $this->debug_message('*** URL: '.DELMEMBER_URL);
+        $this->debug_message('*** URL: '.self::DELMEMBER_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, DELMEMBER_URL);
+        curl_setopt($curl, CURLOPT_URL, self::DELMEMBER_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -2232,15 +2232,15 @@ X-OIM-Sequence-Num: 1
 </soap:Body>
 </soap:Envelope>';
         $header_array = array(
-            'SOAPAction: '.ADDMEMBER_SOAP,
+            'SOAPAction: '.self::ADDMEMBER_SOAP,
             'Content-Type: text/xml; charset=utf-8',
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
 
-        $this->debug_message('*** URL: '.ADDMEMBER_URL);
+        $this->debug_message('*** URL: '.self::ADDMEMBER_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, ADDMEMBER_URL);
+        curl_setopt($curl, CURLOPT_URL, self::ADDMEMBER_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -2310,14 +2310,14 @@ X-OIM-Sequence-Num: 1
 </soap:Body>
 </soap:Envelope>';
         $header_array = array(
-            'SOAPAction: '.MEMBERSHIP_SOAP,
+            'SOAPAction: '.self::MEMBERSHIP_SOAP,
             'Content-Type: text/xml; charset=utf-8',
             'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
         );
-        $this->debug_message('*** URL: '.MEMBERSHIP_URL);
+        $this->debug_message('*** URL: '.self::MEMBERSHIP_URL);
         $this->debug_message("*** Sending SOAP:\n$XML");
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, MEMBERSHIP_URL);
+        curl_setopt($curl, CURLOPT_URL, self::MEMBERSHIP_URL);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
@@ -2642,7 +2642,7 @@ X-OIM-Sequence-Num: 1
         // MSNP15
         // http://msnpiki.msnfanatic.com/index.php/MSNP11:Challenges
         // Step 1: The MD5 Hash
-        $md5Hash = md5($code.PROD_KEY);
+        $md5Hash = md5($code.self::PROD_KEY);
         $aMD5 = @explode("\0", chunk_split($md5Hash, 8, "\0"));
         for ($i = 0; $i < 4; $i++) {
             $aMD5[$i] = implode('', array_reverse(@explode("\0", chunk_split($aMD5[$i], 2, "\0"))));
@@ -2650,7 +2650,7 @@ X-OIM-Sequence-Num: 1
         }
 
         // Step 2: A new string
-        $chl_id = $code.PROD_ID;
+        $chl_id = $code.self::PROD_ID;
         $chl_id .= str_repeat('0', 8 - (strlen($chl_id) % 8));
 
         $aID = @explode("\0", substr(chunk_split($chl_id, 4, "\0"), 0, -1));
@@ -2700,7 +2700,7 @@ X-OIM-Sequence-Num: 1
         // $key = bcadd(bcmul($high, 0x100000000), $low);
 
         // Step 4: Using the key
-        $md5Hash = md5($code.PROD_KEY);
+        $md5Hash = md5($code.self::PROD_KEY);
         $aHash = @explode("\0", chunk_split($md5Hash, 8, "\0"));
 
         $hash = '';
@@ -2766,7 +2766,7 @@ X-OIM-Sequence-Num: 1
         $password = htmlspecialchars($this->password);
 
         if ($url === '')
-            $passport_url = PASSPORT_URL;
+            $passport_url = self::PASSPORT_URL;
         else
             $passport_url = $url;
 
