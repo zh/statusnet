@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-25 11:36+0000\n"
-"PO-Revision-Date: 2010-06-03 23:02:17+0000\n"
+"POT-Creation-Date: 2010-06-16 22:18+0000\n"
+"PO-Revision-Date: 2010-06-16 22:20:27+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:375
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:376
 msgid "Access"
 msgstr "Пристап"
 
@@ -86,13 +86,13 @@ msgid "Save"
 msgstr "Зачувај"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "Нема таква страница."
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -116,7 +116,7 @@ msgid "No such user."
 msgstr "Нема таков корисник."
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s и пријателите, стр. %2$d"
@@ -124,7 +124,7 @@ msgstr "%1$s и пријателите, стр. %2$d"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -132,32 +132,32 @@ msgid "%s and friends"
 msgstr "%s и пријатели"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Канал со пријатели на %s (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Канал со пријатели на %s (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Канал за пријатели на %S (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
 "Ова е историјата за %s и пријателите, но досега никој нема објавено ништо."
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -167,7 +167,7 @@ msgstr ""
 "groups%%) или објавете нешто самите."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -177,7 +177,7 @@ msgstr ""
 "на корисникот или да [објавите нешто што сакате тој да го прочита](%%%%"
 "action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -188,7 +188,7 @@ msgstr ""
 "прочита."
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "Вие и пријателите"
 
@@ -200,8 +200,8 @@ msgstr "Вие и пријателите"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Подновувања од %1$s и пријатели на %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -213,7 +213,7 @@ msgstr "Подновувања од %1$s и пријатели на %2$s!"
 #: actions/apigroupleave.php:142 actions/apigrouplist.php:137
 #: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
 #: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:103 actions/apistatusesretweets.php:112
+#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
@@ -225,7 +225,7 @@ msgstr "Подновувања од %1$s и пријатели на %2$s!"
 msgid "API method not found."
 msgstr "API методот не е пронајден."
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -239,7 +239,7 @@ msgstr "API методот не е пронајден."
 msgid "This method requires a POST."
 msgstr "Овој метод бара POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
@@ -247,7 +247,7 @@ msgstr ""
 "Мора да назначите параметар со име 'device' со една од следниве вредности: "
 "sms, im, none."
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "Не можев да го подновам корисникот."
 
@@ -345,7 +345,7 @@ msgstr ""
 "Неможете да испраќате директни пораки на корисници што не ви се пријатели."
 
 #: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
-#: actions/apistatusesdestroy.php:114
+#: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "Нема пронајдено статус со таков ID."
 
@@ -597,7 +597,7 @@ msgstr ""
 "пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:440
+#: actions/apioauthauthorize.php:310 lib/action.php:450
 msgid "Account"
 msgstr "Сметка"
 
@@ -627,11 +627,11 @@ msgstr "Дозволи"
 msgid "Allow or deny access to your account information."
 msgstr "Дозволете или одбијте пристап до податоците за Вашата сметка."
 
-#: actions/apistatusesdestroy.php:108
+#: actions/apistatusesdestroy.php:112
 msgid "This method requires a POST or DELETE."
 msgstr "Методот бара POST или DELETE."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:135
 msgid "You may not delete another user's status."
 msgstr "Не можете да избришете статус на друг корисник."
 
@@ -998,7 +998,7 @@ msgstr "Не сте сопственик на овој програм."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1253
+#: lib/action.php:1263
 msgid "There was a problem with your session token."
 msgstr "Се појави проблем со Вашиот сесиски жетон."
 
@@ -1103,45 +1103,54 @@ msgstr "Изглед"
 msgid "Design settings for this StatusNet site."
 msgstr "Нагодувања на изгледот на оваа StatusNet веб-страница."
 
-#: actions/designadminpanel.php:276
+#: actions/designadminpanel.php:318
 msgid "Invalid logo URL."
 msgstr "Погрешен URL на лого."
 
-#: actions/designadminpanel.php:280
+#: actions/designadminpanel.php:322
 #, php-format
 msgid "Theme not available: %s."
 msgstr "Темата е недостапна: %s."
 
-#: actions/designadminpanel.php:376
+#: actions/designadminpanel.php:426
 msgid "Change logo"
 msgstr "Промени лого"
 
-#: actions/designadminpanel.php:381
+#: actions/designadminpanel.php:431
 msgid "Site logo"
 msgstr "Лого на веб-страницата"
 
-#: actions/designadminpanel.php:388
+#: actions/designadminpanel.php:443
 msgid "Change theme"
 msgstr "Промени тема"
 
-#: actions/designadminpanel.php:405
+#: actions/designadminpanel.php:460
 msgid "Site theme"
 msgstr "Тема на веб-страницата"
 
-#: actions/designadminpanel.php:406
+#: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr "Тема за веб-страницата."
 
-#: actions/designadminpanel.php:418 lib/designsettings.php:101
+#: actions/designadminpanel.php:467
+#, fuzzy
+msgid "Custom theme"
+msgstr "Тема на веб-страницата"
+
+#: actions/designadminpanel.php:471
+msgid "You can upload a custom StatusNet theme as a .ZIP archive."
+msgstr ""
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Промена на слика на позадина"
 
-#: actions/designadminpanel.php:423 actions/designadminpanel.php:500
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Позадина"
 
-#: actions/designadminpanel.php:428
+#: actions/designadminpanel.php:496
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1151,57 +1160,65 @@ msgstr ""
 "големина на податотеката е %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:459 lib/designsettings.php:139
+#: actions/designadminpanel.php:527 lib/designsettings.php:139
 msgid "On"
 msgstr "Вкл."
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:476 lib/designsettings.php:155
+#: actions/designadminpanel.php:544 lib/designsettings.php:155
 msgid "Off"
 msgstr "Искл."
 
-#: actions/designadminpanel.php:477 lib/designsettings.php:156
+#: actions/designadminpanel.php:545 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Вклучи или исклучи позадинска слика."
 
-#: actions/designadminpanel.php:482 lib/designsettings.php:161
+#: actions/designadminpanel.php:550 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Позадината во квадрати"
 
-#: actions/designadminpanel.php:491 lib/designsettings.php:170
+#: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Промена на бои"
 
-#: actions/designadminpanel.php:513 lib/designsettings.php:191
+#: actions/designadminpanel.php:587 lib/designsettings.php:191
 msgid "Content"
 msgstr "Содржина"
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:204
+#: actions/designadminpanel.php:600 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Странична лента"
 
-#: actions/designadminpanel.php:539 lib/designsettings.php:217
+#: actions/designadminpanel.php:613 lib/designsettings.php:217
 msgid "Text"
 msgstr "Текст"
 
-#: actions/designadminpanel.php:552 lib/designsettings.php:230
+#: actions/designadminpanel.php:626 lib/designsettings.php:230
 msgid "Links"
 msgstr "Врски"
 
-#: actions/designadminpanel.php:580 lib/designsettings.php:247
+#: actions/designadminpanel.php:651
+msgid "Advanced"
+msgstr ""
+
+#: actions/designadminpanel.php:655
+msgid "Custom CSS"
+msgstr ""
+
+#: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Користи по основно"
 
-#: actions/designadminpanel.php:581 lib/designsettings.php:248
+#: actions/designadminpanel.php:677 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Врати основно-зададени нагодувања"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:254
+#: actions/designadminpanel.php:683 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Врати по основно"
 
 #. TRANS: Submit button title
-#: actions/designadminpanel.php:589 actions/othersettings.php:126
+#: actions/designadminpanel.php:685 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
@@ -1211,7 +1228,7 @@ msgstr "Врати по основно"
 msgid "Save"
 msgstr "Зачувај"
 
-#: actions/designadminpanel.php:590 lib/designsettings.php:257
+#: actions/designadminpanel.php:686 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Зачувај изглед"
 
@@ -2565,8 +2582,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Ве молиме користете само %s URL-адреси врз прост HTTP-код."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1157
-#: lib/apiaction.php:1186 lib/apiaction.php:1303
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
+#: lib/apiaction.php:1208 lib/apiaction.php:1325
 msgid "Not a supported data format."
 msgstr "Ова не е поддржан формат на податотека."
 
@@ -2708,7 +2725,7 @@ msgid "Password saved."
 msgstr "Лозинката е зачувана."
 
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:383
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:384
 msgid "Paths"
 msgstr "Патеки"
 
@@ -3571,7 +3588,7 @@ msgstr "Корисникот е веќе во песочен режим."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:391
+#: lib/adminpanelaction.php:392
 msgid "Sessions"
 msgstr "Сесии"
 
@@ -4254,7 +4271,7 @@ msgstr "Нема внесено код"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:407
+#: lib/adminpanelaction.php:408
 msgid "Snapshots"
 msgstr "Снимки"
 
@@ -4801,7 +4818,7 @@ msgid "Plugins"
 msgstr "Приклучоци"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:779
+#: actions/version.php:198 lib/action.php:789
 msgid "Version"
 msgstr "Верзија"
 
@@ -4905,7 +4922,7 @@ msgstr "Проблем при зачувувањето на групното п�
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1562
+#: classes/Notice.php:1564
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5007,188 +5024,188 @@ msgid "Untitled page"
 msgstr "Страница без наслов"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:426
+#: lib/action.php:436
 msgid "Primary site navigation"
 msgstr "Главна навигација"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:432
+#: lib/action.php:442
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Личен профил и хронологија на пријатели"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:435
+#: lib/action.php:445
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Лично"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:437
+#: lib/action.php:447
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промена на е-пошта, аватар, лозинка, профил"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:442
+#: lib/action.php:452
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Поврзи се со услуги"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:445
+#: lib/action.php:455
 msgid "Connect"
 msgstr "Поврзи се"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:448
+#: lib/action.php:458
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Промена на поставките на веб-страницата"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:451
+#: lib/action.php:461
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Админ"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:455
+#: lib/action.php:465
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Поканете пријатели и колеги да Ви се придружат на %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:458
+#: lib/action.php:468
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Покани"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:464
+#: lib/action.php:474
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Одјава"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:467
+#: lib/action.php:477
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Одјава"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:472
+#: lib/action.php:482
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Создај сметка"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:475
+#: lib/action.php:485
 msgctxt "MENU"
 msgid "Register"
 msgstr "Регистрација"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:478
+#: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Најава"
 
-#: lib/action.php:481
+#: lib/action.php:491
 msgctxt "MENU"
 msgid "Login"
 msgstr "Најава"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:484
+#: lib/action.php:494
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Напомош!"
 
-#: lib/action.php:487
+#: lib/action.php:497
 msgctxt "MENU"
 msgid "Help"
 msgstr "Помош"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:490
+#: lib/action.php:500
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пребарајте луѓе или текст"
 
-#: lib/action.php:493
+#: lib/action.php:503
 msgctxt "MENU"
 msgid "Search"
 msgstr "Барај"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:515 lib/adminpanelaction.php:399
+#: lib/action.php:525 lib/adminpanelaction.php:400
 msgid "Site notice"
 msgstr "Напомена за веб-страницата"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:582
+#: lib/action.php:592
 msgid "Local views"
 msgstr "Локални прегледи"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:649
+#: lib/action.php:659
 msgid "Page notice"
 msgstr "Напомена за страницата"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:752
+#: lib/action.php:762
 msgid "Secondary site navigation"
 msgstr "Споредна навигација"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:758
+#: lib/action.php:768
 msgid "Help"
 msgstr "Помош"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:761
+#: lib/action.php:771
 msgid "About"
 msgstr "За"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:764
+#: lib/action.php:774
 msgid "FAQ"
 msgstr "ЧПП"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:769
+#: lib/action.php:779
 msgid "TOS"
 msgstr "Услови"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:773
+#: lib/action.php:783
 msgid "Privacy"
 msgstr "Приватност"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:776
+#: lib/action.php:786
 msgid "Source"
 msgstr "Изворен код"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:782
+#: lib/action.php:792
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:784
+#: lib/action.php:794
 msgid "Badge"
 msgstr "Значка"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:813
+#: lib/action.php:823
 msgid "StatusNet software license"
 msgstr "Лиценца на програмот StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:817
+#: lib/action.php:827
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5198,13 +5215,13 @@ msgstr ""
 "%](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:820
+#: lib/action.php:830
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** е сервис за микроблогирање."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:824
+#: lib/action.php:834
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5216,20 +5233,20 @@ msgstr ""
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:840
+#: lib/action.php:850
 msgid "Site content license"
 msgstr "Лиценца на содржините на веб-страницата"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:847
+#: lib/action.php:857
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Содржината и податоците на %1$s се лични и доверливи."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:854
+#: lib/action.php:864
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
@@ -5237,32 +5254,32 @@ msgstr ""
 "права задржани."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:858
+#: lib/action.php:868
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторските права на содржината и податоците им припаѓаат на учесниците. Сите "
 "права задржани."
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:871
+#: lib/action.php:881
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr "Сите содржини и податоци на %1$s се достапни под лиценцата %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1182
+#: lib/action.php:1192
 msgid "Pagination"
 msgstr "Прелом на страници"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1193
+#: lib/action.php:1203
 msgid "After"
 msgstr "По"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1213
 msgid "Before"
 msgstr "Пред"
 
@@ -5310,59 +5327,59 @@ msgid "Unable to delete design setting."
 msgstr "Не можам да ги избришам нагодувањата за изглед."
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:349
+#: lib/adminpanelaction.php:350
 msgid "Basic site configuration"
 msgstr "Основни нагодувања на веб-страницата"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:351
+#: lib/adminpanelaction.php:352
 msgctxt "MENU"
 msgid "Site"
 msgstr "Веб-страница"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:357
+#: lib/adminpanelaction.php:358
 msgid "Design configuration"
 msgstr "Поставки на изгледот"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:359
+#: lib/adminpanelaction.php:360
 msgctxt "MENU"
 msgid "Design"
 msgstr "Изглед"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:365
+#: lib/adminpanelaction.php:366
 msgid "User configuration"
 msgstr "Конфигурација на корисник"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:367 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Корисник"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:373
+#: lib/adminpanelaction.php:374
 msgid "Access configuration"
 msgstr "Конфигурација на пристапот"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:381
+#: lib/adminpanelaction.php:382
 msgid "Paths configuration"
 msgstr "Конфигурација на патеки"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:389
+#: lib/adminpanelaction.php:390
 msgid "Sessions configuration"
 msgstr "Конфигурација на сесиите"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:397
+#: lib/adminpanelaction.php:398
 msgid "Edit site notice"
 msgstr "Уреди објава за веб-страницата"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:405
+#: lib/adminpanelaction.php:406
 msgid "Snapshots configuration"
 msgstr "Поставки за снимки"
 
@@ -6858,6 +6875,51 @@ msgstr "Облак од ознаки за луѓе"
 #: lib/tagcloudsection.php:56
 msgid "None"
 msgstr "Без ознаки"
+
+#: lib/themeuploader.php:50
+msgid "This server cannot handle theme uploads without ZIP support."
+msgstr ""
+
+#: lib/themeuploader.php:58 lib/themeuploader.php:61
+#, fuzzy
+msgid "Theme upload missing or failed."
+msgstr "Системска грешка при подигањето на податотеката."
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:253 lib/themeuploader.php:257
+#: lib/themeuploader.php:265 lib/themeuploader.php:272
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Подновата на аватарот не успеа."
+
+#: lib/themeuploader.php:139
+msgid "Invalid theme: bad directory structure."
+msgstr ""
+
+#: lib/themeuploader.php:166
+#, php-format
+msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
+msgstr ""
+
+#: lib/themeuploader.php:178
+msgid "Invalid theme archive: missing file css/display.css"
+msgstr ""
+
+#: lib/themeuploader.php:205
+msgid ""
+"Theme contains invalid file or folder name. Stick with ASCII letters, "
+"digits, underscore, and minus sign."
+msgstr ""
+
+#: lib/themeuploader.php:216
+#, php-format
+msgid "Theme contains file of type '.%s', which is not allowed."
+msgstr ""
+
+#: lib/themeuploader.php:234
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Грешка во подновувањето на далечинскиот профил."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
