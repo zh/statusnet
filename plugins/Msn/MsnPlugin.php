@@ -118,6 +118,11 @@ class MsnPlugin extends ImPlugin {
         }
     }
 
+    /*
+     * Start manager on daemon start
+     * 
+     * @return boolean
+     */
     public function onStartImDaemonIoManagers(&$classes) {
         parent::onStartImDaemonIoManagers(&$classes);
         $classes[] = new MsnManager($this); // handles sending/receiving

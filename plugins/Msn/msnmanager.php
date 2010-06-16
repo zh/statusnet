@@ -134,7 +134,9 @@ class MsnManager extends ImManager {
 
     /**
      * Update the time till the next ping
+     * 
      * @param $data Time till next ping
+     * @return void
      */
     private function update_ping_time($data) {
         $pingInterval = $data;
@@ -173,6 +175,12 @@ class MsnManager extends ImManager {
         common_log(LOG_NOTICE, 'MSN reconnecting');
     }
 
+    /**
+     * Send a message using the daemon
+     * 
+     * @param $data Message
+     * @return boolean true on success
+     */
     function send_raw_message($data) {
         $this->connect();
         if (!$this->conn) {

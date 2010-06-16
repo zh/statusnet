@@ -1455,7 +1455,6 @@ class MSN {
     private function sendMessageViaSB($to, $message) {
         $socket = $this->switchBoardSessionLookup[$to];
         if (self::socketcheck($socket)) {
-            $this->endSBSession($socket);
             return false;
         }
         
@@ -1469,21 +1468,24 @@ class MSN {
 
         $aMessage = $this->getMessage($Message);
         // CheckEmotion...
-        $MsnObjDefine=$this->GetMsnObjDefine($aMessage);
+        $MsnObjDefine = $this->GetMsnObjDefine($aMessage);
         if ($MsnObjDefine !== '') {
             $SendString = "MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
             $len = strlen($SendString);
-            // TODO handle failure during write to socket
-            $this->sb_writeln($socket, $id, "MSG $id N $len");
-            $this->sb_writedata($socket, $SendString);
+
+            if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
+                $this->sb_writedata($socket, $SendString) === false) {
+                    return false;
+                }
         }
         $len = strlen($aMessage);
-        // TODO handle failure during write to socket
-        $this->sb_writeln($socket, $id, "MSG $id N $len");
-        $this->sb_writedata($socket, $aMessage);
+
+        if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
+            $this->sb_writedata($socket, $aMessage) === false) {
+                return false;
+            }
 
         // Don't close the SB session, we might as well leave it open
-
         return true;
     }
 
@@ -1995,7 +1997,6 @@ X-OIM-Sequence-Num: 1
                 $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="'.$l.'" t="'.$network.'" /></d></ml>';
                 $len = strlen($str);
                 // NS: >>> ADL {id} {size}
-                //TODO introduce error checking
                 $this->ns_writeln("ADL $this->id $len");
                 $this->ns_writedata($str);
             }
