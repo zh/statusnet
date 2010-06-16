@@ -894,7 +894,7 @@ class MSN {
                 // someone is trying to talk to us
                 // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
                 $this->debug_message("NS: <<< RNG $data");
-                @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name, ) = @explode(' ', $data);
+                @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name,) = @explode(' ', $data);
                 @list($sb_ip, $sb_port) = @explode(':', $server);
                 $this->debug_message("*** RING from $email, $sb_ip:$sb_port");
                 $this->addContact($email, 1, $email, true);
@@ -904,7 +904,7 @@ class MSN {
             case 'NLN':
                 // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
                 // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
-                @list(/* NLN */, $email, $network, $nickname, /* clientid */, /* dbobj */) = @explode(' ', $data);
+                @list(/* NLN */, $email, $network, $nickname, /* clientid */, /* dbobj */,) = @explode(' ', $data);
                 $this->callHandler('StatusChange', array('screenname' => $email, 'network' => $network, 'nickname' => $nickname));
                 break;
             
