@@ -93,7 +93,7 @@ class MsnManager extends ImManager {
     *
     * @return void
     */
-    function connect() {
+    public function connect() {
         if (!$this->conn) {
             $this->conn = new MSN(
                 array(
@@ -161,7 +161,7 @@ class MsnManager extends ImManager {
     * @param void $data Not used (there to keep callback happy)
     * @return void
     */
-    function handle_connect_failed($data) {
+    private function handle_connect_failed($data) {
         common_log(LOG_NOTICE, 'MSN connect failed, retrying');
     }
 
@@ -171,8 +171,17 @@ class MsnManager extends ImManager {
     * @param void $data Not used (there to keep callback happy)
     * @return void
     */
-    function handle_reconnect($data) {
+    private function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');
+    }
+    
+    /**
+     * Called by callback when contact changes status
+     * 
+     * @param array $data Data
+     */
+    private function handle_status_change($data) {
+        
     }
 
     /**
@@ -181,7 +190,7 @@ class MsnManager extends ImManager {
      * @param $data Message
      * @return boolean true on success
      */
-    function send_raw_message($data) {
+    public function send_raw_message($data) {
         $this->connect();
         if (!$this->conn) {
             return false;

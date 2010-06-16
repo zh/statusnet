@@ -900,6 +900,14 @@ class MSN {
                 $this->addContact($email, 1, $email, true);
                 $this->connectToSBSession('Passive', $sb_ip, $sb_port, $email, array('sid' => $sid, 'ticket' => $ticket));
                 break;
+            
+            case 'NLN':
+                // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
+                // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
+                @list(/* NLN */, $email, $network, $nickname, /* clientid */, /* dbobj */) = @explode(' ', $data);
+                $this->callHandler('StatusChange', array('screenname' => $email, 'network' => $network, 'nickname' => $nickname));
+                break;
+            
             case 'OUT':
                 // force logout from NS
                 // NS: <<< OUT xxx
@@ -3092,7 +3100,7 @@ X-OIM-Sequence-Num: 1
      *
      * Handler List
      * IMIn, Pong, ConnectFailed, Reconnect,
-     * AddedToList, RemovedFromList
+     * AddedToList, RemovedFromList, StatusChange
      *
      * @param string $event Event name
      * @param string $handler User function to call
