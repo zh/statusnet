@@ -1497,9 +1497,12 @@ class MSN {
     private function sendOtherNetworkMessage($to, $message, $network) {
         $message = $this->getMessage($message, $network);
         $len = strlen($message);
-        // TODO Introduce error checking for message sending
-        $this->ns_writeln("UUM $this->id $to $network 1 $len");
-        $this->ns_writedata($Message);
+        if ($this->ns_writeln("UUM $this->id $to $network 1 $len") === false) {
+            return false;
+        }
+        if ($this->ns_writedata($Message)) {
+            return false;
+        }
         $this->debug_message("*** Sent to $to (network: $network):\n$Message");
         return true;
     }
@@ -2497,23 +2500,29 @@ X-OIM-Sequence-Num: 1
      * Also increments id
      * 
      * @param string $data Line to write to socket
-     * @return void
+     * @return mixed Bytes written or false on failure
      */
     private function ns_writeln($data) {
-        @fwrite($this->NSfp, $data."\r\n");
-        $this->debug_message("NS: >>> $data");
-        $this->id++;
+        $result = @fwrite($this->NSfp, $data."\r\n");
+        if ($result !== false) {
+            $this->debug_message("NS: >>> $data");
+            $this->id++;
+        }
+        return $result;
     }
 
     /**
      * Write data to NS socket
      * 
      * @param string $data Data to write to socket
-     * @return void
+     * @return mixed Bytes written or false on failure
      */
     private function ns_writedata($data) {
-        @fwrite($this->NSfp, $data);
-        $this->debug_message("NS: >>> $data");
+        $result = @fwrite($this->NSfp, $data);
+        if ($result !== false) {
+            $this->debug_message("NS: >>> $data");
+        }
+        return $result;
     }
 
     /**
