@@ -1432,7 +1432,7 @@ class MSN {
     * @param boolean $killsession Whether to delete the session
     * @return void
     */
-    private function endSBSession($socket, $killsession = false) {
+    private function endSBSession($socket) {
         if (!self::socketcheck($socket)) {
             $this->sb_writeln($socket, $fake = 0, 'OUT');
         }
