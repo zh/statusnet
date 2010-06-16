@@ -148,7 +148,7 @@ class MsnManager extends ImManager {
     * Passes it back to the queuing system
     *
     * @param array $data Data
-    * @return void
+    * @return boolean
     */
     private function handle_msn_message($data) {
         $this->plugin->enqueue_incoming_raw($data);
@@ -175,15 +175,6 @@ class MsnManager extends ImManager {
         common_log(LOG_NOTICE, 'MSN reconnecting');
     }
     
-    /**
-     * Called by callback when contact changes status
-     * 
-     * @param array $data Data
-     */
-    private function handle_status_change($data) {
-        
-    }
-
     /**
      * Send a message using the daemon
      * 
