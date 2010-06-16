@@ -1572,6 +1572,7 @@ class MSN {
                         continue;
                     }
                 }
+                return true;
             } else {
                 // Other network
                 return $this->sendOtherNetworkMessage($recipient, $message, $network);
