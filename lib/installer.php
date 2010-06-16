@@ -447,7 +447,7 @@ abstract class Installer
             case 'mysqli':
                 $res = $conn->query($stmt);
                 if ($res === false) {
-                    $error = $conn->error();
+                    $error = $conn->error;
                 }
                 break;
             case 'pgsql':
