@@ -69,9 +69,13 @@ class OpenidserverAction extends Action
                     //cannot prompt the user to login in immediate mode, so answer false
                     $response = $this->generateDenyResponse($request);
                 }else{
-                    /* Go log in, and then come back. */
+                    // Go log in, and then come back.
+                    //
+                    // Note: 303 redirect rather than 307 to avoid
+                    // prompting user for form resubmission if we
+                    // were POSTed here.
                     common_set_returnto($_SERVER['REQUEST_URI']);
-                    common_redirect(common_local_url('login'));
+                    common_redirect(common_local_url('login'), 303);
                     return;
                 }
             }else if(common_profile_url($user->nickname) == $request->identity || $request->idSelect()){
@@ -90,8 +94,13 @@ class OpenidserverAction extends Action
                         $this->oserver->encodeResponse($denyResponse); //sign the response
                         $_SESSION['openid_allow_url'] = $allowResponse->encodeToUrl();
                         $_SESSION['openid_deny_url'] = $denyResponse->encodeToUrl();
-                        //ask the user to trust this trust root
-                        common_redirect(common_local_url('openidtrust'));
+
+                        // Ask the user to trust this trust root...
+                        //
+                        // Note: 303 redirect rather than 307 to avoid
+                        // prompting user for form resubmission if we
+                        // were POSTed here.
+                        common_redirect(common_local_url('openidtrust'), 303);
                         return;
                     }
                 }else{
