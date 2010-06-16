@@ -1392,7 +1392,6 @@ class MSN {
         $this->switchBoardSessionLookup[$to] = $socket;
 
         // Store the socket in the sessions array
-        $intsocket = (int) $socket;
         $this->switchBoardSessions[$to] = array(
             'to' => $to,
             'socket' => $socket,
@@ -1403,6 +1402,7 @@ class MSN {
         );
 
         // Change the index of the session to the socket
+        $intsocket = (int) $socket;
         $this->switchBoardSessions[$intsocket] = $this->switchBoardSessions[$to];
         unset($this->switchBoardSessions[$to]);
 
@@ -1457,13 +1457,13 @@ class MSN {
         if (self::socketcheck($socket)) {
             return false;
         }
-
-        if (!$this->switchBoardSessions[$to]['joined']) {
+        
+        $intsocket = (int) $socket;
+        if (!$this->switchBoardSessions[$intsocket]['joined']) {
             // If our participant has not joined the session yet we can't message them!
             return false;
         }
 
-        $intsocket = (int) $socket;
         $id = &$this->switchBoardSessions[$intsocket]['id'];
 
         $aMessage = $this->getMessage($Message);
