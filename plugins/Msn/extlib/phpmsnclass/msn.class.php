@@ -1889,9 +1889,9 @@ X-OIM-Sequence-Num: 1
             //<faultstring>Exception of type 'System.Web.Services.Protocols.SoapException' was thrown.</faultstring>
             preg_match("#<faultstring>(.*)</faultstring>#", $data, $matches);
             if (count($matches) > 0)
-            $err_msg = $matches[1];
+                $err_msg = $matches[1];
             else
-            $err_msg = '';
+                $err_msg = '';
             $this->debug_message("*** OIM failed for $to");
             $this->debug_message("*** OIM Error code: $err_code");
             $this->debug_message("*** OIM Error Message: $err_msg");
