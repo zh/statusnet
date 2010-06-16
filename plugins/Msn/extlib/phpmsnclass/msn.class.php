@@ -1,49 +1,66 @@
 <?php
 /*
 
-MSN class ver 2.0 by Tommy Wu, Ricky Su
+phpmsnclass ver 2.0s
+
+Based on MSN class ver 2.0 by Tommy Wu, Ricky Su
 License: GPL
 
-You can find MSN protocol from this site: http://msnpiki.msnfanatic.com/index.php/Main_Page
+Documentation on the MSN protocol can be found at: http://msnpiki.msnfanatic.com/index.php/Main_Page
 
-This class support MSNP15 for send message. The PHP module needed:
+This class uses MSNP15.
 
-MSNP15: curl pcre mhash mcrypt bcmath
+In addition to PHP5, the additional php modules required are:
+curl pcre mhash mcrypt bcmath
 
-Usually, this class will try to use MSNP15 if your system can support it, if your system can't support it,
-it will switch to use MSNP9. But if you use MSNP9, it won't support OIM (Offline Messages).
 */
 
 class MSN {
+    const PROTOCOL = 'MSNP15';
+    const PASSPORT_URL = 'https://login.live.com/RST.srf';
+    const BUILDVER = '8.1.0178';
+    const PROD_KEY = 'PK}_A_0N_K%O?A9S';
+    const PROD_ID = 'PROD0114ES4Z%Q5W';
+    const LOGIN_METHOD = 'SSO';
+    
+    const OIM_SEND_URL = 'https://ows.messenger.msn.com/OimWS/oim.asmx';
+    const OIM_SEND_SOAP = 'http://messenger.live.com/ws/2006/09/oim/Store2';
+    
+    const OIM_MAILDATA_URL = 'https://rsi.hotmail.com/rsi/rsi.asmx';
+    const OIM_MAILDATA_SOAP = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/GetMetadata';
+    const OIM_READ_URL = 'https://rsi.hotmail.com/rsi/rsi.asmx';
+    const OIM_READ_SOAP = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/GetMessage';
+    const OIM_DEL_URL = 'https://rsi.hotmail.com/rsi/rsi.asmx';
+    const OIM_DEL_SOAP = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/DeleteMessages';
+
+    const MEMBERSHIP_URL = 'https://contacts.msn.com/abservice/SharingService.asmx';
+    const MEMBERSHIP_SOAP = 'http://www.msn.com/webservices/AddressBook/FindMembership';
+
+    const ADDMEMBER_URL = 'https://contacts.msn.com/abservice/SharingService.asmx';
+    const ADDMEMBER_SOAP = 'http://www.msn.com/webservices/AddressBook/AddMember';
+
+    const DELMEMBER_URL = 'https://contacts.msn.com/abservice/SharingService.asmx';
+    const DELMEMBER_SOAP = 'http://www.msn.com/webservices/AddressBook/DeleteMember';
+    
     private $debug;
     private $timeout;
-    private $protocol = 'MSNP15';
-    private $passport_url = 'https://login.live.com/RST.srf';
-    private $buildver = '8.1.0178';
-    private $prod_key = 'PK}_A_0N_K%O?A9S';
-    private $prod_id = 'PROD0114ES4Z%Q5W';
-    private $login_method = 'SSO';
-    private $oim_send_url = 'https://ows.messenger.msn.com/OimWS/oim.asmx';
-    private $oim_send_soap = 'http://messenger.live.com/ws/2006/09/oim/Store2';
+    
     private $id;
     private $ticket;
     private $user = '';
     private $password = '';
-    private $NSfp=false;
+    private $NSfp = false;
     private $passport_policy = '';
     private $alias;
     private $psm;
     private $retry_wait;
     private $update_pending;
-    private $PhotoStickerFile=false;
-    private $Emotions=false;
-    private $XFRReqTimeout=60;
-    private $LastPing;
-    private $ping_wait=50;
-    private $SBIdleTimeout=10;
-    private $SBStreamTimeout=2;
-    private $MsnObjArray=array();
-    private $MsnObjMap=array();
+    private $PhotoStickerFile = false;
+    private $Emotions = false;
+    private $XFRReqTimeout = 60;
+    private $SBStreamTimeout = 2;
+    private $MsnObjArray = array();
+    private $MsnObjMap = array();
     private $ABAuthHeader;
     private $ABService;
     private $Contacts;
@@ -51,45 +68,24 @@ class MSN {
     private $server = 'messenger.hotmail.com';
     private $port = 1863;
 
+    private $clientid = '';
+    
+    private $error = '';
 
-    public $clientid = '';
+    private $authed = false;
 
-    public $oim_maildata_url = 'https://rsi.hotmail.com/rsi/rsi.asmx';
-    public $oim_maildata_soap = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/GetMetadata';
-    public $oim_read_url = 'https://rsi.hotmail.com/rsi/rsi.asmx';
-    public $oim_read_soap = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/GetMessage';
-    public $oim_del_url = 'https://rsi.hotmail.com/rsi/rsi.asmx';
-    public $oim_del_soap = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/DeleteMessages';
+    private $oim_try = 3;
 
-    public $membership_url = 'https://contacts.msn.com/abservice/SharingService.asmx';
-    public $membership_soap = 'http://www.msn.com/webservices/AddressBook/FindMembership';
-
-    public $addmember_url = 'https://contacts.msn.com/abservice/SharingService.asmx';
-    public $addmember_soap = 'http://www.msn.com/webservices/AddressBook/AddMember';
-
-    public $addcontact_url = 'https://contacts.msn.com/abservice/abservice.asmx';
-    public $addcontact_soap = 'http://www.msn.com/webservices/AddressBook/ABContactAdd';
-
-    public $delmember_url = 'https://contacts.msn.com/abservice/SharingService.asmx';
-    public $delmember_soap = 'http://www.msn.com/webservices/AddressBook/DeleteMember';
-
-
-    public $error = '';
-
-    public $authed = false;
-
-    public $oim_try = 3;
-
-    public $font_fn = 'Arial';
-    public $font_co = '333333';
-    public $font_ef = '';
+    private $font_fn = 'Arial';
+    private $font_co = '333333';
+    private $font_ef = '';
 
 
     // the message length (include header) is limited (maybe since WLM 8.5 released)
     // for WLM: 1664 bytes
     // for YIM: 518 bytes
-    public $max_msn_message_len = 1664;
-    public $max_yahoo_message_len = 518;
+    const max_msn_message_len = 1664;
+    const max_yahoo_message_len = 518;
 
     // Begin added for StatusNet
 
@@ -141,7 +137,7 @@ class MSN {
     * @param integer $client_id Client id (hexadecimal)
     * @return MSN
     */
-    public function __construct ($Configs=array(), $timeout = 15, $client_id = 0x7000800C) {
+    public function __construct ($Configs = array(), $timeout = 15, $client_id = 0x7000800C) {
         $this->user = $Configs['user'];
         $this->password = $Configs['password'];
         $this->alias = isset($Configs['alias']) ? $Configs['alias'] : '';
@@ -179,789 +175,13 @@ class MSN {
          = 0x7000800C;
          */
         $this->clientid = $client_id;
-        $this->ABService=new SoapClient(realpath(dirname(__FILE__)).'/soap/msnab_sharingservice.wsdl',array('trace' => 1));
-    }
-
-    private function Array2SoapVar($Array, $ReturnSoapVarObj = true, $TypeName = null, $TypeNameSpace = null) {
-        $ArrayString = '';
-        foreach($Array as $Key => $Val) {
-            if ($Key{0} == ':') continue;
-            $Attrib = '';
-            if (is_array($Val[':'])) {
-                foreach ($Val[':'] as $AttribName => $AttribVal)
-                $Attrib .= " $AttribName='$AttribVal'";
-            }
-            if ($Key{0} == '!') {
-                //List Type Define
-                $Key = substr($Key,1);
-                foreach ($Val as $ListKey => $ListVal) {
-                    if ($ListKey{0} == ':') continue;
-                    if (is_array($ListVal)) $ListVal = $this->Array2SoapVar($ListVal, false);
-                    elseif (is_bool($ListVal)) $ListVal = $ListVal ? 'true' : 'false';
-                    $ArrayString .= "<$Key$Attrib>$ListVal</$Key>";
-                }
-                continue;
-            }
-            if (is_array($Val)) $Val = $this->Array2SoapVar($Val, false);
-            elseif (is_bool($Val)) $Val = $Val ? 'true' : 'false';
-            $ArrayString .= "<$Key$Attrib>$Val</$Key>";
-        }
-        if ($ReturnSoapVarObj) return new SoapVar($ArrayString, XSD_ANYXML, $TypeName, $TypeNameSpace);
-        return $ArrayString;
+        $this->ABService = new SoapClient(realpath(dirname(__FILE__)).'/soap/msnab_sharingservice.wsdl', array('trace' => 1));
     }
 
     /**
-    * Get Passport ticket
-    *
-    * @param string $url URL string (Optional)
-    * @return mixed Array of tickets or false on failure
-    */
-    private function get_passport_ticket($url = '') {
-        $user = $this->user;
-        $password = htmlspecialchars($this->password);
-
-        if ($url === '')
-            $passport_url = $this->passport_url;
-        else
-            $passport_url = $url;
-
-        $XML = '<?xml version="1.0" encoding="UTF-8"?>
-<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
-          xmlns:wsse="http://schemas.xmlsoap.org/ws/2003/06/secext"
-          xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
-          xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"
-          xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-          xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing"
-          xmlns:wssc="http://schemas.xmlsoap.org/ws/2004/04/sc"
-          xmlns:wst="http://schemas.xmlsoap.org/ws/2004/04/trust">
-<Header>
-  <ps:AuthInfo xmlns:ps="http://schemas.microsoft.com/Passport/SoapServices/PPCRL" Id="PPAuthInfo">
-    <ps:HostingApp>{7108E71A-9926-4FCB-BCC9-9A9D3F32E423}</ps:HostingApp>
-    <ps:BinaryVersion>4</ps:BinaryVersion>
-    <ps:UIVersion>1</ps:UIVersion>
-    <ps:Cookies></ps:Cookies>
-    <ps:RequestParams>AQAAAAIAAABsYwQAAAAxMDMz</ps:RequestParams>
-  </ps:AuthInfo>
-  <wsse:Security>
-    <wsse:UsernameToken Id="user">
-      <wsse:Username>'.$user.'</wsse:Username>
-      <wsse:Password>'.$password.'</wsse:Password>
-    </wsse:UsernameToken>
-  </wsse:Security>
-</Header>
-<Body>
-  <ps:RequestMultipleSecurityTokens xmlns:ps="http://schemas.microsoft.com/Passport/SoapServices/PPCRL" Id="RSTS">
-    <wst:RequestSecurityToken Id="RST0">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>http://Passport.NET/tb</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST1">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>messengerclear.live.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="'.$this->passport_policy.'"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST2">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>messenger.msn.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="?id=507"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST3">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>contacts.msn.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST4">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>messengersecure.live.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="MBI_SSL"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST5">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>spaces.live.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-    <wst:RequestSecurityToken Id="RST6">
-      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
-      <wsp:AppliesTo>
-        <wsa:EndpointReference>
-          <wsa:Address>storage.msn.com</wsa:Address>
-        </wsa:EndpointReference>
-      </wsp:AppliesTo>
-      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
-    </wst:RequestSecurityToken>
-  </ps:RequestMultipleSecurityTokens>
-</Body>
-</Envelope>';
-
-        //$this->debug_message("*** URL: $passport_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $passport_url);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200) {
-            // sometimes, redirect to another URL
-            // MSNP15
-            //<faultcode>psf:Redirect</faultcode>
-            //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
-            //<faultstring>Authentication Failure</faultstring>
-            if (strpos($data, '<faultcode>psf:Redirect</faultcode>') === false) {
-                $this->debug_message("*** Could not get passport ticket! http code = $http_code");
-                return false;
-            }
-            preg_match("#<psf\:redirectUrl>(.*)</psf\:redirectUrl>#", $data, $matches);
-            if (count($matches) == 0) {
-                $this->debug_message('*** Redirected, but could not get redirect URL!');
-                return false;
-            }
-            $redirect_url = $matches[1];
-            if ($redirect_url == $passport_url) {
-                $this->debug_message('*** Redirected, but to same URL!');
-                return false;
-            }
-            $this->debug_message("*** Redirected to $redirect_url");
-            return $this->get_passport_ticket($redirect_url);
-        }
-
-        // sometimes, redirect to another URL, also return 200
-        // MSNP15
-        //<faultcode>psf:Redirect</faultcode>
-        //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
-        //<faultstring>Authentication Failure</faultstring>
-        if (strpos($data, '<faultcode>psf:Redirect</faultcode>') !== false) {
-            preg_match("#<psf\:redirectUrl>(.*)</psf\:redirectUrl>#", $data, $matches);
-            if (count($matches) != 0) {
-                $redirect_url = $matches[1];
-                if ($redirect_url == $passport_url) {
-                    $this->debug_message('*** Redirected, but to same URL!');
-                    return false;
-                }
-                $this->debug_message("*** Redirected to $redirect_url");
-                return $this->get_passport_ticket($redirect_url);
-            }
-        }
-
-        // no Redurect faultcode or URL
-        // we should get the ticket here
-
-        // we need ticket and secret code
-        // RST1: messengerclear.live.com
-        // <wsse:BinarySecurityToken Id="Compact1">t=tick&p=</wsse:BinarySecurityToken>
-        // <wst:BinarySecret>binary secret</wst:BinarySecret>
-        // RST2: messenger.msn.com
-        // <wsse:BinarySecurityToken Id="PPToken2">t=tick</wsse:BinarySecurityToken>
-        // RST3: contacts.msn.com
-        // <wsse:BinarySecurityToken Id="Compact3">t=tick&p=</wsse:BinarySecurityToken>
-        // RST4: messengersecure.live.com
-        // <wsse:BinarySecurityToken Id="Compact4">t=tick&p=</wsse:BinarySecurityToken>
-        // RST5: spaces.live.com
-        // <wsse:BinarySecurityToken Id="Compact5">t=tick&p=</wsse:BinarySecurityToken>
-        // RST6: storage.msn.com
-        // <wsse:BinarySecurityToken Id="Compact6">t=tick&p=</wsse:BinarySecurityToken>
-        preg_match("#".
-            "<wsse\:BinarySecurityToken Id=\"Compact1\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "<wst\:BinarySecret>(.*)</wst\:BinarySecret>(.*)".
-            "<wsse\:BinarySecurityToken Id=\"PPToken2\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "<wsse\:BinarySecurityToken Id=\"Compact3\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "<wsse\:BinarySecurityToken Id=\"Compact4\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "<wsse\:BinarySecurityToken Id=\"Compact5\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "<wsse\:BinarySecurityToken Id=\"Compact6\">(.*)</wsse\:BinarySecurityToken>(.*)".
-            "#",
-        $data, $matches);
-
-        // no ticket found!
-        if (count($matches) == 0) {
-            $this->debug_message('*** Could not get passport ticket!');
-            return false;
-        }
-
-        //$this->debug_message(var_export($matches, true));
-        // matches[0]: all data
-        // matches[1]: RST1 (messengerclear.live.com) ticket
-        // matches[2]: ...
-        // matches[3]: RST1 (messengerclear.live.com) binary secret
-        // matches[4]: ...
-        // matches[5]: RST2 (messenger.msn.com) ticket
-        // matches[6]: ...
-        // matches[7]: RST3 (contacts.msn.com) ticket
-        // matches[8]: ...
-        // matches[9]: RST4 (messengersecure.live.com) ticket
-        // matches[10]: ...
-        // matches[11]: RST5 (spaces.live.com) ticket
-        // matches[12]: ...
-        // matches[13]: RST6 (storage.live.com) ticket
-        // matches[14]: ...
-
-        // so
-        // ticket => $matches[1]
-        // secret => $matches[3]
-        // web_ticket => $matches[5]
-        // contact_ticket => $matches[7]
-        // oim_ticket => $matches[9]
-        // space_ticket => $matches[11]
-        // storage_ticket => $matches[13]
-
-        // yes, we get ticket
-        $aTickets = array(
-            'ticket' => html_entity_decode($matches[1]),
-            'secret' => html_entity_decode($matches[3]),
-            'web_ticket' => html_entity_decode($matches[5]),
-            'contact_ticket' => html_entity_decode($matches[7]),
-            'oim_ticket' => html_entity_decode($matches[9]),
-            'space_ticket' => html_entity_decode($matches[11]),
-            'storage_ticket' => html_entity_decode($matches[13])
-        );
-        $this->ticket = $aTickets;
-        //$this->debug_message(var_export($aTickets, true));
-        $ABAuthHeaderArray = array(
-            'ABAuthHeader' => array(
-                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
-                'ManagedGroupRequest' => false,
-                'TicketToken' => htmlspecialchars($this->ticket['contact_ticket']),
-            )
-        );
-        $this->ABAuthHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABAuthHeader', $this->Array2SoapVar($ABAuthHeaderArray));
-        return $aTickets;
-    }
-
-    /**
-    * Fetch contact list
-    *
-    * @return boolean true on success
-    */
-    private function UpdateContacts() {
-        $ABApplicationHeaderArray = array(
-            'ABApplicationHeader' => array(
-                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
-                'ApplicationId' => 'CFE80F9D-180F-4399-82AB-413F33A1FA11',
-                'IsMigration' => false,
-                'PartnerScenario' => 'ContactSave'
-             )
-        );
-
-        $ABApplicationHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABApplicationHeader', $this->Array2SoapVar($ABApplicationHeaderArray));
-        $ABFindAllArray = array(
-            'ABFindAll' => array(
-                ':' => array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
-                'abId' => '00000000-0000-0000-0000-000000000000',
-                'abView' => 'Full',
-                'lastChange' => '0001-01-01T00:00:00.0000000-08:00',
-            )
-        );
-        $ABFindAll = new SoapParam($this->Array2SoapVar($ABFindAllArray), 'ABFindAll');
-        $this->ABService->__setSoapHeaders(array($ABApplicationHeader, $this->ABAuthHeader));
-        $this->Contacts = array();
-        try {
-            $this->debug_message('*** Updating Contacts...');
-            $Result = $this->ABService->ABFindAll($ABFindAll);
-            $this->debug_message("*** Result:\n".print_r($Result, true)."\n".$this->ABService->__getLastResponse());
-            foreach($Result->ABFindAllResult->contacts->Contact as $Contact)
-                $this->Contacts[$Contact->contactInfo->passportName] = $Contact;
-        } catch(Exception $e) {
-            $this->debug_message("*** Update Contacts Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
-            return false;
-        }
-        return true;
-    }
-
-    /**
-    * Add contact
-    *
-    * @param string $email
-    * @param integer $network
-    * @param string $display
-    * @param boolean $sendADL
-    * @return boolean true on success
-    */
-    private function addContact($email, $network, $display = '', $sendADL = false) {
-        if ($network != 1) return true;
-        if (isset($this->Contacts[$email])) return true;
-
-        $ABContactAddArray = array(
-            'ABContactAdd' => array(
-                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
-                'abId' => '00000000-0000-0000-0000-000000000000',
-                'contacts' => array(
-                    'Contact' => array(
-                        ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
-                        'contactInfo' => array(
-                            'contactType' => 'LivePending',
-                            'passportName' => $email,
-                            'isMessengerUser' => true,
-                            'MessengerMemberInfo' => array(
-                                'DisplayName' => $email
-                            )
-                        )
-                    )
-                ),
-                'options' => array(
-                    'EnableAllowListManagement' => true
-                )
-            )
-        );
-        $ABContactAdd = new SoapParam($this->Array2SoapVar($ABContactAddArray), 'ABContactAdd');
-        try {
-            $this->debug_message("*** Adding Contact $email...");
-            $this->ABService->ABContactAdd($ABContactAdd);
-        } catch(Exception $e) {
-            $this->debug_message("*** Add Contact Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
-            return false;
-        }
-        if ($sendADL && !feof($this->NSfp)) {
-            @list($u_name, $u_domain) = @explode('@', $email);
-            foreach (array('1', '2') as $l) {
-                $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="'.$l.'" t="'.$network.'" /></d></ml>';
-                $len = strlen($str);
-                // NS: >>> ADL {id} {size}
-                //TODO introduce error checking
-                $this->ns_writeln("ADL $this->id $len");
-                $this->ns_writedata($str);
-            }
-        }
-        $this->UpdateContacts();
-        return true;
-    }
-
-    /**
-    * Remove contact from list
-    *
-    * @param integer $memberID
-    * @param string $email
-    * @param integer $network
-    * @param string $list
-    */
-    function delMemberFromList($memberID, $email, $network, $list) {
-        if ($network != 1 && $network != 32) return true;
-        if ($memberID === false) return true;
-        $user = $email;
-        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
-        if ($network == 1)
-            $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <DeleteMember xmlns="http://www.msn.com/webservices/AddressBook">
-        <serviceHandle>
-            <Id>0</Id>
-            <Type>Messenger</Type>
-            <ForeignId></ForeignId>
-        </serviceHandle>
-        <memberships>
-            <Membership>
-                <MemberRole>'.$list.'</MemberRole>
-                <Members>
-                    <Member xsi:type="PassportMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                        <Type>Passport</Type>
-                        <MembershipId>'.$memberID.'</MembershipId>
-                        <State>Accepted</State>
-                    </Member>
-                </Members>
-            </Membership>
-        </memberships>
-    </DeleteMember>
-</soap:Body>
-</soap:Envelope>';
-        else
-            $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <DeleteMember xmlns="http://www.msn.com/webservices/AddressBook">
-        <serviceHandle>
-            <Id>0</Id>
-            <Type>Messenger</Type>
-            <ForeignId></ForeignId>
-        </serviceHandle>
-        <memberships>
-            <Membership>
-                <MemberRole>'.$list.'</MemberRole>
-                <Members>
-                    <Member xsi:type="EmailMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                        <Type>Email</Type>
-                        <MembershipId>'.$memberID.'</MembershipId>
-                        <State>Accepted</State>
-                    </Member>
-                </Members>
-            </Membership>
-        </memberships>
-    </DeleteMember>
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->delmember_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
-        );
-
-        //$this->debug_message("*** URL: $this->delmember_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->delmember_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200) {
-            preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
-            if (count($matches) == 0) {
-                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list");
-                return false;
-            }
-            $faultcode = trim($matches[1]);
-            $faultstring = trim($matches[2]);
-            if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member does not exist') === false) {
-                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, error code: $faultcode, $faultstring");
-                return false;
-            }
-            $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, not present in list");
-            return true;
-        }
-        $this->debug_message("*** Member successfully deleted (network: $network) $email ($memberID) from $list list");
-        return true;
-    }
-
-    /**
-    * Add contact to list
-    *
-    * @param string $email
-    * @param integer $network
-    * @param string $list
-    */
-    function addMemberToList($email, $network, $list) {
-        if ($network != 1 && $network != 32) return true;
-        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
-        $user = $email;
-
-        if ($network == 1)
-            $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <AddMember xmlns="http://www.msn.com/webservices/AddressBook">
-        <serviceHandle>
-            <Id>0</Id>
-            <Type>Messenger</Type>
-            <ForeignId></ForeignId>
-        </serviceHandle>
-        <memberships>
-            <Membership>
-                <MemberRole>'.$list.'</MemberRole>
-                <Members>
-                    <Member xsi:type="PassportMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                        <Type>Passport</Type>
-                        <State>Accepted</State>
-                        <PassportName>'.$user.'</PassportName>
-                    </Member>
-                </Members>
-            </Membership>
-        </memberships>
-    </AddMember>
-</soap:Body>
-</soap:Envelope>';
-        else
-            $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <AddMember xmlns="http://www.msn.com/webservices/AddressBook">
-        <serviceHandle>
-            <Id>0</Id>
-            <Type>Messenger</Type>
-            <ForeignId></ForeignId>
-        </serviceHandle>
-        <memberships>
-            <Membership>
-                <MemberRole>'.$list.'</MemberRole>
-                <Members>
-                    <Member xsi:type="EmailMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                        <Type>Email</Type>
-                        <State>Accepted</State>
-                        <Email>'.$user.'</Email>
-                        <Annotations>
-                            <Annotation>
-                                <Name>MSN.IM.BuddyType</Name>
-                                <Value>32:YAHOO</Value>
-                            </Annotation>
-                        </Annotations>
-                    </Member>
-                </Members>
-            </Membership>
-        </memberships>
-    </AddMember>
-</soap:Body>
-</soap:Envelope>';
-        $header_array = array(
-            'SOAPAction: '.$this->addmember_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
-        );
-
-        //$this->debug_message("*** URL: $this->addmember_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->addmember_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200) {
-            preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
-            if (count($matches) == 0) {
-                $this->debug_message("*** Could not add member (network: $network) $email to $list list");
-                return false;
-            }
-            $faultcode = trim($matches[1]);
-            $faultstring = trim($matches[2]);
-            if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member already exists') === false) {
-                $this->debug_message("*** Could not add member (network: $network) $email to $list list, error code: $faultcode, $faultstring");
-                return false;
-            }
-            $this->debug_message("*** Could not add member (network: $network) $email to $list list, already present");
-            return true;
-        }
-        $this->debug_message("*** Member successfully added (network: $network) $email to $list list");
-        return true;
-    }
-
-    /**
-    * Get membership lists
-    *
-    * @param mixed $returnData Membership list or false on failure
-    */
-    function getMembershipList($returnData = false) {
-        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
-               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
-<soap:Header>
-    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
-        <IsMigration>false</IsMigration>
-        <PartnerScenario>Initial</PartnerScenario>
-    </ABApplicationHeader>
-    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
-        <ManagedGroupRequest>false</ManagedGroupRequest>
-        <TicketToken>'.$ticket.'</TicketToken>
-    </ABAuthHeader>
-</soap:Header>
-<soap:Body>
-    <FindMembership xmlns="http://www.msn.com/webservices/AddressBook">
-        <serviceFilter>
-            <Types>
-                <ServiceType>Messenger</ServiceType>
-                <ServiceType>Invitation</ServiceType>
-                <ServiceType>SocialNetwork</ServiceType>
-                <ServiceType>Space</ServiceType>
-                <ServiceType>Profile</ServiceType>
-            </Types>
-        </serviceFilter>
-    </FindMembership>
-</soap:Body>
-</soap:Envelope>';
-        $header_array = array(
-            'SOAPAction: '.$this->membership_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
-        );
-        //$this->debug_message("*** URL: $this->membership_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->membership_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-        if ($http_code != 200) return false;
-        $p = $data;
-        $aMemberships = array();
-        while (1) {
-            //$this->debug_message("search p = $p");
-            $start = strpos($p, '<Membership>');
-            $end = strpos($p, '</Membership>');
-            if ($start === false || $end === false || $start > $end) break;
-            //$this->debug_message("start = $start, end = $end");
-            $end += 13;
-            $sMembership = substr($p, $start, $end - $start);
-            $aMemberships[] = $sMembership;
-            //$this->debug_message("add sMembership = $sMembership");
-            $p = substr($p, $end);
-        }
-        //$this->debug_message("aMemberships = ".var_export($aMemberships, true));
-
-        $aContactList = array();
-        foreach ($aMemberships as $sMembership) {
-            //$this->debug_message("sMembership = $sMembership");
-            if (isset($matches)) unset($matches);
-            preg_match('#<MemberRole>(.*)</MemberRole>#', $sMembership, $matches);
-            if (count($matches) == 0) continue;
-            $sMemberRole = $matches[1];
-            //$this->debug_message("MemberRole = $sMemberRole");
-            if ($sMemberRole != 'Allow' && $sMemberRole != 'Reverse' && $sMemberRole != 'Pending') continue;
-            $p = $sMembership;
-            if (isset($aMembers)) unset($aMembers);
-            $aMembers = array();
-            while (1) {
-                //$this->debug_message("search p = $p");
-                $start = strpos($p, '<Member xsi:type="');
-                $end = strpos($p, '</Member>');
-                if ($start === false || $end === false || $start > $end) break;
-                //$this->debug_message("start = $start, end = $end");
-                $end += 9;
-                $sMember = substr($p, $start, $end - $start);
-                $aMembers[] = $sMember;
-                //$this->debug_message("add sMember = $sMember");
-                $p = substr($p, $end);
-            }
-            //$this->debug_message("aMembers = ".var_export($aMembers, true));
-            foreach ($aMembers as $sMember) {
-                //$this->debug_message("sMember = $sMember");
-                if (isset($matches)) unset($matches);
-                preg_match('#<Member xsi\:type="([^"]*)">#', $sMember, $matches);
-                if (count($matches) == 0) continue;
-                $sMemberType = $matches[1];
-                //$this->debug_message("MemberType = $sMemberType");
-                $network = -1;
-                preg_match('#<MembershipId>(.*)</MembershipId>#', $sMember, $matches);
-                if (count($matches) == 0) continue;
-                $id = $matches[1];
-                if ($sMemberType == 'PassportMember') {
-                    if (strpos($sMember, '<Type>Passport</Type>') === false) continue;
-                    $network = 1;
-                    preg_match('#<PassportName>(.*)</PassportName>#', $sMember, $matches);
-                }
-                else if ($sMemberType == 'EmailMember') {
-                    if (strpos($sMember, '<Type>Email</Type>') === false) continue;
-                    // Value is 32: or 32:YAHOO
-                    preg_match('#<Annotation><Name>MSN.IM.BuddyType</Name><Value>(.*):(.*)</Value></Annotation>#', $sMember, $matches);
-                    if (count($matches) == 0) continue;
-                    if ($matches[1] != 32) continue;
-                    $network = 32;
-                    preg_match('#<Email>(.*)</Email>#', $sMember, $matches);
-                }
-                if ($network == -1) continue;
-                if (count($matches) > 0) {
-                    $email = $matches[1];
-                    @list($u_name, $u_domain) = @explode('@', $email);
-                    if ($u_domain == NULL) continue;
-                    $aContactList[$u_domain][$u_name][$network][$sMemberRole] = $id;
-                    $this->debug_message("*** Adding new contact (network: $network, status: $sMemberRole): $u_name@$u_domain ($id)");
-                }
-            }
-        }
-        return $aContactList;
-    }
-
+     * Signon methods
+     */
+    
     /**
      * Connect to the NS server
      *
@@ -992,10 +212,10 @@ class MSN {
         // NS: >> VER {id} MSNP9 CVR0
         // MSNP15
         // NS: >>> VER {id} MSNP15 CVR0
-        $this->ns_writeln("VER $this->id $this->protocol CVR0");
+        $this->ns_writeln("VER $this->id ".PROTOCOL.' CVR0');
 
         $start_tm = time();
-        while (!self::socketcheck($this->NSfp)) {
+        while (!socketcheck($this->NSfp)) {
             $data = $this->ns_readln();
             // no data?
             if ($data === false) {
@@ -1018,7 +238,7 @@ class MSN {
                     // MSNP15
                     // NS: <<< VER {id} MSNP15 CVR0
                     // NS: >>> CVR {id} 0x0409 winnt 5.1 i386 MSMSGS 8.1.0178 msmsgs {user}
-                    $this->ns_writeln("CVR $this->id 0x0409 winnt 5.1 i386 MSMSGS $this->buildver msmsgs $user");
+                    $this->ns_writeln("CVR $this->id 0x0409 winnt 5.1 i386 MSMSGS ".BUILDVER." msmsgs $user");
                     break;
 
                 case 'CVR':
@@ -1028,7 +248,7 @@ class MSN {
                     // MSNP15
                     // NS: <<< CVR {id} {ver_list} {download_serve} ....
                     // NS: >>> USR {id} SSO I {user}
-                    $this->ns_writeln("USR $this->id $this->login_method I $user");
+                    $this->ns_writeln("USR $this->id ".LOGIN_METHOD." I $user");
                     break;
 
                 case 'USR':
@@ -1061,7 +281,7 @@ class MSN {
                     $login_code = $this->generateLoginBLOB($secret, $nonce);
 
                     // NS: >>> USR {id} SSO S {ticket} {login_code}
-                    $this->ns_writeln("USR $this->id $this->login_method S $ticket $login_code");
+                    $this->ns_writeln("USR $this->id ".LOGIN_METHOD." S $ticket $login_code");
                     $this->authed = true;
                     break;
 
@@ -1087,7 +307,7 @@ class MSN {
                     // NS: >> VER {id} MSNP9 CVR0
                     // MSNP15
                     // NS: >>> VER {id} MSNP15 CVR0
-                    $this->ns_writeln("VER $this->id $this->protocol CVR0");
+                    $this->ns_writeln("VER $this->id ".PROTOCOL.' CVR0');
                     break;
 
                 case 'GCF':
@@ -1240,7 +460,7 @@ class MSN {
             $len = strlen($str);
             $this->ns_writeln("UUX $this->id $len");
             $this->ns_writedata($str);
-            if (!self::socketcheck($this->NSfp)) {
+            if (!socketcheck($this->NSfp)) {
                 $this->debug_message('*** Connected, waiting for commands');
                 break;
             } else {
@@ -1253,6 +473,7 @@ class MSN {
     * Called if there is an error during signon
     *
     * @param string $message Error message to log
+    * @return void
     */
     private function signonFailure($message) {
         $this->debug_message($message);
@@ -1260,244 +481,12 @@ class MSN {
         $this->NSRetryWait($this->retry_wait);
     }
 
-    function derive_key($key, $magic) {
-        $hash1 = mhash(MHASH_SHA1, $magic, $key);
-        $hash2 = mhash(MHASH_SHA1, $hash1.$magic, $key);
-        $hash3 = mhash(MHASH_SHA1, $hash1, $key);
-        $hash4 = mhash(MHASH_SHA1, $hash3.$magic, $key);
-        return $hash2.substr($hash4, 0, 4);
-    }
-
-    function generateLoginBLOB($key, $challenge) {
-        $key1 = base64_decode($key);
-        $key2 = $this->derive_key($key1, 'WS-SecureConversationSESSION KEY HASH');
-        $key3 = $this->derive_key($key1, 'WS-SecureConversationSESSION KEY ENCRYPTION');
-
-        // get hash of challenge using key2
-        $hash = mhash(MHASH_SHA1, $challenge, $key2);
-
-        // get 8 bytes random data
-        $iv = substr(base64_encode(rand(1000,9999).rand(1000,9999)), 2, 8);
-
-        $cipher = mcrypt_cbc(MCRYPT_3DES, $key3, $challenge."\x08\x08\x08\x08\x08\x08\x08\x08", MCRYPT_ENCRYPT, $iv);
-
-        $blob = pack('LLLLLLL', 28, 1, 0x6603, 0x8004, 8, 20, 72);
-        $blob .= $iv;
-        $blob .= $hash;
-        $blob .= $cipher;
-
-        return base64_encode($blob);
-    }
-
-    /**
-    * Get OIM mail data
-    *
-    * @return string mail data or false on failure
-    */
-    function getOIM_maildata() {
-        preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
-        if (count($matches) == 0) {
-            $this->debug_message('*** No web ticket?');
-            return false;
-        }
-        $t = htmlspecialchars($matches[1]);
-        $p = htmlspecialchars($matches[2]);
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-<soap:Header>
-  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
-    <t>'.$t.'</t>
-    <p>'.$p.'</p>
-  </PassportCookie>
-</soap:Header>
-<soap:Body>
-  <GetMetadata xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi" />
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->oim_maildata_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
-        );
-
-        //$this->debug_message("*** URL: $this->oim_maildata_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->oim_maildata_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200) {
-            $this->debug_message("*** Could not get OIM maildata! http code: $http_code");
-            return false;
-        }
-
-        // <GetMetadataResponse xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">See #XML_Data</GetMetadataResponse>
-        preg_match('#<GetMetadataResponse([^>]*)>(.*)</GetMetadataResponse>#', $data, $matches);
-        if (count($matches) == 0) {
-            $this->debug_message('*** Could not get OIM maildata');
-            return false;
-        }
-        return $matches[2];
-    }
-
-    /**
-    * Fetch OIM message with given id
-    *
-    * @param string $msgid
-    * @return string Message or false on failure
-    */
-    function getOIM_message($msgid) {
-        preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
-        if (count($matches) == 0) {
-            $this->debug_message('*** No web ticket?');
-            return false;
-        }
-        $t = htmlspecialchars($matches[1]);
-        $p = htmlspecialchars($matches[2]);
-
-        // read OIM
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-<soap:Header>
-  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
-    <t>'.$t.'</t>
-    <p>'.$p.'</p>
-  </PassportCookie>
-</soap:Header>
-<soap:Body>
-  <GetMessage xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
-    <messageId>'.$msgid.'</messageId>
-    <alsoMarkAsRead>false</alsoMarkAsRead>
-  </GetMessage>
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->oim_read_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
-        );
-
-        //$this->debug_message("*** URL: $this->oim_read_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->oim_read_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200) {
-            $this->debug_message("*** Can't get OIM: $msgid, http code = $http_code");
-            return false;
-        }
-
-        // why can't use preg_match('#<GetMessageResult>(.*)</GetMessageResult>#', $data, $matches)?
-        // multi-lines?
-        $start = strpos($data, '<GetMessageResult>');
-        $end = strpos($data, '</GetMessageResult>');
-        if ($start === false || $end === false || $start > $end) {
-            $this->debug_message("*** Can't get OIM: $msgid");
-            return false;
-        }
-        $lines = substr($data, $start + 18, $end - $start);
-        $aLines = @explode("\n", $lines);
-        $header = true;
-        $ignore = false;
-        $sOIM = '';
-        foreach ($aLines as $line) {
-            $line = rtrim($line);
-            if ($header) {
-                if ($line === '') {
-                    $header = false;
-                    continue;
-                }
-                continue;
-            }
-            // stop at empty lines
-            if ($line === '') break;
-            $sOIM .= $line;
-        }
-        $sMsg = base64_decode($sOIM);
-        //$this->debug_message("*** we get OIM ($msgid): $sMsg");
-
-        // delete OIM
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-<soap:Header>
-  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
-    <t>'.$t.'</t>
-    <p>'.$p.'</p>
-  </PassportCookie>
-</soap:Header>
-<soap:Body>
-  <DeleteMessages xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
-    <messageIds>
-      <messageId>'.$msgid.'</messageId>
-    </messageIds>
-  </DeleteMessages>
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->oim_del_soap,
-            'Content-Type: text/xml; charset=utf-8',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
-        );
-
-        //$this->debug_message("*** URL: $this->oim_del_url");
-        //$this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->oim_del_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        //$this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code != 200)
-            $this->debug_message("*** Could not delete OIM: $msgid, http code = $http_code");
-        else
-            $this->debug_message("*** OIM ($msgid) deleted");
-        return $sMsg;
-    }
-
     /**
     * Log out and close the NS connection
     *
     * @return void
     */
-    private function NSLogout() {
+    private function nsLogout() {
         if (is_resource($this->NSfp) && !feof($this->NSfp)) {
             // logout now
             // NS: >>> OUT
@@ -1509,286 +498,9 @@ class MSN {
     }
 
     /**
-    * Sleep for the given number of seconds
-    *
-    * @param integer $wait Number of seconds to sleep for
-    */
-    private function NSRetryWait($wait) {
-        $this->debug_message("*** Sleeping for $wait seconds before retrying");
-        sleep($wait);
-    }
-
-    /**
-    * Generate challenge response
-    *
-    * @param string $code
-    * @return string challenge response code
-    */
-    function getChallenge($code) {
-        // MSNP15
-        // http://msnpiki.msnfanatic.com/index.php/MSNP11:Challenges
-        // Step 1: The MD5 Hash
-        $md5Hash = md5($code.$this->prod_key);
-        $aMD5 = @explode("\0", chunk_split($md5Hash, 8, "\0"));
-        for ($i = 0; $i < 4; $i++) {
-            $aMD5[$i] = implode('', array_reverse(@explode("\0", chunk_split($aMD5[$i], 2, "\0"))));
-            $aMD5[$i] = (0 + base_convert($aMD5[$i], 16, 10)) & 0x7FFFFFFF;
-        }
-
-        // Step 2: A new string
-        $chl_id = $code.$this->prod_id;
-        $chl_id .= str_repeat('0', 8 - (strlen($chl_id) % 8));
-
-        $aID = @explode("\0", substr(chunk_split($chl_id, 4, "\0"), 0, -1));
-        for ($i = 0; $i < count($aID); $i++) {
-            $aID[$i] = implode('', array_reverse(@explode("\0", chunk_split($aID[$i], 1, "\0"))));
-            $aID[$i] = 0 + base_convert(bin2hex($aID[$i]), 16, 10);
-        }
-
-        // Step 3: The 64 bit key
-        $magic_num = 0x0E79A9C1;
-        $str7f = 0x7FFFFFFF;
-        $high = 0;
-        $low = 0;
-        for ($i = 0; $i < count($aID); $i += 2) {
-            $temp = $aID[$i];
-            $temp = bcmod(bcmul($magic_num, $temp), $str7f);
-            $temp = bcadd($temp, $high);
-            $temp = bcadd(bcmul($aMD5[0], $temp), $aMD5[1]);
-            $temp = bcmod($temp, $str7f);
-
-            $high = $aID[$i+1];
-            $high = bcmod(bcadd($high, $temp), $str7f);
-            $high = bcadd(bcmul($aMD5[2], $high), $aMD5[3]);
-            $high = bcmod($high, $str7f);
-
-            $low = bcadd(bcadd($low, $high), $temp);
-        }
-
-        $high = bcmod(bcadd($high, $aMD5[1]), $str7f);
-        $low = bcmod(bcadd($low, $aMD5[3]), $str7f);
-
-        $new_high = bcmul($high & 0xFF, 0x1000000);
-        $new_high = bcadd($new_high, bcmul($high & 0xFF00, 0x100));
-        $new_high = bcadd($new_high, bcdiv($high & 0xFF0000, 0x100));
-        $new_high = bcadd($new_high, bcdiv($high & 0xFF000000, 0x1000000));
-        // we need integer here
-        $high = 0+$new_high;
-
-        $new_low = bcmul($low & 0xFF, 0x1000000);
-        $new_low = bcadd($new_low, bcmul($low & 0xFF00, 0x100));
-        $new_low = bcadd($new_low, bcdiv($low & 0xFF0000, 0x100));
-        $new_low = bcadd($new_low, bcdiv($low & 0xFF000000, 0x1000000));
-        // we need integer here
-        $low = 0+$new_low;
-
-        // we just use 32 bits integer, don't need the key, just high/low
-        // $key = bcadd(bcmul($high, 0x100000000), $low);
-
-        // Step 4: Using the key
-        $md5Hash = md5($code.$this->prod_key);
-        $aHash = @explode("\0", chunk_split($md5Hash, 8, "\0"));
-
-        $hash = '';
-        $hash .= sprintf("%08x", (0 + base_convert($aHash[0], 16, 10)) ^ $high);
-        $hash .= sprintf("%08x", (0 + base_convert($aHash[1], 16, 10)) ^ $low);
-        $hash .= sprintf("%08x", (0 + base_convert($aHash[2], 16, 10)) ^ $high);
-        $hash .= sprintf("%08x", (0 + base_convert($aHash[3], 16, 10)) ^ $low);
-
-        return $hash;
-    }
-
-    /**
-    * Generate the data to send a message
-    *
-    * @param string $sMessage Message
-    * @param integer $network Network
-    */
-    private function getMessage($sMessage, $network = 1) {
-        $msg_header = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-MMS-IM-Format: FN=$this->font_fn; EF=$this->font_ef; CO=$this->font_co; CS=0; PF=22\r\n\r\n";
-        $msg_header_len = strlen($msg_header);
-        if ($network == 1)
-            $maxlen = $this->max_msn_message_len - $msg_header_len;
-        else
-            $maxlen = $this->max_yahoo_message_len - $msg_header_len;
-        $sMessage = str_replace("\r", '', $sMessage);
-        $msg = substr($sMessage, 0, $maxlen);
-        return $msg_header.$msg;
-    }
-
-    // read data for specified size
-    private function ns_readdata($size) {
-        $data = '';
-        $count = 0;
-        while (!feof($this->NSfp)) {
-            $buf = @fread($this->NSfp, $size - $count);
-            $data .= $buf;
-            $count += strlen($buf);
-            if ($count >= $size) break;
-        }
-        $this->debug_message("NS: data ($size/$count) <<<\n$data");
-        return $data;
-    }
-
-    // read one line
-    private function ns_readln() {
-        $data = @fgets($this->NSfp, 4096);
-        if ($data !== false) {
-            $data = trim($data);
-            $this->debug_message("NS: <<< $data");
-        }
-        return $data;
-    }
-
-    // write to server, append \r\n, also increase id
-    private function ns_writeln($data) {
-        @fwrite($this->NSfp, $data."\r\n");
-        $this->debug_message("NS: >>> $data");
-        $this->id++;
-        return;
-    }
-
-    // write data to server
-    private function ns_writedata($data) {
-        @fwrite($this->NSfp, $data);
-        $this->debug_message("NS: >>> $data");
-        return;
-    }
-
-    // read data for specified size for SB
-    private function sb_readdata($socket, $size) {
-        $data = '';
-        $count = 0;
-        while (!feof($socket)) {
-            $buf = @fread($socket, $size - $count);
-            $data .= $buf;
-            $count += strlen($buf);
-            if ($count >= $size) break;
-        }
-        $this->debug_message("SB: data ($size/$count) <<<\n$data");
-        return $data;
-    }
-
-    // read one line for SB
-    private function sb_readln($socket) {
-        $data = @fgets($socket, 4096);
-        if ($data !== false) {
-            $data = trim($data);
-            $this->debug_message("SB: <<< $data");
-        }
-        return $data;
-    }
-
-    // write to server for SB, append \r\n, also increase id
-    // switchboard server only accept \r\n, it will lost connection if just \n only
-    private function sb_writeln($socket, &$id, $data) {
-        @fwrite($socket, $data."\r\n");
-        $this->debug_message("SB: >>> $data");
-        $id++;
-        return;
-    }
-
-    // write data to server
-    private function sb_writedata($socket, $data) {
-        @fwrite($socket, $data);
-        $this->debug_message("SB: >>> $data");
-        return;
-    }
-
-    // show debug information
-    function debug_message($str) {
-        if (!$this->debug) return;
-        if ($this->debug===STDOUT) echo $str."\n";
-        /*$fname=MSN_CLASS_LOG_DIR.DIRECTORY_SEPARATOR.'msn_'.strftime('%Y%m%d').'.debug';
-        $fp = fopen($fname, 'at');
-        if ($fp) {
-            fputs($fp, strftime('%m/%d/%y %H:%M:%S').' ['.posix_getpid().'] '.$str."\n");
-            fclose($fp);
-            return;
-        }*/
-        // still show debug information, if we can't open log_file
-        echo $str."\n";
-        return;
-    }
-
-    function dump_binary($str) {
-        $buf = '';
-        $a_str = '';
-        $h_str = '';
-        $len = strlen($str);
-        for ($i = 0; $i < $len; $i++) {
-            if (($i % 16) == 0) {
-                if ($buf !== '') {
-                    $buf .= "$h_str $a_str\n";
-                }
-                $buf .= sprintf("%04X:", $i);
-                $a_str = '';
-                $h_str = '';
-            }
-            $ch = ord($str[$i]);
-            if ($ch < 32)
-            $a_str .= '.';
-            else
-            $a_str .= chr($ch);
-            $h_str .= sprintf(" %02X", $ch);
-        }
-        if ($h_str !== '')
-        $buf .= "$h_str $a_str\n";
-        return $buf;
-    }
-
-    /**
-     *
-     * @param $FilePath 圖檔路徑
-     * @param $Type     檔案類型 3=>大頭貼,2表情圖案
-     * @return array
+     * NS and SB command handling methods
      */
-    private function MsnObj($FilePath,$Type=3)
-    {
-        if (!($FileSize=filesize($FilePath))) return '';
-        $Location = md5($FilePath);
-        $Friendly = md5($FilePath.$Type);
-        if (isset($this->MsnObjMap[$Location])) return $this->MsnObjMap[$Location];
-        $sha1d = base64_encode(sha1(file_get_contents($FilePath), true));
-        $sha1c = base64_encode(sha1("Creator".$this->user."Size$FileSize"."Type$Type"."Location$Location"."Friendly".$Friendly."SHA1D$sha1d",true));
-        $this->MsnObjArray[$Location] = $FilePath;
-        $MsnObj = '<msnobj Creator="'.$this->user.'" Size="'.$FileSize.'" Type="'.$Type.'" Location="'.$Location.'" Friendly="'.$Friendly.'" SHA1D="'.$sha1d.'" SHA1C="'.$sha1c.'"/>';
-        $this->MsnObjMap[$Location] = $MsnObj;
-        $this->debug_message("*** p2p: addMsnObj $FilePath::$MsnObj\n");
-        return $MsnObj;
-    }
-
-    private function linetoArray($lines) {
-        $lines = str_replace("\r", '', $lines);
-        $lines = explode("\n", $lines);
-        foreach ($lines as $line) {
-            if (!isset($line{3})) continue;
-            list($Key,$Val) = explode(':', $line);
-            $Data[trim($Key)] = trim($Val);
-        }
-        return $Data;
-    }
-
-    private function GetPictureFilePath($Context) {
-        $MsnObj = base64_decode($Context);
-        if (preg_match('/location="(.*?)"/i', $MsnObj, $Match))
-            $location = $Match[1];
-        $this->debug_message("*** p2p: PictureFile[$location] ::All".print_r($this->MsnObjArray,true)."\n");
-        if ($location && isset($this->MsnObjArray[$location]))
-            return $this->MsnObjArray[$location];
-        return false;
-    }
-
-    private function GetMsnObjDefine($Message) {
-        $DefineString = '';
-        if (is_array($this->Emotions))
-            foreach ($this->Emotions as $Pattern => $FilePath) {
-                if (strpos($Message, $Pattern)!==false)
-                $DefineString .= "$Pattern\t".$this->MsnObj($FilePath, 2)."\t";
-            }
-        return $DefineString;
-    }
-
+    
     /**
      * Read and handle incoming command from NS
      *
@@ -1796,7 +508,7 @@ class MSN {
      */
     private function nsReceive() {
         // Sign in again if not signed in or socket failed
-        if (!is_resource($this->NSfp) || self::socketcheck($this->NSfp)) {
+        if (!is_resource($this->NSfp) || socketcheck($this->NSfp)) {
             $this->callHandler('Reconnect');
             $this->NSRetryWait($this->retry_wait);
             $this->signon();
@@ -2123,7 +835,7 @@ class MSN {
                     $fingerprint = $this->getChallenge($chl_code);
                     // NS: >>> QRY {id} {product_id} 32
                     // NS: >>> fingerprint
-                    $this->ns_writeln("QRY $this->id $this->prod_id 32");
+                    $this->ns_writeln("QRY $this->id ".PROD_ID.' 32');
                     $this->ns_writedata($fingerprint);
                     $this->ns_writeln("CHG $this->id NLN $this->clientid");
                     if ($this->PhotoStickerFile !== false)
@@ -2148,7 +860,7 @@ class MSN {
                     if ($server_type != 'SB') {
                         // maybe exit?
                         // this connection will close after XFR
-                        $this->NSLogout();
+                        $this->nsLogout();
                         continue;
                     }
 
@@ -2187,7 +899,7 @@ class MSN {
                     // force logout from NS
                     // NS: <<< OUT xxx
                     $this->debug_message("*** LOGOUT from NS");
-                    return $this->NsLogout();
+                    return $this->nsLogout();
 
                 default:
                     $code = substr($data,0,3);
@@ -2195,7 +907,7 @@ class MSN {
                         $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
                         $this->debug_message("*** NS: $this->error");
 
-                        return $this->NsLogout();
+                        return $this->nsLogout();
                     }
                     break;
             }
@@ -2609,28 +1321,6 @@ class MSN {
     }
 
     /**
-    * Called when we want to end a switchboard session
-    * or a switchboard session ends
-    *
-    * @param resource $socket Socket
-    * @param boolean $killsession Whether to delete the session
-    * @return void
-    */
-    private function endSBSession($socket, $killsession = false) {
-        if (!self::socketcheck($socket)) {
-            $this->sb_writeln($socket, $fake = 0, 'OUT');
-        }
-        @fclose($socket);
-
-        // Unset session lookup value
-        $intsocket = (int) $socket;
-        unset($this->switchBoardSessionLookup[$this->switchBoardSessions[$intsocket]['to']]);
-
-        // Unset session itself
-        unset($this->switchBoardSessions[$intsocket]);
-    }
-
-    /**
      * Checks for new data and calls appropriate methods
      *
      * This method is usually called in an infinite loop to keep checking for new data
@@ -2655,6 +1345,10 @@ class MSN {
         }
     }
 
+    /**
+     * Switchboard related methods
+     */
+    
     /**
      * Send a request for a switchboard session
      *
@@ -2729,6 +1423,28 @@ class MSN {
             $this->sb_writeln($socket, $id, "ANS $id $this->user $ticket $sid");
         }
     }
+    
+    /**
+    * Called when we want to end a switchboard session
+    * or a switchboard session ends
+    *
+    * @param resource $socket Socket
+    * @param boolean $killsession Whether to delete the session
+    * @return void
+    */
+    private function endSBSession($socket, $killsession = false) {
+        if (!socketcheck($socket)) {
+            $this->sb_writeln($socket, $fake = 0, 'OUT');
+        }
+        @fclose($socket);
+
+        // Unset session lookup value
+        $intsocket = (int) $socket;
+        unset($this->switchBoardSessionLookup[$this->switchBoardSessions[$intsocket]['to']]);
+
+        // Unset session itself
+        unset($this->switchBoardSessions[$intsocket]);
+    }
 
     /**
      * Send a message via an existing SB session
@@ -2739,7 +1455,7 @@ class MSN {
      */
     private function sendMessageViaSB($to, $message) {
         $socket = $this->switchBoardSessionLookup[$to];
-        if (self::socketcheck($socket)) {
+        if (socketcheck($socket)) {
             return false;
         }
 
@@ -2769,118 +1485,6 @@ class MSN {
         // Don't close the SB session, we might as well leave it open
 
         return true;
-    }
-
-    /**
-     * Send offline message
-     *
-     * @param string $to Intended recipient
-     * @param string $sMessage Message
-     * @param string $lockkey Lock key
-     * @return mixed true on success or error data
-     */
-    private function sendOIM($to, $sMessage, $lockkey) {
-        $XML = '<?xml version="1.0" encoding="utf-8"?>
-<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-<soap:Header>
-  <From memberName="'.$this->user.'"
-        friendlyName="=?utf-8?B?'.base64_encode($this->user).'?="
-        xml:lang="zh-TW"
-        proxy="MSNMSGR"
-        xmlns="http://messenger.msn.com/ws/2004/09/oim/"
-        msnpVer="'.$this->protocol.'"
-        buildVer="'.$this->buildver.'"/>
-  <To memberName="'.$to.'" xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
-  <Ticket passport="'.htmlspecialchars($this->ticket['oim_ticket']).'"
-          appid="'.$this->prod_id.'"
-          lockkey="'.$lockkey.'"
-          xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
-  <Sequence xmlns="http://schemas.xmlsoap.org/ws/2003/03/rm">
-    <Identifier xmlns="http://schemas.xmlsoap.org/ws/2002/07/utility">http://messenger.msn.com</Identifier>
-    <MessageNumber>1</MessageNumber>
-  </Sequence>
-</soap:Header>
-<soap:Body>
-  <MessageType xmlns="http://messenger.msn.com/ws/2004/09/oim/">text</MessageType>
-  <Content xmlns="http://messenger.msn.com/ws/2004/09/oim/">MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
-X-OIM-Message-Type: OfflineMessage
-X-OIM-Run-Id: {DAB68CFA-38C9-449B-945E-38AFA51E50A7}
-X-OIM-Sequence-Num: 1
-
-'.chunk_split(base64_encode($sMessage)).'
-  </Content>
-</soap:Body>
-</soap:Envelope>';
-
-        $header_array = array(
-            'SOAPAction: '.$this->oim_send_soap,
-            'Content-Type: text/xml',
-            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.$this->buildver.')'
-        );
-
-        $this->debug_message("*** URL: $this->oim_send_url");
-        $this->debug_message("*** Sending SOAP:\n$XML");
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, $this->oim_send_url);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
-        curl_setopt($curl, CURLOPT_POST, 1);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
-        $data = curl_exec($curl);
-        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        curl_close($curl);
-        $this->debug_message("*** Get Result:\n$data");
-
-        if ($http_code == 200) {
-            $this->debug_message("*** OIM sent for $to");
-            return true;
-        }
-
-        $challenge = false;
-        $auth_policy = false;
-        // the lockkey is invalid, authenticated fail, we need challenge it again
-        // <LockKeyChallenge xmlns="http://messenger.msn.com/ws/2004/09/oim/">364763969</LockKeyChallenge>
-        preg_match("#<LockKeyChallenge (.*)>(.*)</LockKeyChallenge>#", $data, $matches);
-        if (count($matches) != 0) {
-            // yes, we get new LockKeyChallenge
-            $challenge = $matches[2];
-            $this->debug_message("*** OIM need new challenge ($challenge) for $to");
-        }
-        // auth policy error
-        // <RequiredAuthPolicy xmlns="http://messenger.msn.com/ws/2004/09/oim/">MBI_SSL</RequiredAuthPolicy>
-        preg_match("#<RequiredAuthPolicy (.*)>(.*)</RequiredAuthPolicy>#", $data, $matches);
-        if (count($matches) != 0) {
-            $auth_policy = $matches[2];
-            $this->debug_message("*** OIM need new auth policy ($auth_policy) for $to");
-        }
-        if ($auth_policy === false && $challenge === false) {
-            //<faultcode xmlns:q0="http://messenger.msn.com/ws/2004/09/oim/">q0:AuthenticationFailed</faultcode>
-            preg_match("#<faultcode (.*)>(.*)</faultcode>#", $data, $matches);
-            if (count($matches) == 0) {
-                // no error, we assume the OIM is sent
-                $this->debug_message("*** OIM sent for $to");
-                return true;
-            }
-            $err_code = $matches[2];
-            //<faultstring>Exception of type 'System.Web.Services.Protocols.SoapException' was thrown.</faultstring>
-            preg_match("#<faultstring>(.*)</faultstring>#", $data, $matches);
-            if (count($matches) > 0)
-            $err_msg = $matches[1];
-            else
-            $err_msg = '';
-            $this->debug_message("*** OIM failed for $to");
-            $this->debug_message("*** OIM Error code: $err_code");
-            $this->debug_message("*** OIM Error Message: $err_msg");
-            return false;
-        }
-        return array('challenge' => $challenge, 'auth_policy' => $auth_policy);
     }
 
     /**
@@ -2978,37 +1582,1001 @@ X-OIM-Sequence-Num: 1
     }
 
     /**
-     * Sends a ping command
+     * OIM methods
+     */
+    
+    /**
+    * Get OIM mail data
+    *
+    * @return string mail data or false on failure
+    */
+    function getOIM_maildata() {
+        preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
+        if (count($matches) == 0) {
+            $this->debug_message('*** No web ticket?');
+            return false;
+        }
+        $t = htmlspecialchars($matches[1]);
+        $p = htmlspecialchars($matches[2]);
+        $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
+    <t>'.$t.'</t>
+    <p>'.$p.'</p>
+  </PassportCookie>
+</soap:Header>
+<soap:Body>
+  <GetMetadata xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi" />
+</soap:Body>
+</soap:Envelope>';
+
+        $header_array = array(
+            'SOAPAction: '.OIM_MAILDATA_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+        );
+
+        $this->debug_message('*** URL: '.OIM_MAILDATA_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, OIM_MAILDATA_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200) {
+            $this->debug_message("*** Could not get OIM maildata! http code: $http_code");
+            return false;
+        }
+
+        // <GetMetadataResponse xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">See #XML_Data</GetMetadataResponse>
+        preg_match('#<GetMetadataResponse([^>]*)>(.*)</GetMetadataResponse>#', $data, $matches);
+        if (count($matches) == 0) {
+            $this->debug_message('*** Could not get OIM maildata');
+            return false;
+        }
+        return $matches[2];
+    }
+
+    /**
+    * Fetch OIM message with given id
+    *
+    * @param string $msgid
+    * @return string Message or false on failure
+    */
+    function getOIM_message($msgid) {
+        preg_match('#t=(.*)&p=(.*)#', $this->ticket['web_ticket'], $matches);
+        if (count($matches) == 0) {
+            $this->debug_message('*** No web ticket?');
+            return false;
+        }
+        $t = htmlspecialchars($matches[1]);
+        $p = htmlspecialchars($matches[2]);
+
+        // read OIM
+        $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
+    <t>'.$t.'</t>
+    <p>'.$p.'</p>
+  </PassportCookie>
+</soap:Header>
+<soap:Body>
+  <GetMessage xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
+    <messageId>'.$msgid.'</messageId>
+    <alsoMarkAsRead>false</alsoMarkAsRead>
+  </GetMessage>
+</soap:Body>
+</soap:Envelope>';
+
+        $header_array = array(
+            'SOAPAction: '.OIM_READ_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+        );
+
+        $this->debug_message('*** URL: '.OIM_READ_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, OIM_READ_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200) {
+            $this->debug_message("*** Can't get OIM: $msgid, http code = $http_code");
+            return false;
+        }
+
+        // why can't use preg_match('#<GetMessageResult>(.*)</GetMessageResult>#', $data, $matches)?
+        // multi-lines?
+        $start = strpos($data, '<GetMessageResult>');
+        $end = strpos($data, '</GetMessageResult>');
+        if ($start === false || $end === false || $start > $end) {
+            $this->debug_message("*** Can't get OIM: $msgid");
+            return false;
+        }
+        $lines = substr($data, $start + 18, $end - $start);
+        $aLines = @explode("\n", $lines);
+        $header = true;
+        $ignore = false;
+        $sOIM = '';
+        foreach ($aLines as $line) {
+            $line = rtrim($line);
+            if ($header) {
+                if ($line === '') {
+                    $header = false;
+                    continue;
+                }
+                continue;
+            }
+            // stop at empty lines
+            if ($line === '') break;
+            $sOIM .= $line;
+        }
+        $sMsg = base64_decode($sOIM);
+        //$this->debug_message("*** we get OIM ($msgid): $sMsg");
+
+        // delete OIM
+        $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+  <PassportCookie xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
+    <t>'.$t.'</t>
+    <p>'.$p.'</p>
+  </PassportCookie>
+</soap:Header>
+<soap:Body>
+  <DeleteMessages xmlns="http://www.hotmail.msn.com/ws/2004/09/oim/rsi">
+    <messageIds>
+      <messageId>'.$msgid.'</messageId>
+    </messageIds>
+  </DeleteMessages>
+</soap:Body>
+</soap:Envelope>';
+
+        $header_array = array(
+            'SOAPAction: '.OIM_DEL_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+        );
+
+        $this->debug_message('*** URL: '.OIM_DEL_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, OIM_DEL_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200)
+            $this->debug_message("*** Could not delete OIM: $msgid, http code = $http_code");
+        else
+            $this->debug_message("*** OIM ($msgid) deleted");
+        return $sMsg;
+    }
+    
+    /**
+     * Send offline message
      *
-     * Should be called about every 50 seconds
+     * @param string $to Intended recipient
+     * @param string $sMessage Message
+     * @param string $lockkey Lock key
+     * @return mixed true on success or error data
+     */
+    private function sendOIM($to, $sMessage, $lockkey) {
+        $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+<soap:Header>
+  <From memberName="'.$this->user.'"
+        friendlyName="=?utf-8?B?'.base64_encode($this->user).'?="
+        xml:lang="zh-TW"
+        proxy="MSNMSGR"
+        xmlns="http://messenger.msn.com/ws/2004/09/oim/"
+        msnpVer="'.PROTOCOL.'"
+        buildVer="'.BUILDVER.'"/>
+  <To memberName="'.$to.'" xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
+  <Ticket passport="'.htmlspecialchars($this->ticket['oim_ticket']).'"
+          appid="'.PROD_ID.'"
+          lockkey="'.$lockkey.'"
+          xmlns="http://messenger.msn.com/ws/2004/09/oim/"/>
+  <Sequence xmlns="http://schemas.xmlsoap.org/ws/2003/03/rm">
+    <Identifier xmlns="http://schemas.xmlsoap.org/ws/2002/07/utility">http://messenger.msn.com</Identifier>
+    <MessageNumber>1</MessageNumber>
+  </Sequence>
+</soap:Header>
+<soap:Body>
+  <MessageType xmlns="http://messenger.msn.com/ws/2004/09/oim/">text</MessageType>
+  <Content xmlns="http://messenger.msn.com/ws/2004/09/oim/">MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
+X-OIM-Message-Type: OfflineMessage
+X-OIM-Run-Id: {DAB68CFA-38C9-449B-945E-38AFA51E50A7}
+X-OIM-Sequence-Num: 1
+
+'.chunk_split(base64_encode($sMessage)).'
+  </Content>
+</soap:Body>
+</soap:Envelope>';
+
+        $header_array = array(
+            'SOAPAction: '.OIM_SEND_SOAP,
+            'Content-Type: text/xml',
+            'User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; Messenger '.BUILDVER.')'
+        );
+
+        $this->debug_message('*** URL: '.OIM_SEND_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, OIM_SEND_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code == 200) {
+            $this->debug_message("*** OIM sent for $to");
+            return true;
+        }
+
+        $challenge = false;
+        $auth_policy = false;
+        // the lockkey is invalid, authenticated fail, we need challenge it again
+        // <LockKeyChallenge xmlns="http://messenger.msn.com/ws/2004/09/oim/">364763969</LockKeyChallenge>
+        preg_match("#<LockKeyChallenge (.*)>(.*)</LockKeyChallenge>#", $data, $matches);
+        if (count($matches) != 0) {
+            // yes, we get new LockKeyChallenge
+            $challenge = $matches[2];
+            $this->debug_message("*** OIM need new challenge ($challenge) for $to");
+        }
+        // auth policy error
+        // <RequiredAuthPolicy xmlns="http://messenger.msn.com/ws/2004/09/oim/">MBI_SSL</RequiredAuthPolicy>
+        preg_match("#<RequiredAuthPolicy (.*)>(.*)</RequiredAuthPolicy>#", $data, $matches);
+        if (count($matches) != 0) {
+            $auth_policy = $matches[2];
+            $this->debug_message("*** OIM need new auth policy ($auth_policy) for $to");
+        }
+        if ($auth_policy === false && $challenge === false) {
+            //<faultcode xmlns:q0="http://messenger.msn.com/ws/2004/09/oim/">q0:AuthenticationFailed</faultcode>
+            preg_match("#<faultcode (.*)>(.*)</faultcode>#", $data, $matches);
+            if (count($matches) == 0) {
+                // no error, we assume the OIM is sent
+                $this->debug_message("*** OIM sent for $to");
+                return true;
+            }
+            $err_code = $matches[2];
+            //<faultstring>Exception of type 'System.Web.Services.Protocols.SoapException' was thrown.</faultstring>
+            preg_match("#<faultstring>(.*)</faultstring>#", $data, $matches);
+            if (count($matches) > 0)
+            $err_msg = $matches[1];
+            else
+            $err_msg = '';
+            $this->debug_message("*** OIM failed for $to");
+            $this->debug_message("*** OIM Error code: $err_code");
+            $this->debug_message("*** OIM Error Message: $err_msg");
+            return false;
+        }
+        return array('challenge' => $challenge, 'auth_policy' => $auth_policy);
+    }
+    
+    /**
+     * Contact / Membership list methods
+     */
+    
+    /**
+    * Fetch contact list
+    *
+    * @return boolean true on success
+    */
+    private function UpdateContacts() {
+        $ABApplicationHeaderArray = array(
+            'ABApplicationHeader' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'ApplicationId' => 'CFE80F9D-180F-4399-82AB-413F33A1FA11',
+                'IsMigration' => false,
+                'PartnerScenario' => 'ContactSave'
+             )
+        );
+
+        $ABApplicationHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABApplicationHeader', $this->Array2SoapVar($ABApplicationHeaderArray));
+        $ABFindAllArray = array(
+            'ABFindAll' => array(
+                ':' => array('xmlns'=>'http://www.msn.com/webservices/AddressBook'),
+                'abId' => '00000000-0000-0000-0000-000000000000',
+                'abView' => 'Full',
+                'lastChange' => '0001-01-01T00:00:00.0000000-08:00',
+            )
+        );
+        $ABFindAll = new SoapParam($this->Array2SoapVar($ABFindAllArray), 'ABFindAll');
+        $this->ABService->__setSoapHeaders(array($ABApplicationHeader, $this->ABAuthHeader));
+        $this->Contacts = array();
+        try {
+            $this->debug_message('*** Updating Contacts...');
+            $Result = $this->ABService->ABFindAll($ABFindAll);
+            $this->debug_message("*** Result:\n".print_r($Result, true)."\n".$this->ABService->__getLastResponse());
+            foreach($Result->ABFindAllResult->contacts->Contact as $Contact)
+                $this->Contacts[$Contact->contactInfo->passportName] = $Contact;
+        } catch(Exception $e) {
+            $this->debug_message("*** Update Contacts Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    /**
+    * Add contact
+    *
+    * @param string $email
+    * @param integer $network
+    * @param string $display
+    * @param boolean $sendADL
+    * @return boolean true on success
+    */
+    private function addContact($email, $network, $display = '', $sendADL = false) {
+        if ($network != 1) return true;
+        if (isset($this->Contacts[$email])) return true;
+
+        $ABContactAddArray = array(
+            'ABContactAdd' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'abId' => '00000000-0000-0000-0000-000000000000',
+                'contacts' => array(
+                    'Contact' => array(
+                        ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                        'contactInfo' => array(
+                            'contactType' => 'LivePending',
+                            'passportName' => $email,
+                            'isMessengerUser' => true,
+                            'MessengerMemberInfo' => array(
+                                'DisplayName' => $email
+                            )
+                        )
+                    )
+                ),
+                'options' => array(
+                    'EnableAllowListManagement' => true
+                )
+            )
+        );
+        $ABContactAdd = new SoapParam($this->Array2SoapVar($ABContactAddArray), 'ABContactAdd');
+        try {
+            $this->debug_message("*** Adding Contact $email...");
+            $this->ABService->ABContactAdd($ABContactAdd);
+        } catch(Exception $e) {
+            $this->debug_message("*** Add Contact Error \nRequest:".$this->ABService->__getLastRequest()."\nError:".$e->getMessage());
+            return false;
+        }
+        if ($sendADL && !feof($this->NSfp)) {
+            @list($u_name, $u_domain) = @explode('@', $email);
+            foreach (array('1', '2') as $l) {
+                $str = '<ml l="1"><d n="'.$u_domain.'"><c n="'.$u_name.'" l="'.$l.'" t="'.$network.'" /></d></ml>';
+                $len = strlen($str);
+                // NS: >>> ADL {id} {size}
+                //TODO introduce error checking
+                $this->ns_writeln("ADL $this->id $len");
+                $this->ns_writedata($str);
+            }
+        }
+        $this->UpdateContacts();
+        return true;
+    }
+
+    /**
+    * Remove contact from list
+    *
+    * @param integer $memberID
+    * @param string $email
+    * @param integer $network
+    * @param string $list
+    */
+    function delMemberFromList($memberID, $email, $network, $list) {
+        if ($network != 1 && $network != 32) return true;
+        if ($memberID === false) return true;
+        $user = $email;
+        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
+        if ($network == 1)
+            $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soap:Header>
+    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
+        <IsMigration>false</IsMigration>
+        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
+    </ABApplicationHeader>
+    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ManagedGroupRequest>false</ManagedGroupRequest>
+        <TicketToken>'.$ticket.'</TicketToken>
+    </ABAuthHeader>
+</soap:Header>
+<soap:Body>
+    <DeleteMember xmlns="http://www.msn.com/webservices/AddressBook">
+        <serviceHandle>
+            <Id>0</Id>
+            <Type>Messenger</Type>
+            <ForeignId></ForeignId>
+        </serviceHandle>
+        <memberships>
+            <Membership>
+                <MemberRole>'.$list.'</MemberRole>
+                <Members>
+                    <Member xsi:type="PassportMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <Type>Passport</Type>
+                        <MembershipId>'.$memberID.'</MembershipId>
+                        <State>Accepted</State>
+                    </Member>
+                </Members>
+            </Membership>
+        </memberships>
+    </DeleteMember>
+</soap:Body>
+</soap:Envelope>';
+        else
+            $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soap:Header>
+    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
+        <IsMigration>false</IsMigration>
+        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
+    </ABApplicationHeader>
+    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ManagedGroupRequest>false</ManagedGroupRequest>
+        <TicketToken>'.$ticket.'</TicketToken>
+    </ABAuthHeader>
+</soap:Header>
+<soap:Body>
+    <DeleteMember xmlns="http://www.msn.com/webservices/AddressBook">
+        <serviceHandle>
+            <Id>0</Id>
+            <Type>Messenger</Type>
+            <ForeignId></ForeignId>
+        </serviceHandle>
+        <memberships>
+            <Membership>
+                <MemberRole>'.$list.'</MemberRole>
+                <Members>
+                    <Member xsi:type="EmailMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <Type>Email</Type>
+                        <MembershipId>'.$memberID.'</MembershipId>
+                        <State>Accepted</State>
+                    </Member>
+                </Members>
+            </Membership>
+        </memberships>
+    </DeleteMember>
+</soap:Body>
+</soap:Envelope>';
+
+        $header_array = array(
+            'SOAPAction: '.DELMEMBER_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
+        );
+
+        $this->debug_message('*** URL: '.DELMEMBER_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, DELMEMBER_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200) {
+            preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
+            if (count($matches) == 0) {
+                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list");
+                return false;
+            }
+            $faultcode = trim($matches[1]);
+            $faultstring = trim($matches[2]);
+            if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member does not exist') === false) {
+                $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, error code: $faultcode, $faultstring");
+                return false;
+            }
+            $this->debug_message("*** Could not delete member (network: $network) $email ($memberID) from $list list, not present in list");
+            return true;
+        }
+        $this->debug_message("*** Member successfully deleted (network: $network) $email ($memberID) from $list list");
+        return true;
+    }
+
+    /**
+    * Add contact to list
+    *
+    * @param string $email
+    * @param integer $network
+    * @param string $list
+    */
+    function addMemberToList($email, $network, $list) {
+        if ($network != 1 && $network != 32) return true;
+        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
+        $user = $email;
+
+        if ($network == 1)
+            $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soap:Header>
+    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
+        <IsMigration>false</IsMigration>
+        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
+    </ABApplicationHeader>
+    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ManagedGroupRequest>false</ManagedGroupRequest>
+        <TicketToken>'.$ticket.'</TicketToken>
+    </ABAuthHeader>
+</soap:Header>
+<soap:Body>
+    <AddMember xmlns="http://www.msn.com/webservices/AddressBook">
+        <serviceHandle>
+            <Id>0</Id>
+            <Type>Messenger</Type>
+            <ForeignId></ForeignId>
+        </serviceHandle>
+        <memberships>
+            <Membership>
+                <MemberRole>'.$list.'</MemberRole>
+                <Members>
+                    <Member xsi:type="PassportMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <Type>Passport</Type>
+                        <State>Accepted</State>
+                        <PassportName>'.$user.'</PassportName>
+                    </Member>
+                </Members>
+            </Membership>
+        </memberships>
+    </AddMember>
+</soap:Body>
+</soap:Envelope>';
+        else
+            $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soap:Header>
+    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
+        <IsMigration>false</IsMigration>
+        <PartnerScenario>ContactMsgrAPI</PartnerScenario>
+    </ABApplicationHeader>
+    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ManagedGroupRequest>false</ManagedGroupRequest>
+        <TicketToken>'.$ticket.'</TicketToken>
+    </ABAuthHeader>
+</soap:Header>
+<soap:Body>
+    <AddMember xmlns="http://www.msn.com/webservices/AddressBook">
+        <serviceHandle>
+            <Id>0</Id>
+            <Type>Messenger</Type>
+            <ForeignId></ForeignId>
+        </serviceHandle>
+        <memberships>
+            <Membership>
+                <MemberRole>'.$list.'</MemberRole>
+                <Members>
+                    <Member xsi:type="EmailMember" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                        <Type>Email</Type>
+                        <State>Accepted</State>
+                        <Email>'.$user.'</Email>
+                        <Annotations>
+                            <Annotation>
+                                <Name>MSN.IM.BuddyType</Name>
+                                <Value>32:YAHOO</Value>
+                            </Annotation>
+                        </Annotations>
+                    </Member>
+                </Members>
+            </Membership>
+        </memberships>
+    </AddMember>
+</soap:Body>
+</soap:Envelope>';
+        $header_array = array(
+            'SOAPAction: '.ADDMEMBER_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
+        );
+
+        $this->debug_message('*** URL: '.ADDMEMBER_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, ADDMEMBER_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200) {
+            preg_match('#<faultcode>(.*)</faultcode><faultstring>(.*)</faultstring>#', $data, $matches);
+            if (count($matches) == 0) {
+                $this->debug_message("*** Could not add member (network: $network) $email to $list list");
+                return false;
+            }
+            $faultcode = trim($matches[1]);
+            $faultstring = trim($matches[2]);
+            if (strcasecmp($faultcode, 'soap:Client') || stripos($faultstring, 'Member already exists') === false) {
+                $this->debug_message("*** Could not add member (network: $network) $email to $list list, error code: $faultcode, $faultstring");
+                return false;
+            }
+            $this->debug_message("*** Could not add member (network: $network) $email to $list list, already present");
+            return true;
+        }
+        $this->debug_message("*** Member successfully added (network: $network) $email to $list list");
+        return true;
+    }
+
+    /**
+    * Get membership lists
+    *
+    * @param mixed $returnData Membership list or false on failure
+    */
+    function getMembershipList($returnData = false) {
+        $ticket = htmlspecialchars($this->ticket['contact_ticket']);
+        $XML = '<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+<soap:Header>
+    <ABApplicationHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ApplicationId>996CDE1E-AA53-4477-B943-2BE802EA6166</ApplicationId>
+        <IsMigration>false</IsMigration>
+        <PartnerScenario>Initial</PartnerScenario>
+    </ABApplicationHeader>
+    <ABAuthHeader xmlns="http://www.msn.com/webservices/AddressBook">
+        <ManagedGroupRequest>false</ManagedGroupRequest>
+        <TicketToken>'.$ticket.'</TicketToken>
+    </ABAuthHeader>
+</soap:Header>
+<soap:Body>
+    <FindMembership xmlns="http://www.msn.com/webservices/AddressBook">
+        <serviceFilter>
+            <Types>
+                <ServiceType>Messenger</ServiceType>
+                <ServiceType>Invitation</ServiceType>
+                <ServiceType>SocialNetwork</ServiceType>
+                <ServiceType>Space</ServiceType>
+                <ServiceType>Profile</ServiceType>
+            </Types>
+        </serviceFilter>
+    </FindMembership>
+</soap:Body>
+</soap:Envelope>';
+        $header_array = array(
+            'SOAPAction: '.MEMBERSHIP_SOAP,
+            'Content-Type: text/xml; charset=utf-8',
+            'User-Agent: MSN Explorer/9.0 (MSN 8.0; TmstmpExt)'
+        );
+        $this->debug_message('*** URL: '.MEMBERSHIP_URL);
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, MEMBERSHIP_URL);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header_array);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+        
+        if ($http_code != 200) return false;
+        $p = $data;
+        $aMemberships = array();
+        while (1) {
+            //$this->debug_message("search p = $p");
+            $start = strpos($p, '<Membership>');
+            $end = strpos($p, '</Membership>');
+            if ($start === false || $end === false || $start > $end) break;
+            //$this->debug_message("start = $start, end = $end");
+            $end += 13;
+            $sMembership = substr($p, $start, $end - $start);
+            $aMemberships[] = $sMembership;
+            //$this->debug_message("add sMembership = $sMembership");
+            $p = substr($p, $end);
+        }
+        //$this->debug_message("aMemberships = ".var_export($aMemberships, true));
+
+        $aContactList = array();
+        foreach ($aMemberships as $sMembership) {
+            //$this->debug_message("sMembership = $sMembership");
+            if (isset($matches)) unset($matches);
+            preg_match('#<MemberRole>(.*)</MemberRole>#', $sMembership, $matches);
+            if (count($matches) == 0) continue;
+            $sMemberRole = $matches[1];
+            //$this->debug_message("MemberRole = $sMemberRole");
+            if ($sMemberRole != 'Allow' && $sMemberRole != 'Reverse' && $sMemberRole != 'Pending') continue;
+            $p = $sMembership;
+            if (isset($aMembers)) unset($aMembers);
+            $aMembers = array();
+            while (1) {
+                //$this->debug_message("search p = $p");
+                $start = strpos($p, '<Member xsi:type="');
+                $end = strpos($p, '</Member>');
+                if ($start === false || $end === false || $start > $end) break;
+                //$this->debug_message("start = $start, end = $end");
+                $end += 9;
+                $sMember = substr($p, $start, $end - $start);
+                $aMembers[] = $sMember;
+                //$this->debug_message("add sMember = $sMember");
+                $p = substr($p, $end);
+            }
+            //$this->debug_message("aMembers = ".var_export($aMembers, true));
+            foreach ($aMembers as $sMember) {
+                //$this->debug_message("sMember = $sMember");
+                if (isset($matches)) unset($matches);
+                preg_match('#<Member xsi\:type="([^"]*)">#', $sMember, $matches);
+                if (count($matches) == 0) continue;
+                $sMemberType = $matches[1];
+                //$this->debug_message("MemberType = $sMemberType");
+                $network = -1;
+                preg_match('#<MembershipId>(.*)</MembershipId>#', $sMember, $matches);
+                if (count($matches) == 0) continue;
+                $id = $matches[1];
+                if ($sMemberType == 'PassportMember') {
+                    if (strpos($sMember, '<Type>Passport</Type>') === false) continue;
+                    $network = 1;
+                    preg_match('#<PassportName>(.*)</PassportName>#', $sMember, $matches);
+                }
+                else if ($sMemberType == 'EmailMember') {
+                    if (strpos($sMember, '<Type>Email</Type>') === false) continue;
+                    // Value is 32: or 32:YAHOO
+                    preg_match('#<Annotation><Name>MSN.IM.BuddyType</Name><Value>(.*):(.*)</Value></Annotation>#', $sMember, $matches);
+                    if (count($matches) == 0) continue;
+                    if ($matches[1] != 32) continue;
+                    $network = 32;
+                    preg_match('#<Email>(.*)</Email>#', $sMember, $matches);
+                }
+                if ($network == -1) continue;
+                if (count($matches) > 0) {
+                    $email = $matches[1];
+                    @list($u_name, $u_domain) = @explode('@', $email);
+                    if ($u_domain == NULL) continue;
+                    $aContactList[$u_domain][$u_name][$network][$sMemberRole] = $id;
+                    $this->debug_message("*** Adding new contact (network: $network, status: $sMemberRole): $u_name@$u_domain ($id)");
+                }
+            }
+        }
+        return $aContactList;
+    }
+    
+    /**
+     * MsnObj related methods
+     */
+    
+    /**
      *
+     * @param $FilePath 圖檔路徑
+     * @param $Type     檔案類型 3=>大頭貼,2表情圖案
+     * @return array
+     */
+    private function MsnObj($FilePath, $Type = 3) {
+        if (!($FileSize=filesize($FilePath))) return '';
+        $Location = md5($FilePath);
+        $Friendly = md5($FilePath.$Type);
+        if (isset($this->MsnObjMap[$Location])) return $this->MsnObjMap[$Location];
+        $sha1d = base64_encode(sha1(file_get_contents($FilePath), true));
+        $sha1c = base64_encode(sha1("Creator".$this->user."Size$FileSize"."Type$Type"."Location$Location"."Friendly".$Friendly."SHA1D$sha1d", true));
+        $this->MsnObjArray[$Location] = $FilePath;
+        $MsnObj = '<msnobj Creator="'.$this->user.'" Size="'.$FileSize.'" Type="'.$Type.'" Location="'.$Location.'" Friendly="'.$Friendly.'" SHA1D="'.$sha1d.'" SHA1C="'.$sha1c.'"/>';
+        $this->MsnObjMap[$Location] = $MsnObj;
+        $this->debug_message("*** p2p: addMsnObj $FilePath::$MsnObj\n");
+        return $MsnObj;
+    }
+
+    private function GetPictureFilePath($Context) {
+        $MsnObj = base64_decode($Context);
+        if (preg_match('/location="(.*?)"/i', $MsnObj, $Match))
+            $location = $Match[1];
+        $this->debug_message("*** p2p: PictureFile[$location] ::All".print_r($this->MsnObjArray,true)."\n");
+        if ($location && isset($this->MsnObjArray[$location]))
+            return $this->MsnObjArray[$location];
+        return false;
+    }
+
+    private function GetMsnObjDefine($Message) {
+        $DefineString = '';
+        if (is_array($this->Emotions))
+            foreach ($this->Emotions as $Pattern => $FilePath) {
+                if (strpos($Message, $Pattern) !== false)
+                $DefineString .= "$Pattern\t".$this->MsnObj($FilePath, 2)."\t";
+            }
+        return $DefineString;
+    }
+    
+    /**
+     * Socket methods
+     */
+    
+    /**
+     * Read data of specified size from NS socket
+     * 
+     * @param integer $size Size to read
+     * @return string Data read
+     */
+    private function ns_readdata($size) {
+        $data = '';
+        $count = 0;
+        while (!feof($this->NSfp)) {
+            $buf = @fread($this->NSfp, $size - $count);
+            $data .= $buf;
+            $count += strlen($buf);
+            if ($count >= $size) break;
+        }
+        $this->debug_message("NS: data ($size/$count) <<<\n$data");
+        return $data;
+    }
+
+    /**
+     * Read line from the NS socket
+     * 
+     * @return string Data read
+     */
+    private function ns_readln() {
+        $data = @fgets($this->NSfp, 4096);
+        if ($data !== false) {
+            $data = trim($data);
+            $this->debug_message("NS: <<< $data");
+        }
+        return $data;
+    }
+
+    /**
+     * Write line to NS socket
+     * 
+     * Also increments id
+     * 
+     * @param string $data Line to write to socket
      * @return void
      */
-    public function sendPing() {
-        // NS: >>> PNG
-        $this->ns_writeln("PNG");
+    private function ns_writeln($data) {
+        @fwrite($this->NSfp, $data."\r\n");
+        $this->debug_message("NS: >>> $data");
+        $this->id++;
     }
 
     /**
-    * Methods to return sockets / check socket status
-    */
-
-    /**
-     * Get the NS socket
-     *
-     * @return resource NS socket
+     * Write data to NS socket
+     * 
+     * @param string $data Data to write to socket
+     * @return void
      */
-    public function getNSSocket() {
-        return $this->NSfp;
+    private function ns_writedata($data) {
+        @fwrite($this->NSfp, $data);
+        $this->debug_message("NS: >>> $data");
     }
 
     /**
-     * Get the Switchboard sockets currently in use
-     *
-     * @return array Array of Switchboard sockets
+     * Read data of specified size from given SB socket
+     * 
+     * @param resource $socket SB socket
+     * @param integer $size Size to read
+     * @return string Data read
      */
-    public function getSBSockets() {
-        return $this->switchBoardSessionLookup;
+    private function sb_readdata($socket, $size) {
+        $data = '';
+        $count = 0;
+        while (!feof($socket)) {
+            $buf = @fread($socket, $size - $count);
+            $data .= $buf;
+            $count += strlen($buf);
+            if ($count >= $size) break;
+        }
+        $this->debug_message("SB: data ($size/$count) <<<\n$data");
+        return $data;
+    }
+
+    /**
+     * Read line from given SB socket
+     * 
+     * @param resource $socket SB Socket
+     * @return string Line read
+     */
+    private function sb_readln($socket) {
+        $data = @fgets($socket, 4096);
+        if ($data !== false) {
+            $data = trim($data);
+            $this->debug_message("SB: <<< $data");
+        }
+        return $data;
+    }
+
+    /**
+     * Write line to given SB socket
+     * 
+     * Also increments id
+     * 
+     * @param resource $socket SB socket
+     * @param integer $id Reference to SB id
+     * @param string $data Line to write
+     * @return void
+     */
+    private function sb_writeln($socket, &$id, $data) {
+        @fwrite($socket, $data."\r\n");
+        $this->debug_message("SB: >>> $data");
+        $id++;
+    }
+
+    /**
+     * Write data to given SB socket
+     * 
+     * @param resource $socket SB socket
+     * @param $data Data to write to socket
+     * @return void
+     */
+    private function sb_writedata($socket, $data) {
+        @fwrite($socket, $data);
+        $this->debug_message("SB: >>> $data");
     }
 
     /**
@@ -3030,7 +2598,451 @@ X-OIM-Sequence-Num: 1
         $info = stream_get_meta_data($socket);
         return $info['eof'];
     }
+    
+    /**
+     * Key generation methods
+     */
+    
+    private function derive_key($key, $magic) {
+        $hash1 = mhash(MHASH_SHA1, $magic, $key);
+        $hash2 = mhash(MHASH_SHA1, $hash1.$magic, $key);
+        $hash3 = mhash(MHASH_SHA1, $hash1, $key);
+        $hash4 = mhash(MHASH_SHA1, $hash3.$magic, $key);
+        return $hash2.substr($hash4, 0, 4);
+    }
 
+    private function generateLoginBLOB($key, $challenge) {
+        $key1 = base64_decode($key);
+        $key2 = $this->derive_key($key1, 'WS-SecureConversationSESSION KEY HASH');
+        $key3 = $this->derive_key($key1, 'WS-SecureConversationSESSION KEY ENCRYPTION');
+
+        // get hash of challenge using key2
+        $hash = mhash(MHASH_SHA1, $challenge, $key2);
+
+        // get 8 bytes random data
+        $iv = substr(base64_encode(rand(1000,9999).rand(1000,9999)), 2, 8);
+
+        $cipher = mcrypt_cbc(MCRYPT_3DES, $key3, $challenge."\x08\x08\x08\x08\x08\x08\x08\x08", MCRYPT_ENCRYPT, $iv);
+
+        $blob = pack('LLLLLLL', 28, 1, 0x6603, 0x8004, 8, 20, 72);
+        $blob .= $iv;
+        $blob .= $hash;
+        $blob .= $cipher;
+
+        return base64_encode($blob);
+    }
+    
+    /**
+    * Generate challenge response
+    *
+    * @param string $code
+    * @return string challenge response code
+    */
+    private function getChallenge($code) {
+        // MSNP15
+        // http://msnpiki.msnfanatic.com/index.php/MSNP11:Challenges
+        // Step 1: The MD5 Hash
+        $md5Hash = md5($code.PROD_KEY);
+        $aMD5 = @explode("\0", chunk_split($md5Hash, 8, "\0"));
+        for ($i = 0; $i < 4; $i++) {
+            $aMD5[$i] = implode('', array_reverse(@explode("\0", chunk_split($aMD5[$i], 2, "\0"))));
+            $aMD5[$i] = (0 + base_convert($aMD5[$i], 16, 10)) & 0x7FFFFFFF;
+        }
+
+        // Step 2: A new string
+        $chl_id = $code.PROD_ID;
+        $chl_id .= str_repeat('0', 8 - (strlen($chl_id) % 8));
+
+        $aID = @explode("\0", substr(chunk_split($chl_id, 4, "\0"), 0, -1));
+        for ($i = 0; $i < count($aID); $i++) {
+            $aID[$i] = implode('', array_reverse(@explode("\0", chunk_split($aID[$i], 1, "\0"))));
+            $aID[$i] = 0 + base_convert(bin2hex($aID[$i]), 16, 10);
+        }
+
+        // Step 3: The 64 bit key
+        $magic_num = 0x0E79A9C1;
+        $str7f = 0x7FFFFFFF;
+        $high = 0;
+        $low = 0;
+        for ($i = 0; $i < count($aID); $i += 2) {
+            $temp = $aID[$i];
+            $temp = bcmod(bcmul($magic_num, $temp), $str7f);
+            $temp = bcadd($temp, $high);
+            $temp = bcadd(bcmul($aMD5[0], $temp), $aMD5[1]);
+            $temp = bcmod($temp, $str7f);
+
+            $high = $aID[$i+1];
+            $high = bcmod(bcadd($high, $temp), $str7f);
+            $high = bcadd(bcmul($aMD5[2], $high), $aMD5[3]);
+            $high = bcmod($high, $str7f);
+
+            $low = bcadd(bcadd($low, $high), $temp);
+        }
+
+        $high = bcmod(bcadd($high, $aMD5[1]), $str7f);
+        $low = bcmod(bcadd($low, $aMD5[3]), $str7f);
+
+        $new_high = bcmul($high & 0xFF, 0x1000000);
+        $new_high = bcadd($new_high, bcmul($high & 0xFF00, 0x100));
+        $new_high = bcadd($new_high, bcdiv($high & 0xFF0000, 0x100));
+        $new_high = bcadd($new_high, bcdiv($high & 0xFF000000, 0x1000000));
+        // we need integer here
+        $high = 0+$new_high;
+
+        $new_low = bcmul($low & 0xFF, 0x1000000);
+        $new_low = bcadd($new_low, bcmul($low & 0xFF00, 0x100));
+        $new_low = bcadd($new_low, bcdiv($low & 0xFF0000, 0x100));
+        $new_low = bcadd($new_low, bcdiv($low & 0xFF000000, 0x1000000));
+        // we need integer here
+        $low = 0+$new_low;
+
+        // we just use 32 bits integer, don't need the key, just high/low
+        // $key = bcadd(bcmul($high, 0x100000000), $low);
+
+        // Step 4: Using the key
+        $md5Hash = md5($code.PROD_KEY);
+        $aHash = @explode("\0", chunk_split($md5Hash, 8, "\0"));
+
+        $hash = '';
+        $hash .= sprintf("%08x", (0 + base_convert($aHash[0], 16, 10)) ^ $high);
+        $hash .= sprintf("%08x", (0 + base_convert($aHash[1], 16, 10)) ^ $low);
+        $hash .= sprintf("%08x", (0 + base_convert($aHash[2], 16, 10)) ^ $high);
+        $hash .= sprintf("%08x", (0 + base_convert($aHash[3], 16, 10)) ^ $low);
+
+        return $hash;
+    }
+    
+    /**
+     * Utility methods
+     */
+    
+    private function Array2SoapVar($Array, $ReturnSoapVarObj = true, $TypeName = null, $TypeNameSpace = null) {
+        $ArrayString = '';
+        foreach($Array as $Key => $Val) {
+            if ($Key{0} == ':') continue;
+            $Attrib = '';
+            if (is_array($Val[':'])) {
+                foreach ($Val[':'] as $AttribName => $AttribVal)
+                $Attrib .= " $AttribName = '$AttribVal'";
+            }
+            if ($Key{0} == '!') {
+                //List Type Define
+                $Key = substr($Key,1);
+                foreach ($Val as $ListKey => $ListVal) {
+                    if ($ListKey{0} == ':') continue;
+                    if (is_array($ListVal)) $ListVal = $this->Array2SoapVar($ListVal, false);
+                    elseif (is_bool($ListVal)) $ListVal = $ListVal ? 'true' : 'false';
+                    $ArrayString .= "<$Key$Attrib>$ListVal</$Key>";
+                }
+                continue;
+            }
+            if (is_array($Val)) $Val = $this->Array2SoapVar($Val, false);
+            elseif (is_bool($Val)) $Val = $Val ? 'true' : 'false';
+            $ArrayString .= "<$Key$Attrib>$Val</$Key>";
+        }
+        if ($ReturnSoapVarObj) return new SoapVar($ArrayString, XSD_ANYXML, $TypeName, $TypeNameSpace);
+        return $ArrayString;
+    }
+    
+    private function linetoArray($lines) {
+        $lines = str_replace("\r", '', $lines);
+        $lines = explode("\n", $lines);
+        foreach ($lines as $line) {
+            if (!isset($line{3})) continue;
+            list($Key, $Val) = explode(':', $line);
+            $Data[trim($Key)] = trim($Val);
+        }
+        return $Data;
+    }
+    
+    /**
+    * Get Passport ticket
+    *
+    * @param string $url URL string (Optional)
+    * @return mixed Array of tickets or false on failure
+    */
+    private function get_passport_ticket($url = '') {
+        $user = $this->user;
+        $password = htmlspecialchars($this->password);
+
+        if ($url === '')
+            $passport_url = PASSPORT_URL;
+        else
+            $passport_url = $url;
+
+        $XML = '<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns="http://schemas.xmlsoap.org/soap/envelope/"
+          xmlns:wsse="http://schemas.xmlsoap.org/ws/2003/06/secext"
+          xmlns:saml="urn:oasis:names:tc:SAML:1.0:assertion"
+          xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"
+          xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+          xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/03/addressing"
+          xmlns:wssc="http://schemas.xmlsoap.org/ws/2004/04/sc"
+          xmlns:wst="http://schemas.xmlsoap.org/ws/2004/04/trust">
+<Header>
+  <ps:AuthInfo xmlns:ps="http://schemas.microsoft.com/Passport/SoapServices/PPCRL" Id="PPAuthInfo">
+    <ps:HostingApp>{7108E71A-9926-4FCB-BCC9-9A9D3F32E423}</ps:HostingApp>
+    <ps:BinaryVersion>4</ps:BinaryVersion>
+    <ps:UIVersion>1</ps:UIVersion>
+    <ps:Cookies></ps:Cookies>
+    <ps:RequestParams>AQAAAAIAAABsYwQAAAAxMDMz</ps:RequestParams>
+  </ps:AuthInfo>
+  <wsse:Security>
+    <wsse:UsernameToken Id="user">
+      <wsse:Username>'.$user.'</wsse:Username>
+      <wsse:Password>'.$password.'</wsse:Password>
+    </wsse:UsernameToken>
+  </wsse:Security>
+</Header>
+<Body>
+  <ps:RequestMultipleSecurityTokens xmlns:ps="http://schemas.microsoft.com/Passport/SoapServices/PPCRL" Id="RSTS">
+    <wst:RequestSecurityToken Id="RST0">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>http://Passport.NET/tb</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST1">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>messengerclear.live.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="'.$this->passport_policy.'"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST2">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>messenger.msn.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="?id=507"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST3">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>contacts.msn.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST4">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>messengersecure.live.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="MBI_SSL"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST5">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>spaces.live.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+    <wst:RequestSecurityToken Id="RST6">
+      <wst:RequestType>http://schemas.xmlsoap.org/ws/2004/04/security/trust/Issue</wst:RequestType>
+      <wsp:AppliesTo>
+        <wsa:EndpointReference>
+          <wsa:Address>storage.msn.com</wsa:Address>
+        </wsa:EndpointReference>
+      </wsp:AppliesTo>
+      <wsse:PolicyReference URI="MBI"></wsse:PolicyReference>
+    </wst:RequestSecurityToken>
+  </ps:RequestMultipleSecurityTokens>
+</Body>
+</Envelope>';
+
+        $this->debug_message("*** URL: $passport_url");
+        $this->debug_message("*** Sending SOAP:\n$XML");
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $passport_url);
+        if ($this->debug) curl_setopt($curl, CURLOPT_HEADER, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $XML);
+        $data = curl_exec($curl);
+        $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        curl_close($curl);
+        $this->debug_message("*** Get Result:\n$data");
+
+        if ($http_code != 200) {
+            // sometimes, redirect to another URL
+            // MSNP15
+            //<faultcode>psf:Redirect</faultcode>
+            //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
+            //<faultstring>Authentication Failure</faultstring>
+            if (strpos($data, '<faultcode>psf:Redirect</faultcode>') === false) {
+                $this->debug_message("*** Could not get passport ticket! http code = $http_code");
+                return false;
+            }
+            preg_match("#<psf\:redirectUrl>(.*)</psf\:redirectUrl>#", $data, $matches);
+            if (count($matches) == 0) {
+                $this->debug_message('*** Redirected, but could not get redirect URL!');
+                return false;
+            }
+            $redirect_url = $matches[1];
+            if ($redirect_url == $passport_url) {
+                $this->debug_message('*** Redirected, but to same URL!');
+                return false;
+            }
+            $this->debug_message("*** Redirected to $redirect_url");
+            return $this->get_passport_ticket($redirect_url);
+        }
+
+        // sometimes, redirect to another URL, also return 200
+        // MSNP15
+        //<faultcode>psf:Redirect</faultcode>
+        //<psf:redirectUrl>https://msnia.login.live.com/pp450/RST.srf</psf:redirectUrl>
+        //<faultstring>Authentication Failure</faultstring>
+        if (strpos($data, '<faultcode>psf:Redirect</faultcode>') !== false) {
+            preg_match("#<psf\:redirectUrl>(.*)</psf\:redirectUrl>#", $data, $matches);
+            if (count($matches) != 0) {
+                $redirect_url = $matches[1];
+                if ($redirect_url == $passport_url) {
+                    $this->debug_message('*** Redirected, but to same URL!');
+                    return false;
+                }
+                $this->debug_message("*** Redirected to $redirect_url");
+                return $this->get_passport_ticket($redirect_url);
+            }
+        }
+
+        // no Redurect faultcode or URL
+        // we should get the ticket here
+
+        // we need ticket and secret code
+        // RST1: messengerclear.live.com
+        // <wsse:BinarySecurityToken Id="Compact1">t=tick&p=</wsse:BinarySecurityToken>
+        // <wst:BinarySecret>binary secret</wst:BinarySecret>
+        // RST2: messenger.msn.com
+        // <wsse:BinarySecurityToken Id="PPToken2">t=tick</wsse:BinarySecurityToken>
+        // RST3: contacts.msn.com
+        // <wsse:BinarySecurityToken Id="Compact3">t=tick&p=</wsse:BinarySecurityToken>
+        // RST4: messengersecure.live.com
+        // <wsse:BinarySecurityToken Id="Compact4">t=tick&p=</wsse:BinarySecurityToken>
+        // RST5: spaces.live.com
+        // <wsse:BinarySecurityToken Id="Compact5">t=tick&p=</wsse:BinarySecurityToken>
+        // RST6: storage.msn.com
+        // <wsse:BinarySecurityToken Id="Compact6">t=tick&p=</wsse:BinarySecurityToken>
+        preg_match("#".
+            "<wsse\:BinarySecurityToken Id=\"Compact1\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "<wst\:BinarySecret>(.*)</wst\:BinarySecret>(.*)".
+            "<wsse\:BinarySecurityToken Id=\"PPToken2\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "<wsse\:BinarySecurityToken Id=\"Compact3\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "<wsse\:BinarySecurityToken Id=\"Compact4\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "<wsse\:BinarySecurityToken Id=\"Compact5\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "<wsse\:BinarySecurityToken Id=\"Compact6\">(.*)</wsse\:BinarySecurityToken>(.*)".
+            "#",
+        $data, $matches);
+
+        // no ticket found!
+        if (count($matches) == 0) {
+            $this->debug_message('*** Could not get passport ticket!');
+            return false;
+        }
+
+        //$this->debug_message(var_export($matches, true));
+        // matches[0]: all data
+        // matches[1]: RST1 (messengerclear.live.com) ticket
+        // matches[2]: ...
+        // matches[3]: RST1 (messengerclear.live.com) binary secret
+        // matches[4]: ...
+        // matches[5]: RST2 (messenger.msn.com) ticket
+        // matches[6]: ...
+        // matches[7]: RST3 (contacts.msn.com) ticket
+        // matches[8]: ...
+        // matches[9]: RST4 (messengersecure.live.com) ticket
+        // matches[10]: ...
+        // matches[11]: RST5 (spaces.live.com) ticket
+        // matches[12]: ...
+        // matches[13]: RST6 (storage.live.com) ticket
+        // matches[14]: ...
+
+        // so
+        // ticket => $matches[1]
+        // secret => $matches[3]
+        // web_ticket => $matches[5]
+        // contact_ticket => $matches[7]
+        // oim_ticket => $matches[9]
+        // space_ticket => $matches[11]
+        // storage_ticket => $matches[13]
+
+        // yes, we get ticket
+        $aTickets = array(
+            'ticket' => html_entity_decode($matches[1]),
+            'secret' => html_entity_decode($matches[3]),
+            'web_ticket' => html_entity_decode($matches[5]),
+            'contact_ticket' => html_entity_decode($matches[7]),
+            'oim_ticket' => html_entity_decode($matches[9]),
+            'space_ticket' => html_entity_decode($matches[11]),
+            'storage_ticket' => html_entity_decode($matches[13])
+        );
+        $this->ticket = $aTickets;
+        //$this->debug_message(var_export($aTickets, true));
+        $ABAuthHeaderArray = array(
+            'ABAuthHeader' => array(
+                ':' => array('xmlns' => 'http://www.msn.com/webservices/AddressBook'),
+                'ManagedGroupRequest' => false,
+                'TicketToken' => htmlspecialchars($this->ticket['contact_ticket']),
+            )
+        );
+        $this->ABAuthHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABAuthHeader', $this->Array2SoapVar($ABAuthHeaderArray));
+        return $aTickets;
+    }
+    
+    /**
+    * Generate the data to send a message
+    *
+    * @param string $sMessage Message
+    * @param integer $network Network
+    * @return string Message data
+    */
+    private function getMessage($sMessage, $network = 1) {
+        $msg_header = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-MMS-IM-Format: FN=$this->font_fn; EF=$this->font_ef; CO=$this->font_co; CS=0; PF=22\r\n\r\n";
+        $msg_header_len = strlen($msg_header);
+        if ($network == 1)
+            $maxlen = $this->max_msn_message_len - $msg_header_len;
+        else
+            $maxlen = $this->max_yahoo_message_len - $msg_header_len;
+        $sMessage = str_replace("\r", '', $sMessage);
+        $msg = substr($sMessage, 0, $maxlen);
+        return $msg_header.$msg;
+    }
+    
+    /**
+    * Sleep for the given number of seconds
+    *
+    * @param integer $wait Number of seconds to sleep for
+    */
+    private function NSRetryWait($wait) {
+        $this->debug_message("*** Sleeping for $wait seconds before retrying");
+        sleep($wait);
+    }
+    
+    /**
+     * Sends a ping command
+     *
+     * Should be called about every 50 seconds
+     *
+     * @return void
+     */
+    public function sendPing() {
+        // NS: >>> PNG
+        $this->ns_writeln("PNG");
+    }
+    
     /**
     * Methods to add / call callbacks
     */
@@ -3074,5 +3086,51 @@ X-OIM-Sequence-Num: 1
         } else {
             return false;
         }
+    }
+    
+    /**
+     * Debugging methods
+     */
+    
+    /**
+     * Print message if debugging is enabled
+     * 
+     * @param string $str Message to print
+     */
+    private function debug_message($str) {
+        if (!$this->debug) return;
+        echo $str."\n";
+    }
+    
+    /**
+     * Dump binary data
+     * 
+     * @param string $str Data string
+     * @return Binary data
+     */
+    private function dump_binary($str) {
+        $buf = '';
+        $a_str = '';
+        $h_str = '';
+        $len = strlen($str);
+        for ($i = 0; $i < $len; $i++) {
+            if (($i % 16) == 0) {
+                if ($buf !== '') {
+                    $buf .= "$h_str $a_str\n";
+                }
+                $buf .= sprintf("%04X:", $i);
+                $a_str = '';
+                $h_str = '';
+            }
+            $ch = ord($str[$i]);
+            if ($ch < 32)
+            $a_str .= '.';
+            else
+            $a_str .= chr($ch);
+            $h_str .= sprintf(" %02X", $ch);
+        }
+        if ($h_str !== '')
+        $buf .= "$h_str $a_str\n";
+        return $buf;
     }
 }
