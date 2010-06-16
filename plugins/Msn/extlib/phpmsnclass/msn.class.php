@@ -42,6 +42,12 @@ class MSN {
     const DELMEMBER_URL = 'https://contacts.msn.com/abservice/SharingService.asmx';
     const DELMEMBER_SOAP = 'http://www.msn.com/webservices/AddressBook/DeleteMember';
     
+    // the message length (include header) is limited (maybe since WLM 8.5 released)
+    // for WLM: 1664 bytes
+    // for YIM: 518 bytes
+    const MAX_MSN_MESSAGE_LEN = 1664;
+    const MAX_YAHOO_MESSAGE_LEN = 518;
+    
     private $debug;
     private $timeout;
     
@@ -79,13 +85,6 @@ class MSN {
     private $font_fn = 'Arial';
     private $font_co = '333333';
     private $font_ef = '';
-
-
-    // the message length (include header) is limited (maybe since WLM 8.5 released)
-    // for WLM: 1664 bytes
-    // for YIM: 518 bytes
-    const max_msn_message_len = 1664;
-    const max_yahoo_message_len = 518;
 
     // Begin added for StatusNet
 
@@ -3013,9 +3012,9 @@ X-OIM-Sequence-Num: 1
         $msg_header = "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nX-MMS-IM-Format: FN=$this->font_fn; EF=$this->font_ef; CO=$this->font_co; CS=0; PF=22\r\n\r\n";
         $msg_header_len = strlen($msg_header);
         if ($network == 1)
-            $maxlen = $this->max_msn_message_len - $msg_header_len;
+            $maxlen = self::MAX_MSN_MESSAGE_LEN - $msg_header_len;
         else
-            $maxlen = $this->max_yahoo_message_len - $msg_header_len;
+            $maxlen = self::MAX_YAHOO_MESSAGE_LEN - $msg_header_len;
         $sMessage = str_replace("\r", '', $sMessage);
         $msg = substr($sMessage, 0, $maxlen);
         return $msg_header.$msg;
