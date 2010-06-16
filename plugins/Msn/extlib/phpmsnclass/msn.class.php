@@ -1455,6 +1455,7 @@ class MSN {
     private function sendMessageViaSB($to, $message) {
         $socket = $this->switchBoardSessionLookup[$to];
         if (self::socketcheck($socket)) {
+            $this->endSBSession($socket);
             return false;
         }
         
@@ -1467,10 +1468,10 @@ class MSN {
         $id = &$this->switchBoardSessions[$intsocket]['id'];
 
         $aMessage = $this->getMessage($Message);
-        //CheckEmotion...
+        // CheckEmotion...
         $MsnObjDefine=$this->GetMsnObjDefine($aMessage);
         if ($MsnObjDefine !== '') {
-            $SendString="MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
+            $SendString = "MIME-Version: 1.0\r\nContent-Type: text/x-mms-emoticon\r\n\r\n$MsnObjDefine";
             $len = strlen($SendString);
             // TODO handle failure during write to socket
             $this->sb_writeln($socket, $id, "MSG $id N $len");
@@ -2566,12 +2567,15 @@ X-OIM-Sequence-Num: 1
      * @param resource $socket SB socket
      * @param integer $id Reference to SB id
      * @param string $data Line to write
-     * @return void
+     * @return mixed Bytes written or false on error
      */
     private function sb_writeln($socket, &$id, $data) {
-        @fwrite($socket, $data."\r\n");
-        $this->debug_message("SB: >>> $data");
-        $id++;
+        $result = @fwrite($socket, $data."\r\n");
+        if ($result !== false) {
+            $this->debug_message("SB: >>> $data");
+            $id++;
+        }
+        return $result;
     }
 
     /**
@@ -2579,11 +2583,14 @@ X-OIM-Sequence-Num: 1
      * 
      * @param resource $socket SB socket
      * @param $data Data to write to socket
-     * @return void
+     * @return mixed Bytes written or false on error
      */
     private function sb_writedata($socket, $data) {
-        @fwrite($socket, $data);
-        $this->debug_message("SB: >>> $data");
+        $result = @fwrite($socket, $data);
+        if ($result !== false) {
+            $this->debug_message("SB: >>> $data");
+        }
+        return $result;
     }
 
     /**
