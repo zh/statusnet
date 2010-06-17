@@ -1238,9 +1238,25 @@ class Notice extends Memcached_DataObject
         $xs->element('published', null, common_date_w3dtf($this->created));
         $xs->element('updated', null, common_date_w3dtf($this->created));
 
+        $source = null;
+
+        $ns = $this->getSource();
+
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="'
+                  . htmlspecialchars($ns->url)
+                  . '" rel="nofollow">'
+                  . htmlspecialchars($ns->name)
+                   . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
+
         $noticeInfoAttr = array(
-            'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
-            'source'     => $this->source, // the client name (source attribution)
+            'local_id'   => $this->id, // local notice ID (useful to clients for ordering)
+            'source'     => $source,   // the client name (source attribution)
         );
 
         $ns = $this->getSource();
@@ -1252,8 +1268,8 @@ class Notice extends Memcached_DataObject
 
         if (!empty($cur)) {
             $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
-	    $profile = $cur->getProfile();
-	    $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
+            $profile = $cur->getProfile();
+            $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
         }
 
         if (!empty($this->repeat_of)) {
