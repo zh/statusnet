@@ -871,7 +871,7 @@ class MSN {
 
                 $this->debug_message("NS: <<< XFR SB");
                 $user = array_shift($this->waitingForXFR);
-                            $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
+                $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
                 /*
                  $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $aMSNUsers[$nCurrentUser], $sMessage);
                  if ($bSBresult === false) {
@@ -904,8 +904,8 @@ class MSN {
             case 'NLN':
                 // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
                 // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
-                @list(/* NLN */, $email, $network, $nickname, /* clientid */, /* dbobj */,) = @explode(' ', $data);
-                $this->callHandler('StatusChange', array('screenname' => $email, 'network' => $network, 'nickname' => $nickname));
+                @list(/* NLN */, $status, $email, $network, $nickname, /* clientid */, /* dbobj */,) = @explode(' ', $data);
+                $this->callHandler('StatusChange', array('screenname' => $email, 'status' => $status, 'network' => $network, 'nickname' => $nickname));
                 break;
             
             case 'OUT':

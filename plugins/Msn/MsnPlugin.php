@@ -89,12 +89,7 @@ class MsnPlugin extends ImPlugin {
      * @return boolean
      */
     public function validate($screenname) {
-        // RFC 2822 (simplified) regexp
-        if(preg_match('/[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i', $screenname)) {
-            return true;
-        } else {
-            return false;
-        }
+        return Validate::email($screenname, common_config('email', 'check_domain'));
     }
 
     /**
