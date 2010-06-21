@@ -13,11 +13,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:21:06+0000\n"
+"PO-Revision-Date: 2010-06-21 18:04:57+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -1134,13 +1134,12 @@ msgid "Theme for the site."
 msgstr "Тема для сайта."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Тема сайта"
+msgstr "Особая тема"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
+msgstr "Вы можете загрузить особую тему StatusNet в виде ZIP-архива."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1200,11 +1199,11 @@ msgstr "Ссылки"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Расширенный"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "Особый CSS"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -4628,7 +4627,7 @@ msgstr "Принять"
 #: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr "Подписаться на %s"
+msgstr "Подписаться на этого пользователя"
 
 #: actions/userauthorization.php:219
 msgid "Reject"
@@ -6862,48 +6861,49 @@ msgstr "Нет тегов"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "Этот сервер не может обработать загруженные темы без поддержки ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Системная ошибка при загрузке файла."
+msgstr "Ошибка при загрузке файла темы."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Неудача при обновлении аватары."
+msgstr "Ошибка при сохранении темы."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Ошибочная тема. Плохая структура директорий."
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"Размер загруженной темы слишком велик, в распакованном виде она должна "
+"занимать не более %d байт."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "Недопустимый архив: темы. Отсутствует файл css/display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"Тема содержит недопустимое имя файла или папки. Допустимы буквы ASCII, "
+"цифры, подчеркивание и знак минуса."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "Тема содержит файл недопустимого типа «.%s»."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "Ошибка обновления удалённого профиля."
+msgstr "Ошибка открытия архива темы."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"

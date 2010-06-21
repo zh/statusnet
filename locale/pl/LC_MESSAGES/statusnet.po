@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:20:52+0000\n"
+"PO-Revision-Date: 2010-06-21 18:04:44+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pl\n"
 "X-Message-Group: out-statusnet\n"
@@ -1128,13 +1128,12 @@ msgid "Theme for the site."
 msgstr "Motyw witryny."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Motyw witryny"
+msgstr "Własny motyw"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
+msgstr "Można wysłać własny motyw witryny StatusNet jako archiwum zip."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1192,11 +1191,11 @@ msgstr "Odnośniki"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Zaawansowane"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "Własny plik CSS"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -6848,47 +6847,49 @@ msgstr "Brak"
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
+"Ten serwer nie może obsługiwać wysyłania motywu bez obsługi archiwów zip."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Błąd systemu podczas wysyłania pliku."
+msgstr "Brak wysłania motywu lub nie powiodło się."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Zaktualizowanie awatara nie powiodło się."
+msgstr "Zapisanie motywu nie powiodło się."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Nieprawidłowy motyw: błędna struktura katalogów."
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"Wysłany motyw jest za duży, musi być mniejszy niż %d bajtów po "
+"zdekompresowaniu."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "Nieprawidłowe archiwum motywu: brak pliku css/display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"Motyw zawiera nieprawidłowy plik lub nazwę katalogu. Należy używać tylko "
+"liter, cyfr, podkreślników i znaku minus z zestawu ASCII."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "Motyw zawiera plik typu \\\".%s\\\", który nie jest dozwolony."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "Błąd podczas aktualizowania zdalnego profilu."
+msgstr "Błąd podczas otwierania archiwum motywu."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"

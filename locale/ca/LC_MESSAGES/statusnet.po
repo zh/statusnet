@@ -11,11 +11,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:18:58+0000\n"
+"PO-Revision-Date: 2010-06-21 18:03:01+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -1135,13 +1135,12 @@ msgid "Theme for the site."
 msgstr "Tema del lloc."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Tema del lloc"
+msgstr "Tema personalitzat"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
+msgstr "Podeu pujar un tema personalitzat de l'StatusNet amb un arxiu ZIP."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1200,11 +1199,11 @@ msgstr "Enllaços"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Avançat"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "CSS personalitzat"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -6876,48 +6875,48 @@ msgstr "Cap"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "El servidor no pot gestionar la pujada de temes si no pot tractar ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Error del sistema en pujar el fitxer."
+msgstr "La pujada del tema ha fallat o no hi és."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Error en actualitzar avatar."
+msgstr "Ha fallat el desament del tema."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "El tema no és vàlid: l'estructura del directori no és correcta"
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"El tema pujat és massa gran; ha de tenir menys de %d bytes descomprimit."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "L'arxiu del tema no és vàlid: manca el fitxer de css / display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"El tema conté un fitxer o un nom de carpeta que no és vàlida. Feu servir "
+"només lletres ASCII, dígits, caràcters de subratllat i el símbol de menys."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "El tema conté un tipus de fitxer «.%s», que no està permès."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "S'ha produït un error en actualitzar el perfil remot."
+msgstr "S'ha produït un error en obrir l'arxiu del tema."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"

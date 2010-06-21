@@ -12,11 +12,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:21:32+0000\n"
+"PO-Revision-Date: 2010-06-21 18:05:17+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -940,7 +940,7 @@ msgstr "Невизначений тип адреси %s."
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
 msgid "That address has already been confirmed."
-msgstr "Цю адресу вже було підтверджено."
+msgstr "Цю адресу вже підтверджено."
 
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
@@ -970,7 +970,7 @@ msgstr "Підтвердити адресу"
 #: actions/confirmaddress.php:161
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
-msgstr "Адресу «%s» було підтверджено для Вашого акаунту."
+msgstr "Адресу «%s» підтверджено для Вашого акаунту."
 
 #: actions/conversation.php:99
 msgid "Conversation"
@@ -1129,13 +1129,12 @@ msgid "Theme for the site."
 msgstr "Тема для цього сайту."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Тема сайту"
+msgstr "Своя тема"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
+msgstr "Ви можете завантажити свою тему для сайту StatusNet як .ZIP архів."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1195,11 +1194,11 @@ msgstr "Посилання"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Додатково"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "Свій CSS"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -6844,48 +6843,49 @@ msgstr "Пусто"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "Цей сервер не може опрацювати завантаження теми без підтримки ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Система відповіла помилкою при завантаженні цього файла."
+msgstr "Завантажити тему не вдалося або процес завантаження перервано."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Оновлення аватари невдале."
+msgstr "Помилка при збереженні теми."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Невірна тема: хибна структура каталогів."
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"Тема, що її було завантажено, надто велика; без компресії розмір має "
+"становити менше ніж %d байтів."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "В архіві з темою є помилка: відсутній файл css/display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"Тема містить неприпустиме ім’я файлу або теки. Використовуйте літери "
+"стандарту ASCII, цифри, знаки підкреслення та мінусу."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "Тема містить файл типу «.%s», який є неприпустимим."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "Помилка при оновленні віддаленого профілю."
+msgstr "Помилка при відкритті архіву з темою."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
