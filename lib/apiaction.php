@@ -208,11 +208,13 @@ class ApiAction extends Action
 
         // Is the requesting user following this user?
         $twitter_user['following'] = false;
+        $twitter_user['statusnet:blocking'] = false;
         $twitter_user['notifications'] = false;
 
         if (isset($this->auth_user)) {
 
             $twitter_user['following'] = $this->auth_user->isSubscribed($profile);
+            $twitter_user['statusnet:blocking']  = $this->auth_user->hasBlocked($profile);
 
             // Notifications on?
             $sub = Subscription::pkeyGet(array('subscriber' =>
