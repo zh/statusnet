@@ -870,15 +870,8 @@ class MSN {
                 }
 
                 $this->debug_message("NS: <<< XFR SB");
-                $user = array_shift($this->waitingForXFR);
-                $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $User, $Message);
-                /*
-                 $bSBresult = $this->switchboard_control($ip, $port, $cki_code, $aMSNUsers[$nCurrentUser], $sMessage);
-                 if ($bSBresult === false) {
-                 // error for switchboard
-                 $this->debug_message("!!! error for sending message to ".$aMSNUsers[$nCurrentUser]);
-                 $aOfflineUsers[] = $aMSNUsers[$nCurrentUser];
-                 }*/
+                $session = array_shift($this->waitingForXFR);
+                $this->connectToSBSession('Active', $ip, $port, $session['to'], array('cki' => $cki_code));
                 break;
             case 'QNG':
                 // NS: <<< QNG {time}
@@ -963,7 +956,7 @@ class MSN {
                 // we don't need the data, just ignore it
                 // request user to join this switchboard
                 // SB: >>> CAL {id} {user}
-                $this->sb_writeln($socket, $id, "CAL $this->id $user");
+                $this->sb_writeln($socket, $id, "CAL $id ".$session['to']);
                 break;
             case 'CAL':
                 // SB: <<< CAL {id} RINGING {?}
@@ -1116,7 +1109,7 @@ class MSN {
                         $footer = pack("L", 0);
                         $message = "MIME-Version: 1.0\r\nContent-Type: application/x-msnmsgrp2p\r\nP2P-Dest: $from_email\r\n\r\n$hdr$footer";
                         $len = strlen($message);
-                        $this->sb_writeln($socket, $id, "MSG $this->id D $len");
+                        $this->sb_writeln($socket, $id, "MSG $id D $len");
                         $this->sb_writedata($socket, $message);
                         $this->debug_message("*** p2p: send display picture acknowledgement for $hdr_SessionID");
                         $this->debug_message("*** p2p: Invite ACK message:\n".$this->dump_binary($message));
@@ -1154,7 +1147,7 @@ class MSN {
                             "MIME-Version: 1.0\r\n".
                             "Content-Type: application/x-msnmsgrp2p\r\n".
                             "P2P-Dest: $from_email\r\n\r\n$hdr$MessagePayload$footer";
-                        $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                        $this->sb_writeln($socket, $id, "MSG $id D ".strlen($message));
                         $this->sb_writedata($socket, $message);
                         $this->debug_message("*** p2p: dump 200 ok message:\n".$this->dump_binary($message));
                         $this->sb_readln($socket); // Read ACK;
@@ -1181,7 +1174,7 @@ class MSN {
                             "MIME-Version: 1.0\r\n".
                             "Content-Type: application/x-msnmsgrp2p\r\n".
                             "P2P-Dest: $from_email\r\n\r\n$hdr".pack('L', 0)."$footer";
-                        $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                        $this->sb_writeln($socket, $id, "MSG $id D ".strlen($message));
                         $this->sb_writedata($socket, $message);
                         $this->debug_message("*** p2p: dump send Data preparation message:\n".$this->dump_binary($message));
                         $this->debug_message("*** p2p: Data Prepare Hdr:\n".$this->dump_binary($hdr));
@@ -1213,7 +1206,7 @@ class MSN {
                                     "MIME-Version: 1.0\r\n".
                                     "Content-Type: application/x-msnmsgrp2p\r\n".
                                     "P2P-Dest: $from_email\r\n\r\n$hdr$FileContent$footer";
-                                $this->sb_writeln($socket, $id, "MSG $this->id D ".strlen($message));
+                                $this->sb_writeln($socket, $id, "MSG $id D ".strlen($message));
                                 $this->sb_writedata($socket, $message);
                                 $this->debug_message("*** p2p: dump send Data Content message  $Offset / $FileSize :\n".$this->dump_binary($message));
                                 $this->debug_message("*** p2p: Data Content Hdr:\n".$this->dump_binary($hdr));
@@ -1319,7 +1312,7 @@ class MSN {
                 $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
                 break;
             case '217':
-                $this->debug_message("*** User $user is offline. Trying OIM.");
+                $this->debug_message('*** User '.$session['to'].' is offline. Trying OIM.');
                 $session['offline'] = true;
                 break;
             default:
@@ -1379,7 +1372,7 @@ class MSN {
             'offline' => false,
             'XFRReqTime' => time()
         );
-        $this->waitingForXFR[] = &$this->switchBoardSessions[$to];
+        $this->waitingForXFR[$to] = &$this->switchBoardSessions[$to];
     }
 
     /**
@@ -1413,12 +1406,12 @@ class MSN {
             'offline' => false,
             'XFRReqTime' => time()
         );
-
+        
         // Change the index of the session to the socket
         $intsocket = (int) $socket;
         $this->switchBoardSessions[$intsocket] = $this->switchBoardSessions[$to];
         unset($this->switchBoardSessions[$to]);
-
+        
         $id = &$this->switchBoardSessions[$intsocket]['id'];
 
         if ($mode == 'Active') {
@@ -1479,7 +1472,7 @@ class MSN {
 
         $id = &$this->switchBoardSessions[$intsocket]['id'];
 
-        $aMessage = $this->getMessage($Message);
+        $aMessage = $this->getMessage($message);
         // CheckEmotion...
         $MsnObjDefine = $this->GetMsnObjDefine($aMessage);
         if ($MsnObjDefine !== '') {
@@ -1495,7 +1488,7 @@ class MSN {
 
         if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
             $this->sb_writedata($socket, $aMessage) === false) {
-                return false;
+            	return false;
             }
 
         // Don't close the SB session, we might as well leave it open
@@ -1533,16 +1526,17 @@ class MSN {
         if ($message != '') {
             list($name, $host, $network) = explode('@', $to);
             $network = $network == '' ? 1 : $network;
-            $recipient = $name.$host;
+            $recipient = $name.'@'.$host;
 
             if ($network === 1) {
-                if (!isset($this->switchBoardSessionLookup[$recipient]) && (!isset($this->switchBoardSessions[$recipient])
-                    || time() - $this->switchBoardSessions[$recipient]['XFRReqTime'] > $this->XFRReqTimeout)) {
-                    $this->debug_message("*** No existing SB session or request has timed out");
-                    $this->reqSBSession($recipient);
-                    return false;
+                if (!isset($this->switchBoardSessionLookup[$recipient])) {
+                   	if (!isset($this->switchBoardSessions[$recipient]) || time() - $this->switchBoardSessions[$recipient]['XFRReqTime'] > $this->XFRReqTimeout) {
+                   		$this->debug_message("*** No existing SB session or request has timed out");
+	                    $this->reqSBSession($recipient);
+                   	}
+                   	return false;
                 } else {
-                    $socket = $this->switchBoardSessionLookup[$to];
+                    $socket = $this->switchBoardSessionLookup[$recipient];
                     if ($this->switchBoardSessions[(int) $socket]['offline']) {
                         $this->debug_message("*** Contact ($recipient) offline, sending OIM");
                         $this->endSBSession($socket);
@@ -1555,7 +1549,7 @@ class MSN {
                             return true;
                         } else {
                             $this->debug_message('*** Message sending failed, requesting new SB session');
-                            $this->reqSBSession($to);
+                            $this->reqSBSession($recipient);
                             return false;
                         }
                     }

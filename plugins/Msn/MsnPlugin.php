@@ -51,8 +51,8 @@ class MsnPlugin extends ImPlugin {
     public $user = null;
     public $password = null;
     public $nickname = null;
-    public $transport = 'msnim';
-
+    public $transport = 'msn';
+    
     /**
      * Get the internationalized/translated display name of this IM service
      *
