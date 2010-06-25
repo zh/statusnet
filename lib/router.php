@@ -667,9 +667,9 @@ class Router
             );
 
             // search
-            $m->connect('api/search.atom', array('action' => 'twitapisearchatom'));
-            $m->connect('api/search.json', array('action' => 'twitapisearchjson'));
-            $m->connect('api/trends.json', array('action' => 'twitapitrends'));
+            $m->connect('api/search.atom', array('action' => 'ApiSearchAtom'));
+            $m->connect('api/search.json', array('action' => 'ApiSearchJSON'));
+            $m->connect('api/trends.json', array('action' => 'ApiTrends'));
 
             $m->connect('api/oauth/request_token',
                         array('action' => 'apioauthrequesttoken'));
