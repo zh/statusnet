@@ -1190,7 +1190,7 @@ class Notice extends Memcached_DataObject
                            'xmlns:media' => 'http://purl.org/syndication/atommedia',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
-                           'xmlns:statusnet' => 'http://status.net/ont/');
+                           'xmlns:statusnet' => 'http://status.net/schema/api/1/');
         } else {
             $attrs = array();
         }
@@ -1225,7 +1225,7 @@ class Notice extends Memcached_DataObject
         $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
-            $xs->raw($profile->asAtomAuthor());
+            $xs->raw($profile->asAtomAuthor($cur));
             $xs->raw($profile->asActivityActor());
         }
 
