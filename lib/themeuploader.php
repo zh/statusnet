@@ -55,10 +55,10 @@ class ThemeUploader
     public static function fromUpload($name)
     {
         if (!isset($_FILES[$name]['error'])) {
-            throw new ServerException(_("Theme upload missing or failed."));
+            throw new ServerException(_("The theme file is missing or the upload failed."));
         }
         if ($_FILES[$name]['error'] != UPLOAD_ERR_OK) {
-            throw new ServerException(_("Theme upload missing or failed."));
+            throw new ServerException(_("The theme file is missing or the upload failed."));
         }
         return new ThemeUploader($_FILES[$name]['tmp_name']);
     }

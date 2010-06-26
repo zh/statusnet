@@ -144,6 +144,35 @@ class Status_network extends Safe_DataObject
         return parent::update($orig);
     }
 
+    /**
+     * DB_DataObject doesn't allow updating keys (even non-primary)
+     */
+    function updateKeys(&$orig)
+    {
+        $this->_connect();
+        foreach (array('hostname', 'pathname') as $k) {
+            if (strcmp($this->$k, $orig->$k) != 0) {
+                $parts[] = $k . ' = ' . $this->_quote($this->$k);
+            }
+        }
+        if (count($parts) == 0) {
+            // No changes
+            return true;
+        }
+
+        $toupdate = implode(', ', $parts);
+
+        $table = common_database_tablename($this->tableName());
+        $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
+            ' WHERE nickname = ' . $this->_quote($this->nickname);
+        $orig->decache();
+        $result = $this->query($qry);
+        if ($result) {
+            $this->encache();
+        }
+        return $result;
+    }
+    
     function delete()
     {
         $this->decache(); # while we still have the values!

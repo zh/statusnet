@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-25 11:36+0000\n"
-"PO-Revision-Date: 2010-06-03 23:02:13+0000\n"
+"POT-Creation-Date: 2010-06-16 22:18+0000\n"
+"PO-Revision-Date: 2010-06-21 18:04:21+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:375
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:376
 msgid "Access"
 msgstr "접근"
 
@@ -83,13 +83,13 @@ msgid "Save"
 msgstr "저장"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "해당하는 페이지 없음"
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -113,7 +113,7 @@ msgid "No such user."
 msgstr "해당하는 이용자 없음"
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%s 및 친구들, %d 페이지"
@@ -121,7 +121,7 @@ msgstr "%s 및 친구들, %d 페이지"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -129,31 +129,31 @@ msgid "%s and friends"
 msgstr "%s 및 친구들"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "%s의 친구들에 대한 피드 (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "%s의 친구들에 대한 피드 (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "%s의 친구들에 대한 피드 (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -163,14 +163,14 @@ msgstr ""
 "가 글을 써보세요."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
 "his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -178,7 +178,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "당신 및 친구들"
 
@@ -190,8 +190,8 @@ msgstr "당신 및 친구들"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -203,7 +203,7 @@ msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 #: actions/apigroupleave.php:142 actions/apigrouplist.php:137
 #: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
 #: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:103 actions/apistatusesretweets.php:112
+#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
@@ -215,7 +215,7 @@ msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 msgid "API method not found."
 msgstr "API 메서드 발견 안 됨."
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -229,13 +229,13 @@ msgstr "API 메서드 발견 안 됨."
 msgid "This method requires a POST."
 msgstr "이 메서드는 POST를 요구합니다."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "이용자를 업데이트 할 수 없습니다."
 
@@ -332,7 +332,7 @@ msgid "Can't send direct messages to users who aren't your friend."
 msgstr "당신의 친구가 아닌 사용자에게 직접 메시지를 보낼 수 없습니다."
 
 #: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
-#: actions/apistatusesdestroy.php:114
+#: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "그 ID로 발견된 상태가 없습니다."
 
@@ -585,7 +585,7 @@ msgstr ""
 "$s 계정의 접근을 허용해야 합니다."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:440
+#: actions/apioauthauthorize.php:310 lib/action.php:450
 msgid "Account"
 msgstr "계정"
 
@@ -615,11 +615,11 @@ msgstr "허용"
 msgid "Allow or deny access to your account information."
 msgstr "계정 정보에 대한 접근을 허용 또는 거부합니다."
 
-#: actions/apistatusesdestroy.php:108
+#: actions/apistatusesdestroy.php:112
 msgid "This method requires a POST or DELETE."
 msgstr "이 메서드는 POST 또는 DELETE를 요구합니다."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:135
 msgid "You may not delete another user's status."
 msgstr "당신은 다른 사용자의 상태를 삭제하지 않아도 된다."
 
@@ -989,7 +989,7 @@ msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1253
+#: lib/action.php:1263
 msgid "There was a problem with your session token."
 msgstr "당신의 세션토큰관련 문제가 있습니다."
 
@@ -1095,45 +1095,54 @@ msgstr ""
 msgid "Design settings for this StatusNet site."
 msgstr "이 StatusNet 사이트에 대한 디자인 설정"
 
-#: actions/designadminpanel.php:276
+#: actions/designadminpanel.php:318
 msgid "Invalid logo URL."
 msgstr "잘못된 로고 URL 입니다."
 
-#: actions/designadminpanel.php:280
+#: actions/designadminpanel.php:322
 #, fuzzy, php-format
 msgid "Theme not available: %s."
 msgstr "테마를 이용할 수 없습니다: %s"
 
-#: actions/designadminpanel.php:376
+#: actions/designadminpanel.php:426
 msgid "Change logo"
 msgstr "로고 변경"
 
-#: actions/designadminpanel.php:381
+#: actions/designadminpanel.php:431
 msgid "Site logo"
 msgstr "사이트 로고"
 
-#: actions/designadminpanel.php:388
+#: actions/designadminpanel.php:443
 msgid "Change theme"
 msgstr "테마 바꾸기"
 
-#: actions/designadminpanel.php:405
+#: actions/designadminpanel.php:460
 msgid "Site theme"
 msgstr "사이트 테마"
 
-#: actions/designadminpanel.php:406
+#: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr "사이트에 대한 테마"
 
-#: actions/designadminpanel.php:418 lib/designsettings.php:101
+#: actions/designadminpanel.php:467
+#, fuzzy
+msgid "Custom theme"
+msgstr "사이트 테마"
+
+#: actions/designadminpanel.php:471
+msgid "You can upload a custom StatusNet theme as a .ZIP archive."
+msgstr ""
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "배경 이미지 바꾸기"
 
-#: actions/designadminpanel.php:423 actions/designadminpanel.php:500
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "배경"
 
-#: actions/designadminpanel.php:428
+#: actions/designadminpanel.php:496
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1142,60 +1151,68 @@ msgstr ""
 "사이트의 배경 이미지를 업로드할 수 있습니다. 최대 파일 크기는 %1$s 입니다."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:459 lib/designsettings.php:139
+#: actions/designadminpanel.php:527 lib/designsettings.php:139
 msgid "On"
 msgstr "켜기"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:476 lib/designsettings.php:155
+#: actions/designadminpanel.php:544 lib/designsettings.php:155
 msgid "Off"
 msgstr "끄기"
 
-#: actions/designadminpanel.php:477 lib/designsettings.php:156
+#: actions/designadminpanel.php:545 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "배경 이미지를 켜거나 끈다."
 
-#: actions/designadminpanel.php:482 lib/designsettings.php:161
+#: actions/designadminpanel.php:550 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "배경 이미지를 반복 나열"
 
-#: actions/designadminpanel.php:491 lib/designsettings.php:170
+#: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "색상 변경"
 
-#: actions/designadminpanel.php:513 lib/designsettings.php:191
+#: actions/designadminpanel.php:587 lib/designsettings.php:191
 #, fuzzy
 msgid "Content"
 msgstr "연결"
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:204
+#: actions/designadminpanel.php:600 lib/designsettings.php:204
 #, fuzzy
 msgid "Sidebar"
 msgstr "검색"
 
-#: actions/designadminpanel.php:539 lib/designsettings.php:217
+#: actions/designadminpanel.php:613 lib/designsettings.php:217
 msgid "Text"
 msgstr "문자"
 
-#: actions/designadminpanel.php:552 lib/designsettings.php:230
+#: actions/designadminpanel.php:626 lib/designsettings.php:230
 #, fuzzy
 msgid "Links"
 msgstr "로그인"
 
-#: actions/designadminpanel.php:580 lib/designsettings.php:247
+#: actions/designadminpanel.php:651
+msgid "Advanced"
+msgstr ""
+
+#: actions/designadminpanel.php:655
+msgid "Custom CSS"
+msgstr ""
+
+#: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr ""
 
-#: actions/designadminpanel.php:581 lib/designsettings.php:248
+#: actions/designadminpanel.php:677 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr ""
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:254
+#: actions/designadminpanel.php:683 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr ""
 
 #. TRANS: Submit button title
-#: actions/designadminpanel.php:589 actions/othersettings.php:126
+#: actions/designadminpanel.php:685 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
@@ -1205,7 +1222,7 @@ msgstr ""
 msgid "Save"
 msgstr "저장"
 
-#: actions/designadminpanel.php:590 lib/designsettings.php:257
+#: actions/designadminpanel.php:686 lib/designsettings.php:257
 msgid "Save design"
 msgstr ""
 
@@ -2572,8 +2589,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1157
-#: lib/apiaction.php:1186 lib/apiaction.php:1303
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
+#: lib/apiaction.php:1208 lib/apiaction.php:1325
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -2720,7 +2737,7 @@ msgid "Password saved."
 msgstr "비밀 번호 저장"
 
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:383
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:384
 msgid "Paths"
 msgstr ""
 
@@ -3575,7 +3592,7 @@ msgstr "회원이 당신을 차단해왔습니다."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:391
+#: lib/adminpanelaction.php:392
 msgid "Sessions"
 msgstr ""
 
@@ -4249,7 +4266,7 @@ msgstr "코드가 입력 되지 않았습니다."
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:407
+#: lib/adminpanelaction.php:408
 msgid "Snapshots"
 msgstr ""
 
@@ -4785,7 +4802,7 @@ msgid "Plugins"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:779
+#: actions/version.php:198 lib/action.php:789
 msgid "Version"
 msgstr "버젼"
 
@@ -4893,7 +4910,7 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1562
+#: classes/Notice.php:1564
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -5001,131 +5018,131 @@ msgid "Untitled page"
 msgstr "제목없는 페이지"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:426
+#: lib/action.php:436
 msgid "Primary site navigation"
 msgstr "주 사이트 네비게이션"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:432
+#: lib/action.php:442
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "개인 프로필과 친구 타임라인"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:435
+#: lib/action.php:445
 #, fuzzy
 msgctxt "MENU"
 msgid "Personal"
 msgstr "개인적인"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:437
+#: lib/action.php:447
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "당신의 이메일, 아바타, 비밀 번호, 프로필을 변경하세요."
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:442
+#: lib/action.php:452
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "서버에 재접속 할 수 없습니다 : %s"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:445
+#: lib/action.php:455
 msgid "Connect"
 msgstr "연결"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:448
+#: lib/action.php:458
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "주 사이트 네비게이션"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:451
+#: lib/action.php:461
 #, fuzzy
 msgctxt "MENU"
 msgid "Admin"
 msgstr "관리자"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:455
+#: lib/action.php:465
 #, fuzzy, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:458
+#: lib/action.php:468
 msgctxt "MENU"
 msgid "Invite"
 msgstr "초대"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:464
+#: lib/action.php:474
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "이 사이트로부터 로그아웃"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:467
+#: lib/action.php:477
 #, fuzzy
 msgctxt "MENU"
 msgid "Logout"
 msgstr "로그아웃"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:472
+#: lib/action.php:482
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "계정 만들기"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:475
+#: lib/action.php:485
 #, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "회원가입"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:478
+#: lib/action.php:488
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "이 사이트 로그인"
 
-#: lib/action.php:481
+#: lib/action.php:491
 #, fuzzy
 msgctxt "MENU"
 msgid "Login"
 msgstr "로그인"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:484
+#: lib/action.php:494
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "도움이 필요해!"
 
-#: lib/action.php:487
+#: lib/action.php:497
 #, fuzzy
 msgctxt "MENU"
 msgid "Help"
 msgstr "도움말"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:490
+#: lib/action.php:500
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "프로필이나 텍스트 검색"
 
-#: lib/action.php:493
+#: lib/action.php:503
 #, fuzzy
 msgctxt "MENU"
 msgid "Search"
@@ -5133,72 +5150,72 @@ msgstr "검색"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:515 lib/adminpanelaction.php:399
+#: lib/action.php:525 lib/adminpanelaction.php:400
 msgid "Site notice"
 msgstr "사이트 공지"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:582
+#: lib/action.php:592
 msgid "Local views"
 msgstr "로컬 뷰"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:649
+#: lib/action.php:659
 msgid "Page notice"
 msgstr "페이지 공지"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:752
+#: lib/action.php:762
 msgid "Secondary site navigation"
 msgstr "보조 사이트 네비게이션"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:758
+#: lib/action.php:768
 msgid "Help"
 msgstr "도움말"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:761
+#: lib/action.php:771
 msgid "About"
 msgstr "정보"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:764
+#: lib/action.php:774
 msgid "FAQ"
 msgstr "자주 묻는 질문"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:769
+#: lib/action.php:779
 msgid "TOS"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:773
+#: lib/action.php:783
 msgid "Privacy"
 msgstr "개인정보 취급방침"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:776
+#: lib/action.php:786
 msgid "Source"
 msgstr "소스 코드"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:782
+#: lib/action.php:792
 msgid "Contact"
 msgstr "연락하기"
 
-#: lib/action.php:784
+#: lib/action.php:794
 #, fuzzy
 msgid "Badge"
 msgstr "찔러 보기"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:813
+#: lib/action.php:823
 msgid "StatusNet software license"
 msgstr "라코니카 소프트웨어 라이선스"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:817
+#: lib/action.php:827
 #, fuzzy, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5208,13 +5225,13 @@ msgstr ""
 "마이크로블로깅서비스입니다."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:820
+#: lib/action.php:830
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** 는 마이크로블로깅서비스입니다."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:824
+#: lib/action.php:834
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5226,50 +5243,50 @@ msgstr ""
 "fsf.org/licensing/licenses/agpl-3.0.html) 라이선스에 따라 사용할 수 있습니다."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:840
+#: lib/action.php:850
 #, fuzzy
 msgid "Site content license"
 msgstr "라코니카 소프트웨어 라이선스"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:847
+#: lib/action.php:857
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:854
+#: lib/action.php:864
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:858
+#: lib/action.php:868
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:871
+#: lib/action.php:881
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1182
+#: lib/action.php:1192
 msgid "Pagination"
 msgstr "페이지수"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1193
+#: lib/action.php:1203
 msgid "After"
 msgstr "뒷 페이지"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1213
 msgid "Before"
 msgstr "앞 페이지"
 
@@ -5322,68 +5339,68 @@ msgid "Unable to delete design setting."
 msgstr "트위터 환경설정을 저장할 수 없습니다."
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:349
+#: lib/adminpanelaction.php:350
 #, fuzzy
 msgid "Basic site configuration"
 msgstr "이메일 주소 확인서"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:351
+#: lib/adminpanelaction.php:352
 #, fuzzy
 msgctxt "MENU"
 msgid "Site"
 msgstr "초대"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:357
+#: lib/adminpanelaction.php:358
 #, fuzzy
 msgid "Design configuration"
 msgstr "SMS 인증"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:359
+#: lib/adminpanelaction.php:360
 #, fuzzy
 msgctxt "MENU"
 msgid "Design"
 msgstr "개인적인"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:365
+#: lib/adminpanelaction.php:366
 #, fuzzy
 msgid "User configuration"
 msgstr "SMS 인증"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:367 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "이용자"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:373
+#: lib/adminpanelaction.php:374
 #, fuzzy
 msgid "Access configuration"
 msgstr "SMS 인증"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:381
+#: lib/adminpanelaction.php:382
 #, fuzzy
 msgid "Paths configuration"
 msgstr "SMS 인증"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:389
+#: lib/adminpanelaction.php:390
 #, fuzzy
 msgid "Sessions configuration"
 msgstr "SMS 인증"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:397
+#: lib/adminpanelaction.php:398
 #, fuzzy
 msgid "Edit site notice"
 msgstr "사이트 공지"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:405
+#: lib/adminpanelaction.php:406
 #, fuzzy
 msgid "Snapshots configuration"
 msgstr "SMS 인증"
@@ -6765,6 +6782,51 @@ msgstr ""
 #: lib/tagcloudsection.php:56
 msgid "None"
 msgstr "없음"
+
+#: lib/themeuploader.php:50
+msgid "This server cannot handle theme uploads without ZIP support."
+msgstr ""
+
+#: lib/themeuploader.php:58 lib/themeuploader.php:61
+#, fuzzy
+msgid "Theme upload missing or failed."
+msgstr "파일을 올리는데 시스템 오류 발생"
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:253 lib/themeuploader.php:257
+#: lib/themeuploader.php:265 lib/themeuploader.php:272
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "아바타 업데이트 실패"
+
+#: lib/themeuploader.php:139
+msgid "Invalid theme: bad directory structure."
+msgstr ""
+
+#: lib/themeuploader.php:166
+#, php-format
+msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
+msgstr ""
+
+#: lib/themeuploader.php:178
+msgid "Invalid theme archive: missing file css/display.css"
+msgstr ""
+
+#: lib/themeuploader.php:205
+msgid ""
+"Theme contains invalid file or folder name. Stick with ASCII letters, "
+"digits, underscore, and minus sign."
+msgstr ""
+
+#: lib/themeuploader.php:216
+#, php-format
+msgid "Theme contains file of type '.%s', which is not allowed."
+msgstr ""
+
+#: lib/themeuploader.php:234
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "리모트 프로필 업데이트 오류"
 
 #: lib/topposterssection.php:74
 msgid "Top posters"

@@ -1,5 +1,6 @@
 # Translation of StatusNet to Italian
 #
+# Author@translatewiki.net: HalphaZ
 # Author@translatewiki.net: Milocasagrande
 # Author@translatewiki.net: Nemo bis
 # --
@@ -9,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-25 11:36+0000\n"
-"PO-Revision-Date: 2010-06-03 23:02:06+0000\n"
+"POT-Creation-Date: 2010-06-16 22:18+0000\n"
+"PO-Revision-Date: 2010-06-21 18:04:12+0000\n"
 "Language-Team: Italian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r67302); Translate extension (2010-05-24)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: out-statusnet\n"
@@ -22,7 +23,7 @@ msgstr ""
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:375
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:376
 msgid "Access"
 msgstr "Accesso"
 
@@ -86,13 +87,13 @@ msgid "Save"
 msgstr "Salva"
 
 #. TRANS: Server error when page not found (404)
-#: actions/all.php:65 actions/public.php:98 actions/replies.php:93
+#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "Pagina inesistente."
 
-#: actions/all.php:76 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:113
+#: actions/all.php:79 actions/allrss.php:68
+#: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
 #: actions/apiaccountupdateprofilebackgroundimage.php:116
 #: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
@@ -116,7 +117,7 @@ msgid "No such user."
 msgstr "Utente inesistente."
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:87
+#: actions/all.php:90
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s e amici, pagina %2$d"
@@ -124,7 +125,7 @@ msgstr "%1$s e amici, pagina %2$d"
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:90 actions/all.php:182 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
@@ -132,25 +133,25 @@ msgid "%s and friends"
 msgstr "%s e amici"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:104
+#: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Feed degli amici di %s (RSS 1.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:113
+#: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Feed degli amici di %s (RSS 2.0)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:122
+#: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Feed degli amici di %s (Atom)"
 
 #. TRANS: %1$s is user nickname
-#: actions/all.php:135
+#: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
@@ -158,7 +159,7 @@ msgstr ""
 "Questa è l'attività di %s e i suoi amici, ma nessuno ha ancora scritto "
 "qualche cosa."
 
-#: actions/all.php:140
+#: actions/all.php:143
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -168,7 +169,7 @@ msgstr ""
 "scrivi un messaggio."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:143
+#: actions/all.php:146
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
@@ -178,7 +179,7 @@ msgstr ""
 "qualche cosa alla sua attenzione](%%%%action.newnotice%%%%?status_textarea=%3"
 "$s)."
 
-#: actions/all.php:146 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -188,7 +189,7 @@ msgstr ""
 "un messaggio alla sua attenzione."
 
 #. TRANS: H1 text
-#: actions/all.php:179
+#: actions/all.php:182
 msgid "You and friends"
 msgstr "Tu e i tuoi amici"
 
@@ -200,8 +201,8 @@ msgstr "Tu e i tuoi amici"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Messaggi da %1$s e amici su %2$s!"
 
-#: actions/apiaccountratelimitstatus.php:70
-#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:94
 #: actions/apiaccountupdateprofile.php:97
 #: actions/apiaccountupdateprofilebackgroundimage.php:94
 #: actions/apiaccountupdateprofilecolors.php:118
@@ -213,7 +214,7 @@ msgstr "Messaggi da %1$s e amici su %2$s!"
 #: actions/apigroupleave.php:142 actions/apigrouplist.php:137
 #: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
 #: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:103 actions/apistatusesretweets.php:112
+#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
@@ -225,7 +226,7 @@ msgstr "Messaggi da %1$s e amici su %2$s!"
 msgid "API method not found."
 msgstr "Metodo delle API non trovato."
 
-#: actions/apiaccountupdatedeliverydevice.php:85
+#: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
 #: actions/apiaccountupdateprofilecolors.php:110
@@ -239,7 +240,7 @@ msgstr "Metodo delle API non trovato."
 msgid "This method requires a POST."
 msgstr "Questo metodo richiede POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:105
+#: actions/apiaccountupdatedeliverydevice.php:106
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
@@ -247,7 +248,7 @@ msgstr ""
 "È necessario specificare un parametro chiamato \"device\" con un valore tra: "
 "\"sms\", \"im\" o \"none\"."
 
-#: actions/apiaccountupdatedeliverydevice.php:132
+#: actions/apiaccountupdatedeliverydevice.php:133
 msgid "Could not update user."
 msgstr "Impossibile aggiornare l'utente."
 
@@ -344,7 +345,7 @@ msgid "Can't send direct messages to users who aren't your friend."
 msgstr "Non puoi inviare messaggi diretti a utenti che non sono tuoi amici."
 
 #: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
-#: actions/apistatusesdestroy.php:114
+#: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "Nessuno messaggio trovato con quel ID."
 
@@ -597,7 +598,7 @@ msgstr ""
 "accesso al proprio account %4$s solo ad applicazioni di cui ci si può fidare."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:440
+#: actions/apioauthauthorize.php:310 lib/action.php:450
 msgid "Account"
 msgstr "Account"
 
@@ -627,11 +628,11 @@ msgstr "Consenti"
 msgid "Allow or deny access to your account information."
 msgstr "Consenti o nega l'accesso alle informazioni del tuo account."
 
-#: actions/apistatusesdestroy.php:108
+#: actions/apistatusesdestroy.php:112
 msgid "This method requires a POST or DELETE."
 msgstr "Questo metodo richiede POST o DELETE."
 
-#: actions/apistatusesdestroy.php:131
+#: actions/apistatusesdestroy.php:135
 msgid "You may not delete another user's status."
 msgstr "Non puoi eliminare il messaggio di un altro utente."
 
@@ -995,7 +996,7 @@ msgstr "Questa applicazione non è di tua proprietà."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1253
+#: lib/action.php:1263
 msgid "There was a problem with your session token."
 msgstr "Si è verificato un problema con il tuo token di sessione."
 
@@ -1099,45 +1100,53 @@ msgstr "Aspetto"
 msgid "Design settings for this StatusNet site."
 msgstr "Impostazioni dell'aspetto per questo sito di StatusNet."
 
-#: actions/designadminpanel.php:276
+#: actions/designadminpanel.php:318
 msgid "Invalid logo URL."
 msgstr "URL del logo non valido."
 
-#: actions/designadminpanel.php:280
+#: actions/designadminpanel.php:322
 #, php-format
 msgid "Theme not available: %s."
 msgstr "Tema non disponibile: %s."
 
-#: actions/designadminpanel.php:376
+#: actions/designadminpanel.php:426
 msgid "Change logo"
 msgstr "Modifica logo"
 
-#: actions/designadminpanel.php:381
+#: actions/designadminpanel.php:431
 msgid "Site logo"
 msgstr "Logo del sito"
 
-#: actions/designadminpanel.php:388
+#: actions/designadminpanel.php:443
 msgid "Change theme"
 msgstr "Modifica tema"
 
-#: actions/designadminpanel.php:405
+#: actions/designadminpanel.php:460
 msgid "Site theme"
 msgstr "Tema del sito"
 
-#: actions/designadminpanel.php:406
+#: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr "Tema per questo sito."
 
-#: actions/designadminpanel.php:418 lib/designsettings.php:101
+#: actions/designadminpanel.php:467
+msgid "Custom theme"
+msgstr "Tema personalizzato"
+
+#: actions/designadminpanel.php:471
+msgid "You can upload a custom StatusNet theme as a .ZIP archive."
+msgstr "Puoi caricare un tema per StatusNet personalizzato come un file ZIP."
+
+#: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Modifica l'immagine di sfondo"
 
-#: actions/designadminpanel.php:423 actions/designadminpanel.php:500
+#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Sfondo"
 
-#: actions/designadminpanel.php:428
+#: actions/designadminpanel.php:496
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1147,57 +1156,65 @@ msgstr ""
 "file è di %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:459 lib/designsettings.php:139
+#: actions/designadminpanel.php:527 lib/designsettings.php:139
 msgid "On"
 msgstr "On"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:476 lib/designsettings.php:155
+#: actions/designadminpanel.php:544 lib/designsettings.php:155
 msgid "Off"
 msgstr "Off"
 
-#: actions/designadminpanel.php:477 lib/designsettings.php:156
+#: actions/designadminpanel.php:545 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Abilita o disabilita l'immagine di sfondo."
 
-#: actions/designadminpanel.php:482 lib/designsettings.php:161
+#: actions/designadminpanel.php:550 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Affianca l'immagine di sfondo"
 
-#: actions/designadminpanel.php:491 lib/designsettings.php:170
+#: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Modifica colori"
 
-#: actions/designadminpanel.php:513 lib/designsettings.php:191
+#: actions/designadminpanel.php:587 lib/designsettings.php:191
 msgid "Content"
 msgstr "Contenuto"
 
-#: actions/designadminpanel.php:526 lib/designsettings.php:204
+#: actions/designadminpanel.php:600 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Barra laterale"
 
-#: actions/designadminpanel.php:539 lib/designsettings.php:217
+#: actions/designadminpanel.php:613 lib/designsettings.php:217
 msgid "Text"
 msgstr "Testo"
 
-#: actions/designadminpanel.php:552 lib/designsettings.php:230
+#: actions/designadminpanel.php:626 lib/designsettings.php:230
 msgid "Links"
 msgstr "Collegamenti"
 
-#: actions/designadminpanel.php:580 lib/designsettings.php:247
+#: actions/designadminpanel.php:651
+msgid "Advanced"
+msgstr "Avanzate"
+
+#: actions/designadminpanel.php:655
+msgid "Custom CSS"
+msgstr "CSS personalizzato"
+
+#: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Usa predefiniti"
 
-#: actions/designadminpanel.php:581 lib/designsettings.php:248
+#: actions/designadminpanel.php:677 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Ripristina i valori predefiniti"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:254
+#: actions/designadminpanel.php:683 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Reimposta i valori predefiniti"
 
 #. TRANS: Submit button title
-#: actions/designadminpanel.php:589 actions/othersettings.php:126
+#: actions/designadminpanel.php:685 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
@@ -1207,7 +1224,7 @@ msgstr "Reimposta i valori predefiniti"
 msgid "Save"
 msgstr "Salva"
 
-#: actions/designadminpanel.php:590 lib/designsettings.php:257
+#: actions/designadminpanel.php:686 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Salva aspetto"
 
@@ -2555,8 +2572,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Solo URL %s attraverso HTTP semplice."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1157
-#: lib/apiaction.php:1186 lib/apiaction.php:1303
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
+#: lib/apiaction.php:1208 lib/apiaction.php:1325
 msgid "Not a supported data format."
 msgstr "Non è un formato di dati supportato."
 
@@ -2698,7 +2715,7 @@ msgid "Password saved."
 msgstr "Password salvata."
 
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:383
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:384
 msgid "Paths"
 msgstr "Percorsi"
 
@@ -3556,7 +3573,7 @@ msgstr "L'utente è già nella \"sandbox\"."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:391
+#: lib/adminpanelaction.php:392
 msgid "Sessions"
 msgstr "Sessioni"
 
@@ -4229,7 +4246,7 @@ msgstr "Nessun codice inserito"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:407
+#: lib/adminpanelaction.php:408
 msgid "Snapshots"
 msgstr "Snapshot"
 
@@ -4775,7 +4792,7 @@ msgid "Plugins"
 msgstr "Plugin"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:779
+#: actions/version.php:198 lib/action.php:789
 msgid "Version"
 msgstr "Versione"
 
@@ -4880,7 +4897,7 @@ msgstr "Problema nel salvare la casella della posta del gruppo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1562
+#: classes/Notice.php:1564
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4981,188 +4998,188 @@ msgid "Untitled page"
 msgstr "Pagina senza nome"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:426
+#: lib/action.php:436
 msgid "Primary site navigation"
 msgstr "Esplorazione sito primaria"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:432
+#: lib/action.php:442
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Profilo personale e attività degli amici"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:435
+#: lib/action.php:445
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Personale"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:437
+#: lib/action.php:447
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Modifica la tua email, immagine, password o il tuo profilo"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:442
+#: lib/action.php:452
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Connettiti con altri servizi"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:445
+#: lib/action.php:455
 msgid "Connect"
 msgstr "Connetti"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:448
+#: lib/action.php:458
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Modifica la configurazione del sito"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:451
+#: lib/action.php:461
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Amministra"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:455
+#: lib/action.php:465
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Invita amici e colleghi a seguirti su %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:458
+#: lib/action.php:468
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Invita"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:464
+#: lib/action.php:474
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Termina la tua sessione sul sito"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:467
+#: lib/action.php:477
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Esci"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:472
+#: lib/action.php:482
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Crea un account"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:475
+#: lib/action.php:485
 msgctxt "MENU"
 msgid "Register"
 msgstr "Registrati"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:478
+#: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Accedi al sito"
 
-#: lib/action.php:481
+#: lib/action.php:491
 msgctxt "MENU"
 msgid "Login"
 msgstr "Accedi"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:484
+#: lib/action.php:494
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Aiutami!"
 
-#: lib/action.php:487
+#: lib/action.php:497
 msgctxt "MENU"
 msgid "Help"
 msgstr "Aiuto"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:490
+#: lib/action.php:500
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Cerca persone o del testo"
 
-#: lib/action.php:493
+#: lib/action.php:503
 msgctxt "MENU"
 msgid "Search"
 msgstr "Cerca"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:515 lib/adminpanelaction.php:399
+#: lib/action.php:525 lib/adminpanelaction.php:400
 msgid "Site notice"
 msgstr "Messaggio del sito"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:582
+#: lib/action.php:592
 msgid "Local views"
 msgstr "Viste locali"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:649
+#: lib/action.php:659
 msgid "Page notice"
 msgstr "Pagina messaggio"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:752
+#: lib/action.php:762
 msgid "Secondary site navigation"
 msgstr "Esplorazione secondaria del sito"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:758
+#: lib/action.php:768
 msgid "Help"
 msgstr "Aiuto"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:761
+#: lib/action.php:771
 msgid "About"
 msgstr "Informazioni"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:764
+#: lib/action.php:774
 msgid "FAQ"
 msgstr "FAQ"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:769
+#: lib/action.php:779
 msgid "TOS"
 msgstr "TOS"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:773
+#: lib/action.php:783
 msgid "Privacy"
 msgstr "Privacy"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:776
+#: lib/action.php:786
 msgid "Source"
 msgstr "Sorgenti"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:782
+#: lib/action.php:792
 msgid "Contact"
 msgstr "Contatti"
 
-#: lib/action.php:784
+#: lib/action.php:794
 msgid "Badge"
 msgstr "Badge"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:813
+#: lib/action.php:823
 msgid "StatusNet software license"
 msgstr "Licenza del software StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:817
+#: lib/action.php:827
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5172,13 +5189,13 @@ msgstr ""
 "(%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:820
+#: lib/action.php:830
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** è un servizio di microblog."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:824
+#: lib/action.php:834
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5190,34 +5207,34 @@ msgstr ""
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:840
+#: lib/action.php:850
 msgid "Site content license"
 msgstr "Licenza del contenuto del sito"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:847
+#: lib/action.php:857
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "I contenuti e i dati di %1$s sono privati e confidenziali."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:854
+#: lib/action.php:864
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "I contenuti e i dati sono copyright di %1$s. Tutti i diritti riservati."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:858
+#: lib/action.php:868
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "I contenuti e i dati sono forniti dai collaboratori. Tutti i diritti "
 "riservati."
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:871
+#: lib/action.php:881
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
@@ -5225,19 +5242,19 @@ msgstr ""
 "licenza %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1182
+#: lib/action.php:1192
 msgid "Pagination"
 msgstr "Paginazione"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1193
+#: lib/action.php:1203
 msgid "After"
 msgstr "Successivi"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1213
 msgid "Before"
 msgstr "Precedenti"
 
@@ -5285,59 +5302,59 @@ msgid "Unable to delete design setting."
 msgstr "Impossibile eliminare le impostazioni dell'aspetto."
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:349
+#: lib/adminpanelaction.php:350
 msgid "Basic site configuration"
 msgstr "Configurazione di base"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:351
+#: lib/adminpanelaction.php:352
 msgctxt "MENU"
 msgid "Site"
 msgstr "Sito"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:357
+#: lib/adminpanelaction.php:358
 msgid "Design configuration"
 msgstr "Configurazione aspetto"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:359
+#: lib/adminpanelaction.php:360
 msgctxt "MENU"
 msgid "Design"
 msgstr "Aspetto"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:365
+#: lib/adminpanelaction.php:366
 msgid "User configuration"
 msgstr "Configurazione utente"
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:367 lib/personalgroupnav.php:115
+#: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Utente"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:373
+#: lib/adminpanelaction.php:374
 msgid "Access configuration"
 msgstr "Configurazione di accesso"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:381
+#: lib/adminpanelaction.php:382
 msgid "Paths configuration"
 msgstr "Configurazione percorsi"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:389
+#: lib/adminpanelaction.php:390
 msgid "Sessions configuration"
 msgstr "Configurazione sessioni"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:397
+#: lib/adminpanelaction.php:398
 msgid "Edit site notice"
 msgstr "Modifica messaggio del sito"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:405
+#: lib/adminpanelaction.php:406
 msgid "Snapshots configuration"
 msgstr "Configurazione snapshot"
 
@@ -6833,6 +6850,52 @@ msgstr "Insieme delle etichette delle persone come etichettate"
 #: lib/tagcloudsection.php:56
 msgid "None"
 msgstr "Nessuno"
+
+#: lib/themeuploader.php:50
+msgid "This server cannot handle theme uploads without ZIP support."
+msgstr ""
+"Questo server non è in grado di gestire caricamenti senza il supporto ZIP."
+
+#: lib/themeuploader.php:58 lib/themeuploader.php:61
+msgid "Theme upload missing or failed."
+msgstr "Tema caricato mancante o caricamento non riuscito."
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:253 lib/themeuploader.php:257
+#: lib/themeuploader.php:265 lib/themeuploader.php:272
+msgid "Failed saving theme."
+msgstr "Salvataggio del tema non riuscito."
+
+#: lib/themeuploader.php:139
+msgid "Invalid theme: bad directory structure."
+msgstr "Tema non valido: struttura directory non corretta."
+
+#: lib/themeuploader.php:166
+#, php-format
+msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
+msgstr ""
+"Il tema caricato è troppo grande, deve essere meno di %d byte non compresso."
+
+#: lib/themeuploader.php:178
+msgid "Invalid theme archive: missing file css/display.css"
+msgstr "File di tema non valido: manca il file css/display.css"
+
+#: lib/themeuploader.php:205
+msgid ""
+"Theme contains invalid file or folder name. Stick with ASCII letters, "
+"digits, underscore, and minus sign."
+msgstr ""
+"Il tema contiene file non o nomi di cartelle non validi. Utilizzare "
+"solamente caratteri ASCII, numeri, il trattino basso e il segno meno."
+
+#: lib/themeuploader.php:216
+#, php-format
+msgid "Theme contains file of type '.%s', which is not allowed."
+msgstr "Il tema contiene file di tipo \".%s\" che non sono supportati."
+
+#: lib/themeuploader.php:234
+msgid "Error opening theme archive."
+msgstr "Errore nell'aprire il file del tema."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
