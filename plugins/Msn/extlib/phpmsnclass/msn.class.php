@@ -1309,7 +1309,7 @@ class MSN {
                     break;
                 }
                 $this->debug_message("*** MSG from $from_email: $sMsg");
-                $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => $network, 'offline' => false));
+                $this->callHandler('IMin', array('sender' => $from_email, 'message' => $sMsg, 'network' => 1, 'offline' => false));
                 break;
             case '217':
                 $this->debug_message('*** User '.$session['to'].' is offline. Trying OIM.');
@@ -1319,7 +1319,6 @@ class MSN {
                 if (is_numeric($code)) {
                     $this->error = "Error code: $code, please check the detail information from: http://msnpiki.msnfanatic.com/index.php/Reference:Error_List";
                     $this->debug_message("*** SB: $this->error");
-                    $sessionEnd=true;
                 }
                 break;
         }
@@ -1463,14 +1462,8 @@ class MSN {
         if (self::socketcheck($socket)) {
             return false;
         }
-        
-        $intsocket = (int) $socket;
-        if (!$this->switchBoardSessions[$intsocket]['joined']) {
-            // If our participant has not joined the session yet we can't message them!
-            return false;
-        }
 
-        $id = &$this->switchBoardSessions[$intsocket]['id'];
+        $id = &$this->switchBoardSessions[(int) $socket]['id'];
 
         $aMessage = $this->getMessage($message);
         // CheckEmotion...
@@ -1537,21 +1530,25 @@ class MSN {
                    	return false;
                 } else {
                     $socket = $this->switchBoardSessionLookup[$recipient];
-                    if ($this->switchBoardSessions[(int) $socket]['offline']) {
+                    $intsocket = (int) $socket;
+                    if ($this->switchBoardSessions[$intsocket]['offline']) {
                         $this->debug_message("*** Contact ($recipient) offline, sending OIM");
                         $this->endSBSession($socket);
                         return $this->sendMessage($recipient.'@Offline', $message);
                     } else {
+                    	if ($this->switchBoardSessions[$intsocket]['joined'] !== true) {
+                    		$this->debug_message("*** Recipient has not joined session, returning false");
+                    		return false;
+                    	}
+                    	
                         $this->debug_message("*** Attempting to send message to $recipient using existing SB session");
 
                         if ($this->sendMessageViaSB($recipient, $message)) {
                             $this->debug_message('*** Message sent successfully');
                             return true;
-                        } else {
-                            $this->debug_message('*** Message sending failed, requesting new SB session');
-                            $this->reqSBSession($recipient);
-                            return false;
                         }
+                        
+                        return false;
                     }
                 }
             } elseif ($network == 'Offline') {

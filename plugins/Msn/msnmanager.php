@@ -104,7 +104,7 @@ class MsnManager extends ImManager {
                     'debug' => true
                 )
             );
-            $this->conn->registerHandler("IMIn", array($this, 'handle_msn_message'));
+            $this->conn->registerHandler('IMin', array($this, 'handle_msn_message'));
             $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
             $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
             $this->conn->registerHandler('Reconnect', array($this, 'handle_reconnect'));
@@ -138,7 +138,7 @@ class MsnManager extends ImManager {
      * @param $data Time till next ping
      * @return void
      */
-    private function update_ping_time($data) {
+    public function update_ping_time($data) {
         $pingInterval = $data;
     }
 
@@ -150,7 +150,7 @@ class MsnManager extends ImManager {
     * @param array $data Data
     * @return boolean
     */
-    private function handle_msn_message($data) {
+    public function handle_msn_message($data) {
         $this->plugin->enqueue_incoming_raw($data);
         return true;
     }
@@ -161,7 +161,7 @@ class MsnManager extends ImManager {
     * @param void $data Not used (there to keep callback happy)
     * @return void
     */
-    private function handle_connect_failed($data) {
+    public function handle_connect_failed($data) {
         common_log(LOG_NOTICE, 'MSN connect failed, retrying');
     }
 
@@ -171,7 +171,7 @@ class MsnManager extends ImManager {
     * @param void $data Not used (there to keep callback happy)
     * @return void
     */
-    private function handle_reconnect($data) {
+    public function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');
     }
     
@@ -190,7 +190,7 @@ class MsnManager extends ImManager {
         if (!$this->conn->sendMessage($data['to'], $data['message'])) {
             return false;
         }
-
+        
         // Sending a command updates the time till next ping
         $this->lastping = time();
         $this->pingInterval = 50;
