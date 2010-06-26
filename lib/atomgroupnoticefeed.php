@@ -96,4 +96,23 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
         return $this->group;
     }
 
+    function initFeed()
+    {
+        parent::initFeed();
+
+        $attrs = array();
+
+        if (!empty($this->cur)) {
+            $attrs['member'] = $this->cur->isMember($this->group)
+                ? 'true' : 'false';
+            $attrs['blocked'] = Group_block::isBlocked(
+                $this->group,
+                $this->cur->getProfile()
+            ) ? 'true' : 'false';
+        }
+
+        $attrs['member_count'] = $this->group->getMemberCount();
+
+        $this->element('statusnet:group_info', $attrs, null);
+    }
 }
