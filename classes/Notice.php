@@ -1190,7 +1190,7 @@ class Notice extends Memcached_DataObject
                            'xmlns:media' => 'http://purl.org/syndication/atommedia',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
                            'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
-                           'xmlns:statusnet' => 'http://status.net/ont/');
+                           'xmlns:statusnet' => 'http://status.net/schema/api/1/');
         } else {
             $attrs = array();
         }
@@ -1225,7 +1225,7 @@ class Notice extends Memcached_DataObject
         $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
-            $xs->raw($profile->asAtomAuthor());
+            $xs->raw($profile->asAtomAuthor($cur));
             $xs->raw($profile->asActivityActor());
         }
 
@@ -1238,9 +1238,25 @@ class Notice extends Memcached_DataObject
         $xs->element('published', null, common_date_w3dtf($this->created));
         $xs->element('updated', null, common_date_w3dtf($this->created));
 
+        $source = null;
+
+        $ns = $this->getSource();
+
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="'
+                  . htmlspecialchars($ns->url)
+                  . '" rel="nofollow">'
+                  . htmlspecialchars($ns->name)
+                   . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
+
         $noticeInfoAttr = array(
-            'local_id'   => $this->id,    // local notice ID (useful to clients for ordering)
-            'source'     => $this->source, // the client name (source attribution)
+            'local_id'   => $this->id, // local notice ID (useful to clients for ordering)
+            'source'     => $source,   // the client name (source attribution)
         );
 
         $ns = $this->getSource();
@@ -1252,8 +1268,8 @@ class Notice extends Memcached_DataObject
 
         if (!empty($cur)) {
             $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
-	    $profile = $cur->getProfile();
-	    $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
+            $profile = $cur->getProfile();
+            $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
         }
 
         if (!empty($this->repeat_of)) {
