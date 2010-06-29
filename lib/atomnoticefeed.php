@@ -95,7 +95,7 @@ class AtomNoticeFeed extends Atom10Feed
 
         $this->addNamespace(
             'statusnet',
-            'http://status.net/ont/'
+            'http://status.net/schema/api/1/'
         );
     }
 

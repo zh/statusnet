@@ -1,5 +1,6 @@
 # Translation of StatusNet to Spanish
 #
+# Author@translatewiki.net: Brion
 # Author@translatewiki.net: Crazymadlover
 # Author@translatewiki.net: Locos epraix
 # Author@translatewiki.net: McDutchie
@@ -15,11 +16,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:19:22+0000\n"
+"PO-Revision-Date: 2010-06-21 18:03:25+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -1135,13 +1136,12 @@ msgid "Theme for the site."
 msgstr "Tema para el sitio."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Tema del sitio"
+msgstr "Personalizar tema"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
+msgstr "Puedes subir un tema personalizado StatusNet como un archivo .ZIP."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1201,11 +1201,11 @@ msgstr "Vínculos"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "Personalizar CSS"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1640,7 +1640,7 @@ msgstr "Avisos favoritos de %s"
 #: actions/favoritesrss.php:115
 #, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "¡Actualizaciones favorecidas por %1$ s en %2$s!"
+msgstr "¡Actualizaciones favorecidas por %1$s en %2$s!"
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
@@ -6885,48 +6885,48 @@ msgstr "Ninguno"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "Este servidor no puede manejar cargas de temas sin soporte ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Error del sistema subir el archivo"
+msgstr "Sudida del tema perdido o errado."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Error al actualizar la imagen."
+msgstr "Grabado de tema errado."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Tema inválido: mala estructura de directorio."
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"Tema subido es demasiado grande; debe ser menor que %d bytes sin comprimir."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "Archivo de tema inválido: archivo perdido css/display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"El tema contiene archivo o nombre de carpeta inválido. Restrínjase a letras "
+"ASCII, dígitos, carácter de subrayado, y signo menos."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "El tema contiene archivo de tipo '.%s', que no está permitido."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "Error al actualizar el perfil remoto."
+msgstr "Error al abrir archivo de tema."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"

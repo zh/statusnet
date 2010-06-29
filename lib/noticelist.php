@@ -463,12 +463,14 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('span');
     }
 
+    /**
+     * @param number $dec decimal degrees
+     * @return array split into 'deg', 'min', and 'sec'
+     */
     function decimalDegreesToDMS($dec)
     {
-
-        $vars = explode(".",$dec);
-        $deg = $vars[0];
-        $tempma = "0.".$vars[1];
+        $deg = intval($dec);
+        $tempma = abs($dec) - abs($deg);
 
         $tempma = $tempma * 3600;
         $min = floor($tempma / 60);

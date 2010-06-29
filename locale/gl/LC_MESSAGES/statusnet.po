@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-16 22:19:45+0000\n"
+"PO-Revision-Date: 2010-06-21 18:03:49+0000\n"
 "Language-Team: Galician\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68131); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: out-statusnet\n"
@@ -1132,13 +1132,13 @@ msgid "Theme for the site."
 msgstr "Tema visual para o sitio."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Tema visual do sitio"
+msgstr "Tema visual personalizado"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
+"Pode cargar como arquivo .ZIP un tema visual personalizado para StatusNet"
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1198,11 +1198,11 @@ msgstr "Ligazóns"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "CSS personalizado"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -6878,47 +6878,50 @@ msgstr "Ningún"
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
+"O servidor non pode xestionar as cargas de temas visuais sen soporte para o "
+"formato ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-#, fuzzy
 msgid "Theme upload missing or failed."
-msgstr "Houbo un erro no sistema ao cargar o ficheiro."
+msgstr "Houbo un erro no sistema ao cargar o tema visual."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "Non se puido actualizar o avatar."
+msgstr "Non se puido gardar o tema visual."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Tema visual inválido: a estrutura do directorio é incorrecta"
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"O tema visual cargado é grande de máis; o tamaño descomprimido non pode "
+"superar os %d bytes."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "Arquivo de tema visual inválido: falta o ficheiro css/display.css"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"O tema visual contén un ficheiro inválido ou nome de cartafol incorrecto. "
+"Limíteo a letras ASCII, díxitos, barras baixas e signos menos."
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "O tema visual contén o tipo de ficheiro \".%s\". Non está permitido."
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
-msgstr "Houbo un erro ao actualizar o perfil remoto."
+msgstr "Houbo un erro ao abrir o arquivo do tema visual."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
