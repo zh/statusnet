@@ -1517,7 +1517,7 @@ class MSN {
      */
     public function sendMessage($to, $message) {
         if ($message != '') {
-            list($name, $host, $network) = explode('@', $to);
+            @list($name, $host, $network) = @explode('@', $to);
             $network = $network == '' ? 1 : $network;
             $recipient = $name.'@'.$host;
 
