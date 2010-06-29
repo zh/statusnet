@@ -949,7 +949,7 @@ class MSN {
                 break;
             case 'BYE':
                 $this->debug_message("*** Quit for BYE");
-                $this->endSBSession();
+                $this->endSBSession($socket);
                 break;
             case 'USR':
                 // SB: <<< USR {id} OK {user} {alias}
@@ -2742,7 +2742,7 @@ X-OIM-Sequence-Num: 1
             $Attrib = '';
             if (is_array($Val[':'])) {
                 foreach ($Val[':'] as $AttribName => $AttribVal)
-                $Attrib .= " $AttribName = '$AttribVal'";
+                    $Attrib .= " $AttribName = '$AttribVal'";
             }
             if ($Key{0} == '!') {
                 //List Type Define
