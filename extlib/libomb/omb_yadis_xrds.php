@@ -155,7 +155,7 @@ class OMB_Yadis_XRDS extends Auth_Yadis_XRDS
      * @return mixed An instance of OMB_Yadis_XRDS or null,
      *               depending on the validity of $xml_string
      */
-    public function parseXRDS($xml_string, $extra_ns_map = null)
+    public static function parseXRDS($xml_string, $extra_ns_map = null)
     {
         $_null = null;
 
