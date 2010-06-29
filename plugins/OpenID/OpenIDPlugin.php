@@ -20,7 +20,9 @@
  * @category  Plugin
  * @package   StatusNet
  * @author    Evan Prodromou <evan@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
  * @copyright 2009-2010 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -38,6 +40,8 @@ if (!defined('STATUSNET')) {
  * @category Plugin
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  * @link     http://openid.net/
@@ -215,16 +219,16 @@ class OpenIDPlugin extends Plugin
         if (common_config('site', 'openidonly') && !common_logged_in()) {
             // TRANS: Tooltip for main menu option "Login"
             $tooltip = _m('TOOLTIP', 'Login to the site');
-            // TRANS: Main menu option when not logged in to log in
             $action->menuItem(common_local_url('openidlogin'),
+                              // TRANS: Main menu option when not logged in to log in
                               _m('MENU', 'Login'),
                               $tooltip,
                               false,
                               'nav_login');
             // TRANS: Tooltip for main menu option "Help"
             $tooltip = _m('TOOLTIP', 'Help me!');
-            // TRANS: Main menu option for help on the StatusNet site
             $action->menuItem(common_local_url('doc', array('title' => 'help')),
+                              // TRANS: Main menu option for help on the StatusNet site
                               _m('MENU', 'Help'),
                               $tooltip,
                               false,
@@ -232,8 +236,8 @@ class OpenIDPlugin extends Plugin
             if (!common_config('site', 'private')) {
                 // TRANS: Tooltip for main menu option "Search"
                 $tooltip = _m('TOOLTIP', 'Search for people or text');
-                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                 $action->menuItem(common_local_url('peoplesearch'),
+                                  // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                                   _m('MENU', 'Search'), $tooltip, false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($action));
@@ -293,7 +297,9 @@ class OpenIDPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('openidlogin'),
-                          _m('OpenID'),
+                          // TRANS: OpenID plugin menu item on site logon page.
+                          _m('MENU', 'OpenID'),
+                          // TRANS: OpenID plugin tooltip for logon menu item.
                           _m('Login or register with OpenID'),
                           $action_name === 'openidlogin');
     }
@@ -329,7 +335,9 @@ class OpenIDPlugin extends Plugin
         $action_name = $action->trimmed('action');
 
         $action->menuItem(common_local_url('openidsettings'),
-                          _m('OpenID'),
+                          // TRANS: OpenID plugin menu item on user settings page.
+                          _m('MENU', 'OpenID'),
+                          // TRANS: OpenID plugin tooltip for user settings menu item.
                           _m('Add or remove OpenIDs'),
                           $action_name === 'openidsettings');
 
@@ -637,6 +645,7 @@ class OpenIDPlugin extends Plugin
                             'author' => 'Evan Prodromou, Craig Andrews',
                             'homepage' => 'http://status.net/wiki/Plugin:OpenID',
                             'rawdescription' =>
+                            // TRANS: OpenID plugin description.
                             _m('Use <a href="http://openid.net/">OpenID</a> to login to the site.'));
         return true;
     }

@@ -29,6 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
@@ -177,7 +178,8 @@ class Notice extends Memcached_DataObject
         $id = $tag->insert();
 
         if (!$id) {
-            throw new ServerException(sprintf(_('DB error inserting hashtag: %s'),
+            // TRANS: Server exception. %s are the error details.
+            throw new ServerException(sprintf(_('Database error inserting hashtag: %s'),
                                               $last_error->message));
             return;
         }
@@ -1573,6 +1575,8 @@ class Notice extends Memcached_DataObject
     {
         $author = Profile::staticGet('id', $this->profile_id);
 
+        // TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+        // TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
         $content = sprintf(_('RT @%1$s %2$s'),
                            $author->nickname,
                            $this->content);
@@ -1877,6 +1881,18 @@ class Notice extends Memcached_DataObject
             }
         }
         return $ns;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @return boolean locality
+     */
+
+    public function isLocal()
+    {
+        return ($this->is_local == Notice::LOCAL_PUBLIC ||
+                $this->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
 }

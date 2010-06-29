@@ -27,6 +27,7 @@ class OpenidloginAction extends Action
     {
         parent::handle($args);
         if (common_is_real_login()) {
+            // TRANS: Client error message trying to log on with OpenID while already logged on.
             $this->clientError(_m('Already logged in.'));
         } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $provider = common_config('openid', 'trusted_provider');
@@ -44,6 +45,7 @@ class OpenidloginAction extends Action
             # CSRF protection
             $token = $this->trimmed('token');
             if (!$token || $token != common_session_token()) {
+                // TRANS: Message given when there is a problem with the user's session token.
                 $this->showForm(_m('There was a problem with your session token. Try again, please.'), $openid_url);
                 return;
             }
@@ -73,10 +75,14 @@ class OpenidloginAction extends Action
             common_get_returnto()) {
             // rememberme logins have to reauthenticate before
             // changing any profile settings (cookie-stealing protection)
+            // TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
+            // TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
             return _m('For security reasons, please re-login with your ' .
                      '[OpenID](%%doc.openid%%) ' .
                      'before changing your settings.');
         } else {
+            // TRANS: OpenID plugin message.
+            // TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
             return _m('Login with an [OpenID](%%doc.openid%%) account.');
         }
     }
@@ -110,6 +116,7 @@ class OpenidloginAction extends Action
 
     function title()
     {
+        // TRANS: OpenID plugin message. Title.
         return _m('OpenID Login');
     }
 
@@ -127,6 +134,7 @@ class OpenidloginAction extends Action
                                            'class' => 'form_settings',
                                            'action' => $formaction));
         $this->elementStart('fieldset');
+        // TRANS: OpenID plugin logon form legend.
         $this->element('legend', null, _m('OpenID login'));
         $this->hidden('token', common_session_token());
 
@@ -147,18 +155,23 @@ class OpenidloginAction extends Action
                            _m('You will be sent to the provider\'s site for authentication.'));
             $this->hidden('openid_url', $provider);
         } else {
+            // TRANS: OpenID plugin logon form field label.
             $this->input('openid_url', _m('OpenID URL'),
                          $this->openid_url,
+                        // TRANS: OpenID plugin logon form field instructions.
                          _m('Your OpenID URL'));
         }
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'settings_rememberme'));
+        // TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
         $this->checkbox('rememberme', _m('Remember me'), false,
+                        // TRANS: OpenID plugin logon form field instructions.
                         _m('Automatically login in the future; ' .
                            'not for shared computers!'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
-        $this->submit('submit', _m('Login'));
+        // TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
+        $this->submit('submit', _m('BUTTON', 'Login'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
