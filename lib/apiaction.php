@@ -273,11 +273,13 @@ class ApiAction extends Action
 
         // Is the requesting user following this user?
         $twitter_user['following'] = false;
+        $twitter_user['statusnet:blocking'] = false;
         $twitter_user['notifications'] = false;
 
         if (isset($this->auth_user)) {
 
             $twitter_user['following'] = $this->auth_user->isSubscribed($profile);
+            $twitter_user['statusnet:blocking']  = $this->auth_user->hasBlocked($profile);
 
             // Notifications on?
             $sub = Subscription::pkeyGet(array('subscriber' =>
@@ -411,20 +413,32 @@ class ApiAction extends Action
 
     function twitterGroupArray($group)
     {
-        $twitter_group=array();
-        $twitter_group['id']=$group->id;
-        $twitter_group['url']=$group->permalink();
-        $twitter_group['nickname']=$group->nickname;
-        $twitter_group['fullname']=$group->fullname;
-        $twitter_group['original_logo']=$group->original_logo;
-        $twitter_group['homepage_logo']=$group->homepage_logo;
-        $twitter_group['stream_logo']=$group->stream_logo;
-        $twitter_group['mini_logo']=$group->mini_logo;
-        $twitter_group['homepage']=$group->homepage;
-        $twitter_group['description']=$group->description;
-        $twitter_group['location']=$group->location;
-        $twitter_group['created']=$this->dateTwitter($group->created);
-        $twitter_group['modified']=$this->dateTwitter($group->modified);
+        $twitter_group = array();
+
+        $twitter_group['id'] = $group->id;
+        $twitter_group['url'] = $group->permalink();
+        $twitter_group['nickname'] = $group->nickname;
+        $twitter_group['fullname'] = $group->fullname;
+
+        if (isset($this->auth_user)) {
+            $twitter_group['member'] = $this->auth_user->isMember($group);
+            $twitter_group['blocked'] = Group_block::isBlocked(
+                $group,
+                $this->auth_user->getProfile()
+            );
+        }
+
+        $twitter_group['member_count'] = $group->getMemberCount();
+        $twitter_group['original_logo'] = $group->original_logo;
+        $twitter_group['homepage_logo'] = $group->homepage_logo;
+        $twitter_group['stream_logo'] = $group->stream_logo;
+        $twitter_group['mini_logo'] = $group->mini_logo;
+        $twitter_group['homepage'] = $group->homepage;
+        $twitter_group['description'] = $group->description;
+        $twitter_group['location'] = $group->location;
+        $twitter_group['created'] = $this->dateTwitter($group->created);
+        $twitter_group['modified'] = $this->dateTwitter($group->modified);
+
         return $twitter_group;
     }
 

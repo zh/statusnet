@@ -619,8 +619,13 @@ abstract class ImPlugin extends Plugin
 
     function initialize()
     {
+        if( ! common_config('queue', 'enabled'))
+        {
+            throw new ServerException("Queueing must be enabled to use IM plugins");
+        }
+
         if(is_null($this->transport)){
-            throw new Exception('transport cannot be null');
+            throw new ServerException('transport cannot be null');
         }
     }
 }
