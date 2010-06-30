@@ -23,10 +23,10 @@ class MSN {
     const PROD_KEY = 'PK}_A_0N_K%O?A9S';
     const PROD_ID = 'PROD0114ES4Z%Q5W';
     const LOGIN_METHOD = 'SSO';
-    
+
     const OIM_SEND_URL = 'https://ows.messenger.msn.com/OimWS/oim.asmx';
     const OIM_SEND_SOAP = 'http://messenger.live.com/ws/2006/09/oim/Store2';
-    
+
     const OIM_MAILDATA_URL = 'https://rsi.hotmail.com/rsi/rsi.asmx';
     const OIM_MAILDATA_SOAP = 'http://www.hotmail.msn.com/ws/2004/09/oim/rsi/GetMetadata';
     const OIM_READ_URL = 'https://rsi.hotmail.com/rsi/rsi.asmx';
@@ -42,16 +42,16 @@ class MSN {
 
     const DELMEMBER_URL = 'https://contacts.msn.com/abservice/SharingService.asmx';
     const DELMEMBER_SOAP = 'http://www.msn.com/webservices/AddressBook/DeleteMember';
-    
+
     // the message length (include header) is limited (maybe since WLM 8.5 released)
     // for WLM: 1664 bytes
     // for YIM: 518 bytes
     const MAX_MSN_MESSAGE_LEN = 1664;
     const MAX_YAHOO_MESSAGE_LEN = 518;
-    
+
     private $debug;
     private $timeout;
-    
+
     private $id;
     private $ticket;
     private $user = '';
@@ -76,7 +76,7 @@ class MSN {
     private $port = 1863;
 
     private $clientid = '';
-    
+
     private $error = '';
 
     private $authed = false;
@@ -181,7 +181,7 @@ class MSN {
     /**
      * Signon methods
      */
-    
+
     /**
      * Connect to the NS server
      *
@@ -345,7 +345,7 @@ class MSN {
         /* FIXME Don't implement the signon as a loop or we could hang
         *        the queue handler! */
         $this->debug_message('*** Trying to connect to MSN network');
-        
+
         // Remove any remaining switchboard sessions
         $this->switchBoardSessions = array();
         $this->switchBoardSessionLookup = array();
@@ -483,9 +483,9 @@ class MSN {
     * @return void
     */
     private function signonFailure($message) {
-    	if(!empty($message)) {
+        if(!empty($message)) {
             $this->debug_message($message);
-    	}
+        }
         $this->callHandler('ConnectFailed');
         $this->NSRetryWait($this->retry_wait);
     }
@@ -509,7 +509,7 @@ class MSN {
     /**
      * NS and SB command handling methods
      */
-    
+
     /**
      * Read and handle incoming command from NS
      *
@@ -532,7 +532,7 @@ class MSN {
             $this->signon();
             return;
         }
-        
+
         switch (substr($data, 0, 3)) {
             case 'SBS':
                 // after 'USR {id} OK {user} {verify} 0' response, the server will send SBS and profile to us
@@ -898,14 +898,14 @@ class MSN {
                 $this->addContact($email, 1, $email, true);
                 $this->connectToSBSession('Passive', $sb_ip, $sb_port, $email, array('sid' => $sid, 'ticket' => $ticket));
                 break;
-            
+
             case 'NLN':
                 // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
                 // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
                 @list(/* NLN */, $status, $email, $network, $nickname) = @explode(' ', $data);
                 $this->callHandler('StatusChange', array('screenname' => $email, 'status' => $status, 'network' => $network, 'nickname' => $nickname));
                 break;
-            
+
             case 'OUT':
                 // force logout from NS
                 // NS: <<< OUT xxx
@@ -1357,7 +1357,7 @@ class MSN {
     /**
      * Switchboard related methods
      */
-    
+
     /**
      * Send a request for a switchboard session
      *
@@ -1410,12 +1410,12 @@ class MSN {
             'offline' => false,
             'XFRReqTime' => time()
         );
-        
+
         // Change the index of the session to the socket
         $intsocket = (int) $socket;
         $this->switchBoardSessions[$intsocket] = $this->switchBoardSessions[$to];
         unset($this->switchBoardSessions[$to]);
-        
+
         $id = &$this->switchBoardSessions[$intsocket]['id'];
 
         if ($mode == 'Active') {
@@ -1432,7 +1432,7 @@ class MSN {
             $this->sb_writeln($socket, $id, "ANS $id $this->user $ticket $sid");
         }
     }
-    
+
     /**
     * Called when we want to end a switchboard session
     * or a switchboard session ends
@@ -1486,7 +1486,7 @@ class MSN {
 
         if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
             $this->sb_writedata($socket, $aMessage) === false) {
-            	return false;
+                return false;
             }
 
         // Don't close the SB session, we might as well leave it open
@@ -1522,23 +1522,23 @@ class MSN {
      */
     public function sendMessage($to, $message) {
         if ($message != '') {
-        	$toParts = explode('@', $to);
-        	if(count($toParts) < 3) {
-        		list($name, $host) = $toParts;
-        		$network = 1;
-        	} else {
-        		list($name, $host, $network) = $toParts;
-        	}
-        	
+            $toParts = explode('@', $to);
+            if(count($toParts) < 3) {
+                list($name, $host) = $toParts;
+                $network = 1;
+            } else {
+                list($name, $host, $network) = $toParts;
+            }
+
             $recipient = $name.'@'.$host;
 
             if ($network === 1) {
                 if (!isset($this->switchBoardSessionLookup[$recipient])) {
-                   	if (!isset($this->switchBoardSessions[$recipient]) || time() - $this->switchBoardSessions[$recipient]['XFRReqTime'] > $this->XFRReqTimeout) {
-                   		$this->debug_message("*** No existing SB session or request has timed out");
-	                    $this->reqSBSession($recipient);
-                   	}
-                   	return false;
+                    if (!isset($this->switchBoardSessions[$recipient]) || time() - $this->switchBoardSessions[$recipient]['XFRReqTime'] > $this->XFRReqTimeout) {
+                        $this->debug_message("*** No existing SB session or request has timed out");
+                        $this->reqSBSession($recipient);
+                    }
+                    return false;
                 } else {
                     $socket = $this->switchBoardSessionLookup[$recipient];
                     $intsocket = (int) $socket;
@@ -1547,18 +1547,18 @@ class MSN {
                         $this->endSBSession($socket);
                         return $this->sendMessage($recipient.'@Offline', $message);
                     } else {
-                    	if ($this->switchBoardSessions[$intsocket]['joined'] !== true) {
-                    		$this->debug_message("*** Recipient has not joined session, returning false");
-                    		return false;
-                    	}
-                    	
+                        if ($this->switchBoardSessions[$intsocket]['joined'] !== true) {
+                            $this->debug_message("*** Recipient has not joined session, returning false");
+                            return false;
+                        }
+
                         $this->debug_message("*** Attempting to send message to $recipient using existing SB session");
 
                         if ($this->sendMessageViaSB($recipient, $message)) {
                             $this->debug_message('*** Message sent successfully');
                             return true;
                         }
-                        
+
                         return false;
                     }
                 }
@@ -1603,7 +1603,7 @@ class MSN {
     /**
      * OIM methods
      */
-    
+
     /**
     * Get OIM mail data
     *
@@ -1806,7 +1806,7 @@ class MSN {
             $this->debug_message("*** OIM ($msgid) deleted");
         return $sMsg;
     }
-    
+
     /**
      * Send offline message
      *
@@ -1918,11 +1918,11 @@ X-OIM-Sequence-Num: 1
         }
         return array('challenge' => $challenge, 'auth_policy' => $auth_policy);
     }
-    
+
     /**
      * Contact / Membership list methods
      */
-    
+
     /**
     * Fetch contact list
     *
@@ -2347,7 +2347,7 @@ X-OIM-Sequence-Num: 1
         $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         $this->debug_message("*** Get Result:\n$data");
-        
+
         if ($http_code != 200) return false;
         $p = $data;
         $aMemberships = array();
@@ -2427,11 +2427,11 @@ X-OIM-Sequence-Num: 1
         }
         return $aContactList;
     }
-    
+
     /**
      * MsnObj related methods
      */
-    
+
     /**
      *
      * @param $FilePath 圖檔路徑
@@ -2471,14 +2471,14 @@ X-OIM-Sequence-Num: 1
             }
         return $DefineString;
     }
-    
+
     /**
      * Socket methods
      */
-    
+
     /**
      * Read data of specified size from NS socket
-     * 
+     *
      * @param integer $size Size to read
      * @return string Data read
      */
@@ -2497,7 +2497,7 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Read line from the NS socket
-     * 
+     *
      * @return string Data read
      */
     private function ns_readln() {
@@ -2511,9 +2511,9 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Write line to NS socket
-     * 
+     *
      * Also increments id
-     * 
+     *
      * @param string $data Line to write to socket
      * @return mixed Bytes written or false on failure
      */
@@ -2528,7 +2528,7 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Write data to NS socket
-     * 
+     *
      * @param string $data Data to write to socket
      * @return mixed Bytes written or false on failure
      */
@@ -2542,7 +2542,7 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Read data of specified size from given SB socket
-     * 
+     *
      * @param resource $socket SB socket
      * @param integer $size Size to read
      * @return string Data read
@@ -2562,7 +2562,7 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Read line from given SB socket
-     * 
+     *
      * @param resource $socket SB Socket
      * @return string Line read
      */
@@ -2577,9 +2577,9 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Write line to given SB socket
-     * 
+     *
      * Also increments id
-     * 
+     *
      * @param resource $socket SB socket
      * @param integer $id Reference to SB id
      * @param string $data Line to write
@@ -2596,7 +2596,7 @@ X-OIM-Sequence-Num: 1
 
     /**
      * Write data to given SB socket
-     * 
+     *
      * @param resource $socket SB socket
      * @param $data Data to write to socket
      * @return mixed Bytes written or false on error
@@ -2628,11 +2628,11 @@ X-OIM-Sequence-Num: 1
         $info = stream_get_meta_data($socket);
         return $info['eof'];
     }
-    
+
     /**
      * Key generation methods
      */
-    
+
     private function derive_key($key, $magic) {
         $hash1 = mhash(MHASH_SHA1, $magic, $key);
         $hash2 = mhash(MHASH_SHA1, $hash1.$magic, $key);
@@ -2661,7 +2661,7 @@ X-OIM-Sequence-Num: 1
 
         return base64_encode($blob);
     }
-    
+
     /**
     * Generate challenge response
     *
@@ -2741,11 +2741,11 @@ X-OIM-Sequence-Num: 1
 
         return $hash;
     }
-    
+
     /**
      * Utility methods
      */
-    
+
     private function Array2SoapVar($Array, $ReturnSoapVarObj = true, $TypeName = null, $TypeNameSpace = null) {
         $ArrayString = '';
         foreach($Array as $Key => $Val) {
@@ -2773,7 +2773,7 @@ X-OIM-Sequence-Num: 1
         if ($ReturnSoapVarObj) return new SoapVar($ArrayString, XSD_ANYXML, $TypeName, $TypeNameSpace);
         return $ArrayString;
     }
-    
+
     private function linetoArray($lines) {
         $lines = str_replace("\r", '', $lines);
         $lines = explode("\n", $lines);
@@ -2784,7 +2784,7 @@ X-OIM-Sequence-Num: 1
         }
         return $Data;
     }
-    
+
     /**
     * Get Passport ticket
     *
@@ -3031,7 +3031,7 @@ X-OIM-Sequence-Num: 1
         $this->ABAuthHeader = new SoapHeader('http://www.msn.com/webservices/AddressBook', 'ABAuthHeader', $this->Array2SoapVar($ABAuthHeaderArray));
         return $aTickets;
     }
-    
+
     /**
     * Generate the data to send a message
     *
@@ -3050,7 +3050,7 @@ X-OIM-Sequence-Num: 1
         $msg = substr($sMessage, 0, $maxlen);
         return $msg_header.$msg;
     }
-    
+
     /**
     * Sleep for the given number of seconds
     *
@@ -3060,7 +3060,7 @@ X-OIM-Sequence-Num: 1
         $this->debug_message("*** Sleeping for $wait seconds before retrying");
         sleep($wait);
     }
-    
+
     /**
      * Sends a ping command
      *
@@ -3072,7 +3072,7 @@ X-OIM-Sequence-Num: 1
         // NS: >>> PNG
         $this->ns_writeln("PNG");
     }
-    
+
     /**
     * Methods to add / call callbacks
     */
@@ -3117,24 +3117,24 @@ X-OIM-Sequence-Num: 1
             return false;
         }
     }
-    
+
     /**
      * Debugging methods
      */
-    
+
     /**
      * Print message if debugging is enabled
-     * 
+     *
      * @param string $str Message to print
      */
     private function debug_message($str) {
         if (!$this->debug) return;
         echo $str."\n";
     }
-    
+
     /**
      * Dump binary data
-     * 
+     *
      * @param string $str Data string
      * @return Binary data
      */
