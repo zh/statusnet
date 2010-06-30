@@ -271,7 +271,7 @@ class MSN {
                         // NS: >>> OUT
                         $this->ns_writeln("OUT");
                         @fclose($this->NSfp);
-                        $this->error = 'Passport authenticated fail!';
+                        $this->error = 'Passport authentication failed!';
                         return false;
                     }
 
@@ -358,7 +358,10 @@ class MSN {
             }
 
             // Update contacts
-            if ($this->UpdateContacts() === false) continue;
+            if ($this->UpdateContacts() === false) {
+                $this->signonFailure('');
+                continue;
+            }
 
             // Get membership lists
             if (($this->aContactList = $this->getMembershipList()) === false) {
@@ -480,7 +483,9 @@ class MSN {
     * @return void
     */
     private function signonFailure($message) {
-        $this->debug_message($message);
+    	if(!empty($message)) {
+            $this->debug_message($message);
+    	}
         $this->callHandler('ConnectFailed');
         $this->NSRetryWait($this->retry_wait);
     }
