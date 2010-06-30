@@ -222,7 +222,11 @@ class Phergie_Plugin_Google extends Phergie_Plugin_Abstract
      * @pluginCmd [location] Get the location from Google Maps to the location specified
      */
     public function onCommandGmap($location)
-    {
+    {	
+        $event = $this->getEvent();
+        $source = $event->getSource();
+        $nick = $event->getNick();
+	
         $location = utf8_encode($location);
         $url = 'http://maps.google.com/maps/geo';
         $params = array(
@@ -232,20 +236,17 @@ class Phergie_Plugin_Google extends Phergie_Plugin_Abstract
             'sensor' => 'false',
             'oe' => 'utf8',
             'mrt' => 'all',
-            'key' => $this->_config['google.key']
+            'key' => $this->getConfig('google.key')
         );
         $response = $this->http->get($url, $params); 
-        $json = (array) $response->getContent();
-        $event = $this->getEvent();
-        $source = $event->getSource();
-        $nick = $event->getNick();
+        $json =  $response->getContent();
         if (!empty($json)) {
-            $qtd = count($json['Placemark']);
+            $qtd = count($json->Placemark);
             if ($qtd > 1) {
                 if ($qtd <= 3) {
-                    foreach ($json['Placemark'] as $places) {
-                        $xy = $places['Point']['coordinates'];
-                        $address = utf8_decode($places['address']);
+                    foreach ($json->Placemark as $places) {
+                        $xy = $places->Point->coordinates;
+                        $address = utf8_decode($places->address);
                         $url = 'http://maps.google.com/maps?sll=' . $xy[1] . ',' 
                             . $xy[0] . '&z=15';
                         $msg = $nick . ' -> ' . $address . ' - ' . $url;
@@ -259,8 +260,8 @@ class Phergie_Plugin_Google extends Phergie_Plugin_Abstract
                     $this->doPrivmsg($source, $msg);
                 }
             } elseif ($qtd == 1) {
-                $xy = $json['Placemark'][0]['Point']['coordinates'];
-                $address = utf8_decode($json['Placemark'][0]['address']);
+                $xy = $json->Placemark[0]->Point->coordinates;
+                $address = utf8_decode($json->Placemark[0]->address);
                 $url = 'http://maps.google.com/maps?sll=' . $xy[1] . ',' . $xy[0] 
                     . '&z=15';
                 $msg = $nick . ' -> ' . $address . ' - ' . $url;
@@ -322,54 +323,44 @@ class Phergie_Plugin_Google extends Phergie_Plugin_Abstract
     /**
      * Performs a Google search to convert a value from one unit to another.
      *
-     * @param string $unit  Source metric 
-     * @param string $to    Value to be converted
-     * @param string $unit2 Destination metric 
+     * @param string $query Query of the form "[quantity] [unit] to [unit2]"
      *
      * @return void
      *
-     * @pluginCmd [unit] [to] [unit2] Convert a value from one metric to another
+     * @pluginCmd [quantity] [unit] to [unit2] Convert a value from one 
+     *            metric to another
      */
-    public function onCommandConvert($unit, $to, $unit2)
+    public function onCommandConvert($query)
     {
-        $url = 'http://www.google.com/search?q=' 
-            . urlencode($unit . ' ' . $to . ' ' . $unit2);
+        $url = 'http://www.google.com/search?q=' . urlencode($query);
         $response = $this->http->get($url);
         $contents = $response->getContent();
         $event = $this->getEvent();
         $source = $event->getSource();
         $nick = $event->getNick();
 
-        if (empty($contents)) {
-            $this->doPrivmsg(
-                $target,
-                $nick . ', sorry, I can\'t give you an answer right now.'
-            );
+        if ($response->isError()) {
+            $code = $response->getCode();
+            $message = $response->getMessage();
+            $this->doNotice($nick, 'ERROR: ' . $code . ' ' . $message);
             return;
         }
 
-        $doc = new DomDocument;
-        $doc->loadHTML($contents);
-        foreach ($doc->getElementsByTagName('h2') as $element) {
-            if ($element->getAttribute('class') == 'r') {
-                $children = $element->childNodes;
-                $text = str_replace(
-                    array(chr(195), chr(151), chr(160)),
-                    array('x', '', ' '),
-                    $children->item(0)->nodeValue
-                );
-                if ($children->length >= 3) {
-                    $text
-                        .= '^' . $children->item(1)->nodeValue 
-                        . $children->item(2)->nodeValue;
-                }
-            }
+        $start = strpos($contents, '<h3 class=r>');
+        if ($start !== false) {
+            $end = strpos($contents, '</b>', $start);
+            $text = strip_tags(substr($contents, $start, $end - $start));
+            $text = str_replace(
+                array(chr(195), chr(151), chr(160)),
+                array('x', '', ' '),
+                $text
+            );
         }
 
         if (isset($text)) {
             $this->doPrivmsg($source, $nick . ': ' . $text);
         } else {
-            $this->doPrivmsg($target, $nick . ', sorry I can\'t do that.');
+            $this->doNotice($nick, 'Sorry I couldn\'t find an answer.');
         }
     }
 }

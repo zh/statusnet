@@ -1,6 +1,6 @@
 <?php
 /**
- * Phergie 
+ * Phergie
  *
  * PHP version 5
  *
@@ -11,7 +11,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://phergie.org/license
  *
- * @category  Phergie 
+ * @category  Phergie
  * @package   Phergie_Plugin_Url
  * @author    Phergie Development Team <team@phergie.org>
  * @copyright 2008-2010 Phergie Development Team (http://phergie.org)
@@ -23,30 +23,31 @@
  * Monitors incoming messages for instances of URLs and responds with messages
  * containing relevant information about detected URLs.
  *
- * Has an utility method accessible via 
+ * Has an utility method accessible via
  * $this->getPlugin('Url')->getTitle('http://foo..').
  *
- * @category Phergie 
+ * @category Phergie
  * @package  Phergie_Plugin_Url
  * @author   Phergie Development Team <team@phergie.org>
  * @license  http://phergie.org/license New BSD License
  * @link     http://pear.phergie.org/package/Phergie_Plugin_Url
+ * @uses     Phergie_Plugin_Http pear.phergie.org
  */
 class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
 {
     /**
      * Links output format
      *
-     * Can use the variables %nick%, %title% and %link% in it to display 
+     * Can use the variables %nick%, %title% and %link% in it to display
      * page titles and links
      *
      * @var string
      */
-    protected $baseFormat = '%nick%: %message%';
+    protected $baseFormat = '%message%';
     protected $messageFormat = '[ %link% ] %title%';
 
     /**
-     * Flag indicating whether a single response should be sent for a single 
+     * Flag indicating whether a single response should be sent for a single
      * message containing multiple links
      *
      * @var bool
@@ -61,7 +62,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $titleLength = 40;
 
     /**
-     * Url cache to prevent spamming, especially with multiple bots on the 
+     * Url cache to prevent spamming, especially with multiple bots on the
      * same channel
      *
      * @var array
@@ -88,16 +89,16 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $limit = 10;
 
     /**
-     * Flag that determines if the plugin will fall back to using an HTTP 
-     * stream when a URL using SSL is detected and OpenSSL support isn't 
-     * available in the PHP installation in use 
+     * Flag that determines if the plugin will fall back to using an HTTP
+     * stream when a URL using SSL is detected and OpenSSL support isn't
+     * available in the PHP installation in use
      *
      * @var bool
      */
     protected $sslFallback = true;
 
     /**
-     * Flag that is set to true by the custom error handler if an HTTP error 
+     * Flag that is set to true by the custom error handler if an HTTP error
      * code has been received
      *
      * @var boolean
@@ -106,7 +107,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $errorMessage = null;
 
     /**
-     * Flag indicating whether or not to display error messages as the title 
+     * Flag indicating whether or not to display error messages as the title
      * if a link posted encounters an error
      *
      * @var boolean
@@ -121,7 +122,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $detectSchemeless = false;
 
     /**
-     * List of error messages to return when the requested URL returns an 
+     * List of error messages to return when the requested URL returns an
      * HTTP error
      *
      * @var array
@@ -184,7 +185,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
         // make the shortener configurable
         $shortener = $this->getConfig('url.shortener', 'Trim');
         $shortener = "Phergie_Plugin_Url_Shorten_{$shortener}";
-        $this->shortener = new $shortener;
+        $this->shortener = new $shortener($this->plugins->getPlugin('Http'));
 
         if (!$this->shortener instanceof Phergie_Plugin_Url_Shorten_Abstract) {
             $this->fail("Declared shortener class {$shortener} is not of proper ancestry");
@@ -192,17 +193,9 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
 
         // Get a list of valid TLDs
         if (!is_array($this->tldList) || count($this->tldList) <= 6) {
-            /* Omitted for port
-            if ($this->pluginLoaded('Tld')) {
-                $this->tldList = Phergie_Plugin_Tld::getTlds();
-                if (is_array($this->tldList)) {
-                    $this->tldList = array_keys($this->tldList);
-                }
-            }
-            */
-            if (!is_array($this->tldList) || count($this->tldList) <= 0) {
-                $this->tldList = array('ac', 'ad', 'ae', 'aero', 'af', 'ag', 'ai', 'al', 'am', 'an', 'ao', 'aq', 'ar', 'arpa', 'as', 'asia', 'at', 'au', 'aw', 'ax', 'az', 'ba', 'bb', 'bd', 'be', 'bf', 'bg', 'bh', 'bi', 'biz', 'bj', 'bl', 'bm', 'bn', 'bo', 'br', 'bs', 'bt', 'bv', 'bw', 'by', 'bz', 'ca', 'cat', 'cc', 'cd', 'cf', 'cg', 'ch', 'ci', 'ck', 'cl', 'cm', 'cn', 'co', 'com', 'coop', 'cr', 'cu', 'cv', 'cx', 'cy', 'cz', 'de', 'dj', 'dk', 'dm', 'do', 'dz', 'ec', 'edu', 'ee', 'eg', 'eh', 'er', 'es', 'et', 'eu', 'fi', 'fj', 'fk', 'fm', 'fo', 'fr', 'ga', 'gb', 'gd', 'ge', 'gf', 'gg', 'gh', 'gi', 'gl', 'gm', 'gn', 'gov', 'gp', 'gq', 'gr', 'gs', 'gt', 'gu', 'gw', 'gy', 'hk', 'hm', 'hn', 'hr', 'ht', 'hu', 'id', 'ie', 'il', 'im', 'in', 'info', 'int', 'io', 'iq', 'ir', 'is', 'it', 'je', 'jm', 'jo', 'jobs', 'jp', 'ke', 'kg', 'kh', 'ki', 'km', 'kn', 'kp', 'kr', 'kw', 'ky', 'kz', 'la', 'lb', 'lc', 'li', 'lk', 'lr', 'ls', 'lt', 'lu', 'lv', 'ly', 'ma', 'mc', 'md', 'me', 'mf', 'mg', 'mh', 'mil', 'mk', 'ml', 'mm', 'mn', 'mo', 'mobi', 'mp', 'mq', 'mr', 'ms', 'mt', 'mu', 'museum', 'mv', 'mw', 'mx', 'my', 'mz', 'na', 'name', 'nc', 'ne', 'net', 'nf', 'ng', 'ni', 'nl', 'no', 'np', 'nr', 'nu', 'nz', 'om', 'org', 'pa', 'pe', 'pf', 'pg', 'ph', 'pk', 'pl', 'pm', 'pn', 'pr', 'pro', 'ps', 'pt', 'pw', 'py', 'qa', 're', 'ro', 'rs', 'ru', 'rw', 'sa', 'sb', 'sc', 'sd', 'se', 'sg', 'sh', 'si', 'sj', 'sk', 'sl', 'sm', 'sn', 'so', 'sr', 'st', 'su', 'sv', 'sy', 'sz', 'tc', 'td', 'tel', 'tf', 'tg', 'th', 'tj', 'tk', 'tl', 'tm', 'tn', 'to', 'tp', 'tr', 'travel', 'tt', 'tv', 'tw', 'tz', 'ua', 'ug', 'uk', 'um', 'us', 'uy', 'uz', 'va', 'vc', 've', 'vg', 'vi', 'vn', 'vu', 'wf', 'ws', 'ye', 'yt', 'yu', 'za', 'zm', 'zw');
-            }
+            $tldPath = dirname(__FILE__) . '/Url/url.tld.txt';
+            $this->tldList = explode("\n", file_get_contents($tldPath));
+            $this->debug('Loaded ' . count($this->tldList) . ' tlds');
             rsort($this->tldList);
         }
 
@@ -215,6 +208,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
                 'merge_links' => 'mergeLinks',
                 'title_length' => 'titleLength',
                 'show_errors' => 'showErrors',
+                'expire' => 'expire',
             ) as $config => $local) {
             if (isset($this->config["url.{$config}"])) {
                 $this->$local = $this->config["uri.{$config}"];
@@ -227,7 +221,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
      * found, responds with its title if it is an HTML document and the
      * shortened equivalent of its original URL if it meets length requirements.
      *
-     * @todo Update this to pull configuration settings from $this->config 
+     * @todo Update this to pull configuration settings from $this->config
      *       rather than caching them as class properties
      * @return void
      */
@@ -306,6 +300,10 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
 
                 // Convert url
                 $shortenedUrl = $this->shortener->shorten($url);
+                if (!$shortenedUrl) {
+                    $this->debug('Invalid Url: Unable to shorten. (' . $url . ')');
+                    continue;
+                }
 
                 // Prevent spamfest
                 if ($this->checkUrlCache($url, $shortenedUrl)) {
@@ -624,73 +622,29 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
      */
     public function getTitle($url)
     {
-        $opts = array(
-            'http' => array(
-                'timeout' => 3.5,
-                'method' => 'GET',
-                'user_agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.12) Gecko/20080201 Firefox/2.0.0.12'
-            )
+        $http = $this->plugins->getPlugin('Http');
+        $options = array(
+            'timeout' => 3.5,
+            'user_agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.12) Gecko/20080201 Firefox/2.0.0.12'
         );
-        $context = stream_context_create($opts);
 
-        if ($page = fopen($url, 'r', false, $context)) {
-            stream_set_timeout($page, 3.5);
-            $data = stream_get_meta_data($page);
-            foreach ($data['wrapper_data'] as $header) {
-                if (preg_match('/^Content-Type: ([^;]+)/', $header, $match)
-                    && !preg_match('#^(text/x?html|application/xhtml+xml)$#', $match[1])
-                ) {
-                    $title = $match[1];
-                }
-            }
-            if (!isset($title)) {
-                $content = '';
-                $tstamp = time() + 5;
+        $response = $http->get($url, array(), $options);
 
-                while ($chunk = fread($page, 64)) {
-                    $data = stream_get_meta_data($page);
-                    if ($data['timed_out']) {
-                        $this->debug('Url Timed Out: ' . $url);
-                        $this->errorStatus = true;
-                        break;
-                    }
-                    $content .= $chunk;
-                    // Check for timeout
-                    if (time() > $tstamp) break;
-                    // Try to read title
-                    if (preg_match('#<title[^>]*>(.*)#is', $content, $m)) {
-                        // Start another loop to grab some more data in order to be sure we have the complete title
-                        $content = $m[1];
-                        $loop = 2;
-                        while (($chunk = fread($page, 64)) && $loop-- && !strstr($content, '<')) {
-                            $content .= $chunk;
-                            // Check for timeout
-                            if (time() > $tstamp) break;
-                        }
-                        preg_match('#^([^<]*)#is', $content, $m);
-                        $title = preg_replace('#\s+#', ' ', $m[1]);
-                        $title = trim($this->decode($title, $this->titleLength));
-                        break;
-                    }
-                    // Title won't appear beyond that point so stop parsing
-                    if (preg_match('#</head>|<body#i', $content)) {
-                        break;
-                    }
-                }
+        $header = $response->getHeaders('Content-Type');
+        if (!preg_match('#^(text/x?html|application/xhtml+xml)(?:;.*)?$#', $header)) {
+            $title = $header;
+        }
+
+        $content = $response->getContent();
+        if (empty($title)) {
+            if (preg_match('#<title[^>]*>(.*?)</title>#is', $content, $match)) {
+                $title = html_entity_decode(trim($match[1]));
             }
-            fclose($page);
-        } else if (!$this->errorStatus) {
-            $this->debug('Couldn\t Open Url: ' . $url);
         }
 
         if (empty($title)) {
-            if ($this->errorStatus) {
-                if (!$this->showErrors || empty($this->errorMessage)) {
-                    return;
-                }
-                $title = $this->errorMessage;
-                $this->errorStatus = false;
-                $this->errorMessage = null;
+            if ($response->isError()) {
+                $title = $response->getCodeAsString();
             } else {
                 $title = 'No Title';
             }

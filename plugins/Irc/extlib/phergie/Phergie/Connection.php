@@ -1,6 +1,6 @@
 <?php
 /**
- * Phergie 
+ * Phergie
  *
  * PHP version 5
  *
@@ -11,7 +11,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://phergie.org/license
  *
- * @category  Phergie 
+ * @category  Phergie
  * @package   Phergie
  * @author    Phergie Development Team <team@phergie.org>
  * @copyright 2008-2010 Phergie Development Team (http://phergie.org)
@@ -22,7 +22,7 @@
 /**
  * Data structure for connection metadata.
  *
- * @category Phergie 
+ * @category Phergie
  * @package  Phergie
  * @author   Phergie Development Team <team@phergie.org>
  * @license  http://phergie.org/license New BSD License
@@ -38,7 +38,7 @@ class Phergie_Connection
     protected $host;
 
     /**
-     * Port on which the client will connect, defaults to the standard IRC 
+     * Port on which the client will connect, defaults to the standard IRC
      * port
      *
      * @var int
@@ -46,12 +46,20 @@ class Phergie_Connection
     protected $port;
 
     /**
-     * Transport for the connection, defaults to tcp but can be set to ssl 
+     * Transport for the connection, defaults to tcp but can be set to ssl
      * or variations thereof to connect over SSL
      *
-     * @var string 
+     * @var string
      */
     protected $transport;
+
+    /**
+     * Encoding method for the connection, defaults to ISO-8859-1 but can
+     * be set to UTF8 if necessary
+     *
+     * @var strng
+     */
+    protected $encoding;
 
     /**
      * Nick that the client will use
@@ -91,7 +99,7 @@ class Phergie_Connection
     /**
      * Constructor to initialize instance properties.
      *
-     * @param array $options Optional associative array of property values 
+     * @param array $options Optional associative array of property values
      *        to initialize
      *
      * @return void
@@ -99,6 +107,9 @@ class Phergie_Connection
     public function __construct(array $options = array())
     {
         $this->transport = 'tcp';
+        $this->encoding = 'ISO-8859-1';
+        // @note this may need changed to something different, for broader support.
+        // @note also may need to make use of http://us.php.net/manual/en/function.stream-encoding.php
 
         $this->setOptions($options);
     }
@@ -120,7 +131,7 @@ class Phergie_Connection
             );
         }
     }
- 
+
     /**
      * Returns a hostmask that uniquely identifies the connection.
      *
@@ -136,7 +147,7 @@ class Phergie_Connection
             );
         }
 
-        return $this->hostmask; 
+        return $this->hostmask;
     }
 
     /**
@@ -144,7 +155,7 @@ class Phergie_Connection
      *
      * @param string $host Hostname
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setHost($host)
     {
@@ -154,9 +165,9 @@ class Phergie_Connection
 
         return $this;
     }
-   
+
     /**
-     * Returns the host to which the client will connect if it is set or 
+     * Returns the host to which the client will connect if it is set or
      * emits an error if it is not set.
      *
      * @return string
@@ -173,7 +184,7 @@ class Phergie_Connection
      *
      * @param int $port Port
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setPort($port)
     {
@@ -199,9 +210,9 @@ class Phergie_Connection
     }
 
     /**
-     * Sets the transport for the connection to use. 
+     * Sets the transport for the connection to use.
      *
-     * @param string $transport Transport (ex: tcp, ssl, etc.) 
+     * @param string $transport Transport (ex: tcp, ssl, etc.)
      *
      * @return Phergie_Connection Provides a fluent interface
      */
@@ -220,9 +231,9 @@ class Phergie_Connection
     }
 
     /**
-     * Returns the transport in use by the connection. 
+     * Returns the transport in use by the connection.
      *
-     * @return string Transport (ex: tcp, ssl, etc.) 
+     * @return string Transport (ex: tcp, ssl, etc.)
      */
     public function getTransport()
     {
@@ -230,11 +241,42 @@ class Phergie_Connection
     }
 
     /**
+     * Sets the encoding for the connection to use.
+     *
+     * @param string $encoding Encoding to use (ex: ASCII, ISO-8859-1, UTF8, etc.)
+     *
+     * @return Phergie_Connection Provides a fluent interface
+     */
+    public function setEncoding($encoding)
+    {
+        $this->encoding = (string) $encoding;
+
+        if (!in_array($this->encoding, mb_list_encodings())) {
+            throw new Phergie_Connection_Exception(
+                'Encoding ' . $this->encoding . ' is not supported',
+                Phergie_Connection_Exception::ENCODING_NOT_SUPPORTED
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Returns the encoding in use by the connection.
+     *
+     * @return string Encoding (ex: ASCII, ISO-8859-1, UTF8, etc.)
+     */
+    public function getEncoding()
+    {
+        return $this->encoding;
+    }
+
+    /**
      * Sets the nick that the client will use.
      *
      * @param string $nick Nickname
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setNick($nick)
     {
@@ -262,7 +304,7 @@ class Phergie_Connection
      *
      * @param string $username Username
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setUsername($username)
     {
@@ -290,7 +332,7 @@ class Phergie_Connection
      *
      * @param string $realname Real name
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setRealname($realname)
     {
@@ -318,7 +360,7 @@ class Phergie_Connection
      *
      * @param string $password Password
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setPassword($password)
     {
@@ -342,10 +384,10 @@ class Phergie_Connection
     /**
      * Sets multiple connection settings using an array.
      *
-     * @param array $options Associative array of setting names mapped to 
+     * @param array $options Associative array of setting names mapped to
      *        corresponding values
      *
-     * @return Phergie_Connection Provides a fluent interface 
+     * @return Phergie_Connection Provides a fluent interface
      */
     public function setOptions(array $options)
     {
