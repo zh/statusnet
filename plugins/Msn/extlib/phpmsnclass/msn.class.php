@@ -262,7 +262,7 @@ class MSN {
                     $this->user = $user;
                     $this->password = $password;
                     // NS: <<< USR {id} SSO S {policy} {nonce}
-                    @list(/* USR */, /* id */, /* SSO */, /* S */, $policy, $nonce,) = @explode(' ', $data);
+                    @list(/* USR */, /* id */, /* SSO */, /* S */, $policy, $nonce) = @explode(' ', $data);
 
                     $this->passport_policy = $policy;
                     $aTickets = $this->get_passport_ticket();
@@ -291,7 +291,7 @@ class MSN {
                     // NS: <<< XFR {id} NS {server} 0 {server}
                     // MSNP15
                     // NS: <<< XFR {id} NS {server} U D
-                    @list(/* XFR */, /* id */, $Type, $server, /* ... */) = @explode(' ', $data);
+                    @list(/* XFR */, /* id */, $Type, $server) = @explode(' ', $data);
                     if ($Type!='NS') break;
                     @list($ip, $port) = @explode(':', $server);
                     // this connection will close after XFR
@@ -313,7 +313,7 @@ class MSN {
                 case 'GCF':
                     // return some policy data after 'USR {id} SSO I {user}' command
                     // NS: <<< GCF 0 {size}
-                    @list(/* GCF */, /* 0 */, $size,) = @explode(' ', $data);
+                    @list(/* GCF */, /* 0 */, $size) = @explode(' ', $data);
                     // we don't need the data, just read it and drop
                     if (is_numeric($size) && $size > 0)
                         $this->ns_readdata($size);
@@ -550,7 +550,7 @@ class MSN {
 
             case 'LST':
                 // NS: <<< LST {email} {alias} 11 0
-                @list(/* LST */, $email, /* alias */,) = @explode(' ', $data);
+                @list(/* LST */, $email) = @explode(' ', $data);
                 @list($u_name, $u_domain) = @explode('@', $email);
                 if (!isset($this->aContactList[$u_domain][$u_name][1])) {
                     $this->aContactList[$u_domain][$u_name][1]['Allow'] = 'Allow';
@@ -561,7 +561,7 @@ class MSN {
             case 'ADL':
                 // randomly, we get ADL command, someone add us to their contact list for MSNP15
                 // NS: <<< ADL 0 {size}
-                @list(/* ADL */, /* 0 */, $size,) = @explode(' ', $data);
+                @list(/* ADL */, /* 0 */, $size) = @explode(' ', $data);
                 if (is_numeric($size) && $size > 0) {
                     $data = $this->ns_readdata($size);
                     preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
@@ -613,7 +613,7 @@ class MSN {
             case 'RML':
                 // randomly, we get RML command, someome remove us to their contact list for MSNP15
                 // NS: <<< RML 0 {size}
-                @list(/* RML */, /* 0 */, $size,) = @explode(' ', $data);
+                @list(/* RML */, /* 0 */, $size) = @explode(' ', $data);
                 if (is_numeric($size) && $size > 0) {
                     $data = $this->ns_readdata($size);
                     preg_match('#<ml><d n="([^"]+)"><c n="([^"]+)"(.*) t="(\d*)"(.*) /></d></ml>#', $data, $matches);
@@ -643,7 +643,7 @@ class MSN {
             case 'MSG':
                 // randomly, we get MSG notification from server
                 // NS: <<< MSG Hotmail Hotmail {size}
-                @list(/* MSG */, /* Hotmail */, /* Hotmail */, $size,) = @explode(' ', $data);
+                @list(/* MSG */, /* Hotmail */, /* Hotmail */, $size) = @explode(' ', $data);
                 if (is_numeric($size) && $size > 0) {
                     $data = $this->ns_readdata($size);
                     $aLines = @explode("\n", $data);
@@ -788,7 +788,7 @@ class MSN {
             case 'UBM':
                 // randomly, we get UBM, this is the message from other network, like Yahoo!
                 // NS: <<< UBM {email} $network $type {size}
-                @list(/* UBM */, $from_email, $network, $type, $size,) = @explode(' ', $data);
+                @list(/* UBM */, $from_email, $network, $type, $size) = @explode(' ', $data);
                 if (is_numeric($size) && $size > 0) {
                     $data = $this->ns_readdata($size);
                     $aLines = @explode("\n", $data);
@@ -827,7 +827,7 @@ class MSN {
             case 'UBX':
                 // randomly, we get UBX notification from server
                 // NS: <<< UBX email {network} {size}
-                @list(/* UBX */, /* email */, /* network */, $size,) = @explode(' ', $data);
+                @list(/* UBX */, /* email */, /* network */, $size) = @explode(' ', $data);
                 // we don't need the notification data, so just ignore it
                 if (is_numeric($size) && $size > 0)
                     $this->ns_readdata($size);
@@ -836,7 +836,7 @@ class MSN {
             case 'CHL':
                 // randomly, we'll get challenge from server
                 // NS: <<< CHL 0 {code}
-                @list(/* CHL */, /* 0 */, $chl_code,) = @explode(' ', $data);
+                @list(/* CHL */, /* 0 */, $chl_code) = @explode(' ', $data);
                 $fingerprint = $this->getChallenge($chl_code);
                 // NS: >>> QRY {id} {product_id} 32
                 // NS: >>> fingerprint
@@ -860,7 +860,7 @@ class MSN {
                 // NS: <<< XFR {id} NS {server} U D
                 // for normal switchboard XFR
                 // NS: <<< XFR {id} SB {server} CKI {cki} U messenger.msn.com 0
-                @list(/* XFR */, /* {id} */, $server_type, $server, /* CKI */, $cki_code, /* ... */) = @explode(' ', $data);
+                @list(/* XFR */, /* {id} */, $server_type, $server, /* CKI */, $cki_code) = @explode(' ', $data);
                 @list($ip, $port) = @explode(':', $server);
                 if ($server_type != 'SB') {
                     // maybe exit?
@@ -887,7 +887,7 @@ class MSN {
                 // someone is trying to talk to us
                 // NS: <<< RNG {session_id} {server} {auth_type} {ticket} {email} {alias} U {client} 0
                 $this->debug_message("NS: <<< RNG $data");
-                @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name,) = @explode(' ', $data);
+                @list(/* RNG */, $sid, $server, /* auth_type */, $ticket, $email, $name) = @explode(' ', $data);
                 @list($sb_ip, $sb_port) = @explode(':', $server);
                 $this->debug_message("*** RING from $email, $sb_ip:$sb_port");
                 $this->addContact($email, 1, $email, true);
@@ -897,7 +897,7 @@ class MSN {
             case 'NLN':
                 // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
                 // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
-                @list(/* NLN */, $status, $email, $network, $nickname, /* clientid */, /* dbobj */,) = @explode(' ', $data);
+                @list(/* NLN */, $status, $email, $network, $nickname) = @explode(' ', $data);
                 $this->callHandler('StatusChange', array('screenname' => $email, 'status' => $status, 'network' => $network, 'nickname' => $nickname));
                 break;
             
@@ -972,7 +972,7 @@ class MSN {
                 break;
             case 'MSG':
                 // SB: <<< MSG {email} {alias} {len}
-                @list(/* MSG */, $from_email, /* alias */, $len, ) = @explode(' ', $data);
+                @list(/* MSG */, $from_email, /* alias */, $len) = @explode(' ', $data);
                 $len = trim($len);
                 $data = $this->sb_readdata($socket, $len);
                 $aLines = @explode("\n", $data);
@@ -1517,8 +1517,14 @@ class MSN {
      */
     public function sendMessage($to, $message) {
         if ($message != '') {
-            @list($name, $host, $network) = @explode('@', $to);
-            $network = $network == '' ? 1 : $network;
+        	$toParts = explode('@', $to);
+        	if(count($toParts) < 3) {
+        		list($name, $host) = $toParts;
+        		$network = 1;
+        	} else {
+        		list($name, $host, $network) = $toParts;
+        	}
+        	
             $recipient = $name.'@'.$host;
 
             if ($network === 1) {
