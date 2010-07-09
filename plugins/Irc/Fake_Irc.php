@@ -35,24 +35,6 @@ class Fake_Irc extends Phergie_Driver_Streams {
     public $would_be_sent = null;
 
     private function send($command, $args = '') {
-        // Add the command
-        $buffer = strtoupper($command);
-
-        // Add arguments
-        if (!empty($args)) {
-
-            // Apply formatting if arguments are passed in as an array
-            if (is_array($args)) {
-                $end = count($args) - 1;
-                $args[$end] = ':' . $args[$end];
-                $args = implode(' ', $args);
-            } else {
-                $args = ':' . $args;
-            }
-
-            $buffer .= ' ' . $args;
-        }
-
-        $this->would_be_sent = $buffer . "\r\n";
+        $this->would_be_sent = array($command, $args);
     }
 }
