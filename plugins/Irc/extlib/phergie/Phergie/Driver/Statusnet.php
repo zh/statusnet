@@ -15,8 +15,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Calls the given Statusnet IM architecture enqueuing method to enqueue
- * a new incoming message
+ * Extends the Streams driver (Phergie_Driver_Streams) to give external access
+ * to the socket resources and send method
  *
  * @category  Phergie
  * @package   Phergie_Driver_Statusnet
