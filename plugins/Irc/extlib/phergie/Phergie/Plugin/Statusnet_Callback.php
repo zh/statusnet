@@ -57,7 +57,7 @@ class Phergie_Plugin_Statusnet_Callback extends Phergie_Plugin_Abstract {
             $source = $event->getSource();
             $message = trim($event->getText());
 
-            call_user_func($this->callback, array('sender' => $source, 'message' => $message);
+            call_user_func($this->callback, array('sender' => $source, 'message' => $message));
         }
     }
 }
