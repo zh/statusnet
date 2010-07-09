@@ -20,7 +20,7 @@
  *
  * @category  Phergie
  * @package   Phergie_Driver_Statusnet
- * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com
+ * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
