@@ -72,8 +72,8 @@ class IrcManager extends ImManager {
             $password = isset($this->plugin->password) ? $this->plugin->password : '';
             $transport = isset($this->plugin->transport) ? $this->plugin->transport : 'tcp';
             $encoding = isset($this->plugin->encoding) ? $this->plugin->encoding : 'ISO-8859-1';
-            $channels = isset($this->plugin->channels) ? $this->plugin->channels : array();
             $nickservpassword = isset($this->plugin->nickservpassword) ? $this->plugin->nickservpassword : '';
+            $channels = isset($this->plugin->channels) ? $this->plugin->channels : array();
 
             $config = new Phergie_Extended_Config;
             $config->readArray(
@@ -92,8 +92,9 @@ class IrcManager extends ImManager {
                         )
                     ),
 
-                    'processor' => 'async',
-                    'processor.options' => array('usec' => 200000),
+                    'driver' => 'statusnet',
+
+                    'processor' => 'statusnet',
 
                     'plugins' => array(
                         'Pong',
@@ -107,7 +108,8 @@ class IrcManager extends ImManager {
                     'ui.enabled' => true,
 
                     'nickserv.password' => $nickservpassword,
-                    'autojoin.channels' => $channels
+                    'autojoin.channels' => $channels,
+                    'statusnet_callback.callback' => array($this, 'handle_irc_message')
                 )
             );
 
