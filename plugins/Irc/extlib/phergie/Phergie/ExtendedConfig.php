@@ -17,8 +17,7 @@ class Phergie_Extended_Config extends Phergie_Config {
                 Phergie_Config_Exception::ERR_ARRAY_NOT_RETURNED
             );
         }
-
-        $this->files[$file] = array_keys($settings);
+        
         $this->settings += $settings;
 
         return $this;
