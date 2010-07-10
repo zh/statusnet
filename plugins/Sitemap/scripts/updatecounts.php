@@ -26,11 +26,11 @@ Update the notice and user counts cached in the database.
 
 END_OF_UPDATECOUNTS_HELP;
 
-echo "INSTALLDIR=".INSTALLDIR."\n";
-
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 // Will fill the cache
 
 $userCounts = Sitemap_user_count::getAll();
 $noticeCounts = Sitemap_notice_count::getAll();
+
+echo "Done.\n";
