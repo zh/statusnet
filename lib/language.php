@@ -213,16 +213,16 @@ function _mdomain($backtrace)
         $plug = strpos($path, '/plugins/');
         if ($plug === false) {
             // We're not in a plugin; return default domain.
-            return 'statusnet';
+            $final = 'statusnet';
         } else {
             $cut = $plug + 9;
             $cut2 = strpos($path, '/', $cut);
             if ($cut2) {
-                $cached[$path] = substr($path, $cut, $cut2 - $cut);
+                $final = substr($path, $cut, $cut2 - $cut);
             } else {
                 // We might be running directly from the plugins dir?
                 // If so, there's no place to store locale info.
-                return 'statusnet';
+                $final = 'statusnet';
             }
         }
         $cached[$path] = $final;
