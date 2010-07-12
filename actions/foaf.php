@@ -95,7 +95,9 @@ class FoafAction extends Action
         // Would be nice to tell if they were a Person or not (e.g. a #person usertag?)
         $this->elementStart('Agent', array('rdf:about' =>
                                              $this->user->uri));
-        $this->element('mbox_sha1sum', null, sha1('mailto:' . $this->user->email));
+        if ($this->user->email) {
+            $this->element('mbox_sha1sum', null, sha1('mailto:' . $this->user->email));
+        }
         if ($this->profile->fullname) {
             $this->element('name', null, $this->profile->fullname);
         }
@@ -126,7 +128,7 @@ class FoafAction extends Action
                 $this->element('geo:lat', null, $location->lat);
             }
             if ($location->lon) {
-                $this->element('geo:long', null, $location->lat);
+                $this->element('geo:long', null, $location->lon);
             }
             if ($location->getURL()) {
                 $this->element('page', array('rdf:resource'=>$location->getURL()));
@@ -152,7 +154,9 @@ class FoafAction extends Action
         }
 
         $person = $this->showMicrobloggingAccount($this->profile,
-                                     common_root_url(), $this->user->uri, false);
+                                     common_root_url(), $this->user->uri,
+                                     /*$fetchSubscriptions*/true,
+                                     /*$isSubscriber*/false);
 
         // Get people who subscribe to user
 
@@ -162,40 +166,29 @@ class FoafAction extends Action
 
         if ($sub->find()) {
             while ($sub->fetch()) {
-                if ($sub->token) {
-                    $other = Remote_profile::staticGet('id', $sub->subscriber);
-                    $profile = Profile::staticGet('id', $sub->subscriber);
-                } else {
-                    $other = User::staticGet('id', $sub->subscriber);
-                    $profile = Profile::staticGet('id', $sub->subscriber);
-                }
-                if (!$other) {
+                $profile = Profile::staticGet('id', $sub->subscriber);
+                if (empty($profile)) {
                     common_debug('Got a bad subscription: '.print_r($sub,true));
                     continue;
                 }
-                if (array_key_exists($other->uri, $person)) {
-                    $person[$other->uri][0] = BOTH;
+                $user = $profile->getUser();
+                $other_uri = $profile->getUri();
+                if (array_key_exists($other_uri, $person)) {
+                    $person[$other_uri][0] = BOTH;
                 } else {
-                    $person[$other->uri] = array(LISTENER,
-                                                 $other->id,
-                                                 $profile->nickname,
-                                                 (empty($sub->token)) ? 'User' : 'Remote_profile');
+                    $person[$other_uri] = array(LISTENER,
+                                                $profile->id,
+                                                $profile->nickname,
+                                                $user ? 'local' : 'remote');
                 }
-                $other->free();
-                $other = null;
-                unset($other);
-                $profile->free();
-                $profile = null;
                 unset($profile);
             }
         }
 
-        $sub->free();
-        $sub = null;
         unset($sub);
 
         foreach ($person as $uri => $p) {
-            list($type, $id, $nickname, $cls) = $p;
+            list($type, $id, $nickname, $local) = $p;
             if ($type == BOTH) {
                 $this->element('knows', array('rdf:resource' => $uri));
             }
@@ -206,8 +199,8 @@ class FoafAction extends Action
 
         foreach ($person as $uri => $p) {
             $foaf_url = null;
-            list($type, $id, $nickname, $cls) = $p;
-            if ($cls == 'User') {
+            list($type, $id, $nickname, $local) = $p;
+            if ($local == 'local') {
                 $foaf_url = common_local_url('foaf', array('nickname' => $nickname));
             }
             $profile = Profile::staticGet($id);
@@ -216,9 +209,10 @@ class FoafAction extends Action
                 $this->element('knows', array('rdf:resource' => $this->user->uri));
             }
             $this->showMicrobloggingAccount($profile,
-                                   ($cls == 'User') ? common_root_url() : null,
+                                   ($local == 'local') ? common_root_url() : null,
                                    $uri,
-                                   true);
+                                   /*$fetchSubscriptions*/false,
+                                   /*$isSubscriber*/($type == LISTENER || $type == BOTH));
             if ($foaf_url) {
                 $this->element('rdfs:seeAlso', array('rdf:resource' => $foaf_url));
             }
@@ -243,7 +237,21 @@ class FoafAction extends Action
         $this->elementEnd('PersonalProfileDocument');
     }
 
-    function showMicrobloggingAccount($profile, $service=null, $useruri=null, $isSubscriber=false)
+    /**
+     * Output FOAF <account> bit for the given profile.
+     * 
+     * @param Profile $profile
+     * @param mixed $service Root URL of this StatusNet instance for a local
+     *                       user, otherwise null.
+     * @param mixed $useruri URI string for the referenced profile..
+     * @param boolean $fetchSubscriptions Should we load and list all their subscriptions?
+     * @param boolean $isSubscriber if not fetching subs, we can still mark the user as following the current page.
+     * 
+     * @return array if $fetchSubscribers is set, return a list of info on those
+     *               subscriptions.
+     */
+
+    function showMicrobloggingAccount($profile, $service=null, $useruri=null, $fetchSubscriptions=false, $isSubscriber=false)
     {
         $attr = array();
         if ($useruri) {
@@ -251,7 +259,7 @@ class FoafAction extends Action
         }
 
         // Their account
-        $this->elementStart('holdsAccount');
+        $this->elementStart('account');
         $this->elementStart('OnlineAccount', $attr);
         if ($service) {
             $this->element('accountServiceHomepage', array('rdf:resource' =>
@@ -265,9 +273,7 @@ class FoafAction extends Action
 
         $person = array();
 
-        if ($isSubscriber) {
-             $this->element('sioc:follows', array('rdf:resource'=>$this->user->uri . '#acct'));
-        } else {
+        if ($fetchSubscriptions) {
             // Get people user is subscribed to
             $sub = new Subscription();
             $sub->subscriber = $profile->id;
@@ -275,38 +281,30 @@ class FoafAction extends Action
 
             if ($sub->find()) {
                 while ($sub->fetch()) {
-                    if (!empty($sub->token)) {
-                        $other = Remote_profile::staticGet('id', $sub->subscribed);
-                        $profile = Profile::staticGet('id', $sub->subscribed);
-                    } else {
-                        $other = User::staticGet('id', $sub->subscribed);
-                        $profile = Profile::staticGet('id', $sub->subscribed);
-                    }
-                    if (empty($other)) {
+                    $profile = Profile::staticGet('id', $sub->subscribed);
+                    if (empty($profile)) {
                         common_debug('Got a bad subscription: '.print_r($sub,true));
                         continue;
                     }
-                    $this->element('sioc:follows', array('rdf:resource' => $other->uri.'#acct'));
-                    $person[$other->uri] = array(LISTENEE,
-                                                 $other->id,
-                                                 $profile->nickname,
-                                                 (empty($sub->token)) ? 'User' : 'Remote_profile');
-                    $other->free();
-                    $other = null;
-                    unset($other);
-                    $profile->free();
-                    $profile = null;
+                    $user = $profile->getUser();
+                    $other_uri = $profile->getUri();
+                    $this->element('sioc:follows', array('rdf:resource' => $other_uri.'#acct'));
+                    $person[$other_uri] = array(LISTENEE,
+                                                $profile->id,
+                                                $profile->nickname,
+                                                $user ? 'local' : 'remote');
                     unset($profile);
                 }
             }
 
-            $sub->free();
-            $sub = null;
             unset($sub);
+        } else if ($isSubscriber) {
+            // Just declare that they follow the user whose FOAF we're showing.
+            $this->element('sioc:follows', array('rdf:resource' => $this->user->uri . '#acct'));
         }
 
         $this->elementEnd('OnlineAccount');
-        $this->elementEnd('holdsAccount');
+        $this->elementEnd('account');
 
         return $person;
     }

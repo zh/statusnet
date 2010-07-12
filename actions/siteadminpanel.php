@@ -66,7 +66,7 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('Basic settings for this StatusNet site.');
+        return _('Basic settings for this StatusNet site');
     }
 
     /**
@@ -90,10 +90,11 @@ class SiteadminpanelAction extends AdminPanelAction
 
     function saveSettings()
     {
-        static $settings = array('site' => array('name', 'broughtby', 'broughtbyurl',
-                                                 'email', 'timezone', 'language',
-                                                 'site', 'textlimit', 'dupelimit'),
-                                 'snapshot' => array('run', 'reporturl', 'frequency'));
+        static $settings = array(
+            'site' => array('name', 'broughtby', 'broughtbyurl',
+            'email', 'timezone', 'language',
+            'site', 'textlimit', 'dupelimit'),
+        );
 
         $values = array();
 
@@ -129,7 +130,7 @@ class SiteadminpanelAction extends AdminPanelAction
         // Validate site name
 
         if (empty($values['site']['name'])) {
-            $this->clientError(_("Site name must have non-zero length."));
+            $this->clientError(_('Site name must have non-zero length.'));
         }
 
         // Validate email
@@ -158,35 +159,16 @@ class SiteadminpanelAction extends AdminPanelAction
             $this->clientError(sprintf(_('Unknown language "%s".'), $values['site']['language']));
         }
 
-        // Validate report URL
-
-        if (!is_null($values['snapshot']['reporturl']) &&
-            !Validate::uri($values['snapshot']['reporturl'], array('allowed_schemes' => array('http', 'https')))) {
-            $this->clientError(_("Invalid snapshot report URL."));
-        }
-
-        // Validate snapshot run value
-
-        if (!in_array($values['snapshot']['run'], array('web', 'cron', 'never'))) {
-            $this->clientError(_("Invalid snapshot run value."));
-        }
-
-        // Validate snapshot run value
-
-        if (!Validate::number($values['snapshot']['frequency'])) {
-            $this->clientError(_("Snapshot frequency must be a number."));
-        }
-
         // Validate text limit
 
-        if (!Validate::number($values['site']['textlimit'], array('min' => 140))) {
-            $this->clientError(_("Minimum text limit is 140 characters."));
+        if (!Validate::number($values['site']['textlimit'], array('min' => 0))) {
+            $this->clientError(_("Minimum text limit is 0 (unlimited)."));
         }
 
         // Validate dupe limit
 
         if (!Validate::number($values['site']['dupelimit'], array('min' => 1))) {
-            $this->clientError(_("Dupe limit must 1 or more seconds."));
+            $this->clientError(_("Dupe limit must be one or more seconds."));
         }
 
     }
@@ -277,37 +259,11 @@ class SiteAdminPanelForm extends AdminForm
         $this->unli();
 
         $this->li();
-        $this->out->dropdown('language', _('Language'),
-                             get_nice_language_list(), _('Default site language'),
+        $this->out->dropdown('language', _('Default language'),
+                             get_nice_language_list(), _('Site language when autodetection from browser settings is not available'),
                              false, $this->value('language'));
         $this->unli();
 
-        $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart('fieldset', array('id' => 'settings_admin_snapshots'));
-        $this->out->element('legend', null, _('Snapshots'));
-        $this->out->elementStart('ul', 'form_data');
-        $this->li();
-        $snapshot = array('web' => _('Randomly during Web hit'),
-                          'cron' => _('In a scheduled job'),
-                          'never' => _('Never'));
-        $this->out->dropdown('run', _('Data snapshots'),
-                             $snapshot, _('When to send statistical data to status.net servers'),
-                             false, $this->value('run', 'snapshot'));
-        $this->unli();
-
-        $this->li();
-        $this->input('frequency', _('Frequency'),
-                     _('Snapshots will be sent once every N web hits'),
-                     'snapshot');
-        $this->unli();
-
-        $this->li();
-        $this->input('reporturl', _('Report URL'),
-                     _('Snapshots will be sent to this URL'),
-                     'snapshot');
-        $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 

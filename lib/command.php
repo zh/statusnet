@@ -1,7 +1,7 @@
 <?php
 /*
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008, 2009, 2010 StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -31,15 +31,151 @@ class Command
         $this->user = $user;
     }
 
-    function execute($channel)
+    /**
+     * Execute the command and send success or error results
+     * back via the given communications channel.
+     *
+     * @param Channel
+     */
+    public function execute($channel)
+    {
+        try {
+            $this->handle($channel);
+        } catch (CommandException $e) {
+            $channel->error($this->user, $e->getMessage());
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "Error handling " . get_class($this) . ": " . $e->getMessage());
+            $channel->error($this->user, $e->getMessage());
+        }
+    }
+
+    
+    /**
+     * Override this with the meat!
+     *
+     * An error to send back to the user may be sent by throwing
+     * a CommandException with a formatted message.
+     *
+     * @param Channel
+     * @throws CommandException
+     */
+    function handle($channel)
     {
         return false;
     }
+
+    /**
+     * Look up a notice from an argument, by poster's name to get last post
+     * or notice_id prefixed with #.
+     *
+     * @return Notice
+     * @throws CommandException
+     */
+    function getNotice($arg)
+    {
+        $notice = null;
+        if (Event::handle('StartCommandGetNotice', array($this, $arg, &$notice))) {
+            if(substr($this->other,0,1)=='#'){
+                // A specific notice_id #123
+
+                $notice = Notice::staticGet(substr($arg,1));
+                if (!$notice) {
+                    throw new CommandException(_('Notice with that id does not exist'));
+                }
+            }
+            
+            if (Validate::uri($this->other)) {
+                // A specific notice by URI lookup
+                $notice = Notice::staticGet('uri', $arg);
+            }
+            
+            if (!$notice) {
+                // Local or remote profile name to get their last notice.
+                // May throw an exception and report 'no such user'
+                $recipient = $this->getProfile($arg);
+
+                $notice = $recipient->getCurrentNotice();
+                if (!$notice) {
+                    throw new CommandException(_('User has no last notice'));
+                }
+            }
+        }
+        Event::handle('EndCommandGetNotice', array($this, $arg, &$notice));
+        if (!$notice) {
+            throw new CommandException(_('Notice with that id does not exist'));
+        }
+        return $notice;
+    }
+
+    /**
+     * Look up a local or remote profile by nickname.
+     *
+     * @return Profile
+     * @throws CommandException
+     */
+    function getProfile($arg)
+    {
+        $profile = null;
+        if (Event::handle('StartCommandGetProfile', array($this, $arg, &$profile))) {
+            $profile =
+              common_relative_profile($this->user, common_canonical_nickname($arg));
+        }
+        Event::handle('EndCommandGetProfile', array($this, $arg, &$profile));
+        if (!$profile) {
+            // TRANS: Message given requesting a profile for a non-existing user.
+            // TRANS: %s is the nickname of the user for which the profile could not be found.
+            throw new CommandException(sprintf(_('Could not find a user with nickname %s'), $arg));
+        }
+        return $profile;
+    }
+
+    /**
+     * Get a local user by name
+     * @return User
+     * @throws CommandException
+     */
+    function getUser($arg)
+    {
+        $user = null;
+        if (Event::handle('StartCommandGetUser', array($this, $arg, &$user))) {
+            $user = User::staticGet('nickname', $arg);
+        }
+        Event::handle('EndCommandGetUser', array($this, $arg, &$user));
+        if (!$user){
+            // TRANS: Message given getting a non-existing user.
+            // TRANS: %s is the nickname of the user that could not be found.
+            throw new CommandException(sprintf(_('Could not find a local user with nickname %s'),
+                               $arg));
+        }
+        return $user;
+    }
+
+    /**
+     * Get a local or remote group by name.
+     * @return User_group
+     * @throws CommandException
+     */
+    function getGroup($arg)
+    {
+        $group = null;
+        if (Event::handle('StartCommandGetGroup', array($this, $arg, &$group))) {
+            $group = User_group::getForNickname($arg, $this->user->getProfile());
+        }
+        Event::handle('EndCommandGetGroup', array($this, $arg, &$group));
+        if (!$group) {
+            throw new CommandException(_('No such group.'));
+        }
+        return $group;
+    }
+}
+
+class CommandException extends Exception
+{
 }
 
 class UnimplementedCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $channel->error($this->user, _("Sorry, this command is not yet implemented."));
     }
@@ -81,24 +217,22 @@ class NudgeCommand extends Command
         parent::__construct($user);
         $this->other = $other;
     }
-    function execute($channel)
+
+    function handle($channel)
     {
-        $recipient = User::staticGet('nickname', $this->other);
-        if(! $recipient){
-            $channel->error($this->user, sprintf(_('Could not find a user with nickname %s'),
-                               $this->other));
-        }else{
-            if ($recipient->id == $this->user->id) {
-                $channel->error($this->user, _('It does not make a lot of sense to nudge yourself!'));
-            }else{
-                if ($recipient->email && $recipient->emailnotifynudge) {
-                    mail_notify_nudge($this->user, $recipient);
-                }
-                // XXX: notify by IM
-                // XXX: notify by SMS
-                $channel->output($this->user, sprintf(_('Nudge sent to %s'),
-                               $recipient->nickname));
+        $recipient = $this->getUser($this->other);
+        if ($recipient->id == $this->user->id) {
+            throw new CommandException(_('It does not make a lot of sense to nudge yourself!'));
+        } else {
+            if ($recipient->email && $recipient->emailnotifynudge) {
+                mail_notify_nudge($this->user, $recipient);
             }
+            // XXX: notify by IM
+            // XXX: notify by SMS
+            // TRANS: Message given having nudged another user.
+            // TRANS: %s is the nickname of the user that was nudged.
+            $channel->output($this->user, sprintf(_('Nudge sent to %s'),
+                           $recipient->nickname));
         }
     }
 }
@@ -115,7 +249,7 @@ class InviteCommand extends UnimplementedCommand
 
 class StatsCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $profile = $this->user->getProfile();
 
@@ -142,42 +276,20 @@ class FavCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        if(substr($this->other,0,1)=='#'){
-            //favoriting a specific notice_id
-
-            $notice = Notice::staticGet(substr($this->other,1));
-            if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist'));
-                return;
-            }
-            $recipient = $notice->getProfile();
-        }else{
-            //favoriting a given user's last notice
-
-            $recipient =
-              common_relative_profile($this->user, common_canonical_nickname($this->other));
-
-            if (!$recipient) {
-                $channel->error($this->user, _('No such user.'));
-                return;
-            }
-            $notice = $recipient->getCurrentNotice();
-            if (!$notice) {
-                $channel->error($this->user, _('User has no last notice'));
-                return;
-            }
-        }
-
-        $fave = Fave::addNew($this->user, $notice);
+        $notice = $this->getNotice($this->other);
+        $fave = Fave::addNew($this->user->getProfile(), $notice);
 
         if (!$fave) {
             $channel->error($this->user, _('Could not create favorite.'));
             return;
         }
 
-        $other = User::staticGet('id', $recipient->id);
+        // @fixme favorite notification should be triggered
+        // at a lower level
+
+        $other = User::staticGet('id', $notice->profile_id);
 
         if ($other && $other->id != $user->id) {
             if ($other->email && $other->emailnotifyfav) {
@@ -191,6 +303,7 @@ class FavCommand extends Command
     }
 
 }
+
 class JoinCommand extends Command
 {
     var $other = null;
@@ -201,17 +314,10 @@ class JoinCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-
-        $nickname = common_canonical_nickname($this->other);
-        $group    = User_group::staticGet('nickname', $nickname);
-        $cur      = $this->user;
-
-        if (!$group) {
-            $channel->error($cur, _('No such group.'));
-            return;
-        }
+        $group = $this->getGroup($this->other);
+        $cur   = $this->user;
 
         if ($cur->isMember($group)) {
             $channel->error($cur, _('You are already a member of that group'));
@@ -228,12 +334,16 @@ class JoinCommand extends Command
                 Event::handle('EndJoinGroup', array($group, $cur));
             }
         } catch (Exception $e) {
-            $channel->error($cur, sprintf(_('Could not join user %s to group %s'),
+            // TRANS: Message given having failed to add a user to a group.
+            // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+            $channel->error($cur, sprintf(_('Could not join user %1$s to group %2$s'),
                                           $cur->nickname, $group->nickname));
             return;
         }
 
-        $channel->output($cur, sprintf(_('%s joined group %s'),
+        // TRANS: Message given having added a user to a group.
+        // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+        $channel->output($cur, sprintf(_('%1$s joined group %2$s'),
                                               $cur->nickname,
                                               $group->nickname));
     }
@@ -249,12 +359,10 @@ class DropCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-
-        $nickname = common_canonical_nickname($this->other);
-        $group    = User_group::staticGet('nickname', $nickname);
-        $cur      = $this->user;
+        $group = $this->getGroup($this->other);
+        $cur   = $this->user;
 
         if (!$group) {
             $channel->error($cur, _('No such group.'));
@@ -272,12 +380,16 @@ class DropCommand extends Command
                 Event::handle('EndLeaveGroup', array($group, $cur));
             }
         } catch (Exception $e) {
-            $channel->error($cur, sprintf(_('Could not remove user %s to group %s'),
+            // TRANS: Message given having failed to remove a user from a group.
+            // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+            $channel->error($cur, sprintf(_('Could not remove user %1$s from group %2$s'),
                                           $cur->nickname, $group->nickname));
             return;
         }
 
-        $channel->output($cur, sprintf(_('%s left group %s'),
+        // TRANS: Message given having removed a user from a group.
+        // TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+        $channel->output($cur, sprintf(_('%1$s left group %2$s'),
                                               $cur->nickname,
                                               $group->nickname));
     }
@@ -293,28 +405,28 @@ class WhoisCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        $recipient =
-          common_relative_profile($this->user, common_canonical_nickname($this->other));
+        $recipient = $this->getProfile($this->other);
 
-        if (!$recipient) {
-            $channel->error($this->user, _('No such user.'));
-            return;
-        }
-
+        // TRANS: Whois output.
+        // TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
         $whois = sprintf(_("%1\$s (%2\$s)"), $recipient->nickname,
                          $recipient->profileurl);
         if ($recipient->fullname) {
+            // TRANS: Whois output. %s is the full name of the queried user.
             $whois .= "\n" . sprintf(_('Fullname: %s'), $recipient->fullname);
         }
         if ($recipient->location) {
+            // TRANS: Whois output. %s is the location of the queried user.
             $whois .= "\n" . sprintf(_('Location: %s'), $recipient->location);
         }
         if ($recipient->homepage) {
+            // TRANS: Whois output. %s is the homepage of the queried user.
             $whois .= "\n" . sprintf(_('Homepage: %s'), $recipient->homepage);
         }
         if ($recipient->bio) {
+            // TRANS: Whois output. %s is the bio information of the queried user.
             $whois .= "\n" . sprintf(_('About: %s'), $recipient->bio);
         }
         $channel->output($this->user, $whois);
@@ -332,9 +444,18 @@ class MessageCommand extends Command
         $this->text = $text;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        $other = User::staticGet('nickname', common_canonical_nickname($this->other));
+        try {
+            $other = $this->getUser($this->other);
+        } catch (CommandException $e) {
+            try {
+                $profile = $this->getProfile($this->other);
+            } catch (CommandException $f) {
+                throw $e;
+            }
+            throw new CommandException(sprintf(_('%s is a remote profile; you can only send direct messages to users on the same server.'), $this->other));
+        }
 
         $len = mb_strlen($this->text);
 
@@ -346,7 +467,9 @@ class MessageCommand extends Command
         $this->text = common_shorten_links($this->text);
 
         if (Message::contentTooLong($this->text)) {
-            $channel->error($this->user, sprintf(_('Message too long - maximum is %d characters, you sent %d'),
+            // TRANS: Message given if content is too long.
+            // TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+            $channel->error($this->user, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d'),
                                                  Message::maxContent(), mb_strlen($this->text)));
             return;
         }
@@ -364,6 +487,8 @@ class MessageCommand extends Command
         $message = Message::saveNew($this->user->id, $other->id, $this->text, $channel->source());
         if ($message) {
             $message->notify();
+            // TRANS: Message given have sent a direct message to another user.
+            // TRANS: %s is the name of the other user.
             $channel->output($this->user, sprintf(_('Direct message to %s sent'), $this->other));
         } else {
             $channel->error($this->user, _('Error sending direct message.'));
@@ -380,33 +505,9 @@ class RepeatCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        if(substr($this->other,0,1)=='#'){
-            //repeating a specific notice_id
-
-            $notice = Notice::staticGet(substr($this->other,1));
-            if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist'));
-                return;
-            }
-            $recipient = $notice->getProfile();
-        }else{
-            //repeating a given user's last notice
-
-            $recipient =
-              common_relative_profile($this->user, common_canonical_nickname($this->other));
-
-            if (!$recipient) {
-                $channel->error($this->user, _('No such user.'));
-                return;
-            }
-            $notice = $recipient->getCurrentNotice();
-            if (!$notice) {
-                $channel->error($this->user, _('User has no last notice'));
-                return;
-            }
-        }
+        $notice = $this->getNotice($this->other);
 
         if($this->user->id == $notice->profile_id)
         {
@@ -414,7 +515,7 @@ class RepeatCommand extends Command
             return;
         }
 
-        if ($recipient->hasRepeated($notice->id)) {
+        if ($this->user->getProfile()->hasRepeated($notice->id)) {
             $channel->error($this->user, _('Already repeated that notice'));
             return;
         }
@@ -423,6 +524,8 @@ class RepeatCommand extends Command
 
         if ($repeat) {
 
+            // TRANS: Message given having repeated a notice from another user.
+            // TRANS: %s is the name of the user for which the notice was repeated.
             $channel->output($this->user, sprintf(_('Notice from %s repeated'), $recipient->nickname));
         } else {
             $channel->error($this->user, _('Error repeating notice.'));
@@ -441,33 +544,10 @@ class ReplyCommand extends Command
         $this->text = $text;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        if(substr($this->other,0,1)=='#'){
-            //replying to a specific notice_id
-
-            $notice = Notice::staticGet(substr($this->other,1));
-            if (!$notice) {
-                $channel->error($this->user, _('Notice with that id does not exist'));
-                return;
-            }
-            $recipient = $notice->getProfile();
-        }else{
-            //replying to a given user's last notice
-
-            $recipient =
-              common_relative_profile($this->user, common_canonical_nickname($this->other));
-
-            if (!$recipient) {
-                $channel->error($this->user, _('No such user.'));
-                return;
-            }
-            $notice = $recipient->getCurrentNotice();
-            if (!$notice) {
-                $channel->error($this->user, _('User has no last notice'));
-                return;
-            }
-        }
+        $notice = $this->getNotice($this->other);
+        $recipient = $notice->getProfile();
 
         $len = mb_strlen($this->text);
 
@@ -507,17 +587,10 @@ class GetCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
-        $target_nickname = common_canonical_nickname($this->other);
+        $target = $this->getProfile($this->other);
 
-        $target =
-          common_relative_profile($this->user, $target_nickname);
-
-        if (!$target) {
-            $channel->error($this->user, _('No such user.'));
-            return;
-        }
         $notice = $target->getCurrentNotice();
         if (!$notice) {
             $channel->error($this->user, _('User has no last notice'));
@@ -525,7 +598,7 @@ class GetCommand extends Command
         }
         $notice_content = $notice->content;
 
-        $channel->output($this->user, $target_nickname . ": " . $notice_content);
+        $channel->output($this->user, $target->nickname . ": " . $notice_content);
     }
 }
 
@@ -540,7 +613,7 @@ class SubCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
 
         if (!$this->other) {
@@ -548,16 +621,16 @@ class SubCommand extends Command
             return;
         }
 
-        $otherUser = User::staticGet('nickname', $this->other);
+        $target = $this->getProfile($this->other);
 
-        if (empty($otherUser)) {
-            $channel->error($this->user, _('No such user'));
-            return;
+        $remote = Remote_profile::staticGet('id', $target->id);
+        if ($remote) {
+            throw new CommandException(_("Can't subscribe to OMB profiles by command."));
         }
 
         try {
             Subscription::start($this->user->getProfile(),
-                                $otherUser->getProfile());
+                                $target);
             $channel->output($this->user, sprintf(_('Subscribed to %s'), $this->other));
         } catch (Exception $e) {
             $channel->error($this->user, $e->getMessage());
@@ -576,22 +649,18 @@ class UnsubCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
         if(!$this->other) {
             $channel->error($this->user, _('Specify the name of the user to unsubscribe from'));
             return;
         }
 
-        $otherUser = User::staticGet('nickname', $this->other);
-
-        if (empty($otherUser)) {
-            $channel->error($this->user, _('No such user'));
-        }
+        $target = $this->getProfile($this->other);
 
         try {
             Subscription::cancel($this->user->getProfile(),
-                                 $otherUser->getProfile());
+                                 $target);
             $channel->output($this->user, sprintf(_('Unsubscribed from %s'), $this->other));
         } catch (Exception $e) {
             $channel->error($this->user, $e->getMessage());
@@ -607,7 +676,7 @@ class OffCommand extends Command
         parent::__construct($user);
         $this->other = $other;
     }
-    function execute($channel)
+    function handle($channel)
     {
         if ($other) {
             $channel->error($this->user, _("Command not yet implemented."));
@@ -630,7 +699,7 @@ class OnCommand extends Command
         $this->other = $other;
     }
 
-    function execute($channel)
+    function handle($channel)
     {
         if ($other) {
             $channel->error($this->user, _("Command not yet implemented."));
@@ -646,7 +715,7 @@ class OnCommand extends Command
 
 class LoginCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $disabled = common_config('logincommand','disabled');
         $disabled = isset($disabled) && $disabled;
@@ -686,7 +755,7 @@ class LoseCommand extends Command
             return;
         }
 
-        $result=subs_unsubscribe_from($this->user, $this->other);
+        $result = Subscription::cancel($this->getProfile($this->other), $this->user->getProfile());
 
         if ($result) {
             $channel->output($this->user, sprintf(_('Unsubscribed  %s'), $this->other));
@@ -698,7 +767,7 @@ class LoseCommand extends Command
 
 class SubscriptionsCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $profile = $this->user->getSubscriptions(0);
         $nicknames=array();
@@ -720,7 +789,7 @@ class SubscriptionsCommand extends Command
 
 class SubscribersCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $profile = $this->user->getSubscribers();
         $nicknames=array();
@@ -742,7 +811,7 @@ class SubscribersCommand extends Command
 
 class GroupsCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $group = $this->user->getGroups();
         $groups=array();
@@ -763,7 +832,7 @@ class GroupsCommand extends Command
 
 class HelpCommand extends Command
 {
-    function execute($channel)
+    function handle($channel)
     {
         $channel->output($this->user,
                          _("Commands:\n".

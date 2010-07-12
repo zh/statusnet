@@ -81,6 +81,12 @@ class File_oembed extends Memcached_DataObject
         }
     }
 
+    /**
+     * Save embedding info for a new file.
+     *
+     * @param object $data Services_oEmbed_Object_*
+     * @param int $file_id
+     */
     function saveNew($data, $file_id) {
         $file_oembed = new File_oembed;
         $file_oembed->file_id = $file_id;

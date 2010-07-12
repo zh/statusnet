@@ -43,6 +43,9 @@ require_once 'HTTP/Request2/Response.php';
  *
  * This extends the HTTP_Request2_Response class with methods to get info
  * about any followed redirects.
+ * 
+ * Originally used the name 'HTTPResponse' to match earlier code, but
+ * this conflicts with a class in in the PECL HTTP extension.
  *
  * @category HTTP
  * @package StatusNet
@@ -51,7 +54,7 @@ require_once 'HTTP/Request2/Response.php';
  * @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link http://status.net/
  */
-class HTTPResponse extends HTTP_Request2_Response
+class StatusNet_HTTPResponse extends HTTP_Request2_Response
 {
     function __construct(HTTP_Request2_Response $response, $url, $redirects=0)
     {
@@ -120,6 +123,28 @@ class HTTPClient extends HTTP_Request2
     {
         $this->config['max_redirs'] = 10;
         $this->config['follow_redirects'] = true;
+        
+        // We've had some issues with keepalive breaking with
+        // HEAD requests, such as to youtube which seems to be
+        // emitting chunked encoding info for an empty body
+        // instead of not emitting anything. This may be a
+        // bug on YouTube's end, but the upstream libray
+        // ought to be investigated to see if we can handle
+        // it gracefully in that case as well.
+        $this->config['protocol_version'] = '1.0';
+
+        // Default state of OpenSSL seems to have no trusted
+        // SSL certificate authorities, which breaks hostname
+        // verification and means we have a hard time communicating
+        // with other sites' HTTPS interfaces.
+        //
+        // Turn off verification unless we've configured a CA bundle.
+        if (common_config('http', 'ssl_cafile')) {
+            $this->config['ssl_cafile'] = common_config('http', 'ssl_cafile');
+        } else {
+            $this->config['ssl_verify_peer'] = false;
+        }
+
         parent::__construct($url, $method, $config);
         $this->setHeader('User-Agent', $this->userAgent());
     }
@@ -136,7 +161,7 @@ class HTTPClient extends HTTP_Request2
     /**
      * Convenience function to run a GET request.
      *
-     * @return HTTPResponse
+     * @return StatusNet_HTTPResponse
      * @throws HTTP_Request2_Exception
      */
     public function get($url, $headers=array())
@@ -147,7 +172,7 @@ class HTTPClient extends HTTP_Request2
     /**
      * Convenience function to run a HEAD request.
      *
-     * @return HTTPResponse
+     * @return StatusNet_HTTPResponse
      * @throws HTTP_Request2_Exception
      */
     public function head($url, $headers=array())
@@ -161,7 +186,7 @@ class HTTPClient extends HTTP_Request2
      * @param string $url
      * @param array $headers optional associative array of HTTP headers
      * @param array $data optional associative array or blob of form data to submit
-     * @return HTTPResponse
+     * @return StatusNet_HTTPResponse
      * @throws HTTP_Request2_Exception
      */
     public function post($url, $headers=array(), $data=array())
@@ -173,7 +198,7 @@ class HTTPClient extends HTTP_Request2
     }
 
     /**
-     * @return HTTPResponse
+     * @return StatusNet_HTTPResponse
      * @throws HTTP_Request2_Exception
      */
     protected function doRequest($url, $method, $headers)
@@ -207,12 +232,12 @@ class HTTPClient extends HTTP_Request2
     }
 
     /**
-     * Actually performs the HTTP request and returns an HTTPResponse object
-     * with response body and header info.
+     * Actually performs the HTTP request and returns a
+     * StatusNet_HTTPResponse object with response body and header info.
      *
      * Wraps around parent send() to add logging and redirection processing.
      *
-     * @return HTTPResponse
+     * @return StatusNet_HTTPResponse
      * @throw HTTP_Request2_Exception
      */
     public function send()
@@ -255,6 +280,6 @@ class HTTPClient extends HTTP_Request2
             }
             break;
         } while ($maxRedirs);
-        return new HTTPResponse($response, $this->getUrl(), $redirs);
+        return new StatusNet_HTTPResponse($response, $this->getUrl(), $redirs);
     }
 }

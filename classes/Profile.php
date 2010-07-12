@@ -147,14 +147,16 @@ class Profile extends Memcached_DataObject
         return ($this->fullname) ? $this->fullname : $this->nickname;
     }
 
-    # Get latest notice on or before date; default now
-    function getCurrentNotice($dt=null)
+    /**
+     * Get the most recent notice posted by this user, if any.
+     *
+     * @return mixed Notice or null
+     */
+    function getCurrentNotice()
     {
         $notice = new Notice();
         $notice->profile_id = $this->id;
-        if ($dt) {
-            $notice->whereAdd('created < "' . $dt . '"');
-        }
+        // @fixme change this to sort on notice.id only when indexes are updated
         $notice->orderBy('created DESC, notice.id DESC');
         $notice->limit(1);
         if ($notice->find(true)) {
@@ -223,31 +225,62 @@ class Profile extends Memcached_DataObject
     {
         $notice = new Notice();
 
-        $notice->profile_id = $this->id;
+        // Temporary hack until notice_profile_id_idx is updated
+        // to (profile_id, id) instead of (profile_id, created, id).
+        // It's been falling back to PRIMARY instead, which is really
+        // very inefficient for a profile that hasn't posted in a few
+        // months. Even though forcing the index will cause a filesort,
+        // it's usually going to be better.
+        if (common_config('db', 'type') == 'mysql') {
+            $index = '';
+            $query =
+              "select id from notice force index (notice_profile_id_idx) ".
+              "where profile_id=" . $notice->escape($this->id);
 
-        $notice->selectAdd();
-        $notice->selectAdd('id');
+            if ($since_id != 0) {
+                $query .= " and id > $since_id";
+            }
 
-        if ($since_id != 0) {
-            $notice->whereAdd('id > ' . $since_id);
-        }
+            if ($max_id != 0) {
+                $query .= " and id < $max_id";
+            }
 
-        if ($max_id != 0) {
-            $notice->whereAdd('id <= ' . $max_id);
-        }
+            $query .= ' order by id DESC';
 
-        $notice->orderBy('id DESC');
+            if (!is_null($offset)) {
+                $query .= " LIMIT $limit OFFSET $offset";
+            }
 
-        if (!is_null($offset)) {
-            $notice->limit($offset, $limit);
+            $notice->query($query);
+        } else {
+            $index = '';
+
+            $notice->profile_id = $this->id;
+
+            $notice->selectAdd();
+            $notice->selectAdd('id');
+
+            if ($since_id != 0) {
+                $notice->whereAdd('id > ' . $since_id);
+            }
+
+            if ($max_id != 0) {
+                $notice->whereAdd('id <= ' . $max_id);
+            }
+
+            $notice->orderBy('id DESC');
+
+            if (!is_null($offset)) {
+                $notice->limit($offset, $limit);
+            }
+
+            $notice->find();
         }
 
         $ids = array();
 
-        if ($notice->find()) {
-            while ($notice->fetch()) {
-                $ids[] = $notice->id;
-            }
+        while ($notice->fetch()) {
+            $ids[] = $notice->id;
         }
 
         return $ids;
@@ -280,6 +313,32 @@ class Profile extends Memcached_DataObject
         } else {
             return false;
         }
+    }
+
+    function getGroups($offset=0, $limit=null)
+    {
+        $qry =
+          'SELECT user_group.* ' .
+          'FROM user_group JOIN group_member '.
+          'ON user_group.id = group_member.group_id ' .
+          'WHERE group_member.profile_id = %d ' .
+          'ORDER BY group_member.created DESC ';
+
+        if ($offset>0 && !is_null($limit)) {
+            if ($offset) {
+                if (common_config('db','type') == 'pgsql') {
+                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+                } else {
+                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+                }
+            }
+        }
+
+        $groups = new User_group();
+
+        $cnt = $groups->query(sprintf($qry, $this->id));
+
+        return $groups;
     }
 
     function avatarUrl($size=AVATAR_PROFILE_SIZE)
@@ -549,11 +608,41 @@ class Profile extends Memcached_DataObject
     {
         $sub = new Subscription();
         $sub->subscriber = $this->id;
-        $sub->delete();
+
+        $sub->find();
+
+        while ($sub->fetch()) {
+            $other = Profile::staticGet('id', $sub->subscribed);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($this, $other);
+        }
 
         $subd = new Subscription();
         $subd->subscribed = $this->id;
-        $subd->delete();
+        $subd->find();
+
+        while ($subd->fetch()) {
+            $other = Profile::staticGet('id', $subd->subscriber);
+            if (empty($other)) {
+                continue;
+            }
+            if ($other->id == $this->id) {
+                continue;
+            }
+            Subscription::cancel($other, $this);
+        }
+
+        $self = new Subscription();
+
+        $self->subscriber = $this->id;
+        $self->subscribed = $this->id;
+
+        $self->delete();
     }
 
     function _deleteMessages()
@@ -704,6 +793,9 @@ class Profile extends Memcached_DataObject
     function hasRight($right)
     {
         $result = false;
+        if ($this->hasRole(Profile_role::DELETED)) {
+            return false;
+        }
         if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
             switch ($right)
             {
@@ -716,6 +808,10 @@ class Profile extends Memcached_DataObject
                 break;
             case Right::CONFIGURESITE:
                 $result = $this->hasRole(Profile_role::ADMINISTRATOR);
+                break;
+            case Right::GRANTROLE:
+            case Right::REVOKEROLE:
+                $result = $this->hasRole(Profile_role::OWNER);
                 break;
             case Right::NEWNOTICE:
             case Right::NEWMESSAGE:
@@ -753,15 +849,23 @@ class Profile extends Memcached_DataObject
      *
      * Assumes that Atom has been previously set up as the base namespace.
      *
+     * @param Profile $cur the current authenticated user
+     *
      * @return string
      */
-    function asAtomAuthor()
+    function asAtomAuthor($cur = null)
     {
         $xs = new XMLStringer(true);
 
         $xs->elementStart('author');
         $xs->element('name', null, $this->nickname);
         $xs->element('uri', null, $this->getUri());
+        if ($cur != null) {
+            $attrs = Array();
+            $attrs['following'] = $cur->isSubscribed($this) ? 'true' : 'false';
+            $attrs['blocking']  = $cur->hasBlocked($this) ? 'true' : 'false';
+            $xs->element('statusnet:profile_info', $attrs, null);
+        }
         $xs->elementEnd('author');
 
         return $xs->getString();

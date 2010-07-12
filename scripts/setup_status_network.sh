@@ -54,6 +54,8 @@ for top in $AVATARBASE $FILEBASE $BACKGROUNDBASE; do
     chmod a+w $top/$nickname
 done
 
+php $PHPBASE/scripts/checkschema.php -s"$server"
+
 php $PHPBASE/scripts/registeruser.php \
   -s"$server" \
   -n"$nickname" \

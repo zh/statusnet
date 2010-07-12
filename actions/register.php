@@ -74,6 +74,13 @@ class RegisterAction extends Action
         parent::prepare($args);
         $this->code = $this->trimmed('code');
 
+        // @todo this check should really be in index.php for all sensitive actions
+        $ssl = common_config('site', 'ssl');
+        if (empty($_SERVER['HTTPS']) && ($ssl == 'always' || $ssl == 'sometimes')) {
+            common_redirect(common_local_url('register'));
+            // exit
+        }
+
         if (empty($this->code)) {
             common_ensure_session();
             if (array_key_exists('invitecode', $_SESSION)) {
@@ -341,7 +348,7 @@ class RegisterAction extends Action
         } else {
             $instr =
               common_markup_to_html(_('With this form you can create '.
-                                      ' a new account. ' .
+                                      'a new account. ' .
                                       'You can then post notices and '.
                                       'link up to friends and colleagues. '));
 
@@ -491,11 +498,7 @@ class RegisterAction extends Action
             $this->elementStart('li');
             $this->element('input', $attrs);
             $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
-            $this->text(_('My text and files are available under '));
-            $this->element('a', array('href' => common_config('license', 'url')),
-                           common_config('license', 'title'), _("Creative Commons Attribution 3.0"));
-            $this->text(_(' except this private data: password, '.
-                          'email address, IM address, and phone number.'));
+            $this->raw($this->licenseCheckbox());
             $this->elementEnd('label');
             $this->elementEnd('li');
         }
@@ -503,6 +506,48 @@ class RegisterAction extends Action
         $this->submit('submit', _('Register'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
+    }
+
+    function licenseCheckbox()
+    {
+        $out = '';
+        switch (common_config('license', 'type')) {
+        case 'private':
+            // TRANS: Copyright checkbox label in registration dialog, for private sites.
+            $out .= htmlspecialchars(sprintf(
+                _('I understand that content and data of %1$s are private and confidential.'),
+                common_config('site', 'name')));
+            // fall through
+        case 'allrightsreserved':
+            if ($out != '') {
+                $out .= ' ';
+            }
+            if (common_config('license', 'owner')) {
+                // TRANS: Copyright checkbox label in registration dialog, for all rights reserved with a specified copyright owner.
+                $out .= htmlspecialchars(sprintf(
+                    _('My text and files are copyright by %1$s.'),
+                    common_config('license', 'owner')));
+            } else {
+                // TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
+                $out .= htmlspecialchars(_('My text and files remain under my own copyright.'));
+            }
+            // TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
+            $out .= ' ' . _('All rights reserved.');
+            break;
+        case 'cc': // fall through
+        default:
+            // TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+            $message = _('My text and files are available under %s ' .
+                         'except this private data: password, ' .
+                         'email address, IM address, and phone number.');
+            $link = '<a href="' .
+                    htmlspecialchars(common_config('license', 'url')) .
+                    '">' .
+                    htmlspecialchars(common_config('license', 'title')) .
+                    '</a>';
+            $out .= sprintf(htmlspecialchars($message), $link);
+        }
+        return $out;
     }
 
     /**

@@ -181,9 +181,8 @@ class ProfileListItem extends Widget
     function showAvatar()
     {
         $avatar = $this->profile->getAvatar(AVATAR_STREAM_SIZE);
-        $this->out->elementStart('a', array('href' => $this->profile->profileurl,
-                                            'class' => 'url entry-title',
-                                            'rel' => 'contact'));
+        $aAttrs = $this->linkAttributes();
+        $this->out->elementStart('a', $aAttrs);
         $this->out->element('img', array('src' => ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_STREAM_SIZE),
                                          'class' => 'photo avatar',
                                          'width' => AVATAR_STREAM_SIZE,
@@ -213,7 +212,7 @@ class ProfileListItem extends Widget
     {
         if (!empty($this->profile->location)) {
             $this->out->text(' ');
-            $this->out->elementStart('span', 'location');
+            $this->out->elementStart('span', 'label');
             $this->out->raw($this->highlight($this->profile->location));
             $this->out->elementEnd('span');
         }
@@ -223,8 +222,8 @@ class ProfileListItem extends Widget
     {
         if (!empty($this->profile->homepage)) {
             $this->out->text(' ');
-            $this->out->elementStart('a', array('href' => $this->profile->homepage,
-                                                'class' => 'url'));
+            $aAttrs = $this->homepageAttributes();
+            $this->out->elementStart('a', $aAttrs);
             $this->out->raw($this->highlight($this->profile->homepage));
             $this->out->elementEnd('a');
         }
@@ -273,17 +272,11 @@ class ProfileListItem extends Widget
                 $usf = new UnsubscribeForm($this->out, $this->profile);
                 $usf->show();
             } else {
-                $other = User::staticGet('id', $this->profile->id);
-                if (!empty($other)) {
+                // We can't initiate sub for a remote OMB profile.
+                $remote = Remote_profile::staticGet('id', $this->profile->id);
+                if (empty($remote)) {
                     $sf = new SubscribeForm($this->out, $this->profile);
                     $sf->show();
-                }
-                else {
-                    $url = common_local_url('remotesubscribe',
-                                            array('nickname' => $this->profile->nickname));
-                    $this->out->element('a', array('href' => $url,
-                                              'class' => 'entity_remote_subscribe'),
-                                   _('Subscribe'));
                 }
             }
             $this->out->elementEnd('li');
@@ -304,5 +297,18 @@ class ProfileListItem extends Widget
     function highlight($text)
     {
         return htmlspecialchars($text);
+    }
+
+    function linkAttributes()
+    {
+        return array('href' => $this->profile->profileurl,
+                     'class' => 'url entry-title',
+                     'rel' => 'contact');
+    }
+
+    function homepageAttributes()
+    {
+        return array('href' => $this->profile->homepage,
+                     'class' => 'url');
     }
 }

@@ -21,7 +21,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 # You have 24 hours to claim your password
 
-define(MAX_RECOVERY_TIME, 24 * 60 * 60);
+define('MAX_RECOVERY_TIME', 24 * 60 * 60);
 
 class RecoverpasswordAction extends Action
 {
@@ -262,10 +262,20 @@ class RecoverpasswordAction extends Action
         # See if it's an unconfirmed email address
 
         if (!$user) {
-            $confirm_email = Confirm_address::staticGet('address', common_canonical_email($nore));
-            if ($confirm_email && $confirm_email->address_type == 'email') {
+            // Warning: it may actually be legit to have multiple folks
+            // who have claimed, but not yet confirmed, the same address.
+            // We'll only send to the first one that comes up.
+            $confirm_email = new Confirm_address();
+            $confirm_email->address = common_canonical_email($nore);
+            $confirm_email->address_type = 'email';
+            $confirm_email->find();
+            if ($confirm_email->fetch()) {
                 $user = User::staticGet($confirm_email->user_id);
+            } else {
+                $confirm_email = null;
             }
+        } else {
+            $confirm_email = null;
         }
 
         if (!$user) {
@@ -276,9 +286,11 @@ class RecoverpasswordAction extends Action
         # Try to get an unconfirmed email address if they used a user name
 
         if (!$user->email && !$confirm_email) {
-            $confirm_email = Confirm_address::staticGet('user_id', $user->id);
-            if ($confirm_email && $confirm_email->address_type != 'email') {
-                # Skip non-email confirmations
+            $confirm_email = new Confirm_address();
+            $confirm_email->user_id = $user->id;
+            $confirm_email->address_type = 'email';
+            $confirm_email->find();
+            if (!$confirm_email->fetch()) {
                 $confirm_email = null;
             }
         }
@@ -294,7 +306,7 @@ class RecoverpasswordAction extends Action
         $confirm->code = common_confirmation_code(128);
         $confirm->address_type = 'recover';
         $confirm->user_id = $user->id;
-        $confirm->address = (isset($user->email)) ? $user->email : $confirm_email->address;
+        $confirm->address = (!empty($user->email)) ? $user->email : $confirm_email->address;
 
         if (!$confirm->insert()) {
             common_log_db_error($confirm, 'INSERT', __FILE__);
@@ -319,7 +331,8 @@ class RecoverpasswordAction extends Action
         $body .= common_config('site', 'name');
         $body .= "\n";
 
-        mail_to_user($user, _('Password recovery requested'), $body, $confirm->address);
+        $headers = _mail_prepare_headers('recoverpassword', $user->nickname, $user->nickname);
+        mail_to_user($user, _('Password recovery requested'), $body, $headers, $confirm->address);
 
         $this->mode = 'sent';
         $this->msg = _('Instructions for recovering your password ' .

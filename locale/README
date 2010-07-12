@@ -1,9 +1,56 @@
 Localizations for StatusNet are being maintained through TranslateWiki:
 http://translatewiki.net/wiki/Translating:StatusNet
 
-Note if you are working with a direct git checkout, you will need to build
-the binary .mo files from the .po source files for translations to work
-in the web app.
+Ongoing translation work should be done there to ensure updates are
+integrated into future versions of StatusNet.
 
-If gettext and GNU make are installed, you can simply run 'make' in this
-directory to build them.
+
+== Building runtime translations ==
+
+If you are working with a direct git checkout or have customized any
+message files, you will need to build binary .mo files from the .po
+source files for translations to work in the web app.
+
+If gettext and GNU make are installed, you can simply run 'make' in the
+main StatusNet directory, and all core and plugin localizations will be
+recompiled.
+
+
+== Customization ==
+
+User interface texts in any language can be customized by editing the
+texts in the .po source files, then rebuilding the binary .mo files
+used at runtime.
+
+The default/US English texts can be overridden by adding "translations"
+to en/LC_MESSAGES/statusnet.po.
+
+Note that texts you change in one language will not affect other
+languages, which are selected based on visitors' browser preferences.
+If you customizations include important information or links,
+you may wish to disable languages that you haven't customized so that
+visitors always get your text.
+
+To disable all non-English languages add this to your config.php (you
+will need to edit both the en and en_GB files):
+
+$config['site']['languages'] = array(
+        'en-us'   => array('q' => 1, 'lang' => 'en', 'name' => 'English (US)', 'direction' => 'ltr'),
+        'en-gb'   => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
+        'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English (US)', 'direction' => 'ltr'),
+);
+
+
+To disable everything including British English variant:
+
+$config['site']['languages'] = array(
+        'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English', 'direction' => 'ltr'),
+);
+
+
+== Plugins ==
+
+This locale directory contains translations for the core StatusNet
+software only. Plugins may have their own locale subdirectories and
+their own .po and .mo files as well, so if customizing you may need
+to poke at those as well.

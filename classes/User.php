@@ -75,7 +75,11 @@ class User extends Memcached_DataObject
 
     function getProfile()
     {
-        return Profile::staticGet('id', $this->id);
+        $profile = Profile::staticGet('id', $this->id);
+        if (empty($profile)) {
+            throw new UserNoProfileException($this);
+        }
+        return $profile;
     }
 
     function isSubscribed($other)
@@ -87,6 +91,7 @@ class User extends Memcached_DataObject
 
     function updateKeys(&$orig)
     {
+        $this->_connect();
         $parts = array();
         foreach (array('nickname', 'email', 'jabber', 'incomingemail', 'sms', 'carrier', 'smsemail', 'language', 'timezone') as $k) {
             if (strcmp($this->$k, $orig->$k) != 0) {
@@ -132,13 +137,15 @@ class User extends Memcached_DataObject
         return !in_array($nickname, $blacklist);
     }
 
-    function getCurrentNotice($dt=null)
+    /**
+     * Get the most recent notice posted by this user, if any.
+     *
+     * @return mixed Notice or null
+     */
+    function getCurrentNotice()
     {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        }
-        return $profile->getCurrentNotice($dt);
+        return $profile->getCurrentNotice();
     }
 
     function getCarrier()
@@ -146,19 +153,12 @@ class User extends Memcached_DataObject
         return Sms_carrier::staticGet('id', $this->carrier);
     }
 
+    /**
+     * @deprecated use Subscription::start($sub, $other);
+     */
     function subscribeTo($other)
     {
-        $sub = new Subscription();
-        $sub->subscriber = $this->id;
-        $sub->subscribed = $other->id;
-
-        $sub->created = common_sql_now(); // current time
-
-        if (!$sub->insert()) {
-            return false;
-        }
-
-        return true;
+        return Subscription::start($this->getProfile(), $other);
     }
 
     function hasBlocked($other)
@@ -339,17 +339,7 @@ class User extends Memcached_DataObject
                     common_log(LOG_WARNING, sprintf("Default user %s does not exist.", $defnick),
                                __FILE__);
                 } else {
-                    $defsub = new Subscription();
-                    $defsub->subscriber = $user->id;
-                    $defsub->subscribed = $defuser->id;
-                    $defsub->created = $user->created;
-
-                    $result = $defsub->insert();
-
-                    if (!$result) {
-                        common_log_db_error($defsub, 'INSERT', __FILE__);
-                        return false;
-                    }
+                    Subscription::start($user, $defuser);
                 }
             }
 
@@ -465,26 +455,18 @@ class User extends Memcached_DataObject
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0) {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        } else {
-            return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id);
-        }
+        return $profile->getTaggedNotices($tag, $offset, $limit, $since_id, $before_id);
     }
 
     function getNotices($offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $before_id=0)
     {
         $profile = $this->getProfile();
-        if (!$profile) {
-            return null;
-        } else {
-            return $profile->getNotices($offset, $limit, $since_id, $before_id);
-        }
+        return $profile->getNotices($offset, $limit, $since_id, $before_id);
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own);
+        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
@@ -543,8 +525,8 @@ class User extends Memcached_DataObject
             common_log(LOG_WARNING,
                 sprintf(
                     "Profile ID %d (%s) tried to block his or herself.",
-                    $profile->id,
-                    $profile->nickname
+                    $this->id,
+                    $this->nickname
                 )
             );
             return false;
@@ -566,12 +548,9 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        // Cancel their subscription, if it exists
-
-        $otherUser = User::staticGet('id', $other->id);
-
-        if (!empty($otherUser)) {
-            subs_unsubscribe_to($otherUser, $this->getProfile());
+        $self = $this->getProfile();
+        if (Subscription::exists($other, $self)) {
+            Subscription::cancel($other, $self);
         }
 
         $block->query('COMMIT');
@@ -613,41 +592,19 @@ class User extends Memcached_DataObject
 
     function getGroups($offset=0, $limit=null)
     {
-        $qry =
-          'SELECT user_group.* ' .
-          'FROM user_group JOIN group_member '.
-          'ON user_group.id = group_member.group_id ' .
-          'WHERE group_member.profile_id = %d ' .
-          'ORDER BY group_member.created DESC ';
-
-        if ($offset>0 && !is_null($limit)) {
-            if ($offset) {
-                if (common_config('db','type') == 'pgsql') {
-                    $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
-                } else {
-                    $qry .= ' LIMIT ' . $offset . ', ' . $limit;
-                }
-            }
-        }
-
-        $groups = new User_group();
-
-        $cnt = $groups->query(sprintf($qry, $this->id));
-
-        return $groups;
+        $profile = $this->getProfile();
+        return $profile->getGroups($offset, $limit);
     }
 
     function getSubscriptions($offset=0, $limit=null)
     {
         $profile = $this->getProfile();
-        assert(!empty($profile));
         return $profile->getSubscriptions($offset, $limit);
     }
 
     function getSubscribers($offset=0, $limit=null)
     {
         $profile = $this->getProfile();
-        assert(!empty($profile));
         return $profile->getSubscribers($offset, $limit);
     }
 
@@ -710,9 +667,11 @@ class User extends Memcached_DataObject
 
     function delete()
     {
-        $profile = $this->getProfile();
-        if ($profile) {
+        try {
+            $profile = $this->getProfile();
             $profile->delete();
+        } catch (UserNoProfileException $unp) {
+            common_log(LOG_INFO, "User {$this->nickname} has no profile; continuing deletion.");
         }
 
         $related = array('Fave',
@@ -721,6 +680,7 @@ class User extends Memcached_DataObject
                          'Foreign_link',
                          'Invitation',
                          );
+
         Event::handle('UserDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {

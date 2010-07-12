@@ -23,7 +23,9 @@
  * @package   StatusNet
  * @author    Craig Andrews <candrews@integralblue.com>
  * @author    Evan Prodromou <evan@status.net>
- * @author    Zach Copley <zach@status.net> * @copyright 2009 StatusNet, Inc.
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2009-2010 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -123,29 +125,33 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
             ? $avatar->displayUrl()
             : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
+        $link = common_local_url(
+            'showfavorites',
+            array('nickname' => $this->user->nickname)
+        );
+
+        $self = $this->getSelfUri();
+
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $link = common_local_url(
-                'showfavorites',
-                array('nickname' => $this->user->nickname)
-            );
             $this->showRssTimeline(
                 $this->notices,
                 $title,
                 $link,
                 $subtitle,
                 null,
-                $logo
+                $logo,
+                $self
             );
             break;
         case 'atom':
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            $atom = new AtomNoticeFeed();
+            $atom = new AtomNoticeFeed($this->auth_user);
 
             $atom->setId($id);
             $atom->setTitle($title);
@@ -153,23 +159,8 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
             $atom->setLogo($logo);
             $atom->setUpdated('now');
 
-            $atom->addLink(
-                common_local_url(
-                    'showfavorites',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineFavorites', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
 
@@ -195,17 +186,23 @@ class ApiTimelineFavoritesAction extends ApiBareAuthAction
     {
         $notices = array();
 
+        common_debug("since id = " . $this->since_id . " max id = " . $this->max_id);
+
         if (!empty($this->auth_user) && $this->auth_user->id == $this->user->id) {
             $notice = $this->user->favoriteNotices(
+                true,
                 ($this->page-1) * $this->count,
                 $this->count,
-                true
+                $this->since_id,
+                $this->max_id
             );
         } else {
             $notice = $this->user->favoriteNotices(
+                false,
                 ($this->page-1) * $this->count,
                 $this->count,
-                false
+                $this->since_id,
+                $this->max_id
             );
         }
 

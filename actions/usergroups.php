@@ -59,8 +59,10 @@ class UsergroupsAction extends OwnerDesignAction
     function title()
     {
         if ($this->page == 1) {
+            // TRANS: Message is used as a page title. %s is a nick name.
             return sprintf(_('%s groups'), $this->user->nickname);
         } else {
+            // TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
             return sprintf(_('%1$s groups, page %2$d'),
                            $this->user->nickname,
                            $this->page);
@@ -130,22 +132,26 @@ class UsergroupsAction extends OwnerDesignAction
                        _('Search for more groups'));
         $this->elementEnd('p');
 
-        $offset = ($this->page-1) * GROUPS_PER_PAGE;
-        $limit =  GROUPS_PER_PAGE + 1;
+        if (Event::handle('StartShowUserGroupsContent', array($this))) {
+            $offset = ($this->page-1) * GROUPS_PER_PAGE;
+            $limit =  GROUPS_PER_PAGE + 1;
 
-        $groups = $this->user->getGroups($offset, $limit);
+            $groups = $this->user->getGroups($offset, $limit);
 
-        if ($groups) {
-            $gl = new GroupList($groups, $this->user, $this);
-            $cnt = $gl->show();
-            if (0 == $cnt) {
-                $this->showEmptyListMessage();
+            if ($groups) {
+                $gl = new GroupList($groups, $this->user, $this);
+                $cnt = $gl->show();
+                if (0 == $cnt) {
+                    $this->showEmptyListMessage();
+                }
             }
-        }
 
-        $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
-                          $this->page, 'usergroups',
-                          array('nickname' => $this->user->nickname));
+            $this->pagination($this->page > 1, $cnt > GROUPS_PER_PAGE,
+                              $this->page, 'usergroups',
+                              array('nickname' => $this->user->nickname));
+
+            Event::handle('EndShowUserGroupsContent', array($this));
+        }
     }
 
     function showEmptyListMessage()

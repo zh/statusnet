@@ -49,14 +49,46 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
     /**
      * Constructor
      *
-     * @param Group   $group   the group for the feed (optional)
+     * @param Group   $group   the group for the feed
+     * @param User    $cur     the current authenticated user, if any
      * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
      */
-    function __construct($group = null, $indent = true) {
-        parent::__construct($indent);
+    function __construct($group, $cur = null, $indent = true) {
+        parent::__construct($cur, $indent);
         $this->group = $group;
+
+        // TRANS: Title in atom group notice feed. %s is a group name.
+        $title      = sprintf(_("%s timeline"), $group->nickname);
+        $this->setTitle($title);
+
+        $sitename   = common_config('site', 'name');
+        $subtitle   = sprintf(
+            // TRANS: Message is used as a subtitle in atom group notice feed.
+            // TRANS: %1$s is a group name, %2$s is a site name.
+            _('Updates from %1$s on %2$s!'),
+            $group->nickname,
+            $sitename
+        );
+        $this->setSubtitle($subtitle);
+
+        $avatar = $group->homepage_logo;
+        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+        $this->setLogo($logo);
+
+        $this->setUpdated('now');
+
+        $self = common_local_url('ApiTimelineGroup',
+                                 array('id' => $group->id,
+                                       'format' => 'atom'));
+        $this->setId($self);
+        $this->setSelfLink($self);
+
+        $this->addAuthorRaw($group->asAtomAuthor());
+        $this->setActivitySubject($group->asActivitySubject());
+
+        $this->addLink($group->homeUrl());
     }
 
     function getGroup()
@@ -64,4 +96,23 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
         return $this->group;
     }
 
+    function initFeed()
+    {
+        parent::initFeed();
+
+        $attrs = array();
+
+        if (!empty($this->cur)) {
+            $attrs['member'] = $this->cur->isMember($this->group)
+                ? 'true' : 'false';
+            $attrs['blocked'] = Group_block::isBlocked(
+                $this->group,
+                $this->cur->getProfile()
+            ) ? 'true' : 'false';
+        }
+
+        $attrs['member_count'] = $this->group->getMemberCount();
+
+        $this->element('statusnet:group_info', $attrs, null);
+    }
 }

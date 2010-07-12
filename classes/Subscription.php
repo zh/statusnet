@@ -62,6 +62,14 @@ class Subscription extends Memcached_DataObject
 
     static function start($subscriber, $other)
     {
+        // @fixme should we enforce this as profiles in callers instead?
+        if ($subscriber instanceof User) {
+            $subscriber = $subscriber->getProfile();
+        }
+        if ($other instanceof User) {
+            $other = $other->getProfile();
+        }
+
         if (!$subscriber->hasRight(Right::SUBSCRIBE)) {
             throw new Exception(_('You have been banned from subscribing.'));
         }
@@ -75,26 +83,13 @@ class Subscription extends Memcached_DataObject
         }
 
         if (Event::handle('StartSubscribe', array($subscriber, $other))) {
-
-            $sub = new Subscription();
-
-            $sub->subscriber = $subscriber->id;
-            $sub->subscribed = $other->id;
-            $sub->created    = common_sql_now();
-
-            $result = $sub->insert();
-
-            if (!$result) {
-                common_log_db_error($sub, 'INSERT', __FILE__);
-                throw new Exception(_('Could not save subscription.'));
-            }
-
+            $sub = self::saveNew($subscriber->id, $other->id);
             $sub->notify();
 
             self::blow('user:notices_with_friends:%d', $subscriber->id);
 
-            $subscriber->blowSubscriptionsCount();
-            $other->blowSubscribersCount();
+            $subscriber->blowSubscriptionCount();
+            $other->blowSubscriberCount();
 
             $otherUser = User::staticGet('id', $other->id);
 
@@ -103,26 +98,41 @@ class Subscription extends Memcached_DataObject
                 !self::exists($other, $subscriber) &&
                 !$subscriber->hasBlocked($other)) {
 
-                $auto = new Subscription();
-
-                $auto->subscriber = $subscriber->id;
-                $auto->subscribed = $other->id;
-                $auto->created    = common_sql_now();
-
-                $result = $auto->insert();
-
-                if (!$result) {
-                    common_log_db_error($auto, 'INSERT', __FILE__);
-                    throw new Exception(_('Could not save subscription.'));
+                try {
+                    self::start($other, $subscriber);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "Exception during autosubscribe of {$other->nickname} to profile {$subscriber->id}: {$e->getMessage()}");
                 }
-
-                $auto->notify();
             }
 
             Event::handle('EndSubscribe', array($subscriber, $other));
         }
 
         return true;
+    }
+
+    /**
+     * Low-level subscription save.
+     * Outside callers should use Subscription::start()
+     */
+    protected function saveNew($subscriber_id, $other_id)
+    {
+        $sub = new Subscription();
+
+        $sub->subscriber = $subscriber_id;
+        $sub->subscribed = $other_id;
+        $sub->jabber     = 1;
+        $sub->sms        = 1;
+        $sub->created    = common_sql_now();
+
+        $result = $sub->insert();
+
+        if (!$result) {
+            common_log_db_error($sub, 'INSERT', __FILE__);
+            throw new Exception(_('Could not save subscription.'));
+        }
+
+        return $sub;
     }
 
     function notify()
@@ -203,8 +213,8 @@ class Subscription extends Memcached_DataObject
 
             self::blow('user:notices_with_friends:%d', $subscriber->id);
 
-            $subscriber->blowSubscriptionsCount();
-            $other->blowSubscribersCount();
+            $subscriber->blowSubscriptionCount();
+            $other->blowSubscriberCount();
 
             Event::handle('EndUnsubscribe', array($subscriber, $other));
         }

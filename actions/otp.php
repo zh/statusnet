@@ -126,6 +126,8 @@ class OtpAction extends Action
         $this->lt->delete();
         $this->lt = null;
 
+        common_real_login(true);
+
         if ($this->rememberme) {
             common_rememberme($this->user);
         }

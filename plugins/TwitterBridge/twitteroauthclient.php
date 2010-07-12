@@ -22,7 +22,7 @@
  * @category  Integration
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -61,8 +61,23 @@ class TwitterOAuthClient extends OAuthClient
         $consumer_key    = common_config('twitter', 'consumer_key');
         $consumer_secret = common_config('twitter', 'consumer_secret');
 
-        parent::__construct($consumer_key, $consumer_secret,
-                            $oauth_token, $oauth_token_secret);
+        if (empty($consumer_key) && empty($consumer_secret)) {
+            $consumer_key = common_config(
+                'twitter',
+                'global_consumer_key'
+            );
+            $consumer_secret = common_config(
+                'twitter',
+                'global_consumer_secret'
+            );
+        }
+
+        parent::__construct(
+            $consumer_key,
+            $consumer_secret,
+            $oauth_token,
+            $oauth_token_secret
+        );
     }
 
     // XXX: the following two functions are to support the horrible hack
@@ -151,17 +166,22 @@ class TwitterOAuthClient extends OAuthClient
     /**
      * Calls Twitter's /statuses/update API method
      *
-     * @param string $status                text of the status
-     * @param int    $in_reply_to_status_id optional id of the status it's
-     *                                      a reply to
+     * @param string $status  text of the status
+     * @param mixed  $params  optional other parameters to pass to Twitter,
+     *                        as defined. For back-compatibility, if an int
+     *                        is passed we'll consider it a reply-to ID.
      *
      * @return mixed the status
      */
-    function statusesUpdate($status, $in_reply_to_status_id = null)
+    function statusesUpdate($status, $params=array())
     {
         $url      = 'https://twitter.com/statuses/update.json';
-        $params   = array('status' => $status,
-            'in_reply_to_status_id' => $in_reply_to_status_id);
+        if (is_numeric($params)) {
+            $params = array('in_reply_to_status_id' => intval($params));
+        }
+        $params['status'] = $status;
+        // We don't have to pass 'source' as the oauth key is tied to an app.
+
         $response = $this->oAuthPost($url, $params);
         $status   = json_decode($response);
         return $status;

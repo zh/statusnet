@@ -67,7 +67,14 @@ class File extends Memcached_DataObject
         return $att;
     }
 
-    function saveNew($redir_data, $given_url) {
+    /**
+     * Save a new file record.
+     *
+     * @param array $redir_data lookup data eg from File_redirection::where()
+     * @param string $given_url
+     * @return File
+     */
+    function saveNew(array $redir_data, $given_url) {
         $x = new File;
         $x->url = $given_url;
         if (!empty($redir_data['protected'])) $x->protected = $redir_data['protected'];
@@ -77,22 +84,43 @@ class File extends Memcached_DataObject
         if (isset($redir_data['time']) && $redir_data['time'] > 0) $x->date = intval($redir_data['time']);
         $file_id = $x->insert();
 
+        $x->saveOembed($redir_data, $given_url);
+        return $x;
+    }
+
+    /**
+     * Save embedding information for this file, if applicable.
+     *
+     * Normally this won't need to be called manually, as File::saveNew()
+     * takes care of it.
+     *
+     * @param array $redir_data lookup data eg from File_redirection::where()
+     * @param string $given_url
+     * @return boolean success
+     */
+    public function saveOembed($redir_data, $given_url)
+    {
         if (isset($redir_data['type'])
             && (('text/html' === substr($redir_data['type'], 0, 9) || 'application/xhtml+xml' === substr($redir_data['type'], 0, 21)))
             && ($oembed_data = File_oembed::_getOembed($given_url))) {
 
-            $fo = File_oembed::staticGet('file_id', $file_id);
+            $fo = File_oembed::staticGet('file_id', $this->id);
 
             if (empty($fo)) {
-                File_oembed::saveNew($oembed_data, $file_id);
+                File_oembed::saveNew($oembed_data, $this->id);
+                return true;
             } else {
                 common_log(LOG_WARNING, "Strangely, a File_oembed object exists for new file $file_id", __FILE__);
             }
         }
-        return $x;
+        return false;
     }
 
-    function processNew($given_url, $notice_id=null) {
+    /**
+     * @fixme refactor this mess, it's gotten pretty scary.
+     * @param bool $followRedirects
+     */
+    function processNew($given_url, $notice_id=null, $followRedirects=true) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -100,20 +128,33 @@ class File extends Memcached_DataObject
         if (empty($file)) {
             $file_redir = File_redirection::staticGet('url', $given_url);
             if (empty($file_redir)) {
+                // @fixme for new URLs this also looks up non-redirect data
+                // such as target content type, size, etc, which we need
+                // for File::saveNew(); so we call it even if not following
+                // new redirects.
                 $redir_data = File_redirection::where($given_url);
                 if (is_array($redir_data)) {
                     $redir_url = $redir_data['url'];
                 } elseif (is_string($redir_data)) {
                     $redir_url = $redir_data;
+                    $redir_data = array();
                 } else {
                     throw new ServerException("Can't process url '$given_url'");
                 }
                 // TODO: max field length
-                if ($redir_url === $given_url || strlen($redir_url) > 255) {
+                if ($redir_url === $given_url || strlen($redir_url) > 255 || !$followRedirects) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
                 } else {
-                    $x = File::processNew($redir_url, $notice_id);
+                    // This seems kind of messed up... for now skipping this part
+                    // if we're already under a redirect, so we don't go into
+                    // horrible infinite loops if we've been given an unstable
+                    // redirect (where the final destination of the first request
+                    // doesn't match what we get when we ask for it again).
+                    //
+                    // Seen in the wild with clojure.org, which redirects through
+                    // wikispaces for auth and appends session data in the URL params.
+                    $x = File::processNew($redir_url, $notice_id, /*followRedirects*/false);
                     $file_id = $x->id;
                     File_redirection::saveNew($redir_data, $file_id, $given_url);
                 }
@@ -260,8 +301,11 @@ class File extends Memcached_DataObject
         $enclosure->mimetype=$this->mimetype;
 
         if(! isset($this->filename)){
-            $notEnclosureMimeTypes = array('text/html','application/xhtml+xml');
-            $mimetype = strtolower($this->mimetype);
+            $notEnclosureMimeTypes = array(null,'text/html','application/xhtml+xml');
+            $mimetype = $this->mimetype;
+            if($mimetype != null){
+                $mimetype = strtolower($this->mimetype);
+            }
             $semicolon = strpos($mimetype,';');
             if($semicolon){
                 $mimetype = substr($mimetype,0,$semicolon);
@@ -289,6 +333,13 @@ class File extends Memcached_DataObject
             }
         }
         return $enclosure;
+    }
+
+    // quick back-compat hack, since there's still code using this
+    function isEnclosure()
+    {
+        $enclosure = $this->getEnclosure();
+        return !empty($enclosure);
     }
 }
 

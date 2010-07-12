@@ -36,6 +36,7 @@ class XmppManager extends IoManager
     protected $site = null;
     protected $pingid = 0;
     protected $lastping = null;
+    protected $conn = null;
 
     static protected $singletons = array();
     
@@ -252,12 +253,12 @@ class XmppManager extends IoManager
         $from = jabber_normalize_jid($pl['from']);
 
         if ($pl['type'] != 'chat') {
-            $this->log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from.");
+            $this->log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from: " . $pl['xml']->toString());
             return;
         }
 
         if (mb_strlen($pl['body']) == 0) {
-            $this->log(LOG_WARNING, "Ignoring message with empty body from $from.");
+            $this->log(LOG_WARNING, "Ignoring message with empty body from $from: "  . $pl['xml']->toString());
             return;
         }
 

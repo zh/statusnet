@@ -273,7 +273,13 @@ class TwitterauthorizationAction extends Action
 
         $flink->user_id = $user_id;
         $flink->service = TWITTER_SERVICE;
-        $flink->delete(); // delete stale flink, if any
+
+        // delete stale flink, if any
+        $result = $flink->find(true);
+
+        if (!empty($result)) {
+            $flink->safeDelete();
+        }
 
         $flink->user_id     = $user_id;
         $flink->foreign_id  = $twuid;
@@ -326,6 +332,11 @@ class TwitterauthorizationAction extends Action
         parent::showPage();
     }
 
+    /**
+     * @fixme much of this duplicates core code, which is very fragile.
+     * Should probably be replaced with an extensible mini version of
+     * the core registration form.
+     */
     function showContent()
     {
         if (!empty($this->message_text)) {
@@ -347,10 +358,15 @@ class TwitterauthorizationAction extends Action
                                       'name' => 'license',
                                       'value' => 'true'));
         $this->elementStart('label', array('class' => 'checkbox', 'for' => 'license'));
-        $this->text(_('My text and files are available under '));
-        $this->element('a', array('href' => common_config('license', 'url')),
-                       common_config('license', 'title'));
-        $this->text(_(' except this private data: password, email address, IM address, phone number.'));
+        $message = _('My text and files are available under %s ' .
+                     'except this private data: password, ' .
+                     'email address, IM address, and phone number.');
+        $link = '<a href="' .
+                htmlspecialchars(common_config('license', 'url')) .
+                '">' .
+                htmlspecialchars(common_config('license', 'title')) .
+                '</a>';
+        $this->raw(sprintf(htmlspecialchars($message), $link));
         $this->elementEnd('label');
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -454,6 +470,11 @@ class TwitterauthorizationAction extends Action
         }
 
         $user = User::register($args);
+
+        if (empty($user)) {
+            $this->serverError(_('Error registering user.'));
+            return;
+        }
 
         $result = $this->saveForeignLink($user->id,
                                          $this->twuid,

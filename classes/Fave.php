@@ -21,7 +21,15 @@ class Fave extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
-    static function addNew($profile, $notice) {
+    /**
+     * Save a favorite record.
+     * @fixme post-author notification should be moved here
+     *
+     * @param Profile $profile the local or remote user who likes
+     * @param Notice $notice the notice that is liked
+     * @return mixed false on failure, or Fave record on success
+     */
+    static function addNew(Profile $profile, Notice $notice) {
 
         $fave = null;
 
@@ -67,13 +75,13 @@ class Fave extends Memcached_DataObject
         return Memcached_DataObject::pkeyGet('Fave', $kv);
     }
 
-    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $own=false, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Fave', '_streamDirect'),
                               array($user_id, $own),
                               ($own) ? 'fave:ids_by_user_own:'.$user_id :
                               'fave:ids_by_user:'.$user_id,
-                              $offset, $limit);
+                              $offset, $limit, $since_id, $max_id);
         return $ids;
     }
 

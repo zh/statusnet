@@ -47,7 +47,8 @@ class BookmarkletAction extends NewnoticeAction
 {
     function showTitle()
     {
-        $this->element('title', null, _('Post to ').common_config('site', 'name'));
+        // TRANS: Title for mini-posting window loaded from bookmarklet.
+        $this->element('title', null, sprintf(_('Post to %s'), common_config('site', 'name')));
     }
 
     function showHeader()

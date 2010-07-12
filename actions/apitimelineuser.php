@@ -29,6 +29,7 @@
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -112,19 +113,17 @@ class ApiTimelineUserAction extends ApiBareAuthAction
     function showTimeline()
     {
         $profile = $this->user->getProfile();
-        $avatar = $profile->getAvatar(AVATAR_PROFILE_SIZE);
 
-        $sitename   = common_config('site', 'name');
-        $title      = sprintf(_("%s timeline"), $this->user->nickname);
-        $link       = common_local_url(
+        // We'll use the shared params from the Atom stub
+        // for other feed types.
+        $atom = new AtomUserNoticeFeed($this->user, $this->auth_user);
+
+        $link = common_local_url(
             'showstream',
             array('nickname' => $this->user->nickname)
         );
-        $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->user->nickname, $sitename
-        );
-        $logo = ($avatar) ? $avatar->displayUrl() : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+
+        $self = $this->getSelfUri();
 
         // FriendFeed's SUP protocol
         // Also added RSS and Atom feeds
@@ -138,55 +137,23 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             break;
         case 'rss':
             $this->showRssTimeline(
-                $this->notices, $title, $link,
-                $subtitle, $suplink, $logo
+                $this->notices,
+                $atom->title,
+                $link,
+                $atom->subtitle,
+                $suplink,
+                $atom->logo,
+                $self
             );
             break;
         case 'atom':
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            // @todo set all this Atom junk up inside the feed class
-
-            $atom = new AtomUserNoticeFeed($this->user);
-
-            $atom->setTitle($title);
-            $atom->setSubtitle($subtitle);
-            $atom->setLogo($logo);
-            $atom->setUpdated('now');
-
-            $atom->addLink(
-                common_local_url(
-                    'showstream',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->setId($this->getSelfUri('ApiTimelineUser', $aargs));
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineUser', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
-
-            $atom->addLink(
-                $suplink,
-                array(
-                    'rel' => 'http://api.friendfeed.com/2008/03#sup',
-                    'type' => 'application/json'
-                )
-            );
-
+            $atom->setId($self);
+            $atom->setSelfLink($self);
             $atom->addEntryFromNotices($this->notices);
-
-            #$this->raw($atom->getString());
-            print $atom->getString(); // temporary for output buffering
+            $this->raw($atom->getString());
 
             break;
         case 'json':

@@ -249,7 +249,7 @@ class UTF8FixerUpper
         $sql = 'SELECT id, fullname, location, description FROM user_group ' .
           'WHERE LENGTH(fullname) != CHAR_LENGTH(fullname) '.
           'OR LENGTH(location) != CHAR_LENGTH(location) '.
-          'OR LENGTH(description) != CHAR_LENGTH(description) ';
+          'OR LENGTH(description) != CHAR_LENGTH(description) '.
           'AND modified < "'.$this->max_date.'" '.
           'ORDER BY modified DESC';
 

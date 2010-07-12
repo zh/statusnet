@@ -56,7 +56,12 @@ try {
         $user = new User();
         if ($user->find()) {
             while ($user->fetch()) {
-                updateOStatus($user);
+                try {
+                    updateOStatus($user);
+                } catch (Exception $e) {
+                    common_log(LOG_NOTICE, "Couldn't convert OMB subscriptions ".
+                               "for {$user->nickname} to OStatus: " . $e->getMessage());
+                }
             }
         }
     } else {
@@ -98,7 +103,7 @@ function updateOStatus($user)
                 echo "Checking {$rp->nickname}...";
             }
 
-            $op = Ostatus_profile::ensureProfile($rp->profileurl);
+            $op = Ostatus_profile::ensureProfileURL($rp->profileurl);
 
             if (empty($op)) {
                 echo "can't convert.\n";
@@ -107,8 +112,8 @@ function updateOStatus($user)
                 if (!have_option('q', 'quiet')) {
                     echo "Converting...";
                 }
-                Subscription::cancel($up, $rp);
                 Subscription::start($up, $op->localProfile());
+                Subscription::cancel($up, $rp);
                 if (!have_option('q', 'quiet')) {
                     echo "done.\n";
                 }
@@ -118,8 +123,7 @@ function updateOStatus($user)
             if (!have_option('q', 'quiet')) {
                 echo "fail.\n";
             }
-            continue;
-            common_log(LOG_WARNING, "Couldn't convert OMB subscription (" . $up->nickname . ", " . $rp->nickname .
+            common_log(LOG_NOTICE, "Couldn't convert OMB subscription (" . $up->nickname . ", " . $rp->nickname .
                        ") to OStatus: " . $e->getMessage());
             continue;
         }

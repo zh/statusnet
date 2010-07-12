@@ -90,34 +90,36 @@ class OpenidsettingsAction extends AccountSettingsAction
     {
         $user = common_current_user();
 
-        $this->elementStart('form', array('method' => 'post',
-                                          'id' => 'form_settings_openid_add',
-                                          'class' => 'form_settings',
-                                          'action' =>
-                                          common_local_url('openidsettings')));
-        $this->elementStart('fieldset', array('id' => 'settings_openid_add'));
-        $this->element('legend', null, _m('Add OpenID'));
-        $this->hidden('token', common_session_token());
-        $this->element('p', 'form_guide',
-                       _m('If you want to add an OpenID to your account, ' .
-                         'enter it in the box below and click "Add".'));
-        $this->elementStart('ul', 'form_data');
-        $this->elementStart('li');
-        $this->element('label', array('for' => 'openid_url'),
-                       _m('OpenID URL'));
-        $this->element('input', array('name' => 'openid_url',
-                                      'type' => 'text',
-                                      'id' => 'openid_url'));
-        $this->elementEnd('li');
-        $this->elementEnd('ul');
-        $this->element('input', array('type' => 'submit',
-                                      'id' => 'settings_openid_add_action-submit',
-                                      'name' => 'add',
-                                      'class' => 'submit',
-                                      'value' => _m('Add')));
-        $this->elementEnd('fieldset');
-        $this->elementEnd('form');
-
+        if (!common_config('openid', 'trusted_provider')) {
+            $this->elementStart('form', array('method' => 'post',
+                                              'id' => 'form_settings_openid_add',
+                                              'class' => 'form_settings',
+                                              'action' =>
+                                              common_local_url('openidsettings')));
+            $this->elementStart('fieldset', array('id' => 'settings_openid_add'));
+    
+            $this->element('legend', null, _m('Add OpenID'));
+            $this->hidden('token', common_session_token());
+            $this->element('p', 'form_guide',
+                           _m('If you want to add an OpenID to your account, ' .
+                             'enter it in the box below and click "Add".'));
+            $this->elementStart('ul', 'form_data');
+            $this->elementStart('li');
+            $this->element('label', array('for' => 'openid_url'),
+                           _m('OpenID URL'));
+            $this->element('input', array('name' => 'openid_url',
+                                          'type' => 'text',
+                                          'id' => 'openid_url'));
+            $this->elementEnd('li');
+            $this->elementEnd('ul');
+            $this->element('input', array('type' => 'submit',
+                                          'id' => 'settings_openid_add_action-submit',
+                                          'name' => 'add',
+                                          'class' => 'submit',
+                                          'value' => _m('Add')));
+            $this->elementEnd('fieldset');
+            $this->elementEnd('form');
+        }
         $oid = new User_openid();
 
         $oid->user_id = $user->id;
@@ -176,6 +178,43 @@ class OpenidsettingsAction extends AccountSettingsAction
                 }
             }
         }
+
+        $this->elementStart('form', array('method' => 'post',
+                                          'id' => 'form_settings_openid_trustroots',
+                                          'class' => 'form_settings',
+                                          'action' =>
+                                          common_local_url('openidsettings')));
+        $this->elementStart('fieldset', array('id' => 'settings_openid_trustroots'));
+        $this->element('legend', null, _m('OpenID Trusted Sites'));
+        $this->hidden('token', common_session_token());
+        $this->element('p', 'form_guide',
+                       _m('The following sites are allowed to access your ' .
+                       'identity and log you in. You can remove a site from ' .
+                       'this list to deny it access to your OpenID.'));
+        $this->elementStart('ul', 'form_data');
+        $user_openid_trustroot = new User_openid_trustroot();
+        $user_openid_trustroot->user_id=$user->id;
+        if($user_openid_trustroot->find()) {
+            while($user_openid_trustroot->fetch()) {
+                $this->elementStart('li');
+                $this->element('input', array('name' => 'openid_trustroot[]',
+                                              'type' => 'checkbox',
+                                              'class' => 'checkbox',
+                                              'value' => $user_openid_trustroot->trustroot,
+                                              'id' => 'openid_trustroot_' . crc32($user_openid_trustroot->trustroot)));
+                $this->element('label', array('class'=>'checkbox', 'for' => 'openid_trustroot_' . crc32($user_openid_trustroot->trustroot)),
+                               $user_openid_trustroot->trustroot);
+                $this->elementEnd('li');
+            }
+        }
+        $this->elementEnd('ul');
+        $this->element('input', array('type' => 'submit',
+                                      'id' => 'settings_openid_trustroots_action-submit',
+                                      'name' => 'remove_trustroots',
+                                      'class' => 'submit',
+                                      'value' => _m('Remove')));
+        $this->elementEnd('fieldset');
+        $this->elementEnd('form');
     }
 
     /**
@@ -197,16 +236,53 @@ class OpenidsettingsAction extends AccountSettingsAction
         }
 
         if ($this->arg('add')) {
-            $result = oid_authenticate($this->trimmed('openid_url'),
-                                       'finishaddopenid');
-            if (is_string($result)) { // error message
-                $this->showForm($result);
+            if (common_config('openid', 'trusted_provider')) {
+                $this->showForm(_m("Can't add new providers."));
+            } else {
+                $result = oid_authenticate($this->trimmed('openid_url'),
+                                           'finishaddopenid');
+                if (is_string($result)) { // error message
+                    $this->showForm($result);
+                }
             }
         } else if ($this->arg('remove')) {
             $this->removeOpenid();
+        } else if($this->arg('remove_trustroots')) {
+            $this->removeTrustroots();
         } else {
             $this->showForm(_m('Something weird happened.'));
         }
+    }
+
+    /**
+     * Handles a request to remove OpenID trustroots from the user's account
+     *
+     * Validates input and, if everything is OK, deletes the trustroots.
+     * Reloads the form with a success or error notification.
+     *
+     * @return void
+     */
+
+    function removeTrustroots()
+    {
+        $user = common_current_user();
+        $trustroots = $this->arg('openid_trustroot');
+        if($trustroots) {
+            foreach($trustroots as $trustroot) {
+                $user_openid_trustroot = User_openid_trustroot::pkeyGet(
+                                                array('user_id'=>$user->id, 'trustroot'=>$trustroot));
+                if($user_openid_trustroot) {
+                    $user_openid_trustroot->delete();
+                } else {
+                    $this->showForm(_m('No such OpenID trustroot.'));
+                    return;
+                }
+            }
+            $this->showForm(_m('Trustroots removed'), true);
+        } else {
+            $this->showForm();
+        }
+        return;
     }
 
     /**

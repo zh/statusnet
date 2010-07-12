@@ -171,7 +171,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		$body	= htmlspecialchars($body);
 		$subject = htmlspecialchars($subject);
 		
-		$out = "<message from='{$this->fulljid}' to='$to' type='$type'>";
+		$out = "<message from=\"{$this->fulljid}\" to=\"$to\" type='$type'>";
 		if($subject) $out .= "<subject>$subject</subject>";
 		$out .= "<body>$body</body>";
 		if($payload) $out .= $payload;
@@ -194,7 +194,7 @@ class XMPPHP_XMPP extends XMPPHP_XMLStream {
 		if($show == 'unavailable') $type = 'unavailable';
 		
 		$out = "<presence";
-		if($to) $out .= " to='$to'";
+		if($to) $out .= " to=\"$to\"";
 		if($type) $out .= " type='$type'";
 		if($show == 'available' and !$status) {
 			$out .= "/>";

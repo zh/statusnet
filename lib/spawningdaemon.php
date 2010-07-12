@@ -71,6 +71,8 @@ abstract class SpawningDaemon extends Daemon
      */
     function run()
     {
+        $this->initPipes();
+
         $children = array();
         for ($i = 1; $i <= $this->threads; $i++) {
             $pid = pcntl_fork();
@@ -129,6 +131,34 @@ abstract class SpawningDaemon extends Daemon
     }
 
     /**
+     * Create an IPC socket pair which child processes can use to detect
+     * if the parent process has been killed.
+     */
+    function initPipes()
+    {
+        $sockets = stream_socket_pair(STREAM_PF_UNIX, STREAM_SOCK_STREAM, 0);
+        if ($sockets) {
+            $this->parentWriter = $sockets[0];
+            $this->parentReader = $sockets[1];
+        } else {
+            $this->log(LOG_ERROR, "Couldn't create inter-process sockets");
+            exit(1);
+        }
+    }
+
+    /**
+     * Build an IOManager that simply ensures that we have a connection
+     * to the parent process open. If it breaks, the child process will
+     * die.
+     *
+     * @return ProcessManager
+     */
+    public function processManager()
+    {
+        return new ProcessManager($this->parentReader);
+    }
+
+    /**
      * Determine whether to respawn an exited subprocess based on its exit code.
      * Otherwise we'll respawn all exits by default.
      *
@@ -152,6 +182,8 @@ abstract class SpawningDaemon extends Daemon
      */
     protected function initAndRunChild($thread)
     {
+        // Close the writer end of our parent<->children pipe.
+        fclose($this->parentWriter);
         $this->set_id($this->get_id() . "." . $thread);
         $this->resetDb();
         $exitCode = $this->runThread();

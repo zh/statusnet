@@ -69,7 +69,7 @@ class AdminPanelAction extends Action
         // User must be logged in.
 
         if (!common_logged_in()) {
-            // TRANS: Client error message
+            // TRANS: Client error message thrown when trying to access the admin panel while not logged in.
             $this->clientError(_('Not logged in.'));
             return false;
         }
@@ -94,7 +94,7 @@ class AdminPanelAction extends Action
         // User must have the right to change admin settings
 
         if (!$user->hasRight(Right::CONFIGURESITE)) {
-            // TRANS: Client error message
+            // TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
             $this->clientError(_('You cannot make changes to this site.'));
             return false;
         }
@@ -106,7 +106,7 @@ class AdminPanelAction extends Action
         $name = mb_substr($name, 0, -10);
 
         if (!self::canAdmin($name)) {
-            // TRANS: Client error message
+            // TRANS: Client error message throw when a certain panel's settings cannot be changed.
             $this->clientError(_('Changes to that panel are not allowed.'), 403);
             return false;
         }
@@ -176,6 +176,24 @@ class AdminPanelAction extends Action
     }
 
     /**
+     * Show content block. Overrided just to add a special class
+     * to the content div to allow styling.
+     *
+     * @return nothing
+     */
+    function showContentBlock()
+    {
+        $this->elementStart('div', array('id' => 'content', 'class' => 'admin'));
+        $this->showPageTitle();
+        $this->showPageNoticeBlock();
+        $this->elementStart('div', array('id' => 'content_inner'));
+        // show the actual content (forms, lists, whatever)
+        $this->showContent();
+        $this->elementEnd('div');
+        $this->elementEnd('div');
+    }
+
+    /**
      * show human-readable instructions for the page, or
      * a success/failure on save.
      *
@@ -207,7 +225,7 @@ class AdminPanelAction extends Action
 
     function showForm()
     {
-        // TRANS: Client error message
+        // TRANS: Client error message.
         $this->clientError(_('showForm() not implemented.'));
         return;
     }
@@ -261,13 +279,15 @@ class AdminPanelAction extends Action
             $result = $config->delete();
             if (!$result) {
                 common_log_db_error($config, 'DELETE', __FILE__);
-                // TRANS: Client error message
+                // TRANS: Client error message thrown if design settings could not be deleted in
+                // TRANS: the admin panel Design.
                 $this->clientError(_("Unable to delete design setting."));
                 return null;
             }
+            return $result;
         }
 
-        return $result;
+        return null;
     }
 
     function canAdmin($name)
@@ -345,32 +365,48 @@ class AdminPanelNav extends Widget
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('User configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('useradminpanel'), _m('MENU', 'User'),
-                                     $menu_title, $action_name == 'useradminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('useradminpanel'), _('User'),
+                                     $menu_title, $action_name == 'useradminpanel', 'nav_user_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('access')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Access configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('accessadminpanel'), _m('MENU', 'Access'),
-                                     $menu_title, $action_name == 'accessadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('accessadminpanel'), _('Access'),
+                                     $menu_title, $action_name == 'accessadminpanel', 'nav_access_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('paths')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Paths configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('pathsadminpanel'), _m('MENU', 'Paths'),
-                                    $menu_title, $action_name == 'pathsadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('pathsadminpanel'), _('Paths'),
+                                    $menu_title, $action_name == 'pathsadminpanel', 'nav_paths_admin_panel');
             }
 
             if (AdminPanelAction::canAdmin('sessions')) {
                 // TRANS: Menu item title/tooltip
                 $menu_title = _('Sessions configuration');
                 // TRANS: Menu item for site administration
-                $this->out->menuItem(common_local_url('sessionsadminpanel'), _m('MENU', 'Sessions'),
-                                     $menu_title, $action_name == 'sessionsadminpanel', 'nav_design_admin_panel');
+                $this->out->menuItem(common_local_url('sessionsadminpanel'), _('Sessions'),
+                                     $menu_title, $action_name == 'sessionsadminpanel', 'nav_sessions_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('sitenotice')) {
+                // TRANS: Menu item title/tooltip
+                $menu_title = _('Edit site notice');
+                // TRANS: Menu item for site administration
+                $this->out->menuItem(common_local_url('sitenoticeadminpanel'), _('Site notice'),
+                                     $menu_title, $action_name == 'sitenoticeadminpanel', 'nav_sitenotice_admin_panel');
+            }
+
+            if (AdminPanelAction::canAdmin('snapshot')) {
+                // TRANS: Menu item title/tooltip
+                $menu_title = _('Snapshots configuration');
+                // TRANS: Menu item for site administration
+                $this->out->menuItem(common_local_url('snapshotadminpanel'), _('Snapshots'),
+                                     $menu_title, $action_name == 'snapshotadminpanel', 'nav_snapshot_admin_panel');
             }
 
             Event::handle('EndAdminPanelNav', array($this));

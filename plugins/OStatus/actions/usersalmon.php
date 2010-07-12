@@ -55,9 +55,10 @@ class UsersalmonAction extends SalmonAction
      */
     function handlePost()
     {
-        common_log(LOG_INFO, "Received post of '{$this->act->object->id}' from '{$this->act->actor->id}'");
+        common_log(LOG_INFO, "Received post of '{$this->act->objects[0]->id}' from '{$this->act->actor->id}'");
 
-        switch ($this->act->object->type) {
+        // @fixme: process all activity objects?
+        switch ($this->act->objects[0]->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:
@@ -82,7 +83,8 @@ class UsersalmonAction extends SalmonAction
                 throw new ClientException("In reply to a notice not by this user");
             }
         } else if (!empty($context->attention)) {
-            if (!in_array($this->user->uri, $context->attention)) {
+            if (!in_array($this->user->uri, $context->attention) &&
+                !in_array(common_profile_url($this->user->nickname), $context->attention)) {
                 common_log(LOG_ERR, "{$this->user->uri} not in attention list (".implode(',', $context->attention).")");
                 throw new ClientException("To the attention of user(s) not including this one!");
             }
@@ -90,7 +92,7 @@ class UsersalmonAction extends SalmonAction
             throw new ClientException("Not to anyone in reply to anything!");
         }
 
-        $existing = Notice::staticGet('uri', $this->act->object->id);
+        $existing = Notice::staticGet('uri', $this->act->objects[0]->id);
 
         if (!empty($existing)) {
             common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
@@ -141,7 +143,7 @@ class UsersalmonAction extends SalmonAction
 
     function handleFavorite()
     {
-        $notice = $this->getNotice($this->act->object);
+        $notice = $this->getNotice($this->act->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $old = Fave::pkeyGet(array('user_id' => $profile->id,
@@ -162,7 +164,7 @@ class UsersalmonAction extends SalmonAction
      */
     function handleUnfavorite()
     {
-        $notice = $this->getNotice($this->act->object);
+        $notice = $this->getNotice($this->act->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $fave = Fave::pkeyGet(array('user_id' => $profile->id,

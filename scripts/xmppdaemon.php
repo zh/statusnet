@@ -55,7 +55,7 @@ class XMPPDaemon extends SpawningDaemon
     {
         common_log(LOG_INFO, 'Waiting to listen to XMPP and queues');
 
-        $master = new XmppMaster($this->get_id());
+        $master = new XmppMaster($this->get_id(), $this->processManager());
         $master->init($this->allsites);
         $master->service();
 
@@ -68,6 +68,14 @@ class XMPPDaemon extends SpawningDaemon
 
 class XmppMaster extends IoMaster
 {
+    protected $processManager;
+
+    function __construct($id, $processManager)
+    {
+        parent::__construct($id);
+        $this->processManager = $processManager;
+    }
+
     /**
      * Initialize IoManagers for the currently configured site
      * which are appropriate to this instance.
@@ -79,6 +87,7 @@ class XmppMaster extends IoMaster
             $qm->setActiveGroup('xmpp');
             $this->instantiate($qm);
             $this->instantiate(XmppManager::get());
+            $this->instantiate($this->processManager);
         }
     }
 }
@@ -89,7 +98,15 @@ class XmppMaster extends IoMaster
 // don't have to find an XMPP site to start up when using --all mode.
 if (common_config('xmpp','enabled')==false) {
     print "Aborting daemon - xmpp is disabled\n";
-    exit();
+    exit(1);
+}
+
+if (version_compare(PHP_VERSION, '5.2.6', '<')) {
+    $arch = php_uname('m');
+    if ($arch == 'x86_64' || $arch == 'amd64') {
+        print "Aborting daemon - 64-bit PHP prior to 5.2.6 has known bugs in stream_select; you are running " . PHP_VERSION . " on $arch.\n";
+        exit(1);
+    }
 }
 
 if (have_option('i', 'id')) {

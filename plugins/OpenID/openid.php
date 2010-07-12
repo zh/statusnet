@@ -94,7 +94,6 @@ function oid_link_user($id, $canonical, $display)
 
     if (!$oid->insert()) {
         $err = PEAR::getStaticProperty('DB_DataObject','lastError');
-        common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
         return false;
     }
 
@@ -119,13 +118,10 @@ function oid_check_immediate($openid_url, $backto=null)
         unset($args['action']);
         $backto = common_local_url($action, $args);
     }
-    common_debug('going back to "' . $backto . '"', __FILE__);
 
     common_ensure_session();
 
     $_SESSION['openid_immediate_backto'] = $backto;
-    common_debug('passed-in variable is "' . $backto . '"', __FILE__);
-    common_debug('session variable is "' . $_SESSION['openid_immediate_backto'] . '"', __FILE__);
 
     oid_authenticate($openid_url,
                      'finishimmediate',
@@ -138,6 +134,7 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
     $consumer = oid_consumer();
 
     if (!$consumer) {
+        // TRANS: OpenID plugin server error.
         common_server_error(_m('Cannot instantiate OpenID consumer object.'));
         return false;
     }
@@ -148,8 +145,13 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 
     // Handle failure status return values.
     if (!$auth_request) {
+        common_log(LOG_ERR, __METHOD__ . ": mystery fail contacting $openid_url");
+        // TRANS: OpenID plugin message. Given when an OpenID is not valid.
         return _m('Not a valid OpenID.');
     } else if (Auth_OpenID::isFailure($auth_request)) {
+        common_log(LOG_ERR, __METHOD__ . ": OpenID fail to $openid_url: $auth_request->message");
+        // TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
+        // TRANS: %s is the failure message.
         return sprintf(_m('OpenID failure: %s'), $auth_request->message);
     }
 
@@ -168,6 +170,15 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         $auth_request->addExtension($sreg_request);
     }
 
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        // LaunchPad OpenID extension
+        $team_request = new Auth_OpenID_TeamsRequest(array($requiredTeam));
+        if ($team_request) {
+            $auth_request->addExtension($team_request);
+        }
+    }
+
     $trust_root = common_root_url(true);
     $process_url = common_local_url($returnto);
 
@@ -177,6 +188,8 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
                                                    $immediate);
         if (!$redirect_url) {
         } else if (Auth_OpenID::isFailure($redirect_url)) {
+            // TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
+            // TRANS: %s is the failure message.
             return sprintf(_m('Could not redirect to server: %s'), $redirect_url->message);
         } else {
             common_redirect($redirect_url, 303);
@@ -195,6 +208,8 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
         // Display an error if the form markup couldn't be generated;
         // otherwise, render the HTML.
         if (Auth_OpenID::isFailure($form_html)) {
+            // TRANS: OpenID plugin server error if the form markup could not be generated.
+            // TRANS: %s is the failure message.
             common_server_error(sprintf(_m('Could not create OpenID form: %s'), $form_html->message));
         } else {
             $action = new AutosubmitAction(); // see below
@@ -211,25 +226,29 @@ function oid_authenticate($openid_url, $returnto, $immediate=false)
 function _oid_print_instructions()
 {
     common_element('div', 'instructions',
+                   // TRANS: OpenID plugin user instructions.
                    _m('This form should automatically submit itself. '.
                       'If not, click the submit button to go to your '.
                       'OpenID provider.'));
 }
 
-# update a user from sreg parameters
-
-function oid_update_user(&$user, &$sreg)
+/**
+ * Update a user from sreg parameters
+ * @param User $user
+ * @param array $sreg fields from OpenID sreg response
+ * @access private
+ */
+function oid_update_user($user, $sreg)
 {
-
     $profile = $user->getProfile();
 
     $orig_profile = clone($profile);
 
-    if ($sreg['fullname'] && strlen($sreg['fullname']) <= 255) {
+    if (!empty($sreg['fullname']) && strlen($sreg['fullname']) <= 255) {
         $profile->fullname = $sreg['fullname'];
     }
 
-    if ($sreg['country']) {
+    if (!empty($sreg['country'])) {
         if ($sreg['postcode']) {
             # XXX: use postcode to get city and region
             # XXX: also, store postcode somewhere -- it's valuable!
@@ -243,19 +262,78 @@ function oid_update_user(&$user, &$sreg)
     # XXX save timezone if it's passed
 
     if (!$profile->update($orig_profile)) {
+        // TRANS: OpenID plugin server error.
         common_server_error(_m('Error saving the profile.'));
         return false;
     }
 
     $orig_user = clone($user);
 
-    if ($sreg['email'] && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
+    if (!empty($sreg['email']) && Validate::email($sreg['email'], common_config('email', 'check_domain'))) {
         $user->email = $sreg['email'];
     }
 
     if (!$user->update($orig_user)) {
+        // TRANS: OpenID plugin server error.
         common_server_error(_m('Error saving the user.'));
         return false;
+    }
+
+    return true;
+}
+
+function oid_assert_allowed($url)
+{
+    $blacklist = common_config('openid', 'blacklist');
+    $whitelist = common_config('openid', 'whitelist');
+
+    if (empty($blacklist)) {
+        $blacklist = array();
+    }
+
+    if (empty($whitelist)) {
+        $whitelist = array();
+    }
+
+    foreach ($blacklist as $pattern) {
+        if (preg_match("/$pattern/", $url)) {
+            common_log(LOG_INFO, "Matched OpenID blacklist pattern {$pattern} with {$url}");
+            foreach ($whitelist as $exception) {
+                if (preg_match("/$exception/", $url)) {
+                    common_log(LOG_INFO, "Matched OpenID whitelist pattern {$exception} with {$url}");
+                    return;
+                }
+            }
+            // TRANS: OpenID plugin client exception (403).
+            throw new ClientException(_m("Unauthorized URL used for OpenID login."), 403);
+        }
+    }
+
+    return;
+}
+
+/**
+ * Check the teams available in the given OpenID response
+ * Using Launchpad's OpenID teams extension
+ *
+ * @return boolean whether this user is acceptable
+ */
+function oid_check_teams($response)
+{
+    $requiredTeam = common_config('openid', 'required_team');
+    if ($requiredTeam) {
+        $team_resp = new Auth_OpenID_TeamsResponse($response);
+        if ($team_resp) {
+            $teams = $team_resp->getTeams();
+        } else {
+            $teams = array();
+        }
+
+        $match = in_array($requiredTeam, $teams);
+        $is = $match ? 'is' : 'is not';
+        common_log(LOG_DEBUG, "Remote user $is in required team $requiredTeam: [" . implode(', ', $teams) . "]");
+
+        return $match;
     }
 
     return true;
@@ -274,20 +352,31 @@ class AutosubmitAction extends Action
 
     function title()
     {
-        return _m('OpenID Auto-Submit');
+        // TRANS: Title
+        return _m('OpenID Login Submission');
     }
 
     function showContent()
     {
+        $this->raw('<p style="margin: 20px 80px">');
+        // @fixme this would be better using standard CSS class, but the present theme's a bit scary.
+        $this->element('img', array('src' => Theme::path('images/icons/icon_processing.gif', 'base'),
+                                    // for some reason the base CSS sets <img>s as block display?!
+                                    'style' => 'display: inline'));
+        // TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
+        $this->text(_m('Requesting authorization from your login provider...'));
+        $this->raw('</p>');
+        $this->raw('<p style="margin-top: 60px; font-style: italic">');
+        // TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
+        $this->text(_m('If you are not redirected to your login provider in a few seconds, try pushing the button below.'));
+        $this->raw('</p>');
         $this->raw($this->form_html);
     }
-    
+
     function showScripts()
     {
         parent::showScripts();
         $this->element('script', null,
-                       '$(document).ready(function() { ' .
-                       '    $(\'#'. $this->form_id .'\').submit(); '.
-                       '});');
+                       'document.getElementById(\'' . $this->form_id . '\').submit();');
     }
 }

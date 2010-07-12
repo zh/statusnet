@@ -34,7 +34,7 @@ function update_core($dir, $domain)
 xgettext \
     --from-code=UTF-8 \
     --default-domain=$domain \
-    --output=locale/$domain.po \
+    --output=locale/$domain.pot \
     --language=PHP \
     --add-comments=TRANS \
     --keyword="_m:1,1t" \
@@ -64,7 +64,7 @@ function do_update_plugin($dir, $domain)
 xgettext \
     --from-code=UTF-8 \
     --default-domain=$domain \
-    --output=locale/$domain.po \
+    --output=locale/$domain.pot \
     --language=PHP \
     --add-comments=TRANS \
     --keyword='' \

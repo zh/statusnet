@@ -97,19 +97,25 @@ class ApiStatusnetConfigAction extends ApiAction
 
             // XXX: check that all sections and settings are legal XML elements
 
-            common_debug(var_export($this->keys, true));
-
             foreach ($this->keys as $section => $settings) {
                 $this->elementStart($section);
                 foreach ($settings as $setting) {
                     $value = common_config($section, $setting);
                     if (is_array($value)) {
                         $value = implode(',', $value);
-                    } else if ($value === false) {
+                    } else if ($value === false || $value == '0') {
                         $value = 'false';
-                    } else if ($value === true) {
+                    } else if ($value === true || $value == '1') {
                         $value = 'true';
                     }
+
+                    // return theme logo if there's no site specific one
+                    if (empty($value)) {
+                        if ($section == 'site' && $setting == 'logo') {
+                            $value = Theme::path('logo.png');
+                        }
+                    }
+
                     $this->element($setting, null, $value);
                 }
                 $this->elementEnd($section);

@@ -49,7 +49,7 @@ class TagAction extends Action
 
         if($this->page > 1 && $this->notice->N == 0){
             // TRANS: Server error when page not found (404)
-            $this->serverError(_('No such page'),$code=404);
+            $this->serverError(_('No such page.'),$code=404);
         }
 
         return true;
@@ -102,12 +102,17 @@ class TagAction extends Action
 
     function showContent()
     {
-        $nl = new NoticeList($this->notice, $this);
+        if(Event::handle('StartTagShowContent', array($this))) {
+            
+            $nl = new NoticeList($this->notice, $this);
 
-        $cnt = $nl->show();
+            $cnt = $nl->show();
 
-        $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
-                          $this->page, 'tag', array('tag' => $this->tag));
+            $this->pagination($this->page > 1, $cnt > NOTICES_PER_PAGE,
+                              $this->page, 'tag', array('tag' => $this->tag));
+
+            Event::handle('EndTagShowContent', array($this));
+        }
     }
 
     function isReadOnly($args)

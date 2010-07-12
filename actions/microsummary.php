@@ -66,7 +66,7 @@ class MicrosummaryAction extends Action
         $notice = $user->getCurrentNotice();
         
         if (!$notice) {
-            $this->clientError(_('No current status'), 404);
+            $this->clientError(_('No current status.'), 404);
         }
         
         header('Content-Type: text/plain');

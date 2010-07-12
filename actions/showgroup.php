@@ -221,7 +221,8 @@ class ShowgroupAction extends GroupDesignAction
 
     function showGroupProfile()
     {
-        $this->elementStart('div', 'entity_profile vcard author');
+        $this->elementStart('div', array('id' => 'i',
+                                         'class' => 'entity_profile vcard author'));
 
         $this->element('h2', null, _('Group profile'));
 
@@ -301,19 +302,20 @@ class ShowgroupAction extends GroupDesignAction
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
         $this->elementStart('li', 'entity_subscribe');
-        $cur = common_current_user();
-        if ($cur) {
-            if ($cur->isMember($this->group)) {
-                $lf = new LeaveForm($this, $this->group);
-                $lf->show();
-            } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
-                $jf = new JoinForm($this, $this->group);
-                $jf->show();
+        if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
+            $cur = common_current_user();
+            if ($cur) {
+                if ($cur->isMember($this->group)) {
+                    $lf = new LeaveForm($this, $this->group);
+                    $lf->show();
+                } else if (!Group_block::isBlocked($this->group, $cur->getProfile())) {
+                    $jf = new JoinForm($this, $this->group);
+                    $jf->show();
+                }
             }
+            Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
-
         $this->elementEnd('li');
-
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }
@@ -386,18 +388,23 @@ class ShowgroupAction extends GroupDesignAction
         $this->elementStart('div', array('id' => 'entity_members',
                                          'class' => 'section'));
 
-        $this->element('h2', null, _('Members'));
+        if (Event::handle('StartShowGroupMembersMiniList', array($this))) {
 
-        $pml = new ProfileMiniList($member, $this);
-        $cnt = $pml->show();
-        if ($cnt == 0) {
-             $this->element('p', null, _('(None)'));
-        }
+            $this->element('h2', null, _('Members'));
 
-        if ($cnt > MEMBERS_PER_SECTION) {
-            $this->element('a', array('href' => common_local_url('groupmembers',
-                                                                 array('nickname' => $this->group->nickname))),
-                           _('All members'));
+            $gmml = new GroupMembersMiniList($member, $this);
+            $cnt = $gmml->show();
+            if ($cnt == 0) {
+                $this->element('p', null, _('(None)'));
+            }
+
+            if ($cnt > MEMBERS_PER_SECTION) {
+                $this->element('a', array('href' => common_local_url('groupmembers',
+                                                                     array('nickname' => $this->group->nickname))),
+                               _('All members'));
+            }
+
+            Event::handle('EndShowGroupMembersMiniList', array($this));
         }
 
         $this->elementEnd('div');
@@ -423,14 +430,6 @@ class ShowgroupAction extends GroupDesignAction
 
     function showStatistics()
     {
-        // XXX: WORM cache this
-        $members = $this->group->getMembers();
-        $members_count = 0;
-        /** $member->count() doesn't work. */
-        while ($members->fetch()) {
-            $members_count++;
-        }
-
         $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
 
@@ -444,7 +443,7 @@ class ShowgroupAction extends GroupDesignAction
 
         $this->elementStart('dl', 'entity_members');
         $this->element('dt', null, _('Members'));
-        $this->element('dd', null, (is_int($members_count)) ? $members_count : '0');
+        $this->element('dd', null, $this->group->getMemberCount());
         $this->elementEnd('dl');
 
         $this->elementEnd('div');
@@ -500,3 +499,26 @@ class GroupAdminSection extends ProfileSection
         return null;
     }
 }
+
+class GroupMembersMiniList extends ProfileMiniList
+{
+    function newListItem($profile)
+    {
+        return new GroupMembersMiniListItem($profile, $this->action);
+    }
+}
+
+class GroupMembersMiniListItem extends ProfileMiniListItem
+{
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'members')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+}
+

@@ -94,29 +94,34 @@ class User_greeting_count extends Memcached_DataObject
     /**
      * return key definitions for DB_DataObject
      *
-     * DB_DataObject needs to know about keys that the table has; this function
-     * defines them.
+     * DB_DataObject needs to know about keys that the table has, since it
+     * won't appear in StatusNet's own keys list. In most cases, this will
+     * simply reference your keyTypes() function.
      *
-     * @return array key definitions
+     * @return array list of key field names
      */
 
     function keys()
     {
-        return array('user_id' => 'K');
+        return array_keys($this->keyTypes());
     }
 
     /**
      * return key definitions for Memcached_DataObject
      *
      * Our caching system uses the same key definitions, but uses a different
-     * method to get them.
+     * method to get them. This key information is used to store and clear
+     * cached data, so be sure to list any key that will be used for static
+     * lookups.
      *
-     * @return array key definitions
+     * @return array associative array of key definitions, field name to type:
+     *         'K' for primary key: for compound keys, add an entry for each component;
+     *         'U' for unique keys: compound keys are not well supported here.
      */
 
     function keyTypes()
     {
-        return $this->keys();
+        return array('user_id' => 'K');
     }
 
     /**

@@ -63,6 +63,28 @@ class LoginAction extends Action
     }
 
     /**
+     * Prepare page to run
+     *
+     *
+     * @param $args
+     * @return string title
+     */
+
+    function prepare($args)
+    {
+        parent::prepare($args);
+
+        // @todo this check should really be in index.php for all sensitive actions
+        $ssl = common_config('site', 'ssl');
+        if (empty($_SERVER['HTTPS']) && ($ssl == 'always' || $ssl == 'sometimes')) {
+            common_redirect(common_local_url('login'));
+            // exit
+        }
+
+        return true;
+    }
+
+    /**
      * Handle input, produce output
      *
      * Switches on request method; either shows the form or handles its input.
@@ -267,9 +289,13 @@ class LoginAction extends Action
                      'user name and password ' .
                      'before changing your settings.');
         } else {
-            return _('Login with your username and password. ' .
-                     'Don\'t have a username yet? ' .
-                     '[Register](%%action.register%%) a new account.');
+            $prompt = _('Login with your username and password.');
+            if (!common_config('site', 'closed') && !common_config('site', 'inviteonly')) {
+                $prompt .= ' ';
+                $prompt .= _('Don\'t have a username yet? ' .
+                             '[Register](%%action.register%%) a new account.');
+            }
+            return $prompt;
         }
     }
 

@@ -47,6 +47,25 @@ class Channel
     }
 }
 
+class CLIChannel extends Channel
+{
+    function source()
+    {
+        return 'cli';
+    }
+
+    function output($user, $text)
+    {
+        $site = common_config('site', 'name');
+        print "[{$user->nickname}@{$site}] $text\n";
+    }
+
+    function error($user, $text)
+    {
+        $this->output($user, $text);
+    }
+}
+
 class XMPPChannel extends Channel
 {
 

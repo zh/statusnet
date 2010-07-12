@@ -26,6 +26,7 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -88,7 +89,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
         parent::handle($args);
 
         if (empty($this->group)) {
-            $this->clientError(_('Group not found!'), 404, $this->format);
+            $this->clientError(_('Group not found.'), 404, $this->format);
             return false;
         }
 
@@ -104,30 +105,24 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
 
     function showTimeline()
     {
-        $sitename   = common_config('site', 'name');
-        $avatar     = $this->group->homepage_logo;
-        $title      = sprintf(_("%s timeline"), $this->group->nickname);
+        // We'll pull common formatting out of this for other formats
+        $atom = new AtomGroupNoticeFeed($this->group, $this->auth_user);
 
-        $subtitle   = sprintf(
-            _('Updates from %1$s on %2$s!'),
-            $this->group->nickname,
-            $sitename
-        );
-
-        $logo = ($avatar) ? $avatar : User_group::defaultLogo(AVATAR_PROFILE_SIZE);
+        $self = $this->getSelfUri();
 
         switch($this->format) {
         case 'xml':
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-                $this->showRssTimeline(
+            $this->showRssTimeline(
                 $this->notices,
-                $title,
+                $atom->title,
                 $this->group->homeUrl(),
-                $subtitle,
+                $atom->subtitle,
                 null,
-                $logo
+                $atom->logo,
+                $self
             );
             break;
         case 'atom':
@@ -135,40 +130,12 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
             header('Content-Type: application/atom+xml; charset=utf-8');
 
             try {
-
-                $atom = new AtomGroupNoticeFeed($this->group);
-
-                // @todo set all this Atom junk up inside the feed class
-
-                $atom->setId($id);
-                $atom->setTitle($title);
-                $atom->setSubtitle($subtitle);
-                $atom->setLogo($logo);
-                $atom->setUpdated('now');
-
                 $atom->addAuthorRaw($this->group->asAtomAuthor());
                 $atom->setActivitySubject($this->group->asActivitySubject());
-
-                $atom->addLink($this->group->homeUrl());
-
-                $id = $this->arg('id');
-                $aargs = array('format' => 'atom');
-                if (!empty($id)) {
-                    $aargs['id'] = $id;
-                }
-
-                $atom->setId($this->getSelfUri('ApiTimelineGroup', $aargs));
-
-                $atom->addLink(
-                    $this->getSelfUri('ApiTimelineGroup', $aargs),
-                    array('rel' => 'self', 'type' => 'application/atom+xml')
-                );
-
+                $atom->setId($self);
+                $atom->setSelfLink($self);
                 $atom->addEntryFromNotices($this->notices);
-
-                //$this->raw($atom->getString());
-                print $atom->getString(); // temp hack until PuSH feeds are redone cleanly
-
+                $this->raw($atom->getString());
             } catch (Atom10FeedException $e) {
                 $this->serverError(
                     'Could not generate feed for group - ' . $e->getMessage()

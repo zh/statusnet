@@ -90,14 +90,23 @@ class MysqlSchema extends Schema
      * @param string $name Name of the table to get
      *
      * @return TableDef tabledef for that table.
+     * @throws SchemaTableMissingException
      */
 
     public function getTableDef($name)
     {
-        $res = $this->conn->query('DESCRIBE ' . $name);
+        $query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS " .
+                 "WHERE TABLE_SCHEMA='%s' AND TABLE_NAME='%s'";
+        $schema = $this->conn->dsn['database'];
+        $sql = sprintf($query, $schema, $name);
+        $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
             throw new Exception($res->getMessage());
+        }
+        if ($res->numRows() == 0) {
+            $res->free();
+            throw new SchemaTableMissingException("No such table: $name");
         }
 
         $td = new TableDef();
@@ -111,9 +120,9 @@ class MysqlSchema extends Schema
 
             $cd = new ColumnDef();
 
-            $cd->name = $row['Field'];
+            $cd->name = $row['COLUMN_NAME'];
 
-            $packed = $row['Type'];
+            $packed = $row['COLUMN_TYPE'];
 
             if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
                 $cd->type = $match[1];
@@ -122,15 +131,55 @@ class MysqlSchema extends Schema
                 $cd->type = $packed;
             }
 
-            $cd->nullable = ($row['Null'] == 'YES') ? true : false;
-            $cd->key      = $row['Key'];
-            $cd->default  = $row['Default'];
-            $cd->extra    = $row['Extra'];
+            $cd->nullable = ($row['IS_NULLABLE'] == 'YES') ? true : false;
+            $cd->key      = $row['COLUMN_KEY'];
+            $cd->default  = $row['COLUMN_DEFAULT'];
+            $cd->extra    = $row['EXTRA'];
+
+            // Autoincrement is stuck into the extra column.
+            // Pull it out so we don't accidentally mod it every time...
+            $extra = preg_replace('/(^|\s)auto_increment(\s|$)/i', '$1$2', $cd->extra);
+            if ($extra != $cd->extra) {
+                $cd->extra = trim($extra);
+                $cd->auto_increment = true;
+            }
+
+            // mysql extensions -- not (yet) used by base class
+            $cd->charset  = $row['CHARACTER_SET_NAME'];
+            $cd->collate  = $row['COLLATION_NAME'];
 
             $td->columns[] = $cd;
         }
+        $res->free();
 
         return $td;
+    }
+
+    /**
+     * Pull the given table properties from INFORMATION_SCHEMA.
+     * Most of the good stuff is MySQL extensions.
+     *
+     * @return array
+     * @throws Exception if table info can't be looked up
+     */
+
+    function getTableProperties($table, $props)
+    {
+        $query = "SELECT %s FROM INFORMATION_SCHEMA.TABLES " .
+                 "WHERE TABLE_SCHEMA='%s' AND TABLE_NAME='%s'";
+        $schema = $this->conn->dsn['database'];
+        $sql = sprintf($query, implode(',', $props), $schema, $table);
+        $res = $this->conn->query($sql);
+
+        $row = array();
+        $ok = $res->fetchInto($row, DB_FETCHMODE_ASSOC);
+        $res->free();
+        
+        if ($ok) {
+            return $row;
+        } else {
+            throw new SchemaTableMissingException("No such table: $table");
+        }
     }
 
     /**
@@ -185,35 +234,26 @@ class MysqlSchema extends Schema
             }
 
             $sql .= $this->_columnSql($cd);
-
-            switch ($cd->key) {
-            case 'UNI':
-                $uniques[] = $cd->name;
-                break;
-            case 'PRI':
-                $primary[] = $cd->name;
-                break;
-            case 'MUL':
-                $indices[] = $cd->name;
-                break;
-            }
         }
 
-        if (count($primary) > 0) { // it really should be...
-            $sql .= ",\nconstraint primary key (" . implode(',', $primary) . ")";
+        $idx = $this->_indexList($columns);
+
+        if ($idx['primary']) {
+            $sql .= ",\nconstraint primary key (" . implode(',', $idx['primary']) . ")";
         }
 
-        foreach ($uniques as $u) {
-            $sql .= ",\nunique index {$name}_{$u}_idx ($u)";
+        foreach ($idx['uniques'] as $u) {
+            $key = $this->_uniqueKey($name, $u);
+            $sql .= ",\nunique index $key ($u)";
         }
 
-        foreach ($indices as $i) {
-            $sql .= ",\nindex {$name}_{$i}_idx ($i)";
+        foreach ($idx['indices'] as $i) {
+            $key = $this->_key($name, $i);
+            $sql .= ",\nindex $key ($i)";
         }
 
-        $sql .= "); ";
+        $sql .= ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin; ";
 
-        common_log(LOG_INFO, $sql);
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
@@ -221,6 +261,47 @@ class MysqlSchema extends Schema
         }
 
         return true;
+    }
+
+    /**
+     * Look over a list of column definitions and list up which
+     * indices will be present
+     */
+    private function _indexList(array $columns)
+    {
+        $list = array('uniques' => array(),
+                      'primary' => array(),
+                      'indices' => array());
+        foreach ($columns as $cd) {
+            switch ($cd->key) {
+            case 'UNI':
+                $list['uniques'][] = $cd->name;
+                break;
+            case 'PRI':
+                $list['primary'][] = $cd->name;
+                break;
+            case 'MUL':
+                $list['indices'][] = $cd->name;
+                break;
+            }
+        }
+        return $list;
+    }
+
+    /**
+     * Get the unique index key name for a given column on this table
+     */
+    function _uniqueKey($tableName, $columnName)
+    {
+        return $this->_key($tableName, $columnName);
+    }
+
+    /**
+     * Get the index key name for a given column on this table
+     */
+    function _key($tableName, $columnName)
+    {
+        return "{$tableName}_{$columnName}_idx";
     }
 
     /**
@@ -394,21 +475,20 @@ class MysqlSchema extends Schema
 
         try {
             $td = $this->getTableDef($tableName);
-        } catch (Exception $e) {
-            if (preg_match('/no such table/', $e->getMessage())) {
-                return $this->createTable($tableName, $columns);
-            } else {
-                throw $e;
-            }
+        } catch (SchemaTableMissingException $e) {
+            return $this->createTable($tableName, $columns);
         }
 
         $cur = $this->_names($td->columns);
         $new = $this->_names($columns);
 
-        $toadd  = array_diff($new, $cur);
-        $todrop = array_diff($cur, $new);
-        $same   = array_intersect($new, $cur);
-        $tomod  = array();
+        $dropIndex  = array();
+        $toadd      = array_diff($new, $cur);
+        $todrop     = array_diff($cur, $new);
+        $same       = array_intersect($new, $cur);
+        $tomod      = array();
+        $addIndex   = array();
+        $tableProps = array();
 
         foreach ($same as $m) {
             $curCol = $this->_byName($td->columns, $m);
@@ -416,10 +496,64 @@ class MysqlSchema extends Schema
 
             if (!$newCol->equals($curCol)) {
                 $tomod[] = $newCol->name;
+                continue;
+            }
+
+            // Earlier versions may have accidentally left tables at default
+            // charsets which might be latin1 or other freakish things.
+            if ($this->_isString($curCol)) {
+                if ($curCol->charset != 'utf8') {
+                    $tomod[] = $newCol->name;
+                    continue;
+                }
             }
         }
 
-        if (count($toadd) + count($todrop) + count($tomod) == 0) {
+        // Find any indices we have to change...
+        $curIdx = $this->_indexList($td->columns);
+        $newIdx = $this->_indexList($columns);
+
+        if ($curIdx['primary'] != $newIdx['primary']) {
+            if ($curIdx['primary']) {
+                $dropIndex[] = 'drop primary key';
+            }
+            if ($newIdx['primary']) {
+                $keys = implode(',', $newIdx['primary']);
+                $addIndex[] = "add constraint primary key ($keys)";
+            }
+        }
+
+        $dropUnique = array_diff($curIdx['uniques'], $newIdx['uniques']);
+        $addUnique = array_diff($newIdx['uniques'], $curIdx['uniques']);
+        foreach ($dropUnique as $columnName) {
+            $dropIndex[] = 'drop key ' . $this->_uniqueKey($tableName, $columnName);
+        }
+        foreach ($addUnique as $columnName) {
+            $addIndex[] = 'add constraint unique key ' . $this->_uniqueKey($tableName, $columnName) . " ($columnName)";;
+        }
+
+        $dropMultiple = array_diff($curIdx['indices'], $newIdx['indices']);
+        $addMultiple = array_diff($newIdx['indices'], $curIdx['indices']);
+        foreach ($dropMultiple as $columnName) {
+            $dropIndex[] = 'drop key ' . $this->_key($tableName, $columnName);
+        }
+        foreach ($addMultiple as $columnName) {
+            $addIndex[] = 'add key ' . $this->_key($tableName, $columnName) . " ($columnName)";
+        }
+
+        // Check for table properties: make sure we're using a sane
+        // engine type and charset/collation.
+        // @fixme make the default engine configurable?
+        $oldProps = $this->getTableProperties($tableName, array('ENGINE', 'TABLE_COLLATION'));
+        if (strtolower($oldProps['ENGINE']) != 'innodb') {
+            $tableProps['ENGINE'] = 'InnoDB';
+        }
+        if (strtolower($oldProps['TABLE_COLLATION']) != 'utf8_bin') {
+            $tableProps['DEFAULT CHARSET'] = 'utf8';
+            $tableProps['COLLATE'] = 'utf8_bin';
+        }
+
+        if (count($dropIndex) + count($toadd) + count($todrop) + count($tomod) + count($addIndex) + count($tableProps) == 0) {
             // nothing to do
             return true;
         }
@@ -428,6 +562,10 @@ class MysqlSchema extends Schema
         // query, instead of using our methods.
 
         $phrase = array();
+
+        foreach ($dropIndex as $indexSql) {
+            $phrase[] = $indexSql;
+        }
 
         foreach ($toadd as $columnName) {
             $cd = $this->_byName($columns, $columnName);
@@ -445,8 +583,17 @@ class MysqlSchema extends Schema
             $phrase[] = 'MODIFY COLUMN ' . $this->_columnSql($cd);
         }
 
+        foreach ($addIndex as $indexSql) {
+            $phrase[] = $indexSql;
+        }
+
+        foreach ($tableProps as $key => $val) {
+            $phrase[] = "$key=$val";
+        }
+
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
 
+        common_log(LOG_DEBUG, __METHOD__ . ': ' . $sql);
         $res = $this->conn->query($sql);
 
         if (PEAR::isError($res)) {
@@ -519,6 +666,10 @@ class MysqlSchema extends Schema
             $sql .= "{$cd->type} ";
         }
 
+        if ($this->_isString($cd)) {
+            $sql .= " CHARACTER SET utf8 ";
+        }
+
         if (!empty($cd->default)) {
             $sql .= "default {$cd->default} ";
         } else {
@@ -534,5 +685,14 @@ class MysqlSchema extends Schema
         }
 
         return $sql;
+    }
+
+    /**
+     * Is this column a string type?
+     */
+    private function _isString(ColumnDef $cd)
+    {
+        $strings = array('char', 'varchar', 'text');
+        return in_array(strtolower($cd->type), $strings);
     }
 }

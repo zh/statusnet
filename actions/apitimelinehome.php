@@ -29,6 +29,7 @@
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -72,7 +73,7 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
     function prepare($args)
     {
         parent::prepare($args);
-        common_debug("api home_timeline");
+
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
@@ -117,12 +118,20 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
         $id         = "tag:$taguribase:HomeTimeline:" . $this->user->id;
 
         $subtitle   = sprintf(
+            // TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
             _('Updates from %1$s and friends on %2$s!'),
             $this->user->nickname, $sitename
         );
 
-        $logo = (!empty($avatar)) 
-            ? $avatar->displayUrl() 
+        $link = common_local_url(
+            'all',
+            array('nickname' => $this->user->nickname)
+        );
+
+        $self = $this->getSelfUri();
+
+        $logo = (!empty($avatar))
+            ? $avatar->displayUrl()
             : Avatar::defaultImage(AVATAR_PROFILE_SIZE);
 
         switch($this->format) {
@@ -130,24 +139,21 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $this->showXmlTimeline($this->notices);
             break;
         case 'rss':
-            $link = common_local_url(
-                'all',
-                array('nickname' => $this->user->nickname)
-            );
             $this->showRssTimeline(
                 $this->notices,
                 $title,
                 $link,
                 $subtitle,
                 null,
-                $logo
+                $logo,
+                $self
             );
             break;
         case 'atom':
 
             header('Content-Type: application/atom+xml; charset=utf-8');
 
-            $atom = new AtomNoticeFeed();
+            $atom = new AtomNoticeFeed($this->auth_user);
 
             $atom->setId($id);
             $atom->setTitle($title);
@@ -155,23 +161,8 @@ class ApiTimelineHomeAction extends ApiBareAuthAction
             $atom->setLogo($logo);
             $atom->setUpdated('now');
 
-            $atom->addLink(
-                common_local_url(
-                    'all',
-                    array('nickname' => $this->user->nickname)
-                )
-            );
-
-            $id = $this->arg('id');
-            $aargs = array('format' => 'atom');
-            if (!empty($id)) {
-                $aargs['id'] = $id;
-            }
-
-            $atom->addLink(
-                $this->getSelfUri('ApiTimelineHome', $aargs),
-                array('rel' => 'self', 'type' => 'application/atom+xml')
-            );
+            $atom->addLink($link);
+            $atom->setSelfLink($self);
 
             $atom->addEntryFromNotices($this->notices);
             $this->raw($atom->getString());

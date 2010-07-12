@@ -22,6 +22,20 @@ class Reply extends Memcached_DataObject
     /* the code above is auto generated do not remove the tag below */
     ###END_AUTOCODE
 
+    /**
+     * Wrapper for record insertion to update related caches
+     */
+    function insert()
+    {
+        $result = parent::insert();
+
+        if ($result) {
+            self::blow('reply:stream:%d', $this->profile_id);
+        }
+
+        return $result;
+    }
+
     function stream($user_id, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
         $ids = Notice::stream(array('Reply', '_streamDirect'),

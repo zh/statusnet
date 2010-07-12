@@ -103,7 +103,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->serverError(_('User without matching profile'));
+            $this->serverError(_('User without matching profile.'));
             return;
         }
 
@@ -182,7 +182,7 @@ class AvatarsettingsAction extends AccountSettingsAction
 
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->serverError(_('User without matching profile'));
+            $this->serverError(_('User without matching profile.'));
             return;
         }
 
@@ -299,6 +299,10 @@ class AvatarsettingsAction extends AccountSettingsAction
             $imagefile = ImageFile::fromUpload('avatarfile');
         } catch (Exception $e) {
             $this->showForm($e->getMessage());
+            return;
+        }
+        if ($imagefile === null) {
+            $this->showForm(_('No file uploaded.'));
             return;
         }
 
