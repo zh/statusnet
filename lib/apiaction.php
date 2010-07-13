@@ -461,6 +461,11 @@ class ApiAction extends Action
     function twitterRssEntryArray($notice)
     {
         $profile = $notice->getProfile();
+
+        if (empty($profile)) {
+            throw new ServerException(sprintf(_('No such profile: %d'), $notice->profile_id));
+        }
+
         $entry = array();
 
         // We trim() to avoid extraneous whitespace in the output
@@ -789,13 +794,23 @@ class ApiAction extends Action
 
         if (is_array($notice)) {
             foreach ($notice as $n) {
-                $entry = $this->twitterRssEntryArray($n);
-                $this->showTwitterRssItem($entry);
+                try {
+                    $entry = $this->twitterRssEntryArray($n);
+                    $this->showTwitterRssItem($entry);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "Error with notice {$n->id}: " . $e->getMessage());
+                    // continue on exceptions
+                }
             }
         } else {
             while ($notice->fetch()) {
-                $entry = $this->twitterRssEntryArray($notice);
-                $this->showTwitterRssItem($entry);
+                try {
+                    $entry = $this->twitterRssEntryArray($notice);
+                    $this->showTwitterRssItem($entry);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR,  "Error with notice {$n->id}: " . $e->getMessage());
+                    // continue on exceptions
+                }
             }
         }
 
