@@ -734,14 +734,16 @@ class ApiAction extends Action
                                               'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                $this->showTwitterXmlStatus($twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 $this->showTwitterXmlStatus($twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -789,24 +791,16 @@ class ApiAction extends Action
         $this->element('ttl', null, '40');
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                try {
-                    $entry = $this->twitterRssEntryArray($n);
-                    $this->showTwitterRssItem($entry);
-                } catch (Exception $e) {
-                    common_log(LOG_ERR, $e->getMessage());
-                    // continue on exceptions
-                }
-            }
-        } else {
-            while ($notice->fetch()) {
-                try {
-                    $entry = $this->twitterRssEntryArray($notice);
-                    $this->showTwitterRssItem($entry);
-                } catch (Exception $e) {
-                    common_log(LOG_ERR, $e->getMessage());
-                    // continue on exceptions
-                }
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
+                $entry = $this->twitterRssEntryArray($notice);
+                $this->showTwitterRssItem($entry);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                // continue on exceptions
             }
         }
 
@@ -842,12 +836,15 @@ class ApiAction extends Action
         $this->element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $this->raw($n->asAtomEntry());
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $this->raw($notice->asAtomEntry());
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -1042,14 +1039,16 @@ class ApiAction extends Action
         $statuses = array();
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                array_push($statuses, $twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 array_push($statuses, $twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
