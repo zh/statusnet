@@ -126,6 +126,7 @@ class ApiAction extends Action
     var $max_id    = null;
     var $since_id  = null;
     var $source    = null;
+    var $callback  = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
 
@@ -145,6 +146,7 @@ class ApiAction extends Action
         parent::prepare($args);
 
         $this->format   = $this->arg('format');
+        $this->callback = $this->arg('callback');
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
@@ -1185,9 +1187,8 @@ class ApiAction extends Action
             header('Content-Type: application/json; charset=utf-8');
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
-                print $callback . '(';
+            if (isset($this->callback)) {
+                print $this->callback . '(';
             }
             break;
         case 'rss':
@@ -1216,8 +1217,7 @@ class ApiAction extends Action
         case 'json':
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
+            if (isset($this->callback)) {
                 print ')';
             }
             break;
@@ -1247,7 +1247,10 @@ class ApiAction extends Action
 
         $status_string = ClientErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($format == 'xml') {
             $this->initDocument('xml');
@@ -1280,7 +1283,10 @@ class ApiAction extends Action
 
         $status_string = ServerErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($content_type == 'xml') {
             $this->initDocument('xml');
