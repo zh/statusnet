@@ -75,7 +75,7 @@ class IrcManager extends ImManager {
             $nickservpassword = isset($this->plugin->nickservpassword) ? $this->plugin->nickservpassword : '';
             $channels = isset($this->plugin->channels) ? $this->plugin->channels : array();
 
-            $config = new Phergie_Extended_Config;
+            $config = new Phergie_Config;
             $config->readArray(
                 array(
                     // One array per connection, pretty self-explanatory
