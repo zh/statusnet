@@ -1,9 +1,9 @@
 <?php
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
- * Send and receive notices using the AIM network
+ * Send and receive notices using an IRC network
  *
  * PHP version 5
  *
@@ -56,21 +56,43 @@ class IrcPlugin extends ImPlugin {
 
     public $transport = 'irc';
 
-    function getDisplayName() {
+    /**
+     * Get the internationalized/translated display name of this IM service
+     *
+     * @return string Name of service
+     */
+    public function getDisplayName() {
         return _m('IRC');
     }
 
-    function normalize($screenname) {
-		$screenname = str_replace(" ","", $screenname);
+    /**
+     * Normalize a screenname for comparison
+     *
+     * @param string $screenname screenname to normalize
+     * @return string an equivalent screenname in normalized form
+     */
+    public function normalize($screenname) {
+        $screenname = str_replace(" ","", $screenname);
         return strtolower($screenname);
     }
 
-    function daemon_screenname() {
-        return $this->user;
+    /**
+     * Get the screenname of the daemon that sends and receives messages
+     *
+     * @return string Screenname
+     */
+    public function daemon_screenname() {
+        return $this->nick;
     }
 
-    function validate($screenname) {
-        if (preg_match('/^[a-z]\w{2,15}$/i', $screenname)) {
+    /**
+     * Validate (ensure the validity of) a screenname
+     *
+     * @param string $screenname screenname to validate
+     * @return boolean
+     */
+    public function validate($screenname) {
+        if (preg_match('/\A[a-z0-9\-_]{1,1000}\z/i', $screenname)) {
             return true;
         } else {
             return false;
@@ -81,10 +103,9 @@ class IrcPlugin extends ImPlugin {
      * Load related modules when needed
      *
      * @param string $cls Name of the class to be loaded
-     *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-    function onAutoload($cls) {
+    public function onAutoload($cls) {
         $dir = dirname(__FILE__);
 
         switch ($cls) {
@@ -99,18 +120,36 @@ class IrcPlugin extends ImPlugin {
         }
     }
 
-    function onStartImDaemonIoManagers(&$classes) {
+    /*
+     * Start manager on daemon start
+     *
+     * @return boolean
+     */
+    public function onStartImDaemonIoManagers(&$classes) {
         parent::onStartImDaemonIoManagers(&$classes);
         $classes[] = new IrcManager($this); // handles sending/receiving
         return true;
     }
 
-    function microiduri($screenname) {
+    /**
+    * Get a microid URI for the given screenname
+    *
+    * @param string $screenname
+    * @return string microid URI
+    */
+    public function microiduri($screenname) {
         return 'irc:' . $screenname;
     }
 
-    function send_message($screenname, $body) {
-        $this->fake_irc->sendIm($screenname, $body);
+    /**
+     * Send a message to a given screenname
+     *
+     * @param string $screenname Screenname to send to
+     * @param string $body Text to send
+     * @return boolean success value
+     */
+    public function send_message($screenname, $body) {
+        $this->fake_irc->doPrivmsg($screenname, $body);
         $this->enqueue_outgoing_raw($this->fake_irc->would_be_sent);
         return true;
     }
@@ -120,30 +159,44 @@ class IrcPlugin extends ImPlugin {
      *
      * @return true if processing completed, false if message should be reprocessed
      */
-    function receive_raw_message($message) {
-        $info=Aim::getMessageInfo($message);
-        $from = $info['from'];
-        $user = $this->get_user($from);
-        $notice_text = $info['message'];
-
-        $this->handle_incoming($from, $notice_text);
-
+    public function receive_raw_message($data) {
+        $this->handle_incoming($data['sender'], $data['message']);
         return true;
     }
 
-    function initialize() {
-        if (!isset($this->user)) {
-            throw new Exception("must specify a user");
+    /**
+    * Initialize plugin
+    *
+    * @return boolean
+    */
+    public function initialize() {
+        if (!isset($this->host)) {
+            throw new Exception('must specify a host');
         }
-        if (!isset($this->password)) {
-            throw new Exception("must specify a password");
+        if (!isset($this->port)) {
+            throw new Exception('must specify a port');
+        }
+        if (!isset($this->username)) {
+            throw new Exception('must specify a username');
+        }
+        if (!isset($this->realname)) {
+            throw new Exception('must specify a "real name"');
+        }
+        if (!isset($this->nick)) {
+            throw new Exception('must specify a nickname');
         }
 
-        $this->fake_irc = new Fake_Irc($this->user, $this->password, 4);
+        $this->fake_irc = new Fake_Irc;
         return true;
     }
 
-    function onPluginVersion(&$versions) {
+    /**
+     * Get plugin information
+     *
+     * @param array $versions array to insert information into
+     * @return void
+     */
+    public function onPluginVersion(&$versions) {
         $versions[] = array('name' => 'IRC',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Luke Fitzgerald',
