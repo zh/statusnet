@@ -1,4 +1,23 @@
 <?php
+/**
+ * Phergie
+ *
+ * PHP version 5
+ *
+ * LICENSE
+ *
+ * This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.
+ * It is also available through the world-wide-web at this URL:
+ * http://phergie.org/license
+ *
+ * @category  Phergie
+ * @package   Phergie_Plugin_NickServ
+ * @author    Phergie Development Team <team@phergie.org>
+ * @copyright 2008-2010 Phergie Development Team (http://phergie.org)
+ * @license   http://phergie.org/license New BSD License
+ * @link      http://pear.phergie.org/package/Phergie_Plugin_NickServ
+ */
 
 /**
  * Intercepts and responds to messages from the NickServ agent requesting that
@@ -6,10 +25,18 @@
  *
  * The password configuration setting should contain the password registered
  * with NickServ for the nick used by the bot.
+ *
+ * @category Phergie
+ * @package  Phergie_Plugin_NickServ
+ * @author   Phergie Development Team <team@phergie.org>
+ * @license  http://phergie.org/license New BSD License
+ * @link     http://pear.phergie.org/package/Phergie_Plugin_NickServ
+ * @uses     Phergie_Plugin_Command pear.phergie.org
  */
-class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
+class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract
+{
     /**
-     * The name of the nickserv bot
+     * Nick of the NickServ bot
      *
      * @var string
      */
@@ -21,20 +48,25 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
     protected $identifyMessage;
 
     /**
-     * Initializes instance variables.
+     * Checks for dependencies and required configuration settings.
      *
      * @return void
      */
-    public function onLoad() {
+    public function onLoad()
+    {
         $this->getPluginHandler()->getPlugin('Command');
 
         // Get the name of the NickServ bot, defaults to NickServ
         $this->botNick = $this->config['nickserv.botnick'];
-        if (!$this->botNick) $this->botNick = 'NickServ';
+        if (!$this->botNick) {
+            $this->botNick = 'NickServ';
+        }
 
         // Get the identify message
         $this->identifyMessage = $this->config['nickserv.identify_message'];
-        if (!$this->identifyMessage) $this->identifyMessage = 'This nickname is registered.';
+        if (!$this->identifyMessage) {
+            $this->identifyMessage = 'This nickname is registered.';
+        }
     }
 
     /**
@@ -44,7 +76,8 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
      *
      * @return void
      */
-    public function onNotice() {
+    public function onNotice()
+    {
         $event = $this->event;
         if (strtolower($event->getNick()) == strtolower($this->botNick)) {
             $message = $event->getArgument(1);
@@ -62,14 +95,15 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
     }
 
     /**
-     * Checks to see if the original Nick has quit, if so, take the name back
+     * Checks to see if the original nick has quit; if so, take the name back.
      *
      * @return void
      */
-    public function onQuit() {
-        $eventnick = $this->event->getNick();
+    public function onQuit()
+    {
+        $eventNick = $this->event->getNick();
         $nick = $this->connection->getNick();
-        if ($eventnick == $nick) {
+        if ($eventNick == $nick) {
             $this->doNick($nick);
         }
     }
@@ -80,7 +114,8 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
      *
      * @return void
      */
-    public function onNick() {
+    public function onNick()
+    {
         $event = $this->event;
         $connection = $this->connection;
         if ($event->getNick() == $connection->getNick()) {
@@ -93,7 +128,8 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
      *
      * @return void
      */
-    public function onDoGhostbust() {
+    public function onCommandGhostbust()
+    {
         $event = $this->event;
         $user = $event->getNick();
         $conn = $this->connection;
@@ -102,42 +138,44 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract {
         if ($nick != $this->config['connections'][$conn->getHost()]['nick']) {
             $password = $this->config['nickserv.password'];
             if (!empty($password)) {
-                $this->doPrivmsg($this->event->getSource(), $user . ': Attempting to ghost ' . $nick .'.');
+                $this->doPrivmsg(
+                    $this->event->getSource(),
+                    $user . ': Attempting to ghost ' . $nick .'.'
+                );
                 $this->doPrivmsg(
                     $this->botNick,
                     'GHOST ' . $nick . ' ' . $password,
                     true
                 );
             }
-            unset($password);
         }
     }
 
     /**
-     * Automatically send the GHOST command if the Nickname is in use
+     * Automatically send the GHOST command if the bot's nick is in use.
      *
      * @return void
      */
-    public function onResponse() {
+    public function onResponse()
+    {
         if ($this->event->getCode() == Phergie_Event_Response::ERR_NICKNAMEINUSE) {
             $password = $this->config['nickserv.password'];
             if (!empty($password)) {
                 $this->doPrivmsg(
                     $this->botNick,
-                    'GHOST ' . $this->connection->getNick() . ' ' . $password,
-                    true
+                    'GHOST ' . $this->connection->getNick() . ' ' . $password
                 );
             }
-            unset($password);
         }
     }
 
     /**
-     * The server sent a KILL request, so quit the server
+     * Handle the server sending a KILL request.
      *
      * @return void
      */
-    public function onKill() {
+    public function onKill()
+    {
         $this->doQuit($this->event->getArgument(1));
     }
 }
