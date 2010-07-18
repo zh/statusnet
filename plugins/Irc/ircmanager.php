@@ -31,10 +31,11 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
  */
 
 class IrcManager extends ImManager {
-
     public $conn = null;
+
     /**
      * Initialize connection to server.
+     *
      * @return boolean true on success
      */
     public function start($master) {
@@ -46,10 +47,16 @@ class IrcManager extends ImManager {
         }
     }
 
+    /**
+    * Return any open sockets that the run loop should listen
+    * for input on.
+    *
+    * @return array Array of socket resources
+    */
     public function getSockets() {
         $this->connect();
         if ($this->conn) {
-            return array($this->conn->myConnection);
+            return $this->conn->getSockets();
         } else {
             return array();
         }
@@ -57,7 +64,9 @@ class IrcManager extends ImManager {
 
     /**
      * Process IRC events that have come in over the wire.
+     *
      * @param resource $socket
+     * @return void
      */
     public function handleInput($socket) {
         common_log(LOG_DEBUG, 'Servicing the IRC queue.');
@@ -65,7 +74,12 @@ class IrcManager extends ImManager {
         $this->conn->receive();
     }
 
-    function connect() {
+    /**
+    * Initiate connection
+    *
+    * @return void
+    */
+    public function connect() {
         if (!$this->conn) {
             $this->conn = new Phergie_Extended_Bot;
 
@@ -78,7 +92,6 @@ class IrcManager extends ImManager {
             $config = new Phergie_Config;
             $config->readArray(
                 array(
-                    // One array per connection, pretty self-explanatory
                     'connections' => array(
                         array(
                             'host' => $this->plugin->host,
@@ -119,17 +132,31 @@ class IrcManager extends ImManager {
         return $this->conn;
     }
 
-    function handle_irc_message($data) {
+    /**
+    * Called via a callback when a message is received
+    *
+    * Passes it back to the queuing system
+    *
+    * @param array $data Data
+    * @return boolean
+    */
+    public function handle_irc_message($data) {
         $this->plugin->enqueue_incoming_raw($data);
         return true;
     }
 
-    function send_raw_message($data) {
+    /**
+     * Send a message using the daemon
+     *
+     * @param $data Message
+     * @return boolean true on success
+     */
+    public function send_raw_message($data) {
         $this->connect();
         if (!$this->conn) {
             return false;
         }
-        $this->conn->sflapSend($data[0],$data[1],$data[2],$data[3]);
+        $this->conn->send($data[0], $data[1]);
         return true;
     }
 }
