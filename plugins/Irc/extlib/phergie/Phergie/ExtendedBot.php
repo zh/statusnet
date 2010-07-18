@@ -40,6 +40,23 @@ class Phergie_Extended_Bot extends Phergie_Bot {
     }
 
     /**
+    * Transmit raw command to server using driver
+    *
+    * Handles construction of command strings and their transmission to the
+    * server.
+    *
+    * @param string       $command Command to send
+    * @param string|array $args    Optional string or array of sequential
+    *        arguments
+    *
+    * @return string Command string that was sent
+    * @throws Phergie_Driver_Exception
+    */
+    public function send($command, $args = '') {
+        $this->getDriver()->send($command, $args);
+    }
+
+    /**
     * Get the sockets used by the bot
     *
     * @return array Array of socket resources
