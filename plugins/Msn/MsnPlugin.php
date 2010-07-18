@@ -52,7 +52,7 @@ class MsnPlugin extends ImPlugin {
     public $password = null;
     public $nickname = null;
     public $transport = 'msn';
-    
+
     /**
      * Get the internationalized/translated display name of this IM service
      *
@@ -69,7 +69,7 @@ class MsnPlugin extends ImPlugin {
      * @return string an equivalent screenname in normalized form
      */
     public function normalize($screenname) {
-		$screenname = str_replace(" ","", $screenname);
+        $screenname = str_replace(" ","", $screenname);
         return strtolower($screenname);
     }
 
@@ -115,7 +115,7 @@ class MsnPlugin extends ImPlugin {
 
     /*
      * Start manager on daemon start
-     * 
+     *
      * @return boolean
      */
     public function onStartImDaemonIoManagers(&$classes) {
@@ -142,7 +142,7 @@ class MsnPlugin extends ImPlugin {
      * @return boolean success value
      */
     public function send_message($screenname, $body) {
-	    $this->enqueue_outgoing_raw(array('to' => $screenname, 'message' => $body));
+        $this->enqueue_outgoing_raw(array('to' => $screenname, 'message' => $body));
         return true;
     }
 
@@ -178,7 +178,7 @@ class MsnPlugin extends ImPlugin {
 
     /**
      * Get plugin information
-     * 
+     *
      * @param array $versions array to insert information into
      * @return void
      */
