@@ -34,7 +34,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class Fake_Irc extends Phergie_Driver_Streams {
     public $would_be_sent = null;
 
-    private function send($command, $args = '') {
+    protected function send($command, $args = '') {
         $this->would_be_sent = array($command, $args);
     }
 }
