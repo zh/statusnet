@@ -25,7 +25,7 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class Phergie_Extended_Bot extends Phergie_Bot {
+class Phergie_ExtendedBot extends Phergie_Bot {
     /**
     * Set up bot and connect to servers
     *
@@ -53,7 +53,17 @@ class Phergie_Extended_Bot extends Phergie_Bot {
     * @throws Phergie_Driver_Exception
     */
     public function send($command, $args = '') {
-        $this->getDriver()->send($command, $args);
+        return $this->getDriver()->send($command, $args);
+    }
+
+    /**
+    * Handle incoming data on the socket using the handleEvents
+    * method of the Processor
+    *
+    * @return void
+    */
+    public function receive() {
+        $this->getProcessor()->handleEvents();
     }
 
     /**

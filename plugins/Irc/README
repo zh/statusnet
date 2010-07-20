@@ -13,14 +13,14 @@ See the StatusNet README for more about queuing and daemons.
 Settings
 ========
 host*: Hostname of IRC server
-port*: Port of IRC server
+port: Port of IRC server (defaults to 6667)
 username*: Username of bot
 realname*: Real name of bot
 nick*: Nickname of bot
 password: Password
 nickservpassword: NickServ password for identification
 channels: Channels for bot to idle in
-transport: Set to 'ssl' to enable SSL
+transporttype: Set to 'ssl' to enable SSL
 encoding: Set to UTF8 to enable UTF8 encoding
 
 * required
@@ -29,7 +29,6 @@ Example
 =======
 addPlugin('irc', array(
     'host' => '...',
-    'port' => '...',
     'username' => '...',
     'realname' => '...',
     'nick' => '...',

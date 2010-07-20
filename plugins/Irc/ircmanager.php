@@ -81,13 +81,14 @@ class IrcManager extends ImManager {
     */
     public function connect() {
         if (!$this->conn) {
-            $this->conn = new Phergie_Extended_Bot;
+            $this->conn = new Phergie_ExtendedBot;
 
-            $password = isset($this->plugin->password) ? $this->plugin->password : '';
-            $transport = isset($this->plugin->transport) ? $this->plugin->transport : 'tcp';
-            $encoding = isset($this->plugin->encoding) ? $this->plugin->encoding : 'ISO-8859-1';
-            $nickservpassword = isset($this->plugin->nickservpassword) ? $this->plugin->nickservpassword : '';
-            $channels = isset($this->plugin->channels) ? $this->plugin->channels : array();
+            $port = empty($this->plugin->port) ? 6667 : $this->plugin->port;
+            $password = empty($this->plugin->password) ? '' : $this->plugin->password;
+            $transport = empty($this->plugin->transporttype) ? 'tcp' : $this->plugin->transporttype;
+            $encoding = empty($this->plugin->encoding) ? 'ISO-8859-1' : $this->plugin->encoding;
+            $nickservpassword = empty($this->plugin->nickservpassword) ? '' : $this->plugin->nickservpassword;
+            $channels = empty($this->plugin->channels) ? array() : $this->plugin->channels;
 
             $config = new Phergie_Config;
             $config->readArray(
@@ -95,10 +96,10 @@ class IrcManager extends ImManager {
                     'connections' => array(
                         array(
                             'host' => $this->plugin->host,
-                            'port' => $this->plugin->port,
+                            'port' => $port,
                             'username' => $this->plugin->username,
                             'realname' => $this->plugin->realname,
-                            'nick' => $this->plugin->nickname,
+                            'nick' => $this->plugin->nick,
                             'password' => $password,
                             'transport' => $transport,
                             'encoding' => $encoding

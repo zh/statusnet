@@ -27,7 +27,7 @@
  */
 
 class Phergie_Process_Statusnet extends Phergie_Process_Async {
-    public function __constuct(Phergie_Extended_Bot $bot, array $options) {
+    public function __construct(Phergie_ExtendedBot $bot, array $options) {
         $this->usec = 0;
         Phergie_Process_Abstract::__construct($bot, $options);
     }

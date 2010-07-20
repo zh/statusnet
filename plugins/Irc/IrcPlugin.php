@@ -33,10 +33,9 @@ if (!defined('STATUSNET')) {
     // your code file can't be executed directly from the web.
     exit(1);
 }
+
 // We bundle the Phergie library...
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/phergie');
-require 'Phergie/Autoload.php';
-Phergie_Autoload::registerAutoloader();
 
 /**
  * Plugin for IRC
@@ -50,9 +49,16 @@ Phergie_Autoload::registerAutoloader();
  */
 
 class IrcPlugin extends ImPlugin {
-    public $user =  null;
+    public $host =  null;
+    public $port = null;
+    public $username = null;
+    public $realname = null;
+    public $nick = null;
     public $password = null;
-    public $publicFeed = array();
+    public $nickservpassword = null;
+    public $channels = null;
+    public $transporttype = null;
+    public $encoding = null;
 
     public $transport = 'irc';
 
@@ -116,6 +122,10 @@ class IrcPlugin extends ImPlugin {
                 include_once $dir . '/'. $cls .'.php';
                 return false;
             default:
+                if (substr($cls, 0, 7) == 'Phergie') {
+                    include_once str_replace('_', DIRECTORY_SEPARATOR, $cls) . '.php';
+                    return false;
+                }
                 return true;
         }
     }
@@ -172,9 +182,6 @@ class IrcPlugin extends ImPlugin {
     public function initialize() {
         if (!isset($this->host)) {
             throw new Exception('must specify a host');
-        }
-        if (!isset($this->port)) {
-            throw new Exception('must specify a port');
         }
         if (!isset($this->username)) {
             throw new Exception('must specify a username');
