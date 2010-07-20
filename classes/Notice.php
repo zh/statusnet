@@ -42,10 +42,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-/* We keep 200 notices, the max number of notices available per API request,
+/* We keep the first three 20-notice pages, plus one for pagination check,
  * in the memcached cache. */
 
-define('NOTICE_CACHE_WINDOW', 200);
+define('NOTICE_CACHE_WINDOW', 61);
 
 define('MAX_BOXCARS', 128);
 
