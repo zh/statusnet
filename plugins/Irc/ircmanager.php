@@ -114,7 +114,7 @@ class IrcManager extends ImManager {
                         'Pong',
                         'NickServ',
                         'AutoJoin',
-                        'Statusnet_Callback',
+                        'StatusnetCallback',
                     ),
 
                     'plugins.autoload' => true,
