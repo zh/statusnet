@@ -81,7 +81,7 @@ class IrcManager extends ImManager {
     */
     public function connect() {
         if (!$this->conn) {
-            $this->conn = new Phergie_ExtendedBot;
+            $this->conn = new Phergie_StatusnetBot;
 
             $port = empty($this->plugin->port) ? 6667 : $this->plugin->port;
             $password = empty($this->plugin->password) ? '' : $this->plugin->password;

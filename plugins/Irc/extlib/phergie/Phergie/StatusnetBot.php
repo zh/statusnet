@@ -19,13 +19,13 @@
  * sockets and to allow StatusNet to 'drive' the bot
  *
  * @category  Phergie
- * @package   Phergie_Extended_Bot
+ * @package   Phergie_StatusnetBot
  * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class Phergie_ExtendedBot extends Phergie_Bot {
+class Phergie_StatusnetBot extends Phergie_Bot {
     /**
     * Set up bot and connect to servers
     *
