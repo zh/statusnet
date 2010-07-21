@@ -1,8 +1,9 @@
 /* For managing multiple sites */
 
 create table status_network (
-
-    nickname varchar(64) primary key comment 'nickname',
+       
+    site_id  integer auto_increment primary key comment 'unique id',
+    nickname varchar(64)  unique key comment 'nickname',
     hostname varchar(255) unique key comment 'alternate hostname if any',
     pathname varchar(255) unique key comment 'alternate pathname if any',
 
@@ -15,9 +16,16 @@ create table status_network (
     theme varchar(255) comment 'theme name',
     logo varchar(255) comment 'site logo',
     
-    tags text comment 'site meta-info tags (pipe-separated)',
-
     created datetime not null comment 'date this record was created',
     modified timestamp comment 'date this record was modified'
 
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
+
+create table status_network_tag (
+    site_id integer  comment 'unique id',
+    tag varchar(64) comment 'tag name',
+    created datetime not null comment 'date the record was created',
+
+    constraint primary key (site_id, tag)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_general_ci;
+
