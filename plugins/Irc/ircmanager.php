@@ -86,7 +86,7 @@ class IrcManager extends ImManager {
             $port = empty($this->plugin->port) ? 6667 : $this->plugin->port;
             $password = empty($this->plugin->password) ? '' : $this->plugin->password;
             $transport = empty($this->plugin->transporttype) ? 'tcp' : $this->plugin->transporttype;
-            $encoding = empty($this->plugin->encoding) ? 'UTF8' : $this->plugin->encoding;
+            $encoding = empty($this->plugin->encoding) ? 'UTF-8' : $this->plugin->encoding;
             $nickservpassword = empty($this->plugin->nickservpassword) ? '' : $this->plugin->nickservpassword;
             $channels = empty($this->plugin->channels) ? array() : $this->plugin->channels;
 
