@@ -19,14 +19,14 @@
  * a new incoming message
  *
  * @category  Phergie
- * @package   Phergie_Plugin_Statusnet_Callback
+ * @package   Phergie_Plugin_StatusnetCallback
  * @author    Luke Fitzgerald <lw.fitzgerald@googlemail.com>
  * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
 
-class Phergie_Plugin_Statusnet_Callback extends Phergie_Plugin_Abstract {
+class Phergie_Plugin_StatusnetCallback extends Phergie_Plugin_Abstract {
     /**
     * Callback details
     *
@@ -38,7 +38,7 @@ class Phergie_Plugin_Statusnet_Callback extends Phergie_Plugin_Abstract {
     * Load callback from config
     */
     public function onLoad() {
-        $callback = $this->config['statusnet_callback.callback'];
+        $callback = $this->config['statusnetcallback.callback'];
         if (is_callable($callback)) {
             $this->callback = $callback;
         } else {

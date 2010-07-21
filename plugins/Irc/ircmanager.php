@@ -123,7 +123,7 @@ class IrcManager extends ImManager {
 
                     'nickserv.password' => $nickservpassword,
                     'autojoin.channels' => $channels,
-                    'statusnet_callback.callback' => array($this, 'handle_irc_message')
+                    'statusnetcallback.callback' => array($this, 'handle_irc_message')
                 )
             );
 
