@@ -168,32 +168,6 @@ class IrcPlugin extends ImPlugin {
     }
 
     /**
-    * Only sends the confirmation message if the nick is
-    * registered
-    *
-    * @param string $screenname screenname sending to
-    * @param string $code the confirmation code
-    * @param User $user user sending to
-    * @return boolean success value
-    */
-    public function checked_send_confirmation_code($screenname, $code, $user) {
-        $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
-        $this->enqueue_outgoing_raw(
-            array(
-                'type' => 'nickcheck',
-                'data' => $this->fake_irc->would_be_sent,
-                'nickdata' =>
-                    array(
-                        'screenname' => $screenname,
-                        'code' => $code,
-                        'user' => $user
-                    )
-            )
-        );
-        return true;
-    }
-
-    /**
      * Accept a queued input message.
      *
      * @return true if processing completed, false if message should be reprocessed
@@ -225,6 +199,32 @@ class IrcPlugin extends ImPlugin {
         } else {
             return $this->send_message($screenname, $body);
         }
+    }
+
+    /**
+    * Only sends the confirmation message if the nick is
+    * registered
+    *
+    * @param string $screenname screenname sending to
+    * @param string $code the confirmation code
+    * @param User $user user sending to
+    * @return boolean success value
+    */
+    public function checked_send_confirmation_code($screenname, $code, $user) {
+        $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
+        $this->enqueue_outgoing_raw(
+            array(
+                'type' => 'nickcheck',
+                'data' => $this->fake_irc->would_be_sent,
+                'nickdata' =>
+                    array(
+                        'screenname' => $screenname,
+                        'code' => $code,
+                        'user' => $user
+                    )
+            )
+        );
+        return true;
     }
 
     /**
