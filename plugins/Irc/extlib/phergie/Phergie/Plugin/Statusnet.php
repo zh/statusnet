@@ -34,9 +34,12 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
     */
     protected $messageCallback;
 
+    /**
+    * Registration check callback details
+    *
+    * @var array
+    */
     protected $regCallback;
-
-    protected $tocheck = array();
 
     /**
     * Load callback from config
