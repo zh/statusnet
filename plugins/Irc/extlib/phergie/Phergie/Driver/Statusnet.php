@@ -42,6 +42,19 @@ class Phergie_Driver_Statusnet extends Phergie_Driver_Streams {
         return parent::send($command, $args);
     }
 
+    public function forceQuit() {
+        try {
+            // Send a QUIT command to the server
+        $this->send('QUIT', 'Reconnecting');
+        } catch (Phergie_Driver_Exception $e){}
+
+        // Terminate the socket connection
+        fclose($this->socket);
+
+        // Remove the socket from the internal socket list
+        unset($this->sockets[(string) $this->getConnection()->getHostmask()]);
+    }
+
     /**
     * Returns the array of sockets
     *

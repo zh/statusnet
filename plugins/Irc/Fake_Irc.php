@@ -35,6 +35,6 @@ class Fake_Irc extends Phergie_Driver_Streams {
     public $would_be_sent = null;
 
     protected function send($command, $args = '') {
-        $this->would_be_sent = array($command, $args);
+        $this->would_be_sent = array('command' => $command, 'args' => $args);
     }
 }

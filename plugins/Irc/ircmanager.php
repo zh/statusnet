@@ -32,6 +32,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class IrcManager extends ImManager {
     public $conn = null;
+    public $regchecks = array();
+    public $regchecksLookup = array();
 
     /**
      * Initialize connection to server.
@@ -83,13 +85,6 @@ class IrcManager extends ImManager {
         if (!$this->conn) {
             $this->conn = new Phergie_StatusnetBot;
 
-            $port = empty($this->plugin->port) ? 6667 : $this->plugin->port;
-            $password = empty($this->plugin->password) ? '' : $this->plugin->password;
-            $transport = empty($this->plugin->transporttype) ? 'tcp' : $this->plugin->transporttype;
-            $encoding = empty($this->plugin->encoding) ? 'UTF-8' : $this->plugin->encoding;
-            $nickservpassword = empty($this->plugin->nickservpassword) ? '' : $this->plugin->nickservpassword;
-            $channels = empty($this->plugin->channels) ? array() : $this->plugin->channels;
-
             $config = new Phergie_Config;
             $config->readArray(
                 array(
@@ -100,9 +95,9 @@ class IrcManager extends ImManager {
                             'username' => $this->plugin->username,
                             'realname' => $this->plugin->realname,
                             'nick' => $this->plugin->nick,
-                            'password' => $password,
-                            'transport' => $transport,
-                            'encoding' => $encoding
+                            'password' => $this->plugin->password,
+                            'transport' => $this->plugin->transporttype,
+                            'encoding' => $this->plugin->encoding
                         )
                     ),
 
@@ -114,16 +109,17 @@ class IrcManager extends ImManager {
                         'Pong',
                         'NickServ',
                         'AutoJoin',
-                        'StatusnetCallback',
+                        'Statusnet',
                     ),
 
                     'plugins.autoload' => true,
 
                     'ui.enabled' => true,
 
-                    'nickserv.password' => $nickservpassword,
-                    'autojoin.channels' => $channels,
-                    'statusnetcallback.callback' => array($this, 'handle_irc_message')
+                    'nickserv.password' => $this->plugin->nickservpassword,
+                    'autojoin.channels' => $this->plugin->channels,
+                    'statusnet.messagecallback' => array($this, 'handle_irc_message'),
+                    'statusnet.regcallback' => array($this, 'handle_reg_response')
                 )
             );
 
@@ -147,6 +143,47 @@ class IrcManager extends ImManager {
     }
 
     /**
+    * Called via a callback when NickServ responds to
+    * the bots query asking if a nick is registered
+    *
+    * @param array $data Data
+    * @return void
+    */
+    public function handle_reg_response($data) {
+        // Retrieve data
+        $nickdata = $this->regchecks[$data['nick']];
+
+        if ($data['registered']) {
+            // Send message
+            $this->plugin->send_confirmation_code($nickdata['screenname'], $nickdata['code'], $nickdata['user'], true);
+        } else {
+            $this->plugin->send_message($nickdata['screenname'], _m('Your nickname is not registered so IRC connectivity cannot be enabled'));
+
+            $confirm = new Confirm_address();
+
+            $confirm->user_id      = $user->id;
+            $confirm->address_type = $this->plugin->transport;
+
+            if ($confirm->find(true)) {
+                $result = $confirm->delete();
+
+                if (!$result) {
+                    common_log_db_error($confirm, 'DELETE', __FILE__);
+                    // TRANS: Server error thrown on database error canceling IM address confirmation.
+                    $this->serverError(_('Couldn\'t delete confirmation.'));
+                    return;
+                }
+            }
+        }
+
+        // Unset lookup value
+        unset($this->regchecksLookup[$nickdata['screenname']]);
+
+        // Unset data
+        unset($this->regchecks[$data['nick']]);
+    }
+
+    /**
      * Send a message using the daemon
      *
      * @param $data Message
@@ -157,7 +194,22 @@ class IrcManager extends ImManager {
         if (!$this->conn) {
             return false;
         }
-        $this->conn->send($data[0], $data[1]);
+        if ($data['type'] != 'message') {
+            // Nick checking
+            $screenname = $data['nickdata']['screenname'];
+            if (isset($this->regchecksLookup[$user->nickname])) {
+
+            }
+            $this->regchecks[$screenname] = $data['nickdata'];
+            $this->regchecksLookup[$user->nickname] = $screenname;
+        }
+
+        try {
+            $this->conn->send($data['data']['command'], $data['data']['args']);
+        } catch (Phergie_Driver_Exception $e) {
+            $this->conn->reconnect();
+            return false;
+        }
         return true;
     }
 }

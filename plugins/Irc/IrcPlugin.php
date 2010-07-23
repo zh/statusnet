@@ -60,7 +60,10 @@ class IrcPlugin extends ImPlugin {
     public $transporttype = null;
     public $encoding = null;
 
+    public $regcheck = null;
+
     public $transport = 'irc';
+    public $fake_irc;
 
     /**
      * Get the internationalized/translated display name of this IM service
@@ -160,7 +163,33 @@ class IrcPlugin extends ImPlugin {
      */
     public function send_message($screenname, $body) {
         $this->fake_irc->doPrivmsg($screenname, $body);
-        $this->enqueue_outgoing_raw($this->fake_irc->would_be_sent);
+        $this->enqueue_outgoing_raw(array('type' => 'message', 'data' => $this->fake_irc->would_be_sent));
+        return true;
+    }
+
+    /**
+    * Only sends the confirmation message if the nick is
+    * registered
+    *
+    * @param string $screenname screenname sending to
+    * @param string $code the confirmation code
+    * @param User $user user sending to
+    * @return boolean success value
+    */
+    public function checked_send_confirmation_code($screenname, $code, $user) {
+        $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
+        $this->enqueue_outgoing_raw(
+            array(
+                'type' => 'nickcheck',
+                'data' => $this->fake_irc->would_be_sent,
+                'nickdata' =>
+                    array(
+                        'screenname' => $screenname,
+                        'code' => $code,
+                        'user' => $user
+                    )
+            )
+        );
         return true;
     }
 
@@ -172,6 +201,30 @@ class IrcPlugin extends ImPlugin {
     public function receive_raw_message($data) {
         $this->handle_incoming($data['sender'], $data['message']);
         return true;
+    }
+
+    /**
+     * Send a confirmation code to a user
+     *
+     * @param string $screenname screenname sending to
+     * @param string $code the confirmation code
+     * @param User $user user sending to
+     * @return boolean success value
+     */
+    public function send_confirmation_code($screenname, $code, $user, $checked = false) {
+        $body = sprintf(_('User "%s" on %s has said that your %s screenname belongs to them. ' .
+          'If that\'s true, you can confirm by clicking on this URL: ' .
+          '%s' .
+          ' . (If you cannot click it, copy-and-paste it into the ' .
+          'address bar of your browser). If that user isn\'t you, ' .
+          'or if you didn\'t request this confirmation, just ignore this message.'),
+          $user->nickname, common_config('site', 'name'), $this->getDisplayName(), common_local_url('confirmaddress', array('code' => $code)));
+
+        if ($this->regcheck && !$checked) {
+            return $this->checked_send_confirmation_code($screenname, $code, $user);
+        } else {
+            return $this->send_message($screenname, $body);
+        }
     }
 
     /**
@@ -191,6 +244,29 @@ class IrcPlugin extends ImPlugin {
         }
         if (!isset($this->nick)) {
             throw new Exception('must specify a nickname');
+        }
+
+        if (!isset($this->port)) {
+            $this->port = 6667;
+        }
+        if (!isset($this->password)) {
+            $this->password = '';
+        }
+        if (!isset($this->transporttype)) {
+            $this->transporttype = 'tcp';
+        }
+        if (!isset($this->encoding)) {
+            $this->encoding = 'UTF-8';
+        }
+        if (!isset($this->nickservpassword)) {
+            $this->nickservpassword = '';
+        }
+        if (!isset($this->channels)) {
+            $this->channels = array();
+        }
+
+        if (!isset($this->regcheck)) {
+            $this->regcheck = true;
         }
 
         $this->fake_irc = new Fake_Irc;

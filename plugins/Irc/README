@@ -22,6 +22,11 @@ nickservpassword: NickServ password for identification
 channels: Channels for bot to idle in
 transporttype: Set to 'ssl' to enable SSL
 encoding: Set to change encoding
+regcheck: Check user's nicknames are registered, enabled by default, set to false to disable
+regregexp: Override existing regexp matching response from NickServ if nick checked is registered.
+           Must contain a capturing group catching the nick
+unregregexp: Override existing regexp matching response from NickServ if nick checked is unregistered
+             Must contain a capturing group catching the nick
 
 * required
 

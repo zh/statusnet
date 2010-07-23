@@ -1,0 +1,22 @@
+diff --git a/plugins/Irc/extlib/phergie/Phergie/Plugin/NickServ.php b/plugins/Irc/extlib/phergie/Phergie/Plugin/NickServ.php
+index ff181d9..f873c75 100644
+--- a/plugins/Irc/extlib/phergie/Phergie/Plugin/NickServ.php
++++ b/plugins/Irc/extlib/phergie/Phergie/Plugin/NickServ.php
+@@ -65,7 +65,7 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract
+         // Get the identify message
+         $this->identifyMessage = $this->config['nickserv.identify_message'];
+         if (!$this->identifyMessage) {
+-            $this->identifyMessage = 'This nickname is registered.';
++            $this->identifyMessage = '/This nickname is registered./';
+         }
+     }
+ 
+@@ -82,7 +82,7 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract
+         if (strtolower($event->getNick()) == strtolower($this->botNick)) {
+             $message = $event->getArgument(1);
+             $nick = $this->connection->getNick();
+-            if (strpos($message, $this->identifyMessage) !== false) {
++            if (preg_match($this->identifyMessage, $message)) {
+                 $password = $this->config['nickserv.password'];
+                 if (!empty($password)) {
+                     $this->doPrivmsg($this->botNick, 'IDENTIFY ' . $password);

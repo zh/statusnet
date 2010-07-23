@@ -67,6 +67,27 @@ class Phergie_StatusnetBot extends Phergie_Bot {
     }
 
     /**
+    * Close the current connection and reconnect to the server
+    *
+    * @return void
+    */
+    public function reconnect() {
+        $driver = $this->getDriver();
+        $sockets = $driver->getSockets();
+
+        // Close any existing connections
+        try {
+            $driver->forceQuit();
+        } catch (Phergie_Driver_Exception $e){}
+        try {
+            $driver->doConnect();
+        } catch (Phergie_Driver_Exception $e){
+            $driver->forceQuit();
+            throw $e;
+        }
+    }
+
+    /**
     * Get the sockets used by the bot
     *
     * @return array Array of socket resources
