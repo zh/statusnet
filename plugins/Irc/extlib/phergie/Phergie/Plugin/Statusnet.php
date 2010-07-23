@@ -85,6 +85,11 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
         }
     }
 
+    /**
+     * Catches the response from NickServ
+     *
+     * @return void
+     */
     public function onNotice() {
         $event = $this->getEvent();
         if ($event->getNick() == 'NickServ') {
