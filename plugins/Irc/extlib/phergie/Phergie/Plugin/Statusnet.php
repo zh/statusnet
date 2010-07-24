@@ -15,8 +15,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Calls the given Statusnet IM architecture enqueuing method to enqueue
- * a new incoming message
+ * Talks to the Statusnet IM architecture to enqueue incoming message messages
+ * and notify result of nickname registration checks
  *
  * @category  Phergie
  * @package   Phergie_Plugin_Statusnet
