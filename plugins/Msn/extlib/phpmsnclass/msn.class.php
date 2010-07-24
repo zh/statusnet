@@ -901,7 +901,6 @@ class MSN {
 
             case 'NLN':
                 // NS: <<< NLN {status} {email} {networkid} {nickname} {clientid} {dpobj}
-                // NS: <<< NLN NLN darkip@inflatablegoldfish.com 1 Luke 2685403136 0
                 @list(/* NLN */, $status, $email, $network, $nickname) = @explode(' ', $data);
                 $this->callHandler('StatusChange', array('screenname' => $email, 'status' => $status, 'network' => $network, 'nickname' => $nickname));
                 break;
