@@ -151,36 +151,40 @@ class IrcManager extends ImManager {
     */
     public function handle_reg_response($data) {
         // Retrieve data
-        $nickdata = $this->regchecks[$data['nick']];
+        $screenname = $data['screenname'];
+        $nickdata = $this->regchecks[$screenname];
+        $usernick = $nickdata['user']->nickname;
 
-        if ($data['registered']) {
-            // Send message
-            $this->plugin->send_confirmation_code($nickdata['screenname'], $nickdata['code'], $nickdata['user'], true);
-        } else {
-            $this->plugin->send_message($nickdata['screenname'], _m('Your nickname is not registered so IRC connectivity cannot be enabled'));
+        if (isset($this->regchecksLookup[$usernick])) {
+            if ($data['registered']) {
+                // Send message
+                $this->plugin->send_confirmation_code($screenname, $nickdata['code'], $nickdata['user'], true);
+            } else {
+                $this->plugin->send_message($screenname, _m('Your nickname is not registered so IRC connectivity cannot be enabled'));
 
-            $confirm = new Confirm_address();
+                $confirm = new Confirm_address();
 
-            $confirm->user_id      = $user->id;
-            $confirm->address_type = $this->plugin->transport;
+                $confirm->user_id      = $user->id;
+                $confirm->address_type = $this->plugin->transport;
 
-            if ($confirm->find(true)) {
-                $result = $confirm->delete();
+                if ($confirm->find(true)) {
+                    $result = $confirm->delete();
 
-                if (!$result) {
-                    common_log_db_error($confirm, 'DELETE', __FILE__);
-                    // TRANS: Server error thrown on database error canceling IM address confirmation.
-                    $this->serverError(_('Couldn\'t delete confirmation.'));
-                    return;
+                    if (!$result) {
+                        common_log_db_error($confirm, 'DELETE', __FILE__);
+                        // TRANS: Server error thrown on database error canceling IM address confirmation.
+                        $this->serverError(_('Couldn\'t delete confirmation.'));
+                        return;
+                    }
                 }
             }
+
+            // Unset lookup value
+            unset($this->regchecksLookup[$usernick]);
+
+            // Unset data
+            unset($this->regchecks[$screename]);
         }
-
-        // Unset lookup value
-        unset($this->regchecksLookup[$nickdata['screenname']]);
-
-        // Unset data
-        unset($this->regchecks[$data['nick']]);
     }
 
     /**
@@ -194,14 +198,20 @@ class IrcManager extends ImManager {
         if (!$this->conn) {
             return false;
         }
+
         if ($data['type'] != 'message') {
             // Nick checking
-            $screenname = $data['nickdata']['screenname'];
-            if (isset($this->regchecksLookup[$user->nickname])) {
+            $nickdata = $data['nickdata'];
+            $usernick = $nickdata['user']->nickname;
+            $screenname = $nickdata['screenname'];
 
+            // Cancel any existing checks for this user
+            if (isset($this->regchecksLookup[$usernick])) {
+                unset($this->regchecks[$this->regchecksLookup[$usernick]]);
             }
-            $this->regchecks[$screenname] = $data['nickdata'];
-            $this->regchecksLookup[$user->nickname] = $screenname;
+
+            $this->regchecks[$screenname] = $nickdata;
+            $this->regchecksLookup[$usernick] = $screenname;
         }
 
         try {
@@ -210,6 +220,7 @@ class IrcManager extends ImManager {
             $this->conn->reconnect();
             return false;
         }
+
         return true;
     }
 }

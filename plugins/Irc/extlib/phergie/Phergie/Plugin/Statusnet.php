@@ -95,11 +95,11 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
         if ($event->getNick() == 'NickServ') {
             $message = $event->getArgument(1);
             if (preg_match($this->unregRegexp, $message, $groups)) {
-                $nick = $groups[1];
-                call_user_func($this->regCallback, array('nick' => $nick, 'registered' => false));
+                $screenname = $groups[1];
+                call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => false));
             } elseif (preg_match($this->regRegexp, $message, $groups)) {
-                $nick = $groups[1];
-                call_user_func($this->regCallback, array('nick' => $nick, 'registered' => true));
+                $screenname = $groups[1];
+                call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => true));
             }
         }
     }
