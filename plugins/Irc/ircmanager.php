@@ -103,7 +103,8 @@ class IrcManager extends ImManager {
 
                     'driver' => 'statusnet',
 
-                    'processor' => 'statusnet',
+                    'processor' => 'async',
+                    'processor.options' => array('usec' => 0),
 
                     'plugins' => array(
                         'Pong',
