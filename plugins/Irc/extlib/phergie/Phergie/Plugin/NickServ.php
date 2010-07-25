@@ -57,16 +57,13 @@ class Phergie_Plugin_NickServ extends Phergie_Plugin_Abstract
         $this->getPluginHandler()->getPlugin('Command');
 
         // Get the name of the NickServ bot, defaults to NickServ
-        $this->botNick = $this->config['nickserv.botnick'];
-        if (!$this->botNick) {
-            $this->botNick = 'NickServ';
-        }
+        $this->botNick = $this->getConfig('nickserv.botnick', 'NickServ');
 
         // Get the identify message
-        $this->identifyMessage = $this->config['nickserv.identify_message'];
-        if (!$this->identifyMessage) {
-            $this->identifyMessage = '/This nickname is registered./';
-        }
+        $this->identifyMessage = $this->getConfig(
+            'nickserv.identify_message',
+            '/This nickname is registered./'
+        );
     }
 
     /**

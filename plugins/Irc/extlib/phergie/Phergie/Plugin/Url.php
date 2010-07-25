@@ -31,7 +31,9 @@
  * @author   Phergie Development Team <team@phergie.org>
  * @license  http://phergie.org/license New BSD License
  * @link     http://pear.phergie.org/package/Phergie_Plugin_Url
+ * @uses     Phergie_Plugin_Encoding pear.phergie.org
  * @uses     Phergie_Plugin_Http pear.phergie.org
+ * @uses     Phergie_Plugin_Tld pear.phergie.org
  */
 class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
 {
@@ -122,50 +124,6 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $detectSchemeless = false;
 
     /**
-     * List of error messages to return when the requested URL returns an
-     * HTTP error
-     *
-     * @var array
-     */
-    protected $httpErrors = array(
-        100 => '100 Continue',
-        200 => '200 OK',
-        201 => '201 Created',
-        204 => '204 No Content',
-        206 => '206 Partial Content',
-        300 => '300 Multiple Choices',
-        301 => '301 Moved Permanently',
-        302 => '302 Found',
-        303 => '303 See Other',
-        304 => '304 Not Modified',
-        307 => '307 Temporary Redirect',
-        400 => '400 Bad Request',
-        401 => '401 Unauthorized',
-        403 => '403 Forbidden',
-        404 => '404 Not Found',
-        405 => '405 Method Not Allowed',
-        406 => '406 Not Acceptable',
-        408 => '408 Request Timeout',
-        410 => '410 Gone',
-        413 => '413 Request Entity Too Large',
-        414 => '414 Request URI Too Long',
-        415 => '415 Unsupported Media Type',
-        416 => '416 Requested Range Not Satisfiable',
-        417 => '417 Expectation Failed',
-        500 => '500 Internal Server Error',
-        501 => '501 Method Not Implemented',
-        503 => '503 Service Unavailable',
-        506 => '506 Variant Also Negotiates'
-    );
-
-    /**
-     * An array containing a list of TLDs used for non-scheme matches
-     *
-     * @var array
-     */
-    protected $tldList = array();
-
-    /**
      * Shortener object
      */
     protected $shortener;
@@ -176,12 +134,17 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected $renderers = array();
 
     /**
-     * Initializes settings, checks dependencies.
+     * Checks for dependencies.
      *
      * @return void
      */
-    public function onConnect()
+    public function onLoad()
     {
+        $plugins = $this->plugins;
+        $plugins->getPlugin('Encoding');
+        $plugins->getPlugin('Http');
+        $plugins->getPlugin('Tld');
+
         // make the shortener configurable
         $shortener = $this->getConfig('url.shortener', 'Trim');
         $shortener = "Phergie_Plugin_Url_Shorten_{$shortener}";
@@ -189,14 +152,6 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
 
         if (!$this->shortener instanceof Phergie_Plugin_Url_Shorten_Abstract) {
             $this->fail("Declared shortener class {$shortener} is not of proper ancestry");
-        }
-
-        // Get a list of valid TLDs
-        if (!is_array($this->tldList) || count($this->tldList) <= 6) {
-            $tldPath = dirname(__FILE__) . '/Url/url.tld.txt';
-            $this->tldList = explode("\n", file_get_contents($tldPath));
-            $this->debug('Loaded ' . count($this->tldList) . ' tlds');
-            rsort($this->tldList);
         }
 
         // load config (a bit ugly, but focusing on porting):
@@ -227,15 +182,129 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
      */
     public function onPrivmsg()
     {
+        $this->handleMsg();
+    }
+
+    /**
+     * Checks an incoming message for the presence of a URL and, if one is
+     * found, responds with its title if it is an HTML document and the
+     * shortened equivalent of its original URL if it meets length requirements.
+     *
+     * @todo Update this to pull configuration settings from $this->config
+     *       rather than caching them as class properties
+     * @return void
+     */
+    public function onAction()
+    {
+        $this->handleMsg();
+    }
+
+    /**
+     * Handles message events and responds with url titles.
+     *
+     * @return void
+     */
+    protected function handleMsg()
+    {
         $source = $this->getEvent()->getSource();
         $user = $this->getEvent()->getNick();
 
+        $responses = array();
+        $urls = $this->findUrls($this->getEvent()->getArgument(1));
+
+        foreach ($urls as $parsed) {
+            $url = $parsed['glued'];
+
+            // allow out-of-class renderers to handle this URL
+            foreach ($this->renderers as $renderer) {
+                if ($renderer->renderUrl($parsed) === true) {
+                    // renderers should return true if they've fully
+                    // rendered the passed URL (they're responsible
+                    // for their own output)
+                    $this->debug('Handled by renderer: ' . get_class($renderer));
+                    continue 2;
+                }
+            }
+
+            // Convert url
+            $shortenedUrl = $this->shortener->shorten($url);
+            if (!$shortenedUrl) {
+                $this->debug('Invalid Url: Unable to shorten. (' . $url . ')');
+                $shortenedUrl = $url;
+            }
+
+            // Prevent spamfest
+            if ($this->checkUrlCache($url, $shortenedUrl)) {
+                $this->debug('Invalid Url: URL is in the cache. (' . $url . ')');
+                continue;
+            }
+
+            $title = $this->getTitle($url);
+            if (!empty($title)) {
+                $responses[] = str_replace(
+                    array(
+                        '%title%',
+                        '%link%',
+                        '%nick%'
+                    ), array(
+                        $title,
+                        $shortenedUrl,
+                        $user
+                    ), $this->messageFormat
+                );
+            }
+
+            // Update cache
+            $this->updateUrlCache($url, $shortenedUrl);
+            unset($title, $shortenedUrl, $title);
+        }
+
+        // Check to see if there were any URL responses, format them and handle if they
+        // get merged into one message or not
+        if (count($responses) > 0) {
+            if ($this->mergeLinks) {
+                $message = str_replace(
+                    array(
+                        '%message%',
+                        '%nick%'
+                    ), array(
+                        implode('; ', $responses),
+                        $user
+                    ), $this->baseFormat
+                );
+                $this->doPrivmsg($source, $message);
+            } else {
+                foreach ($responses as $response) {
+                    $message = str_replace(
+                        array(
+                            '%message%',
+                            '%nick%'
+                        ), array(
+                            implode('; ', $responses),
+                            $user
+                        ), $this->baseFormat
+                    );
+                    $this->doPrivmsg($source, $message);
+                }
+            }
+        }
+    }
+
+    /**
+     * Detect URLs in a given string.
+     *
+     * @param string $message the string to detect urls in
+     *
+     * @return array the array of urls found
+     */
+    public function findUrls($message)
+    {
         $pattern = '#'.($this->detectSchemeless ? '' : 'https?://').'(?:([0-9]{1,3}(?:\.[0-9]{1,3}){3})(?![^/]) | ('
             .($this->detectSchemeless ? '(?<!http:/|https:/)[@/\\\]' : '').')?(?:(?:[a-z0-9_-]+\.?)+\.[a-z0-9]{1,6}))[^\s]*#xis';
+        $urls = array();
 
         // URL Match
-        if (preg_match_all($pattern, $this->getEvent()->getArgument(1), $matches, PREG_SET_ORDER)) {
-            $responses = array();
+        if (preg_match_all($pattern, $message, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $m) {
                 $url = trim(rtrim($m[0], ', ].?!;'));
 
@@ -251,17 +320,6 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
                     continue;
                 }
 
-                // allow out-of-class renderers to handle this URL
-                foreach ($this->renderers as $renderer) {
-                    if ($renderer->renderUrl($parsed) === true) {
-                        // renderers should return true if they've fully
-                        // rendered the passed URL (they're responsible
-                        // for their own output)
-                        $this->debug('Handled by renderer: ' . get_class($renderer));
-                        continue 2;
-                    }
-                }
-
                 // Check to see if the given IP/Host is valid
                 if (!empty($m[1]) and !$this->checkValidIP($m[1])) {
                     $this->debug('Invalid Url: ' . $m[1] . ' is not a valid IP address. (' . $url . ')');
@@ -275,7 +333,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
                     $parsed['tld'] = ($pos !== false ? substr($parsed['host'], ($pos+1)) : '');
 
                     // Check to see if the URL has a valid TLD
-                    if (is_array($this->tldList) && !in_array(strtolower($parsed['tld']), $this->tldList)) {
+                    if ($this->plugins->tld->getTld($parsed['tld']) === false) {
                         $this->debug('Invalid Url: ' . $parsed['tld'] . ' is not a supported TLD. (' . $url . ')');
                         continue;
                     }
@@ -295,73 +353,12 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
                     $this->debug('Invalid Url: ' . $parsed['scheme'] . ' is not a supported scheme. (' . $url . ')');
                     continue;
                 }
-                $url = $this->glueURL($parsed);
-                unset($parsed);
 
-                // Convert url
-                $shortenedUrl = $this->shortener->shorten($url);
-                if (!$shortenedUrl) {
-                    $this->debug('Invalid Url: Unable to shorten. (' . $url . ')');
-                    continue;
-                }
-
-                // Prevent spamfest
-                if ($this->checkUrlCache($url, $shortenedUrl)) {
-                    $this->debug('Invalid Url: URL is in the cache. (' . $url . ')');
-                    continue;
-                }
-
-                $title = self::getTitle($url);
-                if (!empty($title)) {
-                    $responses[] = str_replace(
-                        array(
-                            '%title%',
-                            '%link%',
-                            '%nick%'
-                        ), array(
-                         $title,
-                            $shortenedUrl,
-                            $user
-                        ), $this->messageFormat
-                    );
-                }
-
-                // Update cache
-                $this->updateUrlCache($url, $shortenedUrl);
-                unset($title, $shortenedUrl, $title);
-            }
-            /**
-             * Check to see if there were any URL responses, format them and handle if they
-             * get merged into one message or not
-             */
-            if (count($responses) > 0) {
-                if ($this->mergeLinks) {
-                    $message = str_replace(
-                        array(
-                            '%message%',
-                            '%nick%'
-                        ), array(
-                            implode('; ', $responses),
-                            $user
-                        ), $this->baseFormat
-                    );
-                    $this->doPrivmsg($source, $message);
-                } else {
-                    foreach ($responses as $response) {
-                        $message = str_replace(
-                            array(
-                                '%message%',
-                                '%nick%'
-                            ), array(
-                                implode('; ', $responses),
-                                $user
-                            ), $this->baseFormat
-                        );
-                        $this->doPrivmsg($source, $message);
-                    }
-                }
+                $urls[] = $parsed + array('glued' => $this->glueURL($parsed));
             }
         }
+
+        return $urls;
     }
 
     /**
@@ -454,50 +451,11 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
      */
     protected function decode($str, $trim = null)
     {
-        $out = $this->decodeTranslit($str);
+        $out = $this->plugins->encoding->transliterate($str);
         if ($trim > 0) {
             $out = substr($out, 0, $trim) . (strlen($out) > $trim ? '...' : '');
         }
         return $out;
-    }
-
-    /**
-     * Custom error handler meant to handle 404 errors and such
-     *
-     * @param int    $errno   the error code
-     * @param string $errstr  the error string
-     * @param string $errfile file the error occured in
-     * @param int    $errline line the error occured on
-     *
-     * @return bool
-     */
-    public function onPhpError($errno, $errstr, $errfile, $errline)
-    {
-        if ($errno === E_WARNING) {
-            // Check to see if there was HTTP warning while connecting to the site
-            if (preg_match('{HTTP/1\.[01] ([0-9]{3})}i', $errstr, $m)) {
-                $this->errorStatus = $m[1];
-                $this->errorMessage = (isset($this->httpErrors[$m[1]]) ? $this->httpErrors[$m[1]] : $m[1]);
-                $this->debug('PHP Warning:  ' . $errstr . 'in ' . $errfile . ' on line ' . $errline);
-                return true;
-            }
-
-            // Safely ignore these SSL warnings so they don't appear in the log
-            if (stripos($errstr, 'SSL: fatal protocol error in') !== false
-                || stripos($errstr, 'failed to open stream') !== false
-                || stripos($errstr, 'HTTP request failed') !== false
-                || stripos($errstr, 'SSL: An existing connection was forcibly closed by the remote host') !== false
-                || stripos($errstr, 'Failed to enable crypto in') !== false
-                || stripos($errstr, 'SSL: An established connection was aborted by the software in your host machine') !== false
-                || stripos($errstr, 'SSL operation failed with code') !== false
-                || stripos($errstr, 'unable to connect to') !== false
-            ) {
-                $this->errorStatus = true;
-                $this->debug('PHP Warning:  ' . $errstr . 'in ' . $errfile . ' on line ' . $errline);
-                return true;
-            }
-        }
-        return false;
     }
 
     /**
@@ -511,7 +469,7 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     protected function getUrlChecksum($url)
     {
         $checksum = strtolower(urldecode($this->glueUrl($url, true)));
-        $checksum = preg_replace('#\s#', '', $this->decodeTranslit($checksum));
+        $checksum = preg_replace('#\s#', '', $this->plugins->encoding->transliterate($checksum));
         return dechex(crc32($checksum));
     }
 
@@ -628,19 +586,20 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
             'user_agent' => 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.12) Gecko/20080201 Firefox/2.0.0.12'
         );
 
-        $response = $http->get($url, array(), $options);
-
+        $response = $http->head($url, array(), $options);
         $header = $response->getHeaders('Content-Type');
+
         if (!preg_match('#^(text/x?html|application/xhtml+xml)(?:;.*)?$#', $header)) {
             $title = $header;
-        }
-
-        $content = $response->getContent();
-        if (empty($title)) {
+        } else {
+            $response = $http->get($url, array(), $options);
+            $content = $response->getContent();
             if (preg_match('#<title[^>]*>(.*?)</title>#is', $content, $match)) {
-                $title = html_entity_decode(trim($match[1]));
+                $title = preg_replace('/[\s\v]+/', ' ', trim($match[1]));
             }
         }
+        $encoding = $this->plugins->getPlugin('Encoding');
+        $title = $encoding->decodeEntities($title);
 
         if (empty($title)) {
             if ($response->isError()) {
@@ -666,19 +625,6 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
     }
 
     /**
-     * Placeholder/porting helper. Has no function.
-     *
-     * @param string $str a string to return
-     *
-     * @return string
-     */
-    protected function decodeTranslit($str)
-    {
-        // placeholder/porting helper
-        return $str;
-    }
-
-    /**
      * Add a renderer to the stack
      *
      * @param object $obj the renderer to add
@@ -687,7 +633,6 @@ class Phergie_Plugin_Url extends Phergie_Plugin_Abstract
      */
     public function registerRenderer($obj)
     {
-        $this->renderers[] = $obj;
-        array_unique($this->renderers);
+        $this->renderers[spl_object_hash($obj)] = $obj;
     }
 }
