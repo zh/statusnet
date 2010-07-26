@@ -139,7 +139,7 @@ class MsnManager extends ImManager {
      * @return void
      */
     public function update_ping_time($data) {
-        $pingInterval = $data;
+        $this->pingInterval = $data;
     }
 
     /**
