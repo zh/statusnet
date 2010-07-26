@@ -77,6 +77,14 @@ class MsnManager extends ImManager {
     }
 
     /**
+     * Message pump is triggered on socket input, so we only need an idle()
+     * call often enough to trigger our outgoing pings.
+     */
+    function timeout() {
+        return $this->pingInterval;
+    }
+
+    /**
      * Process MSN events that have come in over the wire.
      *
      * @param resource $socket Socket ready
