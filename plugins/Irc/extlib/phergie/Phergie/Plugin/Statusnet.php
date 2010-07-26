@@ -59,15 +59,8 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             $this->regCallback = NULL;
         }
 
-        $this->unregRegexp = $this->config['statusnet.unregregexp'];
-        if (!$this->unregRegexp) {
-            $this->unregRegexp = '/\x02(.*?)\x02 (?:isn\'t|is not) registered/i';
-        }
-
-        $this->regRegexp = $this->config['statusnet.regregexp'];
-        if (!$this->regRegexp) {
-            $this->regRegexp = '/(?:\A|\x02)(\w+?)\x02? (?:\(account|is \w+?\z)/i';
-        }
+        $this->unregRegexp = $this->getConfig('statusnet.unregregexp', '/\x02(.*?)\x02 (?:isn\'t|is not) registered/i');
+        $this->regRegexp = $this->getConfig('statusnet.regregexp', '/(?:\A|\x02)(\w+?)\x02? (?:\(account|is \w+?\z)/i');
     }
 
     /**
@@ -80,6 +73,10 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             $event = $this->getEvent();
             $source = $event->getSource();
             $message = trim($event->getText());
+
+            if ($source == '#statustest') {
+                $this->doPrivmsg('#statustest', "\001Line1\020nLine2");
+            }
 
             call_user_func($this->messageCallback, array('sender' => $source, 'message' => $message));
         }
@@ -102,5 +99,9 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
                 call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => true));
             }
         }
+    }
+
+    public function onTick() {
+        echo "\nTICK!\n";
     }
 }

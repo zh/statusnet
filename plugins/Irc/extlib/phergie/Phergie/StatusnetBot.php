@@ -62,7 +62,7 @@ class Phergie_StatusnetBot extends Phergie_Bot {
     *
     * @return void
     */
-    public function receive() {
+    public function handleEvents() {
         $this->getProcessor()->handleEvents();
     }
 

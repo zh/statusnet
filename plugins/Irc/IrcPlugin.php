@@ -55,12 +55,15 @@ class IrcPlugin extends ImPlugin {
     public $realname = null;
     public $nick = null;
     public $password = null;
+    public $nickservidentifyregexp = null;
     public $nickservpassword = null;
     public $channels = null;
     public $transporttype = null;
     public $encoding = null;
 
     public $regcheck = null;
+    public $unregregexp = null;
+    public $regregexp = null;
 
     public $transport = 'irc';
     public $fake_irc;
@@ -249,20 +252,11 @@ class IrcPlugin extends ImPlugin {
         if (!isset($this->port)) {
             $this->port = 6667;
         }
-        if (!isset($this->password)) {
-            $this->password = '';
-        }
         if (!isset($this->transporttype)) {
             $this->transporttype = 'tcp';
         }
         if (!isset($this->encoding)) {
             $this->encoding = 'UTF-8';
-        }
-        if (!isset($this->nickservpassword)) {
-            $this->nickservpassword = '';
-        }
-        if (!isset($this->channels)) {
-            $this->channels = array();
         }
 
         if (!isset($this->regcheck)) {

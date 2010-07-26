@@ -65,6 +65,19 @@ class IrcManager extends ImManager {
     }
 
     /**
+     * Idle processing for io manager's execution loop.
+     * Send keepalive pings to server.
+     *
+     * @return void
+     */
+    public function idle() {
+        // Call Phergie's doTick methods if necessary
+        echo "BEGIN IDLE\n";
+        $this->conn->handleEvents();
+        echo "END IDLE\n";
+    }
+
+    /**
      * Process IRC events that have come in over the wire.
      *
      * @param resource $socket
@@ -73,7 +86,7 @@ class IrcManager extends ImManager {
     public function handleInput($socket) {
         common_log(LOG_DEBUG, 'Servicing the IRC queue.');
         $this->stats('irc_process');
-        $this->conn->receive();
+        $this->conn->handleEvents();
     }
 
     /**
@@ -91,7 +104,7 @@ class IrcManager extends ImManager {
                     'connections' => array(
                         array(
                             'host' => $this->plugin->host,
-                            'port' => $port,
+                            'port' => $this->plugin->port,
                             'username' => $this->plugin->username,
                             'realname' => $this->plugin->realname,
                             'nick' => $this->plugin->nick,
@@ -104,7 +117,7 @@ class IrcManager extends ImManager {
                     'driver' => 'statusnet',
 
                     'processor' => 'async',
-                    'processor.options' => array('usec' => 0),
+                    'processor.options' => array('sec' => 0, 'usec' => 0),
 
                     'plugins' => array(
                         'Pong',
@@ -118,9 +131,14 @@ class IrcManager extends ImManager {
                     'ui.enabled' => true,
 
                     'nickserv.password' => $this->plugin->nickservpassword,
+                    'nickserv.identify_message' => $this->plugin->nickservidentifyregexp,
+
                     'autojoin.channels' => $this->plugin->channels,
+
                     'statusnet.messagecallback' => array($this, 'handle_irc_message'),
-                    'statusnet.regcallback' => array($this, 'handle_reg_response')
+                    'statusnet.regcallback' => array($this, 'handle_reg_response'),
+                    'statusnet.unregregexp' => $this->plugin->unregregexp,
+                    'statusnet.regregexp' => $this->plugin->regregexp
                 )
             );
 
@@ -215,8 +233,12 @@ class IrcManager extends ImManager {
             $this->regchecksLookup[$usernick] = $screenname;
         }
 
+        $args = $data['data']['args'];
+        $lines = explode("\n", $args[1]);
         try {
-            $this->conn->send($data['data']['command'], $data['data']['args']);
+            foreach ($lines as $line) {
+                $this->conn->send($data['data']['command'], array($args[0], $line));
+            }
         } catch (Phergie_Driver_Exception $e) {
             $this->conn->reconnect();
             return false;
