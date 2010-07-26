@@ -100,8 +100,4 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             }
         }
     }
-
-    public function onTick() {
-        echo "\nTICK!\n";
-    }
 }

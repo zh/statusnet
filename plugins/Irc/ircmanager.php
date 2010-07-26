@@ -64,6 +64,8 @@ class IrcManager extends ImManager {
         }
     }
 
+
+
     /**
      * Idle processing for io manager's execution loop.
      * Send keepalive pings to server.
@@ -72,9 +74,7 @@ class IrcManager extends ImManager {
      */
     public function idle() {
         // Call Phergie's doTick methods if necessary
-        echo "BEGIN IDLE\n";
         $this->conn->handleEvents();
-        echo "END IDLE\n";
     }
 
     /**
