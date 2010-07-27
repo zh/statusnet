@@ -593,7 +593,7 @@ class Memcached_DataObject extends Safe_DataObject
         return $c->get($cacheKey);
     }
 
-    static function cacheSet($keyPart, $value)
+    static function cacheSet($keyPart, $value, $flag=null, $expiry=null)
     {
         $c = self::memcache();
 
@@ -603,7 +603,7 @@ class Memcached_DataObject extends Safe_DataObject
 
         $cacheKey = common_cache_key($keyPart);
 
-        return $c->set($cacheKey, $value);
+        return $c->set($cacheKey, $value, $flag, $expiry);
     }
 
     static function valueString($v)

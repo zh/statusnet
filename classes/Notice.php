@@ -90,7 +90,13 @@ class Notice extends Memcached_DataObject
 
     function getProfile()
     {
-        return Profile::staticGet('id', $this->profile_id);
+        $profile = Profile::staticGet('id', $this->profile_id);
+
+        if (empty($profile)) {
+            throw new ServerException(sprintf(_('No such profile (%d) for notice (%d)'), $this->profile_id, $this->id));
+        }
+
+        return $profile;
     }
 
     function delete()
