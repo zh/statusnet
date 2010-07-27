@@ -64,8 +64,6 @@ class IrcManager extends ImManager {
         }
     }
 
-
-
     /**
      * Idle processing for io manager's execution loop.
      * Send keepalive pings to server.
