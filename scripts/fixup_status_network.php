@@ -18,15 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-print "BEGIN\n";
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-common_log(LOG_INFO, 'Beginning conversion...');
+common_log(LOG_INFO, 'Beginning status_network conversion...');
 
 $sn = new Status_network();
 $sn->find();
 while ($sn->fetch()) {
-    $sn->setTags(explode('|', $sn->tags));
+    try {
+        $sn->setTags(explode('|', $sn->tags));
+    } catch (Exception $e) {
+        common_log(LOG_ERR, $e->getMessage());
+    }
 }
+
+common_log(LOG_INFO, 'Completed status_network conversion...');
