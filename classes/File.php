@@ -182,8 +182,8 @@ class File extends Memcached_DataObject
     function isRespectsQuota($user,$fileSize) {
 
         if ($fileSize > common_config('attachments', 'file_quota')) {
-            return sprintf(_('No file may be larger than %d bytes ' .
-                             'and the file you sent was %d bytes. Try to upload a smaller version.'),
+            return sprintf(_('No file may be larger than %1$d bytes ' .
+                             'and the file you sent was %2$d bytes. Try to upload a smaller version.'),
                            common_config('attachments', 'file_quota'), $fileSize);
         }
 
