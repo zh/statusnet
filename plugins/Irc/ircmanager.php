@@ -72,7 +72,11 @@ class IrcManager extends ImManager {
      */
     public function idle() {
         // Call Phergie's doTick methods if necessary
-        $this->conn->handleEvents();
+        try {
+            $this->conn->handleEvents();
+        } catch (Phergie_Driver_Exception $e) {
+            $this->conn->reconnect();
+        }
     }
 
     /**
@@ -84,7 +88,12 @@ class IrcManager extends ImManager {
     public function handleInput($socket) {
         common_log(LOG_DEBUG, 'Servicing the IRC queue.');
         $this->stats('irc_process');
-        $this->conn->handleEvents();
+
+        try {
+            $this->conn->handleEvents();
+        } catch (Phergie_Driver_Exception $e) {
+            $this->conn->reconnect();
+        }
     }
 
     /**
