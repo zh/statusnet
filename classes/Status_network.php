@@ -329,14 +329,16 @@ class Status_network extends Safe_DataObject
     {
         $this->clearTags();
         foreach ($tags as $tag) {
-            $snt = new Status_network_tag();
-            $snt->site_id = $this->site_id;
-            $snt->tag = $tag;
-            $snt->created = common_sql_now();
-
-            $id = $snt->insert();
-            if (!$id) {
-                throw new Exception(_("Unable to save tag."));
+            if (!empty($tag)) {
+                $snt = new Status_network_tag();
+                $snt->site_id = $this->site_id;
+                $snt->tag = $tag;
+                $snt->created = common_sql_now();
+                
+                $id = $snt->insert();
+                if (!$id) {
+                    throw new Exception(_("Unable to save tag."));
+                }
             }
         }
 
