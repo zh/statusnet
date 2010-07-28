@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-07-01 16:32:56+0000\n"
+"POT-Creation-Date: 2010-07-28 19:58+0000\n"
+"PO-Revision-Date: 2010-07-28 19:59:57+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68839); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r70102); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -168,19 +168,19 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
-"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) from their profile or [post something "
+"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "Pode tentar [dar um toque em %1$s](../%2$s) a partir do perfil ou [publicar "
 "qualquer coisa à sua atenção](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to his or her attention."
+"post a notice to their attention."
 msgstr ""
 "Podia [registar uma conta](%%action.register%%) e depois tocar %s ou "
 "publicar uma nota à sua atenção."
@@ -363,7 +363,8 @@ msgid "Could not delete favorite."
 msgstr "Não foi possível eliminar o favorito."
 
 #: actions/apifriendshipscreate.php:109
-msgid "Could not follow user: User not found."
+#, fuzzy
+msgid "Could not follow user: profile not found."
 msgstr "Não foi possível seguir utilizador: Utilizador não encontrado."
 
 #: actions/apifriendshipscreate.php:118
@@ -380,8 +381,9 @@ msgstr ""
 msgid "You cannot unfollow yourself."
 msgstr "Não pode deixar de seguir-se a si próprio."
 
-#: actions/apifriendshipsexists.php:94
-msgid "Two user ids or screen_names must be supplied."
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
 msgstr "Devem ser fornecidos dois nomes de utilizador ou utilizadors."
 
 #: actions/apifriendshipsshow.php:134
@@ -665,7 +667,7 @@ msgstr "Não encontrado."
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Tamanho máx. das notas é %d caracteres, incluíndo a URL do anexo."
 
-#: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
+#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
 msgstr "Formato não suportado."
 
@@ -719,6 +721,10 @@ msgstr "Notas categorizadas com %s"
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "Actualizações categorizadas com %1$s em %2$s!"
 
+#: actions/apitrends.php:87
+msgid "API method under construction."
+msgstr "Método da API em desenvolvimento."
+
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Anexo não foi encontrado."
@@ -771,7 +777,7 @@ msgid "Preview"
 msgstr "Antevisão"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:648
+#: lib/deleteuserform.php:66 lib/noticelist.php:656
 msgid "Delete"
 msgstr "Apagar"
 
@@ -1052,7 +1058,7 @@ msgid "Do not delete this notice"
 msgstr "Não apagar esta nota"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:648
+#: actions/deletenotice.php:158 lib/noticelist.php:656
 msgid "Delete this notice"
 msgstr "Apagar esta nota"
 
@@ -1332,7 +1338,7 @@ msgstr "Nome alternativo inválido: \"%s\""
 msgid "Could not update group."
 msgstr "Não foi possível actualizar o grupo."
 
-#: actions/editgroup.php:264 classes/User_group.php:496
+#: actions/editgroup.php:264 classes/User_group.php:511
 msgid "Could not create aliases."
 msgstr "Não foi possível criar os nomes alternativos."
 
@@ -2486,8 +2492,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Actualizações que contêm o termo \"%1$s\" em %2$s!"
 
 #: actions/nudge.php:85
+#, fuzzy
 msgid ""
-"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+"This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
 "Este utilizador não aceita toques ou ainda não confirmou ou forneceu o "
 "endereço electrónico."
@@ -2565,8 +2572,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Só URLs %s sobre HTTP simples, por favor."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
-#: lib/apiaction.php:1208 lib/apiaction.php:1325
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
+#: lib/apiaction.php:1232 lib/apiaction.php:1355
 msgid "Not a supported data format."
 msgstr "Formato de dados não suportado."
 
@@ -2733,7 +2740,7 @@ msgstr "Sem acesso de escrita no directório do fundo: %s."
 #: actions/pathsadminpanel.php:177
 #, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Sem acesso de leitura ao directório de idiomas: %s."
+msgstr "Sem acesso de leitura ao directório das línguas: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2761,11 +2768,11 @@ msgstr "Localização do site"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
-msgstr "Localização de idiomas"
+msgstr "Localização das línguas"
 
 #: actions/pathsadminpanel.php:246
 msgid "Directory path to locales"
-msgstr "Localização do directório de idiomas"
+msgstr "Localização do directório das línguas"
 
 #: actions/pathsadminpanel.php:250
 msgid "Fancy URLs"
@@ -3482,7 +3489,7 @@ msgstr "Não pode repetir a sua própria nota."
 msgid "You already repeated that notice."
 msgstr "Já repetiu essa nota."
 
-#: actions/repeat.php:114 lib/noticelist.php:667
+#: actions/repeat.php:114 lib/noticelist.php:675
 msgid "Repeated"
 msgstr "Repetida"
 
@@ -3517,10 +3524,10 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Fonte de respostas a %s (Atom)"
 
 #: actions/replies.php:199
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to his attention yet."
+"notice to their attention yet."
 msgstr ""
 "Estas são as notas de resposta a %1$s, mas %2$s ainda não recebeu nenhuma "
 "resposta."
@@ -3535,10 +3542,10 @@ msgstr ""
 "[juntar-se a grupos](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
-"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
+"%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "Pode tentar [dar um toque em %1$s](../%2$s) ou [publicar algo à sua atenção]"
 "(%%%%action.newnotice%%%%?status_textarea=%3$s)."
@@ -3629,7 +3636,7 @@ msgstr "Organização"
 msgid "Description"
 msgstr "Descrição"
 
-#: actions/showapplication.php:192 actions/showgroup.php:444
+#: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Estatísticas"
@@ -3718,20 +3725,20 @@ msgstr ""
 "relevância."
 
 #: actions/showfavorites.php:208
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Post something interesting "
-"they would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
 msgstr ""
 "%s ainda não adicionou nenhuma nota às favoritas. Publique algo interessante "
 "que mude este estado de coisas :)"
 
 #: actions/showfavorites.php:212
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Why not [register an "
-"account](%%%%action.register%%%%) and then post something interesting they "
-"would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
+"action.register%%%%) and then post something interesting they would add to "
+"their favorites :)"
 msgstr ""
 "%s ainda não adicionou nenhuma nota às favoritas. Que tal [registar uma "
 "conta](%%action.register%%) e publicar algo interessante que mude este "
@@ -3793,7 +3800,7 @@ msgstr "Fonte de notas do grupo %s (Atom)"
 msgid "FOAF for %s group"
 msgstr "FOAF do grupo %s"
 
-#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
 msgstr "Membros"
 
@@ -3807,11 +3814,11 @@ msgstr "(Nenhum)"
 msgid "All members"
 msgstr "Todos os membros"
 
-#: actions/showgroup.php:447
+#: actions/showgroup.php:439
 msgid "Created"
 msgstr "Criado"
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:455
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3827,7 +3834,7 @@ msgstr ""
 "[Registe-se agora](%%action.register%%) para se juntar a este grupo e a "
 "muitos mais! ([Saber mais](%%doc.help%%))"
 
-#: actions/showgroup.php:469
+#: actions/showgroup.php:461
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3840,7 +3847,7 @@ msgstr ""
 "programa de Software Livre [StatusNet](http://status.net/). Os membros deste "
 "grupo partilham mensagens curtas acerca das suas vidas e interesses. "
 
-#: actions/showgroup.php:497
+#: actions/showgroup.php:489
 msgid "Admins"
 msgstr "Gestores"
 
@@ -3915,10 +3922,10 @@ msgstr ""
 "esta seria uma óptima altura para começar :)"
 
 #: actions/showstream.php:207
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to their attention](%%%%action."
+"newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 "Pode tentar dar um toque em %1$s ou [publicar algo à sua atenção](%%%%action."
 "newnotice%%%%?status_textarea=%2$s)."
@@ -4485,10 +4492,6 @@ msgstr ""
 msgid "No such tag."
 msgstr "Categoria não foi encontrada."
 
-#: actions/twitapitrends.php:85
-msgid "API method under construction."
-msgstr "Método da API em desenvolvimento."
-
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Não bloqueou esse utilizador."
@@ -4851,28 +4854,33 @@ msgstr "Não foi possível inserir a mensagem."
 msgid "Could not update message with new URI."
 msgstr "Não foi possível actualizar a mensagem com a nova URI."
 
+#: classes/Notice.php:96
+#, php-format
+msgid "No such profile (%d) for notice (%d)"
+msgstr ""
+
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:182
+#: classes/Notice.php:188
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Erro na base de dados ao inserir o elemento criptográfico: %s"
 
-#: classes/Notice.php:251
+#: classes/Notice.php:257
 msgid "Problem saving notice. Too long."
 msgstr "Problema na gravação da nota. Demasiado longa."
 
-#: classes/Notice.php:255
+#: classes/Notice.php:261
 msgid "Problem saving notice. Unknown user."
 msgstr "Problema na gravação da nota. Utilizador desconhecido."
 
-#: classes/Notice.php:260
+#: classes/Notice.php:266
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Demasiadas notas, demasiado rápido; descanse e volte a publicar daqui a "
 "alguns minutos."
 
-#: classes/Notice.php:266
+#: classes/Notice.php:272
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4880,24 +4888,29 @@ msgstr ""
 "Demasiadas mensagens duplicadas, demasiado rápido; descanse e volte a "
 "publicar daqui a alguns minutos."
 
-#: classes/Notice.php:272
+#: classes/Notice.php:278
 msgid "You are banned from posting notices on this site."
 msgstr "Está proibido de publicar notas neste site."
 
-#: classes/Notice.php:338 classes/Notice.php:364
+#: classes/Notice.php:344 classes/Notice.php:370
 msgid "Problem saving notice."
 msgstr "Problema na gravação da nota."
 
-#: classes/Notice.php:973
+#: classes/Notice.php:979
 msgid "Problem saving group inbox."
 msgstr "Problema na gravação da caixa de entrada do grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1564
+#: classes/Notice.php:1586
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
+
+#: classes/Status_network.php:345
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Não foi possível gravar o aviso do site."
 
 #: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
@@ -4932,19 +4945,19 @@ msgstr "Não foi possível apagar a subscrição."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%1$s dá-lhe as boas-vindas, @%2$s!"
 
-#: classes/User_group.php:480
+#: classes/User_group.php:495
 msgid "Could not create group."
 msgstr "Não foi possível criar o grupo."
 
-#: classes/User_group.php:489
+#: classes/User_group.php:504
 msgid "Could not set group URI."
 msgstr "Não foi possível configurar a URI do grupo."
 
-#: classes/User_group.php:510
+#: classes/User_group.php:525
 msgid "Could not set group membership."
 msgstr "Não foi possível configurar membros do grupo."
 
-#: classes/User_group.php:524
+#: classes/User_group.php:539
 msgid "Could not save local group info."
 msgstr "Não foi possível gravar a informação do grupo local."
 
@@ -6414,7 +6427,7 @@ msgstr ""
 "conversa com outros utilizadores. Outros podem enviar-lhe mensagens, a que "
 "só você terá acesso."
 
-#: lib/mailbox.php:227 lib/noticelist.php:497
+#: lib/mailbox.php:227 lib/noticelist.php:505
 msgid "from"
 msgstr "de"
 
@@ -6473,24 +6486,24 @@ msgstr "Não foi possível gravar o ficheiro no disco."
 msgid "File upload stopped by extension."
 msgstr "Transferência do ficheiro interrompida pela extensão."
 
-#: lib/mediafile.php:179 lib/mediafile.php:216
+#: lib/mediafile.php:179 lib/mediafile.php:217
 msgid "File exceeds user's quota."
 msgstr "Ficheiro excede quota do utilizador."
 
-#: lib/mediafile.php:196 lib/mediafile.php:233
+#: lib/mediafile.php:197 lib/mediafile.php:234
 msgid "File could not be moved to destination directory."
 msgstr "Não foi possível mover o ficheiro para o directório de destino."
 
-#: lib/mediafile.php:201 lib/mediafile.php:237
+#: lib/mediafile.php:202 lib/mediafile.php:238
 msgid "Could not determine file's MIME type."
 msgstr "Não foi possível determinar o tipo MIME do ficheiro."
 
-#: lib/mediafile.php:270
+#: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
 msgstr " Tente usar outro tipo de %s."
 
-#: lib/mediafile.php:275
+#: lib/mediafile.php:323
 #, php-format
 msgid "%s is not a supported file type on this server."
 msgstr "%s não é um tipo de ficheiro suportado neste servidor."
@@ -6546,51 +6559,51 @@ msgstr ""
 "tente novamente mais tarde"
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:430
+#: lib/noticelist.php:436
 msgid "N"
 msgstr "N"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:432
+#: lib/noticelist.php:438
 msgid "S"
 msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:434
+#: lib/noticelist.php:440
 msgid "E"
 msgstr "E"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:436
+#: lib/noticelist.php:442
 msgid "W"
 msgstr "O"
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:444
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
-#: lib/noticelist.php:447
+#: lib/noticelist.php:453
 msgid "at"
 msgstr "coords."
 
-#: lib/noticelist.php:559
+#: lib/noticelist.php:567
 msgid "in context"
 msgstr "no contexto"
 
-#: lib/noticelist.php:594
+#: lib/noticelist.php:602
 msgid "Repeated by"
 msgstr "Repetida por"
 
-#: lib/noticelist.php:621
+#: lib/noticelist.php:629
 msgid "Reply to this notice"
 msgstr "Responder a esta nota"
 
-#: lib/noticelist.php:622
+#: lib/noticelist.php:630
 msgid "Reply"
 msgstr "Responder"
 
-#: lib/noticelist.php:666
+#: lib/noticelist.php:674
 msgid "Notice repeated"
 msgstr "Nota repetida"
 

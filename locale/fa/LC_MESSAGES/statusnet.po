@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-07-01 16:31:50+0000\n"
+"POT-Creation-Date: 2010-07-28 19:58+0000\n"
+"PO-Revision-Date: 2010-07-28 19:59:25+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r68839); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r70102); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #. TRANS: Page title
@@ -170,19 +170,19 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
-"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) from their profile or [post something "
+"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "شما می‌توانید [یادآوری‌کردن %1$s](../%2$s) را از نمایه‌اش امتحان کنید یا [به "
 "توجه او چیزی بفرستید](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to his or her attention."
+"post a notice to their attention."
 msgstr ""
 "چرا [ثبت‌نام](%%%%action.register%%%%) نمی‌کنید و سپس به %s یادآوری کنید یا یک "
 "پیام به توجه‌اش بفرستید."
@@ -363,7 +363,8 @@ msgid "Could not delete favorite."
 msgstr "نمی‌توان پیام برگزیده را حذف کرد."
 
 #: actions/apifriendshipscreate.php:109
-msgid "Could not follow user: User not found."
+#, fuzzy
+msgid "Could not follow user: profile not found."
 msgstr "نمی‌توان کاربر را دنبال کرد: کاربر یافت نشد."
 
 #: actions/apifriendshipscreate.php:118
@@ -379,8 +380,9 @@ msgstr "نمی‌توان کاربر را دنبال نکرد: کاربر یاف
 msgid "You cannot unfollow yourself."
 msgstr "نمی‌توانید خودتان را دنبال کنید."
 
-#: actions/apifriendshipsexists.php:94
-msgid "Two user ids or screen_names must be supplied."
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
 msgstr "باید ۲ شناسه‌ی کاربر یا نام ظاهری وارد کنید."
 
 #: actions/apifriendshipsshow.php:134
@@ -666,7 +668,7 @@ msgstr "یافت نشد."
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "بیشینهٔ طول پیام %d نویسه که شامل نشانی اینترنتی پیوست هم هست."
 
-#: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
+#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
 msgstr "قالب پشتیبانی نشده."
 
@@ -719,6 +721,10 @@ msgstr "پیام‌هایی که با %s نشانه گزاری شده اند."
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "پیام‌های نشانه گزاری شده با %1$s در %2$s"
+
+#: actions/apitrends.php:87
+msgid "API method under construction."
+msgstr "روش API در دست ساخت."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -773,7 +779,7 @@ msgid "Preview"
 msgstr "پیش‌نمایش"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:648
+#: lib/deleteuserform.php:66 lib/noticelist.php:656
 msgid "Delete"
 msgstr "حذف"
 
@@ -1055,7 +1061,7 @@ msgid "Do not delete this notice"
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:648
+#: actions/deletenotice.php:158 lib/noticelist.php:656
 msgid "Delete this notice"
 msgstr "این پیام را پاک کن"
 
@@ -1334,7 +1340,7 @@ msgstr "نام‌مستعار غیر مجاز: «%s»"
 msgid "Could not update group."
 msgstr "نمی‌توان گروه را به‌هنگام‌سازی کرد."
 
-#: actions/editgroup.php:264 classes/User_group.php:496
+#: actions/editgroup.php:264 classes/User_group.php:511
 msgid "Could not create aliases."
 msgstr "نمی‌توان نام‌های مستعار را ساخت."
 
@@ -2476,8 +2482,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "پیام‌هایی که با جست‌و‌جوی عبارت »%1$s« در %s یافت شدند."
 
 #: actions/nudge.php:85
+#, fuzzy
 msgid ""
-"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+"This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
 "این کاربر اجازه‌ی یادآوری‌کردن را نداده است یا پست‌الکترونیک خود را تایید یا "
 "تعیین نکرده است."
@@ -2555,8 +2562,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "لطفا تنها از نشانی‌های اینترنتی %s از راه HTTP ساده استفاده کنید."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
-#: lib/apiaction.php:1208 lib/apiaction.php:1325
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
+#: lib/apiaction.php:1232 lib/apiaction.php:1355
 msgid "Not a supported data format."
 msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
@@ -3460,7 +3467,7 @@ msgstr "شما نمی‌توانید پیام خودتان را تکرار کن�
 msgid "You already repeated that notice."
 msgstr "شما قبلا آن پیام را تکرار کرده‌اید."
 
-#: actions/repeat.php:114 lib/noticelist.php:667
+#: actions/repeat.php:114 lib/noticelist.php:675
 msgid "Repeated"
 msgstr "تکرار شده"
 
@@ -3495,10 +3502,10 @@ msgid "Replies feed for %s (Atom)"
 msgstr "خوراک پاسخ‌ها برای %s (Atom)"
 
 #: actions/replies.php:199
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to his attention yet."
+"notice to their attention yet."
 msgstr ""
 "این خط‌زمانی است که پاسخ‌ها به %1$s را نشان می‌دهد، اما %2$s هنوز یک پیام به "
 "توجه‌اش دریافت نکرده است."
@@ -3513,10 +3520,10 @@ msgstr ""
 "شوید یا [به گروه‌ها بپیوندید](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
-"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
+"%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "شما می‌توانید [یادآوری %1$s](../%2$s) را امتحان کنید یا [به توجه او چیزی "
 "بفرستید](%%%%action.newnotice%%%%?status_textarea=%3$s)."
@@ -3608,7 +3615,7 @@ msgstr "سازمان"
 msgid "Description"
 msgstr "توصیف"
 
-#: actions/showapplication.php:192 actions/showgroup.php:444
+#: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "آمار"
@@ -3696,20 +3703,20 @@ msgstr ""
 "آن‌ها بگذارید."
 
 #: actions/showfavorites.php:208
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Post something interesting "
-"they would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
 msgstr ""
 "%s تاکنون هیچ پیامی را به برگزیده‌هایش اضافه نکرده است. چیز جالبی بفرستید که "
 "ممکن است به برگزیده‌هایشان اضافه کنند :)"
 
 #: actions/showfavorites.php:212
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Why not [register an "
-"account](%%%%action.register%%%%) and then post something interesting they "
-"would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
+"action.register%%%%) and then post something interesting they would add to "
+"their favorites :)"
 msgstr ""
 "%s تاکنون هیچ پیامی را به برگزیده‌هایش اضافه نکرده است. چرا به [ثبت کردن یک "
 "حساب](%%%%action.register%%%%) اقدام نمی‌کنید و سپس چیز جالبی را که ممکن است "
@@ -3771,7 +3778,7 @@ msgstr "خوراک پیام برای گروه %s (Atom)"
 msgid "FOAF for %s group"
 msgstr "FOAF برای گروه %s"
 
-#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
 msgstr "اعضا"
 
@@ -3785,11 +3792,11 @@ msgstr "هیچ"
 msgid "All members"
 msgstr "همهٔ اعضا"
 
-#: actions/showgroup.php:447
+#: actions/showgroup.php:439
 msgid "Created"
 msgstr "ساخته شد"
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:455
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3805,7 +3812,7 @@ msgstr ""
 "می‌گذارند. [اکنون بپیوندید ](%%%%action.register%%%%) تا یکی از اعضای این "
 "گروه و بلکه بیش‌تر بشوید! ([بیش‌تر بخوانید](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:469
+#: actions/showgroup.php:461
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3819,7 +3826,7 @@ msgstr ""
 "است. کاربران آن پیام‌های کوتاهی را دربارهٔ زندگی و علاقه‌مندی‌هایشان به اشتراک "
 "می‌گذارند. "
 
-#: actions/showgroup.php:497
+#: actions/showgroup.php:489
 msgid "Admins"
 msgstr "مدیران"
 
@@ -3894,10 +3901,10 @@ msgstr ""
 "زمان خوبی برای شروع باشد :)"
 
 #: actions/showstream.php:207
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to their attention](%%%%action."
+"newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 "شما می‌توانید یادآوری %1$s را امتحان کنید یا [به توجه او چیزی بفرستید](%%%%"
 "action.newnotice%%%%?status_textarea=%2$s)."
@@ -4460,10 +4467,6 @@ msgstr "از این روش برای افزودن برچسب به مشترک‌ه
 msgid "No such tag."
 msgstr "چنین برچسبی وجود ندارد."
 
-#: actions/twitapitrends.php:85
-msgid "API method under construction."
-msgstr "روش API در دست ساخت."
-
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "شما آن کاربر را مسدود نکرده اید."
@@ -4820,28 +4823,33 @@ msgstr "پیغام نمی تواند درج گردد"
 msgid "Could not update message with new URI."
 msgstr ""
 
+#: classes/Notice.php:96
+#, php-format
+msgid "No such profile (%d) for notice (%d)"
+msgstr ""
+
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:182
+#: classes/Notice.php:188
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "هنگام افزودن برچسب خطا در پایگاه داده رخ داد: %s"
 
-#: classes/Notice.php:251
+#: classes/Notice.php:257
 msgid "Problem saving notice. Too long."
 msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
 
-#: classes/Notice.php:255
+#: classes/Notice.php:261
 msgid "Problem saving notice. Unknown user."
 msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
 
-#: classes/Notice.php:260
+#: classes/Notice.php:266
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "تعداد زیادی پیام و خیلی سریع فرستاده شده‌اند؛ استراحت کنید و دقایقی دیگر "
 "دوباره بفرستید."
 
-#: classes/Notice.php:266
+#: classes/Notice.php:272
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4849,24 +4857,29 @@ msgstr ""
 "تعداد زیاد پیام های دو نسخه ای و بسرعت؛ استراحت کنید و دقایقی دیگر مجددا "
 "ارسال کنید."
 
-#: classes/Notice.php:272
+#: classes/Notice.php:278
 msgid "You are banned from posting notices on this site."
 msgstr "شما از فرستادن پیام در این وب‌گاه منع شده‌اید."
 
-#: classes/Notice.php:338 classes/Notice.php:364
+#: classes/Notice.php:344 classes/Notice.php:370
 msgid "Problem saving notice."
 msgstr "هنگام ذخیرهٔ پیام مشکلی ایجاد شد."
 
-#: classes/Notice.php:973
+#: classes/Notice.php:979
 msgid "Problem saving group inbox."
 msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1564
+#: classes/Notice.php:1586
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
+
+#: classes/Status_network.php:345
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "نمی‌توان پیام وب‌گاه را ذخیره کرد."
 
 #: classes/Subscription.php:74 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
@@ -4901,20 +4914,20 @@ msgstr "نمی‌توان اشتراک را لغو کرد."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "@%2$s، به %1$s خوش آمدید!"
 
-#: classes/User_group.php:480
+#: classes/User_group.php:495
 msgid "Could not create group."
 msgstr "نمیتوان گروه را تشکیل داد"
 
-#: classes/User_group.php:489
+#: classes/User_group.php:504
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "نمیتوان گروه را تشکیل داد"
 
-#: classes/User_group.php:510
+#: classes/User_group.php:525
 msgid "Could not set group membership."
 msgstr "نمی‌توان عضویت گروه را تعیین کرد."
 
-#: classes/User_group.php:524
+#: classes/User_group.php:539
 msgid "Could not save local group info."
 msgstr "نمی‌توان اطلاعات گروه محلی را ذخیره کرد."
 
@@ -6375,7 +6388,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:497
+#: lib/mailbox.php:227 lib/noticelist.php:505
 msgid "from"
 msgstr "از"
 
@@ -6431,24 +6444,24 @@ msgstr "شکست خوردن در نوشتن فایل روی دیسک."
 msgid "File upload stopped by extension."
 msgstr "بارگذاری پرونده توسط افزونه متوقف شد."
 
-#: lib/mediafile.php:179 lib/mediafile.php:216
+#: lib/mediafile.php:179 lib/mediafile.php:217
 msgid "File exceeds user's quota."
 msgstr "پرونده از سهمیهٔ کاربر می‌گذرد."
 
-#: lib/mediafile.php:196 lib/mediafile.php:233
+#: lib/mediafile.php:197 lib/mediafile.php:234
 msgid "File could not be moved to destination directory."
 msgstr "فایل نتوانست به دایرکتوری مقصد منتقل شود."
 
-#: lib/mediafile.php:201 lib/mediafile.php:237
+#: lib/mediafile.php:202 lib/mediafile.php:238
 msgid "Could not determine file's MIME type."
 msgstr "نمی‌توان فرمت پرونده را تعیین کرد."
 
-#: lib/mediafile.php:270
+#: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
 msgstr "تلاش برای امتحان نوع دیگر %s"
 
-#: lib/mediafile.php:275
+#: lib/mediafile.php:323
 #, php-format
 msgid "%s is not a supported file type on this server."
 msgstr "%s یک گونهٔ پروندهٔ پیشتیبانی شده روی این کارگزار نیست."
@@ -6504,51 +6517,51 @@ msgstr ""
 "دوباره تلاش کنید."
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:430
+#: lib/noticelist.php:436
 msgid "N"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:432
+#: lib/noticelist.php:438
 msgid "S"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:434
+#: lib/noticelist.php:440
 msgid "E"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:436
+#: lib/noticelist.php:442
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:444
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:447
+#: lib/noticelist.php:453
 msgid "at"
 msgstr "در"
 
-#: lib/noticelist.php:559
+#: lib/noticelist.php:567
 msgid "in context"
 msgstr "در زمینه"
 
-#: lib/noticelist.php:594
+#: lib/noticelist.php:602
 msgid "Repeated by"
 msgstr "تکرار از"
 
-#: lib/noticelist.php:621
+#: lib/noticelist.php:629
 msgid "Reply to this notice"
 msgstr "به این پیام پاسخ دهید"
 
-#: lib/noticelist.php:622
+#: lib/noticelist.php:630
 msgid "Reply"
 msgstr "پاسخ"
 
-#: lib/noticelist.php:666
+#: lib/noticelist.php:674
 msgid "Notice repeated"
 msgstr "پیام تکرار شد"
 

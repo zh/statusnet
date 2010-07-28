@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-07-01 16:32:31+0000\n"
+"POT-Creation-Date: 2010-07-28 19:58+0000\n"
+"PO-Revision-Date: 2010-07-28 19:59:44+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68839); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r70102); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -166,15 +166,15 @@ msgstr ""
 #: actions/all.php:146
 #, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) from his profile or [post something to "
-"his or her attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) from their profile or [post something "
+"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to his or her attention."
+"post a notice to their attention."
 msgstr ""
 
 #. TRANS: H1 text
@@ -353,7 +353,8 @@ msgid "Could not delete favorite."
 msgstr "관심소식을 삭제할 수 없습니다."
 
 #: actions/apifriendshipscreate.php:109
-msgid "Could not follow user: User not found."
+#, fuzzy
+msgid "Could not follow user: profile not found."
 msgstr "팔로우할 수 없습니다: 이용자 없음."
 
 #: actions/apifriendshipscreate.php:118
@@ -369,8 +370,9 @@ msgstr "언팔로우할 수 없습니다: 이용자 없음."
 msgid "You cannot unfollow yourself."
 msgstr "자기 자신을 언팔로우할 수 없습니다."
 
-#: actions/apifriendshipsexists.php:94
-msgid "Two user ids or screen_names must be supplied."
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
 msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
 
 #: actions/apifriendshipsshow.php:134
@@ -659,7 +661,7 @@ msgstr "찾을 수가 없습니다."
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "소식의 최대 길이는 첨부 URL을 포함하여 %d 글자입니다."
 
-#: actions/apisubscriptions.php:231 actions/apisubscriptions.php:261
+#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
 msgstr "지원하지 않는 형식입니다."
 
@@ -712,6 +714,10 @@ msgstr "%s 태그된 통지"
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s에 있는 %1$s의 업데이트!"
+
+#: actions/apitrends.php:87
+msgid "API method under construction."
+msgstr "API 메서드를 구성중 입니다."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -766,7 +772,7 @@ msgid "Preview"
 msgstr "미리보기"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:648
+#: lib/deleteuserform.php:66 lib/noticelist.php:656
 msgid "Delete"
 msgstr "삭제"
 
@@ -1054,7 +1060,7 @@ msgid "Do not delete this notice"
 msgstr "이 통지를 지울 수 없습니다."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:648
+#: actions/deletenotice.php:158 lib/noticelist.php:656
 msgid "Delete this notice"
 msgstr "이 게시글 삭제하기"
 
@@ -1344,7 +1350,7 @@ msgstr "사용할 수 없는 별명 : \"%s\""
 msgid "Could not update group."
 msgstr "그룹을 업데이트 할 수 없습니다."
 
-#: actions/editgroup.php:264 classes/User_group.php:496
+#: actions/editgroup.php:264 classes/User_group.php:511
 #, fuzzy
 msgid "Could not create aliases."
 msgstr "좋아하는 게시글을 생성할 수 없습니다."
@@ -2508,8 +2514,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "\"%s\" 에 일치하는 모든 업데이트"
 
 #: actions/nudge.php:85
+#, fuzzy
 msgid ""
-"This user doesn't allow nudges or hasn't confirmed or set his email yet."
+"This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
 "이 사용자는 nudge를 허용하지 않았고, 아직 그의 이메일을 인증하지 않았습니다."
 
@@ -2589,8 +2596,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1179
-#: lib/apiaction.php:1208 lib/apiaction.php:1325
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
+#: lib/apiaction.php:1232 lib/apiaction.php:1355
 msgid "Not a supported data format."
 msgstr "지원하는 형식의 데이터가 아닙니다."
 
@@ -3506,7 +3513,7 @@ msgstr "자신의 글은 재전송할 수 없습니다."
 msgid "You already repeated that notice."
 msgstr "당신은 이미 이 사용자를 차단하고 있습니다."
 
-#: actions/repeat.php:114 lib/noticelist.php:667
+#: actions/repeat.php:114 lib/noticelist.php:675
 msgid "Repeated"
 msgstr "재전송됨"
 
@@ -3541,11 +3548,11 @@ msgid "Replies feed for %s (Atom)"
 msgstr "%s의 통지 피드"
 
 #: actions/replies.php:199
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to his attention yet."
-msgstr ""
+"notice to their attention yet."
+msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
 
 #: actions/replies.php:204
 #, php-format
@@ -3557,8 +3564,8 @@ msgstr ""
 #: actions/replies.php:206
 #, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to his or her "
-"attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
+"%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/repliesrss.php:72
@@ -3656,7 +3663,7 @@ msgstr "페이지수"
 msgid "Description"
 msgstr "설명"
 
-#: actions/showapplication.php:192 actions/showgroup.php:444
+#: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "통계"
@@ -3742,16 +3749,16 @@ msgstr ""
 #: actions/showfavorites.php:208
 #, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Post something interesting "
-"they would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
 msgstr ""
 
 #: actions/showfavorites.php:212
 #, php-format
 msgid ""
-"%s hasn't added any notices to his favorites yet. Why not [register an "
-"account](%%%%action.register%%%%) and then post something interesting they "
-"would add to their favorites :)"
+"%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
+"action.register%%%%) and then post something interesting they would add to "
+"their favorites :)"
 msgstr ""
 
 #: actions/showfavorites.php:243
@@ -3810,7 +3817,7 @@ msgstr "%s 그룹을 위한 공지피드 (Atom)"
 msgid "FOAF for %s group"
 msgstr "%s의 보낸쪽지함"
 
-#: actions/showgroup.php:393 actions/showgroup.php:453 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
 msgstr "회원"
 
@@ -3824,12 +3831,12 @@ msgstr "(없습니다.)"
 msgid "All members"
 msgstr "모든 회원"
 
-#: actions/showgroup.php:447
+#: actions/showgroup.php:439
 #, fuzzy
 msgid "Created"
 msgstr "생성"
 
-#: actions/showgroup.php:463
+#: actions/showgroup.php:455
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3839,7 +3846,7 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showgroup.php:469
+#: actions/showgroup.php:461
 #, fuzzy, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -3850,7 +3857,7 @@ msgstr ""
 "**%s** 는 %%%%site.name%%%% [마이크로블로깅)(http://en.wikipedia.org/wiki/"
 "Micro-blogging)의 사용자 그룹입니다. "
 
-#: actions/showgroup.php:497
+#: actions/showgroup.php:489
 #, fuzzy
 msgid "Admins"
 msgstr "관리자"
@@ -3929,8 +3936,8 @@ msgstr ""
 #: actions/showstream.php:207
 #, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to his or her attention](%%%%"
-"action.newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to their attention](%%%%action."
+"newnotice%%%%?status_textarea=%2$s)."
 msgstr ""
 
 #: actions/showstream.php:243
@@ -4498,10 +4505,6 @@ msgstr "당신의 구독자나 구독하는 사람에 태깅을 위해 이 양�
 msgid "No such tag."
 msgstr "그러한 태그가 없습니다."
 
-#: actions/twitapitrends.php:85
-msgid "API method under construction."
-msgstr "API 메서드를 구성중 입니다."
-
 #: actions/unblock.php:59
 #, fuzzy
 msgid "You haven't blocked that user."
@@ -4864,29 +4867,34 @@ msgstr "메시지를 삽입할 수 없습니다."
 msgid "Could not update message with new URI."
 msgstr "새 URI와 함께 메시지를 업데이트할 수 없습니다."
 
+#: classes/Notice.php:96
+#, php-format
+msgid "No such profile (%d) for notice (%d)"
+msgstr ""
+
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:182
+#: classes/Notice.php:188
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "해쉬테그를 추가 할 때에 데이타베이스 에러 : %s"
 
-#: classes/Notice.php:251
+#: classes/Notice.php:257
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:255
+#: classes/Notice.php:261
 msgid "Problem saving notice. Unknown user."
 msgstr "게시글 저장문제. 알려지지않은 회원"
 
-#: classes/Notice.php:260
+#: classes/Notice.php:266
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
 "해보세요."
 
-#: classes/Notice.php:266
+#: classes/Notice.php:272
 #, fuzzy
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
@@ -4895,25 +4903,30 @@ msgstr ""
 "너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
 "해보세요."
 
-#: classes/Notice.php:272
+#: classes/Notice.php:278
 msgid "You are banned from posting notices on this site."
 msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었습니다."
 
-#: classes/Notice.php:338 classes/Notice.php:364
+#: classes/Notice.php:344 classes/Notice.php:370
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
-#: classes/Notice.php:973
+#: classes/Notice.php:979
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1564
+#: classes/Notice.php:1586
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
+
+#: classes/Status_network.php:345
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "트위터 환경설정을 저장할 수 없습니다."
 
 #: classes/Subscription.php:74 lib/oauthstore.php:465
 #, fuzzy
@@ -4952,20 +4965,20 @@ msgstr "예약 구독을 삭제 할 수 없습니다."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "%2$s에서 %1$s까지 메시지"
 
-#: classes/User_group.php:480
+#: classes/User_group.php:495
 msgid "Could not create group."
 msgstr "새 그룹을 만들 수 없습니다."
 
-#: classes/User_group.php:489
+#: classes/User_group.php:504
 #, fuzzy
 msgid "Could not set group URI."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
-#: classes/User_group.php:510
+#: classes/User_group.php:525
 msgid "Could not set group membership."
 msgstr "그룹 맴버십을 세팅할 수 없습니다."
 
-#: classes/User_group.php:524
+#: classes/User_group.php:539
 #, fuzzy
 msgid "Could not save local group info."
 msgstr "구독을 저장할 수 없습니다."
@@ -6339,7 +6352,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:497
+#: lib/mailbox.php:227 lib/noticelist.php:505
 #, fuzzy
 msgid "from"
 msgstr "다음에서:"
@@ -6395,25 +6408,25 @@ msgstr ""
 msgid "File upload stopped by extension."
 msgstr ""
 
-#: lib/mediafile.php:179 lib/mediafile.php:216
+#: lib/mediafile.php:179 lib/mediafile.php:217
 msgid "File exceeds user's quota."
 msgstr ""
 
-#: lib/mediafile.php:196 lib/mediafile.php:233
+#: lib/mediafile.php:197 lib/mediafile.php:234
 msgid "File could not be moved to destination directory."
 msgstr ""
 
-#: lib/mediafile.php:201 lib/mediafile.php:237
+#: lib/mediafile.php:202 lib/mediafile.php:238
 #, fuzzy
 msgid "Could not determine file's MIME type."
 msgstr "공개 stream을 불러올 수 없습니다."
 
-#: lib/mediafile.php:270
+#: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
 msgstr ""
 
-#: lib/mediafile.php:275
+#: lib/mediafile.php:323
 #, php-format
 msgid "%s is not a supported file type on this server."
 msgstr ""
@@ -6470,54 +6483,54 @@ msgid ""
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:430
+#: lib/noticelist.php:436
 #, fuzzy
 msgid "N"
 msgstr "아니오"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:432
+#: lib/noticelist.php:438
 msgid "S"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:434
+#: lib/noticelist.php:440
 msgid "E"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:436
+#: lib/noticelist.php:442
 msgid "W"
 msgstr ""
 
-#: lib/noticelist.php:438
+#: lib/noticelist.php:444
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:447
+#: lib/noticelist.php:453
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:559
+#: lib/noticelist.php:567
 #, fuzzy
 msgid "in context"
 msgstr "내용이 없습니다!"
 
-#: lib/noticelist.php:594
+#: lib/noticelist.php:602
 #, fuzzy
 msgid "Repeated by"
 msgstr "생성"
 
-#: lib/noticelist.php:621
+#: lib/noticelist.php:629
 msgid "Reply to this notice"
 msgstr "이 게시글에 대해 답장하기"
 
-#: lib/noticelist.php:622
+#: lib/noticelist.php:630
 msgid "Reply"
 msgstr "답장하기"
 
-#: lib/noticelist.php:666
+#: lib/noticelist.php:674
 #, fuzzy
 msgid "Notice repeated"
 msgstr "게시글이 등록되었습니다."
