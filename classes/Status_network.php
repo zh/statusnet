@@ -318,6 +318,11 @@ class Status_network extends Safe_DataObject
             }
         }
 
+        // XXX : for backwards compatibility
+        if (empty($result)) {
+            return explode('|', $this->tags);
+        }
+        
         return $result;
     }
 
