@@ -10,11 +10,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 22:18+0000\n"
-"PO-Revision-Date: 2010-06-21 18:02:42+0000\n"
+"PO-Revision-Date: 2010-07-01 16:30:59+0000\n"
 "Language-Team: Arabic\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r68367); Translate extension (2010-06-12)\n"
+"X-Generator: MediaWiki 1.17alpha (r68839); Translate extension (2010-06-12)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ar\n"
 "X-Message-Group: out-statusnet\n"
@@ -429,9 +429,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr "كنيات كيرة! العدد الأقصى هو %d."
 
 #: actions/apigroupcreate.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "كنية غير صالحة: \"%s\""
+msgstr "كنية غير صالحة: \"%s\"."
 
 #: actions/apigroupcreate.php:276 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -480,9 +480,9 @@ msgstr "مجموعات %s"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "المجموعات التي %s عضو فيها"
+msgstr "مجموعات %1$s التي %2$s عضو فيها."
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
@@ -528,9 +528,8 @@ msgid "Invalid nickname / password!"
 msgstr "اسم/كلمة سر غير صحيحة!"
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "خطأ قاعدة البيانات أثناء حذف المستخدم OAuth app"
+msgstr "خطأ في قاعدة البيانات أثناء حذف مستخدم تطبيق OAuth."
 
 #: actions/apioauthauthorize.php:185
 #, fuzzy
@@ -641,7 +640,7 @@ msgstr "لا حالة وُجدت بهذه الهوية."
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr ""
+msgstr "هذه طويلة جدًا. أطول حجم للإشعار %d  حرفًا."
 
 #: actions/apistatusesupdate.php:282 actions/apiusershow.php:96
 msgid "Not found."
@@ -1099,9 +1098,8 @@ msgid "Theme for the site."
 msgstr "سمة الموقع."
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "سمة الموقع"
+msgstr "سمة مخصصة"
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -1163,11 +1161,11 @@ msgstr "وصلات"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "متقدم"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "CSS مخصصة"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1650,9 +1648,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
-msgstr "خطأ أثناء تحديث الملف الشخصي البعيد"
+msgstr "خطأ أثناء تحديث الملف الشخصي البعيد."
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -1677,9 +1674,8 @@ msgid "You cannot grant user roles on this site."
 msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
 
 #: actions/grantrole.php:82
-#, fuzzy
 msgid "User already has this role."
-msgstr "المستخدم مسكت من قبل."
+msgstr "لدى المستخدم هذا الدور من قبل."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -3226,7 +3222,7 @@ msgstr ""
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
 #: actions/register.php:535
 msgid "All rights reserved."
-msgstr ""
+msgstr "جميع الحقوق محفوظة."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
@@ -3308,7 +3304,7 @@ msgstr ""
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
-msgstr ""
+msgstr "هذا ملف شخصي محلي! لُج لتشترك."
 
 #: actions/remotesubscribe.php:183
 msgid "Couldn’t get a request token."
@@ -3391,14 +3387,12 @@ msgid "Replies to %1$s on %2$s!"
 msgstr ""
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "لا يمكنك إسكات المستخدمين على هذا الموقع."
+msgstr "لا يمكنك سحب أدوار المستخدمين على هذا الموقع."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "المستخدم بدون ملف مطابق."
+msgstr "ليس للمستخدم هذا الدور."
 
 #: actions/rsd.php:146 actions/version.php:159
 msgid "StatusNet"
@@ -4802,10 +4796,9 @@ msgstr "غير بريدك الإلكتروني وكلمة سرّك وأفتار�
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:452
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr "اتصالات"
+msgstr "اتصل بالخدمات"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:455
@@ -6168,7 +6161,7 @@ msgstr "فشل في كتابة الملف إلى القرص."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
-msgstr ""
+msgstr "أوقفت إضافة رفع الملف."
 
 #: lib/mediafile.php:179 lib/mediafile.php:216
 msgid "File exceeds user's quota."
@@ -6543,7 +6536,7 @@ msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
-msgid "Theme upload missing or failed."
+msgid "The theme file is missing or the upload failed."
 msgstr ""
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
@@ -6648,9 +6641,8 @@ msgid "Moderate"
 msgstr "راقب"
 
 #: lib/userprofile.php:364
-#, fuzzy
 msgid "User role"
-msgstr "ملف المستخدم الشخصي"
+msgstr "دور المستخدم"
 
 #: lib/userprofile.php:366
 msgctxt "role"
