@@ -42,10 +42,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-/* We keep the first three 20-notice pages, plus one for pagination check,
+/* We keep 200 notices, the max number of notices available per API request,
  * in the memcached cache. */
 
-define('NOTICE_CACHE_WINDOW', 61);
+define('NOTICE_CACHE_WINDOW', 200);
 
 define('MAX_BOXCARS', 128);
 
@@ -90,7 +90,13 @@ class Notice extends Memcached_DataObject
 
     function getProfile()
     {
-        return Profile::staticGet('id', $this->profile_id);
+        $profile = Profile::staticGet('id', $this->profile_id);
+
+        if (empty($profile)) {
+            throw new ServerException(sprintf(_('No such profile (%d) for notice (%d)'), $this->profile_id, $this->id));
+        }
+
+        return $profile;
     }
 
     function delete()

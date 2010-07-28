@@ -154,7 +154,9 @@ class Sitemap_user_count extends Memcached_DataObject
                 $userCounts[$suc->registration_date] = $suc->user_count;
             }
 
-            self::cacheSet('sitemap:user:counts', $userCounts);
+            // Cache user counts for 4 hours.
+
+            self::cacheSet('sitemap:user:counts', $userCounts, null, time() + 4 * 60 * 60);
         }
 
         return $userCounts;

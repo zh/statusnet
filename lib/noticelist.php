@@ -96,8 +96,14 @@ class NoticeList extends Widget
                 break;
             }
 
-            $item = $this->newListItem($this->notice);
-            $item->show();
+            try {
+                $item = $this->newListItem($this->notice);
+                $item->show();
+            } catch (Exception $e) {
+                // we log exceptions and continue
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
+            }
         }
 
         $this->out->elementEnd('ol');

@@ -153,7 +153,9 @@ class Sitemap_notice_count extends Memcached_DataObject
                 $noticeCounts[$snc->notice_date] = $snc->notice_count;
             }
 
-            self::cacheSet('sitemap:notice:counts', $noticeCounts);
+            // Cache notice counts for 4 hours.
+
+            self::cacheSet('sitemap:notice:counts', $noticeCounts, null, time() + 4 * 60 * 60);
         }
 
         return $noticeCounts;
