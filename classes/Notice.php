@@ -281,8 +281,9 @@ class Notice extends Memcached_DataObject
 
         if (!$profile->hasRight(Right::NEWNOTICE)) {
             common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
+
             // TRANS: Client exception thrown when a user tries to post while being banned.
-            throw new ClientException(_('You are banned from posting notices on this site.'));
+            throw new ClientException(_('You are banned from posting notices on this site.'), 403);
         }
 
         $notice = new Notice();
