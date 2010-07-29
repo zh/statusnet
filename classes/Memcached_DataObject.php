@@ -235,6 +235,7 @@ class Memcached_DataObject extends Safe_DataObject
                 $pkey[] = $key;
                 $pval[] = self::valueString($this->$key);
             } else {
+            	// FIXME: i18n?
                 throw new Exception("Unknown key type $key => $type for " . $this->tableName());
             }
         }
@@ -282,6 +283,7 @@ class Memcached_DataObject extends Safe_DataObject
                     } else if ($type == 'fulltext') {
                         $search_engine = new MySQLSearch($this, $table);
                     } else {
+                    	// FIXME: i18n?
                         throw new ServerException('Unknown search type: ' . $type);
                     }
                 } else {
@@ -527,7 +529,8 @@ class Memcached_DataObject extends Safe_DataObject
         }
 
         if (!$dsn) {
-            throw new Exception("No database name / dsn found anywhere");
+            // TRANS: Exception thrown when database name or Data Source Name could not be found.
+            throw new Exception(_("No database name / DSN found anywhere"));
         }
 
         return $dsn;
@@ -577,6 +580,7 @@ class Memcached_DataObject extends Safe_DataObject
         if ($message instanceof PEAR_Error) {
             $message = $message->getMessage();
         }
+        // FIXME: i18n?
         throw new ServerException("[$id] DB_DataObject error [$type]: $message");
     }
 
@@ -619,9 +623,11 @@ class Memcached_DataObject extends Safe_DataObject
             case 'sql':
             case 'datetime':
             case 'time':
+                // FIXME: i18n?
                 throw new ServerException("Unhandled DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
                 break;
             default:
+                // FIXME: i18n?
                 throw new ServerException("Unknown DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
                 break;
             }
