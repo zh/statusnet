@@ -342,6 +342,7 @@ class Status_network extends Safe_DataObject
                 
                 $id = $snt->insert();
                 if (!$id) {
+                    // TRANS: Exception thrown when a tag cannot be saved.
                     throw new Exception(_("Unable to save tag."));
                 }
             }

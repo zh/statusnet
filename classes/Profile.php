@@ -735,14 +735,18 @@ class Profile extends Memcached_DataObject
                                             'role' => $name));
 
         if (empty($role)) {
-            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; does not exist.');
+            // TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
+            // TRANS: %1$s is the role name, %2$s is the user ID.
+            throw new Exception(sprintf(_('Cannot revoke role "%s" for user #%2$s; does not exist.'),$name, $this->id));
         }
 
         $result = $role->delete();
 
         if (!$result) {
             common_log_db_error($role, 'DELETE', __FILE__);
-            throw new Exception('Cannot revoke role "'.$name.'" for user #'.$this->id.'; database error.');
+            // TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
+            // TRANS: %1$s is the role name, %2$s is the user ID.
+            throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$s; database error.'),$name, $this->id));
         }
 
         return true;
