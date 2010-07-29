@@ -93,7 +93,9 @@ class Notice extends Memcached_DataObject
         $profile = Profile::staticGet('id', $this->profile_id);
 
         if (empty($profile)) {
-            throw new ServerException(sprintf(_('No such profile (%d) for notice (%d)'), $this->profile_id, $this->id));
+            // TRANS: Server exception thrown when a user profile for a notice cannot be found.
+            // TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
+            throw new ServerException(sprintf(_('No such profile (%1$d) for notice (%2$d).'), $this->profile_id, $this->id));
         }
 
         return $profile;
@@ -254,27 +256,32 @@ class Notice extends Memcached_DataObject
         $final = common_shorten_links($content);
 
         if (Notice::contentTooLong($final)) {
+            // TRANS: Client exception thrown if a notice contains too many characters.
             throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
         if (empty($profile)) {
+            // TRANS: Client exception thrown when trying to save a notice for an unknown user.
             throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
         if (common_config('throttle', 'enabled') && !Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
+            // TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
             throw new ClientException(_('Too many notices too fast; take a breather '.
                                         'and post again in a few minutes.'));
         }
 
         if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
+            // TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
             throw new ClientException(_('Too many duplicate messages too quickly;'.
                                         ' take a breather and post again in a few minutes.'));
         }
 
         if (!$profile->hasRight(Right::NEWNOTICE)) {
             common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
+            // TRANS: Client exception thrown when a user tries to post while being banned.
             throw new ClientException(_('You are banned from posting notices on this site.'));
         }
 
@@ -341,6 +348,7 @@ class Notice extends Memcached_DataObject
 
             if (!$id) {
                 common_log_db_error($notice, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when a notice cannot be saved.
                 throw new ServerException(_('Problem saving notice.'));
             }
 
@@ -367,6 +375,7 @@ class Notice extends Memcached_DataObject
             if ($changed) {
                 if (!$notice->update($orig)) {
                     common_log_db_error($notice, 'UPDATE', __FILE__);
+                    // TRANS: Server exception thrown when a notice cannot be updated.
                     throw new ServerException(_('Problem saving notice.'));
                 }
             }
@@ -878,7 +887,8 @@ class Notice extends Memcached_DataObject
     function saveKnownGroups($group_ids)
     {
         if (!is_array($group_ids)) {
-            throw new ServerException("Bad type provided to saveKnownGroups");
+            // TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
+            throw new ServerException(_("Bad type provided to saveKnownGroups"));
         }
 
         $groups = array();
@@ -976,6 +986,7 @@ class Notice extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($gi, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when an update for a group inbox fails.
                 throw new ServerException(_('Problem saving group inbox.'));
             }
 
@@ -1081,7 +1092,9 @@ class Notice extends Memcached_DataObject
 
                 if (!$id) {
                     common_log_db_error($reply, 'INSERT', __FILE__);
-                    throw new ServerException("Couldn't save reply for {$this->id}, {$mentioned->id}");
+                    // TRANS: Server exception thrown when a reply cannot be saved.
+                    // TRANS: First arg is a notice ID, second ID is the ID of the mentioned user.
+                    throw new ServerException(_("Couldn't save reply for {$this->id}, {$mentioned->id}"));
                 } else {
                     $replied[$mentioned->id] = 1;
                     self::blow('reply:stream:%d', $mentioned->id);
