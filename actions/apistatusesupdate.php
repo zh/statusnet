@@ -332,7 +332,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                     $options
                 );
             } catch (Exception $e) {
-                $this->clientError($e->getMessage());
+                $this->clientError($e->getMessage(), $e->getCode());
                 return;
             }
 
