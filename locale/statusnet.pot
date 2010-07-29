@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-28 20:33+0000\n"
+"POT-Creation-Date: 2010-07-29 18:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1302,7 +1302,8 @@ msgstr ""
 msgid "Could not update group."
 msgstr ""
 
-#: actions/editgroup.php:264 classes/User_group.php:511
+#. TRANS: Server exception thrown when creating group aliases failed.
+#: actions/editgroup.php:264 classes/User_group.php:514
 msgid "Could not create aliases."
 msgstr ""
 
@@ -4075,7 +4076,8 @@ msgstr ""
 msgid "You are not subscribed to that profile."
 msgstr ""
 
-#: actions/subedit.php:83 classes/Subscription.php:132
+#. TRANS: Exception thrown when a subscription could not be stored on the server.
+#: actions/subedit.php:83 classes/Subscription.php:136
 msgid "Could not save subscription."
 msgstr ""
 
@@ -4524,155 +4526,233 @@ msgstr ""
 msgid "Author(s)"
 msgstr ""
 
-#: classes/File.php:185
+#. TRANS: Server exception thrown when... Robin thinks something is impossible!
+#: classes/File.php:175
+msgid "Robin thinks something is impossible."
+msgstr ""
+
+#. TRANS: Message given if an upload is larger than the configured maximum.
+#. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
+#: classes/File.php:190
 #, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
 
-#: classes/File.php:195
+#. TRANS: Message given if an upload would exceed user quota.
+#. TRANS: %d (number) is the user quota in bytes.
+#: classes/File.php:202
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
-#: classes/File.php:202
+#. TRANS: Message given id an upload would exceed a user's monthly quota.
+#. TRANS: $d (number) is the monthly user quota in bytes.
+#: classes/File.php:211
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
-#: classes/Group_member.php:41
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+msgid "Invalid filename."
+msgstr ""
+
+#. TRANS: Exception thrown when joining a group fails.
+#: classes/Group_member.php:42
 msgid "Group join failed."
 msgstr ""
 
-#: classes/Group_member.php:53
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+#: classes/Group_member.php:55
 msgid "Not part of group."
 msgstr ""
 
-#: classes/Group_member.php:60
+#. TRANS: Exception thrown when trying to leave a group fails.
+#: classes/Group_member.php:63
 msgid "Group leave failed."
 msgstr ""
 
-#: classes/Local_group.php:41
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
 msgid "Could not update local group."
 msgstr ""
 
-#: classes/Login_token.php:76
+#. TRANS: Exception thrown when trying creating a login token failed.
+#. TRANS: %s is the user nickname for which token creation failed.
+#: classes/Login_token.php:78
 #, php-format
 msgid "Could not create login token for %s"
 msgstr ""
 
-#: classes/Message.php:45
+#. TRANS: Exception thrown when database name or Data Source Name could not be found.
+#: classes/Memcached_DataObject.php:533
+msgid "No database name / DSN found anywhere"
+msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
 msgid "You are banned from sending direct messages."
 msgstr ""
 
-#: classes/Message.php:61
+#. TRANS: Message given when a message could not be stored on the server.
+#: classes/Message.php:63
 msgid "Could not insert message."
 msgstr ""
 
-#: classes/Message.php:71
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
 msgid "Could not update message with new URI."
 msgstr ""
 
-#: classes/Notice.php:96
+#. TRANS: Server exception thrown when a user profile for a notice cannot be found.
+#. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
+#: classes/Notice.php:98
 #, php-format
-msgid "No such profile (%d) for notice (%d)"
+msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:188
+#: classes/Notice.php:190
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr ""
 
-#: classes/Notice.php:257
+#. TRANS: Client exception thrown if a notice contains too many characters.
+#: classes/Notice.php:260
 msgid "Problem saving notice. Too long."
 msgstr ""
 
-#: classes/Notice.php:261
+#. TRANS: Client exception thrown when trying to save a notice for an unknown user.
+#: classes/Notice.php:265
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
-#: classes/Notice.php:266
+#. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
+#: classes/Notice.php:271
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
-#: classes/Notice.php:272
+#. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
+#: classes/Notice.php:278
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#: classes/Notice.php:278
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:285
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
-#: classes/Notice.php:344 classes/Notice.php:370
+#. TRANS: Server exception thrown when a notice cannot be saved.
+#. TRANS: Server exception thrown when a notice cannot be updated.
+#: classes/Notice.php:352 classes/Notice.php:379
 msgid "Problem saving notice."
 msgstr ""
 
-#: classes/Notice.php:979
+#. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
+#: classes/Notice.php:891
+msgid "Bad type provided to saveKnownGroups"
+msgstr ""
+
+#. TRANS: Server exception thrown when an update for a group inbox fails.
+#: classes/Notice.php:990
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1586
+#: classes/Notice.php:1599
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
-#: classes/Status_network.php:345
+#. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
+#. TRANS: %1$s is the role name, %2$s is the user ID.
+#: classes/Profile.php:740
+#, php-format
+msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+msgstr ""
+
+#. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
+#. TRANS: %1$s is the role name, %2$s is the user ID.
+#: classes/Profile.php:749
+#, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+msgstr ""
+
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+msgid "Missing profile."
+msgstr ""
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:346
 msgid "Unable to save tag."
 msgstr ""
 
-#: classes/Subscription.php:74 lib/oauthstore.php:465
+#. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
+#: classes/Subscription.php:75 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr ""
 
-#: classes/Subscription.php:78
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
 msgid "Already subscribed!"
 msgstr ""
 
-#: classes/Subscription.php:82
+#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
+#: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr ""
 
-#: classes/Subscription.php:167
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
 msgid "Not subscribed!"
 msgstr ""
 
-#: classes/Subscription.php:173
-msgid "Couldn't delete self-subscription."
+#. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
+#: classes/Subscription.php:178
+msgid "Could not delete self-subscription."
 msgstr ""
 
-#: classes/Subscription.php:200
-msgid "Couldn't delete subscription OMB token."
+#. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
+#: classes/Subscription.php:206
+msgid "Could not delete subscription OMB token."
 msgstr ""
 
-#: classes/Subscription.php:211
-msgid "Couldn't delete subscription."
+#. TRANS: Exception thrown when a subscription could not be deleted on the server.
+#: classes/Subscription.php:218
+msgid "Could not delete subscription."
 msgstr ""
 
-#: classes/User.php:363
+#. TRANS: Notice given on user registration.
+#. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
+#: classes/User.php:365
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
-#: classes/User_group.php:495
+#. TRANS: Server exception thrown when creating a group failed.
+#: classes/User_group.php:496
 msgid "Could not create group."
 msgstr ""
 
-#: classes/User_group.php:504
+#. TRANS: Server exception thrown when updating a group URI failed.
+#: classes/User_group.php:506
 msgid "Could not set group URI."
 msgstr ""
 
-#: classes/User_group.php:525
+#. TRANS: Server exception thrown when setting group membership failed.
+#: classes/User_group.php:529
 msgid "Could not set group membership."
 msgstr ""
 
-#: classes/User_group.php:539
+#. TRANS: Server exception thrown when saving local group information failed.
+#: classes/User_group.php:544
 msgid "Could not save local group info."
 msgstr ""
 

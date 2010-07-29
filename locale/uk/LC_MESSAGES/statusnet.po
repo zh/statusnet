@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-28 20:33+0000\n"
-"PO-Revision-Date: 2010-07-28 20:34:32+0000\n"
+"POT-Creation-Date: 2010-07-29 18:20+0000\n"
+"PO-Revision-Date: 2010-07-29 18:21:54+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70102); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70152); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -170,7 +170,7 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
@@ -179,7 +179,7 @@ msgstr ""
 "йому написати](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to their attention."
@@ -365,7 +365,6 @@ msgid "Could not delete favorite."
 msgstr "Не можна видалити зі списку обраних."
 
 #: actions/apifriendshipscreate.php:109
-#, fuzzy
 msgid "Could not follow user: profile not found."
 msgstr "Не вдалося додати користувача: користувача не знайдено."
 
@@ -383,9 +382,8 @@ msgid "You cannot unfollow yourself."
 msgstr "Ви не можете відписатись від самого себе."
 
 #: actions/apifriendshipsexists.php:91
-#, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "Два ID або імені_у_мережі повинні підтримуватись."
+msgstr "Два ID або імені у мережі мають бути представлені."
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -1343,7 +1341,8 @@ msgstr "Помилкове додаткове ім’я: «%s»"
 msgid "Could not update group."
 msgstr "Не вдалося оновити групу."
 
-#: actions/editgroup.php:264 classes/User_group.php:511
+#. TRANS: Server exception thrown when creating group aliases failed.
+#: actions/editgroup.php:264 classes/User_group.php:514
 msgid "Could not create aliases."
 msgstr "Неможна призначити додаткові імена."
 
@@ -2498,7 +2497,6 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Всі оновлення за збігом з «%s» на %2$s!"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
@@ -3523,7 +3521,7 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Стрічка відповідей до %s (Atom)"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to their attention yet."
@@ -3541,7 +3539,7 @@ msgstr ""
 "більшої кількості людей або [приєднавшись до груп](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
 "%%%action.newnotice%%%%?status_textarea=%3$s)."
@@ -3723,22 +3721,22 @@ msgstr ""
 "нього увагу інших."
 
 #: actions/showfavorites.php:208
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
 msgstr ""
-"%s поки що не вподобав жодних дописів. Може Ви б написали йому щось "
+"%s поки що не вподобав жодного допису. Може Ви б написали йому щось "
 "цікаве? :)"
 
 #: actions/showfavorites.php:212
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
 "action.register%%%%) and then post something interesting they would add to "
 "their favorites :)"
 msgstr ""
-"%s поки що не вподобав жодних дописів. Чому б не [зареєструватись](%%%%"
+"%s поки що не вподобав жодного допису. Чому б не [зареєструватись](%%%%"
 "action.register%%%%) і не написати щось цікаве, що мало б сподобатись цьому "
 "користувачеві :)"
 
@@ -3920,7 +3918,7 @@ msgstr ""
 "аби розпочати! :)"
 
 #: actions/showstream.php:207
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to their attention](%%%%action."
 "newnotice%%%%?status_textarea=%2$s)."
@@ -4314,7 +4312,8 @@ msgstr "Зберегти налаштування знімку"
 msgid "You are not subscribed to that profile."
 msgstr "Ви не підписані до цього профілю."
 
-#: actions/subedit.php:83 classes/Subscription.php:132
+#. TRANS: Exception thrown when a subscription could not be stored on the server.
+#: actions/subedit.php:83 classes/Subscription.php:136
 msgid "Could not save subscription."
 msgstr "Не вдалося зберегти підписку."
 
@@ -4802,85 +4801,122 @@ msgstr "Версія"
 msgid "Author(s)"
 msgstr "Автор(и)"
 
-#: classes/File.php:185
-#, fuzzy, php-format
+#. TRANS: Server exception thrown when... Robin thinks something is impossible!
+#: classes/File.php:175
+msgid "Robin thinks something is impossible."
+msgstr ""
+
+#. TRANS: Message given if an upload is larger than the configured maximum.
+#. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
+#: classes/File.php:190
+#, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
 "Ні, файл не може бути більшим за %d байтів, а те, що Ви хочете надіслати, "
-"важить %d байтів. Спробуйте меншу версію."
+"важить %d байтів. Спробуйте завантажити меншу версію."
 
-#: classes/File.php:195
+#. TRANS: Message given if an upload would exceed user quota.
+#. TRANS: %d (number) is the user quota in bytes.
+#: classes/File.php:202
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr "Розміри цього файлу перевищують Вашу квоту на %d байтів."
 
-#: classes/File.php:202
+#. TRANS: Message given id an upload would exceed a user's monthly quota.
+#. TRANS: $d (number) is the monthly user quota in bytes.
+#: classes/File.php:211
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr "Розміри цього файлу перевищують Вашу місячну квоту на %d байтів."
 
-#: classes/Group_member.php:41
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "Недійсний розмір."
+
+#. TRANS: Exception thrown when joining a group fails.
+#: classes/Group_member.php:42
 msgid "Group join failed."
 msgstr "Не вдалося приєднатись до групи."
 
-#: classes/Group_member.php:53
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+#: classes/Group_member.php:55
 msgid "Not part of group."
 msgstr "Не є частиною групи."
 
-#: classes/Group_member.php:60
+#. TRANS: Exception thrown when trying to leave a group fails.
+#: classes/Group_member.php:63
 msgid "Group leave failed."
 msgstr "Не вдалося залишити групу."
 
-#: classes/Local_group.php:41
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
 msgid "Could not update local group."
 msgstr "Не вдається оновити локальну групу."
 
-#: classes/Login_token.php:76
+#. TRANS: Exception thrown when trying creating a login token failed.
+#. TRANS: %s is the user nickname for which token creation failed.
+#: classes/Login_token.php:78
 #, php-format
 msgid "Could not create login token for %s"
 msgstr "Не вдалося створити токен входу для %s"
 
-#: classes/Message.php:45
+#. TRANS: Exception thrown when database name or Data Source Name could not be found.
+#: classes/Memcached_DataObject.php:533
+msgid "No database name / DSN found anywhere"
+msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
 msgid "You are banned from sending direct messages."
 msgstr "Вам заборонено надсилати прямі повідомлення."
 
-#: classes/Message.php:61
+#. TRANS: Message given when a message could not be stored on the server.
+#: classes/Message.php:63
 msgid "Could not insert message."
 msgstr "Не можна долучити повідомлення."
 
-#: classes/Message.php:71
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
 msgid "Could not update message with new URI."
 msgstr "Не можна оновити повідомлення з новим URI."
 
-#: classes/Notice.php:96
-#, php-format
-msgid "No such profile (%d) for notice (%d)"
-msgstr ""
+#. TRANS: Server exception thrown when a user profile for a notice cannot be found.
+#. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
+#: classes/Notice.php:98
+#, fuzzy, php-format
+msgid "No such profile (%1$d) for notice (%2$d)."
+msgstr "Немає такого профілю (%d) для повідомлення (%d)"
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:188
+#: classes/Notice.php:190
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні хеш-теґу: %s"
 
-#: classes/Notice.php:257
+#. TRANS: Client exception thrown if a notice contains too many characters.
+#: classes/Notice.php:260
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні допису. Надто довге."
 
-#: classes/Notice.php:261
+#. TRANS: Client exception thrown when trying to save a notice for an unknown user.
+#: classes/Notice.php:265
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при збереженні допису. Невідомий користувач."
 
-#: classes/Notice.php:266
+#. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
+#: classes/Notice.php:271
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 "Дуже багато дописів за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:272
+#. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
+#: classes/Notice.php:278
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4888,76 +4924,121 @@ msgstr ""
 "Дуже багато повідомлень за короткий термін; ходіть подихайте повітрям і "
 "повертайтесь за кілька хвилин."
 
-#: classes/Notice.php:278
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:285
 msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
-#: classes/Notice.php:344 classes/Notice.php:370
+#. TRANS: Server exception thrown when a notice cannot be saved.
+#. TRANS: Server exception thrown when a notice cannot be updated.
+#: classes/Notice.php:352 classes/Notice.php:379
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: classes/Notice.php:979
+#. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
+#: classes/Notice.php:891
+msgid "Bad type provided to saveKnownGroups"
+msgstr ""
+
+#. TRANS: Server exception thrown when an update for a group inbox fails.
+#: classes/Notice.php:990
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1586
+#: classes/Notice.php:1599
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
-#: classes/Status_network.php:345
-#, fuzzy
-msgid "Unable to save tag."
-msgstr "Не вдається зберегти повідомлення сайту."
+#. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
+#. TRANS: %1$s is the role name, %2$s is the user ID.
+#: classes/Profile.php:740
+#, php-format
+msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+msgstr ""
 
-#: classes/Subscription.php:74 lib/oauthstore.php:465
+#. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
+#. TRANS: %1$s is the role name, %2$s is the user ID.
+#: classes/Profile.php:749
+#, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+msgstr ""
+
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "Користувач не має профілю."
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:346
+msgid "Unable to save tag."
+msgstr "Не вдається зберегти теґ."
+
+#. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
+#: classes/Subscription.php:75 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr "Вас позбавлено можливості підписатись."
 
-#: classes/Subscription.php:78
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
 msgid "Already subscribed!"
 msgstr "Вже підписаний!"
 
-#: classes/Subscription.php:82
+#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
+#: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr "Користувач заблокував Вас."
 
-#: classes/Subscription.php:167
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
 msgid "Not subscribed!"
 msgstr "Не підписано!"
 
-#: classes/Subscription.php:173
-msgid "Couldn't delete self-subscription."
+#. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
+#: classes/Subscription.php:178
+#, fuzzy
+msgid "Could not delete self-subscription."
 msgstr "Не можу видалити самопідписку."
 
-#: classes/Subscription.php:200
-msgid "Couldn't delete subscription OMB token."
+#. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
+#: classes/Subscription.php:206
+#, fuzzy
+msgid "Could not delete subscription OMB token."
 msgstr "Не вдається видалити токен підписки OMB."
 
-#: classes/Subscription.php:211
-msgid "Couldn't delete subscription."
+#. TRANS: Exception thrown when a subscription could not be deleted on the server.
+#: classes/Subscription.php:218
+#, fuzzy
+msgid "Could not delete subscription."
 msgstr "Не вдалося видалити підписку."
 
-#: classes/User.php:363
+#. TRANS: Notice given on user registration.
+#. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
+#: classes/User.php:365
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Вітаємо на %1$s, @%2$s!"
 
-#: classes/User_group.php:495
+#. TRANS: Server exception thrown when creating a group failed.
+#: classes/User_group.php:496
 msgid "Could not create group."
 msgstr "Не вдалося створити нову групу."
 
-#: classes/User_group.php:504
+#. TRANS: Server exception thrown when updating a group URI failed.
+#: classes/User_group.php:506
 msgid "Could not set group URI."
 msgstr "Не вдалося встановити URI групи."
 
-#: classes/User_group.php:525
+#. TRANS: Server exception thrown when setting group membership failed.
+#: classes/User_group.php:529
 msgid "Could not set group membership."
 msgstr "Не вдалося встановити членство."
 
-#: classes/User_group.php:539
+#. TRANS: Server exception thrown when saving local group information failed.
+#: classes/User_group.php:544
 msgid "Could not save local group info."
 msgstr "Не вдалося зберегти інформацію про локальну групу."
 
