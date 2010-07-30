@@ -1094,8 +1094,8 @@ class Notice extends Memcached_DataObject
                 if (!$id) {
                     common_log_db_error($reply, 'INSERT', __FILE__);
                     // TRANS: Server exception thrown when a reply cannot be saved.
-                    // TRANS: First arg is a notice ID, second ID is the ID of the mentioned user.
-                    throw new ServerException(_("Couldn't save reply for {$this->id}, {$mentioned->id}"));
+                    // TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
+                    throw new ServerException(sprintf(_("Could not save reply for %1$d, %2$d."), $this->id, $mentioned->id));
                 } else {
                     $replied[$mentioned->id] = 1;
                     self::blow('reply:stream:%d', $mentioned->id);
