@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-31 21:52+0000\n"
-"PO-Revision-Date: 2010-07-31 21:53:22+0000\n"
+"POT-Creation-Date: 2010-07-31 22:59+0000\n"
+"PO-Revision-Date: 2010-07-31 22:59:57+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70239); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70249); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -169,20 +169,20 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
-"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "U kunt proberen [%1$s te porren](../%2$s) op de eigen profielpagina of [een "
 "bericht voor die gebruiker plaatsen](%%%%action.newnotice%%%%?"
 "status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to their attention."
+"post a notice to them."
 msgstr ""
 "U kunt een [gebruiker aanmaken](%%%%action.register%%%%) en %s dan porren of "
 "een bericht sturen."
@@ -520,9 +520,8 @@ msgid "groups on %s"
 msgstr "groepen op %s"
 
 #: actions/apimediaupload.php:99
-#, fuzzy
 msgid "Upload failed."
-msgstr "Bestand uploaden"
+msgstr "Uploaden is mislukt."
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -675,7 +674,7 @@ msgstr "Er is geen status gevonden met dit ID."
 
 #: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "De client moet een parameter \"status\" met een waarde opgeven."
 
 #: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
@@ -3573,10 +3572,10 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Antwoordenfeed voor %s (Atom)"
 
 #: actions/replies.php:199
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to their attention yet."
+"notice to them yet."
 msgstr ""
 "Dit is de tijdlijn met antwoorden aan %1$s, maar %2$s heeft nog geen "
 "antwoorden ontvangen."
@@ -3591,10 +3590,10 @@ msgstr ""
 "abonneren of [lid worden van groepen](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
-"%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
+"newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 "U kunt proberen [%1$s te porren](../%2$s) of [een bericht voor die gebruiker "
 "plaatsen](%%%%action.newnotice%%%%?status_textarea=%3$s)."
@@ -3973,10 +3972,10 @@ msgstr ""
 "verstuurd, dus dit is een ideaal moment om daarmee te beginnen!"
 
 #: actions/showstream.php:207
-#, php-format
+#, fuzzy, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to their attention](%%%%action."
-"newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
+"%?status_textarea=%2$s)."
 msgstr ""
 "U kunt proberen %1$s te porren of [een bericht aan die gebruiker sturen](%%%%"
 "action.newnotice%%%%?status_textarea=%2$s)."
@@ -4871,7 +4870,7 @@ msgstr "Auteur(s)"
 #: classes/File.php:143
 #, php-format
 msgid "Cannot process URL '%s'"
-msgstr ""
+msgstr "Het was niet mogelijk de URL \"%s\" te verwerken."
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
@@ -4939,9 +4938,8 @@ msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-#, fuzzy
 msgid "No database name or DSN found anywhere."
-msgstr "Geen databasenaam of DNS gevonden"
+msgstr "Geen databasenaam of DSN gevonden."
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -5036,7 +5034,7 @@ msgstr "RT @%1$s %2$s"
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 "De rol \"%1$s\" voor gebruiker #%2$d kan niet ingetrokken worden. Deze "
@@ -5045,7 +5043,7 @@ msgstr ""
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 "De rol \"%1$s\" voor gebruiker #%2$d kan niet ingetrokken worden. "
