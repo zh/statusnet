@@ -106,6 +106,7 @@ class MsnPlugin extends ImPlugin {
                 require_once(INSTALLDIR.'/plugins/Msn/extlib/phpmsnclass/msn.class.php');
                 return false;
             case 'MsnManager':
+            case 'Msn_waiting_message':
                 include_once $dir . '/'.strtolower($cls).'.php';
                 return false;
             default:
@@ -121,6 +122,25 @@ class MsnPlugin extends ImPlugin {
     public function onStartImDaemonIoManagers(&$classes) {
         parent::onStartImDaemonIoManagers(&$classes);
         $classes[] = new MsnManager($this); // handles sending/receiving
+        return true;
+    }
+
+    /**
+    * Ensure the database table is present
+    *
+    */
+    public function onCheckSchema() {
+        $schema = Schema::get();
+
+        // For storing messages while sessions become ready
+        $schema->ensureTable('msn_waiting_message',
+                             array(new ColumnDef('id', 'integer', null,
+                                                 false, 'PRI', null, null, true),
+                                   new ColumnDef('screenname', 'integer', null, false),
+                                   new ColumnDef('message', 'text', null, false),
+                                   new ColumnDef('created', 'datetime', null, false),
+                                   new ColumnDef('claimed', 'datetime')));
+
         return true;
     }
 

@@ -113,6 +113,7 @@ class MsnManager extends ImManager {
                 )
             );
             $this->conn->registerHandler('IMin', array($this, 'handle_msn_message'));
+            $this->conn->registerHandler('SessionReady', array($this, 'handle_session_ready'));
             $this->conn->registerHandler('Pong', array($this, 'update_ping_time'));
             $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
             $this->conn->registerHandler('Reconnect', array($this, 'handle_reconnect'));
@@ -142,7 +143,7 @@ class MsnManager extends ImManager {
 
     /**
      * Update the time till the next ping
-     * 
+     *
      * @param $data Time till next ping
      * @return void
      */
@@ -164,6 +165,22 @@ class MsnManager extends ImManager {
     }
 
     /**
+    * Called via a callback when a session becomes ready
+    *
+    * @param array $data Data
+    */
+    public function handle_session_ready($data) {
+        while (($wm = Msn_waiting_message::top($data['to']) != NULL)) {
+            if ($this->conn->sendMessage($wm->screenname, $wm->message, $ignore)) {
+                $wm->delete();
+            } else {
+                // Requeue the message in the regular queue
+                $this->plugin->send_message($wm->screenname, $wm->message);
+            }
+        }
+    }
+
+    /**
     * Called by callback to log failure during connect
     *
     * @param void $data Not used (there to keep callback happy)
@@ -182,11 +199,34 @@ class MsnManager extends ImManager {
     public function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');
     }
-    
+
+    /**
+    * Enters a message into the database for sending via a callback
+    * when the session is established
+    *
+    * @param string $to Intended recipient
+    * @param string $message Message
+    */
+    private function enqueue_waiting_message($to, $message) {
+        $wm = new Msn_waiting_message();
+
+        $wm->screenname = $to;
+        $wm->message    = $message;
+        $wm->created    = common_sql_now();
+        $result         = $wm->insert();
+
+        if (!$result) {
+            common_log_db_error($wm, 'INSERT', __FILE__);
+            throw new ServerException('DB error inserting queue item');
+        }
+
+        return true;
+    }
+
     /**
      * Send a message using the daemon
-     * 
-     * @param $data Message
+     *
+     * @param $data Message data
      * @return boolean true on success
      */
     public function send_raw_message($data) {
@@ -195,10 +235,15 @@ class MsnManager extends ImManager {
             return false;
         }
 
-        if (!$this->conn->sendMessage($data['to'], $data['message'])) {
-            return false;
+        $waitForSession = false;
+        if (!$this->conn->sendMessage($data['to'], $data['message'], $waitForSession)) {
+            if ($waitForSession) {
+                $this->enqueue_waiting_message($data['to'], $data['message']);
+            } else {
+                return false;
+            }
         }
-        
+
         // Sending a command updates the time till next ping
         $this->lastping = time();
         $this->pingInterval = 50;

@@ -949,7 +949,10 @@ class MSN {
                 // SB: <<< IRO {id} {rooster} {roostercount} {email} {alias} {clientid}
                 @list(/* IRO */, /* id */, $cur_num, $total, $email, $alias, $clientid) = @explode(' ', $data);
                 $this->debug_message("*** $email joined session");
-                $session['joined'] = true;
+                if ($email == $session['to']) {
+                    $session['joined'] = true;
+                    $this->callHandler('SessionReady', array('to' => $email));
+                }
                 break;
             case 'BYE':
                 $this->debug_message("*** Quit for BYE");
@@ -970,9 +973,11 @@ class MSN {
             case 'JOI':
                 // SB: <<< JOI {user} {alias} {clientid?}
                 // someone join us
-                // we don't need the data, just ignore it
-                // no more user here
-                $session['joined'] = true;
+                @list(/* JOI */, $email) = @explode(' ', $data);
+                if ($email == $session['to']) {
+                    $session['joined'] = true;
+                    $this->callHandler('SessionReady', array('to' => $email));
+                }
                 break;
             case 'MSG':
                 // SB: <<< MSG {email} {alias} {len}
@@ -1478,6 +1483,7 @@ class MSN {
 
             if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
                 $this->sb_writedata($socket, $SendString) === false) {
+                    $this->endSBSession($socket);
                     return false;
                 }
         }
@@ -1485,6 +1491,7 @@ class MSN {
 
         if ($this->sb_writeln($socket, $id, "MSG $id N $len") === false ||
             $this->sb_writedata($socket, $aMessage) === false) {
+                $this->endSBSession($socket);
                 return false;
             }
 
@@ -1518,8 +1525,14 @@ class MSN {
      *                   where network is 1 for MSN, 32 for Yahoo
      *                   and 'Offline' for offline messages
      * @param string $message Message
+     * @param boolean &$waitForSession Boolean passed by reference,
+     *                                 if set to true on return, message
+     *                                 did not fail to send but is
+     *                                 waiting for a valid session
+     *
+     * @return boolean true on success
      */
-    public function sendMessage($to, $message) {
+    public function sendMessage($to, $message, &$waitForSession) {
         if ($message != '') {
             $toParts = explode('@', $to);
             if(count($toParts) < 3) {
@@ -1537,6 +1550,8 @@ class MSN {
                         $this->debug_message("*** No existing SB session or request has timed out");
                         $this->reqSBSession($recipient);
                     }
+
+                    $waitForSession = true;
                     return false;
                 } else {
                     $socket = $this->switchBoardSessionLookup[$recipient];
@@ -1544,10 +1559,12 @@ class MSN {
                     if ($this->switchBoardSessions[$intsocket]['offline']) {
                         $this->debug_message("*** Contact ($recipient) offline, sending OIM");
                         $this->endSBSession($socket);
+                        $waitForSession = false;
                         return $this->sendMessage($recipient.'@Offline', $message);
                     } else {
                         if ($this->switchBoardSessions[$intsocket]['joined'] !== true) {
                             $this->debug_message("*** Recipient has not joined session, returning false");
+                            $waitForSession = true;
                             return false;
                         }
 
@@ -1558,6 +1575,7 @@ class MSN {
                             return true;
                         }
 
+                        $waitForSession = false;
                         return false;
                     }
                 }
@@ -3100,7 +3118,7 @@ X-OIM-Sequence-Num: 1
      * Registers a user handler
      *
      * Handler List
-     * IMIn, Pong, ConnectFailed, Reconnect,
+     * IMIn, SessionReady, Pong, ConnectFailed, Reconnect,
      * AddedToList, RemovedFromList, StatusChange
      *
      * @param string $event Event name
