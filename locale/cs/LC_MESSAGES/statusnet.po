@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-29 18:20+0000\n"
-"PO-Revision-Date: 2010-07-29 18:21:03+0000\n"
+"POT-Creation-Date: 2010-07-31 21:52+0000\n"
+"PO-Revision-Date: 2010-07-31 21:52:47+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70152); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70239); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -106,7 +106,7 @@ msgstr "Žádné takové oznámení."
 #: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:113
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:100
 #: actions/apigroupleave.php:100 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:228 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:229 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
 #: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
 #: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
@@ -215,7 +215,7 @@ msgstr ""
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:152 actions/apitimelinehome.php:175
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
@@ -266,7 +266,7 @@ msgstr "Nelze uložit profil"
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:212 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -518,6 +518,11 @@ msgstr ""
 msgid "groups on %s"
 msgstr ""
 
+#: actions/apimediaupload.php:99
+#, fuzzy
+msgid "Upload failed."
+msgstr "Upload"
+
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr ""
@@ -665,18 +670,22 @@ msgstr "Obrázek nahrán"
 msgid "No status with that ID found."
 msgstr ""
 
-#: actions/apistatusesupdate.php:241 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:221
+msgid "Client must provide a 'status' parameter with a value."
+msgstr ""
+
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
-#: actions/apistatusesupdate.php:282 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 #, fuzzy
 msgid "Not found."
 msgstr "Žádný požadavek nebyl nalezen!"
 
-#: actions/apistatusesupdate.php:305 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -4792,6 +4801,12 @@ msgstr "Osobní"
 msgid "Author(s)"
 msgstr ""
 
+#. TRANS: Server exception thrown when a URL cannot be processed.
+#: classes/File.php:143
+#, php-format
+msgid "Cannot process URL '%s'"
+msgstr ""
+
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
 msgid "Robin thinks something is impossible."
@@ -4859,7 +4874,7 @@ msgstr "Nelze uložin informace o obrázku"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-msgid "No database name / DSN found anywhere"
+msgid "No database name or DSN found anywhere."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
@@ -4916,46 +4931,46 @@ msgid ""
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:285
+#: classes/Notice.php:286
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:352 classes/Notice.php:379
+#: classes/Notice.php:353 classes/Notice.php:380
 msgid "Problem saving notice."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:891
+#: classes/Notice.php:892
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:990
+#: classes/Notice.php:991
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1599
+#: classes/Notice.php:1600
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
 #, php-format
-msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
 #, php-format
-msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.

@@ -1,5 +1,6 @@
 # Translation of StatusNet to Dutch
 #
+# Author@translatewiki.net: Brion
 # Author@translatewiki.net: Itavero
 # Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: Siebrand
@@ -10,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-29 18:20+0000\n"
-"PO-Revision-Date: 2010-07-29 18:21:41+0000\n"
+"POT-Creation-Date: 2010-07-31 21:52+0000\n"
+"PO-Revision-Date: 2010-07-31 21:53:22+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70152); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70239); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: out-statusnet\n"
@@ -99,7 +100,7 @@ msgstr "Deze pagina bestaat niet."
 #: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:113
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:100
 #: actions/apigroupleave.php:100 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:228 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:229 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
 #: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
 #: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
@@ -216,7 +217,7 @@ msgstr "Updates van %1$s en vrienden op %2$s."
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:152 actions/apitimelinehome.php:175
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
@@ -266,7 +267,7 @@ msgstr "Het was niet mogelijk het profiel op te slaan."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:212 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -518,6 +519,11 @@ msgstr "%s groepen"
 msgid "groups on %s"
 msgstr "groepen op %s"
 
+#: actions/apimediaupload.php:99
+#, fuzzy
+msgid "Upload failed."
+msgstr "Bestand uploaden"
+
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr "Er is geen oauth_token parameter opgegeven."
@@ -667,17 +673,21 @@ msgstr "De status is verwijderd."
 msgid "No status with that ID found."
 msgstr "Er is geen status gevonden met dit ID."
 
-#: actions/apistatusesupdate.php:241 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:221
+msgid "Client must provide a 'status' parameter with a value."
+msgstr ""
+
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "De mededeling is te lang. Gebruik maximaal %d tekens."
 
-#: actions/apistatusesupdate.php:282 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Niet aangetroffen."
 
-#: actions/apistatusesupdate.php:305 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -2527,7 +2537,7 @@ msgstr "Updates die overeenkomen met de zoekterm \"%1$s\" op %2$s."
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
-"Deze gebruiker is niet te porren of heeft nog geen bevestigs e-mailadres."
+"Deze gebruiker is niet te porren of heeft nog geen bevestigd e-mailadres."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -4804,7 +4814,7 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
-"Deze website wordt aangedreven door %1$2 versie %2$s. Auteursrechten "
+"Deze website wordt aangedreven door %1$s versie %2$s. Auteursrechten "
 "voorbehouden 2008-2010 Statusnet, Inc. en medewerkers."
 
 #: actions/version.php:163
@@ -4857,10 +4867,16 @@ msgstr "Versie"
 msgid "Author(s)"
 msgstr "Auteur(s)"
 
+#. TRANS: Server exception thrown when a URL cannot be processed.
+#: classes/File.php:143
+#, php-format
+msgid "Cannot process URL '%s'"
+msgstr ""
+
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
 msgid "Robin thinks something is impossible."
-msgstr ""
+msgstr "Robin denkt dat iets onmogelijk is."
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
@@ -4891,9 +4907,8 @@ msgstr ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:248 classes/File.php:263
-#, fuzzy
 msgid "Invalid filename."
-msgstr "Ongeldige afmetingen."
+msgstr "Ongeldig bestandsnaam."
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -4924,8 +4939,9 @@ msgstr "Het was niet mogelijk een aanmeldtoken aan te maken voor %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-msgid "No database name / DSN found anywhere"
-msgstr ""
+#, fuzzy
+msgid "No database name or DSN found anywhere."
+msgstr "Geen databasenaam of DNS gevonden"
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -4945,7 +4961,7 @@ msgstr "Het was niet mogelijk het bericht bij te werken met de nieuwe URI."
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
 #: classes/Notice.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Er is geen profiel (%1$d) te vinden bij de mededeling (%2$d)."
 
@@ -4987,24 +5003,24 @@ msgstr ""
 "plaats over een aantal minuten pas weer een bericht."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:285
+#: classes/Notice.php:286
 msgid "You are banned from posting notices on this site."
 msgstr ""
 "U bent geblokkeerd en mag geen mededelingen meer achterlaten op deze site."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:352 classes/Notice.php:379
+#: classes/Notice.php:353 classes/Notice.php:380
 msgid "Problem saving notice."
 msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:891
+#: classes/Notice.php:892
 msgid "Bad type provided to saveKnownGroups"
-msgstr ""
+msgstr "Het gegevenstype dat is opgegeven aan saveKnownGroups is onjuist"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:990
+#: classes/Notice.php:991
 msgid "Problem saving group inbox."
 msgstr ""
 "Er is een probleem opgetreden bij het opslaan van het Postvak IN van de "
@@ -5012,30 +5028,33 @@ msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1599
+#: classes/Notice.php:1600
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
-#, php-format
-msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+#, fuzzy, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
+"De rol \"%1$s\" voor gebruiker #%2$d kan niet ingetrokken worden. Deze "
+"gebruiker bestaat niet."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
-#, php-format
-msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+#, fuzzy, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
+"De rol \"%1$s\" voor gebruiker #%2$d kan niet ingetrokken worden. "
+"Databasefout."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 #: classes/Remote_profile.php:54
-#, fuzzy
 msgid "Missing profile."
-msgstr "Deze gebruiker heeft geen profiel."
+msgstr "Ontbrekend profiel."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:346
@@ -5064,20 +5083,17 @@ msgstr "Niet geabonneerd!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Het was niet mogelijk het abonnement op uzelf te verwijderen."
+msgstr "Kon abonnement op eigen gebruiker niet verwijderen."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
 msgstr ""
 "Het was niet mogelijk om het OMB-token voor het abonnement te verwijderen."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
-#, fuzzy
 msgid "Could not delete subscription."
 msgstr "Kon abonnement niet verwijderen."
 
