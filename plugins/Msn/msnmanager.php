@@ -170,13 +170,16 @@ class MsnManager extends ImManager {
     * @param array $data Data
     */
     public function handle_session_ready($data) {
-        while (($wm = Msn_waiting_message::top($data['to']) != NULL)) {
+        $wm = Msn_waiting_message::top($data['to']);
+        while ($wm != NULL) {
             if ($this->conn->sendMessage($wm->screenname, $wm->message, $ignore)) {
                 $wm->delete();
             } else {
                 // Requeue the message in the regular queue
                 $this->plugin->send_message($wm->screenname, $wm->message);
             }
+
+            $wm = Msn_waiting_message::top($data['to']);
         }
     }
 

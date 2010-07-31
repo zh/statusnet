@@ -136,7 +136,7 @@ class MsnPlugin extends ImPlugin {
         $schema->ensureTable('msn_waiting_message',
                              array(new ColumnDef('id', 'integer', null,
                                                  false, 'PRI', null, null, true),
-                                   new ColumnDef('screenname', 'integer', null, false),
+                                   new ColumnDef('screenname', 'varchar', 255, false),
                                    new ColumnDef('message', 'text', null, false),
                                    new ColumnDef('created', 'datetime', null, false),
                                    new ColumnDef('claimed', 'datetime')));

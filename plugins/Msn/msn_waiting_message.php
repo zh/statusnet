@@ -1,6 +1,6 @@
 <?php
 /**
- * Table Definition for msn_plugin_message
+ * Table Definition for msn_waiting_message
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
@@ -19,7 +19,66 @@ class Msn_waiting_message extends Memcached_DataObject {
     }
 
     /**
-     * @param mixed $screenname screenname or array of screennames to pull from
+    * return table definition for DB_DataObject
+    *
+    * DB_DataObject needs to know something about the table to manipulate
+    * instances. This method provides all the DB_DataObject needs to know.
+    *
+    * @return array array of column definitions
+    */
+    public function table() {
+        return array('id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'screenname' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'message' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'claimed' => DB_DATAOBJECT_STR);
+    }
+
+    /**
+    * return key definitions for DB_DataObject
+    *
+    * DB_DataObject needs to know about keys that the table has, since it
+    * won't appear in StatusNet's own keys list. In most cases, this will
+    * simply reference your keyTypes() function.
+    *
+    * @return array list of key field names
+    */
+    public function keys() {
+        return array_keys($this->keyTypes());
+    }
+
+    /**
+    * return key definitions for Memcached_DataObject
+    *
+    * Our caching system uses the same key definitions, but uses a different
+    * method to get them. This key information is used to store and clear
+    * cached data, so be sure to list any key that will be used for static
+    * lookups.
+    *
+    * @return array associative array of key definitions, field name to type:
+    *         'K' for primary key: for compound keys, add an entry for each component;
+    *         'U' for unique keys: compound keys are not well supported here.
+    */
+    public function keyTypes() {
+        return array('id' => 'K');
+    }
+
+    /**
+    * Magic formula for non-autoincrementing integer primary keys
+    *
+    * If a table has a single integer column as its primary key, DB_DataObject
+    * assumes that the column is auto-incrementing and makes a sequence table
+    * to do this incrementation. Since we don't need this for our class, we
+    * overload this method and return the magic formula that DB_DataObject needs.
+    *
+    * @return array magic three-false array that stops auto-incrementing.
+    */
+    function sequenceKey() {
+        return array(false, false, false);
+    }
+
+    /**
+     * @param string $screenname screenname or array of screennames to pull from
      *                          If not specified, checks all queues in the system.
      */
     public static function top($screenname = null) {
