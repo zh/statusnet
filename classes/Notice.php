@@ -1330,9 +1330,16 @@ class Notice extends Memcached_DataObject
         foreach ($reply_ids as $id) {
             $profile = Profile::staticGet('id', $id);
            if (!empty($profile)) {
+               // XXX: Deprecate this for 'mentioned'
                 $xs->element(
                     'link', array(
                         'rel' => 'ostatus:attention',
+                        'href' => $profile->getUri()
+                    )
+                );
+                $xs->element(
+                    'link', array(
+                        'rel' => 'mentioned',
                         'href' => $profile->getUri()
                     )
                 );
@@ -1342,9 +1349,16 @@ class Notice extends Memcached_DataObject
         $groups = $this->getGroups();
 
         foreach ($groups as $group) {
+            // XXX: Deprecate this for 'mentioned'
             $xs->element(
                 'link', array(
                     'rel' => 'ostatus:attention',
+                    'href' => $group->permalink()
+                )
+            );
+            $xs->element(
+                'link', array(
+                    'rel' => 'mentioned',
                     'href' => $group->permalink()
                 )
             );
