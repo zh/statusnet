@@ -81,7 +81,7 @@ class ActivityContext
             // http://salmon-protocol.googlecode.com/svn/trunk/draft-panzer-salmon-00.html#SALR
             if ($linkRel == self::ATTENTION) {
                 $this->attention[] = $link->getAttribute(self::HREF);
-            } else if ($linkRel == self:MENTIONED) {
+            } elseif ($linkRel == self::MENTIONED) {
                 $this->attention[] = $link->getAttribute(self::HREF);
             }
         }
