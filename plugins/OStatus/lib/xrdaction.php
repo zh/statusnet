@@ -76,6 +76,9 @@ class XrdAction extends Action
         $salmon_url = common_local_url('usersalmon',
                                        array('id' => $this->user->id));
 
+        $xrd->links[] = array('rel' => Salmon::REL_SALMON,
+                              'href' => $salmon_url);
+        // XXX : Deprecated - to be removed.
         $xrd->links[] = array('rel' => Salmon::NS_REPLIES,
                               'href' => $salmon_url);
 

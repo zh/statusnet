@@ -158,6 +158,9 @@ class OStatusPlugin extends Plugin
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
+            $feed->addLink($salmon, array('rel' => Salmon::REL_SALMON));
+
+            // XXX: these are deprecated
             $feed->addLink($salmon, array('rel' => Salmon::NS_REPLIES));
             $feed->addLink($salmon, array('rel' => Salmon::NS_MENTIONS));
         }
