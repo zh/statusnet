@@ -1,5 +1,6 @@
 # Translation of StatusNet to Korean
 #
+# Author@translatewiki.net: Brion
 # Author@translatewiki.net: Twkang
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -8,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-29 18:20+0000\n"
-"PO-Revision-Date: 2010-07-29 18:21:34+0000\n"
+"POT-Creation-Date: 2010-07-31 22:59+0000\n"
+"PO-Revision-Date: 2010-07-31 22:59:50+0000\n"
 "Language-Team: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70152); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70249); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: out-statusnet\n"
@@ -97,7 +98,7 @@ msgstr "해당하는 페이지 없음"
 #: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:113
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:100
 #: actions/apigroupleave.php:100 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:228 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:229 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
 #: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
 #: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
@@ -167,14 +168,14 @@ msgstr ""
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
-"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to their attention."
+"post a notice to them."
 msgstr ""
 
 #. TRANS: H1 text
@@ -207,7 +208,7 @@ msgstr "%2$s에 있는 %1$s 및 친구들의 업데이트!"
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:152 actions/apitimelinehome.php:175
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
@@ -255,7 +256,7 @@ msgstr "프로필을 저장 할 수 없습니다."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:212 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -503,6 +504,11 @@ msgstr "%s 그룹"
 msgid "groups on %s"
 msgstr "%s 상의 그룹들"
 
+#: actions/apimediaupload.php:99
+#, fuzzy
+msgid "Upload failed."
+msgstr "올리기"
+
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr ""
@@ -646,17 +652,21 @@ msgstr "삭제된 소식입니다."
 msgid "No status with that ID found."
 msgstr "발견된 ID의 상태가 없습니다."
 
-#: actions/apistatusesupdate.php:241 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:221
+msgid "Client must provide a 'status' parameter with a value."
+msgstr ""
+
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "너무 깁니다. 통지의 최대 길이는 %d 글자 입니다."
 
-#: actions/apistatusesupdate.php:282 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "찾을 수가 없습니다."
 
-#: actions/apistatusesupdate.php:305 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "소식의 최대 길이는 첨부 URL을 포함하여 %d 글자입니다."
@@ -3552,7 +3562,7 @@ msgstr "%s의 통지 피드"
 #, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to their attention yet."
+"notice to them yet."
 msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
 
 #: actions/replies.php:204
@@ -3565,8 +3575,8 @@ msgstr ""
 #: actions/replies.php:206
 #, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
-"%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
+"newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
 #: actions/repliesrss.php:72
@@ -3937,8 +3947,8 @@ msgstr ""
 #: actions/showstream.php:207
 #, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to their attention](%%%%action."
-"newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
+"%?status_textarea=%2$s)."
 msgstr ""
 
 #: actions/showstream.php:243
@@ -4815,6 +4825,12 @@ msgstr "버젼"
 msgid "Author(s)"
 msgstr ""
 
+#. TRANS: Server exception thrown when a URL cannot be processed.
+#: classes/File.php:143
+#, php-format
+msgid "Cannot process URL '%s'"
+msgstr ""
+
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
 msgid "Robin thinks something is impossible."
@@ -4881,7 +4897,7 @@ msgstr "%s 에 대한 로그인 토큰을 만들 수 없습니다."
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-msgid "No database name / DSN found anywhere"
+msgid "No database name or DSN found anywhere."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
@@ -4943,46 +4959,46 @@ msgstr ""
 "해보세요."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:285
+#: classes/Notice.php:286
 msgid "You are banned from posting notices on this site."
 msgstr "이 사이트에 게시글 포스팅으로부터 당신은 금지되었습니다."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:352 classes/Notice.php:379
+#: classes/Notice.php:353 classes/Notice.php:380
 msgid "Problem saving notice."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:891
+#: classes/Notice.php:892
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:990
+#: classes/Notice.php:991
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1599
+#: classes/Notice.php:1600
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
 #, php-format
-msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
 #, php-format
-msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
@@ -6286,7 +6302,7 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
-"포스팅 주소는 %1$s입니다.새 메시지를 등록하려면 %2$ 주소로 이메일을 보내십시"
+"포스팅 주소는 %1$s입니다.새 메시지를 등록하려면 %2$s 주소로 이메일을 보내십시"
 "오.이메일 사용법은 %3$s 페이지를 보십시오.안녕히,%4$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages

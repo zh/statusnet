@@ -116,7 +116,7 @@ class Safe_DataObject extends DB_DataObject
         if ($this->_call($method, $params, $return)) {
             return $return;
         } else {
-            // FIXME: i18n?
+            // Low level exception. No need for i18n as discussed with Brion.
             throw new Exception('Call to undefined method ' .
                 get_class($this) . '::' . $method);
         }
@@ -242,7 +242,7 @@ class Safe_DataObject extends DB_DataObject
         $this->debug("Cant find database schema: {$this->_database}/{$this->__table} \n".
                     "in links file data: " . print_r($_DB_DATAOBJECT['INI'],true),"databaseStructure",5);
         // we have to die here!! - it causes chaos if we don't (including looping forever!)
-        // FIXME: i18n?
+        // Low level exception. No need for i18n as discussed with Brion.
         $this->raiseError( "Unable to load schema for database and table (turn debugging up to 5 for full error message)", DB_DATAOBJECT_ERROR_INVALIDARGS, PEAR_ERROR_DIE);
         return false;
     }

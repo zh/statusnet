@@ -140,7 +140,7 @@ class File extends Memcached_DataObject
                     $redir_data = array();
                 } else {
                     // TRANS: Server exception thrown when a URL cannot be processed.
-                    throw new ServerException(_("Cannot process URL '$given_url'"));
+                    throw new ServerException(sprintf(_("Cannot process URL '%s'"), $given_url));
                 }
                 // TODO: max field length
                 if ($redir_url === $given_url || strlen($redir_url) > 255 || !$followRedirects) {

@@ -13,12 +13,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-29 18:20+0000\n"
-"PO-Revision-Date: 2010-07-29 18:21:48+0000\n"
+"POT-Creation-Date: 2010-07-31 22:59+0000\n"
+"PO-Revision-Date: 2010-07-31 23:00:07+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70152); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70249); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -104,7 +104,7 @@ msgstr "Нет такой страницы."
 #: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:113
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:100
 #: actions/apigroupleave.php:100 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:228 actions/apisubscriptions.php:87
+#: actions/apistatusesupdate.php:229 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
 #: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
 #: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
@@ -174,17 +174,17 @@ msgstr ""
 #, fuzzy, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
-"to their attention](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Вы можете попробовать [«подтолкнуть» %1$s](../%2$s) из профиля или [написать "
+"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» из профиля или [написать "
 "что-нибудь для привлечения его или её внимания](%%%%action.newnotice%%%%?"
 "status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to their attention."
+"post a notice to them."
 msgstr ""
 "Почему бы не [зарегистрироваться](%%%%action.register%%%%), чтобы "
 "«подтолкнуть» %s или отправить запись для привлечения его или её внимания?"
@@ -219,7 +219,7 @@ msgstr "Обновлено от %1$s и его друзей на %2$s!"
 #: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
 #: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
 #: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:152 actions/apitimelinehome.php:175
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
 #: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
@@ -269,7 +269,7 @@ msgstr "Не удаётся сохранить профиль."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:257
+#: actions/apistatusesupdate.php:212 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -369,11 +369,8 @@ msgid "Could not delete favorite."
 msgstr "Не удаётся удалить любимую запись."
 
 #: actions/apifriendshipscreate.php:109
-#, fuzzy
 msgid "Could not follow user: profile not found."
-msgstr ""
-"Не удаётся следовать за пользователем, т. к. такого пользователя не "
-"существует."
+msgstr "Не удаётся следовать за пользователем: профиль не найден."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
@@ -391,9 +388,8 @@ msgid "You cannot unfollow yourself."
 msgstr "Вы не можете перестать следовать за собой."
 
 #: actions/apifriendshipsexists.php:91
-#, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "Надо представить два имени пользователя или кода."
+msgstr "Необходимо задать два идентификатора или screen_names."
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -520,6 +516,11 @@ msgstr "Группы %s"
 #, php-format
 msgid "groups on %s"
 msgstr "группы на %s"
+
+#: actions/apimediaupload.php:99
+#, fuzzy
+msgid "Upload failed."
+msgstr "Загрузить файл"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -664,17 +665,21 @@ msgstr "Статус удалён."
 msgid "No status with that ID found."
 msgstr "Не найдено статуса с таким ID."
 
-#: actions/apistatusesupdate.php:241 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:221
+msgid "Client must provide a 'status' parameter with a value."
+msgstr ""
+
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Слишком длинная запись. Максимальная длина — %d знаков."
 
-#: actions/apistatusesupdate.php:282 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Не найдено."
 
-#: actions/apistatusesupdate.php:305 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Максимальная длина записи — %d символов, включая URL вложения."
@@ -2513,12 +2518,11 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Все обновления, соответствующие поисковому запросу «%s»"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
-"Этот пользователь не разрешает \"подталкивать\" его, или ещё не подтверждён "
-"или ещё не представил свой электронный адрес."
+"Этот пользователь не разрешает «подталкивать» его или ещё не указал свой "
+"email-адрес."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -3538,9 +3542,10 @@ msgstr "Лента записей для %s (Atom)"
 #, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to their attention yet."
+"notice to them yet."
 msgstr ""
-"Эта лента содержит ответы  на записи %1$s, однако %2$s пока не получал их."
+"Эта лента содержит ответы  для %1$s, однако %2$s пока не получил запись для "
+"привлечения внимания."
 
 #: actions/replies.php:204
 #, php-format
@@ -3554,10 +3559,10 @@ msgstr ""
 #: actions/replies.php:206
 #, fuzzy, php-format
 msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to their attention](%"
-"%%%action.newnotice%%%%?status_textarea=%3$s)."
+"You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
+"newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Вы можете попробовать [«подтолкнуть» %1$s](../%2$s) или [написать что-нибудь "
+"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» или [написать что-нибудь "
 "для привлечения его или её внимания](%%%%action.newnotice%%%%?"
 "status_textarea=%3$s)."
 
@@ -3736,7 +3741,7 @@ msgstr ""
 "любимые рядом с понравившейся записью, чтобы позже уделить ей внимание."
 
 #: actions/showfavorites.php:208
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
@@ -3745,13 +3750,13 @@ msgstr ""
 "которую он добавит её в число любимых :)"
 
 #: actions/showfavorites.php:212
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
 "action.register%%%%) and then post something interesting they would add to "
 "their favorites :)"
 msgstr ""
-"%s пока не добавил ни одноз записи в любимые. Почему бы не "
+"%s пока не добавил ни одной записи в любимые. Почему бы не "
 "[зарегистрироваться](%%%%action.register%%%%) и не написать что-нибудь "
 "интересное, что понравилось бы этому пользователю? :)"
 
@@ -3935,8 +3940,8 @@ msgstr ""
 #: actions/showstream.php:207
 #, fuzzy, php-format
 msgid ""
-"You can try to nudge %1$s or [post something to their attention](%%%%action."
-"newnotice%%%%?status_textarea=%2$s)."
+"You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
+"%?status_textarea=%2$s)."
 msgstr ""
 "Вы можете попробовать «подтолкнуть» %1$s или [написать что-нибудь для "
 "привлечения его или её внимания](%%%%action.newnotice%%%%?status_textarea=%2"
@@ -4820,21 +4825,27 @@ msgstr "Версия"
 msgid "Author(s)"
 msgstr "Автор(ы)"
 
+#. TRANS: Server exception thrown when a URL cannot be processed.
+#: classes/File.php:143
+#, php-format
+msgid "Cannot process URL '%s'"
+msgstr ""
+
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
 msgid "Robin thinks something is impossible."
-msgstr ""
+msgstr "Робин считает, что это невозможно."
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #: classes/File.php:190
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
-"Файл не может быть больше %d байт, тогда как отправленный вами файл содержал "
-"%d байт. Попробуйте загрузить меньшую версию."
+"Файл не может быть больше %1$d байт, тогда как отправленный вами файл "
+"содержал %2$d байт. Попробуйте загрузить меньшую версию."
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
@@ -4852,9 +4863,8 @@ msgstr "Файл такого размера превысит вашу меся�
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:248 classes/File.php:263
-#, fuzzy
 msgid "Invalid filename."
-msgstr "Неверный размер."
+msgstr "Неверное имя файла."
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -4885,8 +4895,9 @@ msgstr "Не удаётся создать токен входа для %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-msgid "No database name / DSN found anywhere"
-msgstr ""
+#, fuzzy
+msgid "No database name or DSN found anywhere."
+msgstr "Имя базы данных / DSN не найдено"
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -4908,7 +4919,7 @@ msgstr "Не удаётся обновить сообщение с новым UR
 #: classes/Notice.php:98
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
-msgstr ""
+msgstr "Нет такого профиля (%1$d) для записи (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:190
@@ -4944,58 +4955,59 @@ msgstr ""
 "и попробуйте вновь через пару минут."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:285
+#: classes/Notice.php:286
 msgid "You are banned from posting notices on this site."
 msgstr "Вам запрещено поститься на этом сайте (бан)"
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:352 classes/Notice.php:379
+#: classes/Notice.php:353 classes/Notice.php:380
 msgid "Problem saving notice."
 msgstr "Проблемы с сохранением записи."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:891
+#: classes/Notice.php:892
 msgid "Bad type provided to saveKnownGroups"
-msgstr ""
+msgstr "Для saveKnownGroups указан неверный тип"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:990
+#: classes/Notice.php:991
 msgid "Problem saving group inbox."
 msgstr "Проблемы с сохранением входящих сообщений группы."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1599
+#: classes/Notice.php:1600
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
-#, php-format
-msgid "Cannot revoke role \"%s\" for user #%2$s; does not exist."
+#, fuzzy, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
+"Не удаётся отозвать право «%s» для пользователя #%2$s; пользователь не "
+"существует."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
-#. TRANS: %1$s is the role name, %2$s is the user ID.
+#. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
-#, php-format
-msgid "Cannot revoke role \"%1$s\" for user #%2$s; database error."
+#, fuzzy, php-format
+msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
+"Не удаётся отозвать право «%1%s» для пользователя #%2$s; ошибка базы данных."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 #: classes/Remote_profile.php:54
-#, fuzzy
 msgid "Missing profile."
-msgstr "У пользователя нет профиля."
+msgstr "Отсутствующий профиль."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:346
-#, fuzzy
 msgid "Unable to save tag."
-msgstr "Не удаётся сохранить уведомление сайта."
+msgstr "Не удаётся сохранить тег."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
@@ -5019,19 +5031,16 @@ msgstr "Не подписаны!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Невозможно удалить самоподписку."
+msgstr "Невозможно удалить подписку на самого себя."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
 msgstr "Не удаётся удалить подписочный жетон OMB."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
-#, fuzzy
 msgid "Could not delete subscription."
 msgstr "Не удаётся удалить подписку."
 
