@@ -101,7 +101,7 @@ class XrdAction extends Action
         $xrd->links[] = array('rel' => 'http://ostatus.org/schema/1.0/subscribe',
                               'template' => $url );
 
-        header('Content-type: text/xml');
+        header('Content-type: application/xrd+xml');
         print $xrd->toXML();
     }
 
