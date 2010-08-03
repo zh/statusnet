@@ -1242,7 +1242,7 @@ class Notice extends Memcached_DataObject
                     $notice = $profile->getCurrentNotice();
 
                     if (!empty($notice)) {
-                        $xs->element('updated', null, common_date_w3dtf($notice->created));
+                        $xs->element('updated', null, self::utcDate($notice->created));
                     }
 
                     $user = User::staticGet('id', $profile->id);
@@ -1307,7 +1307,7 @@ class Notice extends Memcached_DataObject
             Event::handle('EndActivityId', array(&$this, &$xs, $id));
         }
 
-        $published = common_date_w3dtf($this->created);
+        $published = self::utcDate($this->created);
 
         if (Event::handle('StartActivityPublished', array(&$this, &$xs, &$published))) {
             $xs->element('published', null, $published);
@@ -2054,5 +2054,12 @@ class Notice extends Memcached_DataObject
         }
         $tag->free();
         return $tags;
+    }
+
+    static private function utcDate($dt)
+    {
+        $dateStr = date('d F Y H:i:s', strtotime($dt));
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        return $d->format(DATE_W3C);
     }
 }
