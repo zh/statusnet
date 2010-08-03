@@ -57,7 +57,6 @@ class Phergie_Plugin_Reload extends Phergie_Plugin_Abstract
         if (!$this->plugins->hasPlugin($plugin)) {
             echo 'DEBUG(Reload): ' . ucfirst($plugin) . ' is not loaded yet, loading', PHP_EOL;
             $this->plugins->getPlugin($plugin);
-            $this->plugins->command->populateMethodCache();
             return;
         }
 
@@ -80,7 +79,7 @@ class Phergie_Plugin_Reload extends Phergie_Plugin_Abstract
         }
 
         $contents = preg_replace(
-            array('/^<\?(?:php)?/', '/class\s+' . $class . '/i'),
+            array('/<\?(?:php)?/', '/class\s+' . $class . '/i'),
             array('', 'class ' . $newClass),
             $contents
         );
@@ -88,15 +87,9 @@ class Phergie_Plugin_Reload extends Phergie_Plugin_Abstract
 
         $instance = new $newClass;
         $instance->setName($plugin);
-        $instance->setEvent($this->event);
         $this->plugins
             ->removePlugin($plugin)
             ->addPlugin($instance);
-
-        $this->plugins->command->populateMethodCache();
-        if ($this->plugins->hasPlugin('Help')) {
-            $this->plugins->help->populateRegistry();
-        }
 
         echo 'DEBUG(Reload): Reloaded ', $class, ' to ', $newClass, PHP_EOL;
     }
