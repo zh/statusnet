@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-03-01 14:58-0800\n"
+"POT-Creation-Date: 2010-04-29 23:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: hello.php:115 SamplePlugin.php:266
+#: User_greeting_count.php:163
+#, php-format
+msgid "Could not save new greeting count for %d"
+msgstr ""
+
+#: User_greeting_count.php:176
+#, php-format
+msgid "Could not increment greeting count for %d"
+msgstr ""
+
+#: SamplePlugin.php:266 hello.php:115
 msgid "Hello"
+msgstr ""
+
+#: SamplePlugin.php:266
+msgid "A warm greeting"
+msgstr ""
+
+#: SamplePlugin.php:277
+msgid "A sample plugin to show basics of development for new hackers."
 msgstr ""
 
 #: hello.php:117 hello.php:141
@@ -36,21 +54,3 @@ msgid "I have greeted you %d time."
 msgid_plural "I have greeted you %d times."
 msgstr[0] ""
 msgstr[1] ""
-
-#: SamplePlugin.php:266
-msgid "A warm greeting"
-msgstr ""
-
-#: SamplePlugin.php:277
-msgid "A sample plugin to show basics of development for new hackers."
-msgstr ""
-
-#: User_greeting_count.php:163
-#, php-format
-msgid "Could not save new greeting count for %d"
-msgstr ""
-
-#: User_greeting_count.php:176
-#, php-format
-msgid "Could not increment greeting count for %d"
-msgstr ""

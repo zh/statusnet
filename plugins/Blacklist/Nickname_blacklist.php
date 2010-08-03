@@ -88,7 +88,7 @@ class Nickname_blacklist extends Memcached_DataObject
 
     function keys()
     {
-        return array('pattern' => 'K');
+        return array_keys($this->keyTypes());
     }
 
     /**
@@ -99,7 +99,7 @@ class Nickname_blacklist extends Memcached_DataObject
 
     function keyTypes()
     {
-        return $this->keys();
+        return array('pattern' => 'K');
     }
 
     /**

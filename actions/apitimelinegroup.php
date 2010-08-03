@@ -26,6 +26,7 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -105,7 +106,7 @@ class ApiTimelineGroupAction extends ApiPrivateAuthAction
     function showTimeline()
     {
         // We'll pull common formatting out of this for other formats
-        $atom = new AtomGroupNoticeFeed($this->group);
+        $atom = new AtomGroupNoticeFeed($this->group, $this->auth_user);
 
         $self = $this->getSelfUri();
 

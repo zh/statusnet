@@ -34,8 +34,6 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-set_include_path(get_include_path() . PATH_SEPARATOR . INSTALLDIR . '/extlib/XMPPHP');
-
 /**
  * Plugin for XMPP
  *
@@ -59,8 +57,6 @@ class XmppPlugin extends ImPlugin
     public $debug = false; // print extra debug info
 
     public $transport = 'xmpp';
-
-    protected $fake_xmpp;
 
     function getDisplayName(){
         return _m('XMPP/Jabber/GTalk');
@@ -289,10 +285,10 @@ class XmppPlugin extends ImPlugin
         switch ($cls)
         {
         case 'XMPPHP_XMPP':
-            require_once 'XMPP.php';
+            require_once $dir . '/extlib/XMPPHP/XMPP.php';
             return false;
         case 'Sharing_XMPP':
-        case 'Fake_XMPP':
+        case 'Queued_XMPP':
             require_once $dir . '/'.$cls.'.php';
             return false;
         case 'XmppManager':
@@ -317,9 +313,7 @@ class XmppPlugin extends ImPlugin
 
     function send_message($screenname, $body)
     {
-        $this->fake_xmpp->message($screenname, $body, 'chat');
-        $this->enqueue_outgoing_raw($this->fake_xmpp->would_be_sent);
-        return true;
+        $this->queuedConnection()->message($screenname, $body, 'chat');
     }
 
     function send_notice($screenname, $notice)
@@ -327,8 +321,7 @@ class XmppPlugin extends ImPlugin
         $msg   = $this->format_notice($notice);
         $entry = $this->format_entry($notice);
         
-        $this->fake_xmpp->message($screenname, $msg, 'chat', null, $entry);
-        $this->enqueue_outgoing_raw($this->fake_xmpp->would_be_sent);
+        $this->queuedConnection()->message($screenname, $msg, 'chat', null, $entry);
         return true;
     }
 
@@ -376,19 +369,28 @@ class XmppPlugin extends ImPlugin
         $from = $this->normalize($pl['from']);
 
         if ($pl['type'] != 'chat') {
-            common_log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from.");
-            return true;
+            $this->log(LOG_WARNING, "Ignoring message of type ".$pl['type']." from $from: " . $pl['xml']->toString());
+            return;
         }
 
         if (mb_strlen($pl['body']) == 0) {
-            common_log(LOG_WARNING, "Ignoring message with empty body from $from.");
-            return true;
+            $this->log(LOG_WARNING, "Ignoring message with empty body from $from: "  . $pl['xml']->toString());
+            return;
         }
 
-        return $this->handle_incoming($from, $pl['body']);
+        $this->handle_incoming($from, $pl['body']);
+        
+        return true;
     }
 
-    function initialize(){
+    /**
+     * Build a queue-proxied XMPP interface object. Any outgoing messages
+     * will be run back through us for enqueing rather than sent directly.
+     * 
+     * @return Queued_XMPP
+     * @throws Exception if server settings are invalid.
+     */
+    function queuedConnection(){
         if(!isset($this->server)){
             throw new Exception("must specify a server");
         }
@@ -402,7 +404,7 @@ class XmppPlugin extends ImPlugin
             throw new Exception("must specify a password");
         }
 
-        $this->fake_xmpp = new Fake_XMPP($this->host ?
+        return new Queued_XMPP($this, $this->host ?
                                     $this->host :
                                     $this->server,
                                     $this->port,
@@ -415,7 +417,6 @@ class XmppPlugin extends ImPlugin
                                     $this->debug ?
                                     XMPPHP_Log::LEVEL_VERBOSE :  null
                                     );
-        return true;
     }
 
     function onPluginVersion(&$versions)

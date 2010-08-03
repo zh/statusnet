@@ -1001,7 +1001,7 @@ class Ostatus_profile extends Memcached_DataObject
             return;
         }
         if (!common_valid_http_url($url)) {
-            throw new ServerException(_m("Invalid avatar URL %s"), $url);
+            throw new ServerException(sprintf(_m("Invalid avatar URL %s"), $url));
         }
 
         if ($this->isGroup()) {
@@ -1303,15 +1303,23 @@ class Ostatus_profile extends Memcached_DataObject
 
         $ok = $oprofile->insert();
 
-        if ($ok) {
-            $avatar = self::getActivityObjectAvatar($object, $hints);
-            if ($avatar) {
-                $oprofile->updateAvatar($avatar);
-            }
-            return $oprofile;
-        } else {
+        if (!$ok) {
             throw new ServerException("Can't save OStatus profile");
         }
+
+        $avatar = self::getActivityObjectAvatar($object, $hints);
+
+        if ($avatar) {
+            try {
+                $oprofile->updateAvatar($avatar);
+            } catch (Exception $ex) {
+                // Profile is saved, but Avatar is messed up. We're
+                // just going to continue.
+                common_log(LOG_WARNING, "Exception saving OStatus profile avatar: ". $ex->getMessage());
+            }
+        }
+
+        return $oprofile;
     }
 
     /**
@@ -1330,7 +1338,11 @@ class Ostatus_profile extends Memcached_DataObject
         }
         $avatar = self::getActivityObjectAvatar($object, $hints);
         if ($avatar) {
-            $this->updateAvatar($avatar);
+            try {
+                $this->updateAvatar($avatar);
+            } catch (Exception $ex) {
+                common_log(LOG_WARNING, "Exception saving OStatus profile avatar: " . $ex->getMessage());
+            }
         }
     }
 

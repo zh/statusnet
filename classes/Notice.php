@@ -29,6 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
@@ -97,15 +98,20 @@ class Notice extends Memcached_DataObject
         // For auditing purposes, save a record that the notice
         // was deleted.
 
-        $deleted = new Deleted_notice();
+        // @fixme we have some cases where things get re-run and so the
+        // insert fails.
+        $deleted = Deleted_notice::staticGet('id', $this->id);
+        if (!$deleted) {
+            $deleted = new Deleted_notice();
 
-        $deleted->id         = $this->id;
-        $deleted->profile_id = $this->profile_id;
-        $deleted->uri        = $this->uri;
-        $deleted->created    = $this->created;
-        $deleted->deleted    = common_sql_now();
+            $deleted->id         = $this->id;
+            $deleted->profile_id = $this->profile_id;
+            $deleted->uri        = $this->uri;
+            $deleted->created    = $this->created;
+            $deleted->deleted    = common_sql_now();
 
-        $deleted->insert();
+            $deleted->insert();
+        }
 
         // Clear related records
 
@@ -704,7 +710,7 @@ class Notice extends Memcached_DataObject
 
     /**
      * Is this notice part of an active conversation?
-     * 
+     *
      * @return boolean true if other messages exist in the same
      *                 conversation, false if this is the only one
      */
@@ -981,8 +987,7 @@ class Notice extends Memcached_DataObject
      * messages, we won't deliver to any remote targets as that's the
      * source service's responsibility.
      *
-     * @fixme Unlike saveReplies() there's no mail notification here.
-     *        Move that to distrib queue handler?
+     * Mail notifications etc will be handled later.
      *
      * @param array of unique identifier URIs for recipients
      */
@@ -1008,8 +1013,6 @@ class Notice extends Memcached_DataObject
                 $reply->profile_id = $user->id;
 
                 $id = $reply->insert();
-
-                self::blow('reply:stream:%d', $user->id);
             }
         }
 
@@ -1021,8 +1024,7 @@ class Notice extends Memcached_DataObject
      * and save reply records indicating that this message needs to be
      * delivered to those users.
      *
-     * Side effect: local recipients get e-mail notifications here.
-     * @fixme move mail notifications to distrib?
+     * Mail notifications to local profiles will be sent later.
      *
      * @return array of integer profile IDs
      */
@@ -1076,23 +1078,21 @@ class Notice extends Memcached_DataObject
                     throw new ServerException("Couldn't save reply for {$this->id}, {$mentioned->id}");
                 } else {
                     $replied[$mentioned->id] = 1;
+                    self::blow('reply:stream:%d', $mentioned->id);
                 }
             }
         }
 
         $recipientIds = array_keys($replied);
 
-        foreach ($recipientIds as $recipientId) {
-            $user = User::staticGet('id', $recipientId);
-            if (!empty($user)) {
-                self::blow('reply:stream:%d', $reply->profile_id);
-                mail_notify_attn($user, $this);
-            }
-        }
-
         return $recipientIds;
     }
 
+    /**
+     * Pull the complete list of @-reply targets for this notice.
+     *
+     * @return array of integer profile ids
+     */
     function getReplies()
     {
         // XXX: cache me
@@ -1113,6 +1113,30 @@ class Notice extends Memcached_DataObject
         $reply->free();
 
         return $ids;
+    }
+
+    /**
+     * Send e-mail notifications to local @-reply targets.
+     *
+     * Replies must already have been saved; this is expected to be run
+     * from the distrib queue handler.
+     */
+    function sendReplyNotifications()
+    {
+        // Don't send reply notifications for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
+        $recipientIds = $this->getReplies();
+
+        foreach ($recipientIds as $recipientId) {
+            $user = User::staticGet('id', $recipientId);
+            if (!empty($user)) {
+                mail_notify_attn($user, $this);
+            }
+        }
     }
 
     /**
@@ -1154,7 +1178,7 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
-    function asAtomEntry($namespace=false, $source=false, $author=true)
+    function asAtomEntry($namespace=false, $source=false, $author=true, $cur=null)
     {
         $profile = $this->getProfile();
 
@@ -1167,7 +1191,8 @@ class Notice extends Memcached_DataObject
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:media' => 'http://purl.org/syndication/atommedia',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
-                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                           'xmlns:statusnet' => 'http://status.net/schema/api/1/');
         } else {
             $attrs = array();
         }
@@ -1202,7 +1227,7 @@ class Notice extends Memcached_DataObject
         $xs->element('title', null, common_xml_safe_str($this->content));
 
         if ($author) {
-            $xs->raw($profile->asAtomAuthor());
+            $xs->raw($profile->asAtomAuthor($cur));
             $xs->raw($profile->asActivityActor());
         }
 
@@ -1214,6 +1239,46 @@ class Notice extends Memcached_DataObject
 
         $xs->element('published', null, common_date_w3dtf($this->created));
         $xs->element('updated', null, common_date_w3dtf($this->created));
+
+        $source = null;
+
+        $ns = $this->getSource();
+
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="'
+                  . htmlspecialchars($ns->url)
+                  . '" rel="nofollow">'
+                  . htmlspecialchars($ns->name)
+                   . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
+
+        $noticeInfoAttr = array(
+            'local_id'   => $this->id, // local notice ID (useful to clients for ordering)
+            'source'     => $source,   // the client name (source attribution)
+        );
+
+        $ns = $this->getSource();
+        if ($ns) {
+            if (!empty($ns->url)) {
+                $noticeInfoAttr['source_link'] = $ns->url;
+            }
+        }
+
+        if (!empty($cur)) {
+            $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+            $profile = $cur->getProfile();
+            $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
+        }
+
+        if (!empty($this->repeat_of)) {
+            $noticeInfoAttr['repeat_of'] = $this->repeat_of;
+        }
+
+        $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
 
         if ($this->reply_to) {
             $reply_notice = Notice::staticGet('id', $this->reply_to);
@@ -1781,4 +1846,53 @@ class Notice extends Memcached_DataObject
 
         return $result;
     }
+
+    /**
+     * Get the source of the notice
+     *
+     * @return Notice_source $ns A notice source object. 'code' is the only attribute
+     *                           guaranteed to be populated.
+     */
+    function getSource()
+    {
+        $ns = new Notice_source();
+        if (!empty($this->source)) {
+            switch ($this->source) {
+            case 'web':
+            case 'xmpp':
+            case 'mail':
+            case 'omb':
+            case 'system':
+            case 'api':
+                $ns->code = $this->source;
+                break;
+            default:
+                $ns = Notice_source::staticGet($this->source);
+                if (!$ns) {
+                    $ns = new Notice_source();
+                    $ns->code = $this->source;
+                    $app = Oauth_application::staticGet('name', $this->source);
+                    if ($app) {
+                        $ns->name = $app->name;
+                        $ns->url  = $app->source_url;
+                    }
+                }
+                break;
+            }
+        }
+        return $ns;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @return boolean locality
+     */
+
+    public function isLocal()
+    {
+        return ($this->is_local == Notice::LOCAL_PUBLIC ||
+                $this->is_local == Notice::LOCAL_NONPUBLIC);
+    }
+
 }

@@ -32,6 +32,18 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
         $this->assertEquals('tag:versioncentral.example.org,2009:/change/1643245', $act->objects[0]->id);
     }
 
+    public function testExample2()
+    {
+        global $_example2;
+        $dom = DOMDocument::loadXML($_example2);
+        $act = new Activity($dom->documentElement);
+
+        $this->assertFalse(empty($act));
+        // Did we handle <content type="html"> correctly with a typical payload?
+        $this->assertEquals("<p>Geraldine posted a Photo on PhotoPanic</p>\n     " .
+                            "<img src=\"/geraldine/photo1.jpg\">", trim($act->content));
+    }
+
     public function testExample3()
     {
         global $_example3;
@@ -303,6 +315,71 @@ class ActivityParseTests extends PHPUnit_Framework_TestCase
             'http://www.flickr.com/photos/zcopley/4417734232/'
         );
 
+    }
+
+    public function testAtomContent()
+    {
+        $tests = array(array("<content>Some regular plain text.</content>",
+                             "Some regular plain text."),
+                       array("<content>&lt;b&gt;this is not HTML&lt;/b&gt;</content>",
+                             "&lt;b&gt;this is not HTML&lt;/b&gt;"),
+                       array("<content type='html'>Some regular plain HTML.</content>",
+                             "Some regular plain HTML."),
+                       array("<content type='html'>&lt;b&gt;this is too HTML&lt;/b&gt;</content>",
+                             "<b>this is too HTML</b>"),
+                       array("<content type='html'>&amp;lt;b&amp;gt;but this is not HTML!&amp;lt;/b&amp;gt;</content>",
+                             "&lt;b&gt;but this is not HTML!&lt;/b&gt;"),
+                       array("<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'>Some regular plain XHTML.</div></content>",
+                             "Some regular plain XHTML."),
+                       array("<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'><b>This is some XHTML!</b></div></content>",
+                             "<b>This is some XHTML!</b>"),
+                       array("<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'>&lt;b&gt;This is not some XHTML!&lt;/b&gt;</div></content>",
+                             "&lt;b&gt;This is not some XHTML!&lt;/b&gt;"),
+                       array("<content type='xhtml'><div xmlns='http://www.w3.org/1999/xhtml'>&amp;lt;b&amp;gt;This is not some XHTML either!&amp;lt;/b&amp;gt;</div></content>",
+                             "&amp;lt;b&amp;gt;This is not some XHTML either!&amp;lt;/b&amp;gt;"));
+        foreach ($tests as $data) {
+            list($source, $output) = $data;
+            $xml = "<entry xmlns='http://www.w3.org/2005/Atom'>" .
+                   "<id>http://example.com/fakeid</id>" .
+                   "<author><name>Test</name></author>" .
+                   "<title>Atom content tests</title>" .
+                   $source .
+                   "</entry>";
+            $dom = DOMDocument::loadXML($xml);
+            $act = new Activity($dom->documentElement);
+
+            $this->assertFalse(empty($act));
+            $this->assertEquals($output, trim($act->content));
+        }
+    }
+
+    public function testRssContent()
+    {
+        $tests = array(array("<content:encoded>Some regular plain HTML.</content:encoded>",
+                             "Some regular plain HTML."),
+                       array("<content:encoded>Some &lt;b&gt;exciting bold HTML&lt;/b&gt;</content:encoded>",
+                             "Some <b>exciting bold HTML</b>"),
+                       array("<content:encoded>Some &amp;lt;b&amp;gt;escaped non-HTML.&amp;lt;/b&amp;gt;</content:encoded>",
+                             "Some &lt;b&gt;escaped non-HTML.&lt;/b&gt;"),
+                       array("<description>Some plain text.</description>",
+                             "Some plain text."),
+                       array("<description>Some &lt;b&gt;non-HTML text&lt;/b&gt;</description>",
+                             "Some &lt;b&gt;non-HTML text&lt;/b&gt;"),
+                       array("<description>Some &amp;lt;b&amp;gt;double-escaped text&amp;lt;/b&amp;gt;</description>",
+                             "Some &amp;lt;b&amp;gt;double-escaped text&amp;lt;/b&amp;gt;"));
+        foreach ($tests as $data) {
+            list($source, $output) = $data;
+            $xml = "<item xmlns:content='http://purl.org/rss/1.0/modules/content/'>" .
+                   "<guid>http://example.com/fakeid</guid>" .
+                   "<title>RSS content tests</title>" .
+                   $source .
+                   "</item>";
+            $dom = DOMDocument::loadXML($xml);
+            $act = new Activity($dom->documentElement);
+
+            $this->assertFalse(empty($act));
+            $this->assertEquals($output, trim($act->content));
+        }
     }
 
 }

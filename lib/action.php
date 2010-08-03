@@ -235,6 +235,16 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
+            
+            if (common_config('custom_css', 'enabled')) {
+                $css = common_config('custom_css', 'css');
+                if (Event::handle('StartShowCustomCss', array($this, &$css))) {
+                    if (trim($css) != '') {
+                        $this->style($css);
+                    }
+                    Event::handle('EndShowCustomCss', array($this));
+                }
+            }
         }
     }
 
@@ -467,7 +477,7 @@ class Action extends HTMLOutputter // lawsuit
                                 _m('MENU', 'Logout'), $tooltip, false, 'nav_logout');
             }
             else {
-                if (!common_config('site', 'closed')) {
+                if (!common_config('site', 'closed') && !common_config('site', 'inviteonly')) {
                     // TRANS: Tooltip for main menu option "Register"
                     $tooltip = _m('TOOLTIP', 'Create an account');
                     $this->menuItem(common_local_url('register'),

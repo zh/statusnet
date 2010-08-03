@@ -1,0 +1,6 @@
+This is an additional plugin which piggybacks on OpenID authentication to pull
+profile information from WikiHow user pages when creating or updating accounts.
+
+WikiHow runs a customized MediaWiki setup, with locally-built extensions to add
+profile features such as an avatar. As this additional info isn't yet exposed
+through OpenID, we need to pull it separately.

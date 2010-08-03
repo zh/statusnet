@@ -132,7 +132,19 @@ class HTTPClient extends HTTP_Request2
         // ought to be investigated to see if we can handle
         // it gracefully in that case as well.
         $this->config['protocol_version'] = '1.0';
-        
+
+        // Default state of OpenSSL seems to have no trusted
+        // SSL certificate authorities, which breaks hostname
+        // verification and means we have a hard time communicating
+        // with other sites' HTTPS interfaces.
+        //
+        // Turn off verification unless we've configured a CA bundle.
+        if (common_config('http', 'ssl_cafile')) {
+            $this->config['ssl_cafile'] = common_config('http', 'ssl_cafile');
+        } else {
+            $this->config['ssl_verify_peer'] = false;
+        }
+
         parent::__construct($url, $method, $config);
         $this->setHeader('User-Agent', $this->userAgent());
     }

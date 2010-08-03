@@ -133,8 +133,7 @@ class ImsettingsAction extends ConnectSettingsAction
                                              'message with further instructions. '.
                                              '(Did you add %s to your buddy list?)'),
                                              $transport_info['display'],
-                                             $transport_info['daemon_screenname'],
-                                             jabber_daemon_address()));
+                                             $transport_info['daemon_screenname']));
                     $this->hidden('screenname', $confirm->address);
                     // TRANS: Button label to cancel an IM address confirmation procedure.
                     $this->submit('cancel', _m('BUTTON','Cancel'));
@@ -163,12 +162,11 @@ class ImsettingsAction extends ConnectSettingsAction
                                               'action' =>
                                               common_local_url('imsettings')));
             $this->elementStart('fieldset', array('id' => 'settings_im_preferences'));
-            $this->element('legend', null, _('Preferences'));
+            // TRANS: Header for IM preferences form.
+            $this->element('legend', null, _('IM Preferences'));
             $this->hidden('token', common_session_token());
             $this->elementStart('table');
             $this->elementStart('tr');
-            // TRANS: Header for IM preferences form.
-            $this->element('th', null, _('IM Preferences'));
             foreach($user_im_prefs_by_transport as $transport=>$user_im_prefs)
             {
                 $this->element('th', null, $transports[$transport]['display']);
@@ -278,19 +276,20 @@ class ImsettingsAction extends ConnectSettingsAction
         $user = common_current_user();
 
         $user_im_prefs = new User_im_prefs();
+        $user_im_prefs->query('BEGIN');
         $user_im_prefs->user_id = $user->id;
         if($user_im_prefs->find() && $user_im_prefs->fetch())
         {
             $preferences = array('notify', 'updatefrompresence', 'replies', 'microid');
-            $user_im_prefs->query('BEGIN');
             do
             {
                 $original = clone($user_im_prefs);
+                $new = clone($user_im_prefs);
                 foreach($preferences as $preference)
                 {
-                    $user_im_prefs->$preference = $this->boolean($user_im_prefs->transport . '_' . $preference);
+                    $new->$preference = $this->boolean($new->transport . '_' . $preference);
                 }
-                $result = $user_im_prefs->update($original);
+                $result = $new->update($original);
 
                 if ($result === false) {
                     common_log_db_error($user, 'UPDATE', __FILE__);
@@ -299,8 +298,8 @@ class ImsettingsAction extends ConnectSettingsAction
                     return;
                 }
             }while($user_im_prefs->fetch());
-            $user_im_prefs->query('COMMIT');
         }
+        $user_im_prefs->query('COMMIT');
         // TRANS: Confirmation message for successful IM preferences save.
         $this->showForm(_('Preferences saved.'), true);
     }

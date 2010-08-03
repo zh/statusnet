@@ -29,6 +29,7 @@
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -57,7 +58,7 @@ require_once INSTALLDIR . '/lib/apiauth.php';
 
 class ApiStatusesDestroyAction extends ApiAuthAction
 {
-    var $status                = null;
+    var $status = null;
 
     /**
      * Take arguments for running
@@ -99,39 +100,43 @@ class ApiStatusesDestroyAction extends ApiAuthAction
         parent::handle($args);
 
         if (!in_array($this->format, array('xml', 'json'))) {
-             $this->clientError(_('API method not found.'), $code = 404);
-             return;
+            $this->clientError(
+                _('API method not found.'),
+                404
+            );
+            return;
         }
 
-         if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
-             $this->clientError(_('This method requires a POST or DELETE.'),
-                 400, $this->format);
-             return;
-         }
+        if (!in_array($_SERVER['REQUEST_METHOD'], array('POST', 'DELETE'))) {
+            $this->clientError(
+                _('This method requires a POST or DELETE.'),
+                400,
+                $this->format
+            );
+            return;
+        }
 
-         if (empty($this->notice)) {
-             $this->clientError(_('No status found with that ID.'),
-                 404, $this->format);
-             return;
-         }
+        if (empty($this->notice)) {
+            $this->clientError(
+                _('No status found with that ID.'),
+                404, $this->format
+            );
+            return;
+        }
 
-         if ($this->user->id == $this->notice->profile_id) {
-             $replies = new Reply;
-             $replies->get('notice_id', $this->notice_id);
-             $replies->delete();
-             $this->notice->delete();
-
-             if ($this->format == 'xml') {
-                 $this->showSingleXmlStatus($this->notice);
-             } elseif ($this->format == 'json') {
-                 $this->show_single_json_status($this->notice);
-             }
-         } else {
-             $this->clientError(_('You may not delete another user\'s status.'),
-                 403, $this->format);
-         }
-
-        $this->showNotice();
+        if ($this->user->id == $this->notice->profile_id) {
+            $replies = new Reply;
+            $replies->get('notice_id', $this->notice_id);
+            $replies->delete();
+            $this->notice->delete();
+	        $this->showNotice();
+        } else {
+            $this->clientError(
+                _('You may not delete another user\'s status.'),
+                403,
+                $this->format
+            );
+        }
     }
 
     /**

@@ -34,6 +34,14 @@ function common_user_error($msg, $code=400)
     $err->showPage();
 }
 
+/**
+ * This should only be used at setup; processes switching languages
+ * to send text to other users should use common_switch_locale().
+ * 
+ * @param string $language Locale language code (optional; empty uses
+ *                         current user's preference or site default)
+ * @return mixed success
+ */
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -41,13 +49,24 @@ function common_init_locale($language=null)
     }
     putenv('LANGUAGE='.$language);
     putenv('LANG='.$language);
-    return setlocale(LC_ALL, $language . ".utf8",
+    $ok =  setlocale(LC_ALL, $language . ".utf8",
                      $language . ".UTF8",
                      $language . ".utf-8",
                      $language . ".UTF-8",
                      $language);
+
+    return $ok;
 }
 
+/**
+ * Initialize locale and charset settings and gettext with our message catalog,
+ * using the current user's language preference or the site default.
+ * 
+ * This should generally only be run at framework initialization; code switching
+ * languages at runtime should call common_switch_language().
+ * 
+ * @access private
+ */
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');
@@ -89,6 +108,14 @@ function common_init_language()
         $locale_set = common_init_locale($language);
     }
 
+    common_init_gettext();
+}
+
+/**
+ * @access private
+ */
+function common_init_gettext()
+{
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
     $path = common_config('site','locale_path');
@@ -96,6 +123,25 @@ function common_init_language()
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
 }
+
+/**
+ * Switch locale during runtime, and poke gettext until it cries uncle.
+ * Otherwise, sometimes it doesn't actually switch away from the old language.
+ *
+ * @param string $language code for locale ('en', 'fr', 'pt_BR' etc)
+ */
+function common_switch_locale($language=null)
+{
+    common_init_locale($language);
+
+    setlocale(LC_CTYPE, 'C');
+    // So we do not have to make people install the gettext locales
+    $path = common_config('site','locale_path');
+    bindtextdomain("statusnet", $path);
+    bind_textdomain_codeset("statusnet", "UTF-8");
+    textdomain("statusnet");
+}
+
 
 function common_timezone()
 {
@@ -109,23 +155,38 @@ function common_timezone()
     return common_config('site', 'timezone');
 }
 
+function common_valid_language($lang)
+{
+    if ($lang) {
+        // Validate -- we don't want to end up with a bogus code
+        // left over from some old junk.
+        foreach (common_config('site', 'languages') as $code => $info) {
+            if ($info['lang'] == $lang) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function common_language()
 {
+    // Allow ?uselang=xx override, very useful for debugging
+    // and helping translators check usage and context.
+    if (isset($_GET['uselang'])) {
+        $uselang = strval($_GET['uselang']);
+        if (common_valid_language($uselang)) {
+            return $uselang;
+        }
+    }
 
     // If there is a user logged in and they've set a language preference
     // then return that one...
     if (_have_config() && common_logged_in()) {
         $user = common_current_user();
-        $user_language = $user->language;
 
-        if ($user->language) {
-            // Validate -- we don't want to end up with a bogus code
-            // left over from some old junk.
-            foreach (common_config('site', 'languages') as $code => $info) {
-                if ($info['lang'] == $user_language) {
-                    return $user_language;
-                }
-            }
+        if (common_valid_language($user->language)) {
+            return $user->language;
         }
     }
 
@@ -826,7 +887,7 @@ function common_linkify($url) {
     return XMLStringer::estring('a', $attrs, $url);
 }
 
-function common_shorten_links($text)
+function common_shorten_links($text, $always = false)
 {
     common_debug("common_shorten_links() called");
 
@@ -836,7 +897,7 @@ function common_shorten_links($text)
 
     common_debug("maxLength = $maxLength");
 
-    if (mb_strlen($text) > $maxLength) {
+    if ($always || mb_strlen($text) > $maxLength) {
         common_debug("Forcing shortening");
         return common_replace_urls_callback($text, array('File_redirection', 'forceShort'));
     } else {
@@ -1209,9 +1270,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'plugin';
     }
 
-    // @fixme move these checks into QueueManager and/or individual handlers
-    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
-        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+    // We can skip these for gatewayed notices.
+    if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
     }
 
@@ -1353,7 +1413,7 @@ function common_log_line($priority, $msg)
 {
     static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
                                       'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
-    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . PHP_EOL;
 }
 
 function common_request_id()
@@ -1908,6 +1968,15 @@ function common_url_to_nickname($url)
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
             $path = basename($path);
+
+            // Hack for MediaWiki user pages, in the form:
+            // http://example.com/wiki/User:Myname
+            // ('User' may be localized.)
+            if (strpos($path, ':')) {
+                $parts = array_filter(explode(':', $path));
+                $path = $parts[count($parts) - 1];
+            }
+
             if ($path) {
                 return common_nicknamize($path);
             }

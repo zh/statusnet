@@ -126,6 +126,11 @@ class AimPlugin extends ImPlugin
         return true;
     }
 
+    /**
+     * Accept a queued input message.
+     *
+     * @return true if processing completed, false if message should be reprocessed
+     */
     function receive_raw_message($message)
     {
         $info=Aim::getMessageInfo($message);
@@ -133,7 +138,9 @@ class AimPlugin extends ImPlugin
         $user = $this->get_user($from);
         $notice_text = $info['message'];
 
-        return $this->handle_incoming($from, $notice_text);
+        $this->handle_incoming($from, $notice_text);
+
+        return true;
     }
 
     function initialize(){

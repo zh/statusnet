@@ -18,15 +18,19 @@
  *
  * @category Actions
  * @package  Actions
- * @author   Evan Prodromou <evan@status.net>
- * @author   Mike Cochrane <mikec@mikenz.geek.nz>
- * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Adrian Lang <mail@adrianlang.de>
- * @author   Meitar Moscovitz <meitarm@gmail.com>
- * @author   Sarven Capadisli <csarven@status.net>
+ * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Brion Vibber <brion@pobox.com>
  * @author   Craig Andrews <candrews@integralblue.com>
+ * @author   Evan Prodromou <evan@status.net>
  * @author   Jeffery To <jeffery.to@gmail.com>
- * @author   Zach Copley <zach@controlyourself.ca>
+ * @author   Meitar Moscovitz <meitarm@gmail.com>
+ * @author   Mike Cochrane <mikec@mikenz.geek.nz>
+ * @author   Robin Millette <millette@status.net>
+ * @author   Sarven Capadisli <csarven@status.net>
+ * @author   Siebrand Mazeland <s.mazeland@xs4all.nl>
+ * @author   Zach Copley <zach@status.net>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * @link     http://status.net
  */
