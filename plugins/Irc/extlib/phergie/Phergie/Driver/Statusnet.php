@@ -45,7 +45,7 @@ class Phergie_Driver_Statusnet extends Phergie_Driver_Streams {
     public function forceQuit() {
         try {
             // Send a QUIT command to the server
-        $this->send('QUIT', 'Reconnecting');
+            $this->send('QUIT', 'Reconnecting');
         } catch (Phergie_Driver_Exception $e){}
 
         // Terminate the socket connection
