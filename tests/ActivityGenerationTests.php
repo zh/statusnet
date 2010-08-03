@@ -197,9 +197,21 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $this->assertFalse(is_null($actor));
     }
 
-    public function testCurArgument()
+    public function testAuthorContent()
     {
-        $this->assertTrue(FALSE);
+        $notice = $this->_fakeNotice();
+
+        // Test with author
+
+        $entry = $notice->asAtomEntry(false, false, true);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $author = ActivityUtils::child($element, 'author');
+        $actor  = ActivityUtils::child($element, 'actor', Activity::SPEC);
+
+        $this->assertEquals($this->author1->nickname, ActivityUtils::childContent($author, 'name'));
+        $this->assertEquals($this->author1->uri, ActivityUtils::childContent($author, 'uri'));
     }
 
     public function testReplyLink()
@@ -305,22 +317,172 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
 
     public function testRepeatLink()
     {
-        $this->assertTrue(FALSE);
+        $notice = $this->_fakeNotice($this->author1);
+        $repeat = $notice->repeat($this->author2->id, 'test');
+
+        $entry = $repeat->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $forward = ActivityUtils::child($element, 'forward', "http://ostatus.org/schema/1.0");
+
+        $this->assertNotNull($forward);
+        $this->assertEquals($notice->uri, $forward->getAttribute('ref'));
+        $this->assertEquals($notice->bestUrl(), $forward->getAttribute('href'));
     }
 
-    public function testTaggedActivity()
+    public function testTag()
     {
-        $this->assertTrue(FALSE);
+        $tag1 = common_good_rand(4);
+
+        $notice = $this->_fakeNotice($this->author1, '#' . $tag1);
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $category = ActivityUtils::child($element, 'category');
+
+        $this->assertNotNull($category);
+        $this->assertEquals($tag1, $category->getAttribute('term'));
+    }
+
+    public function testMultiTag()
+    {
+        $tag1 = common_good_rand(4);
+        $tag2 = common_good_rand(4);
+
+        $notice = $this->_fakeNotice($this->author1, '#' . $tag1 . ' #' . $tag2);
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $categories = $element->getElementsByTagName('category');
+
+        $this->assertNotNull($categories);
+        $this->assertEquals(2, $categories->length);
+
+        $terms = array();
+
+        for ($i = 0; $i < $categories->length; $i++) {
+            $cat = $categories->item($i);
+            $terms[] = $cat->getAttribute('term');
+        }
+
+        $this->assertTrue(in_array($tag1, $terms));
+        $this->assertTrue(in_array($tag2, $terms));
     }
 
     public function testGeotaggedActivity()
     {
-        $this->assertTrue(FALSE);
+        $notice = Notice::saveNew($this->author1->id, common_good_rand(4), 'test', array('uri' => null, 'lat' => 45.5, 'lon' => -73.6));
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $this->assertEquals('45.5 -73.6', ActivityUtils::childContent($element, 'point', "http://www.georss.org/georss"));
     }
 
     public function testNoticeInfo()
     {
-        $this->assertTrue(FALSE);
+        $notice = $this->_fakeNotice();
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals($notice->id, $noticeInfo->getAttribute('local_id'));
+        $this->assertEquals($notice->source, $noticeInfo->getAttribute('source'));
+        $this->assertEquals('', $noticeInfo->getAttribute('repeat_of'));
+        $this->assertEquals('', $noticeInfo->getAttribute('repeated'));
+        $this->assertEquals('', $noticeInfo->getAttribute('favorite'));
+        $this->assertEquals('', $noticeInfo->getAttribute('source_link'));
+    }
+
+    public function testNoticeInfoRepeatOf()
+    {
+        $notice = $this->_fakeNotice();
+
+        $repeat = $notice->repeat($this->author2->id, 'test');
+
+        $entry = $repeat->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals($notice->id, $noticeInfo->getAttribute('repeat_of'));
+    }
+
+    public function testNoticeInfoRepeated()
+    {
+        $notice = $this->_fakeNotice();
+
+        $repeat = $notice->repeat($this->author2->id, 'test');
+
+        $entry = $notice->asAtomEntry(false, false, false, $this->author2);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals('true', $noticeInfo->getAttribute('repeated'));
+
+        $entry = $notice->asAtomEntry(false, false, false, $this->targetUser1);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals('false', $noticeInfo->getAttribute('repeated'));
+    }
+
+    public function testNoticeInfoFave()
+    {
+        $notice = $this->_fakeNotice();
+
+        $fave = Fave::addNew($this->author2->getProfile(), $notice);
+
+        // Should be set if user has faved
+
+        $entry = $notice->asAtomEntry(false, false, false, $this->author2);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals('true', $noticeInfo->getAttribute('favorite'));
+
+        // Shouldn't be set if user has not faved
+
+        $entry = $notice->asAtomEntry(false, false, false, $this->targetUser1);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $noticeInfo = ActivityUtils::child($element, 'notice_info', "http://status.net/schema/api/1/");
+
+        $this->assertEquals('false', $noticeInfo->getAttribute('favorite'));
+    }
+
+    public function testConversationLink()
+    {
+        $orig = $this->_fakeNotice($this->targetUser1);
+
+        $text = "@" . $this->targetUser1->nickname . " reply text " . common_good_rand(4);
+
+        $reply = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null, 'reply_to' => $orig->id));
+
+        $conv = Conversation::staticGet('id', $reply->conversation);
+
+        $entry = $reply->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $this->assertEquals($conv->uri, ActivityUtils::getLink($element, 'ostatus:conversation'));
     }
 
     function __destruct()
