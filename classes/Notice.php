@@ -1215,29 +1215,45 @@ class Notice extends Memcached_DataObject
 
             if ($source) {
 
-                $xs->elementStart('source');
+                $atom_feed = $profile->getAtomFeed();
 
-                $xs->element('id', null, $profile->profileurl);
-                $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
-                $xs->element('link', array('href' => $profile->profileurl));
+                if (!empty($atom_feed)) {
 
-                $user = User::staticGet('id', $profile->id);
+                    $xs->elementStart('source');
 
-                if (!empty($user)) {
-                    $atom_feed = common_local_url('ApiTimelineUser',
-                                                  array('format' => 'atom',
-                                                        'id' => $profile->nickname));
+                    // XXX: we should store the actual feed ID
+
+                    $xs->element('id', null, $atom_feed);
+
+                    // XXX: we should store the actual feed title
+
+                    $xs->element('title', null, $profile->getBestName());
+
+                    $xs->element('link', array('rel' => 'alternate',
+                                               'type' => 'text/html',
+                                               'href' => $profile->profileurl));
+
                     $xs->element('link', array('rel' => 'self',
                                                'type' => 'application/atom+xml',
-                                               'href' => $profile->profileurl));
-                    $xs->element('link', array('rel' => 'license',
-                                               'href' => common_config('license', 'url')));
+                                               'href' => $atom_feed));
+
+                    $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+
+                    $notice = $profile->getCurrentNotice();
+
+                    if (!empty($notice)) {
+                        $xs->element('updated', null, common_date_w3dtf($notice->created));
+                    }
+
+                    $user = User::staticGet('id', $profile->id);
+
+                    if (!empty($user)) {
+                        $xs->element('link', array('rel' => 'license',
+                                                   'href' => common_config('license', 'url')));
+                    }
+
+                    $xs->elementEnd('source');
                 }
-
-                $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
-                $xs->element('updated', null, common_date_w3dtf($this->created)); // FIXME: not true!
-
-                $xs->elementEnd('source');
             }
             Event::handle('EndActivitySource', array(&$this, &$xs));
         }
