@@ -261,6 +261,7 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $element = $this->_entryToElement($entry, true);
 
         $this->assertEquals($this->targetUser1->uri, ActivityUtils::getLink($element, 'ostatus:attention'));
+        $this->assertEquals($this->targetUser1->uri, ActivityUtils::getLink($element, 'mentioned'));
     }
 
     public function testMultipleReplyAttention()
@@ -291,6 +292,19 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
 
         $this->assertTrue(in_array($this->targetUser1->uri, $hrefs));
         $this->assertTrue(in_array($this->targetUser2->uri, $hrefs));
+
+        $links = ActivityUtils::getLinks($element, 'mentioned');
+
+        $this->assertEquals(2, count($links));
+
+        $hrefs = array();
+
+        foreach ($links as $link) {
+            $hrefs[] = $link->getAttribute('href');
+        }
+
+        $this->assertTrue(in_array($this->targetUser1->uri, $hrefs));
+        $this->assertTrue(in_array($this->targetUser2->uri, $hrefs));
     }
 
     public function testGroupPostAttention()
@@ -304,6 +318,7 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $element = $this->_entryToElement($entry, true);
 
         $this->assertEquals($this->targetGroup1->uri, ActivityUtils::getLink($element, 'ostatus:attention'));
+        $this->assertEquals($this->targetGroup1->uri, ActivityUtils::getLink($element, 'mentioned'));
     }
 
     public function testMultipleGroupPostAttention()
@@ -317,6 +332,19 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $element = $this->_entryToElement($entry, true);
 
         $links = ActivityUtils::getLinks($element, 'ostatus:attention');
+
+        $this->assertEquals(2, count($links));
+
+        $hrefs = array();
+
+        foreach ($links as $link) {
+            $hrefs[] = $link->getAttribute('href');
+        }
+
+        $this->assertTrue(in_array($this->targetGroup1->uri, $hrefs));
+        $this->assertTrue(in_array($this->targetGroup2->uri, $hrefs));
+
+        $links = ActivityUtils::getLinks($element, 'mentioned');
 
         $this->assertEquals(2, count($links));
 
