@@ -1391,7 +1391,7 @@ class Notice extends Memcached_DataObject
                 $xs->element('thr:in-reply-to',
                              array('ref' => $replyNotice->uri,
                                    'href' => $replyNotice->bestUrl()));
-                Event::handle('EndActivityInReplyTo', array(&$this, &$xs, $replyUri, $replyUrl));
+                Event::handle('EndActivityInReplyTo', array(&$this, &$xs, $replyNotice));
             }
         }
 
