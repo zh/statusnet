@@ -27,7 +27,7 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Toby Inkster <mail@tobyinkster.co.uk>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
  * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
@@ -128,6 +128,7 @@ class ApiAction extends Action
     var $max_id    = null;
     var $since_id  = null;
     var $source    = null;
+    var $callback  = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
 
@@ -147,6 +148,7 @@ class ApiAction extends Action
         parent::prepare($args);
 
         $this->format   = $this->arg('format');
+        $this->callback = $this->arg('callback');
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
@@ -463,6 +465,7 @@ class ApiAction extends Action
     function twitterRssEntryArray($notice)
     {
         $profile = $notice->getProfile();
+
         $entry = array();
 
         // We trim() to avoid extraneous whitespace in the output
@@ -735,14 +738,16 @@ class ApiAction extends Action
                                               'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                $this->showTwitterXmlStatus($twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 $this->showTwitterXmlStatus($twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -790,14 +795,16 @@ class ApiAction extends Action
         $this->element('ttl', null, '40');
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $entry = $this->twitterRssEntryArray($n);
-                $this->showTwitterRssItem($entry);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $entry = $this->twitterRssEntryArray($notice);
                 $this->showTwitterRssItem($entry);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                // continue on exceptions
             }
         }
 
@@ -833,12 +840,15 @@ class ApiAction extends Action
         $this->element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $this->raw($n->asAtomEntry());
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $this->raw($notice->asAtomEntry());
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -1033,14 +1043,16 @@ class ApiAction extends Action
         $statuses = array();
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                array_push($statuses, $twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 array_push($statuses, $twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -1177,9 +1189,8 @@ class ApiAction extends Action
             header('Content-Type: application/json; charset=utf-8');
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
-                print $callback . '(';
+            if (isset($this->callback)) {
+                print $this->callback . '(';
             }
             break;
         case 'rss':
@@ -1208,8 +1219,7 @@ class ApiAction extends Action
         case 'json':
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
+            if (isset($this->callback)) {
                 print ')';
             }
             break;
@@ -1239,7 +1249,10 @@ class ApiAction extends Action
 
         $status_string = ClientErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($format == 'xml') {
             $this->initDocument('xml');
@@ -1272,7 +1285,10 @@ class ApiAction extends Action
 
         $status_string = ServerErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($content_type == 'xml') {
             $this->initDocument('xml');
@@ -1373,6 +1389,34 @@ class ApiAction extends Action
         } else {
             $nickname = common_canonical_nickname($id);
             return User::staticGet('nickname', $nickname);
+        }
+    }
+
+    function getTargetProfile($id)
+    {
+        if (empty($id)) {
+
+            // Twitter supports these other ways of passing the user ID
+            if (is_numeric($this->arg('id'))) {
+                return Profile::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return Profile::staticGet('nickname', $nickname);
+            } else if ($this->arg('user_id')) {
+                // This is to ensure that a non-numeric user_id still
+                // overrides screen_name even if it doesn't get used
+                if (is_numeric($this->arg('user_id'))) {
+                    return Profile::staticGet('id', $this->arg('user_id'));
+                }
+            } else if ($this->arg('screen_name')) {
+                $nickname = common_canonical_nickname($this->arg('screen_name'));
+                return Profile::staticGet('nickname', $nickname);
+            }
+        } else if (is_numeric($id)) {
+            return Profile::staticGet($id);
+        } else {
+            $nickname = common_canonical_nickname($id);
+            return Profile::staticGet('nickname', $nickname);
         }
     }
 
