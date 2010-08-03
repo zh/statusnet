@@ -1,7 +1,6 @@
 # Translation of StatusNet to Russian
 #
 # Author@translatewiki.net: Brion
-# Author@translatewiki.net: Eleferen
 # Author@translatewiki.net: Kirill
 # Author@translatewiki.net: Lockal
 # Author@translatewiki.net: Rubin
@@ -13,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-31 22:59+0000\n"
-"PO-Revision-Date: 2010-07-31 23:00:07+0000\n"
+"POT-Creation-Date: 2010-08-03 13:21+0000\n"
+"PO-Revision-Date: 2010-08-03 13:22:25+0000\n"
 "Language-Team: Russian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70249); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70381); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ru\n"
 "X-Message-Group: out-statusnet\n"
@@ -171,23 +170,22 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» из профиля или [написать "
-"что-нибудь для привлечения его или её внимания](%%%%action.newnotice%%%%?"
-"status_textarea=%3$s)."
+"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» из их профиля или "
+"[написать им что-нибудь](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to them."
 msgstr ""
 "Почему бы не [зарегистрироваться](%%%%action.register%%%%), чтобы "
-"«подтолкнуть» %s или отправить запись для привлечения его или её внимания?"
+"«подтолкнуть» %s или оставить запись для них?"
 
 #. TRANS: H1 text
 #: actions/all.php:182
@@ -518,9 +516,8 @@ msgid "groups on %s"
 msgstr "группы на %s"
 
 #: actions/apimediaupload.php:99
-#, fuzzy
 msgid "Upload failed."
-msgstr "Загрузить файл"
+msgstr "Загрузка не удалась."
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -667,7 +664,7 @@ msgstr "Не найдено статуса с таким ID."
 
 #: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "Клиент должен предоставить параметр «status» со значением."
 
 #: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
@@ -3539,13 +3536,13 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Лента записей для %s (Atom)"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
 msgstr ""
-"Эта лента содержит ответы  для %1$s, однако %2$s пока не получил запись для "
-"привлечения внимания."
+"Эта лента содержит ответы  для %1$s, однако %2$s пока не получил уведомление "
+"о них."
 
 #: actions/replies.php:204
 #, php-format
@@ -3557,14 +3554,13 @@ msgstr ""
 "число людей или [присоединившись к группам](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» или [написать что-нибудь "
-"для привлечения его или её внимания](%%%%action.newnotice%%%%?"
-"status_textarea=%3$s)."
+"Вы можете попробовать «[подтолкнуть %1$s](../%2$s)» или [написать им что-"
+"нибудь](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -3938,14 +3934,13 @@ msgstr ""
 "сейчас хорошее время  для начала :)"
 
 #: actions/showstream.php:207
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 msgstr ""
-"Вы можете попробовать «подтолкнуть» %1$s или [написать что-нибудь для "
-"привлечения его или её внимания](%%%%action.newnotice%%%%?status_textarea=%2"
-"$s)."
+"Вы можете попробовать «подтолкнуть» %1$s или [написать что-нибудь для них](%%%"
+"%action.newnotice%%%%?status_textarea=%2$s)."
 
 #: actions/showstream.php:243
 #, php-format
@@ -4829,7 +4824,7 @@ msgstr "Автор(ы)"
 #: classes/File.php:143
 #, php-format
 msgid "Cannot process URL '%s'"
-msgstr ""
+msgstr "Невозможно обработать URL «%s»"
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
@@ -4895,9 +4890,8 @@ msgstr "Не удаётся создать токен входа для %s"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-#, fuzzy
 msgid "No database name or DSN found anywhere."
-msgstr "Имя базы данных / DSN не найдено"
+msgstr "Имя базы данных или DSN не найдено."
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -4977,7 +4971,7 @@ msgstr "Проблемы с сохранением входящих сообще
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1600
+#: classes/Notice.php:1614
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4985,19 +4979,19 @@ msgstr "RT @%1$s %2$s"
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
-"Не удаётся отозвать право «%s» для пользователя #%2$s; пользователь не "
+"Не удаётся отозвать право «%1%s» для пользователя #%2$d; пользователь не "
 "существует."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
-"Не удаётся отозвать право «%1%s» для пользователя #%2$s; ошибка базы данных."
+"Не удаётся отозвать право «%1$s» для пользователя #%2$d; ошибка базы данных."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 #: classes/Remote_profile.php:54
@@ -6700,7 +6694,7 @@ msgstr "из"
 
 #: lib/noticelist.php:567
 msgid "in context"
-msgstr "в контексте"
+msgstr "переписка"
 
 #: lib/noticelist.php:602
 msgid "Repeated by"

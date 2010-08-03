@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-31 22:59+0000\n"
-"PO-Revision-Date: 2010-07-31 22:59:52+0000\n"
+"POT-Creation-Date: 2010-08-03 13:21+0000\n"
+"PO-Revision-Date: 2010-08-03 13:22:14+0000\n"
 "Language-Team: Macedonian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70249); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r70381); Translate extension (2010-07-21)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: out-statusnet\n"
@@ -168,23 +168,22 @@ msgstr ""
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Можете да се обидете да го [подбуцнете корисникот %1$s](../%2$s) од неговиот "
-"профил или да [објавите нешто што сакате да го прочита](%%%%action.newnotice%"
-"%%%?status_textarea=%3$s)."
+"Можете да го [подбуцнете корисникот %1$s](../%2$s) од неговиот профил или да "
+"[му испратите нешто](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to them."
 msgstr ""
 "А зошто не се [регистрирате](%%%%action.register%%%%), и потоа да го "
-"подбуцнете корисникот %s или да објавите забелешка што сакате да ја прочита."
+"подбуцнете корисникот %s или да му испратите забелешка."
 
 #. TRANS: H1 text
 #: actions/all.php:182
@@ -514,9 +513,8 @@ msgid "groups on %s"
 msgstr "групи на %s"
 
 #: actions/apimediaupload.php:99
-#, fuzzy
 msgid "Upload failed."
-msgstr "Подигни податотека"
+msgstr "Подигањето не успеа."
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -663,7 +661,7 @@ msgstr "Нема пронајдено статус со тој ID."
 
 #: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "Клиентот мора да укаже вредност за параметарот „статус“"
 
 #: actions/apistatusesupdate.php:242 actions/newnotice.php:155
 #: lib/mailhandler.php:60
@@ -3547,13 +3545,13 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Канал со одговори за %s (Atom)"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
 msgstr ""
 "Ова е историјата на која се прикажани одговорите на %1$s, но %2$s сè уште "
-"нема добиено нечија забелешка."
+"нема добиено забелешка за нив."
 
 #: actions/replies.php:204
 #, php-format
@@ -3565,14 +3563,13 @@ msgstr ""
 "други луѓе или да [се зачленувате во групи](%%action.groups%%)."
 
 #: actions/replies.php:206
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"Можете да се обидете да го [подбуцнете корисникот 1$s](../%2$s) или да "
-"[објавите нешто што сакате да го прочита](%%%%action.newnotice%%%%?"
-"status_textarea=%3$s)."
+"Можете да го [подбуцнете корисникот 1$s](../%2$s) или да [му испратите нешто]"
+"(%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -3947,13 +3944,13 @@ msgstr ""
 "ниедна забелешка, но сега е добро време за да почнете :)"
 
 #: actions/showstream.php:207
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 msgstr ""
-"Можете да се обидете да го подбуцнете корисникот %1$s или [да објавите нешто "
-"што сакате да го прочита](%%%%action.newnotice%%%%?status_textarea=%2$s)."
+"Можете да го подбуцнете корисникот %1$s или [му испратите нешто](%%%%action."
+"newnotice%%%%?status_textarea=%2$s)."
 
 #: actions/showstream.php:243
 #, php-format
@@ -4838,7 +4835,7 @@ msgstr "Автор(и)"
 #: classes/File.php:143
 #, php-format
 msgid "Cannot process URL '%s'"
-msgstr ""
+msgstr "Не можам да ја обработам URL-адресата „%s“"
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
@@ -4905,9 +4902,8 @@ msgstr "Не можам да создадам најавен жетон за"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
-#, fuzzy
 msgid "No database name or DSN found anywhere."
-msgstr "Никаде не е пронајдено име на базата / DSN"
+msgstr "Никаде не е пронајдено име на базата или DSN."
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -4987,7 +4983,7 @@ msgstr "Проблем при зачувувањето на групното п�
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1600
+#: classes/Notice.php:1614
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4995,18 +4991,19 @@ msgstr "RT @%1$s %2$s"
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:740
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
-"Не можам да му ја одземам улогата „%s“ на корисникот #%2$s. Таа не постои."
+"Не можам да му ја одземам улогата „%1$s“ на корисникот #%2$s. Таква улога не "
+"постои."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:749
-#, fuzzy, php-format
+#, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
-"Не можам да му ја одземам улогата „%1$s“ на корисникот #%2$s. Има грешка во "
+"Не можам да му ја одземам улогата „%1$s“ на корисникот #%2$d. Има грешка во "
 "базата на податоци."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
