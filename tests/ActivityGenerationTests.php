@@ -165,7 +165,7 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $this->assertEquals($atomUrl, ActivityUtils::childContent($source, 'id'));
         $this->assertEquals($atomUrl, ActivityUtils::getLink($source, 'self', 'application/atom+xml'));
         $this->assertEquals($profile->profileurl, ActivityUtils::getPermalink($source));
-        $this->assertEquals($notice2->created, strtotime(ActivityUtils::childContent($source, 'updated')));
+        $this->assertEquals(strtotime($notice2->created), strtotime(ActivityUtils::childContent($source, 'updated')));
         // XXX: do we care here?
         $this->assertFalse(is_null(ActivityUtils::childContent($source, 'title')));
         $this->assertEquals(common_config('license', 'url'), ActivityUtils::getLink($source, 'license'));
@@ -208,10 +208,25 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $element = $this->_entryToElement($entry, true);
 
         $author = ActivityUtils::child($element, 'author');
-        $actor  = ActivityUtils::child($element, 'actor', Activity::SPEC);
 
         $this->assertEquals($this->author1->nickname, ActivityUtils::childContent($author, 'name'));
         $this->assertEquals($this->author1->uri, ActivityUtils::childContent($author, 'uri'));
+    }
+
+    public function testActorContent()
+    {
+        $notice = $this->_fakeNotice();
+
+        // Test with author
+
+        $entry = $notice->asAtomEntry(false, false, true);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $actor = ActivityUtils::child($element, 'actor', Activity::SPEC);
+
+        $this->assertEquals($this->author1->uri, ActivityUtils::childContent($actor, 'id'));
+        $this->assertEquals($this->author1->nickname, ActivityUtils::childContent($actor, 'title'));
     }
 
     public function testReplyLink()
