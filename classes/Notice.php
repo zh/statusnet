@@ -1454,6 +1454,8 @@ class Notice extends Memcached_DataObject
             foreach ($replyProfiles as $profile) {
                 $xs->element('link', array('rel' => 'ostatus:attention',
                                            'href' => $profile->getUri()));
+                $xs->element('link', array('rel' => 'mentioned',
+                                           'href' => $profile->getUri()));
             }
             Event::handle('EndActivityAttentionProfiles', array(&$this, &$xs, $replyProfiles));
         }
@@ -1463,6 +1465,8 @@ class Notice extends Memcached_DataObject
         if (Event::handle('StartActivityAttentionGroups', array(&$this, &$xs, &$groups))) {
             foreach ($groups as $group) {
                 $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $group->permalink()));
+                $xs->element('link', array('rel' => 'mentioned',
                                            'href' => $group->permalink()));
             }
             Event::handle('EndActivityAttentionGroups', array(&$this, &$xs, $groups));
