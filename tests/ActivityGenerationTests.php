@@ -23,16 +23,18 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
     var $targetGroup1 = null;
     var $targetGroup2 = null;
 
-    public function setUp()
+    function __construct()
     {
-        $authorNick1 = 'activitygenerationtestsuser' . common_good_rand(16);
-        $authorNick2 = 'activitygenerationtestsuser' . common_good_rand(16);
+        parent::__construct();
 
-        $targetNick1 = 'activitygenerationteststarget' . common_good_rand(16);
-        $targetNick2 = 'activitygenerationteststarget' . common_good_rand(16);
+        $authorNick1 = 'activitygenerationtestsuser' . common_good_rand(4);
+        $authorNick2 = 'activitygenerationtestsuser' . common_good_rand(4);
 
-        $groupNick1 = 'activitygenerationtestsgroup' . common_good_rand(16);
-        $groupNick2 = 'activitygenerationtestsgroup' . common_good_rand(16);
+        $targetNick1 = 'activitygenerationteststarget' . common_good_rand(4);
+        $targetNick2 = 'activitygenerationteststarget' . common_good_rand(4);
+
+        $groupNick1 = 'activitygenerationtestsgroup' . common_good_rand(4);
+        $groupNick2 = 'activitygenerationtestsgroup' . common_good_rand(4);
 
         $this->author1 = User::register(array('nickname' => $authorNick1,
                                               'email' => $authorNick1 . '@example.net',
@@ -50,6 +52,24 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
                                                   'email' => $targetNick2 . '@example.net',
                                                   'email_confirmed' => true));
 
+        $this->targetGroup1 = User_group::register(array('nickname' => $groupNick1,
+                                                         'userid' => $this->author1->id,
+                                                         'aliases' => array(),
+                                                         'local' => true,
+                                                         'location' => null,
+                                                         'description' => null,
+                                                         'fullname' => null,
+                                                         'homepage' => null,
+                                                         'mainpage' => null));
+        $this->targetGroup2 = User_group::register(array('nickname' => $groupNick2,
+                                                         'userid' => $this->author1->id,
+                                                         'aliases' => array(),
+                                                         'local' => true,
+                                                         'location' => null,
+                                                         'description' => null,
+                                                         'fullname' => null,
+                                                         'homepage' => null,
+                                                         'mainpage' => null));
     }
 
     public function testBasicNoticeActivity()
@@ -57,8 +77,6 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $notice = $this->_fakeNotice();
 
         $entry = $notice->asAtomEntry(true);
-
-        echo $entry;
 
         $element = $this->_entryToElement($entry, false);
 
@@ -102,27 +120,190 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $this->assertFalse($element->hasAttribute('xmlns:statusnet'));
     }
 
-    public function testReplyActivity()
+    public function testSourceFlag()
+    {
+        $notice = $this->_fakeNotice();
+
+        // Test with no source
+
+        $entry = $notice->asAtomEntry(false, false);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $source = ActivityUtils::child($element, 'source');
+
+        $this->assertNull($source);
+
+        // Test with source
+
+        $entry = $notice->asAtomEntry(false, true);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $source = ActivityUtils::child($element, 'source');
+
+        $this->assertNotNull($source);
+    }
+
+    public function testSourceContent()
+    {
+        $notice = $this->_fakeNotice();
+        // make a time difference!
+        sleep(2);
+        $notice2 = $this->_fakeNotice();
+
+        $entry = $notice->asAtomEntry(false, true);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $source = ActivityUtils::child($element, 'source');
+
+        $atomUrl = common_local_url('ApiTimelineUser', array('id' => $this->author1->id, 'format' => 'atom'));
+
+        $profile = $this->author1->getProfile();
+
+        $this->assertEquals($atomUrl, ActivityUtils::childContent($source, 'id'));
+        $this->assertEquals($atomUrl, ActivityUtils::getLink($source, 'self', 'application/atom+xml'));
+        $this->assertEquals($profile->profileurl, ActivityUtils::getPermalink($source));
+        $this->assertEquals($notice2->created, strtotime(ActivityUtils::childContent($source, 'updated')));
+        // XXX: do we care here?
+        $this->assertFalse(is_null(ActivityUtils::childContent($source, 'title')));
+        $this->assertEquals(common_config('license', 'url'), ActivityUtils::getLink($source, 'license'));
+    }
+
+    public function testAuthorFlag()
+    {
+        $notice = $this->_fakeNotice();
+
+        // Test with no author
+
+        $entry = $notice->asAtomEntry(false, false, false);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $this->assertNull(ActivityUtils::child($element, 'author'));
+        $this->assertNull(ActivityUtils::child($element, 'actor', Activity::SPEC));
+
+        // Test with source
+
+        $entry = $notice->asAtomEntry(false, false, true);
+
+        $element = $this->_entryToElement($entry, true);
+
+        $author = ActivityUtils::child($element, 'author');
+        $actor  = ActivityUtils::child($element, 'actor', Activity::SPEC);
+
+        $this->assertFalse(is_null($author));
+        $this->assertFalse(is_null($actor));
+    }
+
+    public function testCurArgument()
     {
         $this->assertTrue(FALSE);
     }
 
-    public function testMultipleReplyActivity()
+    public function testReplyLink()
     {
-        $this->assertTrue(FALSE);
+        $orig = $this->_fakeNotice($this->targetUser1);
+
+        $text = "@" . $this->targetUser1->nickname . " reply text " . common_good_rand(4);
+
+        $reply = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null, 'reply_to' => $orig->id));
+
+        $entry = $reply->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $irt = ActivityUtils::child($element, 'in-reply-to', 'http://purl.org/syndication/thread/1.0');
+
+        $this->assertNotNull($irt);
+        $this->assertEquals($orig->uri, $irt->getAttribute('ref'));
+        $this->assertEquals($orig->bestUrl(), $irt->getAttribute('href'));
     }
 
-    public function testGroupPostActivity()
+    public function testReplyAttention()
     {
-        $this->assertTrue(FALSE);
+        $orig = $this->_fakeNotice($this->targetUser1);
+
+        $text = "@" . $this->targetUser1->nickname . " reply text " . common_good_rand(4);
+
+        $reply = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null, 'reply_to' => $orig->id));
+
+        $entry = $reply->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $this->assertEquals($this->targetUser1->uri, ActivityUtils::getLink($element, 'ostatus:attention'));
     }
 
-    public function testMultipleGroupPostActivity()
+    public function testMultipleReplyAttention()
     {
-        $this->assertTrue(FALSE);
+        $orig = $this->_fakeNotice($this->targetUser1);
+
+        $text = "@" . $this->targetUser1->nickname . " reply text " . common_good_rand(4);
+
+        $reply = Notice::saveNew($this->targetUser2->id, $text, 'test', array('uri' => null, 'reply_to' => $orig->id));
+
+        $text = "@" . $this->targetUser1->nickname . " @" . $this->targetUser2->nickname . " reply text " . common_good_rand(4);
+
+        $reply2 = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null, 'reply_to' => $reply->id));
+
+        $entry = $reply2->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $links = ActivityUtils::getLinks($element, 'ostatus:attention');
+
+        $this->assertEquals(2, count($links));
+
+        $hrefs = array();
+
+        foreach ($links as $link) {
+            $hrefs[] = $link->getAttribute('href');
+        }
+
+        $this->assertTrue(in_array($this->targetUser1->uri, $hrefs));
+        $this->assertTrue(in_array($this->targetUser2->uri, $hrefs));
     }
 
-    public function testRepeatActivity()
+    public function testGroupPostAttention()
+    {
+        $text = "!" . $this->targetGroup1->nickname . " reply text " . common_good_rand(4);
+
+        $notice = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null));
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $this->assertEquals($this->targetGroup1->uri, ActivityUtils::getLink($element, 'ostatus:attention'));
+    }
+
+    public function testMultipleGroupPostAttention()
+    {
+        $text = "!" . $this->targetGroup1->nickname . " !" . $this->targetGroup2->nickname . " reply text " . common_good_rand(4);
+
+        $notice = Notice::saveNew($this->author1->id, $text, 'test', array('uri' => null));
+
+        $entry = $notice->asAtomEntry();
+
+        $element = $this->_entryToElement($entry, true);
+
+        $links = ActivityUtils::getLinks($element, 'ostatus:attention');
+
+        $this->assertEquals(2, count($links));
+
+        $hrefs = array();
+
+        foreach ($links as $link) {
+            $hrefs[] = $link->getAttribute('href');
+        }
+
+        $this->assertTrue(in_array($this->targetGroup1->uri, $hrefs));
+        $this->assertTrue(in_array($this->targetGroup2->uri, $hrefs));
+    }
+
+    public function testRepeatLink()
     {
         $this->assertTrue(FALSE);
     }
@@ -137,12 +318,36 @@ class ActivityGenerationTests extends PHPUnit_Framework_TestCase
         $this->assertTrue(FALSE);
     }
 
-    public function tearDown()
+    public function testNoticeInfo()
     {
-        $this->author1->delete();
-        $this->author2->delete();
-        $this->targetUser1->delete();
-        $this->targetUser2->delete();
+        $this->assertTrue(FALSE);
+    }
+
+    function __destruct()
+    {
+        if (!is_null($this->author1)) {
+            $this->author1->delete();
+        }
+
+        if (!is_null($this->author2)) {
+            $this->author2->delete();
+        }
+
+        if (!is_null($this->targetUser1)) {
+            $this->targetUser1->delete();
+        }
+
+        if (!is_null($this->targetUser2)) {
+            $this->targetUser2->delete();
+        }
+
+        if (!is_null($this->targetGroup1)) {
+            $this->targetGroup1->delete();
+        }
+
+        if (!is_null($this->targetGroup2)) {
+            $this->targetGroup2->delete();
+        }
     }
 
     private function _fakeNotice($user = null, $text = null)
