@@ -152,17 +152,16 @@ class Profile extends Memcached_DataObject
      *
      * @return mixed Notice or null
      */
+
     function getCurrentNotice()
     {
-        $notice = new Notice();
-        $notice->profile_id = $this->id;
-        // @fixme change this to sort on notice.id only when indexes are updated
-        $notice->orderBy('created DESC, notice.id DESC');
-        $notice->limit(1);
-        if ($notice->find(true)) {
+        $notice = $this->getNotices(0, 1);
+
+        if ($notice->fetch()) {
             return $notice;
+        } else {
+            return null;
         }
-        return null;
     }
 
     function getTaggedNotices($tag, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
@@ -946,5 +945,21 @@ class Profile extends Memcached_DataObject
         }
 
         return $result;
+    }
+
+    function getAtomFeed()
+    {
+        $feed = null;
+
+        if (Event::handle('StartProfileGetAtomFeed', array($this, &$feed))) {
+            $user = User::staticGet('id', $this->id);
+            if (!empty($user)) {
+                $feed = common_local_url('ApiTimelineUser', array('id' => $user->id,
+                                                                  'format' => 'atom'));
+            }
+            Event::handle('EndProfileGetAtomFeed', array($this, $feed));
+        }
+
+        return $feed;
     }
 }

@@ -956,4 +956,16 @@ class OStatusPlugin extends Plugin
         }
         return false;
     }
+
+    public function onStartProfileGetAtomFeed($profile, &$feed)
+    {
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+
+        if (empty($oprofile)) {
+            return true;
+        }
+
+        $feed = $oprofile->feeduri;
+        return false;
+    }
 }

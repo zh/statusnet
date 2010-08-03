@@ -1198,6 +1198,9 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
+    // This has gotten way too long. Needs to be sliced up into functional bits
+    // or ideally exported to a utility class.
+
     function asAtomEntry($namespace=false, $source=false, $author=true, $cur=null)
     {
         $profile = $this->getProfile();
@@ -1217,74 +1220,176 @@ class Notice extends Memcached_DataObject
             $attrs = array();
         }
 
-        $xs->elementStart('entry', $attrs);
+        if (Event::handle('StartActivityStart', array(&$this, &$xs, &$attrs))) {
+            $xs->elementStart('entry', $attrs);
+            Event::handle('EndActivityStart', array(&$this, &$xs, &$attrs));
+        }
 
-        if ($source) {
-            $xs->elementStart('source');
-            $xs->element('id', null, $profile->profileurl);
-            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
-            $xs->element('link', array('href' => $profile->profileurl));
-            $user = User::staticGet('id', $profile->id);
-            if (!empty($user)) {
-                $atom_feed = common_local_url('ApiTimelineUser',
-                                              array('format' => 'atom',
-                                                    'id' => $profile->nickname));
-                $xs->element('link', array('rel' => 'self',
-                                           'type' => 'application/atom+xml',
-                                           'href' => $profile->profileurl));
-                $xs->element('link', array('rel' => 'license',
-                                           'href' => common_config('license', 'url')));
+        if (Event::handle('StartActivitySource', array(&$this, &$xs))) {
+
+            if ($source) {
+
+                $atom_feed = $profile->getAtomFeed();
+
+                if (!empty($atom_feed)) {
+
+                    $xs->elementStart('source');
+
+                    // XXX: we should store the actual feed ID
+
+                    $xs->element('id', null, $atom_feed);
+
+                    // XXX: we should store the actual feed title
+
+                    $xs->element('title', null, $profile->getBestName());
+
+                    $xs->element('link', array('rel' => 'alternate',
+                                               'type' => 'text/html',
+                                               'href' => $profile->profileurl));
+
+                    $xs->element('link', array('rel' => 'self',
+                                               'type' => 'application/atom+xml',
+                                               'href' => $atom_feed));
+
+                    $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+
+                    $notice = $profile->getCurrentNotice();
+
+                    if (!empty($notice)) {
+                        $xs->element('updated', null, self::utcDate($notice->created));
+                    }
+
+                    $user = User::staticGet('id', $profile->id);
+
+                    if (!empty($user)) {
+                        $xs->element('link', array('rel' => 'license',
+                                                   'href' => common_config('license', 'url')));
+                    }
+
+                    $xs->elementEnd('source');
+                }
             }
-
-            $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
-            $xs->element('updated', null, common_date_w3dtf($this->created));
+            Event::handle('EndActivitySource', array(&$this, &$xs));
         }
 
-        if ($source) {
-            $xs->elementEnd('source');
+        $title = common_xml_safe_str($this->content);
+
+        if (Event::handle('StartActivityTitle', array(&$this, &$xs, &$title))) {
+            $xs->element('title', null, $title);
+            Event::handle('EndActivityTitle', array($this, &$xs, $title));
         }
 
-        $xs->element('title', null, common_xml_safe_str($this->content));
+        $atomAuthor = '';
 
         if ($author) {
-            $xs->raw($profile->asAtomAuthor($cur));
-            $xs->raw($profile->asActivityActor());
+            $atomAuthor = $profile->asAtomAuthor($cur);
         }
 
-        $xs->element('link', array('rel' => 'alternate',
-                                   'type' => 'text/html',
-                                   'href' => $this->bestUrl()));
-
-        $xs->element('id', null, $this->uri);
-
-        $xs->element('published', null, common_date_w3dtf($this->created));
-        $xs->element('updated', null, common_date_w3dtf($this->created));
-
-        $source = null;
-
-        $ns = $this->getSource();
-
-        if ($ns) {
-            if (!empty($ns->name) && !empty($ns->url)) {
-                $source = '<a href="'
-                  . htmlspecialchars($ns->url)
-                  . '" rel="nofollow">'
-                  . htmlspecialchars($ns->name)
-                   . '</a>';
-            } else {
-                $source = $ns->code;
+        if (Event::handle('StartActivityAuthor', array(&$this, &$xs, &$atomAuthor))) {
+            if (!empty($atomAuthor)) {
+                $xs->raw($atomAuthor);
+                Event::handle('EndActivityAuthor', array(&$this, &$xs, &$atomAuthor));
             }
         }
 
-        $noticeInfoAttr = array(
-            'local_id'   => $this->id, // local notice ID (useful to clients for ordering)
-            'source'     => $source,   // the client name (source attribution)
-        );
+        $actor = '';
+
+        if ($author) {
+            $actor = $profile->asActivityActor();
+        }
+
+        if (Event::handle('StartActivityActor', array(&$this, &$xs, &$actor))) {
+            if (!empty($actor)) {
+                $xs->raw($actor);
+                Event::handle('EndActivityActor', array(&$this, &$xs, &$actor));
+            }
+        }
+
+        $url = $this->bestUrl();
+
+        if (Event::handle('StartActivityLink', array(&$this, &$xs, &$url))) {
+            $xs->element('link', array('rel' => 'alternate',
+                                       'type' => 'text/html',
+                                       'href' => $url));
+            Event::handle('EndActivityLink', array(&$this, &$xs, $url));
+        }
+
+        $id = $this->uri;
+
+        if (Event::handle('StartActivityId', array(&$this, &$xs, &$id))) {
+            $xs->element('id', null, $id);
+            Event::handle('EndActivityId', array(&$this, &$xs, $id));
+        }
+
+        $published = self::utcDate($this->created);
+
+        if (Event::handle('StartActivityPublished', array(&$this, &$xs, &$published))) {
+            $xs->element('published', null, $published);
+            Event::handle('EndActivityPublished', array(&$this, &$xs, $published));
+        }
+
+        $updated = $published; // XXX: notices are usually immutable
+
+        if (Event::handle('StartActivityUpdated', array(&$this, &$xs, &$updated))) {
+            $xs->element('updated', null, $updated);
+            Event::handle('EndActivityUpdated', array(&$this, &$xs, $updated));
+        }
+
+        $content = common_xml_safe_str($this->rendered);
+
+        if (Event::handle('StartActivityContent', array(&$this, &$xs, &$content))) {
+            $xs->element('content', array('type' => 'html'), $content);
+            Event::handle('EndActivityContent', array(&$this, &$xs, $content));
+        }
+
+        // Most of our notices represent POSTing a NOTE. This is the default verb
+        // for activity streams, so we normally just leave it out.
+
+        $verb = ActivityVerb::POST;
+
+        if (Event::handle('StartActivityVerb', array(&$this, &$xs, &$verb))) {
+            $xs->element('activity:verb', null, $verb);
+            Event::handle('EndActivityVerb', array(&$this, &$xs, $verb));
+        }
+
+        // We use the default behavior for activity streams: if there's no activity:object,
+        // then treat the entry itself as the object. Here, you can set the type of that object,
+        // which is normally a NOTE.
+
+        $type = ActivityObject::NOTE;
+
+        if (Event::handle('StartActivityDefaultObjectType', array(&$this, &$xs, &$type))) {
+            $xs->element('activity:object-type', null, $type);
+            Event::handle('EndActivityDefaultObjectType', array(&$this, &$xs, $type));
+        }
+
+        // Since we usually use the entry itself as an object, we don't have an explicit
+        // object. Some extensions may want to add them (for photo, event, music, etc.).
+
+        $objects = array();
+
+        if (Event::handle('StartActivityObjects', array(&$this, &$xs, &$objects))) {
+            foreach ($objects as $object) {
+                $xs->raw($object->asString());
+            }
+            Event::handle('EndActivityObjects', array(&$this, &$xs, $objects));
+        }
+
+        $noticeInfoAttr = array('local_id' => $this->id); // local notice ID (useful to clients for ordering)
 
         $ns = $this->getSource();
-        if ($ns) {
+
+        if (!empty($ns)) {
+            $noticeInfoAttr['source'] =  $ns->code;
             if (!empty($ns->url)) {
                 $noticeInfoAttr['source_link'] = $ns->url;
+                if (!empty($ns->name)) {
+                    $noticeInfoAttr['source'] =  '<a href="'
+                      . htmlspecialchars($ns->url)
+                        . '" rel="nofollow">'
+                      . htmlspecialchars($ns->name)
+                        . '</a>';
+                }
             }
         }
 
@@ -1298,117 +1403,139 @@ class Notice extends Memcached_DataObject
             $noticeInfoAttr['repeat_of'] = $this->repeat_of;
         }
 
-        $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
+        if (Event::handle('StartActivityNoticeInfo', array(&$this, &$xs, &$noticeInfoAttr))) {
+            $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
+            Event::handle('EndActivityNoticeInfo', array(&$this, &$xs, $noticeInfoAttr));
+        }
+
+        $replyNotice = null;
 
         if ($this->reply_to) {
-            $reply_notice = Notice::staticGet('id', $this->reply_to);
-            if (!empty($reply_notice)) {
+            $replyNotice = Notice::staticGet('id', $this->reply_to);
+        }
+
+        if (Event::handle('StartActivityInReplyTo', array(&$this, &$xs, &$replyNotice))) {
+            if (!empty($replyNotice)) {
                 $xs->element('link', array('rel' => 'related',
-                                           'href' => $reply_notice->bestUrl()));
+                                           'href' => $replyNotice->bestUrl()));
                 $xs->element('thr:in-reply-to',
-                             array('ref' => $reply_notice->uri,
-                                   'href' => $reply_notice->bestUrl()));
+                             array('ref' => $replyNotice->uri,
+                                   'href' => $replyNotice->bestUrl()));
+                Event::handle('EndActivityInReplyTo', array(&$this, &$xs, $replyNotice));
             }
         }
+
+        $conv = null;
 
         if (!empty($this->conversation)) {
-
             $conv = Conversation::staticGet('id', $this->conversation);
-
-            if (!empty($conv)) {
-                $xs->element(
-                    'link', array(
-                        'rel' => 'ostatus:conversation',
-                        'href' => $conv->uri
-                    )
-                );
-            }
         }
+
+        if (Event::handle('StartActivityConversation', array(&$this, &$xs, &$conv))) {
+            if (!empty($conv)) {
+                $xs->element('link', array('rel' => 'ostatus:conversation',
+                                           'href' => $conv->uri));
+            }
+            Event::handle('EndActivityConversation', array(&$this, &$xs, $conv));
+        }
+
+        $replyProfiles = array();
 
         $reply_ids = $this->getReplies();
 
         foreach ($reply_ids as $id) {
             $profile = Profile::staticGet('id', $id);
-           if (!empty($profile)) {
-               // XXX: Deprecate this for 'mentioned'
-                $xs->element(
-                    'link', array(
-                        'rel' => 'ostatus:attention',
-                        'href' => $profile->getUri()
-                    )
-                );
-                $xs->element(
-                    'link', array(
-                        'rel' => 'mentioned',
-                        'href' => $profile->getUri()
-                    )
-                );
+            if (!empty($profile)) {
+                $replyProfiles[] = $profile;
             }
+        }
+
+        if (Event::handle('StartActivityAttentionProfiles', array(&$this, &$xs, &$replyProfiles))) {
+            foreach ($replyProfiles as $profile) {
+                $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $profile->getUri()));
+            }
+            Event::handle('EndActivityAttentionProfiles', array(&$this, &$xs, $replyProfiles));
         }
 
         $groups = $this->getGroups();
 
-        foreach ($groups as $group) {
-            // XXX: Deprecate this for 'mentioned'
-            $xs->element(
-                'link', array(
-                    'rel' => 'ostatus:attention',
-                    'href' => $group->permalink()
-                )
-            );
-            $xs->element(
-                'link', array(
-                    'rel' => 'mentioned',
-                    'href' => $group->permalink()
-                )
-            );
+        if (Event::handle('StartActivityAttentionGroups', array(&$this, &$xs, &$groups))) {
+            foreach ($groups as $group) {
+                $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $group->permalink()));
+            }
+            Event::handle('EndActivityAttentionGroups', array(&$this, &$xs, $groups));
         }
+
+        $repeat = null;
 
         if (!empty($this->repeat_of)) {
             $repeat = Notice::staticGet('id', $this->repeat_of);
+        }
+
+        if (Event::handle('StartActivityForward', array(&$this, &$xs, &$repeat))) {
             if (!empty($repeat)) {
-                $xs->element(
-                    'ostatus:forward',
-                     array('ref' => $repeat->uri, 'href' => $repeat->bestUrl())
-                );
+                $xs->element('ostatus:forward',
+                             array('ref' => $repeat->uri,
+                                   'href' => $repeat->bestUrl()));
             }
+
+            Event::handle('EndActivityForward', array(&$this, &$xs, $repeat));
         }
 
-        $xs->element(
-            'content',
-            array('type' => 'html'),
-            common_xml_safe_str($this->rendered)
-        );
+        $tags = $this->getTags();
 
-        $tag = new Notice_tag();
-        $tag->notice_id = $this->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-                $xs->element('category', array('term' => $tag->tag));
+        if (Event::handle('StartActivityCategories', array(&$this, &$xs, &$tags))) {
+            foreach ($tags as $tag) {
+                $xs->element('category', array('term' => $tag));
             }
+            Event::handle('EndActivityCategories', array(&$this, &$xs, $tags));
         }
-        $tag->free();
 
-        # Enclosures
+        // Enclosures
+
+        $enclosures = array();
+
         $attachments = $this->attachments();
-        if($attachments){
-            foreach($attachments as $attachment){
-                $enclosure=$attachment->getEnclosure();
-                if ($enclosure) {
-                    $attributes = array('rel'=>'enclosure','href'=>$enclosure->url,'type'=>$enclosure->mimetype,'length'=>$enclosure->size);
-                    if($enclosure->title){
-                        $attributes['title']=$enclosure->title;
-                    }
-                    $xs->element('link', $attributes, null);
-                }
+
+        foreach ($attachments as $attachment) {
+            $enclosure = $attachment->getEnclosure();
+            if ($enclosure) {
+                $enclosures[] = $enclosure;
             }
         }
 
-        if (!empty($this->lat) && !empty($this->lon)) {
-            $xs->element('georss:point', null, $this->lat . ' ' . $this->lon);
+        if (Event::handle('StartActivityEnclosures', array(&$this, &$xs, &$enclosures))) {
+            foreach ($enclosures as $enclosure) {
+                $attributes = array('rel' => 'enclosure',
+                                    'href' => $enclosure->url,
+                                    'type' => $enclosure->mimetype,
+                                    'length' => $enclosure->size);
+
+                if ($enclosure->title) {
+                    $attributes['title'] = $enclosure->title;
+                }
+
+                $xs->element('link', $attributes, null);
+            }
+            Event::handle('EndActivityEnclosures', array(&$this, &$xs, $enclosures));
         }
 
-        $xs->elementEnd('entry');
+        $lat = $this->lat;
+        $lon = $this->lon;
+
+        if (Event::handle('StartActivityGeo', array(&$this, &$xs, &$lat, &$lon))) {
+            if (!empty($lat) && !empty($lon)) {
+                $xs->element('georss:point', null, $lat . ' ' . $lon);
+            }
+            Event::handle('EndActivityGeo', array(&$this, &$xs, $lat, $lon));
+        }
+
+        if (Event::handle('StartActivityEnd', array(&$this, &$xs))) {
+            $xs->elementEnd('entry');
+            Event::handle('EndActivityEnd', array(&$this, &$xs));
+        }
 
         return $xs->getString();
     }
@@ -1929,4 +2056,24 @@ class Notice extends Memcached_DataObject
                 $this->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
+    public function getTags()
+    {
+        $tags = array();
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+                $tags[] = $tag->tag;
+            }
+        }
+        $tag->free();
+        return $tags;
+    }
+
+    static private function utcDate($dt)
+    {
+        $dateStr = date('d F Y H:i:s', strtotime($dt));
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        return $d->format(DATE_W3C);
+    }
 }
