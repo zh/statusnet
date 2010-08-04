@@ -240,12 +240,8 @@ class IrcManager extends ImManager {
             $this->regchecksLookup[$usernick] = $screenname;
         }
 
-        $args = $data['data']['args'];
-        $lines = explode("\n", $args[1]);
         try {
-            foreach ($lines as $line) {
-                $this->conn->send($data['data']['command'], array($args[0], $line));
-            }
+            $this->conn->send($data['data']['command'], $data['data']['args']);
         } catch (Phergie_Driver_Exception $e) {
             $this->conn->reconnect();
             return false;

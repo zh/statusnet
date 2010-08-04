@@ -165,8 +165,11 @@ class IrcPlugin extends ImPlugin {
      * @return boolean success value
      */
     public function send_message($screenname, $body) {
-        $this->fake_irc->doPrivmsg($screenname, $body);
-        $this->enqueue_outgoing_raw(array('type' => 'message', 'data' => $this->fake_irc->would_be_sent));
+        $lines = explode("\n", $body);
+        foreach ($lines as $line) {
+            $this->fake_irc->doPrivmsg($screenname, $line);
+            $this->enqueue_outgoing_raw(array('type' => 'message', 'data' => $this->fake_irc->would_be_sent));
+        }
         return true;
     }
 
