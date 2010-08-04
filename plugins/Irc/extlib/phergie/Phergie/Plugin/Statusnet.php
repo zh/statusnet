@@ -84,15 +84,17 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
      * @return void
      */
     public function onNotice() {
-        $event = $this->getEvent();
-        if ($event->getNick() == 'NickServ') {
-            $message = $event->getArgument(1);
-            if (preg_match($this->unregRegexp, $message, $groups)) {
-                $screenname = $groups[1];
-                call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => false));
-            } elseif (preg_match($this->regRegexp, $message, $groups)) {
-                $screenname = $groups[1];
-                call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => true));
+        if ($this->regCallback !== NULL) {
+            $event = $this->getEvent();
+            if ($event->getNick() == 'NickServ') {
+                $message = $event->getArgument(1);
+                if (preg_match($this->unregRegexp, $message, $groups)) {
+                    $screenname = $groups[1];
+                    call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => false));
+                } elseif (preg_match($this->regRegexp, $message, $groups)) {
+                    $screenname = $groups[1];
+                    call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => true));
+                }
             }
         }
     }
