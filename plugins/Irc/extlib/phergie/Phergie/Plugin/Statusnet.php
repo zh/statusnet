@@ -74,10 +74,6 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             $source = $event->getSource();
             $message = trim($event->getText());
 
-            if ($source == '#statustest') {
-                $this->doPrivmsg('#statustest', "\001Line1\020nLine2");
-            }
-
             call_user_func($this->messageCallback, array('sender' => $source, 'message' => $message));
         }
     }
