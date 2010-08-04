@@ -129,4 +129,29 @@ class Fave extends Memcached_DataObject
 
         return $ids;
     }
+
+    function asActivity()
+    {
+        $notice  = Notice::staticGet('id', $this->notice_id);
+        $profile = Profile::staticGet('id', $this->user_id);
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FAVORITE;
+        $act->id   = TagURI::mint('favor:%d:%d:%s',
+                                  $profile->id,
+                                  $notice->id,
+                                  common_date_iso8601($this->created));
+
+        $act->time    = $this->created;
+        $act->title   = _("Favor");
+        $act->content = sprintf(_("%s marked notice %s as a favorite."),
+                               $profile->getBestName(),
+                               $notice->uri);
+
+        $act->actor   = ActivityObject::fromProfile($profile);
+        $act->object  = ActivityObject::fromNotice($notice);
+
+        return $act;
+    }
 }

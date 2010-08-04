@@ -553,25 +553,10 @@ class OStatusPlugin extends Plugin
             return true;
         }
 
-        $act = new Activity();
+        $sub = Subscription::pkeyGet(array('subscriber' => $subscriber->id,
+                                           'subscribed' => $other->id));
 
-        $act->verb = ActivityVerb::FOLLOW;
-
-        $act->id   = TagURI::mint('follow:%d:%d:%s',
-                                  $subscriber->id,
-                                  $other->id,
-                                  common_date_iso8601(time()));
-
-        $act->time    = time();
-        $act->title   = _("Follow");
-        // TRANS: Success message for subscribe to user attempt through OStatus.
-        // TRANS: %1$s is the subscriber name, %2$s is the subscribed user's name.
-        $act->content = sprintf(_("%1$s is now following %2$s."),
-                               $subscriber->getBestName(),
-                               $other->getBestName());
-
-        $act->actor   = ActivityObject::fromProfile($subscriber);
-        $act->object  = ActivityObject::fromProfile($other);
+        $act = $sub->asActivity();
 
         $oprofile->notifyActivity($act, $subscriber);
 
@@ -744,24 +729,15 @@ class OStatusPlugin extends Plugin
             return true;
         }
 
-        $act = new Activity();
+        $fav = Fave::pkeyGet(array('user_id' => $user->id,
+                                   'notice_id' => $notice->id));
 
-        $act->verb = ActivityVerb::FAVORITE;
-        $act->id   = TagURI::mint('favor:%d:%d:%s',
-                                  $profile->id,
-                                  $notice->id,
-                                  common_date_iso8601(time()));
+        if (empty($fav)) {
+            // That's weird.
+            return true;
+        }
 
-        $act->time    = time();
-        $act->title   = _("Favor");
-        // TRANS: Success message for adding a favorite notice through OStatus.
-        // TRANS: %1$s is the favoring user's name, %2$s is URI to the favored notice.
-        $act->content = sprintf(_("%1$s marked notice %2$s as a favorite."),
-                               $profile->getBestName(),
-                               $notice->uri);
-
-        $act->actor   = ActivityObject::fromProfile($profile);
-        $act->object  = ActivityObject::fromNotice($notice);
+        $act = $fav->asActivity();
 
         $oprofile->notifyActivity($act, $profile);
 
