@@ -72,9 +72,10 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
         if ($this->messageCallback !== NULL) {
             $event = $this->getEvent();
             $source = $event->getSource();
+            $sender = $event->getNick();
             $message = trim($event->getText());
 
-            call_user_func($this->messageCallback, array('sender' => $source, 'message' => $message));
+            call_user_func($this->messageCallback, array('source' => $source, 'sender' => $sender, 'message' => $message));
         }
     }
 

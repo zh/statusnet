@@ -65,21 +65,6 @@ class IrcManager extends ImManager {
     }
 
     /**
-     * Idle processing for io manager's execution loop.
-     * Send keepalive pings to server.
-     *
-     * @return void
-     */
-    public function idle() {
-        // Call Phergie's doTick methods if necessary
-        try {
-            $this->conn->handleEvents();
-        } catch (Phergie_Driver_Exception $e) {
-            $this->conn->reconnect();
-        }
-    }
-
-    /**
      * Process IRC events that have come in over the wire.
      *
      * @param resource $socket

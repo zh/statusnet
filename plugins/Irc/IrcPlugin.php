@@ -179,7 +179,16 @@ class IrcPlugin extends ImPlugin {
      * @return true if processing completed, false if message should be reprocessed
      */
     public function receive_raw_message($data) {
-        $this->handle_incoming($data['sender'], $data['message']);
+        if (strpos($data['source'], '#') === 0) {
+            $message = $data['message'];
+            $nickpos = strpos($message, $this->nick);
+            $colonpos = strpos($message, ':', $nickpos);
+            if ($nickpos === 0 && $colonpos == strlen($this->nick)) {
+                $this->handle_incoming($data['sender'], substr($message, $colonpos+1));
+            }
+        } else {
+            $this->handle_incoming($data['sender'], $data['message']);
+        }
         return true;
     }
 
