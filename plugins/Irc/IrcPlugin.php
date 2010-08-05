@@ -182,8 +182,9 @@ class IrcPlugin extends ImPlugin {
         if (strpos($data['source'], '#') === 0) {
             $message = $data['message'];
             $nickpos = strpos($message, $this->nick);
-            $colonpos = strpos($message, ':', $nickpos);
-            if ($nickpos === 0 && $colonpos == strlen($this->nick)) {
+            $nicklen = strlen($this->nick);
+            $colonpos = strpos($message, ':', $nicklen);
+            if ($nickpos === 0 && $colonpos == $nicklen) {
                 $this->handle_incoming($data['sender'], substr($message, $colonpos+1));
             }
         } else {
