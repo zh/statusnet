@@ -140,13 +140,6 @@ class SubMirrorPlugin extends Plugin
         $transports[] = 'mirror';
     }
 
-    function onStartShowSubscriptionsContent($action)
-    {
-        $action->element('a',
-                         array('href' => common_local_url('mirrorsettings')),
-                         _m('Set up mirroring options...'));
-    }
-
     /**
      * Let the OStatus subscription garbage collection know if we're
      * making use of a remote feed, so it doesn't get dropped out
