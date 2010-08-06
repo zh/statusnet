@@ -57,46 +57,15 @@ class AddMirrorForm extends Form
         $this->out->elementStart('ul');
 
         $this->li();
-        $this->out->element('label', array('for' => $this->id() . '-profile'),
-                            _m("Mirror one of your existing subscriptions:"));
-        $this->out->elementStart('select', array('name' => 'profile'));
-
-        $user = common_current_user();
-        $profile = $user->getSubscriptions();
-        while ($profile->fetch()) {
-            $mirror = SubMirror::pkeyGet(array('subscriber' => $user->id,
-                                               'subscribed' => $profile->id));
-            if (!$mirror) {
-                $this->out->element('option',
-                                    array('value' => $profile->id),
-                                    $profile->getBestName());
-            }
-        }
-        $this->out->elementEnd('select');
-        $this->out->submit($this->id() . '-save', _m('Save'));
+        $this->doInput('addmirror-feedurl',
+                       'feedurl',
+                       _m('Web page or feed URL:'),
+                       $this->out->trimmed('feedurl'));
         $this->unli();
-
 
         $this->li();
-
-        $this->out->elementStart('fieldset', array('style' => 'width: 360px; margin-left: auto; margin-right: auto'));
-        $this->out->element('p', false,
-                            _m("Not already subscribed to the feed you want? " .
-                               "Add a new remote subscription and paste in the URL!"));
-
-        $this->out->elementStart('div', 'entity_actions');
-        $this->out->elementStart('p', array('id' => 'entity_remote_subscribe',
-                                         'class' => 'entity_subscribe'));
-        $this->out->element('a', array('href' => common_local_url('ostatussub'),
-                                    'class' => 'entity_remote_subscribe')
-                            , _m('Remote'));
-        $this->out->elementEnd('p');
-        $this->out->elementEnd('div');
-
-        $this->out->element('div', array('style' => 'clear: both'));
-        $this->out->elementEnd('fieldset');
+        $this->out->submit('addmirror-save', _m('Add feed'));
         $this->unli();
-        
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
     }
@@ -106,7 +75,8 @@ class AddMirrorForm extends Form
         $this->out->element('label', array('for' => $id), $label);
         $attrs = array('name' => $name,
                        'type' => 'text',
-                       'id' => $id);
+                       'id' => $id,
+                       'style' => 'width: 80%');
         if ($value) {
             $attrs['value'] = $value;
         }

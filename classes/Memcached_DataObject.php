@@ -574,7 +574,7 @@ class Memcached_DataObject extends Safe_DataObject
     function raiseError($message, $type = null, $behaviour = null)
     {
         $id = get_class($this);
-        if ($this->id) {
+        if (!empty($this->id)) {
             $id .= ':' . $this->id;
         }
         if ($message instanceof PEAR_Error) {

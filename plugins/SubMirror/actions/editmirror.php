@@ -46,7 +46,7 @@ if (!defined('STATUSNET')) {
  * @link      http://status.net/
  */
 
-class EditMirrorAction extends AddMirrorAction
+class EditMirrorAction extends BaseMirrorAction
 {
 
     /**
@@ -60,6 +60,9 @@ class EditMirrorAction extends AddMirrorAction
     function prepare($args)
     {
         parent::prepare($args);
+
+        $this->profile = $this->validateProfile($this->trimmed('profile'));
+
         $this->mirror = SubMirror::pkeyGet(array('subscriber' => $this->user->id,
                                                  'subscribed' => $this->profile->id));
 
@@ -95,6 +98,10 @@ class EditMirrorAction extends AddMirrorAction
 
         if ($this->delete) {
             $mirror->delete();
+            $oprofile = Ostatus_profile::staticGet('profile_id', $this->profile->id);
+            if ($oprofile) {
+                $oprofile->garbageCollect();
+            }
         } else if ($this->style != $mirror->style) {
             $orig = clone($mirror);
             $mirror->style = $this->style;

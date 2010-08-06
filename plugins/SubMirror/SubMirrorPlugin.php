@@ -146,4 +146,27 @@ class SubMirrorPlugin extends Plugin
                          array('href' => common_local_url('mirrorsettings')),
                          _m('Set up mirroring options...'));
     }
+
+    /**
+     * Let the OStatus subscription garbage collection know if we're
+     * making use of a remote feed, so it doesn't get dropped out
+     * from under us.
+     *
+     * @param Ostatus_profile $oprofile
+     * @param int $count in/out
+     * @return mixed hook return value
+     */
+    function onOstatus_profileSubscriberCount($oprofile, &$count)
+    {
+        if ($oprofile->profile_id) {
+            $mirror = new SubMirror();
+            $mirror->subscribed = $oprofile->profile_id;
+            if ($mirror->find()) {
+                while ($mirror->fetch()) {
+                    $count++;
+                }
+            }
+        }
+        return true;
+    }
 }
