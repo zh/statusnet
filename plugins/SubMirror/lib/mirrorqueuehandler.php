@@ -40,5 +40,6 @@ class MirrorQueueHandler extends QueueHandler
                 $mirror->mirrorNotice($notice);
             }
         }
+        return true;
     }
 }
