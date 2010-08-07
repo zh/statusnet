@@ -75,7 +75,18 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             $sender = $event->getNick();
             $message = trim($event->getText());
 
-            call_user_func($this->messageCallback, array('source' => $source, 'sender' => $sender, 'message' => $message));
+            if (strpos($source, '#') === 0) {
+                $botNick = $this->getConnection()->getNick();
+                $nickPos = strpos($message, $botNick);
+                $nickLen = strlen($botNick);
+                $colonPos = strpos($message, ':', $nickLen);
+                $commandStr = trim(substr($message, $colonPos+1));
+                if ($nickPos === 0 && $colonPos == $nickLen && !empty($commandStr)) {
+                    call_user_func($this->messageCallback, array('source' => $source, 'sender' => $sender, 'message' => $commandStr));
+                }
+            } else {
+                call_user_func($this->messageCallback, array('source' => $source, 'sender' => $sender, 'message' => $message));
+            }
         }
     }
 

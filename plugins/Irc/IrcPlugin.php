@@ -66,6 +66,7 @@ class IrcPlugin extends ImPlugin {
     public $regregexp = null;
 
     public $transport = 'irc';
+    public $whiteList;
     public $fake_irc;
 
     /**
@@ -125,6 +126,7 @@ class IrcPlugin extends ImPlugin {
                 include_once $dir . '/'.strtolower($cls).'.php';
                 return false;
             case 'Fake_Irc':
+            case 'ChannelResponseChannel':
                 include_once $dir . '/'. $cls .'.php';
                 return false;
             default:
@@ -181,16 +183,70 @@ class IrcPlugin extends ImPlugin {
     public function receive_raw_message($data) {
         if (strpos($data['source'], '#') === 0) {
             $message = $data['message'];
-            $nickpos = strpos($message, $this->nick);
-            $nicklen = strlen($this->nick);
-            $colonpos = strpos($message, ':', $nicklen);
-            if ($nickpos === 0 && $colonpos == $nicklen) {
-                $this->handle_incoming($data['sender'], substr($message, $colonpos+1));
+            $parts = explode(' ', $message, 2);
+            $command = $parts[0];
+            if (in_array($command, $this->whiteList)) {
+                $this->handle_channel_incoming($data['sender'], $data['source'], $message);
+            } else {
+                $this->handle_incoming($data['sender'], $message);
             }
         } else {
             $this->handle_incoming($data['sender'], $data['message']);
         }
         return true;
+    }
+
+    protected function handle_channel_incoming($nick, $channel, $notice_text) {
+        $user = $this->get_user($nick);
+        // For common_current_user to work
+        global $_cur;
+        $_cur = $user;
+
+        if (!$user) {
+            $this->send_from_site($nick, 'Unknown user; go to ' .
+                             common_local_url('imsettings') .
+                             ' to add your address to your account');
+            common_log(LOG_WARNING, 'Message from unknown user ' . $nick);
+            return;
+        }
+        if ($this->handle_channel_command($user, $channel, $notice_text)) {
+            common_log(LOG_INFO, "Command message by $nick handled.");
+            return;
+        } else if ($this->is_autoreply($notice_text)) {
+            common_log(LOG_INFO, 'Ignoring auto reply from ' . $nick);
+            return;
+        } else if ($this->is_otr($notice_text)) {
+            common_log(LOG_INFO, 'Ignoring OTR from ' . $nick);
+            return;
+        } else {
+            common_log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
+            $this->add_notice($nick, $user, $notice_text);
+        }
+
+        $user->free();
+        unset($user);
+        unset($_cur);
+        unset($message);
+    }
+
+    /**
+     * Attempt to handle a message from a channel as a command
+     *
+     * @param User $user user the message is from
+     * @param string $channel Channel the message originated from
+     * @param string $body message text
+     * @return boolean true if the message was a command and was executed, false if it was not a command
+     */
+    protected function handle_channel_command($user, $channel, $body) {
+        $inter = new CommandInterpreter();
+        $cmd = $inter->handle_command($user, $body);
+        if ($cmd) {
+            $chan = new ChannelResponseChannel($this, $channel);
+            $cmd->execute($chan);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -277,6 +333,12 @@ class IrcPlugin extends ImPlugin {
         }
 
         $this->fake_irc = new Fake_Irc;
+
+        /*
+         * Commands allowed to return output to a channel
+         */
+        $this->whiteList = array('stats', 'last', 'get');
+
         return true;
     }
 
