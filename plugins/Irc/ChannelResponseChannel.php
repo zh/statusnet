@@ -35,11 +35,25 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class ChannelResponseChannel extends IMChannel {
     protected $ircChannel;
 
+    /**
+    * Construct a ChannelResponseChannel
+    *
+    * @param IMplugin $imPlugin IMPlugin
+    * @param string $ircChannel IRC Channel to reply to
+    * @return ChannelResponseChannel
+    */
     public function __construct($imPlugin, $ircChannel) {
         $this->ircChannel = $ircChannel;
         parent::__construct($imPlugin);
     }
 
+    /**
+    * Send a message using the plugin
+    *
+    * @param User $user User
+    * @param string $text Message text
+    * @return void
+    */
     public function output($user, $text) {
         $text = $user->nickname.': ['.common_config('site', 'name') . '] ' . $text;
         $this->imPlugin->send_message($this->ircChannel, $text);

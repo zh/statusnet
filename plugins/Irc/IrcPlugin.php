@@ -66,8 +66,8 @@ class IrcPlugin extends ImPlugin {
     public $regregexp = null;
 
     public $transport = 'irc';
-    public $whiteList;
-    public $fake_irc;
+    protected $whiteList;
+    protected $fake_irc;
 
     /**
      * Get the internationalized/translated display name of this IM service
@@ -81,8 +81,8 @@ class IrcPlugin extends ImPlugin {
     /**
      * Normalize a screenname for comparison
      *
-     * @param string $screenname screenname to normalize
-     * @return string an equivalent screenname in normalized form
+     * @param string $screenname Screenname to normalize
+     * @return string An equivalent screenname in normalized form
      */
     public function normalize($screenname) {
         $screenname = str_replace(" ","", $screenname);
@@ -101,8 +101,8 @@ class IrcPlugin extends ImPlugin {
     /**
      * Validate (ensure the validity of) a screenname
      *
-     * @param string $screenname screenname to validate
-     * @return boolean
+     * @param string $screenname Screenname to validate
+     * @return boolean true if screenname is valid
      */
     public function validate($screenname) {
         if (preg_match('/\A[a-z0-9\-_]{1,1000}\z/i', $screenname)) {
@@ -141,6 +141,7 @@ class IrcPlugin extends ImPlugin {
     /*
      * Start manager on daemon start
      *
+     * @param array &$versions Array to insert manager into
      * @return boolean
      */
     public function onStartImDaemonIoManagers(&$classes) {
@@ -152,7 +153,7 @@ class IrcPlugin extends ImPlugin {
     /**
     * Get a microid URI for the given screenname
     *
-    * @param string $screenname
+    * @param string $screenname Screenname
     * @return string microid URI
     */
     public function microiduri($screenname) {
@@ -164,7 +165,7 @@ class IrcPlugin extends ImPlugin {
      *
      * @param string $screenname Screenname to send to
      * @param string $body Text to send
-     * @return boolean success value
+     * @return boolean true on success
      */
     public function send_message($screenname, $body) {
         $lines = explode("\n", $body);
@@ -178,7 +179,7 @@ class IrcPlugin extends ImPlugin {
     /**
      * Accept a queued input message.
      *
-     * @return true if processing completed, false if message should be reprocessed
+     * @return boolean true if processing completed, false if message should be reprocessed
      */
     public function receive_raw_message($data) {
         if (strpos($data['source'], '#') === 0) {
@@ -196,6 +197,15 @@ class IrcPlugin extends ImPlugin {
         return true;
     }
 
+    /**
+     * Helper for handling incoming messages from a channel requiring response
+     * to the channel instead of via PM
+     *
+     * @param string $nick Screenname the message was sent from
+     * @param string $channel Channel the message originated from
+     * @param string $message Message text
+     * @param boolean true on success
+     */
     protected function handle_channel_incoming($nick, $channel, $notice_text) {
         $user = $this->get_user($nick);
         // For common_current_user to work
@@ -232,9 +242,9 @@ class IrcPlugin extends ImPlugin {
     /**
      * Attempt to handle a message from a channel as a command
      *
-     * @param User $user user the message is from
+     * @param User $user User the message is from
      * @param string $channel Channel the message originated from
-     * @param string $body message text
+     * @param string $body Message text
      * @return boolean true if the message was a command and was executed, false if it was not a command
      */
     protected function handle_channel_command($user, $channel, $body) {
@@ -277,10 +287,10 @@ class IrcPlugin extends ImPlugin {
     * Only sends the confirmation message if the nick is
     * registered
     *
-    * @param string $screenname screenname sending to
-    * @param string $code the confirmation code
-    * @param User $user user sending to
-    * @return boolean success value
+    * @param string $screenname Screenname sending to
+    * @param string $code The confirmation code
+    * @param User $user User sending to
+    * @return boolean true on succes
     */
     public function checked_send_confirmation_code($screenname, $code, $user) {
         $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
@@ -345,7 +355,7 @@ class IrcPlugin extends ImPlugin {
     /**
      * Get plugin information
      *
-     * @param array $versions array to insert information into
+     * @param array $versions Array to insert information into
      * @return void
      */
     public function onPluginVersion(&$versions) {

@@ -23,17 +23,16 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
  * IRC background connection manager for IRC-using queue handlers,
  * allowing them to send outgoing messages on the right connection.
  *
- * Input is handled during socket select loop, keepalive pings during idle.
- * Any incoming messages will be handled.
+ * Input is handled during socket select loop, Any incoming messages will be handled.
  *
  * In a multi-site queuedaemon.php run, one connection will be instantiated
  * for each site being handled by the current process that has IRC enabled.
  */
 
 class IrcManager extends ImManager {
-    public $conn = null;
-    public $regchecks = array();
-    public $regchecksLookup = array();
+    protected $conn = null;
+    protected $regchecks = array();
+    protected $regchecksLookup = array();
 
     /**
      * Initialize connection to server.
@@ -67,7 +66,7 @@ class IrcManager extends ImManager {
     /**
      * Process IRC events that have come in over the wire.
      *
-     * @param resource $socket
+     * @param resource $socket Socket to handle input on
      * @return void
      */
     public function handleInput($socket) {
@@ -142,7 +141,6 @@ class IrcManager extends ImManager {
 
     /**
     * Called via a callback when a message is received
-    *
     * Passes it back to the queuing system
     *
     * @param array $data Data
@@ -201,7 +199,7 @@ class IrcManager extends ImManager {
     /**
      * Send a message using the daemon
      *
-     * @param $data Message
+     * @param $data Message data
      * @return boolean true on success
      */
     public function send_raw_message($data) {

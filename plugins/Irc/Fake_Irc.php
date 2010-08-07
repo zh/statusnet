@@ -34,6 +34,13 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 class Fake_Irc extends Phergie_Driver_Streams {
     public $would_be_sent = null;
 
+    /**
+    * Store the components for sending a command
+    *
+    * @param string $command Command
+    * @param array $args Arguments
+    * @return void
+    */
     protected function send($command, $args = '') {
         $this->would_be_sent = array('command' => $command, 'args' => $args);
     }
