@@ -227,7 +227,7 @@ class ApiAuthAction extends ApiAction
 
         } catch (OAuthException $e) {
             common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
-            $this->showAuthError();
+            $this->clientError($e->getMessage(), 401, $this->format);
             exit;
         }
     }
@@ -265,7 +265,7 @@ class ApiAuthAction extends ApiAction
 
             // show error if the user clicks 'cancel'
 
-            $this->showAuthError();
+            $this->clientError("Could not authenticate you.", 401, $this->format);
             exit;
 
         } else {
@@ -298,7 +298,7 @@ class ApiAuthAction extends ApiAction
                                $proxy,
                                $ip);
                 common_log(LOG_WARNING, $msg);
-                $this->showAuthError();
+                $this->clientError("Could not authenticate you.", 401, $this->format);
                 exit;
             }
         }
@@ -345,36 +345,4 @@ class ApiAuthAction extends ApiAction
             }
         }
     }
-
-    /**
-     * Output an authentication error message.  Use XML or JSON if one
-     * of those formats is specified, otherwise output plain text
-     *
-     * @return void
-     */
-
-    function showAuthError()
-    {
-        header('HTTP/1.1 401 Unauthorized');
-        $msg = 'Could not authenticate you.';
-
-        if ($this->format == 'xml') {
-            header('Content-Type: application/xml; charset=utf-8');
-            $this->startXML();
-            $this->elementStart('hash');
-            $this->element('error', null, $msg);
-            $this->element('request', null, $_SERVER['REQUEST_URI']);
-            $this->elementEnd('hash');
-            $this->endXML();
-        } elseif ($this->format == 'json') {
-            header('Content-Type: application/json; charset=utf-8');
-            $error_array = array('error' => $msg,
-                                 'request' => $_SERVER['REQUEST_URI']);
-            print(json_encode($error_array));
-        } else {
-            header('Content-type: text/plain');
-            print "$msg\n";
-        }
-    }
-
 }
