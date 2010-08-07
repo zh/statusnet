@@ -235,6 +235,7 @@ class Memcached_DataObject extends Safe_DataObject
                 $pkey[] = $key;
                 $pval[] = self::valueString($this->$key);
             } else {
+                // Low level exception. No need for i18n as discussed with Brion.
                 throw new Exception("Unknown key type $key => $type for " . $this->tableName());
             }
         }
@@ -282,6 +283,7 @@ class Memcached_DataObject extends Safe_DataObject
                     } else if ($type == 'fulltext') {
                         $search_engine = new MySQLSearch($this, $table);
                     } else {
+                        // Low level exception. No need for i18n as discussed with Brion.
                         throw new ServerException('Unknown search type: ' . $type);
                     }
                 } else {
@@ -527,7 +529,8 @@ class Memcached_DataObject extends Safe_DataObject
         }
 
         if (!$dsn) {
-            throw new Exception("No database name / dsn found anywhere");
+            // TRANS: Exception thrown when database name or Data Source Name could not be found.
+            throw new Exception(_("No database name or DSN found anywhere."));
         }
 
         return $dsn;
@@ -577,6 +580,7 @@ class Memcached_DataObject extends Safe_DataObject
         if ($message instanceof PEAR_Error) {
             $message = $message->getMessage();
         }
+        // Low level exception. No need for i18n as discussed with Brion.
         throw new ServerException("[$id] DB_DataObject error [$type]: $message");
     }
 
@@ -593,7 +597,7 @@ class Memcached_DataObject extends Safe_DataObject
         return $c->get($cacheKey);
     }
 
-    static function cacheSet($keyPart, $value)
+    static function cacheSet($keyPart, $value, $flag=null, $expiry=null)
     {
         $c = self::memcache();
 
@@ -603,7 +607,7 @@ class Memcached_DataObject extends Safe_DataObject
 
         $cacheKey = common_cache_key($keyPart);
 
-        return $c->set($cacheKey, $value);
+        return $c->set($cacheKey, $value, $flag, $expiry);
     }
 
     static function valueString($v)
@@ -619,9 +623,11 @@ class Memcached_DataObject extends Safe_DataObject
             case 'sql':
             case 'datetime':
             case 'time':
+                // Low level exception. No need for i18n as discussed with Brion.
                 throw new ServerException("Unhandled DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
                 break;
             default:
+                // Low level exception. No need for i18n as discussed with Brion.
                 throw new ServerException("Unknown DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
                 break;
             }
