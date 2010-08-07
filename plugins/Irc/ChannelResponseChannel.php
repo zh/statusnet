@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Override the IMChannel class to allow commands to send messages
+ * Extend the IMChannel class to allow commands to send messages
  * to a channel instead of PMing a user
  *
  * PHP version 5
