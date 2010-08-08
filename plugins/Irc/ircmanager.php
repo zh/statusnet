@@ -33,8 +33,8 @@ class IrcManager extends ImManager {
     protected $conn = null;
     protected $lastPing = null;
 
-    protected $regchecks = array();
-    protected $regchecksLookup = array();
+    protected $regChecks = array();
+    protected $regChecksLookup = array();
 
     /**
      * Initialize connection to server.
@@ -71,9 +71,9 @@ class IrcManager extends ImManager {
      *
      * @return void
      */
-    public function idle($timeout = 0) {
+    public function idle() {
         if (empty($this->lastPing) || time() - $this->lastPing > 120) {
-            $this->send_ping();
+            $this->sendPing();
         }
     }
 
@@ -175,10 +175,10 @@ class IrcManager extends ImManager {
     public function handle_reg_response($data) {
         // Retrieve data
         $screenname = $data['screenname'];
-        $nickdata = $this->regchecks[$screenname];
+        $nickdata = $this->regChecks[$screenname];
         $usernick = $nickdata['user']->nickname;
 
-        if (isset($this->regchecksLookup[$usernick])) {
+        if (isset($this->regChecksLookup[$usernick])) {
             if ($data['registered']) {
                 // Send message
                 $this->plugin->send_confirmation_code($screenname, $nickdata['code'], $nickdata['user'], true);
@@ -203,10 +203,10 @@ class IrcManager extends ImManager {
             }
 
             // Unset lookup value
-            unset($this->regchecksLookup[$usernick]);
+            unset($this->regChecksLookup[$usernick]);
 
             // Unset data
-            unset($this->regchecks[$screename]);
+            unset($this->regChecks[$screename]);
         }
     }
 
@@ -229,12 +229,12 @@ class IrcManager extends ImManager {
             $screenname = $nickdata['screenname'];
 
             // Cancel any existing checks for this user
-            if (isset($this->regchecksLookup[$usernick])) {
-                unset($this->regchecks[$this->regchecksLookup[$usernick]]);
+            if (isset($this->regChecksLookup[$usernick])) {
+                unset($this->regChecks[$this->regChecksLookup[$usernick]]);
             }
 
-            $this->regchecks[$screenname] = $nickdata;
-            $this->regchecksLookup[$usernick] = $screenname;
+            $this->regChecks[$screenname] = $nickdata;
+            $this->regChecksLookup[$usernick] = $screenname;
         }
 
         try {
@@ -252,7 +252,7 @@ class IrcManager extends ImManager {
     *
     * @return void
     */
-    protected function send_ping() {
+    protected function sendPing() {
         $this->lastPing = time();
         $this->conn->send('PING', $this->lastPing);
     }
