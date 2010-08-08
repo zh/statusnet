@@ -31,6 +31,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class IrcManager extends ImManager {
     protected $conn = null;
+    protected $lastPing = null;
+
     protected $regchecks = array();
     protected $regchecksLookup = array();
 
@@ -60,6 +62,18 @@ class IrcManager extends ImManager {
             return $this->conn->getSockets();
         } else {
             return array();
+        }
+    }
+
+    /**
+     * Idle processing for io manager's execution loop.
+     * Send keepalive pings to server.
+     *
+     * @return void
+     */
+    public function idle($timeout = 0) {
+        if (empty($this->lastPing) || time() - $this->lastPing > 120) {
+            $this->send_ping();
         }
     }
 
@@ -231,5 +245,15 @@ class IrcManager extends ImManager {
         }
 
         return true;
+    }
+
+    /**
+    * Sends a ping
+    *
+    * @return void
+    */
+    protected function send_ping() {
+        $this->lastPing = time();
+        $this->conn->send('PING', $this->lastPing);
     }
 }
