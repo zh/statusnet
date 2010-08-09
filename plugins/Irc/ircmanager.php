@@ -148,6 +148,7 @@ class IrcManager extends ImManager {
             );
 
             $this->conn->setConfig($config);
+            $this->lastPing = time();
             $this->conn->connect();
         }
         return $this->conn;
