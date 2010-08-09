@@ -32,8 +32,8 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class MsnManager extends ImManager {
     public $conn = null;
-    private $lastping = null;
-    private $pingInterval;
+    protected $lastPing = null;
+    protected $pingInterval;
 
     /**
      * Initialise connection to server.
@@ -72,7 +72,7 @@ class MsnManager extends ImManager {
      * @return void
      */
     public function idle($timeout = 0) {
-        if (empty($this->lastping) || time() - $this->lastping > $this->pingInterval) {
+        if (empty($this->lastPing) || time() - $this->lastPing > $this->pingInterval) {
             $this->send_ping();
         }
     }
@@ -81,7 +81,7 @@ class MsnManager extends ImManager {
      * Message pump is triggered on socket input, so we only need an idle()
      * call often enough to trigger our outgoing pings.
      */
-    function timeout() {
+    public function timeout() {
         return $this->pingInterval;
     }
 
@@ -119,7 +119,7 @@ class MsnManager extends ImManager {
             $this->conn->registerHandler('ConnectFailed', array($this, 'handle_connect_failed'));
             $this->conn->registerHandler('Reconnect', array($this, 'handle_reconnect'));
             $this->conn->signon();
-            $this->lastping = time();
+            $this->lastPing = time();
         }
         return $this->conn;
     }
@@ -130,14 +130,14 @@ class MsnManager extends ImManager {
     *
     * @return void
     */
-    private function send_ping() {
+    protected function send_ping() {
         $this->connect();
         if (!$this->conn) {
             return false;
         }
 
         $this->conn->sendPing();
-        $this->lastping = time();
+        $this->lastPing = time();
         $this->pingInterval = 50;
         return true;
     }
@@ -230,7 +230,7 @@ class MsnManager extends ImManager {
     * @param string $to Intended recipient
     * @param string $message Message
     */
-    private function enqueue_waiting_message($to, $message) {
+    protected function enqueue_waiting_message($to, $message) {
         $wm = new Msn_waiting_message();
 
         $wm->screenname = $to;
@@ -268,7 +268,7 @@ class MsnManager extends ImManager {
         }
 
         // Sending a command updates the time till next ping
-        $this->lastping = time();
+        $this->lastPing = time();
         $this->pingInterval = 50;
         return true;
     }
