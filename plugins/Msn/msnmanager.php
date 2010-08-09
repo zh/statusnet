@@ -42,6 +42,7 @@ class MsnManager extends ImManager {
      */
     public function start($master) {
         if (parent::start($master)) {
+            $this->requeue_waiting_messages();
             $this->connect();
             return true;
         } else {
@@ -186,6 +187,21 @@ class MsnManager extends ImManager {
     }
 
     /**
+    * Requeue messages from the waiting table so we try
+    * to send them again
+    *
+    * @return void
+    */
+    protected function requeue_waiting_messages() {
+        $wm = Msn_waiting_message::top($data['to']);
+        while ($wm != NULL) {
+            $this->plugin->send_message($wm->screenname, $wm->message);
+            $wm->delete();
+            $wm = Msn_waiting_message::top($data['to']);
+        }
+    }
+
+    /**
     * Called by callback to log failure during connect
     *
     * @param void $data Not used (there to keep callback happy)
@@ -203,6 +219,8 @@ class MsnManager extends ImManager {
     */
     public function handle_reconnect($data) {
         common_log(LOG_NOTICE, 'MSN reconnecting');
+        // Requeue messages waiting in the DB
+        $this->requeue_waiting_messages();
     }
 
     /**
