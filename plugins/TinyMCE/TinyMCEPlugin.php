@@ -78,36 +78,48 @@ class TinyMCEPlugin extends Plugin
         return true;
     }
 
-    function onArgsInitialize(&$args)
+    /**
+     * Sanitize HTML input and strip out potentially dangerous bits.
+     *
+     * @param string $raw HTML
+     * @return string HTML
+     */
+    private function sanitizeHtml($raw)
     {
-        if (!array_key_exists('action', $args) ||
-            $args['action'] != 'newnotice') {
-            return true;
-        }
-
-        $raw = $this->_scrub($args['status_textarea']);
-
         require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
 
         $config = array('safe' => 1,
                         'deny_attribute' => 'id,style,on*');
 
-        $this->html = htmLawed($raw, $config);
-
-        $text = html_entity_decode(strip_tags($this->html));
-
-        $args['status_textarea'] = $text;
-
-        return true;
+        return htmLawed($raw, $config);
     }
 
-    function onStartNoticeSave($notice)
+    /**
+     * Strip HTML to plaintext string
+     *
+     * @param string $html HTML
+     * @return string plaintext, single line
+     */
+    private function stripHtml($html)
     {
-        if (!empty($this->html)) {
-            // Stomp on any rendering
-            $notice->rendered = $this->html;
-        }
+        return str_replace("\n", " ", html_entity_decode(strip_tags($html)));
+    }
 
+    /**
+     * Hook for new-notice form processing to take our HTML goodies;
+     * won't affect API posting etc.
+     * 
+     * @param NewNoticeAction $action
+     * @param User $user
+     * @param string $content
+     * @param array $options
+     * @return boolean hook return
+     */
+    function onSaveNewNoticeWeb($action, $user, &$content, &$options)
+    {
+        $html = $this->sanitizeHtml($action->arg('status_textarea'));
+        $options['rendered'] = $html;
+        $content = $this->stripHtml($html);
         return true;
     }
 
@@ -134,16 +146,6 @@ class TinyMCEPlugin extends Plugin
 END_OF_SCRIPT;
 
         return $scr;
-    }
-
-    function _scrub($txt)
-    {
-        $strip = get_magic_quotes_gpc();
-        if ($strip) {
-            return stripslashes($txt);
-        } else {
-            return $txt;
-        }
     }
 }
 

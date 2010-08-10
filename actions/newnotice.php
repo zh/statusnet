@@ -203,6 +203,7 @@ class NewnoticeAction extends Action
             $options = array_merge($options, $locOptions);
         }
 
+        Event::handle('SaveNewNoticeWeb', array($this, $user, &$content_shortened, &$options));
         $notice = Notice::saveNew($user->id, $content_shortened, 'web', $options);
 
         if (isset($upload)) {
