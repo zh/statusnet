@@ -11,7 +11,7 @@ class LinkHeader
         preg_match('/^<[^>]+>/', $str, $uri_reference);
         //if (empty($uri_reference)) return;
 
-        $this->uri = trim($uri_reference[0], '<>');
+        $this->href = trim($uri_reference[0], '<>');
         $this->rel = array();
         $this->type = null;
 

@@ -128,12 +128,13 @@ class Memcached_DataObject extends Safe_DataObject
     }
 
     static function cacheKey($cls, $k, $v) {
-        if (is_object($cls) || is_object($k) || is_object($v)) {
+        if (is_object($cls) || is_object($k) || (is_object($v) && !($v instanceof DB_DataObject_Cast))) {
             $e = new Exception();
             common_log(LOG_ERR, __METHOD__ . ' object in param: ' .
                 str_replace("\n", " ", $e->getTraceAsString()));
         }
-        return common_cache_key(strtolower($cls).':'.$k.':'.$v);
+        $vstr = self::valueString($v);
+        return common_cache_key(strtolower($cls).':'.$k.':'.$vstr);
     }
 
     static function getcached($cls, $k, $v) {
@@ -229,11 +230,12 @@ class Memcached_DataObject extends Safe_DataObject
                 if (empty($this->$key)) {
                     continue;
                 }
-                $ckeys[] = $this->cacheKey($this->tableName(), $key, $this->$key);
+                $ckeys[] = $this->cacheKey($this->tableName(), $key, self::valueString($this->$key));
             } else if ($type == 'K' || $type == 'N') {
                 $pkey[] = $key;
-                $pval[] = $this->$key;
+                $pval[] = self::valueString($this->$key);
             } else {
+                // Low level exception. No need for i18n as discussed with Brion.
                 throw new Exception("Unknown key type $key => $type for " . $this->tableName());
             }
         }
@@ -281,6 +283,7 @@ class Memcached_DataObject extends Safe_DataObject
                     } else if ($type == 'fulltext') {
                         $search_engine = new MySQLSearch($this, $table);
                     } else {
+                        // Low level exception. No need for i18n as discussed with Brion.
                         throw new ServerException('Unknown search type: ' . $type);
                     }
                 } else {
@@ -330,6 +333,10 @@ class Memcached_DataObject extends Safe_DataObject
      */
     function _query($string)
     {
+        if (common_config('db', 'annotate_queries')) {
+            $string = $this->annotateQuery($string);
+        }
+
         $start = microtime(true);
         $result = parent::_query($string);
         $delta = microtime(true) - $start;
@@ -340,6 +347,70 @@ class Memcached_DataObject extends Safe_DataObject
             common_log(LOG_DEBUG, sprintf("DB query (%0.3fs): %s", $delta, $clean));
         }
         return $result;
+    }
+
+    /**
+     * Find the first caller in the stack trace that's not a
+     * low-level database function and add a comment to the
+     * query string. This should then be visible in process lists
+     * and slow query logs, to help identify problem areas.
+     *
+     * Also marks whether this was a web GET/POST or which daemon
+     * was running it.
+     *
+     * @param string $string SQL query string
+     * @return string SQL query string, with a comment in it
+     */
+    function annotateQuery($string)
+    {
+        $ignore = array('annotateQuery',
+                        '_query',
+                        'query',
+                        'get',
+                        'insert',
+                        'delete',
+                        'update',
+                        'find');
+        $ignoreStatic = array('staticGet',
+                              'pkeyGet',
+                              'cachedQuery');
+        $here = get_class($this); // if we get confused
+        $bt = debug_backtrace();
+
+        // Find the first caller that's not us?
+        foreach ($bt as $frame) {
+            $func = $frame['function'];
+            if (isset($frame['type']) && $frame['type'] == '::') {
+                if (in_array($func, $ignoreStatic)) {
+                    continue;
+                }
+                $here = $frame['class'] . '::' . $func;
+                break;
+            } else if (isset($frame['type']) && $frame['type'] == '->') {
+                if ($frame['object'] === $this && in_array($func, $ignore)) {
+                    continue;
+                }
+                if (in_array($func, $ignoreStatic)) {
+                    continue; // @fixme this shouldn't be needed?
+                }
+                $here = get_class($frame['object']) . '->' . $func;
+                break;
+            }
+            $here = $func;
+            break;
+        }
+
+        if (php_sapi_name() == 'cli') {
+            $context = basename($_SERVER['PHP_SELF']);
+        } else {
+            $context = $_SERVER['REQUEST_METHOD'];
+        }
+
+        // Slip the comment in after the first command,
+        // or DB_DataObject gets confused about handling inserts and such.
+        $parts = explode(' ', $string, 2);
+        $parts[0] .= " /* $context $here */";
+        return implode(' ', $parts);
     }
 
     // Sanitize a query for logging
@@ -458,7 +529,8 @@ class Memcached_DataObject extends Safe_DataObject
         }
 
         if (!$dsn) {
-            throw new Exception("No database name / dsn found anywhere");
+            // TRANS: Exception thrown when database name or Data Source Name could not be found.
+            throw new Exception(_("No database name or DSN found anywhere."));
         }
 
         return $dsn;
@@ -502,9 +574,13 @@ class Memcached_DataObject extends Safe_DataObject
     function raiseError($message, $type = null, $behaviour = null)
     {
         $id = get_class($this);
-        if ($this->id) {
+        if (!empty($this->id)) {
             $id .= ':' . $this->id;
         }
+        if ($message instanceof PEAR_Error) {
+            $message = $message->getMessage();
+        }
+        // Low level exception. No need for i18n as discussed with Brion.
         throw new ServerException("[$id] DB_DataObject error [$type]: $message");
     }
 
@@ -521,7 +597,7 @@ class Memcached_DataObject extends Safe_DataObject
         return $c->get($cacheKey);
     }
 
-    static function cacheSet($keyPart, $value)
+    static function cacheSet($keyPart, $value, $flag=null, $expiry=null)
     {
         $c = self::memcache();
 
@@ -531,7 +607,34 @@ class Memcached_DataObject extends Safe_DataObject
 
         $cacheKey = common_cache_key($keyPart);
 
-        return $c->set($cacheKey, $value);
+        return $c->set($cacheKey, $value, $flag, $expiry);
+    }
+
+    static function valueString($v)
+    {
+        $vstr = null;
+        if (is_object($v) && $v instanceof DB_DataObject_Cast) {
+            switch ($v->type) {
+            case 'date':
+                $vstr = $v->year . '-' . $v->month . '-' . $v->day;
+                break;
+            case 'blob':
+            case 'string':
+            case 'sql':
+            case 'datetime':
+            case 'time':
+                // Low level exception. No need for i18n as discussed with Brion.
+                throw new ServerException("Unhandled DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
+                break;
+            default:
+                // Low level exception. No need for i18n as discussed with Brion.
+                throw new ServerException("Unknown DB_DataObject_Cast type passed as cacheKey value: '$v->type'");
+                break;
+            }
+        } else {
+            $vstr = strval($v);
+        }
+        return $vstr;
     }
 }
 

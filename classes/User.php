@@ -360,11 +360,12 @@ class User extends Memcached_DataObject
                                __FILE__);
                 } else {
                     $notice = Notice::saveNew($welcomeuser->id,
+                                              // TRANS: Notice given on user registration.
+                                              // TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
                                               sprintf(_('Welcome to %1$s, @%2$s!'),
                                                       common_config('site', 'name'),
                                                       $user->nickname),
                                               'system');
-
                 }
             }
 
@@ -375,7 +376,6 @@ class User extends Memcached_DataObject
     }
 
     // Things we do when the email changes
-
     function emailChanged()
     {
 
@@ -464,9 +464,9 @@ class User extends Memcached_DataObject
         return $profile->getNotices($offset, $limit, $since_id, $before_id);
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own);
+        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
@@ -524,9 +524,9 @@ class User extends Memcached_DataObject
         if ($this->id == $other->id) {
             common_log(LOG_WARNING,
                 sprintf(
-                    "Profile ID %d (%s) tried to block his or herself.",
-                    $profile->id,
-                    $profile->nickname
+                    "Profile ID %d (%s) tried to block themself.",
+                    $this->id,
+                    $this->nickname
                 )
             );
             return false;
@@ -548,12 +548,9 @@ class User extends Memcached_DataObject
             return false;
         }
 
-        // Cancel their subscription, if it exists
-
-        $otherUser = User::staticGet('id', $other->id);
-
-        if (!empty($otherUser)) {
-            subs_unsubscribe_to($otherUser, $this->getProfile());
+        $self = $this->getProfile();
+        if (Subscription::exists($other, $self)) {
+            Subscription::cancel($other, $self);
         }
 
         $block->query('COMMIT');
@@ -670,8 +667,12 @@ class User extends Memcached_DataObject
 
     function delete()
     {
-        $profile = $this->getProfile();
-        $profile->delete();
+        try {
+            $profile = $this->getProfile();
+            $profile->delete();
+        } catch (UserNoProfileException $unp) {
+            common_log(LOG_INFO, "User {$this->nickname} has no profile; continuing deletion.");
+        }
 
         $related = array('Fave',
                          'Confirm_address',
@@ -679,6 +680,7 @@ class User extends Memcached_DataObject
                          'Foreign_link',
                          'Invitation',
                          );
+
         Event::handle('UserDeleteRelated', array($this, &$related));
 
         foreach ($related as $cls) {

@@ -74,7 +74,7 @@ class UnsubscribeAction extends Action
         $other_id = $this->arg('unsubscribeto');
 
         if (!$other_id) {
-            $this->clientError(_('No profile id in request.'));
+            $this->clientError(_('No profile ID in request.'));
             return;
         }
 

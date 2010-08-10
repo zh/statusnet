@@ -1,0 +1,404 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-29 23:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: openidsettings.php:59
+msgid "OpenID settings"
+msgstr ""
+
+#: openidsettings.php:70
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
+"account. Manage your associated OpenIDs from here."
+msgstr ""
+
+#: openidsettings.php:99
+msgid "Add OpenID"
+msgstr ""
+
+#: openidsettings.php:102
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+
+#: openidsettings.php:107 openidlogin.php:119
+msgid "OpenID URL"
+msgstr ""
+
+#: openidsettings.php:117
+msgid "Add"
+msgstr ""
+
+#: openidsettings.php:129
+msgid "Remove OpenID"
+msgstr ""
+
+#: openidsettings.php:134
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+
+#: openidsettings.php:149
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+
+#: openidsettings.php:172 openidsettings.php:213
+msgid "Remove"
+msgstr ""
+
+#: openidsettings.php:186
+msgid "OpenID Trusted Sites"
+msgstr ""
+
+#: openidsettings.php:189
+msgid ""
+"The following sites are allowed to access your identity and log you in. You "
+"can remove a site from this list to deny it access to your OpenID."
+msgstr ""
+
+#: openidsettings.php:231 finishopenidlogin.php:38 openidlogin.php:39
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: openidsettings.php:247 finishopenidlogin.php:51
+msgid "Something weird happened."
+msgstr ""
+
+#: openidsettings.php:271
+msgid "No such OpenID trustroot."
+msgstr ""
+
+#: openidsettings.php:275
+msgid "Trustroots removed"
+msgstr ""
+
+#: openidsettings.php:298
+msgid "No such OpenID."
+msgstr ""
+
+#: openidsettings.php:303
+msgid "That OpenID does not belong to you."
+msgstr ""
+
+#: openidsettings.php:307
+msgid "OpenID removed."
+msgstr ""
+
+#: openid.php:137
+msgid "Cannot instantiate OpenID consumer object."
+msgstr ""
+
+#: openid.php:147
+msgid "Not a valid OpenID."
+msgstr ""
+
+#: openid.php:149
+#, php-format
+msgid "OpenID failure: %s"
+msgstr ""
+
+#: openid.php:176
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr ""
+
+#: openid.php:194
+#, php-format
+msgid "Could not create OpenID form: %s"
+msgstr ""
+
+#: openid.php:210
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+
+#: openid.php:242
+msgid "Error saving the profile."
+msgstr ""
+
+#: openid.php:253
+msgid "Error saving the user."
+msgstr ""
+
+#: openid.php:282
+msgid "Unauthorized URL used for OpenID login."
+msgstr ""
+
+#: openid.php:302
+msgid "OpenID Login Submission"
+msgstr ""
+
+#: openid.php:312
+msgid "Requesting authorization from your login provider..."
+msgstr ""
+
+#: openid.php:315
+msgid ""
+"If you are not redirected to your login provider in a few seconds, try "
+"pushing the button below."
+msgstr ""
+
+#. TRANS: Tooltip for main menu option "Login"
+#: OpenIDPlugin.php:204
+msgctxt "TOOLTIP"
+msgid "Login to the site"
+msgstr ""
+
+#: OpenIDPlugin.php:207
+msgctxt "MENU"
+msgid "Login"
+msgstr ""
+
+#. TRANS: Tooltip for main menu option "Help"
+#: OpenIDPlugin.php:212
+msgctxt "TOOLTIP"
+msgid "Help me!"
+msgstr ""
+
+#: OpenIDPlugin.php:215
+msgctxt "MENU"
+msgid "Help"
+msgstr ""
+
+#. TRANS: Tooltip for main menu option "Search"
+#: OpenIDPlugin.php:221
+msgctxt "TOOLTIP"
+msgid "Search for people or text"
+msgstr ""
+
+#: OpenIDPlugin.php:224
+msgctxt "MENU"
+msgid "Search"
+msgstr ""
+
+#: OpenIDPlugin.php:283 OpenIDPlugin.php:319
+msgid "OpenID"
+msgstr ""
+
+#: OpenIDPlugin.php:284
+msgid "Login or register with OpenID"
+msgstr ""
+
+#: OpenIDPlugin.php:320
+msgid "Add or remove OpenIDs"
+msgstr ""
+
+#: OpenIDPlugin.php:595
+msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
+msgstr ""
+
+#: openidserver.php:106
+#, php-format
+msgid "You are not authorized to use the identity %s."
+msgstr ""
+
+#: openidserver.php:126
+msgid "Just an OpenID provider. Nothing to see here, move along..."
+msgstr ""
+
+#: finishopenidlogin.php:34 openidlogin.php:30
+msgid "Already logged in."
+msgstr ""
+
+#: finishopenidlogin.php:43
+msgid "You can't register if you don't agree to the license."
+msgstr ""
+
+#: finishopenidlogin.php:65
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your OpenID "
+"to a local account. You can either create a new account, or connect with "
+"your existing account, if you have one."
+msgstr ""
+
+#: finishopenidlogin.php:71
+msgid "OpenID Account Setup"
+msgstr ""
+
+#: finishopenidlogin.php:101
+msgid "Create new account"
+msgstr ""
+
+#: finishopenidlogin.php:103
+msgid "Create a new user with this nickname."
+msgstr ""
+
+#: finishopenidlogin.php:106
+msgid "New nickname"
+msgstr ""
+
+#: finishopenidlogin.php:108
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr ""
+
+#: finishopenidlogin.php:130
+msgid "Create"
+msgstr ""
+
+#: finishopenidlogin.php:135
+msgid "Connect existing account"
+msgstr ""
+
+#: finishopenidlogin.php:137
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your OpenID."
+msgstr ""
+
+#: finishopenidlogin.php:140
+msgid "Existing nickname"
+msgstr ""
+
+#: finishopenidlogin.php:143
+msgid "Password"
+msgstr ""
+
+#: finishopenidlogin.php:146
+msgid "Connect"
+msgstr ""
+
+#: finishopenidlogin.php:158 finishaddopenid.php:88
+msgid "OpenID authentication cancelled."
+msgstr ""
+
+#: finishopenidlogin.php:162 finishaddopenid.php:92
+#, php-format
+msgid "OpenID authentication failed: %s"
+msgstr ""
+
+#: finishopenidlogin.php:227 finishopenidlogin.php:236
+msgid "Registration not allowed."
+msgstr ""
+
+#: finishopenidlogin.php:243
+msgid "Not a valid invitation code."
+msgstr ""
+
+#: finishopenidlogin.php:253
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr ""
+
+#: finishopenidlogin.php:258
+msgid "Nickname not allowed."
+msgstr ""
+
+#: finishopenidlogin.php:263
+msgid "Nickname already in use. Try another one."
+msgstr ""
+
+#: finishopenidlogin.php:270 finishopenidlogin.php:350
+msgid "Stored OpenID not found."
+msgstr ""
+
+#: finishopenidlogin.php:279
+msgid "Creating new account for OpenID that already has a user."
+msgstr ""
+
+#: finishopenidlogin.php:339
+msgid "Invalid username or password."
+msgstr ""
+
+#: finishopenidlogin.php:357
+msgid "Error connecting user to OpenID."
+msgstr ""
+
+#: openidlogin.php:68
+#, php-format
+msgid ""
+"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
+"before changing your settings."
+msgstr ""
+
+#: openidlogin.php:72
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr ""
+
+#: openidlogin.php:97 finishaddopenid.php:170
+msgid "OpenID Login"
+msgstr ""
+
+#: openidlogin.php:114
+msgid "OpenID login"
+msgstr ""
+
+#: openidlogin.php:121
+msgid "Your OpenID URL"
+msgstr ""
+
+#: openidlogin.php:124
+msgid "Remember me"
+msgstr ""
+
+#: openidlogin.php:125
+msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+
+#: openidlogin.php:129
+msgid "Login"
+msgstr ""
+
+#: openidtrust.php:51
+msgid "OpenID Identity Verification"
+msgstr ""
+
+#: openidtrust.php:69
+msgid ""
+"This page should only be reached during OpenID processing, not directly."
+msgstr ""
+
+#: openidtrust.php:117
+#, php-format
+msgid ""
+"%s  has asked to verify your identity. Click Continue to verify your "
+"identity and login without creating a new password."
+msgstr ""
+
+#: openidtrust.php:135
+msgid "Continue"
+msgstr ""
+
+#: openidtrust.php:136
+msgid "Cancel"
+msgstr ""
+
+#: finishaddopenid.php:67
+msgid "Not logged in."
+msgstr ""
+
+#: finishaddopenid.php:112
+msgid "You already have this OpenID!"
+msgstr ""
+
+#: finishaddopenid.php:114
+msgid "Someone else already has this OpenID."
+msgstr ""
+
+#: finishaddopenid.php:126
+msgid "Error connecting user."
+msgstr ""
+
+#: finishaddopenid.php:131
+msgid "Error updating profile"
+msgstr ""

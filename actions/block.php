@@ -66,7 +66,7 @@ class BlockAction extends ProfileFormAction
         assert(!empty($cur)); // checked by parent
 
         if ($cur->hasBlocked($this->profile)) {
-            $this->clientError(_("You already blocked that user."));
+            $this->clientError(_('You already blocked that user.'));
             return false;
         }
 
@@ -87,13 +87,15 @@ class BlockAction extends ProfileFormAction
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($this->arg('no')) {
-                $this->returnToArgs();
+                $this->returnToPrevious();
             } elseif ($this->arg('yes')) {
                 $this->handlePost();
-                $this->returnToArgs();
+                $this->returnToPrevious();
             } else {
                 $this->showPage();
             }
+        } else {
+            $this->showPage();
         }
     }
 
@@ -118,6 +120,12 @@ class BlockAction extends ProfileFormAction
      */
     function areYouSureForm()
     {
+        // @fixme if we ajaxify the confirmation form, skip the preview on ajax hits
+        $profile = new ArrayWrapper(array($this->profile));
+        $preview = new ProfileList($profile, $this);
+        $preview->show();
+
+
         $id = $this->profile->id;
         $this->elementStart('form', array('id' => 'block-' . $id,
                                            'method' => 'post',
@@ -140,8 +148,20 @@ class BlockAction extends ProfileFormAction
                 $this->hidden($k, $v);
             }
         }
-        $this->submit('form_action-no', _('No'), 'submit form_action-primary', 'no', _("Do not block this user"));
-        $this->submit('form_action-yes', _('Yes'), 'submit form_action-secondary', 'yes', _('Block this user'));
+        $this->submit('form_action-no',
+                      // TRANS: Button label on the user block form.
+                      _m('BUTTON','No'),
+                      'submit form_action-primary',
+                      'no',
+                      // TRANS: Submit button title for 'No' when blocking a user.
+                      _('Do not block this user'));
+        $this->submit('form_action-yes',
+                      // TRANS: Button label on the user block form.
+                      _m('BUTTON','Yes'),
+                      'submit form_action-secondary',
+                      'yes',
+                      // TRANS: Submit button title for 'Yes' when blocking a user.
+                      _('Block this user'));
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }
@@ -166,6 +186,47 @@ class BlockAction extends ProfileFormAction
         if (!$result) {
             $this->serverError(_('Failed to save block information.'));
             return;
+        }
+    }
+
+    function showScripts()
+    {
+        parent::showScripts();
+        $this->autofocus('form_action-yes');
+    }
+
+    /**
+     * Override for form session token checks; on our first hit we're just
+     * requesting confirmation, which doesn't need a token. We need to be
+     * able to take regular GET requests from email!
+     * 
+     * @throws ClientException if token is bad on POST request or if we have
+     *         confirmation parameters which could trigger something.
+     */
+    function checkSessionToken()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' ||
+            $this->arg('yes') ||
+            $this->arg('no')) {
+
+            return parent::checkSessionToken();
+        }
+    }
+
+    /**
+     * If we reached this form without returnto arguments, return to the
+     * current user's subscription list.
+     * 
+     * @return string URL
+     */
+    function defaultReturnTo()
+    {
+        $user = common_current_user();
+        if ($user) {
+            return common_local_url('subscribers',
+                                    array('nickname' => $user->nickname));
+        } else {
+            return common_local_url('public');
         }
     }
 }

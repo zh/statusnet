@@ -72,7 +72,7 @@ class FavorAction extends Action
         $notice = Notice::staticGet($id);
         $token  = $this->trimmed('token-'.$notice->id);
         if (!$token || $token != common_session_token()) {
-            $this->clientError(_("There was a problem with your session token. Try again, please."));
+            $this->clientError(_('There was a problem with your session token. Try again, please.'));
             return;
         }
         if ($user->hasFave($notice)) {
@@ -104,7 +104,7 @@ class FavorAction extends Action
     }
 
     /**
-     * Notifies a user when his notice is favorited.
+     * Notifies a user when their notice is favorited.
      *
      * @param class $notice favorited notice
      * @param class $user   user declaring a favorite

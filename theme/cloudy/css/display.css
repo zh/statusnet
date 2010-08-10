@@ -7,6 +7,7 @@
  * @link      http://status.net/
  */
 
+@media screen, projection, tv {
 * { margin:0; padding:0; }
 img { display:block; border:0; }
 a abbr { cursor: pointer; border-bottom:0; }
@@ -872,7 +873,7 @@ display:inline;
 }
 
 .profile .entity_profile .fn,
-.profile .entity_profile .location {
+.profile .entity_profile .label {
 margin-left:11px;
 margin-bottom:4px;
 width:auto;
@@ -900,7 +901,8 @@ margin-right:11px;
 
 /* NOTICE */
 .notice,
-.profile {
+.profile,
+.application {
 position:relative;
 padding-top:11px;
 padding-bottom:11px;
@@ -1031,25 +1033,22 @@ left:0;
 
 .dialogbox {
 position:absolute;
-top:-4px;
-right:29px;
+top:-1px;
+right:-1px;
 z-index:9;
-min-width:199px;
 float:none;
-background-color:#FFF;
 padding:11px;
 border-radius:7px;
 -moz-border-radius:7px;
 -webkit-border-radius:7px;
 border-style:solid;
 border-width:1px;
-border-color:#DDDDDD;
--moz-box-shadow:3px 7px 5px rgba(194, 194, 194, 0.7);
 }
 
 .dialogbox legend {
 display:block !important;
 margin-right:18px;
+margin-bottom:18px;
 }
 
 .dialogbox button.close {
@@ -1058,9 +1057,21 @@ right:3px;
 top:3px;
 }
 
+.dialogbox .form_guide {
+font-weight:normal;
+padding:0;
+}
+
 .dialogbox .submit_dialogbox {
-text-indent:0;
 font-weight:bold;
+text-indent:0;
+min-width:46px;
+}
+.dialogbox input {
+padding-left:4px;
+}
+.dialogbox fieldset {
+margin-bottom:0;
 }
 
 .notice-options {
@@ -1554,7 +1565,8 @@ display:none;
 }
 
 #public #core,
-#showstream #core {
+#showstream #core,
+#showgroup #core {
 margin-top:10em;
 }
 #public.user_in #core,
@@ -1651,7 +1663,8 @@ background-color:transparent;
 }
 
 #wrap form.processing input.submit,
-.entity_actions a.processing {
+#core a.processing,
+.dialogbox.processing .submit_dialogbox {
 background:#FFFFFF url(../../base/images/icons/icon_processing.gif) no-repeat 47% 47%;
 cursor:wait;
 text-indent:-9999px;
@@ -1806,7 +1819,9 @@ border-color:#FFFFFF;
 #content,
 #site_nav_local_views .current a,
 .entity_send-a-message .form_notice,
-.entity_moderation:hover ul {
+.entity_moderation:hover ul,
+.entity_role:hover ul,
+.dialogbox {
 background-color:#FFFFFF;
 }
 
@@ -1938,6 +1953,9 @@ background-position: 0 -1714px;
 .notice .attachment {
 background-position:0 -394px;
 }
+.notice .attachment.more {
+background-position:0 -2770px;
+}
 #attachments .attachment {
 background:none;
 }
@@ -1960,10 +1978,12 @@ background-position:0 -1582px;
 background-position:0 -1648px;
 }
 
+.notices .attachment.more,
 .notices div.entry-content,
 .notices div.notice-options {
 opacity:0.4;
 }
+.notices li:hover .attachment.more,
 .notices li:hover div.entry-content,
 .notices li:hover div.notice-options {
 opacity:1;
@@ -2098,4 +2118,33 @@ border-left-color:#FFFFFF;
 #footer {
 background-color:#FFFFFF;
 }
+}/*end of @media screen, projection, tv*/
 
+
+@media print {
+a:after { background-color:#FFFFFF; }
+a:not([href^="#"]):after { content:" <"attr(href)"> "; }
+img { border:none; }
+p { orphans: 2; widows: 1; }
+
+#site_nav_global_primary,
+#site_nav_local_views,
+#form_notice,
+.pagination,
+#site_nav_global_secondary,
+.entity_actions,
+.notice-options,
+#aside_primary,
+.form_subscription_edit .submit {
+display:none;
+}
+.timestamp dt, .timestamp dd,
+.device dt, .device dd {
+display:inline;
+}
+.profiles li,
+.notices li {
+margin-bottom:18px;
+}
+
+}/*end of @media print*/

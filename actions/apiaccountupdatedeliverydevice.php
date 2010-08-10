@@ -21,6 +21,7 @@
  *
  * @category  API
  * @package   StatusNet
+ * @author    Siebrand Mazeland <s.mazeland@xs4all.nl>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
@@ -103,7 +104,7 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
             $this->clientError(
                 _(
                     'You must specify a parameter named ' .
-                    '\'device\' with a value of one of: sms, im, none'
+                    '\'device\' with a value of one of: sms, im, none.'
                 )
             );
             return;

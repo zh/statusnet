@@ -154,6 +154,21 @@ class User_group extends Memcached_DataObject
         return $members;
     }
 
+    function getMemberCount()
+    {
+        // XXX: WORM cache this
+
+        $members = $this->getMembers();
+        $member_count = 0;
+
+        /** $member->count() doesn't work. */
+        while ($members->fetch()) {
+            $member_count++;
+        }
+
+        return $member_count;
+    }
+
     function getAdmins($offset=0, $limit=null)
     {
         $qry =
@@ -477,6 +492,7 @@ class User_group extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($group, 'INSERT', __FILE__);
+            // TRANS: Server exception thrown when creating a group failed.
             throw new ServerException(_('Could not create group.'));
         }
 
@@ -486,6 +502,7 @@ class User_group extends Memcached_DataObject
             $result = $group->update($orig);
             if (!$result) {
                 common_log_db_error($group, 'UPDATE', __FILE__);
+                // TRANS: Server exception thrown when updating a group URI failed.
                 throw new ServerException(_('Could not set group URI.'));
             }
         }
@@ -493,6 +510,7 @@ class User_group extends Memcached_DataObject
         $result = $group->setAliases($aliases);
 
         if (!$result) {
+            // TRANS: Server exception thrown when creating group aliases failed.
             throw new ServerException(_('Could not create aliases.'));
         }
 
@@ -507,6 +525,7 @@ class User_group extends Memcached_DataObject
 
         if (!$result) {
             common_log_db_error($member, 'INSERT', __FILE__);
+            // TRANS: Server exception thrown when setting group membership failed.
             throw new ServerException(_('Could not set group membership.'));
         }
 
@@ -521,6 +540,7 @@ class User_group extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($local_group, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when saving local group information failed.
                 throw new ServerException(_('Could not save local group info.'));
             }
         }

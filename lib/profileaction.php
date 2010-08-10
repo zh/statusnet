@@ -139,25 +139,30 @@ class ProfileAction extends OwnerDesignAction
         $this->elementStart('div', array('id' => 'entity_subscribers',
                                          'class' => 'section'));
 
-        $this->element('h2', null, _('Subscribers'));
+        if (Event::handle('StartShowSubscribersMiniList', array($this))) {
 
-        $cnt = 0;
+            $this->element('h2', null, _('Subscribers'));
 
-        if (!empty($profile)) {
-            $pml = new ProfileMiniList($profile, $this);
-            $cnt = $pml->show();
-            if ($cnt == 0) {
-                $this->element('p', null, _('(None)'));
+            $cnt = 0;
+
+            if (!empty($profile)) {
+                $sml = new SubscribersMiniList($profile, $this);
+                $cnt = $sml->show();
+                if ($cnt == 0) {
+                    $this->element('p', null, _('(None)'));
+                }
             }
-        }
 
-        if ($cnt > PROFILES_PER_MINILIST) {
-            $this->elementStart('p');
-            $this->element('a', array('href' => common_local_url('subscribers',
-                                                                 array('nickname' => $this->profile->nickname)),
-                                      'class' => 'more'),
-                           _('All subscribers'));
-            $this->elementEnd('p');
+            if ($cnt > PROFILES_PER_MINILIST) {
+                $this->elementStart('p');
+                $this->element('a', array('href' => common_local_url('subscribers',
+                                                                     array('nickname' => $this->profile->nickname)),
+                                          'class' => 'more'),
+                               _('All subscribers'));
+                $this->elementEnd('p');
+            }
+
+            Event::handle('EndShowSubscribersMiniList', array($this));
         }
 
         $this->elementEnd('div');
@@ -169,6 +174,12 @@ class ProfileAction extends OwnerDesignAction
         $subbed_count = $this->profile->subscriberCount();
         $notice_count = $this->profile->noticeCount();
         $group_count  = $this->user->getGroups()->N;
+        $age_days     = (time() - strtotime($this->profile->created)) / 86400;
+        if ($age_days < 1) {
+            // Rather than extrapolating out to a bajillion...
+            $age_days = 1;
+        }
+        $daily_count = round($notice_count / $age_days);
 
         $this->elementStart('div', array('id' => 'entity_statistics',
                                          'class' => 'section'));
@@ -219,6 +230,12 @@ class ProfileAction extends OwnerDesignAction
         $this->element('dd', null, $notice_count);
         $this->elementEnd('dl');
 
+        $this->elementStart('dl', 'entity_daily_notices');
+        // TRANS: Average count of posts made per day since account registration
+        $this->element('dt', null, _('Daily average'));
+        $this->element('dd', null, $daily_count);
+        $this->elementEnd('dl');
+
         $this->elementEnd('div');
     }
 
@@ -251,6 +268,26 @@ class ProfileAction extends OwnerDesignAction
             Event::handle('EndShowGroupsMiniList', array($this));
         }
             $this->elementEnd('div');
+    }
+}
+
+class SubscribersMiniList extends ProfileMiniList
+{
+    function newListItem($profile)
+    {
+        return new SubscribersMiniListItem($profile, $this->action);
+    }
+}
+
+class SubscribersMiniListItem extends ProfileMiniListItem
+{
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+        return $aAttrs;
     }
 }
 

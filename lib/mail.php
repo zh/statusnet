@@ -170,8 +170,10 @@ function mail_to_user(&$user, $subject, $body, $headers=array(), $address=null)
 
 function mail_confirm_address($user, $code, $nickname, $address)
 {
+    // TRANS: Subject for address confirmation email
     $subject = _('Email address confirmation');
 
+    // TRANS: Body for address confirmation email.
     $body = sprintf(_("Hey, %s.\n\n".
                       "Someone just entered this email address on %s.\n\n" .
                       "If it was you, and you want to confirm your entry, ".
@@ -222,9 +224,6 @@ function mail_subscribe_notify_profile($listenee, $other)
     if ($other->hasRight(Right::EMAILONSUBSCRIBE) &&
         $listenee->email && $listenee->emailnotifysub) {
 
-        // use the recipient's localization
-        common_init_locale($listenee->language);
-
         $profile = $listenee->getProfile();
 
         $name = $profile->getBestName();
@@ -234,14 +233,24 @@ function mail_subscribe_notify_profile($listenee, $other)
 
         $recipients = $listenee->email;
 
+        // use the recipient's localization
+        common_switch_locale($listenee->language);
+
         $headers = _mail_prepare_headers('subscribe', $listenee->nickname, $other->nickname);
         $headers['From']    = mail_notify_from();
         $headers['To']      = $name . ' <' . $listenee->email . '>';
+        // TRANS: Subject of new-subscriber notification e-mail
         $headers['Subject'] = sprintf(_('%1$s is now listening to '.
                                         'your notices on %2$s.'),
                                       $other->getBestName(),
                                       common_config('site', 'name'));
 
+        $blocklink = sprintf(_("If you believe this account is being used abusively, " .
+                               "you can block them from your subscribers list and " .
+                               "report as spam to site administrators at %s"),
+                             common_local_url('block', array('profileid' => $other->id)));
+
+        // TRANS: Main body of new-subscriber notification e-mail
         $body = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
                           "\t".'%3$s'."\n\n".
                           '%4$s'.
@@ -255,16 +264,20 @@ function mail_subscribe_notify_profile($listenee, $other)
                         common_config('site', 'name'),
                         $other->profileurl,
                         ($other->location) ?
+                        // TRANS: Profile info line in new-subscriber notification e-mail
                         sprintf(_("Location: %s"), $other->location) . "\n" : '',
                         ($other->homepage) ?
+                        // TRANS: Profile info line in new-subscriber notification e-mail
                         sprintf(_("Homepage: %s"), $other->homepage) . "\n" : '',
-                        ($other->bio) ?
-                        sprintf(_("Bio: %s"), $other->bio) . "\n\n" : '',
+                        (($other->bio) ?
+                        // TRANS: Profile info line in new-subscriber notification e-mail
+                            sprintf(_("Bio: %s"), $other->bio) . "\n" : '') .
+                            "\n\n" . $blocklink . "\n",
                         common_config('site', 'name'),
                         common_local_url('emailsettings'));
 
         // reset localization
-        common_init_locale();
+        common_switch_locale();
         mail_send($recipients, $headers, $body);
     }
 }
@@ -287,9 +300,11 @@ function mail_new_incoming_notify($user)
 
     $headers['From']    = $user->incomingemail;
     $headers['To']      = $name . ' <' . $user->email . '>';
+    // TRANS: Subject of notification mail for new posting email address
     $headers['Subject'] = sprintf(_('New email address for posting to %s'),
                                   common_config('site', 'name'));
 
+    // TRANS: Body of notification mail for new posting email address
     $body = sprintf(_("You have a new posting address on %1\$s.\n\n".
                       "Send email to %2\$s to post new messages.\n\n".
                       "More email instructions at %3\$s.\n\n".
@@ -414,6 +429,7 @@ function mail_send_sms_notice_address($notice, $smsemail, $incomingemail)
 
     $headers['From']    = ($incomingemail) ? $incomingemail : mail_notify_from();
     $headers['To']      = $to;
+    // TRANS: Subject line for SMS-by-email notification messages
     $headers['Subject'] = sprintf(_('%s status'),
                                   $other->getBestName());
 
@@ -440,11 +456,11 @@ function mail_confirm_sms($code, $nickname, $address)
 
     $headers['From']    = mail_notify_from();
     $headers['To']      = $nickname . ' <' . $address . '>';
+    // TRANS: Subject line for SMS-by-email address confirmation message
     $headers['Subject'] = _('SMS confirmation');
 
-    // FIXME: I18N
-
-    $body  = "$nickname: confirm you own this phone number with this code:";
+    // TRANS: Main body heading for SMS-by-email address confirmation message
+    $body  = sprintf(_("%s: confirm you own this phone number with this code:"), $nickname);
     $body .= "\n\n";
     $body .= $code;
     $body .= "\n\n";
@@ -463,11 +479,13 @@ function mail_confirm_sms($code, $nickname, $address)
 
 function mail_notify_nudge($from, $to)
 {
-    common_init_locale($to->language);
+    common_switch_locale($to->language);
+    // TRANS: Subject for 'nudge' notification email
     $subject = sprintf(_('You\'ve been nudged by %s'), $from->nickname);
 
     $from_profile = $from->getProfile();
 
+    // TRANS: Body for 'nudge' notification email
     $body = sprintf(_("%1\$s (%2\$s) is wondering what you are up to ".
                       "these days and is inviting you to post some news.\n\n".
                       "So let's hear from you :)\n\n".
@@ -479,7 +497,7 @@ function mail_notify_nudge($from, $to)
                     $from->nickname,
                     common_local_url('all', array('nickname' => $to->nickname)),
                     common_config('site', 'name'));
-    common_init_locale();
+    common_switch_locale();
 
     $headers = _mail_prepare_headers('nudge', $to->nickname, $from->nickname);
 
@@ -513,11 +531,13 @@ function mail_notify_message($message, $from=null, $to=null)
         return true;
     }
 
-    common_init_locale($to->language);
+    common_switch_locale($to->language);
+    // TRANS: Subject for direct-message notification email
     $subject = sprintf(_('New private message from %s'), $from->nickname);
 
     $from_profile = $from->getProfile();
 
+    // TRANS: Body for direct-message notification email
     $body = sprintf(_("%1\$s (%2\$s) sent you a private message:\n\n".
                       "------------------------------------------------------\n".
                       "%3\$s\n".
@@ -535,7 +555,7 @@ function mail_notify_message($message, $from=null, $to=null)
 
     $headers = _mail_prepare_headers('message', $to->nickname, $from->nickname);
 
-    common_init_locale();
+    common_switch_locale();
     return mail_to_user($to, $subject, $body, $headers);
 }
 
@@ -563,10 +583,12 @@ function mail_notify_fave($other, $user, $notice)
 
     $bestname = $profile->getBestName();
 
-    common_init_locale($other->language);
+    common_switch_locale($other->language);
 
+    // TRANS: Subject for favorite notification email
     $subject = sprintf(_('%s (@%s) added your notice as a favorite'), $bestname, $user->nickname);
 
+    // TRANS: Body for favorite notification email
     $body = sprintf(_("%1\$s (@%7\$s) just added your notice from %2\$s".
                       " as one of their favorites.\n\n" .
                       "The URL of your notice is:\n\n" .
@@ -589,7 +611,7 @@ function mail_notify_fave($other, $user, $notice)
 
     $headers = _mail_prepare_headers('fave', $other->nickname, $user->nickname);
 
-    common_init_locale();
+    common_switch_locale();
     mail_to_user($other, $subject, $body, $headers);
 }
 
@@ -620,26 +642,27 @@ function mail_notify_attn($user, $notice)
 
     $bestname = $sender->getBestName();
 
-    common_init_locale($user->language);
+    common_switch_locale($user->language);
 
-        if ($notice->conversation != $notice->id) {
-                $conversationEmailText = "The full conversation can be read here:\n\n".
-                                                                 "\t%5\$s\n\n ";
-                $conversationUrl            = common_local_url('conversation',
-                                 array('id' => $notice->conversation)).'#notice-'.$notice->id;
-        } else {
-                $conversationEmailText = "%5\$s";
-                $conversationUrl = null;
-        }
+    if ($notice->hasConversation()) {
+        $conversationUrl = common_local_url('conversation',
+                         array('id' => $notice->conversation)).'#notice-'.$notice->id;
+        // TRANS: Line in @-reply notification e-mail. %s is conversation URL.
+        $conversationEmailText = sprintf(_("The full conversation can be read here:\n\n".
+                                           "\t%s"), $conversationUrl) . "\n\n";
+    } else {
+        $conversationEmailText = '';
+    }
 
     $subject = sprintf(_('%s (@%s) sent a notice to your attention'), $bestname, $sender->nickname);
 
+        // TRANS: Body of @-reply notification e-mail.
         $body = sprintf(_("%1\$s (@%9\$s) just sent a notice to your attention (an '@-reply') on %2\$s.\n\n".
                       "The notice is here:\n\n".
                       "\t%3\$s\n\n" .
                       "It reads:\n\n".
                       "\t%4\$s\n\n" .
-                      $conversationEmailText .
+                      "%5\$s" .
                       "You can reply back here:\n\n".
                       "\t%6\$s\n\n" .
                       "The list of all @-replies for you here:\n\n" .
@@ -652,7 +675,7 @@ function mail_notify_attn($user, $notice)
                     common_local_url('shownotice',
                                      array('notice' => $notice->id)),//%3
                     $notice->content,//%4
-                                        $conversationUrl,//%5
+                    $conversationEmailText,//%5
                     common_local_url('newnotice',
                                      array('replyto' => $sender->nickname, 'inreplyto' => $notice->id)),//%6
                     common_local_url('replies',
@@ -662,7 +685,7 @@ function mail_notify_attn($user, $notice)
 
     $headers = _mail_prepare_headers('mention', $user->nickname, $sender->nickname);
 
-    common_init_locale();
+    common_switch_locale();
     mail_to_user($user, $subject, $body, $headers);
 }
 

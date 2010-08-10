@@ -215,22 +215,13 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
-     * Send a PuSH unsubscription request to the hub for this feed.
-     * The hub will later send us a confirmation POST to /main/push/callback.
+     * Check if this remote profile has any active local subscriptions, and
+     * if not drop the PuSH subscription feed.
      *
      * @return bool true on success, false on failure
-     * @throws ServerException if feed state is not valid
      */
     public function unsubscribe() {
-        $feedsub = FeedSub::staticGet('uri', $this->feeduri);
-        if (!$feedsub || $feedsub->sub_state == '' || $feedsub->sub_state == 'inactive') {
-            // No active PuSH subscription, we can just leave it be.
-            return true;
-        } else {
-            // PuSH subscription is either active or in an indeterminate state.
-            // Send an unsubscribe.
-            return $feedsub->unsubscribe();
-        }
+        $this->garbageCollect();
     }
 
     /**
@@ -241,19 +232,35 @@ class Ostatus_profile extends Memcached_DataObject
      */
     public function garbageCollect()
     {
+        $feedsub = FeedSub::staticGet('uri', $this->feeduri);
+        return $feedsub->garbageCollect();
+    }
+
+    /**
+     * Check if this remote profile has any active local subscriptions, so the
+     * PuSH subscription layer can decide if it can drop the feed.
+     *
+     * This gets called via the FeedSubSubscriberCount event when running
+     * FeedSub::garbageCollect().
+     *
+     * @return int
+     */
+    public function subscriberCount()
+    {
         if ($this->isGroup()) {
             $members = $this->localGroup()->getMembers(0, 1);
             $count = $members->N;
         } else {
             $count = $this->localProfile()->subscriberCount();
         }
-        if ($count == 0) {
-            common_log(LOG_INFO, "Unsubscribing from now-unused remote feed $this->feeduri");
-            $this->unsubscribe();
-            return true;
-        } else {
-            return false;
-        }
+        common_log(LOG_INFO, __METHOD__ . " SUB COUNT BEFORE: $count");
+
+        // Other plugins may be piggybacking on OStatus without having
+        // an active group or user-to-user subscription we know about.
+        Event::handle('Ostatus_profileSubscriberCount', array($this, &$count));
+        common_log(LOG_INFO, __METHOD__ . " SUB COUNT AFTER: $count");
+
+        return $count;
     }
 
     /**
@@ -442,6 +449,18 @@ class Ostatus_profile extends Memcached_DataObject
     {
         $activity = new Activity($entry, $feed);
 
+        // @todo process all activity objects
+        switch ($activity->objects[0]->type) {
+        case ActivityObject::ARTICLE:
+        case ActivityObject::BLOGENTRY:
+        case ActivityObject::NOTE:
+        case ActivityObject::STATUS:
+        case ActivityObject::COMMENT:
+            break;
+        default:
+            throw new ClientException("Can't handle that kind of post.");
+        }
+
         if ($activity->verb == ActivityVerb::POST) {
             $this->processPost($activity, $source);
         } else {
@@ -474,8 +493,14 @@ class Ostatus_profile extends Memcached_DataObject
                 // OK here! assume the default
             } else if ($actor->id == $this->uri || $actor->link == $this->uri) {
                 $this->updateFromActivityObject($actor);
-            } else {
+            } else if ($actor->id) {
+                // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
+                // This isn't what we expect from mainline OStatus person feeds!
+                // Group feeds go down another path, with different validation.
                 throw new Exception("Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
+            } else {
+                // Plain <author> without ActivityStreams actor info.
+                // We'll just ignore this info for now and save the update under the feed's identity.
             }
 
             $oprofile = $this;
@@ -483,7 +508,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         // It's not always an ActivityObject::NOTE, but... let's just say it is.
 
-        $note = $activity->object;
+        $note = $activity->objects[0];
 
         // The id URI will be used as a unique identifier for for the notice,
         // protecting against duplicate saves. It isn't required to be a URL;
@@ -538,14 +563,22 @@ class Ostatus_profile extends Memcached_DataObject
             }
             $shortSummary = common_shorten_links($summary);
             if (Notice::contentTooLong($shortSummary)) {
-                $url = common_shorten_url(common_local_url('attachment',
-                                                           array('attachment' => $attachment->id)));
+                $url = common_shorten_url($sourceUrl);
                 $shortSummary = substr($shortSummary,
                                        0,
                                        Notice::maxContent() - (mb_strlen($url) + 2));
-                $shortSummary .= '… ' . $url;
-                $content = $shortSummary;
-                $rendered = common_render_text($content);
+                $content = $shortSummary . ' ' . $url;
+
+                // We mark up the attachment link specially for the HTML output
+                // so we can fold-out the full version inline.
+                $attachUrl = common_local_url('attachment',
+                                              array('attachment' => $attachment->id));
+                $rendered = common_render_text($shortSummary) .
+                            '<a href="' . htmlspecialchars($attachUrl) .'"'.
+                            ' class="attachment more"' .
+                            ' title="'. htmlspecialchars(_m('Show more')) . '">' .
+                            '&#8230;' .
+                            '</a>';
             }
         }
 
@@ -648,7 +681,7 @@ class Ostatus_profile extends Memcached_DataObject
         common_log(LOG_DEBUG, "Original reply recipients: " . implode(', ', $attention_uris));
         $groups = array();
         $replies = array();
-        foreach ($attention_uris as $recipient) {
+        foreach (array_unique($attention_uris) as $recipient) {
             // Is the recipient a local user?
             $user = User::staticGet('uri', $recipient);
             if ($user) {
@@ -700,9 +733,14 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Look up and if necessary create an Ostatus_profile for the remote entity
+     * with the given profile page URL. This should never return null -- you
+     * will either get an object or an exception will be thrown.
+     *
      * @param string $profile_url
      * @return Ostatus_profile
-     * @throws FeedSubException
+     * @throws Exception on various error conditions
+     * @throws OStatusShadowException if this reference would obscure a local user/group
      */
 
     public static function ensureProfileURL($profile_url, $hints=array())
@@ -723,7 +761,7 @@ class Ostatus_profile extends Memcached_DataObject
         $response = $client->get($profile_url);
 
         if (!$response->isOk()) {
-            return null;
+            throw new Exception("Could not reach profile page: " . $profile_url);
         }
 
         // Check if we have a non-canonical URL
@@ -777,11 +815,20 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (!empty($feedurl)) {
             $hints['feedurl'] = $feedurl;
-
             return self::ensureFeedURL($feedurl, $hints);
         }
+
+        throw new Exception("Could not find a feed URL for profile page " . $finalUrl);
     }
 
+    /**
+     * Look up the Ostatus_profile, if present, for a remote entity with the
+     * given profile page URL. Will return null for both unknown and invalid
+     * remote profiles.
+     *
+     * @return mixed Ostatus_profile or null
+     * @throws OStatusShadowException for local profiles
+     */
     static function getFromProfileURL($profile_url)
     {
         $profile = Profile::staticGet('profileurl', $profile_url);
@@ -803,7 +850,7 @@ class Ostatus_profile extends Memcached_DataObject
         $user = User::staticGet('id', $profile->id);
 
         if (!empty($user)) {
-            throw new Exception("'$profile_url' is the profile for local user '{$user->nickname}'.");
+            throw new OStatusShadowException($profile, "'$profile_url' is the profile for local user '{$user->nickname}'.");
         }
 
         // Continue discovery; it's a remote profile
@@ -813,6 +860,14 @@ class Ostatus_profile extends Memcached_DataObject
         return null;
     }
 
+    /**
+     * Look up and if necessary create an Ostatus_profile for remote entity
+     * with the given update feed. This should never return null -- you will
+     * either get an object or an exception will be thrown.
+     *
+     * @return Ostatus_profile
+     * @throws Exception
+     */
     public static function ensureFeedURL($feed_url, $hints=array())
     {
         $discover = new FeedDiscovery();
@@ -820,12 +875,12 @@ class Ostatus_profile extends Memcached_DataObject
         $feeduri = $discover->discoverFromFeedURL($feed_url);
         $hints['feedurl'] = $feeduri;
 
-        $huburi = $discover->getAtomLink('hub');
+        $huburi = $discover->getHubLink();
         $hints['hub'] = $huburi;
         $salmonuri = $discover->getAtomLink(Salmon::NS_REPLIES);
         $hints['salmon'] = $salmonuri;
 
-        if (!$huburi) {
+        if (!$huburi && !common_config('feedsub', 'fallback_hub')) {
             // We can only deal with folks with a PuSH hub
             throw new FeedSubNoHubException();
         }
@@ -841,6 +896,18 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
+    /**
+     * Look up and, if necessary, create an Ostatus_profile for the remote
+     * profile with the given Atom feed - actually loaded from the feed.
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
+     *
+     * @param DOMElement $feedEl root element of a loaded Atom feed
+     * @param array $hints additional discovery information passed from higher levels
+     * @fixme should this be marked public?
+     * @return Ostatus_profile
+     * @throws Exception
+     */
     public static function ensureAtomFeed($feedEl, $hints)
     {
         // Try to get a profile from the feed activity:subject
@@ -891,6 +958,18 @@ class Ostatus_profile extends Memcached_DataObject
         throw new FeedSubException("Can't find enough profile information to make a feed.");
     }
 
+    /**
+     * Look up and, if necessary, create an Ostatus_profile for the remote
+     * profile with the given RSS feed - actually loaded from the feed.
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
+     *
+     * @param DOMElement $feedEl root element of a loaded RSS feed
+     * @param array $hints additional discovery information passed from higher levels
+     * @fixme should this be marked public?
+     * @return Ostatus_profile
+     * @throws Exception
+     */
     public static function ensureRssChannel($feedEl, $hints)
     {
         // Special-case for Posterous. They have some nice metadata in their
@@ -935,7 +1014,7 @@ class Ostatus_profile extends Memcached_DataObject
             return;
         }
         if (!common_valid_http_url($url)) {
-            throw new ServerException(_m("Invalid avatar URL %s"), $url);
+            throw new ServerException(sprintf(_m("Invalid avatar URL %s"), $url));
         }
 
         if ($this->isGroup()) {
@@ -1054,17 +1133,32 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * Fetch, or build if necessary, an Ostatus_profile for the actor
      * in a given Activity Streams activity.
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
      *
      * @param Activity $activity
      * @param string $feeduri if we already know the canonical feed URI!
      * @param string $salmonuri if we already know the salmon return channel URI
      * @return Ostatus_profile
+     * @throws Exception
      */
 
     public static function ensureActorProfile($activity, $hints=array())
     {
         return self::ensureActivityObjectProfile($activity->actor, $hints);
     }
+
+    /**
+     * Fetch, or build if necessary, an Ostatus_profile for the profile
+     * in a given Activity Streams object (can be subject, actor, or object).
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
+     *
+     * @param ActivityObject $object
+     * @param array $hints additional discovery information passed from higher levels
+     * @return Ostatus_profile
+     * @throws Exception
+     */
 
     public static function ensureActivityObjectProfile($object, $hints=array())
     {
@@ -1080,35 +1174,45 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * @param Activity $activity
      * @return mixed matching Ostatus_profile or false if none known
+     * @throws ServerException if feed info invalid
      */
     public static function getActorProfile($activity)
     {
         return self::getActivityObjectProfile($activity->actor);
     }
 
+    /**
+     * @param ActivityObject $activity
+     * @return mixed matching Ostatus_profile or false if none known
+     * @throws ServerException if feed info invalid
+     */
     protected static function getActivityObjectProfile($object)
     {
         $uri = self::getActivityObjectProfileURI($object);
         return Ostatus_profile::staticGet('uri', $uri);
     }
 
-    protected static function getActorProfileURI($activity)
-    {
-        return self::getActivityObjectProfileURI($activity->actor);
-    }
-
     /**
-     * @param Activity $activity
+     * Get the identifier URI for the remote entity described
+     * by this ActivityObject. This URI is *not* guaranteed to be
+     * a resolvable HTTP/HTTPS URL.
+     *
+     * @param ActivityObject $object
      * @return string
-     * @throws ServerException
+     * @throws ServerException if feed info invalid
      */
     protected static function getActivityObjectProfileURI($object)
     {
-        $opts = array('allowed_schemes' => array('http', 'https'));
-        if ($object->id && Validate::uri($object->id, $opts)) {
-            return $object->id;
+        if ($object->id) {
+            if (ActivityUtils::validateUri($object->id)) {
+                return $object->id;
+            }
         }
-        if ($object->link && Validate::uri($object->link, $opts)) {
+
+        // If the id is missing or invalid (we've seen feeds mistakenly listing
+        // things like local usernames in that field) then we'll use the profile
+        // page link, if valid.
+        if ($object->link && common_valid_http_url($object->link)) {
             return $object->link;
         }
         throw new ServerException("No author ID URI found");
@@ -1121,6 +1225,8 @@ class Ostatus_profile extends Memcached_DataObject
     /**
      * Create local ostatus_profile and profile/user_group entries for
      * the provided remote user or group.
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
      *
      * @param ActivityObject $object
      * @param array $hints
@@ -1137,7 +1243,8 @@ class Ostatus_profile extends Memcached_DataObject
             throw new Exception("No profile URI");
         }
 
-        if (OStatusPlugin::localProfileFromUrl($homeuri)) {
+        $user = User::staticGet('uri', $homeuri);
+        if ($user) {
             throw new Exception("Local user can't be referenced as remote.");
         }
 
@@ -1169,10 +1276,10 @@ class Ostatus_profile extends Memcached_DataObject
                 $discover = new FeedDiscovery();
                 $discover->discoverFromFeedURL($hints['feedurl']);
             }
-            $huburi = $discover->getAtomLink('hub');
+            $huburi = $discover->getHubLink();
         }
 
-        if (!$huburi) {
+        if (!$huburi && !common_config('feedsub', 'fallback_hub')) {
             // We can only deal with folks with a PuSH hub
             throw new FeedSubNoHubException();
         }
@@ -1209,15 +1316,23 @@ class Ostatus_profile extends Memcached_DataObject
 
         $ok = $oprofile->insert();
 
-        if ($ok) {
-            $avatar = self::getActivityObjectAvatar($object, $hints);
-            if ($avatar) {
-                $oprofile->updateAvatar($avatar);
-            }
-            return $oprofile;
-        } else {
+        if (!$ok) {
             throw new ServerException("Can't save OStatus profile");
         }
+
+        $avatar = self::getActivityObjectAvatar($object, $hints);
+
+        if ($avatar) {
+            try {
+                $oprofile->updateAvatar($avatar);
+            } catch (Exception $ex) {
+                // Profile is saved, but Avatar is messed up. We're
+                // just going to continue.
+                common_log(LOG_WARNING, "Exception saving OStatus profile avatar: ". $ex->getMessage());
+            }
+        }
+
+        return $oprofile;
     }
 
     /**
@@ -1236,7 +1351,11 @@ class Ostatus_profile extends Memcached_DataObject
         }
         $avatar = self::getActivityObjectAvatar($object, $hints);
         if ($avatar) {
-            $this->updateAvatar($avatar);
+            try {
+                $this->updateAvatar($avatar);
+            } catch (Exception $ex) {
+                common_log(LOG_WARNING, "Exception saving OStatus profile avatar: " . $ex->getMessage());
+            }
         }
     }
 
@@ -1437,9 +1556,15 @@ class Ostatus_profile extends Memcached_DataObject
     }
 
     /**
+     * Look up, and if necessary create, an Ostatus_profile for the remote
+     * entity with the given webfinger address.
+     * This should never return null -- you will either get an object or
+     * an exception will be thrown.
+     *
      * @param string $addr webfinger address
      * @return Ostatus_profile
      * @throws Exception on error conditions
+     * @throws OStatusShadowException if this reference would obscure a local user/group
      */
     public static function ensureWebfinger($addr)
     {
@@ -1518,9 +1643,18 @@ class Ostatus_profile extends Memcached_DataObject
                 $oprofile = self::ensureProfileURL($hints['profileurl'], $hints);
                 self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
                 return $oprofile;
+            } catch (OStatusShadowException $e) {
+                // We've ended up with a remote reference to a local user or group.
+                // @fixme ideally we should be able to say who it was so we can
+                // go back and refer to it the regular way
+                throw $e;
             } catch (Exception $e) {
                 common_log(LOG_WARNING, "Failed creating profile from profile URL '$profileUrl': " . $e->getMessage());
                 // keep looking
+                //
+                // @fixme this means an error discovering from profile page
+                // may give us a corrupt entry using the webfinger URI, which
+                // will obscure the correct page-keyed profile later on.
             }
         }
 
@@ -1577,10 +1711,22 @@ class Ostatus_profile extends Memcached_DataObject
         throw new Exception("Couldn't find a valid profile for '$addr'");
     }
 
+    /**
+     * Store the full-length scrubbed HTML of a remote notice to an attachment
+     * file on our server. We'll link to this at the end of the cropped version.
+     *
+     * @param string $title plaintext for HTML page's title
+     * @param string $rendered HTML fragment for HTML page's body
+     * @return File
+     */
     function saveHTMLFile($title, $rendered)
     {
-        $final = sprintf("<!DOCTYPE html>\n<html><head><title>%s</title></head>".
-                         '<body><div>%s</div></body></html>',
+        $final = sprintf("<!DOCTYPE html>\n" .
+                         '<html><head>' .
+                         '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">' .
+                         '<title>%s</title>' .
+                         '</head>' .
+                         '<body>%s</body></html>',
                          htmlspecialchars($title),
                          $rendered);
 
@@ -1610,3 +1756,24 @@ class Ostatus_profile extends Memcached_DataObject
         return $file;
     }
 }
+
+/**
+ * Exception indicating we've got a remote reference to a local user,
+ * not a remote user!
+ *
+ * If we can ue a local profile after all, it's available as $e->profile.
+ */
+class OStatusShadowException extends Exception
+{
+    public $profile;
+
+    /**
+     * @param Profile $profile
+     * @param string $message
+     */
+    function __construct($profile, $message) {
+        $this->profile = $profile;
+        parent::__construct($message);
+    }
+}
+

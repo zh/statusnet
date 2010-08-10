@@ -1,0 +1,331 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-29 23:39+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: OStatusPlugin.php:210 OStatusPlugin.php:913 actions/ostatusinit.php:99
+msgid "Subscribe"
+msgstr ""
+
+#: OStatusPlugin.php:228 OStatusPlugin.php:635 actions/ostatussub.php:105
+#: actions/ostatusinit.php:96
+msgid "Join"
+msgstr ""
+
+#: OStatusPlugin.php:451
+#, php-format
+msgid "Sent from %s via OStatus"
+msgstr ""
+
+#: OStatusPlugin.php:503
+msgid "Could not set up remote subscription."
+msgstr ""
+
+#: OStatusPlugin.php:619
+msgid "Could not set up remote group membership."
+msgstr ""
+
+#: OStatusPlugin.php:636
+#, php-format
+msgid "%s has joined group %s."
+msgstr ""
+
+#: OStatusPlugin.php:644
+msgid "Failed joining remote group."
+msgstr ""
+
+#: OStatusPlugin.php:684
+msgid "Leave"
+msgstr ""
+
+#: OStatusPlugin.php:685
+#, php-format
+msgid "%s has left group %s."
+msgstr ""
+
+#: OStatusPlugin.php:844
+msgid "Remote"
+msgstr ""
+
+#: OStatusPlugin.php:883
+msgid "Profile update"
+msgstr ""
+
+#: OStatusPlugin.php:884
+#, php-format
+msgid "%s has updated their profile page."
+msgstr ""
+
+#: OStatusPlugin.php:928
+msgid ""
+"Follow people across social networks that implement <a href=\"http://ostatus."
+"org/\">OStatus</a>."
+msgstr ""
+
+#: classes/Ostatus_profile.php:566
+msgid "Show more"
+msgstr ""
+
+#: classes/Ostatus_profile.php:1004
+#, php-format
+msgid "Invalid avatar URL %s"
+msgstr ""
+
+#: classes/Ostatus_profile.php:1014
+#, php-format
+msgid "Tried to update avatar for unsaved remote profile %s"
+msgstr ""
+
+#: classes/Ostatus_profile.php:1022
+#, php-format
+msgid "Unable to fetch avatar from %s"
+msgstr ""
+
+#: lib/salmonaction.php:41
+msgid "This method requires a POST."
+msgstr ""
+
+#: lib/salmonaction.php:45
+msgid "Salmon requires application/magic-envelope+xml"
+msgstr ""
+
+#: lib/salmonaction.php:55
+msgid "Salmon signature verification failed."
+msgstr ""
+
+#: lib/salmonaction.php:67
+msgid "Salmon post must be an Atom entry."
+msgstr ""
+
+#: lib/salmonaction.php:115
+msgid "Unrecognized activity type."
+msgstr ""
+
+#: lib/salmonaction.php:123
+msgid "This target doesn't understand posts."
+msgstr ""
+
+#: lib/salmonaction.php:128
+msgid "This target doesn't understand follows."
+msgstr ""
+
+#: lib/salmonaction.php:133
+msgid "This target doesn't understand unfollows."
+msgstr ""
+
+#: lib/salmonaction.php:138
+msgid "This target doesn't understand favorites."
+msgstr ""
+
+#: lib/salmonaction.php:143
+msgid "This target doesn't understand unfavorites."
+msgstr ""
+
+#: lib/salmonaction.php:148
+msgid "This target doesn't understand share events."
+msgstr ""
+
+#: lib/salmonaction.php:153
+msgid "This target doesn't understand joins."
+msgstr ""
+
+#: lib/salmonaction.php:158
+msgid "This target doesn't understand leave events."
+msgstr ""
+
+#: tests/gettext-speedtest.php:57
+msgid "Feeds"
+msgstr ""
+
+#: actions/ostatusgroup.php:75
+msgid "Join group"
+msgstr ""
+
+#: actions/ostatusgroup.php:77
+msgid "OStatus group's address, like http://example.net/group/nickname"
+msgstr ""
+
+#: actions/ostatusgroup.php:81 actions/ostatussub.php:71
+msgid "Continue"
+msgstr ""
+
+#: actions/ostatusgroup.php:100
+msgid "You are already a member of this group."
+msgstr ""
+
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatusgroup.php:135
+msgid "Already a member!"
+msgstr ""
+
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatusgroup.php:146
+msgid "Remote group join failed!"
+msgstr ""
+
+#. TRANS: OStatus remote group subscription dialog error.
+#: actions/ostatusgroup.php:150
+msgid "Remote group join aborted!"
+msgstr ""
+
+#. TRANS: Page title for OStatus remote group join form
+#: actions/ostatusgroup.php:163
+msgid "Confirm joining remote group"
+msgstr ""
+
+#: actions/ostatusgroup.php:174
+msgid ""
+"You can subscribe to groups from other supported sites. Paste the group's "
+"profile URI below:"
+msgstr ""
+
+#: actions/groupsalmon.php:51
+msgid "Can't accept remote posts for a remote group."
+msgstr ""
+
+#: actions/groupsalmon.php:124
+msgid "Can't read profile to set up group membership."
+msgstr ""
+
+#: actions/groupsalmon.php:127 actions/groupsalmon.php:170
+msgid "Groups can't join groups."
+msgstr ""
+
+#: actions/groupsalmon.php:154
+#, php-format
+msgid "Could not join remote user %1$s to group %2$s."
+msgstr ""
+
+#: actions/groupsalmon.php:167
+msgid "Can't read profile to cancel group membership."
+msgstr ""
+
+#: actions/groupsalmon.php:183
+#, php-format
+msgid "Could not remove remote user %1$s from group %2$s."
+msgstr ""
+
+#: actions/ostatussub.php:65
+msgid "Subscribe to"
+msgstr ""
+
+#: actions/ostatussub.php:67
+msgid ""
+"OStatus user's address, like nickname@example.com or http://example.net/"
+"nickname"
+msgstr ""
+
+#: actions/ostatussub.php:106
+msgid "Join this group"
+msgstr ""
+
+#. TRANS: Page title for OStatus remote subscription form
+#: actions/ostatussub.php:108 actions/ostatussub.php:400
+msgid "Confirm"
+msgstr ""
+
+#: actions/ostatussub.php:109
+msgid "Subscribe to this user"
+msgstr ""
+
+#: actions/ostatussub.php:130
+msgid "You are already subscribed to this user."
+msgstr ""
+
+#: actions/ostatussub.php:247 actions/ostatussub.php:253
+#: actions/ostatussub.php:272
+msgid ""
+"Sorry, we could not reach that address. Please make sure that the OStatus "
+"address is like nickname@example.com or http://example.net/nickname"
+msgstr ""
+
+#: actions/ostatussub.php:256 actions/ostatussub.php:259
+#: actions/ostatussub.php:262 actions/ostatussub.php:265
+#: actions/ostatussub.php:268
+msgid ""
+"Sorry, we could not reach that feed. Please try that OStatus address again "
+"later."
+msgstr ""
+
+#. TRANS: OStatus remote subscription dialog error.
+#: actions/ostatussub.php:301
+msgid "Already subscribed!"
+msgstr ""
+
+#. TRANS: OStatus remote subscription dialog error.
+#: actions/ostatussub.php:306
+msgid "Remote subscription failed!"
+msgstr ""
+
+#: actions/ostatussub.php:380 actions/ostatusinit.php:81
+msgid "Subscribe to user"
+msgstr ""
+
+#: actions/ostatussub.php:411
+msgid ""
+"You can subscribe to users from other supported sites. Paste their address "
+"or profile URI below:"
+msgstr ""
+
+#: actions/ostatusinit.php:41
+msgid "You can use the local subscription!"
+msgstr ""
+
+#: actions/ostatusinit.php:63
+msgid "There was a problem with your session token. Try again, please."
+msgstr ""
+
+#: actions/ostatusinit.php:95
+#, php-format
+msgid "Join group %s"
+msgstr ""
+
+#: actions/ostatusinit.php:98
+#, php-format
+msgid "Subscribe to %s"
+msgstr ""
+
+#: actions/ostatusinit.php:111
+msgid "User nickname"
+msgstr ""
+
+#: actions/ostatusinit.php:112
+msgid "Nickname of the user you want to follow"
+msgstr ""
+
+#: actions/ostatusinit.php:116
+msgid "Profile Account"
+msgstr ""
+
+#: actions/ostatusinit.php:117
+msgid "Your account id (i.e. user@identi.ca)"
+msgstr ""
+
+#: actions/ostatusinit.php:138
+msgid "Must provide a remote profile."
+msgstr ""
+
+#: actions/ostatusinit.php:149
+msgid "Couldn't look up OStatus account profile."
+msgstr ""
+
+#: actions/ostatusinit.php:161
+msgid "Couldn't confirm remote profile address."
+msgstr ""
+
+#: actions/ostatusinit.php:202
+msgid "OStatus Connect"
+msgstr ""

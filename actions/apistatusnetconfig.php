@@ -103,9 +103,9 @@ class ApiStatusnetConfigAction extends ApiAction
                     $value = common_config($section, $setting);
                     if (is_array($value)) {
                         $value = implode(',', $value);
-                    } else if ($value === false) {
+                    } else if ($value === false || $value == '0') {
                         $value = 'false';
-                    } else if ($value === true) {
+                    } else if ($value === true || $value == '1') {
                         $value = 'true';
                     }
 

@@ -30,9 +30,28 @@
  * @author    Sarven Capadisli <csarven@status.net>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009-2010 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
+
+/* External API usage documentation. Please update when you change how this method works. */
+
+/*! @page authentication Authentication
+
+    StatusNet supports HTTP Basic Authentication and OAuth for API calls.
+
+    @warning Currently, users who have created accounts without setting a
+    password via OpenID, Facebook Connect, etc., cannot use the API until
+    they set a password with their account settings panel.
+
+    @section HTTP Basic Auth
+
+
+
+    @section OAuth
+
+*/
 
 if (!defined('STATUSNET')) {
     exit(1);
@@ -54,7 +73,6 @@ class ApiAuthAction extends ApiAction
 {
     var $auth_user_nickname = null;
     var $auth_user_password = null;
-    var $oauth_source       = null;
 
     /**
      * Take arguments for running, looks for an OAuth request,
@@ -91,6 +109,7 @@ class ApiAuthAction extends ApiAction
 
         if ($this->isReadOnly($args) == false) {
             if ($this->access != self::READ_WRITE) {
+                // TRANS: Client error 401.
                 $msg = _('API resource requires read-write access, ' .
                          'but you only have read access.');
                 $this->clientError($msg, 401, $this->format);
@@ -162,7 +181,7 @@ class ApiAuthAction extends ApiAction
 
             // set the source attr
 
-            $this->oauth_source = $app->name;
+            $this->source = $app->name;
 
             $appUser = Oauth_application_user::staticGet('token', $access_token);
 
@@ -208,7 +227,7 @@ class ApiAuthAction extends ApiAction
 
         } catch (OAuthException $e) {
             common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
-            $this->showAuthError();
+            $this->clientError($e->getMessage(), 401, $this->format);
             exit;
         }
     }
@@ -246,7 +265,7 @@ class ApiAuthAction extends ApiAction
 
             // show error if the user clicks 'cancel'
 
-            $this->showAuthError();
+            $this->clientError("Could not authenticate you.", 401, $this->format);
             exit;
 
         } else {
@@ -267,19 +286,19 @@ class ApiAuthAction extends ApiAction
 
             $this->access = self::READ_WRITE;
 
-            if (empty($this->auth_user) && $required) {
+            if (empty($this->auth_user) && ($required || isset($_SERVER['PHP_AUTH_USER']))) {
 
                 // basic authentication failed
 
                 list($proxy, $ip) = common_client_ip();
 
-                $msg = sprintf(_('Failed API auth attempt, nickname = %1$s, ' .
-                         'proxy = %2$s, ip = %3$s'),
+                $msg = sprintf( 'Failed API auth attempt, nickname = %1$s, ' .
+                         'proxy = %2$s, ip = %3$s',
                                $this->auth_user_nickname,
                                $proxy,
                                $ip);
                 common_log(LOG_WARNING, $msg);
-                $this->showAuthError();
+                $this->clientError("Could not authenticate you.", 401, $this->format);
                 exit;
             }
         }
@@ -326,36 +345,4 @@ class ApiAuthAction extends ApiAction
             }
         }
     }
-
-    /**
-     * Output an authentication error message.  Use XML or JSON if one
-     * of those formats is specified, otherwise output plain text
-     *
-     * @return void
-     */
-
-    function showAuthError()
-    {
-        header('HTTP/1.1 401 Unauthorized');
-        $msg = 'Could not authenticate you.';
-
-        if ($this->format == 'xml') {
-            header('Content-Type: application/xml; charset=utf-8');
-            $this->startXML();
-            $this->elementStart('hash');
-            $this->element('error', null, $msg);
-            $this->element('request', null, $_SERVER['REQUEST_URI']);
-            $this->elementEnd('hash');
-            $this->endXML();
-        } elseif ($this->format == 'json') {
-            header('Content-Type: application/json; charset=utf-8');
-            $error_array = array('error' => $msg,
-                                 'request' => $_SERVER['REQUEST_URI']);
-            print(json_encode($error_array));
-        } else {
-            header('Content-type: text/plain');
-            print "$msg\n";
-        }
-    }
-
 }

@@ -446,4 +446,18 @@ class OStatusSubAction extends Action
     {
         return common_local_url('ostatussub');
     }
+
+    /**
+     * Disable the send-notice form at the top of the page.
+     * This is really just a hack for the broken CSS in the Cloudy theme,
+     * I think; copying from other non-notice-navigation pages that do this
+     * as well. There will be plenty of others also broken.
+     *
+     * @fixme fix the cloudy theme
+     * @fixme do this in a more general way
+     */
+    function showNoticeForm() {
+        // nop
+    }
+
 }

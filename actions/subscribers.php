@@ -157,10 +157,36 @@ class SubscribersListItem extends SubscriptionListItem
         $user = common_current_user();
 
         if (!empty($user) && $this->owner->id == $user->id) {
-            $bf = new BlockForm($this->out, $this->profile,
-                                array('action' => 'subscribers',
-                                      'nickname' => $this->owner->nickname));
+            $returnto = array('action' => 'subscribers',
+                              'nickname' => $this->owner->nickname);
+            $page = $this->out->arg('page');
+            if ($page) {
+                $returnto['param-page'] = $page;
+            }
+            $bf = new BlockForm($this->out, $this->profile, $returnto);
             $bf->show();
         }
+    }
+
+    function linkAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] .= ' nofollow';
+        }
+
+        return $aAttrs;
+    }
+
+    function homepageAttributes()
+    {
+        $aAttrs = parent::linkAttributes();
+
+        if (common_config('nofollow', 'subscribers')) {
+            $aAttrs['rel'] = 'nofollow';
+        }
+
+        return $aAttrs;
     }
 }

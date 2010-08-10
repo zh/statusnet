@@ -26,6 +26,7 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -66,7 +67,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->getTargetUser($id);
+        $this->user   = $this->getTargetUser(null);
         $this->groups = $this->getGroups();
 
         return true;
@@ -87,6 +88,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
         parent::handle($args);
 
         $sitename   = common_config('site', 'name');
+        // TRANS: Message is used as a title. %s is a site name.
         $title      = sprintf(_("%s groups"), $sitename);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
@@ -137,11 +139,18 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
         $qry = 'SELECT user_group.* '.
           'from user_group join local_group on user_group.id = local_group.group_id '.
           'order by created desc ';
-
+        $offset = intval($this->page - 1) * intval($this->count);
+        $limit = intval($this->count);
+        if (common_config('db', 'type') == 'pgsql') {
+            $qry .= ' LIMIT ' . $limit . ' OFFSET ' . $offset;
+        } else {
+            $qry .= ' LIMIT ' . $offset . ', ' . $limit;
+        }
         $group = new User_group();
 
         $group->query($qry);
 
+        $groups = array();
         while ($group->fetch()) {
             $groups[] = clone($group);
         }

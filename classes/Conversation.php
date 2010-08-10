@@ -63,7 +63,8 @@ class Conversation extends Memcached_DataObject
         }
 
         $orig = clone($conv);
-        $orig->uri = common_local_url('conversation', array('id' => $id));
+        $orig->uri = common_local_url('conversation', array('id' => $id),
+                                      null, null, false);
         $result = $orig->update($conv);
 
         if (empty($result)) {

@@ -50,13 +50,14 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
      * Constructor
      *
      * @param User    $user    the user for the feed
+     * @param User    $cur     the current authenticated user, if any
      * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
      */
 
-    function __construct($user, $indent = true) {
-        parent::__construct($indent);
+    function __construct($user, $cur = null, $indent = true) {
+        parent::__construct($cur, $indent);
         $this->user = $user;
         if (!empty($user)) {
             $profile = $user->getProfile();
@@ -64,11 +65,14 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
             $this->setActivitySubject($profile->asActivityNoun('subject'));
         }
 
+        // TRANS: Title in atom user notice feed. %s is a user name.
         $title      = sprintf(_("%s timeline"), $user->nickname);
         $this->setTitle($title);
 
         $sitename   = common_config('site', 'name');
         $subtitle   = sprintf(
+            // TRANS: Message is used as a subtitle in atom user notice feed.
+            // TRANS: %1$s is a user name, %2$s is a site name.
             _('Updates from %1$s on %2$s!'),
             $user->nickname, $sitename
         );

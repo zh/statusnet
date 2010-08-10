@@ -96,8 +96,14 @@ class NoticeList extends Widget
                 break;
             }
 
-            $item = $this->newListItem($this->notice);
-            $item->show();
+            try {
+                $item = $this->newListItem($this->notice);
+                $item->show();
+            } catch (Exception $e) {
+                // we log exceptions and continue
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
+            }
         }
 
         $this->out->elementEnd('ol');
@@ -340,8 +346,9 @@ class NoticeListItem extends Widget
 
     function showNickname()
     {
-        $this->out->element('span', array('class' => 'nickname fn'),
-                            $this->profile->nickname);
+        $this->out->raw('<span class="nickname fn">' .
+                        htmlspecialchars($this->profile->nickname) .
+                        '</span>');
     }
 
     /**
@@ -425,10 +432,18 @@ class NoticeListItem extends Widget
         if (empty($name)) {
             $latdms = $this->decimalDegreesToDMS(abs($lat));
             $londms = $this->decimalDegreesToDMS(abs($lon));
+            // TRANS: Used in coordinates as abbreviation of north
+            $north = _('N');
+            // TRANS: Used in coordinates as abbreviation of south
+            $south = _('S');
+            // TRANS: Used in coordinates as abbreviation of east
+            $east = _('E');
+            // TRANS: Used in coordinates as abbreviation of west
+            $west = _('W');
             $name = sprintf(
                 _('%1$u°%2$u\'%3$u"%4$s %5$u°%6$u\'%7$u"%8$s'),
-                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0?_('N'):_('S')),
-                $londms['deg'],$londms['min'], $londms['sec'],($lon>0?_('E'):_('W')));
+                $latdms['deg'],$latdms['min'], $latdms['sec'],($lat>0? $north:$south),
+                $londms['deg'],$londms['min'], $londms['sec'],($lon>0? $east:$west));
         }
 
         $url  = $location->getUrl();
@@ -443,7 +458,8 @@ class NoticeListItem extends Widget
                                 $name);
         } else {
             $xstr = new XMLStringer(false);
-            $xstr->elementStart('a', array('href' => $url));
+            $xstr->elementStart('a', array('href' => $url,
+                                           'rel' => 'external'));
             $xstr->element('abbr', array('class' => 'geo',
                                          'title' => $latlon),
                            $name);
@@ -453,12 +469,14 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('span');
     }
 
+    /**
+     * @param number $dec decimal degrees
+     * @return array split into 'deg', 'min', and 'sec'
+     */
     function decimalDegreesToDMS($dec)
     {
-
-        $vars = explode(".",$dec);
-        $deg = $vars[0];
-        $tempma = "0.".$vars[1];
+        $deg = intval($dec);
+        $tempma = abs($dec) - abs($deg);
 
         $tempma = $tempma * 3600;
         $min = floor($tempma / 60);
@@ -478,54 +496,47 @@ class NoticeListItem extends Widget
 
     function showNoticeSource()
     {
-        if ($this->notice->source) {
+        $ns = $this->notice->getSource();
+
+        if ($ns) {
+            $source_name = (empty($ns->name)) ? _($ns->code) : _($ns->name);
             $this->out->text(' ');
             $this->out->elementStart('span', 'source');
+            // FIXME: probably i18n issue. If "from" is followed by text, that should be a parameter to "from" (from %s).
             $this->out->text(_('from'));
-            $source_name = _($this->notice->source);
             $this->out->text(' ');
-            switch ($this->notice->source) {
-             case 'web':
-             case 'xmpp':
-             case 'mail':
-             case 'omb':
-             case 'system':
-             case 'api':
-                $this->out->element('span', 'device', $source_name);
-                break;
-             default:
 
+            $name  = $source_name;
+            $url   = $ns->url;
+            $title = null;
+
+            if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
                 $name = $source_name;
-                $url  = null;
-
-                if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
-                    $ns = Notice_source::staticGet($this->notice->source);
-
-                    if ($ns) {
-                        $name = $ns->name;
-                        $url  = $ns->url;
-                    } else {
-                        $app = Oauth_application::staticGet('name', $this->notice->source);
-                        if ($app) {
-                            $name = $app->name;
-                            $url  = $app->source_url;
-                        }
-                    }
-                }
-                Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
-
-                if (!empty($name) && !empty($url)) {
-                    $this->out->elementStart('span', 'device');
-                    $this->out->element('a', array('href' => $url,
-                                                   'rel' => 'external',
-                                                   'title' => $title),
-                                        $name);
-                    $this->out->elementEnd('span');
-                } else {
-                    $this->out->element('span', 'device', $name);
-                }
-                break;
+                $url  = $ns->url;
             }
+            Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
+
+            // if $ns->name and $ns->url are populated we have
+            // configured a source attr somewhere
+            if (!empty($name) && !empty($url)) {
+
+                $this->out->elementStart('span', 'device');
+
+                $attrs = array(
+                    'href' => $url,
+                    'rel' => 'external'
+                );
+
+                if (!empty($title)) {
+                    $attrs['title'] = $title;
+                }
+
+                $this->out->element('a', $attrs, $name);
+                $this->out->elementEnd('span');
+            } else {
+                $this->out->element('span', 'device', $name);
+            }
+
             $this->out->elementEnd('span');
         }
     }
@@ -541,18 +552,7 @@ class NoticeListItem extends Widget
 
     function showContext()
     {
-        $hasConversation = false;
-        if (!empty($this->notice->conversation)) {
-            $conversation = Notice::conversationStream(
-                $this->notice->conversation,
-                1,
-                1
-            );
-            if ($conversation->N > 0) {
-                $hasConversation = true;
-            }
-        }
-        if ($hasConversation) {
+        if ($this->notice->hasConversation()) {
             $conv = Conversation::staticGet(
                 'id',
                 $this->notice->conversation

@@ -28,6 +28,15 @@ set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/ext
 
 class FeedSubException extends Exception
 {
+    function __construct($msg=null)
+    {
+        $type = get_class($this);
+        if ($msg) {
+            parent::__construct("$type: $msg");
+        } else {
+            parent::__construct($type);
+        }
+    }
 }
 
 class OStatusPlugin extends Plugin
@@ -87,6 +96,8 @@ class OStatusPlugin extends Plugin
 
         // Outgoing from our internal PuSH hub
         $qm->connect('hubconf', 'HubConfQueueHandler');
+        $qm->connect('hubprep', 'HubPrepQueueHandler');
+
         $qm->connect('hubout', 'HubOutQueueHandler');
 
         // Outgoing Salmon replies (when we don't need a return value)
@@ -102,7 +113,10 @@ class OStatusPlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        $transports[] = 'ostatus';
+        if ($notice->isLocal()) {
+            // put our transport first, in case there's any conflict (like OMB)
+            array_unshift($transports, 'ostatus');
+        }
         return true;
     }
 
@@ -153,6 +167,9 @@ class OStatusPlugin extends Plugin
 
             // Also, we'll add in the salmon link
             $salmon = common_local_url($salmonAction, array('id' => $id));
+            $feed->addLink($salmon, array('rel' => Salmon::REL_SALMON));
+
+            // XXX: these are deprecated
             $feed->addLink($salmon, array('rel' => Salmon::NS_REPLIES));
             $feed->addLink($salmon, array('rel' => Salmon::NS_MENTIONS));
         }
@@ -256,7 +273,7 @@ class OStatusPlugin extends Plugin
         $matches = array();
 
         // Webfinger matches: @user@example.com
-        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
+        if (preg_match_all('!(?:^|\s+)@((?:\w+\.)*\w+@(?:\w+\-?\w+\.)*\w+(?:\w+\-\w+)*\.\w+)!',
                        $text,
                        $wmatches,
                        PREG_OFFSET_CAPTURE)) {
@@ -451,6 +468,7 @@ class OStatusPlugin extends Plugin
                 return false;
             }
         }
+	return true;
     }
 
     /**
@@ -468,6 +486,24 @@ class OStatusPlugin extends Plugin
         } else {
             common_log(LOG_DEBUG, "No ostatus profile for incoming feed $feedsub->uri");
         }
+    }
+
+    /**
+     * Tell the FeedSub infrastructure whether we have any active OStatus
+     * usage for the feed; if not it'll be able to garbage-collect the
+     * feed subscription.
+     * 
+     * @param FeedSub $feedsub
+     * @param integer $count in/out
+     * @return mixed hook return code
+     */
+    function onFeedSubSubscriberCount($feedsub, &$count)
+    {
+        $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
+        if ($oprofile) {
+            $count += $oprofile->subscriberCount();
+        }
+        return true;
     }
 
     /**
@@ -948,22 +984,15 @@ class OStatusPlugin extends Plugin
         return false;
     }
 
-    /**
-     * Utility function to check if the given URL is a canonical user profile
-     * page, and if so return the ID number.
-     *
-     * @param string $url
-     * @return mixed int or false
-     */
-    public static function localProfileFromUrl($url)
+    public function onStartProfileGetAtomFeed($profile, &$feed)
     {
-        $template = common_local_url('userbyid', array('id' => '31337'));
-        $template = preg_quote($template, '/');
-        $template = str_replace('31337', '(\d+)', $template);
-        if (preg_match("/$template/", $url, $matches)) {
-            return intval($matches[1]);
+        $oprofile = Ostatus_profile::staticGet('profile_id', $profile->id);
+
+        if (empty($oprofile)) {
+            return true;
         }
+
+        $feed = $oprofile->feeduri;
         return false;
     }
-
 }

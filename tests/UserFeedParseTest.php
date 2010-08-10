@@ -66,11 +66,11 @@ class UserFeedParseTests extends PHPUnit_Framework_TestCase
         // test the post
 
         //var_export($act1);
-        $this->assertEquals($act1->object->type, 'http://activitystrea.ms/schema/1.0/note');
-        $this->assertEquals($act1->object->title, 'And now for something completely insane...');
+        $this->assertEquals($act1->objects[0]->type, 'http://activitystrea.ms/schema/1.0/note');
+        $this->assertEquals($act1->objects[0]->title, 'And now for something completely insane...');
 
-        $this->assertEquals($act1->object->content, 'And now for something completely insane...');
-        $this->assertEquals($act1->object->id, 'http://localhost/statusnet/notice/3');
+        $this->assertEquals($act1->objects[0]->content, 'And now for something completely insane...');
+        $this->assertEquals($act1->objects[0]->id, 'http://localhost/statusnet/notice/3');
 
     }
 

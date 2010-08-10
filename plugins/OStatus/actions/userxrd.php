@@ -35,9 +35,13 @@ class UserxrdAction extends XrdAction
         $this->uri = Discovery::normalize($this->uri);
         
         if (Discovery::isWebfinger($this->uri)) {
-            list($nick, $domain) = explode('@', substr(urldecode($this->uri), 5));
-            $nick = common_canonical_nickname($nick);
-            $this->user = User::staticGet('nickname', $nick);
+            $parts = explode('@', substr(urldecode($this->uri), 5));
+            if (count($parts) == 2) {
+                list($nick, $domain) = $parts;
+                // @fixme confirm the domain too
+                $nick = common_canonical_nickname($nick);
+                $this->user = User::staticGet('nickname', $nick);
+            }
         } else {
             $this->user = User::staticGet('uri', $this->uri);
         }

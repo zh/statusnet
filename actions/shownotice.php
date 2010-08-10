@@ -97,7 +97,7 @@ class ShownoticeAction extends OwnerDesignAction
         $this->profile = $this->notice->getProfile();
 
         if (empty($this->profile)) {
-            $this->serverError(_('Notice has no profile'), 500);
+            $this->serverError(_('Notice has no profile.'), 500);
             return false;
         }
 
@@ -167,7 +167,7 @@ class ShownoticeAction extends OwnerDesignAction
     function title()
     {
         if (!empty($this->profile->fullname)) {
-            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ') ';
+            $base = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
         } else {
             $base = $this->profile->nickname;
         }

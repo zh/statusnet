@@ -41,7 +41,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  */
 
-class MakeadminAction extends Action
+class MakeadminAction extends RedirectingAction
 {
     var $profile = null;
     var $group = null;
@@ -148,20 +148,19 @@ class MakeadminAction extends Action
                                $this->group->getBestName());
         }
 
-        foreach ($this->args as $k => $v) {
-            if ($k == 'returnto-action') {
-                $action = $v;
-            } else if (substr($k, 0, 9) == 'returnto-') {
-                $args[substr($k, 9)] = $v;
-            }
-        }
-
-        if ($action) {
-            common_redirect(common_local_url($action, $args), 303);
-        } else {
-            common_redirect(common_local_url('groupmembers',
-                                             array('nickname' => $this->group->nickname)),
-                            303);
-        }
+        $this->returnToArgs();
     }
+
+    /**
+     * If we reached this form without returnto arguments, default to
+     * the top of the group's member list.
+     * 
+     * @return string URL
+     */
+    function defaultReturnTo()
+    {
+        return common_local_url('groupmembers',
+                                array('nickname' => $this->group->nickname));
+    }
+
 }

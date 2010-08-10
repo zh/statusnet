@@ -53,6 +53,7 @@ class Activity
 {
     const SPEC   = 'http://activitystrea.ms/spec/1.0/';
     const SCHEMA = 'http://activitystrea.ms/schema/1.0/';
+    const MEDIA  = 'http://purl.org/syndication/atommedia';
 
     const VERB       = 'verb';
     const OBJECT     = 'object';
@@ -82,10 +83,11 @@ class Activity
     const CREATOR = 'creator';
 
     const CONTENTNS = 'http://purl.org/rss/1.0/modules/content/';
+    const ENCODED = 'encoded';
 
     public $actor;   // an ActivityObject
     public $verb;    // a string (the URL)
-    public $object;  // an ActivityObject
+    public $objects = array();  // an array of ActivityObjects
     public $target;  // an ActivityObject
     public $context; // an ActivityObject
     public $time;    // Time of the activity
@@ -116,7 +118,8 @@ class Activity
         // Insist on a feed's root DOMElement; don't allow a DOMDocument
         if ($feed instanceof DOMDocument) {
             throw new ClientException(
-                _("Expecting a root feed element but got a whole XML document.")
+                // TRANS: Client exception thrown when a feed instance is a DOMDocument.
+                _('Expecting a root feed element but got a whole XML document.')
             );
         }
 
@@ -161,12 +164,15 @@ class Activity
             // XXX: do other implied stuff here
         }
 
-        $objectEl = $this->_child($entry, self::OBJECT);
+        $objectEls = $entry->getElementsByTagNameNS(self::SPEC, self::OBJECT);
 
-        if (!empty($objectEl)) {
-            $this->object = new ActivityObject($objectEl);
+        if ($objectEls->length > 0) {
+            for ($i = 0; $i < $objectEls->length; $i++) {
+                $objectEl = $objectEls->item($i);
+                $this->objects[] = new ActivityObject($objectEl);
+            }
         } else {
-            $this->object = new ActivityObject($entry);
+            $this->objects[] = new ActivityObject($entry);
         }
 
         $actorEl = $this->_child($entry, self::ACTOR);
@@ -175,6 +181,17 @@ class Activity
 
             $this->actor = new ActivityObject($actorEl);
 
+            // Cliqset has bad actor IDs (just nickname of user). We
+            // work around it by getting the author data and using its
+            // id instead
+
+            if (!preg_match('/^\w+:/', $this->actor->id)) {
+                $authorEl = ActivityUtils::child($entry, 'author');
+                if (!empty($authorEl)) {
+                    $authorObj = new ActivityObject($authorEl);
+                    $this->actor->id = $authorObj->id;
+                }
+            }
         } else if (!empty($feed) &&
                    $subjectEl = $this->_child($feed, self::SUBJECT)) {
 
@@ -253,14 +270,21 @@ class Activity
 
         $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, self::RSS);
 
-        $contentEl = ActivityUtils::child($item, ActivityUtils::CONTENT, self::CONTENTNS);
+        $contentEl = ActivityUtils::child($item, self::ENCODED, self::CONTENTNS);
 
         if (!empty($contentEl)) {
-            $this->content = htmlspecialchars_decode($contentEl->textContent, ENT_QUOTES);
+            // <content:encoded> XML node's text content is HTML; no further processing needed.
+            $this->content = $contentEl->textContent;
         } else {
             $descriptionEl = ActivityUtils::child($item, self::DESCRIPTION, self::RSS);
             if (!empty($descriptionEl)) {
-                $this->content = htmlspecialchars_decode($descriptionEl->textContent, ENT_QUOTES);
+                // Per spec, <description> must be plaintext.
+                // In practice, often there's HTML... but these days good
+                // feeds are using <content:encoded> which is explicitly
+                // real HTML.
+                // We'll treat this following spec, and do HTML escaping
+                // to convert from plaintext to HTML.
+                $this->content = htmlspecialchars($descriptionEl->textContent);
             }
         }
 
@@ -280,8 +304,8 @@ class Activity
             }
         }
 
-        $this->object  = new ActivityObject($item);
-        $this->context = new ActivityContext($item);
+        $this->objects[] = new ActivityObject($item);
+        $this->context   = new ActivityContext($item);
     }
 
     /**
@@ -339,8 +363,10 @@ class Activity
 
         $xs->element('activity:verb', null, $this->verb);
 
-        if ($this->object) {
-            $xs->raw($this->object->asString());
+        if (!empty($this->objects)) {
+            foreach($this->objects as $object) {
+                $xs->raw($object->asString());
+            }
         }
 
         if ($this->target) {

@@ -73,9 +73,11 @@ class MobileProfilePlugin extends WAP20Plugin
             $this->serveMobile = true;
         } else {
             // If they like the WAP 2.0 mimetype, serve them MP
-            if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
-                $this->serveMobile = true;
-            } else {
+            // @fixme $type is undefined, making this if case useless and spewing errors.
+            // What's the intent?
+            //if (strstr('application/vnd.wap.xhtml+xml', $type) !== false) {
+            //    $this->serveMobile = true;
+            //} else {
                 // If they are a mobile device that supports WAP 2.0, 
                 // serve them MP
 
@@ -136,10 +138,22 @@ class MobileProfilePlugin extends WAP20Plugin
                     'vodafone',
                     'wap1',
                     'wap2',
+                    'webos',
                     'windows ce'
                 );
 
+                $blacklist = array(
+                    'ipad', // Larger screen handles the full theme fairly well.
+                );
+
                 $httpuseragent = strtolower($_SERVER['HTTP_USER_AGENT']);
+
+                foreach ($blacklist as $md) {
+                    if (strstr($httpuseragent, $md) !== false) {
+                        $this->serveMobile = false;
+                        return true;
+                    }
+                }
 
                 foreach ($this->mobiledevices as $md) {
                     if (strstr($httpuseragent, $md) !== false) {
@@ -149,7 +163,7 @@ class MobileProfilePlugin extends WAP20Plugin
                         break;
                     }
                 }
-            }
+            //}
 
             // If they are okay with MP, and the site has a mobile server, 
             // redirect there
@@ -167,7 +181,9 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
-        if (!$type) {
+        // @fixme $type is undefined, making this if case useless and spewing errors.
+        // What's the intent?
+        //if (!$type) {
             $httpaccept = isset($_SERVER['HTTP_ACCEPT']) ?
               $_SERVER['HTTP_ACCEPT'] : null;
 
@@ -180,7 +196,7 @@ class MobileProfilePlugin extends WAP20Plugin
                 throw new ClientException(_('This page is not available in a '.
                                             'media type you accept'), 406);
             }
-        }
+        //}
 
         header('Content-Type: '.$type);
 
@@ -219,21 +235,6 @@ class MobileProfilePlugin extends WAP20Plugin
     }
 
 
-    function onStartShowHeadElements($action)
-    {
-        if (!$action->serveMobile) {
-            return true;
-        }
-
-        $action->showTitle();
-        $action->showShortcutIcon();
-        $action->showStylesheets();
-        $action->showFeeds();
-        $action->showDescription();
-        $action->extraHead();
-    }
-
-
     function onStartShowStatusNetStyles($action)
     {
         if (!$this->serveMobile) {
@@ -253,6 +254,10 @@ class MobileProfilePlugin extends WAP20Plugin
         } else {
             $action->cssLink('plugins/MobileProfile/mp-handheld.css',null,'handheld');
         }
+
+        // Allow other plugins to load their styles.
+        Event::handle('EndShowStatusNetStyles', array($action));
+        Event::handle('EndShowLaconicaStyles', array($action));
 
         return false;
     }

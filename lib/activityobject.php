@@ -100,6 +100,13 @@ class ActivityObject
     public $poco;
     public $displayName;
 
+    // @todo move this stuff to it's own PHOTO activity object
+    const MEDIA_DESCRIPTION = 'description';
+
+    public $thumbnail;
+    public $largerImage;
+    public $description;
+
     /**
      * Constructor
      *
@@ -150,13 +157,27 @@ class ActivityObject
 
             $this->poco = new PoCo($element);
         }
+
+        if ($this->type == self::PHOTO) {
+
+            $this->thumbnail   = ActivityUtils::getLink($element, 'preview');
+            $this->largerImage = ActivityUtils::getLink($element, 'enclosure');
+
+            $this->description = ActivityUtils::childContent(
+                $element,
+                ActivityObject::MEDIA_DESCRIPTION,
+                Activity::MEDIA
+            );
+
+        }
     }
 
     private function _fromAuthor($element)
     {
         $this->type  = self::PERSON; // XXX: is this fair?
         $this->title = $this->_childContent($element, self::NAME);
-        $this->id    = $this->_childContent($element, self::URI);
+
+        $this->id = $this->_childContent($element, self::URI);
 
         if (empty($this->id)) {
             $email = $this->_childContent($element, self::EMAIL);
@@ -176,7 +197,6 @@ class ActivityObject
             $this->type = ActivityObject::NOTE;
         }
 
-        $this->id      = $this->_childContent($element, self::ID);
         $this->summary = ActivityUtils::childHtmlContent($element, self::SUMMARY);
         $this->content = ActivityUtils::getContent($element);
 
@@ -189,6 +209,12 @@ class ActivityObject
         $this->source  = $this->_getSource($element);
 
         $this->link = ActivityUtils::getPermalink($element);
+
+        $this->id = $this->_childContent($element, self::ID);
+
+        if (empty($this->id) && !empty($this->link)) { // fallback if there's no ID
+            $this->id = $this->link;
+        }
     }
 
     // @fixme rationalize with Activity::_fromRssItem()

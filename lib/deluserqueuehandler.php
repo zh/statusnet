@@ -49,9 +49,13 @@ class DelUserQueueHandler extends QueueHandler
             return true;
         }
 
-        if (!$user->hasRole(Profile_role::DELETED)) {
-            common_log(LOG_INFO, "User {$user->nickname} is not pending deletion; aborting.");
-            return true;
+        try {
+            if (!$user->hasRole(Profile_role::DELETED)) {
+                common_log(LOG_INFO, "User {$user->nickname} is not pending deletion; aborting.");
+                return true;
+            }
+        } catch (UserNoProfileException $unp) {
+            common_log(LOG_INFO, "Deleting user {$user->nickname} with no profile... probably a good idea!");
         }
 
         $notice = $this->getNextBatch($user);

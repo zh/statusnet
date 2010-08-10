@@ -195,7 +195,7 @@ class Discovery_LRDD_Link_Header implements Discovery_LRDD
             //            return false;
         }
 
-        return Discovery_LRDD_Link_Header::parseHeader($link_header);
+        return array(Discovery_LRDD_Link_Header::parseHeader($link_header));
     }
 
     protected static function parseHeader($header)

@@ -34,6 +34,14 @@ function common_user_error($msg, $code=400)
     $err->showPage();
 }
 
+/**
+ * This should only be used at setup; processes switching languages
+ * to send text to other users should use common_switch_locale().
+ * 
+ * @param string $language Locale language code (optional; empty uses
+ *                         current user's preference or site default)
+ * @return mixed success
+ */
 function common_init_locale($language=null)
 {
     if(!$language) {
@@ -41,13 +49,24 @@ function common_init_locale($language=null)
     }
     putenv('LANGUAGE='.$language);
     putenv('LANG='.$language);
-    return setlocale(LC_ALL, $language . ".utf8",
+    $ok =  setlocale(LC_ALL, $language . ".utf8",
                      $language . ".UTF8",
                      $language . ".utf-8",
                      $language . ".UTF-8",
                      $language);
+
+    return $ok;
 }
 
+/**
+ * Initialize locale and charset settings and gettext with our message catalog,
+ * using the current user's language preference or the site default.
+ * 
+ * This should generally only be run at framework initialization; code switching
+ * languages at runtime should call common_switch_language().
+ * 
+ * @access private
+ */
 function common_init_language()
 {
     mb_internal_encoding('UTF-8');
@@ -69,8 +88,8 @@ function common_init_language()
         // don't do the job. en_US.UTF-8 should be there most of the
         // time, but not guaranteed.
         $ok = common_init_locale("en_US");
-        if (!$ok) {
-            // Try to find a complete, working locale...
+        if (!$ok && strtolower(substr(PHP_OS, 0, 3)) != 'win') {
+            // Try to find a complete, working locale on Unix/Linux...
             // @fixme shelling out feels awfully inefficient
             // but I don't think there's a more standard way.
             $all = `locale -a`;
@@ -82,12 +101,38 @@ function common_init_language()
                     }
                 }
             }
-            if (!$ok) {
-                common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
-            }
+        }
+        if (!$ok) {
+            common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
         }
         $locale_set = common_init_locale($language);
     }
+
+    common_init_gettext();
+}
+
+/**
+ * @access private
+ */
+function common_init_gettext()
+{
+    setlocale(LC_CTYPE, 'C');
+    // So we do not have to make people install the gettext locales
+    $path = common_config('site','locale_path');
+    bindtextdomain("statusnet", $path);
+    bind_textdomain_codeset("statusnet", "UTF-8");
+    textdomain("statusnet");
+}
+
+/**
+ * Switch locale during runtime, and poke gettext until it cries uncle.
+ * Otherwise, sometimes it doesn't actually switch away from the old language.
+ *
+ * @param string $language code for locale ('en', 'fr', 'pt_BR' etc)
+ */
+function common_switch_locale($language=null)
+{
+    common_init_locale($language);
 
     setlocale(LC_CTYPE, 'C');
     // So we do not have to make people install the gettext locales
@@ -96,6 +141,7 @@ function common_init_language()
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
 }
+
 
 function common_timezone()
 {
@@ -803,7 +849,7 @@ function common_linkify($url) {
     }
 
     if (!empty($f)) {
-        if ($f->getEnclosure()) {
+        if ($f->getEnclosure() || File_oembed::staticGet('file_id',$f->id)) {
             $is_attachment = true;
             $attachment_id = $f->id;
 
@@ -826,10 +872,10 @@ function common_linkify($url) {
     return XMLStringer::estring('a', $attrs, $url);
 }
 
-function common_shorten_links($text)
+function common_shorten_links($text, $always = false)
 {
     $maxLength = Notice::maxContent();
-    if ($maxLength == 0 || mb_strlen($text) <= $maxLength) return $text;
+    if (!$always && ($maxLength == 0 || mb_strlen($text) <= $maxLength)) return $text;
     return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
@@ -862,7 +908,14 @@ function common_xml_safe_str($str)
 function common_tag_link($tag)
 {
     $canonical = common_canonical_tag($tag);
-    $url = common_local_url('tag', array('tag' => $canonical));
+    if (common_config('singleuser', 'enabled')) {
+        // regular TagAction isn't set up in 1user mode
+        $url = common_local_url('showstream',
+                                array('nickname' => common_config('singleuser', 'nickname'),
+                                      'tag' => $canonical));
+    } else {
+        $url = common_local_url('tag', array('tag' => $canonical));
+    }
     $xs = new XMLStringer();
     $xs->elementStart('span', 'tag');
     $xs->element('a', array('href' => $url,
@@ -1043,24 +1096,38 @@ function common_date_string($dt)
     if ($now < $t) { // that shouldn't happen!
         return common_exact_date($dt);
     } else if ($diff < 60) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('a few seconds ago');
     } else if ($diff < 92) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a minute ago');
     } else if ($diff < 3300) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d minutes ago'), round($diff/60));
     } else if ($diff < 5400) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about an hour ago');
     } else if ($diff < 22 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d hours ago'), round($diff/3600));
     } else if ($diff < 37 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a day ago');
     } else if ($diff < 24 * 24 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d days ago'), round($diff/(24*3600)));
     } else if ($diff < 46 * 24 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a month ago');
     } else if ($diff < 330 * 24 * 3600) {
+        // XXX: should support plural.
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return sprintf(_('about %d months ago'), round($diff/(30*24*3600)));
     } else if ($diff < 480 * 24 * 3600) {
+        // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a year ago');
     } else {
         return common_exact_date($dt);
@@ -1182,9 +1249,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    // @fixme move these checks into QueueManager and/or individual handlers
-    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
-        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+    // We can skip these for gatewayed notices.
+    if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';
@@ -1272,12 +1338,38 @@ function common_mtrand($bytes)
     return $enc;
 }
 
+/**
+ * Record the given URL as the return destination for a future
+ * form submission, to be read by common_get_returnto().
+ * 
+ * @param string $url
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_set_returnto($url)
 {
     common_ensure_session();
     $_SESSION['returnto'] = $url;
 }
 
+/**
+ * Fetch a return-destination URL previously recorded by
+ * common_set_returnto().
+ * 
+ * @return mixed URL string or null
+ * 
+ * @fixme as a session-global setting, this can allow multiple forms
+ * to conflict and overwrite each others' returnto destinations if
+ * the user has multiple tabs or windows open.
+ * 
+ * Should refactor to index with a token or otherwise only pass the
+ * data along its intended path.
+ */
 function common_get_returnto()
 {
     common_ensure_session();
@@ -1303,7 +1395,7 @@ function common_log_line($priority, $msg)
 {
     static $syslog_priorities = array('LOG_EMERG', 'LOG_ALERT', 'LOG_CRIT', 'LOG_ERR',
                                       'LOG_WARNING', 'LOG_NOTICE', 'LOG_INFO', 'LOG_DEBUG');
-    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . "\n";
+    return date('Y-m-d H:i:s') . ' ' . $syslog_priorities[$priority] . ': ' . $msg . PHP_EOL;
 }
 
 function common_request_id()
@@ -1395,6 +1487,55 @@ function common_valid_tag($tag)
                 preg_match('/^([\w-\.]+)$/', $matches[1]));
     }
     return false;
+}
+
+/**
+ * Determine if given domain or address literal is valid
+ * eg for use in JIDs and URLs. Does not check if the domain
+ * exists!
+ * 
+ * @param string $domain
+ * @return boolean valid or not
+ */
+function common_valid_domain($domain)
+{
+    $octet = "(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])";
+    $ipv4 = "(?:$octet(?:\.$octet){3})";
+    if (preg_match("/^$ipv4$/u", $domain)) return true;
+
+    $group = "(?:[0-9a-f]{1,4})";
+    $ipv6 = "(?:\[($group(?::$group){0,7})?(::)?($group(?::$group){0,7})?\])"; // http://tools.ietf.org/html/rfc3513#section-2.2
+
+    if (preg_match("/^$ipv6$/ui", $domain, $matches)) {
+        $before = explode(":", $matches[1]);
+        $zeroes = $matches[2];
+        $after = explode(":", $matches[3]);
+        if ($zeroes) {
+            $min = 0;
+            $max = 7;
+        } else {
+            $min = 1;
+            $max = 8;
+        }
+        $explicit = count($before) + count($after);
+        if ($explicit < $min || $explicit > $max) {
+            return false;
+        }
+        return true;
+    }
+
+    try {
+        require_once "Net/IDNA.php";
+        $idn = Net_IDNA::getInstance();
+        $domain = $idn->encode($domain);
+    } catch (Exception $e) {
+        return false;
+    }
+
+    $subdomain = "(?:[a-z0-9][a-z0-9-]*)"; // @fixme
+    $fqdn = "(?:$subdomain(?:\.$subdomain)*\.?)";
+
+    return preg_match("/^$fqdn$/ui", $domain);
 }
 
 /* Following functions are copied from MediaWiki GlobalFunctions.php
@@ -1529,7 +1670,8 @@ function common_user_uri(&$user)
 function common_notice_uri(&$notice)
 {
     return common_local_url('shownotice',
-                            array('notice' => $notice->id));
+                            array('notice' => $notice->id),
+                            null, null, false);
 }
 
 // 36 alphanums - lookalikes (0, O, 1, I) = 32 chars = 5 bits
@@ -1796,6 +1938,15 @@ function common_url_to_nickname($url)
             $path = preg_replace('@/$@', '', $parts['path']);
             $path = preg_replace('@^/@', '', $path);
             $path = basename($path);
+
+            // Hack for MediaWiki user pages, in the form:
+            // http://example.com/wiki/User:Myname
+            // ('User' may be localized.)
+            if (strpos($path, ':')) {
+                $parts = array_filter(explode(':', $path));
+                $path = $parts[count($parts) - 1];
+            }
+
             if ($path) {
                 return common_nicknamize($path);
             }

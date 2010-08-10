@@ -188,7 +188,7 @@ class RemotesubscribeAction extends Action
         $profile = $user->getProfile();
         if (!$profile) {
             common_log_db_error($user, 'SELECT', __FILE__);
-            $this->serverError(_('User without matching profile'));
+            $this->serverError(_('User without matching profile.'));
             return;
         }
 

@@ -44,10 +44,17 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
- * Fetcher for statuses from Twitter
+ * Fetch statuses from Twitter
  *
- * Fetches statuses from Twitter and inserts them as notices in local
- * system.
+ * Fetches statuses from Twitter and inserts them as notices
+ *
+ * NOTE: an Avatar path MUST be set in config.php for this
+ * script to work, e.g.:
+ *     $config['avatar']['path'] = $config['site']['path'] . '/avatar/';
+ *
+ * @todo @fixme @gar Fix the above. For some reason $_path is always empty when
+ * this script is run, so the default avatar path is always set wrong in
+ * default.php. Therefore it must be set explicitly in config.php. --Z
  *
  * @category Twitter
  * @package  StatusNet
@@ -56,9 +63,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
-// NOTE: an Avatar path MUST be set in config.php for this
-// script to work: e.g.: $config['avatar']['path'] = '/statusnet/avatar';
 
 class TwitterStatusFetcher extends ParallelizingDaemon
 {
@@ -195,6 +199,8 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return;
         }
 
+        common_debug(LOG_INFO, $this->name() . ' - Retrieved ' . sizeof($timeline) . ' statuses from Twitter.');
+
         // Reverse to preserve order
 
         foreach (array_reverse($timeline) as $status) {
@@ -209,13 +215,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 continue;
             }
 
-            $notice = null;
-
-            $notice = $this->saveStatus($status, $flink);
-
-            if (!empty($notice)) {
-                common_broadcast_notice($notice);
-            }
+            $this->saveStatus($status, $flink);
         }
 
         // Okay, record the time we synced with Twitter for posterity
@@ -226,50 +226,77 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function saveStatus($status, $flink)
     {
-        $id = $this->ensureProfile($status->user);
-
-        $profile = Profile::staticGet($id);
+        $profile = $this->ensureProfile($status->user);
 
         if (empty($profile)) {
             common_log(LOG_ERR, $this->name() .
                 ' - Problem saving notice. No associated Profile.');
-            return null;
+            return;
         }
 
-        // XXX: change of screen name?
-
-        $uri = 'http://twitter.com/' . $status->user->screen_name .
-            '/status/' . $status->id;
+        $statusUri = 'http://twitter.com/'
+            . $status->user->screen_name
+            . '/status/'
+            . $status->id;
 
         // check to see if we've already imported the status
 
-        $notice = Notice::staticGet('uri', $uri);
+        $dupe = $this->checkDupe($profile, $statusUri);
 
-        if (empty($notice)) {
+        if (!empty($dupe)) {
+            common_log(
+                LOG_INFO,
+                $this->name() .
+                " - Ignoring duplicate import: $statusUri"
+            );
+            return;
+        }
 
-            // XXX: transaction here?
+        $notice = new Notice();
 
-            $notice = new Notice();
+        $notice->profile_id = $profile->id;
+        $notice->uri        = $statusUri;
+        $notice->url        = $statusUri;
+        $notice->created    = strftime(
+            '%Y-%m-%d %H:%M:%S',
+            strtotime($status->created_at)
+        );
 
-            $notice->profile_id = $id;
-            $notice->uri        = $uri;
-            $notice->created    = strftime('%Y-%m-%d %H:%M:%S',
-                                           strtotime($status->created_at));
-            $notice->content    = common_shorten_links($status->text); // XXX
-            $notice->rendered   = common_render_content($notice->content, $notice);
-            $notice->source     = 'twitter';
-            $notice->reply_to   = null; // XXX: lookup reply
-            $notice->is_local   = Notice::GATEWAY;
+        $notice->source     = 'twitter';
+        $notice->reply_to   = null;
+        $notice->is_local   = Notice::GATEWAY;
 
-            if (Event::handle('StartNoticeSave', array(&$notice))) {
-                $notice->insert();
-                Event::handle('EndNoticeSave', array($notice));
+        $notice->content    = common_shorten_links($status->text);
+        $notice->rendered   = common_render_content(
+            $notice->content,
+            $notice
+        );
+
+        if (Event::handle('StartNoticeSave', array(&$notice))) {
+
+            $id = $notice->insert();
+
+            if (!$id) {
+                common_log_db_error($notice, 'INSERT', __FILE__);
+                common_log(LOG_ERR, $this->name() .
+                    ' - Problem saving notice.');
             }
 
+            Event::handle('EndNoticeSave', array($notice));
+        }
+
+        $orig = clone($notice);
+        $conv = Conversation::create();
+
+        $notice->conversation = $conv->id;
+
+        if (!$notice->update($orig)) {
+            common_log_db_error($notice, 'UPDATE', __FILE__);
+            common_log(LOG_ERR, $this->name() .
+                ' - Problem saving notice.');
         }
 
         Inbox::insertNotice($flink->user_id, $notice->id);
-
         $notice->blowOnInsert();
 
         return $notice;
@@ -279,9 +306,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      * Look up a Profile by profileurl field.  Profile::staticGet() was
      * not working consistently.
      *
-     * @param string $url the profile url
+     * @param string $nickname   local nickname of the Twitter user
+     * @param string $profileurl the profile url
      *
-     * @return mixed the first profile with that url, or null
+     * @return mixed value the first Profile with that url, or null
      */
 
     function getProfileByUrl($nickname, $profileurl)
@@ -294,6 +322,30 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         if ($profile->find()) {
             $profile->fetch();
             return $profile;
+        }
+
+        return null;
+    }
+
+    /**
+     * Check to see if this Twitter status has already been imported
+     *
+     * @param Profile $profile   Twitter user's local profile
+     * @param string  $statusUri URI of the status on Twitter
+     *
+     * @return mixed value a matching Notice or null
+     */
+
+    function checkDupe($profile, $statusUri)
+    {
+        $notice = new Notice();
+        $notice->uri = $statusUri;
+        $notice->profile_id = $profile->id;
+        $notice->limit(1);
+
+        if ($notice->find()) {
+            $notice->fetch();
+            return $notice;
         }
 
         return null;
@@ -313,7 +365,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             // Check to see if the user's Avatar has changed
 
             $this->checkAvatar($user, $profile);
-            return $profile->id;
+            return $profile;
 
         } else {
 
@@ -372,7 +424,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
             $this->saveAvatars($user, $id);
 
-            return $id;
+            return $profile;
         }
     }
 
@@ -403,7 +455,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
             $this->updateAvatars($twitter_user, $profile);
         }
-
     }
 
     function updateAvatars($twitter_user, $profile) {
@@ -428,17 +479,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     }
 
     function missingAvatarFile($profile) {
-
         foreach (array(24, 48, 73) as $size) {
-
             $filename = $profile->getAvatar($size)->filename;
             $avatarpath = Avatar::path($filename);
-
             if (file_exists($avatarpath) == FALSE) {
                 return true;
             }
         }
-
         return false;
     }
 

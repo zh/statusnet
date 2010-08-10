@@ -26,6 +26,7 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -66,7 +67,13 @@ class ApiGroupListAction extends ApiBareAuthAction
     {
         parent::prepare($args);
 
-        $this->user   = $this->getTargetUser($id);
+        $this->user   = $this->getTargetUser(null);
+
+        if (empty($this->user)) {
+            $this->clientError(_('No such user.'), 404, $this->format);
+            return false;
+        }
+
         $this->groups = $this->getGroups();
 
         return true;
@@ -86,12 +93,8 @@ class ApiGroupListAction extends ApiBareAuthAction
     {
         parent::handle($args);
 
-        if (empty($this->user)) {
-            $this->clientError(_('No such user.'), 404, $this->format);
-            return;
-        }
-
         $sitename   = common_config('site', 'name');
+        // TRANS: %s is a user name
         $title      = sprintf(_("%s's groups"), $this->user->nickname);
         $taguribase = TagURI::base();
         $id         = "tag:$taguribase:Groups";
@@ -99,10 +102,12 @@ class ApiGroupListAction extends ApiBareAuthAction
             'usergroups',
             array('nickname' => $this->user->nickname)
         );
+
         $subtitle   = sprintf(
-            _("Groups %1$s is a member of on %2$s."),
-            $this->user->nickname,
-            $sitename
+            // TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+            _("%1\$s groups %2\$s is a member of."),
+            $sitename,
+            $this->user->nickname
         );
 
         switch($this->format) {

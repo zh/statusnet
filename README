@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.0 ("Stand")
-4 Mar 2010
+StatusNet 0.9.3 ("Half a World Away")
+29 June 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -77,57 +77,27 @@ for additional terms.
 New this version
 ================
 
-This is a major feature release since version 0.8.3, released Feb 1
-2010. It is the final release version of 0.9.0, replacing any beta
-versions.
+This is a minor bug and feature release since version 0.9.2 released on
+4 May 2010.
+
+For best compatibility with client software and site federation, and a lot of
+bug fixes, it is highly recommended that all public sites upgrade to the new
+version.
 
 Notable changes this version:
 
-- Support for the new distributed status update standard OStatus
-  <http://ostatus.org>, based on PubSubHubbub, Salmon, Webfinger,
-  and Activity Streams.
-- Support for location using the Geolocation API. Notices are (optionally) 
-  marked with lat-long information with geo microformats, and can be shown
-  on a map.
-- No fixed content size. Notice size is configurable, from 1 to
-  unlimited number of characters. Default is still 140!
-- An authorization framework, allowing different levels of users.
-- A Web-based administration panel.
-- A moderation system that lets site moderators sandbox, silence,
-  or delete uncooperative users.
-- A flag system that lets users flag profiles for moderator review.
-- Support for OAuth <http://oauth.net> authentication in the Twitter
-  API.
-- User roles system that lets the owner of the site to assign
-  administrator and moderator roles to other users.
-- A pluggable authentication system.
-- An authentication plugin for LDAP servers.
-- Many features that were core in 0.8.x are now plugins, such
-  as OpenID, Twitter integration, Facebook integration
-- A much-improved offline processing system
-- In-browser "realtime" updates using a number of realtime
-  servers (Meteor, Orbited, Cometd)
-- A plugin to provide an interface optimized for mobile browsers
-- Support for Facebook Connect
-- Support for logging in with a Twitter account
-- Vastly improved translation with additional languages and
-  translation in plugins
-- Support for all-SSL instances
-- Core support for "repeats" (like Twitter's "retweets")
-- Pluggable caching system, with plugins for Memcached,
-  APC, XCache, and a disk-based cache
-- Plugin to support RSSCloud
-- A framework for adding advertisements to a public site,
-  and plugins for Google AdSense and OpenX server
-- Plugins to throttle excessive subscriptions and registrations.
-- A plugin to blacklist particular URLs or nicknames.
+- Enhanced API output to aid StatusNet-specific clients
+- Many updates to user interface translation from TranslateWiki
+- OStatus now works subscribing to SSL-protected sites by default
+- OpenID now works on PHP 5.3, supports closer site integration.
+- Numerous API and FOAF output fixes.
+- Fixes to Facebook integration for FB API behavior changes
+- PostgreSQL support updates
+- Initial version of a custom theme uploader (disabled by default)
+- LDAP auth plugins cleanup
+- Many other bugfixes
 
-There are also literally thousands of bugs fixed and minor features
-added. A full changelog is available at http://status.net/wiki/StatusNet_0.9.0.
-
-Under the covers, the software has a vastly improved plugin and
-extension mechanism that makes writing powerful and flexible additions
-to the core functionality much easier.
+A full changelog is available at http://status.net/wiki/StatusNet_0.9.3.
 
 Prerequisites
 =============
@@ -138,8 +108,8 @@ run correctly.
 - PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
   in PHP 5.2 or above. 5.2.6 or later is needed for XMPP background
-  daemons on 64-bit platforms. PHP 5.3.x should work but is known
-  to cause some failures for OpenID.
+  daemons on 64-bit platforms. PHP 5.3.x should work correctly in this
+  release, but problems with some plugins are possible.
 - MySQL 5.x. The StatusNet database is stored, by default, in a MySQL
   server. It has been primarily tested on 5.x servers, although it may
   be possible to install on earlier (or later!) versions. The server
@@ -239,9 +209,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-       tar zxf statusnet-0.9.0.tar.gz
+       tar zxf statusnet-0.9.2.tar.gz
 
-   ...which will make a statusnet-0.9.0 subdirectory in your current
+   ...which will make a statusnet-0.9.2 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -249,7 +219,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-       mv statusnet-0.9.0 /var/www/statusnet
+       mv statusnet-0.9.2 /var/www/statusnet
 
    This will make your StatusNet instance available in the statusnet path of
    your server, like "http://example.net/statusnet". "microblog" or
@@ -664,7 +634,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.9.0. Try these step-by-step
+upgrade procedure in StatusNet 0.9.2. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -685,7 +655,7 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
-7. Unpack your StatusNet 0.9.0 tarball and move it to "statusnet" or
+7. Unpack your StatusNet 0.9.2 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -965,6 +935,26 @@ stomp_password: password for connecting to the stomp server; defaults
     to null.
 
 stomp_persistent: keep items across queue server restart, if enabled.
+    Under ActiveMQ, the server configuration determines if and how
+    persistent storage is actually saved.
+
+    If using a message queue server other than ActiveMQ, you may
+    need to disable this if it does not support persistence.
+
+stomp_transactions: use transactions to aid in error detection.
+    A broken transaction will be seen quickly, allowing a message
+    to be redelivered immediately if a daemon crashes.
+
+    If using a message queue server other than ActiveMQ, you may
+    need to disable this if it does not support transactions.
+
+stomp_acks: send acknowledgements to aid in flow control.
+    An acknowledgement of successful processing tells the server
+    we're ready for more and can help keep things moving smoothly.
+
+    This should *not* be turned off when running with ActiveMQ, but
+    if using another message queue server that does not support
+    acknowledgements you might need to disable this.
 
 softlimit: an absolute or relative "soft memory limit"; daemons will
     restart themselves gracefully when they find they've hit
@@ -992,6 +982,12 @@ max_retries: for stomp, drop messages after N failed attempts to process.
 
 dead_letter_dir: for stomp, optional directory to dump data on failed
     queue processing events after discarding them.
+
+stomp_no_transactions: for stomp, the server does not support transactions,
+    so do not try to user them. This is needed for http://www.morbidq.com/.
+
+stomp_no_acks: for stomp, the server does not support acknowledgements.
+    so do not try to user them. This is needed for http://www.morbidq.com/.
 
 license
 -------
@@ -1522,7 +1518,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.9.0 without reading the "Notice
+If you upgraded to StatusNet 0.9.2 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 

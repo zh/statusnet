@@ -75,8 +75,6 @@ function save_twitter_user($twitter_id, $screen_name)
 
     if (!empty($fuser)) {
 
-        $result = true;
-
         // Delete old record if Twitter user changed screen name
 
         if ($fuser->nickname != $screen_name) {
@@ -87,6 +85,25 @@ function save_twitter_user($twitter_id, $screen_name)
                                          $fuser->id,
                                          $screen_name,
                                          $oldname));
+        }
+
+    } else {
+
+        // Kill any old, invalid records for this screen name
+
+        $fuser = Foreign_user::getByNickname($screen_name, TWITTER_SERVICE);
+
+        if (!empty($fuser)) {
+            $fuser->delete();
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    'Twitter bridge - deteted old record for Twitter ' .
+                    'screen name "%s" belonging to Twitter ID %d.',
+                    $screen_name,
+                    $fuser->id
+                )
+            );
         }
     }
 
@@ -124,15 +141,36 @@ function broadcast_twitter($notice)
     return true;
 }
 
+/**
+ * Pull any extra information from a notice that we should transfer over
+ * to Twitter beyond the notice text itself.
+ *
+ * @param Notice $notice
+ * @return array of key-value pairs for Twitter update submission
+ * @access private
+ */
+function twitter_update_params($notice)
+{
+    $params = array();
+    if ($notice->lat || $notice->lon) {
+        $params['lat'] = $notice->lat;
+        $params['long'] = $notice->lon;
+    }
+    return $params;
+}
+
+
 function broadcast_oauth($notice, $flink) {
     $user = $flink->getUser();
     $statustxt = format_status($notice);
+    $params = twitter_update_params($notice);
+
     $token = TwitterOAuthClient::unpackToken($flink->credentials);
     $client = new TwitterOAuthClient($token->key, $token->secret);
     $status = null;
 
     try {
-        $status = $client->statusesUpdate($statustxt);
+        $status = $client->statusesUpdate($statustxt, $params);
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }
@@ -171,12 +209,13 @@ function broadcast_basicauth($notice, $flink)
     $user = $flink->getUser();
 
     $statustxt = format_status($notice);
+    $params = twitter_update_params($notice);
 
     $client = new TwitterBasicAuthClient($flink);
     $status = null;
 
     try {
-        $status = $client->statusesUpdate($statustxt);
+        $status = $client->statusesUpdate($statustxt, $params);
     } catch (BasicAuthException $e) {
         return process_error($e, $flink, $notice);
     }
@@ -313,9 +352,9 @@ function remove_twitter_link($flink)
 
 function mail_twitter_bridge_removed($user)
 {
-    common_init_locale($user->language);
-
     $profile = $user->getProfile();
+
+    common_switch_locale($user->language);
 
     $subject = sprintf(_m('Your Twitter bridge has been disabled.'));
 
@@ -332,7 +371,7 @@ function mail_twitter_bridge_removed($user)
         common_local_url('twittersettings'),
         common_config('site', 'name'));
 
-    common_init_locale();
+    common_switch_locale();
     return mail_to_user($user, $subject, $body);
 }
 

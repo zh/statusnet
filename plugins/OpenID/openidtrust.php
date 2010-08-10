@@ -71,7 +71,7 @@ class OpenidtrustAction extends Action
         }
         return true;
     }
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -96,7 +96,6 @@ class OpenidtrustAction extends Action
             $user_openid_trustroot->created = DB_DataObject_Cast::dateTime();
             if (!$user_openid_trustroot->insert()) {
                 $err = PEAR::getStaticProperty('DB_DataObject','lastError');
-                common_debug('DB error ' . $err->code . ': ' . $err->message, __FILE__);
             }
             common_redirect($this->allowUrl, $code=302);
         }else{
@@ -135,7 +134,7 @@ class OpenidtrustAction extends Action
         $this->elementStart('fieldset');
         $this->submit('allow', _m('Continue'));
         $this->submit('deny', _m('Cancel'));
-        
+
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
     }

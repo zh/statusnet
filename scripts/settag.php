@@ -33,32 +33,33 @@ END_OF_SETTAG_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-if (count($args) != 2) {
+if (count($args) < 1) {
     show_help();
     exit(1);
 }
 
 $nickname = $args[0];
-$tag = strtolower($args[1]);
-
 $sn = Status_network::memGet('nickname', $nickname);
 
 if (empty($sn)) {
-    print "No such site.\n";
+    print "No such site ($nickname).\n";
     exit(-1);
 }
 
 $tags = $sn->getTags();
 
+if (count($args) == 1) {
+	print(implode(', ', $tags) . "\n");
+	exit(0);
+}
+$tag = $args[1];
 $i = array_search($tag, $tags);
 
 if ($i !== false) {
     if (have_option('d', 'delete')) { // Delete
         unset($tags[$i]);
 
-        $orig = clone($sn);
-        $sn->tags = implode('|', $tags);
-        $result = $sn->update($orig);
+        $result = $sn->setTags($tags);
         if (!$result) {
             print "Couldn't update.\n";
             exit(-1);
@@ -73,9 +74,7 @@ if ($i !== false) {
         exit(-1);
     } else {
         $tags[] = $tag;
-        $orig = clone($sn);
-        $sn->tags = implode('|', $tags);
-        $result = $sn->update($orig);
+        $result = $sn->setTags($tags);
         if (!$result) {
             print "Couldn't update.\n";
             exit(-1);

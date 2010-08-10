@@ -61,10 +61,8 @@ var SN = { // StatusNet
 
     U: { // Utils
         FormNoticeEnhancements: function(form) {
-            form_id = form.attr('id');
-
             if (jQuery.data(form[0], 'ElementData') === undefined) {
-                MaxLength = $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text();
+                MaxLength = form.find('#'+SN.C.S.NoticeTextCount).text();
                 if (typeof(MaxLength) == 'undefined') {
                      MaxLength = SN.C.I.MaxLength;
                 }
@@ -72,7 +70,7 @@ var SN = { // StatusNet
 
                 SN.U.Counter(form);
 
-                NDT = $('#'+form_id+' #'+SN.C.S.NoticeDataText);
+                NDT = form.find('#'+SN.C.S.NoticeDataText);
 
                 NDT.bind('keyup', function(e) {
                     SN.U.Counter(form);
@@ -83,11 +81,11 @@ var SN = { // StatusNet
                 });
             }
             else {
-                $('#'+form_id+' #'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
+                form.find('#'+SN.C.S.NoticeTextCount).text(jQuery.data(form[0], 'ElementData').MaxLength);
             }
 
-            if ($('body')[0].id != 'conversation') {
-                $('#'+form_id+' textarea').focus();
+            if ($('body')[0].id != 'conversation' && window.location.hash.length === 0 && $(window).scrollTop() == 0) {
+                form.find('textarea').focus();
             }
         },
 
@@ -105,7 +103,6 @@ var SN = { // StatusNet
 
         Counter: function(form) {
             SN.C.I.FormNoticeCurrent = form;
-            form_id = form.attr('id');
 
             var MaxLength = jQuery.data(form[0], 'ElementData').MaxLength;
 
@@ -113,8 +110,8 @@ var SN = { // StatusNet
                 return;
             }
 
-            var remaining = MaxLength - $('#'+form_id+' #'+SN.C.S.NoticeDataText).val().length;
-            var counter = $('#'+form_id+' #'+SN.C.S.NoticeTextCount);
+            var remaining = MaxLength - form.find('#'+SN.C.S.NoticeDataText).val().length;
+            var counter = form.find('#'+SN.C.S.NoticeTextCount);
 
             if (remaining.toString() != counter.text()) {
                 if (!SN.C.I.CounterBlackout || remaining === 0) {
@@ -174,7 +171,6 @@ var SN = { // StatusNet
 
         FormNoticeXHR: function(form) {
             SN.C.I.NoticeDataGeo = {};
-            form_id = form.attr('id');
             form.append('<input type="hidden" name="ajax" value="1"/>');
             form.ajaxForm({
                 dataType: 'xml',
@@ -262,9 +258,10 @@ var SN = { // StatusNet
                             form.append('<p class="form_response success">'+result+'</p>');
                         }
                         else {
+                            // New notice post was successful. If on our timeline, show it!
+                            var notice = document._importNode($('li', data)[0], true);
                             var notices = $('#notices_primary .notices');
-                            if (notices.length > 0) {
-                                var notice = document._importNode($('li', data)[0], true);
+                            if (notices.length > 0 && SN.U.belongsOnTimeline(notice)) {
                                 if ($('#'+notice.id).length === 0) {
                                     var notice_irt_value = $('#'+SN.C.S.NoticeInReplyTo).val();
                                     var notice_irt = '#notices_primary #notice-'+notice_irt_value;
@@ -285,6 +282,8 @@ var SN = { // StatusNet
                                 }
                             }
                             else {
+                                // Not on a timeline that this belongs on?
+                                // Just show a success message.
                                 result = document._importNode($('title', data)[0], true);
                                 result_title = result.textContent || result.innerHTML;
                                 form.append('<p class="form_response success">'+result_title+'</p>');
@@ -403,58 +402,72 @@ var SN = { // StatusNet
                 return;
             }
 
-            $.fn.jOverlay.options = {
-                method : 'GET',
-                data : '',
-                url : '',
-                color : '#000',
-                opacity : '0.6',
-                zIndex : 9999,
-                center : false,
-                imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-                bgClickToClose : true,
-                success : function() {
-                    $('#jOverlayContent').append('<button class="close">&#215;</button>');
-                    $('#jOverlayContent button').click($.closeOverlay);
-                },
-                timeout : 0,
-                autoHide : true,
-                css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-            };
+            var attachment_more = notice.find('.attachment.more');
+            if (attachment_more.length > 0) {
+                $(attachment_more[0]).click(function() {
+                    var m = $(this);
+                    m.addClass(SN.C.S.Processing);
+                    $.get(m.attr('href')+'/ajax', null, function(data) {
+                        m.parent('.entry-content').html($(data).find('#attachment_view .entry-content').html());
+                    });
 
-            notice.find('a.attachment').click(function() {
-                var attachId = ($(this).attr('id').substring('attachment'.length + 1));
-                if (attachId) {
-                    $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
                     return false;
-                }
-            });
-
-            if ($('#shownotice').length == 0) {
-                var t;
-                notice.find('a.thumbnail').hover(
-                    function() {
-                        var anchor = $(this);
-                        $('a.thumbnail').children('img').hide();
-                        anchor.closest(".entry-title").addClass('ov');
-
-                        if (anchor.children('img').length === 0) {
-                            t = setTimeout(function() {
-                                $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
-                                    anchor.append(data);
-                                });
-                            }, 500);
-                        }
-                        else {
-                            anchor.children('img').show();
-                        }
+                });
+            }
+            else {
+                $.fn.jOverlay.options = {
+                    method : 'GET',
+                    data : '',
+                    url : '',
+                    color : '#000',
+                    opacity : '0.6',
+                    zIndex : 9999,
+                    center : false,
+                    imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
+                    bgClickToClose : true,
+                    success : function() {
+                        $('#jOverlayContent').append('<button class="close">&#215;</button>');
+                        $('#jOverlayContent button').click($.closeOverlay);
                     },
-                    function() {
-                        clearTimeout(t);
-                        $('a.thumbnail').children('img').hide();
-                        $(this).closest('.entry-title').removeClass('ov');
+                    timeout : 0,
+                    autoHide : true,
+                    css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
+                };
+
+                notice.find('a.attachment').click(function() {
+                    var attachId = ($(this).attr('id').substring('attachment'.length + 1));
+                    if (attachId) {
+                        $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
+                        return false;
                     }
-                );
+                });
+
+                if ($('#shownotice').length == 0) {
+                    var t;
+                    notice.find('a.thumbnail').hover(
+                        function() {
+                            var anchor = $(this);
+                            $('a.thumbnail').children('img').hide();
+                            anchor.closest(".entry-title").addClass('ov');
+
+                            if (anchor.children('img').length === 0) {
+                                t = setTimeout(function() {
+                                    $.get($('address .url')[0].href+'attachment/' + (anchor.attr('id').substring('attachment'.length + 1)) + '/thumbnail', null, function(data) {
+                                        anchor.append(data);
+                                    });
+                                }, 500);
+                            }
+                            else {
+                                anchor.children('img').show();
+                            }
+                        },
+                        function() {
+                            clearTimeout(t);
+                            $('a.thumbnail').children('img').hide();
+                            $(this).closest('.entry-title').removeClass('ov');
+                        }
+                    );
+                }
             }
         },
 
@@ -697,6 +710,38 @@ var SN = { // StatusNet
             Delete: function() {
                 $.cookie(SN.C.S.StatusNetInstance, null);
             }
+        },
+
+        /**
+         * Check if the current page is a timeline where the current user's
+         * posts should be displayed immediately on success.
+         *
+         * @fixme this should be done in a saner way, with machine-readable
+         * info about what page we're looking at.
+         */
+        belongsOnTimeline: function(notice) {
+            var action = $("body").attr('id');
+            if (action == 'public') {
+                return true;
+            }
+
+            var profileLink = $('#nav_profile a').attr('href');
+            if (profileLink) {
+                var authorUrl = $(notice).find('.entry-title .author a.url').attr('href');
+                if (authorUrl == profileLink) {
+                    if (action == 'all' || action == 'showstream') {
+                        // Posts always show on your own friends and profile streams.
+                        return true;
+                    }
+                }
+            }
+
+            // @fixme tag, group, reply timelines should be feasible as well.
+            // Mismatch between id-based and name-based user/group links currently complicates
+            // the lookup, since all our inline mentions contain the absolute links but the
+            // UI links currently on the page use malleable names.
+
+            return false;
         }
     },
 

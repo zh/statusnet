@@ -49,21 +49,30 @@ class DistribQueueHandler
     }
 
     /**
-     * Here's the meat of your queue handler -- you're handed a Notice
-     * object, which you may do as you will with.
+     * Handle distribution of a notice after we've saved it:
+     * @li add to local recipient inboxes
+     * @li send email notifications to local @-reply targets
+     * @li run final EndNoticeSave plugin events
+     * @li put any remaining post-processing into the queues
      *
      * If this function indicates failure, a warning will be logged
      * and the item is placed back in the queue to be re-run.
+     *
+     * @fixme addToInboxes is known to fail sometimes with large recipient sets
      *
      * @param Notice $notice
      * @return boolean true on success, false on failure
      */
     function handle($notice)
     {
-        // XXX: do we need to change this for remote users?
-
         try {
             $notice->addToInboxes();
+        } catch (Exception $e) {
+            $this->logit($notice, $e);
+        }
+
+        try {
+            $notice->sendReplyNotifications();
         } catch (Exception $e) {
             $this->logit($notice, $e);
         }

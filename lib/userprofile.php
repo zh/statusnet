@@ -71,7 +71,8 @@ class UserProfile extends Widget
     {
         if (Event::handle('StartProfilePageProfileSection', array(&$this->out, $this->profile))) {
 
-            $this->out->elementStart('div', 'entity_profile vcard author');
+            $this->out->elementStart('div', array('id' => 'i',
+                                                  'class' => 'entity_profile vcard author'));
             $this->out->element('h2', null, _('User profile'));
 
             if (Event::handle('StartProfilePageProfileElements', array(&$this->out, $this->profile))) {

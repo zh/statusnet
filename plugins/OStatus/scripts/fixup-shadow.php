@@ -50,20 +50,47 @@ $encGroup = str_replace($marker, '%', $encGroup);
 $sql = "SELECT * FROM ostatus_profile WHERE uri LIKE '%s' OR uri LIKE '%s'";
 $oprofile->query(sprintf($sql, $encProfile, $encGroup));
 
-echo "Found $oprofile->N bogus ostatus_profile entries for local users and groups:\n";
+$count = $oprofile->N;
+echo "Found $count bogus ostatus_profile entries shadowing local users and groups:\n";
 
 while ($oprofile->fetch()) {
-    echo "$oprofile->uri";
-
-    if ($dry) {
-        echo " (unchanged)\n";
+    $uri = $oprofile->uri;
+    if (preg_match('!/group/(\d+)/id!', $oprofile->uri, $matches)) {
+        $id = intval($matches[1]);
+        $group = Local_group::staticGet('group_id', $id);
+        if ($group) {
+            $nick = $group->nickname;
+        } else {
+            $nick = '<deleted>';
+        }
+        echo "group $id ($nick) hidden by $uri";
+    } else if (preg_match('!/user/(\d+)!', $uri, $matches)) {
+        $id = intval($matches[1]);
+        $user = User::staticGet('id', $id);
+        if ($user) {
+            $nick = $user->nickname;
+        } else {
+            $nick = '<deleted>';
+        }
+        echo "user $id ($nick) hidden by $uri";
     } else {
-        echo " removing bogus ostatus_profile entry...";
+        echo "$uri matched query, but we don't recognize it.\n";
+        continue;
+    }
+    
+    if ($dry) {
+        echo " - skipping\n";
+    } else {
+        echo " - removing bogus ostatus_profile entry...";
         $evil = clone($oprofile);
         $evil->delete();
         echo "  ok\n";
     }
 }
 
-echo "done.\n";
+if ($count && $dry) {
+    echo "NO CHANGES MADE -- To delete the bogus entries, run again without --dry-run option.\n";
+} else {
+    echo "done.\n";
+}
 
