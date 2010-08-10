@@ -681,7 +681,7 @@ class Ostatus_profile extends Memcached_DataObject
         common_log(LOG_DEBUG, "Original reply recipients: " . implode(', ', $attention_uris));
         $groups = array();
         $replies = array();
-        foreach ($attention_uris as $recipient) {
+        foreach (array_unique($attention_uris) as $recipient) {
             // Is the recipient a local user?
             $user = User::staticGet('uri', $recipient);
             if ($user) {
