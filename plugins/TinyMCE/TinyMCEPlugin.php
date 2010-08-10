@@ -115,12 +115,20 @@ class TinyMCEPlugin extends Plugin
     {
         $path = common_path('plugins/TinyMCE/js/tiny_mce.js');
 
+        // Note: the normal on-submit triggering to save data from
+        // the HTML editor into the textarea doesn't play well with
+        // our AJAX form submission. Manually moving it to trigger
+        // on our send button click.
         $scr = <<<END_OF_SCRIPT
         $().ready(function() {
             $('textarea#notice_data-text').tinymce({
                 script_url : '{$path}',
                 // General options
                 theme : "simple",
+                add_form_submit_trigger : false
+            });
+            $('#notice_action-submit').click(function() {
+                tinymce.triggerSave();
             });
         });
 END_OF_SCRIPT;
