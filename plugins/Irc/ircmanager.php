@@ -32,9 +32,13 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 class IrcManager extends ImManager {
     protected $conn = null;
     protected $lastPing = null;
+    protected $messageWaiting = true;
+    protected $lastMessage = null;
 
     protected $regChecks = array();
     protected $regChecksLookup = array();
+
+    protected $connected = false;
 
     /**
      * Initialize connection to server.
@@ -65,15 +69,37 @@ class IrcManager extends ImManager {
         }
     }
 
+    public function timeout() {
+        return 1;
+    }
+
     /**
      * Idle processing for io manager's execution loop.
-     * Send keepalive pings to server.
      *
      * @return void
      */
     public function idle() {
+        // Send a ping if necessary
         if (empty($this->lastPing) || time() - $this->lastPing > 120) {
             $this->sendPing();
+        }
+
+        if ($this->connected) {
+            // Send a waiting message if appropriate
+            if ($this->messageWaiting && time() - $this->lastMessage > 1) {
+                $wm = Irc_waiting_message::top();
+                if ($wm === NULL) {
+                    $this->messageWaiting = false;
+                    return;
+                }
+                $data = unserialize($wm->data);
+
+                if (!$this->send_raw_message($data)) {
+                    $this->plugin->enqueue_outgoing_raw($data);
+                }
+
+                $wm->delete();
+            }
         }
     }
 
@@ -90,6 +116,7 @@ class IrcManager extends ImManager {
         try {
             $this->conn->handleEvents();
         } catch (Phergie_Driver_Exception $e) {
+            $this->connected = false;
             $this->conn->reconnect();
         }
     }
@@ -142,6 +169,7 @@ class IrcManager extends ImManager {
 
                     'statusnet.messagecallback' => array($this, 'handle_irc_message'),
                     'statusnet.regcallback' => array($this, 'handle_reg_response'),
+                    'statusnet.connectedcallback' => array($this, 'handle_connected'),
                     'statusnet.unregregexp' => $this->plugin->unregregexp,
                     'statusnet.regregexp' => $this->plugin->regregexp
                 )
@@ -150,6 +178,7 @@ class IrcManager extends ImManager {
             $this->conn->setConfig($config);
             $this->conn->connect();
             $this->lastPing = time();
+            $this->lastMessage = time();
         }
         return $this->conn;
     }
@@ -212,6 +241,38 @@ class IrcManager extends ImManager {
     }
 
     /**
+    * Called when the connection is established
+    *
+    * @return void
+    */
+    public function handle_connected() {
+        $this->connected = true;
+    }
+
+    /**
+    * Enters a message into the database for sending when ready
+    *
+    * @param string $command Command
+    * @param array $args Arguments
+    * @return boolean
+    */
+    protected function enqueue_waiting_message($data) {
+        $wm = new Irc_waiting_message();
+
+        $wm->data       = serialize($data);
+        $wm->prioritise = $data['prioritise'];
+        $wm->created    = common_sql_now();
+        $result         = $wm->insert();
+
+        if (!$result) {
+            common_log_db_error($wm, 'INSERT', __FILE__);
+            throw new ServerException('DB error inserting IRC waiting queue item');
+        }
+
+        return true;
+    }
+
+    /**
      * Send a message using the daemon
      *
      * @param $data Message data
@@ -223,28 +284,45 @@ class IrcManager extends ImManager {
             return false;
         }
 
-        if ($data['type'] != 'message') {
-            // Nick checking
-            $nickdata = $data['nickdata'];
-            $usernick = $nickdata['user']->nickname;
-            $screenname = $nickdata['screenname'];
+        if ($data['type'] != 'delayedmessage') {
+            if ($data['type'] != 'message') {
+                // Nick checking
+                $nickdata = $data['nickdata'];
+                $usernick = $nickdata['user']->nickname;
+                $screenname = $nickdata['screenname'];
 
-            // Cancel any existing checks for this user
-            if (isset($this->regChecksLookup[$usernick])) {
-                unset($this->regChecks[$this->regChecksLookup[$usernick]]);
+                // Cancel any existing checks for this user
+                if (isset($this->regChecksLookup[$usernick])) {
+                    unset($this->regChecks[$this->regChecksLookup[$usernick]]);
+                }
+
+                $this->regChecks[$screenname] = $nickdata;
+                $this->regChecksLookup[$usernick] = $screenname;
             }
 
-            $this->regChecks[$screenname] = $nickdata;
-            $this->regChecksLookup[$usernick] = $screenname;
+            // If there is a backlog or we need to wait, queue the message
+            if ($this->messageWaiting || time() - $this->lastMessage < 1) {
+                $this->enqueue_waiting_message(
+                    array(
+                        'type' => 'delayedmessage',
+                        'prioritise' => $data['prioritise'],
+                        'data' => $data['data']
+                    )
+                );
+                $this->messageWaiting = true;
+                return true;
+            }
         }
 
         try {
             $this->conn->send($data['data']['command'], $data['data']['args']);
         } catch (Phergie_Driver_Exception $e) {
+            $this->connected = false;
             $this->conn->reconnect();
             return false;
         }
 
+        $this->lastMessage = time();
         return true;
     }
 
