@@ -137,10 +137,12 @@ class TinyMCEPlugin extends Plugin
                 script_url : '{$path}',
                 // General options
                 theme : "advanced",
-                theme_advanced_buttons1 : "bold,italic,strikethrough,|,undo,redo,|,link,unlink,image",
+                plugins : "fullscreen",
+                theme_advanced_buttons1 : "bold,italic,strikethrough,|,undo,redo,|,link,unlink,image,|,fullscreen",
                 theme_advanced_buttons2 : "",
                 theme_advanced_buttons3 : "",
-                add_form_submit_trigger : false
+                add_form_submit_trigger : false,
+                theme_advanced_resizing : true
             });
             $('#notice_action-submit').click(function() {
                 tinymce.triggerSave();
