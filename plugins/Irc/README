@@ -23,6 +23,8 @@ nickservidentifyregexp: Override existing regexp matching request for identifica
 channels: Channels for bot to idle in
 transporttype: Set to 'ssl' to enable SSL
 encoding: Set to change encoding
+pinginterval: Set to change the number of seconds between pings (helps keep the connection open)
+              Defaults to 120 seconds
 regcheck: Check user's nicknames are registered, enabled by default, set to false to disable
 regregexp: Override existing regexp matching response from NickServ if nick checked is registered.
            Must contain a capturing group catching the nick

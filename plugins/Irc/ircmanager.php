@@ -78,7 +78,7 @@ class IrcManager extends ImManager {
         if ($this->messageWaiting) {
             return 1;
         } else {
-            return 120;
+            return $this->plugin->pinginterval;
         }
     }
 
@@ -89,7 +89,7 @@ class IrcManager extends ImManager {
      */
     public function idle() {
         // Send a ping if necessary
-        if (empty($this->lastPing) || time() - $this->lastPing > 120) {
+        if (empty($this->lastPing) || time() - $this->lastPing > $this->plugin->pinginterval) {
             $this->sendPing();
         }
 

@@ -60,6 +60,7 @@ class IrcPlugin extends ImPlugin {
     public $channels = null;
     public $transporttype = null;
     public $encoding = null;
+    public $pinginterval = null;
 
     public $regcheck = null;
     public $unregregexp = null;
@@ -358,6 +359,9 @@ class IrcPlugin extends ImPlugin {
         }
         if (!isset($this->encoding)) {
             $this->encoding = 'UTF-8';
+        }
+        if (!isset($this->pinginterval)) {
+            $this->pinginterval = 120;
         }
 
         if (!isset($this->regcheck)) {
