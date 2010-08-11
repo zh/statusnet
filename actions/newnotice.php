@@ -169,7 +169,10 @@ class NewnoticeAction extends Action
 
         if (isset($upload)) {
 
-            $content_shortened .= ' ' . $upload->shortUrl();
+            if (Event::handle('StartSaveNewNoticeAppendAttachment', array($this, $upload, &$content_shortened, &$options))) {
+                $content_shortened .= ' ' . $upload->shortUrl();
+            }
+            Event::handle('EndSaveNewNoticeAppendAttachment', array($this, $upload, &$content_shortened, &$options));
 
             if (Notice::contentTooLong($content_shortened)) {
                 $upload->delete();

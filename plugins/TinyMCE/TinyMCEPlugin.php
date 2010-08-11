@@ -1,4 +1,5 @@
 <?php
+
 /**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
@@ -27,7 +28,6 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 if (!defined('STATUSNET')) {
     // This check helps protect against security problems;
     // your code file can't be executed directly from the web.
@@ -46,14 +46,14 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class TinyMCEPlugin extends Plugin
 {
+
     var $html;
 
     function onEndShowScripts($action)
     {
-        if (common_logged_in()) {
+        if (common_logged_in ()) {
             $action->script(common_path('plugins/TinyMCE/js/jquery.tinymce.js'));
             $action->inlineScript($this->_inlineScript());
         }
@@ -70,11 +70,11 @@ class TinyMCEPlugin extends Plugin
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'TinyMCE',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Evan Prodromou',
-                            'homepage' => 'http://status.net/wiki/Plugin:TinyMCE',
-                            'rawdescription' =>
-                            _m('Use TinyMCE library to allow rich text editing in the browser'));
+            'version' => STATUSNET_VERSION,
+            'author' => 'Evan Prodromou',
+            'homepage' => 'http://status.net/wiki/Plugin:TinyMCE',
+            'rawdescription' =>
+            _m('Use TinyMCE library to allow rich text editing in the browser'));
         return true;
     }
 
@@ -86,10 +86,10 @@ class TinyMCEPlugin extends Plugin
      */
     private function sanitizeHtml($raw)
     {
-        require_once INSTALLDIR.'/extlib/htmLawed/htmLawed.php';
+        require_once INSTALLDIR . '/extlib/htmLawed/htmLawed.php';
 
         $config = array('safe' => 1,
-                        'deny_attribute' => 'id,style,on*');
+            'deny_attribute' => 'id,style,on*');
 
         return htmLawed($raw, $config);
     }
@@ -125,6 +125,75 @@ class TinyMCEPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Hook for new-notice form processing to process file upload appending...
+     *
+     * @param NewNoticeAction $action
+     * @param MediaFile $media
+     * @param string $content
+     * @param array $options
+     * @return boolean hook return
+     */
+    function onStartSaveNewNoticeAppendAttachment($action, $media, &$content, &$options)
+    {
+        if ($action->arg('richedit')) {
+            // See if we've got a placeholder inline image; if so, fill it!
+            $dom = new DOMDocument();
+            common_log(LOG_INFO, 'QQQQQQQQQQQQQQQQQQQQQQQQ');
+            if ($dom->loadHTML($options['rendered'])) {
+                $imgs = $dom->getElementsByTagName('img');
+                foreach ($imgs as $img) {
+                    common_log(LOG_INFO, 'img: ' . var_export($img, true));
+                    if (preg_match('/(^| )placeholder( |$)/', $img->getAttribute('class'))) {
+                        common_log(LOG_INFO, 'QQQQQQ: img src: ' . $media->fileRecord->url);
+                        $img->setAttribute('src', $media->fileRecord->url);
+                        $holderWidth = intval($img->getAttribute('width'));
+                        $holderHeight = intval($img->getAttribute('height'));
+                        $holderAspect = $holderWidth / $holderHeight;
+
+                        $path = File::path($media->filename);
+                        $imgInfo = getimagesize($path);
+                        common_log(LOG_INFO, 'QQQQQQ: ' . $path . ' : ' . var_export($imgInfo, true));
+
+                        $origWidth = $imgInfo[0];
+                        $origHeight = $imgInfo[1];
+                        $origAspect = $origWidth / $origHeight;
+                        if ($origAspect >= 1.0) {
+                            // wide image
+                            if ($origWidth > $holderWidth) {
+                                $width = $holderWidth;
+                                $height = intval($holderWidth / $origAspect);
+                            } else {
+                                $width = $origWidth;
+                                $height = $origHeight;
+                            }
+                        } else {
+                            if ($origHeight > $holderHeight) {
+                                $height = $holderHeight;
+                                $width = ($holderWidth * $origAspect);
+                            } else {
+                                $width = $origWidth;
+                                $height = $origHeight;
+                            }
+                        }
+
+                        $img->setAttribute('width', $width);
+                        $img->setAttribute('height', $height);
+
+                        common_log(LOG_INFO, 'QQQQQ: ' . $width . ' ' . $height);
+                    }
+                }
+                $html = $dom->saveHTML();
+                common_log(LOG_INFO, 'QQQQQQ: out: ' . $html);
+                $options['rendered'] = $html;
+            }
+
+            // The regular code will append the short URL to the plaintext content.
+            // Carry on and let it through...
+        }
+        return true;
+    }
+
     function _inlineScript()
     {
         $path = common_path('plugins/TinyMCE/js/tiny_mce.js');
@@ -153,10 +222,24 @@ class TinyMCEPlugin extends Plugin
                     tinymce.triggerSave();
                 }
             });
+            $('#'+SN.C.S.NoticeDataAttach).change(function() {
+                /*
+                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
+                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
+                if (NDAS.length > 0) {
+                    NDAS.replaceWith(S);
+                }
+                */
+                //alert('yay');
+                var img = '<img src="about:blank?placeholder" class="placeholder" width="320" height="240">';
+                var html = tinyMCE.activeEditor.getContent();
+                tinyMCE.activeEditor.setContent(html + img);
+            });
         });
 END_OF_SCRIPT;
 
         return $scr;
     }
+
 }
 
