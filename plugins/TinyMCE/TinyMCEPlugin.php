@@ -137,7 +137,7 @@ class TinyMCEPlugin extends Plugin
                 script_url : '{$path}',
                 // General options
                 theme : "advanced",
-                plugins : "paste,fullscreen,autoresize,inlinepopups,tabfocus",
+                plugins : "paste,fullscreen,autoresize,inlinepopups,tabfocus,linkautodetect",
                 theme_advanced_buttons1 : "bold,italic,strikethrough,|,undo,redo,|,link,unlink,image,|,fullscreen",
                 theme_advanced_buttons2 : "",
                 theme_advanced_buttons3 : "",
