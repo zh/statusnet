@@ -10,6 +10,7 @@ class Irc_waiting_message extends Memcached_DataObject {
     public $id;                              // int primary_key not_null auto_increment
     public $data;                            // blob not_null
     public $prioritise;                      // tinyint(1) not_null
+    public $attempts;                        // int not_null
     public $created;                         // datetime() not_null
     public $claimed;                         // datetime()
 
@@ -109,6 +110,22 @@ class Irc_waiting_message extends Memcached_DataObject {
         }
         $wm = null;
         return null;
+    }
+
+    /**
+    * Increment the attempts count
+    *
+    * @return void
+    * @throws Exception
+    */
+    public function incAttempts() {
+        $orig = clone($this);
+        $this->attempts++;
+        $result = $this->update($orig);
+
+        if (!$result) {
+            throw Exception(sprintf(_m("Could not increment attempts count for %d"), $this->id));
+        }
     }
 
     /**

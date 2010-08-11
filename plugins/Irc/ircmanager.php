@@ -101,19 +101,21 @@ class IrcManager extends ImManager {
                     $this->messageWaiting = false;
                     return;
                 }
+
                 $data = unserialize($wm->data);
+                $wm->incAttempts();
 
-                if (!$this->send_raw_message($data)) {
-                    $this->plugin->enqueue_outgoing_raw(
-                        array(
-                            'type' => 'message',
-                            'prioritise' => $data['prioritise'],
-                            'data' => $data['data']
-                        )
-                    );
+                if ($this->send_raw_message($data)) {
+                    $wm->delete();
+                } else {
+                    if ($wm->attempts <= common_config('queue', 'max_retries')) {
+                        // Try again next idle
+                        $wm->releaseClaim();
+                    } else {
+                        // Exceeded the maximum number of retries
+                        $wm->delete();
+                    }
                 }
-
-                $wm->delete();
             }
         }
     }
@@ -276,6 +278,7 @@ class IrcManager extends ImManager {
 
         $wm->data       = serialize($data);
         $wm->prioritise = $data['prioritise'];
+        $wm->attempts   = 0;
         $wm->created    = common_sql_now();
         $result         = $wm->insert();
 

@@ -164,6 +164,7 @@ class IrcPlugin extends ImPlugin {
                                                  false, 'PRI', null, null, true),
                                    new ColumnDef('data', 'blob', null, false),
                                    new ColumnDef('prioritise', 'tinyint', 1, false),
+                                   new ColumnDef('attempts', 'integer', null, false),
                                    new ColumnDef('created', 'datetime', null, false),
                                    new ColumnDef('claimed', 'datetime')));
 
