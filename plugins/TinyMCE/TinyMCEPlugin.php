@@ -117,9 +117,11 @@ class TinyMCEPlugin extends Plugin
      */
     function onStartSaveNewNoticeWeb($action, $user, &$content, &$options)
     {
-        $html = $this->sanitizeHtml($action->arg('status_textarea'));
-        $options['rendered'] = $html;
-        $content = $this->stripHtml($html);
+        if ($action->arg('richedit')) {
+            $html = $this->sanitizeHtml($content);
+            $options['rendered'] = $html;
+            $content = $this->stripHtml($html);
+        }
         return true;
     }
 
@@ -145,8 +147,11 @@ class TinyMCEPlugin extends Plugin
                 theme_advanced_resizing : true,
                 tabfocus_elements: ":prev,:next"
             });
+            $('#form_notice').append('<input type="hidden" name="richedit" value="1">');
             $('#notice_action-submit').click(function() {
-                tinymce.triggerSave();
+                if (typeof tinymce != "undefined") {
+                    tinymce.triggerSave();
+                }
             });
         });
 END_OF_SCRIPT;
