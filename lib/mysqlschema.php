@@ -50,21 +50,6 @@ class MysqlSchema extends Schema
     static $_single = null;
     protected $conn = null;
 
-    /**
-     * Constructor. Only run once for singleton object.
-     */
-
-    protected function __construct()
-    {
-        // XXX: there should be an easier way to do this.
-        $user = new User();
-
-        $this->conn = $user->getDatabaseConnection();
-
-        $user->free();
-
-        unset($user);
-    }
 
     /**
      * Main public entry point. Use this to get
@@ -348,7 +333,7 @@ class MysqlSchema extends Schema
         }
 
         if (empty($name)) {
-            $name = "$table_".implode("_", $columnNames)."_idx";
+            $name = "{$table}_".implode("_", $columnNames)."_idx";
         }
 
         $res = $this->conn->query("ALTER TABLE $table ".

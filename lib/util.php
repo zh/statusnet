@@ -88,8 +88,8 @@ function common_init_language()
         // don't do the job. en_US.UTF-8 should be there most of the
         // time, but not guaranteed.
         $ok = common_init_locale("en_US");
-        if (!$ok) {
-            // Try to find a complete, working locale...
+        if (!$ok && strtolower(substr(PHP_OS, 0, 3)) != 'win') {
+            // Try to find a complete, working locale on Unix/Linux...
             // @fixme shelling out feels awfully inefficient
             // but I don't think there's a more standard way.
             $all = `locale -a`;
@@ -101,9 +101,9 @@ function common_init_language()
                     }
                 }
             }
-            if (!$ok) {
-                common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
-            }
+        }
+        if (!$ok) {
+            common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
         }
         $locale_set = common_init_locale($language);
     }
