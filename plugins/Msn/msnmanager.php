@@ -110,7 +110,7 @@ class MsnManager extends ImManager {
                     'password' => $this->plugin->password,
                     'alias' => $this->plugin->nickname,
                     'psm' => 'Send me a message to post a notice',
-                    'debug' => true
+                    'debug' => false
                 )
             );
             $this->conn->registerHandler('IMin', array($this, 'handle_msn_message'));
