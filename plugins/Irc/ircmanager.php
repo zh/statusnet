@@ -177,7 +177,7 @@ class IrcManager extends ImManager {
 
                     'plugins.autoload' => true,
 
-                    'ui.enabled' => true,
+                    //'ui.enabled' => true,
 
                     'nickserv.password' => $this->plugin->nickservpassword,
                     'nickserv.identify_message' => $this->plugin->nickservidentifyregexp,
