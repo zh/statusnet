@@ -69,8 +69,17 @@ class IrcManager extends ImManager {
         }
     }
 
+    /**
+     * Request a maximum timeout for listeners before the next idle period.
+     *
+     * @return integer Maximum timeout
+     */
     public function timeout() {
-        return 1;
+        if ($this->messageWaiting) {
+            return 1;
+        } else {
+            return 120;
+        }
     }
 
     /**
@@ -95,7 +104,13 @@ class IrcManager extends ImManager {
                 $data = unserialize($wm->data);
 
                 if (!$this->send_raw_message($data)) {
-                    $this->plugin->enqueue_outgoing_raw($data);
+                    $this->plugin->enqueue_outgoing_raw(
+                        array(
+                            'type' => 'message',
+                            'prioritise' => $data['prioritise'],
+                            'data' => $data['data']
+                        )
+                    );
                 }
 
                 $wm->delete();
