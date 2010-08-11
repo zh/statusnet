@@ -115,7 +115,7 @@ class TinyMCEPlugin extends Plugin
      * @param array $options
      * @return boolean hook return
      */
-    function onSaveNewNoticeWeb($action, $user, &$content, &$options)
+    function onStartSaveNewNoticeWeb($action, $user, &$content, &$options)
     {
         $html = $this->sanitizeHtml($action->arg('status_textarea'));
         $options['rendered'] = $html;
