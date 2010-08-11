@@ -30,8 +30,8 @@ class Msn_waiting_message extends Memcached_DataObject {
         return array('id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'screenname' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'message' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
-                     'claimed' => DB_DATAOBJECT_STR);
+                     'created' => DB_DATAOBJECT_TIME + DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
+                     'claimed' => DB_DATAOBJECT_TIME + DB_DATAOBJECT_STR);
     }
 
     /**
@@ -86,8 +86,8 @@ class Msn_waiting_message extends Memcached_DataObject {
         if ($screenname) {
             if (is_array($screenname)) {
                 // @fixme use safer escaping
-                $list = implode("','", array_map('addslashes', $transports));
-                $wm->whereAdd("screename in ('$list')");
+                $list = implode("','", array_map('addslashes', $screenname));
+                $wm->whereAdd("screenname in ('$list')");
             } else {
                 $wm->screenname = $screenname;
             }
