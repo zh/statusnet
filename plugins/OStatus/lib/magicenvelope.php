@@ -97,24 +97,18 @@ class MagicEnvelope
     }
 
     public function toXML($env) {
-        $dom = new DOMDocument();
-
-        $envelope = $dom->createElementNS(MagicEnvelope::NS, 'me:env');
-        $envelope->setAttribute('xmlns:me', MagicEnvelope::NS);
-        $data = $dom->createElementNS(MagicEnvelope::NS, 'me:data', $env['data']);
-        $data->setAttribute('type', $env['data_type']);
-        $envelope->appendChild($data);
-        $enc = $dom->createElementNS(MagicEnvelope::NS, 'me:encoding', $env['encoding']);
-        $envelope->appendChild($enc);
-        $alg = $dom->createElementNS(MagicEnvelope::NS, 'me:alg', $env['alg']);
-        $envelope->appendChild($alg);
-        $sig = $dom->createElementNS(MagicEnvelope::NS, 'me:sig', $env['sig']);
-        $envelope->appendChild($sig);
-
-        $dom->appendChild($envelope);
+        $xs = new XMLStringer();
+        $xs->startXML();
+        $xs->elementStart('me:env', array('xmlns:me' => MagicEnvelope::NS));
+        $xs->element('me:data', array('type' => $env['data_type']), $env['data']);
+        $xs->element('me:encoding', null, $env['encoding']);
+        $xs->element('me:alg', null, $env['alg']);
+        $xs->element('me:sig', null, $env['sig']);
+        $xs->elementEnd('me:env');
         
-        
-        return $dom->saveXML();
+        $string =  $xs->getString();
+        common_debug($string);
+        return $string;
     }
 
     
@@ -216,13 +210,13 @@ class MagicEnvelope
         }
 
         $data_element = $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'data')->item(0);
-        
+        $sig_element = $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'sig')->item(0);
         return array(
-            'data' => trim($data_element->nodeValue),
+            'data' => preg_replace('/\s/', '', $data_element->nodeValue),
             'data_type' => $data_element->getAttribute('type'),
             'encoding' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'encoding')->item(0)->nodeValue,
             'alg' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'alg')->item(0)->nodeValue,
-            'sig' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'sig')->item(0)->nodeValue,
+            'sig' => preg_replace('/\s/', '', $sig_element->nodeValue),
         );
     }
 
