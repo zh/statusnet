@@ -1212,6 +1212,64 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
+    function asActivity()
+    {
+        $profile = $this->getProfile();
+
+        $act = new Activity();
+
+        $act->actor     = Activity::fromProfile($profile);
+        $act->verb      = ActivityVerb::POST;
+        $act->objects[] = ActivityObject::fromNotice($this);
+
+        $act->time    = strtotime($this->created);
+        $act->link    = $this->bestUrl();
+
+        $act->content = common_xml_safe_string($this->rendered);
+        $act->id      = $this->uri;
+        $act->title   = common_xml_safe_string($this->content);
+
+        $ctx = new ActivityContext();
+
+        if (!empty($this->reply_to)) {
+            $reply = Notice::staticGet('id', $this->reply_to);
+            if (!empty($reply)) {
+                $ctx->replyToID  = $reply->uri;
+                $ctx->replyToUrl = $reply->bestUrl();
+            }
+        }
+
+        $ctx->location = $this->getLocation();
+
+        $conv = null;
+
+        if (!empty($this->conversation)) {
+            $conv = Conversation::staticGet('id', $this->conversation);
+            if (!empty($conv)) {
+                $ctx->conversation = $conv->uri;
+            }
+        }
+
+        $reply_ids = $this->getReplies();
+
+        foreach ($reply_ids as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if (!empty($profile)) {
+                $ctx->attention[] = $profile->uri;
+            }
+        }
+
+        $groups = $this->getGroups();
+
+        foreach ($groups as $group) {
+            $ctx->attention[] = $group->uri;
+        }
+
+        $act->context = $ctx;
+
+        return $act;
+    }
+
     // This has gotten way too long. Needs to be sliced up into functional bits
     // or ideally exported to a utility class.
 
