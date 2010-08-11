@@ -177,6 +177,7 @@ class IrcManager extends ImManager {
 
                     'plugins.autoload' => true,
 
+                    // Uncomment to enable debugging output
                     //'ui.enabled' => true,
 
                     'nickserv.password' => $this->plugin->nickservpassword,
