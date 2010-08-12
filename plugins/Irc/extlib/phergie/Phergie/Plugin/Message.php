@@ -52,14 +52,14 @@ class Phergie_Plugin_Message extends Phergie_Plugin_Abstract
         $}ix
 REGEX;
 
-        return !$event->isInChannel()
+        return !$event->isInChannel() 
             || preg_match($targetPattern, $event->getText()) > 0;
     }
 
     /**
      * Allow for prefix and bot name aware extraction of a message
      *
-     * @return string|bool $message The message, which is possibly targeted at the
+     * @return string|bool $message The message, which is possibly targeted at the 
      *                              bot or false if a prefix requirement failed
      */
     public function getMessage()
