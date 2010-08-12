@@ -102,7 +102,7 @@ class TinyMCEPlugin extends Plugin
      */
     private function stripHtml($html)
     {
-        return str_replace("\n", " ", html_entity_decode(strip_tags($html)));
+        return str_replace("\n", " ", html_entity_decode(strip_tags($html), ENT_QUOTES, 'UTF-8'));
     }
 
     /**
@@ -281,6 +281,7 @@ class TinyMCEPlugin extends Plugin
         // on our send button click.
         $scr = <<<END_OF_SCRIPT
         $().ready(function() {
+            var noticeForm = $('#form_notice');
             $('textarea#notice_data-text').tinymce({
                 script_url : '{$path}',
                 // General options
@@ -291,26 +292,29 @@ class TinyMCEPlugin extends Plugin
                 theme_advanced_buttons3 : "",
                 add_form_submit_trigger : false,
                 theme_advanced_resizing : true,
-                tabfocus_elements: ":prev,:next"
-            });
-            $('#form_notice').append('<input type="hidden" name="richedit" value="1">');
-            $('#notice_action-submit').click(function() {
-                if (typeof tinymce != "undefined") {
-                    tinymce.triggerSave();
+                tabfocus_elements: ":prev,:next",
+                setup: function(ed) {
+                    noticeForm.append('<input type="hidden" name="richedit" value="1">');
+
+                    $('#notice_action-submit').click(function() {
+                        tinymce.triggerSave();
+                    });
+
+                    var origCounter = SN.U.CharacterCount;
+                    SN.U.CharacterCount = function(form) {
+                        var text = $(ed.getDoc()).text();
+                        return text.length;
+                    };
+                    ed.onKeyUp.add(function (ed, e) {
+                        SN.U.Counter(noticeForm);
+                    });
+
+                    $('#'+SN.C.S.NoticeDataAttach).change(function() {
+                        var img = '<img src="{$placeholder}" class="placeholder" width="320" height="240">';
+                        var html = tinyMCE.activeEditor.getContent();
+                        ed.setContent(html + img);
+                    });
                 }
-            });
-            $('#'+SN.C.S.NoticeDataAttach).change(function() {
-                /*
-                S = '<div id="'+SN.C.S.NoticeDataAttachSelected+'" class="'+SN.C.S.Success+'"><code>'+$(this).val()+'</code> <button class="close">&#215;</button></div>';
-                NDAS = $('#'+SN.C.S.NoticeDataAttachSelected);
-                if (NDAS.length > 0) {
-                    NDAS.replaceWith(S);
-                }
-                */
-                //alert('yay');
-                var img = '<img src="{$placeholder}" class="placeholder" width="320" height="240">';
-                var html = tinyMCE.activeEditor.getContent();
-                tinyMCE.activeEditor.setContent(html + img);
             });
         });
 END_OF_SCRIPT;
@@ -319,4 +323,3 @@ END_OF_SCRIPT;
     }
 
 }
-
