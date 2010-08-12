@@ -148,8 +148,7 @@ class TinyMCEPlugin extends Plugin
                         $this->formatAttachment($img, $media);
                     }
                 }
-                $html = $dom->saveHTML();
-                $options['rendered'] = $html;
+                $options['rendered'] = $this->saveHtml($dom);
             }
 
             // The regular code will append the short URL to the plaintext content.
@@ -166,29 +165,26 @@ class TinyMCEPlugin extends Plugin
      */
     private function formatAttachment($img, $media)
     {
+        $parent = $img->parentNode;
         $dom = $img->ownerDocument;
+
         $link = $dom->createElement('a');
         $link->setAttribute('href', $media->fileurl);
+        $link->setAttribute('title', File::url($media->filename));
 
         if ($this->isEmbeddable($media)) {
-            common_log(LOG_INFO, 'QQQQQ');
             // Fix the the <img> attributes and wrap the link around it...
             $this->insertImage($img, $media);
-            common_log(LOG_INFO, 'QQQQQ A!');
-            try {
-                $dom->replaceChild($link, $img); //it dies in here?!
-            } catch (Exception $wtf) {
-                common_log(LOG_ERR, 'QQQ WTF? ' . $wtf->getMessage());
-            }
-            common_log(LOG_INFO, 'QQQQQ B!');
+            $parent->replaceChild($link, $img); //it dies in here?!
             $link->appendChild($img);
-            common_log(LOG_INFO, 'QQQQQ C!');
         } else {
-            common_log(LOG_INFO, 'QQQQQ X');
             // Not an image? Replace it with a text link.
+            $link->setAttribute('rel', 'external');
+            $link->setAttribute('class', 'attachment');
+            $link->setAttribute('id', 'attachment-' . $media->fileRecord->id);
             $text = $dom->createTextNode($media->shortUrl());
             $link->appendChild($text);
-            $dom->replaceChild($link, $img);
+            $parent->replaceChild($link, $img);
         }
     }
 
@@ -263,6 +259,15 @@ class TinyMCEPlugin extends Plugin
                 return array($origWidth, $origHeight);
             }
         }
+    }
+
+    private function saveHtml($dom)
+    {
+        $html = $dom->saveHTML();
+        // hack to remove surrounding crap added to the dom
+        // all we wanted was a fragment
+        $stripped = preg_replace('/^.*<body[^>]*>(.*)<\/body.*$/is', '$1', $html);
+        return $stripped;
     }
 
     function _inlineScript()
