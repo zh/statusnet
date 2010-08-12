@@ -139,52 +139,16 @@ class TinyMCEPlugin extends Plugin
         if ($action->arg('richedit')) {
             // See if we've got a placeholder inline image; if so, fill it!
             $dom = new DOMDocument();
-            common_log(LOG_INFO, 'QQQQQQQQQQQQQQQQQQQQQQQQ');
+
             if ($dom->loadHTML($options['rendered'])) {
                 $imgs = $dom->getElementsByTagName('img');
                 foreach ($imgs as $img) {
-                    common_log(LOG_INFO, 'img: ' . var_export($img, true));
                     if (preg_match('/(^| )placeholder( |$)/', $img->getAttribute('class'))) {
-                        common_log(LOG_INFO, 'QQQQQQ: img src: ' . $media->fileRecord->url);
-                        $img->setAttribute('src', $media->fileRecord->url);
-                        $holderWidth = intval($img->getAttribute('width'));
-                        $holderHeight = intval($img->getAttribute('height'));
-                        $holderAspect = $holderWidth / $holderHeight;
-
-                        $path = File::path($media->filename);
-                        $imgInfo = getimagesize($path);
-                        common_log(LOG_INFO, 'QQQQQQ: ' . $path . ' : ' . var_export($imgInfo, true));
-
-                        $origWidth = $imgInfo[0];
-                        $origHeight = $imgInfo[1];
-                        $origAspect = $origWidth / $origHeight;
-                        if ($origAspect >= 1.0) {
-                            // wide image
-                            if ($origWidth > $holderWidth) {
-                                $width = $holderWidth;
-                                $height = intval($holderWidth / $origAspect);
-                            } else {
-                                $width = $origWidth;
-                                $height = $origHeight;
-                            }
-                        } else {
-                            if ($origHeight > $holderHeight) {
-                                $height = $holderHeight;
-                                $width = ($holderWidth * $origAspect);
-                            } else {
-                                $width = $origWidth;
-                                $height = $origHeight;
-                            }
-                        }
-
-                        $img->setAttribute('width', $width);
-                        $img->setAttribute('height', $height);
-
-                        common_log(LOG_INFO, 'QQQQQ: ' . $width . ' ' . $height);
+                        // Create a link to the attachment page...
+                        $this->formatAttachment($img, $media);
                     }
                 }
                 $html = $dom->saveHTML();
-                common_log(LOG_INFO, 'QQQQQQ: out: ' . $html);
                 $options['rendered'] = $html;
             }
 
@@ -194,9 +158,117 @@ class TinyMCEPlugin extends Plugin
         return true;
     }
 
+    /**
+     * Format the attachment placeholder img with the final version.
+     * 
+     * @param DOMElement $img
+     * @param MediaFile $media 
+     */
+    private function formatAttachment($img, $media)
+    {
+        $dom = $img->ownerDocument;
+        $link = $dom->createElement('a');
+        $link->setAttribute('href', $media->fileurl);
+
+        if ($this->isEmbeddable($media)) {
+            common_log(LOG_INFO, 'QQQQQ');
+            // Fix the the <img> attributes and wrap the link around it...
+            $this->insertImage($img, $media);
+            common_log(LOG_INFO, 'QQQQQ A!');
+            try {
+                $dom->replaceChild($link, $img); //it dies in here?!
+            } catch (Exception $wtf) {
+                common_log(LOG_ERR, 'QQQ WTF? ' . $wtf->getMessage());
+            }
+            common_log(LOG_INFO, 'QQQQQ B!');
+            $link->appendChild($img);
+            common_log(LOG_INFO, 'QQQQQ C!');
+        } else {
+            common_log(LOG_INFO, 'QQQQQ X');
+            // Not an image? Replace it with a text link.
+            $text = $dom->createTextNode($media->shortUrl());
+            $link->appendChild($text);
+            $dom->replaceChild($link, $img);
+        }
+    }
+
+    /**
+     * Is this media file a type we can display inline?
+     *
+     * @param MediaFile $media
+     * @return boolean
+     */
+    private function isEmbeddable($media)
+    {
+        $showable = array('image/png',
+                          'image/gif',
+                          'image/jpeg');
+        return in_array($media->mimetype, $showable);
+    }
+
+    /**
+     * Rewrite and resize a placeholder image element to match the uploaded
+     * file. If the holder is smaller than the file, the file is scaled to fit
+     * with correct aspect ratio (but will be loaded at full resolution).
+     *
+     * @param DOMElement $img
+     * @param MediaFile $media
+     */
+    private function insertImage($img, $media)
+    {
+        $img->setAttribute('src', $media->fileRecord->url);
+
+        $holderWidth = intval($img->getAttribute('width'));
+        $holderHeight = intval($img->getAttribute('height'));
+
+        $path = File::path($media->filename);
+        $imgInfo = getimagesize($path);
+
+        if ($imgInfo) {
+            $origWidth = $imgInfo[0];
+            $origHeight = $imgInfo[1];
+
+            list($width, $height) = $this->sizeBox(
+                    $origWidth, $origHeight,
+                    $holderWidth, $holderHeight);
+
+            $img->setAttribute('width', $width);
+            $img->setAttribute('height', $height);
+        }
+    }
+
+    /**
+     *
+     * @param int $origWidth
+     * @param int $origHeight
+     * @param int $holderWidth
+     * @param int $holderHeight
+     * @return array($width, $height)
+     */
+    private function sizeBox($origWidth, $origHeight, $holderWidth, $holderHeight)
+    {
+        $holderAspect = $holderWidth / $holderHeight;
+        $origAspect = $origWidth / $origHeight;
+        if ($origAspect >= 1.0) {
+            // wide image
+            if ($origWidth > $holderWidth) {
+                return array($holderWidth, intval($holderWidth / $origAspect));
+            } else {
+                return array($origWidth, $origHeight);
+            }
+        } else {
+            if ($origHeight > $holderHeight) {
+                return array(intval($holderWidth * $origAspect), $holderHeight);
+            } else {
+                return array($origWidth, $origHeight);
+            }
+        }
+    }
+
     function _inlineScript()
     {
         $path = common_path('plugins/TinyMCE/js/tiny_mce.js');
+        $placeholder = common_path('plugins/TinyMCE/icons/placeholder.png');
 
         // Note: the normal on-submit triggering to save data from
         // the HTML editor into the textarea doesn't play well with
@@ -231,7 +303,7 @@ class TinyMCEPlugin extends Plugin
                 }
                 */
                 //alert('yay');
-                var img = '<img src="about:blank?placeholder" class="placeholder" width="320" height="240">';
+                var img = '<img src="{$placeholder}" class="placeholder" width="320" height="240">';
                 var html = tinyMCE.activeEditor.getContent();
                 tinyMCE.activeEditor.setContent(html + img);
             });
