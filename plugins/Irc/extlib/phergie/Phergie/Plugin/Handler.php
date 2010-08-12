@@ -98,6 +98,12 @@ class Phergie_Plugin_Handler implements IteratorAggregate, Countable
         $this->paths = array();
         $this->autoload = false;
 
+        if (!empty($config['plugins.paths'])) {
+            foreach ($config['plugins.paths'] as $dir => $prefix) {
+                $this->addPath($dir, $prefix);
+            }
+        }
+
         $this->addPath(dirname(__FILE__), 'Phergie_Plugin_');
     }
 
@@ -134,6 +140,7 @@ class Phergie_Plugin_Handler implements IteratorAggregate, Countable
      * Returns metadata corresponding to a specified plugin.
      *
      * @param string $plugin Short name of the plugin class
+     *
      * @throws Phergie_Plugin_Exception Class file can't be found
      *
      * @return array|boolean Associative array containing the path to the
@@ -142,7 +149,7 @@ class Phergie_Plugin_Handler implements IteratorAggregate, Countable
      */
     public function getPluginInfo($plugin)
     {
-       foreach (array_reverse($this->paths) as $path) {
+        foreach (array_reverse($this->paths) as $path) {
             $file = $path['path'] . $plugin . '.php';
             if (file_exists($file)) {
                 $path = array(
@@ -444,15 +451,21 @@ class Phergie_Plugin_Handler implements IteratorAggregate, Countable
         $valid = true;
 
         try {
+            $error_reporting = error_reporting(0); // ignore autoloader errors
             $r = new ReflectionClass($class);
-            $valid = $r->isSubclassOf('FilterIterator');
+            error_reporting($error_reporting);
+            if (!$r->isSubclassOf('FilterIterator')) {
+                $message = 'Class ' . $class . ' is not a subclass of FilterIterator';
+                $valid = false;
+            }
         } catch (ReflectionException $e) {
+            $message = $e->getMessage();
             $valid = false;
         }
 
         if (!$valid) {
             throw new Phergie_Plugin_Exception(
-                $e->getMessage(),
+                $message,
                 Phergie_Plugin_Exception::ERR_INVALID_ITERATOR_CLASS
             );
         }

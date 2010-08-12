@@ -42,6 +42,13 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
     protected $regCallback;
 
     /**
+    * Connection established callback details
+    *
+    * @var array
+    */
+    protected $connectedCallback;
+
+    /**
     * Load callback from config
     */
     public function onLoad() {
@@ -57,6 +64,13 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
             $this->regCallback = $regCallback;
         } else {
             $this->regCallback = NULL;
+        }
+
+        $connectedCallback = $this->config['statusnet.connectedcallback'];
+        if (is_callable($connectedCallback)) {
+            $this->connectedCallback = $connectedCallback;
+        } else {
+            $this->connectedCallback = NULL;
         }
 
         $this->unregRegexp = $this->getConfig('statusnet.unregregexp', '/\x02(.*?)\x02 (?:isn\'t|is not) registered/i');
@@ -107,6 +121,22 @@ class Phergie_Plugin_Statusnet extends Phergie_Plugin_Abstract {
                     $screenname = $groups[1];
                     call_user_func($this->regCallback, array('screenname' => $screenname, 'registered' => true));
                 }
+            }
+        }
+    }
+
+    /**
+     * Intercepts the end of the "message of the day" response and tells
+     * StatusNet we're connected
+     *
+     * @return void
+     */
+    public function onResponse() {
+        switch ($this->getEvent()->getCode()) {
+        case Phergie_Event_Response::RPL_ENDOFMOTD:
+        case Phergie_Event_Response::ERR_NOMOTD:
+            if ($this->connectedCallback !== NULL) {
+                call_user_func($this->connectedCallback);
             }
         }
     }

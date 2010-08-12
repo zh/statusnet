@@ -60,6 +60,7 @@ class IrcPlugin extends ImPlugin {
     public $channels = null;
     public $transporttype = null;
     public $encoding = null;
+    public $pinginterval = null;
 
     public $regcheck = null;
     public $unregregexp = null;
@@ -126,6 +127,7 @@ class IrcPlugin extends ImPlugin {
                 include_once $dir . '/'.strtolower($cls).'.php';
                 return false;
             case 'Fake_Irc':
+            case 'Irc_waiting_message':
             case 'ChannelResponseChannel':
                 include_once $dir . '/'. $cls .'.php';
                 return false;
@@ -151,6 +153,26 @@ class IrcPlugin extends ImPlugin {
     }
 
     /**
+    * Ensure the database table is present
+    *
+    */
+    public function onCheckSchema() {
+        $schema = Schema::get();
+
+        // For storing messages while sessions become ready
+        $schema->ensureTable('irc_waiting_message',
+                             array(new ColumnDef('id', 'integer', null,
+                                                 false, 'PRI', null, null, true),
+                                   new ColumnDef('data', 'blob', null, false),
+                                   new ColumnDef('prioritise', 'tinyint', 1, false),
+                                   new ColumnDef('attempts', 'integer', null, false),
+                                   new ColumnDef('created', 'datetime', null, false),
+                                   new ColumnDef('claimed', 'datetime')));
+
+        return true;
+    }
+
+    /**
     * Get a microid URI for the given screenname
     *
     * @param string $screenname Screenname
@@ -171,7 +193,7 @@ class IrcPlugin extends ImPlugin {
         $lines = explode("\n", $body);
         foreach ($lines as $line) {
             $this->fake_irc->doPrivmsg($screenname, $line);
-            $this->enqueue_outgoing_raw(array('type' => 'message', 'data' => $this->fake_irc->would_be_sent));
+            $this->enqueue_outgoing_raw(array('type' => 'message', 'prioritise' => 0, 'data' => $this->fake_irc->would_be_sent));
         }
         return true;
     }
@@ -297,6 +319,7 @@ class IrcPlugin extends ImPlugin {
         $this->enqueue_outgoing_raw(
             array(
                 'type' => 'nickcheck',
+                'prioritise' => 1,
                 'data' => $this->fake_irc->would_be_sent,
                 'nickdata' =>
                     array(
@@ -336,6 +359,9 @@ class IrcPlugin extends ImPlugin {
         }
         if (!isset($this->encoding)) {
             $this->encoding = 'UTF-8';
+        }
+        if (!isset($this->pinginterval)) {
+            $this->pinginterval = 120;
         }
 
         if (!isset($this->regcheck)) {
