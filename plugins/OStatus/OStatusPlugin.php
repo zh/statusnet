@@ -28,6 +28,15 @@ set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/ext
 
 class FeedSubException extends Exception
 {
+    function __construct($msg=null)
+    {
+        $type = get_class($this);
+        if ($msg) {
+            parent::__construct("$type: $msg");
+        } else {
+            parent::__construct($type);
+        }
+    }
 }
 
 class OStatusPlugin extends Plugin
@@ -477,6 +486,24 @@ class OStatusPlugin extends Plugin
         } else {
             common_log(LOG_DEBUG, "No ostatus profile for incoming feed $feedsub->uri");
         }
+    }
+
+    /**
+     * Tell the FeedSub infrastructure whether we have any active OStatus
+     * usage for the feed; if not it'll be able to garbage-collect the
+     * feed subscription.
+     * 
+     * @param FeedSub $feedsub
+     * @param integer $count in/out
+     * @return mixed hook return code
+     */
+    function onFeedSubSubscriberCount($feedsub, &$count)
+    {
+        $oprofile = Ostatus_profile::staticGet('feeduri', $feedsub->uri);
+        if ($oprofile) {
+            $count += $oprofile->subscriberCount();
+        }
+        return true;
     }
 
     /**
