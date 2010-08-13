@@ -1045,3 +1045,14 @@ StartActivityEnd: before the closing </entry> in a notice activity entry (last c
 EndActivityEnd: after the closing </entry> in a notice activity entry
 - &$notice: notice being output
 - &$xs: XMLStringer for output
+
+StartNoticeSaveWeb: before saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- &$authorId: integer ID of the author
+- &$text: text of the notice
+- &$options: additional options (location, replies, etc.)
+
+EndNoticeSaveWeb: after saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- $notice: notice that was saved
+
