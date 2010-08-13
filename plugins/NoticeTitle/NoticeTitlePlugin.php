@@ -70,7 +70,7 @@ class NoticeTitlePlugin extends Plugin
 
         $schema->ensureTable('notice_title',
                              array(new ColumnDef('notice_id', 'integer', null, true, 'PRI'),
-                                   new ColumnDef('title', 'varchar', 255, false)));
+                                   new ColumnDef('title', 'varchar', Notice_title::MAXCHARS, false)));
 
         return true;
     }
@@ -114,11 +114,42 @@ class NoticeTitlePlugin extends Plugin
                                            'id' => 'notice_title',
                                            'name' => 'notice_title',
                                            'size' => 40,
+                                           'maxlength' => Notice_title::MAXCHARS,
                                            'value' => _m('Title'),
                                            'style' => 'color: 333333',
                                            'onFocus' => 'this.value = ""; this.style = \'color: black\';'));
         return true;
     }
 
+    function onStartNoticeSaveWeb($action, &$authorId, &$text, &$options)
+    {
+        $title = $action->trimmed('notice_title');
+        if (!empty($title)) {
+            if (mb_strlen($title) > Notice_title::MAXCHARS) {
+                throw new Exception(sprintf(_m("Notice title too long (max %d chars)", Notice_title::MAXCHARS)));
+            }
+        }
+        return true;
+    }
+
+    function onEndNoticeSaveWeb($action, $notice)
+    {
+        if (!empty($notice)) {
+
+            $title = $action->trimmed('notice_title');
+
+            if (!empty($title)) {
+
+                $nt = new Notice_title();
+
+                $nt->notice_id = $notice->id;
+                $nt->title     = $title;
+
+                $nt->insert();
+            }
+        }
+
+        return true;
+    }
 }
 

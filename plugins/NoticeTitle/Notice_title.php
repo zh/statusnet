@@ -47,6 +47,8 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 
 class Notice_title extends Memcached_DataObject
 {
+    const MAXCHARS = 255;
+
     public $__table = 'notice_title'; // table name
     public $notice_id;                         // int(4)  primary_key not_null
     public $title;                             // varchar(255)
