@@ -151,5 +151,16 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
+
+    function onStartShowNoticeItem($nli)
+    {
+        $title = Notice_title::fromNotice($nli->notice);
+
+        if (!empty($title)) {
+            $nli->out->element('h4', array('class' => 'notice_title'), $title);
+        }
+
+        return true;
+    }
 }
 
