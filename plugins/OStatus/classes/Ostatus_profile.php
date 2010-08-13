@@ -445,26 +445,31 @@ class Ostatus_profile extends Memcached_DataObject
      * @param DOMElement $feed for context
      * @param string $source identifier ("push" or "salmon")
      */
+
     public function processEntry($entry, $feed, $source)
     {
         $activity = new Activity($entry, $feed);
 
-        // @todo process all activity objects
-        switch ($activity->objects[0]->type) {
-        case ActivityObject::ARTICLE:
-        case ActivityObject::BLOGENTRY:
-        case ActivityObject::NOTE:
-        case ActivityObject::STATUS:
-        case ActivityObject::COMMENT:
-            break;
-        default:
-            throw new ClientException("Can't handle that kind of post.");
-        }
+        if (Event::handle('StartHandleFeedEntry', array($activity))) {
 
-        if ($activity->verb == ActivityVerb::POST) {
-            $this->processPost($activity, $source);
-        } else {
-            common_log(LOG_INFO, "Ignoring activity with unrecognized verb $activity->verb");
+            // @todo process all activity objects
+            switch ($activity->objects[0]->type) {
+            case ActivityObject::ARTICLE:
+            case ActivityObject::BLOGENTRY:
+            case ActivityObject::NOTE:
+            case ActivityObject::STATUS:
+            case ActivityObject::COMMENT:
+                if ($activity->verb == ActivityVerb::POST) {
+                    $this->processPost($activity, $source);
+                } else {
+                    common_log(LOG_INFO, "Ignoring activity with unrecognized verb $activity->verb");
+                }
+                break;
+            default:
+                throw new ClientException("Can't handle that kind of post.");
+            }
+
+            Event::handle('EndHandleFeedEntry', array($activity));
         }
     }
 
