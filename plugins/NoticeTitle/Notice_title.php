@@ -98,6 +98,8 @@ class Notice_title extends Memcached_DataObject
 
     /**
      * return key definitions for Memcached_DataObject
+     *
+     * @return array list mapping field names to key types
      */
 
     function keyTypes()
