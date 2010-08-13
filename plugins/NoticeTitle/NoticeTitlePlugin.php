@@ -69,8 +69,15 @@ class NoticeTitlePlugin extends Plugin
         // For storing titles for notices
 
         $schema->ensureTable('notice_title',
-                             array(new ColumnDef('notice_id', 'integer', null, true, 'PRI'),
-                                   new ColumnDef('title', 'varchar', Notice_title::MAXCHARS, false)));
+                             array(new ColumnDef('notice_id',
+                                                 'integer',
+                                                 null,
+                                                 true,
+                                                 'PRI'),
+                                   new ColumnDef('title',
+                                                 'varchar',
+                                                 Notice_title::MAXCHARS,
+                                                 false)));
 
         return true;
     }
@@ -97,16 +104,36 @@ class NoticeTitlePlugin extends Plugin
         }
     }
 
+    /**
+     * Provide plugin version information.
+     *
+     * This data is used when showing the version page.
+     *
+     * @param array &$versions array of version data arrays; see EVENTS.txt
+     *
+     * @return boolean hook value
+     */
+
     function onPluginVersion(&$versions)
     {
+        $url = 'http://status.net/wiki/Plugin:NoticeTitle';
+
         $versions[] = array('name' => 'NoticeTitle',
                             'version' => NOTICE_TITLE_PLUGIN_VERSION,
                             'author' => 'Evan Prodromou',
-                            'homepage' => 'http://status.net/wiki/Plugin:NoticeTitle',
+                            'homepage' => $url,
                             'rawdescription' =>
                             _m('Adds optional titles to notices'));
         return true;
     }
+
+    /**
+     * Show title entry when showing notice form
+     *
+     * @param Form $form Form being shown
+     *
+     * @return boolean hook value
+     */
 
     function onStartShowNoticeFormData($form)
     {
@@ -114,23 +141,41 @@ class NoticeTitlePlugin extends Plugin
                                            'id' => 'notice_title',
                                            'name' => 'notice_title',
                                            'size' => 40,
-                                           'maxlength' => Notice_title::MAXCHARS,
-                                           'value' => _m('Title'),
-                                           'style' => 'color: 333333',
-                                           'onFocus' => 'this.value = ""; this.style = \'color: black\';'));
+                                           'maxlength' => Notice_title::MAXCHARS));
         return true;
     }
+
+    /**
+     * Validate notice title before saving
+     *
+     * @param Action  $action    NewNoticeAction being executed
+     * @param integer &$authorId Author ID
+     * @param string  &$text     Text of the notice
+     * @param array   &$options  Options array
+     *
+     * @return boolean hook value
+     */
 
     function onStartNoticeSaveWeb($action, &$authorId, &$text, &$options)
     {
         $title = $action->trimmed('notice_title');
         if (!empty($title)) {
             if (mb_strlen($title) > Notice_title::MAXCHARS) {
-                throw new Exception(sprintf(_m("Notice title too long (max %d chars)", Notice_title::MAXCHARS)));
+                throw new Exception(sprintf(_m("Notice title too long (max %d)",
+                                               Notice_title::MAXCHARS)));
             }
         }
         return true;
     }
+
+    /**
+     * Save notice title after notice is saved
+     *
+     * @param Action $action NewNoticeAction being executed
+     * @param Notice $notice Notice that was saved
+     *
+     * @return boolean hook value
+     */
 
     function onEndNoticeSaveWeb($action, $notice)
     {
@@ -152,6 +197,14 @@ class NoticeTitlePlugin extends Plugin
         return true;
     }
 
+    /**
+     * Show the notice title in lists
+     *
+     * @param NoticeListItem $nli NoticeListItem being shown
+     *
+     * @return boolean hook value
+     */
+
     function onStartShowNoticeItem($nli)
     {
         $title = Notice_title::fromNotice($nli->notice);
@@ -163,6 +216,15 @@ class NoticeTitlePlugin extends Plugin
         return true;
     }
 
+    /**
+     * Show the notice title in RSS output
+     *
+     * @param Notice $notice Notice being shown
+     * @param array  &$entry array of values used for RSS output
+     *
+     * @return boolean hook value
+     */
+
     function onEndRssEntryArray($notice, &$entry)
     {
         $title = Notice_title::fromNotice($notice);
@@ -173,6 +235,16 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Show the notice title in Atom output
+     *
+     * @param Notice      &$notice Notice being shown
+     * @param XMLStringer &$xs     output context
+     * @param string      &$output string to be output as title
+     *
+     * @return boolean hook value
+     */
 
     function onStartActivityTitle(&$notice, &$xs, &$output)
     {
