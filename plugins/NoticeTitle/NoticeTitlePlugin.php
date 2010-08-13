@@ -162,5 +162,27 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
+
+    function onEndRssEntryArray($notice, &$entry)
+    {
+        $title = Notice_title::fromNotice($notice);
+
+        if (!empty($title)) {
+            $entry['title'] = $title;
+        }
+
+        return true;
+    }
+
+    function onStartActivityTitle(&$notice, &$xs, &$output)
+    {
+        $title = Notice_title::fromNotice($notice);
+
+        if (!empty($title)) {
+            $output = $title;
+        }
+
+        return true;
+    }
 }
 
