@@ -107,5 +107,18 @@ class NoticeTitlePlugin extends Plugin
                             _m('Adds optional titles to notices'));
         return true;
     }
+
+    function onStartShowNoticeFormData($form)
+    {
+        $form->out->element('input', array('type' => 'text',
+                                           'id' => 'notice_title',
+                                           'name' => 'notice_title',
+                                           'size' => 40,
+                                           'value' => _m('Title'),
+                                           'style' => 'color: 333333',
+                                           'onFocus' => 'this.value = ""; this.style = \'color: black\';'));
+        return true;
+    }
+
 }
 
