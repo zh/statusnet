@@ -1056,3 +1056,11 @@ EndNoticeSaveWeb: after saving a notice through the Web interface
 - $action: action being executed (instance of NewNoticeAction)
 - $notice: notice that was saved
 
+StartRssEntryArray: at the start of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry (empty at beginning)
+
+EndRssEntryArray: at the end of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry, with all the fields filled up
+
