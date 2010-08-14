@@ -53,9 +53,12 @@ if (!defined('STATUSNET')) {
  *
  * NOTE: the 'div_style' in an optional parameter that passes in some
  * inline CSS when creating the Disqus widget. It's a shortcut to make
- * the widget look OK with the the default StatusNet theme. If you leave
+ * the widget look OK with the default StatusNet theme. If you leave
  * it out you'll have to edit your theme CSS files to make the widget
- * look good.
+ * look good.  You can also control the way the widget looks by
+ * adding style rules to your theme.
+ *
+ * See: http://help.disqus.com/entries/100878-css-customization
  *
  * @category Plugin
  * @package  StatusNet
