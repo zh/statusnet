@@ -36,54 +36,26 @@ if (!defined('STATUSNET')) {
  *
  * This plugin adds an Echo commenting widget to each notice page on
  * your site.  To get it to work, first you'll have to sign up for Echo
- * (a commercial service) and register your site's URL.
+ * (a for-pay service) and register your site's URL.
  *
  *     http://aboutecho.com/
  *
  * Once you've done that it's pretty straight forward to turn the
- * plugin on, just add:
+ * plugin on; just add this to your config.php:
  *
- *     addPlugin('Echo');
+ *     addPlugin(
+ *        'Echo',
+ *        array('div_style' => 'width:675px; padding-top:10px; position:relative; float:left;')
+ *     );
  *
- * to your config.php. The defaults should work OK with the default
- * theme, but there are a lot of options to customize the look and
- * feel of the comment widget. You can control both the CSS for the
- * div that contains the widget, as well as the CSS for the widget
- * itself via config parameters that can be passed into the plugin.
- * See below for a more complex example:
+ * NOTE: the 'div_style' in an optional parameter that passes in some
+ * inline CSS when creating the Echo widget. It's a shortcut to make
+ * the widget look OK with the default StatusNet theme. If you leave
+ * it out you'll have to edit your theme CSS files to make the widget
+ * look good. You can also control the way the widget looks by
+ * adding style rules to your theme.
  *
- * // Custom stylesheet for Echo commenting widget
- * // See: http://wiki.js-kit.com/Skinning-Guide#UsingCSSnbsptocustomizefontsandcolors
- * $stylesheet = <<<ENDOFCSS
- * .js-CommentsArea { width: 400px; }
- * .jsk-HeaderWrapper { display: none; }
- * .jsk-ItemUserAvatar { display: none; }
- * .jsk-ItemBody { margin-left: -48px; }
- * .js-kit-avatars-wrapper { display: none; }
- * .js-kit-nonLoggedUserInfo { margin-left: -75px; }
- * .js-singleViaLinkWrapper { display: none; }
- * .js-CommentsSkin-echo div.jsk-ThreadWrapper { padding: 0px; }
- * .js-singleCommentAdminStar { display: none !important; }
- * .js-singleCommentName { margin-right: 1em; }
- * .js-kit-miniProfile { background-color:#FFFFFF; }
- * .jskit-MenuContainer { background-color:#FFFFFF; }
- * .jskit-MenuItemMO { background-color: #EDEDED; }
- * .jsk-CommentFormButton { display: none; }
- * .js-singleCommentReplyable { display: none; }
- * .jsk-CommentFormSurface { display: none; }
- * .js-kit-tab-follow { display: none; }
- * ENDOFCSS;
- *
- * addPlugin(
- *   'Echo',
- *    array
- *    (
- *        // div_css is the css for the div containing the comment widget
- *        'div_css' => 'width:675px; padding-top:10px; position:relative; float:left;',
- *        // stylesheet is the CSS for the comment widget itself
- *        'stylesheet' => $stylesheet
- *    )
- * );
+ * See: http://wiki.js-kit.com/Skinning-Guide#UsingCSSnbsptocustomizefontsandcolors
  *
  * @category Plugin
  * @package  StatusNet
@@ -122,21 +94,11 @@ class EchoPlugin extends Plugin
             // NOTE: there are some other attributes that could be useful
             // http://wiki.js-kit.com/Echo-Behavior
 
-            if (empty($this->div_css)) {
-                // This CSS seems to work OK with the default theme
-                $attrs['style'] = 'width:675px; padding-top:10px; position:relative; float:left;';
-            } else {
-                $attrs['style'] = $this->css;
+            if (!empty($this->div_style)) {
+                $attrs['style'] = $this->div_style;
             }
 
             $action->element('div', $attrs, null);
-        }
-    }
-
-    function onEndShowStyles($action)
-    {
-        if (get_class($action) == 'ShownoticeAction' && !empty($this->stylesheet)) {
-            $action->style($this->stylesheet);
         }
     }
 
