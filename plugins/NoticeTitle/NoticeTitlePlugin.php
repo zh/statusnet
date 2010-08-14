@@ -137,7 +137,9 @@ class NoticeTitlePlugin extends Plugin
 
     function onStartShowNoticeFormData($form)
     {
-        $form->out->element('style', null, 'label#notice_data-text-label { display: none }');
+        $form->out->element('style',
+                            null,
+                            'label#notice_data-text-label { display: none }');
         $form->out->element('input', array('type' => 'text',
                                            'id' => 'notice_title',
                                            'name' => 'notice_title',
@@ -253,6 +255,25 @@ class NoticeTitlePlugin extends Plugin
 
         if (!empty($title)) {
             $output = $title;
+        }
+
+        return true;
+    }
+
+    /**
+     * Remove title when the notice is deleted
+     *
+     * @param Notice $notice Notice being deleted
+     *
+     * @return boolean hook value
+     */
+
+    function onNoticeDeleteRelated($notice)
+    {
+        $nt = Notice_title::staticGet('notice_id', $notice->id);
+
+        if (!empty($nt)) {
+            $nt->delete();
         }
 
         return true;
