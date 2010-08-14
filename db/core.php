@@ -1,8 +1,27 @@
 <?php
 
-/* local and remote users have profiles */
+/**
+
+Some notes...
+
+drupal docs don't list a bool type, but it might be nice to use rather than 'tinyint'
+note however that we use bitfields and things as well in tinyints
+
+decimal <-> numeric
+
+timestamps... how to specify?
+fulltext indexes?
+got one or two things wanting a custom charset setting on a field?
+
+foreign keys are kinda funky...
+    those specified in inline syntax (as all in the original .sql) are NEVER ENFORCED on mysql
+    those made with an explicit 'foreign key' WITHIN INNODB and IF there's a proper index, do get enforced
+    double-check what we've been doing on postgres?
+
+*/
 
 $schema['profile'] = array(
+    'description' => 'local and remote users have profiles',
     'fields' => array(
         'id' => array('type' => 'serial', 'not null' => true, 'description' => 'unique identifier'),
         'nickname' => array('type' => 'varchar', 'length' => 64, 'not null' => true, 'description' => 'nickname or username'),
@@ -11,8 +30,8 @@ $schema['profile'] = array(
         'homepage' => array('type' => 'varchar', 'length' => 255, 'description' => 'identifying URL'),
         'bio' => array('type' => 'text', 'description' => 'descriptive biography'),
         'location' => array('type' => 'varchar', 'length' => 255, 'description' => 'physical location'),
-        'lat' => array('type' => 'decimal', 'length' => '10,7', 'description' => 'latitude'),
-        'lon' => array('type' => 'decimal', 'length => '10,7', 'description' => 'longitude'),
+        'lat' => array('type' => 'numeric', 'precision' => 10, 'scale' => 7, 'description' => 'latitude'),
+        'lon' => array('type' => 'numeric', 'precision' => 10, 'scale' => 7, 'description' => 'longitude'),
         'location_id' => array('type' => 'int', 'description' => 'location id if possible'),
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
 
@@ -89,7 +108,7 @@ $schema['user'] = array(
         'smsemail' => array('type' => 'varchar', 'length' => 255, 'description' => 'built from sms and carrier'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universally unique identifier, usually a tag URI'),
         'autosubscribe' => array('type' => 'bool', 'default' => 0, 'description' => 'automatically subscribe to users who subscribe to us'),
-        'urlshorteningservice' => array('type' => 'varchar', 'length' => 50, default 'ur1.ca' 'description' => 'service to use for auto-shortening URLs'),
+        'urlshorteningservice' => array('type' => 'varchar', 'length' => 50, 'default' => 'ur1.ca', 'description' => 'service to use for auto-shortening URLs'),
         'inboxed' => array('type' => 'bool', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
         'viewdesigns' => array('type' => 'bool', 'default' => 1, 'description' => 'whether to view user-provided designs'),
@@ -339,7 +358,7 @@ $schema['oauth_application_user'] = array(
 $schema['oid_associations'] = array(
     'fields' => array(
         'server_url' => array('type' => 'blob'),
-        'handle' => array('type' => 'varchar', 'length' => 255, character set latin1,
+        'handle' => array('type' => 'varchar', 'length' => 255), // character set latin1,
         'secret' => array('type' => 'blob'),
         'issued' => array('type' => 'int'),
         'lifetime' => array('type' => 'int'),
@@ -362,7 +381,7 @@ $schema['oid_nonces'] = array(
 $schema['confirm_address'] = array(
     'fields' => array(
         'code' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'good random code'),
-        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who requested confirmation' references user (id),
+        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who requested confirmation'),
         'address' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'address (email, xmpp, SMS, etc.)'),
         'address_extra' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'carrier ID, for SMS'),
         'address_type' => array('type' => 'varchar', 'length' => 8, 'not null' => true, 'description' => 'address type ("email", "xmpp", "sms")'),
@@ -371,22 +390,28 @@ $schema['confirm_address'] = array(
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),
+    'foreign keys' => array(
+        'user_id' => array('user' => 'id'),
+    ),
 );
 
 $schema['remember_me'] = array(
     'fields' => array(
         'code' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'good random code'),
-        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who is logged in' references user (id),
-        'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified',
+        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who is logged in'),
+        'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),
+    'foreign keys' => array(
+        'user_id' => array('user' => 'id'),
+    ),
 );
 
 $schema['queue_item'] = array(
     'fields' => array(
         'id' => array('type' => 'serial', 'description' => 'unique identifier'),
         'frame' => array('type' => 'blob', 'not null' => true, 'description' => 'data: object reference or opaque string'),
-        'transport' => array('type' => 'varchar', 'length' => 8, 'not null' => true, 'description' => 'queue for what? "email", "xmpp", "sms", "irc", ...'),
+        'transport' => array('type' => 'varchar', 'length' => 8, 'not null' => true, 'description' => 'queue for what? "email", "xmpp", "sms", "irc", ...'), // @fixme 8 chars is too short; bump up.
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'claimed' => array('type' => 'datetime', 'description' => 'date this item was claimed'),
     ),
@@ -396,14 +421,17 @@ $schema['queue_item'] = array(
     ),
 );
 
-/* Hash tags */
 $schema['notice_tag'] = array(
+    'description' => 'Hash tags',
     'fields' => array(
         'tag' => array('type' => 'varchar', 'length' => 64, 'not null' => true, 'description' => 'hash tag associated with this notice'),
-        'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice tagged' references notice (id),
+        'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice tagged'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
     ),
     'primary key' => array('tag', 'notice_id'),
+    'foreign keys' => array(
+        'notice_id' => array('notice' => 'id'),
+    ),
     'indexes' => array(
         'notice_tag_created_idx' => array('created'),
         'notice_tag_notice_id_idx' => array('notice_id'),
@@ -429,13 +457,16 @@ $schema['foreign_service'] = array(
 $schema['foreign_user'] = array(
     'fields' => array(
         'id' => array('type' => 'bigint', 'not null' => true, 'description' => 'unique numeric key on foreign service'),
-        'service' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to service' references foreign_service(id),
+        'service' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to service'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'identifying URI'),
         'nickname' => array('type' => 'varchar', 'length' => 255, 'description' => 'nickname on foreign service'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id', 'service'),
+    'foreign keys' => array(
+        'service' => array('foreign_service' => 'id'),
+    ),
     'unique keys' => array(
         'foreign_user_uri_idx' => 'uri',
     ),
@@ -443,9 +474,9 @@ $schema['foreign_user'] = array(
 
 $schema['foreign_link'] = array(
     'fields' => array(
-        'user_id' => array('type' => 'int', 'description' => 'link to user on this system, if exists' references user (id),
+        'user_id' => array('type' => 'int', 'description' => 'link to user on this system, if exists'),
         'foreign_id' => array('type' => 'int', 'size' => 'big', 'unsigned' => true, 'description' => 'link to user on foreign service, if exists' references foreign_user(id),
-        'service' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to service' references foreign_service(id),
+        'service' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to service'),
         'credentials' => array('type' => 'varchar', 'length' => 255, 'description' => 'authc credentials, typically a password'),
         'noticesync' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 1, 'description' => 'notice synchronization, bit 1 = sync outgoing, bit 2 = sync incoming, bit 3 = filter local replies'),
         'friendsync' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 2 'description' => 'friend synchronization, bit 1 = sync outgoing, bit 2 = sync incoming'),
@@ -456,6 +487,10 @@ $schema['foreign_link'] = array(
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id', 'foreign_id', 'service'),
+    'foreign keys' => array(
+        'user_id' => array('user' => 'id'),
+        'service' => array('foreign_service' => 'id'),
+    ),
     'indexes' => array(
         'foreign_user_user_id_idx' => array('user_id'),
     ),
@@ -463,12 +498,17 @@ $schema['foreign_link'] = array(
 
 $schema['foreign_subscription'] = array(
     'fields' => array(
-        'service', 'type' => 'int', 'not null' => true, 'description' => 'service where relationship happens' references foreign_service(id),
-        'subscriber', 'type' => 'int', 'not null' => true, 'description' => 'subscriber on foreign service' references foreign_user (id),
-        'subscribed', 'type' => 'int', 'not null' => true, 'description' => 'subscribed user' references foreign_user (id),
+        'service', 'type' => 'int', 'not null' => true, 'description' => 'service where relationship happens'),
+        'subscriber', 'type' => 'int', 'not null' => true, 'description' => 'subscriber on foreign service'),
+        'subscribed', 'type' => 'int', 'not null' => true, 'description' => 'subscribed user'),
         'created', 'type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
     ),
     'primary key' => array('service', 'subscriber', 'subscribed'),
+    'foreign keys' => array(
+        'service' => array('foreign_service' => 'id'),
+        'subscriber' => array('foreign_user' => 'id'),
+        'subscribed' => array('foreign_user' => 'id'),
+    ),
     'indexes' => array(
         'foreign_subscription_subscriber_idx' => array('subscriber'),
         'foreign_subscription_subscribed_idx' => array('subscribed'),
@@ -478,15 +518,18 @@ $schema['foreign_subscription'] = array(
 $schema['invitation'] = array(
     'fields' => array(
         'code', 'type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'random code for an invitation'),
-        'user_id', 'type' => 'int', 'not null' => true, 'description' => 'who sent the invitation' references user (id),
+        'user_id', 'type' => 'int', 'not null' => true, 'description' => 'who sent the invitation',
         'address', 'type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'invitation sent to'),
         'address_type', 'type' => 'varchar', 'length' => 8, 'not null' => true, 'description' => 'address type ("email", "xmpp", "sms")'),
         'created', 'type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
     ),
     'primary key' => array('code'),
+    'foreign keys' => array(
+        'user_id' => array('user' => 'id'),
+    ),
     'indexes' => array(
-        'invitation_address_idx' => ('address', 'address_type'),
-        'invitation_user_id_idx' => ('user_id'),
+        'invitation_address_idx' => array('address', 'address_type'),
+        'invitation_user_id_idx' => array('user_id'),
     ),
 );
 
@@ -494,18 +537,22 @@ $schema['message'] = array(
     'fields' => array(
         'id' => array('type' => 'serial', 'description' => 'unique identifier'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universally unique identifier'),
-        'from_profile' => array('type' => 'int', 'not null' => true, 'description' => 'who the message is from' references profile (id),
-        'to_profile' => array('type' => 'int', 'not null' => true, 'description' => 'who the message is to' references profile (id),
+        'from_profile' => array('type' => 'int', 'not null' => true, 'description' => 'who the message is from'),
+        'to_profile' => array('type' => 'int', 'not null' => true, 'description' => 'who the message is to'),
         'content' => array('type' => 'text', 'description' => 'message content'),
         'rendered' => array('type' => 'text', 'description' => 'HTML version of the content'),
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL of any attachment (image, video, bookmark, whatever)'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
         'source' => array('type' => 'varchar', 'length' => 32, 'description' => 'source of comment, like "web", "im", or "clientname"'),
-
+    ),
     'primary key' => array('id'),
     'unique key' => array(
         'message_uri_idx' => array('uri'),
+    ),
+    'foreign keys' => array(
+        'from_profile' => array('profile' => 'id'),
+        'to_profile' => array('profile' => 'id'),
     ),
     'indexes' => array(
         // @fixme these are really terrible indexes, since you can only sort on one of them at a time.
@@ -517,15 +564,20 @@ $schema['message'] = array(
 );
 
 $schema['notice_inbox'] = array(
+    'description' => 'Obsolete; old entries here are converted to packed entries in the inbox table since 0.9',
     'fields' => array(
-        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user receiving the message' references user (id),
-        'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice received' references notice (id),
+        'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user receiving the message'),
+        'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice received'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date the notice was created'),
         'source' => array('type' => 'bool', 'default' => 1, 'description' => 'reason it is in the inbox, 1=subscription'),
     ),
     'primary key' => array('user_id', 'notice_id'),
+    'foreign keys' => array(
+        'user_id' => array('user' => 'id'),
+        'notice_id' => array('notice' => 'id'),
+    ),
     'indexes' => array(
-        'notice_inbox_notice_id_idx' => ('notice_id'),
+        'notice_inbox_notice_id_idx' => array('notice_id'),
     ),
 );
 
