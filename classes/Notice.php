@@ -121,16 +121,19 @@ class Notice extends Memcached_DataObject
             $deleted->insert();
         }
 
-        // Clear related records
+        if (Event::handle('NoticeDeleteRelated', array($this))) {
 
-        $this->clearReplies();
-        $this->clearRepeats();
-        $this->clearFaves();
-        $this->clearTags();
-        $this->clearGroupInboxes();
+            // Clear related records
 
-        // NOTE: we don't clear inboxes
-        // NOTE: we don't clear queue items
+            $this->clearReplies();
+            $this->clearRepeats();
+            $this->clearFaves();
+            $this->clearTags();
+            $this->clearGroupInboxes();
+
+            // NOTE: we don't clear inboxes
+            // NOTE: we don't clear queue items
+        }
 
         $result = parent::delete();
 
