@@ -126,7 +126,7 @@ class Notice_title extends Memcached_DataObject
      * @return string title of the notice, or null if none
      */
 
-    static function fromNotice(Notice $notice)
+    static function fromNotice($notice)
     {
         $nt = Notice_title::staticGet('notice_id', $notice->id);
         if (empty($nt)) {
