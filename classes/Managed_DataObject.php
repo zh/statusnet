@@ -117,40 +117,37 @@ abstract class Managed_DataObject extends Memcached_DataObject
      */
     function columnBitmap($column)
     {
-        $type = 0;
+        $type = $column['type'];
 
-        switch ($column['type']) {
-        case 'int':
-        case 'serial':
-        case 'numeric':
-            // Doesn't need quoting.
-            $type |= DB_DATAOBJECT_INT;
-            break;
-        default:
-            // Value needs quoting in SQL literal statements.
-            $type |= DB_DATAOBJECT_STR;
+        // For quoting style...
+        $intTypes = array('int',
+                          'integer',
+                          'float',
+                          'serial',
+                          'numeric');
+        if (in_array($type, $intTypes)) {
+            $style = DB_DATAOBJECT_INT;
+        } else {
+            $style = DB_DATAOBJECT_STR;
         }
 
-        switch ($column['type']) {
-        case 'blob':
-            $type |= DB_DATAOBJECT_BLOB;
-            break;
-        case 'text':
-            $type |= DB_DATAOBJECT_TXT;
-            break;
-        case 'datetime':
-            $type |= DB_DATAOBJECT_DATE;
-            $type |= DB_DATAOBJECT_TIME;
-            break;
-        case 'timestamp':
-            $type |= DB_DATAOBJECT_MYSQLTIMESTAMP;
-            break;
+        // Data type formatting style...
+        $formatStyles = array('blob' => DB_DATAOBJECT_BLOB,
+                              'text' => DB_DATAOBJECT_TXT,
+                              'date' => DB_DATAOBJECT_DATE,
+                              'time' => DB_DATAOBJECT_TIME,
+                              'datetime' => DB_DATAOBJECT_DATE | DB_DATAOBJECT_TIME,
+                              'timestamp' => DB_DATAOBJECT_MYSQLTIMESTAMP);
+
+        if (isset($formatStyles[$type])) {
+            $style |= $formatStyles[$type];
         }
 
+        // Nullable?
         if (!empty($column['not null'])) {
-            $type |= DB_DATAOBJECT_NOTNULL;
+            $style |= DB_DATAOBJECT_NOTNULL;
         }
 
-        return $type;
+        return $style;
     }
 }
