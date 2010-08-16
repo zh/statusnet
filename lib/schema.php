@@ -41,6 +41,7 @@ if (!defined('STATUSNET')) {
  * @category Database
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
+ * @author   Brion Vibber <brion@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
@@ -490,6 +491,75 @@ class Schema
         }
 
         return $sql;
+    }
+
+    /**
+     * Convert an old-style set of ColumnDef objects into the current
+     * Drupal-style schema definition array, for backwards compatibility
+     * with plugins written for 0.9.x.
+     *
+     * @param string $tableName
+     * @param array $defs
+     * @return array
+     */
+    function oldToNew($tableName, $defs)
+    {
+        $table = array();
+        $prefixes = array(
+            'tiny',
+            'small',
+            'medium',
+            'big',
+        );
+        foreach ($defs as $cd) {
+            $cd->addToTableDef($table);
+            $column = array();
+            $column['type'] = $cd->type;
+            foreach ($prefixes as $prefix) {
+                if (substr($cd->type, 0, strlen($prefix)) == $prefix) {
+                    $column['type'] = substr($cd->type, strlen($prefix));
+                    $column['size'] = $prefix;
+                    break;
+                }
+            }
+
+            if ($cd->size) {
+                if ($cd->type == 'varchar' || $cd->type == 'char') {
+                    $column['length'] = $cd->size;
+                }
+            }
+            if (!$cd->nullable) {
+                $column['not null'] = true;
+            }
+            if ($cd->autoincrement) {
+                $column['type'] = 'serial';
+            }
+            if ($cd->default) {
+                $column['default'] = $cd->default;
+            }
+            $table['fields'][$cd->name] = $column;
+
+            if ($cd->key == 'PRI') {
+                // If multiple columns are defined as primary key,
+                // we'll pile them on in sequence.
+                if (!isset($table['primary key'])) {
+                    $table['primary key'] = array();
+                }
+                $table['primary key'][] = $cd->name;
+            } else if ($cd->key == 'MUL') {
+                // Individual multiple-value indexes are only per-column
+                // using the old ColumnDef syntax.
+                $idx = "{$tableName}_{$cd->name}_idx";
+                $table['indexes'][$idx] = array($cd->name);
+            } else if ($cd->key == 'UNI') {
+                // Individual unique-value indexes are only per-column
+                // using the old ColumnDef syntax.
+                $idx = "{$tableName}_{$cd->name}_idx";
+                $table['unique keys'][$idx] = array($cd->name);
+            }
+        }
+
+        return $table;
     }
 }
 

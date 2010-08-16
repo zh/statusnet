@@ -21,9 +21,9 @@
  * Wrapper for Memcached_DataObject which knows its own schema definition.
  * Builds its own damn settings from a schema definition.
  *
- * @author brion
+ * @author Brion Vibber <brion@status.net>
  */
-class Managed_DataObject extends Memcached_DataObject
+abstract class Managed_DataObject extends Memcached_DataObject
 {
     /**
      * The One True Thingy that must be defined and declared.
