@@ -942,7 +942,7 @@ $schema['user_im_prefs'] = array(
         'notify' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Notify when a new notice is sent'),
         'replies' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Send replies  from people not subscribed to'),
         'microid' => array('type' => 'bool', 'not null' => true, 'default' => 1, 'description' => 'Publish a MicroID'),
-        'updatefrompresence' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Send replies  from people not subscribed to.'),
+        'updatefrompresence' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Send replies from people not subscribed to.'),
         'created' => array('type' => 'timestamp', 'not null' => true, 'default' => 'CURRENT_TIMESTAMP', 'description' => 'date this record was created'), // @fixme will that default work?
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
