@@ -104,31 +104,6 @@ class PgsqlSchema extends Schema
     }
 
     /**
-     * Gets a ColumnDef object for a single column.
-     *
-     * Throws an exception if the table is not found.
-     *
-     * @param string $table  name of the table
-     * @param string $column name of the column
-     *
-     * @return ColumnDef definition of the column or null
-     *                   if not found.
-     */
-
-    public function getColumnDef($table, $column)
-    {
-        $td = $this->getTableDef($table);
-
-        foreach ($td->columns as $cd) {
-            if ($cd->name == $column) {
-                return $cd;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Creates a table with the given names and columns.
      *
      * @param string $name    Name of the table
@@ -193,27 +168,6 @@ class PgsqlSchema extends Schema
     }
 
     /**
-     * Drops a table from the schema
-     *
-     * Throws an exception if the table is not found.
-     *
-     * @param string $name Name of the table to drop
-     *
-     * @return boolean success flag
-     */
-
-    public function dropTable($name)
-    {
-        $res = $this->conn->query("DROP TABLE $name");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
      * Translate the (mostly) mysql-ish column types into somethings more standard
      * @param string column type
      *
@@ -227,86 +181,6 @@ class PgsqlSchema extends Schema
         return $map[$type];
       }
       return $type;
-    }
-
-    /**
-     * Adds an index to a table.
-     *
-     * If no name is provided, a name will be made up based
-     * on the table name and column names.
-     *
-     * Throws an exception on database error, esp. if the table
-     * does not exist.
-     *
-     * @param string $table       Name of the table
-     * @param array  $columnNames Name of columns to index
-     * @param string $name        (Optional) name of the index
-     *
-     * @return boolean success flag
-     */
-
-    public function createIndex($table, $columnNames, $name=null)
-    {
-        if (!is_array($columnNames)) {
-            $columnNames = array($columnNames);
-        }
-
-        if (empty($name)) {
-            $name = "$table_".implode("_", $columnNames)."_idx";
-        }
-
-        $res = $this->conn->query("ALTER TABLE $table ".
-                                   "ADD INDEX $name (".
-                                   implode(",", $columnNames).")");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Drops a named index from a table.
-     *
-     * @param string $table name of the table the index is on.
-     * @param string $name  name of the index
-     *
-     * @return boolean success flag
-     */
-
-    public function dropIndex($table, $name)
-    {
-        $res = $this->conn->query("ALTER TABLE $table DROP INDEX $name");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Adds a column to a table
-     *
-     * @param string    $table     name of the table
-     * @param ColumnDef $columndef Definition of the new
-     *                             column.
-     *
-     * @return boolean success flag
-     */
-
-    public function addColumn($table, $columndef)
-    {
-        $sql = "ALTER TABLE $table ADD COLUMN " . $this->_columnSql($columndef);
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
     }
 
     /**
@@ -334,29 +208,6 @@ class PgsqlSchema extends Schema
         return true;
     }
 
-    /**
-     * Drops a column from a table
-     *
-     * The name must match an existing column.
-     *
-     * @param string $table      name of the table
-     * @param string $columnName name of the column to drop
-     *
-     * @return boolean success flag
-     */
-
-    public function dropColumn($table, $columnName)
-    {
-        $sql = "ALTER TABLE $table DROP COLUMN $columnName";
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
 
     /**
      * Ensures that a table exists with the given
@@ -445,88 +296,68 @@ class PgsqlSchema extends Schema
     }
 
     /**
-     * Returns the array of names from an array of
-     * ColumnDef objects.
-     *
-     * @param array $cds array of ColumnDef objects
-     *
-     * @return array strings for name values
-     */
-
-    private function _names($cds)
-    {
-        $names = array();
-
-        foreach ($cds as $cd) {
-            $names[] = $cd->name;
-        }
-
-        return $names;
-    }
-
-    /**
-     * Get a ColumnDef from an array matching
-     * name.
-     *
-     * @param array  $cds  Array of ColumnDef objects
-     * @param string $name Name of the column
-     *
-     * @return ColumnDef matching item or null if no match.
-     */
-
-    private function _byName($cds, $name)
-    {
-        foreach ($cds as $cd) {
-            if ($cd->name == $name) {
-                return $cd;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Return the proper SQL for creating or
      * altering a column.
      *
      * Appropriate for use in CREATE TABLE or
      * ALTER TABLE statements.
      *
-     * @param ColumnDef $cd column to create
+     * @param string $tableName
+     * @param array $tableDef
+     * @param string $columnName
+     * @param array $cd column to create
      *
      * @return string correct SQL for that column
      */
-    private function _columnSql($cd)
+
+    function columnSql($name, array $cd)
     {
-        $sql = "{$cd->name} ";
-        $type = $this->_columnTypeTranslation($cd->type);
+        $line = array();
+        $line[] = parent::_columnSql($cd);
 
-        //handle those mysql enum fields that postgres doesn't support
-        if (preg_match('!^enum!', $type)) {
-          $allowed_values = preg_replace('!^enum!', '', $type);
-          $sql .= " text check ({$cd->name} in $allowed_values)";
-          return $sql;
-        }
-        if (!empty($cd->auto_increment)) {
-	    $type = "bigserial"; // FIXME: creates the wrong name for the sequence for some internal sequence-lookup function, so better fix this to do the real 'create sequence' dance.
+        if ($table['foreign keys'][$name]) {
+            foreach ($table['foreign keys'][$name] as $foreignTable => $foreignColumn) {
+                $line[] = 'references';
+                $line[] = $this->quoteId($foreignTable);
+                $line[] = '(' . $this->quoteId($foreignColumn) . ')';
+            }
         }
 
-        if (!empty($cd->size)) {
-            $sql .= "{$type}({$cd->size}) ";
-        } else {
-            $sql .= "{$type} ";
-        }
-
-        if (!empty($cd->default)) {
-            $sql .= "default {$cd->default} ";
-        } else {
-            $sql .= ($cd->nullable) ? "null " : "not null ";
-        }
-
-//         if (!empty($cd->extra)) {
-//             $sql .= "{$cd->extra} ";
-//         }
-
-        return $sql;
+        return implode(' ', $line);
     }
+
+    function mapType($column)
+    {
+        $map = array('serial' => 'bigserial', // FIXME: creates the wrong name for the sequence for some internal sequence-lookup function, so better fix this to do the real 'create sequence' dance.
+                     'numeric' => 'decimal',
+                     'datetime' => 'timestamp',
+                     'blob' => 'bytea');
+
+        $type = $column['type'];
+        if (isset($map[$type])) {
+            $type = $map[$type];
+        }
+
+        if (!empty($column['size'])) {
+            $size = $column['size'];
+            if ($type == 'integer' &&
+                       in_array($size, array('small', 'big'))) {
+                $type = $size . 'int';
+            }
+        }
+
+        return $type;
+    }
+
+    // @fixme need name... :P
+    function typeAndSize($column)
+    {
+        if ($column['type'] == 'enum') {
+            $vals = array_map(array($this, 'quote'), $column['enum']);
+            return "text check ($name in " . implode(',', $vals) . ')';
+        } else {
+            return parent::typeAndSize($column);
+        }
+    }
+
 }

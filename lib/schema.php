@@ -224,7 +224,7 @@ class Schema
         }
 
         if (empty($name)) {
-            $name = "$table_".implode("_", $columnNames)."_idx";
+            $name = "{$table}_".implode("_", $columnNames)."_idx";
         }
 
         $res = $this->conn->query("ALTER TABLE $table ".
@@ -422,7 +422,7 @@ class Schema
      * @return array strings for name values
      */
 
-    private function _names($cds)
+    protected function _names($cds)
     {
         $names = array();
 
@@ -443,7 +443,7 @@ class Schema
      * @return ColumnDef matching item or null if no match.
      */
 
-    private function _byName($cds, $name)
+    protected function _byName($cds, $name)
     {
         foreach ($cds as $cd) {
             if ($cd->name == $name) {
@@ -466,31 +466,53 @@ class Schema
      * @return string correct SQL for that column
      */
 
-    private function _columnSql($cd)
+    function columnSql(array $cd)
     {
-        $sql = "{$cd->name} ";
+        $line = array();
+        $line[] = $this->typeAndSize();
 
-        if (!empty($cd->size)) {
-            $sql .= "{$cd->type}({$cd->size}) ";
+        if (isset($cd['default'])) {
+            $line[] = 'default';
+            $line[] = $this->quoted($cd['default']);
+        } else if (!empty($cd['not null'])) {
+            // Can't have both not null AND default!
+            $line[] = 'not null';
+        }
+
+        return implode(' ', $line);
+    }
+
+    /**
+     *
+     * @param string $column canonical type name in defs
+     * @return string native DB type name
+     */
+    function mapType($column)
+    {
+        return $column;
+    }
+
+    function typeAndSize($column)
+    {
+        $type = $this->mapType($column);
+        $lengths = array();
+
+        if ($column['type'] == 'numeric') {
+            if (isset($column['precision'])) {
+                $lengths[] = $column['precision'];
+                if (isset($column['scale'])) {
+                    $lengths[] = $column['scale'];
+                }
+            }
+        } else if (isset($column['length'])) {
+            $lengths[] = $column['length'];
+        }
+
+        if ($lengths) {
+            return $type . '(' . implode(',', $lengths) . ')';
         } else {
-            $sql .= "{$cd->type} ";
+            return $type;
         }
-
-        if (!empty($cd->default)) {
-            $sql .= "default {$cd->default} ";
-        } else {
-            $sql .= ($cd->nullable) ? "null " : "not null ";
-        }
-
-        if (!empty($cd->auto_increment)) {
-            $sql .= " auto_increment ";
-        }
-
-        if (!empty($cd->extra)) {
-            $sql .= "{$cd->extra} ";
-        }
-
-        return $sql;
     }
 
     /**

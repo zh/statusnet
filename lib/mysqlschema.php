@@ -168,31 +168,6 @@ class MysqlSchema extends Schema
     }
 
     /**
-     * Gets a ColumnDef object for a single column.
-     *
-     * Throws an exception if the table is not found.
-     *
-     * @param string $table  name of the table
-     * @param string $column name of the column
-     *
-     * @return ColumnDef definition of the column or null
-     *                   if not found.
-     */
-
-    public function getColumnDef($table, $column)
-    {
-        $td = $this->getTableDef($table);
-
-        foreach ($td->columns as $cd) {
-            if ($cd->name == $column) {
-                return $cd;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * Creates a table with the given names and columns.
      *
      * @param string $name    Name of the table
@@ -287,156 +262,6 @@ class MysqlSchema extends Schema
     function _key($tableName, $columnName)
     {
         return "{$tableName}_{$columnName}_idx";
-    }
-
-    /**
-     * Drops a table from the schema
-     *
-     * Throws an exception if the table is not found.
-     *
-     * @param string $name Name of the table to drop
-     *
-     * @return boolean success flag
-     */
-
-    public function dropTable($name)
-    {
-        $res = $this->conn->query("DROP TABLE $name");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Adds an index to a table.
-     *
-     * If no name is provided, a name will be made up based
-     * on the table name and column names.
-     *
-     * Throws an exception on database error, esp. if the table
-     * does not exist.
-     *
-     * @param string $table       Name of the table
-     * @param array  $columnNames Name of columns to index
-     * @param string $name        (Optional) name of the index
-     *
-     * @return boolean success flag
-     */
-
-    public function createIndex($table, $columnNames, $name=null)
-    {
-        if (!is_array($columnNames)) {
-            $columnNames = array($columnNames);
-        }
-
-        if (empty($name)) {
-            $name = "{$table}_".implode("_", $columnNames)."_idx";
-        }
-
-        $res = $this->conn->query("ALTER TABLE $table ".
-                                   "ADD INDEX $name (".
-                                   implode(",", $columnNames).")");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Drops a named index from a table.
-     *
-     * @param string $table name of the table the index is on.
-     * @param string $name  name of the index
-     *
-     * @return boolean success flag
-     */
-
-    public function dropIndex($table, $name)
-    {
-        $res = $this->conn->query("ALTER TABLE $table DROP INDEX $name");
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Adds a column to a table
-     *
-     * @param string    $table     name of the table
-     * @param ColumnDef $columndef Definition of the new
-     *                             column.
-     *
-     * @return boolean success flag
-     */
-
-    public function addColumn($table, $columndef)
-    {
-        $sql = "ALTER TABLE $table ADD COLUMN " . $this->_columnSql($columndef);
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Modifies a column in the schema.
-     *
-     * The name must match an existing column and table.
-     *
-     * @param string    $table     name of the table
-     * @param ColumnDef $columndef new definition of the column.
-     *
-     * @return boolean success flag
-     */
-
-    public function modifyColumn($table, $columndef)
-    {
-        $sql = "ALTER TABLE $table MODIFY COLUMN " .
-          $this->_columnSql($columndef);
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * Drops a column from a table
-     *
-     * The name must match an existing column.
-     *
-     * @param string $table      name of the table
-     * @param string $columnName name of the column to drop
-     *
-     * @return boolean success flag
-     */
-
-    public function dropColumn($table, $columnName)
-    {
-        $sql = "ALTER TABLE $table DROP COLUMN $columnName";
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
     }
 
     /**
@@ -589,44 +414,12 @@ class MysqlSchema extends Schema
     }
 
     /**
-     * Returns the array of names from an array of
-     * ColumnDef objects.
-     *
-     * @param array $cds array of ColumnDef objects
-     *
-     * @return array strings for name values
+     * Is this column a string type?
      */
-
-    private function _names($cds)
+    private function _isString(array $cd)
     {
-        $names = array();
-
-        foreach ($cds as $cd) {
-            $names[] = $cd->name;
-        }
-
-        return $names;
-    }
-
-    /**
-     * Get a ColumnDef from an array matching
-     * name.
-     *
-     * @param array  $cds  Array of ColumnDef objects
-     * @param string $name Name of the column
-     *
-     * @return ColumnDef matching item or null if no match.
-     */
-
-    private function _byName($cds, $name)
-    {
-        foreach ($cds as $cd) {
-            if ($cd->name == $name) {
-                return $cd;
-            }
-        }
-
-        return null;
+        $strings = array('char', 'varchar', 'text');
+        return in_array(strtolower($cd['type']), $strings);
     }
 
     /**
@@ -641,43 +434,61 @@ class MysqlSchema extends Schema
      * @return string correct SQL for that column
      */
 
-    private function _columnSql($cd)
+    function columnSql(array $cd)
     {
-        $sql = "{$cd->name} ";
+        $line = array();
+        $line[] = parent::_columnSql($cd);
 
-        if (!empty($cd->size)) {
-            $sql .= "{$cd->type}({$cd->size}) ";
-        } else {
-            $sql .= "{$cd->type} ";
+        if ($cd['type'] == 'serial') {
+            $line[] = 'auto_increment';
         }
 
-        if ($this->_isString($cd)) {
-            $sql .= " CHARACTER SET utf8 ";
+        if (!empty($cd['extra'])) {
+            $line[] = $cd['extra']; // hisss boooo
         }
 
-        if (!empty($cd->default)) {
-            $sql .= "default {$cd->default} ";
-        } else {
-            $sql .= ($cd->nullable) ? "null " : "not null ";
-        }
-        
-        if (!empty($cd->auto_increment)) {
-            $sql .= " auto_increment ";
+        if (!empty($cd['description'])) {
+            $line[] = 'comment';
+            $line[] = $this->quote($cd['description']);
         }
 
-        if (!empty($cd->extra)) {
-            $sql .= "{$cd->extra} ";
-        }
-
-        return $sql;
+        return implode(' ', $line);
     }
 
-    /**
-     * Is this column a string type?
-     */
-    private function _isString(ColumnDef $cd)
+    function mapType($column)
     {
-        $strings = array('char', 'varchar', 'text');
-        return in_array(strtolower($cd->type), $strings);
+        $map = array('serial' => 'int',
+                     'integer' => 'int',
+                     'numeric' => 'decimal');
+        
+        $type = $column['type'];
+        if (isset($map[$type])) {
+            $type = $map[$type];
+        }
+
+        if (!empty($column['size'])) {
+            $size = $column['size'];
+            if ($type == 'int' &&
+                       in_array($size, array('tiny', 'small', 'medium', 'big'))) {
+                $type = $size . $type;
+            } else if (in_array($type, array('blob', 'text')) &&
+                       in_array($size, array('tiny', 'medium', 'long'))) {
+                $type = $size . $type;
+            }
+        }
+
+        return $type;
+    }
+
+    function typeAndSize($column)
+    {
+        if ($column['type'] == 'enum') {
+            $vals = array_map(array($this, 'quote'), $column['enum']);
+            return 'enum(' . implode(',', $vals) . ')';
+        } else if ($this->_isString($column)) {
+            return parent::typeAndSize($column) . ' CHARSET utf8';
+        } else {
+            return parent::typeAndSize($column);
+        }
     }
 }
