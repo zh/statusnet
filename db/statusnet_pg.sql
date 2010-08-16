@@ -276,7 +276,7 @@ create table confirm_address (
     address_extra varchar(255) not null default '' /* comment 'carrier ID, for SMS' */,
     address_type varchar(8) not null /* comment 'address type ("email", "jabber", "sms")' */,
     claimed timestamp /* comment 'date this was claimed for queueing' */,
-    sent timestamp /* comment 'date this was sent for queueing' */,
+    sent timestamp default CURRENT_TIMESTAMP /* comment 'date this was sent for queueing' */,
     modified timestamp /* comment 'date this record was modified' */
 );
 

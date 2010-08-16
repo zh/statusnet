@@ -44,8 +44,21 @@ if (!defined('STATUSNET'))
  */
 class AtomNoticeFeed extends Atom10Feed
 {
-    function __construct($indent = true) {
+    var $cur;
+
+    /**
+     * Constructor - adds a bunch of XML namespaces we need in our
+     * notice-specific Atom feeds, and allows setting the current
+     * authenticated user (useful for API methods).
+     *
+     * @param User    $cur     the current authenticated user (optional)
+     * @param boolean $indent  Whether to indent XML output
+     *
+     */
+    function __construct($cur = null, $indent = true) {
         parent::__construct($indent);
+
+        $this->cur = $cur;
 
         // Feeds containing notice info use these namespaces
 
@@ -82,7 +95,7 @@ class AtomNoticeFeed extends Atom10Feed
 
         $this->addNamespace(
             'statusnet',
-            'http://status.net/ont/'
+            'http://status.net/schema/api/1/'
         );
     }
 
@@ -112,12 +125,17 @@ class AtomNoticeFeed extends Atom10Feed
      */
     function addEntryFromNotice($notice)
     {
-        $source = $this->showSource();
-        $author = $this->showAuthor();
+        try {
+            $source = $this->showSource();
+            $author = $this->showAuthor();
 
-        $cur = common_current_user();
+            $cur = empty($this->cur) ? common_current_user() : $this->cur;
 
-        $this->addEntryRaw($notice->asAtomEntry(false, $source, $author, $cur));
+            $this->addEntryRaw($notice->asAtomEntry(false, $source, $author, $cur));
+        } catch (Exception $e) {
+            common_log(LOG_ERR, $e->getMessage());
+            // we continue on exceptions
+        }
     }
 
     function showSource()

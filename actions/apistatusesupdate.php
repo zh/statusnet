@@ -29,6 +29,7 @@
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009-2010 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -195,7 +196,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->clientError(
                 _('This method requires a POST.'),
-                400, $this->format
+                400,
+                $this->format
             );
             return;
         }
@@ -216,7 +218,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
         if (empty($this->status)) {
             $this->clientError(
-                'Client must provide a \'status\' parameter with a value.',
+                _('Client must provide a \'status\' parameter with a value.'),
                 400,
                 $this->format
             );
@@ -290,8 +292,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
             try {
                 $upload = MediaFile::fromUpload('media', $this->auth_user);
-            } catch (ClientException $ce) {
-                $this->clientError($ce->getMessage());
+            } catch (Exception $e) {
+                $this->clientError($e->getMessage(), $e->getCode(), $this->format);
                 return;
             }
 
@@ -304,7 +306,11 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                         'Max notice size is %d chars, ' .
                         'including attachment URL.'
                     );
-                    $this->clientError(sprintf($msg, Notice::maxContent()));
+                    $this->clientError(
+                        sprintf($msg, Notice::maxContent()),
+                        400,
+                        $this->format
+                    );
                 }
             }
 
@@ -331,7 +337,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                     $options
                 );
             } catch (Exception $e) {
-                $this->clientError($e->getMessage());
+                $this->clientError($e->getMessage(), $e->getCode(), $this->format);
                 return;
             }
 

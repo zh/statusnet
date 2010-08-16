@@ -88,8 +88,8 @@ function common_init_language()
         // don't do the job. en_US.UTF-8 should be there most of the
         // time, but not guaranteed.
         $ok = common_init_locale("en_US");
-        if (!$ok) {
-            // Try to find a complete, working locale...
+        if (!$ok && strtolower(substr(PHP_OS, 0, 3)) != 'win') {
+            // Try to find a complete, working locale on Unix/Linux...
             // @fixme shelling out feels awfully inefficient
             // but I don't think there's a more standard way.
             $all = `locale -a`;
@@ -101,9 +101,9 @@ function common_init_language()
                     }
                 }
             }
-            if (!$ok) {
-                common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
-            }
+        }
+        if (!$ok) {
+            common_log(LOG_ERR, "Unable to find a UTF-8 locale on this system; UI translations may not work.");
         }
         $locale_set = common_init_locale($language);
     }
@@ -830,7 +830,10 @@ function common_linkify($url) {
         } elseif (is_string($longurl_data)) {
             $longurl = $longurl_data;
         } else {
-            throw new ServerException("Can't linkify url '$url'");
+            // Unable to reach the server to verify contents, etc
+            // Just pass the link on through for now.
+            common_log(LOG_ERR, "Can't linkify url '$url'");
+            $longurl = $url;
         }
     }
     $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
@@ -1249,9 +1252,8 @@ function common_enqueue_notice($notice)
         $transports[] = 'jabber';
     }
 
-    // @fixme move these checks into QueueManager and/or individual handlers
-    if ($notice->is_local == Notice::LOCAL_PUBLIC ||
-        $notice->is_local == Notice::LOCAL_NONPUBLIC) {
+    // We can skip these for gatewayed notices.
+    if ($notice->isLocal()) {
         $transports = array_merge($transports, $localTransports);
         if ($xmpp) {
             $transports[] = 'public';

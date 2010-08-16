@@ -88,6 +88,16 @@ class FeedDiscovery
     }
 
     /**
+     * Get the referenced PuSH hub link from an Atom feed.
+     *
+     * @return mixed string or false
+     */
+    public function getHubLink()
+    {
+        return $this->getAtomLink('hub');
+    }
+
+    /**
      * @param string $url
      * @param bool $htmlOk pass false here if you don't want to follow web pages.
      * @return string with validated URL
@@ -186,8 +196,9 @@ class FeedDiscovery
      */
     function discoverFromHTML($url, $body)
     {
-        // DOMDocument::loadHTML may throw warnings on unrecognized elements.
-        $old = error_reporting(error_reporting() & ~E_WARNING);
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements,
+        // and notices on unrecognized namespaces.
+        $old = error_reporting(error_reporting() & ~(E_WARNING | E_NOTICE));
         $dom = new DOMDocument();
         $ok = $dom->loadHTML($body);
         error_reporting($old);

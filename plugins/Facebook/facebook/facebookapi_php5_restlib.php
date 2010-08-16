@@ -569,7 +569,7 @@ function toggleDisplay(id, type) {
     return $this->call_method('facebook.events.invite',
                               array('eid' => $eid,
                                     'uids' => $uids,
-                                    'personal_message', $personal_message));
+                                    'personal_message' => $personal_message));
   }
 
   /**
@@ -1350,53 +1350,6 @@ function toggleDisplay(id, type) {
     );
   }
 
-  /**
-   * Dashboard API
-   */
-
-  /**
-   * Set the news for the specified user.
-   *
-   * @param int    $uid     The user for whom you are setting news for
-   * @param string $news    Text of news to display
-   *
-   * @return bool   Success
-   */
-  public function dashboard_setNews($uid, $news) {
-    return $this->call_method('facebook.dashboard.setNews',
-                              array('uid'  => $uid,
-                                    'news' => $news)
-                             );
-  }
-
-  /**
-   * Get the current news of the specified user.
-   *
-   * @param int    $uid     The user to get the news of
-   *
-   * @return string   The text of the current news for the user
-   */
-  public function dashboard_getNews($uid) {
-    return json_decode(
-      $this->call_method('facebook.dashboard.getNews',
-                         array('uid' => $uid)
-                        ), true);
-  }
-
-  /**
-   * Set the news for the specified user.
-   *
-   * @param int    $uid     The user you are clearing the news of
-   *
-   * @return bool   Success
-   */
-  public function dashboard_clearNews($uid) {
-    return $this->call_method('facebook.dashboard.clearNews',
-                              array('uid' => $uid)
-                             );
-  }
-
-
 
   /**
    * Creates a note with the specified title and content.
@@ -2005,7 +1958,7 @@ function toggleDisplay(id, type) {
    * @return  array  A list of strings describing any compile errors for the
    *                 submitted FBML
    */
-  function profile_setFBML($markup,
+  public function profile_setFBML($markup,
                            $uid=null,
                            $profile='',
                            $profile_action='',
@@ -3267,9 +3220,8 @@ function toggleDisplay(id, type) {
     } else {
       $get['v'] = '1.0';
     }
-    if (isset($this->use_ssl_resources) &&
-        $this->use_ssl_resources) {
-      $post['return_ssl_resources'] = true;
+    if (isset($this->use_ssl_resources)) {
+      $post['return_ssl_resources'] = (bool) $this->use_ssl_resources;
     }
     return array($get, $post);
   }

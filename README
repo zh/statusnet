@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.2 ("King of Birds")
-3 May 2010
+StatusNet 0.9.4beta2
+11 August 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -43,6 +43,10 @@ on status.net is identical to the software available for download, so
 you can move back and forth between a hosted version or a version
 installed on your own servers.
 
+A commercial software subscription is available from StatusNet Inc. It
+includes 24-hour technical support and developer support. More
+information at http://status.net/contact or email sales@status.net.
+
 License
 =======
 
@@ -77,40 +81,31 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug and feature release since version 0.9.1 released 28 
-March 2010.
+This is a security, bug and feature release since version 0.9.3 released on
+29 June 2010.
 
-Because of fixes to OStatus bugs, it is highly recommended that all
-public sites upgrade to the new version immediately.
+For best compatibility with client software and site federation, and a lot of
+bug fixes, it is highly recommended that all public sites upgrade to the new
+version.
+
+Changes from 0.9.4beta1:
+- fix for daemon config switching on multi-site setup
 
 Notable changes this version:
 
-- Installer no longer fails with a PHP fatal error when trying to set up the
-  subscription to update@status.net
-- Fixed email notifications for @-replies that come in via OStatus
-- OStatus related Fixes to the cloudy theme
-- Pass geo locations over Twitter bridge (will only be used if enabled on the
-  Twitter side)
-- scripts/showplugins.php - script to dump the list of activated plugins and
-  their settings
-- scripts/fixup_blocks.php - script to finds any stray subscriptions in
-  violation of blocks, and removes them
-- Allow blocking someone who's not currently subscribed to you (prevents
-  seeing @-replies from them, or them subbing to you in future)
-- Default 2-second timeout on Geonames web service lookups
-- Improved localization for plugins
-- New anti-spam measures: added nofollow rels to group members list,
-  subscribers list
-- Shared cache key option for Geonames plugin (lets multi-instance sites
-  share their cached geoname lookups)
-- Stability fixes to the TwitterStatusFetcher
-- If user allows location sharing but turned off browser location use profile
-  location
-- Improved group listing via the API
-- Improved FOAF output
-- Several other bugfixes
+- OpenID and OAuth libraries patched for potential timing attack
+- OStatus feed i/o updated for Activity Streams
+- Correctness fixes on XRD, other discovery bits
+- Support for contacting SNI-based SSL virtual hosts when SSL
+  certificate verification is enabled (requires PHP 5.3.2+ or
+  enabling CURL backend with $config['http']['curl'] = true)
+- Experimental SubMirror plugin
+- Multi-site status_network table mode has been tweaked to support
+  multiple tags better
+- Many updates to user interface translation from TranslateWiki
+- Many other bugfixes
 
-A full changelog is available at http://status.net/wiki/StatusNet_0.9.2.
+A full changelog is available at http://status.net/wiki/StatusNet_0.9.4.
 
 Prerequisites
 =============
@@ -121,8 +116,8 @@ run correctly.
 - PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
   in PHP 5.2 or above. 5.2.6 or later is needed for XMPP background
-  daemons on 64-bit platforms. PHP 5.3.x should work but is known
-  to cause some failures for OpenID.
+  daemons on 64-bit platforms. PHP 5.3.x should work correctly in this
+  release, but problems with some plugins are possible.
 - MySQL 5.x. The StatusNet database is stored, by default, in a MySQL
   server. It has been primarily tested on 5.x servers, although it may
   be possible to install on earlier (or later!) versions. The server
@@ -138,7 +133,6 @@ Your PHP installation must include the following PHP extensions:
 - MySQL. For accessing the database.
 - GD. For scaling down avatar images.
 - mbstring. For handling Unicode (UTF-8) encoded strings.
-- gettext. For multiple languages. Default on many PHP installs.
 
 For some functionality, you will also need the following extensions:
 
@@ -153,6 +147,8 @@ For some functionality, you will also need the following extensions:
   Sphinx server to serve the search queries.
 - bcmath or gmp. For Salmon signatures (part of OStatus). Needed
   if you have OStatus configured.
+- gettext. For multiple languages. Default on many PHP installs;
+  will be emulated if not present.
 
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
@@ -222,7 +218,7 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-       tar zxf statusnet-0.9.2.tar.gz
+       tar zxf statusnet-0.9.4.tar.gz
 
    ...which will make a statusnet-0.9.2 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
@@ -232,7 +228,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-       mv statusnet-0.9.2 /var/www/statusnet
+       mv statusnet-0.9.4 /var/www/statusnet
 
    This will make your StatusNet instance available in the statusnet path of
    your server, like "http://example.net/statusnet". "microblog" or

@@ -50,6 +50,7 @@ class TwitterBridgePlugin extends Plugin
 {
 
     const VERSION = STATUSNET_VERSION;
+    public $adminImportControl = false; // Should the 'import' checkbox be exposed in the admin panel?
 
     /**
      * Initializer for the plugin.
@@ -221,7 +222,7 @@ class TwitterBridgePlugin extends Plugin
      */
     function onStartEnqueueNotice($notice, &$transports)
     {
-        if (self::hasKeys()) {
+        if (self::hasKeys() && $notice->isLocal()) {
             // Avoid a possible loop
             if ($notice->source != 'twitter') {
                 array_push($transports, 'twitter');
@@ -320,6 +321,18 @@ class TwitterBridgePlugin extends Plugin
             )
         );
         return true;
+    }
+
+    /**
+     * Expose the adminImportControl setting to the administration panel code.
+     * This allows us to disable the import bridge enabling checkbox for administrators,
+     * since on a bulk farm site we can't yet automate the import daemon setup.
+     *
+     * @return boolean hook value;
+     */
+    function onTwitterBridgeAdminImportControl()
+    {
+        return (bool)$this->adminImportControl;
     }
 
 }

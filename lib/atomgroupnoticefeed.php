@@ -50,12 +50,13 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
      * Constructor
      *
      * @param Group   $group   the group for the feed
+     * @param User    $cur     the current authenticated user, if any
      * @param boolean $indent  flag to turn indenting on or off
      *
      * @return void
      */
-    function __construct($group, $indent = true) {
-        parent::__construct($indent);
+    function __construct($group, $cur = null, $indent = true) {
+        parent::__construct($cur, $indent);
         $this->group = $group;
 
         // TRANS: Title in atom group notice feed. %s is a group name.
@@ -95,4 +96,23 @@ class AtomGroupNoticeFeed extends AtomNoticeFeed
         return $this->group;
     }
 
+    function initFeed()
+    {
+        parent::initFeed();
+
+        $attrs = array();
+
+        if (!empty($this->cur)) {
+            $attrs['member'] = $this->cur->isMember($this->group)
+                ? 'true' : 'false';
+            $attrs['blocked'] = Group_block::isBlocked(
+                $this->group,
+                $this->cur->getProfile()
+            ) ? 'true' : 'false';
+        }
+
+        $attrs['member_count'] = $this->group->getMemberCount();
+
+        $this->element('statusnet:group_info', $attrs, null);
+    }
 }

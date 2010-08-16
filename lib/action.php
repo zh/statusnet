@@ -235,6 +235,16 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
+            
+            if (common_config('custom_css', 'enabled')) {
+                $css = common_config('custom_css', 'css');
+                if (Event::handle('StartShowCustomCss', array($this, &$css))) {
+                    if (trim($css) != '') {
+                        $this->style($css);
+                    }
+                    Event::handle('EndShowCustomCss', array($this));
+                }
+            }
         }
     }
 

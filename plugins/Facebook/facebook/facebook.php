@@ -45,7 +45,9 @@ class Facebook {
   public $user;
   public $profile_user;
   public $canvas_user;
+  public $ext_perms = array();
   protected $base_domain;
+
   /*
    * Create a Facebook client like this:
    *
@@ -104,17 +106,17 @@ class Facebook {
    *
    * For nitty-gritty details of when each of these is used, check out
    * http://wiki.developers.facebook.com/index.php/Verifying_The_Signature
-   *
-   * @param bool  resolve_auth_token  convert an auth token into a session
    */
-  public function validate_fb_params($resolve_auth_token=true) {
+  public function validate_fb_params() {
     $this->fb_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_sig');
 
     // note that with preload FQL, it's possible to receive POST params in
     // addition to GET, so use a different prefix to differentiate them
     if (!$this->fb_params) {
       $fb_params = $this->get_valid_fb_params($_GET, 48 * 3600, 'fb_sig');
-      $fb_post_params = $this->get_valid_fb_params($_POST, 48 * 3600, 'fb_post_sig');
+      $fb_post_params = $this->get_valid_fb_params($_POST,
+                                                   48 * 3600, // 48 hours
+                                                   'fb_post_sig');
       $this->fb_params = array_merge($fb_params, $fb_post_params);
     }
 
@@ -128,6 +130,9 @@ class Facebook {
                             $this->fb_params['canvas_user'] : null;
       $this->base_domain  = isset($this->fb_params['base_domain']) ?
                             $this->fb_params['base_domain'] : null;
+      $this->ext_perms    = isset($this->fb_params['ext_perms']) ?
+                            explode(',', $this->fb_params['ext_perms'])
+                            : array();
 
       if (isset($this->fb_params['session_key'])) {
         $session_key =  $this->fb_params['session_key'];
@@ -141,13 +146,11 @@ class Facebook {
       $this->set_user($user,
                       $session_key,
                       $expires);
-    }
-    // if no Facebook parameters were found in the GET or POST variables,
-    // then fall back to cookies, which may have cached user information
-    // Cookies are also used to receive session data via the Javascript API
-    else if ($cookies =
-             $this->get_valid_fb_params($_COOKIE, null, $this->api_key)) {
-
+    } else if ($cookies =
+               $this->get_valid_fb_params($_COOKIE, null, $this->api_key)) {
+      // if no Facebook parameters were found in the GET or POST variables,
+      // then fall back to cookies, which may have cached user information
+      // Cookies are also used to receive session data via the Javascript API
       $base_domain_cookie = 'base_domain_' . $this->api_key;
       if (isset($_COOKIE[$base_domain_cookie])) {
         $this->base_domain = $_COOKIE[$base_domain_cookie];
@@ -159,25 +162,6 @@ class Facebook {
       $this->set_user($cookies['user'],
                       $cookies['session_key'],
                       $expires);
-    }
-    // finally, if we received no parameters, but the 'auth_token' GET var
-    // is present, then we are in the middle of auth handshake,
-    // so go ahead and create the session
-    else if ($resolve_auth_token && isset($_GET['auth_token']) &&
-             $session = $this->do_get_session($_GET['auth_token'])) {
-      if ($this->generate_session_secret &&
-          !empty($session['secret'])) {
-        $session_secret = $session['secret'];
-      }
-
-      if (isset($session['base_domain'])) {
-        $this->base_domain = $session['base_domain'];
-      }
-
-      $this->set_user($session['uid'],
-                      $session['session_key'],
-                      $session['expires'],
-                      isset($session_secret) ? $session_secret : null);
     }
 
     return !empty($this->fb_params);
@@ -309,11 +293,28 @@ class Facebook {
 
   // require_add and require_install have been removed.
   // see http://developer.facebook.com/news.php?blog=1&story=116 for more details
-  public function require_login() {
-    if ($user = $this->get_loggedin_user()) {
+  public function require_login($required_permissions = '') {
+    $user = $this->get_loggedin_user();
+    $has_permissions = true;
+
+    if ($required_permissions) {
+      $this->require_frame();
+      $permissions = array_map('trim', explode(',', $required_permissions));
+      foreach ($permissions as $permission) {
+        if (!in_array($permission, $this->ext_perms)) {
+          $has_permissions = false;
+          break;
+        }
+      }
+    }
+
+    if ($user && $has_permissions) {
       return $user;
     }
-    $this->redirect($this->get_login_url(self::current_url(), $this->in_frame()));
+
+    $this->redirect(
+      $this->get_login_url(self::current_url(), $this->in_frame(),
+                           $required_permissions));
   }
 
   public function require_frame() {
@@ -342,10 +343,11 @@ class Facebook {
     return $page . '?' . http_build_query($params);
   }
 
-  public function get_login_url($next, $canvas) {
+  public function get_login_url($next, $canvas, $req_perms = '') {
     $page = self::get_facebook_url().'/login.php';
-    $params = array('api_key' => $this->api_key,
-                    'v'       => '1.0');
+    $params = array('api_key'   => $this->api_key,
+                    'v'         => '1.0',
+                    'req_perms' => $req_perms);
 
     if ($next) {
       $params['next'] = $next;
