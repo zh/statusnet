@@ -501,8 +501,11 @@ class Ostatus_profile extends Memcached_DataObject
             } else if ($actor->id) {
                 // We have an ActivityStreams actor with an explicit ID that doesn't match the feed owner.
                 // This isn't what we expect from mainline OStatus person feeds!
-                // Group feeds go down another path, with different validation.
-                throw new Exception("Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
+                // Group feeds go down another path, with different validation...
+                // Most likely this is a plain ol' blog feed of some kind which
+                // doesn't match our expectations. We'll take the entry, but ignore
+                // the <author> info.
+                common_log(LOG_WARNING, "Got an actor '{$actor->title}' ({$actor->id}) on single-user feed for {$this->uri}");
             } else {
                 // Plain <author> without ActivityStreams actor info.
                 // We'll just ignore this info for now and save the update under the feed's identity.
