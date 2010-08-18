@@ -12,7 +12,7 @@ Documentation on the MSN protocol can be found at: http://msnpiki.msnfanatic.com
 This class uses MSNP15.
 
 In addition to PHP5, the additional php modules required are:
-curl pcre mhash mcrypt bcmath
+curl pcre mcrypt bcmath
 
 */
 
@@ -156,7 +156,6 @@ class MSN {
         // Check support
         if (!function_exists('curl_init')) throw new Exception("curl module not found!\n");
         if (!function_exists('preg_match')) throw new Exception("pcre module not found!\n");
-        if (!function_exists('mhash')) throw new Exception("mhash module not found!\n");
         if (!function_exists('mcrypt_cbc')) throw new Exception("mcrypt module not found!\n");
         if (!function_exists('bcmod')) throw new Exception("bcmath module not found!\n");
 
@@ -486,7 +485,7 @@ class MSN {
         if(!empty($message)) {
             $this->debug_message($message);
         }
-        $this->callHandler('ConnectFailed');
+        $this->callHandler('ConnectFailed', $message);
         $this->NSRetryWait($this->retry_wait);
     }
 
@@ -2651,10 +2650,10 @@ X-OIM-Sequence-Num: 1
      */
 
     private function derive_key($key, $magic) {
-        $hash1 = mhash(MHASH_SHA1, $magic, $key);
-        $hash2 = mhash(MHASH_SHA1, $hash1.$magic, $key);
-        $hash3 = mhash(MHASH_SHA1, $hash1, $key);
-        $hash4 = mhash(MHASH_SHA1, $hash3.$magic, $key);
+        $hash1 = $this->mhash_sha1($magic, $key);
+        $hash2 = $this->mhash_sha1($hash1.$magic, $key);
+        $hash3 = $this->mhash_sha1($hash1, $key);
+        $hash4 = $this->mhash_sha1($hash3.$magic, $key);
         return $hash2.substr($hash4, 0, 4);
     }
 
@@ -2664,7 +2663,7 @@ X-OIM-Sequence-Num: 1
         $key3 = $this->derive_key($key1, 'WS-SecureConversationSESSION KEY ENCRYPTION');
 
         // get hash of challenge using key2
-        $hash = mhash(MHASH_SHA1, $challenge, $key2);
+        $hash = $this->mhash_sha1($challenge, $key2);
 
         // get 8 bytes random data
         $iv = substr(base64_encode(rand(1000,9999).rand(1000,9999)), 2, 8);
@@ -3179,5 +3178,33 @@ X-OIM-Sequence-Num: 1
         if ($h_str !== '')
         $buf .= "$h_str $a_str\n";
         return $buf;
+    }
+
+    function mhash_sha1($data, $key)
+    {
+        if (extension_loaded("mhash"))
+            return mhash(MHASH_SHA1, $data, $key);
+
+        if (function_exists("hash_hmac"))
+            return hash_hmac('sha1', $data, $key, true);
+
+        // RFC 2104 HMAC implementation for php. Hacked by Lance Rushing
+        $b = 64;
+        if (strlen($key) > $b)
+            $key = pack("H*", sha1($key));
+        $key = str_pad($key, $b, chr(0x00));
+        $ipad = str_pad("", $b, chr(0x36));
+        $opad = str_pad("", $b, chr(0x5c));
+        $k_ipad = $key ^ $ipad ;
+        $k_opad = $key ^ $opad;
+
+        $sha1_value = sha1($k_opad . pack("H*", sha1($k_ipad . $data)));
+
+        $hash_data = '';
+        $str = join('',explode('\x', $sha1_value));
+        $len = strlen($str);
+        for ($i = 0; $i < $len; $i += 2)
+            $hash_data .= chr(hexdec(substr($str, $i, 2)));
+        return $hash_data;
     }
 }

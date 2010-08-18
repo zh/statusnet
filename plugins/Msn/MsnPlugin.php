@@ -192,9 +192,6 @@ class MsnPlugin extends ImPlugin {
         if (!isset($this->nickname)) {
             throw new Exception("Must specify a nickname");
         }
-        if (!function_exists('mhash')) {
-            require_once(INSTALLDIR.'/plugins/Msn/extlib/compat/mhash.php');
-        }
 
         return true;
     }
