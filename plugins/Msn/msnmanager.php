@@ -204,10 +204,9 @@ class MsnManager extends ImManager {
     /**
     * Called by callback to log failure during connect
     *
-    * @param void $data Not used (there to keep callback happy)
     * @return void
     */
-    public function handle_connect_failed($data) {
+    public function handle_connect_failed() {
         common_log(LOG_NOTICE, 'MSN connect failed, retrying');
     }
 
