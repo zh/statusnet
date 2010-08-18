@@ -193,11 +193,11 @@ class MsnManager extends ImManager {
     * @return void
     */
     protected function requeue_waiting_messages() {
-        $wm = Msn_waiting_message::top($data['to']);
+        $wm = Msn_waiting_message::top();
         while ($wm != NULL) {
             $this->plugin->send_message($wm->screenname, $wm->message);
             $wm->delete();
-            $wm = Msn_waiting_message::top($data['to']);
+            $wm = Msn_waiting_message::top();
         }
     }
 
