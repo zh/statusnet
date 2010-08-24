@@ -16,12 +16,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:17+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:14:02+0000\n"
 "Language-Team: German\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: out-statusnet\n"
@@ -674,7 +674,7 @@ msgstr ""
 "Der Client muss einen „status“-Parameter mit einen Wert zur Verfügung "
 "stellen."
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -685,7 +685,7 @@ msgstr ""
 msgid "Not found."
 msgstr "Nicht gefunden."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -803,7 +803,7 @@ msgid "Preview"
 msgstr "Vorschau"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1084,7 +1084,7 @@ msgid "Do not delete this notice"
 msgstr "Diese Nachricht nicht löschen"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
+#: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
 msgstr "Nachricht löschen"
 
@@ -2444,7 +2444,7 @@ msgstr "Neue Nachricht"
 msgid "You can't send a message to this user."
 msgstr "Du kannst diesem Benutzer keine Nachricht schicken."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "Kein Inhalt!"
@@ -2468,7 +2468,7 @@ msgstr "Nachricht gesendet"
 msgid "Direct message to %s sent."
 msgstr "Direkte Nachricht an %s abgeschickt"
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax-Fehler"
 
@@ -2476,7 +2476,7 @@ msgstr "Ajax-Fehler"
 msgid "New notice"
 msgstr "Neue Nachricht"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Nachricht hinzugefügt"
 
@@ -2611,8 +2611,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Bitte nur %s URLs über einfaches HTTP."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "Kein unterstütztes Datenformat."
 
@@ -3530,7 +3530,7 @@ msgstr "Du kannst deine eigene Nachricht nicht wiederholen."
 msgid "You already repeated that notice."
 msgstr "Nachricht bereits wiederholt"
 
-#: actions/repeat.php:114 lib/noticelist.php:675
+#: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
 msgstr "Wiederholt"
 
@@ -4946,23 +4946,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Kein Profil (%1$d) für eine Notiz gefunden (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Datenbankfehler beim Einfügen des Hashtags: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr "Problem bei Speichern der Nachricht. Sie ist zu lang."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "Problem bei Speichern der Nachricht. Unbekannter Benutzer."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -4970,7 +4970,7 @@ msgstr ""
 "ein paar Minuten ab."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4979,31 +4979,31 @@ msgstr ""
 "ein paar Minuten ab."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr ""
 "Du wurdest für das Schreiben von Nachrichten auf dieser Seite gesperrt."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Problem bei Speichern der Nachricht."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 "Der Methode saveKnownGroups wurde ein schlechter Wert zur Verfügung gestellt"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr "Problem bei Speichern der Nachricht."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
+#: classes/Notice.php:1751
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -6562,7 +6562,7 @@ msgstr ""
 "schicken, um sie in eine Konversation zu verwickeln. Andere Leute können Dir "
 "Nachrichten schicken, die nur Du sehen kannst."
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
 msgstr "von"
 
@@ -6653,11 +6653,11 @@ msgstr "Versende eine direkte Nachricht"
 msgid "To"
 msgstr "An"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Verfügbare Zeichen"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Senden"
@@ -6666,28 +6666,28 @@ msgstr "Senden"
 msgid "Send a notice"
 msgstr "Nachricht senden"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Was ist los, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "Anhängen"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "Datei anhängen"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr "Teile meinen Aufenthaltsort"
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Do not share my location"
 msgstr "Teile meinen Aufenthaltsort nicht"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6724,23 +6724,27 @@ msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgid "at"
 msgstr "in"
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 msgid "in context"
 msgstr "im Zusammenhang"
 
-#: lib/noticelist.php:602
+#: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "Wiederholt von"
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:630
 msgid "Reply to this notice"
 msgstr "Auf diese Nachricht antworten"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Antworten"
 
-#: lib/noticelist.php:674
+#: lib/noticelist.php:675
 msgid "Notice repeated"
 msgstr "Nachricht wiederholt"
 
@@ -7117,56 +7121,56 @@ msgid "Moderator"
 msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "vor wenigen Sekunden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "vor einer Minute"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "vor %d Minuten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "vor einer Stunde"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "vor %d Stunden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "vor einem Tag"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about %d days ago"
 msgstr "vor %d Tagen"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "vor einem Monat"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, php-format
 msgid "about %d months ago"
 msgstr "vor %d Monaten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "vor einem Jahr"
 

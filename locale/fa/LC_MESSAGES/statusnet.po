@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:25+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:14:29+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #. TRANS: Page title
@@ -175,8 +175,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"شما می‌توانید [یادآوری‌کردن %1$s](../%2$s) را از نمایه‌اش امتحان کنید یا [به "
-"توجه او چیزی بفرستید](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
 #, fuzzy, php-format
@@ -184,8 +184,8 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to them."
 msgstr ""
-"چرا [ثبت‌نام](%%%%action.register%%%%) نمی‌کنید و سپس به %s یادآوری کنید یا یک "
-"پیام به توجه‌اش بفرستید."
+"چرا به [باز کردن یک حساب](%%action.register%%) اقدام نمی‌کنید و اولین نفری "
+"باشید که چیزی می‌فرستد!"
 
 #. TRANS: H1 text
 #: actions/all.php:182
@@ -365,7 +365,7 @@ msgstr "نمی‌توان پیام برگزیده را حذف کرد."
 #: actions/apifriendshipscreate.php:109
 #, fuzzy
 msgid "Could not follow user: profile not found."
-msgstr "نمی‌توان کاربر را دنبال کرد: کاربر یافت نشد."
+msgstr "نمی‌توان کاربر را دنبال نکرد: کاربر یافت نشد."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
@@ -381,9 +381,8 @@ msgid "You cannot unfollow yourself."
 msgstr "نمی‌توانید خودتان را دنبال کنید."
 
 #: actions/apifriendshipsexists.php:91
-#, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "باید ۲ شناسه‌ی کاربر یا نام ظاهری وارد کنید."
+msgstr ""
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -662,7 +661,7 @@ msgstr "هیچ وضعیتی با آن شناسه یافت نشد."
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -672,7 +671,7 @@ msgstr "این خیلی طولانی است. بیشینهٔ طول پیام %d �
 msgid "Not found."
 msgstr "یافت نشد."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "بیشینهٔ طول پیام %d نویسه که شامل نشانی اینترنتی پیوست هم هست."
@@ -788,7 +787,7 @@ msgid "Preview"
 msgstr "پیش‌نمایش"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "حذف"
 
@@ -1070,7 +1069,7 @@ msgid "Do not delete this notice"
 msgstr "این پیام را پاک نکن"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
+#: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
 msgstr "این پیام را پاک کن"
 
@@ -1250,7 +1249,7 @@ msgstr "افزودن به برگزیده‌ها"
 #: actions/doc.php:158
 #, fuzzy, php-format
 msgid "No such document \"%s\""
-msgstr "چنین سندی وجود ندارد."
+msgstr "چنین پیوستی وجود ندارد."
 
 #: actions/editapplication.php:54
 msgid "Edit Application"
@@ -1306,12 +1305,14 @@ msgid "Organization homepage is required."
 msgstr "صفحهٔ‌خانگی سازمان مورد نیاز است."
 
 #: actions/editapplication.php:218 actions/newapplication.php:206
+#, fuzzy
 msgid "Callback is too long."
-msgstr ""
+msgstr "نشانی اینترنتی منبع بسیار بلند است."
 
 #: actions/editapplication.php:225 actions/newapplication.php:215
+#, fuzzy
 msgid "Callback URL is not valid."
-msgstr ""
+msgstr "نشانی اینترنتی منبع معتبر نیست."
 
 #: actions/editapplication.php:258
 msgid "Could not update application."
@@ -2410,7 +2411,7 @@ msgstr "پیام جدید"
 msgid "You can't send a message to this user."
 msgstr "شما نمی توانید به این کاربر پیام بفرستید."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "محتوایی وحود ندارد!"
@@ -2433,7 +2434,7 @@ msgstr "پیام فرستاده‌شد"
 msgid "Direct message to %s sent."
 msgstr "پیام مستقیم به %s فرستاده شد."
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "خطای آژاکس"
 
@@ -2441,7 +2442,7 @@ msgstr "خطای آژاکس"
 msgid "New notice"
 msgstr "پیام جدید"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "پیام فرستاده‌شد."
 
@@ -2461,7 +2462,7 @@ msgstr "جست‌وجوی متن"
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr "نتایج جست‌و‌جو برای %s در %s"
+msgstr "پیام از %1$s در %2$s"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2492,12 +2493,9 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "پیام‌هایی که با جست‌و‌جوی عبارت »%1$s« در %s یافت شدند."
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
-"این کاربر اجازه‌ی یادآوری‌کردن را نداده است یا پست‌الکترونیک خود را تایید یا "
-"تعیین نکرده است."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2572,8 +2570,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "لطفا تنها از نشانی‌های اینترنتی %s از راه HTTP ساده استفاده کنید."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
@@ -2832,8 +2830,9 @@ msgid "Background directory"
 msgstr "شاخهٔ تصاویر پیش‌زمینه"
 
 #: actions/pathsadminpanel.php:320
+#, fuzzy
 msgid "SSL"
-msgstr ""
+msgstr "پیامک"
 
 #: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
@@ -2955,8 +2954,9 @@ msgid "Location"
 msgstr "موقعیت"
 
 #: actions/profilesettings.php:134 actions/register.php:480
+#, fuzzy
 msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr ""
+msgstr "مکان گروه، در صورت وجود داشتن، مانند «شهر، ایالت (یا استان)، کشور»"
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
@@ -3477,7 +3477,7 @@ msgstr "شما نمی‌توانید پیام خودتان را تکرار کن�
 msgid "You already repeated that notice."
 msgstr "شما قبلا آن پیام را تکرار کرده‌اید."
 
-#: actions/repeat.php:114 lib/noticelist.php:675
+#: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
 msgstr "تکرار شده"
 
@@ -3516,9 +3516,7 @@ msgstr "خوراک پاسخ‌ها برای %s (Atom)"
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
-msgstr ""
-"این خط‌زمانی است که پاسخ‌ها به %1$s را نشان می‌دهد، اما %2$s هنوز یک پیام به "
-"توجه‌اش دریافت نکرده است."
+msgstr "این خط‌زمانی %1$s است، اما %2$s تاکنون چیزی نفرستاده است."
 
 #: actions/replies.php:204
 #, php-format
@@ -3535,8 +3533,8 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"شما می‌توانید [یادآوری %1$s](../%2$s) را امتحان کنید یا [به توجه او چیزی "
-"بفرستید](%%%%action.newnotice%%%%?status_textarea=%3$s)."
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
 
 #: actions/repliesrss.php:72
 #, php-format
@@ -3557,12 +3555,14 @@ msgid "StatusNet"
 msgstr "وضعیت حذف شد."
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr ""
+msgstr "شما نمی توانید کاربری را در این سایت ساکت کنید."
 
 #: actions/sandbox.php:72
+#, fuzzy
 msgid "User is already sandboxed."
-msgstr ""
+msgstr "کاربر قبلا ساکت شده است."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3579,8 +3579,9 @@ msgid "Handle sessions"
 msgstr "مدیریت نشست‌ها"
 
 #: actions/sessionsadminpanel.php:177
+#, fuzzy
 msgid "Whether to handle sessions ourselves."
-msgstr ""
+msgstr "چنان‌که به کاربران اجازهٔ دعوت‌کردن کاربران تازه داده شود."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
@@ -3713,13 +3714,11 @@ msgstr ""
 "آن‌ها بگذارید."
 
 #: actions/showfavorites.php:208
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
 msgstr ""
-"%s تاکنون هیچ پیامی را به برگزیده‌هایش اضافه نکرده است. چیز جالبی بفرستید که "
-"ممکن است به برگزیده‌هایشان اضافه کنند :)"
 
 #: actions/showfavorites.php:212
 #, fuzzy, php-format
@@ -3728,9 +3727,8 @@ msgid ""
 "action.register%%%%) and then post something interesting they would add to "
 "their favorites :)"
 msgstr ""
-"%s تاکنون هیچ پیامی را به برگزیده‌هایش اضافه نکرده است. چرا به [ثبت کردن یک "
-"حساب](%%%%action.register%%%%) اقدام نمی‌کنید و سپس چیز جالبی را که ممکن است "
-"به برگزیده‌هایشان اضافه کنند، بفرستید :)"
+"چرا به [باز کردن یک حساب](%%action.register%%) اقدام نمی‌کنید و اولین نفری "
+"باشید که یک پیام را به برگزیده‌هایش اضافه می‌کند!"
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
@@ -3916,8 +3914,8 @@ msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 msgstr ""
-"شما می‌توانید یادآوری %1$s را امتحان کنید یا [به توجه او چیزی بفرستید](%%%%"
-"action.newnotice%%%%?status_textarea=%2$s)."
+"اولین کسی باشید که در [این موضوع](%%%%action.newnotice%%%%?status_textarea=%"
+"s) پیام می‌فرستد."
 
 #: actions/showstream.php:243
 #, php-format
@@ -3970,9 +3968,9 @@ msgid "You must have a valid contact email address."
 msgstr "شما باید یک نشانی پست الکترونیکی معتبر برای ارتباط داشته باشید."
 
 #: actions/siteadminpanel.php:159
-#, php-format
+#, fuzzy, php-format
 msgid "Unknown language \"%s\"."
-msgstr ""
+msgstr "منبع صندوق ورودی نامعلوم است %d."
 
 #: actions/siteadminpanel.php:165
 msgid "Minimum text limit is 0 (unlimited)."
@@ -4047,8 +4045,9 @@ msgid "Maximum number of characters for notices."
 msgstr "بیشینهٔ تعداد نویسه‌ها برای پیام‌ها."
 
 #: actions/siteadminpanel.php:278
+#, fuzzy
 msgid "Dupe limit"
-msgstr ""
+msgstr "محدودیت متن"
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
@@ -4281,8 +4280,9 @@ msgid "Frequency"
 msgstr "فرکانس"
 
 #: actions/snapshotadminpanel.php:218
+#, fuzzy
 msgid "Snapshots will be sent once every N web hits"
-msgstr ""
+msgstr "تصاویر لحظه‌ای به این نشانی اینترنتی فرستاده می‌شوند"
 
 #: actions/snapshotadminpanel.php:226
 msgid "Report URL"
@@ -4403,8 +4403,9 @@ msgid "%s is not listening to anyone."
 msgstr "%s هیچ‌کس را دنبال نمی‌کند."
 
 #: actions/subscriptions.php:208
+#, fuzzy
 msgid "Jabber"
-msgstr ""
+msgstr "هیچ شناسهٔ Jabber ای وجود ندارد."
 
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
@@ -4431,8 +4432,9 @@ msgid "Notice feed for tag %s (Atom)"
 msgstr "خوراک پیام برای برچسب %s (Atom)"
 
 #: actions/tagother.php:39
+#, fuzzy
 msgid "No ID argument."
-msgstr ""
+msgstr "هیچ پیوستی وجود ندارد."
 
 #: actions/tagother.php:65
 #, php-format
@@ -4483,8 +4485,9 @@ msgid "You haven't blocked that user."
 msgstr "شما آن کاربر را مسدود نکرده اید."
 
 #: actions/unsandbox.php:72
+#, fuzzy
 msgid "User is not sandboxed."
-msgstr ""
+msgstr "کاربر ساکت نشده است."
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -4499,10 +4502,10 @@ msgid "Unsubscribed"
 msgstr "لغو اشتراک شده"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
+msgstr "مجوز پیام «%1$s» با مجوز وب‌گاه «%2$s» سازگار نیست."
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:59
@@ -4635,19 +4638,19 @@ msgid ""
 msgstr ""
 
 #: actions/userauthorization.php:303
-#, php-format
+#, fuzzy, php-format
 msgid "Listener URI ‘%s’ not found here."
-msgstr ""
+msgstr "نشانی تصویر چهره «%s» معتبر نیست."
 
 #: actions/userauthorization.php:308
-#, php-format
+#, fuzzy, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr ""
+msgstr "نشانی تصویر چهره «%s» معتبر نیست."
 
 #: actions/userauthorization.php:314
-#, php-format
+#, fuzzy, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr ""
+msgstr "نشانی اینترنتی نمایهٔ «%s» برای یک کاربر محلی است."
 
 #: actions/userauthorization.php:329
 #, php-format
@@ -4793,13 +4796,11 @@ msgstr ""
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #: classes/File.php:190
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
-"هیچ پرونده‌ای نباید بزرگ‌تر از %d بایت باشد و پرونده‌ای که شما فرستادید %d بایت "
-"بود. بارگذاری یک نسخهٔ کوچک‌تر را امتحان کنید."
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
@@ -4868,8 +4869,9 @@ msgstr "پیغام نمی تواند درج گردد"
 
 #. TRANS: Message given when a message could not be updated on the server.
 #: classes/Message.php:74
+#, fuzzy
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "نمی‌توان پیام را تجزیه کرد."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -4879,23 +4881,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "هنگام افزودن برچسب خطا در پایگاه داده رخ داد: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr "مشکل در ذخیره کردن پیام. بسیار طولانی."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "مشکل در ذخیره کردن پیام. کاربر نا شناخته."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -4903,7 +4905,7 @@ msgstr ""
 "دوباره بفرستید."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4912,32 +4914,32 @@ msgstr ""
 "ارسال کنید."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr "شما از فرستادن پیام در این وب‌گاه منع شده‌اید."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "هنگام ذخیرهٔ پیام مشکلی ایجاد شد."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
-#, php-format
+#: classes/Notice.php:1751
+#, fuzzy, php-format
 msgid "RT @%1$s %2$s"
-msgstr ""
+msgstr "%1$s (%2$s)"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -4989,19 +4991,19 @@ msgstr "تایید نشده!"
 #: classes/Subscription.php:178
 #, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "نمی‌توان خود-اشتراکی را حذف کرد."
+msgstr "نمی‌توان اشتراک را ذخیره کرد."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
 #, fuzzy
 msgid "Could not delete subscription OMB token."
-msgstr "نمی‌توان رمز اشتراک OMB را حذف کرد."
+msgstr "نمی‌توان اشتراک را ذخیره کرد."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
 #, fuzzy
 msgid "Could not delete subscription."
-msgstr "نمی‌توان اشتراک را لغو کرد."
+msgstr "نمی‌توان اشتراک را ذخیره کرد."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5070,7 +5072,7 @@ msgstr "دیگر"
 #: lib/action.php:145
 #, fuzzy, php-format
 msgid "%1$s - %2$s"
-msgstr "%s گروه %s را ترک کرد."
+msgstr "%1$s (%2$s)"
 
 #. TRANS: Page title for a page without a title set.
 #: lib/action.php:161
@@ -5912,8 +5914,9 @@ msgstr ""
 "tracking - هنوز پیاده نشده است.\n"
 
 #: lib/common.php:135
+#, fuzzy
 msgid "No configuration file found. "
-msgstr ""
+msgstr "بدون کد تصدیق."
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
@@ -5987,8 +5990,9 @@ msgid "RSS 2.0"
 msgstr ""
 
 #: lib/feed.php:89
+#, fuzzy
 msgid "Atom"
-msgstr ""
+msgstr "مؤلف"
 
 #: lib/feed.php:91
 msgid "FOAF"
@@ -6110,8 +6114,9 @@ msgid "That file is too big. The maximum file size is %s."
 msgstr "این پرونده خیلی بزرگ است. بیشینهٔ اندازهٔ پرونده %s است."
 
 #: lib/imagefile.php:93
+#, fuzzy
 msgid "Partial upload."
-msgstr ""
+msgstr "هیچ پرونده‌ای بارگذاری نشد."
 
 #: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
@@ -6488,7 +6493,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
 msgstr "از"
 
@@ -6574,11 +6579,11 @@ msgstr "فرستادن یک پیام مستقیم"
 msgid "To"
 msgstr "به"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "کاراکترهای موجود"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "فرستادن"
@@ -6587,28 +6592,28 @@ msgstr "فرستادن"
 msgid "Send a notice"
 msgstr "فرستادن یک پیام"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "چه خبر، %s؟"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "پیوست کردن"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "یک فایل پیوست کنید"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr "مکان من به اشتراک گذاشته شود"
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Do not share my location"
 msgstr "موقعیت من به اشتراک گذاشته نشود"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6618,8 +6623,9 @@ msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:436
+#, fuzzy
 msgid "N"
-msgstr ""
+msgstr "خیر"
 
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
@@ -6645,23 +6651,27 @@ msgstr ""
 msgid "at"
 msgstr "در"
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 msgid "in context"
 msgstr "در زمینه"
 
-#: lib/noticelist.php:602
+#: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "تکرار از"
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:630
 msgid "Reply to this notice"
 msgstr "به این پیام پاسخ دهید"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply"
 msgstr "پاسخ"
 
-#: lib/noticelist.php:674
+#: lib/noticelist.php:675
 msgid "Notice repeated"
 msgstr "پیام تکرار شد"
 
@@ -6796,8 +6806,9 @@ msgid "Popular"
 msgstr "محبوب"
 
 #: lib/redirectingaction.php:95
+#, fuzzy
 msgid "No return-to arguments."
-msgstr ""
+msgstr "هیچ پیوستی وجود ندارد."
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
@@ -6814,19 +6825,21 @@ msgstr "تکرار این پیام"
 #: lib/revokeroleform.php:91
 #, fuzzy, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "دسترسی کاربر را به گروه مسدود کن"
+msgstr "دسترسی کاربر به گروه مسدود شود"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
 msgstr "هیچ کاربر تنهایی برای حالت تک کاربره مشخص نشده است."
 
 #: lib/sandboxform.php:67
+#, fuzzy
 msgid "Sandbox"
-msgstr ""
+msgstr "صندوق دریافتی"
 
 #: lib/sandboxform.php:78
+#, fuzzy
 msgid "Sandbox this user"
-msgstr ""
+msgstr "آزاد سازی کاربر"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -6877,9 +6890,9 @@ msgid "Silence this user"
 msgstr "ساکت کردن این کاربر"
 
 #: lib/subgroupnav.php:83
-#, php-format
+#, fuzzy, php-format
 msgid "People %s subscribes to"
-msgstr ""
+msgstr "افراد مشترک %s"
 
 #: lib/subgroupnav.php:91
 #, php-format
@@ -6967,8 +6980,9 @@ msgid "Unsandbox"
 msgstr ""
 
 #: lib/unsandboxform.php:80
+#, fuzzy
 msgid "Unsandbox this user"
-msgstr ""
+msgstr "آزاد سازی کاربر"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -7038,56 +7052,56 @@ msgid "Moderator"
 msgstr "مدیر"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "چند ثانیه پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "حدود یک دقیقه پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "حدود %d دقیقه پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "حدود یک ساعت پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "حدود %d ساعت پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "حدود یک روز پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about %d days ago"
 msgstr "حدود %d روز پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "حدود یک ماه پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, php-format
 msgid "about %d months ago"
 msgstr "حدود %d ماه پیش"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "حدود یک سال پیش"
 

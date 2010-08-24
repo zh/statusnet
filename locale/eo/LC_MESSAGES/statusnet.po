@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-11 10:48+0000\n"
-"PO-Revision-Date: 2010-08-11 10:49:34+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:14:07+0000\n"
 "Language-Team: Esperanto\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70848); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: out-statusnet\n"
@@ -661,20 +661,20 @@ msgstr "Neniu stato kun tiu ID troviĝas."
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "Kliento devas providi al \"stato\"-parametro valoron."
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "Tro longas. Aviza longlimo estas %*d signoj."
+msgstr "Tro longas. Longlimo por avizo estas %d signoj."
 
 #: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Ne troviĝas."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr "Aviza longlimo estas %d signoj, enkalkulante ankaŭ la retadresojn."
+msgstr "Longlimo por avizo estas %d signoj, enkalkulante ankaŭ la retadresojn."
 
 #: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
@@ -2394,7 +2394,7 @@ msgstr "Nova mesaĝo"
 msgid "You can't send a message to this user."
 msgstr "Vi ne povas sendi mesaĝon al la uzanto."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "Neniu enhavo!"
@@ -2417,7 +2417,7 @@ msgstr "Mesaĝo sendita"
 msgid "Direct message to %s sent."
 msgstr "Rekta mesaĝo al %s sendiĝis."
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Eraro de Ajax"
 
@@ -2425,7 +2425,7 @@ msgstr "Eraro de Ajax"
 msgid "New notice"
 msgstr "Nova avizo"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Avizo afiŝiĝas"
 
@@ -2551,11 +2551,11 @@ msgstr "Enhavtipo %s ne subteniĝas."
 #: actions/oembed.php:163
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "Bonvolu, nur %s-URL per plata HTTP."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "Datumformato ne subteniĝas."
 
@@ -2630,10 +2630,9 @@ msgid "Outbox for %s"
 msgstr "Elirkesto de %s"
 
 #: actions/outbox.php:116
-#, fuzzy
 msgid "This is your outbox, which lists private messages you have sent."
 msgstr ""
-"Tio ĉi estas via alvenkesto, kie listiĝas viaj alvenaj privataj mesaĝoj."
+"Tio ĉi estas via elirkesto, kie listiĝas privataj mesaĝoj, kiujn vi sendis."
 
 #: actions/passwordsettings.php:58
 msgid "Change password"
@@ -2706,28 +2705,28 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Vojo kaj servila agordo por ĉi tiu StatusNet-retejo."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Desegno ne havebla: %s."
+msgstr "Desegno adresaro ne havebla: %s."
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Avatara adresaro"
+msgstr "Avatara adresaro ne skribebla: %s."
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Fona adresaro"
+msgstr "Fona adresaro ne skribebla: %s."
 
 #: actions/pathsadminpanel.php:177
 #, php-format
 msgid "Locales directory not readable: %s."
-msgstr ""
+msgstr "Lokaĵara adresaro ne havebla: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr ""
+msgstr "Nevalida SSL-servilo. La longlimo estas 225 literoj."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 msgid "Site"
@@ -2759,11 +2758,11 @@ msgstr "Adresara lokigilo al lokaĵaro"
 
 #: actions/pathsadminpanel.php:250
 msgid "Fancy URLs"
-msgstr ""
+msgstr "Tajlora URL"
 
 #: actions/pathsadminpanel.php:252
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr ""
+msgstr "Ĉu uzi tajloran (pli facile legebla kaj memorebla) URL?"
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
@@ -3067,16 +3066,17 @@ msgid ""
 msgstr "Kial ne [krei konton](%%action.register%%) kaj esti la unua afiŝanto!"
 
 #: actions/public.php:242
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
-"Tio ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
-"blogging) servo surbaze de libera servila programo [StatusNet](http://status."
-"net/)."
+"Tie ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
+"blogging) servo surbaze de ilaro de Libera Molvaro [StatusNet](http://status."
+"net/). [Aniĝu](%%action.register%%) por konigi novaĵon pri vi mem al viaj "
+"amikoj, familianoj, kaj kolegoj! ([Pli](%%doc.help%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3096,90 +3096,83 @@ msgstr "Publika markil-nubo"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr ""
+msgstr "Jen la plej popularaj entikedoj lastatempaj ĉe %s "
 
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr ""
+msgstr "Neniu jam afiŝis avizon kun [haketentikedon](%%doc.tags%%)."
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
 msgstr "Estu la unua afiŝanto!"
 
 #: actions/publictagcloud.php:75
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr "Kial ne [krei konton](%%action.register%%) kaj esti la unua afiŝanto!"
 
 #: actions/publictagcloud.php:134
-#, fuzzy
 msgid "Tag cloud"
-msgstr "Publika markil-nubo"
+msgstr "Entikedo-nubo"
 
 #: actions/recoverpassword.php:36
-#, fuzzy
 msgid "You are already logged in!"
 msgstr "Vi jam ensalutis."
 
 #: actions/recoverpassword.php:62
-#, fuzzy
 msgid "No such recovery code."
-msgstr "Ne estas tiu avizo."
+msgstr "Ne estas tia rehava kodo."
 
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
-msgstr ""
+msgstr "Ne rehava kodo."
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr ""
+msgstr "Rehava kodo por nekonata uzanto."
 
 #: actions/recoverpassword.php:86
-#, fuzzy
 msgid "Error with confirmation code."
-msgstr "Neniu konfirma kodo."
+msgstr "Eraras pro komfirma kodo."
 
 #: actions/recoverpassword.php:97
-#, fuzzy
 msgid "This confirmation code is too old. Please start again."
-msgstr "Tiu komfirmnumero ne estas por vi!"
+msgstr "Tiu komfirmnumero tro malnovas. Bonvolu rekomenci."
 
 #: actions/recoverpassword.php:111
-#, fuzzy
 msgid "Could not update user with confirmed email address."
-msgstr "Nuna konfirmita retpoŝtadreso."
+msgstr "Malsukcesas ĝisdatigi uzanton per komfirmita retpoŝtadreso."
 
 #: actions/recoverpassword.php:152
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Se vi forgesas aŭ perdas vian pasvorton, ni povas sendi novan pasvorton al "
+"la retpoŝtadreso konservita je via konto."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr "Vi estis identigita. Enigu sube novan pasvorton."
 
 #: actions/recoverpassword.php:188
-#, fuzzy
 msgid "Password recovery"
-msgstr "Pasvorta ŝanĝo"
+msgstr "Pasvorton rehavi."
 
 #: actions/recoverpassword.php:191
-#, fuzzy
 msgid "Nickname or email address"
-msgstr "Neniu retpoŝta adreso."
+msgstr "Alinomo aŭ retpoŝtadreso."
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
-msgstr ""
+msgstr "Via alinomo ĉe tiu ĉi servilo, aŭ via registrita retpoŝadreso."
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
-#, fuzzy
 msgid "Recover"
-msgstr "Forigi"
+msgstr "Rehavi"
 
 #: actions/recoverpassword.php:208
 msgid "Reset password"
@@ -3190,12 +3183,13 @@ msgid "Recover password"
 msgstr "Refari pasvorton"
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:335
+#, fuzzy
 msgid "Password recovery requested"
-msgstr ""
+msgstr "Pasvorton rehavi."
 
 #: actions/recoverpassword.php:213
 msgid "Unknown action"
-msgstr ""
+msgstr "Nekonata ago"
 
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
@@ -3208,7 +3202,7 @@ msgstr "Restarigi"
 #: actions/recoverpassword.php:252
 #, fuzzy
 msgid "Enter a nickname or email address."
-msgstr "Tiu ne estas via retpoŝtadreso."
+msgstr "Alinomo aŭ retpoŝtadreso."
 
 #: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
@@ -3221,13 +3215,16 @@ msgstr ""
 #: actions/recoverpassword.php:313
 #, fuzzy
 msgid "Error saving address confirmation."
-msgstr "Eraris konservi uzanton: nevalida."
+msgstr "Eraras pro komfirma kodo."
 
 #: actions/recoverpassword.php:338
+#, fuzzy
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+"Se vi forgesas aŭ perdas vian pasvorton, ni povas sendi novan pasvorton al "
+"la retpoŝtadreso konservita je via konto."
 
 #: actions/recoverpassword.php:357
 #, fuzzy
@@ -3257,8 +3254,9 @@ msgid "Sorry, only invited people can register."
 msgstr ""
 
 #: actions/register.php:99
+#, fuzzy
 msgid "Sorry, invalid invitation code."
-msgstr ""
+msgstr "Eraras pro komfirma kodo."
 
 #: actions/register.php:119
 msgid "Registration successful"
@@ -3538,51 +3536,46 @@ msgstr "La uzanto jam de grupo blokiĝas."
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:392
-#, fuzzy
 msgid "Sessions"
-msgstr "Versio"
+msgstr "Seancoj"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "Aspektaj agordoj por ĉi tiu StatusNet-retejo."
+msgstr "Seancaj agordoj por tiu ĉi StatusNet-retejo"
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
-msgstr ""
+msgstr "Trakti seancojn"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
-msgstr ""
+msgstr "Ĉu traktu seancojn ni mem."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
-msgstr ""
+msgstr "Seanca sencimigado"
 
 #: actions/sessionsadminpanel.php:183
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "Ŝalti sencimigadan eligon por seanco."
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
-#, fuzzy
 msgid "Save site settings"
-msgstr "Konservu atingan agordon"
+msgstr "Konservi retejan agordon"
 
 #: actions/showapplication.php:82
-#, fuzzy
 msgid "You must be logged in to view an application."
-msgstr "Ensalutu por redakti la aplikaĵon."
+msgstr "Ensalutu por vidi la aplikaĵon."
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Aplikaĵo ne trovita."
+msgstr "Aplikaĵa profilo"
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "Ikono"
 
 #. TRANS: Form input field label for application name.
 #: actions/showapplication.php:169 actions/version.php:197
@@ -3604,26 +3597,24 @@ msgstr "Priskribo"
 #: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiko"
 
 #: actions/showapplication.php:203
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr ""
+msgstr "Kreita de %1$s - %2$s defaŭlta aliroj  - %3$d uzantoj"
 
 #: actions/showapplication.php:213
-#, fuzzy
 msgid "Application actions"
-msgstr "Aplikaĵo ne trovita."
+msgstr "Aplikaĵa ago"
 
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr ""
 
 #: actions/showapplication.php:261
-#, fuzzy
 msgid "Application info"
-msgstr "Aplikaĵo ne trovita."
+msgstr "Aplikaĵa informo"
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
@@ -3643,13 +3634,15 @@ msgstr ""
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
-msgstr ""
+msgstr "Rajtigi URL"
 
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+"Rimarku: Ni subtenas HMAC-SHA1-subskribo. Ni ne subtenas platteksta "
+"subskribado-metodon."
 
 #: actions/showapplication.php:309
 #, fuzzy
@@ -3792,9 +3785,10 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"Tio ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
-"blogging) servo surbaze de libera servila programo [StatusNet](http://status."
-"net/)."
+"Tie ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
+"blogging) servo surbaze de ilaro de Libera Molvaro [StatusNet](http://status."
+"net/). [Aniĝu](%%action.register%%) por konigi novaĵon pri vi mem al viaj "
+"amikoj, familianoj, kaj kolegoj! ([Pli](%%doc.help%%))"
 
 #: actions/showgroup.php:461
 #, fuzzy, php-format
@@ -3900,9 +3894,10 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"Tio ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
-"blogging) servo surbaze de libera servila programo [StatusNet](http://status."
-"net/)."
+"Tie ĉi estas %%site.name%%, [mikrobloga](http://en.wikipedia.org/wiki/Micro-"
+"blogging) servo surbaze de ilaro de Libera Molvaro [StatusNet](http://status."
+"net/). [Aniĝu](%%action.register%%) por konigi novaĵon pri vi mem al viaj "
+"amikoj, familianoj, kaj kolegoj! ([Pli](%%doc.help%%))"
 
 #: actions/showstream.php:248
 #, fuzzy, php-format
@@ -3937,7 +3932,7 @@ msgstr "Aspektaj agordoj por ĉi tiu StatusNet-retejo."
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "La sita nomo devas pli ol nula longeco"
 
 #: actions/siteadminpanel.php:141
 #, fuzzy
@@ -3962,9 +3957,8 @@ msgid "General"
 msgstr "Ĝenerala"
 
 #: actions/siteadminpanel.php:224
-#, fuzzy
 msgid "Site name"
-msgstr "Reteja desegno"
+msgstr "Nomo de retejo"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -4015,7 +4009,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
-msgstr ""
+msgstr "Limoj"
 
 #: actions/siteadminpanel.php:274
 msgid "Text limit"
@@ -4064,7 +4058,7 @@ msgstr ""
 #: actions/sitenoticeadminpanel.php:198
 #, fuzzy
 msgid "Save site notice"
-msgstr "Forigi avizon"
+msgstr "Konservi retejan agordon"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -4293,7 +4287,7 @@ msgstr ""
 #: actions/snapshotadminpanel.php:248
 #, fuzzy
 msgid "Save snapshot settings"
-msgstr "Konservu atingan agordon"
+msgstr "Konservi retejan agordon"
 
 #: actions/subedit.php:70
 #, fuzzy
@@ -4523,8 +4517,9 @@ msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
 #: actions/useradminpanel.php:155
+#, fuzzy
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr ""
+msgstr "Nevalida SSL-servilo. La longlimo estas 225 literoj."
 
 #: actions/useradminpanel.php:165
 #, php-format
@@ -4538,8 +4533,9 @@ msgid "Profile"
 msgstr "Profilo"
 
 #: actions/useradminpanel.php:222
+#, fuzzy
 msgid "Bio Limit"
-msgstr ""
+msgstr "Limoj"
 
 #: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
@@ -4580,8 +4576,9 @@ msgid "Invitations enabled"
 msgstr "Invito(j) senditas"
 
 #: actions/useradminpanel.php:258
+#, fuzzy
 msgid "Whether to allow users to invite new users."
-msgstr ""
+msgstr "Ĉu traktu seancojn ni mem."
 
 #: actions/userauthorization.php:105
 #, fuzzy
@@ -4730,9 +4727,9 @@ msgid "Updates from %1$s on %2$s!"
 msgstr "Ŝatataj Ĝisdatiĝoj de %1$s ĉe %2$s!"
 
 #: actions/version.php:75
-#, php-format
+#, fuzzy, php-format
 msgid "StatusNet %s"
-msgstr ""
+msgstr "Statistiko"
 
 #: actions/version.php:155
 #, php-format
@@ -4882,59 +4879,59 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Datumbaza eraro enigi la uzanton de *OAuth-aplikaĵo."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 #, fuzzy
 msgid "You are banned from posting notices on this site."
 msgstr "Vi ne rajtas doni al uzanto rolon ĉe ĉi tiu retejo."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1746
+#: classes/Notice.php:1751
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5135,7 +5132,7 @@ msgstr "Ŝanĝi agordojn de la retejo"
 #: lib/action.php:461
 msgctxt "MENU"
 msgid "Admin"
-msgstr "Administranto"
+msgstr "Administri"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:465
@@ -5404,7 +5401,6 @@ msgstr "Ŝanĝi agordojn de la retejo"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:352
-#, fuzzy
 msgctxt "MENU"
 msgid "Site"
 msgstr "Retejo"
@@ -5644,14 +5640,14 @@ msgstr "La uzanto ne havas profilon."
 #: lib/command.php:127
 #, fuzzy, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "Malsukcesis trovi celan uzanton."
+msgstr "Malsukcesas ĝisdatigi uzanton per komfirmita retpoŝtadreso."
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:147
-#, php-format
+#, fuzzy, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr ""
+msgstr "Malsukcesas ĝisdatigi uzanton per komfirmita retpoŝtadreso."
 
 #: lib/command.php:180
 msgid "Sorry, this command is not yet implemented."
@@ -6431,8 +6427,9 @@ msgid "Could not parse message."
 msgstr "Malsukcesis ĝisdatigi uzanton"
 
 #: lib/mailhandler.php:42
+#, fuzzy
 msgid "Not a registered user."
-msgstr ""
+msgstr "Ne rehava kodo."
 
 #: lib/mailhandler.php:46
 #, fuzzy
@@ -6511,11 +6508,11 @@ msgstr "Forigi avizon"
 msgid "To"
 msgstr "Al"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Haveblaj karakteroj"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Sendi"
@@ -6525,29 +6522,29 @@ msgstr "Sendi"
 msgid "Send a notice"
 msgstr "Nova avizo"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr ""
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr ""
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 #, fuzzy
 msgid "Do not share my location"
 msgstr "Ne forigu ĉi tiun aplikaĵon."
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6582,6 +6579,10 @@ msgstr ""
 #: lib/noticelist.php:453
 msgid "at"
 msgstr "al"
+
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
 
 #: lib/noticelist.php:568
 #, fuzzy
@@ -6691,8 +6692,9 @@ msgid "Tags in %s's notices"
 msgstr ""
 
 #: lib/plugin.php:115
+#, fuzzy
 msgid "Unknown"
-msgstr ""
+msgstr "Nekonata ago"
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 #, fuzzy
@@ -6978,7 +6980,7 @@ msgstr "Vizaĝbildo"
 #: lib/userprofile.php:234 lib/userprofile.php:248
 #, fuzzy
 msgid "User actions"
-msgstr "Uzantaj grupoj"
+msgstr "Nekonata ago"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
@@ -7022,57 +7024,57 @@ msgid "Moderator"
 msgstr "Moderanto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "antaŭ kelkaj sekundoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "antaŭ ĉirkaŭ unu minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "antaŭ ĉirkaŭ %d minutoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "antaŭ ĉirkaŭ unu horo"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "antaŭ ĉirkaŭ %d horoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "antaŭ ĉirkaŭ unu tago"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, fuzzy, php-format
 msgid "about %d days ago"
 msgstr "antaŭ ĉirkaŭ unu tago"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 #, fuzzy
 msgid "about a month ago"
 msgstr "antaŭ ĉirkaŭ unu minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, fuzzy, php-format
 msgid "about %d months ago"
 msgstr "antaŭ ĉirkaŭ %d minutoj"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 #, fuzzy
 msgid "about a year ago"
 msgstr "antaŭ ĉirkaŭ unu tago"

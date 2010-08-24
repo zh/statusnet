@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-11 10:11+0000\n"
-"PO-Revision-Date: 2010-08-11 10:11:33+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:13:42+0000\n"
 "Language-Team: Dutch\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70848); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: out-statusnet\n"
@@ -150,11 +150,12 @@ msgstr "Gwazh evit mignoned %s (Atom)"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:138
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr ""
-"Kronologiezh foran %%site.name%% eo, met den n'en deus skrivet tra ebet."
+"Hemañ eo al lanvad evit %s hag e vignoned met den n'en deus skrivet tra ebet "
+"evit ar mare."
 
 #: actions/all.php:143
 #, php-format
@@ -650,7 +651,7 @@ msgstr "N'eo ket bet kavet a statud evit an ID-mañ"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -660,7 +661,7 @@ msgstr "Re hir eo ! Ment hirañ an ali a zo a %d arouezenn."
 msgid "Not found."
 msgstr "N'eo ket bet kavet."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -2354,7 +2355,7 @@ msgstr "Kemennadenn nevez"
 msgid "You can't send a message to this user."
 msgstr "Ne c'helloc'h ket kas kemennadennoù d'an implijer-mañ."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "Goullo eo !"
@@ -2379,7 +2380,7 @@ msgstr "Kemennadenn kaset"
 msgid "Direct message to %s sent."
 msgstr "Kaset eo bet da %s ar gemennadenn war-eeun."
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Fazi Ajax"
 
@@ -2387,7 +2388,7 @@ msgstr "Fazi Ajax"
 msgid "New notice"
 msgstr "Ali nevez"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Ali embannet"
 
@@ -2514,8 +2515,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 #, fuzzy
 msgid "Not a supported data format."
 msgstr "Diembreget eo ar furmad-se."
@@ -2672,24 +2673,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Arventennoù diazez evit al lec'hienn StatusNet-mañ."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
 msgstr "N'eus ket eus ar gaoz-se : %s."
 
 #: actions/pathsadminpanel.php:163
 #, fuzzy, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Restroù an avataroù"
+msgstr "N'eus ket eus ar gaoz-se : %s."
 
 #: actions/pathsadminpanel.php:169
-#, php-format
+#, fuzzy, php-format
 msgid "Background directory not writable: %s."
-msgstr ""
+msgstr "N'eus ket eus ar gaoz-se : %s."
 
 #: actions/pathsadminpanel.php:177
-#, php-format
+#, fuzzy, php-format
 msgid "Locales directory not readable: %s."
-msgstr ""
+msgstr "N'eus ket eus ar gaoz-se : %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -3447,11 +3448,13 @@ msgid "Replies feed for %s (Atom)"
 msgstr "Gwazh respontoù evit %s (Atom)"
 
 #: actions/replies.php:199
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
 msgstr ""
+"Hemañ eo al lanvad evit %s hag e vignoned met den n'en deus skrivet tra ebet "
+"evit ar mare."
 
 #: actions/replies.php:204
 #, php-format
@@ -3473,7 +3476,6 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Respontoù da %1$s war %2$s !"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
 msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
@@ -3818,7 +3820,8 @@ msgstr "mignon ur mignon evit %s"
 #, fuzzy, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
-"Kronologiezh foran %%site.name%% eo, met den n'en deus skrivet tra ebet."
+"Hemañ eo al lanvad evit %s hag e vignoned met den n'en deus skrivet tra ebet "
+"evit ar mare."
 
 #: actions/showstream.php:205
 msgid ""
@@ -4207,7 +4210,6 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
 msgstr "Enrollañ arventennoù al lec'hienn"
 
@@ -4782,59 +4784,59 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Ur fazi 'zo bet en ur ensoc'hañ an avatar"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr "Ur gudenn a zo bet e-pad enrolladenn ar c'hemenn. Re hir."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "Ur gudenn a zo bet e-pad enrolladenn ar c'hemenn. Implijer dianav."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 #, fuzzy
 msgid "You are banned from posting notices on this site."
 msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Ur gudenn 'zo bet pa veze enrollet an ali."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr "Ur gudenn 'zo bet pa veze enrollet boest degemer ar strollad."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1746
+#: classes/Notice.php:1751
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4885,13 +4887,11 @@ msgstr "Nann-koumanantet !"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
 msgstr "Dibosupl eo dilemel ar c'houmanant."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
 msgstr "Dibosupl eo dilemel ar c'houmanant."
 
@@ -6350,12 +6350,12 @@ msgstr "Kas ur gemennadenn war-eeun"
 msgid "To"
 msgstr "Da"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 #, fuzzy
 msgid "Available characters"
 msgstr "6 arouezenn pe muioc'h"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Kas"
@@ -6364,28 +6364,28 @@ msgstr "Kas"
 msgid "Send a notice"
 msgstr "Kas un ali"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Penaos 'mañ kont, %s ?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "Stagañ"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "Stagañ ur restr"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr "Rannañ va lec'hiadur."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Do not share my location"
 msgstr "Chom hep rannañ va lec'hiadur."
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6419,6 +6419,10 @@ msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 #: lib/noticelist.php:453
 msgid "at"
 msgstr "e"
+
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
 
 #: lib/noticelist.php:568
 msgid "in context"
@@ -6824,56 +6828,56 @@ msgid "Moderator"
 msgstr "Habasker"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "un nebeud eilennoù zo"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "1 vunutenn zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d munutenn zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "1 eurvezh zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d eurvezh zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "1 devezh zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about %d days ago"
 msgstr "%d devezh zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "miz zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, php-format
 msgid "about %d months ago"
 msgstr "%d miz zo well-wazh"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "bloaz zo well-wazh"
 

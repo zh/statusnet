@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:14+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:13:53+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
 "X-Message-Group: out-statusnet\n"
@@ -31,7 +31,7 @@ msgstr "Přijmout"
 #: actions/accessadminpanel.php:67
 #, fuzzy
 msgid "Site access settings"
-msgstr "Nastavení"
+msgstr "Nastavené Profilu"
 
 #. TRANS: Form legend for registration form.
 #: actions/accessadminpanel.php:161
@@ -68,15 +68,13 @@ msgstr ""
 
 #. TRANS: Checkbox label for disabling new user registrations.
 #: actions/accessadminpanel.php:185
-#, fuzzy
 msgid "Closed"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #. TRANS: Title / tooltip for button to save access settings in site admin panel
 #: actions/accessadminpanel.php:202
-#, fuzzy
 msgid "Save access settings"
-msgstr "Nastavení"
+msgstr ""
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
@@ -95,7 +93,7 @@ msgstr "Uložit"
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
 msgid "No such page."
-msgstr "Žádné takové oznámení."
+msgstr "Žádný takový uživatel."
 
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
@@ -139,21 +137,21 @@ msgstr "%s a přátelé"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:107
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:116
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:125
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for friends of %s (Atom)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:138
@@ -293,13 +291,13 @@ msgid "Could not update your design."
 msgstr "Nelze aktualizovat uživatele"
 
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Nelze aktualizovat uživatele"
+msgstr ""
 
 #: actions/apiblockcreate.php:126
+#, fuzzy
 msgid "Block user failed."
-msgstr ""
+msgstr "Zablokovat tohoto uživatele"
 
 #: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
@@ -335,8 +333,9 @@ msgid "That's too long. Max message size is %d chars."
 msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
 #: actions/apidirectmessagenew.php:138
+#, fuzzy
 msgid "Recipient user not found."
-msgstr ""
+msgstr "Potvrzující kód nebyl nalezen"
 
 #: actions/apidirectmessagenew.php:142
 msgid "Can't send direct messages to users who aren't your friend."
@@ -353,8 +352,9 @@ msgid "This status is already a favorite."
 msgstr "Toto je již vaše Jabber"
 
 #: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#, fuzzy
 msgid "Could not create favorite."
-msgstr ""
+msgstr "Nelze smazat oblíbenou položku."
 
 #: actions/apifavoritedestroy.php:123
 msgid "That status is not a favorite."
@@ -367,7 +367,7 @@ msgstr "Nelze smazat oblíbenou položku."
 #: actions/apifriendshipscreate.php:109
 #, fuzzy
 msgid "Could not follow user: profile not found."
-msgstr "Nelze přesměrovat na server: %s"
+msgstr "Nelze uložit profil"
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
@@ -375,14 +375,12 @@ msgid "Could not follow user: %s is already on your list."
 msgstr ""
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Nelze přesměrovat na server: %s"
+msgstr ""
 
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Nelze aktualizovat uživatele"
+msgstr ""
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
@@ -433,7 +431,7 @@ msgstr "Jméno je moc dlouhé (maximální délka je 255 znaků)"
 #: actions/newapplication.php:172
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
 
 #: actions/apigroupcreate.php:227 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
@@ -450,7 +448,7 @@ msgstr ""
 #: actions/apigroupcreate.php:267
 #, fuzzy, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Neplatná adresa '%s'"
+msgstr "Neplatná velikost"
 
 #: actions/apigroupcreate.php:276 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -468,21 +466,21 @@ msgstr ""
 #: actions/apigroupshow.php:83 actions/apitimelinegroup.php:92
 #, fuzzy
 msgid "Group not found."
-msgstr "Žádný požadavek nebyl nalezen!"
+msgstr "Potvrzující kód nebyl nalezen"
 
 #: actions/apigroupjoin.php:111 actions/joingroup.php:100
 #, fuzzy
 msgid "You are already a member of that group."
-msgstr "Již jste přihlášen"
+msgstr "Neodeslal jste nám profil"
 
 #: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
 #: actions/apigroupjoin.php:139 actions/joingroup.php:134
-#, fuzzy, php-format
+#, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "Nelze přesměrovat na server: %s"
+msgstr ""
 
 #: actions/apigroupleave.php:115
 #, fuzzy
@@ -490,28 +488,28 @@ msgid "You are not a member of this group."
 msgstr "Neodeslal jste nám profil"
 
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "Nelze vytvořit OpenID z: %s"
+msgstr ""
 
 #. TRANS: %s is a user name
 #: actions/apigrouplist.php:98
 #, fuzzy, php-format
 msgid "%s's groups"
-msgstr "Profil"
+msgstr "Upravit %s skupinu"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
 #: actions/apigrouplistall.php:92 actions/usergroups.php:63
-#, php-format
+#, fuzzy, php-format
 msgid "%s groups"
-msgstr ""
+msgstr "Upravit %s skupinu"
 
 #: actions/apigrouplistall.php:96
 #, php-format
@@ -556,14 +554,12 @@ msgid "Invalid nickname / password!"
 msgstr "Neplatné jméno nebo heslo"
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "Chyba nastavení uživatele"
+msgstr ""
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "Chyba v DB při vkládání odpovědi: %s"
+msgstr ""
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -654,17 +650,17 @@ msgstr "Žádné takové oznámení."
 #: actions/apistatusesretweet.php:83
 #, fuzzy
 msgid "Cannot repeat your own notice."
-msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
+msgstr "Toto oznámení nelze odstranit."
 
 #: actions/apistatusesretweet.php:91
 #, fuzzy
 msgid "Already repeated that notice."
-msgstr "Odstranit toto oznámení"
+msgstr "Toto oznámení nelze odstranit."
 
 #: actions/apistatusesshow.php:139
 #, fuzzy
 msgid "Status deleted."
-msgstr "Obrázek nahrán"
+msgstr "Avatar smazán."
 
 #: actions/apistatusesshow.php:145
 msgid "No status with that ID found."
@@ -674,18 +670,17 @@ msgstr ""
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, fuzzy, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
 #: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
-#, fuzzy
 msgid "Not found."
-msgstr "Žádný požadavek nebyl nalezen!"
+msgstr ""
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -701,9 +696,9 @@ msgid "%1$s / Favorites from %2$s"
 msgstr "%1 statusů na %2"
 
 #: actions/apitimelinefavorites.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/apitimelinementions.php:118
 #, fuzzy, php-format
@@ -716,9 +711,9 @@ msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
 #: actions/apitimelinepublic.php:197 actions/publicrss.php:103
-#, php-format
+#, fuzzy, php-format
 msgid "%s public timeline"
-msgstr ""
+msgstr "Veřejné zprávy"
 
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
@@ -741,18 +736,19 @@ msgid "Notices tagged with %s"
 msgstr ""
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/apitrends.php:87
+#, fuzzy
 msgid "API method under construction."
-msgstr ""
+msgstr "Potvrzující kód nebyl nalezen"
 
 #: actions/attachment.php:73
 #, fuzzy
 msgid "No such attachment."
-msgstr "Žádný takový dokument."
+msgstr "Žádné takové oznámení."
 
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
@@ -776,9 +772,9 @@ msgid "Avatar"
 msgstr "Obrázek"
 
 #: actions/avatarsettings.php:78
-#, php-format
+#, fuzzy, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr ""
+msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/grouplogo.php:181 actions/remotesubscribe.php:191
@@ -791,7 +787,7 @@ msgstr "Uživatel nemá profil."
 #: actions/grouplogo.php:254
 #, fuzzy
 msgid "Avatar settings"
-msgstr "Nastavení"
+msgstr "Nastavené Profilu"
 
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
 #: actions/grouplogo.php:202 actions/grouplogo.php:262
@@ -800,11 +796,12 @@ msgstr ""
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
 #: actions/grouplogo.php:213 actions/grouplogo.php:274
+#, fuzzy
 msgid "Preview"
-msgstr ""
+msgstr "Poskytovatel"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Odstranit"
 
@@ -813,8 +810,9 @@ msgid "Upload"
 msgstr "Upload"
 
 #: actions/avatarsettings.php:231 actions/grouplogo.php:289
+#, fuzzy
 msgid "Crop"
-msgstr ""
+msgstr "Skupiny"
 
 #: actions/avatarsettings.php:305
 #, fuzzy
@@ -844,12 +842,12 @@ msgstr "Avatar smazán."
 #: actions/block.php:69
 #, fuzzy
 msgid "You already blocked that user."
-msgstr "Již jste přihlášen"
+msgstr "Jabber ID již patří jinému uživateli"
 
 #: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
 #, fuzzy
 msgid "Block user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #: actions/block.php:138
 msgid ""
@@ -869,14 +867,14 @@ msgstr ""
 #, fuzzy
 msgctxt "BUTTON"
 msgid "No"
-msgstr "Ne"
+msgstr "Poznámka"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/block.php:157 actions/deleteuser.php:156
 #, fuzzy
 msgid "Do not block this user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -913,26 +911,25 @@ msgstr ""
 #: lib/command.php:368
 #, fuzzy
 msgid "No such group."
-msgstr "Žádné takové oznámení."
+msgstr "Žádný takový uživatel."
 
 #: actions/blockedfromgroup.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles"
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "%s a přátelé"
+msgstr ""
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr ""
 
 #: actions/blockedfromgroup.php:288
-#, fuzzy
 msgid "Unblock user from group"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
@@ -941,7 +938,7 @@ msgstr ""
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 #, fuzzy
 msgid "Unblock this user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #: actions/bookmarklet.php:51
@@ -963,9 +960,9 @@ msgstr "Tento potvrzující kód vám nepatří!"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Neznámý typ adresy %s"
+msgstr ""
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -996,7 +993,7 @@ msgstr "Nelze smazat potvrzení emailu"
 #: actions/confirmaddress.php:146
 #, fuzzy
 msgid "Confirm address"
-msgstr "Potvrď adresu"
+msgstr "Heslo znovu"
 
 #: actions/confirmaddress.php:161
 #, php-format
@@ -1014,14 +1011,13 @@ msgid "Notices"
 msgstr "Sdělení"
 
 #: actions/deleteapplication.php:63
-#, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr "Nelze aktualizovat uživatele"
+msgstr ""
 
 #: actions/deleteapplication.php:71
 #, fuzzy
 msgid "Application not found."
-msgstr "Sdělení nemá profil"
+msgstr "Potvrzující kód nebyl nalezen"
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
@@ -1036,9 +1032,8 @@ msgid "There was a problem with your session token."
 msgstr ""
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1051,7 +1046,7 @@ msgstr ""
 #: actions/deleteapplication.php:158
 #, fuzzy
 msgid "Do not delete this application"
-msgstr "Žádné takové oznámení."
+msgstr "Toto oznámení nelze odstranit."
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
@@ -1081,21 +1076,23 @@ msgid ""
 msgstr ""
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
+#, fuzzy
 msgid "Delete notice"
-msgstr ""
+msgstr "Odstranit toto oznámení"
 
 #: actions/deletenotice.php:144
+#, fuzzy
 msgid "Are you sure you want to delete this notice?"
-msgstr ""
+msgstr "Toto oznámení nelze odstranit."
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:151
 #, fuzzy
 msgid "Do not delete this notice"
-msgstr "Žádné takové oznámení."
+msgstr "Toto oznámení nelze odstranit."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
+#: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
 msgstr "Odstranit toto oznámení"
 
@@ -1110,8 +1107,9 @@ msgid "You can only delete local users."
 msgstr "Můžete použít místní odebírání."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
+#, fuzzy
 msgid "Delete user"
-msgstr ""
+msgstr "Odstranit tohoto uživatele"
 
 #: actions/deleteuser.php:136
 msgid ""
@@ -1141,19 +1139,18 @@ msgid "Invalid logo URL."
 msgstr "Neplatná velikost"
 
 #: actions/designadminpanel.php:322
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #: actions/designadminpanel.php:426
 #, fuzzy
 msgid "Change logo"
-msgstr "Změnit heslo"
+msgstr "Změnit barvy"
 
 #: actions/designadminpanel.php:431
-#, fuzzy
 msgid "Site logo"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/designadminpanel.php:443
 #, fuzzy
@@ -1161,18 +1158,16 @@ msgid "Change theme"
 msgstr "Změnit"
 
 #: actions/designadminpanel.php:460
-#, fuzzy
 msgid "Site theme"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr ""
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -1279,12 +1274,11 @@ msgstr "Přidat do oblíbených"
 #: actions/doc.php:158
 #, fuzzy, php-format
 msgid "No such document \"%s\""
-msgstr "Žádný takový dokument."
+msgstr "Žádné takové oznámení."
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
-msgstr "Sdělení nemá profil"
+msgstr ""
 
 #: actions/editapplication.php:66
 msgid "You must be logged in to edit an application."
@@ -1317,7 +1311,7 @@ msgstr "Přezdívku již někdo používá. Zkuste jinou"
 #: actions/editapplication.php:186 actions/newapplication.php:168
 #, fuzzy
 msgid "Description is required."
-msgstr "Odběry"
+msgstr "Odběr odmítnut"
 
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
@@ -1375,12 +1369,12 @@ msgstr ""
 #: actions/editgroup.php:205 actions/newgroup.php:145
 #, fuzzy, php-format
 msgid "description is too long (max %d chars)."
-msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
 
 #: actions/editgroup.php:228 actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Neplatná adresa '%s'"
+msgstr ""
 
 #: actions/editgroup.php:258
 #, fuzzy
@@ -1391,7 +1385,7 @@ msgstr "Nelze aktualizovat uživatele"
 #: actions/editgroup.php:264 classes/User_group.php:514
 #, fuzzy
 msgid "Could not create aliases."
-msgstr "Nelze uložin informace o obrázku"
+msgstr "Nelze aktualizovat uživatele"
 
 #: actions/editgroup.php:280
 msgid "Options saved."
@@ -1401,7 +1395,7 @@ msgstr "Nastavení uloženo."
 #: actions/emailsettings.php:61
 #, fuzzy
 msgid "Email settings"
-msgstr "Nastavení E-mailu"
+msgstr "Nastavené Profilu"
 
 #. TRANS: E-mail settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -1419,8 +1413,9 @@ msgstr "Potvrzení emailové adresy"
 
 #. TRANS: Form note in e-mail settings form.
 #: actions/emailsettings.php:112
+#, fuzzy
 msgid "Current confirmed email address."
-msgstr ""
+msgstr "Potvrzené Jabber/GTalk adresy"
 
 #. TRANS: Button label to remove a confirmed e-mail address.
 #. TRANS: Button label for removing a set sender e-mail address to post notices from.
@@ -1433,13 +1428,16 @@ msgstr ""
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
-msgstr "Odstranit"
+msgstr "Obnovit"
 
 #: actions/emailsettings.php:122
+#, fuzzy
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
+"Čakám na potvrzení této adresy. Zkontrolujte zprávy na vašem Jabber/GTalk "
+"účtu. (Přidal jste si %s do vašich kontaktů?)"
 
 #. TRANS: Button label to cancel an e-mail address confirmation procedure.
 #. TRANS: Button label to cancel an IM address confirmation procedure.
@@ -1462,10 +1460,9 @@ msgstr ""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
-msgstr "Přidat"
+msgstr ""
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
@@ -1488,21 +1485,20 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
-msgstr "Nový"
+msgstr ""
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Nastavení"
+msgstr ""
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
+#, fuzzy
 msgid "Send me notices of new subscriptions through email."
-msgstr ""
+msgstr "Zasílat oznámení pomocí Jabber/GTalk"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:186
@@ -1531,8 +1527,9 @@ msgstr ""
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:219
+#, fuzzy
 msgid "Publish a MicroID for my email address."
-msgstr ""
+msgstr "Zadej přezdívku nebo emailovou adresu"
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
@@ -1542,13 +1539,15 @@ msgstr "Nastavení uloženo"
 
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
+#, fuzzy
 msgid "No email address."
-msgstr ""
+msgstr "Není platnou mailovou adresou."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
 #: actions/emailsettings.php:361
+#, fuzzy
 msgid "Cannot normalize that email address"
-msgstr ""
+msgstr "Nelze normalizovat JabberID"
 
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:366 actions/register.php:208
@@ -1558,13 +1557,15 @@ msgstr "Není platnou mailovou adresou."
 
 #. TRANS: Message given saving e-mail address that is already set.
 #: actions/emailsettings.php:370
+#, fuzzy
 msgid "That is already your email address."
-msgstr ""
+msgstr "Toto je již vaše Jabber"
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
 #: actions/emailsettings.php:374
+#, fuzzy
 msgid "That email address already belongs to another user."
-msgstr ""
+msgstr "Jabber ID již patří jinému uživateli"
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1576,10 +1577,13 @@ msgstr "Nelze vložit potvrzující kód"
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
 #: actions/emailsettings.php:398
+#, fuzzy
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+"Ověřující kód byl poslán na vloženou IM adresu. Musíte prokázat %s pro "
+"posílání zpráv."
 
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
@@ -1599,30 +1603,33 @@ msgstr "Toto je špatná IM adresa"
 #: actions/emailsettings.php:438
 #, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Potvrď zrušení"
+msgstr "Nečeká žádné potvrzení na zrušení."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
 #: actions/emailsettings.php:458
+#, fuzzy
 msgid "That is not your email address."
-msgstr ""
+msgstr "Toto je špatná IM adresa"
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
 #, fuzzy
 msgid "The email address was removed."
-msgstr "Adresa byla odstraněna"
+msgstr "Emailová adresa již existuje"
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
+#, fuzzy
 msgid "No incoming email address."
-msgstr ""
+msgstr "Není platnou mailovou adresou."
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
 #: actions/emailsettings.php:504 actions/emailsettings.php:528
 #: actions/smssettings.php:578 actions/smssettings.php:602
+#, fuzzy
 msgid "Couldn't update user record."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
 #: actions/emailsettings.php:508 actions/smssettings.php:581
@@ -1631,16 +1638,18 @@ msgstr ""
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
 #: actions/emailsettings.php:532 actions/smssettings.php:605
+#, fuzzy
 msgid "New incoming email address added."
-msgstr ""
+msgstr "Není platnou mailovou adresou."
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
 msgstr ""
 
 #: actions/favor.php:92 lib/disfavorform.php:140
+#, fuzzy
 msgid "Disfavor favorite"
-msgstr ""
+msgstr "Přidat do oblíbených"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
@@ -1649,9 +1658,9 @@ msgid "Popular notices"
 msgstr "Žádné takové oznámení."
 
 #: actions/favorited.php:67
-#, fuzzy, php-format
+#, php-format
 msgid "Popular notices, page %d"
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
@@ -1681,9 +1690,9 @@ msgid "%s's favorite notices"
 msgstr ""
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
@@ -1703,31 +1712,28 @@ msgstr ""
 #: actions/file.php:34
 #, fuzzy
 msgid "No notice ID."
-msgstr "Žádné oznámení"
+msgstr "Žádné takové oznámení."
 
 #: actions/file.php:38
 #, fuzzy
 msgid "No notice."
-msgstr "Žádné oznámení"
+msgstr "Žádné takové oznámení."
 
 #: actions/file.php:42
-#, fuzzy
 msgid "No attachments."
-msgstr "Žádný takový dokument."
+msgstr ""
 
 #: actions/file.php:51
-#, fuzzy
 msgid "No uploaded attachments."
-msgstr "Žádný takový dokument."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "Nečekaná odpověď."
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "Úživatel, kterému nasloucháte neexistuje."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1740,17 +1746,15 @@ msgstr ""
 #: actions/finishremotesubscribe.php:110
 #, fuzzy
 msgid "You are not authorized."
-msgstr "Neautorizován."
+msgstr "Odběr autorizován"
 
 #: actions/finishremotesubscribe.php:113
-#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "Nelze konvertovat řetězec požadavku na přístupový řetězec."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:118
-#, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "Neznámá verze OMB protokolu."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:138
 #, fuzzy
@@ -1765,7 +1769,7 @@ msgstr "Žádné takové oznámení."
 #: actions/getfile.php:83
 #, fuzzy
 msgid "Cannot read file."
-msgstr "Žádné takové oznámení."
+msgstr "Nelze uložit profil"
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
 #, fuzzy
@@ -1777,9 +1781,8 @@ msgid "This role is reserved and cannot be set."
 msgstr ""
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: actions/grantrole.php:82
 #, fuzzy
@@ -1808,9 +1811,8 @@ msgid "Only an admin can block group members."
 msgstr ""
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/groupblock.php:100
 #, fuzzy
@@ -1818,9 +1820,8 @@ msgid "User is not a member of group."
 msgstr "Neodeslal jste nám profil"
 
 #: actions/groupblock.php:134 actions/groupmembers.php:360
-#, fuzzy
 msgid "Block user from group"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #: actions/groupblock.php:160
 #, php-format
@@ -1832,15 +1833,14 @@ msgstr ""
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:182
-#, fuzzy
 msgid "Do not block this user from this group"
-msgstr "Nelze přesměrovat na server: %s"
+msgstr ""
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:189
 #, fuzzy
 msgid "Block this user from this group"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #: actions/groupblock.php:206
 msgid "Database error blocking user from group."
@@ -1849,15 +1849,16 @@ msgstr ""
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 #, fuzzy
 msgid "No ID."
-msgstr "Žádné id"
+msgstr "Žádné Jabber ID."
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
 msgstr ""
 
 #: actions/groupdesignsettings.php:144
+#, fuzzy
 msgid "Group design"
-msgstr ""
+msgstr "Skupiny"
 
 #: actions/groupdesignsettings.php:155
 msgid ""
@@ -1881,10 +1882,10 @@ msgid "Group logo"
 msgstr "Logo skupiny"
 
 #: actions/grouplogo.php:153
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
-msgstr ""
+msgstr "Je to příliš dlouhé. Maximální sdělení délka je 140 znaků"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1939,15 +1940,15 @@ msgstr ""
 #. TRANS: Title in atom user notice feed. %s is a user name.
 #: actions/grouprss.php:139 actions/userrss.php:94
 #: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:69
-#, php-format
+#, fuzzy, php-format
 msgid "%s timeline"
-msgstr ""
+msgstr "Veřejné zprávy"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #: actions/grouprss.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
@@ -1970,9 +1971,8 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
-#, fuzzy
 msgid "Create a new group"
-msgstr "Vytvořit nový účet"
+msgstr ""
 
 #: actions/groupsearch.php:52
 #, fuzzy, php-format
@@ -1990,9 +1990,8 @@ msgstr "Hledání lidí"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
-#, fuzzy
 msgid "No results."
-msgstr "Žádné výsledky."
+msgstr ""
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -2013,20 +2012,18 @@ msgid "Only an admin can unblock group members."
 msgstr ""
 
 #: actions/groupunblock.php:95
-#, fuzzy
 msgid "User is not blocked from group."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
-#, fuzzy
 msgid "Error removing the block."
-msgstr "Chyba při ukládaní uživatele"
+msgstr ""
 
 #. TRANS: Title for instance messaging settings.
 #: actions/imsettings.php:60
 #, fuzzy
 msgid "IM settings"
-msgstr "IM nastavení"
+msgstr "Nastavené Profilu"
 
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
@@ -2042,16 +2039,14 @@ msgstr ""
 
 #. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
 #: actions/imsettings.php:94
-#, fuzzy
 msgid "IM is not available."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #. TRANS: Form legend for IM settings form.
 #. TRANS: Field label for IM address input in IM settings form.
 #: actions/imsettings.php:106 actions/imsettings.php:136
-#, fuzzy
 msgid "IM address"
-msgstr "IM adresa"
+msgstr ""
 
 #: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
@@ -2083,7 +2078,7 @@ msgstr ""
 #: actions/imsettings.php:155
 #, fuzzy
 msgid "IM preferences"
-msgstr "Nastavení"
+msgstr "Nastavení uloženo"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2097,13 +2092,15 @@ msgstr "Poslat oznámení, když se změní můj Jabber/Gtalk status."
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:172
+#, fuzzy
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
-msgstr ""
+msgstr "Zasílat oznámení pomocí Jabber/GTalk"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:179
+#, fuzzy
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr ""
+msgstr "Potvrzené Jabber/GTalk adresy"
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:287 actions/othersettings.php:180
@@ -2161,7 +2158,7 @@ msgstr "Nelze smazat potvrzení emailu"
 #: actions/imsettings.php:402
 #, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Potvrď zrušení"
+msgstr "Žádný potvrzující kód."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2171,9 +2168,8 @@ msgstr "Toto není váš Jabber"
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
-#, fuzzy
 msgid "The IM address was removed."
-msgstr "Adresa byla odstraněna"
+msgstr ""
 
 #: actions/inbox.php:59
 #, php-format
@@ -2194,14 +2190,14 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
-msgstr "Nelze aktualizovat uživatele"
+msgstr ""
 
 #: actions/invite.php:72
-#, php-format
+#, fuzzy, php-format
 msgid "Invalid email address: %s"
-msgstr ""
+msgstr "Není platnou mailovou adresou."
 
 #: actions/invite.php:110
 msgid "Invitation(s) sent"
@@ -2212,8 +2208,9 @@ msgid "Invite new users"
 msgstr ""
 
 #: actions/invite.php:128
+#, fuzzy
 msgid "You are already subscribed to these users:"
-msgstr ""
+msgstr "Neodeslal jste nám profil"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -2243,16 +2240,18 @@ msgid ""
 msgstr ""
 
 #: actions/invite.php:187
+#, fuzzy
 msgid "Email addresses"
-msgstr ""
+msgstr "Emailová adresa již existuje"
 
 #: actions/invite.php:189
 msgid "Addresses of friends to invite (one per line)"
 msgstr ""
 
 #: actions/invite.php:192
+#, fuzzy
 msgid "Personal message"
-msgstr ""
+msgstr "Osobní"
 
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
@@ -2260,16 +2259,15 @@ msgstr ""
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
-msgstr "Odeslat"
+msgstr ""
 
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:228
-#, php-format
+#, fuzzy, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr ""
+msgstr "%1 od teď naslouchá tvým sdělením v %2"
 
 #. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:231
@@ -2344,9 +2342,8 @@ msgid "Incorrect username or password."
 msgstr "Neplatné jméno nebo heslo"
 
 #: actions/login.php:154 actions/otp.php:120
-#, fuzzy
 msgid "Error setting user. You are probably not authorized."
-msgstr "Neautorizován."
+msgstr ""
 
 #: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
 msgid "Login"
@@ -2380,42 +2377,37 @@ msgid "Login with your username and password."
 msgstr "Neplatné jméno nebo heslo"
 
 #: actions/login.php:295
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Přihlaste se pomocí vaší prezdívky a hesla. Zatím nejste zaregistrován? "
-"[Registrovat](%%action.register%%) nový účet, nebo vyzkoušejte [OpenID](%%"
-"action.openidlogin%%)."
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
 #: actions/makeadmin.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/makeadmin.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Nelze vytvořit OpenID z: %s"
+msgstr ""
 
 #: actions/makeadmin.php:146
-#, fuzzy, php-format
+#, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Žádné výsledky."
+msgstr ""
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
@@ -2432,7 +2424,7 @@ msgstr ""
 #: actions/newapplication.php:258 actions/newapplication.php:267
 #, fuzzy
 msgid "Could not create application."
-msgstr "Nelze uložin informace o obrázku"
+msgstr "Nelze smazat potvrzení emailu"
 
 #: actions/newgroup.php:53
 msgid "New group"
@@ -2443,14 +2435,16 @@ msgid "Use this form to create a new group."
 msgstr ""
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
+#, fuzzy
 msgid "New message"
-msgstr ""
+msgstr "Zpráva"
 
 #: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
+#, fuzzy
 msgid "You can't send a message to this user."
-msgstr ""
+msgstr "Neodeslal jste nám profil"
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "Žádný obsah!"
@@ -2465,15 +2459,16 @@ msgid ""
 msgstr ""
 
 #: actions/newmessage.php:181
+#, fuzzy
 msgid "Message sent"
-msgstr ""
+msgstr "Zpráva"
 
 #: actions/newmessage.php:185
 #, php-format
 msgid "Direct message to %s sent."
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr ""
 
@@ -2481,7 +2476,7 @@ msgstr ""
 msgid "New notice"
 msgstr "Nové sdělení"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 #, fuzzy
 msgid "Notice posted"
 msgstr "Sdělení"
@@ -2500,9 +2495,9 @@ msgid "Text search"
 msgstr "Vyhledávání textu"
 
 #: actions/noticesearch.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr " Hledej \"%s\" ve Streamu"
+msgstr ""
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2519,14 +2514,14 @@ msgid ""
 msgstr ""
 
 #: actions/noticesearchrss.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Updates with \"%s\""
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/noticesearchrss.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Všechny položky obsahující \"%s\""
+msgstr ""
 
 #: actions/nudge.php:85
 msgid ""
@@ -2567,9 +2562,8 @@ msgid "You have allowed the following applications to access you account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:175
-#, fuzzy
 msgid "You are not a user of that application."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: actions/oauthconnectionssettings.php:186
 #, php-format
@@ -2587,7 +2581,7 @@ msgstr ""
 #: actions/oembed.php:80 actions/shownotice.php:100
 #, fuzzy
 msgid "Notice has no profile."
-msgstr "Sdělení nemá profil"
+msgstr "Uživatel nemá profil."
 
 #: actions/oembed.php:87 actions/shownotice.php:175
 #, php-format
@@ -2596,9 +2590,9 @@ msgstr "%1 statusů na %2"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "Připojit"
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
@@ -2607,23 +2601,26 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
+#, fuzzy
 msgid "Not a supported data format."
-msgstr ""
+msgstr "Nepodporovaný formát obrázku."
 
 #: actions/opensearch.php:64
+#, fuzzy
 msgid "People Search"
-msgstr ""
+msgstr "Hledání lidí"
 
 #: actions/opensearch.php:67
+#, fuzzy
 msgid "Notice Search"
-msgstr ""
+msgstr "Hledat"
 
 #: actions/othersettings.php:60
 #, fuzzy
 msgid "Other settings"
-msgstr "Nastavení"
+msgstr "Nastavené Profilu"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2656,24 +2653,21 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/otp.php:90
 #, fuzzy
 msgid "No login token requested."
-msgstr "Nebylo vráceno žádné URL profilu od servu."
+msgstr "Žádné potvrení!"
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "Neplatný obsah sdělení"
+msgstr ""
 
 #: actions/otp.php:104
 msgid "Login token expired."
@@ -2733,8 +2727,9 @@ msgid "Change"
 msgstr "Změnit"
 
 #: actions/passwordsettings.php:154 actions/register.php:237
+#, fuzzy
 msgid "Password must be 6 or more characters."
-msgstr ""
+msgstr "Heslo musí být alespoň 6 znaků dlouhé"
 
 #: actions/passwordsettings.php:157 actions/register.php:240
 msgid "Passwords don't match."
@@ -2766,24 +2761,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2807,9 +2802,8 @@ msgid "Path"
 msgstr ""
 
 #: actions/pathsadminpanel.php:242
-#, fuzzy
 msgid "Site path"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2851,7 +2845,7 @@ msgstr "Obrázek"
 #: actions/pathsadminpanel.php:284
 #, fuzzy
 msgid "Avatar server"
-msgstr "Nastavení"
+msgstr "Avatar smazán."
 
 #: actions/pathsadminpanel.php:288
 #, fuzzy
@@ -2861,23 +2855,27 @@ msgstr "Obrázek nahrán"
 #: actions/pathsadminpanel.php:292
 #, fuzzy
 msgid "Avatar directory"
-msgstr "Obrázek nahrán"
+msgstr "Avatar smazán."
 
 #: actions/pathsadminpanel.php:301
+#, fuzzy
 msgid "Backgrounds"
-msgstr ""
+msgstr "Pozadí"
 
 #: actions/pathsadminpanel.php:305
+#, fuzzy
 msgid "Background server"
-msgstr ""
+msgstr "Pozadí"
 
 #: actions/pathsadminpanel.php:309
+#, fuzzy
 msgid "Background path"
-msgstr ""
+msgstr "Pozadí"
 
 #: actions/pathsadminpanel.php:313
+#, fuzzy
 msgid "Background directory"
-msgstr ""
+msgstr "Pozadí"
 
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
@@ -2906,18 +2904,16 @@ msgid "When to use SSL"
 msgstr ""
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
-msgstr "Obnovit"
+msgstr ""
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
 msgstr ""
 
 #: actions/pathsadminpanel.php:352
-#, fuzzy
 msgid "Save paths"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2938,14 +2934,14 @@ msgid "Not a valid people tag: %s."
 msgstr "Není platnou mailovou adresou."
 
 #: actions/peopletag.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/postnotice.php:95
 #, fuzzy
 msgid "Invalid notice content."
-msgstr "Neplatný obsah sdělení"
+msgstr "Neplatná velikost"
 
 #: actions/postnotice.php:101
 #, php-format
@@ -2966,7 +2962,7 @@ msgstr ""
 #: actions/profilesettings.php:99
 #, fuzzy
 msgid "Profile information"
-msgstr "Neznámý profil"
+msgstr "Nastavené Profilu"
 
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
@@ -2991,7 +2987,7 @@ msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
 #: actions/profilesettings.php:122 actions/register.php:468
 #, fuzzy, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr "Popište sebe a své zájmy"
 
 #: actions/profilesettings.php:125 actions/register.php:471
 msgid "Describe yourself and your interests"
@@ -3051,24 +3047,26 @@ msgstr ""
 #: actions/profilesettings.php:228 actions/register.php:230
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Text je příliš dlouhý (maximální délka je 140 zanků)"
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr ""
 
 #: actions/profilesettings.php:241
+#, fuzzy
 msgid "Language is too long (max 50 chars)."
-msgstr ""
+msgstr "Umístění příliš dlouhé (maximálně 255 znaků)"
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, fuzzy, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Neplatná adresa '%s'"
+msgstr "Neplatná velikost"
 
 #: actions/profilesettings.php:306
+#, fuzzy
 msgid "Couldn't update user for autosubscribe."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #: actions/profilesettings.php:363
 #, fuzzy
@@ -3095,8 +3093,9 @@ msgid "Beyond the page limit (%s)."
 msgstr ""
 
 #: actions/public.php:92
+#, fuzzy
 msgid "Could not retrieve public stream."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #: actions/public.php:130
 #, fuzzy, php-format
@@ -3108,19 +3107,16 @@ msgid "Public timeline"
 msgstr "Veřejné zprávy"
 
 #: actions/public.php:160
-#, fuzzy
 msgid "Public Stream Feed (RSS 1.0)"
-msgstr "Veřejný Stream Feed"
+msgstr ""
 
 #: actions/public.php:164
-#, fuzzy
 msgid "Public Stream Feed (RSS 2.0)"
-msgstr "Veřejný Stream Feed"
+msgstr ""
 
 #: actions/public.php:168
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "Veřejný Stream Feed"
+msgstr ""
 
 #: actions/public.php:188
 #, php-format
@@ -3157,9 +3153,8 @@ msgid ""
 msgstr ""
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
-msgstr "Veřejný Stream Feed"
+msgstr ""
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -3183,8 +3178,9 @@ msgid ""
 msgstr ""
 
 #: actions/publictagcloud.php:134
+#, fuzzy
 msgid "Tag cloud"
-msgstr ""
+msgstr "Změnit barvy"
 
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
@@ -3211,26 +3207,32 @@ msgid "This confirmation code is too old. Please start again."
 msgstr "Tento potvrzující kód je příliš starý Prosím zkuste znovu"
 
 #: actions/recoverpassword.php:111
+#, fuzzy
 msgid "Could not update user with confirmed email address."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #: actions/recoverpassword.php:152
+#, fuzzy
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Návod jak obnovit heslo byl odeslát na vaší emailovou adresu zaregistrovanou "
+"u vašeho účtu."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
 
 #: actions/recoverpassword.php:188
+#, fuzzy
 msgid "Password recovery"
-msgstr ""
+msgstr "Žádost o obnovu hesla"
 
 #: actions/recoverpassword.php:191
+#, fuzzy
 msgid "Nickname or email address"
-msgstr ""
+msgstr "Zadej přezdívku nebo emailovou adresu"
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -3253,8 +3255,9 @@ msgid "Password recovery requested"
 msgstr "Žádost o obnovu hesla"
 
 #: actions/recoverpassword.php:213
+#, fuzzy
 msgid "Unknown action"
-msgstr ""
+msgstr "Akce uživatele"
 
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
@@ -3269,8 +3272,9 @@ msgid "Enter a nickname or email address."
 msgstr "Zadej přezdívku nebo emailovou adresu"
 
 #: actions/recoverpassword.php:282
+#, fuzzy
 msgid "No user with that email address or username."
-msgstr ""
+msgstr "Žádný registrovaný email pro tohoto uživatele."
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
@@ -3348,16 +3352,19 @@ msgid ""
 msgstr ""
 
 #: actions/register.php:432
+#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
-msgstr ""
+msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
 
 #: actions/register.php:437
+#, fuzzy
 msgid "6 or more characters. Required."
-msgstr ""
+msgstr "6 a více znaků"
 
 #: actions/register.php:441
+#, fuzzy
 msgid "Same as password above. Required."
-msgstr ""
+msgstr "Stejné jako heslo výše"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:445 actions/register.php:449
@@ -3396,13 +3403,11 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-" až na tyto privátní data: heslo, emailová adresa, IM adresa, telefonní "
-"číslo."
 
 #: actions/register.php:583
 #, php-format
@@ -3445,9 +3450,8 @@ msgid "Remote subscribe"
 msgstr "Vzdálený odběr"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Odběr autorizován"
+msgstr ""
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3475,27 +3479,24 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Neplatná adresa profilu (špatný formát)"
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "Není platnou adresou profilu (není YADIS dokumentem)."
+msgstr ""
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
 msgstr ""
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "Nelze získat řetězec požadavku."
+msgstr ""
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
 msgstr ""
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/repeat.php:76
 #, fuzzy
@@ -3503,19 +3504,17 @@ msgid "You can't repeat your own notice."
 msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Již jste přihlášen"
+msgstr ""
 
-#: actions/repeat.php:114 lib/noticelist.php:675
+#: actions/repeat.php:114 lib/noticelist.php:676
 #, fuzzy
 msgid "Repeated"
-msgstr "Vytvořit"
+msgstr "Reset"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Vytvořit"
+msgstr ""
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3529,19 +3528,19 @@ msgid "Replies to %1$s, page %2$d"
 msgstr "Odpovědi na %s"
 
 #: actions/replies.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/replies.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/replies.php:159
 #, fuzzy, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Feed sdělení pro %s"
+msgstr "Odpovědi na %s"
 
 #: actions/replies.php:199
 #, php-format
@@ -3570,29 +3569,25 @@ msgid "Replies to %1$s on %2$s!"
 msgstr "Odpovědi na %s"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/rsd.php:146 actions/version.php:159
 #, fuzzy
 msgid "StatusNet"
-msgstr "Obrázek nahrán"
+msgstr "Statistiky"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3624,16 +3619,15 @@ msgstr ""
 #: actions/useradminpanel.php:294
 #, fuzzy
 msgid "Save site settings"
-msgstr "Nastavení"
+msgstr "Nastavené Profilu"
 
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
 msgstr ""
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Sdělení nemá profil"
+msgstr ""
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
@@ -3649,9 +3643,8 @@ msgstr "Přezdívka"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:178 lib/applicationeditform.php:235
-#, fuzzy
 msgid "Organization"
-msgstr "Umístění"
+msgstr ""
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
@@ -3713,28 +3706,29 @@ msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%s a přátelé"
-
-#: actions/showfavorites.php:132
-msgid "Could not retrieve favorite notices."
 msgstr ""
 
+#: actions/showfavorites.php:132
+#, fuzzy
+msgid "Could not retrieve favorite notices."
+msgstr "Nelze smazat oblíbenou položku."
+
 #: actions/showfavorites.php:171
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #: actions/showfavorites.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #: actions/showfavorites.php:185
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Feed přítel uživatele: %s"
+msgstr ""
 
 #: actions/showfavorites.php:206
 msgid ""
@@ -3762,19 +3756,19 @@ msgid "This is a way to share what you like."
 msgstr ""
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
-#, php-format
+#, fuzzy, php-format
 msgid "%s group"
-msgstr ""
+msgstr "Upravit %s skupinu"
 
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "Všechny odběry"
+msgstr ""
 
 #: actions/showgroup.php:227
 #, fuzzy
 msgid "Group profile"
-msgstr "Žádné takové oznámení."
+msgstr "Logo skupiny"
 
 #: actions/showgroup.php:272 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
@@ -3791,28 +3785,29 @@ msgid "Aliases"
 msgstr ""
 
 #: actions/showgroup.php:302
+#, fuzzy
 msgid "Group actions"
-msgstr ""
+msgstr "Akce uživatele"
 
 #: actions/showgroup.php:338
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showgroup.php:344
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showgroup.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showgroup.php:355
 #, fuzzy, php-format
 msgid "FOAF for %s group"
-msgstr "Feed sdělení pro %s"
+msgstr "Upravit %s skupinu"
 
 #: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 #, fuzzy
@@ -3822,17 +3817,18 @@ msgstr "Členem od"
 #: actions/showgroup.php:398 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
+#, fuzzy
 msgid "(None)"
-msgstr ""
+msgstr "Poznámka"
 
 #: actions/showgroup.php:404
+#, fuzzy
 msgid "All members"
-msgstr ""
+msgstr "Všichni odběratelé"
 
 #: actions/showgroup.php:439
-#, fuzzy
 msgid "Created"
-msgstr "Vytvořit"
+msgstr ""
 
 #: actions/showgroup.php:455
 #, php-format
@@ -3858,8 +3854,9 @@ msgid "Admins"
 msgstr ""
 
 #: actions/showmessage.php:81
+#, fuzzy
 msgid "No such message."
-msgstr ""
+msgstr "Žádný takový uživatel."
 
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
@@ -3878,7 +3875,7 @@ msgstr ""
 #: actions/shownotice.php:90
 #, fuzzy
 msgid "Notice deleted."
-msgstr "Sdělení"
+msgstr "Avatar smazán."
 
 #: actions/showstream.php:73
 #, php-format
@@ -3886,29 +3883,29 @@ msgid " tagged %s"
 msgstr ""
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%s a přátelé"
+msgstr ""
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showstream.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showstream.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showstream.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/showstream.php:148
 #, php-format
@@ -3960,9 +3957,8 @@ msgid "You cannot silence users on this site."
 msgstr ""
 
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Uživatel nemá profil."
+msgstr ""
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -3995,9 +3991,8 @@ msgid "General"
 msgstr ""
 
 #: actions/siteadminpanel.php:224
-#, fuzzy
 msgid "Site name"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -4068,7 +4063,7 @@ msgstr ""
 #: actions/sitenoticeadminpanel.php:56
 #, fuzzy
 msgid "Site Notice"
-msgstr "Nové sdělení"
+msgstr "Sdělení"
 
 #: actions/sitenoticeadminpanel.php:67
 msgid "Edit site-wide message"
@@ -4101,7 +4096,7 @@ msgstr "Nové sdělení"
 #: actions/smssettings.php:59
 #, fuzzy
 msgid "SMS settings"
-msgstr "IM nastavení"
+msgstr "Nastavené Profilu"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -4112,15 +4107,13 @@ msgstr ""
 
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
 #: actions/smssettings.php:97
-#, fuzzy
 msgid "SMS is not available."
-msgstr "Tato stránka není k dispozici v typu média která přijímáte."
+msgstr ""
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "IM adresa"
+msgstr ""
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4134,8 +4127,9 @@ msgstr ""
 
 #. TRANS: Field label for SMS address input in SMS settings form.
 #: actions/smssettings.php:142
+#, fuzzy
 msgid "Confirmation code"
-msgstr ""
+msgstr "Žádný potvrzující kód."
 
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
@@ -4157,14 +4151,15 @@ msgstr "Žádné telefonní číslo."
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:156
+#, fuzzy
 msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
+msgstr "1-64 znaků nebo čísel, bez teček, čárek a mezer"
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
 #, fuzzy
 msgid "SMS preferences"
-msgstr "Nastavení"
+msgstr "Nastavení uloženo"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4191,13 +4186,15 @@ msgstr ""
 
 #. TRANS: Message given saving SMS phone number that is already set.
 #: actions/smssettings.php:352
+#, fuzzy
 msgid "That is already your phone number."
-msgstr ""
+msgstr "Toto je již vaše Jabber"
 
 #. TRANS: Message given saving SMS phone number that is already set for another user.
 #: actions/smssettings.php:356
+#, fuzzy
 msgid "That phone number already belongs to another user."
-msgstr ""
+msgstr "Jabber ID již patří jinému uživateli"
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
 #: actions/smssettings.php:384
@@ -4205,30 +4202,33 @@ msgstr ""
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
-msgstr "Tento potvrzující kód vám nepatří!"
+msgstr ""
+"Ověřující kód byl poslán na vloženou IM adresu. Musíte prokázat %s pro "
+"posílání zpráv."
 
 #. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
 #: actions/smssettings.php:413
+#, fuzzy
 msgid "That is the wrong confirmation number."
-msgstr ""
+msgstr "Toto je špatná IM adresa"
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
 #, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Potvrď zrušení"
+msgstr "Žádný potvrzující kód."
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
 #: actions/smssettings.php:448
+#, fuzzy
 msgid "That is not your phone number."
-msgstr ""
+msgstr "Toto není váš Jabber"
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "Žádné telefonní číslo."
+msgstr ""
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4251,8 +4251,9 @@ msgstr ""
 
 #. TRANS: Message given saving SMS phone number confirmation code without having provided one.
 #: actions/smssettings.php:548
+#, fuzzy
 msgid "No code entered"
-msgstr ""
+msgstr "Žádný obsah!"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
@@ -4263,7 +4264,7 @@ msgstr ""
 #: actions/snapshotadminpanel.php:65
 #, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Odběry"
+msgstr "Potvrzení emailové adresy"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4310,9 +4311,8 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Nastavení"
+msgstr ""
 
 #: actions/subedit.php:70
 #, fuzzy
@@ -4323,7 +4323,7 @@ msgstr "Neodeslal jste nám profil"
 #: actions/subedit.php:83 classes/Subscription.php:136
 #, fuzzy
 msgid "Could not save subscription."
-msgstr "Nelze vytvořit odebírat"
+msgstr "Nelze vložit odebírání"
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
@@ -4335,9 +4335,8 @@ msgid "No such profile."
 msgstr "Žádné takové oznámení."
 
 #: actions/subscribe.php:117
-#, fuzzy
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: actions/subscribe.php:145
 #, fuzzy
@@ -4347,12 +4346,12 @@ msgstr "Odebírat"
 #: actions/subscribers.php:50
 #, fuzzy, php-format
 msgid "%s subscribers"
-msgstr "Odběratelé"
+msgstr "Všichni odběratelé"
 
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "Všechny odběry"
+msgstr ""
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4425,29 +4424,28 @@ msgid "SMS"
 msgstr ""
 
 #: actions/tag.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Mikroblog od %s"
+msgstr ""
 
 #: actions/tag.php:87
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/tag.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/tag.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Feed sdělení pro %s"
+msgstr ""
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "Žádný takový dokument."
+msgstr ""
 
 #: actions/tagother.php:65
 #, php-format
@@ -4482,7 +4480,7 @@ msgstr ""
 #: actions/tagother.php:200
 #, fuzzy
 msgid "Could not save tags."
-msgstr "Nelze uložin informace o obrázku"
+msgstr "Nelze uložit profil"
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
@@ -4494,9 +4492,8 @@ msgid "No such tag."
 msgstr "Žádné takové oznámení."
 
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Již jste přihlášen"
+msgstr ""
 
 #: actions/unsandbox.php:72
 #, fuzzy
@@ -4511,7 +4508,7 @@ msgstr "Uživatel nemá profil."
 #: actions/unsubscribe.php:77
 #, fuzzy
 msgid "No profile ID in request."
-msgstr "Nebylo vráceno žádné URL profilu od servu."
+msgstr "Žádné potvrení!"
 
 #: actions/unsubscribe.php:98
 #, fuzzy
@@ -4579,14 +4576,12 @@ msgid "Default subscription"
 msgstr "Všechny odběry"
 
 #: actions/useradminpanel.php:242
-#, fuzzy
 msgid "Automatically subscribe new users to this user."
-msgstr "Odběr autorizován"
+msgstr ""
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "Umístění"
+msgstr ""
 
 #: actions/useradminpanel.php:256
 msgid "Invitations enabled"
@@ -4601,15 +4596,11 @@ msgid "Authorize subscription"
 msgstr "Autorizovaný odběr"
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"Prosím zkontrolujte tyto detailu, a ujistěte se že opravdu chcete odebírat "
-"sdělení tohoto uživatele. Pokud ne, ask to subscribe to somone's notices, "
-"klikněte na \"Zrušit\""
 
 #: actions/userauthorization.php:196 actions/version.php:167
 msgid "License"
@@ -4623,7 +4614,7 @@ msgstr "Přijmout"
 #: lib/subscribeform.php:139
 #, fuzzy
 msgid "Subscribe to this user"
-msgstr "Odběr autorizován"
+msgstr "Neodeslal jste nám profil"
 
 #: actions/userauthorization.php:219
 msgid "Reject"
@@ -4632,7 +4623,7 @@ msgstr "Odmítnout"
 #: actions/userauthorization.php:220
 #, fuzzy
 msgid "Reject this subscription"
-msgstr "Všechny odběry"
+msgstr "Autorizovaný odběr"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
@@ -4643,29 +4634,22 @@ msgid "Subscription authorized"
 msgstr "Odběr autorizován"
 
 #: actions/userauthorization.php:256
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"Odběr byl potvrzen, ale neprošla žádná callback adresa. Zkontrolujte v "
-"nápovědě jak správně postupovat při potvrzování odběru. Váš řetězec odběru "
-"je:"
 
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Odběr odmítnut"
 
 #: actions/userauthorization.php:268
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Odebírání bylo zamítnuto, ale neprošla žádná callback adresa. Zkontrolujte v "
-"nápovědě jak správně postupovat při zamítání odběru"
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -4693,14 +4677,14 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Nelze přečíst adresu obrázku '%s'"
+msgstr ""
 
 #: actions/userauthorization.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Neplatný typ obrázku pro '%s'"
+msgstr ""
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4719,9 +4703,9 @@ msgstr ""
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #: actions/usergroups.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "Všechny odběry"
+msgstr ""
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
@@ -4843,21 +4827,18 @@ msgstr "Neplatná velikost"
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
-#, fuzzy
 msgid "Group join failed."
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
 #: classes/Group_member.php:55
-#, fuzzy
 msgid "Not part of group."
-msgstr "Nelze aktualizovat uživatele"
+msgstr ""
 
 #. TRANS: Exception thrown when trying to leave a group fails.
 #: classes/Group_member.php:63
-#, fuzzy
 msgid "Group leave failed."
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -4868,9 +4849,9 @@ msgstr "Nelze aktualizovat uživatele"
 #. TRANS: Exception thrown when trying creating a login token failed.
 #. TRANS: %s is the user nickname for which token creation failed.
 #: classes/Login_token.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "Nelze uložin informace o obrázku"
+msgstr ""
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
@@ -4884,13 +4865,15 @@ msgstr ""
 
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
+#, fuzzy
 msgid "Could not insert message."
-msgstr ""
+msgstr "Nelze vložit odebírání"
 
 #. TRANS: Message given when a message could not be updated on the server.
 #: classes/Message.php:74
+#, fuzzy
 msgid "Could not update message with new URI."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -4900,61 +4883,61 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Chyba v DB při vkládání odpovědi: %s"
+msgstr "Chyba při kládání obrázku"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 #, fuzzy
 msgid "Problem saving notice. Unknown user."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Problém při ukládání sdělení"
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
+#: classes/Notice.php:1751
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4981,9 +4964,8 @@ msgstr "Uživatel nemá profil."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:346
-#, fuzzy
 msgid "Unable to save tag."
-msgstr "Problém při ukládání sdělení"
+msgstr ""
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
@@ -4992,8 +4974,9 @@ msgstr ""
 
 #. TRANS: Exception thrown when trying to subscribe while already subscribed.
 #: classes/Subscription.php:80
+#, fuzzy
 msgid "Already subscribed!"
-msgstr ""
+msgstr "Nepřihlášen!"
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
@@ -5011,19 +4994,19 @@ msgstr "Nepřihlášen!"
 #: classes/Subscription.php:178
 #, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Nelze smazat odebírání"
+msgstr "Nelze vložit odebírání"
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
 #, fuzzy
 msgid "Could not delete subscription OMB token."
-msgstr "Nelze smazat odebírání"
+msgstr "Nelze vložit odebírání"
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
 #, fuzzy
 msgid "Could not delete subscription."
-msgstr "Nelze smazat odebírání"
+msgstr "Nelze vložit odebírání"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5036,30 +5019,31 @@ msgstr ""
 #: classes/User_group.php:496
 #, fuzzy
 msgid "Could not create group."
-msgstr "Nelze uložin informace o obrázku"
+msgstr "Nelze aktualizovat uživatele"
 
 #. TRANS: Server exception thrown when updating a group URI failed.
 #: classes/User_group.php:506
 #, fuzzy
 msgid "Could not set group URI."
-msgstr "Nelze vytvořit odebírat"
+msgstr "Nelze uložit profil"
 
 #. TRANS: Server exception thrown when setting group membership failed.
 #: classes/User_group.php:529
 #, fuzzy
 msgid "Could not set group membership."
-msgstr "Nelze vytvořit odebírat"
+msgstr "Nelze aktualizovat uživatele"
 
 #. TRANS: Server exception thrown when saving local group information failed.
 #: classes/User_group.php:544
 #, fuzzy
 msgid "Could not save local group info."
-msgstr "Nelze vytvořit odebírat"
+msgstr "Nelze uložit profil"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
+#, fuzzy
 msgid "Change your profile settings"
-msgstr ""
+msgstr "Nastavené Profilu"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:116
@@ -5069,8 +5053,9 @@ msgstr "Nahrávání obrázku selhalo."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
+#, fuzzy
 msgid "Change your password"
-msgstr ""
+msgstr "Změnit heslo"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
@@ -5085,8 +5070,9 @@ msgstr "Uživatel nemá profil."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
+#, fuzzy
 msgid "Other options"
-msgstr ""
+msgstr "Akce uživatele"
 
 #. TRANS: Link description in user account settings menu.
 #: lib/accountsettingsaction.php:146
@@ -5124,17 +5110,15 @@ msgstr "Osobní"
 
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:447
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
-msgstr "Změnit heslo"
+msgstr ""
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:452
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr "Nelze přesměrovat na server: %s"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:455
@@ -5143,10 +5127,9 @@ msgstr "Připojit"
 
 #. TRANS: Tooltip for menu option "Admin"
 #: lib/action.php:458
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
-msgstr "Odběry"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #: lib/action.php:461
@@ -5163,10 +5146,9 @@ msgstr ""
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
 #: lib/action.php:468
-#, fuzzy
 msgctxt "MENU"
 msgid "Invite"
-msgstr "Neplatná velikost"
+msgstr ""
 
 #. TRANS: Tooltip for main menu option "Logout"
 #: lib/action.php:474
@@ -5179,14 +5161,13 @@ msgstr ""
 #, fuzzy
 msgctxt "MENU"
 msgid "Logout"
-msgstr "Odhlásit"
+msgstr "Logo"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:482
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr "Vytvořit nový účet"
+msgstr ""
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:485
@@ -5212,7 +5193,7 @@ msgstr "Přihlásit"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
-msgstr "Pomoci mi!"
+msgstr "Nápověda"
 
 #: lib/action.php:497
 #, fuzzy
@@ -5252,9 +5233,8 @@ msgstr "Nové sdělení"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:762
-#, fuzzy
 msgid "Secondary site navigation"
-msgstr "Odběry"
+msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
 #: lib/action.php:768
@@ -5302,13 +5282,11 @@ msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:827
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** je služba microblogů, kterou pro vás poskytuje [%%site."
-"broughtby%%](%%site.broughtbyurl%%). "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:830
@@ -5330,9 +5308,8 @@ msgstr ""
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:850
-#, fuzzy
 msgid "Site content license"
-msgstr "Nové sdělení"
+msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
@@ -5367,16 +5344,14 @@ msgstr ""
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
 #: lib/action.php:1203
-#, fuzzy
 msgid "After"
-msgstr "« Novější"
+msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
 #: lib/action.php:1213
-#, fuzzy
 msgid "Before"
-msgstr "Starší »"
+msgstr ""
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
 #: lib/activity.php:122
@@ -5429,10 +5404,9 @@ msgstr "Potvrzení emailové adresy"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:352
-#, fuzzy
 msgctxt "MENU"
 msgid "Site"
-msgstr "Nové sdělení"
+msgstr ""
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:358
@@ -5451,7 +5425,7 @@ msgstr "Vzhled"
 #: lib/adminpanelaction.php:366
 #, fuzzy
 msgid "User configuration"
-msgstr "Potvrzení emailové adresy"
+msgstr "Akce uživatele"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
@@ -5505,21 +5479,19 @@ msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:209
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:213
-#, fuzzy
 msgid "Describe your application"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
-#, fuzzy
 msgid "URL of the homepage of this application"
-msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
+msgstr ""
 
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:226
@@ -5534,9 +5506,8 @@ msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
+msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:251
@@ -5599,7 +5570,7 @@ msgstr ""
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
-msgstr "Odstranit"
+msgstr "Obnovit"
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
@@ -5630,9 +5601,8 @@ msgid "Password changing failed"
 msgstr "Heslo uloženo"
 
 #: lib/authenticationplugin.php:236
-#, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Heslo uloženo"
+msgstr ""
 
 #: lib/channel.php:157 lib/channel.php:177
 msgid "Command results"
@@ -5647,9 +5617,8 @@ msgid "Command failed"
 msgstr ""
 
 #: lib/command.php:83 lib/command.php:105
-#, fuzzy
 msgid "Notice with that id does not exist"
-msgstr "Vzdálený profil s nesouhlasícím profilem"
+msgstr ""
 
 #: lib/command.php:99 lib/command.php:596
 #, fuzzy
@@ -5681,9 +5650,9 @@ msgstr ""
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
 #: lib/command.php:234
-#, fuzzy, php-format
+#, php-format
 msgid "Nudge sent to %s"
-msgstr "Odpovědi na %s"
+msgstr ""
 
 #: lib/command.php:260
 #, php-format
@@ -5700,21 +5669,21 @@ msgstr ""
 #: lib/command.php:323
 #, fuzzy
 msgid "You are already a member of that group"
-msgstr "Již jste přihlášen"
+msgstr "Neodeslal jste nám profil"
 
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
 #, fuzzy, php-format
 msgid "Could not join user %1$s to group %2$s"
-msgstr "Nelze přesměrovat na server: %s"
+msgstr "Nelze aktualizovat uživatele"
 
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
-#, fuzzy, php-format
+#, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "Nelze vytvořit OpenID z: %s"
+msgstr ""
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5725,22 +5694,22 @@ msgstr "Celé jméno"
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/command.php:422 lib/mail.php:268
-#, php-format
+#, fuzzy, php-format
 msgid "Location: %s"
-msgstr ""
+msgstr "Umístění"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/command.php:426 lib/mail.php:271
-#, php-format
+#, fuzzy, php-format
 msgid "Homepage: %s"
-msgstr ""
+msgstr "Moje stránky"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
 #: lib/command.php:430
-#, php-format
+#, fuzzy, php-format
 msgid "About: %s"
-msgstr ""
+msgstr "O nás"
 
 #: lib/command.php:457
 #, php-format
@@ -5764,13 +5733,13 @@ msgid "Direct message to %s sent"
 msgstr ""
 
 #: lib/command.php:494
+#, fuzzy
 msgid "Error sending direct message."
-msgstr ""
+msgstr "Chyba nastavení uživatele"
 
 #: lib/command.php:514
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "Nemůžete se registrovat, pokud nesouhlasíte s licencí."
+msgstr ""
 
 #: lib/command.php:519
 #, fuzzy
@@ -5780,14 +5749,14 @@ msgstr "Odstranit toto oznámení"
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
 #: lib/command.php:529
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "Sdělení"
+msgstr ""
 
 #: lib/command.php:531
 #, fuzzy
 msgid "Error repeating notice."
-msgstr "Problém při ukládání sdělení"
+msgstr "Chyba nastavení uživatele"
 
 #: lib/command.php:562
 #, php-format
@@ -5809,39 +5778,40 @@ msgid "Specify the name of the user to subscribe to"
 msgstr ""
 
 #: lib/command.php:628
-#, fuzzy
 msgid "Can't subscribe to OMB profiles by command."
-msgstr "Neodeslal jste nám profil"
+msgstr ""
 
 #: lib/command.php:634
-#, php-format
+#, fuzzy, php-format
 msgid "Subscribed to %s"
-msgstr ""
+msgstr "Odběratelé"
 
 #: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
 msgstr ""
 
 #: lib/command.php:664
-#, php-format
+#, fuzzy, php-format
 msgid "Unsubscribed from %s"
-msgstr ""
+msgstr "Odhlásit"
 
 #: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
 msgstr ""
 
 #: lib/command.php:685
+#, fuzzy
 msgid "Notification off."
-msgstr ""
+msgstr "Žádný potvrzující kód."
 
 #: lib/command.php:687
 msgid "Can't turn off notification."
 msgstr ""
 
 #: lib/command.php:708
+#, fuzzy
 msgid "Notification on."
-msgstr ""
+msgstr "Žádný potvrzující kód."
 
 #: lib/command.php:710
 msgid "Can't turn on notification."
@@ -5997,17 +5967,19 @@ msgid "Design defaults restored."
 msgstr ""
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
+#, fuzzy
 msgid "Disfavor this notice"
-msgstr ""
+msgstr "Odstranit toto oznámení"
 
 #: lib/favorform.php:114 lib/favorform.php:140
 #, fuzzy
 msgid "Favor this notice"
-msgstr "Žádné takové oznámení."
+msgstr "Odstranit toto oznámení"
 
 #: lib/favorform.php:140
+#, fuzzy
 msgid "Favor"
-msgstr ""
+msgstr "Oblíbené"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -6064,14 +6036,13 @@ msgid "URL of the homepage or blog of the group or topic"
 msgstr "Adresa vašich stránek, blogu nebo profilu na jiných stránkách."
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr ""
 
 #: lib/groupeditform.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Popiš sebe a své zájmy ve 140 znacích"
+msgstr ""
 
 #: lib/groupeditform.php:179
 #, fuzzy
@@ -6085,23 +6056,23 @@ msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
 #: lib/groupnav.php:85
+#, fuzzy
 msgid "Group"
-msgstr ""
+msgstr "Skupiny"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #: lib/groupnav.php:102
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked users"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #: lib/groupnav.php:108
-#, php-format
+#, fuzzy, php-format
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Upravit %s skupinu"
 
 #: lib/groupnav.php:113
 msgid "Logo"
@@ -6157,9 +6128,8 @@ msgid "Not an image or corrupt file."
 msgstr "Není obrázkem, nebo jde o poškozený soubor."
 
 #: lib/imagefile.php:122
-#, fuzzy
 msgid "Lost our file."
-msgstr "Žádné takové oznámení."
+msgstr ""
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -6198,9 +6168,8 @@ msgid "Login with a username and password"
 msgstr "Neplatné jméno nebo heslo"
 
 #: lib/logingroupnav.php:86
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "Vytvořit nový účet"
+msgstr ""
 
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
@@ -6240,7 +6209,7 @@ msgstr ""
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -6253,12 +6222,6 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
-"%1 naslouchá vašim sdělením na %s. \n"
-"\n"
-"\t%3\n"
-"\n"
-"S úctou váš,\n"
-"%4$s.\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:274
@@ -6268,9 +6231,9 @@ msgstr "O mě"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304
-#, php-format
+#, fuzzy, php-format
 msgid "New email address for posting to %s"
-msgstr ""
+msgstr "Žádný registrovaný email pro tohoto uživatele."
 
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:308
@@ -6288,14 +6251,15 @@ msgstr ""
 
 #. TRANS: Subject line for SMS-by-email notification messages
 #: lib/mail.php:433
-#, php-format
+#, fuzzy, php-format
 msgid "%s status"
-msgstr ""
+msgstr "%1 statusů na %2"
 
 #. TRANS: Subject line for SMS-by-email address confirmation message
 #: lib/mail.php:460
+#, fuzzy
 msgid "SMS confirmation"
-msgstr ""
+msgstr "Žádný potvrzující kód."
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:463
@@ -6354,9 +6318,9 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification email
 #: lib/mail.php:589
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%1 od teď naslouchá tvým sdělením v %2"
+msgstr ""
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6432,22 +6396,23 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
-#, fuzzy
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
-msgstr " od "
+msgstr ""
 
 #: lib/mailhandler.php:37
+#, fuzzy
 msgid "Could not parse message."
-msgstr ""
+msgstr "Nelze aktualizovat uživatele"
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
 msgstr "Není registrovaný uživatel."
 
 #: lib/mailhandler.php:46
+#, fuzzy
 msgid "Sorry, that is not your incoming email address."
-msgstr ""
+msgstr "Toto je špatná IM adresa"
 
 #: lib/mailhandler.php:50
 msgid "Sorry, no incoming email allowed."
@@ -6499,7 +6464,7 @@ msgstr ""
 #: lib/mediafile.php:202 lib/mediafile.php:238
 #, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "Nelze aktualizovat uživatele"
+msgstr "Nelze smazat oblíbenou položku."
 
 #: lib/mediafile.php:318
 #, php-format
@@ -6519,46 +6484,43 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 #, fuzzy
 msgid "Available characters"
 msgstr "6 a více znaků"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
-#, fuzzy
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr "Odeslat"
+msgstr ""
 
 #: lib/noticeform.php:160
 #, fuzzy
 msgid "Send a notice"
 msgstr "Nové sdělení"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Co se děje %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
-#, fuzzy
+#: lib/noticeform.php:213
 msgid "Share my location"
-msgstr "Nelze uložit profil"
-
-#: lib/noticeform.php:215
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Nelze uložit profil"
+msgstr ""
 
 #: lib/noticeform.php:216
+msgid "Do not share my location"
+msgstr ""
+
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6593,41 +6555,46 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 #, fuzzy
 msgid "in context"
 msgstr "Žádný obsah!"
 
-#: lib/noticelist.php:602
-#, fuzzy
+#: lib/noticelist.php:603
 msgid "Repeated by"
-msgstr "Vytvořit"
-
-#: lib/noticelist.php:629
-msgid "Reply to this notice"
 msgstr ""
 
 #: lib/noticelist.php:630
 #, fuzzy
-msgid "Reply"
-msgstr "odpověď"
+msgid "Reply to this notice"
+msgstr "Odstranit toto oznámení"
 
-#: lib/noticelist.php:674
+#: lib/noticelist.php:631
 #, fuzzy
+msgid "Reply"
+msgstr "Odpovědi"
+
+#: lib/noticelist.php:675
 msgid "Notice repeated"
-msgstr "Sdělení"
+msgstr ""
 
 #: lib/nudgeform.php:116
+#, fuzzy
 msgid "Nudge this user"
-msgstr ""
+msgstr "Odstranit tohoto uživatele"
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
 msgstr ""
 
 #: lib/nudgeform.php:128
+#, fuzzy
 msgid "Send a nudge to this user"
-msgstr ""
+msgstr "Odstranit tohoto uživatele"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
@@ -6648,7 +6615,7 @@ msgstr "Chyba při vkládaní vzdáleného profilu"
 #: lib/oauthstore.php:345
 #, fuzzy
 msgid "Duplicate notice"
-msgstr "Nové sdělení"
+msgstr "Odstranit toto oznámení"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -6721,8 +6688,9 @@ msgid "Daily average"
 msgstr ""
 
 #: lib/profileaction.php:264
+#, fuzzy
 msgid "All groups"
-msgstr ""
+msgstr "Nová skupina"
 
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
@@ -6733,8 +6701,9 @@ msgid "Public"
 msgstr "Veřejné"
 
 #: lib/publicgroupnav.php:82
+#, fuzzy
 msgid "User groups"
-msgstr ""
+msgstr "Nová skupina"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
@@ -6750,9 +6719,8 @@ msgid "Popular"
 msgstr "Hledání lidí"
 
 #: lib/redirectingaction.php:95
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Žádný takový dokument."
+msgstr ""
 
 #: lib/repeatform.php:107
 #, fuzzy
@@ -6769,9 +6737,9 @@ msgid "Repeat this notice"
 msgstr "Odstranit toto oznámení"
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Žádný takový uživatel."
+msgstr ""
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
@@ -6784,7 +6752,7 @@ msgstr ""
 #: lib/sandboxform.php:78
 #, fuzzy
 msgid "Sandbox this user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #: lib/searchaction.php:120
 #, fuzzy
@@ -6805,8 +6773,9 @@ msgid "Search help"
 msgstr "Hledat"
 
 #: lib/searchgroupnav.php:80
+#, fuzzy
 msgid "People"
-msgstr ""
+msgstr "Hledání lidí"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
@@ -6829,14 +6798,13 @@ msgid "More..."
 msgstr ""
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Nové sdělení"
+msgstr ""
 
 #: lib/silenceform.php:78
 #, fuzzy
 msgid "Silence this user"
-msgstr "Žádný takový uživatel."
+msgstr "Odstranit tohoto uživatele"
 
 #: lib/subgroupnav.php:83
 #, fuzzy, php-format
@@ -6873,8 +6841,9 @@ msgid "People Tagcloud as tagged"
 msgstr ""
 
 #: lib/tagcloudsection.php:56
+#, fuzzy
 msgid "None"
-msgstr ""
+msgstr "Poznámka"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
@@ -6931,7 +6900,7 @@ msgstr ""
 #: lib/unsandboxform.php:80
 #, fuzzy
 msgid "Unsandbox this user"
-msgstr "Žádný takový uživatel."
+msgstr "Zablokovat tohoto uživatele"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -6940,11 +6909,12 @@ msgstr ""
 #: lib/unsilenceform.php:78
 #, fuzzy
 msgid "Unsilence this user"
-msgstr "Žádný takový uživatel."
+msgstr "Odstranit tohoto uživatele"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+#, fuzzy
 msgid "Unsubscribe from this user"
-msgstr ""
+msgstr "Neodeslal jste nám profil"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
@@ -7004,56 +6974,56 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "před pár sekundami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "asi před minutou"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "asi před %d minutami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "asi před hodinou"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "asi před %d hodinami"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "asi přede dnem"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about %d days ago"
 msgstr "před %d dny"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "asi před měsícem"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, php-format
 msgid "about %d months ago"
 msgstr "asi před %d mesíci"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "asi před rokem"
 

@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:23+0000\n"
+"POT-Creation-Date: 2010-08-24 06:13+0000\n"
+"PO-Revision-Date: 2010-08-24 06:14:21+0000\n"
 "Language-Team: Finnish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: out-statusnet\n"
@@ -96,7 +96,7 @@ msgstr "Tallenna"
 #: actions/showfavorites.php:138 actions/tag.php:52
 #, fuzzy
 msgid "No such page."
-msgstr "Sivua ei ole."
+msgstr "Tuota tagia ei ole."
 
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
@@ -126,7 +126,7 @@ msgstr "Käyttäjää ei ole."
 #: actions/all.php:90
 #, fuzzy, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%s ja kaverit, sivu %d"
+msgstr "%s ja kaverit"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
@@ -302,7 +302,7 @@ msgstr "Ei voitu päivittää käyttäjää."
 #: actions/apiblockcreate.php:105
 #, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Et voi lopettaa itsesi tilausta!"
+msgstr "Sinä et voi poistaa käyttäjiä."
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
@@ -376,7 +376,7 @@ msgstr "Ei voitu poistaa suosikkia."
 #: actions/apifriendshipscreate.php:109
 #, fuzzy
 msgid "Could not follow user: profile not found."
-msgstr "Ei voitu tilata käyttäjää: Käyttäjää ei löytynyt."
+msgstr "Ei voitu lopettaa tilausta: Käyttäjää ei löytynyt."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
@@ -390,22 +390,21 @@ msgstr "Ei voitu lopettaa tilausta: Käyttäjää ei löytynyt."
 #: actions/apifriendshipsdestroy.php:120
 #, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Et voi lopettaa itsesi tilausta!"
+msgstr "Sinä et voi poistaa käyttäjiä."
 
 #: actions/apifriendshipsexists.php:91
-#, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "Kaksi käyttäjätunnusta tai nimeä täytyy antaa."
+msgstr ""
 
 #: actions/apifriendshipsshow.php:134
 #, fuzzy
 msgid "Could not determine source user."
-msgstr "Julkista päivitysvirtaa ei saatu."
+msgstr "Ei voitu päivittää käyttäjää."
 
 #: actions/apifriendshipsshow.php:142
 #, fuzzy
 msgid "Could not find target user."
-msgstr "Ei löytynyt yhtään päivitystä."
+msgstr "Ei voitu päivittää käyttäjää."
 
 #: actions/apigroupcreate.php:167 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
@@ -444,7 +443,7 @@ msgstr "Koko nimi on liian pitkä (max 255 merkkiä)."
 #: actions/newapplication.php:172
 #, fuzzy, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "kuvaus on liian pitkä (max 140 merkkiä)."
+msgstr "kuvaus on liian pitkä (max %d merkkiä)."
 
 #: actions/apigroupcreate.php:227 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
@@ -479,7 +478,7 @@ msgstr "Alias ei voi olla sama kuin ryhmätunnus."
 #: actions/apigroupshow.php:83 actions/apitimelinegroup.php:92
 #, fuzzy
 msgid "Group not found."
-msgstr "Ryhmää ei löytynyt!"
+msgstr "Ei löytynyt."
 
 #: actions/apigroupjoin.php:111 actions/joingroup.php:100
 msgid "You are already a member of that group."
@@ -501,7 +500,7 @@ msgstr "Sinä et kuulu tähän ryhmään."
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "Ei voitu poistaa käyttäjää %s ryhmästä %s"
+msgstr "Käyttäjä %s ei voinut liittyä ryhmään %s."
 
 #. TRANS: %s is a user name
 #: actions/apigrouplist.php:98
@@ -530,7 +529,7 @@ msgstr "Ryhmän toiminnot"
 #: actions/apimediaupload.php:99
 #, fuzzy
 msgid "Upload failed."
-msgstr "Lataa"
+msgstr "Komento epäonnistui"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -567,14 +566,12 @@ msgid "Invalid nickname / password!"
 msgstr "Käyttäjätunnus tai salasana ei kelpaa."
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "Virhe tapahtui käyttäjän asettamisessa."
+msgstr ""
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "Tietokantavirhe tallennettaessa risutagiä: %s"
+msgstr ""
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -670,7 +667,7 @@ msgstr "Ilmoituksia ei voi pistää päälle."
 #: actions/apistatusesretweet.php:91
 #, fuzzy
 msgid "Already repeated that notice."
-msgstr "Poista tämä päivitys"
+msgstr "Tätä päivitystä ei voi poistaa."
 
 #: actions/apistatusesshow.php:139
 msgid "Status deleted."
@@ -684,7 +681,7 @@ msgstr "Käyttäjätunnukselle ei löytynyt statusviestiä."
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -694,7 +691,7 @@ msgstr "Päivitys on liian pitkä. Maksimipituus on %d merkkiä."
 msgid "Not found."
 msgstr "Ei löytynyt."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Maksimikoko päivitykselle on %d merkkiä, mukaan lukien URL-osoite."
@@ -706,17 +703,17 @@ msgstr "Formaattia ei ole tuettu."
 #: actions/apitimelinefavorites.php:110
 #, fuzzy, php-format
 msgid "%1$s / Favorites from %2$s"
-msgstr "%s / Käyttäjän %s suosikit"
+msgstr "Käyttäjän %1$s päivitys %2$s"
 
 #: actions/apitimelinefavorites.php:119
 #, fuzzy, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr " Palvelun %s päivitykset, jotka %s / %s on merkinnyt suosikikseen."
+msgstr "Käyttäjän %1$s suosikit palvelussa %2$s!"
 
 #: actions/apitimelinementions.php:118
 #, fuzzy, php-format
 msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s / Vastaukset päivitykseen %2$s"
+msgstr "Käyttäjän %1$s päivitys %2$s"
 
 #: actions/apitimelinementions.php:131
 #, php-format
@@ -752,7 +749,7 @@ msgstr "Päivitykset joilla on tagi %s"
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
 #, fuzzy, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
+msgstr "Käyttäjän %1$s suosikit palvelussa %2$s!"
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
@@ -793,7 +790,7 @@ msgstr "Voit ladata oman profiilikuvasi. Maksimikoko on %s."
 #: actions/userauthorization.php:72 actions/userrss.php:108
 #, fuzzy
 msgid "User without matching profile."
-msgstr "Käyttäjälle ei löydy profiilia"
+msgstr "Käyttäjällä ei ole profiilia."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -811,7 +808,7 @@ msgid "Preview"
 msgstr "Esikatselu"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Poista"
 
@@ -851,7 +848,7 @@ msgstr "Kuva poistettu."
 #: actions/block.php:69
 #, fuzzy
 msgid "You already blocked that user."
-msgstr "Sinä olet jo estänyt tämän käyttäjän."
+msgstr "Olet jos tilannut seuraavien käyttäjien päivitykset:"
 
 #: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
 msgid "Block user"
@@ -875,7 +872,7 @@ msgstr ""
 #, fuzzy
 msgctxt "BUTTON"
 msgid "No"
-msgstr "Ei"
+msgstr "Huomaa"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #. TRANS: Submit button title for 'No' when deleting a user.
@@ -925,9 +922,9 @@ msgid "%s blocked profiles"
 msgstr "Käyttäjän profiili"
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "%s ja kaverit, sivu %d"
+msgstr ""
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
@@ -949,7 +946,7 @@ msgstr "Poista esto tältä käyttäjältä"
 #: actions/bookmarklet.php:51
 #, fuzzy, php-format
 msgid "Post to %s"
-msgstr "Kuva"
+msgstr "Vastaukset käyttäjälle %s"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -965,9 +962,9 @@ msgstr "Tämä vahvistuskoodi ei ole sinun!"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Tuntematon osoitetyyppi %s "
+msgstr ""
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -998,7 +995,7 @@ msgstr "Ei voitu poistaa sähköpostivahvistusta."
 #: actions/confirmaddress.php:146
 #, fuzzy
 msgid "Confirm address"
-msgstr "Vahvista osoite"
+msgstr "Tämän hetken vahvistettu sähköpostiosoite."
 
 #: actions/confirmaddress.php:161
 #, php-format
@@ -1017,13 +1014,12 @@ msgstr "Päivitykset"
 #: actions/deleteapplication.php:63
 #, fuzzy
 msgid "You must be logged in to delete an application."
-msgstr ""
-"Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
+msgstr "Sinun pitää olla kirjautunut sisään, jotta voit erota ryhmästä."
 
 #: actions/deleteapplication.php:71
 #, fuzzy
 msgid "Application not found."
-msgstr "Päivitykselle ei ole profiilia"
+msgstr "Vahvistuskoodia ei löytynyt."
 
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
@@ -1038,9 +1034,8 @@ msgid "There was a problem with your session token."
 msgstr "Istuntoavaimesi kanssa oli ongelma."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
 msgid "Delete application"
-msgstr "Päivitystä ei ole."
+msgstr ""
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1098,7 +1093,7 @@ msgid "Do not delete this notice"
 msgstr "Älä poista tätä päivitystä"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
+#: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
 msgstr "Poista tämä päivitys"
 
@@ -1109,7 +1104,7 @@ msgstr "Sinä et voi poistaa käyttäjiä."
 #: actions/deleteuser.php:74
 #, fuzzy
 msgid "You can only delete local users."
-msgstr "Et voi poistaa toisen käyttäjän päivitystä."
+msgstr "Sinä et voi poistaa käyttäjiä."
 
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
 msgid "Delete user"
@@ -1125,7 +1120,7 @@ msgstr ""
 #: actions/deleteuser.php:163 lib/deleteuserform.php:77
 #, fuzzy
 msgid "Delete this user"
-msgstr "Poista tämä päivitys"
+msgstr "Poista käyttäjä"
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
@@ -1151,12 +1146,12 @@ msgstr "Pikaviestin ei ole käytettävissä."
 #: actions/designadminpanel.php:426
 #, fuzzy
 msgid "Change logo"
-msgstr "Vaihda salasanasi"
+msgstr "Vaihda väriä"
 
 #: actions/designadminpanel.php:431
 #, fuzzy
 msgid "Site logo"
-msgstr "Kutsu"
+msgstr "Palvelun ilmoitus"
 
 #: actions/designadminpanel.php:443
 #, fuzzy
@@ -1169,14 +1164,12 @@ msgid "Site theme"
 msgstr "Palvelun ilmoitus"
 
 #: actions/designadminpanel.php:461
-#, fuzzy
 msgid "Theme for the site."
-msgstr "Kirjaudu ulos palvelusta"
+msgstr ""
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Palvelun ilmoitus"
+msgstr ""
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -1209,12 +1202,14 @@ msgid "Off"
 msgstr "Off"
 
 #: actions/designadminpanel.php:545 lib/designsettings.php:156
+#, fuzzy
 msgid "Turn background image on or off."
-msgstr ""
+msgstr "Vaihda tautakuva"
 
 #: actions/designadminpanel.php:550 lib/designsettings.php:161
+#, fuzzy
 msgid "Tile background image"
-msgstr ""
+msgstr "Vaihda tautakuva"
 
 #: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
@@ -1250,12 +1245,14 @@ msgid "Use defaults"
 msgstr "Käytä oletusasetuksia"
 
 #: actions/designadminpanel.php:677 lib/designsettings.php:248
+#, fuzzy
 msgid "Restore default designs"
-msgstr ""
+msgstr "Käytä oletusasetuksia"
 
 #: actions/designadminpanel.php:683 lib/designsettings.php:254
+#, fuzzy
 msgid "Reset back to default"
-msgstr ""
+msgstr "Käytä oletusasetuksia"
 
 #. TRANS: Submit button title
 #: actions/designadminpanel.php:685 actions/othersettings.php:126
@@ -1269,8 +1266,9 @@ msgid "Save"
 msgstr "Tallenna"
 
 #: actions/designadminpanel.php:686 lib/designsettings.php:257
+#, fuzzy
 msgid "Save design"
-msgstr ""
+msgstr "Ryhmän ulkoasu"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -1283,12 +1281,11 @@ msgstr "Lisää suosikkeihin"
 #: actions/doc.php:158
 #, fuzzy, php-format
 msgid "No such document \"%s\""
-msgstr "Dokumenttia ei ole."
+msgstr "Liitettä ei ole."
 
 #: actions/editapplication.php:54
-#, fuzzy
 msgid "Edit Application"
-msgstr "Muita asetuksia"
+msgstr ""
 
 #: actions/editapplication.php:66
 #, fuzzy
@@ -1375,7 +1372,8 @@ msgstr "Sinun pitää olla kirjautunut sisään jotta voit luoda ryhmän."
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 #, fuzzy
 msgid "You must be an admin to edit the group."
-msgstr "Sinun pitää olla ylläpitäjä, jotta voit muokata ryhmää"
+msgstr ""
+"Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
 
 #: actions/editgroup.php:158
 msgid "Use this form to edit the group."
@@ -1408,7 +1406,7 @@ msgstr "Asetukset tallennettu."
 #: actions/emailsettings.php:61
 #, fuzzy
 msgid "Email settings"
-msgstr "Sähköpostiasetukset"
+msgstr "Profiiliasetukset"
 
 #. TRANS: E-mail settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -1471,10 +1469,9 @@ msgstr "Sähköpostiosoite, esimerkiksi \"käyttäjätunnus@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
-msgstr "Lisää"
+msgstr ""
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
@@ -1499,16 +1496,15 @@ msgstr ""
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
-msgstr "Uusi"
+msgstr ""
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
 #, fuzzy
 msgid "Email preferences"
-msgstr "Asetukset"
+msgstr "Sähköpostiosoitteet"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1613,7 +1609,7 @@ msgstr "Tämä on väärä pikaviestiosoite."
 #: actions/emailsettings.php:438
 #, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Vahvistus peruttu."
+msgstr "Avoimia vahvistuksia ei ole peruutettavana."
 
 #. TRANS: Message given trying to remove an e-mail address that is not
 #. TRANS: registered for the active user.
@@ -1625,7 +1621,7 @@ msgstr "Tämä ei ole sähköpostiosoitteesi."
 #: actions/emailsettings.php:479
 #, fuzzy
 msgid "The email address was removed."
-msgstr "Osoite on poistettu."
+msgstr "Saapuvan sähköpostin osoite poistettu."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
 msgid "No incoming email address."
@@ -1709,38 +1705,37 @@ msgid "Featured users, page %d"
 msgstr "Esittelyssä olevat käyttäjät, sivu %d"
 
 #: actions/featured.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "A selection of some great users on %s"
-msgstr "Valikoima joitakin loistavia palvelun %s käyttäjiä"
+msgstr ""
 
 #: actions/file.php:34
 #, fuzzy
 msgid "No notice ID."
-msgstr "Ei päivitystä"
+msgstr "Päivitystä ei ole."
 
 #: actions/file.php:38
 #, fuzzy
 msgid "No notice."
-msgstr "Ei päivitystä"
+msgstr "Päivitystä ei ole."
 
 #: actions/file.php:42
 #, fuzzy
 msgid "No attachments."
-msgstr "Ei liitteitä"
+msgstr "Liitettä ei ole."
 
 #: actions/file.php:51
 #, fuzzy
 msgid "No uploaded attachments."
-msgstr "Ei ladattuja liitteitä"
+msgstr "Liitettä ei ole."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "Odottamaton vastaus saatu!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "Käyttäjää jota seurataan ei ole olemassa."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1757,12 +1752,11 @@ msgstr "Sinulla ei ole valtuutusta tähän."
 #: actions/finishremotesubscribe.php:113
 #, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "Ei voitu muuttaa request tokeneita access tokeneiksi."
+msgstr "Ei saatu request tokenia."
 
 #: actions/finishremotesubscribe.php:118
-#, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "Tuntematon OMB-protokollan versio."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:138
 #, fuzzy
@@ -1789,12 +1783,12 @@ msgstr ""
 #: actions/grantrole.php:75
 #, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Et voi lähettää viestiä tälle käyttäjälle."
+msgstr "Päivityksesi tähän palveluun on estetty."
 
 #: actions/grantrole.php:82
 #, fuzzy
 msgid "User already has this role."
-msgstr "Käyttäjä on asettanut eston sinulle."
+msgstr "Käyttäjällä ei ole profiilia."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1820,7 +1814,7 @@ msgstr "Vain ylläpitäjä voi estää ryhmän jäseniä."
 #: actions/groupblock.php:95
 #, fuzzy
 msgid "User is already blocked from group."
-msgstr "Käyttäjä on asettanut eston sinulle."
+msgstr "Käyttäjää ei ole estetty ryhmästä."
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
@@ -1849,13 +1843,14 @@ msgid "Block this user from this group"
 msgstr "Estä tätä käyttäjää osallistumassa tähän ryhmään"
 
 #: actions/groupblock.php:206
+#, fuzzy
 msgid "Database error blocking user from group."
-msgstr ""
+msgstr "Poista käyttäjän esto ryhmästä"
 
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 #, fuzzy
 msgid "No ID."
-msgstr "ID-tunnusta ei ole"
+msgstr "Ei Jabber ID -osoitetta"
 
 #: actions/groupdesignsettings.php:68
 msgid "You must be logged in to edit a group."
@@ -1911,7 +1906,7 @@ msgstr "Ryhmän %s jäsenet"
 #: actions/groupmembers.php:103
 #, fuzzy, php-format
 msgid "%1$s group members, page %2$d"
-msgstr "Ryhmän %s jäsenet, sivu %d"
+msgstr "Ryhmän %s jäsenet"
 
 #: actions/groupmembers.php:118
 msgid "A list of the users in this group."
@@ -2025,7 +2020,7 @@ msgstr "Tapahtui virhe, kun estoa poistettiin."
 #: actions/imsettings.php:60
 #, fuzzy
 msgid "IM settings"
-msgstr "Pikaviestiasetukset"
+msgstr "Profiilikuva-asetukset"
 
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
@@ -2049,7 +2044,7 @@ msgstr "Pikaviestin ei ole käytettävissä."
 #: actions/imsettings.php:106 actions/imsettings.php:136
 #, fuzzy
 msgid "IM address"
-msgstr "Pikaviestiosoite"
+msgstr "Sähköpostiosoitteet"
 
 #: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
@@ -2083,7 +2078,7 @@ msgstr ""
 #: actions/imsettings.php:155
 #, fuzzy
 msgid "IM preferences"
-msgstr "Asetukset"
+msgstr "Asetukset tallennettu."
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2163,7 +2158,7 @@ msgstr "Ei voitu poistaa sähköpostivahvistusta."
 #: actions/imsettings.php:402
 #, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Vahvistus peruttu."
+msgstr "Varmistuskoodia ei ole annettu."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
@@ -2175,7 +2170,7 @@ msgstr "Tämä ei ole Jabber ID-tunnuksesi."
 #: actions/imsettings.php:447
 #, fuzzy
 msgid "The IM address was removed."
-msgstr "Osoite on poistettu."
+msgstr "Saapuvan sähköpostin osoite poistettu."
 
 #: actions/inbox.php:59
 #, fuzzy, php-format
@@ -2199,8 +2194,7 @@ msgstr "Kutsut ovat pois käytöstä."
 #, fuzzy, php-format
 msgid "You must be logged in to invite other users to use %s."
 msgstr ""
-"Sinun täytyy olla kirjautuneena sisään kutsuaksesi uusia käyttäjiä palveluun "
-"%s"
+"Sinun pitää olla kirjautunut sisään, jotta voit muuttaa ryhmän tietoja."
 
 #: actions/invite.php:72
 #, php-format
@@ -2270,10 +2264,9 @@ msgstr "Voit myös lisätä oman viestisi kutsuun"
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
-msgstr "Lähetä"
+msgstr ""
 
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:228
@@ -2350,9 +2343,9 @@ msgstr "Tunnusta ei ole."
 #. TRANS: Message given having added a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/joingroup.php:141 lib/command.php:346
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s joined group %2$s"
-msgstr "%s liittyi ryhmään %s"
+msgstr ""
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
@@ -2367,7 +2360,7 @@ msgstr "Sinä et kuulu tähän ryhmään."
 #: actions/leavegroup.php:137 lib/command.php:392
 #, fuzzy, php-format
 msgid "%1$s left group %2$s"
-msgstr "%s erosi ryhmästä %s"
+msgstr "Käyttäjän %1$s päivitys %2$s"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2418,42 +2411,38 @@ msgid "Login with your username and password."
 msgstr "Kirjaudu sisään käyttäjätunnuksella ja salasanalla"
 
 #: actions/login.php:295
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Kirjaud sisään käyttäjätunnuksella ja salasanalla. Ei vielä "
-"käyttäjätunnusta? [Rekisteröi](%%action.register%%) käyttäjätunnus tai "
-"kokeile [OpenID](%%action.openidlogin%%)-tunnuksella sisään kirjautumista. "
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr "Vain ylläpitäjä voi tehdä toisesta käyttäjästä ylläpitäjän."
 
 #: actions/makeadmin.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "%s on jo ryhmän \"%s\" ylläpitäjä."
+msgstr ""
 
 #: actions/makeadmin.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Ei saatu käyttäjän %s jäsenyystietoja ryhmästä %s"
+msgstr ""
 
 #: actions/makeadmin.php:146
 #, fuzzy, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Ei voitu tehdä käyttäjästä %s ylläpitäjää ryhmään %s"
+msgstr "Tee tästä käyttäjästä ylläpitäjä"
 
 #: actions/microsummary.php:69
 #, fuzzy
 msgid "No current status."
-msgstr "Ei nykyistä tilatietoa"
+msgstr "Ei tuloksia"
 
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New Application"
-msgstr "Päivitystä ei ole."
+msgstr ""
 
 #: actions/newapplication.php:64
 #, fuzzy
@@ -2490,7 +2479,7 @@ msgstr "Uusi viesti"
 msgid "You can't send a message to this user."
 msgstr "Et voi lähettää viestiä tälle käyttäjälle."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
 #: lib/command.php:555
 msgid "No content!"
 msgstr "Ei sisältöä!"
@@ -2513,7 +2502,7 @@ msgstr "Viesti lähetetty"
 msgid "Direct message to %s sent."
 msgstr "Suora viesti käyttäjälle %s lähetetty"
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax-virhe"
 
@@ -2521,7 +2510,7 @@ msgstr "Ajax-virhe"
 msgid "New notice"
 msgstr "Uusi päivitys"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Päivitys lähetetty"
 
@@ -2541,7 +2530,7 @@ msgstr "Tekstihaku"
 #: actions/noticesearch.php:91
 #, fuzzy, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr " Hakusyöte haulle \"%s\""
+msgstr "Viesti käyttäjältä %1$s, %2$s"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2553,29 +2542,28 @@ msgstr ""
 "newnotice%%%%?status_textarea=%s)!"
 
 #: actions/noticesearch.php:124
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
+"Ole ensimmäinen joka [lähettää päivityksen tästä aiheesta] (%%%%action."
+"newnotice%%%%?status_textarea=%s)!"
 
 #: actions/noticesearchrss.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Updates with \"%s\""
-msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
+msgstr ""
 
 #: actions/noticesearchrss.php:98
 #, fuzzy, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Kaikki päivitykset hakuehdolla \"%s\""
+msgstr "Käyttäjän %1$s päivitykset palvelussa %2$s!"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
-"Käyttäjä ei ole sallinut tönäisyjä tai ei ole vahvistanut "
-"sähköpostiosoitettaan."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2634,7 +2622,7 @@ msgstr ""
 #: actions/oembed.php:80 actions/shownotice.php:100
 #, fuzzy
 msgid "Notice has no profile."
-msgstr "Päivitykselle ei ole profiilia"
+msgstr "Käyttäjällä ei ole profiilia."
 
 #: actions/oembed.php:87 actions/shownotice.php:175
 #, php-format
@@ -2643,9 +2631,9 @@ msgstr "Käyttäjän %1$s päivitys %2$s"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "Yhdistä"
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
@@ -2654,8 +2642,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "Tuo ei ole tuettu tietomuoto."
 
@@ -2670,7 +2658,7 @@ msgstr "Etsi Päivityksistä"
 #: actions/othersettings.php:60
 #, fuzzy
 msgid "Other settings"
-msgstr "Muita Asetuksia"
+msgstr "Profiilikuva-asetukset"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2691,7 +2679,7 @@ msgstr "Käytettävä automaattinen lyhennyspalvelu."
 #: actions/othersettings.php:122
 #, fuzzy
 msgid "View profile designs"
-msgstr "Profiiliasetukset"
+msgstr "Näytä tai piillota profiilin ulkoasu."
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
@@ -2714,12 +2702,11 @@ msgstr "Profiilia ei ole määritelty."
 #: actions/otp.php:90
 #, fuzzy
 msgid "No login token requested."
-msgstr "Ei profiili id:tä kyselyssä."
+msgstr "Ei valtuutuspyyntöä!"
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "Päivityksen sisältö ei kelpaa"
+msgstr ""
 
 #: actions/otp.php:104
 #, fuzzy
@@ -2811,14 +2798,14 @@ msgid "Path and server settings for this StatusNet site."
 msgstr "Polut ja palvelin asetukset tälle StatusNet palvelulle."
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Pikaviestin ei ole käytettävissä."
+msgstr ""
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Pikaviestin ei ole käytettävissä."
+msgstr ""
 
 #: actions/pathsadminpanel.php:169
 #, fuzzy, php-format
@@ -2826,9 +2813,9 @@ msgid "Background directory not writable: %s."
 msgstr "Taustakuvan hakemisto"
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Pikaviestin ei ole käytettävissä."
+msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2849,8 +2836,9 @@ msgid "Site's server hostname."
 msgstr ""
 
 #: actions/pathsadminpanel.php:242
+#, fuzzy
 msgid "Path"
-msgstr ""
+msgstr "Polut"
 
 #: actions/pathsadminpanel.php:242
 #, fuzzy
@@ -2907,7 +2895,7 @@ msgstr "Kuva päivitetty."
 #: actions/pathsadminpanel.php:292
 #, fuzzy
 msgid "Avatar directory"
-msgstr "Kuva poistettu."
+msgstr "Taustakuvan hakemisto"
 
 #: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
@@ -2954,18 +2942,16 @@ msgid "When to use SSL"
 msgstr ""
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
-msgstr "Palauta"
+msgstr ""
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
 msgstr ""
 
 #: actions/pathsadminpanel.php:352
-#, fuzzy
 msgid "Save paths"
-msgstr "Palvelun ilmoitus"
+msgstr ""
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -2984,17 +2970,17 @@ msgstr "Etsi ihmisiä"
 #: actions/peopletag.php:68
 #, fuzzy, php-format
 msgid "Not a valid people tag: %s."
-msgstr "Ei sallittu henkilötagi: %s"
+msgstr "Tuo ei ole kelvollinen sähköpostiosoite."
 
 #: actions/peopletag.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
-msgstr "Käyttäjät joilla henkilötagi %s - sivu %d"
+msgstr ""
 
 #: actions/postnotice.php:95
 #, fuzzy
 msgid "Invalid notice content."
-msgstr "Päivityksen sisältö ei kelpaa"
+msgstr "Koko ei kelpaa."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -3105,7 +3091,7 @@ msgstr ""
 #: actions/profilesettings.php:228 actions/register.php:230
 #, fuzzy, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "\"Tietoja\" on liian pitkä (max 140 merkkiä)."
+msgstr "kuvaus on liian pitkä (max %d merkkiä)."
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
@@ -3173,11 +3159,13 @@ msgid "Public Stream Feed (Atom)"
 msgstr "Julkinen syöte (Atom)"
 
 #: actions/public.php:188
-#, php-format
+#, fuzzy, php-format
 msgid ""
 "This is the public timeline for %%site.name%% but no one has posted anything "
 "yet."
 msgstr ""
+"Tämä on käyttäjän %s ja kavereiden aikajana, mutta kukaan ei ole lähettyänyt "
+"vielä mitään."
 
 #: actions/public.php:191
 msgid "Be the first to post!"
@@ -3199,14 +3187,12 @@ msgid ""
 msgstr ""
 
 #: actions/public.php:247
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
-"Tämä on %%site.name%%, [mikroblogaus](http://en.wikipedia.org/wiki/Micro-"
-"blogging)palvelu "
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -3268,10 +3254,13 @@ msgid "Could not update user with confirmed email address."
 msgstr "Ei voitu päivittää käyttäjälle vahvistettua sähköpostiosoitetta."
 
 #: actions/recoverpassword.php:152
+#, fuzzy
 msgid ""
 "If you have forgotten or lost your password, you can get a new one sent to "
 "the email address you have stored in your account."
 msgstr ""
+"Ohjeet salasanan palauttamiseksi on lähetetty sähköpostiisiosoitteeseen, "
+"joka on rekisteröity käyttäjätunnuksellesi."
 
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
@@ -3454,16 +3443,14 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-"poislukien yksityinen tieto: salasana, sähköpostiosoite, IM-osoite, "
-"puhelinnumero."
 
 #: actions/register.php:583
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -3480,20 +3467,6 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Onnittelut, %s! Tervetuloa palveluun %%%%site.name%%%%. Täältä voit "
-"jatkaa...\n"
-"\n"
-"* [Profiiliisi](%s) ja lähettää ensimmäisen päivityksesi.\n"
-"* Lisäämään [Jabber/GTalk osoitteen](%%%%action.imsettings%%%%), jotta saat "
-"lähetettyä päivitykset pikaviestimen kautta.\n"
-"* [Hakemaan ihmisiä](%%%%action.peoplesearch%%%%), jotka tunnet tai joilla "
-"on samanlaisia kiinnostuksen kohteita. \n"
-"* Päivittämään [profiiliasi](%%%%action.profilesettings%%%%), jotta muut "
-"tietävät enemmän sinusta.\n"
-"* Lukemaan [ohjeista](%%%%doc.help%%%%) muista ominaisuuksista, joista et "
-"vielä tiedä. \n"
-"\n"
-"Kiitokset rekisteröitymisestäsi ja toivomme että pidät palvelustamme."
 
 #: actions/register.php:607
 msgid ""
@@ -3549,11 +3522,8 @@ msgid "Invalid profile URL (bad format)"
 msgstr "Profiilin URL-osoite '%s' ei kelpaa (virheellinen muoto)."
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
 msgstr ""
-"Tuo ei ole kelvollinen profiilin verkko-osoite (YADIS dokumenttia ei "
-"löytynyt)."
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
@@ -3582,9 +3552,9 @@ msgstr "Et voi rekisteröityä, jos et hyväksy lisenssiehtoja."
 #: actions/repeat.php:90
 #, fuzzy
 msgid "You already repeated that notice."
-msgstr "Sinä olet jo estänyt tämän käyttäjän."
+msgstr "Sinä kuulut jo tähän ryhmään."
 
-#: actions/repeat.php:114 lib/noticelist.php:675
+#: actions/repeat.php:114 lib/noticelist.php:676
 #, fuzzy
 msgid "Repeated"
 msgstr "Luotu"
@@ -3603,7 +3573,7 @@ msgstr "Vastaukset käyttäjälle %s"
 #: actions/replies.php:128
 #, fuzzy, php-format
 msgid "Replies to %1$s, page %2$d"
-msgstr "Viesti käyttäjälle %1$s, %2$s"
+msgstr "Vastaukset käyttäjälle %s"
 
 #: actions/replies.php:145
 #, fuzzy, php-format
@@ -3626,8 +3596,8 @@ msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
 msgstr ""
-"Tämä on käyttäjän %s aikajana, mutta %s ei ole lähettänyt vielä yhtään "
-"päivitystä."
+"Tämä on käyttäjän %s ja kavereiden aikajana, mutta kukaan ei ole lähettyänyt "
+"vielä mitään."
 
 #: actions/replies.php:204
 #, php-format
@@ -3653,12 +3623,11 @@ msgstr "Viesti käyttäjälle %1$s, %2$s"
 #: actions/revokerole.php:75
 #, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Et voi lähettää viestiä tälle käyttäjälle."
+msgstr "Päivityksesi tähän palveluun on estetty."
 
 #: actions/revokerole.php:82
-#, fuzzy
 msgid "User doesn't have this role."
-msgstr "Käyttäjälle ei löydy profiilia"
+msgstr ""
 
 #: actions/rsd.php:146 actions/version.php:159
 #, fuzzy
@@ -3671,9 +3640,8 @@ msgid "You cannot sandbox users on this site."
 msgstr "Et voi lähettää viestiä tälle käyttäjälle."
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Käyttäjä on asettanut eston sinulle."
+msgstr ""
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3714,9 +3682,8 @@ msgid "You must be logged in to view an application."
 msgstr "Sinun pitää olla kirjautunut sisään, jotta voit erota ryhmästä."
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
-msgstr "Päivitykselle ei ole profiilia"
+msgstr ""
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
@@ -3852,7 +3819,7 @@ msgstr "Ryhmä %s"
 #: actions/showgroup.php:84
 #, fuzzy, php-format
 msgid "%1$s group, page %2$d"
-msgstr "Ryhmän %s jäsenet, sivu %d"
+msgstr "Ryhmät, sivu %d"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
@@ -3925,15 +3892,13 @@ msgid ""
 msgstr ""
 
 #: actions/showgroup.php:461
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** on ryhmä palvelussa %%%%site.name%%%%, joka on [mikroblogauspalvelu]"
-"(http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/showgroup.php:489
 msgid "Admins"
@@ -3969,27 +3934,27 @@ msgstr "Päivitykset joilla on tagi %s"
 #: actions/showstream.php:79
 #, fuzzy, php-format
 msgid "%1$s, page %2$d"
-msgstr "%s ja kaverit, sivu %d"
+msgstr "Ryhmät, sivu %d"
 
 #: actions/showstream.php:122
 #, fuzzy, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Päivityssyöte ryhmälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 1.0)"
 
 #: actions/showstream.php:136
 #, fuzzy, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 2.0)"
 
 #: actions/showstream.php:143
 #, fuzzy, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (Atom)"
 
 #: actions/showstream.php:148
 #, fuzzy, php-format
@@ -4000,8 +3965,8 @@ msgstr "Käyttäjän %s lähetetyt viestit"
 #, fuzzy, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
-"Tämä on käyttäjän %s aikajana, mutta %s ei ole lähettänyt vielä yhtään "
-"päivitystä."
+"Tämä on käyttäjän %s ja kavereiden aikajana, mutta kukaan ei ole lähettyänyt "
+"vielä mitään."
 
 #: actions/showstream.php:205
 msgid ""
@@ -4028,14 +3993,12 @@ msgid ""
 msgstr ""
 
 #: actions/showstream.php:248
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"Käyttäjällä **%s** on käyttäjätili palvelussa %%%%site.name%%%%, joka on "
-"[mikroblogauspalvelu](http://en.wikipedia.org/wiki/Micro-blogging)"
 
 #: actions/showstream.php:305
 #, fuzzy, php-format
@@ -4048,9 +4011,8 @@ msgid "You cannot silence users on this site."
 msgstr "Et voi lähettää viestiä tälle käyttäjälle."
 
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Käyttäjä on asettanut eston sinulle."
+msgstr ""
 
 #: actions/siteadminpanel.php:69
 #, fuzzy
@@ -4064,7 +4026,7 @@ msgstr ""
 #: actions/siteadminpanel.php:141
 #, fuzzy
 msgid "You must have a valid contact email address."
-msgstr "Tuo ei ole kelvollinen sähköpostiosoite"
+msgstr "Tuo ei ole kelvollinen sähköpostiosoite."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -4192,7 +4154,7 @@ msgstr "Palvelun ilmoitus"
 #: actions/smssettings.php:59
 #, fuzzy
 msgid "SMS settings"
-msgstr "SMS-asetukset"
+msgstr "Profiilikuva-asetukset"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -4211,7 +4173,7 @@ msgstr "SMS ei ole käytettävissä."
 #: actions/smssettings.php:111
 #, fuzzy
 msgid "SMS address"
-msgstr "Pikaviestiosoite"
+msgstr "Sähköpostiosoitteet"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4244,7 +4206,7 @@ msgstr "Vahvista"
 #: actions/smssettings.php:153
 #, fuzzy
 msgid "SMS phone number"
-msgstr "SMS puhelinnumero"
+msgstr "Puhelinnumeroa ei ole."
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:156
@@ -4255,7 +4217,7 @@ msgstr "Puhelinnumero, ei välimerkkejä tai välilyöntejä, suuntanumerollinen
 #: actions/smssettings.php:195
 #, fuzzy
 msgid "SMS preferences"
-msgstr "Asetukset"
+msgstr "Asetukset tallennettu."
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4310,7 +4272,7 @@ msgstr "Tämä on väärä vahvistukoodi."
 #: actions/smssettings.php:427
 #, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Vahvistus peruttu."
+msgstr "SMS vahvistus"
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
@@ -4320,9 +4282,8 @@ msgstr "Tämä ei ole puhelinnumerosi."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
-msgstr "SMS puhelinnumero"
+msgstr ""
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4360,7 +4321,7 @@ msgstr ""
 #: actions/snapshotadminpanel.php:65
 #, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Ensisijainen sivunavigointi"
+msgstr "Sähköpostiosoitteen vahvistus"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4446,7 +4407,7 @@ msgstr "Käyttäjän %s tilaajat"
 #: actions/subscribers.php:52
 #, fuzzy, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "Käyttäjän %s tilaajat, sivu %d"
+msgstr "Käyttäjän %s tilaajat"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4483,7 +4444,7 @@ msgstr "Käyttäjän %s tilaukset"
 #: actions/subscriptions.php:54
 #, fuzzy, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr "Käyttäjän %s tilaukset, sivu %d"
+msgstr "Käyttäjän %s tilaukset"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -4520,27 +4481,26 @@ msgstr "SMS"
 #: actions/tag.php:69
 #, fuzzy, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Käyttäjät joilla henkilötagi %s - sivu %d"
+msgstr "Päivitykset joilla on tagi %s"
 
 #: actions/tag.php:87
 #, fuzzy, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 1.0)"
 
 #: actions/tag.php:93
 #, fuzzy, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (RSS 2.0)"
 
 #: actions/tag.php:99
 #, fuzzy, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Päivityksien syöte käyttäjälle %s"
+msgstr "Syöte ryhmän %s päivityksille (Atom)"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "Ei id parametria."
+msgstr ""
 
 #: actions/tagother.php:65
 #, php-format
@@ -4592,7 +4552,7 @@ msgstr "Tuota tagia ei ole."
 #: actions/unblock.php:59
 #, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Sinä olet jo estänyt tämän käyttäjän."
+msgstr "Älä estä tätä käyttäjää"
 
 #: actions/unsandbox.php:72
 #, fuzzy
@@ -4607,7 +4567,7 @@ msgstr "Käyttäjällä ei ole profiilia."
 #: actions/unsubscribe.php:77
 #, fuzzy
 msgid "No profile ID in request."
-msgstr "Ei profiili id:tä kyselyssä."
+msgstr "Ei profiilia tuolle ID:lle."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
@@ -4627,8 +4587,9 @@ msgid "User"
 msgstr "Käyttäjä"
 
 #: actions/useradminpanel.php:70
+#, fuzzy
 msgid "User settings for this StatusNet site."
-msgstr ""
+msgstr "Ulkoasuasetukset tälle StatusNet palvelulle."
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
@@ -4701,15 +4662,11 @@ msgid "Authorize subscription"
 msgstr "Valtuuta tilaus"
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"Tarkista nämä tiedot varmistaaksesi, että haluat tilata tämän käyttäjän "
-"päivitykset. Jos et valinnut haluavasi tilata jonkin käyttäjän päivityksiä, "
-"paina \"Peruuta\"."
 
 #: actions/userauthorization.php:196 actions/version.php:167
 msgid "License"
@@ -4742,29 +4699,22 @@ msgid "Subscription authorized"
 msgstr "Tilaus sallittu"
 
 #: actions/userauthorization.php:256
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"Päivityksen tilaus on hyväksytty, mutta callback-osoitetta palveluun ei ole "
-"saatu. Tarkista sivuston ohjeet miten päivityksen tilaus hyväksytään. "
-"Tilauskoodisi on:"
 
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Tilaus hylätty"
 
 #: actions/userauthorization.php:268
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Päivityksen tilaus on hylätty, mutta callback-osoitetta palveluun ei ole "
-"saatu. Tarkista sivuston ohjeet miten päivityksen tilaus hylätään kokonaan."
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -4792,14 +4742,14 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Kuvan URL-osoitetta '%s' ei voi avata."
+msgstr ""
 
 #: actions/userauthorization.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Kuvan '%s' tyyppi on väärä"
+msgstr ""
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 #, fuzzy
@@ -4820,7 +4770,7 @@ msgstr ""
 #: actions/usergroups.php:66
 #, fuzzy, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "Ryhmän %s jäsenet, sivu %d"
+msgstr "Ryhmät, sivu %d"
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
@@ -4829,7 +4779,7 @@ msgstr "Hae lisää ryhmiä"
 #: actions/usergroups.php:159
 #, fuzzy, php-format
 msgid "%s is not a member of any group."
-msgstr "Sinä et kuulu tähän ryhmään."
+msgstr "Käyttäjä ei kuulu tähän ryhmään."
 
 #: actions/usergroups.php:164
 #, php-format
@@ -5000,24 +4950,24 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, fuzzy, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Tietokantavirhe tallennettaessa risutagiä: %s"
+msgstr "Virhe tapahtui profiilikuvan lisäämisessä"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 #, fuzzy
 msgid "Problem saving notice. Too long."
 msgstr "Ongelma päivityksen tallentamisessa."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "Virhe tapahtui päivityksen tallennuksessa. Tuntematon käyttäjä."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -5025,7 +4975,7 @@ msgstr ""
 "päivityksien lähettämista muutaman minuutin päästä."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -5034,30 +4984,30 @@ msgstr ""
 "päivityksien lähettämista muutaman minuutin päästä."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr "Päivityksesi tähän palveluun on estetty."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Ongelma päivityksen tallentamisessa."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 #, fuzzy
 msgid "Problem saving group inbox."
 msgstr "Ongelma päivityksen tallentamisessa."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
+#: classes/Notice.php:1751
 #, fuzzy, php-format
 msgid "RT @%1$s %2$s"
 msgstr "%1$s (%2$s)"
@@ -5086,7 +5036,7 @@ msgstr "Käyttäjällä ei ole profiilia."
 #: classes/Status_network.php:346
 #, fuzzy
 msgid "Unable to save tag."
-msgstr "Twitter-asetuksia ei voitu tallentaa!"
+msgstr "Tagien tallennus epäonnistui."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
@@ -5096,8 +5046,9 @@ msgstr "Käyttäjä on estänyt sinua tilaamasta päivityksiä."
 
 #. TRANS: Exception thrown when trying to subscribe while already subscribed.
 #: classes/Subscription.php:80
+#, fuzzy
 msgid "Already subscribed!"
-msgstr ""
+msgstr "Ei ole tilattu!."
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
@@ -5114,19 +5065,19 @@ msgstr "Ei ole tilattu!."
 #: classes/Subscription.php:178
 #, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Ei voitu poistaa tilausta."
+msgstr "Tilausta ei onnistuttu tallentamaan."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
 #, fuzzy
 msgid "Could not delete subscription OMB token."
-msgstr "Ei voitu poistaa tilausta."
+msgstr "Tilausta ei onnistuttu tallentamaan."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
 #, fuzzy
 msgid "Could not delete subscription."
-msgstr "Ei voitu poistaa tilausta."
+msgstr "Tilausta ei onnistuttu tallentamaan."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5144,7 +5095,7 @@ msgstr "Ryhmän luonti ei onnistunut."
 #: classes/User_group.php:506
 #, fuzzy
 msgid "Could not set group URI."
-msgstr "Ryhmän jäsenyystietoja ei voitu asettaa."
+msgstr "Ryhmän luonti ei onnistunut."
 
 #. TRANS: Server exception thrown when setting group membership failed.
 #: classes/User_group.php:529
@@ -5211,10 +5162,9 @@ msgstr "Ensisijainen sivunavigointi"
 
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:442
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
-msgstr "Henkilökohtainen profiili ja kavereiden aikajana"
+msgstr ""
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
 #: lib/action.php:445
@@ -5228,14 +5178,13 @@ msgstr "Omat"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
-msgstr "Muuta sähköpostiosoitettasi, kuvaasi, salasanaasi, profiiliasi"
+msgstr "Vaihda salasanasi"
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:452
-#, fuzzy
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr "Ei voitu uudelleenohjata palvelimelle: %s"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:455
@@ -5275,21 +5224,21 @@ msgstr "Kutsu"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
-msgstr "Kirjaudu ulos palvelusta"
+msgstr "Kirjaudu sisään"
 
 #. TRANS: Main menu option when logged in to log out the current user
 #: lib/action.php:477
 #, fuzzy
 msgctxt "MENU"
 msgid "Logout"
-msgstr "Kirjaudu ulos"
+msgstr "Logo"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:482
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr "Luo uusi käyttäjätili"
+msgstr "Luo uusi ryhmä"
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:485
@@ -5303,7 +5252,7 @@ msgstr "Rekisteröidy"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Login to the site"
-msgstr "Kirjaudu sisään palveluun"
+msgstr "Kirjaudu sisään"
 
 #: lib/action.php:491
 #, fuzzy
@@ -5316,7 +5265,7 @@ msgstr "Kirjaudu sisään"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Help me!"
-msgstr "Auta minua!"
+msgstr "Ohjeet"
 
 #: lib/action.php:497
 #, fuzzy
@@ -5329,7 +5278,7 @@ msgstr "Ohjeet"
 #, fuzzy
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
-msgstr "Hae ihmisiä tai tekstiä"
+msgstr "Hae lisää ryhmiä"
 
 #: lib/action.php:503
 #, fuzzy
@@ -5405,13 +5354,11 @@ msgstr "StatusNet-ohjelmiston lisenssi"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:827
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** on mikroblogipalvelu, jonka tarjoaa [%%site.broughtby%%](%%"
-"site.broughtbyurl%%). "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:830
@@ -5613,13 +5560,13 @@ msgstr ""
 #: lib/applicationeditform.php:209
 #, fuzzy, php-format
 msgid "Describe your application in %d characters"
-msgstr "Kuvaile ryhmää tai aihetta 140 merkillä"
+msgstr "Kuvaile itseäsi ja kiinnostuksen kohteitasi %d merkillä"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:213
 #, fuzzy
 msgid "Describe your application"
-msgstr "Kuvaile ryhmää tai aihetta 140 merkillä"
+msgstr "Kuvaus"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
@@ -5709,27 +5656,30 @@ msgstr "Poista"
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
+#, fuzzy
 msgid "Attachments"
-msgstr ""
+msgstr "Liitettä ei ole."
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:265
+#, fuzzy
 msgid "Author"
-msgstr ""
+msgstr "Atom"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
 #, fuzzy
 msgid "Provider"
-msgstr "Profiili"
+msgstr "Esikatselu"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
 msgstr ""
 
 #: lib/attachmenttagcloudsection.php:48
+#, fuzzy
 msgid "Tags for this attachment"
-msgstr ""
+msgstr "Liitettä ei ole."
 
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
 #, fuzzy
@@ -5754,9 +5704,8 @@ msgid "Command failed"
 msgstr "Komento epäonnistui"
 
 #: lib/command.php:83 lib/command.php:105
-#, fuzzy
 msgid "Notice with that id does not exist"
-msgstr "Ei profiilia tuolla id:llä."
+msgstr ""
 
 #: lib/command.php:99 lib/command.php:596
 msgid "User has no last notice"
@@ -5819,7 +5768,7 @@ msgstr "Käyttäjä %s ei voinut liittyä ryhmään %s."
 #: lib/command.php:385
 #, fuzzy, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "Ei voitu poistaa käyttäjää %s ryhmästä %s"
+msgstr "Käyttäjä %s ei voinut liittyä ryhmään %s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5857,9 +5806,9 @@ msgstr ""
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:472
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr "Viesti oli liian pitkä - maksimikoko on 140 merkkiä, lähetit %d"
+msgstr ""
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
@@ -5892,12 +5841,12 @@ msgstr "Päivitys lähetetty"
 #: lib/command.php:531
 #, fuzzy
 msgid "Error repeating notice."
-msgstr "Ongelma päivityksen tallentamisessa."
+msgstr "Virhe tapahtui käyttäjän asettamisessa."
 
 #: lib/command.php:562
-#, fuzzy, php-format
+#, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "Viesti oli liian pitkä - maksimikoko on 140 merkkiä, lähetit %d"
+msgstr ""
 
 #: lib/command.php:571
 #, fuzzy, php-format
@@ -6055,9 +6004,8 @@ msgid "You may wish to run the installer to fix this."
 msgstr ""
 
 #: lib/common.php:139
-#, fuzzy
 msgid "Go to the installer."
-msgstr "Kirjaudu sisään palveluun"
+msgstr ""
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -6096,8 +6044,9 @@ msgid ""
 msgstr "Voit ladata oman profiilikuvasi. Maksimikoko on %s."
 
 #: lib/designsettings.php:418
+#, fuzzy
 msgid "Design defaults restored."
-msgstr ""
+msgstr "Ulkoasuasetukset tallennettu."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
@@ -6166,14 +6115,13 @@ msgid "URL of the homepage or blog of the group or topic"
 msgstr "Ryhmän tai aiheen kotisivun tai blogin osoite"
 
 #: lib/groupeditform.php:168
-#, fuzzy
 msgid "Describe the group or topic"
-msgstr "Kuvaile ryhmää tai aihetta 140 merkillä"
+msgstr ""
 
 #: lib/groupeditform.php:170
 #, fuzzy, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Kuvaile ryhmää tai aihetta 140 merkillä"
+msgstr "Kuvaile itseäsi ja kiinnostuksen kohteitasi %d merkillä"
 
 #: lib/groupeditform.php:179
 msgid ""
@@ -6367,9 +6315,7 @@ msgstr ""
 #: lib/mail.php:274
 #, fuzzy, php-format
 msgid "Bio: %s"
-msgstr ""
-"Tietoja: %s\n"
-"\n"
+msgstr "Kotipaikka: %s"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304
@@ -6469,7 +6415,7 @@ msgstr ""
 #: lib/mail.php:589
 #, fuzzy, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s lisäsi päivityksesi suosikkeihinsa"
+msgstr "Lähetä sähköpostia, jos joku lisää päivitykseni suosikiksi."
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6545,10 +6491,9 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
-#, fuzzy
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
-msgstr " lähteestä "
+msgstr ""
 
 #: lib/mailhandler.php:37
 msgid "Could not parse message."
@@ -6612,7 +6557,7 @@ msgstr ""
 #: lib/mediafile.php:202 lib/mediafile.php:238
 #, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "Julkista päivitysvirtaa ei saatu."
+msgstr "Ei voitu poistaa suosikkia."
 
 #: lib/mediafile.php:318
 #, php-format
@@ -6632,44 +6577,41 @@ msgstr "Lähetä suora viesti"
 msgid "To"
 msgstr "Vastaanottaja"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Sallitut merkit"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
-#, fuzzy
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr "Lähetä"
+msgstr ""
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
 msgstr "Lähetä päivitys"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Mitä teet juuri nyt, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
-#, fuzzy
+#: lib/noticeform.php:213
 msgid "Share my location"
-msgstr "Tageja ei voitu tallentaa."
-
-#: lib/noticeform.php:215
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Tageja ei voitu tallentaa."
+msgstr ""
 
 #: lib/noticeform.php:216
+msgid "Do not share my location"
+msgstr ""
+
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6677,9 +6619,8 @@ msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:436
-#, fuzzy
 msgid "N"
-msgstr "Ei"
+msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
@@ -6705,25 +6646,28 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 #, fuzzy
 msgid "in context"
 msgstr "Ei sisältöä!"
 
-#: lib/noticelist.php:602
-#, fuzzy
+#: lib/noticelist.php:603
 msgid "Repeated by"
-msgstr "Luotu"
+msgstr ""
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:630
 msgid "Reply to this notice"
 msgstr "Vastaa tähän päivitykseen"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Vastaus"
 
-#: lib/noticelist.php:674
+#: lib/noticelist.php:675
 #, fuzzy
 msgid "Notice repeated"
 msgstr "Päivitys on poistettu."
@@ -6862,9 +6806,8 @@ msgid "Popular"
 msgstr "Suosituimmat"
 
 #: lib/redirectingaction.php:95
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Ei id parametria."
+msgstr ""
 
 #: lib/repeatform.php:107
 #, fuzzy
@@ -7031,7 +6974,7 @@ msgstr ""
 #: lib/themeuploader.php:234
 #, fuzzy
 msgid "Error opening theme archive."
-msgstr "Virhe tapahtui etäprofiilin päivittämisessä"
+msgstr "Tapahtui virhe, kun estoa poistettiin."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
@@ -7119,56 +7062,56 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "muutama sekunti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "noin minuutti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1110
 #, php-format
 msgid "about %d minutes ago"
 msgstr "noin %d minuuttia sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "noin tunti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1117
 #, php-format
 msgid "about %d hours ago"
 msgstr "noin %d tuntia sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "noin päivä sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about %d days ago"
 msgstr "noin %d päivää sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "noin kuukausi sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1131
 #, php-format
 msgid "about %d months ago"
 msgstr "noin %d kuukautta sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "noin vuosi sitten"
 
@@ -7183,6 +7126,6 @@ msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 
 #: lib/xmppmanager.php:403
-#, fuzzy, php-format
+#, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "Viesti oli liian pitkä - maksimikoko on 140 merkkiä, lähetit %d"
+msgstr ""
