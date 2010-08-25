@@ -14,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 06:13+0000\n"
-"PO-Revision-Date: 2010-08-24 06:16:09+0000\n"
+"POT-Creation-Date: 2010-08-25 21:31+0000\n"
+"PO-Revision-Date: 2010-08-25 21:33:55+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r71660); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -34,7 +34,7 @@ msgstr "访问"
 #. TRANS: Page notice
 #: actions/accessadminpanel.php:67
 msgid "Site access settings"
-msgstr "站点访问设置"
+msgstr "网站访问设置"
 
 #. TRANS: Form legend for registration form.
 #: actions/accessadminpanel.php:161
@@ -165,24 +165,25 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
-"尝试跟随更多的人、[加入一个小组] (%%action.groups%%) 或者自己发一些东西。"
+"尝试订阅更多的人、[加入一个小组] (%%action.groups%%) 或者自己发一些东西。"
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"成为 [第一个在该主题发布消息的人](%%%%action.newnotice%%%%?status_textarea=%"
-"s) ！"
+"您可以试着到他们的资料页 [轻推%1$s](../%2$s) 他们或者 [给他们发消息](%%%%"
+"action.newnotice%%%%?status_textarea=%3$s)。"
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to them."
-msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
+msgstr ""
+"现在就 [注册一个帐号](%%%%action.register%%%%) 并轻推或者发一条消息给%s。"
 
 #. TRANS: H1 text
 #: actions/all.php:182
@@ -195,7 +196,7 @@ msgstr "您和您的好友"
 #: actions/apitimelinehome.php:122
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
-msgstr "来自%2$s 上 %1$s 和好友的更新！"
+msgstr "%2$s上%1$s和好友们的更新！"
 
 #: actions/apiaccountratelimitstatus.php:72
 #: actions/apiaccountupdatedeliverydevice.php:94
@@ -219,9 +220,8 @@ msgstr "来自%2$s 上 %1$s 和好友的更新！"
 #: actions/apitimelineretweetedtome.php:121
 #: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
 #: actions/apitimelineuser.php:163 actions/apiusershow.php:101
-#, fuzzy
 msgid "API method not found."
-msgstr "API 方法未实现！"
+msgstr "API方法没有找到。"
 
 #: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
@@ -245,7 +245,6 @@ msgstr ""
 "您必须指定一个名为'device'的参数，值可以是以下中的一个：sms, im, none。"
 
 #: actions/apiaccountupdatedeliverydevice.php:133
-#, fuzzy
 msgid "Could not update user."
 msgstr "无法更新用户。"
 
@@ -260,7 +259,6 @@ msgid "User has no profile."
 msgstr "用户没有个人信息。"
 
 #: actions/apiaccountupdateprofile.php:147
-#, fuzzy
 msgid "Could not save profile."
 msgstr "无法保存个人信息。"
 
@@ -274,7 +272,7 @@ msgstr "无法保存个人信息。"
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
-msgstr "服务器现在的配置无法处理这么多的数据提交（%s bytes）。"
+msgstr "服务器当前的设置无法处理这么多的 POST 数据（%s bytes）。"
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:136
 #: actions/apiaccountupdateprofilebackgroundimage.php:146
@@ -283,15 +281,13 @@ msgstr "服务器现在的配置无法处理这么多的数据提交（%s bytes�
 #: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
 msgid "Unable to save your design settings."
-msgstr "无法保存 Twitter 设置！"
+msgstr "无法保存您的设计设置。"
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:187
 #: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
 msgid "Could not update your design."
-msgstr "无法更新用户。"
+msgstr "无法更新您的设计。"
 
 #: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
@@ -308,22 +304,22 @@ msgstr "取消阻止用户失败。"
 #: actions/apidirectmessage.php:89
 #, php-format
 msgid "Direct messages from %s"
-msgstr "%s 发来的私信"
+msgstr "%s发来的私信"
 
 #: actions/apidirectmessage.php:93
 #, php-format
 msgid "All the direct messages sent from %s"
-msgstr "%s 发送的直接消息"
+msgstr "所有来自%s的私信"
 
 #: actions/apidirectmessage.php:101
 #, php-format
 msgid "Direct messages to %s"
-msgstr "发给 %s 的直接消息"
+msgstr "发给%s的私信"
 
 #: actions/apidirectmessage.php:105
 #, php-format
 msgid "All the direct messages sent to %s"
-msgstr "发给 %s 的直接消息"
+msgstr "所有发给%s的私信"
 
 #: actions/apidirectmessagenew.php:118
 msgid "No message text!"
@@ -340,12 +336,12 @@ msgstr "未找到收件人。"
 
 #: actions/apidirectmessagenew.php:142
 msgid "Can't send direct messages to users who aren't your friend."
-msgstr "无法向并非好友的用户发送直接消息。"
+msgstr "不能给未成为好友的用户发送私信。"
 
 #: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
 #: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
-msgstr "没有找到此ID的信息。"
+msgstr "没有找到此 ID 的消息。"
 
 #: actions/apifavoritecreate.php:120
 msgid "This status is already a favorite."
@@ -365,20 +361,20 @@ msgstr "无法删除收藏。"
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: profile not found."
-msgstr "无法跟随用户：未找到。"
+msgstr "无法订阅用户：未找到用户。"
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr "无法跟随用户：%s已在您的跟随列表中。"
+msgstr "无法订阅用户：您已经订阅过%s了。"
 
 #: actions/apifriendshipsdestroy.php:109
 msgid "Could not unfollow user: User not found."
-msgstr "无法取消跟随用户：未找到。"
+msgstr "无法取消订阅用户：未找到用户。"
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself."
-msgstr "您不能取消跟随自己。"
+msgstr "您不能取消订阅自己。"
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
@@ -386,7 +382,7 @@ msgstr "必须提供两个用户帐号或昵称。"
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
-msgstr ""
+msgstr "无法确定源用户。"
 
 #: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
@@ -493,9 +489,9 @@ msgstr "%s 的群组"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "%s 组是成员组成了"
+msgstr "%1$s 个小组，%2$s 是其中一个小组成员。"
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
@@ -544,26 +540,24 @@ msgid "Invalid nickname / password!"
 msgstr "用户名或密码不正确。"
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "插入标签时数据库出错：%s"
+msgstr "删除 OAuth 应用用户时数据库出错。"
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "插入标签时数据库出错：%s"
+msgstr "插入 OAuth 应用用户时数据库出错。"
 
 #: actions/apioauthauthorize.php:214
 #, php-format
 msgid ""
 "The request token %s has been authorized. Please exchange it for an access "
 "token."
-msgstr ""
+msgstr "Request token 已被批准。请为它换一个 access token。"
 
 #: actions/apioauthauthorize.php:227
 #, php-format
 msgid "The request token %s has been denied and revoked."
-msgstr ""
+msgstr "%s的 request token 被拒绝并已被取消。"
 
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
@@ -592,6 +586,8 @@ msgid ""
 "the ability to <strong>%3$s</strong> your %4$s account data. You should only "
 "give access to your %4$s account to third parties you trust."
 msgstr ""
+"来自<strong>%2$s</strong>的<strong>%1$s</strong>应用希望能够<strong>%3$s</"
+"strong>您的账户数据。您应该只允许您信任的第三方程序访问您的%4$s账户。"
 
 #. TRANS: Main menu option when logged in for access to user settings
 #: actions/apioauthauthorize.php:310 lib/action.php:450
@@ -622,7 +618,7 @@ msgstr "允许"
 
 #: actions/apioauthauthorize.php:351
 msgid "Allow or deny access to your account information."
-msgstr "允许或阻止对你账户信息的访问。"
+msgstr "允许或阻止对您账户信息的访问。"
 
 #: actions/apistatusesdestroy.php:112
 msgid "This method requires a POST or DELETE."
@@ -635,23 +631,23 @@ msgstr "您不能删除其他用户的状态。"
 #: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
 #: actions/deletenotice.php:52 actions/shownotice.php:92
 msgid "No such notice."
-msgstr "没有这份通告。"
+msgstr "没有这条消息。"
 
 #: actions/apistatusesretweet.php:83
 msgid "Cannot repeat your own notice."
-msgstr "不能转发您自己的通告。"
+msgstr "不能转发您自己的消息。"
 
 #: actions/apistatusesretweet.php:91
 msgid "Already repeated that notice."
-msgstr "已转发了那个通告。"
+msgstr "已转发了该消息。"
 
 #: actions/apistatusesshow.php:139
 msgid "Status deleted."
-msgstr "状态已删除。"
+msgstr "消息已删除。"
 
 #: actions/apistatusesshow.php:145
 msgid "No status with that ID found."
-msgstr "没有找到此ID的信息。"
+msgstr "没有找到此 ID 的消息。"
 
 #: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
@@ -661,7 +657,7 @@ msgstr "客户端必须提供一个“状态”参数与数值。"
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
-msgstr "太长了。最长的通告长度是%d个字符。"
+msgstr "太长了。最长的消息长度是%d个字符。"
 
 #: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
@@ -670,7 +666,7 @@ msgstr "未找到。"
 #: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgstr "每条消息最长%d字符，包括附件的链接 URL。"
 
 #: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
@@ -719,7 +715,7 @@ msgstr "%s 的转发"
 #: actions/apitimelinetag.php:105 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
-msgstr "带 %s 标签的通告"
+msgstr "带 %s 标签的消息"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
 #, fuzzy, php-format
@@ -784,7 +780,7 @@ msgstr "预览"
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
 #: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
-msgstr "删除通告"
+msgstr "删除"
 
 #: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
@@ -832,8 +828,8 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
-"您确定要屏蔽这个用户吗？屏蔽后，这个用户会取消跟随您，并且在今后无法跟随您，"
-"您也不能看到任何来自这个用户的 @ 回复。"
+"您确定要屏蔽这个用户吗？屏蔽后，这个用户会取消订阅您，并且以后也无法订阅您，"
+"您也不会收到任何来自这个用户的@回复提醒。"
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -891,12 +887,12 @@ msgstr "没有这个组。"
 #: actions/blockedfromgroup.php:97
 #, php-format
 msgid "%s blocked profiles"
-msgstr ""
+msgstr "%s屏蔽的用户"
 
 #: actions/blockedfromgroup.php:100
 #, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr ""
+msgstr "%1$s屏蔽的用户，第%2$d页"
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
@@ -980,7 +976,7 @@ msgstr "会话"
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
-msgstr "通告"
+msgstr "消息"
 
 #: actions/deleteapplication.php:63
 msgid "You must be logged in to delete an application."
@@ -993,14 +989,13 @@ msgstr "未找到应用。"
 #: actions/deleteapplication.php:78 actions/editapplication.php:77
 #: actions/showapplication.php:94
 msgid "You are not the owner of this application."
-msgstr "你不是该程序的拥有者。"
+msgstr "您不是该应用的拥有者。"
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
 #: lib/action.php:1263
-#, fuzzy
 msgid "There was a problem with your session token."
-msgstr "会话标识有问题，请重试。"
+msgstr "您的 session token 出现了问题。"
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
 msgid "Delete application"
@@ -1038,17 +1033,17 @@ msgstr "未登录。"
 
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
-msgstr "无法删除通告。"
+msgstr "无法删除这条消息。"
 
 #: actions/deletenotice.php:103
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
-msgstr "您即将永久删除通告。这样做是无法恢复的。"
+msgstr "您即将永久删除一条消息。这样做是无法恢复的。"
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
-msgstr "删除通告"
+msgstr "删除消息"
 
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
@@ -1057,12 +1052,12 @@ msgstr "确定要删除这条消息吗？"
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:151
 msgid "Do not delete this notice"
-msgstr "不要删除这个通告。"
+msgstr "不要删除这个消息"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
 #: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
-msgstr "删除这个通告"
+msgstr "删除这个消息"
 
 #: actions/deleteuser.php:67
 msgid "You cannot delete users."
@@ -1097,7 +1092,7 @@ msgstr "设计"
 
 #: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site."
-msgstr "这个 StatusNet 站点的设计设置"
+msgstr "这个 StatusNet 网站的设计设置"
 
 #: actions/designadminpanel.php:318
 msgid "Invalid logo URL."
@@ -1114,7 +1109,7 @@ msgstr "更换 logo"
 
 #: actions/designadminpanel.php:431
 msgid "Site logo"
-msgstr "站点 logo"
+msgstr "网站 logo"
 
 #: actions/designadminpanel.php:443
 msgid "Change theme"
@@ -1122,11 +1117,11 @@ msgstr "更换主题"
 
 #: actions/designadminpanel.php:460
 msgid "Site theme"
-msgstr "站点主题"
+msgstr "网站主题"
 
 #: actions/designadminpanel.php:461
 msgid "Theme for the site."
-msgstr "这个站点的主题。"
+msgstr "这个网站的主题。"
 
 #: actions/designadminpanel.php:467
 msgid "Custom theme"
@@ -1150,7 +1145,7 @@ msgstr "背景"
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
-msgstr "您可以为站点上载一个背景图像。文件大小限制在%1$s以下。"
+msgstr "您可以为网站上载一个背景图像。文件大小限制在%1$s以下。"
 
 #. TRANS: Used as radio button label to add a background image.
 #: actions/designadminpanel.php:527 lib/designsettings.php:139
@@ -1168,7 +1163,7 @@ msgstr "打开或关闭背景图片"
 
 #: actions/designadminpanel.php:550 lib/designsettings.php:161
 msgid "Tile background image"
-msgstr "平铺背景图像"
+msgstr "平铺背景图片"
 
 #: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
@@ -1227,7 +1222,7 @@ msgstr "保存设计"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
-msgstr "此通告未被收藏！"
+msgstr "此消息未被收藏！"
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
@@ -1253,7 +1248,7 @@ msgstr "没有这个应用。"
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
-msgstr "通过此表单来编辑你的程序。"
+msgstr "通过此表单来编辑您的程序。"
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
 msgid "Name is required."
@@ -1421,7 +1416,7 @@ msgstr "发布用的电子邮件"
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
 #: actions/emailsettings.php:155 actions/smssettings.php:178
 msgid "Send email to this address to post new notices."
-msgstr "向这个电子邮件发信以发布新的通告。"
+msgstr "向这个 email 地址发邮件来发布新的消息。"
 
 #. TRANS: Instructions for incoming e-mail address input form.
 #. TRANS: Instructions for incoming SMS e-mail address input form.
@@ -1444,12 +1439,12 @@ msgstr "Email 偏好"
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
 msgid "Send me notices of new subscriptions through email."
-msgstr "如果有用户跟随我，通过电子邮件告诉我。"
+msgstr "如果有用户订阅我，通过电子邮件告诉我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:186
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr "如果有人收藏我的通告，发邮件通知我。"
+msgstr "如果有人收藏我的消息，发邮件通知我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:193
@@ -1576,7 +1571,7 @@ msgstr "已添加新的发布用的电子邮件地址。"
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
-msgstr "已收藏此通告！"
+msgstr "已收藏过此消息！"
 
 #: actions/favor.php:92 lib/disfavorform.php:140
 msgid "Disfavor favorite"
@@ -1585,39 +1580,40 @@ msgstr "取消收藏"
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr "火爆的通告"
+msgstr "火爆的消息"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr "火爆的通告，第%d页"
+msgstr "火爆的消息，第%d页"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "目前站点上最火的通告。"
+msgstr "目前网站上最火的消息。"
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
-msgstr ""
+msgstr "此页面展示收藏的消息，但还没有人收藏任何消息。"
 
 #: actions/favorited.php:153
 msgid ""
 "Be the first to add a notice to your favorites by clicking the fave button "
 "next to any notice you like."
-msgstr ""
+msgstr "通过点击任意消息下的收藏图标成为第一个给自己的收藏添加消息的人。"
 
 #: actions/favorited.php:156
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
-msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
+msgstr ""
+"现在就 [注册一个账户](%%action.register%%) 并成为第一个添加自己收藏的人！"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
 #, php-format
 msgid "%s's favorite notices"
-msgstr "%s 收藏的通告"
+msgstr "%s收藏的消息"
 
 #: actions/favoritesrss.php:115
 #, fuzzy, php-format
@@ -1641,11 +1637,11 @@ msgstr "%s上的优秀用户摘选"
 
 #: actions/file.php:34
 msgid "No notice ID."
-msgstr "没有通告 ID。"
+msgstr "没有消息 ID。"
 
 #: actions/file.php:38
 msgid "No notice."
-msgstr "没有通告。"
+msgstr "没有消息。"
 
 #: actions/file.php:42
 msgid "No attachments."
@@ -1665,11 +1661,11 @@ msgstr "要查看的用户不存在。"
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
-msgstr ""
+msgstr "您可以使用本地订阅！"
 
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
-msgstr "该用户屏蔽了您，您不能跟随。"
+msgstr "该用户屏蔽了您，您不能订阅。"
 
 #: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
@@ -1684,9 +1680,8 @@ msgid "Remote service uses unknown version of OMB protocol."
 msgstr "远程服务使用的OMB协议版本未知。"
 
 #: actions/finishremotesubscribe.php:138
-#, fuzzy
 msgid "Error updating remote profile."
-msgstr "更新远程的个人信息时出错"
+msgstr "更新远程的个人信息时出错。"
 
 #: actions/getfile.php:79
 msgid "No such file."
@@ -1697,17 +1692,16 @@ msgid "Cannot read file."
 msgstr "无法读取文件。"
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
 msgstr "无效的令牌。"
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
-msgstr ""
+msgstr "此角色是保留的且不能被设置。"
 
 #: actions/grantrole.php:75
 msgid "You cannot grant user roles on this site."
-msgstr "您不能在这个站点授予用户角色。"
+msgstr "您不能在这个网站授予用户角色。"
 
 #: actions/grantrole.php:82
 msgid "User already has this role."
@@ -1716,7 +1710,6 @@ msgstr "用户已有此角色。"
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
 #: lib/profileformaction.php:79
-#, fuzzy
 msgid "No profile specified."
 msgstr "没有指定的消息。"
 
@@ -1787,7 +1780,7 @@ msgstr "群组页面设计。"
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
-msgstr "通过背景和颜色选项自定义你的群组的外观。"
+msgstr "通过背景图片和颜色板来自定义您的小组的外观。"
 
 #: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
 #: lib/designsettings.php:391 lib/designsettings.php:413
@@ -1957,7 +1950,7 @@ msgid ""
 "You can send and receive notices through Jabber/GTalk [instant messages](%%"
 "doc.im%%). Configure your address and settings below."
 msgstr ""
-"您可以通过Jabber/GTalk [即时通讯工具](%%doc.im%%)发送和接受通告。在这里配置它"
+"您可以通过Jabber/GTalk [即时通讯工具](%%doc.im%%)发送和接收消息。在这里配置它"
 "们。"
 
 #. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
@@ -2010,7 +2003,7 @@ msgstr "通过Jabber/GTalk发送通告。"
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:166
 msgid "Post a notice when my Jabber/GTalk status changes."
-msgstr "当我的Jabber/GTalk状态改变时自动发布通告。"
+msgstr "当我的Jabber/GTalk状态改变时自动发布消息。"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:172
@@ -2402,7 +2395,7 @@ msgstr "Ajax错误"
 
 #: actions/newnotice.php:69
 msgid "New notice"
-msgstr "新通告"
+msgstr "新消息"
 
 #: actions/newnotice.php:227
 msgid "Notice posted"
@@ -2414,8 +2407,8 @@ msgid ""
 "Search for notices on %%site.name%% by their contents. Separate search terms "
 "by spaces; they must be 3 characters or more."
 msgstr ""
-"在 %%site.name%% 的通告内容中搜索。搜索条件至少包含 3 个字符，多个搜索条件用"
-"空格分隔。"
+"在%%site.name%%的消息内容中搜索。搜索条件至少包含 3 个字符，多个搜索条件用空"
+"格分隔。"
 
 #: actions/noticesearch.php:78
 msgid "Text search"
@@ -2528,7 +2521,7 @@ msgstr "%s文件类型不被支持。"
 #: actions/oembed.php:163
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
-msgstr ""
+msgstr "请只用HTTP明文的%sURLs的地址。"
 
 #. TRANS: Client error on an API request with an unsupported data format.
 #: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
@@ -2542,7 +2535,7 @@ msgstr "搜索用户"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
-msgstr "搜索通告"
+msgstr "搜索消息"
 
 #: actions/othersettings.php:60
 msgid "Other settings"
@@ -2581,7 +2574,6 @@ msgid "No user ID specified."
 msgstr "此ID没有相应用户。"
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
 msgstr "指定的登录令牌无效。"
 
@@ -2679,7 +2671,7 @@ msgstr "路径"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
-msgstr "这个 StatusNet 站点的路径和服务器设置"
+msgstr "这个 StatusNet 网站的路径和服务器设置"
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -2707,7 +2699,7 @@ msgstr "无效的 SSL 服务器。最大长度255个字符。"
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 msgid "Site"
-msgstr "站点"
+msgstr "网站"
 
 #: actions/pathsadminpanel.php:238
 msgid "Server"
@@ -2715,7 +2707,7 @@ msgstr "服务器"
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
-msgstr ""
+msgstr "网站的服务器主机名。"
 
 #: actions/pathsadminpanel.php:242
 msgid "Path"
@@ -2723,7 +2715,7 @@ msgstr "路径"
 
 #: actions/pathsadminpanel.php:242
 msgid "Site path"
-msgstr "站点路径"
+msgstr "网站路径"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2735,7 +2727,7 @@ msgstr "本地化文件的目录路径"
 
 #: actions/pathsadminpanel.php:250
 msgid "Fancy URLs"
-msgstr ""
+msgstr "Fancy URLs"
 
 #: actions/pathsadminpanel.php:252
 msgid "Use fancy (more readable and memorable) URLs?"
@@ -2819,7 +2811,7 @@ msgstr "SSL 服务器"
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
-msgstr ""
+msgstr "直接SSL请求访问的服务器"
 
 #: actions/pathsadminpanel.php:352
 msgid "Save paths"
@@ -2850,12 +2842,12 @@ msgstr "用户自加标签%s - 第%d 页"
 
 #: actions/postnotice.php:95
 msgid "Invalid notice content."
-msgstr "无效的通告内容。"
+msgstr "无效的消息内容。"
 
 #: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
+msgstr "消息许可证“%1$s”与这个网站的许可证“%2$s”不兼容。"
 
 #: actions/profilesettings.php:60
 msgid "Profile settings"
@@ -2888,7 +2880,7 @@ msgstr "主页"
 
 #: actions/profilesettings.php:117 actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
-msgstr "您的主页、博客或在其他站点的URL"
+msgstr "您的主页、博客或在其他网站的URL"
 
 #: actions/profilesettings.php:122 actions/register.php:468
 #, php-format
@@ -2916,7 +2908,7 @@ msgstr "您的地理位置，格式类似\"城市，省份，国家\""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
-msgstr "当发布通告时分享我的地理位置"
+msgstr "当发布消息时分享我的地理位置"
 
 #: actions/profilesettings.php:145 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
@@ -2973,7 +2965,6 @@ msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动跟随选项。"
 
 #: actions/profilesettings.php:363
-#, fuzzy
 msgid "Couldn't save location prefs."
 msgstr "无法保存标签。"
 
@@ -2993,12 +2984,11 @@ msgstr "设置已保存。"
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
-msgstr ""
+msgstr "超出页面限制(%s)。"
 
 #: actions/public.php:92
-#, fuzzy
 msgid "Could not retrieve public stream."
-msgstr "无法获取收藏的通告。"
+msgstr "无法获取到公共的时间线。"
 
 #: actions/public.php:130
 #, php-format
@@ -3039,17 +3029,17 @@ msgid ""
 msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
 
 #: actions/public.php:242
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
-"**%s** 是%%%%site.name%%%%上的一个群组，%%%%site.name%%%%是一个基于自由软件"
-"[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
-"E5%BE%AE%E5%8D%9A%E5%AE%A2)。%%%%site.name%%%%的成员分享关于生活和兴趣的短信"
-"息。"
+"欢迎来到%%site.name%%，一个基于免费的软件 [StatusNet](http://status.net/) 创"
+"建的 [微博](http://en.wikipedia.org/wiki/Micro-blogging) 服务。[现在加入](%%"
+"action.register%%) 并与你的朋友、家人和同事们一起共享你的消息。([查看更多](%%"
+"doc.help%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3080,11 +3070,11 @@ msgid "Be the first to post one!"
 msgstr "成为第一个发布消息的人！"
 
 #: actions/publictagcloud.php:75
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
-msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
+msgstr "现在就 [注册](%%action.register%%) 并发布第一个！"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
@@ -3270,7 +3260,7 @@ msgstr "电子邮件"
 
 #: actions/register.php:446 actions/register.php:450
 msgid "Used only for updates, announcements, and password recovery"
-msgstr "只用于更新、通告或密码恢复"
+msgstr "只用于更新、公告或密码恢复"
 
 #: actions/register.php:457
 msgid "Longer name, preferably your \"real\" name"
@@ -3413,7 +3403,7 @@ msgstr "你不能重复自己的消息。"
 
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
-msgstr "您已转发过了那个通告。"
+msgstr "您已转发过了那个消息。"
 
 #: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
@@ -3450,11 +3440,11 @@ msgid "Replies feed for %s (Atom)"
 msgstr "%s 的回复聚合 (Atom)"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
-msgstr "这是 %s 和好友的时间线，但是没有任何人发布内容。"
+msgstr "这里显示了所有发送@给%s的信息，但是%2$s还没有收到任何人的消息。"
 
 #: actions/replies.php:204
 #, php-format
@@ -3462,24 +3452,25 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
+"你可以让其他用户参与对话，订阅更多的人或者 [加入群组](%%action.groups%%)。"
 
 #: actions/replies.php:206
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"成为 [第一个在该主题发布消息的人](%%%%action.newnotice%%%%?status_textarea=%"
-"s) ！"
+"您可以试着 [轻推%1$s](../%2$s) 或者给他们 [发一些消息](%%%%action.newnotice%%"
+"%%?status_textarea=%3$s)。"
 
 #: actions/repliesrss.php:72
-#, fuzzy, php-format
+#, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "对%s的回复，第%2$d页"
 
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
-msgstr "您不能在这个站点移除用户角色。"
+msgstr "您不能在这个网站移除用户角色。"
 
 #: actions/revokerole.php:82
 msgid "User doesn't have this role."
@@ -3490,9 +3481,8 @@ msgid "StatusNet"
 msgstr "StatusNet"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
-msgstr "您不能在这个站点授予用户角色。"
+msgstr "您不能在这个网站授予用户角色。"
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
@@ -3502,32 +3492,30 @@ msgstr ""
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:392
 msgid "Sessions"
-msgstr ""
+msgstr "会话"
 
 #: actions/sessionsadminpanel.php:65
-#, fuzzy
 msgid "Session settings for this StatusNet site."
-msgstr "这个 StatusNet 站点的设计设置"
+msgstr "这个 StatusNet 网站的设计设置"
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
-msgstr ""
+msgstr "管理会话"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
-msgstr ""
+msgstr "是否自己处理sessions。"
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
-msgstr ""
+msgstr "会话调试"
 
 #: actions/sessionsadminpanel.php:183
 msgid "Turn on debugging output for sessions."
-msgstr ""
+msgstr "打开会话的调试输出。"
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
-#, fuzzy
 msgid "Save site settings"
 msgstr "保存访问设置"
 
@@ -3536,25 +3524,22 @@ msgid "You must be logged in to view an application."
 msgstr "您必须登录才能创建小组。"
 
 #: actions/showapplication.php:157
-#, fuzzy
 msgid "Application profile"
 msgstr "未找到应用。"
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
 msgid "Icon"
-msgstr ""
+msgstr "图标"
 
 #. TRANS: Form input field label for application name.
 #: actions/showapplication.php:169 actions/version.php:197
 #: lib/applicationeditform.php:199
-#, fuzzy
 msgid "Name"
-msgstr "昵称"
+msgstr "名称"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:178 lib/applicationeditform.php:235
-#, fuzzy
 msgid "Organization"
 msgstr "组织名称必填。"
 
@@ -3572,61 +3557,58 @@ msgstr "统计"
 #: actions/showapplication.php:203
 #, php-format
 msgid "Created by %1$s - %2$s access by default - %3$d users"
-msgstr ""
+msgstr "由%1$s创建 - 默认访问权限%2$s - %3$d个用户"
 
 #: actions/showapplication.php:213
-#, fuzzy
 msgid "Application actions"
-msgstr "未找到应用。"
+msgstr "应用程序动作"
 
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
-msgstr ""
+msgstr "重置key和secret"
 
 #: actions/showapplication.php:261
-#, fuzzy
 msgid "Application info"
-msgstr "未找到应用。"
+msgstr "应用程序信息"
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
-msgstr ""
+msgstr "Consumer key"
 
 #: actions/showapplication.php:268
 msgid "Consumer secret"
-msgstr ""
+msgstr "Consumer secret"
 
 #: actions/showapplication.php:273
 msgid "Request token URL"
-msgstr ""
+msgstr "请求令牌URL"
 
 #: actions/showapplication.php:278
 msgid "Access token URL"
-msgstr ""
+msgstr "访问令牌URL"
 
 #: actions/showapplication.php:283
 msgid "Authorize URL"
-msgstr ""
+msgstr "授权URL"
 
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
-msgstr ""
+msgstr "提示：我们支持HMAC-SHA1签名。我们不支持明文的签名方法。"
 
 #: actions/showapplication.php:309
-#, fuzzy
 msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "确定要删除这条消息吗？"
+msgstr "您确定要重置你的consumer key和secret吗？"
 
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%s 收藏的通告"
+msgstr "%1$s收藏的消息，第%2$d页"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
-msgstr "无法获取收藏的通告。"
+msgstr "无法获取收藏的消息。"
 
 #: actions/showfavorites.php:171
 #, php-format
@@ -3648,13 +3630,15 @@ msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
 "notices you like to bookmark them for later or shed a spotlight on them."
 msgstr ""
+"您还没收藏任何消息呢。点击消息上的添加收藏按钮就可以添加到收藏夹以后查看或者"
+"收藏一堆有趣的消息。"
 
 #: actions/showfavorites.php:208
 #, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
-msgstr ""
+msgstr "%s还没有收藏任何的消息。发一些他/她可能会添加到收藏的有趣的消息吧 :)"
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -3663,10 +3647,12 @@ msgid ""
 "action.register%%%%) and then post something interesting they would add to "
 "their favorites :)"
 msgstr ""
+"%s还没有收藏任何的消息。现在就 [注册账户](%%%%action.register%%%%) 并发一些"
+"他/她可能会添加到收藏的有趣的消息吧 :)"
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
-msgstr ""
+msgstr "这是一种分享你喜欢的内容的方式。"
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
@@ -3689,14 +3675,12 @@ msgstr "URL 互联网地址"
 
 #: actions/showgroup.php:283 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:195
-#, fuzzy
 msgid "Note"
 msgstr "无"
 
 #: actions/showgroup.php:293 lib/groupeditform.php:184
-#, fuzzy
 msgid "Aliases"
-msgstr "总是"
+msgstr "别名"
 
 #: actions/showgroup.php:302
 msgid "Group actions"
@@ -3705,17 +3689,17 @@ msgstr "组动作"
 #: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "%s群组的通告聚合 (RSS 1.0)"
+msgstr "%s群组的消息聚合 (RSS 1.0)"
 
 #: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "%s群组的通告聚合 (RSS 2.0)"
+msgstr "%s群组的消息聚合 (RSS 2.0)"
 
 #: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "%s群组的通告聚合 (Atom)"
+msgstr "%s群组的消息聚合 (Atom)"
 
 #: actions/showgroup.php:355
 #, php-format
@@ -3741,7 +3725,7 @@ msgid "Created"
 msgstr "建立"
 
 #: actions/showgroup.php:455
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
@@ -3749,10 +3733,11 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** 是%%%%site.name%%%%上的一个群组，%%%%site.name%%%%是一个基于自由软件"
-"[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
-"E5%BE%AE%E5%8D%9A%E5%AE%A2)。%%%%site.name%%%%的成员分享关于生活和兴趣的短信"
-"息。"
+"**%s**是%%%%site.name%%%%上的一个用户小组，%%%%site.name%%%%是一个基于自由软"
+"件[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
+"E5%BE%AE%E5%8D%9A%E5%AE%A2)服务。用户通过短消息分享他们的生活和兴趣。现在[加"
+"入](%%%%action.register%%%%)成为该小组的一员并享受更多的欢乐！（[阅读更多](%%"
+"%%doc.help%%%%)）"
 
 #: actions/showgroup.php:461
 #, php-format
@@ -3790,14 +3775,13 @@ msgid "Message from %1$s on %2$s"
 msgstr "来自 %1$s 的 %2$s 消息"
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "消息已发布。"
+msgstr "消息已删除"
 
 #: actions/showstream.php:73
-#, fuzzy, php-format
+#, php-format
 msgid " tagged %s"
-msgstr "带 %s 标签的通告"
+msgstr "带%s标签的"
 
 #: actions/showstream.php:79
 #, php-format
@@ -3807,50 +3791,50 @@ msgstr "%1$s，第%2$d页"
 #: actions/showstream.php:122
 #, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr " %1$s的有%2$s标签的通告聚合 (RSS 1.0)"
+msgstr "%1$s的有%2$s标签的消息聚合 (RSS 1.0)"
 
 #: actions/showstream.php:129
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "%s的通告聚合 (RSS 1.0)"
+msgstr "%s的消息聚合 (RSS 1.0)"
 
 #: actions/showstream.php:136
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "%s的通告聚合 (RSS 2.0)"
+msgstr "%s的消息聚合 (RSS 2.0)"
 
 #: actions/showstream.php:143
 #, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "%s的通告聚合 (Atom)"
+msgstr "%s的消息聚合 (Atom)"
 
 #: actions/showstream.php:148
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s"
-msgstr "%s 的发件箱"
+msgstr "%s的FOAF"
 
 #: actions/showstream.php:200
-#, fuzzy, php-format
+#, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
-msgstr "这是 %s 和好友的时间线，但是没有任何人发布内容。"
+msgstr "这是%1$s的时间线，但是%2$s还没有发布任何内容。"
 
 #: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
-msgstr ""
+msgstr "最近看到了什么有趣的消息了么？您还没有发布消息呢，现在开始吧 :)"
 
 #: actions/showstream.php:207
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 msgstr ""
-"成为 [第一个在该主题发布消息的人](%%%%action.newnotice%%%%?status_textarea=%"
-"s) ！"
+"您可以试着轻推%1$s或给他们 [发一些消息](%%%%action.newnotice%%%%?"
+"status_textarea=%3$s)。"
 
 #: actions/showstream.php:243
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
@@ -3859,7 +3843,8 @@ msgid ""
 msgstr ""
 "**%s**在%%%%site.name%%%%有一个账号，%%%%site.name%%%%是一个基于自由软件"
 "[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
-"E5%BE%AE%E5%8D%9A%E5%AE%A2)。"
+"E5%BE%AE%E5%8D%9A%E5%AE%A2)服务。[现在](%%%%action.register%%%%)并订阅**%s**"
+"的消息和享受更多乐趣! （[阅读更多](%%%%doc.help%%%%)）"
 
 #: actions/showstream.php:248
 #, php-format
@@ -3873,12 +3858,11 @@ msgstr ""
 "E5%BE%AE%E5%8D%9A%E5%AE%A2)。"
 
 #: actions/showstream.php:305
-#, fuzzy, php-format
+#, php-format
 msgid "Repeat of %s"
 msgstr "%s 的转发"
 
 #: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
 msgid "You cannot silence users on this site."
 msgstr "您不能在这个站点移除用户角色。"
 
@@ -3887,13 +3871,12 @@ msgid "User is already silenced."
 msgstr "用户已经静默。"
 
 #: actions/siteadminpanel.php:69
-#, fuzzy
 msgid "Basic settings for this StatusNet site"
-msgstr "这个 StatusNet 站点的设计设置"
+msgstr "这个 StatusNet 网站的基本设置"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
-msgstr ""
+msgstr "网站名称长度必须大于零。"
 
 #: actions/siteadminpanel.php:141
 msgid "You must have a valid contact email address."
@@ -3902,121 +3885,115 @@ msgstr "您必须有一个有效的 email 地址。"
 #: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
-msgstr ""
+msgstr "未知的语言“%s”"
 
 #: actions/siteadminpanel.php:165
 msgid "Minimum text limit is 0 (unlimited)."
-msgstr ""
+msgstr "最短的文字限制为0（没有限制）。"
 
 #: actions/siteadminpanel.php:171
 msgid "Dupe limit must be one or more seconds."
-msgstr ""
+msgstr "防刷新限制至少要1秒或者更长。"
 
 #: actions/siteadminpanel.php:221
 msgid "General"
-msgstr ""
+msgstr "一般"
 
 #: actions/siteadminpanel.php:224
 msgid "Site name"
-msgstr "站点名称"
+msgstr "网站名称"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr ""
+msgstr "您的网站名称，例如\\\"您公司网站的微博\\\""
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
-msgstr ""
+msgstr "提供商"
 
 #: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
-msgstr ""
+msgstr "用于每页页脚的 credits 链接文字"
 
 #: actions/siteadminpanel.php:234
 msgid "Brought by URL"
-msgstr ""
+msgstr "提供商 URL"
 
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
-msgstr ""
+msgstr "用于每页页脚的 credits URL"
 
 #: actions/siteadminpanel.php:239
-#, fuzzy
 msgid "Contact email address for your site"
-msgstr "新的电子邮件地址，用于发布 %s 信息"
+msgstr "网站的联系我们电子邮件地址"
 
 #: actions/siteadminpanel.php:245
-#, fuzzy
 msgid "Local"
-msgstr "本地显示"
+msgstr "本地"
 
 #: actions/siteadminpanel.php:256
-#, fuzzy
 msgid "Default timezone"
-msgstr "默认跟随"
+msgstr "默认时区"
 
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
-msgstr ""
+msgstr "默认的网站时区；通常使用 UTC。"
 
 #: actions/siteadminpanel.php:262
-#, fuzzy
 msgid "Default language"
-msgstr "首选语言"
+msgstr "默认语言"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
-msgstr ""
+msgstr "当从浏览器自动获取语言不可用时网站的语言"
 
 #: actions/siteadminpanel.php:271
 msgid "Limits"
-msgstr ""
+msgstr "限制"
 
 #: actions/siteadminpanel.php:274
 msgid "Text limit"
-msgstr ""
+msgstr "文字限制"
 
 #: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
-msgstr ""
+msgstr "消息最长的字符数。"
 
 #: actions/siteadminpanel.php:278
 msgid "Dupe limit"
-msgstr ""
+msgstr "防刷新限制"
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
-msgstr ""
+msgstr "用户再次发布相同内容时需要等待的时间（秒）。"
 
 #: actions/sitenoticeadminpanel.php:56
 msgid "Site Notice"
-msgstr "站点通告"
+msgstr "网站消息"
 
 #: actions/sitenoticeadminpanel.php:67
-#, fuzzy
 msgid "Edit site-wide message"
-msgstr "新消息"
+msgstr "编辑整个网站的消息"
 
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
-msgstr "保存站点通告"
+msgstr "保存网站消息"
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
-msgstr ""
+msgstr "整个网站最长的消息限制为255字符。"
 
 #: actions/sitenoticeadminpanel.php:176
 msgid "Site notice text"
-msgstr "站点通告文字"
+msgstr "网站消息文字"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "整个网站的消息文字（最长255字符；可使用HTML）"
 
 #: actions/sitenoticeadminpanel.php:198
 msgid "Save site notice"
-msgstr "保存站点通告"
+msgstr "保存网站消息"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -4062,7 +4039,6 @@ msgstr "输入手机收到的验证码。"
 
 #. TRANS: Button label to confirm SMS confirmation code in SMS settings.
 #: actions/smssettings.php:148
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "确认"
@@ -4087,13 +4063,12 @@ msgstr "SMS 偏好"
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
-msgstr "通过SMS短信将通告发给我；我了解这样也许会给我带来不菲的开支。"
+msgstr "通过SMS短信将消息发给我；我了解这样也许会给我带来不菲的开支。"
 
 #. TRANS: Confirmation message for successful SMS preferences save.
 #: actions/smssettings.php:315
-#, fuzzy
 msgid "SMS preferences saved."
-msgstr "首选项已保存。"
+msgstr "SMS设置已保存。"
 
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
@@ -4146,9 +4121,8 @@ msgstr "SMS 电话号码已移除。"
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
-#, fuzzy
 msgid "Mobile carrier"
-msgstr "选择运营商"
+msgstr "移动运营商"
 
 #. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:516
@@ -4175,60 +4149,57 @@ msgstr "没有输入验证码"
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:408
 msgid "Snapshots"
-msgstr ""
+msgstr "快照"
 
 #: actions/snapshotadminpanel.php:65
 msgid "Manage snapshot configuration"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:127
-#, fuzzy
 msgid "Invalid snapshot run value."
-msgstr "无效的通告内容。"
+msgstr "无效的快照运行值。"
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "快照频率必须是一个数字。"
 
 #: actions/snapshotadminpanel.php:144
-#, fuzzy
 msgid "Invalid snapshot report URL."
-msgstr "无效的 logo URL。"
+msgstr "无效的快照报告 URL。"
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
-msgstr ""
+msgstr "被访问时随机"
 
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
-msgstr ""
+msgstr "按照计划的作业"
 
 #: actions/snapshotadminpanel.php:206
 msgid "Data snapshots"
-msgstr ""
+msgstr "数据快照"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
-msgstr ""
+msgstr "什么时候将统计数据发送到 status.net 服务器"
 
 #: actions/snapshotadminpanel.php:217
 msgid "Frequency"
-msgstr ""
+msgstr "频率"
 
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
-msgstr ""
+msgstr "每第N次访问是发送快照"
 
 #: actions/snapshotadminpanel.php:226
 msgid "Report URL"
-msgstr ""
+msgstr "报告 URL"
 
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "快照将被发送到这个 URL"
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
 msgstr "保存访问设置"
 
@@ -4243,10 +4214,9 @@ msgstr "无法保存跟随。"
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
+msgstr "这个动作只接受 POST 请求"
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
 msgstr "没有这个文件。"
 
@@ -4270,30 +4240,34 @@ msgstr "%1$s的跟随者，第%2$d页"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
-msgstr "这些用户跟随了您的通告。"
+msgstr "这些用户跟随了您的消息。"
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr "这些用户跟随了%s的通告。"
+msgstr "这些用户跟随了%s的消息。"
 
 #: actions/subscribers.php:108
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
 msgstr ""
+"您还没有订阅者，尝试订阅一些您认识的人他们让他们知道您也在这上面，他们或许会"
+"订阅您"
 
 #: actions/subscribers.php:110
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
-msgstr ""
+msgstr "%s还没有订阅者，成为第一个订阅者？"
 
 #: actions/subscribers.php:114
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
-msgstr "现在就 [注册](%%action.register%%) 并成为第一个发布消息的人！"
+msgstr ""
+"%s还没有订阅者。现在就[注册一个账户](%%%%action.register%%%%)并成为第一个订阅"
+"者！"
 
 #: actions/subscriptions.php:52
 #, php-format
@@ -4323,6 +4297,10 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
+"您现在还看不到其他人的消息，试着去订阅一些您认识的人。试一下 [用户搜索](%%"
+"action.peoplesearch%%)，在我们的 [推荐用户](%%action.featured%%) 中找一些您感"
+"兴趣的小组的用户。如果您是  [Twitter用户](%%action.twittersettings%%)，您可以"
+"自动订阅您已经订阅的用户。"
 
 #: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
@@ -4330,9 +4308,8 @@ msgid "%s is not listening to anyone."
 msgstr "%s没有跟随任何人。"
 
 #: actions/subscriptions.php:208
-#, fuzzy
 msgid "Jabber"
-msgstr "没有 Jabber ID。"
+msgstr "Jabber"
 
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
@@ -4341,34 +4318,33 @@ msgstr "SMS"
 #: actions/tag.php:69
 #, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "带%1$s标签的通告，第%2$d页"
+msgstr "带%1$s标签的消息，第%2$d页"
 
 #: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "%s标签的通告聚合 (RSS 1.0)"
+msgstr "%s标签的消息聚合 (RSS 1.0)"
 
 #: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "%s标签的通告聚合 (RSS 2.0)"
+msgstr "%s标签的消息聚合 (RSS 2.0)"
 
 #: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "%s标签的通告聚合 (Atom)"
+msgstr "%s标签的消息聚合 (Atom)"
 
 #: actions/tagother.php:39
 msgid "No ID argument."
 msgstr "没有 ID 冲突。"
 
 #: actions/tagother.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Tag %s"
-msgstr "标签"
+msgstr "将%s加为标签"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
-#, fuzzy
 msgid "User profile"
 msgstr "用户角色"
 
@@ -4378,9 +4354,8 @@ msgid "Photo"
 msgstr "相片"
 
 #: actions/tagother.php:141
-#, fuzzy
 msgid "Tag user"
-msgstr "标签"
+msgstr "将用户加为标签"
 
 #: actions/tagother.php:151
 msgid ""
@@ -4403,9 +4378,8 @@ msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr "使用这个表格给您的跟随者或您跟随的人添加标签。"
 
 #: actions/tagrss.php:35
-#, fuzzy
 msgid "No such tag."
-msgstr "未找到此消息。"
+msgstr "没有此标签。"
 
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
@@ -4416,7 +4390,6 @@ msgid "User is not sandboxed."
 msgstr ""
 
 #: actions/unsilence.php:72
-#, fuzzy
 msgid "User is not silenced."
 msgstr "用户已经静默。"
 
@@ -4425,41 +4398,37 @@ msgid "No profile ID in request."
 msgstr "请求不含资料页 ID。"
 
 #: actions/unsubscribe.php:98
-#, fuzzy
 msgid "Unsubscribed"
-msgstr "退订"
+msgstr "已取消跟随"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
+msgstr "Listenee stream 许可证“‘%1$s” 与本网站的许可证 “%2$s”不兼容。"
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:59
-#, fuzzy
 msgctxt "TITLE"
 msgid "User"
 msgstr "用户"
 
 #: actions/useradminpanel.php:70
-#, fuzzy
 msgid "User settings for this StatusNet site."
-msgstr "这个 StatusNet 站点的设计设置"
+msgstr "这个 StatusNet 网站的用户设置"
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
-msgstr ""
+msgstr "无效的自述限制，必须为数字。"
 
 #: actions/useradminpanel.php:155
-#, fuzzy
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr "无效的 SSL 服务器。最大长度255个字符。"
+msgstr "无效的欢迎文字。最大长度255个字符。"
 
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr ""
+msgstr "无效的默认订阅：“%1$s”不是一个用户。"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
@@ -4469,25 +4438,23 @@ msgstr "个人信息"
 
 #: actions/useradminpanel.php:222
 msgid "Bio Limit"
-msgstr ""
+msgstr "自述限制"
 
 #: actions/useradminpanel.php:223
 msgid "Maximum length of a profile bio in characters."
-msgstr ""
+msgstr "个人资料自述最长的字符数。"
 
 #: actions/useradminpanel.php:231
-#, fuzzy
 msgid "New users"
-msgstr "邀请新用户"
+msgstr "新用户"
 
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
-msgstr ""
+msgstr "新用户欢迎"
 
 #: actions/useradminpanel.php:236
-#, fuzzy
 msgid "Welcome text for new users (Max 255 chars)."
-msgstr "名称过长(不能超过255个字符)。"
+msgstr "给新用户的欢迎文字(不能超过255个字符)。"
 
 #: actions/useradminpanel.php:241
 msgid "Default subscription"
@@ -4498,18 +4465,16 @@ msgid "Automatically subscribe new users to this user."
 msgstr "自动跟随所有跟随我的人 (这个选项适合机器人)"
 
 #: actions/useradminpanel.php:251
-#, fuzzy
 msgid "Invitations"
-msgstr "已发送邀请"
+msgstr "邀请"
 
 #: actions/useradminpanel.php:256
-#, fuzzy
 msgid "Invitations enabled"
-msgstr "已发送邀请"
+msgstr "邀请已启用"
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
-msgstr ""
+msgstr "是否允许用户发送注册邀请。"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4521,7 +4486,7 @@ msgid ""
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"请检查这些详细信息，确认希望跟随此用户的通告。如果您刚才没有想跟随通告，请点"
+"请检查这些详细信息，确认希望跟随此用户的消息。如果您刚才没有想跟随通告，请点"
 "击\"拒绝\"。"
 
 #: actions/userauthorization.php:196 actions/version.php:167
@@ -4575,27 +4540,27 @@ msgstr "跟随已拒绝，但是没有回传 URL。请到网站查看如何完�
 #: actions/userauthorization.php:303
 #, php-format
 msgid "Listener URI ‘%s’ not found here."
-msgstr ""
+msgstr "Listener URI ‘%s’ 没有找到。"
 
 #: actions/userauthorization.php:308
 #, php-format
 msgid "Listenee URI ‘%s’ is too long."
-msgstr ""
+msgstr "Listenee URI ‘%s’ 过长。"
 
 #: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
-msgstr ""
+msgstr "Listenee URI ‘%s’ 是一个本地用户。"
 
 #: actions/userauthorization.php:329
 #, php-format
 msgid "Profile URL ‘%s’ is for a local user."
-msgstr ""
+msgstr "个人信息 URL “%s” 是为本地用户的。"
 
 #: actions/userauthorization.php:345
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr "调回地址（Callback URL）无效。"
+msgstr "头像地址‘%s’无效。"
 
 #: actions/userauthorization.php:350
 #, php-format
@@ -4608,20 +4573,18 @@ msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "头像 URL ‘%s’ 图像格式错误。"
 
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
-#, fuzzy
 msgid "Profile design"
 msgstr "查看个人页面设计"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
-#, fuzzy
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
 "palette of your choice."
-msgstr "通过背景和颜色选项自定义你的群组的外观。"
+msgstr "通过背景图片和调色板自定义您的页面外观。"
 
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
-msgstr ""
+msgstr "享受您的成果吧！"
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #: actions/usergroups.php:66
@@ -4634,14 +4597,14 @@ msgid "Search for more groups"
 msgstr "搜索更多群组"
 
 #: actions/usergroups.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a member of any group."
 msgstr "用户不是群组成员。"
 
 #: actions/usergroups.php:164
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
-msgstr ""
+msgstr "试一下[搜索小组](%%%%action.groupsearch%%%%)并加入他们。"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle in atom group notice feed.
@@ -4655,7 +4618,7 @@ msgid "Updates from %1$s on %2$s!"
 msgstr "%2$s 上 %1$s 的更新！"
 
 #: actions/version.php:75
-#, fuzzy, php-format
+#, php-format
 msgid "StatusNet %s"
 msgstr "StatusNet"
 
@@ -4665,10 +4628,11 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
+"此网站使用%1$s版本%2$s，2008-2010 StatusNet, Inc. 和其他贡献者版权所有。"
 
 #: actions/version.php:163
 msgid "Contributors"
-msgstr ""
+msgstr "贡献者"
 
 #: actions/version.php:170
 msgid ""
@@ -4677,6 +4641,8 @@ msgid ""
 "Software Foundation, either version 3 of the License, or (at your option) "
 "any later version. "
 msgstr ""
+"StatusNet 是一个免费软件，您可以在自由软件基金会发布的GNU Affero通用公共许可"
+"证或本软件第三版或以后许可证的允许下重新分配或者修改它，\\"
 
 #: actions/version.php:176
 msgid ""
@@ -4685,6 +4651,8 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
 "for more details. "
 msgstr ""
+"这个程序的分布是希望它可以有用，但没有任何的担保；也没有售后性或者符合其他特"
+"别目的的担保。查看GNU Affero通用公共许可证了解更多信息。\\"
 
 #: actions/version.php:182
 #, php-format
@@ -4692,31 +4660,31 @@ msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
 msgstr ""
+"您应该在本程序中收到了一份GNU Affero公共许可证的副本，如果没有收到请看%s。"
 
 #: actions/version.php:191
 msgid "Plugins"
-msgstr ""
+msgstr "插件"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
 #: actions/version.php:198 lib/action.php:789
-#, fuzzy
 msgid "Version"
-msgstr "个人"
+msgstr "版本"
 
 #: actions/version.php:199
 msgid "Author(s)"
-msgstr ""
+msgstr "作者"
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
 #, php-format
 msgid "Cannot process URL '%s'"
-msgstr ""
+msgstr "不能处理 URL “%s”"
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:175
 msgid "Robin thinks something is impossible."
-msgstr ""
+msgstr "麦子认为卖烧麦是份很令人愉快的工作。"
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
@@ -4726,26 +4694,26 @@ msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
+"不能有文件大于%1$d字节，您上传的文件是%2$d字节。换一个小点的版本试一下。"
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
 #: classes/File.php:202
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
-msgstr ""
+msgstr "这么大的文件会超过您%d字节的用户配额。"
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
 #. TRANS: $d (number) is the monthly user quota in bytes.
 #: classes/File.php:211
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
-msgstr ""
+msgstr "这么大的文件会超过您%d字节的每月配额。"
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:248 classes/File.php:263
-#, fuzzy
 msgid "Invalid filename."
-msgstr "大小不正确。"
+msgstr "无效的文件名。"
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -4754,9 +4722,8 @@ msgstr "加入群组失败。"
 
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
 #: classes/Group_member.php:55
-#, fuzzy
 msgid "Not part of group."
-msgstr "无法更新组"
+msgstr "不是小组成员。"
 
 #. TRANS: Exception thrown when trying to leave a group fails.
 #: classes/Group_member.php:63
@@ -4765,27 +4732,25 @@ msgstr "离开群组失败。"
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
-#, fuzzy
 msgid "Could not update local group."
-msgstr "无法更新组"
+msgstr "无法更新本地小组。"
 
 #. TRANS: Exception thrown when trying creating a login token failed.
 #. TRANS: %s is the user nickname for which token creation failed.
 #: classes/Login_token.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
 msgstr "无法创建别名。"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
-msgstr ""
+msgstr "没有找到数据库名称或者 DSN。"
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
-#, fuzzy
 msgid "You are banned from sending direct messages."
-msgstr "发送消息出错。"
+msgstr "您被禁止发送私信。"
 
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
@@ -4802,7 +4767,7 @@ msgstr "无法添加新URI的信息。"
 #: classes/Notice.php:98
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
-msgstr ""
+msgstr "没有对于 消息 (%2$d) 的 个人信息页 (%1$d) 。"
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:193
@@ -4812,15 +4777,13 @@ msgstr "插入标签时数据库出错：%s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 #: classes/Notice.php:265
-#, fuzzy
 msgid "Problem saving notice. Too long."
-msgstr "保存通告时出错。"
+msgstr "保存消息时出错。太长。"
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
 #: classes/Notice.php:270
-#, fuzzy
 msgid "Problem saving notice. Unknown user."
-msgstr "保存通告时出错。"
+msgstr "保存消息时出错。未知用户。"
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
 #: classes/Notice.php:276
@@ -4838,55 +4801,52 @@ msgstr "您在短时间里发布了过多的重复消息，请深呼吸，过几
 #. TRANS: Client exception thrown when a user tries to post while being banned.
 #: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
-msgstr "在这个站点您被禁止发布消息。"
+msgstr "在这个网站您被禁止发布消息。"
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
 #: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
-msgstr "保存通告时出错。"
+msgstr "保存消息时出错。"
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
-msgstr ""
+msgstr "对 saveKnownGroups 提供的类型无效"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
 #: classes/Notice.php:996
-#, fuzzy
 msgid "Problem saving group inbox."
-msgstr "保存通告时出错。"
+msgstr "保存小组收件箱时出错。"
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #: classes/Notice.php:1751
-#, fuzzy, php-format
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%1$s (%2$s)"
+msgstr "RT @%1$s %2$s"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:737
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
-msgstr ""
+msgstr "无法取消用户#%2$d的\\\"%1$s\\\"权限，不存在。"
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
 #: classes/Profile.php:746
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
-msgstr ""
+msgstr "无法取消用户#%2$d的\\\"%1$s\\\"权限，数据库错误。"
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 #: classes/Remote_profile.php:54
-#, fuzzy
 msgid "Missing profile."
-msgstr "用户没有个人信息。"
+msgstr "丢失的个人信息。"
 
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:346
-#, fuzzy
 msgid "Unable to save tag."
 msgstr "无法保存标签。"
 
@@ -4902,7 +4862,6 @@ msgstr "已跟随！"
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
-#, fuzzy
 msgid "User has blocked you."
 msgstr "用户未被群组屏蔽。"
 
@@ -4929,7 +4888,7 @@ msgstr "无法取消跟随。"
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
 #: classes/User.php:365
-#, fuzzy, php-format
+#, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "对%s的回复，第%2$d页"
 
@@ -4975,7 +4934,6 @@ msgstr "修改电子邮件"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:137
-#, fuzzy
 msgid "Design your profile"
 msgstr "群组资料"
 
@@ -5038,7 +4996,7 @@ msgstr "关联"
 #: lib/action.php:458
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
-msgstr "更改站点配置"
+msgstr "更改网站配置"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #: lib/action.php:461
@@ -5063,7 +5021,7 @@ msgstr "邀请"
 #: lib/action.php:474
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
-msgstr "从站点登出"
+msgstr "从网站登出"
 
 #. TRANS: Main menu option when logged in to log out the current user
 #: lib/action.php:477
@@ -5079,7 +5037,6 @@ msgstr "创建一个账户"
 
 #. TRANS: Main menu option when not logged in to register a new account
 #: lib/action.php:485
-#, fuzzy
 msgctxt "MENU"
 msgid "Register"
 msgstr "注册"
@@ -5088,7 +5045,7 @@ msgstr "注册"
 #: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Login to the site"
-msgstr "登录这个站点"
+msgstr "登录这个网站"
 
 #: lib/action.php:491
 msgctxt "MENU"
@@ -5130,9 +5087,8 @@ msgstr "本地显示"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
 #: lib/action.php:659
-#, fuzzy
 msgid "Page notice"
-msgstr "新通告"
+msgstr "页面消息"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:762
@@ -5175,9 +5131,8 @@ msgid "Contact"
 msgstr "联系人"
 
 #: lib/action.php:794
-#, fuzzy
 msgid "Badge"
-msgstr "呼叫"
+msgstr "挂件"
 
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:823
@@ -5214,34 +5169,33 @@ msgstr ""
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:850
-#, fuzzy
 msgid "Site content license"
-msgstr "StatusNet软件注册证"
+msgstr "网站内容许可协议"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
 #: lib/action.php:857
-#, fuzzy, php-format
+#, php-format
 msgid "Content and data of %1$s are private and confidential."
-msgstr "我明白%1$s的信息是私人且保密的。"
+msgstr "%1$s的内容和数据是私人且保密的。"
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
 #: lib/action.php:864
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
-msgstr ""
+msgstr "内容和数据%1$s版权所有并保留所有权利。"
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
 #: lib/action.php:868
 msgid "Content and data copyright by contributors. All rights reserved."
-msgstr ""
+msgstr "内容和数据贡献者版权所有并保留所有权利。"
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
 #: lib/action.php:881
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
-msgstr ""
+msgstr "所有%1$s的内容和数据在%2$s许可下有效。"
 
 #. TRANS: DT element for pagination (previous/next, etc.).
 #: lib/action.php:1192
@@ -5263,69 +5217,61 @@ msgstr "之前"
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
 #: lib/activity.php:122
 msgid "Expecting a root feed element but got a whole XML document."
-msgstr ""
+msgstr "只期待一个 root feed 元素但收到了整个的 XML 文档。"
 
 #: lib/activityutils.php:208
 msgid "Can't handle remote content yet."
-msgstr ""
+msgstr "还不能处理远程内容。"
 
 #: lib/activityutils.php:244
 msgid "Can't handle embedded XML content yet."
-msgstr ""
+msgstr "还不能处理嵌入式 XML 内容。"
 
 #: lib/activityutils.php:248
 msgid "Can't handle embedded Base64 content yet."
-msgstr ""
+msgstr "还不能处理嵌入式 Base64 内容。"
 
 #. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
 #: lib/adminpanelaction.php:98
-#, fuzzy
 msgid "You cannot make changes to this site."
 msgstr "您不能在这个站点授予用户角色。"
 
 #. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:110
-#, fuzzy
 msgid "Changes to that panel are not allowed."
-msgstr "不允许注册。"
+msgstr "不允许对该面板进行修改。"
 
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
-#, fuzzy
 msgid "showForm() not implemented."
-msgstr "命令尚未实现。"
+msgstr "showForm() 尚未实现。"
 
 #. TRANS: Client error message
 #: lib/adminpanelaction.php:259
-#, fuzzy
 msgid "saveSettings() not implemented."
-msgstr "命令尚未实现。"
+msgstr "saveSettings() 尚未实现。"
 
 #. TRANS: Client error message thrown if design settings could not be deleted in
 #. TRANS: the admin panel Design.
 #: lib/adminpanelaction.php:284
-#, fuzzy
 msgid "Unable to delete design setting."
-msgstr "无法保存 Twitter 设置！"
+msgstr "无法删除设计设置。"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:350
-#, fuzzy
 msgid "Basic site configuration"
-msgstr "更改站点配置"
+msgstr "基本网站配置"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:352
-#, fuzzy
 msgctxt "MENU"
 msgid "Site"
-msgstr "站点"
+msgstr "网站"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:358
-#, fuzzy
 msgid "Design configuration"
-msgstr "更改站点配置"
+msgstr "设计配置"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:360
@@ -5335,9 +5281,8 @@ msgstr "设计"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:366
-#, fuzzy
 msgid "User configuration"
-msgstr "更改站点配置"
+msgstr "用户配置"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
@@ -5346,49 +5291,43 @@ msgstr "用户"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:374
-#, fuzzy
 msgid "Access configuration"
-msgstr "更改站点配置"
+msgstr "访问配置"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:382
-#, fuzzy
 msgid "Paths configuration"
-msgstr "更改站点配置"
+msgstr "路径配置"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:390
-#, fuzzy
 msgid "Sessions configuration"
-msgstr "更改站点配置"
+msgstr "会话配置"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:398
 msgid "Edit site notice"
-msgstr "编辑站点通告"
+msgstr "编辑网站消息"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:406
-#, fuzzy
 msgid "Snapshots configuration"
 msgstr "更改站点配置"
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
-msgstr ""
+msgstr "API 资源需要读写的访问权限，但是你只有只读的权限。"
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:137
-#, fuzzy
 msgid "Edit application"
 msgstr "编辑应用"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:187
-#, fuzzy
 msgid "Icon for this application"
-msgstr "不删除该程序"
+msgstr "该应用的图标"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:209
@@ -5408,15 +5347,13 @@ msgstr "这个应用的主页 URL"
 
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:226
-#, fuzzy
 msgid "Source URL"
-msgstr "来源"
+msgstr "来源网址"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
-#, fuzzy
 msgid "Organization responsible for this application"
-msgstr "你不是该程序的拥有者。"
+msgstr "该应用的负责组织"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
@@ -5426,37 +5363,37 @@ msgstr "这个组织的主页 URL"
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:251
 msgid "URL to redirect to after authentication"
-msgstr ""
+msgstr "通过授权后转向的 URL"
 
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:278
 msgid "Browser"
-msgstr ""
+msgstr "浏览器"
 
 #. TRANS: Radio button label for application type
 #: lib/applicationeditform.php:295
 msgid "Desktop"
-msgstr ""
+msgstr "桌面"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:297
 msgid "Type of application, browser or desktop"
-msgstr ""
+msgstr "应用的类型，浏览器或桌面"
 
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:320
 msgid "Read-only"
-msgstr ""
+msgstr "只读"
 
 #. TRANS: Radio button label for access type.
 #: lib/applicationeditform.php:339
 msgid "Read-write"
-msgstr ""
+msgstr "读写"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:341
 msgid "Default access for this application: read-only, or read-write"
-msgstr ""
+msgstr "该应用默认的访问权限：只读或读写"
 
 #. TRANS: Submit button title
 #: lib/applicationeditform.php:359
@@ -5466,18 +5403,18 @@ msgstr "取消"
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
 msgid "read-write"
-msgstr ""
+msgstr "读写"
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:138
 msgid "read-only"
-msgstr ""
+msgstr "只读"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr ""
+msgstr "通过了%1$s - \\\"%2$s\\\"的访问权限。"
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
@@ -5487,14 +5424,13 @@ msgstr "取消"
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
-#, fuzzy
 msgid "Attachments"
-msgstr "没有附件。"
+msgstr "附件"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:265
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
@@ -5503,15 +5439,13 @@ msgstr "提供者"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
-msgstr ""
+msgstr "出现这个附件的消息"
 
 #: lib/attachmenttagcloudsection.php:48
-#, fuzzy
 msgid "Tags for this attachment"
-msgstr "没有这个附件。"
+msgstr "此附件的标签"
 
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-#, fuzzy
 msgid "Password changing failed"
 msgstr "不允许更改密码"
 
@@ -5533,7 +5467,7 @@ msgstr "执行失败"
 
 #: lib/command.php:83 lib/command.php:105
 msgid "Notice with that id does not exist"
-msgstr "此 ID 的通告不存在。"
+msgstr "此 ID 的消息不存在。"
 
 #: lib/command.php:99 lib/command.php:596
 msgid "User has no last notice"
@@ -5542,16 +5476,16 @@ msgstr "用户没有通告。"
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
 #: lib/command.php:127
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a user with nickname %s"
-msgstr "无法更新已确认的电子邮件。"
+msgstr "无法找到昵称为%s的用户"
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:147
-#, fuzzy, php-format
+#, php-format
 msgid "Could not find a local user with nickname %s"
-msgstr "无法更新已确认的电子邮件。"
+msgstr "无法在本地找到昵称为%s的用户"
 
 #: lib/command.php:180
 msgid "Sorry, this command is not yet implemented."
@@ -5559,7 +5493,7 @@ msgstr "对不起，这个命令还没有实现。"
 
 #: lib/command.php:225
 msgid "It does not make a lot of sense to nudge yourself!"
-msgstr ""
+msgstr "轻推自己不太符合逻辑吧。"
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
@@ -5575,10 +5509,13 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
+"订阅数： %1$s\\n\n"
+"订阅者： %2$s\\n\n"
+"消息数： %3$s"
 
 #: lib/command.php:302
 msgid "Notice marked as fave."
-msgstr "通告被标记为收藏。"
+msgstr "消息被标记为收藏。"
 
 #: lib/command.php:323
 msgid "You are already a member of that group"
@@ -5629,7 +5566,7 @@ msgstr "关于：%s"
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
-msgstr ""
+msgstr "%s是一个远程的用户；您只能给同一个服务器上的用户发送私信。"
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
@@ -5650,29 +5587,28 @@ msgid "Error sending direct message."
 msgstr "发送消息出错。"
 
 #: lib/command.php:514
-#, fuzzy
 msgid "Cannot repeat your own notice"
-msgstr "不能转发您自己的通告。"
+msgstr "不能转发您自己的消息"
 
 #: lib/command.php:519
 msgid "Already repeated that notice"
-msgstr "已转发了那个通告。"
+msgstr "已转发了该消息"
 
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
 #: lib/command.php:529
-#, fuzzy, php-format
+#, php-format
 msgid "Notice from %s repeated"
-msgstr "消息已发布。"
+msgstr "%s的消息已被转发"
 
 #: lib/command.php:531
 msgid "Error repeating notice."
-msgstr "转发通告时出错。"
+msgstr "转发消息时出错。"
 
 #: lib/command.php:562
 #, php-format
 msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "通告包含%d个字符，超出长度限制 - 不能超过%d个字符。"
+msgstr "消息包含%d个字符，超出长度限制 - 不能超过%d个字符。"
 
 #: lib/command.php:571
 #, php-format
@@ -5680,9 +5616,8 @@ msgid "Reply to %s sent"
 msgstr "对%s的回复已发送"
 
 #: lib/command.php:573
-#, fuzzy
 msgid "Error saving notice."
-msgstr "转发通告时出错。"
+msgstr "保存消息时出错。"
 
 #: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
@@ -5712,28 +5647,28 @@ msgstr "命令尚未实现。"
 
 #: lib/command.php:685
 msgid "Notification off."
-msgstr "通告关闭。"
+msgstr "通知已关闭。"
 
 #: lib/command.php:687
 msgid "Can't turn off notification."
-msgstr "无法关闭通告。"
+msgstr "无法关闭通知。"
 
 #: lib/command.php:708
 msgid "Notification on."
-msgstr "通告开启。"
+msgstr "通知已开启。"
 
 #: lib/command.php:710
 msgid "Can't turn on notification."
-msgstr "无法开启通告。"
+msgstr "无法开启通知。"
 
 #: lib/command.php:723
 msgid "Login command is disabled"
-msgstr ""
+msgstr "登录命令被禁用"
 
 #: lib/command.php:734
 #, php-format
 msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr ""
+msgstr "这个链接只能使用一次并且仅在2分钟内有效：%s"
 
 #: lib/command.php:761
 #, php-format
@@ -5759,7 +5694,6 @@ msgid_plural "These people are subscribed to you:"
 msgstr[0] "这个用户正在跟随您："
 
 #: lib/command.php:822
-#, fuzzy
 msgid "You are not a member of any groups."
 msgstr "您不是该群组成员。"
 
@@ -5809,19 +5743,56 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
+"命令：\\n\n"
+"on - 打开提醒\\n\n"
+"off - 关闭提醒\\n\n"
+"help - 显示此帮助\\n\n"
+"follow <昵称> - 订阅该用户\\n\n"
+"groups - 列出您加入的小组\\n\n"
+"subscriptions - 列出您订阅的用户\\n\n"
+"subscribers - 列出您的订阅者\\n\n"
+"leave <昵称> - 取消订阅该用户\\n\n"
+"d <昵称> <文字> - 给该用户发送私信\\n\n"
+"get <昵称> - 获取该用户的最后一条消息\\n\n"
+"whois <昵称> - 获取该用户的个人信息\\n\n"
+"lose <昵称> - 强行取消该用户对您的订阅\\n\n"
+"fav <昵称> - 将该用户最后一条消息加为'收藏'\\n\n"
+"fav #<消息id> - 将该id的消息加为'收藏'\\n\n"
+"repeat #<消息id> - 转发该id的消息\\n\n"
+"repeat <昵称> - 转发该用户的最后一条消息\\n\n"
+"reply #<notice_id> - 对该id消息回复\\n\n"
+"reply <昵称> - 对该用户的最后一条小心回复\\n\n"
+"join <小组> - 加入小组\\n\n"
+"login - 获取网页登录的地址\\n\n"
+"drop <小组> - 离开小组\\n\n"
+"stats - 获取您的统计\\n\n"
+"stop - 和'off'相同\\n\n"
+"quit - 和'off'相同\\n\n"
+"sub <昵称> - 和'follow'相同\\n\n"
+"unsub <昵称> - 和'leave'相同\\n\n"
+"last <昵称> - 和'get'相同\\n\n"
+"on <昵称> - 尚未实现。\\n\n"
+"off <昵称> - 尚未实现。\\n\n"
+"nudge <昵称> - 提醒该用户更新消息。\\n\n"
+"invite <电话号码> - 尚未实现。\\n\n"
+"track <word> - 尚未实现。\\n\n"
+"untrack <word> - 尚未实现。\\n\n"
+"track off - 尚未实现。\\n\n"
+"untrack all - 尚未实现。\\n\n"
+"tracks - 尚未实现。\\n\n"
+"tracking - 尚未实现。\\n\n"
 
 #: lib/common.php:135
-#, fuzzy
 msgid "No configuration file found. "
-msgstr "没有验证码"
+msgstr "没有找到配置文件。 "
 
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "我在以下位置查找了配置文件："
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr ""
+msgstr "或许您想运行安装程序来解决这个问题。"
 
 #: lib/common.php:139
 msgid "Go to the installer."
@@ -5840,18 +5811,16 @@ msgid "Updates by SMS"
 msgstr "使用 SMS 更新"
 
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgid "Connections"
 msgstr "关联"
 
 #: lib/connectsettingsaction.php:121
-#, fuzzy
 msgid "Authorized connected applications"
-msgstr "关联的应用"
+msgstr "被授权已连接的应用"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
-msgstr ""
+msgstr "数据库错误"
 
 #: lib/designsettings.php:105
 msgid "Upload file"
@@ -5863,19 +5832,16 @@ msgid ""
 msgstr "您可以上载您的个人北京。文件大小限制在 2MB 以下。"
 
 #: lib/designsettings.php:418
-#, fuzzy
 msgid "Design defaults restored."
-msgstr "设计偏好已保存。"
+msgstr "默认设计已恢复。"
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
-#, fuzzy
 msgid "Disfavor this notice"
-msgstr "删除这个通告"
+msgstr "取消收藏这个消息"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "删除这个通告"
+msgstr "收藏这个消息"
 
 #: lib/favorform.php:140
 msgid "Favor"
@@ -5883,19 +5849,19 @@ msgstr "收藏"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:89
 msgid "Atom"
-msgstr ""
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Export data"
@@ -5910,9 +5876,8 @@ msgid "All"
 msgstr "全部"
 
 #: lib/galleryaction.php:139
-#, fuzzy
 msgid "Select tag to filter"
-msgstr "选择运营商"
+msgstr "选择要过滤的标签"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
@@ -5929,10 +5894,9 @@ msgstr "执行"
 #: lib/grantroleform.php:91
 #, php-format
 msgid "Grant this user the \"%s\" role"
-msgstr ""
+msgstr "给这个用户添加\\\"%s\\\"权限"
 
 #: lib/groupeditform.php:163
-#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
 msgstr "这个应用的主页 URL"
 
@@ -5953,16 +5917,15 @@ msgstr "群组的地理位置，格式类似\"城市，省份，国家\""
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
-msgstr ""
+msgstr "该小组额外的昵称，用逗号或者空格分隔开，最长%d"
 
 #: lib/groupnav.php:85
 msgid "Group"
 msgstr "组"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "阻止"
+msgstr "被屏蔽"
 
 #: lib/groupnav.php:102
 #, php-format
@@ -5984,9 +5947,9 @@ msgid "Add or edit %s logo"
 msgstr "添加或编辑 %s 图标"
 
 #: lib/groupnav.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "Add or edit %s design"
-msgstr "添加或编辑 %s 图标"
+msgstr "添加或编辑%s设计"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -6037,30 +6000,29 @@ msgstr "未知文件类型"
 
 #: lib/imagefile.php:244
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: lib/imagefile.php:246
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
-msgstr ""
+msgstr "[%s]"
 
 #: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
-msgstr ""
+msgstr "未知的收件箱来源%d。"
 
 #: lib/joinform.php:114
 msgid "Join"
 msgstr "加入"
 
 #: lib/leaveform.php:114
-#, fuzzy
 msgid "Leave"
-msgstr "保存"
+msgstr "离开"
 
 #: lib/logingroupnav.php:80
 msgid "Login with a username and password"
@@ -6092,6 +6054,18 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"嗨， %s。\n"
+"\n"
+"刚刚有人在%s填写了您的电子邮件地址。\n"
+"\n"
+"如果是您的操作并且您想完成您的确认，请使用下面的URL：\n"
+"\n"
+"%s\n"
+"\n"
+"如果您不知道这封邮件是怎么回事，忽略掉这封邮件就好。\n"
+"\n"
+"谢谢您的宝贵时间，\n"
+"%s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
@@ -6105,6 +6079,8 @@ msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
+"如果您认为此帐户正被人恶意使用，您可以将其从您的订阅者中屏蔽掉并到％s报告给网"
+"站的管理员为他们在发垃圾信息。"
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
@@ -6121,9 +6097,9 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
-"%1$s开始关注您在%2$s的通告。\n"
+"%1$s开始关注您在%2$s的消息。\n"
 "\n"
-"%3$s\n"
+"\t%3$s\n"
 "\n"
 "%4$s%5$s%6$s\n"
 "为您效力的，\n"
@@ -6178,9 +6154,9 @@ msgstr "SMS 验证"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:463
-#, fuzzy, php-format
+#, php-format
 msgid "%s: confirm you own this phone number with this code:"
-msgstr "等待确认此电话号码。"
+msgstr "%s：通过此代码证明这是您的手机："
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -6204,6 +6180,16 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
+"%1$s (%2$s) 想知道您这几天在做什么并邀请您来发布一些消息。\n"
+"\n"
+"那就让他/她知道您的动态吧 :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"请勿回复此邮件，他/她不会收到此邮件的内容。\n"
+"\n"
+"亲切的问候，\n"
+"%4$s\n"
 
 #. TRANS: Subject for direct-message notification email
 #: lib/mail.php:536
@@ -6230,12 +6216,26 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+"%1$s (%2$s) 给您发了一条私信“：\n"
+"\n"
+"------------------------------------------------------\n"
+"%3$s\n"
+"------------------------------------------------------\n"
+"\n"
+"您可以到这里回复这条私信：\n"
+"\n"
+"%4$s\n"
+"\n"
+"请勿回复此邮件，他/她不会收到此邮件的内容。\n"
+"\n"
+"亲切的问候，\n"
+"%5$s\n"
 
 #. TRANS: Subject for favorite notification email
 #: lib/mail.php:589
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s (@%s) 收藏了您的通告。"
+msgstr "%s (@%s) 收藏了您的消息。"
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6258,6 +6258,22 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%1$s (@%7$s) 刚刚通过 %2$s 将您的一条消息加入了他/她的收藏。\n"
+"\n"
+"您的这条消息的URL：\n"
+"\n"
+"%3$s\n"
+"\n"
+"您的这条消息的内容是：\n"
+"\n"
+"%4$s\n"
+"\n"
+"您可以到这里查看 %1$s 的所有收藏：\n"
+"\n"
+"%5$s\n"
+"\n"
+"真诚的问候，\n"
+"%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:651
@@ -6267,11 +6283,14 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"到这里查看完整的对话：\n"
+"\n"
+"\t%s"
 
 #: lib/mail.php:657
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr "%s (@%s) 收藏了您的通告。"
+msgstr "%s (@%s) 收藏了您的消息。"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
@@ -6300,6 +6319,28 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"%1$s (@%9$s) 刚刚在%2$s通过（@回复）发送了一条消息给您。\n"
+"\n"
+"消息的地址是：\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"消息的内容是：\n"
+"\n"
+"\t%4$s\n"
+"\n"
+"%5$s您可以到这里回复：\n"
+"\n"
+"\t%6$s\n"
+"\n"
+"所有给您的 @回复 消息：\n"
+"\n"
+"%7$s\n"
+"\n"
+"真切的问候，\n"
+"%2$s\n"
+"\n"
+"P.S. 您可以到这里关掉这些邮件提醒：%8$s\n"
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
@@ -6310,6 +6351,8 @@ msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
+"您没有任何私信。您可以试着发送私信给其他用户鼓励他们用私信和您交流。其他用户"
+"发给你您私信只有您看得到。"
 
 #: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
@@ -6332,47 +6375,47 @@ msgid "Sorry, no incoming email allowed."
 msgstr "对不起，发布用的电子邮件无法使用。"
 
 #: lib/mailhandler.php:228
-#, fuzzy, php-format
+#, php-format
 msgid "Unsupported message type: %s"
-msgstr "不支持这种图像格式。"
+msgstr "不支持的信息格式：%s"
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
-msgstr ""
+msgstr "保存您的文件时数据库出现了一个错误。请重试。"
 
 #: lib/mediafile.php:142
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
-msgstr ""
+msgstr "上传文件大小超过了 php.ini 中 upload_max_filesize 的设置限制。"
 
 #: lib/mediafile.php:147
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
-msgstr ""
+msgstr "上传文件大小超过了 HTML 表单中 MAX_FILE_SIZE 的设置限制。"
 
 #: lib/mediafile.php:152
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "上传的文件只有部分被上传。"
 
 #: lib/mediafile.php:159
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "缺少一个临时文件夹。"
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
-msgstr ""
+msgstr "写入磁盘失败。"
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
-msgstr ""
+msgstr "文件上传被扩展停止了。"
 
 #: lib/mediafile.php:179 lib/mediafile.php:217
 msgid "File exceeds user's quota."
-msgstr ""
+msgstr "文件超过了用户的配额。"
 
 #: lib/mediafile.php:197 lib/mediafile.php:234
 msgid "File could not be moved to destination directory."
-msgstr ""
+msgstr "文件不能被移动到目标目录。"
 
 #: lib/mediafile.php:202 lib/mediafile.php:238
 msgid "Could not determine file's MIME type."
@@ -6381,12 +6424,12 @@ msgstr "无法判断文件的 MIME 类型。"
 #: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "试一下其他的%s格式。"
 
 #: lib/mediafile.php:323
 #, php-format
 msgid "%s is not a supported file type on this server."
-msgstr ""
+msgstr "这个服务器不支持%s的文件格式。"
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
@@ -6397,9 +6440,8 @@ msgid "To"
 msgstr "到"
 
 #: lib/messageform.php:159 lib/noticeform.php:186
-#, fuzzy
 msgid "Available characters"
-msgstr "6 个或更多字符"
+msgstr "可用的字符"
 
 #: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
@@ -6408,7 +6450,7 @@ msgstr "发送"
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
-msgstr "发送一个通告"
+msgstr "发送一个消息"
 
 #: lib/noticeform.php:174
 #, php-format
@@ -6417,11 +6459,11 @@ msgstr "怎么样，%s？"
 
 #: lib/noticeform.php:193
 msgid "Attach"
-msgstr ""
+msgstr "附件"
 
 #: lib/noticeform.php:197
 msgid "Attach a file"
-msgstr ""
+msgstr "添加一个文件附件"
 
 #: lib/noticeform.php:213
 msgid "Share my location"
@@ -6435,7 +6477,7 @@ msgstr "不要分享我的地理位置。"
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
-msgstr ""
+msgstr "抱歉，获取您的地理位置时间过长，请稍候重试"
 
 #. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:436
@@ -6445,55 +6487,50 @@ msgstr "N"
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
 msgid "S"
-msgstr ""
+msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of east
 #: lib/noticelist.php:440
 msgid "E"
-msgstr ""
+msgstr "E"
 
 #. TRANS: Used in coordinates as abbreviation of west
 #: lib/noticelist.php:442
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: lib/noticelist.php:444
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:453
-#, fuzzy
 msgid "at"
-msgstr "路径"
+msgstr "位于"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr ""
+msgstr "网上"
 
 #: lib/noticelist.php:568
-#, fuzzy
 msgid "in context"
-msgstr "没有内容！"
+msgstr "查看上下文"
 
 #: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "被转发"
 
 #: lib/noticelist.php:630
-#, fuzzy
 msgid "Reply to this notice"
-msgstr "删除这个通告"
+msgstr "回复这个消息"
 
 #: lib/noticelist.php:631
-#, fuzzy
 msgid "Reply"
 msgstr "回复"
 
 #: lib/noticelist.php:675
-#, fuzzy
 msgid "Notice repeated"
-msgstr "消息已发布。"
+msgstr "消息已转发"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -6524,9 +6561,8 @@ msgid "Error inserting remote profile"
 msgstr "添加远程的个人信息出错"
 
 #: lib/oauthstore.php:345
-#, fuzzy
 msgid "Duplicate notice"
-msgstr "删除通告"
+msgstr "重复消息"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -6563,12 +6599,11 @@ msgstr "您发送的消息"
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr "%s的通告中的标签"
+msgstr "%s的消息中的标签"
 
 #: lib/plugin.php:115
-#, fuzzy
 msgid "Unknown"
-msgstr "未知动作"
+msgstr "未知的"
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -6587,9 +6622,8 @@ msgid "All subscribers"
 msgstr "所有跟随者"
 
 #: lib/profileaction.php:191
-#, fuzzy
 msgid "User ID"
-msgstr "用户"
+msgstr "用户 ID"
 
 #: lib/profileaction.php:196
 msgid "Member since"
@@ -6598,7 +6632,7 @@ msgstr "用户始于"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
 msgid "Daily average"
-msgstr ""
+msgstr "日均"
 
 #: lib/profileaction.php:264
 msgid "All groups"
@@ -6606,7 +6640,7 @@ msgstr "所有组"
 
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
-msgstr ""
+msgstr "未使用的方法。"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
@@ -6625,27 +6659,24 @@ msgid "Featured"
 msgstr "特征"
 
 #: lib/publicgroupnav.php:92
-#, fuzzy
 msgid "Popular"
-msgstr "火爆的通告"
+msgstr "火爆"
 
 #: lib/redirectingaction.php:95
 msgid "No return-to arguments."
 msgstr "没有 return-to 冲突。"
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "删除这个通告"
+msgstr "转发这个消息？"
 
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "是"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "删除这个通告"
+msgstr "转发这个消息"
 
 #: lib/revokeroleform.php:91
 #, php-format
@@ -6654,25 +6685,23 @@ msgstr "从这个用户取消\"%s\"角色"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "没有单独的用户被定义为单用户模式。"
 
 #: lib/sandboxform.php:67
-#, fuzzy
 msgid "Sandbox"
-msgstr "收件箱"
+msgstr "沙盒"
 
 #: lib/sandboxform.php:78
 msgid "Sandbox this user"
 msgstr ""
 
 #: lib/searchaction.php:120
-#, fuzzy
 msgid "Search site"
 msgstr "搜索帮助"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "关键词"
 
 #: lib/searchaction.php:127
 msgid "Search"
@@ -6692,7 +6721,7 @@ msgstr "搜索用户信息"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
-msgstr "搜索通告内容"
+msgstr "搜索消息内容"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
@@ -6741,12 +6770,12 @@ msgstr "邀请朋友和同事来%s一起和你交流"
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "用户自我标签的用户标签云"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "被标签的用户标签云"
 
 #: lib/tagcloudsection.php:56
 msgid "None"
@@ -6754,42 +6783,42 @@ msgstr "无"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "服务器不支持 ZIP，无法处理上传的主题。"
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
 msgid "The theme file is missing or the upload failed."
-msgstr ""
+msgstr "主题文件丢失或上传失败。"
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
 #: lib/themeuploader.php:253 lib/themeuploader.php:257
 #: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
 msgid "Failed saving theme."
-msgstr "更新头像失败。"
+msgstr "保存主题失败"
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "无效的主题：目录结构损坏。"
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
-msgstr ""
+msgstr "上传的主题过大，解压后必须小于%d字节。"
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "无效的主题存档：css/display.css 文件丢失"
 
 #: lib/themeuploader.php:205
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"主题包含无效的文件或文件夹的名称。请只使用 ASCII 字母，数字，下划线和减号。"
 
 #: lib/themeuploader.php:216
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "主题包含不允许的”.%s“格式文件。"
 
 #: lib/themeuploader.php:234
 msgid "Error opening theme archive."
@@ -6801,16 +6830,15 @@ msgstr "灌水精英"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
-msgstr ""
+msgstr "移出沙盒"
 
 #: lib/unsandboxform.php:80
 msgid "Unsandbox this user"
 msgstr ""
 
 #: lib/unsilenceform.php:67
-#, fuzzy
 msgid "Unsilence"
-msgstr "静默"
+msgstr "取消禁言"
 
 #: lib/unsilenceform.php:78
 msgid "Unsilence this user"
@@ -6825,14 +6853,13 @@ msgid "Unsubscribe"
 msgstr "退订"
 
 #: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
+#, php-format
 msgid "User %s (%d) has no profile record."
-msgstr "用户没有个人信息。"
+msgstr "用户 %s(%d) 没有个人信息记录。"
 
 #: lib/userprofile.php:117
-#, fuzzy
 msgid "Edit Avatar"
-msgstr "头像"
+msgstr "编辑头像"
 
 #: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
@@ -6840,31 +6867,27 @@ msgstr "用户动作"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "用户删除处理中……"
 
 #: lib/userprofile.php:263
-#, fuzzy
 msgid "Edit profile settings"
-msgstr "个人设置"
+msgstr "编辑个人信息设置"
 
 #: lib/userprofile.php:264
 msgid "Edit"
 msgstr "编辑"
 
 #: lib/userprofile.php:287
-#, fuzzy
 msgid "Send a direct message to this user"
 msgstr "呼叫这个用户"
 
 #: lib/userprofile.php:288
-#, fuzzy
 msgid "Message"
 msgstr "消息已发送"
 
 #: lib/userprofile.php:326
-#, fuzzy
 msgid "Moderate"
-msgstr "审核员"
+msgstr "审核"
 
 #: lib/userprofile.php:364
 msgid "User role"
