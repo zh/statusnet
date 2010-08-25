@@ -308,15 +308,7 @@ class Status_network extends Safe_DataObject
      */
     function getTags()
     {
-        $result = array();
-        
-        $tags = new Status_network_tag();
-        $tags->site_id = $this->site_id;
-        if ($tags->find()) {
-            while ($tags->fetch()) {
-                $result[] = $tags->tag;
-            }
-        }
+        $result = Status_network_tag::getTags($this->site_id);
 
         // XXX : for backwards compatibility
         if (empty($result)) {
@@ -329,6 +321,7 @@ class Status_network extends Safe_DataObject
     /**
      * Save a given set of tags
      * @param array tags
+     * @fixme only add/remove differentials
      */
     function setTags($tags)
     {
