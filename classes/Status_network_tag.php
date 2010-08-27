@@ -79,7 +79,11 @@ class Status_network_tag extends Safe_DataObject
         if (Status_network::$cache) {
             $packed = Status_network::$cache->get($key);
             if (is_string($packed)) {
-                return explode('|', $packed);
+                if ($packed == '') {
+                    return array();
+                } else {
+                    return explode('|', $packed);
+                }
             }
         }
 
