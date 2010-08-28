@@ -15,11 +15,11 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-08-25 21:31+0000\n"
-"PO-Revision-Date: 2010-08-25 21:33:55+0000\n"
+"PO-Revision-Date: 2010-08-28 13:04:47+0000\n"
 "Language-Team: Simplified Chinese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r71660); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r71847); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: out-statusnet\n"
@@ -165,7 +165,7 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
-"尝试订阅更多的人、[加入一个小组] (%%action.groups%%) 或者自己发一些东西。"
+"尝试关注更多的人、[加入一个小组] (%%action.groups%%) 或者自己发一些东西。"
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
@@ -174,7 +174,7 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"您可以试着到他们的资料页 [轻推%1$s](../%2$s) 他们或者 [给他们发消息](%%%%"
+"您可以试着到他们的资料页 [呼叫%1$s](../%2$s) 他们或者 [给他们发消息](%%%%"
 "action.newnotice%%%%?status_textarea=%3$s)。"
 
 #: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
@@ -183,12 +183,12 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
 "post a notice to them."
 msgstr ""
-"现在就 [注册一个帐号](%%%%action.register%%%%) 并轻推或者发一条消息给%s。"
+"现在就[注册一个帐号](%%%%action.register%%%%)并呼叫或者发一条消息给%s。"
 
 #. TRANS: H1 text
 #: actions/all.php:182
 msgid "You and friends"
-msgstr "您和您的好友"
+msgstr "您和好友们"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
@@ -295,11 +295,11 @@ msgstr "您不能屏蔽自己！"
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
-msgstr "阻止用户失败。"
+msgstr "屏蔽用户失败。"
 
 #: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
-msgstr "取消阻止用户失败。"
+msgstr "取消屏蔽用户失败。"
 
 #: actions/apidirectmessage.php:89
 #, php-format
@@ -361,24 +361,24 @@ msgstr "无法删除收藏。"
 
 #: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: profile not found."
-msgstr "无法订阅用户：未找到用户。"
+msgstr "无法关注用户：未找到用户。"
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr "无法订阅用户：您已经订阅过%s了。"
+msgstr "无法关注用户：您已经关注了%s。"
 
 #: actions/apifriendshipsdestroy.php:109
 msgid "Could not unfollow user: User not found."
-msgstr "无法取消订阅用户：未找到用户。"
+msgstr "无法取消关注用户：未找到用户。"
 
 #: actions/apifriendshipsdestroy.php:120
 msgid "You cannot unfollow yourself."
-msgstr "您不能取消订阅自己。"
+msgstr "您不能取消关注自己。"
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "必须提供两个用户帐号或昵称。"
+msgstr "必须提供两个有效的 ID 或用户昵称。"
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -392,7 +392,7 @@ msgstr "无法找到目标用户。"
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
-msgstr "昵称只能使用小写字母和数字，不包含空格。"
+msgstr "昵称只能使用小写字母和数字且不能使用空格。"
 
 #: actions/apigroupcreate.php:176 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
@@ -435,23 +435,23 @@ msgstr "位置过长(不能超过255个字符)。"
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
-msgstr "太多化名了！最多%d 个。"
+msgstr "太多别名了！最多%d 个。"
 
 #: actions/apigroupcreate.php:267
 #, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "无效的昵称：“%s”。"
+msgstr "无效的别名：“%s”。"
 
 #: actions/apigroupcreate.php:276 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
-msgstr "%s这个昵称已被使用，换一个吧。"
+msgstr "%s这个别名已被使用，换一个吧。"
 
 #: actions/apigroupcreate.php:289 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
-msgstr "昵称不能和化名相同。"
+msgstr "别名不能和昵称相同。"
 
 #: actions/apigroupismember.php:96 actions/apigroupjoin.php:105
 #: actions/apigroupleave.php:105 actions/apigroupmembership.php:92
@@ -461,31 +461,31 @@ msgstr "小组未找到。"
 
 #: actions/apigroupjoin.php:111 actions/joingroup.php:100
 msgid "You are already a member of that group."
-msgstr "您已经是该组成员。"
+msgstr "您已经是该小组成员。"
 
 #: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
 msgid "You have been blocked from that group by the admin."
-msgstr "您已经被该组的管理员屏蔽。"
+msgstr "您已经被该小组的管理员屏蔽。"
 
 #: actions/apigroupjoin.php:139 actions/joingroup.php:134
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "无法把用户%1$s添加到%2$s组"
+msgstr "无法把用户%1$s添加到%2$s小组"
 
 #: actions/apigroupleave.php:115
 msgid "You are not a member of this group."
-msgstr "您不是该组成员。"
+msgstr "您不是该小组成员。"
 
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "无法把用户%1$s从%2$s组移除"
+msgstr "无法把用户%1$s从%2$s小组删除"
 
 #. TRANS: %s is a user name
 #: actions/apigrouplist.php:98
 #, php-format
 msgid "%s's groups"
-msgstr "%s 的群组"
+msgstr "%s 的小组"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
@@ -498,12 +498,12 @@ msgstr "%1$s 个小组，%2$s 是其中一个小组成员。"
 #: actions/apigrouplistall.php:92 actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
-msgstr "%s 群组"
+msgstr "%s 的小组"
 
 #: actions/apigrouplistall.php:96
 #, php-format
 msgid "groups on %s"
-msgstr "在%s上的群组"
+msgstr "在%s上的小组"
 
 #: actions/apimediaupload.php:99
 msgid "Upload failed."
@@ -515,7 +515,7 @@ msgstr "没有提供 oauth_token 参数"
 
 #: actions/apioauthauthorize.php:106
 msgid "Invalid token."
-msgstr "无效的令牌。"
+msgstr "无效的 token。"
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
@@ -533,7 +533,7 @@ msgstr "无效的令牌。"
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
-msgstr "会话标识有问题，请重试。"
+msgstr "您的 session 出现了一个问题，请重试。"
 
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
@@ -573,7 +573,7 @@ msgstr "未预料的表单提交。"
 
 #: actions/apioauthauthorize.php:259
 msgid "An application would like to connect to your account"
-msgstr "一个应用想连接到您的账户"
+msgstr "一个应用想连接到您的账号"
 
 #: actions/apioauthauthorize.php:276
 msgid "Allow or deny access"
@@ -587,7 +587,7 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 "来自<strong>%2$s</strong>的<strong>%1$s</strong>应用希望能够<strong>%3$s</"
-"strong>您的账户数据。您应该只允许您信任的第三方程序访问您的%4$s账户。"
+"strong>您的%4$s账户数据。您应该只允许您信任的第三方程序访问您的%4$s账户。"
 
 #. TRANS: Main menu option when logged in for access to user settings
 #: actions/apioauthauthorize.php:310 lib/action.php:450
@@ -695,12 +695,12 @@ msgstr "回复 %2$s / %3$s 的 %1$s 更新。"
 #: actions/apitimelinepublic.php:197 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
-msgstr "%s 公众时间表"
+msgstr "%s 公共时间线"
 
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr "来自所有人的 %s 消息！"
+msgstr "%s条来自所有人的消息！"
 
 #: actions/apitimelineretweetedtome.php:111
 #, php-format
@@ -718,9 +718,9 @@ msgid "Notices tagged with %s"
 msgstr "带 %s 标签的消息"
 
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr "%2$s 上 %1$s 的更新！"
+msgstr ""
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
@@ -754,13 +754,13 @@ msgstr "头像"
 #: actions/avatarsettings.php:78
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr "您可以上载您的个人头像。文件大小限制在%s以下。"
+msgstr "您可以上传您的个人头像。文件大小限制在%s以下。"
 
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/grouplogo.php:181 actions/remotesubscribe.php:191
 #: actions/userauthorization.php:72 actions/userrss.php:108
 msgid "User without matching profile."
-msgstr "用户没有个人信息。"
+msgstr "用户没有相应个人信息。"
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -770,7 +770,7 @@ msgstr "头像设置"
 #: actions/avatarsettings.php:127 actions/avatarsettings.php:205
 #: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
-msgstr "原来的"
+msgstr "原始的"
 
 #: actions/avatarsettings.php:142 actions/avatarsettings.php:217
 #: actions/grouplogo.php:213 actions/grouplogo.php:274
@@ -820,7 +820,7 @@ msgstr "您已经屏蔽该用户。"
 
 #: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
 msgid "Block user"
-msgstr "阻止用户失败。"
+msgstr "屏蔽用户失败。"
 
 #: actions/block.php:138
 msgid ""
@@ -828,8 +828,8 @@ msgid ""
 "unsubscribed from you, unable to subscribe to you in the future, and you "
 "will not be notified of any @-replies from them."
 msgstr ""
-"您确定要屏蔽这个用户吗？屏蔽后，这个用户会取消订阅您，并且以后也无法订阅您，"
-"您也不会收到任何来自这个用户的@回复提醒。"
+"您确定要屏蔽这个用户吗？屏蔽后，会取消这个用户对您的关注，并且以后也无法关注"
+"您，您也不会收到任何来自这个用户的@回复提醒。"
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
@@ -868,7 +868,7 @@ msgstr "屏蔽这个用户"
 
 #: actions/block.php:187
 msgid "Failed to save block information."
-msgstr "保存阻止信息失败。"
+msgstr "保存屏蔽信息失败。"
 
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
@@ -896,15 +896,15 @@ msgstr "%1$s屏蔽的用户，第%2$d页"
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
-msgstr "被禁止加入此群组的用户列表。"
+msgstr "被屏蔽加入此小组的用户列表。"
 
 #: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
-msgstr "取消群组对用户的阻止。"
+msgstr "取消小组对用户的屏蔽。"
 
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
-msgstr "取消阻止"
+msgstr "取消屏蔽"
 
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
@@ -926,7 +926,7 @@ msgstr "未找到确认码。"
 
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
-msgstr "此确认码不适用！"
+msgstr "此确认码不是您的！"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
@@ -971,7 +971,7 @@ msgstr "地址 \"%s\" 已确认。"
 
 #: actions/conversation.php:99
 msgid "Conversation"
-msgstr "会话"
+msgstr "对话"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:229 lib/searchgroupnav.php:82
@@ -980,7 +980,7 @@ msgstr "消息"
 
 #: actions/deleteapplication.php:63
 msgid "You must be logged in to delete an application."
-msgstr "您必须登录才能删除程序。"
+msgstr "您必须登录才能删除应用。"
 
 #: actions/deleteapplication.php:71
 msgid "Application not found."
@@ -1013,7 +1013,7 @@ msgstr ""
 #. TRANS: Submit button title for 'No' when deleting an application.
 #: actions/deleteapplication.php:158
 msgid "Do not delete this application"
-msgstr "不删除该程序"
+msgstr "不删除该应用"
 
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
@@ -1145,7 +1145,7 @@ msgstr "背景"
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
 "$s."
-msgstr "您可以为网站上载一个背景图像。文件大小限制在%1$s以下。"
+msgstr "您可以为网站上传一个背景图像。文件大小限制在%1$s以下。"
 
 #. TRANS: Used as radio button label to add a background image.
 #: actions/designadminpanel.php:527 lib/designsettings.php:139
@@ -1179,7 +1179,7 @@ msgstr "边栏"
 
 #: actions/designadminpanel.php:613 lib/designsettings.php:217
 msgid "Text"
-msgstr "文本"
+msgstr "消息"
 
 #: actions/designadminpanel.php:626 lib/designsettings.php:230
 msgid "Links"
@@ -1239,7 +1239,7 @@ msgstr "编辑应用"
 
 #: actions/editapplication.php:66
 msgid "You must be logged in to edit an application."
-msgstr "您必须登录后才能修改程序。"
+msgstr "您必须登录后才能编辑应用。"
 
 #: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
@@ -1248,7 +1248,7 @@ msgstr "没有这个应用。"
 
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
-msgstr "通过此表单来编辑您的程序。"
+msgstr "通过此表单来编辑您的应用。"
 
 #: actions/editapplication.php:177 actions/newapplication.php:159
 msgid "Name is required."
@@ -1296,12 +1296,12 @@ msgstr "调回地址（Callback URL）无效。"
 
 #: actions/editapplication.php:258
 msgid "Could not update application."
-msgstr "无法更新程序。"
+msgstr "无法更新应用。"
 
 #: actions/editgroup.php:56
 #, php-format
 msgid "Edit %s group"
-msgstr "编辑 %s 组"
+msgstr "编辑 %s 小组"
 
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
@@ -1310,11 +1310,11 @@ msgstr "您必须登录才能创建小组。"
 #: actions/editgroup.php:107 actions/editgroup.php:172
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 msgid "You must be an admin to edit the group."
-msgstr "管理员才可以编辑群组。"
+msgstr "管理员才可以编辑小组。"
 
 #: actions/editgroup.php:158
 msgid "Use this form to edit the group."
-msgstr "使用这个表单来编辑组"
+msgstr "通过这个表单来编辑小组"
 
 #: actions/editgroup.php:205 actions/newgroup.php:145
 #, php-format
@@ -1410,7 +1410,7 @@ msgstr "添加"
 #. TRANS: Form legend for incoming SMS settings form.
 #: actions/emailsettings.php:147 actions/smssettings.php:171
 msgid "Incoming email"
-msgstr "发布用的电子邮件"
+msgstr "接收用 email"
 
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
@@ -1439,22 +1439,22 @@ msgstr "Email 偏好"
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
 msgid "Send me notices of new subscriptions through email."
-msgstr "如果有用户订阅我，通过电子邮件告诉我。"
+msgstr "将新的关注通过电子邮件发送给我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:186
 msgid "Send me email when someone adds my notice as a favorite."
-msgstr "如果有人收藏我的消息，发邮件通知我。"
+msgstr "有人收藏我的消息时，发邮件通知我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:193
 msgid "Send me email when someone sends me a private message."
-msgstr "如果收到私人信息，发邮件通知我。"
+msgstr "有人给我发送私信时，发邮件通知我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:199
 msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr "当别人给我 @ 消息时发邮件通知我。"
+msgstr "有人给我发送 @ 消息时，发邮件通知我。"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:205
@@ -1580,16 +1580,16 @@ msgstr "取消收藏"
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr "火爆的消息"
+msgstr "收藏最多的消息"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr "火爆的消息，第%d页"
+msgstr "收藏最多的消息，第%d页"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "目前网站上最火的消息。"
+msgstr "目前网站上被收藏最多的消息。"
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1606,8 +1606,7 @@ msgstr "通过点击任意消息下的收藏图标成为第一个给自己的收
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
-msgstr ""
-"现在就 [注册一个账户](%%action.register%%) 并成为第一个添加自己收藏的人！"
+msgstr "现在就[注册一个账户](%%action.register%%)并成为第一个添加收藏的人！"
 
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
@@ -1616,9 +1615,9 @@ msgid "%s's favorite notices"
 msgstr "%s收藏的消息"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr "%2$s 上 %1$s 的更新！"
+msgstr ""
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
@@ -1661,23 +1660,23 @@ msgstr "要查看的用户不存在。"
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
-msgstr "您可以使用本地订阅！"
+msgstr "您可以使用本地关注！"
 
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
-msgstr "该用户屏蔽了您，您不能订阅。"
+msgstr "该用户屏蔽了您对他/她的关注。"
 
 #: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
-msgstr "您没有被认证。"
+msgstr "您没有被授权。"
 
 #: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
-msgstr "无法将请求令牌转换为访问令牌。"
+msgstr "无法将 request token 转换为 access token。"
 
 #: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "远程服务使用的OMB协议版本未知。"
+msgstr "远程服务使用了位置版本的 OMB 协议。"
 
 #: actions/finishremotesubscribe.php:138
 msgid "Error updating remote profile."
@@ -1693,7 +1692,7 @@ msgstr "无法读取文件。"
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
 msgid "Invalid role."
-msgstr "无效的令牌。"
+msgstr "无效的权限。"
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
@@ -1701,11 +1700,11 @@ msgstr "此角色是保留的且不能被设置。"
 
 #: actions/grantrole.php:75
 msgid "You cannot grant user roles on this site."
-msgstr "您不能在这个网站授予用户角色。"
+msgstr "您不能在这个网站授予用户权限。"
 
 #: actions/grantrole.php:82
 msgid "User already has this role."
-msgstr "用户已有此角色。"
+msgstr "用户已有此权限。"
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1722,23 +1721,23 @@ msgstr "没有找到此ID的个人信息。"
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
 msgid "No group specified."
-msgstr "没有指定群组。"
+msgstr "没有指定小组。"
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr "只有管理员可以屏蔽群组成员。"
+msgstr "只有管理员可以屏蔽小组成员。"
 
 #: actions/groupblock.php:95
 msgid "User is already blocked from group."
-msgstr "用户已经被群组屏蔽。"
+msgstr "用户已经被小组屏蔽。"
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
-msgstr "用户不是群组成员。"
+msgstr "用户不是小组成员。"
 
 #: actions/groupblock.php:134 actions/groupmembers.php:360
 msgid "Block user from group"
-msgstr "从群组屏蔽用户"
+msgstr "从小组中屏蔽用户"
 
 #: actions/groupblock.php:160
 #, php-format
@@ -1747,22 +1746,22 @@ msgid ""
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
 msgstr ""
-"您确定要在“%2$s”群组中阻止用户“%1$s”么？他们将被从群组中删除，并且不能在群组"
-"内发布消息或订阅该群组。"
+"您确定要在“%2$s”小组中屏蔽用户“%1$s”么？他们将被从小组中删除，并且不能在小组"
+"内发布消息或关注该小组。"
 
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:182
 msgid "Do not block this user from this group"
-msgstr "不要在此群组中组织此用户。"
+msgstr "不要在此小组屏蔽此用户。"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:189
 msgid "Block this user from this group"
-msgstr "在群组中组织此用户。"
+msgstr "在小组中屏蔽此用户。"
 
 #: actions/groupblock.php:206
 msgid "Database error blocking user from group."
-msgstr "在群组中阻止用户时数据库发生错误。"
+msgstr "在小组中屏蔽用户时数据库发生错误。"
 
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
@@ -1774,7 +1773,7 @@ msgstr "您必须登录才能创建小组。"
 
 #: actions/groupdesignsettings.php:144
 msgid "Group design"
-msgstr "群组页面设计。"
+msgstr "小组页面设计。"
 
 #: actions/groupdesignsettings.php:155
 msgid ""
@@ -1793,13 +1792,13 @@ msgstr "设计偏好已保存。"
 
 #: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
-msgstr "组logo"
+msgstr "小组logo"
 
 #: actions/grouplogo.php:153
 #, php-format
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
-msgstr "您可以给您的群组上载一个 logo。文件大小限制在%s以下。"
+msgstr "您可以给您的小组上传一个 logo。文件最大限制为%s。"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -1816,12 +1815,12 @@ msgstr "更新 logo 失败。"
 #: actions/groupmembers.php:100 lib/groupnav.php:92
 #, php-format
 msgid "%s group members"
-msgstr "%s 组成员"
+msgstr "%s 小组成员"
 
 #: actions/groupmembers.php:103
 #, php-format
 msgid "%1$s group members, page %2$d"
-msgstr "%s 组成员，第%2$d页"
+msgstr "%s 小组成员，第%2$d页"
 
 #: actions/groupmembers.php:118
 msgid "A list of the users in this group."
@@ -1833,15 +1832,15 @@ msgstr "管理员"
 
 #: actions/groupmembers.php:392 lib/blockform.php:69
 msgid "Block"
-msgstr "阻止"
+msgstr "屏蔽"
 
 #: actions/groupmembers.php:487
 msgid "Make user an admin of the group"
-msgstr "使用户成为群组的管理员"
+msgstr "使用户成为小组的管理员"
 
 #: actions/groupmembers.php:519
 msgid "Make Admin"
-msgstr "使成为管理员"
+msgstr "设置管理员"
 
 #: actions/groupmembers.php:519
 msgid "Make this user an admin"
@@ -1865,12 +1864,12 @@ msgstr "%2$s上%1$s的更新！"
 #: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
-msgstr "组"
+msgstr "小组"
 
 #: actions/groups.php:64
 #, php-format
 msgid "Groups, page %d"
-msgstr "组，第 %d 页"
+msgstr "个小组，第 %d 页"
 
 #: actions/groups.php:90
 #, php-format
@@ -1881,14 +1880,14 @@ msgid ""
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
 msgstr ""
-"%%%%site.name%%%%的群组可以让你找到有相同兴趣的朋友一起交流。当你加入到一个群"
-"组后可以可以通过使用“!群组名称”发布消息给所有其他的群组成员。找不到感兴趣的群"
-"组？试一下 [搜索一个群组](%%%%action.groupsearch%%%%) 或 建立你自己的群组！]"
-"(%%%%action.newgroup%%%%)。"
+"%%%%site.name%%%%的小组可以让您找到有相同兴趣的朋友一起交流。当您加入到一个小"
+"组后可以可以通过使用“!小组名称”发布消息给所有其他的小组成员。找不到感兴趣的小"
+"组？试一下[搜索小组](%%%%action.groupsearch%%%%)或[建立自己的小组](%%%%"
+"action.newgroup%%%%)！"
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
 msgid "Create a new group"
-msgstr "创建一个新群组。"
+msgstr "新建一个小组"
 
 #: actions/groupsearch.php:52
 #, php-format
@@ -1896,12 +1895,12 @@ msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"在%%site.name%%通过名称、地点或者描述搜索群组。请用空格将关键词分开，每个关键"
+"在%%site.name%%通过名称、地点或者描述搜索小组。请用空格将关键词分开，每个关键"
 "词至少3个字符。"
 
 #: actions/groupsearch.php:58
 msgid "Group search"
-msgstr "组检索"
+msgstr "小组搜索"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
@@ -1913,7 +1912,7 @@ msgstr "没有查询结果。"
 msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
-msgstr "如果你找不到你想要的群组，你可以自己 [创建它](%%action.newgroup%%) 。"
+msgstr "如果你找不到你想要的小组，你可以自己 [创建它](%%action.newgroup%%) 。"
 
 #: actions/groupsearch.php:85
 #, php-format
@@ -1921,16 +1920,16 @@ msgid ""
 "Why not [register an account](%%action.register%%) and [create the group](%%"
 "action.newgroup%%) yourself!"
 msgstr ""
-"现在就 [注册一个账户](%%action.register%%) 并 [创建该群组](%%action.newgroup%"
+"现在就 [注册一个帐号](%%action.register%%) 并 [创建该小组](%%action.newgroup%"
 "%) ！"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr "只有管理员可以取消屏蔽群组成员。"
+msgstr "只有管理员可以取消屏蔽小组成员。"
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
-msgstr "用户未被群组屏蔽。"
+msgstr "用户未被小组屏蔽。"
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
 msgid "Error removing the block."
@@ -2008,7 +2007,7 @@ msgstr "当我的Jabber/GTalk状态改变时自动发布消息。"
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:172
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
-msgstr "如果我没有跟随的用户回复我消息，使用 Jabber/GTalk 通知我。"
+msgstr "将我没有关注的用户给我的回复通过 Jabber/GTalk 发送给我。"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:179
@@ -2118,7 +2117,7 @@ msgstr "邀请新用户"
 
 #: actions/invite.php:128
 msgid "You are already subscribed to these users:"
-msgstr "您已跟随这些用户："
+msgstr "您已关注了这些用户："
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -2130,7 +2129,7 @@ msgstr "%1$s (%2$s)"
 #: actions/invite.php:136
 msgid ""
 "These people are already users and you were automatically subscribed to them:"
-msgstr "这些好友已注册，您已自动跟随这些用户："
+msgstr "这些好友已注册，您已自动关注了这些用户："
 
 #: actions/invite.php:144
 msgid "Invitation(s) sent to the following people:"
@@ -2167,7 +2166,7 @@ msgstr "在邀请中加几句话(可选)。"
 #: actions/invite.php:198
 msgctxt "BUTTON"
 msgid "Send"
-msgstr "发送"
+msgstr "发布"
 
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:228
@@ -2217,7 +2216,7 @@ msgstr ""
 "\n"
 "%4$s\n"
 "\n"
-"您可以在这里查阅%1$在%2$s的资料页：\n"
+"您可以在这里查阅%1$s在%2$s的资料页：\n"
 "\n"
 "%5$s\n"
 "\n"
@@ -2231,7 +2230,7 @@ msgstr ""
 
 #: actions/joingroup.php:60
 msgid "You must be logged in to join a group."
-msgstr "您必须登录才能加入群组。"
+msgstr "您必须登录才能加入小组。"
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
 msgid "No nickname or ID."
@@ -2242,22 +2241,22 @@ msgstr "没有昵称或 ID。"
 #: actions/joingroup.php:141 lib/command.php:346
 #, php-format
 msgid "%1$s joined group %2$s"
-msgstr "%1$s加入了%2$s群组"
+msgstr "%1$s加入了%2$s小组"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
-msgstr "您必须登录才能离开群组。"
+msgstr "您必须登录才能离开小组。"
 
 #: actions/leavegroup.php:100 lib/command.php:373
 msgid "You are not a member of that group."
-msgstr "您不是该群组成员。"
+msgstr "您不是该群小组成员。"
 
 #. TRANS: Message given having removed a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/leavegroup.php:137 lib/command.php:392
 #, php-format
 msgid "%1$s left group %2$s"
-msgstr "%1$s离开了%2$s群组。"
+msgstr "%1$s离开了%2$s小组。"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2285,7 +2284,7 @@ msgstr "记住登录状态"
 
 #: actions/login.php:259 actions/register.php:487
 msgid "Automatically login in the future; not for shared computers!"
-msgstr "今后在这台电脑上自动登录；公用电脑上请不要开启此选项！"
+msgstr "下次自动登录，请不要在公共电脑上使用此选项！"
 
 #: actions/login.php:269
 msgid "Lost or forgotten password?"
@@ -2314,17 +2313,17 @@ msgstr "只有管理员可以让另一个用户成为管理员。"
 #: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "%1$s已经是\"%2$s\"群组的管理员了。"
+msgstr "%1$s已经是\"%2$s\"小组的管理员了。"
 
 #: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "无法找到%1$s在%2$s群组的记录。"
+msgstr "无法找到%1$s在%2$s小组的记录。"
 
 #: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "无法让%1$s成为%2$s群组的管理员。"
+msgstr "无法让%1$s成为%2$s小组的管理员。"
 
 #: actions/microsummary.php:69
 msgid "No current status."
@@ -2336,11 +2335,11 @@ msgstr "新应用"
 
 #: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
-msgstr "你必须登录才能登记你的程序。"
+msgstr "你必须登录才能登记你的应用。"
 
 #: actions/newapplication.php:143
 msgid "Use this form to register a new application."
-msgstr "通过此表单登记一个新的程序。"
+msgstr "通过此表单登记一个新的应用。"
 
 #: actions/newapplication.php:176
 msgid "Source URL is required."
@@ -2352,11 +2351,11 @@ msgstr "无法创建应用。"
 
 #: actions/newgroup.php:53
 msgid "New group"
-msgstr "新组"
+msgstr "新小组"
 
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
-msgstr "使用此表格创建组。"
+msgstr "通过此表单创建小组。"
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
 msgid "New message"
@@ -2412,7 +2411,7 @@ msgstr ""
 
 #: actions/noticesearch.php:78
 msgid "Text search"
-msgstr "搜索文本"
+msgstr "搜索消息"
 
 #: actions/noticesearch.php:91
 #, php-format
@@ -2425,7 +2424,7 @@ msgid ""
 "Be the first to [post on this topic](%%%%action.newnotice%%%%?"
 "status_textarea=%s)!"
 msgstr ""
-"成为 [第一个在该主题发布消息的人](%%%%action.newnotice%%%%?status_textarea=%"
+"成为第一个[对该主题发布消息]的人(%%%%action.newnotice%%%%?status_textarea=%"
 "s) ！"
 
 #: actions/noticesearch.php:124
@@ -2504,7 +2503,7 @@ msgstr "开发者可以修改他们程序的登记设置 "
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
-msgstr ""
+msgstr "消息没有对应用户。"
 
 #: actions/oembed.php:87 actions/shownotice.php:175
 #, php-format
@@ -2630,7 +2629,7 @@ msgstr "6 个或更多字符"
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
 #: actions/register.php:440
 msgid "Confirm"
-msgstr "确认"
+msgstr "密码确认"
 
 #: actions/passwordsettings.php:113 actions/recoverpassword.php:240
 msgid "Same as password above"
@@ -2727,11 +2726,11 @@ msgstr "本地化文件的目录路径"
 
 #: actions/pathsadminpanel.php:250
 msgid "Fancy URLs"
-msgstr "Fancy URLs"
+msgstr "优化 URLs"
 
 #: actions/pathsadminpanel.php:252
 msgid "Use fancy (more readable and memorable) URLs?"
-msgstr "使用个人地址（更简单并容易被记住）？"
+msgstr "使用优化的 URLs（更简洁易记）？"
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
@@ -2823,8 +2822,8 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"在 %%site.name%% 的用户信息中搜索，可以搜索姓名、未知和爱好。搜索条件至少包"
-"含 3 个字符，多个搜索条件用空格分隔。"
+"通过姓名、位置和爱好搜索在%%site.name%%的用户。搜索条件至少包含 3 个字符，多"
+"个搜索条件用空格分隔。"
 
 #: actions/peoplesearch.php:58
 msgid "People search"
@@ -2940,7 +2939,7 @@ msgstr "您一般处于哪个时区？"
 #: actions/profilesettings.php:167
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr "自动跟随任何跟随我的人 (这个选项适合机器人)"
+msgstr "自动关注任何关注我的人 (这个选项适合机器人)"
 
 #: actions/profilesettings.php:228 actions/register.php:230
 #, php-format
@@ -2962,7 +2961,7 @@ msgstr "无效的标签：\"%s\"。"
 
 #: actions/profilesettings.php:306
 msgid "Couldn't update user for autosubscribe."
-msgstr "无法更新用户的自动跟随选项。"
+msgstr "无法更新用户的自动关注。"
 
 #: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
@@ -3036,10 +3035,10 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
-"欢迎来到%%site.name%%，一个基于免费的软件 [StatusNet](http://status.net/) 创"
-"建的 [微博](http://en.wikipedia.org/wiki/Micro-blogging) 服务。[现在加入](%%"
-"action.register%%) 并与你的朋友、家人和同事们一起共享你的消息。([查看更多](%%"
-"doc.help%%))"
+"欢迎来到%%site.name%%，一个基于免费软件 [StatusNet](http://status.net/) 创建"
+"的 [微博客](http://zh.wikipedia.org/zh-hans/%E5%BE%AE%E5%8D%9A%E5%AE%A2) 服"
+"务。[现在加入](%%action.register%%) 并与你的朋友、家人和同事们一起分享你的消"
+"息。([查看更多](%%doc.help%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3058,12 +3057,12 @@ msgstr "公开的标签云"
 #: actions/publictagcloud.php:63
 #, php-format
 msgid "These are most popular recent tags on %s "
-msgstr "这些是最近的 %s 流行标签 "
+msgstr "这些是%s最近的流行的标签 "
 
 #: actions/publictagcloud.php:69
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
-msgstr "还没有人发布带 [标签](%%doc.tags%%) 的消息。"
+msgstr "还没有人发布带[标签](%%doc.tags%%)的消息。"
 
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
@@ -3074,7 +3073,7 @@ msgstr "成为第一个发布消息的人！"
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
-msgstr "现在就 [注册](%%action.register%%) 并发布第一个！"
+msgstr "现在就[注册](%%action.register%%)并发布第一个！"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
@@ -3260,7 +3259,7 @@ msgstr "电子邮件"
 
 #: actions/register.php:446 actions/register.php:450
 msgid "Used only for updates, announcements, and password recovery"
-msgstr "只用于更新、公告或密码恢复"
+msgstr "只用于更新、通知及密码恢复"
 
 #: actions/register.php:457
 msgid "Longer name, preferably your \"real\" name"
@@ -3340,17 +3339,17 @@ msgid ""
 "register%%) a new  account. If you already have an account  on a [compatible "
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
-"要跟随，您需要[登录](%%action.login%%)，或[注册](%%action.register%%) 一个新"
-"账户。如果您已经在另一个[兼容的微博客](%%doc.openmublog%%)有账户，请填入您的"
-"资料页 URL。"
+"要关注用户或小组，您需要[登录](%%action.login%%)，或[注册](%%action.register%"
+"%) 一个新账户。如果您已经在另一个[兼容的微博客](%%doc.openmublog%%)有账户，请"
+"填入您的资料页 URL。"
 
 #: actions/remotesubscribe.php:112
 msgid "Remote subscribe"
-msgstr "远程跟随"
+msgstr "远程关注"
 
 #: actions/remotesubscribe.php:124
 msgid "Subscribe to a remote user"
-msgstr "跟随一个远程用户"
+msgstr "关注一个远程用户"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3358,7 +3357,7 @@ msgstr "昵称"
 
 #: actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
-msgstr "希望跟随的用户昵称"
+msgstr "希望关注的用户昵称"
 
 #: actions/remotesubscribe.php:133
 msgid "Profile URL"
@@ -3371,11 +3370,11 @@ msgstr "您在其他兼容的微博客服务的资料页 URL"
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
 #: lib/userprofile.php:406
 msgid "Subscribe"
-msgstr "跟随"
+msgstr "关注"
 
 #: actions/remotesubscribe.php:159
 msgid "Invalid profile URL (bad format)"
-msgstr "资料页 URL 不正确 (格式错误)"
+msgstr "无效的用户 URL (格式错误)"
 
 #: actions/remotesubscribe.php:168
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
@@ -3383,11 +3382,11 @@ msgstr "不是有效的资料页 URL (没有YADIS 文档或定义了无效的 XR
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
-msgstr "那是一个本地资料页！需要登录才能跟随。"
+msgstr "这是一个本地用户！需要登录才能关注。"
 
 #: actions/remotesubscribe.php:183
 msgid "Couldn’t get a request token."
-msgstr "无法获得一个请求令牌。"
+msgstr "无法获得一个 request token。"
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
@@ -3452,7 +3451,7 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
-"你可以让其他用户参与对话，订阅更多的人或者 [加入群组](%%action.groups%%)。"
+"您可以让其他用户参与对话，关注更多的人或者 [加入小组](%%action.groups%%)。"
 
 #: actions/replies.php:206
 #, php-format
@@ -3460,7 +3459,7 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
-"您可以试着 [轻推%1$s](../%2$s) 或者给他们 [发一些消息](%%%%action.newnotice%%"
+"您可以试着 [呼叫%1$s](../%2$s) 或者给他们 [发一些消息](%%%%action.newnotice%%"
 "%%?status_textarea=%3$s)。"
 
 #: actions/repliesrss.php:72
@@ -3486,7 +3485,7 @@ msgstr "您不能在这个网站授予用户角色。"
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
-msgstr ""
+msgstr "用于已经在沙盒中了。"
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3657,16 +3656,16 @@ msgstr "这是一种分享你喜欢的内容的方式。"
 #: actions/showgroup.php:82 lib/groupnav.php:86
 #, php-format
 msgid "%s group"
-msgstr "%s 组"
+msgstr "%s 小组"
 
 #: actions/showgroup.php:84
 #, php-format
 msgid "%1$s group, page %2$d"
-msgstr "%1$s群组，第%2$d页"
+msgstr "%1$s小组，第%2$d页"
 
 #: actions/showgroup.php:227
 msgid "Group profile"
-msgstr "群组资料"
+msgstr "小组资料"
 
 #: actions/showgroup.php:272 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
@@ -3676,7 +3675,7 @@ msgstr "URL 互联网地址"
 #: actions/showgroup.php:283 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
-msgstr "无"
+msgstr "注释"
 
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
@@ -3684,22 +3683,22 @@ msgstr "别名"
 
 #: actions/showgroup.php:302
 msgid "Group actions"
-msgstr "组动作"
+msgstr "小组动作"
 
 #: actions/showgroup.php:338
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "%s群组的消息聚合 (RSS 1.0)"
+msgstr "%s小组的消息聚合 (RSS 1.0)"
 
 #: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "%s群组的消息聚合 (RSS 2.0)"
+msgstr "%s小组的消息聚合 (RSS 2.0)"
 
 #: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (Atom)"
-msgstr "%s群组的消息聚合 (Atom)"
+msgstr "%s小组的消息聚合 (Atom)"
 
 #: actions/showgroup.php:355
 #, php-format
@@ -3714,7 +3713,7 @@ msgstr "成员"
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
-msgstr "（没有）"
+msgstr "（无）"
 
 #: actions/showgroup.php:404
 msgid "All members"
@@ -3747,10 +3746,10 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** 是%%%%site.name%%%%上的一个群组，%%%%site.name%%%%是一个基于自由软件"
-"[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
-"E5%BE%AE%E5%8D%9A%E5%AE%A2)。%%%%site.name%%%%的成员分享关于生活和兴趣的短信"
-"息。"
+"**%s** 是%%%%site.name%%%%上的一个小组，%%%%site.name%%%%是一个基于自由软件 "
+"[StatusNet](http://status.net/) 的[微博客](http://zh.wikipedia.org/zh-hans/%"
+"E5%BE%AE%E5%8D%9A%E5%AE%A2)。%%%%site.name%%%%的用户分享关于他们生活和各种兴"
+"趣的消息。"
 
 #: actions/showgroup.php:489
 msgid "Admins"
@@ -3830,8 +3829,8 @@ msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 msgstr ""
-"您可以试着轻推%1$s或给他们 [发一些消息](%%%%action.newnotice%%%%?"
-"status_textarea=%3$s)。"
+"您可以试着呼叫%1$s或给他们 [发一些消息](%%%%action.newnotice%%%%?"
+"status_textarea=%2$s)。"
 
 #: actions/showstream.php:243
 #, php-format
@@ -3843,8 +3842,8 @@ msgid ""
 msgstr ""
 "**%s**在%%%%site.name%%%%有一个账号，%%%%site.name%%%%是一个基于自由软件"
 "[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
-"E5%BE%AE%E5%8D%9A%E5%AE%A2)服务。[现在](%%%%action.register%%%%)并订阅**%s**"
-"的消息和享受更多乐趣! （[阅读更多](%%%%doc.help%%%%)）"
+"E5%BE%AE%E5%8D%9A%E5%AE%A2)服务。[现在加入](%%%%action.register%%%%)并关注**%"
+"s**的消息和享受更多乐趣! （[阅读更多](%%%%doc.help%%%%)）"
 
 #: actions/showstream.php:248
 #, php-format
@@ -3929,7 +3928,7 @@ msgstr "网站的联系我们电子邮件地址"
 
 #: actions/siteadminpanel.php:245
 msgid "Local"
-msgstr "本地"
+msgstr "本地化"
 
 #: actions/siteadminpanel.php:256
 msgid "Default timezone"
@@ -4153,7 +4152,7 @@ msgstr "快照"
 
 #: actions/snapshotadminpanel.php:65
 msgid "Manage snapshot configuration"
-msgstr ""
+msgstr "管理快照配置"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4205,12 +4204,12 @@ msgstr "保存访问设置"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
-msgstr "您没有跟随那个资料页"
+msgstr "您没有关注这个用户"
 
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
 msgid "Could not save subscription."
-msgstr "无法保存跟随。"
+msgstr "无法保存关注。"
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
@@ -4222,43 +4221,41 @@ msgstr "没有这个文件。"
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "您不能用这个操作跟随一个 OMB 0.1 远程资料页。"
+msgstr "您不能用这个操作关注一个 OMB 0.1 远程用户。"
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
-msgstr "已跟随"
+msgstr "已关注"
 
 #: actions/subscribers.php:50
 #, php-format
 msgid "%s subscribers"
-msgstr "%s跟随者"
+msgstr "%s个关注者"
 
 #: actions/subscribers.php:52
 #, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "%1$s的跟随者，第%2$d页"
+msgstr "%1$s个关注者，第%2$d页"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
-msgstr "这些用户跟随了您的消息。"
+msgstr "这些用户关注了您的消息。"
 
 #: actions/subscribers.php:67
 #, php-format
 msgid "These are the people who listen to %s's notices."
-msgstr "这些用户跟随了%s的消息。"
+msgstr "这些用户关注了%s的消息。"
 
 #: actions/subscribers.php:108
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor"
-msgstr ""
-"您还没有订阅者，尝试订阅一些您认识的人他们让他们知道您也在这上面，他们或许会"
-"订阅您"
+msgstr "还没有人关注您，尝试关注一些您认识的用户，他们或许会关注您"
 
 #: actions/subscribers.php:110
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
-msgstr "%s还没有订阅者，成为第一个订阅者？"
+msgstr "还没有人关注%s，成为第一个关注者？"
 
 #: actions/subscribers.php:114
 #, php-format
@@ -4266,27 +4263,27 @@ msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
 msgstr ""
-"%s还没有订阅者。现在就[注册一个账户](%%%%action.register%%%%)并成为第一个订阅"
+"还没有人关注%s。现在就[注册一个帐号](%%%%action.register%%%%)并成为第一个关注"
 "者！"
 
 #: actions/subscriptions.php:52
 #, php-format
 msgid "%s subscriptions"
-msgstr "%s跟随的"
+msgstr "%s的关注"
 
 #: actions/subscriptions.php:54
 #, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr "%1$s跟随的，第%2$d页"
+msgstr "%1$s的关注，第%2$d页"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
-msgstr "这是您跟随的用户。"
+msgstr "这是您关注的用户。"
 
 #: actions/subscriptions.php:69
 #, php-format
 msgid "These are the people whose notices %s listens to."
-msgstr "这是%s跟随的用户。"
+msgstr "这是%s关注的用户。"
 
 #: actions/subscriptions.php:126
 #, php-format
@@ -4297,15 +4294,15 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
-"您现在还看不到其他人的消息，试着去订阅一些您认识的人。试一下 [用户搜索](%%"
+"您现在还看不到其他人的消息，试着去关注一些您认识的人。试一下 [用户搜索](%%"
 "action.peoplesearch%%)，在我们的 [推荐用户](%%action.featured%%) 中找一些您感"
 "兴趣的小组的用户。如果您是  [Twitter用户](%%action.twittersettings%%)，您可以"
-"自动订阅您已经订阅的用户。"
+"自动关注您已经关注的用户。"
 
 #: actions/subscriptions.php:128 actions/subscriptions.php:132
 #, php-format
 msgid "%s is not listening to anyone."
-msgstr "%s没有跟随任何人。"
+msgstr "%s没有关注任何人。"
 
 #: actions/subscriptions.php:208
 msgid "Jabber"
@@ -4346,7 +4343,7 @@ msgstr "将%s加为标签"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
-msgstr "用户角色"
+msgstr "用户页面"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
@@ -4367,7 +4364,7 @@ msgstr ""
 #: actions/tagother.php:193
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
-msgstr "您只能给您跟随的人或跟随您的人添加标签。"
+msgstr "您只能给您关注或关注您的人添加标签。"
 
 #: actions/tagother.php:200
 msgid "Could not save tags."
@@ -4375,7 +4372,7 @@ msgstr "无法保存标签。"
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
-msgstr "使用这个表格给您的跟随者或您跟随的人添加标签。"
+msgstr "使用这个表单给您的关注者或您关注的用户添加标签。"
 
 #: actions/tagrss.php:35
 msgid "No such tag."
@@ -4387,7 +4384,7 @@ msgstr "您未屏蔽该用户。"
 
 #: actions/unsandbox.php:72
 msgid "User is not sandboxed."
-msgstr ""
+msgstr "用户还没在沙盒中。"
 
 #: actions/unsilence.php:72
 msgid "User is not silenced."
@@ -4399,7 +4396,7 @@ msgstr "请求不含资料页 ID。"
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
-msgstr "已取消跟随"
+msgstr "已取消关注"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
@@ -4428,7 +4425,7 @@ msgstr "无效的欢迎文字。最大长度255个字符。"
 #: actions/useradminpanel.php:165
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
-msgstr "无效的默认订阅：“%1$s”不是一个用户。"
+msgstr "无效的默认关注：“%1$s”不是一个用户。"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
@@ -4458,11 +4455,11 @@ msgstr "给新用户的欢迎文字(不能超过255个字符)。"
 
 #: actions/useradminpanel.php:241
 msgid "Default subscription"
-msgstr "默认跟随"
+msgstr "默认关注"
 
 #: actions/useradminpanel.php:242
 msgid "Automatically subscribe new users to this user."
-msgstr "自动跟随所有跟随我的人 (这个选项适合机器人)"
+msgstr "自动关注所有关注我的人 (这个选项适合机器人)"
 
 #: actions/useradminpanel.php:251
 msgid "Invitations"
@@ -4478,7 +4475,7 @@ msgstr "是否允许用户发送注册邀请。"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
-msgstr "认证跟随"
+msgstr "授权关注"
 
 #: actions/userauthorization.php:110
 msgid ""
@@ -4486,8 +4483,8 @@ msgid ""
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"请检查这些详细信息，确认希望跟随此用户的消息。如果您刚才没有想跟随通告，请点"
-"击\"拒绝\"。"
+"请检查这些详细信息，确认希望关注此用户的消息。如果您不想关注，请点击\\\"拒绝"
+"\\\"。"
 
 #: actions/userauthorization.php:196 actions/version.php:167
 msgid "License"
@@ -4500,7 +4497,7 @@ msgstr "接受"
 #: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
 msgid "Subscribe to this user"
-msgstr "跟随这个用户"
+msgstr "关注这个用户"
 
 #: actions/userauthorization.php:219
 msgid "Reject"
@@ -4508,15 +4505,15 @@ msgstr "拒绝"
 
 #: actions/userauthorization.php:220
 msgid "Reject this subscription"
-msgstr "拒绝此跟随"
+msgstr "拒绝此关注"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
-msgstr "未收到认证请求！"
+msgstr "没有授权请求！"
 
 #: actions/userauthorization.php:254
 msgid "Subscription authorized"
-msgstr "跟随已认证"
+msgstr "已授权关注"
 
 #: actions/userauthorization.php:256
 msgid ""
@@ -4524,18 +4521,19 @@ msgid ""
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"跟随已认证，但是没有回传 URL。请到网站查看如何认证跟随。您的跟随标识是："
+"已授权关注，但是没有回传 URL。请到网站查看如何授权关注。您的 subscription "
+"token 是："
 
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
-msgstr "跟随已拒绝"
+msgstr "关注已拒绝"
 
 #: actions/userauthorization.php:268
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
-msgstr "跟随已拒绝，但是没有回传 URL。请到网站查看如何完全拒绝此跟随。"
+msgstr "关注已拒绝，但是没有回传 URL。请到网站查看如何完全拒绝关注。"
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -4590,21 +4588,21 @@ msgstr "享受您的成果吧！"
 #: actions/usergroups.php:66
 #, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "%1$s的群组，第%2$d页"
+msgstr "%1$s个小组，第%2$d页"
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
-msgstr "搜索更多群组"
+msgstr "搜索更多小组"
 
 #: actions/usergroups.php:159
 #, php-format
 msgid "%s is not a member of any group."
-msgstr "用户不是群组成员。"
+msgstr "%s还未加入任何小组。"
 
 #: actions/usergroups.php:164
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
-msgstr "试一下[搜索小组](%%%%action.groupsearch%%%%)并加入他们。"
+msgstr "试一下[搜索小组](%%action.groupsearch%%)并加入他们。"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle in atom group notice feed.
@@ -4620,7 +4618,7 @@ msgstr "%2$s 上 %1$s 的更新！"
 #: actions/version.php:75
 #, php-format
 msgid "StatusNet %s"
-msgstr "StatusNet"
+msgstr "StatusNet %s"
 
 #: actions/version.php:155
 #, php-format
@@ -4641,8 +4639,8 @@ msgid ""
 "Software Foundation, either version 3 of the License, or (at your option) "
 "any later version. "
 msgstr ""
-"StatusNet 是一个免费软件，您可以在自由软件基金会发布的GNU Affero通用公共许可"
-"证或本软件第三版或以后许可证的允许下重新分配或者修改它，\\"
+"StatusNet 是一个免费软件，您可以在遵守自由软件基金会发布的 GNU Affero GPL 或"
+"第三版或以后的版本的情况下重新部署或者修改它，"
 
 #: actions/version.php:176
 msgid ""
@@ -4651,16 +4649,15 @@ msgid ""
 "FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero General Public License "
 "for more details. "
 msgstr ""
-"这个程序的分布是希望它可以有用，但没有任何的担保；也没有售后性或者符合其他特"
-"别目的的担保。查看GNU Affero通用公共许可证了解更多信息。\\"
+"这个程序的发布是希望它可以有用，但没有任何的担保；也没有售后性或者符合其他特"
+"别目的的担保。查看 GNU Affero GPL 了解更多信息。"
 
 #: actions/version.php:182
 #, php-format
 msgid ""
 "You should have received a copy of the GNU Affero General Public License "
 "along with this program.  If not, see %s."
-msgstr ""
-"您应该在本程序中收到了一份GNU Affero公共许可证的副本，如果没有收到请看%s。"
+msgstr "您应该在本程序中收到了一份 GNU Affero GPL 的副本，如果没有收到请看%s。"
 
 #: actions/version.php:191
 msgid "Plugins"
@@ -4718,7 +4715,7 @@ msgstr "无效的文件名。"
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
 msgid "Group join failed."
-msgstr "加入群组失败。"
+msgstr "加入小组失败。"
 
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
 #: classes/Group_member.php:55
@@ -4728,7 +4725,7 @@ msgstr "不是小组成员。"
 #. TRANS: Exception thrown when trying to leave a group fails.
 #: classes/Group_member.php:63
 msgid "Group leave failed."
-msgstr "离开群组失败。"
+msgstr "离开小组失败。"
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -4760,7 +4757,7 @@ msgstr "无法添加信息。"
 #. TRANS: Message given when a message could not be updated on the server.
 #: classes/Message.php:74
 msgid "Could not update message with new URI."
-msgstr "无法添加新URI的信息。"
+msgstr "无法通过新的 URI 更新消息。"
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -4853,64 +4850,64 @@ msgstr "无法保存标签。"
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
-msgstr "您被阻止跟随。"
+msgstr "您被禁止添加关注。"
 
 #. TRANS: Exception thrown when trying to subscribe while already subscribed.
 #: classes/Subscription.php:80
 msgid "Already subscribed!"
-msgstr "已跟随！"
+msgstr "已经关注了！"
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
 msgid "User has blocked you."
-msgstr "用户未被群组屏蔽。"
+msgstr "用户将你屏蔽了。"
 
 #. TRANS: Exception thrown when trying to unsibscribe without a subscription.
 #: classes/Subscription.php:171
 msgid "Not subscribed!"
-msgstr "未跟随！"
+msgstr "未关注！"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
 msgid "Could not delete self-subscription."
-msgstr "无法删除自我跟随。"
+msgstr "无法删除自我关注。"
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
 msgid "Could not delete subscription OMB token."
-msgstr "无法删除跟随OMB 标识。"
+msgstr "无法删除关注 OMB token。"
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
 msgid "Could not delete subscription."
-msgstr "无法取消跟随。"
+msgstr "无法取消关注。"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
 #: classes/User.php:365
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
-msgstr "对%s的回复，第%2$d页"
+msgstr "欢迎来到 %1$s，@%2$s！"
 
 #. TRANS: Server exception thrown when creating a group failed.
 #: classes/User_group.php:496
 msgid "Could not create group."
-msgstr "无法创建组。"
+msgstr "无法创建小组。"
 
 #. TRANS: Server exception thrown when updating a group URI failed.
 #: classes/User_group.php:506
 msgid "Could not set group URI."
-msgstr "无法设置群组 URI。"
+msgstr "无法设置小组 URI。"
 
 #. TRANS: Server exception thrown when setting group membership failed.
 #: classes/User_group.php:529
 msgid "Could not set group membership."
-msgstr "无法设置群组成员信息。"
+msgstr "无法设置小组成员。"
 
 #. TRANS: Server exception thrown when saving local group information failed.
 #: classes/User_group.php:544
 msgid "Could not save local group info."
-msgstr "无法保存本地群组信息。"
+msgstr "无法保存本地小组信息。"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
@@ -4920,7 +4917,7 @@ msgstr "修改您的个人信息"
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:116
 msgid "Upload an avatar"
-msgstr "上载一个头像。"
+msgstr "上传一个头像。"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
@@ -4935,7 +4932,7 @@ msgstr "修改电子邮件"
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:137
 msgid "Design your profile"
-msgstr "群组资料"
+msgstr "页面设计"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
@@ -5113,7 +5110,7 @@ msgstr "FAQ"
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
 #: lib/action.php:779
 msgid "TOS"
-msgstr "服务条款"
+msgstr "条款"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
 #: lib/action.php:783
@@ -5123,12 +5120,12 @@ msgstr "隐私"
 #. TRANS: Secondary navigation menu option.
 #: lib/action.php:786
 msgid "Source"
-msgstr "来源"
+msgstr "源码"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
 #: lib/action.php:792
 msgid "Contact"
-msgstr "联系人"
+msgstr "联系"
 
 #: lib/action.php:794
 msgid "Badge"
@@ -5137,7 +5134,7 @@ msgstr "挂件"
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:823
 msgid "StatusNet software license"
-msgstr "StatusNet软件注册证"
+msgstr "StatusNet 软件许可证"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
 #: lib/action.php:827
@@ -5163,9 +5160,8 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"它运行[StatusNet](http://status.net/)微博客服务，版本 %s，采用[GNU Affero "
-"General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)"
-"授权。"
+"它运行[StatusNet](http://status.net/)微博客服务，版本 %s，[GNU Affero GPL]"
+"(http://www.fsf.org/licensing/licenses/agpl-3.0.html)授权。"
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:850
@@ -5414,7 +5410,7 @@ msgstr "只读"
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr "通过了%1$s - \\\"%2$s\\\"的访问权限。"
+msgstr "通过了%1$s - \"%2$s\"的访问权限。"
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
@@ -5493,7 +5489,7 @@ msgstr "对不起，这个命令还没有实现。"
 
 #: lib/command.php:225
 msgid "It does not make a lot of sense to nudge yourself!"
-msgstr "轻推自己不太符合逻辑吧。"
+msgstr "呼叫自己不太符合逻辑吧。"
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
@@ -5509,8 +5505,8 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
-"订阅数： %1$s\\n\n"
-"订阅者： %2$s\\n\n"
+"关注数： %1$s\\n\n"
+"关注者： %2$s\\n\n"
 "消息数： %3$s"
 
 #: lib/command.php:302
@@ -5519,21 +5515,21 @@ msgstr "消息被标记为收藏。"
 
 #: lib/command.php:323
 msgid "You are already a member of that group"
-msgstr "您已经是该组成员"
+msgstr "您已经是该小组成员"
 
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:339
 #, php-format
 msgid "Could not join user %1$s to group %2$s"
-msgstr "无法把用户%d添加到%2$s群组"
+msgstr "无法把用户%d添加到%2$s小组"
 
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:385
 #, php-format
 msgid "Could not remove user %1$s from group %2$s"
-msgstr "无法把用户%1$s从%2$s组移除"
+msgstr "无法把用户%1$s从%2$s小组删除"
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:418
@@ -5621,25 +5617,25 @@ msgstr "保存消息时出错。"
 
 #: lib/command.php:620
 msgid "Specify the name of the user to subscribe to"
-msgstr "指定要跟随的用户名"
+msgstr "指定要关注的用户名"
 
 #: lib/command.php:628
 msgid "Can't subscribe to OMB profiles by command."
-msgstr "无法通过命令行跟随 OMB 资料页。"
+msgstr "无法通过命令行关注 OMB 用户。"
 
 #: lib/command.php:634
 #, php-format
 msgid "Subscribed to %s"
-msgstr "已跟随%s"
+msgstr "已关注%s"
 
 #: lib/command.php:655 lib/command.php:754
 msgid "Specify the name of the user to unsubscribe from"
-msgstr "指定要取消跟随的用户名"
+msgstr "指定要取消关注的用户名"
 
 #: lib/command.php:664
 #, php-format
 msgid "Unsubscribed from %s"
-msgstr "取消跟随%s"
+msgstr "取消关注%s"
 
 #: lib/command.php:682 lib/command.php:705
 msgid "Command not yet implemented."
@@ -5673,34 +5669,34 @@ msgstr "这个链接只能使用一次并且仅在2分钟内有效：%s"
 #: lib/command.php:761
 #, php-format
 msgid "Unsubscribed  %s"
-msgstr "已取消跟随%s"
+msgstr "已取消关注%s"
 
 #: lib/command.php:778
 msgid "You are not subscribed to anyone."
-msgstr "您没有跟随任何人。"
+msgstr "您没有关注任何人。"
 
 #: lib/command.php:780
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
-msgstr[0] "您已跟随这个用户："
+msgstr[0] "您已关注了这个用户："
 
 #: lib/command.php:800
 msgid "No one is subscribed to you."
-msgstr "没有人跟随您。"
+msgstr "没有人关注您。"
 
 #: lib/command.php:802
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
-msgstr[0] "这个用户正在跟随您："
+msgstr[0] "这个用户正在关注您："
 
 #: lib/command.php:822
 msgid "You are not a member of any groups."
-msgstr "您不是该群组成员。"
+msgstr "您不是该小组成员。"
 
 #: lib/command.php:824
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
-msgstr[0] "您未告知此个人信息"
+msgstr[0] "您是该小组成员："
 
 #: lib/command.php:838
 msgid ""
@@ -5743,44 +5739,44 @@ msgid ""
 "tracks - not yet implemented.\n"
 "tracking - not yet implemented.\n"
 msgstr ""
-"命令：\\n\n"
-"on - 打开提醒\\n\n"
-"off - 关闭提醒\\n\n"
-"help - 显示此帮助\\n\n"
-"follow <昵称> - 订阅该用户\\n\n"
-"groups - 列出您加入的小组\\n\n"
-"subscriptions - 列出您订阅的用户\\n\n"
-"subscribers - 列出您的订阅者\\n\n"
-"leave <昵称> - 取消订阅该用户\\n\n"
-"d <昵称> <文字> - 给该用户发送私信\\n\n"
-"get <昵称> - 获取该用户的最后一条消息\\n\n"
-"whois <昵称> - 获取该用户的个人信息\\n\n"
-"lose <昵称> - 强行取消该用户对您的订阅\\n\n"
-"fav <昵称> - 将该用户最后一条消息加为'收藏'\\n\n"
-"fav #<消息id> - 将该id的消息加为'收藏'\\n\n"
-"repeat #<消息id> - 转发该id的消息\\n\n"
-"repeat <昵称> - 转发该用户的最后一条消息\\n\n"
-"reply #<notice_id> - 对该id消息回复\\n\n"
-"reply <昵称> - 对该用户的最后一条小心回复\\n\n"
-"join <小组> - 加入小组\\n\n"
-"login - 获取网页登录的地址\\n\n"
-"drop <小组> - 离开小组\\n\n"
-"stats - 获取您的统计\\n\n"
-"stop - 和'off'相同\\n\n"
-"quit - 和'off'相同\\n\n"
-"sub <昵称> - 和'follow'相同\\n\n"
-"unsub <昵称> - 和'leave'相同\\n\n"
-"last <昵称> - 和'get'相同\\n\n"
-"on <昵称> - 尚未实现。\\n\n"
-"off <昵称> - 尚未实现。\\n\n"
-"nudge <昵称> - 提醒该用户更新消息。\\n\n"
-"invite <电话号码> - 尚未实现。\\n\n"
-"track <word> - 尚未实现。\\n\n"
-"untrack <word> - 尚未实现。\\n\n"
-"track off - 尚未实现。\\n\n"
-"untrack all - 尚未实现。\\n\n"
-"tracks - 尚未实现。\\n\n"
-"tracking - 尚未实现。\\n\n"
+"命令：\n"
+"on - 打开提醒\n"
+"off - 关闭提醒\n"
+"help - 显示此帮助\n"
+"follow <昵称> - 关注该用户\n"
+"groups - 列出您加入的小组\n"
+"subscriptions - 列出您关注的用户\n"
+"subscribers - 列出您的关注者\n"
+"leave <昵称> - 取消关注该用户\n"
+"d <昵称> <文字> - 给该用户发送私信\n"
+"get <昵称> - 获取该用户的最后一条消息\n"
+"whois <昵称> - 获取该用户的个人信息\n"
+"lose <昵称> - 强行取消该用户对您的关注\n"
+"fav <昵称> - 将该用户最后一条消息加为'收藏'\n"
+"fav #<消息id> - 将该id的消息加为'收藏'\n"
+"repeat #<消息id> - 转发该id的消息\n"
+"repeat <昵称> - 转发该用户的最后一条消息\n"
+"reply #<notice_id> - 对该id消息回复\n"
+"reply <昵称> - 对该用户的最后一条小心回复\n"
+"join <小组> - 加入小组\n"
+"login - 获取网页登录的地址\n"
+"drop <小组> - 离开小组\n"
+"stats - 获取您的统计\n"
+"stop - 和'off'相同\n"
+"quit - 和'off'相同\n"
+"sub <昵称> - 和'follow'相同\n"
+"unsub <昵称> - 和'leave'相同\n"
+"last <昵称> - 和'get'相同\n"
+"on <昵称> - 尚未实现。\n"
+"off <昵称> - 尚未实现。\n"
+"nudge <昵称> - 提醒该用户更新消息。\n"
+"invite <电话号码> - 尚未实现。\n"
+"track <word> - 尚未实现。\n"
+"untrack <word> - 尚未实现。\n"
+"track off - 尚未实现。\n"
+"untrack all - 尚未实现。\n"
+"tracks - 尚未实现。\n"
+"tracking - 尚未实现。\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
@@ -5796,7 +5792,7 @@ msgstr "或许您想运行安装程序来解决这个问题。"
 
 #: lib/common.php:139
 msgid "Go to the installer."
-msgstr ""
+msgstr "去安装程序。"
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
@@ -5829,7 +5825,7 @@ msgstr "上传文件"
 #: lib/designsettings.php:109
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
-msgstr "您可以上载您的个人北京。文件大小限制在 2MB 以下。"
+msgstr "您可以上传您的个人页面背景。文件最大 2MB。"
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
@@ -5865,7 +5861,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr "导出数据"
+msgstr "RSS 订阅"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -5898,21 +5894,21 @@ msgstr "给这个用户添加\\\"%s\\\"权限"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
-msgstr "这个应用的主页 URL"
+msgstr "这个小组或主题的主页或博客 URL"
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
-msgstr "描述群组或话题"
+msgstr "小组或主题的描述"
 
 #: lib/groupeditform.php:170
 #, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "用不超过%d个字符描述群组或话题"
+msgstr "小组或主题的描述，不能超过%d个字符"
 
 #: lib/groupeditform.php:179
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "群组的地理位置，格式类似\"城市，省份，国家\""
+msgstr "小组的地理位置，例如“国家、省份、城市”"
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -5921,7 +5917,7 @@ msgstr "该小组额外的昵称，用逗号或者空格分隔开，最长%d"
 
 #: lib/groupnav.php:85
 msgid "Group"
-msgstr "组"
+msgstr "小组"
 
 #: lib/groupnav.php:101
 msgid "Blocked"
@@ -5953,11 +5949,11 @@ msgstr "添加或编辑%s设计"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
-msgstr "人气最旺的群组"
+msgstr "人气最旺的小组"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr "发布最多的群组"
+msgstr "发布消息最多的小组"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
@@ -6079,8 +6075,8 @@ msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
-"如果您认为此帐户正被人恶意使用，您可以将其从您的订阅者中屏蔽掉并到％s报告给网"
-"站的管理员为他们在发垃圾信息。"
+"如果您认为此帐户正被人恶意使用，您可以将其从您的关注者中屏蔽掉并到 %s 报告给"
+"网站的管理员为他们在发垃圾信息。"
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
@@ -6102,7 +6098,7 @@ msgstr ""
 "\t%3$s\n"
 "\n"
 "%4$s%5$s%6$s\n"
-"为您效力的，\n"
+"真诚的问候，\n"
 "%7$s.\n"
 "\n"
 "----\n"
@@ -6139,7 +6135,9 @@ msgstr ""
 "\n"
 "更多电子邮件的帮助请见 %3$s。\n"
 "\n"
-"为您效力的 %4$s"
+"真诚的问候，\n"
+"\n"
+"%4$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages
 #: lib/mail.php:433
@@ -6195,7 +6193,7 @@ msgstr ""
 #: lib/mail.php:536
 #, php-format
 msgid "New private message from %s"
-msgstr "%s 发送了新的私人信息"
+msgstr "来自%s的私信"
 
 #. TRANS: Body for direct-message notification email
 #: lib/mail.php:541
@@ -6235,7 +6233,7 @@ msgstr ""
 #: lib/mail.php:589
 #, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s (@%s) 收藏了您的消息。"
+msgstr "%s (@%s) 收藏了您的消息"
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6258,7 +6256,7 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
-"%1$s (@%7$s) 刚刚通过 %2$s 将您的一条消息加入了他/她的收藏。\n"
+"%1$s (@%7$s) 刚刚在 %2$s 收藏了一条您的消息。\n"
 "\n"
 "您的这条消息的URL：\n"
 "\n"
@@ -6268,7 +6266,7 @@ msgstr ""
 "\n"
 "%4$s\n"
 "\n"
-"您可以到这里查看 %1$s 的所有收藏：\n"
+"您可以到这里查看所有 %1$s 收藏的消息：\n"
 "\n"
 "%5$s\n"
 "\n"
@@ -6290,7 +6288,7 @@ msgstr ""
 #: lib/mail.php:657
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr "%s (@%s) 收藏了您的消息。"
+msgstr "%s (@%s) 给您发送了一条消息"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
@@ -6344,7 +6342,7 @@ msgstr ""
 
 #: lib/mailbox.php:89
 msgid "Only the user can read their own mailboxes."
-msgstr "只有用户自己可以访问邮箱。"
+msgstr "只有该用户才能查看自己的私信。"
 
 #: lib/mailbox.php:139
 msgid ""
@@ -6368,11 +6366,11 @@ msgstr "不是已注册用户。"
 
 #: lib/mailhandler.php:46
 msgid "Sorry, that is not your incoming email address."
-msgstr "对不起，这个发布用的电子邮件属于其他用户。"
+msgstr "抱歉，这个不是您的收信电子邮件地址。"
 
 #: lib/mailhandler.php:50
 msgid "Sorry, no incoming email allowed."
-msgstr "对不起，发布用的电子邮件无法使用。"
+msgstr "抱歉，现在不允许电子邮件发布。"
 
 #: lib/mailhandler.php:228
 #, php-format
@@ -6446,7 +6444,7 @@ msgstr "可用的字符"
 #: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr "发送"
+msgstr "发布"
 
 #: lib/noticeform.php:160
 msgid "Send a notice"
@@ -6455,7 +6453,7 @@ msgstr "发送一个消息"
 #: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
-msgstr "怎么样，%s？"
+msgstr "%s，最近怎么样？"
 
 #: lib/noticeform.php:193
 msgid "Attach"
@@ -6510,11 +6508,11 @@ msgstr "位于"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr "网上"
+msgstr "网页"
 
 #: lib/noticelist.php:568
 msgid "in context"
-msgstr "查看上下文"
+msgstr "查看对话"
 
 #: lib/noticelist.php:603
 msgid "Repeated by"
@@ -6562,15 +6560,15 @@ msgstr "添加远程的个人信息出错"
 
 #: lib/oauthstore.php:345
 msgid "Duplicate notice"
-msgstr "重复消息"
+msgstr "转发消息"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
-msgstr "无法添加新的跟随。"
+msgstr "无法添加新的关注。"
 
 #: lib/personalgroupnav.php:99
 msgid "Personal"
-msgstr "个人"
+msgstr "我的主页"
 
 #: lib/personalgroupnav.php:104
 msgid "Replies"
@@ -6586,7 +6584,7 @@ msgstr "收件箱"
 
 #: lib/personalgroupnav.php:126
 msgid "Your incoming messages"
-msgstr "您接收的消息"
+msgstr "您收到的私信"
 
 #: lib/personalgroupnav.php:130
 msgid "Outbox"
@@ -6594,7 +6592,7 @@ msgstr "发件箱"
 
 #: lib/personalgroupnav.php:131
 msgid "Your sent messages"
-msgstr "您发送的消息"
+msgstr "您发送的私信"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
@@ -6607,19 +6605,19 @@ msgstr "未知的"
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
-msgstr "跟随的"
+msgstr "关注的"
 
 #: lib/profileaction.php:126
 msgid "All subscriptions"
-msgstr "所有跟随的"
+msgstr "所有关注的"
 
 #: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
-msgstr "跟随者"
+msgstr "关注者"
 
 #: lib/profileaction.php:161
 msgid "All subscribers"
-msgstr "所有跟随者"
+msgstr "所有关注者"
 
 #: lib/profileaction.php:191
 msgid "User ID"
@@ -6627,7 +6625,7 @@ msgstr "用户 ID"
 
 #: lib/profileaction.php:196
 msgid "Member since"
-msgstr "用户始于"
+msgstr "注册时间"
 
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
@@ -6636,7 +6634,7 @@ msgstr "日均"
 
 #: lib/profileaction.php:264
 msgid "All groups"
-msgstr "所有组"
+msgstr "所有小组"
 
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
@@ -6644,23 +6642,23 @@ msgstr "未使用的方法。"
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
-msgstr "公告"
+msgstr "公共"
 
 #: lib/publicgroupnav.php:82
 msgid "User groups"
-msgstr "用户组"
+msgstr "用户小组"
 
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr "最近的标签"
+msgstr "最近标签"
 
 #: lib/publicgroupnav.php:88
 msgid "Featured"
-msgstr "特征"
+msgstr "推荐用户"
 
 #: lib/publicgroupnav.php:92
 msgid "Popular"
-msgstr "火爆"
+msgstr "热门收藏"
 
 #: lib/redirectingaction.php:95
 msgid "No return-to arguments."
@@ -6681,7 +6679,7 @@ msgstr "转发这个消息"
 #: lib/revokeroleform.php:91
 #, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "从这个用户取消\"%s\"角色"
+msgstr "取消这个用户的\"%s\"权限"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
@@ -6693,7 +6691,7 @@ msgstr "沙盒"
 
 #: lib/sandboxform.php:78
 msgid "Sandbox this user"
-msgstr ""
+msgstr "将这个用户放入沙盒。"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -6717,7 +6715,7 @@ msgstr "用户"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr "搜索用户信息"
+msgstr "搜索本站用户"
 
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
@@ -6725,7 +6723,7 @@ msgstr "搜索消息内容"
 
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
-msgstr "在网站中查找群组"
+msgstr "搜索本站小组"
 
 #: lib/section.php:89
 msgid "Untitled section"
@@ -6737,21 +6735,21 @@ msgstr "更多..."
 
 #: lib/silenceform.php:67
 msgid "Silence"
-msgstr "静默"
+msgstr "禁言"
 
 #: lib/silenceform.php:78
 msgid "Silence this user"
-msgstr "使这个用户静默"
+msgstr "将此用户禁言"
 
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
-msgstr "%s跟随了"
+msgstr "%s关注的用户"
 
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
-msgstr "跟随%s的用户"
+msgstr "关注了%s的用户"
 
 #: lib/subgroupnav.php:99
 #, php-format
@@ -6834,7 +6832,7 @@ msgstr "移出沙盒"
 
 #: lib/unsandboxform.php:80
 msgid "Unsandbox this user"
-msgstr ""
+msgstr "将这个用户从沙盒中移出"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -6842,15 +6840,15 @@ msgstr "取消禁言"
 
 #: lib/unsilenceform.php:78
 msgid "Unsilence this user"
-msgstr "取消静默这个用户"
+msgstr "取消对这个用户的禁言"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
-msgstr "取消跟随这个用户"
+msgstr "取消关注这个用户"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
-msgstr "退订"
+msgstr "取消关注"
 
 #: lib/usernoprofileexception.php:58
 #, php-format
@@ -6879,11 +6877,11 @@ msgstr "编辑"
 
 #: lib/userprofile.php:287
 msgid "Send a direct message to this user"
-msgstr "呼叫这个用户"
+msgstr "给该用户发送私信"
 
 #: lib/userprofile.php:288
 msgid "Message"
-msgstr "消息已发送"
+msgstr "消息"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
@@ -6891,7 +6889,7 @@ msgstr "审核"
 
 #: lib/userprofile.php:364
 msgid "User role"
-msgstr "用户角色"
+msgstr "用户权限"
 
 #: lib/userprofile.php:366
 msgctxt "role"
