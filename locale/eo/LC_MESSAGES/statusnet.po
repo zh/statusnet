@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-28 13:01+0000\n"
-"PO-Revision-Date: 2010-08-28 13:02:52+0000\n"
+"POT-Creation-Date: 2010-08-28 15:28+0000\n"
+"PO-Revision-Date: 2010-08-28 15:29:34+0000\n"
 "Language-Team: Esperanto\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r71847); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r71856); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: eo\n"
 "X-Message-Group: out-statusnet\n"
@@ -92,6 +92,7 @@ msgstr "Konservu"
 msgid "No such page."
 msgstr "Ne estas tiu paĝo."
 
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -111,7 +112,7 @@ msgstr "Ne estas tiu paĝo."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Ne ekzistas tiu uzanto."
@@ -351,7 +352,8 @@ msgstr "Stato kun tiu ID ne trovitas."
 msgid "This status is already a favorite."
 msgstr "Ĉi tiu stato jam estas  ŝatata."
 
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#. TRANS: Error message text shown when a favorite could not be set.
+#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "Malsukcesis krei ŝataton."
 
@@ -464,15 +466,19 @@ msgstr "La alinomo devas ne esti sama al la kromnomo."
 msgid "Group not found."
 msgstr "Grupo ne troviĝas."
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
+#. TRANS: Error text shown a user tries to join a group they already are a member of.
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
 msgstr "Vi estas jam grupano."
 
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
+#. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
+#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
 msgstr "La administranto blokis vin de tiu grupo."
 
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:139 actions/joingroup.php:134 lib/command.php:353
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "La uzanto %1$*s ne povas aliĝi al la grupo %2$*s."
@@ -481,7 +487,10 @@ msgstr "La uzanto %1$*s ne povas aliĝi al la grupo %2$*s."
 msgid "You are not a member of this group."
 msgstr "Vi ne estas grupano."
 
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
+#: lib/command.php:401
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Malsukcesis forigi uzanton %1$s de grupo %2$s."
@@ -641,11 +650,13 @@ msgstr "Vi ne povas forigi la staton de alia uzanto."
 msgid "No such notice."
 msgstr "Ne estas tiu avizo."
 
-#: actions/apistatusesretweet.php:83
+#. TRANS: Error text shown when trying to repeat an own notice.
+#: actions/apistatusesretweet.php:83 lib/command.php:538
 msgid "Cannot repeat your own notice."
 msgstr "Vi ne povas ripeti vian propran avizon."
 
-#: actions/apistatusesretweet.php:91
+#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
+#: actions/apistatusesretweet.php:91 lib/command.php:544
 msgid "Already repeated that notice."
 msgstr "La avizo jam ripetiĝis."
 
@@ -878,6 +889,8 @@ msgstr "Bloki la uzanton"
 msgid "Failed to save block information."
 msgstr "Eraris konservi blokado-informon."
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -887,8 +900,8 @@ msgstr "Eraris konservi blokado-informon."
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
 msgstr "Ne estas tiu grupo."
 
@@ -2143,7 +2156,7 @@ msgstr "Vi jam abonas jenajn uzantojn:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2263,9 +2276,7 @@ msgstr "Ensalutu por aniĝi al grupo."
 msgid "No nickname or ID."
 msgstr "Ne estas alinomo aŭ ID."
 
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s aniĝis al grupo %2$s"
@@ -2274,13 +2285,12 @@ msgstr "%1$s aniĝis al grupo %2$s"
 msgid "You must be logged in to leave a group."
 msgstr "Ensalutu por eksaniĝi."
 
-#: actions/leavegroup.php:100 lib/command.php:373
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
 msgid "You are not a member of that group."
 msgstr "Vi ne estas grupano."
 
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s eksaniĝis de grupo %2$s"
@@ -2390,12 +2400,15 @@ msgstr "Uzas ĉi tiun formularon por krei novan grupon."
 msgid "New message"
 msgstr "Nova mesaĝo"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
 msgid "You can't send a message to this user."
 msgstr "Vi ne povas sendi mesaĝon al la uzanto."
 
-#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
-#: lib/command.php:555
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
 msgid "No content!"
 msgstr "Neniu enhavo!"
 
@@ -2403,7 +2416,8 @@ msgstr "Neniu enhavo!"
 msgid "No recipient specified."
 msgstr "Neniu ricevonto speifiĝas."
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "Ne sendu mesaĝon al vi mem! Simple suspiru anstataŭ."
@@ -2412,7 +2426,9 @@ msgstr "Ne sendu mesaĝon al vi mem! Simple suspiru anstataŭ."
 msgid "Message sent"
 msgstr "Mesaĝo sendita"
 
-#: actions/newmessage.php:185
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Rekta mesaĝo al %s sendiĝis."
@@ -2980,7 +2996,7 @@ msgstr "Aŭtomate aboni iun ajn, kiu abonas min (prefereble por ne-homoj)"
 #: actions/profilesettings.php:228 actions/register.php:230
 #, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Biografio tro longas (maksimume 255 literoj)"
+msgstr "Biografio tro longas (maksimume %d literoj)"
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
@@ -2988,7 +3004,7 @@ msgstr "Horzono ne elektita"
 
 #: actions/profilesettings.php:241
 msgid "Language is too long (max 50 chars)."
-msgstr "Lingvo tro longas (maksimume 255 literoj)"
+msgstr "Lingvo tro longas (maksimume 50 literoj)"
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
@@ -3233,11 +3249,6 @@ msgstr "Pasvorto devas enhavi 6 signojn aŭ pli."
 #: actions/recoverpassword.php:369
 msgid "Password and confirmation do not match."
 msgstr "Pasvorto kaj komfirmo ne kongruas."
-
-#: actions/recoverpassword.php:388 actions/register.php:255
-#, fuzzy
-msgid "Error setting user."
-msgstr "Eraris konservi uzanton: nevalida."
 
 #: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
@@ -3532,16 +3543,6 @@ msgstr "La uzanto ne havas la rolon."
 msgid "StatusNet"
 msgstr "StatusNet"
 
-#: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
-msgid "You cannot sandbox users on this site."
-msgstr "Vi ne rajtas silentigi uzanton ĉe ĉi tiu retejo."
-
-#: actions/sandbox.php:72
-#, fuzzy
-msgid "User is already sandboxed."
-msgstr "La uzanto jam silentiĝas."
-
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:392
@@ -3652,11 +3653,6 @@ msgid ""
 msgstr ""
 "Rimarku: Ni subtenas HMAC-SHA1-subskribo. Ni ne subtenas platteksta "
 "subskribado-metodon."
-
-#: actions/showapplication.php:309
-#, fuzzy
-msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Ĉu vi certe volas forigi la avizon?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3969,16 +3965,6 @@ msgstr "Nomo de via retejo, ekzemple \"Viafirmo Mikroblogo\""
 msgid "Brought by"
 msgstr "Eblige de"
 
-#: actions/siteadminpanel.php:230
-#, fuzzy
-msgid "Text used for credits link in footer of each page"
-msgstr "URL por danko-ligilo je subaĵo sur ĉiu paĝo"
-
-#: actions/siteadminpanel.php:234
-#, fuzzy
-msgid "Brought by URL"
-msgstr "Eblige de"
-
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr "URL por danko-ligilo je subaĵo sur ĉiu paĝo"
@@ -4027,29 +4013,9 @@ msgstr ""
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/sitenoticeadminpanel.php:56
-#, fuzzy
-msgid "Site Notice"
-msgstr "Konservi retejan agordon"
-
-#: actions/sitenoticeadminpanel.php:67
-#, fuzzy
-msgid "Edit site-wide message"
-msgstr "Nova mesaĝo"
-
-#: actions/sitenoticeadminpanel.php:103
-#, fuzzy
-msgid "Unable to save site notice."
-msgstr "Konservi retejan agordon"
-
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
-
-#: actions/sitenoticeadminpanel.php:176
-#, fuzzy
-msgid "Site notice text"
-msgstr "Konservi retejan agordon"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
@@ -4059,47 +4025,10 @@ msgstr ""
 msgid "Save site notice"
 msgstr "Konservi retejan agordon"
 
-#. TRANS: Title for SMS settings.
-#: actions/smssettings.php:59
-#, fuzzy
-msgid "SMS settings"
-msgstr "Tujmesaĝila agordo."
-
-#. TRANS: SMS settings page instructions.
-#. TRANS: %%site.name%% is the name of the site.
-#: actions/smssettings.php:74
-#, fuzzy, php-format
-msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr "Administri kiel ricevi mesaĝon de  %%site.name%%."
-
-#. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
-#: actions/smssettings.php:97
-#, fuzzy
-msgid "SMS is not available."
-msgstr "Tujmesaĝilo ne estas disponebla."
-
-#. TRANS: Form legend for SMS settings form.
-#: actions/smssettings.php:111
-#, fuzzy
-msgid "SMS address"
-msgstr "Tujmesaĝila adreso"
-
-#. TRANS: Form guide in SMS settings form.
-#: actions/smssettings.php:120
-#, fuzzy
-msgid "Current confirmed SMS-enabled phone number."
-msgstr "Nuna konfirmita retpoŝtadreso."
-
 #. TRANS: Form guide in IM settings form.
 #: actions/smssettings.php:133
 msgid "Awaiting confirmation on this phone number."
 msgstr ""
-
-#. TRANS: Field label for SMS address input in SMS settings form.
-#: actions/smssettings.php:142
-#, fuzzy
-msgid "Confirmation code"
-msgstr "Neniu konfirma kodo."
 
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
@@ -4117,90 +4046,12 @@ msgstr "Konfirmi"
 msgid "SMS phone number"
 msgstr ""
 
-#. TRANS: SMS phone number input field instructions in SMS settings form.
-#: actions/smssettings.php:156
-#, fuzzy
-msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
-"1-64 minusklaj literoj aŭ ciferoj, neniu interpunkcio aŭ spaco. Bezonate."
-
-#. TRANS: Form legend for SMS preferences form.
-#: actions/smssettings.php:195
-#, fuzzy
-msgid "SMS preferences"
-msgstr "Tujmesaĝilaj preferoj"
-
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
 msgstr ""
-
-#. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:315
-#, fuzzy
-msgid "SMS preferences saved."
-msgstr "Prefero konservita."
-
-#. TRANS: Message given saving SMS phone number without having provided one.
-#: actions/smssettings.php:338
-#, fuzzy
-msgid "No phone number."
-msgstr "Ne ekzistas tiu uzanto."
-
-#. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:344
-#, fuzzy
-msgid "No carrier selected."
-msgstr "Avizo viŝiĝas"
-
-#. TRANS: Message given saving SMS phone number that is already set.
-#: actions/smssettings.php:352
-#, fuzzy
-msgid "That is already your phone number."
-msgstr "Tio estas jam via Jabber-ID."
-
-#. TRANS: Message given saving SMS phone number that is already set for another user.
-#: actions/smssettings.php:356
-#, fuzzy
-msgid "That phone number already belongs to another user."
-msgstr "Tiu retpoŝtadreso jam apartenas al alia uzanto."
-
-#. TRANS: Message given saving valid SMS phone number that is to be confirmed.
-#: actions/smssettings.php:384
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the phone number you added. Check your phone "
-"for the code and instructions on how to use it."
-msgstr ""
-"Konfirmkodo jam senditas al la aldonita retpoŝtadreso. Kontrolu vian "
-"alvenkeston (kaj spamkeston!) pri la kodo kaj instrukcio pri kiel uzi ĝin."
-
-#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
-#: actions/smssettings.php:413
-#, fuzzy
-msgid "That is the wrong confirmation number."
-msgstr "Tiu retpoŝtadreso estas malĝusta."
-
-#. TRANS: Message given after successfully canceling SMS phone number confirmation.
-#: actions/smssettings.php:427
-#, fuzzy
-msgid "SMS confirmation cancelled."
-msgstr "Tujmesaĝila konfirmo nuligita."
-
-#. TRANS: Message given trying to remove an SMS phone number that is not
-#. TRANS: registered for the active user.
-#: actions/smssettings.php:448
-#, fuzzy
-msgid "That is not your phone number."
-msgstr "Tio ne estas via Jabber-ID."
-
-#. TRANS: Message given after successfully removing a registered SMS phone number.
-#: actions/smssettings.php:470
-#, fuzzy
-msgid "The SMS phone number was removed."
-msgstr "La tujmesaĝila adreso estas forigita."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -4221,36 +4072,9 @@ msgid ""
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
-#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:548
-#, fuzzy
-msgid "No code entered"
-msgstr "Neniu enhavo!"
-
-#. TRANS: Menu item for site administration
-#: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:408
-msgid "Snapshots"
-msgstr ""
-
-#: actions/snapshotadminpanel.php:65
-#, fuzzy
-msgid "Manage snapshot configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
-#: actions/snapshotadminpanel.php:127
-#, fuzzy
-msgid "Invalid snapshot run value."
-msgstr "Rolo nevalida."
-
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
-
-#: actions/snapshotadminpanel.php:144
-#, fuzzy
-msgid "Invalid snapshot report URL."
-msgstr "URL por la emblemo nevalida."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -4259,11 +4083,6 @@ msgstr ""
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
 msgstr ""
-
-#: actions/snapshotadminpanel.php:206
-#, fuzzy
-msgid "Data snapshots"
-msgstr "Konservi retejan agordon"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
@@ -4289,25 +4108,9 @@ msgstr ""
 msgid "Save snapshot settings"
 msgstr "Konservi retejan agordon"
 
-#: actions/subedit.php:70
-#, fuzzy
-msgid "You are not subscribed to that profile."
-msgstr "Vi ne estas grupano."
-
-#. TRANS: Exception thrown when a subscription could not be stored on the server.
-#: actions/subedit.php:83 classes/Subscription.php:136
-#, fuzzy
-msgid "Could not save subscription."
-msgstr "Malsukcesis konservi la profilon."
-
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
-
-#: actions/subscribe.php:107
-#, fuzzy
-msgid "No such profile."
-msgstr "Ne ekzistas tia dosiero."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -4316,16 +4119,6 @@ msgstr ""
 #: actions/subscribe.php:145
 msgid "Subscribed"
 msgstr "Abonita"
-
-#: actions/subscribers.php:50
-#, fuzzy, php-format
-msgid "%s subscribers"
-msgstr "Malaboni"
-
-#: actions/subscribers.php:52
-#, fuzzy, php-format
-msgid "%1$s subscribers, page %2$d"
-msgstr "%1$s grupanoj, paĝo %2$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4347,23 +4140,6 @@ msgstr ""
 msgid "%s has no subscribers. Want to be the first?"
 msgstr ""
 
-#: actions/subscribers.php:114
-#, fuzzy, php-format
-msgid ""
-"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
-"%) and be the first?"
-msgstr "Kial ne [krei konton](%%action.register%%) kaj esti la unua afiŝanto!"
-
-#: actions/subscriptions.php:52
-#, fuzzy, php-format
-msgid "%s subscriptions"
-msgstr "Defaŭlta abono"
-
-#: actions/subscriptions.php:54
-#, fuzzy, php-format
-msgid "%1$s subscriptions, page %2$d"
-msgstr "Grupoj %1$s, paĝo %2$d"
-
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
 msgstr ""
@@ -4383,11 +4159,6 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
-#: actions/subscriptions.php:128 actions/subscriptions.php:132
-#, fuzzy, php-format
-msgid "%s is not listening to anyone."
-msgstr "%S ne estas ano de iu ajn grupo."
-
 #: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
@@ -4396,121 +4167,21 @@ msgstr "Jabber"
 msgid "SMS"
 msgstr "SMS"
 
-#: actions/tag.php:69
-#, fuzzy, php-format
-msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Uzantoj sinmarkitaj per %1$s - paĝo %2$d"
-
-#: actions/tag.php:87
-#, fuzzy, php-format
-msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Avizofluo pri %1$s (RSS 1.0)"
-
-#: actions/tag.php:93
-#, fuzzy, php-format
-msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Avizofluo pri %1$s (RSS 2.0)"
-
-#: actions/tag.php:99
-#, fuzzy, php-format
-msgid "Notice feed for tag %s (Atom)"
-msgstr "Avizofluo pri %1$s  (Atom)"
-
-#: actions/tagother.php:39
-#, fuzzy
-msgid "No ID argument."
-msgstr "Ne estas aldonaĵo."
-
-#: actions/tagother.php:65
-#, fuzzy, php-format
-msgid "Tag %s"
-msgstr "Markiloj"
-
-#: actions/tagother.php:77 lib/userprofile.php:76
-#, fuzzy
-msgid "User profile"
-msgstr "La uzanto ne havas profilon."
-
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
 msgid "Photo"
 msgstr "Foto"
-
-#: actions/tagother.php:141
-#, fuzzy
-msgid "Tag user"
-msgstr "Markiloj"
-
-#: actions/tagother.php:151
-#, fuzzy
-msgid ""
-"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
-"separated"
-msgstr ""
-"Markiloj por vi mem (literoj, ciferoj, \"-\", \".\", kaj \"_\"), dividite "
-"per komoj aŭ spacoj"
 
 #: actions/tagother.php:193
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
-#: actions/tagother.php:200
-#, fuzzy
-msgid "Could not save tags."
-msgstr "Malsukcesis konservi markilojn."
-
-#: actions/tagother.php:236
-#, fuzzy
-msgid "Use this form to add tags to your subscribers or subscriptions."
-msgstr "Uzu ĉi tiun formularon por redakti vian aplikaĵon."
-
-#: actions/tagrss.php:35
-#, fuzzy
-msgid "No such tag."
-msgstr "Ne estas tiu paĝo."
-
-#: actions/unblock.php:59
-#, fuzzy
-msgid "You haven't blocked that user."
-msgstr "Vi jam blokis la uzanton."
-
-#: actions/unsandbox.php:72
-#, fuzzy
-msgid "User is not sandboxed."
-msgstr "La uzanto ne estas blokita de grupo."
-
-#: actions/unsilence.php:72
-#, fuzzy
-msgid "User is not silenced."
-msgstr "La uzanto jam silentiĝas."
-
-#: actions/unsubscribe.php:77
-#, fuzzy
-msgid "No profile ID in request."
-msgstr "Neniu ensalutad-ĵetono bezoniĝas."
-
-#: actions/unsubscribe.php:98
-#, fuzzy
-msgid "Unsubscribed"
-msgstr "Malaboni"
-
-#: actions/updateprofile.php:64 actions/userauthorization.php:337
-#, fuzzy, php-format
-msgid ""
-"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr "Aviza permesilo ‘%1$s’ ne konformas al reteja permesilo ‘%2$s’."
-
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:59
 msgctxt "TITLE"
 msgid "User"
 msgstr "Uzanto"
-
-#: actions/useradminpanel.php:70
-#, fuzzy
-msgid "User settings for this StatusNet site."
-msgstr "Aspektaj agordoj por ĉi tiu StatusNet-retejo."
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
@@ -4814,64 +4485,10 @@ msgstr "Dosiero tiel granda superos vian uzantan kvoton kun %d bajtoj."
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr "Dosiero tiel granda superos vian monatan kvoton kun %d bajtoj."
 
-#. TRANS: Client exception thrown if a file upload does not have a valid name.
-#: classes/File.php:248 classes/File.php:263
-#, fuzzy
-msgid "Invalid filename."
-msgstr "Grando nevalida."
-
-#. TRANS: Exception thrown when joining a group fails.
-#: classes/Group_member.php:42
-#, fuzzy
-msgid "Group join failed."
-msgstr "Grupa profilo"
-
-#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-#: classes/Group_member.php:55
-#, fuzzy
-msgid "Not part of group."
-msgstr "Malsukcesis ĝisdatigi grupon."
-
-#. TRANS: Exception thrown when trying to leave a group fails.
-#: classes/Group_member.php:63
-#, fuzzy
-msgid "Group leave failed."
-msgstr "Malsukcesis alŝuti"
-
-#. TRANS: Server exception thrown when updating a local group fails.
-#: classes/Local_group.php:42
-#, fuzzy
-msgid "Could not update local group."
-msgstr "Malsukcesis ĝisdatigi grupon."
-
-#. TRANS: Exception thrown when trying creating a login token failed.
-#. TRANS: %s is the user nickname for which token creation failed.
-#: classes/Login_token.php:78
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "Malsukcesis krei alinomon."
-
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
 msgstr ""
-
-#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
-#: classes/Message.php:46
-msgid "You are banned from sending direct messages."
-msgstr ""
-
-#. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:63
-#, fuzzy
-msgid "Could not insert message."
-msgstr "Malsukcesis trovi celan uzanton."
-
-#. TRANS: Message given when a message could not be updated on the server.
-#: classes/Message.php:74
-#, fuzzy
-msgid "Could not update message with new URI."
-msgstr "Malsukcesis ĝisdatigi uzanton"
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -4879,12 +4496,6 @@ msgstr "Malsukcesis ĝisdatigi uzanton"
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
-
-#. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
-#, fuzzy, php-format
-msgid "Database error inserting hashtag: %s"
-msgstr "Datumbaza eraro enigi la uzanton de *OAuth-aplikaĵo."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 #: classes/Notice.php:265
@@ -4907,18 +4518,6 @@ msgstr ""
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
-msgstr ""
-
-#. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:291
-#, fuzzy
-msgid "You are banned from posting notices on this site."
-msgstr "Vi ne rajtas silentigi uzanton ĉe ĉi tiu retejo."
-
-#. TRANS: Server exception thrown when a notice cannot be saved.
-#. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:358 classes/Notice.php:385
-msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
@@ -4952,60 +4551,6 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
-#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
-#: classes/Remote_profile.php:54
-#, fuzzy
-msgid "Missing profile."
-msgstr "La uzanto ne havas profilon."
-
-#. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:346
-#, fuzzy
-msgid "Unable to save tag."
-msgstr "Malsukcesis konservi vian desegnan agordon"
-
-#. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
-#: classes/Subscription.php:75 lib/oauthstore.php:465
-#, fuzzy
-msgid "You have been banned from subscribing."
-msgstr "Tiu uzanto abonblokis vin."
-
-#. TRANS: Exception thrown when trying to subscribe while already subscribed.
-#: classes/Subscription.php:80
-#, fuzzy
-msgid "Already subscribed!"
-msgstr "Defore aboni"
-
-#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
-#: classes/Subscription.php:85
-#, fuzzy
-msgid "User has blocked you."
-msgstr "La uzanto ne estas blokita de grupo."
-
-#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Defore aboni"
-
-#. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
-#: classes/Subscription.php:178
-#, fuzzy
-msgid "Could not delete self-subscription."
-msgstr "Malsukcesis forigi ŝataton."
-
-#. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
-#: classes/Subscription.php:206
-#, fuzzy
-msgid "Could not delete subscription OMB token."
-msgstr "Malsukcesis forigi ŝataton."
-
-#. TRANS: Exception thrown when a subscription could not be deleted on the server.
-#: classes/Subscription.php:218
-#, fuzzy
-msgid "Could not delete subscription."
-msgstr "Malsukcesis forigi ŝataton."
-
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
 #: classes/User.php:365
@@ -5013,64 +4558,10 @@ msgstr "Malsukcesis forigi ŝataton."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Bonvenon al %1$s, @%2$s!"
 
-#. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:496
-#, fuzzy
-msgid "Could not create group."
-msgstr "Malsukcesis ĝisdatigi grupon."
-
-#. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:506
-#, fuzzy
-msgid "Could not set group URI."
-msgstr "Malsukcesis ĝisdatigi grupon."
-
-#. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:529
-#, fuzzy
-msgid "Could not set group membership."
-msgstr "Malsukcesis ĝisdatigi grupon."
-
-#. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:544
-#, fuzzy
-msgid "Could not save local group info."
-msgstr "Malsukcesis konservi la profilon."
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:109
-#, fuzzy
-msgid "Change your profile settings"
-msgstr "Profila agordo"
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:116
-#, fuzzy
-msgid "Upload an avatar"
-msgstr "Eraris ĝisdatigi vizaĝbildon."
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:123
-#, fuzzy
-msgid "Change your password"
-msgstr "Ŝanĝi vian pasvorton."
-
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
 msgid "Change email handling"
 msgstr ""
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:137
-#, fuzzy
-msgid "Design your profile"
-msgstr "Grupa profilo"
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:144
-#, fuzzy
-msgid "Other options"
-msgstr "Aliaj agordoj"
 
 #. TRANS: Link description in user account settings menu.
 #: lib/accountsettingsaction.php:146
@@ -5088,12 +4579,6 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr ""
 
-#. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:436
-#, fuzzy
-msgid "Primary site navigation"
-msgstr "Ŝanĝi agordojn de la retejo"
-
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:442
 msgctxt "TOOLTIP"
@@ -5105,13 +4590,6 @@ msgstr ""
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Persona"
-
-#. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:447
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Change your email, avatar, password, profile"
-msgstr "Ŝanĝi vian pasvorton."
 
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:452
@@ -5149,13 +4627,6 @@ msgctxt "MENU"
 msgid "Invite"
 msgstr "Inviti"
 
-#. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:474
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Logout from the site"
-msgstr "Desegno por la retejo"
-
 #. TRANS: Main menu option when logged in to log out the current user
 #: lib/action.php:477
 msgctxt "MENU"
@@ -5174,19 +4645,6 @@ msgctxt "MENU"
 msgid "Register"
 msgstr "Registriĝi"
 
-#. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:488
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Login to the site"
-msgstr "Ensaluti al la retejo"
-
-#: lib/action.php:491
-#, fuzzy
-msgctxt "MENU"
-msgid "Login"
-msgstr "Ensaluti"
-
 #. TRANS: Tooltip for main menu option "Help"
 #: lib/action.php:494
 msgctxt "TOOLTIP"
@@ -5197,38 +4655,6 @@ msgstr "Helpu min!"
 msgctxt "MENU"
 msgid "Help"
 msgstr "Helpo"
-
-#. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:500
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Search for people or text"
-msgstr "Serĉi pli da grupoj"
-
-#: lib/action.php:503
-#, fuzzy
-msgctxt "MENU"
-msgid "Search"
-msgstr "Homserĉo"
-
-#. TRANS: DT element for site notice. String is hidden in default CSS.
-#. TRANS: Menu item for site administration
-#: lib/action.php:525 lib/adminpanelaction.php:400
-#, fuzzy
-msgid "Site notice"
-msgstr "Konservi retejan agordon"
-
-#. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:592
-#, fuzzy
-msgid "Local views"
-msgstr "Loka"
-
-#. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:659
-#, fuzzy
-msgid "Page notice"
-msgstr "Nova avizo"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:762
@@ -5302,20 +4728,6 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
-#. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:850
-#, fuzzy
-msgid "Site content license"
-msgstr "Licenco de la programaro StatusNet"
-
-#. TRANS: Content license displayed when license is set to 'private'.
-#. TRANS: %1$s is the site name.
-#: lib/action.php:857
-#, fuzzy, php-format
-msgid "Content and data of %1$s are private and confidential."
-msgstr ""
-"Mi komprenas ke enhavo kaj datumo de %1$s estas privataj kaj sekretigita."
-
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
 #: lib/action.php:864
@@ -5333,12 +4745,6 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
-
-#. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1192
-#, fuzzy
-msgid "Pagination"
-msgstr "Registrado"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
@@ -5369,40 +4775,10 @@ msgstr ""
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
-#. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
-#: lib/adminpanelaction.php:98
-#, fuzzy
-msgid "You cannot make changes to this site."
-msgstr "Vi ne rajtas silentigi uzanton ĉe ĉi tiu retejo."
-
-#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
-#: lib/adminpanelaction.php:110
-#, fuzzy
-msgid "Changes to that panel are not allowed."
-msgstr "Registriĝo ne permesita."
-
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
 msgstr ""
-
-#. TRANS: Client error message
-#: lib/adminpanelaction.php:259
-msgid "saveSettings() not implemented."
-msgstr ""
-
-#. TRANS: Client error message thrown if design settings could not be deleted in
-#. TRANS: the admin panel Design.
-#: lib/adminpanelaction.php:284
-#, fuzzy
-msgid "Unable to delete design setting."
-msgstr "Malsukcesis konservi vian desegnan agordon"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:350
-#, fuzzy
-msgid "Basic site configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:352
@@ -5410,106 +4786,15 @@ msgctxt "MENU"
 msgid "Site"
 msgstr "Retejo"
 
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:358
-#, fuzzy
-msgid "Design configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:360
-#, fuzzy
-msgctxt "MENU"
-msgid "Design"
-msgstr "Aspekto"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:366
-#, fuzzy
-msgid "User configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Uzanto"
 
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:374
-#, fuzzy
-msgid "Access configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:382
-#, fuzzy
-msgid "Paths configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:390
-#, fuzzy
-msgid "Sessions configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:398
-#, fuzzy
-msgid "Edit site notice"
-msgstr "Konservi retejan agordon"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:406
-#, fuzzy
-msgid "Snapshots configuration"
-msgstr "Ŝanĝi agordojn de la retejo"
-
 #. TRANS: Client error 401.
 #: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
-
-#. TRANS: Form legend.
-#: lib/applicationeditform.php:137
-#, fuzzy
-msgid "Edit application"
-msgstr "Redakti Aplikon"
-
-#. TRANS: Form guide.
-#: lib/applicationeditform.php:187
-#, fuzzy
-msgid "Icon for this application"
-msgstr "Ne forigu ĉi tiun aplikaĵon."
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:209
-#, fuzzy, php-format
-msgid "Describe your application in %d characters"
-msgstr "Priskribu vin mem kaj viajn ŝatokupojn per ne pli ol %d signoj"
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:213
-#, fuzzy
-msgid "Describe your application"
-msgstr "Forigi aplikaĵon"
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:224
-#, fuzzy
-msgid "URL of the homepage of this application"
-msgstr "Vi ne estas la posedanto de ĉi tiu aplikaĵo."
-
-#. TRANS: Form input field label.
-#: lib/applicationeditform.php:226
-#, fuzzy
-msgid "Source URL"
-msgstr "Fontkodo"
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:233
-#, fuzzy
-msgid "Organization responsible for this application"
-msgstr "Vi ne estas la posedanto de ĉi tiu aplikaĵo."
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
@@ -5551,12 +4836,6 @@ msgstr ""
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
-#. TRANS: Submit button title
-#: lib/applicationeditform.php:359
-#, fuzzy
-msgid "Cancel"
-msgstr "Nuligi"
-
 #. TRANS: Application access type
 #: lib/applicationlist.php:136
 msgid "read-write"
@@ -5573,103 +4852,29 @@ msgstr ""
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr ""
 
-#. TRANS: Button label
-#: lib/applicationlist.php:159
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Revoke"
-msgstr "Forigi"
-
-#. TRANS: DT element label in attachment list.
-#: lib/attachmentlist.php:88
-#, fuzzy
-msgid "Attachments"
-msgstr "Ne estas aldonaĵo."
-
-#. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:265
-#, fuzzy
-msgid "Author"
-msgstr "Aŭtoro(j)"
-
-#. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:279
-#, fuzzy
-msgid "Provider"
-msgstr "Antaŭrigardo"
-
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
 msgstr ""
-
-#: lib/attachmenttagcloudsection.php:48
-#, fuzzy
-msgid "Tags for this attachment"
-msgstr "Ne estas tiu aldonaĵo."
-
-#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-#, fuzzy
-msgid "Password changing failed"
-msgstr "Pasvorta ŝanĝo"
-
-#: lib/authenticationplugin.php:236
-#, fuzzy
-msgid "Password changing is not allowed"
-msgstr "Pasvorta ŝanĝo"
-
-#: lib/channel.php:157 lib/channel.php:177
-#, fuzzy
-msgid "Command results"
-msgstr "Neniu rezulto."
 
 #: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr ""
 
-#: lib/channel.php:240
-#, fuzzy
-msgid "Command failed"
-msgstr "Malsukcesis alŝuti"
-
-#: lib/command.php:83 lib/command.php:105
-msgid "Notice with that id does not exist"
-msgstr ""
-
-#: lib/command.php:99 lib/command.php:596
-#, fuzzy
-msgid "User has no last notice"
-msgstr "La uzanto ne havas profilon."
-
-#. TRANS: Message given requesting a profile for a non-existing user.
-#. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
-#, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "Malsukcesas ĝisdatigi uzanton per komfirmita retpoŝtadreso."
-
-#. TRANS: Message given getting a non-existing user.
-#. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
-#, fuzzy, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr "Malsukcesas ĝisdatigi uzanton per komfirmita retpoŝtadreso."
-
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#. TRANS: Message given having nudged another user.
-#. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
-#, fuzzy, php-format
-msgid "Nudge sent to %s"
-msgstr "Puŝeto sendiĝis"
-
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5677,57 +4882,8 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:302
-#, fuzzy
-msgid "Notice marked as fave."
-msgstr "Ĉi tiu avizo jam estas ŝatata."
-
-#: lib/command.php:323
-#, fuzzy
-msgid "You are already a member of that group"
-msgstr "Vi estas jam grupano."
-
-#. TRANS: Message given having failed to add a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
-#, fuzzy, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "La uzanto %1$*s ne povas aliĝi al la grupo %2$*s."
-
-#. TRANS: Message given having failed to remove a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
-#, fuzzy, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "Malsukcesis forigi uzanton %1$s de grupo %2$s."
-
-#. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
-#, fuzzy, php-format
-msgid "Fullname: %s"
-msgstr "Plena nomo"
-
-#. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
-#, fuzzy, php-format
-msgid "Location: %s"
-msgstr "Loko"
-
-#. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
-#, fuzzy, php-format
-msgid "Homepage: %s"
-msgstr "Hejmpaĝo"
-
-#. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
-#, fuzzy, php-format
-msgid "About: %s"
-msgstr "Enkonduko"
-
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5736,153 +4892,63 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, fuzzy, php-format
-msgid "Direct message to %s sent"
-msgstr "Rekta mesaĝo al %s sendiĝis."
-
-#: lib/command.php:494
+#. TRANS: Error text shown sending a direct message fails with an unknown reason.
+#: lib/command.php:517
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:514
-#, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Vi ne povas ripeti vian propran avizon."
-
-#: lib/command.php:519
-#, fuzzy
-msgid "Already repeated that notice"
-msgstr "La avizo jam ripetiĝis."
-
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
-#, fuzzy, php-format
-msgid "Notice from %s repeated"
-msgstr "Avizo afiŝiĝas"
-
-#: lib/command.php:531
-#, fuzzy
-msgid "Error repeating notice."
-msgstr "Eraro je ĝisdatigo de fora profilo."
-
-#: lib/command.php:562
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
 #, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#: lib/command.php:571
-#, fuzzy, php-format
-msgid "Reply to %s sent"
-msgstr "Respondoj al %s"
-
-#: lib/command.php:573
-#, fuzzy
-msgid "Error saving notice."
-msgstr "Eraris konservi uzanton: nevalida."
-
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
-#: lib/command.php:628
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
-#: lib/command.php:634
-#, fuzzy, php-format
-msgid "Subscribed to %s"
-msgstr "Abonita"
-
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
 msgstr ""
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Unsubscribed from %s"
-msgstr "Malaboni"
-
-#: lib/command.php:682 lib/command.php:705
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:685
-#, fuzzy
-msgid "Notification off."
-msgstr "Neniu konfirma kodo."
-
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:708
-#, fuzzy
-msgid "Notification on."
-msgstr "Neniu konfirma kodo."
-
-#: lib/command.php:710
-#, fuzzy
-msgid "Can't turn on notification."
-msgstr "Vi ne povas ripeti vian propran avizon."
-
-#: lib/command.php:723
-msgid "Login command is disabled"
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
 msgstr ""
 
-#: lib/command.php:734
+#. TRANS: Text shown after issuing the login command successfully.
+#. TRANS: %s is a logon link..
+#: lib/command.php:784
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
-#: lib/command.php:761
-#, fuzzy, php-format
-msgid "Unsubscribed  %s"
-msgstr "Malaboni"
-
-#: lib/command.php:778
-#, fuzzy
-msgid "You are not subscribed to anyone."
-msgstr "Vi ne estas rajtigita."
-
-#: lib/command.php:780
-#, fuzzy
-msgid "You are subscribed to this person:"
-msgid_plural "You are subscribed to these people:"
-msgstr[0] "Vi jam abonas jenajn uzantojn:"
-msgstr[1] "Vi jam abonas jenajn uzantojn:"
-
-#: lib/command.php:800
-msgid "No one is subscribed to you."
-msgstr ""
-
-#: lib/command.php:802
-msgid "This person is subscribed to you:"
-msgid_plural "These people are subscribed to you:"
-msgstr[0] ""
-msgstr[1] ""
-
-#: lib/command.php:822
-#, fuzzy
-msgid "You are not a member of any groups."
-msgstr "Vi ne estas grupano."
-
-#: lib/command.php:824
-#, fuzzy
-msgid "You are a member of this group:"
-msgid_plural "You are a member of these groups:"
-msgstr[0] "Vi ne estas grupano."
-msgstr[1] "Vi ne estas grupano."
-
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5924,11 +4990,6 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
-#, fuzzy
-msgid "No configuration file found. "
-msgstr "Neniu konfirma kodo."
-
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -5953,45 +5014,9 @@ msgstr ""
 msgid "Updates by SMS"
 msgstr ""
 
-#: lib/connectsettingsaction.php:120
-#, fuzzy
-msgid "Connections"
-msgstr "Konekti"
-
-#: lib/connectsettingsaction.php:121
-#, fuzzy
-msgid "Authorized connected applications"
-msgstr "Konektita aplikaĵo"
-
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr ""
-
-#: lib/designsettings.php:105
-#, fuzzy
-msgid "Upload file"
-msgstr "Malsukcesis alŝuti"
-
-#: lib/designsettings.php:109
-#, fuzzy
-msgid ""
-"You can upload your personal background image. The maximum file size is 2MB."
-msgstr "Vi povas alŝuti vian personan vizaĝbildon. Dosiero-grandlimo estas %s."
-
-#: lib/designsettings.php:418
-#, fuzzy
-msgid "Design defaults restored."
-msgstr "Desegna agordo konservita."
-
-#: lib/disfavorform.php:114 lib/disfavorform.php:140
-#, fuzzy
-msgid "Disfavor this notice"
-msgstr "Forigi la avizon"
-
-#: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
-msgid "Favor this notice"
-msgstr "Forigi la avizon"
 
 #: lib/favorform.php:140
 msgid "Favor"
@@ -6021,19 +5046,9 @@ msgstr ""
 msgid "Filter tags"
 msgstr ""
 
-#: lib/galleryaction.php:131
-#, fuzzy
-msgid "All"
-msgstr "Permesi"
-
 #: lib/galleryaction.php:139
 msgid "Select tag to filter"
 msgstr ""
-
-#: lib/galleryaction.php:140
-#, fuzzy
-msgid "Tag"
-msgstr "Markiloj"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
@@ -6048,55 +5063,14 @@ msgstr "Iri"
 msgid "Grant this user the \"%s\" role"
 msgstr ""
 
-#: lib/groupeditform.php:163
-#, fuzzy
-msgid "URL of the homepage or blog of the group or topic"
-msgstr "URL de via hejmpaĝo, blogo aŭ profilo ĉe alia retejo"
-
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
 msgstr ""
-
-#: lib/groupeditform.php:170
-#, fuzzy, php-format
-msgid "Describe the group or topic in %d characters"
-msgstr "Priskribu vin mem kaj viajn ŝatokupojn per ne pli ol %d signoj"
-
-#: lib/groupeditform.php:179
-#, fuzzy
-msgid ""
-"Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Kie vi estas, ekzemple \"Urbo, Ŝtato (aŭ Regiono), Lando\""
 
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
-
-#: lib/groupnav.php:85
-#, fuzzy
-msgid "Group"
-msgstr "Grupoj"
-
-#: lib/groupnav.php:101
-#, fuzzy
-msgid "Blocked"
-msgstr "Bloki"
-
-#: lib/groupnav.php:102
-#, fuzzy, php-format
-msgid "%s blocked users"
-msgstr "%s profiloj blokitaj"
-
-#: lib/groupnav.php:108
-#, fuzzy, php-format
-msgid "Edit %s group properties"
-msgstr "Redakti %s grupon"
-
-#: lib/groupnav.php:113
-#, fuzzy
-msgid "Logo"
-msgstr " Elsaluti"
 
 #: lib/groupnav.php:114
 #, php-format
@@ -6107,11 +5081,6 @@ msgstr ""
 #, php-format
 msgid "Add or edit %s design"
 msgstr ""
-
-#: lib/groupsbymemberssection.php:71
-#, fuzzy
-msgid "Groups with most members"
-msgstr "%s grupanoj"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
@@ -6127,22 +5096,6 @@ msgstr ""
 msgid "This page is not available in a media type you accept"
 msgstr ""
 
-#: lib/imagefile.php:72
-#, fuzzy
-msgid "Unsupported image file format."
-msgstr "Formato ne subtenata."
-
-#: lib/imagefile.php:88
-#, fuzzy, php-format
-msgid "That file is too big. The maximum file size is %s."
-msgstr ""
-"Vi povas alŝuti emblemo-bildon por via grupo. Dosiero-grandlimo estas $s."
-
-#: lib/imagefile.php:93
-#, fuzzy
-msgid "Partial upload."
-msgstr "Neniu dosiero alŝutiĝas."
-
 #: lib/imagefile.php:101 lib/mediafile.php:170
 msgid "System error uploading file."
 msgstr ""
@@ -6150,11 +5103,6 @@ msgstr ""
 #: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr ""
-
-#: lib/imagefile.php:122
-#, fuzzy
-msgid "Lost our file."
-msgstr "Perdiĝis nia dosiera datumo."
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -6173,34 +5121,13 @@ msgstr ""
 msgid "[%s]"
 msgstr ""
 
-#: lib/jabber.php:567
-#, fuzzy, php-format
-msgid "Unknown inbox source %d."
-msgstr "Nekonata lingvo \"%s\"."
-
-#: lib/joinform.php:114
-#, fuzzy
-msgid "Join"
-msgstr "Ensaluti"
-
 #: lib/leaveform.php:114
 msgid "Leave"
 msgstr "Forlasi"
 
-#: lib/logingroupnav.php:80
-#, fuzzy
-msgid "Login with a username and password"
-msgstr "Ensaluti per via uzantnomo kaj pasvorto."
-
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
 msgstr ""
-
-#. TRANS: Subject for address confirmation email
-#: lib/mail.php:174
-#, fuzzy
-msgid "Email address confirmation"
-msgstr "Eraras pro komfirma kodo."
 
 #. TRANS: Body for address confirmation email.
 #: lib/mail.php:177
@@ -6219,12 +5146,6 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
-
-#. TRANS: Subject of new-subscriber notification e-mail
-#: lib/mail.php:243
-#, fuzzy, php-format
-msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1$s invitis vin kunaliĝi ĉe %2$s"
 
 #: lib/mail.php:248
 #, php-format
@@ -6249,18 +5170,6 @@ msgid ""
 "Change your email address or notification options at %8$s\n"
 msgstr ""
 
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/mail.php:274
-#, fuzzy, php-format
-msgid "Bio: %s"
-msgstr "Biografio"
-
-#. TRANS: Subject of notification mail for new posting email address
-#: lib/mail.php:304
-#, fuzzy, php-format
-msgid "New email address for posting to %s"
-msgstr "Krei novan retpoŝtadreson por afiŝado kaj nuligi la antaŭan."
-
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:308
 #, php-format
@@ -6274,18 +5183,6 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
-
-#. TRANS: Subject line for SMS-by-email notification messages
-#: lib/mail.php:433
-#, fuzzy, php-format
-msgid "%s status"
-msgstr "Stato de %1$s ĉe %2$s"
-
-#. TRANS: Subject line for SMS-by-email address confirmation message
-#: lib/mail.php:460
-#, fuzzy
-msgid "SMS confirmation"
-msgstr "Neniu konfirma kodo."
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:463
@@ -6316,12 +5213,6 @@ msgid ""
 "%4$s\n"
 msgstr ""
 
-#. TRANS: Subject for direct-message notification email
-#: lib/mail.php:536
-#, fuzzy, php-format
-msgid "New private message from %s"
-msgstr "Rektaj mesaĝoj de %s"
-
 #. TRANS: Body for direct-message notification email
 #: lib/mail.php:541
 #, php-format
@@ -6341,12 +5232,6 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
-
-#. TRANS: Subject for favorite notification email
-#: lib/mail.php:589
-#, fuzzy, php-format
-msgid "%s (@%s) added your notice as a favorite"
-msgstr "Sendu al mi mesaĝon tiam, kiam iu ŝatas mian avizon ."
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6412,11 +5297,6 @@ msgid ""
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
 
-#: lib/mailbox.php:89
-#, fuzzy
-msgid "Only the user can read their own mailboxes."
-msgstr "Nur ensalutinto rajtas ripeti avizon."
-
 #: lib/mailbox.php:139
 msgid ""
 "You have no private messages. You can send private message to engage other "
@@ -6426,31 +5306,6 @@ msgstr ""
 #: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
 msgstr ""
-
-#: lib/mailhandler.php:37
-#, fuzzy
-msgid "Could not parse message."
-msgstr "Malsukcesis ĝisdatigi uzanton"
-
-#: lib/mailhandler.php:42
-#, fuzzy
-msgid "Not a registered user."
-msgstr "Ne rehava kodo."
-
-#: lib/mailhandler.php:46
-#, fuzzy
-msgid "Sorry, that is not your incoming email address."
-msgstr "Tiu ne estas via retpoŝtadreso."
-
-#: lib/mailhandler.php:50
-#, fuzzy
-msgid "Sorry, no incoming email allowed."
-msgstr "Ne estas alvena retpoŝtadreso"
-
-#: lib/mailhandler.php:228
-#, fuzzy, php-format
-msgid "Unsupported message type: %s"
-msgstr "Formato ne subtenata."
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
@@ -6490,11 +5345,6 @@ msgstr ""
 msgid "File could not be moved to destination directory."
 msgstr ""
 
-#: lib/mediafile.php:202 lib/mediafile.php:238
-#, fuzzy
-msgid "Could not determine file's MIME type."
-msgstr " Malsukcesis certigi fontan uzanton."
-
 #: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
@@ -6504,11 +5354,6 @@ msgstr ""
 #, php-format
 msgid "%s is not a supported file type on this server."
 msgstr ""
-
-#: lib/messageform.php:120
-#, fuzzy
-msgid "Send a direct notice"
-msgstr "Konservi retejan agordon"
 
 #: lib/messageform.php:146
 msgid "To"
@@ -6522,11 +5367,6 @@ msgstr "Haveblaj karakteroj"
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Sendi"
-
-#: lib/noticeform.php:160
-#, fuzzy
-msgid "Send a notice"
-msgstr "Nova avizo"
 
 #: lib/noticeform.php:174
 #, php-format
@@ -6545,22 +5385,11 @@ msgstr ""
 msgid "Share my location"
 msgstr ""
 
-#: lib/noticeform.php:216
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Ne forigu ĉi tiun aplikaĵon."
-
 #: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
-
-#. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:436
-#, fuzzy
-msgid "N"
-msgstr "Ne"
 
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
@@ -6590,158 +5419,19 @@ msgstr "al"
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:568
-#, fuzzy
-msgid "in context"
-msgstr "Neniu enhavo!"
-
-#: lib/noticelist.php:603
-#, fuzzy
-msgid "Repeated by"
-msgstr "Ripetita"
-
-#: lib/noticelist.php:630
-#, fuzzy
-msgid "Reply to this notice"
-msgstr "Forigi la avizon"
-
-#: lib/noticelist.php:631
-msgid "Reply"
-msgstr ""
-
-#: lib/noticelist.php:675
-#, fuzzy
-msgid "Notice repeated"
-msgstr "Avizo viŝiĝas"
-
-#: lib/nudgeform.php:116
-#, fuzzy
-msgid "Nudge this user"
-msgstr "Forigi la uzanton"
-
-#: lib/nudgeform.php:128
-#, fuzzy
-msgid "Nudge"
-msgstr "Puŝeto sendiĝis"
-
-#: lib/nudgeform.php:128
-#, fuzzy
-msgid "Send a nudge to this user"
-msgstr "Aboni la uzanton"
-
-#: lib/oauthstore.php:283
-#, fuzzy
-msgid "Error inserting new profile"
-msgstr "Eraro je ĝisdatigo de fora profilo."
-
-#: lib/oauthstore.php:291
-#, fuzzy
-msgid "Error inserting avatar"
-msgstr "Eraris konservi uzanton: nevalida."
-
-#: lib/oauthstore.php:306
-#, fuzzy
-msgid "Error updating remote profile"
-msgstr "Eraro je ĝisdatigo de fora profilo."
-
-#: lib/oauthstore.php:311
-#, fuzzy
-msgid "Error inserting remote profile"
-msgstr "Eraro je ĝisdatigo de fora profilo."
-
-#: lib/oauthstore.php:345
-#, fuzzy
-msgid "Duplicate notice"
-msgstr "Forigi avizon"
-
-#: lib/oauthstore.php:490
-#, fuzzy
-msgid "Couldn't insert new subscription."
-msgstr "Malsukcesis enmeti konfirmkodon."
-
-#: lib/personalgroupnav.php:99
-#, fuzzy
-msgid "Personal"
-msgstr "Persona"
-
-#: lib/personalgroupnav.php:104
-#, fuzzy
-msgid "Replies"
-msgstr "Respondoj al %s"
-
-#: lib/personalgroupnav.php:114
-#, fuzzy
-msgid "Favorites"
-msgstr "Aldoni al ŝatolisto"
-
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
 msgstr ""
-
-#: lib/personalgroupnav.php:126
-#, fuzzy
-msgid "Your incoming messages"
-msgstr "Ne estas alvena retpoŝtadreso"
-
-#: lib/personalgroupnav.php:130
-#, fuzzy
-msgid "Outbox"
-msgstr "Elirkesto de %s"
-
-#: lib/personalgroupnav.php:131
-#, fuzzy
-msgid "Your sent messages"
-msgstr "Persona mesaĝo"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
 msgstr ""
 
-#: lib/plugin.php:115
-#, fuzzy
-msgid "Unknown"
-msgstr "Nekonata ago"
-
-#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
-#, fuzzy
-msgid "Subscriptions"
-msgstr "Priskribo"
-
-#: lib/profileaction.php:126
-#, fuzzy
-msgid "All subscriptions"
-msgstr "Defaŭlta abono"
-
-#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
-#, fuzzy
-msgid "Subscribers"
-msgstr "Aboni"
-
-#: lib/profileaction.php:161
-#, fuzzy
-msgid "All subscribers"
-msgstr "Malaboni"
-
-#: lib/profileaction.php:191
-#, fuzzy
-msgid "User ID"
-msgstr "Uzanto"
-
-#: lib/profileaction.php:196
-#, fuzzy
-msgid "Member since"
-msgstr "Grupanoj"
-
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
 msgid "Daily average"
 msgstr ""
-
-#: lib/profileaction.php:264
-#, fuzzy
-msgid "All groups"
-msgstr "Grupoj de %s"
 
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
@@ -6759,39 +5449,9 @@ msgstr "Uzantaj grupoj"
 msgid "Recent tags"
 msgstr "Freŝaj etikedoj"
 
-#: lib/publicgroupnav.php:88
-#, fuzzy
-msgid "Featured"
-msgstr "Elstaraj uzantoj"
-
-#: lib/publicgroupnav.php:92
-#, fuzzy
-msgid "Popular"
-msgstr "Populara avizo"
-
-#: lib/redirectingaction.php:95
-#, fuzzy
-msgid "No return-to arguments."
-msgstr "Ne estas aldonaĵo."
-
-#: lib/repeatform.php:107
-#, fuzzy
-msgid "Repeat this notice?"
-msgstr "Forigi la avizon"
-
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Jes"
-
-#: lib/repeatform.php:132
-#, fuzzy
-msgid "Repeat this notice"
-msgstr "Forigi la avizon"
-
-#: lib/revokeroleform.php:91
-#, fuzzy, php-format
-msgid "Revoke the \"%s\" role from this user"
-msgstr "Bloki la uzanton de la grupo"
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
@@ -6801,11 +5461,6 @@ msgstr ""
 msgid "Sandbox"
 msgstr ""
 
-#: lib/sandboxform.php:78
-#, fuzzy
-msgid "Sandbox this user"
-msgstr "Malbloki ĉi tiun uzanton"
-
 #: lib/searchaction.php:120
 msgid "Search site"
 msgstr ""
@@ -6814,19 +5469,9 @@ msgstr ""
 msgid "Keyword(s)"
 msgstr ""
 
-#: lib/searchaction.php:127
-#, fuzzy
-msgid "Search"
-msgstr "Homserĉo"
-
 #: lib/searchaction.php:162
 msgid "Search help"
 msgstr ""
-
-#: lib/searchgroupnav.php:80
-#, fuzzy
-msgid "People"
-msgstr "Homserĉo"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
@@ -6835,11 +5480,6 @@ msgstr ""
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr ""
-
-#: lib/searchgroupnav.php:85
-#, fuzzy
-msgid "Find groups on this site"
-msgstr "grupoj ĉe %s"
 
 #: lib/section.php:89
 msgid "Untitled section"
@@ -6853,36 +5493,6 @@ msgstr "Pli..."
 msgid "Silence"
 msgstr "Silento"
 
-#: lib/silenceform.php:78
-#, fuzzy
-msgid "Silence this user"
-msgstr "Forigi la uzanton"
-
-#: lib/subgroupnav.php:83
-#, fuzzy, php-format
-msgid "People %s subscribes to"
-msgstr "Defore aboni"
-
-#: lib/subgroupnav.php:91
-#, fuzzy, php-format
-msgid "People subscribed to %s"
-msgstr "Defore aboni"
-
-#: lib/subgroupnav.php:99
-#, fuzzy, php-format
-msgid "Groups %s is a member of"
-msgstr "Grupoj de %2$s ĉe %1$s."
-
-#: lib/subgroupnav.php:105
-#, fuzzy
-msgid "Invite"
-msgstr "Inviti"
-
-#: lib/subgroupnav.php:106
-#, fuzzy, php-format
-msgid "Invite friends and colleagues to join you on %s"
-msgstr "Inviti amikojn kaj kolegojn aliĝi vin sur %s"
-
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
@@ -6893,11 +5503,6 @@ msgstr ""
 msgid "People Tagcloud as tagged"
 msgstr ""
 
-#: lib/tagcloudsection.php:56
-#, fuzzy
-msgid "None"
-msgstr "(nenio)"
-
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
 msgstr ""
@@ -6905,13 +5510,6 @@ msgstr ""
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
 msgid "The theme file is missing or the upload failed."
 msgstr ""
-
-#: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
-msgid "Failed saving theme."
-msgstr "Eraris ĝisdatigi vizaĝbildon."
 
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
@@ -6937,11 +5535,6 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
-#: lib/themeuploader.php:234
-#, fuzzy
-msgid "Error opening theme archive."
-msgstr "Eraro je ĝisdatigo de fora profilo."
-
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr ""
@@ -6950,39 +5543,9 @@ msgstr ""
 msgid "Unsandbox"
 msgstr ""
 
-#: lib/unsandboxform.php:80
-#, fuzzy
-msgid "Unsandbox this user"
-msgstr "Malbloki ĉi tiun uzanton"
-
-#: lib/unsilenceform.php:67
-#, fuzzy
-msgid "Unsilence"
-msgstr "Silento"
-
-#: lib/unsilenceform.php:78
-#, fuzzy
-msgid "Unsilence this user"
-msgstr "Malbloki ĉi tiun uzanton"
-
-#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
-#, fuzzy
-msgid "Unsubscribe from this user"
-msgstr "Aboni la uzanton"
-
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Malaboni"
-
-#: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
-msgid "User %s (%d) has no profile record."
-msgstr "La uzanto ne havas profilon."
-
-#: lib/userprofile.php:117
-#, fuzzy
-msgid "Edit Avatar"
-msgstr "Vizaĝbildo"
 
 #: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
@@ -6992,19 +5555,9 @@ msgstr "Nekonata ago"
 msgid "User deletion in progress..."
 msgstr ""
 
-#: lib/userprofile.php:263
-#, fuzzy
-msgid "Edit profile settings"
-msgstr "Profila agordo"
-
 #: lib/userprofile.php:264
 msgid "Edit"
 msgstr "Redakti"
-
-#: lib/userprofile.php:287
-#, fuzzy
-msgid "Send a direct message to this user"
-msgstr "Vi ne povas sendi mesaĝon al la uzanto."
 
 #: lib/userprofile.php:288
 msgid "Message"
@@ -7013,11 +5566,6 @@ msgstr "Mesaĝo"
 #: lib/userprofile.php:326
 msgid "Moderate"
 msgstr "Moderigi"
-
-#: lib/userprofile.php:364
-#, fuzzy
-msgid "User role"
-msgstr "Uzantaj grupoj"
 
 #: lib/userprofile.php:366
 msgctxt "role"
@@ -7061,41 +5609,7 @@ msgstr "antaŭ ĉirkaŭ %d horoj"
 msgid "about a day ago"
 msgstr "antaŭ ĉirkaŭ unu tago"
 
-#. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
-#, fuzzy, php-format
-msgid "about %d days ago"
-msgstr "antaŭ ĉirkaŭ unu tago"
-
-#. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
-#, fuzzy
-msgid "about a month ago"
-msgstr "antaŭ ĉirkaŭ unu minuto"
-
-#. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
-#, fuzzy, php-format
-msgid "about %d months ago"
-msgstr "antaŭ ĉirkaŭ %d minutoj"
-
-#. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1134
-#, fuzzy
-msgid "about a year ago"
-msgstr "antaŭ ĉirkaŭ unu tago"
-
-#: lib/webcolor.php:82
-#, fuzzy, php-format
-msgid "%s is not a valid color!"
-msgstr "Ĉefpaĝo ne estas valida URL."
-
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""

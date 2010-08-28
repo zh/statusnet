@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-24 06:13+0000\n"
-"PO-Revision-Date: 2010-08-24 06:15:53+0000\n"
+"POT-Creation-Date: 2010-08-28 15:28+0000\n"
+"PO-Revision-Date: 2010-08-28 15:31:30+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r71544); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r71856); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -89,6 +89,7 @@ msgstr "భద్రపరచు"
 msgid "No such page."
 msgstr "అటువంటి పేజీ లేదు."
 
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -108,7 +109,7 @@ msgstr "అటువంటి పేజీ లేదు."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "అటువంటి వాడుకరి లేరు."
@@ -161,22 +162,6 @@ msgid ""
 "something yourself."
 msgstr "ఇతరులకి చందా చేరండి, [ఏదైనా గుంపులో చేరండి](%%action.groups%%) లేదా మీరే ఏదైనా వ్రాయండి."
 
-#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:146
-#, fuzzy, php-format
-msgid ""
-"You can try to [nudge %1$s](../%2$s) from their profile or [post something "
-"to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
-msgstr ""
-"[ఈ విషయంపై](%%%%action.newnotice%%%%?status_textarea=%s) వ్రాసే మొదటివారు మీరే అవ్వండి!"
-
-#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
-#, fuzzy, php-format
-msgid ""
-"Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
-"post a notice to them."
-msgstr "[ఒక ఖాతాని నమోదుచేసుకుని](%%action.register%%) మీరే మొదట వ్రాసేవారు ఎందుకు కాకూడదు!"
-
 #. TRANS: H1 text
 #: actions/all.php:182
 msgid "You and friends"
@@ -189,32 +174,6 @@ msgstr "మీరు మరియు మీ స్నేహితులు"
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$sలో %1$s మరియు స్నేహితుల నుండి తాజాకరణలు!"
-
-#: actions/apiaccountratelimitstatus.php:72
-#: actions/apiaccountupdatedeliverydevice.php:94
-#: actions/apiaccountupdateprofile.php:97
-#: actions/apiaccountupdateprofilebackgroundimage.php:94
-#: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:100 actions/apifavoritedestroy.php:101
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:139
-#: actions/apigroupismember.php:115 actions/apigroupjoin.php:156
-#: actions/apigroupleave.php:142 actions/apigrouplist.php:137
-#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
-#: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
-#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
-#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
-#, fuzzy
-msgid "API method not found."
-msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 
 #: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
@@ -236,11 +195,6 @@ msgid ""
 "none."
 msgstr ""
 
-#: actions/apiaccountupdatedeliverydevice.php:133
-#, fuzzy
-msgid "Could not update user."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
 #: actions/apiaccountupdateprofile.php:112
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
@@ -250,11 +204,6 @@ msgstr "వాడుకరిని తాజాకరించలేకున�
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "వాడుకరికి ప్రొఫైలు లేదు."
-
-#: actions/apiaccountupdateprofile.php:147
-#, fuzzy
-msgid "Could not save profile."
-msgstr "ప్రొఫైలుని భద్రపరచలేకున్నాం."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
@@ -278,23 +227,12 @@ msgstr ""
 msgid "Unable to save your design settings."
 msgstr "మీ రూపురేఖల అమరికలని భద్రపరచలేకున్నాం."
 
-#: actions/apiaccountupdateprofilebackgroundimage.php:187
-#: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
-msgid "Could not update your design."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
 #: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
 msgstr "మిమ్మల్ని మీరే నిరోధించుకోలేరు!"
 
 #: actions/apiblockcreate.php:126
 msgid "Block user failed."
-msgstr "వాడుకరి నిరోధం విఫలమైంది."
-
-#: actions/apiblockdestroy.php:114
-#, fuzzy
-msgid "Unblock user failed."
 msgstr "వాడుకరి నిరోధం విఫలమైంది."
 
 #: actions/apidirectmessage.php:89
@@ -343,7 +281,8 @@ msgstr "ఆ IDతో ఏ నోటీసూ కనబడలేదు."
 msgid "This status is already a favorite."
 msgstr "ఈ నోటీసు ఇప్పటికే మీ ఇష్టాంశం."
 
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#. TRANS: Error message text shown when a favorite could not be set.
+#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "ఇష్టాంశాన్ని సృష్టించలేకపోయాం."
 
@@ -356,7 +295,6 @@ msgid "Could not delete favorite."
 msgstr "ఇష్టాంశాన్ని తొలగించలేకపోయాం."
 
 #: actions/apifriendshipscreate.php:109
-#, fuzzy
 msgid "Could not follow user: profile not found."
 msgstr "వాడుకరిని అనుసరించలేకపోయాం: %s ఇప్పటికే మీ జాబితాలో ఉన్నారు."
 
@@ -366,7 +304,6 @@ msgid "Could not follow user: %s is already on your list."
 msgstr "వాడుకరిని అనుసరించలేకపోయాం: %s ఇప్పటికే మీ జాబితాలో ఉన్నారు."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
 msgstr "వాడుకరిని అనుసరించలేకపోయాం: %s ఇప్పటికే మీ జాబితాలో ఉన్నారు."
 
@@ -379,7 +316,6 @@ msgid "Two valid IDs or screen_names must be supplied."
 msgstr ""
 
 #: actions/apifriendshipsshow.php:134
-#, fuzzy
 msgid "Could not determine source user."
 msgstr "లక్ష్యిత వాడుకరిని కనుగొనలేకపోయాం."
 
@@ -458,15 +394,19 @@ msgstr "మారుపేరు పేరుతో సమానంగా ఉం
 msgid "Group not found."
 msgstr "గుంపు దొరకలేదు."
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
+#. TRANS: Error text shown a user tries to join a group they already are a member of.
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
 msgstr "మీరు ఇప్పటికే ఆ గుంపులో సభ్యులు."
 
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
+#. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
+#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
 msgstr "నిర్వాహకులు ఆ గుంపు నుండి మిమ్మల్ని నిరోధించారు."
 
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:139 actions/joingroup.php:134 lib/command.php:353
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్చలేకపోయాం"
@@ -475,7 +415,10 @@ msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్
 msgid "You are not a member of this group."
 msgstr "మీరు ఈ గుంపులో సభ్యులు కాదు."
 
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
+#: lib/command.php:401
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "వాడుకరి %1$sని %2$s గుంపు నుండి తొలగించలేకపోయాం."
@@ -513,7 +456,6 @@ msgid "No oauth_token parameter provided."
 msgstr ""
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
 msgstr "తప్పుడు పాత్ర."
 
@@ -540,13 +482,8 @@ msgid "Invalid nickname / password!"
 msgstr "తప్పుడు పేరు / సంకేతపదం!"
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
 msgstr "ఈ ఉపకరణాన్ని తొలగించకు"
-
-#: actions/apioauthauthorize.php:185
-msgid "Database error inserting OAuth application user."
-msgstr ""
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -632,11 +569,13 @@ msgstr "ఇతర వాడుకరుల స్థితిని మీరు
 msgid "No such notice."
 msgstr "అటువంటి సందేశమేమీ లేదు."
 
-#: actions/apistatusesretweet.php:83
+#. TRANS: Error text shown when trying to repeat an own notice.
+#: actions/apistatusesretweet.php:83 lib/command.php:538
 msgid "Cannot repeat your own notice."
 msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
 
-#: actions/apistatusesretweet.php:91
+#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
+#: actions/apistatusesretweet.php:91 lib/command.php:544
 msgid "Already repeated that notice."
 msgstr "ఇప్పటికే ఆ నోటీసుని పునరావృతించారు."
 
@@ -671,16 +610,6 @@ msgstr "గరిష్ఠ నోటీసు పొడవు %d అక్షర
 msgid "Unsupported format."
 msgstr ""
 
-#: actions/apitimelinefavorites.php:110
-#, fuzzy, php-format
-msgid "%1$s / Favorites from %2$s"
-msgstr "%1$s %2$s గుంపులో చేరారు"
-
-#: actions/apitimelinefavorites.php:119
-#, php-format
-msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr ""
-
 #: actions/apitimelinementions.php:118
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
@@ -702,7 +631,7 @@ msgid "%s updates from everyone!"
 msgstr "అందరి నుండి %s తాజాకరణలు!"
 
 #: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
+#, php-format
 msgid "Repeated to %s"
 msgstr "%s యొక్క పునరావృతం"
 
@@ -711,20 +640,10 @@ msgstr "%s యొక్క పునరావృతం"
 msgid "Repeats of %s"
 msgstr "%s యొక్క పునరావృతాలు"
 
-#: actions/apitimelinetag.php:105 actions/tag.php:67
-#, fuzzy, php-format
-msgid "Notices tagged with %s"
-msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
-
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
-
-#: actions/apitrends.php:87
-#, fuzzy
-msgid "API method under construction."
-msgstr "నిర్ధారణ సంకేతం కనబడలేదు."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -734,7 +653,6 @@ msgstr "అటువంటి జోడింపు లేదు."
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
 #: actions/grouprss.php:91 actions/showgroup.php:121
-#, fuzzy
 msgid "No nickname."
 msgstr "పేరు"
 
@@ -756,13 +674,6 @@ msgstr "అవతారం"
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "మీ వ్యక్తిగత అవతారాన్ని మీరు ఎక్కించవచ్చు. గరిష్ఠ ఫైలు పరిమాణం %s."
-
-#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
-#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
-#: actions/userauthorization.php:72 actions/userrss.php:108
-#, fuzzy
-msgid "User without matching profile."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -799,10 +710,6 @@ msgstr "ఏ దస్త్రమూ ఎక్కింపబడలేదు."
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
 msgstr "మీ అవతారానికి గానూ ఈ చిత్రం నుండి ఒక చతురస్రపు ప్రదేశాన్ని ఎంచుకోండి"
-
-#: actions/avatarsettings.php:347 actions/grouplogo.php:380
-msgid "Lost our file data."
-msgstr ""
 
 #: actions/avatarsettings.php:370
 msgid "Avatar updated."
@@ -872,6 +779,8 @@ msgstr "ఈ వాడుకరిని నిరోధించు"
 msgid "Failed to save block information."
 msgstr "నిరోధపు సమాచారాన్ని భద్రపరచడంలో విఫలమయ్యాం."
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -881,18 +790,18 @@ msgstr "నిరోధపు సమాచారాన్ని భద్రప�
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
 msgstr "అటువంటి గుంపు లేదు."
 
 #: actions/blockedfromgroup.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles"
 msgstr "%s నిరోధిత వాడుకరులు"
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%1$s మరియు మిత్రులు, పేజీ %2$d"
 
@@ -901,17 +810,10 @@ msgid "A list of the users blocked from joining this group."
 msgstr "ఈ గుంపు లోనికి చేరకుండా నిరోధించిన వాడుకరుల యొక్క జాబితా."
 
 #: actions/blockedfromgroup.php:288
-#, fuzzy
 msgid "Unblock user from group"
 msgstr "వాడుకరిని గుంపు నుండి నిరోధించు"
 
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
-#, fuzzy
-msgid "Unblock"
-msgstr "నిరోధించు"
-
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:80
-#, fuzzy
 msgid "Unblock this user"
 msgstr "ఈ వాడుకరిని నిరోధించు"
 
@@ -1129,11 +1031,6 @@ msgstr "సైటు అలంకారం"
 msgid "Theme for the site."
 msgstr "సైటుకి అలంకారం."
 
-#: actions/designadminpanel.php:467
-#, fuzzy
-msgid "Custom theme"
-msgstr "సైటు అలంకారం"
-
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
@@ -1163,16 +1060,6 @@ msgstr ""
 #: actions/designadminpanel.php:544 lib/designsettings.php:155
 msgid "Off"
 msgstr ""
-
-#: actions/designadminpanel.php:545 lib/designsettings.php:156
-#, fuzzy
-msgid "Turn background image on or off."
-msgstr "నేపథ్య చిత్రాన్ని మార్చు"
-
-#: actions/designadminpanel.php:550 lib/designsettings.php:161
-#, fuzzy
-msgid "Tile background image"
-msgstr "నేపథ్య చిత్రాన్ని మార్చు"
 
 #: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
@@ -1206,16 +1093,6 @@ msgstr ""
 msgid "Use defaults"
 msgstr "అప్రమేయాలని ఉపయోగించు"
 
-#: actions/designadminpanel.php:677 lib/designsettings.php:248
-#, fuzzy
-msgid "Restore default designs"
-msgstr "అప్రమేయాలని ఉపయోగించు"
-
-#: actions/designadminpanel.php:683 lib/designsettings.php:254
-#, fuzzy
-msgid "Reset back to default"
-msgstr "అప్రమేయాలని ఉపయోగించు"
-
 #. TRANS: Submit button title
 #: actions/designadminpanel.php:685 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
@@ -1240,7 +1117,7 @@ msgid "Add to favorites"
 msgstr "ఇష్టాంశాలకు చేర్చు"
 
 #: actions/doc.php:158
-#, fuzzy, php-format
+#, php-format
 msgid "No such document \"%s\""
 msgstr "అటువంటి జోడింపు లేదు."
 
@@ -1281,11 +1158,6 @@ msgstr "వివరణ తప్పనిసరి."
 msgid "Source URL is too long."
 msgstr ""
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
-#, fuzzy
-msgid "Source URL is not valid."
-msgstr "హోమ్ పేజీ URL సరైనది కాదు."
-
 #: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr "సంస్థ తప్పనిసరి."
@@ -1293,11 +1165,6 @@ msgstr "సంస్థ తప్పనిసరి."
 #: actions/editapplication.php:206 actions/newapplication.php:191
 msgid "Organization is too long (max 255 chars)."
 msgstr "సంస్థ పేరు మరీ పెద్దగా ఉంది (255 అక్షరాలు గరిష్ఠం)."
-
-#: actions/editapplication.php:209 actions/newapplication.php:194
-#, fuzzy
-msgid "Organization homepage is required."
-msgstr "సంస్థ తప్పనిసరి."
 
 #: actions/editapplication.php:218 actions/newapplication.php:206
 msgid "Callback is too long."
@@ -1425,20 +1292,6 @@ msgstr "చేర్చు"
 msgid "Incoming email"
 msgstr ""
 
-#. TRANS: Form instructions for incoming e-mail form in e-mail settings.
-#. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
-#: actions/emailsettings.php:155 actions/smssettings.php:178
-#, fuzzy
-msgid "Send email to this address to post new notices."
-msgstr "%sకి నోటీసులు పంపించడానికి కొత్త ఈమెయిలు చిరునామా"
-
-#. TRANS: Instructions for incoming e-mail address input form.
-#. TRANS: Instructions for incoming SMS e-mail address input form.
-#: actions/emailsettings.php:164 actions/smssettings.php:186
-#, fuzzy
-msgid "Make a new email address for posting to; cancels the old one."
-msgstr "%sకి నోటీసులు పంపించడానికి కొత్త ఈమెయిలు చిరునామా"
-
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
@@ -1455,12 +1308,6 @@ msgstr "ఈమెయిలు అభిరుచులు"
 #: actions/emailsettings.php:180
 msgid "Send me notices of new subscriptions through email."
 msgstr ""
-
-#. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:186
-#, fuzzy
-msgid "Send me email when someone adds my notice as a favorite."
-msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డారు"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:193
@@ -1482,12 +1329,6 @@ msgstr ""
 msgid "I want to post notices by email."
 msgstr "నేను ఈమెయిలు ద్వారా నోటీసులు పంపాలనుకుంటున్నాను."
 
-#. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:219
-#, fuzzy
-msgid "Publish a MicroID for my email address."
-msgstr "అది మీ ఈమెయిలు చిరునామా కాదు."
-
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
 msgid "Email preferences saved."
@@ -1497,12 +1338,6 @@ msgstr "ఈమెయిలు అభిరుచులు భద్రమయ్�
 #: actions/emailsettings.php:353
 msgid "No email address."
 msgstr "ఈమెయిలు చిరునామా లేదు."
-
-#. TRANS: Message given saving e-mail address that cannot be normalised.
-#: actions/emailsettings.php:361
-#, fuzzy
-msgid "Cannot normalize that email address"
-msgstr "ప్రస్తుత నిర్ధారిత ఈమెయిలు చిరునామా."
 
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:366 actions/register.php:208
@@ -1527,16 +1362,6 @@ msgstr "ఆ ఈమెయిల్ చిరునామా ఇప్పటేక
 #: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "నిర్ధారణ సంకేతాన్ని చేర్చలేకపోయాం."
-
-#. TRANS: Message given saving valid e-mail address that is to be confirmed.
-#: actions/emailsettings.php:398
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the email address you added. Check your "
-"inbox (and spam box!) for the code and instructions on how to use it."
-msgstr ""
-"ఈ చిరునామా నిర్ధారణకై వేచివున్నాం. తదుపరి సూచనలతో ఉన్న సందేశానికై మీ ఇన్‌బాక్స్‌లో (స్పామ్ బాక్సులో కూడా!) "
-"చూడండి."
 
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
@@ -1567,39 +1392,9 @@ msgstr "అది మీ ఈమెయిలు చిరునామా కా�
 msgid "The email address was removed."
 msgstr "ఆ ఈమెయిలు చిరునామాని తొలగించాం."
 
-#: actions/emailsettings.php:493 actions/smssettings.php:568
-#, fuzzy
-msgid "No incoming email address."
-msgstr "ఈమెయిలు చిరునామా లేదు."
-
-#. TRANS: Server error thrown on database error removing incoming e-mail address.
-#. TRANS: Server error thrown on database error adding incoming e-mail address.
-#: actions/emailsettings.php:504 actions/emailsettings.php:528
-#: actions/smssettings.php:578 actions/smssettings.php:602
-#, fuzzy
-msgid "Couldn't update user record."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
-#. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:508 actions/smssettings.php:581
-#, fuzzy
-msgid "Incoming email address removed."
-msgstr "ఆ ఈమెయిలు చిరునామాని తొలగించాం."
-
-#. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:532 actions/smssettings.php:605
-#, fuzzy
-msgid "New incoming email address added."
-msgstr "ఈమెయిలు చిరునామా లేదు."
-
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
 msgstr "ఈ నోటీసు ఇప్పటికే మీ ఇష్టాంశం!"
-
-#: actions/favor.php:92 lib/disfavorform.php:140
-#, fuzzy
-msgid "Disfavor favorite"
-msgstr "ఇష్టాంశాలకు చేర్చు"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
@@ -1625,13 +1420,6 @@ msgid ""
 "next to any notice you like."
 msgstr ""
 
-#: actions/favorited.php:156
-#, fuzzy, php-format
-msgid ""
-"Why not [register an account](%%action.register%%) and be the first to add a "
-"notice to your favorites!"
-msgstr "[ఒక ఖాతాని నమోదుచేసుకుని](%%action.register%%) మీరే మొదట వ్రాసేవారు ఎందుకు కాకూడదు!"
-
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
 #, php-format
@@ -1639,7 +1427,7 @@ msgid "%s's favorite notices"
 msgstr "%sకి ఇష్టమైన నోటీసులు"
 
 #: actions/favoritesrss.php:115
-#, fuzzy, php-format
+#, php-format
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
@@ -1659,7 +1447,6 @@ msgid "A selection of some great users on %s"
 msgstr "%sలో కొందరు గొప్ప వాడుకరుల యొక్క ఎంపిక"
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
 msgstr "సందేశం లేదు."
 
@@ -1703,11 +1490,6 @@ msgstr ""
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:138
-#, fuzzy
-msgid "Error updating remote profile."
-msgstr "దూరపు ప్రొపైలుని తాజాకరించటంలో పొరపాటు"
-
 #: actions/getfile.php:79
 msgid "No such file."
 msgstr "అటువంటి ఫైలు లేదు."
@@ -1731,20 +1513,6 @@ msgstr "ఈ సైటులో మీరు వాడుకరలకి పా�
 #: actions/grantrole.php:82
 msgid "User already has this role."
 msgstr "వాడుకరికి ఇప్పటికే ఈ పాత్ర ఉంది."
-
-#: actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:71 actions/subedit.php:46
-#: lib/profileformaction.php:79
-#, fuzzy
-msgid "No profile specified."
-msgstr "గుంపు ఏమీ పేర్కొనలేదు."
-
-#: actions/groupblock.php:76 actions/groupunblock.php:76
-#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: actions/unsubscribe.php:84 lib/profileformaction.php:86
-#, fuzzy
-msgid "No profile with that ID."
-msgstr "ఆ IDతో ఏ నోటీసూ కనబడలేదు."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
@@ -1787,11 +1555,6 @@ msgstr "ఈ వాడుకరిని ఈ గుంపు నుండి న�
 msgid "Block this user from this group"
 msgstr "ఈ గుంపునుండి ఈ వాడుకరిని నిరోధించు"
 
-#: actions/groupblock.php:206
-#, fuzzy
-msgid "Database error blocking user from group."
-msgstr "ఈ వాడుకరిని ఈ గుంపు నుండి నిరోధించకు"
-
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
 msgstr "ఐడీ లేదు."
@@ -1816,7 +1579,6 @@ msgid "Couldn't update your design."
 msgstr "మీ రూపురేఖలని తాజాకరించలేకపోయాం."
 
 #: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
-#, fuzzy
 msgid "Design preferences saved."
 msgstr "ఈమెయిలు అభిరుచులు భద్రమయ్యాయి."
 
@@ -1887,7 +1649,7 @@ msgstr "%s కాలరేఖ"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #: actions/grouprss.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Updates from members of %1$s on %2$s!"
 msgstr "%2$sలో %1$s మరియు స్నేహితుల నుండి తాజాకరణలు!"
 
@@ -1996,17 +1758,6 @@ msgstr "IM చిరునామా"
 msgid "Current confirmed Jabber/GTalk address."
 msgstr "ప్రస్తుతం నిర్ధారించిన Jabber/GTalk చిరునామా"
 
-#. TRANS: Form note in IM settings form.
-#. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:124
-#, fuzzy, php-format
-msgid ""
-"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
-"message with further instructions. (Did you add %s to your buddy list?)"
-msgstr ""
-"ఈ చిరునామా నిర్ధారణకై వేచివున్నాం. తదుపరి సూచనలతో ఉన్న సందేశానికై మీ ఇన్‌బాక్స్‌లో (స్పామ్ బాక్సులో కూడా!) "
-"చూడండి."
-
 #. TRANS: IM address input field instructions in IM settings form.
 #. TRANS: %s is the IM address set for the site.
 #: actions/imsettings.php:140
@@ -2036,12 +1787,6 @@ msgstr ""
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 
-#. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:179
-#, fuzzy
-msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr "ప్రస్తుతం నిర్ధారించిన Jabber/GTalk చిరునామా"
-
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:287 actions/othersettings.php:180
 msgid "Preferences saved."
@@ -2051,12 +1796,6 @@ msgstr "అభిరుచులు భద్రమయ్యాయి."
 #: actions/imsettings.php:309
 msgid "No Jabber ID."
 msgstr "Jabber ID లేదు."
-
-#. TRANS: Message given saving IM address that cannot be normalised.
-#: actions/imsettings.php:317
-#, fuzzy
-msgid "Cannot normalize that Jabber ID"
-msgstr "సరైన Jabber ఐడీ కాదు"
 
 #. TRANS: Message given saving IM address that not valid.
 #: actions/imsettings.php:322
@@ -2086,12 +1825,6 @@ msgstr ""
 #: actions/imsettings.php:388
 msgid "That is the wrong IM address."
 msgstr "ఆ IM చిరునామా సరైనది కాదు."
-
-#. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:397
-#, fuzzy
-msgid "Couldn't delete IM confirmation."
-msgstr "ఈమెయిల్ నిర్ధారణని తొలగించలేకున్నాం."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
@@ -2151,7 +1884,7 @@ msgstr "మీరు ఇప్పటికే ఈ వాడుకరులకు
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2266,13 +1999,10 @@ msgid "You must be logged in to join a group."
 msgstr "గుంపుల్లో చేరడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
 msgstr "Jabber ID లేదు."
 
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s %2$s గుంపులో చేరారు"
@@ -2281,13 +2011,12 @@ msgstr "%1$s %2$s గుంపులో చేరారు"
 msgid "You must be logged in to leave a group."
 msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
 
-#: actions/leavegroup.php:100 lib/command.php:373
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
 msgid "You are not a member of that group."
 msgstr "మీరు ఆ గుంపులో సభ్యులు కాదు."
 
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
@@ -2351,7 +2080,7 @@ msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s ఇప్పటికే \"%2$s\" గుంపు యొక్క ఒక నిర్వాకులు."
 
 #: actions/makeadmin.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
 msgstr "%1$sని %2$s గుంపు యొక్క నిర్వాహకున్ని చేయలేకపోయాం."
 
@@ -2376,11 +2105,6 @@ msgstr "ఉపకరణాలని నమోదుచేసుకోడాన�
 msgid "Use this form to register a new application."
 msgstr "కొత్త ఉపకరణాన్ని నమోదుచేసుకోడానికి ఈ ఫారాన్ని ఉపయోగించండి."
 
-#: actions/newapplication.php:176
-#, fuzzy
-msgid "Source URL is required."
-msgstr "పేరు తప్పనిసరి."
-
 #: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
 msgstr "ఉపకరణాన్ని సృష్టించలేకపోయాం."
@@ -2397,12 +2121,15 @@ msgstr "కొత్త గుంపుని సృష్టిండాని�
 msgid "New message"
 msgstr "కొత్త సందేశం"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
 msgid "You can't send a message to this user."
 msgstr "ఈ వాడుకరికి మీరు సందేశాన్ని పంపించలేరు."
 
-#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:463
-#: lib/command.php:555
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
 msgid "No content!"
 msgstr "విషయం లేదు!"
 
@@ -2410,7 +2137,8 @@ msgstr "విషయం లేదు!"
 msgid "No recipient specified."
 msgstr "ఎవరికి పంపించాలో పేర్కొనలేదు."
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "మీకు మీరే సందేశాన్ని పంపుకోకండి; దాని బదులు మీలో మీరే మెల్లగా చెప్పుకోండి."
@@ -2419,7 +2147,9 @@ msgstr "మీకు మీరే సందేశాన్ని పంపుక
 msgid "Message sent"
 msgstr "సందేశాన్ని పంపించాం"
 
-#: actions/newmessage.php:185
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "%sకి నేరు సందేశాన్ని పంపించాం."
@@ -2433,7 +2163,6 @@ msgid "New notice"
 msgstr "కొత్త సందేశం"
 
 #: actions/newnotice.php:227
-#, fuzzy
 msgid "Notice posted"
 msgstr "నోటీసుని పునరావృతించారు"
 
@@ -2473,12 +2202,12 @@ msgstr ""
 "newnotice%%%%?status_textarea=%s) మొదటివారు ఎందుకుకాకూడదు!"
 
 #: actions/noticesearchrss.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Updates with \"%s\""
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
 #: actions/noticesearchrss.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
@@ -2486,16 +2215,6 @@ msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నో�
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
-
-#: actions/nudge.php:94
-#, fuzzy
-msgid "Nudge sent"
-msgstr "సందేశాన్ని పంపించాం"
-
-#: actions/nudge.php:97
-#, fuzzy
-msgid "Nudge sent!"
-msgstr "సందేశాన్ని పంపించాం"
 
 #: actions/oauthappssettings.php:59
 msgid "You must be logged in to list your applications."
@@ -2595,13 +2314,7 @@ msgid "Automatic shortening service to use."
 msgstr "ఉపయోగించాల్సిన యాంత్రిక కుదింపు సేవ."
 
 #: actions/othersettings.php:122
-#, fuzzy
 msgid "View profile designs"
-msgstr "ఫ్రొఫైలు రూపురేఖలు"
-
-#: actions/othersettings.php:123
-#, fuzzy
-msgid "Show or hide profile designs."
 msgstr "ఫ్రొఫైలు రూపురేఖలు"
 
 #: actions/othersettings.php:153
@@ -2609,38 +2322,12 @@ msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL కుదింపు సేవ మరీ పెద్దగా ఉంది (50 అక్షరాలు గరిష్ఠం)."
 
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
 msgstr "గుంపు ఏమీ పేర్కొనలేదు."
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
 msgstr "గుంపు ఏమీ పేర్కొనలేదు."
-
-#: actions/otp.php:90
-#, fuzzy
-msgid "No login token requested."
-msgstr "అధీకరణ అభ్యర్థన లేదు!"
-
-#: actions/otp.php:95
-msgid "Invalid login token specified."
-msgstr ""
-
-#: actions/otp.php:104
-#, fuzzy
-msgid "Login token expired."
-msgstr "సైటు లోనికి ప్రవేశించు"
-
-#: actions/outbox.php:58
-#, fuzzy, php-format
-msgid "Outbox for %1$s - page %2$d"
-msgstr "%1$sకి వచ్చినవి - %2$dవ పేజీ"
-
-#: actions/outbox.php:61
-#, fuzzy, php-format
-msgid "Outbox for %s"
-msgstr "%sకి వచ్చినవి"
 
 #: actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
@@ -2712,35 +2399,15 @@ msgstr "సంకేతపదం భద్రమయ్యింది."
 msgid "Paths"
 msgstr "త్రోవలు"
 
-#: actions/pathsadminpanel.php:70
-#, fuzzy
-msgid "Path and server settings for this StatusNet site."
-msgstr "ఈ స్టేటస్&zwnj;నెట్ సైటుకి వాడుకరి అమరికలు."
-
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
 msgstr "అలంకారం అందుబాటులో లేదు: %s."
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "అవతారాల సంచయం"
-
-#: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
-msgid "Background directory not writable: %s."
-msgstr "నేపథ్యాల సంచయం"
-
-#: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s."
-msgstr ""
-
-#: actions/pathsadminpanel.php:183
-#, fuzzy
-msgid "Invalid SSL server. The maximum length is 255 characters."
-msgstr "చెల్లని స్వాగత పాఠ్యం. గరిష్ఠ పొడవు 255 అక్షరాలు."
 
 #: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
 msgid "Site"
@@ -2755,12 +2422,6 @@ msgid "Site's server hostname."
 msgstr ""
 
 #: actions/pathsadminpanel.php:242
-#, fuzzy
-msgid "Path"
-msgstr "త్రోవలు"
-
-#: actions/pathsadminpanel.php:242
-#, fuzzy
 msgid "Site path"
 msgstr "సైటు అలంకారం"
 
@@ -2788,11 +2449,6 @@ msgstr "అలంకారం"
 msgid "Theme server"
 msgstr "అలంకారాల సేవకి"
 
-#: actions/pathsadminpanel.php:268
-#, fuzzy
-msgid "Theme path"
-msgstr "అలంకారం"
-
 #: actions/pathsadminpanel.php:272
 msgid "Theme directory"
 msgstr "అలంకార సంచయం"
@@ -2804,11 +2460,6 @@ msgstr "అవతారాలు"
 #: actions/pathsadminpanel.php:284
 msgid "Avatar server"
 msgstr "అవతారాల సేవకి"
-
-#: actions/pathsadminpanel.php:288
-#, fuzzy
-msgid "Avatar path"
-msgstr "అవతారాన్ని తాజాకరించాం."
 
 #: actions/pathsadminpanel.php:292
 msgid "Avatar directory"
@@ -2822,22 +2473,11 @@ msgstr "నేపథ్యాలు"
 msgid "Background server"
 msgstr "నేపథ్యాల సేవకి"
 
-#: actions/pathsadminpanel.php:309
-#, fuzzy
-msgid "Background path"
-msgstr "నేపథ్యం"
-
 #: actions/pathsadminpanel.php:313
 msgid "Background directory"
 msgstr "నేపథ్యాల సంచయం"
 
-#: actions/pathsadminpanel.php:320
-#, fuzzy
-msgid "SSL"
-msgstr "SSLని ఉపయోగించు"
-
 #: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
-#, fuzzy
 msgid "Never"
 msgstr "సేవకి"
 
@@ -2858,16 +2498,11 @@ msgid "When to use SSL"
 msgstr "SSLని ఎప్పుడు ఉపయోగించాలి"
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
 msgstr "సేవకి"
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/pathsadminpanel.php:352
-msgid "Save paths"
 msgstr ""
 
 #: actions/peoplesearch.php:52
@@ -2883,18 +2518,12 @@ msgstr ""
 msgid "People search"
 msgstr "వ్యక్తుల అన్వేషణ"
 
-#: actions/peopletag.php:68
-#, fuzzy, php-format
-msgid "Not a valid people tag: %s."
-msgstr "సరైన ఈమెయిల్ చిరునామా కాదు:"
-
 #: actions/peopletag.php:142
-#, fuzzy, php-format
+#, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
 msgstr "తప్పుడు దస్త్రపుపేరు.."
 
@@ -3012,19 +2641,9 @@ msgid "Language is too long (max 50 chars)."
 msgstr "భాష మరీ పెద్దగా ఉంది (50 అక్షరాలు గరిష్ఠం)."
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "తప్పుడు మారుపేరు: \"%s\""
-
-#: actions/profilesettings.php:306
-#, fuzzy
-msgid "Couldn't update user for autosubscribe."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
-#: actions/profilesettings.php:363
-#, fuzzy
-msgid "Couldn't save location prefs."
-msgstr "ట్యాగులని భద్రపరచలేకున్నాం."
 
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
@@ -3043,11 +2662,6 @@ msgstr "అమరికలు భద్రమయ్యాయి."
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr ""
-
-#: actions/public.php:92
-#, fuzzy
-msgid "Could not retrieve public stream."
-msgstr "మారుపేర్లని సృష్టించలేకపోయాం."
 
 #: actions/public.php:130
 #, php-format
@@ -3070,13 +2684,6 @@ msgstr "ప్రజా వాహిని ఫీడు (RSS 2.0)"
 msgid "Public Stream Feed (Atom)"
 msgstr "ప్రజా వాహిని ఫీడు (ఆటమ్)"
 
-#: actions/public.php:188
-#, fuzzy, php-format
-msgid ""
-"This is the public timeline for %%site.name%% but no one has posted anything "
-"yet."
-msgstr "ఇది %s మరియు మిత్రుల కాలరేఖ కానీ ఇంకా ఎవరూ ఏమీ రాయలేదు."
-
 #: actions/public.php:191
 msgid "Be the first to post!"
 msgstr ""
@@ -3086,21 +2693,6 @@ msgstr ""
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post!"
 msgstr "[ఖాతా నమోదు చేసుకుని](%%action.register%%) మొదటగా వ్రాసేది మీరే ఎందుకు కాకూడదు!"
-
-#: actions/public.php:242
-#, fuzzy, php-format
-msgid ""
-"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
-"blogging) service based on the Free Software [StatusNet](http://status.net/) "
-"tool. [Join now](%%action.register%%) to share notices about yourself with "
-"friends, family, and colleagues! ([Read more](%%doc.help%%))"
-msgstr ""
-"**%s** అనేది [స్టేటస్‌నెట్](http://status.net/) అనే స్వేచ్ఛా ఉపకరణ అధారిత [సూక్ష్మ-బ్లాగింగు]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) సేవ అయిన %%%%site.name%%%%లో ఒక "
-"వాడుకరి గుంపు.\n"
-"దీని సభ్యులు వారి జీవితం మరియు ఆసక్తుల గురించి చిన్న సందేశాలని పంచుకుంటారు. ఈ గుంపు మరియు ఇంకా "
-"చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
-"doc.help%%%%))"
 
 #: actions/public.php:247
 #, php-format
@@ -3113,7 +2705,6 @@ msgstr ""
 "ఆధారపడిన ఒక [మైక్రో-బ్లాగింగు](http://en.wikipedia.org/wiki/Micro-blogging) సేవ."
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
 msgstr "ట్యాగు మేఘం"
 
@@ -3146,16 +2737,6 @@ msgstr "ట్యాగు మేఘం"
 msgid "You are already logged in!"
 msgstr "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 
-#: actions/recoverpassword.php:62
-#, fuzzy
-msgid "No such recovery code."
-msgstr "అటువంటి సందేశమేమీ లేదు."
-
-#: actions/recoverpassword.php:66
-#, fuzzy
-msgid "Not a recovery code."
-msgstr "నమోదైన వాడుకరి కాదు."
-
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
 msgstr ""
@@ -3183,11 +2764,6 @@ msgstr ""
 msgid "You have been identified. Enter a new password below. "
 msgstr "మిమ్మల్ని గుర్తించాం. మీ కొత్త సంకేతపదాన్ని క్రింత ఇవ్వండి. "
 
-#: actions/recoverpassword.php:188
-#, fuzzy
-msgid "Password recovery"
-msgstr "సంకేతపదం మార్పు"
-
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
 msgstr "ముద్దుపేరు లేదా ఈమెయిలు చిరునామా"
@@ -3195,21 +2771,6 @@ msgstr "ముద్దుపేరు లేదా ఈమెయిలు చి
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
 msgstr "ఈ సర్వరులో మీ పేరు, లేదా నమౌదైన మీ ఈమెయిల్ చిరునామా."
-
-#: actions/recoverpassword.php:199 actions/recoverpassword.php:200
-#, fuzzy
-msgid "Recover"
-msgstr "తొలగించు"
-
-#: actions/recoverpassword.php:208
-#, fuzzy
-msgid "Reset password"
-msgstr "కొత్త సంకేతపదం"
-
-#: actions/recoverpassword.php:209
-#, fuzzy
-msgid "Recover password"
-msgstr "కొత్త సంకేతపదం"
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:335
 msgid "Password recovery requested"
@@ -3222,11 +2783,6 @@ msgstr "తెలియని చర్య"
 #: actions/recoverpassword.php:236
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు, మర్చిపోకండి!"
-
-#: actions/recoverpassword.php:243
-#, fuzzy
-msgid "Reset"
-msgstr "తిరస్కరించు"
 
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
@@ -3261,11 +2817,6 @@ msgstr "సంకేతపదం 6 లేదా అంతకంటే ఎక్�
 #: actions/recoverpassword.php:369
 msgid "Password and confirmation do not match."
 msgstr "సంకేతపదం మరియు నిర్ధారణ సరిపోలేదు."
-
-#: actions/recoverpassword.php:388 actions/register.php:255
-#, fuzzy
-msgid "Error setting user."
-msgstr "వాడుకరిని భద్రపరచడంలో పొరపాటు: సరికాదు."
 
 #: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
@@ -3421,7 +2972,6 @@ msgid "Remote subscribe"
 msgstr "సుదూర చందా"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
 msgstr "ఈ వాడుకరికి చందాచేరు"
 
@@ -3467,7 +3017,6 @@ msgid "Only logged-in users can repeat notices."
 msgstr "కేవలం ప్రవేశించిన వాడుకరులు మాత్రమే నోటీసులని పునరావృతించగలరు."
 
 #: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
 msgid "No notice specified."
 msgstr "గుంపు ఏమీ పేర్కొనలేదు."
 
@@ -3478,16 +3027,6 @@ msgstr "మీ నోటీసుని మీరే పునరావృతి
 #: actions/repeat.php:90
 msgid "You already repeated that notice."
 msgstr "మీరు ఇప్పటికే ఆ నోటీసుని పునరావృతించారు."
-
-#: actions/repeat.php:114 lib/noticelist.php:676
-#, fuzzy
-msgid "Repeated"
-msgstr "సృష్టితం"
-
-#: actions/repeat.php:119
-#, fuzzy
-msgid "Repeated!"
-msgstr "సృష్టితం"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3516,7 +3055,7 @@ msgid "Replies feed for %s (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
 
 #: actions/replies.php:199
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "This is the timeline showing replies to %1$s but %2$s hasn't received a "
 "notice to them yet."
@@ -3531,21 +3070,12 @@ msgstr ""
 "మీరు ఇతర వాడుకరులతో సంభాషించవచ్చు, మరింత మంది వ్యక్తులకు చందాచేరవచ్చు లేదా [గుంపులలో చేరవచ్చు]"
 "(%%action.groups%%)."
 
-#: actions/replies.php:206
-#, fuzzy, php-format
-msgid ""
-"You can try to [nudge %1$s](../%2$s) or [post something to them](%%%%action."
-"newnotice%%%%?status_textarea=%3$s)."
-msgstr ""
-"[ఈ విషయంపై](%%%%action.newnotice%%%%?status_textarea=%s) వ్రాసే మొదటివారు మీరే అవ్వండి!"
-
 #: actions/repliesrss.php:72
 #, php-format
 msgid "Replies to %1$s on %2$s!"
 msgstr "%2$sలో %1$sకి స్పందనలు!"
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
 msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
 
@@ -3558,35 +3088,12 @@ msgid "StatusNet"
 msgstr "స్టేటస్‌నెట్"
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
 msgid "You cannot sandbox users on this site."
 msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
-
-#: actions/sandbox.php:72
-#, fuzzy
-msgid "User is already sandboxed."
-msgstr "వాడుకరిని ఇప్పటికే గుంపునుండి నిరోధించారు."
-
-#. TRANS: Menu item for site administration
-#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:392
-#, fuzzy
-msgid "Sessions"
-msgstr "సంచిక"
-
-#: actions/sessionsadminpanel.php:65
-#, fuzzy
-msgid "Session settings for this StatusNet site."
-msgstr "ఈ స్టేటస్&zwnj;నెట్ సైటుకి రూపురేఖల అమరికలు."
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
 msgstr ""
-
-#: actions/sessionsadminpanel.php:177
-#, fuzzy
-msgid "Whether to handle sessions ourselves."
-msgstr "వాడుకరులను కొత్త వారిని ఆహ్వానించడానికి అనుమతించాలా వద్దా."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
@@ -3669,34 +3176,19 @@ msgstr ""
 msgid "Access token URL"
 msgstr ""
 
-#: actions/showapplication.php:283
-#, fuzzy
-msgid "Authorize URL"
-msgstr "రచయిత"
-
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
 
-#: actions/showapplication.php:309
-#, fuzzy
-msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "మీరు నిజంగానే ఈ నోటీసుని తొలగించాలనుకుంటున్నారా?"
-
 #: actions/showfavorites.php:79
 #, php-format
 msgid "%1$s's favorite notices, page %2$d"
 msgstr "%1$sకి ఇష్టమైన నోటీసులు, పేజీ %2$d"
 
-#: actions/showfavorites.php:132
-#, fuzzy
-msgid "Could not retrieve favorite notices."
-msgstr "ఇష్టాంశాన్ని సృష్టించలేకపోయాం."
-
 #: actions/showfavorites.php:171
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
 msgstr "%s యొక్క ఇష్టాంశాల ఫీడు (RSS 2.0)"
 
@@ -3722,16 +3214,6 @@ msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
 msgstr ""
-
-#: actions/showfavorites.php:212
-#, fuzzy, php-format
-msgid ""
-"%s hasn't added any favorite notices yet. Why not [register an account](%%%%"
-"action.register%%%%) and then post something interesting they would add to "
-"their favorites :)"
-msgstr ""
-"%sకి చందాదార్లు ఎవరూ లేరు. [ఒక ఖాతాని నమోదు చేసుకుని](%%%%action.register%%%%) మీరు "
-"ఎందుకు మొదటి చందాదారు కాకూడదు?"
 
 #: actions/showfavorites.php:243
 msgid "This is a way to share what you like."
@@ -3770,17 +3252,17 @@ msgid "Group actions"
 msgstr "గుంపు చర్యలు"
 
 #: actions/showgroup.php:338
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 
 #: actions/showgroup.php:344
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 2.0)"
 
 #: actions/showgroup.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
 
@@ -3823,21 +3305,6 @@ msgstr ""
 "చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
 "doc.help%%%%))"
 
-#: actions/showgroup.php:461
-#, fuzzy, php-format
-msgid ""
-"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
-"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
-"[StatusNet](http://status.net/) tool. Its members share short messages about "
-"their life and interests. "
-msgstr ""
-"**%s** అనేది [స్టేటస్‌నెట్](http://status.net/) అనే స్వేచ్ఛా ఉపకరణ అధారిత [సూక్ష్మ-బ్లాగింగు]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) సేవ అయిన %%%%site.name%%%%లో ఒక "
-"వాడుకరి గుంపు.\n"
-"దీని సభ్యులు వారి జీవితం మరియు ఆసక్తుల గురించి చిన్న సందేశాలని పంచుకుంటారు. ఈ గుంపు మరియు ఇంకా "
-"చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
-"doc.help%%%%))"
-
 #: actions/showgroup.php:489
 msgid "Admins"
 msgstr "నిర్వాహకులు"
@@ -3849,16 +3316,6 @@ msgstr "అటువంటి సందేశం లేదు."
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
 msgstr "పంపినవారు మరియు అందుకున్నవారు మాత్రమే ఈ సందేశాన్ని చదవవచ్చు."
-
-#: actions/showmessage.php:108
-#, fuzzy, php-format
-msgid "Message to %1$s on %2$s"
-msgstr "%2$sలో %1$sకి స్పందనలు!"
-
-#: actions/showmessage.php:113
-#, fuzzy, php-format
-msgid "Message from %1$s on %2$s"
-msgstr "%2$sలో %1$sకి స్పందనలు!"
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
@@ -3875,29 +3332,24 @@ msgid "%1$s, page %2$d"
 msgstr "%1$s, %2$dవ పేజీ"
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 
 #: actions/showstream.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 1.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 
 #: actions/showstream.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 2.0)"
 
 #: actions/showstream.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
-
-#: actions/showstream.php:148
-#, fuzzy, php-format
-msgid "FOAF for %s"
-msgstr "%s గుంపు"
 
 #: actions/showstream.php:200
 #, php-format
@@ -3911,53 +3363,10 @@ msgid ""
 msgstr ""
 "ఈమధ్యే ఏదైనా ఆసక్తికరమైనది చూసారా? మీరు ఇంకా నోటీసులేమీ వ్రాయలేదు, మొదలుపెట్టడానికి ఇదే మంచి సమయం :)"
 
-#: actions/showstream.php:207
-#, fuzzy, php-format
-msgid ""
-"You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
-"%?status_textarea=%2$s)."
-msgstr ""
-"[ఈ విషయంపై](%%%%action.newnotice%%%%?status_textarea=%s) వ్రాసే మొదటివారు మీరే అవ్వండి!"
-
-#: actions/showstream.php:243
-#, fuzzy, php-format
-msgid ""
-"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
-"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
-"[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
-"follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
-msgstr ""
-"**%s** అనేది [స్టేటస్‌నెట్](http://status.net/) అనే స్వేచ్ఛా ఉపకరణ అధారిత [సూక్ష్మ-బ్లాగింగు]"
-"(http://en.wikipedia.org/wiki/Micro-blogging) సేవ అయిన %%%%site.name%%%%లో ఒక "
-"వాడుకరి గుంపు.\n"
-"దీని సభ్యులు వారి జీవితం మరియు ఆసక్తుల గురించి చిన్న సందేశాలని పంచుకుంటారు. ఈ గుంపు మరియు ఇంకా "
-"చాల వాటిలో భాగస్తులవ్వడానికి [ఇప్పుడే చేరండి](%%%%action.register%%%%)! ([మరింత చదవండి](%%%%"
-"doc.help%%%%))"
-
-#: actions/showstream.php:248
-#, fuzzy, php-format
-msgid ""
-"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
-"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
-"[StatusNet](http://status.net/) tool. "
-msgstr ""
-"ఇది %%site.name%%, స్వేచ్ఛా మృదూపకరమైన [స్టేటస్‌నెట్](http://status.net/) అనే పనిముట్టుపై "
-"ఆధారపడిన ఒక [మైక్రో-బ్లాగింగు](http://en.wikipedia.org/wiki/Micro-blogging) సేవ."
-
 #: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "%s యొక్క పునరావృతం"
-
-#: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
-msgid "You cannot silence users on this site."
-msgstr "ఈ సైటులో మీరు వాడుకరలకి పాత్రలను ఇవ్వలేరు."
-
-#: actions/silence.php:72
-#, fuzzy
-msgid "User is already silenced."
-msgstr "వాడుకరిని ఇప్పటికే గుంపునుండి నిరోధించారు."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -4049,11 +3458,6 @@ msgid "Maximum number of characters for notices."
 msgstr "సందేశాలలోని అక్షరాల గరిష్ఠ సంఖ్య."
 
 #: actions/siteadminpanel.php:278
-#, fuzzy
-msgid "Dupe limit"
-msgstr "పాఠ్యపు పరిమితి"
-
-#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr "అదే విషయాన్ని మళ్ళీ టపా చేయడానికి వాడుకరులు ఎంత సమయం (క్షణాల్లో) వేచివుండాలి."
 
@@ -4061,13 +3465,7 @@ msgstr "అదే విషయాన్ని మళ్ళీ టపా చే�
 msgid "Site Notice"
 msgstr "సైటు గమనిక"
 
-#: actions/sitenoticeadminpanel.php:67
-#, fuzzy
-msgid "Edit site-wide message"
-msgstr "కొత్త సందేశం"
-
 #: actions/sitenoticeadminpanel.php:103
-#, fuzzy
 msgid "Unable to save site notice."
 msgstr "సైటు గమనికని భద్రపరచు"
 
@@ -4092,16 +3490,8 @@ msgstr "సైటు గమనికని భద్రపరచు"
 msgid "SMS settings"
 msgstr "SMS అమరికలు"
 
-#. TRANS: SMS settings page instructions.
-#. TRANS: %%site.name%% is the name of the site.
-#: actions/smssettings.php:74
-#, fuzzy, php-format
-msgid "You can receive SMS messages through email from %%site.name%%."
-msgstr "%%site.name%% నుండి మీకు ఎలా మెయిల్ వస్తూంతో సంభాళించుకోండి."
-
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
 #: actions/smssettings.php:97
-#, fuzzy
 msgid "SMS is not available."
 msgstr "IM అందుబాటులో లేదు."
 
@@ -4109,12 +3499,6 @@ msgstr "IM అందుబాటులో లేదు."
 #: actions/smssettings.php:111
 msgid "SMS address"
 msgstr "SMS చిరునామా"
-
-#. TRANS: Form guide in SMS settings form.
-#: actions/smssettings.php:120
-#, fuzzy
-msgid "Current confirmed SMS-enabled phone number."
-msgstr "ప్రస్తుత నిర్ధారిత ఈమెయిలు చిరునామా."
 
 #. TRANS: Form guide in IM settings form.
 #: actions/smssettings.php:133
@@ -4137,18 +3521,6 @@ msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "నిర్థారించు"
 
-#. TRANS: Field label for SMS phone number input in SMS settings form.
-#: actions/smssettings.php:153
-#, fuzzy
-msgid "SMS phone number"
-msgstr "ఫోను నెంబరు లేదు."
-
-#. TRANS: SMS phone number input field instructions in SMS settings form.
-#: actions/smssettings.php:156
-#, fuzzy
-msgid "Phone number, no punctuation or spaces, with area code"
-msgstr "1-64 చిన్నబడి అక్షరాలు లేదా అంకెలు, విరామ చిహ్నాలు లేదా ఖాళీలు లేకుండా. తప్పనిసరి."
-
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
 msgid "SMS preferences"
@@ -4161,22 +3533,10 @@ msgid ""
 "from my carrier."
 msgstr ""
 
-#. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:315
-#, fuzzy
-msgid "SMS preferences saved."
-msgstr "అభిరుచులు భద్రమయ్యాయి."
-
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "ఫోను నెంబరు లేదు."
-
-#. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:344
-#, fuzzy
-msgid "No carrier selected."
-msgstr "నోటీసుని తొలగించాం."
 
 #. TRANS: Message given saving SMS phone number that is already set.
 #: actions/smssettings.php:352
@@ -4202,7 +3562,6 @@ msgstr "అది తప్పుడు నిర్ధారణ సంఖ్య
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
 msgstr "IM నిర్ధారణ రద్దయింది."
 
@@ -4214,7 +3573,6 @@ msgstr "అది మీ ఫోను నంబర్ కాదు."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
-#, fuzzy
 msgid "The SMS phone number was removed."
 msgstr "ఆ IM చిరునామాని తొలగించాం."
 
@@ -4237,12 +3595,6 @@ msgid ""
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
-#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:548
-#, fuzzy
-msgid "No code entered"
-msgstr "విషయం లేదు!"
-
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:408
@@ -4250,23 +3602,12 @@ msgid "Snapshots"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
 msgstr "సైటు స్వరూపణాన్ని మార్చండి"
-
-#: actions/snapshotadminpanel.php:127
-#, fuzzy
-msgid "Invalid snapshot run value."
-msgstr "తప్పుడు పాత్ర."
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
-
-#: actions/snapshotadminpanel.php:144
-#, fuzzy
-msgid "Invalid snapshot report URL."
-msgstr "చిహ్నపు URL చెల్లదు."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -4300,30 +3641,14 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/snapshotadminpanel.php:248
-#, fuzzy
-msgid "Save snapshot settings"
-msgstr "సైటు అమరికలను భద్రపరచు"
-
-#: actions/subedit.php:70
-#, fuzzy
-msgid "You are not subscribed to that profile."
-msgstr "మీరు ఎవరికీ చందాచేరలేదు."
-
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
-#, fuzzy
 msgid "Could not save subscription."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
-
-#: actions/subscribe.php:107
-#, fuzzy
-msgid "No such profile."
-msgstr "అటువంటి ఫైలు లేదు."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -4416,34 +3741,28 @@ msgid "SMS"
 msgstr ""
 
 #: actions/tag.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
 msgstr "%2$sలో %1$s అనే ట్యాగుతో ఉన్న నోటీసులు!"
 
 #: actions/tag.php:87
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 1.0)"
 
 #: actions/tag.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
 msgstr "%s కొరకు స్పందనల ఫీడు (RSS 2.0)"
 
 #: actions/tag.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (Atom)"
 msgstr "%s కొరకు స్పందనల ఫీడు (ఆటమ్)"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
 msgstr "జోడింపులు లేవు."
-
-#: actions/tagother.php:65
-#, fuzzy, php-format
-msgid "Tag %s"
-msgstr "ట్యాగులు"
 
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
@@ -4453,11 +3772,6 @@ msgstr "వాడుకరి ప్రొఫైలు"
 #: lib/userprofile.php:103
 msgid "Photo"
 msgstr "ఫొటో"
-
-#: actions/tagother.php:141
-#, fuzzy
-msgid "Tag user"
-msgstr "ట్యాగులు"
 
 #: actions/tagother.php:151
 msgid ""
@@ -4474,11 +3788,6 @@ msgstr ""
 msgid "Could not save tags."
 msgstr "ట్యాగులని భద్రపరచలేకపోయాం."
 
-#: actions/tagother.php:236
-#, fuzzy
-msgid "Use this form to add tags to your subscribers or subscriptions."
-msgstr "మీ ఉపకరణాన్ని మార్చడానికి ఈ ఫారాన్ని ఉపయోగించండి."
-
 #: actions/tagrss.php:35
 msgid "No such tag."
 msgstr "అటువంటి ట్యాగు లేదు."
@@ -4488,22 +3797,10 @@ msgid "You haven't blocked that user."
 msgstr "మీరు ఆ వాడుకరిని నిరోధించలేదు."
 
 #: actions/unsandbox.php:72
-#, fuzzy
 msgid "User is not sandboxed."
 msgstr "వాడుకరిని గుంపు నుండి నిరోధించలేదు."
 
-#: actions/unsilence.php:72
-#, fuzzy
-msgid "User is not silenced."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
-
-#: actions/unsubscribe.php:77
-#, fuzzy
-msgid "No profile ID in request."
-msgstr "అధీకరణ అభ్యర్థన లేదు!"
-
 #: actions/unsubscribe.php:98
-#, fuzzy
 msgid "Unsubscribed"
 msgstr "చందామాను"
 
@@ -4565,11 +3862,6 @@ msgstr "కొత్త వాడుకరులకై స్వాగత సం
 #: actions/useradminpanel.php:241
 msgid "Default subscription"
 msgstr "అప్రమేయ చందా"
-
-#: actions/useradminpanel.php:242
-#, fuzzy
-msgid "Automatically subscribe new users to this user."
-msgstr "ఉపయోగించాల్సిన యాంత్రిక కుదింపు సేవ."
 
 #: actions/useradminpanel.php:251
 msgid "Invitations"
@@ -4680,13 +3972,6 @@ msgstr ""
 msgid "Profile design"
 msgstr "ఫ్రొఫైలు రూపురేఖలు"
 
-#: actions/userdesignsettings.php:87 lib/designsettings.php:76
-#, fuzzy
-msgid ""
-"Customize the way your profile looks with a background image and a colour "
-"palette of your choice."
-msgstr "నేపథ్య చిత్రం మరియు రంగుల ఎంపికతో మీ గుంపు ఎలా కనిపించాలో మలచుకోండి."
-
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
 msgstr ""
@@ -4711,17 +3996,6 @@ msgstr "%s ఏ గుంపు లోనూ సభ్యులు కాదు."
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr "[గుంపులని వెతికి](%%action.groupsearch%%) వాటిలో చేరడానికి ప్రయత్నించండి."
 
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#. TRANS: Message is used as a subtitle in atom group notice feed.
-#. TRANS: %1$s is a group name, %2$s is a site name.
-#. TRANS: Message is used as a subtitle in atom user notice feed.
-#. TRANS: %1$s is a user name, %2$s is a site name.
-#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:70
-#: lib/atomusernoticefeed.php:76
-#, fuzzy, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr "%2$sలో %1$s మరియు స్నేహితుల నుండి తాజాకరణలు!"
-
 #: actions/version.php:75
 #, php-format
 msgid "StatusNet %s"
@@ -4733,11 +4007,6 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
-
-#: actions/version.php:163
-#, fuzzy
-msgid "Contributors"
-msgstr "అనుసంధానాలు"
 
 #: actions/version.php:170
 msgid ""
@@ -4834,13 +4103,6 @@ msgstr "గుంపు నుండి వైదొలగడం విఫలమ
 msgid "Could not update local group."
 msgstr "స్థానిక గుంపుని తాజాకరించలేకున్నాం."
 
-#. TRANS: Exception thrown when trying creating a login token failed.
-#. TRANS: %s is the user nickname for which token creation failed.
-#: classes/Login_token.php:78
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "మారుపేర్లని సృష్టించలేకపోయాం."
-
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
@@ -4851,29 +4113,11 @@ msgstr ""
 msgid "You are banned from sending direct messages."
 msgstr "నేరుగా సందేశాలు పంపడం నుండి మిమ్మల్ని నిషేధించారు."
 
-#. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:63
-#, fuzzy
-msgid "Could not insert message."
-msgstr "ట్యాగులని భద్రపరచలేకపోయాం."
-
-#. TRANS: Message given when a message could not be updated on the server.
-#: classes/Message.php:74
-#, fuzzy
-msgid "Could not update message with new URI."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
 #: classes/Notice.php:98
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
-msgstr ""
-
-#. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:193
-#, php-format
-msgid "Database error inserting hashtag: %s"
 msgstr ""
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
@@ -4892,14 +4136,6 @@ msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr "చాలా ఎక్కువ నోటీసులు అంత వేగంగా; కాస్త ఊపిరి తీసుకుని మళ్ళీ కొన్ని నిమిషాల తర్వాత వ్రాయండి."
 
-#. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:283
-#, fuzzy
-msgid ""
-"Too many duplicate messages too quickly; take a breather and post again in a "
-"few minutes."
-msgstr "చాలా ఎక్కువ నోటీసులు అంత వేగంగా; కాస్త ఊపిరి తీసుకుని మళ్ళీ కొన్ని నిమిషాల తర్వాత వ్రాయండి."
-
 #. TRANS: Client exception thrown when a user tries to post while being banned.
 #: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
@@ -4915,12 +4151,6 @@ msgstr "సందేశాన్ని భద్రపరచడంలో పొ�
 #: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
-
-#. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
-#, fuzzy
-msgid "Problem saving group inbox."
-msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
@@ -4943,15 +4173,8 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
-#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
-#: classes/Remote_profile.php:54
-#, fuzzy
-msgid "Missing profile."
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
-
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:346
-#, fuzzy
 msgid "Unable to save tag."
 msgstr "ట్యాగులని భద్రపరచలేకపోయాం."
 
@@ -4970,27 +4193,18 @@ msgstr "ఇప్పటికే చందాచేరారు!"
 msgid "User has blocked you."
 msgstr "వాడుకరి మిమ్మల్ని నిరోధించారు."
 
-#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "చందాదార్లు"
-
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
-#, fuzzy
 msgid "Could not delete subscription."
 msgstr "కొత్త చందాని చేర్చలేకపోయాం."
 
@@ -5008,7 +4222,6 @@ msgstr "గుంపుని సృష్టించలేకపోయాం."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
 #: classes/User_group.php:506
-#, fuzzy
 msgid "Could not set group URI."
 msgstr "గుంపుని సృష్టించలేకపోయాం."
 
@@ -5019,15 +4232,8 @@ msgstr "గుంపు సభ్యత్వాన్ని అమర్చల�
 
 #. TRANS: Server exception thrown when saving local group information failed.
 #: classes/User_group.php:544
-#, fuzzy
 msgid "Could not save local group info."
 msgstr "స్థానిక గుంపుని తాజాకరించలేకున్నాం."
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:109
-#, fuzzy
-msgid "Change your profile settings"
-msgstr "ఫ్రొఫైలు అమరికలని మార్చు"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:116
@@ -5046,7 +4252,6 @@ msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:137
-#, fuzzy
 msgid "Design your profile"
 msgstr "వాడుకరి ప్రొఫైలు"
 
@@ -5094,13 +4299,6 @@ msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "మీ ఈమెయిలు, అవతారం, సంకేతపదం మరియు ప్రౌఫైళ్ళను మార్చుకోండి"
 
-#. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:452
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Connect to services"
-msgstr "అనుసంధానాలు"
-
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:455
 msgid "Connect"
@@ -5120,7 +4318,7 @@ msgstr "నిర్వాహకులు"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:465
-#, fuzzy, php-format
+#, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "%sలో తోడుకై మీ స్నేహితులని మరియు సహోద్యోగులని ఆహ్వానించండి"
@@ -5283,7 +4481,6 @@ msgstr ""
 
 #. TRANS: DT element for StatusNet site content license.
 #: lib/action.php:850
-#, fuzzy
 msgid "Site content license"
 msgstr "స్టేటస్‌నెట్ మృదూపకరణ లైసెన్సు"
 
@@ -5351,12 +4548,6 @@ msgstr ""
 msgid "You cannot make changes to this site."
 msgstr "ఈ సైటుకి మీరు మార్పులు చేయలేరు."
 
-#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
-#: lib/adminpanelaction.php:110
-#, fuzzy
-msgid "Changes to that panel are not allowed."
-msgstr "నమోదు అనుమతించబడదు."
-
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
@@ -5366,13 +4557,6 @@ msgstr ""
 #: lib/adminpanelaction.php:259
 msgid "saveSettings() not implemented."
 msgstr ""
-
-#. TRANS: Client error message thrown if design settings could not be deleted in
-#. TRANS: the admin panel Design.
-#: lib/adminpanelaction.php:284
-#, fuzzy
-msgid "Unable to delete design setting."
-msgstr "మీ రూపురేఖల అమరికలని భద్రపరచలేకున్నాం."
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:350
@@ -5408,31 +4592,21 @@ msgstr "వాడుకరి"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:374
-#, fuzzy
 msgid "Access configuration"
 msgstr "రూపకల్పన స్వరూపణం"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:382
-#, fuzzy
 msgid "Paths configuration"
 msgstr "వాడుకరి స్వరూపణం"
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:390
-#, fuzzy
-msgid "Sessions configuration"
-msgstr "రూపకల్పన స్వరూపణం"
-
-#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:398
-#, fuzzy
 msgid "Edit site notice"
 msgstr "సైటు గమనికని భద్రపరచు"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:406
-#, fuzzy
 msgid "Snapshots configuration"
 msgstr "వాడుకరి స్వరూపణం"
 
@@ -5467,12 +4641,6 @@ msgstr "మీ ఉపకరణాన్ని వివరించండి"
 msgid "URL of the homepage of this application"
 msgstr "ఈ ఉపకరణం యొక్క హోమ్&zwnj;పేజీ చిరునామా"
 
-#. TRANS: Form input field label.
-#: lib/applicationeditform.php:226
-#, fuzzy
-msgid "Source URL"
-msgstr "మూలము"
-
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
 msgid "Organization responsible for this application"
@@ -5480,7 +4648,6 @@ msgstr "ఈ ఉపకరణానికి బాధ్యతాయుతమై�
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
-#, fuzzy
 msgid "URL for the homepage of the organization"
 msgstr "ఈ ఉపకరణం యొక్క హోమ్&zwnj;పేజీ చిరునామా"
 
@@ -5540,13 +4707,6 @@ msgstr "చదవడం-మాత్రమే"
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr ""
 
-#. TRANS: Button label
-#: lib/applicationlist.php:159
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Revoke"
-msgstr "తొలగించు"
-
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
 msgid "Attachments"
@@ -5559,28 +4719,12 @@ msgstr "రచయిత"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
-#, fuzzy
 msgid "Provider"
 msgstr "మునుజూపు"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
 msgstr ""
-
-#: lib/attachmenttagcloudsection.php:48
-#, fuzzy
-msgid "Tags for this attachment"
-msgstr "అటువంటి జోడింపు లేదు."
-
-#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-#, fuzzy
-msgid "Password changing failed"
-msgstr "సంకేతపదం మార్పు"
-
-#: lib/authenticationplugin.php:236
-#, fuzzy
-msgid "Password changing is not allowed"
-msgstr "సంకేతపదం మార్పు"
 
 #: lib/channel.php:157 lib/channel.php:177
 msgid "Command results"
@@ -5594,45 +4738,21 @@ msgstr "ఆదేశం పూర్తయ్యింది"
 msgid "Command failed"
 msgstr "ఆదేశం విఫలమైంది"
 
-#: lib/command.php:83 lib/command.php:105
-msgid "Notice with that id does not exist"
-msgstr "ఆ గుర్తింపుతో ఏ నోటీసు లేదు"
-
-#: lib/command.php:99 lib/command.php:596
-#, fuzzy
-msgid "User has no last notice"
-msgstr "వాడుకరికి ప్రొఫైలు లేదు."
-
-#. TRANS: Message given requesting a profile for a non-existing user.
-#. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
-#, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
-#. TRANS: Message given getting a non-existing user.
-#. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
-#, fuzzy, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr "క్షమించండి, ఈ ఆదేశం ఇంకా అమలుపరచబడలేదు."
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#. TRANS: Message given having nudged another user.
-#. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
-#, fuzzy, php-format
-msgid "Nudge sent to %s"
-msgstr "%sకి టపాచెయ్యి"
-
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5643,55 +4763,39 @@ msgstr ""
 "చందాదార్లు: %2$s\n"
 "నోటీసులు: %3$s"
 
-#: lib/command.php:302
+#. TRANS: Text shown when a notice has been marked as favourite successfully.
+#: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr "నోటీసుని ఇష్టాంశంగా గుర్తించాం."
 
-#: lib/command.php:323
-msgid "You are already a member of that group"
-msgstr "మీరు ఇప్పటికే ఆ గుంపులో సభ్యులు"
-
-#. TRANS: Message given having failed to add a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
-#, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "వాడుకరి %1$sని %2$s గుంపులో చేర్చలేకపోయాం"
-
-#. TRANS: Message given having failed to remove a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
-#, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "వాడుకరి %1$sని %2$s గుంపు నుండి తొలగించలేకపోయాం"
-
 #. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
+#: lib/command.php:434
 #, php-format
 msgid "Fullname: %s"
 msgstr "పూర్తిపేరు: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
+#: lib/command.php:438 lib/mail.php:268
 #, php-format
 msgid "Location: %s"
 msgstr "ప్రాంతం: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
+#: lib/command.php:442 lib/mail.php:271
 #, php-format
 msgid "Homepage: %s"
 msgstr "హోంపేజీ: %s"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
+#: lib/command.php:446
 #, php-format
 msgid "About: %s"
 msgstr "గురించి: %s"
 
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5700,147 +4804,81 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr "సందేశం చాలా పొడవుగా ఉంది - %1$d అక్షరాలు గరిష్ఠం, మీరు %2$d పంపించారు"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr "నోటిసు చాలా పొడవుగా ఉంది - %1$d అక్షరాలు గరిష్ఠం, మీరు %2$d పంపించారు."
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, php-format
-msgid "Direct message to %s sent"
-msgstr "%sకి నేరు సందేశాన్ని పంపించాం"
-
-#: lib/command.php:494
-#, fuzzy
-msgid "Error sending direct message."
-msgstr "నేరుగా సందేశాలు పంపడం నుండి మిమ్మల్ని నిషేధించారు."
-
-#: lib/command.php:514
-msgid "Cannot repeat your own notice"
-msgstr "మీ నోటిసుని మీరే పునరావృతించలేరు"
-
-#: lib/command.php:519
-msgid "Already repeated that notice"
-msgstr "ఇప్పటికే ఈ నోటీసుని పునరావృతించారు"
-
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
-#, fuzzy, php-format
-msgid "Notice from %s repeated"
-msgstr "నోటీసుని పునరావృతించారు"
-
-#: lib/command.php:531
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "నోటీసుని పునరావృతించడంలో పొరపాటు."
 
-#: lib/command.php:562
-#, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "నోటిసు చాలా పొడవుగా ఉంది - %d అక్షరాలు గరిష్ఠం, మీరు %d పంపించారు"
-
-#: lib/command.php:571
-#, php-format
-msgid "Reply to %s sent"
-msgstr "%sకి స్పందనని పంపించాం"
-
-#: lib/command.php:573
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
 msgid "Error saving notice."
 msgstr "నోటీసుని భద్రపరచడంలో పొరపాటు."
 
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
-msgstr "ఏవరికి చందా చేరాలనుకుంటున్నారో ఆ వాడుకరి పేరు తెలియజేయండి"
-
-#: lib/command.php:628
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
-#: lib/command.php:634
-#, php-format
-msgid "Subscribed to %s"
-msgstr "%sకి చందా చేరారు"
-
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
-msgstr "ఎవరి నుండి చందా విరమించాలనుకుంటున్నారో ఆ వాడుకరి పేరు తెలియజేయండి"
-
-#: lib/command.php:664
-#, php-format
-msgid "Unsubscribed from %s"
-msgstr "%s నుండి చందా విరమించారు"
-
-#: lib/command.php:682 lib/command.php:705
-#, fuzzy
-msgid "Command not yet implemented."
-msgstr "క్షమించండి, ఈ ఆదేశం ఇంకా అమలుపరచబడలేదు."
-
-#: lib/command.php:685
-#, fuzzy
-msgid "Notification off."
-msgstr "నిర్ధారణ సంకేతం లేదు."
-
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:708
-#, fuzzy
-msgid "Notification on."
-msgstr "నిర్ధారణ సంకేతం లేదు."
-
-#: lib/command.php:710
-#, fuzzy
-msgid "Can't turn on notification."
-msgstr "మీ నోటీసుని మీరే పునరావృతించలేరు."
-
-#: lib/command.php:723
-msgid "Login command is disabled"
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
 msgstr ""
 
-#: lib/command.php:734
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
-msgstr "ఈ లంకెని ఒకే సారి ఉపయోగించగలరు, మరియు అది పనిచేసేది 2 నిమిషాలు మాత్రమే: %s"
-
-#: lib/command.php:761
-#, php-format
-msgid "Unsubscribed  %s"
-msgstr "%s నుండి చందా విరమించారు"
-
-#: lib/command.php:778
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
 msgid "You are not subscribed to anyone."
 msgstr "మీరు ఎవరికీ చందాచేరలేదు."
 
-#: lib/command.php:780
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "%sకి స్పందనలు"
 msgstr[1] "%sకి స్పందనలు"
 
-#: lib/command.php:800
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
 msgid "No one is subscribed to you."
 msgstr "మీకు చందాదార్లు ఎవరూ లేరు."
 
-#: lib/command.php:802
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "%sకి స్పందనలు"
 msgstr[1] "%sకి స్పందనలు"
 
-#: lib/command.php:822
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
 msgid "You are not a member of any groups."
 msgstr "మీరు ఏ గుంపులోనూ సభ్యులు కాదు."
 
-#: lib/command.php:824
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 msgstr[1] "మీరు ఇప్పటికే లోనికి ప్రవేశించారు!"
 
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5894,11 +4932,6 @@ msgstr "స్వరూపణపు దస్త్రాల కొరకు ఈ
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
-#: lib/common.php:139
-#, fuzzy
-msgid "Go to the installer."
-msgstr "సైటు లోనికి ప్రవేశించండి"
-
 #: lib/connectsettingsaction.php:110
 msgid "IM"
 msgstr ""
@@ -5932,17 +4965,7 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "మీ వ్యక్తిగత నేపథ్యపు చిత్రాన్ని మీరు ఎక్కించవచ్చు. గరిష్ఠ ఫైలు పరిమాణం 2మెబై."
 
-#: lib/designsettings.php:418
-msgid "Design defaults restored."
-msgstr ""
-
-#: lib/disfavorform.php:114 lib/disfavorform.php:140
-#, fuzzy
-msgid "Disfavor this notice"
-msgstr "ఈ నోటీసుని తొలగించు"
-
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
 msgstr "ఈ నోటీసుని పునరావృతించు"
 
@@ -5982,11 +5005,6 @@ msgstr "అన్నీ"
 msgid "Select tag to filter"
 msgstr ""
 
-#: lib/galleryaction.php:140
-#, fuzzy
-msgid "Tag"
-msgstr "ట్యాగులు"
-
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
 msgstr ""
@@ -6001,7 +5019,6 @@ msgid "Grant this user the \"%s\" role"
 msgstr ""
 
 #: lib/groupeditform.php:163
-#, fuzzy
 msgid "URL of the homepage or blog of the group or topic"
 msgstr "ఈ ఉపకరణం యొక్క హోమ్&zwnj;పేజీ చిరునామా"
 
@@ -6064,11 +5081,6 @@ msgstr "ఎక్కువమంది సభ్యులున్న గుం�
 msgid "Groups with most posts"
 msgstr "ఎక్కువ టపాలున్న గుంపులు"
 
-#: lib/grouptagcloudsection.php:56
-#, fuzzy, php-format
-msgid "Tags in %s group's notices"
-msgstr "%s గుంపు లక్షణాలను మార్చు"
-
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
@@ -6077,11 +5089,6 @@ msgstr ""
 #: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr ""
-
-#: lib/imagefile.php:88
-#, fuzzy, php-format
-msgid "That file is too big. The maximum file size is %s."
-msgstr "ఇది చాలా పొడవుంది. గరిష్ఠ సందేశ పరిమాణం 140 అక్షరాలు."
 
 #: lib/imagefile.php:93
 msgid "Partial upload."
@@ -6096,7 +5103,6 @@ msgid "Not an image or corrupt file."
 msgstr "బొమ్మ కాదు లేదా పాడైపోయిన ఫైలు."
 
 #: lib/imagefile.php:122
-#, fuzzy
 msgid "Lost our file."
 msgstr "అటువంటి ఫైలు లేదు."
 
@@ -6118,7 +5124,7 @@ msgid "[%s]"
 msgstr "[%s]"
 
 #: lib/jabber.php:567
-#, fuzzy, php-format
+#, php-format
 msgid "Unknown inbox source %d."
 msgstr "గుర్తు తెలియని భాష \"%s\"."
 
@@ -6248,12 +5254,6 @@ msgstr "%s స్థితి"
 #: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "SMS నిర్ధారణ"
-
-#. TRANS: Main body heading for SMS-by-email address confirmation message
-#: lib/mail.php:463
-#, fuzzy, php-format
-msgid "%s: confirm you own this phone number with this code:"
-msgstr "ఈ ఫోను నంబరు యొక్క నిర్ధారణకై వేచివుంది."
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -6456,11 +5456,6 @@ msgstr ""
 msgid "from"
 msgstr "నుండి"
 
-#: lib/mailhandler.php:37
-#, fuzzy
-msgid "Could not parse message."
-msgstr "వాడుకరిని తాజాకరించలేకున్నాం."
-
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
 msgstr "నమోదైన వాడుకరి కాదు."
@@ -6468,16 +5463,6 @@ msgstr "నమోదైన వాడుకరి కాదు."
 #: lib/mailhandler.php:46
 msgid "Sorry, that is not your incoming email address."
 msgstr "క్షమించండి, అది మీ లోనికివచ్చు ఈమెయిలు చిరునామా కాదు."
-
-#: lib/mailhandler.php:50
-#, fuzzy
-msgid "Sorry, no incoming email allowed."
-msgstr "క్షమించండి, అది మీ లోనికివచ్చు ఈమెయిలు చిరునామా కాదు."
-
-#: lib/mailhandler.php:228
-#, fuzzy, php-format
-msgid "Unsupported message type: %s"
-msgstr "%s కి నేరు సందేశాలు"
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
@@ -6518,7 +5503,6 @@ msgid "File could not be moved to destination directory."
 msgstr ""
 
 #: lib/mediafile.php:202 lib/mediafile.php:238
-#, fuzzy
 msgid "Could not determine file's MIME type."
 msgstr "ఇష్టాంశాన్ని తొలగించలేకపోయాం."
 
@@ -6531,11 +5515,6 @@ msgstr ""
 #, php-format
 msgid "%s is not a supported file type on this server."
 msgstr ""
-
-#: lib/messageform.php:120
-#, fuzzy
-msgid "Send a direct notice"
-msgstr "సైటు గమనికని భద్రపరచు"
 
 #: lib/messageform.php:146
 msgid "To"
@@ -6551,7 +5530,6 @@ msgid "Send"
 msgstr "పంపించు"
 
 #: lib/noticeform.php:160
-#, fuzzy
 msgid "Send a notice"
 msgstr "సైటు గమనిక"
 
@@ -6622,7 +5600,6 @@ msgid "in context"
 msgstr "సందర్భంలో"
 
 #: lib/noticelist.php:603
-#, fuzzy
 msgid "Repeated by"
 msgstr "%s యొక్క పునరావృతం"
 
@@ -6638,27 +5615,11 @@ msgstr "స్పందించండి"
 msgid "Notice repeated"
 msgstr "నోటీసుని పునరావృతించారు"
 
-#: lib/nudgeform.php:116
-#, fuzzy
-msgid "Nudge this user"
-msgstr "ఈ వాడుకరిని తొలగించు"
-
-#: lib/nudgeform.php:128
-#, fuzzy
-msgid "Nudge"
-msgstr "బాడ్జి"
-
-#: lib/nudgeform.php:128
-#, fuzzy
-msgid "Send a nudge to this user"
-msgstr "ఈ వాడుకరికి ఒక నేరు సందేశాన్ని పంపించండి"
-
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
 msgstr "కొత్త ప్రొపైలుని చేర్చటంలో పొరపాటు"
 
 #: lib/oauthstore.php:291
-#, fuzzy
 msgid "Error inserting avatar"
 msgstr "కొత్త ప్రొపైలుని చేర్చటంలో పొరపాటు"
 
@@ -6671,7 +5632,6 @@ msgid "Error inserting remote profile"
 msgstr "దూరపు ప్రొపైలుని చేర్చటంలో పొరపాటు"
 
 #: lib/oauthstore.php:345
-#, fuzzy
 msgid "Duplicate notice"
 msgstr "నోటీసుని తొలగించు"
 
@@ -6711,11 +5671,6 @@ msgstr "మీరు పంపిన సందేశాలు"
 #, php-format
 msgid "Tags in %s's notices"
 msgstr ""
-
-#: lib/plugin.php:115
-#, fuzzy
-msgid "Unknown"
-msgstr "తెలియని చర్య"
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -6775,7 +5730,6 @@ msgid "Popular"
 msgstr "ప్రాచుర్యం"
 
 #: lib/redirectingaction.php:95
-#, fuzzy
 msgid "No return-to arguments."
 msgstr "జోడింపులు లేవు."
 
@@ -6791,22 +5745,11 @@ msgstr "అవును"
 msgid "Repeat this notice"
 msgstr "ఈ నోటీసుని పునరావృతించు"
 
-#: lib/revokeroleform.php:91
-#, fuzzy, php-format
-msgid "Revoke the \"%s\" role from this user"
-msgstr "ఈ గుంపునుండి ఈ వాడుకరిని నిరోధించు"
-
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
 msgstr ""
 
-#: lib/sandboxform.php:67
-#, fuzzy
-msgid "Sandbox"
-msgstr "వచ్చినవి"
-
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
 msgstr "ఈ వాడుకరిని నిరోధించు"
 
@@ -6834,10 +5777,6 @@ msgstr "ప్రజలు"
 msgid "Find people on this site"
 msgstr "ఈ సైటులోని వ్యక్తులని కనుగొనండి"
 
-#: lib/searchgroupnav.php:83
-msgid "Find content of notices"
-msgstr ""
-
 #: lib/searchgroupnav.php:85
 msgid "Find groups on this site"
 msgstr "ఈ సైటులోని గుంపులని కనుగొనండి"
@@ -6851,12 +5790,10 @@ msgid "More..."
 msgstr "మరింత..."
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
 msgstr "సైటు గమనిక"
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
 msgstr "ఈ వాడుకరిని తొలగించు"
 
@@ -6906,13 +5843,6 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
-#: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
-msgid "Failed saving theme."
-msgstr "అవతారపు తాజాకరణ విఫలమైంది."
-
 #: lib/themeuploader.php:139
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -6938,7 +5868,6 @@ msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
 #: lib/themeuploader.php:234
-#, fuzzy
 msgid "Error opening theme archive."
 msgstr "నిరోధాన్ని తొలగించడంలో పొరపాటు."
 
@@ -6946,21 +5875,11 @@ msgstr "నిరోధాన్ని తొలగించడంలో పొ�
 msgid "Top posters"
 msgstr ""
 
-#: lib/unsandboxform.php:69
-msgid "Unsandbox"
-msgstr ""
-
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
 msgstr "ఈ వాడుకరి నుండి చందామాను"
 
-#: lib/unsilenceform.php:67
-msgid "Unsilence"
-msgstr ""
-
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
 msgstr "ఈ వాడుకరిని తొలగించు"
 
@@ -6971,11 +5890,6 @@ msgstr "ఈ వాడుకరి నుండి చందామాను"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "చందామాను"
-
-#: lib/usernoprofileexception.php:58
-#, php-format
-msgid "User %s (%d) has no profile record."
-msgstr "వాడుకరి %s (%d) కి ప్రొఫైలు లేదు."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -7004,11 +5918,6 @@ msgstr "ఈ వాడుకరికి ఒక నేరు సందేశా�
 #: lib/userprofile.php:288
 msgid "Message"
 msgstr "సందేశం"
-
-#: lib/userprofile.php:326
-#, fuzzy
-msgid "Moderate"
-msgstr "సమన్వయకర్త"
 
 #: lib/userprofile.php:364
 msgid "User role"
@@ -7087,8 +5996,3 @@ msgstr "%s అనేది సరైన రంగు కాదు!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s అనేది సరైన రంగు కాదు! 3 లేదా 6 హెక్స్ అక్షరాలను వాడండి."
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "నోటిసు చాలా పొడవుగా ఉంది - %1$d అక్షరాలు గరిష్ఠం, మీరు %2$d పంపించారు."
