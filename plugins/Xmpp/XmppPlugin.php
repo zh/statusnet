@@ -364,7 +364,7 @@ class XmppPlugin extends ImPlugin
         return $html . ' ' . $entry;
     }
 
-    function receive_raw_message($pl)
+    function receiveRawMessage($pl)
     {
         $from = $this->normalize($pl['from']);
 

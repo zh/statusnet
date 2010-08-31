@@ -117,7 +117,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return boolean true if processing completed, false for temporary failures
      */
-    abstract function receive_raw_message($data);
+    abstract function receiveRawMessage($data);
 
     /**
      * get the screenname of the daemon that sends and receives message for this service

@@ -131,7 +131,7 @@ class AimPlugin extends ImPlugin
      *
      * @return true if processing completed, false if message should be reprocessed
      */
-    function receive_raw_message($message)
+    function receiveRawMessage($message)
     {
         $info=Aim::getMessageInfo($message);
         $from = $info['from'];

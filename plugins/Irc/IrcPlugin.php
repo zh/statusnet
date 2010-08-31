@@ -203,7 +203,7 @@ class IrcPlugin extends ImPlugin {
      *
      * @return boolean true if processing completed, false if message should be reprocessed
      */
-    public function receive_raw_message($data) {
+    public function receiveRawMessage($data) {
         if (strpos($data['source'], '#') === 0) {
             $message = $data['message'];
             $parts = explode(' ', $message, 2);

@@ -172,7 +172,7 @@ class MsnPlugin extends ImPlugin {
      * @param array $data Data
      * @return true if processing completed, false if message should be reprocessed
      */
-    public function receive_raw_message($data) {
+    public function receiveRawMessage($data) {
         $this->handle_incoming($data['sender'], $data['message']);
         return true;
     }
