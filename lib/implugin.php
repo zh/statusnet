@@ -318,7 +318,7 @@ abstract class ImPlugin extends Plugin
      * @return boolean success flag
      */
 
-    function broadcast_notice($notice)
+    function broadcastNotice($notice)
     {
 
         $ni = $notice->whoGets();
