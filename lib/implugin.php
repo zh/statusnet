@@ -88,7 +88,7 @@ abstract class ImPlugin extends Plugin
      */
     function sendNotice($screenname, $notice)
     {
-        return $this->sendMessage($screenname, $this->format_notice($notice));
+        return $this->sendMessage($screenname, $this->formatNotice($notice));
     }
 
     /**
@@ -371,7 +371,7 @@ abstract class ImPlugin extends Plugin
      * @return string plain-text version of the notice, with user nickname prefixed
      */
 
-    function format_notice($notice)
+    function formatNotice($notice)
     {
         $profile = $notice->getProfile();
         return $profile->nickname . ': ' . $notice->content . ' [' . $notice->id . ']';
