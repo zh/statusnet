@@ -170,7 +170,7 @@ abstract class ImPlugin extends Plugin
      */
     function get_user($screenname)
     {
-        $user_im_prefs = $this->get_user_im_prefs_from_screenname($screenname);
+        $user_im_prefs = $this->getUserImPrefsFromScreenname($screenname);
         if($user_im_prefs){
             $user = User::staticGet('id', $user_im_prefs->user_id);
             $user_im_prefs->free();
@@ -188,7 +188,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return User_im_prefs user_im_prefs
      */
-    function get_user_im_prefs_from_screenname($screenname)
+    function getUserImPrefsFromScreenname($screenname)
     {
         $user_im_prefs = User_im_prefs::pkeyGet(
             array('transport' => $this->transport,
