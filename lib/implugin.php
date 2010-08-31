@@ -418,7 +418,7 @@ abstract class ImPlugin extends Plugin
      * @param string $txt message text
      * @return boolean true if OTR
      */
-    protected function is_otr($txt)
+    protected function isOtr($txt)
     {
         if (preg_match('/^\?OTR/', $txt)) {
             return true;
@@ -456,7 +456,7 @@ abstract class ImPlugin extends Plugin
         } else if ($this->isAutoreply($notice_text)) {
             common_log(LOG_INFO, 'Ignoring auto reply from ' . $from);
             return;
-        } else if ($this->is_otr($notice_text)) {
+        } else if ($this->isOtr($notice_text)) {
             common_log(LOG_INFO, 'Ignoring OTR from ' . $from);
             return;
         } else {

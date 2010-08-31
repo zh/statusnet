@@ -247,7 +247,7 @@ class IrcPlugin extends ImPlugin {
         } else if ($this->isAutoreply($notice_text)) {
             common_log(LOG_INFO, 'Ignoring auto reply from ' . $nick);
             return;
-        } else if ($this->is_otr($notice_text)) {
+        } else if ($this->isOtr($notice_text)) {
             common_log(LOG_INFO, 'Ignoring OTR from ' . $nick);
             return;
         } else {
