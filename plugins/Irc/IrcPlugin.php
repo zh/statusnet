@@ -235,7 +235,7 @@ class IrcPlugin extends ImPlugin {
         $_cur = $user;
 
         if (!$user) {
-            $this->send_from_site($nick, 'Unknown user; go to ' .
+            $this->sendFromSite($nick, 'Unknown user; go to ' .
                              common_local_url('imsettings') .
                              ' to add your address to your account');
             common_log(LOG_WARNING, 'Message from unknown user ' . $nick);

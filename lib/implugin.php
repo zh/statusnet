@@ -246,7 +246,7 @@ abstract class ImPlugin extends Plugin
      *
      * @param boolean success
      */
-    protected function send_from_site($screenname, $msg)
+    protected function sendFromSite($screenname, $msg)
     {
         $text = '['.common_config('site', 'name') . '] ' . $msg;
         $this->sendMessage($screenname, $text);
@@ -444,7 +444,7 @@ abstract class ImPlugin extends Plugin
         $_cur = $user;
 
         if (!$user) {
-            $this->send_from_site($from, 'Unknown user; go to ' .
+            $this->sendFromSite($from, 'Unknown user; go to ' .
                              common_local_url('imsettings') .
                              ' to add your address to your account');
             common_log(LOG_WARNING, 'Message from unknown user ' . $from);
@@ -486,7 +486,7 @@ abstract class ImPlugin extends Plugin
         $body = trim(strip_tags($body));
         $content_shortened = common_shorten_links($body);
         if (Notice::contentTooLong($content_shortened)) {
-          $this->send_from_site($screenname, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
+          $this->sendFromSite($screenname, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
                                           Notice::maxContent(),
                                           mb_strlen($content_shortened)));
           return;
@@ -496,7 +496,7 @@ abstract class ImPlugin extends Plugin
             $notice = Notice::saveNew($user->id, $content_shortened, $this->transport);
         } catch (Exception $e) {
             common_log(LOG_ERR, $e->getMessage());
-            $this->send_from_site($from, $e->getMessage());
+            $this->sendFromSite($from, $e->getMessage());
             return;
         }
 
