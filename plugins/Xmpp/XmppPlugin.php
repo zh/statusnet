@@ -378,7 +378,7 @@ class XmppPlugin extends ImPlugin
             return;
         }
 
-        $this->handle_incoming($from, $pl['body']);
+        $this->handleIncoming($from, $pl['body']);
         
         return true;
     }

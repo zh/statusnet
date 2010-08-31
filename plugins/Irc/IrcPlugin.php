@@ -211,10 +211,10 @@ class IrcPlugin extends ImPlugin {
             if (in_array($command, $this->whiteList)) {
                 $this->handle_channel_incoming($data['sender'], $data['source'], $message);
             } else {
-                $this->handle_incoming($data['sender'], $message);
+                $this->handleIncoming($data['sender'], $message);
             }
         } else {
-            $this->handle_incoming($data['sender'], $data['message']);
+            $this->handleIncoming($data['sender'], $data['message']);
         }
         return true;
     }

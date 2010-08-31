@@ -173,7 +173,7 @@ class MsnPlugin extends ImPlugin {
      * @return true if processing completed, false if message should be reprocessed
      */
     public function receiveRawMessage($data) {
-        $this->handle_incoming($data['sender'], $data['message']);
+        $this->handleIncoming($data['sender'], $data['message']);
         return true;
     }
 

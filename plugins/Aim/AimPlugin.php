@@ -138,7 +138,7 @@ class AimPlugin extends ImPlugin
         $user = $this->get_user($from);
         $notice_text = $info['message'];
 
-        $this->handle_incoming($from, $notice_text);
+        $this->handleIncoming($from, $notice_text);
 
         return true;
     }

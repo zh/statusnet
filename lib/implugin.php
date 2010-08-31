@@ -106,7 +106,7 @@ abstract class ImPlugin extends Plugin
     /**
      * receive a raw message
      * Raw IM data is taken from the incoming queue, and passed to this function.
-     * It should parse the raw message and call handle_incoming()
+     * It should parse the raw message and call handleIncoming()
      * 
      * Returning false may CAUSE REPROCESSING OF THE QUEUE ITEM, and should
      * be used for temporary failures only. For permanent failures such as
@@ -436,7 +436,7 @@ abstract class ImPlugin extends Plugin
      *
      * @param boolean success
      */
-    protected function handle_incoming($from, $notice_text)
+    protected function handleIncoming($from, $notice_text)
     {
         $user = $this->get_user($from);
         // For common_current_user to work
