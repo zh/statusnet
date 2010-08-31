@@ -285,7 +285,7 @@ abstract class ImPlugin extends Plugin
      * @return boolean success flag
      */
 
-    function public_notice($notice)
+    function publicNotice($notice)
     {
         // Now, users who want everything
 
