@@ -210,7 +210,7 @@ abstract class ImPlugin extends Plugin
      */
     function get_screenname($user)
     {
-        $user_im_prefs = $this->get_user_im_prefs_from_user($user);
+        $user_im_prefs = $this->getUserImPrefsFromUser($user);
         if ($user_im_prefs) {
             return $user_im_prefs->screenname;
         } else {
@@ -226,7 +226,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return User_im_prefs user_im_prefs of that user
      */
-    function get_user_im_prefs_from_user($user)
+    function getUserImPrefsFromUser($user)
     {
         $user_im_prefs = User_im_prefs::pkeyGet(
             array('transport' => $this->transport,
@@ -329,7 +329,7 @@ abstract class ImPlugin extends Plugin
                 // either not a local user, or just not found
                 continue;
             }
-            $user_im_prefs = $this->get_user_im_prefs_from_user($user);
+            $user_im_prefs = $this->getUserImPrefsFromUser($user);
             if(!$user_im_prefs || !$user_im_prefs->notify){
                 continue;
             }
