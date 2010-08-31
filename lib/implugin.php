@@ -402,7 +402,7 @@ abstract class ImPlugin extends Plugin
      * @param string $txt message text
      * @return boolean true if autoreply
      */
-    protected function is_autoreply($txt)
+    protected function isAutoreply($txt)
     {
         if (preg_match('/[\[\(]?[Aa]uto[-\s]?[Rr]e(ply|sponse)[\]\)]/', $txt)) {
             return true;
@@ -453,7 +453,7 @@ abstract class ImPlugin extends Plugin
         if ($this->handleCommand($user, $notice_text)) {
             common_log(LOG_INFO, "Command message by $from handled.");
             return;
-        } else if ($this->is_autoreply($notice_text)) {
+        } else if ($this->isAutoreply($notice_text)) {
             common_log(LOG_INFO, 'Ignoring auto reply from ' . $from);
             return;
         } else if ($this->is_otr($notice_text)) {

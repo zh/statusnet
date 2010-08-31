@@ -244,7 +244,7 @@ class IrcPlugin extends ImPlugin {
         if ($this->handle_channel_command($user, $channel, $notice_text)) {
             common_log(LOG_INFO, "Command message by $nick handled.");
             return;
-        } else if ($this->is_autoreply($notice_text)) {
+        } else if ($this->isAutoreply($notice_text)) {
             common_log(LOG_INFO, 'Ignoring auto reply from ' . $nick);
             return;
         } else if ($this->is_otr($notice_text)) {
