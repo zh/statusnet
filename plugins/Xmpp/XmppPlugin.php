@@ -254,7 +254,7 @@ class XmppPlugin extends ImPlugin
         return false;
     }
 
-    function daemon_screenname()
+    function daemonScreenname()
     {
         $ret = $this->user . '@' . $this->server;
         if($this->resource)

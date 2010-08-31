@@ -124,7 +124,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return string screenname of this plugin
      */
-    abstract function daemon_screenname();
+    abstract function daemonScreenname();
 
     /**
      * get the microid uri of a given screenname
@@ -599,7 +599,7 @@ abstract class ImPlugin extends Plugin
     {
         $transports[$this->transport] = array(
             'display' => $this->getDisplayName(),
-            'daemon_screenname' => $this->daemon_screenname());
+            'daemonScreenname' => $this->daemonScreenname());
     }
 
     function onSendImConfirmationCode($transport, $screenname, $code, $user)

@@ -95,7 +95,7 @@ class IrcPlugin extends ImPlugin {
      *
      * @return string Screenname
      */
-    public function daemon_screenname() {
+    public function daemonScreenname() {
         return $this->nick;
     }
 

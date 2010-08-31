@@ -78,7 +78,7 @@ class MsnPlugin extends ImPlugin {
      *
      * @return string Screenname
      */
-    public function daemon_screenname() {
+    public function daemonScreenname() {
         return $this->user;
     }
 

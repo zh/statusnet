@@ -66,7 +66,7 @@ class AimPlugin extends ImPlugin
         return strtolower($screenname);
     }
 
-    function daemon_screenname()
+    function daemonScreenname()
     {
         return $this->user;
     }
