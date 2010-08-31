@@ -982,32 +982,40 @@ class Action extends HTMLOutputter // lawsuit
     function handle($argarray=null)
     {
         header('Vary: Accept-Encoding,Cookie');
+
         $lm   = $this->lastModified();
         $etag = $this->etag();
+
         if ($etag) {
             header('ETag: ' . $etag);
         }
+
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
-                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-                $ims = strtotime($if_modified_since);
-                if ($lm <= $ims) {
-                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
-                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
-                    if (!$if_none_match ||
-                        !$etag ||
-                        $this->_hasEtag($etag, $if_none_match)) {
-                        header('HTTP/1.1 304 Not Modified');
-                        // Better way to do this?
-                        exit(0);
-                    }
-                }
-            }
-
             if ($this->isCacheable()) {
                 header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', 0 ) . ' GMT' );
                 header( "Cache-Control: private, must-revalidate, max-age=0" );
+                header( "Pragma: underwear-catapult");
+            }
+        }
+
+        if ($etag) {
+            $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+              $_SERVER['HTTP_IF_NONE_MATCH'] : null;
+            if ($if_none_match && $this->_hasEtag($etag, $if_none_match)) {
+                header('HTTP/1.1 304 Not Modified');
+                // Better way to do this?
+                exit(0);
+            }
+        }
+
+        if ($lm && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+            $ims = strtotime($if_modified_since);
+            if ($lm <= $ims) {
+                header('HTTP/1.1 304 Not Modified');
+                // Better way to do this?
+                exit(0);
             }
         }
     }
