@@ -261,7 +261,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return boolean success value
      */
-    function send_confirmation_code($screenname, $code, $user)
+    function sendConfirmationCode($screenname, $code, $user)
     {
         $body = sprintf(_('User "%s" on %s has said that your %s screenname belongs to them. ' .
           'If that\'s true, you can confirm by clicking on this URL: ' .
@@ -606,7 +606,7 @@ abstract class ImPlugin extends Plugin
     {
         if($transport == $this->transport)
         {
-            $this->send_confirmation_code($screenname, $code, $user);
+            $this->sendConfirmationCode($screenname, $code, $user);
             return false;
         }
     }

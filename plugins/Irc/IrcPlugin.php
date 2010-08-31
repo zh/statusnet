@@ -289,7 +289,7 @@ class IrcPlugin extends ImPlugin {
      * @param User $user user sending to
      * @return boolean success value
      */
-    public function send_confirmation_code($screenname, $code, $user, $checked = false) {
+    public function sendConfirmationCode($screenname, $code, $user, $checked = false) {
         $body = sprintf(_('User "%s" on %s has said that your %s screenname belongs to them. ' .
           'If that\'s true, you can confirm by clicking on this URL: ' .
           '%s' .
@@ -299,7 +299,7 @@ class IrcPlugin extends ImPlugin {
           $user->nickname, common_config('site', 'name'), $this->getDisplayName(), common_local_url('confirmaddress', array('code' => $code)));
 
         if ($this->regcheck && !$checked) {
-            return $this->checked_send_confirmation_code($screenname, $code, $user);
+            return $this->checked_sendConfirmationCode($screenname, $code, $user);
         } else {
             return $this->sendMessage($screenname, $body);
         }
@@ -314,7 +314,7 @@ class IrcPlugin extends ImPlugin {
     * @param User $user User sending to
     * @return boolean true on succes
     */
-    public function checked_send_confirmation_code($screenname, $code, $user) {
+    public function checked_sendConfirmationCode($screenname, $code, $user) {
         $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
         $this->enqueueOutgoingRaw(
             array(
