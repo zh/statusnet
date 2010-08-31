@@ -191,7 +191,7 @@ class XmppManager extends ImManager
 
     function handle_xmpp_message(&$pl)
     {
-        $this->plugin->enqueue_incoming_raw($pl);
+        $this->plugin->enqueueIncomingRaw($pl);
         return true;
     }
 

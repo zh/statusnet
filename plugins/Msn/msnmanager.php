@@ -161,7 +161,7 @@ class MsnManager extends ImManager {
     * @return boolean
     */
     public function handle_msn_message($data) {
-        $this->plugin->enqueue_incoming_raw($data);
+        $this->plugin->enqueueIncomingRaw($data);
         return true;
     }
 

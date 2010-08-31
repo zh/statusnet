@@ -155,7 +155,7 @@ abstract class ImPlugin extends Plugin
      *
      * @param object $data
      */
-    function enqueue_incoming_raw($data)
+    function enqueueIncomingRaw($data)
     {
         $qm = QueueManager::get();
         $qm->enqueue($data, $this->transport . '-in');

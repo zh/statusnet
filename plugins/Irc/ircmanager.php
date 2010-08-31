@@ -209,7 +209,7 @@ class IrcManager extends ImManager {
     * @return boolean
     */
     public function handle_irc_message($data) {
-        $this->plugin->enqueue_incoming_raw($data);
+        $this->plugin->enqueueIncomingRaw($data);
         return true;
     }
 
