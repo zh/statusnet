@@ -1004,7 +1004,27 @@ class Action extends HTMLOutputter // lawsuit
                     }
                 }
             }
+
+            if ($this->isCacheable()) {
+                header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', 0 ) . ' GMT' );
+                header( "Cache-Control: private, must-revalidate, max-age=0" );
+            }
         }
+    }
+
+    /**
+     * Is this action cacheable?
+     *
+     * If the action returns a last-modified
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return boolean is read only action?
+     */
+
+    function isCacheable()
+    {
+        return true;
     }
 
     /**
