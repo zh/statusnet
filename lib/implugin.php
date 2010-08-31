@@ -384,7 +384,7 @@ abstract class ImPlugin extends Plugin
      * @param string $body message text
      * @return boolean true if the message was a command and was executed, false if it was not a command
      */
-    protected function handle_command($user, $body)
+    protected function handleCommand($user, $body)
     {
         $inter = new CommandInterpreter();
         $cmd = $inter->handle_command($user, $body);
@@ -450,7 +450,7 @@ abstract class ImPlugin extends Plugin
             common_log(LOG_WARNING, 'Message from unknown user ' . $from);
             return;
         }
-        if ($this->handle_command($user, $notice_text)) {
+        if ($this->handleCommand($user, $notice_text)) {
             common_log(LOG_INFO, "Command message by $from handled.");
             return;
         } else if ($this->is_autoreply($notice_text)) {
