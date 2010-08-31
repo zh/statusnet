@@ -86,7 +86,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return boolean success value
      */
-    function send_notice($screenname, $notice)
+    function sendNotice($screenname, $notice)
     {
         return $this->sendMessage($screenname, $this->format_notice($notice));
     }
@@ -298,7 +298,7 @@ abstract class ImPlugin extends Plugin
                        'Sending notice ' . $notice->id .
                        ' to public listener ' . $screenname,
                        __FILE__);
-            $this->send_notice($screenname, $notice);
+            $this->sendNotice($screenname, $notice);
         }
 
         return true;
@@ -356,7 +356,7 @@ abstract class ImPlugin extends Plugin
             common_log(LOG_INFO,
                        'Sending notice ' . $notice->id . ' to ' . $user_im_prefs->screenname,
                        __FILE__);
-            $this->send_notice($user_im_prefs->screenname, $notice);
+            $this->sendNotice($user_im_prefs->screenname, $notice);
             $user_im_prefs->free();
         }
 
