@@ -463,7 +463,7 @@ abstract class ImPlugin extends Plugin
 
             common_log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
 
-            $this->add_notice($from, $user, $notice_text);
+            $this->addNotice($from, $user, $notice_text);
         }
 
         $user->free();
@@ -481,7 +481,7 @@ abstract class ImPlugin extends Plugin
      *
      * @param boolean success
      */
-    protected function add_notice($screenname, $user, $body)
+    protected function addNotice($screenname, $user, $body)
     {
         $body = trim(strip_tags($body));
         $content_shortened = common_shorten_links($body);

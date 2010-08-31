@@ -252,7 +252,7 @@ class IrcPlugin extends ImPlugin {
             return;
         } else {
             common_log(LOG_INFO, 'Posting a notice from ' . $user->nickname);
-            $this->add_notice($nick, $user, $notice_text);
+            $this->addNotice($nick, $user, $notice_text);
         }
 
         $user->free();
