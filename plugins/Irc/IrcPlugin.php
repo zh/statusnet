@@ -229,7 +229,7 @@ class IrcPlugin extends ImPlugin {
      * @param boolean true on success
      */
     protected function handle_channel_incoming($nick, $channel, $notice_text) {
-        $user = $this->get_user($nick);
+        $user = $this->getUser($nick);
         // For common_current_user to work
         global $_cur;
         $_cur = $user;

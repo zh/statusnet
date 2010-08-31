@@ -168,7 +168,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return User user
      */
-    function get_user($screenname)
+    function getUser($screenname)
     {
         $user_im_prefs = $this->getUserImPrefsFromScreenname($screenname);
         if($user_im_prefs){
@@ -438,7 +438,7 @@ abstract class ImPlugin extends Plugin
      */
     protected function handleIncoming($from, $notice_text)
     {
-        $user = $this->get_user($from);
+        $user = $this->getUser($from);
         // For common_current_user to work
         global $_cur;
         $_cur = $user;
