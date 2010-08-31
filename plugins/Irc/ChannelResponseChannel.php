@@ -56,6 +56,6 @@ class ChannelResponseChannel extends IMChannel {
     */
     public function output($user, $text) {
         $text = $user->nickname.': ['.common_config('site', 'name') . '] ' . $text;
-        $this->imPlugin->send_message($this->ircChannel, $text);
+        $this->imPlugin->sendMessage($this->ircChannel, $text);
     }
 }

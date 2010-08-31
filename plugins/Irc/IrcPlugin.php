@@ -189,7 +189,7 @@ class IrcPlugin extends ImPlugin {
      * @param string $body Text to send
      * @return boolean true on success
      */
-    public function send_message($screenname, $body) {
+    public function sendMessage($screenname, $body) {
         $lines = explode("\n", $body);
         foreach ($lines as $line) {
             $this->fake_irc->doPrivmsg($screenname, $line);
@@ -301,7 +301,7 @@ class IrcPlugin extends ImPlugin {
         if ($this->regcheck && !$checked) {
             return $this->checked_send_confirmation_code($screenname, $code, $user);
         } else {
-            return $this->send_message($screenname, $body);
+            return $this->sendMessage($screenname, $body);
         }
     }
 

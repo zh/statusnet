@@ -231,7 +231,7 @@ class IrcManager extends ImManager {
                 // Send message
                 $this->plugin->send_confirmation_code($screenname, $nickdata['code'], $nickdata['user'], true);
             } else {
-                $this->plugin->send_message($screenname, _m('Your nickname is not registered so IRC connectivity cannot be enabled'));
+                $this->plugin->sendMessage($screenname, _m('Your nickname is not registered so IRC connectivity cannot be enabled'));
 
                 $confirm = new Confirm_address();
 

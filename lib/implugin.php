@@ -88,7 +88,7 @@ abstract class ImPlugin extends Plugin
      */
     function send_notice($screenname, $notice)
     {
-        return $this->send_message($screenname, $this->format_notice($notice));
+        return $this->sendMessage($screenname, $this->format_notice($notice));
     }
 
     /**
@@ -101,7 +101,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return boolean success value
      */
-    abstract function send_message($screenname, $body);
+    abstract function sendMessage($screenname, $body);
 
     /**
      * receive a raw message
@@ -249,7 +249,7 @@ abstract class ImPlugin extends Plugin
     protected function send_from_site($screenname, $msg)
     {
         $text = '['.common_config('site', 'name') . '] ' . $msg;
-        $this->send_message($screenname, $text);
+        $this->sendMessage($screenname, $text);
     }
 
     /**
@@ -271,7 +271,7 @@ abstract class ImPlugin extends Plugin
           'or if you didn\'t request this confirmation, just ignore this message.'),
           $user->nickname, common_config('site', 'name'), $this->getDisplayName(), common_local_url('confirmaddress', array('code' => $code)));
 
-        return $this->send_message($screenname, $body);
+        return $this->sendMessage($screenname, $body);
     }
 
     /**

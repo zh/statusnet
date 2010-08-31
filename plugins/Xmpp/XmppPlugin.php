@@ -311,7 +311,7 @@ class XmppPlugin extends ImPlugin
         return 'xmpp:' . $screenname;    
     }
 
-    function send_message($screenname, $body)
+    function sendMessage($screenname, $body)
     {
         $this->queuedConnection()->message($screenname, $body, 'chat');
     }
