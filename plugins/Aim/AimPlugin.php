@@ -122,7 +122,7 @@ class AimPlugin extends ImPlugin
     function sendMessage($screenname, $body)
     {
         $this->fake_aim->sendIm($screenname, $body);
-	    $this->enqueue_outgoing_raw($this->fake_aim->would_be_sent);
+	    $this->enqueueOutgoingRaw($this->fake_aim->would_be_sent);
         return true;
     }
 

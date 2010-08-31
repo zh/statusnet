@@ -79,7 +79,7 @@ abstract class ImPlugin extends Plugin
     /**
      * send a single notice to a given screenname
      * The implementation should put raw data, ready to send, into the outgoing
-     *   queue using enqueue_outgoing_raw()
+     *   queue using enqueueOutgoingRaw()
      *
      * @param string $screenname screenname to send to
      * @param Notice $notice notice to send
@@ -94,7 +94,7 @@ abstract class ImPlugin extends Plugin
     /**
      * send a message (text) to a given screenname
      * The implementation should put raw data, ready to send, into the outgoing
-     *   queue using enqueue_outgoing_raw()
+     *   queue using enqueueOutgoingRaw()
      *
      * @param string $screenname screenname to send to
      * @param Notice $body text to send
@@ -144,7 +144,7 @@ abstract class ImPlugin extends Plugin
      *
      * @param object $data
      */
-    function enqueue_outgoing_raw($data)
+    function enqueueOutgoingRaw($data)
     {
         $qm = QueueManager::get();
         $qm->enqueue($data, $this->transport . '-out');

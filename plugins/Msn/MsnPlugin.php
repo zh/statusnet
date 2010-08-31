@@ -162,7 +162,7 @@ class MsnPlugin extends ImPlugin {
      * @return boolean success value
      */
     public function sendMessage($screenname, $body) {
-        $this->enqueue_outgoing_raw(array('to' => $screenname, 'message' => $body));
+        $this->enqueueOutgoingRaw(array('to' => $screenname, 'message' => $body));
         return true;
     }
 

@@ -193,7 +193,7 @@ class IrcPlugin extends ImPlugin {
         $lines = explode("\n", $body);
         foreach ($lines as $line) {
             $this->fake_irc->doPrivmsg($screenname, $line);
-            $this->enqueue_outgoing_raw(array('type' => 'message', 'prioritise' => 0, 'data' => $this->fake_irc->would_be_sent));
+            $this->enqueueOutgoingRaw(array('type' => 'message', 'prioritise' => 0, 'data' => $this->fake_irc->would_be_sent));
         }
         return true;
     }
@@ -316,7 +316,7 @@ class IrcPlugin extends ImPlugin {
     */
     public function checked_send_confirmation_code($screenname, $code, $user) {
         $this->fake_irc->doPrivmsg('NickServ', 'INFO '.$screenname);
-        $this->enqueue_outgoing_raw(
+        $this->enqueueOutgoingRaw(
             array(
                 'type' => 'nickcheck',
                 'prioritise' => 1,
