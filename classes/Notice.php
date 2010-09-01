@@ -1014,25 +1014,31 @@ class Notice extends Memcached_DataObject
         if (empty($uris)) {
             return;
         }
+
         $sender = Profile::staticGet($this->profile_id);
 
         foreach (array_unique($uris) as $uri) {
 
-            $user = User::staticGet('uri', $uri);
+            $profile = Profile::fromURI($uri);
 
-            if (!empty($user)) {
-                if ($user->hasBlocked($sender)) {
-                    continue;
-                }
-
-                $reply = new Reply();
-
-                $reply->notice_id  = $this->id;
-                $reply->profile_id = $user->id;
-                common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $user->id");
-
-                $id = $reply->insert();
+            if (empty($profile)) {
+                common_log(LOG_WARNING, "Unable to determine profile for URI '$uri'");
+                continue;
             }
+
+            if ($profile->hasBlocked($sender)) {
+                common_log(LOG_INFO, "Not saving reply to profile {$profile->id} ($uri) from sender {$sender->id} because of a block.");
+                continue;
+            }
+
+            $reply = new Reply();
+
+            $reply->notice_id  = $this->id;
+            $reply->profile_id = $profile->id;
+
+            common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $profile->id");
+
+            $id = $reply->insert();
         }
 
         return;
