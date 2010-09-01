@@ -960,4 +960,24 @@ class Profile extends Memcached_DataObject
 
         return $feed;
     }
+
+    static function fromURI($uri)
+    {
+        $profile = null;
+
+        if (Event::handle('StartGetProfileFromURI', array($uri, &$profile))) {
+            // Get a local user or remote (OMB 0.1) profile
+            $user = User::staticGet('uri', $uri);
+            if (!empty($user)) {
+                $profile = $user->getProfile();
+            } else {
+                $remote_profile = Remote_profile::staticGet('uri', $uri);
+                if (!empty($remote_profile)) {
+                    $profile = Profile::staticGet('id', $remote_profile->profile_id);
+                }
+            }
+            Event::handle('EndGetProfileFromURI', array($uri, $profile));
+        }
+
+    }
 }
