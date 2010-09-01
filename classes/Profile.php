@@ -979,5 +979,6 @@ class Profile extends Memcached_DataObject
             Event::handle('EndGetProfileFromURI', array($uri, $profile));
         }
 
+        return $profile;
     }
 }
