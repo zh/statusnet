@@ -76,6 +76,7 @@ class UsersalmonAction extends SalmonAction
         $context = $this->activity->context;
 
         if (!empty($context->replyToID)) {
+            common_log(LOG_DEBUG, "Got a notice in reply to '{$context->replyToID}' ({$context->replyToUrl})");
             $notice = Notice::staticGet('uri', $context->replyToID);
             if (empty($notice)) {
                 throw new ClientException("In reply to unknown notice");
