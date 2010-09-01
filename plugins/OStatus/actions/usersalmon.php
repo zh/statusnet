@@ -81,7 +81,7 @@ class UsersalmonAction extends SalmonAction
                 throw new ClientException("In reply to unknown notice");
             }
             if ($notice->profile_id != $this->user->id &&
-                !in_array($notice->getReplies(), $this->user->id)) {
+                !in_array($this->user->id, $notice->getReplies())) {
                 throw new ClientException("In reply to a notice not by this user and not mentioning this user");
             }
         } else if (!empty($context->attention)) {
