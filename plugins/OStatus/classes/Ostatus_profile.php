@@ -700,14 +700,16 @@ class Ostatus_profile extends Memcached_DataObject
             }
 
             // Is the recipient a remote group?
-            $oprofile = Ostatus_profile::staticGet('uri', $recipient);
+            $oprofile = Ostatus_profile::ensureProfileURI($recipient);
+
             if ($oprofile) {
                 if ($oprofile->isGroup()) {
                     // Deliver to local members of this remote group.
                     // @fixme sender verification?
                     $groups[] = $oprofile->group_id;
                 } else {
-                    common_log(LOG_DEBUG, "Skipping reply to remote profile $recipient");
+                    // may be canonicalized or something
+                    $replies[] = $oprofile->uri;
                 }
                 continue;
             }
@@ -1763,6 +1765,37 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         return $file;
+    }
+
+    static function ensureProfileURI($uri)
+    {
+        $oprofile = null;
+
+        // First, try to query it
+
+        $oprofile = Ostatus_profile::staticGet('uri', $uri);
+
+        // If unfound, do discovery stuff
+
+        if (empty($oprofile)) {
+            if (preg_match("/^(\w+)\:(.*)/", $uri, $match)) {
+                $protocol = $match[1];
+                switch ($protocol) {
+                case 'http':
+                case 'https':
+                    $oprofile = Ostatus_profile::ensureProfileURL($uri);
+                    break;
+                case 'acct':
+                case 'mailto':
+                    $rest = $match[2];
+                    $oprofile = Ostatus_profile::ensureWebfinger($rest);
+                default:
+                    common_log("Unrecognized URI protocol for profile: $protocol ($uri)");
+                    break;
+                }
+            }
+        }
+        return $oprofile;
     }
 }
 
