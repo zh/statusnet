@@ -54,6 +54,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class Theme
 {
+    var $name = null;
     var $dir  = null;
     var $path = null;
 
@@ -70,6 +71,10 @@ class Theme
         if (empty($name)) {
             $name = common_config('site', 'theme');
         }
+        if (!self::validName($name)) {
+            throw new ServerException("Invalid theme name.");
+        }
+        $this->name = $name;
 
         // Check to see if it's in the local dir
 
@@ -175,6 +180,58 @@ class Theme
     function getPath($relative)
     {
         return $this->path.'/'.$relative;
+    }
+
+    /**
+     * Fetch a list of other themes whose CSS needs to be pulled in before
+     * this theme's, based on following the theme.ini 'include' settings.
+     * (May be empty if this theme has no include dependencies.)
+     *
+     * @return array of strings with theme names
+     */
+    function getDeps()
+    {
+        $chain = $this->doGetDeps(array($this->name));
+        array_pop($chain); // Drop us back off
+        return $chain;
+    }
+
+    protected function doGetDeps($chain)
+    {
+        $data = $this->getMetadata();
+        if (!empty($data['include'])) {
+            $include = $data['include'];
+
+            // Protect against cycles!
+            if (!in_array($include, $chain)) {
+                try {
+                    $theme = new Theme($include);
+                    array_unshift($chain, $include);
+                    return $theme->doGetDeps($chain);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR,
+                            "Exception while fetching theme dependencies " .
+                            "for $this->name: " . $e->getMessage());
+                }
+            }
+        }
+        return $chain;
+    }
+
+    /**
+     * Pull data from the theme's theme.ini file.
+     * @fixme calling getFile will fall back to default theme, this may be unsafe.
+     * 
+     * @return associative array of strings
+     */
+    function getMetadata()
+    {
+        $iniFile = $this->getFile('theme.ini');
+        if (file_exists($iniFile)) {
+            return parse_ini_file($iniFile);
+        } else {
+            return array();
+        }
     }
 
     /**
@@ -284,5 +341,10 @@ class Theme
         }
 
         return $instroot;
+    }
+
+    static function validName($name)
+    {
+        return preg_match('/^[a-z0-9][a-z0-9_-]*$/i', $name);
     }
 }

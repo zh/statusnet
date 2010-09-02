@@ -241,7 +241,7 @@ class MobileProfilePlugin extends WAP20Plugin
             return true;
         }
 
-        $action->cssLink('css/display.css');
+        $action->primaryCssLink();
 
         if (file_exists(Theme::file('css/mp-screen.css'))) {
             $action->cssLink('css/mp-screen.css', null, 'screen');

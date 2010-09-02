@@ -198,7 +198,7 @@ class ThemeUploader
     protected function validateFile($filename, $ext)
     {
         $this->validateFileOrFolder($filename);
-        $this->validateExtension($ext);
+        $this->validateExtension($filename, $ext);
         // @fixme validate content
     }
 
@@ -216,13 +216,17 @@ class ThemeUploader
         return true;
     }
 
-    protected function validateExtension($ext)
+    protected function validateExtension($base, $ext)
     {
         $allowed = array('css', // CSS may need validation
                          'png', 'gif', 'jpg', 'jpeg',
                          'svg', // SVG images/fonts may need validation
                          'ttf', 'eot', 'woff');
         if (!in_array(strtolower($ext), $allowed)) {
+            if ($ext == 'ini' && $base == 'theme') {
+                // theme.ini exception
+                return true;
+            }
             $msg = sprintf(_("Theme contains file of type '.%s', " .
                              "which is not allowed."),
                            $ext);
