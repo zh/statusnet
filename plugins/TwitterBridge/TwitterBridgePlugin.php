@@ -335,5 +335,30 @@ class TwitterBridgePlugin extends Plugin
         return (bool)$this->adminImportControl;
     }
 
+    /**
+     * When the site is set to ssl=sometimes mode, we should make sure our
+     * various auth-related pages are on SSL to keep things looking happy.
+     * Although we're not submitting passwords directly, we do link out to
+     * an authentication source and it's a lot happier if we've got some
+     * protection against MitM.
+     *
+     * @param string $action name
+     * @param boolean $ssl outval to force SSL
+     * @return mixed hook return value
+     */
+    function onSensitiveAction($action, &$ssl)
+    {
+        $sensitive = array('twitteradminpanel',
+                           'twittersettings',
+                           'twitterauthorization',
+                           'twitterlogin');
+        if (in_array($action, $sensitive)) {
+            $ssl = true;
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }
 
