@@ -203,7 +203,7 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->cssLink('css/display.css',null, 'screen, projection, tv, print');
+                $this->primaryCssLink(null, 'screen, projection, tv, print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
@@ -249,6 +249,18 @@ class Action extends HTMLOutputter // lawsuit
                 }
             }
         }
+    }
+
+    function primaryCssLink($mainTheme=null, $media=null)
+    {
+        // If the currently-selected theme has dependencies on other themes,
+        // we'll need to load their display.css files as well in order.
+        $theme = new Theme($mainTheme);
+        $baseThemes = $theme->getDeps();
+        foreach ($baseThemes as $baseTheme) {
+            $this->cssLink('css/display.css', $baseTheme, $media);
+        }
+        $this->cssLink('css/display.css', $mainTheme, $media);
     }
 
     /**
