@@ -578,7 +578,9 @@ class Notice extends Memcached_DataObject
         if ($f2p->find()) {
             while ($f2p->fetch()) {
                 $f = File::staticGet($f2p->file_id);
-                $att[] = clone($f);
+                if ($f) {
+                    $att[] = clone($f);
+                }
             }
         }
         return $att;
