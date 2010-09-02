@@ -128,8 +128,16 @@ class ThemeUploader
                 continue;
             }
 
-            // Check the directory structure...
+            // Is this a safe or skippable file?
             $path = pathinfo($name);
+            if ($this->skippable($path['filename'], $path['extension'])) {
+                // Documentation and such... booooring
+                continue;
+            } else {
+                $this->validateFile($path['filename'], $path['extension']);
+            }
+
+            // Check the directory structure...
             $dirs = explode('/', $path['dirname']);
             $baseDir = array_shift($dirs);
             if ($commonBaseDir === false) {
@@ -142,14 +150,6 @@ class ThemeUploader
 
             foreach ($dirs as $dir) {
                 $this->validateFileOrFolder($dir);
-            }
-
-            // Is this a safe or skippable file?
-            if ($this->skippable($path['filename'], $path['extension'])) {
-                // Documentation and such... booooring
-                continue;
-            } else {
-                $this->validateFile($path['filename'], $path['extension']);
             }
 
             $fullPath = $dirs;
@@ -180,9 +180,12 @@ class ThemeUploader
         }
     }
 
+    /**
+     * @fixme Probably most unrecognized files should just be skipped...
+     */
     protected function skippable($filename, $ext)
     {
-        $skip = array('txt', 'rtf', 'doc', 'docx', 'odt');
+        $skip = array('txt', 'html', 'rtf', 'doc', 'docx', 'odt', 'xcf');
         if (strtolower($filename) == 'readme') {
             return true;
         }
@@ -201,9 +204,13 @@ class ThemeUploader
 
     protected function validateFileOrFolder($name)
     {
-        if (!preg_match('/^[a-z0-9_-]+$/i', $name)) {
+        if (!preg_match('/^[a-z0-9_\.-]+$/i', $name)) {
             $msg = _("Theme contains invalid file or folder name. " .
                      "Stick with ASCII letters, digits, underscore, and minus sign.");
+            throw new ClientException($msg);
+        }
+        if (preg_match('/\.(php|cgi|asp|aspx|js|vb)\w/i', $name)) {
+            $msg = _("Theme contains unsafe file extension names; may be unsafe.");
             throw new ClientException($msg);
         }
         return true;
@@ -211,7 +218,10 @@ class ThemeUploader
 
     protected function validateExtension($ext)
     {
-        $allowed = array('css', 'png', 'gif', 'jpg', 'jpeg');
+        $allowed = array('css', // CSS may need validation
+                         'png', 'gif', 'jpg', 'jpeg',
+                         'svg', // SVG images/fonts may need validation
+                         'ttf', 'eot', 'woff');
         if (!in_array(strtolower($ext), $allowed)) {
             $msg = sprintf(_("Theme contains file of type '.%s', " .
                              "which is not allowed."),
