@@ -278,5 +278,54 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * If a notice has a title, show it in the <title> element
+     *
+     * @param Action $action Action being executed
+     *
+     * @return boolean hook value
+     */
+
+    function onStartShowHeadTitle($action)
+    {
+        $actionName = $action->trimmed('action');
+
+        if ($actionName == 'shownotice') {
+            $title = Notice_title::fromNotice($action->notice);
+            if (!empty($title)) {
+                $action->element('title', null,
+                                 // TRANS: Page title. %1$s is the title, %2$s is the site name.
+                                 sprintf(_("%1\$s - %2\$s"),
+                                         $title,
+                                         common_config('site', 'name')));
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * If a notice has a title, show it in the <h1> element
+     *
+     * @param Action $action Action being executed
+     *
+     * @return boolean hook value
+     */
+
+    function onStartShowPageTitle($action)
+    {
+        $actionName = $action->trimmed('action');
+
+        if ($actionName == 'shownotice') {
+            $title = Notice_title::fromNotice($action->notice);
+            if (!empty($title)) {
+                $action->element('h1', null, $title);
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
