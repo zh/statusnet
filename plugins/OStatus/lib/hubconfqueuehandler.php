@@ -51,4 +51,3 @@ class HubConfQueueHandler extends QueueHandler
         return true;
     }
 }
-

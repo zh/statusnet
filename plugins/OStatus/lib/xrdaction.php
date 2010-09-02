@@ -26,13 +26,12 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class XrdAction extends Action
 {
-
     public $uri;
-    
+
     public $user;
 
     public $xrd;
-    
+
     function handle()
     {
         $nick =  $this->user->nickname;

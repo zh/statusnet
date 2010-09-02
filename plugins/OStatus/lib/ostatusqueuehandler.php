@@ -223,4 +223,3 @@ class OStatusQueueHandler extends QueueHandler
     }
 
 }
-
