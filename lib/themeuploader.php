@@ -192,6 +192,15 @@ class ThemeUploader
         if (in_array(strtolower($ext), $skip)) {
             return true;
         }
+        if ($filename == '' || substr($filename, 0, 1) == '.') {
+            // Skip Unix-style hidden files
+            return true;
+        }
+        if ($filename == '__MACOSX') {
+            // Skip awful metadata files Mac OS X slips in for you.
+            // Thanks Apple!
+            return true;
+        }
         return false;
     }
 
@@ -205,11 +214,13 @@ class ThemeUploader
     protected function validateFileOrFolder($name)
     {
         if (!preg_match('/^[a-z0-9_\.-]+$/i', $name)) {
+            common_log(LOG_ERR, "Bad theme filename: $name");
             $msg = _("Theme contains invalid file or folder name. " .
                      "Stick with ASCII letters, digits, underscore, and minus sign.");
             throw new ClientException($msg);
         }
         if (preg_match('/\.(php|cgi|asp|aspx|js|vb)\w/i', $name)) {
+            common_log(LOG_ERR, "Unsafe theme filename: $name");
             $msg = _("Theme contains unsafe file extension names; may be unsafe.");
             throw new ClientException($msg);
         }
