@@ -121,7 +121,10 @@ class Action extends HTMLOutputter // lawsuit
         // XXX: attributes (profile?)
         $this->elementStart('head');
         if (Event::handle('StartShowHeadElements', array($this))) {
-            $this->showTitle();
+            if (Event::handle('StartShowHeadTitle', array($this))) {
+                $this->showTitle();
+                Event::handle('EndShowHeadTitle', array($this));
+            }
             $this->showShortcutIcon();
             $this->showStylesheets();
             $this->showOpenSearch();
@@ -200,7 +203,7 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->cssLink('css/display.css',null, 'screen, projection, tv, print');
+                $this->primaryCssLink(null, 'screen, projection, tv, print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
@@ -235,7 +238,7 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
-            
+
             if (common_config('custom_css', 'enabled')) {
                 $css = common_config('custom_css', 'css');
                 if (Event::handle('StartShowCustomCss', array($this, &$css))) {
@@ -246,6 +249,18 @@ class Action extends HTMLOutputter // lawsuit
                 }
             }
         }
+    }
+
+    function primaryCssLink($mainTheme=null, $media=null)
+    {
+        // If the currently-selected theme has dependencies on other themes,
+        // we'll need to load their display.css files as well in order.
+        $theme = new Theme($mainTheme);
+        $baseThemes = $theme->getDeps();
+        foreach ($baseThemes as $baseTheme) {
+            $this->cssLink('css/display.css', $baseTheme, $media);
+        }
+        $this->cssLink('css/display.css', $mainTheme, $media);
     }
 
     /**
@@ -616,7 +631,10 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
-        $this->showPageTitle();
+        if (Event::handle('StartShowPageTitle', array($this))) {
+            $this->showPageTitle();
+            Event::handle('EndShowPageTitle', array($this));
+        }
         $this->showPageNoticeBlock();
         $this->elementStart('div', array('id' => 'content_inner'));
         // show the actual content (forms, lists, whatever)

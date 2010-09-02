@@ -248,17 +248,6 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Check if we've got remote replies to send via Salmon.
-     *
-     * @fixme push webfinger lookup & sending to a background queue
-     * @fixme also detect short-form name for remote subscribees where not ambiguous
-     */
-
-    function onEndNoticeSave($notice)
-    {
-    }
-
-    /**
      * Find any explicit remote mentions. Accepted forms:
      *   Webfinger: @user@example.com
      *   Profile link: @example.com/mublog/user
@@ -492,7 +481,7 @@ class OStatusPlugin extends Plugin
      * Tell the FeedSub infrastructure whether we have any active OStatus
      * usage for the feed; if not it'll be able to garbage-collect the
      * feed subscription.
-     * 
+     *
      * @param FeedSub $feedsub
      * @param integer $count in/out
      * @return mixed hook return code
@@ -994,5 +983,19 @@ class OStatusPlugin extends Plugin
 
         $feed = $oprofile->feeduri;
         return false;
+    }
+
+    function onStartGetProfileFromURI($uri, &$profile) {
+
+        // XXX: do discovery here instead (OStatus_profile::ensureProfileURI($uri))
+
+        $oprofile = Ostatus_profile::staticGet('uri', $uri);
+
+        if (!empty($oprofile) && !$oprofile->isGroup()) {
+            $profile = $oprofile->localProfile();
+            return false;
+        }
+
+        return true;
     }
 }

@@ -61,9 +61,73 @@ class Status_network_tag extends Safe_DataObject
     ###END_AUTOCODE
 
 
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Status_network_tag', $kv);
+    }
+
+    /**
+     * Fetch the (possibly cached) tag entries for the given site id.
+     * Uses status_network's cache settings.
+     *
+     * @param string $site_id
+     * @return array of strings
+     */
+    static function getTags($site_id)
+    {
+        $key = 'status_network_tags:' . $site_id;
+        if (Status_network::$cache) {
+            $packed = Status_network::$cache->get($key);
+            if (is_string($packed)) {
+                if ($packed == '') {
+                    return array();
+                } else {
+                    return explode('|', $packed);
+                }
+            }
+        }
+
+        $result = array();
+
+        $tags = new Status_network_tag();
+        $tags->site_id = $site_id;
+        if ($tags->find()) {
+            while ($tags->fetch()) {
+                $result[] = $tags->tag;
+            }
+        }
+
+        if (Status_network::$cache) {
+            $packed = implode('|', $result);
+            Status_network::$cache->set($key, $packed, 3600);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Drop the cached tag entries for this site.
+     * Needed after inserting/deleting a tag entry.
+     */
+    function decache()
+    {
+        $key = 'status_network_tags:' . $this->site_id;
+        if (Status_network::$cache) {
+            Status_network::$cache->delete($key);
+        }
+    }
+
+    function insert()
+    {
+        $ret = parent::insert();
+        $this->decache();
+        return $ret;
+    }
+
+    function delete()
+    {
+        $ret = parent::delete();
+        $this->decache();
+        return $ret;
     }
 }

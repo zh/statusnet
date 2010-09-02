@@ -1084,3 +1084,15 @@ EndRssEntryArray: at the end of copying a notice to an array
 
 NoticeDeleteRelated: at the beginning of deleting related fields to a notice
 - $notice: notice being deleted
+
+StartShowHeadTitle: when beginning to show the <title> element
+- $action: action being shown
+
+EndShowHeadTitle: when done showing the <title>
+- $action: action being shown
+
+StartShowPageTitle: when beginning to show the page title <h1>
+- $action: action being shown
+
+EndShowPageTitle: when done showing the page title <h1>
+- $action: action being shown
