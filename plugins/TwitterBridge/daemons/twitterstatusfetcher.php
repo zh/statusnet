@@ -241,10 +241,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return;
         }
 
-        $statusUri = 'http://twitter.com/'
-            . $status->user->screen_name
-            . '/status/'
-            . $status->id;
+        $statusUri = $this->makeStatusURI($status->user->screen_name, $status->id);
 
         // check to see if we've already imported the status
 
@@ -270,7 +267,23 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         );
 
         $notice->source     = 'twitter';
+
         $notice->reply_to   = null;
+
+        if (!empty($status->in_reply_to_status_id)) {
+            $replyUri = $this->makeStatusURI($status->in_reply_to_screen_name, $status->in_reply_to_status_id);
+            $reply = Notice::staticGet('uri', $replyUri);
+            if (!empty($reply)) {
+                $notice->reply_to     = $reply->id;
+                $notice->conversation = $reply->conversation;
+            }
+        }
+
+        if (empty($notice->conversation)) {
+            $conv = Conversation::create();
+            $notice->conversation = $conv->id;
+        }
+
         $notice->is_local   = Notice::GATEWAY;
 
         $notice->content    = common_shorten_links($status->text);
@@ -292,21 +305,26 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
-        $orig = clone($notice);
-        $conv = Conversation::create();
-
-        $notice->conversation = $conv->id;
-
-        if (!$notice->update($orig)) {
-            common_log_db_error($notice, 'UPDATE', __FILE__);
-            common_log(LOG_ERR, $this->name() .
-                ' - Problem saving notice.');
-        }
-
         Inbox::insertNotice($flink->user_id, $notice->id);
         $notice->blowOnInsert();
 
         return $notice;
+    }
+
+    /**
+     * Make an URI for a status.
+     *
+     * @param object $status status object
+     *
+     * @return string URI
+     */
+
+    function makeStatusURI($username, $id)
+    {
+        return 'http://twitter.com/'
+          . $username
+          . '/status/'
+          . $id;
     }
 
     /**
