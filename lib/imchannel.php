@@ -36,12 +36,12 @@ class IMChannel extends Channel
 
     function on($user)
     {
-        return $this->set_notify($user, 1);
+        return $this->setNotify($user, 1);
     }
 
     function off($user)
     {
-        return $this->set_notify($user, 0);
+        return $this->setNotify($user, 0);
     }
 
     function output($user, $text)
@@ -66,7 +66,7 @@ class IMChannel extends Channel
         }
     }
 
-    function set_notify($user, $notify)
+    function setNotify($user, $notify)
     {
         $user_im_prefs = new User_im_prefs();
         $user_im_prefs->transport = $this->imPlugin->transport;
