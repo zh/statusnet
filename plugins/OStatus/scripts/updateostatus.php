@@ -49,7 +49,7 @@ try {
         $nickname = get_option_value('n', 'nickname');
         $user = User::staticGet('nickname', $nickname);
         if (empty($user)) {
-            throw new Exception("Can't find user with nickname '$nickname'");
+            throw new Exception("Can't find user with nickname '$nickname'.");
         }
         updateOStatus($user);
     } else if (have_option('a', 'all')) {

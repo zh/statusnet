@@ -42,7 +42,7 @@ class SalmonAction extends Action
         }
 
         if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/magic-envelope+xml') {
-            $this->clientError(_m('Salmon requires application/magic-envelope+xml'));
+            $this->clientError(_m('Salmon requires "application/magic-envelope+xml".'));
         }
 
         $xml = file_get_contents('php://input');

@@ -77,7 +77,7 @@ while ($oprofile->fetch()) {
         echo "$uri matched query, but we don't recognize it.\n";
         continue;
     }
-    
+
     if ($dry) {
         echo " - skipping\n";
     } else {
@@ -93,4 +93,3 @@ if ($count && $dry) {
 } else {
     echo "done.\n";
 }
-

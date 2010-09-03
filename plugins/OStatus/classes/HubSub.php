@@ -206,6 +206,7 @@ class HubSub extends Memcached_DataObject
         if ($status >= 200 && $status < 300) {
             common_log(LOG_INFO, "Verified $mode of $this->callback:$this->topic");
         } else {
+            // @todo i18n FIXME: add i18n and use sprintf for parameter.
             throw new ClientException("Hub subscriber verification returned HTTP $status");
         }
 
@@ -307,9 +308,9 @@ class HubSub extends Memcached_DataObject
     /**
      * Queue up a large batch of pushes to multiple subscribers
      * for this same topic update.
-     * 
+     *
      * If queues are disabled, this will run immediately.
-     * 
+     *
      * @param string $atom well-formed Atom feed
      * @param array $pushCallbacks list of callback URLs
      */
@@ -359,4 +360,3 @@ class HubSub extends Memcached_DataObject
         }
     }
 }
-
