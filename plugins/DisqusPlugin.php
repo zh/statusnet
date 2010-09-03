@@ -148,7 +148,7 @@ ENDOFSCRIPT;
         $noticeUrl .= '#disqus_thread';
 
         $noticeListItem->out->element(
-            'a', array('href' => $noticeUrl, 'class' => 'disqus_count', 'Comments')
+            'a', array('href' => $noticeUrl, 'class' => 'disqus_count'), 'Comments'
         );
 
         $noticeListItem->showNoticeOptions();
