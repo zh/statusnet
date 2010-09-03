@@ -215,6 +215,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 continue;
             }
 
+            // Don't save it if the user is protected
+            // FIXME: save it but treat it as private
+
+            if ($status->user->protected) {
+                continue;
+            }
+
             $this->saveStatus($status, $flink);
         }
 
