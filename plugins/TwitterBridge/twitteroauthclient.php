@@ -277,4 +277,19 @@ class TwitterOAuthClient extends OAuthClient
         return $ids;
     }
 
+    /**
+     * Calls Twitter's /statuses/retweet/id.json API method
+     *
+     * @param int $id id of the notice to retweet
+     *
+     * @return retweeted status
+     */
+
+    function statusesRetweet($id)
+    {
+        $url = "http://api.twitter.com/1/statuses/retweet/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
 }

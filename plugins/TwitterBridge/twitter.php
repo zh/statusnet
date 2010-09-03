@@ -145,15 +145,41 @@ function broadcast_twitter($notice)
     $flink = Foreign_link::getByUserID($notice->profile_id,
                                        TWITTER_SERVICE);
 
-    if (is_twitter_bound($notice, $flink)) {
-        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+    // Don't bother with basic auth, since it's no longer allowed
+
+    if (!empty($flink) && TwitterOAuthClient::isPackedToken($flink->credentials)) {
+        if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
+            return retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
+        } else if (is_twitter_bound($notice, $flink)) {
             return broadcast_oauth($notice, $flink);
-        } else {
-            return broadcast_basicauth($notice, $flink);
         }
     }
 
     return true;
+}
+
+function retweet_notice($flink, $notice)
+{
+    $token = TwitterOAuthClient::unpackToken($flink->credentials);
+    $client = new TwitterOAuthClient($token->key, $token->secret);
+
+    $id = twitter_status_id($notice);
+
+    try {
+        $status = $client->statusesRetweet($id);
+    } catch (OAuthClientException $e) {
+        return process_error($e, $flink, $notice);
+    }
+}
+
+function twitter_status_id($notice)
+{
+    if ($notice->source == 'twitter' &&
+        preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $notice->uri, $match)) {
+        return $match[1];
+    }
+
+    return null;
 }
 
 /**
