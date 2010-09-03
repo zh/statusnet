@@ -115,14 +115,29 @@ function is_twitter_bound($notice, $flink) {
     // Check to see if notice should go to Twitter
     if (!empty($flink) && ($flink->noticesync & FOREIGN_NOTICE_SEND)) {
 
-        // If it's not a Twitter-style reply, or if the user WANTS to send replies.
+        // If it's not a Twitter-style reply, or if the user WANTS to send replies,
+        // or if it's in reply to a twitter notice
+
         if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
-            ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
+            ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) ||
+            is_twitter_notice($notice->reply_to)) {
             return true;
         }
     }
 
     return false;
+}
+
+function is_twitter_notice($id)
+{
+    $notice = Notice::staticGet('id', $id);
+
+    if (empty($notice)) {
+        // it's not any kind of notice, so it's definitely not a Twitter notice.
+        return false;
+    }
+
+    return ($notice->source == 'twitter');
 }
 
 function broadcast_twitter($notice)
@@ -158,7 +173,6 @@ function twitter_update_params($notice)
     }
     return $params;
 }
-
 
 function broadcast_oauth($notice, $flink) {
     $user = $flink->getUser();
