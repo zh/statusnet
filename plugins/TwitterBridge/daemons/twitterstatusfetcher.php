@@ -231,14 +231,14 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $flink->update();
     }
 
-    function saveStatus($status, $flink)
+    function saveStatus($status, $flink=null)
     {
         $profile = $this->ensureProfile($status->user);
 
         if (empty($profile)) {
             common_log(LOG_ERR, $this->name() .
                 ' - Problem saving notice. No associated Profile.');
-            return;
+            return null;
         }
 
         $statusUri = $this->makeStatusURI($status->user->screen_name, $status->id);
@@ -253,7 +253,14 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 $this->name() .
                 " - Ignoring duplicate import: $statusUri"
             );
-            return;
+            return $dupe;
+        }
+
+        // If it's a retweet, save it as a repeat!
+
+        if (!empty($status->retweeted_status)) {
+            $original = $this->saveStatus($status->retweeted_status);
+            return $original->repeat($profile->id, 'twitter');
         }
 
         $notice = new Notice();
@@ -305,7 +312,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
-        Inbox::insertNotice($flink->user_id, $notice->id);
+        if (!empty($flink)) {
+            Inbox::insertNotice($flink->user_id, $notice->id);
+        }
         $notice->blowOnInsert();
 
         return $notice;
