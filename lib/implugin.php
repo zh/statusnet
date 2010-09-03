@@ -208,7 +208,7 @@ abstract class ImPlugin extends Plugin
      *
      * @return string screenname of that user
      */
-    function get_screenname($user)
+    function getScreenname($user)
     {
         $user_im_prefs = $this->getUserImPrefsFromUser($user);
         if ($user_im_prefs) {

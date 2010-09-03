@@ -47,14 +47,14 @@ class IMChannel extends Channel
     function output($user, $text)
     {
         $text = '['.common_config('site', 'name') . '] ' . $text;
-        $this->imPlugin->sendMessage($this->imPlugin->get_screenname($user), $text);
+        $this->imPlugin->sendMessage($this->imPlugin->getScreenname($user), $text);
     }
 
     function error($user, $text)
     {
         $text = '['.common_config('site', 'name') . '] ' . $text;
 
-        $screenname = $this->imPlugin->get_screenname($user);
+        $screenname = $this->imPlugin->getScreenname($user);
         if($screenname){
             $this->imPlugin->sendMessage($screenname, $text);
             return true;
