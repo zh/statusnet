@@ -53,7 +53,7 @@ class FeedDiscoveryTest extends PHPUnit_Framework_TestCase
 </style>
 
 <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://leuksman.com/log/xmlrpc.php?rsd" />
-<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://leuksman.com/log/wp-includes/wlwmanifest.xml" /> 
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://leuksman.com/log/wp-includes/wlwmanifest.xml" />
 <link rel='index' title='leŭksman' href='http://leuksman.com/log' />
 <meta name="generator" content="WordPress 2.8.6" />
 </head>

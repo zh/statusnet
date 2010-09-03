@@ -37,7 +37,7 @@ class PushCallbackAction extends Action
             $this->handleGet();
         }
     }
-    
+
     /**
      * Handler for POST content updates from the hub
      */
@@ -46,11 +46,12 @@ class PushCallbackAction extends Action
         $feedid = $this->arg('feed');
         common_log(LOG_INFO, "POST for feed id $feedid");
         if (!$feedid) {
-            throw new ServerException('Empty or invalid feed id', 400);
+            throw new ServerException('Empty or invalid feed id.', 400);
         }
 
         $feedsub = FeedSub::staticGet('id', $feedid);
         if (!$feedsub) {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ServerException('Unknown PuSH feed id ' . $feedid, 400);
         }
 
@@ -70,7 +71,7 @@ class PushCallbackAction extends Action
         $qm = QueueManager::get();
         $qm->enqueue($data, 'pushin');
     }
-    
+
     /**
      * Handler for GET verification requests from the hub.
      */
@@ -88,20 +89,24 @@ class PushCallbackAction extends Action
 
         $feedsub = FeedSub::staticGet('uri', $topic);
         if (!$feedsub) {
-            throw new ClientException("Bad hub.topic feed $topic", 404);
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
+            throw new ClientException("Bad hub.topic feed $topic.", 404);
         }
 
         if ($feedsub->verify_token !== $verify_token) {
-            throw new ClientException("Bad hub.verify_token $token for $topic", 404);
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
+            throw new ClientException("Bad hub.verify_token $token for $topic.", 404);
         }
 
         if ($mode == 'subscribe') {
             // We may get re-sub requests legitimately.
             if ($feedsub->sub_state != 'subscribe' && $feedsub->sub_state != 'active') {
+                // @todo i18n FIXME: added i18n and use sprintf when using parameters.
                 throw new ClientException("Unexpected subscribe request for $topic.", 404);
             }
         } else {
             if ($feedsub->sub_state != 'unsubscribe') {
+                // @todo i18n FIXME: added i18n and use sprintf when using parameters.
                 throw new ClientException("Unexpected unsubscribe request for $topic.", 404);
             }
         }
