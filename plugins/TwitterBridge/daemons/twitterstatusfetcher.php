@@ -222,7 +222,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 continue;
             }
 
-            $this->saveStatus($status, $flink);
+            $notice = $this->saveStatus($status);
+
+            if (!empty($notice)) {
+                Inbox::insertNotice($flink->user_id, $notice->id);
+            }
         }
 
         // Okay, record the time we synced with Twitter for posterity
@@ -231,7 +235,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $flink->update();
     }
 
-    function saveStatus($status, $flink=null)
+    function saveStatus($status)
     {
         $profile = $this->ensureProfile($status->user);
 
@@ -320,9 +324,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
-        if (!empty($flink)) {
-            Inbox::insertNotice($flink->user_id, $notice->id);
-        }
         $notice->blowOnInsert();
 
         return $notice;
