@@ -259,8 +259,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // If it's a retweet, save it as a repeat!
 
         if (!empty($status->retweeted_status)) {
+            common_log(LOG_INFO, "Status {$status->id} is a retweet of {$status->retweeted_status->id}.");
             $original = $this->saveStatus($status->retweeted_status);
-            return $original->repeat($profile->id, 'twitter');
+            $repeat = $original->repeat($profile->id, 'twitter');
+            common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
+            return $repeat;
         }
 
         $notice = new Notice();
@@ -278,9 +281,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $notice->reply_to   = null;
 
         if (!empty($status->in_reply_to_status_id)) {
+            common_log(LOG_INFO, "Status {$status->id} is a reply to status {$status->in_reply_to_status_id}");
             $replyUri = $this->makeStatusURI($status->in_reply_to_screen_name, $status->in_reply_to_status_id);
             $reply = Notice::staticGet('uri', $replyUri);
-            if (!empty($reply)) {
+            if (empty($reply)) {
+                common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+            } else {
+                common_log(LOG_INFO, "Found local notice {$reply->id} for status {$status->in_reply_to_status_id}");
                 $notice->reply_to     = $reply->id;
                 $notice->conversation = $reply->conversation;
             }
@@ -289,6 +296,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         if (empty($notice->conversation)) {
             $conv = Conversation::create();
             $notice->conversation = $conv->id;
+            common_log(LOG_INFO, "No known conversation for status {$status->id} so making a new one {$conv->id}.");
         }
 
         $notice->is_local   = Notice::GATEWAY;
