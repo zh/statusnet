@@ -33,7 +33,6 @@ END_OF_TRIM_HELP;
 require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
-require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
