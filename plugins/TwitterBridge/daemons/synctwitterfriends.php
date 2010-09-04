@@ -144,8 +144,8 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
             $client = new TwitterOAuthClient($token->key, $token->secret);
             common_debug($this->name() . '- Grabbing friends IDs with OAuth.');
         } else {
-            $client = new TwitterBasicAuthClient($flink);
-            common_debug($this->name() . '- Grabbing friends IDs with basic auth.');
+            common_debug("Skipping Twitter friends for {$flink->user_id} since not OAuth.");
+            return $friends;
         }
 
         try {

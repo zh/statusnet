@@ -244,52 +244,6 @@ function broadcast_oauth($notice, $flink) {
     return true;
 }
 
-function broadcast_basicauth($notice, $flink)
-{
-    $user = $flink->getUser();
-
-    $statustxt = format_status($notice);
-    $params = twitter_update_params($notice);
-
-    $client = new TwitterBasicAuthClient($flink);
-    $status = null;
-
-    try {
-        $status = $client->statusesUpdate($statustxt, $params);
-    } catch (BasicAuthException $e) {
-        return process_error($e, $flink, $notice);
-    }
-
-    if (empty($status)) {
-
-        $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
-                          'trying to post notice %d for %s (user id %d).',
-                          $notice->id,
-                          $user->nickname,
-                          $user->id);
-
-        common_log(LOG_WARNING, $errmsg);
-
-        $errmsg = sprintf('No data returned by Twitter API when ' .
-                          'trying to post notice %d for %s (user id %d).',
-                          $notice->id,
-                          $user->nickname,
-                          $user->id);
-        common_log(LOG_WARNING, $errmsg);
-        return false;
-    }
-
-    $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
-                   'HTTP basic auth for User %s (user id %d).',
-                   $notice->id,
-                   $user->nickname,
-                   $user->id);
-
-    common_log(LOG_INFO, $msg);
-
-    return true;
-}
-
 function process_error($e, $flink, $notice)
 {
     $user = $flink->getUser();
