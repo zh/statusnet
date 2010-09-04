@@ -188,7 +188,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /statuses/friends_timeline API method
+     * Calls Twitter's /statuses/home_timeline API method
      *
      * @param int $since_id show statuses after this id
      * @param int $max_id   show statuses before this id
@@ -197,11 +197,11 @@ class TwitterOAuthClient extends OAuthClient
      *
      * @return mixed an array of statuses
      */
-    function statusesFriendsTimeline($since_id = null, $max_id = null,
-                                     $cnt = null, $page = null)
+    function statusesHomeTimeline($since_id = null, $max_id = null,
+                                  $cnt = null, $page = null)
     {
 
-        $url    = 'https://twitter.com/statuses/friends_timeline.json';
+        $url    = 'https://twitter.com/statuses/home_timeline.json';
         $params = array('since_id' => $since_id,
                         'max_id' => $max_id,
                         'count' => $cnt,
