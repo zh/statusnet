@@ -179,8 +179,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $client = new TwitterOAuthClient($token->key, $token->secret);
             common_debug($this->name() . ' - Grabbing friends timeline with OAuth.');
         } else {
-            $client = new TwitterBasicAuthClient($flink);
-            common_debug($this->name() . ' - Grabbing friends timeline with basic auth.');
+            common_debug("Skipping friends timeline for $flink->foreign_id since not OAuth.");
         }
 
         $timeline = null;
