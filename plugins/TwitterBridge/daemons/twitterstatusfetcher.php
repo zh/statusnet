@@ -265,9 +265,23 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         if (!empty($status->retweeted_status)) {
             common_log(LOG_INFO, "Status {$status->id} is a retweet of {$status->retweeted_status->id}.");
             $original = $this->saveStatus($status->retweeted_status);
-            $repeat = $original->repeat($profile->id, 'twitter');
-            common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
-            return $repeat;
+            if (empty($original)) {
+                return null;
+            } else {
+                $author = $original->getProfile();
+                // TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+                // TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+                $content = sprintf(_('RT @%1$s %2$s'),
+                                   $author->nickname,
+                                   $original->content);
+                $repeat = Notice::saveNew($profile->id,
+                                          $content,
+                                          'twitter',
+                                          array('repeat_of' => $original->id,
+                                                'uri' => $statusUri));
+                common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
+                return $repeat;
+            }
         }
 
         $notice = new Notice();
