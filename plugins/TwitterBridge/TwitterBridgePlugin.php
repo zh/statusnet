@@ -398,7 +398,7 @@ class TwitterBridgePlugin extends Plugin
                   'FROM notice LEFT JOIN notice_to_status ' .
                   'ON notice.id = notice_to_status.notice_id ' .
                   'WHERE notice.source = "twitter"' .
-                  'AND notice_to_status.status_id = NULL');
+                  'AND notice_to_status.status_id IS NULL');
 
         while ($n->fetch()) {
             if (preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $n->uri, $match)) {
