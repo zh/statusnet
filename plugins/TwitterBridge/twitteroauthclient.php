@@ -324,4 +324,20 @@ class TwitterOAuthClient extends OAuthClient
         $status = json_decode($response);
         return $status;
     }
+
+    /**
+     * Calls Twitter's /statuses/destroy API method
+     *
+     * @param int $id ID of the status to destroy
+     *
+     * @return object destroyed
+     */
+
+    function statusesDestroy($id)
+    {
+        $url = "http://api.twitter.com/1/statuses/destroy/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
 }

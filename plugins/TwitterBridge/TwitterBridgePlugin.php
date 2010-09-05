@@ -423,7 +423,33 @@ class TwitterBridgePlugin extends Plugin
     function onNoticeDeleteRelated($notice)
     {
         $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
+
         if (!empty($n2s)) {
+
+            $user = common_current_user();
+
+            if (empty($user) || $user->id != $notice->profile_id) {
+                $this->log(LOG_INFO, "Skipping deleting notice for {$notice->id} since it doesn't seem to be by the author.");
+                return true;
+            }
+
+            $flink = Foreign_link::getByUserID($notice->profile_id,
+                                               TWITTER_SERVICE); // twitter service
+
+            if (empty($flink)) {
+                return true;
+            }
+
+            if (!TwitterOAuthClient::isPackedToken($flink->credentials)) {
+                $this->log(LOG_INFO, "Skipping deleting notice for {$notice->id} since link is not OAuth.");
+                return true;
+            }
+
+            $token = TwitterOAuthClient::unpackToken($flink->credentials);
+            $client = new TwitterOAuthClient($token->key, $token->secret);
+
+            $client->statusesDestroy($n2s->status_id);
+
             $n2s->delete();
         }
         return true;
