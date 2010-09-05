@@ -551,6 +551,12 @@ EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
 - $action: the current action
 - &$xrdsoutputter - XRDSOutputter object to write to
 
+StartHostMetaLinks: Start /.well-known/host-meta links
+- &links: array containing the links elements to be written
+
+EndHostMetaLinks: End /.well-known/host-meta links
+- &links: array containing the links elements to be written
+
 StartCheckPassword: Check a username/password
 - $nickname: The nickname to check
 - $password: The password to check

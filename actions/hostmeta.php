@@ -18,8 +18,10 @@
  */
 
 /**
- * @package OStatusPlugin
+ * @category Action
+ * @package  StatusNet
  * @maintainer James Walker <james@status.net>
+ * @author   Craig Andrews <candrews@integralblue.com>
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
@@ -27,19 +29,28 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 class HostMetaAction extends Action
 {
 
+    /**
+     * Is read only?
+     *
+     * @return boolean true
+     */
+    function isReadOnly()
+    {
+        return true;
+    }
+
     function handle()
     {
         parent::handle();
 
         $domain = common_config('site', 'server');
-        $url = common_local_url('userxrd');
-        $url.= '?uri={uri}';
 
         $xrd = new XRD();
         $xrd->host = $domain;
-        $xrd->links[] = array('rel' => Discovery::LRDD_REL,
-                              'template' => $url,
-                              'title' => array('Resource Descriptor'));
+
+        if(Event::handle('StartHostMetaLinks', array(&$xrd->links))) {
+            Event::handle('EndHostMetaLinks', array(&$xrd->links));
+        }
 
         header('Content-type: application/xrd+xml');
         print $xrd->toXML();
