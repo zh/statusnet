@@ -411,4 +411,21 @@ class TwitterBridgePlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * If a notice gets deleted, remove the Notice_to_status mapping
+     *
+     * @param Notice $notice The notice getting deleted
+     *
+     * @return boolean hook value
+     */
+
+    function onNoticeDeleteRelated($notice)
+    {
+        $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
+        if (!empty($n2s)) {
+            $n2s->delete();
+        }
+        return true;
+    }
 }
