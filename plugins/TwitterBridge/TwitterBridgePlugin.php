@@ -194,18 +194,21 @@ class TwitterBridgePlugin extends Plugin
      */
     function onAutoload($cls)
     {
+        $dir = dirname(__FILE__);
+
         switch ($cls) {
         case 'TwittersettingsAction':
         case 'TwitterauthorizationAction':
         case 'TwitterloginAction':
         case 'TwitteradminpanelAction':
-            include_once INSTALLDIR . '/plugins/TwitterBridge/' .
-              strtolower(mb_substr($cls, 0, -6)) . '.php';
+            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         case 'TwitterOAuthClient':
         case 'TwitterQueueHandler':
-            include_once INSTALLDIR . '/plugins/TwitterBridge/' .
-              strtolower($cls) . '.php';
+            include_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
+        case 'Notice_to_status':
+            include_once $dir . '/' . $cls . '.php';
             return false;
         default:
             return true;
@@ -360,5 +363,52 @@ class TwitterBridgePlugin extends Plugin
         }
     }
 
-}
+    /**
+     * Database schema setup
+     *
+     * We maintain a table mapping StatusNet notices to Twitter statuses
+     *
+     * @see Schema
+     * @see ColumnDef
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
 
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing user-submitted flags on profiles
+
+        $schema->ensureTable('notice_to_status',
+                             array(new ColumnDef('notice_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('status_id', 'integer', null,
+                                                 false, 'UNI'),
+                                   new ColumnDef('created', 'datetime', null,
+                                                 false)));
+
+        // We update any notices that may have come in from
+        // Twitter that we don't have a status_id for. Note that
+        // this won't catch notices that originated at this StatusNet site.
+
+        $n = new Notice();
+
+        $n->query('SELECT notice.id, notice.uri ' .
+                  'FROM notice LEFT JOIN notice_to_status ' .
+                  'ON notice.id = notice_to_status.notice_id ' .
+                  'WHERE notice.source = "twitter"' .
+                  'AND notice_to_status.status_id = NULL');
+
+        while ($n->fetch()) {
+            if (preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $n->uri, $match)) {
+
+                $status_id = $match[1];
+
+                Notice_to_status::saveNew($n->id, $status_id);
+            }
+        }
+
+        return true;
+    }
+}

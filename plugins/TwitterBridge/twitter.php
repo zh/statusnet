@@ -129,14 +129,9 @@ function is_twitter_bound($notice, $flink) {
 
 function is_twitter_notice($id)
 {
-    $notice = Notice::staticGet('id', $id);
+    $n2s = Notice_to_status::staticGet('notice_id', $id);
 
-    if (empty($notice)) {
-        // it's not any kind of notice, so it's definitely not a Twitter notice.
-        return false;
-    }
-
-    return ($notice->source == 'twitter');
+    return (!empty($n2s));
 }
 
 function broadcast_twitter($notice)
@@ -166,6 +161,9 @@ function retweet_notice($flink, $notice)
 
     try {
         $status = $client->statusesRetweet($id);
+        if (!empty($status)) {
+            Notice_to_status::saveNew($notice->id, $status->id);
+        }
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }
@@ -173,12 +171,12 @@ function retweet_notice($flink, $notice)
 
 function twitter_status_id($notice)
 {
-    if ($notice->source == 'twitter' &&
-        preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $notice->uri, $match)) {
-        return $match[1];
+    $n2s = Notice_to_status::staticGet('notice_id', $id);
+    if (empty($n2s)) {
+        return null;
+    } else {
+        return $n2s->status_id;
     }
-
-    return null;
 }
 
 /**
@@ -214,6 +212,9 @@ function broadcast_oauth($notice, $flink) {
 
     try {
         $status = $client->statusesUpdate($statustxt, $params);
+        if (!empty($status)) {
+            Notice_to_status::saveNew($notice->id, $status->id);
+        }
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }

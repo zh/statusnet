@@ -280,6 +280,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                                           array('repeat_of' => $original->id,
                                                 'uri' => $statusUri));
                 common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
+                Notice_to_status::saveNew($repeat->id, $status->id);
                 return $repeat;
             }
         }
@@ -338,6 +339,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
+        Notice_to_status::saveNew($notice->id, $status->id);
         $notice->blowOnInsert();
 
         return $notice;
