@@ -274,6 +274,12 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 $content = sprintf(_('RT @%1$s %2$s'),
                                    $author->nickname,
                                    $original->content);
+
+                if (Notice::contentTooLong($content)) {
+                    $contentlimit = Notice::maxContent();
+                    $content = mb_substr($content, 0, $contentlimit - 4) . ' ...';
+                }
+
                 $repeat = Notice::saveNew($profile->id,
                                           $content,
                                           'twitter',
