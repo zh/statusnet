@@ -52,8 +52,6 @@ class OStatusPlugin extends Plugin
     function onRouterInitialized($m)
     {
         // Discovery actions
-        $m->connect('.well-known/host-meta',
-                    array('action' => 'hostmeta'));
         $m->connect('main/xrd',
                     array('action' => 'userxrd'));
         $m->connect('main/ownerxrd',
@@ -1010,5 +1008,13 @@ class OStatusPlugin extends Plugin
         }
 
         return true;
+    }
+
+    function onStartHostMetaLinks(&$links) {
+        $url = common_local_url('userxrd');
+        $url.= '?uri={uri}';
+        $links[] = array('rel' => Discovery::LRDD_REL,
+                              'template' => $url,
+                              'title' => array('Resource Descriptor'));
     }
 }
