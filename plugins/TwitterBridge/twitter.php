@@ -143,7 +143,10 @@ function broadcast_twitter($notice)
 
     if (!empty($flink) && TwitterOAuthClient::isPackedToken($flink->credentials)) {
         if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
-            return retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
+            $retweet = retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
+            if (!empty($retweet)) {
+                Notice_to_status::saveNew($notice->id, $retweet->id);
+            }
         } else if (is_twitter_bound($notice, $flink)) {
             return broadcast_oauth($notice, $flink);
         }
@@ -159,11 +162,14 @@ function retweet_notice($flink, $notice)
 
     $id = twitter_status_id($notice);
 
+    if (empty($id)) {
+        common_log(LOG_WARNING, "Trying to retweet notice {$notice->id} with no known status id.");
+        return null;
+    }
+
     try {
         $status = $client->statusesRetweet($id);
-        if (!empty($status)) {
-            Notice_to_status::saveNew($notice->id, $status->id);
-        }
+        return $status;
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }
