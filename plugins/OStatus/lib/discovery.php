@@ -107,7 +107,7 @@ class Discovery
         }
 
         // @todo Needs i18n.
-        throw new Exception('Unable to find services for '. $id '.');
+        throw new Exception('Unable to find services for '. $id . '.');
     }
 
     public static function getService($links, $service) {
