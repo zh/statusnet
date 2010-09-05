@@ -196,6 +196,10 @@ function twitter_update_params($notice)
         $params['lat'] = $notice->lat;
         $params['long'] = $notice->lon;
     }
+    if (!empty($notice->reply_to) && is_twitter_notice($notice->reply_to)) {
+        $reply = Notice::staticGet('id', $notice->reply_to);
+        $params['in_reply_to_status_id'] = twitter_status_id($reply);
+    }
     return $params;
 }
 
