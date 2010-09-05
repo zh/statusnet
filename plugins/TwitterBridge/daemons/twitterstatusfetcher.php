@@ -331,11 +331,8 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $notice->is_local   = Notice::GATEWAY;
 
-        $notice->content    = common_shorten_links($status->text);
-        $notice->rendered   = common_render_content(
-            $notice->content,
-            $notice
-        );
+        $notice->content  = html_entity_decode($status->text);
+        $notice->rendered = $this->linkify($status);
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
@@ -700,6 +697,84 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         return true;
+    }
+
+    const URL = 1;
+    const HASHTAG = 2;
+    const MENTION = 3;
+
+    function linkify($status)
+    {
+        $text = $status->text;
+
+        if (empty($status->entities)) {
+            return $text;
+        }
+
+        // Move all the entities into order so we can
+        // replace them in reverse order and thus
+        // not mess up their indices
+
+        $toReplace = array();
+
+        if (!empty($status->entities->urls)) {
+            foreach ($status->entities->urls as $url) {
+                $toReplace[$url->indices[0]] = array(self::URL, $url);
+            }
+        }
+
+        if (!empty($status->entities->hashtags)) {
+            foreach ($status->entities->hashtags as $hashtag) {
+                $toReplace[$hashtag->indices[0]] = array(self::HASHTAG, $hashtag);
+            }
+        }
+
+        if (!empty($status->entities->user_mentions)) {
+            foreach ($status->entities->user_mentions as $mention) {
+                $toReplace[$mention->indices[0]] = array(self::MENTION, $mention);
+            }
+        }
+
+        // sort in reverse order by key
+
+        krsort($toReplace);
+
+        foreach ($toReplace as $part) {
+            list($type, $object) = $part;
+            switch($type) {
+            case self::URL:
+                $linkText = $this->makeUrlLink($object);
+                break;
+            case self::HASHTAG:
+                $linkText = $this->makeHashtagLink($object);
+                break;
+            case self::MENTION:
+                $linkText = $this->makeMentionLink($object);
+                break;
+            default:
+                continue;
+            }
+            $text = substr_replace($text,
+                                   $linkText,
+                                   $object->indices[0],
+                                   $object->indices[1] - $object->indices[0]);
+        }
+        return $text;
+    }
+
+    function makeUrlLink($object)
+    {
+        return "<a href='{$object->url}' class='extlink'>{$object->url}</a>";
+    }
+
+    function makeHashtagLink($object)
+    {
+        return "<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
+    }
+
+    function makeMentionLink($object)
+    {
+        return "<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
     }
 }
 
