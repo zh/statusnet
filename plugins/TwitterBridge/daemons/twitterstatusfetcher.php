@@ -247,15 +247,15 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         // check to see if we've already imported the status
 
-        $dupe = $this->checkDupe($profile, $statusUri);
+        $n2s = Notice_to_status::staticGet('status_id', $status->id);
 
-        if (!empty($dupe)) {
+        if (!empty($n2s)) {
             common_log(
                 LOG_INFO,
                 $this->name() .
-                " - Ignoring duplicate import: $statusUri"
+                " - Ignoring duplicate import: {$status->id}"
             );
-            return $dupe;
+            return Notice::staticGet('id', $n2s->notice_id);
         }
 
         common_debug("Saving status {$status->id} with data " . print_r($status, true));
