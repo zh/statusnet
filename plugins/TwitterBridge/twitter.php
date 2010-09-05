@@ -177,7 +177,7 @@ function retweet_notice($flink, $notice)
 
 function twitter_status_id($notice)
 {
-    $n2s = Notice_to_status::staticGet('notice_id', $id);
+    $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
     if (empty($n2s)) {
         return null;
     } else {
