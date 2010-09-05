@@ -205,7 +205,8 @@ class TwitterOAuthClient extends OAuthClient
         $params = array('since_id' => $since_id,
                         'max_id' => $max_id,
                         'count' => $cnt,
-                        'page' => $page);
+                        'page' => $page,
+                        'include_entities' => 1);
         $qry    = http_build_query($params);
 
         if (!empty($qry)) {
