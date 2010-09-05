@@ -202,12 +202,23 @@ class TwitterOAuthClient extends OAuthClient
     {
 
         $url    = 'https://twitter.com/statuses/home_timeline.json';
-        $params = array('since_id' => $since_id,
-                        'max_id' => $max_id,
-                        'count' => $cnt,
-                        'page' => $page,
-                        'include_entities' => 1);
-        $qry    = http_build_query($params);
+
+        $params = array('include_entities' => 'true');
+
+        if (!empty($since_id)) {
+            $params['since_id'] = $since_id;
+        }
+        if (!empty($max_id)) {
+            $params['max_id'] = $max_id;
+        }
+        if (!empty($cnt)) {
+            $params['count'] = $cnt;
+        }
+        if (!empty($page)) {
+            $params['page'] = $page;
+        }
+
+        $qry = http_build_query($params);
 
         if (!empty($qry)) {
             $url .= "?$qry";
