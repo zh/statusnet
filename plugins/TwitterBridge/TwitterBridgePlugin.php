@@ -428,4 +428,77 @@ class TwitterBridgePlugin extends Plugin
         }
         return true;
     }
+
+    /**
+     * Notify remote users when their notices get favorited.
+     *
+     * @param Profile or User $profile of local user doing the faving
+     * @param Notice $notice being favored
+     * @return hook return value
+     */
+
+    function onEndFavorNotice(Profile $profile, Notice $notice)
+    {
+        $flink = Foreign_link::getByUserID($profile->id,
+                                           TWITTER_SERVICE); // twitter service
+
+        if (empty($flink)) {
+            return true;
+        }
+
+        if (!TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $this->log(LOG_INFO, "Skipping fave processing for {$profile->id} since link is not OAuth.");
+            return true;
+        }
+
+        $status_id = twitter_status_id($notice);
+
+        if (empty($status_id)) {
+            return true;
+        }
+
+        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = new TwitterOAuthClient($token->key, $token->secret);
+
+        $client->favoritesCreate($status_id);
+
+        return true;
+    }
+
+    /**
+     * Notify remote users when their notices get de-favorited.
+     *
+     * @param Profile $profile Profile person doing the de-faving
+     * @param Notice  $notice  Notice being favored
+     *
+     * @return hook return value
+     */
+
+    function onEndDisfavorNotice(Profile $profile, Notice $notice)
+    {
+        $flink = Foreign_link::getByUserID($profile->id,
+                                           TWITTER_SERVICE); // twitter service
+
+        if (empty($flink)) {
+            return true;
+        }
+
+        if (!TwitterOAuthClient::isPackedToken($flink->credentials)) {
+            $this->log(LOG_INFO, "Skipping fave processing for {$profile->id} since link is not OAuth.");
+            return true;
+        }
+
+        $status_id = twitter_status_id($notice);
+
+        if (empty($status_id)) {
+            return true;
+        }
+
+        $token = TwitterOAuthClient::unpackToken($flink->credentials);
+        $client = new TwitterOAuthClient($token->key, $token->secret);
+
+        $client->favoritesDestroy($status_id);
+
+        return true;
+    }
 }

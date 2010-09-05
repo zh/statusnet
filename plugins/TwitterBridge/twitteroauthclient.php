@@ -292,4 +292,36 @@ class TwitterOAuthClient extends OAuthClient
         $status = json_decode($response);
         return $status;
     }
+
+    /**
+     * Calls Twitter's /favorites/create API method
+     *
+     * @param int $id ID of the status to favorite
+     *
+     * @return object faved status
+     */
+
+    function favoritesCreate($id)
+    {
+        $url = "http://api.twitter.com/1/favorites/create/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
+
+    /**
+     * Calls Twitter's /favorites/destroy API method
+     *
+     * @param int $id ID of the status to unfavorite
+     *
+     * @return object unfaved status
+     */
+
+    function favoritesDestroy($id)
+    {
+        $url = "http://api.twitter.com/1/favorites/destroy/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
 }
