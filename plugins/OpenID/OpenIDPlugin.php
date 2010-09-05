@@ -631,6 +631,28 @@ class OpenIDPlugin extends Plugin
     }
 
     /**
+     * Add OpenID information to the Account Management Control Document
+     * Event supplied by the Account Manager plugin
+     *
+     * @param array &$amcd Array that expresses the AMCD
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAccountManagementControlDocument(&$amcd)
+    {
+        $amcd['auth-methods']['openid'] = array(
+            'connect' => array(
+                'method' => 'POST',
+                'path' => common_local_url('openidlogin'),
+                'params' => array(
+                    'identity' => 'openid_url'
+                )
+            )
+        );
+    }
+
+    /**
      * Add our version information to output
      *
      * @param array &$versions Array of version-data arrays
