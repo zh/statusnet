@@ -218,13 +218,7 @@ class TwitterOAuthClient extends OAuthClient
             $params['page'] = $page;
         }
 
-        $qry = http_build_query($params);
-
-        if (!empty($qry)) {
-            $url .= "?$qry";
-        }
-
-        $response = $this->oAuthGet($url);
+        $response = $this->oAuthGet($url, $params);
         $statuses = json_decode($response);
         return $statuses;
     }
@@ -244,17 +238,25 @@ class TwitterOAuthClient extends OAuthClient
     {
         $url = "https://twitter.com/statuses/friends.json";
 
-        $params = array('id' => $id,
-                        'user_id' => $user_id,
-                        'screen_name' => $screen_name,
-                        'page' => $page);
-        $qry    = http_build_query($params);
+        $params = array();
 
-        if (!empty($qry)) {
-            $url .= "?$qry";
+        if (!empty($id)) {
+            $params['id'] = $id;
         }
 
-        $response = $this->oAuthGet($url);
+        if (!empty($user_id)) {
+            $params['user_id'] = $user_id;
+        }
+
+        if (!empty($screen_name)) {
+            $params['screen_name'] = $screen_name;
+        }
+
+        if (!empty($page)) {
+            $params['page'] = $page;
+        }
+
+        $response = $this->oAuthGet($url, $params);
         $friends  = json_decode($response);
         return $friends;
     }
@@ -274,17 +276,25 @@ class TwitterOAuthClient extends OAuthClient
     {
         $url = "https://twitter.com/friends/ids.json";
 
-        $params = array('id' => $id,
-                        'user_id' => $user_id,
-                        'screen_name' => $screen_name,
-                        'page' => $page);
-        $qry    = http_build_query($params);
+        $params = array();
 
-        if (!empty($qry)) {
-            $url .= "?$qry";
+        if (!empty($id)) {
+            $params['id'] = $id;
         }
 
-        $response = $this->oAuthGet($url);
+        if (!empty($user_id)) {
+            $params['user_id'] = $user_id;
+        }
+
+        if (!empty($screen_name)) {
+            $params['screen_name'] = $screen_name;
+        }
+
+        if (!empty($page)) {
+            $params['page'] = $page;
+        }
+
+        $response = $this->oAuthGet($url, $params);
         $ids      = json_decode($response);
         return $ids;
     }
