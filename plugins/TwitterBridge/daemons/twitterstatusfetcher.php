@@ -278,7 +278,8 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                                           $content,
                                           'twitter',
                                           array('repeat_of' => $original->id,
-                                                'uri' => $statusUri));
+                                                'uri' => $statusUri,
+                                                'is_local' => Notice::GATEWAY));
                 common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
                 Notice_to_status::saveNew($repeat->id, $status->id);
                 return $repeat;
