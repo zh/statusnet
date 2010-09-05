@@ -165,6 +165,8 @@ class Notice_to_status extends Memcached_DataObject
             return $n2s;
         }
 
+        common_debug("Mapping notice {$notice_id} to Twitter status {$status_id}");
+
         $n2s = new Notice_to_status();
 
         $n2s->notice_id = $notice_id;
