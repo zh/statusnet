@@ -153,6 +153,18 @@ class Notice_to_status extends Memcached_DataObject
 
     static function saveNew($notice_id, $status_id)
     {
+        $n2s = Notice_to_status::staticGet('notice_id', $notice_id);
+
+        if (!empty($n2s)) {
+            return $n2s;
+        }
+
+        $n2s = Notice_to_status::staticGet('status_id', $status_id);
+
+        if (!empty($n2s)) {
+            return $n2s;
+        }
+
         $n2s = new Notice_to_status();
 
         $n2s->notice_id = $notice_id;
