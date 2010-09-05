@@ -301,14 +301,18 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         if (!empty($status->in_reply_to_status_id)) {
             common_log(LOG_INFO, "Status {$status->id} is a reply to status {$status->in_reply_to_status_id}");
-            $replyUri = $this->makeStatusURI($status->in_reply_to_screen_name, $status->in_reply_to_status_id);
-            $reply = Notice::staticGet('uri', $replyUri);
-            if (empty($reply)) {
+            $n2s = Notice_to_status::staticGet('status_id', $status->in_reply_to_status_id);
+            if (empty($n2s)) {
                 common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
             } else {
-                common_log(LOG_INFO, "Found local notice {$reply->id} for status {$status->in_reply_to_status_id}");
-                $notice->reply_to     = $reply->id;
-                $notice->conversation = $reply->conversation;
+                $reply = Notice::staticGet('id', $n2s->notice_id);
+                if (empty($reply)) {
+                    common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+                } else {
+                    common_log(LOG_INFO, "Found local notice {$reply->id} for status {$status->in_reply_to_status_id}");
+                    $notice->reply_to     = $reply->id;
+                    $notice->conversation = $reply->conversation;
+                }
             }
         }
 
