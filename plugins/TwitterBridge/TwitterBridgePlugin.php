@@ -383,7 +383,7 @@ class TwitterBridgePlugin extends Plugin
         $schema->ensureTable('notice_to_status',
                              array(new ColumnDef('notice_id', 'integer', null,
                                                  false, 'PRI'),
-                                   new ColumnDef('status_id', 'integer', null,
+                                   new ColumnDef('status_id', 'bigint', null, // XXX: check for PostgreSQL
                                                  false, 'UNI'),
                                    new ColumnDef('created', 'datetime', null,
                                                  false)));
