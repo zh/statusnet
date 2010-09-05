@@ -769,12 +769,12 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function makeHashtagLink($object)
     {
-        return "<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
+        return "#<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
     }
 
     function makeMentionLink($object)
     {
-        return "<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
+        return "@<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
     }
 }
 
