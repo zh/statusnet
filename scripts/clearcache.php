@@ -38,7 +38,7 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 $karg = get_option_value('k', 'key');
 
 if (!empty($karg)) {
-    $k = common_cache_key($karg);
+    $k = Cache::key($karg);
 } else {
     $table = get_option_value('t', 'table');
     if (empty($table)) {

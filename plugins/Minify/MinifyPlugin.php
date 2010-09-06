@@ -121,7 +121,7 @@ class MinifyPlugin extends Plugin
         if($this->minifyInlineJs && $type=='text/javascript'){
             $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {
@@ -141,7 +141,7 @@ class MinifyPlugin extends Plugin
         if($this->minifyInlineCss && $type=='text/css'){
             $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {

@@ -420,7 +420,7 @@ class GeonamesPlugin extends Plugin
         if ($this->cachePrefix) {
             return $this->cachePrefix . ':' . $key;
         } else {
-            return common_cache_key($key);
+            return Cache::key($key);
         }
     }
 

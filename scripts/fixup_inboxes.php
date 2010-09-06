@@ -76,6 +76,6 @@ while ($user->fetch()) {
     $inbox->free();
     unset($inbox);
     if ($cache) {
-        $cache->delete(common_cache_key('user:notices_with_friends:' . $user->id));
+        $cache->delete(Cache::key('user:notices_with_friends:' . $user->id));
     }
 }

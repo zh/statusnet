@@ -759,7 +759,7 @@ class Notice extends Memcached_DataObject
         $c = self::memcache();
 
         if (!empty($c)) {
-            $ni = $c->get(common_cache_key('notice:who_gets:'.$this->id));
+            $ni = $c->get(Cache::key('notice:who_gets:'.$this->id));
             if ($ni !== false) {
                 return $ni;
             }
@@ -811,7 +811,7 @@ class Notice extends Memcached_DataObject
 
         if (!empty($c)) {
             // XXX: pack this data better
-            $c->set(common_cache_key('notice:who_gets:'.$this->id), $ni);
+            $c->set(Cache::key('notice:who_gets:'.$this->id), $ni);
         }
 
         return $ni;
@@ -1595,7 +1595,7 @@ class Notice extends Memcached_DataObject
                                                                       $max_id)));
         }
 
-        $idkey = common_cache_key($cachekey);
+        $idkey = Cache::key($cachekey);
 
         $idstr = $cache->get($idkey);
 
@@ -1782,12 +1782,12 @@ class Notice extends Memcached_DataObject
         if (empty($cache)) {
             $ids = $this->_repeatStreamDirect($limit);
         } else {
-            $idstr = $cache->get(common_cache_key('notice:repeats:'.$this->id));
+            $idstr = $cache->get(Cache::key('notice:repeats:'.$this->id));
             if ($idstr !== false) {
                 $ids = explode(',', $idstr);
             } else {
                 $ids = $this->_repeatStreamDirect(100);
-                $cache->set(common_cache_key('notice:repeats:'.$this->id), implode(',', $ids));
+                $cache->set(Cache::key('notice:repeats:'.$this->id), implode(',', $ids));
             }
             if ($limit < 100) {
                 // We do a max of 100, so slice down to limit

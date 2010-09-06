@@ -131,7 +131,7 @@ class GetfileAction extends Action
 
         $cache = Cache::instance();
         if($cache) {
-            $key = common_cache_key('attachments:etag:' . $this->path);
+            $key = Cache::key('attachments:etag:' . $this->path);
             $etag = $cache->get($key);
             if($etag === false) {
                 $etag = crc32(file_get_contents($this->path));
