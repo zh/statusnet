@@ -1251,11 +1251,6 @@ function common_redirect($url, $code=307)
     exit;
 }
 
-function common_broadcast_notice($notice, $remote=false)
-{
-    // DO NOTHING!
-}
-
 // Stick the notice on the queue
 
 function common_enqueue_notice($notice)

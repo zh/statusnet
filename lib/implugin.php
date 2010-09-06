@@ -59,7 +59,6 @@ abstract class ImPlugin extends Plugin
      */
     abstract function normalize($screenname);
 
-
     /**
      * validate (ensure the validity of) a screenname
      *
@@ -107,7 +106,7 @@ abstract class ImPlugin extends Plugin
      * receive a raw message
      * Raw IM data is taken from the incoming queue, and passed to this function.
      * It should parse the raw message and call handleIncoming()
-     * 
+     *
      * Returning false may CAUSE REPROCESSING OF THE QUEUE ITEM, and should
      * be used for temporary failures only. For permanent failures such as
      * unrecognized addresses, return true to indicate your processing has
@@ -135,7 +134,7 @@ abstract class ImPlugin extends Plugin
      */
     function microiduri($screenname)
     {
-        return $this->transport . ':' . $screenname;    
+        return $this->transport . ':' . $screenname;
     }
     //========================UTILITY FUNCTIONS USEFUL TO IMPLEMENTATIONS - MISC ========================\
 
@@ -180,7 +179,6 @@ abstract class ImPlugin extends Plugin
         }
     }
 
-
     /**
      * given a screenname, get the User_im_prefs object for this transport
      *
@@ -200,7 +198,6 @@ abstract class ImPlugin extends Plugin
         }
     }
 
-
     /**
      * given a User, get their screenname
      *
@@ -217,7 +214,6 @@ abstract class ImPlugin extends Plugin
             return false;
         }
     }
-
 
     /**
      * given a User, get their User_im_prefs
@@ -500,7 +496,6 @@ abstract class ImPlugin extends Plugin
             return;
         }
 
-        common_broadcast_notice($notice);
         common_log(LOG_INFO,
                    'Added notice ' . $notice->id . ' from user ' . $user->nickname);
         $notice->free();
@@ -508,7 +503,7 @@ abstract class ImPlugin extends Plugin
     }
 
     //========================EVENT HANDLERS========================\
-    
+
     /**
      * Register notice queue handler
      *
