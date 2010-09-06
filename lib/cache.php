@@ -83,7 +83,7 @@ class Cache
         $base_key = common_config('cache', 'base');
 
         if (empty($base_key)) {
-            $base_key = common_keyize(common_config('site', 'name'));
+            $base_key = self::keyize(common_config('site', 'name'));
         }
 
         return 'statusnet:' . $base_key . ':' . $extra;

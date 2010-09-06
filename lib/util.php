@@ -1798,11 +1798,6 @@ function common_cache_key($extra)
     return Cache::key($extra);
 }
 
-function common_keyize($str)
-{
-    return Cache::keyize($str);
-}
-
 function common_license_terms($uri)
 {
     if(preg_match('/creativecommons.org\/licenses\/([^\/]+)/', $uri, $matches)) {

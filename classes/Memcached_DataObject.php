@@ -302,7 +302,7 @@ class Memcached_DataObject extends Safe_DataObject
             $inst->query($qry);
             return $inst;
         }
-        $key_part = common_keyize($cls).':'.md5($qry);
+        $key_part = Cache::keyize($cls).':'.md5($qry);
         $ckey = common_cache_key($key_part);
         $stored = $c->get($ckey);
 

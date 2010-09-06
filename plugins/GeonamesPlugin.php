@@ -416,7 +416,7 @@ class GeonamesPlugin extends Plugin
     {
         $key = 'geonames:' .
                implode(',', array_keys($attrs)) . ':'.
-               common_keyize(implode(',', array_values($attrs)));
+               Cache::keyize(implode(',', array_values($attrs)));
         if ($this->cachePrefix) {
             return $this->cachePrefix . ':' . $key;
         } else {

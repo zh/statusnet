@@ -1941,10 +1941,10 @@ class Notice extends Memcached_DataObject
 
         if ($tag->find()) {
             while ($tag->fetch()) {
-                self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, common_keyize($tag->tag));
-                self::blow('profile:notice_ids_tagged:%d:%s;last', $this->profile_id, common_keyize($tag->tag));
-                self::blow('notice_tag:notice_ids:%s', common_keyize($tag->tag));
-                self::blow('notice_tag:notice_ids:%s;last', common_keyize($tag->tag));
+                self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, Cache::keyize($tag->tag));
+                self::blow('profile:notice_ids_tagged:%d:%s;last', $this->profile_id, Cache::keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s', Cache::keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s;last', Cache::keyize($tag->tag));
                 $tag->delete();
             }
         }

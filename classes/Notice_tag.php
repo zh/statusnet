@@ -40,7 +40,7 @@ class Notice_tag extends Memcached_DataObject
 
         $ids = Notice::stream(array('Notice_tag', '_streamDirect'),
                               array($tag),
-                              'notice_tag:notice_ids:' . common_keyize($tag),
+                              'notice_tag:notice_ids:' . Cache::keyize($tag),
                               $offset, $limit);
 
         return Notice::getStreamByIds($ids);
@@ -82,9 +82,9 @@ class Notice_tag extends Memcached_DataObject
 
     function blowCache($blowLast=false)
     {
-        self::blow('notice_tag:notice_ids:%s', common_keyize($this->tag));
+        self::blow('notice_tag:notice_ids:%s', Cache::keyize($this->tag));
         if ($blowLast) {
-            self::blow('notice_tag:notice_ids:%s;last', common_keyize($this->tag));
+            self::blow('notice_tag:notice_ids:%s;last', Cache::keyize($this->tag));
         }
     }
 
