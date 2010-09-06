@@ -429,7 +429,7 @@ class Profile extends Memcached_DataObject
 
     function subscriptionCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (!empty($c)) {
             $cnt = $c->get(common_cache_key('profile:subscription_count:'.$this->id));
@@ -454,7 +454,7 @@ class Profile extends Memcached_DataObject
 
     function subscriberCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $cnt = $c->get(common_cache_key('profile:subscriber_count:'.$this->id));
             if (is_integer($cnt)) {
@@ -476,7 +476,7 @@ class Profile extends Memcached_DataObject
 
     function faveCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $cnt = $c->get(common_cache_key('profile:fave_count:'.$this->id));
             if (is_integer($cnt)) {
@@ -497,7 +497,7 @@ class Profile extends Memcached_DataObject
 
     function noticeCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (!empty($c)) {
             $cnt = $c->get(common_cache_key('profile:notice_count:'.$this->id));
@@ -519,7 +519,7 @@ class Profile extends Memcached_DataObject
 
     function blowSubscriberCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $c->delete(common_cache_key('profile:subscriber_count:'.$this->id));
         }
@@ -527,7 +527,7 @@ class Profile extends Memcached_DataObject
 
     function blowSubscriptionCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $c->delete(common_cache_key('profile:subscription_count:'.$this->id));
         }
@@ -535,7 +535,7 @@ class Profile extends Memcached_DataObject
 
     function blowFaveCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $c->delete(common_cache_key('profile:fave_count:'.$this->id));
         }
@@ -543,7 +543,7 @@ class Profile extends Memcached_DataObject
 
     function blowNoticeCount()
     {
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $c->delete(common_cache_key('profile:notice_count:'.$this->id));
         }

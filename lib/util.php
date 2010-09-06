@@ -37,7 +37,7 @@ function common_user_error($msg, $code=400)
 /**
  * This should only be used at setup; processes switching languages
  * to send text to other users should use common_switch_locale().
- * 
+ *
  * @param string $language Locale language code (optional; empty uses
  *                         current user's preference or site default)
  * @return mixed success
@@ -61,10 +61,10 @@ function common_init_locale($language=null)
 /**
  * Initialize locale and charset settings and gettext with our message catalog,
  * using the current user's language preference or the site default.
- * 
+ *
  * This should generally only be run at framework initialization; code switching
  * languages at runtime should call common_switch_language().
- * 
+ *
  * @access private
  */
 function common_init_language()
@@ -141,7 +141,6 @@ function common_switch_locale($language=null)
     bind_textdomain_codeset("statusnet", "UTF-8");
     textdomain("statusnet");
 }
-
 
 function common_timezone()
 {
@@ -1361,13 +1360,13 @@ function common_mtrand($bytes)
 /**
  * Record the given URL as the return destination for a future
  * form submission, to be read by common_get_returnto().
- * 
+ *
  * @param string $url
- * 
+ *
  * @fixme as a session-global setting, this can allow multiple forms
  * to conflict and overwrite each others' returnto destinations if
  * the user has multiple tabs or windows open.
- * 
+ *
  * Should refactor to index with a token or otherwise only pass the
  * data along its intended path.
  */
@@ -1380,13 +1379,13 @@ function common_set_returnto($url)
 /**
  * Fetch a return-destination URL previously recorded by
  * common_set_returnto().
- * 
+ *
  * @return mixed URL string or null
- * 
+ *
  * @fixme as a session-global setting, this can allow multiple forms
  * to conflict and overwrite each others' returnto destinations if
  * the user has multiple tabs or windows open.
- * 
+ *
  * Should refactor to index with a token or otherwise only pass the
  * data along its intended path.
  */
@@ -1807,11 +1806,6 @@ function common_cache_key($extra)
 function common_keyize($str)
 {
     return Cache::keyize($str);
-}
-
-function common_memcache()
-{
-    return Cache::instance();
 }
 
 function common_license_terms($uri)

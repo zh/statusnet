@@ -74,7 +74,7 @@ class MinifyAction extends Action
     {
         parent::handle($args);
         
-        $c = common_memcache();
+        $c = Cache::instance();
         if (!empty($c)) {
             $cacheKey = common_cache_key(MinifyPlugin::cacheKey . ':' . $this->file . '?v=' . empty($this->v)?'':$this->v);
             $out = $c->get($cacheKey);

@@ -388,7 +388,7 @@ class User extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         // XXX: Kind of a hack.
 
@@ -487,7 +487,7 @@ class User extends Memcached_DataObject
 
     function blowFavesCache()
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
         if ($cache) {
             // Faves don't happen chronologically, so we need to blow
             // ;last cache, too

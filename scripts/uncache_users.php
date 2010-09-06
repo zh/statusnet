@@ -34,7 +34,7 @@ common_log(LOG_INFO, 'Updating user inboxes.');
 
 $ids = file($id_file);
 
-$memc = common_memcache();
+$memc = Cache::instance();
 
 foreach ($ids as $id) {
 

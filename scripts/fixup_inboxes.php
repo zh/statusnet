@@ -46,7 +46,7 @@ if ($start_at) {
 }
 
 $cnt = $user->find();
-$cache = common_memcache();
+$cache = Cache::instance();
 
 while ($user->fetch()) {
     common_log(LOG_INFO, 'Updating inbox for user ' . $user->id);

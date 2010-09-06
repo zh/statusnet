@@ -126,7 +126,7 @@ class LdapCommon
                 }
                 throw new Exception('Could not connect to LDAP server: '.$err->getMessage());
             }
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
                 $cacheObj = new MemcacheSchemaCache(
                     array('c'=>$c,

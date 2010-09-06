@@ -591,7 +591,7 @@ class Notice extends Memcached_DataObject
 
     function getStreamByIds($ids)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (!empty($cache)) {
             $notices = array();
@@ -1585,7 +1585,7 @@ class Notice extends Memcached_DataObject
 
     function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (empty($cache) ||
             $since_id != 0 || $max_id != 0 ||
@@ -1777,7 +1777,7 @@ class Notice extends Memcached_DataObject
 
     function repeatStream($limit=100)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (empty($cache)) {
             $ids = $this->_repeatStreamDirect($limit);

@@ -55,7 +55,7 @@ if (!empty($karg)) {
 
 print "Clearing key '$k'...";
 
-$c = common_memcache();
+$c = Cache::instance();
 
 if (empty($c)) {
     die("Can't initialize cache object!\n");

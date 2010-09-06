@@ -124,7 +124,7 @@ class Memcached_DataObject extends Safe_DataObject
     }
 
     static function memcache() {
-        return common_memcache();
+        return Cache::instance();
     }
 
     static function cacheKey($cls, $k, $v) {

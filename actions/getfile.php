@@ -129,7 +129,7 @@ class GetfileAction extends Action
             return null;
         }
 
-        $cache = common_memcache();
+        $cache = Cache::instance();
         if($cache) {
             $key = common_cache_key('attachments:etag:' . $this->path);
             $etag = $cache->get($key);

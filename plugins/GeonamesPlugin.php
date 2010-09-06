@@ -384,7 +384,7 @@ class GeonamesPlugin extends Plugin
 
     function getCache($attrs)
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (empty($c)) {
             return null;
@@ -399,7 +399,7 @@ class GeonamesPlugin extends Plugin
 
     function setCache($attrs, $loc)
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (empty($c)) {
             return null;
