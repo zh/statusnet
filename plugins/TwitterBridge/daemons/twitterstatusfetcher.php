@@ -348,6 +348,9 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         Notice_to_status::saveNew($notice->id, $status->id);
+
+        $this->saveStatusMentions($notice, $status);
+
         $notice->blowOnInsert();
 
         return $notice;
@@ -775,6 +778,29 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     function makeMentionLink($object)
     {
         return "@<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
+    }
+
+    function saveStatusMentions($notice, $status)
+    {
+        $mentions = array();
+
+        if (empty($status->entities) || empty($status->entities->user_mentions)) {
+            return;
+        }
+
+        foreach ($status->entities->user_mentions as $mention) {
+            $flink = Foreign_link::getByForeignID($mention->id, TWITTER_SERVICE);
+            if (!empty($flink)) {
+                $user = User::staticGet('id', $flink->user_id);
+                if (!empty($user)) {
+                    $reply = new Reply();
+                    $reply->notice_id  = $notice->id;
+                    $reply->profile_id = $user->id;
+                    common_log(LOG_INFO, __METHOD__ . ": saving reply: notice {$notice->id} to profile {$user->id}");
+                    $id = $reply->insert();
+                }
+            }
+        }
     }
 }
 
