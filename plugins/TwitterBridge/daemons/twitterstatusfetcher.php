@@ -267,8 +267,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return Notice::staticGet('id', $n2s->notice_id);
         }
 
-        common_debug("Saving status {$status->id} with data " . print_r($status, true));
-
         // If it's a retweet, save it as a repeat!
 
         if (!empty($status->retweeted_status)) {
