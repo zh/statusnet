@@ -383,7 +383,7 @@ class TwitterBridgePlugin extends Plugin
         // home_timeline, messages (in), messages (out), ...
 
         $schema->ensureTable('twitter_synch_status',
-                             array(new ColumnDef('user_id', 'integer', null,
+                             array(new ColumnDef('foreign_id', 'bigint', null,
                                                  false, 'PRI'),
                                    new ColumnDef('timeline', 'varchar', 255,
                                                  false, 'PRI'),

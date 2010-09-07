@@ -182,7 +182,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $timeline = null;
 
-        $lastId = Twitter_synch_status::getLastId($flink->user_id, 'home_timeline');
+        $lastId = Twitter_synch_status::getLastId($flink->foreign_id, 'home_timeline');
 
         try {
             $timeline = $client->statusesHomeTimeline($lastId);
@@ -199,8 +199,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         common_debug(LOG_INFO, $this->name() . ' - Retrieved ' . sizeof($timeline) . ' statuses from Twitter.');
-
-        $lastSeenId = null;
 
         // Reverse to preserve order
 
@@ -232,9 +230,11 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             }
         }
 
-        if (!empty($lastSeenId)) {
-            Twitter_synch_status::setLastId($flink->user_id, 'home_timeline', $lastSeenId);
-        }
+        assert(!empty($timeline)); // checked above
+
+        // First status is last in time
+
+        Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $timeline[0]->id);
 
         // Okay, record the time we synced with Twitter for posterity
 

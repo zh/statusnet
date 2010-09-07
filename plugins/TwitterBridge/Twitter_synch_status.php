@@ -52,7 +52,7 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 class Twitter_synch_status extends Memcached_DataObject
 {
     public $__table = 'twitter_synch_status'; // table name
-    public $user_id;                         // int(4)  primary_key not_null
+    public $foreign_id;                         // int(4)  primary_key not_null
     public $timeline;                        // varchar(255)  primary_key not_null
     public $last_id;                         // bigint not_null
     public $created;                         // datetime not_null
@@ -61,7 +61,7 @@ class Twitter_synch_status extends Memcached_DataObject
     /**
      * Get an instance by key
      *
-     * @param string $k Key to use to lookup (usually 'user_id' for this class)
+     * @param string $k Key to use to lookup (usually 'foreign_id' for this class)
      * @param mixed  $v Value to lookup
      *
      * @return User_greeting_count object found, or null for no hits
@@ -84,7 +84,7 @@ class Twitter_synch_status extends Memcached_DataObject
 
     function table()
     {
-        return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+        return array('foreign_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'timeline' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'last_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
@@ -122,7 +122,7 @@ class Twitter_synch_status extends Memcached_DataObject
 
     function keyTypes()
     {
-        return array('user_id' => 'K',
+        return array('foreign_id' => 'K',
                      'timeline' => 'K');
     }
 
@@ -142,9 +142,9 @@ class Twitter_synch_status extends Memcached_DataObject
         return array(false, false, false);
     }
 
-    static function getLastId($user_id, $timeline)
+    static function getLastId($foreign_id, $timeline)
     {
-        $tss = self::staticGet(array('user_id' => $user_id,
+        $tss = self::staticGet(array('foreign_id' => $foreign_id,
                                      'timeline' => $timeline));
 
         if (empty($tss)) {
@@ -154,20 +154,20 @@ class Twitter_synch_status extends Memcached_DataObject
         }
     }
 
-    static function setLastId($user_id, $timeline, $last_id)
+    static function setLastId($foreign_id, $timeline, $last_id)
     {
-        $tss = self::staticGet(array('user_id' => $user_id,
+        $tss = self::staticGet(array('foreign_id' => $foreign_id,
                                      'timeline' => $timeline));
 
         if (empty($tss)) {
 
             $tss = new Twitter_synch_status();
 
-            $tss->user_id  = $user_id;
-            $tss->timeline = $timeline;
-            $tss->last_id  = $last_id;
-            $tss->created  = common_sql_now();
-            $tss->modified = $tss->created;
+            $tss->foreign_id = $foreign_id;
+            $tss->timeline   = $timeline;
+            $tss->last_id    = $last_id;
+            $tss->created    = common_sql_now();
+            $tss->modified   = $tss->created;
 
             $tss->insert();
 
