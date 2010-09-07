@@ -64,13 +64,27 @@ class Twitter_synch_status extends Memcached_DataObject
      * @param string $k Key to use to lookup (usually 'foreign_id' for this class)
      * @param mixed  $v Value to lookup
      *
-     * @return User_greeting_count object found, or null for no hits
+     * @return Twitter_synch_status object found, or null for no hits
      *
      */
 
     function staticGet($k, $v=null)
     {
-        return Memcached_DataObject::staticGet('Twitter_synch_status', $k, $v);
+        throw new Exception("Use pkeyGet() for this class.");
+    }
+
+    /**
+     * Get an instance by compound primary key
+     *
+     * @param array $kv key-value pair array
+     *
+     * @return Twitter_synch_status object found, or null for no hits
+     *
+     */
+
+    function pkeyGet($kv)
+    {
+        return Memcached_DataObject::pkeyGet('Twitter_synch_status', $kv);
     }
 
     /**
