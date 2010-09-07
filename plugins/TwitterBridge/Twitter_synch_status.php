@@ -85,7 +85,7 @@ class Twitter_synch_status extends Memcached_DataObject
     function table()
     {
         return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'timeline' => DB_DATAOBJECT_STRING + DB_DATAOBJECT_NOTNULL,
+                     'timeline' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'last_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
                      'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL
