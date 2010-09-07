@@ -301,7 +301,7 @@ class ApiAction extends Action
 
         // StatusNet-specific
 
-        $twitter_user['statusnet:profile_url'] = $profile->profileurl;
+        $twitter_user['statusnet_profile_url'] = $profile->profileurl;
 
         return $twitter_user;
     }
@@ -406,7 +406,7 @@ class ApiAction extends Action
 
         // StatusNet-specific
 
-        $twitter_status['statusnet:html'] = $notice->rendered;
+        $twitter_status['statusnet_html'] = $notice->rendered;
 
         return $twitter_status;
     }
@@ -618,7 +618,11 @@ class ApiAction extends Action
                 $this->showTwitterXmlStatus($value, 'retweeted_status');
                 break;
             default:
-                $this->element($element, null, $value);
+                if (strncmp($element, 'statusnet_', 10) == 0) {
+                    $this->element('statusnet:'.substr($element, 10), null, $value);
+                } else {
+                    $this->element($element, null, $value);
+                }
             }
         }
         $this->elementEnd($tag);
@@ -643,6 +647,8 @@ class ApiAction extends Action
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
                 $this->showTwitterXmlStatus($twitter_user['status']);
+            } else if (strncmp($element, 'statusnet_', 10) == 0) {
+                $this->element('statusnet:'.substr($element, 10), null, $value);
             } else {
                 $this->element($element, null, $value);
             }
