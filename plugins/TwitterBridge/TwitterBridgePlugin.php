@@ -208,6 +208,7 @@ class TwitterBridgePlugin extends Plugin
             include_once $dir . '/' . strtolower($cls) . '.php';
             return false;
         case 'Notice_to_status':
+        case 'Twitter_synch_status':
             include_once $dir . '/' . $cls . '.php';
             return false;
         default:
@@ -377,6 +378,19 @@ class TwitterBridgePlugin extends Plugin
     function onCheckSchema()
     {
         $schema = Schema::get();
+
+        // For saving the last-synched status of various timelines
+        // home_timeline, messages (in), messages (out), ...
+
+        $schema->ensureTable('twitter_synch_status',
+                             array(new ColumnDef('user_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('timeline', 'varchar', 255,
+                                                 false, 'PRI'),
+                                   new ColumnDef('last_id', 'bigint', null, // XXX: check for PostgreSQL
+                                                 false),
+                                   new ColumnDef('created', 'datetime', null,
+                                                 false)));
 
         // For storing user-submitted flags on profiles
 
