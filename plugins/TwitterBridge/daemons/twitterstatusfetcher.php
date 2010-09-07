@@ -166,10 +166,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         common_debug($this->name() . ' - Trying to get timeline for Twitter user ' .
                      $flink->foreign_id);
 
-        // XXX: Biggest remaining issue - How do we know at which status
-        // to start importing?  How many statuses?  Right now I'm going
-        // with the default last 20.
-
         $client = null;
 
         if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
@@ -183,6 +179,8 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $timeline = null;
 
         $lastId = Twitter_synch_status::getLastId($flink->foreign_id, 'home_timeline');
+
+        common_debug("Got lastId value '{$lastId}' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
 
         try {
             $timeline = $client->statusesHomeTimeline($lastId);
@@ -203,8 +201,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // Reverse to preserve order
 
         foreach (array_reverse($timeline) as $status) {
-
-            $lastSeenId = $status->id;
 
             // Hacktastic: filter out stuff coming from this StatusNet
 
@@ -230,11 +226,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             }
         }
 
-        assert(!empty($timeline)); // checked above
-
-        // First status is last in time
-
-        Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $timeline[0]->id);
+        if (!empty($timeline)) {
+            Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $timeline[0]->id);
+            common_debug("Set lastId value '{$timeline[0]->id}' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
+        }
 
         // Okay, record the time we synced with Twitter for posterity
 
