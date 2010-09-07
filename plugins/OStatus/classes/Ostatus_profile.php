@@ -1065,6 +1065,14 @@ class Ostatus_profile extends Memcached_DataObject
                                      null,
                                      common_timestamp());
         rename($temp_filename, Avatar::path($filename));
+        // @fixme hardcoded chmod is lame, but seems to be necessary to
+        // keep from accidentally saving images from command-line (queues)
+        // that can't be read from web server, which causes hard-to-notice
+        // problems later on:
+        //
+        // http://status.net/open-source/issues/2663
+        chmod(Avatar::path($filename), 0644);
+
         $self->setOriginal($filename);
 
         $orig = clone($this);
