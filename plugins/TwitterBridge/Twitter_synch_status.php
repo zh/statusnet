@@ -144,8 +144,8 @@ class Twitter_synch_status extends Memcached_DataObject
 
     static function getLastId($foreign_id, $timeline)
     {
-        $tss = self::staticGet(array('foreign_id' => $foreign_id,
-                                     'timeline' => $timeline));
+        $tss = self::pkeyGet(array('foreign_id' => $foreign_id,
+                                   'timeline' => $timeline));
 
         if (empty($tss)) {
             return null;
@@ -156,8 +156,8 @@ class Twitter_synch_status extends Memcached_DataObject
 
     static function setLastId($foreign_id, $timeline, $last_id)
     {
-        $tss = self::staticGet(array('foreign_id' => $foreign_id,
-                                     'timeline' => $timeline));
+        $tss = self::pkeyGet(array('foreign_id' => $foreign_id,
+                                   'timeline' => $timeline));
 
         if (empty($tss)) {
 
