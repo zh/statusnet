@@ -759,10 +759,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             default:
                 continue;
             }
-            $text = substr_replace($text,
-                                   $linkText,
-                                   $object->indices[0],
-                                   $object->indices[1] - $object->indices[0]);
+            $text = mb_substr($text, 0, $object->indices[0]) . $linkText . mb_substr($text, $object->indices[1]);
         }
         return $text;
     }
