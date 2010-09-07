@@ -390,6 +390,8 @@ class TwitterBridgePlugin extends Plugin
                                    new ColumnDef('last_id', 'bigint', null, // XXX: check for PostgreSQL
                                                  false),
                                    new ColumnDef('created', 'datetime', null,
+                                                 false),
+                                   new ColumnDef('modified', 'datetime', null,
                                                  false)));
 
         // For storing user-submitted flags on profiles

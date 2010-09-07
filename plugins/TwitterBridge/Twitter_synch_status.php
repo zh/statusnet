@@ -56,6 +56,7 @@ class Twitter_synch_status extends Memcached_DataObject
     public $timeline;                        // varchar(255)  primary_key not_null
     public $last_id;                         // bigint not_null
     public $created;                         // datetime not_null
+    public $modified;                        // datetime not_null
 
     /**
      * Get an instance by key
@@ -87,6 +88,7 @@ class Twitter_synch_status extends Memcached_DataObject
                      'timeline' => DB_DATAOBJECT_STRING + DB_DATAOBJECT_NOTNULL,
                      'last_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'created' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL
+                     'modified' => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL
                      );
     }
 
@@ -164,6 +166,8 @@ class Twitter_synch_status extends Memcached_DataObject
             $tss->user_id  = $user_id;
             $tss->timeline = $timeline;
             $tss->last_id  = $last_id;
+            $tss->created  = common_sql_now();
+            $tss->modified = $tss->created;
 
             $tss->insert();
 
@@ -173,7 +177,8 @@ class Twitter_synch_status extends Memcached_DataObject
 
             $orig = clone($tss);
 
-            $tss->last_id = $last_id;
+            $tss->last_id  = $last_id;
+            $tss->modified = common_sql_now();
 
             $tss->update();
 
