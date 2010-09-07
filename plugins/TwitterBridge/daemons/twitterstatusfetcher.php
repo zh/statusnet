@@ -103,7 +103,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     function getObjects()
     {
         global $_DB_DATAOBJECT;
-
         $flink = new Foreign_link();
         $conn = &$flink->getDatabaseConnection();
 
@@ -183,8 +182,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $timeline = null;
 
+        $lastId = Twitter_synch_status::getLastId($flink->user_id, 'home_timeline');
+
         try {
-            $timeline = $client->statusesHomeTimeline();
+            $timeline = $client->statusesHomeTimeline($lastId);
         } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - Twitter client unable to get friends timeline for user ' .
@@ -199,9 +200,13 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         common_debug(LOG_INFO, $this->name() . ' - Retrieved ' . sizeof($timeline) . ' statuses from Twitter.');
 
+        $lastSeenId = null;
+
         // Reverse to preserve order
 
         foreach (array_reverse($timeline) as $status) {
+
+            $lastSeenId = $status->id;
 
             // Hacktastic: filter out stuff coming from this StatusNet
 
@@ -225,6 +230,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             if (!empty($notice)) {
                 Inbox::insertNotice($flink->user_id, $notice->id);
             }
+        }
+
+        if (!empty($lastSeenId)) {
+            Twitter_synch_status::setLastId($flink->user_id, 'home_timeline', $lastSeenId);
         }
 
         // Okay, record the time we synced with Twitter for posterity
