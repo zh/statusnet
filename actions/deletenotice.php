@@ -172,7 +172,10 @@ class DeletenoticeAction extends Action
         }
 
         if ($this->arg('yes')) {
-            $this->notice->delete();
+            if (Event::handle('StartDeleteOwnNotice', array($this->user, $this->notice))) {
+                $this->notice->delete();
+                Event::handle('EndDeleteOwnNotice', array($this->user, $this->notice));
+            }
         }
 
         $url = common_get_returnto();

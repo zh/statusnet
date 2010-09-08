@@ -125,10 +125,10 @@ class ApiStatusesDestroyAction extends ApiAuthAction
         }
 
         if ($this->user->id == $this->notice->profile_id) {
-            $replies = new Reply;
-            $replies->get('notice_id', $this->notice_id);
-            $replies->delete();
-            $this->notice->delete();
+            if (Event::handle('StartDeleteOwnNotice', array($this->user, $this->notice))) {
+                $this->notice->delete();
+                Event::handle('EndDeleteOwnNotice', array($this->user, $this->notice));
+            }
 	        $this->showNotice();
         } else {
             $this->clientError(
