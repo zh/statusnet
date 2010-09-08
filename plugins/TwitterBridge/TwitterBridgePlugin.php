@@ -404,27 +404,6 @@ class TwitterBridgePlugin extends Plugin
                                    new ColumnDef('created', 'datetime', null,
                                                  false)));
 
-        // We update any notices that may have come in from
-        // Twitter that we don't have a status_id for. Note that
-        // this won't catch notices that originated at this StatusNet site.
-
-        $n = new Notice();
-
-        $n->query('SELECT notice.id, notice.uri ' .
-                  'FROM notice LEFT JOIN notice_to_status ' .
-                  'ON notice.id = notice_to_status.notice_id ' .
-                  'WHERE notice.source = "twitter"' .
-                  'AND notice_to_status.status_id IS NULL');
-
-        while ($n->fetch()) {
-            if (preg_match('#^http://twitter.com/[\w_.]+/status/(\d+)$#', $n->uri, $match)) {
-
-                $status_id = $match[1];
-
-                Notice_to_status::saveNew($n->id, $status_id);
-            }
-        }
-
         return true;
     }
 
