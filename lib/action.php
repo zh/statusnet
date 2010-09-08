@@ -1007,7 +1007,7 @@ class Action extends HTMLOutputter // lawsuit
             if ($this->isCacheable()) {
                 header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', 0 ) . ' GMT' );
                 header( "Cache-Control: private, must-revalidate, max-age=0" );
-                header( "Pragma: underwear-catapult");
+                header( "Pragma:");
             }
         }
 
