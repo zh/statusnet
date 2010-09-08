@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:45:08+0000\n"
+"POT-Creation-Date: 2010-09-08 22:33+0000\n"
+"PO-Revision-Date: 2010-09-08 22:33:04+0000\n"
 "Language-Team: Afrikaans\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: af\n"
 "X-Message-Group: out-statusnet\n"
@@ -3391,6 +3391,10 @@ msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
+#: actions/tagother.php:200
+msgid "Could not save tags."
+msgstr "Kon nie die etikette stoor nie."
+
 #: actions/tagrss.php:35
 msgid "No such tag."
 msgstr "Onbekende etiket."
@@ -3695,18 +3699,18 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
+#: classes/Notice.php:998
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1757
+#: classes/Notice.php:1759
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4432,7 +4436,7 @@ msgstr "Vriende van vriende (FOAF)"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "Eksporteer data"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4520,7 +4524,7 @@ msgstr ""
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Etikette in groepsaankondigings van %s"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -4963,7 +4967,7 @@ msgstr ""
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr ""
+msgstr "Etikette in die aankondigings van %s"
 
 #: lib/plugin.php:115
 msgid "Unknown"

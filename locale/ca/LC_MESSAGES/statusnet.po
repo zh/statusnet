@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:45:36+0000\n"
+"POT-Creation-Date: 2010-09-08 22:33+0000\n"
+"PO-Revision-Date: 2010-09-08 22:33:34+0000\n"
 "Language-Team: Catalan\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: out-statusnet\n"
@@ -388,7 +388,7 @@ msgstr "No podeu deixar de seguir-vos a un mateix."
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr ""
+msgstr "Cal proporcionar dos identificadors d'usuari o screen_names."
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -2532,6 +2532,8 @@ msgstr ""
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
+"Aquest usuari no permet que li cridin l'atenció o no ha confirmat encara "
+"l'adreça electrònica."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2607,8 +2609,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Si us plau, només URL %s sobre HTTP pla."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
-#: lib/apiaction.php:1237 lib/apiaction.php:1360
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1215
+#: lib/apiaction.php:1243 lib/apiaction.php:1366
 msgid "Not a supported data format."
 msgstr "Format de data no suportat."
 
@@ -3758,6 +3760,15 @@ msgid ""
 msgstr ""
 "No heu triat cap avís preferit encara. Feu clic al botó de preferit dels "
 "avisos que us agraden per arxivar-los per a més endavant i fer-los conèixer."
+
+#: actions/showfavorites.php:208
+#, php-format
+msgid ""
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
+msgstr ""
+"%s no ha afegit cap avís als seus preferits encara. Envieu quelcom "
+"interessant que pugui afegir-hi :)"
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -4978,18 +4989,18 @@ msgid "Problem saving notice."
 msgstr "S'ha produït un problema en desar l'avís."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr "S'ha proporcionat un tipus incorrecte per a saveKnownGroups"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
+#: classes/Notice.php:998
 msgid "Problem saving group inbox."
 msgstr "S'ha produït un problema en desar la safata d'entrada del grup."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1757
+#: classes/Notice.php:1759
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5645,6 +5656,24 @@ msgstr "Comanda completada"
 msgid "Command failed"
 msgstr "Comanda fallida"
 
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+msgid "Notice with that id does not exist."
+msgstr "No existeix cap avís amb aquest identificador."
+
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+msgid "User has no last notice."
+msgstr "L'usuari no té un darrer avís."
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "No es pot trobar un usuari amb el sobrenom %s."
+
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:150
@@ -5661,6 +5690,13 @@ msgstr "Perdona, aquesta comanda no està implementada."
 #: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "No té massa sentit avisar-se a un mateix!"
+
+#. TRANS: Message given having nudged another user.
+#. TRANS: %s is the nickname of the user that was nudged.
+#: lib/command.php:240
+#, php-format
+msgid "Nudge sent to %s."
+msgstr "S'ha cridat l'atenció a %s."
 
 #. TRANS: User statistics text.
 #. TRANS: %1$s is the number of other user the user is subscribed to.
@@ -5745,6 +5781,13 @@ msgstr ""
 msgid "Error sending direct message."
 msgstr "S'ha produït un error en enviar el missatge directe."
 
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, php-format
+msgid "Notice from %s repeated."
+msgstr "S'ha repetit l'avís de %s."
+
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
@@ -5768,6 +5811,11 @@ msgstr "S'ha enviat la resposta a %s."
 #: lib/command.php:606
 msgid "Error saving notice."
 msgstr "S'ha produït un error en desar l'avís."
+
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
+msgstr "Especifiqueu el nom de l'usuari al qual voleu subscriure-us."
 
 #. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
 #: lib/command.php:664
@@ -7018,7 +7066,7 @@ msgstr ""
 
 #: lib/themeuploader.php:224
 msgid "Theme contains unsafe file extension names; may be unsafe."
-msgstr ""
+msgstr "El tema conté uns noms d'extensió de fitxer que no són segurs."
 
 #: lib/themeuploader.php:241
 #, php-format
