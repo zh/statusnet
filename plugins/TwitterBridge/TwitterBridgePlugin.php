@@ -408,25 +408,20 @@ class TwitterBridgePlugin extends Plugin
     }
 
     /**
-     * If a notice gets deleted, remove the Notice_to_status mapping
+     * If a notice gets deleted, remove the Notice_to_status mapping and
+     * delete the status on Twitter.
      *
+     * @param User   $user   The user doing the deleting
      * @param Notice $notice The notice getting deleted
      *
      * @return boolean hook value
      */
 
-    function onNoticeDeleteRelated($notice)
+    function onStartDeleteOwnNotice(User $user, Notice $notice)
     {
         $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
 
         if (!empty($n2s)) {
-
-            $user = common_current_user();
-
-            if (empty($user) || $user->id != $notice->profile_id) {
-                $this->log(LOG_INFO, "Skipping deleting notice for {$notice->id} since it doesn't seem to be by the author.");
-                return true;
-            }
 
             $flink = Foreign_link::getByUserID($notice->profile_id,
                                                TWITTER_SERVICE); // twitter service
