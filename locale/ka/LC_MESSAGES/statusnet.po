@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 22:33+0000\n"
-"PO-Revision-Date: 2010-09-08 22:34:48+0000\n"
+"POT-Creation-Date: 2010-09-09 17:35+0000\n"
+"PO-Revision-Date: 2010-09-09 17:37:30+0000\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
@@ -128,24 +128,6 @@ msgstr "%1$s და მეგობრები, გვერდი %2$d"
 #, php-format
 msgid "%s and friends"
 msgstr " %s და მეგობრები"
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:107
-#, php-format
-msgid "Feed for friends of %s (RSS 1.0)"
-msgstr ""
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:116
-#, php-format
-msgid "Feed for friends of %s (RSS 2.0)"
-msgstr ""
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:125
-#, php-format
-msgid "Feed for friends of %s (Atom)"
-msgstr ""
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:138
@@ -3374,16 +3356,6 @@ msgstr "პასუხები %s–ს"
 msgid "Replies to %1$s, page %2$d"
 msgstr "პასუხები %1$s–ს, გვერდი %2$d"
 
-#: actions/replies.php:145
-#, php-format
-msgid "Replies feed for %s (RSS 1.0)"
-msgstr ""
-
-#: actions/replies.php:152
-#, php-format
-msgid "Replies feed for %s (RSS 2.0)"
-msgstr ""
-
 #: actions/replies.php:199
 #, php-format
 msgid ""
@@ -3553,21 +3525,6 @@ msgstr "%1$s-ის რჩეული შეტყობინებები, 
 msgid "Could not retrieve favorite notices."
 msgstr "რჩეული შეტყობინებების გამოთხოვნა ვერ მოხერხდა."
 
-#: actions/showfavorites.php:171
-#, php-format
-msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr ""
-
-#: actions/showfavorites.php:178
-#, php-format
-msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr ""
-
-#: actions/showfavorites.php:185
-#, php-format
-msgid "Feed for favorites of %s (Atom)"
-msgstr ""
-
 #: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
@@ -3592,44 +3549,24 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:338
-#, php-format
-msgid "Notice feed for %s group (RSS 1.0)"
-msgstr ""
-
-#: actions/showgroup.php:344
-#, php-format
-msgid "Notice feed for %s group (RSS 2.0)"
-msgstr ""
-
-#: actions/showgroup.php:350
-#, php-format
-msgid "Notice feed for %s group (Atom)"
-msgstr ""
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
+msgid "Note"
+msgstr "შენიშვნა"
 
 #: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
-msgstr ""
+msgstr "წევრები"
 
-#: actions/showstream.php:122
-#, php-format
-msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr ""
+#: actions/showgroup.php:398 lib/profileaction.php:117
+#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
+#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
+msgid "(None)"
+msgstr "(არცერთი)"
 
-#: actions/showstream.php:129
-#, php-format
-msgid "Notice feed for %s (RSS 1.0)"
-msgstr ""
-
-#: actions/showstream.php:136
-#, php-format
-msgid "Notice feed for %s (RSS 2.0)"
-msgstr ""
-
-#: actions/showstream.php:143
-#, php-format
-msgid "Notice feed for %s (Atom)"
-msgstr ""
+#: actions/showgroup.php:439
+msgid "Created"
+msgstr "შექმნილია"
 
 #: actions/showstream.php:205
 msgid ""
@@ -3682,17 +3619,13 @@ msgstr "საიტის სახელი"
 msgid "The name of your site, like \"Yourcompany Microblog\""
 msgstr "თქვენი საიტის სახელი, როგორც \"თქვენი კომპანიის მიკრობლოგი\""
 
-#: actions/siteadminpanel.php:229
-msgid "Brought by"
-msgstr ""
-
 #: actions/siteadminpanel.php:230
 msgid "Text used for credits link in footer of each page"
 msgstr "ტექსტი გამოყენებული თითოეული გვერდის ბოლოს კრედიტებისთვის"
 
 #: actions/siteadminpanel.php:234
 msgid "Brought by URL"
-msgstr ""
+msgstr "მომწოდებლის URL"
 
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
@@ -3761,7 +3694,11 @@ msgstr "საიტის შეტყობინების ტექსტ�
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
-msgstr ""
+msgstr "საერთო სასაიტო შეტყობინების ტექსტი (მაქს. 255 სიმბოლო; HTML შეიძლება)"
+
+#: actions/sitenoticeadminpanel.php:198
+msgid "Save site notice"
+msgstr "შეინახე საერთოსასაიტო შეტყობინება"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -3924,11 +3861,19 @@ msgstr "კოდი არ არის შეყვანილი"
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:408
 msgid "Snapshots"
-msgstr ""
+msgstr "წინა ვერსიები"
+
+#: actions/snapshotadminpanel.php:65
+msgid "Manage snapshot configuration"
+msgstr "წინა ვერსიების მართვა"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr "წინა ვერსიის გაშვების არასწორი მონაცემი."
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
-msgstr ""
+msgstr "წინა ვერსიის სიხშირე ციფრი უნდა იყოს."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -3938,25 +3883,21 @@ msgstr ""
 msgid "In a scheduled job"
 msgstr ""
 
-#: actions/snapshotadminpanel.php:206
-msgid "Data snapshots"
-msgstr ""
-
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
-msgstr ""
+msgstr "როდის გაეგზავნოს სტატისტიკური მონაცემები status.net სერვერს"
 
 #: actions/snapshotadminpanel.php:217
 msgid "Frequency"
 msgstr "სიხშირე"
 
-#: actions/snapshotadminpanel.php:218
-msgid "Snapshots will be sent once every N web hits"
-msgstr ""
-
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
-msgstr ""
+msgstr "მდგომარეობა გაიგზავნება ამ URL-ზე"
+
+#: actions/snapshotadminpanel.php:248
+msgid "Save snapshot settings"
+msgstr "დაიმახსოვრე მდგომარეობის პარამეტრები"
 
 #: actions/subedit.php:70
 msgid "You are not subscribed to that profile."
@@ -3974,6 +3915,11 @@ msgstr "ეს მოქმედება მხოლოდ POST მოთხ�
 #: actions/subscribe.php:107
 msgid "No such profile."
 msgstr "ასეთი პროფილი არ არსებობს."
+
+#: actions/subscribe.php:117
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr ""
+"თქვენ არ შეგიძლიათ გამოიწეროთ 0მბ-იანი 0.1 დაშორებული პროფილი ამ მოქმედებით."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4048,31 +3994,74 @@ msgid ""
 "featured%%). If you're a [Twitter user](%%action.twittersettings%%), you can "
 "automatically subscribe to people you already follow there."
 msgstr ""
+"თუ ჯერ არ უსმენთ არავის შეტყობიენბებს, სცადეთ გამოიწეროთ თქვენთვის "
+"საინტერესო ადამიანები. სცადეთ [ხალხის ძიება](%%action.peoplesearch%%), "
+"გადახედეთ საინტერესო ჯგუფების წევრებს და ჩვენს მიერ [შემოთავაზებულ "
+"მომხმარებლებს](%%action.featured%%). თუ ხართ [Twitter-ის მომხმარებელი](%%"
+"action.twittersettings%%), შეგიძლიათ ავტომატურად გამოიწეროთ ხალხი, რომლებსაც "
+"იქ მიჰყვებით."
+
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
+#, php-format
+msgid "%s is not listening to anyone."
+msgstr "%s არავის უსმენს."
+
+#: actions/subscriptions.php:208
+msgid "Jabber"
+msgstr "Jabber"
+
+#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
+msgid "SMS"
+msgstr "SMS"
+
+#: actions/tag.php:69
+#, php-format
+msgid "Notices tagged with %1$s, page %2$d"
+msgstr "შეტყობინებები მონიშნული %1$s-ით, გვერდი %2$d"
 
 #: actions/tag.php:87
 #, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr ""
+msgstr "შეტყობინებების RSS მონიშნული %s-თ (RSS 1.0)"
 
 #: actions/tag.php:93
 #, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr ""
+msgstr "შეტყობინებების RSS მონიშნული %s-თ (RSS 2.0)"
 
 #: actions/tag.php:99
 #, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr ""
+msgstr "შეტყობინებების RSS მონიშნული %s-თ (Atom)"
+
+#: actions/tagother.php:65
+#, php-format
+msgid "Tag %s"
+msgstr "სანიშნე %s"
+
+#: actions/tagother.php:77 lib/userprofile.php:76
+msgid "User profile"
+msgstr "მომხმარებლის პროფილი"
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
 msgid "Photo"
-msgstr ""
+msgstr "ფოტო"
+
+#: actions/tagother.php:141
+msgid "Tag user"
+msgstr "მონიშნე მომხმარებელი"
 
 #: actions/tagother.php:193
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
+
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+msgctxt "TITLE"
+msgid "User"
+msgstr "მომხმარებელი"
 
 #: actions/useradminpanel.php:149
 msgid "Invalid bio limit. Must be numeric."
@@ -4162,10 +4151,6 @@ msgid ""
 "Inc. and contributors."
 msgstr ""
 
-#: actions/version.php:163
-msgid "Contributors"
-msgstr ""
-
 #: actions/version.php:170
 msgid ""
 "StatusNet is free software: you can redistribute it and/or modify it under "
@@ -4192,6 +4177,11 @@ msgstr ""
 #: actions/version.php:191
 msgid "Plugins"
 msgstr ""
+
+#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
+#: actions/version.php:198 lib/action.php:805
+msgid "Version"
+msgstr "ვერსია"
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
@@ -5231,49 +5221,104 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
+#: lib/common.php:135
+msgid "No configuration file found. "
+msgstr "კონფიგურაციის ფაილი ვერ მოიძებნა. "
+
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
-msgstr ""
+msgstr "კონფიგურაციის ფაილები შემდეგ ადგილებში ვეძებე: "
 
 #: lib/common.php:138
 msgid "You may wish to run the installer to fix this."
-msgstr ""
+msgstr "თუ გინდათ ინსტალატორი გაუშვით ამის გასასწორებლად."
+
+#: lib/common.php:139
+msgid "Go to the installer."
+msgstr "გადადი ამ ინსტალატორზე."
 
 #: lib/connectsettingsaction.php:110
 msgid "IM"
-msgstr ""
+msgstr "IM"
 
 #: lib/connectsettingsaction.php:111
 msgid "Updates by instant messenger (IM)"
-msgstr ""
+msgstr "განახლებები ჩათ კლიენტისგან (IM)"
 
 #: lib/connectsettingsaction.php:116
 msgid "Updates by SMS"
-msgstr ""
+msgstr "განახლებები SMS-თ"
+
+#: lib/connectsettingsaction.php:120
+msgid "Connections"
+msgstr "შეერთებები"
+
+#: lib/connectsettingsaction.php:121
+msgid "Authorized connected applications"
+msgstr "ავტორიზირებული შეერთებული აპლიკაციები"
 
 #: lib/dberroraction.php:60
 msgid "Database error"
+msgstr "მონაცემთა ბაზის შეცდომა"
+
+#: lib/designsettings.php:105
+msgid "Upload file"
+msgstr "ფაილის ატვირთვა"
+
+#: lib/designsettings.php:109
+msgid ""
+"You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
+"თქვენ შეგიძლიათ ატვირთოთ პერსონალური ფონური სურათი. ფაილის დასაშვები ზომაა "
+"2მბ."
+
+#: lib/designsettings.php:418
+msgid "Design defaults restored."
+msgstr "დიზაინის პირველადი პარამეტრები დაბრუნებულია."
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+msgid "Disfavor this notice"
+msgstr "ამოშალე რჩეულებიდან ეს შეტყობინება"
+
+#: lib/favorform.php:114 lib/favorform.php:140
+msgid "Favor this notice"
+msgstr "ჩაამატე რჩეულებში ეს შეტყობინება"
+
+#: lib/favorform.php:140
+msgid "Favor"
+msgstr "რჩეული"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:87
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
+
+#: lib/feed.php:89
+msgid "Atom"
+msgstr "Atom"
 
 #: lib/feed.php:91
 msgid "FOAF"
-msgstr ""
+msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "მონაცემების გატანა"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
+msgstr "სანიშნეების გაფილტვრა"
+
+#: lib/galleryaction.php:131
+msgid "All"
+msgstr "ყველა"
+
+#: lib/galleryaction.php:139
+msgid "Select tag to filter"
+msgstr "აირჩიე გასაფილტრი სანიშნე"
 
 #: lib/galleryaction.php:140
 msgid "Tag"
@@ -5411,6 +5456,14 @@ msgstr "კბ"
 msgid "[%s]"
 msgstr "[%s]"
 
+#: lib/joinform.php:114
+msgid "Join"
+msgstr "გაერთიანება"
+
+#: lib/leaveform.php:114
+msgid "Leave"
+msgstr "დატოვება"
+
 #: lib/logingroupnav.php:80
 msgid "Login with a username and password"
 msgstr "შედი მომხ. სახელით და პაროლით."
@@ -5497,6 +5550,12 @@ msgstr ""
 "\n"
 "----\n"
 "შეცვალეთ თქვენი ელ. ფოსტის მისამართი ან შეტყობინებების პარამეტრები აქ %8$s\n"
+
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:274
+#, php-format
+msgid "Bio: %s"
+msgstr "ბიოგრაფია: %s"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304

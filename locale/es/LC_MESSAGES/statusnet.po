@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-08 22:33+0000\n"
-"PO-Revision-Date: 2010-09-08 22:33:59+0000\n"
+"PO-Revision-Date: 2010-09-09 17:36:47+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5661,12 +5661,26 @@ msgstr "Comando falló"
 msgid "Notice with that id does not exist."
 msgstr "Ningún aviso con ese ID existe."
 
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+msgid "User has no last notice."
+msgstr "El/La usuario/a no tiene ningún último aviso"
+
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
 #: lib/command.php:130
 #, php-format
 msgid "Could not find a user with nickname %s."
 msgstr "No se pudo encontrar el usuario con el apodo %s."
+
+#. TRANS: Message given getting a non-existing user.
+#. TRANS: %s is the nickname of the user that could not be found.
+#: lib/command.php:150
+#, php-format
+msgid "Could not find a local user with nickname %s."
+msgstr ""
+"No se pudo encontrar a ningún usuario local con el nombre de usuario %s."
 
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:185
@@ -5808,6 +5822,26 @@ msgstr "Especificar el nombre del usuario al cual se quiere suscribir."
 msgid "Can't subscribe to OMB profiles by command."
 msgstr "No te puedes suscribir a perfiles de OMB por orden."
 
+#. TRANS: Text shown after having subscribed to another user successfully.
+#. TRANS: %s is the name of the user the subscription was requested for.
+#: lib/command.php:672
+#, php-format
+msgid "Subscribed to %s."
+msgstr "Suscrito a %s."
+
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
+msgstr "Especifica el nombre del usuario del cual cancelar la suscripción."
+
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
+#, php-format
+msgid "Unsubscribed from %s."
+msgstr "Cancelada la suscripción a %s."
+
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
 #: lib/command.php:724 lib/command.php:750
@@ -5837,7 +5871,7 @@ msgstr "No se puede activar notificación."
 #. TRANS: Error text shown when issuing the login command while login is disabled.
 #: lib/command.php:771
 msgid "Login command is disabled."
-msgstr ""
+msgstr "El comando de inicio de sesión está inhabilitado."
 
 #. TRANS: Text shown after issuing the login command successfully.
 #. TRANS: %s is a logon link..
@@ -5845,6 +5879,15 @@ msgstr ""
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
+"Este enlace es utilizable sólo una vez y es válido sólo durante dos minutos: "
+"%s."
+
+#. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:813
+#, php-format
+msgid "Unsubscribed %s."
+msgstr "Cancelada la suscripción a %s."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:831
@@ -6718,7 +6761,7 @@ msgstr "en"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr ""
+msgstr "red"
 
 #: lib/noticelist.php:568
 msgid "in context"
@@ -7028,6 +7071,8 @@ msgstr ""
 #: lib/themeuploader.php:224
 msgid "Theme contains unsafe file extension names; may be unsafe."
 msgstr ""
+"El tema contiene nombres de extensiones de archivo inseguras y puede ser "
+"peligroso."
 
 #: lib/themeuploader.php:241
 #, php-format

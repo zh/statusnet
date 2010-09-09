@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-09-08 22:33+0000\n"
-"PO-Revision-Date: 2010-09-08 22:33:36+0000\n"
+"PO-Revision-Date: 2010-09-09 17:36:23+0000\n"
 "Language-Team: Czech\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -39,7 +39,7 @@ msgstr "Registrace"
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr "Zakázat anonymím (nepřihlášeným) uživatelům prohlížet stránky"
+msgstr "Zakázat anonymním (nepřihlášeným) uživatelům prohlížet stránky"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
@@ -6031,7 +6031,7 @@ msgstr "Exportovat data"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
+msgstr "Filtrovat tagy"
 
 #: lib/galleryaction.php:131
 msgid "All"
@@ -6071,10 +6071,35 @@ msgstr "Popište skupinu nebo téma"
 msgid "Describe the group or topic in %d characters"
 msgstr "Popište skupinu nebo téma ve %d znacích"
 
+#: lib/groupeditform.php:179
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr ""
+"Umístění skupiny, pokud je nějaké, ve stylu \"město, stát (nebo region), země"
+"\""
+
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
-msgstr ""
+msgstr "Další přezdívky pro skupinu, oddělené čárkou nebo mezerou, max %d"
+
+#: lib/groupnav.php:85
+msgid "Group"
+msgstr "Skupina"
+
+#: lib/groupnav.php:101
+msgid "Blocked"
+msgstr "Zablokován"
+
+#: lib/groupnav.php:102
+#, php-format
+msgid "%s blocked users"
+msgstr "%s blokovaní uživatelé"
+
+#: lib/groupnav.php:108
+#, php-format
+msgid "Edit %s group properties"
+msgstr "Editovat vlastnosti skupiny %s"
 
 #: lib/groupnav.php:113
 msgid "Logo"
@@ -6083,21 +6108,25 @@ msgstr "Logo"
 #: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Přidat nebo upravit logo %s"
 
 #: lib/groupnav.php:120
 #, php-format
 msgid "Add or edit %s design"
-msgstr ""
+msgstr "Přidat nebo upravit vzhled %s"
+
+#: lib/groupsbymemberssection.php:71
+msgid "Groups with most members"
+msgstr "Skupiny s nejvíce členy"
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
-msgstr ""
+msgstr "Skupiny s nejvíce příspěvky"
 
 #: lib/grouptagcloudsection.php:56
 #, php-format
 msgid "Tags in %s group's notices"
-msgstr ""
+msgstr "Značky v oznámeních skupiny %s"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -6107,6 +6136,11 @@ msgstr "Tato stránka není k dispozici v typu média která přijímáte."
 #: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "Nepodporovaný formát obrázku."
+
+#: lib/imagefile.php:88
+#, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "Ten soubor je příliš velký. Maximální velikost souboru je %s."
 
 #: lib/imagefile.php:93
 msgid "Partial upload."
@@ -6120,30 +6154,47 @@ msgstr "Chyba systému při nahrávání souboru"
 msgid "Not an image or corrupt file."
 msgstr "Není obrázkem, nebo jde o poškozený soubor."
 
+#: lib/imagefile.php:122
+msgid "Lost our file."
+msgstr "Ztratili jsme náš soubor."
+
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
-msgstr ""
+msgstr "Neznámý typ souboru"
 
 #: lib/imagefile.php:244
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: lib/imagefile.php:246
 msgid "kB"
-msgstr ""
+msgstr "kB"
 
 #: lib/jabber.php:387
 #, php-format
 msgid "[%s]"
-msgstr ""
+msgstr "[%s]"
+
+#: lib/jabber.php:567
+#, php-format
+msgid "Unknown inbox source %d."
+msgstr "Neznámý zdroj inboxu %d."
 
 #: lib/joinform.php:114
 msgid "Join"
-msgstr "Přidat se"
+msgstr "Připojit se"
+
+#: lib/leaveform.php:114
+msgid "Leave"
+msgstr "Opustit"
+
+#: lib/logingroupnav.php:80
+msgid "Login with a username and password"
+msgstr "Přihlásit se pomocí svého uživatelského jména a hesla."
 
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
-msgstr ""
+msgstr "Vytvořit nový účet"
 
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
@@ -6167,12 +6218,26 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+"Ahoj,% s. \n"
+"\n"
+" Někdo právě vložil tuto e-mailovou adresu na %s. \n"
+"\n"
+" Pokud jsi to byl ty, a chceš potvrdit své zadání, použij níže uvedenou "
+"adresu:\n"
+"\n"
+" %s\n"
+"\n"
+" Pokud ne, tak tuto zprávu ignoruj. \n"
+"\n"
+" Díky za tvůj čas, \n"
+" %s\n"
+" "
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
-msgstr "%1 od teď naslouchá tvým sdělením v %2"
+msgstr "%1$s od teď naslouchá tvým sdělením na %2$s."
 
 #: lib/mail.php:248
 #, php-format
@@ -6180,6 +6245,8 @@ msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
+"Pokud si myslíte, že tento účet je zneužíván, můžete ho zablokovat ze svého "
+"seznamu přihlášených a reportovat jako spam adminům na %s"
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
@@ -6196,6 +6263,28 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
+"%1$s nyní naslouchá vasim oznámením na %2$s.\n"
+"\n"
+"%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Váš,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Zmeňte vaší e-mailovouadresu nebo nastavení upozornění na %8$s\n"
+
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:274
+#, php-format
+msgid "Bio: %s"
+msgstr "O: %s"
+
+#. TRANS: Subject of notification mail for new posting email address
+#: lib/mail.php:304
+#, php-format
+msgid "New email address for posting to %s"
+msgstr "Nová e-mailová adresa pro psaní na %s"
 
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:308
@@ -6210,12 +6299,37 @@ msgid ""
 "Faithfully yours,\n"
 "%4$s"
 msgstr ""
+"Máte novou posílací aadresu na %1$s.\n"
+"\n"
+"K poslání nového oznámení pošlete e-mail na %2$s.\n"
+"\n"
+"Instrukce naleznete na %3$s.\n"
+"\n"
+"Váš,\n"
+"%4$s"
+
+#. TRANS: Subject line for SMS-by-email notification messages
+#: lib/mail.php:433
+#, php-format
+msgid "%s status"
+msgstr "status %s"
+
+#. TRANS: Subject line for SMS-by-email address confirmation message
+#: lib/mail.php:460
+msgid "SMS confirmation"
+msgstr "SMS potvrzení"
+
+#. TRANS: Main body heading for SMS-by-email address confirmation message
+#: lib/mail.php:463
+#, php-format
+msgid "%s: confirm you own this phone number with this code:"
+msgstr "%s: potvrďte že vlastníte toto telefonní číslo tímto kódem:"
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
 #, php-format
 msgid "You've been nudged by %s"
-msgstr ""
+msgstr "%s Vás pošťouchl"
 
 #. TRANS: Body for 'nudge' notification email
 #: lib/mail.php:489
@@ -6233,6 +6347,23 @@ msgid ""
 "With kind regards,\n"
 "%4$s\n"
 msgstr ""
+"%1$s (%2$s) by zajímalo, co poslední dobou děláte a poštouchl vás, abyste "
+"poslali nějaké novinky.\n"
+"\n"
+"Takže šup na stránky a něco pošlete :)\n"
+"\n"
+"%3$s\n"
+"\n"
+"Neodpovídejte na tento e-mail, nedostane se k nim.\n"
+"\n"
+"S pozdravem,\n"
+"%4$s\n"
+
+#. TRANS: Subject for direct-message notification email
+#: lib/mail.php:536
+#, php-format
+msgid "New private message from %s"
+msgstr "Nová soukromá zpráva od %s"
 
 #. TRANS: Body for direct-message notification email
 #: lib/mail.php:541
@@ -6253,6 +6384,26 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+"%1$s (%2$s) vám poslal soukromou zprávu: \n"
+"\n"
+" -------------------------------------------------- ---- \n"
+"%3$s \n"
+" -------------------------------------------------- ---- \n"
+"\n"
+" Můžete odpovědět zde: \n"
+"\n"
+" %4$s \n"
+"\n"
+" Neodpovídejte na tento e-mail, nedostane se k nim. \n"
+"\n"
+" S pozdravem \n"
+" %5$s \n"
+
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:589
+#, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr "%s (@%s) přidal vaše oznámení jako oblíbené"
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -6275,6 +6426,23 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
+"%1$s (@%7$s) právě přidal vaše oznámení z %2$s jako jedno ze svých "
+"oblíbených. \n"
+"\n"
+" URL Vašeho oznámení je: \n"
+"\n"
+" %3$s \n"
+"\n"
+" Text Vašeho oznámení je: \n"
+"\n"
+" %4$s \n"
+"\n"
+" Můžete vidět seznam %1$S oblíbených zde: \n"
+"\n"
+" %5$s \n"
+"\n"
+" Váš, \n"
+" %6$s \n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:651
@@ -6284,11 +6452,14 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+"Celý rozhovor si můžete přečíst zde: \n"
+"\n"
+" %s"
 
 #: lib/mail.php:657
 #, php-format
 msgid "%s (@%s) sent a notice to your attention"
-msgstr ""
+msgstr "%s (@%s) poslal oznámení žádající o vaši pozornost"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
@@ -6317,119 +6488,237 @@ msgid ""
 "\n"
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
+"%1$s (@%9$s) právě poslal oznámení žádající o vaši pozornost ('@-odpověď') "
+"na %2$s.\n"
+"\n"
+"Oznámení je zde:\n"
+"\n"
+"%3$s\n"
+"\n"
+"Stojí v něm:\n"
+"\n"
+"%4$s\n"
+"\n"
+"%5$smůžete odpověďet zde:\n"
+"\n"
+"%6$s\n"
+"\n"
+"Seznam všech @-odpovědí pro vás je zde:\n"
+"\n"
+"%7$s\n"
+"\n"
+"Váš,\n"
+"%2$s\n"
+"\n"
+"P.S. Tato upozornění můžete vypnout zde: %8$s\n"
+
+#: lib/mailbox.php:89
+msgid "Only the user can read their own mailboxes."
+msgstr "Pouze uživatel může přečíst své vlastní schránky."
 
 #: lib/mailbox.php:139
 msgid ""
 "You have no private messages. You can send private message to engage other "
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
+"Nemáte žádné soukromé zprávy. Můžete poslat soukromou zprávu, aby se "
+"zapojili ostatní uživatelé v rozhovoru. Lidé mohou posílat zprávy jen pro "
+"vaše oči."
 
 #: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
-msgstr ""
+msgstr "od"
+
+#: lib/mailhandler.php:37
+msgid "Could not parse message."
+msgstr "Nelze zpracovat zprávu."
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
 msgstr "Není registrovaný uživatel."
 
+#: lib/mailhandler.php:46
+msgid "Sorry, that is not your incoming email address."
+msgstr "Je nám líto, toto není vaše příchozí e-mailová adresa."
+
+#: lib/mailhandler.php:50
+msgid "Sorry, no incoming email allowed."
+msgstr "Je nám líto, žádný příchozí e-mail není dovolen."
+
+#: lib/mailhandler.php:228
+#, php-format
+msgid "Unsupported message type: %s"
+msgstr "Nepodporovaný typ zprávy: %s"
+
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
-msgstr ""
+msgstr "Nastala chyba v databázi při ukládání souboru. Prosím zkuste to znovu."
 
 #: lib/mediafile.php:142
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
+"Velkost uploadovaného souboru překračuje upload_max_filesize limit v php.ini."
 
 #: lib/mediafile.php:147
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
 msgstr ""
+"Velkost uploadovaného souboru překračuje MAX_FILE_SIZE limit, které bylo "
+"uvedeno v HTML formuláři."
 
 #: lib/mediafile.php:152
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "Nahrávaný soubor byl nahrán pouze částečně."
+
+#: lib/mediafile.php:159
+msgid "Missing a temporary folder."
+msgstr "Chybí dočasný adresář."
 
 #: lib/mediafile.php:162
 msgid "Failed to write file to disk."
-msgstr ""
+msgstr "Nepodařilo se zapsat soubor na disk."
 
 #: lib/mediafile.php:165
 msgid "File upload stopped by extension."
-msgstr ""
+msgstr "Nahrávání souboru zastaveno rozšířením PHP."
 
 #: lib/mediafile.php:179 lib/mediafile.php:217
 msgid "File exceeds user's quota."
-msgstr ""
+msgstr "Soubor překračuje kvótu uživatele."
 
 #: lib/mediafile.php:197 lib/mediafile.php:234
 msgid "File could not be moved to destination directory."
-msgstr ""
+msgstr "Soubor nemohl být přesunut do cílového adresáře."
 
 #: lib/mediafile.php:202 lib/mediafile.php:238
 msgid "Could not determine file's MIME type."
-msgstr "Nelze smazat oblíbenou položku."
+msgstr "Nelze určit typ MIME souboru."
 
 #: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
-msgstr ""
+msgstr "Zkuste použít jiný formát %s."
 
 #: lib/mediafile.php:323
 #, php-format
 msgid "%s is not a supported file type on this server."
-msgstr ""
+msgstr "%s není typ souboru podporovan na tomto serveru."
+
+#: lib/messageform.php:120
+msgid "Send a direct notice"
+msgstr "Pošlete přímou zprávu"
 
 #: lib/messageform.php:146
 msgid "To"
-msgstr ""
+msgstr "Komu:"
+
+#: lib/messageform.php:159 lib/noticeform.php:186
+msgid "Available characters"
+msgstr "Zbývá znaků"
+
+#: lib/messageform.php:178 lib/noticeform.php:237
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Odeslat"
+
+#: lib/noticeform.php:160
+msgid "Send a notice"
+msgstr "Poslat oznámení"
 
 #: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
-msgstr "Co se děje %s?"
+msgstr "Co se děje, %s?"
+
+#: lib/noticeform.php:193
+msgid "Attach"
+msgstr "Připojit"
 
 #: lib/noticeform.php:197
 msgid "Attach a file"
-msgstr ""
+msgstr "Přiložit soubor"
 
 #: lib/noticeform.php:213
 msgid "Share my location"
-msgstr ""
+msgstr "Sdílet mé umístění"
+
+#: lib/noticeform.php:216
+msgid "Do not share my location"
+msgstr "Nesdílet moje umístění"
 
 #: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
 msgstr ""
+"Je nám líto, načítání vaší geo lokace trvá déle, než se očekávalo, zkuste to "
+"prosím znovu později"
+
+#. TRANS: Used in coordinates as abbreviation of north
+#: lib/noticelist.php:436
+msgid "N"
+msgstr "S"
 
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
 msgid "S"
-msgstr ""
+msgstr "J"
 
 #. TRANS: Used in coordinates as abbreviation of east
 #: lib/noticelist.php:440
 msgid "E"
-msgstr ""
+msgstr "V"
 
 #. TRANS: Used in coordinates as abbreviation of west
 #: lib/noticelist.php:442
 msgid "W"
-msgstr ""
+msgstr "Z"
 
 #: lib/noticelist.php:444
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
-msgstr ""
+msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
+
+#: lib/noticelist.php:453
+msgid "at"
+msgstr "v"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr ""
+msgstr "web"
+
+#: lib/noticelist.php:568
+msgid "in context"
+msgstr "v kontextu"
+
+#: lib/noticelist.php:603
+msgid "Repeated by"
+msgstr "Opakováno"
+
+#: lib/noticelist.php:630
+msgid "Reply to this notice"
+msgstr "Odpovědět na toto oznámení"
 
 #: lib/noticelist.php:631
 msgid "Reply"
-msgstr "Odpovědi"
+msgstr "Odpovědět"
+
+#: lib/noticelist.php:675
+msgid "Notice repeated"
+msgstr "Sdělení opakováno"
+
+#: lib/nudgeform.php:116
+msgid "Nudge this user"
+msgstr "Pošťuchovat tohoto uživatele"
+
+#: lib/nudgeform.php:128
+msgid "Nudge"
+msgstr "Pošťouchnout"
+
+#: lib/nudgeform.php:128
+msgid "Send a nudge to this user"
+msgstr "Poslat pošťouchnutí tomuto uživateli"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
@@ -6437,7 +6726,7 @@ msgstr "Chyba při vkládání nového profilu"
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar"
-msgstr "Chyba při kládání obrázku"
+msgstr "Chyba při vkládání avataru"
 
 #: lib/oauthstore.php:306
 msgid "Error updating remote profile"
@@ -6469,12 +6758,28 @@ msgstr "Oblíbené"
 
 #: lib/personalgroupnav.php:125
 msgid "Inbox"
-msgstr ""
+msgstr "Doručená pošta"
+
+#: lib/personalgroupnav.php:126
+msgid "Your incoming messages"
+msgstr "Vaše příchozí zprávy"
+
+#: lib/personalgroupnav.php:130
+msgid "Outbox"
+msgstr "Odeslaná pošta"
+
+#: lib/personalgroupnav.php:131
+msgid "Your sent messages"
+msgstr "Vaše odeslané zprávy"
 
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
-msgstr ""
+msgstr "Značky v oznámeních %s"
+
+#: lib/plugin.php:115
+msgid "Unknown"
+msgstr "Neznámé"
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -6492,6 +6797,10 @@ msgstr "Odběratelé"
 msgid "All subscribers"
 msgstr "Všichni odběratelé"
 
+#: lib/profileaction.php:191
+msgid "User ID"
+msgstr "ID uživatele"
+
 #: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Členem od"
@@ -6499,113 +6808,227 @@ msgstr "Členem od"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
 msgid "Daily average"
-msgstr ""
+msgstr "Denní průměr"
+
+#: lib/profileaction.php:264
+msgid "All groups"
+msgstr "Všechny skupiny"
 
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
-msgstr ""
+msgstr "Neimplementovaná metoda."
 
 #: lib/publicgroupnav.php:78
 msgid "Public"
 msgstr "Veřejné"
 
+#: lib/publicgroupnav.php:82
+msgid "User groups"
+msgstr "Skupin uživatel"
+
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
 msgid "Recent tags"
-msgstr ""
+msgstr "Nedávné značky"
+
+#: lib/publicgroupnav.php:88
+msgid "Featured"
+msgstr "Doporučení"
+
+#: lib/publicgroupnav.php:92
+msgid "Popular"
+msgstr "Populární"
+
+#: lib/redirectingaction.php:95
+msgid "No return-to arguments."
+msgstr "Chybí argument return-to."
+
+#: lib/repeatform.php:107
+msgid "Repeat this notice?"
+msgstr "Opakovat toto oznámení?"
 
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Ano"
 
+#: lib/repeatform.php:132
+msgid "Repeat this notice"
+msgstr "Opakovat toto oznámení"
+
+#: lib/revokeroleform.php:91
+#, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Odebrat uživateli roli \"%s\""
+
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
-msgstr ""
+msgstr "Nenastaven uživatel pro jednouživatelský mód"
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
-msgstr ""
+msgstr "Sandbox"
 
 #: lib/sandboxform.php:78
 msgid "Sandbox this user"
-msgstr "Zablokovat tohoto uživatele"
+msgstr "Sandboxovat tohoto uživatele"
+
+#: lib/searchaction.php:120
+msgid "Search site"
+msgstr "Prohledat stránky"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
-msgstr ""
+msgstr "Klíčová slova"
 
 #: lib/searchaction.php:127
 msgid "Search"
 msgstr "Hledat"
 
+#: lib/searchaction.php:162
+msgid "Search help"
+msgstr "Nápověda k hledání"
+
+#: lib/searchgroupnav.php:80
+msgid "People"
+msgstr "Lidé"
+
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
-msgstr ""
+msgstr "Najít lidi na této stránce"
+
+#: lib/searchgroupnav.php:83
+msgid "Find content of notices"
+msgstr "Najít v obsahu oznámení"
+
+#: lib/searchgroupnav.php:85
+msgid "Find groups on this site"
+msgstr "Najít skupiny na této stránce"
+
+#: lib/section.php:89
+msgid "Untitled section"
+msgstr "Oddíl bez názvu"
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
+msgstr "Další…"
+
+#: lib/silenceform.php:67
+msgid "Silence"
+msgstr "Uťišit"
 
 #: lib/silenceform.php:78
 msgid "Silence this user"
-msgstr "Odstranit tohoto uživatele"
+msgstr "Utišit tohoto uživatele"
+
+#: lib/subgroupnav.php:83
+#, php-format
+msgid "People %s subscribes to"
+msgstr "Lidé ke kterým je %s přihlášen"
+
+#: lib/subgroupnav.php:91
+#, php-format
+msgid "People subscribed to %s"
+msgstr "Lidé přihlášení k %s"
+
+#: lib/subgroupnav.php:99
+#, php-format
+msgid "Groups %s is a member of"
+msgstr "Skupiny kterých je %s členem"
+
+#: lib/subgroupnav.php:105
+msgid "Invite"
+msgstr "Pozvat"
+
+#: lib/subgroupnav.php:106
+#, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Pozvěte přátele a kolegy, aby se k vám připojili na %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
 msgid "People Tagcloud as self-tagged"
-msgstr ""
+msgstr "Mrak štítků kterými se uživatelé sami označili"
 
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
+msgstr "Mrak štítků kterými jsou uživatelé označeni"
+
+#: lib/tagcloudsection.php:56
+msgid "None"
+msgstr "Nic"
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
-msgstr ""
+msgstr "Tento server nemůže zpracovat nahrání tématu bez podpory ZIP."
 
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
 msgid "The theme file is missing or the upload failed."
-msgstr ""
+msgstr "Chybí soubor tématu nebo se nepodařilo nahrání."
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+msgid "Failed saving theme."
+msgstr "Chyba při ukládání tématu."
 
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
-msgstr ""
+msgstr "Neplatné téma: špatná adresářová struktura."
 
 #: lib/themeuploader.php:166
 #, php-format
 msgid "Uploaded theme is too large; must be less than %d bytes uncompressed."
 msgstr ""
+"Nahrané téma je příliš velké, nezkomprimované musí být menší než %d bajtů."
 
 #: lib/themeuploader.php:178
 msgid "Invalid theme archive: missing file css/display.css"
-msgstr ""
+msgstr "Neplatný archiv tématu: chybí soubor css/display.css"
 
 #: lib/themeuploader.php:218
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
+"Téma obsahuje neplatné jméno souboru nebo složky. Zůstaňte u písmen ASCII, "
+"číslic, podtržítka a mínusu."
 
 #: lib/themeuploader.php:224
 msgid "Theme contains unsafe file extension names; may be unsafe."
-msgstr ""
+msgstr "Téma obsahuje nebezpečné přípony souborů, může být nebezpečné."
 
 #: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
+msgstr "Téma obsahuje soubor typu '.%s', což není povoleno."
+
+#: lib/themeuploader.php:259
+msgid "Error opening theme archive."
+msgstr "Chyba při otevírání archivu tématu."
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
-msgstr ""
+msgstr "Nejlepší pisálci"
+
+#: lib/unsandboxform.php:69
+msgid "Unsandbox"
+msgstr "Odsandboxovat"
 
 #: lib/unsandboxform.php:80
 msgid "Unsandbox this user"
-msgstr "Zablokovat tohoto uživatele"
+msgstr "Odsandboxovat tohoto uživatele"
+
+#: lib/unsilenceform.php:67
+msgid "Unsilence"
+msgstr "Zrušit utišení"
 
 #: lib/unsilenceform.php:78
 msgid "Unsilence this user"
-msgstr "Odstranit tohoto uživatele"
+msgstr "Zrušit utišení tohoto uživatele"
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+msgid "Unsubscribe from this user"
+msgstr "Odhlásit se od tohoto uživatele"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
@@ -6621,11 +7044,19 @@ msgstr "Akce uživatele"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
-msgstr ""
+msgstr "Probíhá mazání uživatele..."
+
+#: lib/userprofile.php:263
+msgid "Edit profile settings"
+msgstr "Upravit nastavení profilu"
 
 #: lib/userprofile.php:264
 msgid "Edit"
-msgstr ""
+msgstr "Editovat"
+
+#: lib/userprofile.php:287
+msgid "Send a direct message to this user"
+msgstr "Odeslat přímou zprávu tomuto uživateli"
 
 #: lib/userprofile.php:288
 msgid "Message"
@@ -6633,12 +7064,21 @@ msgstr "Zpráva"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
-msgstr ""
+msgstr "Moderovat"
+
+#: lib/userprofile.php:364
+msgid "User role"
+msgstr "Role uživatele"
+
+#: lib/userprofile.php:366
+msgctxt "role"
+msgid "Administrator"
+msgstr "Administrátor"
 
 #: lib/userprofile.php:367
 msgctxt "role"
 msgid "Moderator"
-msgstr ""
+msgstr "Moderátor"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1102
@@ -6694,7 +7134,12 @@ msgstr "asi před %d mesíci"
 msgid "about a year ago"
 msgstr "asi před rokem"
 
+#: lib/webcolor.php:82
+#, php-format
+msgid "%s is not a valid color!"
+msgstr "%s není platná barva!"
+
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
+msgstr "%s není platná barva! Použijte 3 nebo 6 hex znaků."
