@@ -33,7 +33,6 @@ END_OF_TRIM_HELP;
 require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/parallelizingdaemon.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
-require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
@@ -144,8 +143,8 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
             $client = new TwitterOAuthClient($token->key, $token->secret);
             common_debug($this->name() . '- Grabbing friends IDs with OAuth.');
         } else {
-            $client = new TwitterBasicAuthClient($flink);
-            common_debug($this->name() . '- Grabbing friends IDs with basic auth.');
+            common_debug("Skipping Twitter friends for {$flink->user_id} since not OAuth.");
+            return $friends;
         }
 
         try {

@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:46:12+0000\n"
+"POT-Creation-Date: 2010-09-09 17:35+0000\n"
+"PO-Revision-Date: 2010-09-09 17:36:54+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 
 #. TRANS: Page title
@@ -442,6 +442,11 @@ msgstr "نام مکان خیلی طولانی است (حداکثر ۲۵۵ نوی
 msgid "Too many aliases! Maximum %d."
 msgstr "نام‌های مستعار بسیار زیاد هستند! حداکثر %d."
 
+#: actions/apigroupcreate.php:267
+#, php-format
+msgid "Invalid alias: \"%s\"."
+msgstr "نام مستعار نامعتبر است: «%s»."
+
 #: actions/apigroupcreate.php:276 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
@@ -506,6 +511,10 @@ msgstr "%s گروه"
 msgid "groups on %s"
 msgstr "گروه‌ها در %s"
 
+#: actions/apimediaupload.php:99
+msgid "Upload failed."
+msgstr "بارگذاری شکست خورد."
+
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr "هیچ پارامتر oauth_token آماده نشده است."
@@ -530,7 +539,7 @@ msgstr "رمز نامعتبر است."
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
-msgstr "مشکلی در دریافت جلسه‌ی شما وجود دارد. لطفا بعدا سعی کنید."
+msgstr "مشکلی در دریافت نشست شما وجود دارد. لطفا بعدا سعی کنید."
 
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
@@ -745,7 +754,7 @@ msgstr "بدون اندازه."
 
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr "اندازه‌ی نادرست"
+msgstr "اندازه نادرست است."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/avatarsettings.php:67 actions/showgroup.php:230
@@ -799,7 +808,8 @@ msgstr "هیچ پرونده‌ای بارگذاری نشد."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
-msgstr "یک مربع از عکس خود را انتخاب کنید تا چهره‌ی شما باشد."
+msgstr ""
+"یک مربع از عکس خود را انتخاب کنید تا به عنوان تصویر چهرهٔ شما انتخاب شود."
 
 #: actions/avatarsettings.php:347 actions/grouplogo.php:380
 msgid "Lost our file data."
@@ -1134,9 +1144,15 @@ msgstr "پوستهٔ وب‌گاه"
 msgid "Theme for the site."
 msgstr "پوسته برای وب‌گاه"
 
+#: actions/designadminpanel.php:467
+msgid "Custom theme"
+msgstr "پوستهٔ اختصاصی"
+
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
+"شما می‌توانید یک پوستهٔ اختصاصی StatusNet را به‌عنوان یک آرشیو .ZIP بارگذاری "
+"کنید."
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
 msgid "Change background image"
@@ -1196,11 +1212,11 @@ msgstr "پیوندها"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
-msgstr ""
+msgstr "پیشرفته"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "CSS اختصاصی"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -1637,7 +1653,7 @@ msgstr "کاربران ویژه"
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
-msgstr "کاربران ویژه، صفحه‌ی %d"
+msgstr "کاربران ویژه، صفحهٔ %d"
 
 #: actions/featured.php:99
 #, php-format
@@ -1682,11 +1698,11 @@ msgstr "شما شناسایی نشده اید."
 
 #: actions/finishremotesubscribe.php:113
 msgid "Could not convert request token to access token."
-msgstr "نمی‌توان نشانه‌ی درخواست شما را به نشانه‌ی دسترسی تبدیل کرد."
+msgstr "نمی‌توان نشانهٔ درخواست شما را به نشانهٔ دسترسی تبدیل کرد."
 
 #: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "خدمات مورد نظر از نسخه‌ی نا مفهومی از قرارداد OMB استفاده می‌کند."
+msgstr "خدمات مورد نظر از نسخهٔ نامفهومی از قرارداد OMB استفاده می‌کند."
 
 #: actions/finishremotesubscribe.php:138
 msgid "Error updating remote profile."
@@ -1813,7 +1829,7 @@ msgstr "شما می‌توانید یک نشان برای گروه خود با �
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
-msgstr "یک ناحیه‌ی مربع از تصویر را انتخاب کنید تا به عنوان نشان باشد."
+msgstr "یک ناحیه‌ی مربع از تصویر را انتخاب کنید تا به عنوان نشان انتخاب شود."
 
 #: actions/grouplogo.php:399
 msgid "Logo updated."
@@ -1864,7 +1880,7 @@ msgstr "این کاربر یک مدیر شود"
 #: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:69
 #, php-format
 msgid "%s timeline"
-msgstr "خط زمانی %s"
+msgstr "خط‌زمانی %s"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #: actions/grouprss.php:142
@@ -2026,7 +2042,7 @@ msgstr "پاسخ کسانی که من آن‌ها را دنبال نمی‌کن�
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:179
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr "یک شناسه‌ی کوچک برای Jabber/Gtalk من منتشر کن."
+msgstr "یک شناسهٔ کوچک برای Jabber/Gtalk من منتشر کن."
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:287 actions/othersettings.php:180
@@ -2041,12 +2057,12 @@ msgstr "هیچ شناسهٔ Jabber ای وجود ندارد."
 #. TRANS: Message given saving IM address that cannot be normalised.
 #: actions/imsettings.php:317
 msgid "Cannot normalize that Jabber ID"
-msgstr "نمی‌توان شناسه‌ی Jabber را تایید کرد"
+msgstr "نمی‌توان شناسهٔ Jabber را تایید کرد"
 
 #. TRANS: Message given saving IM address that not valid.
 #: actions/imsettings.php:322
 msgid "Not a valid Jabber ID"
-msgstr "شناسه‌ی Jabber درست نیست"
+msgstr "شناسهٔ Jabber درست نیست"
 
 #. TRANS: Message given saving IM address that is already set.
 #: actions/imsettings.php:326
@@ -2088,7 +2104,7 @@ msgstr "تایید پیام‌رسان فوری لغو شد."
 #. TRANS: registered for the active user.
 #: actions/imsettings.php:424
 msgid "That is not your Jabber ID."
-msgstr "این شناسه‌ی Jabber شما نیست."
+msgstr "این شناسهٔ Jabber شما نیست."
 
 #. TRANS: Message given after successfully removing a registered IM address.
 #: actions/imsettings.php:447
@@ -2480,6 +2496,8 @@ msgstr "پیام‌هایی که با جست‌و‌جوی عبارت »%1$s« �
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
+"این کاربر اجازهٔ یادآوری‌کردن را نداده است یا پست‌الکترونیک خود را تایید یا "
+"تعیین نکرده است."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2554,8 +2572,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "لطفا تنها از نشانی‌های اینترنتی %s از راه HTTP ساده استفاده کنید."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
-#: lib/apiaction.php:1237 lib/apiaction.php:1360
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1215
+#: lib/apiaction.php:1243 lib/apiaction.php:1366
 msgid "Not a supported data format."
 msgstr "یک قالب دادهٔ پشتیبانی‌شده نیست."
 
@@ -2585,7 +2603,7 @@ msgstr "کوتاه‌کردن نشانی‌های اینترنتی با"
 
 #: actions/othersettings.php:117
 msgid "Automatic shortening service to use."
-msgstr "کوتاه‌کننده‌ی نشانی مورد استفاده."
+msgstr "کوتاه‌کنندهٔ نشانی مورد استفاده."
 
 #: actions/othersettings.php:122
 msgid "View profile designs"
@@ -2597,7 +2615,7 @@ msgstr "نمایش دادن یا پنهان کردن طراحی‌های نما�
 
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
-msgstr "کوتاه کننده‌ی نشانی بسیار طولانی است (بیش‌تر از ۵۰ حرف)."
+msgstr "کوتاه کنندهٔ نشانی بسیار طولانی است (بیش‌تر از ۵۰ حرف)."
 
 #: actions/otp.php:69
 msgid "No user ID specified."
@@ -2708,22 +2726,22 @@ msgstr "تنظیمات و نشانی محلی این وب‌گاه StatusNet."
 #: actions/pathsadminpanel.php:157
 #, php-format
 msgid "Theme directory not readable: %s."
-msgstr "شاخه‌ی پوسته‌ها قابل خواندن نیست: %s."
+msgstr "شاخهٔ پوسته‌ها قابل خواندن نیست: %s."
 
 #: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "شاخه‌ی تصویر چهره‌ها قابل نوشتن نیست: %s."
+msgstr "شاخهٔ تصویر چهره‌ها قابل نوشتن نیست: %s."
 
 #: actions/pathsadminpanel.php:169
 #, php-format
 msgid "Background directory not writable: %s."
-msgstr "شاخه‌ی پس زمینه‌ها قابل نوشتن نیست: %s."
+msgstr "شاخهٔ پس زمینه‌ها قابل نوشتن نیست: %s."
 
 #: actions/pathsadminpanel.php:177
 #, php-format
 msgid "Locales directory not readable: %s."
-msgstr "پوشه‌ی تنظیمات محلی قابل خواندن نیست: %s."
+msgstr "پوشهٔ تنظیمات محلی قابل خواندن نیست: %s."
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2812,6 +2830,10 @@ msgstr "مسیر تصاویر پیش‌زمینه"
 #: actions/pathsadminpanel.php:313
 msgid "Background directory"
 msgstr "شاخهٔ تصاویر پیش‌زمینه"
+
+#: actions/pathsadminpanel.php:320
+msgid "SSL"
+msgstr "SSL"
 
 #: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
@@ -2932,6 +2954,10 @@ msgstr "شرح‌حال"
 msgid "Location"
 msgstr "موقعیت"
 
+#: actions/profilesettings.php:134 actions/register.php:480
+msgid "Where you are, like \"City, State (or Region), Country\""
+msgstr "مکانی که شما در آن هستید، مانند «شهر، ایالت (یا استان)، کشور»"
+
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
 msgstr "مکان کنونی من هنگام فرستادن پیام‌ها به اشتراک گذاشته شود"
@@ -2977,7 +3003,7 @@ msgstr "شرح‌حال خیلی طولانی است (بیشینه %d نویسه
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
-msgstr "منطقه‌ی زمانی انتخاب نشده است."
+msgstr "منطقهٔ زمانی انتخاب نشده است."
 
 #: actions/profilesettings.php:241
 msgid "Language is too long (max 50 chars)."
@@ -3021,11 +3047,11 @@ msgstr "نمی‌توان جریان عمومی را دریافت کرد."
 #: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
-msgstr "خط زمانی عمومی، صفحه‌ی %d"
+msgstr "خط‌زمانی عمومی، صفحهٔ %d"
 
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
-msgstr "خط زمانی عمومی"
+msgstr "خط‌زمانی عمومی"
 
 #: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
@@ -3256,7 +3282,7 @@ msgstr "ثبت نام"
 
 #: actions/register.php:142
 msgid "Registration not allowed."
-msgstr "اجازه‌ی ثبت نام داده نشده است."
+msgstr "اجازهٔ ثبت‌نام داده نشده است."
 
 #: actions/register.php:205
 msgid "You can't register if you don't agree to the license."
@@ -3523,6 +3549,10 @@ msgstr "شما نمی‌توانید نقش‌های کاربری را در ای
 msgid "User doesn't have this role."
 msgstr "کاربر این نقش را ندارد."
 
+#: actions/rsd.php:146 actions/version.php:159
+msgid "StatusNet"
+msgstr "StatusNet"
+
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:392
@@ -3666,6 +3696,15 @@ msgstr ""
 "شما هنوز هیچ پیام برگزیده‌ای را انتخاب نکرده‌اید. روی دکمهٔ برگزیده کردن پیامی "
 "که دوست دارید کلیک کنید تا آن‌ها را برای بعد چوب‌الفها کنید یا یک نشانه روی "
 "آن‌ها بگذارید."
+
+#: actions/showfavorites.php:208
+#, php-format
+msgid ""
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
+msgstr ""
+"%s تاکنون هیچ پیامی را به برگزیده‌هایش اضافه نکرده است. چیز جالبی بفرستید که "
+"ممکن است به برگزیده‌هایشان اضافه کنند :)"
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -3913,6 +3952,11 @@ msgstr "نام وب‌گاه باید طولی غیر صفر داشته باشد
 #: actions/siteadminpanel.php:141
 msgid "You must have a valid contact email address."
 msgstr "شما باید یک نشانی پست الکترونیکی معتبر برای ارتباط داشته باشید."
+
+#: actions/siteadminpanel.php:159
+#, php-format
+msgid "Unknown language \"%s\"."
+msgstr "زبان «%s» ناشناس است."
 
 #: actions/siteadminpanel.php:165
 msgid "Minimum text limit is 0 (unlimited)."
@@ -4334,6 +4378,10 @@ msgstr ""
 msgid "%s is not listening to anyone."
 msgstr "%s هیچ‌کس را دنبال نمی‌کند."
 
+#: actions/subscriptions.php:208
+msgid "Jabber"
+msgstr "Jabber"
+
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "پیامک"
@@ -4616,6 +4664,11 @@ msgstr ""
 msgid "Updates from %1$s on %2$s!"
 msgstr "به روز رسانی‌های %1$s در %2$s"
 
+#: actions/version.php:75
+#, php-format
+msgid "StatusNet %s"
+msgstr "StatusNet %s"
+
 #: actions/version.php:155
 #, php-format
 msgid ""
@@ -4710,6 +4763,11 @@ msgstr ""
 "یک پرونده با این حجم زیاد می‌تواند از سهمیهٔ کاربری ماهانهٔ شما از %d بایت "
 "بگذرد."
 
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+msgid "Invalid filename."
+msgstr "نام‌پرونده نادرست است."
+
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
 msgid "Group join failed."
@@ -4740,7 +4798,7 @@ msgstr "نمی‌توان رمز ورود را برای %s ایجاد کرد"
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
-msgstr ""
+msgstr "هیچ پایگاه‌داده یا DSN هیچ‌جا پیدا نشد."
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
@@ -4757,7 +4815,7 @@ msgstr "پیغام نمی تواند درج گردد"
 #: classes/Notice.php:98
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
-msgstr ""
+msgstr "چنین نمایه‌ای (%1$d) برای پیام (%2$d) وجود ندارد."
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:193
@@ -4804,18 +4862,18 @@ msgid "Problem saving notice."
 msgstr "هنگام ذخیرهٔ پیام مشکلی ایجاد شد."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
+#: classes/Notice.php:998
 msgid "Problem saving group inbox."
 msgstr "هنگام ذخیرهٔ صندوق ورودی گروه مشکلی رخ داد."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1757
+#: classes/Notice.php:1759
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4825,7 +4883,7 @@ msgstr "RT @%1$s %2$s"
 #: classes/Profile.php:737
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
-msgstr ""
+msgstr "نمی‌توان نقش «%1$s» را از کاربر  #%2$d گرفت، وجود ندارد."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -4833,6 +4891,12 @@ msgstr ""
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
+"نمی‌توان نقش «%1$s» را از کاربر #%2$d گرفت، خطا در پایگاه داده وجود دارد."
+
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+msgid "Missing profile."
+msgstr "نمایه وجود ندارد."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
@@ -5396,7 +5460,7 @@ msgstr "تنها خواندنی"
 #: lib/applicationlist.php:144
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
-msgstr ""
+msgstr "تایید شده %1$s - با دسترسی «%2$s»"
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
@@ -5447,6 +5511,25 @@ msgstr "دستور انجام شد"
 msgid "Command failed"
 msgstr "فرمان شکست خورد"
 
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+msgid "Notice with that id does not exist."
+msgstr "پیامی با آن شناسه وجود ندارد."
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "نمی‌توان یک کاربر را با نام مستعار %s پیدا کرد."
+
+#. TRANS: Message given getting a non-existing user.
+#. TRANS: %s is the nickname of the user that could not be found.
+#: lib/command.php:150
+#, php-format
+msgid "Could not find a local user with nickname %s."
+msgstr "نمی‌توان یک کاربر را با نام مستعار %s پیدا کرد."
+
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
@@ -5456,6 +5539,13 @@ msgstr "متاسفانه این دستور هنوز پیاده نشده است."
 #: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "خیلی جالب نیست که به خودتان یادآوری کنید!"
+
+#. TRANS: Message given having nudged another user.
+#. TRANS: %s is the nickname of the user that was nudged.
+#: lib/command.php:240
+#, php-format
+msgid "Nudge sent to %s."
+msgstr "یادآوری به %s فرستاده شد."
 
 #. TRANS: User statistics text.
 #. TRANS: %1$s is the number of other user the user is subscribed to.
@@ -5476,6 +5566,20 @@ msgstr ""
 #: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr "پیام به‌عنوان برگزیده مشخص شد."
+
+#. TRANS: Message given having added a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:360
+#, php-format
+msgid "%1$s joined group %2$s."
+msgstr "%1$s به گروه %2$s پیوست."
+
+#. TRANS: Message given having removed a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:408
+#, php-format
+msgid "%1$s left group %2$s."
+msgstr "%1$s گروه %2$s را ترک کرد."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:434
@@ -5527,10 +5631,33 @@ msgstr ""
 msgid "Error sending direct message."
 msgstr "خطا در فرستادن پیام مستقیم."
 
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, php-format
+msgid "Notice from %s repeated."
+msgstr "پیام %s تکرار شد."
+
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "هنگام تکرار پیام خطایی رخ داد."
+
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
+#, php-format
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgstr ""
+"پیام بسیار طولانی است - بیشترین اندازه امکان پذیر %d نویسه است، شما %d نویسه "
+"فرستاده‌اید"
+
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
+#, php-format
+msgid "Reply to %s sent."
+msgstr "پاسخ به %s فرستاده شد."
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 #: lib/command.php:606
@@ -5552,6 +5679,13 @@ msgstr "نمی‌توان با دستور مشترک نمایه‌های OMB ش�
 #: lib/command.php:694 lib/command.php:804
 msgid "Specify the name of the user to unsubscribe from."
 msgstr ""
+
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
+#, php-format
+msgid "Unsubscribed from %s."
+msgstr "اشتراک از %s لغو شد."
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
@@ -5582,7 +5716,7 @@ msgstr "ناتوان در روشن کردن آگاه سازی."
 #. TRANS: Error text shown when issuing the login command while login is disabled.
 #: lib/command.php:771
 msgid "Login command is disabled."
-msgstr ""
+msgstr "فرمان ورود غیرفعال شده است."
 
 #. TRANS: Text shown after issuing the login command successfully.
 #. TRANS: %s is a logon link..
@@ -5590,6 +5724,14 @@ msgstr ""
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
+"این پیوند تنها یک‌بار قابل استفاده است و فقط برای دو دقیقه معتبر است: %s."
+
+#. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:813
+#, php-format
+msgid "Unsubscribed %s."
+msgstr "%s لغو اشتراک شد."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:831

@@ -12,12 +12,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:47:11+0000\n"
+"POT-Creation-Date: 2010-09-08 22:33+0000\n"
+"PO-Revision-Date: 2010-09-08 22:35:15+0000\n"
 "Language-Team: Portuguese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt\n"
 "X-Message-Group: out-statusnet\n"
@@ -551,7 +551,7 @@ msgstr "Ocorreu um problema com a sua sessão. Por favor, tente novamente."
 
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
-msgstr "Alcunha ou senha inválidos!"
+msgstr "Utilizador ou senha inválidos!"
 
 #: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
@@ -752,7 +752,7 @@ msgstr "Anexo não foi encontrado."
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
 #: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
-msgstr "Alcunha não definida."
+msgstr "Nome de utilizador não definido."
 
 #: actions/avatarbynickname.php:64
 msgid "No size."
@@ -1502,7 +1502,7 @@ msgstr "Quero publicar notas por correio electrónico."
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:219
 msgid "Publish a MicroID for my email address."
-msgstr "Publicar uma MicroID para o meu endereço electrónico."
+msgstr "Publicar um MicroID para o meu endereço electrónico."
 
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:334
@@ -2061,7 +2061,7 @@ msgstr "Enviar-me via Jabber/GTalk respostas de pessoas que não subscrevo."
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:179
 msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr "Publicar uma MicroID para o meu endereço Jabber/GTalk."
+msgstr "Publicar um MicroID para o meu endereço Jabber/GTalk."
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:287 actions/othersettings.php:180
@@ -2296,7 +2296,7 @@ msgstr "Tem de iniciar uma sessão para se juntar a um grupo."
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
 msgid "No nickname or ID."
-msgstr "Nenhuma alcunha ou utilizador."
+msgstr "Nenhum utilizador ou ID."
 
 #: actions/joingroup.php:141
 #, php-format
@@ -2595,8 +2595,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Só URLs %s sobre HTTP simples, por favor."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
-#: lib/apiaction.php:1237 lib/apiaction.php:1360
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1215
+#: lib/apiaction.php:1243 lib/apiaction.php:1366
 msgid "Not a supported data format."
 msgstr "Formato de dados não suportado."
 
@@ -3218,7 +3218,7 @@ msgstr "Utilizador ou endereço de correio electrónico"
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
-"A sua utilizador neste servidor, ou o seu correio electrónico registado."
+"O seu utilizador neste servidor, ou o seu correio electrónico registado."
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
@@ -3250,7 +3250,7 @@ msgstr "Reiniciar"
 
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
-msgstr "Introduza uma utilizador ou um endereço de correio electrónico."
+msgstr "Introduza um utilizador ou um endereço de correio electrónico."
 
 #: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
@@ -4965,18 +4965,18 @@ msgid "Problem saving notice."
 msgstr "Problema na gravação da nota."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr "O tipo fornecido ao método saveKnownGroups é incorrecto"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
+#: classes/Notice.php:998
 msgid "Problem saving group inbox."
 msgstr "Problema na gravação da caixa de entrada do grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1757
+#: classes/Notice.php:1759
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5647,7 +5647,14 @@ msgstr "Utilizador não tem nenhuma última nota."
 #: lib/command.php:130
 #, php-format
 msgid "Could not find a user with nickname %s."
-msgstr "Não foi encontrado um utilizador com a alcunha %s."
+msgstr "Não foi encontrado um utilizador com o nome %s."
+
+#. TRANS: Message given getting a non-existing user.
+#. TRANS: %s is the nickname of the user that could not be found.
+#: lib/command.php:150
+#, php-format
+msgid "Could not find a local user with nickname %s."
+msgstr "Não foi encontrado nenhum utilizador local com o nome %s."
 
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:185
@@ -5685,6 +5692,20 @@ msgstr ""
 #: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr "Nota marcada como favorita."
+
+#. TRANS: Message given having added a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:360
+#, php-format
+msgid "%1$s joined group %2$s."
+msgstr "%1$s juntou-se ao grupo %2$s."
+
+#. TRANS: Message given having removed a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:408
+#, php-format
+msgid "%1$s left group %2$s."
+msgstr "%1$s deixou o grupo %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:434
@@ -5775,11 +5796,25 @@ msgstr "Introduza o nome do utilizador para subscrever."
 msgid "Can't subscribe to OMB profiles by command."
 msgstr "Não pode subscrever perfis OMB por comando."
 
+#. TRANS: Text shown after having subscribed to another user successfully.
+#. TRANS: %s is the name of the user the subscription was requested for.
+#: lib/command.php:672
+#, php-format
+msgid "Subscribed to %s."
+msgstr "Subscreveu %s."
+
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
 #: lib/command.php:694 lib/command.php:804
 msgid "Specify the name of the user to unsubscribe from."
 msgstr "Introduza o nome do utilizador para deixar de subscrever."
+
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
+#, php-format
+msgid "Unsubscribed from %s."
+msgstr "Deixou de subscrever %s."
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
@@ -5817,7 +5852,14 @@ msgstr "Comando para iniciar sessão foi desactivado."
 #: lib/command.php:784
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
-msgstr ""
+msgstr "O link é utilizável uma única vez e só é válido durante 2 minutos: %s."
+
+#. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:813
+#, php-format
+msgid "Unsubscribed %s."
+msgstr "Subscrição de %s cancelada."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:831
@@ -6081,7 +6123,7 @@ msgstr "Localidade do grupo, se aplicável, por ex. \"Cidade, Região, País\""
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
-"Utilizadors extra para o grupo, separadas por vírgulas ou espaços, máx. %d"
+"Nomes adicionais para o grupo, separados por vírgulas ou espaços, máx. %d"
 
 #: lib/groupnav.php:85
 msgid "Group"
@@ -6997,7 +7039,7 @@ msgstr ""
 
 #: lib/themeuploader.php:224
 msgid "Theme contains unsafe file extension names; may be unsafe."
-msgstr ""
+msgstr "O tema contém extensões de ficheiro inseguras; pode não ser seguro."
 
 #: lib/themeuploader.php:241
 #, php-format

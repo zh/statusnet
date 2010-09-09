@@ -9,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:47:17+0000\n"
+"POT-Creation-Date: 2010-09-09 17:35+0000\n"
+"PO-Revision-Date: 2010-09-09 17:38:05+0000\n"
 "Language-Team: Telugu\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: out-statusnet\n"
@@ -813,6 +813,10 @@ msgstr "ఈ గుంపు లోనికి చేరకుండా ని�
 msgid "Unblock user from group"
 msgstr "వాడుకరిని గుంపు నుండి నిరోధించు"
 
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
+msgid "Unblock"
+msgstr "నిరోధాన్ని ఎత్తివేయి"
+
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:80
 msgid "Unblock this user"
 msgstr "ఈ వాడుకరిని నిరోధించు"
@@ -1054,12 +1058,12 @@ msgstr "సైటుకి మీరు నేపథ్యపు చిత్ర
 #. TRANS: Used as radio button label to add a background image.
 #: actions/designadminpanel.php:527 lib/designsettings.php:139
 msgid "On"
-msgstr ""
+msgstr "ఆన్"
 
 #. TRANS: Used as radio button label to not add a background image.
 #: actions/designadminpanel.php:544 lib/designsettings.php:155
 msgid "Off"
-msgstr ""
+msgstr "ఆఫ్"
 
 #: actions/designadminpanel.php:564 lib/designsettings.php:170
 msgid "Change colours"
@@ -1087,7 +1091,7 @@ msgstr "ఉన్నత"
 
 #: actions/designadminpanel.php:655
 msgid "Custom CSS"
-msgstr ""
+msgstr "ప్రత్యేక CSS"
 
 #: actions/designadminpanel.php:676 lib/designsettings.php:247
 msgid "Use defaults"
@@ -2280,8 +2284,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
-#: lib/apiaction.php:1237 lib/apiaction.php:1360
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1215
+#: lib/apiaction.php:1243 lib/apiaction.php:1366
 msgid "Not a supported data format."
 msgstr ""
 
@@ -2420,6 +2424,10 @@ msgstr "సేవకి"
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
 msgstr ""
+
+#: actions/pathsadminpanel.php:242
+msgid "Path"
+msgstr "త్రోవ"
 
 #: actions/pathsadminpanel.php:242
 msgid "Site path"
@@ -2784,6 +2792,10 @@ msgstr "తెలియని చర్య"
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 లేదా అంతకంటే ఎక్కువ అక్షరాలు, మర్చిపోకండి!"
 
+#: actions/recoverpassword.php:243
+msgid "Reset"
+msgstr "రీసెట్"
+
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
 msgstr "పేరు లేదా ఈమెయిల్ చిరునామా ఇవ్వండి."
@@ -2905,7 +2917,7 @@ msgstr ""
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
 #: actions/register.php:535
 msgid "All rights reserved."
-msgstr ""
+msgstr "సర్వహక్కులూ సురక్షితం."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
@@ -4148,13 +4160,13 @@ msgid "Problem saving notice."
 msgstr "సందేశాన్ని భద్రపరచడంలో పొరపాటు."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1757
+#: classes/Notice.php:1759
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4726,6 +4738,10 @@ msgstr "మునుజూపు"
 msgid "Notices where this attachment appears"
 msgstr ""
 
+#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
+msgid "Password changing failed"
+msgstr "సంకేతపదం మార్పు విఫలమైంది"
+
 #: lib/channel.php:157 lib/channel.php:177
 msgid "Command results"
 msgstr "ఆదేశ ఫలితాలు"
@@ -4829,18 +4845,25 @@ msgstr "నోటీసుని భద్రపరచడంలో పొరప�
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
 #: lib/command.php:655
 msgid "Specify the name of the user to subscribe to."
-msgstr ""
+msgstr "ఏవరికి చందా చేరాలనుకుంటున్నారో ఆ వాడుకరి పేరుని ఇవ్వండి."
 
 #. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
 #: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
+#. TRANS: Text shown after having subscribed to another user successfully.
+#. TRANS: %s is the name of the user the subscription was requested for.
+#: lib/command.php:672
+#, php-format
+msgid "Subscribed to %s."
+msgstr "%sకి చందా చేరారు."
+
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
 #: lib/command.php:694 lib/command.php:804
 msgid "Specify the name of the user to unsubscribe from."
-msgstr ""
+msgstr "ఎవరినుండైతే చందావిరమించాలనుకుంటున్నారో ఆ వాడుకరి పేరుని ఇవ్వండి."
 
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 #: lib/command.php:731
@@ -5016,7 +5039,7 @@ msgstr ""
 
 #: lib/feedlist.php:64
 msgid "Export data"
-msgstr ""
+msgstr "భోగట్టా ఎగుమతి"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -5614,11 +5637,11 @@ msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 
 #: lib/noticelist.php:453
 msgid "at"
-msgstr ""
+msgstr "ప్రాంతం"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr ""
+msgstr "జాలం"
 
 #: lib/noticelist.php:568
 msgid "in context"

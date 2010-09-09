@@ -1102,3 +1102,11 @@ StartShowPageTitle: when beginning to show the page title <h1>
 
 EndShowPageTitle: when done showing the page title <h1>
 - $action: action being shown
+
+StartDeleteOwnNotice: when a user starts to delete their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted
+
+EndDeleteOwnNotice: when a user has deleted their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted

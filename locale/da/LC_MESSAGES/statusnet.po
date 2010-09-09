@@ -1,5 +1,6 @@
 # Translation of StatusNet to Danish
 #
+# Author@translatewiki.net: Brion
 # Author@translatewiki.net: Mstenbaek
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -8,12 +9,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-05 09:45+0000\n"
-"PO-Revision-Date: 2010-09-05 09:45:42+0000\n"
+"POT-Creation-Date: 2010-09-08 22:33+0000\n"
+"PO-Revision-Date: 2010-09-08 22:33:39+0000\n"
 "Language-Team: Danish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: da\n"
 "X-Message-Group: out-statusnet\n"
@@ -2279,88 +2280,279 @@ msgstr ""
 "tid. \n"
 "\n"
 "Med venlig hilsen,\n"
-"%2$s \n"
-" "
+"%2$s\n"
+
+#: actions/joingroup.php:60
+msgid "You must be logged in to join a group."
+msgstr "Du skal være logget ind for at deltage i en gruppe."
+
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+msgid "No nickname or ID."
+msgstr "Ingen brugernavn eller ID."
+
+#: actions/joingroup.php:141
+#, php-format
+msgid "%1$s joined group %2$s"
+msgstr "%1$s blev medlem af gruppe n %2$s"
+
+#: actions/leavegroup.php:60
+msgid "You must be logged in to leave a group."
+msgstr "Du skal være logget på for at forlade en gruppe."
+
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
+msgid "You are not a member of that group."
+msgstr "Du er ikke medlem af denne gruppe."
+
+#: actions/leavegroup.php:137
+#, php-format
+msgid "%1$s left group %2$s"
+msgstr "%1$s forlod gruppe %2$s"
+
+#: actions/login.php:102 actions/otp.php:62 actions/register.php:144
+msgid "Already logged in."
+msgstr "Allerede logget ind"
 
 #: actions/login.php:148
 msgid "Incorrect username or password."
-msgstr ""
+msgstr "Forkert brugernavn eller password."
+
+#: actions/login.php:154 actions/otp.php:120
+msgid "Error setting user. You are probably not authorized."
+msgstr "Fejl ved indstilling af bruger. Du har sandsynligvis ikke tilladelse."
+
+#: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
+msgid "Login"
+msgstr "Log ind"
 
 #: actions/login.php:249
 msgid "Login to site"
-msgstr ""
+msgstr "Login til webstedet"
 
 #: actions/login.php:258 actions/register.php:485
 msgid "Remember me"
-msgstr ""
+msgstr "Husk mig"
 
 #: actions/login.php:259 actions/register.php:487
 msgid "Automatically login in the future; not for shared computers!"
-msgstr ""
+msgstr "Automatisk login fremover, ikke for computere, der deles!"
 
 #: actions/login.php:269
 msgid "Lost or forgotten password?"
-msgstr ""
+msgstr "Mistet eller glemt password?"
 
 #: actions/login.php:288
 msgid ""
 "For security reasons, please re-enter your user name and password before "
 "changing your settings."
 msgstr ""
+"Af sikkerhedsmæssige årsager bedes du indtaste dit brugernavn og din "
+"adgangskode før du ændrer dine indstillinger."
 
 #: actions/login.php:292
 msgid "Login with your username and password."
-msgstr ""
+msgstr "Log ind med dit brugernavn og password."
 
 #: actions/login.php:295
 #, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
+"Har du ikke et brugernavn endnu? [Register] (%% action.register%%) en ny "
+"konto."
+
+#: actions/makeadmin.php:92
+msgid "Only an admin can make another user an admin."
+msgstr "Kun en admin kan gøre en anden bruger til admin."
+
+#: actions/makeadmin.php:96
+#, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "%1$s er allerede administrator for gruppen «%2$s»."
 
 #: actions/makeadmin.php:133
 #, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr ""
+msgstr "Kan ikke finde medlemskab oplysninger for %1$s i gruppen %2$s."
+
+#: actions/makeadmin.php:146
+#, php-format
+msgid "Can't make %1$s an admin for group %2$s."
+msgstr "Kan ikke gøre %1$s til admin for gruppen %2$s."
+
+#: actions/newapplication.php:52
+msgid "New Application"
+msgstr "Nyt program"
+
+#: actions/newapplication.php:64
+msgid "You must be logged in to register an application."
+msgstr "Du skal være logget ind for at registrere et program."
+
+#: actions/newapplication.php:143
+msgid "Use this form to register a new application."
+msgstr "Brug denne formular til at registrere et nyt program."
+
+#: actions/newapplication.php:176
+msgid "Source URL is required."
+msgstr "Kilde-URL er påkrævet."
+
+#: actions/newapplication.php:258 actions/newapplication.php:267
+msgid "Could not create application."
+msgstr "Kunne ikke oprette programmet."
+
+#: actions/newgroup.php:53
+msgid "New group"
+msgstr "Ny gruppe"
+
+#: actions/newgroup.php:110
+msgid "Use this form to create a new group."
+msgstr "Brug denne formular for at oprette en ny gruppe."
+
+#: actions/newmessage.php:71 actions/newmessage.php:231
+msgid "New message"
+msgstr "Ny besked"
+
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
+msgid "You can't send a message to this user."
+msgstr "Du kan ikke sende en besked til denne bruger."
+
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
+msgid "No content!"
+msgstr "Ingen indhold!"
+
+#: actions/newmessage.php:158
+msgid "No recipient specified."
+msgstr "Ingen modtager specificeret."
 
 #. TRANS: Error text shown when trying to send a direct message to self.
 #: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
+"Du kan ikke sende en besked til dig selv, bare sig det stille til dig selv i "
+"stedet."
+
+#: actions/newmessage.php:181
+msgid "Message sent"
+msgstr "Beskeden er sendt"
+
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
+#, php-format
+msgid "Direct message to %s sent."
+msgstr "Direkte besked til %s sendt."
 
 #: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
+msgstr "Ajax Fejl"
+
+#: actions/newnotice.php:69
+msgid "New notice"
+msgstr "Ny meddelelse"
+
+#: actions/newnotice.php:227
+msgid "Notice posted"
+msgstr "Meddelelse gemt"
+
+#: actions/noticesearch.php:68
+#, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
 msgstr ""
+"Søg efter indhold af meddelelser på %%site.name%%. Separer søgetermer med "
+"mellemrum, de skal være 3 karakterer eller derover."
+
+#: actions/noticesearch.php:78
+msgid "Text search"
+msgstr "Tekst søgning"
+
+#: actions/noticesearch.php:91
+#, php-format
+msgid "Search results for \"%1$s\" on %2$s"
+msgstr "Søgeresultater for \"%1$s\" på %2$s"
+
+#: actions/noticesearch.php:121
+#, php-format
+msgid ""
+"Be the first to [post on this topic](%%%%action.newnotice%%%%?"
+"status_textarea=%s)!"
+msgstr ""
+"Vær den første til at [skrive om dette emne] (%%%%action.newnotice%%%%?"
+"status_textarea=%s) !"
+
+#: actions/noticesearch.php:124
+#, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
+"[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
+msgstr ""
+"Hvorfor ikke [registrere en konto] (%%%%action.register%%%%) og vær den "
+"første til at [skrive om dette emne ] (%%%%action.newnotice%%%%?"
+"status_textarea=%s) !"
+
+#: actions/noticesearchrss.php:96
+#, php-format
+msgid "Updates with \"%s\""
+msgstr "Opdateringer med \"%s\""
+
+#: actions/noticesearchrss.php:98
+#, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "Opdateringer matcher søgeordet \"%1$s\" på %2$s!"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
+"Denne bruger tillader ikke at blive puffet, eller har ikke bekræftet eller "
+"indstillet sin e-mail endnu."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
-msgstr ""
+msgstr "Puf sendt"
 
 #: actions/nudge.php:97
 msgid "Nudge sent!"
-msgstr ""
+msgstr "Puf sendt!"
+
+#: actions/oauthappssettings.php:59
+msgid "You must be logged in to list your applications."
+msgstr "Du skal være logget ind for at liste dine applikationer."
+
+#: actions/oauthappssettings.php:74
+msgid "OAuth applications"
+msgstr "OAuth programmer"
 
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
-msgstr ""
+msgstr "Programmer, du har registreret"
+
+#: actions/oauthappssettings.php:135
+#, php-format
+msgid "You have not registered any applications yet."
+msgstr "Du har ikke registreret nogen programmer endnu."
+
+#: actions/oauthconnectionssettings.php:72
+msgid "Connected applications"
+msgstr "Tilsluttede programmer"
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
-msgstr ""
+msgstr "Du har tilladt følgende programmer at få adgang din konto."
+
+#: actions/oauthconnectionssettings.php:175
+msgid "You are not a user of that application."
+msgstr "Du er ikke bruger af dette program."
 
 #: actions/oauthconnectionssettings.php:186
 #, php-format
 msgid "Unable to revoke access for app: %s."
-msgstr ""
-
-#: actions/oauthconnectionssettings.php:198
-msgid "You have not authorized any applications to use your account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:211
@@ -2407,17 +2599,26 @@ msgstr ""
 msgid "No login token requested."
 msgstr ""
 
-#: actions/otp.php:104
-msgid "Login token expired."
-msgstr ""
+#: actions/passwordsettings.php:104
+msgid "Old password"
+msgstr "Gammel adgangskode"
+
+#: actions/passwordsettings.php:108 actions/recoverpassword.php:235
+msgid "New password"
+msgstr "Ny adgangskode"
 
 #: actions/passwordsettings.php:109
 msgid "6 or more characters"
 msgstr ""
 
-#: actions/passwordsettings.php:113 actions/recoverpassword.php:240
-msgid "Same as password above"
-msgstr ""
+#: actions/passwordsettings.php:112 actions/recoverpassword.php:239
+#: actions/register.php:440
+msgid "Confirm"
+msgstr "Bekræft"
+
+#: actions/passwordsettings.php:117
+msgid "Change"
+msgstr "Ændre"
 
 #: actions/passwordsettings.php:154 actions/register.php:237
 msgid "Password must be 6 or more characters."
@@ -2427,16 +2628,8 @@ msgstr ""
 msgid "Passwords don't match."
 msgstr ""
 
-#: actions/passwordsettings.php:165
-msgid "Incorrect old password"
-msgstr ""
-
 #: actions/passwordsettings.php:181
 msgid "Error saving user; invalid."
-msgstr ""
-
-#: actions/passwordsettings.php:186 actions/recoverpassword.php:381
-msgid "Can't save new password."
 msgstr ""
 
 #. TRANS: Menu item for site administration
@@ -2489,14 +2682,10 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:259
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: actions/pathsadminpanel.php:264
 msgid "Theme server"
-msgstr ""
-
-#: actions/pathsadminpanel.php:268
-msgid "Theme path"
 msgstr ""
 
 #: actions/pathsadminpanel.php:272
@@ -2509,11 +2698,11 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
-msgstr ""
+msgstr "Aldrig"
 
 #: actions/pathsadminpanel.php:325
 msgid "Always"
-msgstr ""
+msgstr "Altid"
 
 #: actions/pathsadminpanel.php:329
 msgid "Use SSL"
@@ -2559,7 +2748,7 @@ msgstr ""
 #: actions/profilesettings.php:115 actions/register.php:460
 #: lib/applicationeditform.php:244 lib/groupeditform.php:161
 msgid "Homepage"
-msgstr ""
+msgstr "Hjemmeside"
 
 #: actions/profilesettings.php:117 actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
@@ -2577,6 +2766,13 @@ msgstr ""
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
 msgstr ""
+
+#: actions/profilesettings.php:132 actions/register.php:478
+#: actions/showgroup.php:265 actions/tagother.php:112
+#: actions/userauthorization.php:166 lib/groupeditform.php:177
+#: lib/userprofile.php:165
+msgid "Location"
+msgstr "Lokation"
 
 #: actions/profilesettings.php:134 actions/register.php:480
 msgid "Where you are, like \"City, State (or Region), Country\""
@@ -2700,9 +2896,9 @@ msgstr ""
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
 
-#: actions/recoverpassword.php:209
-msgid "Recover password"
-msgstr ""
+#: actions/recoverpassword.php:208
+msgid "Reset password"
+msgstr "Nulstil adgangskode"
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:335
 msgid "Password recovery requested"
@@ -2718,7 +2914,7 @@ msgstr ""
 
 #: actions/recoverpassword.php:243
 msgid "Reset"
-msgstr ""
+msgstr "Afbryd"
 
 #: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
@@ -2985,10 +3181,6 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:293 lib/groupeditform.php:184
-msgid "Aliases"
-msgstr ""
-
 #: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
 msgstr ""
@@ -3094,10 +3286,6 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:245
-msgid "Local"
-msgstr ""
-
 #: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr ""
@@ -3132,10 +3320,6 @@ msgstr ""
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
-msgstr ""
-
-#: actions/sitenoticeadminpanel.php:67
-msgid "Edit site-wide message"
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:113
@@ -3190,11 +3374,6 @@ msgstr ""
 msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
-msgstr ""
-
-#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:548
-msgid "No code entered"
 msgstr ""
 
 #. TRANS: Menu item for site administration
@@ -3404,10 +3583,6 @@ msgid ""
 "click “Reject”."
 msgstr ""
 
-#: actions/userauthorization.php:219
-msgid "Reject"
-msgstr ""
-
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr ""
@@ -3597,12 +3772,12 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:897
+#: classes/Notice.php:899
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:996
+#: classes/Notice.php:998
 msgid "Problem saving group inbox."
 msgstr ""
 
@@ -3645,11 +3820,6 @@ msgstr ""
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
 msgid "Change email handling"
-msgstr ""
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:144
-msgid "Other options"
 msgstr ""
 
 #. TRANS: Link description in user account settings menu.
@@ -3967,13 +4137,6 @@ msgstr ""
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
-#. TRANS: Message given having nudged another user.
-#. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:240
-#, php-format
-msgid "Nudge sent to %s."
-msgstr ""
-
 #. TRANS: User statistics text.
 #. TRANS: %1$s is the number of other user the user is subscribed to.
 #. TRANS: %2$s is the number of users that are subscribed to the user.
@@ -3990,20 +4153,6 @@ msgstr ""
 #: lib/command.php:434
 #, php-format
 msgid "Fullname: %s"
-msgstr ""
-
-#. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:438 lib/mail.php:268
-#, php-format
-msgid "Location: %s"
-msgstr ""
-
-#. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:442 lib/mail.php:271
-#, php-format
-msgid "Homepage: %s"
 msgstr ""
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
@@ -4032,25 +4181,11 @@ msgstr ""
 msgid "Error sending direct message."
 msgstr ""
 
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:554
-#, php-format
-msgid "Notice from %s repeated."
-msgstr ""
-
 #. TRANS: Message given if content of a notice for a reply is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:592
 #, php-format
 msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-
-#. TRANS: Text shown having sent a reply to a notice successfully.
-#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
-#: lib/command.php:603
-#, php-format
-msgid "Reply to %s sent."
 msgstr ""
 
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
@@ -4263,10 +4398,6 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:113
-msgid "Logo"
-msgstr ""
-
 #: lib/groupnav.php:114
 #, php-format
 msgid "Add or edit %s logo"
@@ -4319,14 +4450,6 @@ msgstr ""
 #: lib/jabber.php:567
 #, php-format
 msgid "Unknown inbox source %d."
-msgstr ""
-
-#: lib/joinform.php:114
-msgid "Join"
-msgstr ""
-
-#: lib/logingroupnav.php:80
-msgid "Login with a username and password"
 msgstr ""
 
 #: lib/logingroupnav.php:86
@@ -4638,20 +4761,8 @@ msgstr ""
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:568
-msgid "in context"
-msgstr ""
-
 #: lib/noticelist.php:631
 msgid "Reply"
-msgstr ""
-
-#: lib/noticelist.php:675
-msgid "Notice repeated"
-msgstr ""
-
-#: lib/nudgeform.php:128
-msgid "Nudge"
 msgstr ""
 
 #: lib/oauthstore.php:291
@@ -4697,10 +4808,6 @@ msgstr ""
 
 #: lib/profileaction.php:191
 msgid "User ID"
-msgstr ""
-
-#: lib/profileaction.php:196
-msgid "Member since"
 msgstr ""
 
 #. TRANS: Average count of posts made per day since account registration
@@ -4846,10 +4953,6 @@ msgstr ""
 
 #: lib/userprofile.php:264
 msgid "Edit"
-msgstr ""
-
-#: lib/userprofile.php:288
-msgid "Message"
 msgstr ""
 
 #: lib/userprofile.php:326
