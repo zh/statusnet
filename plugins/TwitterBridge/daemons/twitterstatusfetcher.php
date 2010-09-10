@@ -716,7 +716,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             common_log(LOG_WARNING, "No entities data for {$status->id}; trying to fake up links ourselves.");
             $text = common_replace_urls_callback($text, 'common_linkify');
             $text = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.TwitterStatusFetcher::tagLink('\\2')", $text);
-            $text = preg_replace('/(?:^|\s+)@([a-z0-9A-Z_]{1,64})/e', "'\\1@'.TwitterStatusFetcher::atLink('\\2')", $text);
+            $text = preg_replace('/(^|\s+)@([a-z0-9A-Z_]{1,64})/e', "'\\1@'.TwitterStatusFetcher::atLink('\\2')", $text);
             return $text;
         }
 
