@@ -37,7 +37,13 @@ class MirrorQueueHandler extends QueueHandler
         $mirror->subscribed = $notice->profile_id;
         if ($mirror->find()) {
             while ($mirror->fetch()) {
-                $mirror->mirrorNotice($notice);
+                try {
+                    $mirror->mirrorNotice($notice);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "Exception trying to mirror notice $notice->id " .
+                                        "for subscriber $mirror->subscriber ($mirror->style): " .
+                                        $e->getMessage());
+                }
             }
         }
         return true;
