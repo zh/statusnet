@@ -125,14 +125,14 @@ class UrlsettingsAction extends AccountSettingsAction
                      _('URL longer than'),
                      (!is_null($this->arg('maxurllength'))) ?
                      $this->arg('maxurllength') : User_urlshortener_prefs::maxUrlLength($user),
-                     _('URLs longer than this will be shortened.'));
+                     _('URLs longer than this will be shortened, 0 means always shorten.'));
         $this->elementEnd('li');
         $this->elementStart('li');
         $this->input('maxnoticelength',
                      _('Text longer than'),
                      (!is_null($this->arg('maxnoticelength'))) ?
                      $this->arg('maxnoticelength') : User_urlshortener_prefs::maxNoticeLength($user),
-                     _('URLs in notices longer than this will be shortened.'));
+                     _('URLs in notices longer than this will be shortened, 0 means always shorten.'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('save', _('Save'));
