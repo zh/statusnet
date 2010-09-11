@@ -139,12 +139,12 @@ class AccountSettingsNav extends Widget
                 $this->showMenuItem('userdesignsettings',_('Design'),$title);
                 Event::handle('EndAccountSettingsDesignMenuItem', array($this, &$menu));
             }
-            if(Event::handle('StartAccountSettingsOtherMenuItem', array($this, &$menu))){
+            if(Event::handle('StartAccountSettingsUrlMenuItem', array($this, &$menu))){
                 // TRANS: Link title attribute in user account settings menu.
-                $title = _('Other options');
+                $title = _('URL shortener settings');
                 // TRANS: Link description in user account settings menu.
-                $this->showMenuItem('othersettings',_('Other'),$title);
-                Event::handle('EndAccountSettingsOtherMenuItem', array($this, &$menu));
+                $this->showMenuItem('urlsettings',_('URL'),$title);
+                Event::handle('EndAccountSettingsUrlMenuItem', array($this, &$menu));
             }
 
             Event::handle('EndAccountSettingsNav', array(&$this->action));

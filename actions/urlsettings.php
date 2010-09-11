@@ -47,7 +47,7 @@ require_once INSTALLDIR.'/lib/accountsettingsaction.php';
  * @link     http://status.net/
  */
 
-class OthersettingsAction extends AccountSettingsAction
+class UrlsettingsAction extends AccountSettingsAction
 {
     /**
      * Title of the page
@@ -57,7 +57,7 @@ class OthersettingsAction extends AccountSettingsAction
 
     function title()
     {
-        return _('Other settings');
+        return _('URL settings');
     }
 
     /**
@@ -93,7 +93,7 @@ class OthersettingsAction extends AccountSettingsAction
                                           'id' => 'form_settings_other',
                                           'class' => 'form_settings',
                                           'action' =>
-                                          common_local_url('othersettings')));
+                                          common_local_url('urlsettings')));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
         $this->elementStart('ul', 'form_data');
