@@ -160,13 +160,13 @@ class DesignForm extends Form
                                            'value' => ImageFile::maxFileSizeInt()));
         $this->out->elementEnd('li');
 
-        if (!empty($design->backgroundimage)) {
+        if (!empty($this->design->backgroundimage)) {
 
             $this->out->elementStart('li', array('id' =>
                                                  'design_background-image_onoff'));
 
             $this->out->element('img', array('src' =>
-                                             Design::url($design->backgroundimage)));
+                                             Design::url($this->design->backgroundimage)));
 
             $attrs = array('name' => 'design_background-image_onoff',
                            'type' => 'radio',
@@ -174,7 +174,7 @@ class DesignForm extends Form
                            'class' => 'radio',
                            'value' => 'on');
 
-            if ($design->disposition & BACKGROUND_ON) {
+            if ($this->design->disposition & BACKGROUND_ON) {
                 $attrs['checked'] = 'checked';
             }
 
@@ -190,7 +190,7 @@ class DesignForm extends Form
                            'class' => 'radio',
                            'value' => 'off');
 
-            if ($design->disposition & BACKGROUND_OFF) {
+            if ($this->design->disposition & BACKGROUND_OFF) {
                 $attrs['checked'] = 'checked';
             }
 
@@ -205,7 +205,7 @@ class DesignForm extends Form
             $this->out->elementStart('li');
             $this->out->checkbox('design_background-image_repeat',
                                  _('Tile background image'),
-                                 ($design->disposition & BACKGROUND_TILE) ? true : false);
+                                 ($this->design->disposition & BACKGROUND_TILE) ? true : false);
             $this->out->elementEnd('li');
         }
 
@@ -218,7 +218,7 @@ class DesignForm extends Form
 
         try {
 
-            $bgcolor = new WebColor($design->backgroundcolor);
+            $bgcolor = new WebColor($this->design->backgroundcolor);
 
             $this->out->elementStart('li');
             $this->out->element('label', array('for' => 'swatch-1'), _('Background'));
@@ -231,7 +231,7 @@ class DesignForm extends Form
                                                'value' => ''));
             $this->out->elementEnd('li');
 
-            $ccolor = new WebColor($design->contentcolor);
+            $ccolor = new WebColor($this->design->contentcolor);
 
             $this->out->elementStart('li');
             $this->out->element('label', array('for' => 'swatch-2'), _('Content'));
@@ -244,7 +244,7 @@ class DesignForm extends Form
                                                'value' => ''));
             $this->out->elementEnd('li');
 
-            $sbcolor = new WebColor($design->sidebarcolor);
+            $sbcolor = new WebColor($this->design->sidebarcolor);
 
             $this->out->elementStart('li');
             $this->out->element('label', array('for' => 'swatch-3'), _('Sidebar'));
@@ -257,7 +257,7 @@ class DesignForm extends Form
                                                'value' => ''));
             $this->out->elementEnd('li');
 
-            $tcolor = new WebColor($design->textcolor);
+            $tcolor = new WebColor($this->design->textcolor);
 
             $this->out->elementStart('li');
             $this->out->element('label', array('for' => 'swatch-4'), _('Text'));
@@ -270,7 +270,7 @@ class DesignForm extends Form
                                                'value' => ''));
             $this->out->elementEnd('li');
 
-            $lcolor = new WebColor($design->linkcolor);
+            $lcolor = new WebColor($this->design->linkcolor);
 
             $this->out->elementStart('li');
             $this->out->element('label', array('for' => 'swatch-5'), _('Links'));
@@ -284,7 +284,7 @@ class DesignForm extends Form
             $this->out->elementEnd('li');
 
         } catch (WebColorException $e) {
-            common_log(LOG_ERR, 'Bad color values in design ID: ' .$design->id);
+            common_log(LOG_ERR, 'Bad color values in design ID: ' .$this->design->id);
         }
 
         $this->out->elementEnd('ul');

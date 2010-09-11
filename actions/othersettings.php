@@ -134,10 +134,6 @@ class OthersettingsAction extends AccountSettingsAction
                      $this->arg('maxnoticelength') : User_urlshortener_prefs::maxNoticeLength($user),
                      _('URLs in notices longer than this will be shortened.'));
         $this->elementEnd('li');
-        $this->elementStart('li');
-        $this->checkbox('viewdesigns', _('View profile designs'),
-                         -                        $user->viewdesigns, _('Show or hide profile designs.'));
-        $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('save', _('Save'));
         $this->elementEnd('fieldset');
@@ -170,8 +166,6 @@ class OthersettingsAction extends AccountSettingsAction
             return;
         }
 
-        $viewdesigns = $this->boolean('viewdesigns');
-
         $maxurllength = $this->trimmed('maxurllength');
 
         if (!Validate::number($maxurllength, array('min' => 0))) {
@@ -193,7 +187,6 @@ class OthersettingsAction extends AccountSettingsAction
         $original = clone($user);
 
         $user->urlshorteningservice = $urlshorteningservice;
-        $user->viewdesigns          = $viewdesigns;
 
         $result = $user->update($original);
 

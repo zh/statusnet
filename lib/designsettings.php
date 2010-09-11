@@ -174,28 +174,26 @@ class DesignSettingsAction extends AccountSettingsAction
 
     function saveBackgroundImage($design)
     {
-
         // Now that we have a Design ID we can add a file to the design.
         // XXX: This is an additional DB hit, but figured having the image
         // associated with the Design rather than the User was worth
         // it. -- Zach
 
-        if ($_FILES['design_background-image_file']['error'] ==
-            UPLOAD_ERR_OK) {
+        if (array_key_exists('design_background-image_file', $_FILES) &&
+          $_FILES['design_background-image_file']['error'] == UPLOAD_ERR_OK) {
 
             $filepath = null;
 
             try {
-                $imagefile =
-                    ImageFile::fromUpload('design_background-image_file');
+                $imagefile = ImageFile::fromUpload('design_background-image_file');
             } catch (Exception $e) {
                 $this->showForm($e->getMessage());
                 return;
             }
 
             $filename = Design::filename($design->id,
-                image_type_to_extension($imagefile->type),
-                    common_timestamp());
+                                         image_type_to_extension($imagefile->type),
+                                         common_timestamp());
 
             $filepath = Design::path($filename);
 
