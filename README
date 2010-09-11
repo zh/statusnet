@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.1 ("Everybody Hurts")
-28 Mar 2010
+StatusNet 0.9.5 "What's The Frequency, Kenneth?"
+10 September 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -38,10 +38,15 @@ more, please see the Open Software Service Definition 1.1:
     http://www.opendefinition.org/ossd
 
 StatusNet, Inc. <http://status.net/> also offers this software as a
-Web service, requiring no installation on your part. The software run
+Web service, requiring no installation on your part. See
+<http://status.net/signup> for details. The software run
 on status.net is identical to the software available for download, so
 you can move back and forth between a hosted version or a version
 installed on your own servers.
+
+A commercial software subscription is available from StatusNet Inc. It
+includes 24-hour technical support and developer support. More
+information at http://status.net/contact or email sales@status.net.
 
 License
 =======
@@ -68,6 +73,20 @@ License along with this program, in the file "COPYING".  If not, see
     of using the software, and if you do not wish to share your
     modifications, *YOU MAY NOT INSTALL STATUSNET*.
 
+Documentation in the /doc-src/ directory is available under the
+Creative Commons Attribution 3.0 Unported license, with attribution to
+"StatusNet". See http://creativecommons.org/licenses/by/3.0/ for details.
+
+CSS and images in the /theme/ directory are available under the
+Creative Commons Attribution 3.0 Unported license, with attribution to
+"StatusNet". See http://creativecommons.org/licenses/by/3.0/ for details.
+
+Our understanding and intention is that if you add your own theme that
+uses only CSS and images, those files are not subject to the copyleft
+requirements of the Affero General Public License 3.0. See
+http://wordpress.org/news/2009/07/themes-are-gpl-too/ . This is not
+legal advice; consult your lawyer.
+
 Additional library software has been made available in the 'extlib'
 directory. All of it is Free Software and can be distributed under
 liberal terms, but those terms may differ in detail from the AGPL's
@@ -77,34 +96,33 @@ for additional terms.
 New this version
 ================
 
-This is a minor bug and feature release since version 0.9.0 released 4
-March 2010.
+This is a security, bug and feature release since version 0.9.4 released on
+16 August 2010.
 
-Because of fixes to OStatus bugs, it is highly recommended that all
-public sites upgrade to the new version immediately.
+For best compatibility with client software and site federation, and a lot of
+bug fixes, it is highly recommended that all public sites upgrade to the new
+version.
 
 Notable changes this version:
 
-- Twitter bridge truncates and links back to original for long
-  notices.
-- Changed "Home" link in main menu to "Personal".
-- A new memcached plugin (using pecl/memcached versus pecl/memcache)
-- Opt-in subscription to update@status.net
-- Script to run commands on behalf of a user.
-- Better Web UI for long notices.
-- A plugin to open external links in their own window or tab
-- Fixes to Salmon protocol for compatibility with other systems.
-- Updates to latest ActivityStreams definition.
-- Twitpic-compatible API for image upload.
-- Background deletion of user accounts.
-- Better support for HTTP basic authentication with CGI/FastCGI
-- Better discovery on OStatus
-- Support for PuSH-enabled RSS 2.0 feeds
-- OpenID-only mode
-- OpenID blacklist/whitelist
-- OStatus unit tests
+- Change of license for default themes and documentation from
+  AGPLv3 to CC-By 3.0 Unported.
+- An experimental TinyMCE plugin to do in-browser rich editing of
+  status updates. Does not support StatusNet syntax like @-replies or
+  #hashtags very well.
+- An experimental plugin to add titles to notices.
+- A plugin to support the Echo <http://aboutecho.com/> commenting
+  system.
+- A plugin to support the Disqus <http://disqus.com/> commenting system.
+- Changes to OStatus support to make StatusNet work for the Social Web
+  Acid Test Level 0 <http://federatedsocialweb.net/wiki/SWAT0>.
+- Themes now support a theme.ini file for theme configuration, including
+  defining a "base" theme.
+- Improved two-way Twitter integration, including support for
+  repeats and retweets, replies, and faves going both ways across the
+  bridge, as well as better parsing of Twitter statuses.
 
-A full changelog is available at http://status.net/wiki/StatusNet_0.9.1.
+A full changelog is available at http://status.net/wiki/StatusNet_0.9.5.
 
 Prerequisites
 =============
@@ -115,8 +133,8 @@ run correctly.
 - PHP 5.2.3+. It may be possible to run this software on earlier
   versions of PHP, but many of the functions used are only available
   in PHP 5.2 or above. 5.2.6 or later is needed for XMPP background
-  daemons on 64-bit platforms. PHP 5.3.x should work but is known
-  to cause some failures for OpenID.
+  daemons on 64-bit platforms. PHP 5.3.x should work correctly in this
+  release, but problems with some plugins are possible.
 - MySQL 5.x. The StatusNet database is stored, by default, in a MySQL
   server. It has been primarily tested on 5.x servers, although it may
   be possible to install on earlier (or later!) versions. The server
@@ -132,7 +150,6 @@ Your PHP installation must include the following PHP extensions:
 - MySQL. For accessing the database.
 - GD. For scaling down avatar images.
 - mbstring. For handling Unicode (UTF-8) encoded strings.
-- gettext. For multiple languages. Default on many PHP installs.
 
 For some functionality, you will also need the following extensions:
 
@@ -147,6 +164,8 @@ For some functionality, you will also need the following extensions:
   Sphinx server to serve the search queries.
 - bcmath or gmp. For Salmon signatures (part of OStatus). Needed
   if you have OStatus configured.
+- gettext. For multiple languages. Default on many PHP installs;
+  will be emulated if not present.
 
 You will almost definitely get 2-3 times better performance from your
 site if you install a PHP bytecode cache/accelerator. Some well-known
@@ -216,9 +235,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-       tar zxf statusnet-0.9.1.tar.gz
+       tar zxf statusnet-0.9.5.tar.gz
 
-   ...which will make a statusnet-0.9.1 subdirectory in your current
+   ...which will make a statusnet-0.9.5 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -226,7 +245,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-       mv statusnet-0.9.1 /var/www/statusnet
+       mv statusnet-0.9.5 /var/www/statusnet
 
    This will make your StatusNet instance available in the statusnet path of
    your server, like "http://example.net/statusnet". "microblog" or
@@ -641,7 +660,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.9.1. Try these step-by-step
+upgrade procedure in StatusNet 0.9.5. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -662,7 +681,7 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
-7. Unpack your StatusNet 0.9.1 tarball and move it to "statusnet" or
+7. Unpack your StatusNet 0.9.5 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and avatar directory from your old
    directory to your new directory.
@@ -1539,7 +1558,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.9.1 without reading the "Notice
+If you upgraded to StatusNet 0.9.5 without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 

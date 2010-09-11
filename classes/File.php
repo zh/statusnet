@@ -116,7 +116,11 @@ class File extends Memcached_DataObject
         return false;
     }
 
-    function processNew($given_url, $notice_id=null) {
+    /**
+     * @fixme refactor this mess, it's gotten pretty scary.
+     * @param bool $followRedirects
+     */
+    function processNew($given_url, $notice_id=null, $followRedirects=true) {
         if (empty($given_url)) return -1;   // error, no url to process
         $given_url = File_redirection::_canonUrl($given_url);
         if (empty($given_url)) return -1;   // error, no url to process
@@ -124,6 +128,10 @@ class File extends Memcached_DataObject
         if (empty($file)) {
             $file_redir = File_redirection::staticGet('url', $given_url);
             if (empty($file_redir)) {
+                // @fixme for new URLs this also looks up non-redirect data
+                // such as target content type, size, etc, which we need
+                // for File::saveNew(); so we call it even if not following
+                // new redirects.
                 $redir_data = File_redirection::where($given_url);
                 if (is_array($redir_data)) {
                     $redir_url = $redir_data['url'];
@@ -131,14 +139,23 @@ class File extends Memcached_DataObject
                     $redir_url = $redir_data;
                     $redir_data = array();
                 } else {
-                    throw new ServerException("Can't process url '$given_url'");
+                    // TRANS: Server exception thrown when a URL cannot be processed.
+                    throw new ServerException(sprintf(_("Cannot process URL '%s'"), $given_url));
                 }
                 // TODO: max field length
-                if ($redir_url === $given_url || strlen($redir_url) > 255) {
+                if ($redir_url === $given_url || strlen($redir_url) > 255 || !$followRedirects) {
                     $x = File::saveNew($redir_data, $given_url);
                     $file_id = $x->id;
                 } else {
-                    $x = File::processNew($redir_url, $notice_id);
+                    // This seems kind of messed up... for now skipping this part
+                    // if we're already under a redirect, so we don't go into
+                    // horrible infinite loops if we've been given an unstable
+                    // redirect (where the final destination of the first request
+                    // doesn't match what we get when we ask for it again).
+                    //
+                    // Seen in the wild with clojure.org, which redirects through
+                    // wikispaces for auth and appends session data in the URL params.
+                    $x = File::processNew($redir_url, $notice_id, /*followRedirects*/false);
                     $file_id = $x->id;
                     File_redirection::saveNew($redir_data, $file_id, $given_url);
                 }
@@ -153,7 +170,9 @@ class File extends Memcached_DataObject
         if (empty($x)) {
             $x = File::staticGet($file_id);
             if (empty($x)) {
-                throw new ServerException("Robin thinks something is impossible.");
+                // FIXME: This could possibly be a clearer message :)
+                // TRANS: Server exception thrown when... Robin thinks something is impossible!
+                throw new ServerException(_("Robin thinks something is impossible."));
             }
         }
 
@@ -166,8 +185,10 @@ class File extends Memcached_DataObject
     function isRespectsQuota($user,$fileSize) {
 
         if ($fileSize > common_config('attachments', 'file_quota')) {
-            return sprintf(_('No file may be larger than %d bytes ' .
-                             'and the file you sent was %d bytes. Try to upload a smaller version.'),
+            // TRANS: Message given if an upload is larger than the configured maximum.
+            // TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
+            return sprintf(_('No file may be larger than %1$d bytes ' .
+                             'and the file you sent was %2$d bytes. Try to upload a smaller version.'),
                            common_config('attachments', 'file_quota'), $fileSize);
         }
 
@@ -176,6 +197,8 @@ class File extends Memcached_DataObject
         $this->fetch();
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'user_quota')) {
+            // TRANS: Message given if an upload would exceed user quota.
+            // TRANS: %d (number) is the user quota in bytes.
             return sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota'));
         }
         $query .= ' AND EXTRACT(month FROM file.modified) = EXTRACT(month FROM now()) and EXTRACT(year FROM file.modified) = EXTRACT(year FROM now())';
@@ -183,6 +206,8 @@ class File extends Memcached_DataObject
         $this->fetch();
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'monthly_quota')) {
+            // TRANS: Message given id an upload would exceed a user's monthly quota.
+            // TRANS: $d (number) is the monthly user quota in bytes.
             return sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota'));
         }
         return true;
@@ -219,7 +244,8 @@ class File extends Memcached_DataObject
     static function path($filename)
     {
         if (!self::validFilename($filename)) {
-            throw new ClientException("Invalid filename");
+            // TRANS: Client exception thrown if a file upload does not have a valid name.
+            throw new ClientException(_("Invalid filename."));
         }
         $dir = common_config('attachments', 'dir');
 
@@ -233,7 +259,8 @@ class File extends Memcached_DataObject
     static function url($filename)
     {
         if (!self::validFilename($filename)) {
-            throw new ClientException("Invalid filename");
+            // TRANS: Client exception thrown if a file upload does not have a valid name.
+            throw new ClientException(_("Invalid filename."));
         }
         if(common_config('site','private')) {
 
@@ -286,6 +313,7 @@ class File extends Memcached_DataObject
 
         if(! isset($this->filename)){
             $notEnclosureMimeTypes = array(null,'text/html','application/xhtml+xml');
+            $mimetype = $this->mimetype;
             if($mimetype != null){
                 $mimetype = strtolower($this->mimetype);
             }
@@ -325,4 +353,3 @@ class File extends Memcached_DataObject
         return !empty($enclosure);
     }
 }
-

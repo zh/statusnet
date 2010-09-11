@@ -36,7 +36,6 @@ Things to consider...
 
 */
 
-
 class PushHubAction extends Action
 {
     function arg($arg, $def=null)
@@ -63,8 +62,10 @@ class PushHubAction extends Action
             $this->subunsub($mode);
             break;
         case "publish":
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Publishing outside feeds not supported.", 400);
         default:
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Unrecognized mode '$mode'.", 400);
         }
     }
@@ -84,16 +85,19 @@ class PushHubAction extends Action
 
         $topic = $this->argUrl('hub.topic');
         if (!$this->recognizedFeed($topic)) {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Unsupported hub.topic $topic; this hub only serves local user and group Atom feeds.");
         }
 
         $verify = $this->arg('hub.verify'); // @fixme may be multiple
         if ($verify != 'sync' && $verify != 'async') {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Invalid hub.verify $verify; must be sync or async.");
         }
 
         $lease = $this->arg('hub.lease_seconds', null);
         if ($mode == 'subscribe' && $lease != '' && !preg_match('/^\d+$/', $lease)) {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Invalid hub.lease $lease; must be empty or positive integer.");
         }
 
@@ -101,6 +105,7 @@ class PushHubAction extends Action
 
         $secret = $this->arg('hub.secret', null);
         if ($secret != '' && strlen($secret) >= 200) {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Invalid hub.secret $secret; must be under 200 bytes.");
         }
 
@@ -152,6 +157,7 @@ class PushHubAction extends Action
             if ($feed == $userFeed) {
                 $user = User::staticGet('id', $id);
                 if (!$user) {
+                    // @todo i18n FIXME: added i18n and use sprintf when using parameters.
                     throw new ClientException("Invalid hub.topic $feed; user doesn't exist.");
                 } else {
                     return true;
@@ -160,6 +166,7 @@ class PushHubAction extends Action
             if ($feed == $groupFeed) {
                 $user = User_group::staticGet('id', $id);
                 if (!$user) {
+                    // @todo i18n FIXME: added i18n and use sprintf when using parameters.
                     throw new ClientException("Invalid hub.topic $feed; group doesn't exist.");
                 } else {
                     return true;
@@ -183,6 +190,7 @@ class PushHubAction extends Action
         if (Validate::uri($url, $params)) {
             return $url;
         } else {
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
             throw new ClientException("Invalid URL passed for $arg: '$url'");
         }
     }
@@ -199,4 +207,3 @@ class PushHubAction extends Action
         return HubSub::staticGet($feed, $callback);
     }
 }
-

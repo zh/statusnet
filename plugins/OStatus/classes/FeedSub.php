@@ -207,8 +207,8 @@ class FeedSub extends Memcached_DataObject
         $discover = new FeedDiscovery();
         $discover->discoverFromFeedURL($feeduri);
 
-        $huburi = $discover->getAtomLink('hub');
-        if (!$huburi) {
+        $huburi = $discover->getHubLink();
+        if (!$huburi && !common_config('feedsub', 'fallback_hub')) {
             throw new FeedSubNoHubException();
         }
 
@@ -241,11 +241,15 @@ class FeedSub extends Memcached_DataObject
             common_log(LOG_WARNING, "Attempting to (re)start PuSH subscription to $this->uri in unexpected state $this->sub_state");
         }
         if (empty($this->huburi)) {
-            if (common_config('feedsub', 'nohub')) {
+            if (common_config('feedsub', 'fallback_hub')) {
+                // No native hub on this feed?
+                // Use our fallback hub, which handles polling on our behalf.
+            } else if (common_config('feedsub', 'nohub')) {
                 // Fake it! We're just testing remote feeds w/o hubs.
+                // We'll never actually get updates in this mode.
                 return true;
             } else {
-                throw new ServerException("Attempting to start PuSH subscription for feed with no hub");
+                throw new ServerException("Attempting to start PuSH subscription for feed with no hub.");
             }
         }
 
@@ -255,6 +259,9 @@ class FeedSub extends Memcached_DataObject
     /**
      * Send a PuSH unsubscription request to the hub for this feed.
      * The hub will later send us a confirmation POST to /main/push/callback.
+     * Warning: this will cancel the subscription even if someone else in
+     * the system is using it. Most callers will want garbageCollect() instead,
+     * which confirms there's no uses left.
      *
      * @return bool true on success, false on failure
      * @throws ServerException if feed state is not valid
@@ -264,15 +271,46 @@ class FeedSub extends Memcached_DataObject
             common_log(LOG_WARNING, "Attempting to (re)end PuSH subscription to $this->uri in unexpected state $this->sub_state");
         }
         if (empty($this->huburi)) {
-            if (common_config('feedsub', 'nohub')) {
+            if (common_config('feedsub', 'fallback_hub')) {
+                // No native hub on this feed?
+                // Use our fallback hub, which handles polling on our behalf.
+            } else if (common_config('feedsub', 'nohub')) {
                 // Fake it! We're just testing remote feeds w/o hubs.
+                // We'll never actually get updates in this mode.
                 return true;
             } else {
-                throw new ServerException("Attempting to end PuSH subscription for feed with no hub");
+                throw new ServerException("Attempting to end PuSH subscription for feed with no hub.");
             }
         }
 
         return $this->doSubscribe('unsubscribe');
+    }
+
+    /**
+     * Check if there are any active local uses of this feed, and if not then
+     * make sure it's inactive, unsubscribing if necessary.
+     *
+     * @return boolean true if the subscription is now inactive, false if still active.
+     */
+    public function garbageCollect()
+    {
+        if ($this->sub_state == '' || $this->sub_state == 'inactive') {
+            // No active PuSH subscription, we can just leave it be.
+            return true;
+        } else {
+            // PuSH subscription is either active or in an indeterminate state.
+            // Check if we're out of subscribers, and if so send an unsubscribe.
+            $count = 0;
+            Event::handle('FeedSubSubscriberCount', array($this, &$count));
+
+            if ($count) {
+                common_log(LOG_INFO, __METHOD__ . ': ok, ' . $count . ' user(s) left for ' . $this->uri);
+                return false;
+            } else {
+                common_log(LOG_INFO, __METHOD__ . ': unsubscribing, no users left for ' . $this->uri);
+                return $this->unsubscribe();
+            }
+        }
     }
 
     protected function doSubscribe($mode)
@@ -296,7 +334,21 @@ class FeedSub extends Memcached_DataObject
                           'hub.secret' => $this->secret,
                           'hub.topic' => $this->uri);
             $client = new HTTPClient();
-            $response = $client->post($this->huburi, $headers, $post);
+            if ($this->huburi) {
+                $hub = $this->huburi;
+            } else {
+                if (common_config('feedsub', 'fallback_hub')) {
+                    $hub = common_config('feedsub', 'fallback_hub');
+                    if (common_config('feedsub', 'hub_user')) {
+                        $u = common_config('feedsub', 'hub_user');
+                        $p = common_config('feedsub', 'hub_pass');
+                        $client->setAuth($u, $p);
+                    }
+                } else {
+                    throw new FeedSubException('WTF?');
+                }
+            }
+            $response = $client->post($hub, $headers, $post);
             $status = $response->getStatus();
             if ($status == 202) {
                 common_log(LOG_INFO, __METHOD__ . ': sub req ok, awaiting verification callback');
@@ -450,4 +502,3 @@ class FeedSub extends Memcached_DataObject
     }
 
 }
-

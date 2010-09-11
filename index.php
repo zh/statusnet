@@ -19,16 +19,20 @@
  * @category StatusNet
  * @package  StatusNet
  * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Brion Vibber <brion@pobox.com>
  * @author   Christopher Vollick <psycotica0@gmail.com>
  * @author   CiaranG <ciaran@ciarang.com>
  * @author   Craig Andrews <candrews@integralblue.com>
  * @author   Evan Prodromou <evan@controlezvous.ca>
  * @author   Gina Haeussge <osd@foosel.net>
+ * @author   James Walker <walkah@walkah.net>
  * @author   Jeffery To <jeffery.to@gmail.com>
  * @author   Mike Cochrane <mikec@mikenz.geek.nz>
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
+ * @author   Zach Copley <zach@status.net>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  *
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
@@ -200,7 +204,7 @@ function checkMirror($action_obj, $args)
 
 function isLoginAction($action)
 {
-    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp', 'opensearch');
+    static $loginActions =  array('login', 'recoverpassword', 'api', 'doc', 'register', 'publicxrds', 'otp', 'opensearch', 'rsd', 'hostmeta');
 
     $login = null;
 
@@ -221,12 +225,12 @@ function main()
         if ($_lighty_url['path'] != '/index.php' && $_lighty_url['path'] != '/') {
             $_lighty_path = preg_replace('/^'.preg_quote(common_config('site', 'path')).'\//', '', substr($_lighty_url['path'], 1));
             $_SERVER['QUERY_STRING'] = 'p='.$_lighty_path;
-            if ($_lighty_url['query']) {
+            if (isset($_lighty_url['query']) && $_lighty_url['query'] != '') {
                 $_SERVER['QUERY_STRING'] .= '&'.$_lighty_url['query'];
-            }
-            parse_str($_lighty_url['query'], $_lighty_query);
-            foreach ($_lighty_query as $key => $val) {
-                $_GET[$key] = $_REQUEST[$key] = $val;
+                parse_str($_lighty_url['query'], $_lighty_query);
+                foreach ($_lighty_query as $key => $val) {
+                    $_GET[$key] = $_REQUEST[$key] = $val;
+                }
             }
             $_GET['p'] = $_REQUEST['p'] = $_lighty_path;
         }

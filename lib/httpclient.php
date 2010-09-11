@@ -132,7 +132,23 @@ class HTTPClient extends HTTP_Request2
         // ought to be investigated to see if we can handle
         // it gracefully in that case as well.
         $this->config['protocol_version'] = '1.0';
-        
+
+        // Default state of OpenSSL seems to have no trusted
+        // SSL certificate authorities, which breaks hostname
+        // verification and means we have a hard time communicating
+        // with other sites' HTTPS interfaces.
+        //
+        // Turn off verification unless we've configured a CA bundle.
+        if (common_config('http', 'ssl_cafile')) {
+            $this->config['ssl_cafile'] = common_config('http', 'ssl_cafile');
+        } else {
+            $this->config['ssl_verify_peer'] = false;
+        }
+
+        if (common_config('http', 'curl') && extension_loaded('curl')) {
+            $this->config['adapter'] = 'HTTP_Request2_Adapter_Curl';
+        }
+
         parent::__construct($url, $method, $config);
         $this->setHeader('User-Agent', $this->userAgent());
     }
@@ -192,6 +208,15 @@ class HTTPClient extends HTTP_Request2
     protected function doRequest($url, $method, $headers)
     {
         $this->setUrl($url);
+
+        // Workaround for HTTP_Request2 not setting up SNI in socket contexts;
+        // This fixes cert validation for SSL virtual hosts using SNI.
+        // Requires PHP 5.3.2 or later and OpenSSL with SNI support.
+        if ($this->url->getScheme() == 'https' && defined('OPENSSL_TLSEXT_SERVER_NAME')) {
+            $this->config['ssl_SNI_enabled'] = true;
+            $this->config['ssl_SNI_server_name'] = $this->url->getHost();
+        }
+
         $this->setMethod($method);
         if ($headers) {
             foreach ($headers as $header) {

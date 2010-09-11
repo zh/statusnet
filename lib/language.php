@@ -61,7 +61,7 @@ if (!function_exists('dpgettext')) {
      * Not currently exposed in PHP's gettext module; implemented to be compat
      * with gettext.h's macros.
      *
-     * @param string $domain domain identifier, or null for default domain
+     * @param string $domain domain identifier
      * @param string $context context identifier, should be some key like "menu|file"
      * @param string $msgid English source text
      * @return string original or translated message
@@ -106,7 +106,7 @@ if (!function_exists('dnpgettext')) {
      * Not currently exposed in PHP's gettext module; implemented to be compat
      * with gettext.h's macros.
      *
-     * @param string $domain domain identifier, or null for default domain
+     * @param string $domain domain identifier
      * @param string $context context identifier, should be some key like "menu|file"
      * @param string $msg singular English source text
      * @param string $plural plural English source text
@@ -180,7 +180,11 @@ function _m($msg/*, ...*/)
 }
 
 /**
- * Looks for which plugin we've been called from to set the gettext domain.
+ * Looks for which plugin we've been called from to set the gettext domain;
+ * if not in a plugin subdirectory, we'll use the default 'statusnet'.
+ *
+ * Note: we can't return null for default domain since most of the PHP gettext
+ * wrapper functions turn null into "" before passing to the backend library.
  *
  * @param array $backtrace debug_backtrace() output
  * @return string
@@ -206,12 +210,19 @@ function _mdomain($backtrace)
         if (DIRECTORY_SEPARATOR !== '/') {
             $path = strtr($path, DIRECTORY_SEPARATOR, '/');
         }
-        $cut = strpos($path, '/plugins/');
-        if ($cut) {
-            $cut += strlen('/plugins/');
+        $plug = strpos($path, '/plugins/');
+        if ($plug === false) {
+            // We're not in a plugin; return default domain.
+            $final = 'statusnet';
+        } else {
+            $cut = $plug + 9;
             $cut2 = strpos($path, '/', $cut);
-            if ($cut && $cut2) {
+            if ($cut2) {
                 $final = substr($path, $cut, $cut2 - $cut);
+            } else {
+                // We might be running directly from the plugins dir?
+                // If so, there's no place to store locale info.
+                $final = 'statusnet';
             }
         }
         $cached[$path] = $final;
@@ -296,8 +307,10 @@ function get_all_languages() {
         'br'      => array('q' => 0.8, 'lang' => 'br', 'name' => 'Breton', 'direction' => 'ltr'),
         'ca'      => array('q' => 0.5, 'lang' => 'ca', 'name' => 'Catalan', 'direction' => 'ltr'),
         'cs'      => array('q' => 0.5, 'lang' => 'cs', 'name' => 'Czech', 'direction' => 'ltr'),
+        'da'      => array('q' => 0.8, 'lang' => 'da', 'name' => 'Danish', 'direction' => 'ltr'),
         'de'      => array('q' => 0.8, 'lang' => 'de', 'name' => 'German', 'direction' => 'ltr'),
         'el'      => array('q' => 0.1, 'lang' => 'el',    'name' => 'Greek', 'direction' => 'ltr'),
+        'eo'      => array('q' => 0.8, 'lang' => 'eo',    'name' => 'Esperanto', 'direction' => 'ltr'),
         'en-us'   => array('q' => 1, 'lang' => 'en', 'name' => 'English (US)', 'direction' => 'ltr'),
         'en-gb'   => array('q' => 1, 'lang' => 'en_GB', 'name' => 'English (British)', 'direction' => 'ltr'),
         'en'      => array('q' => 1, 'lang' => 'en',    'name' => 'English (US)', 'direction' => 'ltr'),
@@ -313,6 +326,7 @@ function get_all_languages() {
         'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
         'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
         'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),
+        'ka'      => array('q' => 0.8, 'lang' => 'ka',    'name' => 'Georgian', 'direction' => 'ltr'),
         'ko'      => array('q' => 0.9, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
         'mk'      => array('q' => 0.5, 'lang' => 'mk', 'name' => 'Macedonian', 'direction' => 'ltr'),
         'nb'      => array('q' => 0.1, 'lang' => 'nb', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),

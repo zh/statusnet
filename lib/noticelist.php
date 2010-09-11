@@ -96,8 +96,14 @@ class NoticeList extends Widget
                 break;
             }
 
-            $item = $this->newListItem($this->notice);
-            $item->show();
+            try {
+                $item = $this->newListItem($this->notice);
+                $item->show();
+            } catch (Exception $e) {
+                // we log exceptions and continue
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
+            }
         }
 
         $this->out->elementEnd('ol');
@@ -463,12 +469,14 @@ class NoticeListItem extends Widget
         $this->out->elementEnd('span');
     }
 
+    /**
+     * @param number $dec decimal degrees
+     * @return array split into 'deg', 'min', and 'sec'
+     */
     function decimalDegreesToDMS($dec)
     {
-
-        $vars = explode(".",$dec);
-        $deg = $vars[0];
-        $tempma = "0.".$vars[1];
+        $deg = intval($dec);
+        $tempma = abs($dec) - abs($deg);
 
         $tempma = $tempma * 3600;
         $min = floor($tempma / 60);
@@ -488,54 +496,47 @@ class NoticeListItem extends Widget
 
     function showNoticeSource()
     {
-        if ($this->notice->source) {
+        $ns = $this->notice->getSource();
+
+        if ($ns) {
+            $source_name = (empty($ns->name)) ? ($ns->code ? _($ns->code) : _('web')) : _($ns->name);
             $this->out->text(' ');
             $this->out->elementStart('span', 'source');
+            // FIXME: probably i18n issue. If "from" is followed by text, that should be a parameter to "from" (from %s).
             $this->out->text(_('from'));
-            $source_name = _($this->notice->source);
             $this->out->text(' ');
-            switch ($this->notice->source) {
-             case 'web':
-             case 'xmpp':
-             case 'mail':
-             case 'omb':
-             case 'system':
-             case 'api':
-                $this->out->element('span', 'device', $source_name);
-                break;
-             default:
 
+            $name  = $source_name;
+            $url   = $ns->url;
+            $title = null;
+
+            if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
                 $name = $source_name;
-                $url  = null;
-
-                if (Event::handle('StartNoticeSourceLink', array($this->notice, &$name, &$url, &$title))) {
-                    $ns = Notice_source::staticGet($this->notice->source);
-
-                    if ($ns) {
-                        $name = $ns->name;
-                        $url  = $ns->url;
-                    } else {
-                        $app = Oauth_application::staticGet('name', $this->notice->source);
-                        if ($app) {
-                            $name = $app->name;
-                            $url  = $app->source_url;
-                        }
-                    }
-                }
-                Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
-
-                if (!empty($name) && !empty($url)) {
-                    $this->out->elementStart('span', 'device');
-                    $this->out->element('a', array('href' => $url,
-                                                   'rel' => 'external',
-                                                   'title' => $title),
-                                        $name);
-                    $this->out->elementEnd('span');
-                } else {
-                    $this->out->element('span', 'device', $name);
-                }
-                break;
+                $url  = $ns->url;
             }
+            Event::handle('EndNoticeSourceLink', array($this->notice, &$name, &$url, &$title));
+
+            // if $ns->name and $ns->url are populated we have
+            // configured a source attr somewhere
+            if (!empty($name) && !empty($url)) {
+
+                $this->out->elementStart('span', 'device');
+
+                $attrs = array(
+                    'href' => $url,
+                    'rel' => 'external'
+                );
+
+                if (!empty($title)) {
+                    $attrs['title'] = $title;
+                }
+
+                $this->out->element('a', $attrs, $name);
+                $this->out->elementEnd('span');
+            } else {
+                $this->out->element('span', 'device', $name);
+            }
+
             $this->out->elementEnd('span');
         }
     }

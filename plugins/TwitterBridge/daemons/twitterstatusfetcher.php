@@ -40,7 +40,6 @@ require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/lib/common.php';
 require_once INSTALLDIR . '/lib/daemon.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
-require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 /**
@@ -104,7 +103,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     function getObjects()
     {
         global $_DB_DATAOBJECT;
-
         $flink = new Foreign_link();
         $conn = &$flink->getDatabaseConnection();
 
@@ -168,10 +166,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         common_debug($this->name() . ' - Trying to get timeline for Twitter user ' .
                      $flink->foreign_id);
 
-        // XXX: Biggest remaining issue - How do we know at which status
-        // to start importing?  How many statuses?  Right now I'm going
-        // with the default last 20.
-
         $client = null;
 
         if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
@@ -179,14 +173,17 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $client = new TwitterOAuthClient($token->key, $token->secret);
             common_debug($this->name() . ' - Grabbing friends timeline with OAuth.');
         } else {
-            $client = new TwitterBasicAuthClient($flink);
-            common_debug($this->name() . ' - Grabbing friends timeline with basic auth.');
+            common_debug("Skipping friends timeline for $flink->foreign_id since not OAuth.");
         }
 
         $timeline = null;
 
+        $lastId = Twitter_synch_status::getLastId($flink->foreign_id, 'home_timeline');
+
+        common_debug("Got lastId value '{$lastId}' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
+
         try {
-            $timeline = $client->statusesFriendsTimeline();
+            $timeline = $client->statusesHomeTimeline($lastId);
         } catch (Exception $e) {
             common_log(LOG_WARNING, $this->name() .
                        ' - Twitter client unable to get friends timeline for user ' .
@@ -215,7 +212,23 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 continue;
             }
 
-            $this->saveStatus($status, $flink);
+            // Don't save it if the user is protected
+            // FIXME: save it but treat it as private
+
+            if ($status->user->protected) {
+                continue;
+            }
+
+            $notice = $this->saveStatus($status);
+
+            if (!empty($notice)) {
+                Inbox::insertNotice($flink->user_id, $notice->id);
+            }
+        }
+
+        if (!empty($timeline)) {
+            Twitter_synch_status::setLastId($flink->foreign_id, 'home_timeline', $timeline[0]->id);
+            common_debug("Set lastId value '{$timeline[0]->id}' for foreign id '{$flink->foreign_id}' and timeline 'home_timeline'");
         }
 
         // Okay, record the time we synced with Twitter for posterity
@@ -224,32 +237,61 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $flink->update();
     }
 
-    function saveStatus($status, $flink)
+    function saveStatus($status)
     {
         $profile = $this->ensureProfile($status->user);
 
         if (empty($profile)) {
             common_log(LOG_ERR, $this->name() .
                 ' - Problem saving notice. No associated Profile.');
-            return;
+            return null;
         }
 
-        $statusUri = 'http://twitter.com/'
-            . $status->user->screen_name
-            . '/status/'
-            . $status->id;
+        $statusUri = $this->makeStatusURI($status->user->screen_name, $status->id);
 
         // check to see if we've already imported the status
 
-        $dupe = $this->checkDupe($profile, $statusUri);
+        $n2s = Notice_to_status::staticGet('status_id', $status->id);
 
-        if (!empty($dupe)) {
+        if (!empty($n2s)) {
             common_log(
                 LOG_INFO,
                 $this->name() .
-                " - Ignoring duplicate import: $statusUri"
+                " - Ignoring duplicate import: {$status->id}"
             );
-            return;
+            return Notice::staticGet('id', $n2s->notice_id);
+        }
+
+        // If it's a retweet, save it as a repeat!
+
+        if (!empty($status->retweeted_status)) {
+            common_log(LOG_INFO, "Status {$status->id} is a retweet of {$status->retweeted_status->id}.");
+            $original = $this->saveStatus($status->retweeted_status);
+            if (empty($original)) {
+                return null;
+            } else {
+                $author = $original->getProfile();
+                // TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
+                // TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
+                $content = sprintf(_('RT @%1$s %2$s'),
+                                   $author->nickname,
+                                   $original->content);
+
+                if (Notice::contentTooLong($content)) {
+                    $contentlimit = Notice::maxContent();
+                    $content = mb_substr($content, 0, $contentlimit - 4) . ' ...';
+                }
+
+                $repeat = Notice::saveNew($profile->id,
+                                          $content,
+                                          'twitter',
+                                          array('repeat_of' => $original->id,
+                                                'uri' => $statusUri,
+                                                'is_local' => Notice::GATEWAY));
+                common_log(LOG_INFO, "Saved {$repeat->id} as a repeat of {$original->id}");
+                Notice_to_status::saveNew($repeat->id, $status->id);
+                return $repeat;
+            }
         }
 
         $notice = new Notice();
@@ -263,14 +305,36 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         );
 
         $notice->source     = 'twitter';
+
         $notice->reply_to   = null;
+
+        if (!empty($status->in_reply_to_status_id)) {
+            common_log(LOG_INFO, "Status {$status->id} is a reply to status {$status->in_reply_to_status_id}");
+            $n2s = Notice_to_status::staticGet('status_id', $status->in_reply_to_status_id);
+            if (empty($n2s)) {
+                common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+            } else {
+                $reply = Notice::staticGet('id', $n2s->notice_id);
+                if (empty($reply)) {
+                    common_log(LOG_INFO, "Couldn't find local notice for status {$status->in_reply_to_status_id}");
+                } else {
+                    common_log(LOG_INFO, "Found local notice {$reply->id} for status {$status->in_reply_to_status_id}");
+                    $notice->reply_to     = $reply->id;
+                    $notice->conversation = $reply->conversation;
+                }
+            }
+        }
+
+        if (empty($notice->conversation)) {
+            $conv = Conversation::create();
+            $notice->conversation = $conv->id;
+            common_log(LOG_INFO, "No known conversation for status {$status->id} so making a new one {$conv->id}.");
+        }
+
         $notice->is_local   = Notice::GATEWAY;
 
-        $notice->content    = common_shorten_links($status->text);
-        $notice->rendered   = common_render_content(
-            $notice->content,
-            $notice
-        );
+        $notice->content  = html_entity_decode($status->text);
+        $notice->rendered = $this->linkify($status);
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
 
@@ -285,21 +349,29 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             Event::handle('EndNoticeSave', array($notice));
         }
 
-        $orig = clone($notice);
-        $conv = Conversation::create();
+        Notice_to_status::saveNew($notice->id, $status->id);
 
-        $notice->conversation = $conv->id;
+        $this->saveStatusMentions($notice, $status);
 
-        if (!$notice->update($orig)) {
-            common_log_db_error($notice, 'UPDATE', __FILE__);
-            common_log(LOG_ERR, $this->name() .
-                ' - Problem saving notice.');
-        }
-
-        Inbox::insertNotice($flink->user_id, $notice->id);
         $notice->blowOnInsert();
 
         return $notice;
+    }
+
+    /**
+     * Make an URI for a status.
+     *
+     * @param object $status status object
+     *
+     * @return string URI
+     */
+
+    function makeStatusURI($username, $id)
+    {
+        return 'http://twitter.com/'
+          . $username
+          . '/status/'
+          . $id;
     }
 
     /**
@@ -630,6 +702,104 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         return true;
+    }
+
+    const URL = 1;
+    const HASHTAG = 2;
+    const MENTION = 3;
+
+    function linkify($status)
+    {
+        $text = $status->text;
+
+        if (empty($status->entities)) {
+            return $text;
+        }
+
+        // Move all the entities into order so we can
+        // replace them in reverse order and thus
+        // not mess up their indices
+
+        $toReplace = array();
+
+        if (!empty($status->entities->urls)) {
+            foreach ($status->entities->urls as $url) {
+                $toReplace[$url->indices[0]] = array(self::URL, $url);
+            }
+        }
+
+        if (!empty($status->entities->hashtags)) {
+            foreach ($status->entities->hashtags as $hashtag) {
+                $toReplace[$hashtag->indices[0]] = array(self::HASHTAG, $hashtag);
+            }
+        }
+
+        if (!empty($status->entities->user_mentions)) {
+            foreach ($status->entities->user_mentions as $mention) {
+                $toReplace[$mention->indices[0]] = array(self::MENTION, $mention);
+            }
+        }
+
+        // sort in reverse order by key
+
+        krsort($toReplace);
+
+        foreach ($toReplace as $part) {
+            list($type, $object) = $part;
+            switch($type) {
+            case self::URL:
+                $linkText = $this->makeUrlLink($object);
+                break;
+            case self::HASHTAG:
+                $linkText = $this->makeHashtagLink($object);
+                break;
+            case self::MENTION:
+                $linkText = $this->makeMentionLink($object);
+                break;
+            default:
+                continue;
+            }
+            $text = mb_substr($text, 0, $object->indices[0]) . $linkText . mb_substr($text, $object->indices[1]);
+        }
+        return $text;
+    }
+
+    function makeUrlLink($object)
+    {
+        return "<a href='{$object->url}' class='extlink'>{$object->url}</a>";
+    }
+
+    function makeHashtagLink($object)
+    {
+        return "#<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
+    }
+
+    function makeMentionLink($object)
+    {
+        return "@<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
+    }
+
+    function saveStatusMentions($notice, $status)
+    {
+        $mentions = array();
+
+        if (empty($status->entities) || empty($status->entities->user_mentions)) {
+            return;
+        }
+
+        foreach ($status->entities->user_mentions as $mention) {
+            $flink = Foreign_link::getByForeignID($mention->id, TWITTER_SERVICE);
+            if (!empty($flink)) {
+                $user = User::staticGet('id', $flink->user_id);
+                if (!empty($user)) {
+                    $reply = new Reply();
+                    $reply->notice_id  = $notice->id;
+                    $reply->profile_id = $user->id;
+                    common_log(LOG_INFO, __METHOD__ . ": saving reply: notice {$notice->id} to profile {$user->id}");
+                    $id = $reply->insert();
+                }
+            }
+        }
     }
 }
 

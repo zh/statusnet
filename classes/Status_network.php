@@ -27,7 +27,8 @@ class Status_network extends Safe_DataObject
     /* the code below is auto generated do not remove the above tag */
 
     public $__table = 'status_network';                  // table name
-    public $nickname;                        // varchar(64)  primary_key not_null
+    public $site_id;                         // int(4) primary_key not_null
+    public $nickname;                        // varchar(64)   unique_key not_null
     public $hostname;                        // varchar(255)  unique_key
     public $pathname;                        // varchar(255)  unique_key
     public $dbhost;                          // varchar(255)
@@ -39,7 +40,6 @@ class Status_network extends Safe_DataObject
     public $logo;                            // varchar(255)
     public $created;                         // datetime()   not_null
     public $modified;                        // timestamp()   not_null default_CURRENT_TIMESTAMP
-    public $tags;                            // text
 
     /* Static get */
     function staticGet($k,$v=NULL) {
@@ -144,26 +144,49 @@ class Status_network extends Safe_DataObject
         return parent::update($orig);
     }
 
+    /**
+     * DB_DataObject doesn't allow updating keys (even non-primary)
+     */
+    function updateKeys(&$orig)
+    {
+        $this->_connect();
+        foreach (array('hostname', 'pathname') as $k) {
+            if (strcmp($this->$k, $orig->$k) != 0) {
+                $parts[] = $k . ' = ' . $this->_quote($this->$k);
+            }
+        }
+        if (count($parts) == 0) {
+            // No changes
+            return true;
+        }
+
+        $toupdate = implode(', ', $parts);
+
+        $table = common_database_tablename($this->tableName());
+        $qry = 'UPDATE ' . $table . ' SET ' . $toupdate .
+            ' WHERE nickname = ' . $this->_quote($this->nickname);
+        $orig->decache();
+        $result = $this->query($qry);
+        if ($result) {
+            $this->encache();
+        }
+        return $result;
+    }
+    
     function delete()
     {
         $this->decache(); # while we still have the values!
         return parent::delete();
     }
-
+    
     /**
      * @param string $servername hostname
-     * @param string $pathname URL base path
      * @param string $wildcard hostname suffix to match wildcard config
+     * @return mixed Status_network or null
      */
-    static function setupSite($servername, $pathname, $wildcard)
+    static function getFromHostname($servername, $wildcard)
     {
-        global $config;
-
         $sn = null;
-
-        // XXX I18N, probably not crucial for hostnames
-        // XXX This probably needs a tune up
-
         if (0 == strncasecmp(strrev($wildcard), strrev($servername), strlen($wildcard))) {
             // special case for exact match
             if (0 == strcasecmp($servername, $wildcard)) {
@@ -182,6 +205,23 @@ class Status_network extends Safe_DataObject
                 }
             }
         }
+        return $sn;
+    }
+
+    /**
+     * @param string $servername hostname
+     * @param string $pathname URL base path
+     * @param string $wildcard hostname suffix to match wildcard config
+     */
+    static function setupSite($servername, $pathname, $wildcard)
+    {
+        global $config;
+
+        $sn = null;
+
+        // XXX I18N, probably not crucial for hostnames
+        // XXX This probably needs a tune up
+        $sn = self::getFromHostname($servername, $wildcard);
 
         if (!empty($sn)) {
 
@@ -268,9 +308,56 @@ class Status_network extends Safe_DataObject
      */
     function getTags()
     {
-        return array_filter(explode("|", strval($this->tags)));
+        $result = Status_network_tag::getTags($this->site_id);
+
+        // XXX : for backwards compatibility
+        if (empty($result)) {
+            return explode('|', $this->tags);
+        }
+        
+        return $result;
     }
 
+    /**
+     * Save a given set of tags
+     * @param array tags
+     * @fixme only add/remove differentials
+     */
+    function setTags($tags)
+    {
+        $this->clearTags();
+        foreach ($tags as $tag) {
+            if (!empty($tag)) {
+                $snt = new Status_network_tag();
+                $snt->site_id = $this->site_id;
+                $snt->tag = $tag;
+                $snt->created = common_sql_now();
+                
+                $id = $snt->insert();
+                if (!$id) {
+                    // TRANS: Exception thrown when a tag cannot be saved.
+                    throw new Exception(_("Unable to save tag."));
+                }
+            }
+        }
+
+        return true;
+    }
+
+    function clearTags()
+    {
+        $tag = new Status_network_tag();
+        $tag->site_id = $this->site_id;
+
+        if ($tag->find()) {
+            while($tag->fetch()) {
+                $tag->delete();
+            }
+        }
+
+        $tag->free();
+    }
+    
     /**
      * Check if this site record has a particular meta-info tag attached.
      * @param string $tag

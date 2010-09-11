@@ -29,6 +29,7 @@
  * @author    Robin Millette <robin@millette.info>
  * @author    Zach Copley <zach@status.net>
  * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -115,7 +116,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         // We'll use the shared params from the Atom stub
         // for other feed types.
-        $atom = new AtomUserNoticeFeed($this->user);
+        $atom = new AtomUserNoticeFeed($this->user, $this->auth_user);
 
         $link = common_local_url(
             'showstream',

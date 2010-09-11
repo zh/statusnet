@@ -100,7 +100,7 @@ class RSSCloudPlugin extends Plugin
      *
      * Hook for RouterInitialized event.
      *
-     * @param Mapper &$m URL parser and mapper
+     * @param Mapper $m URL parser and mapper
      *
      * @return boolean hook return
      */
@@ -192,22 +192,10 @@ class RSSCloudPlugin extends Plugin
 
     function onStartEnqueueNotice($notice, &$transports)
     {
-        array_push($transports, 'rsscloud');
+        if ($notice->isLocal()) {
+            array_push($transports, 'rsscloud');
+        }
         return true;
-    }
-
-    /**
-     * Determine whether the notice was locally created
-     *
-     * @param Notice $notice the notice in question
-     *
-     * @return boolean locality
-     */
-
-    function _isLocal($notice)
-    {
-        return ($notice->is_local == Notice::LOCAL_PUBLIC ||
-                $notice->is_local == Notice::LOCAL_NONPUBLIC);
     }
 
     /**

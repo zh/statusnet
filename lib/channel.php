@@ -155,12 +155,12 @@ class MailChannel extends Channel
 
     function on($user)
     {
-        return $this->set_notify($user, 1);
+        return $this->setNotify($user, 1);
     }
 
     function off($user)
     {
-        return $this->set_notify($user, 0);
+        return $this->setNotify($user, 0);
     }
 
     function output($user, $text)
@@ -185,7 +185,7 @@ class MailChannel extends Channel
         return mail_send(array($this->addr), $headers, $text);
     }
 
-    function set_notify($user, $value)
+    function setNotify($user, $value)
     {
         $orig = clone($user);
         $user->smsnotify = $value;

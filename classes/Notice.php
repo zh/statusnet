@@ -29,6 +29,7 @@
  * @author   Robin Millette <millette@controlyourself.ca>
  * @author   Sarven Capadisli <csarven@controlyourself.ca>
  * @author   Tom Adams <tom@holizz.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  */
 
@@ -41,10 +42,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  */
 require_once INSTALLDIR.'/classes/Memcached_DataObject.php';
 
-/* We keep the first three 20-notice pages, plus one for pagination check,
+/* We keep 200 notices, the max number of notices available per API request,
  * in the memcached cache. */
 
-define('NOTICE_CACHE_WINDOW', 61);
+define('NOTICE_CACHE_WINDOW', 200);
 
 define('MAX_BOXCARS', 128);
 
@@ -89,7 +90,15 @@ class Notice extends Memcached_DataObject
 
     function getProfile()
     {
-        return Profile::staticGet('id', $this->profile_id);
+        $profile = Profile::staticGet('id', $this->profile_id);
+
+        if (empty($profile)) {
+            // TRANS: Server exception thrown when a user profile for a notice cannot be found.
+            // TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
+            throw new ServerException(sprintf(_('No such profile (%1$d) for notice (%2$d).'), $this->profile_id, $this->id));
+        }
+
+        return $profile;
     }
 
     function delete()
@@ -97,26 +106,34 @@ class Notice extends Memcached_DataObject
         // For auditing purposes, save a record that the notice
         // was deleted.
 
-        $deleted = new Deleted_notice();
+        // @fixme we have some cases where things get re-run and so the
+        // insert fails.
+        $deleted = Deleted_notice::staticGet('id', $this->id);
+        if (!$deleted) {
+            $deleted = new Deleted_notice();
 
-        $deleted->id         = $this->id;
-        $deleted->profile_id = $this->profile_id;
-        $deleted->uri        = $this->uri;
-        $deleted->created    = $this->created;
-        $deleted->deleted    = common_sql_now();
+            $deleted->id         = $this->id;
+            $deleted->profile_id = $this->profile_id;
+            $deleted->uri        = $this->uri;
+            $deleted->created    = $this->created;
+            $deleted->deleted    = common_sql_now();
 
-        $deleted->insert();
+            $deleted->insert();
+        }
 
-        // Clear related records
+        if (Event::handle('NoticeDeleteRelated', array($this))) {
 
-        $this->clearReplies();
-        $this->clearRepeats();
-        $this->clearFaves();
-        $this->clearTags();
-        $this->clearGroupInboxes();
+            // Clear related records
 
-        // NOTE: we don't clear inboxes
-        // NOTE: we don't clear queue items
+            $this->clearReplies();
+            $this->clearRepeats();
+            $this->clearFaves();
+            $this->clearTags();
+            $this->clearGroupInboxes();
+
+            // NOTE: we don't clear inboxes
+            // NOTE: we don't clear queue items
+        }
 
         $result = parent::delete();
 
@@ -231,6 +248,8 @@ class Notice extends Memcached_DataObject
         if (!empty($options)) {
             $options = $options + $defaults;
             extract($options);
+        } else {
+            extract($defaults);
         }
 
         if (!isset($is_local)) {
@@ -242,28 +261,34 @@ class Notice extends Memcached_DataObject
         $final = common_shorten_links($content);
 
         if (Notice::contentTooLong($final)) {
+            // TRANS: Client exception thrown if a notice contains too many characters.
             throw new ClientException(_('Problem saving notice. Too long.'));
         }
 
         if (empty($profile)) {
+            // TRANS: Client exception thrown when trying to save a notice for an unknown user.
             throw new ClientException(_('Problem saving notice. Unknown user.'));
         }
 
         if (common_config('throttle', 'enabled') && !Notice::checkEditThrottle($profile_id)) {
             common_log(LOG_WARNING, 'Excessive posting by profile #' . $profile_id . '; throttled.');
+            // TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
             throw new ClientException(_('Too many notices too fast; take a breather '.
                                         'and post again in a few minutes.'));
         }
 
         if (common_config('site', 'dupelimit') > 0 && !Notice::checkDupes($profile_id, $final)) {
             common_log(LOG_WARNING, 'Dupe posting by profile #' . $profile_id . '; throttled.');
+            // TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
             throw new ClientException(_('Too many duplicate messages too quickly;'.
                                         ' take a breather and post again in a few minutes.'));
         }
 
         if (!$profile->hasRight(Right::NEWNOTICE)) {
             common_log(LOG_WARNING, "Attempted post from user disallowed to post: " . $profile->nickname);
-            throw new ClientException(_('You are banned from posting notices on this site.'));
+
+            // TRANS: Client exception thrown when a user tries to post while being banned.
+            throw new ClientException(_('You are banned from posting notices on this site.'), 403);
         }
 
         $notice = new Notice();
@@ -329,6 +354,7 @@ class Notice extends Memcached_DataObject
 
             if (!$id) {
                 common_log_db_error($notice, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when a notice cannot be saved.
                 throw new ServerException(_('Problem saving notice.'));
             }
 
@@ -355,6 +381,7 @@ class Notice extends Memcached_DataObject
             if ($changed) {
                 if (!$notice->update($orig)) {
                     common_log_db_error($notice, 'UPDATE', __FILE__);
+                    // TRANS: Server exception thrown when a notice cannot be updated.
                     throw new ServerException(_('Problem saving notice.'));
                 }
             }
@@ -463,7 +490,7 @@ class Notice extends Memcached_DataObject
     function saveKnownUrls($urls)
     {
         // @fixme validation?
-        foreach ($urls as $url) {
+        foreach (array_unique($urls) as $url) {
             File::processNew($url, $this->id);
         }
     }
@@ -556,7 +583,9 @@ class Notice extends Memcached_DataObject
         if ($f2p->find()) {
             while ($f2p->fetch()) {
                 $f = File::staticGet($f2p->file_id);
-                $att[] = clone($f);
+                if ($f) {
+                    $att[] = clone($f);
+                }
             }
         }
         return $att;
@@ -564,7 +593,7 @@ class Notice extends Memcached_DataObject
 
     function getStreamByIds($ids)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (!empty($cache)) {
             $notices = array();
@@ -704,7 +733,7 @@ class Notice extends Memcached_DataObject
 
     /**
      * Is this notice part of an active conversation?
-     * 
+     *
      * @return boolean true if other messages exist in the same
      *                 conversation, false if this is the only one
      */
@@ -732,7 +761,7 @@ class Notice extends Memcached_DataObject
         $c = self::memcache();
 
         if (!empty($c)) {
-            $ni = $c->get(common_cache_key('notice:who_gets:'.$this->id));
+            $ni = $c->get(Cache::key('notice:who_gets:'.$this->id));
             if ($ni !== false) {
                 return $ni;
             }
@@ -784,7 +813,7 @@ class Notice extends Memcached_DataObject
 
         if (!empty($c)) {
             // XXX: pack this data better
-            $c->set(common_cache_key('notice:who_gets:'.$this->id), $ni);
+            $c->set(Cache::key('notice:who_gets:'.$this->id), $ni);
         }
 
         return $ni;
@@ -866,11 +895,12 @@ class Notice extends Memcached_DataObject
     function saveKnownGroups($group_ids)
     {
         if (!is_array($group_ids)) {
-            throw new ServerException("Bad type provided to saveKnownGroups");
+            // TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
+            throw new ServerException(_("Bad type provided to saveKnownGroups"));
         }
 
         $groups = array();
-        foreach ($group_ids as $id) {
+        foreach (array_unique($group_ids) as $id) {
             $group = User_group::staticGet('id', $id);
             if ($group) {
                 common_log(LOG_ERR, "Local delivery to group id $id, $group->nickname");
@@ -964,6 +994,7 @@ class Notice extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($gi, 'INSERT', __FILE__);
+                // TRANS: Server exception thrown when an update for a group inbox fails.
                 throw new ServerException(_('Problem saving group inbox.'));
             }
 
@@ -981,8 +1012,7 @@ class Notice extends Memcached_DataObject
      * messages, we won't deliver to any remote targets as that's the
      * source service's responsibility.
      *
-     * @fixme Unlike saveReplies() there's no mail notification here.
-     *        Move that to distrib queue handler?
+     * Mail notifications etc will be handled later.
      *
      * @param array of unique identifier URIs for recipients
      */
@@ -991,26 +1021,31 @@ class Notice extends Memcached_DataObject
         if (empty($uris)) {
             return;
         }
+
         $sender = Profile::staticGet($this->profile_id);
 
-        foreach ($uris as $uri) {
+        foreach (array_unique($uris) as $uri) {
 
-            $user = User::staticGet('uri', $uri);
+            $profile = Profile::fromURI($uri);
 
-            if (!empty($user)) {
-                if ($user->hasBlocked($sender)) {
-                    continue;
-                }
-
-                $reply = new Reply();
-
-                $reply->notice_id  = $this->id;
-                $reply->profile_id = $user->id;
-
-                $id = $reply->insert();
-
-                self::blow('reply:stream:%d', $user->id);
+            if (empty($profile)) {
+                common_log(LOG_WARNING, "Unable to determine profile for URI '$uri'");
+                continue;
             }
+
+            if ($profile->hasBlocked($sender)) {
+                common_log(LOG_INFO, "Not saving reply to profile {$profile->id} ($uri) from sender {$sender->id} because of a block.");
+                continue;
+            }
+
+            $reply = new Reply();
+
+            $reply->notice_id  = $this->id;
+            $reply->profile_id = $profile->id;
+
+            common_log(LOG_INFO, __METHOD__ . ": saving reply: notice $this->id to profile $profile->id");
+
+            $id = $reply->insert();
         }
 
         return;
@@ -1021,8 +1056,7 @@ class Notice extends Memcached_DataObject
      * and save reply records indicating that this message needs to be
      * delivered to those users.
      *
-     * Side effect: local recipients get e-mail notifications here.
-     * @fixme move mail notifications to distrib?
+     * Mail notifications to local profiles will be sent later.
      *
      * @return array of integer profile IDs
      */
@@ -1073,26 +1107,26 @@ class Notice extends Memcached_DataObject
 
                 if (!$id) {
                     common_log_db_error($reply, 'INSERT', __FILE__);
-                    throw new ServerException("Couldn't save reply for {$this->id}, {$mentioned->id}");
+                    // TRANS: Server exception thrown when a reply cannot be saved.
+                    // TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
+                    throw new ServerException(sprintf(_("Could not save reply for %1$d, %2$d."), $this->id, $mentioned->id));
                 } else {
                     $replied[$mentioned->id] = 1;
+                    self::blow('reply:stream:%d', $mentioned->id);
                 }
             }
         }
 
         $recipientIds = array_keys($replied);
 
-        foreach ($recipientIds as $recipientId) {
-            $user = User::staticGet('id', $recipientId);
-            if (!empty($user)) {
-                self::blow('reply:stream:%d', $reply->profile_id);
-                mail_notify_attn($user, $this);
-            }
-        }
-
         return $recipientIds;
     }
 
+    /**
+     * Pull the complete list of @-reply targets for this notice.
+     *
+     * @return array of integer profile ids
+     */
     function getReplies()
     {
         // XXX: cache me
@@ -1113,6 +1147,30 @@ class Notice extends Memcached_DataObject
         $reply->free();
 
         return $ids;
+    }
+
+    /**
+     * Send e-mail notifications to local @-reply targets.
+     *
+     * Replies must already have been saved; this is expected to be run
+     * from the distrib queue handler.
+     */
+    function sendReplyNotifications()
+    {
+        // Don't send reply notifications for repeats
+
+        if (!empty($this->repeat_of)) {
+            return array();
+        }
+
+        $recipientIds = $this->getReplies();
+
+        foreach ($recipientIds as $recipientId) {
+            $user = User::staticGet('id', $recipientId);
+            if (!empty($user)) {
+                mail_notify_attn($user, $this);
+            }
+        }
     }
 
     /**
@@ -1154,7 +1212,10 @@ class Notice extends Memcached_DataObject
         return $groups;
     }
 
-    function asAtomEntry($namespace=false, $source=false, $author=true)
+    // This has gotten way too long. Needs to be sliced up into functional bits
+    // or ideally exported to a utility class.
+
+    function asAtomEntry($namespace=false, $source=false, $author=true, $cur=null)
     {
         $profile = $this->getProfile();
 
@@ -1167,149 +1228,332 @@ class Notice extends Memcached_DataObject
                            'xmlns:activity' => 'http://activitystrea.ms/spec/1.0/',
                            'xmlns:media' => 'http://purl.org/syndication/atommedia',
                            'xmlns:poco' => 'http://portablecontacts.net/spec/1.0',
-                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0');
+                           'xmlns:ostatus' => 'http://ostatus.org/schema/1.0',
+                           'xmlns:statusnet' => 'http://status.net/schema/api/1/');
         } else {
             $attrs = array();
         }
 
-        $xs->elementStart('entry', $attrs);
+        if (Event::handle('StartActivityStart', array(&$this, &$xs, &$attrs))) {
+            $xs->elementStart('entry', $attrs);
+            Event::handle('EndActivityStart', array(&$this, &$xs, &$attrs));
+        }
 
-        if ($source) {
-            $xs->elementStart('source');
-            $xs->element('id', null, $profile->profileurl);
-            $xs->element('title', null, $profile->nickname . " - " . common_config('site', 'name'));
-            $xs->element('link', array('href' => $profile->profileurl));
-            $user = User::staticGet('id', $profile->id);
-            if (!empty($user)) {
-                $atom_feed = common_local_url('ApiTimelineUser',
-                                              array('format' => 'atom',
-                                                    'id' => $profile->nickname));
-                $xs->element('link', array('rel' => 'self',
-                                           'type' => 'application/atom+xml',
-                                           'href' => $profile->profileurl));
-                $xs->element('link', array('rel' => 'license',
-                                           'href' => common_config('license', 'url')));
+        if (Event::handle('StartActivitySource', array(&$this, &$xs))) {
+
+            if ($source) {
+
+                $atom_feed = $profile->getAtomFeed();
+
+                if (!empty($atom_feed)) {
+
+                    $xs->elementStart('source');
+
+                    // XXX: we should store the actual feed ID
+
+                    $xs->element('id', null, $atom_feed);
+
+                    // XXX: we should store the actual feed title
+
+                    $xs->element('title', null, $profile->getBestName());
+
+                    $xs->element('link', array('rel' => 'alternate',
+                                               'type' => 'text/html',
+                                               'href' => $profile->profileurl));
+
+                    $xs->element('link', array('rel' => 'self',
+                                               'type' => 'application/atom+xml',
+                                               'href' => $atom_feed));
+
+                    $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
+
+                    $notice = $profile->getCurrentNotice();
+
+                    if (!empty($notice)) {
+                        $xs->element('updated', null, self::utcDate($notice->created));
+                    }
+
+                    $user = User::staticGet('id', $profile->id);
+
+                    if (!empty($user)) {
+                        $xs->element('link', array('rel' => 'license',
+                                                   'href' => common_config('license', 'url')));
+                    }
+
+                    $xs->elementEnd('source');
+                }
             }
-
-            $xs->element('icon', null, $profile->avatarUrl(AVATAR_PROFILE_SIZE));
-            $xs->element('updated', null, common_date_w3dtf($this->created));
+            Event::handle('EndActivitySource', array(&$this, &$xs));
         }
 
-        if ($source) {
-            $xs->elementEnd('source');
+        $title = common_xml_safe_str($this->content);
+
+        if (Event::handle('StartActivityTitle', array(&$this, &$xs, &$title))) {
+            $xs->element('title', null, $title);
+            Event::handle('EndActivityTitle', array($this, &$xs, $title));
         }
 
-        $xs->element('title', null, common_xml_safe_str($this->content));
+        $atomAuthor = '';
 
         if ($author) {
-            $xs->raw($profile->asAtomAuthor());
-            $xs->raw($profile->asActivityActor());
+            $atomAuthor = $profile->asAtomAuthor($cur);
         }
 
-        $xs->element('link', array('rel' => 'alternate',
-                                   'type' => 'text/html',
-                                   'href' => $this->bestUrl()));
+        if (Event::handle('StartActivityAuthor', array(&$this, &$xs, &$atomAuthor))) {
+            if (!empty($atomAuthor)) {
+                $xs->raw($atomAuthor);
+                Event::handle('EndActivityAuthor', array(&$this, &$xs, &$atomAuthor));
+            }
+        }
 
-        $xs->element('id', null, $this->uri);
+        $actor = '';
 
-        $xs->element('published', null, common_date_w3dtf($this->created));
-        $xs->element('updated', null, common_date_w3dtf($this->created));
+        if ($author) {
+            $actor = $profile->asActivityActor();
+        }
+
+        if (Event::handle('StartActivityActor', array(&$this, &$xs, &$actor))) {
+            if (!empty($actor)) {
+                $xs->raw($actor);
+                Event::handle('EndActivityActor', array(&$this, &$xs, &$actor));
+            }
+        }
+
+        $url = $this->bestUrl();
+
+        if (Event::handle('StartActivityLink', array(&$this, &$xs, &$url))) {
+            $xs->element('link', array('rel' => 'alternate',
+                                       'type' => 'text/html',
+                                       'href' => $url));
+            Event::handle('EndActivityLink', array(&$this, &$xs, $url));
+        }
+
+        $id = $this->uri;
+
+        if (Event::handle('StartActivityId', array(&$this, &$xs, &$id))) {
+            $xs->element('id', null, $id);
+            Event::handle('EndActivityId', array(&$this, &$xs, $id));
+        }
+
+        $published = self::utcDate($this->created);
+
+        if (Event::handle('StartActivityPublished', array(&$this, &$xs, &$published))) {
+            $xs->element('published', null, $published);
+            Event::handle('EndActivityPublished', array(&$this, &$xs, $published));
+        }
+
+        $updated = $published; // XXX: notices are usually immutable
+
+        if (Event::handle('StartActivityUpdated', array(&$this, &$xs, &$updated))) {
+            $xs->element('updated', null, $updated);
+            Event::handle('EndActivityUpdated', array(&$this, &$xs, $updated));
+        }
+
+        $content = common_xml_safe_str($this->rendered);
+
+        if (Event::handle('StartActivityContent', array(&$this, &$xs, &$content))) {
+            $xs->element('content', array('type' => 'html'), $content);
+            Event::handle('EndActivityContent', array(&$this, &$xs, $content));
+        }
+
+        // Most of our notices represent POSTing a NOTE. This is the default verb
+        // for activity streams, so we normally just leave it out.
+
+        $verb = ActivityVerb::POST;
+
+        if (Event::handle('StartActivityVerb', array(&$this, &$xs, &$verb))) {
+            $xs->element('activity:verb', null, $verb);
+            Event::handle('EndActivityVerb', array(&$this, &$xs, $verb));
+        }
+
+        // We use the default behavior for activity streams: if there's no activity:object,
+        // then treat the entry itself as the object. Here, you can set the type of that object,
+        // which is normally a NOTE.
+
+        $type = ActivityObject::NOTE;
+
+        if (Event::handle('StartActivityDefaultObjectType', array(&$this, &$xs, &$type))) {
+            $xs->element('activity:object-type', null, $type);
+            Event::handle('EndActivityDefaultObjectType', array(&$this, &$xs, $type));
+        }
+
+        // Since we usually use the entry itself as an object, we don't have an explicit
+        // object. Some extensions may want to add them (for photo, event, music, etc.).
+
+        $objects = array();
+
+        if (Event::handle('StartActivityObjects', array(&$this, &$xs, &$objects))) {
+            foreach ($objects as $object) {
+                $xs->raw($object->asString());
+            }
+            Event::handle('EndActivityObjects', array(&$this, &$xs, $objects));
+        }
+
+        $noticeInfoAttr = array('local_id' => $this->id); // local notice ID (useful to clients for ordering)
+
+        $ns = $this->getSource();
+
+        if (!empty($ns)) {
+            $noticeInfoAttr['source'] =  $ns->code;
+            if (!empty($ns->url)) {
+                $noticeInfoAttr['source_link'] = $ns->url;
+                if (!empty($ns->name)) {
+                    $noticeInfoAttr['source'] =  '<a href="'
+                      . htmlspecialchars($ns->url)
+                        . '" rel="nofollow">'
+                      . htmlspecialchars($ns->name)
+                        . '</a>';
+                }
+            }
+        }
+
+        if (!empty($cur)) {
+            $noticeInfoAttr['favorite'] = ($cur->hasFave($this)) ? "true" : "false";
+            $profile = $cur->getProfile();
+            $noticeInfoAttr['repeated'] = ($profile->hasRepeated($this->id)) ? "true" : "false";
+        }
+
+        if (!empty($this->repeat_of)) {
+            $noticeInfoAttr['repeat_of'] = $this->repeat_of;
+        }
+
+        if (Event::handle('StartActivityNoticeInfo', array(&$this, &$xs, &$noticeInfoAttr))) {
+            $xs->element('statusnet:notice_info', $noticeInfoAttr, null);
+            Event::handle('EndActivityNoticeInfo', array(&$this, &$xs, $noticeInfoAttr));
+        }
+
+        $replyNotice = null;
 
         if ($this->reply_to) {
-            $reply_notice = Notice::staticGet('id', $this->reply_to);
-            if (!empty($reply_notice)) {
+            $replyNotice = Notice::staticGet('id', $this->reply_to);
+        }
+
+        if (Event::handle('StartActivityInReplyTo', array(&$this, &$xs, &$replyNotice))) {
+            if (!empty($replyNotice)) {
                 $xs->element('link', array('rel' => 'related',
-                                           'href' => $reply_notice->bestUrl()));
+                                           'href' => $replyNotice->bestUrl()));
                 $xs->element('thr:in-reply-to',
-                             array('ref' => $reply_notice->uri,
-                                   'href' => $reply_notice->bestUrl()));
+                             array('ref' => $replyNotice->uri,
+                                   'href' => $replyNotice->bestUrl()));
+                Event::handle('EndActivityInReplyTo', array(&$this, &$xs, $replyNotice));
             }
         }
+
+        $conv = null;
 
         if (!empty($this->conversation)) {
-
             $conv = Conversation::staticGet('id', $this->conversation);
-
-            if (!empty($conv)) {
-                $xs->element(
-                    'link', array(
-                        'rel' => 'ostatus:conversation',
-                        'href' => $conv->uri
-                    )
-                );
-            }
         }
+
+        if (Event::handle('StartActivityConversation', array(&$this, &$xs, &$conv))) {
+            if (!empty($conv)) {
+                $xs->element('link', array('rel' => 'ostatus:conversation',
+                                           'href' => $conv->uri));
+            }
+            Event::handle('EndActivityConversation', array(&$this, &$xs, $conv));
+        }
+
+        $replyProfiles = array();
 
         $reply_ids = $this->getReplies();
 
         foreach ($reply_ids as $id) {
             $profile = Profile::staticGet('id', $id);
-           if (!empty($profile)) {
-                $xs->element(
-                    'link', array(
-                        'rel' => 'ostatus:attention',
-                        'href' => $profile->getUri()
-                    )
-                );
+            if (!empty($profile)) {
+                $replyProfiles[] = $profile;
             }
+        }
+
+        if (Event::handle('StartActivityAttentionProfiles', array(&$this, &$xs, &$replyProfiles))) {
+            foreach ($replyProfiles as $profile) {
+                $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $profile->getUri()));
+                $xs->element('link', array('rel' => 'mentioned',
+                                           'href' => $profile->getUri()));
+            }
+            Event::handle('EndActivityAttentionProfiles', array(&$this, &$xs, $replyProfiles));
         }
 
         $groups = $this->getGroups();
 
-        foreach ($groups as $group) {
-            $xs->element(
-                'link', array(
-                    'rel' => 'ostatus:attention',
-                    'href' => $group->permalink()
-                )
-            );
+        if (Event::handle('StartActivityAttentionGroups', array(&$this, &$xs, &$groups))) {
+            foreach ($groups as $group) {
+                $xs->element('link', array('rel' => 'ostatus:attention',
+                                           'href' => $group->permalink()));
+                $xs->element('link', array('rel' => 'mentioned',
+                                           'href' => $group->permalink()));
+            }
+            Event::handle('EndActivityAttentionGroups', array(&$this, &$xs, $groups));
         }
+
+        $repeat = null;
 
         if (!empty($this->repeat_of)) {
             $repeat = Notice::staticGet('id', $this->repeat_of);
+        }
+
+        if (Event::handle('StartActivityForward', array(&$this, &$xs, &$repeat))) {
             if (!empty($repeat)) {
-                $xs->element(
-                    'ostatus:forward',
-                     array('ref' => $repeat->uri, 'href' => $repeat->bestUrl())
-                );
+                $xs->element('ostatus:forward',
+                             array('ref' => $repeat->uri,
+                                   'href' => $repeat->bestUrl()));
             }
+
+            Event::handle('EndActivityForward', array(&$this, &$xs, $repeat));
         }
 
-        $xs->element(
-            'content',
-            array('type' => 'html'),
-            common_xml_safe_str($this->rendered)
-        );
+        $tags = $this->getTags();
 
-        $tag = new Notice_tag();
-        $tag->notice_id = $this->id;
-        if ($tag->find()) {
-            while ($tag->fetch()) {
-                $xs->element('category', array('term' => $tag->tag));
+        if (Event::handle('StartActivityCategories', array(&$this, &$xs, &$tags))) {
+            foreach ($tags as $tag) {
+                $xs->element('category', array('term' => $tag));
             }
+            Event::handle('EndActivityCategories', array(&$this, &$xs, $tags));
         }
-        $tag->free();
 
-        # Enclosures
+        // Enclosures
+
+        $enclosures = array();
+
         $attachments = $this->attachments();
-        if($attachments){
-            foreach($attachments as $attachment){
-                $enclosure=$attachment->getEnclosure();
-                if ($enclosure) {
-                    $attributes = array('rel'=>'enclosure','href'=>$enclosure->url,'type'=>$enclosure->mimetype,'length'=>$enclosure->size);
-                    if($enclosure->title){
-                        $attributes['title']=$enclosure->title;
-                    }
-                    $xs->element('link', $attributes, null);
-                }
+
+        foreach ($attachments as $attachment) {
+            $enclosure = $attachment->getEnclosure();
+            if ($enclosure) {
+                $enclosures[] = $enclosure;
             }
         }
 
-        if (!empty($this->lat) && !empty($this->lon)) {
-            $xs->element('georss:point', null, $this->lat . ' ' . $this->lon);
+        if (Event::handle('StartActivityEnclosures', array(&$this, &$xs, &$enclosures))) {
+            foreach ($enclosures as $enclosure) {
+                $attributes = array('rel' => 'enclosure',
+                                    'href' => $enclosure->url,
+                                    'type' => $enclosure->mimetype,
+                                    'length' => $enclosure->size);
+
+                if ($enclosure->title) {
+                    $attributes['title'] = $enclosure->title;
+                }
+
+                $xs->element('link', $attributes, null);
+            }
+            Event::handle('EndActivityEnclosures', array(&$this, &$xs, $enclosures));
         }
 
-        $xs->elementEnd('entry');
+        $lat = $this->lat;
+        $lon = $this->lon;
+
+        if (Event::handle('StartActivityGeo', array(&$this, &$xs, &$lat, &$lon))) {
+            if (!empty($lat) && !empty($lon)) {
+                $xs->element('georss:point', null, $lat . ' ' . $lon);
+            }
+            Event::handle('EndActivityGeo', array(&$this, &$xs, $lat, $lon));
+        }
+
+        if (Event::handle('StartActivityEnd', array(&$this, &$xs))) {
+            $xs->elementEnd('entry');
+            Event::handle('EndActivityEnd', array(&$this, &$xs));
+        }
 
         return $xs->getString();
     }
@@ -1343,7 +1587,7 @@ class Notice extends Memcached_DataObject
 
     function stream($fn, $args, $cachekey, $offset=0, $limit=20, $since_id=0, $max_id=0)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (empty($cache) ||
             $since_id != 0 || $max_id != 0 ||
@@ -1353,7 +1597,7 @@ class Notice extends Memcached_DataObject
                                                                       $max_id)));
         }
 
-        $idkey = common_cache_key($cachekey);
+        $idkey = Cache::key($cachekey);
 
         $idstr = $cache->get($idkey);
 
@@ -1535,17 +1779,17 @@ class Notice extends Memcached_DataObject
 
     function repeatStream($limit=100)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         if (empty($cache)) {
             $ids = $this->_repeatStreamDirect($limit);
         } else {
-            $idstr = $cache->get(common_cache_key('notice:repeats:'.$this->id));
+            $idstr = $cache->get(Cache::key('notice:repeats:'.$this->id));
             if ($idstr !== false) {
                 $ids = explode(',', $idstr);
             } else {
                 $ids = $this->_repeatStreamDirect(100);
-                $cache->set(common_cache_key('notice:repeats:'.$this->id), implode(',', $ids));
+                $cache->set(Cache::key('notice:repeats:'.$this->id), implode(',', $ids));
             }
             if ($limit < 100) {
                 // We do a max of 100, so slice down to limit
@@ -1699,10 +1943,10 @@ class Notice extends Memcached_DataObject
 
         if ($tag->find()) {
             while ($tag->fetch()) {
-                self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, common_keyize($tag->tag));
-                self::blow('profile:notice_ids_tagged:%d:%s;last', $this->profile_id, common_keyize($tag->tag));
-                self::blow('notice_tag:notice_ids:%s', common_keyize($tag->tag));
-                self::blow('notice_tag:notice_ids:%s;last', common_keyize($tag->tag));
+                self::blow('profile:notice_ids_tagged:%d:%s', $this->profile_id, Cache::keyize($tag->tag));
+                self::blow('profile:notice_ids_tagged:%d:%s;last', $this->profile_id, Cache::keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s', Cache::keyize($tag->tag));
+                self::blow('notice_tag:notice_ids:%s;last', Cache::keyize($tag->tag));
                 $tag->delete();
             }
         }
@@ -1780,5 +2024,74 @@ class Notice extends Memcached_DataObject
         }
 
         return $result;
+    }
+
+    /**
+     * Get the source of the notice
+     *
+     * @return Notice_source $ns A notice source object. 'code' is the only attribute
+     *                           guaranteed to be populated.
+     */
+    function getSource()
+    {
+        $ns = new Notice_source();
+        if (!empty($this->source)) {
+            switch ($this->source) {
+            case 'web':
+            case 'xmpp':
+            case 'mail':
+            case 'omb':
+            case 'system':
+            case 'api':
+                $ns->code = $this->source;
+                break;
+            default:
+                $ns = Notice_source::staticGet($this->source);
+                if (!$ns) {
+                    $ns = new Notice_source();
+                    $ns->code = $this->source;
+                    $app = Oauth_application::staticGet('name', $this->source);
+                    if ($app) {
+                        $ns->name = $app->name;
+                        $ns->url  = $app->source_url;
+                    }
+                }
+                break;
+            }
+        }
+        return $ns;
+    }
+
+    /**
+     * Determine whether the notice was locally created
+     *
+     * @return boolean locality
+     */
+
+    public function isLocal()
+    {
+        return ($this->is_local == Notice::LOCAL_PUBLIC ||
+                $this->is_local == Notice::LOCAL_NONPUBLIC);
+    }
+
+    public function getTags()
+    {
+        $tags = array();
+        $tag = new Notice_tag();
+        $tag->notice_id = $this->id;
+        if ($tag->find()) {
+            while ($tag->fetch()) {
+                $tags[] = $tag->tag;
+            }
+        }
+        $tag->free();
+        return $tags;
+    }
+
+    static private function utcDate($dt)
+    {
+        $dateStr = date('d F Y H:i:s', strtotime($dt));
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        return $d->format(DATE_W3C);
     }
 }

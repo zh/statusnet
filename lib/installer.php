@@ -32,6 +32,7 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @author   Zach Copley <zach@status.net>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
  * @version  0.9.x
  * @link     http://status.net
@@ -51,7 +52,7 @@ abstract class Installer
     public static $dbModules = array(
         'mysql' => array(
             'name' => 'MySQL',
-            'check_module' => 'mysql', // mysqli?
+            'check_module' => 'mysqli',
             'installer' => 'mysql_db_installer',
         ),
         'pgsql' => array(
@@ -81,13 +82,16 @@ abstract class Installer
     {
         $pass = true;
 
-        if (file_exists(INSTALLDIR.'/config.php')) {
-            $this->warning('Config file "config.php" already exists.');
-            $pass = false;
+        $config = INSTALLDIR.'/config.php';
+        if (file_exists($config)) {
+            if (!is_writable($config) || filesize($config) > 0) {
+                $this->warning('Config file "config.php" already exists.');
+                $pass = false;
+            }
         }
 
         if (version_compare(PHP_VERSION, '5.2.3', '<')) {
-            $errors[] = 'Require PHP version 5.2.3 or greater.';
+            $this->warning('Require PHP version 5.2.3 or greater.');
             $pass = false;
         }
 
@@ -128,6 +132,7 @@ abstract class Installer
             $pass = false;
         }
 
+        // @fixme this check seems to be insufficient with Windows ACLs
         if (!is_writable(INSTALLDIR)) {
             $this->warning(sprintf('Cannot write config file to: <code>%s</code></p>', INSTALLDIR),
                            sprintf('On your server, try this command: <code>chmod a+w %s</code>', INSTALLDIR));
@@ -314,7 +319,7 @@ abstract class Installer
             $this->updateStatus(sprintf("Adding %s data to database...", $name));
             $res = $this->runDbScript($scr.'.sql', $conn, 'pgsql');
             if ($res === false) {
-                $this->updateStatus(sprintf("Can't run %d script.", $name), true);
+                $this->updateStatus(sprintf("Can't run %s script.", $name), true);
                 return false;
             }
         }
@@ -341,7 +346,6 @@ abstract class Installer
      * @param string $password
      * @return mixed array of database connection params on success, false on failure
      * 
-     * @fixme be consistent about using mysqli vs mysql!
      * @fixme escape things in the connection string in case we have a funny pass etc
      */
     function Mysql_Db_installer($host, $database, $username, $password)
@@ -349,14 +353,13 @@ abstract class Installer
         $this->updateStatus("Starting installation...");
         $this->updateStatus("Checking database...");
 
-        $conn = mysql_connect($host, $username, $password);
-        if (!$conn) {
+        $conn = mysqli_init();
+        if (!$conn->real_connect($host, $username, $password)) {
             $this->updateStatus("Can't connect to server '$host' as '$username'.", true);
             return false;
         }
         $this->updateStatus("Changing to database...");
-        $res = mysql_select_db($database, $conn);
-        if (!$res) {
+        if (!$conn->select_db($database)) {
             $this->updateStatus("Can't change to database.", true);
             return false;
         }
@@ -411,6 +414,10 @@ abstract class Installer
                 "\$config['db']['database'] = '{$this->db['database']}';\n\n".
                 ($this->db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
                 "\$config['db']['type'] = '{$this->db['type']}';\n\n";
+
+        // Normalize line endings for Windows servers
+        $cfg = str_replace("\n", PHP_EOL, $cfg);
+
         // write configuration file out to install directory
         $res = file_put_contents(INSTALLDIR.'/config.php', $cfg);
 
@@ -438,9 +445,9 @@ abstract class Installer
             // FIXME: use PEAR::DB or PDO instead of our own switch
             switch ($type) {
             case 'mysqli':
-                $res = mysql_query($stmt, $conn);
+                $res = $conn->query($stmt);
                 if ($res === false) {
-                    $error = mysql_error();
+                    $error = $conn->error;
                 }
                 break;
             case 'pgsql':

@@ -32,7 +32,7 @@ class MagicEnvelope
     const ENCODING = 'base64url';
 
     const NS = 'http://salmon-protocol.org/ns/magic-env';
-    
+
     private function normalizeUser($user_id)
     {
         if (substr($user_id, 0, 5) == 'http:' ||
@@ -70,13 +70,13 @@ class MagicEnvelope
                         $keypair = $parts[1];
                     }
                 }
-                
+
                 if ($keypair) {
                     return $keypair;
                 }
             }
         }
-        throw new Exception('Unable to locate signer public key');
+        throw new Exception('Unable to locate signer public key.');
     }
 
 
@@ -92,32 +92,25 @@ class MagicEnvelope
             'sig' => $signature_alg->sign($armored_text),
             'alg' => $signature_alg->getName()
         );
-            
-            
+
     }
 
     public function toXML($env) {
-        $dom = new DOMDocument();
+        $xs = new XMLStringer();
+        $xs->startXML();
+        $xs->elementStart('me:env', array('xmlns:me' => MagicEnvelope::NS));
+        $xs->element('me:data', array('type' => $env['data_type']), $env['data']);
+        $xs->element('me:encoding', null, $env['encoding']);
+        $xs->element('me:alg', null, $env['alg']);
+        $xs->element('me:sig', null, $env['sig']);
+        $xs->elementEnd('me:env');
 
-        $envelope = $dom->createElementNS(MagicEnvelope::NS, 'me:env');
-        $envelope->setAttribute('xmlns:me', MagicEnvelope::NS);
-        $data = $dom->createElementNS(MagicEnvelope::NS, 'me:data', $env['data']);
-        $data->setAttribute('type', $env['data_type']);
-        $envelope->appendChild($data);
-        $enc = $dom->createElementNS(MagicEnvelope::NS, 'me:encoding', $env['encoding']);
-        $envelope->appendChild($enc);
-        $alg = $dom->createElementNS(MagicEnvelope::NS, 'me:alg', $env['alg']);
-        $envelope->appendChild($alg);
-        $sig = $dom->createElementNS(MagicEnvelope::NS, 'me:sig', $env['sig']);
-        $envelope->appendChild($sig);
-
-        $dom->appendChild($envelope);
-        
-        
-        return $dom->saveXML();
+        $string =  $xs->getString();
+        common_debug($string);
+        return $string;
     }
 
-    
+
     public function unfold($env)
     {
         $dom = new DOMDocument();
@@ -143,7 +136,7 @@ class MagicEnvelope
 
         return $dom->saveXML();
     }
-    
+
     public function getAuthor($text) {
         $doc = new DOMDocument();
         if (!$doc->loadXML($text)) {
@@ -160,12 +153,12 @@ class MagicEnvelope
             }
         }
     }
-    
+
     public function checkAuthor($text, $signer_uri)
     {
         return ($this->getAuthor($text) == $signer_uri);
     }
-    
+
     public function verify($env)
     {
         if ($env['alg'] != 'RSA-SHA256') {
@@ -187,14 +180,14 @@ class MagicEnvelope
             common_log(LOG_DEBUG, "Salmon error: ".$e->getMessage());
             return false;
         }
-        
+
         $verifier = Magicsig::fromString($keypair);
 
         if (!$verifier) {
             common_log(LOG_DEBUG, "Salmon error: unable to parse keypair");
             return false;
         }
-        
+
         return $verifier->verify($env['data'], $env['sig']);
     }
 
@@ -216,13 +209,13 @@ class MagicEnvelope
         }
 
         $data_element = $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'data')->item(0);
-        
+        $sig_element = $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'sig')->item(0);
         return array(
-            'data' => trim($data_element->nodeValue),
+            'data' => preg_replace('/\s/', '', $data_element->nodeValue),
             'data_type' => $data_element->getAttribute('type'),
             'encoding' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'encoding')->item(0)->nodeValue,
             'alg' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'alg')->item(0)->nodeValue,
-            'sig' => $env_element->getElementsByTagNameNS(MagicEnvelope::NS, 'sig')->item(0)->nodeValue,
+            'sig' => preg_replace('/\s/', '', $sig_element->nodeValue),
         );
     }
 

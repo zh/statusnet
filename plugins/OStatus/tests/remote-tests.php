@@ -500,7 +500,7 @@ class SNTestClient extends TestBase
         $me = $this->getProfileUri();
         return $this->checkSubscription($profile_uri, $me);
     }
-    
+
     protected function checkSubscription($subscriber, $subscribed)
     {
         // Using FOAF as the API methods for checking the social graph
@@ -552,4 +552,3 @@ $b = $args[1];
 
 $tester = new OStatusTester($a, $b);
 $tester->run();
-

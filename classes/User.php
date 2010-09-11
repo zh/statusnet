@@ -355,11 +355,12 @@ class User extends Memcached_DataObject
                                __FILE__);
                 } else {
                     $notice = Notice::saveNew($welcomeuser->id,
+                                              // TRANS: Notice given on user registration.
+                                              // TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
                                               sprintf(_('Welcome to %1$s, @%2$s!'),
                                                       common_config('site', 'name'),
                                                       $user->nickname),
                                               'system');
-
                 }
             }
 
@@ -370,7 +371,6 @@ class User extends Memcached_DataObject
     }
 
     // Things we do when the email changes
-
     function emailChanged()
     {
 
@@ -388,7 +388,7 @@ class User extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
 
         // XXX: Kind of a hack.
 
@@ -459,9 +459,9 @@ class User extends Memcached_DataObject
         return $profile->getNotices($offset, $limit, $since_id, $before_id);
     }
 
-    function favoriteNotices($offset=0, $limit=NOTICES_PER_PAGE, $own=false)
+    function favoriteNotices($own=false, $offset=0, $limit=NOTICES_PER_PAGE, $since_id=0, $max_id=0)
     {
-        $ids = Fave::stream($this->id, $offset, $limit, $own);
+        $ids = Fave::stream($this->id, $offset, $limit, $own, $since_id, $max_id);
         return Notice::getStreamByIds($ids);
     }
 
@@ -487,14 +487,14 @@ class User extends Memcached_DataObject
 
     function blowFavesCache()
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
         if ($cache) {
             // Faves don't happen chronologically, so we need to blow
             // ;last cache, too
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id.';last'));
         }
         $profile = $this->getProfile();
         $profile->blowFaveCount();
@@ -519,7 +519,7 @@ class User extends Memcached_DataObject
         if ($this->id == $other->id) {
             common_log(LOG_WARNING,
                 sprintf(
-                    "Profile ID %d (%s) tried to block his or herself.",
+                    "Profile ID %d (%s) tried to block themself.",
                     $this->id,
                     $this->nickname
                 )

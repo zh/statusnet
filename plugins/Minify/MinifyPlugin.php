@@ -29,6 +29,7 @@ Author URI: http://candrews.integralblue.com/
 /**
  * @package MinifyPlugin
  * @maintainer Craig Andrews <candrews@integralblue.com>
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  */
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
@@ -118,9 +119,9 @@ class MinifyPlugin extends Plugin
     function onStartInlineScriptElement($action,&$code,&$type)
     {
         if($this->minifyInlineJs && $type=='text/javascript'){
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {
@@ -138,9 +139,9 @@ class MinifyPlugin extends Plugin
     function onStartStyleElement($action,&$code,&$type,&$media)
     {
         if($this->minifyInlineCss && $type=='text/css'){
-            $c = common_memcache();
+            $c = Cache::instance();
             if (!empty($c)) {
-                $cacheKey = common_cache_key(self::cacheKey . ':' . crc32($code));
+                $cacheKey = Cache::key(self::cacheKey . ':' . crc32($code));
                 $out = $c->get($cacheKey);
             }
             if(empty($out)) {

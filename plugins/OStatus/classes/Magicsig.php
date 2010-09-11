@@ -33,21 +33,21 @@ class Magicsig extends Memcached_DataObject
 {
 
     const PUBLICKEYREL = 'magic-public-key';
-    
+
     public $__table = 'magicsig';
 
     public $user_id;
     public $keypair;
     public $alg;
-    
+
     public $publicKey;
     public $privateKey;
-    
+
     public function __construct($alg = 'RSA-SHA256')
     {
         $this->alg = $alg;
     }
-    
+
     public /*static*/ function staticGet($k, $v=null)
     {
         $obj =  parent::staticGet(__CLASS__, $k, $v);
@@ -111,7 +111,7 @@ class Magicsig extends Memcached_DataObject
     public function generate($user_id)
     {
         $rsa = new Crypt_RSA();
-        
+
         $keypair = $rsa->createKey();
 
         $rsa->loadKey($keypair['privatekey']);
@@ -121,7 +121,7 @@ class Magicsig extends Memcached_DataObject
 
         $this->publicKey = new Crypt_RSA();
         $this->publicKey->loadKey($keypair['publickey']);
-        
+
         $this->user_id = $user_id;
         $this->insert();
     }
@@ -136,13 +136,13 @@ class Magicsig extends Memcached_DataObject
             $private_exp = '.' . Magicsig::base64_url_encode($this->privateKey->exponent->toBytes());
         }
 
-        return 'RSA.' . $mod . '.' . $exp . $private_exp; 
+        return 'RSA.' . $mod . '.' . $exp . $private_exp;
     }
-    
+
     public static function fromString($text)
     {
         $magic_sig = new Magicsig();
-        
+
         // remove whitespace
         $text = preg_replace('/\s+/', '', $text);
 
@@ -150,7 +150,7 @@ class Magicsig extends Memcached_DataObject
         if (!preg_match('/RSA\.([^\.]+)\.([^\.]+)(.([^\.]+))?/', $text, $matches)) {
             return false;
         }
-        
+
         $mod = $matches[1];
         $exp = $matches[2];
         if (!empty($matches[4])) {
@@ -184,7 +184,7 @@ class Magicsig extends Memcached_DataObject
             $this->publicKey = $rsa;
         }
     }
-    
+
     public function getName()
     {
         return $this->alg;
@@ -199,7 +199,7 @@ class Magicsig extends Memcached_DataObject
         }
 
     }
-    
+
     public function sign($bytes)
     {
         $sig = $this->privateKey->sign($bytes);
@@ -223,5 +223,3 @@ class Magicsig extends Memcached_DataObject
         return base64_decode(strtr($input, '-_', '+/'));
     }
 }
-
-

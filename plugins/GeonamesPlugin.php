@@ -376,7 +376,7 @@ class GeonamesPlugin extends Plugin
             return true;
         }
 
-        $url = 'http://sw.geonames.org/' . $location->location_id . '/';
+        $url = 'http://sws.geonames.org/' . $location->location_id . '/';
 
         // it's been filled, so don't process further.
         return false;
@@ -384,7 +384,7 @@ class GeonamesPlugin extends Plugin
 
     function getCache($attrs)
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (empty($c)) {
             return null;
@@ -399,7 +399,7 @@ class GeonamesPlugin extends Plugin
 
     function setCache($attrs, $loc)
     {
-        $c = common_memcache();
+        $c = Cache::instance();
 
         if (empty($c)) {
             return null;
@@ -416,11 +416,11 @@ class GeonamesPlugin extends Plugin
     {
         $key = 'geonames:' .
                implode(',', array_keys($attrs)) . ':'.
-               common_keyize(implode(',', array_values($attrs)));
+               Cache::keyize(implode(',', array_values($attrs)));
         if ($this->cachePrefix) {
             return $this->cachePrefix . ':' . $key;
         } else {
-            return common_cache_key($key);
+            return Cache::key($key);
         }
     }
 

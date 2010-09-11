@@ -74,7 +74,7 @@ class OStatusGroupAction extends OStatusSubAction
         $this->input('profile',
                      _m('Join group'),
                      $this->profile_uri,
-                     _m("OStatus group's address, like http://example.net/group/nickname"));
+                     _m("OStatus group's address, like http://example.net/group/nickname."));
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
@@ -104,7 +104,7 @@ class OStatusGroupAction extends OStatusSubAction
         }
 
         $this->showEntity($group,
-                          $group->getProfileUrl(),
+                          $group->homeUrl(),
                           $group->homepage_logo,
                           $group->description);
         return $ok;

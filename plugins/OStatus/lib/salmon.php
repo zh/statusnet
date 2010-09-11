@@ -28,11 +28,13 @@
  */
 class Salmon
 {
+    const REL_SALMON = 'salmon';
+    const REL_MENTIONED = 'mentioned';
 
+    // XXX: these are deprecated
     const NS_REPLIES = "http://salmon-protocol.org/ns/salmon-replies";
-
     const NS_MENTIONS = "http://salmon-protocol.org/ns/salmon-mention";
-    
+
     /**
      * Sign and post the given Atom entry as a Salmon message.
      *
@@ -85,9 +87,10 @@ class Salmon
                 // No keypair yet, let's generate one.
                 $magickey = new Magicsig();
                 $magickey->generate($user->id);
-            } 
+            }
         } else {
-            throw new Exception("Salmon invalid actor for signing");
+            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
+            throw new Exception("Salmon invalid actor for signing.");
         }
 
         try {
@@ -102,7 +105,7 @@ class Salmon
     public function verifyMagicEnv($text)
     {
         $magic_env = new MagicEnvelope();
-        
+
         $env = $magic_env->parse($text);
 
         return $magic_env->verify($env);

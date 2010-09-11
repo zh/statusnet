@@ -22,10 +22,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.1');
+define('STATUSNET_VERSION', '0.9.5');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'Everybody Hurts');
+define('STATUSNET_CODENAME', 'What\'s The Frequency, Kenneth?');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -132,6 +132,12 @@ require_once INSTALLDIR.'/lib/serverexception.php';
 //set PEAR error handling to use regular PHP exceptions
 function PEAR_ErrorToPEAR_Exception($err)
 {
+    //DB_DataObject throws error when an empty set would be returned
+    //That behavior is weird, and not how the rest of StatusNet works.
+    //So just ignore those errors.
+    if ($err->getCode() == DB_DATAOBJECT_ERROR_NODATA) {
+        return;
+    }
     if ($err->getCode()) {
         throw new PEAR_Exception($err->getMessage(), $err->getCode());
     }

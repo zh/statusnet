@@ -30,6 +30,7 @@ class DiscoveryHints {
             case Discovery::PROFILEPAGE:
                 $hints['profileurl'] = $link['href'];
                 break;
+            case Salmon::NS_MENTIONS:
             case Salmon::NS_REPLIES:
                 $hints['salmon'] = $link['href'];
                 break;
@@ -83,7 +84,7 @@ class DiscoveryHints {
             $hints['fullname'] = implode(' ', $hcard['n']);
         }
 
-        if (array_key_exists('photo', $hcard)) {
+        if (array_key_exists('photo', $hcard) && count($hcard['photo'])) {
             $hints['avatar'] = $hcard['photo'][0];
         }
 
@@ -113,9 +114,10 @@ class DiscoveryHints {
 
     static function _hcard($body, $url)
     {
-        // DOMDocument::loadHTML may throw warnings on unrecognized elements.
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements,
+        // and notices on unrecognized namespaces.
 
-        $old = error_reporting(error_reporting() & ~E_WARNING);
+        $old = error_reporting(error_reporting() & ~(E_WARNING | E_NOTICE));
 
         $doc = new DOMDocument();
         $doc->loadHTML($body);

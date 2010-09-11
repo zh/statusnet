@@ -27,14 +27,78 @@
  * @author    Jeffery To <jeffery.to@gmail.com>
  * @author    Toby Inkster <mail@tobyinkster.co.uk>
  * @author    Zach Copley <zach@status.net>
- * @copyright 2009 StatusNet, Inc.
+ * @copyright 2009-2010 StatusNet, Inc.
+ * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
 
+/* External API usage documentation. Please update when you change how the API works. */
+
+/*! @mainpage StatusNet REST API
+
+    @section Introduction
+
+    Some explanatory text about the API would be nice.
+
+    @section API Methods
+
+    @subsection timelinesmethods_sec Timeline Methods
+
+    @li @ref publictimeline
+    @li @ref friendstimeline
+
+    @subsection statusmethods_sec Status Methods
+
+    @li @ref statusesupdate
+
+    @subsection usermethods_sec User Methods
+
+    @subsection directmessagemethods_sec Direct Message Methods
+
+    @subsection friendshipmethods_sec Friendship Methods
+
+    @subsection socialgraphmethods_sec Social Graph Methods
+
+    @subsection accountmethods_sec Account Methods
+
+    @subsection favoritesmethods_sec Favorites Methods
+
+    @subsection blockmethods_sec Block Methods
+
+    @subsection oauthmethods_sec OAuth Methods
+
+    @subsection helpmethods_sec Help Methods
+
+    @subsection groupmethods_sec Group Methods
+
+    @page apiroot API Root
+
+    The URLs for methods referred to in this API documentation are
+    relative to the StatusNet API root. The API root is determined by the
+    site's @b server and @b path variables, which are generally specified
+    in config.php. For example:
+
+    @code
+    $config['site']['server'] = 'example.org';
+    $config['site']['path'] = 'statusnet'
+    @endcode
+
+    The pattern for a site's API root is: @c protocol://server/path/api E.g:
+
+    @c http://example.org/statusnet/api
+
+    The @b path can be empty.  In that case the API root would simply be:
+
+    @c http://example.org/api
+
+*/
+
 if (!defined('STATUSNET')) {
     exit(1);
 }
+
+class ApiValidationException extends Exception { }
 
 /**
  * Contains most of the Twitter-compatible API output functions.
@@ -63,8 +127,12 @@ class ApiAction extends Action
     var $count     = null;
     var $max_id    = null;
     var $since_id  = null;
+    var $source    = null;
+    var $callback  = null;
 
     var $access    = self::READ_ONLY;  // read (default) or read-write
+
+    static $reserved_sources = array('web', 'omb', 'ostatus', 'mail', 'xmpp', 'api');
 
     /**
      * Initialization.
@@ -80,6 +148,7 @@ class ApiAction extends Action
         parent::prepare($args);
 
         $this->format   = $this->arg('format');
+        $this->callback = $this->arg('callback');
         $this->page     = (int)$this->arg('page', 1);
         $this->count    = (int)$this->arg('count', 20);
         $this->max_id   = (int)$this->arg('max_id', 0);
@@ -87,6 +156,12 @@ class ApiAction extends Action
 
         if ($this->arg('since')) {
             header('X-StatusNet-Warning: since parameter is disabled; use since_id');
+        }
+
+        $this->source = $this->trimmed('source');
+
+        if (empty($this->source) || in_array($this->source, self::$reserved_sources)) {
+            $this->source = 'api';
         }
 
         return true;
@@ -200,11 +275,13 @@ class ApiAction extends Action
 
         // Is the requesting user following this user?
         $twitter_user['following'] = false;
+        $twitter_user['statusnet:blocking'] = false;
         $twitter_user['notifications'] = false;
 
         if (isset($this->auth_user)) {
 
             $twitter_user['following'] = $this->auth_user->isSubscribed($profile);
+            $twitter_user['statusnet:blocking']  = $this->auth_user->hasBlocked($profile);
 
             // Notifications on?
             $sub = Subscription::pkeyGet(array('subscriber' =>
@@ -223,6 +300,10 @@ class ApiAction extends Action
                 $twitter_user['status'] = $this->twitterStatusArray($notice, false);
             }
         }
+
+        // StatusNet-specific
+
+        $twitter_user['statusnet_profile_url'] = $profile->profileurl;
 
         return $twitter_user;
     }
@@ -252,7 +333,23 @@ class ApiAction extends Action
         $twitter_status['created_at'] = $this->dateTwitter($notice->created);
         $twitter_status['in_reply_to_status_id'] = ($notice->reply_to) ?
             intval($notice->reply_to) : null;
-        $twitter_status['source'] = $this->sourceLink($notice->source);
+
+        $source = null;
+
+        $ns = $notice->getSource();
+        if ($ns) {
+            if (!empty($ns->name) && !empty($ns->url)) {
+                $source = '<a href="'
+		    . htmlspecialchars($ns->url)
+		    . '" rel="nofollow">'
+		    . htmlspecialchars($ns->name)
+		    . '</a>';
+            } else {
+                $source = $ns->code;
+            }
+        }
+
+        $twitter_status['source'] = $source;
         $twitter_status['id'] = intval($notice->id);
 
         $replier_profile = null;
@@ -309,25 +406,41 @@ class ApiAction extends Action
             $twitter_status['user'] = $twitter_user;
         }
 
+        // StatusNet-specific
+
+        $twitter_status['statusnet_html'] = $notice->rendered;
+
         return $twitter_status;
     }
 
     function twitterGroupArray($group)
     {
-        $twitter_group=array();
-        $twitter_group['id']=$group->id;
-        $twitter_group['url']=$group->permalink();
-        $twitter_group['nickname']=$group->nickname;
-        $twitter_group['fullname']=$group->fullname;
-        $twitter_group['original_logo']=$group->original_logo;
-        $twitter_group['homepage_logo']=$group->homepage_logo;
-        $twitter_group['stream_logo']=$group->stream_logo;
-        $twitter_group['mini_logo']=$group->mini_logo;
-        $twitter_group['homepage']=$group->homepage;
-        $twitter_group['description']=$group->description;
-        $twitter_group['location']=$group->location;
-        $twitter_group['created']=$this->dateTwitter($group->created);
-        $twitter_group['modified']=$this->dateTwitter($group->modified);
+        $twitter_group = array();
+
+        $twitter_group['id'] = $group->id;
+        $twitter_group['url'] = $group->permalink();
+        $twitter_group['nickname'] = $group->nickname;
+        $twitter_group['fullname'] = $group->fullname;
+
+        if (isset($this->auth_user)) {
+            $twitter_group['member'] = $this->auth_user->isMember($group);
+            $twitter_group['blocked'] = Group_block::isBlocked(
+                $group,
+                $this->auth_user->getProfile()
+            );
+        }
+
+        $twitter_group['member_count'] = $group->getMemberCount();
+        $twitter_group['original_logo'] = $group->original_logo;
+        $twitter_group['homepage_logo'] = $group->homepage_logo;
+        $twitter_group['stream_logo'] = $group->stream_logo;
+        $twitter_group['mini_logo'] = $group->mini_logo;
+        $twitter_group['homepage'] = $group->homepage;
+        $twitter_group['description'] = $group->description;
+        $twitter_group['location'] = $group->location;
+        $twitter_group['created'] = $this->dateTwitter($group->created);
+        $twitter_group['modified'] = $this->dateTwitter($group->modified);
+
         return $twitter_group;
     }
 
@@ -351,65 +464,71 @@ class ApiAction extends Action
 
     function twitterRssEntryArray($notice)
     {
-        $profile = $notice->getProfile();
         $entry = array();
 
-        // We trim() to avoid extraneous whitespace in the output
+        if (Event::handle('StartRssEntryArray', array($notice, &$entry))) {
 
-        $entry['content'] = common_xml_safe_str(trim($notice->rendered));
-        $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
-        $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
-        $entry['published'] = common_date_iso8601($notice->created);
+            $profile = $notice->getProfile();
 
-        $taguribase = TagURI::base();
-        $entry['id'] = "tag:$taguribase:$entry[link]";
+            // We trim() to avoid extraneous whitespace in the output
 
-        $entry['updated'] = $entry['published'];
-        $entry['author'] = $profile->getBestName();
+            $entry['content'] = common_xml_safe_str(trim($notice->rendered));
+            $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
+            $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
+            $entry['published'] = common_date_iso8601($notice->created);
 
-        // Enclosures
-        $attachments = $notice->attachments();
-        $enclosures = array();
+            $taguribase = TagURI::base();
+            $entry['id'] = "tag:$taguribase:$entry[link]";
 
-        foreach ($attachments as $attachment) {
-            $enclosure_o=$attachment->getEnclosure();
-            if ($enclosure_o) {
-                 $enclosure = array();
-                 $enclosure['url'] = $enclosure_o->url;
-                 $enclosure['mimetype'] = $enclosure_o->mimetype;
-                 $enclosure['size'] = $enclosure_o->size;
-                 $enclosures[] = $enclosure;
+            $entry['updated'] = $entry['published'];
+            $entry['author'] = $profile->getBestName();
+
+            // Enclosures
+            $attachments = $notice->attachments();
+            $enclosures = array();
+
+            foreach ($attachments as $attachment) {
+                $enclosure_o=$attachment->getEnclosure();
+                if ($enclosure_o) {
+                    $enclosure = array();
+                    $enclosure['url'] = $enclosure_o->url;
+                    $enclosure['mimetype'] = $enclosure_o->mimetype;
+                    $enclosure['size'] = $enclosure_o->size;
+                    $enclosures[] = $enclosure;
+                }
             }
-        }
 
-        if (!empty($enclosures)) {
-            $entry['enclosures'] = $enclosures;
-        }
-
-        // Tags/Categories
-        $tag = new Notice_tag();
-        $tag->notice_id = $notice->id;
-        if ($tag->find()) {
-            $entry['tags']=array();
-            while ($tag->fetch()) {
-                $entry['tags'][]=$tag->tag;
+            if (!empty($enclosures)) {
+                $entry['enclosures'] = $enclosures;
             }
-        }
-        $tag->free();
 
-        // RSS Item specific
-        $entry['description'] = $entry['content'];
-        $entry['pubDate'] = common_date_rfc2822($notice->created);
-        $entry['guid'] = $entry['link'];
+            // Tags/Categories
+            $tag = new Notice_tag();
+            $tag->notice_id = $notice->id;
+            if ($tag->find()) {
+                $entry['tags']=array();
+                while ($tag->fetch()) {
+                    $entry['tags'][]=$tag->tag;
+                }
+            }
+            $tag->free();
 
-        if (isset($notice->lat) && isset($notice->lon)) {
-            // This is the format that GeoJSON expects stuff to be in.
-            // showGeoRSS() below uses it for XML output, so we reuse it
-            $entry['geo'] = array('type' => 'Point',
-                                  'coordinates' => array((float) $notice->lat,
-                                                         (float) $notice->lon));
-        } else {
-            $entry['geo'] = null;
+            // RSS Item specific
+            $entry['description'] = $entry['content'];
+            $entry['pubDate'] = common_date_rfc2822($notice->created);
+            $entry['guid'] = $entry['link'];
+
+            if (isset($notice->lat) && isset($notice->lon)) {
+                // This is the format that GeoJSON expects stuff to be in.
+                // showGeoRSS() below uses it for XML output, so we reuse it
+                $entry['geo'] = array('type' => 'Point',
+                                      'coordinates' => array((float) $notice->lat,
+                                                             (float) $notice->lon));
+            } else {
+                $entry['geo'] = null;
+            }
+
+            Event::handle('EndRssEntryArray', array($notice, &$entry));
         }
 
         return $entry;
@@ -476,9 +595,13 @@ class ApiAction extends Action
         }
     }
 
-    function showTwitterXmlStatus($twitter_status, $tag='status')
+    function showTwitterXmlStatus($twitter_status, $tag='status', $namespaces=false)
     {
-        $this->elementStart($tag);
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart($tag, $attrs);
         foreach($twitter_status as $element => $value) {
             switch ($element) {
             case 'user':
@@ -497,7 +620,11 @@ class ApiAction extends Action
                 $this->showTwitterXmlStatus($value, 'retweeted_status');
                 break;
             default:
-                $this->element($element, null, $value);
+                if (strncmp($element, 'statusnet_', 10) == 0) {
+                    $this->element('statusnet:'.substr($element, 10), null, $value);
+                } else {
+                    $this->element($element, null, $value);
+                }
             }
         }
         $this->elementEnd($tag);
@@ -512,12 +639,18 @@ class ApiAction extends Action
         $this->elementEnd('group');
     }
 
-    function showTwitterXmlUser($twitter_user, $role='user')
+    function showTwitterXmlUser($twitter_user, $role='user', $namespaces=false)
     {
-        $this->elementStart($role);
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart($role, $attrs);
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
                 $this->showTwitterXmlStatus($twitter_user['status']);
+            } else if (strncmp($element, 'statusnet_', 10) == 0) {
+                $this->element('statusnet:'.substr($element, 10), null, $value);
             } else {
                 $this->element($element, null, $value);
             }
@@ -596,7 +729,7 @@ class ApiAction extends Action
     {
         $this->initDocument('xml');
         $twitter_status = $this->twitterStatusArray($notice);
-        $this->showTwitterXmlStatus($twitter_status);
+        $this->showTwitterXmlStatus($twitter_status, 'status', true);
         $this->endDocument('xml');
     }
 
@@ -612,17 +745,20 @@ class ApiAction extends Action
     {
 
         $this->initDocument('xml');
-        $this->elementStart('statuses', array('type' => 'array'));
+        $this->elementStart('statuses', array('type' => 'array',
+                                              'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                $this->showTwitterXmlStatus($twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 $this->showTwitterXmlStatus($twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -670,14 +806,16 @@ class ApiAction extends Action
         $this->element('ttl', null, '40');
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $entry = $this->twitterRssEntryArray($n);
-                $this->showTwitterRssItem($entry);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $entry = $this->twitterRssEntryArray($notice);
                 $this->showTwitterRssItem($entry);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                // continue on exceptions
             }
         }
 
@@ -713,12 +851,15 @@ class ApiAction extends Action
         $this->element('subtitle', null, $subtitle);
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $this->raw($n->asAtomEntry());
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $this->raw($notice->asAtomEntry());
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -779,9 +920,13 @@ class ApiAction extends Action
         $this->elementEnd('entry');
     }
 
-    function showXmlDirectMessage($dm)
+    function showXmlDirectMessage($dm, $namespaces=false)
     {
-        $this->elementStart('direct_message');
+        $attrs = array();
+        if ($namespaces) {
+            $attrs['xmlns:statusnet'] = 'http://status.net/schema/api/1/';
+        }
+        $this->elementStart('direct_message', $attrs);
         foreach($dm as $element => $value) {
             switch ($element) {
             case 'sender':
@@ -858,7 +1003,7 @@ class ApiAction extends Action
     {
         $this->initDocument('xml');
         $dmsg = $this->directMessageArray($message);
-        $this->showXmlDirectMessage($dmsg);
+        $this->showXmlDirectMessage($dmsg, true);
         $this->endDocument('xml');
     }
 
@@ -909,14 +1054,16 @@ class ApiAction extends Action
         $statuses = array();
 
         if (is_array($notice)) {
-            foreach ($notice as $n) {
-                $twitter_status = $this->twitterStatusArray($n);
-                array_push($statuses, $twitter_status);
-            }
-        } else {
-            while ($notice->fetch()) {
+            $notice = new ArrayWrapper($notice);
+        }
+
+        while ($notice->fetch()) {
+            try {
                 $twitter_status = $this->twitterStatusArray($notice);
                 array_push($statuses, $twitter_status);
+            } catch (Exception $e) {
+                common_log(LOG_ERR, $e->getMessage());
+                continue;
             }
         }
 
@@ -975,7 +1122,8 @@ class ApiAction extends Action
     {
 
         $this->initDocument('xml');
-        $this->elementStart('users', array('type' => 'array'));
+        $this->elementStart('users', array('type' => 'array',
+                                           'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
 
         if (is_array($user)) {
             foreach ($user as $u) {
@@ -1052,9 +1200,8 @@ class ApiAction extends Action
             header('Content-Type: application/json; charset=utf-8');
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
-                print $callback . '(';
+            if (isset($this->callback)) {
+                print $this->callback . '(';
             }
             break;
         case 'rss':
@@ -1083,8 +1230,7 @@ class ApiAction extends Action
         case 'json':
 
             // Check for JSONP callback
-            $callback = $this->arg('callback');
-            if ($callback) {
+            if (isset($this->callback)) {
                 print ')';
             }
             break;
@@ -1114,7 +1260,10 @@ class ApiAction extends Action
 
         $status_string = ClientErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($format == 'xml') {
             $this->initDocument('xml');
@@ -1147,7 +1296,10 @@ class ApiAction extends Action
 
         $status_string = ServerErrorAction::$status[$code];
 
-        header('HTTP/1.1 '.$code.' '.$status_string);
+        // Do not emit error header for JSONP
+        if (!isset($this->callback)) {
+            header('HTTP/1.1 '.$code.' '.$status_string);
+        }
 
         if ($content_type == 'xml') {
             $this->initDocument('xml');
@@ -1251,6 +1403,34 @@ class ApiAction extends Action
         }
     }
 
+    function getTargetProfile($id)
+    {
+        if (empty($id)) {
+
+            // Twitter supports these other ways of passing the user ID
+            if (is_numeric($this->arg('id'))) {
+                return Profile::staticGet($this->arg('id'));
+            } else if ($this->arg('id')) {
+                $nickname = common_canonical_nickname($this->arg('id'));
+                return Profile::staticGet('nickname', $nickname);
+            } else if ($this->arg('user_id')) {
+                // This is to ensure that a non-numeric user_id still
+                // overrides screen_name even if it doesn't get used
+                if (is_numeric($this->arg('user_id'))) {
+                    return Profile::staticGet('id', $this->arg('user_id'));
+                }
+            } else if ($this->arg('screen_name')) {
+                $nickname = common_canonical_nickname($this->arg('screen_name'));
+                return Profile::staticGet('nickname', $nickname);
+            }
+        } else if (is_numeric($id)) {
+            return Profile::staticGet($id);
+        } else {
+            $nickname = common_canonical_nickname($id);
+            return Profile::staticGet('nickname', $nickname);
+        }
+    }
+
     function getTargetGroup($id)
     {
         if (empty($id)) {
@@ -1291,43 +1471,6 @@ class ApiAction extends Action
                 return User_group::staticGet('id', $local->group_id);
             }
         }
-    }
-
-    function sourceLink($source)
-    {
-        $source_name = _($source);
-        switch ($source) {
-        case 'web':
-        case 'xmpp':
-        case 'mail':
-        case 'omb':
-        case 'api':
-            break;
-        default:
-
-            $name = null;
-            $url  = null;
-
-            $ns = Notice_source::staticGet($source);
-
-            if ($ns) {
-                $name = $ns->name;
-                $url  = $ns->url;
-            } else {
-                $app = Oauth_application::staticGet('name', $source);
-                if ($app) {
-                    $name = $app->name;
-                    $url  = $app->source_url;
-                }
-            }
-
-            if (!empty($name) && !empty($url)) {
-                $source_name = '<a href="' . $url . '">' . $name . '</a>';
-            }
-
-            break;
-        }
-        return $source_name;
     }
 
     /**
