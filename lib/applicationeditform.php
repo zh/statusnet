@@ -43,13 +43,11 @@ require_once INSTALLDIR . '/lib/form.php';
  * @link     http://status.net/
  *
  */
-
 class ApplicationEditForm extends Form
 {
     /**
      * group for user to join
      */
-
     var $application = null;
 
     /**
@@ -58,7 +56,6 @@ class ApplicationEditForm extends Form
      * @param Action     $out   output channel
      * @param User_group $group group to join
      */
-
     function __construct($out=null, $application=null)
     {
         parent::__construct($out);
@@ -71,7 +68,6 @@ class ApplicationEditForm extends Form
      *
      * @return string ID of the form
      */
-
     function id()
     {
         if ($this->application) {
@@ -89,7 +85,6 @@ class ApplicationEditForm extends Form
      *
      * @return string the method to use for submitting
      */
-
     function method()
     {
         $this->enctype = 'multipart/form-data';
@@ -101,7 +96,6 @@ class ApplicationEditForm extends Form
      *
      * @return string of the form class
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -112,7 +106,6 @@ class ApplicationEditForm extends Form
      *
      * @return string URL of the action
      */
-
     function action()
     {
         $cur = common_current_user();
@@ -130,7 +123,6 @@ class ApplicationEditForm extends Form
      *
      * @return void
      */
-
     function formLegend()
     {
         // TRANS: Form legend.
@@ -142,7 +134,6 @@ class ApplicationEditForm extends Form
      *
      * @return void
      */
-
     function formData()
     {
         if ($this->application) {
@@ -350,16 +341,15 @@ class ApplicationEditForm extends Form
      *
      * @return void
      */
-
     function formActions()
     {
-        // TRANS: Button label
+        // TRANS: Button label in the "Edit application" form.
         $this->out->submit('cancel', _m('BUTTON','Cancel'), 'submit form_action-primary',
-                           // TRANS: Submit button title
+                           // TRANS: Submit button title.
                            'cancel', _('Cancel'));
-        // TRANS: Button label
+        // TRANS: Button label in the "Edit application" form.
         $this->out->submit('save', _m('BUTTON','Save'), 'submit form_action-secondary',
-                           // TRANS: Submit button title
+                           // TRANS: Submit button title.
                            'save', _('Save'));
     }
 }
