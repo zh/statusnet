@@ -387,4 +387,3 @@ class Activity
         return ActivityUtils::child($element, $tag, $namespace);
     }
 }
-

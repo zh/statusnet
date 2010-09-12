@@ -45,6 +45,7 @@ class AttachmentTagCloudSection extends TagCloudSection
 {
     function title()
     {
+        // TRANS: Title.
         return _('Tags for this attachment');
     }
 
