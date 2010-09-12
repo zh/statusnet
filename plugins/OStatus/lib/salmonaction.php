@@ -38,6 +38,7 @@ class SalmonAction extends Action
         parent::prepare($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            // TRANS: POST is a HTTP command. It should not be translated.
             $this->clientError(_m('This method requires a POST.'));
         }
 
