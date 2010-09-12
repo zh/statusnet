@@ -112,9 +112,9 @@ class Plugin
         $name = mb_substr($cls, 0, -6);
 
         $versions[] = array('name' => $name,
+                            // TRANS: Displayed as version information for a plugin if no version information was found.
                             'version' => _('Unknown'));
 
         return true;
     }
 }
-
