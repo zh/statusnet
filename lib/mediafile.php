@@ -315,12 +315,17 @@ class MediaFile
         }
         $media = MIME_Type::getMedia($filetype);
         if ('application' !== $media) {
-            $hint = sprintf(_(' Try using another %s format.'), $media);
+            // TRANS: Client exception thrown trying to upload a forbidden MIME type.
+            // TRANS: %1$s is the file type that was denied, %2$s is the application part of
+            // TRANS: the MIME type that was denied.
+            $hint = sprintf(_('"%1$s" is not a supported file type on this server. ' .
+            'Try using another %2$s format.'), $filetype, $media);
         } else {
-            $hint = '';
+            // TRANS: Client exception thrown trying to upload a forbidden MIME type.
+            // TRANS: %s is the file type that was denied.
+            $hint = sprintf(_('"%s" is not a supported file type on this server.'), $filetype);
         }
-        throw new ClientException(sprintf(
-            _('%s is not a supported file type on this server.'), $filetype) . $hint);
+        throw new ClientException($hint);
     }
 
     static function respectsQuota($user, $filesize)
