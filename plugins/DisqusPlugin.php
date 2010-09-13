@@ -71,6 +71,9 @@ if (!defined('STATUSNET')) {
 
 class DisqusPlugin extends Plugin
 {
+    public $shortname; // Required 'shortname' for actually triggering Disqus.
+    public $div_style; // Optional CSS chunk for the main <div>
+
     function onEndShowContentBlock($action)
     {
         if (get_class($action) == 'ShownoticeAction') {
