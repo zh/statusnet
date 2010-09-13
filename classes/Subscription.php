@@ -256,8 +256,8 @@ class Subscription extends Memcached_DataObject
                                $subscriber->getBestName(),
                                $subscribed->getBestName());
 
-        $act->actor   = ActivityObject::fromProfile($subscriber);
-        $act->object  = ActivityObject::fromProfile($subscribed);
+        $act->actor     = ActivityObject::fromProfile($subscriber);
+        $act->objects[] = ActivityObject::fromProfile($subscribed);
 
         return $act;
     }
