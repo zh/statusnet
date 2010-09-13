@@ -5,7 +5,6 @@
 # Author@translatewiki.net: Locos epraix
 # Author@translatewiki.net: McDutchie
 # Author@translatewiki.net: PerroVerd
-# Author@translatewiki.net: Pertile
 # Author@translatewiki.net: Peter17
 # Author@translatewiki.net: Translationista
 # --
@@ -15,12 +14,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:22+0000\n"
+"POT-Creation-Date: 2010-09-05 09:45+0000\n"
+"PO-Revision-Date: 2010-09-05 09:46:04+0000\n"
 "Language-Team: Spanish\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: out-statusnet\n"
@@ -95,6 +94,7 @@ msgstr "Guardar"
 msgid "No such page."
 msgstr "No existe tal página."
 
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -114,7 +114,7 @@ msgstr "No existe tal página."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "No existe ese usuario."
@@ -355,7 +355,8 @@ msgstr "No se encontró estado para ese ID"
 msgid "This status is already a favorite."
 msgstr "Este status ya está en favoritos."
 
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#. TRANS: Error message text shown when a favorite could not be set.
+#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "No se pudo crear favorito."
 
@@ -469,15 +470,19 @@ msgstr "El alias no puede ser el mismo que el usuario."
 msgid "Group not found."
 msgstr "Grupo no encontrado."
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
+#. TRANS: Error text shown a user tries to join a group they already are a member of.
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
 msgstr "Ya eres miembro de ese grupo"
 
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
+#. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
+#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
 msgstr "Has sido bloqueado de ese grupo por el administrador."
 
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:139 actions/joingroup.php:134 lib/command.php:353
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "No se pudo unir el usuario %s al grupo %s"
@@ -486,7 +491,10 @@ msgstr "No se pudo unir el usuario %s al grupo %s"
 msgid "You are not a member of this group."
 msgstr "No eres miembro de este grupo."
 
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
+#: lib/command.php:401
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "No se pudo eliminar al usuario %1$s del grupo %2$s."
@@ -606,7 +614,7 @@ msgstr ""
 "debes dar acceso a tu cuenta %4$s a terceras partes en las que confíes."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:450
+#: actions/apioauthauthorize.php:310 lib/action.php:463
 msgid "Account"
 msgstr "Cuenta"
 
@@ -649,11 +657,13 @@ msgstr "No puedes borrar el estado de otro usuario."
 msgid "No such notice."
 msgstr "No existe ese aviso."
 
-#: actions/apistatusesretweet.php:83
+#. TRANS: Error text shown when trying to repeat an own notice.
+#: actions/apistatusesretweet.php:83 lib/command.php:538
 msgid "Cannot repeat your own notice."
 msgstr "No puedes repetir tus propias notificaciones."
 
-#: actions/apistatusesretweet.php:91
+#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
+#: actions/apistatusesretweet.php:91 lib/command.php:544
 msgid "Already repeated that notice."
 msgstr "Esta notificación ya se ha repetido."
 
@@ -669,7 +679,7 @@ msgstr "No hay estado para ese ID"
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "El cliente debe proveer un parámetro de 'status' con un valor."
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -679,7 +689,7 @@ msgstr "La entrada es muy larga. El tamaño máximo es de %d caracteres."
 msgid "Not found."
 msgstr "No encontrado."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -796,7 +806,7 @@ msgid "Preview"
 msgstr "Vista previa"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Borrar"
 
@@ -889,6 +899,8 @@ msgstr "Bloquear este usuario."
 msgid "Failed to save block information."
 msgstr "No se guardó información de bloqueo."
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -898,8 +910,8 @@ msgstr "No se guardó información de bloqueo."
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
 msgstr "No existe ese grupo."
 
@@ -1013,7 +1025,7 @@ msgstr "No eres el propietario de esta aplicación."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1263
+#: lib/action.php:1307
 msgid "There was a problem with your session token."
 msgstr "Hubo problemas con tu clave de sesión."
 
@@ -1078,7 +1090,7 @@ msgid "Do not delete this notice"
 msgstr "No eliminar este mensaje"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
+#: actions/deletenotice.php:158 lib/noticelist.php:657
 msgid "Delete this notice"
 msgstr "Borrar este aviso"
 
@@ -2174,7 +2186,7 @@ msgstr "Ya estás suscrito a estos usuarios:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2297,9 +2309,7 @@ msgstr "Debes estar conectado para unirte a un grupo."
 msgid "No nickname or ID."
 msgstr "Ningún nombre de usuario o ID."
 
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s se ha unido al grupo %2$s"
@@ -2308,13 +2318,12 @@ msgstr "%1$s se ha unido al grupo %2$s"
 msgid "You must be logged in to leave a group."
 msgstr "Debes estar conectado para dejar un grupo."
 
-#: actions/leavegroup.php:100 lib/command.php:373
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
 msgid "You are not a member of that group."
 msgstr "No eres miembro de este grupo."
 
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s ha dejado el grupo %2$s"
@@ -2429,12 +2438,15 @@ msgstr "Usa este formulario para crear un grupo nuevo."
 msgid "New message"
 msgstr "Nuevo Mensaje "
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
 msgid "You can't send a message to this user."
 msgstr "No puedes enviar mensaje a este usuario."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
-#: lib/command.php:555
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
 msgid "No content!"
 msgstr "¡Ningún contenido!"
 
@@ -2442,7 +2454,8 @@ msgstr "¡Ningún contenido!"
 msgid "No recipient specified."
 msgstr "No se especificó receptor."
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "No te auto envíes un mensaje; dícetelo a ti mismo."
@@ -2451,12 +2464,14 @@ msgstr "No te auto envíes un mensaje; dícetelo a ti mismo."
 msgid "Message sent"
 msgstr "Mensaje enviado"
 
-#: actions/newmessage.php:185
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Se ha enviado un mensaje directo a %s."
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Error de Ajax"
 
@@ -2464,7 +2479,7 @@ msgstr "Error de Ajax"
 msgid "New notice"
 msgstr "Nuevo aviso"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Mensaje publicado"
 
@@ -2597,8 +2612,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "Solamente %s URLs sobre HTTP simples por favor."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "No es un formato de dato soportado"
 
@@ -3521,7 +3536,7 @@ msgstr "No puedes repetir tus propios mensajes."
 msgid "You already repeated that notice."
 msgstr "Ya has repetido este mensaje."
 
-#: actions/repeat.php:114 lib/noticelist.php:675
+#: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
 msgstr "Repetido"
 
@@ -4830,7 +4845,7 @@ msgid "Plugins"
 msgstr "Complementos"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:789
+#: actions/version.php:198 lib/action.php:805
 msgid "Version"
 msgstr "Versión"
 
@@ -4935,23 +4950,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "No existe tal perfil (%1$d) para notificar (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Error de la BD al insertar la etiqueta clave: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr "Ha habido un problema al guardar el mensaje. Es muy largo."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "Ha habido un problema al guardar el mensaje. Usuario desconocido."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -4959,7 +4974,7 @@ msgstr ""
 "minutos."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4968,29 +4983,29 @@ msgstr ""
 "pasados unos minutos."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr "Tienes prohibido publicar avisos en este sitio."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Hubo un problema al guardar el aviso."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr "Mal tipo proveído a saveKnownGroups"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr "Hubo un problema al guarda la bandeja de entrada del grupo."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
+#: classes/Notice.php:1757
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5016,7 +5031,7 @@ msgid "Missing profile."
 msgstr "Perfil ausente."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:346
+#: classes/Status_network.php:339
 msgid "Unable to save tag."
 msgstr "Incapaz de grabar etiqueta."
 
@@ -5034,12 +5049,6 @@ msgstr "¡Ya te has suscrito!"
 #: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr "El usuario te ha bloqueado."
-
-#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "¡No estás suscrito!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -5119,199 +5128,199 @@ msgid "Other"
 msgstr "Otro"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:145
+#: lib/action.php:148
 #, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s - %2$s"
 
 #. TRANS: Page title for a page without a title set.
-#: lib/action.php:161
+#: lib/action.php:164
 msgid "Untitled page"
 msgstr "Página sin título"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:436
+#: lib/action.php:449
 msgid "Primary site navigation"
 msgstr "Navegación de sitio primario"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:442
+#: lib/action.php:455
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Perfil personal y línea temporal de amistades"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:445
+#: lib/action.php:458
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Personal"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:447
+#: lib/action.php:460
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Cambia tu correo electrónico, imagen, contraseña, perfil"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:452
+#: lib/action.php:465
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Conectar a los servicios"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:455
+#: lib/action.php:468
 msgid "Connect"
 msgstr "Conectarse"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:458
+#: lib/action.php:471
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Cambiar la configuración del sitio"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:461
+#: lib/action.php:474
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Admin"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:465
+#: lib/action.php:478
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Invita a amistades y compañeros a unirse a tí en %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:468
+#: lib/action.php:481
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Invitar"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:474
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Cerrar sesión en el sitio"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:477
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Cerrar sesión"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:482
+#: lib/action.php:495
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Crear una cuenta"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:485
+#: lib/action.php:498
 msgctxt "MENU"
 msgid "Register"
 msgstr "Registrarse"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:488
+#: lib/action.php:501
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Iniciar sesión en el sitio"
 
-#: lib/action.php:491
+#: lib/action.php:504
 msgctxt "MENU"
 msgid "Login"
 msgstr "Inicio de sesión"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:494
+#: lib/action.php:507
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "¡Ayúdame!"
 
-#: lib/action.php:497
+#: lib/action.php:510
 msgctxt "MENU"
 msgid "Help"
 msgstr "Ayuda"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:500
+#: lib/action.php:513
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Buscar personas o texto"
 
-#: lib/action.php:503
+#: lib/action.php:516
 msgctxt "MENU"
 msgid "Search"
 msgstr "Buscar"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:525 lib/adminpanelaction.php:400
+#: lib/action.php:538 lib/adminpanelaction.php:400
 msgid "Site notice"
 msgstr "Aviso de sitio"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:592
+#: lib/action.php:605
 msgid "Local views"
 msgstr "Vistas locales"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:659
+#: lib/action.php:675
 msgid "Page notice"
 msgstr "Aviso de página"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:762
+#: lib/action.php:778
 msgid "Secondary site navigation"
 msgstr "Navegación de sitio secundario"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:768
+#: lib/action.php:784
 msgid "Help"
 msgstr "Ayuda"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:771
+#: lib/action.php:787
 msgid "About"
 msgstr "Acerca de"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:774
+#: lib/action.php:790
 msgid "FAQ"
 msgstr "Preguntas Frecuentes"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:779
+#: lib/action.php:795
 msgid "TOS"
 msgstr "TOS"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:783
+#: lib/action.php:799
 msgid "Privacy"
 msgstr "Privacidad"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:786
+#: lib/action.php:802
 msgid "Source"
 msgstr "Fuente"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:792
+#: lib/action.php:808
 msgid "Contact"
 msgstr "Ponerse en contacto"
 
-#: lib/action.php:794
+#: lib/action.php:810
 msgid "Badge"
 msgstr "Insignia"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:823
+#: lib/action.php:839
 msgid "StatusNet software license"
 msgstr "Licencia de software de StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:827
+#: lib/action.php:843
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5321,13 +5330,13 @@ msgstr ""
 "[%%site.broughtby%%**](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:830
+#: lib/action.php:846
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** es un servicio de microblogueo."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:834
+#: lib/action.php:850
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5339,34 +5348,34 @@ msgstr ""
 "licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:850
+#: lib/action.php:866
 msgid "Site content license"
 msgstr "Licencia de contenido del sitio"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:857
+#: lib/action.php:873
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "El contenido y datos de %1$s son privados y confidenciales."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:864
+#: lib/action.php:880
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 "Copyright del contenido y los datos de%1$s. Todos los derechos reservados."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:868
+#: lib/action.php:884
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Derechos de autor de contenido y datos por los colaboradores. Todos los "
 "derechos reservados."
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:881
+#: lib/action.php:897
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
@@ -5374,19 +5383,19 @@ msgstr ""
 "$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1192
+#: lib/action.php:1236
 msgid "Pagination"
 msgstr "Paginación"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1247
 msgid "After"
 msgstr "Después"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1213
+#: lib/action.php:1257
 msgid "Before"
 msgstr "Antes"
 
@@ -5646,45 +5655,21 @@ msgstr "Comando completo"
 msgid "Command failed"
 msgstr "Comando falló"
 
-#: lib/command.php:83 lib/command.php:105
-msgid "Notice with that id does not exist"
-msgstr "No existe ningún mensaje con ese id"
-
-#: lib/command.php:99 lib/command.php:596
-msgid "User has no last notice"
-msgstr "Usuario no tiene último aviso"
-
-#. TRANS: Message given requesting a profile for a non-existing user.
-#. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
-#, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "No se pudo encontrar a nadie con el nombre de usuario %s"
-
-#. TRANS: Message given getting a non-existing user.
-#. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
-#, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr ""
-"No se pudo encontrar a ningún usuario local con el nombre de usuario %s"
-
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr "Disculpa, todavía no se implementa este comando."
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "¡No tiene sentido darte un toque a ti mismo!"
 
-#. TRANS: Message given having nudged another user.
-#. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
-#, php-format
-msgid "Nudge sent to %s"
-msgstr "Toque enviado a %s"
-
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5695,55 +5680,39 @@ msgstr ""
 "Suscriptores: %2$s\n"
 "Avisos: %3$s"
 
-#: lib/command.php:302
+#. TRANS: Text shown when a notice has been marked as favourite successfully.
+#: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr "Aviso marcado como favorito."
 
-#: lib/command.php:323
-msgid "You are already a member of that group"
-msgstr "Ya eres parte de ese grupo"
-
-#. TRANS: Message given having failed to add a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
-#, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "No se pudo unir el usuario %s al grupo %s"
-
-#. TRANS: Message given having failed to remove a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
-#, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "No se pudo eliminar al usuario %1$s del grupo %2$s"
-
 #. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
+#: lib/command.php:434
 #, php-format
 msgid "Fullname: %s"
 msgstr "Nombre completo: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
+#: lib/command.php:438 lib/mail.php:268
 #, php-format
 msgid "Location: %s"
 msgstr "Lugar: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
+#: lib/command.php:442 lib/mail.php:271
 #, php-format
 msgid "Homepage: %s"
 msgstr "Página de inicio: %s"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
+#: lib/command.php:446
 #, php-format
 msgid "About: %s"
 msgstr "Sobre: %s"
 
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5754,145 +5723,125 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
-msgstr ""
-"Mensaje muy largo - la cantidad máxima es de %1$d caracteres y has enviado %2"
-"$d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr "Mensaje muy largo - máximo %1$d caracteres, enviaste %2$d"
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, php-format
-msgid "Direct message to %s sent"
-msgstr "Se envió mensaje directo a %s"
-
-#: lib/command.php:494
+#. TRANS: Error text shown sending a direct message fails with an unknown reason.
+#: lib/command.php:517
 msgid "Error sending direct message."
 msgstr "Error al enviar mensaje directo."
 
-#: lib/command.php:514
-msgid "Cannot repeat your own notice"
-msgstr "No puedes repetir tu propio aviso"
-
-#: lib/command.php:519
-msgid "Already repeated that notice"
-msgstr "Ya has repetido este aviso"
-
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
-#, php-format
-msgid "Notice from %s repeated"
-msgstr "Aviso de %s repetido"
-
-#: lib/command.php:531
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "Ha habido un error al repetir el aviso."
 
-#: lib/command.php:562
-#, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "Mensaje muy largo - el máximo es de %d caracteres. Has enviado %d"
-
-#: lib/command.php:571
-#, php-format
-msgid "Reply to %s sent"
-msgstr "Responder a %s enviados"
-
-#: lib/command.php:573
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
 msgid "Error saving notice."
 msgstr "Error al guardar el aviso."
 
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
-msgstr "Especificar el nombre del usuario a suscribir"
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
+msgstr ""
 
-#: lib/command.php:628
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr "No te puedes suscribir a perfiles de OMB por orden."
 
-#: lib/command.php:634
-#, php-format
-msgid "Subscribed to %s"
-msgstr "Suscrito a %s"
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
+msgstr ""
 
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
-msgstr "Especificar el nombre del usuario para desuscribirse de"
-
-#: lib/command.php:664
-#, php-format
-msgid "Unsubscribed from %s"
-msgstr "Desuscrito de %s"
-
-#: lib/command.php:682 lib/command.php:705
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
 msgid "Command not yet implemented."
 msgstr "Todavía no se implementa comando."
 
-#: lib/command.php:685
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
 msgid "Notification off."
 msgstr "Notificación no activa."
 
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr "No se puede desactivar notificación."
 
-#: lib/command.php:708
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
 msgid "Notification on."
 msgstr "Notificación activada."
 
-#: lib/command.php:710
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
 msgid "Can't turn on notification."
 msgstr "No se puede activar notificación."
 
-#: lib/command.php:723
-msgid "Login command is disabled"
-msgstr "El comando de inicio de sesión está desactivado"
-
-#: lib/command.php:734
-#, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
 msgstr ""
-"Este enlace es utilizable solamente una vez y sólo válido por 2 minutos: %s"
 
-#: lib/command.php:761
+#. TRANS: Text shown after issuing the login command successfully.
+#. TRANS: %s is a logon link..
+#: lib/command.php:784
 #, php-format
-msgid "Unsubscribed  %s"
-msgstr "Desuscrito de %s"
+msgid "This link is useable only once and is valid for only 2 minutes: %s."
+msgstr ""
 
-#: lib/command.php:778
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
 msgid "You are not subscribed to anyone."
 msgstr "No estás suscrito a nadie."
 
-#: lib/command.php:780
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ya estás suscrito a estos usuarios:"
 msgstr[1] "Ya estás suscrito a estos usuarios:"
 
-#: lib/command.php:800
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
 msgid "No one is subscribed to you."
 msgstr "Nadie está suscrito a ti."
 
-#: lib/command.php:802
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "No se pudo suscribir otro a ti."
 msgstr[1] "No se pudo suscribir otro a ti."
 
-#: lib/command.php:822
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
 msgid "You are not a member of any groups."
 msgstr "No eres miembro de ningún grupo"
 
-#: lib/command.php:824
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Eres miembro de este grupo:"
 msgstr[1] "Eres miembro de estos grupos:"
 
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -6557,7 +6506,7 @@ msgstr ""
 "otros usuarios partícipes de la conversación. La gente puede enviarte "
 "mensajes que sólo puedas leer tú."
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
 msgstr "desde"
 
@@ -6647,11 +6596,11 @@ msgstr "Enviar un aviso directo"
 msgid "To"
 msgstr "Para"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Caracteres disponibles"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Enviar"
@@ -6660,28 +6609,28 @@ msgstr "Enviar"
 msgid "Send a notice"
 msgstr "Enviar un aviso"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "¿Qué tal, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "Adjuntar"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "Adjuntar un archivo"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr "Compartir mi ubicación"
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Do not share my location"
 msgstr "No compartir mi ubicación"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6718,23 +6667,27 @@ msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgid "at"
 msgstr "en"
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 msgid "in context"
 msgstr "en contexto"
 
-#: lib/noticelist.php:602
+#: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "Repetido por"
 
-#: lib/noticelist.php:629
+#: lib/noticelist.php:630
 msgid "Reply to this notice"
 msgstr "Responder este aviso."
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Responder"
 
-#: lib/noticelist.php:674
+#: lib/noticelist.php:675
 msgid "Notice repeated"
 msgstr "Aviso repetido"
 
@@ -6874,7 +6827,7 @@ msgstr "No hay respuesta a los argumentos."
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
-msgstr "Responder este aviso?"
+msgstr "Repetir este aviso?"
 
 #: lib/repeatform.php:132
 msgid "Yes"
@@ -6882,7 +6835,7 @@ msgstr "Sí"
 
 #: lib/repeatform.php:132
 msgid "Repeat this notice"
-msgstr "Responder este aviso."
+msgstr "Repetir este aviso."
 
 #: lib/revokeroleform.php:91
 #, php-format
@@ -6996,12 +6949,12 @@ msgid "The theme file is missing or the upload failed."
 msgstr "El archivo de tema está perdido o la carga falló."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
 msgid "Failed saving theme."
 msgstr "Grabado de tema errado."
 
-#: lib/themeuploader.php:139
+#: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr "Tema inválido: mala estructura de directorio."
 
@@ -7015,7 +6968,7 @@ msgstr ""
 msgid "Invalid theme archive: missing file css/display.css"
 msgstr "Archivo de tema inválido: archivo perdido css/display.css"
 
-#: lib/themeuploader.php:205
+#: lib/themeuploader.php:218
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
@@ -7023,12 +6976,16 @@ msgstr ""
 "El tema contiene archivo o nombre de carpeta inválido. Restrínjase a letras "
 "ASCII, dígitos, carácter de subrayado, y signo menos."
 
-#: lib/themeuploader.php:216
+#: lib/themeuploader.php:224
+msgid "Theme contains unsafe file extension names; may be unsafe."
+msgstr ""
+
+#: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr "El tema contiene archivo de tipo '.%s', que no está permitido."
 
-#: lib/themeuploader.php:234
+#: lib/themeuploader.php:259
 msgid "Error opening theme archive."
 msgstr "Error al abrir archivo de tema."
 
@@ -7059,11 +7016,6 @@ msgstr "Desuscribirse de este usuario"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Cancelar suscripción"
-
-#: lib/usernoprofileexception.php:58
-#, php-format
-msgid "User %s (%d) has no profile record."
-msgstr "El usuario %s (%d) no tiene un registro de su perfil."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -7112,56 +7064,56 @@ msgid "Moderator"
 msgstr "Moderador"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1102
 msgid "a few seconds ago"
 msgstr "hace unos segundos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1105
 msgid "about a minute ago"
 msgstr "hace un minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1109
 #, php-format
 msgid "about %d minutes ago"
 msgstr "hace %d minutos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "hace una hora"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1116
 #, php-format
 msgid "about %d hours ago"
 msgstr "hace %d horas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1119
 msgid "about a day ago"
 msgstr "hace un día"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1123
 #, php-format
 msgid "about %d days ago"
 msgstr "hace %d días"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1126
 msgid "about a month ago"
 msgstr "hace un mes"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1130
 #, php-format
 msgid "about %d months ago"
 msgstr "hace %d meses"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1133
 msgid "about a year ago"
 msgstr "hace un año"
 
@@ -7174,8 +7126,3 @@ msgstr "¡%s no es un color válido!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s no es un color válido! Usar 3 o 6 caracteres hexagesimales"
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr "Mensaje muy largo - máximo %1$d caracteres, enviaste %2$d"

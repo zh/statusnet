@@ -64,11 +64,11 @@ class OStatusSubAction extends Action
         $this->input('profile',
                      _m('Subscribe to'),
                      $this->profile_uri,
-                     _m("OStatus user's address, like nickname@example.com or http://example.net/nickname"));
+                     _m("OStatus user's address, like nickname@example.com or http://example.net/nickname"));  // @todo i18n FIXME: needs context/translator hint.
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
-        $this->submit('validate', _m('Continue'));
+        $this->submit('validate', _m('Continue')); // @todo i18n FIXME: needs context/translator hint.
 
         $this->elementEnd('fieldset');
 
@@ -103,10 +103,10 @@ class OStatusSubAction extends Action
         $this->hidden('profile', $this->profile_uri);
         if ($this->oprofile->isGroup()) {
             $this->submit('submit', _m('Join'), 'submit', null,
-                         _m('Join this group'));
+                         _m('Join this group')); // @todo i18n FIXME: needs context/translator hint.
         } else {
             $this->submit('submit', _m('Confirm'), 'submit', null,
-                         _m('Subscribe to this user'));
+                         _m('Subscribe to this user')); // @todo i18n FIXME: needs context/translator hint.
         }
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -244,13 +244,13 @@ class OStatusSubAction extends Action
             } else if (Validate::uri($this->profile_uri)) {
                 $this->oprofile = Ostatus_profile::ensureProfileURL($this->profile_uri);
             } else {
-                $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+                $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname.");
                 common_debug('Invalid address format.', __FILE__);
                 return false;
             }
             return true;
         } catch (FeedSubBadURLException $e) {
-            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname.");
             common_debug('Invalid URL or could not reach server.', __FILE__);
         } catch (FeedSubBadResponseException $e) {
             $this->error = _m("Sorry, we could not reach that feed. Please try that OStatus address again later.");
@@ -269,7 +269,7 @@ class OStatusSubAction extends Action
             common_debug('Not a recognized feed type.', __FILE__);
         } catch (Exception $e) {
             // Any new ones we forgot about
-            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname");
+            $this->error = _m("Sorry, we could not reach that address. Please make sure that the OStatus address is like nickname@example.com or http://example.net/nickname.");
             common_debug(sprintf('Bad feed URL: %s %s', get_class($e), $e->getMessage()), __FILE__);
         }
 

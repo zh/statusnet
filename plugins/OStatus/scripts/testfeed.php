@@ -86,4 +86,3 @@ if ($skip || $count) {
 }
 
 Event::handle('StartFeedSubReceive', array($sub, $feed));
-

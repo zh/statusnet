@@ -1045,3 +1045,44 @@ StartActivityEnd: before the closing </entry> in a notice activity entry (last c
 EndActivityEnd: after the closing </entry> in a notice activity entry
 - &$notice: notice being output
 - &$xs: XMLStringer for output
+
+StartNoticeSaveWeb: before saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- &$authorId: integer ID of the author
+- &$text: text of the notice
+- &$options: additional options (location, replies, etc.)
+
+EndNoticeSaveWeb: after saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- $notice: notice that was saved
+
+StartRssEntryArray: at the start of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry (empty at beginning)
+
+EndRssEntryArray: at the end of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry, with all the fields filled up
+
+NoticeDeleteRelated: at the beginning of deleting related fields to a notice
+- $notice: notice being deleted
+
+StartShowHeadTitle: when beginning to show the <title> element
+- $action: action being shown
+
+EndShowHeadTitle: when done showing the <title>
+- $action: action being shown
+
+StartShowPageTitle: when beginning to show the page title <h1>
+- $action: action being shown
+
+EndShowPageTitle: when done showing the page title <h1>
+- $action: action being shown
+
+StartDeleteOwnNotice: when a user starts to delete their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted
+
+EndDeleteOwnNotice: when a user has deleted their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted

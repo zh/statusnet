@@ -11,12 +11,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-11 10:11+0000\n"
-"PO-Revision-Date: 2010-08-11 10:13:19+0000\n"
+"POT-Creation-Date: 2010-09-05 09:45+0000\n"
+"PO-Revision-Date: 2010-09-05 09:47:25+0000\n"
 "Language-Team: Ukrainian\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70848); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: out-statusnet\n"
@@ -94,6 +94,7 @@ msgstr "Зберегти"
 msgid "No such page."
 msgstr "Немає такої сторінки."
 
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -113,7 +114,7 @@ msgstr "Немає такої сторінки."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Такого користувача немає."
@@ -352,7 +353,8 @@ msgstr "Жодних статусів з таким ID."
 msgid "This status is already a favorite."
 msgstr "Цей статус вже є обраним."
 
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#. TRANS: Error message text shown when a favorite could not be set.
+#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "Не можна позначити як обране."
 
@@ -466,15 +468,19 @@ msgstr "Додаткове ім’я не може бути таким сами�
 msgid "Group not found."
 msgstr "Групу не знайдено."
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
+#. TRANS: Error text shown a user tries to join a group they already are a member of.
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
 msgstr "Ви вже є учасником цієї групи."
 
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
+#. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
+#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
 msgstr "Адмін цієї групи заблокував Вашу присутність в ній."
 
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:139 actions/joingroup.php:134 lib/command.php:353
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Не вдалось долучити користувача %1$s до групи %2$s."
@@ -483,7 +489,10 @@ msgstr "Не вдалось долучити користувача %1$s до г
 msgid "You are not a member of this group."
 msgstr "Ви не є учасником цієї групи."
 
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
+#: lib/command.php:401
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Не вдалось видалити користувача %1$s з групи %2$s."
@@ -602,7 +611,7 @@ msgstr ""
 "довіряєте."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:450
+#: actions/apioauthauthorize.php:310 lib/action.php:463
 msgid "Account"
 msgstr "Акаунт"
 
@@ -645,11 +654,13 @@ msgstr "Ви не можете видалити статус іншого кор
 msgid "No such notice."
 msgstr "Такого допису немає."
 
-#: actions/apistatusesretweet.php:83
+#. TRANS: Error text shown when trying to repeat an own notice.
+#: actions/apistatusesretweet.php:83 lib/command.php:538
 msgid "Cannot repeat your own notice."
 msgstr "Не можу повторити Ваш власний допис."
 
-#: actions/apistatusesretweet.php:91
+#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
+#: actions/apistatusesretweet.php:91 lib/command.php:544
 msgid "Already repeated that notice."
 msgstr "Цей допис вже повторено."
 
@@ -665,7 +676,7 @@ msgstr "Не знайдено жодних статусів з таким ID."
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "Клієнт мусить надати параметр «статус» зі значенням."
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
+#: actions/apistatusesupdate.php:242 actions/newnotice.php:157
 #: lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
@@ -675,7 +686,7 @@ msgstr "Надто довго. Максимальний розмір допис�
 msgid "Not found."
 msgstr "Не знайдено."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -885,6 +896,8 @@ msgstr "Блокувати користувача"
 msgid "Failed to save block information."
 msgstr "Збереження інформації про блокування завершилось невдачею."
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -894,8 +907,8 @@ msgstr "Збереження інформації про блокування з
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
 msgstr "Такої групи немає."
 
@@ -1008,7 +1021,7 @@ msgstr "Ви не є власником цього додатку."
 
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1263
+#: lib/action.php:1307
 msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
@@ -2161,7 +2174,7 @@ msgstr "Ви вже підписані до цих користувачів:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2286,9 +2299,7 @@ msgstr "Ви повинні спочатку увійти на сайт, аби 
 msgid "No nickname or ID."
 msgstr "Немає імені або ІД."
 
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
+#: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
 msgstr "%1$s приєднався до групи %2$s"
@@ -2297,13 +2308,12 @@ msgstr "%1$s приєднався до групи %2$s"
 msgid "You must be logged in to leave a group."
 msgstr "Ви повинні спочатку увійти на сайт, аби залишити групу."
 
-#: actions/leavegroup.php:100 lib/command.php:373
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
 msgid "You are not a member of that group."
 msgstr "Ви не є учасником цієї групи."
 
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
+#: actions/leavegroup.php:137
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s залишив групу %2$s"
@@ -2418,12 +2428,15 @@ msgstr "Скористайтесь цією формою для створенн
 msgid "New message"
 msgstr "Нове повідомлення"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
 msgid "You can't send a message to this user."
 msgstr "Ви не можете надіслати повідомлення цьому користувачеві."
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
-#: lib/command.php:555
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
 msgid "No content!"
 msgstr "Немає змісту!"
 
@@ -2431,7 +2444,8 @@ msgstr "Немає змісту!"
 msgid "No recipient specified."
 msgstr "Жодного отримувача не визначено."
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -2441,12 +2455,14 @@ msgstr ""
 msgid "Message sent"
 msgstr "Повідомлення надіслано"
 
-#: actions/newmessage.php:185
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Пряме повідомлення для %s надіслано."
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Помилка в Ajax"
 
@@ -2454,7 +2470,7 @@ msgstr "Помилка в Ajax"
 msgid "New notice"
 msgstr "Новий допис"
 
-#: actions/newnotice.php:217
+#: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Допис надіслано"
 
@@ -2584,8 +2600,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr "URL-адреса %s лише в простому HTTP, будь ласка."
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "Такий формат даних не підтримується."
 
@@ -4009,7 +4025,7 @@ msgstr "Назва сайту"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr "Назва Вашого сайту, щось на зразок «Мікроблоґи компанії ...»"
+msgstr "Назва сайту, щось на зразок «Мікроблоґи компанії...»"
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
@@ -4063,7 +4079,7 @@ msgstr "Текстові обмеження"
 
 #: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
-msgstr "Максимальна кількість знаків у дописі."
+msgstr "Максимальна кількість знаків у дописі (0 — необмежено)."
 
 #: actions/siteadminpanel.php:278
 msgid "Dupe limit"
@@ -4801,7 +4817,7 @@ msgid "Plugins"
 msgstr "Додатки"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:789
+#: actions/version.php:198 lib/action.php:805
 msgid "Version"
 msgstr "Версія"
 
@@ -4905,23 +4921,23 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr "Немає такого профілю (%1$d) для повідомлення (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
+#: classes/Notice.php:193
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Помилка бази даних при додаванні хеш-теґу: %s"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr "Проблема при збереженні допису. Надто довге."
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr "Проблема при збереженні допису. Невідомий користувач."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
@@ -4929,7 +4945,7 @@ msgstr ""
 "повертайтесь за кілька хвилин."
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
@@ -4938,29 +4954,29 @@ msgstr ""
 "повертайтесь за кілька хвилин."
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr "Вам заборонено надсилати дописи до цього сайту."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Проблема при збереженні допису."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr "Задається невірний тип для saveKnownGroups"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr "Проблема при збереженні вхідних дописів для групи."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1746
+#: classes/Notice.php:1757
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -4986,7 +5002,7 @@ msgid "Missing profile."
 msgstr "Загублений профіль."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:346
+#: classes/Status_network.php:339
 msgid "Unable to save tag."
 msgstr "Не вдається зберегти теґ."
 
@@ -5088,199 +5104,199 @@ msgid "Other"
 msgstr "Інше"
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:145
+#: lib/action.php:148
 #, php-format
 msgid "%1$s - %2$s"
 msgstr "%1$s — %2$s"
 
 #. TRANS: Page title for a page without a title set.
-#: lib/action.php:161
+#: lib/action.php:164
 msgid "Untitled page"
 msgstr "Сторінка без заголовку"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:436
+#: lib/action.php:449
 msgid "Primary site navigation"
 msgstr "Відправна навігація по сайту"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:442
+#: lib/action.php:455
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Персональний профіль і стрічка друзів"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:445
+#: lib/action.php:458
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Особисте"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:447
+#: lib/action.php:460
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Змінити електронну адресу, аватару, пароль, профіль"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:452
+#: lib/action.php:465
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "З’єднання з сервісами"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:455
+#: lib/action.php:468
 msgid "Connect"
 msgstr "З’єднання"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:458
+#: lib/action.php:471
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Змінити конфігурацію сайту"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:461
+#: lib/action.php:474
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Адмін"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:465
+#: lib/action.php:478
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Запросіть друзів та колег приєднатись до Вас на %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:468
+#: lib/action.php:481
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Запросити"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:474
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Вийти з сайту"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:477
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Вийти"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:482
+#: lib/action.php:495
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Створити новий акаунт"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:485
+#: lib/action.php:498
 msgctxt "MENU"
 msgid "Register"
 msgstr "Реєстрація"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:488
+#: lib/action.php:501
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Увійти на сайт"
 
-#: lib/action.php:491
+#: lib/action.php:504
 msgctxt "MENU"
 msgid "Login"
 msgstr "Увійти"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:494
+#: lib/action.php:507
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Допоможіть!"
 
-#: lib/action.php:497
+#: lib/action.php:510
 msgctxt "MENU"
 msgid "Help"
 msgstr "Довідка"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:500
+#: lib/action.php:513
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пошук людей або текстів"
 
-#: lib/action.php:503
+#: lib/action.php:516
 msgctxt "MENU"
 msgid "Search"
 msgstr "Пошук"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:525 lib/adminpanelaction.php:400
+#: lib/action.php:538 lib/adminpanelaction.php:400
 msgid "Site notice"
 msgstr "Об’яви на сайті"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:592
+#: lib/action.php:605
 msgid "Local views"
 msgstr "Огляд"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:659
+#: lib/action.php:675
 msgid "Page notice"
 msgstr "Зауваження сторінки"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:762
+#: lib/action.php:778
 msgid "Secondary site navigation"
 msgstr "Другорядна навігація по сайту"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:768
+#: lib/action.php:784
 msgid "Help"
 msgstr "Допомога"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:771
+#: lib/action.php:787
 msgid "About"
 msgstr "Про"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:774
+#: lib/action.php:790
 msgid "FAQ"
 msgstr "ЧаП"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:779
+#: lib/action.php:795
 msgid "TOS"
 msgstr "Умови"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:783
+#: lib/action.php:799
 msgid "Privacy"
 msgstr "Приватність"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:786
+#: lib/action.php:802
 msgid "Source"
 msgstr "Джерело"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:792
+#: lib/action.php:808
 msgid "Contact"
 msgstr "Контакт"
 
-#: lib/action.php:794
+#: lib/action.php:810
 msgid "Badge"
 msgstr "Бедж"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:823
+#: lib/action.php:839
 msgid "StatusNet software license"
 msgstr "Ліцензія програмного забезпечення StatusNet"
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:827
+#: lib/action.php:843
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5290,13 +5306,13 @@ msgstr ""
 "site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:830
+#: lib/action.php:846
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** — це сервіс мікроблоґів."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:834
+#: lib/action.php:850
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5308,50 +5324,50 @@ msgstr ""
 "License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:850
+#: lib/action.php:866
 msgid "Site content license"
 msgstr "Ліцензія змісту сайту"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:857
+#: lib/action.php:873
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Зміст і дані %1$s є приватними і конфіденційними."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:864
+#: lib/action.php:880
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "Авторські права на зміст і дані належать %1$s. Всі права захищено."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:868
+#: lib/action.php:884
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторські права на зміст і дані належать розробникам. Всі права захищено."
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:881
+#: lib/action.php:897
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr "Весь зміст і дані %1$s доступні на умовах ліцензії %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1192
+#: lib/action.php:1236
 msgid "Pagination"
 msgstr "Нумерація сторінок"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1247
 msgid "After"
 msgstr "Вперед"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1213
+#: lib/action.php:1257
 msgid "Before"
 msgstr "Назад"
 
@@ -5610,44 +5626,53 @@ msgstr "Команду виконано"
 msgid "Command failed"
 msgstr "Команду не виконано"
 
-#: lib/command.php:83 lib/command.php:105
-msgid "Notice with that id does not exist"
-msgstr "Такого допису не існує"
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+msgid "Notice with that id does not exist."
+msgstr "Допису з таким id не існує."
 
-#: lib/command.php:99 lib/command.php:596
-msgid "User has no last notice"
-msgstr "Користувач не має останнього допису"
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+msgid "User has no last notice."
+msgstr "Користувач не має останнього допису."
 
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
+#: lib/command.php:130
 #, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "Не вдалося знайти користувача з іменем %s"
+msgid "Could not find a user with nickname %s."
+msgstr "Не вдалося знайти користувача з ім’ям %s."
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
+#: lib/command.php:150
 #, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr "Не вдалося знайти локального користувача з іменем %s"
+msgid "Could not find a local user with nickname %s."
+msgstr "Користувача з нікнеймом %s на даному сайті не знайдено."
 
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr "Даруйте, але виконання команди ще не завершено."
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr "Гадаємо, користі від «розштовхування» самого себе небагато, чи не так?!"
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
+#: lib/command.php:240
 #, php-format
-msgid "Nudge sent to %s"
-msgstr "Спробу «розштовхати» %s зараховано"
+msgid "Nudge sent to %s."
+msgstr "Спробу «розштовхати» %s зараховано."
 
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5658,55 +5683,53 @@ msgstr ""
 "Підписчики: %2$s\n"
 "Дописи: %3$s"
 
-#: lib/command.php:302
+#. TRANS: Text shown when a notice has been marked as favourite successfully.
+#: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr "Допис позначено як обраний."
 
-#: lib/command.php:323
-msgid "You are already a member of that group"
-msgstr "Ви вже є учасником цієї групи."
-
-#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: Message given having added a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
+#: lib/command.php:360
 #, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "Не вдалось долучити користувача %1$s до групи %2$s."
+msgid "%1$s joined group %2$s."
+msgstr "%1$s приєднався до групи %2$s."
 
-#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: Message given having removed a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
+#: lib/command.php:408
 #, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "Не вдалось видалити користувача %1$s з групи %2$s"
+msgid "%1$s left group %2$s."
+msgstr "%1$s залишив групу %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
+#: lib/command.php:434
 #, php-format
 msgid "Fullname: %s"
 msgstr "Повне ім’я: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
+#: lib/command.php:438 lib/mail.php:268
 #, php-format
 msgid "Location: %s"
 msgstr "Розташування: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
+#: lib/command.php:442 lib/mail.php:271
 #, php-format
 msgid "Homepage: %s"
 msgstr "Веб-сторінка: %s"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
+#: lib/command.php:446
 #, php-format
 msgid "About: %s"
 msgstr "Про мене: %s"
 
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5717,148 +5740,172 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
-"Повідомлення надто довге — максимум становить %1$d символів, Ви надсилаєте %2"
-"$d"
+"Повідомлення надто довге — максимум %1$d символів, а Ви надсилаєте %2$d."
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, php-format
-msgid "Direct message to %s sent"
-msgstr "Пряме повідомлення для %s надіслано."
-
-#: lib/command.php:494
+#. TRANS: Error text shown sending a direct message fails with an unknown reason.
+#: lib/command.php:517
 msgid "Error sending direct message."
 msgstr "Помилка при відправці прямого повідомлення."
 
-#: lib/command.php:514
-msgid "Cannot repeat your own notice"
-msgstr "Не можу повторити Ваш власний допис"
-
-#: lib/command.php:519
-msgid "Already repeated that notice"
-msgstr "Цей допис вже повторили"
-
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
+#: lib/command.php:554
 #, php-format
-msgid "Notice from %s repeated"
-msgstr "Допис %s повторили"
+msgid "Notice from %s repeated."
+msgstr "Допису від %s вторували."
 
-#: lib/command.php:531
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "Помилка при повторенні допису."
 
-#: lib/command.php:562
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
 #, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
-msgstr "Допис надто довгий — максимум %d знаків, а ви надсилаєте %d"
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgstr "Допис надто довгий — максимум %1$d символів, а Ви надсилаєте %2$d."
 
-#: lib/command.php:571
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
 #, php-format
-msgid "Reply to %s sent"
-msgstr "Відповідь до %s надіслано"
+msgid "Reply to %s sent."
+msgstr "Відповідь для %s надіслано."
 
-#: lib/command.php:573
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
 msgid "Error saving notice."
 msgstr "Проблема при збереженні допису."
 
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
-msgstr "Зазначте ім’я користувача, до якого бажаєте підписатись"
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
+msgstr "Зазначте ім’я користувача, до якого бажаєте підписатись."
 
-#: lib/command.php:628
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr "Не можу підписатись до  профілю OMB за командою."
 
-#: lib/command.php:634
+#. TRANS: Text shown after having subscribed to another user successfully.
+#. TRANS: %s is the name of the user the subscription was requested for.
+#: lib/command.php:672
 #, php-format
-msgid "Subscribed to %s"
-msgstr "Підписано до %s"
+msgid "Subscribed to %s."
+msgstr "Тепер Ви підписані на дописи %s."
 
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
-msgstr "Зазначте ім’я користувача, від якого бажаєте відписатись"
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
+msgstr "Зазначте ім’я користувача, від якого бажаєте відписатись."
 
-#: lib/command.php:664
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
 #, php-format
-msgid "Unsubscribed from %s"
-msgstr "Відписано від %s"
+msgid "Unsubscribed from %s."
+msgstr "Підписку на дописи від %s скасовано."
 
-#: lib/command.php:682 lib/command.php:705
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
 msgid "Command not yet implemented."
 msgstr "Виконання команди ще не завершено."
 
-#: lib/command.php:685
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
 msgid "Notification off."
 msgstr "Сповіщення вимкнуто."
 
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr "Не можна вимкнути сповіщення."
 
-#: lib/command.php:708
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
 msgid "Notification on."
 msgstr "Сповіщення увімкнуто."
 
-#: lib/command.php:710
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
 msgid "Can't turn on notification."
 msgstr "Не можна увімкнути сповіщення."
 
-#: lib/command.php:723
-msgid "Login command is disabled"
-msgstr "Команду входу відключено"
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
+msgstr "Команду входу відключено."
 
-#: lib/command.php:734
+#. TRANS: Text shown after issuing the login command successfully.
+#. TRANS: %s is a logon link..
+#: lib/command.php:784
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
-"Це посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s"
+"Дане посилання можна використати лише раз, воно дійсне протягом 2 хвилин: %s."
 
-#: lib/command.php:761
+#. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:813
 #, php-format
-msgid "Unsubscribed  %s"
-msgstr "Відписано %s"
+msgid "Unsubscribed %s."
+msgstr "Підписку %s скасовано."
 
-#: lib/command.php:778
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
 msgid "You are not subscribed to anyone."
 msgstr "Ви не маєте жодних підписок."
 
-#: lib/command.php:780
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ви підписані до цієї особи:"
 msgstr[1] "Ви підписані до цих людей:"
 msgstr[2] "Ви підписані до цих людей:"
 
-#: lib/command.php:800
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
 msgid "No one is subscribed to you."
 msgstr "До Вас ніхто не підписаний."
 
-#: lib/command.php:802
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ця особа є підписаною до Вас:"
 msgstr[1] "Ці люди підписані до Вас:"
 msgstr[2] "Ці люди підписані до Вас:"
 
-#: lib/command.php:822
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
 msgid "You are not a member of any groups."
 msgstr "Ви не є учасником жодної групи."
 
-#: lib/command.php:824
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ви є учасником групи:"
 msgstr[1] "Ви є учасником таких груп:"
 msgstr[2] "Ви є учасником таких груп:"
 
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5916,7 +5963,7 @@ msgstr ""
 "reply #<notice_id> — відповісти на допис\n"
 "reply <nickname> — відповісти на останній допис користувача\n"
 "join <group> — приєднатися до групи\n"
-"login — отримати посилання для входу у веб-інтерфейс\n"
+"login — отримати посилання входу до веб-інтерфейсу\n"
 "drop <group> — залишити групу\n"
 "stats — отримати статистику\n"
 "stop — те саме що і 'off'\n"
@@ -6519,7 +6566,7 @@ msgstr ""
 
 #: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
-msgstr "від"
+msgstr "через"
 
 #: lib/mailhandler.php:37
 msgid "Could not parse message."
@@ -6605,11 +6652,11 @@ msgstr "Надіслати прямий допис"
 msgid "To"
 msgstr "До"
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Лишилось знаків"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Так!"
@@ -6618,28 +6665,28 @@ msgstr "Так!"
 msgid "Send a notice"
 msgstr "Надіслати допис"
 
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Що нового, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr "Вкласти"
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr "Вкласти файл"
 
-#: lib/noticeform.php:212
+#: lib/noticeform.php:213
 msgid "Share my location"
 msgstr "Показувати місцезнаходження."
 
-#: lib/noticeform.php:215
+#: lib/noticeform.php:216
 msgid "Do not share my location"
 msgstr "Приховувати моє місцезнаходження"
 
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6675,6 +6722,10 @@ msgstr "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 #: lib/noticelist.php:453
 msgid "at"
 msgstr "в"
+
+#: lib/noticelist.php:502
+msgid "web"
+msgstr "веб"
 
 #: lib/noticelist.php:568
 msgid "in context"
@@ -6954,12 +7005,12 @@ msgid "The theme file is missing or the upload failed."
 msgstr "Файл теми відсутній, або стався збій при завантаженні."
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
 msgid "Failed saving theme."
 msgstr "Помилка при збереженні теми."
 
-#: lib/themeuploader.php:139
+#: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr "Невірна тема: хибна структура каталогів."
 
@@ -6974,7 +7025,7 @@ msgstr ""
 msgid "Invalid theme archive: missing file css/display.css"
 msgstr "В архіві з темою є помилка: відсутній файл css/display.css"
 
-#: lib/themeuploader.php:205
+#: lib/themeuploader.php:218
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
@@ -6982,12 +7033,16 @@ msgstr ""
 "Тема містить неприпустиме ім’я файлу або теки. Використовуйте літери "
 "стандарту ASCII, цифри, знаки підкреслення та мінусу."
 
-#: lib/themeuploader.php:216
+#: lib/themeuploader.php:224
+msgid "Theme contains unsafe file extension names; may be unsafe."
+msgstr ""
+
+#: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr "Тема містить файл типу «.%s», який є неприпустимим."
 
-#: lib/themeuploader.php:234
+#: lib/themeuploader.php:259
 msgid "Error opening theme archive."
 msgstr "Помилка при відкритті архіву з темою."
 
@@ -7018,11 +7073,6 @@ msgstr "Відписатись від цього користувача"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Відписатись"
-
-#: lib/usernoprofileexception.php:58
-#, php-format
-msgid "User %s (%d) has no profile record."
-msgstr "Користувач %s (%d) не має запису профілю."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -7071,56 +7121,56 @@ msgid "Moderator"
 msgstr "Модератор"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1102
 msgid "a few seconds ago"
 msgstr "мить тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1105
 msgid "about a minute ago"
 msgstr "хвилину тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1109
 #, php-format
 msgid "about %d minutes ago"
 msgstr "близько %d хвилин тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "годину тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1116
 #, php-format
 msgid "about %d hours ago"
 msgstr "близько %d годин тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1119
 msgid "about a day ago"
 msgstr "день тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1123
 #, php-format
 msgid "about %d days ago"
 msgstr "близько %d днів тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1126
 msgid "about a month ago"
 msgstr "місяць тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1130
 #, php-format
 msgid "about %d months ago"
 msgstr "близько %d місяців тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1133
 msgid "about a year ago"
 msgstr "рік тому"
 
@@ -7133,9 +7183,3 @@ msgstr "%s є неприпустимим кольором!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s неприпустимий колір! Використайте 3 або 6 знаків (HEX-формат)"
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""
-"Повідомлення надто довге — максимум %1$d символів, а Ви надсилаєте %2$d."

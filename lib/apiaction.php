@@ -301,7 +301,7 @@ class ApiAction extends Action
 
         // StatusNet-specific
 
-        $twitter_user['statusnet:profile_url'] = $profile->profileurl;
+        $twitter_user['statusnet_profile_url'] = $profile->profileurl;
 
         return $twitter_user;
     }
@@ -406,7 +406,7 @@ class ApiAction extends Action
 
         // StatusNet-specific
 
-        $twitter_status['statusnet:html'] = $notice->rendered;
+        $twitter_status['statusnet_html'] = $notice->rendered;
 
         return $twitter_status;
     }
@@ -462,66 +462,71 @@ class ApiAction extends Action
 
     function twitterRssEntryArray($notice)
     {
-        $profile = $notice->getProfile();
-
         $entry = array();
 
-        // We trim() to avoid extraneous whitespace in the output
+        if (Event::handle('StartRssEntryArray', array($notice, &$entry))) {
 
-        $entry['content'] = common_xml_safe_str(trim($notice->rendered));
-        $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
-        $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
-        $entry['published'] = common_date_iso8601($notice->created);
+            $profile = $notice->getProfile();
 
-        $taguribase = TagURI::base();
-        $entry['id'] = "tag:$taguribase:$entry[link]";
+            // We trim() to avoid extraneous whitespace in the output
 
-        $entry['updated'] = $entry['published'];
-        $entry['author'] = $profile->getBestName();
+            $entry['content'] = common_xml_safe_str(trim($notice->rendered));
+            $entry['title'] = $profile->nickname . ': ' . common_xml_safe_str(trim($notice->content));
+            $entry['link'] = common_local_url('shownotice', array('notice' => $notice->id));
+            $entry['published'] = common_date_iso8601($notice->created);
 
-        // Enclosures
-        $attachments = $notice->attachments();
-        $enclosures = array();
+            $taguribase = TagURI::base();
+            $entry['id'] = "tag:$taguribase:$entry[link]";
 
-        foreach ($attachments as $attachment) {
-            $enclosure_o=$attachment->getEnclosure();
-            if ($enclosure_o) {
-                 $enclosure = array();
-                 $enclosure['url'] = $enclosure_o->url;
-                 $enclosure['mimetype'] = $enclosure_o->mimetype;
-                 $enclosure['size'] = $enclosure_o->size;
-                 $enclosures[] = $enclosure;
+            $entry['updated'] = $entry['published'];
+            $entry['author'] = $profile->getBestName();
+
+            // Enclosures
+            $attachments = $notice->attachments();
+            $enclosures = array();
+
+            foreach ($attachments as $attachment) {
+                $enclosure_o=$attachment->getEnclosure();
+                if ($enclosure_o) {
+                    $enclosure = array();
+                    $enclosure['url'] = $enclosure_o->url;
+                    $enclosure['mimetype'] = $enclosure_o->mimetype;
+                    $enclosure['size'] = $enclosure_o->size;
+                    $enclosures[] = $enclosure;
+                }
             }
-        }
 
-        if (!empty($enclosures)) {
-            $entry['enclosures'] = $enclosures;
-        }
-
-        // Tags/Categories
-        $tag = new Notice_tag();
-        $tag->notice_id = $notice->id;
-        if ($tag->find()) {
-            $entry['tags']=array();
-            while ($tag->fetch()) {
-                $entry['tags'][]=$tag->tag;
+            if (!empty($enclosures)) {
+                $entry['enclosures'] = $enclosures;
             }
-        }
-        $tag->free();
 
-        // RSS Item specific
-        $entry['description'] = $entry['content'];
-        $entry['pubDate'] = common_date_rfc2822($notice->created);
-        $entry['guid'] = $entry['link'];
+            // Tags/Categories
+            $tag = new Notice_tag();
+            $tag->notice_id = $notice->id;
+            if ($tag->find()) {
+                $entry['tags']=array();
+                while ($tag->fetch()) {
+                    $entry['tags'][]=$tag->tag;
+                }
+            }
+            $tag->free();
 
-        if (isset($notice->lat) && isset($notice->lon)) {
-            // This is the format that GeoJSON expects stuff to be in.
-            // showGeoRSS() below uses it for XML output, so we reuse it
-            $entry['geo'] = array('type' => 'Point',
-                                  'coordinates' => array((float) $notice->lat,
-                                                         (float) $notice->lon));
-        } else {
-            $entry['geo'] = null;
+            // RSS Item specific
+            $entry['description'] = $entry['content'];
+            $entry['pubDate'] = common_date_rfc2822($notice->created);
+            $entry['guid'] = $entry['link'];
+
+            if (isset($notice->lat) && isset($notice->lon)) {
+                // This is the format that GeoJSON expects stuff to be in.
+                // showGeoRSS() below uses it for XML output, so we reuse it
+                $entry['geo'] = array('type' => 'Point',
+                                      'coordinates' => array((float) $notice->lat,
+                                                             (float) $notice->lon));
+            } else {
+                $entry['geo'] = null;
+            }
+
+            Event::handle('EndRssEntryArray', array($notice, &$entry));
         }
 
         return $entry;
@@ -613,7 +618,11 @@ class ApiAction extends Action
                 $this->showTwitterXmlStatus($value, 'retweeted_status');
                 break;
             default:
-                $this->element($element, null, $value);
+                if (strncmp($element, 'statusnet_', 10) == 0) {
+                    $this->element('statusnet:'.substr($element, 10), null, $value);
+                } else {
+                    $this->element($element, null, $value);
+                }
             }
         }
         $this->elementEnd($tag);
@@ -638,6 +647,8 @@ class ApiAction extends Action
         foreach($twitter_user as $element => $value) {
             if ($element == 'status') {
                 $this->showTwitterXmlStatus($twitter_user['status']);
+            } else if (strncmp($element, 'statusnet_', 10) == 0) {
+                $this->element('statusnet:'.substr($element, 10), null, $value);
             } else {
                 $this->element($element, null, $value);
             }

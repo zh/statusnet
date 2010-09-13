@@ -188,7 +188,7 @@ class TwitterOAuthClient extends OAuthClient
     }
 
     /**
-     * Calls Twitter's /statuses/friends_timeline API method
+     * Calls Twitter's /statuses/home_timeline API method
      *
      * @param int $since_id show statuses after this id
      * @param int $max_id   show statuses before this id
@@ -197,22 +197,28 @@ class TwitterOAuthClient extends OAuthClient
      *
      * @return mixed an array of statuses
      */
-    function statusesFriendsTimeline($since_id = null, $max_id = null,
-                                     $cnt = null, $page = null)
+    function statusesHomeTimeline($since_id = null, $max_id = null,
+                                  $cnt = null, $page = null)
     {
 
-        $url    = 'https://twitter.com/statuses/friends_timeline.json';
-        $params = array('since_id' => $since_id,
-                        'max_id' => $max_id,
-                        'count' => $cnt,
-                        'page' => $page);
-        $qry    = http_build_query($params);
+        $url    = 'https://twitter.com/statuses/home_timeline.json';
 
-        if (!empty($qry)) {
-            $url .= "?$qry";
+        $params = array('include_entities' => 'true');
+
+        if (!empty($since_id)) {
+            $params['since_id'] = $since_id;
+        }
+        if (!empty($max_id)) {
+            $params['max_id'] = $max_id;
+        }
+        if (!empty($cnt)) {
+            $params['count'] = $cnt;
+        }
+        if (!empty($page)) {
+            $params['page'] = $page;
         }
 
-        $response = $this->oAuthGet($url);
+        $response = $this->oAuthGet($url, $params);
         $statuses = json_decode($response);
         return $statuses;
     }
@@ -232,17 +238,25 @@ class TwitterOAuthClient extends OAuthClient
     {
         $url = "https://twitter.com/statuses/friends.json";
 
-        $params = array('id' => $id,
-                        'user_id' => $user_id,
-                        'screen_name' => $screen_name,
-                        'page' => $page);
-        $qry    = http_build_query($params);
+        $params = array();
 
-        if (!empty($qry)) {
-            $url .= "?$qry";
+        if (!empty($id)) {
+            $params['id'] = $id;
         }
 
-        $response = $this->oAuthGet($url);
+        if (!empty($user_id)) {
+            $params['user_id'] = $user_id;
+        }
+
+        if (!empty($screen_name)) {
+            $params['screen_name'] = $screen_name;
+        }
+
+        if (!empty($page)) {
+            $params['page'] = $page;
+        }
+
+        $response = $this->oAuthGet($url, $params);
         $friends  = json_decode($response);
         return $friends;
     }
@@ -262,19 +276,90 @@ class TwitterOAuthClient extends OAuthClient
     {
         $url = "https://twitter.com/friends/ids.json";
 
-        $params = array('id' => $id,
-                        'user_id' => $user_id,
-                        'screen_name' => $screen_name,
-                        'page' => $page);
-        $qry    = http_build_query($params);
+        $params = array();
 
-        if (!empty($qry)) {
-            $url .= "?$qry";
+        if (!empty($id)) {
+            $params['id'] = $id;
         }
 
-        $response = $this->oAuthGet($url);
+        if (!empty($user_id)) {
+            $params['user_id'] = $user_id;
+        }
+
+        if (!empty($screen_name)) {
+            $params['screen_name'] = $screen_name;
+        }
+
+        if (!empty($page)) {
+            $params['page'] = $page;
+        }
+
+        $response = $this->oAuthGet($url, $params);
         $ids      = json_decode($response);
         return $ids;
     }
 
+    /**
+     * Calls Twitter's /statuses/retweet/id.json API method
+     *
+     * @param int $id id of the notice to retweet
+     *
+     * @return retweeted status
+     */
+
+    function statusesRetweet($id)
+    {
+        $url = "http://api.twitter.com/1/statuses/retweet/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
+
+    /**
+     * Calls Twitter's /favorites/create API method
+     *
+     * @param int $id ID of the status to favorite
+     *
+     * @return object faved status
+     */
+
+    function favoritesCreate($id)
+    {
+        $url = "http://api.twitter.com/1/favorites/create/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
+
+    /**
+     * Calls Twitter's /favorites/destroy API method
+     *
+     * @param int $id ID of the status to unfavorite
+     *
+     * @return object unfaved status
+     */
+
+    function favoritesDestroy($id)
+    {
+        $url = "http://api.twitter.com/1/favorites/destroy/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
+
+    /**
+     * Calls Twitter's /statuses/destroy API method
+     *
+     * @param int $id ID of the status to destroy
+     *
+     * @return object destroyed
+     */
+
+    function statusesDestroy($id)
+    {
+        $url = "http://api.twitter.com/1/statuses/destroy/$id.json";
+        $response = $this->oAuthPost($url);
+        $status = json_decode($response);
+        return $status;
+    }
 }

@@ -23,7 +23,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 define('TWITTER_SERVICE', 1); // Twitter is foreign_service ID 1
 
-require_once INSTALLDIR . '/plugins/TwitterBridge/twitterbasicauthclient.php';
 require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
 
 function add_twitter_user($twitter_id, $screen_name)
@@ -115,9 +114,12 @@ function is_twitter_bound($notice, $flink) {
     // Check to see if notice should go to Twitter
     if (!empty($flink) && ($flink->noticesync & FOREIGN_NOTICE_SEND)) {
 
-        // If it's not a Twitter-style reply, or if the user WANTS to send replies.
+        // If it's not a Twitter-style reply, or if the user WANTS to send replies,
+        // or if it's in reply to a twitter notice
+
         if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
-            ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY)) {
+            ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) ||
+            is_twitter_notice($notice->reply_to)) {
             return true;
         }
     }
@@ -125,20 +127,62 @@ function is_twitter_bound($notice, $flink) {
     return false;
 }
 
+function is_twitter_notice($id)
+{
+    $n2s = Notice_to_status::staticGet('notice_id', $id);
+
+    return (!empty($n2s));
+}
+
 function broadcast_twitter($notice)
 {
     $flink = Foreign_link::getByUserID($notice->profile_id,
                                        TWITTER_SERVICE);
 
-    if (is_twitter_bound($notice, $flink)) {
-        if (TwitterOAuthClient::isPackedToken($flink->credentials)) {
+    // Don't bother with basic auth, since it's no longer allowed
+
+    if (!empty($flink) && TwitterOAuthClient::isPackedToken($flink->credentials)) {
+        if (!empty($notice->repeat_of) && is_twitter_notice($notice->repeat_of)) {
+            $retweet = retweet_notice($flink, Notice::staticGet('id', $notice->repeat_of));
+            if (!empty($retweet)) {
+                Notice_to_status::saveNew($notice->id, $retweet->id);
+            }
+        } else if (is_twitter_bound($notice, $flink)) {
             return broadcast_oauth($notice, $flink);
-        } else {
-            return broadcast_basicauth($notice, $flink);
         }
     }
 
     return true;
+}
+
+function retweet_notice($flink, $notice)
+{
+    $token = TwitterOAuthClient::unpackToken($flink->credentials);
+    $client = new TwitterOAuthClient($token->key, $token->secret);
+
+    $id = twitter_status_id($notice);
+
+    if (empty($id)) {
+        common_log(LOG_WARNING, "Trying to retweet notice {$notice->id} with no known status id.");
+        return null;
+    }
+
+    try {
+        $status = $client->statusesRetweet($id);
+        return $status;
+    } catch (OAuthClientException $e) {
+        return process_error($e, $flink, $notice);
+    }
+}
+
+function twitter_status_id($notice)
+{
+    $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
+    if (empty($n2s)) {
+        return null;
+    } else {
+        return $n2s->status_id;
+    }
 }
 
 /**
@@ -156,9 +200,12 @@ function twitter_update_params($notice)
         $params['lat'] = $notice->lat;
         $params['long'] = $notice->lon;
     }
+    if (!empty($notice->reply_to) && is_twitter_notice($notice->reply_to)) {
+        $reply = Notice::staticGet('id', $notice->reply_to);
+        $params['in_reply_to_status_id'] = twitter_status_id($reply);
+    }
     return $params;
 }
-
 
 function broadcast_oauth($notice, $flink) {
     $user = $flink->getUser();
@@ -171,6 +218,9 @@ function broadcast_oauth($notice, $flink) {
 
     try {
         $status = $client->statusesUpdate($statustxt, $params);
+        if (!empty($status)) {
+            Notice_to_status::saveNew($notice->id, $status->id);
+        }
     } catch (OAuthClientException $e) {
         return process_error($e, $flink, $notice);
     }
@@ -195,52 +245,6 @@ function broadcast_oauth($notice, $flink) {
 
     $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
                    'OAuth for User %s (user id %d).',
-                   $notice->id,
-                   $user->nickname,
-                   $user->id);
-
-    common_log(LOG_INFO, $msg);
-
-    return true;
-}
-
-function broadcast_basicauth($notice, $flink)
-{
-    $user = $flink->getUser();
-
-    $statustxt = format_status($notice);
-    $params = twitter_update_params($notice);
-
-    $client = new TwitterBasicAuthClient($flink);
-    $status = null;
-
-    try {
-        $status = $client->statusesUpdate($statustxt, $params);
-    } catch (BasicAuthException $e) {
-        return process_error($e, $flink, $notice);
-    }
-
-    if (empty($status)) {
-
-        $errmsg = sprintf('Twitter bridge - No data returned by Twitter API when ' .
-                          'trying to post notice %d for %s (user id %d).',
-                          $notice->id,
-                          $user->nickname,
-                          $user->id);
-
-        common_log(LOG_WARNING, $errmsg);
-
-        $errmsg = sprintf('No data returned by Twitter API when ' .
-                          'trying to post notice %d for %s (user id %d).',
-                          $notice->id,
-                          $user->nickname,
-                          $user->id);
-        common_log(LOG_WARNING, $errmsg);
-        return false;
-    }
-
-    $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
-                   'HTTP basic auth for User %s (user id %d).',
                    $notice->id,
                    $user->nickname,
                    $user->id);

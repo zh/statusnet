@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:25:06+0000\n"
+"POT-Creation-Date: 2010-09-05 09:45+0000\n"
+"PO-Revision-Date: 2010-09-05 09:47:27+0000\n"
 "Language-Team: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
 "X-Message-Group: out-statusnet\n"
@@ -24,12 +24,6 @@ msgstr ""
 #: actions/accessadminpanel.php:55 lib/adminpanelaction.php:376
 msgid "Access"
 msgstr "Truy cập"
-
-#. TRANS: Page notice
-#: actions/accessadminpanel.php:67
-#, fuzzy
-msgid "Site access settings"
-msgstr "Thay đổi hình đại diện"
 
 #. TRANS: Form legend for registration form.
 #: actions/accessadminpanel.php:161
@@ -52,12 +46,6 @@ msgstr "Riêng tư"
 msgid "Make registration invitation only."
 msgstr ""
 
-#. TRANS: Checkbox label for configuring site as invite only.
-#: actions/accessadminpanel.php:176
-#, fuzzy
-msgid "Invite only"
-msgstr "Thư mời"
-
 #. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
 #: actions/accessadminpanel.php:183
 msgid "Disable new registrations."
@@ -67,12 +55,6 @@ msgstr ""
 #: actions/accessadminpanel.php:185
 msgid "Closed"
 msgstr "Đóng"
-
-#. TRANS: Title / tooltip for button to save access settings in site admin panel
-#: actions/accessadminpanel.php:202
-#, fuzzy
-msgid "Save access settings"
-msgstr "Thay đổi hình đại diện"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
@@ -85,13 +67,7 @@ msgctxt "BUTTON"
 msgid "Save"
 msgstr "Lưu"
 
-#. TRANS: Server error when page not found (404)
-#: actions/all.php:68 actions/public.php:98 actions/replies.php:93
-#: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
-msgid "No such page."
-msgstr "Không có tin nhắn nào."
-
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -111,16 +87,10 @@ msgstr "Không có tin nhắn nào."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Không có user nào."
-
-#. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:90
-#, fuzzy, php-format
-msgid "%1$s and friends, page %2$d"
-msgstr "%s và bạn bè"
 
 #. TRANS: Page title. %1$s is user nickname
 #. TRANS: H1 text. %1$s is user nickname
@@ -131,24 +101,6 @@ msgstr "%s và bạn bè"
 #, php-format
 msgid "%s and friends"
 msgstr "%s và bạn bè"
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:107
-#, fuzzy, php-format
-msgid "Feed for friends of %s (RSS 1.0)"
-msgstr "Chọn những người bạn của %s"
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:116
-#, fuzzy, php-format
-msgid "Feed for friends of %s (RSS 2.0)"
-msgstr "Chọn những người bạn của %s"
-
-#. TRANS: %1$s is user nickname
-#: actions/all.php:125
-#, fuzzy, php-format
-msgid "Feed for friends of %s (Atom)"
-msgstr "Chọn những người bạn của %s"
 
 #. TRANS: %1$s is user nickname
 #: actions/all.php:138
@@ -184,40 +136,6 @@ msgstr ""
 msgid "You and friends"
 msgstr "Bạn và bạn bè"
 
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:121 actions/apitimelinefriends.php:216
-#: actions/apitimelinehome.php:122
-#, php-format
-msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
-
-#: actions/apiaccountratelimitstatus.php:72
-#: actions/apiaccountupdatedeliverydevice.php:94
-#: actions/apiaccountupdateprofile.php:97
-#: actions/apiaccountupdateprofilebackgroundimage.php:94
-#: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:100 actions/apifavoritedestroy.php:101
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:139
-#: actions/apigroupismember.php:115 actions/apigroupjoin.php:156
-#: actions/apigroupleave.php:142 actions/apigrouplist.php:137
-#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
-#: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
-#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
-#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
-#, fuzzy
-msgid "API method not found."
-msgstr "Phương thức API không tìm thấy!"
-
 #: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
@@ -238,11 +156,6 @@ msgid ""
 "none."
 msgstr ""
 
-#: actions/apiaccountupdatedeliverydevice.php:133
-#, fuzzy
-msgid "Could not update user."
-msgstr "Không thể cập nhật thành viên."
-
 #: actions/apiaccountupdateprofile.php:112
 #: actions/apiaccountupdateprofilebackgroundimage.php:194
 #: actions/apiaccountupdateprofilecolors.php:185
@@ -252,11 +165,6 @@ msgstr "Không thể cập nhật thành viên."
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Người dùng không có thông tin."
-
-#: actions/apiaccountupdateprofile.php:147
-#, fuzzy
-msgid "Could not save profile."
-msgstr "Không thể lưu hồ sơ cá nhân."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
@@ -270,70 +178,30 @@ msgid ""
 "current configuration."
 msgstr ""
 
-#: actions/apiaccountupdateprofilebackgroundimage.php:136
-#: actions/apiaccountupdateprofilebackgroundimage.php:146
-#: actions/apiaccountupdateprofilecolors.php:164
-#: actions/apiaccountupdateprofilecolors.php:174
-#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
-#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
-#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
-#, fuzzy
-msgid "Unable to save your design settings."
-msgstr "Không thể lưu thông tin Twitter của bạn!"
-
-#: actions/apiaccountupdateprofilebackgroundimage.php:187
-#: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
-msgid "Could not update your design."
-msgstr "Không thể cập nhật thành viên."
-
 #: actions/apiblockcreate.php:105
-#, fuzzy
 msgid "You cannot block yourself!"
-msgstr "Không thể cập nhật thành viên."
-
-#: actions/apiblockcreate.php:126
-msgid "Block user failed."
-msgstr ""
-
-#: actions/apiblockdestroy.php:114
-msgid "Unblock user failed."
 msgstr ""
 
 #: actions/apidirectmessage.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Direct messages from %s"
-msgstr "Tin nhắn riêng"
-
-#: actions/apidirectmessage.php:93
-#, fuzzy, php-format
-msgid "All the direct messages sent from %s"
 msgstr "Bạn có tin nhắn riêng từ %s"
 
 #: actions/apidirectmessage.php:101
-#, fuzzy, php-format
-msgid "Direct messages to %s"
-msgstr "Tin nhắn riêng"
-
-#: actions/apidirectmessage.php:105
 #, php-format
-msgid "All the direct messages sent to %s"
-msgstr ""
-
-#: actions/apidirectmessagenew.php:118
-#, fuzzy
-msgid "No message text!"
-msgstr "Không có tin nhắn nào."
+msgid "Direct messages to %s"
+msgstr "Bạn có tin nhắn riêng từ %s"
 
 #: actions/apidirectmessagenew.php:127 actions/newmessage.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Max message size is %d chars."
-msgstr "Quá dài. Tối đa là 140 ký tự."
+msgstr ""
+"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
+"về bạn."
 
 #: actions/apidirectmessagenew.php:138
-#, fuzzy
 msgid "Recipient user not found."
-msgstr "Không tìm thấy user."
+msgstr "Không tìm thấy mã xác nhận."
 
 #: actions/apidirectmessagenew.php:142
 msgid "Can't send direct messages to users who aren't your friend."
@@ -344,58 +212,35 @@ msgstr ""
 msgid "No status found with that ID."
 msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 
-#: actions/apifavoritecreate.php:120
-#, fuzzy
-msgid "This status is already a favorite."
-msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
-
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
+#. TRANS: Error message text shown when a favorite could not be set.
+#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "Không thể tạo favorite."
 
 #: actions/apifavoritedestroy.php:123
-#, fuzzy
 msgid "That status is not a favorite."
-msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
-
-#: actions/apifavoritedestroy.php:135 actions/disfavor.php:87
-#, fuzzy
-msgid "Could not delete favorite."
 msgstr "Không thể tạo favorite."
-
-#: actions/apifriendshipscreate.php:109
-#, fuzzy
-msgid "Could not follow user: profile not found."
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
 
-#: actions/apifriendshipsdestroy.php:109
-#, fuzzy
-msgid "Could not unfollow user: User not found."
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Không thể cập nhật thành viên."
+msgstr ""
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
 msgstr ""
 
 #: actions/apifriendshipsshow.php:134
-#, fuzzy
 msgid "Could not determine source user."
-msgstr "Không thể lấy lại các tin nhắn ưa thích"
+msgstr "Không thể cập nhật thành viên."
 
 #: actions/apifriendshipsshow.php:142
-#, fuzzy
 msgid "Could not find target user."
-msgstr "Không tìm thấy bất kỳ trạng thái nào."
+msgstr "Không thể cập nhật thành viên."
 
 #: actions/apigroupcreate.php:167 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
@@ -430,9 +275,9 @@ msgstr "Tên đầy đủ quá dài (tối đa là 255 ký tự)."
 
 #: actions/apigroupcreate.php:216 actions/editapplication.php:190
 #: actions/newapplication.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (max %d chars)."
-msgstr "Lý lịch quá dài (không quá 140 ký tự)"
+msgstr "Tên khu vực quá dài (không quá %d ký tự)."
 
 #: actions/apigroupcreate.php:227 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
@@ -447,15 +292,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr ""
 
 #: actions/apigroupcreate.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Trang chủ '%s'  không hợp lệ"
-
-#: actions/apigroupcreate.php:276 actions/editgroup.php:232
-#: actions/newgroup.php:172
-#, fuzzy, php-format
-msgid "Alias \"%s\" already in use. Try another one."
-msgstr "Biệt hiệu này đã dùng rồi. Hãy nhập biệt hiệu khác."
+msgstr "Địa chỉ email không đúng:%s"
 
 #: actions/apigroupcreate.php:289 actions/editgroup.php:238
 #: actions/newgroup.php:178
@@ -468,67 +307,32 @@ msgstr ""
 msgid "Group not found."
 msgstr "Không tìm thấy nhóm."
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
-#, fuzzy
+#. TRANS: Error text shown a user tries to join a group they already are a member of.
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
-msgstr "Bạn đã theo những người này:"
+msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
+#. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
+#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
-#, fuzzy, php-format
-msgid "Could not join user %1$s to group %2$s."
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#: actions/apigroupleave.php:115
-#, fuzzy
-msgid "You are not a member of this group."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#: actions/apigroupleave.php:125 actions/leavegroup.php:129
-#, fuzzy, php-format
-msgid "Could not remove user %1$s from group %2$s."
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#. TRANS: %s is a user name
-#: actions/apigrouplist.php:98
-#, fuzzy, php-format
-msgid "%s's groups"
-msgstr "%s và nhóm"
-
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups %2$s is a member of."
-msgstr "Bạn chưa cập nhật thông tin riêng"
+msgstr ""
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
 #: actions/apigrouplistall.php:92 actions/usergroups.php:63
-#, fuzzy, php-format
+#, php-format
 msgid "%s groups"
-msgstr "%s và nhóm"
-
-#: actions/apigrouplistall.php:96
-#, fuzzy, php-format
-msgid "groups on %s"
-msgstr "Mã nhóm"
-
-#: actions/apimediaupload.php:99
-#, fuzzy
-msgid "Upload failed."
-msgstr "Tải file"
+msgstr "Hộp thư đi của %s"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr ""
-
-#: actions/apioauthauthorize.php:106
-#, fuzzy
-msgid "Invalid token."
-msgstr "Kích thước không hợp lệ."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
@@ -547,21 +351,6 @@ msgstr "Kích thước không hợp lệ."
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Có lỗi xảy ra khi thao tác. Hãy thử lại lần nữa."
-
-#: actions/apioauthauthorize.php:135
-#, fuzzy
-msgid "Invalid nickname / password!"
-msgstr "Tên đăng nhập hoặc mật khẩu không hợp lệ."
-
-#: actions/apioauthauthorize.php:159
-#, fuzzy
-msgid "Database error deleting OAuth application user."
-msgstr "Lỗi xảy ra khi tạo thành viên."
-
-#: actions/apioauthauthorize.php:185
-#, fuzzy
-msgid "Database error inserting OAuth application user."
-msgstr "Lỗi cơ sở dữ liệu khi chèn trả lời: %s"
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -604,7 +393,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:450
+#: actions/apioauthauthorize.php:310 lib/action.php:463
 msgid "Account"
 msgstr "Tài khoản"
 
@@ -647,20 +436,15 @@ msgstr "Bạn đã không xóa trạng thái của những người khác."
 msgid "No such notice."
 msgstr "Không có tin nhắn nào."
 
-#: actions/apistatusesretweet.php:83
-#, fuzzy
+#. TRANS: Error text shown when trying to repeat an own notice.
+#: actions/apistatusesretweet.php:83 lib/command.php:538
 msgid "Cannot repeat your own notice."
-msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
+msgstr "Không thể xóa tin nhắn này."
 
-#: actions/apistatusesretweet.php:91
-#, fuzzy
+#. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
+#: actions/apistatusesretweet.php:91 lib/command.php:544
 msgid "Already repeated that notice."
-msgstr "Xóa tin nhắn"
-
-#: actions/apistatusesshow.php:139
-#, fuzzy
-msgid "Status deleted."
-msgstr "Hình đại diện đã được cập nhật."
+msgstr "Không thể xóa tin nhắn này."
 
 #: actions/apistatusesshow.php:145
 msgid "No status with that ID found."
@@ -670,84 +454,47 @@ msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
-#: lib/mailhandler.php:60
-#, fuzzy, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr "Quá dài. Tối đa là 140 ký tự."
-
 #: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Không tìm thấy."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 
-#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
-#, fuzzy
-msgid "Unsupported format."
-msgstr "Không hỗ trợ kiểu file ảnh này."
-
 #: actions/apitimelinefavorites.php:110
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s / Favorites from %2$s"
-msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
+msgstr "Trạng thái của %1$s vào %2$s"
 
 #: actions/apitimelinefavorites.php:119
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
-msgstr "Tất cả các cập nhật của %s"
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/apitimelinementions.php:118
-#, fuzzy, php-format
-msgid "%1$s / Updates mentioning %2$s"
-msgstr "%1$s / Các cập nhật đang trả lời tới %2$s"
-
-#: actions/apitimelinementions.php:131
 #, php-format
-msgid "%1$s updates that reply to updates from %2$s / %3$s."
-msgstr ""
-
-#: actions/apitimelinepublic.php:197 actions/publicrss.php:103
-#, fuzzy, php-format
-msgid "%s public timeline"
-msgstr "Dòng tin công cộng"
+msgid "%1$s / Updates mentioning %2$s"
+msgstr "Trạng thái của %1$s vào %2$s"
 
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "%s cập nhật từ tất cả mọi người!"
 
-#: actions/apitimelineretweetedtome.php:111
-#, fuzzy, php-format
-msgid "Repeated to %s"
-msgstr "Trả lời cho %s"
-
-#: actions/apitimelineretweetsofme.php:114
-#, fuzzy, php-format
-msgid "Repeats of %s"
-msgstr "Trả lời cho %s"
-
 #: actions/apitimelinetag.php:105 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "Thông báo được gắn thẻ %s"
-
-#: actions/apitimelinetag.php:107 actions/tagrss.php:65
-#, fuzzy, php-format
-msgid "Updates tagged with %1$s on %2$s!"
-msgstr "Dòng tin nhắn cho %s"
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
 msgstr "Phương thức API dưới cấu trúc có sẵn."
 
 #: actions/attachment.php:73
-#, fuzzy
 msgid "No such attachment."
-msgstr "Không có tài liệu nào."
+msgstr "Không có tin nhắn nào."
 
 #: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
 #: actions/editgroup.php:84 actions/groupdesignsettings.php:84
@@ -770,19 +517,11 @@ msgstr "Kích thước không hợp lệ."
 msgid "Avatar"
 msgstr "Hình đại diện"
 
-#: actions/avatarsettings.php:78
-#, fuzzy, php-format
-msgid "You can upload your personal avatar. The maximum file size is %s."
-msgstr ""
-"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
-"về bạn."
-
 #: actions/avatarsettings.php:106 actions/avatarsettings.php:185
 #: actions/grouplogo.php:181 actions/remotesubscribe.php:191
 #: actions/userauthorization.php:72 actions/userrss.php:108
-#, fuzzy
 msgid "User without matching profile."
-msgstr "Hồ sơ ở nơi khác không khớp với hồ sơ này của bạn"
+msgstr "Người dùng không có thông tin."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -800,23 +539,13 @@ msgid "Preview"
 msgstr "Xem trước"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Xóa"
 
 #: actions/avatarsettings.php:166 actions/grouplogo.php:236
 msgid "Upload"
 msgstr "Tải file"
-
-#: actions/avatarsettings.php:231 actions/grouplogo.php:289
-#, fuzzy
-msgid "Crop"
-msgstr "Nhóm"
-
-#: actions/avatarsettings.php:305
-#, fuzzy
-msgid "No file uploaded."
-msgstr "Upload từng phần."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -833,16 +562,6 @@ msgstr "Hình đại diện đã được cập nhật."
 #: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr "Cập nhật hình đại diện không thành công."
-
-#: actions/avatarsettings.php:397
-#, fuzzy
-msgid "Avatar deleted."
-msgstr "Hình đại diện đã được cập nhật."
-
-#: actions/block.php:69
-#, fuzzy
-msgid "You already blocked that user."
-msgstr "Bạn đã theo những người này:"
 
 #: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
 msgid "Block user"
@@ -863,41 +582,21 @@ msgstr ""
 #: actions/block.php:153 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
-msgstr "Không"
-
-#. TRANS: Submit button title for 'No' when blocking a user.
-#. TRANS: Submit button title for 'No' when deleting a user.
-#: actions/block.php:157 actions/deleteuser.php:156
-#, fuzzy
-msgid "Do not block this user"
-msgstr "Bỏ chặn người dùng này"
-
-#. TRANS: Button label on the user block form.
-#. TRANS: Button label on the delete application form.
-#. TRANS: Button label on the delete notice form.
-#. TRANS: Button label on the delete user form.
-#. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletenotice.php:154 actions/deleteuser.php:159
-#: actions/groupblock.php:185
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Yes"
-msgstr "Có"
+msgstr ""
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #: actions/block.php:164 actions/groupmembers.php:392 lib/blockform.php:80
-#, fuzzy
 msgid "Block this user"
-msgstr "Ban user"
+msgstr "Bỏ chặn người dùng này"
 
 #: actions/block.php:187
 msgid "Failed to save block information."
 msgstr ""
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -907,30 +606,19 @@ msgstr ""
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
-#, fuzzy
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
-msgstr "Không có tin nhắn nào."
-
-#: actions/blockedfromgroup.php:97
-#, fuzzy, php-format
-msgid "%s blocked profiles"
-msgstr "Hồ sơ"
+msgstr "Không có user nào."
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "%s và bạn bè"
+msgstr ""
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr ""
-
-#: actions/blockedfromgroup.php:288
-#, fuzzy
-msgid "Unblock user from group"
-msgstr "Bỏ chặn người dùng này"
 
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:69
 msgid "Unblock"
@@ -942,9 +630,9 @@ msgstr "Bỏ chặn người dùng này"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
 #: actions/bookmarklet.php:51
-#, fuzzy, php-format
+#, php-format
 msgid "Post to %s"
-msgstr "Mã nhóm"
+msgstr "Trả lời cho %s"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -960,9 +648,9 @@ msgstr "Mã xác nhận này không phải của bạn!"
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Unrecognized address type %s."
-msgstr "Không nhận dạng kiểu địa chỉ %s"
+msgstr ""
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -991,9 +679,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "Không thể xóa email xác nhận."
 
 #: actions/confirmaddress.php:146
-#, fuzzy
 msgid "Confirm address"
-msgstr "Xác nhận địa chỉ"
+msgstr "Đã xác nhận địa chỉ này."
 
 #: actions/confirmaddress.php:161
 #, php-format
@@ -1001,42 +688,17 @@ msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Địa chỉ \"%s\" đã được xác nhận từ tài khoản của bạn."
 
 #: actions/conversation.php:99
-#, fuzzy
 msgid "Conversation"
-msgstr "Không có mã số xác nhận."
+msgstr "Thành phố"
 
 #: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Tin nhắn"
 
-#: actions/deleteapplication.php:63
-#, fuzzy
-msgid "You must be logged in to delete an application."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
 #: actions/deleteapplication.php:71
-#, fuzzy
 msgid "Application not found."
-msgstr "Tin nhắn không có hồ sơ cá nhân"
-
-#: actions/deleteapplication.php:78 actions/editapplication.php:77
-#: actions/showapplication.php:94
-#, fuzzy
-msgid "You are not the owner of this application."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#: actions/deleteapplication.php:102 actions/editapplication.php:127
-#: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1263
-#, fuzzy
-msgid "There was a problem with your session token."
-msgstr "Có lỗi xảy ra khi thao tác. Hãy thử lại lần nữa."
-
-#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
-msgid "Delete application"
-msgstr "Không có tin nhắn nào."
+msgstr "Không tìm thấy mã xác nhận."
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1044,18 +706,6 @@ msgid ""
 "about the application from the database, including all existing user "
 "connections."
 msgstr ""
-
-#. TRANS: Submit button title for 'No' when deleting an application.
-#: actions/deleteapplication.php:158
-#, fuzzy
-msgid "Do not delete this application"
-msgstr "Không thể xóa tin nhắn này."
-
-#. TRANS: Submit button title for 'Yes' when deleting an application.
-#: actions/deleteapplication.php:164
-#, fuzzy
-msgid "Delete this application"
-msgstr "Xóa tin nhắn"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
@@ -1073,11 +723,10 @@ msgid "Can't delete this notice."
 msgstr "Không thể xóa tin nhắn này."
 
 #: actions/deletenotice.php:103
-#, fuzzy
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
-msgstr "Bạn muốn xóa tin nhắn này? Sau khi xóa, bạn không thể lấy lại được."
+msgstr ""
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
@@ -1087,44 +736,15 @@ msgstr "Xóa tin nhắn"
 msgid "Are you sure you want to delete this notice?"
 msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
 
-#. TRANS: Submit button title for 'No' when deleting a notice.
-#: actions/deletenotice.php:151
-#, fuzzy
-msgid "Do not delete this notice"
-msgstr "Không thể xóa tin nhắn này."
-
-#. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
-#, fuzzy
-msgid "Delete this notice"
-msgstr "Xóa tin nhắn"
-
-#: actions/deleteuser.php:67
-#, fuzzy
-msgid "You cannot delete users."
-msgstr "Không thể cập nhật thành viên."
-
-#: actions/deleteuser.php:74
-#, fuzzy
-msgid "You can only delete local users."
-msgstr "Bạn đã không xóa trạng thái của những người khác."
-
 #: actions/deleteuser.php:110 actions/deleteuser.php:133
-#, fuzzy
 msgid "Delete user"
-msgstr "Xóa tin nhắn"
+msgstr "Xóa"
 
 #: actions/deleteuser.php:136
 msgid ""
 "Are you sure you want to delete this user? This will clear all data about "
 "the user from the database, without a backup."
 msgstr ""
-
-#. TRANS: Submit button title for 'Yes' when deleting a user.
-#: actions/deleteuser.php:163 lib/deleteuserform.php:77
-#, fuzzy
-msgid "Delete this user"
-msgstr "Xóa tin nhắn"
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
@@ -1137,68 +757,35 @@ msgstr ""
 msgid "Design settings for this StatusNet site."
 msgstr ""
 
-#: actions/designadminpanel.php:318
-#, fuzzy
-msgid "Invalid logo URL."
-msgstr "Kích thước không hợp lệ."
-
 #: actions/designadminpanel.php:322
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #: actions/designadminpanel.php:426
-#, fuzzy
 msgid "Change logo"
-msgstr "Thay đổi mật khẩu của bạn"
-
-#: actions/designadminpanel.php:431
-#, fuzzy
-msgid "Site logo"
-msgstr "Thư mời"
-
-#: actions/designadminpanel.php:443
-#, fuzzy
-msgid "Change theme"
 msgstr "Thay đổi"
-
-#: actions/designadminpanel.php:460
-#, fuzzy
-msgid "Site theme"
-msgstr "Thông báo mới"
 
 #: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr ""
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Thông báo mới"
+msgstr ""
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
 #: actions/designadminpanel.php:486 lib/designsettings.php:101
-#, fuzzy
 msgid "Change background image"
-msgstr "Background Theme:"
+msgstr ""
 
 #: actions/designadminpanel.php:491 actions/designadminpanel.php:574
 #: lib/designsettings.php:178
-#, fuzzy
 msgid "Background"
-msgstr "Background Theme:"
-
-#: actions/designadminpanel.php:496
-#, fuzzy, php-format
-msgid ""
-"You can upload a background image for the site. The maximum file size is %1"
-"$s."
 msgstr ""
-"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
-"về bạn."
 
 #. TRANS: Used as radio button label to add a background image.
 #: actions/designadminpanel.php:527 lib/designsettings.php:139
@@ -1215,33 +802,12 @@ msgid "Turn background image on or off."
 msgstr ""
 
 #: actions/designadminpanel.php:550 lib/designsettings.php:161
-#, fuzzy
 msgid "Tile background image"
-msgstr "Background Theme:"
-
-#: actions/designadminpanel.php:564 lib/designsettings.php:170
-#, fuzzy
-msgid "Change colours"
-msgstr "Thay đổi mật khẩu của bạn"
-
-#: actions/designadminpanel.php:587 lib/designsettings.php:191
-#, fuzzy
-msgid "Content"
-msgstr "Kết nối"
-
-#: actions/designadminpanel.php:600 lib/designsettings.php:204
-#, fuzzy
-msgid "Sidebar"
-msgstr "Tìm kiếm"
+msgstr ""
 
 #: actions/designadminpanel.php:613 lib/designsettings.php:217
 msgid "Text"
 msgstr "Chuỗi bất kỳ"
-
-#: actions/designadminpanel.php:626 lib/designsettings.php:230
-#, fuzzy
-msgid "Links"
-msgstr "Đăng nhập"
 
 #: actions/designadminpanel.php:651
 msgid "Advanced"
@@ -1275,82 +841,29 @@ msgid "Save"
 msgstr "Lưu"
 
 #: actions/designadminpanel.php:686 lib/designsettings.php:257
-#, fuzzy
 msgid "Save design"
-msgstr "Lưu"
-
-#: actions/disfavor.php:81
-#, fuzzy
-msgid "This notice is not a favorite!"
-msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
-
-#: actions/disfavor.php:94
-#, fuzzy
-msgid "Add to favorites"
-msgstr "Tìm kiếm các tin nhắn ưa thích của %s"
-
-#: actions/doc.php:158
-#, fuzzy, php-format
-msgid "No such document \"%s\""
-msgstr "Không có tài liệu nào."
-
-#: actions/editapplication.php:54
-#, fuzzy
-msgid "Edit Application"
-msgstr "Tin nhắn không có hồ sơ cá nhân"
-
-#: actions/editapplication.php:66
-#, fuzzy
-msgid "You must be logged in to edit an application."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
-#, fuzzy
-msgid "No such application."
-msgstr "Không có tin nhắn nào."
-
-#: actions/editapplication.php:161
-msgid "Use this form to edit your application."
 msgstr ""
 
-#: actions/editapplication.php:177 actions/newapplication.php:159
-#, fuzzy
-msgid "Name is required."
-msgstr "Cùng mật khẩu ở trên. Bắt buộc."
+#: actions/disfavor.php:94
+msgid "Add to favorites"
+msgstr "Ưa thích"
 
-#: actions/editapplication.php:180 actions/newapplication.php:165
-#, fuzzy
-msgid "Name is too long (max 255 chars)."
-msgstr "Tên đầy đủ quá dài (tối đa là 255 ký tự)."
+#: actions/doc.php:158
+#, php-format
+msgid "No such document \"%s\""
+msgstr "Không có tin nhắn nào."
 
-#: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
-msgid "Name already in use. Try another one."
-msgstr "Biệt hiệu này đã dùng rồi. Hãy nhập biệt hiệu khác."
-
-#: actions/editapplication.php:186 actions/newapplication.php:168
-#, fuzzy
-msgid "Description is required."
-msgstr "Mô tả"
+#: actions/editapplication.php:54
+msgid "Edit Application"
+msgstr ""
 
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
 msgstr ""
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
-#, fuzzy
-msgid "Source URL is not valid."
-msgstr "Trang chủ không phải là URL"
-
 #: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr ""
-
-#: actions/editapplication.php:206 actions/newapplication.php:191
-#, fuzzy
-msgid "Organization is too long (max 255 chars)."
-msgstr "Tên khu vực quá dài (không quá 255 ký tự)."
 
 #: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
@@ -1364,62 +877,29 @@ msgstr ""
 msgid "Callback URL is not valid."
 msgstr ""
 
-#: actions/editapplication.php:258
-#, fuzzy
-msgid "Could not update application."
-msgstr "Không thể cập nhật thành viên."
-
 #: actions/editgroup.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Edit %s group"
-msgstr "%s và nhóm"
-
-#: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
-#, fuzzy
-msgid "You must be logged in to create a group."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/editgroup.php:107 actions/editgroup.php:172
-#: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
-#, fuzzy
-msgid "You must be an admin to edit the group."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+msgstr "Hộp thư đi của %s"
 
 #: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr ""
 
 #: actions/editgroup.php:205 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "Lý lịch quá dài (không quá 140 ký tự)"
+msgstr "Tên khu vực quá dài (không quá 255 ký tự)."
 
 #: actions/editgroup.php:228 actions/newgroup.php:168
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\""
-msgstr "Trang chủ '%s'  không hợp lệ"
-
-#: actions/editgroup.php:258
-#, fuzzy
-msgid "Could not update group."
-msgstr "Không thể cập nhật thành viên."
-
-#. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:264 classes/User_group.php:514
-#, fuzzy
-msgid "Could not create aliases."
-msgstr "Không thể tạo favorite."
-
-#: actions/editgroup.php:280
-#, fuzzy
-msgid "Options saved."
-msgstr "Đã lưu các điều chỉnh."
+msgstr "Địa chỉ email không đúng:%s"
 
 #. TRANS: Title for e-mail settings.
 #: actions/emailsettings.php:61
-#, fuzzy
 msgid "Email settings"
-msgstr "Thiết lập địa chỉ email"
+msgstr "Các thiết lập cho Hồ sơ cá nhân"
 
 #. TRANS: E-mail settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -1427,13 +907,6 @@ msgstr "Thiết lập địa chỉ email"
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
 msgstr "Bạn nhận email từ %%site.name%% như thế nào."
-
-#. TRANS: Form legend for e-mail settings form.
-#. TRANS: Field label for e-mail address input in e-mail settings form.
-#: actions/emailsettings.php:106 actions/emailsettings.php:132
-#, fuzzy
-msgid "Email address"
-msgstr "Địa chỉ email"
 
 #. TRANS: Form note in e-mail settings form.
 #: actions/emailsettings.php:112
@@ -1448,10 +921,9 @@ msgstr "Đã xác nhận địa chỉ này."
 #: actions/emailsettings.php:115 actions/emailsettings.php:158
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Remove"
-msgstr "Xóa"
+msgstr "Khôi phục"
 
 #: actions/emailsettings.php:122
 msgid ""
@@ -1461,37 +933,18 @@ msgstr ""
 "Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra hộp thư đến (hoặc thư rác) "
 "để nhận tin nhắn và lời hướng dẫn."
 
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "Hủy"
-
 #. TRANS: Instructions for e-mail address input form.
 #: actions/emailsettings.php:135
-#, fuzzy
 msgid "Email address, like \"UserName@example.org\""
-msgstr "Địa chỉ email GTalk, Ví dụ: \"UserName@example.org\""
+msgstr ""
 
 #. TRANS: Button label for adding an e-mail address in e-mail settings form.
 #. TRANS: Button label for adding an IM address in IM settings form.
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
-msgstr "Thêm"
-
-#. TRANS: Form legend for incoming e-mail settings form.
-#. TRANS: Form legend for incoming SMS settings form.
-#: actions/emailsettings.php:147 actions/smssettings.php:171
-msgid "Incoming email"
 msgstr ""
 
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
@@ -1509,16 +962,14 @@ msgstr "Tạo một địa chỉ email mới để đưa tin nhắn lên; và x�
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:168 actions/smssettings.php:189
-#, fuzzy
 msgctxt "BUTTON"
 msgid "New"
-msgstr "Mới"
+msgstr ""
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Tính năng"
+msgstr "Địa chỉ email"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1538,12 +989,6 @@ msgid "Send me email when someone sends me a private message."
 msgstr "Gửi email báo cho tôi biết khi có ai đó gửi tin nhắn riêng cho tôi."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:199
-#, fuzzy
-msgid "Send me email when someone sends me an \"@-reply\"."
-msgstr "Gửi email báo cho tôi biết khi có ai đó gửi tin nhắn riêng cho tôi."
-
-#. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:205
 msgid "Allow friends to nudge me and send me an email."
 msgstr ""
@@ -1558,12 +1003,6 @@ msgstr "Tôi muốn đưa tin nhắn lên bằng email."
 msgid "Publish a MicroID for my email address."
 msgstr "Xuất bản một MicroID đến địa chỉ email của tôi."
 
-#. TRANS: Confirmation message for successful e-mail preferences save.
-#: actions/emailsettings.php:334
-#, fuzzy
-msgid "Email preferences saved."
-msgstr "Các tính năng đã được lưu."
-
 #. TRANS: Message given saving e-mail address without having provided one.
 #: actions/emailsettings.php:353
 msgid "No email address."
@@ -1571,9 +1010,8 @@ msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
 #: actions/emailsettings.php:361
-#, fuzzy
 msgid "Cannot normalize that email address"
-msgstr "Không thể bình thường hóa địa chỉ GTalk này"
+msgstr "Không thể bình thường hóa Jabber ID"
 
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:366 actions/register.php:208
@@ -1583,15 +1021,13 @@ msgstr "Địa chỉ email không hợp lệ."
 
 #. TRANS: Message given saving e-mail address that is already set.
 #: actions/emailsettings.php:370
-#, fuzzy
 msgid "That is already your email address."
-msgstr "Bạn đã dùng địa chỉ email này rồi"
+msgstr "Tài khoản đó đã là tên tài khoản Jabber của bạn rồi."
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
 #: actions/emailsettings.php:374
-#, fuzzy
 msgid "That email address already belongs to another user."
-msgstr "Địa chỉ email GTalk này đã có người khác sử dụng rồi."
+msgstr "Jabber ID này đã thuộc về người khác rồi."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1618,80 +1054,42 @@ msgstr ""
 msgid "No pending confirmation to cancel."
 msgstr "Sự xác nhận chưa được hủy bỏ."
 
-#. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
-#: actions/emailsettings.php:424
-#, fuzzy
-msgid "That is the wrong email address."
-msgstr "Sai IM."
-
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Sự xác nhận đã bị hủy bỏ."
-
-#. TRANS: Message given trying to remove an e-mail address that is not
-#. TRANS: registered for the active user.
-#: actions/emailsettings.php:458
-#, fuzzy
-msgid "That is not your email address."
-msgstr "Xin lỗi, đó không phải là địa chỉ email mà bạn nhập vào."
+msgstr "Sự xác nhận chưa được hủy bỏ."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:479
-#, fuzzy
 msgid "The email address was removed."
-msgstr "Đã xóa địa chỉ."
+msgstr "Không có địa chỉ email."
 
 #: actions/emailsettings.php:493 actions/smssettings.php:568
-#, fuzzy
 msgid "No incoming email address."
-msgstr "Địa chỉ email không hợp lệ."
-
-#. TRANS: Server error thrown on database error removing incoming e-mail address.
-#. TRANS: Server error thrown on database error adding incoming e-mail address.
-#: actions/emailsettings.php:504 actions/emailsettings.php:528
-#: actions/smssettings.php:578 actions/smssettings.php:602
-#, fuzzy
-msgid "Couldn't update user record."
-msgstr "Không thể cập nhật thành viên."
+msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
 #: actions/emailsettings.php:508 actions/smssettings.php:581
-#, fuzzy
 msgid "Incoming email address removed."
-msgstr "Địa chỉ email hoặc mật khẩu không đúng."
+msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
 #: actions/emailsettings.php:532 actions/smssettings.php:605
-#, fuzzy
 msgid "New incoming email address added."
-msgstr "Đã xác nhận địa chỉ này."
+msgstr "Không có địa chỉ email."
 
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
 msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
 
-#: actions/favor.php:92 lib/disfavorform.php:140
-#, fuzzy
-msgid "Disfavor favorite"
-msgstr "Không thích"
-
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
-#, fuzzy
 msgid "Popular notices"
-msgstr "Các tin nhắn bị cảnh báo"
-
-#: actions/favorited.php:67
-#, fuzzy, php-format
-msgid "Popular notices, page %d"
-msgstr "Các tin nhắn bị cảnh báo"
+msgstr "Không có tin nhắn nào."
 
 #: actions/favorited.php:79
-#, fuzzy
 msgid "The most popular notices on the site right now."
-msgstr "Các từ khóa phổ biến."
+msgstr ""
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1721,11 +1119,6 @@ msgstr "Những tin nhắn ưa thích của %s"
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "Dòng tin nhắn cho %s"
 
-#: actions/featured.php:69 lib/featureduserssection.php:87
-#: lib/publicgroupnav.php:89
-msgid "Featured users"
-msgstr ""
-
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
@@ -1737,33 +1130,20 @@ msgid "A selection of some great users on %s"
 msgstr ""
 
 #: actions/file.php:34
-#, fuzzy
 msgid "No notice ID."
-msgstr "Thông báo mới"
+msgstr "Không có tin nhắn nào."
 
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Thông báo mới"
-
-#: actions/file.php:42
-#, fuzzy
-msgid "No attachments."
-msgstr "Không có tài liệu nào."
-
-#: actions/file.php:51
-#, fuzzy
-msgid "No uploaded attachments."
-msgstr "Không có tài liệu nào."
+msgstr "Không có tin nhắn nào."
 
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "Không mong đợi trả lời lại!"
 
 #: actions/finishremotesubscribe.php:80
-#, fuzzy
 msgid "User being listened to does not exist."
-msgstr "Người dùng đang lắng nghe để không thoát khỏi."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1774,66 +1154,24 @@ msgid "That user has blocked you from subscribing."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:110
-#, fuzzy
 msgid "You are not authorized."
-msgstr "Chưa được phép."
+msgstr "Đăng nhận được phép"
 
 #: actions/finishremotesubscribe.php:113
-#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "Không thể chuyển các token yêu cầu đến token truy cập."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:118
-#, fuzzy
 msgid "Remote service uses unknown version of OMB protocol."
-msgstr "Không biết phiên bản của giao thức OMB."
-
-#: actions/finishremotesubscribe.php:138
-#, fuzzy
-msgid "Error updating remote profile."
-msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
-
-#: actions/getfile.php:79
-#, fuzzy
-msgid "No such file."
-msgstr "Không có tin nhắn nào."
+msgstr ""
 
 #: actions/getfile.php:83
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Không có tin nhắn nào."
-
-#: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
-msgid "Invalid role."
-msgstr "Kích thước không hợp lệ."
+msgstr "Không thể tạo favorite."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
-
-#: actions/grantrole.php:75
-#, fuzzy
-msgid "You cannot grant user roles on this site."
-msgstr "Bạn đã theo những người này:"
-
-#: actions/grantrole.php:82
-#, fuzzy
-msgid "User already has this role."
-msgstr "Người dùng không có thông tin."
-
-#: actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:71 actions/subedit.php:46
-#: lib/profileformaction.php:79
-msgid "No profile specified."
-msgstr ""
-
-#: actions/groupblock.php:76 actions/groupunblock.php:76
-#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
-#: actions/unsubscribe.php:84 lib/profileformaction.php:86
-#, fuzzy
-msgid "No profile with that ID."
-msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
 #: actions/makeadmin.php:81
@@ -1845,19 +1183,12 @@ msgid "Only an admin can block group members."
 msgstr ""
 
 #: actions/groupblock.php:95
-#, fuzzy
 msgid "User is already blocked from group."
-msgstr "Người dùng không có thông tin."
-
-#: actions/groupblock.php:100
-#, fuzzy
-msgid "User is not a member of group."
-msgstr "Bạn chưa cập nhật thông tin riêng"
+msgstr ""
 
 #: actions/groupblock.php:134 actions/groupmembers.php:360
-#, fuzzy
 msgid "Block user from group"
-msgstr "Ban user"
+msgstr "Chặn người dùng"
 
 #: actions/groupblock.php:160
 #, php-format
@@ -1867,36 +1198,9 @@ msgid ""
 "the group in the future."
 msgstr ""
 
-#. TRANS: Submit button title for 'No' when blocking a user from a group.
-#: actions/groupblock.php:182
-#, fuzzy
-msgid "Do not block this user from this group"
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#. TRANS: Submit button title for 'Yes' when blocking a user from a group.
-#: actions/groupblock.php:189
-#, fuzzy
-msgid "Block this user from this group"
-msgstr "Ban user"
-
-#: actions/groupblock.php:206
-msgid "Database error blocking user from group."
-msgstr ""
-
 #: actions/groupbyid.php:74 actions/userbyid.php:70
-#, fuzzy
 msgid "No ID."
-msgstr "Không có id."
-
-#: actions/groupdesignsettings.php:68
-#, fuzzy
-msgid "You must be logged in to edit a group."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/groupdesignsettings.php:144
-#, fuzzy
-msgid "Group design"
-msgstr "Nhóm"
+msgstr "Không có Jabber ID."
 
 #: actions/groupdesignsettings.php:155
 msgid ""
@@ -1904,51 +1208,18 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
-#: lib/designsettings.php:391 lib/designsettings.php:413
-#, fuzzy
-msgid "Couldn't update your design."
-msgstr "Không thể cập nhật thành viên."
-
-#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
-#, fuzzy
-msgid "Design preferences saved."
-msgstr "Các tính năng đã được lưu."
-
 #: actions/grouplogo.php:142 actions/grouplogo.php:195
-#, fuzzy
 msgid "Group logo"
-msgstr "Mã nhóm"
-
-#: actions/grouplogo.php:153
-#, php-format
-msgid ""
-"You can upload a logo image for your group. The maximum file size is %s."
-msgstr ""
+msgstr "Nhóm"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
-#: actions/grouplogo.php:399
-#, fuzzy
-msgid "Logo updated."
-msgstr "Hình đại diện đã được cập nhật."
-
-#: actions/grouplogo.php:401
-#, fuzzy
-msgid "Failed updating logo."
-msgstr "Cập nhật hình đại diện không thành công."
-
-#: actions/groupmembers.php:100 lib/groupnav.php:92
-#, fuzzy, php-format
-msgid "%s group members"
-msgstr "Thành viên"
-
 #: actions/groupmembers.php:103
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group members, page %2$d"
-msgstr "Thành viên"
+msgstr ""
 
 #: actions/groupmembers.php:118
 msgid "A list of the users in this group."
@@ -1958,49 +1229,31 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:392 lib/blockform.php:69
-msgid "Block"
-msgstr ""
-
 #: actions/groupmembers.php:487
-#, fuzzy
 msgid "Make user an admin of the group"
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+msgstr ""
 
 #: actions/groupmembers.php:519
 msgid "Make Admin"
 msgstr ""
 
 #: actions/groupmembers.php:519
-#, fuzzy
 msgid "Make this user an admin"
-msgstr "Kênh mà bạn tham gia"
+msgstr ""
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
 #: actions/grouprss.php:139 actions/userrss.php:94
 #: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "%s timeline"
-msgstr "Dòng tin nhắn của %s"
-
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#: actions/grouprss.php:142
-#, fuzzy, php-format
-msgid "Updates from members of %1$s on %2$s!"
-msgstr "Dòng tin nhắn cho %s"
-
-#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
-#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
-#, fuzzy
-msgid "Groups"
-msgstr "Nhóm"
+msgstr "Dòng tin công cộng"
 
 #: actions/groups.php:64
-#, fuzzy, php-format
+#, php-format
 msgid "Groups, page %d"
-msgstr "Tên nhóm"
+msgstr ""
 
 #: actions/groups.php:90
 #, php-format
@@ -2013,29 +1266,13 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
-#, fuzzy
 msgid "Create a new group"
-msgstr "Tạo nhóm"
-
-#: actions/groupsearch.php:52
-#, fuzzy, php-format
-msgid ""
-"Search for groups on %%site.name%% by their name, location, or description. "
-"Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Tìm kiếm những người trên %%site.name%% bằng tên, vị trí, hoặc sở thích của "
-"họ. Chia các cụm từ bởi khoảng trắng; và phải là 3 ký tự trở lên."
-
-#: actions/groupsearch.php:58
-#, fuzzy
-msgid "Group search"
-msgstr "Tìm kiếm nhiều người"
 
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
-#, fuzzy
 msgid "No results."
-msgstr "Không có kết quả nào"
+msgstr ""
 
 #: actions/groupsearch.php:82
 #, php-format
@@ -2055,21 +1292,10 @@ msgstr ""
 msgid "Only an admin can unblock group members."
 msgstr ""
 
-#: actions/groupunblock.php:95
-#, fuzzy
-msgid "User is not blocked from group."
-msgstr "Người dùng không có thông tin."
-
-#: actions/groupunblock.php:128 actions/unblock.php:86
-#, fuzzy
-msgid "Error removing the block."
-msgstr "Lỗi xảy ra khi lưu thành viên."
-
 #. TRANS: Title for instance messaging settings.
 #: actions/imsettings.php:60
-#, fuzzy
 msgid "IM settings"
-msgstr "Cấu hình IM"
+msgstr "Thay đổi hình đại diện"
 
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
@@ -2085,16 +1311,14 @@ msgstr ""
 
 #. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
 #: actions/imsettings.php:94
-#, fuzzy
 msgid "IM is not available."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #. TRANS: Form legend for IM settings form.
 #. TRANS: Field label for IM address input in IM settings form.
 #: actions/imsettings.php:106 actions/imsettings.php:136
-#, fuzzy
 msgid "IM address"
-msgstr "IM"
+msgstr "Địa chỉ email"
 
 #: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
@@ -2124,9 +1348,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Tính năng"
+msgstr "Các tính năng đã được lưu."
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2196,34 +1419,16 @@ msgstr ""
 msgid "That is the wrong IM address."
 msgstr "Sai IM."
 
-#. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:397
-#, fuzzy
-msgid "Couldn't delete IM confirmation."
-msgstr "Không thể xóa email xác nhận."
-
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:402
-#, fuzzy
 msgid "IM confirmation cancelled."
-msgstr "Sự xác nhận đã bị hủy bỏ."
+msgstr "Không có mã số xác nhận."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
 #: actions/imsettings.php:424
 msgid "That is not your Jabber ID."
 msgstr "Đây không phải Jabber ID của bạn."
-
-#. TRANS: Message given after successfully removing a registered IM address.
-#: actions/imsettings.php:447
-#, fuzzy
-msgid "The IM address was removed."
-msgstr "Đã xóa địa chỉ."
-
-#: actions/inbox.php:59
-#, fuzzy, php-format
-msgid "Inbox for %1$s - page %2$d"
-msgstr "Hộp thư đến của %s"
 
 #: actions/inbox.php:62
 #, php-format
@@ -2239,9 +1444,9 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+msgstr "Bạn đã không xóa trạng thái của những người khác."
 
 #: actions/invite.php:72
 #, php-format
@@ -2262,10 +1467,10 @@ msgstr "Bạn đã theo những người này:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
-#, fuzzy, php-format
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
+#, php-format
 msgid "%1$s (%2$s)"
-msgstr "%s (%s)"
+msgstr "%1$s (%2$s)"
 
 #: actions/invite.php:136
 msgid ""
@@ -2312,10 +1517,9 @@ msgstr "Không bắt buộc phải thêm thông điệp vào thư mời."
 
 #. TRANS: Send button for inviting friends
 #: actions/invite.php:198
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Send"
-msgstr "Gửi"
+msgstr ""
 
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:228
@@ -2381,39 +1585,10 @@ msgstr ""
 "\n"
 "Thân, %2$s\n"
 
-#: actions/joingroup.php:60
-#, fuzzy
-msgid "You must be logged in to join a group."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
-msgid "No nickname or ID."
-msgstr "Không có biệt hiệu."
-
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
-#, fuzzy, php-format
-msgid "%1$s joined group %2$s"
-msgstr "%s và nhóm"
-
-#: actions/leavegroup.php:60
-#, fuzzy
-msgid "You must be logged in to leave a group."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/leavegroup.php:100 lib/command.php:373
-#, fuzzy
-msgid "You are not a member of that group."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
-#, fuzzy, php-format
+#: actions/leavegroup.php:137
+#, php-format
 msgid "%1$s left group %2$s"
-msgstr "%s và nhóm"
+msgstr "Trạng thái của %1$s vào %2$s"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2422,11 +1597,6 @@ msgstr "Đã đăng nhập."
 #: actions/login.php:148
 msgid "Incorrect username or password."
 msgstr "Sai tên đăng nhập hoặc mật khẩu."
-
-#: actions/login.php:154 actions/otp.php:120
-#, fuzzy
-msgid "Error setting user. You are probably not authorized."
-msgstr "Chưa được phép."
 
 #: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
 msgid "Login"
@@ -2456,53 +1626,29 @@ msgstr ""
 "Vì lý do bảo mật, bạn hãy nhập lại tên đăng nhập và mật khẩu trước khi thay "
 "đổi trong điều chỉnh."
 
-#: actions/login.php:292
-#, fuzzy
-msgid "Login with your username and password."
-msgstr "Sai tên đăng nhập hoặc mật khẩu."
-
 #: actions/login.php:295
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Hãy đăng nhập với tên đăng nhập và mật khẩu của bạn. Nếu bạn chưa có tài "
-"khoản, [hãy đăng ký](%%action.register%%) tài khoản mới, hoặc thử đăng nhập "
-"bằng [OpenID](%%action.openidlogin%%). "
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
 
-#: actions/makeadmin.php:96
-#, fuzzy, php-format
-msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "Người dùng không có thông tin."
-
 #: actions/makeadmin.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
+msgstr ""
 
 #: actions/makeadmin.php:146
-#, fuzzy, php-format
+#, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+msgstr ""
 
 #: actions/microsummary.php:69
-#, fuzzy
 msgid "No current status."
-msgstr "Không có kết quả nào"
-
-#: actions/newapplication.php:52
-#, fuzzy
-msgid "New Application"
-msgstr "Không có tin nhắn nào."
-
-#: actions/newapplication.php:64
-#, fuzzy
-msgid "You must be logged in to register an application."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
+msgstr ""
 
 #: actions/newapplication.php:143
 msgid "Use this form to register a new application."
@@ -2512,32 +1658,23 @@ msgstr ""
 msgid "Source URL is required."
 msgstr ""
 
-#: actions/newapplication.php:258 actions/newapplication.php:267
-#, fuzzy
-msgid "Could not create application."
-msgstr "Không thể tạo favorite."
-
-#: actions/newgroup.php:53
-#, fuzzy
-msgid "New group"
-msgstr "Tạo nhóm"
-
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
 msgstr ""
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
-#, fuzzy
 msgid "New message"
-msgstr "Tin mới nhất"
+msgstr "Tin nhắn cá nhân"
 
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
-#, fuzzy
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
 msgid "You can't send a message to this user."
-msgstr "Bạn đã theo những người này:"
+msgstr "Bạn chưa cập nhật thông tin riêng"
 
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
-#: lib/command.php:555
+#. TRANS: Command exception text shown when trying to send a direct message to another user without content.
+#. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
+#: lib/command.php:582
 msgid "No content!"
 msgstr "Không có nội dung!"
 
@@ -2545,34 +1682,27 @@ msgstr "Không có nội dung!"
 msgid "No recipient specified."
 msgstr ""
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 
 #: actions/newmessage.php:181
-#, fuzzy
 msgid "Message sent"
-msgstr "Tin mới nhất"
+msgstr ""
 
-#: actions/newmessage.php:185
-#, fuzzy, php-format
-msgid "Direct message to %s sent."
-msgstr "Tin nhắn riêng"
-
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
-#, fuzzy
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
-msgstr "Lỗi"
+msgstr ""
 
 #: actions/newnotice.php:69
 msgid "New notice"
 msgstr "Thông báo mới"
 
-#: actions/newnotice.php:217
-#, fuzzy
+#: actions/newnotice.php:227
 msgid "Notice posted"
-msgstr "Tin đã gửi"
+msgstr "Tin nhắn"
 
 #: actions/noticesearch.php:68
 #, php-format
@@ -2588,9 +1718,9 @@ msgid "Text search"
 msgstr "Chuỗi cần tìm"
 
 #: actions/noticesearch.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr " Tìm dòng thông tin cho \"%s\""
+msgstr "%s chào mừng bạn "
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2607,37 +1737,18 @@ msgid ""
 msgstr ""
 
 #: actions/noticesearchrss.php:96
-#, fuzzy, php-format
+#, php-format
 msgid "Updates with \"%s\""
-msgstr "Dòng tin nhắn cho %s"
+msgstr ""
 
 #: actions/noticesearchrss.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Các thay đổi phù hợp với từ \"%s\""
+msgstr "Dòng tin nhắn cho %s"
 
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
-msgstr ""
-
-#: actions/nudge.php:94
-#, fuzzy
-msgid "Nudge sent"
-msgstr "Tin đã gửi"
-
-#: actions/nudge.php:97
-#, fuzzy
-msgid "Nudge sent!"
-msgstr "Tin đã gửi"
-
-#: actions/oauthappssettings.php:59
-#, fuzzy
-msgid "You must be logged in to list your applications."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/oauthappssettings.php:74
-msgid "OAuth applications"
 msgstr ""
 
 #: actions/oauthappssettings.php:85
@@ -2649,18 +1760,9 @@ msgstr ""
 msgid "You have not registered any applications yet."
 msgstr ""
 
-#: actions/oauthconnectionssettings.php:72
-msgid "Connected applications"
-msgstr ""
-
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
 msgstr ""
-
-#: actions/oauthconnectionssettings.php:175
-#, fuzzy
-msgid "You are not a user of that application."
-msgstr "Bạn chưa cập nhật thông tin riêng"
 
 #: actions/oauthconnectionssettings.php:186
 #, php-format
@@ -2676,9 +1778,8 @@ msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
 #: actions/oembed.php:80 actions/shownotice.php:100
-#, fuzzy
 msgid "Notice has no profile."
-msgstr "Tin nhắn không có hồ sơ cá nhân"
+msgstr "Người dùng không có thông tin."
 
 #: actions/oembed.php:87 actions/shownotice.php:175
 #, php-format
@@ -2687,9 +1788,9 @@ msgstr "Trạng thái của %1$s vào %2$s"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "Kết nối"
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
@@ -2698,24 +1799,18 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
 msgstr "Không hỗ trợ định dạng dữ liệu này."
-
-#: actions/opensearch.php:64
-#, fuzzy
-msgid "People Search"
-msgstr "Tìm kiếm nhiều người"
 
 #: actions/opensearch.php:67
 msgid "Notice Search"
 msgstr "Tìm kiếm thông báo"
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
-msgstr "Thiết lập tài khoản Twitter"
+msgstr "Thay đổi hình đại diện"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2733,48 +1828,17 @@ msgstr ""
 msgid "Automatic shortening service to use."
 msgstr ""
 
-#: actions/othersettings.php:122
-#, fuzzy
-msgid "View profile designs"
-msgstr "Các thiết lập cho Hồ sơ cá nhân"
-
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr ""
 
-#: actions/othersettings.php:153
-#, fuzzy
-msgid "URL shortening service is too long (max 50 chars)."
-msgstr "Tên khu vực quá dài (không quá 255 ký tự)."
-
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Thông báo mới"
-
-#: actions/otp.php:83
-#, fuzzy
-msgid "No login token specified."
-msgstr "Thông báo mới"
-
-#: actions/otp.php:90
-#, fuzzy
-msgid "No login token requested."
-msgstr "Không có URL cho hồ sơ để quay về."
-
-#: actions/otp.php:95
-#, fuzzy
-msgid "Invalid login token specified."
-msgstr "Nội dung tin nhắn không hợp lệ"
-
-#: actions/otp.php:104
-msgid "Login token expired."
 msgstr ""
 
-#: actions/outbox.php:58
-#, fuzzy, php-format
-msgid "Outbox for %1$s - page %2$d"
-msgstr "Hộp thư đi của %s"
+#: actions/otp.php:90
+msgid "No login token requested."
+msgstr "Không có yêu cầu!"
 
 #: actions/outbox.php:61
 #, php-format
@@ -2790,16 +1854,6 @@ msgstr ""
 #: actions/passwordsettings.php:58
 msgid "Change password"
 msgstr "Đổi mật khẩu"
-
-#: actions/passwordsettings.php:69
-#, fuzzy
-msgid "Change your password."
-msgstr "Thay đổi mật khẩu của bạn"
-
-#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
-#, fuzzy
-msgid "Password change"
-msgstr "Đã lưu mật khẩu."
 
 #: actions/passwordsettings.php:104
 msgid "Old password"
@@ -2825,11 +1879,6 @@ msgstr "Cùng mật khẩu ở trên"
 #: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "Thay đổi"
-
-#: actions/passwordsettings.php:154 actions/register.php:237
-#, fuzzy
-msgid "Password must be 6 or more characters."
-msgstr "Mật khẩu phải nhiều hơn 6 ký tự."
 
 #: actions/passwordsettings.php:157 actions/register.php:240
 msgid "Passwords don't match."
@@ -2861,38 +1910,28 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Background Theme:"
+msgstr ""
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
-
-#: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
-#, fuzzy
-msgid "Site"
-msgstr "Thư mời"
-
-#: actions/pathsadminpanel.php:238
-#, fuzzy
-msgid "Server"
-msgstr "Khôi phục"
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
@@ -2901,11 +1940,6 @@ msgstr ""
 #: actions/pathsadminpanel.php:242
 msgid "Path"
 msgstr ""
-
-#: actions/pathsadminpanel.php:242
-#, fuzzy
-msgid "Site path"
-msgstr "Thông báo mới"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2939,60 +1973,25 @@ msgstr ""
 msgid "Theme directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:279
-#, fuzzy
-msgid "Avatars"
-msgstr "Hình đại diện"
-
-#: actions/pathsadminpanel.php:284
-#, fuzzy
-msgid "Avatar server"
-msgstr "Thay đổi hình đại diện"
-
-#: actions/pathsadminpanel.php:288
-#, fuzzy
-msgid "Avatar path"
-msgstr "Hình đại diện đã được cập nhật."
-
 #: actions/pathsadminpanel.php:292
-#, fuzzy
 msgid "Avatar directory"
-msgstr "Hình đại diện đã được cập nhật."
+msgstr ""
 
 #: actions/pathsadminpanel.php:301
-#, fuzzy
 msgid "Backgrounds"
-msgstr "Background Theme:"
+msgstr ""
 
 #: actions/pathsadminpanel.php:305
-#, fuzzy
 msgid "Background server"
-msgstr "Background Theme:"
+msgstr ""
 
 #: actions/pathsadminpanel.php:309
-#, fuzzy
 msgid "Background path"
-msgstr "Background Theme:"
+msgstr ""
 
 #: actions/pathsadminpanel.php:313
-#, fuzzy
 msgid "Background directory"
-msgstr "Background Theme:"
-
-#: actions/pathsadminpanel.php:320
-#, fuzzy
-msgid "SSL"
-msgstr "SMS"
-
-#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
-#, fuzzy
-msgid "Never"
-msgstr "Khôi phục"
-
-#: actions/pathsadminpanel.php:324
-#, fuzzy
-msgid "Sometimes"
-msgstr "Tin nhắn"
+msgstr ""
 
 #: actions/pathsadminpanel.php:325
 msgid "Always"
@@ -3007,18 +2006,16 @@ msgid "When to use SSL"
 msgstr ""
 
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "SSL server"
-msgstr "Khôi phục"
+msgstr ""
 
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
 msgstr ""
 
 #: actions/pathsadminpanel.php:352
-#, fuzzy
 msgid "Save paths"
-msgstr "Thông báo mới"
+msgstr ""
 
 #: actions/peoplesearch.php:52
 #, php-format
@@ -3033,20 +2030,9 @@ msgstr ""
 msgid "People search"
 msgstr "Tìm kiếm nhiều người"
 
-#: actions/peopletag.php:68
-#, fuzzy, php-format
-msgid "Not a valid people tag: %s."
-msgstr "Địa chỉ email không hợp lệ."
-
-#: actions/peopletag.php:142
-#, fuzzy, php-format
-msgid "Users self-tagged with %1$s - page %2$d"
-msgstr "Dòng tin nhắn cho %s"
-
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "Nội dung tin nhắn không hợp lệ"
+msgstr "Kích thước không hợp lệ."
 
 #: actions/postnotice.php:101
 #, php-format
@@ -3065,9 +2051,8 @@ msgstr ""
 "về bạn."
 
 #: actions/profilesettings.php:99
-#, fuzzy
 msgid "Profile information"
-msgstr "Hồ sơ này không biết"
+msgstr "Các thiết lập cho Hồ sơ cá nhân"
 
 #: actions/profilesettings.php:108 lib/groupeditform.php:154
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
@@ -3090,14 +2075,13 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
 
 #: actions/profilesettings.php:122 actions/register.php:468
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Nói về bạn và những sở thích của bạn khoảng 140 ký tự"
+msgstr ""
 
 #: actions/profilesettings.php:125 actions/register.php:471
-#, fuzzy
 msgid "Describe yourself and your interests"
-msgstr "Nói về bạn và những sở thích của bạn khoảng 140 ký tự"
+msgstr ""
 
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
@@ -3151,41 +2135,25 @@ msgid ""
 msgstr "Tự động theo những người nào đăng ký theo tôi"
 
 #: actions/profilesettings.php:228 actions/register.php:230
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Lý lịch quá dài (không quá 140 ký tự)"
+msgstr "Tên khu vực quá dài (không quá %d ký tự)."
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr ""
 
 #: actions/profilesettings.php:241
-#, fuzzy
 msgid "Language is too long (max 50 chars)."
-msgstr "Ngôn ngữ quá dài (tối đa là 50 ký tự)."
+msgstr "Tên khu vực quá dài (không quá 50 ký tự)."
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid tag: \"%s\""
-msgstr "Trang chủ '%s'  không hợp lệ"
-
-#: actions/profilesettings.php:306
-#, fuzzy
-msgid "Couldn't update user for autosubscribe."
-msgstr "Không thể cập nhật thành viên."
-
-#: actions/profilesettings.php:363
-#, fuzzy
-msgid "Couldn't save location prefs."
-msgstr "Không thể lưu hồ sơ cá nhân."
+msgstr "Địa chỉ email không đúng:%s"
 
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
-msgstr "Không thể lưu hồ sơ cá nhân."
-
-#: actions/profilesettings.php:383
-#, fuzzy
-msgid "Couldn't save tags."
 msgstr "Không thể lưu hồ sơ cá nhân."
 
 #. TRANS: Message after successful saving of administrative settings.
@@ -3198,34 +2166,13 @@ msgstr "Đã lưu các điều chỉnh."
 msgid "Beyond the page limit (%s)."
 msgstr ""
 
-#: actions/public.php:92
-#, fuzzy
-msgid "Could not retrieve public stream."
-msgstr "Không thể lấy lại các tin nhắn ưa thích"
-
-#: actions/public.php:130
-#, fuzzy, php-format
-msgid "Public timeline, page %d"
-msgstr "Dòng tin công cộng"
-
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "Dòng tin công cộng"
 
-#: actions/public.php:160
-#, fuzzy
-msgid "Public Stream Feed (RSS 1.0)"
-msgstr "Dòng tin công cộng"
-
-#: actions/public.php:164
-#, fuzzy
-msgid "Public Stream Feed (RSS 2.0)"
-msgstr "Dòng tin công cộng"
-
 #: actions/public.php:168
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "Dòng tin công cộng"
+msgstr ""
 
 #: actions/public.php:188
 #, php-format
@@ -3262,9 +2209,8 @@ msgid ""
 msgstr ""
 
 #: actions/publictagcloud.php:57
-#, fuzzy
 msgid "Public tag cloud"
-msgstr "Dòng tin công cộng"
+msgstr ""
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -3319,22 +2265,8 @@ msgstr "Mã xác nhận quá cũ. Hãy thử lại cái khác."
 msgid "Could not update user with confirmed email address."
 msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
 
-#: actions/recoverpassword.php:152
-msgid ""
-"If you have forgotten or lost your password, you can get a new one sent to "
-"the email address you have stored in your account."
-msgstr ""
-
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
-
-#: actions/recoverpassword.php:188
-msgid "Password recovery"
-msgstr ""
-
-#: actions/recoverpassword.php:191
-msgid "Nickname or email address"
 msgstr ""
 
 #: actions/recoverpassword.php:193
@@ -3418,11 +2350,6 @@ msgstr "Mật khẩu mới đã được lưu. Bạn có thể đăng nhập nga
 msgid "Sorry, only invited people can register."
 msgstr ""
 
-#: actions/register.php:99
-#, fuzzy
-msgid "Sorry, invalid invitation code."
-msgstr "Lỗi xảy ra với mã xác nhận."
-
 #: actions/register.php:119
 msgid "Registration successful"
 msgstr "Đăng ký thành công"
@@ -3432,9 +2359,8 @@ msgid "Register"
 msgstr "Đăng ký"
 
 #: actions/register.php:142
-#, fuzzy
 msgid "Registration not allowed."
-msgstr "Biệt hiệu không được cho phép."
+msgstr "Đăng ký"
 
 #: actions/register.php:205
 msgid "You can't register if you don't agree to the license."
@@ -3505,14 +2431,14 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
-msgstr " ngoại trừ thông tin riêng: mật khẩu, email, địa chỉ IM, số điện thoại"
+msgstr ""
 
 #: actions/register.php:583
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -3529,18 +2455,6 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Chúc mừng, %s! Chào mừng bạn đến với  %%%%site.name%%%%. Bây giờ bạn có "
-"thể...\n"
-"\n"
-"* Vào trang [Hồ sơ cá nhân](%s) của bạn và gửi tin nhắn đầu tiên. \n"
-"* Thêm [địa chỉ Jabber/GTalk](%%%%action.imsettings%%%%) để có thể gửi tin "
-"nhắn nhanh.\n"
-"* [Tìm kiếm người quen](%%%%action.peoplesearch%%%%) mà bạn nghĩ là có thể "
-"chia sẻ niềm vui.\n"
-"* Đọc xuyên suốt [hướng dẫn](%%%%doc.help%%%%) để hiểu thêm về dịch vụ của "
-"chúng tôi.\n"
-"\n"
-"Cảm ơn bạn đã đăng ký để là thành viên và rất mong bạn sẽ thích dịch vụ này."
 
 #: actions/register.php:607
 msgid ""
@@ -3567,9 +2481,8 @@ msgid "Remote subscribe"
 msgstr "Đăng nhận từ xa"
 
 #: actions/remotesubscribe.php:124
-#, fuzzy
 msgid "Subscribe to a remote user"
-msgstr "Theo nhóm này"
+msgstr "Ngừng đăng ký từ người dùng này"
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3597,47 +2510,24 @@ msgid "Invalid profile URL (bad format)"
 msgstr "URL hồ sơ cá nhân không đúng định dạng."
 
 #: actions/remotesubscribe.php:168
-#, fuzzy
 msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr "Không phải là URL về hồ sơ cá nhân hợp lệ (không phải là "
+msgstr ""
 
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
 msgstr ""
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "Không thể lấy token yêu cầu."
+msgstr ""
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
 msgstr ""
 
-#: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
-msgid "No notice specified."
-msgstr "Thông báo mới"
-
-#: actions/repeat.php:76
-#, fuzzy
-msgid "You can't repeat your own notice."
-msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
-
-#: actions/repeat.php:90
-#, fuzzy
-msgid "You already repeated that notice."
-msgstr "Bạn đã theo những người này:"
-
-#: actions/repeat.php:114 lib/noticelist.php:675
-#, fuzzy
+#: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
-msgstr "Tạo"
-
-#: actions/repeat.php:119
-#, fuzzy
-msgid "Repeated!"
-msgstr "Tạo"
+msgstr "Khởi tạo"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
@@ -3645,25 +2535,20 @@ msgstr "Tạo"
 msgid "Replies to %s"
 msgstr "Trả lời cho %s"
 
-#: actions/replies.php:128
-#, fuzzy, php-format
-msgid "Replies to %1$s, page %2$d"
-msgstr "%s chào mừng bạn "
-
 #: actions/replies.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/replies.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/replies.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/replies.php:199
 #, php-format
@@ -3691,30 +2576,13 @@ msgstr ""
 msgid "Replies to %1$s on %2$s!"
 msgstr "%s chào mừng bạn "
 
-#: actions/revokerole.php:75
-#, fuzzy
-msgid "You cannot revoke user roles on this site."
-msgstr "Bạn đã theo những người này:"
-
-#: actions/revokerole.php:82
-#, fuzzy
-msgid "User doesn't have this role."
-msgstr "Hồ sơ ở nơi khác không khớp với hồ sơ này của bạn"
-
 #: actions/rsd.php:146 actions/version.php:159
-#, fuzzy
 msgid "StatusNet"
-msgstr "Hình đại diện đã được cập nhật."
-
-#: actions/sandbox.php:65 actions/unsandbox.php:65
-#, fuzzy
-msgid "You cannot sandbox users on this site."
-msgstr "Bạn đã theo những người này:"
+msgstr "Số liệu thống kê"
 
 #: actions/sandbox.php:72
-#, fuzzy
 msgid "User is already sandboxed."
-msgstr "Người dùng không có thông tin."
+msgstr ""
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3742,39 +2610,15 @@ msgstr ""
 msgid "Turn on debugging output for sessions."
 msgstr ""
 
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/useradminpanel.php:294
-#, fuzzy
-msgid "Save site settings"
-msgstr "Thay đổi hình đại diện"
-
-#: actions/showapplication.php:82
-#, fuzzy
-msgid "You must be logged in to view an application."
-msgstr "Bạn phải đăng nhập vào mới có thể gửi thư mời những "
-
-#: actions/showapplication.php:157
-#, fuzzy
-msgid "Application profile"
-msgstr "Tin nhắn không có hồ sơ cá nhân"
-
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:182
 msgid "Icon"
 msgstr ""
 
-#. TRANS: Form input field label for application name.
-#: actions/showapplication.php:169 actions/version.php:197
-#: lib/applicationeditform.php:199
-#, fuzzy
-msgid "Name"
-msgstr "Biệt danh"
-
 #. TRANS: Form input field label.
 #: actions/showapplication.php:178 lib/applicationeditform.php:235
-#, fuzzy
 msgid "Organization"
-msgstr "Thư mời đã gửi"
+msgstr ""
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
@@ -3792,16 +2636,8 @@ msgstr "Số liệu thống kê"
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr ""
 
-#: actions/showapplication.php:213
-msgid "Application actions"
-msgstr ""
-
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
-msgstr ""
-
-#: actions/showapplication.php:261
-msgid "Application info"
 msgstr ""
 
 #: actions/showapplication.php:263
@@ -3829,16 +2665,6 @@ msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
-
-#: actions/showapplication.php:309
-#, fuzzy
-msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Bạn có chắc chắn là muốn xóa tin nhắn này không?"
-
-#: actions/showfavorites.php:79
-#, fuzzy, php-format
-msgid "%1$s's favorite notices, page %2$d"
-msgstr "Những tin nhắn ưa thích của %s"
 
 #: actions/showfavorites.php:132
 msgid "Could not retrieve favorite notices."
@@ -3885,54 +2711,36 @@ msgid "This is a way to share what you like."
 msgstr ""
 
 #: actions/showgroup.php:82 lib/groupnav.php:86
-#, fuzzy, php-format
+#, php-format
 msgid "%s group"
-msgstr "%s và nhóm"
-
-#: actions/showgroup.php:84
-#, fuzzy, php-format
-msgid "%1$s group, page %2$d"
-msgstr "Thành viên"
+msgstr "Hộp thư đi của %s"
 
 #: actions/showgroup.php:227
-#, fuzzy
 msgid "Group profile"
-msgstr "Thông tin nhóm"
+msgstr "Người dùng không có thông tin."
 
 #: actions/showgroup.php:272 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:283 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:195
-#, fuzzy
-msgid "Note"
-msgstr "Tin nhắn"
-
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
 #: actions/showgroup.php:302
-#, fuzzy
 msgid "Group actions"
-msgstr "Mã nhóm"
+msgstr "Không tìm thấy nhóm."
 
 #: actions/showgroup.php:338
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showgroup.php:344
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
-msgstr "Dòng tin nhắn cho %s"
-
-#: actions/showgroup.php:350
-#, fuzzy, php-format
-msgid "Notice feed for %s group (Atom)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showgroup.php:355
 #, php-format
@@ -3948,16 +2756,6 @@ msgstr "Thành viên"
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr ""
-
-#: actions/showgroup.php:404
-#, fuzzy
-msgid "All members"
-msgstr "Thành viên"
-
-#: actions/showgroup.php:439
-#, fuzzy
-msgid "Created"
-msgstr "Tạo"
 
 #: actions/showgroup.php:455
 #, php-format
@@ -3987,59 +2785,32 @@ msgid "No such message."
 msgstr "Không có tin nhắn nào."
 
 #: actions/showmessage.php:98
-#, fuzzy
 msgid "Only the sender and recipient may read this message."
-msgstr "Chỉ có người gửi hoặc người nhận mới có thể xem tin nhắn này"
-
-#: actions/showmessage.php:108
-#, php-format
-msgid "Message to %1$s on %2$s"
-msgstr ""
-
-#: actions/showmessage.php:113
-#, php-format
-msgid "Message from %1$s on %2$s"
 msgstr ""
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Tin đã gửi"
-
-#: actions/showstream.php:73
-#, fuzzy, php-format
-msgid " tagged %s"
-msgstr "Thông báo được gắn thẻ %s"
-
-#: actions/showstream.php:79
-#, fuzzy, php-format
-msgid "%1$s, page %2$d"
-msgstr "%s và bạn bè"
+msgstr "Không có mã nào được nhập"
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showstream.php:129
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 1.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showstream.php:136
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (RSS 2.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showstream.php:143
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %s (Atom)"
-msgstr "Dòng tin nhắn cho %s"
-
-#: actions/showstream.php:148
-#, fuzzy, php-format
-msgid "FOAF for %s"
-msgstr "Hộp thư đi của %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/showstream.php:200
 #, php-format
@@ -4076,20 +2847,9 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
-#: actions/showstream.php:305
-#, fuzzy, php-format
-msgid "Repeat of %s"
-msgstr "Trả lời cho %s"
-
-#: actions/silence.php:65 actions/unsilence.php:65
-#, fuzzy
-msgid "You cannot silence users on this site."
-msgstr "Bạn đã theo những người này:"
-
 #: actions/silence.php:72
-#, fuzzy
 msgid "User is already silenced."
-msgstr "Người dùng không có thông tin."
+msgstr ""
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -4098,11 +2858,6 @@ msgstr ""
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr ""
-
-#: actions/siteadminpanel.php:141
-#, fuzzy
-msgid "You must have a valid contact email address."
-msgstr "Địa chỉ email không hợp lệ."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -4120,11 +2875,6 @@ msgstr ""
 #: actions/siteadminpanel.php:221
 msgid "General"
 msgstr ""
-
-#: actions/siteadminpanel.php:224
-#, fuzzy
-msgid "Site name"
-msgstr "Thông báo mới"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -4146,16 +2896,6 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:239
-#, fuzzy
-msgid "Contact email address for your site"
-msgstr "Dia chi email moi de gui tin nhan den %s"
-
-#: actions/siteadminpanel.php:245
-#, fuzzy
-msgid "Local"
-msgstr "Thành phố"
-
 #: actions/siteadminpanel.php:256
 msgid "Default timezone"
 msgstr ""
@@ -4163,11 +2903,6 @@ msgstr ""
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
-
-#: actions/siteadminpanel.php:262
-#, fuzzy
-msgid "Default language"
-msgstr "Ngôn ngữ bạn thích"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
@@ -4194,43 +2929,29 @@ msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:56
-#, fuzzy
 msgid "Site Notice"
-msgstr "Thông báo mới"
-
-#: actions/sitenoticeadminpanel.php:67
-#, fuzzy
-msgid "Edit site-wide message"
-msgstr "Tin mới nhất"
-
-#: actions/sitenoticeadminpanel.php:103
-#, fuzzy
-msgid "Unable to save site notice."
-msgstr "Không thể lưu thông tin Twitter của bạn!"
+msgstr "Tin nhắn"
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:176
-#, fuzzy
 msgid "Site notice text"
-msgstr "Thông báo mới"
+msgstr "Xóa tin nhắn"
 
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Thông báo mới"
+msgstr "Xóa tin nhắn"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
-#, fuzzy
 msgid "SMS settings"
-msgstr "Thiết lập SMS"
+msgstr "Thay đổi hình đại diện"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -4241,50 +2962,28 @@ msgstr "Bạn có thể nhận tin nhắn SMS qua email từ %%site.name%%."
 
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
 #: actions/smssettings.php:97
-#, fuzzy
 msgid "SMS is not available."
-msgstr "Trang này không phải là phương tiện truyền thông mà bạn chấp nhận."
+msgstr ""
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "IM"
+msgstr "Địa chỉ email"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
 msgid "Current confirmed SMS-enabled phone number."
 msgstr "SMS xác nhận ngay - đã cho phép gửi qua điện thoại. "
 
-#. TRANS: Form guide in IM settings form.
-#: actions/smssettings.php:133
-#, fuzzy
-msgid "Awaiting confirmation on this phone number."
-msgstr "Đó không phải là số điện thoại của bạn."
-
-#. TRANS: Field label for SMS address input in SMS settings form.
-#: actions/smssettings.php:142
-#, fuzzy
-msgid "Confirmation code"
-msgstr "Không có mã số xác nhận."
-
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
 msgstr "Nhập mã mà bạn nhận được trên điện thoại của bạn."
 
-#. TRANS: Button label to confirm SMS confirmation code in SMS settings.
-#: actions/smssettings.php:148
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Confirm"
-msgstr "Xác nhận"
-
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
-#, fuzzy
 msgid "SMS phone number"
-msgstr "Số điện thoại để nhắn SMS "
+msgstr "Không có số điện thoại."
 
 #. TRANS: SMS phone number input field instructions in SMS settings form.
 #: actions/smssettings.php:156
@@ -4293,9 +2992,8 @@ msgstr "Số điện thoại, không cho phép nhập dấu chấm và ký tự 
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Tính năng"
+msgstr "Các tính năng đã được lưu."
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
@@ -4306,74 +3004,26 @@ msgstr ""
 "Hãy gửi thông báo đến tôi qua SMS; Tôi  biết là bạn đang phải trả giá cao "
 "cho dịch vụ của chúng tôi. "
 
-#. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:315
-#, fuzzy
-msgid "SMS preferences saved."
-msgstr "Các tính năng đã được lưu."
-
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "Không có số điện thoại."
 
-#. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:344
-#, fuzzy
-msgid "No carrier selected."
-msgstr "Bạn chưa chọn hình để đưa lên."
-
-#. TRANS: Message given saving SMS phone number that is already set.
-#: actions/smssettings.php:352
-#, fuzzy
-msgid "That is already your phone number."
-msgstr "Đó không phải là số điện thoại của bạn."
-
 #. TRANS: Message given saving SMS phone number that is already set for another user.
 #: actions/smssettings.php:356
-#, fuzzy
 msgid "That phone number already belongs to another user."
-msgstr "Địa chỉ email Yahoo này đã có người khác sử dụng rồi."
-
-#. TRANS: Message given saving valid SMS phone number that is to be confirmed.
-#: actions/smssettings.php:384
-#, fuzzy
-msgid ""
-"A confirmation code was sent to the phone number you added. Check your phone "
-"for the code and instructions on how to use it."
-msgstr ""
-"Mã xác nhận đã được gửi tới địa chỉ email của bạn. Hãy kiểm tra hộp thư và "
-"làm theo hướng dẫn."
-
-#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
-#: actions/smssettings.php:413
-#, fuzzy
-msgid "That is the wrong confirmation number."
-msgstr "Đó không phải là số điện thoại của bạn."
+msgstr "Jabber ID này đã thuộc về người khác rồi."
 
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
-#, fuzzy
 msgid "SMS confirmation cancelled."
-msgstr "Sự xác nhận đã bị hủy bỏ."
+msgstr "Xác nhận SMS"
 
 #. TRANS: Message given trying to remove an SMS phone number that is not
 #. TRANS: registered for the active user.
 #: actions/smssettings.php:448
 msgid "That is not your phone number."
 msgstr "Đó không phải là số điện thoại của bạn."
-
-#. TRANS: Message given after successfully removing a registered SMS phone number.
-#: actions/smssettings.php:470
-#, fuzzy
-msgid "The SMS phone number was removed."
-msgstr "Số điện thoại để nhắn SMS "
-
-#. TRANS: Label for mobile carrier dropdown menu in SMS settings.
-#: actions/smssettings.php:511
-#, fuzzy
-msgid "Mobile carrier"
-msgstr "Chọn nhà cung cấp Mobile"
 
 #. TRANS: Default option for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:516
@@ -4404,13 +3054,8 @@ msgid "Snapshots"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:65
-#, fuzzy
 msgid "Manage snapshot configuration"
-msgstr "Tôi theo"
-
-#: actions/snapshotadminpanel.php:127
-msgid "Invalid snapshot run value."
-msgstr ""
+msgstr "Xac nhan dia chi email"
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
@@ -4452,50 +3097,23 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
-#: actions/snapshotadminpanel.php:248
-#, fuzzy
-msgid "Save snapshot settings"
-msgstr "Thay đổi hình đại diện"
-
 #: actions/subedit.php:70
-#, fuzzy
 msgid "You are not subscribed to that profile."
-msgstr "Bạn chưa cập nhật thông tin riêng"
+msgstr "Bạn đã theo những người này:"
 
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "Không thể tạo đăng nhận."
+msgstr "Không thể chèn thêm vào đăng nhận."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
 
-#: actions/subscribe.php:107
-#, fuzzy
-msgid "No such profile."
-msgstr "Không có tin nhắn nào."
-
-#: actions/subscribe.php:117
-#, fuzzy
-msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#: actions/subscribe.php:145
-#, fuzzy
-msgid "Subscribed"
-msgstr "Theo bạn này"
-
-#: actions/subscribers.php:50
-#, fuzzy, php-format
-msgid "%s subscribers"
-msgstr "Bạn này theo tôi"
-
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "Theo tôi"
+msgstr ""
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4524,16 +3142,6 @@ msgid ""
 "%) and be the first?"
 msgstr ""
 
-#: actions/subscriptions.php:52
-#, fuzzy, php-format
-msgid "%s subscriptions"
-msgstr "Tất cả đăng nhận"
-
-#: actions/subscriptions.php:54
-#, fuzzy, php-format
-msgid "%1$s subscriptions, page %2$d"
-msgstr "Tất cả đăng nhận"
-
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
 msgstr "Có nhiều người gửi lời nhắn để bạn nghe theo."
@@ -4554,63 +3162,46 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:128 actions/subscriptions.php:132
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not listening to anyone."
-msgstr "%1$s dang theo doi tin nhan cua ban tren %2$s."
-
-#: actions/subscriptions.php:208
-#, fuzzy
-msgid "Jabber"
-msgstr "Không có Jabber ID."
+msgstr "%1$s đang theo dõi lưu ý của bạn trên %2$s."
 
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
 
 #: actions/tag.php:69
-#, fuzzy, php-format
+#, php-format
 msgid "Notices tagged with %1$s, page %2$d"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Thông báo được gắn thẻ %s"
 
 #: actions/tag.php:87
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/tag.php:93
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/tag.php:99
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for tag %s (Atom)"
-msgstr "Dòng tin nhắn cho %s"
+msgstr "Chọn những người bạn của %s"
 
 #: actions/tagother.php:39
-#, fuzzy
 msgid "No ID argument."
-msgstr "Không có tài liệu nào."
-
-#: actions/tagother.php:65
-#, fuzzy, php-format
-msgid "Tag %s"
-msgstr "Từ khóa"
+msgstr ""
 
 #: actions/tagother.php:77 lib/userprofile.php:76
-#, fuzzy
 msgid "User profile"
-msgstr "Hồ sơ"
+msgstr "Người dùng không có thông tin."
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
 msgid "Photo"
 msgstr ""
-
-#: actions/tagother.php:141
-#, fuzzy
-msgid "Tag user"
-msgstr "Từ khóa"
 
 #: actions/tagother.php:151
 msgid ""
@@ -4623,55 +3214,18 @@ msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
-#: actions/tagother.php:200
-#, fuzzy
-msgid "Could not save tags."
-msgstr "Không thể lưu hồ sơ cá nhân."
-
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
-#: actions/tagrss.php:35
-#, fuzzy
-msgid "No such tag."
-msgstr "Không có tin nhắn nào."
-
-#: actions/unblock.php:59
-#, fuzzy
-msgid "You haven't blocked that user."
-msgstr "Bạn đã theo những người này:"
-
-#: actions/unsandbox.php:72
-#, fuzzy
-msgid "User is not sandboxed."
-msgstr "Người dùng không có thông tin."
-
-#: actions/unsilence.php:72
-#, fuzzy
-msgid "User is not silenced."
-msgstr "Người dùng không có thông tin."
-
 #: actions/unsubscribe.php:77
-#, fuzzy
 msgid "No profile ID in request."
-msgstr "Không có URL cho hồ sơ để quay về."
-
-#: actions/unsubscribe.php:98
-#, fuzzy
-msgid "Unsubscribed"
-msgstr "Hết theo"
+msgstr "Không có yêu cầu!"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
-
-#. TRANS: User admin panel title
-#: actions/useradminpanel.php:59
-msgctxt "TITLE"
-msgid "User"
 msgstr ""
 
 #: actions/useradminpanel.php:70
@@ -4705,11 +3259,6 @@ msgstr ""
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
-#: actions/useradminpanel.php:231
-#, fuzzy
-msgid "New users"
-msgstr "Gửi thư mời đến những người chưa có tài khoản"
-
 #: actions/useradminpanel.php:235
 msgid "New user welcome"
 msgstr ""
@@ -4717,26 +3266,6 @@ msgstr ""
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
-
-#: actions/useradminpanel.php:241
-#, fuzzy
-msgid "Default subscription"
-msgstr "Tất cả đăng nhận"
-
-#: actions/useradminpanel.php:242
-#, fuzzy
-msgid "Automatically subscribe new users to this user."
-msgstr "Tự động theo những người nào đăng ký theo tôi"
-
-#: actions/useradminpanel.php:251
-#, fuzzy
-msgid "Invitations"
-msgstr "Thư mời đã gửi"
-
-#: actions/useradminpanel.php:256
-#, fuzzy
-msgid "Invitations enabled"
-msgstr "Thư mời đã gửi"
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
@@ -4747,15 +3276,11 @@ msgid "Authorize subscription"
 msgstr "Đăng nhận cho phép"
 
 #: actions/userauthorization.php:110
-#, fuzzy
 msgid ""
 "Please check these details to make sure that you want to subscribe to this "
 "user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
 "click “Reject”."
 msgstr ""
-"Vui lòng kiểm tra các chi tiết để chắc chắn rằng bạn muốn đăng nhận xem tin "
-"nhắn của các thành viên này. Nếu bạn không yêu cầu đăng nhận xem tin nhắn "
-"của họ, hãy nhấn \"Hủy bỏ\""
 
 #: actions/userauthorization.php:196 actions/version.php:167
 msgid "License"
@@ -4767,18 +3292,16 @@ msgstr "Chấp nhận"
 
 #: actions/userauthorization.php:218 lib/subscribeform.php:115
 #: lib/subscribeform.php:139
-#, fuzzy
 msgid "Subscribe to this user"
-msgstr "Theo nhóm này"
+msgstr "Ngừng đăng ký từ người dùng này"
 
 #: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Từ chối"
 
 #: actions/userauthorization.php:220
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "Tất cả đăng nhận"
+msgstr "Đăng nhận cho phép"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
@@ -4789,29 +3312,22 @@ msgid "Subscription authorized"
 msgstr "Đăng nhận được phép"
 
 #: actions/userauthorization.php:256
-#, fuzzy
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
-"Đăng nhận được phép, nhưng URL trả lại không được gởi trả. Hãy kiểm tra các "
-"hướng dẫn chi tiết trên site để biết cách cho phép đăng ký. Đăng nhận token "
-"của bạn là:"
 
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Đăng nhận từ chối"
 
 #: actions/userauthorization.php:268
-#, fuzzy
 msgid ""
 "The subscription has been rejected, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
-"Đăng nhận này đã bị từ chối, nhưng không có URL nào để quay về. Hãy kiểm tra "
-"các hướng dẫn chi tiết trên site để "
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -4839,19 +3355,14 @@ msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
 #: actions/userauthorization.php:350
-#, fuzzy, php-format
+#, php-format
 msgid "Can’t read avatar URL ‘%s’."
-msgstr "Không thể đọc URL cho hình đại diện '%s'"
+msgstr ""
 
 #: actions/userauthorization.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
-msgstr "Kiểu file ảnh không phù hợp với  '%s'"
-
-#: actions/userdesignsettings.php:76 lib/designsettings.php:65
-#, fuzzy
-msgid "Profile design"
-msgstr "Các thiết lập cho Hồ sơ cá nhân"
+msgstr ""
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -4863,41 +3374,14 @@ msgstr ""
 msgid "Enjoy your hotdog!"
 msgstr ""
 
-#. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
-#: actions/usergroups.php:66
-#, fuzzy, php-format
-msgid "%1$s groups, page %2$d"
-msgstr "Thành viên"
-
 #: actions/usergroups.php:132
 msgid "Search for more groups"
 msgstr ""
-
-#: actions/usergroups.php:159
-#, fuzzy, php-format
-msgid "%s is not a member of any group."
-msgstr "Bạn chưa cập nhật thông tin riêng"
 
 #: actions/usergroups.php:164
 #, php-format
 msgid "Try [searching for groups](%%action.groupsearch%%) and joining them."
 msgstr ""
-
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#. TRANS: Message is used as a subtitle in atom group notice feed.
-#. TRANS: %1$s is a group name, %2$s is a site name.
-#. TRANS: Message is used as a subtitle in atom user notice feed.
-#. TRANS: %1$s is a user name, %2$s is a site name.
-#: actions/userrss.php:97 lib/atomgroupnoticefeed.php:70
-#: lib/atomusernoticefeed.php:76
-#, php-format
-msgid "Updates from %1$s on %2$s!"
-msgstr ""
-
-#: actions/version.php:75
-#, fuzzy, php-format
-msgid "StatusNet %s"
-msgstr "Số liệu thống kê"
 
 #: actions/version.php:155
 #, php-format
@@ -4937,12 +3421,6 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
-#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:789
-#, fuzzy
-msgid "Version"
-msgstr "Cá nhân"
-
 #: actions/version.php:199
 msgid "Author(s)"
 msgstr ""
@@ -4981,42 +3459,10 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
-#. TRANS: Client exception thrown if a file upload does not have a valid name.
-#: classes/File.php:248 classes/File.php:263
-#, fuzzy
-msgid "Invalid filename."
-msgstr "Kích thước không hợp lệ."
-
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
-#, fuzzy
 msgid "Group join failed."
-msgstr "Thông tin nhóm"
-
-#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-#: classes/Group_member.php:55
-#, fuzzy
-msgid "Not part of group."
-msgstr "Không thể cập nhật thành viên."
-
-#. TRANS: Exception thrown when trying to leave a group fails.
-#: classes/Group_member.php:63
-#, fuzzy
-msgid "Group leave failed."
-msgstr "Thông tin nhóm"
-
-#. TRANS: Server exception thrown when updating a local group fails.
-#: classes/Local_group.php:42
-#, fuzzy
-msgid "Could not update local group."
-msgstr "Không thể cập nhật thành viên."
-
-#. TRANS: Exception thrown when trying creating a login token failed.
-#. TRANS: %s is the user nickname for which token creation failed.
-#: classes/Login_token.php:78
-#, fuzzy, php-format
-msgid "Could not create login token for %s"
-msgstr "Không thể tạo favorite."
+msgstr "Không tìm thấy nhóm."
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
@@ -5025,21 +3471,13 @@ msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:46
-#, fuzzy
 msgid "You are banned from sending direct messages."
-msgstr "Thư bạn đã gửi"
-
-#. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:63
-#, fuzzy
-msgid "Could not insert message."
-msgstr "Không thể chèn thêm vào đăng nhận."
+msgstr "Thư đến của bạn"
 
 #. TRANS: Message given when a message could not be updated on the server.
 #: classes/Message.php:74
-#, fuzzy
 msgid "Could not update message with new URI."
-msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
+msgstr "Không thể cập nhật thành viên."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -5049,64 +3487,41 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
-#, fuzzy, php-format
+#: classes/Notice.php:193
+#, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Lỗi cơ sở dữ liệu khi chèn trả lời: %s"
-
-#. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
-#, fuzzy
-msgid "Problem saving notice. Too long."
-msgstr "Có lỗi xảy ra khi lưu tin nhắn."
-
-#. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
-#, fuzzy
-msgid "Problem saving notice. Unknown user."
-msgstr "Có lỗi xảy ra khi lưu tin nhắn."
+msgstr "Lỗi xảy ra khi thêm mới hình đại diện"
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
-#. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
-msgid "You are banned from posting notices on this site."
-msgstr ""
-
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr "Có lỗi xảy ra khi lưu tin nhắn."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
-#. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
-#, fuzzy
-msgid "Problem saving group inbox."
-msgstr "Có lỗi xảy ra khi lưu tin nhắn."
-
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
-#, fuzzy, php-format
+#: classes/Notice.php:1757
+#, php-format
 msgid "RT @%1$s %2$s"
-msgstr "%s (%s)"
+msgstr "RT @%1$s %2$s"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -5122,99 +3537,45 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
-#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
-#: classes/Remote_profile.php:54
-#, fuzzy
-msgid "Missing profile."
-msgstr "Người dùng không có thông tin."
-
-#. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:346
-#, fuzzy
-msgid "Unable to save tag."
-msgstr "Không thể lưu thông tin Twitter của bạn!"
-
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
 msgstr ""
 
-#. TRANS: Exception thrown when trying to subscribe while already subscribed.
-#: classes/Subscription.php:80
-msgid "Already subscribed!"
-msgstr ""
-
-#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
-#: classes/Subscription.php:85
-#, fuzzy
-msgid "User has blocked you."
-msgstr "Người dùng không có thông tin."
-
-#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Chưa đăng nhận!"
-
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Không thể xóa đăng nhận."
+msgstr "Không thể chèn thêm vào đăng nhận."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
-msgstr "Không thể xóa đăng nhận."
+msgstr "Không thể chèn thêm vào đăng nhận."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
-#, fuzzy
 msgid "Could not delete subscription."
-msgstr "Không thể xóa đăng nhận."
-
-#. TRANS: Notice given on user registration.
-#. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:365
-#, fuzzy, php-format
-msgid "Welcome to %1$s, @%2$s!"
-msgstr "%s chào mừng bạn "
-
-#. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:496
-#, fuzzy
-msgid "Could not create group."
-msgstr "Không thể tạo favorite."
+msgstr "Không thể chèn thêm vào đăng nhận."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
 #: classes/User_group.php:506
-#, fuzzy
 msgid "Could not set group URI."
-msgstr "Không thể tạo đăng nhận."
+msgstr "Không thể lưu hồ sơ cá nhân."
 
 #. TRANS: Server exception thrown when setting group membership failed.
 #: classes/User_group.php:529
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "Không thể tạo đăng nhận."
+msgstr "Không thể cập nhật thành viên."
 
 #. TRANS: Server exception thrown when saving local group information failed.
 #: classes/User_group.php:544
-#, fuzzy
 msgid "Could not save local group info."
-msgstr "Không thể tạo đăng nhận."
+msgstr "Không thể lưu hồ sơ cá nhân."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
 msgstr "Thay đổi các thiết lập trong hồ sơ cá nhân của bạn"
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:116
-#, fuzzy
-msgid "Upload an avatar"
-msgstr "Cập nhật hình đại diện không thành công."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
@@ -5228,308 +3589,190 @@ msgstr "Đang thực hiện việc thay đổi email"
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:137
-#, fuzzy
 msgid "Design your profile"
-msgstr "Hồ sơ"
-
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:144
-msgid "Other options"
-msgstr ""
+msgstr "Người dùng không có thông tin."
 
 #. TRANS: Link description in user account settings menu.
 #: lib/accountsettingsaction.php:146
-#, fuzzy
 msgid "Other"
-msgstr "Sau"
+msgstr ""
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:145
-#, fuzzy, php-format
+#: lib/action.php:148
+#, php-format
 msgid "%1$s - %2$s"
-msgstr "%s (%s)"
+msgstr "Trạng thái của %1$s vào %2$s"
 
 #. TRANS: Page title for a page without a title set.
-#: lib/action.php:161
+#: lib/action.php:164
 msgid "Untitled page"
 msgstr ""
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:436
+#: lib/action.php:449
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:442
+#: lib/action.php:455
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:445
-#, fuzzy
-msgctxt "MENU"
-msgid "Personal"
-msgstr "Cá nhân"
-
-#. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:447
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Change your email, avatar, password, profile"
-msgstr "Thay đổi mật khẩu của bạn"
-
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:452
-#, fuzzy
+#: lib/action.php:465
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr "Không thể chuyển đến máy chủ: %s"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:455
+#: lib/action.php:468
 msgid "Connect"
 msgstr "Kết nối"
 
-#. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:458
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Change site configuration"
-msgstr "Tôi theo"
-
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:461
+#: lib/action.php:474
 msgctxt "MENU"
 msgid "Admin"
 msgstr ""
 
-#. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:465
-#, fuzzy, php-format
-msgctxt "TOOLTIP"
-msgid "Invite friends and colleagues to join you on %s"
-msgstr ""
-"Điền địa chỉ email và nội dung tin nhắn để gửi thư mời bạn bè và đồng nghiệp "
-"của bạn tham gia vào dịch vụ này."
-
-#. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:468
-#, fuzzy
-msgctxt "MENU"
-msgid "Invite"
-msgstr "Thư mời"
-
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:474
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
-#. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:477
-#, fuzzy
-msgctxt "MENU"
-msgid "Logout"
-msgstr "Thoát"
-
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:482
-#, fuzzy
+#: lib/action.php:495
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr "Tạo tài khoản mới"
-
-#. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:485
-#, fuzzy
-msgctxt "MENU"
-msgid "Register"
-msgstr "Đăng ký"
+msgstr ""
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:488
+#: lib/action.php:501
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:491
-#, fuzzy
-msgctxt "MENU"
-msgid "Login"
-msgstr "Đăng nhập"
-
-#. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:494
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Help me!"
-msgstr "Hướng dẫn"
-
-#: lib/action.php:497
-#, fuzzy
-msgctxt "MENU"
-msgid "Help"
-msgstr "Hướng dẫn"
-
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:500
+#: lib/action.php:513
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:503
-#, fuzzy
-msgctxt "MENU"
-msgid "Search"
-msgstr "Tìm kiếm"
-
-#. TRANS: DT element for site notice. String is hidden in default CSS.
-#. TRANS: Menu item for site administration
-#: lib/action.php:525 lib/adminpanelaction.php:400
-#, fuzzy
-msgid "Site notice"
-msgstr "Thông báo mới"
-
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:592
+#: lib/action.php:605
 msgid "Local views"
 msgstr ""
 
-#. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:659
-#, fuzzy
-msgid "Page notice"
-msgstr "Thông báo mới"
-
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:762
-#, fuzzy
+#: lib/action.php:778
 msgid "Secondary site navigation"
-msgstr "Tôi theo"
+msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:768
+#: lib/action.php:784
 msgid "Help"
 msgstr "Hướng dẫn"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:771
+#: lib/action.php:787
 msgid "About"
 msgstr "Giới thiệu"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:774
+#: lib/action.php:790
 msgid "FAQ"
 msgstr "FAQ"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:779
+#: lib/action.php:795
 msgid "TOS"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:783
+#: lib/action.php:799
 msgid "Privacy"
 msgstr "Riêng tư"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:786
+#: lib/action.php:802
 msgid "Source"
 msgstr "Nguồn"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:792
+#: lib/action.php:808
 msgid "Contact"
 msgstr "Liên hệ"
 
-#: lib/action.php:794
-#, fuzzy
+#: lib/action.php:810
 msgid "Badge"
-msgstr "Tin đã gửi"
+msgstr ""
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:823
+#: lib/action.php:839
 msgid "StatusNet software license"
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:827
-#, fuzzy, php-format
+#: lib/action.php:843
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** là dịch vụ gửi tin nhắn được cung cấp từ [%%site.broughtby%"
-"%](%%site.broughtbyurl%%). "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:830
+#: lib/action.php:846
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** là dịch vụ gửi tin nhắn."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:834
-#, fuzzy, php-format
+#: lib/action.php:850
+#, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"Đang dùng [StatusNet](http://status.net/), phiên bản %s phát hành theo bản "
-"quyền [GNU Affero General Public License](http://www.fsf.org/licensing/"
-"licenses/agpl-3.0.html)."
-
-#. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:850
-#, fuzzy
-msgid "Site content license"
-msgstr "Tìm theo nội dung của tin nhắn"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:857
+#: lib/action.php:873
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:864
+#: lib/action.php:880
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:868
+#: lib/action.php:884
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:881
+#: lib/action.php:897
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
-#. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1192
-msgid "Pagination"
+#. TRANS: Pagination message to go to a page displaying information more in the
+#. TRANS: present than the currently displayed information.
+#: lib/action.php:1247
+msgid "After"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
-#. TRANS: present than the currently displayed information.
-#: lib/action.php:1203
-#, fuzzy
-msgid "After"
-msgstr "Sau"
-
-#. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1213
-#, fuzzy
+#: lib/action.php:1257
 msgid "Before"
-msgstr "Trước"
+msgstr ""
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
 #: lib/activity.php:122
@@ -5548,18 +3791,6 @@ msgstr ""
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
-#. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
-#: lib/adminpanelaction.php:98
-#, fuzzy
-msgid "You cannot make changes to this site."
-msgstr "Bạn đã theo những người này:"
-
-#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
-#: lib/adminpanelaction.php:110
-#, fuzzy
-msgid "Changes to that panel are not allowed."
-msgstr "Biệt hiệu không được cho phép."
-
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:229
 msgid "showForm() not implemented."
@@ -5570,118 +3801,31 @@ msgstr ""
 msgid "saveSettings() not implemented."
 msgstr ""
 
-#. TRANS: Client error message thrown if design settings could not be deleted in
-#. TRANS: the admin panel Design.
-#: lib/adminpanelaction.php:284
-#, fuzzy
-msgid "Unable to delete design setting."
-msgstr "Không thể lưu thông tin Twitter của bạn!"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:350
-#, fuzzy
-msgid "Basic site configuration"
-msgstr "Xac nhan dia chi email"
-
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:352
-#, fuzzy
-msgctxt "MENU"
-msgid "Site"
-msgstr "Thư mời"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:358
-#, fuzzy
-msgid "Design configuration"
-msgstr "Xác nhận SMS"
-
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:360
-#, fuzzy
 msgctxt "MENU"
 msgid "Design"
-msgstr "Cá nhân"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:366
-#, fuzzy
-msgid "User configuration"
-msgstr "Xác nhận SMS"
-
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
-msgid "User"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:374
-#, fuzzy
-msgid "Access configuration"
-msgstr "Xác nhận SMS"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:382
-#, fuzzy
-msgid "Paths configuration"
-msgstr "Xác nhận SMS"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:390
-#, fuzzy
-msgid "Sessions configuration"
-msgstr "Xác nhận SMS"
-
-#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:398
-#, fuzzy
 msgid "Edit site notice"
-msgstr "Thông báo mới"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:406
-#, fuzzy
-msgid "Snapshots configuration"
-msgstr "Xác nhận SMS"
+msgstr "Xóa tin nhắn"
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#. TRANS: Form legend.
-#: lib/applicationeditform.php:137
-msgid "Edit application"
-msgstr ""
-
-#. TRANS: Form guide.
-#: lib/applicationeditform.php:187
-msgid "Icon for this application"
-msgstr ""
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:209
-#, fuzzy, php-format
-msgid "Describe your application in %d characters"
-msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
-
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:213
-#, fuzzy
 msgid "Describe your application"
-msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
+msgstr "Mô tả"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
-#, fuzzy
 msgid "URL of the homepage of this application"
-msgstr "URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
-
-#. TRANS: Form input field label.
-#: lib/applicationeditform.php:226
-#, fuzzy
-msgid "Source URL"
-msgstr "Nguồn"
+msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
@@ -5690,9 +3834,8 @@ msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
-#, fuzzy
 msgid "URL for the homepage of the organization"
-msgstr "URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
+msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:251
@@ -5752,15 +3895,9 @@ msgstr ""
 
 #. TRANS: Button label
 #: lib/applicationlist.php:159
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
-msgstr "Xóa"
-
-#. TRANS: DT element label in attachment list.
-#: lib/attachmentlist.php:88
-msgid "Attachments"
-msgstr ""
+msgstr "Khôi phục"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:265
@@ -5769,82 +3906,43 @@ msgstr ""
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
-#, fuzzy
 msgid "Provider"
-msgstr "Hồ sơ "
+msgstr "Xem trước"
 
 #: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
 msgstr ""
 
-#: lib/attachmenttagcloudsection.php:48
-msgid "Tags for this attachment"
-msgstr ""
-
-#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-#, fuzzy
-msgid "Password changing failed"
-msgstr "Đã lưu mật khẩu."
-
 #: lib/authenticationplugin.php:236
-#, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Đã lưu mật khẩu."
-
-#: lib/channel.php:157 lib/channel.php:177
-#, fuzzy
-msgid "Command results"
-msgstr "Không có kết quả nào"
-
-#: lib/channel.php:229 lib/mailhandler.php:142
-msgid "Command complete"
 msgstr ""
 
 #: lib/channel.php:240
-#, fuzzy
 msgid "Command failed"
-msgstr " và bạn bè"
+msgstr "Bạn và bạn bè"
 
-#: lib/command.php:83 lib/command.php:105
-#, fuzzy
-msgid "Notice with that id does not exist"
-msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
-
-#: lib/command.php:99 lib/command.php:596
-#, fuzzy
-msgid "User has no last notice"
-msgstr "Người dùng không có thông tin."
-
-#. TRANS: Message given requesting a profile for a non-existing user.
-#. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
-#, fuzzy, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
-
-#. TRANS: Message given getting a non-existing user.
-#. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
-#, fuzzy, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr "Không thể cập nhật thông tin user với địa chỉ email đã được xác nhận."
-
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
-#, fuzzy, php-format
-msgid "Nudge sent to %s"
-msgstr "Tin đã gửi"
+#: lib/command.php:240
+#, php-format
+msgid "Nudge sent to %s."
+msgstr ""
 
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5852,57 +3950,22 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:302
-#, fuzzy
-msgid "Notice marked as fave."
-msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của bạn rồi!"
-
-#: lib/command.php:323
-#, fuzzy
-msgid "You are already a member of that group"
-msgstr "Bạn đã theo những người này:"
-
-#. TRANS: Message given having failed to add a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
-#, fuzzy, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#. TRANS: Message given having failed to remove a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
-#, fuzzy, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
-#, fuzzy, php-format
-msgid "Fullname: %s"
-msgstr "Tên đầy đủ"
-
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
-#, fuzzy, php-format
+#: lib/command.php:438 lib/mail.php:268
+#, php-format
 msgid "Location: %s"
-msgstr "Thành phố: %s"
+msgstr "Thành phố"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
-#, fuzzy, php-format
+#: lib/command.php:442 lib/mail.php:271
+#, php-format
 msgid "Homepage: %s"
-msgstr "Trang chủ hoặc Blog: %s"
+msgstr "Trang chủ hoặc Blog"
 
-#. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
-#, fuzzy, php-format
-msgid "About: %s"
-msgstr "Giới thiệu"
-
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5911,150 +3974,87 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, fuzzy, php-format
-msgid "Direct message to %s sent"
-msgstr "Tin nhắn riêng"
-
-#: lib/command.php:494
-#, fuzzy
-msgid "Error sending direct message."
-msgstr "Thư bạn đã gửi"
-
-#: lib/command.php:514
-#, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Bạn không thể đăng ký nếu không đồng ý các điều khoản."
-
-#: lib/command.php:519
-#, fuzzy
-msgid "Already repeated that notice"
-msgstr "Xóa tin nhắn"
-
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
-#, fuzzy, php-format
-msgid "Notice from %s repeated"
-msgstr "Tin đã gửi"
-
-#: lib/command.php:531
-#, fuzzy
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
 msgid "Error repeating notice."
-msgstr "Có lỗi xảy ra khi lưu tin nhắn."
+msgstr "Lỗi xảy ra khi tạo thành viên."
 
-#: lib/command.php:562
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
 #, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#: lib/command.php:571
-#, fuzzy, php-format
-msgid "Reply to %s sent"
-msgstr "Trả lời tin nhắn này"
-
-#: lib/command.php:573
-#, fuzzy
-msgid "Error saving notice."
-msgstr "Có lỗi xảy ra khi lưu tin nhắn."
-
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
-#: lib/command.php:628
-#, fuzzy
-msgid "Can't subscribe to OMB profiles by command."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#: lib/command.php:634
-#, fuzzy, php-format
-msgid "Subscribed to %s"
-msgstr "Theo nhóm này"
-
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
 msgstr ""
 
-#: lib/command.php:664
-#, fuzzy, php-format
-msgid "Unsubscribed from %s"
-msgstr "Hết theo"
-
-#: lib/command.php:682 lib/command.php:705
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:685
-#, fuzzy
-msgid "Notification off."
-msgstr "Không có mã số xác nhận."
-
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:708
-#, fuzzy
-msgid "Notification on."
-msgstr "Không có mã số xác nhận."
-
-#: lib/command.php:710
-msgid "Can't turn on notification."
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
 msgstr ""
 
-#: lib/command.php:723
-msgid "Login command is disabled"
-msgstr ""
-
-#: lib/command.php:734
+#. TRANS: Text shown after issuing the login command successfully.
+#. TRANS: %s is a logon link..
+#: lib/command.php:784
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
-#: lib/command.php:761
-#, fuzzy, php-format
-msgid "Unsubscribed  %s"
-msgstr "Hết theo"
-
-#: lib/command.php:778
-#, fuzzy
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
 msgid "You are not subscribed to anyone."
-msgstr "Bạn chưa cập nhật thông tin riêng"
+msgstr "Bạn đã theo những người này:"
 
-#: lib/command.php:780
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Bạn đã theo những người này:"
 
-#: lib/command.php:800
-#, fuzzy
-msgid "No one is subscribed to you."
-msgstr "Không thể tạo favorite."
-
-#: lib/command.php:802
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Không thể tạo favorite."
 
-#: lib/command.php:822
-#, fuzzy
-msgid "You are not a member of any groups."
-msgstr "Bạn chưa cập nhật thông tin riêng"
-
-#: lib/command.php:824
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Bạn chưa cập nhật thông tin riêng"
 
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -6096,11 +4096,6 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
-#, fuzzy
-msgid "No configuration file found. "
-msgstr "Không có mã số xác nhận."
-
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -6125,11 +4120,6 @@ msgstr "Thay đổi bởi tin nhắn nhanh (IM)"
 msgid "Updates by SMS"
 msgstr "Thay đổi bởi SMS"
 
-#: lib/connectsettingsaction.php:120
-#, fuzzy
-msgid "Connections"
-msgstr "Kết nối"
-
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
 msgstr ""
@@ -6138,37 +4128,17 @@ msgstr ""
 msgid "Database error"
 msgstr ""
 
-#: lib/designsettings.php:105
-#, fuzzy
-msgid "Upload file"
-msgstr "Tải file"
-
-#: lib/designsettings.php:109
-#, fuzzy
-msgid ""
-"You can upload your personal background image. The maximum file size is 2MB."
-msgstr ""
-"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
-"về bạn."
-
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
-#, fuzzy
 msgid "Disfavor this notice"
-msgstr "cảnh báo tin nhắn"
+msgstr "Những tin nhắn ưa thích của %s"
 
 #: lib/favorform.php:114 lib/favorform.php:140
-#, fuzzy
 msgid "Favor this notice"
-msgstr "Bạn muốn cảnh báo tin nhắn này?"
-
-#: lib/favorform.php:140
-#, fuzzy
-msgid "Favor"
-msgstr "Ưa thích"
+msgstr "Những tin nhắn ưa thích của %s"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -6198,16 +4168,6 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: lib/galleryaction.php:139
-#, fuzzy
-msgid "Select tag to filter"
-msgstr "Chọn nhà cung cấp Mobile"
-
-#: lib/galleryaction.php:140
-#, fuzzy
-msgid "Tag"
-msgstr "Từ khóa"
-
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
 msgstr ""
@@ -6221,26 +4181,10 @@ msgstr ""
 msgid "Grant this user the \"%s\" role"
 msgstr ""
 
-#: lib/groupeditform.php:163
-#, fuzzy
-msgid "URL of the homepage or blog of the group or topic"
-msgstr "URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
-
-#: lib/groupeditform.php:168
-#, fuzzy
-msgid "Describe the group or topic"
-msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
-
 #: lib/groupeditform.php:170
-#, fuzzy, php-format
+#, php-format
 msgid "Describe the group or topic in %d characters"
-msgstr "Nói về những sở thích của nhóm trong vòng 140 ký tự"
-
-#: lib/groupeditform.php:179
-#, fuzzy
-msgid ""
-"Location for the group, if any, like \"City, State (or Region), Country\""
-msgstr "Bạn ở đâu, \"Thành phố, Tỉnh thành, Quốc gia\""
+msgstr ""
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -6252,24 +4196,17 @@ msgid "Group"
 msgstr "Nhóm"
 
 #: lib/groupnav.php:101
-#, fuzzy
 msgid "Blocked"
-msgstr "Ban user"
+msgstr "Chặn người dùng"
 
 #: lib/groupnav.php:102
-#, fuzzy, php-format
-msgid "%s blocked users"
-msgstr "Ban user"
-
-#: lib/groupnav.php:108
 #, php-format
-msgid "Edit %s group properties"
-msgstr ""
+msgid "%s blocked users"
+msgstr "Chặn người dùng"
 
 #: lib/groupnav.php:113
-#, fuzzy
 msgid "Logo"
-msgstr "Thoát"
+msgstr "Đăng nhập"
 
 #: lib/groupnav.php:114
 #, php-format
@@ -6282,9 +4219,8 @@ msgid "Add or edit %s design"
 msgstr ""
 
 #: lib/groupsbymemberssection.php:71
-#, fuzzy
 msgid "Groups with most members"
-msgstr "Thành viên"
+msgstr ""
 
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
@@ -6304,13 +4240,6 @@ msgstr "Trang này không phải là phương tiện truyền thông mà bạn c
 msgid "Unsupported image file format."
 msgstr "Không hỗ trợ kiểu file ảnh này."
 
-#: lib/imagefile.php:88
-#, fuzzy, php-format
-msgid "That file is too big. The maximum file size is %s."
-msgstr ""
-"Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
-"về bạn."
-
 #: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "Upload từng phần."
@@ -6323,15 +4252,9 @@ msgstr "Hệ thống xảy ra lỗi trong khi tải file."
 msgid "Not an image or corrupt file."
 msgstr "File hỏng hoặc không phải là file ảnh."
 
-#: lib/imagefile.php:122
-#, fuzzy
-msgid "Lost our file."
-msgstr "Không có tin nhắn nào."
-
 #: lib/imagefile.php:163 lib/imagefile.php:224
-#, fuzzy
 msgid "Unknown file type"
-msgstr "Không hỗ trợ kiểu file ảnh này."
+msgstr ""
 
 #: lib/imagefile.php:244
 msgid "MB"
@@ -6351,25 +4274,13 @@ msgstr ""
 msgid "Unknown inbox source %d."
 msgstr ""
 
-#: lib/joinform.php:114
-#, fuzzy
-msgid "Join"
-msgstr "Đăng nhập"
-
-#: lib/leaveform.php:114
-#, fuzzy
-msgid "Leave"
-msgstr "Lưu"
-
 #: lib/logingroupnav.php:80
-#, fuzzy
 msgid "Login with a username and password"
-msgstr "Sai tên đăng nhập hoặc mật khẩu."
+msgstr "Tên đăng nhập hoặc mật khẩu không hợp lệ."
 
 #: lib/logingroupnav.php:86
-#, fuzzy
 msgid "Sign up for a new account"
-msgstr "Tạo tài khoản mới"
+msgstr ""
 
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
@@ -6378,7 +4289,7 @@ msgstr "Xac nhan dia chi email"
 
 #. TRANS: Body for address confirmation email.
 #: lib/mail.php:177
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %s.\n"
 "\n"
@@ -6393,21 +4304,6 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
-"Chào, %1$s .\n"
-"\n"
-"Không biết có phải bạn là người vừa nhập địa chỉ email này trên %2$s.\n"
-"\n"
-"Nếu bạn là người nhập, và bạn muốn xác nhận lại, hãy nhấn chuột vào đường "
-"dẫn dưới đây: \n"
-"\n"
-"\t%3$s\n"
-"\n"
-"Nếu không phải bạn, hãy bỏ qua tin nhắn này.\n"
-"\n"
-"Cảm ơn bạn đã bỏ thời gian để đọc thư,\n"
-"\n"
-"%4$s\n"
-"\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
@@ -6424,7 +4320,7 @@ msgstr ""
 
 #. TRANS: Main body of new-subscriber notification e-mail
 #: lib/mail.php:254
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -6437,18 +4333,12 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
-"%1$s đang theo dõi các tin nhắn của bạn trên %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"Người bạn trung thành của bạn,\n"
-"%4$s.\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:274
-#, fuzzy, php-format
+#, php-format
 msgid "Bio: %s"
-msgstr "Thành phố: %s"
+msgstr "Lý lịch"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304
@@ -6478,12 +4368,6 @@ msgstr ""
 "Chúc sức khỏe,\n"
 "%4$s"
 
-#. TRANS: Subject line for SMS-by-email notification messages
-#: lib/mail.php:433
-#, fuzzy, php-format
-msgid "%s status"
-msgstr "Trạng thái của %1$s vào %2$s"
-
 #. TRANS: Subject line for SMS-by-email address confirmation message
 #: lib/mail.php:460
 msgid "SMS confirmation"
@@ -6491,9 +4375,9 @@ msgstr "Xác nhận SMS"
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:463
-#, fuzzy, php-format
+#, php-format
 msgid "%s: confirm you own this phone number with this code:"
-msgstr "Đó không phải là số điện thoại của bạn."
+msgstr ""
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -6560,13 +4444,15 @@ msgstr ""
 
 #. TRANS: Subject for favorite notification email
 #: lib/mail.php:589
-#, fuzzy, php-format
+#, php-format
 msgid "%s (@%s) added your notice as a favorite"
-msgstr "%s da them tin nhan cua ban vao danh sach tin nhan ua thich"
+msgstr ""
+"Gửi email thông báo tôi khi có ai đó lưu tin nhắn của tôi vào danh sách ưa "
+"thích của họ."
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
 "\n"
@@ -6585,19 +4471,6 @@ msgid ""
 "Faithfully yours,\n"
 "%6$s\n"
 msgstr ""
-"%1$s vừa thêm tin nhắn của bạn trên %2$s vào danh sách tin nhắn ưa thích của "
-"mình.\n"
-"\n"
-"Bạn có thể xem lại nội dung tin nhắn của bạn tại đây:\n"
-"\n"
-"%3$s\n"
-"\n"
-"Bạn có thể xem danh sách tin nhắn ưa thích của %1$s tại đây: \n"
-"\n"
-"%4$s\n"
-"\n"
-"Chúc sức khỏe,\n"
-"%5$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:651
@@ -6606,11 +4479,6 @@ msgid ""
 "The full conversation can be read here:\n"
 "\n"
 "\t%s"
-msgstr ""
-
-#: lib/mail.php:657
-#, php-format
-msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
 #. TRANS: Body of @-reply notification e-mail.
@@ -6651,15 +4519,9 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
-#, fuzzy
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
-msgstr " từ "
-
-#: lib/mailhandler.php:37
-#, fuzzy
-msgid "Could not parse message."
-msgstr "Không thể cập nhật thành viên."
+msgstr ""
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
@@ -6672,11 +4534,6 @@ msgstr "Xin lỗi, đó không phải là địa chỉ email mà bạn nhập v�
 #: lib/mailhandler.php:50
 msgid "Sorry, no incoming email allowed."
 msgstr "Xin lỗi, không có địa chỉ email cho phép."
-
-#: lib/mailhandler.php:228
-#, fuzzy, php-format
-msgid "Unsupported message type: %s"
-msgstr "Không hỗ trợ kiểu file ảnh này."
 
 #: lib/mediafile.php:98 lib/mediafile.php:123
 msgid "There was a database error while saving your file. Please try again."
@@ -6716,11 +4573,6 @@ msgstr ""
 msgid "File could not be moved to destination directory."
 msgstr ""
 
-#: lib/mediafile.php:202 lib/mediafile.php:238
-#, fuzzy
-msgid "Could not determine file's MIME type."
-msgstr "Không thể lấy lại các tin nhắn ưa thích"
-
 #: lib/mediafile.php:318
 #, php-format
 msgid " Try using another %s format."
@@ -6731,55 +4583,37 @@ msgstr ""
 msgid "%s is not a supported file type on this server."
 msgstr ""
 
-#: lib/messageform.php:120
-#, fuzzy
-msgid "Send a direct notice"
-msgstr "Xóa tin nhắn"
-
 #: lib/messageform.php:146
 msgid "To"
 msgstr ""
 
-#: lib/messageform.php:159 lib/noticeform.php:185
-#, fuzzy
-msgid "Available characters"
-msgstr "Nhiều hơn 6 ký tự"
-
-#: lib/messageform.php:178 lib/noticeform.php:236
-#, fuzzy
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
-msgstr "Gửi"
+msgstr ""
 
-#: lib/noticeform.php:160
-#, fuzzy
-msgid "Send a notice"
-msgstr "Thông báo mới"
-
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr "Bạn đang làm gì thế, %s?"
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
-#, fuzzy
+#: lib/noticeform.php:213
 msgid "Share my location"
-msgstr "Không thể lưu hồ sơ cá nhân."
-
-#: lib/noticeform.php:215
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Không thể lưu hồ sơ cá nhân."
+msgstr ""
 
 #: lib/noticeform.php:216
+msgid "Do not share my location"
+msgstr ""
+
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
@@ -6787,9 +4621,8 @@ msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
 #: lib/noticelist.php:436
-#, fuzzy
 msgid "N"
-msgstr "Không"
+msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
@@ -6815,44 +4648,29 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:567
-#, fuzzy
-msgid "in context"
-msgstr "Không có nội dung!"
-
-#: lib/noticelist.php:602
-#, fuzzy
-msgid "Repeated by"
-msgstr "Tạo"
-
-#: lib/noticelist.php:629
-#, fuzzy
-msgid "Reply to this notice"
-msgstr "Trả lời tin nhắn này"
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
 
 #: lib/noticelist.php:630
+msgid "Reply to this notice"
+msgstr "Không thể xóa tin nhắn này."
+
+#: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Trả lời"
 
-#: lib/noticelist.php:674
-#, fuzzy
+#: lib/noticelist.php:675
 msgid "Notice repeated"
-msgstr "Tin đã gửi"
+msgstr "Tìm kiếm thông báo"
 
 #: lib/nudgeform.php:116
-#, fuzzy
 msgid "Nudge this user"
-msgstr "Tin đã gửi"
+msgstr "Bỏ chặn người dùng này"
 
 #: lib/nudgeform.php:128
-#, fuzzy
 msgid "Nudge"
-msgstr "Tin đã gửi"
-
-#: lib/nudgeform.php:128
-#, fuzzy
-msgid "Send a nudge to this user"
-msgstr "Bạn đã theo những người này:"
+msgstr ""
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile"
@@ -6869,11 +4687,6 @@ msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
 msgstr "Lỗi xảy ra khi thêm mới hồ sơ cá nhân"
-
-#: lib/oauthstore.php:345
-#, fuzzy
-msgid "Duplicate notice"
-msgstr "Xóa tin nhắn"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -6908,14 +4721,9 @@ msgid "Your sent messages"
 msgstr "Thư bạn đã gửi"
 
 #: lib/personaltagcloudsection.php:56
-#, fuzzy, php-format
+#, php-format
 msgid "Tags in %s's notices"
-msgstr "cảnh báo tin nhắn"
-
-#: lib/plugin.php:115
-#, fuzzy
-msgid "Unknown"
-msgstr "Không tìm thấy action"
+msgstr ""
 
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
@@ -6929,15 +4737,6 @@ msgstr "Tất cả đăng nhận"
 msgid "Subscribers"
 msgstr "Bạn này theo tôi"
 
-#: lib/profileaction.php:161
-#, fuzzy
-msgid "All subscribers"
-msgstr "Bạn này theo tôi"
-
-#: lib/profileaction.php:191
-msgid "User ID"
-msgstr ""
-
 #: lib/profileaction.php:196
 msgid "Member since"
 msgstr "Gia nhập từ"
@@ -6947,11 +4746,6 @@ msgstr "Gia nhập từ"
 msgid "Daily average"
 msgstr ""
 
-#: lib/profileaction.php:264
-#, fuzzy
-msgid "All groups"
-msgstr "Nhóm"
-
 #: lib/profileformaction.php:123
 msgid "Unimplemented method."
 msgstr ""
@@ -6960,67 +4754,34 @@ msgstr ""
 msgid "Public"
 msgstr "Công cộng"
 
-#: lib/publicgroupnav.php:82
-#, fuzzy
-msgid "User groups"
-msgstr "Hồ sơ"
-
 #: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
-#, fuzzy
 msgid "Recent tags"
-msgstr "Các từ khóa hiện tại"
-
-#: lib/publicgroupnav.php:88
-msgid "Featured"
 msgstr ""
 
-#: lib/publicgroupnav.php:92
-#, fuzzy
-msgid "Popular"
-msgstr "Tên tài khoản"
-
 #: lib/redirectingaction.php:95
-#, fuzzy
 msgid "No return-to arguments."
-msgstr "Không có tài liệu nào."
+msgstr ""
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Trả lời tin nhắn này"
+msgstr "Không thể xóa tin nhắn này."
 
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Có"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Trả lời tin nhắn này"
+msgstr "Không thể xóa tin nhắn này."
 
 #: lib/revokeroleform.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Revoke the \"%s\" role from this user"
-msgstr "Ban user"
+msgstr ""
 
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
 msgstr ""
-
-#: lib/sandboxform.php:67
-#, fuzzy
-msgid "Sandbox"
-msgstr "Hộp thư đến"
-
-#: lib/sandboxform.php:78
-#, fuzzy
-msgid "Sandbox this user"
-msgstr "Bỏ chặn người dùng này"
-
-#: lib/searchaction.php:120
-#, fuzzy
-msgid "Search site"
-msgstr "Tìm kiếm"
 
 #: lib/searchaction.php:126
 msgid "Keyword(s)"
@@ -7028,11 +4789,6 @@ msgstr ""
 
 #: lib/searchaction.php:127
 msgid "Search"
-msgstr "Tìm kiếm"
-
-#: lib/searchaction.php:162
-#, fuzzy
-msgid "Search help"
 msgstr "Tìm kiếm"
 
 #: lib/searchgroupnav.php:80
@@ -7047,11 +4803,6 @@ msgstr "Tìm kiếm mọi người trên trang web này"
 msgid "Find content of notices"
 msgstr "Tìm theo nội dung của tin nhắn"
 
-#: lib/searchgroupnav.php:85
-#, fuzzy
-msgid "Find groups on this site"
-msgstr "Tìm kiếm mọi người trên trang web này"
-
 #: lib/section.php:89
 msgid "Untitled section"
 msgstr ""
@@ -7061,24 +4812,17 @@ msgid "More..."
 msgstr ""
 
 #: lib/silenceform.php:67
-#, fuzzy
 msgid "Silence"
-msgstr "Thông báo mới"
+msgstr ""
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Ban user"
-
-#: lib/subgroupnav.php:83
-#, fuzzy, php-format
-msgid "People %s subscribes to"
-msgstr "Đăng nhận từ xa"
+msgstr "Bỏ chặn người dùng này"
 
 #: lib/subgroupnav.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "People subscribed to %s"
-msgstr "Theo nhóm này"
+msgstr "Đăng nhận từ xa"
 
 #: lib/subgroupnav.php:99
 #, php-format
@@ -7088,13 +4832,6 @@ msgstr ""
 #: lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Thư mời"
-
-#: lib/subgroupnav.php:106
-#, fuzzy, php-format
-msgid "Invite friends and colleagues to join you on %s"
-msgstr ""
-"Điền địa chỉ email và nội dung tin nhắn để gửi thư mời bạn bè và đồng nghiệp "
-"của bạn tham gia vào dịch vụ này."
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -7107,9 +4844,8 @@ msgid "People Tagcloud as tagged"
 msgstr ""
 
 #: lib/tagcloudsection.php:56
-#, fuzzy
 msgid "None"
-msgstr "Không"
+msgstr ""
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
@@ -7119,14 +4855,7 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
-#: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
-#, fuzzy
-msgid "Failed saving theme."
-msgstr "Cập nhật hình đại diện không thành công."
-
-#: lib/themeuploader.php:139
+#: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
 
@@ -7139,44 +4868,32 @@ msgstr ""
 msgid "Invalid theme archive: missing file css/display.css"
 msgstr ""
 
-#: lib/themeuploader.php:205
+#: lib/themeuploader.php:218
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
 
-#: lib/themeuploader.php:216
+#: lib/themeuploader.php:224
+msgid "Theme contains unsafe file extension names; may be unsafe."
+msgstr ""
+
+#: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
-#: lib/themeuploader.php:234
-#, fuzzy
-msgid "Error opening theme archive."
-msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
-
 #: lib/topposterssection.php:74
-#, fuzzy
 msgid "Top posters"
-msgstr "Top posters"
+msgstr ""
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
 
-#: lib/unsandboxform.php:80
-#, fuzzy
-msgid "Unsandbox this user"
-msgstr "Bỏ chặn người dùng này"
-
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
 msgstr ""
-
-#: lib/unsilenceform.php:78
-#, fuzzy
-msgid "Unsilence this user"
-msgstr "Bỏ chặn người dùng này"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -7186,52 +4903,21 @@ msgstr "Ngừng đăng ký từ người dùng này"
 msgid "Unsubscribe"
 msgstr "Hết theo"
 
-#: lib/usernoprofileexception.php:58
-#, fuzzy, php-format
-msgid "User %s (%d) has no profile record."
-msgstr "Người dùng không có thông tin."
-
-#: lib/userprofile.php:117
-#, fuzzy
-msgid "Edit Avatar"
-msgstr "Hình đại diện"
-
-#: lib/userprofile.php:234 lib/userprofile.php:248
-#, fuzzy
-msgid "User actions"
-msgstr "Không tìm thấy action"
-
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
 msgstr ""
 
-#: lib/userprofile.php:263
-#, fuzzy
-msgid "Edit profile settings"
-msgstr "Các thiết lập cho Hồ sơ cá nhân"
-
 #: lib/userprofile.php:264
 msgid "Edit"
 msgstr ""
-
-#: lib/userprofile.php:287
-#, fuzzy
-msgid "Send a direct message to this user"
-msgstr "Bạn đã theo những người này:"
-
-#: lib/userprofile.php:288
-#, fuzzy
-msgid "Message"
-msgstr "Tin mới nhất"
 
 #: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
 
 #: lib/userprofile.php:364
-#, fuzzy
 msgid "User role"
-msgstr "Hồ sơ"
+msgstr "Người dùng không có thông tin."
 
 #: lib/userprofile.php:366
 msgctxt "role"
@@ -7244,70 +4930,60 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1102
 msgid "a few seconds ago"
 msgstr "vài giây trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1105
 msgid "about a minute ago"
 msgstr "1 phút trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1109
 #, php-format
 msgid "about %d minutes ago"
 msgstr "%d phút trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "1 giờ trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1116
 #, php-format
 msgid "about %d hours ago"
 msgstr "%d giờ trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1119
 msgid "about a day ago"
 msgstr "1 ngày trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1123
 #, php-format
 msgid "about %d days ago"
 msgstr "%d ngày trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1126
 msgid "about a month ago"
 msgstr "1 tháng trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1130
 #, php-format
 msgid "about %d months ago"
 msgstr "%d tháng trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1133
 msgid "about a year ago"
 msgstr "1 năm trước"
-
-#: lib/webcolor.php:82
-#, fuzzy, php-format
-msgid "%s is not a valid color!"
-msgstr "Trang chủ không phải là URL"
 
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""

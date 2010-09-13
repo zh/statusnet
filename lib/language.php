@@ -326,6 +326,7 @@ function get_all_languages() {
         'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
         'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),
         'jp'      => array('q' => 0.5, 'lang' => 'ja', 'name' => 'Japanese', 'direction' => 'ltr'),
+        'ka'      => array('q' => 0.8, 'lang' => 'ka',    'name' => 'Georgian', 'direction' => 'ltr'),
         'ko'      => array('q' => 0.9, 'lang' => 'ko',    'name' => 'Korean', 'direction' => 'ltr'),
         'mk'      => array('q' => 0.5, 'lang' => 'mk', 'name' => 'Macedonian', 'direction' => 'ltr'),
         'nb'      => array('q' => 0.1, 'lang' => 'nb', 'name' => 'Norwegian (Bokmål)', 'direction' => 'ltr'),

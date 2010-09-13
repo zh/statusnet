@@ -121,7 +121,10 @@ class Action extends HTMLOutputter // lawsuit
         // XXX: attributes (profile?)
         $this->elementStart('head');
         if (Event::handle('StartShowHeadElements', array($this))) {
-            $this->showTitle();
+            if (Event::handle('StartShowHeadTitle', array($this))) {
+                $this->showTitle();
+                Event::handle('EndShowHeadTitle', array($this));
+            }
             $this->showShortcutIcon();
             $this->showStylesheets();
             $this->showOpenSearch();
@@ -200,7 +203,7 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->cssLink('css/display.css',null, 'screen, projection, tv, print');
+                $this->primaryCssLink(null, 'screen, projection, tv, print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
@@ -235,7 +238,7 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
-            
+
             if (common_config('custom_css', 'enabled')) {
                 $css = common_config('custom_css', 'css');
                 if (Event::handle('StartShowCustomCss', array($this, &$css))) {
@@ -246,6 +249,18 @@ class Action extends HTMLOutputter // lawsuit
                 }
             }
         }
+    }
+
+    function primaryCssLink($mainTheme=null, $media=null)
+    {
+        // If the currently-selected theme has dependencies on other themes,
+        // we'll need to load their display.css files as well in order.
+        $theme = new Theme($mainTheme);
+        $baseThemes = $theme->getDeps();
+        foreach ($baseThemes as $baseTheme) {
+            $this->cssLink('css/display.css', $baseTheme, $media);
+        }
+        $this->cssLink('css/display.css', $mainTheme, $media);
     }
 
     /**
@@ -266,9 +281,7 @@ class Action extends HTMLOutputter // lawsuit
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('xbImportNode.js');
                 $this->script('util.js');
-                $this->script('geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
@@ -616,7 +629,10 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
-        $this->showPageTitle();
+        if (Event::handle('StartShowPageTitle', array($this))) {
+            $this->showPageTitle();
+            Event::handle('EndShowPageTitle', array($this));
+        }
         $this->showPageNoticeBlock();
         $this->elementStart('div', array('id' => 'content_inner'));
         // show the actual content (forms, lists, whatever)
@@ -978,29 +994,57 @@ class Action extends HTMLOutputter // lawsuit
     function handle($argarray=null)
     {
         header('Vary: Accept-Encoding,Cookie');
+
         $lm   = $this->lastModified();
         $etag = $this->etag();
+
         if ($etag) {
             header('ETag: ' . $etag);
         }
+
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
-                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-                $ims = strtotime($if_modified_since);
-                if ($lm <= $ims) {
-                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
-                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
-                    if (!$if_none_match ||
-                        !$etag ||
-                        $this->_hasEtag($etag, $if_none_match)) {
-                        header('HTTP/1.1 304 Not Modified');
-                        // Better way to do this?
-                        exit(0);
-                    }
-                }
+            if ($this->isCacheable()) {
+                header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', 0 ) . ' GMT' );
+                header( "Cache-Control: private, must-revalidate, max-age=0" );
+                header( "Pragma:");
             }
         }
+
+        if ($etag) {
+            $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+              $_SERVER['HTTP_IF_NONE_MATCH'] : null;
+            if ($if_none_match && $this->_hasEtag($etag, $if_none_match)) {
+                header('HTTP/1.1 304 Not Modified');
+                // Better way to do this?
+                exit(0);
+            }
+        }
+
+        if ($lm && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+            $ims = strtotime($if_modified_since);
+            if ($lm <= $ims) {
+                header('HTTP/1.1 304 Not Modified');
+                // Better way to do this?
+                exit(0);
+            }
+        }
+    }
+
+    /**
+     * Is this action cacheable?
+     *
+     * If the action returns a last-modified
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return boolean is read only action?
+     */
+
+    function isCacheable()
+    {
+        return true;
     }
 
     /**

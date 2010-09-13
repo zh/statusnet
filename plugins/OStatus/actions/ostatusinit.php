@@ -45,13 +45,13 @@ class OStatusInitAction extends Action
         // Local user or group the remote wants to subscribe to
         $this->nickname = $this->trimmed('nickname');
         $this->group = $this->trimmed('group');
-        
+
         // Webfinger or profile URL of the remote user
         $this->profile = $this->trimmed('profile');
 
         return true;
     }
-    
+
     function handle($args)
     {
         parent::handle($args);
@@ -69,7 +69,7 @@ class OStatusInitAction extends Action
             $this->showForm();
         }
     }
-    
+
     function showForm($err = null)
     {
         $this->err = $err;
@@ -109,12 +109,12 @@ class OStatusInitAction extends Action
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li', array('id' => 'ostatus_nickname'));
         $this->input('nickname', _m('User nickname'), $this->nickname,
-                     _m('Nickname of the user you want to follow'));
+                     _m('Nickname of the user you want to follow.'));
         $this->hidden('group', $this->group); // pass-through for magic links
         $this->elementEnd('li');
         $this->elementStart('li', array('id' => 'ostatus_profile'));
         $this->input('profile', _m('Profile Account'), $this->profile,
-                     _m('Your account id (i.e. user@identi.ca)'));
+                     _m('Your account id (e.g. user@identi.ca).'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
         $this->submit('submit', $submit);
@@ -199,7 +199,7 @@ class OStatusInitAction extends Action
 
     function title()
     {
-      return _m('OStatus Connect');  
+      return _m('OStatus Connect');
     }
-  
+
 }

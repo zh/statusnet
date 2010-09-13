@@ -10,12 +10,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-08-07 16:23+0000\n"
-"PO-Revision-Date: 2010-08-07 16:24:18+0000\n"
+"POT-Creation-Date: 2010-09-05 09:45+0000\n"
+"PO-Revision-Date: 2010-09-05 09:45:50+0000\n"
 "Language-Team: Greek\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r70633); Translate extension (2010-07-21)\n"
+"X-Generator: MediaWiki 1.17alpha (r72319); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: el\n"
 "X-Message-Group: out-statusnet\n"
@@ -88,10 +88,10 @@ msgstr "Αποθήκευση"
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
-#, fuzzy
 msgid "No such page."
-msgstr "Δεν υπάρχει τέτοια σελίδα"
+msgstr "Κανένας τέτοιος χρήστης."
 
+#. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:114
 #: actions/apiaccountupdateprofile.php:105
@@ -111,7 +111,7 @@ msgstr "Δεν υπάρχει τέτοια σελίδα"
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:478 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Κανένας τέτοιος χρήστης."
@@ -188,40 +188,6 @@ msgstr ""
 msgid "You and friends"
 msgstr "Εσείς και οι φίλοι σας"
 
-#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
-#. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:121 actions/apitimelinefriends.php:216
-#: actions/apitimelinehome.php:122
-#, php-format
-msgid "Updates from %1$s and friends on %2$s!"
-msgstr ""
-
-#: actions/apiaccountratelimitstatus.php:72
-#: actions/apiaccountupdatedeliverydevice.php:94
-#: actions/apiaccountupdateprofile.php:97
-#: actions/apiaccountupdateprofilebackgroundimage.php:94
-#: actions/apiaccountupdateprofilecolors.php:118
-#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
-#: actions/apifavoritecreate.php:100 actions/apifavoritedestroy.php:101
-#: actions/apifriendshipscreate.php:100 actions/apifriendshipsdestroy.php:100
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:139
-#: actions/apigroupismember.php:115 actions/apigroupjoin.php:156
-#: actions/apigroupleave.php:142 actions/apigrouplist.php:137
-#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
-#: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
-#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
-#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
-#, fuzzy
-msgid "API method not found."
-msgstr "Η μέθοδος του ΑΡΙ δε βρέθηκε!"
-
 #: actions/apiaccountupdatedeliverydevice.php:86
 #: actions/apiaccountupdateprofile.php:89
 #: actions/apiaccountupdateprofilebackgroundimage.php:86
@@ -241,26 +207,6 @@ msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
-
-#: actions/apiaccountupdatedeliverydevice.php:133
-#, fuzzy
-msgid "Could not update user."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
-
-#: actions/apiaccountupdateprofile.php:112
-#: actions/apiaccountupdateprofilebackgroundimage.php:194
-#: actions/apiaccountupdateprofilecolors.php:185
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
-#: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
-#: lib/profileaction.php:84
-msgid "User has no profile."
-msgstr ""
-
-#: actions/apiaccountupdateprofile.php:147
-#, fuzzy
-msgid "Could not save profile."
-msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
@@ -284,19 +230,9 @@ msgstr ""
 msgid "Unable to save your design settings."
 msgstr ""
 
-#: actions/apiaccountupdateprofilebackgroundimage.php:187
-#: actions/apiaccountupdateprofilecolors.php:142
-#, fuzzy
-msgid "Could not update your design."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
-
 #: actions/apiblockcreate.php:105
 msgid "You cannot block yourself!"
 msgstr "Δεν μπορείτε να κάνετε φραγή στον εαυτό σας!"
-
-#: actions/apiblockcreate.php:126
-msgid "Block user failed."
-msgstr ""
 
 #: actions/apiblockdestroy.php:114
 msgid "Unblock user failed."
@@ -331,10 +267,6 @@ msgstr ""
 msgid "That's too long. Max message size is %d chars."
 msgstr ""
 
-#: actions/apidirectmessagenew.php:138
-msgid "Recipient user not found."
-msgstr ""
-
 #: actions/apidirectmessagenew.php:142
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
@@ -348,22 +280,14 @@ msgstr ""
 msgid "This status is already a favorite."
 msgstr ""
 
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:285
-msgid "Could not create favorite."
-msgstr ""
-
 #: actions/apifavoritedestroy.php:123
 msgid "That status is not a favorite."
 msgstr ""
 
-#: actions/apifavoritedestroy.php:135 actions/disfavor.php:87
-msgid "Could not delete favorite."
-msgstr ""
-
 #: actions/apifriendshipscreate.php:109
-#, fuzzy
 msgid "Could not follow user: profile not found."
-msgstr "Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης δε βρέθηκε."
+msgstr ""
+"Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης %s είναι ήδη στη λίστα σου."
 
 #: actions/apifriendshipscreate.php:118
 #, php-format
@@ -372,28 +296,21 @@ msgstr ""
 "Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης %s είναι ήδη στη λίστα σου."
 
 #: actions/apifriendshipsdestroy.php:109
-#, fuzzy
 msgid "Could not unfollow user: User not found."
-msgstr "Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης δε βρέθηκε."
+msgstr ""
+"Δε μπορώ να ακολουθήσω το χρήστη: ο χρήστης %s είναι ήδη στη λίστα σου."
 
 #: actions/apifriendshipsdestroy.php:120
-#, fuzzy
 msgid "You cannot unfollow yourself."
-msgstr "Δεν μπορείτε να εμποδίσετε τον εαυτό σας!"
+msgstr "Δεν μπορείτε να κάνετε φραγή στον εαυτό σας!"
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
 msgstr ""
 
-#: actions/apifriendshipsshow.php:134
-#, fuzzy
-msgid "Could not determine source user."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
-
 #: actions/apifriendshipsshow.php:142
-#, fuzzy
 msgid "Could not find target user."
-msgstr "Απέτυχε η εύρεση οποιασδήποτε κατάστασης."
+msgstr "Απέτυχε η ενημέρωση του χρήστη."
 
 #: actions/apigroupcreate.php:167 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
@@ -406,12 +323,6 @@ msgstr "Το ψευδώνυμο πρέπει να έχει μόνο πεζούς
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμάστε κάποιο άλλο."
-
-#: actions/apigroupcreate.php:183 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:218
-#: actions/register.php:217
-msgid "Not a valid nickname."
-msgstr ""
 
 #: actions/apigroupcreate.php:199 actions/editapplication.php:215
 #: actions/editgroup.php:199 actions/newapplication.php:203
@@ -445,15 +356,9 @@ msgid "Too many aliases! Maximum %d."
 msgstr ""
 
 #: actions/apigroupcreate.php:267
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid alias: \"%s\"."
-msgstr "Μήνυμα"
-
-#: actions/apigroupcreate.php:276 actions/editgroup.php:232
-#: actions/newgroup.php:172
-#, fuzzy, php-format
-msgid "Alias \"%s\" already in use. Try another one."
-msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμάστε κάποιο άλλο."
+msgstr ""
 
 #: actions/apigroupcreate.php:289 actions/editgroup.php:238
 #: actions/newgroup.php:178
@@ -463,31 +368,23 @@ msgstr ""
 #: actions/apigroupismember.php:96 actions/apigroupjoin.php:105
 #: actions/apigroupleave.php:105 actions/apigroupmembership.php:92
 #: actions/apigroupshow.php:83 actions/apitimelinegroup.php:92
-#, fuzzy
 msgid "Group not found."
-msgstr "Η ομάδα δεν βρέθηκε!"
+msgstr "Η μέθοδος του ΑΡΙ δε βρέθηκε!"
 
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100
-msgid "You are already a member of that group."
-msgstr ""
-
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:327
-msgid "You have been blocked from that group by the admin."
-msgstr ""
-
-#: actions/apigroupjoin.php:139 actions/joingroup.php:134
-#, fuzzy, php-format
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:139 actions/joingroup.php:134 lib/command.php:353
+#, php-format
 msgid "Could not join user %1$s to group %2$s."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
-#: actions/apigroupleave.php:115
-msgid "You are not a member of this group."
-msgstr ""
-
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:125 actions/leavegroup.php:129
-#, fuzzy, php-format
+#: lib/command.php:401
+#, php-format
 msgid "Could not remove user %1$s from group %2$s."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: %s is a user name
 #: actions/apigrouplist.php:98
@@ -497,15 +394,8 @@ msgstr "ομάδες των χρηστών %s"
 
 #. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
 #: actions/apigrouplist.php:108
-#, fuzzy, php-format
-msgid "%1$s groups %2$s is a member of."
-msgstr "Δεν είστε μέλος καμίας ομάδας."
-
-#. TRANS: Message is used as a title. %s is a site name.
-#. TRANS: Message is used as a page title. %s is a nick name.
-#: actions/apigrouplistall.php:92 actions/usergroups.php:63
 #, php-format
-msgid "%s groups"
+msgid "%1$s groups %2$s is a member of."
 msgstr ""
 
 #: actions/apigrouplistall.php:96
@@ -513,19 +403,13 @@ msgstr ""
 msgid "groups on %s"
 msgstr "ομάδες του χρήστη %s"
 
-#: actions/apimediaupload.php:99
-#, fuzzy
-msgid "Upload failed."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr ""
 
 #: actions/apioauthauthorize.php:106
-#, fuzzy
 msgid "Invalid token."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
@@ -550,14 +434,12 @@ msgid "Invalid nickname / password!"
 msgstr ""
 
 #: actions/apioauthauthorize.php:159
-#, fuzzy
 msgid "Database error deleting OAuth application user."
-msgstr "Σφάλμα στη βάση δεδομένων κατά την εισαγωγή hashtag: %s"
+msgstr ""
 
 #: actions/apioauthauthorize.php:185
-#, fuzzy
 msgid "Database error inserting OAuth application user."
-msgstr "Σφάλμα στη βάση δεδομένων κατά την εισαγωγή hashtag: %s"
+msgstr ""
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -600,7 +482,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:450
+#: actions/apioauthauthorize.php:310 lib/action.php:463
 msgid "Account"
 msgstr "Λογαριασμός"
 
@@ -638,21 +520,6 @@ msgstr ""
 msgid "You may not delete another user's status."
 msgstr ""
 
-#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
-#: actions/deletenotice.php:52 actions/shownotice.php:92
-msgid "No such notice."
-msgstr ""
-
-#: actions/apistatusesretweet.php:83
-#, fuzzy
-msgid "Cannot repeat your own notice."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#: actions/apistatusesretweet.php:91
-#, fuzzy
-msgid "Already repeated that notice."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
 #: actions/apistatusesshow.php:139
 msgid "Status deleted."
 msgstr "Η κατάσταση διεγράφη."
@@ -665,28 +532,13 @@ msgstr ""
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:242 actions/newnotice.php:155
-#: lib/mailhandler.php:60
-#, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr ""
-
-#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
-msgid "Not found."
-msgstr ""
-
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:178
+#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 
 #: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
 msgid "Unsupported format."
-msgstr ""
-
-#: actions/apitimelinefavorites.php:110
-#, php-format
-msgid "%1$s / Favorites from %2$s"
 msgstr ""
 
 #: actions/apitimelinefavorites.php:119
@@ -704,19 +556,9 @@ msgstr ""
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
 
-#: actions/apitimelinepublic.php:197 actions/publicrss.php:103
-#, php-format
-msgid "%s public timeline"
-msgstr ""
-
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
-msgstr ""
-
-#: actions/apitimelineretweetedtome.php:111
-#, php-format
-msgid "Repeated to %s"
 msgstr ""
 
 #: actions/apitimelineretweetsofme.php:114
@@ -738,29 +580,8 @@ msgstr ""
 msgid "API method under construction."
 msgstr "Η μέθοδος του ΑΡΙ είναι υπό κατασκευή."
 
-#: actions/attachment.php:73
-msgid "No such attachment."
-msgstr ""
-
-#: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
-#: actions/editgroup.php:84 actions/groupdesignsettings.php:84
-#: actions/grouplogo.php:86 actions/groupmembers.php:76
-#: actions/grouprss.php:91 actions/showgroup.php:121
-msgid "No nickname."
-msgstr ""
-
-#: actions/avatarbynickname.php:64
-msgid "No size."
-msgstr ""
-
 #: actions/avatarbynickname.php:69
 msgid "Invalid size."
-msgstr ""
-
-#. TRANS: Link description in user account settings menu.
-#: actions/avatarsettings.php:67 actions/showgroup.php:230
-#: lib/accountsettingsaction.php:118
-msgid "Avatar"
 msgstr ""
 
 #: actions/avatarsettings.php:78
@@ -790,17 +611,9 @@ msgid "Preview"
 msgstr ""
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:656
+#: lib/deleteuserform.php:66 lib/noticelist.php:657
 msgid "Delete"
 msgstr "Διαγραφή"
-
-#: actions/avatarsettings.php:166 actions/grouplogo.php:236
-msgid "Upload"
-msgstr ""
-
-#: actions/avatarsettings.php:231 actions/grouplogo.php:289
-msgid "Crop"
-msgstr ""
 
 #: actions/avatarsettings.php:305
 msgid "No file uploaded."
@@ -810,31 +623,13 @@ msgstr ""
 msgid "Pick a square area of the image to be your avatar"
 msgstr ""
 
-#: actions/avatarsettings.php:347 actions/grouplogo.php:380
-msgid "Lost our file data."
-msgstr ""
-
-#: actions/avatarsettings.php:370
-msgid "Avatar updated."
-msgstr ""
-
 #: actions/avatarsettings.php:373
 msgid "Failed updating avatar."
 msgstr ""
 
 #: actions/avatarsettings.php:397
-#, fuzzy
 msgid "Avatar deleted."
-msgstr "Ρυθμίσεις OpenID"
-
-#: actions/block.php:69
-#, fuzzy
-msgid "You already blocked that user."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
-msgid "Block user"
-msgstr ""
+msgstr "Η κατάσταση διεγράφη."
 
 #: actions/block.php:138
 msgid ""
@@ -851,40 +646,22 @@ msgstr ""
 #: actions/block.php:153 actions/deleteapplication.php:154
 #: actions/deletenotice.php:147 actions/deleteuser.php:152
 #: actions/groupblock.php:178
-#, fuzzy
 msgctxt "BUTTON"
 msgid "No"
-msgstr "Όχι"
+msgstr "Κανένα"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #. TRANS: Submit button title for 'No' when deleting a user.
 #: actions/block.php:157 actions/deleteuser.php:156
-#, fuzzy
 msgid "Do not block this user"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#. TRANS: Button label on the user block form.
-#. TRANS: Button label on the delete application form.
-#. TRANS: Button label on the delete notice form.
-#. TRANS: Button label on the delete user form.
-#. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletenotice.php:154 actions/deleteuser.php:159
-#: actions/groupblock.php:185
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Yes"
-msgstr "Ναι"
-
-#. TRANS: Submit button title for 'Yes' when blocking a user.
-#: actions/block.php:164 actions/groupmembers.php:392 lib/blockform.php:80
-msgid "Block this user"
-msgstr ""
+msgstr "Διαγράψτε αυτόν τον χρήστη"
 
 #: actions/block.php:187
 msgid "Failed to save block information."
 msgstr ""
 
+#. TRANS: Command exception text shown when a group is requested that does not exist.
+#. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
@@ -894,21 +671,20 @@ msgstr ""
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:166
-#: lib/command.php:368
-#, fuzzy
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
+#: lib/command.php:383
 msgid "No such group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Κανένας τέτοιος χρήστης."
 
 #: actions/blockedfromgroup.php:97
-#, fuzzy, php-format
+#, php-format
 msgid "%s blocked profiles"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Προφίλ χρήστη"
 
 #: actions/blockedfromgroup.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s blocked profiles, page %2$d"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
@@ -922,37 +698,14 @@ msgstr ""
 msgid "Unblock"
 msgstr ""
 
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
-msgid "Unblock this user"
-msgstr ""
-
-#. TRANS: Title for mini-posting window loaded from bookmarklet.
-#: actions/bookmarklet.php:51
-#, fuzzy, php-format
-msgid "Post to %s"
-msgstr "ομάδες του χρήστη %s"
-
-#: actions/confirmaddress.php:75
-msgid "No confirmation code."
-msgstr ""
-
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
 msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
-
-#: actions/confirmaddress.php:85
-msgid "That confirmation code is not for you!"
-msgstr ""
 
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
 #, php-format
 msgid "Unrecognized address type %s."
-msgstr ""
-
-#. TRANS: Client error for an already confirmed email/jabbel/sms address.
-#: actions/confirmaddress.php:96
-msgid "That address has already been confirmed."
 msgstr ""
 
 #. TRANS: Server error thrown on database error updating e-mail preferences.
@@ -977,9 +730,8 @@ msgid "Couldn't delete email confirmation."
 msgstr "Απέτυχε η διαγραφή email επιβεβαίωσης."
 
 #: actions/confirmaddress.php:146
-#, fuzzy
 msgid "Confirm address"
-msgstr "Επιβεβαίωση διεύθυνσης"
+msgstr "Τρέχουσα επιβεβαιωμένη email διεύθυνση."
 
 #: actions/confirmaddress.php:161
 #, php-format
@@ -990,37 +742,11 @@ msgstr ""
 msgid "Conversation"
 msgstr "Συζήτηση"
 
-#: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
-#: lib/profileaction.php:229 lib/searchgroupnav.php:82
-msgid "Notices"
-msgstr ""
-
-#: actions/deleteapplication.php:63
-#, fuzzy
-msgid "You must be logged in to delete an application."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/deleteapplication.php:71
-#, fuzzy
-msgid "Application not found."
-msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
-
-#: actions/deleteapplication.php:78 actions/editapplication.php:77
-#: actions/showapplication.php:94
-#, fuzzy
-msgid "You are not the owner of this application."
-msgstr "Ομάδες με τα περισσότερα μέλη"
-
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1263
+#: lib/action.php:1307
 msgid "There was a problem with your session token."
 msgstr ""
-
-#: actions/deleteapplication.php:123 actions/deleteapplication.php:147
-#, fuzzy
-msgid "Delete application"
-msgstr "Δεν υπάρχει τέτοιο σελίδα."
 
 #: actions/deleteapplication.php:149
 msgid ""
@@ -1029,33 +755,14 @@ msgid ""
 "connections."
 msgstr ""
 
-#. TRANS: Submit button title for 'No' when deleting an application.
-#: actions/deleteapplication.php:158
-#, fuzzy
-msgid "Do not delete this application"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
 #. TRANS: Submit button title for 'Yes' when deleting an application.
 #: actions/deleteapplication.php:164
-#, fuzzy
 msgid "Delete this application"
-msgstr "Περιγράψτε την ομάδα ή το θέμα"
-
-#. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
-#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
-#: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:73 lib/profileformaction.php:64
-#: lib/settingsaction.php:72
-msgid "Not logged in."
-msgstr ""
+msgstr "Διαγράψτε αυτόν τον χρήστη"
 
 #: actions/deletenotice.php:71
-#, fuzzy
 msgid "Can't delete this notice."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Είσαι σίγουρος ότι θες να διαγράψεις αυτό το μήνυμα;"
 
 #: actions/deletenotice.php:103
 msgid ""
@@ -1073,19 +780,8 @@ msgstr "Είσαι σίγουρος ότι θες να διαγράψεις αυ
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
 #: actions/deletenotice.php:151
-#, fuzzy
 msgid "Do not delete this notice"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:656
-msgid "Delete this notice"
-msgstr ""
-
-#: actions/deleteuser.php:67
-#, fuzzy
-msgid "You cannot delete users."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
+msgstr "Διαγραφή μηνύματος"
 
 #: actions/deleteuser.php:74
 msgid "You can only delete local users."
@@ -1122,37 +818,25 @@ msgid "Invalid logo URL."
 msgstr ""
 
 #: actions/designadminpanel.php:322
-#, fuzzy, php-format
+#, php-format
 msgid "Theme not available: %s."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
-
-#: actions/designadminpanel.php:426
-#, fuzzy
-msgid "Change logo"
-msgstr "Αλλάξτε τον κωδικό σας"
-
-#: actions/designadminpanel.php:431
-msgid "Site logo"
 msgstr ""
 
-#: actions/designadminpanel.php:443
-#, fuzzy
-msgid "Change theme"
-msgstr "Αλλαγή"
+#: actions/designadminpanel.php:426
+msgid "Change logo"
+msgstr "Αλλαγή χρωμάτων"
 
 #: actions/designadminpanel.php:460
-#, fuzzy
 msgid "Site theme"
-msgstr "Αλλαγή"
+msgstr ""
 
 #: actions/designadminpanel.php:461
 msgid "Theme for the site."
 msgstr ""
 
 #: actions/designadminpanel.php:467
-#, fuzzy
 msgid "Custom theme"
-msgstr "Αλλαγή"
+msgstr ""
 
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -1232,21 +916,6 @@ msgstr ""
 msgid "Reset back to default"
 msgstr ""
 
-#. TRANS: Submit button title
-#: actions/designadminpanel.php:685 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/subscriptions.php:226 actions/tagother.php:154
-#: actions/useradminpanel.php:294 lib/applicationeditform.php:363
-#: lib/designsettings.php:256 lib/groupeditform.php:202
-msgid "Save"
-msgstr ""
-
-#: actions/designadminpanel.php:686 lib/designsettings.php:257
-msgid "Save design"
-msgstr ""
-
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
 msgstr ""
@@ -1260,21 +929,6 @@ msgstr ""
 msgid "No such document \"%s\""
 msgstr ""
 
-#: actions/editapplication.php:54
-#, fuzzy
-msgid "Edit Application"
-msgstr "Δεν υπάρχει τέτοιο σελίδα."
-
-#: actions/editapplication.php:66
-msgid "You must be logged in to edit an application."
-msgstr ""
-
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
-#, fuzzy
-msgid "No such application."
-msgstr "Δεν υπάρχει τέτοιο σελίδα."
-
 #: actions/editapplication.php:161
 msgid "Use this form to edit your application."
 msgstr ""
@@ -1283,38 +937,13 @@ msgstr ""
 msgid "Name is required."
 msgstr ""
 
-#: actions/editapplication.php:180 actions/newapplication.php:165
-#, fuzzy
-msgid "Name is too long (max 255 chars)."
-msgstr "Το ονοματεπώνυμο είναι πολύ μεγάλο (μέγιστο 255 χαρακτ.)."
-
-#: actions/editapplication.php:183 actions/newapplication.php:162
-#, fuzzy
-msgid "Name already in use. Try another one."
-msgstr "Το ψευδώνυμο είναι ήδη σε χρήση. Δοκιμάστε κάποιο άλλο."
-
-#: actions/editapplication.php:186 actions/newapplication.php:168
-#, fuzzy
-msgid "Description is required."
-msgstr "Περιγραφή"
-
 #: actions/editapplication.php:194
 msgid "Source URL is too long."
 msgstr ""
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
-#, fuzzy
-msgid "Source URL is not valid."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
-
 #: actions/editapplication.php:203 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr ""
-
-#: actions/editapplication.php:206 actions/newapplication.php:191
-#, fuzzy
-msgid "Organization is too long (max 255 chars)."
-msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 255 χαρακτ.)."
 
 #: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
@@ -1329,18 +958,8 @@ msgid "Callback URL is not valid."
 msgstr ""
 
 #: actions/editapplication.php:258
-#, fuzzy
 msgid "Could not update application."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/editgroup.php:56
-#, php-format
-msgid "Edit %s group"
-msgstr ""
-
-#: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
-msgid "You must be logged in to create a group."
-msgstr ""
+msgstr "Απέτυχε η ενημέρωση του χρήστη."
 
 #: actions/editgroup.php:107 actions/editgroup.php:172
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
@@ -1352,9 +971,9 @@ msgid "Use this form to edit the group."
 msgstr ""
 
 #: actions/editgroup.php:205 actions/newgroup.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "description is too long (max %d chars)."
-msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
+msgstr "Η περιγραφή είναι πολύ μεγάλη (μέγιστο %d χαρακτ.)."
 
 #: actions/editgroup.php:228 actions/newgroup.php:168
 #, php-format
@@ -1362,15 +981,13 @@ msgid "Invalid alias: \"%s\""
 msgstr ""
 
 #: actions/editgroup.php:258
-#, fuzzy
 msgid "Could not update group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Server exception thrown when creating group aliases failed.
 #: actions/editgroup.php:264 classes/User_group.php:514
-#, fuzzy
 msgid "Could not create aliases."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #: actions/editgroup.php:280
 msgid "Options saved."
@@ -1378,9 +995,8 @@ msgstr ""
 
 #. TRANS: Title for e-mail settings.
 #: actions/emailsettings.php:61
-#, fuzzy
 msgid "Email settings"
-msgstr "Ρυθμίσεις Email"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #. TRANS: E-mail settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -1388,13 +1004,6 @@ msgstr "Ρυθμίσεις Email"
 #, php-format
 msgid "Manage how you get email from %%site.name%%."
 msgstr ""
-
-#. TRANS: Form legend for e-mail settings form.
-#. TRANS: Field label for e-mail address input in e-mail settings form.
-#: actions/emailsettings.php:106 actions/emailsettings.php:132
-#, fuzzy
-msgid "Email address"
-msgstr "Διευθύνσεις email"
 
 #. TRANS: Form note in e-mail settings form.
 #: actions/emailsettings.php:112
@@ -1414,24 +1023,13 @@ msgid "Remove"
 msgstr ""
 
 #: actions/emailsettings.php:122
-#, fuzzy
 msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-"Αναμένωντας επιβεβαίωση σε αυτή τη διεύθυνση. Έλεγξε το mail σου (και το "
-"φάκελο spam!) για μήνυμα με περαιτέρω οδηγίες. "
-
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:357
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "Ακύρωση"
+"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στην διεύθυνση email που "
+"προσθέσατε. Ελέγξτε τα εισερχόμενα (και τον φάκελο ανεπιθύμητης "
+"αλληλογραφίας) για τον κωδικό και για το πως να τον χρησιμοποιήσετε."
 
 #. TRANS: Instructions for e-mail address input form.
 #: actions/emailsettings.php:135
@@ -1443,10 +1041,9 @@ msgstr "Διεύθυνση email, π.χ: \"UserName@example.org\""
 #. TRANS: Button label for adding a SMS phone number in SMS settings form.
 #: actions/emailsettings.php:139 actions/imsettings.php:148
 #: actions/smssettings.php:162
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr ""
 
 #. TRANS: Form legend for incoming e-mail settings form.
 #. TRANS: Form legend for incoming SMS settings form.
@@ -1475,9 +1072,8 @@ msgstr ""
 
 #. TRANS: Form legend for e-mail preferences form.
 #: actions/emailsettings.php:174
-#, fuzzy
 msgid "Email preferences"
-msgstr "Προτιμήσεις"
+msgstr "Διευθύνσεις email"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:180
@@ -1509,42 +1105,10 @@ msgstr ""
 msgid "I want to post notices by email."
 msgstr "Θέλω να δημοσιεύω ενημερώσεις μέσω email"
 
-#. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:219
-msgid "Publish a MicroID for my email address."
-msgstr ""
-
-#. TRANS: Confirmation message for successful e-mail preferences save.
-#: actions/emailsettings.php:334
-#, fuzzy
-msgid "Email preferences saved."
-msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
-
-#. TRANS: Message given saving e-mail address without having provided one.
-#: actions/emailsettings.php:353
-msgid "No email address."
-msgstr ""
-
 #. TRANS: Message given saving e-mail address that cannot be normalised.
 #: actions/emailsettings.php:361
 msgid "Cannot normalize that email address"
 msgstr "Αδυναμία κανονικοποίησης αυτής της email διεύθυνσης"
-
-#. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:366 actions/register.php:208
-#: actions/siteadminpanel.php:144
-msgid "Not a valid email address."
-msgstr ""
-
-#. TRANS: Message given saving e-mail address that is already set.
-#: actions/emailsettings.php:370
-msgid "That is already your email address."
-msgstr ""
-
-#. TRANS: Message given saving e-mail address that is already set for another user.
-#: actions/emailsettings.php:374
-msgid "That email address already belongs to another user."
-msgstr ""
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1564,41 +1128,10 @@ msgstr ""
 "προσθέσατε. Ελέγξτε τα εισερχόμενα (και τον φάκελο ανεπιθύμητης "
 "αλληλογραφίας) για τον κωδικό και για το πως να τον χρησιμοποιήσετε."
 
-#. TRANS: Message given canceling e-mail address confirmation that is not pending.
-#. TRANS: Message given canceling IM address confirmation that is not pending.
-#. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:419 actions/imsettings.php:383
-#: actions/smssettings.php:408
-msgid "No pending confirmation to cancel."
-msgstr ""
-
-#. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
-#: actions/emailsettings.php:424
-#, fuzzy
-msgid "That is the wrong email address."
-msgstr "Εισάγετε ψευδώνυμο ή διεύθυνση email."
-
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:438
-#, fuzzy
 msgid "Email confirmation cancelled."
-msgstr "Η επιβεβαίωση ακυρώθηκε."
-
-#. TRANS: Message given trying to remove an e-mail address that is not
-#. TRANS: registered for the active user.
-#: actions/emailsettings.php:458
-msgid "That is not your email address."
-msgstr ""
-
-#. TRANS: Message given after successfully removing a registered e-mail address.
-#: actions/emailsettings.php:479
-#, fuzzy
-msgid "The email address was removed."
-msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
-
-#: actions/emailsettings.php:493 actions/smssettings.php:568
-msgid "No incoming email address."
-msgstr ""
+msgstr "Επιβεβαίωση διεύθυνσης email"
 
 #. TRANS: Server error thrown on database error removing incoming e-mail address.
 #. TRANS: Server error thrown on database error adding incoming e-mail address.
@@ -1612,27 +1145,12 @@ msgstr "Απέτυχε η ενημέρωση εγγραφής του χρήστ�
 msgid "Incoming email address removed."
 msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
 
-#. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:532 actions/smssettings.php:605
-msgid "New incoming email address added."
-msgstr ""
-
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
 msgstr ""
 
 #: actions/favor.php:92 lib/disfavorform.php:140
 msgid "Disfavor favorite"
-msgstr ""
-
-#: actions/favorited.php:65 lib/popularnoticesection.php:91
-#: lib/publicgroupnav.php:93
-msgid "Popular notices"
-msgstr ""
-
-#: actions/favorited.php:67
-#, php-format
-msgid "Popular notices, page %d"
 msgstr ""
 
 #: actions/favorited.php:79
@@ -1656,25 +1174,9 @@ msgid ""
 "notice to your favorites!"
 msgstr ""
 
-#: actions/favoritesrss.php:111 actions/showfavorites.php:77
-#: lib/personalgroupnav.php:115
-#, php-format
-msgid "%s's favorite notices"
-msgstr ""
-
 #: actions/favoritesrss.php:115
 #, php-format
 msgid "Updates favored by %1$s on %2$s!"
-msgstr ""
-
-#: actions/featured.php:69 lib/featureduserssection.php:87
-#: lib/publicgroupnav.php:89
-msgid "Featured users"
-msgstr ""
-
-#: actions/featured.php:71
-#, php-format
-msgid "Featured users, page %d"
 msgstr ""
 
 #: actions/featured.php:99
@@ -1682,15 +1184,9 @@ msgstr ""
 msgid "A selection of some great users on %s"
 msgstr ""
 
-#: actions/file.php:34
-#, fuzzy
-msgid "No notice ID."
-msgstr "Μήνυμα"
-
 #: actions/file.php:38
-#, fuzzy
 msgid "No notice."
-msgstr "Μήνυμα"
+msgstr "Διαγραφή μηνύματος"
 
 #: actions/file.php:42
 msgid "No attachments."
@@ -1708,10 +1204,6 @@ msgstr ""
 msgid "User being listened to does not exist."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
-msgid "You can use the local subscription!"
-msgstr ""
-
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr ""
@@ -1721,42 +1213,32 @@ msgid "You are not authorized."
 msgstr ""
 
 #: actions/finishremotesubscribe.php:113
-#, fuzzy
 msgid "Could not convert request token to access token."
-msgstr "Απέτυχε η μετατροπή αιτούμενων tokens σε tokens πρόσβασης."
+msgstr ""
 
 #: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
-#: actions/finishremotesubscribe.php:138
-#, fuzzy
-msgid "Error updating remote profile."
-msgstr "Απέτυχε η αποθήκευση του προφίλ."
-
 #: actions/getfile.php:79
-#, fuzzy
 msgid "No such file."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Κανένας τέτοιος χρήστης."
 
 #: actions/getfile.php:83
-#, fuzzy
 msgid "Cannot read file."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/grantrole.php:62 actions/revokerole.php:62
-#, fuzzy
 msgid "Invalid role."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
 
 #: actions/grantrole.php:75
-#, fuzzy
 msgid "You cannot grant user roles on this site."
-msgstr "Ομάδες με τα περισσότερα μέλη"
+msgstr ""
 
 #: actions/grantrole.php:82
 msgid "User already has this role."
@@ -1787,10 +1269,6 @@ msgstr ""
 msgid "User is already blocked from group."
 msgstr ""
 
-#: actions/groupblock.php:100
-msgid "User is not a member of group."
-msgstr ""
-
 #: actions/groupblock.php:134 actions/groupmembers.php:360
 msgid "Block user from group"
 msgstr ""
@@ -1801,11 +1279,6 @@ msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
-msgstr ""
-
-#. TRANS: Submit button title for 'No' when blocking a user from a group.
-#: actions/groupblock.php:182
-msgid "Do not block this user from this group"
 msgstr ""
 
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
@@ -1835,21 +1308,6 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
-#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
-#: lib/designsettings.php:391 lib/designsettings.php:413
-#, fuzzy
-msgid "Couldn't update your design."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
-
-#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
-#, fuzzy
-msgid "Design preferences saved."
-msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
-
-#: actions/grouplogo.php:142 actions/grouplogo.php:195
-msgid "Group logo"
-msgstr ""
-
 #: actions/grouplogo.php:153
 #, php-format
 msgid ""
@@ -1860,23 +1318,8 @@ msgstr ""
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
-#: actions/grouplogo.php:399
-#, fuzzy
-msgid "Logo updated."
-msgstr "Αποσύνδεση"
-
 #: actions/grouplogo.php:401
 msgid "Failed updating logo."
-msgstr ""
-
-#: actions/groupmembers.php:100 lib/groupnav.php:92
-#, php-format
-msgid "%s group members"
-msgstr ""
-
-#: actions/groupmembers.php:103
-#, php-format
-msgid "%1$s group members, page %2$d"
 msgstr ""
 
 #: actions/groupmembers.php:118
@@ -1894,11 +1337,6 @@ msgstr ""
 #: actions/groupmembers.php:487
 msgid "Make user an admin of the group"
 msgstr ""
-
-#: actions/groupmembers.php:519
-#, fuzzy
-msgid "Make Admin"
-msgstr "Διαχειριστής"
 
 #: actions/groupmembers.php:519
 msgid "Make this user an admin"
@@ -1919,16 +1357,6 @@ msgstr "χρονοδιάγραμμα του χρήστη %s"
 msgid "Updates from members of %1$s on %2$s!"
 msgstr ""
 
-#: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
-#: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
-msgid "Groups"
-msgstr ""
-
-#: actions/groups.php:64
-#, php-format
-msgid "Groups, page %d"
-msgstr ""
-
 #: actions/groups.php:90
 #, php-format
 msgid ""
@@ -1940,9 +1368,8 @@ msgid ""
 msgstr ""
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
-#, fuzzy
 msgid "Create a new group"
-msgstr "Δημιουργία νέου λογαριασμού"
+msgstr ""
 
 #: actions/groupsearch.php:52
 #, php-format
@@ -1988,9 +1415,8 @@ msgstr ""
 
 #. TRANS: Title for instance messaging settings.
 #: actions/imsettings.php:60
-#, fuzzy
 msgid "IM settings"
-msgstr "Ρυθμίσεις ΙΜ"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #. TRANS: Instant messaging settings page instructions.
 #. TRANS: [instant messages] is link text, "(%%doc.im%%)" is the link.
@@ -2004,32 +1430,18 @@ msgstr ""
 
 #. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
 #: actions/imsettings.php:94
-#, fuzzy
 msgid "IM is not available."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #. TRANS: Form legend for IM settings form.
 #. TRANS: Field label for IM address input in IM settings form.
 #: actions/imsettings.php:106 actions/imsettings.php:136
-#, fuzzy
 msgid "IM address"
-msgstr "Διεύθυνση ΙΜ"
+msgstr "Διευθύνσεις email"
 
 #: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
 msgstr "Τρέχουσα επιβεβαιωμένη Jabber/GTalk διεύθυνση."
-
-#. TRANS: Form note in IM settings form.
-#. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:124
-#, fuzzy, php-format
-msgid ""
-"Awaiting confirmation on this address. Check your Jabber/GTalk account for a "
-"message with further instructions. (Did you add %s to your buddy list?)"
-msgstr ""
-"Αναμένωντας επιβεβαίωση σε αυτή τη διεύθυνση. Έλεγξε το Jabber/GTalk "
-"λογαριασμό σου για μήνυμα με περαιτέρω οδηγίες. (Πρόσθεσες το χρήστη %s στη "
-"λίστα φίλων?)"
 
 #. TRANS: IM address input field instructions in IM settings form.
 #. TRANS: %s is the IM address set for the site.
@@ -2042,9 +1454,8 @@ msgstr ""
 
 #. TRANS: Form legend for IM preferences form.
 #: actions/imsettings.php:155
-#, fuzzy
 msgid "IM preferences"
-msgstr "Προτιμήσεις"
+msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
 
 #. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:160
@@ -2061,39 +1472,19 @@ msgstr ""
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 
-#. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:179
-msgid "Publish a MicroID for my Jabber/GTalk address."
-msgstr ""
-
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:287 actions/othersettings.php:180
 msgid "Preferences saved."
 msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
-
-#. TRANS: Message given saving IM address without having provided one.
-#: actions/imsettings.php:309
-msgid "No Jabber ID."
-msgstr ""
 
 #. TRANS: Message given saving IM address that cannot be normalised.
 #: actions/imsettings.php:317
 msgid "Cannot normalize that Jabber ID"
 msgstr "Αδυναμία κανονικοποίησης του Jabber ID"
 
-#. TRANS: Message given saving IM address that not valid.
-#: actions/imsettings.php:322
-msgid "Not a valid Jabber ID"
-msgstr ""
-
 #. TRANS: Message given saving IM address that is already set.
 #: actions/imsettings.php:326
 msgid "That is already your Jabber ID."
-msgstr ""
-
-#. TRANS: Message given saving IM address that is already set for another user.
-#: actions/imsettings.php:330
-msgid "Jabber ID already belongs to another user."
 msgstr ""
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
@@ -2112,33 +1503,10 @@ msgstr ""
 msgid "That is the wrong IM address."
 msgstr ""
 
-#. TRANS: Server error thrown on database error canceling IM address confirmation.
-#: actions/imsettings.php:397
-#, fuzzy
-msgid "Couldn't delete IM confirmation."
-msgstr "Απέτυχε η διαγραφή email επιβεβαίωσης."
-
-#. TRANS: Message given after successfully canceling IM address confirmation.
-#: actions/imsettings.php:402
-#, fuzzy
-msgid "IM confirmation cancelled."
-msgstr "Η επιβεβαίωση ακυρώθηκε."
-
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
 #: actions/imsettings.php:424
 msgid "That is not your Jabber ID."
-msgstr ""
-
-#. TRANS: Message given after successfully removing a registered IM address.
-#: actions/imsettings.php:447
-#, fuzzy
-msgid "The IM address was removed."
-msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
-
-#: actions/inbox.php:59
-#, php-format
-msgid "Inbox for %1$s - page %2$d"
 msgstr ""
 
 #: actions/inbox.php:62
@@ -2155,32 +1523,8 @@ msgid "Invites have been disabled."
 msgstr ""
 
 #: actions/invite.php:41
-#, fuzzy, php-format
+#, php-format
 msgid "You must be logged in to invite other users to use %s."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/invite.php:72
-#, php-format
-msgid "Invalid email address: %s"
-msgstr ""
-
-#: actions/invite.php:110
-msgid "Invitation(s) sent"
-msgstr ""
-
-#: actions/invite.php:112
-msgid "Invite new users"
-msgstr ""
-
-#: actions/invite.php:128
-msgid "You are already subscribed to these users:"
-msgstr ""
-
-#. TRANS: Whois output.
-#. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:414
-#, php-format
-msgid "%1$s (%2$s)"
 msgstr ""
 
 #: actions/invite.php:136
@@ -2198,11 +1542,6 @@ msgid ""
 "on the site. Thanks for growing the community!"
 msgstr ""
 
-#: actions/invite.php:162
-msgid ""
-"Use this form to invite your friends and colleagues to use this service."
-msgstr ""
-
 #: actions/invite.php:187
 msgid "Email addresses"
 msgstr "Διευθύνσεις email"
@@ -2210,10 +1549,6 @@ msgstr "Διευθύνσεις email"
 #: actions/invite.php:189
 msgid "Addresses of friends to invite (one per line)"
 msgstr "Διευθύνσεις φίλων σου που θες να προσκαλέσεις (μία ανά γραμμή)"
-
-#: actions/invite.php:192
-msgid "Personal message"
-msgstr ""
 
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
@@ -2268,30 +1603,11 @@ msgid "You must be logged in to join a group."
 msgstr ""
 
 #: actions/joingroup.php:88 actions/leavegroup.php:88
-#, fuzzy
 msgid "No nickname or ID."
-msgstr "Μήνυμα"
-
-#. TRANS: Message given having added a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/joingroup.php:141 lib/command.php:346
-#, php-format
-msgid "%1$s joined group %2$s"
-msgstr ""
+msgstr "Ψευδώνυμο"
 
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
-msgstr ""
-
-#: actions/leavegroup.php:100 lib/command.php:373
-msgid "You are not a member of that group."
-msgstr ""
-
-#. TRANS: Message given having removed a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/leavegroup.php:137 lib/command.php:392
-#, php-format
-msgid "%1$s left group %2$s"
 msgstr ""
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
@@ -2314,10 +1630,6 @@ msgstr "Σύνδεση"
 msgid "Login to site"
 msgstr ""
 
-#: actions/login.php:258 actions/register.php:485
-msgid "Remember me"
-msgstr ""
-
 #: actions/login.php:259 actions/register.php:487
 msgid "Automatically login in the future; not for shared computers!"
 msgstr "Αυτόματη σύνδεση στο μέλλον. ΟΧΙ για κοινόχρηστους υπολογιστές!"
@@ -2334,19 +1646,11 @@ msgstr ""
 "Για λόγους ασφαλείας, παρακαλώ εισάγετε ξανά το όνομα χρήστη και τον κωδικό "
 "σας, πριν αλλάξετε τις ρυθμίσεις σας."
 
-#: actions/login.php:292
-#, fuzzy
-msgid "Login with your username and password."
-msgstr "Σύνδεση με όνομα χρήστη και κωδικό"
-
 #: actions/login.php:295
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Don't have a username yet? [Register](%%action.register%%) a new account."
 msgstr ""
-"Συνδεθείτε με το όνομα χρήστη και τον κωδικό σας. Δεν έχετε όνομα χρήστη "
-"ακόμα; Κάντε [εγγραφή](%%action.register%%) για ένα νέο λογαριασμό ή "
-"δοκιμάστε το [OpenID](%%action.openidlogin%%). "
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
@@ -2358,26 +1662,12 @@ msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr ""
 
 #: actions/makeadmin.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Can't get membership record for %1$s in group %2$s."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/makeadmin.php:146
-#, fuzzy, php-format
-msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr ""
 
 #: actions/microsummary.php:69
 msgid "No current status."
-msgstr ""
-
-#: actions/newapplication.php:52
-#, fuzzy
-msgid "New Application"
-msgstr "Δεν υπάρχει τέτοιο σελίδα."
-
-#: actions/newapplication.php:64
-msgid "You must be logged in to register an application."
 msgstr ""
 
 #: actions/newapplication.php:143
@@ -2389,59 +1679,32 @@ msgid "Source URL is required."
 msgstr ""
 
 #: actions/newapplication.php:258 actions/newapplication.php:267
-#, fuzzy
 msgid "Could not create application."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/newgroup.php:53
-msgid "New group"
-msgstr ""
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
-msgstr ""
-
-#: actions/newmessage.php:71 actions/newmessage.php:231
-msgid "New message"
-msgstr ""
-
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:481
-msgid "You can't send a message to this user."
-msgstr ""
-
-#: actions/newmessage.php:144 actions/newnotice.php:136 lib/command.php:463
-#: lib/command.php:555
-msgid "No content!"
 msgstr ""
 
 #: actions/newmessage.php:158
 msgid "No recipient specified."
 msgstr ""
 
-#: actions/newmessage.php:164 lib/command.php:484
+#. TRANS: Error text shown when trying to send a direct message to self.
+#: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 
-#: actions/newmessage.php:181
-msgid "Message sent"
-msgstr ""
-
-#: actions/newmessage.php:185
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
 #, php-format
 msgid "Direct message to %s sent."
 msgstr ""
 
-#: actions/newmessage.php:210 actions/newnotice.php:251 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
-msgstr ""
-
-#: actions/newnotice.php:69
-msgid "New notice"
-msgstr ""
-
-#: actions/newnotice.php:217
-msgid "Notice posted"
 msgstr ""
 
 #: actions/noticesearch.php:68
@@ -2456,9 +1719,9 @@ msgid "Text search"
 msgstr ""
 
 #: actions/noticesearch.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Search results for \"%1$s\" on %2$s"
-msgstr "Αναζήτηση ροής για \"%s\""
+msgstr ""
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2480,9 +1743,9 @@ msgid "Updates with \"%s\""
 msgstr ""
 
 #: actions/noticesearchrss.php:98
-#, fuzzy, php-format
+#, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
-msgstr "Όλες οι ενημερώσεις που ταιριάζουν με τον όρο αναζήτησης \"%s\""
+msgstr ""
 
 #: actions/nudge.php:85
 msgid ""
@@ -2501,31 +1764,13 @@ msgstr ""
 msgid "You must be logged in to list your applications."
 msgstr ""
 
-#: actions/oauthappssettings.php:74
-msgid "OAuth applications"
-msgstr ""
-
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
-msgstr ""
-
-#: actions/oauthappssettings.php:135
-#, php-format
-msgid "You have not registered any applications yet."
-msgstr ""
-
-#: actions/oauthconnectionssettings.php:72
-msgid "Connected applications"
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access you account."
 msgstr ""
-
-#: actions/oauthconnectionssettings.php:175
-#, fuzzy
-msgid "You are not a user of that application."
-msgstr "Δεν είστε μέλος καμίας ομάδας."
 
 #: actions/oauthconnectionssettings.php:186
 #, php-format
@@ -2540,21 +1785,11 @@ msgstr ""
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
-#: actions/oembed.php:80 actions/shownotice.php:100
-#, fuzzy
-msgid "Notice has no profile."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: actions/oembed.php:87 actions/shownotice.php:175
-#, php-format
-msgid "%1$s's status on %2$s"
-msgstr ""
-
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Content type %s not supported."
-msgstr "Σύνδεση"
+msgstr ""
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
@@ -2563,13 +1798,9 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1204
-#: lib/apiaction.php:1232 lib/apiaction.php:1355
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1209
+#: lib/apiaction.php:1237 lib/apiaction.php:1360
 msgid "Not a supported data format."
-msgstr ""
-
-#: actions/opensearch.php:64
-msgid "People Search"
 msgstr ""
 
 #: actions/opensearch.php:67
@@ -2577,9 +1808,8 @@ msgid "Notice Search"
 msgstr ""
 
 #: actions/othersettings.php:60
-#, fuzzy
 msgid "Other settings"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2593,49 +1823,28 @@ msgstr ""
 msgid "Shorten URLs with"
 msgstr ""
 
-#: actions/othersettings.php:117
-msgid "Automatic shortening service to use."
-msgstr ""
-
-#: actions/othersettings.php:122
-msgid "View profile designs"
-msgstr ""
-
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr ""
 
-#: actions/othersettings.php:153
-#, fuzzy
-msgid "URL shortening service is too long (max 50 chars)."
-msgstr "Η τοποθεσία είναι πολύ μεγάλη (μέγιστο 255 χαρακτ.)."
-
 #: actions/otp.php:69
-#, fuzzy
 msgid "No user ID specified."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/otp.php:83
-#, fuzzy
 msgid "No login token specified."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/otp.php:90
 msgid "No login token requested."
 msgstr ""
 
 #: actions/otp.php:95
-#, fuzzy
 msgid "Invalid login token specified."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/otp.php:104
 msgid "Login token expired."
-msgstr ""
-
-#: actions/outbox.php:58
-#, php-format
-msgid "Outbox for %1$s - page %2$d"
 msgstr ""
 
 #: actions/outbox.php:61
@@ -2652,18 +1861,8 @@ msgid "Change password"
 msgstr "Αλλαγή κωδικού"
 
 #: actions/passwordsettings.php:69
-#, fuzzy
 msgid "Change your password."
-msgstr "Αλλαγή κωδικού"
-
-#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
-#, fuzzy
-msgid "Password change"
-msgstr "Ο κωδικός αποθηκεύτηκε."
-
-#: actions/passwordsettings.php:104
-msgid "Old password"
-msgstr ""
+msgstr "Αλλάξτε τον κωδικό σας"
 
 #: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
@@ -2685,10 +1884,6 @@ msgstr ""
 #: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "Αλλαγή"
-
-#: actions/passwordsettings.php:154 actions/register.php:237
-msgid "Password must be 6 or more characters."
-msgstr ""
 
 #: actions/passwordsettings.php:157 actions/register.php:240
 msgid "Passwords don't match."
@@ -2720,24 +1915,24 @@ msgid "Path and server settings for this StatusNet site."
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
-#, fuzzy, php-format
+#, php-format
 msgid "Theme directory not readable: %s."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #: actions/pathsadminpanel.php:163
-#, fuzzy, php-format
+#, php-format
 msgid "Avatar directory not writable: %s."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #: actions/pathsadminpanel.php:169
-#, fuzzy, php-format
+#, php-format
 msgid "Background directory not writable: %s."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #: actions/pathsadminpanel.php:177
-#, fuzzy, php-format
+#, php-format
 msgid "Locales directory not readable: %s."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2748,9 +1943,8 @@ msgid "Site"
 msgstr ""
 
 #: actions/pathsadminpanel.php:238
-#, fuzzy
 msgid "Server"
-msgstr "Αποχώρηση"
+msgstr ""
 
 #: actions/pathsadminpanel.php:238
 msgid "Site's server hostname."
@@ -2758,10 +1952,6 @@ msgstr ""
 
 #: actions/pathsadminpanel.php:242
 msgid "Path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:242
-msgid "Site path"
 msgstr ""
 
 #: actions/pathsadminpanel.php:246
@@ -2797,31 +1987,19 @@ msgid "Theme directory"
 msgstr ""
 
 #: actions/pathsadminpanel.php:279
-#, fuzzy
 msgid "Avatars"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #: actions/pathsadminpanel.php:284
-#, fuzzy
 msgid "Avatar server"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #: actions/pathsadminpanel.php:288
-#, fuzzy
 msgid "Avatar path"
-msgstr "Ρυθμίσεις OpenID"
-
-#: actions/pathsadminpanel.php:292
-#, fuzzy
-msgid "Avatar directory"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
-msgstr ""
-
-#: actions/pathsadminpanel.php:305
-msgid "Background server"
 msgstr ""
 
 #: actions/pathsadminpanel.php:309
@@ -2835,11 +2013,6 @@ msgstr ""
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
 msgstr ""
-
-#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
-#, fuzzy
-msgid "Never"
-msgstr "Αποχώρηση"
 
 #: actions/pathsadminpanel.php:324
 msgid "Sometimes"
@@ -2857,11 +2030,6 @@ msgstr ""
 msgid "When to use SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:335
-#, fuzzy
-msgid "SSL server"
-msgstr "Αποχώρηση"
-
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
 msgstr ""
@@ -2877,10 +2045,6 @@ msgid ""
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
 
-#: actions/peoplesearch.php:58
-msgid "People search"
-msgstr ""
-
 #: actions/peopletag.php:68
 #, php-format
 msgid "Not a valid people tag: %s."
@@ -2892,17 +2056,12 @@ msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
 #: actions/postnotice.php:95
-#, fuzzy
 msgid "Invalid notice content."
-msgstr "Μήνυμα"
+msgstr ""
 
 #: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
-msgstr ""
-
-#: actions/profilesettings.php:60
-msgid "Profile settings"
 msgstr ""
 
 #: actions/profilesettings.php:71
@@ -2935,14 +2094,9 @@ msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
 
 #: actions/profilesettings.php:122 actions/register.php:468
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d chars"
-msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέροντά σου σε 140 χαρακτήρες"
-
-#: actions/profilesettings.php:125 actions/register.php:471
-#, fuzzy
-msgid "Describe yourself and your interests"
-msgstr "Περιέγραψε τον εαυτό σου και τα ενδιαφέροντά σου σε 140 χαρακτήρες"
+msgstr "Περιγράψτε την ομάδα ή το θέμα χρησιμοποιώντας μέχρι %d χαρακτήρες"
 
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
@@ -2954,10 +2108,6 @@ msgstr "Βιογραφικό"
 #: lib/userprofile.php:165
 msgid "Location"
 msgstr "Τοποθεσία"
-
-#: actions/profilesettings.php:134 actions/register.php:480
-msgid "Where you are, like \"City, State (or Region), Country\""
-msgstr ""
 
 #: actions/profilesettings.php:138
 msgid "Share my current location when posting notices"
@@ -2990,25 +2140,13 @@ msgstr ""
 msgid "What timezone are you normally in?"
 msgstr ""
 
-#: actions/profilesettings.php:167
-#, fuzzy
-msgid ""
-"Automatically subscribe to whoever subscribes to me (best for non-humans)"
-msgstr ""
-"Αυτόματα γίνε συνδρομητής σε όσους γίνονται συνδρομητές σε μένα  (χρήση "
-"κυρίως από λογισμικό και όχι ανθρώπους)"
-
 #: actions/profilesettings.php:228 actions/register.php:230
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d chars)."
-msgstr "Το βιογραφικό είναι πολύ μεγάλο (μέγιστο 140 χαρακτ.)."
+msgstr "Η περιγραφή είναι πολύ μεγάλη (μέγιστο %d χαρακτ.)."
 
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
-msgstr ""
-
-#: actions/profilesettings.php:241
-msgid "Language is too long (max 50 chars)."
 msgstr ""
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
@@ -3021,40 +2159,25 @@ msgid "Couldn't update user for autosubscribe."
 msgstr "Απέτυχε η ενημέρωση του χρήστη για την αυτόματη συνδρομή."
 
 #: actions/profilesettings.php:363
-#, fuzzy
 msgid "Couldn't save location prefs."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/profilesettings.php:383
-#, fuzzy
 msgid "Couldn't save tags."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
-msgid "Settings saved."
-msgstr ""
+msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/public.php:83
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr ""
 
-#: actions/public.php:92
-msgid "Could not retrieve public stream."
-msgstr ""
-
 #: actions/public.php:130
 #, php-format
 msgid "Public timeline, page %d"
-msgstr ""
-
-#: actions/public.php:132 lib/publicgroupnav.php:79
-msgid "Public timeline"
 msgstr ""
 
 #: actions/public.php:160
@@ -3066,15 +2189,7 @@ msgid "Public Stream Feed (RSS 2.0)"
 msgstr ""
 
 #: actions/public.php:168
-#, fuzzy
 msgid "Public Stream Feed (Atom)"
-msgstr "Δημόσια ροή %s"
-
-#: actions/public.php:188
-#, php-format
-msgid ""
-"This is the public timeline for %%site.name%% but no one has posted anything "
-"yet."
 msgstr ""
 
 #: actions/public.php:191
@@ -3129,28 +2244,12 @@ msgid ""
 "one!"
 msgstr ""
 
-#: actions/publictagcloud.php:134
-msgid "Tag cloud"
-msgstr ""
-
-#: actions/recoverpassword.php:36
-msgid "You are already logged in!"
-msgstr ""
-
-#: actions/recoverpassword.php:62
-msgid "No such recovery code."
-msgstr ""
-
 #: actions/recoverpassword.php:66
 msgid "Not a recovery code."
 msgstr ""
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr ""
-
-#: actions/recoverpassword.php:86
-msgid "Error with confirmation code."
 msgstr ""
 
 #: actions/recoverpassword.php:97
@@ -3161,22 +2260,8 @@ msgstr ""
 msgid "Could not update user with confirmed email address."
 msgstr "Απέτυχε η ενημέρωση χρήστη μέσω επιβεβαιωμένης email διεύθυνσης."
 
-#: actions/recoverpassword.php:152
-msgid ""
-"If you have forgotten or lost your password, you can get a new one sent to "
-"the email address you have stored in your account."
-msgstr ""
-
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
-msgstr ""
-
-#: actions/recoverpassword.php:188
-msgid "Password recovery"
-msgstr ""
-
-#: actions/recoverpassword.php:191
-msgid "Nickname or email address"
 msgstr ""
 
 #: actions/recoverpassword.php:193
@@ -3185,14 +2270,6 @@ msgstr ""
 
 #: actions/recoverpassword.php:199 actions/recoverpassword.php:200
 msgid "Recover"
-msgstr ""
-
-#: actions/recoverpassword.php:208
-msgid "Reset password"
-msgstr ""
-
-#: actions/recoverpassword.php:209
-msgid "Recover password"
 msgstr ""
 
 #: actions/recoverpassword.php:210 actions/recoverpassword.php:335
@@ -3207,10 +2284,6 @@ msgstr ""
 msgid "6 or more characters, and don't forget it!"
 msgstr "6 ή περισσότεροι χαρακτήρες και μην το ξεχάσετε!"
 
-#: actions/recoverpassword.php:243
-msgid "Reset"
-msgstr ""
-
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
 msgstr "Εισάγετε ψευδώνυμο ή διεύθυνση email."
@@ -3221,10 +2294,6 @@ msgstr ""
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
-msgstr ""
-
-#: actions/recoverpassword.php:313
-msgid "Error saving address confirmation."
 msgstr ""
 
 #: actions/recoverpassword.php:338
@@ -3247,10 +2316,6 @@ msgstr "Ο κωδικός πρέπει να είναι 6 χαρακτήρες ή
 msgid "Password and confirmation do not match."
 msgstr "Ο κωδικός και η επιβεβαίωση του δεν ταυτίζονται."
 
-#: actions/recoverpassword.php:388 actions/register.php:255
-msgid "Error setting user."
-msgstr ""
-
 #: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
 msgstr ""
@@ -3263,18 +2328,6 @@ msgstr ""
 msgid "Sorry, invalid invitation code."
 msgstr ""
 
-#: actions/register.php:119
-msgid "Registration successful"
-msgstr ""
-
-#: actions/register.php:121 actions/register.php:506 lib/logingroupnav.php:85
-msgid "Register"
-msgstr ""
-
-#: actions/register.php:142
-msgid "Registration not allowed."
-msgstr ""
-
 #: actions/register.php:205
 msgid "You can't register if you don't agree to the license."
 msgstr ""
@@ -3282,10 +2335,6 @@ msgstr ""
 #: actions/register.php:219
 msgid "Email address already exists."
 msgstr "Η διεύθυνση email υπάρχει ήδη."
-
-#: actions/register.php:250 actions/register.php:272
-msgid "Invalid username or password."
-msgstr ""
 
 #: actions/register.php:350
 msgid ""
@@ -3342,16 +2391,14 @@ msgstr ""
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
 #: actions/register.php:540
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
 "email address, IM address, and phone number."
 msgstr ""
-"εκτός από τα εξής προσωπικά δεδομένα: κωδικός πρόσβασης, διεύθυνση email, "
-"διεύθυνση IM, τηλεφωνικό νούμερο."
 
 #: actions/register.php:583
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
 "want to...\n"
@@ -3368,21 +2415,6 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Συγχαρητήρια, %s! και καλωσήρθες στο %%%%site.name%%%%. Από εδώ μπορείς "
-"να...\n"
-"\n"
-"* Πας στο [your profile](%s) και να στείλεις το πρώτο σου μήνυμα.\n"
-"* Προσθέσεις ένα [Jabber/GTalk address](%%%%action.imsettings%%%%) ώστε να "
-"δέχεσε μηνύματα στο instant messager σου.\n"
-"* [Search for people](%%%%action.peoplesearch%%%%) που μπορεί να ξέρεις ή "
-"που έχουν τα ίδια ενδιαφέροντα με σένα. \n"
-"* Ενημερώσεις το προφίλ σου [profile settings](%%%%action.profilesettings%%%"
-"%) για να μάθουν οι άλλοι περισσότερα για σένα. \n"
-"* Διαβάσεις τα [online docs](%%%%doc.help%%%%) για λειτουργίες που μπορεί να "
-"μην έχεις μάθει ακόμα. \n"
-"\n"
-"Ευχαριστούμε που εγγράφηκες και ευχόμαστε να περάσεις καλά με την υπηρεσία "
-"μας."
 
 #: actions/register.php:607
 msgid ""
@@ -3400,19 +2432,6 @@ msgid ""
 "microblogging site](%%doc.openmublog%%),  enter your profile URL below."
 msgstr ""
 
-#: actions/remotesubscribe.php:112
-msgid "Remote subscribe"
-msgstr ""
-
-#: actions/remotesubscribe.php:124
-#, fuzzy
-msgid "Subscribe to a remote user"
-msgstr "Γίνε συνδρομητής αυτού του χρήστη"
-
-#: actions/remotesubscribe.php:129
-msgid "User nickname"
-msgstr ""
-
 #: actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
 msgstr "Το ψευδώνυμο του χρήστη που θέλετε να παρακολουθήσετε"
@@ -3423,11 +2442,6 @@ msgstr ""
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
-msgstr ""
-
-#: actions/remotesubscribe.php:137 lib/subscribeform.php:139
-#: lib/userprofile.php:406
-msgid "Subscribe"
 msgstr ""
 
 #: actions/remotesubscribe.php:159
@@ -3443,72 +2457,43 @@ msgid "That’s a local profile! Login to subscribe."
 msgstr ""
 
 #: actions/remotesubscribe.php:183
-#, fuzzy
 msgid "Couldn’t get a request token."
-msgstr "Απέτυχε η μετατροπή αιτούμενων tokens σε tokens πρόσβασης."
+msgstr ""
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
 msgstr ""
-
-#: actions/repeat.php:64 actions/repeat.php:71
-#, fuzzy
-msgid "No notice specified."
-msgstr "Μήνυμα"
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
 msgstr ""
 
 #: actions/repeat.php:90
-#, fuzzy
 msgid "You already repeated that notice."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr ""
 
-#: actions/repeat.php:114 lib/noticelist.php:675
-#, fuzzy
+#: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
-msgstr "Δημιουργία"
+msgstr "Επαναλαμβάνεται από"
 
 #: actions/repeat.php:119
-#, fuzzy
 msgid "Repeated!"
-msgstr "Δημιουργία"
-
-#: actions/replies.php:126 actions/repliesrss.php:68
-#: lib/personalgroupnav.php:105
-#, php-format
-msgid "Replies to %s"
-msgstr ""
-
-#: actions/replies.php:128
-#, php-format
-msgid "Replies to %1$s, page %2$d"
-msgstr ""
+msgstr "Επαναλαμβάνεται από"
 
 #: actions/replies.php:145
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 1.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 1.0)"
 
 #: actions/replies.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (RSS 2.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 2.0)"
 
 #: actions/replies.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Replies feed for %s (Atom)"
-msgstr "Ροή φίλων του/της %s"
-
-#: actions/replies.php:199
-#, fuzzy, php-format
-msgid ""
-"This is the timeline showing replies to %1$s but %2$s hasn't received a "
-"notice to them yet."
-msgstr ""
-"Αυτό είναι το χρονοδιάγραμμα για %s και φίλους, αλλά κανείς δεν έχει κάνει "
-"καμία αποστολή ακόμα."
+msgstr "Ροή φίλων του/της %s (Atom)"
 
 #: actions/replies.php:204
 #, php-format
@@ -3530,18 +2515,16 @@ msgid "Replies to %1$s on %2$s!"
 msgstr ""
 
 #: actions/revokerole.php:75
-#, fuzzy
 msgid "You cannot revoke user roles on this site."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
+msgstr ""
 
 #: actions/revokerole.php:82
 msgid "User doesn't have this role."
 msgstr ""
 
 #: actions/rsd.php:146 actions/version.php:159
-#, fuzzy
 msgid "StatusNet"
-msgstr "Η κατάσταση διαγράφεται."
+msgstr "Η κατάσταση διεγράφη."
 
 #: actions/sandbox.php:65 actions/unsandbox.php:65
 msgid "You cannot sandbox users on this site."
@@ -3579,13 +2562,8 @@ msgstr ""
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/useradminpanel.php:294
-#, fuzzy
 msgid "Save site settings"
-msgstr "Ρυθμίσεις OpenID"
-
-#: actions/showapplication.php:82
-msgid "You must be logged in to view an application."
-msgstr ""
+msgstr "Αποθήκευση ρυθμίσεων πρόσβασης"
 
 #: actions/showapplication.php:157
 msgid "Application profile"
@@ -3596,29 +2574,11 @@ msgstr ""
 msgid "Icon"
 msgstr ""
 
-#. TRANS: Form input field label for application name.
-#: actions/showapplication.php:169 actions/version.php:197
-#: lib/applicationeditform.php:199
-#, fuzzy
-msgid "Name"
-msgstr "Ψευδώνυμο"
-
-#. TRANS: Form input field label.
-#: actions/showapplication.php:178 lib/applicationeditform.php:235
-#, fuzzy
-msgid "Organization"
-msgstr "Προσκλήσεις"
-
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
 #: lib/applicationeditform.php:216 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Περιγραφή"
-
-#: actions/showapplication.php:192 actions/showgroup.php:436
-#: lib/profileaction.php:187
-msgid "Statistics"
-msgstr ""
 
 #: actions/showapplication.php:203
 #, php-format
@@ -3663,34 +2623,25 @@ msgid ""
 "signature method."
 msgstr ""
 
-#: actions/showapplication.php:309
-#, fuzzy
-msgid "Are you sure you want to reset your consumer key and secret?"
-msgstr "Είσαι σίγουρος ότι θες να διαγράψεις αυτό το μήνυμα;"
-
 #: actions/showfavorites.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s's favorite notices, page %2$d"
-msgstr "%s και οι φίλοι του/της"
-
-#: actions/showfavorites.php:132
-msgid "Could not retrieve favorite notices."
-msgstr ""
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/showfavorites.php:171
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 1.0)"
 
 #: actions/showfavorites.php:178
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (RSS 2.0)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (RSS 2.0)"
 
 #: actions/showfavorites.php:185
-#, fuzzy, php-format
+#, php-format
 msgid "Feed for favorites of %s (Atom)"
-msgstr "Ροή φίλων του/της %s"
+msgstr "Ροή φίλων του/της %s (Atom)"
 
 #: actions/showfavorites.php:206
 msgid ""
@@ -3717,72 +2668,32 @@ msgstr ""
 msgid "This is a way to share what you like."
 msgstr ""
 
-#: actions/showgroup.php:82 lib/groupnav.php:86
-#, php-format
-msgid "%s group"
-msgstr ""
-
 #: actions/showgroup.php:84
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s group, page %2$d"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/showgroup.php:227
-#, fuzzy
 msgid "Group profile"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Προφίλ χρήστη"
 
 #: actions/showgroup.php:272 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr ""
 
-#: actions/showgroup.php:283 actions/tagother.php:128
-#: actions/userauthorization.php:187 lib/userprofile.php:195
-msgid "Note"
-msgstr ""
-
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
 
-#: actions/showgroup.php:302
-msgid "Group actions"
-msgstr ""
-
-#: actions/showgroup.php:338
-#, php-format
-msgid "Notice feed for %s group (RSS 1.0)"
-msgstr ""
-
-#: actions/showgroup.php:344
-#, php-format
-msgid "Notice feed for %s group (RSS 2.0)"
-msgstr ""
-
-#: actions/showgroup.php:350
-#, php-format
-msgid "Notice feed for %s group (Atom)"
-msgstr ""
-
 #: actions/showgroup.php:355
-#, fuzzy, php-format
+#, php-format
 msgid "FOAF for %s group"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr ""
 
 #: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
 msgid "Members"
 msgstr "Μέλη"
-
-#: actions/showgroup.php:398 lib/profileaction.php:117
-#: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
-#: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
-msgid "(None)"
-msgstr ""
-
-#: actions/showgroup.php:404
-msgid "All members"
-msgstr ""
 
 #: actions/showgroup.php:439
 msgid "Created"
@@ -3811,10 +2722,6 @@ msgstr ""
 msgid "Admins"
 msgstr "Διαχειριστές"
 
-#: actions/showmessage.php:81
-msgid "No such message."
-msgstr ""
-
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
 msgstr ""
@@ -3830,9 +2737,8 @@ msgid "Message from %1$s on %2$s"
 msgstr ""
 
 #: actions/shownotice.php:90
-#, fuzzy
 msgid "Notice deleted."
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Η κατάσταση διεγράφη."
 
 #: actions/showstream.php:73
 #, php-format
@@ -3840,38 +2746,18 @@ msgid " tagged %s"
 msgstr ""
 
 #: actions/showstream.php:79
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s, page %2$d"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/showstream.php:122
-#, fuzzy, php-format
+#, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
-msgstr "Ροή φίλων του/της %s"
-
-#: actions/showstream.php:129
-#, php-format
-msgid "Notice feed for %s (RSS 1.0)"
-msgstr ""
-
-#: actions/showstream.php:136
-#, php-format
-msgid "Notice feed for %s (RSS 2.0)"
-msgstr ""
-
-#: actions/showstream.php:143
-#, php-format
-msgid "Notice feed for %s (Atom)"
-msgstr ""
+msgstr "Ροή φίλων του/της %s (RSS 1.0)"
 
 #: actions/showstream.php:148
 #, php-format
 msgid "FOAF for %s"
-msgstr ""
-
-#: actions/showstream.php:200
-#, php-format
-msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr ""
 
 #: actions/showstream.php:205
@@ -3904,15 +2790,6 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
-#: actions/showstream.php:305
-#, php-format
-msgid "Repeat of %s"
-msgstr ""
-
-#: actions/silence.php:65 actions/unsilence.php:65
-msgid "You cannot silence users on this site."
-msgstr ""
-
 #: actions/silence.php:72
 msgid "User is already silenced."
 msgstr ""
@@ -3926,9 +2803,8 @@ msgid "Site name must have non-zero length."
 msgstr ""
 
 #: actions/siteadminpanel.php:141
-#, fuzzy
 msgid "You must have a valid contact email address."
-msgstr "Αδυναμία κανονικοποίησης αυτής της email διεύθυνσης"
+msgstr "Εισάγετε ψευδώνυμο ή διεύθυνση email."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -3971,11 +2847,6 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
-#: actions/siteadminpanel.php:239
-#, fuzzy
-msgid "Contact email address for your site"
-msgstr "Η διεύθυνση του εισερχόμενου email αφαιρέθηκε."
-
 #: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Τοπικός"
@@ -4016,42 +2887,26 @@ msgstr ""
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
-#: actions/sitenoticeadminpanel.php:56
-#, fuzzy
-msgid "Site Notice"
-msgstr "Διαγραφή μηνύματος"
-
 #: actions/sitenoticeadminpanel.php:67
 msgid "Edit site-wide message"
-msgstr ""
-
-#: actions/sitenoticeadminpanel.php:103
-msgid "Unable to save site notice."
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
-#: actions/sitenoticeadminpanel.php:176
-#, fuzzy
-msgid "Site notice text"
-msgstr "Διαγραφή μηνύματος"
-
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
 
 #: actions/sitenoticeadminpanel.php:198
-#, fuzzy
 msgid "Save site notice"
-msgstr "Ρυθμίσεις OpenID"
+msgstr "Διαγραφή μηνύματος"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
-#, fuzzy
 msgid "SMS settings"
-msgstr "Ρυθμίσεις ΙΜ"
+msgstr "Ρυθμίσεις του άβαταρ"
 
 #. TRANS: SMS settings page instructions.
 #. TRANS: %%site.name%% is the name of the site.
@@ -4062,15 +2917,13 @@ msgstr ""
 
 #. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
 #: actions/smssettings.php:97
-#, fuzzy
 msgid "SMS is not available."
-msgstr "Η αρχική σελίδα δεν είναι έγκυρο URL."
+msgstr ""
 
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
-#, fuzzy
 msgid "SMS address"
-msgstr "Διεύθυνση ΙΜ"
+msgstr "Διευθύνσεις email"
 
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
@@ -4082,60 +2935,26 @@ msgstr "Τρέχων επιβεβαιωμένο, μέσω SMS, νούμερο κ
 msgid "Awaiting confirmation on this phone number."
 msgstr "Αναμένωντας επιβεβαίωση σ' αυτό το νούμερο τηλεφώνου."
 
-#. TRANS: Field label for SMS address input in SMS settings form.
-#: actions/smssettings.php:142
-msgid "Confirmation code"
-msgstr ""
-
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
 msgstr ""
-
-#. TRANS: Button label to confirm SMS confirmation code in SMS settings.
-#: actions/smssettings.php:148
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Confirm"
-msgstr "Επιβεβαίωση"
 
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
 msgid "SMS phone number"
 msgstr ""
 
-#. TRANS: SMS phone number input field instructions in SMS settings form.
-#: actions/smssettings.php:156
-msgid "Phone number, no punctuation or spaces, with area code"
-msgstr ""
-
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
-#, fuzzy
 msgid "SMS preferences"
-msgstr "Προτιμήσεις"
+msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
 
 #. TRANS: Checkbox label in SMS preferences form.
 #: actions/smssettings.php:201
 msgid ""
 "Send me notices through SMS; I understand I may incur exorbitant charges "
 "from my carrier."
-msgstr ""
-
-#. TRANS: Confirmation message for successful SMS preferences save.
-#: actions/smssettings.php:315
-#, fuzzy
-msgid "SMS preferences saved."
-msgstr "Οι προτιμήσεις αποθηκεύτηκαν"
-
-#. TRANS: Message given saving SMS phone number without having provided one.
-#: actions/smssettings.php:338
-msgid "No phone number."
-msgstr ""
-
-#. TRANS: Message given saving SMS phone number without having selected a carrier.
-#: actions/smssettings.php:344
-msgid "No carrier selected."
 msgstr ""
 
 #. TRANS: Message given saving SMS phone number that is already set.
@@ -4150,31 +2969,13 @@ msgstr ""
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
 #: actions/smssettings.php:384
-#, fuzzy
 msgid ""
 "A confirmation code was sent to the phone number you added. Check your phone "
 "for the code and instructions on how to use it."
 msgstr ""
-"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στο τηλεφωνικό νούμερο που "
+"Έχει αποσταλεί ένας κωδικός επιβεβαίωσης στην διεύθυνση email που "
 "προσθέσατε. Ελέγξτε τα εισερχόμενα (και τον φάκελο ανεπιθύμητης "
 "αλληλογραφίας) για τον κωδικό και για το πως να τον χρησιμοποιήσετε."
-
-#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
-#: actions/smssettings.php:413
-msgid "That is the wrong confirmation number."
-msgstr ""
-
-#. TRANS: Message given after successfully canceling SMS phone number confirmation.
-#: actions/smssettings.php:427
-#, fuzzy
-msgid "SMS confirmation cancelled."
-msgstr "Η επιβεβαίωση ακυρώθηκε."
-
-#. TRANS: Message given trying to remove an SMS phone number that is not
-#. TRANS: registered for the active user.
-#: actions/smssettings.php:448
-msgid "That is not your phone number."
-msgstr ""
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
@@ -4200,21 +3001,11 @@ msgid ""
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
-#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
-#: actions/smssettings.php:548
-msgid "No code entered"
-msgstr ""
-
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:408
 msgid "Snapshots"
 msgstr ""
-
-#: actions/snapshotadminpanel.php:65
-#, fuzzy
-msgid "Manage snapshot configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
 
 #: actions/snapshotadminpanel.php:127
 msgid "Invalid snapshot run value."
@@ -4234,10 +3025,6 @@ msgstr ""
 
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
-msgstr ""
-
-#: actions/snapshotadminpanel.php:206
-msgid "Data snapshots"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:208
@@ -4261,46 +3048,30 @@ msgid "Snapshots will be sent to this URL"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:248
-#, fuzzy
 msgid "Save snapshot settings"
-msgstr "Ρυθμίσεις OpenID"
-
-#: actions/subedit.php:70
-msgid "You are not subscribed to that profile."
-msgstr ""
+msgstr "Αποθήκευση ρυθμίσεων πρόσβασης"
 
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
-#, fuzzy
 msgid "Could not save subscription."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Απέτυχε η εισαγωγή νέας συνδρομής."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
 
 #: actions/subscribe.php:107
-#, fuzzy
 msgid "No such profile."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Κανένας τέτοιος χρήστης."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
 
-#: actions/subscribe.php:145
-msgid "Subscribed"
-msgstr ""
-
-#: actions/subscribers.php:50
-#, php-format
-msgid "%s subscribers"
-msgstr ""
-
 #: actions/subscribers.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscribers, page %2$d"
-msgstr "%s και οι φίλοι του/της"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -4330,14 +3101,14 @@ msgid ""
 msgstr ""
 
 #: actions/subscriptions.php:52
-#, fuzzy, php-format
+#, php-format
 msgid "%s subscriptions"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Όλες οι συνδρομές"
 
 #: actions/subscriptions.php:54
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s subscriptions, page %2$d"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -4371,25 +3142,10 @@ msgstr ""
 msgid "SMS"
 msgstr ""
 
-#: actions/tag.php:69
-#, php-format
-msgid "Notices tagged with %1$s, page %2$d"
-msgstr ""
-
-#: actions/tag.php:87
-#, php-format
-msgid "Notice feed for tag %s (RSS 1.0)"
-msgstr ""
-
 #: actions/tag.php:93
-#, fuzzy, php-format
-msgid "Notice feed for tag %s (RSS 2.0)"
-msgstr "Ροή φίλων του/της %s"
-
-#: actions/tag.php:99
 #, php-format
-msgid "Notice feed for tag %s (Atom)"
-msgstr ""
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr "Ροή φίλων του/της %s (RSS 2.0)"
 
 #: actions/tagother.php:39
 msgid "No ID argument."
@@ -4425,22 +3181,16 @@ msgid ""
 msgstr ""
 
 #: actions/tagother.php:200
-#, fuzzy
 msgid "Could not save tags."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #: actions/tagother.php:236
 msgid "Use this form to add tags to your subscribers or subscriptions."
 msgstr ""
 
-#: actions/tagrss.php:35
-msgid "No such tag."
-msgstr ""
-
 #: actions/unblock.php:59
-#, fuzzy
 msgid "You haven't blocked that user."
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Δεν μπορείτε να κάνετε φραγή στον εαυτό σας!"
 
 #: actions/unsandbox.php:72
 msgid "User is not sandboxed."
@@ -4452,10 +3202,6 @@ msgstr ""
 
 #: actions/unsubscribe.php:77
 msgid "No profile ID in request."
-msgstr ""
-
-#: actions/unsubscribe.php:98
-msgid "Unsubscribed"
 msgstr ""
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
@@ -4487,12 +3233,6 @@ msgstr ""
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
-#. TRANS: Link description in user account settings menu.
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
-#: lib/personalgroupnav.php:109
-msgid "Profile"
-msgstr ""
-
 #: actions/useradminpanel.php:222
 msgid "Bio Limit"
 msgstr ""
@@ -4505,33 +3245,17 @@ msgstr ""
 msgid "New users"
 msgstr "Νέοι χρήστες"
 
-#: actions/useradminpanel.php:235
-msgid "New user welcome"
-msgstr ""
-
 #: actions/useradminpanel.php:236
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
-#: actions/useradminpanel.php:241
-#, fuzzy
-msgid "Default subscription"
-msgstr "Όλες οι συνδρομές"
-
 #: actions/useradminpanel.php:242
-#, fuzzy
 msgid "Automatically subscribe new users to this user."
-msgstr ""
-"Αυτόματα γίνε συνδρομητής σε όσους γίνονται συνδρομητές σε μένα  (χρήση "
-"κυρίως από λογισμικό και όχι ανθρώπους)"
+msgstr "Γίνε συνδρομητής αυτού του χρήστη"
 
 #: actions/useradminpanel.php:251
 msgid "Invitations"
 msgstr "Προσκλήσεις"
-
-#: actions/useradminpanel.php:256
-msgid "Invitations enabled"
-msgstr ""
 
 #: actions/useradminpanel.php:258
 msgid "Whether to allow users to invite new users."
@@ -4548,10 +3272,6 @@ msgid ""
 "click “Reject”."
 msgstr ""
 
-#: actions/userauthorization.php:196 actions/version.php:167
-msgid "License"
-msgstr ""
-
 #: actions/userauthorization.php:217
 msgid "Accept"
 msgstr "Αποδοχή"
@@ -4566,16 +3286,11 @@ msgid "Reject"
 msgstr ""
 
 #: actions/userauthorization.php:220
-#, fuzzy
 msgid "Reject this subscription"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Εξουσιοδοτημένη συνδρομή"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
-msgstr ""
-
-#: actions/userauthorization.php:254
-msgid "Subscription authorized"
 msgstr ""
 
 #: actions/userauthorization.php:256
@@ -4647,17 +3362,12 @@ msgstr ""
 
 #. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
 #: actions/usergroups.php:66
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s groups, page %2$d"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "%1$s και φίλοι, σελίδα 2%$d"
 
 #: actions/usergroups.php:132
 msgid "Search for more groups"
-msgstr ""
-
-#: actions/usergroups.php:159
-#, php-format
-msgid "%s is not a member of any group."
 msgstr ""
 
 #: actions/usergroups.php:164
@@ -4674,11 +3384,6 @@ msgstr ""
 #: lib/atomusernoticefeed.php:76
 #, php-format
 msgid "Updates from %1$s on %2$s!"
-msgstr ""
-
-#: actions/version.php:75
-#, php-format
-msgid "StatusNet %s"
 msgstr ""
 
 #: actions/version.php:155
@@ -4718,12 +3423,6 @@ msgstr ""
 #: actions/version.php:191
 msgid "Plugins"
 msgstr ""
-
-#. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:789
-#, fuzzy
-msgid "Version"
-msgstr "Προσωπικά"
 
 #: actions/version.php:199
 msgid "Author(s)"
@@ -4765,40 +3464,20 @@ msgstr ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:248 classes/File.php:263
-#, fuzzy
 msgid "Invalid filename."
-msgstr "Μήνυμα"
-
-#. TRANS: Exception thrown when joining a group fails.
-#: classes/Group_member.php:42
-#, fuzzy
-msgid "Group join failed."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
-#: classes/Group_member.php:55
-#, fuzzy
-msgid "Not part of group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#. TRANS: Exception thrown when trying to leave a group fails.
-#: classes/Group_member.php:63
-#, fuzzy
-msgid "Group leave failed."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr ""
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
-#, fuzzy
 msgid "Could not update local group."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Exception thrown when trying creating a login token failed.
 #. TRANS: %s is the user nickname for which token creation failed.
 #: classes/Login_token.php:78
-#, fuzzy, php-format
+#, php-format
 msgid "Could not create login token for %s"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
@@ -4810,16 +3489,6 @@ msgstr ""
 msgid "You are banned from sending direct messages."
 msgstr ""
 
-#. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:63
-msgid "Could not insert message."
-msgstr ""
-
-#. TRANS: Message given when a message could not be updated on the server.
-#: classes/Message.php:74
-msgid "Could not update message with new URI."
-msgstr ""
-
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
 #: classes/Notice.php:98
@@ -4828,58 +3497,58 @@ msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
 
 #. TRANS: Server exception. %s are the error details.
-#: classes/Notice.php:190
-#, fuzzy, php-format
+#: classes/Notice.php:193
+#, php-format
 msgid "Database error inserting hashtag: %s"
-msgstr "Σφάλμα στη βάση δεδομένων κατά την εισαγωγή hashtag: %s"
+msgstr ""
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
-#: classes/Notice.php:260
+#: classes/Notice.php:265
 msgid "Problem saving notice. Too long."
 msgstr ""
 
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
-#: classes/Notice.php:265
+#: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
-#: classes/Notice.php:271
+#: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
-#: classes/Notice.php:278
+#: classes/Notice.php:283
 msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to post while being banned.
-#: classes/Notice.php:286
+#: classes/Notice.php:291
 msgid "You are banned from posting notices on this site."
 msgstr ""
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
-#: classes/Notice.php:353 classes/Notice.php:380
+#: classes/Notice.php:358 classes/Notice.php:385
 msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:892
+#: classes/Notice.php:897
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:991
+#: classes/Notice.php:996
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1745
+#: classes/Notice.php:1757
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
@@ -4898,26 +3567,9 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
-#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
-#: classes/Remote_profile.php:54
-#, fuzzy
-msgid "Missing profile."
-msgstr "Προφίλ χρήστη"
-
-#. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:346
-#, fuzzy
-msgid "Unable to save tag."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:465
 msgid "You have been banned from subscribing."
-msgstr ""
-
-#. TRANS: Exception thrown when trying to subscribe while already subscribed.
-#: classes/Subscription.php:80
-msgid "Already subscribed!"
 msgstr ""
 
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
@@ -4925,29 +3577,20 @@ msgstr ""
 msgid "User has blocked you."
 msgstr ""
 
-#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
-#: classes/Subscription.php:171
-#, fuzzy
-msgid "Not subscribed!"
-msgstr "Απέτυχε η συνδρομή."
-
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
-#, fuzzy
 msgid "Could not delete self-subscription."
-msgstr "Απέτυχε η διαγραφή συνδρομής."
+msgstr "Απέτυχε η εισαγωγή νέας συνδρομής."
 
 #. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
 #: classes/Subscription.php:206
-#, fuzzy
 msgid "Could not delete subscription OMB token."
-msgstr "Απέτυχε η διαγραφή συνδρομής."
+msgstr "Απέτυχε η εισαγωγή νέας συνδρομής."
 
 #. TRANS: Exception thrown when a subscription could not be deleted on the server.
 #: classes/Subscription.php:218
-#, fuzzy
 msgid "Could not delete subscription."
-msgstr "Απέτυχε η διαγραφή συνδρομής."
+msgstr "Απέτυχε η εισαγωγή νέας συνδρομής."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -4963,21 +3606,18 @@ msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
 #: classes/User_group.php:506
-#, fuzzy
 msgid "Could not set group URI."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Server exception thrown when setting group membership failed.
 #: classes/User_group.php:529
-#, fuzzy
 msgid "Could not set group membership."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Δεν ήταν δυνατή η δημιουργία ομάδας."
 
 #. TRANS: Server exception thrown when saving local group information failed.
 #: classes/User_group.php:544
-#, fuzzy
 msgid "Could not save local group info."
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
+msgstr "Απέτυχε η αποθήκευση του προφίλ."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
@@ -5004,239 +3644,153 @@ msgstr ""
 msgid "Design your profile"
 msgstr "Σχεδιάστε το προφίλ σας"
 
-#. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:144
-msgid "Other options"
-msgstr ""
-
 #. TRANS: Link description in user account settings menu.
 #: lib/accountsettingsaction.php:146
 msgid "Other"
 msgstr ""
 
-#. TRANS: Page title. %1$s is the title, %2$s is the site name.
-#: lib/action.php:145
-#, php-format
-msgid "%1$s - %2$s"
-msgstr ""
-
-#. TRANS: Page title for a page without a title set.
-#: lib/action.php:161
-msgid "Untitled page"
-msgstr ""
-
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:436
+#: lib/action.php:449
 msgid "Primary site navigation"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:442
+#: lib/action.php:455
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:445
-#, fuzzy
-msgctxt "MENU"
-msgid "Personal"
-msgstr "Προσωπικά"
-
-#. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:447
-#, fuzzy
-msgctxt "TOOLTIP"
-msgid "Change your email, avatar, password, profile"
-msgstr "Αλλάξτε τον κωδικό σας"
-
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:452
-#, fuzzy
+#: lib/action.php:465
 msgctxt "TOOLTIP"
 msgid "Connect to services"
-msgstr "Αδυναμία ανακατεύθηνσης στο διακομιστή: %s"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:455
+#: lib/action.php:468
 msgid "Connect"
 msgstr "Σύνδεση"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:458
-#, fuzzy
+#: lib/action.php:471
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
-#. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:461
-#, fuzzy
-msgctxt "MENU"
-msgid "Admin"
-msgstr "Διαχειριστής"
-
-#. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:465
-#, fuzzy, php-format
-msgctxt "TOOLTIP"
-msgid "Invite friends and colleagues to join you on %s"
-msgstr "Προσκάλεσε φίλους και συναδέλφους σου να γίνουν μέλη στο %s"
+msgstr ""
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:468
-#, fuzzy
+#: lib/action.php:481
 msgctxt "MENU"
 msgid "Invite"
-msgstr "Μήνυμα"
+msgstr "Μόνο με πρόσκληση"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:474
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:477
-#, fuzzy
+#: lib/action.php:490
 msgctxt "MENU"
 msgid "Logout"
-msgstr "Αποσύνδεση"
+msgstr "Λογότυπο"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:482
-#, fuzzy
+#: lib/action.php:495
 msgctxt "TOOLTIP"
 msgid "Create an account"
-msgstr "Δημιουργία ενός λογαριασμού"
+msgstr ""
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:485
-#, fuzzy
+#: lib/action.php:498
 msgctxt "MENU"
 msgid "Register"
-msgstr "Περιγραφή"
+msgstr "Εγγραφή"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:488
+#: lib/action.php:501
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:491
-#, fuzzy
-msgctxt "MENU"
-msgid "Login"
-msgstr "Σύνδεση"
-
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:494
-#, fuzzy
+#: lib/action.php:507
 msgctxt "TOOLTIP"
 msgid "Help me!"
-msgstr "Βοηθήστε με!"
-
-#: lib/action.php:497
-#, fuzzy
-msgctxt "MENU"
-msgid "Help"
 msgstr "Βοήθεια"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:500
+#: lib/action.php:513
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:503
+#: lib/action.php:516
 msgctxt "MENU"
 msgid "Search"
 msgstr ""
 
-#. TRANS: DT element for site notice. String is hidden in default CSS.
-#. TRANS: Menu item for site administration
-#: lib/action.php:525 lib/adminpanelaction.php:400
-msgid "Site notice"
-msgstr ""
-
-#. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:592
-msgid "Local views"
-msgstr ""
-
-#. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:659
-msgid "Page notice"
-msgstr ""
-
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:762
+#: lib/action.php:778
 msgid "Secondary site navigation"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:768
+#: lib/action.php:784
 msgid "Help"
 msgstr "Βοήθεια"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:771
+#: lib/action.php:787
 msgid "About"
 msgstr "Περί"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:774
+#: lib/action.php:790
 msgid "FAQ"
 msgstr "Συχνές ερωτήσεις"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:779
+#: lib/action.php:795
 msgid "TOS"
 msgstr ""
 
-#. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:783
-msgid "Privacy"
-msgstr ""
-
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:786
+#: lib/action.php:802
 msgid "Source"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:792
+#: lib/action.php:808
 msgid "Contact"
 msgstr "Επικοινωνία"
 
-#: lib/action.php:794
+#: lib/action.php:810
 msgid "Badge"
 msgstr ""
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:823
+#: lib/action.php:839
 msgid "StatusNet software license"
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:827
-#, fuzzy, php-format
+#: lib/action.php:843
+#, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"To **%%site.name%%** είναι μία υπηρεσία microblogging (μικρο-ιστολογίου) που "
-"έφερε κοντά σας το  [%%site.broughtby%%](%%site.broughtbyurl%%). "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:830
+#: lib/action.php:846
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr ""
 "Το **%%site.name%%** είναι μία υπηρεσία microblogging (μικρο-ιστολογίου)."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:834
+#: lib/action.php:850
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5245,49 +3799,44 @@ msgid ""
 msgstr ""
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:850
+#: lib/action.php:866
 msgid "Site content license"
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:857
+#: lib/action.php:873
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:864
+#: lib/action.php:880
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:868
+#: lib/action.php:884
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:881
+#: lib/action.php:897
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
-#. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1192
-msgid "Pagination"
-msgstr ""
-
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1203
+#: lib/action.php:1247
 msgid "After"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1213
+#: lib/action.php:1257
 msgid "Before"
 msgstr ""
 
@@ -5334,103 +3883,32 @@ msgstr ""
 msgid "Unable to delete design setting."
 msgstr ""
 
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:350
-#, fuzzy
-msgid "Basic site configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:352
+#: lib/adminpanelaction.php:360
 msgctxt "MENU"
-msgid "Site"
+msgid "Design"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:358
-#, fuzzy
-msgid "Design configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
-#. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:360
-#, fuzzy
-msgctxt "MENU"
-msgid "Design"
-msgstr "Προσωπικά"
-
-#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:366
-#, fuzzy
 msgid "User configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
+msgstr ""
 
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:368 lib/personalgroupnav.php:115
 msgid "User"
 msgstr ""
 
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:374
-#, fuzzy
-msgid "Access configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:382
-#, fuzzy
-msgid "Paths configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:390
-#, fuzzy
-msgid "Sessions configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:398
-#, fuzzy
-msgid "Edit site notice"
-msgstr "Διαγραφή μηνύματος"
-
-#. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:406
-#, fuzzy
-msgid "Snapshots configuration"
-msgstr "Επιβεβαίωση διεύθυνσης email"
-
 #. TRANS: Client error 401.
 #: lib/apiauth.php:113
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
-#. TRANS: Form legend.
-#: lib/applicationeditform.php:137
-msgid "Edit application"
-msgstr ""
-
-#. TRANS: Form guide.
-#: lib/applicationeditform.php:187
-msgid "Icon for this application"
-msgstr ""
-
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:209
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d characters"
-msgstr "Περιγράψτε την ομάδα ή το θέμα μέχρι %d χαρακτήρες"
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:213
-#, fuzzy
-msgid "Describe your application"
-msgstr "Περιγράψτε την ομάδα ή το θέμα"
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:224
-msgid "URL of the homepage of this application"
-msgstr ""
+msgstr "Περιγράψτε την ομάδα ή το θέμα χρησιμοποιώντας μέχρι %d χαρακτήρες"
 
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:226
@@ -5532,66 +4010,47 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
-#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-#, fuzzy
-msgid "Password changing failed"
-msgstr "Ο κωδικός αποθηκεύτηκε."
-
 #: lib/authenticationplugin.php:236
-#, fuzzy
 msgid "Password changing is not allowed"
-msgstr "Ο κωδικός αποθηκεύτηκε."
-
-#: lib/channel.php:157 lib/channel.php:177
-msgid "Command results"
 msgstr ""
 
 #: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr ""
 
-#: lib/channel.php:240
-msgid "Command failed"
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+msgid "Notice with that id does not exist."
 msgstr ""
 
-#: lib/command.php:83 lib/command.php:105
-msgid "Notice with that id does not exist"
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+msgid "User has no last notice."
 msgstr ""
 
-#: lib/command.php:99 lib/command.php:596
-msgid "User has no last notice"
-msgstr ""
-
-#. TRANS: Message given requesting a profile for a non-existing user.
-#. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:127
-#, fuzzy, php-format
-msgid "Could not find a user with nickname %s"
-msgstr "Απέτυχε η ενημέρωση χρήστη μέσω επιβεβαιωμένης email διεύθυνσης."
-
-#. TRANS: Message given getting a non-existing user.
-#. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:147
-#, fuzzy, php-format
-msgid "Could not find a local user with nickname %s"
-msgstr "Απέτυχε η ενημέρωση χρήστη μέσω επιβεβαιωμένης email διεύθυνσης."
-
-#: lib/command.php:180
+#. TRANS: Error text shown when an unimplemented command is given.
+#: lib/command.php:185
 msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
-#: lib/command.php:225
+#. TRANS: Command exception text shown when a user tries to nudge themselves.
+#: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:234
+#: lib/command.php:240
 #, php-format
-msgid "Nudge sent to %s"
+msgid "Nudge sent to %s."
 msgstr ""
 
-#: lib/command.php:260
+#. TRANS: User statistics text.
+#. TRANS: %1$s is the number of other user the user is subscribed to.
+#. TRANS: %2$s is the number of users that are subscribed to the user.
+#. TRANS: %3$s is the number of notices the user has sent.
+#: lib/command.php:270
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5599,56 +4058,13 @@ msgid ""
 "Notices: %3$s"
 msgstr ""
 
-#: lib/command.php:302
+#. TRANS: Text shown when a notice has been marked as favourite successfully.
+#: lib/command.php:314
 msgid "Notice marked as fave."
 msgstr ""
 
-#: lib/command.php:323
-#, fuzzy
-msgid "You are already a member of that group"
-msgstr "Ομάδες με τα περισσότερα μέλη"
-
-#. TRANS: Message given having failed to add a user to a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:339
-#, fuzzy, php-format
-msgid "Could not join user %1$s to group %2$s"
-msgstr "Αδύνατη η αποθήκευση των νέων πληροφοριών του προφίλ"
-
-#. TRANS: Message given having failed to remove a user from a group.
-#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:385
-#, fuzzy, php-format
-msgid "Could not remove user %1$s from group %2$s"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:418
-#, fuzzy, php-format
-msgid "Fullname: %s"
-msgstr "Ονοματεπώνυμο"
-
-#. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:422 lib/mail.php:268
-#, php-format
-msgid "Location: %s"
-msgstr ""
-
-#. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:426 lib/mail.php:271
-#, php-format
-msgid "Homepage: %s"
-msgstr ""
-
-#. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:430
-#, php-format
-msgid "About: %s"
-msgstr ""
-
-#: lib/command.php:457
+#. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+#: lib/command.php:474
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5657,146 +4073,125 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:472
+#: lib/command.php:491 lib/xmppmanager.php:403
 #, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d"
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#. TRANS: Message given have sent a direct message to another user.
-#. TRANS: %s is the name of the other user.
-#: lib/command.php:492
-#, php-format
-msgid "Direct message to %s sent"
-msgstr ""
-
-#: lib/command.php:494
+#. TRANS: Error text shown sending a direct message fails with an unknown reason.
+#: lib/command.php:517
 msgid "Error sending direct message."
 msgstr ""
 
-#: lib/command.php:514
-#, fuzzy
-msgid "Cannot repeat your own notice"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#: lib/command.php:519
-#, fuzzy
-msgid "Already repeated that notice"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#. TRANS: Message given having repeated a notice from another user.
-#. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:529
-#, fuzzy, php-format
-msgid "Notice from %s repeated"
-msgstr "Ρυθμίσεις OpenID"
-
-#: lib/command.php:531
-msgid "Error repeating notice."
-msgstr ""
-
-#: lib/command.php:562
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
 #, php-format
-msgid "Notice too long - maximum is %d characters, you sent %d"
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
-#: lib/command.php:571
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
 #, php-format
-msgid "Reply to %s sent"
+msgid "Reply to %s sent."
 msgstr ""
 
-#: lib/command.php:573
-msgid "Error saving notice."
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
-#: lib/command.php:620
-msgid "Specify the name of the user to subscribe to"
-msgstr ""
-
-#: lib/command.php:628
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
-#: lib/command.php:634
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+msgid "Specify the name of the user to unsubscribe from."
+msgstr ""
+
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
 #, php-format
-msgid "Subscribed to %s"
+msgid "Unsubscribed from %s."
 msgstr ""
 
-#: lib/command.php:655 lib/command.php:754
-msgid "Specify the name of the user to unsubscribe from"
-msgstr ""
-
-#: lib/command.php:664
-#, php-format
-msgid "Unsubscribed from %s"
-msgstr ""
-
-#: lib/command.php:682 lib/command.php:705
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
 msgid "Command not yet implemented."
 msgstr ""
 
-#: lib/command.php:685
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
 msgid "Notification off."
 msgstr ""
 
-#: lib/command.php:687
+#. TRANS: Error text shown when the command "off" fails for an unknown reason.
+#: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
 
-#: lib/command.php:708
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
 msgid "Notification on."
 msgstr ""
 
-#: lib/command.php:710
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
 msgid "Can't turn on notification."
 msgstr ""
 
-#: lib/command.php:723
-msgid "Login command is disabled"
+#. TRANS: Error text shown when issuing the login command while login is disabled.
+#: lib/command.php:771
+msgid "Login command is disabled."
 msgstr ""
 
-#: lib/command.php:734
+#. TRANS: Text shown after issuing the login command successfully.
+#. TRANS: %s is a logon link..
+#: lib/command.php:784
 #, php-format
-msgid "This link is useable only once, and is good for only 2 minutes: %s"
+msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
-#: lib/command.php:761
-#, fuzzy, php-format
-msgid "Unsubscribed  %s"
-msgstr "Απέτυχε η συνδρομή."
-
-#: lib/command.php:778
-#, fuzzy
-msgid "You are not subscribed to anyone."
-msgstr "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
-
-#: lib/command.php:780
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 msgstr[1] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:800
-#, fuzzy
-msgid "No one is subscribed to you."
-msgstr "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
-
-#: lib/command.php:802
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 msgstr[1] "Δεν επιτρέπεται να κάνεις συνδρομητές του λογαριασμού σου άλλους."
 
-#: lib/command.php:822
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
 msgid "You are not a member of any groups."
 msgstr "Δεν είστε μέλος καμίας ομάδας."
 
-#: lib/command.php:824
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ομάδες με τα περισσότερα μέλη"
 msgstr[1] "Ομάδες με τα περισσότερα μέλη"
 
-#: lib/command.php:838
+#: lib/command.php:905
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5838,11 +4233,6 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
-#, fuzzy
-msgid "No configuration file found. "
-msgstr "Ο κωδικός επιβεβαίωσης δεν βρέθηκε."
-
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -5867,23 +4257,13 @@ msgstr ""
 msgid "Updates by SMS"
 msgstr ""
 
-#: lib/connectsettingsaction.php:120
-#, fuzzy
-msgid "Connections"
-msgstr "Σύνδεση"
-
-#: lib/connectsettingsaction.php:121
-msgid "Authorized connected applications"
-msgstr ""
-
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr ""
 
 #: lib/designsettings.php:105
-#, fuzzy
 msgid "Upload file"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Προφίλ χρήστη"
 
 #: lib/designsettings.php:109
 msgid ""
@@ -5892,14 +4272,6 @@ msgstr ""
 
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
-msgstr ""
-
-#: lib/disfavorform.php:114 lib/disfavorform.php:140
-msgid "Disfavor this notice"
-msgstr ""
-
-#: lib/favorform.php:114 lib/favorform.php:140
-msgid "Favor this notice"
 msgstr ""
 
 #: lib/favorform.php:140
@@ -5928,10 +4300,6 @@ msgstr ""
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
-msgstr ""
-
-#: lib/galleryaction.php:131
-msgid "All"
 msgstr ""
 
 #: lib/galleryaction.php:139
@@ -5982,15 +4350,6 @@ msgstr ""
 msgid "Group"
 msgstr "Ομάδα"
 
-#: lib/groupnav.php:101
-msgid "Blocked"
-msgstr ""
-
-#: lib/groupnav.php:102
-#, php-format
-msgid "%s blocked users"
-msgstr ""
-
 #: lib/groupnav.php:108
 #, php-format
 msgid "Edit %s group properties"
@@ -6005,11 +4364,6 @@ msgstr "Λογότυπο"
 msgid "Add or edit %s logo"
 msgstr "Προσθήκη ή επεξεργασία λογότυπου για την ομάδα %s"
 
-#: lib/groupnav.php:120
-#, fuzzy, php-format
-msgid "Add or edit %s design"
-msgstr "Προσθήκη ή επεξεργασία λογότυπου για την ομάδα %s"
-
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
 msgstr "Ομάδες με τα περισσότερα μέλη"
@@ -6017,11 +4371,6 @@ msgstr "Ομάδες με τα περισσότερα μέλη"
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr "Ομάδες με τις περισσότερες δημοσιεύσεις"
-
-#: lib/grouptagcloudsection.php:56
-#, php-format
-msgid "Tags in %s group's notices"
-msgstr ""
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -6050,9 +4399,8 @@ msgid "Not an image or corrupt file."
 msgstr ""
 
 #: lib/imagefile.php:122
-#, fuzzy
 msgid "Lost our file."
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr "Σχεδιάστε το προφίλ σας"
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -6146,11 +4494,9 @@ msgstr ""
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:274
-#, fuzzy, php-format
+#, php-format
 msgid "Bio: %s"
-msgstr ""
-"Βιογραφικό: %s\n"
-"\n"
+msgstr "Βιογραφικό"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304
@@ -6177,17 +4523,6 @@ msgstr ""
 #, php-format
 msgid "%s status"
 msgstr "Κατάσταση του/της %s"
-
-#. TRANS: Subject line for SMS-by-email address confirmation message
-#: lib/mail.php:460
-msgid "SMS confirmation"
-msgstr ""
-
-#. TRANS: Main body heading for SMS-by-email address confirmation message
-#: lib/mail.php:463
-#, fuzzy, php-format
-msgid "%s: confirm you own this phone number with this code:"
-msgstr "Αναμένωντας επιβεβαίωση σ' αυτό το νούμερο τηλεφώνου."
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -6318,13 +4653,9 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:227 lib/noticelist.php:505
+#: lib/mailbox.php:228 lib/noticelist.php:506
 msgid "from"
 msgstr "από"
-
-#: lib/mailhandler.php:37
-msgid "Could not parse message."
-msgstr ""
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
@@ -6382,9 +4713,8 @@ msgid "File could not be moved to destination directory."
 msgstr ""
 
 #: lib/mediafile.php:202 lib/mediafile.php:238
-#, fuzzy
 msgid "Could not determine file's MIME type."
-msgstr "Απέτυχε η ενημέρωση του χρήστη."
+msgstr ""
 
 #: lib/mediafile.php:318
 #, php-format
@@ -6396,59 +4726,40 @@ msgstr ""
 msgid "%s is not a supported file type on this server."
 msgstr ""
 
-#: lib/messageform.php:120
-msgid "Send a direct notice"
-msgstr ""
-
 #: lib/messageform.php:146
 msgid "To"
 msgstr ""
 
-#: lib/messageform.php:159 lib/noticeform.php:185
+#: lib/messageform.php:159 lib/noticeform.php:186
 msgid "Available characters"
 msgstr "Διαθέσιμοι χαρακτήρες"
 
-#: lib/messageform.php:178 lib/noticeform.php:236
+#: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr ""
 
-#: lib/noticeform.php:160
-msgid "Send a notice"
-msgstr ""
-
-#: lib/noticeform.php:173
+#: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
 msgstr ""
 
-#: lib/noticeform.php:192
+#: lib/noticeform.php:193
 msgid "Attach"
 msgstr ""
 
-#: lib/noticeform.php:196
+#: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:212
-#, fuzzy
+#: lib/noticeform.php:213
 msgid "Share my location"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
+msgstr ""
 
-#: lib/noticeform.php:215
-#, fuzzy
-msgid "Do not share my location"
-msgstr "Αδύνατη η αποθήκευση του προφίλ."
-
-#: lib/noticeform.php:216
+#: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
-msgstr ""
-
-#. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:436
-msgid "N"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
@@ -6475,37 +4786,24 @@ msgstr ""
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:567
+#: lib/noticelist.php:502
+msgid "web"
+msgstr ""
+
+#: lib/noticelist.php:568
 msgid "in context"
 msgstr ""
 
-#: lib/noticelist.php:602
+#: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "Επαναλαμβάνεται από"
 
-#: lib/noticelist.php:629
-msgid "Reply to this notice"
-msgstr ""
-
-#: lib/noticelist.php:630
+#: lib/noticelist.php:631
 msgid "Reply"
-msgstr ""
-
-#: lib/noticelist.php:674
-#, fuzzy
-msgid "Notice repeated"
-msgstr "Ρυθμίσεις OpenID"
-
-#: lib/nudgeform.php:116
-msgid "Nudge this user"
 msgstr ""
 
 #: lib/nudgeform.php:128
 msgid "Nudge"
-msgstr ""
-
-#: lib/nudgeform.php:128
-msgid "Send a nudge to this user"
 msgstr ""
 
 #: lib/oauthstore.php:283
@@ -6523,11 +4821,6 @@ msgstr ""
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile"
 msgstr ""
-
-#: lib/oauthstore.php:345
-#, fuzzy
-msgid "Duplicate notice"
-msgstr "Διαγραφή μηνύματος"
 
 #: lib/oauthstore.php:490
 msgid "Couldn't insert new subscription."
@@ -6570,21 +4863,9 @@ msgstr ""
 msgid "Unknown"
 msgstr ""
 
-#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
-msgid "Subscriptions"
-msgstr ""
-
 #: lib/profileaction.php:126
 msgid "All subscriptions"
 msgstr "Όλες οι συνδρομές"
-
-#: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
-msgid "Subscribers"
-msgstr ""
-
-#: lib/profileaction.php:161
-msgid "All subscribers"
-msgstr ""
 
 #: lib/profileaction.php:191
 msgid "User ID"
@@ -6597,10 +4878,6 @@ msgstr "Μέλος από"
 #. TRANS: Average count of posts made per day since account registration
 #: lib/profileaction.php:235
 msgid "Daily average"
-msgstr ""
-
-#: lib/profileaction.php:264
-msgid "All groups"
 msgstr ""
 
 #: lib/profileformaction.php:123
@@ -6632,18 +4909,16 @@ msgid "No return-to arguments."
 msgstr ""
 
 #: lib/repeatform.php:107
-#, fuzzy
 msgid "Repeat this notice?"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Διαγραφή μηνύματος"
 
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Ναι"
 
 #: lib/repeatform.php:132
-#, fuzzy
 msgid "Repeat this notice"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Διαγραφή μηνύματος"
 
 #: lib/revokeroleform.php:91
 #, php-format
@@ -6659,9 +4934,8 @@ msgid "Sandbox"
 msgstr ""
 
 #: lib/sandboxform.php:78
-#, fuzzy
 msgid "Sandbox this user"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
+msgstr "Γίνε συνδρομητής αυτού του χρήστη"
 
 #: lib/searchaction.php:120
 msgid "Search site"
@@ -6677,14 +4951,6 @@ msgstr ""
 
 #: lib/searchaction.php:162
 msgid "Search help"
-msgstr ""
-
-#: lib/searchgroupnav.php:80
-msgid "People"
-msgstr ""
-
-#: lib/searchgroupnav.php:81
-msgid "Find people on this site"
 msgstr ""
 
 #: lib/searchgroupnav.php:83
@@ -6708,28 +4974,8 @@ msgid "Silence"
 msgstr ""
 
 #: lib/silenceform.php:78
-#, fuzzy
 msgid "Silence this user"
-msgstr "Γίνε συνδρομητής αυτού του χρήστη"
-
-#: lib/subgroupnav.php:83
-#, php-format
-msgid "People %s subscribes to"
-msgstr ""
-
-#: lib/subgroupnav.php:91
-#, php-format
-msgid "People subscribed to %s"
-msgstr ""
-
-#: lib/subgroupnav.php:99
-#, php-format
-msgid "Groups %s is a member of"
-msgstr ""
-
-#: lib/subgroupnav.php:105
-msgid "Invite"
-msgstr ""
+msgstr "Διαγράψτε αυτόν τον χρήστη"
 
 #: lib/subgroupnav.php:106
 #, php-format
@@ -6759,12 +5005,12 @@ msgid "The theme file is missing or the upload failed."
 msgstr ""
 
 #: lib/themeuploader.php:91 lib/themeuploader.php:102
-#: lib/themeuploader.php:253 lib/themeuploader.php:257
-#: lib/themeuploader.php:265 lib/themeuploader.php:272
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
 msgid "Failed saving theme."
 msgstr ""
 
-#: lib/themeuploader.php:139
+#: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
 
@@ -6777,64 +5023,36 @@ msgstr ""
 msgid "Invalid theme archive: missing file css/display.css"
 msgstr ""
 
-#: lib/themeuploader.php:205
+#: lib/themeuploader.php:218
 msgid ""
 "Theme contains invalid file or folder name. Stick with ASCII letters, "
 "digits, underscore, and minus sign."
 msgstr ""
 
-#: lib/themeuploader.php:216
+#: lib/themeuploader.php:224
+msgid "Theme contains unsafe file extension names; may be unsafe."
+msgstr ""
+
+#: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
-#: lib/themeuploader.php:234
-#, fuzzy
+#: lib/themeuploader.php:259
 msgid "Error opening theme archive."
-msgstr "Απέτυχε η αποθήκευση του προφίλ."
+msgstr ""
 
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "Κορυφαίοι δημοσιευτές"
 
-#: lib/unsandboxform.php:69
-msgid "Unsandbox"
-msgstr ""
-
 #: lib/unsandboxform.php:80
-#, fuzzy
 msgid "Unsandbox this user"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#: lib/unsilenceform.php:67
-msgid "Unsilence"
-msgstr ""
+msgstr "Γίνε συνδρομητής αυτού του χρήστη"
 
 #: lib/unsilenceform.php:78
-#, fuzzy
 msgid "Unsilence this user"
-msgstr "Αδυναμία διαγραφής αυτού του μηνύματος."
-
-#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
-msgid "Unsubscribe from this user"
-msgstr ""
-
-#: lib/unsubscribeform.php:137
-msgid "Unsubscribe"
-msgstr ""
-
-#: lib/usernoprofileexception.php:58
-#, php-format
-msgid "User %s (%d) has no profile record."
-msgstr ""
-
-#: lib/userprofile.php:117
-msgid "Edit Avatar"
-msgstr ""
-
-#: lib/userprofile.php:234 lib/userprofile.php:248
-msgid "User actions"
-msgstr ""
+msgstr "Διαγράψτε αυτόν τον χρήστη"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
@@ -6856,15 +5074,6 @@ msgstr ""
 msgid "Message"
 msgstr "Μήνυμα"
 
-#: lib/userprofile.php:326
-msgid "Moderate"
-msgstr ""
-
-#: lib/userprofile.php:364
-#, fuzzy
-msgid "User role"
-msgstr "Προφίλ χρήστη"
-
 #: lib/userprofile.php:366
 msgctxt "role"
 msgid "Administrator"
@@ -6876,56 +5085,56 @@ msgid "Moderator"
 msgstr "Συντονιστής"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1100
+#: lib/util.php:1102
 msgid "a few seconds ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1105
 msgid "about a minute ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1107
+#: lib/util.php:1109
 #, php-format
 msgid "about %d minutes ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1112
 msgid "about an hour ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1114
+#: lib/util.php:1116
 #, php-format
 msgid "about %d hours ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1119
 msgid "about a day ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1123
 #, php-format
 msgid "about %d days ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1126
 msgid "about a month ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1128
+#: lib/util.php:1130
 #, php-format
 msgid "about %d months ago"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1133
 msgid "about a year ago"
 msgstr ""
 
@@ -6933,13 +5142,3 @@ msgstr ""
 #, php-format
 msgid "%s is not a valid color!"
 msgstr "Το %s δεν είναι ένα έγκυρο χρώμα!"
-
-#: lib/webcolor.php:123
-#, php-format
-msgid "%s is not a valid color! Use 3 or 6 hex chars."
-msgstr ""
-
-#: lib/xmppmanager.php:403
-#, php-format
-msgid "Message too long - maximum is %1$d characters, you sent %2$d."
-msgstr ""

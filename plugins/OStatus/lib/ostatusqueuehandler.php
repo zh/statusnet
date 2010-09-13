@@ -67,6 +67,17 @@ class OStatusQueueHandler extends QueueHandler
             }
         }
 
+        if (!empty($this->notice->reply_to)) {
+            $replyTo = Notice::staticGet('id', $this->notice->reply_to);
+            if (!empty($replyTo)) {
+                foreach($replyTo->getReplies() as $profile_id) {
+                    $oprofile = Ostatus_profile::staticGet('profile_id', $profile_id);
+                    if ($oprofile) {
+                        $this->pingReply($oprofile);
+                    }
+                }
+            }
+        }
         return true;
     }
 
@@ -161,7 +172,7 @@ class OStatusQueueHandler extends QueueHandler
      * Queue up direct feed update pushes to subscribers on our internal hub.
      * If there are a large number of subscriber sites, intermediate bulk
      * distribution triggers may be queued.
-     * 
+     *
      * @param string $atom update feed, containing only new/changed items
      * @param HubSub $sub open query of subscribers
      */
@@ -212,4 +223,3 @@ class OStatusQueueHandler extends QueueHandler
     }
 
 }
-

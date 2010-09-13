@@ -71,6 +71,7 @@ class UsersalmonAction extends SalmonAction
 
         // Notice must either be a) in reply to a notice by this user
         // or b) to the attention of this user
+        // or c) in reply to a notice to the attention of this user
 
         $context = $this->activity->context;
 
@@ -79,8 +80,9 @@ class UsersalmonAction extends SalmonAction
             if (empty($notice)) {
                 throw new ClientException("In reply to unknown notice");
             }
-            if ($notice->profile_id != $this->user->id) {
-                throw new ClientException("In reply to a notice not by this user");
+            if ($notice->profile_id != $this->user->id &&
+                !in_array($this->user->id, $notice->getReplies())) {
+                throw new ClientException("In reply to a notice not by this user and not mentioning this user");
             }
         } else if (!empty($context->attention)) {
             if (!in_array($this->user->uri, $context->attention) &&
