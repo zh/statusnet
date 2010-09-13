@@ -62,6 +62,7 @@ class ApiStatusesRetweetAction extends ApiAuthAction
         parent::prepare($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            // TRANS: Client error. POST is a HTTP command. It should not be translated.
             $this->clientError(_('This method requires a POST.'),
                                400, $this->format);
             return false;
