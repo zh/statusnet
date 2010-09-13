@@ -54,8 +54,12 @@ class ActivityContext
     const MENTIONED    = 'mentioned';
     const CONVERSATION = 'ostatus:conversation';
 
-    function __construct($element)
+    function __construct($element = null)
     {
+        if (empty($element)) {
+            return;
+        }
+
         $replyToEl = ActivityUtils::child($element, self::INREPLYTO, self::THR);
 
         if (!empty($replyToEl)) {
