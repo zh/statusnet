@@ -141,16 +141,16 @@ class Fave extends Memcached_DataObject
         $act->id   = TagURI::mint('favor:%d:%d:%s',
                                   $profile->id,
                                   $notice->id,
-                                  common_date_iso8601($this->created));
+                                  common_date_iso8601($this->modified));
 
-        $act->time    = $this->created;
+        $act->time    = strtotime($this->modified);
         $act->title   = _("Favor");
         $act->content = sprintf(_("%s marked notice %s as a favorite."),
                                $profile->getBestName(),
                                $notice->uri);
 
-        $act->actor   = ActivityObject::fromProfile($profile);
-        $act->object  = ActivityObject::fromNotice($notice);
+        $act->actor     = ActivityObject::fromProfile($profile);
+        $act->objects[] = ActivityObject::fromNotice($notice);
 
         return $act;
     }
