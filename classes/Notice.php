@@ -1218,16 +1218,16 @@ class Notice extends Memcached_DataObject
 
         $act = new Activity();
 
-        $act->actor     = Activity::fromProfile($profile);
+        $act->actor     = ActivityObject::fromProfile($profile);
         $act->verb      = ActivityVerb::POST;
         $act->objects[] = ActivityObject::fromNotice($this);
 
         $act->time    = strtotime($this->created);
         $act->link    = $this->bestUrl();
 
-        $act->content = common_xml_safe_string($this->rendered);
+        $act->content = common_xml_safe_str($this->rendered);
         $act->id      = $this->uri;
-        $act->title   = common_xml_safe_string($this->content);
+        $act->title   = common_xml_safe_str($this->content);
 
         $ctx = new ActivityContext();
 
