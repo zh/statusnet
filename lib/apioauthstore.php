@@ -175,11 +175,11 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         $rt->state = 0;
         if (!$rt->find(true)) {
             // TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-            throw new Exception(_('Tried to revoke unknown token'));
+            throw new Exception(_('Tried to revoke unknown token.'));
         }
         if (!$rt->delete()) {
             // TRANS: Exception thrown when an attempt is made to remove a revoked token.
-            throw new Exception(_('Failed to delete revoked token'));
+            throw new Exception(_('Failed to delete revoked token.'));
         }
     }
 }
