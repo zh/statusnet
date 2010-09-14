@@ -112,7 +112,6 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiAction extends Action
 {
     const READ_ONLY  = 1;
@@ -139,7 +138,6 @@ class ApiAction extends Action
      *
      * @return boolean false if user doesn't exist
      */
-
     function prepare($args)
     {
         StatusNet::setApi(true); // reduce exception reports to aid in debugging
@@ -172,7 +170,6 @@ class ApiAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         header('Access-Control-Allow-Origin: *');
@@ -862,7 +859,6 @@ class ApiAction extends Action
         }
 
         $this->endDocument('atom');
-
     }
 
     function showRssGroups($group, $title, $link, $subtitle)
@@ -1015,7 +1011,6 @@ class ApiAction extends Action
 
     function showAtomGroups($group, $title, $id, $link, $subtitle=null, $selfuri=null)
     {
-
         $this->initDocument('atom');
 
         $this->element('title', null, common_xml_safe_str($title));
@@ -1046,7 +1041,6 @@ class ApiAction extends Action
 
     function showJsonTimeline($notice)
     {
-
         $this->initDocument('json');
 
         $statuses = array();
@@ -1072,7 +1066,6 @@ class ApiAction extends Action
 
     function showJsonGroups($group)
     {
-
         $this->initDocument('json');
 
         $groups = array();
@@ -1118,7 +1111,6 @@ class ApiAction extends Action
 
     function showTwitterXmlUsers($user)
     {
-
         $this->initDocument('xml');
         $this->elementStart('users', array('type' => 'array',
                                            'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
@@ -1141,7 +1133,6 @@ class ApiAction extends Action
 
     function showJsonUsers($user)
     {
-
         $this->initDocument('json');
 
         $users = array();
@@ -1226,7 +1217,6 @@ class ApiAction extends Action
             $this->endXML();
             break;
         case 'json':
-
             // Check for JSONP callback
             if (isset($this->callback)) {
                 print ')';
@@ -1483,7 +1473,6 @@ class ApiAction extends Action
      */
     function arg($key, $def=null)
     {
-
         // XXX: Do even more input validation/scrubbing?
 
         if (array_key_exists($key, $this->args)) {
@@ -1550,5 +1539,4 @@ class ApiAction extends Action
 
         return $uri;
     }
-
 }
