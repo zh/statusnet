@@ -40,7 +40,7 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
     function onInitializePlugin(){
         parent::onInitializePlugin();
         if(!isset($this->serviceUrl)){
-            throw new Exception("must specify a serviceUrl");
+            throw new Exception(_m("You must specify a serviceUrl."));
         }
     }
 
@@ -63,4 +63,3 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
         return true;
     }
 }
-
