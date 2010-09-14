@@ -632,6 +632,9 @@ class OStatusPlugin extends Plugin
                 throw new Exception(_m('Could not set up remote group membership.'));
             }
 
+            // NOTE: we don't use Group_member::asActivity() since that record
+            // has not yet been created.
+
             $member = Profile::staticGet($user->id);
 
             $act = new Activity();
