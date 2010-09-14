@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-29 23:39+0000\n"
+"POT-Creation-Date: 2010-09-14 22:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,39 +16,75 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: BlacklistPlugin.php:153
+#: BlacklistPlugin.php:148
 #, php-format
-msgid "You may not register with homepage '%s'"
+msgid "You may not register with homepage '%s'."
 msgstr ""
 
-#: BlacklistPlugin.php:163
+#: BlacklistPlugin.php:158
 #, php-format
-msgid "You may not register with nickname '%s'"
+msgid "You may not register with nickname '%s'."
 msgstr ""
 
-#: BlacklistPlugin.php:188
+#: BlacklistPlugin.php:182
 #, php-format
-msgid "You may not use homepage '%s'"
+msgid "You may not use homepage '%s'."
 msgstr ""
 
-#: BlacklistPlugin.php:198
+#: BlacklistPlugin.php:192
 #, php-format
-msgid "You may not use nickname '%s'"
+msgid "You may not use nickname '%s'."
 msgstr ""
 
-#: BlacklistPlugin.php:242
+#: BlacklistPlugin.php:234
 #, php-format
-msgid "You may not use url '%s' in notices"
+msgid "You may not use UTL \"%s\" in notices."
 msgstr ""
 
-#: BlacklistPlugin.php:351
-msgid "Keep a blacklist of forbidden nickname and URL patterns."
+#: BlacklistPlugin.php:338
+msgid "Keeps a blacklist of forbidden nickname and URL patterns."
 msgstr ""
 
-#: blacklistadminpanel.php:185
+#: BlacklistPlugin.php:376 blacklistadminpanel.php:52
+msgid "Blacklist"
+msgstr ""
+
+#: BlacklistPlugin.php:377
+msgid "Blacklist configuration"
+msgstr ""
+
+#: BlacklistPlugin.php:403
+msgid "Add this nickname pattern to blacklist"
+msgstr ""
+
+#: BlacklistPlugin.php:412
+msgid "Add this homepage pattern to blacklist"
+msgstr ""
+
+#: blacklistadminpanel.php:62
+msgid "Blacklisted URLs and nicknames"
+msgstr ""
+
+#: blacklistadminpanel.php:174
 msgid "Nicknames"
 msgstr ""
 
-#: blacklistadminpanel.php:193
+#: blacklistadminpanel.php:176
+msgid "Patterns of nicknames to block, one per line"
+msgstr ""
+
+#: blacklistadminpanel.php:182
 msgid "URLs"
+msgstr ""
+
+#: blacklistadminpanel.php:184
+msgid "Patterns of URLs to block, one per line"
+msgstr ""
+
+#: blacklistadminpanel.php:198
+msgid "Save"
+msgstr ""
+
+#: blacklistadminpanel.php:201
+msgid "Save site settings"
 msgstr ""
