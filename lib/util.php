@@ -1105,26 +1105,30 @@ function common_date_string($dt)
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a minute ago');
     } else if ($diff < 3300) {
+        // XXX: should support plural.
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one minute ago', 'about %d minutes ago'), round($diff/60));
+        return sprintf(_('about %d minutes ago'), round($diff/60));
     } else if ($diff < 5400) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about an hour ago');
     } else if ($diff < 22 * 3600) {
+        // XXX: should support plural.
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one hour ago', 'about %d hours ago'), round($diff/3600));
+        return sprintf(_('about %d hours ago'), round($diff/3600));
     } else if ($diff < 37 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a day ago');
     } else if ($diff < 24 * 24 * 3600) {
+        // XXX: should support plural.
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one day ago', 'about %d days ago'), round($diff/(24*3600)));
+        return sprintf(_('about %d days ago'), round($diff/(24*3600)));
     } else if ($diff < 46 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a month ago');
     } else if ($diff < 330 * 24 * 3600) {
+        // XXX: should support plural.
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one month ago', 'about %d months ago'), round($diff/(30*24*3600)));
+        return sprintf(_('about %d months ago'), round($diff/(30*24*3600)));
     } else if ($diff < 480 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a year ago');
