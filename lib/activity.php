@@ -319,7 +319,7 @@ class Activity
         return null;
     }
 
-    function asString($namespace=false)
+    function asString($namespace=false, $author=true)
     {
         $xs = new XMLStringer(true);
 
@@ -353,13 +353,15 @@ class Activity
 
         // XXX: add context
 
-        $xs->elementStart('author');
-        $xs->element('uri', array(), $this->actor->id);
-        if ($this->actor->title) {
-            $xs->element('name', array(), $this->actor->title);
+        if ($author) {
+            $xs->elementStart('author');
+            $xs->element('uri', array(), $this->actor->id);
+            if ($this->actor->title) {
+                $xs->element('name', array(), $this->actor->title);
+            }
+            $xs->elementEnd('author');
+            $xs->raw($this->actor->asString('activity:actor'));
         }
-        $xs->elementEnd('author');
-        $xs->raw($this->actor->asString('activity:actor'));
 
         $xs->element('activity:verb', null, $this->verb);
 
