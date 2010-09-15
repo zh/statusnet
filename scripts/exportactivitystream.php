@@ -34,6 +34,15 @@ END_OF_EXPORTACTIVITYSTREAM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
+/**
+ * Class for activity streams
+ *
+ * Includes faves, notices, and subscriptions.
+ *
+ * We extend atomusernoticefeed since it does some nice setup for us.
+ *
+ */
+
 class UserActivityStream extends AtomUserNoticeFeed
 {
     function __construct($user, $indent = true)
@@ -42,10 +51,11 @@ class UserActivityStream extends AtomUserNoticeFeed
 
         $subscriptions = $this->getSubscriptions();
         $subscribers   = $this->getSubscribers();
+        $groups        = $this->getGroups();
         $faves         = $this->getFaves();
         $notices       = $this->getNotices();
 
-        $objs = array_merge($subscriptions, $subscribers, $faves, $notices);
+        $objs = array_merge($subscriptions, $subscribers, $groups, $faves, $notices);
 
         // Sort by create date
 
@@ -53,7 +63,9 @@ class UserActivityStream extends AtomUserNoticeFeed
 
         foreach ($objs as $obj) {
             $act = $obj->asActivity();
-            $this->addEntryRaw($act->asString(false));
+            // Only show the author sub-element if it's different from default user
+            $str = $act->asString(false, ($act->actor->id != $this->user->uri));
+            $this->addEntryRaw($str);
         }
     }
 
@@ -135,6 +147,23 @@ class UserActivityStream extends AtomUserNoticeFeed
         }
 
         return $notices;
+    }
+
+    function getGroups()
+    {
+        $groups = array();
+
+        $gm = new Group_member();
+
+        $gm->profile_id = $this->user->id;
+
+        if ($gm->find()) {
+            while ($gm->fetch()) {
+                $groups[] = clone($gm);
+            }
+        }
+
+        return $groups;
     }
 }
 
