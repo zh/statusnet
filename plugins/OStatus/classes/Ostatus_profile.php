@@ -703,23 +703,7 @@ class Ostatus_profile extends Memcached_DataObject
                 continue;
             }
 
-            // Is the recipient a remote group?
-            $oprofile = Ostatus_profile::ensureProfileURI($recipient);
-
-            if ($oprofile) {
-                if ($oprofile->isGroup()) {
-                    // Deliver to local members of this remote group.
-                    // @fixme sender verification?
-                    $groups[] = $oprofile->group_id;
-                } else {
-                    // may be canonicalized or something
-                    $replies[] = $oprofile->uri;
-                }
-                continue;
-            }
-
             // Is the recipient a local group?
-            // @fixme uri on user_group isn't reliable yet
             // $group = User_group::staticGet('uri', $recipient);
             $id = OStatusPlugin::localGroupFromUrl($recipient);
             if ($id) {
@@ -738,7 +722,22 @@ class Ostatus_profile extends Memcached_DataObject
                 }
             }
 
-            common_log(LOG_DEBUG, "Skipping reply to unrecognized profile $recipient");
+            // Is the recipient a remote user or group?
+            try {
+                $oprofile = Ostatus_profile::ensureProfileURI($recipient);
+                if ($oprofile->isGroup()) {
+                    // Deliver to local members of this remote group.
+                    // @fixme sender verification?
+                    $groups[] = $oprofile->group_id;
+                } else {
+                    // may be canonicalized or something
+                    $replies[] = $oprofile->uri;
+                }
+                continue;
+            } catch (Exception $e) {
+                // Neither a recognizable local nor remote user!
+                common_log(LOG_DEBUG, "Skipping reply to unrecognized profile $recipient: " . $e->getMessage());
+            }
 
         }
         $attention_uris = $replies;
