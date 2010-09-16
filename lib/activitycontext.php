@@ -77,7 +77,6 @@ class ActivityContext
 
         $attention = array();
         for ($i = 0; $i < $links->length; $i++) {
-
             $link = $links->item($i);
 
             $linkRel = $link->getAttribute(ActivityUtils::REL);

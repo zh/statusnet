@@ -40,7 +40,6 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class BlacklistPlugin extends Plugin
 {
     const VERSION = STATUSNET_VERSION;
@@ -76,13 +75,11 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
 
         // For storing blacklist patterns for nicknames
-
         $schema->ensureTable('nickname_blacklist',
                              array(new ColumnDef('pattern',
                                                  'varchar',
@@ -118,7 +115,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return array configuration values
      */
-
     function _configArray($section, $setting)
     {
         $config = common_config($section, $setting);
@@ -143,14 +139,13 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onStartRegistrationTry($action)
     {
         $homepage = strtolower($action->trimmed('homepage'));
 
         if (!empty($homepage)) {
             if (!$this->_checkUrl($homepage)) {
-                $msg = sprintf(_m("You may not register with homepage '%s'"),
+                $msg = sprintf(_m("You may not register with homepage '%s'."),
                                $homepage);
                 throw new ClientException($msg);
             }
@@ -160,7 +155,7 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($nickname)) {
             if (!$this->_checkNickname($nickname)) {
-                $msg = sprintf(_m("You may not register with nickname '%s'"),
+                $msg = sprintf(_m("You may not register with nickname '%s'."),
                                $nickname);
                 throw new ClientException($msg);
             }
@@ -178,14 +173,13 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onStartProfileSaveForm($action)
     {
         $homepage = strtolower($action->trimmed('homepage'));
 
         if (!empty($homepage)) {
             if (!$this->_checkUrl($homepage)) {
-                $msg = sprintf(_m("You may not use homepage '%s'"),
+                $msg = sprintf(_m("You may not use homepage '%s'."),
                                $homepage);
                 throw new ClientException($msg);
             }
@@ -195,7 +189,7 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($nickname)) {
             if (!$this->_checkNickname($nickname)) {
-                $msg = sprintf(_m("You may not use nickname '%s'"),
+                $msg = sprintf(_m("You may not use nickname '%s'."),
                                $nickname);
                 throw new ClientException($msg);
             }
@@ -213,7 +207,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onStartNoticeSave(&$notice)
     {
         common_replace_urls_callback($notice->content,
@@ -230,7 +223,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function checkNoticeUrl($url)
     {
         // It comes in special'd, so we unspecial it
@@ -239,7 +231,7 @@ class BlacklistPlugin extends Plugin
         $url = htmlspecialchars_decode($url);
 
         if (!$this->_checkUrl($url)) {
-            $msg = sprintf(_m("You may not use url '%s' in notices"),
+            $msg = sprintf(_m("You may not use UTL \"%s\" in notices."),
                            $url);
             throw new ClientException($msg);
         }
@@ -256,7 +248,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean true means it's OK, false means it's bad
      */
-
     private function _checkUrl($url)
     {
         $patterns = $this->_getUrlPatterns();
@@ -279,7 +270,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean true means it's OK, false means it's bad
      */
-
     private function _checkNickname($nickname)
     {
         $patterns = $this->_getNicknamePatterns();
@@ -300,7 +290,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('admin/blacklist', array('action' => 'blacklistadminpanel'));
@@ -314,7 +303,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onAutoload($cls)
     {
         switch (strtolower($cls))
@@ -339,7 +327,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Blacklist',
@@ -348,7 +335,7 @@ class BlacklistPlugin extends Plugin
                             'homepage' =>
                             'http://status.net/wiki/Plugin:Blacklist',
                             'description' =>
-                            _m('Keep a blacklist of forbidden nickname '.
+                            _m('Keeps a blacklist of forbidden nickname '.
                                'and URL patterns.'));
         return true;
     }
@@ -379,7 +366,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndAdminPanelNav($nav)
     {
         if (AdminPanelAction::canAdmin('blacklist')) {
@@ -387,8 +373,8 @@ class BlacklistPlugin extends Plugin
             $action_name = $nav->action->trimmed('action');
 
             $nav->out->menuItem(common_local_url('blacklistadminpanel'),
-                                _('Blacklist'),
-                                _('Blacklist configuration'),
+                                _m('Blacklist'),
+                                _m('Blacklist configuration'),
                                 $action_name == 'blacklistadminpanel',
                                 'nav_blacklist_admin_panel');
         }
@@ -414,7 +400,7 @@ class BlacklistPlugin extends Plugin
         $action->elementStart('li');
         $this->checkboxAndText($action,
                                'blacklistnickname',
-                               _('Add this nickname pattern to blacklist'),
+                               _m('Add this nickname pattern to blacklist'),
                                'blacklistnicknamepattern',
                                $this->patternizeNickname($user->nickname));
         $action->elementEnd('li');
@@ -423,7 +409,7 @@ class BlacklistPlugin extends Plugin
             $action->elementStart('li');
             $this->checkboxAndText($action,
                                    'blacklisthomepage',
-                                   _('Add this homepage pattern to blacklist'),
+                                   _m('Add this homepage pattern to blacklist'),
                                    'blacklisthomepagepattern',
                                    $this->patternizeHomepage($profile->homepage));
             $action->elementEnd('li');

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-04-29 23:39+0000\n"
+"POT-Creation-Date: 2010-09-14 22:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,133 +16,126 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: OStatusPlugin.php:210 OStatusPlugin.php:913 actions/ostatusinit.php:99
+#: OStatusPlugin.php:226 OStatusPlugin.php:951 actions/ostatusinit.php:99
 msgid "Subscribe"
 msgstr ""
 
-#: OStatusPlugin.php:228 OStatusPlugin.php:635 actions/ostatussub.php:105
+#: OStatusPlugin.php:244 OStatusPlugin.php:663 actions/ostatussub.php:105
 #: actions/ostatusinit.php:96
 msgid "Join"
 msgstr ""
 
-#: OStatusPlugin.php:451
+#: OStatusPlugin.php:456
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr ""
 
-#: OStatusPlugin.php:503
+#: OStatusPlugin.php:527
 msgid "Could not set up remote subscription."
 msgstr ""
 
-#: OStatusPlugin.php:619
+#: OStatusPlugin.php:647
 msgid "Could not set up remote group membership."
 msgstr ""
 
-#: OStatusPlugin.php:636
-#, php-format
-msgid "%s has joined group %s."
-msgstr ""
-
-#: OStatusPlugin.php:644
+#: OStatusPlugin.php:674
 msgid "Failed joining remote group."
 msgstr ""
 
-#: OStatusPlugin.php:684
+#: OStatusPlugin.php:714
 msgid "Leave"
 msgstr ""
 
-#: OStatusPlugin.php:685
-#, php-format
-msgid "%s has left group %s."
-msgstr ""
-
-#: OStatusPlugin.php:844
+#: OStatusPlugin.php:880
 msgid "Remote"
 msgstr ""
 
-#: OStatusPlugin.php:883
+#: OStatusPlugin.php:919
 msgid "Profile update"
 msgstr ""
 
-#: OStatusPlugin.php:884
+#. TRANS: Ping text for remote profile update through OStatus.
+#. TRANS: %s is user that updated their profile.
+#: OStatusPlugin.php:922
 #, php-format
 msgid "%s has updated their profile page."
 msgstr ""
 
-#: OStatusPlugin.php:928
+#: OStatusPlugin.php:966
 msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
 msgstr ""
 
-#: classes/Ostatus_profile.php:566
+#: classes/Ostatus_profile.php:592
 msgid "Show more"
 msgstr ""
 
-#: classes/Ostatus_profile.php:1004
+#: classes/Ostatus_profile.php:1035
 #, php-format
-msgid "Invalid avatar URL %s"
+msgid "Invalid avatar URL %s."
 msgstr ""
 
-#: classes/Ostatus_profile.php:1014
+#: classes/Ostatus_profile.php:1045
 #, php-format
-msgid "Tried to update avatar for unsaved remote profile %s"
+msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 
-#: classes/Ostatus_profile.php:1022
+#: classes/Ostatus_profile.php:1053
 #, php-format
-msgid "Unable to fetch avatar from %s"
+msgid "Unable to fetch avatar from %s."
 msgstr ""
 
-#: lib/salmonaction.php:41
+#. TRANS: POST is a HTTP command. It should not be translated.
+#: lib/salmonaction.php:42
 msgid "This method requires a POST."
 msgstr ""
 
-#: lib/salmonaction.php:45
-msgid "Salmon requires application/magic-envelope+xml"
+#: lib/salmonaction.php:46
+msgid "Salmon requires \"application/magic-envelope+xml\"."
 msgstr ""
 
 #: lib/salmonaction.php:55
 msgid "Salmon signature verification failed."
 msgstr ""
 
-#: lib/salmonaction.php:67
+#: lib/salmonaction.php:66
 msgid "Salmon post must be an Atom entry."
 msgstr ""
 
-#: lib/salmonaction.php:115
+#: lib/salmonaction.php:114
 msgid "Unrecognized activity type."
 msgstr ""
 
-#: lib/salmonaction.php:123
+#: lib/salmonaction.php:122
 msgid "This target doesn't understand posts."
 msgstr ""
 
-#: lib/salmonaction.php:128
+#: lib/salmonaction.php:127
 msgid "This target doesn't understand follows."
 msgstr ""
 
-#: lib/salmonaction.php:133
+#: lib/salmonaction.php:132
 msgid "This target doesn't understand unfollows."
 msgstr ""
 
-#: lib/salmonaction.php:138
+#: lib/salmonaction.php:137
 msgid "This target doesn't understand favorites."
 msgstr ""
 
-#: lib/salmonaction.php:143
+#: lib/salmonaction.php:142
 msgid "This target doesn't understand unfavorites."
 msgstr ""
 
-#: lib/salmonaction.php:148
+#: lib/salmonaction.php:147
 msgid "This target doesn't understand share events."
 msgstr ""
 
-#: lib/salmonaction.php:153
+#: lib/salmonaction.php:152
 msgid "This target doesn't understand joins."
 msgstr ""
 
-#: lib/salmonaction.php:158
+#: lib/salmonaction.php:157
 msgid "This target doesn't understand leave events."
 msgstr ""
 
@@ -155,7 +148,7 @@ msgid "Join group"
 msgstr ""
 
 #: actions/ostatusgroup.php:77
-msgid "OStatus group's address, like http://example.net/group/nickname"
+msgid "OStatus group's address, like http://example.net/group/nickname."
 msgstr ""
 
 #: actions/ostatusgroup.php:81 actions/ostatussub.php:71
@@ -249,7 +242,7 @@ msgstr ""
 #: actions/ostatussub.php:272
 msgid ""
 "Sorry, we could not reach that address. Please make sure that the OStatus "
-"address is like nickname@example.com or http://example.net/nickname"
+"address is like nickname@example.com or http://example.net/nickname."
 msgstr ""
 
 #: actions/ostatussub.php:256 actions/ostatussub.php:259
@@ -303,7 +296,7 @@ msgid "User nickname"
 msgstr ""
 
 #: actions/ostatusinit.php:112
-msgid "Nickname of the user you want to follow"
+msgid "Nickname of the user you want to follow."
 msgstr ""
 
 #: actions/ostatusinit.php:116
@@ -311,7 +304,7 @@ msgid "Profile Account"
 msgstr ""
 
 #: actions/ostatusinit.php:117
-msgid "Your account id (i.e. user@identi.ca)"
+msgid "Your account id (e.g. user@identi.ca)."
 msgstr ""
 
 #: actions/ostatusinit.php:138

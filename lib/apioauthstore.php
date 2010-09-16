@@ -23,7 +23,6 @@ require_once INSTALLDIR . '/lib/oauthstore.php';
 
 class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 {
-
     function lookup_consumer($consumer_key)
     {
         $con = Consumer::staticGet('consumer_key', $consumer_key);
@@ -39,7 +38,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
     function getAppByRequestToken($token_key)
     {
         // Look up the full req tokenx
-
         $req_token = $this->lookup_token(null,
                                          'request',
                                          $token_key);
@@ -50,7 +48,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         }
 
         // Look up the full Token
-
         $token = new Token();
         $token->tok = $req_token->key;
         $result = $token->find(true);
@@ -150,7 +147,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 }
 
                 // Okay, good
-
                 return new OAuthToken($at->tok, $at->secret);
             }
 
@@ -172,19 +168,18 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
      *
      * @return void
      */
-
     public function revoke_token($token_key, $type = 0) {
         $rt = new Token();
         $rt->tok = $token_key;
         $rt->type = $type;
         $rt->state = 0;
         if (!$rt->find(true)) {
-            throw new Exception('Tried to revoke unknown token');
+            // TRANS: Exception thrown when an attempt is made to revoke an unknown token.
+            throw new Exception(_('Tried to revoke unknown token.'));
         }
         if (!$rt->delete()) {
-            throw new Exception('Failed to delete revoked token');
+            // TRANS: Exception thrown when an attempt is made to remove a revoked token.
+            throw new Exception(_('Failed to delete revoked token.'));
         }
     }
-
 }
-
