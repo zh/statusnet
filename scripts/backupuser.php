@@ -34,30 +34,6 @@ END_OF_EXPORTACTIVITYSTREAM_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
-function getUser()
-{
-    $user = null;
-
-    if (have_option('i', 'id')) {
-        $id = get_option_value('i', 'id');
-        $user = User::staticGet('id', $id);
-        if (empty($user)) {
-            throw new Exception("Can't find user with id '$id'.");
-        }
-    } else if (have_option('n', 'nickname')) {
-        $nickname = get_option_value('n', 'nickname');
-        $user = User::staticGet('nickname', $nickname);
-        if (empty($user)) {
-            throw new Exception("Can't find user with nickname '$nickname'");
-        }
-    } else {
-        show_help();
-        exit(1);
-    }
-
-    return $user;
-}
-
 try {
     $user = getUser();
     $actstr = new UserActivityStream($user);
