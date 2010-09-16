@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 19:53+0000\n"
-"PO-Revision-Date: 2010-09-14 19:54:10+0000\n"
+"POT-Creation-Date: 2010-09-16 23:15+0000\n"
+"PO-Revision-Date: 2010-09-16 23:16:05+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73009); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 1284-49-16 34::+0000\n"
+"X-POT-Import-Date: 1284-49-48 10::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1898,9 +1898,27 @@ msgstr "Список на корисниците на оваа група."
 msgid "Admin"
 msgstr "Администратор"
 
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
+msgstr "Блокирај"
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "Направи го корисникот администратор на групата"
+
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr "Назначи за администратор"
+
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:537
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr "Назначи го корисников за администратор"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -5525,17 +5543,23 @@ msgstr ""
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
 #: lib/apiauth.php:175
 msgid "No application for that consumer key."
-msgstr ""
+msgstr "Нема програм за тој потрошувачки клуч."
+
+#. TRANS: OAuth exception given when an incorrect access token was given for a user.
+#: lib/apiauth.php:212
+msgid "Bad access token."
+msgstr "Лош пристапен жетон."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
 #: lib/apiauth.php:217
 msgid "No user for that token."
-msgstr ""
+msgstr "Нема корисник за тој жетон."
 
-#. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:178
-msgid "Tried to revoke unknown token"
-msgstr ""
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr "Не можевме да ве потврдиме."
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
@@ -6189,6 +6213,78 @@ msgstr ""
 "Дополнителни прекари за групата, одделени со запирка или празно место, "
 "највеќе до %d"
 
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
+msgid "Group"
+msgstr "Група"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr "Група „%s“"
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr "Членови"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr "Членови на групата „%s“"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
+msgid "Blocked"
+msgstr "Блокирани"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s blocked users"
+msgstr "Блокирани корисници од групата „%s“"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr "Уредување на својства на групата „%s“"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr "Лого"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s logo"
+msgstr "Додавање или уредување на лого на групата „%s “"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s design"
+msgstr "Додавање или уредување на изгледот на групата „%s“"
+
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
 msgstr "Групи со највеќе членови"
@@ -6681,6 +6777,25 @@ msgstr "Податотеката не може да се премести во �
 msgid "Could not determine file's MIME type."
 msgstr "Не можев да го утврдам mime-типот на податотеката."
 
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %1$s is the file type that was denied, %2$s is the application part of
+#. TRANS: the MIME type that was denied.
+#: lib/mediafile.php:340
+#, php-format
+msgid ""
+"\"%1$s\" is not a supported file type on this server. Try using another %2$s "
+"format."
+msgstr ""
+"„%1$s“ не е поддржан податотечен тип на овој опслужувач. Обидете се со друг %"
+"2$s-формат."
+
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %s is the file type that was denied.
+#: lib/mediafile.php:345
+#, php-format
+msgid "\"%s\" is not a supported file type on this server."
+msgstr "„%s„ не е поддржан податотечен тип на овој опслужувач."
+
 #: lib/messageform.php:120
 msgid "Send a direct notice"
 msgstr "Испрати директна забелешка"
@@ -6795,6 +6910,23 @@ msgstr "Подбуцни"
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
 msgstr "Испрати подбуцнување на корисников"
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
+msgstr "Грешка при вметнувањето на новиот профил."
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar."
+msgstr "Грешка при вметнувањето на аватарот."
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile."
+msgstr "Грешка при вметнувањето на далечинскиот профил."
+
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr "Дуплирана забелешка."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -6938,6 +7070,11 @@ msgstr "Пребарај по мрежното место"
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
 msgstr "Клучен збор"
+
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
+msgid "Search"
+msgstr "Пребарај"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7149,9 +7286,25 @@ msgid "about a minute ago"
 msgstr "пред една минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1109
+#, php-format
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] "пред околу една минута"
+msgstr[1] "пред околу %d минути"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "пред еден час"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1115
+#, php-format
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] "пред околу еден час"
+msgstr[1] "пред околу %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1118
@@ -7159,9 +7312,25 @@ msgid "about a day ago"
 msgstr "пред еден ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1121
+#, php-format
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] "пред околу еден ден"
+msgstr[1] "пред околу %d дена"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1124
 msgid "about a month ago"
 msgstr "пред еден месец"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1127
+#, php-format
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] "пред околу еден месец"
+msgstr[1] "пред околу %d месеци"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1130

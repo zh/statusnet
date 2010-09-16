@@ -13,18 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 19:53+0000\n"
-"PO-Revision-Date: 2010-09-14 19:54:26+0000\n"
+"POT-Creation-Date: 2010-09-16 23:15+0000\n"
+"PO-Revision-Date: 2010-09-16 23:16:23+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73009); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 1284-49-16 34::+0000\n"
+"X-POT-Import-Date: 1284-49-48 10::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1858,9 +1858,27 @@ msgstr "该小组的成员列表。"
 msgid "Admin"
 msgstr "管理"
 
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
+msgstr "屏蔽"
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "使用户成为小组的管理员"
+
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr "设置管理员"
+
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:537
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr "将这个用户设为管理员"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -5352,17 +5370,23 @@ msgstr "API 资源需要读写的访问权限，但是你只有只读的权限�
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
 #: lib/apiauth.php:175
 msgid "No application for that consumer key."
-msgstr ""
+msgstr "没有应用使用这个 consumer key。"
+
+#. TRANS: OAuth exception given when an incorrect access token was given for a user.
+#: lib/apiauth.php:212
+msgid "Bad access token."
+msgstr "无效的 access token。"
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
 #: lib/apiauth.php:217
 msgid "No user for that token."
-msgstr ""
+msgstr "没有用户使用这个 token。"
 
-#. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:178
-msgid "Tried to revoke unknown token"
-msgstr ""
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr "无法验证你。"
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
@@ -5845,8 +5869,8 @@ msgstr ""
 "fav #<消息id> - 将该id的消息加为'收藏'\n"
 "repeat #<消息id> - 转发该id的消息\n"
 "repeat <昵称> - 转发该用户的最后一条消息\n"
-"reply #<notice_id> - 对该id消息回复\n"
-"reply <昵称> - 对该用户的最后一条小心回复\n"
+"reply #<消息id> - 对该id消息回复\n"
+"reply <昵称> - 对该用户的最后一条消息回复\n"
 "join <小组> - 加入小组\n"
 "login - 获取网页登录的地址\n"
 "drop <小组> - 离开小组\n"
@@ -6003,6 +6027,78 @@ msgstr "小组的地理位置，例如“国家、省份、城市”"
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr "该小组额外的昵称，用逗号或者空格分隔开，最长%d"
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
+msgid "Group"
+msgstr "小组"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr "%s小组"
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr "组员"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr "%s 小组成员"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
+msgid "Blocked"
+msgstr "屏蔽的用户"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s blocked users"
+msgstr "%s 屏蔽的用户"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr "编辑 %s 小组设置"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr "Logo"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s logo"
+msgstr "添加或编辑 %s logo"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s design"
+msgstr "添加或编辑 %s 外观"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -6489,6 +6585,23 @@ msgstr "文件不能被移动到目标目录。"
 msgid "Could not determine file's MIME type."
 msgstr "无法判断文件的 MIME 类型。"
 
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %1$s is the file type that was denied, %2$s is the application part of
+#. TRANS: the MIME type that was denied.
+#: lib/mediafile.php:340
+#, php-format
+msgid ""
+"\"%1$s\" is not a supported file type on this server. Try using another %2$s "
+"format."
+msgstr "此服务器不支持 “%1$s” 的文件格式，试下使用其他的 %2$s 格式。"
+
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %s is the file type that was denied.
+#: lib/mediafile.php:345
+#, php-format
+msgid "\"%s\" is not a supported file type on this server."
+msgstr "这个服务器不支持 %s 的文件格式。"
+
 #: lib/messageform.php:120
 msgid "Send a direct notice"
 msgstr "发送一条私信"
@@ -6601,6 +6714,23 @@ msgstr "呼叫"
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
 msgstr "呼叫这个用户"
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
+msgstr "添加新个人信息出错。"
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar."
+msgstr "添加头像出错。"
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile."
+msgstr "添加远程个人信息时出错。"
+
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr "复制消息。"
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -6744,6 +6874,11 @@ msgstr "搜索帮助"
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
 msgstr "关键词"
+
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
+msgid "Search"
+msgstr "搜索"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -6952,9 +7087,23 @@ msgid "about a minute ago"
 msgstr "约1分钟前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1109
+#, php-format
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] "约1分钟前"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "约1小时前"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1115
+#, php-format
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] "约一小时前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1118
@@ -6962,9 +7111,23 @@ msgid "about a day ago"
 msgstr "约1天前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1121
+#, php-format
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] "约1天前"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1124
 msgid "about a month ago"
 msgstr "约1个月前"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1127
+#, php-format
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] "约1个月前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1130

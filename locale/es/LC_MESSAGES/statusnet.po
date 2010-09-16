@@ -16,17 +16,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 19:53+0000\n"
-"PO-Revision-Date: 2010-09-14 19:53:52+0000\n"
+"POT-Creation-Date: 2010-09-16 23:15+0000\n"
+"PO-Revision-Date: 2010-09-16 23:15:45+0000\n"
 "Language-Team: Spanish <http://translatewiki.net/wiki/Portal:es>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73009); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: #out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-49-16 34::+0000\n"
+"X-POT-Import-Date: 1284-49-48 10::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1902,9 +1902,27 @@ msgstr "Lista de los usuarios en este grupo."
 msgid "Admin"
 msgstr "Admin"
 
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
+msgstr ""
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "Convertir al usuario en administrador del grupo"
+
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr ""
+
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:537
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr ""
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -5533,14 +5551,25 @@ msgstr ""
 msgid "No application for that consumer key."
 msgstr ""
 
+#. TRANS: OAuth exception given when an incorrect access token was given for a user.
+#: lib/apiauth.php:212
+msgid "Bad access token."
+msgstr ""
+
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
 #: lib/apiauth.php:217
 msgid "No user for that token."
 msgstr ""
 
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr ""
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 #: lib/apioauthstore.php:178
-msgid "Tried to revoke unknown token"
+msgid "Tried to revoke unknown token."
 msgstr ""
 
 #. TRANS: Form legend.
@@ -6017,43 +6046,43 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 "comandos:\n"
-"activar - activar notificaciones\n"
-"desactivar - desactivar notificaciones\n"
-"ayuda - mostrar esta ayuda\n"
-"seguir <usuario> - suscribirse al usuario\n"
-"grupos - listar los grupos que sigues\n"
-"suscripciones - listar las personas que sigues\n"
-"suscriptores - listar los grupos que te siguen\n"
-"abandonar <usuario> - cancelar la suscripción al usuario\n"
+"on - activar notificaciones\n"
+"off - desactivar notificaciones\n"
+"help - mostrar esta ayuda\n"
+"follow <usuario> - suscribirse al usuario\n"
+"groups - listar los grupos que sigues\n"
+"subscriptions - listar las personas que sigues\n"
+"subscribers - listar los grupos que te siguen\n"
+"leave <usuario> - cancelar la suscripción al usuario\n"
 "d <usuario> <text> - dirigir mensaje al usuario\n"
-"obtener <usuario> - obtener último aviso del usuario\n"
-"quienes <usuario> - obtener información del perfil del usuario\n"
-"bloquear <usuario> - obligar al usuario a que deje de seguirte\n"
+"get <usuario> - obtener último aviso del usuario\n"
+"whois <usuario> - obtener información del perfil del usuario\n"
+"lose <usuario> - obligar al usuario a que deje de seguirte\n"
 "fav <usuario> - añadir el último aviso del usario a tus favoritos\n"
 "fav #<id_aviso> - añadir el aviso con el ID dado a tus favoritos\n"
-"repetir #<id_aviso> - repetir el aviso con el ID dado\n"
-"repetir <usuario> - repetir el último aviso del usuario\n"
-"responder #<id_aviso> - responder al aviso del ID dado\n"
-"responder <usuario> - responder al último aviso del usuario\n"
-"unirse <grupo> - unirse a un grupo\n"
-"entrar - obtener un vínculo para iniciar sesión en la interfaz Web\n"
-"abandonar <grupo> - abandonar el grupo\n"
-"estadísticas - obtener tus estadísticas\n"
-"detener - igual que 'desactivar'\n"
-"parar - igual que 'desactivar'\n"
-"sus <usuario> - igual que 'seguir'\n"
-"desus <usuario> - igual que 'abandonar'\n"
-"último <usuario> - igual que 'obtener'\n"
-"activado <usuario> - aún sin implementar.\n"
-"desactivado <usuario> - aún sin implementar.\n"
-"toque <usuario> - recordarle a un ausuario que actualice.\n"
-"invitar <phone number> - aún sin implementar.\n"
-"rastrear <word> - aún sin implementar.\n"
-"no rastrear <word> - aún sin implementar.\n"
-"dejar de rastrear - aún sin implementar.\n"
-"dejar de rastrear todos - aún sin implementar.\n"
-"rastrear - aún sin implementar.\n"
-"rastreando - aún sin implementar.\n"
+"repeat #<id_aviso> - repetir el aviso con el ID dado\n"
+"repeat <usuario> - repetir el último aviso del usuario\n"
+"reply #<id_aviso> - responder al aviso del ID dado\n"
+"reply <usuario> - responder al último aviso del usuario\n"
+"join <grupo> - unirse a un grupo\n"
+"login - obtener un vínculo para iniciar sesión en la interfaz Web\n"
+"drop <grupo> - abandonar el grupo\n"
+"stats - obtener tus estadísticas\n"
+"stop - igual que 'desactivar'\n"
+"quit - igual que 'desactivar'\n"
+"sub <usuario> - igual que 'seguir'\n"
+"unsub <usuario> - igual que 'abandonar'\n"
+"last <usuario> - igual que 'obtener'\n"
+"on <usuario> - aún sin implementar.\n"
+"off <usuario> - aún sin implementar.\n"
+"nudge <usuario> - recordarle a un ausuario que actualice.\n"
+"invite <phone number> - aún sin implementar.\n"
+"track <word> - aún sin implementar.\n"
+"untrack <word> - aún sin implementar.\n"
+"track off - aún sin implementar.\n"
+"untrack all - aún sin implementar.\n"
+"tracks - aún sin implementar.\n"
+"tracking - aún sin implementar.\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
@@ -6196,6 +6225,78 @@ msgstr ""
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 "Nombres adicionales para el grupo, separados por comas o espacios. Máximo: %d"
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
+msgid "Group"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
+msgid "Blocked"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s blocked users"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s logo"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s design"
+msgstr ""
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -6693,6 +6794,23 @@ msgstr "El archivo no se pudo mover al directorio de destino."
 msgid "Could not determine file's MIME type."
 msgstr "No se pudo determinar tipo MIME del archivo"
 
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %1$s is the file type that was denied, %2$s is the application part of
+#. TRANS: the MIME type that was denied.
+#: lib/mediafile.php:340
+#, php-format
+msgid ""
+"\"%1$s\" is not a supported file type on this server. Try using another %2$s "
+"format."
+msgstr ""
+
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %s is the file type that was denied.
+#: lib/mediafile.php:345
+#, php-format
+msgid "\"%s\" is not a supported file type on this server."
+msgstr ""
+
 #: lib/messageform.php:120
 msgid "Send a direct notice"
 msgstr "Enviar un aviso directo"
@@ -6807,6 +6925,23 @@ msgstr "Dar un toque a "
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
 msgstr "Dar un toque a este usuario"
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
+msgstr ""
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar."
+msgstr ""
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile."
+msgstr ""
+
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr ""
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -6950,6 +7085,11 @@ msgstr "Buscar sitio"
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
 msgstr "Palabra(s) clave"
+
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
+msgid "Search"
+msgstr ""
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7162,9 +7302,25 @@ msgid "about a minute ago"
 msgstr "hace un minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1109
+#, php-format
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "hace una hora"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1115
+#, php-format
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1118
@@ -7172,9 +7328,25 @@ msgid "about a day ago"
 msgstr "hace un día"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1121
+#, php-format
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1124
 msgid "about a month ago"
 msgstr "hace un mes"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1127
+#, php-format
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1130

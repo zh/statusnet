@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 19:53+0000\n"
-"PO-Revision-Date: 2010-09-14 19:54:01+0000\n"
+"POT-Creation-Date: 2010-09-16 23:15+0000\n"
+"PO-Revision-Date: 2010-09-16 23:15:57+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73009); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-49-16 34::+0000\n"
+"X-POT-Import-Date: 1284-49-48 10::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1892,9 +1892,27 @@ msgstr "Un lista de usatores in iste gruppo."
 msgid "Admin"
 msgstr "Administrator"
 
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
+msgstr "Blocar"
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "Facer le usator administrator del gruppo"
+
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
+msgid "Make Admin"
+msgstr "Facer admin"
+
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:537
+msgctxt "TOOLTIP"
+msgid "Make this user an admin"
+msgstr "Facer iste usator un administrator"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -5507,17 +5525,23 @@ msgstr ""
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
 #: lib/apiauth.php:175
 msgid "No application for that consumer key."
-msgstr ""
+msgstr "Nulle application pro iste clave de consumitor."
+
+#. TRANS: OAuth exception given when an incorrect access token was given for a user.
+#: lib/apiauth.php:212
+msgid "Bad access token."
+msgstr "Mal indicio de accesso."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
 #: lib/apiauth.php:217
 msgid "No user for that token."
-msgstr ""
+msgstr "Nulle usator pro iste indicio."
 
-#. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:178
-msgid "Tried to revoke unknown token"
-msgstr ""
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr "Non poteva authenticar te."
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
@@ -6172,6 +6196,78 @@ msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 "Pseudonymos additional pro le gruppo, separate per commas o spatios, max %d"
 
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
+msgid "Group"
+msgstr "Gruppo"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr "Gruppo %s"
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr "Membros"
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr "Membros del gruppo %s"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
+msgid "Blocked"
+msgstr "Blocate"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s blocked users"
+msgstr "%s usatores blocate"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr "Modificar proprietates del gruppo %s"
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr "Logotypo"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s logo"
+msgstr "Adder o modificar logotypo de %s"
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s design"
+msgstr "Adder o modificar apparentia de %s"
+
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
 msgstr "Gruppos con le plus membros"
@@ -6664,6 +6760,25 @@ msgstr "File non poteva esser displaciate in le directorio de destination."
 msgid "Could not determine file's MIME type."
 msgstr "Non poteva determinar le typo MIME del file."
 
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %1$s is the file type that was denied, %2$s is the application part of
+#. TRANS: the MIME type that was denied.
+#: lib/mediafile.php:340
+#, php-format
+msgid ""
+"\"%1$s\" is not a supported file type on this server. Try using another %2$s "
+"format."
+msgstr ""
+"\"%1$s\" non es un typo de file supportate in iste servitor. Tenta usar un "
+"altere formato de %2$s."
+
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %s is the file type that was denied.
+#: lib/mediafile.php:345
+#, php-format
+msgid "\"%s\" is not a supported file type on this server."
+msgstr "\"%s\" non es un typo de file supportate in iste servitor."
+
 #: lib/messageform.php:120
 msgid "Send a direct notice"
 msgstr "Inviar un nota directe"
@@ -6778,6 +6893,23 @@ msgstr "Pulsar"
 #: lib/nudgeform.php:128
 msgid "Send a nudge to this user"
 msgstr "Inviar un pulsata a iste usator"
+
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
+msgstr "Error durante le insertion del nove profilo."
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar."
+msgstr "Error durante le insertion del avatar."
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile."
+msgstr "Error durante le insertion del profilo remote."
+
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr "Nota duplicate."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -6921,6 +7053,11 @@ msgstr "Cercar in sito"
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
 msgstr "Parola(s)-clave"
+
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
+msgid "Search"
+msgstr "Cercar"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7136,9 +7273,25 @@ msgid "about a minute ago"
 msgstr "circa un minuta retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1109
+#, php-format
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] "un minuta"
+msgstr[1] "%d minutas"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "circa un hora retro"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1115
+#, php-format
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] "un hora"
+msgstr[1] "%d horas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1118
@@ -7146,9 +7299,25 @@ msgid "about a day ago"
 msgstr "circa un die retro"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1121
+#, php-format
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] "un die"
+msgstr[1] "%d dies"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1124
 msgid "about a month ago"
 msgstr "circa un mense retro"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1127
+#, php-format
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] "un mense"
+msgstr[1] "%d menses"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1130

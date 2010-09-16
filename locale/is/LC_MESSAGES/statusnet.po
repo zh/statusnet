@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-14 19:53+0000\n"
-"PO-Revision-Date: 2010-09-14 19:54:02+0000\n"
+"POT-Creation-Date: 2010-09-16 23:15+0000\n"
+"PO-Revision-Date: 2010-09-16 23:15:59+0000\n"
 "Language-Team: Icelandic <http://translatewiki.net/wiki/Portal:is>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73009); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: is\n"
 "X-Message-Group: #out-statusnet\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-49-16 34::+0000\n"
+"X-POT-Import-Date: 1284-49-48 10::+0000\n"
 
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
@@ -1263,8 +1263,20 @@ msgstr "Listi yfir notendur í þessum hóp."
 msgid "Admin"
 msgstr "Stjórnandi"
 
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
+msgstr ""
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
+msgstr ""
+
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
+msgid "Make Admin"
 msgstr ""
 
 #. TRANS: Submit button title.
@@ -3890,14 +3902,20 @@ msgstr ""
 msgid "No user for that token."
 msgstr ""
 
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr ""
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 #: lib/apioauthstore.php:178
-msgid "Tried to revoke unknown token"
+msgid "Tried to revoke unknown token."
 msgstr ""
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
 #: lib/apioauthstore.php:182
-msgid "Failed to delete revoked token"
+msgid "Failed to delete revoked token."
 msgstr ""
 
 #. TRANS: Form legend.
@@ -4341,6 +4359,78 @@ msgstr "Staðsetning hópsins, ef einhver, eins og \"Borg, landshluti, land\""
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
+msgid "Group"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
+msgid "Blocked"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s blocked users"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s logo"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
+#, php-format
+msgctxt "TOOLTIP"
+msgid "Add or edit %s design"
 msgstr ""
 
 #: lib/groupsbymemberssection.php:71
@@ -4811,6 +4901,23 @@ msgstr "Pot"
 msgid "Send a nudge to this user"
 msgstr "Ýta við þessum notanda"
 
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
+msgstr ""
+
+#: lib/oauthstore.php:291
+msgid "Error inserting avatar."
+msgstr ""
+
+#: lib/oauthstore.php:311
+msgid "Error inserting remote profile."
+msgstr ""
+
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr ""
+
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
 msgstr "Gat ekki sett inn nýja áskrift."
@@ -4918,6 +5025,11 @@ msgstr ""
 #. TRANS: for searching can be entered.
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
+msgstr ""
+
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
+msgid "Search"
 msgstr ""
 
 #: lib/searchgroupnav.php:80
@@ -5087,9 +5199,25 @@ msgid "about a minute ago"
 msgstr "fyrir um einni mínútu síðan"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1109
+#, php-format
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1112
 msgid "about an hour ago"
 msgstr "fyrir um einum klukkutíma síðan"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1115
+#, php-format
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1118
@@ -5097,9 +5225,25 @@ msgid "about a day ago"
 msgstr "fyrir um einum degi síðan"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1121
+#, php-format
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] ""
+msgstr[1] ""
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1124
 msgid "about a month ago"
 msgstr "fyrir um einum mánuði síðan"
+
+#. TRANS: Used in notices to indicate when the notice was made compared to now.
+#: lib/util.php:1127
+#, php-format
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] ""
+msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1130
