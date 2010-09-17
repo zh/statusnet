@@ -68,7 +68,7 @@ class UseradminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('User settings for this StatusNet site.');
+        return _('User settings for this StatusNet site');
     }
 
     /**
