@@ -200,7 +200,6 @@ class TwitterOAuthClient extends OAuthClient
     function statusesHomeTimeline($since_id = null, $max_id = null,
                                   $cnt = null, $page = null)
     {
-
         $url    = 'https://twitter.com/statuses/home_timeline.json';
 
         $params = array('include_entities' => 'true');

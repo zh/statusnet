@@ -69,7 +69,6 @@ function save_twitter_user($twitter_id, $screen_name)
 {
     // Check to see whether the Twitter user is already in the system,
     // and update its screen name and uri if so.
-
     $fuser = Foreign_user::getForeignUser($twitter_id, TWITTER_SERVICE);
 
     if (!empty($fuser)) {
@@ -87,9 +86,7 @@ function save_twitter_user($twitter_id, $screen_name)
         }
 
     } else {
-
         // Kill any old, invalid records for this screen name
-
         $fuser = Foreign_user::getByNickname($screen_name, TWITTER_SERVICE);
 
         if (!empty($fuser)) {
@@ -110,13 +107,11 @@ function save_twitter_user($twitter_id, $screen_name)
 }
 
 function is_twitter_bound($notice, $flink) {
-
     // Check to see if notice should go to Twitter
     if (!empty($flink) && ($flink->noticesync & FOREIGN_NOTICE_SEND)) {
 
         // If it's not a Twitter-style reply, or if the user WANTS to send replies,
         // or if it's in reply to a twitter notice
-
         if (!preg_match('/^@[a-zA-Z0-9_]{1,15}\b/u', $notice->content) ||
             ($flink->noticesync & FOREIGN_NOTICE_SEND_REPLY) ||
             is_twitter_notice($notice->reply_to)) {
@@ -242,7 +237,6 @@ function broadcast_oauth($notice, $flink) {
     }
 
     // Notice crossed the great divide
-
     $msg = sprintf('Twitter bridge - posted notice %d to Twitter using ' .
                    'OAuth for User %s (user id %d).',
                    $notice->id,
@@ -378,4 +372,3 @@ function mail_twitter_bridge_removed($user)
     common_switch_locale();
     return mail_to_user($user, $subject, $body);
 }
-

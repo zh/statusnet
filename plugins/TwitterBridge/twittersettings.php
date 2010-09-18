@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  *
  * @see      SettingsAction
  */
-
 class TwittersettingsAction extends ConnectSettingsAction
 {
     /**
@@ -79,7 +78,6 @@ class TwittersettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
 
@@ -139,7 +137,7 @@ class TwittersettingsAction extends ConnectSettingsAction
                 $this->text(_m(' first.'));
                 $this->elementEnd('p');
             } else {
-
+                // TRANS: %1$s is the current website name.
                 $note = _m('Keep your %1$s account but disconnect from Twitter. ' .
                     'You can use your %1$s password to log in.');
 
@@ -219,7 +217,6 @@ class TwittersettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -244,7 +241,6 @@ class TwittersettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function removeTwitterAccount()
     {
         $user = common_current_user();
@@ -266,7 +262,6 @@ class TwittersettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function savePreferences()
     {
         $noticesend = $this->boolean('noticesend');
@@ -295,5 +290,4 @@ class TwittersettingsAction extends ConnectSettingsAction
 
         $this->showForm(_m('Twitter preferences saved.'), true);
     }
-
 }
