@@ -50,7 +50,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class CacheLogPlugin extends Plugin
 {
     function onStartCacheGet(&$key, &$value)
@@ -114,8 +113,7 @@ class CacheLogPlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:CacheLog',
                             'description' =>
-                            _m('Log reads and writes to the cache'));
+                            _m('Log reads and writes to the cache.'));
         return true;
     }
 }
-
