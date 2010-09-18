@@ -34,17 +34,17 @@ class GravatarPlugin extends Plugin
     {
         return true;
     }
-    
+
     function onStartAvatarFormData($action)
     {
         $user = common_current_user();
         $hasGravatar = $this->hasGravatar($user->id);
-        
+
         if($hasGravatar) {
             return false;
         }
     }
-    
+
     function onEndAvatarFormData($action)
     {
         $user = common_current_user();
@@ -91,7 +91,7 @@ class GravatarPlugin extends Plugin
                              _m('To use a Gravatar first enter in an email address.'));
         }
     }
-    
+
     function onStartAvatarSaveForm($action)
     {
         if ($action->arg('add')) {
@@ -131,19 +131,19 @@ class GravatarPlugin extends Plugin
         }
         return false;
      }
- 
+
 
     function gravatar_save()
     {
         $cur = common_current_user();
-        
+
         if(empty($cur->email)) {
             return array('message' => _m('You do not have a email set in your profile.'),
                          'success' => false);
         }
         //Get rid of previous Avatar
         $this->gravatar_remove();
-        
+
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
             $gravatar = new Avatar();
             $gravatar->profile_id = $cur->id;
@@ -181,7 +181,7 @@ class GravatarPlugin extends Plugin
         return array('message' => _m('Gravatar removed.'),
                      'success' => true);
     }
- 
+
     function gravatar_url($email, $size)
     {
         $url = "http://www.gravatar.com/avatar.php?gravatar_id=".
