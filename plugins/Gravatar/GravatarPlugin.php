@@ -156,7 +156,7 @@ class GravatarPlugin extends Plugin
             $gravatar->created = DB_DataObject_Cast::dateTime(); # current time
 
             if (!$gravatar->insert()) {
-                return array('message' => _m('Failed to save Gravatar to the DB.'),
+                return array('message' => _m('Failed to save Gravatar to the database.'),
                              'success' => false);
             }
         }
