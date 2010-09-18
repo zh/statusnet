@@ -247,10 +247,9 @@ class RSSCloudPlugin extends Plugin
                             'rawdescription' =>
                             _m('The RSSCloud plugin enables your StatusNet instance to publish ' .
                                'real-time updates for profile RSS feeds using the ' .
-                               '<a href="http://rsscloud.org/">RSSCloud protocol</a>".'));
+                               '<a href="http://rsscloud.org/">RSSCloud protocol</a>.'));
 
         return true;
     }
 
 }
-
