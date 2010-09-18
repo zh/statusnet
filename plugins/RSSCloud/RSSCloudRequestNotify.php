@@ -138,7 +138,7 @@ class RSSCloudRequestNotifyAction extends Action
                 common_log(LOG_WARNING,
                            "RSSCloud plugin - $nh tried to subscribe to invalid feed: $feed");
 
-                $msg = _m('Feed subscription failed - Not a valid feed.');
+                $msg = _m('Feed subscription failed: Not a valid feed.');
                 $this->showResult(false, $msg);
                 return;
             }
@@ -159,7 +159,7 @@ class RSSCloudRequestNotifyAction extends Action
         // 25 hours seems harsh. WordPress doesn't ever remove
         // subscriptions.
         $msg = _m('Thanks for the subscription. ' .
-          'When the feed(s) update(s) we\'ll notify you.');
+          'When the feed(s) update(s), you will be notified.');
 
         $this->showResult(true, $msg);
     }
