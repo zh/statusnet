@@ -50,7 +50,6 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      *
      * @return string Title of the page
      */
-
     function title()
     {
         return _m('Facebook Connect Settings');
@@ -61,7 +60,6 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      *
      * @return instructions for use
      */
-
     function getInstructions()
     {
         return _m('Manage how your account connects to Facebook');
@@ -74,7 +72,6 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function showContent()
     {
         $user = common_current_user();
@@ -158,7 +155,6 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -202,5 +198,4 @@ class FBConnectSettingsAction extends ConnectSettingsAction
         }
 
     }
-
 }
