@@ -138,7 +138,7 @@ class GravatarPlugin extends Plugin
         $cur = common_current_user();
 
         if(empty($cur->email)) {
-            return array('message' => _m('You do not have a email address set in your profile.'),
+            return array('message' => _m('You do not have an email address set in your profile.'),
                          'success' => false);
         }
         //Get rid of previous Avatar
