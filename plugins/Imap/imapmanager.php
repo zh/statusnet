@@ -92,12 +92,12 @@ class ImapManager extends IoManager
     {
         return $this->check_mailbox() > 0;
     }
-    
+
     function pollInterval()
     {
         return $this->plugin->poll_frequency;
     }
-    
+
     protected function connect()
     {
         $this->conn = imap_open($this->plugin->mailbox, $this->plugin->user, $this->plugin->password);
