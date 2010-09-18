@@ -1,4 +1,4 @@
-# Translation of StatusNet to Czech (Česky)
+# Translation of StatusNet - Core to Czech (Česky)
 # Expored from translatewiki.net
 #
 # Author: Koo6
@@ -8,20 +8,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StatusNet\n"
+"Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-16 23:15+0000\n"
-"PO-Revision-Date: 2010-09-16 23:15:38+0000\n"
+"POT-Creation-Date: 2010-09-18 22:06+0000\n"
+"PO-Revision-Date: 2010-09-18 22:07:28+0000\n"
 "Language-Team: Czech <http://translatewiki.net/wiki/Portal:cs>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: cs\n"
-"X-Message-Group: #out-statusnet\n"
+"X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ( (n >= 2 && n <= 4) ? 1 : "
 "2 );\n"
-"X-POT-Import-Date: 1284-49-48 10::+0000\n"
+"X-POT-Import-Date: 1284-74-75 38::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -5502,6 +5502,11 @@ msgstr ""
 msgid "Tried to revoke unknown token."
 msgstr ""
 
+#. TRANS: Exception thrown when an attempt is made to remove a revoked token.
+#: lib/apioauthstore.php:182
+msgid "Failed to delete revoked token."
+msgstr ""
+
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
 msgid "Edit application"
@@ -5932,7 +5937,7 @@ msgstr[0] "Jste členem této skupiny:"
 msgstr[1] "Jste členem těchto skupin:"
 msgstr[2] ""
 
-#. TRANS: Help text for commands.
+#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
 #: lib/command.php:905
 msgid ""
 "Commands:\n"
@@ -7224,7 +7229,7 @@ msgid "about a minute ago"
 msgstr "asi před minutou"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1109
+#: lib/util.php:1110
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -7233,12 +7238,12 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1112
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "asi před hodinou"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1115
+#: lib/util.php:1117
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -7247,12 +7252,12 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1118
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "asi přede dnem"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -7261,12 +7266,12 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "asi před měsícem"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
+#: lib/util.php:1131
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -7275,7 +7280,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1130
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "asi před rokem"
 

@@ -1,4 +1,4 @@
-# Translation of StatusNet to Macedonian (Македонски)
+# Translation of StatusNet - Core to Macedonian (Македонски)
 # Expored from translatewiki.net
 #
 # Author: Bjankuloski06
@@ -8,19 +8,19 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StatusNet\n"
+"Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-16 23:15+0000\n"
-"PO-Revision-Date: 2010-09-16 23:16:05+0000\n"
+"POT-Creation-Date: 2010-09-18 22:06+0000\n"
+"PO-Revision-Date: 2010-09-18 22:08:07+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73168); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
-"X-Message-Group: #out-statusnet\n"
+"X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 1284-49-48 10::+0000\n"
+"X-POT-Import-Date: 1284-74-75 38::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -4605,7 +4605,7 @@ msgstr "Неважечко ограничување за биографијат�
 
 #: actions/useradminpanel.php:155
 msgid "Invalid welcome text. Max length is 255 characters."
-msgstr "НЕважечки текст за добредојде. Дозволени се највеќе 255 знаци."
+msgstr "Неважечки текст за добредојде. Дозволени се највеќе 255 знаци."
 
 #: actions/useradminpanel.php:165
 #, php-format
@@ -5561,6 +5561,16 @@ msgstr "Нема корисник за тој жетон."
 msgid "Could not authenticate you."
 msgstr "Не можевме да ве потврдиме."
 
+#. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
+#: lib/apioauthstore.php:178
+msgid "Tried to revoke unknown token."
+msgstr "Се обидовте да отповикате непознат жетон."
+
+#. TRANS: Exception thrown when an attempt is made to remove a revoked token.
+#: lib/apioauthstore.php:182
+msgid "Failed to delete revoked token."
+msgstr "Не успеав да го избришам отповиканиот жетон."
+
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
 msgid "Edit application"
@@ -5992,7 +6002,7 @@ msgid_plural "You are a member of these groups:"
 msgstr[0] "Не ни го испративте тој профил."
 msgstr[1] "Не ни го испративте тој профил."
 
-#. TRANS: Help text for commands.
+#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
 #: lib/command.php:905
 msgid ""
 "Commands:\n"
@@ -7286,7 +7296,7 @@ msgid "about a minute ago"
 msgstr "пред една минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1109
+#: lib/util.php:1110
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -7294,12 +7304,12 @@ msgstr[0] "пред околу една минута"
 msgstr[1] "пред околу %d минути"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1112
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "пред еден час"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1115
+#: lib/util.php:1117
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -7307,12 +7317,12 @@ msgstr[0] "пред околу еден час"
 msgstr[1] "пред околу %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1118
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "пред еден ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1121
+#: lib/util.php:1124
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -7320,12 +7330,12 @@ msgstr[0] "пред околу еден ден"
 msgstr[1] "пред околу %d дена"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "пред еден месец"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
+#: lib/util.php:1131
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -7333,7 +7343,7 @@ msgstr[0] "пред околу еден месец"
 msgstr[1] "пред околу %d месеци"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1130
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "пред една година"
 
