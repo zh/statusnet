@@ -49,7 +49,6 @@ if (!defined('STATUSNET')) {
  * analytics setup - for example '8'.
  *
  */
-
 class PiwikAnalyticsPlugin extends Plugin
 {
     /** the base of your Piwik installation */
@@ -63,7 +62,6 @@ class PiwikAnalyticsPlugin extends Plugin
      * @param string $root Piwik root URL
      * @param string $id   Piwik ID of this app
      */
-
     function __construct($root=null, $id=null)
     {
         $this->piwikroot = $root;
@@ -78,7 +76,6 @@ class PiwikAnalyticsPlugin extends Plugin
      *
      * @return boolean ignored
      */
-
     function onEndShowScripts($action)
     {
         $piwikCode1 = <<<ENDOFPIWIK
@@ -105,8 +102,7 @@ ENDOFPIWIK;
                             'author' => 'Tobias Diekershoff, Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:Piwik',
                             'rawdescription' =>
-                            _m('Use <a href="http://piwik.org/">Piwik</a> Open Source Web analytics software.'));
+                            _m('Use <a href="http://piwik.org/">Piwik</a> Open Source web analytics software.'));
         return true;
     }
-
 }
