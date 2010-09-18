@@ -66,4 +66,3 @@ class ShortenAction extends Action
         print $shortened_text;
     }
 }
-
