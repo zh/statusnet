@@ -196,7 +196,7 @@ class RegisterThrottlePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:RegisterThrottle',
                             'description' =>
-                            _m('Throttles excessive registration from a single IP.'));
+                            _m('Throttles excessive registration from a single IP address.'));
         return true;
     }
 
