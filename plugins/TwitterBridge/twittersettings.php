@@ -128,6 +128,7 @@ class TwittersettingsAction extends ConnectSettingsAction
             if (!$user->password) {
 
                 $this->elementStart('p', array('class' => 'form_guide'));
+                // @todo FIXME: Bad i18n (patchwork in three parts).
                 $this->text(_m('Disconnecting your Twitter ' .
                                'could make it impossible to log in! Please '));
                 $this->element('a',
@@ -180,7 +181,7 @@ class TwittersettingsAction extends ConnectSettingsAction
             if (common_config('twitterimport','enabled')) {
                 $this->elementStart('li');
                 $this->checkbox('noticerecv',
-                                _m('Import my Friends Timeline.'),
+                                _m('Import my friends timeline.'),
                                 ($flink) ?
                                 ($flink->noticesync & FOREIGN_NOTICE_RECV) :
                                 false);

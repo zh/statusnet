@@ -219,22 +219,22 @@ class FacebookAction extends Action
 
     function showInstructions()
     {
-
         $this->elementStart('div', array('class' => 'facebook_guide'));
 
         $this->elementStart('dl', array('class' => 'system_notice'));
         $this->element('dt', null, 'Page Notice');
 
         $loginmsg_part1 = _m('To use the %s Facebook Application you need to login ' .
-            'with your username and password. Don\'t have a username yet? ');
+            'with your username and password. Don\'t have a username yet?');
         $loginmsg_part2 = _m(' a new account.');
 
         $this->elementStart('dd');
         $this->elementStart('p');
         $this->text(sprintf($loginmsg_part1, common_config('site', 'name')));
+        // @todo FIXME: Bad i18n. Patchwork message in two parts.
         $this->element('a',
             array('href' => common_local_url('register')), _m('Register'));
-        $this->text($loginmsg_part2);
+        $this->text( " " . $loginmsg_part2);
         $this->elementEnd('p');
         $this->elementEnd('dd');
 

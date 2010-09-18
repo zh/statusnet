@@ -121,12 +121,15 @@ class FBConnectSettingsAction extends ConnectSettingsAction
             if (!$user->password) {
 
                 $this->elementStart('p', array('class' => 'form_guide'));
+                // @todo FIXME: Bad i18n. Patchwork message in three parts.
+                // TRANS: Followed by a link containing text "set a password".
                 $this->text(_m('Disconnecting your Faceboook ' .
                                'would make it impossible to log in! Please '));
                 $this->element('a',
                     array('href' => common_local_url('passwordsettings')),
+                        // TRANS: Preceded by "Please " and followed by " first."
                         _m('set a password'));
-
+                // TRANS: Preceded by "Please set a password".
                 $this->text(_m(' first.'));
                 $this->elementEnd('p');
             } else {
