@@ -42,10 +42,8 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class UsermapAction extends MapAction
 {
-
     function prepare($args)
     {
         if(parent::prepare($args)) {
@@ -61,14 +59,17 @@ class UsermapAction extends MapAction
     function title()
     {
         if (!empty($this->profile->fullname)) {
-            $base = $this->profile->fullname . ' (' . $this->user->nickname . ') ';
+            // @todo FIXME: Bad i18n. Should be '%1$s (%2$s)'
+            $base = $this->profile->fullname . ' (' . $this->user->nickname . ')';
         } else {
             $base = $this->user->nickname;
         }
 
         if ($this->page == 1) {
+            // @todo CHECKME: inconsisten with paged variant below. " map" missing.
             return $base;
         } else {
+            // @todo CHECKME: Is the part ", page %2$d" relevant here?
             return sprintf(_m("%s map, page %d"),
                            $base,
                            $this->page);
