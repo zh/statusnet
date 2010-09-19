@@ -22,7 +22,6 @@
  * @package FeedSub
  * @author Brion Vibber <brion@status.net>
  */
-
 class PushInQueueHandler extends QueueHandler
 {
     function transport()

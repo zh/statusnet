@@ -103,5 +103,4 @@ class XrdAction extends Action
         header('Content-type: application/xrd+xml');
         print $xrd->toXML();
     }
-
 }
