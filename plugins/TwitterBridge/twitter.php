@@ -318,11 +318,9 @@ function remove_twitter_link($flink)
     // Notify the user that her Twitter bridge is down
 
     if (isset($user->email)) {
-
         $result = mail_twitter_bridge_removed($user);
 
         if (!$result) {
-
             $msg = 'Unable to send email to notify ' .
               "$user->nickname (user id: $user->id) " .
               'that their Twitter bridge link was ' .
@@ -331,7 +329,6 @@ function remove_twitter_link($flink)
             common_log(LOG_WARNING, $msg);
         }
     }
-
 }
 
 /**
@@ -360,7 +357,7 @@ function mail_twitter_bridge_removed($user)
     '%3$s\'s access?' . "\n\n" .
     'You can re-enable your Twitter bridge by visiting your ' .
     "Twitter settings page:\n\n\t%2\$s\n\n" .
-        "Regards,\n%3\$s\n"),
+        "Regards,\n%3\$s"),
         $profile->getBestName(),
         common_local_url('twittersettings'),
         common_config('site', 'name'));
