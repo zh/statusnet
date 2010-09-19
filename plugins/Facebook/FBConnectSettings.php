@@ -42,7 +42,6 @@ require_once INSTALLDIR.'/lib/connectsettingsaction.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class FBConnectSettingsAction extends ConnectSettingsAction
 {
     /**
@@ -52,6 +51,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      */
     function title()
     {
+        // TRANS: Page title.
         return _m('Facebook Connect Settings');
     }
 
@@ -62,6 +62,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
      */
     function getInstructions()
     {
+    	// TRANS: Instructions.
         return _m('Manage how your account connects to Facebook');
     }
 
@@ -113,6 +114,7 @@ class FBConnectSettingsAction extends ConnectSettingsAction
 
             $this->elementStart('fieldset');
 
+            // TRANS: Legend.
             $this->element('legend', null, _m('Disconnect my account from Facebook'));
 
             if (!$user->password) {
@@ -139,7 +141,8 @@ class FBConnectSettingsAction extends ConnectSettingsAction
                 $this->element('p', 'instructions',
                     sprintf($note, $site, $site));
 
-                $this->submit('disconnect', _m('Disconnect'));
+                // TRANS: Submit button.
+                $this->submit('disconnect', _m('BUTTON','Disconnect'));
             }
 
             $this->elementEnd('fieldset');
@@ -196,6 +199,5 @@ class FBConnectSettingsAction extends ConnectSettingsAction
             $this->showForm(_m('Not sure what you\'re trying to do.'));
             return;
         }
-
     }
 }

@@ -25,7 +25,6 @@ require_once INSTALLDIR . '/plugins/Facebook/facebookaction.php';
 
 class FacebookremoveAction extends FacebookAction
 {
-
     function handle($args)
     {
         parent::handle($args);
@@ -65,5 +64,4 @@ class FacebookremoveAction extends FacebookAction
                 'unsuccessfully tried to remove a foreign link to Facebook!');
         }
     }
-
 }
