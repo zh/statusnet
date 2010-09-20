@@ -34,8 +34,10 @@ define('DIRECTIONDETECTORPLUGIN_VERSION', '0.2.0');
 class DirectionDetectorPlugin extends Plugin {
 	/**
 	 * SN plugin API, here we will make changes on rendered column
+     *
+     * @param object $notice notice is going to be saved
 	 */
-	public function onStartNoticeSave(&$notice){
+	public function onStartNoticeSave($notice){
 		if(!preg_match('/<span class="rtl">/', $notice->rendered) && self::isRTL($notice->content))
 			$notice->rendered = '<span class="rtl">'.$notice->rendered.'</span>';
 		return true;
@@ -43,19 +45,24 @@ class DirectionDetectorPlugin extends Plugin {
 
 	/**
 	 * SN plugin API, here we will add css needed for modifiyed rendered
+     *
+     * @param Action $xml
 	 */
-	public function onEndShowStatusNetStyles(&$xml){
+	public function onEndShowStatusNetStyles($xml){
 		$xml->element('style', array('type' => 'text/css'), 'span.rtl {display:block;direction:rtl;text-align:right;float:right;} .notice .author {float:left}');
 	}
 	
 	/**
 	 * is passed string a rtl content or not
+     *
+     * @param string $content
+     * @return boolean
 	 */
 	public static function isRTL($content){
-		self::getClearText($content);
+		$content = self::getClearText($content);
 		$words = explode(' ', $content);
 		$rtl = 0;
-		foreach($words as &$str)
+		foreach($words as $str)
 			if(self::startsWithRTLCharacter($str))
 				$rtl++;
 			else
@@ -70,8 +77,11 @@ class DirectionDetectorPlugin extends Plugin {
 	
 	/**
 	 * checks that passed string starts with a RTL language or not
+     *
+     * @param string $str
+     * @return boolean
 	 */
-	public static function startsWithRTLCharacter(&$str){
+	public static function startsWithRTLCharacter($str){
 		if( is_array($cc = self::utf8ToUnicode(mb_substr($str, 0, 1, 'utf-8'))) )
 			$cc = $cc[0];
 		else
@@ -99,15 +109,21 @@ class DirectionDetectorPlugin extends Plugin {
 
 	/**
 	 * clears text from replys, tags, groups, reteets & whitespaces
+     *
+     * @param string $str
+     * @return string
 	 */
-	private static function getClearText(&$str){
+	private static function getClearText($str){
 		$str = preg_replace('/@[^ ]+|![^ ]+|#[^ ]+/u', '', $str); // reply, tag, group
 		$str = preg_replace('/^RT[: ]{1}| RT | RT: |^RD[: ]{1}| RD | RD: |[♺♻:]/u', '', $str); // redent, retweet
 		$str = preg_replace("/[ \r\t\n]+/", ' ', trim($str)); // remove spaces
+        return $str;
 	}
 	
 	/**
 	 * adds javascript to do same thing on input textarea
+     *
+     * @param Action $action
 	 */
 	function onEndShowScripts($action){
 		if (common_logged_in()) {
@@ -120,8 +136,11 @@ class DirectionDetectorPlugin extends Plugin {
 	 * Unicode characters. Astral planes are supported ie. the ints in the
 	 * output can be > 0xFFFF. O$ccurrances of the BOM are ignored. Surrogates
 	 * are not allowed.
+     *
+     * @param string $str
+     * @return mixed array of ints, or false on invalid input
 	 */
-	private static function utf8ToUnicode(&$str){
+	private static function utf8ToUnicode($str){
 		$mState = 0;	   // cached expected number of octets after the current octet
 				   // until the beginning of the next UTF8 character sequence
 		$mUcs4	= 0;     // cached Unicode character
@@ -236,8 +255,8 @@ class DirectionDetectorPlugin extends Plugin {
 		$versions[] = array(
 			'name' => 'Direction detector',
 			'version' => DIRECTIONDETECTORPLUGIN_VERSION,
-			'author' => 'behrooz shabani',
-			'rawdescription' => _m('shows notices with right-to-left content in correct direction.')
+			'author' => 'Behrooz Shabani',
+			'rawdescription' => _m('Shows notices with right-to-left content in correct direction.')
 		);
 		return true;
 	}
