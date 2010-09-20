@@ -119,12 +119,12 @@ class BlankAdPlugin extends UAPPlugin
 
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'BlankAdPlugin',
+        $versions[] = array('name' => 'BlankAd',
                             'version' => STATUSNET_VERSION,
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:BlankAdPlugin',
                             'rawdescription' =>
-                            _m('Plugin for testing ad layout'));
+                            _m('Plugin for testing ad layout.'));
         return true;
     }
 }
