@@ -132,7 +132,6 @@ class GravatarPlugin extends Plugin
         return false;
      }
 
-
     function gravatar_save()
     {
         $cur = common_current_user();
