@@ -51,7 +51,6 @@ class MinifyPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartInitializeRouter($m)
     {
         $m->connect('main/min',
