@@ -348,7 +348,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onAdminPanelCheck($name, &$isOK)
     {
         if ($name == 'blacklist') {
