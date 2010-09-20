@@ -494,6 +494,29 @@ function common_is_real_login()
     return common_logged_in() && $_SESSION['real_login'];
 }
 
+/**
+ * Get a hash portion for HTTP caching Etags and such including
+ * info on the current user's session. If login/logout state changes,
+ * or we've changed accounts, or we've renamed the current user,
+ * we'll get a new hash value.
+ *
+ * This should not be considered secure information.
+ *
+ * @param User $user (optional; uses common_current_user() if left out)
+ * @return string
+ */
+function common_user_cache_hash($user=false)
+{
+    if ($user === false) {
+        $user = common_current_user();
+    }
+    if ($user) {
+        return crc32($user->id . ':' . $user->nickname);
+    } else {
+        return '0';
+    }
+}
+
 // get canonical version of nickname for comparison
 function common_canonical_nickname($nickname)
 {

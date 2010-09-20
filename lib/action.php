@@ -1018,17 +1018,22 @@ class Action extends HTMLOutputter // lawsuit
             }
         }
 
+        $checked = false;
         if ($etag) {
             $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
               $_SERVER['HTTP_IF_NONE_MATCH'] : null;
-            if ($if_none_match && $this->_hasEtag($etag, $if_none_match)) {
-                header('HTTP/1.1 304 Not Modified');
-                // Better way to do this?
-                exit(0);
+            if ($if_none_match) {
+                // If this check fails, ignore the if-modified-since below.
+                $checked = true;
+                if ($this->_hasEtag($etag, $if_none_match)) {
+                    header('HTTP/1.1 304 Not Modified');
+                    // Better way to do this?
+                    exit(0);
+                }
             }
         }
 
-        if ($lm && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+        if (!$checked && $lm && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
             $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
             $ims = strtotime($if_modified_since);
             if ($lm <= $ims) {

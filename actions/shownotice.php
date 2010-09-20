@@ -151,6 +151,7 @@ class ShownoticeAction extends OwnerDesignAction
           strtotime($this->avatar->modified) : 0;
 
         return 'W/"' . implode(':', array($this->arg('action'),
+                                          common_user_cache_hash(),
                                           common_language(),
                                           $this->notice->id,
                                           strtotime($this->notice->created),
