@@ -552,6 +552,9 @@ class User extends Memcached_DataObject
         if (Subscription::exists($other, $self)) {
             Subscription::cancel($other, $self);
         }
+        if (Subscription::exists($self, $other)) {
+            Subscription::cancel($self, $other);
+        }
 
         $block->query('COMMIT');
 
