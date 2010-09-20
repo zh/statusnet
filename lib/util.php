@@ -1480,7 +1480,12 @@ function common_log_db_error(&$object, $verb, $filename=null)
 {
     $objstr = common_log_objstring($object);
     $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-    common_log(LOG_ERR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
+    if (is_object($last_error)) {
+        $msg = $last_error->message;
+    } else {
+        $msg = 'Unknown error (' . var_export($last_error, true) . ')';
+    }
+    common_log(LOG_ERR, $msg . '(' . $verb . ' on ' . $objstr . ')', $filename);
 }
 
 function common_log_objstring(&$object)
