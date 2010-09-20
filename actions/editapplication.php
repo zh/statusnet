@@ -188,7 +188,7 @@ class EditApplicationAction extends OwnerDesignAction
         } elseif (Oauth_application::descriptionTooLong($description)) {
             $this->showForm(sprintf(
                 _('Description is too long (max %d chars).'),
-                                    Oauth_application::maxDescription()));
+                                    Oauth_application::maxDesc()));
             return;
         } elseif (mb_strlen($source_url) > 255) {
             $this->showForm(_('Source URL is too long.'));
