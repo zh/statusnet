@@ -1,4 +1,5 @@
 <?php
+
 /**
  * DirectionDetector plugin, detects notices with RTL content & sets RTL
  * style for them.
@@ -18,23 +19,21 @@
  *
  * @category     Plugin
  * @package      StatusNet
- * @author       Behrooz shabani (everplays) - <behrooz@rock.com>
+ * @author		 Behrooz shabani (everplays) - <behrooz@rock.com>
  * @copyright    2009-2010 Behrooz shabani
  * @license      http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  *
  */
 
 if (!defined('STATUSNET')) {
-		exit(1);
+	exit(1);
 }
 
-define('DIRECTIONDETECTORPLUGIN_VERSION', '0.1.2');
+define('DIRECTIONDETECTORPLUGIN_VERSION', '0.2.0');
 
 class DirectionDetectorPlugin extends Plugin {
 	/**
 	 * SN plugin API, here we will make changes on rendered column
-	 *
-	 * @param object $notice notice is going to be saved
 	 */
 	public function onStartNoticeSave(&$notice){
 		if(!preg_match('/<span class="rtl">/', $notice->rendered) && self::isRTL($notice->content))
@@ -44,32 +43,48 @@ class DirectionDetectorPlugin extends Plugin {
 
 	/**
 	 * SN plugin API, here we will add css needed for modifiyed rendered
-	 *
-	 * @param
 	 */
-	public function onEndShowStatusNetStyles($xml){
-		$xml->element('style', array('type' => 'text/css'), 'span.rtl {display:block;direction:rtl;text-align:right;float:right;width:490px;} .notice .author {float:left}');
+	public function onEndShowStatusNetStyles(&$xml){
+		$xml->element('style', array('type' => 'text/css'), 'span.rtl {display:block;direction:rtl;text-align:right;float:right;} .notice .author {float:left}');
 	}
+	
 	/**
-	 * checks that passed string is a RTL language or not
-	 *
-	 * @param string $str String to be checked
+	 * is passed string a rtl content or not
 	 */
-	public static function isRTL($str){
-		self::getClearText($str);
+	public static function isRTL($content){
+		self::getClearText($content);
+		$words = explode(' ', $content);
+		$rtl = 0;
+		foreach($words as &$str)
+			if(self::startsWithRTLCharacter($str))
+				$rtl++;
+			else
+				$rtl--;
+		if($rtl>0)// if number of rtl words is more than ltr words so it's a rtl content
+			return true;
+		elseif($rtl==0)
+			// check first word again
+			return self::startsWithRTLCharacter($words[0]);
+		return false;		
+	}
+	
+	/**
+	 * checks that passed string starts with a RTL language or not
+	 */
+	public static function startsWithRTLCharacter(&$str){
 		if( is_array($cc = self::utf8ToUnicode(mb_substr($str, 0, 1, 'utf-8'))) )
 			$cc = $cc[0];
 		else
 			return false;
-		if($cc>=1536 && $cc<=1791) // Arabic, Persian, Urdu, Kurdish, ...
+		if($cc>=1536 && $cc<=1791) // arabic, persian, urdu, kurdish, ...
 			return true;
-		if($cc>=65136 && $cc<=65279) // Arabic peresent 2
+		if($cc>=65136 && $cc<=65279) // arabic peresent 2
 			return true;
-		if($cc>=64336 && $cc<=65023) // Arabic peresent 1
+		if($cc>=64336 && $cc<=65023) // arabic peresent 1
 			return true;
-		if($cc>=1424 && $cc<=1535) // Hebrew
+		if($cc>=1424 && $cc<=1535) // hebrew
 			return true;
-		if($cc>=64256 && $cc<=64335) // Hebrew peresent
+		if($cc>=64256 && $cc<=64335) // hebrew peresent
 			return true;
 		if($cc>=1792 && $cc<=1871) // Syriac
 			return true;
@@ -83,25 +98,30 @@ class DirectionDetectorPlugin extends Plugin {
 	}
 
 	/**
-	 * clears text from replies, tags, groups, repeats & whitespaces
-	 *
-	 * @param string &$str string to be cleared
+	 * clears text from replys, tags, groups, reteets & whitespaces
 	 */
 	private static function getClearText(&$str){
 		$str = preg_replace('/@[^ ]+|![^ ]+|#[^ ]+/u', '', $str); // reply, tag, group
 		$str = preg_replace('/^RT[: ]{1}| RT | RT: |^RD[: ]{1}| RD | RD: |[♺♻:]/u', '', $str); // redent, retweet
 		$str = preg_replace("/[ \r\t\n]+/", ' ', trim($str)); // remove spaces
 	}
+	
+	/**
+	 * adds javascript to do same thing on input textarea
+	 */
+	function onEndShowScripts($action){
+		if (common_logged_in()) {
+			$action->script('plugins/DirectionDetector/jquery.DirectionDetector.js');
+		}
+	}
 
 	/**
-	 * Takes a UTF-8 string and returns an array of ints representing the
-	 * Unicode characters. Astral planes are supported i.e. the ints in the
-	 * output can be > 0xFFFF. Occurrances of the BOM are ignored. Surrogates
-	 * are not allowed. ### modified ### returns first character code
-	 *
-	 * Returns false if the input string isn't a valid UTF-8 octet sequence.
+	 * Takes an UTF-8 string and returns an array of ints representing the 
+	 * Unicode characters. Astral planes are supported ie. the ints in the
+	 * output can be > 0xFFFF. O$ccurrances of the BOM are ignored. Surrogates
+	 * are not allowed.
 	 */
-	private static function utf8ToUnicode($str){
+	private static function utf8ToUnicode(&$str){
 		$mState = 0;	   // cached expected number of octets after the current octet
 				   // until the beginning of the next UTF8 character sequence
 		$mUcs4	= 0;     // cached Unicode character
@@ -199,7 +219,7 @@ class DirectionDetectorPlugin extends Plugin {
 					}
 				} else {
 					/* ((0xC0 & (*in) != 0x80) && (mState != 0))
-					 *
+					 * 
 					 * Incomplete multi-octet sequence.
 					 */
 					return false;
@@ -216,9 +236,8 @@ class DirectionDetectorPlugin extends Plugin {
 		$versions[] = array(
 			'name' => 'Direction detector',
 			'version' => DIRECTIONDETECTORPLUGIN_VERSION,
-			'author' => 'Behrooz Shabani',
-                        // TRANS: Direction detector plugin description.
-			'rawdescription' => _m('Shows notices with right-to-left content in correct direction.')
+			'author' => 'behrooz shabani',
+			'rawdescription' => _m('shows notices with right-to-left content in correct direction.')
 		);
 		return true;
 	}
