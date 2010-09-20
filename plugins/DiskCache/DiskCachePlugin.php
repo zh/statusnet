@@ -164,5 +164,15 @@ class DiskCachePlugin extends Plugin
         Event::handle('EndCacheDelete', array($key));
         return false;
     }
-}
 
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'DiskCache',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:DiskCache',
+                            'rawdescription' =>
+                            _m('Plugin to implement cache interface with disk files.'));
+        return true;
+    }
+}
