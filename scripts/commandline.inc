@@ -178,6 +178,10 @@ function get_option_value($opt, $alt=null)
     return null;
 }
 
+class NoUserArgumentException extends Exception
+{
+}
+
 function getUser()
 {
     $user = null;
@@ -195,8 +199,7 @@ function getUser()
             throw new Exception("Can't find user with nickname '$nickname'");
         }
     } else {
-        show_help();
-        exit(1);
+        throw new NoUserArgumentException("No user argument specified.");
     }
 
     return $user;
