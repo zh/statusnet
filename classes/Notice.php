@@ -1255,7 +1255,7 @@ class Notice extends Memcached_DataObject
         foreach ($reply_ids as $id) {
             $profile = Profile::staticGet('id', $id);
             if (!empty($profile)) {
-                $ctx->attention[] = $profile->uri;
+                $ctx->attention[] = $profile->getUri();
             }
         }
 
