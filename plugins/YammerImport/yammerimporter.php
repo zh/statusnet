@@ -25,29 +25,160 @@
  */
 class YammerImporter
 {
-    function messageToNotice($message)
-    {
-        $messageId = $message['id'];
-        $messageUrl = $message['url'];
 
-        $profile = $this->findImportedProfile($message['sender_id']);
-        $content = $message['body']['plain'];
+    /**
+     * Load or create an imported profile from Yammer data.
+     * 
+     * @param object $item loaded JSON data for Yammer importer
+     * @return Profile
+     */
+    function importUserProfile($item)
+    {
+        $data = $this->prepUser($item);
+
+        $profileId = $this->findImportedProfile($data['orig_id']);
+        if ($profileId) {
+            return Profile::staticGet('id', $profileId);
+        } else {
+            $user = User::register($data['options']);
+            // @fixme set avatar!
+            return $user->getProfile();
+        }
+    }
+
+    /**
+     * Load or create an imported group from Yammer data.
+     *
+     * @param object $item loaded JSON data for Yammer importer
+     * @return User_group
+     */
+    function importGroup($item)
+    {
+        $data = $this->prepGroup($item);
+
+        $groupId = $this->findImportedGroup($data['orig_id']);
+        if ($groupId) {
+            return User_group::staticGet('id', $groupId);
+        } else {
+            $group = User_group::register($data['options']);
+            // @fixme set avatar!
+            return $group;
+        }
+    }
+
+    /**
+     * Load or create an imported notice from Yammer data.
+     *
+     * @param object $item loaded JSON data for Yammer importer
+     * @return Notice
+     */
+    function importNotice($item)
+    {
+        $data = $this->prepNotice($item);
+
+        $noticeId = $this->findImportedNotice($data['orig_id']);
+        if ($noticeId) {
+            return Notice::staticGet('id', $noticeId);
+        } else {
+            $notice = Notice::saveNew($data['profile'],
+                                      $data['content'],
+                                      $data['source'],
+                                      $data['options']);
+            // @fixme attachments?
+            return $notice;
+        }
+    }
+
+    function prepUser($item)
+    {
+        if ($item['type'] != 'user') {
+            throw new Exception('Wrong item type sent to Yammer user import processing.');
+        }
+
+        $origId = $item['id'];
+        $origUrl = $item['url'];
+
+        // @fixme check username rules?
+
+        $options['nickname'] = $item['name'];
+        $options['fullname'] = trim($item['full_name']);
+
+        // We don't appear to have full bio avail here!
+        $options['bio'] = $item['job_title'];
+
+        // What about other data like emails?
+
+        // Avatar... this will be the "_small" variant.
+        // Remove that (pre-extension) suffix to get the orig-size image.
+        $avatar = $item['mugshot_url'];
+
+        // Warning: we don't have following state for other users?
+
+        return array('orig_id' => $origId,
+                     'orig_url' => $origUrl,
+                     'avatar' => $avatar,
+                     'options' => $options);
+
+    }
+
+    function prepGroup($item)
+    {
+        if ($item['type'] != 'group') {
+            throw new Exception('Wrong item type sent to Yammer group import processing.');
+        }
+
+        $origId = $item['id'];
+        $origUrl = $item['url'];
+
+        $privacy = $item['privacy']; // Warning! only public groups in SN so far
+
+        $options['nickname'] = $item['name'];
+        $options['fullname'] = $item['full_name'];
+        $options['created'] = $this->timestamp($item['created_at']);
+
+        $avatar = $item['mugshot_url']; // as with user profiles...
+
+
+        $options['mainpage'] = common_local_url('showgroup',
+                                   array('nickname' => $options['nickname']));
+
+        // @fixme what about admin user for the group?
+        // bio? homepage etc? aliases?
+
+        $options['local'] = true;
+        return array('orig_id' => $origId,
+                     'orig_url' => $origUrl,
+                     'options' => $options);
+    }
+
+    function prepNotice($item)
+    {
+        if (isset($item['type']) && $item['type'] != 'message') {
+            throw new Exception('Wrong item type sent to Yammer message import processing.');
+        }
+
+        $origId = $item['id'];
+        $origUrl = $item['url'];
+
+        $profile = $this->findImportedProfile($item['sender_id']);
+        $content = $item['body']['plain'];
         $source = 'yammer';
         $options = array();
 
-        if ($message['replied_to_id']) {
-            $replyto = $this->findImportedNotice($message['replied_to_id']);
+        if ($item['replied_to_id']) {
+            $replyto = $this->findImportedNotice($item['replied_to_id']);
             if ($replyto) {
                 $options['replyto'] = $replyto;
             }
         }
-        $options['created'] = common_sql_date(strtotime($message['created_at']));
+        $options['created'] = $this->timestamp($item['created_at']);
 
         // Parse/save rendered text?
         // Save liked info?
         // @todo attachments?
 
-        return array('orig_id' => $messageId,
+        return array('orig_id' => $origId,
+                     'orig_url' => $origUrl,
                      'profile' => $profile,
                      'content' => $content,
                      'source' => $source,
@@ -60,9 +191,25 @@ class YammerImporter
         return $userId;
     }
 
+    function findImportedGroup($groupId)
+    {
+        // @fixme
+        return $groupId;
+    }
+
     function findImportedNotice($messageId)
     {
         // @fixme
         return $messageId;
+    }
+
+    /**
+     * Normalize timestamp format.
+     * @param string $ts
+     * @return string
+     */
+    function timestamp($ts)
+    {
+        return common_sql_date(strtotime($ts));
     }
 }
