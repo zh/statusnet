@@ -61,7 +61,7 @@ class FeedList extends Widget
     {
         $this->out->elementStart('div', array('id' => 'export_data',
                                               'class' => 'section'));
-        $this->out->element('h2', null, _('Export data'));
+        $this->out->element('h2', null, _('Feeds'));
         $this->out->elementStart('ul', array('class' => 'xoxo'));
 
         foreach ($feeds as $feed) {
