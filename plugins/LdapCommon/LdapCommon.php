@@ -144,6 +144,12 @@ class LdapCommon
         if(!$entry){
             return false;
         }else{
+            if(empty($password)) {
+                //NET_LDAP2 will do an anonymous bind if bindpw is not set / empty string
+                //which causes all login attempts that involve a blank password to appear
+                //to succeed. Which is obviously not good.
+                return false;
+            }
             $config = $this->get_ldap_config();
             $config['binddn']=$entry->dn();
             $config['bindpw']=$password;
