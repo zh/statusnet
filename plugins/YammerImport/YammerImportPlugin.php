@@ -65,10 +65,12 @@ class YammerImportPlugin extends Plugin
     {
         $base = dirname(__FILE__);
         $lower = strtolower($cls);
-        switch ($cls) {
+        switch ($lower) {
+        case 'sn_yammerclient':
+        case 'yammerimporter':
         case 'yammerimqueuehandler':
         case 'importyammeraction':
-            require_once $base . $lower . '.php';
+            require_once "$base/$lower.php";
             return false;
         default:
             return true;
