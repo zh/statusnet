@@ -692,6 +692,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $text = $status->text;
 
         if (empty($status->entities)) {
+            common_log(LOG_WARNING, "No entities data for {$status->id}; trying to fake up links ourselves.");
+            $text = common_replace_urls_callback($text, 'common_linkify');
+            $text = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.TwitterStatusFetcher::tagLink('\\2')", $text);
+            $text = preg_replace('/(^|\s+)@([a-z0-9A-Z_]{1,64})/e', "'\\1@'.TwitterStatusFetcher::atLink('\\2')", $text);
             return $text;
         }
 
@@ -750,12 +754,26 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function makeHashtagLink($object)
     {
-        return "#<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
+        return "#" . self::tagLink($object->text);
     }
 
     function makeMentionLink($object)
     {
-        return "@<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
+        return "@".self::atLink($object->screen_name, $object->name);
+    }
+
+    static function tagLink($tag)
+    {
+        return "<a href='https://twitter.com/search?q=%23{$tag}' class='hashtag'>{$tag}</a>";
+    }
+
+    static function atLink($screenName, $fullName=null)
+    {
+        if (!empty($fullName)) {
+            return "<a href='http://twitter.com/{$screenName}' title='{$fullName}'>{$screenName}</a>";
+        } else {
+            return "<a href='http://twitter.com/{$screenName}'>{$screenName}</a>";
+        }
     }
 
     function saveStatusMentions($notice, $status)

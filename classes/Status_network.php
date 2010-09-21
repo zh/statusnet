@@ -167,9 +167,8 @@ class Status_network extends Safe_DataObject
             ' WHERE nickname = ' . $this->_quote($this->nickname);
         $orig->decache();
         $result = $this->query($qry);
-        if ($result) {
-            $this->encache();
-        }
+        $this->decache();
+        
         return $result;
     }
     
