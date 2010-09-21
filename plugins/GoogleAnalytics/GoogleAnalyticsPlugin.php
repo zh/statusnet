@@ -47,7 +47,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      Event
  */
-
 class GoogleAnalyticsPlugin extends Plugin
 {
     var $code = null;
@@ -79,7 +78,7 @@ class GoogleAnalyticsPlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:GoogleAnalytics',
                             'rawdescription' =>
                             _m('Use <a href="http://www.google.com/analytics/">Google Analytics</a>'.
-                               ' to track Web access.'));
+                               ' to track web access.'));
         return true;
     }
 }

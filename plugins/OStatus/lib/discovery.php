@@ -106,8 +106,8 @@ class Discovery
             }
         }
 
-        // @todo Needs i18n.
-        throw new Exception('Unable to find services for '. $id . '.');
+        // TRANS: Exception.
+        throw new Exception(sprintf(_m('Unable to find services for %s.'),$id));
     }
 
     public static function getService($links, $service) {

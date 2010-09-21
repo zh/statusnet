@@ -46,7 +46,6 @@ if (!defined('STATUSNET')) {
  *
  * @seeAlso  Location
  */
-
 class GeonamesPlugin extends Plugin
 {
     const LOCATION_NS = 1;
@@ -71,7 +70,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue (results in $location)
      */
-
     function onLocationFromName($name, $language, &$location)
     {
         $loc = $this->getCache(array('name' => $name,
@@ -129,7 +127,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue (results in $location)
      */
-
     function onLocationFromId($id, $ns, $language, &$location)
     {
         if ($ns != self::LOCATION_NS) {
@@ -198,7 +195,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue (results in $location)
      */
-
     function onLocationFromLatLon($lat, $lon, $language, &$location)
     {
         // Make sure they're canonical
@@ -276,7 +272,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue
      */
-
     function onLocationNameLanguage($location, $language, &$name)
     {
         if ($location->location_ns != self::LOCATION_NS) {
@@ -344,7 +339,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue
      */
-
     function onLocationUrl($location, &$url)
     {
         if ($location->location_ns != self::LOCATION_NS) {
@@ -368,7 +362,6 @@ class GeonamesPlugin extends Plugin
      *
      * @return boolean whether to continue
      */
-
     function onLocationRdfUrl($location, &$url)
     {
         if ($location->location_ns != self::LOCATION_NS) {

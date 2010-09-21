@@ -116,4 +116,3 @@ class APCPlugin extends Plugin
         return true;
     }
 }
-

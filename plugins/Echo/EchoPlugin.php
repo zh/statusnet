@@ -65,7 +65,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      Event
  */
-
 class EchoPlugin extends Plugin
 {
     // NOTE: The Echo documentation says that this script will change on

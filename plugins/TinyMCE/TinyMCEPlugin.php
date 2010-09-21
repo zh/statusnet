@@ -48,7 +48,6 @@ if (!defined('STATUSNET')) {
  */
 class TinyMCEPlugin extends Plugin
 {
-
     var $html;
 
     function onEndShowScripts($action)
@@ -74,7 +73,7 @@ class TinyMCEPlugin extends Plugin
             'author' => 'Evan Prodromou',
             'homepage' => 'http://status.net/wiki/Plugin:TinyMCE',
             'rawdescription' =>
-            _m('Use TinyMCE library to allow rich text editing in the browser'));
+            _m('Use TinyMCE library to allow rich text editing in the browser.'));
         return true;
     }
 
@@ -108,7 +107,7 @@ class TinyMCEPlugin extends Plugin
     /**
      * Hook for new-notice form processing to take our HTML goodies;
      * won't affect API posting etc.
-     * 
+     *
      * @param NewNoticeAction $action
      * @param User $user
      * @param string $content
@@ -159,9 +158,9 @@ class TinyMCEPlugin extends Plugin
 
     /**
      * Format the attachment placeholder img with the final version.
-     * 
+     *
      * @param DOMElement $img
-     * @param MediaFile $media 
+     * @param MediaFile $media
      */
     private function formatAttachment($img, $media)
     {
@@ -321,5 +320,4 @@ END_OF_SCRIPT;
 
         return $scr;
     }
-
 }

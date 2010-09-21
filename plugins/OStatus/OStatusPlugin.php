@@ -223,6 +223,7 @@ class OStatusPlugin extends Plugin
                                     array('nickname' => $profile->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
+                                // TRANS: Link description for link to subscribe to a remote user.
                                 _m('Subscribe'));
 
             $output->elementEnd('li');
@@ -241,6 +242,7 @@ class OStatusPlugin extends Plugin
                                     array('group' => $group->nickname));
             $output->element('a', array('href' => $url,
                                         'class' => 'entity_remote_subscribe'),
+                                // TRANS: Link description for link to join a remote group.
                                 _m('Join'));
         }
 
@@ -453,6 +455,7 @@ class OStatusPlugin extends Plugin
                 }
 
                 $url = $notice->url;
+                // TRANSLATE: %s is a domain.
                 $title = sprintf(_m("Sent from %s via OStatus"), $domain);
                 return false;
             }
@@ -524,6 +527,7 @@ class OStatusPlugin extends Plugin
         }
 
         if (!$oprofile->subscribe()) {
+            // TRANS: Exception.
             throw new Exception(_m('Could not set up remote subscription.'));
         }
     }
@@ -563,10 +567,10 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
 
         $act->time    = time();
-        $act->title   = _("Follow");
+        $act->title   = _m("Follow");
         // TRANS: Success message for subscribe to user attempt through OStatus.
         // TRANS: %1$s is the subscriber name, %2$s is the subscribed user's name.
-        $act->content = sprintf(_("%1$s is now following %2$s."),
+        $act->content = sprintf(_m('%1$s is now following %2$s.'),
                                $subscriber->getBestName(),
                                $other->getBestName());
 
@@ -613,10 +617,10 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
 
         $act->time    = time();
-        $act->title   = _("Unfollow");
+        $act->title   = _m('Unfollow');
         // TRANS: Success message for unsubscribe from user attempt through OStatus.
         // TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
-        $act->content = sprintf(_("%1$s stopped following %2$s."),
+        $act->content = sprintf(_m('%1$s stopped following %2$s.'),
                                $profile->getBestName(),
                                $other->getBestName());
 
@@ -671,6 +675,7 @@ class OStatusPlugin extends Plugin
                 return true;
             } else {
                 $oprofile->garbageCollect();
+                // TRANS: Exception.
                 throw new Exception(_m("Failed joining remote group."));
             }
         }
@@ -729,7 +734,6 @@ class OStatusPlugin extends Plugin
      * @param Notice $notice being favored
      * @return hook return value
      */
-
     function onEndFavorNotice(Profile $profile, Notice $notice)
     {
         $user = User::staticGet('id', $profile->id);
@@ -753,10 +757,10 @@ class OStatusPlugin extends Plugin
                                   common_date_iso8601(time()));
 
         $act->time    = time();
-        $act->title   = _("Favor");
+        $act->title   = _m('Favor');
         // TRANS: Success message for adding a favorite notice through OStatus.
         // TRANS: %1$s is the favoring user's name, %2$s is URI to the favored notice.
-        $act->content = sprintf(_("%1$s marked notice %2$s as a favorite."),
+        $act->content = sprintf(_m('%1$s marked notice %2$s as a favorite.'),
                                $profile->getBestName(),
                                $notice->uri);
 
@@ -799,10 +803,10 @@ class OStatusPlugin extends Plugin
                                   $notice->id,
                                   common_date_iso8601(time()));
         $act->time    = time();
-        $act->title   = _("Disfavor");
+        $act->title   = _m('Disfavor');
         // TRANS: Success message for remove a favorite notice through OStatus.
         // TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-        $act->content = sprintf(_("%1$s marked notice %2$s as no longer a favorite."),
+        $act->content = sprintf(_m('%1$s marked notice %2$s as no longer a favorite.'),
                                $profile->getBestName(),
                                $notice->uri);
 
@@ -876,8 +880,9 @@ class OStatusPlugin extends Plugin
             $action->elementStart('p', array('id' => 'entity_remote_subscribe',
                                              'class' => 'entity_subscribe'));
             $action->element('a', array('href' => common_local_url($target),
-                                        'class' => 'entity_remote_subscribe')
-                                , _m('Remote')); // @todo: i18n: Add translator hint for this text.
+                                        'class' => 'entity_remote_subscribe'),
+                                // TRANS: Link text for link to remote subscribe.
+                                _m('Remote'));
             $action->elementEnd('p');
             $action->elementEnd('div');
         }
@@ -916,6 +921,7 @@ class OStatusPlugin extends Plugin
                                   $profile->id,
                                   common_date_iso8601(time()));
         $act->time    = time();
+        // TRANS: Title for activity.
         $act->title   = _m("Profile update");
         // TRANS: Ping text for remote profile update through OStatus.
         // TRANS: %s is user that updated their profile.
@@ -948,7 +954,8 @@ class OStatusPlugin extends Plugin
                                         array('nickname' => $profileUser->nickname));
                 $output->element('a', array('href' => $url,
                                             'class' => 'entity_remote_subscribe'),
-                                 _m('Subscribe')); // @todo: i18n: Add context.
+                                  // TRANS: Link text for a user to subscribe to an OStatus user.
+                                 _m('Subscribe'));
                 $output->elementEnd('li');
             }
         }
@@ -962,9 +969,9 @@ class OStatusPlugin extends Plugin
                             'version' => STATUSNET_VERSION,
                             'author' => 'Evan Prodromou, James Walker, Brion Vibber, Zach Copley',
                             'homepage' => 'http://status.net/wiki/Plugin:OStatus',
-                            'rawdescription' =>
-                            _m('Follow people across social networks that implement '.
-                               '<a href="http://ostatus.org/">OStatus</a>.')); // @todo i18n: Add translator hint.
+                            // TRANS: Plugin description.
+                            'rawdescription' => _m('Follow people across social networks that implement '.
+                               '<a href="http://ostatus.org/">OStatus</a>.'));
 
         return true;
     }

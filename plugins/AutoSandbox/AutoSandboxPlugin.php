@@ -75,6 +75,7 @@ class AutoSandboxPlugin extends Plugin
              $contactuser = User::staticGet('nickname', $this->contact);
              if (!empty($contactuser)) {
                  $contactlink = "@<a href=\"$contactuser->uri\">$contactuser->nickname</a>";
+                 // TRANS: $contactlink is a clickable e-mailaddress.
                  $instr = _m("Note you will initially be \"sandboxed\" so your posts will not appear in the public timeline. ".
                    'Send a message to $contactlink to speed up the unsandboxing process.');
              }

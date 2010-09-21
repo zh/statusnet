@@ -51,7 +51,6 @@ class MinifyPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartInitializeRouter($m)
     {
         $m->connect('main/min',
@@ -177,8 +176,7 @@ class MinifyPlugin extends Plugin
                             'author' => 'Craig Andrews',
                             'homepage' => 'http://status.net/wiki/Plugin:Minify',
                             'rawdescription' =>
-                            _m('The Minify plugin minifies your CSS and Javascript, removing whitespace and comments.'));
+                            _m('The Minify plugin minifies StatusNet\'s CSS and JavaScript, removing whitespace and comments.'));
         return true;
     }
 }
-

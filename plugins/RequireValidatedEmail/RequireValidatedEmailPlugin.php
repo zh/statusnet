@@ -170,4 +170,3 @@ class RequireValidatedEmailPlugin extends Plugin
         return true;
     }
 }
-

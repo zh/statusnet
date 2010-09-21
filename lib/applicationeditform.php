@@ -256,8 +256,9 @@ class ApplicationEditForm extends Form
 
         // Default to Browser
 
-        if ($this->application->type == Oauth_application::$browser
-            || empty($this->application->type)) {
+        if (empty($this->application)
+            || empty($this->application->type)
+            || $this->application->type == Oauth_application::$browser) {
             $attrs['checked'] = 'checked';
         }
 
@@ -274,7 +275,7 @@ class ApplicationEditForm extends Form
                        'class' => 'radio',
                        'value' => Oauth_application::$desktop);
 
-        if ($this->application->type == Oauth_application::$desktop) {
+        if (!empty($this->application) && $this->application->type == Oauth_application::$desktop) {
             $attrs['checked'] = 'checked';
         }
 
@@ -298,8 +299,9 @@ class ApplicationEditForm extends Form
 
         // default to read-only access
 
-        if ($this->application->access_type & Oauth_application::$readAccess
-            || empty($this->application->access_type)) {
+        if (empty($this->application)
+            || empty($this->application->access_type)
+            || $this->application->access_type & Oauth_application::$readAccess) {
             $attrs['checked'] = 'checked';
         }
 
@@ -316,7 +318,8 @@ class ApplicationEditForm extends Form
                        'class' => 'radio',
                        'value' => 'rw');
 
-        if ($this->application->access_type & Oauth_application::$readAccess
+        if (!empty($this->application)
+            && $this->application->access_type & Oauth_application::$readAccess
             && $this->application->access_type & Oauth_application::$writeAccess
             ) {
             $attrs['checked'] = 'checked';

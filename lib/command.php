@@ -901,7 +901,7 @@ class HelpCommand extends Command
     function handle($channel)
     {
         $channel->output($this->user,
-                         // TRANS: Help text for commands.
+                         // TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
                          _("Commands:\n".
                            "on - turn on notifications\n".
                            "off - turn off notifications\n".

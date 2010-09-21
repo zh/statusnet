@@ -231,7 +231,7 @@ class BlacklistPlugin extends Plugin
         $url = htmlspecialchars_decode($url);
 
         if (!$this->_checkUrl($url)) {
-            $msg = sprintf(_m("You may not use UTL \"%s\" in notices."),
+            $msg = sprintf(_m("You may not use URL \"%s\" in notices."),
                            $url);
             throw new ClientException($msg);
         }
@@ -348,7 +348,6 @@ class BlacklistPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onAdminPanelCheck($name, &$isOK)
     {
         if ($name == 'blacklist') {

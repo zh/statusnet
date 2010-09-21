@@ -198,4 +198,15 @@ class AdsensePlugin extends UAPPlugin
         }
         return true;
     }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'BlankAdPlugin',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:Adsense',
+                            'rawdescription' =>
+                            _m('Plugin to add Google Adsense to StatusNet sites.'));
+        return true;
+    }
 }

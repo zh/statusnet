@@ -79,6 +79,7 @@ class AutocompleteAction extends Action
     function etag()
     {
         return '"' . implode(':', array($this->arg('action'),
+            common_user_cache_hash(),
             crc32($this->arg('q')), //the actual string can have funny characters in we don't want showing up in the etag
             $this->arg('limit'),
             $this->lastModified())) . '"';

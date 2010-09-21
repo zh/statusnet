@@ -53,7 +53,6 @@ define('BLOGSPAMNETPLUGIN_VERSION', '0.1');
  *
  * @see      Event
  */
-
 class BlogspamNetPlugin extends Plugin
 {
     var $baseUrl = 'http://test.blogspam.net:8888/';
@@ -141,5 +140,16 @@ class BlogspamNetPlugin extends Plugin
     function userAgent()
     {
         return 'BlogspamNetPlugin/'.BLOGSPAMNETPLUGIN_VERSION . ' StatusNet/' . STATUSNET_VERSION;
+    }
+
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'BlogspamNet',
+                            'version' => BLOGSPAMNETPLUGIN_VERSION,
+                            'author' => 'Evan Prodromou, Brion Vibber',
+                            'homepage' => 'http://status.net/wiki/Plugin:BlogspamNet',
+                            'rawdescription' =>
+                            _m('Plugin to check submitted notices with blogspam.net.'));
+        return true;
     }
 }
