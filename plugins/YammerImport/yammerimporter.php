@@ -26,22 +26,27 @@
 class YammerImporter
 {
 
+    protected $users=array();
+    protected $groups=array();
+    protected $notices=array();
+
     /**
      * Load or create an imported profile from Yammer data.
      * 
      * @param object $item loaded JSON data for Yammer importer
      * @return Profile
      */
-    function importUserProfile($item)
+    function importUser($item)
     {
         $data = $this->prepUser($item);
 
-        $profileId = $this->findImportedProfile($data['orig_id']);
+        $profileId = $this->findImportedUser($data['orig_id']);
         if ($profileId) {
             return Profile::staticGet('id', $profileId);
         } else {
             $user = User::register($data['options']);
             // @fixme set avatar!
+            $this->recordImportedUser($data['orig_id'], $user->id);
             return $user->getProfile();
         }
     }
@@ -62,6 +67,7 @@ class YammerImporter
         } else {
             $group = User_group::register($data['options']);
             // @fixme set avatar!
+            $this->recordImportedGroup($data['orig_id'], $group->id);
             return $group;
         }
     }
@@ -85,10 +91,17 @@ class YammerImporter
                                       $data['source'],
                                       $data['options']);
             // @fixme attachments?
+            $this->recordImportedNotice($data['orig_id'], $notice->id);
             return $notice;
         }
     }
 
+    /**
+     * Pull relevant info out of a Yammer data record for a user import.
+     *
+     * @param array $item
+     * @return array
+     */
     function prepUser($item)
     {
         if ($item['type'] != 'user') {
@@ -121,6 +134,12 @@ class YammerImporter
 
     }
 
+    /**
+     * Pull relevant info out of a Yammer data record for a group import.
+     *
+     * @param array $item
+     * @return array
+     */
     function prepGroup($item)
     {
         if ($item['type'] != 'group') {
@@ -151,6 +170,12 @@ class YammerImporter
                      'options' => $options);
     }
 
+    /**
+     * Pull relevant info out of a Yammer data record for a notice import.
+     *
+     * @param array $item
+     * @return array
+     */
     function prepNotice($item)
     {
         if (isset($item['type']) && $item['type'] != 'message') {
@@ -160,7 +185,7 @@ class YammerImporter
         $origId = $item['id'];
         $origUrl = $item['url'];
 
-        $profile = $this->findImportedProfile($item['sender_id']);
+        $profile = $this->findImportedUser($item['sender_id']);
         $content = $item['body']['plain'];
         $source = 'yammer';
         $options = array();
@@ -185,22 +210,46 @@ class YammerImporter
                      'options' => $options);
     }
 
-    function findImportedProfile($userId)
+    private function findImportedUser($origId)
     {
-        // @fixme
-        return $userId;
+        if (isset($this->users[$origId])) {
+            return $this->users[$origId];
+        } else {
+            return false;
+        }
     }
 
-    function findImportedGroup($groupId)
+    private function findImportedGroup($origId)
     {
-        // @fixme
-        return $groupId;
+        if (isset($this->groups[$origId])) {
+            return $this->groups[$origId];
+        } else {
+            return false;
+        }
     }
 
-    function findImportedNotice($messageId)
+    private function findImportedNotice($origId)
     {
-        // @fixme
-        return $messageId;
+        if (isset($this->notices[$origId])) {
+            return $this->notices[$origId];
+        } else {
+            return false;
+        }
+    }
+
+    private function recordImportedUser($origId, $userId)
+    {
+        $this->users[$origId] = $userId;
+    }
+
+    private function recordImportedGroup($origId, $groupId)
+    {
+        $this->groups[$origId] = $groupId;
+    }
+
+    private function recordImportedNotice($origId, $noticeId)
+    {
+        $this->notices[$origId] = $noticeId;
     }
 
     /**
@@ -208,7 +257,7 @@ class YammerImporter
      * @param string $ts
      * @return string
      */
-    function timestamp($ts)
+    private function timestamp($ts)
     {
         return common_sql_date(strtotime($ts));
     }
