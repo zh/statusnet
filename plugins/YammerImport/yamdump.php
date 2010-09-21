@@ -14,6 +14,8 @@ $yam = new SN_YammerClient($consumerKey, $consumerSecret, $token, $tokenSecret);
 $imp = new YammerImporter();
 
 $data = $yam->messages();
+var_dump($data);
+
 /*
   ["messages"]=>
   ["meta"]=> // followed_user_ids, current_user_id, etc
