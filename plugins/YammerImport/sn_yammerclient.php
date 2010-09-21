@@ -27,7 +27,7 @@ class SN_YammerClient
 {
     protected $apiBase = "https://www.yammer.com";
     protected $consumerKey, $consumerSecret;
-    protected $token, $tokenSecret;
+    protected $token, $tokenSecret, $verifier;
 
     public function __construct($consumerKey, $consumerSecret, $token=null, $tokenSecret=null)
     {
@@ -158,7 +158,7 @@ class SN_YammerClient
         return $this->apiBase . '/oauth/authorize?oauth_token=' . urlencode($token);
     }
 
-    public function messages($params)
+    public function messages($params=array())
     {
         return $this->api('messages', $params);
     }
