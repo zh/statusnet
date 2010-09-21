@@ -45,9 +45,14 @@ class YammerImporter
             return Profile::staticGet('id', $profileId);
         } else {
             $user = User::register($data['options']);
-            // @fixme set avatar!
-            $this->recordImportedUser($data['orig_id'], $user->id);
-            return $user->getProfile();
+            $profile = $user->getProfile();
+            try {
+                $this->saveAvatar($data['avatar'], $profile);
+            } catch (Exception $e) {
+                common_log(LOG_ERROR, "Error importing Yammer avatar: " . $e->getMessage());
+            }
+            $this->recordImportedUser($data['orig_id'], $profile->id);
+            return $profile;
         }
     }
 
@@ -66,7 +71,11 @@ class YammerImporter
             return User_group::staticGet('id', $groupId);
         } else {
             $group = User_group::register($data['options']);
-            // @fixme set avatar!
+            try {
+                $this->saveAvatar($data['avatar'], $group);
+            } catch (Exception $e) {
+                common_log(LOG_ERROR, "Error importing Yammer avatar: " . $e->getMessage());
+            }
             $this->recordImportedGroup($data['orig_id'], $group->id);
             return $group;
         }
@@ -260,5 +269,49 @@ class YammerImporter
     private function timestamp($ts)
     {
         return common_sql_date(strtotime($ts));
+    }
+
+    /**
+     * Download and update given avatar image
+     *
+     * @param string $url
+     * @param mixed $dest either a Profile or User_group object
+     * @throws Exception in various failure cases
+     */
+    private function saveAvatar($url, $dest)
+    {
+        // Yammer API data mostly gives us the small variant.
+        // Try hitting the source image if we can!
+        // @fixme no guarantee of this URL scheme I think.
+        $url = preg_replace('/_small(\..*?)$/', '$1', $url);
+
+        if (!common_valid_http_url($url)) {
+            throw new ServerException(sprintf(_m("Invalid avatar URL %s."), $url));
+        }
+
+        // @fixme this should be better encapsulated
+        // ripped from oauthstore.php (for old OMB client)
+        $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
+        if (!copy($url, $temp_filename)) {
+            throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
+        }
+
+        $id = $dest->id;
+        // @fixme should we be using different ids?
+        $imagefile = new ImageFile($id, $temp_filename);
+        $filename = Avatar::filename($id,
+                                     image_type_to_extension($imagefile->type),
+                                     null,
+                                     common_timestamp());
+        rename($temp_filename, Avatar::path($filename));
+        // @fixme hardcoded chmod is lame, but seems to be necessary to
+        // keep from accidentally saving images from command-line (queues)
+        // that can't be read from web server, which causes hard-to-notice
+        // problems later on:
+        //
+        // http://status.net/open-source/issues/2663
+        chmod(Avatar::path($filename), 0644);
+
+        $dest->setOriginal($filename);
     }
 }
