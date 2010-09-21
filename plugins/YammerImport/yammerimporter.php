@@ -200,9 +200,9 @@ class YammerImporter
         $options = array();
 
         if ($item['replied_to_id']) {
-            $replyto = $this->findImportedNotice($item['replied_to_id']);
-            if ($replyto) {
-                $options['replyto'] = $replyto;
+            $replyTo = $this->findImportedNotice($item['replied_to_id']);
+            if ($replyTo) {
+                $options['reply_to'] = $replyTo;
             }
         }
         $options['created'] = $this->timestamp($item['created_at']);
