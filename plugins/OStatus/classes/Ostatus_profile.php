@@ -1088,7 +1088,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @return mixed URL string or false
      */
 
-    protected static function getActivityObjectAvatar($object, $hints=array())
+    public static function getActivityObjectAvatar($object, $hints=array())
     {
         if ($object->avatarLinks) {
             $best = false;
@@ -1390,7 +1390,7 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
-    protected static function updateProfile($profile, $object, $hints=array())
+    public static function updateProfile($profile, $object, $hints=array())
     {
         $orig = clone($profile);
 
@@ -1518,7 +1518,7 @@ class Ostatus_profile extends Memcached_DataObject
         return $bio;
     }
 
-    protected static function getActivityObjectNickname($object, $hints=array())
+    public static function getActivityObjectNickname($object, $hints=array())
     {
         if ($object->poco) {
             if (!empty($object->poco->preferredUsername)) {
