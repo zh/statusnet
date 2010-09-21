@@ -99,6 +99,12 @@ class YammerImporter
                                       $data['content'],
                                       $data['source'],
                                       $data['options']);
+            foreach ($data['faves'] as $nickname) {
+                $user = User::staticGet('nickname', $nickname);
+                if ($user) {
+                    Fave::addNew($user->getProfile(), $notice);
+                }
+            }
             // @fixme attachments?
             $this->recordImportedNotice($data['orig_id'], $notice->id);
             return $notice;
@@ -207,8 +213,13 @@ class YammerImporter
         }
         $options['created'] = $this->timestamp($item['created_at']);
 
+        $faves = array();
+        foreach ($item['liked_by']['names'] as $liker) {
+            // "permalink" is the username. wtf?
+            $faves[] = $liker['permalink'];
+        }
+
         // Parse/save rendered text?
-        // Save liked info?
         // @todo attachments?
 
         return array('orig_id' => $origId,
@@ -216,7 +227,8 @@ class YammerImporter
                      'profile' => $profile,
                      'content' => $content,
                      'source' => $source,
-                     'options' => $options);
+                     'options' => $options,
+                     'faves' => $faves);
     }
 
     private function findImportedUser($origId)
