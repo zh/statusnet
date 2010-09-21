@@ -71,7 +71,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('Design settings for this StatusNet site.');
+        return _('Design settings for this StatusNet site');
     }
 
     /**

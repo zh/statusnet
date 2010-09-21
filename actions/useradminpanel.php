@@ -12,6 +12,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
+ *
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
@@ -24,7 +25,7 @@
  * @author    Evan Prodromou <evan@status.net>
  * @author    Zach Copley <zach@status.net>
  * @author    Sarven Capadisli <csarven@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -67,7 +68,7 @@ class UseradminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('User settings for this StatusNet site.');
+        return _('User settings for this StatusNet site');
     }
 
     /**
@@ -291,6 +292,6 @@ class UserAdminPanelForm extends AdminForm
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'), 'submit', null, _('Save site settings'));
+        $this->out->submit('submit', _('Save'), 'submit', null, _('Save user settings'));
     }
 }

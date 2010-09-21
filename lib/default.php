@@ -300,7 +300,7 @@ $default =
                                  'OpenID' => null),
               ),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),
