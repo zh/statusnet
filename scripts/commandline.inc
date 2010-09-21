@@ -204,3 +204,43 @@ function getUser()
 
     return $user;
 }
+
+/** "Printf not quiet" */
+
+function printfnq()
+{
+    if (have_option('q', 'quiet')) {
+        return null;
+    }
+
+    $cargs  = func_num_args();
+
+    if ($cargs == 0) {
+        return 0;
+    }
+
+    $args   = func_get_args();
+    $format = array_shift($args);
+
+    return vprintf($format, $args);
+}
+
+/** "Print when verbose" */
+
+function printfv()
+{
+    if (!have_option('v', 'verbose')) {
+        return null;
+    }
+
+    $cargs  = func_num_args();
+
+    if ($cargs == 0) {
+        return 0;
+    }
+
+    $args   = func_get_args();
+    $format = array_shift($args);
+
+    return vprintf($format, $args);
+}
