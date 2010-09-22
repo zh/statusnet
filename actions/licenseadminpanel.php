@@ -161,12 +161,31 @@ class LicenseadminpanelAction extends AdminPanelAction
 
         $options = array('allowed_schemes' => array('http', 'https'));
 
-        if (!Validate::uri($values['license']['url'], $options)) {
-            $this->clientError(_("Invalid license URL."));
+        // URLs should be set for cc license
+
+        if ($values['license']['type'] == 'cc') {
+            if (!Validate::uri($values['license']['url'], $options)) {
+                $this->clientError(_("Invalid license URL."));
+            }
+            if (!Validate::uri($values['license']['image'], $options)) {
+                $this->clientError(_("Invalid license image URL."));
+            }
         }
 
-        if (!Validate::uri($values['license']['image'], $options)) {
-            $this->clientError(_("Invalid license image URL."));
+        // can be either blank or a valid URL for private & allrightsreserved
+
+        if (!empty($values['license']['url'])) {
+            if (!Validate::uri($values['license']['url'], $options)) {
+                $this->clientError(_("License URL must be blank or a valid URL."));
+            }
+        }
+
+        // can be either blank or a valid URL for private & allrightsreserved
+
+        if (!empty($values['license']['image'])) {
+            if (!Validate::uri($values['license']['image'], $options)) {
+                $this->clientError(_("License image must be blank or valid URL."));
+            }
         }
     }
 }

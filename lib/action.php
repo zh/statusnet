@@ -715,13 +715,13 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
-        if (Event::handle('StartShowExportData', array($this))) {
-            $this->showExportData();
-            Event::handle('EndShowExportData', array($this));
-        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
+        }
+        if (Event::handle('StartShowExportData', array($this))) {
+            $this->showExportData();
+            Event::handle('EndShowExportData', array($this));
         }
         $this->elementEnd('div');
     }
