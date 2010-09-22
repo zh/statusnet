@@ -38,30 +38,57 @@ class SN_YammerClient
     }
 
     /**
-     * Make an HTTP hit with OAuth headers and return the response body on success.
+     * Make an HTTP GET request with OAuth headers and return an HTTPResponse
+     * with the returned body and codes.
      *
-     * @param string $path URL chunk for the API method
-     * @param array $params
-     * @return array
+     * @param string $url
+     * @return HTTPResponse
      *
-     * @throws Exception for HTTP error
+     * @throws Exception on low-level network error
      */
-    protected function fetch($path, $params=array())
+    protected function httpGet($url)
     {
-        $url = $this->apiBase . '/' . $path;
-        if ($params) {
-            $url .= '?' . http_build_query($params, null, '&');
-        }
         $headers = array('Authorization: ' . $this->authHeader());
 
         $client = HTTPClient::start();
-        $response = $client->get($url, $headers);
+        return $client->get($url, $headers);
+    }
 
+    /**
+     * Make an HTTP GET request with OAuth headers and return the response body
+     * on success.
+     *
+     * @param string $url
+     * @return string
+     *
+     * @throws Exception on low-level network or HTTP error
+     */
+    public function fetchUrl($url)
+    {
+        $response = $this->httpGet($url);
         if ($response->isOk()) {
             return $response->getBody();
         } else {
             throw new Exception("Yammer API returned HTTP code " . $response->getStatus() . ': ' . $response->getBody());
         }
+    }
+
+    /**
+     * Make an HTTP hit with OAuth headers and return the response body on success.
+     *
+     * @param string $path URL chunk for the API method
+     * @param array $params
+     * @return string
+     *
+     * @throws Exception on low-level network or HTTP error
+     */
+    protected function fetchApi($path, $params=array())
+    {
+        $url = $this->apiBase . '/' . $path;
+        if ($params) {
+            $url .= '?' . http_build_query($params, null, '&');
+        }
+        return $this->fetchUrl($url);
     }
 
     /**
@@ -75,7 +102,7 @@ class SN_YammerClient
      */
     protected function api($method, $params=array())
     {
-        $body = $this->fetch("api/v1/$method.json", $params);
+        $body = $this->fetchApi("api/v1/$method.json", $params);
         $data = json_decode($body, true);
         if (!$data) {
             throw new Exception("Invalid JSON response from Yammer API");

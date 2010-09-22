@@ -25,10 +25,15 @@
  */
 class YammerImporter
 {
-
+    protected $client;
     protected $users=array();
     protected $groups=array();
     protected $notices=array();
+
+    function __construct(SN_YammerClient $client)
+    {
+        $this->client = $client;
+    }
 
     /**
      * Load or create an imported profile from Yammer data.
@@ -95,17 +100,39 @@ class YammerImporter
         if ($noticeId) {
             return Notice::staticGet('id', $noticeId);
         } else {
-            $notice = Notice::saveNew($data['profile'],
-                                      $data['content'],
+            $content = $data['content'];
+            $user = User::staticGet($data['profile']);
+
+            // Fetch file attachments and add the URLs...
+            $uploads = array();
+            foreach ($data['attachments'] as $url) {
+                try {
+                    $upload = $this->saveAttachment($url, $user);
+                    $content .= ' ' . $upload->shortUrl();
+                    $uploads[] = $upload;
+                } catch (Exception $e) {
+                    common_log(LOG_ERROR, "Error importing Yammer attachment: " . $e->getMessage());
+                }
+            }
+
+            // Here's the meat! Actually save the dang ol' notice.
+            $notice = Notice::saveNew($user->id,
+                                      $content,
                                       $data['source'],
                                       $data['options']);
+
+            // Save "likes" as favorites...
             foreach ($data['faves'] as $nickname) {
                 $user = User::staticGet('nickname', $nickname);
                 if ($user) {
                     Fave::addNew($user->getProfile(), $notice);
                 }
             }
-            // @fixme attachments?
+
+            // And finally attach the upload records...
+            foreach ($uploads as $upload) {
+                $upload->attachToNotice($notice);
+            }
             $this->recordImportedNotice($data['orig_id'], $notice->id);
             return $notice;
         }
@@ -219,8 +246,14 @@ class YammerImporter
             $faves[] = $liker['permalink'];
         }
 
-        // Parse/save rendered text?
-        // @todo attachments?
+        $attachments = array();
+        foreach ($item['attachments'] as $attach) {
+            if ($attach['type'] == 'image') {
+                $attachments[] = $attach['image']['url'];
+            } else {
+                common_log(LOG_WARNING, "Unrecognized Yammer attachment type: " . $attach['type']);
+            }
+        }
 
         return array('orig_id' => $origId,
                      'orig_url' => $origUrl,
@@ -228,7 +261,8 @@ class YammerImporter
                      'content' => $content,
                      'source' => $source,
                      'options' => $options,
-                     'faves' => $faves);
+                     'faves' => $faves,
+                     'attachments' => $attachments);
     }
 
     private function findImportedUser($origId)
@@ -325,5 +359,35 @@ class YammerImporter
         chmod(Avatar::path($filename), 0644);
 
         $dest->setOriginal($filename);
+    }
+
+    /**
+     * Fetch an attachment from Yammer and save it into our system.
+     * Unlike avatars, the attachment URLs are guarded by authentication,
+     * so we need to run the HTTP hit through our OAuth API client.
+     *
+     * @param string $url
+     * @param User $user
+     * @return MediaFile
+     *
+     * @throws Exception on low-level network or HTTP error
+     */
+    private function saveAttachment($url, User $user)
+    {
+        // Fetch the attachment...
+        // WARNING: file must fit in memory here :(
+        $body = $this->client->fetchUrl($url);
+
+        // Save to a temporary file and shove it into our file-attachment space...
+        $temp = tmpfile();
+        fwrite($temp, $body);
+        try {
+            $upload = MediaFile::fromFileHandle($temp, $user);
+            fclose($temp);
+            return $upload;
+        } catch (Exception $e) {
+            fclose($temp);
+            throw $e;
+        }
     }
 }
