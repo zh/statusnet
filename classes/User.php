@@ -282,7 +282,13 @@ class User extends Memcached_DataObject
             }
 
             $user->id = $id;
-            $user->uri = common_user_uri($user);
+
+            if (!empty($uri)) {
+                $user->uri = $uri;
+            } else {
+                $user->uri = common_user_uri($user);
+            }
+
             if (!empty($password)) { // may not have a password for OpenID users
                 $user->password = common_munge_password($password, $id);
             }
