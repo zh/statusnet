@@ -185,8 +185,36 @@ class SN_YammerClient
         return $this->apiBase . '/oauth/authorize?oauth_token=' . urlencode($token);
     }
 
+    /**
+     * High-level API hit: fetch all messages in the network (up to 20 at a time).
+     * Return data is the full JSON array returned, including meta and references
+     * sections.
+     *
+     * The matching messages themselves will be in the 'messages' item within.
+     *
+     * @param array $options optional set of additional params for the request.
+     * @return array
+     *
+     * @throws Exception on low-level or HTTP error
+     */
     public function messages($params=array())
     {
         return $this->api('messages', $params);
+    }
+
+    /**
+     * High-level API hit: fetch all users in the network (up to 50 at a time).
+     * Return data is the full JSON array returned, listing user items.
+     *
+     * The matching messages themselves will be in the 'users' item within.
+     *
+     * @param array $options optional set of additional params for the request.
+     * @return array of JSON-sourced user data arrays
+     *
+     * @throws Exception on low-level or HTTP error
+     */
+    public function users($params=array())
+    {
+        return $this->api('users', $params);
     }
 }
