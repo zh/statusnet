@@ -68,9 +68,7 @@ class YammerImportPlugin extends Plugin
         switch ($lower) {
         case 'sn_yammerclient':
         case 'yammerimporter':
-        case 'yammerimqueuehandler':
-        case 'importyammeraction':
-            require_once "$base/$lower.php";
+            require_once "$base/lib/$lower.php";
             return false;
         default:
             return true;
