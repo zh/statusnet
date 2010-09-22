@@ -690,6 +690,8 @@ class Router
             $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
             $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
             $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
+            $m->connect('admin/license', array('action' => 'licenseadminpanel'));
+
 
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
