@@ -289,6 +289,12 @@ class YammerImporter
             $groupId = $this->findImportedGroup($item['group_id']);
             if ($groupId) {
                 $options['groups'] = array($groupId);
+
+                // @fixme if we see a group link inline, don't add this?
+                $group = User_group::staticGet('id', $groupId);
+                if ($group) {
+                    $content .= ' !' . $group->nickname;
+                }
             }
         }
 
