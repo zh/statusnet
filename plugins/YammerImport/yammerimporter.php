@@ -158,16 +158,60 @@ class YammerImporter
         $options['nickname'] = $item['name'];
         $options['fullname'] = trim($item['full_name']);
 
-        // We don't appear to have full bio avail here!
-        $options['bio'] = $item['job_title'];
-
-        // What about other data like emails?
-
         // Avatar... this will be the "_small" variant.
         // Remove that (pre-extension) suffix to get the orig-size image.
         $avatar = $item['mugshot_url'];
 
-        // Warning: we don't have following state for other users?
+        // The following info is only available in full data, not in the reference version.
+
+        // There can be extensive contact info, but for now we'll only pull the primary email.
+        if (isset($item['contact'])) {
+            foreach ($item['contact']['email_addresses'] as $addr) {
+                if ($addr['type'] == 'primary') {
+                    $options['email'] = $addr['address'];
+                    $options['email_confirmed'] = true;
+                    break;
+                }
+            }
+        }
+
+        // There can be multiple external URLs; for now pull the first one as home page.
+        if (isset($item['external_urls'])) {
+            foreach ($item['external_urls'] as $url) {
+                if (common_valid_http_url($url)) {
+                    $options['homepage'] = $url;
+                    break;
+                }
+            }
+        }
+
+        // Combine a few bits into the bio...
+        $bio = array();
+        if (!empty($item['job_title'])) {
+            $bio[] = $item['job_title'];
+        }
+        if (!empty($item['summary'])) {
+            $bio[] = $item['summary'];
+        }
+        if (!empty($item['expertise'])) {
+            $bio[] = _m('Expertise:') . ' ' . $item['expertise'];
+        }
+        $options['bio'] = implode("\n\n", $bio);
+
+        // Pull raw location string, may be lookupable
+        if (!empty($item['location'])) {
+            $options['location'] = $item['location'];
+        }
+
+        // Timezone is in format like 'Pacific Time (US & Canada)'
+        // We need to convert that to a zone id. :P
+        // @fixme timezone not yet supported at registration time :)
+        if (!empty($item['timezone'])) {
+            $tz = $this->timezone($item['timezone']);
+            if ($tz) {
+                $options['timezone'] = $tz;
+            }
+        }
 
         return array('orig_id' => $origId,
                      'orig_url' => $origUrl,
@@ -323,6 +367,18 @@ class YammerImporter
     private function timestamp($ts)
     {
         return common_sql_date(strtotime($ts));
+    }
+
+    private function timezone($tz)
+    {
+        // Blaaaaaarf!
+        $known = array('Pacific Time (US & Canada)' => 'America/Los_Angeles',
+                       'Eastern Time (US & Canada)' => 'America/New_York');
+        if (array_key_exists($known, $tz)) {
+            return $known[$tz];
+        } else {
+            return false;
+        }
     }
 
     /**
