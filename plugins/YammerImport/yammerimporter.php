@@ -306,8 +306,8 @@ class YammerImporter
 
         $attachments = array();
         foreach ($item['attachments'] as $attach) {
-            if ($attach['type'] == 'image') {
-                $attachments[] = $attach['image']['url'];
+            if ($attach['type'] == 'image' || $attach['type'] == 'file') {
+                $attachments[] = $attach[$attach['type']]['url'];
             } else {
                 common_log(LOG_WARNING, "Unrecognized Yammer attachment type: " . $attach['type']);
             }
