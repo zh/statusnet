@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-19 15:29+0000\n"
+"POT-Creation-Date: 2010-09-22 22:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 
 #. TRANS: Link description for link to subscribe to a remote user.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
-#: OStatusPlugin.php:227 OStatusPlugin.php:958
+#: OStatusPlugin.php:227 OStatusPlugin.php:937
 msgid "Subscribe"
 msgstr ""
 
 #. TRANS: Link description for link to join a remote group.
-#: OStatusPlugin.php:246 OStatusPlugin.php:667 actions/ostatussub.php:107
+#: OStatusPlugin.php:246 OStatusPlugin.php:655 actions/ostatussub.php:107
 msgid "Join"
 msgstr ""
 
@@ -38,82 +38,60 @@ msgstr ""
 msgid "Could not set up remote subscription."
 msgstr ""
 
-#: OStatusPlugin.php:570
-msgid "Follow"
-msgstr ""
-
-#. TRANS: Success message for subscribe to user attempt through OStatus.
-#. TRANS: %1$s is the subscriber name, %2$s is the subscribed user's name.
-#: OStatusPlugin.php:573
-#, php-format
-msgid "%1$s is now following %2$s."
-msgstr ""
-
-#: OStatusPlugin.php:620
+#: OStatusPlugin.php:605
 msgid "Unfollow"
 msgstr ""
 
 #. TRANS: Success message for unsubscribe from user attempt through OStatus.
 #. TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
-#: OStatusPlugin.php:623
+#: OStatusPlugin.php:608
 #, php-format
 msgid "%1$s stopped following %2$s."
 msgstr ""
 
-#: OStatusPlugin.php:651
+#: OStatusPlugin.php:636
 msgid "Could not set up remote group membership."
 msgstr ""
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:679
+#: OStatusPlugin.php:667
 msgid "Failed joining remote group."
 msgstr ""
 
-#: OStatusPlugin.php:719
+#: OStatusPlugin.php:707
 msgid "Leave"
 msgstr ""
 
-#: OStatusPlugin.php:760
-msgid "Favor"
-msgstr ""
-
-#. TRANS: Success message for adding a favorite notice through OStatus.
-#. TRANS: %1$s is the favoring user's name, %2$s is URI to the favored notice.
-#: OStatusPlugin.php:763
-#, php-format
-msgid "%1$s marked notice %2$s as a favorite."
-msgstr ""
-
-#: OStatusPlugin.php:806
+#: OStatusPlugin.php:785
 msgid "Disfavor"
 msgstr ""
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-#: OStatusPlugin.php:809
+#: OStatusPlugin.php:788
 #, php-format
 msgid "%1$s marked notice %2$s as no longer a favorite."
 msgstr ""
 
 #. TRANS: Link text for link to remote subscribe.
-#: OStatusPlugin.php:885
+#: OStatusPlugin.php:864
 msgid "Remote"
 msgstr ""
 
 #. TRANS: Title for activity.
-#: OStatusPlugin.php:925
+#: OStatusPlugin.php:904
 msgid "Profile update"
 msgstr ""
 
 #. TRANS: Ping text for remote profile update through OStatus.
 #. TRANS: %s is user that updated their profile.
-#: OStatusPlugin.php:928
+#: OStatusPlugin.php:907
 #, php-format
 msgid "%s has updated their profile page."
 msgstr ""
 
 #. TRANS: Plugin description.
-#: OStatusPlugin.php:973
+#: OStatusPlugin.php:952
 msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
