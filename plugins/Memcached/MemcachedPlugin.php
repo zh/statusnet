@@ -69,7 +69,6 @@ class MemcachedPlugin extends Plugin
      *
      * @return boolean flag value
      */
-
     function onInitializePlugin()
     {
         $this->_ensureConn();
@@ -87,7 +86,6 @@ class MemcachedPlugin extends Plugin
      *
      * @return boolean hook success
      */
-
     function onStartCacheGet(&$key, &$value)
     {
         $this->_ensureConn();
@@ -107,7 +105,6 @@ class MemcachedPlugin extends Plugin
      *
      * @return boolean hook success
      */
-
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
         $this->_ensureConn();
@@ -146,7 +143,6 @@ class MemcachedPlugin extends Plugin
      *
      * @return boolean hook success
      */
-
     function onStartCacheDelete(&$key, &$success)
     {
         $this->_ensureConn();
@@ -169,7 +165,6 @@ class MemcachedPlugin extends Plugin
      *
      * @return void
      */
-
     private function _ensureConn()
     {
         if (empty($this->_conn)) {
@@ -224,4 +219,3 @@ class MemcachedPlugin extends Plugin
         return true;
     }
 }
-

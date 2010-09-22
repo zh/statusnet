@@ -194,6 +194,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
             return '"' . implode(
                 ':',
                 array($this->arg('action'),
+                      common_user_cache_hash($this->auth_user),
                       common_language(),
                       $this->notice->id,
                       strtotime($this->notice->created))

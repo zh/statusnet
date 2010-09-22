@@ -26,7 +26,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
 class HostMetaAction extends Action
 {
-
     function handle()
     {
         parent::handle();

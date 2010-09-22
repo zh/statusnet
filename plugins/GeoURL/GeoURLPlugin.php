@@ -46,7 +46,6 @@ if (!defined('STATUSNET')) {
  *
  * @seeAlso  Location
  */
-
 class GeoURLPlugin extends Plugin
 {
     public $ping = 'http://geourl.org/ping/';
@@ -58,7 +57,6 @@ class GeoURLPlugin extends Plugin
      *
      * @return boolean event handler flag
      */
-
     function onEndShowHeadElements($action)
     {
         $name = $action->trimmed('action');
@@ -94,7 +92,6 @@ class GeoURLPlugin extends Plugin
      *
      * @return boolean event handler flag
      */
-
     function onHandleQueuedNotice(&$notice)
     {
         if ($notice->is_local == 1) {

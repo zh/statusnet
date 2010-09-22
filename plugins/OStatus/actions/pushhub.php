@@ -62,11 +62,11 @@ class PushHubAction extends Action
             $this->subunsub($mode);
             break;
         case "publish":
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Publishing outside feeds not supported.", 400);
+            // TRANS: Client exception.
+            throw new ClientException(_m('Publishing outside feeds not supported.'), 400);
         default:
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Unrecognized mode '$mode'.", 400);
+            // TRANS: Client exception. %s is a mode.
+            throw new ClientException(sprintf(_m('Unrecognized mode "%s".'),$mode), 400);
         }
     }
 
@@ -85,28 +85,28 @@ class PushHubAction extends Action
 
         $topic = $this->argUrl('hub.topic');
         if (!$this->recognizedFeed($topic)) {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Unsupported hub.topic $topic; this hub only serves local user and group Atom feeds.");
+            // TRANS: Client exception. %s is a topic.
+            throw new ClientException(sprintf(_m('Unsupported hub.topic %s this hub only serves local user and group Atom feeds.'),$topic));
         }
 
         $verify = $this->arg('hub.verify'); // @fixme may be multiple
         if ($verify != 'sync' && $verify != 'async') {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Invalid hub.verify $verify; must be sync or async.");
+            // TRANS: Client exception.
+            throw new ClientException(sprintf(_m('Invalid hub.verify "%s". It must be sync or async.'),$verify));
         }
 
         $lease = $this->arg('hub.lease_seconds', null);
         if ($mode == 'subscribe' && $lease != '' && !preg_match('/^\d+$/', $lease)) {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Invalid hub.lease $lease; must be empty or positive integer.");
+            // TRANS: Client exception.
+            throw new ClientException(sprintf(_m('Invalid hub.lease "%s". It must be empty or positive integer.'),$lease));
         }
 
         $token = $this->arg('hub.verify_token', null);
 
         $secret = $this->arg('hub.secret', null);
         if ($secret != '' && strlen($secret) >= 200) {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Invalid hub.secret $secret; must be under 200 bytes.");
+            // TRANS: Client exception.
+            throw new ClientException(sprintf(_m('Invalid hub.secret "%s". It must be under 200 bytes.'),$secret));
         }
 
         $sub = HubSub::staticGet($topic, $callback);
@@ -157,8 +157,8 @@ class PushHubAction extends Action
             if ($feed == $userFeed) {
                 $user = User::staticGet('id', $id);
                 if (!$user) {
-                    // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-                    throw new ClientException("Invalid hub.topic $feed; user doesn't exist.");
+                    // TRANS: Client exception.
+                    throw new ClientException(sprintt(_m('Invalid hub.topic "%s". User doesn\'t exist.'),$feed));
                 } else {
                     return true;
                 }
@@ -166,8 +166,8 @@ class PushHubAction extends Action
             if ($feed == $groupFeed) {
                 $user = User_group::staticGet('id', $id);
                 if (!$user) {
-                    // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-                    throw new ClientException("Invalid hub.topic $feed; group doesn't exist.");
+                    // TRANS: Client exception.
+                    throw new ClientException(sprintf(_m('Invalid hub.topic "%s". Group doesn\'t exist.'),$feed));
                 } else {
                     return true;
                 }
@@ -190,8 +190,9 @@ class PushHubAction extends Action
         if (Validate::uri($url, $params)) {
             return $url;
         } else {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new ClientException("Invalid URL passed for $arg: '$url'");
+            // TRANS: Client exception.
+            // TRANS: %1$s is this argument to the method this exception occurs in, %2$s is a URL.
+            throw new ClientException(sprintf(_m('Invalid URL passed for %1$s: "%2$s"'),$arg,$url));
         }
     }
 

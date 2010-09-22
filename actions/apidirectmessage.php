@@ -357,6 +357,7 @@ class ApiDirectMessageAction extends ApiAuthAction
             return '"' . implode(
                 ':',
                 array($this->arg('action'),
+                      common_user_cache_hash($this->auth_user),
                       common_language(),
                       strtotime($this->messages[0]->created),
                       strtotime($this->messages[$last]->created)

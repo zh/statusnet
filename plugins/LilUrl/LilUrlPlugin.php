@@ -40,7 +40,7 @@ class LilUrlPlugin extends UrlShortenerPlugin
     function onInitializePlugin(){
         parent::onInitializePlugin();
         if(!isset($this->serviceUrl)){
-            throw new Exception("must specify a serviceUrl");
+            throw new Exception(_m('A serviceUrl must be specified.'));
         }
     }
 
@@ -71,4 +71,3 @@ class LilUrlPlugin extends UrlShortenerPlugin
         return true;
     }
 }
-

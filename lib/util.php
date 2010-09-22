@@ -494,6 +494,29 @@ function common_is_real_login()
     return common_logged_in() && $_SESSION['real_login'];
 }
 
+/**
+ * Get a hash portion for HTTP caching Etags and such including
+ * info on the current user's session. If login/logout state changes,
+ * or we've changed accounts, or we've renamed the current user,
+ * we'll get a new hash value.
+ *
+ * This should not be considered secure information.
+ *
+ * @param User $user (optional; uses common_current_user() if left out)
+ * @return string
+ */
+function common_user_cache_hash($user=false)
+{
+    if ($user === false) {
+        $user = common_current_user();
+    }
+    if ($user) {
+        return crc32($user->id . ':' . $user->nickname);
+    } else {
+        return '0';
+    }
+}
+
 // get canonical version of nickname for comparison
 function common_canonical_nickname($nickname)
 {
@@ -1105,26 +1128,30 @@ function common_date_string($dt)
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a minute ago');
     } else if ($diff < 3300) {
+        $minutes = round($diff/60);
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one minute ago', 'about %d minutes ago'), round($diff/60));
+        return sprintf( ngettext('about one minute ago', 'about %d minutes ago', $minutes), $minutes);
     } else if ($diff < 5400) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about an hour ago');
     } else if ($diff < 22 * 3600) {
+        $hours = round($diff/3600);
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one hour ago', 'about %d hours ago'), round($diff/3600));
+        return sprintf( ngettext('about one hour ago', 'about %d hours ago', $hours), $hours);
     } else if ($diff < 37 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a day ago');
     } else if ($diff < 24 * 24 * 3600) {
+        $days = round($diff/(24*3600));
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one day ago', 'about %d days ago'), round($diff/(24*3600)));
+        return sprintf( ngettext('about one day ago', 'about %d days ago', $days), $days);
     } else if ($diff < 46 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a month ago');
     } else if ($diff < 330 * 24 * 3600) {
+        $months = round($diff/(30*24*3600));
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf( ngettext('about one month ago', 'about %d months ago'), round($diff/(30*24*3600)));
+        return sprintf( ngettext('about one month ago', 'about %d months ago',$months), $months);
     } else if ($diff < 480 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a year ago');
@@ -1453,7 +1480,12 @@ function common_log_db_error(&$object, $verb, $filename=null)
 {
     $objstr = common_log_objstring($object);
     $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-    common_log(LOG_ERR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
+    if (is_object($last_error)) {
+        $msg = $last_error->message;
+    } else {
+        $msg = 'Unknown error (' . var_export($last_error, true) . ')';
+    }
+    common_log(LOG_ERR, $msg . '(' . $verb . ' on ' . $objstr . ')', $filename);
 }
 
 function common_log_objstring(&$object)

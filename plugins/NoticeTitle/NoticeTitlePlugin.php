@@ -123,7 +123,7 @@ class NoticeTitlePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => $url,
                             'rawdescription' =>
-                            _m('Adds optional titles to notices'));
+                            _m('Adds optional titles to notices.'));
         return true;
     }
 
@@ -164,7 +164,7 @@ class NoticeTitlePlugin extends Plugin
         $title = $action->trimmed('notice_title');
         if (!empty($title)) {
             if (mb_strlen($title) > Notice_title::MAXCHARS) {
-                throw new Exception(sprintf(_m("Notice title too long (max %d)",
+                throw new Exception(sprintf(_m("The notice title is too long (max %d characters).",
                                                Notice_title::MAXCHARS)));
             }
         }
@@ -296,7 +296,7 @@ class NoticeTitlePlugin extends Plugin
             if (!empty($title)) {
                 $action->element('title', null,
                                  // TRANS: Page title. %1$s is the title, %2$s is the site name.
-                                 sprintf(_("%1\$s - %2\$s"),
+                                 sprintf(_m("%1\$s - %2\$s"),
                                          $title,
                                          common_config('site', 'name')));
             }
@@ -328,4 +328,3 @@ class NoticeTitlePlugin extends Plugin
         return true;
     }
 }
-

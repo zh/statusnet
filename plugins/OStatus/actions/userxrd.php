@@ -17,16 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+if (!defined('STATUSNET')) { exit(1); }
+
 /**
  * @package OStatusPlugin
  * @maintainer James Walker <james@status.net>
  */
-
-if (!defined('STATUSNET')) { exit(1); }
-
 class UserxrdAction extends XrdAction
 {
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -46,7 +44,7 @@ class UserxrdAction extends XrdAction
             $this->user = User::staticGet('uri', $this->uri);
         }
         if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
+            $this->clientError(_m('No such user.'), 404);
             return false;
         }
 

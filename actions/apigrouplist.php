@@ -213,6 +213,7 @@ class ApiGroupListAction extends ApiBareAuthAction
             return '"' . implode(
                 ':',
                 array($this->arg('action'),
+                      common_user_cache_hash($this->auth_user),
                       common_language(),
                       $this->user->id,
                       strtotime($this->groups[0]->created),

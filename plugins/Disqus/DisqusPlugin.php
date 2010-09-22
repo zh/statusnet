@@ -68,9 +68,11 @@ if (!defined('STATUSNET')) {
  *
  * @see      Event
  */
-
 class DisqusPlugin extends Plugin
 {
+    public $shortname; // Required 'shortname' for actually triggering Disqus.
+    public $div_style; // Optional CSS chunk for the main <div>
+
     function onEndShowContentBlock($action)
     {
         if (get_class($action) == 'ShownoticeAction') {
@@ -106,6 +108,7 @@ ENDOFSCRIPT;
             $action->elementStart('div', $attrs);
             $action->elementStart('noscript');
 
+			// @todo FIXME: No i18n yet, because of bad implementation. Should be one string.
             $action->raw('Please enable JavaScript to view the ');
             $noscriptUrl = 'http://disqus.com/?ref_noscript=' . $this->shortname;
             $action->element('a', array('href' => $noscriptUrl), 'comments powered by Disqus.');
