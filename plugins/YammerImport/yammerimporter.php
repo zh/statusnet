@@ -241,6 +241,13 @@ class YammerImporter
         }
         $options['created'] = $this->timestamp($item['created_at']);
 
+        if ($item['group_id']) {
+            $groupId = $this->findImportedGroup($item['group_id']);
+            if ($groupId) {
+                $options['groups'] = array($groupId);
+            }
+        }
+
         $faves = array();
         foreach ($item['liked_by']['names'] as $liker) {
             // "permalink" is the username. wtf?
