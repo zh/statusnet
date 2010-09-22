@@ -11,7 +11,7 @@ require INSTALLDIR . "/scripts/commandline.inc";
 // temp stuff
 require 'yam-config.php';
 $yam = new SN_YammerClient($consumerKey, $consumerSecret, $token, $tokenSecret);
-$imp = new YammerImporter();
+$imp = new YammerImporter($yam);
 
 $data = $yam->messages();
 /*
