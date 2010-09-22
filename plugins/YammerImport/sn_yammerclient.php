@@ -100,7 +100,7 @@ class SN_YammerClient
      *
      * @throws Exception for HTTP error or bad JSON return
      */
-    protected function api($method, $params=array())
+    public function api($method, $params=array())
     {
         $body = $this->fetchApi("api/v1/$method.json", $params);
         $data = json_decode($body, true);
@@ -216,5 +216,21 @@ class SN_YammerClient
     public function users($params=array())
     {
         return $this->api('users', $params);
+    }
+
+    /**
+     * High-level API hit: fetch all groups in the network (up to 20 at a time).
+     * Return data is the full JSON array returned, listing user items.
+     *
+     * The matching messages themselves will be in the 'users' item within.
+     *
+     * @param array $options optional set of additional params for the request.
+     * @return array of JSON-sourced user data arrays
+     *
+     * @throws Exception on low-level or HTTP error
+     */
+    public function groups($params=array())
+    {
+        return $this->api('groups', $params);
     }
 }

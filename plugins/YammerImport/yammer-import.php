@@ -21,18 +21,18 @@ foreach ($data as $item) {
     echo "Imported Yammer user " . $item['id'] . " as $user->nickname ($user->id)\n";
 }
 
-$data = $yam->messages();
-// @fixme pull the full group list; this'll be a partial list with less data
-// and only for groups referenced in the message set.
-foreach ($data['references'] as $item) {
-    if ($item['type'] == 'group') {
-        $group = $imp->importGroup($item);
-        echo "Imported Yammer group " . $item['id'] . " as $group->nickname ($group->id)\n";
-    }
+// Groups!
+// @fixme follow paging -- we only get 20 at a time
+$data = $yam->groups();
+foreach ($data as $item) {
+    $group = $imp->importGroup($item);
+    echo "Imported Yammer group " . $item['id'] . " as $group->nickname ($group->id)\n";
 }
 
+// Messages!
 // Process in reverse chron order...
 // @fixme follow paging -- we only get 20 at a time, and start at the most recent!
+$data = $yam->messages();
 $messages = $data['messages'];
 $messages = array_reverse($messages);
 foreach ($messages as $item) {
