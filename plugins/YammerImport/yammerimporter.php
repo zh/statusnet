@@ -51,10 +51,12 @@ class YammerImporter
         } else {
             $user = User::register($data['options']);
             $profile = $user->getProfile();
-            try {
-                $this->saveAvatar($data['avatar'], $profile);
-            } catch (Exception $e) {
-                common_log(LOG_ERROR, "Error importing Yammer avatar: " . $e->getMessage());
+            if ($data['avatar']) {
+                try {
+                    $this->saveAvatar($data['avatar'], $profile);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "Error importing Yammer avatar: " . $e->getMessage());
+                }
             }
             $this->recordImportedUser($data['orig_id'], $profile->id);
             return $profile;
@@ -76,10 +78,12 @@ class YammerImporter
             return User_group::staticGet('id', $groupId);
         } else {
             $group = User_group::register($data['options']);
-            try {
-                $this->saveAvatar($data['avatar'], $group);
-            } catch (Exception $e) {
-                common_log(LOG_ERROR, "Error importing Yammer avatar: " . $e->getMessage());
+            if ($data['avatar']) {
+                try {
+                    $this->saveAvatar($data['avatar'], $group);
+                } catch (Exception $e) {
+                    common_log(LOG_ERR, "Error importing Yammer avatar: " . $e->getMessage());
+                }
             }
             $this->recordImportedGroup($data['orig_id'], $group->id);
             return $group;
@@ -111,7 +115,7 @@ class YammerImporter
                     $content .= ' ' . $upload->shortUrl();
                     $uploads[] = $upload;
                 } catch (Exception $e) {
-                    common_log(LOG_ERROR, "Error importing Yammer attachment: " . $e->getMessage());
+                    common_log(LOG_ERR, "Error importing Yammer attachment: " . $e->getMessage());
                 }
             }
 
@@ -254,7 +258,8 @@ class YammerImporter
         $options['local'] = true;
         return array('orig_id' => $origId,
                      'orig_url' => $origUrl,
-                     'options' => $options);
+                     'options' => $options,
+                     'avatar' => $avatar);
     }
 
     /**
