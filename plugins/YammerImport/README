@@ -1,0 +1,75 @@
+Yammer Import Plugin
+====================
+
+This plugin allows a one-time import pulling user accounts, groups, and
+public messages from an existing Yammer instance, using Yammer's public API.
+
+Requirements
+------------
+
+* An account on the Yammer network you wish to import from
+* An administrator account on the target StatusNet instance
+* This YammerImport plugin enabled on your StatusNet instance
+
+Setup
+-----
+
+The import process will be runnable through an administration panel on
+your StatusNet site.
+
+The user interface and OAuth setup has not yet been completed, you will
+have to manually initiate the OAuth authentication to get a token.
+
+Be patient, there will be a UI soon. ;)
+
+
+Limitations
+-----------
+
+Paging has not yet been added, so the importer will only pull up to:
+* first 50 users
+* first 20 groups
+* last 20 public messages
+
+
+Subscriptions and group memberships
+-----------------------------------
+
+Yammer's API does not expose user/tag subscriptions or group memberships
+except for the authenticating user. As a result, users will need to re-join
+groups and re-follow their fellow users after the import.
+
+(This limitation may be lifted in future for sites on the Silver or Gold
+plans where the import is done by a verified admin, as it should be possible
+to fetch the information for each user via the admin account.)
+
+
+Authentication
+--------------
+
+Account passwords cannot be retrieved, but the primary e-mail address is
+retained so users can reset their passwords by mail if you're not using a
+custom authentication system like LDAP.
+
+
+Private messages and groups
+---------------------------
+
+At this time, only public messages are imported; private direct and group
+messages are ignored. (This may change with Silver and Gold plans in future.)
+
+Yammer groups may be either public or private. Groups in StatusNet currently
+have no privacy option, so any private groups will become public groups in the
+imported site.
+
+
+Attachments
+-----------
+
+Attached image and document files will be copied in as if they had been
+uploaded to the StatusNet site. Currently images do not display inline like
+they do on Yammer; they will be linked instead.
+
+File type and size limitations on attachments will be applied, so beware some
+attachments may not make it through.
+
