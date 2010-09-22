@@ -195,6 +195,7 @@ class YammerImporter
 
         $options['nickname'] = $item['name'];
         $options['fullname'] = $item['full_name'];
+        $options['description'] = $item['description'];
         $options['created'] = $this->timestamp($item['created_at']);
 
         $avatar = $item['mugshot_url']; // as with user profiles...
