@@ -51,7 +51,7 @@ class Yammer_notice_stub extends Memcached_DataObject
     /**
      * Return schema definition to set this table up in onCheckSchema
      */
-    static function schemaDef($field)
+    static function schemaDef()
     {
         return array(new ColumnDef('id', 'bigint', null,
                                    false, 'PRI'),
@@ -73,7 +73,7 @@ class Yammer_notice_stub extends Memcached_DataObject
     function table()
     {
         return array('id'           => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-                     'json_data'    => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
+                     'json_data'    => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
                      'created'      => DB_DATAOBJECT_STR + DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
