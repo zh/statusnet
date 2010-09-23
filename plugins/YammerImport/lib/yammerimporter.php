@@ -26,9 +26,6 @@
 class YammerImporter
 {
     protected $client;
-    protected $users=array();
-    protected $groups=array();
-    protected $notices=array();
 
     function __construct(SN_YammerClient $client)
     {
@@ -330,44 +327,32 @@ class YammerImporter
 
     private function findImportedUser($origId)
     {
-        if (isset($this->users[$origId])) {
-            return $this->users[$origId];
-        } else {
-            return false;
-        }
+        return Yammer_user::staticGet('id', $origId);
     }
 
     private function findImportedGroup($origId)
     {
-        if (isset($this->groups[$origId])) {
-            return $this->groups[$origId];
-        } else {
-            return false;
-        }
+        return Yammer_group::staticGet('id', $origId);
     }
 
     private function findImportedNotice($origId)
     {
-        if (isset($this->notices[$origId])) {
-            return $this->notices[$origId];
-        } else {
-            return false;
-        }
+        return Yammer_notice::staticGet('id', $origId);
     }
 
     private function recordImportedUser($origId, $userId)
     {
-        $this->users[$origId] = $userId;
+        Yammer_user::record($origId, $userId);
     }
 
     private function recordImportedGroup($origId, $groupId)
     {
-        $this->groups[$origId] = $groupId;
+        Yammer_group::record($origId, $groupId);
     }
 
     private function recordImportedNotice($origId, $noticeId)
     {
-        $this->notices[$origId] = $noticeId;
+        Yammer_notice::record($origId, $noticeId);
     }
 
     /**
