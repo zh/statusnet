@@ -139,8 +139,11 @@ class SN_YammerClient
     }
 
     /**
+     * Encode a key-value pair for use in an authentication header.
+     *
      * @param string $key
      * @param string $val
+     * @return string
      */
     protected function authHeaderChunk($key, $val)
     {
@@ -148,6 +151,9 @@ class SN_YammerClient
     }
 
     /**
+     * Ask the Yammer server for a request token, which can be passed on
+     * to authorizeUrl() for the user to start the authentication process.
+     *
      * @return array of oauth return data; should contain nice things
      */
     public function requestToken()
@@ -162,6 +168,9 @@ class SN_YammerClient
     }
 
     /**
+     * Get a final access token from the verifier/PIN code provided to
+     * the user from Yammer's auth pages.
+     *
      * @return array of oauth return data; should contain nice things
      */
     public function accessToken($verifier)
@@ -175,7 +184,7 @@ class SN_YammerClient
     }
 
     /**
-     * Give the URL to send users to to authorize a new app setup
+     * Give the URL to send users to to authorize a new app setup.
      *
      * @param string $token as returned from accessToken()
      * @return string URL
