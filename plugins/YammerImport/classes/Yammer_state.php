@@ -38,6 +38,7 @@ class Yammer_state extends Memcached_DataObject
     public $state;                    // import state key
     public $request_token;            // oauth request token; clear when auth is complete.
     public $oauth_token;              // actual oauth token! clear when import is done?
+    public $oauth_secret;             // actual oauth secret! clear when import is done?
     public $users_page;               // last page of users we've fetched
     public $groups_page;              // last page of groups we've fetched
     public $messages_oldest;          // oldest message ID we've fetched
@@ -55,6 +56,7 @@ class Yammer_state extends Memcached_DataObject
                      new ColumnDef('state', 'text'),
                      new ColumnDef('request_token', 'text'),
                      new ColumnDef('oauth_token', 'text'),
+                     new ColumnDef('oauth_secret', 'text'),
                      new ColumnDef('users_page', 'int'),
                      new ColumnDef('groups_page', 'int'),
                      new ColumnDef('messages_oldest', 'bigint'),
@@ -78,6 +80,7 @@ class Yammer_state extends Memcached_DataObject
                      'state'           => DB_DATAOBJECT_STR,
                      'request_token'   => DB_DATAOBJECT_STR,
                      'oauth_token'     => DB_DATAOBJECT_STR,
+                     'oauth_secret'    => DB_DATAOBJECT_STR,
                      'users_page'      => DB_DATAOBJECT_INT,
                      'groups_page'     => DB_DATAOBJECT_INT,
                      'messages_oldest' => DB_DATAOBJECT_INT,
