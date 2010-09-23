@@ -8,34 +8,37 @@ define('INSTALLDIR', dirname(dirname(dirname(dirname(__FILE__)))));
 
 require INSTALLDIR . "/scripts/commandline.inc";
 
-// temp stuff
-require 'yam-config.php';
-$yam = new SN_YammerClient($consumerKey, $consumerSecret, $token, $tokenSecret);
-$imp = new YammerImporter($yam);
+$runner = YammerRunner::init();
 
-// First, import all the users!
-// @fixme follow paging -- we only get 50 at a time
-$data = $yam->users();
-foreach ($data as $item) {
-    $user = $imp->importUser($item);
-    echo "Imported Yammer user " . $item['id'] . " as $user->nickname ($user->id)\n";
-}
+switch ($runner->state())
+{
+    case 'init':
+        $url = $runner->requestAuth();
+        echo "Log in to Yammer at the following URL and confirm permissions:\n";
+        echo "\n";
+        echo "    $url\n";
+        echo "\n";
+        echo "Pass the resulting code back by running:\n"
+        echo "\n"
+        echo "    php yammer-import.php --auth=####\n";
+        echo "\n";
+        break;
 
-// Groups!
-// @fixme follow paging -- we only get 20 at a time
-$data = $yam->groups();
-foreach ($data as $item) {
-    $group = $imp->importGroup($item);
-    echo "Imported Yammer group " . $item['id'] . " as $group->nickname ($group->id)\n";
-}
+    case 'requesting-auth':
+        if (empty($options['auth'])) {
+            echo "Please finish authenticating!\n";
+            break;
+        }
+        $runner->saveAuthToken($options['auth']);
+        // Fall through...
 
-// Messages!
-// Process in reverse chron order...
-// @fixme follow paging -- we only get 20 at a time, and start at the most recent!
-$data = $yam->messages();
-$messages = $data['messages'];
-$messages = array_reverse($messages);
-foreach ($messages as $item) {
-    $notice = $imp->importNotice($item);
-    echo "Imported Yammer notice " . $item['id'] . " as $notice->id\n";
+    default:
+        while (true) {
+            echo "... {$runner->state->state}\n";
+            if (!$runner->iterate()) {
+                echo "... done.\n";
+                break;
+            }
+        }
+        break;
 }
