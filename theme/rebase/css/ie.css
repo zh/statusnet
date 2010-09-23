@@ -1,0 +1,60 @@
+/**
+ * @package   StatusNet
+ * @author    Sarven Capadisli <csarven@status.net>
+ * @copyright 2009-2010 StatusNet, Inc.
+ * @license   http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution 3.0 Unported
+ * @link      http://status.net/
+ */
+/* IE specific styles */
+input.checkbox,
+input.radio {
+top:0;
+}
+.form_notice textarea {
+width:78%;
+}
+.form_notice .form_note + label {
+position:absolute;
+top:25px;
+left:83%;
+text-indent:-9999px;
+height:16px;
+width:16px;
+display:block;
+}
+.form_notice #notice_action-submit {
+width:17%;
+max-width:17%;
+}
+.form_notice #notice_data-attach_selected,
+.form_notice #notice_data-geo_selected {
+width:78.75%;
+}
+.form_notice #notice_data-attach_selected button,
+.form_notice #notice_data-geo_selected button {
+padding:0 4px;
+}
+.notice-options input.submit {
+font-size:0;
+text-align:right;
+text-indent:0;
+}
+.notice div.entry-content .timestamp a {
+margin-right:4px;
+}
+.entity_profile {
+width:64%;
+}
+.notice {
+z-index:1;
+}
+.notice:hover {
+z-index:9999;
+}
+.notice .thumbnail img {
+z-index:9999;
+}
+
+.form_settings fieldset fieldset legend {
+line-height:auto;
+}
