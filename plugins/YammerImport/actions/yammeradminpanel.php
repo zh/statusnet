@@ -133,7 +133,7 @@ class YammerAdminPanelForm extends AdminForm
                 break;
             case 'import-users':
             case 'import-groups':
-            case 'import-messages':
+            case 'fetch-messages':
             case 'save-messages':
                 $this->showImportState();
                 break;
