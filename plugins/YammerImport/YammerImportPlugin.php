@@ -64,7 +64,7 @@ class YammerImportPlugin extends Plugin
                         'Yammer_notice',
                         'Yammer_notice_stub');
         foreach ($tables as $table) {
-            $schema->ensureTable($table, $table::schemaDef());
+            $schema->ensureTable(strtolower($table), $table::schemaDef());
         }
 
         return true;
@@ -120,6 +120,14 @@ class YammerImportPlugin extends Plugin
             return false;
         case 'yammeradminpanelaction':
             require_once "$base/actions/yammeradminpanel.php";
+            return false;
+        case 'yammer_state':
+        case 'yammer_notice_stub':
+        case 'yammer_common':
+        case 'yammer_user':
+        case 'yammer_group':
+        case 'yammer_notice':
+            require_once "$base/classes/$cls.php";
             return false;
         default:
             return true;

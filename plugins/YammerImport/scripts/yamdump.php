@@ -13,6 +13,7 @@ require 'yam-config.php';
 $yam = new SN_YammerClient($consumerKey, $consumerSecret, $token, $tokenSecret);
 $imp = new YammerImporter($yam);
 
+/*
 $data = $yam->users();
 var_dump($data);
 // @fixme follow paging
@@ -20,9 +21,9 @@ foreach ($data as $item) {
     $user = $imp->prepUser($item);
     var_dump($user);
 }
+*/
 
-/*
-$data = $yam->messages();
+$data = $yam->messages(array('newer_than' => 1));
 var_dump($data);
 // @fixme follow paging
 $messages = $data['messages'];
@@ -31,4 +32,3 @@ foreach ($messages as $message) {
     $notice = $imp->prepNotice($message);
     var_dump($notice);
 }
-*/
