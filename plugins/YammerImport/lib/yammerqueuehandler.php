@@ -36,11 +36,23 @@ class YammerQueueHandler extends QueueHandler
 
     function handle($notice)
     {
-        $importer = new YammerImporter();
-        if ($importer->hasWork()) {
-            return $importer->iterate();
+        $runner = YammerRunner::init();
+        if ($runner->hasWork()) {
+            if ($runner->iterate()) {
+                if ($runner->hasWork()) {
+                    // More to do? Shove us back on the queue...
+                    $qm = QueueManager::get();
+                    $qm->enqueue('YammerImport', 'yammer');
+                }
+                return true;
+            } else {
+                // Something failed?
+                // @fixme should we be trying again here, or should we give warning?
+                return false;
+            }
         } else {
             // We're done!
+            common_log(LOG_INFO, "Yammer import has no work to do at this time; discarding.");
             return true;
         }
     }

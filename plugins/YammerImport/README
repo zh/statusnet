@@ -73,3 +73,45 @@ they do on Yammer; they will be linked instead.
 File type and size limitations on attachments will be applied, so beware some
 attachments may not make it through.
 
+
+
+
+Code structure
+==============
+
+Standalone classes
+------------------
+
+YammerRunner: encapsulates the iterative process of retrieving the various users,
+              groups, and messages via SN_YammerClient and saving them locally
+              via YammerImporter.
+
+SN_YammerClient: encapsulates HTTP+OAuth interface to Yammer API, returns data
+                 as straight decoded JSON object trees.
+
+YammerImporter: encapsulates logic to pull information from the returned API data
+                and convert them to native StatusNet users, groups, and messages.
+
+Web UI actions
+-------------
+
+YammeradminpanelAction: web panel for site administrator to initiate and monitor
+                        the import process.
+
+Command-line scripts
+--------------------
+
+yammer-import.php: CLI script to start a Yammer import run in one go.
+
+Database objects
+----------------
+
+Yammer_state: data object storing YammerRunner's state between iterations.
+
+Yammer_notice_stub: data object for temporary storage of fetched Yammer messages
+                    between fetching them (reverse chron order) and saving them
+                    to local messages (forward chron order).
+Yammer_user,
+Yammer_group,
+Yammer_notice: data objects mapping original Yammer item IDs to their local copies.
+

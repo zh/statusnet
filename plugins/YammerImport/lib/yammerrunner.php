@@ -33,29 +33,123 @@ class YammerRunner
     private $client;
     private $importer;
 
-    function __construct()
+    public static function init()
     {
         $state = Yammer_state::staticGet('id', 1);
         if (!$state) {
-            common_log(LOG_ERR, "No YammerImport state during import run. Should not happen!");
-            throw new ServerException('No YammerImport state during import run.');
+            $state = new Yammer_state();
+            $state->id = 1;
+            $state->state = 'init';
+            $state->insert();
         }
+        return new YammerRunner($state);
+    }
 
+    private function __construct($state)
+    {
         $this->state = $state;
+
         $this->client = new SN_YammerClient(
             common_config('yammer', 'consumer_key'),
             common_config('yammer', 'consumer_secret'),
             $this->state->oauth_token,
             $this->state->oauth_secret);
+
         $this->importer = new YammerImporter($client);
     }
 
+    /**
+     * Check which state we're in
+     *
+     * @return string
+     */
+    public function state()
+    {
+        return $this->state->state;
+    }
+
+    /**
+     * Is the import done, finished, complete, finito?
+     *
+     * @return boolean
+     */
+    public function isDone()
+    {
+        $workStates = array('import-users', 'import-groups', 'fetch-messages', 'save-messages');
+        return ($this->state() == 'done');
+    }
+
+    /**
+     * Check if we have work to do in iterate().
+     */
+    public function hasWork()
+    {
+        $workStates = array('import-users', 'import-groups', 'fetch-messages', 'save-messages');
+        return in_array($this->state(), $workStates);
+    }
+
+    /**
+     * Start the authentication process! If all goes well, we'll get back a URL.
+     * Have the user visit that URL, log in on Yammer and verify the importer's
+     * permissions. They'll get back a verification code, which needs to be passed
+     * on to saveAuthToken().
+     *
+     * @return string URL
+     */
+    public function requestAuth()
+    {
+        if ($this->state->state != 'init') {
+            throw ServerError("Cannot request Yammer auth; already there!");
+        }
+
+        $old = clone($this->state);
+        $this->state->state = 'requesting-auth';
+        $this->state->request_token = $client->requestToken();
+        $this->state->update($old);
+
+        return $this->client->authorizeUrl($this->state->request_token);
+    }
+
+    /**
+     * Now that the user's given us this verification code from Yammer, we can
+     * request a final OAuth token/secret pair which we can use to access the
+     * API.
+     *
+     * After success here, we'll be ready to move on and run through iterate()
+     * until the import is complete.
+     *
+     * @param string $verifier
+     * @return boolean success
+     */
+    public function saveAuthToken($verifier)
+    {
+        if ($this->state->state != 'requesting-auth') {
+            throw ServerError("Cannot save auth token in Yammer import state {$this->state->state}");
+        }
+
+        $old = clone($this->state);
+        list($token, $secret) = $this->client->getAuthToken($verifier);
+        $this->state->verifier = '';
+        $this->state->oauth_token = $token;
+        $this->state->oauth_secret = $secret;
+
+        $this->state->update($old);
+
+        return true;
+    }
+
+    /**
+     * Once authentication is complete, we need to call iterate() a bunch of times
+     * until state() returns 'done'.
+     *
+     * @return boolean success
+     */
     public function iterate()
     {
 
         switch($state->state)
         {
-            case null:
+            case 'init':
             case 'requesting-auth':
                 // Neither of these should reach our background state!
                 common_log(LOG_ERR, "Non-background YammerImport state '$state->state' during import run!");
