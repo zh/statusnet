@@ -137,6 +137,9 @@ class ImsettingsAction extends ConnectSettingsAction
                              ($this->arg('jabber')) ? $this->arg('jabber') : null,
                              // TRANS: IM address input field instructions in IM settings form.
                              // TRANS: %s is the IM address set for the site.
+                             // TRANS: Do not translate "example.org". It is one of the domain names reserved for use in examples by
+                             // TRANS: http://www.rfc-editor.org/rfc/rfc2606.txt. Any other domain may be owned by a legitimate
+                             // TRANS: person or organization.
                              sprintf(_('Jabber or GTalk address, '.
                                        'like "UserName@example.org". '.
                                        'First, make sure to add %s to your '.

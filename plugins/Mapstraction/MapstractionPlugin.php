@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  *
  * @seeAlso  Location
  */
-
 class MapstractionPlugin extends Plugin
 {
     const VERSION = STATUSNET_VERSION;
@@ -64,7 +63,6 @@ class MapstractionPlugin extends Plugin
      *
      * @return boolean event handler return
      */
-
     function onRouterInitialized($m)
     {
         $m->connect(':nickname/all/map',
@@ -85,7 +83,6 @@ class MapstractionPlugin extends Plugin
      *
      * @return boolean event handler return
      */
-
     function onAutoload($cls)
     {
         switch ($cls)
@@ -109,7 +106,6 @@ class MapstractionPlugin extends Plugin
      *
      * @return boolean event handler return
      */
-
     function onEndShowScripts($action)
     {
         $actionName = $action->trimmed('action');
@@ -190,6 +186,7 @@ class MapstractionPlugin extends Plugin
                                     array('nickname' => $action->trimmed('nickname')));
 
         $action->element('a', array('href' => $mapUrl),
+                         // TRANS: Clickable item to allow opening the map in full size.
                          _m("Full size"));
 
         $action->elementEnd('div');
@@ -203,8 +200,7 @@ class MapstractionPlugin extends Plugin
                             'homepage' => 'http://status.net/wiki/Plugin:Mapstraction',
                             'rawdescription' =>
                             _m('Show maps of users\' and friends\' notices '.
-                               'with <a href="http://www.mapstraction.com/">Mapstraction</a> '.
-                               'JavaScript library.'));
+                               'with <a href="http://www.mapstraction.com/">Mapstraction</a>.'));
         return true;
     }
 }

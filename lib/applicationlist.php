@@ -45,7 +45,6 @@ define('APPS_PER_PAGE', 20);
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApplicationList extends Widget
 {
     /** Current application, application query */
@@ -164,10 +163,8 @@ class ApplicationList extends Widget
     }
 
     /* Override this in subclasses. */
-
     function showOwnerControls()
     {
         return;
     }
-
 }

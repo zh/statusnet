@@ -23,7 +23,6 @@
  * @package SubMirror
  * @author Brion Vibber <brion@status.net>
  */
-
 class MirrorQueueHandler extends QueueHandler
 {
     function transport()

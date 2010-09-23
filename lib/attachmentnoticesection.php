@@ -64,6 +64,7 @@ class AttachmentNoticeSection extends NoticeSection
 
     function title()
     {
+        // TRANS: Title.
         return _('Notices where this attachment appears');
     }
 

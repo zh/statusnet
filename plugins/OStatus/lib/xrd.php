@@ -27,7 +27,6 @@
  * @link      http://status.net/
  */
 
-
 class XRD
 {
     const XML_NS = 'http://www.w3.org/2000/xmlns/';
@@ -61,11 +60,13 @@ class XRD
         error_reporting($old);
 
         if (!$ok) {
-            throw new Exception("Invalid XML.");
+            // TRANS: Exception.
+            throw new Exception(_m('Invalid XML.'));
         }
         $xrd_element = $dom->getElementsByTagName('XRD')->item(0);
         if (!$xrd_element) {
-            throw new Exception("Invalid XML, missing XRD root.");
+            // TRANS: Exception.
+            throw new Exception(_m('Invalid XML, missing XRD root.'));
         }
 
         // Check for host-meta host

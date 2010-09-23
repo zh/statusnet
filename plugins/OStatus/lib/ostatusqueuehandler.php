@@ -221,5 +221,4 @@ class OStatusQueueHandler extends QueueHandler
 
         return $feed;
     }
-
 }

@@ -753,8 +753,15 @@ class Notice extends Memcached_DataObject
     }
 
     /**
-     * @param $groups array of Group *objects*
-     * @param $recipients array of profile *ids*
+     * Pull up a full list of local recipients who will be getting
+     * this notice in their inbox. Results will be cached, so don't
+     * change the input data wily-nilly!
+     *
+     * @param array $groups optional list of Group objects;
+     *              if left empty, will be loaded from group_inbox records
+     * @param array $recipient optional list of reply profile ids
+     *              if left empty, will be loaded from reply records
+     * @return array associating recipient user IDs with an inbox source constant
      */
     function whoGets($groups=null, $recipients=null)
     {
@@ -787,27 +794,27 @@ class Notice extends Memcached_DataObject
             $ni[$id] = NOTICE_INBOX_SOURCE_SUB;
         }
 
-        $profile = $this->getProfile();
-
         foreach ($groups as $group) {
             $users = $group->getUserMembers();
             foreach ($users as $id) {
                 if (!array_key_exists($id, $ni)) {
-                    $user = User::staticGet('id', $id);
-                    if (!$user->hasBlocked($profile)) {
-                        $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
-                    }
+                    $ni[$id] = NOTICE_INBOX_SOURCE_GROUP;
                 }
             }
         }
 
         foreach ($recipients as $recipient) {
-
             if (!array_key_exists($recipient, $ni)) {
-                $recipientUser = User::staticGet('id', $recipient);
-                if (!empty($recipientUser)) {
-                    $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
-                }
+                $ni[$recipient] = NOTICE_INBOX_SOURCE_REPLY;
+            }
+        }
+
+        // Exclude any deleted, non-local, or blocking recipients.
+        $profile = $this->getProfile();
+        foreach ($ni as $id => $source) {
+            $user = User::staticGet('id', $id);
+            if (empty($user) || $user->hasBlocked($profile)) {
+                unset($ni[$id]);
             }
         }
 
@@ -1210,6 +1217,64 @@ class Notice extends Memcached_DataObject
         $gi->free();
 
         return $groups;
+    }
+
+    function asActivity()
+    {
+        $profile = $this->getProfile();
+
+        $act = new Activity();
+
+        $act->actor     = ActivityObject::fromProfile($profile);
+        $act->verb      = ActivityVerb::POST;
+        $act->objects[] = ActivityObject::fromNotice($this);
+
+        $act->time    = strtotime($this->created);
+        $act->link    = $this->bestUrl();
+
+        $act->content = common_xml_safe_str($this->rendered);
+        $act->id      = $this->uri;
+        $act->title   = common_xml_safe_str($this->content);
+
+        $ctx = new ActivityContext();
+
+        if (!empty($this->reply_to)) {
+            $reply = Notice::staticGet('id', $this->reply_to);
+            if (!empty($reply)) {
+                $ctx->replyToID  = $reply->uri;
+                $ctx->replyToUrl = $reply->bestUrl();
+            }
+        }
+
+        $ctx->location = $this->getLocation();
+
+        $conv = null;
+
+        if (!empty($this->conversation)) {
+            $conv = Conversation::staticGet('id', $this->conversation);
+            if (!empty($conv)) {
+                $ctx->conversation = $conv->uri;
+            }
+        }
+
+        $reply_ids = $this->getReplies();
+
+        foreach ($reply_ids as $id) {
+            $profile = Profile::staticGet('id', $id);
+            if (!empty($profile)) {
+                $ctx->attention[] = $profile->getUri();
+            }
+        }
+
+        $groups = $this->getGroups();
+
+        foreach ($groups as $group) {
+            $ctx->attention[] = $group->uri;
+        }
+
+        $act->context = $ctx;
+
+        return $act;
     }
 
     // This has gotten way too long. Needs to be sliced up into functional bits

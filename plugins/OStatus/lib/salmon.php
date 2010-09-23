@@ -89,8 +89,8 @@ class Salmon
                 $magickey->generate($user->id);
             }
         } else {
-            // @todo i18n FIXME: added i18n and use sprintf when using parameters.
-            throw new Exception("Salmon invalid actor for signing.");
+            // TRANS: Exception.
+            throw new Exception(_m('Salmon invalid actor for signing.'));
         }
 
         try {
@@ -100,7 +100,6 @@ class Salmon
         }
         return $magic_env->toXML($env);
     }
-
 
     public function verifyMagicEnv($text)
     {

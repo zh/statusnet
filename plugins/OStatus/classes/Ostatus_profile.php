@@ -21,7 +21,6 @@
  * @package OStatusPlugin
  * @maintainer Brion Vibber <brion@status.net>
  */
-
 class Ostatus_profile extends Memcached_DataObject
 {
     public $__table = 'ostatus_profile';
@@ -51,7 +50,6 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @return array array of column definitions
      */
-
     function table()
     {
         return array('uri' => DB_DATAOBJECT_STR + DB_DATAOBJECT_NOTNULL,
@@ -92,7 +90,6 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @return array key definitions
      */
-
     function keys()
     {
         return array_keys($this->keyTypes());
@@ -106,7 +103,6 @@ class Ostatus_profile extends Memcached_DataObject
      *
      * @return array key definitions
      */
-
     function keyTypes()
     {
         return array('uri' => 'K', 'profile_id' => 'U', 'group_id' => 'U', 'feeduri' => 'U');
@@ -188,11 +184,11 @@ class Ostatus_profile extends Memcached_DataObject
         } else if ($this->group_id && !$this->profile_id) {
             return true;
         } else if ($this->group_id && $this->profile_id) {
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs set for $this->uri.");
+            // TRANS: Server exception.
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs set for %s.'),$this->uri));
         } else {
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ServerException("Invalid ostatus_profile state: both group and profile IDs empty for $this->uri.");
+            // TRANS: Server exception.
+            throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs empty for %s.'),$this->uri));
         }
     }
 
@@ -280,7 +276,9 @@ class Ostatus_profile extends Memcached_DataObject
             if ($type == 'object') {
                 $type = get_class($actor);
             }
-            throw new ServerException("Invalid actor passed to " . __METHOD__ . ": " . $type);
+            // TRANS: Server exception.
+            // TRANS: %1$s is the method name the exception occured in, %2$s is the actor type.
+            throw new ServerException(sprintf(_m('Invalid actor passed to %1$s: %2$s.'),__METHOD__,$type));
         }
         if ($object == null) {
             $object = $this;
@@ -372,8 +370,8 @@ class Ostatus_profile extends Memcached_DataObject
         } else if ($entry instanceof Notice) {
             return $preamble . $entry->asAtomEntry(true, true);
         } else {
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ServerException("Invalid type passed to Ostatus_profile::notify; must be XML string or Activity entry.");
+            // TRANS: Server exception.
+            throw new ServerException(_m('Invalid type passed to Ostatus_profile::notify. It must be XML string or Activity entry.'));
         }
     }
 
@@ -403,7 +401,7 @@ class Ostatus_profile extends Memcached_DataObject
         } else if ($feed->localName == 'rss') { // @fixme check namespace
             $this->processRssFeed($feed, $source);
         } else {
-            throw new Exception("Unknown feed format.");
+            throw new Exception(_m('Unknown feed format.'));
         }
     }
 
@@ -426,7 +424,7 @@ class Ostatus_profile extends Memcached_DataObject
         $channels = $rss->getElementsByTagName('channel');
 
         if ($channels->length == 0) {
-            throw new Exception("RSS feed without a channel.");
+            throw new Exception(_m('RSS feed without a channel.'));
         } else if ($channels->length > 1) {
             common_log(LOG_WARNING, __METHOD__ . ": more than one channel in an RSS feed");
         }
@@ -470,7 +468,8 @@ class Ostatus_profile extends Memcached_DataObject
                 }
                 break;
             default:
-                throw new ClientException("Can't handle that kind of post.");
+                // TRANS: Client exception.
+                throw new ClientException(_m('Can\'t handle that kind of post.'));
             }
 
             Event::handle('EndHandleFeedEntry', array($activity));
@@ -552,8 +551,8 @@ class Ostatus_profile extends Memcached_DataObject
             $sourceContent = $note->title;
         } else {
             // @fixme fetch from $sourceUrl?
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new ClientException("No content for notice {$sourceUri}.");
+            // TRANS: Client exception. %s is a source URL.
+            throw new ClientException(sprintf(_m('No content for notice %s.'),$sourceUri));
         }
 
         // Get (safe!) HTML and text versions of the content
@@ -584,14 +583,17 @@ class Ostatus_profile extends Memcached_DataObject
 
                 // We mark up the attachment link specially for the HTML output
                 // so we can fold-out the full version inline.
+
+                // TRANS: Shown when a notice is longer than supported and/or when attachments are present.
+                $showMoreText = _m('Show more');
                 $attachUrl = common_local_url('attachment',
                                               array('attachment' => $attachment->id));
                 $rendered = common_render_text($shortSummary) .
                             '<a href="' . htmlspecialchars($attachUrl) .'"'.
                             ' class="attachment more"' .
-                            ' title="'. htmlspecialchars(_m('Show more')) . '">' .
+                            ' title="'. htmlspecialchars($showMoreText) . '">' .
                             '&#8230;' .
-                            '</a>'; // @todo i18n FIXME: add translator hint/context.
+                            '</a>';
             }
         }
 
@@ -775,8 +777,8 @@ class Ostatus_profile extends Memcached_DataObject
         $response = $client->get($profile_url);
 
         if (!$response->isOk()) {
-            // @todo i18n FIXME: use sprintf and add i18n.
-            throw new Exception("Could not reach profile page: " . $profile_url);
+            // TRANS: Exception. %s is a profile URL.
+            throw new Exception(sprintf(_m('Could not reach profile page %s.'),$profile_url));
         }
 
         // Check if we have a non-canonical URL
@@ -833,8 +835,8 @@ class Ostatus_profile extends Memcached_DataObject
             return self::ensureFeedURL($feedurl, $hints);
         }
 
-        // @todo i18n FIXME: use sprintf and add i18n.
-        throw new Exception("Could not find a feed URL for profile page " . $finalUrl);
+        // TRANS: Exception.
+        throw new Exception(sprintf(_m('Could not find a feed URL for profile page %s.'),$finalUrl));
     }
 
     /**
@@ -866,7 +868,7 @@ class Ostatus_profile extends Memcached_DataObject
         $user = User::staticGet('id', $profile->id);
 
         if (!empty($user)) {
-            // @todo i18n FIXME: use sprintf and add i18n.
+            // @todo i18n FIXME: use sprintf and add i18n (?)
             throw new OStatusShadowException($profile, "'$profile_url' is the profile for local user '{$user->nickname}'.");
         }
 
@@ -971,8 +973,7 @@ class Ostatus_profile extends Memcached_DataObject
         }
 
         // XXX: make some educated guesses here
-
-        throw new FeedSubException("Can't find enough profile information to make a feed.");
+        throw new FeedSubException(_m('Can\'t find enough profile information to make a feed.'));
     }
 
     /**
@@ -1087,7 +1088,7 @@ class Ostatus_profile extends Memcached_DataObject
      * @return mixed URL string or false
      */
 
-    protected static function getActivityObjectAvatar($object, $hints=array())
+    public static function getActivityObjectAvatar($object, $hints=array())
     {
         if ($object->avatarLinks) {
             $best = false;
@@ -1270,13 +1271,13 @@ class Ostatus_profile extends Memcached_DataObject
 
         $user = User::staticGet('uri', $homeuri);
         if ($user) {
-            // @todo i18n FIXME: add i18n.
-            throw new Exception("Local user can't be referenced as remote.");
+            // TRANS: Exception.
+            throw new Exception(_m('Local user can\'t be referenced as remote.'));
         }
 
         if (OStatusPlugin::localGroupFromUrl($homeuri)) {
-            // @todo i18n FIXME: add i18n.
-            throw new Exception("Local group can't be referenced as remote.");
+            // TRANS: Exception.
+            throw new Exception(_m('Local group can\'t be referenced as remote.'));
         }
 
         if (array_key_exists('feedurl', $hints)) {
@@ -1327,8 +1328,8 @@ class Ostatus_profile extends Memcached_DataObject
 
             $oprofile->profile_id = $profile->insert();
             if (!$oprofile->profile_id) {
-                // @todo i18n FIXME: add i18n.
-                throw new ServerException("Can't save local profile.");
+            // TRANS: Exception.
+                throw new ServerException(_m('Can\'t save local profile.'));
             }
         } else {
             $group = new User_group();
@@ -1338,16 +1339,16 @@ class Ostatus_profile extends Memcached_DataObject
 
             $oprofile->group_id = $group->insert();
             if (!$oprofile->group_id) {
-                // @todo i18n FIXME: add i18n.
-                throw new ServerException("Can't save local profile.");
+                // TRANS: Exception.
+                throw new ServerException(_m('Can\'t save local profile.'));
             }
         }
 
         $ok = $oprofile->insert();
 
         if (!$ok) {
-            // @todo i18n FIXME: add i18n.
-            throw new ServerException("Can't save OStatus profile.");
+            // TRANS: Exception.
+            throw new ServerException(_m('Can\'t save OStatus profile.'));
         }
 
         $avatar = self::getActivityObjectAvatar($object, $hints);
@@ -1389,7 +1390,7 @@ class Ostatus_profile extends Memcached_DataObject
         }
     }
 
-    protected static function updateProfile($profile, $object, $hints=array())
+    public static function updateProfile($profile, $object, $hints=array())
     {
         $orig = clone($profile);
 
@@ -1517,7 +1518,7 @@ class Ostatus_profile extends Memcached_DataObject
         return $bio;
     }
 
-    protected static function getActivityObjectNickname($object, $hints=array())
+    public static function getActivityObjectNickname($object, $hints=array())
     {
         if ($object->poco) {
             if (!empty($object->poco->preferredUsername)) {
@@ -1605,8 +1606,8 @@ class Ostatus_profile extends Memcached_DataObject
         if ($uri !== false) {
             if (is_null($uri)) {
                 // Negative cache entry
-                // @todo i18n FIXME: add i18n.
-                throw new Exception('Not a valid webfinger address.');
+                // TRANS: Exception.
+                throw new Exception(_m('Not a valid webfinger address.'));
             }
             $oprofile = Ostatus_profile::staticGet('uri', $uri);
             if (!empty($oprofile)) {
@@ -1633,8 +1634,8 @@ class Ostatus_profile extends Memcached_DataObject
             // Save negative cache entry so we don't waste time looking it up again.
             // @fixme distinguish temporary failures?
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), null);
-            // @todo i18n FIXME: add i18n.
-            throw new Exception('Not a valid webfinger address.');
+                // TRANS: Exception.
+            throw new Exception(_m('Not a valid webfinger address.'));
         }
 
         $hints = array('webfinger' => $addr);
@@ -1715,8 +1716,8 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!$profile_id) {
                 common_log_db_error($profile, 'INSERT', __FILE__);
-                // @todo i18n FIXME: add i18n and use sprintf for parameter.
-                throw new Exception("Couldn't save profile for '$addr'.");
+                // TRANS: Exception. %s is a webfinger address.
+                throw new Exception(sprintf(_m('Couldn\'t save profile for "%s".'),$addr));
             }
 
             $oprofile = new Ostatus_profile();
@@ -1734,16 +1735,16 @@ class Ostatus_profile extends Memcached_DataObject
 
             if (!$result) {
                 common_log_db_error($oprofile, 'INSERT', __FILE__);
-                // @todo i18n FIXME: add i18n and use sprintf for parameter.
-                throw new Exception("Couldn't save ostatus_profile for '$addr'.");
+                // TRANS: Exception. %s is a webfinger address.
+                throw new Exception(sprintf(_m('Couldn\'t save ostatus_profile for "%s".'),$addr));
             }
 
             self::cacheSet(sprintf('ostatus_profile:webfinger:%s', $addr), $oprofile->uri);
             return $oprofile;
         }
 
-        // @todo i18n FIXME: add i18n and use sprintf for parameter.
-        throw new Exception("Couldn't find a valid profile for '$addr'");
+        // TRANS: Exception. %s is a webfinger address.
+        throw new Exception(sprintf(_m('Couldn\'t find a valid profile for "%s".'),$addr));
     }
 
     /**
@@ -1785,7 +1786,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if ($file_id === false) {
             common_log_db_error($file, "INSERT", __FILE__);
-            throw new ServerException(_('Could not store HTML content of long post as file.'));
+            throw new ServerException(_m('Could not store HTML content of long post as file.'));
         }
 
         return $file;

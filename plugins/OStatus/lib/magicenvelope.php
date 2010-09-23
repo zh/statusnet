@@ -76,7 +76,8 @@ class MagicEnvelope
                 }
             }
         }
-        throw new Exception('Unable to locate signer public key.');
+        // TRANS: Exception.
+        throw new Exception(_m('Unable to locate signer public key.'));
     }
 
 
@@ -92,7 +93,6 @@ class MagicEnvelope
             'sig' => $signature_alg->sign($armored_text),
             'alg' => $signature_alg->getName()
         );
-
     }
 
     public function toXML($env) {
@@ -109,7 +109,6 @@ class MagicEnvelope
         common_debug($string);
         return $string;
     }
-
 
     public function unfold($env)
     {
@@ -218,5 +217,4 @@ class MagicEnvelope
             'sig' => preg_replace('/\s/', '', $sig_element->nodeValue),
         );
     }
-
 }

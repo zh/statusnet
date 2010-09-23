@@ -44,7 +44,7 @@ if (!defined('STATUSNET'))
  */
 class AtomUserNoticeFeed extends AtomNoticeFeed
 {
-    private $user;
+    protected $user;
 
     /**
      * Constructor
@@ -90,7 +90,7 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
                 array('nickname' => $user->nickname)
             )
         );
-        
+
         $self = common_local_url('ApiTimelineUser',
                                  array('id' => $user->id,
                                        'format' => 'atom'));

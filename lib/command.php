@@ -831,7 +831,7 @@ class SubscriptionsCommand extends Command
             $out=_('You are not subscribed to anyone.');
         }else{
             // TRANS: Text shown after requesting other users a user is subscribed to.
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed users.
             $out = ngettext('You are subscribed to this person:',
                 'You are subscribed to these people:',
@@ -858,7 +858,7 @@ class SubscribersCommand extends Command
             $out=_('No one is subscribed to you.');
         }else{
             // TRANS: Text shown after requesting other users that are subscribed to a user (followers).
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribing users.
             $out = ngettext('This person is subscribed to you:',
                 'These people are subscribed to you:',
@@ -885,7 +885,7 @@ class GroupsCommand extends Command
             $out=_('You are not a member of any groups.');
         }else{
             // TRANS: Text shown after requesting groups a user is subscribed to.
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed groups.
             $out = ngettext('You are a member of this group:',
                 'You are a member of these groups:',
@@ -900,8 +900,8 @@ class HelpCommand extends Command
 {
     function handle($channel)
     {
-    	// TRANS: Help text for commands.
         $channel->output($this->user,
+                         // TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
                          _("Commands:\n".
                            "on - turn on notifications\n".
                            "off - turn off notifications\n".

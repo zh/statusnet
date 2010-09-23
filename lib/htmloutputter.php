@@ -325,6 +325,7 @@ class HTMLOutputter extends XMLOutputter
      * @param string $label text of the button
      * @param string $cls   class of the button, default 'submit'
      * @param string $name  name, if different than ID
+     * @param string $title  title text for the submit button
      *
      * @return void
      *

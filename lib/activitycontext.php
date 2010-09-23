@@ -54,8 +54,12 @@ class ActivityContext
     const MENTIONED    = 'mentioned';
     const CONVERSATION = 'ostatus:conversation';
 
-    function __construct($element)
+    function __construct($element = null)
     {
+        if (empty($element)) {
+            return;
+        }
+
         $replyToEl = ActivityUtils::child($element, self::INREPLYTO, self::THR);
 
         if (!empty($replyToEl)) {
@@ -73,7 +77,6 @@ class ActivityContext
 
         $attention = array();
         for ($i = 0; $i < $links->length; $i++) {
-
             $link = $links->item($i);
 
             $linkRel = $link->getAttribute(ActivityUtils::REL);

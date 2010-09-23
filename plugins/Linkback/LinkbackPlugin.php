@@ -49,7 +49,6 @@ define('LINKBACKPLUGIN_VERSION', '0.1');
  *
  * @see      Event
  */
-
 class LinkbackPlugin extends Plugin
 {
     var $notice = null;
@@ -154,7 +153,6 @@ class LinkbackPlugin extends Plugin
     // Largely cadged from trackback_cls.php by
     // Ran Aroussi <ran@blogish.org>, GPL2 or any later version
     // http://phptrackback.sourceforge.net/
-
     function getTrackback($text, $url)
     {
         if (preg_match_all('/(<rdf:RDF.*?<\/rdf:RDF>)/sm', $text, $match, PREG_SET_ORDER)) {

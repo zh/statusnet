@@ -168,7 +168,6 @@ class ActivityObject
                 ActivityObject::MEDIA_DESCRIPTION,
                 Activity::MEDIA
             );
-
         }
     }
 
@@ -418,7 +417,6 @@ class ActivityObject
         );
 
         foreach ($sizes as $size) {
-
             $alink  = null;
             $avatar = $profile->getAvatar($size);
 

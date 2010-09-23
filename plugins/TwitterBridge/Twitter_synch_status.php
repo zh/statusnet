@@ -48,7 +48,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  *
  * @see      DB_DataObject
  */
-
 class Twitter_synch_status extends Memcached_DataObject
 {
     public $__table = 'twitter_synch_status'; // table name
@@ -67,7 +66,6 @@ class Twitter_synch_status extends Memcached_DataObject
      * @return Twitter_synch_status object found, or null for no hits
      *
      */
-
     function staticGet($k, $v=null)
     {
         throw new Exception("Use pkeyGet() for this class.");
@@ -81,7 +79,6 @@ class Twitter_synch_status extends Memcached_DataObject
      * @return Twitter_synch_status object found, or null for no hits
      *
      */
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Twitter_synch_status', $kv);
@@ -95,7 +92,6 @@ class Twitter_synch_status extends Memcached_DataObject
      *
      * @return array array of column definitions
      */
-
     function table()
     {
         return array('foreign_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
@@ -115,7 +111,6 @@ class Twitter_synch_status extends Memcached_DataObject
      *
      * @return array list of key field names
      */
-
     function keys()
     {
         return array_keys($this->keyTypes());
@@ -133,7 +128,6 @@ class Twitter_synch_status extends Memcached_DataObject
      *         'K' for primary key: for compound keys, add an entry for each component;
      *         'U' for unique keys: compound keys are not well supported here.
      */
-
     function keyTypes()
     {
         return array('foreign_id' => 'K',
@@ -150,7 +144,6 @@ class Twitter_synch_status extends Memcached_DataObject
      *
      * @return array magic three-false array that stops auto-incrementing.
      */
-
     function sequenceKey()
     {
         return array(false, false, false);
@@ -174,7 +167,6 @@ class Twitter_synch_status extends Memcached_DataObject
                                    'timeline' => $timeline));
 
         if (empty($tss)) {
-
             $tss = new Twitter_synch_status();
 
             $tss->foreign_id = $foreign_id;
@@ -186,9 +178,7 @@ class Twitter_synch_status extends Memcached_DataObject
             $tss->insert();
 
             return true;
-
         } else {
-
             $orig = clone($tss);
 
             $tss->last_id  = $last_id;

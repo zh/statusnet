@@ -38,4 +38,3 @@ class RSSCloudQueueHandler extends QueueHandler
         return $notifier->notify($profile);
     }
 }
-

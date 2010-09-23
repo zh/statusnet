@@ -235,4 +235,30 @@ class Subscription extends Memcached_DataObject
                                            'subscribed' => $other->id));
         return (empty($sub)) ? false : true;
     }
+
+    function asActivity()
+    {
+        $subscriber = Profile::staticGet('id', $this->subscriber);
+        $subscribed = Profile::staticGet('id', $this->subscribed);
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FOLLOW;
+
+        $act->id   = TagURI::mint('follow:%d:%d:%s',
+                                  $subscriber->id,
+                                  $subscribed->id,
+                                  common_date_iso8601($this->created));
+
+        $act->time    = strtotime($this->created);
+        $act->title   = _("Follow");
+        $act->content = sprintf(_("%s is now following %s."),
+                               $subscriber->getBestName(),
+                               $subscribed->getBestName());
+
+        $act->actor     = ActivityObject::fromProfile($subscriber);
+        $act->objects[] = ActivityObject::fromProfile($subscribed);
+
+        return $act;
+    }
 }
