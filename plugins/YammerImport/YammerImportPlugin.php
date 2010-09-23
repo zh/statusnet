@@ -22,9 +22,7 @@
  * @maintainer Brion Vibber <brion@status.net>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
-
-set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/');
+if (!defined('STATUSNET')) { exit(1); }
 
 class YammerImportPlugin extends Plugin
 {
@@ -36,8 +34,8 @@ class YammerImportPlugin extends Plugin
      */
     function onRouterInitialized($m)
     {
-        $m->connect('admin/import/yammer',
-                    array('action' => 'importyammer'));
+        $m->connect('admin/yammer',
+                    array('action' => 'yammeradminpanel'));
         return true;
     }
 
@@ -49,6 +47,56 @@ class YammerImportPlugin extends Plugin
     function onEndInitializeQueueManager(QueueManager $qm)
     {
         $qm->connect('importym', 'ImportYmQueueHandler');
+
+        return true;
+    }
+
+    /**
+     * Set up all our tables...
+     */
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        $tables = array('Yammer_state',
+                        'Yammer_user',
+                        'Yammer_group',
+                        'Yammer_notice',
+                        'Yammer_notice_stub');
+        foreach ($tables as $table) {
+            $schema->ensureTable($table, $table::schemaDef());
+        }
+
+        return true;
+    }
+
+    /**
+     * If the plugin's installed, this should be accessible to admins.
+     */
+    function onAdminPanelCheck($name, &$isOK)
+    {
+        if ($name == 'yammer') {
+            $isOK = true;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add the Yammer admin panel to the list...
+     */
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('yammer')) {
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(common_local_url('yammeradminpanel'),
+                                _m('Yammer'),
+                                _m('Yammer import'),
+                                $action_name == 'yammeradminpanel',
+                                'nav_yammer_admin_panel');
+        }
 
         return true;
     }
@@ -69,6 +117,9 @@ class YammerImportPlugin extends Plugin
         case 'sn_yammerclient':
         case 'yammerimporter':
             require_once "$base/lib/$lower.php";
+            return false;
+        case 'yammeradminpanelaction':
+            require_once "$base/actions/yammeradminpanel.php";
             return false;
         default:
             return true;
