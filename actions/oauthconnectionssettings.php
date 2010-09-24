@@ -80,7 +80,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return _('You have allowed the following applications to access you account.');
+        return _('You have allowed the following applications to access your account.');
     }
 
     /**

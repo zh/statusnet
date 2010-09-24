@@ -66,6 +66,7 @@ class BlockForm extends ProfileActionForm
 
     function title()
     {
+        // TRANS: Title for the form to block a user.
         return _('Block');
     }
 
@@ -77,6 +78,7 @@ class BlockForm extends ProfileActionForm
 
     function description()
     {
+        // TRANS: Description of the form to block a user.
         return _('Block this user');
     }
 }

@@ -19,15 +19,18 @@
 
 /* XXX: break up into separate modules (HTTP, user, files) */
 
-// Show a server error
-
+/**
+ * Show a server error.
+ */
 function common_server_error($msg, $code=500)
 {
     $err = new ServerErrorAction($msg, $code);
     $err->showPage();
 }
 
-// Show a user error
+/**
+ * Show a user error.
+ */
 function common_user_error($msg, $code=400)
 {
     $err = new ClientErrorAction($msg, $code);
@@ -37,7 +40,7 @@ function common_user_error($msg, $code=400)
 /**
  * This should only be used at setup; processes switching languages
  * to send text to other users should use common_switch_locale().
- * 
+ *
  * @param string $language Locale language code (optional; empty uses
  *                         current user's preference or site default)
  * @return mixed success
@@ -61,10 +64,10 @@ function common_init_locale($language=null)
 /**
  * Initialize locale and charset settings and gettext with our message catalog,
  * using the current user's language preference or the site default.
- * 
+ *
  * This should generally only be run at framework initialization; code switching
  * languages at runtime should call common_switch_language().
- * 
+ *
  * @access private
  */
 function common_init_language()
@@ -157,7 +160,6 @@ function common_timezone()
 
 function common_language()
 {
-
     // If there is a user logged in and they've set a language preference
     // then return that one...
     if (_have_config() && common_logged_in()) {
@@ -189,8 +191,10 @@ function common_language()
     // Finally, if none of the above worked, use the site's default...
     return common_config('site', 'language');
 }
-// salted, hashed passwords are stored in the DB
 
+/**
+ * Salted, hashed passwords are stored in the DB.
+ */
 function common_munge_password($password, $id)
 {
     if (is_object($id) || is_object($password)) {
@@ -201,8 +205,9 @@ function common_munge_password($password, $id)
     return md5($password . $id);
 }
 
-// check if a username exists and has matching password
-
+/**
+ * Check if a username exists and has matching password.
+ */
 function common_check_user($nickname, $password)
 {
     // empty nickname always unacceptable
@@ -229,7 +234,9 @@ function common_check_user($nickname, $password)
     return $authenticatedUser;
 }
 
-// is the current user logged in?
+/**
+ * Is the current user logged in?
+ */
 function common_logged_in()
 {
     return (!is_null(common_current_user()));
@@ -275,12 +282,10 @@ function common_ensure_session()
 // 3) null to clear
 
 // Initialize to false; set to null if none found
-
 $_cur = false;
 
 function common_set_user($user)
 {
-
     global $_cur;
 
     if (is_null($user) && common_have_session()) {
@@ -366,7 +371,6 @@ function common_rememberme($user=null)
 
 function common_remembered_user()
 {
-
     $user = null;
 
     $packed = isset($_COOKIE[REMEMBERME]) ? $_COOKIE[REMEMBERME] : null;
@@ -428,14 +432,17 @@ function common_remembered_user()
     return $user;
 }
 
-// must be called with a valid user!
-
+/**
+ * must be called with a valid user!
+ */
 function common_forgetme()
 {
     common_set_cookie(REMEMBERME, '', 0);
 }
 
-// who is the current user?
+/**
+ * Who is the current user?
+ */
 function common_current_user()
 {
     global $_cur;
@@ -471,10 +478,11 @@ function common_current_user()
     return $_cur;
 }
 
-// Logins that are 'remembered' aren't 'real' -- they're subject to
-// cookie-stealing. So, we don't let them do certain things. New reg,
-// OpenID, and password logins _are_ real.
-
+/**
+ * Logins that are 'remembered' aren't 'real' -- they're subject to
+ * cookie-stealing. So, we don't let them do certain things. New reg,
+ * OpenID, and password logins _are_ real.
+ */
 function common_real_login($real=true)
 {
     common_ensure_session();
@@ -484,6 +492,29 @@ function common_real_login($real=true)
 function common_is_real_login()
 {
     return common_logged_in() && $_SESSION['real_login'];
+}
+
+/**
+ * Get a hash portion for HTTP caching Etags and such including
+ * info on the current user's session. If login/logout state changes,
+ * or we've changed accounts, or we've renamed the current user,
+ * we'll get a new hash value.
+ *
+ * This should not be considered secure information.
+ *
+ * @param User $user (optional; uses common_current_user() if left out)
+ * @return string
+ */
+function common_user_cache_hash($user=false)
+{
+    if ($user === false) {
+        $user = common_current_user();
+    }
+    if ($user) {
+        return crc32($user->id . ':' . $user->nickname);
+    } else {
+        return '0';
+    }
 }
 
 // get canonical version of nickname for comparison
@@ -577,9 +608,7 @@ function common_find_mentions($text, $notice)
     }
 
     if (Event::handle('StartFindMentions', array($sender, $text, &$mentions))) {
-
         // Get the context of the original notice, if any
-
         $originalAuthor   = null;
         $originalNotice   = null;
         $originalMentions = array();
@@ -615,7 +644,6 @@ function common_find_mentions($text, $notice)
         $matches = array_merge($tmatches[1], $atmatches[1]);
 
         foreach ($matches as $match) {
-
             $nickname = common_canonical_nickname($match[0]);
 
             // Try to get a profile for this nickname.
@@ -623,19 +651,15 @@ function common_find_mentions($text, $notice)
             // sender context.
 
             if (!empty($originalAuthor) && $originalAuthor->nickname == $nickname) {
-
                 $mentioned = $originalAuthor;
-
             } else if (!empty($originalMentions) &&
                        array_key_exists($nickname, $originalMentions)) {
-
                 $mentioned = $originalMentions[$nickname];
             } else {
                 $mentioned = common_relative_profile($sender, $nickname);
             }
 
             if (!empty($mentioned)) {
-
                 $user = User::staticGet('id', $mentioned->id);
 
                 if ($user) {
@@ -1104,30 +1128,30 @@ function common_date_string($dt)
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a minute ago');
     } else if ($diff < 3300) {
-        // XXX: should support plural.
+        $minutes = round($diff/60);
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf(_('about %d minutes ago'), round($diff/60));
+        return sprintf( ngettext('about one minute ago', 'about %d minutes ago', $minutes), $minutes);
     } else if ($diff < 5400) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about an hour ago');
     } else if ($diff < 22 * 3600) {
-        // XXX: should support plural.
+        $hours = round($diff/3600);
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf(_('about %d hours ago'), round($diff/3600));
+        return sprintf( ngettext('about one hour ago', 'about %d hours ago', $hours), $hours);
     } else if ($diff < 37 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a day ago');
     } else if ($diff < 24 * 24 * 3600) {
-        // XXX: should support plural.
+        $days = round($diff/(24*3600));
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf(_('about %d days ago'), round($diff/(24*3600)));
+        return sprintf( ngettext('about one day ago', 'about %d days ago', $days), $days);
     } else if ($diff < 46 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a month ago');
     } else if ($diff < 330 * 24 * 3600) {
-        // XXX: should support plural.
+        $months = round($diff/(30*24*3600));
         // TRANS: Used in notices to indicate when the notice was made compared to now.
-        return sprintf(_('about %d months ago'), round($diff/(30*24*3600)));
+        return sprintf( ngettext('about one month ago', 'about %d months ago',$months), $months);
     } else if ($diff < 480 * 24 * 3600) {
         // TRANS: Used in notices to indicate when the notice was made compared to now.
         return _('about a year ago');
@@ -1230,8 +1254,9 @@ function common_broadcast_notice($notice, $remote=false)
     // DO NOTHING!
 }
 
-// Stick the notice on the queue
-
+/**
+ * Stick the notice on the queue.
+ */
 function common_enqueue_notice($notice)
 {
     static $localTransports = array('omb',
@@ -1293,8 +1318,9 @@ function common_profile_url($nickname)
                             null, null, false);
 }
 
-// Should make up a reasonable root URL
-
+/**
+ * Should make up a reasonable root URL
+ */
 function common_root_url($ssl=false)
 {
     $url = common_path('', $ssl, false);
@@ -1305,9 +1331,10 @@ function common_root_url($ssl=false)
     return $url;
 }
 
-// returns $bytes bytes of random data as a hexadecimal string
-// "good" here is a goal and not a guarantee
-
+/**
+ * returns $bytes bytes of random data as a hexadecimal string
+ * "good" here is a goal and not a guarantee
+ */
 function common_good_rand($bytes)
 {
     // XXX: use random.org...?
@@ -1343,13 +1370,13 @@ function common_mtrand($bytes)
 /**
  * Record the given URL as the return destination for a future
  * form submission, to be read by common_get_returnto().
- * 
+ *
  * @param string $url
- * 
+ *
  * @fixme as a session-global setting, this can allow multiple forms
  * to conflict and overwrite each others' returnto destinations if
  * the user has multiple tabs or windows open.
- * 
+ *
  * Should refactor to index with a token or otherwise only pass the
  * data along its intended path.
  */
@@ -1362,13 +1389,13 @@ function common_set_returnto($url)
 /**
  * Fetch a return-destination URL previously recorded by
  * common_set_returnto().
- * 
+ *
  * @return mixed URL string or null
- * 
+ *
  * @fixme as a session-global setting, this can allow multiple forms
  * to conflict and overwrite each others' returnto destinations if
  * the user has multiple tabs or windows open.
- * 
+ *
  * Should refactor to index with a token or otherwise only pass the
  * data along its intended path.
  */
@@ -1453,7 +1480,12 @@ function common_log_db_error(&$object, $verb, $filename=null)
 {
     $objstr = common_log_objstring($object);
     $last_error = &PEAR::getStaticProperty('DB_DataObject','lastError');
-    common_log(LOG_ERR, $last_error->message . '(' . $verb . ' on ' . $objstr . ')', $filename);
+    if (is_object($last_error)) {
+        $msg = $last_error->message;
+    } else {
+        $msg = 'Unknown error (' . var_export($last_error, true) . ')';
+    }
+    common_log(LOG_ERR, $msg . '(' . $verb . ' on ' . $objstr . ')', $filename);
 }
 
 function common_log_objstring(&$object)
@@ -1495,7 +1527,7 @@ function common_valid_tag($tag)
  * Determine if given domain or address literal is valid
  * eg for use in JIDs and URLs. Does not check if the domain
  * exists!
- * 
+ *
  * @param string $domain
  * @return boolean valid or not
  */
@@ -1826,7 +1858,6 @@ function common_compatible_license($from, $to)
  */
 function common_database_tablename($tablename)
 {
-
   if(common_config('db','quote_identifiers')) {
       $tablename = '"'. $tablename .'"';
   }

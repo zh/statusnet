@@ -319,7 +319,7 @@ class Activity
         return null;
     }
 
-    function asString($namespace=false)
+    function asString($namespace=false, $author=true)
     {
         $xs = new XMLStringer(true);
 
@@ -338,7 +338,7 @@ class Activity
 
         $xs->element('id', null, $this->id);
         $xs->element('title', null, $this->title);
-        $xs->element('published', null, common_date_iso8601($this->time));
+        $xs->element('published', null, self::iso8601Date($this->time));
         $xs->element('content', array('type' => 'html'), $this->content);
 
         if (!empty($this->summary)) {
@@ -353,13 +353,15 @@ class Activity
 
         // XXX: add context
 
-        $xs->elementStart('author');
-        $xs->element('uri', array(), $this->actor->id);
-        if ($this->actor->title) {
-            $xs->element('name', array(), $this->actor->title);
+        if ($author) {
+            $xs->elementStart('author');
+            $xs->element('uri', array(), $this->actor->id);
+            if ($this->actor->title) {
+                $xs->element('name', array(), $this->actor->title);
+            }
+            $xs->elementEnd('author');
+            $xs->raw($this->actor->asString('activity:actor'));
         }
-        $xs->elementEnd('author');
-        $xs->raw($this->actor->asString('activity:actor'));
 
         $xs->element('activity:verb', null, $this->verb);
 
@@ -386,5 +388,12 @@ class Activity
     {
         return ActivityUtils::child($element, $tag, $namespace);
     }
-}
 
+    static function iso8601Date($tm)
+    {
+        $dateStr = date('d F Y H:i:s', $tm);
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        $d->setTimezone(new DateTimeZone(common_timezone()));
+        return $d->format('c');
+    }
+}

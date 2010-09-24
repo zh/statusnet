@@ -44,7 +44,6 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiOauthAction extends Action
 {
     /**
@@ -52,7 +51,6 @@ class ApiOauthAction extends Action
      *
      * @return boolean false
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -73,7 +71,6 @@ class ApiOauthAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -83,7 +80,6 @@ class ApiOauthAction extends Action
     static function cleanRequest()
     {
         // kill evil effects of magical slashing
-
         if (get_magic_quotes_gpc() == 1) {
             $_POST = array_map('stripslashes', $_POST);
             $_GET = array_map('stripslashes', $_GET);
@@ -93,7 +89,6 @@ class ApiOauthAction extends Action
 
         // XXX: should we strip anything else?  Or alternatively
         // only allow a known list of params?
-
         unset($_GET['p']);
         unset($_POST['p']);
     }
@@ -118,5 +113,4 @@ class ApiOauthAction extends Action
             return ($url . '&' . $k . '=' . $v);
         }
     }
-
 }

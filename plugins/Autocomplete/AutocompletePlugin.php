@@ -80,6 +80,4 @@ class AutocompletePlugin extends Plugin
                             _m('The autocomplete plugin allows users to autocomplete screen names in @ replies. When an "@" is typed into the notice text area, an autocomplete box is displayed populated with the user\'s friend\' screen names.'));
         return true;
     }
-
 }
-?>

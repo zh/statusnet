@@ -204,6 +204,7 @@ class ApiGroupListAllAction extends ApiPrivateAuthAction
             return '"' . implode(
                 ':',
                 array($this->arg('action'),
+                      common_user_cache_hash($this->auth_user),
                       common_language(),
                       strtotime($this->groups[0]->created),
                       strtotime($this->groups[$last]->created))

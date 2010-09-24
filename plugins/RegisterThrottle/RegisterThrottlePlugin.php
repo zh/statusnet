@@ -113,7 +113,6 @@ class RegisterThrottlePlugin extends Plugin
      * @return boolean hook value
      *
      */
-
     function onStartRegistrationTry($action)
     {
         $ipaddress = $this->_getIpAddress();
@@ -134,7 +133,7 @@ class RegisterThrottlePlugin extends Plugin
                 $now     = time();
                 $this->debug("Comparing {$regtime} to {$now}");
                 if ($now - $regtime < $seconds) {
-                    throw new Exception(_("Too many registrations. Take a break and try again later."));
+                    throw new Exception(_m("Too many registrations. Take a break and try again later."));
                 }
             }
         }
@@ -197,7 +196,7 @@ class RegisterThrottlePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => 'http://status.net/wiki/Plugin:RegisterThrottle',
                             'description' =>
-                            _m('Throttles excessive registration from a single IP.'));
+                            _m('Throttles excessive registration from a single IP address.'));
         return true;
     }
 

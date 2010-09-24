@@ -4,6 +4,8 @@ if (php_sapi_name() != 'cli') {
     die('not for web');
 }
 
+define('TIMEOUT', 60); // ssslllloowwwww salmon if queues are off
+
 define('INSTALLDIR', dirname(dirname(dirname(dirname(__FILE__)))));
 set_include_path(INSTALLDIR . '/extlib' . PATH_SEPARATOR . get_include_path());
 
@@ -188,7 +190,7 @@ class SNTestClient extends TestBase
     {
         $url = $this->basepath . '/' . $path;
 
-        $http = new HTTP_Request2($url, 'POST');
+        $http = new HTTP_Request2($url, 'POST', array('timeout' => TIMEOUT));
         if ($auth) {
             $http->setAuth($this->username, $this->password, HTTP_Request2::AUTH_BASIC);
         }
@@ -215,7 +217,7 @@ class SNTestClient extends TestBase
     protected function web($path, $form, $params=array())
     {
         $url = $this->basepath . '/' . $path;
-        $http = new HTTP_Request2($url, 'GET');
+        $http = new HTTP_Request2($url, 'GET', array('timeout' => TIMEOUT));
         $response = $http->send();
 
         $dom = $this->checkWeb($url, 'GET', $response);

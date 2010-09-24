@@ -149,6 +149,7 @@ class ApiGroupShowAction extends ApiPrivateAuthAction
             return '"' . implode(
                 ':',
                 array($this->arg('action'),
+                      common_user_cache_hash($this->auth_user),
                       common_language(),
                       $this->group->id,
                       strtotime($this->group->modified))
