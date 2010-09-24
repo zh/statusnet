@@ -324,4 +324,51 @@ class YammerRunner
         return true;
     }
 
+    /**
+     * Count the number of Yammer users we've mapped into our system!
+     *
+     * @return int
+     */
+    public function countUsers()
+    {
+        $map = new Yammer_user();
+        return $map->count();
+    }
+
+
+    /**
+     * Count the number of Yammer groups we've mapped into our system!
+     *
+     * @return int
+     */
+    public function countGroups()
+    {
+        $map = new Yammer_group();
+        return $map->count();
+    }
+
+
+    /**
+     * Count the number of Yammer notices we've pulled down for pending import...
+     *
+     * @return int
+     */
+    public function countFetchedNotices()
+    {
+        $map = new Yammer_notice_stub();
+        return $map->count();
+    }
+
+
+    /**
+     * Count the number of Yammer notices we've mapped into our system!
+     *
+     * @return int
+     */
+    public function countSavedNotices()
+    {
+        $map = new Yammer_notice();
+        return $map->count();
+    }
+
 }

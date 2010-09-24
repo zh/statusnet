@@ -64,6 +64,12 @@ class YammeradminpanelAction extends AdminPanelAction
         $form->show();
         return;
     }
+
+    function showStylesheets()
+    {
+        parent::showStylesheets();
+        $this->cssLink('plugins/YammerImport/css/admin.css', null, 'screen, projection, tv');
+    }
 }
 
 class YammerAdminPanelForm extends AdminForm
@@ -105,40 +111,97 @@ class YammerAdminPanelForm extends AdminForm
      */
     function formData()
     {
-        $this->out->element('p', array(), 'yammer import IN DA HOUSE');
-        
-        /*
-        Possible states of the yammer import process:
-        - null (not doing any sort of import)
-        - requesting-auth
-        - authenticated
-        - import-users
-        - import-groups
-        - fetch-messages
-        - import-messages
-        - done
-        */
-        $yammerState = Yammer_state::staticGet('id', 1);
-        $state = $yammerState ? $yammerState->state || null;
-        
-        switch($state)
+        $runner = YammerRunner::init();
+
+        switch($runner->state())
         {
-            case null:
-                $this->out->element('p', array(), 'Time to start auth:');
-                $this->showAuthForm();
-                break;
+            case 'init':
             case 'requesting-auth':
-                $this->out->element('p', array(), 'Need to finish auth!');
                 $this->showAuthForm();
-                break;
-            case 'import-users':
-            case 'import-groups':
-            case 'fetch-messages':
-            case 'save-messages':
-                $this->showImportState();
-                break;
-            
+            default:
         }
+        $this->showImportState($runner);
+    }
+
+    private function showAuthForm()
+    {
+        $this->out->element('p', array(), 'show an auth form');
+    }
+
+    private function showImportState(YammerRunner $runner)
+    {
+        $userCount = $runner->countUsers();
+        $groupCount = $runner->countGroups();
+        $fetchedCount = $runner->countFetchedNotices();
+        $savedCount = $runner->countSavedNotices();
+
+        $labels = array(
+            'init' => array(
+                'label' => _m("Initialize"),
+                'progress' => _m('No import running'),
+                'complete' => _m('Initiated Yammer server connection...'),
+            ),
+            'requesting-auth' => array(
+                'label' => _m('Connect to Yammer'),
+                'progress' => _m('Awaiting authorization...'),
+                'complete' => _m('Connected.'),
+            ),
+            'import-users' => array(
+                'label' => _m('Import user accounts'),
+                'progress' => sprintf(_m("Importing %d user...", "Importing %d users...", $userCount), $userCount),
+                'complete' => sprintf(_m("Imported %d user.", "Imported %d users.", $userCount), $userCount),
+            ),
+            'import-groups' => array(
+                'label' => _m('Import user groups'),
+                'progress' => sprintf(_m("Importing %d group...", "Importing %d groups...", $groupCount), $groupCount),
+                'complete' => sprintf(_m("Imported %d group.", "Imported %d groups.", $groupCount), $groupCount),
+            ),
+            'fetch-messages' => array(
+                'label' => _m('Prepare public notices for import'),
+                'progress' => sprintf(_m("Preparing %d notice...", "Preparing %d notices...", $fetchedCount), $fetchedCount),
+                'complete' => sprintf(_m("Prepared %d notice.", "Prepared %d notices.", $fetchedCount), $fetchedCount),
+            ),
+            'save-messages' => array(
+                'label' => _m('Import public notices'),
+                'progress' => sprintf(_m("Importing %d notice...", "Importing %d notices...", $savedCount), $savedCount),
+                'complete' => sprintf(_m("Imported %d notice.", "Imported %d notices.", $savedCount), $savedCount),
+            ),
+            'done' => array(
+                'label' => _m('Done'),
+                'progress' => sprintf(_m("Import is complete!")),
+                'complete' => sprintf(_m("Import is complete!")),
+            )
+        );
+        $steps = array_keys($labels);
+        $currentStep = array_search($runner->state(), $steps);
+
+        foreach ($steps as $step => $state) {
+            if ($step < $currentStep) {
+                // This step is done
+                $this->progressBar($labels[$state]['label'],
+                                   $labels[$state]['complete'],
+                                   'complete');
+            } else if ($step == $currentStep) {
+                // This step is in progress
+                $this->progressBar($labels[$state]['label'],
+                                   $labels[$state]['progress'],
+                                   'progress');
+            } else {
+                // This step has not yet been done.
+                $this->progressBar($labels[$state]['label'],
+                                   _m("Waiting..."),
+                                   'waiting');
+            }
+        }
+    }
+
+    private function progressBar($label, $status, $class)
+    {
+        // @fixme prettify ;)
+        $this->out->elementStart('div', array('class' => $class));
+        $this->out->element('p', array(), $label);
+        $this->out->element('p', array(), $status);
+        $this->out->elementEnd('div');
     }
 
     /**
