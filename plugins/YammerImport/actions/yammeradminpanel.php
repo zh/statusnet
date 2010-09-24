@@ -175,7 +175,8 @@ class YammerAdminPanelForm extends AdminForm
         $steps = array_keys($labels);
         $currentStep = array_search($runner->state(), $steps);
 
-        $this->out->elementStart('div', array('class' => 'yammer-import'));
+        $this->out->elementStart('fieldset', array('class' => 'yammer-import'));
+        $this->out->element('legend', array(), _m('Import status'));
         foreach ($steps as $step => $state) {
             if ($step < $currentStep) {
                 // This step is done
@@ -197,7 +198,7 @@ class YammerAdminPanelForm extends AdminForm
                                    _m("Waiting..."));
             }
         }
-        $this->out->elementEnd('div');
+        $this->out->elementEnd('fieldset');
     }
 
     private function progressBar($state, $class, $label, $status)
