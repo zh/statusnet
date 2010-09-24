@@ -175,32 +175,37 @@ class YammerAdminPanelForm extends AdminForm
         $steps = array_keys($labels);
         $currentStep = array_search($runner->state(), $steps);
 
+        $this->out->elementStart('div', array('class' => 'yammer-import'));
         foreach ($steps as $step => $state) {
             if ($step < $currentStep) {
                 // This step is done
-                $this->progressBar($labels[$state]['label'],
-                                   $labels[$state]['complete'],
-                                   'complete');
+                $this->progressBar($state,
+                                   'complete',
+                                   $labels[$state]['label'],
+                                   $labels[$state]['complete']);
             } else if ($step == $currentStep) {
                 // This step is in progress
-                $this->progressBar($labels[$state]['label'],
-                                   $labels[$state]['progress'],
-                                   'progress');
+                $this->progressBar($state,
+                                   'progress',
+                                   $labels[$state]['label'],
+                                   $labels[$state]['progress']);
             } else {
                 // This step has not yet been done.
-                $this->progressBar($labels[$state]['label'],
-                                   _m("Waiting..."),
-                                   'waiting');
+                $this->progressBar($state,
+                                   'waiting',
+                                   $labels[$state]['label'],
+                                   _m("Waiting..."));
             }
         }
+        $this->out->elementEnd('div');
     }
 
-    private function progressBar($label, $status, $class)
+    private function progressBar($state, $class, $label, $status)
     {
         // @fixme prettify ;)
-        $this->out->elementStart('div', array('class' => $class));
-        $this->out->element('p', array(), $label);
-        $this->out->element('p', array(), $status);
+        $this->out->elementStart('div', array('class' => "import-step import-step-$state $class"));
+        $this->out->element('div', array('class' => 'import-label'), $label);
+        $this->out->element('div', array('class' => 'import-status'), $status);
         $this->out->elementEnd('div');
     }
 
