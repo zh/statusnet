@@ -169,7 +169,6 @@ class SitemapAdminPanelForm extends AdminForm
 
     function formData()
     {
-        $this->out->elementStart('fieldset', array('id' => 'sitemap_admin'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('googlekey',
