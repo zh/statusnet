@@ -49,6 +49,23 @@ class Yammer_notice_stub extends Memcached_DataObject
     public $created;                        // datetime
 
     /**
+     * Get an instance by key
+     *
+     * This is a utility method to get a single instance with a given key value.
+     *
+     * @param string $k Key to use to lookup
+     * @param mixed  $v Value to lookup
+     *
+     * @return Yammer_notice_stub object found, or null for no hits
+     *
+     */
+
+    function staticGet($k, $v=null)
+    {
+        return Memcached_DataObject::staticGet('Yammer_notice_stub', $k, $v);
+    }
+
+    /**
      * Return schema definition to set this table up in onCheckSchema
      */
     static function schemaDef()
@@ -127,6 +144,16 @@ class Yammer_notice_stub extends Memcached_DataObject
     }
 
     /**
+     * Decode the stored data structure.
+     *
+     * @return mixed
+     */
+    public function getData()
+    {
+        return json_decode($this->json_data, true);
+    }
+
+    /**
      * Save the native Yammer API representation of a message for the pending
      * import. Since they come in in reverse chronological order, we need to
      * record them all as stubs and then go through from the beginning and
@@ -152,23 +179,5 @@ class Yammer_notice_stub extends Memcached_DataObject
         $stub->insert();
 
         return $stub;
-    }
-
-    /**
-     * Save a mapping between a remote Yammer and local imported user.
-     *
-     * @param integer $user_id ID of the status in StatusNet
-     *
-     * @return Yammer_notice_stub new object for this value
-     */
-
-    static function retrieve($orig_id)
-    {
-        $stub = self::staticGet('id', $orig_id);
-        if ($stub) {
-            return json_decode($stub->json_data, true);
-        } else {
-            return false;
-        }
     }
 }

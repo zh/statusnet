@@ -327,17 +327,20 @@ class YammerImporter
 
     private function findImportedUser($origId)
     {
-        return Yammer_user::staticGet('id', $origId);
+        $map = Yammer_user::staticGet('id', $origId);
+        return $map ? $map->user_id : null;
     }
 
     private function findImportedGroup($origId)
     {
-        return Yammer_group::staticGet('id', $origId);
+        $map = Yammer_group::staticGet('id', $origId);
+        return $map ? $map->group_id : null;
     }
 
     private function findImportedNotice($origId)
     {
-        return Yammer_notice::staticGet('id', $origId);
+        $map = Yammer_notice::staticGet('id', $origId);
+        return $map ? $map->notice_id : null;
     }
 
     private function recordImportedUser($origId, $userId)
@@ -370,7 +373,7 @@ class YammerImporter
         // Blaaaaaarf!
         $known = array('Pacific Time (US & Canada)' => 'America/Los_Angeles',
                        'Eastern Time (US & Canada)' => 'America/New_York');
-        if (array_key_exists($known, $tz)) {
+        if (array_key_exists($tz, $known)) {
             return $known[$tz];
         } else {
             return false;

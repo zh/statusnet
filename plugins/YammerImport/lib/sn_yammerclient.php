@@ -104,7 +104,8 @@ class SN_YammerClient
     {
         $body = $this->fetchApi("api/v1/$method.json", $params);
         $data = json_decode($body, true);
-        if (!$data) {
+        if ($data === null) {
+            common_log(LOG_ERR, "Invalid JSON response from Yammer API: " . $body);
             throw new Exception("Invalid JSON response from Yammer API");
         }
         return $data;
@@ -161,7 +162,7 @@ class SN_YammerClient
         if ($this->token || $this->tokenSecret) {
             throw new Exception("Requesting a token, but already set up with a token");
         }
-        $data = $this->fetch('oauth/request_token');
+        $data = $this->fetchApi('oauth/request_token');
         $arr = array();
         parse_str($data, $arr);
         return $arr;
@@ -176,7 +177,7 @@ class SN_YammerClient
     public function accessToken($verifier)
     {
         $this->verifier = $verifier;
-        $data = $this->fetch('oauth/access_token');
+        $data = $this->fetchApi('oauth/access_token');
         $this->verifier = null;
         $arr = array();
         parse_str($data, $arr);
