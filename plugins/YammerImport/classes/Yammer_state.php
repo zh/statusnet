@@ -36,7 +36,6 @@ class Yammer_state extends Memcached_DataObject
     public $__table = 'yammer_state'; // table name
     public $id;                       // int  primary_key not_null
     public $state;                    // import state key
-    public $request_token;            // oauth request token; clear when auth is complete.
     public $oauth_token;              // actual oauth token! clear when import is done?
     public $oauth_secret;             // actual oauth secret! clear when import is done?
     public $users_page;               // last page of users we've fetched
@@ -47,6 +46,23 @@ class Yammer_state extends Memcached_DataObject
     public $modified;                 // datetime
 
     /**
+     * Get an instance by key
+     *
+     * This is a utility method to get a single instance with a given key value.
+     *
+     * @param string $k Key to use to lookup
+     * @param mixed  $v Value to lookup
+     *
+     * @return Yammer_state object found, or null for no hits
+     *
+     */
+
+    function staticGet($k, $v=null)
+    {
+        return Memcached_DataObject::staticGet('Yammer_state', $k, $v);
+    }
+
+    /**
      * Return schema definition to set this table up in onCheckSchema
      */
     static function schemaDef()
@@ -54,7 +70,6 @@ class Yammer_state extends Memcached_DataObject
         return array(new ColumnDef('id', 'int', null,
                                    false, 'PRI'),
                      new ColumnDef('state', 'text'),
-                     new ColumnDef('request_token', 'text'),
                      new ColumnDef('oauth_token', 'text'),
                      new ColumnDef('oauth_secret', 'text'),
                      new ColumnDef('users_page', 'int'),
@@ -78,7 +93,6 @@ class Yammer_state extends Memcached_DataObject
     {
         return array('id'              => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
                      'state'           => DB_DATAOBJECT_STR,
-                     'request_token'   => DB_DATAOBJECT_STR,
                      'oauth_token'     => DB_DATAOBJECT_STR,
                      'oauth_secret'    => DB_DATAOBJECT_STR,
                      'users_page'      => DB_DATAOBJECT_INT,

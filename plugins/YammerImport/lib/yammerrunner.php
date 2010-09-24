@@ -33,16 +33,29 @@ class YammerRunner
     private $client;
     private $importer;
 
+    /**
+     * Normalize our singleton state and give us a YammerRunner object to play with!
+     *
+     * @return YammerRunner
+     */
     public static function init()
     {
         $state = Yammer_state::staticGet('id', 1);
         if (!$state) {
-            $state = new Yammer_state();
-            $state->id = 1;
-            $state->state = 'init';
-            $state->insert();
+            $state = self::initState();
         }
         return new YammerRunner($state);
+    }
+
+    private static function initState()
+    {
+        $state = new Yammer_state();
+        $state->id = 1;
+        $state->state = 'init';
+        $state->created = common_sql_now();
+        $state->modified = common_sql_now();
+        $state->insert();
+        return $state;
     }
 
     private function __construct($state)
@@ -55,7 +68,7 @@ class YammerRunner
             $this->state->oauth_token,
             $this->state->oauth_secret);
 
-        $this->importer = new YammerImporter($client);
+        $this->importer = new YammerImporter($this->client);
     }
 
     /**
@@ -81,11 +94,22 @@ class YammerRunner
 
     /**
      * Check if we have work to do in iterate().
+     *
+     * @return boolean
      */
     public function hasWork()
     {
         $workStates = array('import-users', 'import-groups', 'fetch-messages', 'save-messages');
         return in_array($this->state(), $workStates);
+    }
+
+    /**
+     * Blow away any current state!
+     */
+    public function reset()
+    {
+        $this->state->delete();
+        $this->state = self::initState();
     }
 
     /**
@@ -102,12 +126,16 @@ class YammerRunner
             throw ServerError("Cannot request Yammer auth; already there!");
         }
 
+        $data = $this->client->requestToken();
+
         $old = clone($this->state);
         $this->state->state = 'requesting-auth';
-        $this->state->request_token = $client->requestToken();
+        $this->state->oauth_token = $data['oauth_token'];
+        $this->state->oauth_secret = $data['oauth_token_secret'];
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
 
-        return $this->client->authorizeUrl($this->state->request_token);
+        return $this->client->authorizeUrl($this->state->oauth_token);
     }
 
     /**
@@ -127,12 +155,13 @@ class YammerRunner
             throw ServerError("Cannot save auth token in Yammer import state {$this->state->state}");
         }
 
-        $old = clone($this->state);
-        list($token, $secret) = $this->client->getAuthToken($verifier);
-        $this->state->verifier = '';
-        $this->state->oauth_token = $token;
-        $this->state->oauth_secret = $secret;
+        $data = $this->client->accessToken($verifier);
 
+        $old = clone($this->state);
+        $this->state->state = 'import-users';
+        $this->state->oauth_token = $data['oauth_token'];
+        $this->state->oauth_secret = $data['oauth_token_secret'];
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
 
         return true;
@@ -146,8 +175,7 @@ class YammerRunner
      */
     public function iterate()
     {
-
-        switch($state->state)
+        switch($this->state())
         {
             case 'init':
             case 'requesting-auth':
@@ -188,11 +216,12 @@ class YammerRunner
             $this->state->state = 'import-groups';
         } else {
             foreach ($data as $item) {
-                $user = $imp->importUser($item);
+                $user = $this->importer->importUser($item);
                 common_log(LOG_INFO, "Imported Yammer user " . $item['id'] . " as $user->nickname ($user->id)");
             }
             $this->state->users_page = $page;
         }
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
         return true;
     }
@@ -214,14 +243,15 @@ class YammerRunner
 
         if (count($data) == 0) {
             common_log(LOG_INFO, "Finished importing Yammer groups; moving on to messages.");
-            $this->state->state = 'import-messages';
+            $this->state->state = 'fetch-messages';
         } else {
             foreach ($data as $item) {
-                $group = $imp->importGroup($item);
+                $group = $this->importer->importGroup($item);
                 common_log(LOG_INFO, "Imported Yammer group " . $item['id'] . " as $group->nickname ($group->id)");
             }
             $this->state->groups_page = $page;
         }
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
         return true;
     }
@@ -248,16 +278,17 @@ class YammerRunner
         $data = $this->client->messages($params);
         $messages = $data['messages'];
 
-        if (count($data) == 0) {
+        if (count($messages) == 0) {
             common_log(LOG_INFO, "Finished fetching Yammer messages; moving on to save messages.");
             $this->state->state = 'save-messages';
         } else {
-            foreach ($data as $item) {
+            foreach ($messages as $item) {
                 Yammer_notice_stub::record($item['id'], $item);
                 $oldest = $item['id'];
             }
             $this->state->messages_oldest = $oldest;
         }
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
         return true;
     }
@@ -267,10 +298,13 @@ class YammerRunner
         $old = clone($this->state);
 
         $newest = intval($this->state->messages_newest);
+
+        $stub = new Yammer_notice_stub();
         if ($newest) {
-            $stub->addWhere('id > ' . $newest);
+            $stub->whereAdd('id > ' . $newest);
         }
         $stub->limit(20);
+        $stub->orderBy('id');
         $stub->find();
         
         if ($stub->N == 0) {
@@ -278,13 +312,14 @@ class YammerRunner
             $this->state->state = 'done';
         } else {
             while ($stub->fetch()) {
-                $item = json_decode($stub->json_data);
+                $item = $stub->getData();
                 $notice = $this->importer->importNotice($item);
                 common_log(LOG_INFO, "Imported Yammer notice " . $item['id'] . " as $notice->id");
                 $newest = $item['id'];
             }
             $this->state->messages_newest = $newest;
         }
+        $this->state->modified = common_sql_now();
         $this->state->update($old);
         return true;
     }
