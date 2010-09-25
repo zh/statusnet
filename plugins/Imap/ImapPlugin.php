@@ -54,7 +54,7 @@ class ImapPlugin extends Plugin
             throw new Exception(_m("A mailbox must be specified."));
         }
         if(!isset($this->user)){
-            throw new Exception(_m("A user must be specified.");
+            throw new Exception(_m("A user must be specified."));
         }
         if(!isset($this->password)){
             throw new Exception(_m("A password must be specified."));
