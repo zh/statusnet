@@ -108,14 +108,14 @@ ENDOFSCRIPT;
             $action->elementStart('div', $attrs);
             $action->elementStart('noscript');
 
-			// @todo FIXME: No i18n yet, because of bad implementation. Should be one string.
-            $action->raw('Please enable JavaScript to view the ');
-            $noscriptUrl = 'http://disqus.com/?ref_noscript=' . $this->shortname;
-            $action->element('a', array('href' => $noscriptUrl), 'comments powered by Disqus.');
+            $noScriptMsg = sprintf(_m("Please enable JavaScript to view the [comments powered by Disqus](http://disqus.com/?ref_noscript=%s)."), $this->shortname);
+            $output = common_markup_to_html($noScriptMsg);
+            $action->raw($output);
+
             $action->elementEnd('noscript');
 
             $action->elementStart('a', array('href' => 'http://disqus.com', 'class' => 'dsq-brlink'));
-            $action->raw('blog comments powered by ');
+            $action->raw(_m('Comments powered by '));
             $action->element('span', array('class' => 'logo-disqus'), 'Disqus');
             $action->elementEnd('a');
             $action->elementEnd('div');
