@@ -36,6 +36,8 @@ class YammerImportPlugin extends Plugin
     {
         $m->connect('admin/yammer',
                     array('action' => 'yammeradminpanel'));
+        $m->connect('admin/yammer/auth',
+                    array('action' => 'yammerauth'));
         return true;
     }
 
@@ -117,10 +119,14 @@ class YammerImportPlugin extends Plugin
         case 'sn_yammerclient':
         case 'yammerimporter':
         case 'yammerrunner':
+        case 'yammerauthinitform':
+        case 'yammerauthverifyform':
+        case 'yammerprogressform':
             require_once "$base/lib/$lower.php";
             return false;
         case 'yammeradminpanelaction':
-            require_once "$base/actions/yammeradminpanel.php";
+            $crop = substr($lower, 0, strlen($lower) - strlen('action'));
+            require_once "$base/actions/$crop.php";
             return false;
         case 'yammer_state':
         case 'yammer_notice_stub':
