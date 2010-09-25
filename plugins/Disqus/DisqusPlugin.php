@@ -45,13 +45,25 @@ if (!defined('STATUSNET')) {
  * To enable the plugin, put the following in you config.php:
  *
  * addPlugin(
- *   'Disqus', array(
- *       'shortname' => 'YOURSHORTNAME',
- *      'div_style' => 'width:675px; padding-top:10px; position:relative; float:left;'
- *   )
+ *     'Disqus', array(
+ *         'shortname' => 'YOURSHORTNAME',
+ *         'divStyle'  => 'width:675px; padding-top:10px; position:relative; float:left;'
+ *     )
  * );
  *
- * NOTE: the 'div_style' in an optional parameter that passes in some
+ * If you only want to allow commenting on a specific user's notices or
+ * a specific set of user's notices, use the "nicknames" array, e.g.:
+ *
+ * addPlugin(
+ *     'Disqus', array(
+ *         'shortname' => 'YOURSHORTNAME',
+ *         'divStyle'  => 'width:675px; padding-top:10px; position:relative; float:left;',
+ *         'nicknames' => array('spock', 'kirk', 'bones')
+ *     )
+ * );
+ *
+ *
+ * NOTE: the 'divStyle' in an optional parameter that passes in some
  * inline CSS when creating the Disqus widget. It's a shortcut to make
  * the widget look OK with the default StatusNet theme. If you leave
  * it out you'll have to edit your theme CSS files to make the widget
@@ -59,6 +71,7 @@ if (!defined('STATUSNET')) {
  * adding style rules to your theme.
  *
  * See: http://help.disqus.com/entries/100878-css-customization
+ *
  *
  * @category Plugin
  * @package  StatusNet
@@ -70,58 +83,76 @@ if (!defined('STATUSNET')) {
  */
 class DisqusPlugin extends Plugin
 {
-    public $shortname; // Required 'shortname' for actually triggering Disqus.
-    public $div_style; // Optional CSS chunk for the main <div>
+    public $shortname; // Required 'shortname' for actually triggering Disqus
+    public $divStyle;  // Optional CSS chunk for the main <div>
+    public $nicknames; // Optional array of nicks to restrict commenting to (default on for all users)
 
+    /**
+     * Add a Disqus commenting section to the end of an individual
+     * notice page's content block
+     *
+     * @param Action $action The current action
+     */
     function onEndShowContentBlock($action)
     {
         if (get_class($action) == 'ShownoticeAction') {
 
-            $attrs = array();
-            $attrs['id'] = 'disqus_thread';
+            $profile = Profile::staticGet('id', $action->notice->profile_id);
 
-            if ($this->div_style) {
-                $attrs['style'] = $this->div_style;
-            }
+            if ($this->hasCommenting($profile)) {
 
-            $action->element('div', $attrs, null);
+                $attrs = array();
+                $attrs['id'] = 'disqus_thread';
 
-            $script = <<<ENDOFSCRIPT
-var disqus_identifier = %d;
-  (function() {
-   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-   dsq.src = 'http://%s.disqus.com/embed.js';
-   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
+                if ($this->divStyle) {
+                    $attrs['style'] = $this->divStyle;
+                }
+
+                $action->element('div', $attrs, null);
+
+                $script = <<<ENDOFSCRIPT
+    var disqus_identifier = %d;
+      (function() {
+       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+       dsq.src = 'http://%s.disqus.com/embed.js';
+       (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
 ENDOFSCRIPT;
 
-            $action->inlineScript(sprintf($script, $action->notice->id, $this->shortname));
+                $action->inlineScript(sprintf($script, $action->notice->id, $this->shortname));
 
-            $attrs = array();
+                $attrs = array();
 
-            $attrs['id'] = 'disqus_thread_footer';
+                $attrs['id'] = 'disqus_thread_footer';
 
-            if ($this->div_style) {
-                $attrs['style'] = $this->div_style;
+                if ($this->divStyle) {
+                    $attrs['style'] = $this->divStyle;
+                }
+
+                $action->elementStart('div', $attrs);
+                $action->elementStart('noscript');
+
+                $noScriptMsg = sprintf(_m("Please enable JavaScript to view the [comments powered by Disqus](http://disqus.com/?ref_noscript=%s)."), $this->shortname);
+                $output = common_markup_to_html($noScriptMsg);
+                $action->raw($output);
+
+                $action->elementEnd('noscript');
+
+                $action->elementStart('a', array('href' => 'http://disqus.com', 'class' => 'dsq-brlink'));
+                $action->raw(_m('Comments powered by '));
+                $action->element('span', array('class' => 'logo-disqus'), 'Disqus');
+                $action->elementEnd('a');
+                $action->elementEnd('div');
             }
-
-            $action->elementStart('div', $attrs);
-            $action->elementStart('noscript');
-
-            $noScriptMsg = sprintf(_m("Please enable JavaScript to view the [comments powered by Disqus](http://disqus.com/?ref_noscript=%s)."), $this->shortname);
-            $output = common_markup_to_html($noScriptMsg);
-            $action->raw($output);
-
-            $action->elementEnd('noscript');
-
-            $action->elementStart('a', array('href' => 'http://disqus.com', 'class' => 'dsq-brlink'));
-            $action->raw(_m('Comments powered by '));
-            $action->element('span', array('class' => 'logo-disqus'), 'Disqus');
-            $action->elementEnd('a');
-            $action->elementEnd('div');
         }
     }
 
+    /**
+     * Add Disqus comment count script to the end of the scripts section
+     *
+     * @param Action $action the current action
+     *
+     */
     function onEndShowScripts($action)
     {
         // fugly
@@ -135,31 +166,80 @@ var disqus_shortname = '%s';
 ENDOFSCRIPT;
         $action->inlineScript(sprintf($script, $this->shortname, $this->shortname));
 
-        return true;
     }
 
+    /**
+     * Override the default Notice display to add Disqus comments link
+     * (the link displays the total number of comments for each notice)
+     *
+     * @param NoticeListItem $noticeListItem
+     *
+     * @return boolean override
+     */
     function onStartShowNoticeItem($noticeListItem)
     {
+        // Don't enable commenting for remote notices
         if (empty($noticeListItem->notice->is_local)) {
             return true;
         }
 
-        $noticeListItem->showNotice();
-        $noticeListItem->showNoticeInfo();
+        $profile = Profile::staticGet('id', $noticeListItem->notice->profile_id);
 
-        $noticeUrl = $noticeListItem->notice->bestUrl();
-        $noticeUrl .= '#disqus_thread';
+        if ($this->hasCommenting($profile)) {
 
-        $noticeListItem->out->element(
-            'a', array('href' => $noticeUrl, 'class' => 'disqus_count'), 'Comments'
-        );
+            // @todo Refactor individual notice display to have it's own event hooks
 
-        $noticeListItem->showNoticeOptions();
-        Event::handle('EndShowNoticeItem', array($noticeListItem));
+            $noticeListItem->showNotice();
+            $noticeListItem->showNoticeInfo();
 
-        return false;
+            $noticeUrl = $noticeListItem->notice->bestUrl();
+            $noticeUrl .= '#disqus_thread';
+
+            $noticeListItem->out->element(
+                'a', array('href' => $noticeUrl, 'class' => 'disqus_count'), 'Comments'
+            );
+
+            $noticeListItem->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($noticeListItem));
+
+            return false;
+        } else {
+            return true;
+        }
     }
 
+    /**
+     * Helper to check whether commenting should be enabled
+     * for a given notice
+     *
+     * Assumes commenting should be enabled, unless the
+     * nicknames array is populated
+     *
+     * @param Profile $profile the profile to check
+     *
+     * @return boolean true if yes
+     */
+    private function hasCommenting($profile)
+    {
+        if (!empty($this->nicknames)) {
+            foreach ($this->nicknames as $nickname) {
+                if ($profile->nickname == $nickname) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Plugin details
+     *
+     * @param &$versions Array of current plugins
+     *
+     * @return boolean true
+     */
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'Disqus',
