@@ -53,6 +53,43 @@ class YammeradminpanelAction extends AdminPanelAction
         return _m('Yammer import tool');
     }
 
+    function prepare($args)
+    {
+        $ok = parent::prepare($args);
+
+        $this->init_auth = $this->trimmed('init_auth');
+        $this->verify_token = $this->trimmed('verify_token');
+
+        return $ok;
+    }
+
+    function handle($args)
+    {
+        if ($this->init_auth) {
+            $url = $runner->requestAuth();
+            $form = new YammerAuthVerifyForm($this, $url);
+            return $this->showAjaxForm($form);
+        } else if ($this->verify_token) {
+            $runner->saveAuthToken($this->verify_token);
+            $form = new YammerAuthProgressForm();
+            return $this->showAjaxForm($form);
+        }
+
+        return parent::handle($args);
+    }
+
+    function showAjaxForm($form)
+    {
+        $this->startHTML('text/xml;charset=utf-8');
+        $this->elementStart('head');
+        $this->element('title', null, _m('Yammer import'));
+        $this->elementEnd('head');
+        $this->elementStart('body');
+        $form->show();
+        $this->elementEnd('body');
+        $this->elementEnd('html');
+    }
+
     /**
      * Show the Yammer admin panel form
      *
@@ -60,9 +97,24 @@ class YammeradminpanelAction extends AdminPanelAction
      */
     function showForm()
     {
-        $form = new YammerAdminPanelForm($this);
+        $this->elementStart('fieldset');
+
+        $runner = YammerRunner::init();
+
+        switch($runner->state())
+        {
+            case 'init':
+                $form = new YammerAuthInitForm($this);
+                break;
+            case 'requesting-auth':
+                $form = new YammerAuthVerifyForm($this, $runner);
+                break;
+            default:
+                $form = new YammerProgressForm($this, $runner);
+        }
         $form->show();
-        return;
+
+        $this->elementEnd('fieldset');
     }
 
     function showStylesheets()
@@ -70,153 +122,10 @@ class YammeradminpanelAction extends AdminPanelAction
         parent::showStylesheets();
         $this->cssLink('plugins/YammerImport/css/admin.css', null, 'screen, projection, tv');
     }
-}
 
-class YammerAdminPanelForm extends AdminForm
-{
-    /**
-     * ID of the form
-     *
-     * @return string ID of the form
-     */
-    function id()
+    function showScripts()
     {
-        return 'yammeradminpanel';
-    }
-
-    /**
-     * class of the form
-     *
-     * @return string class of the form
-     */
-    function formClass()
-    {
-        return 'form_settings';
-    }
-
-    /**
-     * Action of the form
-     *
-     * @return string URL of the action
-     */
-    function action()
-    {
-        return common_local_url('yammeradminpanel');
-    }
-
-    /**
-     * Data elements of the form
-     *
-     * @return void
-     */
-    function formData()
-    {
-        $runner = YammerRunner::init();
-
-        switch($runner->state())
-        {
-            case 'init':
-            case 'requesting-auth':
-                $this->showAuthForm();
-            default:
-        }
-        $this->showImportState($runner);
-    }
-
-    private function showAuthForm()
-    {
-        $this->out->element('p', array(), 'show an auth form');
-    }
-
-    private function showImportState(YammerRunner $runner)
-    {
-        $userCount = $runner->countUsers();
-        $groupCount = $runner->countGroups();
-        $fetchedCount = $runner->countFetchedNotices();
-        $savedCount = $runner->countSavedNotices();
-
-        $labels = array(
-            'init' => array(
-                'label' => _m("Initialize"),
-                'progress' => _m('No import running'),
-                'complete' => _m('Initiated Yammer server connection...'),
-            ),
-            'requesting-auth' => array(
-                'label' => _m('Connect to Yammer'),
-                'progress' => _m('Awaiting authorization...'),
-                'complete' => _m('Connected.'),
-            ),
-            'import-users' => array(
-                'label' => _m('Import user accounts'),
-                'progress' => sprintf(_m("Importing %d user...", "Importing %d users...", $userCount), $userCount),
-                'complete' => sprintf(_m("Imported %d user.", "Imported %d users.", $userCount), $userCount),
-            ),
-            'import-groups' => array(
-                'label' => _m('Import user groups'),
-                'progress' => sprintf(_m("Importing %d group...", "Importing %d groups...", $groupCount), $groupCount),
-                'complete' => sprintf(_m("Imported %d group.", "Imported %d groups.", $groupCount), $groupCount),
-            ),
-            'fetch-messages' => array(
-                'label' => _m('Prepare public notices for import'),
-                'progress' => sprintf(_m("Preparing %d notice...", "Preparing %d notices...", $fetchedCount), $fetchedCount),
-                'complete' => sprintf(_m("Prepared %d notice.", "Prepared %d notices.", $fetchedCount), $fetchedCount),
-            ),
-            'save-messages' => array(
-                'label' => _m('Import public notices'),
-                'progress' => sprintf(_m("Importing %d notice...", "Importing %d notices...", $savedCount), $savedCount),
-                'complete' => sprintf(_m("Imported %d notice.", "Imported %d notices.", $savedCount), $savedCount),
-            ),
-            'done' => array(
-                'label' => _m('Done'),
-                'progress' => sprintf(_m("Import is complete!")),
-                'complete' => sprintf(_m("Import is complete!")),
-            )
-        );
-        $steps = array_keys($labels);
-        $currentStep = array_search($runner->state(), $steps);
-
-        $this->out->elementStart('fieldset', array('class' => 'yammer-import'));
-        $this->out->element('legend', array(), _m('Import status'));
-        foreach ($steps as $step => $state) {
-            if ($step < $currentStep) {
-                // This step is done
-                $this->progressBar($state,
-                                   'complete',
-                                   $labels[$state]['label'],
-                                   $labels[$state]['complete']);
-            } else if ($step == $currentStep) {
-                // This step is in progress
-                $this->progressBar($state,
-                                   'progress',
-                                   $labels[$state]['label'],
-                                   $labels[$state]['progress']);
-            } else {
-                // This step has not yet been done.
-                $this->progressBar($state,
-                                   'waiting',
-                                   $labels[$state]['label'],
-                                   _m("Waiting..."));
-            }
-        }
-        $this->out->elementEnd('fieldset');
-    }
-
-    private function progressBar($state, $class, $label, $status)
-    {
-        // @fixme prettify ;)
-        $this->out->elementStart('div', array('class' => "import-step import-step-$state $class"));
-        $this->out->element('div', array('class' => 'import-label'), $label);
-        $this->out->element('div', array('class' => 'import-status'), $status);
-        $this->out->elementEnd('div');
-    }
-
-    /**
-     * Action elements
-     *
-     * @return void
-     */
-    function formActions()
-    {
-        // No submit buttons needed at bottom
+        parent::showScripts();
+        $this->script('plugins/YammerImport/js/yammer-admin.js');
     }
 }
