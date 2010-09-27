@@ -956,7 +956,7 @@ class OStatusPlugin extends Plugin
     }
 
     /**
-     * Utility function to check if the given URL is a canonical group profile
+     * Utility function to check if the given URI is a canonical group profile
      * page, and if so return the ID number.
      *
      * @param string $url
@@ -964,11 +964,22 @@ class OStatusPlugin extends Plugin
      */
     public static function localGroupFromUrl($url)
     {
-        $template = common_local_url('groupbyid', array('id' => '31337'));
-        $template = preg_quote($template, '/');
-        $template = str_replace('31337', '(\d+)', $template);
-        if (preg_match("/$template/", $url, $matches)) {
-            return intval($matches[1]);
+        $group = User_group::staticGet('uri', $url);
+        if ($group) {
+            $local = Local_group::staticGet('id', $group->id);
+            if ($local) {
+                return $group->id;
+            }
+        } else {
+            // To find local groups which haven't had their uri fields filled out...
+            // If the domain has changed since a subscriber got the URI, it'll
+            // be broken.
+            $template = common_local_url('groupbyid', array('id' => '31337'));
+            $template = preg_quote($template, '/');
+            $template = str_replace('31337', '(\d+)', $template);
+            if (preg_match("/$template/", $url, $matches)) {
+                return intval($matches[1]);
+            }
         }
         return false;
     }
