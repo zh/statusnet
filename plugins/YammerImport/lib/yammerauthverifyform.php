@@ -2,12 +2,12 @@
 
 class YammerAuthVerifyForm extends Form
 {
-    private $verify_url;
+    private $runner;
 
-    function __construct($out, $auth_url)
+    function __construct($out, YammerRunner $runner)
     {
         parent::__construct($out);
-        $this->verify_url = $auth_url;
+        $this->runner = $runner;
     }
 
     /**
@@ -64,6 +64,9 @@ class YammerAuthVerifyForm extends Form
 
     function formData()
     {
+        $this->out->input('verify_token', _m('Verification code:'), '', _m("Click through and paste the code it gives you below..."));
+        $this->out->element('iframe', array('id' => 'yammer-oauth',
+                                            'src' => $this->runner->getAuthUrl()));
     }
 
     /**
@@ -74,9 +77,6 @@ class YammerAuthVerifyForm extends Form
 
     function formActions()
     {
-        $this->out->input('verify-code', _m('Verification code:'), '', _m("Click through and paste the code it gives you below..."));
         $this->out->submit('submit', _m('Verify code'), 'submit', null, _m('Verification code'));
-        $this->element('iframe', array('id' => 'yammer-oauth',
-                                       'src' => $this->auth_url));
     }
 }

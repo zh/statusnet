@@ -123,7 +123,7 @@ class YammerRunner
     public function requestAuth()
     {
         if ($this->state->state != 'init') {
-            throw ServerError("Cannot request Yammer auth; already there!");
+            throw new ServerException("Cannot request Yammer auth; already there!");
         }
 
         $data = $this->client->requestToken();
@@ -135,7 +135,22 @@ class YammerRunner
         $this->state->modified = common_sql_now();
         $this->state->update($old);
 
-        return $this->client->authorizeUrl($this->state->oauth_token);
+        return $this->getAuthUrl();
+    }
+
+    /**
+     * When already in requesting-auth state, grab the URL to send the user to
+     * to complete OAuth setup.
+     *
+     * @return string URL
+     */
+    function getAuthUrl()
+    {
+        if ($this->state() == 'requesting-auth') {
+            return $this->client->authorizeUrl($this->state->oauth_token);
+        } else {
+            throw new ServerException('Cannot get Yammer auth URL when not in requesting-auth state!');
+        }
     }
 
     /**
@@ -152,7 +167,7 @@ class YammerRunner
     public function saveAuthToken($verifier)
     {
         if ($this->state->state != 'requesting-auth') {
-            throw ServerError("Cannot save auth token in Yammer import state {$this->state->state}");
+            throw new ServerException("Cannot save auth token in Yammer import state {$this->state->state}");
         }
 
         $data = $this->client->accessToken($verifier);

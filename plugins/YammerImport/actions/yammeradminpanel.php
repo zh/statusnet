@@ -33,6 +33,8 @@ if (!defined('STATUSNET')) {
 
 class YammeradminpanelAction extends AdminPanelAction
 {
+    private $runner;
+
     /**
      * Returns the page title
      *
@@ -59,23 +61,29 @@ class YammeradminpanelAction extends AdminPanelAction
 
         $this->init_auth = $this->trimmed('init_auth');
         $this->verify_token = $this->trimmed('verify_token');
+        $this->runner = YammerRunner::init();
 
         return $ok;
     }
 
     function handle($args)
     {
-        if ($this->init_auth) {
-            $url = $runner->requestAuth();
-            $form = new YammerAuthVerifyForm($this, $url);
-            return $this->showAjaxForm($form);
-        } else if ($this->verify_token) {
-            $runner->saveAuthToken($this->verify_token);
-            $form = new YammerAuthProgressForm();
-            return $this->showAjaxForm($form);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->checkSessionToken();
+            if ($this->init_auth) {
+                $url = $this->runner->requestAuth();
+                $form = new YammerAuthVerifyForm($this, $this->runner);
+                return $this->showAjaxForm($form);
+            } else if ($this->verify_token) {
+                $this->runner->saveAuthToken($this->verify_token);
+                $form = new YammerAuthProgressForm();
+                return $this->showAjaxForm($form);
+            } else {
+                throw new ClientException('Invalid POST');
+            }
+        } else {
+            return parent::handle($args);
         }
-
-        return parent::handle($args);
     }
 
     function showAjaxForm($form)
@@ -99,18 +107,16 @@ class YammeradminpanelAction extends AdminPanelAction
     {
         $this->elementStart('fieldset');
 
-        $runner = YammerRunner::init();
-
-        switch($runner->state())
+        switch($this->runner->state())
         {
             case 'init':
-                $form = new YammerAuthInitForm($this);
+                $form = new YammerAuthInitForm($this, $this->runner);
                 break;
             case 'requesting-auth':
-                $form = new YammerAuthVerifyForm($this, $runner);
+                $form = new YammerAuthVerifyForm($this, $this->runner);
                 break;
             default:
-                $form = new YammerProgressForm($this, $runner);
+                $form = new YammerProgressForm($this, $this->runner);
         }
         $form->show();
 

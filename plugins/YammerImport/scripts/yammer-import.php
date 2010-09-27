@@ -16,6 +16,8 @@ $runner = YammerRunner::init();
 if (have_option('reset')) {
     echo "Resetting Yammer import state...\n";
     $runner->reset();
+    echo "done.\n";
+    exit(0);
 }
 
 switch ($runner->state())
