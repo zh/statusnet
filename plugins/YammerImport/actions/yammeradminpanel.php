@@ -76,6 +76,10 @@ class YammeradminpanelAction extends AdminPanelAction
                 return $this->showAjaxForm($form);
             } else if ($this->verify_token) {
                 $this->runner->saveAuthToken($this->verify_token);
+                
+                // Haho! Now we can make THE FUN HAPPEN
+                $this->runner->startBackgroundImport();
+                
                 $form = new YammerProgressForm($this, $this->runner);
                 return $this->showAjaxForm($form);
             } else {

@@ -64,7 +64,20 @@ class YammerAuthVerifyForm extends Form
 
     function formData()
     {
-        $this->out->input('verify_token', _m('Verification code:'), '', _m("Click through and paste the code it gives you below..."));
+        $this->out->elementStart('p');
+        $this->out->text(_m('Follow this link to confirm authorization at Yammer; you will be prompted to log in if necessary:'));
+        $this->out->elementEnd('p');
+
+        $this->out->elementStart('blockquote');
+        $this->out->element('a',
+            array('href' => $this->runner->getAuthUrl(),
+                  'target' => '_blank'),
+            _m('Open Yammer authentication window'));
+        $this->out->elementEnd('blockquote');
+        
+        $this->out->element('p', array(), _m('Copy the verification code you are given into the form below:'));
+
+        $this->out->input('verify_token', _m('Verification code:'));
         
         // iframe would be nice to avoid leaving -- since they don't seem to have callback url O_O
         /*
@@ -72,10 +85,6 @@ class YammerAuthVerifyForm extends Form
                                             'src' => $this->runner->getAuthUrl()));
         */
         // yeah, it ignores the callback_url
-        $this->out->element('a',
-            array('href' => $this->runner->getAuthUrl(),
-                  'target' => '_blank'),
-            'clicky click');
     }
 
     /**

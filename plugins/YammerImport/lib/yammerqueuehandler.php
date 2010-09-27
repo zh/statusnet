@@ -41,8 +41,7 @@ class YammerQueueHandler extends QueueHandler
             if ($runner->iterate()) {
                 if ($runner->hasWork()) {
                     // More to do? Shove us back on the queue...
-                    $qm = QueueManager::get();
-                    $qm->enqueue('YammerImport', 'yammer');
+                    $runner->startBackgroundImport();
                 }
                 return true;
             } else {

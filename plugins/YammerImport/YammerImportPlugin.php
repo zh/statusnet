@@ -48,7 +48,7 @@ class YammerImportPlugin extends Plugin
      */
     function onEndInitializeQueueManager(QueueManager $qm)
     {
-        $qm->connect('importym', 'ImportYmQueueHandler');
+        $qm->connect('yammer', 'YammerQueueHandler');
 
         return true;
     }
@@ -122,6 +122,7 @@ class YammerImportPlugin extends Plugin
         case 'yammerauthinitform':
         case 'yammerauthverifyform':
         case 'yammerprogressform':
+        case 'yammerqueuehandler':
             require_once "$base/lib/$lower.php";
             return false;
         case 'yammeradminpanelaction':

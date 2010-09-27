@@ -386,4 +386,13 @@ class YammerRunner
         return $map->count();
     }
 
+    /**
+     * Start running import work in the background queues...
+     */
+    public function startBackgroundImport()
+    {
+        $qm = QueueManager::get();
+        $qm->enqueue('YammerImport', 'yammer');
+    }
+
 }
