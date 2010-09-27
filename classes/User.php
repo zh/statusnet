@@ -412,37 +412,8 @@ class User extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = common_memcache();
-
-        // XXX: Kind of a hack.
-
-        if ($cache) {
-            // This is the stream of favorite notices, in rev chron
-            // order. This forces it into cache.
-
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
-
-            // If it's in the list, then it's a fave
-
-            if (in_array($notice->id, $ids)) {
-                return true;
-            }
-
-            // If we're not past the end of the cache window,
-            // then the cache has all available faves, so this one
-            // is not a fave.
-
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
-                return false;
-            }
-
-            // Otherwise, cache doesn't have all faves;
-            // fall through to the default
-        }
-
-        $fave = Fave::pkeyGet(array('user_id' => $this->id,
-                                    'notice_id' => $notice->id));
-        return ((is_null($fave)) ? false : true);
+        $profile = $this->getProfile();
+        return $profile->hasFave($notice);
     }
 
     function mutuallySubscribed($other)
