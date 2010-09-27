@@ -35,6 +35,58 @@ require_once INSTALLDIR.'/scripts/commandline.inc';
 
 $dry = have_option('dry-run');
 
+// Look for user.uri matches... These may not match up with the current
+// URL schema if the site has changed names.
+echo "Checking for bogus ostatus_profile entries matching user.uri...\n";
+
+$user = new User();
+$oprofile = new Ostatus_profile();
+$user->joinAdd($oprofile, 'INNER', 'oprofile', 'uri');
+$user->find();
+$count = $user->N;
+echo "Found $count...\n";
+
+while ($user->fetch()) {
+    $uri = $user->uri;
+    echo "user $user->id ($user->nickname) hidden by $uri";
+    if ($dry) {
+        echo " - skipping\n";
+    } else {
+        echo " - removing bogus ostatus_profile entry...";
+        $evil = Ostatus_profile::staticGet('uri', $uri);
+        $evil->delete();
+        echo "  ok\n";
+    }
+}
+echo "\n";
+
+// Also try user_group.uri matches for local groups.
+// Not all group entries will have this filled out, though, as it's new!
+echo "Checking for bogus ostatus_profile entries matching local user_group.uri...\n";
+$group = new User_group();
+$group->joinAdd(array('uri', 'ostatus_profile:uri'));
+$group->joinAdd(array('id', 'local_group:group_id'));
+$group->find();
+$count = $group->N;
+echo "Found $count...\n";
+
+while ($group->fetch()) {
+    $uri = $group->uri;
+    echo "group $group->id ($group->nickname) hidden by $uri";
+    if ($dry) {
+        echo " - skipping\n";
+    } else {
+        echo " - removing bogus ostatus_profile entry...";
+        $evil = Ostatus_profile::staticGet('uri', $uri);
+        $evil->delete();
+        echo "  ok\n";
+    }
+}
+echo "\n";
+
+
+// Fallback?
+echo "Checking for bogus profiles blocking local users/groups by URI pattern match...\n";
 $oprofile = new Ostatus_profile();
 
 $marker = mt_rand(31337, 31337000);
@@ -42,16 +94,18 @@ $marker = mt_rand(31337, 31337000);
 $profileTemplate = common_local_url('userbyid', array('id' => $marker));
 $encProfile = $oprofile->escape($profileTemplate, true);
 $encProfile = str_replace($marker, '%', $encProfile);
+echo "  LIKE '$encProfile'\n";
 
 $groupTemplate = common_local_url('groupbyid', array('id' => $marker));
 $encGroup = $oprofile->escape($groupTemplate, true);
 $encGroup = str_replace($marker, '%', $encGroup);
+echo "  LIKE '$encGroup'\n";
 
 $sql = "SELECT * FROM ostatus_profile WHERE uri LIKE '%s' OR uri LIKE '%s'";
 $oprofile->query(sprintf($sql, $encProfile, $encGroup));
 
 $count = $oprofile->N;
-echo "Found $count bogus ostatus_profile entries shadowing local users and groups:\n";
+echo "Found $count...\n";
 
 while ($oprofile->fetch()) {
     $uri = $oprofile->uri;
