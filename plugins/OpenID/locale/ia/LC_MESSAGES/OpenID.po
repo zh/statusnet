@@ -1,0 +1,619 @@
+# Translation of StatusNet - OpenID to Interlingua (Interlingua)
+# Expored from translatewiki.net
+#
+# Author: McDutchie
+# --
+# This file is distributed under the same license as the StatusNet package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: StatusNet - OpenID\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-09-27 22:20+0000\n"
+"PO-Revision-Date: 2010-09-27 22:42:29+0000\n"
+"Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-POT-Import-Date: 1285-19-55 46::+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
+"X-Language-Code: ia\n"
+"X-Message-Group: #out-statusnet-plugin-openid\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: openidsettings.php:59 openidadminpanel.php:65
+msgid "OpenID settings"
+msgstr "Configuration OpenID"
+
+#: openidsettings.php:70
+#, php-format
+msgid ""
+"[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
+"account. Manage your associated OpenIDs from here."
+msgstr ""
+"[OpenID](%%doc.openid%%) permitte authenticar te a multe sitos con le mesme "
+"conto de usator. Tu pote gerer hic tu OpenIDs associate."
+
+#: openidsettings.php:101
+msgid "Add OpenID"
+msgstr "Adder OpenID"
+
+#: openidsettings.php:104
+msgid ""
+"If you want to add an OpenID to your account, enter it in the box below and "
+"click \"Add\"."
+msgstr ""
+"Si tu vole adder un OpenID a tu conto, entra lo in le quadro hic infra e "
+"clicca \"Adder\"."
+
+#. TRANS: OpenID plugin logon form field label.
+#: openidsettings.php:109 openidlogin.php:159
+msgid "OpenID URL"
+msgstr "URL OpenID"
+
+#: openidsettings.php:119
+msgid "Add"
+msgstr "Adder"
+
+#: openidsettings.php:131
+msgid "Remove OpenID"
+msgstr "Remover OpenID"
+
+#: openidsettings.php:136
+msgid ""
+"Removing your only OpenID would make it impossible to log in! If you need to "
+"remove it, add another OpenID first."
+msgstr ""
+"Le remotion de tu sol OpenID renderea le apertura de session impossibile! Si "
+"tu debe remover lo, adde primo un altere OpenID."
+
+#: openidsettings.php:151
+msgid ""
+"You can remove an OpenID from your account by clicking the button marked "
+"\"Remove\"."
+msgstr ""
+"Tu pote remover un OpenID de tu conto per cliccar le button \"Remover\"."
+
+#: openidsettings.php:174 openidsettings.php:215
+msgid "Remove"
+msgstr "Remover"
+
+#: openidsettings.php:188
+msgid "OpenID Trusted Sites"
+msgstr "Sitos OpenID de confidentia"
+
+#: openidsettings.php:191
+msgid ""
+"The following sites are allowed to access your identity and log you in. You "
+"can remove a site from this list to deny it access to your OpenID."
+msgstr ""
+"Le sequente sitos ha le permission de acceder a tu identitate e de "
+"authenticar te. Tu pote remover un sito de iste lista pro negar a illo le "
+"accesso a tu OpenID."
+
+#. TRANS: Message given when there is a problem with the user's session token.
+#: openidsettings.php:233 finishopenidlogin.php:40 openidlogin.php:49
+msgid "There was a problem with your session token. Try again, please."
+msgstr "Occurreva un problema con le indicio de tu session. Per favor reproba."
+
+#: openidsettings.php:240
+msgid "Can't add new providers."
+msgstr "Non pote adder nove fornitores."
+
+#: openidsettings.php:253
+msgid "Something weird happened."
+msgstr "Qualcosa de bizarre occurreva."
+
+#: openidsettings.php:277
+msgid "No such OpenID trustroot."
+msgstr "Iste \"trustroot\" de OpenID non existe."
+
+#: openidsettings.php:281
+msgid "Trustroots removed"
+msgstr "\"Trustroots\" removite"
+
+#: openidsettings.php:304
+msgid "No such OpenID."
+msgstr "Iste OpenID non existe."
+
+#: openidsettings.php:309
+msgid "That OpenID does not belong to you."
+msgstr "Iste OpenID non appertine a te."
+
+#: openidsettings.php:313
+msgid "OpenID removed."
+msgstr "OpenID removite."
+
+#: openidadminpanel.php:54 OpenIDPlugin.php:623
+msgid "OpenID"
+msgstr "OpenID"
+
+#: openidadminpanel.php:147
+msgid "Invalid provider URL. Max length is 255 characters."
+msgstr "URL de fornitor invalide. Longitude maximal es 255 characteres."
+
+#: openidadminpanel.php:153
+msgid "Invalid team name. Max length is 255 characters."
+msgstr "Nomine de equipa invalide. Longitude maximal es 255 characteres."
+
+#: openidadminpanel.php:210
+msgid "Trusted provider"
+msgstr "Fornitor de confidentia"
+
+#: openidadminpanel.php:212
+msgid ""
+"By default, users are allowed to authenticate with any OpenID provider. If "
+"you are using your own OpenID service for shared sign-in, you can restrict "
+"access to only your own users here."
+msgstr ""
+"Per predefinition, le usatores ha le permission de authenitcar se con omne "
+"fornitor de OpenID. Si tu usa tu proprie servicio OpenID pro le "
+"authentication in commun, tu pote hic restringer le accesso a solmente tu "
+"proprie usatores."
+
+#: openidadminpanel.php:220
+msgid "Provider URL"
+msgstr "URL del fornitor"
+
+#: openidadminpanel.php:221
+msgid ""
+"All OpenID logins will be sent to this URL; other providers may not be used."
+msgstr ""
+"Tote le authenticationes de OpenID essera inviate a iste URL; altere "
+"fornitores non pote esser usate."
+
+#: openidadminpanel.php:228
+msgid "Append a username to base URL"
+msgstr "Adjunger un nomine de usator al URL de base"
+
+#: openidadminpanel.php:230
+msgid ""
+"Login form will show the base URL and prompt for a username to add at the "
+"end. Use when OpenID provider URL should be the profile page for individual "
+"users."
+msgstr ""
+"Le formulario de authentication monstrara le URL de base e demandara un "
+"nomine de usator a adder al fin. Usa isto si le URL de un fornitor de OpenID "
+"debe esser le pagina de profilo pro usatores individual."
+
+#: openidadminpanel.php:238
+msgid "Required team"
+msgstr "Equipa requirite"
+
+#: openidadminpanel.php:239
+msgid "Only allow logins from users in the given team (Launchpad extension)."
+msgstr ""
+"Permitter solmente le apertura de session ab usatores in le equipa "
+"specificate (extension de Launchpad)."
+
+#: openidadminpanel.php:251
+msgid "Options"
+msgstr "Optiones"
+
+#: openidadminpanel.php:258
+msgid "Enable OpenID-only mode"
+msgstr "Activar modo OpenID sol"
+
+#: openidadminpanel.php:260
+msgid ""
+"Require all users to login via OpenID. WARNING: disables password "
+"authentication for all users!"
+msgstr ""
+"Requirer que tote le usatores aperi session via OpenID. ATTENTION: isto "
+"disactiva le authentication per contrasigno pro tote le usatores!"
+
+#: openidadminpanel.php:278
+msgid "Save OpenID settings"
+msgstr "Salveguardar configurationes de OpenID"
+
+#. TRANS: OpenID plugin server error.
+#: openid.php:138
+msgid "Cannot instantiate OpenID consumer object."
+msgstr "Non pote instantiar un objecto de consumitor OpenID."
+
+#. TRANS: OpenID plugin message. Given when an OpenID is not valid.
+#: openid.php:150
+msgid "Not a valid OpenID."
+msgstr "Non es un OpenID valide."
+
+#. TRANS: OpenID plugin server error. Given when the OpenID authentication request fails.
+#. TRANS: %s is the failure message.
+#: openid.php:155
+#, php-format
+msgid "OpenID failure: %s"
+msgstr "Fallimento de OpenID: %s"
+
+#. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
+#. TRANS: %s is the failure message.
+#: openid.php:205
+#, php-format
+msgid "Could not redirect to server: %s"
+msgstr "Non poteva rediriger al servitor: %s"
+
+#. TRANS: OpenID plugin user instructions.
+#: openid.php:244
+msgid ""
+"This form should automatically submit itself. If not, click the submit "
+"button to go to your OpenID provider."
+msgstr ""
+"Iste formulario deberea submitter se automaticamente. Si non, clicca super "
+"le button Submitter pro vader a tu fornitor de OpenID."
+
+#. TRANS: OpenID plugin server error.
+#: openid.php:280
+msgid "Error saving the profile."
+msgstr "Error durante le salveguarda del profilo."
+
+#. TRANS: OpenID plugin server error.
+#: openid.php:292
+msgid "Error saving the user."
+msgstr "Error durante le salveguarda del usator."
+
+#. TRANS: OpenID plugin client exception (403).
+#: openid.php:322
+msgid "Unauthorized URL used for OpenID login."
+msgstr ""
+"Un URL non autorisate ha essite usate pro le authentication via OpenID."
+
+#. TRANS: Title
+#: openid.php:370
+msgid "OpenID Login Submission"
+msgstr "Apertura de session via OpenID"
+
+#. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
+#: openid.php:381
+msgid "Requesting authorization from your login provider..."
+msgstr "Requesta autorisation de tu fornitor de authentication..."
+
+#. TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
+#: openid.php:385
+msgid ""
+"If you are not redirected to your login provider in a few seconds, try "
+"pushing the button below."
+msgstr ""
+"Si tu non es redirigite a tu fornitor de authentication post pauc secundas, "
+"tenta pulsar le button hic infra."
+
+#. TRANS: Tooltip for main menu option "Login"
+#: OpenIDPlugin.php:221
+msgctxt "TOOLTIP"
+msgid "Login to the site"
+msgstr "Authenticar te a iste sito"
+
+#. TRANS: Main menu option when not logged in to log in
+#: OpenIDPlugin.php:224
+msgctxt "MENU"
+msgid "Login"
+msgstr "Aperir session"
+
+#. TRANS: Tooltip for main menu option "Help"
+#: OpenIDPlugin.php:229
+msgctxt "TOOLTIP"
+msgid "Help me!"
+msgstr "Adjuta me!"
+
+#. TRANS: Main menu option for help on the StatusNet site
+#: OpenIDPlugin.php:232
+msgctxt "MENU"
+msgid "Help"
+msgstr "Adjuta"
+
+#. TRANS: Tooltip for main menu option "Search"
+#: OpenIDPlugin.php:238
+msgctxt "TOOLTIP"
+msgid "Search for people or text"
+msgstr "Cercar personas o texto"
+
+#. TRANS: Main menu option when logged in or when the StatusNet instance is not private
+#: OpenIDPlugin.php:241
+msgctxt "MENU"
+msgid "Search"
+msgstr "Cercar"
+
+#. TRANS: OpenID plugin menu item on site logon page.
+#. TRANS: OpenID plugin menu item on user settings page.
+#: OpenIDPlugin.php:301 OpenIDPlugin.php:339
+msgctxt "MENU"
+msgid "OpenID"
+msgstr "OpenID"
+
+#. TRANS: OpenID plugin tooltip for logon menu item.
+#: OpenIDPlugin.php:303
+msgid "Login or register with OpenID"
+msgstr "Aperir session o crear conto via OpenID"
+
+#. TRANS: OpenID plugin tooltip for user settings menu item.
+#: OpenIDPlugin.php:341
+msgid "Add or remove OpenIDs"
+msgstr "Adder o remover OpenIDs"
+
+#: OpenIDPlugin.php:624
+msgid "OpenID configuration"
+msgstr "Configuration de OpenID"
+
+#. TRANS: OpenID plugin description.
+#: OpenIDPlugin.php:649
+msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
+msgstr ""
+"Usar <a href=\"http://openid.net/\">OpenID</a> pro aperir session al sito."
+
+#. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
+#: openidserver.php:118
+#, php-format
+msgid "You are not authorized to use the identity %s."
+msgstr "Tu non es autorisate a usar le identitate %s."
+
+#. TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
+#: openidserver.php:139
+msgid "Just an OpenID provider. Nothing to see here, move along..."
+msgstr ""
+"Solmente un fornitor de OpenID. Nihil a vider hic, per favor continua..."
+
+#. TRANS: Client error message trying to log on with OpenID while already logged on.
+#: finishopenidlogin.php:35 openidlogin.php:31
+msgid "Already logged in."
+msgstr "Tu es jam authenticate."
+
+#. TRANS: Message given if user does not agree with the site's license.
+#: finishopenidlogin.php:46
+msgid "You can't register if you don't agree to the license."
+msgstr "Tu non pote crear un conto si tu non accepta le licentia."
+
+#. TRANS: Messag given on an unknown error.
+#: finishopenidlogin.php:55
+msgid "An unknown error has occured."
+msgstr "Un error incognite ha occurrite."
+
+#. TRANS: Instructions given after a first successful logon using OpenID.
+#. TRANS: %s is the site name.
+#: finishopenidlogin.php:71
+#, php-format
+msgid ""
+"This is the first time you've logged into %s so we must connect your OpenID "
+"to a local account. You can either create a new account, or connect with "
+"your existing account, if you have one."
+msgstr ""
+"Isto es le prime vice que tu ha aperite un session in %s; dunque, nos debe "
+"connecter tu OpenID a un conto local. Tu pote crear un nove conto, o "
+"connecter con tu conto existente, si tu ha un."
+
+#. TRANS: Title
+#: finishopenidlogin.php:78
+msgid "OpenID Account Setup"
+msgstr "Configuration de conto OpenID"
+
+#: finishopenidlogin.php:108
+msgid "Create new account"
+msgstr "Crear nove conto"
+
+#: finishopenidlogin.php:110
+msgid "Create a new user with this nickname."
+msgstr "Crear un nove usator con iste pseudonymo."
+
+#: finishopenidlogin.php:113
+msgid "New nickname"
+msgstr "Nove pseudonymo"
+
+#: finishopenidlogin.php:115
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "1-64 minusculas o numeros, sin punctuation o spatios"
+
+#. TRANS: Button label in form in which to create a new user on the site for an OpenID.
+#: finishopenidlogin.php:140
+msgctxt "BUTTON"
+msgid "Create"
+msgstr "Crear"
+
+#. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
+#: finishopenidlogin.php:146
+msgid "Connect existing account"
+msgstr "Connecter conto existente"
+
+#. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
+#: finishopenidlogin.php:149
+msgid ""
+"If you already have an account, login with your username and password to "
+"connect it to your OpenID."
+msgstr ""
+"Si tu ha jam un conto, aperi session con tu nomine de usator e contrasigno "
+"pro connecter lo a tu OpenID."
+
+#. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
+#: finishopenidlogin.php:153
+msgid "Existing nickname"
+msgstr "Pseudonymo existente"
+
+#. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
+#: finishopenidlogin.php:157
+msgid "Password"
+msgstr "Contrasigno"
+
+#. TRANS: Button label in form in which to connect an OpenID to an existing user on the site.
+#: finishopenidlogin.php:161
+msgctxt "BUTTON"
+msgid "Connect"
+msgstr "Connecter"
+
+#. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
+#: finishopenidlogin.php:174 finishaddopenid.php:90
+msgid "OpenID authentication cancelled."
+msgstr "Authentication OpenID cancellate."
+
+#. TRANS: OpenID authentication failed; display the error message. %s is the error message.
+#. TRANS: OpenID authentication failed; display the error message.
+#. TRANS: %s is the error message.
+#: finishopenidlogin.php:178 finishaddopenid.php:95
+#, php-format
+msgid "OpenID authentication failed: %s"
+msgstr "Le authentication OpenID ha fallite: %s"
+
+#: finishopenidlogin.php:198 finishaddopenid.php:111
+msgid ""
+"OpenID authentication aborted: you are not allowed to login to this site."
+msgstr ""
+"Authentication OpenID abortate: tu non ha le permission de aperir session in "
+"iste sito."
+
+#. TRANS: OpenID plugin message. No new user registration is allowed on the site.
+#. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
+#: finishopenidlogin.php:250 finishopenidlogin.php:260
+msgid "Registration not allowed."
+msgstr "Creation de conto non permittite."
+
+#. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
+#: finishopenidlogin.php:268
+msgid "Not a valid invitation code."
+msgstr "Le codice de invitation es invalide."
+
+#. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
+#: finishopenidlogin.php:279
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "Le pseudonymo pote solmente haber minusculas e numeros, sin spatios."
+
+#. TRANS: OpenID plugin message. The entered new user name is blacklisted.
+#: finishopenidlogin.php:285
+msgid "Nickname not allowed."
+msgstr "Pseudonymo non permittite."
+
+#. TRANS: OpenID plugin message. The entered new user name is already used.
+#: finishopenidlogin.php:291
+msgid "Nickname already in use. Try another one."
+msgstr "Pseudonymo ja in uso. Proba un altere."
+
+#. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
+#. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
+#: finishopenidlogin.php:299 finishopenidlogin.php:386
+msgid "Stored OpenID not found."
+msgstr "Le OpenID immagazinate non esseva trovate."
+
+#. TRANS: OpenID plugin server error.
+#: finishopenidlogin.php:309
+msgid "Creating new account for OpenID that already has a user."
+msgstr "Tentativa de crear un nove conto pro un OpenID que ha jam un usator."
+
+#. TRANS: OpenID plugin message.
+#: finishopenidlogin.php:374
+msgid "Invalid username or password."
+msgstr "Nomine de usator o contrasigno invalide."
+
+#. TRANS: OpenID plugin server error. The user or user profile could not be saved.
+#: finishopenidlogin.php:394
+msgid "Error connecting user to OpenID."
+msgstr "Error durante le connexion del usator a OpenID."
+
+#. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
+#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
+#: openidlogin.php:80
+#, php-format
+msgid ""
+"For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
+"before changing your settings."
+msgstr ""
+"Pro motivos de securitate, per favor re-aperi session con tu [OpenID](%%doc."
+"openid%%) ante de cambiar tu configurationes."
+
+#. TRANS: OpenID plugin message.
+#. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
+#: openidlogin.php:86
+#, php-format
+msgid "Login with an [OpenID](%%doc.openid%%) account."
+msgstr "Aperir session con un conto [OpenID](%%doc.openid%%)."
+
+#. TRANS: OpenID plugin message. Title.
+#. TRANS: Title after getting the status of the OpenID authorisation request.
+#: openidlogin.php:120 finishaddopenid.php:187
+msgid "OpenID Login"
+msgstr "Apertura de session via OpenID"
+
+#. TRANS: OpenID plugin logon form legend.
+#: openidlogin.php:138
+msgid "OpenID login"
+msgstr "Apertura de session via OpenID"
+
+#: openidlogin.php:146
+msgid "OpenID provider"
+msgstr "Fornitor de OpenID"
+
+#: openidlogin.php:154
+msgid "Enter your username."
+msgstr "Entra tu nomine de usator."
+
+#: openidlogin.php:155
+msgid "You will be sent to the provider's site for authentication."
+msgstr "Tu essera inviate al sito del fornitor pro authentication."
+
+#. TRANS: OpenID plugin logon form field instructions.
+#: openidlogin.php:162
+msgid "Your OpenID URL"
+msgstr "Tu URL de OpenID"
+
+#. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
+#: openidlogin.php:167
+msgid "Remember me"
+msgstr "Memorar me"
+
+#. TRANS: OpenID plugin logon form field instructions.
+#: openidlogin.php:169
+msgid "Automatically login in the future; not for shared computers!"
+msgstr ""
+"Aperir session automaticamente in le futuro; non pro computatores usate in "
+"commun!"
+
+#. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
+#: openidlogin.php:174
+msgctxt "BUTTON"
+msgid "Login"
+msgstr "Aperir session"
+
+#: openidtrust.php:51
+msgid "OpenID Identity Verification"
+msgstr "Verification de identitate via OpenID"
+
+#: openidtrust.php:69
+msgid ""
+"This page should only be reached during OpenID processing, not directly."
+msgstr ""
+"Iste pagina debe esser attingite solmente durante le tractamento de un "
+"OpenID, non directemente."
+
+#: openidtrust.php:117
+#, php-format
+msgid ""
+"%s  has asked to verify your identity. Click Continue to verify your "
+"identity and login without creating a new password."
+msgstr ""
+"%s  ha demandate de verificar tu identitate. Clicca super Continuar pro "
+"verificar tu identitate e aperir session sin crear un nove contrasigno."
+
+#: openidtrust.php:135
+msgid "Continue"
+msgstr "Continuar"
+
+#: openidtrust.php:136
+msgid "Cancel"
+msgstr "Cancellar"
+
+#. TRANS: Client error message
+#: finishaddopenid.php:68
+msgid "Not logged in."
+msgstr "Tu non ha aperite un session."
+
+#. TRANS: message in case a user tries to add an OpenID that is already connected to them.
+#: finishaddopenid.php:122
+msgid "You already have this OpenID!"
+msgstr "Tu jam ha iste OpenID!"
+
+#. TRANS: message in case a user tries to add an OpenID that is already used by another user.
+#: finishaddopenid.php:125
+msgid "Someone else already has this OpenID."
+msgstr "Un altere persona jam ha iste OpenID."
+
+#. TRANS: message in case the OpenID object cannot be connected to the user.
+#: finishaddopenid.php:138
+msgid "Error connecting user."
+msgstr "Error durante le connexion del usator."
+
+#. TRANS: message in case the user or the user profile cannot be saved in StatusNet.
+#: finishaddopenid.php:145
+msgid "Error updating profile"
+msgstr "Error durante le actualisation del profilo"
