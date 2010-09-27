@@ -22,7 +22,7 @@ class YammerAuthInitForm extends Form
 
     function formClass()
     {
-        return 'form_yammer_auth_init';
+        return 'form_yammer_auth_init form_settings';
     }
 
 
@@ -56,7 +56,12 @@ class YammerAuthInitForm extends Form
 
     function formData()
     {
-        $this->out->hidden('init_auth', '1');
+        $this->out->hidden('subaction', 'authinit');
+
+        $this->out->elementStart('fieldset');
+        $this->out->submit('submit', _m('Start authentication'), 'submit', null, _m('Request authorization to connect to Yammer account'));
+        $this->out->submit('change-apikey', _m('Change API key'));
+        $this->out->elementEnd('fieldset');
     }
 
     /**
@@ -67,6 +72,5 @@ class YammerAuthInitForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _m('Connect to Yammer'), 'submit', null, _m('Request authorization to connect to Yammer account'));
     }
 }

@@ -30,7 +30,7 @@ class YammerAuthVerifyForm extends Form
 
     function formClass()
     {
-        return 'form_yammer_auth_verify';
+        return 'form_yammer_auth_verify form_settings';
     }
 
 
@@ -64,27 +64,39 @@ class YammerAuthVerifyForm extends Form
 
     function formData()
     {
+        $this->out->hidden('subaction', 'authverify');
+
+        $this->out->elementStart('fieldset');
+
         $this->out->elementStart('p');
         $this->out->text(_m('Follow this link to confirm authorization at Yammer; you will be prompted to log in if necessary:'));
         $this->out->elementEnd('p');
 
-        $this->out->elementStart('blockquote');
-        $this->out->element('a',
-            array('href' => $this->runner->getAuthUrl(),
-                  'target' => '_blank'),
-            _m('Open Yammer authentication window'));
-        $this->out->elementEnd('blockquote');
-        
-        $this->out->element('p', array(), _m('Copy the verification code you are given into the form below:'));
-
-        $this->out->input('verify_token', _m('Verification code:'));
-        
         // iframe would be nice to avoid leaving -- since they don't seem to have callback url O_O
         /*
         $this->out->element('iframe', array('id' => 'yammer-oauth',
                                             'src' => $this->runner->getAuthUrl()));
         */
         // yeah, it ignores the callback_url
+        // soo... crappy link. :(
+
+        $this->out->elementStart('p', array('class' => 'magiclink'));
+        $this->out->element('a',
+            array('href' => $this->runner->getAuthUrl(),
+                  'target' => '_blank'),
+            _m('Open Yammer authentication window'));
+        $this->out->elementEnd('p');
+        
+        $this->out->element('p', array(), _m('Copy the verification code you are given below:'));
+
+        $this->out->elementStart('ul', array('class' => 'form_data'));
+        $this->out->elementStart('li');
+        $this->out->input('verify_token', _m('Verification code:'));
+        $this->out->elementEnd('li');
+        $this->out->elementEnd('ul');
+        
+        $this->out->submit('submit', _m('Continue'), 'submit', null, _m('Save code and begin import'));
+        $this->out->elementEnd('fieldset');
     }
 
     /**
@@ -95,6 +107,5 @@ class YammerAuthVerifyForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _m('Verify code'), 'submit', null, _m('Verification code'));
     }
 }
