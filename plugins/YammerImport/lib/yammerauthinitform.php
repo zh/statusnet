@@ -56,6 +56,7 @@ class YammerAuthInitForm extends Form
 
     function formData()
     {
+        $this->out->hidden('init_auth', '1');
     }
 
     /**
