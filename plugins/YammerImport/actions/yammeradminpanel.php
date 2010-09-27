@@ -76,7 +76,7 @@ class YammeradminpanelAction extends AdminPanelAction
                 return $this->showAjaxForm($form);
             } else if ($this->verify_token) {
                 $this->runner->saveAuthToken($this->verify_token);
-                $form = new YammerAuthProgressForm();
+                $form = new YammerProgressForm($this, $this->runner);
                 return $this->showAjaxForm($form);
             } else {
                 throw new ClientException('Invalid POST');
