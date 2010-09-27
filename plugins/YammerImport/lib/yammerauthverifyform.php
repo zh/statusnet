@@ -65,8 +65,17 @@ class YammerAuthVerifyForm extends Form
     function formData()
     {
         $this->out->input('verify_token', _m('Verification code:'), '', _m("Click through and paste the code it gives you below..."));
+        
+        // iframe would be nice to avoid leaving -- since they don't seem to have callback url O_O
+        /*
         $this->out->element('iframe', array('id' => 'yammer-oauth',
                                             'src' => $this->runner->getAuthUrl()));
+        */
+        // yeah, it ignores the callback_url
+        $this->out->element('a',
+            array('href' => $this->runner->getAuthUrl(),
+                  'target' => '_blank'),
+            'clicky click');
     }
 
     /**
