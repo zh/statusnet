@@ -16,19 +16,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: DisqusPlugin.php:135
+#. TRANS: Exception. %1$s is the control server, %2$s is the control port.
+#: MeteorPlugin.php:115
 #, php-format
-msgid ""
-"Please enable JavaScript to view the [comments powered by Disqus](http://"
-"disqus.com/?ref_noscript=%s)."
+msgid "Couldn't connect to %1$s on %2$s."
 msgstr ""
 
-#: DisqusPlugin.php:142
-msgid "Comments powered by "
+#. TRANS: Exception. %s is the Meteor message that could not be added.
+#: MeteorPlugin.php:128
+#, php-format
+msgid "Error adding meteor message \"%s\""
 msgstr ""
 
-#: DisqusPlugin.php:250
-msgid ""
-"Use <a href=\"http://disqus.com/\">Disqus</a> to add commenting to notice "
-"pages."
+#: MeteorPlugin.php:158
+msgid "Plugin to do \"real time\" updates using Comet/Bayeux."
 msgstr ""
