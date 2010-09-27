@@ -52,15 +52,18 @@ class YammeradminpanelAction extends AdminPanelAction
      */
     function getInstructions()
     {
-        return _m('Yammer import tool');
+        return _m('This Yammer import tool is still undergoing testing, ' .
+                  'and is incomplete in some areas. ' .
+                'Currently user subscriptions and group memberships are not ' .
+                'transferred; in the future this may be supported for ' .
+                'imports done by verified administrators on the Yammer side.');
     }
 
     function prepare($args)
     {
         $ok = parent::prepare($args);
 
-        $this->init_auth = $this->trimmed('init_auth');
-        $this->verify_token = $this->trimmed('verify_token');
+        $this->subaction = $this->trimmed('subaction');
         $this->runner = YammerRunner::init();
 
         return $ok;
@@ -68,26 +71,48 @@ class YammeradminpanelAction extends AdminPanelAction
 
     function handle($args)
     {
+        // @fixme move this to saveSettings and friends?
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->checkSessionToken();
-            if ($this->init_auth) {
-                $url = $this->runner->requestAuth();
-                $form = new YammerAuthVerifyForm($this, $this->runner);
-                return $this->showAjaxForm($form);
-            } else if ($this->verify_token) {
-                $this->runner->saveAuthToken($this->verify_token);
-                
+            if ($this->subaction == 'change-apikey') {
+                $form = new YammerApiKeyForm($this);
+            } else if ($this->subaction == 'apikey') {
+                if ($this->saveKeys()) {
+                    $form = new YammerAuthInitForm($this, $this->runner);
+                } else {
+                    $form = new YammerApiKeyForm($this);
+                }
+            } else if ($this->subaction == 'authinit') {
+                // hack
+                if ($this->arg('change-apikey')) {
+                    $form = new YammerApiKeyForm($this);
+                } else {
+                    $url = $this->runner->requestAuth();
+                    $form = new YammerAuthVerifyForm($this, $this->runner);
+                }
+            } else if ($this->subaction == 'authverify') {
+                $this->runner->saveAuthToken($this->trimmed('verify_token'));
+
                 // Haho! Now we can make THE FUN HAPPEN
                 $this->runner->startBackgroundImport();
-                
+
                 $form = new YammerProgressForm($this, $this->runner);
-                return $this->showAjaxForm($form);
             } else {
                 throw new ClientException('Invalid POST');
             }
-        } else {
-            return parent::handle($args);
+            return $this->showAjaxForm($form);
         }
+        return parent::handle($args);
+    }
+
+    function saveKeys()
+    {
+        $key = $this->trimmed('consumer_key');
+        $secret = $this->trimmed('consumer_secret');
+        Config::save('yammer', 'consumer_key', $key);
+        Config::save('yammer', 'consumer_secret', $secret);
+
+        return !empty($key) && !empty($secret);
     }
 
     function showAjaxForm($form)
@@ -103,6 +128,27 @@ class YammeradminpanelAction extends AdminPanelAction
     }
 
     /**
+     * Fetch the appropriate form for our current state.
+     * @return Form
+     */
+    function statusForm()
+    {
+        if (!(common_config('yammer', 'consumer_key'))
+            || !(common_config('yammer', 'consumer_secret'))) {
+            return new YammerApiKeyForm($this);
+        }
+        switch($this->runner->state())
+        {
+            case 'init':
+                return new YammerAuthInitForm($this, $this->runner);
+            case 'requesting-auth':
+                return new YammerAuthVerifyForm($this, $this->runner);
+            default:
+                return new YammerProgressForm($this, $this->runner);
+        }
+    }
+
+    /**
      * Show the Yammer admin panel form
      *
      * @return void
@@ -110,20 +156,7 @@ class YammeradminpanelAction extends AdminPanelAction
     function showForm()
     {
         $this->elementStart('fieldset');
-
-        switch($this->runner->state())
-        {
-            case 'init':
-                $form = new YammerAuthInitForm($this, $this->runner);
-                break;
-            case 'requesting-auth':
-                $form = new YammerAuthVerifyForm($this, $this->runner);
-                break;
-            default:
-                $form = new YammerProgressForm($this, $this->runner);
-        }
-        $form->show();
-
+        $this->statusForm()->show();
         $this->elementEnd('fieldset');
     }
 

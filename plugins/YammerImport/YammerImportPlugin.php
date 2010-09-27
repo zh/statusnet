@@ -119,6 +119,7 @@ class YammerImportPlugin extends Plugin
         case 'sn_yammerclient':
         case 'yammerimporter':
         case 'yammerrunner':
+        case 'yammerapikeyform':
         case 'yammerauthinitform':
         case 'yammerauthverifyform':
         case 'yammerprogressform':
