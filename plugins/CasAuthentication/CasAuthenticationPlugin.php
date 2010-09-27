@@ -125,13 +125,13 @@ class CasAuthenticationPlugin extends AuthenticationPlugin
     function onInitializePlugin(){
         parent::onInitializePlugin();
         if(!isset($this->server)){
-            throw new Exception(_m("Specifying a server is required.");
+            throw new Exception(_m("Specifying a server is required."));
         }
         if(!isset($this->port)){
-            throw new Exception(_m("Specifying a port is required.");
+            throw new Exception(_m("Specifying a port is required."));
         }
         if(!isset($this->path)){
-            throw new Exception(_m("Specifying a path is required.");
+            throw new Exception(_m("Specifying a path is required."));
         }
         //These values need to be accessible to a action object
         //I can't think of any other way than global variables
