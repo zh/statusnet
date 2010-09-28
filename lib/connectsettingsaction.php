@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  *
  * @see      Widget
  */
-
 class ConnectSettingsAction extends SettingsAction
 {
     /**
@@ -54,7 +53,6 @@ class ConnectSettingsAction extends SettingsAction
      *
      * @return void
      */
-
     function showLocalNav()
     {
         $menu = new ConnectSettingsNav($this);
@@ -73,7 +71,6 @@ class ConnectSettingsAction extends SettingsAction
  *
  * @see      HTMLOutputter
  */
-
 class ConnectSettingsNav extends Widget
 {
     var $action = null;
@@ -83,7 +80,6 @@ class ConnectSettingsNav extends Widget
      *
      * @param Action $action current action, used for output
      */
-
     function __construct($action=null)
     {
         parent::__construct($action);
@@ -95,7 +91,6 @@ class ConnectSettingsNav extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $action_name = $this->action->trimmed('action');
@@ -107,17 +102,23 @@ class ConnectSettingsNav extends Widget
             $menu = array();
             if (common_config('xmpp', 'enabled')) {
                 $menu['imsettings'] =
-                  array(_('IM'),
+                  // TRANS: Menu item for Instant Messaging settings.
+                  array(_m('MENU','IM'),
+                        // TRANS: Tooltip for Instant Messaging menu item.
                         _('Updates by instant messenger (IM)'));
             }
             if (common_config('sms', 'enabled')) {
                 $menu['smssettings'] =
-                  array(_('SMS'),
+                  // TRANS: Menu item for Short Message Service settings.
+                  array(_m('MENU','SMS'),
+                        // TRANS: Tooltip for Short Message Service menu item.
                         _('Updates by SMS'));
             }
-            
+
             $menu['oauthconnectionssettings'] = array(
-                _('Connections'),
+                // TRANS: Menu item for OAth connection settings.
+                _m('MENU','Connections'),
+                // TRANS: Tooltip for connected applications (Connections through OAth) menu item.
                 _('Authorized connected applications')
             );
 
@@ -133,6 +134,4 @@ class ConnectSettingsNav extends Widget
 
         $this->action->elementEnd('ul');
     }
-
 }
-

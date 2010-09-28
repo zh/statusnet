@@ -82,13 +82,11 @@ class ActivityUtils
         $els = $element->childNodes;
 
         foreach ($els as $link) {
-
             if (!($link instanceof DOMElement)) {
                 continue;
             }
 
             if ($link->localName == self::LINK && $link->namespaceURI == self::ATOM) {
-
                 $linkRel = $link->getAttribute(self::REL);
                 $linkType = $link->getAttribute(self::TYPE);
 
@@ -109,7 +107,6 @@ class ActivityUtils
 
         foreach ($els as $link) {
             if ($link->localName == self::LINK && $link->namespaceURI == self::ATOM) {
-
                 $linkRel = $link->getAttribute(self::REL);
                 $linkType = $link->getAttribute(self::TYPE);
 

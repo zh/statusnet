@@ -49,7 +49,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-
 class ActivityObject
 {
     const ARTICLE   = 'http://activitystrea.ms/schema/1.0/article';
@@ -116,7 +115,6 @@ class ActivityObject
      *
      * @param DOMElement $element DOM thing to turn into an Activity thing
      */
-
     function __construct($element = null)
     {
         if (empty($element)) {
@@ -216,8 +214,7 @@ class ActivityObject
         }
     }
 
-    // @fixme rationalize with Activity::_fromRssItem()
-
+    // @todo FIXME: rationalize with Activity::_fromRssItem()
     private function _fromRssItem($item)
     {
         $this->title = ActivityUtils::childContent($item, ActivityObject::TITLE, Activity::RSS);
