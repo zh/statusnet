@@ -249,8 +249,11 @@ class YammerImporter
         $options['mainpage'] = common_local_url('showgroup',
                                    array('nickname' => $options['nickname']));
 
+        // Set some default vals or User_group::register will whine
+        $options['homepage'] = '';
+        $options['location'] = '';
+        $options['aliases'] = array();
         // @fixme what about admin user for the group?
-        // bio? homepage etc? aliases?
 
         $options['local'] = true;
         return array('orig_id' => $origId,
