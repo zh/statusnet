@@ -287,7 +287,7 @@ class YammerImporter
         }
         $options['created'] = $this->timestamp($item['created_at']);
 
-        if ($item['group_id']) {
+        if (!empty($item['group_id'])) {
             $groupId = $this->findImportedGroup($item['group_id']);
             if ($groupId) {
                 $options['groups'] = array($groupId);
