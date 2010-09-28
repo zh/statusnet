@@ -9,7 +9,7 @@ class YammerProgressForm extends Form
      */
     function id()
     {
-        return 'yammer-progress';
+        return 'yammer-progress-form';
     }
 
     /**
@@ -39,8 +39,11 @@ class YammerProgressForm extends Form
      */
     function formData()
     {
+        $this->out->hidden('subaction', 'progress');
+
         $runner = YammerRunner::init();
 
+        $error = $runner->lastError();
         $userCount = $runner->countUsers();
         $groupCount = $runner->countGroups();
         $fetchedCount = $runner->countFetchedNotices();
@@ -86,7 +89,13 @@ class YammerProgressForm extends Form
         $steps = array_keys($labels);
         $currentStep = array_search($runner->state(), $steps);
 
-        $this->out->elementStart('fieldset', array('class' => 'yammer-import'));
+        $classes = array('yammer-import');
+        if ($error) {
+            $classes[] = 'yammer-error';
+        } else {
+            $classes[] = 'yammer-running';
+        }
+        $this->out->elementStart('fieldset', array('class' => implode(' ', $classes)));
         $this->out->element('legend', array(), _m('Import status'));
         foreach ($steps as $step => $state) {
             if ($state == 'init') {
@@ -104,7 +113,8 @@ class YammerProgressForm extends Form
                 $this->progressBar($state,
                                    'progress',
                                    $labels[$state]['label'],
-                                   $labels[$state]['progress']);
+                                   $labels[$state]['progress'],
+                                   $error);
             } else {
                 // This step has not yet been done.
                 $this->progressBar($state,
@@ -116,13 +126,34 @@ class YammerProgressForm extends Form
         $this->out->elementEnd('fieldset');
     }
 
-    private function progressBar($state, $class, $label, $status)
+    private function progressBar($state, $class, $label, $status, $error=null)
     {
         // @fixme prettify ;)
         $this->out->elementStart('div', array('class' => "import-step import-step-$state $class"));
         $this->out->element('div', array('class' => 'import-label'), $label);
         $this->out->element('div', array('class' => 'import-status'), $status);
+        if ($class == 'progress') {
+            if ($state == 'done') {
+                $this->out->submit('abort-import', _m('Reset import state'));
+            } else {
+                if ($error) {
+                    $this->errorBox($error);
+                } else {
+                    $this->out->submit('pause-import', _m('Pause import'));
+                }
+            }
+        }
         $this->out->elementEnd('div');
     }
 
+    private function errorBox($msg)
+    {
+        $errline = sprintf(_m('Encountered error "%s"'), $msg);
+        $this->out->elementStart('fieldset', array('class' => 'import-error'));
+        $this->out->element('legend', array(), _m('Paused'));
+        $this->out->element('p', array(), $errline);
+        $this->out->submit('continue-import', _m('Continue'));
+        $this->out->submit('abort-import', _m('Abort import'));
+        $this->out->elementEnd('fieldset');
+    }
 }

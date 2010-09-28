@@ -38,21 +38,24 @@ class YammerQueueHandler extends QueueHandler
     {
         $runner = YammerRunner::init();
         if ($runner->hasWork()) {
-            if ($runner->iterate()) {
-                if ($runner->hasWork()) {
-                    // More to do? Shove us back on the queue...
-                    $runner->startBackgroundImport();
+            try {
+                if ($runner->iterate()) {
+                    if ($runner->hasWork()) {
+                        // More to do? Shove us back on the queue...
+                        $runner->startBackgroundImport();
+                    }
                 }
-                return true;
-            } else {
-                // Something failed?
-                // @fixme should we be trying again here, or should we give warning?
-                return false;
+            } catch (Exception $e) {
+                try {
+                    $runner->recordError($e->getMessage());
+                } catch (Exception $f) {
+                    common_log(LOG_ERR, "Error while recording error in Yammer background import: " . $e->getMessage() . " " . $f->getMessage());
+                }
             }
         } else {
             // We're done!
             common_log(LOG_INFO, "Yammer import has no work to do at this time; discarding.");
-            return true;
         }
+        return true;
     }
 }

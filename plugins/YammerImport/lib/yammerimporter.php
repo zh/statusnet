@@ -132,6 +132,7 @@ class YammerImporter
         if ($noticeId) {
             return Notice::staticGet('id', $noticeId);
         } else {
+            $notice = Notice::staticGet('uri', $data['options']['uri']);
             $content = $data['content'];
             $user = User::staticGet($data['profile']);
 

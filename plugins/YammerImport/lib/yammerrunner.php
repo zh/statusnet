@@ -298,7 +298,10 @@ class YammerRunner
             $this->state->state = 'save-messages';
         } else {
             foreach ($messages as $item) {
-                Yammer_notice_stub::record($item['id'], $item);
+                $stub = Yammer_notice_stub::staticGet($item['id']);
+                if (!$stub) {
+                    Yammer_notice_stub::record($item['id'], $item);
+                }
                 $oldest = $item['id'];
             }
             $this->state->messages_oldest = $oldest;
@@ -395,4 +398,41 @@ class YammerRunner
         $qm->enqueue('YammerImport', 'yammer');
     }
 
+    /**
+     * Record an error condition from a background run, which we should
+     * display in progress state for the admin.
+     * 
+     * @param string $msg 
+     */
+    public function recordError($msg)
+    {
+        // HACK HACK HACK
+        try {
+            $temp = new Yammer_state();
+            $temp->query('ROLLBACK');
+        } catch (Exception $e) {
+            common_log(LOG_ERR, 'Exception while confirming rollback while recording error: ' . $e->getMessage());
+        }
+        $old = clone($this->state);
+        $this->state->last_error = $msg;
+        $this->state->update($old);
+    }
+
+    /**
+     * Clear the error state.
+     */
+    public function clearError()
+    {
+        $this->recordError('');
+    }
+
+    /**
+     * Get the last recorded background error message, if any.
+     * 
+     * @return string
+     */
+    public function lastError()
+    {
+        return $this->state->last_error;
+    }
 }
