@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:40+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:26:05+0000\n"
 "Language-Team: Turkish <http://translatewiki.net/wiki/Portal:tr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tr\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -196,6 +196,32 @@ msgstr "Sen ve arkadaşların"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr ""
 
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:95
+#: actions/apiaccountupdateprofile.php:98
+#: actions/apiaccountupdateprofilebackgroundimage.php:95
+#: actions/apiaccountupdateprofilecolors.php:119
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apifavoritecreate.php:101 actions/apifavoritedestroy.php:102
+#: actions/apifriendshipscreate.php:101 actions/apifriendshipsdestroy.php:101
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:140
+#: actions/apigroupismember.php:115 actions/apigroupjoin.php:157
+#: actions/apigroupleave.php:143 actions/apigrouplist.php:137
+#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
+#: actions/apigroupshow.php:116 actions/apihelptest.php:88
+#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
+#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
+#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+#, fuzzy
+msgid "API method not found."
+msgstr "Onay kodu bulunamadı."
+
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #: actions/apiaccountupdatedeliverydevice.php:87
@@ -218,6 +244,11 @@ msgid ""
 "none."
 msgstr ""
 
+#: actions/apiaccountupdatedeliverydevice.php:134
+#, fuzzy
+msgid "Could not update user."
+msgstr "Kullanıcı güncellenemedi."
+
 #: actions/apiaccountupdateprofile.php:113
 #: actions/apiaccountupdateprofilebackgroundimage.php:195
 #: actions/apiaccountupdateprofilecolors.php:186
@@ -227,6 +258,11 @@ msgstr ""
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Kullanıcının profili yok."
+
+#: actions/apiaccountupdateprofile.php:148
+#, fuzzy
+msgid "Could not save profile."
+msgstr "Profil kaydedilemedi."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
@@ -249,6 +285,12 @@ msgstr ""
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
 msgstr "Dizayn ayarlarınız kaydedilemedi."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:188
+#: actions/apiaccountupdateprofilecolors.php:143
+#, fuzzy
+msgid "Could not update your design."
+msgstr "Kullanıcı güncellenemedi."
 
 #: actions/apiblockcreate.php:106
 msgid "You cannot block yourself!"
@@ -406,6 +448,12 @@ msgstr ""
 msgid "Invalid alias: \"%s\"."
 msgstr "Geçersiz büyüklük."
 
+#: actions/apigroupcreate.php:277 actions/editgroup.php:232
+#: actions/newgroup.php:172
+#, fuzzy, php-format
+msgid "Alias \"%s\" already in use. Try another one."
+msgstr "Takma ad kullanımda. Başka bir tane deneyin."
+
 #: actions/apigroupcreate.php:290 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
@@ -427,6 +475,13 @@ msgstr "Bize o profili yollamadınız"
 msgid "You have been blocked from that group by the admin."
 msgstr "Bu gruptan yönetici tarafından engellendiniz."
 
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:140 actions/joingroup.php:134 lib/command.php:353
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s."
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
 #: actions/apigroupleave.php:116
 msgid "You are not a member of this group."
 msgstr "Bu grubun bir üyesi değilsiniz."
@@ -444,6 +499,12 @@ msgstr "%1$s kullanıcısı, %2$s grubundan silinemedi."
 #, php-format
 msgid "%s's groups"
 msgstr "%s kullanıcısının grupları"
+
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:108
+#, fuzzy, php-format
+msgid "%1$s groups %2$s is a member of."
+msgstr "Bize o profili yollamadınız"
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
@@ -464,6 +525,11 @@ msgstr "Yükleme başarısız."
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
 msgstr ""
+
+#: actions/apioauthauthorize.php:106
+#, fuzzy
+msgid "Invalid token."
+msgstr "Geçersiz büyüklük."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
@@ -486,6 +552,16 @@ msgstr ""
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
 msgstr "Geçersiz kullanıcı adı / parola!"
+
+#: actions/apioauthauthorize.php:159
+#, fuzzy
+msgid "Database error deleting OAuth application user."
+msgstr "Kullanıcı ayarlamada hata oluştu."
+
+#: actions/apioauthauthorize.php:185
+#, fuzzy
+msgid "Database error inserting OAuth application user."
+msgstr "Cevap eklenirken veritabanı hatası: %s"
 
 #: actions/apioauthauthorize.php:214
 #, php-format
@@ -613,6 +689,21 @@ msgstr ""
 msgid "Unsupported format."
 msgstr "Desteklenmeyen biçim."
 
+#: actions/apitimelinefavorites.php:110
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
+
+#: actions/apitimelinefavorites.php:119
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/apitimelinementions.php:118
+#, fuzzy, php-format
+msgid "%1$s / Updates mentioning %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
+
 #: actions/apitimelinementions.php:131
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
@@ -628,10 +719,25 @@ msgstr "%s genel zaman çizelgesi"
 msgid "%s updates from everyone!"
 msgstr ""
 
+#: actions/apitimelineretweetedtome.php:111
+#, fuzzy, php-format
+msgid "Repeated to %s"
+msgstr "%s için cevaplar"
+
+#: actions/apitimelineretweetsofme.php:114
+#, fuzzy, php-format
+msgid "Repeats of %s"
+msgstr "%s için cevaplar"
+
 #: actions/apitimelinetag.php:105 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr ""
+
+#: actions/apitimelinetag.php:107 actions/tagrss.php:65
+#, fuzzy, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
@@ -667,6 +773,13 @@ msgstr "Avatar"
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
 "Kişisel kullanıcı resminizi yükleyebilirsiniz. Maksimum dosya boyutu %s'dir."
+
+#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:108
+#, fuzzy
+msgid "User without matching profile."
+msgstr "Kullanıcının profili yok."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -800,6 +913,11 @@ msgstr "Böyle bir kullanıcı yok."
 msgid "%s blocked profiles"
 msgstr "%s engellenmiş profil"
 
+#: actions/blockedfromgroup.php:100
+#, fuzzy, php-format
+msgid "%1$s blocked profiles, page %2$d"
+msgstr "%s ve arkadaşları"
+
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr "Bu gruba katılması engellenmiş kullanıcıların bir listesi."
@@ -817,6 +935,12 @@ msgstr "Engellemeyi Kaldır"
 #: actions/blockedfromgroup.php:320 lib/unblockform.php:82
 msgid "Unblock this user"
 msgstr "Bu kullanıcının engellemesini kaldır"
+
+#. TRANS: Title for mini-posting window loaded from bookmarklet.
+#: actions/bookmarklet.php:51
+#, fuzzy, php-format
+msgid "Post to %s"
+msgstr "%s için cevaplar"
 
 #: actions/confirmaddress.php:75
 msgid "No confirmation code."
@@ -1230,6 +1354,11 @@ msgstr "Grubu düzenlemek için bu biçimi kullan."
 msgid "description is too long (max %d chars)."
 msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
 
+#: actions/editgroup.php:228 actions/newgroup.php:168
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\""
+msgstr "%s Geçersiz başlangıç sayfası"
+
 #: actions/editgroup.php:258
 msgid "Could not update group."
 msgstr "Grup güncellenemedi."
@@ -1347,6 +1476,12 @@ msgid "Email preferences"
 msgstr "E-posta tercihleri"
 
 #. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:184
+#, fuzzy
+msgid "Send me notices of new subscriptions through email."
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
+
+#. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:190
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
@@ -1372,11 +1507,47 @@ msgstr ""
 msgid "I want to post notices by email."
 msgstr ""
 
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:223
+#, fuzzy
+msgid "Publish a MicroID for my email address."
+msgstr "Bir takma ad veya eposta adresi girin."
+
+#. TRANS: Confirmation message for successful e-mail preferences save.
+#: actions/emailsettings.php:338
+#, fuzzy
+msgid "Email preferences saved."
+msgstr "Tercihler kaydedildi."
+
+#. TRANS: Message given saving e-mail address without having provided one.
+#: actions/emailsettings.php:357
+#, fuzzy
+msgid "No email address."
+msgstr "Geçersiz bir eposta adresi."
+
+#. TRANS: Message given saving e-mail address that cannot be normalised.
+#: actions/emailsettings.php:365
+#, fuzzy
+msgid "Cannot normalize that email address"
+msgstr "Jabber işlemlerinde bir hata oluştu."
+
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:370 actions/register.php:208
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Geçersiz bir eposta adresi."
+
+#. TRANS: Message given saving e-mail address that is already set.
+#: actions/emailsettings.php:374
+#, fuzzy
+msgid "That is already your email address."
+msgstr "Bu zaten sizin Jabber ID'niz."
+
+#. TRANS: Message given saving e-mail address that is already set for another user.
+#: actions/emailsettings.php:378
+#, fuzzy
+msgid "That email address already belongs to another user."
+msgstr "Jabber ID başka bir kullanıcıya ait."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1385,6 +1556,16 @@ msgstr "Geçersiz bir eposta adresi."
 #: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "Onay kodu eklenemedi."
+
+#. TRANS: Message given saving valid e-mail address that is to be confirmed.
+#: actions/emailsettings.php:402
+#, fuzzy
+msgid ""
+"A confirmation code was sent to the email address you added. Check your "
+"inbox (and spam box!) for the code and instructions on how to use it."
+msgstr ""
+"Eklemiş olduğunuz IM adresine bir onay kodu gönderildi. %s tarafından size "
+"mesaj yollanabilmesi için onaylamanız gerekmektedir."
 
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
@@ -1404,10 +1585,30 @@ msgstr "Bu yanlış e-posta adresi."
 msgid "Email confirmation cancelled."
 msgstr "İptal etmek için beklenen onay yok."
 
+#. TRANS: Message given trying to remove an e-mail address that is not
+#. TRANS: registered for the active user.
+#: actions/emailsettings.php:462
+#, fuzzy
+msgid "That is not your email address."
+msgstr "Yanlış IM adresi."
+
 #. TRANS: Message given after successfully removing a registered e-mail address.
 #: actions/emailsettings.php:483
 msgid "The email address was removed."
 msgstr "Eposta adresi zaten var."
+
+#: actions/emailsettings.php:497 actions/smssettings.php:568
+#, fuzzy
+msgid "No incoming email address."
+msgstr "Geçersiz bir eposta adresi."
+
+#. TRANS: Server error thrown on database error removing incoming e-mail address.
+#. TRANS: Server error thrown on database error adding incoming e-mail address.
+#: actions/emailsettings.php:508 actions/emailsettings.php:532
+#: actions/smssettings.php:578 actions/smssettings.php:602
+#, fuzzy
+msgid "Couldn't update user record."
+msgstr "Kullanıcı güncellenemedi."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
 #: actions/emailsettings.php:512 actions/smssettings.php:581
@@ -1466,6 +1667,11 @@ msgstr ""
 msgid "%s's favorite notices"
 msgstr "%s kullanıcısının favori durum mesajları"
 
+#: actions/favoritesrss.php:115
+#, fuzzy, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
+
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
 msgid "Featured users"
@@ -1521,13 +1727,43 @@ msgstr "Takip talebine izin verildi"
 msgid "Could not convert request token to access token."
 msgstr ""
 
+#: actions/finishremotesubscribe.php:118
+#, fuzzy
+msgid "Remote service uses unknown version of OMB protocol."
+msgstr "OMB protokolünün bilinmeğen sürümü."
+
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+#, fuzzy
+msgid "Error updating remote profile."
+msgstr "Uzaktaki profili güncellemede hata oluştu"
+
+#: actions/getfile.php:79
+#, fuzzy
+msgid "No such file."
+msgstr "Böyle bir durum mesajı yok."
+
 #: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "Profil kaydedilemedi."
 
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "Geçersiz büyüklük."
+
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "Kullanıcının profili yok."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1550,6 +1786,21 @@ msgstr ""
 msgid "Only an admin can block group members."
 msgstr ""
 
+#: actions/groupblock.php:95
+#, fuzzy
+msgid "User is already blocked from group."
+msgstr "Kullanıcının profili yok."
+
+#: actions/groupblock.php:100
+#, fuzzy
+msgid "User is not a member of group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/groupblock.php:134 actions/groupmembers.php:364
+#, fuzzy
+msgid "Block user from group"
+msgstr "Böyle bir kullanıcı yok."
+
 #: actions/groupblock.php:160
 #, php-format
 msgid ""
@@ -1557,6 +1808,18 @@ msgid ""
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
 msgstr ""
+
+#. TRANS: Submit button title for 'No' when blocking a user from a group.
+#: actions/groupblock.php:182
+#, fuzzy
+msgid "Do not block this user from this group"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
+
+#. TRANS: Submit button title for 'Yes' when blocking a user from a group.
+#: actions/groupblock.php:189
+#, fuzzy
+msgid "Block this user from this group"
+msgstr "Böyle bir kullanıcı yok."
 
 #: actions/groupblock.php:206
 msgid "Database error blocking user from group."
@@ -1580,13 +1843,41 @@ msgid ""
 "palette of your choice."
 msgstr ""
 
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
+#, fuzzy
+msgid "Couldn't update your design."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
+#, fuzzy
+msgid "Design preferences saved."
+msgstr "Tercihler kaydedildi."
+
 #: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
 msgstr ""
 
+#: actions/grouplogo.php:153
+#, fuzzy, php-format
+msgid ""
+"You can upload a logo image for your group. The maximum file size is %s."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
 msgstr "Resimden logo olacak bir kare alanı seçin."
+
+#: actions/grouplogo.php:399
+#, fuzzy
+msgid "Logo updated."
+msgstr "Avatar güncellendi."
+
+#: actions/grouplogo.php:401
+#, fuzzy
+msgid "Failed updating logo."
+msgstr "Avatar güncellemede hata."
 
 #. TRANS: Title of the page showing group members.
 #. TRANS: %s is the name of the group.
@@ -1638,6 +1929,21 @@ msgctxt "TOOLTIP"
 msgid "Make this user an admin"
 msgstr ""
 
+#. TRANS: Message is used as link title. %s is a user nickname.
+#. TRANS: Title in atom group notice feed. %s is a group name.
+#. TRANS: Title in atom user notice feed. %s is a user name.
+#: actions/grouprss.php:139 actions/userrss.php:94
+#: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:69
+#, fuzzy, php-format
+msgid "%s timeline"
+msgstr "Genel zaman çizgisi"
+
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#: actions/grouprss.php:142
+#, fuzzy, php-format
+msgid "Updates from members of %1$s on %2$s!"
+msgstr "%s adli kullanicinin durum mesajlari"
+
 #: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
 msgid "Groups"
@@ -1658,6 +1964,32 @@ msgid ""
 "%%%%)"
 msgstr ""
 
+#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
+#, fuzzy
+msgid "Create a new group"
+msgstr "Yeni hesap oluştur"
+
+#: actions/groupsearch.php:52
+#, fuzzy, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"%%site.name%% üyeleri arasında isim, yer ya da ilgi alanları içinde arama "
+"yap. Anahtar kelimeleri boşluk ile ayırın. Anahtar kelime 3 veya daha fazla "
+"karakterden oluşmalı. "
+
+#: actions/groupsearch.php:58
+#, fuzzy
+msgid "Group search"
+msgstr "Kişi Arama"
+
+#: actions/groupsearch.php:79 actions/noticesearch.php:117
+#: actions/peoplesearch.php:83
+#, fuzzy
+msgid "No results."
+msgstr "Sonuç yok"
+
 #: actions/groupsearch.php:82
 #, php-format
 msgid ""
@@ -1676,6 +2008,16 @@ msgstr ""
 msgid "Only an admin can unblock group members."
 msgstr ""
 
+#: actions/groupunblock.php:95
+#, fuzzy
+msgid "User is not blocked from group."
+msgstr "Kullanıcının profili yok."
+
+#: actions/groupunblock.php:128 actions/unblock.php:86
+#, fuzzy
+msgid "Error removing the block."
+msgstr "Kullanıcıyı kaydetmede hata oluştu."
+
 #. TRANS: Title for instance messaging settings.
 #: actions/imsettings.php:60
 msgid "IM settings"
@@ -1692,6 +2034,19 @@ msgid ""
 msgstr ""
 "Jabber/GTalk kullanarak durum mesaji gÖnderip alabilirsiniz. IM adres "
 "ayarlarinizi aşağıda yapın."
+
+#. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
+#: actions/imsettings.php:94
+#, fuzzy
+msgid "IM is not available."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#. TRANS: Form legend for IM settings form.
+#. TRANS: Field label for IM address input in IM settings form.
+#: actions/imsettings.php:106 actions/imsettings.php:136
+#, fuzzy
+msgid "IM address"
+msgstr "IM adresi"
 
 #: actions/imsettings.php:113
 msgid "Current confirmed Jabber/GTalk address."
@@ -1737,6 +2092,18 @@ msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr ""
 "Jabber/GTalk durum mesajim değiştiğinde nedurum.com'da durumumu güncelle"
+
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:175
+#, fuzzy
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr "Durum mesajlarını Jabber/GTalk üzerinden gönder."
+
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:182
+#, fuzzy
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr "Onaylanmış Jabber/Gtalk adresi."
 
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:290 actions/othersettings.php:180
@@ -1784,6 +2151,12 @@ msgstr ""
 msgid "That is the wrong IM address."
 msgstr "Yanlış IM adresi."
 
+#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#: actions/imsettings.php:400
+#, fuzzy
+msgid "Couldn't delete IM confirmation."
+msgstr "Eposta onayı silinemedi."
+
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:405
 msgid "IM confirmation cancelled."
@@ -1794,6 +2167,12 @@ msgstr "Onay kodu yok."
 #: actions/imsettings.php:427
 msgid "That is not your Jabber ID."
 msgstr "Bu sizin Jabber ID'niz değil."
+
+#. TRANS: Message given after successfully removing a registered IM address.
+#: actions/imsettings.php:450
+#, fuzzy
+msgid "The IM address was removed."
+msgstr "Bu adres kaldırılmıştı."
 
 #: actions/inbox.php:59
 #, php-format
@@ -1813,6 +2192,16 @@ msgstr ""
 msgid "Invites have been disabled."
 msgstr ""
 
+#: actions/invite.php:41
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/invite.php:72
+#, fuzzy, php-format
+msgid "Invalid email address: %s"
+msgstr "Geçersiz bir eposta adresi."
+
 #: actions/invite.php:110
 msgid "Invitation(s) sent"
 msgstr ""
@@ -1820,6 +2209,11 @@ msgstr ""
 #: actions/invite.php:112
 msgid "Invite new users"
 msgstr ""
+
+#: actions/invite.php:128
+#, fuzzy
+msgid "You are already subscribed to these users:"
+msgstr "Bize o profili yollamadınız"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -1848,13 +2242,36 @@ msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr ""
 
+#: actions/invite.php:187
+#, fuzzy
+msgid "Email addresses"
+msgstr "Eposta adresi zaten var."
+
 #: actions/invite.php:189
 msgid "Addresses of friends to invite (one per line)"
 msgstr ""
 
+#: actions/invite.php:192
+#, fuzzy
+msgid "Personal message"
+msgstr "Kişisel"
+
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
 msgstr ""
+
+#. TRANS: Send button for inviting friends
+#: actions/invite.php:198
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Send"
+msgstr "Gönder"
+
+#. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
+#: actions/invite.php:228
+#, fuzzy, php-format
+msgid "%1$s has invited you to join them on %2$s"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
 #. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:231
@@ -1892,6 +2309,11 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr ""
 
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+#, fuzzy
+msgid "No nickname or ID."
+msgstr "Takma ad yok"
+
 #: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
@@ -1900,6 +2322,17 @@ msgstr ""
 #: actions/leavegroup.php:60
 msgid "You must be logged in to leave a group."
 msgstr ""
+
+#. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
+#: actions/leavegroup.php:100 lib/command.php:389
+#, fuzzy
+msgid "You are not a member of that group."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/leavegroup.php:137
+#, fuzzy, php-format
+msgid "%1$s left group %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
 
 #. TRANS: User admin panel title
 #: actions/licenseadminpanel.php:56
@@ -1946,8 +2379,9 @@ msgid "License selection"
 msgstr ""
 
 #: actions/licenseadminpanel.php:245
+#, fuzzy
 msgid "Private"
-msgstr ""
+msgstr "Gizlilik"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2013,6 +2447,11 @@ msgstr "Zaten giriş yapılmış."
 msgid "Incorrect username or password."
 msgstr "Yanlış kullanıcı adı veya parola."
 
+#: actions/login.php:154 actions/otp.php:120
+#, fuzzy
+msgid "Error setting user. You are probably not authorized."
+msgstr "Yetkilendirilmemiş."
+
 #: actions/login.php:210 actions/login.php:263 lib/logingroupnav.php:79
 msgid "Login"
 msgstr "Giriş"
@@ -2046,9 +2485,43 @@ msgstr ""
 msgid "Login with your username and password."
 msgstr "Yanlış kullanıcı adı veya parola."
 
+#: actions/login.php:295
+#, fuzzy, php-format
+msgid ""
+"Don't have a username yet? [Register](%%action.register%%) a new account."
+msgstr ""
+"Kullanıcı adı ve parolanızla giriş yapın. Henüz bir hesabınız yok mu? Ne "
+"duruyorsunuz, hemen bir [yeni hesap oluşturun](%%action.register%%) ya da "
+"[OpenID](%%action.openidlogin%%) ile giriş yapın."
+
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
+
+#: actions/makeadmin.php:96
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "Kullanıcının profili yok."
+
+#: actions/makeadmin.php:133
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s."
+msgstr "OpenID formu yaratılamadı: %s"
+
+#: actions/makeadmin.php:146
+#, fuzzy, php-format
+msgid "Can't make %1$s an admin for group %2$s."
+msgstr "Kullanıcının profili yok."
+
+#: actions/microsummary.php:69
+#, fuzzy
+msgid "No current status."
+msgstr "Sonuç yok"
+
+#: actions/newapplication.php:52
+#, fuzzy
+msgid "New Application"
+msgstr "Böyle bir durum mesajı yok."
 
 #: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
@@ -2077,6 +2550,12 @@ msgstr ""
 #: actions/newmessage.php:71 actions/newmessage.php:231
 msgid "New message"
 msgstr ""
+
+#. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
+#, fuzzy
+msgid "You can't send a message to this user."
+msgstr "Bize o profili yollamadınız"
 
 #. TRANS: Command exception text shown when trying to send a direct message to another user without content.
 #. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
@@ -2114,6 +2593,11 @@ msgstr ""
 msgid "New notice"
 msgstr "Yeni durum mesajı"
 
+#: actions/newnotice.php:227
+#, fuzzy
+msgid "Notice posted"
+msgstr "Durum mesajları"
+
 #: actions/noticesearch.php:68
 #, php-format
 msgid ""
@@ -2126,6 +2610,11 @@ msgstr ""
 #: actions/noticesearch.php:78
 msgid "Text search"
 msgstr "Metin arama"
+
+#: actions/noticesearch.php:91
+#, fuzzy, php-format
+msgid "Search results for \"%1$s\" on %2$s"
+msgstr " \"%s\" için arama sonuçları"
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2140,6 +2629,16 @@ msgid ""
 "Why not [register an account](%%%%action.register%%%%) and be the first to "
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
+
+#: actions/noticesearchrss.php:96
+#, fuzzy, php-format
+msgid "Updates with \"%s\""
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/noticesearchrss.php:98
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "\"%s\" kelimesinin geçtiği tüm güncellemeler"
 
 #: actions/nudge.php:85
 msgid ""
@@ -2179,6 +2678,11 @@ msgstr ""
 msgid "You have allowed the following applications to access your account."
 msgstr ""
 
+#: actions/oauthconnectionssettings.php:175
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "Bize o profili yollamadınız"
+
 #: actions/oauthconnectionssettings.php:186
 #, php-format
 msgid "Unable to revoke access for app: %s."
@@ -2201,11 +2705,34 @@ msgstr "Kullanıcının profili yok."
 msgid "%1$s's status on %2$s"
 msgstr "%1$s'in %2$s'deki durum mesajları "
 
+#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+#: actions/oembed.php:159
+#, fuzzy, php-format
+msgid "Content type %s not supported."
+msgstr "Bağlan"
+
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
 msgstr ""
+
+#. TRANS: Client error on an API request with an unsupported data format.
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1206
+#: lib/apiaction.php:1233 lib/apiaction.php:1356
+#, fuzzy
+msgid "Not a supported data format."
+msgstr "Desteklenmeyen görüntü dosyası biçemi."
+
+#: actions/opensearch.php:64
+#, fuzzy
+msgid "People Search"
+msgstr "Kişi Arama"
+
+#: actions/opensearch.php:67
+#, fuzzy
+msgid "Notice Search"
+msgstr "Ara"
 
 #: actions/othersettings.php:60
 msgid "Other settings"
@@ -2227,9 +2754,39 @@ msgstr ""
 msgid "Automatic shortening service to use."
 msgstr ""
 
+#: actions/othersettings.php:122
+#, fuzzy
+msgid "View profile designs"
+msgstr "Profil ayarları"
+
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr ""
+
+#: actions/othersettings.php:153
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
+
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "Yeni durum mesajı"
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "Yeni durum mesajı"
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "Yetkilendirme isteği yok!"
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "Geçersiz durum mesajı"
 
 #: actions/otp.php:104
 msgid "Login token expired."
@@ -2252,6 +2809,16 @@ msgstr ""
 #: actions/passwordsettings.php:58
 msgid "Change password"
 msgstr "Parolayı değiştir"
+
+#: actions/passwordsettings.php:69
+#, fuzzy
+msgid "Change your password."
+msgstr "Parolayı değiştir"
+
+#: actions/passwordsettings.php:96 actions/recoverpassword.php:231
+#, fuzzy
+msgid "Password change"
+msgstr "Parola kaydedildi."
 
 #: actions/passwordsettings.php:104
 msgid "Old password"
@@ -2277,6 +2844,11 @@ msgstr "yukarıdaki parolanın aynısı"
 #: actions/passwordsettings.php:117
 msgid "Change"
 msgstr "Değiştir"
+
+#: actions/passwordsettings.php:154 actions/register.php:237
+#, fuzzy
+msgid "Password must be 6 or more characters."
+msgstr "Parola 6 veya daha fazla karakterden oluşmalıdır."
 
 #: actions/passwordsettings.php:157 actions/register.php:240
 msgid "Passwords don't match."
@@ -2307,6 +2879,26 @@ msgstr ""
 msgid "Path and server settings for this StatusNet site"
 msgstr ""
 
+#: actions/pathsadminpanel.php:157
+#, fuzzy, php-format
+msgid "Theme directory not readable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/pathsadminpanel.php:163
+#, fuzzy, php-format
+msgid "Avatar directory not writable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/pathsadminpanel.php:169
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#: actions/pathsadminpanel.php:177
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
@@ -2326,6 +2918,11 @@ msgstr ""
 #: actions/pathsadminpanel.php:242
 msgid "Path"
 msgstr ""
+
+#: actions/pathsadminpanel.php:242
+#, fuzzy
+msgid "Site path"
+msgstr "Yeni durum mesajı"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2359,9 +2956,24 @@ msgstr ""
 msgid "Theme directory"
 msgstr ""
 
+#: actions/pathsadminpanel.php:279
+#, fuzzy
+msgid "Avatars"
+msgstr "Avatar"
+
 #: actions/pathsadminpanel.php:284
 msgid "Avatar server"
 msgstr "Avatar"
+
+#: actions/pathsadminpanel.php:288
+#, fuzzy
+msgid "Avatar path"
+msgstr "Avatar güncellendi."
+
+#: actions/pathsadminpanel.php:292
+#, fuzzy
+msgid "Avatar directory"
+msgstr "Avatar güncellendi."
 
 #: actions/pathsadminpanel.php:301
 msgid "Backgrounds"
@@ -2387,6 +2999,11 @@ msgstr ""
 msgid "Never"
 msgstr "Sunucu"
 
+#: actions/pathsadminpanel.php:324
+#, fuzzy
+msgid "Sometimes"
+msgstr "Durum mesajları"
+
 #: actions/pathsadminpanel.php:325
 msgid "Always"
 msgstr ""
@@ -2407,6 +3024,11 @@ msgstr "Sunucu"
 msgid "Server to direct SSL requests to"
 msgstr ""
 
+#: actions/pathsadminpanel.php:352
+#, fuzzy
+msgid "Save paths"
+msgstr "Yeni durum mesajı"
+
 #: actions/peoplesearch.php:52
 #, php-format
 msgid ""
@@ -2420,6 +3042,16 @@ msgstr ""
 #: actions/peoplesearch.php:58
 msgid "People search"
 msgstr "Kişi Arama"
+
+#: actions/peopletag.php:68
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
+msgstr "Geçersiz bir eposta adresi."
+
+#: actions/peopletag.php:142
+#, fuzzy, php-format
+msgid "Users self-tagged with %1$s - page %2$d"
+msgstr "%s adli kullanicinin durum mesajlari"
 
 #: actions/postnotice.php:95
 msgid "Invalid notice content."
@@ -2467,6 +3099,16 @@ msgstr "Başlangıç Sayfası"
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
 "Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
+
+#: actions/profilesettings.php:122 actions/register.php:468
+#, fuzzy, php-format
+msgid "Describe yourself and your interests in %d chars"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: actions/profilesettings.php:125 actions/register.php:471
+#, fuzzy
+msgid "Describe yourself and your interests"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
 
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
@@ -2528,13 +3170,33 @@ msgstr "Yer bilgisi çok uzun (azm: %d karakter)."
 msgid "Timezone not selected."
 msgstr ""
 
+#: actions/profilesettings.php:241
+#, fuzzy
+msgid "Language is too long (max 50 chars)."
+msgstr "Yer bilgisi çok uzun (azm: 255 karakter)."
+
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "Geçersiz büyüklük."
 
+#: actions/profilesettings.php:306
+#, fuzzy
+msgid "Couldn't update user for autosubscribe."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/profilesettings.php:363
+#, fuzzy
+msgid "Couldn't save location prefs."
+msgstr "Profil kaydedilemedi."
+
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
+msgstr "Profil kaydedilemedi."
+
+#: actions/profilesettings.php:383
+#, fuzzy
+msgid "Couldn't save tags."
 msgstr "Profil kaydedilemedi."
 
 #. TRANS: Message after successful saving of administrative settings.
@@ -2547,9 +3209,34 @@ msgstr "Ayarlar kaydedildi."
 msgid "Beyond the page limit (%s)."
 msgstr ""
 
+#: actions/public.php:92
+#, fuzzy
+msgid "Could not retrieve public stream."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/public.php:130
+#, fuzzy, php-format
+msgid "Public timeline, page %d"
+msgstr "Genel zaman çizgisi"
+
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "Genel zaman çizgisi"
+
+#: actions/public.php:160
+#, fuzzy
+msgid "Public Stream Feed (RSS 1.0)"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/public.php:164
+#, fuzzy
+msgid "Public Stream Feed (RSS 2.0)"
+msgstr "Genel Durum Akış RSS Beslemesi"
+
+#: actions/public.php:168
+#, fuzzy
+msgid "Public Stream Feed (Atom)"
+msgstr "Genel Durum Akış RSS Beslemesi"
 
 #: actions/public.php:188
 #, php-format
@@ -2584,6 +3271,11 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
+
+#: actions/publictagcloud.php:57
+#, fuzzy
+msgid "Public tag cloud"
+msgstr "Genel Durum Akış RSS Beslemesi"
 
 #: actions/publictagcloud.php:63
 #, php-format
@@ -2634,9 +3326,33 @@ msgstr "Onay kodu hatası."
 msgid "This confirmation code is too old. Please start again."
 msgstr "Onay kodu çok eski. Lütfen tekrar başlayınız."
 
+#: actions/recoverpassword.php:111
+#, fuzzy
+msgid "Could not update user with confirmed email address."
+msgstr "Kullanıcı güncellenemedi."
+
+#: actions/recoverpassword.php:152
+#, fuzzy
+msgid ""
+"If you have forgotten or lost your password, you can get a new one sent to "
+"the email address you have stored in your account."
+msgstr ""
+"Hesabınıza eklemiş olduğunuz eposta adresine parolanızı geri getirmek için "
+"gerekli olan talimatlar yollanmıştır."
+
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
+
+#: actions/recoverpassword.php:188
+#, fuzzy
+msgid "Password recovery"
+msgstr "Parola geri alma isteği"
+
+#: actions/recoverpassword.php:191
+#, fuzzy
+msgid "Nickname or email address"
+msgstr "Bir takma ad veya eposta adresi girin."
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -2673,6 +3389,11 @@ msgstr "Sıfırla"
 #: actions/recoverpassword.php:252
 msgid "Enter a nickname or email address."
 msgstr "Bir takma ad veya eposta adresi girin."
+
+#: actions/recoverpassword.php:282
+#, fuzzy
+msgid "No user with that email address or username."
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
@@ -2714,6 +3435,11 @@ msgstr "Yeni parola başarıyla kaydedildi. Şimdi giriş yaptınız."
 msgid "Sorry, only invited people can register."
 msgstr ""
 
+#: actions/register.php:99
+#, fuzzy
+msgid "Sorry, invalid invitation code."
+msgstr "Onay kodu hatası."
+
 #: actions/register.php:119
 msgid "Registration successful"
 msgstr ""
@@ -2743,6 +3469,23 @@ msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
 msgstr ""
+
+#: actions/register.php:432
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
+
+#: actions/register.php:437
+#, fuzzy
+msgid "6 or more characters. Required."
+msgstr "6 veya daha fazla karakter"
+
+#: actions/register.php:441
+#, fuzzy
+msgid "Same as password above. Required."
+msgstr "yukarıdaki parolanın aynısı"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:445 actions/register.php:449
@@ -2779,6 +3522,16 @@ msgstr ""
 #: actions/register.php:535
 msgid "All rights reserved."
 msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:540
+#, fuzzy, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr ""
+"bu özel veriler haricinde: parola, eposta adresi, IM adresi, telefon "
+"numarası."
 
 #: actions/register.php:583
 #, php-format
@@ -2817,6 +3570,11 @@ msgstr ""
 msgid "Remote subscribe"
 msgstr "Uzaktan abonelik"
 
+#: actions/remotesubscribe.php:124
+#, fuzzy
+msgid "Subscribe to a remote user"
+msgstr "Takip talebine izin verildi"
+
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
 msgstr "Kullanıcı takma adı"
@@ -2842,6 +3600,11 @@ msgstr "Abone ol"
 msgid "Invalid profile URL (bad format)"
 msgstr ""
 
+#: actions/remotesubscribe.php:168
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
+msgstr "Geçersiz profil adresi (YADIS belgesi yok)."
+
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
 msgstr ""
@@ -2854,15 +3617,50 @@ msgstr ""
 msgid "Only logged-in users can repeat notices."
 msgstr ""
 
+#: actions/repeat.php:64 actions/repeat.php:71
+#, fuzzy
+msgid "No notice specified."
+msgstr "Yeni durum mesajı"
+
+#: actions/repeat.php:76
+#, fuzzy
+msgid "You can't repeat your own notice."
+msgstr "Eğer lisansı kabul etmezseniz kayıt olamazsınız."
+
+#: actions/repeat.php:90
+#, fuzzy
+msgid "You already repeated that notice."
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
 #: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
 msgstr "Sıfırla"
+
+#: actions/repeat.php:119
+#, fuzzy
+msgid "Repeated!"
+msgstr "Yarat"
 
 #: actions/replies.php:126 actions/repliesrss.php:68
 #: lib/personalgroupnav.php:105
 #, php-format
 msgid "Replies to %s"
 msgstr "%s için cevaplar"
+
+#: actions/replies.php:128
+#, fuzzy, php-format
+msgid "Replies to %1$s, page %2$d"
+msgstr "%s için cevaplar"
+
+#: actions/replies.php:145
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/replies.php:152
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
 
 #: actions/replies.php:159
 #, php-format
@@ -2890,9 +3688,34 @@ msgid ""
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
+#: actions/repliesrss.php:72
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s!"
+msgstr "%s için cevaplar"
+
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/revokerole.php:82
+#, fuzzy
+msgid "User doesn't have this role."
+msgstr "Kullanıcının profili yok."
+
 #: actions/rsd.php:146 actions/version.php:159
 msgid "StatusNet"
 msgstr "İstatistikler"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Kullanıcının profili yok."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -2928,10 +3751,35 @@ msgstr "Profil ayarları"
 msgid "You must be logged in to view an application."
 msgstr ""
 
+#: actions/showapplication.php:157
+#, fuzzy
+msgid "Application profile"
+msgstr "Bu durum mesajının ait oldugu kullanıcı profili yok"
+
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:173
 msgid "Icon"
 msgstr ""
+
+#. TRANS: Form input field label for application name.
+#: actions/showapplication.php:169 actions/version.php:197
+#: lib/applicationeditform.php:190
+#, fuzzy
+msgid "Name"
+msgstr "Takma ad"
+
+#. TRANS: Form input field label.
+#: actions/showapplication.php:178 lib/applicationeditform.php:226
+#, fuzzy
+msgid "Organization"
+msgstr "Yer"
+
+#. TRANS: Form input field label.
+#: actions/showapplication.php:187 actions/version.php:200
+#: lib/applicationeditform.php:207 lib/groupeditform.php:172
+#, fuzzy
+msgid "Description"
+msgstr "Abonelikler"
 
 #: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
@@ -2985,6 +3833,31 @@ msgstr ""
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
 
+#: actions/showfavorites.php:79
+#, fuzzy, php-format
+msgid "%1$s's favorite notices, page %2$d"
+msgstr "%s ve arkadaşları"
+
+#: actions/showfavorites.php:132
+#, fuzzy
+msgid "Could not retrieve favorite notices."
+msgstr "Profil kaydedilemedi."
+
+#: actions/showfavorites.php:171
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 1.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/showfavorites.php:178
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 2.0)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
+#: actions/showfavorites.php:185
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (Atom)"
+msgstr "%s için arkadaş güncellemeleri RSS beslemesi"
+
 #: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
@@ -3015,6 +3888,11 @@ msgstr ""
 msgid "%s group"
 msgstr ""
 
+#: actions/showgroup.php:84
+#, fuzzy, php-format
+msgid "%1$s group, page %2$d"
+msgstr "Bütün abonelikler"
+
 #: actions/showgroup.php:227
 msgid "Group profile"
 msgstr "Kullanıcının profili yok."
@@ -3024,6 +3902,12 @@ msgstr "Kullanıcının profili yok."
 msgid "URL"
 msgstr ""
 
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
+#, fuzzy
+msgid "Note"
+msgstr "Durum mesajları"
+
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr ""
@@ -3031,6 +3915,31 @@ msgstr ""
 #: actions/showgroup.php:302
 msgid "Group actions"
 msgstr ""
+
+#: actions/showgroup.php:338
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:344
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:350
+#, fuzzy, php-format
+msgid "Notice feed for %s group (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:355
+#, fuzzy, php-format
+msgid "FOAF for %s group"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showgroup.php:393 actions/showgroup.php:445
+#, fuzzy
+msgid "Members"
+msgstr "Üyelik başlangıcı"
 
 #: actions/showgroup.php:398 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
@@ -3041,6 +3950,11 @@ msgstr ""
 #: actions/showgroup.php:404
 msgid "All members"
 msgstr ""
+
+#: actions/showgroup.php:439
+#, fuzzy
+msgid "Created"
+msgstr "Yarat"
 
 #: actions/showgroup.php:455
 #, php-format
@@ -3065,6 +3979,11 @@ msgstr ""
 msgid "Admins"
 msgstr ""
 
+#: actions/showmessage.php:81
+#, fuzzy
+msgid "No such message."
+msgstr "Böyle bir kullanıcı yok."
+
 #: actions/showmessage.php:98
 msgid "Only the sender and recipient may read this message."
 msgstr ""
@@ -3079,10 +3998,40 @@ msgstr ""
 msgid "Message from %1$s on %2$s"
 msgstr ""
 
+#: actions/shownotice.php:90
+#, fuzzy
+msgid "Notice deleted."
+msgstr "Durum mesajları"
+
 #: actions/showstream.php:73
 #, php-format
 msgid " tagged %s"
 msgstr ""
+
+#: actions/showstream.php:79
+#, fuzzy, php-format
+msgid "%1$s, page %2$d"
+msgstr "%s ve arkadaşları"
+
+#: actions/showstream.php:122
+#, fuzzy, php-format
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:129
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:136
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/showstream.php:143
+#, fuzzy, php-format
+msgid "Notice feed for %s (Atom)"
+msgstr "%s için durum RSS beslemesi"
 
 #: actions/showstream.php:148
 #, php-format
@@ -3124,9 +4073,19 @@ msgid ""
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
 
+#: actions/showstream.php:305
+#, fuzzy, php-format
+msgid "Repeat of %s"
+msgstr "%s için cevaplar"
+
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
 msgstr ""
+
+#: actions/silence.php:72
+#, fuzzy
+msgid "User is already silenced."
+msgstr "Kullanıcının profili yok."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -3135,6 +4094,11 @@ msgstr ""
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr ""
+
+#: actions/siteadminpanel.php:141
+#, fuzzy
+msgid "You must have a valid contact email address."
+msgstr "Geçersiz bir eposta adresi."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -3152,6 +4116,11 @@ msgstr ""
 #: actions/siteadminpanel.php:221
 msgid "General"
 msgstr ""
+
+#: actions/siteadminpanel.php:224
+#, fuzzy
+msgid "Site name"
+msgstr "Yeni durum mesajı"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3172,6 +4141,16 @@ msgstr ""
 #: actions/siteadminpanel.php:235
 msgid "URL used for credits link in footer of each page"
 msgstr ""
+
+#: actions/siteadminpanel.php:239
+#, fuzzy
+msgid "Contact email address for your site"
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
+
+#: actions/siteadminpanel.php:245
+#, fuzzy
+msgid "Local"
+msgstr "Yer"
 
 #: actions/siteadminpanel.php:256
 msgid "Default timezone"
@@ -3217,13 +4196,28 @@ msgstr "Durum mesajları"
 msgid "Edit site-wide message"
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "Yeni durum mesajı"
+
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "Yeni durum mesajı"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -3237,6 +4231,18 @@ msgstr "Profil ayarları"
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr ""
 
+#. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
+#: actions/smssettings.php:97
+#, fuzzy
+msgid "SMS is not available."
+msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
+
+#. TRANS: Form legend for SMS settings form.
+#: actions/smssettings.php:111
+#, fuzzy
+msgid "SMS address"
+msgstr "IM adresi"
+
 #. TRANS: Form guide in SMS settings form.
 #: actions/smssettings.php:120
 msgid "Current confirmed SMS-enabled phone number."
@@ -3247,15 +4253,36 @@ msgstr ""
 msgid "Awaiting confirmation on this phone number."
 msgstr ""
 
+#. TRANS: Field label for SMS address input in SMS settings form.
+#: actions/smssettings.php:142
+#, fuzzy
+msgid "Confirmation code"
+msgstr "Onay kodu yok."
+
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
 msgstr ""
 
+#. TRANS: Button label to confirm SMS confirmation code in SMS settings.
+#: actions/smssettings.php:148
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Confirm"
+msgstr "Onayla"
+
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
 msgid "SMS phone number"
 msgstr ""
+
+#. TRANS: SMS phone number input field instructions in SMS settings form.
+#: actions/smssettings.php:156
+#, fuzzy
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr ""
+"1-64 küçük harf veya rakam, noktalama işaretlerine ve boşluklara izin "
+"verilmez"
 
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
@@ -3269,10 +4296,34 @@ msgid ""
 "from my carrier."
 msgstr ""
 
+#. TRANS: Confirmation message for successful SMS preferences save.
+#: actions/smssettings.php:315
+#, fuzzy
+msgid "SMS preferences saved."
+msgstr "Tercihler kaydedildi."
+
+#. TRANS: Message given saving SMS phone number without having provided one.
+#: actions/smssettings.php:338
+#, fuzzy
+msgid "No phone number."
+msgstr "Böyle bir kullanıcı yok."
+
 #. TRANS: Message given saving SMS phone number without having selected a carrier.
 #: actions/smssettings.php:344
 msgid "No carrier selected."
 msgstr ""
+
+#. TRANS: Message given saving SMS phone number that is already set.
+#: actions/smssettings.php:352
+#, fuzzy
+msgid "That is already your phone number."
+msgstr "Bu zaten sizin Jabber ID'niz."
+
+#. TRANS: Message given saving SMS phone number that is already set for another user.
+#: actions/smssettings.php:356
+#, fuzzy
+msgid "That phone number already belongs to another user."
+msgstr "Jabber ID başka bir kullanıcıya ait."
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
 #: actions/smssettings.php:384
@@ -3283,10 +4334,29 @@ msgstr ""
 "Eklemiş olduğunuz IM adresine bir onay kodu gönderildi. %s tarafından size "
 "mesaj yollanabilmesi için onaylamanız gerekmektedir."
 
+#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
+#: actions/smssettings.php:413
+#, fuzzy
+msgid "That is the wrong confirmation number."
+msgstr "Yanlış IM adresi."
+
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
 msgid "SMS confirmation cancelled."
 msgstr "Onay kodu yok."
+
+#. TRANS: Message given trying to remove an SMS phone number that is not
+#. TRANS: registered for the active user.
+#: actions/smssettings.php:448
+#, fuzzy
+msgid "That is not your phone number."
+msgstr "Bu sizin Jabber ID'niz değil."
+
+#. TRANS: Message given after successfully removing a registered SMS phone number.
+#: actions/smssettings.php:470
+#, fuzzy
+msgid "The SMS phone number was removed."
+msgstr "Bu adres kaldırılmıştı."
 
 #. TRANS: Label for mobile carrier dropdown menu in SMS settings.
 #: actions/smssettings.php:511
@@ -3306,6 +4376,12 @@ msgid ""
 "Mobile carrier for your phone. If you know a carrier that accepts SMS over "
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
+
+#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
+#: actions/smssettings.php:548
+#, fuzzy
+msgid "No code entered"
+msgstr "İçerik yok!"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
@@ -3361,6 +4437,16 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "Ayarlar"
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "Bize o profili yollamadınız"
+
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
 msgid "Could not save subscription."
@@ -3369,6 +4455,31 @@ msgstr "Yeni abonelik eklenemedi."
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
+
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "Böyle bir durum mesajı yok."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "Bize o profili yollamadınız"
+
+#: actions/subscribe.php:145
+#, fuzzy
+msgid "Subscribed"
+msgstr "Abone ol"
+
+#: actions/subscribers.php:50
+#, fuzzy, php-format
+msgid "%s subscribers"
+msgstr "Abone olanlar"
+
+#: actions/subscribers.php:52
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
+msgstr "Bütün abonelikler"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -3397,6 +4508,16 @@ msgid ""
 "%) and be the first?"
 msgstr ""
 
+#: actions/subscriptions.php:52
+#, fuzzy, php-format
+msgid "%s subscriptions"
+msgstr "Bütün abonelikler"
+
+#: actions/subscriptions.php:54
+#, fuzzy, php-format
+msgid "%1$s subscriptions, page %2$d"
+msgstr "Bütün abonelikler"
+
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
 msgstr "Sizin durumlarını takip ettiğiniz kullanıcılar"
@@ -3416,6 +4537,11 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
+#, fuzzy, php-format
+msgid "%s is not listening to anyone."
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
+
 #: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
@@ -3424,10 +4550,40 @@ msgstr "Jabber"
 msgid "SMS"
 msgstr ""
 
+#: actions/tag.php:69
+#, fuzzy, php-format
+msgid "Notices tagged with %1$s, page %2$d"
+msgstr "%s adli kullanicinin durum mesajlari"
+
+#: actions/tag.php:87
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 1.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tag.php:93
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tag.php:99
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (Atom)"
+msgstr "%s için durum RSS beslemesi"
+
+#: actions/tagother.php:39
+#, fuzzy
+msgid "No ID argument."
+msgstr "Böyle bir belge yok."
+
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
 msgstr ""
+
+#: actions/tagother.php:77 lib/userprofile.php:76
+#, fuzzy
+msgid "User profile"
+msgstr "Kullanıcının profili yok."
 
 #: actions/tagother.php:81 actions/userauthorization.php:132
 #: lib/userprofile.php:103
@@ -3460,6 +4616,31 @@ msgstr ""
 #: actions/tagrss.php:35
 msgid "No such tag."
 msgstr "Böyle bir etiket yok."
+
+#: actions/unblock.php:59
+#, fuzzy
+msgid "You haven't blocked that user."
+msgstr "Zaten giriş yapmış durumdasıznız!"
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Kullanıcının profili yok."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Kullanıcının profili yok."
+
+#: actions/unsubscribe.php:77
+#, fuzzy
+msgid "No profile ID in request."
+msgstr "Yetkilendirme isteği yok!"
+
+#: actions/unsubscribe.php:98
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "Aboneliği sonlandır"
 
 #: actions/updateprofile.php:64 actions/userauthorization.php:337
 #, php-format
@@ -3516,6 +4697,21 @@ msgstr "Yeni kullanıcı karşılaması"
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Yeni kullanıcılar için hoşgeldiniz metni (En fazla 255 karakter)."
 
+#: actions/useradminpanel.php:242
+#, fuzzy
+msgid "Default subscription"
+msgstr "Bütün abonelikler"
+
+#: actions/useradminpanel.php:243
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr "Takip talebine izin verildi"
+
+#: actions/useradminpanel.php:252
+#, fuzzy
+msgid "Invitations"
+msgstr "Yer"
+
 #: actions/useradminpanel.php:257
 msgid "Invitations enabled"
 msgstr ""
@@ -3531,6 +4727,17 @@ msgstr ""
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
 msgstr "Takip isteğini onayla"
+
+#: actions/userauthorization.php:110
+#, fuzzy
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
+"click “Reject”."
+msgstr ""
+"Lütfen bu kullanıcının durumunu takip etmek istediğinizden emin olmak için "
+"detayları gözden geçirin. Kimsenin durumunu taki etme isteğinde "
+"bulunmadıysanız \"İptal\" tuşuna basın. "
 
 #. TRANS: Menu item for site administration
 #: actions/userauthorization.php:196 actions/version.php:167
@@ -3606,6 +4813,21 @@ msgstr ""
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
+#: actions/userauthorization.php:350
+#, fuzzy, php-format
+msgid "Can’t read avatar URL ‘%s’."
+msgstr "Avatar URLi '%s' okunamıyor"
+
+#: actions/userauthorization.php:355
+#, fuzzy, php-format
+msgid "Wrong image type for avatar URL ‘%s’."
+msgstr "%s için yanlış resim türü"
+
+#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#, fuzzy
+msgid "Profile design"
+msgstr "Profil ayarları"
+
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
 "Customize the way your profile looks with a background image and a colour "
@@ -3616,9 +4838,20 @@ msgstr ""
 msgid "Enjoy your hotdog!"
 msgstr ""
 
+#. TRANS: Message is used as a page title. %1$s is a nick name, %2$d is a page number.
+#: actions/usergroups.php:66
+#, fuzzy, php-format
+msgid "%1$s groups, page %2$d"
+msgstr "Bütün abonelikler"
+
 #: actions/usergroups.php:132
 msgid "Search for more groups"
 msgstr ""
+
+#: actions/usergroups.php:159
+#, fuzzy, php-format
+msgid "%s is not a member of any group."
+msgstr "Bize o profili yollamadınız"
 
 #: actions/usergroups.php:164
 #, php-format
@@ -3736,12 +4969,48 @@ msgstr ""
 msgid "Invalid filename."
 msgstr "Geçersiz dosya ismi."
 
+#. TRANS: Exception thrown when joining a group fails.
+#: classes/Group_member.php:42
+#, fuzzy
+msgid "Group join failed."
+msgstr "Böyle bir durum mesajı yok."
+
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+#: classes/Group_member.php:55
+#, fuzzy
+msgid "Not part of group."
+msgstr "Kullanıcı güncellenemedi."
+
+#. TRANS: Exception thrown when trying to leave a group fails.
+#: classes/Group_member.php:63
+#, fuzzy
+msgid "Group leave failed."
+msgstr "Böyle bir durum mesajı yok."
+
+#: classes/Group_member.php:108 lib/joinform.php:114
+#, fuzzy
+msgid "Join"
+msgstr "Giriş"
+
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
 #: classes/Group_member.php:112
 #, php-format
 msgid "%1$s has joined group %2$s."
 msgstr ""
+
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
+#, fuzzy
+msgid "Could not update local group."
+msgstr "Kullanıcı güncellenemedi."
+
+#. TRANS: Exception thrown when trying creating a login token failed.
+#. TRANS: %s is the user nickname for which token creation failed.
+#: classes/Login_token.php:78
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Avatar bilgisi kaydedilemedi"
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
@@ -3752,6 +5021,18 @@ msgstr ""
 #: classes/Message.php:46
 msgid "You are banned from sending direct messages."
 msgstr ""
+
+#. TRANS: Message given when a message could not be stored on the server.
+#: classes/Message.php:63
+#, fuzzy
+msgid "Could not insert message."
+msgstr "Yeni abonelik eklenemedi."
+
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
+#, fuzzy
+msgid "Could not update message with new URI."
+msgstr "Kullanıcı güncellenemedi."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -3765,6 +5046,18 @@ msgstr ""
 #, php-format
 msgid "Database error inserting hashtag: %s"
 msgstr "Avatar eklemede hata oluştu"
+
+#. TRANS: Client exception thrown if a notice contains too many characters.
+#: classes/Notice.php:265
+#, fuzzy
+msgid "Problem saving notice. Too long."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
+#. TRANS: Client exception thrown when trying to save a notice for an unknown user.
+#: classes/Notice.php:270
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "Durum mesajını kaydederken hata oluştu."
 
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
 #: classes/Notice.php:276
@@ -3795,6 +5088,12 @@ msgstr "Durum mesajını kaydederken hata oluştu."
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
+#. TRANS: Server exception thrown when an update for a group inbox fails.
+#: classes/Notice.php:1005
+#, fuzzy
+msgid "Problem saving group inbox."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #: classes/Notice.php:1824
@@ -3816,10 +5115,40 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "Kullanıcının profili yok."
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
 msgid "You have been banned from subscribing."
 msgstr ""
+
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
+#, fuzzy
+msgid "Already subscribed!"
+msgstr "Bu kullanıcıyı zaten takip etmiyorsunuz!"
+
+#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
+#: classes/Subscription.php:85
+#, fuzzy
+msgid "User has blocked you."
+msgstr "Kullanıcının profili yok."
+
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Bu kullanıcıyı zaten takip etmiyorsunuz!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -3873,9 +5202,33 @@ msgid "Could not save local group info."
 msgstr "Profil kaydedilemedi."
 
 #. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:109
+#, fuzzy
+msgid "Change your profile settings"
+msgstr "Profil ayarları"
+
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:116
+#, fuzzy
+msgid "Upload an avatar"
+msgstr "Avatar güncellemede hata."
+
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:123
+#, fuzzy
+msgid "Change your password"
+msgstr "Parolayı değiştir"
+
+#. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:130
 msgid "Change email handling"
 msgstr ""
+
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:137
+#, fuzzy
+msgid "Design your profile"
+msgstr "Kullanıcının profili yok."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
@@ -3886,6 +5239,12 @@ msgstr ""
 #: lib/accountsettingsaction.php:146
 msgid "Other"
 msgstr ""
+
+#. TRANS: Page title. %1$s is the title, %2$s is the site name.
+#: lib/action.php:148
+#, fuzzy, php-format
+msgid "%1$s - %2$s"
+msgstr "%1$s'in %2$s'deki durum mesajları "
 
 #. TRANS: Page title for a page without a title set.
 #: lib/action.php:164
@@ -3903,11 +5262,25 @@ msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
+#. TRANS: Main menu option when logged in for access to personal profile and friends timeline
+#: lib/action.php:458
+#, fuzzy
+msgctxt "MENU"
+msgid "Personal"
+msgstr "Kişisel"
+
 #. TRANS: Tooltip for main menu option "Account"
 #: lib/action.php:460
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "E-postanızı, kullanıcı resminizi, parolanızı, profilinizi değiştirin"
+
+#. TRANS: Tooltip for main menu option "Services"
+#: lib/action.php:465
+#, fuzzy
+msgctxt "TOOLTIP"
+msgid "Connect to services"
+msgstr "Sunucuya yönlendirme yapılamadı: %s"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:468
@@ -3945,6 +5318,13 @@ msgstr "Davet et"
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
+
+#. TRANS: Main menu option when logged in to log out the current user
+#: lib/action.php:490
+#, fuzzy
+msgctxt "MENU"
+msgid "Logout"
+msgstr "Çıkış"
 
 #. TRANS: Tooltip for main menu option "Register"
 #: lib/action.php:495
@@ -3991,10 +5371,29 @@ msgctxt "MENU"
 msgid "Search"
 msgstr "Ara"
 
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#. TRANS: Menu item for site administration
+#: lib/action.php:538 lib/adminpanelaction.php:387
+#, fuzzy
+msgid "Site notice"
+msgstr "Yeni durum mesajı"
+
 #. TRANS: DT element for local views block. String is hidden in default CSS.
 #: lib/action.php:605
 msgid "Local views"
 msgstr ""
+
+#. TRANS: DT element for page notice. String is hidden in default CSS.
+#: lib/action.php:675
+#, fuzzy
+msgid "Page notice"
+msgstr "Yeni durum mesajı"
+
+#. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
+#: lib/action.php:778
+#, fuzzy
+msgid "Secondary site navigation"
+msgstr "Abonelikler"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
 #: lib/action.php:784
@@ -4039,6 +5438,19 @@ msgstr ""
 #: lib/action.php:839
 msgid "StatusNet software license"
 msgstr "StatusNet yazılım lisansı"
+
+#. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
+#. TRANS: Text between [] is a link description, text between () is the link itself.
+#. TRANS: Make sure there is no whitespace between "]" and "(".
+#. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
+#: lib/action.php:846
+#, fuzzy, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%)."
+msgstr ""
+"**%%site.name%%** [%%site.broughtby%%](%%site.broughtbyurl%%)\" tarafından "
+"hazırlanan anında mesajlaşma ağıdır. "
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:849
@@ -4199,9 +5611,21 @@ msgid "Paths configuration"
 msgstr "Yol yapılandırması"
 
 #. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:377
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Eposta adresi onayı"
+
+#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:385
 msgid "Edit site notice"
 msgstr "Site durum mesajını düzenle"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:393
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "Eposta adresi onayı"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
@@ -4255,9 +5679,41 @@ msgid "Icon for this application"
 msgstr "Bu uygulama için simge"
 
 #. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:200
+#, fuzzy, php-format
+msgid "Describe your application in %d characters"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:204
+#, fuzzy
+msgid "Describe your application"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:215
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
+
+#. TRANS: Form input field label.
+#: lib/applicationeditform.php:217
+#, fuzzy
+msgid "Source URL"
+msgstr "Kaynak"
+
+#. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
 msgid "Organization responsible for this application"
 msgstr ""
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:233
+#, fuzzy
+msgid "URL for the homepage of the organization"
+msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
@@ -4346,6 +5802,16 @@ msgstr ""
 msgid "Tags for this attachment"
 msgstr ""
 
+#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
+#, fuzzy
+msgid "Password changing failed"
+msgstr "Parola kaydedildi."
+
+#: lib/authenticationplugin.php:236
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "Parola kaydedildi."
+
 #. TRANS: Title for the form to block a user.
 #: lib/blockform.php:70
 msgid "Block"
@@ -4367,6 +5833,20 @@ msgstr ""
 #: lib/command.php:84 lib/command.php:108
 msgid "Notice with that id does not exist."
 msgstr ""
+
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+#, fuzzy
+msgid "User has no last notice."
+msgstr "Kullanıcının profili yok."
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "Kullanıcı güncellenemedi."
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
@@ -4436,6 +5916,13 @@ msgstr "Tam İsim: %s"
 msgid "Location: %s"
 msgstr "Yer: %s"
 
+#. TRANS: Whois output. %s is the homepage of the queried user.
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/command.php:442 lib/mail.php:271
+#, fuzzy, php-format
+msgid "Homepage: %s"
+msgstr "Başlangıç Sayfası"
+
 #. TRANS: Whois output. %s is the bio information of the queried user.
 #: lib/command.php:446
 #, php-format
@@ -4457,6 +5944,19 @@ msgstr ""
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
+#. TRANS: Error text shown sending a direct message fails with an unknown reason.
+#: lib/command.php:517
+#, fuzzy
+msgid "Error sending direct message."
+msgstr "Kullanıcı ayarlamada hata oluştu."
+
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
+msgstr "Durum mesajları"
+
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
@@ -4469,10 +5969,29 @@ msgstr "Kullanıcı ayarlamada hata oluştu."
 msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
+#, fuzzy, php-format
+msgid "Reply to %s sent."
+msgstr "%s için cevaplar"
+
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
+#, fuzzy
+msgid "Error saving notice."
+msgstr "Durum mesajını kaydederken hata oluştu."
+
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
 #: lib/command.php:655
 msgid "Specify the name of the user to subscribe to."
 msgstr ""
+
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
+#, fuzzy
+msgid "Can't subscribe to OMB profiles by command."
+msgstr "Bize o profili yollamadınız"
 
 #. TRANS: Text shown after having subscribed to another user successfully.
 #. TRANS: %s is the name of the user the subscription was requested for.
@@ -4500,10 +6019,22 @@ msgstr ""
 msgid "Command not yet implemented."
 msgstr ""
 
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
+#, fuzzy
+msgid "Notification off."
+msgstr "Onay kodu yok."
+
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 #: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
+
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
+#, fuzzy
+msgid "Notification on."
+msgstr "Onay kodu yok."
 
 #. TRANS: Error text shown when the command "on" fails for an unknown reason.
 #: lib/command.php:757
@@ -4529,6 +6060,12 @@ msgstr ""
 msgid "Unsubscribed %s."
 msgstr ""
 
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "Bize o profili yollamadınız"
+
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
@@ -4537,6 +6074,13 @@ msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Bize o profili yollamadınız"
 
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Uzaktan abonelik"
+
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribing users.
@@ -4544,6 +6088,13 @@ msgstr[0] "Bize o profili yollamadınız"
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Uzaktan abonelik"
+
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "Bize o profili yollamadınız"
 
 #. TRANS: Text shown after requesting groups a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
@@ -4596,6 +6147,11 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
+#: lib/common.php:135
+#, fuzzy
+msgid "No configuration file found. "
+msgstr "Onay kodu yok."
+
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -4620,6 +6176,11 @@ msgstr ""
 msgid "Updates by SMS"
 msgstr ""
 
+#: lib/connectsettingsaction.php:120
+#, fuzzy
+msgid "Connections"
+msgstr "Bağlan"
+
 #: lib/connectsettingsaction.php:121
 msgid "Authorized connected applications"
 msgstr ""
@@ -4628,6 +6189,18 @@ msgstr ""
 msgid "Database error"
 msgstr ""
 
+#: lib/designsettings.php:105
+#, fuzzy
+msgid "Upload file"
+msgstr "Yükle"
+
+#: lib/designsettings.php:109
+#, fuzzy
+msgid ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
@@ -4635,6 +6208,11 @@ msgstr ""
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
 msgstr ""
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Böyle bir durum mesajı yok."
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -4684,6 +6262,28 @@ msgstr ""
 #, php-format
 msgid "Grant this user the \"%s\" role"
 msgstr ""
+
+#: lib/groupeditform.php:163
+#, fuzzy
+msgid "URL of the homepage or blog of the group or topic"
+msgstr ""
+"Web Sitenizin, blogunuzun ya da varsa başka bir sitedeki profilinizin adresi"
+
+#: lib/groupeditform.php:168
+#, fuzzy
+msgid "Describe the group or topic"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: lib/groupeditform.php:170
+#, fuzzy, php-format
+msgid "Describe the group or topic in %d characters"
+msgstr "Kendinizi ve ilgi alanlarınızı 140 karakter ile anlatın"
+
+#: lib/groupeditform.php:179
+#, fuzzy
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr "Bulunduğunuz yer, \"Şehir, Eyalet (veya Bölge), Ülke\" gibi"
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -4784,6 +6384,12 @@ msgstr "Bu sayfa kabul ettiğiniz ortam türünde kullanılabilir değil"
 msgid "Unsupported image file format."
 msgstr "Desteklenmeyen görüntü dosyası biçemi."
 
+#: lib/imagefile.php:88
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr ""
+"Ah, durumunuz biraz uzun kaçtı. Azami 180 karaktere sığdırmaya ne dersiniz?"
+
 #: lib/imagefile.php:93
 msgid "Partial upload."
 msgstr "Kısmi yükleme."
@@ -4796,6 +6402,11 @@ msgstr "Dosya yüklemede sistem hatası."
 #: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "Bu bir resim dosyası değil ya da dosyada hata var"
+
+#: lib/imagefile.php:122
+#, fuzzy
+msgid "Lost our file."
+msgstr "Böyle bir durum mesajı yok."
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -4818,6 +6429,21 @@ msgstr ""
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
+
+#: lib/leaveform.php:114
+#, fuzzy
+msgid "Leave"
+msgstr "Kaydet"
+
+#: lib/logingroupnav.php:80
+#, fuzzy
+msgid "Login with a username and password"
+msgstr "Geçersiz kullanıcı adı veya parola."
+
+#: lib/logingroupnav.php:86
+#, fuzzy
+msgid "Sign up for a new account"
+msgstr "Yeni hesap oluştur"
 
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
@@ -4855,6 +6481,40 @@ msgid ""
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
 
+#. TRANS: Main body of new-subscriber notification e-mail
+#: lib/mail.php:254
+#, fuzzy, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Faithfully yours,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Change your email address or notification options at %8$s\n"
+msgstr ""
+"%1$s %2$s durum mesajlarınızı takip etmeye başladı.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"Kendisini durumsuz bırakmayın!,\n"
+"%4$s.\n"
+
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:274
+#, fuzzy, php-format
+msgid "Bio: %s"
+msgstr "Hakkında"
+
+#. TRANS: Subject of notification mail for new posting email address
+#: lib/mail.php:304
+#, fuzzy, php-format
+msgid "New email address for posting to %s"
+msgstr "Kullanıcı için kaydedilmiş eposta adresi yok."
+
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:308
 #, php-format
@@ -4874,6 +6534,12 @@ msgstr ""
 #, php-format
 msgid "%s status"
 msgstr "%s durum"
+
+#. TRANS: Subject line for SMS-by-email address confirmation message
+#: lib/mail.php:460
+#, fuzzy
+msgid "SMS confirmation"
+msgstr "Onay kodu yok."
 
 #. TRANS: Main body heading for SMS-by-email address confirmation message
 #: lib/mail.php:463
@@ -4929,6 +6595,12 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:589
+#, fuzzy, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr "%1$s %2$s'da durumunuzu takip ediyor"
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -5008,9 +6680,29 @@ msgstr ""
 msgid "from"
 msgstr ""
 
+#: lib/mailhandler.php:37
+#, fuzzy
+msgid "Could not parse message."
+msgstr "Kullanıcı güncellenemedi."
+
+#: lib/mailhandler.php:42
+#, fuzzy
+msgid "Not a registered user."
+msgstr "Bir geri alma kodu değil."
+
+#: lib/mailhandler.php:46
+#, fuzzy
+msgid "Sorry, that is not your incoming email address."
+msgstr "Yanlış IM adresi."
+
 #: lib/mailhandler.php:50
 msgid "Sorry, no incoming email allowed."
 msgstr ""
+
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "Desteklenmeyen görüntü dosyası biçemi."
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 #: lib/mediafile.php:99 lib/mediafile.php:125
@@ -5060,6 +6752,13 @@ msgstr ""
 msgid "File could not be moved to destination directory."
 msgstr ""
 
+#. TRANS: Client exception thrown when a file upload operation has been stopped because the MIME
+#. TRANS: type of the uploaded file could not be determined.
+#: lib/mediafile.php:216 lib/mediafile.php:257
+#, fuzzy
+msgid "Could not determine file's MIME type."
+msgstr "Kullanıcı güncellenemedi."
+
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
@@ -5085,6 +6784,22 @@ msgstr ""
 msgid "To"
 msgstr ""
 
+#: lib/messageform.php:159 lib/noticeform.php:186
+#, fuzzy
+msgid "Available characters"
+msgstr "6 veya daha fazla karakter"
+
+#: lib/messageform.php:178 lib/noticeform.php:237
+#, fuzzy
+msgctxt "Send button for sending notice"
+msgid "Send"
+msgstr "Gönder"
+
+#: lib/noticeform.php:160
+#, fuzzy
+msgid "Send a notice"
+msgstr "Yeni durum mesajı"
+
 #: lib/noticeform.php:174
 #, php-format
 msgid "What's up, %s?"
@@ -5097,6 +6812,16 @@ msgstr ""
 #: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
+
+#: lib/noticeform.php:213
+#, fuzzy
+msgid "Share my location"
+msgstr "Profil kaydedilemedi."
+
+#: lib/noticeform.php:216
+#, fuzzy
+msgid "Do not share my location"
+msgstr "Profil kaydedilemedi."
 
 #: lib/noticeform.php:217
 msgid ""
@@ -5137,6 +6862,16 @@ msgstr ""
 msgid "web"
 msgstr ""
 
+#: lib/noticelist.php:568
+#, fuzzy
+msgid "in context"
+msgstr "İçerik yok!"
+
+#: lib/noticelist.php:603
+#, fuzzy
+msgid "Repeated by"
+msgstr "Yarat"
+
 #: lib/noticelist.php:630
 msgid "Reply to this notice"
 msgstr ""
@@ -5144,6 +6879,11 @@ msgstr ""
 #: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Cevaplar"
+
+#: lib/noticelist.php:675
+#, fuzzy
+msgid "Notice repeated"
+msgstr "Durum mesajları"
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5228,6 +6968,11 @@ msgstr "Bütün abonelikler"
 msgid "Subscribers"
 msgstr "Abone olanlar"
 
+#: lib/profileaction.php:161
+#, fuzzy
+msgid "All subscribers"
+msgstr "Abone olanlar"
+
 #: lib/profileaction.php:191
 msgid "User ID"
 msgstr ""
@@ -5265,9 +7010,34 @@ msgstr ""
 msgid "Featured"
 msgstr ""
 
+#: lib/publicgroupnav.php:92
+#, fuzzy
+msgid "Popular"
+msgstr "Kişi Arama"
+
+#: lib/redirectingaction.php:95
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "Böyle bir belge yok."
+
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "Böyle bir durum mesajı yok."
+
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr ""
+
+#: lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat this notice"
+msgstr "Böyle bir durum mesajı yok."
+
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Böyle bir kullanıcı yok."
 
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
@@ -5276,6 +7046,17 @@ msgstr ""
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr ""
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#. TRANS: Fieldset legend for the search form.
+#: lib/searchaction.php:121
+#, fuzzy
+msgid "Search site"
+msgstr "Ara"
 
 #. TRANS: Used as a field label for the field where one or more keywords
 #. TRANS: for searching can be entered.
@@ -5287,6 +7068,17 @@ msgstr ""
 msgctxt "BUTTON"
 msgid "Search"
 msgstr ""
+
+#. TRANS: Definition list item with instructions on how to get (better) search results.
+#: lib/searchaction.php:170
+#, fuzzy
+msgid "Search help"
+msgstr "Ara"
+
+#: lib/searchgroupnav.php:80
+#, fuzzy
+msgid "People"
+msgstr "Kişi Arama"
 
 #: lib/searchgroupnav.php:81
 msgid "Find people on this site"
@@ -5307,6 +7099,26 @@ msgstr ""
 #: lib/section.php:106
 msgid "More..."
 msgstr ""
+
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Yeni durum mesajı"
+
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Uzaktan abonelik"
+
+#: lib/subgroupnav.php:91
+#, fuzzy, php-format
+msgid "People subscribed to %s"
+msgstr "Uzaktan abonelik"
 
 #: lib/subgroupnav.php:99
 #, php-format
@@ -5344,6 +7156,13 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Avatar güncellemede hata."
+
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -5372,6 +7191,11 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Uzaktaki profili güncellemede hata oluştu"
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr ""
@@ -5380,13 +7204,33 @@ msgstr ""
 msgid "Unsandbox"
 msgstr ""
 
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Böyle bir kullanıcı yok."
+
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
 msgstr ""
 
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Böyle bir kullanıcı yok."
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+#, fuzzy
+msgid "Unsubscribe from this user"
+msgstr "Bize o profili yollamadınız"
+
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Aboneliği sonlandır"
+
+#: lib/userprofile.php:117
+#, fuzzy
+msgid "Edit Avatar"
+msgstr "Avatar"
 
 #: lib/userprofile.php:234 lib/userprofile.php:248
 msgid "User actions"
@@ -5395,6 +7239,11 @@ msgstr ""
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
 msgstr ""
+
+#: lib/userprofile.php:263
+#, fuzzy
+msgid "Edit profile settings"
+msgstr "Profil ayarları"
 
 #: lib/userprofile.php:264
 msgid "Edit"
@@ -5411,6 +7260,11 @@ msgstr ""
 #: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
+
+#: lib/userprofile.php:364
+#, fuzzy
+msgid "User role"
+msgstr "Kullanıcının profili yok."
 
 #: lib/userprofile.php:366
 msgctxt "role"
@@ -5480,6 +7334,11 @@ msgstr[0] ""
 msgid "about a year ago"
 msgstr "yaklaşık bir yıl önce"
 
+#: lib/webcolor.php:82
+#, fuzzy, php-format
+msgid "%s is not a valid color!"
+msgstr "Başlangıç sayfası adresi geçerli bir URL değil."
+
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
@@ -5487,14 +7346,15 @@ msgstr ""
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Yeni durum mesajı"
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""
