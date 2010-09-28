@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:16+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:38+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -174,6 +174,15 @@ msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
 "to them](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
+
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
+"post a notice to them."
+msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
 
 #. TRANS: H1 text
 #: actions/all.php:182
@@ -371,6 +380,11 @@ msgstr ""
 msgid "You cannot unfollow yourself."
 msgstr "Ne c'hallit ket chom hep ho heuliañ hoc'h-unan."
 
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
+msgstr "Rankout a reoc'h reiñ daou id pe lesanv."
+
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "Diposubl eo termeniñ an implijer mammenn."
@@ -378,6 +392,13 @@ msgstr "Diposubl eo termeniñ an implijer mammenn."
 #: actions/apifriendshipsshow.php:142
 msgid "Could not find target user."
 msgstr "Diposubl eo kavout an implijer pal."
+
+#: actions/apigroupcreate.php:168 actions/editgroup.php:186
+#: actions/newgroup.php:126 actions/profilesettings.php:215
+#: actions/register.php:212
+#, fuzzy
+msgid "Nickname must have only lowercase letters and numbers and no spaces."
+msgstr "1 da 64 lizherenn vihan pe sifr, hep poentaouiñ nag esaouenn"
 
 #: actions/apigroupcreate.php:177 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
@@ -531,6 +552,11 @@ msgstr "Ur gudenn 'zo bet gant ho jedaouer dalc'h. Mar plij adklaskit."
 msgid "Invalid nickname / password!"
 msgstr "Lesanv / ger tremen direizh !"
 
+#: actions/apioauthauthorize.php:159
+#, fuzzy
+msgid "Database error deleting OAuth application user."
+msgstr "Arabat eo dilemel ar poellad-mañ"
+
 #: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
 msgstr ""
@@ -674,6 +700,11 @@ msgstr "%1$s statud pennroll da %2$s / %2$s."
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
 msgstr "%1$s / Hizivadennoù a veneg %2$s"
+
+#: actions/apitimelinementions.php:131
+#, fuzzy, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr "%1$s statud pennroll da %2$s / %2$s."
 
 #: actions/apitimelinepublic.php:197 actions/publicrss.php:103
 #, php-format
@@ -1399,6 +1430,20 @@ msgstr "Ouzhpennañ"
 msgid "Incoming email"
 msgstr "Postel o tont"
 
+#. TRANS: Form instructions for incoming e-mail form in e-mail settings.
+#. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
+#: actions/emailsettings.php:159 actions/smssettings.php:178
+#, fuzzy
+msgid "Send email to this address to post new notices."
+msgstr "Chomlec'h postel nevez evit embann e %s"
+
+#. TRANS: Instructions for incoming e-mail address input form.
+#. TRANS: Instructions for incoming SMS e-mail address input form.
+#: actions/emailsettings.php:168 actions/smssettings.php:186
+#, fuzzy
+msgid "Make a new email address for posting to; cancels the old one."
+msgstr "Chomlec'h postel nevez evit embann e %s"
+
 #. TRANS: Button label for adding an e-mail address to send notices from.
 #. TRANS: Button label for adding an SMS e-mail address to send notices from.
 #: actions/emailsettings.php:172 actions/smssettings.php:189
@@ -1410,6 +1455,12 @@ msgstr "Nevez"
 #: actions/emailsettings.php:178
 msgid "Email preferences"
 msgstr "Penndibaboù ar posteloù"
+
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:184
+#, fuzzy
+msgid "Send me notices of new subscriptions through email."
+msgstr "Kas din an alioù dre Jabber/GTalk."
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:190
@@ -1451,6 +1502,12 @@ msgstr "Enrollet eo bet an arventennoù postel."
 msgid "No email address."
 msgstr "Chomlec'h postel ebet."
 
+#. TRANS: Message given saving e-mail address that cannot be normalised.
+#: actions/emailsettings.php:365
+#, fuzzy
+msgid "Cannot normalize that email address"
+msgstr "Diposubl eo implijout an ID Jabber-mañ"
+
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:370 actions/register.php:208
 #: actions/siteadminpanel.php:144
@@ -1461,6 +1518,12 @@ msgstr "N'eo ket ur chomlec'h postel reizh."
 #: actions/emailsettings.php:374
 msgid "That is already your email address."
 msgstr "Ho postel eo dija."
+
+#. TRANS: Message given saving e-mail address that is already set for another user.
+#: actions/emailsettings.php:378
+#, fuzzy
+msgid "That email address already belongs to another user."
+msgstr "D'un implijer all eo an niverenn-mañ dija."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1476,6 +1539,15 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+
+#. TRANS: Message given canceling e-mail address confirmation that is not pending.
+#. TRANS: Message given canceling IM address confirmation that is not pending.
+#. TRANS: Message given canceling SMS phone number confirmation that is not pending.
+#: actions/emailsettings.php:423 actions/imsettings.php:386
+#: actions/smssettings.php:408
+#, fuzzy
+msgid "No pending confirmation to cancel."
+msgstr "Nullet eo bet kadarnadenn ar bostelerezh prim."
 
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:428
@@ -1509,6 +1581,18 @@ msgstr "Chomlec'h postel ebet o tont."
 msgid "Couldn't update user record."
 msgstr "Dibosupl eo hizivaat doser an implijer."
 
+#. TRANS: Message given after successfully removing an incoming e-mail address.
+#: actions/emailsettings.php:512 actions/smssettings.php:581
+#, fuzzy
+msgid "Incoming email address removed."
+msgstr "Chomlec'h postel ebet o tont."
+
+#. TRANS: Message given after successfully adding an incoming e-mail address.
+#: actions/emailsettings.php:536 actions/smssettings.php:605
+#, fuzzy
+msgid "New incoming email address added."
+msgstr "Chomlec'h postel ebet o tont."
+
 #: actions/favor.php:79
 msgid "This notice is already a favorite!"
 msgstr "Ouzhpennet eo bet an ali-mañ d'ho pennrolloù dija !"
@@ -1541,6 +1625,15 @@ msgid ""
 "next to any notice you like."
 msgstr ""
 
+#: actions/favorited.php:156
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favorites!"
+msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
+
 #: actions/favoritesrss.php:111 actions/showfavorites.php:77
 #: lib/personalgroupnav.php:115
 #, php-format
@@ -1551,6 +1644,17 @@ msgstr "Alioù pennrollet eus %s"
 #, php-format
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "Hizivadennoù brientek gant %1$s war %2$s !"
+
+#: actions/featured.php:69 lib/featureduserssection.php:87
+#: lib/publicgroupnav.php:89
+#, fuzzy
+msgid "Featured users"
+msgstr "Diverkañ an implijer"
+
+#: actions/featured.php:71
+#, fuzzy, php-format
+msgid "Featured users, page %d"
+msgstr "Strollad, pajenn %d"
 
 #: actions/featured.php:99
 #, php-format
@@ -1569,6 +1673,11 @@ msgstr "Ali ebet."
 msgid "No attachments."
 msgstr "N'eus restr stag ebet."
 
+#: actions/file.php:51
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "N'eus restr stag ebet."
+
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr "Ne oa ket gortozet ar respont-mañ !"
@@ -1577,6 +1686,11 @@ msgstr "Ne oa ket gortozet ar respont-mañ !"
 msgid "User being listened to does not exist."
 msgstr ""
 
+#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
+#, fuzzy
+msgid "You can use the local subscription!"
+msgstr "Dibosupl eo dilemel ar c'houmanant."
+
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
 msgstr "An implijer-se en deus ho stanket evit en enskrivañ."
@@ -1584,6 +1698,11 @@ msgstr "An implijer-se en deus ho stanket evit en enskrivañ."
 #: actions/finishremotesubscribe.php:110
 msgid "You are not authorized."
 msgstr "N'oc'h ket aotreet."
+
+#: actions/finishremotesubscribe.php:113
+#, fuzzy
+msgid "Could not convert request token to access token."
+msgstr "Dibosupl eo kaout ur jedaouer reked."
 
 #: actions/finishremotesubscribe.php:118
 msgid "Remote service uses unknown version of OMB protocol."
@@ -1668,9 +1787,19 @@ msgstr "Arabat stankañ an implijer-mañ eus ar strollad."
 msgid "Block this user from this group"
 msgstr "Stankañ an implijer-mañ eus ar strollad-se"
 
+#: actions/groupblock.php:206
+#, fuzzy
+msgid "Database error blocking user from group."
+msgstr "Distankañ implijer ar strollad"
+
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
 msgstr "ID ebet"
+
+#: actions/groupdesignsettings.php:68
+#, fuzzy
+msgid "You must be logged in to edit a group."
+msgstr "Rankout a reoc'h bezañ luget evit krouiñ ur strollad."
 
 #: actions/groupdesignsettings.php:144
 msgid "Group design"
@@ -1700,6 +1829,11 @@ msgstr "Logo ar strollad"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr ""
+
+#: actions/grouplogo.php:365
+#, fuzzy
+msgid "Pick a square area of the image to be the logo."
+msgstr "Diuzit ur zonenn gant ur stumm karrez evit tremeniñ ho avatar"
 
 #: actions/grouplogo.php:399
 msgid "Logo updated."
@@ -1798,6 +1932,16 @@ msgstr ""
 msgid "Create a new group"
 msgstr "Krouiñ ur strollad nevez"
 
+#: actions/groupsearch.php:52
+#, fuzzy, php-format
+msgid ""
+"Search for groups on %%site.name%% by their name, location, or description. "
+"Separate the terms by spaces; they must be 3 characters or more."
+msgstr ""
+"Klask tud e %%site.name%% dre o anv, o lec'hiadur pe o diduadennoù. "
+"Dispartiañ termenoù ar c'hlask gant esaouennoù. Ret eo e vefe da nebeutañ 3 "
+"arouezenn."
+
 #: actions/groupsearch.php:58
 msgid "Group search"
 msgstr "Klask strolladoù"
@@ -1815,6 +1959,15 @@ msgid ""
 msgstr ""
 "Ma ne gavoc'h ket ar strollad emaoc'h o klask, neuze e c'helloc'h [krouiñ "
 "anezhañ](%%action.newgroup%%)."
+
+#: actions/groupsearch.php:85
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and [create the group](%%"
+"action.newgroup%%) yourself!"
+msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
@@ -1890,6 +2043,18 @@ msgid "Send me notices through Jabber/GTalk."
 msgstr "Kas din an alioù dre Jabber/GTalk."
 
 #. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:169
+#, fuzzy
+msgid "Post a notice when my Jabber/GTalk status changes."
+msgstr "Embann ur MicroID evit ma chomlec'h Jabber/GTalk."
+
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:175
+#, fuzzy
+msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
+msgstr "Kas din an alioù dre Jabber/GTalk."
+
+#. TRANS: Checkbox label in IM preferences form.
 #: actions/imsettings.php:182
 msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr "Embann ur MicroID evit ma chomlec'h Jabber/GTalk."
@@ -1937,6 +2102,12 @@ msgstr ""
 #: actions/imsettings.php:391
 msgid "That is the wrong IM address."
 msgstr "N'eo ket mat ar chomlec'h postelerezh prim."
+
+#. TRANS: Server error thrown on database error canceling IM address confirmation.
+#: actions/imsettings.php:400
+#, fuzzy
+msgid "Couldn't delete IM confirmation."
+msgstr "Diposubl eo dilemel ar postel kadarnadur."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
 #: actions/imsettings.php:405
@@ -2017,6 +2188,12 @@ msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr ""
+
+#: actions/invite.php:162
+#, fuzzy
+msgid ""
+"Use this form to invite your friends and colleagues to use this service."
+msgstr "Pediñ mignoned hag kenseurted da zont ganeoc'h war %s"
 
 #: actions/invite.php:187
 msgid "Email addresses"
@@ -2151,7 +2328,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Prevez"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2274,6 +2451,11 @@ msgstr "N'eus nemet ur merour a c'hall lakaat un implijer all da vezañ merour."
 msgid "%1$s is already an admin for group \"%2$s\"."
 msgstr "%1$s a zo dija merour ar strollad \"%2$s\"."
 
+#: actions/makeadmin.php:133
+#, fuzzy, php-format
+msgid "Can't get membership record for %1$s in group %2$s."
+msgstr "Diposubl eo lakaat %1$s da merour ar strollad %2$s."
+
 #: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
@@ -2362,6 +2544,16 @@ msgstr "Ali nevez"
 msgid "Notice posted"
 msgstr "Ali embannet"
 
+#: actions/noticesearch.php:68
+#, fuzzy, php-format
+msgid ""
+"Search for notices on %%site.name%% by their contents. Separate search terms "
+"by spaces; they must be 3 characters or more."
+msgstr ""
+"Klask tud e %%site.name%% dre o anv, o lec'hiadur pe o diduadennoù. "
+"Dispartiañ termenoù ar c'hlask gant esaouennoù. Ret eo e vefe da nebeutañ 3 "
+"arouezenn."
+
 #: actions/noticesearch.php:78
 msgid "Text search"
 msgstr "Klask testennoù"
@@ -2378,10 +2570,24 @@ msgid ""
 "status_textarea=%s)!"
 msgstr ""
 
+#: actions/noticesearch.php:124
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%%%action.register%%%%) and be the first to "
+"[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
+msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
+
 #: actions/noticesearchrss.php:96
 #, php-format
 msgid "Updates with \"%s\""
 msgstr "Hizivadenn gant \"%s\""
+
+#: actions/noticesearchrss.php:98
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "Hizivadennoù merket gant %1$s e %2$s !"
 
 #: actions/nudge.php:85
 msgid ""
@@ -2425,6 +2631,16 @@ msgstr ""
 msgid "You are not a user of that application."
 msgstr "N'oc'h ket un implijer eus ar poellad-mañ."
 
+#: actions/oauthconnectionssettings.php:186
+#, fuzzy, php-format
+msgid "Unable to revoke access for app: %s."
+msgstr "Dibosupl eo nullañ moned ar poellad : "
+
+#: actions/oauthconnectionssettings.php:198
+#, fuzzy
+msgid "You have not authorized any applications to use your account."
+msgstr "N'o peus enrollet poellad ebet evit poent."
+
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
@@ -2438,11 +2654,24 @@ msgstr "N'en deus ket an ali a profil."
 msgid "%1$s's status on %2$s"
 msgstr "Statud %1$s war %2$s"
 
+#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+#: actions/oembed.php:159
+#, fuzzy, php-format
+msgid "Content type %s not supported."
+msgstr "seurt an danvez "
+
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
 #, php-format
 msgid "Only %s URLs over plain HTTP please."
 msgstr ""
+
+#. TRANS: Client error on an API request with an unsupported data format.
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1206
+#: lib/apiaction.php:1233 lib/apiaction.php:1356
+#, fuzzy
+msgid "Not a supported data format."
+msgstr "Diembreget eo ar furmad-se."
 
 #: actions/opensearch.php:64
 msgid "People Search"
@@ -2472,13 +2701,43 @@ msgstr ""
 msgid "Automatic shortening service to use."
 msgstr ""
 
+#: actions/othersettings.php:122
+#, fuzzy
+msgid "View profile designs"
+msgstr "Design ar profil"
+
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr "Diskouez pe kuzhat designoù ar profil."
 
+#: actions/othersettings.php:153
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Re hir eo ar yezh (255 arouezenn d'ar muiañ)."
+
 #: actions/otp.php:69
 msgid "No user ID specified."
 msgstr "N'eus bet diferet ID implijer ebet."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "N'eus bet diferet ali ebet."
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
+msgstr "N'eus profil ID ebet er reked."
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "Fichenn direizh."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "Kevreañ d'al lec'hienn"
 
 #: actions/outbox.php:58
 #, php-format
@@ -2574,6 +2833,16 @@ msgstr "N'eus ket eus ar gaoz-se : %s."
 msgid "Avatar directory not writable: %s."
 msgstr "N'eus ket eus ar gaoz-se : %s."
 
+#: actions/pathsadminpanel.php:169
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "N'eus ket eus ar gaoz-se : %s."
+
+#: actions/pathsadminpanel.php:177
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "N'eus ket eus ar gaoz-se : %s."
+
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
@@ -2652,6 +2921,16 @@ msgstr "Backgroundoù"
 
 #: actions/pathsadminpanel.php:305
 msgid "Background server"
+msgstr "Servijer ar backgroundoù"
+
+#: actions/pathsadminpanel.php:309
+#, fuzzy
+msgid "Background path"
+msgstr "Background"
+
+#: actions/pathsadminpanel.php:313
+#, fuzzy
+msgid "Background directory"
 msgstr "Servijer ar backgroundoù"
 
 #: actions/pathsadminpanel.php:320
@@ -2833,6 +3112,11 @@ msgstr "Re hir eo ar bio (%d arouezenn d'ar muiañ)."
 msgid "Timezone not selected."
 msgstr "N'eo bet dibabet gwerzhid-eur ebet."
 
+#: actions/profilesettings.php:241
+#, fuzzy
+msgid "Language is too long (max 50 chars)."
+msgstr "Re hir eo ar yezh (255 arouezenn d'ar muiañ)."
+
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
@@ -2908,6 +3192,17 @@ msgid ""
 msgstr ""
 "Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
 "gentañ da embann un dra !"
+
+#: actions/public.php:242
+#, fuzzy, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. [Join now](%%action.register%%) to share notices about yourself with "
+"friends, family, and colleagues! ([Read more](%%doc.help%%))"
+msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
 
 #: actions/public.php:247
 #, php-format
@@ -3116,6 +3411,11 @@ msgid ""
 "link up to friends and colleagues. "
 msgstr ""
 
+#: actions/register.php:432
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
+msgstr "1 da 64 lizherenn vihan pe sifr, hep poentaouiñ nag esaouenn"
+
 #: actions/register.php:437
 msgid "6 or more characters. Required."
 msgstr "6 arouezenn pe muioc'h. Rekis."
@@ -3299,6 +3599,15 @@ msgstr "Gwazh respontoù evit %s (RSS 2.0)"
 msgid "Replies feed for %s (Atom)"
 msgstr "Gwazh respontoù evit %s (Atom)"
 
+#: actions/replies.php:199
+#, fuzzy, php-format
+msgid ""
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to them yet."
+msgstr ""
+"Hemañ eo al lanvad evit %s hag e vignoned met den n'en deus skrivet tra ebet "
+"evit ar mare."
+
 #: actions/replies.php:204
 #, php-format
 msgid ""
@@ -3329,6 +3638,11 @@ msgstr "n'en deus ket an implijer-mañ ar rol-se."
 #: actions/rsd.php:146 actions/version.php:159
 msgid "StatusNet"
 msgstr "StatusNet"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
 #: actions/sandbox.php:72
 msgid "User is already sandboxed."
@@ -3452,6 +3766,11 @@ msgstr ""
 msgid "%1$s's favorite notices, page %2$d"
 msgstr "Alioù karetañ %1$s, pajenn %2$d"
 
+#: actions/showfavorites.php:132
+#, fuzzy
+msgid "Could not retrieve favorite notices."
+msgstr "Diposupl eo krouiñ ar pennroll-mañ."
+
 #: actions/showfavorites.php:171
 #, php-format
 msgid "Feed for favorites of %s (RSS 1.0)"
@@ -3562,6 +3881,29 @@ msgstr "An holl izili"
 msgid "Created"
 msgstr "Krouet"
 
+#: actions/showgroup.php:455
+#, fuzzy, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. [Join now](%%%%action.register%%%%) to become part "
+"of this group and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
+
+#: actions/showgroup.php:461
+#, fuzzy, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. "
+msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
+
 #: actions/showgroup.php:489
 msgid "Admins"
 msgstr "Merourien"
@@ -3645,10 +3987,36 @@ msgid ""
 "%?status_textarea=%2$s)."
 msgstr ""
 
+#: actions/showstream.php:243
+#, fuzzy, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
+"follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
+
+#: actions/showstream.php:248
+#, fuzzy, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. "
+msgstr ""
+"%%site.name%% a zo ur servij [micro-blogging](http://br.wikipedia.org/wiki/"
+"Microblog) diazezet war ar meziant frank [StatusNet](http://status.net/)."
+
 #: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "Adkemeret eus %s"
+
+#: actions/silence.php:65 actions/unsilence.php:65
+#, fuzzy
+msgid "You cannot silence users on this site."
+msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
 #: actions/silence.php:72
 msgid "User is already silenced."
@@ -3661,6 +4029,11 @@ msgstr "Arventennoù diazez evit al lec'hienn StatusNet-mañ."
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
 msgstr "Ne c'hell ket bezañ goullo anv al lec'hienn."
+
+#: actions/siteadminpanel.php:141
+#, fuzzy
+msgid "You must have a valid contact email address."
+msgstr "N'eo ket ur chomlec'h postel reizh."
 
 #: actions/siteadminpanel.php:159
 #, php-format
@@ -3710,6 +4083,11 @@ msgstr "Chomlec'h postel daremprediñ ho lec'hienn"
 #: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Lec'hel"
+
+#: actions/siteadminpanel.php:256
+#, fuzzy
+msgid "Default timezone"
+msgstr "Koumanantoù dre ziouer"
 
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
@@ -3828,6 +4206,12 @@ msgstr "Kadarnaat"
 msgid "SMS phone number"
 msgstr "Niverenn bellgomz evit an SMS"
 
+#. TRANS: SMS phone number input field instructions in SMS settings form.
+#: actions/smssettings.php:156
+#, fuzzy
+msgid "Phone number, no punctuation or spaces, with area code"
+msgstr "1 da 64 lizherenn vihan pe sifr, hep poentaouiñ nag esaouenn"
+
 #. TRANS: Form legend for SMS preferences form.
 #: actions/smssettings.php:195
 msgid "SMS preferences"
@@ -3849,6 +4233,12 @@ msgstr "Penndibaboù an SMSoù enrollet."
 #: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "Niverenn bellgomz ebet."
+
+#. TRANS: Message given saving SMS phone number without having selected a carrier.
+#: actions/smssettings.php:344
+#, fuzzy
+msgid "No carrier selected."
+msgstr "Ali dilammet."
 
 #. TRANS: Message given saving SMS phone number that is already set.
 #: actions/smssettings.php:352
@@ -3918,9 +4308,24 @@ msgstr "N'eo bet lakaet kod ebet"
 msgid "Snapshots"
 msgstr "Prim"
 
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "Kefluniadur ar primoù"
+
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "Roll direizh."
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "URL fall evit al logo."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -3929,6 +4334,11 @@ msgstr ""
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:206
+#, fuzzy
+msgid "Data snapshots"
+msgstr "Prim"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
@@ -3953,6 +4363,17 @@ msgstr ""
 #: actions/snapshotadminpanel.php:248
 msgid "Save snapshot settings"
 msgstr "Enrollañ arventennoù al lec'hienn"
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "N'hoc'h ket koumanantet da zen ebet."
+
+#. TRANS: Exception thrown when a subscription could not be stored on the server.
+#: actions/subedit.php:83 classes/Subscription.php:136
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "Dibosupl eo dilemel ar c'houmanant."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
@@ -3980,6 +4401,16 @@ msgstr "Koumanantet da %s"
 msgid "%1$s subscribers, page %2$d"
 msgstr "Koumanantet da %1$s, pajenn %2$d"
 
+#: actions/subscribers.php:63
+#, fuzzy
+msgid "These are the people who listen to your notices."
+msgstr "Heuliañ a reoc'h alioù an dud-se."
+
+#: actions/subscribers.php:67
+#, fuzzy, php-format
+msgid "These are the people who listen to %s's notices."
+msgstr "Heuliet eo alioù an den-mañ gant %s."
+
 #: actions/subscribers.php:108
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
@@ -3991,6 +4422,15 @@ msgstr ""
 msgid "%s has no subscribers. Want to be the first?"
 msgstr ""
 "n'ez eus den ebet koumanantet da %s. Ha c'hoant o peus bezañ an hini gentañ ?"
+
+#: actions/subscribers.php:114
+#, fuzzy, php-format
+msgid ""
+"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
+"%) and be the first?"
+msgstr ""
+"Perak ne [groufec'h ket ur gont](%%action.register%%) ha bezañ an hini "
+"gentañ da embann un dra !"
 
 #: actions/subscriptions.php:52
 #, php-format
@@ -4093,9 +4533,29 @@ msgstr ""
 msgid "Could not save tags."
 msgstr "Dibosupl eo enrollañ ar merkoù."
 
+#: actions/tagother.php:236
+#, fuzzy
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr "Implijit ar furmskrid-mañ evit kemmañ ho poellad."
+
+#: actions/tagrss.php:35
+#, fuzzy
+msgid "No such tag."
+msgstr "N'eus ket eus ar bajenn-se."
+
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "N'o peus ket stanket an implijer-mañ."
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Er poull-traezh emañ dija an implijer."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Lakaet eo bet da mut an implijer-mañ dija."
 
 #: actions/unsubscribe.php:77
 msgid "No profile ID in request."
@@ -4104,6 +4564,14 @@ msgstr "N'eus profil ID ebet er reked."
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
 msgstr "Digoumanantet"
+
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
+#, fuzzy, php-format
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr ""
+"Aotre-implijout ar menegoù \"%1$s\" ne ya ket gant aotre-implijout al "
+"lec'hienn \"%2$s\"."
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:60
@@ -4150,9 +4618,21 @@ msgstr "Implijerien nevez"
 msgid "New user welcome"
 msgstr "Degemer an implijerien nevez"
 
+#: actions/useradminpanel.php:237
+#, fuzzy
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr "Re hir eo an anv (255 arouezenn d'ar muiañ)."
+
 #: actions/useradminpanel.php:242
 msgid "Default subscription"
 msgstr "Koumanantoù dre ziouer"
+
+#: actions/useradminpanel.php:243
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr ""
+"En em enskrivañ ez emgefre d'an holl re hag en em goumanant din (erbedet "
+"evit an implijerien nann-denel)"
 
 #: actions/useradminpanel.php:252
 msgid "Invitations"
@@ -4161,6 +4641,11 @@ msgstr "Pedadennoù"
 #: actions/useradminpanel.php:257
 msgid "Invitations enabled"
 msgstr "Pedadennoù gweredekaet"
+
+#: actions/useradminpanel.php:259
+#, fuzzy
+msgid "Whether to allow users to invite new users."
+msgstr "Ma rankomp merañ an dalc'hoù hon unan."
 
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
@@ -4401,6 +4886,12 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "Ment direizh."
+
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
 msgid "Group join failed."
@@ -4427,10 +4918,29 @@ msgstr "Stagañ"
 msgid "%1$s has joined group %2$s."
 msgstr ""
 
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
+#, fuzzy
+msgid "Could not update local group."
+msgstr "Diposubl eo hizivaat ar strollad."
+
+#. TRANS: Exception thrown when trying creating a login token failed.
+#. TRANS: %s is the user nickname for which token creation failed.
+#: classes/Login_token.php:78
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Diposubl eo krouiñ an aliasoù."
+
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "Ur gudenn 'zo bet pa veze kaset ho kemennadenn."
 
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
@@ -4448,6 +4958,12 @@ msgstr "Dibosupl eo hizivaat ar gemennadenn gant un URI nevez."
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
+
+#. TRANS: Server exception. %s are the error details.
+#: classes/Notice.php:193
+#, fuzzy, php-format
+msgid "Database error inserting hashtag: %s"
+msgstr "Ur fazi 'zo bet en ur ensoc'hañ an avatar"
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 #: classes/Notice.php:265
@@ -4471,6 +4987,12 @@ msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:291
+#, fuzzy
+msgid "You are banned from posting notices on this site."
+msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
@@ -4636,6 +5158,12 @@ msgstr "%1$s - %2$s"
 msgid "Untitled page"
 msgstr "Pajenn hep anv"
 
+#. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
+#: lib/action.php:449
+#, fuzzy
+msgid "Primary site navigation"
+msgstr "Arventennoù diazez al lec'hienn"
+
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:455
 msgctxt "TOOLTIP"
@@ -4764,6 +5292,12 @@ msgstr "Selloù lec'hel"
 msgid "Page notice"
 msgstr "Ali ar bajenn"
 
+#. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
+#: lib/action.php:778
+#, fuzzy
+msgid "Secondary site navigation"
+msgstr "Arventennoù diazez al lec'hienn"
+
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
 #: lib/action.php:784
 msgid "Help"
@@ -4842,6 +5376,13 @@ msgstr ""
 msgid "Site content license"
 msgstr "Aotre-implijout diwar-benn danvez al lec'hienn"
 
+#. TRANS: Content license displayed when license is set to 'private'.
+#. TRANS: %1$s is the site name.
+#: lib/action.php:879
+#, fuzzy, php-format
+msgid "Content and data of %1$s are private and confidential."
+msgstr "Kompren a ran ez eo prevez danvez ha roadennoù %1$s."
+
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
 #: lib/action.php:886
@@ -4897,6 +5438,12 @@ msgstr ""
 #: lib/activityutils.php:245
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
+
+#. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
+#: lib/adminpanelaction.php:96
+#, fuzzy
+msgid "You cannot make changes to this site."
+msgstr "Ne c'helloc'h ket reiñ rolloù d'an implijerien eus al lec'hienn-mañ."
 
 #. TRANS: Client error message throw when a certain panel's settings cannot be changed.
 #: lib/adminpanelaction.php:108
@@ -5115,6 +5662,13 @@ msgstr "lenn hepken"
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr "Aprouet d'an %1$s - moned \"%2$s\"."
 
+#. TRANS: Button label
+#: lib/applicationlist.php:158
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Revoke"
+msgstr "Dilemel"
+
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:88
 msgid "Attachments"
@@ -5134,6 +5688,12 @@ msgstr "Pourvezer"
 #: lib/attachmentnoticesection.php:68
 msgid "Notices where this attachment appears"
 msgstr ""
+
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+#, fuzzy
+msgid "Tags for this attachment"
+msgstr "N'eo ket bet kavet ar restr stag."
 
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
 msgid "Password changing failed"
@@ -5292,6 +5852,12 @@ msgstr "Ur gudenn 'zo bet pa veze kaset ho kemennadenn."
 msgid "Notice from %s repeated."
 msgstr ""
 
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
+#, fuzzy
+msgid "Error repeating notice."
+msgstr "Fazi en ur hizivaat ar profil a-bell."
+
 #. TRANS: Message given if content of a notice for a reply is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:592
@@ -5305,6 +5871,12 @@ msgstr ""
 #, php-format
 msgid "Reply to %s sent."
 msgstr ""
+
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
+#, fuzzy
+msgid "Error saving notice."
+msgstr "Ur gudenn 'zo bet pa veze enrollet an ali."
 
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
 #: lib/command.php:655
@@ -5335,6 +5907,13 @@ msgstr ""
 #, php-format
 msgid "Unsubscribed from %s."
 msgstr ""
+
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
+#, fuzzy
+msgid "Command not yet implemented."
+msgstr "Digarezit, n'eo ket bet emplementet an urzhiad-mañ c'hoazh."
 
 #. TRANS: Text shown when issuing the command "off" successfully.
 #: lib/command.php:728
@@ -5380,17 +5959,47 @@ msgstr ""
 msgid "You are not subscribed to anyone."
 msgstr "N'hoc'h ket koumanantet da zen ebet."
 
+#. TRANS: Text shown after requesting other users a user is subscribed to.
+#. TRANS: This message supports plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed users.
+#: lib/command.php:836
+#, fuzzy
+msgid "You are subscribed to this person:"
+msgid_plural "You are subscribed to these people:"
+msgstr[0] "You are subscribed to this person:"
+msgstr[1] "You are subscribed to these people:"
+
 #. TRANS: Text shown after requesting other users that are subscribed to a user
 #. TRANS: (followers) without having any subscribers.
 #: lib/command.php:858
 msgid "No one is subscribed to you."
 msgstr "Den n'eo koumanantet deoc'h."
 
+#. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
+#. TRANS: This message supports plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribing users.
+#: lib/command.php:863
+#, fuzzy
+msgid "This person is subscribed to you:"
+msgid_plural "These people are subscribed to you:"
+msgstr[0] "This person is subscribed to you:"
+msgstr[1] "These people are subscribed to you:"
+
 #. TRANS: Text shown after requesting groups a user is subscribed to without having
 #. TRANS: any group subscriptions.
 #: lib/command.php:885
 msgid "You are not a member of any groups."
 msgstr "N'oc'h ezel eus strollad ebet."
+
+#. TRANS: Text shown after requesting groups a user is subscribed to.
+#. TRANS: This message supports plural forms. This message is followed by a
+#. TRANS: hard coded space and a comma separated list of subscribed groups.
+#: lib/command.php:890
+#, fuzzy
+msgid "You are a member of this group:"
+msgid_plural "You are a member of these groups:"
+msgstr[0] "You are a member of this group:"
+msgstr[1] "You are a member of these groups:"
 
 #. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
 #: lib/command.php:905
@@ -5467,6 +6076,11 @@ msgstr "Hizivadennoù dre SMS"
 msgid "Connections"
 msgstr "Kevreadennoù"
 
+#: lib/connectsettingsaction.php:121
+#, fuzzy
+msgid "Authorized connected applications"
+msgstr "Poeladoù kevreet."
+
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr "Fazi bank roadennoù"
@@ -5479,6 +6093,11 @@ msgstr "Enporzhiañ ar restr"
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
+
+#: lib/designsettings.php:418
+#, fuzzy
+msgid "Design defaults restored."
+msgstr "Enrollet eo bet an arventennoù design."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
@@ -5516,6 +6135,11 @@ msgstr "Silañ ar balizennoù"
 msgid "All"
 msgstr "An holl"
 
+#: lib/galleryaction.php:139
+#, fuzzy
+msgid "Select tag to filter"
+msgstr "Dibab un douger"
+
 #: lib/galleryaction.php:140
 msgid "Tag"
 msgstr "Balizenn"
@@ -5532,6 +6156,27 @@ msgstr "Mont"
 #, php-format
 msgid "Grant this user the \"%s\" role"
 msgstr ""
+
+#: lib/groupeditform.php:163
+#, fuzzy
+msgid "URL of the homepage or blog of the group or topic"
+msgstr "URL pajenn degemer ar poellad-mañ"
+
+#: lib/groupeditform.php:168
+#, fuzzy
+msgid "Describe the group or topic"
+msgstr "Deskrivit ho poellad"
+
+#: lib/groupeditform.php:170
+#, fuzzy, php-format
+msgid "Describe the group or topic in %d characters"
+msgstr "Diskrivit ho poellad gant %d arouezenn"
+
+#: lib/groupeditform.php:179
+#, fuzzy
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr "El lec'h m'emaoc'h, da skouer \"Kêr, Stad (pe Rannvro), Bro\""
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -5610,6 +6255,11 @@ msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr ""
 
+#: lib/groupsbymemberssection.php:71
+#, fuzzy
+msgid "Groups with most members"
+msgstr "Ezel eo %s eus ar strolladoù"
+
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr ""
@@ -5623,6 +6273,21 @@ msgstr ""
 #: lib/htmloutputter.php:104
 msgid "This page is not available in a media type you accept"
 msgstr ""
+
+#: lib/imagefile.php:72
+#, fuzzy
+msgid "Unsupported image file format."
+msgstr "Diembreget eo ar furmad-se."
+
+#: lib/imagefile.php:88
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "Re hir eo ! Ment hirañ an ali a zo a %d arouezenn."
+
+#: lib/imagefile.php:93
+#, fuzzy
+msgid "Partial upload."
+msgstr "N'eus bet enporzhiet restr ebet."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
 #: lib/imagefile.php:101 lib/mediafile.php:179
@@ -5654,9 +6319,19 @@ msgstr "Ko"
 msgid "[%s]"
 msgstr "[%s]"
 
+#: lib/jabber.php:567
+#, fuzzy, php-format
+msgid "Unknown inbox source %d."
+msgstr "Yezh \"%s\" dizanv."
+
 #: lib/leaveform.php:114
 msgid "Leave"
 msgstr "Kuitaat"
+
+#: lib/logingroupnav.php:80
+#, fuzzy
+msgid "Login with a username and password"
+msgstr "Kevreit gant ho anv implijer hag ho ker-tremen."
 
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
@@ -5685,6 +6360,12 @@ msgid ""
 "%s\n"
 msgstr ""
 
+#. TRANS: Subject of new-subscriber notification e-mail
+#: lib/mail.php:243
+#, fuzzy, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "Ne heuilh %s den ebet."
+
 #: lib/mail.php:248
 #, php-format
 msgid ""
@@ -5707,6 +6388,12 @@ msgid ""
 "----\n"
 "Change your email address or notification options at %8$s\n"
 msgstr ""
+
+#. TRANS: Profile info line in new-subscriber notification e-mail
+#: lib/mail.php:274
+#, fuzzy, php-format
+msgid "Bio: %s"
+msgstr "Lec'hiadur : %s"
 
 #. TRANS: Subject of notification mail for new posting email address
 #: lib/mail.php:304
@@ -5738,6 +6425,12 @@ msgstr "Statud %s"
 #: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "Kadarnadur SMS"
+
+#. TRANS: Main body heading for SMS-by-email address confirmation message
+#: lib/mail.php:463
+#, fuzzy, php-format
+msgid "%s: confirm you own this phone number with this code:"
+msgstr "Niverenn pellgomz o c'hortoz bezañ kadarnaet."
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -5787,6 +6480,12 @@ msgid ""
 "With kind regards,\n"
 "%5$s\n"
 msgstr ""
+
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:589
+#, fuzzy, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr "Kas din ur postel pa lak unan bennak unan eus va alioù evel pennroll."
 
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
@@ -5855,6 +6554,11 @@ msgid ""
 "P.S. You can turn off these email notifications here: %8$s\n"
 msgstr ""
 
+#: lib/mailbox.php:89
+#, fuzzy
+msgid "Only the user can read their own mailboxes."
+msgstr "N'eus nemet an implijerien kevreet hag a c'hell adkemer alioù."
+
 #: lib/mailbox.php:139
 msgid ""
 "You have no private messages. You can send private message to engage other "
@@ -5865,9 +6569,29 @@ msgstr ""
 msgid "from"
 msgstr "eus"
 
+#: lib/mailhandler.php:37
+#, fuzzy
+msgid "Could not parse message."
+msgstr "Diposubl eo ensoc'hañ ur gemenadenn"
+
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
 msgstr "N'eo ket un implijer enrollet."
+
+#: lib/mailhandler.php:46
+#, fuzzy
+msgid "Sorry, that is not your incoming email address."
+msgstr "N'eo ket ho postel."
+
+#: lib/mailhandler.php:50
+#, fuzzy
+msgid "Sorry, no incoming email allowed."
+msgstr "Chomlec'h postel ebet o tont."
+
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "Diembreget eo ar furmad-se."
 
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 #: lib/mediafile.php:99 lib/mediafile.php:125
@@ -5917,6 +6641,13 @@ msgstr ""
 msgid "File could not be moved to destination directory."
 msgstr ""
 
+#. TRANS: Client exception thrown when a file upload operation has been stopped because the MIME
+#. TRANS: type of the uploaded file could not be determined.
+#: lib/mediafile.php:216 lib/mediafile.php:257
+#, fuzzy
+msgid "Could not determine file's MIME type."
+msgstr "Diposubl eo termeniñ an implijer mammenn."
+
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
@@ -5941,6 +6672,11 @@ msgstr "Kas ur gemennadenn war-eeun"
 #: lib/messageform.php:146
 msgid "To"
 msgstr "Da"
+
+#: lib/messageform.php:159 lib/noticeform.php:186
+#, fuzzy
+msgid "Available characters"
+msgstr "6 arouezenn pe muioc'h"
 
 #: lib/messageform.php:178 lib/noticeform.php:237
 msgctxt "Send button for sending notice"
@@ -6060,6 +6796,11 @@ msgstr ""
 msgid "Duplicate notice."
 msgstr ""
 
+#: lib/oauthstore.php:491
+#, fuzzy
+msgid "Couldn't insert new subscription."
+msgstr "Dibosupl eo dilemel ar c'houmanant."
+
 #: lib/personalgroupnav.php:99
 msgid "Personal"
 msgstr "Hiniennel"
@@ -6087,6 +6828,11 @@ msgstr "Boest kas"
 #: lib/personalgroupnav.php:131
 msgid "Your sent messages"
 msgstr "Ar c'hemenadennoù kaset ganeoc'h"
+
+#: lib/personaltagcloudsection.php:56
+#, fuzzy, php-format
+msgid "Tags in %s's notices"
+msgstr "N'eus ali nevez evit an implijer-mañ"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
 #: lib/plugin.php:116
@@ -6142,9 +6888,19 @@ msgstr "Strolladoù implijerien"
 msgid "Recent tags"
 msgstr "Merkoù nevez"
 
+#: lib/publicgroupnav.php:88
+#, fuzzy
+msgid "Featured"
+msgstr "Krouet"
+
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Poblek"
+
+#: lib/redirectingaction.php:95
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "Arguzenn ID ebet."
 
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
@@ -6158,6 +6914,11 @@ msgstr "Ya"
 msgid "Repeat this notice"
 msgstr "Adkregiñ gant an ali-mañ"
 
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Stankañ an implijer-mañ eus ar strollad-se"
+
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr ""
@@ -6165,6 +6926,11 @@ msgstr ""
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr "Poull-traezh"
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Distankañ an implijer-mañ"
 
 #. TRANS: Fieldset legend for the search form.
 #: lib/searchaction.php:121
@@ -6215,6 +6981,21 @@ msgstr "Muioc'h..."
 msgid "Silence"
 msgstr "Didrouz"
 
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Diverkañ an implijer-mañ"
+
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Koumanantet da %s"
+
+#: lib/subgroupnav.php:91
+#, fuzzy, php-format
+msgid "People subscribed to %s"
+msgstr "Koumanantet da %s"
+
 #: lib/subgroupnav.php:99
 #, php-format
 msgid "Groups %s is a member of"
@@ -6223,6 +7004,11 @@ msgstr "Ezel eo %s eus ar strolladoù"
 #: lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Pediñ"
+
+#: lib/subgroupnav.php:106
+#, fuzzy, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Pediñ mignoned hag kenseurted da zont ganeoc'h war %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6245,6 +7031,13 @@ msgstr ""
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
 msgid "The theme file is missing or the upload failed."
 msgstr ""
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Ur gudenn 'zo bet e-pad hizivadenn an avatar."
 
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
@@ -6274,9 +7067,34 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Fazi en ur hizivaat ar profil a-bell."
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "An implijerien an efedusañ"
+
+#: lib/unsandboxform.php:69
+#, fuzzy
+msgid "Unsandbox"
+msgstr "Poull-traezh"
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Distankañ an implijer-mañ"
+
+#: lib/unsilenceform.php:67
+#, fuzzy
+msgid "Unsilence"
+msgstr "Didrouz"
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Distankañ an implijer-mañ"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -6406,14 +7224,15 @@ msgstr "N'eo ket %s ul liv reizh ! Implijit 3 pe 6 arouezenn heksdekvedennel."
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "N'eus bet diferet ID implijer ebet."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

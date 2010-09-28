@@ -11,18 +11,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:25+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:48+0000\n"
 "Language-Team: Upper Sorbian <http://translatewiki.net/wiki/Portal:hsb>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : (n%100==3 || "
 "n%100==4) ? 2 : 3)\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -271,6 +271,17 @@ msgid ""
 "current configuration."
 msgstr ""
 
+#: actions/apiaccountupdateprofilebackgroundimage.php:137
+#: actions/apiaccountupdateprofilebackgroundimage.php:147
+#: actions/apiaccountupdateprofilecolors.php:165
+#: actions/apiaccountupdateprofilecolors.php:175
+#: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
+#: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
+#: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
+#, fuzzy
+msgid "Unable to save your design settings."
+msgstr "Njeje móžno, sydłowu zdźělenku składować."
+
 #: actions/apiaccountupdateprofilebackgroundimage.php:188
 #: actions/apiaccountupdateprofilecolors.php:143
 msgid "Could not update your design."
@@ -351,6 +362,16 @@ msgstr "Faworit njeda so zhašeć."
 
 #: actions/apifriendshipscreate.php:110
 msgid "Could not follow user: profile not found."
+msgstr "Njebě móžno wužiwarja słědować: profil njenamakany."
+
+#: actions/apifriendshipscreate.php:119
+#, fuzzy, php-format
+msgid "Could not follow user: %s is already on your list."
+msgstr "Njebě móžno wužiwarja słědować: profil njenamakany."
+
+#: actions/apifriendshipsdestroy.php:110
+#, fuzzy
+msgid "Could not unfollow user: User not found."
 msgstr "Njebě móžno wužiwarja słědować: profil njenamakany."
 
 #: actions/apifriendshipsdestroy.php:121
@@ -661,6 +682,11 @@ msgstr ""
 msgid "Unsupported format."
 msgstr "Njepodpěrany format."
 
+#: actions/apitimelinefavorites.php:110
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
+msgstr "%1$s je do %2$s zastupił"
+
 #: actions/apitimelinefavorites.php:119
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
@@ -686,6 +712,11 @@ msgstr ""
 msgid "%s updates from everyone!"
 msgstr "%s aktualizacijow wote wšěch!"
 
+#: actions/apitimelineretweetedtome.php:111
+#, fuzzy, php-format
+msgid "Repeated to %s"
+msgstr "Wospjetowany"
+
 #: actions/apitimelineretweetsofme.php:114
 #, php-format
 msgid "Repeats of %s"
@@ -695,6 +726,16 @@ msgstr ""
 #, php-format
 msgid "Notices tagged with %s"
 msgstr ""
+
+#: actions/apitimelinetag.php:107 actions/tagrss.php:65
+#, fuzzy, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "Aktualizacije wot %1$s na %2$s!"
+
+#: actions/apitrends.php:87
+#, fuzzy
+msgid "API method under construction."
+msgstr "API-metoda njenamakana."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -836,6 +877,11 @@ msgstr "Haj"
 msgid "Block this user"
 msgstr "Tutoho wužiwarja blokować"
 
+#: actions/block.php:187
+#, fuzzy
+msgid "Failed to save block information."
+msgstr "Njeje móžno, sydłowu zdźělenku składować."
+
 #. TRANS: Command exception text shown when a group is requested that does not exist.
 #. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
@@ -861,6 +907,11 @@ msgstr "%s je profile zablokował"
 #, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%1$s zablokowa profile, stronu %2$d"
+
+#: actions/blockedfromgroup.php:115
+#, fuzzy
+msgid "A list of the users blocked from joining this group."
+msgstr "Lisćina wužiwarjow w tutej skupinje."
 
 #: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
@@ -1121,6 +1172,16 @@ msgstr "Zapinjeny"
 msgid "Off"
 msgstr "Wupinjeny"
 
+#: actions/designadminpanel.php:558 lib/designsettings.php:156
+#, fuzzy
+msgid "Turn background image on or off."
+msgstr "Pozadkowy wobraz změnić"
+
+#: actions/designadminpanel.php:563 lib/designsettings.php:161
+#, fuzzy
+msgid "Tile background image"
+msgstr "Pozadkowy wobraz změnić"
+
 #: actions/designadminpanel.php:577 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Barby změnić"
@@ -1242,6 +1303,16 @@ msgstr "Mjeno organizacije je předołho (maks. 255 znamješkow)."
 #: actions/editapplication.php:209 actions/newapplication.php:194
 msgid "Organization homepage is required."
 msgstr "Startowa strona organizacije je trěbna."
+
+#: actions/editapplication.php:218 actions/newapplication.php:206
+#, fuzzy
+msgid "Callback is too long."
+msgstr "Žórłowy URL je předołhi."
+
+#: actions/editapplication.php:225 actions/newapplication.php:215
+#, fuzzy
+msgid "Callback URL is not valid."
+msgstr "URL žórła płaćiwy njeje."
 
 #: actions/editapplication.php:261
 msgid "Could not update application."
@@ -1393,8 +1464,20 @@ msgid "Send me notices of new subscriptions through email."
 msgstr ""
 
 #. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:190
+#, fuzzy
+msgid "Send me email when someone adds my notice as a favorite."
+msgstr "E-mejl pósłać, hdyž něchtó priwatnu powěsć sćele."
+
+#. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:197
 msgid "Send me email when someone sends me a private message."
+msgstr "E-mejl pósłać, hdyž něchtó priwatnu powěsć sćele."
+
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:203
+#, fuzzy
+msgid "Send me email when someone sends me an \"@-reply\"."
 msgstr "E-mejl pósłać, hdyž něchtó priwatnu powěsć sćele."
 
 #. TRANS: Checkbox label in e-mail preferences form.
@@ -1458,6 +1541,15 @@ msgid ""
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
 
+#. TRANS: Message given canceling e-mail address confirmation that is not pending.
+#. TRANS: Message given canceling IM address confirmation that is not pending.
+#. TRANS: Message given canceling SMS phone number confirmation that is not pending.
+#: actions/emailsettings.php:423 actions/imsettings.php:386
+#: actions/smssettings.php:408
+#, fuzzy
+msgid "No pending confirmation to cancel."
+msgstr "IM-wobkrućenje přetorhnjene."
+
 #. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
 #: actions/emailsettings.php:428
 msgid "That is the wrong email address."
@@ -1504,6 +1596,11 @@ msgstr "Nowa adresa za dochadźace e-mejle přidata."
 msgid "This notice is already a favorite!"
 msgstr "Tuta zdźělenka je hižo faworit!"
 
+#: actions/favor.php:92 lib/disfavorform.php:140
+#, fuzzy
+msgid "Disfavor favorite"
+msgstr "K faworitam přidać"
+
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
@@ -1534,6 +1631,17 @@ msgid ""
 "Why not [register an account](%%action.register%%) and be the first to add a "
 "notice to your favorites!"
 msgstr ""
+
+#: actions/favoritesrss.php:111 actions/showfavorites.php:77
+#: lib/personalgroupnav.php:115
+#, fuzzy, php-format
+msgid "%s's favorite notices"
+msgstr "Preferowane zdźělenki wot %1$s, strona %2$d"
+
+#: actions/favoritesrss.php:115
+#, fuzzy, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "Aktualizacije wot %1$s na %2$s!"
 
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
@@ -1839,7 +1947,7 @@ msgid ""
 "If you can't find the group you're looking for, you can [create it](%%action."
 "newgroup%%) yourself."
 msgstr ""
-"Jeli njemóžeš skupinu namakać, kotruž pytaš, móžeš [ju wutworić] (%%action."
+"Jeli njemóžeš skupinu namakać, kotruž pytaš, móžeš [ju wutworić](%%action."
 "newgroup%%)."
 
 #: actions/groupsearch.php:85
@@ -1887,6 +1995,11 @@ msgstr "IM k dispoziciji njesteji."
 msgid "IM address"
 msgstr "IM-adresa"
 
+#: actions/imsettings.php:113
+#, fuzzy
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Aktualna wobkrućena e-mejlowa adresa."
+
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM address set for the site.
 #: actions/imsettings.php:124
@@ -1928,6 +2041,12 @@ msgstr ""
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 
+#. TRANS: Checkbox label in IM preferences form.
+#: actions/imsettings.php:182
+#, fuzzy
+msgid "Publish a MicroID for my Jabber/GTalk address."
+msgstr "MicroID za moju e-mejlowu adresu publikować"
+
 #. TRANS: Confirmation message for successful IM preferences save.
 #: actions/imsettings.php:290 actions/othersettings.php:180
 msgid "Preferences saved."
@@ -1938,6 +2057,12 @@ msgstr "Nastajenja składowane."
 msgid "No Jabber ID."
 msgstr "Žadyn ID Jabber."
 
+#. TRANS: Message given saving IM address that cannot be normalised.
+#: actions/imsettings.php:320
+#, fuzzy
+msgid "Cannot normalize that Jabber ID"
+msgstr "Tuta e-mejlowa adresa njehodźi so normalizować"
+
 #. TRANS: Message given saving IM address that not valid.
 #: actions/imsettings.php:325
 msgid "Not a valid Jabber ID"
@@ -1947,6 +2072,12 @@ msgstr "Njepłaćiwy ID Jabber"
 #: actions/imsettings.php:329
 msgid "That is already your Jabber ID."
 msgstr "To je hižo twój ID Jabber."
+
+#. TRANS: Message given saving IM address that is already set for another user.
+#: actions/imsettings.php:333
+#, fuzzy
+msgid "Jabber ID already belongs to another user."
+msgstr "Te telefonowe čisło hižo druhemu wužiwarjej słuša."
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
 #. TRANS: %s is the IM address set for the site.
@@ -2188,7 +2319,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Priwatny"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2432,10 +2563,25 @@ msgstr ""
 msgid "Updates with \"%s\""
 msgstr "Aktualizacije z \"%s\""
 
+#: actions/noticesearchrss.php:98
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "Aktualizacije wot %1$s na %2$s!"
+
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
+
+#: actions/nudge.php:94
+#, fuzzy
+msgid "Nudge sent"
+msgstr "Powěsć pósłana"
+
+#: actions/nudge.php:97
+#, fuzzy
+msgid "Nudge sent!"
+msgstr "Powěsć pósłana"
 
 #: actions/oauthappssettings.php:59
 msgid "You must be logged in to list your applications."
@@ -2471,6 +2617,11 @@ msgstr "Njejsy wužiwar tuteje aplikacije."
 msgid "Unable to revoke access for app: %s."
 msgstr ""
 
+#: actions/oauthconnectionssettings.php:198
+#, fuzzy
+msgid "You have not authorized any applications to use your account."
+msgstr "Hišće njejsy aplikacije zregistrował."
+
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
@@ -2478,6 +2629,11 @@ msgstr ""
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
 msgstr "Zdźělenka nima profil."
+
+#: actions/oembed.php:87 actions/shownotice.php:176
+#, fuzzy, php-format
+msgid "%1$s's status on %2$s"
+msgstr "%1$s je skupinu %2$s wopušćił"
 
 #. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
 #: actions/oembed.php:159
@@ -2525,9 +2681,19 @@ msgstr "URL skrótšić z"
 msgid "Automatic shortening service to use."
 msgstr ""
 
+#: actions/othersettings.php:122
+#, fuzzy
+msgid "View profile designs"
+msgstr "Profilowe nastajenja wobdźěłać"
+
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr ""
+
+#: actions/othersettings.php:153
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Mjeno rěče je předołhe (maks. 50 znamješkow)."
 
 #: actions/otp.php:69
 msgid "No user ID specified."
@@ -2535,6 +2701,11 @@ msgstr "Žadyn wužiwarski ID podaty."
 
 #: actions/otp.php:83
 msgid "No login token specified."
+msgstr "Žane přizjewjenske znamješko podate."
+
+#: actions/otp.php:90
+#, fuzzy
+msgid "No login token requested."
 msgstr "Žane přizjewjenske znamješko podate."
 
 #: actions/otp.php:95
@@ -2554,6 +2725,12 @@ msgstr "Wuchadny póst za %1$s - strona %2$d"
 #, php-format
 msgid "Outbox for %s"
 msgstr "Wuchadny póst za %s"
+
+#: actions/outbox.php:116
+#, fuzzy
+msgid "This is your outbox, which lists private messages you have sent."
+msgstr ""
+"To je twój dochadny póst, kotryž twoje priwatne dochadne powěsće nalistuje."
 
 #: actions/passwordsettings.php:58
 msgid "Change password"
@@ -2639,6 +2816,11 @@ msgstr "Do awataroweho zapisa njeda so pisać: %s."
 #, php-format
 msgid "Background directory not writable: %s."
 msgstr "Do pozadkoweho zapisa njeda so pisać: %s."
+
+#: actions/pathsadminpanel.php:177
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Šatowy zapis njeda so čitać: %s"
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2809,6 +2991,12 @@ msgstr ""
 msgid "Profile information"
 msgstr "Profilowe informacije"
 
+#: actions/profilesettings.php:108 lib/groupeditform.php:154
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr ""
+"Přimjeno smě jenož małe pismiki a cyfry wobsahować. Mjezery njejsu dowolene."
+
 #: actions/profilesettings.php:111 actions/register.php:455
 #: actions/showgroup.php:256 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
@@ -2898,12 +3086,27 @@ msgstr "Časowe pasmo njeje wubrane."
 msgid "Language is too long (max 50 chars)."
 msgstr "Mjeno rěče je předołhe (maks. 50 znamješkow)."
 
+#: actions/profilesettings.php:253 actions/tagother.php:178
+#, fuzzy, php-format
+msgid "Invalid tag: \"%s\""
+msgstr "Njepłaćiwy alias: \"%s\""
+
+#: actions/profilesettings.php:306
+#, fuzzy
+msgid "Couldn't update user for autosubscribe."
+msgstr "Datowa sadźba wužiwarja njeda so aktualizować."
+
 #: actions/profilesettings.php:363
 msgid "Couldn't save location prefs."
 msgstr "Nastajenja městna njedachu so składować."
 
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
+msgstr "Profil njeda so składować."
+
+#: actions/profilesettings.php:383
+#, fuzzy
+msgid "Couldn't save tags."
 msgstr "Profil njeda so składować."
 
 #. TRANS: Message after successful saving of administrative settings.
@@ -2915,6 +3118,16 @@ msgstr "Nastajenja składowane."
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr "Limit stronow (%s) překročeny."
+
+#: actions/public.php:92
+#, fuzzy
+msgid "Could not retrieve public stream."
+msgstr "Aliasy njejsu so dali wutworić."
+
+#: actions/public.php:130
+#, fuzzy, php-format
+msgid "Public timeline, page %d"
+msgstr "Woblubowane zdźělenki, strona %d"
 
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
@@ -2991,9 +3204,24 @@ msgid ""
 "one!"
 msgstr ""
 
+#: actions/publictagcloud.php:134
+#, fuzzy
+msgid "Tag cloud"
+msgstr "Barby změnić"
+
 #: actions/recoverpassword.php:36
 msgid "You are already logged in!"
 msgstr "Sy hižo přizjewjeny!"
+
+#: actions/recoverpassword.php:62
+#, fuzzy
+msgid "No such recovery code."
+msgstr "Zdźělenka njeeksistuje."
+
+#: actions/recoverpassword.php:66
+#, fuzzy
+msgid "Not a recovery code."
+msgstr "Žadyn zregistrowany wužiwar."
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
@@ -3006,6 +3234,11 @@ msgstr "Zmylk z wobkrućenskim kodom."
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
 msgstr "Tutón wobkrućenski kod je přestary. Prošu započń hišće raz."
+
+#: actions/recoverpassword.php:111
+#, fuzzy
+msgid "Could not update user with confirmed email address."
+msgstr "Aktualna wobkrućena e-mejlowa adresa."
 
 #: actions/recoverpassword.php:152
 msgid ""
@@ -3080,6 +3313,11 @@ msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+
+#: actions/recoverpassword.php:357
+#, fuzzy
+msgid "Unexpected password reset."
+msgstr "Njewočakowane wotpósłanje formulara."
 
 #: actions/recoverpassword.php:365
 msgid "Password must be 6 chars or more."
@@ -3268,6 +3506,11 @@ msgstr "To je lokalny profil! Přizjew so, zo by abonował."
 msgid "Couldn’t get a request token."
 msgstr ""
 
+#: actions/repeat.php:57
+#, fuzzy
+msgid "Only logged-in users can repeat notices."
+msgstr "Jenož wužiwar móže swoje póstowe kašćiki čitać."
+
 #: actions/repeat.php:64 actions/repeat.php:71
 msgid "No notice specified."
 msgstr "Žana zdźělenka podata."
@@ -3287,6 +3530,32 @@ msgstr "Wospjetowany"
 #: actions/repeat.php:119
 msgid "Repeated!"
 msgstr "Wospjetowany!"
+
+#: actions/replies.php:126 actions/repliesrss.php:68
+#: lib/personalgroupnav.php:105
+#, fuzzy, php-format
+msgid "Replies to %s"
+msgstr "Wotmołwy"
+
+#: actions/replies.php:128
+#, fuzzy, php-format
+msgid "Replies to %1$s, page %2$d"
+msgstr "%1$s, strona %2$d"
+
+#: actions/replies.php:145
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 1.0)"
+msgstr "Kanal za přećelow wužiwarja %s (RSS 1.0)"
+
+#: actions/replies.php:152
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 2.0)"
+msgstr "Kanal za přećelow wužiwarja %s (RSS 2.0)"
+
+#: actions/replies.php:159
+#, fuzzy, php-format
+msgid "Replies feed for %s (Atom)"
+msgstr "Kanal za přećelow wužiwarja %s (Atom)"
 
 #: actions/replies.php:199
 #, php-format
@@ -3309,6 +3578,11 @@ msgid ""
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
+#: actions/repliesrss.php:72
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s!"
+msgstr "Powěsć do %1$s na %2$s"
+
 #: actions/revokerole.php:75
 msgid "You cannot revoke user roles on this site."
 msgstr "Njemóžeš wužiwarske róle na tutym sydle wotwołać."
@@ -3320,6 +3594,16 @@ msgstr "Wužiwar nima tutu rólu."
 #: actions/rsd.php:146 actions/version.php:159
 msgid "StatusNet"
 msgstr "StatusNet"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Njemóžeš wužiwarske róle na tutym sydle garantować."
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Wužiwar je hižo za skupinu zablokowany."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -3438,6 +3722,26 @@ msgstr "Chceš woprawdźe swój přetrjebowarski kluč a potajny kod wróćo sta
 msgid "%1$s's favorite notices, page %2$d"
 msgstr "Preferowane zdźělenki wot %1$s, strona %2$d"
 
+#: actions/showfavorites.php:132
+#, fuzzy
+msgid "Could not retrieve favorite notices."
+msgstr "Faworit njeda so wutworić."
+
+#: actions/showfavorites.php:171
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 1.0)"
+msgstr "Kanal za přećelow wužiwarja %s (RSS 1.0)"
+
+#: actions/showfavorites.php:178
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 2.0)"
+msgstr "Kanal za přećelow wužiwarja %s (RSS 2.0)"
+
+#: actions/showfavorites.php:185
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (Atom)"
+msgstr "Kanal za přećelow wužiwarja %s (Atom)"
+
 #: actions/showfavorites.php:206
 msgid ""
 "You haven't chosen any favorite notices yet. Click the fave button on "
@@ -3482,6 +3786,12 @@ msgstr "Skupinski profil"
 msgid "URL"
 msgstr "URL"
 
+#: actions/showgroup.php:283 actions/tagother.php:128
+#: actions/userauthorization.php:187 lib/userprofile.php:195
+#, fuzzy
+msgid "Note"
+msgstr "Žadyn"
+
 #: actions/showgroup.php:293 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "Aliasy"
@@ -3489,6 +3799,26 @@ msgstr "Aliasy"
 #: actions/showgroup.php:302
 msgid "Group actions"
 msgstr "Skupinske akcije"
+
+#: actions/showgroup.php:338
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 1.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showgroup.php:344
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 2.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showgroup.php:350
+#, fuzzy, php-format
+msgid "Notice feed for %s group (Atom)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showgroup.php:355
+#, fuzzy, php-format
+msgid "FOAF for %s group"
+msgstr "FOAF za %s"
 
 #: actions/showgroup.php:393 actions/showgroup.php:445
 msgid "Members"
@@ -3535,6 +3865,11 @@ msgstr "Administratorojo"
 msgid "No such message."
 msgstr "Powěsć njeeksistuje."
 
+#: actions/showmessage.php:98
+#, fuzzy
+msgid "Only the sender and recipient may read this message."
+msgstr "Jenož wužiwar móže swoje póstowe kašćiki čitać."
+
 #: actions/showmessage.php:108
 #, php-format
 msgid "Message to %1$s on %2$s"
@@ -3563,6 +3898,21 @@ msgstr "%1$s, strona %2$d"
 #, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showstream.php:129
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 1.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showstream.php:136
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 2.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/showstream.php:143
+#, fuzzy, php-format
+msgid "Notice feed for %s (Atom)"
+msgstr "Kanal za přećelow wužiwarja %s (Atom)"
 
 #: actions/showstream.php:148
 #, php-format
@@ -3603,6 +3953,21 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
+
+#: actions/showstream.php:305
+#, fuzzy, php-format
+msgid "Repeat of %s"
+msgstr "Wospjetowany wot"
+
+#: actions/silence.php:65 actions/unsilence.php:65
+#, fuzzy
+msgid "You cannot silence users on this site."
+msgstr "Njemóžeš wužiwarske róle na tutym sydle wotwołać."
+
+#: actions/silence.php:72
+#, fuzzy
+msgid "User is already silenced."
+msgstr "Wužiwar je hižo za skupinu zablokowany."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -3657,6 +4022,12 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
+#: actions/siteadminpanel.php:239
+#, fuzzy
+msgid "Contact email address for your site"
+msgstr ""
+"Wužiwar z tej e-mejlowej adresu abo tym wužiwarskim mjenom njeeksistuje."
+
 #: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Lokalny"
@@ -3688,6 +4059,11 @@ msgstr "Tekstowy limit"
 #: actions/siteadminpanel.php:274
 msgid "Maximum number of characters for notices."
 msgstr "Maksimalna ličba znamješkow za zdźělenki."
+
+#: actions/siteadminpanel.php:278
+#, fuzzy
+msgid "Dupe limit"
+msgstr "Tekstowy limit"
 
 #: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
@@ -3743,6 +4119,18 @@ msgstr "SMS k dispoziciji njesteji."
 msgid "SMS address"
 msgstr "SMS-adresa"
 
+#. TRANS: Form guide in SMS settings form.
+#: actions/smssettings.php:120
+#, fuzzy
+msgid "Current confirmed SMS-enabled phone number."
+msgstr "Aktualna wobkrućena e-mejlowa adresa."
+
+#. TRANS: Form guide in IM settings form.
+#: actions/smssettings.php:133
+#, fuzzy
+msgid "Awaiting confirmation on this phone number."
+msgstr "To je wopačne wobkrućenske čisło."
+
 #. TRANS: Field label for SMS address input in SMS settings form.
 #: actions/smssettings.php:142
 msgid "Confirmation code"
@@ -3790,6 +4178,12 @@ msgstr "SMS-nastajenja składowane."
 #: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "Žane telefonowe čisło."
+
+#. TRANS: Message given saving SMS phone number without having selected a carrier.
+#: actions/smssettings.php:344
+#, fuzzy
+msgid "No carrier selected."
+msgstr "Zdźělenka zničena."
 
 #. TRANS: Message given saving SMS phone number that is already set.
 #: actions/smssettings.php:352
@@ -3863,9 +4257,19 @@ msgstr ""
 msgid "Manage snapshot configuration"
 msgstr "Konfiguraciju wobrazowkoweho fota zrjadować"
 
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "Njepłaćiwa róla."
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "Njepłaćiwy logowy URL."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -3874,6 +4278,11 @@ msgstr ""
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:206
+#, fuzzy
+msgid "Data snapshots"
+msgstr "Nastajenja wobrazowkoweho fota składować"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
@@ -3886,6 +4295,11 @@ msgstr "Frekwenca"
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:226
+#, fuzzy
+msgid "Report URL"
+msgstr "URL žórła"
 
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
@@ -3950,6 +4364,13 @@ msgstr ""
 msgid "%s has no subscribers. Want to be the first?"
 msgstr "%s abonentow nima. Chceš prěni być?"
 
+#: actions/subscribers.php:114
+#, fuzzy, php-format
+msgid ""
+"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
+"%) and be the first?"
+msgstr "%s abonentow nima. Chceš prěni być?"
+
 #: actions/subscriptions.php:52
 #, php-format
 msgid "%s subscriptions"
@@ -3979,6 +4400,11 @@ msgid ""
 "automatically subscribe to people you already follow there."
 msgstr ""
 
+#: actions/subscriptions.php:128 actions/subscriptions.php:132
+#, fuzzy, php-format
+msgid "%s is not listening to anyone."
+msgstr "%s čłon w žanej skupinje njeje."
+
 #: actions/subscriptions.php:208
 msgid "Jabber"
 msgstr "Jabber"
@@ -3986,6 +4412,26 @@ msgstr "Jabber"
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
+
+#: actions/tag.php:69
+#, fuzzy, php-format
+msgid "Notices tagged with %1$s, page %2$d"
+msgstr "%1$s, strona %2$d"
+
+#: actions/tag.php:87
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 1.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/tag.php:93
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
+
+#: actions/tag.php:99
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (Atom)"
+msgstr "Powěsćowy kanal za %1$s je %2$s (RSS 1.0) markěrował"
 
 #: actions/tagother.php:39
 msgid "No ID argument."
@@ -4020,9 +4466,34 @@ msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
 msgstr ""
 
+#: actions/tagother.php:200
+#, fuzzy
+msgid "Could not save tags."
+msgstr "Profil njeje so składować dał."
+
+#: actions/tagother.php:236
+#, fuzzy
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr "Wužij tutón formular, zo by aplikaciju wobdźěłał."
+
+#: actions/tagrss.php:35
+#, fuzzy
+msgid "No such tag."
+msgstr "Strona njeeksistuje."
+
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Njejsy toho wužiwarja zablokował."
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Wužiwar njeje zablokowany za skupinu."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Wužiwar nima profil."
 
 #: actions/unsubscribe.php:77
 msgid "No profile ID in request."
@@ -4067,6 +4538,11 @@ msgstr "Njepłaćiwy standardny abonement: '%1$s' wužiwar njeje."
 msgid "Profile"
 msgstr "Profil"
 
+#: actions/useradminpanel.php:223
+#, fuzzy
+msgid "Bio Limit"
+msgstr "Limity"
+
 #: actions/useradminpanel.php:224
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
@@ -4086,6 +4562,11 @@ msgstr "Powitanski tekst za nowych wužiwarjow (maks. 255 znamješkow)."
 #: actions/useradminpanel.php:242
 msgid "Default subscription"
 msgstr "Standardny abonement"
+
+#: actions/useradminpanel.php:243
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr "Tutoho wužiwarja abonować"
 
 #: actions/useradminpanel.php:252
 msgid "Invitations"
@@ -4163,20 +4644,45 @@ msgid ""
 "subscription."
 msgstr ""
 
+#: actions/userauthorization.php:303
+#, fuzzy, php-format
+msgid "Listener URI ‘%s’ not found here."
+msgstr "URL awatara '%s' njeje płaćiwy"
+
+#: actions/userauthorization.php:308
+#, fuzzy, php-format
+msgid "Listenee URI ‘%s’ is too long."
+msgstr "URL awatara '%s' njeje płaćiwy"
+
 #: actions/userauthorization.php:314
 #, php-format
 msgid "Listenee URI ‘%s’ is a local user."
 msgstr ""
+
+#: actions/userauthorization.php:329
+#, fuzzy, php-format
+msgid "Profile URL ‘%s’ is for a local user."
+msgstr "URL awatara '%s' njeje płaćiwy"
 
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr "URL awatara '%s' njeje płaćiwy"
 
+#: actions/userauthorization.php:350
+#, fuzzy, php-format
+msgid "Can’t read avatar URL ‘%s’."
+msgstr "Wopačny wobrazowy typ za awatarowy URL '%s'."
+
 #: actions/userauthorization.php:355
 #, php-format
 msgid "Wrong image type for avatar URL ‘%s’."
 msgstr "Wopačny wobrazowy typ za awatarowy URL '%s'."
+
+#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#, fuzzy
+msgid "Profile design"
+msgstr "Profilowe nastajenja"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -4271,6 +4777,11 @@ msgstr "Wersija"
 msgid "Author(s)"
 msgstr "Awtorojo"
 
+#: classes/Fave.php:147 lib/favorform.php:140
+#, fuzzy
+msgid "Favor"
+msgstr "Fawority"
+
 #: classes/Fave.php:148
 #, php-format
 msgid "%s marked notice %s as a favorite."
@@ -4358,10 +4869,22 @@ msgstr "Njeje móžno było, přizjewjenske znamješko za %s wutworić"
 msgid "No database name or DSN found anywhere."
 msgstr ""
 
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "Zmylk při słanju direktneje powěsće,"
+
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
 msgid "Could not insert message."
 msgstr "Powěsć njeda so zasunyć."
+
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
+#, fuzzy
+msgid "Could not update message with new URI."
+msgstr "Powěsć njeda so analyzować."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -4376,6 +4899,18 @@ msgstr ""
 msgid "Database error inserting hashtag: %s"
 msgstr "Zmylk datoweje banki při zasunjenju hašeje taflički: %s"
 
+#. TRANS: Client exception thrown if a notice contains too many characters.
+#: classes/Notice.php:265
+#, fuzzy
+msgid "Problem saving notice. Too long."
+msgstr "Zmylk při składowanju powěsće"
+
+#. TRANS: Client exception thrown when trying to save a notice for an unknown user.
+#: classes/Notice.php:270
+#, fuzzy
+msgid "Problem saving notice. Unknown user."
+msgstr "Zmylk při składowanju powěsće"
+
 #. TRANS: Client exception thrown when a user tries to post too many notices in a given time frame.
 #: classes/Notice.php:276
 msgid ""
@@ -4388,6 +4923,19 @@ msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:291
+#, fuzzy
+msgid "You are banned from posting notices on this site."
+msgstr "Njemóžeš wužiwarske róle na tutym sydle wotwołać."
+
+#. TRANS: Server exception thrown when a notice cannot be saved.
+#. TRANS: Server exception thrown when a notice cannot be updated.
+#: classes/Notice.php:358 classes/Notice.php:385
+#, fuzzy
+msgid "Problem saving notice."
+msgstr "Zmylk při składowanju powěsće"
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:906
@@ -4429,6 +4977,12 @@ msgstr "Falowacy profil."
 #: classes/Status_network.php:338
 msgid "Unable to save tag."
 msgstr "Njeje móžno, tafličku składować."
+
+#. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
+#: classes/Subscription.php:75 lib/oauthstore.php:466
+#, fuzzy
+msgid "You have been banned from subscribing."
+msgstr "Tutón wužiwar ći abonowanje njedowoli."
 
 #. TRANS: Exception thrown when trying to subscribe while already subscribed.
 #: classes/Subscription.php:80
@@ -4517,6 +5071,12 @@ msgid "Change email handling"
 msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:137
+#, fuzzy
+msgid "Design your profile"
+msgstr "Wužiwarski profil"
+
+#. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
 msgid "Other options"
 msgstr "Druhe opcije"
@@ -4536,6 +5096,12 @@ msgstr "%1$s - %2$s"
 #: lib/action.php:164
 msgid "Untitled page"
 msgstr "Strona bjez titula"
+
+#. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
+#: lib/action.php:449
+#, fuzzy
+msgid "Primary site navigation"
+msgstr "Zakładna sydłowa konfiguracija"
 
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:455
@@ -4649,6 +5215,31 @@ msgctxt "MENU"
 msgid "Search"
 msgstr "Pytać"
 
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#. TRANS: Menu item for site administration
+#: lib/action.php:538 lib/adminpanelaction.php:387
+#, fuzzy
+msgid "Site notice"
+msgstr "Sydłowa zdźělenka"
+
+#. TRANS: DT element for local views block. String is hidden in default CSS.
+#: lib/action.php:605
+#, fuzzy
+msgid "Local views"
+msgstr "Lokalny"
+
+#. TRANS: DT element for page notice. String is hidden in default CSS.
+#: lib/action.php:675
+#, fuzzy
+msgid "Page notice"
+msgstr "Nowa zdźělenka"
+
+#. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
+#: lib/action.php:778
+#, fuzzy
+msgid "Secondary site navigation"
+msgstr "Zakładna sydłowa konfiguracija"
+
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
 #: lib/action.php:784
 msgid "Help"
@@ -4722,6 +5313,12 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
+#. TRANS: DT element for StatusNet site content license.
+#: lib/action.php:872
+#, fuzzy
+msgid "Site content license"
+msgstr "Wobsah zdźělenkow přepytać"
+
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
 #: lib/action.php:879
@@ -4747,6 +5344,12 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
+
+#. TRANS: DT element for pagination (previous/next, etc.).
+#: lib/action.php:1248
+#, fuzzy
+msgid "Pagination"
+msgstr "Registrowanje"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
@@ -4800,6 +5403,13 @@ msgstr "showForm() njeimplementowany."
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() njeimplementowany."
 
+#. TRANS: Client error message thrown if design settings could not be deleted in
+#. TRANS: the admin panel Design.
+#: lib/adminpanelaction.php:274
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Njeje móžno, sydłowu zdźělenku składować."
+
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:337
 msgid "Basic site configuration"
@@ -4810,6 +5420,12 @@ msgstr "Zakładna sydłowa konfiguracija"
 msgctxt "MENU"
 msgid "Site"
 msgstr "Sydło"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:345
+#, fuzzy
+msgid "Design configuration"
+msgstr "Konfiguracija posedźenjow"
 
 #. TRANS: Menu item for site administration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
@@ -4832,6 +5448,12 @@ msgstr "Wužiwar"
 #: lib/adminpanelaction.php:361
 msgid "Access configuration"
 msgstr "Přistupna konfiguracija"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:369
+#, fuzzy
+msgid "Paths configuration"
+msgstr "Wužiwarska konfiguracija"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:377
@@ -4909,6 +5531,12 @@ msgstr "Wopisaj swoju aplikaciju z %d znamješkami"
 #: lib/applicationeditform.php:204
 msgid "Describe your application"
 msgstr "Wopisaj swoju aplikaciju"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:215
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "URL za startowu stronu organizacije"
 
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:217
@@ -5007,6 +5635,12 @@ msgstr "Poskićowar"
 msgid "Notices where this attachment appears"
 msgstr ""
 
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+#, fuzzy
+msgid "Tags for this attachment"
+msgstr "Přiwěšk njeeksistuje."
+
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
 msgid "Password changing failed"
 msgstr "Změnjenje hesła je so njeporadźiło"
@@ -5085,6 +5719,12 @@ msgid ""
 "Subscribers: %2$s\n"
 "Notices: %3$s"
 msgstr ""
+
+#. TRANS: Text shown when a notice has been marked as favourite successfully.
+#: lib/command.php:314
+#, fuzzy
+msgid "Notice marked as fave."
+msgstr "Tuta zdźělenka je hižo faworit!"
 
 #. TRANS: Message given having added a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
@@ -5398,6 +6038,21 @@ msgstr ""
 "Móžeš swój wosobinski pozadkowy wobraz nahrać. Maksimalna datajowa wulkosć "
 "je 2 MB."
 
+#: lib/designsettings.php:418
+#, fuzzy
+msgid "Design defaults restored."
+msgstr "Designowe nastajenja składowane."
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+#, fuzzy
+msgid "Disfavor this notice"
+msgstr "Tutu zdźělenku wušmórnyć"
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Tutu zdźělenku wospjetować"
+
 #: lib/feed.php:85
 msgid "RSS 1.0"
 msgstr "RSS 1.0"
@@ -5446,6 +6101,11 @@ msgstr "Start"
 #, php-format
 msgid "Grant this user the \"%s\" role"
 msgstr ""
+
+#: lib/groupeditform.php:163
+#, fuzzy
+msgid "URL of the homepage or blog of the group or topic"
+msgstr "URL za startowu stronu organizacije"
 
 #: lib/groupeditform.php:168
 msgid "Describe the group or topic"
@@ -5547,6 +6207,11 @@ msgstr "Skupiny z najwjace čłonami"
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr "Skupiny z njawjace powěsćemi"
+
+#: lib/grouptagcloudsection.php:56
+#, fuzzy, php-format
+msgid "Tags in %s group's notices"
+msgstr "Kajkosće skupiny %s wobdźěłać"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -5673,6 +6338,12 @@ msgstr ""
 msgid "Bio: %s"
 msgstr "Biografija: %s"
 
+#. TRANS: Subject of notification mail for new posting email address
+#: lib/mail.php:304
+#, fuzzy, php-format
+msgid "New email address for posting to %s"
+msgstr "Wužiwar nima žanu zregistrowanu e-mejlowu adresu."
+
 #. TRANS: Body of notification mail for new posting email address
 #: lib/mail.php:308
 #, php-format
@@ -5792,6 +6463,11 @@ msgstr ""
 "Dospołnu rozmołwu móžes tu čitać:\n"
 "\n"
 "%s"
+
+#: lib/mail.php:657
+#, fuzzy, php-format
+msgid "%s (@%s) sent a notice to your attention"
+msgstr "%s (@%s) je twoju zdźělenku jako faworit přidał"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
@@ -6030,9 +6706,19 @@ msgstr "Wotmołwić"
 msgid "Notice repeated"
 msgstr "Zdźělenka wospjetowana"
 
+#: lib/nudgeform.php:116
+#, fuzzy
+msgid "Nudge this user"
+msgstr "Tutoho wužiwarja wušmórnyć"
+
 #: lib/nudgeform.php:128
 msgid "Nudge"
 msgstr ""
+
+#: lib/nudgeform.php:128
+#, fuzzy
+msgid "Send a nudge to this user"
+msgstr "Tutomu wužiwarja direktnu powěsć pósłać"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile."
@@ -6082,6 +6768,11 @@ msgstr "Wuchadny póst"
 #: lib/personalgroupnav.php:131
 msgid "Your sent messages"
 msgstr "Twoje pósłane powěsće"
+
+#: lib/personaltagcloudsection.php:56
+#, fuzzy, php-format
+msgid "Tags in %s's notices"
+msgstr "Wužiwar nima poslednju powěsć"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
 #: lib/plugin.php:116
@@ -6137,6 +6828,11 @@ msgstr "Wužiwarske skupiny"
 msgid "Recent tags"
 msgstr ""
 
+#: lib/publicgroupnav.php:88
+#, fuzzy
+msgid "Featured"
+msgstr "Nazhonići wužiwarjo"
+
 #: lib/publicgroupnav.php:92
 msgid "Popular"
 msgstr "Woblubowany"
@@ -6165,6 +6861,16 @@ msgstr "Rólu \"%s\" tutoho wužiwarja wotwołać"
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr "Žadyn jednotliwy wužiwar za modus jednotliweho wužiwarja definowany."
+
+#: lib/sandboxform.php:67
+#, fuzzy
+msgid "Sandbox"
+msgstr "Dochadny póst"
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Tutoho wužiwarja wotblokować"
 
 #. TRANS: Fieldset legend for the search form.
 #: lib/searchaction.php:121
@@ -6211,6 +6917,16 @@ msgstr "Wotrězk bjez titula"
 msgid "More..."
 msgstr "Wjace..."
 
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Sydłowe mjeno"
+
+#: lib/silenceform.php:78
+#, fuzzy
+msgid "Silence this user"
+msgstr "Tutoho wužiwarja wušmórnyć"
+
 #: lib/subgroupnav.php:83
 #, php-format
 msgid "People %s subscribes to"
@@ -6229,6 +6945,11 @@ msgstr "Skupiny, w kotrychž %s je čłon"
 #: lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Přeprosyć"
+
+#: lib/subgroupnav.php:106
+#, fuzzy, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Přećelow a kolegow přeprosyć, so tebi na %s  přidružić"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6298,9 +7019,19 @@ msgstr ""
 msgid "Unsandbox"
 msgstr ""
 
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Tutoho wužiwarja wotblokować"
+
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
 msgstr ""
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Tutoho wužiwarja wotblokować"
 
 #: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
 msgid "Unsubscribe from this user"
@@ -6440,14 +7171,15 @@ msgstr ""
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Žadyn wužiwarski ID podaty."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

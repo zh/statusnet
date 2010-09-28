@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:19+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:41+0000\n"
 "Language-Team: British English <http://translatewiki.net/wiki/Portal:en-gb>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: en-gb\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -250,6 +250,11 @@ msgstr ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 
+#: actions/apiaccountupdatedeliverydevice.php:134
+#, fuzzy
+msgid "Could not update user."
+msgstr "Couldn't update user."
+
 #: actions/apiaccountupdateprofile.php:113
 #: actions/apiaccountupdateprofilebackgroundimage.php:195
 #: actions/apiaccountupdateprofilecolors.php:186
@@ -259,6 +264,11 @@ msgstr ""
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "User has no profile."
+
+#: actions/apiaccountupdateprofile.php:148
+#, fuzzy
+msgid "Could not save profile."
+msgstr "Couldn't save profile."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
@@ -512,6 +522,11 @@ msgstr "%s groups"
 #, php-format
 msgid "groups on %s"
 msgstr "groups on %s"
+
+#: actions/apimediaupload.php:100
+#, fuzzy
+msgid "Upload failed."
+msgstr "Upload file"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -1141,6 +1156,11 @@ msgstr "Site theme"
 #: actions/designadminpanel.php:474
 msgid "Theme for the site."
 msgstr "Theme for the site."
+
+#: actions/designadminpanel.php:480
+#, fuzzy
+msgid "Custom theme"
+msgstr "Site theme"
 
 #: actions/designadminpanel.php:484
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
@@ -2149,6 +2169,11 @@ msgstr "Inbox for %s"
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr "This is your inbox, which lists your incoming private messages."
 
+#: actions/invite.php:39
+#, fuzzy
+msgid "Invites have been disabled."
+msgstr "Invitations enabled"
+
 #: actions/invite.php:41
 #, php-format
 msgid "You must be logged in to invite other users to use %s."
@@ -2361,7 +2386,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Private"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2733,6 +2758,11 @@ msgstr "Automatic shortening service to use."
 msgid "View profile designs"
 msgstr "View profile designs"
 
+#: actions/othersettings.php:123
+#, fuzzy
+msgid "Show or hide profile designs."
+msgstr "View profile designs"
+
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL shortening service is too long (max 50 chars)."
@@ -2905,6 +2935,21 @@ msgstr ""
 msgid "Theme"
 msgstr ""
 
+#: actions/pathsadminpanel.php:264
+#, fuzzy
+msgid "Theme server"
+msgstr "SSL server"
+
+#: actions/pathsadminpanel.php:268
+#, fuzzy
+msgid "Theme path"
+msgstr "Site path"
+
+#: actions/pathsadminpanel.php:272
+#, fuzzy
+msgid "Theme directory"
+msgstr "Avatar directory"
+
 #: actions/pathsadminpanel.php:279
 msgid "Avatars"
 msgstr "Avatars"
@@ -2921,6 +2966,26 @@ msgstr "Avatar path"
 msgid "Avatar directory"
 msgstr "Avatar directory"
 
+#: actions/pathsadminpanel.php:301
+#, fuzzy
+msgid "Backgrounds"
+msgstr "Background"
+
+#: actions/pathsadminpanel.php:305
+#, fuzzy
+msgid "Background server"
+msgstr "Background"
+
+#: actions/pathsadminpanel.php:309
+#, fuzzy
+msgid "Background path"
+msgstr "Background"
+
+#: actions/pathsadminpanel.php:313
+#, fuzzy
+msgid "Background directory"
+msgstr "Background directory not writable: %s."
+
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
 msgstr "SSL"
@@ -2936,6 +3001,11 @@ msgstr "Sometimes"
 #: actions/pathsadminpanel.php:325
 msgid "Always"
 msgstr ""
+
+#: actions/pathsadminpanel.php:329
+#, fuzzy
+msgid "Use SSL"
+msgstr "SSL"
 
 #: actions/pathsadminpanel.php:330
 msgid "When to use SSL"
@@ -3150,9 +3220,25 @@ msgstr "Public Stream Feed (RSS 2.0)"
 msgid "Public Stream Feed (Atom)"
 msgstr "Public Stream Feed (Atom)"
 
+#: actions/public.php:188
+#, fuzzy, php-format
+msgid ""
+"This is the public timeline for %%site.name%% but no one has posted anything "
+"yet."
+msgstr ""
+"This is the timeline for %s and friends but no one has posted anything yet."
+
 #: actions/public.php:191
 msgid "Be the first to post!"
 msgstr ""
+
+#: actions/public.php:195
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post!"
+msgstr ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favourites!"
 
 #: actions/public.php:242
 #, php-format
@@ -3195,6 +3281,15 @@ msgstr ""
 #: actions/publictagcloud.php:72
 msgid "Be the first to post one!"
 msgstr ""
+
+#: actions/publictagcloud.php:75
+#, fuzzy, php-format
+msgid ""
+"Why not [register an account](%%action.register%%) and be the first to post "
+"one!"
+msgstr ""
+"Why not [register an account](%%action.register%%) and be the first to add a "
+"notice to your favourites!"
 
 #: actions/publictagcloud.php:134
 msgid "Tag cloud"
@@ -3239,6 +3334,11 @@ msgstr ""
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
+
+#: actions/recoverpassword.php:188
+#, fuzzy
+msgid "Password recovery"
+msgstr "Password recovery requested"
 
 #: actions/recoverpassword.php:191
 msgid "Nickname or email address"
@@ -3612,6 +3712,13 @@ msgstr "You cannot sandbox users on this site."
 msgid "User is already sandboxed."
 msgstr "User is already sandboxed."
 
+#. TRANS: Menu item for site administration
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:379
+#, fuzzy
+msgid "Sessions"
+msgstr "Version"
+
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
 msgstr ""
@@ -3676,9 +3783,19 @@ msgstr "Statistics"
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr ""
 
+#: actions/showapplication.php:213
+#, fuzzy
+msgid "Application actions"
+msgstr "Application not found."
+
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr ""
+
+#: actions/showapplication.php:261
+#, fuzzy
+msgid "Application info"
+msgstr "Application not found."
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
@@ -3945,6 +4062,19 @@ msgstr ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
 "%?status_textarea=%2$s)."
 
+#: actions/showstream.php:243
+#, fuzzy, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
+"follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
+msgstr ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool. [Join now](%%action.register%%) to share notices about yourself with "
+"friends, family, and colleagues! ([Read more](%%doc.help%%))"
+
 #: actions/showstream.php:248
 #, php-format
 msgid ""
@@ -4029,6 +4159,11 @@ msgstr "Contact e-mail address for your site"
 #: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Local"
+
+#: actions/siteadminpanel.php:256
+#, fuzzy
+msgid "Default timezone"
+msgstr "Default subscription"
 
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
@@ -4253,9 +4388,19 @@ msgstr ""
 msgid "Manage snapshot configuration"
 msgstr "Manage snapshot configuration"
 
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "Invalid role."
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "nvalid logo URL."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -4264,6 +4409,11 @@ msgstr ""
 #: actions/snapshotadminpanel.php:201
 msgid "In a scheduled job"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:206
+#, fuzzy
+msgid "Data snapshots"
+msgstr "Save snapshot settings"
 
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
@@ -4276,6 +4426,11 @@ msgstr ""
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:226
+#, fuzzy
+msgid "Report URL"
+msgstr "Source URL"
 
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
@@ -4529,6 +4684,16 @@ msgstr ""
 msgid "New users"
 msgstr "New users"
 
+#: actions/useradminpanel.php:236
+#, fuzzy
+msgid "New user welcome"
+msgstr "New users"
+
+#: actions/useradminpanel.php:237
+#, fuzzy
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr "Name is too long (max 255 chars)."
+
 #: actions/useradminpanel.php:242
 msgid "Default subscription"
 msgstr "Default subscription"
@@ -4642,6 +4807,11 @@ msgstr ""
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr ""
 
+#: actions/userauthorization.php:345
+#, fuzzy, php-format
+msgid "Avatar URL ‘%s’ is not valid."
+msgstr "Callback URL is not valid."
+
 #: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
@@ -4710,6 +4880,11 @@ msgid ""
 "This site is powered by %1$s version %2$s, Copyright 2008-2010 StatusNet, "
 "Inc. and contributors."
 msgstr ""
+
+#: actions/version.php:163
+#, fuzzy
+msgid "Contributors"
+msgstr "Connections"
 
 #: actions/version.php:170
 msgid ""
@@ -4799,6 +4974,12 @@ msgstr ""
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
+
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "Invalid size."
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -4939,15 +5120,39 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "User has no profile."
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Unable to save site notice."
+
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
 msgid "You have been banned from subscribing."
 msgstr "You have been banned from subscribing."
 
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
+#, fuzzy
+msgid "Already subscribed!"
+msgstr "Not subscribed!"
+
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr "User has blocked you."
+
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Not subscribed!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -5455,6 +5660,18 @@ msgstr ""
 msgid "Failed to delete revoked token."
 msgstr ""
 
+#. TRANS: Form legend.
+#: lib/applicationeditform.php:129
+#, fuzzy
+msgid "Edit application"
+msgstr "Edit Application"
+
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:178
+#, fuzzy
+msgid "Icon for this application"
+msgstr "Do not delete this application"
+
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:200
 #, php-format
@@ -5548,6 +5765,18 @@ msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Revoke"
 
+#. TRANS: DT element label in attachment list.
+#: lib/attachmentlist.php:88
+#, fuzzy
+msgid "Attachments"
+msgstr "No attachments."
+
+#. TRANS: DT element label in attachment list item.
+#: lib/attachmentlist.php:265
+#, fuzzy
+msgid "Author"
+msgstr "Authorise URL"
+
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:279
 msgid "Provider"
@@ -5557,6 +5786,12 @@ msgstr "Provider"
 #: lib/attachmentnoticesection.php:68
 msgid "Notices where this attachment appears"
 msgstr ""
+
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+#, fuzzy
+msgid "Tags for this attachment"
+msgstr "No such attachment."
 
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
 msgid "Password changing failed"
@@ -5583,6 +5818,26 @@ msgstr "Command complete"
 msgid "Command failed"
 msgstr "Command failed"
 
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+#, fuzzy
+msgid "Notice with that id does not exist."
+msgstr "No profile with that id."
+
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+#, fuzzy
+msgid "User has no last notice."
+msgstr "User has no last notice"
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "Could not find a user with nickname %s"
+
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:150
@@ -5599,6 +5854,13 @@ msgstr "Sorry, this command is not yet implemented."
 #: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
+
+#. TRANS: Message given having nudged another user.
+#. TRANS: %s is the nickname of the user that was nudged.
+#: lib/command.php:240
+#, fuzzy, php-format
+msgid "Nudge sent to %s."
+msgstr "Nudge sent to %s"
 
 #. TRANS: User statistics text.
 #. TRANS: %1$s is the number of other user the user is subscribed to.
@@ -5677,15 +5939,42 @@ msgstr "Message too long - maximum is %1$d characters, you sent %2$d."
 msgid "Error sending direct message."
 msgstr "Error sending direct message."
 
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
+msgstr "Notice posted"
+
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "Error repeating notice."
 
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgstr "Notice too long - maximum is %d characters, you sent %d"
+
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
+#, fuzzy, php-format
+msgid "Reply to %s sent."
+msgstr "Reply to %s sent"
+
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 #: lib/command.php:606
 msgid "Error saving notice."
 msgstr "Error saving notice."
+
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+#, fuzzy
+msgid "Specify the name of the user to subscribe to."
+msgstr "Specify the name of the user to subscribe to"
 
 #. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
 #: lib/command.php:664
@@ -5698,6 +5987,13 @@ msgstr "Can't subscribe to OMB profiles by command."
 #, php-format
 msgid "Subscribed to %s."
 msgstr ""
+
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from."
+msgstr "Specify the name of the user to unsubscribe from"
 
 #. TRANS: Text shown after having unsubscribed from another user successfully.
 #. TRANS: %s is the name of the user the unsubscription was requested for.
@@ -5925,6 +6221,11 @@ msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr ""
 "You can upload your personal background image. The maximum file size is 2MB."
+
+#: lib/designsettings.php:418
+#, fuzzy
+msgid "Design defaults restored."
+msgstr "Design preferences saved."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
@@ -6355,6 +6656,11 @@ msgid ""
 "\n"
 "\t%s"
 msgstr ""
+
+#: lib/mail.php:657
+#, fuzzy, php-format
+msgid "%s (@%s) sent a notice to your attention"
+msgstr "%s (@%s) added your notice as a favorite"
 
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
@@ -6851,6 +7157,13 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Failed updating avatar."
+
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -6879,13 +7192,28 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Error updating remote profile."
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "Top posters"
 
+#: lib/unsandboxform.php:69
+#, fuzzy
+msgid "Unsandbox"
+msgstr "Sandbox"
+
 #: lib/unsandboxform.php:80
 msgid "Unsandbox this user"
 msgstr "Unsandbox this user"
+
+#: lib/unsilenceform.php:67
+#, fuzzy
+msgid "Unsilence"
+msgstr "Silence"
 
 #: lib/unsilenceform.php:78
 msgid "Unsilence this user"
@@ -7019,14 +7347,15 @@ msgstr "%s is not a valid colour! Use 3 or 6 hex chars."
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "No user ID specified."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""
