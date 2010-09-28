@@ -73,6 +73,7 @@ class YammeradminpanelAction extends AdminPanelAction
     {
         // @fixme move this to saveSettings and friends?
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            StatusNet::setApi(true); // short error pages :P
             $this->checkSessionToken();
             if ($this->subaction == 'change-apikey') {
                 $form = new YammerApiKeyForm($this);
@@ -97,6 +98,18 @@ class YammeradminpanelAction extends AdminPanelAction
                 $this->runner->startBackgroundImport();
 
                 $form = new YammerProgressForm($this, $this->runner);
+            } else if ($this->subaction == 'pause-import') {
+                $this->runner->recordError(_m('Paused from admin panel.'));
+                $form = $this->statusForm();
+            } else if ($this->subaction == 'continue-import') {
+                $this->runner->clearError();
+                $this->runner->startBackgroundImport();
+                $form = $this->statusForm();
+            } else if ($this->subaction == 'abort-import') {
+                $this->runner->reset();
+                $form = $this->statusForm();
+            } else if ($this->subaction == 'progress') {
+                $form = $this->statusForm();
             } else {
                 throw new ClientException('Invalid POST');
             }
