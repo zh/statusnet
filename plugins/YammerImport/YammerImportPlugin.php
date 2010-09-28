@@ -66,7 +66,8 @@ class YammerImportPlugin extends Plugin
                         'Yammer_notice',
                         'Yammer_notice_stub');
         foreach ($tables as $table) {
-            $schema->ensureTable(strtolower($table), $table::schemaDef());
+            $schemaDef = call_user_func(array($table, 'schemaDef'));
+            $schema->ensureTable(strtolower($table), $schemaDef);
         }
 
         return true;
