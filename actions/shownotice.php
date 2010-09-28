@@ -314,10 +314,14 @@ class SingleNoticeItem extends NoticeListItem
     function show()
     {
         $this->showStart();
-        $this->showNotice();
-        $this->showNoticeAttachments();
-        $this->showNoticeInfo();
-        $this->showNoticeOptions();
+        if (Event::handle('StartShowNoticeItem', array($this))) {
+            $this->showNotice();
+            $this->showNoticeAttachments();
+            $this->showNoticeInfo();
+            $this->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($this));
+        }
+
         $this->showEnd();
     }
 
