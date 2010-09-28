@@ -14,17 +14,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-18 22:06+0000\n"
-"PO-Revision-Date: 2010-09-18 22:07:42+0000\n"
+"POT-Creation-Date: 2010-09-27 22:19+0000\n"
+"PO-Revision-Date: 2010-09-27 22:41:22+0000\n"
 "Language-Team: Finnish <http://translatewiki.net/wiki/Portal:fi>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fi\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-74-75 38::+0000\n"
+"X-POT-Import-Date: 1284-84-94 56::+0000\n"
 
 #. TRANS: Checkbox instructions for admin setting "Private"
 #: actions/accessadminpanel.php:165
@@ -52,7 +52,7 @@ msgstr "Suljettu"
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/smssettings.php:209
-#: lib/applicationeditform.php:351
+#: lib/applicationeditform.php:354
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Tallenna"
@@ -564,7 +564,7 @@ msgstr "Ei löytynyt."
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr "Maksimikoko päivitykselle on %d merkkiä, mukaan lukien URL-osoite."
 
-#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
+#: actions/apisubscriptions.php:233 actions/apisubscriptions.php:263
 msgid "Unsupported format."
 msgstr "Formaattia ei ole tuettu."
 
@@ -726,9 +726,8 @@ msgid "Do not block this user"
 msgstr "Älä estä tätä käyttäjää"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#. TRANS: Submit button title.
 #. TRANS: Description of the form to block a user.
-#: actions/block.php:164 actions/groupmembers.php:403 lib/blockform.php:82
+#: actions/block.php:164 lib/blockform.php:82
 msgid "Block this user"
 msgstr "Estä tämä käyttäjä"
 
@@ -843,7 +842,7 @@ msgstr "Vahvistuskoodia ei löytynyt."
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1315
+#: lib/action.php:1320
 msgid "There was a problem with your session token."
 msgstr "Istuntoavaimesi kanssa oli ongelma."
 
@@ -925,76 +924,77 @@ msgid "Design"
 msgstr "Ulkoasu"
 
 #: actions/designadminpanel.php:74
-msgid "Design settings for this StatusNet site."
-msgstr "Ulkoasuasetukset tälle StatusNet palvelulle."
+msgid "Design settings for this StatusNet site"
+msgstr ""
 
-#: actions/designadminpanel.php:426
+#: actions/designadminpanel.php:439
 msgid "Change logo"
 msgstr "Vaihda väriä"
 
-#: actions/designadminpanel.php:431
+#: actions/designadminpanel.php:444
 msgid "Site logo"
 msgstr "Palvelun ilmoitus"
 
-#: actions/designadminpanel.php:471
+#: actions/designadminpanel.php:484
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:499 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Vaihda tautakuva"
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
+#: actions/designadminpanel.php:504 actions/designadminpanel.php:587
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Tausta"
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:527 lib/designsettings.php:139
+#: actions/designadminpanel.php:540 lib/designsettings.php:139
 msgid "On"
 msgstr "On"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:544 lib/designsettings.php:155
+#: actions/designadminpanel.php:557 lib/designsettings.php:155
 msgid "Off"
 msgstr "Off"
 
-#: actions/designadminpanel.php:564 lib/designsettings.php:170
+#: actions/designadminpanel.php:577 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Vaihda väriä"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:191
+#: actions/designadminpanel.php:600 lib/designsettings.php:191
 msgid "Content"
 msgstr "Sisältö"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:217
+#: actions/designadminpanel.php:626 lib/designsettings.php:217
 msgid "Text"
 msgstr "Teksti"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:230
+#: actions/designadminpanel.php:639 lib/designsettings.php:230
 msgid "Links"
 msgstr "Linkit"
 
-#: actions/designadminpanel.php:651
+#: actions/designadminpanel.php:664
 msgid "Advanced"
 msgstr ""
 
-#: actions/designadminpanel.php:655
+#: actions/designadminpanel.php:668
 msgid "Custom CSS"
 msgstr ""
 
-#: actions/designadminpanel.php:676 lib/designsettings.php:247
+#: actions/designadminpanel.php:689 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Käytä oletusasetuksia"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:685 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/subscriptions.php:226 actions/tagother.php:154
-#: actions/useradminpanel.php:294 lib/applicationeditform.php:353
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/designadminpanel.php:698 actions/licenseadminpanel.php:319
+#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
+#: actions/tagother.php:154 actions/useradminpanel.php:295
+#: lib/applicationeditform.php:356 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Tallenna"
 
@@ -1498,6 +1498,12 @@ msgctxt "BUTTON"
 msgid "Block"
 msgstr ""
 
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:403
+msgctxt "TOOLTIP"
+msgid "Block this user"
+msgstr ""
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "Tee tästä käyttäjästä ylläpitäjä"
@@ -1902,6 +1908,110 @@ msgstr "Sinä et kuulu tähän ryhmään."
 msgid "%1$s left group %2$s"
 msgstr "Käyttäjän %1$s päivitys %2$s"
 
+#. TRANS: User admin panel title
+#: actions/licenseadminpanel.php:56
+msgctxt "TITLE"
+msgid "License"
+msgstr ""
+
+#: actions/licenseadminpanel.php:67
+msgid "License for this StatusNet site"
+msgstr ""
+
+#: actions/licenseadminpanel.php:139
+msgid "Invalid license selection."
+msgstr ""
+
+#: actions/licenseadminpanel.php:149
+msgid ""
+"You must specify the owner of the content when using the All Rights Reserved "
+"license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:156
+msgid "Invalid license title. Max length is 255 characters."
+msgstr ""
+
+#: actions/licenseadminpanel.php:168
+msgid "Invalid license URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:171
+msgid "Invalid license image URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:179
+msgid "License URL must be blank or a valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:187
+msgid "License image must be blank or valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:239
+msgid "License selection"
+msgstr ""
+
+#: actions/licenseadminpanel.php:245
+msgid "Private"
+msgstr ""
+
+#: actions/licenseadminpanel.php:246
+msgid "All Rights Reserved"
+msgstr ""
+
+#: actions/licenseadminpanel.php:247
+msgid "Creative Commons"
+msgstr ""
+
+#: actions/licenseadminpanel.php:252
+msgid "Type"
+msgstr ""
+
+#: actions/licenseadminpanel.php:254
+msgid "Select license"
+msgstr ""
+
+#: actions/licenseadminpanel.php:268
+msgid "License details"
+msgstr ""
+
+#: actions/licenseadminpanel.php:274
+msgid "Owner"
+msgstr ""
+
+#: actions/licenseadminpanel.php:275
+msgid "Name of the owner of the site's content (if applicable)."
+msgstr ""
+
+#: actions/licenseadminpanel.php:283
+msgid "License Title"
+msgstr ""
+
+#: actions/licenseadminpanel.php:284
+msgid "The title of the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:292
+msgid "License URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:293
+msgid "URL for more information about the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:300
+msgid "License Image URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:301
+msgid "URL for an image to display with the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:319
+msgid "Save license settings"
+msgstr ""
+
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
 msgstr "Olet jo kirjautunut sisään."
@@ -2061,7 +2171,7 @@ msgid "Connected applications"
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access you account."
+msgid "You have allowed the following applications to access your account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:186
@@ -2081,7 +2191,7 @@ msgstr ""
 msgid "Notice has no profile."
 msgstr "Käyttäjällä ei ole profiilia."
 
-#: actions/oembed.php:87 actions/shownotice.php:175
+#: actions/oembed.php:87 actions/shownotice.php:176
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "Käyttäjän %1$s päivitys %2$s"
@@ -2218,8 +2328,8 @@ msgid "Paths"
 msgstr "Polut"
 
 #: actions/pathsadminpanel.php:70
-msgid "Path and server settings for this StatusNet site."
-msgstr "Polut ja palvelin asetukset tälle StatusNet palvelulle."
+msgid "Path and server settings for this StatusNet site"
+msgstr ""
 
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
@@ -2838,6 +2948,10 @@ msgstr "Päivityksesi tähän palveluun on estetty."
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:379
 msgid "Sessions"
+msgstr ""
+
+#: actions/sessionsadminpanel.php:65
+msgid "Session settings for this StatusNet site"
 msgstr ""
 
 #: actions/sessionsadminpanel.php:175
@@ -3565,50 +3679,60 @@ msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:71
+msgid "User settings for this StatusNet site"
+msgstr ""
+
+#: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:156
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:166
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
 #. TRANS: Link description in user account settings menu.
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
+#: actions/useradminpanel.php:219 lib/accountsettingsaction.php:111
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profiili"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Bio Limit"
 msgstr ""
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:224
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "New user welcome"
 msgstr ""
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:237
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:259
 msgid "Whether to allow users to invite new users."
+msgstr ""
+
+#: actions/useradminpanel.php:295
+msgid "Save user settings"
 msgstr ""
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
 msgstr "Valtuuta tilaus"
 
+#. TRANS: Menu item for site administration
 #: actions/userauthorization.php:196 actions/version.php:167
+#: lib/adminpanelaction.php:403
 msgid "License"
 msgstr "Lisenssi"
 
@@ -3745,6 +3869,15 @@ msgstr ""
 msgid "Author(s)"
 msgstr ""
 
+#: classes/Fave.php:147 lib/favorform.php:140
+msgid "Favor"
+msgstr "Lisää suosikiksi"
+
+#: classes/Fave.php:148
+#, php-format
+msgid "%s marked notice %s as a favorite."
+msgstr ""
+
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
 #, php-format
@@ -3777,6 +3910,17 @@ msgstr ""
 #: classes/File.php:211
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
+msgstr ""
+
+#: classes/Group_member.php:108 lib/joinform.php:114
+msgid "Join"
+msgstr "Liity"
+
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: classes/Group_member.php:112
+#, php-format
+msgid "%1$s has joined group %2$s."
 msgstr ""
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
@@ -3841,13 +3985,13 @@ msgid "Problem saving notice."
 msgstr "Ongelma päivityksen tallentamisessa."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:899
+#: classes/Notice.php:906
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1759
+#: classes/Notice.php:1824
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -3867,7 +4011,7 @@ msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
 #. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:339
+#: classes/Status_network.php:338
 msgid "Unable to save tag."
 msgstr "Tagien tallennus epäonnistui."
 
@@ -3890,6 +4034,15 @@ msgstr "Tilausta ei onnistuttu tallentamaan."
 #: classes/Subscription.php:218
 msgid "Could not delete subscription."
 msgstr "Tilausta ei onnistuttu tallentamaan."
+
+#: classes/Subscription.php:254
+msgid "Follow"
+msgstr ""
+
+#: classes/Subscription.php:255
+#, php-format
+msgid "%s is now following %s."
+msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
 #: classes/User_group.php:496
@@ -4102,19 +4255,19 @@ msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1243
+#: lib/action.php:1248
 msgid "Pagination"
 msgstr "Sivutus"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1254
+#: lib/action.php:1259
 msgid "After"
 msgstr "Myöhemmin"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1264
+#: lib/action.php:1269
 msgid "Before"
 msgstr "Aiemmin"
 
@@ -4142,6 +4295,11 @@ msgstr ""
 #: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Käyttäjä"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:401
+msgid "Set site license"
+msgstr ""
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
@@ -4211,37 +4369,37 @@ msgid "URL to redirect to after authentication"
 msgstr ""
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:269
+#: lib/applicationeditform.php:270
 msgid "Browser"
 msgstr ""
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:286
+#: lib/applicationeditform.php:287
 msgid "Desktop"
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:288
+#: lib/applicationeditform.php:289
 msgid "Type of application, browser or desktop"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:311
+#: lib/applicationeditform.php:313
 msgid "Read-only"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:330
+#: lib/applicationeditform.php:333
 msgid "Read-write"
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:332
+#: lib/applicationeditform.php:335
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: lib/applicationeditform.php:349
+#: lib/applicationeditform.php:352
 msgid "Cancel"
 msgstr "Peruuta"
 
@@ -4527,10 +4685,6 @@ msgstr "Poista tämä päivitys suosikeista"
 msgid "Favor this notice"
 msgstr "Merkitse päivitys suosikkeihin"
 
-#: lib/favorform.php:140
-msgid "Favor"
-msgstr "Lisää suosikiksi"
-
 #: lib/feed.php:85
 msgid "RSS 1.0"
 msgstr "RSS 1.0"
@@ -4548,8 +4702,8 @@ msgid "FOAF"
 msgstr "FOAF"
 
 #: lib/feedlist.php:64
-msgid "Export data"
-msgstr "Vie tietoja"
+msgid "Feeds"
+msgstr ""
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4729,10 +4883,6 @@ msgstr ""
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr ""
-
-#: lib/joinform.php:114
-msgid "Join"
-msgstr "Liity"
 
 #: lib/leaveform.php:114
 msgid "Leave"
@@ -5263,7 +5413,7 @@ msgstr "Suosituimmat"
 msgid "Yes"
 msgstr "Kyllä"
 
-#: lib/router.php:709
+#: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -5430,17 +5580,17 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1126
 msgid "a few seconds ago"
 msgstr "muutama sekunti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1106
+#: lib/util.php:1129
 msgid "about a minute ago"
 msgstr "noin minuutti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1133
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -5448,12 +5598,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1113
+#: lib/util.php:1136
 msgid "about an hour ago"
 msgstr "noin tunti sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1140
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -5461,12 +5611,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1120
+#: lib/util.php:1143
 msgid "about a day ago"
 msgstr "noin päivä sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1147
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -5474,12 +5624,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
+#: lib/util.php:1150
 msgid "about a month ago"
 msgstr "noin kuukausi sitten"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1154
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -5487,11 +5637,25 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1134
+#: lib/util.php:1157
 msgid "about a year ago"
 msgstr "noin vuosi sitten"
 
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
+msgstr ""
+
+#: scripts/restoreuser.php:82
+#, php-format
+msgid "Backup file for user %s (%s)\n"
+msgstr ""
+
+#: scripts/restoreuser.php:88
+msgid "No user specified; using backup user.\n"
+msgstr ""
+
+#: scripts/restoreuser.php:94
+#, php-format
+msgid "%d entries in backup.\n"
 msgstr ""
