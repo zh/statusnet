@@ -19,7 +19,16 @@ class YammerProgressForm extends Form
      */
     function formClass()
     {
-        return 'form_settings';
+        $classes = array('form_settings');
+        $runner = YammerRunner::init();
+        if ($runner->lastError()) {
+            $classes[] = 'import-error';
+        } else if ($runner->state() == 'done') {
+            $classes[] = 'import-done';
+        } else {
+            $classes[] = 'import-progress';
+        }
+        return implode(' ', $classes);
     }
 
     /**
