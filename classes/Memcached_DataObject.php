@@ -189,11 +189,11 @@ class Memcached_DataObject extends Safe_DataObject
                        str_replace("\n", " ", $e->getTraceAsString()));
             return false;
         } else {
-		$keys = $this->_allCacheKeys();
+            $keys = $this->_allCacheKeys();
 
-		foreach ($keys as $key) {
-		    $c->set($key, $this);
-		}
+            foreach ($keys as $key) {
+                $c->set($key, $this);
+            }
         }
     }
 
@@ -637,4 +637,3 @@ class Memcached_DataObject extends Safe_DataObject
         return $vstr;
     }
 }
-
