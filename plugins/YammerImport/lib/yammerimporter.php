@@ -41,13 +41,22 @@ class YammerImporter
     function importUser($item)
     {
         $data = $this->prepUser($item);
+        $nickname = $data['options']['nickname'];
 
         $profileId = $this->findImportedUser($data['orig_id']);
         if ($profileId) {
             return Profile::staticGet('id', $profileId);
         } else {
-            $user = User::register($data['options']);
-            $profile = $user->getProfile();
+            $user = User::staticGet('nickname', $nickname);
+            if ($user) {
+                common_log(LOG_WARN, "Copying Yammer profile info onto existing user $nickname");
+                $profile = $user->getProfile();
+                $this->savePropertiesOn($profile, $data['options'],
+                        array('fullname', 'homepage', 'bio', 'location'));
+            } else {
+                $user = User::register($data['options']);
+                $profile = $user->getProfile();
+            }
             if ($data['avatar']) {
                 try {
                     $this->saveAvatar($data['avatar'], $profile);
@@ -69,12 +78,21 @@ class YammerImporter
     function importGroup($item)
     {
         $data = $this->prepGroup($item);
+        $nickname = $data['options']['nickname'];
 
         $groupId = $this->findImportedGroup($data['orig_id']);
         if ($groupId) {
             return User_group::staticGet('id', $groupId);
         } else {
-            $group = User_group::register($data['options']);
+            $local = Local_group::staticGet('nickname', $nickname);
+            if ($local) {
+                common_log(LOG_WARN, "Copying Yammer group info onto existing group $nickname");
+                $group = User_group::staticGet('id', $local->group_id);
+                $this->savePropertiesOn($group, $data['options'],
+                        array('fullname', 'description'));
+            } else {
+                $group = User_group::register($data['options']);
+            }
             if ($data['avatar']) {
                 try {
                     $this->saveAvatar($data['avatar'], $group);
@@ -85,6 +103,19 @@ class YammerImporter
             $this->recordImportedGroup($data['orig_id'], $group->id);
             return $group;
         }
+    }
+
+    private function savePropertiesOn($target, $options, $propList)
+    {
+        $changed = 0;
+        $orig = clone($target);
+        foreach ($propList as $prop) {
+            if (!empty($options[$prop]) && $target->$prop != $options[$prop]) {
+                $target->$prop = $options[$prop];
+                $changed++;
+            }
+        }
+        $target->update($orig);
     }
 
     /**
