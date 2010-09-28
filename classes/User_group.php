@@ -465,7 +465,6 @@ class User_group extends Memcached_DataObject
     }
 
     static function register($fields) {
-
         // MAGICALLY put fields into current scope
 
         extract($fields);

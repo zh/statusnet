@@ -26,7 +26,7 @@ class Status_network_tag extends Safe_DataObject
 
     public $__table = 'status_network_tag';                      // table name
     public $site_id;                  // int(4)  primary_key not_null
-    public $tag;                      // varchar(64)  primary_key not_null 
+    public $tag;                      // varchar(64)  primary_key not_null
     public $created;                 // datetime()   not_null
 
 
@@ -34,7 +34,7 @@ class Status_network_tag extends Safe_DataObject
     {
         global $config;
         global $_DB_DATAOBJECT;
-        
+
         $sn = new Status_network();
         $sn->_connect();
 

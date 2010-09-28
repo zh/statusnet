@@ -144,8 +144,11 @@ class Fave extends Memcached_DataObject
                                   common_date_iso8601($this->modified));
 
         $act->time    = strtotime($this->modified);
+        // TRANS: Activity title when marking a notice as favorite.
         $act->title   = _("Favor");
-        $act->content = sprintf(_("%s marked notice %s as a favorite."),
+        // TRANS: Ntofication given when a user marks a notice as favorite.
+        // TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
+        $act->content = sprintf(_("%1$s marked notice %2$s as a favorite."),
                                $profile->getBestName(),
                                $notice->uri);
 

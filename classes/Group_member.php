@@ -71,7 +71,9 @@ class Group_member extends Memcached_DataObject
         $member = Profile::staticGet('id', $this->profile_id);
 
         if (empty($member)) {
-            throw new Exception("Profile ID {$this->profile_id} invalid.");
+            // TRANS: Exception thrown providing an invalid profile ID.
+            // TRANS: %s is the invalid profile ID.
+            throw new Exception(sprintf(_("Profile ID %s is invalid."),$this->profile_id));
         }
 
         return $member;
@@ -82,7 +84,9 @@ class Group_member extends Memcached_DataObject
         $group  = User_group::staticGet('id', $this->group_id);
 
         if (empty($group)) {
-            throw new Exception("Group ID {$this->group_id} invalid.");
+            // TRANS: Exception thrown providing an invalid group ID.
+            // TRANS: %s is the invalid group ID.
+            throw new Exception(sprintf(_("Group ID %s is invalid."),$this->group_id));
         }
 
         return $group;
@@ -105,6 +109,7 @@ class Group_member extends Memcached_DataObject
         $act->objects[] = ActivityObject::fromGroup($group);
 
         $act->time  = strtotime($this->created);
+        // TRANS: Activity title.
         $act->title = _("Join");
 
         // TRANS: Success message for subscribe to group attempt through OStatus.

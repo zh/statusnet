@@ -62,7 +62,6 @@ require_once INSTALLDIR.'/lib/apiauth.php';
  */
 class ApiBareAuthAction extends ApiAuthAction
 {
-
     /**
      * Take arguments for running
      *
