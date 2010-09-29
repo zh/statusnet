@@ -149,7 +149,6 @@ class Fave_tally extends Memcached_DataObject
 
     static function increment($noticeID)
     {
-        common_debug("XXXXXXXXX Fave_tally::increment()");
         $tally = Fave_tally::ensureTally($noticeID);
 
         $orig = clone($tally);
@@ -177,8 +176,6 @@ class Fave_tally extends Memcached_DataObject
 
     static function decrement($noticeID)
     {
-        common_debug("XXXXXXXXX Fave_tally::decrement()");
-
         $tally = Fave_tally::ensureTally($noticeID);
 
         if ($tally->count > 0) {
@@ -212,7 +209,6 @@ class Fave_tally extends Memcached_DataObject
         $tally = Fave_tally::staticGet('notice_id', $noticeID);
 
         if (!$tally) {
-            common_debug("Fave_tally::ensureTally - creating tally for notice " . $noticeID);
             $tally = new Fave_tally();
             $tally->notice_id = $noticeID;
             $tally->count = Fave_tally::countExistingFaves($noticeID);
@@ -243,9 +239,6 @@ class Fave_tally extends Memcached_DataObject
         $fave = new Fave();
         $fave->notice_id = $noticeID;
         $total = $fave->count();
-
-        common_debug("ZZZZZZZ notice " . $noticeID . ' has ' . $total . " faves");
-
         return $total;
     }
 }
