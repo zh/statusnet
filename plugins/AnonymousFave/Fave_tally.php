@@ -36,7 +36,7 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
 /**
  * Data class for favorites tally
  *
- * A class representing a total number of times a notice has been favorited
+ * A class representing a total number of times a notice has been favored
  *
  * @category Action
  * @package  StatusNet
@@ -159,7 +159,7 @@ class Fave_tally extends Memcached_DataObject
         if (!$result) {
             $msg = sprintf(
                 _m("Couldn't update favorite tally for notice ID %d."),
-                $notice_id
+                $noticeID
             );
             throw new ServerException($msg);
         }
@@ -189,7 +189,7 @@ class Fave_tally extends Memcached_DataObject
             if (!$result) {
                 $msg = sprintf(
                     _m("Couldn't update favorite tally for notice ID %d."),
-                    $notice_id
+                    $noticeID
                 );
                 throw new ServerException($msg);
             }
@@ -200,7 +200,7 @@ class Fave_tally extends Memcached_DataObject
 
     /**
      * Ensure a tally exists for a given notice. If we can't find
-     * one create one.
+     * one create one with the total number of existing faves
      *
      * @param integer $noticeID
      *
@@ -209,23 +209,43 @@ class Fave_tally extends Memcached_DataObject
 
     static function ensureTally($noticeID)
     {
-        $tally = Fave_tally::staticGet('notice_id', $notice_id);
+        $tally = Fave_tally::staticGet('notice_id', $noticeID);
 
         if (!$tally) {
-            common_debug("Fave_tally::ensureTally - creating tally for notice " . $notice_id);
+            common_debug("Fave_tally::ensureTally - creating tally for notice " . $noticeID);
             $tally = new Fave_tally();
-            $tally->notice_id = $notice_id;
-            $tally->count = 0;
+            $tally->notice_id = $noticeID;
+            $tally->count = Fave_tally::countExistingFaves($noticeID);
             $result = $tally->insert();
             if (!$result) {
                 $msg = sprintf(
                     _m("Couldn't create favorite tally for notice ID %d."),
-                    $notice_id
+                    $noticeID
                 );
                 throw new ServerException($msg);
             }
         }
 
         return $tally;
+    }
+
+    /**
+     * Count the number of faves a notice already has. Used to initalize
+     * a tally for a notice.
+     *
+     * @param integer $noticeID ID of the notice to count faves for
+     *
+     * @return integer $total total number of time the notice has been favored
+     */
+
+    static function countExistingFaves($noticeID)
+    {
+        $fave = new Fave();
+        $fave->notice_id = $noticeID;
+        $total = $fave->count();
+
+        common_debug("ZZZZZZZ notice " . $noticeID . ' has ' . $total . " faves");
+
+        return $total;
     }
 }
