@@ -203,7 +203,7 @@ class AnonymousFavePlugin extends Plugin {
         $tally = Fave_tally::decrement($notice->id);
     }
 
-    function createAnonProfile() {
+    static function createAnonProfile() {
 
         // Get the anon user's IP, and turn it into a nickname
         list($proxy, $ip) = common_client_ip();
@@ -253,7 +253,7 @@ class AnonymousFavePlugin extends Plugin {
             // Do Profile lookup by ID instead of nickname for safety/performance
             $profile = Profile::staticGet('id', $id);
         } else {
-            $profile = $this->createAnonProfile();
+            $profile = AnonymousFavePlugin::createAnonProfile();
             // Obfuscate so it's hard to figure out the Profile ID
             $_SESSION['anon_token'] = base64_encode($profile->nickname);
         }
