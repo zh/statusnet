@@ -136,6 +136,27 @@ class AnonymousFavePlugin extends Plugin {
         return true;
     }
 
+
+    function onEndShowNoticeInfo($item)
+    {
+        common_debug("XXXXXXXXXXX onEndShowNoticeInfo");
+
+        $tally = Fave_tally::ensureTally($item->notice->id);
+
+        if (!empty($tally)) {
+            $item->out->elementStart(
+                'div',
+                array(
+                    'id' => 'notice-' . $item->notice->id . '-tally',
+                    'class' => 'notice-tally'
+                )
+            );
+            $item->out->raw(sprintf(_m("favored %d times"), $tally->count));
+            $item->out->elementEnd('div');
+        }
+        return true;
+    }
+
     function onStartShowNoticeOptions($item) {
 
         if (!common_logged_in()) {
@@ -164,6 +185,16 @@ class AnonymousFavePlugin extends Plugin {
         }
 
         return true;
+    }
+
+    function onEndFavorNotice($profile, $notice)
+    {
+        $tally = Fave_tally::increment($notice->id);
+    }
+
+    function onEndDisfavorNotice($profile, $notice)
+    {
+        $tally = Fave_tally::decrement($notice->id);
     }
 
     function createAnonProfile() {

@@ -52,7 +52,7 @@ class Fave_tally extends Memcached_DataObject
 
     public $__table = 'fave_tally';          // table name
     public $notice_id;                       // int(4)  primary_key not_null
-    public $count;                           // int(4)  primary_key not_null
+    public $count;                           // int(4)  not_null
     public $modified;                        // datetime   not_null default_0000-00-00%2000%3A00%3A00
 
     /* Static get */
@@ -79,30 +79,47 @@ class Fave_tally extends Memcached_DataObject
     /**
      * return key definitions for DB_DataObject
      *
-     * @return array key definitions
+     * DB_DataObject needs to know about keys that the table has, since it
+     * won't appear in StatusNet's own keys list. In most cases, this will
+     * simply reference your keyTypes() function.
+     *
+     * @return array list of key field names
      */
 
     function keys()
+    {
+        return array_keys($this->keyTypes());
+    }
+
+    /**
+     * return key definitions for Memcached_DataObject
+     *
+     * Our caching system uses the same key definitions, but uses a different
+     * method to get them. This key information is used to store and clear
+     * cached data, so be sure to list any key that will be used for static
+     * lookups.
+     *
+     * @return array associative array of key definitions, field name to type:
+     *         'K' for primary key: for compound keys, add an entry for each component;
+     *         'U' for unique keys: compound keys are not well supported here.
+     */
+
+    function keyTypes()
     {
         return array('notice_id' => 'K');
     }
 
     /**
-     * return key definitions for DB_DataObject
-     *
-     * @return array key definitions
-     */
-
-    function keyTypes()
-    {
-        return $this->keys();
-    }
-
-    /**
      * Magic formula for non-autoincrementing integer primary keys
+     *
+     * If a table has a single integer column as its primary key, DB_DataObject
+     * assumes that the column is auto-incrementing and makes a sequence table
+     * to do this incrementation. Since we don't need this for our class, we
+     * overload this method and return the magic formula that DB_DataObject needs.
      *
      * @return array magic three-false array that stops auto-incrementing.
      */
+
 
     function sequenceKey()
     {
@@ -125,80 +142,85 @@ class Fave_tally extends Memcached_DataObject
     /**
      * Increment a notice's tally
      *
-     * @param integer $notice_id   ID of notice we're tallying
+     * @param integer $noticeID ID of notice we're tallying
      *
-     * @return integer             the total times the notice has been faved
+     * @return Fave_tally $tally the tally data object
      */
 
-    static function increment($notice_id)
+    static function increment($noticeID)
     {
-        $tally = Fave_tally::ensureTally($notice_id);
-        $count = $tally->count + 1;
-        $tally->count = $count;
-        $result = $tally->update();
-        $tally->free();
+        common_debug("XXXXXXXXX Fave_tally::increment()");
+        $tally = Fave_tally::ensureTally($noticeID);
 
-        if ($result === false) {
+        $orig = clone($tally);
+        $tally->count++;
+        $result = $tally->update($orig);
+
+        if (!$result) {
             $msg = sprintf(
-                _m("Couldn't update favorite tally for notice ID %d.", $notice_id)
+                _m("Couldn't update favorite tally for notice ID %d."),
+                $notice_id
             );
             throw new ServerException($msg);
         }
 
-        return $count;
+        return $tally;
     }
 
     /**
      * Decrement a notice's tally
      *
-     * @param integer $notice_id   ID of notice we're tallying
+     * @param integer $noticeID ID of notice we're tallying
      *
-     * @return integer             the total times the notice has been faved
+     * @return Fave_tally $tally the tally data object
      */
 
-    static function decrement($notice_id)
+    static function decrement($noticeID)
     {
-        $tally = Fave_tally::ensureTally($notice_id);
+        common_debug("XXXXXXXXX Fave_tally::decrement()");
 
-        $count = 0;
+        $tally = Fave_tally::ensureTally($noticeID);
 
         if ($tally->count > 0) {
-            $count = $tally->count - 1;
-            $tally->count = $count;
-            $result = $tally->update();
-            $tally->free();
+            $orig = clone($tally);
+            $tally->count--;
+            $result = $tally->update($orig);
 
-            if ($result === false) {
+            if (!$result) {
                 $msg = sprintf(
-                    _m("Couldn't update favorite tally for notice ID %d.", $notice_id)
+                    _m("Couldn't update favorite tally for notice ID %d."),
+                    $notice_id
                 );
                 throw new ServerException($msg);
             }
         }
 
-        return $count;
+        return $tally;
     }
 
     /**
      * Ensure a tally exists for a given notice. If we can't find
      * one create one.
      *
-     * @param integer $notice_id
+     * @param integer $noticeID
      *
      * @return Fave_tally the tally data object
      */
 
-    static function ensureTally($notice_id)
+    static function ensureTally($noticeID)
     {
-        $tally = new Fave_tally();
-        $result = $tally->get($notice_id);
+        $tally = Fave_tally::staticGet('notice_id', $notice_id);
 
-        if (empty($result)) {
+        if (!$tally) {
+            common_debug("Fave_tally::ensureTally - creating tally for notice " . $notice_id);
+            $tally = new Fave_tally();
             $tally->notice_id = $notice_id;
             $tally->count = 0;
-            if ($tally->insert() === false) {
+            $result = $tally->insert();
+            if (!$result) {
                 $msg = sprintf(
-                    _m("Couldn't create favorite tally for notice ID %d.", $notice_id)
+                    _m("Couldn't create favorite tally for notice ID %d."),
+                    $notice_id
                 );
                 throw new ServerException($msg);
             }
