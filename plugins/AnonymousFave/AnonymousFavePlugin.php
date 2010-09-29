@@ -55,6 +55,39 @@ class AnonymousFavePlugin extends Plugin {
         common_ensure_session();
     }
 
+    /**
+     * Hook for ensuring our tables are created
+     *
+     * Ensures the fave_tally table is there and has the right columns
+     *
+     * @return boolean hook return
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing total number of times a notice has been faved
+
+        $schema->ensureTable('fave_tally',
+            array(
+                new ColumnDef('notice_id', 'integer', null,  false, 'PRI'),
+                new ColumnDef('count', 'integer', null, false),
+                new ColumnDef(
+                    'modified',
+                    'timestamp',
+                    null,
+                    false,
+                    null,
+                    'CURRENT_TIMESTAMP',
+                    'on update CURRENT_TIMESTAMP'
+                )
+            )
+        );
+
+        return true;
+    }
+
     function onEndShowHTML($action)
     {
         if (!common_logged_in()) {
@@ -75,6 +108,9 @@ class AnonymousFavePlugin extends Plugin {
         $dir = dirname(__FILE__);
 
         switch ($cls) {
+            case 'Fave_tally':
+                include_once $dir . '/' . $cls . '.php';
+                return false;
             case 'AnonFavorAction':
                 include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
                 return false;
