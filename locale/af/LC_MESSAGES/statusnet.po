@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-18 22:06+0000\n"
-"PO-Revision-Date: 2010-09-18 22:07:13+0000\n"
+"POT-Creation-Date: 2010-09-27 22:19+0000\n"
+"PO-Revision-Date: 2010-09-27 22:41:11+0000\n"
 "Language-Team: Afrikaans <http://translatewiki.net/wiki/Portal:af>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: af\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-74-75 38::+0000\n"
+"X-POT-Import-Date: 1284-84-94 56::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -79,7 +79,7 @@ msgstr "Stoor toegangsinstellings"
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/smssettings.php:209
-#: lib/applicationeditform.php:351
+#: lib/applicationeditform.php:354
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Stoor"
@@ -643,7 +643,7 @@ msgstr "Nie gevind nie."
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 
-#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
+#: actions/apisubscriptions.php:233 actions/apisubscriptions.php:263
 msgid "Unsupported format."
 msgstr "Nie-ondersteunde formaat."
 
@@ -800,9 +800,8 @@ msgid "Yes"
 msgstr "Ja"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#. TRANS: Submit button title.
 #. TRANS: Description of the form to block a user.
-#: actions/block.php:164 actions/groupmembers.php:403 lib/blockform.php:82
+#: actions/block.php:164 lib/blockform.php:82
 msgid "Block this user"
 msgstr "Blokkeer hierdie gebruiker"
 
@@ -911,7 +910,7 @@ msgstr "U is nie die eienaar van hierdie applikasie nie."
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1315
+#: lib/action.php:1320
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1005,52 +1004,52 @@ msgid "Design"
 msgstr "Ontwerp"
 
 #: actions/designadminpanel.php:74
-msgid "Design settings for this StatusNet site."
+msgid "Design settings for this StatusNet site"
 msgstr ""
 
-#: actions/designadminpanel.php:318
+#: actions/designadminpanel.php:331
 msgid "Invalid logo URL."
 msgstr "Die logo-URL is ongeldig."
 
-#: actions/designadminpanel.php:322
+#: actions/designadminpanel.php:335
 #, php-format
 msgid "Theme not available: %s."
 msgstr "IM is nie beskikbaar nie."
 
-#: actions/designadminpanel.php:426
+#: actions/designadminpanel.php:439
 msgid "Change logo"
 msgstr "Verander logo"
 
-#: actions/designadminpanel.php:431
+#: actions/designadminpanel.php:444
 msgid "Site logo"
 msgstr "Webwerf-logo"
 
-#: actions/designadminpanel.php:443
+#: actions/designadminpanel.php:456
 msgid "Change theme"
 msgstr "Verander tema"
 
-#: actions/designadminpanel.php:460
+#: actions/designadminpanel.php:473
 msgid "Site theme"
 msgstr "Werf se tema"
 
-#: actions/designadminpanel.php:461
+#: actions/designadminpanel.php:474
 msgid "Theme for the site."
 msgstr "Tema vir die werf."
 
-#: actions/designadminpanel.php:471
+#: actions/designadminpanel.php:484
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:499 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Verander die agtergrond-prent"
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
+#: actions/designadminpanel.php:504 actions/designadminpanel.php:587
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Agtergrond"
 
-#: actions/designadminpanel.php:496
+#: actions/designadminpanel.php:509
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1058,63 +1057,64 @@ msgid ""
 msgstr ""
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:527 lib/designsettings.php:139
+#: actions/designadminpanel.php:540 lib/designsettings.php:139
 msgid "On"
 msgstr "Aan"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:544 lib/designsettings.php:155
+#: actions/designadminpanel.php:557 lib/designsettings.php:155
 msgid "Off"
 msgstr "Af"
 
-#: actions/designadminpanel.php:564 lib/designsettings.php:170
+#: actions/designadminpanel.php:577 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Verander kleure"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:191
+#: actions/designadminpanel.php:600 lib/designsettings.php:191
 msgid "Content"
 msgstr "Inhoud"
 
-#: actions/designadminpanel.php:600 lib/designsettings.php:204
+#: actions/designadminpanel.php:613 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Kantstrook"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:217
+#: actions/designadminpanel.php:626 lib/designsettings.php:217
 msgid "Text"
 msgstr "Text"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:230
+#: actions/designadminpanel.php:639 lib/designsettings.php:230
 msgid "Links"
 msgstr "Skakels"
 
-#: actions/designadminpanel.php:651
+#: actions/designadminpanel.php:664
 msgid "Advanced"
 msgstr "Gevorderd"
 
-#: actions/designadminpanel.php:655
+#: actions/designadminpanel.php:668
 msgid "Custom CSS"
 msgstr ""
 
-#: actions/designadminpanel.php:676 lib/designsettings.php:247
+#: actions/designadminpanel.php:689 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Gebruik verstekwaardes"
 
-#: actions/designadminpanel.php:683 lib/designsettings.php:254
+#: actions/designadminpanel.php:696 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Stel terug na standaard"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:685 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/subscriptions.php:226 actions/tagother.php:154
-#: actions/useradminpanel.php:294 lib/applicationeditform.php:353
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/designadminpanel.php:698 actions/licenseadminpanel.php:319
+#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
+#: actions/tagother.php:154 actions/useradminpanel.php:295
+#: lib/applicationeditform.php:356 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Stoor"
 
-#: actions/designadminpanel.php:686 lib/designsettings.php:257
+#: actions/designadminpanel.php:699 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Stoor ontwerp"
 
@@ -1192,7 +1192,7 @@ msgstr "Die \"callback\" is te lank."
 msgid "Callback URL is not valid."
 msgstr "Die \"callback\"-URL is nie geldig nie."
 
-#: actions/editapplication.php:258
+#: actions/editapplication.php:261
 msgid "Could not update application."
 msgstr "Dit was nie moontlik om die applikasie by te werk nie."
 
@@ -1283,7 +1283,7 @@ msgstr ""
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:347
+#: actions/smssettings.php:137 lib/applicationeditform.php:350
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Kanselleer"
@@ -1623,6 +1623,12 @@ msgstr "Administrateur"
 #: actions/groupmembers.php:399
 msgctxt "BUTTON"
 msgid "Block"
+msgstr ""
+
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:403
+msgctxt "TOOLTIP"
+msgid "Block this user"
 msgstr ""
 
 #. TRANS: Button text for the form that will make a user administrator.
@@ -1972,6 +1978,110 @@ msgstr "U is nie 'n lid van daardie groep nie."
 msgid "%1$s left group %2$s"
 msgstr "%1$s het die groep %2$s verlaat"
 
+#. TRANS: User admin panel title
+#: actions/licenseadminpanel.php:56
+msgctxt "TITLE"
+msgid "License"
+msgstr ""
+
+#: actions/licenseadminpanel.php:67
+msgid "License for this StatusNet site"
+msgstr ""
+
+#: actions/licenseadminpanel.php:139
+msgid "Invalid license selection."
+msgstr ""
+
+#: actions/licenseadminpanel.php:149
+msgid ""
+"You must specify the owner of the content when using the All Rights Reserved "
+"license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:156
+msgid "Invalid license title. Max length is 255 characters."
+msgstr ""
+
+#: actions/licenseadminpanel.php:168
+msgid "Invalid license URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:171
+msgid "Invalid license image URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:179
+msgid "License URL must be blank or a valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:187
+msgid "License image must be blank or valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:239
+msgid "License selection"
+msgstr ""
+
+#: actions/licenseadminpanel.php:245
+msgid "Private"
+msgstr ""
+
+#: actions/licenseadminpanel.php:246
+msgid "All Rights Reserved"
+msgstr ""
+
+#: actions/licenseadminpanel.php:247
+msgid "Creative Commons"
+msgstr ""
+
+#: actions/licenseadminpanel.php:252
+msgid "Type"
+msgstr ""
+
+#: actions/licenseadminpanel.php:254
+msgid "Select license"
+msgstr ""
+
+#: actions/licenseadminpanel.php:268
+msgid "License details"
+msgstr ""
+
+#: actions/licenseadminpanel.php:274
+msgid "Owner"
+msgstr ""
+
+#: actions/licenseadminpanel.php:275
+msgid "Name of the owner of the site's content (if applicable)."
+msgstr ""
+
+#: actions/licenseadminpanel.php:283
+msgid "License Title"
+msgstr ""
+
+#: actions/licenseadminpanel.php:284
+msgid "The title of the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:292
+msgid "License URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:293
+msgid "URL for more information about the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:300
+msgid "License Image URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:301
+msgid "URL for an image to display with the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:319
+msgid "Save license settings"
+msgstr ""
+
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
 msgstr "U is reeds aangeteken."
@@ -2132,7 +2242,7 @@ msgid "Applications you have registered"
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access you account."
+msgid "You have allowed the following applications to access your account."
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:186
@@ -2148,7 +2258,7 @@ msgstr ""
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
 
-#: actions/oembed.php:87 actions/shownotice.php:175
+#: actions/oembed.php:87 actions/shownotice.php:176
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "Status van %1$s op %2$s"
@@ -2264,7 +2374,7 @@ msgid "Paths"
 msgstr "Paaie"
 
 #: actions/pathsadminpanel.php:70
-msgid "Path and server settings for this StatusNet site."
+msgid "Path and server settings for this StatusNet site"
 msgstr ""
 
 #: actions/pathsadminpanel.php:157
@@ -2839,7 +2949,7 @@ msgid "Sessions"
 msgstr "Sessies"
 
 #: actions/sessionsadminpanel.php:65
-msgid "Session settings for this StatusNet site."
+msgid "Session settings for this StatusNet site"
 msgstr ""
 
 #: actions/sessionsadminpanel.php:177
@@ -3433,52 +3543,56 @@ msgid ""
 msgstr ""
 
 #. TRANS: User admin panel title
-#: actions/useradminpanel.php:59
+#: actions/useradminpanel.php:60
 msgctxt "TITLE"
 msgid "User"
 msgstr "Gebruiker"
 
-#: actions/useradminpanel.php:70
-msgid "User settings for this StatusNet site."
+#: actions/useradminpanel.php:71
+msgid "User settings for this StatusNet site"
 msgstr ""
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
 msgstr ""
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:156
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr ""
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:166
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
 #. TRANS: Link description in user account settings menu.
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
+#: actions/useradminpanel.php:219 lib/accountsettingsaction.php:111
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profiel"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Bio Limit"
 msgstr "Profiellimiet"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:224
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:232
 msgid "New users"
 msgstr "Nuwe gebruikers"
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:252
 msgid "Invitations"
 msgstr "Uitnodigings"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:259
 msgid "Whether to allow users to invite new users."
+msgstr ""
+
+#: actions/useradminpanel.php:295
+msgid "Save user settings"
 msgstr ""
 
 #: actions/userauthorization.php:110
@@ -3488,7 +3602,9 @@ msgid ""
 "click “Reject”."
 msgstr ""
 
+#. TRANS: Menu item for site administration
 #: actions/userauthorization.php:196 actions/version.php:167
+#: lib/adminpanelaction.php:403
 msgid "License"
 msgstr "Lisensie"
 
@@ -3635,6 +3751,11 @@ msgstr "Weergawe"
 msgid "Author(s)"
 msgstr "Outeur(s)"
 
+#: classes/Fave.php:148
+#, php-format
+msgid "%s marked notice %s as a favorite."
+msgstr ""
+
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
 #, php-format
@@ -3673,6 +3794,17 @@ msgstr ""
 #: classes/Group_member.php:55
 msgid "Not part of group."
 msgstr "Nie lid van die groep nie."
+
+#: classes/Group_member.php:108 lib/joinform.php:114
+msgid "Join"
+msgstr "Aansluit"
+
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: classes/Group_member.php:112
+#, php-format
+msgid "%1$s has joined group %2$s."
+msgstr ""
 
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
@@ -3722,18 +3854,18 @@ msgid "Problem saving notice."
 msgstr ""
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:899
+#: classes/Notice.php:906
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:998
+#: classes/Notice.php:1005
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1759
+#: classes/Notice.php:1824
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -3767,9 +3899,18 @@ msgstr ""
 msgid "Not subscribed!"
 msgstr ""
 
+#: classes/Subscription.php:254
+msgid "Follow"
+msgstr ""
+
+#: classes/Subscription.php:255
+#, php-format
+msgid "%s is now following %s."
+msgstr ""
+
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:365
+#: classes/User.php:384
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Welkom by %1$s, @%2$s!"
@@ -4032,13 +4173,13 @@ msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1254
+#: lib/action.php:1259
 msgid "After"
 msgstr "Na"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1264
+#: lib/action.php:1269
 msgid "Before"
 msgstr "Voor"
 
@@ -4089,6 +4230,11 @@ msgstr "Ontwerp"
 #: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Gebruiker"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:401
+msgid "Set site license"
+msgstr ""
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
@@ -4143,37 +4289,37 @@ msgid "URL to redirect to after authentication"
 msgstr ""
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:269
+#: lib/applicationeditform.php:270
 msgid "Browser"
 msgstr "Webblaaier"
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:286
+#: lib/applicationeditform.php:287
 msgid "Desktop"
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:288
+#: lib/applicationeditform.php:289
 msgid "Type of application, browser or desktop"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:311
+#: lib/applicationeditform.php:313
 msgid "Read-only"
 msgstr "Lees-alleen"
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:330
+#: lib/applicationeditform.php:333
 msgid "Read-write"
 msgstr "Lees-skryf"
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:332
+#: lib/applicationeditform.php:335
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: lib/applicationeditform.php:349
+#: lib/applicationeditform.php:352
 msgid "Cancel"
 msgstr "Kanselleer"
 
@@ -4556,8 +4702,8 @@ msgid "FOAF"
 msgstr "Vriende van vriende (FOAF)"
 
 #: lib/feedlist.php:64
-msgid "Export data"
-msgstr "Eksporteer data"
+msgid "Feeds"
+msgstr ""
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -4722,10 +4868,6 @@ msgstr "kB"
 #, php-format
 msgid "[%s]"
 msgstr "[%s]"
-
-#: lib/joinform.php:114
-msgid "Join"
-msgstr "Aansluit"
 
 #: lib/leaveform.php:114
 msgid "Leave"
@@ -5212,7 +5354,7 @@ msgstr "Gewild"
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/router.php:709
+#: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr ""
 
@@ -5382,17 +5524,17 @@ msgid "Moderator"
 msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1126
 msgid "a few seconds ago"
 msgstr "'n paar sekondes gelede"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1106
+#: lib/util.php:1129
 msgid "about a minute ago"
 msgstr "ongeveer 'n minuut gelede"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1133
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -5400,12 +5542,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1113
+#: lib/util.php:1136
 msgid "about an hour ago"
 msgstr "ongeveer 'n uur gelede"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1140
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -5413,12 +5555,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1120
+#: lib/util.php:1143
 msgid "about a day ago"
 msgstr "ongeveer een dag gelede"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1147
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -5426,12 +5568,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
+#: lib/util.php:1150
 msgid "about a month ago"
 msgstr "ongeveer een maand gelede"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1154
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -5439,7 +5581,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1134
+#: lib/util.php:1157
 msgid "about a year ago"
 msgstr "ongeveer een jaar gelede"
 
@@ -5453,3 +5595,17 @@ msgstr "%s is nie 'n geldige kleur nie!"
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr ""
 "%s is nie 'n geldige kleur nie. Gebruik drie of ses heksadesimale karakters."
+
+#: scripts/restoreuser.php:82
+#, php-format
+msgid "Backup file for user %s (%s)\n"
+msgstr ""
+
+#: scripts/restoreuser.php:88
+msgid "No user specified; using backup user.\n"
+msgstr ""
+
+#: scripts/restoreuser.php:94
+#, php-format
+msgid "%d entries in backup.\n"
+msgstr ""

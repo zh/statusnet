@@ -57,7 +57,7 @@ function getActivityStreamDocument()
         throw new Exception("File '$filename' not readable.");
     }
 
-    printfv(_("Getting backup from file '$filename'.\n"));
+    printfv(_("Getting backup from file '$filename'.")."\n");
 
     $xml = file_get_contents($filename);
 
@@ -79,19 +79,19 @@ function importActivityStream($user, $doc)
 
     if (!empty($subjectEl)) {
         $subject = new ActivityObject($subjectEl);
-        printfv(_("Backup file for user %s (%s)\n"), $subject->id, Ostatus_profile::getActivityObjectNickname($subject));
+        printfv(_("Backup file for user %s (%s)")."\n", $subject->id, Ostatus_profile::getActivityObjectNickname($subject));
     } else {
         throw new Exception("Feed doesn't have an <activity:subject> element.");
     }
 
     if (is_null($user)) {
-        printfv(_("No user specified; using backup user.\n"));
+        printfv(_("No user specified; using backup user.")."\n");
         $user = userFromSubject($subject);
     }
 
     $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
 
-    printfv(_("%d entries in backup.\n"), $entries->length);
+    printfv(_("%d entries in backup.")."\n", $entries->length);
 
     for ($i = $entries->length - 1; $i >= 0; $i--) {
         try {

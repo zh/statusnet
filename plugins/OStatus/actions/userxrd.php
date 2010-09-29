@@ -37,6 +37,8 @@ class UserxrdAction extends XrdAction
             if (count($parts) == 2) {
                 list($nick, $domain) = $parts;
                 // @fixme confirm the domain too
+                // @fixme if domain checking is added, ensure that it will not
+                //        cause problems with sites that have changed domains!
                 $nick = common_canonical_nickname($nick);
                 $this->user = User::staticGet('nickname', $nick);
             }

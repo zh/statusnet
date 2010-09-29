@@ -322,6 +322,7 @@ function get_all_languages() {
         'gl'      => array('q' => 0.8, 'lang' => 'gl', 'name' => 'Galician', 'direction' => 'ltr'),
         'he'      => array('q' => 0.5, 'lang' => 'he', 'name' => 'Hebrew', 'direction' => 'rtl'),
         'hsb'     => array('q' => 0.8, 'lang' => 'hsb', 'name' => 'Upper Sorbian', 'direction' => 'ltr'),
+        'hu'      => array('q' => 0.8, 'lang' => 'hu', 'name' => 'Hungarian', 'direction' => 'ltr'),
         'ia'      => array('q' => 0.8, 'lang' => 'ia', 'name' => 'Interlingua', 'direction' => 'ltr'),
         'is'      => array('q' => 0.1, 'lang' => 'is', 'name' => 'Icelandic', 'direction' => 'ltr'),
         'it'      => array('q' => 1, 'lang' => 'it', 'name' => 'Italian', 'direction' => 'ltr'),

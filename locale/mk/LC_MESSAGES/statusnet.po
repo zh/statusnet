@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-18 22:06+0000\n"
-"PO-Revision-Date: 2010-09-18 22:08:07+0000\n"
+"POT-Creation-Date: 2010-09-27 22:19+0000\n"
+"PO-Revision-Date: 2010-09-27 22:41:31+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 1284-74-75 38::+0000\n"
+"X-POT-Import-Date: 1284-84-94 56::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -82,7 +82,7 @@ msgstr "Зачувај нагодувања на пристап"
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/smssettings.php:209
-#: lib/applicationeditform.php:351
+#: lib/applicationeditform.php:354
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зачувај"
@@ -345,7 +345,7 @@ msgstr "Примачот не е пронајден."
 #: actions/apidirectmessagenew.php:143
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
-"Неможете да испраќате директни пораки на корисници што не ви се пријатели."
+"Неможете да испраќате директни пораки на корисници што не Ви се пријатели."
 
 #: actions/apifavoritecreate.php:110 actions/apifavoritedestroy.php:111
 #: actions/apistatusesdestroy.php:121
@@ -695,7 +695,7 @@ msgstr ""
 "Максималната големина на забелешката е %d знаци, вклучувајќи ја URL-адресата "
 "на прилогот."
 
-#: actions/apisubscriptions.php:232 actions/apisubscriptions.php:262
+#: actions/apisubscriptions.php:233 actions/apisubscriptions.php:263
 msgid "Unsupported format."
 msgstr "Неподдржан формат."
 
@@ -893,9 +893,8 @@ msgid "Yes"
 msgstr "Да"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#. TRANS: Submit button title.
 #. TRANS: Description of the form to block a user.
-#: actions/block.php:164 actions/groupmembers.php:403 lib/blockform.php:82
+#: actions/block.php:164 lib/blockform.php:82
 msgid "Block this user"
 msgstr "Блокирај го корисников"
 
@@ -1031,7 +1030,7 @@ msgstr "Не сте сопственик на овој програм."
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1315
+#: lib/action.php:1320
 msgid "There was a problem with your session token."
 msgstr "Се појави проблем со Вашиот сесиски жетон."
 
@@ -1132,56 +1131,56 @@ msgid "Design"
 msgstr "Изглед"
 
 #: actions/designadminpanel.php:74
-msgid "Design settings for this StatusNet site."
-msgstr "Нагодувања на изгледот на ова StatusNet-мрежно место."
+msgid "Design settings for this StatusNet site"
+msgstr ""
 
-#: actions/designadminpanel.php:318
+#: actions/designadminpanel.php:331
 msgid "Invalid logo URL."
 msgstr "Погрешен URL на лого."
 
-#: actions/designadminpanel.php:322
+#: actions/designadminpanel.php:335
 #, php-format
 msgid "Theme not available: %s."
 msgstr "Темата е недостапна: %s."
 
-#: actions/designadminpanel.php:426
+#: actions/designadminpanel.php:439
 msgid "Change logo"
 msgstr "Промени лого"
 
-#: actions/designadminpanel.php:431
+#: actions/designadminpanel.php:444
 msgid "Site logo"
 msgstr "Лого на мрежното место"
 
-#: actions/designadminpanel.php:443
+#: actions/designadminpanel.php:456
 msgid "Change theme"
 msgstr "Промени изглед"
 
-#: actions/designadminpanel.php:460
+#: actions/designadminpanel.php:473
 msgid "Site theme"
 msgstr "Изглед на мрежното место"
 
-#: actions/designadminpanel.php:461
+#: actions/designadminpanel.php:474
 msgid "Theme for the site."
 msgstr "Изглед за мрежното место."
 
-#: actions/designadminpanel.php:467
+#: actions/designadminpanel.php:480
 msgid "Custom theme"
 msgstr "Прилагоден мотив"
 
-#: actions/designadminpanel.php:471
+#: actions/designadminpanel.php:484
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr "Можете да подигнете свој изглед за StatusNet како .ZIP архив."
 
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
+#: actions/designadminpanel.php:499 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Промена на слика на позадина"
 
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
+#: actions/designadminpanel.php:504 actions/designadminpanel.php:587
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Позадина"
 
-#: actions/designadminpanel.php:496
+#: actions/designadminpanel.php:509
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1191,75 +1190,76 @@ msgstr ""
 "големина на податотеката е %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:527 lib/designsettings.php:139
+#: actions/designadminpanel.php:540 lib/designsettings.php:139
 msgid "On"
 msgstr "Вкл."
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:544 lib/designsettings.php:155
+#: actions/designadminpanel.php:557 lib/designsettings.php:155
 msgid "Off"
 msgstr "Искл."
 
-#: actions/designadminpanel.php:545 lib/designsettings.php:156
+#: actions/designadminpanel.php:558 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Вклучи или исклучи позадинска слика."
 
-#: actions/designadminpanel.php:550 lib/designsettings.php:161
+#: actions/designadminpanel.php:563 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Позадината во квадрати"
 
-#: actions/designadminpanel.php:564 lib/designsettings.php:170
+#: actions/designadminpanel.php:577 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Промена на бои"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:191
+#: actions/designadminpanel.php:600 lib/designsettings.php:191
 msgid "Content"
 msgstr "Содржина"
 
-#: actions/designadminpanel.php:600 lib/designsettings.php:204
+#: actions/designadminpanel.php:613 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Странична лента"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:217
+#: actions/designadminpanel.php:626 lib/designsettings.php:217
 msgid "Text"
 msgstr "Текст"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:230
+#: actions/designadminpanel.php:639 lib/designsettings.php:230
 msgid "Links"
 msgstr "Врски"
 
-#: actions/designadminpanel.php:651
+#: actions/designadminpanel.php:664
 msgid "Advanced"
 msgstr "Напредно"
 
-#: actions/designadminpanel.php:655
+#: actions/designadminpanel.php:668
 msgid "Custom CSS"
 msgstr "Прилагодено CSS"
 
-#: actions/designadminpanel.php:676 lib/designsettings.php:247
+#: actions/designadminpanel.php:689 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Користи по основно"
 
-#: actions/designadminpanel.php:677 lib/designsettings.php:248
+#: actions/designadminpanel.php:690 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Врати основно-зададени нагодувања"
 
-#: actions/designadminpanel.php:683 lib/designsettings.php:254
+#: actions/designadminpanel.php:696 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Врати по основно"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:685 actions/othersettings.php:126
-#: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/subscriptions.php:226 actions/tagother.php:154
-#: actions/useradminpanel.php:294 lib/applicationeditform.php:353
-#: lib/designsettings.php:256 lib/groupeditform.php:202
+#: actions/designadminpanel.php:698 actions/licenseadminpanel.php:319
+#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
+#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
+#: actions/tagother.php:154 actions/useradminpanel.php:295
+#: lib/applicationeditform.php:356 lib/designsettings.php:256
+#: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Зачувај"
 
-#: actions/designadminpanel.php:686 lib/designsettings.php:257
+#: actions/designadminpanel.php:699 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Зачувај изглед"
 
@@ -1337,7 +1337,7 @@ msgstr "Повикувањето е предолго."
 msgid "Callback URL is not valid."
 msgstr "URL-адресата за повикување е неважечка."
 
-#: actions/editapplication.php:258
+#: actions/editapplication.php:261
 msgid "Could not update application."
 msgstr "Не можев да го подновам програмот."
 
@@ -1430,7 +1430,7 @@ msgstr ""
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:347
+#: actions/smssettings.php:137 lib/applicationeditform.php:350
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Откажи"
@@ -1904,6 +1904,12 @@ msgctxt "BUTTON"
 msgid "Block"
 msgstr "Блокирај"
 
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:403
+msgctxt "TOOLTIP"
+msgid "Block this user"
+msgstr ""
+
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
 msgstr "Направи го корисникот администратор на групата"
@@ -2136,7 +2142,7 @@ msgid ""
 "s for sending messages to you."
 msgstr ""
 "Испративме потврден код на IM-адресата што ја додадовте. Ќе мора да му "
-"одобрите на %S да ви испраќа пораки."
+"одобрите на %s да Ви испраќа пораки."
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
 #: actions/imsettings.php:391
@@ -2265,7 +2271,7 @@ msgstr "Прати"
 #: actions/invite.php:228
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
-msgstr "%1$s ве покани да се придружите на %2$s"
+msgstr "%1$s Ве покани да се придружите на %2$s"
 
 #. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:231
@@ -2300,8 +2306,8 @@ msgid ""
 msgstr ""
 "%1$s Ве кани да се придружите на %2$s (%3$s).\n"
 "\n"
-"%2$s е мрежно место за микроблогирање што ви овозможува да бидете во тек "
-"луѓето што ги познавате и луѓето кои ве интересираат.\n"
+"%2$s е мрежно место за микроблогирање што Ви овозможува да бидете во тек "
+"луѓето што ги познавате и луѓето кои Ве интересираат.\n"
 "\n"
 "Можете да објавувате и новости за Вас, Ваши размисли, и настани од Вашиот "
 "живот за да ги информирате луѓето што Ве знаат. Ова е воедно и одлично место "
@@ -2351,6 +2357,110 @@ msgstr "Не членувате во таа група."
 #, php-format
 msgid "%1$s left group %2$s"
 msgstr "%1$s ја напушти групата %2$s"
+
+#. TRANS: User admin panel title
+#: actions/licenseadminpanel.php:56
+msgctxt "TITLE"
+msgid "License"
+msgstr ""
+
+#: actions/licenseadminpanel.php:67
+msgid "License for this StatusNet site"
+msgstr ""
+
+#: actions/licenseadminpanel.php:139
+msgid "Invalid license selection."
+msgstr ""
+
+#: actions/licenseadminpanel.php:149
+msgid ""
+"You must specify the owner of the content when using the All Rights Reserved "
+"license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:156
+msgid "Invalid license title. Max length is 255 characters."
+msgstr ""
+
+#: actions/licenseadminpanel.php:168
+msgid "Invalid license URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:171
+msgid "Invalid license image URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:179
+msgid "License URL must be blank or a valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:187
+msgid "License image must be blank or valid URL."
+msgstr ""
+
+#: actions/licenseadminpanel.php:239
+msgid "License selection"
+msgstr ""
+
+#: actions/licenseadminpanel.php:245
+msgid "Private"
+msgstr ""
+
+#: actions/licenseadminpanel.php:246
+msgid "All Rights Reserved"
+msgstr ""
+
+#: actions/licenseadminpanel.php:247
+msgid "Creative Commons"
+msgstr ""
+
+#: actions/licenseadminpanel.php:252
+msgid "Type"
+msgstr ""
+
+#: actions/licenseadminpanel.php:254
+msgid "Select license"
+msgstr ""
+
+#: actions/licenseadminpanel.php:268
+msgid "License details"
+msgstr ""
+
+#: actions/licenseadminpanel.php:274
+msgid "Owner"
+msgstr ""
+
+#: actions/licenseadminpanel.php:275
+msgid "Name of the owner of the site's content (if applicable)."
+msgstr ""
+
+#: actions/licenseadminpanel.php:283
+msgid "License Title"
+msgstr ""
+
+#: actions/licenseadminpanel.php:284
+msgid "The title of the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:292
+msgid "License URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:293
+msgid "URL for more information about the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:300
+msgid "License Image URL"
+msgstr ""
+
+#: actions/licenseadminpanel.php:301
+msgid "URL for an image to display with the license."
+msgstr ""
+
+#: actions/licenseadminpanel.php:319
+msgid "Save license settings"
+msgstr ""
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2590,8 +2700,8 @@ msgid "Connected applications"
 msgstr "Поврзани програми"
 
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access you account."
-msgstr "Им имате дозволено пристап до Вашата сметка на следните програми."
+msgid "You have allowed the following applications to access your account."
+msgstr ""
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
@@ -2615,7 +2725,7 @@ msgstr ""
 msgid "Notice has no profile."
 msgstr "Забелешката нема профил."
 
-#: actions/oembed.php:87 actions/shownotice.php:175
+#: actions/oembed.php:87 actions/shownotice.php:176
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s статус на %2$s"
@@ -2781,8 +2891,8 @@ msgid "Paths"
 msgstr "Патеки"
 
 #: actions/pathsadminpanel.php:70
-msgid "Path and server settings for this StatusNet site."
-msgstr "Нагодувања за патеки и опслужувачи за оваа StatusNet мрежно место."
+msgid "Path and server settings for this StatusNet site"
+msgstr ""
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -3453,7 +3563,7 @@ msgid ""
 "\n"
 "Thanks for signing up and we hope you enjoy using this service."
 msgstr ""
-"Ви честитаме %1$s! И ви пожелуваме добредојде на %%%%site.name%%%%. Оттука "
+"Ви честитаме %1$s! И Ви пожелуваме добредојде на %%%%site.name%%%%. Оттука "
 "можете да...\n"
 "\n"
 "* Отидете на [Вашиот профил](%2$s) и објавете ја Вашата прва порака.\n"
@@ -3645,8 +3755,8 @@ msgid "Sessions"
 msgstr "Сесии"
 
 #: actions/sessionsadminpanel.php:65
-msgid "Session settings for this StatusNet site."
-msgstr "Нагодувања на сесиите за оваа StatusNet-мрежно место."
+msgid "Session settings for this StatusNet site"
+msgstr ""
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3665,7 +3775,6 @@ msgid "Turn on debugging output for sessions."
 msgstr "Вклучи извод од поправка на грешки за сесии."
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/useradminpanel.php:294
 msgid "Save site settings"
 msgstr "Зачувај нагодувања на мреж. место"
 
@@ -3752,8 +3861,7 @@ msgstr ""
 #: actions/showapplication.php:309
 msgid "Are you sure you want to reset your consumer key and secret?"
 msgstr ""
-"Дали сте сигурни дека сакате да го смените вашиот кориснички клуч и тајната "
-"фраза?"
+"Дали сте сигурни дека сакате да го смените Вашиот кориснички клуч и тајна?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -4475,7 +4583,7 @@ msgid ""
 msgstr ""
 "Моментално не следите ничии забелешки. Претплатете се на луѓе кои ги "
 "познавате. Пробајте со [пребарување на луѓе](%%action.peoplesearch%%), "
-"побарајте луѓе во група која ве интересира и меѓу нашите [избрани корисници]"
+"побарајте луѓе во група која Ве интересира и меѓу нашите [избрани корисници]"
 "(%%action.featured%%). Ако сте [корисник на Twitter](%%action.twittersettings"
 "%%), тука можете автоматски да се претплатите на луѓе кои таму ги следите."
 
@@ -4590,73 +4698,77 @@ msgstr ""
 "мрежното место „%2$s“."
 
 #. TRANS: User admin panel title
-#: actions/useradminpanel.php:59
+#: actions/useradminpanel.php:60
 msgctxt "TITLE"
 msgid "User"
 msgstr "Корисник"
 
-#: actions/useradminpanel.php:70
-msgid "User settings for this StatusNet site."
-msgstr "Кориснички нагодувања за ова StatusNet-мрежно место."
+#: actions/useradminpanel.php:71
+msgid "User settings for this StatusNet site"
+msgstr ""
 
-#: actions/useradminpanel.php:149
+#: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
 msgstr "Неважечко ограничување за биографијата. Мора да е бројчено."
 
-#: actions/useradminpanel.php:155
+#: actions/useradminpanel.php:156
 msgid "Invalid welcome text. Max length is 255 characters."
 msgstr "Неважечки текст за добредојде. Дозволени се највеќе 255 знаци."
 
-#: actions/useradminpanel.php:165
+#: actions/useradminpanel.php:166
 #, php-format
 msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr "Неважечки опис по основно: „%1$s“ не е корисник."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/useradminpanel.php:218 lib/accountsettingsaction.php:111
+#: actions/useradminpanel.php:219 lib/accountsettingsaction.php:111
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Профил"
 
-#: actions/useradminpanel.php:222
+#: actions/useradminpanel.php:223
 msgid "Bio Limit"
 msgstr "Ограничување за биографијата"
 
-#: actions/useradminpanel.php:223
+#: actions/useradminpanel.php:224
 msgid "Maximum length of a profile bio in characters."
 msgstr "Максимална големина на профилната биографија во знаци."
 
-#: actions/useradminpanel.php:231
+#: actions/useradminpanel.php:232
 msgid "New users"
 msgstr "Нови корисници"
 
-#: actions/useradminpanel.php:235
+#: actions/useradminpanel.php:236
 msgid "New user welcome"
 msgstr "Добредојде за нов корисник"
 
-#: actions/useradminpanel.php:236
+#: actions/useradminpanel.php:237
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr "Текст за добредојде на нови корисници (највеќе до 255 знаци)."
 
-#: actions/useradminpanel.php:241
+#: actions/useradminpanel.php:242
 msgid "Default subscription"
 msgstr "Основно-зададена претплата"
 
-#: actions/useradminpanel.php:242
+#: actions/useradminpanel.php:243
 msgid "Automatically subscribe new users to this user."
 msgstr "Автоматски претплатувај нови корисници на овој корисник."
 
-#: actions/useradminpanel.php:251
+#: actions/useradminpanel.php:252
 msgid "Invitations"
 msgstr "Покани"
 
-#: actions/useradminpanel.php:256
+#: actions/useradminpanel.php:257
 msgid "Invitations enabled"
 msgstr "Поканите се овозможени"
 
-#: actions/useradminpanel.php:258
+#: actions/useradminpanel.php:259
 msgid "Whether to allow users to invite new users."
 msgstr "Дали да им е дозволено на корисниците да канат други корисници."
+
+#: actions/useradminpanel.php:295
+msgid "Save user settings"
+msgstr ""
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4672,7 +4784,9 @@ msgstr ""
 "за забелешките на овој корисник. Ако не сакате да се претплатите, едноставно "
 "кликнете на „Одбиј“"
 
+#. TRANS: Menu item for site administration
 #: actions/userauthorization.php:196 actions/version.php:167
+#: lib/adminpanelaction.php:403
 msgid "License"
 msgstr "Лиценца"
 
@@ -4873,6 +4987,15 @@ msgstr "Верзија"
 msgid "Author(s)"
 msgstr "Автор(и)"
 
+#: classes/Fave.php:147 lib/favorform.php:140
+msgid "Favor"
+msgstr "Омилено"
+
+#: classes/Fave.php:148
+#, php-format
+msgid "%s marked notice %s as a favorite."
+msgstr ""
+
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
 #, php-format
@@ -4929,6 +5052,17 @@ msgstr "Не е дел од групата."
 #: classes/Group_member.php:63
 msgid "Group leave failed."
 msgstr "Напуштањето на групата не успеа."
+
+#: classes/Group_member.php:108 lib/joinform.php:114
+msgid "Join"
+msgstr "Придружи се"
+
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: classes/Group_member.php:112
+#, php-format
+msgid "%1$s has joined group %2$s."
+msgstr ""
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -5014,18 +5148,18 @@ msgid "Problem saving notice."
 msgstr "Проблем во зачувувањето на белешката."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:899
+#: classes/Notice.php:906
 msgid "Bad type provided to saveKnownGroups"
 msgstr "На saveKnownGroups му е уакажан грешен тип"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:998
+#: classes/Notice.php:1005
 msgid "Problem saving group inbox."
 msgstr "Проблем при зачувувањето на групното приемно сандаче."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1759
+#: classes/Notice.php:1824
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr "RT @%1$s %2$s"
@@ -5054,7 +5188,7 @@ msgid "Missing profile."
 msgstr "Недостасува профил."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
-#: classes/Status_network.php:339
+#: classes/Status_network.php:338
 msgid "Unable to save tag."
 msgstr "Не можам да ја зачувам ознаката."
 
@@ -5088,9 +5222,18 @@ msgstr "Не можам да го избришам OMB-жетонот за пр�
 msgid "Could not delete subscription."
 msgstr "Не можам да ја избришам претплатата."
 
+#: classes/Subscription.php:254
+msgid "Follow"
+msgstr ""
+
+#: classes/Subscription.php:255
+#, php-format
+msgid "%s is now following %s."
+msgstr ""
+
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
-#: classes/User.php:365
+#: classes/User.php:384
 #, php-format
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Добредојдовте на %1$s, @%2$s!"
@@ -5413,19 +5556,19 @@ msgid "All %1$s content and data are available under the %2$s license."
 msgstr "Сите содржини и податоци на %1$s се достапни под лиценцата %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1243
+#: lib/action.php:1248
 msgid "Pagination"
 msgstr "Прелом на страници"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1254
+#: lib/action.php:1259
 msgid "After"
 msgstr "Следно"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1264
+#: lib/action.php:1269
 msgid "Before"
 msgstr "Претходно"
 
@@ -5533,6 +5676,11 @@ msgstr "Уреди објава за мрежното место"
 msgid "Snapshots configuration"
 msgstr "Поставки за снимки"
 
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:401
+msgid "Set site license"
+msgstr ""
+
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
 msgid "API resource requires read-write access, but you only have read access."
@@ -5559,7 +5707,7 @@ msgstr "Нема корисник за тој жетон."
 #. TRANS: Client error thrown when authentication fails.
 #: lib/apiauth.php:258 lib/apiauth.php:290
 msgid "Could not authenticate you."
-msgstr "Не можевме да ве потврдиме."
+msgstr "Не можевме да Ве потврдиме."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 #: lib/apioauthstore.php:178
@@ -5618,38 +5766,38 @@ msgid "URL to redirect to after authentication"
 msgstr "URL за пренасочување по заверката"
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:269
+#: lib/applicationeditform.php:270
 msgid "Browser"
 msgstr "Прелистувач"
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:286
+#: lib/applicationeditform.php:287
 msgid "Desktop"
 msgstr "Работна површина"
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:288
+#: lib/applicationeditform.php:289
 msgid "Type of application, browser or desktop"
 msgstr "Тип на програм, прелистувач или работна површина"
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:311
+#: lib/applicationeditform.php:313
 msgid "Read-only"
 msgstr "Само читање"
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:330
+#: lib/applicationeditform.php:333
 msgid "Read-write"
 msgstr "Читање-пишување"
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:332
+#: lib/applicationeditform.php:335
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Основно-зададен пристап за овој програм: само читање, или читање-пишување"
 
 #. TRANS: Submit button title.
-#: lib/applicationeditform.php:349
+#: lib/applicationeditform.php:352
 msgid "Cancel"
 msgstr "Откажи"
 
@@ -6051,7 +6199,7 @@ msgstr ""
 "follow <nickname> - претплати се на корисник\n"
 "groups - список на групи кадешто членувате\n"
 "subscriptions - список на луѓе кои ги следите\n"
-"subscribers - список на луѓе кои ве следат\n"
+"subscribers - список на луѓе кои Ве следат\n"
 "leave <nickname> - откажи претплата на корисник\n"
 "d <nickname> <text> - директна порака за корисник\n"
 "get <nickname> - прикажи последна забелешка на корисник\n"
@@ -6145,10 +6293,6 @@ msgstr "Отстрани ја белешкава од омилени"
 msgid "Favor this notice"
 msgstr "Означи ја забелешкава како омилена"
 
-#: lib/favorform.php:140
-msgid "Favor"
-msgstr "Омилено"
-
 #: lib/feed.php:85
 msgid "RSS 1.0"
 msgstr "RSS 1.0"
@@ -6166,8 +6310,8 @@ msgid "FOAF"
 msgstr "FOAF"
 
 #: lib/feedlist.php:64
-msgid "Export data"
-msgstr "Извези податоци"
+msgid "Feeds"
+msgstr ""
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -6355,10 +6499,6 @@ msgstr "[%s]"
 #, php-format
 msgid "Unknown inbox source %d."
 msgstr "Непознат извор на приемна пошта %d."
-
-#: lib/joinform.php:114
-msgid "Join"
-msgstr "Придружи се"
 
 #: lib/leaveform.php:114
 msgid "Leave"
@@ -6680,7 +6820,7 @@ msgstr ""
 "\n"
 "%6$s\n"
 "\n"
-"Еве список на сите @-одговори за вас:\n"
+"Еве список на сите @-одговори за Вас:\n"
 "\n"
 "%7$s\n"
 "\n"
@@ -6699,7 +6839,7 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 "Немате приватни пораки. Можете да испратите приватна порака за да се "
-"впуштите во разговор со други корисници. Луѓето можат да ви испраќаат пораки "
+"впуштите во разговор со други корисници. Луѓето можат да Ви испраќаат пораки "
 "што ќе можете да ги видите само Вие."
 
 #: lib/mailbox.php:228 lib/noticelist.php:506
@@ -7058,7 +7198,7 @@ msgstr "Повтори ја забелешкава"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Одземи му ја улогата „%s“ на корисников"
 
-#: lib/router.php:709
+#: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr "Не е зададен корисник за еднокорисничкиот режим."
 
@@ -7286,17 +7426,17 @@ msgid "Moderator"
 msgstr "Модератор"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1103
+#: lib/util.php:1126
 msgid "a few seconds ago"
 msgstr "пред неколку секунди"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1106
+#: lib/util.php:1129
 msgid "about a minute ago"
 msgstr "пред една минута"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1110
+#: lib/util.php:1133
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -7304,12 +7444,12 @@ msgstr[0] "пред околу една минута"
 msgstr[1] "пред околу %d минути"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1113
+#: lib/util.php:1136
 msgid "about an hour ago"
 msgstr "пред еден час"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1117
+#: lib/util.php:1140
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -7317,12 +7457,12 @@ msgstr[0] "пред околу еден час"
 msgstr[1] "пред околу %d часа"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1120
+#: lib/util.php:1143
 msgid "about a day ago"
 msgstr "пред еден ден"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1124
+#: lib/util.php:1147
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -7330,12 +7470,12 @@ msgstr[0] "пред околу еден ден"
 msgstr[1] "пред околу %d дена"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1127
+#: lib/util.php:1150
 msgid "about a month ago"
 msgstr "пред еден месец"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1131
+#: lib/util.php:1154
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -7343,7 +7483,7 @@ msgstr[0] "пред околу еден месец"
 msgstr[1] "пред околу %d месеци"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1134
+#: lib/util.php:1157
 msgid "about a year ago"
 msgstr "пред една година"
 
@@ -7356,3 +7496,17 @@ msgstr "%s не е важечка боја!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s не е важечка боја! Користете 3 или 6 шеснаесетни (hex) знаци."
+
+#: scripts/restoreuser.php:82
+#, php-format
+msgid "Backup file for user %s (%s)\n"
+msgstr ""
+
+#: scripts/restoreuser.php:88
+msgid "No user specified; using backup user.\n"
+msgstr ""
+
+#: scripts/restoreuser.php:94
+#, php-format
+msgid "%d entries in backup.\n"
+msgstr ""
