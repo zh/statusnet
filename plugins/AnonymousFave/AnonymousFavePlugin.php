@@ -216,7 +216,7 @@ class AnonymousFavePlugin extends Plugin {
         $id = $profile->insert();
 
         if (!$id) {
-            throw new ServerException(_m("Couldn't create anonymous user session"));
+            throw new ServerException(_m("Couldn't create anonymous user session."));
         }
 
         // Stick the Profile ID into the nickname
@@ -226,7 +226,7 @@ class AnonymousFavePlugin extends Plugin {
         $result = $profile->update($orig);
 
         if (!$result) {
-            throw new ServerException(_m("Couldn't create anonymous user session"));
+            throw new ServerException(_m("Couldn't create anonymous user session."));
         }
 
         common_log(
