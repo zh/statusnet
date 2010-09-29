@@ -226,11 +226,15 @@ class NoticeListItem extends Widget
     function showNoticeInfo()
     {
         $this->out->elementStart('div', 'entry-content');
-        $this->showNoticeLink();
-        $this->showNoticeSource();
-        $this->showNoticeLocation();
-        $this->showContext();
-        $this->showRepeat();
+        if (Event::handle('StartShowNoticeInfo', array($this))) {
+            $this->showNoticeLink();
+            $this->showNoticeSource();
+            $this->showNoticeLocation();
+            $this->showContext();
+            $this->showRepeat();
+            Event::handle('EndShowNoticeInfo', array($this));
+        }
+
         $this->out->elementEnd('div');
     }
 
