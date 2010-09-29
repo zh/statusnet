@@ -263,6 +263,12 @@ StartShowNoticeItem: just before showing the notice item
 EndShowNoticeItem: just after showing the notice item
 - $item: the NoticeListItem object being shown
 
+StartShowNoticeInfo: just before showing notice info
+- $item: The NoticeListItem object being shown
+
+EndShowNoticeInfo: just after showing notice info
+- $item: The NoticeListItem object being shown
+
 StartShowNoticeOptions: just before showing notice options like fave, repeat, etc.
 - $item: the NoticeListItem object being shown
 
