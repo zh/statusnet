@@ -54,15 +54,7 @@ class AnonDisfavorAction extends RedirectingAction
     {
         parent::handle($args);
 
-        $anon = $_SESSION['anon_nickname'];
-
-        $profile = Profile::staticGet('nickname', $anon);
-
-        if (empty($profile)) {
-            common_debug(
-                "AnonDisFavorAction - Anon user tried to disfave a notice but doesn't have a profile."
-            );
-        }
+        $profile = AnonymousFavePlugin::getAnonProfile();
 
         if (empty($profile) || $_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->clientError(
