@@ -151,7 +151,7 @@ class AnonymousFavePlugin extends Plugin {
 
         if (!common_logged_in()) {
 
-            $profile = $this->getAnonProfile();
+            $profile = AnonymousFavePlugin::getAnonProfile();
             if (!empty($profile)) {
                 if ($profile->hasFave($item->notice)) {
                     $disfavor = new AnonDisFavorForm($item->out, $item->notice);
@@ -207,42 +207,58 @@ class AnonymousFavePlugin extends Plugin {
 
         // Get the anon user's IP, and turn it into a nickname
         list($proxy, $ip) = common_client_ip();
-        // IP + time + random number should avoid collisions
-        $nickname = 'anonymous-' . $ip . '-' . time() . '-' . common_good_rand(5);
+
+        // IP + time + random number should help to avoid collisions
+        $baseNickname = $ip . '-' . time() . '-' . common_good_rand(5);
 
         $profile = new Profile();
-        $profile->nickname = $nickname;
+        $profile->nickname = $baseNickname;
         $id = $profile->insert();
 
-        if (!empty($id)) {
-            common_log(
-                    LOG_INFO,
-                    "AnonymousFavePlugin - created profile for anonymous user from IP: "
-                    . $ip
-                    . ', nickname = '
-                    . $nickname
-            );
+        if (!$id) {
+            throw new ServerException(_m("Couldn't create anonymous user session"));
         }
+
+        // Stick the Profile ID into the nickname
+        $orig = clone($profile);
+
+        $profile->nickname = 'anon-' . $id . '-' . $baseNickname;
+        $result = $profile->update($orig);
+
+        if (!$result) {
+            throw new ServerException(_m("Couldn't create anonymous user session"));
+        }
+
+        common_log(
+            LOG_INFO,
+            "AnonymousFavePlugin - created profile for anonymous user from IP: "
+            . $ip
+            . ', nickname = '
+            . $profile->nickname
+        );
 
         return $profile;
     }
 
-    function getAnonProfile() {
+    static function getAnonProfile() {
 
-        $anon = $_SESSION['anon_nickname'];
+        $token = $_SESSION['anon_token'];
+        $anon = base64_decode($token);
 
         $profile = null;
 
-        if (!empty($anon)) {
-            $profile = Profile::staticGet('nickname', $anon);
+        if (!empty($anon) && substr($anon, 0, 5) == 'anon-') {
+            $parts = explode('-', $anon);
+            $id = $parts[1];
+            // Do Profile lookup by ID instead of nickname for safety/performance
+            $profile = Profile::staticGet('id', $id);
         } else {
             $profile = $this->createAnonProfile();
-            $_SESSION['anon_nickname'] = $profile->nickname;
+            // Obfuscate so it's hard to figure out the Profile ID
+            $_SESSION['anon_token'] = base64_encode($profile->nickname);
         }
 
-        if (!empty($profile)) {
-            return $profile;
-        }
+        return $profile;
     }
 
     /**
