@@ -103,7 +103,6 @@ class Profile extends Memcached_DataObject
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
             # We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
-
                 $scaled_filename = $imagefile->resize($size);
 
                 //$scaled = DB_DataObject::factory('avatar');
@@ -790,13 +789,14 @@ class Profile extends Memcached_DataObject
      * @param $right string Name of the right, usually a constant in class Right
      * @return boolean whether the user has the right in question
      */
-
     function hasRight($right)
     {
         $result = false;
+
         if ($this->hasRole(Profile_role::DELETED)) {
             return false;
         }
+
         if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
             switch ($right)
             {

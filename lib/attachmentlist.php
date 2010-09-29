@@ -49,7 +49,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @see      NoticeListItem
  * @see      ProfileNoticeList
  */
-
 class AttachmentList extends Widget
 {
     /** the current stream of notices being displayed. */
@@ -61,7 +60,6 @@ class AttachmentList extends Widget
      *
      * @param Notice $notice stream of notices from DB_DataObject
      */
-
     function __construct($notice, $out=null)
     {
         parent::__construct($out);
@@ -76,7 +74,6 @@ class AttachmentList extends Widget
      *
      * @return int count of notices listed.
      */
-
     function show()
     {
         $atts = new File;
@@ -111,7 +108,6 @@ class AttachmentList extends Widget
      *
      * @return NoticeListItem a list item for displaying the notice
      */
-
     function newListItem($attachment)
     {
         return new AttachmentListItem($attachment, $this->out);
@@ -135,7 +131,6 @@ class AttachmentList extends Widget
  * @see      NoticeList
  * @see      ProfileNoticeListItem
  */
-
 class AttachmentListItem extends Widget
 {
     /** The attachment this item will show. */
@@ -151,7 +146,6 @@ class AttachmentListItem extends Widget
      *
      * @param Notice $notice The notice we'll display
      */
-
     function __construct($attachment, $out=null)
     {
         parent::__construct($out);
@@ -185,7 +179,6 @@ class AttachmentListItem extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $this->showStart();
@@ -221,7 +214,6 @@ class AttachmentListItem extends Widget
      *
      * @return void
      */
-
     function showStart()
     {
         // XXX: RDFa
@@ -236,7 +228,6 @@ class AttachmentListItem extends Widget
      *
      * @return void
      */
-
     function showEnd()
     {
         $this->out->elementEnd('li');
@@ -257,7 +248,7 @@ class Attachment extends AttachmentListItem
         $this->out->elementEnd('div');
 
         if (!empty($this->oembed->author_name) || !empty($this->oembed->provider)) {
-            $this->out->elementStart('div', array('id' => 'oembed_info', 
+            $this->out->elementStart('div', array('id' => 'oembed_info',
                                                   'class' => 'entry-content'));
             if (!empty($this->oembed->author_name)) {
                 $this->out->elementStart('dl', 'vcard author');
@@ -438,4 +429,3 @@ class Attachment extends AttachmentListItem
         $this->out->raw('<script>window.location = ' . json_encode($this->attachment->url) . ';</script>');
     }
 }
-

@@ -168,16 +168,16 @@ class Status_network extends Safe_DataObject
         $orig->decache();
         $result = $this->query($qry);
         $this->decache();
-        
+
         return $result;
     }
-    
+
     function delete()
     {
         $this->decache(); # while we still have the values!
         return parent::delete();
     }
-    
+
     /**
      * @param string $servername hostname
      * @param string $wildcard hostname suffix to match wildcard config
@@ -313,7 +313,7 @@ class Status_network extends Safe_DataObject
         if (empty($result)) {
             return explode('|', $this->tags);
         }
-        
+
         return $result;
     }
 
@@ -331,7 +331,7 @@ class Status_network extends Safe_DataObject
                 $snt->site_id = $this->site_id;
                 $snt->tag = $tag;
                 $snt->created = common_sql_now();
-                
+
                 $id = $snt->insert();
                 if (!$id) {
                     // TRANS: Exception thrown when a tag cannot be saved.
@@ -356,7 +356,7 @@ class Status_network extends Safe_DataObject
 
         $tag->free();
     }
-    
+
     /**
      * Check if this site record has a particular meta-info tag attached.
      * @param string $tag

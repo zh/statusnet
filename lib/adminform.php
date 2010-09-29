@@ -79,5 +79,4 @@ class AdminForm extends Form
         }
         return $value;
     }
-
 }
