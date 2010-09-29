@@ -236,14 +236,17 @@ class NoticeListItem extends Widget
 
     function showNoticeOptions()
     {
-        $user = common_current_user();
-        if ($user) {
-            $this->out->elementStart('div', 'notice-options');
-            $this->showFaveForm();
-            $this->showReplyLink();
-            $this->showRepeatForm();
-            $this->showDeleteLink();
-            $this->out->elementEnd('div');
+        if (Event::handle('StartShowNoticeOptions', array($this))) {
+            $user = common_current_user();
+            if ($user) {
+                $this->out->elementStart('div', 'notice-options');
+                $this->showFaveForm();
+                $this->showReplyLink();
+                $this->showRepeatForm();
+                $this->showDeleteLink();
+                $this->out->elementEnd('div');
+            }
+            Event::handle('EndShowNoticeOptions', array($this));
         }
     }
 
@@ -270,15 +273,18 @@ class NoticeListItem extends Widget
 
     function showFaveForm()
     {
-        $user = common_current_user();
-        if ($user) {
-            if ($user->hasFave($this->notice)) {
-                $disfavor = new DisfavorForm($this->out, $this->notice);
-                $disfavor->show();
-            } else {
-                $favor = new FavorForm($this->out, $this->notice);
-                $favor->show();
+        if (Event::handle('StartShowFaveForm', array($this))) {
+            $user = common_current_user();
+            if ($user) {
+                if ($user->hasFave($this->notice)) {
+                    $disfavor = new DisfavorForm($this->out, $this->notice);
+                    $disfavor->show();
+                } else {
+                    $favor = new FavorForm($this->out, $this->notice);
+                    $favor->show();
+                }
             }
+            Event::handle('EndShowFaveForm', array($this));
         }
     }
 
