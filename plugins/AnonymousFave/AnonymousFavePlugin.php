@@ -136,27 +136,6 @@ class AnonymousFavePlugin extends Plugin {
         return true;
     }
 
-
-    function onEndShowNoticeInfo($item)
-    {
-        common_debug("XXXXXXXXXXX onEndShowNoticeInfo");
-
-        $tally = Fave_tally::ensureTally($item->notice->id);
-
-        if (!empty($tally)) {
-            $item->out->elementStart(
-                'div',
-                array(
-                    'id' => 'notice-' . $item->notice->id . '-tally',
-                    'class' => 'notice-tally'
-                )
-            );
-            $item->out->raw(sprintf(_m("favored %d times"), $tally->count));
-            $item->out->elementEnd('div');
-        }
-        return true;
-    }
-
     function onStartShowNoticeOptions($item) {
 
         if (!common_logged_in()) {
@@ -185,6 +164,33 @@ class AnonymousFavePlugin extends Plugin {
         }
 
         return true;
+    }
+
+    function onEndFavorNoticeForm($form, $notice)
+    {
+        $this->showTally($form->out, $notice);
+    }
+
+    function onEndDisFavorNoticeForm($form, $notice)
+    {
+        $this->showTally($form->out, $notice);
+    }
+
+    function showTally($out, $notice)
+    {
+        $tally = Fave_tally::ensureTally($notice->id);
+
+        if (!empty($tally)) {
+            $out->elementStart(
+                'div',
+                array(
+                    'id' => 'notice-' . $notice->id . '-tally',
+                    'class' => 'notice-tally'
+                )
+            );
+            $out->raw(sprintf(_m("favored %d times"), $tally->count));
+            $out->elementEnd('div');
+        }
     }
 
     function onEndFavorNotice($profile, $notice)
