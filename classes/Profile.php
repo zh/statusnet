@@ -473,6 +473,41 @@ class Profile extends Memcached_DataObject
         return $cnt;
     }
 
+    function hasFave($notice)
+    {
+        $cache = common_memcache();
+
+        // XXX: Kind of a hack.
+
+        if (!empty($cache)) {
+            // This is the stream of favorite notices, in rev chron
+            // order. This forces it into cache.
+
+            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+
+            // If it's in the list, then it's a fave
+
+            if (in_array($notice->id, $ids)) {
+                return true;
+            }
+
+            // If we're not past the end of the cache window,
+            // then the cache has all available faves, so this one
+            // is not a fave.
+
+            if (count($ids) < NOTICE_CACHE_WINDOW) {
+                return false;
+            }
+
+            // Otherwise, cache doesn't have all faves;
+            // fall through to the default
+        }
+
+        $fave = Fave::pkeyGet(array('user_id' => $this->id,
+                                    'notice_id' => $notice->id));
+        return ((is_null($fave)) ? false : true);
+    }
+
     function faveCount()
     {
         $c = common_memcache();
@@ -514,6 +549,20 @@ class Profile extends Memcached_DataObject
         }
 
         return $cnt;
+    }
+
+    function blowFavesCache()
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            // Faves don't happen chronologically, so we need to blow
+            // ;last cache, too
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
+        }
+        $this->blowFaveCount();
     }
 
     function blowSubscriberCount()
