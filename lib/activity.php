@@ -48,7 +48,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-
 class Activity
 {
     const SPEC   = 'http://activitystrea.ms/spec/1.0/';
@@ -108,7 +107,6 @@ class Activity
      * @param DOMElement $entry Atom entry to poke at
      * @param DOMElement $feed  Atom feed, for context
      */
-
     function __construct($entry = null, $feed = null)
     {
         if (is_null($entry)) {
@@ -133,6 +131,7 @@ class Activity
                    $entry->localName == 'item') {
             $this->_fromRssItem($entry, $feed);
         } else {
+            // Low level exception. No need for i18n.
             throw new Exception("Unknown DOM element: {$entry->namespaceURI} {$entry->localName}");
         }
     }
@@ -313,7 +312,6 @@ class Activity
      *
      * @return DOMElement Atom entry
      */
-
     function toAtomEntry()
     {
         return null;

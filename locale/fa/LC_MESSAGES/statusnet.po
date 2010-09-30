@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:22+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:44+0000\n"
 "Last-Translator: Ahmad Sufi Mahmudi\n"
 "Language-Team: Persian <http://translatewiki.net/wiki/Portal:fa>\n"
 "MIME-Version: 1.0\n"
@@ -23,9 +23,9 @@ msgstr ""
 "X-Language-Code: fa\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -385,6 +385,11 @@ msgstr "نمی‌توان کاربر را دنبال نکرد: کاربر یاف
 msgid "You cannot unfollow yourself."
 msgstr "نمی‌توانید خودتان را دنبال کنید."
 
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
+msgstr "باید ۲ شناسه‌ی کاربر یا نام ظاهری وارد کنید."
+
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "نمی‌توان کاربر منبع را تعیین کرد."
@@ -498,6 +503,12 @@ msgstr "خارج شدن %s از گروه %s نا موفق بود"
 #, php-format
 msgid "%s's groups"
 msgstr "گروه‌های %s"
+
+#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
+#: actions/apigrouplist.php:108
+#, fuzzy, php-format
+msgid "%1$s groups %2$s is a member of."
+msgstr "هست عضو %s گروه"
 
 #. TRANS: Message is used as a title. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
@@ -1315,6 +1326,16 @@ msgstr "نام سازمان خیلی طولانی است (حداکثر ۲۵۵ ن
 msgid "Organization homepage is required."
 msgstr "صفحهٔ‌خانگی سازمان مورد نیاز است."
 
+#: actions/editapplication.php:218 actions/newapplication.php:206
+#, fuzzy
+msgid "Callback is too long."
+msgstr "نشانی اینترنتی منبع بسیار بلند است."
+
+#: actions/editapplication.php:225 actions/newapplication.php:215
+#, fuzzy
+msgid "Callback URL is not valid."
+msgstr "نشانی اینترنتی منبع معتبر نیست."
+
 #: actions/editapplication.php:261
 msgid "Could not update application."
 msgstr "نمی‌توان برنامه را به‌هنگام‌سازی کرد."
@@ -1935,7 +1956,7 @@ msgstr ""
 "علاقه‌مندی‌های خاصی دارد صحبت کنید. بعد از پیوستن به یک گروه می‌توانید به شکل !"
 "groupname به تمام اعضای دیگر گروه پیام بفرستید. گروهی را که دوست دارید، "
 "نمی‌بینید؟ می‌توانید برای یافتن آن [بگردید](%%%action.groupsearch%%%) !یا [آن "
-"را خودتان بسازید] (%%%%action.newgroup%%%%)"
+"را خودتان بسازید](%%%%action.newgroup%%%%)"
 
 #: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
 msgid "Create a new group"
@@ -2368,7 +2389,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "خصوصی"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -3684,6 +3705,16 @@ msgstr "کاربر این نقش را ندارد."
 msgid "StatusNet"
 msgstr "StatusNet"
 
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "شما نمی توانید کاربری را در این سایت ساکت کنید."
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "کاربر قبلا ساکت شده است."
+
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
 #: lib/adminpanelaction.php:379
@@ -3697,6 +3728,11 @@ msgstr ""
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
 msgstr "مدیریت نشست‌ها"
+
+#: actions/sessionsadminpanel.php:177
+#, fuzzy
+msgid "Whether to handle sessions ourselves."
+msgstr "چنان‌که به کاربران اجازهٔ دعوت‌کردن کاربران تازه داده شود."
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
@@ -4161,6 +4197,11 @@ msgid "Maximum number of characters for notices."
 msgstr "بیشینهٔ تعداد نویسه‌ها برای پیام‌ها."
 
 #: actions/siteadminpanel.php:278
+#, fuzzy
+msgid "Dupe limit"
+msgstr "محدودیت متن"
+
+#: actions/siteadminpanel.php:278
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 "چه مدت کاربران باید منتظر بمانند (به ثانیه) تا همان چیز را دوباره بفرستند."
@@ -4390,6 +4431,11 @@ msgstr "زمان فرستادن داده‌های آماری به کارگزار
 msgid "Frequency"
 msgstr "فرکانس"
 
+#: actions/snapshotadminpanel.php:218
+#, fuzzy
+msgid "Snapshots will be sent once every N web hits"
+msgstr "تصاویر لحظه‌ای به این نشانی اینترنتی فرستاده می‌شوند"
+
 #: actions/snapshotadminpanel.php:226
 msgid "Report URL"
 msgstr "نشانی اینترنتی گزارش"
@@ -4536,6 +4582,11 @@ msgstr "خوراک پیام برای برچسب %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "خوراک پیام برای برچسب %s (Atom)"
 
+#: actions/tagother.php:39
+#, fuzzy
+msgid "No ID argument."
+msgstr "هیچ پیوستی وجود ندارد."
+
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
@@ -4584,6 +4635,11 @@ msgstr "چنین برچسبی وجود ندارد."
 msgid "You haven't blocked that user."
 msgstr "شما آن کاربر را مسدود نکرده اید."
 
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "کاربر ساکت نشده است."
+
 #: actions/unsilence.php:72
 msgid "User is not silenced."
 msgstr "کاربر ساکت نشده است."
@@ -4595,6 +4651,12 @@ msgstr "هیچ شناسهٔ نمایه‌ای درخواست نشده است."
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
 msgstr "لغو اشتراک شده"
+
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
+#, fuzzy, php-format
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr "مجوز پیام «%1$s» با مجوز وب‌گاه «%2$s» سازگار نیست."
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:60
@@ -4731,6 +4793,21 @@ msgid ""
 "with the site’s instructions for details on how to fully reject the "
 "subscription."
 msgstr ""
+
+#: actions/userauthorization.php:303
+#, fuzzy, php-format
+msgid "Listener URI ‘%s’ not found here."
+msgstr "نشانی تصویر چهره «%s» معتبر نیست."
+
+#: actions/userauthorization.php:308
+#, fuzzy, php-format
+msgid "Listenee URI ‘%s’ is too long."
+msgstr "نشانی تصویر چهره «%s» معتبر نیست."
+
+#: actions/userauthorization.php:314
+#, fuzzy, php-format
+msgid "Listenee URI ‘%s’ is a local user."
+msgstr "نشانی اینترنتی نمایهٔ «%s» برای یک کاربر محلی است."
 
 #: actions/userauthorization.php:329
 #, php-format
@@ -4882,6 +4959,17 @@ msgstr ""
 msgid "Robin thinks something is impossible."
 msgstr ""
 
+#. TRANS: Message given if an upload is larger than the configured maximum.
+#. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
+#: classes/File.php:190
+#, fuzzy, php-format
+msgid ""
+"No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
+"Try to upload a smaller version."
+msgstr ""
+"هیچ پرونده‌ای نباید بزرگ‌تر از %d بایت باشد و پرونده‌ای که شما فرستادید %d بایت "
+"بود. بارگذاری یک نسخهٔ کوچک‌تر را امتحان کنید."
+
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
 #: classes/File.php:202
@@ -4956,6 +5044,12 @@ msgstr "شما از فرستادن پیام مستقیم مردود شده ای�
 #: classes/Message.php:63
 msgid "Could not insert message."
 msgstr "پیغام نمی تواند درج گردد"
+
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
+#, fuzzy
+msgid "Could not update message with new URI."
+msgstr "نمی‌توان پیام را تجزیه کرد."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -5045,6 +5139,12 @@ msgstr ""
 msgid "Missing profile."
 msgstr "نمایه وجود ندارد."
 
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "نمی‌توان پیام وب‌گاه را ذخیره کرد."
+
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
 msgid "You have been banned from subscribing."
@@ -5099,6 +5199,12 @@ msgstr "@%2$s، به %1$s خوش آمدید!"
 #. TRANS: Server exception thrown when creating a group failed.
 #: classes/User_group.php:496
 msgid "Could not create group."
+msgstr "نمیتوان گروه را تشکیل داد"
+
+#. TRANS: Server exception thrown when updating a group URI failed.
+#: classes/User_group.php:506
+#, fuzzy
+msgid "Could not set group URI."
 msgstr "نمیتوان گروه را تشکیل داد"
 
 #. TRANS: Server exception thrown when setting group membership failed.
@@ -5727,6 +5833,13 @@ msgstr "فرمان شکست خورد"
 msgid "Notice with that id does not exist."
 msgstr "پیامی با آن شناسه وجود ندارد."
 
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+#, fuzzy
+msgid "User has no last notice."
+msgstr "کاربر آگهی آخر ندارد"
+
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
 #: lib/command.php:130
@@ -6073,6 +6186,11 @@ msgstr ""
 "tracks - هنوز پیاده نشده است.\n"
 "tracking - هنوز پیاده نشده است.\n"
 
+#: lib/common.php:135
+#, fuzzy
+msgid "No configuration file found. "
+msgstr "بدون کد تصدیق."
+
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr "من به دنبال پرونده‌های پیکربندی در مکان‌های زیر بودم: "
@@ -6139,6 +6257,11 @@ msgstr ""
 #: lib/feed.php:87
 msgid "RSS 2.0"
 msgstr ""
+
+#: lib/feed.php:89
+#, fuzzy
+msgid "Atom"
+msgstr "مؤلف"
 
 #: lib/feed.php:91
 msgid "FOAF"
@@ -6298,6 +6421,11 @@ msgstr "فرمت(فایل) عکس پشتیبانی نشده."
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "این پرونده خیلی بزرگ است. بیشینهٔ اندازهٔ پرونده %s است."
+
+#: lib/imagefile.php:93
+#, fuzzy
+msgid "Partial upload."
+msgstr "هیچ پرونده‌ای بارگذاری نشد."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
 #: lib/imagefile.php:101 lib/mediafile.php:179
@@ -6818,6 +6946,12 @@ msgstr ""
 "متاسفیم، دریافت محل جغرافیایی شما بیش از انتظار طول کشیده است، لطفا بعدا "
 "دوباره تلاش کنید."
 
+#. TRANS: Used in coordinates as abbreviation of north
+#: lib/noticelist.php:436
+#, fuzzy
+msgid "N"
+msgstr "خیر"
+
 #. TRANS: Used in coordinates as abbreviation of south
 #: lib/noticelist.php:438
 msgid "S"
@@ -6994,6 +7128,11 @@ msgstr "خصوصیت"
 msgid "Popular"
 msgstr "محبوب"
 
+#: lib/redirectingaction.php:95
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "هیچ پیوستی وجود ندارد."
+
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
 msgstr "این پیام تکرار شود؟"
@@ -7014,6 +7153,16 @@ msgstr "دسترسی کاربر به گروه مسدود شود"
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr "هیچ کاربر تنهایی برای حالت تک کاربره مشخص نشده است."
+
+#: lib/sandboxform.php:67
+#, fuzzy
+msgid "Sandbox"
+msgstr "صندوق دریافتی"
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "آزاد سازی کاربر"
 
 #. TRANS: Fieldset legend for the search form.
 #: lib/searchaction.php:121
@@ -7068,6 +7217,11 @@ msgstr "ساکت کردن"
 msgid "Silence this user"
 msgstr "ساکت کردن این کاربر"
 
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "افراد مشترک %s"
+
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
@@ -7109,6 +7263,13 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "به روز رسانی چهره موفقیت آمیر نبود."
+
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -7137,6 +7298,11 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "خطا هنگام به‌هنگام‌سازی نمایهٔ از راه دور."
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "اعلان های بالا"
@@ -7144,6 +7310,11 @@ msgstr "اعلان های بالا"
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "آزاد سازی کاربر"
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -7277,14 +7448,15 @@ msgstr "%s یک رنگ صحیح نیست! از ۳ یا ۶ نویسه مبنای 
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "هیچ شناسهٔ کاربری مشخص نشده است."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

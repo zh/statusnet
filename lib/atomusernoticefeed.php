@@ -55,7 +55,6 @@ class AtomUserNoticeFeed extends AtomNoticeFeed
      *
      * @return void
      */
-
     function __construct($user, $cur = null, $indent = true) {
         parent::__construct($cur, $indent);
         $this->user = $user;

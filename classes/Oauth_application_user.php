@@ -40,5 +40,4 @@ class Oauth_application_user extends Memcached_DataObject
 
         return empty($result) ? null : $oau;
     }
-
 }

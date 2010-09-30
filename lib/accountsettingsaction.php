@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/lib/settingsaction.php';
  *
  * @see      Widget
  */
-
 class AccountSettingsAction extends SettingsAction
 {
     /**
@@ -54,7 +53,6 @@ class AccountSettingsAction extends SettingsAction
      *
      * @return void
      */
-
     function showLocalNav()
     {
         $menu = new AccountSettingsNav($this);
@@ -73,7 +71,6 @@ class AccountSettingsAction extends SettingsAction
  *
  * @see      HTMLOutputter
  */
-
 class AccountSettingsNav extends Widget
 {
     var $action = null;
@@ -83,7 +80,6 @@ class AccountSettingsNav extends Widget
      *
      * @param Action $action current action, used for output
      */
-
     function __construct($action=null)
     {
         parent::__construct($action);
@@ -95,7 +91,6 @@ class AccountSettingsNav extends Widget
      *
      * @return void
      */
-
     function show()
     {
         $action_name = $this->action->trimmed('action');

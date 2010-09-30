@@ -23,7 +23,6 @@ require_once(INSTALLDIR.'/lib/channel.php');
 
 class Command
 {
-
     var $user = null;
 
     function __construct($user=null)
@@ -48,7 +47,6 @@ class Command
             $channel->error($this->user, $e->getMessage());
         }
     }
-
 
     /**
      * Override this with the meat!
@@ -313,7 +311,6 @@ class FavCommand extends Command
         // TRANS: Text shown when a notice has been marked as favourite successfully.
         $channel->output($this->user, _('Notice marked as fave.'));
     }
-
 }
 
 class JoinCommand extends Command
@@ -361,8 +358,8 @@ class JoinCommand extends Command
                                               $cur->nickname,
                                               $group->nickname));
     }
-
 }
+
 class DropCommand extends Command
 {
     var $other = null;
@@ -409,7 +406,6 @@ class DropCommand extends Command
                                               $cur->nickname,
                                               $group->nickname));
     }
-
 }
 
 class WhoisCommand extends Command
@@ -471,6 +467,7 @@ class MessageCommand extends Command
                 throw $e;
             }
             // TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+            // TRANS: %s is a remote profile.
             throw new CommandException(sprintf(_('%s is a remote profile; you can only send direct messages to users on the same server.'), $this->other));
         }
 
@@ -611,7 +608,6 @@ class ReplyCommand extends Command
 
 class GetCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -638,7 +634,6 @@ class GetCommand extends Command
 
 class SubCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -678,7 +673,6 @@ class SubCommand extends Command
 
 class UnsubCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -712,6 +706,7 @@ class UnsubCommand extends Command
 class OffCommand extends Command
 {
     var $other = null;
+
     function __construct($user, $other=null)
     {
         parent::__construct($user);

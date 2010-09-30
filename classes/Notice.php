@@ -745,6 +745,7 @@ class Notice extends Memcached_DataObject
                 1,
                 1
             );
+
             if ($conversation->N > 0) {
                 return true;
             }
@@ -1305,13 +1306,10 @@ class Notice extends Memcached_DataObject
         }
 
         if (Event::handle('StartActivitySource', array(&$this, &$xs))) {
-
             if ($source) {
-
                 $atom_feed = $profile->getAtomFeed();
 
                 if (!empty($atom_feed)) {
-
                     $xs->elementStart('source');
 
                     // XXX: we should store the actual feed ID
@@ -1899,7 +1897,6 @@ class Notice extends Memcached_DataObject
         $options = array();
 
         if (!empty($location_id) && !empty($location_ns)) {
-
             $options['location_id'] = $location_id;
             $options['location_ns'] = $location_ns;
 
@@ -1911,7 +1908,6 @@ class Notice extends Memcached_DataObject
             }
 
         } else if (!empty($lat) && !empty($lon)) {
-
             $options['lat'] = $lat;
             $options['lon'] = $lon;
 
@@ -1922,7 +1918,6 @@ class Notice extends Memcached_DataObject
                 $options['location_ns'] = $location->location_ns;
             }
         } else if (!empty($profile)) {
-
             if (isset($profile->lat) && isset($profile->lon)) {
                 $options['lat'] = $profile->lat;
                 $options['lon'] = $profile->lon;

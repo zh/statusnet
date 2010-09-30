@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -139,7 +138,7 @@ class ApplicationList extends Widget
             $access = ($this->application->access_type & Oauth_application::$writeAccess)
               ? $readWriteText : $readOnlyText;
             $modifiedDate = common_date_string($appUser->modified);
-            // TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
+            // TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
             $txt = sprintf(_('Approved %1$s - "%2$s" access.'),$modifiedDate,$access);
 
             $this->out->raw($txt);

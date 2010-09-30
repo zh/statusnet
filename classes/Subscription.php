@@ -251,8 +251,11 @@ class Subscription extends Memcached_DataObject
                                   common_date_iso8601($this->created));
 
         $act->time    = strtotime($this->created);
+        // TRANS: Activity tile when subscribing to another person.
         $act->title   = _("Follow");
-        $act->content = sprintf(_("%s is now following %s."),
+        // TRANS: Notification given when one person starts following another.
+        // TRANS: %1$s is the subscriber, %2$s is the subscribed.
+        $act->content = sprintf(_("%1$s is now following %2$s."),
                                $subscriber->getBestName(),
                                $subscribed->getBestName());
 

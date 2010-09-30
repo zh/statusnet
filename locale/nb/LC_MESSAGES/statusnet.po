@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:34+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:59+0000\n"
 "Language-Team: Norwegian (bokmål)‬ <http://translatewiki.net/wiki/Portal:no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -198,6 +198,32 @@ msgstr "Du og venner"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Oppdateringer fra %1$s og venner på %2$s!"
 
+#: actions/apiaccountratelimitstatus.php:72
+#: actions/apiaccountupdatedeliverydevice.php:95
+#: actions/apiaccountupdateprofile.php:98
+#: actions/apiaccountupdateprofilebackgroundimage.php:95
+#: actions/apiaccountupdateprofilecolors.php:119
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apifavoritecreate.php:101 actions/apifavoritedestroy.php:102
+#: actions/apifriendshipscreate.php:101 actions/apifriendshipsdestroy.php:101
+#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:140
+#: actions/apigroupismember.php:115 actions/apigroupjoin.php:157
+#: actions/apigroupleave.php:143 actions/apigrouplist.php:137
+#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
+#: actions/apigroupshow.php:116 actions/apihelptest.php:88
+#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
+#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
+#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
+#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
+#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
+#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
+#: actions/apitimelineretweetedtome.php:121
+#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
+#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+#, fuzzy
+msgid "API method not found."
+msgstr "API-metode ikke funnet!"
+
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
 #: actions/apiaccountupdatedeliverydevice.php:87
@@ -220,6 +246,11 @@ msgid ""
 "none."
 msgstr "Du må angi en verdi for parameteren 'device' med en av: sms, im, none."
 
+#: actions/apiaccountupdatedeliverydevice.php:134
+#, fuzzy
+msgid "Could not update user."
+msgstr "Klarte ikke å oppdatere bruker."
+
 #: actions/apiaccountupdateprofile.php:113
 #: actions/apiaccountupdateprofilebackgroundimage.php:195
 #: actions/apiaccountupdateprofilecolors.php:186
@@ -229,6 +260,11 @@ msgstr "Du må angi en verdi for parameteren 'device' med en av: sms, im, none."
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Brukeren har ingen profil."
+
+#: actions/apiaccountupdateprofile.php:148
+#, fuzzy
+msgid "Could not save profile."
+msgstr "Klarte ikke å lagre profil."
 
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
@@ -253,6 +289,12 @@ msgstr ""
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
 msgid "Unable to save your design settings."
 msgstr "Kunne ikke lagre dine innstillinger for utseende."
+
+#: actions/apiaccountupdateprofilebackgroundimage.php:188
+#: actions/apiaccountupdateprofilecolors.php:143
+#, fuzzy
+msgid "Could not update your design."
+msgstr "Klarte ikke å oppdatere bruker."
 
 #: actions/apiblockcreate.php:106
 msgid "You cannot block yourself!"
@@ -972,6 +1014,14 @@ msgstr "Program ikke funnet."
 #: actions/showapplication.php:94
 msgid "You are not the owner of this application."
 msgstr "Du er ikke eieren av dette programmet."
+
+#. TRANS: Client error text when there is a problem with the session token.
+#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/newapplication.php:110 actions/showapplication.php:118
+#: lib/action.php:1320
+#, fuzzy
+msgid "There was a problem with your session token."
+msgstr "Det var et problem med din sesjons-autentisering. Prøv igjen."
 
 #: actions/deleteapplication.php:123 actions/deleteapplication.php:147
 msgid "Delete application"
@@ -2324,7 +2374,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2721,6 +2771,11 @@ msgstr ""
 #: actions/otp.php:95
 msgid "Invalid login token specified."
 msgstr "Ugyldig symbol."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "Logg inn på nettstedet"
 
 #: actions/outbox.php:58
 #, php-format
@@ -3745,6 +3800,11 @@ msgstr ""
 msgid "Access token URL"
 msgstr ""
 
+#: actions/showapplication.php:283
+#, fuzzy
+msgid "Authorize URL"
+msgstr "Forfatter"
+
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
@@ -4004,11 +4064,10 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** har en konto på %%%%site.name%%%%, en [mikrobloggingstjeneste] "
-"(http://no.wikipedia.org/wiki/Mikroblogg) basert på det frie "
-"programvareverktøyet [StatusNet](http://status.net/). [Bli med nå](%%%%"
-"action.register%%%%) for å følge **%s** og mange flere sine notiser. ([Les "
-"mer](%%%%doc.help%%%%))"
+"**%s** har en konto på %%%%site.name%%%%, en [mikrobloggingstjeneste](http://"
+"no.wikipedia.org/wiki/Mikroblogg) basert på det frie programvareverktøyet "
+"[StatusNet](http://status.net/). [Bli med nå](%%%%action.register%%%%) for å "
+"følge **%s** og mange flere sine notiser. ([Les mer](%%%%doc.help%%%%))"
 
 #: actions/showstream.php:248
 #, php-format
@@ -4017,9 +4076,9 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** har en konto på %%%%site.name%%%%, en [mikrobloggingstjeneste] "
-"(http://no.wikipedia.org/wiki/Mikroblogg) basert på det frie "
-"programvareverktøyet [StatusNet](http://status.net/). "
+"**%s** har en konto på %%%%site.name%%%%, en [mikrobloggingstjeneste](http://"
+"no.wikipedia.org/wiki/Mikroblogg) basert på det frie programvareverktøyet "
+"[StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
 #, php-format
@@ -4135,6 +4194,11 @@ msgstr ""
 #: actions/sitenoticeadminpanel.php:56
 msgid "Site Notice"
 msgstr "Nettstedsnotis"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "Ny melding"
 
 #: actions/sitenoticeadminpanel.php:103
 msgid "Unable to save site notice."
@@ -4316,9 +4380,24 @@ msgstr "Ingen kode skrevet inn"
 msgid "Snapshots"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:65
+#, fuzzy
+msgid "Manage snapshot configuration"
+msgstr "Endre nettstedskonfigurasjon"
+
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "Ugyldig rolle."
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "Ugyldig logo-URL."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -4344,6 +4423,11 @@ msgstr "Frekvens"
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:226
+#, fuzzy
+msgid "Report URL"
+msgstr "Nettadresse til kilde"
+
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
 msgstr ""
@@ -4351,6 +4435,11 @@ msgstr ""
 #: actions/snapshotadminpanel.php:248
 msgid "Save snapshot settings"
 msgstr "Lagre nettstedsinnstillinger"
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "Ikke autorisert."
 
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
 #: actions/subedit.php:83 classes/Subscription.php:136
@@ -4368,6 +4457,16 @@ msgstr "Ingen slik profil."
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
 msgstr ""
+
+#: actions/subscribe.php:145
+#, fuzzy
+msgid "Subscribed"
+msgstr "Abonner"
+
+#: actions/subscribers.php:50
+#, fuzzy, php-format
+msgid "%s subscribers"
+msgstr "Alle abonnenter"
 
 #: actions/subscribers.php:52
 #, php-format
@@ -4393,6 +4492,20 @@ msgstr ""
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
 msgstr ""
+
+#: actions/subscribers.php:114
+#, fuzzy, php-format
+msgid ""
+"%s has no subscribers. Why not [register an account](%%%%action.register%%%"
+"%) and be the first?"
+msgstr ""
+"Hvorfor ikke [registrere en konto](%%action.register%%) og vær den første "
+"til å poste!"
+
+#: actions/subscriptions.php:52
+#, fuzzy, php-format
+msgid "%s subscriptions"
+msgstr "Alle abonnementer"
 
 #: actions/subscriptions.php:54
 #, php-format
@@ -4451,6 +4564,11 @@ msgstr "Notismating for merkelapp %s (RSS 2.0)"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Notismating for merkelapp %s (Atom)"
 
+#: actions/tagother.php:39
+#, fuzzy
+msgid "No ID argument."
+msgstr "Ingen vedlegg."
+
 #: actions/tagother.php:65
 #, php-format
 msgid "Tag %s"
@@ -4469,6 +4587,15 @@ msgstr "Foto"
 msgid "Tag user"
 msgstr "Merk bruker"
 
+#: actions/tagother.php:151
+#, fuzzy
+msgid ""
+"Tags for this user (letters, numbers, -, ., and _), comma- or space- "
+"separated"
+msgstr ""
+"Merkelapper for degselv (bokstaver, nummer, -, ., og _), adskilt med komma "
+"eller mellomrom"
+
 #: actions/tagother.php:193
 msgid ""
 "You can only tag people you are subscribed to or who are subscribed to you."
@@ -4478,9 +4605,45 @@ msgstr ""
 msgid "Could not save tags."
 msgstr "Kunne ikke lagre merkelapper."
 
+#: actions/tagother.php:236
+#, fuzzy
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr "Bruk dette skjemaet for å redigere programmet ditt."
+
+#: actions/tagrss.php:35
+#, fuzzy
+msgid "No such tag."
+msgstr "Ingen slik side."
+
 #: actions/unblock.php:59
 msgid "You haven't blocked that user."
 msgstr "Du har ikke blokkert den brukeren."
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Brukeren er allerede i sandkassen."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Bruker er allerede brakt til taushet."
+
+#: actions/unsubscribe.php:77
+#, fuzzy
+msgid "No profile ID in request."
+msgstr "Ingen profil med den ID'en."
+
+#: actions/unsubscribe.php:98
+#, fuzzy
+msgid "Unsubscribed"
+msgstr "Abonner"
+
+#: actions/updateprofile.php:64 actions/userauthorization.php:337
+#, fuzzy, php-format
+msgid ""
+"Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr "Notislisensen ‘%1$s’ er ikke kompatibel med nettstedslisensen ‘%2$s’."
 
 #. TRANS: User admin panel title
 #: actions/useradminpanel.php:60
@@ -4593,12 +4756,22 @@ msgstr "Avvis dette abonnementet"
 msgid "No authorization request!"
 msgstr ""
 
+#: actions/userauthorization.php:254
+#, fuzzy
+msgid "Subscription authorized"
+msgstr "Abonnement"
+
 #: actions/userauthorization.php:256
 msgid ""
 "The subscription has been authorized, but no callback URL was passed. Check "
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
+
+#: actions/userauthorization.php:266
+#, fuzzy
+msgid "Subscription rejected"
+msgstr "Abonnement"
 
 #: actions/userauthorization.php:268
 msgid ""
@@ -4645,6 +4818,15 @@ msgstr "Feil bildetype for avatar-URL ‘%s’."
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
 msgstr "Vis profilutseender"
+
+#: actions/userdesignsettings.php:87 lib/designsettings.php:76
+#, fuzzy
+msgid ""
+"Customize the way your profile looks with a background image and a colour "
+"palette of your choice."
+msgstr ""
+"Tilpass hvordan gruppen din ser ut med et bakgrunnsbilde og en fargepalett "
+"av ditt valg."
 
 #: actions/userdesignsettings.php:282
 msgid "Enjoy your hotdog!"
@@ -4735,6 +4917,11 @@ msgstr "Versjon"
 msgid "Author(s)"
 msgstr "Forfatter(e)"
 
+#: classes/Fave.php:147 lib/favorform.php:140
+#, fuzzy
+msgid "Favor"
+msgstr "Favoritter"
+
 #: classes/Fave.php:148
 #, php-format
 msgid "%s marked notice %s as a favorite."
@@ -4822,6 +5009,12 @@ msgstr "Kunne ikke opprette alias."
 msgid "No database name or DSN found anywhere."
 msgstr ""
 
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "Feil ved sending av direktemelding."
+
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
 msgid "Could not insert message."
@@ -4838,6 +5031,12 @@ msgstr "Kunne ikke oppdatere melding med ny nettadresse."
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
 msgstr ""
+
+#. TRANS: Server exception. %s are the error details.
+#: classes/Notice.php:193
+#, fuzzy, php-format
+msgid "Database error inserting hashtag: %s"
+msgstr "Databasefeil ved innsetting av bruker i programmet OAuth."
 
 #. TRANS: Client exception thrown if a notice contains too many characters.
 #: classes/Notice.php:265
@@ -4861,6 +5060,12 @@ msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:291
+#, fuzzy
+msgid "You are banned from posting notices on this site."
+msgstr "Du kan ikke bringe brukere til taushet på dette nettstedet."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
@@ -4904,10 +5109,34 @@ msgstr ""
 msgid "Missing profile."
 msgstr "Manglende profil."
 
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Kunne ikke lagre nettstedsnotis."
+
+#. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
+#: classes/Subscription.php:75 lib/oauthstore.php:466
+#, fuzzy
+msgid "You have been banned from subscribing."
+msgstr "Brukeren har blokkert deg fra å abonnere."
+
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
+#, fuzzy
+msgid "Already subscribed!"
+msgstr "Alle abonnementer"
+
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr "Bruker har blokkert deg."
+
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Alle abonnementer"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -5005,6 +5234,12 @@ msgstr "%1$s - %2$s"
 #: lib/action.php:164
 msgid "Untitled page"
 msgstr "Side uten tittel"
+
+#. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
+#: lib/action.php:449
+#, fuzzy
+msgid "Primary site navigation"
+msgstr "Endre nettstedskonfigurasjon"
 
 #. TRANS: Tooltip for main menu option "Personal"
 #: lib/action.php:455
@@ -5159,6 +5394,12 @@ msgstr "OSS/FAQ"
 msgid "TOS"
 msgstr ""
 
+#. TRANS: Secondary navigation menu option leading to privacy policy.
+#: lib/action.php:799
+#, fuzzy
+msgid "Privacy"
+msgstr "Privat"
+
 #. TRANS: Secondary navigation menu option.
 #: lib/action.php:802
 msgid "Source"
@@ -5168,6 +5409,11 @@ msgstr "Kilde"
 #: lib/action.php:808
 msgid "Contact"
 msgstr "Kontakt"
+
+#: lib/action.php:810
+#, fuzzy
+msgid "Badge"
+msgstr "Knuff"
 
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:839
@@ -5205,6 +5451,12 @@ msgid ""
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
 
+#. TRANS: DT element for StatusNet site content license.
+#: lib/action.php:872
+#, fuzzy
+msgid "Site content license"
+msgstr "Programvarelisens for StatusNet"
+
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
 #: lib/action.php:879
@@ -5230,6 +5482,12 @@ msgstr ""
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
+
+#. TRANS: DT element for pagination (previous/next, etc.).
+#: lib/action.php:1248
+#, fuzzy
+msgid "Pagination"
+msgstr "Registrering"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
@@ -5268,6 +5526,12 @@ msgstr ""
 msgid "You cannot make changes to this site."
 msgstr "Du kan ikke gjøre endringer på dette nettstedet."
 
+#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
+#: lib/adminpanelaction.php:108
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Registrering ikke tillatt."
+
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:222
 msgid "showForm() not implemented."
@@ -5278,11 +5542,30 @@ msgstr "showForm() ikke implementert."
 msgid "saveSettings() not implemented."
 msgstr "saveSettings() ikke implementert."
 
+#. TRANS: Client error message thrown if design settings could not be deleted in
+#. TRANS: the admin panel Design.
+#: lib/adminpanelaction.php:274
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Kunne ikke lagre dine innstillinger for utseende."
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Basic site configuration"
+msgstr "Endre nettstedskonfigurasjon"
+
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:339
 msgctxt "MENU"
 msgid "Site"
 msgstr "Nettsted"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:345
+#, fuzzy
+msgid "Design configuration"
+msgstr "Tilgangskonfigurasjon"
 
 #. TRANS: Menu item for site administration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
@@ -5312,9 +5595,21 @@ msgid "Paths configuration"
 msgstr "Stikonfigurasjon"
 
 #. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:377
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "Tilgangskonfigurasjon"
+
+#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:385
 msgid "Edit site notice"
 msgstr "Rediger nettstedsnotis"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:393
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "Stikonfigurasjon"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
@@ -5387,6 +5682,12 @@ msgstr "Nettadresse til hjemmesiden for dette programmet"
 #: lib/applicationeditform.php:217
 msgid "Source URL"
 msgstr "Nettadresse til kilde"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:224
+#, fuzzy
+msgid "Organization responsible for this application"
+msgstr "Ikon for dette programmet"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
@@ -5477,6 +5778,12 @@ msgstr "Leverandør"
 msgid "Notices where this attachment appears"
 msgstr "Notiser hvor dette vedlegget forekommer"
 
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+#, fuzzy
+msgid "Tags for this attachment"
+msgstr "Ingen slike vedlegg."
+
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
 msgid "Password changing failed"
 msgstr "Endring av passord mislyktes"
@@ -5506,6 +5813,20 @@ msgstr "Kommando feilet"
 #: lib/command.php:84 lib/command.php:108
 msgid "Notice with that id does not exist."
 msgstr ""
+
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+#, fuzzy
+msgid "User has no last notice."
+msgstr "Brukeren har ingen profil."
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "Klarte ikke å oppdatere bruker med bekreftet e-post."
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
@@ -5611,6 +5932,13 @@ msgstr "Melding for lang - maks er %1$d tegn, du sendte %2$d."
 msgid "Error sending direct message."
 msgstr "Feil ved sending av direktemelding."
 
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
+msgstr "Nytt nick"
+
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
@@ -5622,6 +5950,13 @@ msgstr "Feil ved repetering av notis."
 #, php-format
 msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
+
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
+#, fuzzy, php-format
+msgid "Reply to %s sent."
+msgstr "Svar til %s"
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 #: lib/command.php:606
@@ -5658,10 +5993,35 @@ msgstr ""
 msgid "Unsubscribed from %s."
 msgstr ""
 
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
+#, fuzzy
+msgid "Command not yet implemented."
+msgstr "Beklager, denne kommandoen er ikke implementert ennå."
+
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
+#, fuzzy
+msgid "Notification off."
+msgstr "Ingen bekreftelseskode."
+
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 #: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
+
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
+#, fuzzy
+msgid "Notification on."
+msgstr "Ingen bekreftelseskode."
+
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
+#, fuzzy
+msgid "Can't turn on notification."
+msgstr "Kan ikke gjenta din egen notis."
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
 #: lib/command.php:771
@@ -5682,6 +6042,12 @@ msgstr ""
 msgid "Unsubscribed %s."
 msgstr ""
 
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "Ikke autorisert."
+
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
@@ -5690,6 +6056,13 @@ msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ikke autorisert."
 msgstr[1] "Ikke autorisert."
+
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Svar til %s"
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
@@ -5770,6 +6143,11 @@ msgstr "Jeg så etter konfigurasjonfiler på følgende seter: "
 msgid "You may wish to run the installer to fix this."
 msgstr ""
 
+#: lib/common.php:139
+#, fuzzy
+msgid "Go to the installer."
+msgstr "Log inn på nettstedet"
+
 #: lib/connectsettingsaction.php:110
 msgid "IM"
 msgstr ""
@@ -5786,6 +6164,11 @@ msgstr "Oppdatert med SMS"
 msgid "Connections"
 msgstr "Tilkoblinger"
 
+#: lib/connectsettingsaction.php:121
+#, fuzzy
+msgid "Authorized connected applications"
+msgstr "Tilkoblede program"
+
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr "Databasefeil"
@@ -5793,6 +6176,27 @@ msgstr "Databasefeil"
 #: lib/designsettings.php:105
 msgid "Upload file"
 msgstr "Last opp fil"
+
+#: lib/designsettings.php:109
+#, fuzzy
+msgid ""
+"You can upload your personal background image. The maximum file size is 2MB."
+msgstr "Du kan laste opp en personlig avatar. Maks filstørrelse er %s."
+
+#: lib/designsettings.php:418
+#, fuzzy
+msgid "Design defaults restored."
+msgstr "Utseende lagret."
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+#, fuzzy
+msgid "Disfavor this notice"
+msgstr "Slett denne notisen"
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Repeter denne notisen"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -5814,9 +6218,24 @@ msgstr "Venn av en venn"
 msgid "Feeds"
 msgstr ""
 
+#: lib/galleryaction.php:121
+#, fuzzy
+msgid "Filter tags"
+msgstr "Feed for taggen %s"
+
 #: lib/galleryaction.php:131
 msgid "All"
 msgstr "Alle"
+
+#: lib/galleryaction.php:139
+#, fuzzy
+msgid "Select tag to filter"
+msgstr "Velg en operatør"
+
+#: lib/galleryaction.php:140
+#, fuzzy
+msgid "Tag"
+msgstr "Tagger"
 
 #: lib/galleryaction.php:141
 msgid "Choose a tag to narrow list"
@@ -5843,6 +6262,12 @@ msgstr "Beskriv programmet ditt"
 #, php-format
 msgid "Describe the group or topic in %d characters"
 msgstr "Beskriv programmet ditt med %d tegn"
+
+#: lib/groupeditform.php:179
+#, fuzzy
+msgid ""
+"Location for the group, if any, like \"City, State (or Region), Country\""
+msgstr "Hvor du er, for eksempel «By, fylke (eller region), land»"
 
 #: lib/groupeditform.php:187
 #, php-format
@@ -5928,6 +6353,11 @@ msgstr "Grupper med flest medlemmer"
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr "Grupper med flest innlegg"
+
+#: lib/grouptagcloudsection.php:56
+#, fuzzy, php-format
+msgid "Tags in %s group's notices"
+msgstr "Rediger %s gruppeegenskaper"
 
 #. TRANS: Client exception 406
 #: lib/htmloutputter.php:104
@@ -6330,6 +6760,16 @@ msgstr "Kunne ikke tolke meldingen."
 msgid "Not a registered user."
 msgstr "Ikke en registrert bruker."
 
+#: lib/mailhandler.php:46
+#, fuzzy
+msgid "Sorry, that is not your incoming email address."
+msgstr "Det er ikke din e-postadresse."
+
+#: lib/mailhandler.php:50
+#, fuzzy
+msgid "Sorry, no incoming email allowed."
+msgstr "Ingen innkommende e-postadresse."
+
 #: lib/mailhandler.php:228
 #, php-format
 msgid "Unsupported message type: %s"
@@ -6489,6 +6929,11 @@ msgstr "på"
 msgid "web"
 msgstr ""
 
+#: lib/noticelist.php:568
+#, fuzzy
+msgid "in context"
+msgstr "Inget innhold."
+
 #: lib/noticelist.php:603
 msgid "Repeated by"
 msgstr "Repetert av"
@@ -6534,6 +6979,11 @@ msgstr ""
 msgid "Duplicate notice."
 msgstr ""
 
+#: lib/oauthstore.php:491
+#, fuzzy
+msgid "Couldn't insert new subscription."
+msgstr "Kunne ikke sette inn bekreftelseskode."
+
 #: lib/personalgroupnav.php:99
 msgid "Personal"
 msgstr "Personlig"
@@ -6561,6 +7011,11 @@ msgstr "Utboks"
 #: lib/personalgroupnav.php:131
 msgid "Your sent messages"
 msgstr "Dine sendte meldinger"
+
+#: lib/personaltagcloudsection.php:56
+#, fuzzy, php-format
+msgid "Tags in %s's notices"
+msgstr "Bruker har ingen siste notis"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
 #: lib/plugin.php:116
@@ -6612,6 +7067,26 @@ msgstr "Offentlig"
 msgid "User groups"
 msgstr "Brukergrupper"
 
+#: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
+#, fuzzy
+msgid "Recent tags"
+msgstr "Nyeste Tagger"
+
+#: lib/publicgroupnav.php:88
+#, fuzzy
+msgid "Featured"
+msgstr "Profilerte brukere"
+
+#: lib/publicgroupnav.php:92
+#, fuzzy
+msgid "Popular"
+msgstr "Populære notiser"
+
+#: lib/redirectingaction.php:95
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "Ingen vedlegg."
+
 #: lib/repeatform.php:107
 msgid "Repeat this notice?"
 msgstr "Repeter denne notisen?"
@@ -6624,9 +7099,19 @@ msgstr "Ja"
 msgid "Repeat this notice"
 msgstr "Repeter denne notisen"
 
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Blokker denne brukeren fra denne gruppen"
+
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
 msgstr ""
+
+#: lib/sandboxform.php:67
+#, fuzzy
+msgid "Sandbox"
+msgstr "Innboks"
 
 #: lib/sandboxform.php:78
 msgid "Sandbox this user"
@@ -6669,22 +7154,47 @@ msgstr "Finn innhold i notiser"
 msgid "Find groups on this site"
 msgstr "Finn grupper på dette nettstedet"
 
+#: lib/section.php:89
+#, fuzzy
+msgid "Untitled section"
+msgstr "Side uten tittel"
+
 #: lib/section.php:106
 msgid "More..."
 msgstr "Mer..."
 
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "Nettstedsnotis"
+
 #: lib/silenceform.php:78
 msgid "Silence this user"
 msgstr "Slett denne brukeren"
+
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Fjernabonner"
 
 #: lib/subgroupnav.php:91
 #, php-format
 msgid "People subscribed to %s"
 msgstr "Fjernabonner"
 
+#: lib/subgroupnav.php:99
+#, fuzzy, php-format
+msgid "Groups %s is a member of"
+msgstr "%1$s grupper %2$s er et medlem av."
+
 #: lib/subgroupnav.php:105
 msgid "Invite"
 msgstr "Inviter"
+
+#: lib/subgroupnav.php:106
+#, fuzzy, php-format
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "Inviter venner og kollegaer til å bli med deg på %s"
 
 #: lib/subscriberspeopleselftagcloudsection.php:48
 #: lib/subscriptionspeopleselftagcloudsection.php:48
@@ -6707,6 +7217,13 @@ msgstr ""
 #: lib/themeuploader.php:58 lib/themeuploader.php:61
 msgid "The theme file is missing or the upload failed."
 msgstr ""
+
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Oppdatering av avatar mislyktes."
 
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
@@ -6736,6 +7253,11 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Feil ved oppdatering av fjernprofil."
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr ""
@@ -6755,6 +7277,26 @@ msgstr ""
 #: lib/unsilenceform.php:78
 msgid "Unsilence this user"
 msgstr "Opphev blokkering av denne brukeren"
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+#, fuzzy
+msgid "Unsubscribe from this user"
+msgstr "Abonner på denne brukeren"
+
+#: lib/unsubscribeform.php:137
+#, fuzzy
+msgid "Unsubscribe"
+msgstr "Abonner"
+
+#: lib/userprofile.php:117
+#, fuzzy
+msgid "Edit Avatar"
+msgstr "Brukerbilde"
+
+#: lib/userprofile.php:234 lib/userprofile.php:248
+#, fuzzy
+msgid "User actions"
+msgstr "Gruppehandlinger"
 
 #: lib/userprofile.php:237
 msgid "User deletion in progress..."
@@ -6868,14 +7410,15 @@ msgstr "%s er ikke en gyldig farge. Bruk 3 eller 6 heksadesimale tegn."
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Ingen bruker-ID spesifisert."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

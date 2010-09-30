@@ -13,18 +13,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:41+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:26:07+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -167,7 +167,7 @@ msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
 "something yourself."
 msgstr ""
-"尝试关注更多的人、[加入一个小组] (%%action.groups%%) 或者自己发一些东西。"
+"尝试关注更多的人、[加入一个小组](%%action.groups%%) 或者自己发一些东西。"
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
 #: actions/all.php:146
@@ -734,7 +734,7 @@ msgstr "带 %s 标签的消息"
 #: actions/apitimelinetag.php:107 actions/tagrss.php:65
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
-msgstr ""
+msgstr "%2$s 上有 %1$s 标签的消息！"
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
@@ -1111,7 +1111,7 @@ msgstr "外观"
 
 #: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site"
-msgstr ""
+msgstr "这个 StatusNet 网站的外观设置"
 
 #: actions/designadminpanel.php:331
 msgid "Invalid logo URL."
@@ -1604,16 +1604,16 @@ msgstr "取消收藏"
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
-msgstr "收藏最多的消息"
+msgstr "最新被收藏的消息"
 
 #: actions/favorited.php:67
 #, php-format
 msgid "Popular notices, page %d"
-msgstr "收藏最多的消息，第%d页"
+msgstr "最新被收藏的消息，第%d页"
 
 #: actions/favorited.php:79
 msgid "The most popular notices on the site right now."
-msgstr "目前网站上被收藏最多的消息。"
+msgstr "目前网站上最新被收藏的消息。"
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1868,7 +1868,7 @@ msgstr "屏蔽"
 #: actions/groupmembers.php:403
 msgctxt "TOOLTIP"
 msgid "Block this user"
-msgstr ""
+msgstr "屏蔽这个用户"
 
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
@@ -2302,105 +2302,105 @@ msgstr "%1$s离开了%2$s小组。"
 #: actions/licenseadminpanel.php:56
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "许可协议"
 
 #: actions/licenseadminpanel.php:67
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "这个 StatusNet 网站的许可协议"
 
 #: actions/licenseadminpanel.php:139
 msgid "Invalid license selection."
-msgstr ""
+msgstr "无效的许可协议选择。"
 
 #: actions/licenseadminpanel.php:149
 msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
-msgstr ""
+msgstr "当使用版权所有的许可协议时，你必须指定内容的所有者。"
 
 #: actions/licenseadminpanel.php:156
 msgid "Invalid license title. Max length is 255 characters."
-msgstr ""
+msgstr "无效的许可协议标题。最大长度255个字符。"
 
 #: actions/licenseadminpanel.php:168
 msgid "Invalid license URL."
-msgstr ""
+msgstr "无效的许可协议 URL。"
 
 #: actions/licenseadminpanel.php:171
 msgid "Invalid license image URL."
-msgstr ""
+msgstr "无效的许可协议图片 URL。"
 
 #: actions/licenseadminpanel.php:179
 msgid "License URL must be blank or a valid URL."
-msgstr ""
+msgstr "许可协议 URL 必须是个有效的 URL 或者为空。"
 
 #: actions/licenseadminpanel.php:187
 msgid "License image must be blank or valid URL."
-msgstr ""
+msgstr "许可协议图片 URL 必须是个有效的 URL 或者为空。"
 
 #: actions/licenseadminpanel.php:239
 msgid "License selection"
-msgstr ""
+msgstr "许可协议选择"
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "私有"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "版权所有"
 
 #: actions/licenseadminpanel.php:247
 msgid "Creative Commons"
-msgstr ""
+msgstr "创作共用"
 
 #: actions/licenseadminpanel.php:252
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: actions/licenseadminpanel.php:254
 msgid "Select license"
-msgstr ""
+msgstr "选择许可协议"
 
 #: actions/licenseadminpanel.php:268
 msgid "License details"
-msgstr ""
+msgstr "许可协议细节"
 
 #: actions/licenseadminpanel.php:274
 msgid "Owner"
-msgstr ""
+msgstr "所有者"
 
 #: actions/licenseadminpanel.php:275
 msgid "Name of the owner of the site's content (if applicable)."
-msgstr ""
+msgstr "这个网站内容的所有者姓名（如果适用）。"
 
 #: actions/licenseadminpanel.php:283
 msgid "License Title"
-msgstr ""
+msgstr "许可协议标题"
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
-msgstr ""
+msgstr "许可协议的标题。"
 
 #: actions/licenseadminpanel.php:292
 msgid "License URL"
-msgstr ""
+msgstr "许可协议 URL"
 
 #: actions/licenseadminpanel.php:293
 msgid "URL for more information about the license."
-msgstr ""
+msgstr "更多许可协议信息的 URL。"
 
 #: actions/licenseadminpanel.php:300
 msgid "License Image URL"
-msgstr ""
+msgstr "许可协议图片 URL。"
 
 #: actions/licenseadminpanel.php:301
 msgid "URL for an image to display with the license."
-msgstr ""
+msgstr "与许可协议一起出现的图片 URL。"
 
 #: actions/licenseadminpanel.php:319
 msgid "Save license settings"
-msgstr ""
+msgstr "保存许可协议设置"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2632,7 +2632,7 @@ msgstr "关联的应用"
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access your account."
-msgstr ""
+msgstr "你已允许以下程序访问你的帐号。"
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
@@ -2820,7 +2820,7 @@ msgstr "路径"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site"
-msgstr ""
+msgstr "这个 StatusNet 网站的路径和服务器设置。"
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -3645,7 +3645,7 @@ msgstr "Sessions"
 
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
-msgstr ""
+msgstr "这个 StatusNet 网站的 session 设置"
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -4561,7 +4561,7 @@ msgstr "用户"
 
 #: actions/useradminpanel.php:71
 msgid "User settings for this StatusNet site"
-msgstr ""
+msgstr "这个 StatusNet 网站的用户设置"
 
 #: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
@@ -4624,7 +4624,7 @@ msgstr "是否允许用户发送注册邀请。"
 
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
-msgstr ""
+msgstr "保存用户设置"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4834,7 +4834,7 @@ msgstr "收藏"
 #: classes/Fave.php:148
 #, php-format
 msgid "%s marked notice %s as a favorite."
-msgstr ""
+msgstr "%s 将消息 %s 添加到了收藏。"
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
@@ -4900,7 +4900,7 @@ msgstr "加入"
 #: classes/Group_member.php:112
 #, php-format
 msgid "%1$s has joined group %2$s."
-msgstr ""
+msgstr "%1$s加入了%2$s小组。"
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -5059,12 +5059,12 @@ msgstr "无法取消关注。"
 
 #: classes/Subscription.php:254
 msgid "Follow"
-msgstr ""
+msgstr "关注"
 
 #: classes/Subscription.php:255
 #, php-format
 msgid "%s is now following %s."
-msgstr ""
+msgstr "%s 现在开始关注 %s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5509,7 +5509,7 @@ msgstr "更改站点配置"
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
 msgid "Set site license"
-msgstr ""
+msgstr "设置网站许可协议"
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
@@ -6129,7 +6129,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Feeds"
-msgstr ""
+msgstr "Feeds"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -7296,15 +7296,16 @@ msgid "%s is not a valid color! Use 3 or 6 hex chars."
 msgstr "%s不是有效的颜色！应使用3或6个十六进制字符。"
 
 #: scripts/restoreuser.php:82
-#, php-format
-msgid "Backup file for user %s (%s)\n"
-msgstr ""
+#, fuzzy, php-format
+msgid "Backup file for user %s (%s)"
+msgstr "用户 %s (%s) 的备份文件\n"
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "N没有用户被指定；使用备份用户。\n"
 
 #: scripts/restoreuser.php:94
-#, php-format
-msgid "%d entries in backup.\n"
-msgstr ""
+#, fuzzy, php-format
+msgid "%d entries in backup."
+msgstr "备份中有 %d 个条目。\n"

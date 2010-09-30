@@ -38,7 +38,6 @@ class Message extends Memcached_DataObject
     }
 
     static function saveNew($from, $to, $content, $source) {
-
         $sender = Profile::staticGet('id', $from);
 
         if (!$sender->hasRight(Right::NEWMESSAGE)) {

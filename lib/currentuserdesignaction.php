@@ -44,7 +44,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  *
  */
-
 class CurrentUserDesignAction extends Action
 {
     /**
@@ -54,7 +53,6 @@ class CurrentUserDesignAction extends Action
      *
      * @return Design a design object to use
      */
-
     function getDesign()
     {
         $cur = common_current_user();

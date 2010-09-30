@@ -57,4 +57,3 @@ class File_thumbnail extends Memcached_DataObject
         $tn->insert();
     }
 }
-

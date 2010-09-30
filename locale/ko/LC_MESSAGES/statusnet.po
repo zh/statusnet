@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:30+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:56+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -377,6 +377,11 @@ msgstr "언팔로우할 수 없습니다: 이용자 없음."
 msgid "You cannot unfollow yourself."
 msgstr "자기 자신을 언팔로우할 수 없습니다."
 
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
+msgstr "두 개의 사용자 ID나 대화명을 입력해야 합니다."
+
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "소스 이용자를 확인할 수 없습니다."
@@ -435,6 +440,11 @@ msgstr "위치가 너무 깁니다. (최대 255글자)"
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "별명이 너무 많습니다! 최대 %d개."
+
+#: actions/apigroupcreate.php:268
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
+msgstr "사용할 수 없는 별명 : \"%s\""
 
 #: actions/apigroupcreate.php:277 actions/editgroup.php:232
 #: actions/newgroup.php:172
@@ -514,6 +524,10 @@ msgstr "실행 실패"
 msgid "No oauth_token parameter provided."
 msgstr ""
 
+#: actions/apioauthauthorize.php:106
+msgid "Invalid token."
+msgstr "토큰이 잘못되었습니다."
+
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
@@ -531,6 +545,10 @@ msgstr ""
 #: lib/designsettings.php:294
 msgid "There was a problem with your session token. Try again, please."
 msgstr "세션토큰에 문제가 있습니다. 다시 시도해주십시오."
+
+#: actions/apioauthauthorize.php:135
+msgid "Invalid nickname / password!"
+msgstr "사용자 이름이나 비밀 번호가 틀렸습니다."
 
 #: actions/apioauthauthorize.php:159
 msgid "Database error deleting OAuth application user."
@@ -668,6 +686,11 @@ msgstr "소식의 최대 길이는 첨부 URL을 포함하여 %d 글자입니다
 msgid "Unsupported format."
 msgstr "지원하지 않는 형식입니다."
 
+#: actions/apitimelinefavorites.php:110
+#, fuzzy, php-format
+msgid "%1$s / Favorites from %2$s"
+msgstr "%s / %s의 좋아하는 글"
+
 #: actions/apitimelinefavorites.php:119
 #, php-format
 msgid "%1$s updates favorited by %2$s / %2$s."
@@ -693,10 +716,25 @@ msgstr "%s 공개 타임라인"
 msgid "%s updates from everyone!"
 msgstr "모두로부터의 업데이트 %s개!"
 
+#: actions/apitimelineretweetedtome.php:111
+#, fuzzy, php-format
+msgid "Repeated to %s"
+msgstr "%s에 답신"
+
+#: actions/apitimelineretweetsofme.php:114
+#, fuzzy, php-format
+msgid "Repeats of %s"
+msgstr "%s에 답신"
+
 #: actions/apitimelinetag.php:105 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "%s 태그된 통지"
+
+#: actions/apitimelinetag.php:107 actions/tagrss.php:65
+#, fuzzy, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "%2$s에 있는 %1$s의 업데이트!"
 
 #: actions/apitrends.php:87
 msgid "API method under construction."
@@ -765,6 +803,10 @@ msgstr "올리기"
 #: actions/avatarsettings.php:231 actions/grouplogo.php:289
 msgid "Crop"
 msgstr "자르기"
+
+#: actions/avatarsettings.php:305
+msgid "No file uploaded."
+msgstr "파일을 업로드하지 않았습니다."
 
 #: actions/avatarsettings.php:332
 msgid "Pick a square area of the image to be your avatar"
@@ -869,6 +911,11 @@ msgstr "%s 및 친구들, %d 페이지"
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%1$s 및 친구들, %2$d 페이지"
 
+#: actions/blockedfromgroup.php:115
+#, fuzzy
+msgid "A list of the users blocked from joining this group."
+msgstr "이 그룹의 회원리스트"
+
 #: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
 msgstr "그룹 이용자는 차단해제"
@@ -900,6 +947,12 @@ msgstr "인증 코드가 없습니다."
 #: actions/confirmaddress.php:85
 msgid "That confirmation code is not for you!"
 msgstr "그 인증 코드는 귀하의 것이 아닙니다!"
+
+#. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
+#: actions/confirmaddress.php:91
+#, fuzzy, php-format
+msgid "Unrecognized address type %s."
+msgstr "인식되지않은 주소유형 %s"
 
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
@@ -1001,6 +1054,14 @@ msgstr "로그인하고 있지 않습니다."
 msgid "Can't delete this notice."
 msgstr "이 통지를 지울 수 없습니다."
 
+#: actions/deletenotice.php:103
+#, fuzzy
+msgid ""
+"You are about to permanently delete a notice. Once this is done, it cannot "
+"be undone."
+msgstr ""
+"영구적으로 게시글을 삭제하려고 합니다. 한번 삭제되면, 복구할 수 없습니다."
+
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
 msgstr "통지 삭제"
@@ -1008,6 +1069,12 @@ msgstr "통지 삭제"
 #: actions/deletenotice.php:144
 msgid "Are you sure you want to delete this notice?"
 msgstr "정말로 통지를 삭제하시겠습니까?"
+
+#. TRANS: Submit button title for 'No' when deleting a notice.
+#: actions/deletenotice.php:151
+#, fuzzy
+msgid "Do not delete this notice"
+msgstr "이 통지를 지울 수 없습니다."
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
 #: actions/deletenotice.php:158 lib/noticelist.php:657
@@ -1149,7 +1216,7 @@ msgstr "사용자 정의 CSS"
 
 #: actions/designadminpanel.php:689 lib/designsettings.php:247
 msgid "Use defaults"
-msgstr ""
+msgstr "기본값 사용"
 
 #: actions/designadminpanel.php:690 lib/designsettings.php:248
 msgid "Restore default designs"
@@ -1170,6 +1237,11 @@ msgstr ""
 #: lib/groupeditform.php:202
 msgid "Save"
 msgstr "저장"
+
+#: actions/designadminpanel.php:699 lib/designsettings.php:257
+#, fuzzy
+msgid "Save design"
+msgstr "프로필 디자인"
 
 #: actions/disfavor.php:81
 msgid "This notice is not a favorite!"
@@ -1197,9 +1269,24 @@ msgstr "응용 프로그램 수정을 위해서는 로그인해야 합니다."
 msgid "No such application."
 msgstr "신규 응용 프로그램"
 
+#: actions/editapplication.php:161
+#, fuzzy
+msgid "Use this form to edit your application."
+msgstr "다음 양식을 이용해 그룹을 편집하십시오."
+
 #: actions/editapplication.php:177 actions/newapplication.php:159
 msgid "Name is required."
 msgstr "기관 이름이 필요합니다."
+
+#: actions/editapplication.php:180 actions/newapplication.php:165
+#, fuzzy
+msgid "Name is too long (max 255 chars)."
+msgstr "실명이 너무 깁니다. (최대 255글자)"
+
+#: actions/editapplication.php:183 actions/newapplication.php:162
+#, fuzzy
+msgid "Name already in use. Try another one."
+msgstr "별명이 이미 사용중 입니다. 다른 별명을 시도해 보십시오."
 
 #: actions/editapplication.php:186 actions/newapplication.php:168
 msgid "Description is required."
@@ -1470,6 +1557,12 @@ msgstr ""
 msgid "No pending confirmation to cancel."
 msgstr "취소 할 대기중인 인증이 없습니다."
 
+#. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
+#: actions/emailsettings.php:428
+#, fuzzy
+msgid "That is the wrong email address."
+msgstr "옳지 않은 메신저 계정 입니다."
+
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:442
 msgid "Email confirmation cancelled."
@@ -1552,6 +1645,11 @@ msgstr ""
 msgid "%s's favorite notices"
 msgstr "%s 님의 좋아하는 글"
 
+#: actions/favoritesrss.php:115
+#, fuzzy, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "%2$s에 있는 %1$s의 업데이트!"
+
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
 msgid "Featured users"
@@ -1561,6 +1659,11 @@ msgstr "인기있는 회원"
 #, php-format
 msgid "Featured users, page %d"
 msgstr "인기있는 회원, %d페이지"
+
+#: actions/featured.php:99
+#, fuzzy, php-format
+msgid "A selection of some great users on %s"
+msgstr "%s의 훌륭한 회원의 일부 선택"
 
 #: actions/file.php:34
 msgid "No notice ID."
@@ -1582,6 +1685,11 @@ msgstr "첨부문서 없음"
 msgid "Not expecting this response!"
 msgstr "예상치 못한 반응 입니다."
 
+#: actions/finishremotesubscribe.php:80
+#, fuzzy
+msgid "User being listened to does not exist."
+msgstr "살펴 보고 있는 사용자가 없습니다."
+
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
 msgstr "당신은 로컬 구독을 사용할 수 있습니다."
@@ -1594,6 +1702,21 @@ msgstr "이 사용자는 귀하의 구독을 차단했습니다."
 msgid "You are not authorized."
 msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
+#: actions/finishremotesubscribe.php:113
+#, fuzzy
+msgid "Could not convert request token to access token."
+msgstr "리퀘스트 토큰을 엑세스 토큰으로 변환 할 수 없습니다."
+
+#: actions/finishremotesubscribe.php:118
+#, fuzzy
+msgid "Remote service uses unknown version of OMB protocol."
+msgstr "OMB 프로토콜의 알려지지 않은 버전"
+
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+#, fuzzy
+msgid "Error updating remote profile."
+msgstr "리모트 프로필 업데이트 오류"
+
 #: actions/getfile.php:79
 msgid "No such file."
 msgstr "해당하는 파일이 없습니다."
@@ -1601,6 +1724,11 @@ msgstr "해당하는 파일이 없습니다."
 #: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "파일을 읽을 수 없습니다."
+
+#: actions/grantrole.php:62 actions/revokerole.php:62
+#, fuzzy
+msgid "Invalid role."
+msgstr "옳지 않은 크기"
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
@@ -1626,6 +1754,12 @@ msgstr "프로필을 지정하지 않았습니다."
 msgid "No profile with that ID."
 msgstr "해당 ID의 프로필이 없습니다."
 
+#: actions/groupblock.php:81 actions/groupunblock.php:81
+#: actions/makeadmin.php:81
+#, fuzzy
+msgid "No group specified."
+msgstr "프로필을 지정하지 않았습니다."
+
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
 msgstr ""
@@ -1642,6 +1776,16 @@ msgstr "그룹 이용자는 차단해제"
 msgid "Block user from group"
 msgstr "그룹 이용자는 차단해제"
 
+#: actions/groupblock.php:160
+#, fuzzy, php-format
+msgid ""
+"Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
+"will be removed from the group, unable to post, and unable to subscribe to "
+"the group in the future."
+msgstr ""
+"정말 이용자를 차단하시겠습니까? 차단된 이용자는 구독해제되고, 이후 당신을 구"
+"독할 수 없으며, 차단된 이용자로부터 @-답장의 통보를 받지 않게 됩니다."
+
 #. TRANS: Submit button title for 'No' when blocking a user from a group.
 #: actions/groupblock.php:182
 msgid "Do not block this user from this group"
@@ -1652,9 +1796,19 @@ msgstr "이용자를 차단하지 않는다."
 msgid "Block this user from this group"
 msgstr "그룹 이용자는 차단해제"
 
+#: actions/groupblock.php:206
+#, fuzzy
+msgid "Database error blocking user from group."
+msgstr "그룹 이용자는 차단해제"
+
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
 msgstr "ID가 없습니다."
+
+#: actions/groupdesignsettings.php:68
+#, fuzzy
+msgid "You must be logged in to edit a group."
+msgstr "그룹을 만들기 위해서는 로그인해야 합니다."
 
 #: actions/groupdesignsettings.php:144
 msgid "Group design"
@@ -1724,19 +1878,23 @@ msgstr "관리자"
 #: actions/groupmembers.php:399
 msgctxt "BUTTON"
 msgid "Block"
-msgstr ""
+msgstr "차단"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:403
 msgctxt "TOOLTIP"
 msgid "Block this user"
-msgstr ""
+msgstr "이 사용자 차단"
+
+#: actions/groupmembers.php:498
+msgid "Make user an admin of the group"
+msgstr "사용자를 그룹의 관리자로 만듭니다"
 
 #. TRANS: Button text for the form that will make a user administrator.
 #: actions/groupmembers.php:533
 msgctxt "BUTTON"
 msgid "Make Admin"
-msgstr ""
+msgstr "관리자 만들기"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:537
@@ -1752,6 +1910,12 @@ msgstr ""
 #, php-format
 msgid "%s timeline"
 msgstr "%s 타임라인"
+
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#: actions/grouprss.php:142
+#, fuzzy, php-format
+msgid "Updates from members of %1$s on %2$s!"
+msgstr "%2$s에 있는 %1$s의 업데이트!"
 
 #: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
@@ -2125,6 +2289,11 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "그룹가입을 위해서는 로그인이 필요합니다."
 
+#: actions/joingroup.php:88 actions/leavegroup.php:88
+#, fuzzy
+msgid "No nickname or ID."
+msgstr "별명이 없습니다."
+
 #: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
@@ -2148,7 +2317,7 @@ msgstr "%1$s의 상태 (%2$s에서)"
 #: actions/licenseadminpanel.php:56
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "라이선스"
 
 #: actions/licenseadminpanel.php:67
 msgid "License for this StatusNet site"
@@ -2189,16 +2358,17 @@ msgid "License selection"
 msgstr ""
 
 #: actions/licenseadminpanel.php:245
+#, fuzzy
 msgid "Private"
-msgstr ""
+msgstr "개인정보 취급방침"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "All Rights Reserved"
 
 #: actions/licenseadminpanel.php:247
 msgid "Creative Commons"
-msgstr ""
+msgstr "크리에이티브 커먼즈 (Creative Commons)"
 
 #: actions/licenseadminpanel.php:252
 msgid "Type"
@@ -2206,7 +2376,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:254
 msgid "Select license"
-msgstr ""
+msgstr "라이선스 선택"
 
 #: actions/licenseadminpanel.php:268
 msgid "License details"
@@ -2226,11 +2396,11 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
-msgstr ""
+msgstr "라이선스 이름"
 
 #: actions/licenseadminpanel.php:292
 msgid "License URL"
-msgstr ""
+msgstr "라이선스 URL"
 
 #: actions/licenseadminpanel.php:293
 msgid "URL for more information about the license."
@@ -2238,7 +2408,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:300
 msgid "License Image URL"
-msgstr ""
+msgstr "라이선스 이미지 URL"
 
 #: actions/licenseadminpanel.php:301
 msgid "URL for an image to display with the license."
@@ -2287,6 +2457,20 @@ msgid ""
 msgstr ""
 "보안을 위해 세팅을 저장하기 전에 계정과 비밀 번호를 다시 입력 해 주십시오."
 
+#: actions/login.php:292
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "사용자 이름과 비밀번호로 로그인"
+
+#: actions/login.php:295
+#, fuzzy, php-format
+msgid ""
+"Don't have a username yet? [Register](%%action.register%%) a new account."
+msgstr ""
+"귀하의 계정과 비밀 번호로 로그인 하세요. 계정이 아직 없으세요? [가입](%%"
+"action.register%%) 새 계정을 생성 또는 [OpenID](%%action.openidlogin%%)를 사"
+"용해 보세요."
+
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
@@ -2317,6 +2501,11 @@ msgstr "신규 응용 프로그램"
 #: actions/newapplication.php:64
 msgid "You must be logged in to register an application."
 msgstr "응용 프로그램 수정을 위해서는 로그인해야 합니다."
+
+#: actions/newapplication.php:143
+#, fuzzy
+msgid "Use this form to register a new application."
+msgstr "새 그룹을 만들기 위해 이 양식을 사용하세요."
 
 #: actions/newapplication.php:176
 msgid "Source URL is required."
@@ -2365,6 +2554,13 @@ msgstr ""
 msgid "Message sent"
 msgstr "쪽지가 전송되었습니다."
 
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
+msgstr "%s에게 보낸 직접 메시지"
+
 #: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax 에러입니다."
@@ -2409,10 +2605,22 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
+#: actions/noticesearchrss.php:96
+#, fuzzy, php-format
+msgid "Updates with \"%s\""
+msgstr "%2$s에 있는 %1$s의 업데이트!"
+
 #: actions/noticesearchrss.php:98
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "%2$s에 있는 %1$s의 업데이트!"
+
+#: actions/nudge.php:85
+#, fuzzy
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set their email yet."
+msgstr ""
+"이 사용자는 nudge를 허용하지 않았고, 아직 그의 메일을 인증하지 않았습니다."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2434,6 +2642,11 @@ msgstr "응용프로그램 삭제"
 msgid "Applications you have registered"
 msgstr ""
 
+#: actions/oauthappssettings.php:135
+#, fuzzy, php-format
+msgid "You have not registered any applications yet."
+msgstr "응용 프로그램 수정을 위해서는 로그인해야 합니다."
+
 #: actions/oauthconnectionssettings.php:72
 msgid "Connected applications"
 msgstr "연결한 응용프로그램"
@@ -2442,10 +2655,20 @@ msgstr "연결한 응용프로그램"
 msgid "You have allowed the following applications to access your account."
 msgstr ""
 
+#: actions/oauthconnectionssettings.php:175
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
+
 #: actions/oauthconnectionssettings.php:186
 #, php-format
 msgid "Unable to revoke access for app: %s."
 msgstr ""
+
+#: actions/oauthconnectionssettings.php:198
+#, fuzzy
+msgid "You have not authorized any applications to use your account."
+msgstr "다음 응용 프로그램이 계정에 접근하도록 허용되어 있습니다."
 
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
@@ -2459,6 +2682,12 @@ msgstr "이용자가 프로필을 가지고 있지 않습니다."
 #, php-format
 msgid "%1$s's status on %2$s"
 msgstr "%1$s의 상태 (%2$s에서)"
+
+#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
+#: actions/oembed.php:159
+#, fuzzy, php-format
+msgid "Content type %s not supported."
+msgstr "연결"
 
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
@@ -2504,9 +2733,19 @@ msgstr "사용할 URL 자동 줄이기 서비스."
 msgid "View profile designs"
 msgstr "프로필 디자인 보기"
 
+#: actions/othersettings.php:123
+#, fuzzy
+msgid "Show or hide profile designs."
+msgstr "프로필 디자인 보기"
+
 #: actions/othersettings.php:153
 msgid "URL shortening service is too long (max 50 chars)."
 msgstr "URL 줄이기 서비스 너무 깁니다. (최대 50글자)"
+
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "프로필을 지정하지 않았습니다."
 
 #: actions/otp.php:83
 msgid "No login token specified."
@@ -2519,6 +2758,11 @@ msgstr "허용되지 않는 요청입니다."
 #: actions/otp.php:95
 msgid "Invalid login token specified."
 msgstr "허용되지 않는 요청입니다."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "사이트에 로그인하세요."
 
 #: actions/outbox.php:58
 #, php-format
@@ -2614,6 +2858,16 @@ msgstr "인스턴트 메신저를 사용할 수 없습니다."
 msgid "Avatar directory not writable: %s."
 msgstr "아바타가 삭제되었습니다."
 
+#: actions/pathsadminpanel.php:169
+#, fuzzy, php-format
+msgid "Background directory not writable: %s."
+msgstr "아바타 디렉토리에 쓸 수 없습니다 : %s"
+
+#: actions/pathsadminpanel.php:177
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
+
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
@@ -2678,9 +2932,29 @@ msgstr "아바타"
 msgid "Avatar server"
 msgstr "아바타가 삭제되었습니다."
 
+#: actions/pathsadminpanel.php:288
+msgid "Avatar path"
+msgstr "아바타 경로"
+
 #: actions/pathsadminpanel.php:292
 msgid "Avatar directory"
 msgstr "아바타가 삭제되었습니다."
+
+#: actions/pathsadminpanel.php:301
+msgid "Backgrounds"
+msgstr "배경"
+
+#: actions/pathsadminpanel.php:305
+msgid "Background server"
+msgstr "항상"
+
+#: actions/pathsadminpanel.php:309
+msgid "Background path"
+msgstr "배경 경로"
+
+#: actions/pathsadminpanel.php:313
+msgid "Background directory"
+msgstr "배경 디렉터리"
 
 #: actions/pathsadminpanel.php:320
 msgid "SSL"
@@ -2689,6 +2963,11 @@ msgstr "SSL"
 #: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "SSL 서버"
+
+#: actions/pathsadminpanel.php:324
+#, fuzzy
+msgid "Sometimes"
+msgstr "통지"
 
 #: actions/pathsadminpanel.php:325
 msgid "Always"
@@ -2781,6 +3060,16 @@ msgstr "홈페이지"
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "귀하의 홈페이지, 블로그 혹은 다른 사이트의 프로필 페이지 URL"
 
+#: actions/profilesettings.php:122 actions/register.php:468
+#, fuzzy, php-format
+msgid "Describe yourself and your interests in %d chars"
+msgstr "140자 이내에서 자기 소개"
+
+#: actions/profilesettings.php:125 actions/register.php:471
+#, fuzzy
+msgid "Describe yourself and your interests"
+msgstr "당신에 대해 소개해주세요."
+
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
 msgstr "자기소개"
@@ -2854,6 +3143,11 @@ msgstr "올바르지 않은 태그: \"%s\""
 msgid "Couldn't update user for autosubscribe."
 msgstr "자동구독에 사용자를 업데이트 할 수 없습니다."
 
+#: actions/profilesettings.php:363
+#, fuzzy
+msgid "Couldn't save location prefs."
+msgstr "태그를 저장할 수 없습니다."
+
 #: actions/profilesettings.php:375
 msgid "Couldn't save profile."
 msgstr "프로필을 저장 할 수 없습니다."
@@ -2893,6 +3187,11 @@ msgstr "%s 그룹을 위한 공지피드 (RSS 1.0)"
 msgid "Public Stream Feed (RSS 2.0)"
 msgstr "%s 그룹을 위한 공지피드 (RSS 2.0)"
 
+#: actions/public.php:168
+#, fuzzy
+msgid "Public Stream Feed (Atom)"
+msgstr "퍼블릭 스트림 피드"
+
 #: actions/public.php:188
 #, php-format
 msgid ""
@@ -2900,6 +3199,11 @@ msgid ""
 "yet."
 msgstr ""
 "%%site.name%% 의 공개 타임라인이지만, 아직 아무도 글을 쓰지 않았습니다."
+
+#: actions/public.php:191
+#, fuzzy
+msgid "Be the first to post!"
+msgstr "글을 올린 첫번째 사람이 되세요!"
 
 #: actions/public.php:195
 #, php-format
@@ -2915,6 +3219,16 @@ msgid ""
 "tool. [Join now](%%action.register%%) to share notices about yourself with "
 "friends, family, and colleagues! ([Read more](%%doc.help%%))"
 msgstr ""
+
+#: actions/public.php:247
+#, fuzzy, php-format
+msgid ""
+"This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
+"blogging) service based on the Free Software [StatusNet](http://status.net/) "
+"tool."
+msgstr ""
+"%%site.name%% 는 마이크로블로깅(http://en.wikipedia.org/wiki/Micro-blogging) "
+"서비스 입니다."
 
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
@@ -2973,9 +3287,25 @@ msgstr "이 인증 코드는 오래됐습니다. 다시 발급 받아 주십시�
 msgid "Could not update user with confirmed email address."
 msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
 
+#: actions/recoverpassword.php:152
+#, fuzzy
+msgid ""
+"If you have forgotten or lost your password, you can get a new one sent to "
+"the email address you have stored in your account."
+msgstr "가입하신 이메일로 비밀 번호 재발급에 관한 안내를 보냈습니다."
+
 #: actions/recoverpassword.php:158
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
+
+#: actions/recoverpassword.php:188
+msgid "Password recovery"
+msgstr "비밀 번호 복구"
+
+#: actions/recoverpassword.php:191
+#, fuzzy
+msgid "Nickname or email address"
+msgstr "별명이나 이메일 계정을 입력하십시오."
 
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
@@ -3056,6 +3386,11 @@ msgstr ""
 msgid "Sorry, only invited people can register."
 msgstr "죄송합니다. 단지 초대된 사람들만 등록할 수 있습니다."
 
+#: actions/register.php:99
+#, fuzzy
+msgid "Sorry, invalid invitation code."
+msgstr "확인 코드 오류"
+
 #: actions/register.php:119
 msgid "Registration successful"
 msgstr "회원 가입이 성공적입니다."
@@ -3114,10 +3449,16 @@ msgstr "업데이트나 공지, 비밀번호 찾기에 사용하세요."
 msgid "Longer name, preferably your \"real\" name"
 msgstr "더욱 긴 이름을 요구합니다."
 
+#: actions/register.php:518
+#, fuzzy, php-format
+msgid ""
+"I understand that content and data of %1$s are private and confidential."
+msgstr "%1$s의 컨텐츠와 데이터는 외부 유출을 금지합니다."
+
 #: actions/register.php:528
 #, php-format
 msgid "My text and files are copyright by %1$s."
-msgstr ""
+msgstr "글과 파일의 저작권은 %1$s의 소유입니다"
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
 #: actions/register.php:532
@@ -3128,6 +3469,47 @@ msgstr ""
 #: actions/register.php:535
 msgid "All rights reserved."
 msgstr ""
+
+#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
+#: actions/register.php:540
+#, fuzzy, php-format
+msgid ""
+"My text and files are available under %s except this private data: password, "
+"email address, IM address, and phone number."
+msgstr "다음 개인정보 제외: 비밀 번호, 메일 주소, 메신저 주소, 전화 번호"
+
+#: actions/register.php:583
+#, fuzzy, php-format
+msgid ""
+"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
+"want to...\n"
+"\n"
+"* Go to [your profile](%2$s) and post your first message.\n"
+"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
+"notices through instant messages.\n"
+"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
+"share your interests. \n"
+"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
+"others more about you. \n"
+"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
+"missed. \n"
+"\n"
+"Thanks for signing up and we hope you enjoy using this service."
+msgstr ""
+"%s님 축하드립니다! %%%%site.name%%%%에 가입하신 것을 환영합니다!. 이제부터 아"
+"래의 일을 할 수 있습니다...\n"
+"\n"
+"* [나의 프로필](%s) 로 가셔서 첫 메시지를 포스트 해보십시오.\n"
+"* [Jabber 또는 GTalk계정](%%%%action.imsettings%%%%)을 추가하셔서 메신저로 통"
+"보를 받아 보십시오.\n"
+"* [친구 찾기](%%%%action.peoplesearch%%%%) 알거나 같은 관심사를 가지고 있는 "
+"분들을 찾아 보십시오. \n"
+"* [프로필 셋팅](%%%%action.profilesettings%%%%)을 업데이트 하셔서 다른분들에"
+"게 자신을 알려보십시오. \n"
+"* [온라인 도움말](%%%%doc.help%%%%)을 읽으면서 더 많은 기능을 확인해 보십시"
+"오. \n"
+"\n"
+"다시 한번 가입하신 것을 환영하면서 즐거운 서비스가 되셨으면 합니다."
 
 #: actions/register.php:607
 msgid ""
@@ -3151,6 +3533,11 @@ msgstr ""
 #: actions/remotesubscribe.php:112
 msgid "Remote subscribe"
 msgstr "리모트 구독 예약"
+
+#: actions/remotesubscribe.php:124
+#, fuzzy
+msgid "Subscribe to a remote user"
+msgstr "이 회원을 구독합니다."
 
 #: actions/remotesubscribe.php:129
 msgid "User nickname"
@@ -3176,6 +3563,31 @@ msgstr "구독"
 #: actions/remotesubscribe.php:159
 msgid "Invalid profile URL (bad format)"
 msgstr "옳지 않은 프로필 URL (나쁜 포멧)"
+
+#: actions/remotesubscribe.php:168
+#, fuzzy
+msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
+msgstr "유효한 프로필 URL이 아닙니다. (YADIS 문서가 없습니다)"
+
+#: actions/remotesubscribe.php:176
+#, fuzzy
+msgid "That’s a local profile! Login to subscribe."
+msgstr "그것은 로컬프로필입니다. 구독을 위해서는 로그인하십시오."
+
+#: actions/remotesubscribe.php:183
+#, fuzzy
+msgid "Couldn’t get a request token."
+msgstr "리퀘스트 토큰을 취득 할 수 없습니다."
+
+#: actions/repeat.php:57
+#, fuzzy
+msgid "Only logged-in users can repeat notices."
+msgstr "오직 해당 사용자만 자신의 메일박스를 열람할 수 있습니다."
+
+#: actions/repeat.php:64 actions/repeat.php:71
+#, fuzzy
+msgid "No notice specified."
+msgstr "프로필을 지정하지 않았습니다."
 
 #: actions/repeat.php:76
 msgid "You can't repeat your own notice."
@@ -3219,6 +3631,13 @@ msgstr "%s 그룹을 위한 공지피드 (RSS 2.0)"
 msgid "Replies feed for %s (Atom)"
 msgstr "%s의 통지 피드"
 
+#: actions/replies.php:199
+#, fuzzy, php-format
+msgid ""
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to them yet."
+msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
+
 #: actions/replies.php:204
 #, php-format
 msgid ""
@@ -3258,6 +3677,12 @@ msgstr "이 사이트의 이용자에 대해 권한정지 할 수 없습니다."
 msgid "User is already sandboxed."
 msgstr "이용자의 지속적인 게시글이 없습니다."
 
+#. TRANS: Menu item for site administration
+#: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
+#: lib/adminpanelaction.php:379
+msgid "Sessions"
+msgstr "세션"
+
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
 msgstr ""
@@ -3272,7 +3697,7 @@ msgstr ""
 
 #: actions/sessionsadminpanel.php:181
 msgid "Session debugging"
-msgstr ""
+msgstr "세션 디버깅"
 
 #: actions/sessionsadminpanel.php:183
 msgid "Turn on debugging output for sessions."
@@ -3293,7 +3718,7 @@ msgstr "신규 응용 프로그램"
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:173
 msgid "Icon"
-msgstr ""
+msgstr "아이콘"
 
 #. TRANS: Form input field label for application name.
 #: actions/showapplication.php:169 actions/version.php:197
@@ -3350,11 +3775,21 @@ msgstr ""
 msgid "Access token URL"
 msgstr ""
 
+#: actions/showapplication.php:283
+#, fuzzy
+msgid "Authorize URL"
+msgstr "작성자"
+
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "정말로 통지를 삭제하시겠습니까?"
 
 #: actions/showfavorites.php:79
 #, php-format
@@ -3485,6 +3920,22 @@ msgid ""
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
+#: actions/showgroup.php:461
+#, fuzzy, php-format
+msgid ""
+"**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. Its members share short messages about "
+"their life and interests. "
+msgstr ""
+"**%s** 는 %%%%site.name%%%% [마이크로블로깅)(http://en.wikipedia.org/wiki/"
+"Micro-blogging)의 사용자 그룹입니다. "
+
+#: actions/showgroup.php:489
+#, fuzzy
+msgid "Admins"
+msgstr "관리자"
+
 #: actions/showmessage.php:81
 msgid "No such message."
 msgstr "그러한 메시지가 없습니다."
@@ -3502,6 +3953,16 @@ msgstr "%2$s에서 %1$s까지 메시지"
 #, php-format
 msgid "Message from %1$s on %2$s"
 msgstr "%1$s에서 %2$s까지 메시지"
+
+#: actions/shownotice.php:90
+#, fuzzy
+msgid "Notice deleted."
+msgstr "게시글이 등록되었습니다."
+
+#: actions/showstream.php:73
+#, fuzzy, php-format
+msgid " tagged %s"
+msgstr "%s 태그된 통지"
 
 #: actions/showstream.php:79
 #, php-format
@@ -3528,6 +3989,16 @@ msgstr "%s 그룹을 위한 공지피드 (RSS 2.0)"
 msgid "Notice feed for %s (Atom)"
 msgstr "%s 그룹을 위한 공지피드 (Atom)"
 
+#: actions/showstream.php:148
+#, fuzzy, php-format
+msgid "FOAF for %s"
+msgstr "%s의 보낸쪽지함"
+
+#: actions/showstream.php:200
+#, fuzzy, php-format
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
+msgstr "%s 및 친구들의 타임라인이지만, 아직 아무도 글을 작성하지 않았습니다."
+
 #: actions/showstream.php:205
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
@@ -3552,6 +4023,21 @@ msgid ""
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
+#: actions/showstream.php:248
+#, fuzzy, php-format
+msgid ""
+"**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
+"wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
+"[StatusNet](http://status.net/) tool. "
+msgstr ""
+"**%s**는 %%%%site.name%%%% [마이크로블로깅](http://en.wikipedia.org/wiki/"
+"Micro-blogging) 서비스에 계정을 갖고 있습니다."
+
+#: actions/showstream.php:305
+#, fuzzy, php-format
+msgid "Repeat of %s"
+msgstr "%s에 답신"
+
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
 msgstr "이 사이트의 이용자에 대해 권한정지 할 수 없습니다."
@@ -3559,6 +4045,11 @@ msgstr "이 사이트의 이용자에 대해 권한정지 할 수 없습니다."
 #: actions/silence.php:72
 msgid "User is already silenced."
 msgstr "사용자가 귀하를 차단했습니다."
+
+#: actions/siteadminpanel.php:69
+#, fuzzy
+msgid "Basic settings for this StatusNet site"
+msgstr "이 StatusNet 사이트에 대한 디자인 설정"
 
 #: actions/siteadminpanel.php:133
 msgid "Site name must have non-zero length."
@@ -3613,6 +4104,16 @@ msgstr ""
 msgid "Contact email address for your site"
 msgstr "%s에 포스팅 할 새로운 메일 주소"
 
+#: actions/siteadminpanel.php:245
+#, fuzzy
+msgid "Local"
+msgstr "로컬 뷰"
+
+#: actions/siteadminpanel.php:256
+#, fuzzy
+msgid "Default timezone"
+msgstr "기본 언어"
+
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
@@ -3645,6 +4146,16 @@ msgstr ""
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "사이트 공지"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "새로운 메시지입니다."
+
 #: actions/sitenoticeadminpanel.php:103
 msgid "Unable to save site notice."
 msgstr "디자인 설정을 저장할 수 없습니다."
@@ -3653,9 +4164,19 @@ msgstr "디자인 설정을 저장할 수 없습니다."
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "사이트 공지"
+
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "사이트 공지"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -3819,9 +4340,19 @@ msgstr ""
 msgid "Manage snapshot configuration"
 msgstr "메일 주소 확인"
 
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "옳지 않은 크기"
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "잘못된 로고 URL 입니다."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -3831,17 +4362,27 @@ msgstr ""
 msgid "In a scheduled job"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:206
+#, fuzzy
+msgid "Data snapshots"
+msgstr "접근 설정을 저장"
+
 #: actions/snapshotadminpanel.php:208
 msgid "When to send statistical data to status.net servers"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:217
 msgid "Frequency"
-msgstr ""
+msgstr "주기"
 
 #: actions/snapshotadminpanel.php:218
 msgid "Snapshots will be sent once every N web hits"
 msgstr ""
+
+#: actions/snapshotadminpanel.php:226
+#, fuzzy
+msgid "Report URL"
+msgstr "소스 코드 URL"
 
 #: actions/snapshotadminpanel.php:227
 msgid "Snapshots will be sent to this URL"
@@ -3867,6 +4408,11 @@ msgstr ""
 #: actions/subscribe.php:107
 msgid "No such profile."
 msgstr "해당하는 파일이 없습니다."
+
+#: actions/subscribe.php:117
+#, fuzzy
+msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
+msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
 #: actions/subscribe.php:145
 msgid "Subscribed"
@@ -4082,6 +4628,10 @@ msgstr ""
 msgid "Maximum length of a profile bio in characters."
 msgstr ""
 
+#: actions/useradminpanel.php:232
+msgid "New users"
+msgstr "새 사용자"
+
 #: actions/useradminpanel.php:236
 msgid "New user welcome"
 msgstr ""
@@ -4089,6 +4639,26 @@ msgstr ""
 #: actions/useradminpanel.php:237
 msgid "Welcome text for new users (Max 255 chars)."
 msgstr ""
+
+#: actions/useradminpanel.php:242
+#, fuzzy
+msgid "Default subscription"
+msgstr "모든 예약 구독"
+
+#: actions/useradminpanel.php:243
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr "나에게 구독하는 사람에게 자동 구독 신청"
+
+#: actions/useradminpanel.php:252
+#, fuzzy
+msgid "Invitations"
+msgstr "초대권을 보냈습니다"
+
+#: actions/useradminpanel.php:257
+#, fuzzy
+msgid "Invitations enabled"
+msgstr "초대권을 보냈습니다"
 
 #: actions/useradminpanel.php:259
 msgid "Whether to allow users to invite new users."
@@ -4101,6 +4671,16 @@ msgstr ""
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
 msgstr "구독을 허가"
+
+#: actions/userauthorization.php:110
+#, fuzzy
+msgid ""
+"Please check these details to make sure that you want to subscribe to this "
+"user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
+"click “Reject”."
+msgstr ""
+"사용자의 통지를 구독하려면 상세를 확인해 주세요. 구독하지 않는 경우는, \"취소"
+"\"를 클릭해 주세요."
 
 #. TRANS: Menu item for site administration
 #: actions/userauthorization.php:196 actions/version.php:167
@@ -4121,6 +4701,11 @@ msgstr "이 회원을 구독합니다."
 msgid "Reject"
 msgstr "거부"
 
+#: actions/userauthorization.php:220
+#, fuzzy
+msgid "Reject this subscription"
+msgstr "%s 구독"
+
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
 msgstr "허용되지 않는 요청입니다."
@@ -4129,9 +4714,29 @@ msgstr "허용되지 않는 요청입니다."
 msgid "Subscription authorized"
 msgstr "구독 허가"
 
+#: actions/userauthorization.php:256
+#, fuzzy
+msgid ""
+"The subscription has been authorized, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to authorize the "
+"subscription. Your subscription token is:"
+msgstr ""
+"구독이 승인 되었습니다. 하지만 콜백 URL이 통과 되지 않았습니다. 웹사이트의 지"
+"시를 찾아 구독 승인 방법에 대하여 읽어보십시오. 귀하의 구독 토큰은 : "
+
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "구독 거부"
+
+#: actions/userauthorization.php:268
+#, fuzzy
+msgid ""
+"The subscription has been rejected, but no callback URL was passed. Check "
+"with the site’s instructions for details on how to fully reject the "
+"subscription."
+msgstr ""
+"구독이 해지 되었습니다. 하지만 콜백 URL이 통과 되지 않았습니다. 웹사이트의 지"
+"시를 찾아 구독 해지 방법에 대하여 읽어보십시오."
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -4158,6 +4763,16 @@ msgstr ""
 msgid "Avatar URL ‘%s’ is not valid."
 msgstr ""
 
+#: actions/userauthorization.php:350
+#, fuzzy, php-format
+msgid "Can’t read avatar URL ‘%s’."
+msgstr "아바타 URL '%s'을(를) 읽어낼 수 없습니다."
+
+#: actions/userauthorization.php:355
+#, fuzzy, php-format
+msgid "Wrong image type for avatar URL ‘%s’."
+msgstr "%S 잘못된 그림 파일 타입입니다. "
+
 #: actions/userdesignsettings.php:76 lib/designsettings.php:65
 msgid "Profile design"
 msgstr "프로필 디자인"
@@ -4177,6 +4792,16 @@ msgstr ""
 #, php-format
 msgid "%1$s groups, page %2$d"
 msgstr "그룹, %d 페이지"
+
+#: actions/usergroups.php:132
+#, fuzzy
+msgid "Search for more groups"
+msgstr "프로필이나 텍스트 검색"
+
+#: actions/usergroups.php:159
+#, fuzzy, php-format
+msgid "%s is not a member of any group."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #: actions/usergroups.php:164
 #, php-format
@@ -4242,6 +4867,11 @@ msgstr "플러그인"
 msgid "Version"
 msgstr "버전"
 
+#: actions/version.php:199
+#, fuzzy
+msgid "Author(s)"
+msgstr "작성자"
+
 #: classes/Fave.php:147 lib/favorform.php:140
 msgid "Favor"
 msgstr "좋아합니다"
@@ -4285,10 +4915,22 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "옳지 않은 크기"
+
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
 msgid "Group join failed."
 msgstr "그룹에 가입하지 못했습니다."
+
+#. TRANS: Exception thrown when trying to leave a group the user is not a member of.
+#: classes/Group_member.php:55
+#, fuzzy
+msgid "Not part of group."
+msgstr "그룹을 업데이트 할 수 없습니다."
 
 #. TRANS: Exception thrown when trying to leave a group fails.
 #: classes/Group_member.php:63
@@ -4306,6 +4948,12 @@ msgstr "가입"
 msgid "%1$s has joined group %2$s."
 msgstr ""
 
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
+#, fuzzy
+msgid "Could not update local group."
+msgstr "그룹을 업데이트 할 수 없습니다."
+
 #. TRANS: Exception thrown when trying creating a login token failed.
 #. TRANS: %s is the user nickname for which token creation failed.
 #: classes/Login_token.php:78
@@ -4317,6 +4965,12 @@ msgstr "%s 에 대한 로그인 토큰을 만들 수 없습니다."
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "직접 메시지 보내기 오류."
 
 #. TRANS: Message given when a message could not be stored on the server.
 #: classes/Message.php:63
@@ -4341,6 +4995,12 @@ msgstr ""
 msgid "Database error inserting hashtag: %s"
 msgstr "OAuth 응용 프로그램 사용자 추가 중 데이터베이스 오류"
 
+#. TRANS: Client exception thrown if a notice contains too many characters.
+#: classes/Notice.php:265
+#, fuzzy
+msgid "Problem saving notice. Too long."
+msgstr "통지를 저장하는데 문제가 발생했습니다."
+
 #. TRANS: Client exception thrown when trying to save a notice for an unknown user.
 #: classes/Notice.php:270
 msgid "Problem saving notice. Unknown user."
@@ -4350,6 +5010,16 @@ msgstr "게시글 저장문제. 알려지지않은 회원"
 #: classes/Notice.php:276
 msgid ""
 "Too many notices too fast; take a breather and post again in a few minutes."
+msgstr ""
+"너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
+"해보세요."
+
+#. TRANS: Client exception thrown when a user tries to post too many duplicate notices in a given time frame.
+#: classes/Notice.php:283
+#, fuzzy
+msgid ""
+"Too many duplicate messages too quickly; take a breather and post again in a "
+"few minutes."
 msgstr ""
 "너무 많은 게시글이 너무 빠르게 올라옵니다. 한숨고르고 몇분후에 다시 포스트를 "
 "해보세요."
@@ -4369,6 +5039,12 @@ msgstr "통지를 저장하는데 문제가 발생했습니다."
 #: classes/Notice.php:906
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
+
+#. TRANS: Server exception thrown when an update for a group inbox fails.
+#: classes/Notice.php:1005
+#, fuzzy
+msgid "Problem saving group inbox."
+msgstr "통지를 저장하는데 문제가 발생했습니다."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
@@ -4391,6 +5067,12 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "이용자가 프로필을 가지고 있지 않습니다."
+
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:338
 msgid "Unable to save tag."
@@ -4401,10 +5083,22 @@ msgstr "태그를 저장할 수 없습니다."
 msgid "You have been banned from subscribing."
 msgstr "귀하는 구독이 금지되었습니다."
 
+#. TRANS: Exception thrown when trying to subscribe while already subscribed.
+#: classes/Subscription.php:80
+#, fuzzy
+msgid "Already subscribed!"
+msgstr "구독하고 있지 않습니다!"
+
 #. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
 #: classes/Subscription.php:85
 msgid "User has blocked you."
 msgstr "사용자가 귀하를 차단했습니다."
+
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "구독하고 있지 않습니다!"
 
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
@@ -4423,7 +5117,7 @@ msgstr "구독을 저장할 수 없습니다."
 
 #: classes/Subscription.php:254
 msgid "Follow"
-msgstr ""
+msgstr "팔로우"
 
 #: classes/Subscription.php:255
 #, php-format
@@ -4478,6 +5172,12 @@ msgid "Change email handling"
 msgstr "메일 처리 변경"
 
 #. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:137
+#, fuzzy
+msgid "Design your profile"
+msgstr "이용자 프로필"
+
+#. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:144
 msgid "Other options"
 msgstr "다른 옵션들"
@@ -4502,6 +5202,13 @@ msgstr "제목없는 페이지"
 #: lib/action.php:449
 msgid "Primary site navigation"
 msgstr "주 사이트 네비게이션"
+
+#. TRANS: Tooltip for main menu option "Personal"
+#: lib/action.php:455
+#, fuzzy
+msgctxt "TOOLTIP"
+msgid "Personal profile and friends timeline"
+msgstr "개인 프로필과 친구 타임라인"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
 #: lib/action.php:458
@@ -4538,6 +5245,13 @@ msgstr "메일 주소 확인"
 msgctxt "MENU"
 msgid "Admin"
 msgstr "관리"
+
+#. TRANS: Tooltip for main menu option "Invite"
+#: lib/action.php:478
+#, fuzzy, php-format
+msgctxt "TOOLTIP"
+msgid "Invite friends and colleagues to join you on %s"
+msgstr "%s에 친구를 가입시키기 위해 친구와 동료를 초대합니다."
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
 #: lib/action.php:481
@@ -4590,6 +5304,13 @@ msgstr "도움말"
 msgctxt "MENU"
 msgid "Help"
 msgstr "도움말"
+
+#. TRANS: Tooltip for main menu option "Search"
+#: lib/action.php:513
+#, fuzzy
+msgctxt "TOOLTIP"
+msgid "Search for people or text"
+msgstr "프로필이나 텍스트 검색"
 
 #: lib/action.php:516
 msgctxt "MENU"
@@ -4660,6 +5381,19 @@ msgstr "배지"
 #: lib/action.php:839
 msgid "StatusNet software license"
 msgstr "StatusNet 소프트웨어 라이선스"
+
+#. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
+#. TRANS: Text between [] is a link description, text between () is the link itself.
+#. TRANS: Make sure there is no whitespace between "]" and "(".
+#. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
+#: lib/action.php:846
+#, fuzzy, php-format
+msgid ""
+"**%%site.name%%** is a microblogging service brought to you by [%%site."
+"broughtby%%](%%site.broughtbyurl%%)."
+msgstr ""
+"**%%site.name%%** 는 [%%site.broughtby%%](%%site.broughtbyurl%%)가 제공하는 "
+"마이크로블로깅서비스입니다."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:849
@@ -4756,6 +5490,24 @@ msgstr ""
 msgid "You cannot make changes to this site."
 msgstr "이 사이트의 이용자에 대해 권한정지 할 수 없습니다."
 
+#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
+#: lib/adminpanelaction.php:108
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "가입이 허용되지 않습니다."
+
+#. TRANS: Client error message.
+#: lib/adminpanelaction.php:222
+#, fuzzy
+msgid "showForm() not implemented."
+msgstr "명령이 아직 실행되지 않았습니다."
+
+#. TRANS: Client error message
+#: lib/adminpanelaction.php:250
+#, fuzzy
+msgid "saveSettings() not implemented."
+msgstr "명령이 아직 실행되지 않았습니다."
+
 #. TRANS: Client error message thrown if design settings could not be deleted in
 #. TRANS: the admin panel Design.
 #: lib/adminpanelaction.php:274
@@ -4811,6 +5563,12 @@ msgid "Sessions configuration"
 msgstr "메일 주소 확인"
 
 #. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:385
+#, fuzzy
+msgid "Edit site notice"
+msgstr "사이트 공지"
+
+#. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:393
 msgid "Snapshots configuration"
 msgstr "메일 주소 확인"
@@ -4856,6 +5614,12 @@ msgstr ""
 msgid "Failed to delete revoked token."
 msgstr ""
 
+#. TRANS: Form legend.
+#: lib/applicationeditform.php:129
+#, fuzzy
+msgid "Edit application"
+msgstr "응용 프로그램 수정"
+
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:178
 msgid "Icon for this application"
@@ -4872,10 +5636,28 @@ msgstr "응용프로그램 삭제"
 msgid "Describe your application"
 msgstr "응용프로그램 삭제"
 
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:215
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
+
 #. TRANS: Form input field label.
 #: lib/applicationeditform.php:217
 msgid "Source URL"
 msgstr "소스 코드 URL"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:224
+#, fuzzy
+msgid "Organization responsible for this application"
+msgstr "이 응용프로그램 삭제 않기"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:233
+#, fuzzy
+msgid "URL for the homepage of the organization"
+msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
@@ -4959,6 +5741,22 @@ msgstr "미리보기"
 msgid "Notices where this attachment appears"
 msgstr ""
 
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+#, fuzzy
+msgid "Tags for this attachment"
+msgstr "해당하는 첨부파일이 없습니다."
+
+#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
+#, fuzzy
+msgid "Password changing failed"
+msgstr "비밀번호 변경"
+
+#: lib/authenticationplugin.php:236
+#, fuzzy
+msgid "Password changing is not allowed"
+msgstr "비밀번호 변경"
+
 #. TRANS: Title for the form to block a user.
 #: lib/blockform.php:70
 msgid "Block"
@@ -4976,6 +5774,26 @@ msgstr "실행 완료"
 msgid "Command failed"
 msgstr "실행 실패"
 
+#. TRANS: Command exception text shown when a notice ID is requested that does not exist.
+#: lib/command.php:84 lib/command.php:108
+#, fuzzy
+msgid "Notice with that id does not exist."
+msgstr "해당 id의 프로필이 없습니다."
+
+#. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
+#. TRANS: Error text shown when a last user notice is requested and it does not exist.
+#: lib/command.php:101 lib/command.php:630
+#, fuzzy
+msgid "User has no last notice."
+msgstr "이용자의 지속적인 게시글이 없습니다."
+
+#. TRANS: Message given requesting a profile for a non-existing user.
+#. TRANS: %s is the nickname of the user for which the profile could not be found.
+#: lib/command.php:130
+#, fuzzy, php-format
+msgid "Could not find a user with nickname %s."
+msgstr "이 이메일 주소로 사용자를 업데이트 할 수 없습니다."
+
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:150
@@ -4992,6 +5810,13 @@ msgstr "죄송합니다. 이 명령은 아직 실행되지 않았습니다."
 #: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
+
+#. TRANS: Message given having nudged another user.
+#. TRANS: %s is the nickname of the user that was nudged.
+#: lib/command.php:240
+#, fuzzy, php-format
+msgid "Nudge sent to %s."
+msgstr "찔러 보기를 보냈습니다."
 
 #. TRANS: User statistics text.
 #. TRANS: %1$s is the number of other user the user is subscribed to.
@@ -5058,20 +5883,60 @@ msgid ""
 "same server."
 msgstr ""
 
+#. TRANS: Message given if content is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:491 lib/xmppmanager.php:403
+#, fuzzy, php-format
+msgid "Message too long - maximum is %1$d characters, you sent %2$d."
+msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
+
 #. TRANS: Error text shown sending a direct message fails with an unknown reason.
 #: lib/command.php:517
 msgid "Error sending direct message."
 msgstr "직접 메시지 보내기 오류."
+
+#. TRANS: Message given having repeated a notice from another user.
+#. TRANS: %s is the name of the user for which the notice was repeated.
+#: lib/command.php:554
+#, fuzzy, php-format
+msgid "Notice from %s repeated."
+msgstr "게시글이 등록되었습니다."
 
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
 #: lib/command.php:557
 msgid "Error repeating notice."
 msgstr "사용자 세팅 오류"
 
+#. TRANS: Message given if content of a notice for a reply is too long.
+#. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
+#: lib/command.php:592
+#, fuzzy, php-format
+msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
+msgstr "당신이 보낸 메시지가 너무 길어요. 최대 140글자까지입니다."
+
+#. TRANS: Text shown having sent a reply to a notice successfully.
+#. TRANS: %s is the nickname of the user of the notice the reply was sent to.
+#: lib/command.php:603
+#, fuzzy, php-format
+msgid "Reply to %s sent."
+msgstr "이 게시글에 대해 답장하기"
+
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 #: lib/command.php:606
 msgid "Error saving notice."
 msgstr "사용자 세팅 오류"
+
+#. TRANS: Error text shown when no username was provided when issuing a subscribe command.
+#: lib/command.php:655
+#, fuzzy
+msgid "Specify the name of the user to subscribe to."
+msgstr "구독하려는 사용자의 이름을 지정하십시오."
+
+#. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
+#: lib/command.php:664
+#, fuzzy
+msgid "Can't subscribe to OMB profiles by command."
+msgstr "당신은 이 프로필에 구독되지 않고있습니다."
 
 #. TRANS: Text shown after having subscribed to another user successfully.
 #. TRANS: %s is the name of the user the subscription was requested for.
@@ -5079,6 +5944,13 @@ msgstr "사용자 세팅 오류"
 #, php-format
 msgid "Subscribed to %s."
 msgstr ""
+
+#. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
+#. TRANS: Error text shown when no username was provided when issuing the command.
+#: lib/command.php:694 lib/command.php:804
+#, fuzzy
+msgid "Specify the name of the user to unsubscribe from."
+msgstr "구독을 해제하려는 사용자의 이름을 지정하십시오."
 
 #. TRANS: Text shown after having unsubscribed from another user successfully.
 #. TRANS: %s is the name of the user the unsubscription was requested for.
@@ -5132,6 +6004,12 @@ msgstr ""
 msgid "Unsubscribed %s."
 msgstr ""
 
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "당신은 이 프로필에 구독되지 않고있습니다."
+
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
@@ -5140,6 +6018,13 @@ msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
 
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "다른 사람을 구독 하실 수 없습니다."
+
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribing users.
@@ -5147,6 +6032,13 @@ msgstr[0] "당신은 다음 사용자를 이미 구독하고 있습니다."
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "다른 사람을 구독 하실 수 없습니다."
+
+#. TRANS: Text shown after requesting groups a user is subscribed to without having
+#. TRANS: any group subscriptions.
+#: lib/command.php:885
+#, fuzzy
+msgid "You are not a member of any groups."
+msgstr "당신은 해당 그룹의 멤버가 아닙니다."
 
 #. TRANS: Text shown after requesting groups a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
@@ -5199,6 +6091,11 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
+#: lib/common.php:135
+#, fuzzy
+msgid "No configuration file found. "
+msgstr "확인 코드가 없습니다."
+
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -5227,6 +6124,11 @@ msgstr "SMS에 의한 업데이트"
 msgid "Connections"
 msgstr "연결"
 
+#: lib/connectsettingsaction.php:121
+#, fuzzy
+msgid "Authorized connected applications"
+msgstr "응용프로그램 삭제"
+
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr "데이터베이스 오류"
@@ -5239,6 +6141,11 @@ msgstr "실행 실패"
 msgid ""
 "You can upload your personal background image. The maximum file size is 2MB."
 msgstr "개인 아바타를 올릴 수 있습니다. 최대 파일 크기는 2MB입니다."
+
+#: lib/designsettings.php:418
+#, fuzzy
+msgid "Design defaults restored."
+msgstr "메일 설정이 저장되었습니다."
 
 #: lib/disfavorform.php:114 lib/disfavorform.php:140
 msgid "Disfavor this notice"
@@ -5276,6 +6183,11 @@ msgstr "태그 필터링하기"
 msgid "All"
 msgstr "모든 것"
 
+#: lib/galleryaction.php:139
+#, fuzzy
+msgid "Select tag to filter"
+msgstr "통신 회사를 선택 하세요."
+
 #: lib/galleryaction.php:140
 msgid "Tag"
 msgstr "태그"
@@ -5301,6 +6213,11 @@ msgstr "그룹 혹은 토픽의 홈페이지나 블로그 URL"
 msgid "Describe the group or topic"
 msgstr "응용프로그램 삭제"
 
+#: lib/groupeditform.php:170
+#, fuzzy, php-format
+msgid "Describe the group or topic in %d characters"
+msgstr "140글자로 그룹이나 토픽 설명하기"
+
 #: lib/groupeditform.php:179
 msgid ""
 "Location for the group, if any, like \"City, State (or Region), Country\""
@@ -5315,7 +6232,7 @@ msgstr ""
 #: lib/groupnav.php:86
 msgctxt "MENU"
 msgid "Group"
-msgstr ""
+msgstr "그룹"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -5365,7 +6282,7 @@ msgstr ""
 #: lib/groupnav.php:126
 msgctxt "MENU"
 msgid "Logo"
-msgstr ""
+msgstr "로고"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -5404,6 +6321,11 @@ msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할
 #: lib/imagefile.php:72
 msgid "Unsupported image file format."
 msgstr "지원하지 않는 그림 파일 형식입니다."
+
+#: lib/imagefile.php:88
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "당신그룹의 로고 이미지를 업로드할 수 있습니다."
 
 #: lib/imagefile.php:93
 msgid "Partial upload."
@@ -5492,6 +6414,26 @@ msgid ""
 "your subscribers list and report as spam to site administrators at %s"
 msgstr ""
 
+#. TRANS: Main body of new-subscriber notification e-mail
+#: lib/mail.php:254
+#, fuzzy, php-format
+msgid ""
+"%1$s is now listening to your notices on %2$s.\n"
+"\n"
+"\t%3$s\n"
+"\n"
+"%4$s%5$s%6$s\n"
+"Faithfully yours,\n"
+"%7$s.\n"
+"\n"
+"----\n"
+"Change your email address or notification options at %8$s\n"
+msgstr ""
+"%1$s님이 귀하의 알림 메시지를 %2$s에서 듣고 있습니다.\n"
+"\t%3$s\n"
+"\n"
+"그럼 이만,%4$s.\n"
+
 #. TRANS: Profile info line in new-subscriber notification e-mail
 #: lib/mail.php:274
 #, php-format
@@ -5530,6 +6472,12 @@ msgstr "%s 상태"
 #: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "SMS 인증"
+
+#. TRANS: Main body heading for SMS-by-email address confirmation message
+#: lib/mail.php:463
+#, fuzzy, php-format
+msgid "%s: confirm you own this phone number with this code:"
+msgstr "이 전화 번호는 인증 대기중입니다."
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -5617,6 +6565,11 @@ msgid ""
 "\t%s"
 msgstr ""
 
+#: lib/mail.php:657
+#, fuzzy, php-format
+msgid "%s (@%s) sent a notice to your attention"
+msgstr "누군가 내 글을 좋아하는 게시글로 추가했을 때, 메일을 보냅니다."
+
 #. TRANS: Body of @-reply notification e-mail.
 #: lib/mail.php:660
 #, php-format
@@ -5675,6 +6628,11 @@ msgstr "죄송합니다. 귀하의 이메일이 아닙니다."
 msgid "Sorry, no incoming email allowed."
 msgstr "죄송합니다. 이메일이 허용되지 않습니다."
 
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "지원하지 않는 그림 파일 형식입니다."
+
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 #: lib/mediafile.php:99 lib/mediafile.php:125
 msgid "There was a database error while saving your file. Please try again."
@@ -5684,28 +6642,29 @@ msgstr ""
 #: lib/mediafile.php:145
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
+"업로드 파일이 php.ini 설정 파일의 upload_max_filesize 값을 넘어갔습니다."
 
 #. TRANS: Client exception.
 #: lib/mediafile.php:151
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
-msgstr ""
+msgstr "업로드 파일이 HTML 폼에서 지정한 MAX_FILE_SIZE 값을 넘어갔습니다."
 
 #. TRANS: Client exception.
 #: lib/mediafile.php:157
 msgid "The uploaded file was only partially uploaded."
-msgstr ""
+msgstr "업로드 파일이 일부만 업로드되었습니다."
 
 #. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
 #: lib/mediafile.php:165
 msgid "Missing a temporary folder."
-msgstr ""
+msgstr "임시 폴더가 없습니다"
 
 #. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
 #: lib/mediafile.php:169
 msgid "Failed to write file to disk."
-msgstr ""
+msgstr "디스크에 파일을 쓰는 데 실패했습니다."
 
 #. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
 #: lib/mediafile.php:173
@@ -5715,7 +6674,7 @@ msgstr ""
 #. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
 #: lib/mediafile.php:189 lib/mediafile.php:232
 msgid "File exceeds user's quota."
-msgstr ""
+msgstr "파일이 사용자의 제한 용량을 넘어갑니다."
 
 #. TRANS: Client exception thrown when a file upload operation fails because the file could
 #. TRANS: not be moved from the temporary folder to the permanent file location.
@@ -5772,6 +6731,10 @@ msgstr "게시글 보내기"
 msgid "What's up, %s?"
 msgstr "뭐하세요 %s님?"
 
+#: lib/noticeform.php:193
+msgid "Attach"
+msgstr "첨부"
+
 #: lib/noticeform.php:197
 msgid "Attach a file"
 msgstr ""
@@ -5821,7 +6784,7 @@ msgstr "위치"
 
 #: lib/noticelist.php:502
 msgid "web"
-msgstr ""
+msgstr "웹"
 
 #: lib/noticelist.php:568
 msgid "in context"
@@ -5838,6 +6801,11 @@ msgstr "이 게시글에 대해 답장하기"
 #: lib/noticelist.php:631
 msgid "Reply"
 msgstr "답장하기"
+
+#: lib/noticelist.php:675
+#, fuzzy
+msgid "Notice repeated"
+msgstr "게시글이 등록되었습니다."
 
 #: lib/nudgeform.php:116
 msgid "Nudge this user"
@@ -5905,6 +6873,12 @@ msgstr "보낸 메시지"
 msgid "Tags in %s's notices"
 msgstr "%s의 게시글의 태그"
 
+#. TRANS: Displayed as version information for a plugin if no version information was found.
+#: lib/plugin.php:116
+#, fuzzy
+msgid "Unknown"
+msgstr "알려지지 않은 행동"
+
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "구독"
@@ -5966,9 +6940,19 @@ msgstr "인기있는"
 msgid "No return-to arguments."
 msgstr "첨부문서 없음"
 
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "이 게시글에 대해 답장하기"
+
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "예"
+
+#: lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat this notice"
+msgstr "이 게시글에 대해 답장하기"
 
 #: lib/revokeroleform.php:91
 #, php-format
@@ -5979,6 +6963,16 @@ msgstr "그룹 이용자는 차단해제"
 msgid "No single user defined for single-user mode."
 msgstr ""
 
+#: lib/sandboxform.php:67
+#, fuzzy
+msgid "Sandbox"
+msgstr "받은 쪽지함"
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "이 사용자를 차단해제합니다."
+
 #. TRANS: Fieldset legend for the search form.
 #: lib/searchaction.php:121
 msgid "Search site"
@@ -5988,12 +6982,12 @@ msgstr "검색 도움말"
 #. TRANS: for searching can be entered.
 #: lib/searchaction.php:129
 msgid "Keyword(s)"
-msgstr ""
+msgstr "검색어"
 
 #: lib/searchaction.php:130
 msgctxt "BUTTON"
 msgid "Search"
-msgstr ""
+msgstr "검색"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -6023,6 +7017,11 @@ msgstr "제목없는 섹션"
 #: lib/section.php:106
 msgid "More..."
 msgstr "더 보기..."
+
+#: lib/silenceform.php:67
+#, fuzzy
+msgid "Silence"
+msgstr "사이트 공지"
 
 #: lib/silenceform.php:78
 msgid "Silence this user"
@@ -6074,6 +7073,13 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "아바타 업데이트 실패"
+
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -6113,6 +7119,11 @@ msgstr "상위 게시글 등록자"
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "이 사용자를 차단해제합니다."
 
 #: lib/unsilenceform.php:67
 msgid "Unsilence"
@@ -6161,6 +7172,11 @@ msgstr "메시지"
 #: lib/userprofile.php:326
 msgid "Moderate"
 msgstr ""
+
+#: lib/userprofile.php:364
+#, fuzzy
+msgid "User role"
+msgstr "이용자 프로필"
 
 #: lib/userprofile.php:366
 msgctxt "role"
@@ -6230,6 +7246,11 @@ msgstr[0] ""
 msgid "about a year ago"
 msgstr "1년 전"
 
+#: lib/webcolor.php:82
+#, fuzzy, php-format
+msgid "%s is not a valid color!"
+msgstr "홈페이지 주소형식이 올바르지 않습니다."
+
 #: lib/webcolor.php:123
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex chars."
@@ -6237,14 +7258,15 @@ msgstr ""
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "프로필을 지정하지 않았습니다."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

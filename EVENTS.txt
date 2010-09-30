@@ -1086,3 +1086,19 @@ StartDeleteOwnNotice: when a user starts to delete their own notice
 EndDeleteOwnNotice: when a user has deleted their own notice
 - $user: the user doing the delete
 - $notice: the notice being deleted
+
+StartShowFeedLinkList: before showing the feed list in the sidebar
+- $action: action being executed
+- $feeds: list of feeds to show
+
+EndShowFeedLinkList: after showing the feed list in the sidebar
+- $action: action being executed
+- $feeds: list of feeds shown
+
+StartShowFeedLink: before showing an individual feed item
+- $action: action being executed
+- $feed: feed to show
+
+EndShowFeedLink: after showing an individual feed
+- $action: action being executed
+- $feed: feed to show

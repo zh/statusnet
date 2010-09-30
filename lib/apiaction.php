@@ -462,7 +462,6 @@ class ApiAction extends Action
         $entry = array();
 
         if (Event::handle('StartRssEntryArray', array($notice, &$entry))) {
-
             $profile = $notice->getProfile();
 
             // We trim() to avoid extraneous whitespace in the output
@@ -552,7 +551,6 @@ class ApiAction extends Action
         $notifications = false;
 
         if ($source->isSubscribed($target)) {
-
             $sub = Subscription::pkeyGet(array('subscriber' =>
                 $source->id, 'subscribed' => $target->id));
 
@@ -738,7 +736,6 @@ class ApiAction extends Action
 
     function showXmlTimeline($notice)
     {
-
         $this->initDocument('xml');
         $this->elementStart('statuses', array('type' => 'array',
                                               'xmlns:statusnet' => 'http://status.net/schema/api/1/'));
@@ -763,7 +760,6 @@ class ApiAction extends Action
 
     function showRssTimeline($notice, $title, $link, $subtitle, $suplink = null, $logo = null, $self = null)
     {
-
         $this->initDocument('rss');
 
         $this->element('title', null, $title);
@@ -819,7 +815,6 @@ class ApiAction extends Action
 
     function showAtomTimeline($notice, $title, $id, $link, $subtitle=null, $suplink=null, $selfuri=null, $logo=null)
     {
-
         $this->initDocument('atom');
 
         $this->element('title', null, $title);
@@ -863,7 +858,6 @@ class ApiAction extends Action
 
     function showRssGroups($group, $title, $link, $subtitle)
     {
-
         $this->initDocument('rss');
 
         $this->element('title', null, $title);
@@ -1362,7 +1356,6 @@ class ApiAction extends Action
     function getTargetUser($id)
     {
         if (empty($id)) {
-
             // Twitter supports these other ways of passing the user ID
             if (is_numeric($this->arg('id'))) {
                 return User::staticGet($this->arg('id'));
