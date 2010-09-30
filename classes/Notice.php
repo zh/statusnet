@@ -2034,6 +2034,7 @@ class Notice extends Memcached_DataObject
     {
         // We always insert for the author so they don't
         // have to wait
+        Event::handle('StartNoticeDistribute', array($this));
 
         $user = User::staticGet('id', $this->profile_id);
         if (!empty($user)) {
