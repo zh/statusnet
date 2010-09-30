@@ -203,7 +203,7 @@ class ActivityObject
 
         $title = ActivityUtils::childHtmlContent($element, self::TITLE);
 
-        $this->title = html_entity_decode(strip_tags($title));
+        $this->title = html_entity_decode(strip_tags($title), ENT_QUOTES, 'UTF-8');
 
         $this->source  = $this->_getSource($element);
 

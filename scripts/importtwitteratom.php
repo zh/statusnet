@@ -89,7 +89,7 @@ function importActivityStream($user, $doc)
 
         $html = htmLawed($html, $config);
 
-        $content = html_entity_decode(strip_tags($html));
+        $content = html_entity_decode(strip_tags($html), ENT_QUOTES, 'UTF-8');
 
         $notice = Notice::saveNew($user->id,
                                   $content,

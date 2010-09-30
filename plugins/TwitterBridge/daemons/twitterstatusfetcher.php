@@ -321,7 +321,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $notice->is_local   = Notice::GATEWAY;
 
-        $notice->content  = html_entity_decode($status->text);
+        $notice->content  = html_entity_decode($status->text, ENT_QUOTES, 'UTF-8');
         $notice->rendered = $this->linkify($status);
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
