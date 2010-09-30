@@ -51,6 +51,12 @@ define('NOTICE_TITLE_PLUGIN_VERSION', '0.1');
 
 class NoticeTitlePlugin extends Plugin
 {
+
+    // By default, notice-title widget will be available to all users.
+    // With restricted on, only users who have been granted the
+    // "richedit" role get it.
+    public $restricted = false;
+
     /**
      * Database schema setup
      *
@@ -137,14 +143,16 @@ class NoticeTitlePlugin extends Plugin
 
     function onStartShowNoticeFormData($form)
     {
-        $form->out->element('style',
-                            null,
-                            'label#notice_data-text-label { display: none }');
-        $form->out->element('input', array('type' => 'text',
-                                           'id' => 'notice_title',
-                                           'name' => 'notice_title',
-                                           'size' => 40,
-                                           'maxlength' => Notice_title::MAXCHARS));
+        if ($this->isAllowedRichEdit()) {
+            $form->out->element('style',
+                                null,
+                                'label#notice_data-text-label { display: none }');
+            $form->out->element('input', array('type' => 'text',
+                                               'id' => 'notice_title',
+                                               'name' => 'notice_title',
+                                               'size' => 40,
+                                               'maxlength' => Notice_title::MAXCHARS));
+        }
         return true;
     }
 
@@ -162,7 +170,7 @@ class NoticeTitlePlugin extends Plugin
     function onStartNoticeSaveWeb($action, &$authorId, &$text, &$options)
     {
         $title = $action->trimmed('notice_title');
-        if (!empty($title)) {
+        if (!empty($title) && $this->isAllowedRichEdit()) {
             if (mb_strlen($title) > Notice_title::MAXCHARS) {
                 throw new Exception(sprintf(_m("The notice title is too long (max %d characters).",
                                                Notice_title::MAXCHARS)));
@@ -186,7 +194,7 @@ class NoticeTitlePlugin extends Plugin
 
             $title = $action->trimmed('notice_title');
 
-            if (!empty($title)) {
+            if (!empty($title) && $this->isAllowedRichEdit()) {
 
                 $nt = new Notice_title();
 
@@ -327,4 +335,24 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Does the current user have permission to use the notice-title widget?
+     * Always true unless the plugin's "restricted" setting is on, in which
+     * case it's limited to users with the "richedit" role.
+     *
+     * @fixme make that more sanely configurable :)
+     *
+     * @return boolean
+     */
+    private function isAllowedRichEdit()
+    {
+        if ($this->restricted) {
+            $user = common_current_user();
+            return !empty($user) && $user->hasRole('richedit');
+        } else {
+            return true;
+        }
+    }
+
 }
