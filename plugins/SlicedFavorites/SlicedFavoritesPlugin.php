@@ -18,7 +18,7 @@
  */
 
 /**
- * @package YammerImportPlugin
+ * @package SlicedFavoritesPlugin
  * @maintainer Brion Vibber <brion@status.net>
  */
 
