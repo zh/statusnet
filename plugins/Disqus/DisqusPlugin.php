@@ -176,29 +176,22 @@ ENDOFSCRIPT;
     }
 
     /**
-     * Override the default Notice display to add Disqus comments link
+     * Tack on a Disqus comments link to the notice options stanza
      * (the link displays the total number of comments for each notice)
      *
      * @param NoticeListItem $noticeListItem
      *
-     * @return boolean override
      */
-    function onStartShowNoticeItem($noticeListItem)
+    function onEndShowNoticeInfo($noticeListItem)
     {
         // Don't enable commenting for remote notices
         if (empty($noticeListItem->notice->is_local)) {
-            return true;
+            return;
         }
 
         $profile = Profile::staticGet('id', $noticeListItem->notice->profile_id);
 
         if ($this->isAllowedRichEdit($profile)) {
-
-            // @todo Refactor individual notice display to have its own event hooks
-
-            $noticeListItem->showNotice();
-            $noticeListItem->showNoticeInfo();
-
             $noticeUrl = $noticeListItem->notice->bestUrl();
             $noticeUrl .= '#disqus_thread';
 
@@ -207,13 +200,6 @@ ENDOFSCRIPT;
                 array('href' => $noticeUrl, 'class' => 'disqus_count'),
                 _m('Comments')
             );
-
-            $noticeListItem->showNoticeOptions();
-            Event::handle('EndShowNoticeItem', array($noticeListItem));
-
-            return false;
-        } else {
-            return true;
         }
     }
 
