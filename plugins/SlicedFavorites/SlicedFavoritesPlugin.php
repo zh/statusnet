@@ -33,13 +33,13 @@ class SlicedFavoritesPlugin extends Plugin
      *     'slices' => array(
      *       // show only pop's notices on /favorited
      *       'default' => array('include' => array('pop')),
-     * 
+     *
      *       // show only son's notices on /favorited/blog
      *       'blog' => array('include' => array('son')),
-     * 
+     *
      *       // show all favorited notices except pop's and son's on /favorited/submitted
      *       'submitted' => array('exclude' => array('pop', 'son')),
-     * 
+     *
      *       // show all favorited notices on /favorited/everybody
      *       'everybody' => array(),
      *     )
@@ -106,4 +106,31 @@ class SlicedFavoritesPlugin extends Plugin
         }
         return true;
     }
+
+    /**
+     * Provide plugin version information.
+     *
+     * This data is used when showing the version page.
+     *
+     * @param array &$versions array of version data arrays; see EVENTS.txt
+     *
+     * @return boolean hook value
+     * @todo Needs a proper plugin description.
+     */
+/*
+    function onPluginVersion(&$versions)
+    {
+        $url = 'http://status.net/wiki/Plugin:SlicedFavorites';
+
+        $versions[] = array('name' => 'SlicedFavorites',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Brion Vibber',
+            'homepage' => $url,
+            'rawdescription' =>
+            // TRANS: Plugin description.
+            _m('Needs a proper plugin description.'));
+
+        return true;
+    }
+*/
 }
