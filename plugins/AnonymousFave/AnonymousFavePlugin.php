@@ -202,7 +202,12 @@ class AnonymousFavePlugin extends Plugin
                     'class' => 'notice-tally'
                 )
             );
-            $out->raw(sprintf(_m("favored %d times"), $tally->count));
+            $out->elementStart('span', array('class' => 'fave-tally-title'));
+            $out->raw(sprintf(_m("Favored")));
+            $out->elementEnd('span');
+            $out->elementStart('span', array('class' => 'fave-tally'));
+            $out->raw($tally->count);
+            $out->elementEnd('span');
             $out->elementEnd('div');
         }
     }
