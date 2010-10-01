@@ -222,7 +222,10 @@ class ShowstreamAction extends ProfileAction
           ? $this->user->getNotices(($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1)
             : $this->user->getTaggedNotices($this->tag, ($this->page-1)*NOTICES_PER_PAGE, NOTICES_PER_PAGE + 1, 0, 0, null);
 
-        $pnl = new ProfileNoticeList($notice, $this);
+        $pnl = null;
+        if (Event::handle('ShowStreamNoticeList', array($notice, $this, &$pnl))) {
+            $pnl = new ProfileNoticeList($notice, $this);
+        }
         $cnt = $pnl->show();
         if (0 == $cnt) {
             $this->showEmptyListMessage();
