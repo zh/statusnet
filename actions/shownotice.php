@@ -298,6 +298,16 @@ class ShownoticeAction extends OwnerDesignAction
                 array(),
                 array('format'=>'xml','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
+
+        // Extras to aid in sharing notices to Facebook
+        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatarUrl = ($avatar) ?
+                     $avatar->displayUrl() :
+                     Avatar::defaultImage($avatar_size);
+        $this->element('meta', array('property' => 'og:image',
+                                     'content' => $avatarUrl));
+        $this->element('meta', array('property' => 'og:description',
+                                     'content' => $this->notice->content));
     }
 }
 
