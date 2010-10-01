@@ -115,9 +115,7 @@ class SlicedFavoritesPlugin extends Plugin
      * @param array &$versions array of version data arrays; see EVENTS.txt
      *
      * @return boolean hook value
-     * @todo Needs a proper plugin description.
      */
-/*
     function onPluginVersion(&$versions)
     {
         $url = 'http://status.net/wiki/Plugin:SlicedFavorites';
@@ -128,9 +126,8 @@ class SlicedFavoritesPlugin extends Plugin
             'homepage' => $url,
             'rawdescription' =>
             // TRANS: Plugin description.
-            _m('Needs a proper plugin description.'));
+            _m('Shows timelines of popular notices for defined subsets of users.'));
 
         return true;
     }
-*/
 }
