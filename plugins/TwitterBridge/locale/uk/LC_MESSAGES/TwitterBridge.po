@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - TwitterBridge\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:59+0000\n"
+"POT-Creation-Date: 2010-10-01 20:22+0000\n"
+"PO-Revision-Date: 2010-10-01 20:25:45+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-19-55 62::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-09-27 23:21:30+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-twitterbridge\n"
@@ -41,13 +41,13 @@ msgid ""
 "Regards,\n"
 "%3$s"
 msgstr ""
-"Вітаємо, %1$s. Нам дуже прикро про це повідомляти, але з’єднання Вашого "
-"акаунту на сайті StatusNet з Twitter було відключено. Здається, ми більше не "
-"маємо дозволу оновлювати Ваші статуси в Twitter. Можливо, це саме Ви "
-"скасували дозвіл %3$s?\n"
+"Вітаємо, %1$s. Нам дуже прикро про це повідомляти, але з’єднання вашого "
+"акаунту StatusNet з Twitter було відключено. Здається, ми більше не маємо "
+"дозволу оновлювати ваші статуси в Twitter. Можливо, це саме ви скасували "
+"дозвіл %3$s?\n"
 "\n"
-"Ви маєте можливість перезапустити додаток для автоматичного імпорту Ваших "
-"статусів до Twitter, завітавши до сторінки Ваших налаштувань:\n"
+"Ви маєте можливість перезапустити додаток для автоматичного імпорту ваших "
+"статусів до Twitter, завітавши до сторінки ваших налаштувань:\n"
 "\n"
 "%2$s\n"
 "\n"
@@ -76,8 +76,8 @@ msgid ""
 "The Twitter \"bridge\" plugin allows integration of a StatusNet instance "
 "with <a href=\"http://twitter.com/\">Twitter</a>."
 msgstr ""
-"Додаток «місток» з Twitter дозволяє інтегрувати StatusNet-сумісний сайт з <a "
-"href=\"http://twitter.com/\">Twitter</a>."
+"Додаток TwitterBridge дозволяє інтегрувати StatusNet-сумісний сайт з <a href="
+"\"http://twitter.com/\">Twitter</a>, встановлюючи так званий «місток»."
 
 #: twitteradminpanel.php:62
 msgid "Twitter bridge settings"
@@ -121,7 +121,7 @@ msgstr "Джерело об’єднання"
 
 #: twitteradminpanel.php:241
 msgid "Name of your Twitter application"
-msgstr "Назва Вашого додатку для Twitter"
+msgstr "Назва вашого додатку для Twitter"
 
 #: twitteradminpanel.php:253
 msgid "Options"
@@ -187,12 +187,12 @@ msgstr "Сталося щось незрозуміле."
 #: twitterauthorization.php:181 twitterauthorization.php:229
 #: twitterauthorization.php:300
 msgid "Couldn't link your Twitter account."
-msgstr "Не вдається підключити Ваш акаутнт Twitter."
+msgstr "Не вдається підключити ваш акаунт Twitter."
 
 #: twitterauthorization.php:201
 msgid "Couldn't link your Twitter account: oauth_token mismatch."
 msgstr ""
-"Не вдається підключити Ваш акаутнт Twitter: невідповідність oauth_token."
+"Не вдається підключити ваш акаунт Twitter: невідповідність oauth_token."
 
 #: twitterauthorization.php:312
 #, php-format
@@ -201,9 +201,9 @@ msgid ""
 "account to a local account. You can either create a new account, or connect "
 "with your existing account, if you have one."
 msgstr ""
-"Ви вперше увійшли до сайту %s, отже ми мусимо приєднати Ваш акаунт Twitter "
+"Ви вперше увійшли до сайту %s, отже ми мусимо приєднати ваш акаунт Twitter "
 "до акаунту на даному сайті. Ви маєте можливість створити новий акаунт або "
-"використати такий, що вже існує, якщо він у Вас є."
+"використати такий, що вже існує, якщо він у вас є."
 
 #: twitterauthorization.php:318
 msgid "Twitter Account Setup"
@@ -252,7 +252,7 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Twitter account."
 msgstr ""
-"Якщо Ви вже маєте акаунт, увійдіть з Вашим ім’ям користувача та паролем, аби "
+"Якщо ви вже маєте акаунт, увійдіть з вашим ім’ям користувача та паролем, аби "
 "приєднати їх до Twitter."
 
 #: twitterauthorization.php:401
@@ -329,7 +329,7 @@ msgstr "Від’єднати мій акаунт від Twitter"
 #: twittersettings.php:132
 msgid "Disconnecting your Twitter could make it impossible to log in! Please "
 msgstr ""
-"Якщо Ви від’єднаєте свій Twitter, то це унеможливить вхід до системи у "
+"Якщо ви від’єднаєте свій Twitter, то це унеможливить вхід до системи у "
 "майбутньому! Будь ласка, "
 
 #: twittersettings.php:136
@@ -347,7 +347,7 @@ msgid ""
 "Keep your %1$s account but disconnect from Twitter. You can use your %1$s "
 "password to log in."
 msgstr ""
-"Зберегти Ваш акаунт %1$s, але від’єднати його від Twitter. Ви можете "
+"Зберегти ваш акаунт %1$s, але від’єднати його від Twitter. Ви можете "
 "використовувати пароль від %1$s для входу на сайт."
 
 #: twittersettings.php:150

@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-28 17:24+0000\n"
-"PO-Revision-Date: 2010-09-28 17:26:51+0000\n"
+"POT-Creation-Date: 2010-10-01 20:22+0000\n"
+"PO-Revision-Date: 2010-10-01 20:25:14+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-62-95 99::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-09-28 19:23:59+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -42,8 +42,8 @@ msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
 msgstr ""
-"Falls Sie eine OpenID zu Ihrem Konto hinzufügen wollen, tragen Sie sie in "
-"dem nachfolgenden Feld ein und klicken Sie auf \"Hinzufügen\""
+"Falls du eine OpenID zu deinem Konto hinzufügen willst, trage sie in dem "
+"nachfolgenden Feld ein und klicke auf „Hinzufügen“."
 
 #. TRANS: OpenID plugin logon form field label.
 #: openidsettings.php:109 openidlogin.php:159
@@ -63,16 +63,16 @@ msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
 msgstr ""
-"Das Entfernen der einzigen OpenID würde das einloggen unmöglich machen! "
-"Falls Sie sie entfernen müssen, fügen Sie zuerst eine andere hinzu."
+"Das Entfernen der einzigen OpenID würde das Einloggen unmöglich machen! "
+"Falls du sie entfernen musst, füge zuerst eine andere hinzu."
 
 #: openidsettings.php:151
 msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr ""
-"Sie können eine OpenID aus Ihrem Konto entfernen, indem Sie auf den Button "
-"\"Entfernen\" klicken."
+"Du kannst eine OpenID von deinem Konto entfernen, indem du auf den Button "
+"„Entfernen“ klickst."
 
 #: openidsettings.php:174 openidsettings.php:215
 msgid "Remove"
@@ -94,8 +94,7 @@ msgstr ""
 #. TRANS: Message given when there is a problem with the user's session token.
 #: openidsettings.php:233 finishopenidlogin.php:40 openidlogin.php:49
 msgid "There was a problem with your session token. Try again, please."
-msgstr ""
-"Es gab ein Problem mit Ihrem Sitzungstoken. Bitte versuchen Sie es erneut."
+msgstr "Es gab ein Problem mit deinem Sitzungstoken. Bitte versuche es erneut."
 
 #: openidsettings.php:240
 msgid "Can't add new providers."
@@ -119,13 +118,13 @@ msgstr "Keine solche OpenID."
 
 #: openidsettings.php:309
 msgid "That OpenID does not belong to you."
-msgstr "Die OpenID gehört Ihnen nicht."
+msgstr "Diese OpenID gehört dir nicht."
 
 #: openidsettings.php:313
 msgid "OpenID removed."
 msgstr "OpenID entfernt."
 
-#: openidadminpanel.php:54 OpenIDPlugin.php:623
+#: openidadminpanel.php:54 OpenIDPlugin.php:628
 msgid "OpenID"
 msgstr "OpenID"
 
@@ -258,68 +257,68 @@ msgid ""
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Login"
-#: OpenIDPlugin.php:221
+#: OpenIDPlugin.php:226
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
 #. TRANS: Main menu option when not logged in to log in
-#: OpenIDPlugin.php:224
+#: OpenIDPlugin.php:229
 msgctxt "MENU"
 msgid "Login"
 msgstr "Anmelden"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: OpenIDPlugin.php:229
+#: OpenIDPlugin.php:234
 msgctxt "TOOLTIP"
 msgid "Help me!"
-msgstr "Helfen Sie mir!"
+msgstr "Hilf mir!"
 
 #. TRANS: Main menu option for help on the StatusNet site
-#: OpenIDPlugin.php:232
+#: OpenIDPlugin.php:237
 msgctxt "MENU"
 msgid "Help"
 msgstr "Hilfe"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: OpenIDPlugin.php:238
+#: OpenIDPlugin.php:243
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr ""
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private
-#: OpenIDPlugin.php:241
+#: OpenIDPlugin.php:246
 msgctxt "MENU"
 msgid "Search"
 msgstr "Suche"
 
 #. TRANS: OpenID plugin menu item on site logon page.
 #. TRANS: OpenID plugin menu item on user settings page.
-#: OpenIDPlugin.php:301 OpenIDPlugin.php:339
+#: OpenIDPlugin.php:306 OpenIDPlugin.php:344
 msgctxt "MENU"
 msgid "OpenID"
 msgstr "OpenID"
 
 #. TRANS: OpenID plugin tooltip for logon menu item.
-#: OpenIDPlugin.php:303
+#: OpenIDPlugin.php:308
 msgid "Login or register with OpenID"
 msgstr "Anmelden oder Registrieren per OpenID"
 
 #. TRANS: OpenID plugin tooltip for user settings menu item.
-#: OpenIDPlugin.php:341
+#: OpenIDPlugin.php:346
 msgid "Add or remove OpenIDs"
 msgstr "Hinzufügen oder Entfernen von OpenIDs"
 
-#: OpenIDPlugin.php:624
+#: OpenIDPlugin.php:629
 msgid "OpenID configuration"
 msgstr ""
 
 #. TRANS: OpenID plugin description.
-#: OpenIDPlugin.php:649
+#: OpenIDPlugin.php:654
 msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
 msgstr ""
-"Benutzen Sie eine <a href=\"http://openid.net/\">OpenID</a> um sich auf der "
-"Seite anzumelden."
+"Benutzung der <a href=\"http://openid.net/\">OpenID</a> zur Anmeldung auf "
+"der Seite"
 
 #. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
 #: openidserver.php:118
@@ -510,7 +509,7 @@ msgstr ""
 
 #: openidlogin.php:154
 msgid "Enter your username."
-msgstr "Geben Sie Ihren Benutzernamen ein."
+msgstr "Gib deinen Benutzernamen ein."
 
 #: openidlogin.php:155
 msgid "You will be sent to the provider's site for authentication."
@@ -569,7 +568,7 @@ msgstr ""
 #. TRANS: message in case a user tries to add an OpenID that is already connected to them.
 #: finishaddopenid.php:122
 msgid "You already have this OpenID!"
-msgstr "Sie haben bereits diese OpenID!"
+msgstr "Du hast bereits diese OpenID!"
 
 #. TRANS: message in case a user tries to add an OpenID that is already used by another user.
 #: finishaddopenid.php:125

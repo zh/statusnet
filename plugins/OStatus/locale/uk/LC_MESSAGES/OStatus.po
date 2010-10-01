@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:39+0000\n"
+"POT-Creation-Date: 2010-10-01 20:22+0000\n"
+"PO-Revision-Date: 2010-10-01 20:25:23+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-62-55 00::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-09-27 23:20:00+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -53,16 +53,16 @@ msgstr "Не читати"
 #: OStatusPlugin.php:608
 #, php-format
 msgid "%1$s stopped following %2$s."
-msgstr "%1$s припинив читати Ваші дописи %2$s."
+msgstr "%1$s припинив читати ваші дописи %2$s."
 
 #: OStatusPlugin.php:636
 msgid "Could not set up remote group membership."
-msgstr "Не вдалося приєднатися до віддаленої групи."
+msgstr "Не вдалося приєднатися до віддаленої спільноти."
 
 #. TRANS: Exception.
 #: OStatusPlugin.php:667
 msgid "Failed joining remote group."
-msgstr "Помилка приєднання до віддаленої групи."
+msgstr "Помилка приєднання до віддаленої спільноти."
 
 #: OStatusPlugin.php:707
 msgid "Leave"
@@ -102,8 +102,8 @@ msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
 msgstr ""
-"Слідкуйте за дописами людей з інших мереж, що підтримують протокол <a href="
-"\"http://ostatus.org/\">OStatus</a>."
+"Додає можливість слідкувати за дописами людей з інших мереж, які підтримують "
+"протокол <a href=\"http://ostatus.org/\">OStatus</a>."
 
 #: classes/FeedSub.php:248
 msgid "Attempting to start PuSH subscription for feed with no hub."
@@ -212,7 +212,7 @@ msgstr "Місцевий користувач не може бути зазна�
 #. TRANS: Exception.
 #: classes/Ostatus_profile.php:1280
 msgid "Local group can't be referenced as remote."
-msgstr "Місцева група не може бути зазначена у якості віддаленої."
+msgstr "Локальну спільноту не можна зазначити у якості віддаленої."
 
 #. TRANS: Exception.
 #: classes/Ostatus_profile.php:1332 classes/Ostatus_profile.php:1343
@@ -414,7 +414,7 @@ msgstr "hub.topic «%s» невірний. Користувача не існу�
 #: actions/pushhub.php:170
 #, php-format
 msgid "Invalid hub.topic \"%s\". Group doesn't exist."
-msgstr "hub.topic «%s» невірний. Групи не існує."
+msgstr "hub.topic «%s» невірний. Спільноти не існує."
 
 #. TRANS: Client exception.
 #. TRANS: %1$s is this argument to the method this exception occurs in, %2$s is a URL.
@@ -477,14 +477,14 @@ msgstr "Допис з ідентифікатором %1$s було надісл�
 #. TRANS: Field label.
 #: actions/ostatusgroup.php:76
 msgid "Join group"
-msgstr "Приєднатися до групи"
+msgstr "Долучитися до спільноти"
 
 #. TRANS: Tooltip for field label "Join group".
 #: actions/ostatusgroup.php:79
 msgid "OStatus group's address, like http://example.net/group/nickname."
 msgstr ""
-"Адреса групи згідно протоколу OStatus, наприклад http://example.net/group/"
-"nickname."
+"Адреса спільноти згідно протоколу OStatus, наприклад http://example.net/"
+"group/nickname."
 
 #. TRANS: Button text.
 #: actions/ostatusgroup.php:84 actions/ostatussub.php:73
@@ -494,7 +494,7 @@ msgstr "Продовжити"
 
 #: actions/ostatusgroup.php:103
 msgid "You are already a member of this group."
-msgstr "Ви вже є учасником цієї групи."
+msgstr "Ви вже є учасником цієї спільноти."
 
 #. TRANS: OStatus remote group subscription dialog error.
 #: actions/ostatusgroup.php:138
@@ -504,17 +504,17 @@ msgstr "Ви вже учасник!"
 #. TRANS: OStatus remote group subscription dialog error.
 #: actions/ostatusgroup.php:149
 msgid "Remote group join failed!"
-msgstr "Приєднатися до віддаленої групи не вдалося!"
+msgstr "Приєднатися до віддаленої спільноти не вдалося!"
 
 #. TRANS: OStatus remote group subscription dialog error.
 #: actions/ostatusgroup.php:153
 msgid "Remote group join aborted!"
-msgstr "Приєднання до віддаленої групи перервано!"
+msgstr "Приєднання до віддаленої спільноти перервано!"
 
 #. TRANS: Page title for OStatus remote group join form
 #: actions/ostatusgroup.php:165
 msgid "Confirm joining remote group"
-msgstr "Підтвердження приєднання до віддаленої групи"
+msgstr "Підтвердження приєднання до віддаленої спільноти"
 
 #. TRANS: Instructions.
 #: actions/ostatusgroup.php:176
@@ -522,50 +522,51 @@ msgid ""
 "You can subscribe to groups from other supported sites. Paste the group's "
 "profile URI below:"
 msgstr ""
-"Ви маєте можливість приєднатися до груп на аналогічних сайтах. Просто "
-"вставте URI профілю групи тут:"
+"Ви можете долучатися до спільнот на аналогічних сайтах. Просто вставте URI "
+"профілю спільноти тут:"
 
 #. TRANS: Client error.
 #: actions/groupsalmon.php:47
 msgid "No such group."
-msgstr "Такої групи немає."
+msgstr "Такої спільноти немає."
 
 #. TRANS: Client error.
 #: actions/groupsalmon.php:53
 msgid "Can't accept remote posts for a remote group."
-msgstr "Не можу узгодити віддалену пересилку дописів до віддаленої групи."
+msgstr "Не можу узгодити віддалену пересилку дописів до віддаленої спільноти."
 
 #. TRANS: Client error.
 #: actions/groupsalmon.php:127
 msgid "Can't read profile to set up group membership."
-msgstr "Не можу прочитати профіль, аби встановити членство у групі."
+msgstr "Не можу прочитати профіль, аби долучитися до спільноти."
 
 #. TRANS: Client error.
 #: actions/groupsalmon.php:131 actions/groupsalmon.php:174
 msgid "Groups can't join groups."
-msgstr "Групи ніяк не можуть приєднуватися до груп."
+msgstr "Спільноти ніяк не можуть приєднуватися до спільнот."
 
 #: actions/groupsalmon.php:144
 msgid "You have been blocked from that group by the admin."
-msgstr "Адміністратор групи заблокував Ваш профіль."
+msgstr "Адміністратор спільноти заблокував ваш профіль."
 
 #. TRANS: Server error. %1$s is a profile URI, %2$s is a group nickname.
 #: actions/groupsalmon.php:159
 #, php-format
 msgid "Could not join remote user %1$s to group %2$s."
-msgstr "Віддаленому користувачеві %1$s не вдалося приєднатися до групи %2$s."
+msgstr ""
+"Віддаленому користувачеві %1$s не вдалося долучитися до спільноти %2$s."
 
 #: actions/groupsalmon.php:171
 msgid "Can't read profile to cancel group membership."
 msgstr ""
-"Не вдається прочитати профіль користувача, щоб скасувати його членство в "
-"групі."
+"Не вдається прочитати профіль користувача, щоб скасувати його перебування у "
+"спільноті."
 
 #. TRANS: Server error. %1$s is a profile URI, %2$s is a group nickname.
 #: actions/groupsalmon.php:188
 #, php-format
 msgid "Could not remove remote user %1$s from group %2$s."
-msgstr "Не вдалось видалити віддаленого користувача %1$s з групи %2$s."
+msgstr "Не вдалось видалити віддаленого користувача %1$s зі спільноти %2$s."
 
 #. TRANS: Field label for a field that takes an OStatus user address.
 #: actions/ostatussub.php:66
@@ -586,7 +587,7 @@ msgstr ""
 #: actions/ostatussub.php:110
 msgctxt "BUTTON"
 msgid "Join this group"
-msgstr "Приєднатися до групи"
+msgstr "Приєднатися до спільноти"
 
 #. TRANS: Button text.
 #: actions/ostatussub.php:113
@@ -687,7 +688,7 @@ msgstr "Ви можете користуватись локальними під
 #: actions/ostatusinit.php:97
 #, php-format
 msgid "Join group %s"
-msgstr "Приєднатися до групи %s"
+msgstr "Приєднатися до спільноти %s"
 
 #. TRANS: Button text.
 #: actions/ostatusinit.php:99
@@ -714,7 +715,7 @@ msgstr "Ім’я користувача"
 
 #: actions/ostatusinit.php:118
 msgid "Nickname of the user you want to follow."
-msgstr "Ім’я користувача, дописи якого Ви хотіли б читати."
+msgstr "Ім’я користувача, дописи якого ви хотіли б читати."
 
 #. TRANS: Field label.
 #: actions/ostatusinit.php:123
@@ -724,7 +725,7 @@ msgstr "Профіль акаунту"
 #. TRANS: Tooltip for field label "Profile Account".
 #: actions/ostatusinit.php:125
 msgid "Your account id (e.g. user@identi.ca)."
-msgstr "Ідентифікатор Вашого акаунту (щось на зразок user@identi.ca)"
+msgstr "Ідентифікатор вашого акаунту (щось на зразок user@identi.ca)"
 
 #. TRANS: Client error.
 #: actions/ostatusinit.php:147
