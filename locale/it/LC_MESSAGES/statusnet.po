@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:28+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:51+0000\n"
 "Language-Team: Italian <http://translatewiki.net/wiki/Portal:it>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -385,6 +385,11 @@ msgstr "Impossibile non seguire l'utente: utente non trovato."
 msgid "You cannot unfollow yourself."
 msgstr "Non puoi non seguirti."
 
+#: actions/apifriendshipsexists.php:91
+#, fuzzy
+msgid "Two valid IDs or screen_names must be supplied."
+msgstr "Devono essere forniti due ID utente o nominativi."
+
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
 msgstr "Impossibile determinare l'utente sorgente."
@@ -518,6 +523,11 @@ msgstr "Gruppi di %s"
 #, php-format
 msgid "groups on %s"
 msgstr "Gruppi su %s"
+
+#: actions/apimediaupload.php:100
+#, fuzzy
+msgid "Upload failed."
+msgstr "Carica file"
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -2388,7 +2398,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Privato"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2643,6 +2653,14 @@ msgstr "Messaggi con \"%s\""
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Messaggi che corrispondono al termine \"%1$s\" su %2$s!"
+
+#: actions/nudge.php:85
+#, fuzzy
+msgid ""
+"This user doesn't allow nudges or hasn't confirmed or set their email yet."
+msgstr ""
+"Questo utente non consente i richiami oppure non ha confermato o impostato "
+"ancora il suo indirizzo email."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -3861,6 +3879,15 @@ msgstr ""
 "Non hai ancora scelto alcun messaggio come preferito. Fai clic sul pulsate a "
 "forma di cuore per salvare i messaggi e rileggerli in un altro momento."
 
+#: actions/showfavorites.php:208
+#, fuzzy, php-format
+msgid ""
+"%s hasn't added any favorite notices yet. Post something interesting they "
+"would add to their favorites :)"
+msgstr ""
+"%s non ha aggiunto alcun messaggio tra i suoi preferiti. Scrivi qualche cosa "
+"di interessante in modo che lo inserisca tra i suoi preferiti. :)"
+
 #: actions/showfavorites.php:212
 #, php-format
 msgid ""
@@ -4956,6 +4983,17 @@ msgstr ""
 msgid "Robin thinks something is impossible."
 msgstr ""
 
+#. TRANS: Message given if an upload is larger than the configured maximum.
+#. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
+#: classes/File.php:190
+#, fuzzy, php-format
+msgid ""
+"No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
+"Try to upload a smaller version."
+msgstr ""
+"Nessun file può superare %d byte e il file inviato era di %d byte. Prova a "
+"caricarne una versione più piccola."
+
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
 #: classes/File.php:202
@@ -4971,6 +5009,12 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 "Un file di questa dimensione supererebbe la tua quota mensile di %d byte."
+
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "Dimensione non valida."
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -5111,6 +5155,18 @@ msgstr ""
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
+
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "L'utente non ha un profilo."
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Impossibile salvare il messaggio del sito."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
@@ -7426,14 +7482,15 @@ msgstr "%s non è un colore valido. Usa 3 o 6 caratteri esadecimali."
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Nessun ID utente specificato."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

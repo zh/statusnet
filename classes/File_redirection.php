@@ -281,4 +281,3 @@ class File_redirection extends Memcached_DataObject
         $file_redir->insert();
     }
 }
-

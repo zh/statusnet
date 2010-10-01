@@ -197,7 +197,8 @@ class ApplicationEditForm extends Form
         $maxDesc = Oauth_application::maxDesc();
         if ($maxDesc > 0) {
             // TRANS: Form input field instructions.
-            $descInstr = sprintf(_('Describe your application in %d characters'),
+            // TRANS: %d is the number of available characters for the description.
+            $descInstr = sprintf(ngettext('Describe your application in %d character','Describe your application in %d characters',$maxDesc),
                                  $maxDesc);
         } else {
             // TRANS: Form input field instructions.

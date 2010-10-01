@@ -149,7 +149,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 // Okay, good
                 return new OAuthToken($at->tok, $at->secret);
             }
-
         } else {
             return null;
         }
@@ -173,10 +172,12 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         $rt->tok = $token_key;
         $rt->type = $type;
         $rt->state = 0;
+
         if (!$rt->find(true)) {
             // TRANS: Exception thrown when an attempt is made to revoke an unknown token.
             throw new Exception(_('Tried to revoke unknown token.'));
         }
+
         if (!$rt->delete()) {
             // TRANS: Exception thrown when an attempt is made to remove a revoked token.
             throw new Exception(_('Failed to delete revoked token.'));

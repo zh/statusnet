@@ -19,17 +19,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:19+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:40+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -51,7 +51,7 @@ msgstr "Registrieren"
 #: actions/accessadminpanel.php:165
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr ""
-"Anonymen (nicht eingeloggten) Nutzern das Betrachten der Seite verbieten?"
+"Anonymen (nicht eingeloggten) Benutzern das Betrachten der Seite verbieten?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:167
@@ -382,12 +382,13 @@ msgstr "Konnte Favoriten nicht löschen."
 
 #: actions/apifriendshipscreate.php:110
 msgid "Could not follow user: profile not found."
-msgstr "Konnte Nutzer nicht folgen: Profil nicht gefunden"
+msgstr "Konnte Benutzer nicht folgen: Profil nicht gefunden"
 
 #: actions/apifriendshipscreate.php:119
 #, php-format
 msgid "Could not follow user: %s is already on your list."
-msgstr "Kann Nutzer %s nicht folgen: schon in deiner Kontaktliste eingetragen"
+msgstr ""
+"Kann Benutzer %s nicht folgen: schon in deiner Kontaktliste eingetragen"
 
 #: actions/apifriendshipsdestroy.php:110
 msgid "Could not unfollow user: User not found."
@@ -1144,7 +1145,7 @@ msgstr "Design"
 
 #: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site"
-msgstr ""
+msgstr "Design-Einstellungen dieser StatusNet-Website"
 
 #: actions/designadminpanel.php:331
 msgid "Invalid logo URL."
@@ -1366,7 +1367,7 @@ msgstr "Du musst angemeldet sein, um eine Gruppe zu erstellen."
 #: actions/editgroup.php:107 actions/editgroup.php:172
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 msgid "You must be an admin to edit the group."
-msgstr "Du musst ein Administrator sein, um die Gruppe zu bearbeiten"
+msgstr "Du musst ein Admin sein, um die Gruppe zu bearbeiten"
 
 #: actions/editgroup.php:158
 msgid "Use this form to edit the group."
@@ -1564,7 +1565,7 @@ msgstr "Dies ist bereits deine E-Mail-Adresse."
 #. TRANS: Message given saving e-mail address that is already set for another user.
 #: actions/emailsettings.php:378
 msgid "That email address already belongs to another user."
-msgstr "Diese E-Mail-Adresse gehört einem anderen Nutzer."
+msgstr "Diese E-Mail-Adresse gehört bereits einem anderen Benutzer."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1727,7 +1728,7 @@ msgstr "Unerwartete Antwort!"
 
 #: actions/finishremotesubscribe.php:80
 msgid "User being listened to does not exist."
-msgstr "Aufgeführte Nutzer existiert nicht."
+msgstr "Aufgeführter Benutzer existiert nicht."
 
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
@@ -1775,7 +1776,7 @@ msgstr "Auf dieser Seite können keine Benutzerrollen gewährt werden."
 
 #: actions/grantrole.php:82
 msgid "User already has this role."
-msgstr "Nutzer hat bereits diese Aufgabe"
+msgstr "Benutzer hat bereits diese Aufgabe"
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1796,15 +1797,15 @@ msgstr "Keine Gruppe angegeben"
 
 #: actions/groupblock.php:91
 msgid "Only an admin can block group members."
-msgstr "Nur ein Administrator kann Mitglieder der Gruppe sperren."
+msgstr "Nur ein Admin kann Mitglieder der Gruppe sperren."
 
 #: actions/groupblock.php:95
 msgid "User is already blocked from group."
-msgstr "Dieser Nutzer ist bereits von der Gruppe gesperrt"
+msgstr "Dieser Benutzer ist bereits von der Gruppe gesperrt"
 
 #: actions/groupblock.php:100
 msgid "User is not a member of group."
-msgstr "Nutzer ist kein Mitglied dieser Gruppe."
+msgstr "Benutzer ist kein Mitglied dieser Gruppe."
 
 #: actions/groupblock.php:134 actions/groupmembers.php:364
 msgid "Block user from group"
@@ -1829,11 +1830,12 @@ msgstr "Diesen Benutzerzugang nicht für diese Gruppe blockieren."
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:189
 msgid "Block this user from this group"
-msgstr "Diesen Nutzer von der Gruppe sperren"
+msgstr "Diesen Benutzer von der Gruppe sperren"
 
 #: actions/groupblock.php:206
 msgid "Database error blocking user from group."
-msgstr "Datenbankfehler beim Versuch den Nutzer aus der Gruppe zu blockieren."
+msgstr ""
+"Datenbankfehler beim Versuch den Benutzer aus der Gruppe zu blockieren."
 
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
@@ -1930,13 +1932,13 @@ msgstr "Benutzer zu einem Admin dieser Gruppe ernennen"
 #: actions/groupmembers.php:533
 msgctxt "BUTTON"
 msgid "Make Admin"
-msgstr ""
+msgstr "Zum Admin ernennen"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:537
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Diesen Benutzer zum Admin ernennen"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -1988,7 +1990,7 @@ msgid ""
 "Search for groups on %%site.name%% by their name, location, or description. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Durchsuche die Namen, Orte oder Interessen der Nutzer von %%site.name%%. "
+"Durchsuche die Namen, Orte oder Interessen der Benutzer von %%site.name%%. "
 "Trenne mehrere Suchbegriffe durch Leerzeichen. Ein Suchbegriff muss aus "
 "mindestens 3 Zeichen bestehen."
 
@@ -2021,11 +2023,11 @@ msgstr ""
 
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
-msgstr "Nur Administratoren können Gruppenmitglieder entsperren."
+msgstr "Nur Admins können Gruppenmitglieder entsperren."
 
 #: actions/groupunblock.php:95
 msgid "User is not blocked from group."
-msgstr "Dieser Nutzer ist nicht von der Gruppe gesperrt."
+msgstr "Dieser Benutzer ist nicht von der Gruppe gesperrt."
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
 msgid "Error removing the block."
@@ -2323,7 +2325,7 @@ msgid ""
 msgstr ""
 "%1$s hat dich eingeladen, auch bei %2$s mitzumachen. (%3$s).\n"
 "\n"
-"%2$s ist ein Microblogging-Service, der dich über deine Freunde auf dem "
+"%2$s ist ein Mikroblogging-Service, der dich über deine Freunde auf dem "
 "Laufenden hält und deine Freunde über dich informiert. \n"
 "\n"
 "Du kannst Neuigkeiten über dich und deine Gedanken verbreiten. Lerne neue "
@@ -2378,105 +2380,107 @@ msgstr "%1$s hat die Gruppe %2$s verlassen"
 #: actions/licenseadminpanel.php:56
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "Lizenz"
 
 #: actions/licenseadminpanel.php:67
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "Lizenz dieser StatusNet-Website"
 
 #: actions/licenseadminpanel.php:139
 msgid "Invalid license selection."
-msgstr ""
+msgstr "Ungültige Lizenzauswahl."
 
 #: actions/licenseadminpanel.php:149
 msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
 msgstr ""
+"Du musst den Besitzer des Inhalts angeben, wenn du „Alle Rechte vorbehalten“ "
+"wählst."
 
 #: actions/licenseadminpanel.php:156
 msgid "Invalid license title. Max length is 255 characters."
-msgstr ""
+msgstr "Ungültiger Lizenztitel. Die maximale Länge liegt bei 255 Zeichen."
 
 #: actions/licenseadminpanel.php:168
 msgid "Invalid license URL."
-msgstr ""
+msgstr "Ungültige Lizenz-URL."
 
 #: actions/licenseadminpanel.php:171
 msgid "Invalid license image URL."
-msgstr ""
+msgstr "Ungültige Lizenz-Bild-URL."
 
 #: actions/licenseadminpanel.php:179
 msgid "License URL must be blank or a valid URL."
-msgstr ""
+msgstr "Lizenz-URL muss leer oder eine gültige URL sein."
 
 #: actions/licenseadminpanel.php:187
 msgid "License image must be blank or valid URL."
-msgstr ""
+msgstr "Lizenz-Bild muss leer oder eine gültige URL sein."
 
 #: actions/licenseadminpanel.php:239
 msgid "License selection"
-msgstr ""
+msgstr "Lizenzauswahl"
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Alle Rechte vorbehalten"
 
 #: actions/licenseadminpanel.php:247
 msgid "Creative Commons"
-msgstr ""
+msgstr "Creative Commons"
 
 #: actions/licenseadminpanel.php:252
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: actions/licenseadminpanel.php:254
 msgid "Select license"
-msgstr ""
+msgstr "Lizenz auswählen"
 
 #: actions/licenseadminpanel.php:268
 msgid "License details"
-msgstr ""
+msgstr "Lizenz-Details"
 
 #: actions/licenseadminpanel.php:274
 msgid "Owner"
-msgstr ""
+msgstr "Besitzer"
 
 #: actions/licenseadminpanel.php:275
 msgid "Name of the owner of the site's content (if applicable)."
-msgstr ""
+msgstr "Name von dem Besitzer des Inhalts dieser Website (falls notwendig)"
 
 #: actions/licenseadminpanel.php:283
 msgid "License Title"
-msgstr ""
+msgstr "Lizenz-Titel"
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
-msgstr ""
+msgstr "Der Titel der Lizenz."
 
 #: actions/licenseadminpanel.php:292
 msgid "License URL"
-msgstr ""
+msgstr "Lizenz-URL"
 
 #: actions/licenseadminpanel.php:293
 msgid "URL for more information about the license."
-msgstr ""
+msgstr "URL mit weiteren Informationen über die Lizenz."
 
 #: actions/licenseadminpanel.php:300
 msgid "License Image URL"
-msgstr ""
+msgstr "Lizenz-Bild-URl"
 
 #: actions/licenseadminpanel.php:301
 msgid "URL for an image to display with the license."
-msgstr ""
+msgstr "URL eines mit der Lizenz anzuzeigenden Bildes."
 
 #: actions/licenseadminpanel.php:319
 msgid "Save license settings"
-msgstr ""
+msgstr "Lizenz-Einstellungen speichern"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2533,12 +2537,12 @@ msgstr ""
 
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
-msgstr "Nur Administratoren können andere Nutzer zu Administratoren ernennen."
+msgstr "Nur Admins können andere Benutzer zu Admins ernennen."
 
 #: actions/makeadmin.php:96
 #, php-format
 msgid "%1$s is already an admin for group \"%2$s\"."
-msgstr "%1$s ist bereits Administrator der Gruppe „%2$s“."
+msgstr "%1$s ist bereits Admin der Gruppe „%2$s“."
 
 #: actions/makeadmin.php:133
 #, php-format
@@ -2548,7 +2552,7 @@ msgstr "Konnte keinen Mitgliedseintrag für %1$s aus Gruppe %2$s empfangen."
 #: actions/makeadmin.php:146
 #, php-format
 msgid "Can't make %1$s an admin for group %2$s."
-msgstr "Konnte %1$s nicht zum Administrator der Gruppe %2$s machen"
+msgstr "Konnte %1$s nicht zum Admin der Gruppe %2$s machen"
 
 #: actions/microsummary.php:69
 msgid "No current status."
@@ -2719,6 +2723,7 @@ msgstr "Verbundene Programme"
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access your account."
 msgstr ""
+"Du hast den folgenden Programmen erlaubt, auf dein Benutzerkonto zuzugreifen."
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
@@ -2732,7 +2737,7 @@ msgstr "Kann Zugang dieses Programm nicht entfernen: %s."
 #: actions/oauthconnectionssettings.php:198
 msgid "You have not authorized any applications to use your account."
 msgstr ""
-"Du hast noch keinem Programm die Erlaubnis gegeben dein Profil zu benutzen."
+"Du hast noch keinem Programm die Erlaubnis gegeben, dein Profil zu benutzen."
 
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
@@ -2796,7 +2801,7 @@ msgstr "URL-Auto-Kürzungs-Dienst."
 
 #: actions/othersettings.php:122
 msgid "View profile designs"
-msgstr "Profil-Einstellungen ansehen"
+msgstr "Profil-Designs ansehen"
 
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
@@ -2909,7 +2914,7 @@ msgstr "Pfad"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site"
-msgstr ""
+msgstr "Pfad- und Servereinstellungen dieser StatusNet-Website"
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -3061,7 +3066,7 @@ msgid ""
 "Search for people on %%site.name%% by their name, location, or interests. "
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
-"Durchsuche die Namen, Orte oder Interessen der Nutzer von %%site.name%%. "
+"Durchsuche die Namen, Orte oder Interessen der Benutzer von %%site.name%%. "
 "Trenne mehrere Suchbegriffe durch Leerzeichen. Ein Suchbegriff muss aus "
 "mindestens 3 Zeichen bestehen."
 
@@ -3124,7 +3129,8 @@ msgstr "Homepage"
 #: actions/profilesettings.php:117 actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr ""
-"URL deiner Homepage, deines Blogs, oder deines Profils auf einer anderen Site"
+"URL deiner Homepage, deines Blogs, oder deines Profils auf einer anderen "
+"Website"
 
 #: actions/profilesettings.php:122 actions/register.php:468
 #, php-format
@@ -3301,8 +3307,8 @@ msgid ""
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
 msgstr ""
-"Dies ist %%site.name%%, ein [Mikro-blogging-Dienst](http://de.wikipedia.org/"
-"wiki/Mikro-blogging) basierend auf der freien Software [StatusNet](http://"
+"Dies ist %%site.name%%, ein [Mikroblogging](http://de.wikipedia.org/wiki/"
+"Mikroblogging)-Dienst basierend auf der freien Software [StatusNet](http://"
 "status.net/)."
 
 #: actions/publictagcloud.php:57
@@ -3352,7 +3358,7 @@ msgstr "Kein Wiederherstellungscode."
 
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
-msgstr "Wiederherstellungscode für unbekannten Nutzer."
+msgstr "Wiederherstellungscode für unbekannten Benutzer."
 
 #: actions/recoverpassword.php:86
 msgid "Error with confirmation code."
@@ -3428,7 +3434,7 @@ msgstr "Kein Benutzer mit dieser E-Mail-Adresse oder mit diesem Nutzernamen."
 
 #: actions/recoverpassword.php:299
 msgid "No registered email address for that user."
-msgstr "Der Nutzer hat keine registrierte E-Mail-Adresse."
+msgstr "Der Benutzer hat keine registrierte E-Mail-Adresse."
 
 #: actions/recoverpassword.php:313
 msgid "Error saving address confirmation."
@@ -3614,7 +3620,7 @@ msgid ""
 msgstr ""
 "Für ein Abonnement kannst du dich entweder [anmelden](%%action.login%%) oder "
 "ein neues Konto [registrieren](%%action.register%%). Wenn du schon ein Konto "
-"auf einer [kompatiblen Microbloggingsite](%%doc.openmublog%%) hast, dann gib "
+"auf einer [kompatiblen Mikrobloggingsite](%%doc.openmublog%%) hast, dann gib "
 "deine Profil-URL unten an."
 
 #: actions/remotesubscribe.php:112
@@ -3639,7 +3645,7 @@ msgstr "Profil-URL"
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
-msgstr "Profil-URL bei einem anderen kompatiblen Microbloggingdienst"
+msgstr "Profil-URL bei einem anderen kompatiblen Mikrobloggingdienst"
 
 #: actions/remotesubscribe.php:137 lib/subscribeform.php:139
 #: lib/userprofile.php:406
@@ -3665,7 +3671,7 @@ msgstr "Konnte keinen Anfrage-Token bekommen."
 
 #: actions/repeat.php:57
 msgid "Only logged-in users can repeat notices."
-msgstr "Nur angemeldete Nutzer können Nachrichten wiederholen."
+msgstr "Nur angemeldete Benutzer können Nachrichten wiederholen."
 
 #: actions/repeat.php:64 actions/repeat.php:71
 msgid "No notice specified."
@@ -3728,7 +3734,7 @@ msgid ""
 "You can engage other users in a conversation, subscribe to more people or "
 "[join groups](%%action.groups%%)."
 msgstr ""
-"Du kannst andere Nutzer ansprechen, mehr Leuten folgen oder [Gruppen "
+"Du kannst andere Benutzer ansprechen, mehr Leuten folgen oder [Gruppen "
 "beitreten](%%action.groups%%)."
 
 #: actions/replies.php:206
@@ -3773,7 +3779,7 @@ msgstr "Sitzung"
 
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
-msgstr ""
+msgstr "Sitzungs-Einstellungen dieser StatusNet-Website"
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3793,7 +3799,7 @@ msgstr "Fehleruntersuchung für Sitzungen aktivieren"
 
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 msgid "Save site settings"
-msgstr "Site-Einstellungen speichern"
+msgstr "Website-Einstellungen speichern"
 
 #: actions/showapplication.php:82
 msgid "You must be logged in to view an application."
@@ -3828,7 +3834,7 @@ msgstr "Beschreibung"
 #: actions/showapplication.php:192 actions/showgroup.php:436
 #: lib/profileaction.php:187
 msgid "Statistics"
-msgstr "Statistiken"
+msgstr "Statistik"
 
 #: actions/showapplication.php:203
 #, php-format
@@ -3939,7 +3945,7 @@ msgstr "Dies ist ein Weg, Dinge zu teilen, die dir gefallen."
 #: actions/showgroup.php:82
 #, php-format
 msgid "%s group"
-msgstr "%s Gruppe"
+msgstr "%s-Gruppe"
 
 #: actions/showgroup.php:84
 #, php-format
@@ -4015,8 +4021,8 @@ msgid ""
 "their life and interests. [Join now](%%%%action.register%%%%) to become part "
 "of this group and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** ist eine Gruppe auf %%%%site.name%%%%, einem [micro-blogging](http://"
-"en.wikipedia.org/wiki/Micro-blogging) Dienst auf Basis der freien Software "
+"**%s** ist eine Gruppe auf %%%%site.name%%%%, einem [Mikroblogging](http://"
+"de.wikipedia.org/wiki/Mikroblogging)-Dienst auf Basis der freien Software "
 "[StatusNet](http://status.net/). [Werde Mitglied](%%%%action.register%%%%) "
 "und werde Teil der Gruppe und vielen anderen! ([Mehr Informationen](%%%%doc."
 "help%%%%))"
@@ -4029,14 +4035,14 @@ msgid ""
 "[StatusNet](http://status.net/) tool. Its members share short messages about "
 "their life and interests. "
 msgstr ""
-"**%s** ist eine Benutzergruppe auf %%%%site.name%%%%, einem [Mikro-blogging-"
-"Dienst](http://de.wikipedia.org/wiki/Mikro-blogging) basierend auf der "
-"freien Software [StatusNet](http://status.net/). Seine Mitglieder erstellen "
-"kurze Nachrichten über ihr Leben und Interessen. "
+"**%s** ist eine Benutzergruppe auf %%%%site.name%%%%, einem [Mikroblogging]"
+"(http://de.wikipedia.org/wiki/Mikroblogging)-Dienst basierend auf der freien "
+"Software [StatusNet](http://status.net/). Seine Mitglieder erstellen kurze "
+"Nachrichten über ihr Leben und Interessen. "
 
 #: actions/showgroup.php:489
 msgid "Admins"
-msgstr "Administratoren"
+msgstr "Admins"
 
 #: actions/showmessage.php:81
 msgid "No such message."
@@ -4127,8 +4133,8 @@ msgid ""
 "[StatusNet](http://status.net/) tool. [Join now](%%%%action.register%%%%) to "
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
-"**%s** ist Mitglied bei %%%%site.name%%%%, einem [micro-blogging](http://en."
-"wikipedia.org/wiki/Micro-blogging) Dienst auf Basis der freien Software "
+"**%s** ist Mitglied bei %%%%site.name%%%%, einem [Mikroblogging](http://de."
+"wikipedia.org/wiki/Mikroblogging)-Dienst auf Basis der freien Software "
 "[StatusNet](http://status.net/). [Werde Mitglied](%%%%action.register%%%%) "
 "um **%s**'s und vielen anderen zu folgen! ([Mehr Informationen](%%%%doc.help%"
 "%%%))"
@@ -4140,9 +4146,9 @@ msgid ""
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
 msgstr ""
-"**%s** hat ein Konto auf %%%%site.name%%%%, einem [Mikro-blogging-Dienst]"
-"(http://de.wikipedia.org/wiki/Mikro-blogging) basierend auf der freien "
-"Software [StatusNet](http://status.net/). "
+"**%s** hat ein Konto auf %%%%site.name%%%%, einem [Mikroblogging](http://de."
+"wikipedia.org/wiki/Mikroblogging)-Dienst basierend auf der freien Software "
+"[StatusNet](http://status.net/). "
 
 #: actions/showstream.php:305
 #, php-format
@@ -4151,11 +4157,11 @@ msgstr "Wiederholung von %s"
 
 #: actions/silence.php:65 actions/unsilence.php:65
 msgid "You cannot silence users on this site."
-msgstr "Du kannst Nutzer dieser Seite nicht ruhig stellen."
+msgstr "Du kannst Benutzer dieser Seite nicht ruhig stellen."
 
 #: actions/silence.php:72
 msgid "User is already silenced."
-msgstr "Nutzer ist bereits ruhig gestellt."
+msgstr "Benutzer ist bereits ruhig gestellt."
 
 #: actions/siteadminpanel.php:69
 msgid "Basic settings for this StatusNet site"
@@ -4192,7 +4198,7 @@ msgstr "Seitenname"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
-msgstr "Der Name deiner Seite, sowas wie „DeinUnternehmen-Microblog“"
+msgstr "Der Name deiner Seite, sowas wie „DeinUnternehmen-Mikroblog“"
 
 #: actions/siteadminpanel.php:229
 msgid "Brought by"
@@ -4214,7 +4220,7 @@ msgstr ""
 
 #: actions/siteadminpanel.php:239
 msgid "Contact email address for your site"
-msgstr "Kontakt-E-Mail-Adresse für deine Site."
+msgstr "Kontakt-E-Mail-Adresse für deine Website."
 
 #: actions/siteadminpanel.php:245
 msgid "Local"
@@ -4721,7 +4727,7 @@ msgstr "Benutzer"
 
 #: actions/useradminpanel.php:71
 msgid "User settings for this StatusNet site"
-msgstr ""
+msgstr "Benutzer-Einstellungen dieser StatusNet-Website"
 
 #: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
@@ -4752,7 +4758,7 @@ msgstr "Maximale Länge in Zeichen der Profil-Bio."
 
 #: actions/useradminpanel.php:232
 msgid "New users"
-msgstr "Neue Nutzer"
+msgstr "Neue Benutzer"
 
 #: actions/useradminpanel.php:236
 msgid "New user welcome"
@@ -4760,7 +4766,7 @@ msgstr "Neue Benutzer empfangen"
 
 #: actions/useradminpanel.php:237
 msgid "Welcome text for new users (Max 255 chars)."
-msgstr "Willkommens-Nachricht für neue Nutzer (maximal 255 Zeichen)."
+msgstr "Willkommens-Nachricht für neue Benutzer (maximal 255 Zeichen)."
 
 #: actions/useradminpanel.php:242
 msgid "Default subscription"
@@ -4768,7 +4774,7 @@ msgstr "Standard-Abonnement"
 
 #: actions/useradminpanel.php:243
 msgid "Automatically subscribe new users to this user."
-msgstr "Neue Nutzer abonnieren automatisch diesen Nutzer"
+msgstr "Neue Benutzer abonnieren automatisch diesen Benutzer"
 
 #: actions/useradminpanel.php:252
 msgid "Invitations"
@@ -4784,7 +4790,7 @@ msgstr "Ist es Nutzern erlaubt neue Nutzer einzuladen."
 
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
-msgstr ""
+msgstr "Benutzer-Einstellungen speichern"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -5009,7 +5015,7 @@ msgstr "Zu Favoriten hinzufügen"
 #: classes/Fave.php:148
 #, php-format
 msgid "%s marked notice %s as a favorite."
-msgstr ""
+msgstr "%s markierte Nachricht %s als Favorit."
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:143
@@ -5078,7 +5084,7 @@ msgstr "Beitreten"
 #: classes/Group_member.php:112
 #, php-format
 msgid "%1$s has joined group %2$s."
-msgstr ""
+msgstr "%1$s ist der Gruppe „%2$s“ beigetreten."
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -5225,6 +5231,12 @@ msgstr "Bereits abonniert!"
 msgid "User has blocked you."
 msgstr "Dieser Benutzer hat dich blockiert."
 
+#. TRANS: Exception thrown when trying to unsibscribe without a subscription.
+#: classes/Subscription.php:171
+#, fuzzy
+msgid "Not subscribed!"
+msgstr "Nicht abonniert!"
+
 #. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
 #: classes/Subscription.php:178
 msgid "Could not delete self-subscription."
@@ -5242,12 +5254,12 @@ msgstr "Konnte Abonnement nicht löschen."
 
 #: classes/Subscription.php:254
 msgid "Follow"
-msgstr ""
+msgstr "Folgen"
 
 #: classes/Subscription.php:255
 #, php-format
 msgid "%s is now following %s."
-msgstr ""
+msgstr "%s folgt nun %s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5367,7 +5379,7 @@ msgstr "Seiteneinstellung ändern"
 #: lib/action.php:474 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
-msgstr "Administrator"
+msgstr "Admin"
 
 #. TRANS: Tooltip for main menu option "Invite"
 #: lib/action.php:478
@@ -5514,14 +5526,14 @@ msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
 "broughtby%%](%%site.broughtbyurl%%)."
 msgstr ""
-"**%%site.name%%** ist ein Microbloggingdienst von [%%site.broughtby%%](%%"
+"**%%site.name%%** ist ein Mikrobloggingdienst von [%%site.broughtby%%](%%"
 "site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
 #: lib/action.php:849
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
-msgstr "**%%site.name%%** ist ein Microbloggingdienst."
+msgstr "**%%site.name%%** ist ein Mikrobloggingdienst."
 
 #. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
@@ -5534,7 +5546,7 @@ msgid ""
 "s, available under the [GNU Affero General Public License](http://www.fsf."
 "org/licensing/licenses/agpl-3.0.html)."
 msgstr ""
-"Es wird mit der Microbloggingsoftware [StatusNet](http://status.net/) "
+"Es wird mit der Mikrobloggingsoftware [StatusNet](http://status.net/) "
 "(Version %s) betrieben, die unter der [GNU Affero General Public License]"
 "(http://www.fsf.org/licensing/licenses/agpl-3.0.html) erhältlich ist."
 
@@ -5650,7 +5662,7 @@ msgstr "Seite"
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:345
 msgid "Design configuration"
-msgstr "Motiv-Konfiguration"
+msgstr "Design-Konfiguration"
 
 #. TRANS: Menu item for site administration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
@@ -5697,7 +5709,7 @@ msgstr "Snapshot-Konfiguration"
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
 msgid "Set site license"
-msgstr ""
+msgstr "Website-Lizenz einstellen"
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
@@ -5906,14 +5918,14 @@ msgstr "Benutzer hat keine letzte Nachricht"
 #: lib/command.php:130
 #, php-format
 msgid "Could not find a user with nickname %s."
-msgstr "Konnte keinen Nutzer mit dem Namen %s finden"
+msgstr "Konnte keinen Benutzer mit dem Namen %s finden"
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
 #: lib/command.php:150
 #, php-format
 msgid "Could not find a local user with nickname %s."
-msgstr "Konnte keinen lokalen Nutzer mit dem Nick %s finden"
+msgstr "Konnte keinen lokalen Benutzer mit dem Nick %s finden"
 
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:185
@@ -5999,8 +6011,8 @@ msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
 "same server."
 msgstr ""
-"%s ist ein entferntes Profil; man kann direkte Nachrichten nur an Nutzer auf "
-"dem selben Server senden."
+"%s ist ein entferntes Profil; man kann direkte Nachrichten nur an Benutzer "
+"auf dem selben Server senden."
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
@@ -6212,40 +6224,40 @@ msgstr ""
 "on - Benachrichtigung einschalten\n"
 "off - Benachrichtigung ausschalten\n"
 "help - diese Hilfe anzeigen\n"
-"follow <nickname> - einem Nutzer folgen\n"
+"follow <nickname> - einem Benutzer folgen\n"
 "groups - Gruppen auflisten in denen du Mitglied bist\n"
 "subscriptions - Leute auflisten denen du folgst\n"
 "subscribers - Leute auflisten die dir folgen\n"
-"leave <nickname> - einem Nutzer nicht mehr folgen\n"
-"d <nickname> <text> - Direkte Nachricht an einen Nutzer schicken\n"
-"get <nickname> - letzte Nachricht eines Nutzers abrufen\n"
-"whois <nickname> - Profil eines Nutzers abrufen\n"
-"lose <nickname> - Nutzer zwingen dir nicht mehr zu folgen\n"
-"fav <nickname> - letzte Nachricht eines Nutzers als Favorit markieren\n"
+"leave <nickname> - einem Benutzer nicht mehr folgen\n"
+"d <nickname> <text> - Direkte Nachricht an einen Benutzer schicken\n"
+"get <nickname> - letzte Nachricht eines Benutzers abrufen\n"
+"whois <nickname> - Profil eines Benutzers abrufen\n"
+"lose <nickname> - Benutzer zwingen dir nicht mehr zu folgen\n"
+"fav <nickname> - letzte Nachricht eines Benutzers als Favorit markieren\n"
 "fav #<notice_id> - Nachricht mit bestimmter ID als Favorit markieren\n"
 "repeat #<notice_id> - Nachricht mit bestimmter ID wiederholen\n"
-"repeat <nickname> - letzte Nachricht eines Nutzers wiederholen\n"
+"repeat <nickname> - letzte Nachricht eines Benutzers wiederholen\n"
 "reply #<notice_id> - Nachricht mit bestimmter ID beantworten\n"
-"reply <nickname> - letzte Nachricht eines Nutzers beantworten\n"
+"reply <nickname> - letzte Nachricht eines Benutzers beantworten\n"
 "join <group> - Gruppe beitreten\n"
 "login - Link zum Anmelden auf der Webseite anfordern\n"
 "drop <group> - Gruppe verlassen\n"
 "stats - deine Statistik abrufen\n"
-"stop - Äquivalent zu 'off'\n"
-"quit - Äquivalent zu 'off'\n"
-"sub <nickname> - same as 'follow'\n"
-"unsub <nickname> - same as 'leave'\n"
-"last <nickname> - same as 'get'\n"
-"on <nickname> - not yet implemented.\n"
-"off <nickname> - not yet implemented.\n"
-"nudge <nickname> - remind a user to update.\n"
-"invite <phone number> - not yet implemented.\n"
-"track <word> - not yet implemented.\n"
-"untrack <word> - not yet implemented.\n"
-"track off - not yet implemented.\n"
-"untrack all - not yet implemented.\n"
-"tracks - not yet implemented.\n"
-"tracking - not yet implemented.\n"
+"stop - Äquivalent zu „off“\n"
+"quit - Äquivalent zu „off“\n"
+"sub <nickname> - Äquivalent zu „follow“\n"
+"unsub <nickname> - Äquivalent zu „leave“\n"
+"last <nickname> - Äquivalent zu „get“\n"
+"on <nickname> - noch nicht implementiert\n"
+"off <nickname> - noch nicht implementiert\n"
+"nudge <nickname> - einen Benutzer ans Aktualisieren erinnern\n"
+"invite <phone number> - noch nicht implementiert\n"
+"track <word> - noch nicht implementiert\n"
+"untrack <word> - noch nicht implementiert\n"
+"track off - noch nicht implementiert\n"
+"untrack all - noch nicht implementiert\n"
+"tracks - noch nicht implementiert\n"
+"tracking - noch nicht implementiert\n"
 
 #: lib/common.php:135
 msgid "No configuration file found. "
@@ -6328,7 +6340,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:64
 msgid "Feeds"
-msgstr ""
+msgstr "Feeds"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -6388,7 +6400,7 @@ msgstr ""
 #: lib/groupnav.php:86
 msgctxt "MENU"
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6396,13 +6408,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group"
-msgstr ""
+msgstr "%s-Gruppe"
 
 #. TRANS: Menu item in the group navigation page.
 #: lib/groupnav.php:95
 msgctxt "MENU"
 msgid "Members"
-msgstr ""
+msgstr "Mitglieder"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6410,7 +6422,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group members"
-msgstr ""
+msgstr "%s-Gruppen-Mitglieder"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:108
@@ -6432,13 +6444,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "%s-Gruppen-Einstellungen bearbeiten"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:126
 msgctxt "MENU"
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6870,7 +6882,7 @@ msgstr "Konnte Nachricht nicht parsen."
 
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
-msgstr "Kein registrierter Nutzer."
+msgstr "Kein registrierter Benutzer."
 
 #: lib/mailhandler.php:46
 msgid "Sorry, that is not your incoming email address."
@@ -6962,7 +6974,7 @@ msgstr ""
 #: lib/mediafile.php:345
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
-msgstr ""
+msgstr "„%s“ ist kein unterstütztes Dateiformat auf diesem Server."
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
@@ -7081,20 +7093,20 @@ msgstr "Sende diesem Benutzer einen Stups"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile."
-msgstr ""
+msgstr "Neues Profil konnte nicht angelegt werden."
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar."
-msgstr ""
+msgstr "Fehler beim Einfügen des Avatars."
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile."
-msgstr ""
+msgstr "Fehler beim Einfügen des entfernten Profils."
 
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
 #: lib/oauthstore.php:346
 msgid "Duplicate notice."
-msgstr ""
+msgstr "Doppelte Nachricht."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -7156,7 +7168,7 @@ msgstr "Alle Abonnenten"
 
 #: lib/profileaction.php:191
 msgid "User ID"
-msgstr "Nutzer ID"
+msgstr "Benutzer-ID"
 
 #: lib/profileaction.php:196
 msgid "Member since"
@@ -7218,7 +7230,7 @@ msgstr "Widerrufe die „%s“-Rolle von diesem Benutzer"
 
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
-msgstr "Kein einzelner Nutzer für den Ein-Benutzer-Modus ausgewählt."
+msgstr "Kein einzelner Benutzer für den Ein-Benutzer-Modus ausgewählt."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -7226,12 +7238,12 @@ msgstr "Spielwiese"
 
 #: lib/sandboxform.php:78
 msgid "Sandbox this user"
-msgstr "Diesen Nutzer auf die Spielwiese setzen"
+msgstr "Diesen Benutzer auf die Spielwiese setzen"
 
 #. TRANS: Fieldset legend for the search form.
 #: lib/searchaction.php:121
 msgid "Search site"
-msgstr "Site durchsuchen"
+msgstr "Website durchsuchen"
 
 #. TRANS: Used as a field label for the field where one or more keywords
 #. TRANS: for searching can be entered.
@@ -7242,7 +7254,7 @@ msgstr "Suchbegriff"
 #: lib/searchaction.php:130
 msgctxt "BUTTON"
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7279,7 +7291,7 @@ msgstr "Stummschalten"
 
 #: lib/silenceform.php:78
 msgid "Silence this user"
-msgstr "Nutzer verstummen lassen"
+msgstr "Benutzer verstummen lassen"
 
 #: lib/subgroupnav.php:83
 #, php-format
@@ -7515,14 +7527,15 @@ msgstr "%s ist keine gültige Farbe! Verwenden Sie 3 oder 6 Hex-Zeichen."
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Keine Benutzer ID angegeben"
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

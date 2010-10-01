@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:19+0000\n"
-"PO-Revision-Date: 2010-09-27 22:41:11+0000\n"
+"POT-Creation-Date: 2010-09-28 17:24+0000\n"
+"PO-Revision-Date: 2010-09-28 17:25:34+0000\n"
 "Language-Team: Afrikaans <http://translatewiki.net/wiki/Portal:af>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: af\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 1284-84-94 56::+0000\n"
+"X-POT-Import-Date: 1285-66-16 72::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -382,6 +382,16 @@ msgstr "U kan nie ophou om uself te volg nie."
 msgid "Two valid IDs or screen_names must be supplied."
 msgstr ""
 
+#: actions/apifriendshipsshow.php:134
+#, fuzzy
+msgid "Could not determine source user."
+msgstr "Kon nie die gebruiker opdateer nie."
+
+#: actions/apifriendshipsshow.php:142
+#, fuzzy
+msgid "Could not find target user."
+msgstr "Kon nie die gebruiker opdateer nie."
+
 #: actions/apigroupcreate.php:168 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:212
@@ -433,6 +443,11 @@ msgstr "Ligging is te lank is (maksimum 255 karakters)."
 msgid "Too many aliases! Maximum %d."
 msgstr "Te veel aliasse! Die maksimum aantal is %d."
 
+#: actions/apigroupcreate.php:268
+#, fuzzy, php-format
+msgid "Invalid alias: \"%s\"."
+msgstr "Ongeldige alias: \"%s\""
+
 #: actions/apigroupcreate.php:277 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
@@ -460,9 +475,24 @@ msgstr "U is reeds 'n lid van die groep."
 msgid "You have been blocked from that group by the admin."
 msgstr ""
 
+#. TRANS: Message given having failed to add a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupjoin.php:140 actions/joingroup.php:134 lib/command.php:353
+#, fuzzy, php-format
+msgid "Could not join user %1$s to group %2$s."
+msgstr "Dit was nie moontlik om die groep by te werk nie."
+
 #: actions/apigroupleave.php:116
 msgid "You are not a member of this group."
 msgstr "U is nie 'n lid van die groep nie."
+
+#. TRANS: Message given having failed to remove a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: actions/apigroupleave.php:126 actions/leavegroup.php:129
+#: lib/command.php:401
+#, fuzzy, php-format
+msgid "Could not remove user %1$s from group %2$s."
+msgstr "Kon nie die groep skep nie."
 
 #. TRANS: %s is a user name
 #: actions/apigrouplist.php:98
@@ -487,6 +517,11 @@ msgstr "%s groepe"
 #, php-format
 msgid "groups on %s"
 msgstr "groepe op %s"
+
+#: actions/apimediaupload.php:100
+#, fuzzy
+msgid "Upload failed."
+msgstr "Die deblokkering van die gebruiker het gefaal."
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -517,6 +552,11 @@ msgstr ""
 #: actions/apioauthauthorize.php:135
 msgid "Invalid nickname / password!"
 msgstr "Ongeldige gebruikersnaam of wagwoord!"
+
+#: actions/apioauthauthorize.php:159
+#, fuzzy
+msgid "Database error deleting OAuth application user."
+msgstr "Moenie die applikasie verwyder nie"
 
 #: actions/apioauthauthorize.php:185
 msgid "Database error inserting OAuth application user."
@@ -652,10 +692,25 @@ msgstr "Nie-ondersteunde formaat."
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / Gunstelinge van %2$s"
 
+#: actions/apitimelinefavorites.php:119
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %2$s."
+msgstr "%1$s / Gunstelinge van %2$s"
+
+#: actions/apitimelinementions.php:118
+#, fuzzy, php-format
+msgid "%1$s / Updates mentioning %2$s"
+msgstr "%1$s / Gunstelinge van %2$s"
+
 #: actions/apitimelinementions.php:131
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr ""
+
+#: actions/apitimelinepublic.php:197 actions/publicrss.php:103
+#, fuzzy, php-format
+msgid "%s public timeline"
+msgstr "%s tydlyn"
 
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
@@ -671,6 +726,21 @@ msgstr "Na %s herhaal"
 #, php-format
 msgid "Repeats of %s"
 msgstr "Herhalings van %s"
+
+#: actions/apitimelinetag.php:105 actions/tag.php:67
+#, fuzzy, php-format
+msgid "Notices tagged with %s"
+msgstr "met die etiket %s"
+
+#: actions/apitimelinetag.php:107 actions/tagrss.php:65
+#, fuzzy, php-format
+msgid "Updates tagged with %1$s on %2$s!"
+msgstr "Opdaterings van %1$s op %2$s."
+
+#: actions/apitrends.php:87
+#, fuzzy
+msgid "API method under construction."
+msgstr "Die API-funksie is nie gevind nie."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -701,6 +771,13 @@ msgstr "Avatar"
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr ""
+
+#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
+#: actions/grouplogo.php:181 actions/remotesubscribe.php:191
+#: actions/userauthorization.php:72 actions/userrss.php:108
+#, fuzzy
+msgid "User without matching profile."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
 
 #: actions/avatarsettings.php:119 actions/avatarsettings.php:197
 #: actions/grouplogo.php:254
@@ -825,6 +902,21 @@ msgstr ""
 msgid "No such group."
 msgstr "Die groep bestaan nie."
 
+#: actions/blockedfromgroup.php:97
+#, fuzzy, php-format
+msgid "%s blocked profiles"
+msgstr "%s geblokkeerde gebruikers"
+
+#: actions/blockedfromgroup.php:100
+#, fuzzy, php-format
+msgid "%1$s blocked profiles, page %2$d"
+msgstr "%1$s en vriende, bladsy %2$d"
+
+#: actions/blockedfromgroup.php:115
+#, fuzzy
+msgid "A list of the users blocked from joining this group."
+msgstr "Blok hierdie gebruiker van hierdie groep"
+
 #: actions/blockedfromgroup.php:288
 msgid "Unblock user from group"
 msgstr "Gee gebruiker weer toegang tot die groep"
@@ -849,11 +941,27 @@ msgstr "groepe op %s"
 msgid "No confirmation code."
 msgstr "Geen bevestigingskode."
 
+#: actions/confirmaddress.php:80
+#, fuzzy
+msgid "Confirmation code not found."
+msgstr "Geen bevestigingskode."
+
+#: actions/confirmaddress.php:85
+#, fuzzy
+msgid "That confirmation code is not for you!"
+msgstr "Geen bevestigingskode."
+
 #. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
 #: actions/confirmaddress.php:91
 #, php-format
 msgid "Unrecognized address type %s."
 msgstr ""
+
+#. TRANS: Client error for an already confirmed email/jabbel/sms address.
+#: actions/confirmaddress.php:96
+#, fuzzy
+msgid "That address has already been confirmed."
+msgstr "Die E-posadres bestaan reeds."
 
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
@@ -1036,6 +1144,11 @@ msgstr "Werf se tema"
 msgid "Theme for the site."
 msgstr "Tema vir die werf."
 
+#: actions/designadminpanel.php:480
+#, fuzzy
+msgid "Custom theme"
+msgstr "Werf se tema"
+
 #: actions/designadminpanel.php:484
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
@@ -1065,6 +1178,16 @@ msgstr "Aan"
 #: actions/designadminpanel.php:557 lib/designsettings.php:155
 msgid "Off"
 msgstr "Af"
+
+#: actions/designadminpanel.php:558 lib/designsettings.php:156
+#, fuzzy
+msgid "Turn background image on or off."
+msgstr "Verander die agtergrond-prent"
+
+#: actions/designadminpanel.php:563 lib/designsettings.php:161
+#, fuzzy
+msgid "Tile background image"
+msgstr "Verander die agtergrond-prent"
 
 #: actions/designadminpanel.php:577 lib/designsettings.php:170
 msgid "Change colours"
@@ -1096,6 +1219,11 @@ msgstr ""
 
 #: actions/designadminpanel.php:689 lib/designsettings.php:247
 msgid "Use defaults"
+msgstr "Gebruik verstekwaardes"
+
+#: actions/designadminpanel.php:690 lib/designsettings.php:248
+#, fuzzy
+msgid "Restore default designs"
 msgstr "Gebruik verstekwaardes"
 
 #: actions/designadminpanel.php:696 lib/designsettings.php:254
@@ -1366,6 +1494,12 @@ msgstr ""
 msgid "I want to post notices by email."
 msgstr ""
 
+#. TRANS: Checkbox label in e-mail preferences form.
+#: actions/emailsettings.php:223
+#, fuzzy
+msgid "Publish a MicroID for my email address."
+msgstr "Dit is nie u e-posadres nie."
+
 #. TRANS: Confirmation message for successful e-mail preferences save.
 #: actions/emailsettings.php:338
 msgid "Email preferences saved."
@@ -1375,6 +1509,12 @@ msgstr "E-posadresse"
 #: actions/emailsettings.php:357
 msgid "No email address."
 msgstr "Geen e-posadres."
+
+#. TRANS: Message given saving e-mail address that cannot be normalised.
+#: actions/emailsettings.php:365
+#, fuzzy
+msgid "Cannot normalize that email address"
+msgstr "Dit was nie moontlik om die Jabber-ID te normaliseer nie"
 
 #. TRANS: Message given saving e-mail address that not valid.
 #: actions/emailsettings.php:370 actions/register.php:208
@@ -1386,6 +1526,12 @@ msgstr "Nie 'n geldige e-posadres nie."
 #: actions/emailsettings.php:374
 msgid "That is already your email address."
 msgstr "Dit is al reeds u e-posadres."
+
+#. TRANS: Message given saving e-mail address that is already set for another user.
+#: actions/emailsettings.php:378
+#, fuzzy
+msgid "That email address already belongs to another user."
+msgstr "Die Jabber-ID word reeds deur 'n ander gebruiker gebruik."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
@@ -1401,6 +1547,21 @@ msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
 msgstr ""
+
+#. TRANS: Message given canceling e-mail address confirmation that is not pending.
+#. TRANS: Message given canceling IM address confirmation that is not pending.
+#. TRANS: Message given canceling SMS phone number confirmation that is not pending.
+#: actions/emailsettings.php:423 actions/imsettings.php:386
+#: actions/smssettings.php:408
+#, fuzzy
+msgid "No pending confirmation to cancel."
+msgstr "Geen bevestigingskode."
+
+#. TRANS: Message given canceling e-mail address confirmation for the wrong e-mail address.
+#: actions/emailsettings.php:428
+#, fuzzy
+msgid "That is the wrong email address."
+msgstr "Dit is die verkeerde IM-adres."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:442
@@ -1433,6 +1594,22 @@ msgstr "Kon nie gebruikersdata opdateer nie."
 #: actions/emailsettings.php:512 actions/smssettings.php:581
 msgid "Incoming email address removed."
 msgstr "Inkomende e-posadres is verwyder."
+
+#. TRANS: Message given after successfully adding an incoming e-mail address.
+#: actions/emailsettings.php:536 actions/smssettings.php:605
+#, fuzzy
+msgid "New incoming email address added."
+msgstr "Geen inkomende e-posadres."
+
+#: actions/favor.php:79
+#, fuzzy
+msgid "This notice is already a favorite!"
+msgstr "Hierdie kennisgewing is nie 'n gunsteling nie!"
+
+#: actions/favor.php:92 lib/disfavorform.php:140
+#, fuzzy
+msgid "Disfavor favorite"
+msgstr "Voeg by gunstelinge"
 
 #: actions/favorited.php:65 lib/popularnoticesection.php:91
 #: lib/publicgroupnav.php:93
@@ -1471,6 +1648,11 @@ msgstr ""
 msgid "%s's favorite notices"
 msgstr "%s se gunsteling kennisgewings"
 
+#: actions/favoritesrss.php:115
+#, fuzzy, php-format
+msgid "Updates favored by %1$s on %2$s!"
+msgstr "Opdaterings van %1$s op %2$s."
+
 #: actions/featured.php:69 lib/featureduserssection.php:87
 #: lib/publicgroupnav.php:89
 msgid "Featured users"
@@ -1498,6 +1680,11 @@ msgstr "Geen kennisgewing."
 msgid "No attachments."
 msgstr "Geen aanhangsels."
 
+#: actions/file.php:51
+#, fuzzy
+msgid "No uploaded attachments."
+msgstr "Geen aanhangsels."
+
 #: actions/finishremotesubscribe.php:69
 msgid "Not expecting this response!"
 msgstr ""
@@ -1505,6 +1692,11 @@ msgstr ""
 #: actions/finishremotesubscribe.php:80
 msgid "User being listened to does not exist."
 msgstr ""
+
+#: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
+#, fuzzy
+msgid "You can use the local subscription!"
+msgstr "U kan slegs lokale gebruikers verwyder."
 
 #: actions/finishremotesubscribe.php:99
 msgid "That user has blocked you from subscribing."
@@ -1522,6 +1714,11 @@ msgstr ""
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr ""
 
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+#, fuzzy
+msgid "Error updating remote profile."
+msgstr "Kon nie die profiel stoor nie."
+
 #: actions/getfile.php:79
 msgid "No such file."
 msgstr "Die lêer bestaan nie."
@@ -1537,6 +1734,16 @@ msgstr "Ongeldige rol."
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
 msgstr ""
+
+#: actions/grantrole.php:75
+#, fuzzy
+msgid "You cannot grant user roles on this site."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
+
+#: actions/grantrole.php:82
+#, fuzzy
+msgid "User already has this role."
+msgstr "Hierdie gebruiker is reeds stilgemaak."
 
 #: actions/groupblock.php:71 actions/groupunblock.php:71
 #: actions/makeadmin.php:71 actions/subedit.php:46
@@ -1559,6 +1766,16 @@ msgstr "Geen groep verskaf nie."
 msgid "Only an admin can block group members."
 msgstr ""
 
+#: actions/groupblock.php:95
+#, fuzzy
+msgid "User is already blocked from group."
+msgstr "Hierdie gebruiker is reeds stilgemaak."
+
+#: actions/groupblock.php:100
+#, fuzzy
+msgid "User is not a member of group."
+msgstr "U is nie 'n lid van die groep nie."
+
 #: actions/groupblock.php:134 actions/groupmembers.php:364
 msgid "Block user from group"
 msgstr "Blok gebruiker toegang tot die groep"
@@ -1571,20 +1788,52 @@ msgid ""
 "the group in the future."
 msgstr ""
 
+#. TRANS: Submit button title for 'No' when blocking a user from a group.
+#: actions/groupblock.php:182
+#, fuzzy
+msgid "Do not block this user from this group"
+msgstr "Blok hierdie gebruiker van hierdie groep"
+
 #. TRANS: Submit button title for 'Yes' when blocking a user from a group.
 #: actions/groupblock.php:189
 msgid "Block this user from this group"
 msgstr "Blok hierdie gebruiker van hierdie groep"
 
+#: actions/groupblock.php:206
+#, fuzzy
+msgid "Database error blocking user from group."
+msgstr "Gee gebruiker weer toegang tot die groep"
+
 #: actions/groupbyid.php:74 actions/userbyid.php:70
 msgid "No ID."
 msgstr "Geen ID."
+
+#: actions/groupdesignsettings.php:68
+#, fuzzy
+msgid "You must be logged in to edit a group."
+msgstr "U moet aangeteken wees alvorens u 'n groep kan skep."
+
+#: actions/groupdesignsettings.php:144
+#, fuzzy
+msgid "Group design"
+msgstr "Groepe"
 
 #: actions/groupdesignsettings.php:155
 msgid ""
 "Customize the way your group looks with a background image and a colour "
 "palette of your choice."
 msgstr ""
+
+#: actions/groupdesignsettings.php:266 actions/userdesignsettings.php:186
+#: lib/designsettings.php:391 lib/designsettings.php:413
+#, fuzzy
+msgid "Couldn't update your design."
+msgstr "Dit was nie moontlik om u ontwerp by te werk nie."
+
+#: actions/groupdesignsettings.php:311 actions/userdesignsettings.php:231
+#, fuzzy
+msgid "Design preferences saved."
+msgstr "Voorkeure is gestoor."
 
 #: actions/grouplogo.php:142 actions/grouplogo.php:195
 msgid "Group logo"
@@ -1615,6 +1864,18 @@ msgstr "Die opdatering van die logo het gefaal."
 msgid "%s group members"
 msgstr "lede van die groep %s"
 
+#. TRANS: Title of the page showing group members.
+#. TRANS: %1$s is the name of the group, %2$d is the page number of the members list.
+#: actions/groupmembers.php:107
+#, fuzzy, php-format
+msgid "%1$s group members, page %2$d"
+msgstr "%1$s groepe, bladsy %2$d"
+
+#: actions/groupmembers.php:122
+#, fuzzy
+msgid "A list of the users in this group."
+msgstr "Blok hierdie gebruiker van hierdie groep"
+
 #: actions/groupmembers.php:186
 msgid "Admin"
 msgstr "Administrateur"
@@ -1630,6 +1891,11 @@ msgstr ""
 msgctxt "TOOLTIP"
 msgid "Block this user"
 msgstr ""
+
+#: actions/groupmembers.php:498
+#, fuzzy
+msgid "Make user an admin of the group"
+msgstr "U moet 'n administrateur wees alvorens u 'n groep kan wysig."
 
 #. TRANS: Button text for the form that will make a user administrator.
 #: actions/groupmembers.php:533
@@ -1651,6 +1917,12 @@ msgstr ""
 #, php-format
 msgid "%s timeline"
 msgstr "%s tydlyn"
+
+#. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
+#: actions/grouprss.php:142
+#, fuzzy, php-format
+msgid "Updates from members of %1$s on %2$s!"
+msgstr "Opdaterings van %1$s op %2$s."
 
 #: actions/groups.php:62 lib/profileaction.php:223 lib/profileaction.php:249
 #: lib/publicgroupnav.php:81 lib/searchgroupnav.php:84 lib/subgroupnav.php:98
@@ -1683,6 +1955,11 @@ msgid ""
 "Separate the terms by spaces; they must be 3 characters or more."
 msgstr ""
 
+#: actions/groupsearch.php:58
+#, fuzzy
+msgid "Group search"
+msgstr "Soek gebruikers"
+
 #: actions/groupsearch.php:79 actions/noticesearch.php:117
 #: actions/peoplesearch.php:83
 msgid "No results."
@@ -1705,6 +1982,11 @@ msgstr ""
 #: actions/groupunblock.php:91
 msgid "Only an admin can unblock group members."
 msgstr ""
+
+#: actions/groupunblock.php:95
+#, fuzzy
+msgid "User is not blocked from group."
+msgstr "Gee gebruiker weer toegang tot die groep"
 
 #: actions/groupunblock.php:128 actions/unblock.php:86
 msgid "Error removing the block."
@@ -1735,6 +2017,11 @@ msgstr "IM is nie beskikbaar nie."
 #: actions/imsettings.php:106 actions/imsettings.php:136
 msgid "IM address"
 msgstr "IP-adres"
+
+#: actions/imsettings.php:113
+#, fuzzy
+msgid "Current confirmed Jabber/GTalk address."
+msgstr "Huidige bevestigde e-posadres."
 
 #. TRANS: Form note in IM settings form.
 #. TRANS: %s is the IM address set for the site.
@@ -1847,6 +2134,16 @@ msgstr "Dit is nie u Jabber-ID nie."
 msgid "The IM address was removed."
 msgstr "Inkomende e-posadres is verwyder."
 
+#: actions/inbox.php:59
+#, fuzzy, php-format
+msgid "Inbox for %1$s - page %2$d"
+msgstr "%1$s, bladsy %2$d"
+
+#: actions/inbox.php:62
+#, fuzzy, php-format
+msgid "Inbox for %s"
+msgstr "Vriend van 'n vriend (FOAF) vir %s"
+
 #: actions/inbox.php:115
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr ""
@@ -1855,14 +2152,29 @@ msgstr ""
 msgid "Invites have been disabled."
 msgstr ""
 
+#: actions/invite.php:41
+#, fuzzy, php-format
+msgid "You must be logged in to invite other users to use %s."
+msgstr "U moet aanteken alvorens u by groep kan aansluit."
+
 #: actions/invite.php:72
 #, php-format
 msgid "Invalid email address: %s"
 msgstr "Ongeldige e-posadres: %s"
 
+#: actions/invite.php:110
+#, fuzzy
+msgid "Invitation(s) sent"
+msgstr "Uitnodigings"
+
 #: actions/invite.php:112
 msgid "Invite new users"
 msgstr "Nooi nuwe gebruikers"
+
+#: actions/invite.php:128
+#, fuzzy
+msgid "You are already subscribed to these users:"
+msgstr "U volg hierdie gebruiker:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
@@ -2024,7 +2336,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
-msgstr ""
+msgstr "Privaat"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
@@ -2120,6 +2432,11 @@ msgid ""
 "changing your settings."
 msgstr ""
 
+#: actions/login.php:292
+#, fuzzy
+msgid "Login with your username and password."
+msgstr "Verkeerde gebruikersnaam of wagwoord."
+
 #: actions/login.php:295
 #, php-format
 msgid ""
@@ -2129,6 +2446,11 @@ msgstr ""
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
 msgstr ""
+
+#: actions/makeadmin.php:96
+#, fuzzy, php-format
+msgid "%1$s is already an admin for group \"%2$s\"."
+msgstr "%1$s het die groep %2$s verlaat"
 
 #: actions/makeadmin.php:133
 #, php-format
@@ -2148,6 +2470,16 @@ msgstr "Geen resultate nie."
 msgid "New Application"
 msgstr "Nuwe appplikasie"
 
+#: actions/newapplication.php:64
+#, fuzzy
+msgid "You must be logged in to register an application."
+msgstr "U moet aangeteken wees alvorens u 'n applikasie kan wysig."
+
+#: actions/newapplication.php:143
+#, fuzzy
+msgid "Use this form to register a new application."
+msgstr "Gebruik die vorm om u applikasie te wysig."
+
 #: actions/newapplication.php:176
 msgid "Source URL is required."
 msgstr "'n Bron-URL is verpligtend."
@@ -2159,6 +2491,11 @@ msgstr "Dit was nie moontlik om die applikasie te skep nie."
 #: actions/newgroup.php:53
 msgid "New group"
 msgstr "Nuwe groep"
+
+#: actions/newgroup.php:110
+#, fuzzy
+msgid "Use this form to create a new group."
+msgstr "Gebruik hierdie vorm om die groep te wysig."
 
 #: actions/newmessage.php:71 actions/newmessage.php:231
 msgid "New message"
@@ -2190,9 +2527,26 @@ msgstr ""
 msgid "Message sent"
 msgstr "Boodskap is gestuur."
 
+#. TRANS: Message given have sent a direct message to another user.
+#. TRANS: %s is the name of the other user.
+#: actions/newmessage.php:185 lib/command.php:514
+#, fuzzy, php-format
+msgid "Direct message to %s sent."
+msgstr "Direkte boodskappe aan %s"
+
 #: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
 msgid "Ajax Error"
 msgstr "Ajax-fout"
+
+#: actions/newnotice.php:69
+#, fuzzy
+msgid "New notice"
+msgstr "Geen kennisgewing."
+
+#: actions/newnotice.php:227
+#, fuzzy
+msgid "Notice posted"
+msgstr "Hierdie kennisgewing is verwyder."
 
 #: actions/noticesearch.php:68
 #, php-format
@@ -2204,6 +2558,11 @@ msgstr ""
 #: actions/noticesearch.php:78
 msgid "Text search"
 msgstr "Teks soektog"
+
+#: actions/noticesearch.php:91
+#, fuzzy, php-format
+msgid "Search results for \"%1$s\" on %2$s"
+msgstr "Opdaterings van %1$s op %2$s."
 
 #: actions/noticesearch.php:121
 #, php-format
@@ -2224,6 +2583,11 @@ msgstr ""
 msgid "Updates with \"%s\""
 msgstr "Opdaterings met \"%s\""
 
+#: actions/noticesearchrss.php:98
+#, fuzzy, php-format
+msgid "Updates matching search term \"%1$s\" on %2$s!"
+msgstr "Opdaterings van %1$s op %2$s."
+
 #: actions/nudge.php:85
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
@@ -2237,13 +2601,38 @@ msgstr "Die por is gestuur"
 msgid "Nudge sent!"
 msgstr "Die por is gestuur!"
 
+#: actions/oauthappssettings.php:59
+#, fuzzy
+msgid "You must be logged in to list your applications."
+msgstr "U moet aangeteken wees alvorens u 'n applikasie kan wysig."
+
+#: actions/oauthappssettings.php:74
+#, fuzzy
+msgid "OAuth applications"
+msgstr "Die applikasie bestaan nie."
+
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
 msgstr ""
 
+#: actions/oauthappssettings.php:135
+#, fuzzy, php-format
+msgid "You have not registered any applications yet."
+msgstr "Dit was nie moontlik om die applikasie te skep nie."
+
+#: actions/oauthconnectionssettings.php:72
+#, fuzzy
+msgid "Connected applications"
+msgstr "Skrap applikasie"
+
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access your account."
 msgstr ""
+
+#: actions/oauthconnectionssettings.php:175
+#, fuzzy
+msgid "You are not a user of that application."
+msgstr "U is nie die eienaar van hierdie applikasie nie."
 
 #: actions/oauthconnectionssettings.php:186
 #, php-format
@@ -2257,6 +2646,11 @@ msgstr ""
 #: actions/oauthconnectionssettings.php:211
 msgid "Developers can edit the registration settings for their applications "
 msgstr ""
+
+#: actions/oembed.php:80 actions/shownotice.php:100
+#, fuzzy
+msgid "Notice has no profile."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
 
 #: actions/oembed.php:87 actions/shownotice.php:176
 #, php-format
@@ -2275,9 +2669,26 @@ msgstr ""
 msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
+#. TRANS: Client error on an API request with an unsupported data format.
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1206
+#: lib/apiaction.php:1233 lib/apiaction.php:1356
+#, fuzzy
+msgid "Not a supported data format."
+msgstr "Nie-ondersteunde formaat."
+
 #: actions/opensearch.php:64
 msgid "People Search"
 msgstr "Mense soek"
+
+#: actions/opensearch.php:67
+#, fuzzy
+msgid "Notice Search"
+msgstr "Mense soek"
+
+#: actions/othersettings.php:60
+#, fuzzy
+msgid "Other settings"
+msgstr "Avatar-instellings"
 
 #: actions/othersettings.php:71
 msgid "Manage various other options."
@@ -2295,13 +2706,53 @@ msgstr ""
 msgid "Automatic shortening service to use."
 msgstr ""
 
+#: actions/othersettings.php:122
+#, fuzzy
+msgid "View profile designs"
+msgstr "Wysig profiel-instellings"
+
 #: actions/othersettings.php:123
 msgid "Show or hide profile designs."
 msgstr ""
 
+#: actions/othersettings.php:153
+#, fuzzy
+msgid "URL shortening service is too long (max 50 chars)."
+msgstr "Ligging is te lank is (maksimum 255 karakters)."
+
+#: actions/otp.php:69
+#, fuzzy
+msgid "No user ID specified."
+msgstr "Geen groep verskaf nie."
+
+#: actions/otp.php:83
+#, fuzzy
+msgid "No login token specified."
+msgstr "Geen profiel verskaf nie."
+
 #: actions/otp.php:90
 msgid "No login token requested."
 msgstr ""
+
+#: actions/otp.php:95
+#, fuzzy
+msgid "Invalid login token specified."
+msgstr "Ongeldige token."
+
+#: actions/otp.php:104
+#, fuzzy
+msgid "Login token expired."
+msgstr "Teken aan"
+
+#: actions/outbox.php:58
+#, fuzzy, php-format
+msgid "Outbox for %1$s - page %2$d"
+msgstr "%1$s, bladsy %2$d"
+
+#: actions/outbox.php:61
+#, fuzzy, php-format
+msgid "Outbox for %s"
+msgstr "Vriend van 'n vriend (FOAF) vir %s"
 
 #: actions/outbox.php:116
 msgid "This is your outbox, which lists private messages you have sent."
@@ -2392,6 +2843,11 @@ msgstr "Tema-gids"
 msgid "Background directory not writable: %s."
 msgstr "Tema-gids"
 
+#: actions/pathsadminpanel.php:177
+#, fuzzy, php-format
+msgid "Locales directory not readable: %s."
+msgstr "Tema-gids"
+
 #: actions/pathsadminpanel.php:183
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
@@ -2411,6 +2867,11 @@ msgstr ""
 #: actions/pathsadminpanel.php:242
 msgid "Path"
 msgstr "Pad"
+
+#: actions/pathsadminpanel.php:242
+#, fuzzy
+msgid "Site path"
+msgstr "Werf se tema"
 
 #: actions/pathsadminpanel.php:246
 msgid "Path to locales"
@@ -2508,6 +2969,11 @@ msgstr "SSL-bediener"
 msgid "Server to direct SSL requests to"
 msgstr ""
 
+#: actions/pathsadminpanel.php:352
+#, fuzzy
+msgid "Save paths"
+msgstr "Tema-pad"
+
 #: actions/peoplesearch.php:52
 #, php-format
 msgid ""
@@ -2519,15 +2985,30 @@ msgstr ""
 msgid "People search"
 msgstr "Soek gebruikers"
 
+#: actions/peopletag.php:68
+#, fuzzy, php-format
+msgid "Not a valid people tag: %s."
+msgstr "Nie 'n geldige e-posadres nie."
+
 #: actions/peopletag.php:142
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
 msgstr ""
 
+#: actions/postnotice.php:95
+#, fuzzy
+msgid "Invalid notice content."
+msgstr "Ongeldige token."
+
 #: actions/postnotice.php:101
 #, php-format
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr ""
+
+#: actions/profilesettings.php:60
+#, fuzzy
+msgid "Profile settings"
+msgstr "Wysig profiel-instellings"
 
 #: actions/profilesettings.php:71
 msgid ""
@@ -2537,6 +3018,13 @@ msgstr ""
 #: actions/profilesettings.php:99
 msgid "Profile information"
 msgstr ""
+
+#: actions/profilesettings.php:108 lib/groupeditform.php:154
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr ""
+"Die gebruikersnaam mag slegs uit kleinletters en syfers bestaan en mag geen "
+"spasies bevat nie."
 
 #: actions/profilesettings.php:111 actions/register.php:455
 #: actions/showgroup.php:256 actions/tagother.php:104
@@ -2614,14 +3102,44 @@ msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr ""
 
+#: actions/profilesettings.php:228 actions/register.php:230
+#, fuzzy, php-format
+msgid "Bio is too long (max %d chars)."
+msgstr "Die beskrywing is te lank (die maksimum is %d karakters)."
+
 #: actions/profilesettings.php:235 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr ""
+
+#: actions/profilesettings.php:241
+#, fuzzy
+msgid "Language is too long (max 50 chars)."
+msgstr "Die naam is te lank (maksimum 255 karakters)."
 
 #: actions/profilesettings.php:253 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "Ongeldige etiket: \"$s\""
+
+#: actions/profilesettings.php:306
+#, fuzzy
+msgid "Couldn't update user for autosubscribe."
+msgstr "Kon nie gebruikersdata opdateer nie."
+
+#: actions/profilesettings.php:363
+#, fuzzy
+msgid "Couldn't save location prefs."
+msgstr "Dit was nie moontlik om die applikasie by te werk nie."
+
+#: actions/profilesettings.php:375
+#, fuzzy
+msgid "Couldn't save profile."
+msgstr "Kon nie die profiel stoor nie."
+
+#: actions/profilesettings.php:383
+#, fuzzy
+msgid "Couldn't save tags."
+msgstr "Kon nie gebruiker opdateer nie."
 
 #. TRANS: Message after successful saving of administrative settings.
 #: actions/profilesettings.php:391 lib/adminpanelaction.php:138
@@ -2632,6 +3150,21 @@ msgstr "Voorkeure is gestoor."
 #, php-format
 msgid "Beyond the page limit (%s)."
 msgstr ""
+
+#: actions/public.php:92
+#, fuzzy
+msgid "Could not retrieve public stream."
+msgstr "Dit was nie moontlik om die aliasse te skep nie."
+
+#: actions/public.php:130
+#, fuzzy, php-format
+msgid "Public timeline, page %d"
+msgstr "Populêre kennisgewings, bladsy %d"
+
+#: actions/public.php:132 lib/publicgroupnav.php:79
+#, fuzzy
+msgid "Public timeline"
+msgstr "%s tydlyn"
 
 #: actions/public.php:160
 msgid "Public Stream Feed (RSS 1.0)"
@@ -2644,6 +3177,15 @@ msgstr ""
 #: actions/public.php:168
 msgid "Public Stream Feed (Atom)"
 msgstr ""
+
+#: actions/public.php:188
+#, fuzzy, php-format
+msgid ""
+"This is the public timeline for %%site.name%% but no one has posted anything "
+"yet."
+msgstr ""
+"Hierdie is die tydslyn vir %s en vriende, maar niemand het nog iets gepos "
+"nie."
 
 #: actions/public.php:191
 msgid "Be the first to post!"
@@ -2686,6 +3228,11 @@ msgstr ""
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
 msgstr ""
 
+#: actions/publictagcloud.php:72
+#, fuzzy
+msgid "Be the first to post one!"
+msgstr "U kan die eerste een wees om 'n boodskap te plaas!"
+
 #: actions/publictagcloud.php:75
 #, php-format
 msgid ""
@@ -2693,13 +3240,43 @@ msgid ""
 "one!"
 msgstr ""
 
+#: actions/publictagcloud.php:134
+#, fuzzy
+msgid "Tag cloud"
+msgstr "Verander kleure"
+
+#: actions/recoverpassword.php:36
+#, fuzzy
+msgid "You are already logged in!"
+msgstr "U is reeds aangeteken."
+
+#: actions/recoverpassword.php:62
+#, fuzzy
+msgid "No such recovery code."
+msgstr "Die kennisgewing bestaan nie."
+
+#: actions/recoverpassword.php:66
+#, fuzzy
+msgid "Not a recovery code."
+msgstr "Nie 'n geregistreerde gebruiker nie."
+
 #: actions/recoverpassword.php:73
 msgid "Recovery code for unknown user."
 msgstr ""
 
+#: actions/recoverpassword.php:86
+#, fuzzy
+msgid "Error with confirmation code."
+msgstr "Geen bevestigingskode."
+
 #: actions/recoverpassword.php:97
 msgid "This confirmation code is too old. Please start again."
 msgstr ""
+
+#: actions/recoverpassword.php:111
+#, fuzzy
+msgid "Could not update user with confirmed email address."
+msgstr "Huidige bevestigde e-posadres."
 
 #: actions/recoverpassword.php:152
 msgid ""
@@ -2711,9 +3288,24 @@ msgstr ""
 msgid "You have been identified. Enter a new password below. "
 msgstr ""
 
+#: actions/recoverpassword.php:188
+#, fuzzy
+msgid "Password recovery"
+msgstr "Verander wagwoord"
+
+#: actions/recoverpassword.php:191
+#, fuzzy
+msgid "Nickname or email address"
+msgstr "Geen e-posadres."
+
 #: actions/recoverpassword.php:193
 msgid "Your nickname on this server, or your registered email address."
 msgstr ""
+
+#: actions/recoverpassword.php:199 actions/recoverpassword.php:200
+#, fuzzy
+msgid "Recover"
+msgstr "Verwyder"
 
 #: actions/recoverpassword.php:208
 msgid "Reset password"
@@ -2731,9 +3323,19 @@ msgstr ""
 msgid "Unknown action"
 msgstr "Onbekende aksie"
 
+#: actions/recoverpassword.php:236
+#, fuzzy
+msgid "6 or more characters, and don't forget it!"
+msgstr "6 of meer karakters"
+
 #: actions/recoverpassword.php:243
 msgid "Reset"
 msgstr "Herstel"
+
+#: actions/recoverpassword.php:252
+#, fuzzy
+msgid "Enter a nickname or email address."
+msgstr "Dit is nie u e-posadres nie."
 
 #: actions/recoverpassword.php:282
 msgid "No user with that email address or username."
@@ -2743,11 +3345,36 @@ msgstr ""
 msgid "No registered email address for that user."
 msgstr ""
 
+#: actions/recoverpassword.php:313
+#, fuzzy
+msgid "Error saving address confirmation."
+msgstr "Fout tydens stoor van gebruiker; ongeldig."
+
 #: actions/recoverpassword.php:338
 msgid ""
 "Instructions for recovering your password have been sent to the email "
 "address registered to your account."
 msgstr ""
+
+#: actions/recoverpassword.php:357
+#, fuzzy
+msgid "Unexpected password reset."
+msgstr "Die vorm is onverwags ingestuur."
+
+#: actions/recoverpassword.php:365
+#, fuzzy
+msgid "Password must be 6 chars or more."
+msgstr "Wagwoord moet 6 of meer karakters bevat."
+
+#: actions/recoverpassword.php:369
+#, fuzzy
+msgid "Password and confirmation do not match."
+msgstr "Wagwoorde is nie dieselfde nie."
+
+#: actions/recoverpassword.php:388 actions/register.php:255
+#, fuzzy
+msgid "Error setting user."
+msgstr "Fout tydens stoor van gebruiker; ongeldig."
 
 #: actions/recoverpassword.php:395
 msgid "New password successfully saved. You are now logged in."
@@ -2794,6 +3421,16 @@ msgstr ""
 #: actions/register.php:432
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
+
+#: actions/register.php:437
+#, fuzzy
+msgid "6 or more characters. Required."
+msgstr "6 of meer karakters"
+
+#: actions/register.php:441
+#, fuzzy
+msgid "Same as password above. Required."
+msgstr "Dieselfde as wagwoord hierbo"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:445 actions/register.php:449
@@ -2879,9 +3516,19 @@ msgstr ""
 msgid "Subscribe to a remote user"
 msgstr ""
 
+#: actions/remotesubscribe.php:129
+#, fuzzy
+msgid "User nickname"
+msgstr "Geen gebruikersnaam nie."
+
 #: actions/remotesubscribe.php:130
 msgid "Nickname of the user you want to follow"
 msgstr ""
+
+#: actions/remotesubscribe.php:133
+#, fuzzy
+msgid "Profile URL"
+msgstr "Profiel"
 
 #: actions/remotesubscribe.php:134
 msgid "URL of your profile on another compatible microblogging service"
@@ -2912,6 +3559,21 @@ msgstr ""
 msgid "Only logged-in users can repeat notices."
 msgstr ""
 
+#: actions/repeat.php:64 actions/repeat.php:71
+#, fuzzy
+msgid "No notice specified."
+msgstr "Geen profiel verskaf nie."
+
+#: actions/repeat.php:76
+#, fuzzy
+msgid "You can't repeat your own notice."
+msgstr "U kan nie u eie kennisgewings herhaal nie."
+
+#: actions/repeat.php:90
+#, fuzzy
+msgid "You already repeated that notice."
+msgstr "U het reeds die kennisgewing herhaal."
+
 #: actions/repeat.php:114 lib/noticelist.php:676
 msgid "Repeated"
 msgstr "Herhalend"
@@ -2919,6 +3581,41 @@ msgstr "Herhalend"
 #: actions/repeat.php:119
 msgid "Repeated!"
 msgstr "Herhaal!"
+
+#: actions/replies.php:126 actions/repliesrss.php:68
+#: lib/personalgroupnav.php:105
+#, fuzzy, php-format
+msgid "Replies to %s"
+msgstr "Herhalings van %s"
+
+#: actions/replies.php:128
+#, fuzzy, php-format
+msgid "Replies to %1$s, page %2$d"
+msgstr "%1$s, bladsy %2$d"
+
+#: actions/replies.php:145
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/replies.php:152
+#, fuzzy, php-format
+msgid "Replies feed for %s (RSS 2.0)"
+msgstr "Voer vir vriende van %s (RSS 2.0)"
+
+#: actions/replies.php:159
+#, fuzzy, php-format
+msgid "Replies feed for %s (Atom)"
+msgstr "Voer vir vriende van %s (Atom)"
+
+#: actions/replies.php:199
+#, fuzzy, php-format
+msgid ""
+"This is the timeline showing replies to %1$s but %2$s hasn't received a "
+"notice to them yet."
+msgstr ""
+"Hierdie is die tydslyn vir %s en vriende, maar niemand het nog iets gepos "
+"nie."
 
 #: actions/replies.php:204
 #, php-format
@@ -2934,6 +3631,16 @@ msgid ""
 "newnotice%%%%?status_textarea=%3$s)."
 msgstr ""
 
+#: actions/repliesrss.php:72
+#, fuzzy, php-format
+msgid "Replies to %1$s on %2$s!"
+msgstr "Opdaterings van %1$s op %2$s."
+
+#: actions/revokerole.php:75
+#, fuzzy
+msgid "You cannot revoke user roles on this site."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
+
 #: actions/revokerole.php:82
 msgid "User doesn't have this role."
 msgstr ""
@@ -2941,6 +3648,16 @@ msgstr ""
 #: actions/rsd.php:146 actions/version.php:159
 msgid "StatusNet"
 msgstr "StatusNet"
+
+#: actions/sandbox.php:65 actions/unsandbox.php:65
+#, fuzzy
+msgid "You cannot sandbox users on this site."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
+
+#: actions/sandbox.php:72
+#, fuzzy
+msgid "User is already sandboxed."
+msgstr "Hierdie gebruiker is reeds stilgemaak."
 
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
@@ -2951,6 +3668,11 @@ msgstr "Sessies"
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
 msgstr ""
+
+#: actions/sessionsadminpanel.php:175
+#, fuzzy
+msgid "Handle sessions"
+msgstr "Sessies"
 
 #: actions/sessionsadminpanel.php:177
 msgid "Whether to handle sessions ourselves."
@@ -2963,6 +3685,21 @@ msgstr ""
 #: actions/sessionsadminpanel.php:183
 msgid "Turn on debugging output for sessions."
 msgstr ""
+
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#, fuzzy
+msgid "Save site settings"
+msgstr "Stoor toegangsinstellings"
+
+#: actions/showapplication.php:82
+#, fuzzy
+msgid "You must be logged in to view an application."
+msgstr "U moet aangeteken wees alvorens u 'n applikasie kan wysig."
+
+#: actions/showapplication.php:157
+#, fuzzy
+msgid "Application profile"
+msgstr "Die applikasie is nie gevind nie."
 
 #. TRANS: Form input field label for application icon.
 #: actions/showapplication.php:159 lib/applicationeditform.php:173
@@ -2996,9 +3733,19 @@ msgstr "Statistieke"
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr ""
 
+#: actions/showapplication.php:213
+#, fuzzy
+msgid "Application actions"
+msgstr "Die applikasie is nie gevind nie."
+
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr ""
+
+#: actions/showapplication.php:261
+#, fuzzy
+msgid "Application info"
+msgstr "Die applikasie is nie gevind nie."
 
 #: actions/showapplication.php:263
 msgid "Consumer key"
@@ -3016,11 +3763,46 @@ msgstr ""
 msgid "Access token URL"
 msgstr ""
 
+#: actions/showapplication.php:283
+#, fuzzy
+msgid "Authorize URL"
+msgstr "Outeur"
+
 #: actions/showapplication.php:288
 msgid ""
 "Note: We support HMAC-SHA1 signatures. We do not support the plaintext "
 "signature method."
 msgstr ""
+
+#: actions/showapplication.php:309
+#, fuzzy
+msgid "Are you sure you want to reset your consumer key and secret?"
+msgstr "Is u seker u wil hierdie kennisgewing verwyder?"
+
+#: actions/showfavorites.php:79
+#, fuzzy, php-format
+msgid "%1$s's favorite notices, page %2$d"
+msgstr "%s se gunsteling kennisgewings"
+
+#: actions/showfavorites.php:132
+#, fuzzy
+msgid "Could not retrieve favorite notices."
+msgstr "Dit was nie moontlik om 'n gunsteling te skep nie."
+
+#: actions/showfavorites.php:171
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/showfavorites.php:178
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (RSS 2.0)"
+msgstr "Voer vir vriende van %s (RSS 2.0)"
+
+#: actions/showfavorites.php:185
+#, fuzzy, php-format
+msgid "Feed for favorites of %s (Atom)"
+msgstr "Voer vir vriende van %s (Atom)"
 
 #: actions/showfavorites.php:206
 msgid ""
@@ -3079,6 +3861,21 @@ msgstr "Aliasse"
 msgid "Group actions"
 msgstr "Groepsaksies"
 
+#: actions/showgroup.php:338
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/showgroup.php:344
+#, fuzzy, php-format
+msgid "Notice feed for %s group (RSS 2.0)"
+msgstr "Voer vir vriende van %s (RSS 2.0)"
+
+#: actions/showgroup.php:350
+#, fuzzy, php-format
+msgid "Notice feed for %s group (Atom)"
+msgstr "Voer vir vriende van %s (Atom)"
+
 #: actions/showgroup.php:355
 #, php-format
 msgid "FOAF for %s group"
@@ -3133,6 +3930,16 @@ msgstr "Die boodskap bestaan nie."
 msgid "Only the sender and recipient may read this message."
 msgstr ""
 
+#: actions/showmessage.php:108
+#, fuzzy, php-format
+msgid "Message to %1$s on %2$s"
+msgstr "Opdaterings van %1$s op %2$s."
+
+#: actions/showmessage.php:113
+#, fuzzy, php-format
+msgid "Message from %1$s on %2$s"
+msgstr "Opdaterings van %1$s op %2$s."
+
 #: actions/shownotice.php:90
 msgid "Notice deleted."
 msgstr "Hierdie kennisgewing is verwyder."
@@ -3147,10 +3954,37 @@ msgstr "met die etiket %s"
 msgid "%1$s, page %2$d"
 msgstr "%1$s, bladsy %2$d"
 
+#: actions/showstream.php:122
+#, fuzzy, php-format
+msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/showstream.php:129
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/showstream.php:136
+#, fuzzy, php-format
+msgid "Notice feed for %s (RSS 2.0)"
+msgstr "Voer vir vriende van %s (RSS 2.0)"
+
+#: actions/showstream.php:143
+#, fuzzy, php-format
+msgid "Notice feed for %s (Atom)"
+msgstr "Voer vir vriende van %s (Atom)"
+
 #: actions/showstream.php:148
 #, php-format
 msgid "FOAF for %s"
 msgstr "Vriend van 'n vriend (FOAF) vir %s"
+
+#: actions/showstream.php:200
+#, fuzzy, php-format
+msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
+msgstr ""
+"Hierdie is die tydslyn vir %s en vriende, maar niemand het nog iets gepos "
+"nie."
 
 #: actions/showstream.php:205
 msgid ""
@@ -3203,6 +4037,11 @@ msgstr ""
 msgid "Site name must have non-zero length."
 msgstr ""
 
+#: actions/siteadminpanel.php:141
+#, fuzzy
+msgid "You must have a valid contact email address."
+msgstr "Nie 'n geldige e-posadres nie."
+
 #: actions/siteadminpanel.php:159
 #, php-format
 msgid "Unknown language \"%s\"."
@@ -3219,6 +4058,11 @@ msgstr ""
 #: actions/siteadminpanel.php:221
 msgid "General"
 msgstr "Algemeen"
+
+#: actions/siteadminpanel.php:224
+#, fuzzy
+msgid "Site name"
+msgstr "Werf se tema"
 
 #: actions/siteadminpanel.php:225
 msgid "The name of your site, like \"Yourcompany Microblog\""
@@ -3240,6 +4084,11 @@ msgstr ""
 msgid "URL used for credits link in footer of each page"
 msgstr ""
 
+#: actions/siteadminpanel.php:239
+#, fuzzy
+msgid "Contact email address for your site"
+msgstr "Inkomende e-posadres is verwyder."
+
 #: actions/siteadminpanel.php:245
 msgid "Local"
 msgstr "Lokaal"
@@ -3251,6 +4100,11 @@ msgstr "Standaardtydsone"
 #: actions/siteadminpanel.php:257
 msgid "Default timezone for the site; usually UTC."
 msgstr ""
+
+#: actions/siteadminpanel.php:262
+#, fuzzy
+msgid "Default language"
+msgstr "Standaardtydsone"
 
 #: actions/siteadminpanel.php:263
 msgid "Site language when autodetection from browser settings is not available"
@@ -3276,13 +4130,38 @@ msgstr "Duplikaatlimiet"
 msgid "How long users must wait (in seconds) to post the same thing again."
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:56
+#, fuzzy
+msgid "Site Notice"
+msgstr "Kennisgewings"
+
+#: actions/sitenoticeadminpanel.php:67
+#, fuzzy
+msgid "Edit site-wide message"
+msgstr "Nuwe boodskap"
+
+#: actions/sitenoticeadminpanel.php:103
+#, fuzzy
+msgid "Unable to save site notice."
+msgstr "Dit was nie moontlik om u ontwerp-instellings te stoor nie."
+
 #: actions/sitenoticeadminpanel.php:113
 msgid "Max length for the site-wide notice is 255 chars."
 msgstr ""
 
+#: actions/sitenoticeadminpanel.php:176
+#, fuzzy
+msgid "Site notice text"
+msgstr "Verwyder kennisgewing"
+
 #: actions/sitenoticeadminpanel.php:178
 msgid "Site-wide notice text (255 chars max; HTML okay)"
 msgstr ""
+
+#: actions/sitenoticeadminpanel.php:198
+#, fuzzy
+msgid "Save site notice"
+msgstr "Verwyder kennisgewing"
 
 #. TRANS: Title for SMS settings.
 #: actions/smssettings.php:59
@@ -3296,15 +4175,46 @@ msgstr "SMS-instellings"
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr ""
 
+#. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
+#: actions/smssettings.php:97
+#, fuzzy
+msgid "SMS is not available."
+msgstr "IM is nie beskikbaar nie."
+
+#. TRANS: Form legend for SMS settings form.
+#: actions/smssettings.php:111
+#, fuzzy
+msgid "SMS address"
+msgstr "IP-adres"
+
+#. TRANS: Form guide in SMS settings form.
+#: actions/smssettings.php:120
+#, fuzzy
+msgid "Current confirmed SMS-enabled phone number."
+msgstr "Huidige bevestigde e-posadres."
+
 #. TRANS: Form guide in IM settings form.
 #: actions/smssettings.php:133
 msgid "Awaiting confirmation on this phone number."
 msgstr ""
 
+#. TRANS: Field label for SMS address input in SMS settings form.
+#: actions/smssettings.php:142
+#, fuzzy
+msgid "Confirmation code"
+msgstr "Geen bevestigingskode."
+
 #. TRANS: Form field instructions in SMS settings form.
 #: actions/smssettings.php:144
 msgid "Enter the code you received on your phone."
 msgstr ""
+
+#. TRANS: Button label to confirm SMS confirmation code in SMS settings.
+#: actions/smssettings.php:148
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Confirm"
+msgstr "Bevestig"
 
 #. TRANS: Field label for SMS phone number input in SMS settings form.
 #: actions/smssettings.php:153
@@ -3328,10 +4238,34 @@ msgid ""
 "from my carrier."
 msgstr ""
 
+#. TRANS: Confirmation message for successful SMS preferences save.
+#: actions/smssettings.php:315
+#, fuzzy
+msgid "SMS preferences saved."
+msgstr "Voorkeure is gestoor."
+
 #. TRANS: Message given saving SMS phone number without having provided one.
 #: actions/smssettings.php:338
 msgid "No phone number."
 msgstr "Geen telefoonnommer."
+
+#. TRANS: Message given saving SMS phone number without having selected a carrier.
+#: actions/smssettings.php:344
+#, fuzzy
+msgid "No carrier selected."
+msgstr "Hierdie kennisgewing is verwyder."
+
+#. TRANS: Message given saving SMS phone number that is already set.
+#: actions/smssettings.php:352
+#, fuzzy
+msgid "That is already your phone number."
+msgstr "Dit is al reeds u Jabber-ID."
+
+#. TRANS: Message given saving SMS phone number that is already set for another user.
+#: actions/smssettings.php:356
+#, fuzzy
+msgid "That phone number already belongs to another user."
+msgstr "Die Jabber-ID word reeds deur 'n ander gebruiker gebruik."
 
 #. TRANS: Message given saving valid SMS phone number that is to be confirmed.
 #: actions/smssettings.php:384
@@ -3340,10 +4274,23 @@ msgid ""
 "for the code and instructions on how to use it."
 msgstr ""
 
+#. TRANS: Message given canceling SMS phone number confirmation for the wrong phone number.
+#: actions/smssettings.php:413
+#, fuzzy
+msgid "That is the wrong confirmation number."
+msgstr "Dit is die verkeerde IM-adres."
+
 #. TRANS: Message given after successfully canceling SMS phone number confirmation.
 #: actions/smssettings.php:427
 msgid "SMS confirmation cancelled."
 msgstr "SMS-bevestiging"
+
+#. TRANS: Message given trying to remove an SMS phone number that is not
+#. TRANS: registered for the active user.
+#: actions/smssettings.php:448
+#, fuzzy
+msgid "That is not your phone number."
+msgstr "Dit is nie u Jabber-ID nie."
 
 #. TRANS: Message given after successfully removing a registered SMS phone number.
 #: actions/smssettings.php:470
@@ -3369,6 +4316,12 @@ msgid ""
 "email but isn't listed here, send email to let us know at %s."
 msgstr ""
 
+#. TRANS: Message given saving SMS phone number confirmation code without having provided one.
+#: actions/smssettings.php:548
+#, fuzzy
+msgid "No code entered"
+msgstr "Geen inhoud nie!"
+
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
 #: lib/adminpanelaction.php:395
@@ -3379,9 +4332,19 @@ msgstr ""
 msgid "Manage snapshot configuration"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:127
+#, fuzzy
+msgid "Invalid snapshot run value."
+msgstr "Ongeldige rol."
+
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
 msgstr ""
+
+#: actions/snapshotadminpanel.php:144
+#, fuzzy
+msgid "Invalid snapshot report URL."
+msgstr "Die logo-URL is ongeldig."
 
 #: actions/snapshotadminpanel.php:200
 msgid "Randomly during web hit"
@@ -3415,9 +4378,30 @@ msgstr ""
 msgid "Snapshots will be sent to this URL"
 msgstr ""
 
+#: actions/snapshotadminpanel.php:248
+#, fuzzy
+msgid "Save snapshot settings"
+msgstr "Stoor toegangsinstellings"
+
+#: actions/subedit.php:70
+#, fuzzy
+msgid "You are not subscribed to that profile."
+msgstr "U volg hierdie gebruiker:"
+
+#. TRANS: Exception thrown when a subscription could not be stored on the server.
+#: actions/subedit.php:83 classes/Subscription.php:136
+#, fuzzy
+msgid "Could not save subscription."
+msgstr "Kon nie die profiel stoor nie."
+
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
 msgstr ""
+
+#: actions/subscribe.php:107
+#, fuzzy
+msgid "No such profile."
+msgstr "Die lêer bestaan nie."
 
 #: actions/subscribe.php:117
 msgid "You cannot subscribe to an OMB 0.1 remote profile with this action."
@@ -3431,6 +4415,11 @@ msgstr ""
 #, php-format
 msgid "%s subscribers"
 msgstr ""
+
+#: actions/subscribers.php:52
+#, fuzzy, php-format
+msgid "%1$s subscribers, page %2$d"
+msgstr "%1$s en vriende, bladsy %2$d"
 
 #: actions/subscribers.php:63
 msgid "These are the people who listen to your notices."
@@ -3458,6 +4447,16 @@ msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
 "%) and be the first?"
 msgstr ""
+
+#: actions/subscriptions.php:52
+#, fuzzy, php-format
+msgid "%s subscriptions"
+msgstr "Beskrywing"
+
+#: actions/subscriptions.php:54
+#, fuzzy, php-format
+msgid "%1$s subscriptions, page %2$d"
+msgstr "%1$s groepe, bladsy %2$d"
 
 #: actions/subscriptions.php:65
 msgid "These are the people whose notices you listen to."
@@ -3490,6 +4489,26 @@ msgstr "Jabber"
 #: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
 msgid "SMS"
 msgstr "SMS"
+
+#: actions/tag.php:69
+#, fuzzy, php-format
+msgid "Notices tagged with %1$s, page %2$d"
+msgstr "%1$s, bladsy %2$d"
+
+#: actions/tag.php:87
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 1.0)"
+msgstr "Voer vir vriende van %s (RSS 1.0)"
+
+#: actions/tag.php:93
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (RSS 2.0)"
+msgstr "Voer vir vriende van %s (RSS 2.0)"
+
+#: actions/tag.php:99
+#, fuzzy, php-format
+msgid "Notice feed for tag %s (Atom)"
+msgstr "Voer vir vriende van %s (Atom)"
 
 #: actions/tagother.php:39
 msgid "No ID argument."
@@ -3528,9 +4547,34 @@ msgstr ""
 msgid "Could not save tags."
 msgstr "Kon nie die etikette stoor nie."
 
+#: actions/tagother.php:236
+#, fuzzy
+msgid "Use this form to add tags to your subscribers or subscriptions."
+msgstr "Gebruik die vorm om u applikasie te wysig."
+
 #: actions/tagrss.php:35
 msgid "No such tag."
 msgstr "Onbekende etiket."
+
+#: actions/unblock.php:59
+#, fuzzy
+msgid "You haven't blocked that user."
+msgstr "U het reeds die gebruiker geblokkeer."
+
+#: actions/unsandbox.php:72
+#, fuzzy
+msgid "User is not sandboxed."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
+
+#: actions/unsilence.php:72
+#, fuzzy
+msgid "User is not silenced."
+msgstr "Hierdie gebruiker is reeds stilgemaak."
+
+#: actions/unsubscribe.php:77
+#, fuzzy
+msgid "No profile ID in request."
+msgstr "Daar is geen profiel met daardie ID nie."
 
 #: actions/unsubscribe.php:98
 msgid "Unsubscribed"
@@ -3583,8 +4627,33 @@ msgstr ""
 msgid "New users"
 msgstr "Nuwe gebruikers"
 
+#: actions/useradminpanel.php:236
+#, fuzzy
+msgid "New user welcome"
+msgstr "Nuwe gebruikers"
+
+#: actions/useradminpanel.php:237
+#, fuzzy
+msgid "Welcome text for new users (Max 255 chars)."
+msgstr "Die naam is te lank (maksimum 255 karakters)."
+
+#: actions/useradminpanel.php:242
+#, fuzzy
+msgid "Default subscription"
+msgstr "Beskrywing"
+
+#: actions/useradminpanel.php:243
+#, fuzzy
+msgid "Automatically subscribe new users to this user."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
+
 #: actions/useradminpanel.php:252
 msgid "Invitations"
+msgstr "Uitnodigings"
+
+#: actions/useradminpanel.php:257
+#, fuzzy
+msgid "Invitations enabled"
 msgstr "Uitnodigings"
 
 #: actions/useradminpanel.php:259
@@ -3594,6 +4663,11 @@ msgstr ""
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
 msgstr ""
+
+#: actions/userauthorization.php:105
+#, fuzzy
+msgid "Authorize subscription"
+msgstr "Beskrywing"
 
 #: actions/userauthorization.php:110
 msgid ""
@@ -3612,9 +4686,20 @@ msgstr "Lisensie"
 msgid "Accept"
 msgstr "Aanvaar"
 
+#: actions/userauthorization.php:218 lib/subscribeform.php:115
+#: lib/subscribeform.php:139
+#, fuzzy
+msgid "Subscribe to this user"
+msgstr "U volg hierdie gebruiker:"
+
 #: actions/userauthorization.php:219
 msgid "Reject"
 msgstr "Verwerp"
+
+#: actions/userauthorization.php:220
+#, fuzzy
+msgid "Reject this subscription"
+msgstr "Verwyder die gebruiker"
 
 #: actions/userauthorization.php:232
 msgid "No authorization request!"
@@ -3630,6 +4715,11 @@ msgid ""
 "with the site’s instructions for details on how to authorize the "
 "subscription. Your subscription token is:"
 msgstr ""
+
+#: actions/userauthorization.php:266
+#, fuzzy
+msgid "Subscription rejected"
+msgstr "Beskrywing word vereis."
 
 #: actions/userauthorization.php:268
 msgid ""
@@ -3658,10 +4748,25 @@ msgstr ""
 msgid "Profile URL ‘%s’ is for a local user."
 msgstr ""
 
+#: actions/userauthorization.php:345
+#, fuzzy, php-format
+msgid "Avatar URL ‘%s’ is not valid."
+msgstr "Die \"callback\"-URL is nie geldig nie."
+
 #: actions/userauthorization.php:350
 #, php-format
 msgid "Can’t read avatar URL ‘%s’."
 msgstr "Kan nie die avatar-URL \"%s\" lees nie."
+
+#: actions/userauthorization.php:355
+#, fuzzy, php-format
+msgid "Wrong image type for avatar URL ‘%s’."
+msgstr "Kan nie die avatar-URL \"%s\" lees nie."
+
+#: actions/userdesignsettings.php:76 lib/designsettings.php:65
+#, fuzzy
+msgid "Profile design"
+msgstr "Profiel"
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
 msgid ""
@@ -3682,6 +4787,11 @@ msgstr "%1$s groepe, bladsy %2$d"
 #: actions/usergroups.php:132
 msgid "Search for more groups"
 msgstr "Soek vir meer groepe"
+
+#: actions/usergroups.php:159
+#, fuzzy, php-format
+msgid "%s is not a member of any group."
+msgstr "U is nie 'n lid van enige groep nie."
 
 #: actions/usergroups.php:164
 #, php-format
@@ -3751,6 +4861,11 @@ msgstr "Weergawe"
 msgid "Author(s)"
 msgstr "Outeur(s)"
 
+#: classes/Fave.php:147 lib/favorform.php:140
+#, fuzzy
+msgid "Favor"
+msgstr "Gunstelinge"
+
 #: classes/Fave.php:148
 #, php-format
 msgid "%s marked notice %s as a favorite."
@@ -3790,10 +4905,28 @@ msgstr ""
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
+#. TRANS: Client exception thrown if a file upload does not have a valid name.
+#: classes/File.php:248 classes/File.php:263
+#, fuzzy
+msgid "Invalid filename."
+msgstr "Ongeldige grootte."
+
+#. TRANS: Exception thrown when joining a group fails.
+#: classes/Group_member.php:42
+#, fuzzy
+msgid "Group join failed."
+msgstr "Groepsprofiel"
+
 #. TRANS: Exception thrown when trying to leave a group the user is not a member of.
 #: classes/Group_member.php:55
 msgid "Not part of group."
 msgstr "Nie lid van die groep nie."
+
+#. TRANS: Exception thrown when trying to leave a group fails.
+#: classes/Group_member.php:63
+#, fuzzy
+msgid "Group leave failed."
+msgstr "Groepsprofiel"
 
 #: classes/Group_member.php:108 lib/joinform.php:114
 msgid "Join"
@@ -3806,10 +4939,41 @@ msgstr "Aansluit"
 msgid "%1$s has joined group %2$s."
 msgstr ""
 
+#. TRANS: Server exception thrown when updating a local group fails.
+#: classes/Local_group.php:42
+#, fuzzy
+msgid "Could not update local group."
+msgstr "Dit was nie moontlik om die groep by te werk nie."
+
+#. TRANS: Exception thrown when trying creating a login token failed.
+#. TRANS: %s is the user nickname for which token creation failed.
+#: classes/Login_token.php:78
+#, fuzzy, php-format
+msgid "Could not create login token for %s"
+msgstr "Dit was nie moontlik om die aliasse te skep nie."
+
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
+#: classes/Message.php:46
+#, fuzzy
+msgid "You are banned from sending direct messages."
+msgstr "U inkomende boodskappe"
+
+#. TRANS: Message given when a message could not be stored on the server.
+#: classes/Message.php:63
+#, fuzzy
+msgid "Could not insert message."
+msgstr "Kan nie boodskap verwerk nie."
+
+#. TRANS: Message given when a message could not be updated on the server.
+#: classes/Message.php:74
+#, fuzzy
+msgid "Could not update message with new URI."
+msgstr "Kan nie boodskap verwerk nie."
 
 #. TRANS: Server exception thrown when a user profile for a notice cannot be found.
 #. TRANS: %1$d is a profile ID (number), %2$d is a notice ID (number).
@@ -3846,6 +5010,12 @@ msgid ""
 "Too many duplicate messages too quickly; take a breather and post again in a "
 "few minutes."
 msgstr ""
+
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:291
+#, fuzzy
+msgid "You are banned from posting notices on this site."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
 
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
@@ -3884,6 +5054,18 @@ msgstr ""
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
+#. TRANS: Exception thrown when a right for a non-existing user profile is checked.
+#: classes/Remote_profile.php:54
+#, fuzzy
+msgid "Missing profile."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
+
+#. TRANS: Exception thrown when a tag cannot be saved.
+#: classes/Status_network.php:338
+#, fuzzy
+msgid "Unable to save tag."
+msgstr "Dit was nie moontlik om u ontwerp-instellings te stoor nie."
+
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
 msgid "You have been banned from subscribing."
@@ -3894,10 +5076,37 @@ msgstr ""
 msgid "Already subscribed!"
 msgstr ""
 
+#. TRANS: Exception thrown when trying to subscribe to a user who has blocked the subscribing user.
+#: classes/Subscription.php:85
+#, fuzzy
+msgid "User has blocked you."
+msgstr "Hierdie gebruiker het nie 'n profiel nie."
+
 #. TRANS: Exception thrown when trying to unsibscribe without a subscription.
 #: classes/Subscription.php:171
 msgid "Not subscribed!"
 msgstr ""
+
+#. TRANS: Exception thrown when trying to unsubscribe a user from themselves.
+#: classes/Subscription.php:178
+#, fuzzy
+msgid "Could not delete self-subscription."
+msgstr ""
+"Dit was nie moontlik om die boodskap van u gunstelinge te verwyder nie."
+
+#. TRANS: Exception thrown when the OMB token for a subscription could not deleted on the server.
+#: classes/Subscription.php:206
+#, fuzzy
+msgid "Could not delete subscription OMB token."
+msgstr ""
+"Dit was nie moontlik om die boodskap van u gunstelinge te verwyder nie."
+
+#. TRANS: Exception thrown when a subscription could not be deleted on the server.
+#: classes/Subscription.php:218
+#, fuzzy
+msgid "Could not delete subscription."
+msgstr ""
+"Dit was nie moontlik om die boodskap van u gunstelinge te verwyder nie."
 
 #: classes/Subscription.php:254
 msgid "Follow"
@@ -3920,10 +5129,34 @@ msgstr "Welkom by %1$s, @%2$s!"
 msgid "Could not create group."
 msgstr "Kon nie die groep skep nie."
 
+#. TRANS: Server exception thrown when updating a group URI failed.
+#: classes/User_group.php:506
+#, fuzzy
+msgid "Could not set group URI."
+msgstr "Kon nie die groep skep nie."
+
+#. TRANS: Server exception thrown when setting group membership failed.
+#: classes/User_group.php:529
+#, fuzzy
+msgid "Could not set group membership."
+msgstr "Kon nie die groep skep nie."
+
+#. TRANS: Server exception thrown when saving local group information failed.
+#: classes/User_group.php:544
+#, fuzzy
+msgid "Could not save local group info."
+msgstr "Kon nie die profiel stoor nie."
+
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:109
 msgid "Change your profile settings"
 msgstr "Verander u profiel gegewens"
+
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:116
+#, fuzzy
+msgid "Upload an avatar"
+msgstr "Die opdatering van die avatar het gefaal."
 
 #. TRANS: Link title attribute in user account settings menu.
 #: lib/accountsettingsaction.php:123
@@ -3978,6 +5211,13 @@ msgctxt "MENU"
 msgid "Personal"
 msgstr "Persoonlik"
 
+#. TRANS: Tooltip for main menu option "Account"
+#: lib/action.php:460
+#, fuzzy
+msgctxt "TOOLTIP"
+msgid "Change your email, avatar, password, profile"
+msgstr "Verander u wagwoord"
+
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:465
 msgctxt "TOOLTIP"
@@ -4014,6 +5254,13 @@ msgstr ""
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Uitnodig"
+
+#. TRANS: Tooltip for main menu option "Logout"
+#: lib/action.php:487
+#, fuzzy
+msgctxt "TOOLTIP"
+msgid "Logout from the site"
+msgstr "Meld by die webwerf aan"
 
 #. TRANS: Main menu option when logged in to log out the current user
 #: lib/action.php:490
@@ -4066,6 +5313,25 @@ msgctxt "MENU"
 msgid "Search"
 msgstr "Soek"
 
+#. TRANS: DT element for site notice. String is hidden in default CSS.
+#. TRANS: Menu item for site administration
+#: lib/action.php:538 lib/adminpanelaction.php:387
+#, fuzzy
+msgid "Site notice"
+msgstr "Verwyder kennisgewing"
+
+#. TRANS: DT element for local views block. String is hidden in default CSS.
+#: lib/action.php:605
+#, fuzzy
+msgid "Local views"
+msgstr "Lokaal"
+
+#. TRANS: DT element for page notice. String is hidden in default CSS.
+#: lib/action.php:675
+#, fuzzy
+msgid "Page notice"
+msgstr "Populêre kennisgewings"
+
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
 #: lib/action.php:778
 msgid "Secondary site navigation"
@@ -4105,6 +5371,11 @@ msgstr "Bron"
 #: lib/action.php:808
 msgid "Contact"
 msgstr "Kontak"
+
+#: lib/action.php:810
+#, fuzzy
+msgid "Badge"
+msgstr "Aanpor"
 
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:839
@@ -4171,6 +5442,12 @@ msgstr ""
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
+#. TRANS: DT element for pagination (previous/next, etc.).
+#: lib/action.php:1248
+#, fuzzy
+msgid "Pagination"
+msgstr "Registratie"
+
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
 #: lib/action.php:1259
@@ -4203,6 +5480,18 @@ msgstr ""
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
+#. TRANS: Client error message thrown when a user tries to change admin settings but has no access rights.
+#: lib/adminpanelaction.php:96
+#, fuzzy
+msgid "You cannot make changes to this site."
+msgstr "Jy kan nie gebruikers op hierdie webwerf stilmaak nie."
+
+#. TRANS: Client error message throw when a certain panel's settings cannot be changed.
+#: lib/adminpanelaction.php:108
+#, fuzzy
+msgid "Changes to that panel are not allowed."
+msgstr "Registrasie nie toegelaat nie."
+
 #. TRANS: Client error message.
 #: lib/adminpanelaction.php:222
 msgid "showForm() not implemented."
@@ -4213,11 +5502,30 @@ msgstr ""
 msgid "saveSettings() not implemented."
 msgstr ""
 
+#. TRANS: Client error message thrown if design settings could not be deleted in
+#. TRANS: the admin panel Design.
+#: lib/adminpanelaction.php:274
+#, fuzzy
+msgid "Unable to delete design setting."
+msgstr "Dit was nie moontlik om u ontwerp-instellings te stoor nie."
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:337
+#, fuzzy
+msgid "Basic site configuration"
+msgstr "SMS-bevestiging"
+
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:339
 msgctxt "MENU"
 msgid "Site"
 msgstr "Webtuiste"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:345
+#, fuzzy
+msgid "Design configuration"
+msgstr "SMS-bevestiging"
 
 #. TRANS: Menu item for site administration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
@@ -4226,10 +5534,46 @@ msgctxt "MENU"
 msgid "Design"
 msgstr "Ontwerp"
 
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:353
+#, fuzzy
+msgid "User configuration"
+msgstr "SMS-bevestiging"
+
 #. TRANS: Menu item for site administration
 #: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
 msgid "User"
 msgstr "Gebruiker"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:361
+#, fuzzy
+msgid "Access configuration"
+msgstr "SMS-bevestiging"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:369
+#, fuzzy
+msgid "Paths configuration"
+msgstr "SMS-bevestiging"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:377
+#, fuzzy
+msgid "Sessions configuration"
+msgstr "SMS-bevestiging"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:385
+#, fuzzy
+msgid "Edit site notice"
+msgstr "Verwyder kennisgewing"
+
+#. TRANS: Menu item title/tooltip
+#: lib/adminpanelaction.php:393
+#, fuzzy
+msgid "Snapshots configuration"
+msgstr "SMS-bevestiging"
 
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
@@ -4272,11 +5616,47 @@ msgstr ""
 msgid "Failed to delete revoked token."
 msgstr ""
 
+#. TRANS: Form legend.
+#: lib/applicationeditform.php:129
+#, fuzzy
+msgid "Edit application"
+msgstr "Wysig applikasie"
+
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:178
+#, fuzzy
+msgid "Icon for this application"
+msgstr "Moenie die applikasie verwyder nie"
+
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:200
 #, php-format
 msgid "Describe your application in %d characters"
 msgstr ""
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:204
+#, fuzzy
+msgid "Describe your application"
+msgstr "Skrap applikasie"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:215
+#, fuzzy
+msgid "URL of the homepage of this application"
+msgstr "U is nie die eienaar van hierdie applikasie nie."
+
+#. TRANS: Form input field label.
+#: lib/applicationeditform.php:217
+#, fuzzy
+msgid "Source URL"
+msgstr "Bron"
+
+#. TRANS: Form input field instructions.
+#: lib/applicationeditform.php:224
+#, fuzzy
+msgid "Organization responsible for this application"
+msgstr "U is nie die eienaar van hierdie applikasie nie."
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:233
@@ -4323,6 +5703,18 @@ msgstr ""
 msgid "Cancel"
 msgstr "Kanselleer"
 
+#. TRANS: Application access type
+#: lib/applicationlist.php:135
+#, fuzzy
+msgid "read-write"
+msgstr "Lees-skryf"
+
+#. TRANS: Application access type
+#: lib/applicationlist.php:137
+#, fuzzy
+msgid "read-only"
+msgstr "Lees-alleen"
+
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
 #: lib/applicationlist.php:143
 #, php-format
@@ -4351,6 +5743,12 @@ msgid "Provider"
 msgstr "Verskaffer"
 
 #. TRANS: Title.
+#: lib/attachmentnoticesection.php:68
+#, fuzzy
+msgid "Notices where this attachment appears"
+msgstr "Etikette vir hierdie aanhangsel"
+
+#. TRANS: Title.
 #: lib/attachmenttagcloudsection.php:49
 msgid "Tags for this attachment"
 msgstr "Etikette vir hierdie aanhangsel"
@@ -4374,6 +5772,11 @@ msgstr "Opdragresultate"
 
 #: lib/channel.php:229 lib/mailhandler.php:142
 msgid "Command complete"
+msgstr "Opdrag voltooi"
+
+#: lib/channel.php:240
+#, fuzzy
+msgid "Command failed"
 msgstr "Opdrag voltooi"
 
 #. TRANS: Command exception text shown when a notice ID is requested that does not exist.
@@ -4504,6 +5907,12 @@ msgstr ""
 msgid "Notice from %s repeated."
 msgstr ""
 
+#. TRANS: Error text shown when repeating a notice fails with an unknown reason.
+#: lib/command.php:557
+#, fuzzy
+msgid "Error repeating notice."
+msgstr "U kan nie u eie kennisgewings herhaal nie."
+
 #. TRANS: Message given if content of a notice for a reply is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
 #: lib/command.php:592
@@ -4517,6 +5926,12 @@ msgstr ""
 #, php-format
 msgid "Reply to %s sent."
 msgstr ""
+
+#. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
+#: lib/command.php:606
+#, fuzzy
+msgid "Error saving notice."
+msgstr "Fout tydens stoor van gebruiker; ongeldig."
 
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
 #: lib/command.php:655
@@ -4548,10 +5963,35 @@ msgstr ""
 msgid "Unsubscribed from %s."
 msgstr ""
 
+#. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
+#. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
+#: lib/command.php:724 lib/command.php:750
+#, fuzzy
+msgid "Command not yet implemented."
+msgstr "Opdrag voltooi"
+
+#. TRANS: Text shown when issuing the command "off" successfully.
+#: lib/command.php:728
+#, fuzzy
+msgid "Notification off."
+msgstr "Geen bevestigingskode."
+
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 #: lib/command.php:731
 msgid "Can't turn off notification."
 msgstr ""
+
+#. TRANS: Text shown when issuing the command "on" successfully.
+#: lib/command.php:754
+#, fuzzy
+msgid "Notification on."
+msgstr "Geen bevestigingskode."
+
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
+#, fuzzy
+msgid "Can't turn on notification."
+msgstr "U kan nie u eie kennisgewings herhaal nie."
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
 #: lib/command.php:771
@@ -4572,6 +6012,12 @@ msgstr ""
 msgid "Unsubscribed %s."
 msgstr ""
 
+#. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
+#: lib/command.php:831
+#, fuzzy
+msgid "You are not subscribed to anyone."
+msgstr "U volg hierdie gebruiker:"
+
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
@@ -4580,6 +6026,13 @@ msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "U volg hierdie gebruiker:"
 msgstr[1] "U volg hierdie gebruikers:"
+
+#. TRANS: Text shown after requesting other users that are subscribed to a user
+#. TRANS: (followers) without having any subscribers.
+#: lib/command.php:858
+#, fuzzy
+msgid "No one is subscribed to you."
+msgstr "Hierdie gebruiker volg u:"
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
@@ -4648,6 +6101,11 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
+#: lib/common.php:135
+#, fuzzy
+msgid "No configuration file found. "
+msgstr "Geen bevestigingskode."
+
 #: lib/common.php:136
 msgid "I looked for configuration files in the following places: "
 msgstr ""
@@ -4672,9 +6130,24 @@ msgstr ""
 msgid "Updates by SMS"
 msgstr ""
 
+#: lib/connectsettingsaction.php:120
+#, fuzzy
+msgid "Connections"
+msgstr "Konnekteer"
+
+#: lib/connectsettingsaction.php:121
+#, fuzzy
+msgid "Authorized connected applications"
+msgstr "Skrap applikasie"
+
 #: lib/dberroraction.php:60
 msgid "Database error"
 msgstr "Databasisfout"
+
+#: lib/designsettings.php:105
+#, fuzzy
+msgid "Upload file"
+msgstr "Oplaai"
 
 #: lib/designsettings.php:109
 msgid ""
@@ -4684,6 +6157,16 @@ msgstr ""
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
+
+#: lib/disfavorform.php:114 lib/disfavorform.php:140
+#, fuzzy
+msgid "Disfavor this notice"
+msgstr "Verwyder hierdie kennisgewing"
+
+#: lib/favorform.php:114 lib/favorform.php:140
+#, fuzzy
+msgid "Favor this notice"
+msgstr "Verwyder hierdie kennisgewing"
 
 #: lib/feed.php:85
 msgid "RSS 1.0"
@@ -4829,6 +6312,11 @@ msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr ""
 
+#: lib/groupsbymemberssection.php:71
+#, fuzzy
+msgid "Groups with most members"
+msgstr "Groepe waarvan %s lid is"
+
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr ""
@@ -4843,6 +6331,21 @@ msgstr "Etikette in groepsaankondigings van %s"
 msgid "This page is not available in a media type you accept"
 msgstr ""
 
+#: lib/imagefile.php:72
+#, fuzzy
+msgid "Unsupported image file format."
+msgstr "Nie-ondersteunde formaat."
+
+#: lib/imagefile.php:88
+#, fuzzy, php-format
+msgid "That file is too big. The maximum file size is %s."
+msgstr "Die kennisgewing is te lank. Gebruik maksimum %d karakters."
+
+#: lib/imagefile.php:93
+#, fuzzy
+msgid "Partial upload."
+msgstr "Geen lêer opgelaai nie."
+
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
 #: lib/imagefile.php:101 lib/mediafile.php:179
 msgid "System error uploading file."
@@ -4851,6 +6354,11 @@ msgstr ""
 #: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr ""
+
+#: lib/imagefile.php:122
+#, fuzzy
+msgid "Lost our file."
+msgstr "Die lêer bestaan nie."
 
 #: lib/imagefile.php:163 lib/imagefile.php:224
 msgid "Unknown file type"
@@ -4869,13 +6377,29 @@ msgstr "kB"
 msgid "[%s]"
 msgstr "[%s]"
 
+#: lib/jabber.php:567
+#, fuzzy, php-format
+msgid "Unknown inbox source %d."
+msgstr "Onbekende taal \"%s\"."
+
 #: lib/leaveform.php:114
 msgid "Leave"
 msgstr "Verlaat"
 
+#: lib/logingroupnav.php:80
+#, fuzzy
+msgid "Login with a username and password"
+msgstr "Ongeldige gebruikersnaam of wagwoord."
+
 #: lib/logingroupnav.php:86
 msgid "Sign up for a new account"
 msgstr ""
+
+#. TRANS: Subject for address confirmation email
+#: lib/mail.php:174
+#, fuzzy
+msgid "Email address confirmation"
+msgstr "E-posadres"
 
 #. TRANS: Body for address confirmation email.
 #: lib/mail.php:177
@@ -4894,6 +6418,12 @@ msgid ""
 "Thanks for your time, \n"
 "%s\n"
 msgstr ""
+
+#. TRANS: Subject of new-subscriber notification e-mail
+#: lib/mail.php:243
+#, fuzzy, php-format
+msgid "%1$s is now listening to your notices on %2$s."
+msgstr "%s volg niemand nie."
 
 #: lib/mail.php:248
 #, php-format
@@ -5010,6 +6540,12 @@ msgid ""
 "%5$s\n"
 msgstr ""
 
+#. TRANS: Subject for favorite notification email
+#: lib/mail.php:589
+#, fuzzy, php-format
+msgid "%s (@%s) added your notice as a favorite"
+msgstr "Hierdie kennisgewing is nie 'n gunsteling nie!"
+
 #. TRANS: Body for favorite notification email
 #: lib/mail.php:592
 #, php-format
@@ -5104,6 +6640,11 @@ msgstr "Jammer, dit is nie u inkomende e-posadres nie."
 msgid "Sorry, no incoming email allowed."
 msgstr "Jammer, inkomende e-pos word nie toegelaat nie."
 
+#: lib/mailhandler.php:228
+#, fuzzy, php-format
+msgid "Unsupported message type: %s"
+msgstr "Nie-ondersteunde formaat."
+
 #. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
 #: lib/mediafile.php:99 lib/mediafile.php:125
 msgid "There was a database error while saving your file. Please try again."
@@ -5152,6 +6693,14 @@ msgstr ""
 msgid "File could not be moved to destination directory."
 msgstr ""
 
+#. TRANS: Client exception thrown when a file upload operation has been stopped because the MIME
+#. TRANS: type of the uploaded file could not be determined.
+#: lib/mediafile.php:216 lib/mediafile.php:257
+#, fuzzy
+msgid "Could not determine file's MIME type."
+msgstr ""
+"Dit was nie moontlik om die boodskap van u gunstelinge te verwyder nie."
+
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %1$s is the file type that was denied, %2$s is the application part of
 #. TRANS: the MIME type that was denied.
@@ -5169,6 +6718,11 @@ msgstr ""
 msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
 
+#: lib/messageform.php:120
+#, fuzzy
+msgid "Send a direct notice"
+msgstr "Stuur 'n direkte boodskap aan hierdie gebruiker"
+
 #: lib/messageform.php:146
 msgid "To"
 msgstr "Aan"
@@ -5181,6 +6735,11 @@ msgstr "Beskikbare karakters"
 msgctxt "Send button for sending notice"
 msgid "Send"
 msgstr "Stuur"
+
+#: lib/noticeform.php:160
+#, fuzzy
+msgid "Send a notice"
+msgstr "Verwyder kennisgewing"
 
 #: lib/noticeform.php:174
 #, php-format
@@ -5198,6 +6757,11 @@ msgstr "Heg 'n lêer aan"
 #: lib/noticeform.php:213
 msgid "Share my location"
 msgstr ""
+
+#: lib/noticeform.php:216
+#, fuzzy
+msgid "Do not share my location"
+msgstr "Moenie die applikasie verwyder nie"
 
 #: lib/noticeform.php:217
 msgid ""
@@ -5246,13 +6810,33 @@ msgstr "in konteks"
 msgid "Repeated by"
 msgstr "Herhaal deur"
 
+#: lib/noticelist.php:630
+#, fuzzy
+msgid "Reply to this notice"
+msgstr "Verwyder hierdie kennisgewing"
+
 #: lib/noticelist.php:631
 msgid "Reply"
 msgstr "Antwoord"
 
+#: lib/noticelist.php:675
+#, fuzzy
+msgid "Notice repeated"
+msgstr "Hierdie kennisgewing is verwyder."
+
+#: lib/nudgeform.php:116
+#, fuzzy
+msgid "Nudge this user"
+msgstr "Verwyder die gebruiker"
+
 #: lib/nudgeform.php:128
 msgid "Nudge"
 msgstr "Aanpor"
+
+#: lib/nudgeform.php:128
+#, fuzzy
+msgid "Send a nudge to this user"
+msgstr "Stuur 'n direkte boodskap aan hierdie gebruiker"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile."
@@ -5270,6 +6854,11 @@ msgstr ""
 #: lib/oauthstore.php:346
 msgid "Duplicate notice."
 msgstr ""
+
+#: lib/oauthstore.php:491
+#, fuzzy
+msgid "Couldn't insert new subscription."
+msgstr "Kon nie e-posbevestiging verwyder nie."
 
 #: lib/personalgroupnav.php:99
 msgid "Personal"
@@ -5295,6 +6884,11 @@ msgstr "U inkomende boodskappe"
 msgid "Outbox"
 msgstr ""
 
+#: lib/personalgroupnav.php:131
+#, fuzzy
+msgid "Your sent messages"
+msgstr "U inkomende boodskappe"
+
 #: lib/personaltagcloudsection.php:56
 #, php-format
 msgid "Tags in %s's notices"
@@ -5305,9 +6899,24 @@ msgstr "Etikette in die aankondigings van %s"
 msgid "Unknown"
 msgstr "Onbekend"
 
+#: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
+#, fuzzy
+msgid "Subscriptions"
+msgstr "Beskrywing"
+
+#: lib/profileaction.php:126
+#, fuzzy
+msgid "All subscriptions"
+msgstr "Beskrywing"
+
 #: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr ""
+
+#: lib/profileaction.php:161
+#, fuzzy
+msgid "All subscribers"
+msgstr "Alle lede"
 
 #: lib/profileaction.php:191
 msgid "User ID"
@@ -5350,9 +6959,29 @@ msgstr "Uitgelig"
 msgid "Popular"
 msgstr "Gewild"
 
+#: lib/redirectingaction.php:95
+#, fuzzy
+msgid "No return-to arguments."
+msgstr "Geen ID-argument."
+
+#: lib/repeatform.php:107
+#, fuzzy
+msgid "Repeat this notice?"
+msgstr "Verwyder hierdie kennisgewing"
+
 #: lib/repeatform.php:132
 msgid "Yes"
 msgstr "Ja"
+
+#: lib/repeatform.php:132
+#, fuzzy
+msgid "Repeat this notice"
+msgstr "Verwyder hierdie kennisgewing"
+
+#: lib/revokeroleform.php:91
+#, fuzzy, php-format
+msgid "Revoke the \"%s\" role from this user"
+msgstr "Blok hierdie gebruiker van hierdie groep"
 
 #: lib/router.php:711
 msgid "No single user defined for single-user mode."
@@ -5361,6 +6990,17 @@ msgstr ""
 #: lib/sandboxform.php:67
 msgid "Sandbox"
 msgstr ""
+
+#: lib/sandboxform.php:78
+#, fuzzy
+msgid "Sandbox this user"
+msgstr "Deblokkeer hierdie gebruiker"
+
+#. TRANS: Fieldset legend for the search form.
+#: lib/searchaction.php:121
+#, fuzzy
+msgid "Search site"
+msgstr "Soek"
 
 #. TRANS: Used as a field label for the field where one or more keywords
 #. TRANS: for searching can be entered.
@@ -5373,6 +7013,12 @@ msgctxt "BUTTON"
 msgid "Search"
 msgstr ""
 
+#. TRANS: Definition list item with instructions on how to get (better) search results.
+#: lib/searchaction.php:170
+#, fuzzy
+msgid "Search help"
+msgstr "Soek"
+
 #: lib/searchgroupnav.php:80
 msgid "People"
 msgstr "Gebruikers"
@@ -5384,6 +7030,11 @@ msgstr ""
 #: lib/searchgroupnav.php:83
 msgid "Find content of notices"
 msgstr ""
+
+#: lib/searchgroupnav.php:85
+#, fuzzy
+msgid "Find groups on this site"
+msgstr "groepe op %s"
 
 #: lib/section.php:89
 msgid "Untitled section"
@@ -5400,6 +7051,16 @@ msgstr "Maak stil"
 #: lib/silenceform.php:78
 msgid "Silence this user"
 msgstr "Maak die gebruikers stil"
+
+#: lib/subgroupnav.php:83
+#, fuzzy, php-format
+msgid "People %s subscribes to"
+msgstr "Hierdie gebruiker volg u:"
+
+#: lib/subgroupnav.php:91
+#, fuzzy, php-format
+msgid "People subscribed to %s"
+msgstr "U volg hierdie gebruiker:"
 
 #: lib/subgroupnav.php:99
 #, php-format
@@ -5437,6 +7098,13 @@ msgstr ""
 msgid "The theme file is missing or the upload failed."
 msgstr ""
 
+#: lib/themeuploader.php:91 lib/themeuploader.php:102
+#: lib/themeuploader.php:278 lib/themeuploader.php:282
+#: lib/themeuploader.php:290 lib/themeuploader.php:297
+#, fuzzy
+msgid "Failed saving theme."
+msgstr "Die opdatering van die avatar het gefaal."
+
 #: lib/themeuploader.php:147
 msgid "Invalid theme: bad directory structure."
 msgstr ""
@@ -5465,6 +7133,11 @@ msgstr ""
 msgid "Theme contains file of type '.%s', which is not allowed."
 msgstr ""
 
+#: lib/themeuploader.php:259
+#, fuzzy
+msgid "Error opening theme archive."
+msgstr "Kon nie die profiel stoor nie."
+
 #: lib/topposterssection.php:74
 msgid "Top posters"
 msgstr "Mees aktiewe gebruikers"
@@ -5472,6 +7145,26 @@ msgstr "Mees aktiewe gebruikers"
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
+
+#: lib/unsandboxform.php:80
+#, fuzzy
+msgid "Unsandbox this user"
+msgstr "Deblokkeer hierdie gebruiker"
+
+#: lib/unsilenceform.php:67
+#, fuzzy
+msgid "Unsilence"
+msgstr "Maak stil"
+
+#: lib/unsilenceform.php:78
+#, fuzzy
+msgid "Unsilence this user"
+msgstr "Maak die gebruikers stil"
+
+#: lib/unsubscribeform.php:113 lib/unsubscribeform.php:137
+#, fuzzy
+msgid "Unsubscribe from this user"
+msgstr "Deblokkeer hierdie gebruiker"
 
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
@@ -5598,14 +7291,15 @@ msgstr ""
 
 #: scripts/restoreuser.php:82
 #, php-format
-msgid "Backup file for user %s (%s)\n"
+msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-msgid "No user specified; using backup user.\n"
-msgstr ""
+#, fuzzy
+msgid "No user specified; using backup user."
+msgstr "Geen groep verskaf nie."
 
 #: scripts/restoreuser.php:94
 #, php-format
-msgid "%d entries in backup.\n"
+msgid "%d entries in backup."
 msgstr ""

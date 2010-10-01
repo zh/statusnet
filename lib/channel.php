@@ -19,6 +19,9 @@
 
 if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 
+/**
+ * @todo Needs documentation.
+ */
 class Channel
 {
     function on($user)
@@ -68,7 +71,6 @@ class CLIChannel extends Channel
 
 class XMPPChannel extends Channel
 {
-
     var $conn = null;
 
     function source()
@@ -154,6 +156,7 @@ class WebChannel extends Channel
         #      depending on what command was run
         $this->out->startHTML();
         $this->out->elementStart('head');
+        // TRANS: Title for command results.
         $this->out->element('title', null, _('Command results'));
         $this->out->elementEnd('head');
         $this->out->elementStart('body');
@@ -174,6 +177,7 @@ class AjaxWebChannel extends WebChannel
     {
         $this->out->startHTML('text/xml;charset=utf-8');
         $this->out->elementStart('head');
+        // TRANS: Title for command results.
         $this->out->element('title', null, _('Command results'));
         $this->out->elementEnd('head');
         $this->out->elementStart('body');
@@ -186,7 +190,8 @@ class AjaxWebChannel extends WebChannel
     {
         $this->out->startHTML('text/xml;charset=utf-8');
         $this->out->elementStart('head');
-        $this->out->element('title', null, _('Ajax Error'));
+        // TRANS: Title for command results.
+        $this->out->element('title', null, _('AJAX error'));
         $this->out->elementEnd('head');
         $this->out->elementStart('body');
         $this->out->element('p', array('id' => 'error'), $text);
@@ -197,7 +202,6 @@ class AjaxWebChannel extends WebChannel
 
 class MailChannel extends Channel
 {
-
     var $addr = null;
 
     function source()
@@ -222,10 +226,10 @@ class MailChannel extends Channel
 
     function output($user, $text)
     {
-
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
 
+        // TRANS: E-mail subject when a command has completed.
         $headers['Subject'] = _('Command complete');
 
         return mail_send(array($this->addr), $headers, $text);
@@ -233,10 +237,10 @@ class MailChannel extends Channel
 
     function error($user, $text)
     {
-
         $headers['From'] = $user->incomingemail;
         $headers['To'] = $this->addr;
 
+        // TRANS: E-mail subject when a command has failed.
         $headers['Subject'] = _('Command failed');
 
         return mail_send(array($this->addr), $headers, $text);

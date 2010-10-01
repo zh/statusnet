@@ -52,15 +52,18 @@ if (!defined('STATUSNET')) {
  * );
  *
  * If you only want to allow commenting on a specific user's notices or
- * a specific set of user's notices, use the "nicknames" array, e.g.:
+ * a specific set of users' notices initialize the plugin with the "restricted"
+ * parameter and grant the "richedit" role to those users. E.g.:
  *
  * addPlugin(
  *     'Disqus', array(
- *         'shortname' => 'YOURSHORTNAME',
- *         'divStyle'  => 'width:675px; padding-top:10px; position:relative; float:left;',
- *         'nicknames' => array('spock', 'kirk', 'bones')
+ *         'shortname'  => 'YOURSHORTNAME',
+ *         'divStyle'   => 'width:675px; padding-top:10px; position:relative; float:left;',
+ *         'restricted' => true
  *     )
  * );
+ *
+ * $ php userrole.php -s#### -nusername -rrichedit
  *
  *
  * NOTE: the 'divStyle' in an optional parameter that passes in some
@@ -85,7 +88,11 @@ class DisqusPlugin extends Plugin
 {
     public $shortname; // Required 'shortname' for actually triggering Disqus
     public $divStyle;  // Optional CSS chunk for the main <div>
-    public $nicknames; // Optional array of nicks to restrict commenting to (default on for all users)
+
+    // By default, Disqus commenting will be available to all users.
+    // With restricted on, only users who have been granted the
+    // "richedit" role get it.
+    public $restricted = false;
 
     /**
      * Add a Disqus commenting section to the end of an individual
@@ -99,7 +106,7 @@ class DisqusPlugin extends Plugin
 
             $profile = Profile::staticGet('id', $action->notice->profile_id);
 
-            if ($this->hasCommenting($profile)) {
+            if ($this->isAllowedRichEdit($profile)) {
 
                 $attrs = array();
                 $attrs['id'] = 'disqus_thread';
@@ -169,68 +176,52 @@ ENDOFSCRIPT;
     }
 
     /**
-     * Override the default Notice display to add Disqus comments link
+     * Tack on a Disqus comments link to the notice options stanza
      * (the link displays the total number of comments for each notice)
      *
      * @param NoticeListItem $noticeListItem
      *
-     * @return boolean override
      */
-    function onStartShowNoticeItem($noticeListItem)
+    function onEndShowNoticeInfo($noticeListItem)
     {
         // Don't enable commenting for remote notices
         if (empty($noticeListItem->notice->is_local)) {
-            return true;
+            return;
         }
 
         $profile = Profile::staticGet('id', $noticeListItem->notice->profile_id);
 
-        if ($this->hasCommenting($profile)) {
-
-            // @todo Refactor individual notice display to have it's own event hooks
-
-            $noticeListItem->showNotice();
-            $noticeListItem->showNoticeInfo();
-
+        if ($this->isAllowedRichEdit($profile)) {
             $noticeUrl = $noticeListItem->notice->bestUrl();
             $noticeUrl .= '#disqus_thread';
 
             $noticeListItem->out->element(
-                'a', array('href' => $noticeUrl, 'class' => 'disqus_count'), 'Comments'
+                'a',
+                array('href' => $noticeUrl, 'class' => 'disqus_count'),
+                _m('Comments')
             );
-
-            $noticeListItem->showNoticeOptions();
-            Event::handle('EndShowNoticeItem', array($noticeListItem));
-
-            return false;
-        } else {
-            return true;
         }
     }
 
     /**
-     * Helper to check whether commenting should be enabled
-     * for a given notice
+     * Does the current user have permission to use the Disqus plugin?
+     * Always true unless the plugin's "restricted" setting is on, in which
+     * case it's limited to users with the "richedit" role.
      *
-     * Assumes commenting should be enabled, unless the
-     * nicknames array is populated
+     * @fixme make that more sanely configurable :)
      *
      * @param Profile $profile the profile to check
      *
-     * @return boolean true if yes
+     * @return boolean
      */
-    private function hasCommenting($profile)
+    private function isAllowedRichEdit($profile)
     {
-        if (!empty($this->nicknames)) {
-            foreach ($this->nicknames as $nickname) {
-                if ($profile->nickname == $nickname) {
-                    return true;
-                }
-            }
-            return false;
+        if ($this->restricted) {
+            $user = User::staticGet($profile->id);
+            return !empty($user) && $user->hasRole('richedit');
+        } else {
+            return true;
         }
-
-        return true;
     }
 
     /**

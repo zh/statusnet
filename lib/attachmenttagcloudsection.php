@@ -40,7 +40,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class AttachmentTagCloudSection extends TagCloudSection
 {
     function title()
@@ -81,4 +80,3 @@ class AttachmentTagCloudSection extends TagCloudSection
         return $notice_tag;
     }
 }
-

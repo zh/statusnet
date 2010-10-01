@@ -88,7 +88,12 @@ class Plugin
         $class = get_class($this);
         if (substr($class, -6) == 'Plugin') {
             $name = substr($class, 0, -6);
-            $path = INSTALLDIR . "/plugins/$name/locale";
+            $path = common_config('plugins', 'locale_path');
+            if (!$path) {
+                // @fixme this will fail for things installed in local/plugins
+                // ... but then so will web links so far.
+                $path = INSTALLDIR . "/plugins/$name/locale";
+            }
             if (file_exists($path) && is_dir($path)) {
                 bindtextdomain($name, $path);
                 bind_textdomain_codeset($name, 'UTF-8');

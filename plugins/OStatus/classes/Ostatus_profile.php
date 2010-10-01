@@ -558,7 +558,7 @@ class Ostatus_profile extends Memcached_DataObject
         // Get (safe!) HTML and text versions of the content
 
         $rendered = $this->purify($sourceContent);
-        $content = html_entity_decode(strip_tags($rendered));
+        $content = html_entity_decode(strip_tags($rendered), ENT_QUOTES, 'UTF-8');
 
         $shortened = common_shorten_links($content);
 
@@ -569,7 +569,7 @@ class Ostatus_profile extends Memcached_DataObject
 
         if (Notice::contentTooLong($shortened)) {
             $attachment = $this->saveHTMLFile($note->title, $rendered);
-            $summary = html_entity_decode(strip_tags($note->summary));
+            $summary = html_entity_decode(strip_tags($note->summary), ENT_QUOTES, 'UTF-8');
             if (empty($summary)) {
                 $summary = $content;
             }
