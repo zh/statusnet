@@ -188,7 +188,9 @@ class AnonymousFavePlugin extends Plugin {
                     'class' => 'notice-tally'
                 )
             );
-            $out->raw(sprintf(_m("favored %d times"), $tally->count));
+            // TRANS: Tally for number of times a notice was favored.
+            // TRANS: %d is the number of times a notice was favored.
+            $out->raw(sprintf(_m("favored once", "favored %d times", $tally->count), $tally->count));
             $out->elementEnd('div');
         }
     }
@@ -216,6 +218,7 @@ class AnonymousFavePlugin extends Plugin {
         $id = $profile->insert();
 
         if (!$id) {
+            // TRANS: Server exception.
             throw new ServerException(_m("Couldn't create anonymous user session."));
         }
 
@@ -226,6 +229,7 @@ class AnonymousFavePlugin extends Plugin {
         $result = $profile->update($orig);
 
         if (!$result) {
+            // TRANS: Server exception.
             throw new ServerException(_m("Couldn't create anonymous user session."));
         }
 
@@ -279,6 +283,7 @@ class AnonymousFavePlugin extends Plugin {
             'author' => 'Zach Copley',
             'homepage' => $url,
             'rawdescription' =>
+            // TRANS: Plugin description.
             _m('Allow anonymous users to favorite notices.'));
 
         return true;

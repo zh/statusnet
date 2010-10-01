@@ -44,17 +44,14 @@ require_once INSTALLDIR.'/lib/form.php';
  *
  * @see      DisFavorForm
  */
-
 class AnonDisfavorForm extends DisFavorForm
 {
-
     /**
      * Constructor
      *
      * @param HTMLOutputter $out    output channel
      * @param Notice        $notice notice to disfavor
      */
-
     function __construct($out=null, $notice=null)
     {
         parent::__construct($out, $notice);
@@ -65,10 +62,8 @@ class AnonDisfavorForm extends DisFavorForm
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('AnonDisFavor');
     }
-
 }

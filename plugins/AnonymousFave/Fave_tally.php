@@ -44,7 +44,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-
 class Fave_tally extends Memcached_DataObject
 {
     ###START_AUTOCODE
@@ -85,7 +84,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return array list of key field names
      */
-
     function keys()
     {
         return array_keys($this->keyTypes());
@@ -103,7 +101,6 @@ class Fave_tally extends Memcached_DataObject
      *         'K' for primary key: for compound keys, add an entry for each component;
      *         'U' for unique keys: compound keys are not well supported here.
      */
-
     function keyTypes()
     {
         return array('notice_id' => 'K');
@@ -119,8 +116,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return array magic three-false array that stops auto-incrementing.
      */
-
-
     function sequenceKey()
     {
         return array(false, false, false);
@@ -133,7 +128,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return User_flag_profile found object or null
      */
-
     function pkeyGet($kv)
     {
         return Memcached_DataObject::pkeyGet('Fave_tally', $kv);
@@ -146,7 +140,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return Fave_tally $tally the tally data object
      */
-
     static function increment($noticeID)
     {
         $tally = Fave_tally::ensureTally($noticeID);
@@ -157,6 +150,8 @@ class Fave_tally extends Memcached_DataObject
 
         if (!$result) {
             $msg = sprintf(
+                // TRANS: Server exception.
+                // TRANS: %d is the notice ID (number).
                 _m("Couldn't update favorite tally for notice ID %d."),
                 $noticeID
             );
@@ -173,7 +168,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return Fave_tally $tally the tally data object
      */
-
     static function decrement($noticeID)
     {
         $tally = Fave_tally::ensureTally($noticeID);
@@ -185,6 +179,8 @@ class Fave_tally extends Memcached_DataObject
 
             if (!$result) {
                 $msg = sprintf(
+                    // TRANS: Server exception.
+                    // TRANS: %d is the notice ID (number).
                     _m("Couldn't update favorite tally for notice ID %d."),
                     $noticeID
                 );
@@ -203,7 +199,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return Fave_tally the tally data object
      */
-
     static function ensureTally($noticeID)
     {
         $tally = Fave_tally::staticGet('notice_id', $noticeID);
@@ -215,6 +210,8 @@ class Fave_tally extends Memcached_DataObject
             $result = $tally->insert();
             if (!$result) {
                 $msg = sprintf(
+                    // TRANS: Server exception.
+                    // TRANS: %d is the notice ID (number).
                     _m("Couldn't create favorite tally for notice ID %d."),
                     $noticeID
                 );
@@ -233,7 +230,6 @@ class Fave_tally extends Memcached_DataObject
      *
      * @return integer $total total number of time the notice has been favored
      */
-
     static function countExistingFaves($noticeID)
     {
         $fave = new Fave();
