@@ -298,6 +298,7 @@ $default =
                                  'WikiHashtags' => null,
                                  'RSSCloud' => null,
                                  'OpenID' => null),
+              'locale_path' => false, // Set to a path to use *instead of* each plugin's own locale subdirectories
               ),
         'admin' =>
         array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license')),
