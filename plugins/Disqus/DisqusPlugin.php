@@ -106,7 +106,7 @@ class DisqusPlugin extends Plugin
 
             $profile = Profile::staticGet('id', $action->notice->profile_id);
 
-            if ($this->hasCommenting($profile)) {
+            if ($this->isAllowedRichEdit($profile)) {
 
                 $attrs = array();
                 $attrs['id'] = 'disqus_thread';
