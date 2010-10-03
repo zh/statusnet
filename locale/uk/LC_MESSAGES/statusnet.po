@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-01 20:22+0000\n"
-"PO-Revision-Date: 2010-10-01 20:24:30+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:56:18+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2010-09-28 19:21:04+0000\n"
+"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -3058,7 +3058,7 @@ msgstr "Це недійсний особистий теґ: %s."
 #: actions/peopletag.php:142
 #, php-format
 msgid "Users self-tagged with %1$s - page %2$d"
-msgstr "Користувачі з особистим теґом %1$s — сторінка %2$d"
+msgstr "Користувачі з особистим теґом «%1$s» — сторінка %2$d"
 
 #: actions/postnotice.php:95
 msgid "Invalid notice content."
@@ -5038,7 +5038,7 @@ msgstr "Не вдалося залишити спільноту."
 #: classes/Group_member.php:76
 #, php-format
 msgid "Profile ID %s is invalid."
-msgstr ""
+msgstr "Ід. номер профілю %s не є дійсним."
 
 #. TRANS: Exception thrown providing an invalid group ID.
 #. TRANS: %s is the invalid group ID.
@@ -5821,7 +5821,7 @@ msgstr "Відкликати"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
-msgstr ""
+msgstr "авторський елемент повинен містити назву елемента."
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:85
@@ -7557,9 +7557,3 @@ msgstr ""
 #, php-format
 msgid "%d entries in backup."
 msgstr "У резервному файлі збережено %d дописів."
-
-#~ msgid "%s marked notice %s as a favorite."
-#~ msgstr "%s додав допис %s до списку обраних."
-
-#~ msgid "%s is now following %s."
-#~ msgstr "%s тепер слідкує за %s."

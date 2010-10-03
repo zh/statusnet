@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-01 20:22+0000\n"
-"PO-Revision-Date: 2010-10-01 20:23:57+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:55:43+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 2010-09-28 19:21:04+0000\n"
+"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1875,7 +1875,7 @@ msgstr "Stankañ"
 #: actions/groupmembers.php:403
 msgctxt "TOOLTIP"
 msgid "Block this user"
-msgstr ""
+msgstr "Stankañ an implijer-mañ"
 
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
@@ -1891,7 +1891,7 @@ msgstr "Lakaat ur merour"
 #: actions/groupmembers.php:537
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Lakaat an implijer-mañ da verour"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -2286,7 +2286,7 @@ msgstr "%1$s en deus kuitaet ar strollad %2$s"
 #: actions/licenseadminpanel.php:56
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "Aotre-implijout"
 
 #: actions/licenseadminpanel.php:67
 msgid "License for this StatusNet site"
@@ -2332,7 +2332,7 @@ msgstr "Prevez"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Pep gwir miret strizh."
 
 #: actions/licenseadminpanel.php:247
 msgid "Creative Commons"
@@ -2352,7 +2352,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:274
 msgid "Owner"
-msgstr ""
+msgstr "Perc'henn"
 
 #: actions/licenseadminpanel.php:275
 msgid "Name of the owner of the site's content (if applicable)."
@@ -2360,7 +2360,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:283
 msgid "License Title"
-msgstr ""
+msgstr "Titl an aotre-implijout"
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
@@ -4649,7 +4649,7 @@ msgstr "Ma rankomp merañ an dalc'hoù hon unan."
 
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
-msgstr ""
+msgstr "Enrollañ arventennoù an implijer"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -5675,10 +5675,9 @@ msgstr "Aprouet d'an %1$s - moned \"%2$s\"."
 
 #. TRANS: Button label
 #: lib/applicationlist.php:157
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Revoke"
-msgstr "Dilemel"
+msgstr "Disteuler"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
@@ -5922,7 +5921,7 @@ msgstr ""
 #: lib/command.php:667
 #, php-format
 msgid "Subscribed to %s."
-msgstr ""
+msgstr "Koumanantet da %s."
 
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
@@ -5981,7 +5980,7 @@ msgstr ""
 #: lib/command.php:808
 #, php-format
 msgid "Unsubscribed %s."
-msgstr ""
+msgstr "Digoumanatet %s."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:826
@@ -6238,7 +6237,7 @@ msgstr ""
 #: lib/groupnav.php:86
 msgctxt "MENU"
 msgid "Group"
-msgstr ""
+msgstr "Strollad"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6246,13 +6245,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group"
-msgstr ""
+msgstr "strollad %s"
 
 #. TRANS: Menu item in the group navigation page.
 #: lib/groupnav.php:95
 msgctxt "MENU"
 msgid "Members"
-msgstr ""
+msgstr "Izili"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6260,13 +6259,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group members"
-msgstr ""
+msgstr "Izili ar strollad %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:108
 msgctxt "MENU"
 msgid "Blocked"
-msgstr ""
+msgstr "Stanket"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6274,7 +6273,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s blocked users"
-msgstr ""
+msgstr "implijerien stanket ar strollad %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6282,13 +6281,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Kemmañ perzhioù ar strollad %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:126
 msgctxt "MENU"
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6296,7 +6295,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Ouzhpennañ pe kemmañ logo ar strollad %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6304,7 +6303,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
-msgstr ""
+msgstr "Ouzhpennañ pe kemmañ tres ar strollad %s"
 
 #: lib/groupsbymemberssection.php:71
 #, fuzzy
@@ -6333,12 +6332,11 @@ msgstr "Diembreget eo ar furmad-se."
 #: lib/imagefile.php:88
 #, fuzzy, php-format
 msgid "That file is too big. The maximum file size is %s."
-msgstr "Re hir eo ! Ment hirañ an ali a zo a %d arouezenn."
+msgstr "Re vras eo ar restr ! %d eo ar vent vrasañ evit ur restr."
 
 #: lib/imagefile.php:93
-#, fuzzy
 msgid "Partial upload."
-msgstr "N'eus bet enporzhiet restr ebet."
+msgstr "Enporzhiadenn diglok."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
 #: lib/imagefile.php:101 lib/mediafile.php:179

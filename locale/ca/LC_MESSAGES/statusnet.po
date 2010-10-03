@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-01 20:22+0000\n"
-"PO-Revision-Date: 2010-10-01 20:23:58+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:55:45+0000\n"
 "Language-Team: Catalan <http://translatewiki.net/wiki/Portal:ca>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ca\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-09-28 19:21:04+0000\n"
+"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1900,13 +1900,13 @@ msgstr "Admin"
 #: actions/groupmembers.php:399
 msgctxt "BUTTON"
 msgid "Block"
-msgstr ""
+msgstr "Bloca"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:403
 msgctxt "TOOLTIP"
 msgid "Block this user"
-msgstr ""
+msgstr "Bloca aquest usuari"
 
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
@@ -1916,13 +1916,13 @@ msgstr "Fes l'usuari un administrador del grup"
 #: actions/groupmembers.php:533
 msgctxt "BUTTON"
 msgid "Make Admin"
-msgstr ""
+msgstr "Fes-lo administrador"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:537
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Fes aquest usuari administrador"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -2414,7 +2414,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:252
 msgid "Type"
-msgstr ""
+msgstr "Tipus"
 
 #: actions/licenseadminpanel.php:254
 msgid "Select license"
@@ -2434,7 +2434,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:283
 msgid "License Title"
-msgstr ""
+msgstr "Títol de la llicència"
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
@@ -5240,7 +5240,7 @@ msgstr "No s'ha pogut eliminar la subscripció."
 #. TRANS: Activity tile when subscribing to another person.
 #: classes/Subscription.php:255
 msgid "Follow"
-msgstr ""
+msgstr "Segueix"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -6370,7 +6370,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:66
 msgid "Feeds"
-msgstr ""
+msgstr "Canals"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -6429,7 +6429,7 @@ msgstr "Sobrenoms addicionals del grup, separats amb comes o espais, màx. %d"
 #: lib/groupnav.php:86
 msgctxt "MENU"
 msgid "Group"
-msgstr ""
+msgstr "Grup"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -7134,7 +7134,7 @@ msgstr ""
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
 #: lib/oauthstore.php:346
 msgid "Duplicate notice."
-msgstr ""
+msgstr "Avís duplicat."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -7282,7 +7282,7 @@ msgstr "Paraules clau"
 #: lib/searchaction.php:130
 msgctxt "BUTTON"
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7560,9 +7560,8 @@ msgid "Backup file for user %s (%s)"
 msgstr ""
 
 #: scripts/restoreuser.php:88
-#, fuzzy
 msgid "No user specified; using backup user."
-msgstr "No s'ha especificat cap ID d'usuari."
+msgstr "No s'ha especificat cap usuari; s'utilitza l'usuari de reserva."
 
 #: scripts/restoreuser.php:94
 #, php-format

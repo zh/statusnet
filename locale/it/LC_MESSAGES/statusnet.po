@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-01 20:22+0000\n"
-"PO-Revision-Date: 2010-10-01 20:24:14+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:56:03+0000\n"
 "Language-Team: Italian <http://translatewiki.net/wiki/Portal:it>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74095); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: it\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-09-28 19:21:04+0000\n"
+"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -386,9 +386,8 @@ msgid "You cannot unfollow yourself."
 msgstr "Non puoi non seguirti."
 
 #: actions/apifriendshipsexists.php:91
-#, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
-msgstr "Devono essere forniti due ID utente o nominativi."
+msgstr "Devono essere forniti due ID o screen_names."
 
 #: actions/apifriendshipsshow.php:134
 msgid "Could not determine source user."
@@ -525,9 +524,8 @@ msgid "groups on %s"
 msgstr "Gruppi su %s"
 
 #: actions/apimediaupload.php:100
-#, fuzzy
 msgid "Upload failed."
-msgstr "Carica file"
+msgstr "Caricamento non riuscito."
 
 #: actions/apioauthauthorize.php:101
 msgid "No oauth_token parameter provided."
@@ -677,7 +675,7 @@ msgstr "Nessuno stato trovato con quel ID."
 
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "Il client deve fornire un parametro \"status\" con un valore."
 
 #: actions/apistatusesupdate.php:243 actions/newnotice.php:157
 #: lib/mailhandler.php:60
@@ -1129,7 +1127,7 @@ msgstr "Aspetto"
 
 #: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site"
-msgstr ""
+msgstr "Impostazioni dell'aspetto per questo sito StatusNet"
 
 #: actions/designadminpanel.php:331
 msgid "Invalid logo URL."
@@ -1898,13 +1896,13 @@ msgstr "Amministra"
 #: actions/groupmembers.php:399
 msgctxt "BUTTON"
 msgid "Block"
-msgstr ""
+msgstr "Blocca"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:403
 msgctxt "TOOLTIP"
 msgid "Block this user"
-msgstr ""
+msgstr "Blocca questo utente"
 
 #: actions/groupmembers.php:498
 msgid "Make user an admin of the group"
@@ -1914,13 +1912,13 @@ msgstr "Rende l'utente amministratore del gruppo"
 #: actions/groupmembers.php:533
 msgctxt "BUTTON"
 msgid "Make Admin"
-msgstr ""
+msgstr "Rendi amministratore"
 
 #. TRANS: Submit button title.
 #: actions/groupmembers.php:537
 msgctxt "TOOLTIP"
 msgid "Make this user an admin"
-msgstr ""
+msgstr "Fa diventare questo utente un amministratore"
 
 #. TRANS: Message is used as link title. %s is a user nickname.
 #. TRANS: Title in atom group notice feed. %s is a group name.
@@ -2356,45 +2354,47 @@ msgstr "%1$s ha lasciato il gruppo %2$s"
 #: actions/licenseadminpanel.php:56
 msgctxt "TITLE"
 msgid "License"
-msgstr ""
+msgstr "Licenza"
 
 #: actions/licenseadminpanel.php:67
 msgid "License for this StatusNet site"
-msgstr ""
+msgstr "La licenza per questo sito StatusNet"
 
 #: actions/licenseadminpanel.php:139
 msgid "Invalid license selection."
-msgstr ""
+msgstr "Selezione della licenza non valida."
 
 #: actions/licenseadminpanel.php:149
 msgid ""
 "You must specify the owner of the content when using the All Rights Reserved "
 "license."
 msgstr ""
+"È necessario specificare il proprietario dei contenuti quando viene usata la "
+"licenza \"Tutti i diritti riservati\"."
 
 #: actions/licenseadminpanel.php:156
 msgid "Invalid license title. Max length is 255 characters."
-msgstr ""
+msgstr "Titolo della licenza non valido. Lunghezza massima 255 caratteri."
 
 #: actions/licenseadminpanel.php:168
 msgid "Invalid license URL."
-msgstr ""
+msgstr "Indirizzo della licenza non valido."
 
 #: actions/licenseadminpanel.php:171
 msgid "Invalid license image URL."
-msgstr ""
+msgstr "Indirizzo immagine della licenza non valido."
 
 #: actions/licenseadminpanel.php:179
 msgid "License URL must be blank or a valid URL."
-msgstr ""
+msgstr "L'indirizzo della licenza deve essere vuoto o un URL valido."
 
 #: actions/licenseadminpanel.php:187
 msgid "License image must be blank or valid URL."
-msgstr ""
+msgstr "L'immagine della licenza deve essere vuota o un URL valido."
 
 #: actions/licenseadminpanel.php:239
 msgid "License selection"
-msgstr ""
+msgstr "Selezione licenza"
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
@@ -2402,59 +2402,59 @@ msgstr "Privato"
 
 #: actions/licenseadminpanel.php:246
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Tutti i diritti riservati"
 
 #: actions/licenseadminpanel.php:247
 msgid "Creative Commons"
-msgstr ""
+msgstr "Creative Commons"
 
 #: actions/licenseadminpanel.php:252
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: actions/licenseadminpanel.php:254
 msgid "Select license"
-msgstr ""
+msgstr "Seleziona licenza"
 
 #: actions/licenseadminpanel.php:268
 msgid "License details"
-msgstr ""
+msgstr "Dettagli licenza"
 
 #: actions/licenseadminpanel.php:274
 msgid "Owner"
-msgstr ""
+msgstr "Proprietario"
 
 #: actions/licenseadminpanel.php:275
 msgid "Name of the owner of the site's content (if applicable)."
-msgstr ""
+msgstr "Nome del proprietario dei contenuti del sito (se applicabile)."
 
 #: actions/licenseadminpanel.php:283
 msgid "License Title"
-msgstr ""
+msgstr "Titolo licenza"
 
 #: actions/licenseadminpanel.php:284
 msgid "The title of the license."
-msgstr ""
+msgstr "Il titolo della licenza."
 
 #: actions/licenseadminpanel.php:292
 msgid "License URL"
-msgstr ""
+msgstr "Indirizzo licenza"
 
 #: actions/licenseadminpanel.php:293
 msgid "URL for more information about the license."
-msgstr ""
+msgstr "Indirizzo per informazioni aggiuntive riguardo la licenza."
 
 #: actions/licenseadminpanel.php:300
 msgid "License Image URL"
-msgstr ""
+msgstr "Indirizzo immagine licenza"
 
 #: actions/licenseadminpanel.php:301
 msgid "URL for an image to display with the license."
-msgstr ""
+msgstr "Indirizzo di un'immagine da visualizzare con la licenza."
 
 #: actions/licenseadminpanel.php:319
 msgid "Save license settings"
-msgstr ""
+msgstr "Salva impostazioni licenza"
 
 #: actions/login.php:102 actions/otp.php:62 actions/register.php:144
 msgid "Already logged in."
@@ -2655,7 +2655,6 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Messaggi che corrispondono al termine \"%1$s\" su %2$s!"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
@@ -2693,7 +2692,7 @@ msgstr "Applicazioni collegate"
 
 #: actions/oauthconnectionssettings.php:83
 msgid "You have allowed the following applications to access your account."
-msgstr ""
+msgstr "Hai consentito alle seguenti applicazioni di accedere al tuo account."
 
 #: actions/oauthconnectionssettings.php:175
 msgid "You are not a user of that application."
@@ -2885,7 +2884,7 @@ msgstr "Percorsi"
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site"
-msgstr ""
+msgstr "Percorso e impostazioni del server per questo sito StatusNet"
 
 #: actions/pathsadminpanel.php:157
 #, php-format
@@ -3741,7 +3740,7 @@ msgstr "Sessioni"
 
 #: actions/sessionsadminpanel.php:65
 msgid "Session settings for this StatusNet site"
-msgstr ""
+msgstr "Impostazioni sessione per questo sito StatusNet"
 
 #: actions/sessionsadminpanel.php:175
 msgid "Handle sessions"
@@ -3880,13 +3879,13 @@ msgstr ""
 "forma di cuore per salvare i messaggi e rileggerli in un altro momento."
 
 #: actions/showfavorites.php:208
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%s hasn't added any favorite notices yet. Post something interesting they "
 "would add to their favorites :)"
 msgstr ""
 "%s non ha aggiunto alcun messaggio tra i suoi preferiti. Scrivi qualche cosa "
-"di interessante in modo che lo inserisca tra i suoi preferiti. :)"
+"di interessante in modo che lo inserisca tra i suoi preferiti! :)"
 
 #: actions/showfavorites.php:212
 #, php-format
@@ -4683,7 +4682,7 @@ msgstr "Utente"
 
 #: actions/useradminpanel.php:71
 msgid "User settings for this StatusNet site"
-msgstr ""
+msgstr "Impostazioni utente per questo sito StatusNet"
 
 #: actions/useradminpanel.php:150
 msgid "Invalid bio limit. Must be numeric."
@@ -4747,7 +4746,7 @@ msgstr "Indica se consentire agli utenti di invitarne di nuovi"
 
 #: actions/useradminpanel.php:295
 msgid "Save user settings"
-msgstr ""
+msgstr "Salva impostazioni utente"
 
 #: actions/userauthorization.php:105
 msgid "Authorize subscription"
@@ -4972,23 +4971,23 @@ msgstr "Preferisci"
 #: classes/File.php:142
 #, php-format
 msgid "Cannot process URL '%s'"
-msgstr ""
+msgstr "Impossibile elaborare l'indirizzo \"%s\""
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
 #: classes/File.php:174
 msgid "Robin thinks something is impossible."
-msgstr ""
+msgstr "Si è verificato qualche cosa di impossibile."
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #: classes/File.php:189
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr ""
-"Nessun file può superare %d byte e il file inviato era di %d byte. Prova a "
-"caricarne una versione più piccola."
+"Nessun file può superare %1$d byte e il file inviato era di %2$d byte. Prova "
+"a caricarne una versione più piccola."
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
@@ -5008,9 +5007,8 @@ msgstr ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:247 classes/File.php:262
-#, fuzzy
 msgid "Invalid filename."
-msgstr "Dimensione non valida."
+msgstr "Nome file non valido."
 
 #. TRANS: Exception thrown when joining a group fails.
 #: classes/Group_member.php:42
@@ -5032,7 +5030,7 @@ msgstr "Uscita dal gruppo non riuscita."
 #: classes/Group_member.php:76
 #, php-format
 msgid "Profile ID %s is invalid."
-msgstr ""
+msgstr "L'ID di profilo %s non è valido."
 
 #. TRANS: Exception thrown providing an invalid group ID.
 #. TRANS: %s is the invalid group ID.
@@ -5051,7 +5049,7 @@ msgstr "Iscriviti"
 #: classes/Group_member.php:117
 #, php-format
 msgid "%1$s has joined group %2$s."
-msgstr ""
+msgstr "L'utente %1$s è entrato nel gruppo %2$s."
 
 #. TRANS: Server exception thrown when updating a local group fails.
 #: classes/Local_group.php:42
@@ -5068,7 +5066,7 @@ msgstr "Impossibile creare il token di accesso per %s"
 #. TRANS: Exception thrown when database name or Data Source Name could not be found.
 #: classes/Memcached_DataObject.php:533
 msgid "No database name or DSN found anywhere."
-msgstr ""
+msgstr "Non è stato trovato un nome di database o DNS."
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
 #: classes/Message.php:45
@@ -5090,7 +5088,7 @@ msgstr "Impossibile aggiornare il messaggio con il nuovo URI."
 #: classes/Notice.php:98
 #, php-format
 msgid "No such profile (%1$d) for notice (%2$d)."
-msgstr ""
+msgstr "Non c'è alcun profilo (%1$d) per il messaggio (%2$d)."
 
 #. TRANS: Server exception. %s are the error details.
 #: classes/Notice.php:193
@@ -5139,7 +5137,7 @@ msgstr "Problema nel salvare il messaggio."
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:907
 msgid "Bad type provided to saveKnownGroups"
-msgstr ""
+msgstr "Fornito un tipo errato per saveKnownGroups"
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
 #: classes/Notice.php:1006
@@ -5159,6 +5157,7 @@ msgstr "RT @%1$s %2$s"
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
+"Impossibile revocare il ruolo \"%1$s\" per l'utente n° %2$d: non esiste."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
@@ -5166,18 +5165,18 @@ msgstr ""
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
+"Impossibile revocare il ruolo \"%1$s\" per l'utente n° %2$d: errore nel "
+"database."
 
 #. TRANS: Exception thrown when a right for a non-existing user profile is checked.
 #: classes/Remote_profile.php:54
-#, fuzzy
 msgid "Missing profile."
-msgstr "L'utente non ha un profilo."
+msgstr "Profilo mancante."
 
 #. TRANS: Exception thrown when a tag cannot be saved.
 #: classes/Status_network.php:338
-#, fuzzy
 msgid "Unable to save tag."
-msgstr "Impossibile salvare il messaggio del sito."
+msgstr "Impossibile salvare l'etichetta."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
 #: classes/Subscription.php:75 lib/oauthstore.php:466
@@ -5217,7 +5216,7 @@ msgstr "Impossibile salvare l'abbonamento."
 #. TRANS: Activity tile when subscribing to another person.
 #: classes/Subscription.php:255
 msgid "Follow"
-msgstr ""
+msgstr "Segui"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5669,7 +5668,7 @@ msgstr "Configurazione snapshot"
 #. TRANS: Menu item title/tooltip
 #: lib/adminpanelaction.php:401
 msgid "Set site license"
-msgstr ""
+msgstr "Imposta licenza"
 
 #. TRANS: Client error 401.
 #: lib/apiauth.php:111
@@ -5681,33 +5680,33 @@ msgstr ""
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
 #: lib/apiauth.php:175
 msgid "No application for that consumer key."
-msgstr ""
+msgstr "Nessuna applicazione per quella chiave."
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
 #: lib/apiauth.php:212
 msgid "Bad access token."
-msgstr ""
+msgstr "Token di accesso errato."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
 #: lib/apiauth.php:217
 msgid "No user for that token."
-msgstr ""
+msgstr "Nessun utente per quel token."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
 #: lib/apiauth.php:258 lib/apiauth.php:290
 msgid "Could not authenticate you."
-msgstr ""
+msgstr "Impossibile autenticarti."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 #: lib/apioauthstore.php:178
 msgid "Tried to revoke unknown token."
-msgstr ""
+msgstr "Tentativo di revocare un token sconosciuto."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
 #: lib/apioauthstore.php:183
 msgid "Failed to delete revoked token."
-msgstr ""
+msgstr "Eliminazione del token revocato non riuscita."
 
 #. TRANS: Form legend.
 #: lib/applicationeditform.php:129
@@ -5818,7 +5817,7 @@ msgstr "Revoca"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
-msgstr ""
+msgstr "L'elemento author deve contenere un elemento name."
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:85
@@ -5906,7 +5905,7 @@ msgstr "Impossibile trovare un utente col soprannome %s."
 #: lib/command.php:148
 #, php-format
 msgid "Could not find a local user with nickname %s."
-msgstr ""
+msgstr "Impossibile trovare un utente locale dal soprannome %s."
 
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:183
@@ -5950,14 +5949,14 @@ msgstr "Messaggio indicato come preferito."
 #: lib/command.php:357
 #, php-format
 msgid "%1$s joined group %2$s."
-msgstr ""
+msgstr "L'utente %1$s è entrato nel gruppo %2$s."
 
 #. TRANS: Message given having removed a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: lib/command.php:405
 #, php-format
 msgid "%1$s left group %2$s."
-msgstr ""
+msgstr "%1$s ha lasciato il gruppo %2$s."
 
 #. TRANS: Whois output. %s is the full name of the queried user.
 #: lib/command.php:430
@@ -6054,7 +6053,7 @@ msgstr "Impossibile abbonarsi ai profili OMB attraverso un comando."
 #: lib/command.php:667
 #, php-format
 msgid "Subscribed to %s."
-msgstr ""
+msgstr "Abbonati a %s."
 
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
@@ -6067,7 +6066,7 @@ msgstr "Specifica il nome dell'utente da cui annullare l'abbonamento."
 #: lib/command.php:699
 #, php-format
 msgid "Unsubscribed from %s."
-msgstr ""
+msgstr "Abbonamento a %s annullato."
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
@@ -6106,13 +6105,15 @@ msgstr "Il comando di accesso è disabilitato."
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
+"Questo collegamento è utilizzabile una sola volta ed è valido per 2 minuti: %"
+"s."
 
 #. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
 #. TRANS: %s is the name of the user the unsubscription was requested for.
 #: lib/command.php:808
 #, php-format
 msgid "Unsubscribed %s."
-msgstr ""
+msgstr "Abbonamento di %s annullato."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:826
@@ -6346,7 +6347,7 @@ msgstr "FOAF"
 
 #: lib/feedlist.php:66
 msgid "Feeds"
-msgstr ""
+msgstr "Feed"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"
@@ -6405,7 +6406,7 @@ msgstr ""
 #: lib/groupnav.php:86
 msgctxt "MENU"
 msgid "Group"
-msgstr ""
+msgstr "Gruppo"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6413,13 +6414,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group"
-msgstr ""
+msgstr "Gruppo %s"
 
 #. TRANS: Menu item in the group navigation page.
 #: lib/groupnav.php:95
 msgctxt "MENU"
 msgid "Members"
-msgstr ""
+msgstr "Membri"
 
 #. TRANS: Tooltip for menu item in the group navigation page.
 #. TRANS: %s is the nickname of the group.
@@ -6427,13 +6428,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s group members"
-msgstr ""
+msgstr "Membri del gruppo %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:108
 msgctxt "MENU"
 msgid "Blocked"
-msgstr ""
+msgstr "Bloccato"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6441,7 +6442,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "%s blocked users"
-msgstr ""
+msgstr "Utenti bloccati di %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6449,13 +6450,13 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Edit %s group properties"
-msgstr ""
+msgstr "Modifica proprietà di %s"
 
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
 #: lib/groupnav.php:126
 msgctxt "MENU"
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6463,7 +6464,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s logo"
-msgstr ""
+msgstr "Aggiungi o modifica il logo di %s"
 
 #. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
 #. TRANS: %s is the nickname of the group.
@@ -6471,7 +6472,7 @@ msgstr ""
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
-msgstr ""
+msgstr "Aggiungi o modifica l'aspetto di %s"
 
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
@@ -6972,13 +6973,15 @@ msgid ""
 "\"%1$s\" is not a supported file type on this server. Try using another %2$s "
 "format."
 msgstr ""
+"\"%1$s\" non è un tipo di file supportato su questo server. Prova a usare un "
+"formato %2$s."
 
 #. TRANS: Client exception thrown trying to upload a forbidden MIME type.
 #. TRANS: %s is the file type that was denied.
 #: lib/mediafile.php:345
 #, php-format
 msgid "\"%s\" is not a supported file type on this server."
-msgstr ""
+msgstr "\"%s\" non è un tipo di file supportata su questo server."
 
 #: lib/messageform.php:120
 msgid "Send a direct notice"
@@ -7061,7 +7064,7 @@ msgstr "presso"
 
 #: lib/noticelist.php:512
 msgid "web"
-msgstr ""
+msgstr "web"
 
 #: lib/noticelist.php:578
 msgid "in context"
@@ -7097,20 +7100,20 @@ msgstr "Invia un richiamo a questo utente"
 
 #: lib/oauthstore.php:283
 msgid "Error inserting new profile."
-msgstr ""
+msgstr "Errore nell'inserire il nuovo profilo."
 
 #: lib/oauthstore.php:291
 msgid "Error inserting avatar."
-msgstr ""
+msgstr "Errore nell'inserire l'immagine."
 
 #: lib/oauthstore.php:311
 msgid "Error inserting remote profile."
-msgstr ""
+msgstr "Errore nell'inserire il profilo remoto."
 
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
 #: lib/oauthstore.php:346
 msgid "Duplicate notice."
-msgstr ""
+msgstr "Messaggio duplicato."
 
 #: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
@@ -7258,7 +7261,7 @@ msgstr "Parole"
 #: lib/searchaction.php:130
 msgctxt "BUTTON"
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #. TRANS: Definition list item with instructions on how to get (better) search results.
 #: lib/searchaction.php:170
@@ -7375,6 +7378,7 @@ msgstr ""
 #: lib/themeuploader.php:224
 msgid "Theme contains unsafe file extension names; may be unsafe."
 msgstr ""
+"Il tema contiene file con estensioni non sicure: potrebbe non essere sicuro."
 
 #: lib/themeuploader.php:241
 #, php-format
@@ -7474,8 +7478,8 @@ msgstr "circa un minuto fa"
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "circa un minuto fa"
+msgstr[1] "circa %d minuti fa"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1136
@@ -7487,8 +7491,8 @@ msgstr "circa un'ora fa"
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "circa un'ora fa"
+msgstr[1] "circa %d ore fa"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1143
@@ -7500,8 +7504,8 @@ msgstr "circa un giorno fa"
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "circa un giorno fa"
+msgstr[1] "circa %d giorni fa"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1150
@@ -7513,8 +7517,8 @@ msgstr "circa un mese fa"
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "circa un mese fa"
+msgstr[1] "circa %d mesi fa"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
 #: lib/util.php:1157
@@ -7534,14 +7538,13 @@ msgstr "%s non è un colore valido. Usa 3 o 6 caratteri esadecimali."
 #: scripts/restoreuser.php:82
 #, php-format
 msgid "Backup file for user %s (%s)"
-msgstr ""
+msgstr "File di backup per l'utente %s (%s)"
 
 #: scripts/restoreuser.php:88
-#, fuzzy
 msgid "No user specified; using backup user."
-msgstr "Nessun ID utente specificato."
+msgstr "Nessun utente specificato: viene usato l'utente di backup."
 
 #: scripts/restoreuser.php:94
 #, php-format
 msgid "%d entries in backup."
-msgstr ""
+msgstr "%d voci nel backup."
