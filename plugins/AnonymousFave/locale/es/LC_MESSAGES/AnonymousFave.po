@@ -9,34 +9,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - AnonymousFave\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:56:22+0000\n"
+"POT-Creation-Date: 2010-10-04 22:30+0000\n"
+"PO-Revision-Date: 2010-10-04 22:32:49+0000\n"
 "Language-Team: Spanish <http://translatewiki.net/wiki/Portal:es>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-01 20:44:57+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-03 20:54:23+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: es\n"
 "X-Message-Group: #out-statusnet-plugin-anonymousfave\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. TRANS: Tally for number of times a notice was favored.
-#. TRANS: %d is the number of times a notice was favored.
-#: AnonymousFavePlugin.php:193
-#, php-format
-msgid "favored once"
-msgid_plural "favored %d times"
-msgstr[0] "marcado como favorito una vez"
-msgstr[1] "marcado como favorito %d veces"
+#. TRANS: Label for tally for number of times a notice was favored.
+#: AnonymousFavePlugin.php:207
+#, fuzzy
+msgid "Favored"
+msgstr "marcado como favorito una vez"
 
 #. TRANS: Server exception.
-#: AnonymousFavePlugin.php:222 AnonymousFavePlugin.php:233
+#: AnonymousFavePlugin.php:240 AnonymousFavePlugin.php:251
 msgid "Couldn't create anonymous user session."
 msgstr "No se pudo crear sesión de usuario anónimo."
 
 #. TRANS: Plugin description.
-#: AnonymousFavePlugin.php:287
+#: AnonymousFavePlugin.php:326
 msgid "Allow anonymous users to favorite notices."
 msgstr "Permitir a usuarios anónimos marcar mensajes como favoritos."
 
