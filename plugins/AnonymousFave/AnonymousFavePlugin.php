@@ -1,10 +1,18 @@
 <?php
-
 /**
  * StatusNet - the distributed open-source microblogging tool
  * Copyright (C) 2010, StatusNet, Inc.
  *
  * A plugin to allow anonymous users to favorite notices
+ *
+ * If you want to keep certain users from having anonymous faving for their
+ * notices initialize the plugin with the restricted array, e.g.:
+ *
+ * addPlugin(
+ *     'AnonymousFave',
+ *     array('restricted' => array('spock', 'kirk', 'bones'))
+ * );
+ *
  *
  * PHP version 5
  *
@@ -48,7 +56,13 @@ define('ANONYMOUS_FAVE_PLUGIN_VERSION', '0.1');
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-class AnonymousFavePlugin extends Plugin {
+
+class AnonymousFavePlugin extends Plugin
+{
+
+    // Array of users who should not have anon faving. The default is
+    // that anonymous faving is allowed for all users.
+    public $restricted = array();
 
     function onArgsInitialize() {
         // We always want a session because we're tracking anon users
@@ -128,16 +142,16 @@ class AnonymousFavePlugin extends Plugin {
         }
     }
 
-    function onStartInitializeRouter($m) {
-
+    function onStartInitializeRouter($m)
+    {
         $m->connect('main/anonfavor', array('action' => 'AnonFavor'));
         $m->connect('main/anondisfavor', array('action' => 'AnonDisFavor'));
 
         return true;
     }
 
-    function onStartShowNoticeOptions($item) {
-
+    function onStartShowNoticeOptions($item)
+    {
         if (!common_logged_in()) {
             $item->out->elementStart('div', 'notice-options');
             $item->showFaveForm();
@@ -147,9 +161,9 @@ class AnonymousFavePlugin extends Plugin {
         return true;
     }
 
-    function onStartShowFaveForm($item) {
-
-        if (!common_logged_in()) {
+    function onStartShowFaveForm($item)
+    {
+        if (!common_logged_in() && $this->hasAnonFaving($item)) {
 
             $profile = AnonymousFavePlugin::getAnonProfile();
             if (!empty($profile)) {
@@ -188,7 +202,12 @@ class AnonymousFavePlugin extends Plugin {
                     'class' => 'notice-tally'
                 )
             );
-            $out->raw(sprintf(_m("favored %d times"), $tally->count));
+            $out->elementStart('span', array('class' => 'fave-tally-title'));
+            $out->raw(sprintf(_m("Favored")));
+            $out->elementEnd('span');
+            $out->elementStart('span', array('class' => 'fave-tally'));
+            $out->raw($tally->count);
+            $out->elementEnd('span');
             $out->elementEnd('div');
         }
     }
@@ -203,8 +222,8 @@ class AnonymousFavePlugin extends Plugin {
         $tally = Fave_tally::decrement($notice->id);
     }
 
-    static function createAnonProfile() {
-
+    static function createAnonProfile()
+    {
         // Get the anon user's IP, and turn it into a nickname
         list($proxy, $ip) = common_client_ip();
 
@@ -240,7 +259,8 @@ class AnonymousFavePlugin extends Plugin {
         return $profile;
     }
 
-    static function getAnonProfile() {
+    static function getAnonProfile()
+    {
 
         $token = $_SESSION['anon_token'];
         $anon = base64_decode($token);
@@ -259,6 +279,26 @@ class AnonymousFavePlugin extends Plugin {
         }
 
         return $profile;
+    }
+
+    /**
+     * Determine whether a given NoticeListItem should have the
+     * anonymous fave/disfave form
+     *
+     * @param NoticeListItem $item
+     *
+     * @return boolean false if the profile associated with the notice is
+     *                       in the list of restricted profiles, otherwise
+     *                       return true
+     */
+    function hasAnonFaving($item)
+    {
+        $profile = Profile::staticGet('id', $item->notice->profile_id);
+        if (in_array($profile->nickname, $this->restricted)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
