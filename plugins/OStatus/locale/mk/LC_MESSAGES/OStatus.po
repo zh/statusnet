@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:39+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:57:15+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-62-55 00::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-01 20:39:03+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -69,14 +69,14 @@ msgstr "Напушти"
 
 #: OStatusPlugin.php:785
 msgid "Disfavor"
-msgstr "Откажи омилено"
+msgstr "Откажи бендисана"
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
 #: OStatusPlugin.php:788
 #, php-format
 msgid "%1$s marked notice %2$s as no longer a favorite."
-msgstr "%1$s ја означи забелешката %2$s како неомилена."
+msgstr "%1$s повеќе не ја бендисува забелешката %2$s."
 
 #. TRANS: Link text for link to remote subscribe.
 #: OStatusPlugin.php:864
@@ -304,12 +304,12 @@ msgstr "Оваа цел не разбира прекини на следења."
 #. TRANS: Client exception.
 #: lib/salmonaction.php:145
 msgid "This target doesn't understand favorites."
-msgstr "Оваа цел не разбира омилени."
+msgstr "Оваа цел не разбира бендисување на забелешки."
 
 #. TRANS: Client exception.
 #: lib/salmonaction.php:151
 msgid "This target doesn't understand unfavorites."
-msgstr "Оваа цел не разбира отстранувања од омилени."
+msgstr "Оваа цел не разбира одбендисување на забелешки."
 
 #. TRANS: Client exception.
 #: lib/salmonaction.php:157
@@ -442,18 +442,18 @@ msgstr ""
 #. TRANS: Client exception.
 #: actions/usersalmon.php:163
 msgid "Could not save new favorite."
-msgstr "Не можам да го зачувам новото омилено."
+msgstr "Не можам да го зачувам новобендисаното."
 
 #. TRANS: Client exception.
 #: actions/usersalmon.php:195
 msgid "Can't favorite/unfavorite without an object."
-msgstr "Не можам да означам како омилено или да тргнам омилено без објект."
+msgstr "Не можам да означам како бендисано или да тргнам бендисано без објект."
 
 #. TRANS: Client exception.
 #: actions/usersalmon.php:207
 msgid "Can't handle that kind of object for liking/faving."
 msgstr ""
-"Не можам да работам со таков објект за ставање врски/означување омилени."
+"Не можам да работам со таков објект за ставање врски/означување бендисани."
 
 #. TRANS: Client exception. %s is an object ID.
 #: actions/usersalmon.php:214

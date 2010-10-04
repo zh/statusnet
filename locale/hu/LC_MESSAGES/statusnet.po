@@ -12,13 +12,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-28 17:24+0000\n"
-"PO-Revision-Date: 2010-09-28 17:25:48+0000\n"
+"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"PO-Revision-Date: 2010-10-03 19:55:56+0000\n"
 "Language-Team: Hungarian <http://translatewiki.net/wiki/Portal:hu>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-66-16 72::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73920); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hu\n"
 "X-Message-Group: #out-statusnet-core\n"
@@ -84,7 +84,7 @@ msgstr "Hozzáférések beállításainak mentése"
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/smssettings.php:209
-#: lib/applicationeditform.php:354
+#: lib/applicationeditform.php:355
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Mentés"
@@ -115,7 +115,7 @@ msgstr "Nincs ilyen lap."
 #: actions/remotesubscribe.php:154 actions/replies.php:73
 #: actions/repliesrss.php:38 actions/rsd.php:116 actions/showfavorites.php:105
 #: actions/userbyid.php:74 actions/usergroups.php:93 actions/userrss.php:40
-#: actions/xrds.php:71 lib/command.php:498 lib/galleryaction.php:59
+#: actions/xrds.php:71 lib/command.php:495 lib/galleryaction.php:59
 #: lib/mailbox.php:82 lib/profileaction.php:77
 msgid "No such user."
 msgstr "Nincs ilyen felhasználó."
@@ -354,7 +354,7 @@ msgid "This status is already a favorite."
 msgstr "Ez az állapotjelentés már a kedvenceid között van."
 
 #. TRANS: Error message text shown when a favorite could not be set.
-#: actions/apifavoritecreate.php:132 actions/favor.php:84 lib/command.php:296
+#: actions/apifavoritecreate.php:132 actions/favor.php:84 lib/command.php:294
 msgid "Could not create favorite."
 msgstr "Nem sikerült létrehozni a kedvencet."
 
@@ -467,18 +467,18 @@ msgid "Group not found."
 msgstr "A csoport nem található."
 
 #. TRANS: Error text shown a user tries to join a group they already are a member of.
-#: actions/apigroupjoin.php:112 actions/joingroup.php:100 lib/command.php:336
+#: actions/apigroupjoin.php:112 actions/joingroup.php:100 lib/command.php:333
 msgid "You are already a member of that group."
 msgstr "Már tagja vagy ennek a csoportnak."
 
 #. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
-#: actions/apigroupjoin.php:121 actions/joingroup.php:105 lib/command.php:341
+#: actions/apigroupjoin.php:121 actions/joingroup.php:105 lib/command.php:338
 msgid "You have been blocked from that group by the admin."
 msgstr "Az adminisztrátor blokkolt ebből a csoportból."
 
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/apigroupjoin.php:140 actions/joingroup.php:134 lib/command.php:353
+#: actions/apigroupjoin.php:140 actions/joingroup.php:134 lib/command.php:350
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "Nem sikerült %1$s felhasználót hozzáadni a %2$s csoporthoz."
@@ -490,7 +490,7 @@ msgstr "Nem vagy tagja ennek a csoportnak."
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
 #: actions/apigroupleave.php:126 actions/leavegroup.php:129
-#: lib/command.php:401
+#: lib/command.php:398
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "Nem sikerült %1$s felhasználót eltávolítani a %2$s csoportból."
@@ -602,7 +602,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:463
+#: actions/apioauthauthorize.php:310 lib/action.php:462
 msgid "Account"
 msgstr "Kontó"
 
@@ -616,7 +616,7 @@ msgstr "Becenév"
 
 #. TRANS: Link description in user account settings menu.
 #: actions/apioauthauthorize.php:316 actions/login.php:255
-#: actions/register.php:436 lib/accountsettingsaction.php:125
+#: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Jelszó"
 
@@ -646,12 +646,12 @@ msgid "No such notice."
 msgstr "Nincs ilyen hír."
 
 #. TRANS: Error text shown when trying to repeat an own notice.
-#: actions/apistatusesretweet.php:84 lib/command.php:538
+#: actions/apistatusesretweet.php:84 lib/command.php:535
 msgid "Cannot repeat your own notice."
 msgstr "Nem ismételheted meg a saját híredet."
 
 #. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-#: actions/apistatusesretweet.php:92 lib/command.php:544
+#: actions/apistatusesretweet.php:92 lib/command.php:541
 msgid "Already repeated that notice."
 msgstr "Már megismételted azt a hírt."
 
@@ -762,7 +762,7 @@ msgstr "Érvénytelen méret."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/avatarsettings.php:67 actions/showgroup.php:230
-#: lib/accountsettingsaction.php:118
+#: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "Avatar"
 
@@ -793,7 +793,7 @@ msgid "Preview"
 msgstr "Előnézet"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:657
+#: lib/deleteuserform.php:66 lib/noticelist.php:667
 msgid "Delete"
 msgstr "Törlés"
 
@@ -876,7 +876,7 @@ msgstr "Igen"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #. TRANS: Description of the form to block a user.
-#: actions/block.php:164 lib/blockform.php:82
+#: actions/block.php:164 lib/blockform.php:79
 msgid "Block this user"
 msgstr "Felhasználó blokkolása"
 
@@ -895,8 +895,8 @@ msgstr "Nem sikerült elmenteni a blokkolási információkat."
 #: actions/groupunblock.php:86 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:170
-#: lib/command.php:383
+#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:168
+#: lib/command.php:380
 msgid "No such group."
 msgstr "Nincs ilyen csoport."
 
@@ -1012,7 +1012,7 @@ msgstr ""
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1320
+#: lib/action.php:1307
 msgid "There was a problem with your session token."
 msgstr ""
 
@@ -1072,7 +1072,7 @@ msgid "Do not delete this notice"
 msgstr "Ne töröljük ezt a hírt"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:657
+#: actions/deletenotice.php:158 lib/noticelist.php:667
 msgid "Delete this notice"
 msgstr "Töröljük ezt a hírt"
 
@@ -1103,7 +1103,7 @@ msgstr "Töröljük ezt a felhasználót"
 
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
-#: actions/designadminpanel.php:63 lib/accountsettingsaction.php:139
+#: actions/designadminpanel.php:63 lib/accountsettingsaction.php:134
 msgid "Design"
 msgstr "Megjelenés"
 
@@ -1229,7 +1229,7 @@ msgstr "Visszaállítás az alapértelmezettre"
 #: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
 #: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
 #: actions/tagother.php:154 actions/useradminpanel.php:295
-#: lib/applicationeditform.php:356 lib/designsettings.php:256
+#: lib/applicationeditform.php:357 lib/designsettings.php:256
 #: lib/groupeditform.php:202
 msgid "Save"
 msgstr "Mentés"
@@ -1349,7 +1349,7 @@ msgid "Could not update group."
 msgstr "Nem sikerült a csoport frissítése."
 
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:264 classes/User_group.php:514
+#: actions/editgroup.php:264 classes/User_group.php:513
 msgid "Could not create aliases."
 msgstr "Nem sikerült létrehozni az álneveket."
 
@@ -1406,7 +1406,7 @@ msgstr ""
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:350
+#: actions/smssettings.php:137 lib/applicationeditform.php:351
 msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Mégse"
@@ -1599,7 +1599,7 @@ msgstr "Új bejövő e-mail cím hozzáadva."
 msgid "This notice is already a favorite!"
 msgstr "Ez a hír már a kedvenceid között van!"
 
-#: actions/favor.php:92 lib/disfavorform.php:140
+#: actions/favor.php:92 lib/disfavorform.php:144
 msgid "Disfavor favorite"
 msgstr "Kedvenc eltávolítása"
 
@@ -1896,7 +1896,7 @@ msgstr ""
 #. TRANS: Title in atom group notice feed. %s is a group name.
 #. TRANS: Title in atom user notice feed. %s is a user name.
 #: actions/grouprss.php:139 actions/userrss.php:94
-#: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:69
+#: lib/atomgroupnoticefeed.php:63 lib/atomusernoticefeed.php:68
 #, php-format
 msgid "%s timeline"
 msgstr "%s története"
@@ -2161,7 +2161,7 @@ msgstr "Ezen felhasználók híreire már feliratkoztál:"
 
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:430
+#: actions/invite.php:131 actions/invite.php:139 lib/command.php:426
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr ""
@@ -2267,7 +2267,7 @@ msgid "You must be logged in to leave a group."
 msgstr "Be kell jelentkezned hogy elhagyhass egy csoportot."
 
 #. TRANS: Error text shown when trying to leave an existing group the user is not a member of.
-#: actions/leavegroup.php:100 lib/command.php:389
+#: actions/leavegroup.php:100 lib/command.php:386
 msgid "You are not a member of that group."
 msgstr "Nem vagy tagja annak a csoportnak."
 
@@ -2486,14 +2486,14 @@ msgid "New message"
 msgstr "Új üzenet"
 
 #. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:502
+#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:499
 msgid "You can't send a message to this user."
 msgstr "Ennek a felhasználónak nem küldhetsz üzenetet."
 
 #. TRANS: Command exception text shown when trying to send a direct message to another user without content.
 #. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
-#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:481
-#: lib/command.php:582
+#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:478
+#: lib/command.php:579
 msgid "No content!"
 msgstr "Nincs tartalom!"
 
@@ -2502,7 +2502,7 @@ msgid "No recipient specified."
 msgstr "Nincs címzett megadva."
 
 #. TRANS: Error text shown when trying to send a direct message to self.
-#: actions/newmessage.php:164 lib/command.php:506
+#: actions/newmessage.php:164 lib/command.php:503
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr "Ne küldj üzenetet magadnak, helyette mondd el halkan."
@@ -2513,12 +2513,12 @@ msgstr "Üzenet elküldve"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
-#: actions/newmessage.php:185 lib/command.php:514
+#: actions/newmessage.php:185 lib/command.php:511
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Közvetlen üzenet ment %s részére."
 
-#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
+#: actions/newmessage.php:210 actions/newnotice.php:261
 msgid "Ajax Error"
 msgstr "Ajax-hiba"
 
@@ -2647,8 +2647,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1206
-#: lib/apiaction.php:1233 lib/apiaction.php:1356
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1200
+#: lib/apiaction.php:1227 lib/apiaction.php:1350
 msgid "Not a supported data format."
 msgstr "Nem támogatott adatformátum."
 
@@ -3000,7 +3000,7 @@ msgstr "Teljes név"
 
 #. TRANS: Form input field label.
 #: actions/profilesettings.php:115 actions/register.php:460
-#: lib/applicationeditform.php:235 lib/groupeditform.php:161
+#: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Honlap"
 
@@ -3384,7 +3384,7 @@ msgstr "Ugyanaz mint a jelszó fentebb. Szükséges."
 
 #. TRANS: Link description in user account settings menu.
 #: actions/register.php:445 actions/register.php:449
-#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:132
+#: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "E-mail"
 
@@ -3523,7 +3523,7 @@ msgstr ""
 msgid "You already repeated that notice."
 msgstr ""
 
-#: actions/repeat.php:114 lib/noticelist.php:676
+#: actions/repeat.php:114 lib/noticelist.php:686
 msgid "Repeated"
 msgstr ""
 
@@ -3653,13 +3653,13 @@ msgid "Name"
 msgstr "Név"
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:178 lib/applicationeditform.php:226
+#: actions/showapplication.php:178 lib/applicationeditform.php:227
 msgid "Organization"
 msgstr "Szervezet"
 
 #. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
-#: lib/applicationeditform.php:207 lib/groupeditform.php:172
+#: lib/applicationeditform.php:208 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Leírás"
 
@@ -4406,7 +4406,7 @@ msgstr "%s nem követ figyelemmel senkit."
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:222 lib/connectsettingsaction.php:115
+#: actions/subscriptions.php:222
 msgid "SMS"
 msgstr "SMS"
 
@@ -4525,7 +4525,7 @@ msgid "Invalid default subscripton: '%1$s' is not user."
 msgstr ""
 
 #. TRANS: Link description in user account settings menu.
-#: actions/useradminpanel.php:219 lib/accountsettingsaction.php:111
+#: actions/useradminpanel.php:219 lib/accountsettingsaction.php:106
 #: lib/personalgroupnav.php:109
 msgid "Profile"
 msgstr "Profil"
@@ -4709,7 +4709,7 @@ msgstr ""
 #. TRANS: Message is used as a subtitle in atom user notice feed.
 #. TRANS: %1$s is a user name, %2$s is a site name.
 #: actions/userrss.php:97 lib/atomgroupnoticefeed.php:70
-#: lib/atomusernoticefeed.php:76
+#: lib/atomusernoticefeed.php:75
 #, php-format
 msgid "Updates from %1$s on %2$s!"
 msgstr ""
@@ -4758,7 +4758,7 @@ msgid "Plugins"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:805
+#: actions/version.php:198 lib/action.php:802
 msgid "Version"
 msgstr ""
 
@@ -4766,29 +4766,25 @@ msgstr ""
 msgid "Author(s)"
 msgstr "Szerző(k)"
 
-#: classes/Fave.php:147 lib/favorform.php:140
+#. TRANS: Activity title when marking a notice as favorite.
+#: classes/Fave.php:148 lib/favorform.php:143
 msgid "Favor"
 msgstr "Kedvelem"
 
-#: classes/Fave.php:148
-#, php-format
-msgid "%s marked notice %s as a favorite."
-msgstr ""
-
 #. TRANS: Server exception thrown when a URL cannot be processed.
-#: classes/File.php:143
+#: classes/File.php:142
 #, php-format
 msgid "Cannot process URL '%s'"
 msgstr ""
 
 #. TRANS: Server exception thrown when... Robin thinks something is impossible!
-#: classes/File.php:175
+#: classes/File.php:174
 msgid "Robin thinks something is impossible."
 msgstr ""
 
 #. TRANS: Message given if an upload is larger than the configured maximum.
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
-#: classes/File.php:190
+#: classes/File.php:189
 #, php-format
 msgid ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
@@ -4797,20 +4793,20 @@ msgstr ""
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes.
-#: classes/File.php:202
+#: classes/File.php:201
 #, php-format
 msgid "A file this large would exceed your user quota of %d bytes."
 msgstr ""
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
 #. TRANS: $d (number) is the monthly user quota in bytes.
-#: classes/File.php:211
+#: classes/File.php:210
 #, php-format
 msgid "A file this large would exceed your monthly quota of %d bytes."
 msgstr ""
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
-#: classes/File.php:248 classes/File.php:263
+#: classes/File.php:247 classes/File.php:262
 msgid "Invalid filename."
 msgstr ""
 
@@ -4829,13 +4825,28 @@ msgstr ""
 msgid "Group leave failed."
 msgstr ""
 
-#: classes/Group_member.php:108 lib/joinform.php:114
+#. TRANS: Exception thrown providing an invalid profile ID.
+#. TRANS: %s is the invalid profile ID.
+#: classes/Group_member.php:76
+#, php-format
+msgid "Profile ID %s is invalid."
+msgstr ""
+
+#. TRANS: Exception thrown providing an invalid group ID.
+#. TRANS: %s is the invalid group ID.
+#: classes/Group_member.php:89
+#, fuzzy, php-format
+msgid "Group ID %s is invalid."
+msgstr "Hiba a felhasználó mentésekor; érvénytelen."
+
+#. TRANS: Activity title.
+#: classes/Group_member.php:113 lib/joinform.php:114
 msgid "Join"
 msgstr "Csatlakozzunk"
 
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
-#: classes/Group_member.php:112
+#: classes/Group_member.php:117
 #, php-format
 msgid "%1$s has joined group %2$s."
 msgstr ""
@@ -4858,17 +4869,17 @@ msgid "No database name or DSN found anywhere."
 msgstr ""
 
 #. TRANS: Client exception thrown when a user tries to send a direct message while being banned from sending them.
-#: classes/Message.php:46
+#: classes/Message.php:45
 msgid "You are banned from sending direct messages."
 msgstr ""
 
 #. TRANS: Message given when a message could not be stored on the server.
-#: classes/Message.php:63
+#: classes/Message.php:62
 msgid "Could not insert message."
 msgstr ""
 
 #. TRANS: Message given when a message could not be updated on the server.
-#: classes/Message.php:74
+#: classes/Message.php:73
 msgid "Could not update message with new URI."
 msgstr ""
 
@@ -4920,32 +4931,32 @@ msgid "Problem saving notice."
 msgstr "Probléma merült fel a hír mentése közben."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-#: classes/Notice.php:906
+#: classes/Notice.php:907
 msgid "Bad type provided to saveKnownGroups"
 msgstr ""
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
-#: classes/Notice.php:1005
+#: classes/Notice.php:1006
 msgid "Problem saving group inbox."
 msgstr ""
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-#: classes/Notice.php:1824
+#: classes/Notice.php:1822
 #, php-format
 msgid "RT @%1$s %2$s"
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:737
+#: classes/Profile.php:785
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:746
+#: classes/Profile.php:794
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -4995,13 +5006,9 @@ msgstr ""
 msgid "Could not delete subscription."
 msgstr ""
 
-#: classes/Subscription.php:254
-msgid "Follow"
-msgstr ""
-
+#. TRANS: Activity tile when subscribing to another person.
 #: classes/Subscription.php:255
-#, php-format
-msgid "%s is now following %s."
+msgid "Follow"
 msgstr ""
 
 #. TRANS: Notice given on user registration.
@@ -5012,57 +5019,57 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr ""
 
 #. TRANS: Server exception thrown when creating a group failed.
-#: classes/User_group.php:496
+#: classes/User_group.php:495
 msgid "Could not create group."
 msgstr "Nem sikerült létrehozni a csoportot."
 
 #. TRANS: Server exception thrown when updating a group URI failed.
-#: classes/User_group.php:506
+#: classes/User_group.php:505
 msgid "Could not set group URI."
 msgstr ""
 
 #. TRANS: Server exception thrown when setting group membership failed.
-#: classes/User_group.php:529
+#: classes/User_group.php:528
 msgid "Could not set group membership."
 msgstr "Nem sikerült beállítani a csoporttagságot."
 
 #. TRANS: Server exception thrown when saving local group information failed.
-#: classes/User_group.php:544
+#: classes/User_group.php:543
 msgid "Could not save local group info."
 msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:109
+#: lib/accountsettingsaction.php:104
 msgid "Change your profile settings"
 msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:116
+#: lib/accountsettingsaction.php:111
 msgid "Upload an avatar"
 msgstr "Avatar feltöltése"
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:123
+#: lib/accountsettingsaction.php:118
 msgid "Change your password"
 msgstr "Változtasd meg a jelszavad"
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:130
+#: lib/accountsettingsaction.php:125
 msgid "Change email handling"
 msgstr "Email kezelés megváltoztatása"
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:137
+#: lib/accountsettingsaction.php:132
 msgid "Design your profile"
 msgstr ""
 
 #. TRANS: Link title attribute in user account settings menu.
-#: lib/accountsettingsaction.php:144
+#: lib/accountsettingsaction.php:139
 msgid "Other options"
 msgstr "További opciók"
 
 #. TRANS: Link description in user account settings menu.
-#: lib/accountsettingsaction.php:146
+#: lib/accountsettingsaction.php:141
 msgid "Other"
 msgstr "Más egyéb"
 
@@ -5078,184 +5085,185 @@ msgid "Untitled page"
 msgstr "Név nélküli oldal"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:449
+#: lib/action.php:448
 msgid "Primary site navigation"
 msgstr "Elsődleges navigáció"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:455
+#: lib/action.php:454
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:458
+#: lib/action.php:457
 msgctxt "MENU"
 msgid "Personal"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:460
+#: lib/action.php:459
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:465
+#: lib/action.php:464
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr ""
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:468
+#: lib/action.php:467
 msgid "Connect"
 msgstr "Kapcsolódás"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:471
+#: lib/action.php:470
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr ""
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/action.php:474 lib/groupnav.php:117
+#: lib/action.php:473 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:478
+#: lib/action.php:477
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr ""
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:481
+#: lib/action.php:480
 msgctxt "MENU"
 msgid "Invite"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:487
+#: lib/action.php:486
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:490
+#: lib/action.php:489
 msgctxt "MENU"
 msgid "Logout"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:495
+#: lib/action.php:494
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr ""
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:498
+#: lib/action.php:497
 msgctxt "MENU"
 msgid "Register"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:501
+#: lib/action.php:500
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
 
-#: lib/action.php:504
+#: lib/action.php:503
 msgctxt "MENU"
 msgid "Login"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:507
+#: lib/action.php:506
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr ""
 
-#: lib/action.php:510
+#: lib/action.php:509
 msgctxt "MENU"
 msgid "Help"
 msgstr ""
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:513
+#: lib/action.php:512
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr ""
 
-#: lib/action.php:516
+#: lib/action.php:515
 msgctxt "MENU"
 msgid "Search"
 msgstr ""
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:538 lib/adminpanelaction.php:387
+#: lib/action.php:537 lib/adminpanelaction.php:387
 msgid "Site notice"
 msgstr "A webhely híre"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:605
+#: lib/action.php:604
 msgid "Local views"
 msgstr ""
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:675
+#: lib/action.php:674
 msgid "Page notice"
 msgstr ""
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:778
+#: lib/action.php:775
 msgid "Secondary site navigation"
 msgstr "Másodlagos navigáció"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:784
+#: lib/action.php:781
 msgid "Help"
 msgstr "Súgó"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:787
+#: lib/action.php:784
 msgid "About"
 msgstr "Névjegy"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:790
+#: lib/action.php:787
 msgid "FAQ"
 msgstr "GyIK"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:795
+#: lib/action.php:792
 msgid "TOS"
 msgstr "Felhasználási feltételek"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:799
+#: lib/action.php:796
 msgid "Privacy"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:802
+#: lib/action.php:799
 msgid "Source"
 msgstr "Forrás"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:808
+#: lib/action.php:805
 msgid "Contact"
 msgstr "Kapcsolat"
 
-#: lib/action.php:810
+#. TRANS: Secondary navigation menu option.
+#: lib/action.php:808
 msgid "Badge"
 msgstr ""
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:839
+#: lib/action.php:837
 msgid "StatusNet software license"
 msgstr "A StatusNet szoftver licence"
 
@@ -5263,7 +5271,7 @@ msgstr "A StatusNet szoftver licence"
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:846
+#: lib/action.php:844
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5271,7 +5279,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:849
+#: lib/action.php:847
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr ""
@@ -5280,7 +5288,7 @@ msgstr ""
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:856
+#: lib/action.php:854
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5289,70 +5297,70 @@ msgid ""
 msgstr ""
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:872
+#: lib/action.php:870
 msgid "Site content license"
 msgstr "A webhely tartalmára vonatkozó licenc"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:879
+#: lib/action.php:877
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:886
+#: lib/action.php:884
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:890
+#: lib/action.php:888
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:904
+#: lib/action.php:902
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1248
+#: lib/action.php:1238
 msgid "Pagination"
 msgstr ""
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1259
+#: lib/action.php:1249
 msgid "After"
 msgstr "Utána"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1269
+#: lib/action.php:1259
 msgid "Before"
 msgstr "Előtte"
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
-#: lib/activity.php:122
+#: lib/activity.php:120
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
 #. TRANS: Client exception thrown when there is no source attribute.
-#: lib/activityutils.php:203
+#: lib/activityutils.php:200
 msgid "Can't handle remote content yet."
 msgstr ""
 
 #. TRANS: Client exception thrown when there embedded XML content is found that cannot be processed yet.
-#: lib/activityutils.php:240
+#: lib/activityutils.php:237
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
 #. TRANS: Client exception thrown when base64 encoded content is found that cannot be processed yet.
-#: lib/activityutils.php:245
+#: lib/activityutils.php:242
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
@@ -5477,7 +5485,7 @@ msgid "Tried to revoke unknown token."
 msgstr ""
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:182
+#: lib/apioauthstore.php:183
 msgid "Failed to delete revoked token."
 msgstr ""
 
@@ -5492,186 +5500,206 @@ msgid "Icon for this application"
 msgstr ""
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:200
-#, php-format
-msgid "Describe your application in %d characters"
-msgstr ""
+#. TRANS: %d is the number of available characters for the description.
+#: lib/applicationeditform.php:201
+#, fuzzy, php-format
+msgid "Describe your application in %d character"
+msgid_plural "Describe your application in %d characters"
+msgstr[0] "Jellemezd a csoportot vagy a témát %d karakterben"
+msgstr[1] "Jellemezd a csoportot vagy a témát %d karakterben"
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:204
+#: lib/applicationeditform.php:205
 msgid "Describe your application"
 msgstr ""
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:215
+#: lib/applicationeditform.php:216
 msgid "URL of the homepage of this application"
 msgstr ""
 
 #. TRANS: Form input field label.
-#: lib/applicationeditform.php:217
+#: lib/applicationeditform.php:218
 msgid "Source URL"
 msgstr ""
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:224
+#: lib/applicationeditform.php:225
 msgid "Organization responsible for this application"
 msgstr ""
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:233
+#: lib/applicationeditform.php:234
 msgid "URL for the homepage of the organization"
 msgstr "A szervezet honlapjának URL-je"
 
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:242
+#: lib/applicationeditform.php:243
 msgid "URL to redirect to after authentication"
 msgstr "Hitelesítés után átirányítás erre az URL-re"
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:270
+#: lib/applicationeditform.php:271
 msgid "Browser"
 msgstr "Böngésző"
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:287
+#: lib/applicationeditform.php:288
 msgid "Desktop"
 msgstr "Asztal"
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:289
+#: lib/applicationeditform.php:290
 msgid "Type of application, browser or desktop"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:313
+#: lib/applicationeditform.php:314
 msgid "Read-only"
 msgstr "Csak olvasható"
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:333
+#: lib/applicationeditform.php:334
 msgid "Read-write"
 msgstr "Írható-olvasható"
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:335
+#: lib/applicationeditform.php:336
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
 #. TRANS: Submit button title.
-#: lib/applicationeditform.php:352
+#: lib/applicationeditform.php:353
 msgid "Cancel"
 msgstr "Mégse"
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:135
+#: lib/applicationlist.php:134
 msgid "read-write"
 msgstr ""
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:137
+#: lib/applicationlist.php:136
 msgid "read-only"
 msgstr ""
 
-#. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
-#: lib/applicationlist.php:143
+#. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
+#: lib/applicationlist.php:142
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr ""
 
 #. TRANS: Button label
-#: lib/applicationlist.php:158
+#: lib/applicationlist.php:157
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr ""
 
+#: lib/atom10feed.php:112
+msgid "author element must contain a name element."
+msgstr ""
+
 #. TRANS: DT element label in attachment list.
-#: lib/attachmentlist.php:88
+#: lib/attachmentlist.php:85
 msgid "Attachments"
 msgstr "Csatolmányok"
 
 #. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:265
+#: lib/attachmentlist.php:256
 msgid "Author"
 msgstr "Szerző"
 
 #. TRANS: DT element label in attachment list item.
-#: lib/attachmentlist.php:279
+#: lib/attachmentlist.php:270
 msgid "Provider"
 msgstr "Szolgáltató"
 
 #. TRANS: Title.
-#: lib/attachmentnoticesection.php:68
+#: lib/attachmentnoticesection.php:67
 msgid "Notices where this attachment appears"
 msgstr "Hírek, ahol ez a melléklet megjelenik"
 
 #. TRANS: Title.
-#: lib/attachmenttagcloudsection.php:49
+#: lib/attachmenttagcloudsection.php:48
 msgid "Tags for this attachment"
 msgstr "Címkék ehhez a melléklethez"
 
-#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:226
-msgid "Password changing failed"
+#. TRANS: Exception thrown when a password change fails.
+#: lib/authenticationplugin.php:221 lib/authenticationplugin.php:227
+#, fuzzy
+msgid "Password changing failed."
 msgstr "A jelszó megváltoztatása sikertelen"
 
-#: lib/authenticationplugin.php:236
-msgid "Password changing is not allowed"
+#. TRANS: Exception thrown when a password change attempt fails because it is not allowed.
+#: lib/authenticationplugin.php:238
+#, fuzzy
+msgid "Password changing is not allowed."
 msgstr "A jelszó megváltoztatása nem engedélyezett"
 
 #. TRANS: Title for the form to block a user.
-#: lib/blockform.php:70
+#: lib/blockform.php:68
 msgid "Block"
 msgstr "Blokkolás"
 
-#: lib/channel.php:157 lib/channel.php:177
+#. TRANS: Title for command results.
+#: lib/channel.php:160 lib/channel.php:181
 msgid "Command results"
 msgstr ""
 
-#: lib/channel.php:229 lib/mailhandler.php:142
+#. TRANS: Title for command results.
+#: lib/channel.php:194
+#, fuzzy
+msgid "AJAX error"
+msgstr "Ajax-hiba"
+
+#. TRANS: E-mail subject when a command has completed.
+#: lib/channel.php:233 lib/mailhandler.php:142
 msgid "Command complete"
 msgstr ""
 
-#: lib/channel.php:240
+#. TRANS: E-mail subject when a command has failed.
+#: lib/channel.php:244
 msgid "Command failed"
 msgstr ""
 
 #. TRANS: Command exception text shown when a notice ID is requested that does not exist.
-#: lib/command.php:84 lib/command.php:108
+#: lib/command.php:82 lib/command.php:106
 msgid "Notice with that id does not exist."
 msgstr ""
 
 #. TRANS: Command exception text shown when a last user notice is requested and it does not exist.
 #. TRANS: Error text shown when a last user notice is requested and it does not exist.
-#: lib/command.php:101 lib/command.php:630
+#: lib/command.php:99 lib/command.php:626
 msgid "User has no last notice."
 msgstr ""
 
 #. TRANS: Message given requesting a profile for a non-existing user.
 #. TRANS: %s is the nickname of the user for which the profile could not be found.
-#: lib/command.php:130
+#: lib/command.php:128
 #, php-format
 msgid "Could not find a user with nickname %s."
 msgstr ""
 
 #. TRANS: Message given getting a non-existing user.
 #. TRANS: %s is the nickname of the user that could not be found.
-#: lib/command.php:150
+#: lib/command.php:148
 #, php-format
 msgid "Could not find a local user with nickname %s."
 msgstr ""
 
 #. TRANS: Error text shown when an unimplemented command is given.
-#: lib/command.php:185
+#: lib/command.php:183
 msgid "Sorry, this command is not yet implemented."
 msgstr ""
 
 #. TRANS: Command exception text shown when a user tries to nudge themselves.
-#: lib/command.php:231
+#: lib/command.php:229
 msgid "It does not make a lot of sense to nudge yourself!"
 msgstr ""
 
 #. TRANS: Message given having nudged another user.
 #. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:240
+#: lib/command.php:238
 #, php-format
 msgid "Nudge sent to %s."
 msgstr ""
@@ -5680,7 +5708,7 @@ msgstr ""
 #. TRANS: %1$s is the number of other user the user is subscribed to.
 #. TRANS: %2$s is the number of users that are subscribed to the user.
 #. TRANS: %3$s is the number of notices the user has sent.
-#: lib/command.php:270
+#: lib/command.php:268
 #, php-format
 msgid ""
 "Subscriptions: %1$s\n"
@@ -5692,52 +5720,53 @@ msgstr ""
 "Hírek: %3$s"
 
 #. TRANS: Text shown when a notice has been marked as favourite successfully.
-#: lib/command.php:314
+#: lib/command.php:312
 msgid "Notice marked as fave."
 msgstr "A hír kedveltként van megjelölve."
 
 #. TRANS: Message given having added a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:360
+#: lib/command.php:357
 #, php-format
 msgid "%1$s joined group %2$s."
 msgstr ""
 
 #. TRANS: Message given having removed a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: lib/command.php:408
+#: lib/command.php:405
 #, php-format
 msgid "%1$s left group %2$s."
 msgstr ""
 
 #. TRANS: Whois output. %s is the full name of the queried user.
-#: lib/command.php:434
+#: lib/command.php:430
 #, php-format
 msgid "Fullname: %s"
 msgstr "Teljes név: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:438 lib/mail.php:268
+#: lib/command.php:434 lib/mail.php:268
 #, php-format
 msgid "Location: %s"
 msgstr "Helyszín: %s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:442 lib/mail.php:271
+#: lib/command.php:438 lib/mail.php:271
 #, php-format
 msgid "Homepage: %s"
 msgstr "Honlap: %s"
 
 #. TRANS: Whois output. %s is the bio information of the queried user.
-#: lib/command.php:446
+#: lib/command.php:442
 #, php-format
 msgid "About: %s"
 msgstr ""
 
 #. TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
-#: lib/command.php:474
+#. TRANS: %s is a remote profile.
+#: lib/command.php:471
 #, php-format
 msgid ""
 "%s is a remote profile; you can only send direct messages to users on the "
@@ -5746,131 +5775,131 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:491 lib/xmppmanager.php:403
+#: lib/command.php:488 lib/xmppmanager.php:403
 #, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
 #. TRANS: Error text shown sending a direct message fails with an unknown reason.
-#: lib/command.php:517
+#: lib/command.php:514
 msgid "Error sending direct message."
 msgstr "Hiba a közvetlen üzenet küldése közben."
 
 #. TRANS: Message given having repeated a notice from another user.
 #. TRANS: %s is the name of the user for which the notice was repeated.
-#: lib/command.php:554
+#: lib/command.php:551
 #, php-format
 msgid "Notice from %s repeated."
 msgstr ""
 
 #. TRANS: Error text shown when repeating a notice fails with an unknown reason.
-#: lib/command.php:557
+#: lib/command.php:554
 msgid "Error repeating notice."
 msgstr "Hiba a hír ismétlésekor."
 
 #. TRANS: Message given if content of a notice for a reply is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:592
+#: lib/command.php:589
 #, php-format
 msgid "Notice too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
 
 #. TRANS: Text shown having sent a reply to a notice successfully.
 #. TRANS: %s is the nickname of the user of the notice the reply was sent to.
-#: lib/command.php:603
+#: lib/command.php:600
 #, php-format
 msgid "Reply to %s sent."
 msgstr ""
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
-#: lib/command.php:606
+#: lib/command.php:603
 msgid "Error saving notice."
 msgstr "Hiba a hír elmentésekor."
 
 #. TRANS: Error text shown when no username was provided when issuing a subscribe command.
-#: lib/command.php:655
+#: lib/command.php:650
 msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
 #. TRANS: Command exception text shown when trying to subscribe to an OMB profile using the subscribe command.
-#: lib/command.php:664
+#: lib/command.php:659
 msgid "Can't subscribe to OMB profiles by command."
 msgstr ""
 
 #. TRANS: Text shown after having subscribed to another user successfully.
 #. TRANS: %s is the name of the user the subscription was requested for.
-#: lib/command.php:672
+#: lib/command.php:667
 #, php-format
 msgid "Subscribed to %s."
 msgstr ""
 
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
-#: lib/command.php:694 lib/command.php:804
+#: lib/command.php:688 lib/command.php:799
 msgid "Specify the name of the user to unsubscribe from."
 msgstr ""
 
 #. TRANS: Text shown after having unsubscribed from another user successfully.
 #. TRANS: %s is the name of the user the unsubscription was requested for.
-#: lib/command.php:705
+#: lib/command.php:699
 #, php-format
 msgid "Unsubscribed from %s."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
 #. TRANS: Error text shown when issuing the command "on" with a setting which has not yet been implemented.
-#: lib/command.php:724 lib/command.php:750
+#: lib/command.php:719 lib/command.php:745
 msgid "Command not yet implemented."
 msgstr ""
 
 #. TRANS: Text shown when issuing the command "off" successfully.
-#: lib/command.php:728
+#: lib/command.php:723
 msgid "Notification off."
 msgstr "Ne legyenek értesítések."
 
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
-#: lib/command.php:731
+#: lib/command.php:726
 msgid "Can't turn off notification."
 msgstr ""
 
 #. TRANS: Text shown when issuing the command "on" successfully.
-#: lib/command.php:754
+#: lib/command.php:749
 msgid "Notification on."
 msgstr "Legyenek értesítések."
 
 #. TRANS: Error text shown when the command "on" fails for an unknown reason.
-#: lib/command.php:757
+#: lib/command.php:752
 msgid "Can't turn on notification."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
-#: lib/command.php:771
+#: lib/command.php:766
 msgid "Login command is disabled."
 msgstr ""
 
 #. TRANS: Text shown after issuing the login command successfully.
 #. TRANS: %s is a logon link..
-#: lib/command.php:784
+#: lib/command.php:779
 #, php-format
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
 #. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
 #. TRANS: %s is the name of the user the unsubscription was requested for.
-#: lib/command.php:813
+#: lib/command.php:808
 #, php-format
 msgid "Unsubscribed %s."
 msgstr ""
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
-#: lib/command.php:831
+#: lib/command.php:826
 msgid "You are not subscribed to anyone."
 msgstr "Senkinek sem iratkoztál fel a híreire."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
-#: lib/command.php:836
+#: lib/command.php:831
 msgid "You are subscribed to this person:"
 msgid_plural "You are subscribed to these people:"
 msgstr[0] "Ezen személy híreire iratkoztál fel:"
@@ -5878,14 +5907,14 @@ msgstr[1] "Ezen emberek híreire iratkoztál fel:"
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user
 #. TRANS: (followers) without having any subscribers.
-#: lib/command.php:858
+#: lib/command.php:853
 msgid "No one is subscribed to you."
 msgstr "Senki sem követ figyelemmel."
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribing users.
-#: lib/command.php:863
+#: lib/command.php:858
 msgid "This person is subscribed to you:"
 msgid_plural "These people are subscribed to you:"
 msgstr[0] "Ez a személy iratkozott fel a híreidre:"
@@ -5893,21 +5922,21 @@ msgstr[1] "Ezek az emberek iratkoztak fel a híreidre:"
 
 #. TRANS: Text shown after requesting groups a user is subscribed to without having
 #. TRANS: any group subscriptions.
-#: lib/command.php:885
+#: lib/command.php:880
 msgid "You are not a member of any groups."
 msgstr "Nem vagy tagja semmilyen csoportnak."
 
 #. TRANS: Text shown after requesting groups a user is subscribed to.
 #. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed groups.
-#: lib/command.php:890
+#: lib/command.php:885
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Ennek a csoportnak vagy tagja:"
 msgstr[1] "Ezeknek a csoportoknak vagy tagja:"
 
 #. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
-#: lib/command.php:905
+#: lib/command.php:900
 msgid ""
 "Commands:\n"
 "on - turn on notifications\n"
@@ -5949,39 +5978,60 @@ msgid ""
 "tracking - not yet implemented.\n"
 msgstr ""
 
-#: lib/common.php:135
+#. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+#: lib/common.php:136
 msgid "No configuration file found. "
 msgstr "Nem találtunk konfigurációs fájlt. "
 
-#: lib/common.php:136
+#. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+#. TRANS: Is followed by a list of directories (separated by HTML breaks).
+#: lib/common.php:139
 msgid "I looked for configuration files in the following places: "
 msgstr "A következő helyeken kerestem konfigurációs fájlokat: "
 
-#: lib/common.php:138
+#. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+#: lib/common.php:142
 msgid "You may wish to run the installer to fix this."
 msgstr "A telepítő futtatása kijavíthatja ezt."
 
-#: lib/common.php:139
+#. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+#. TRANS: The text is link text that leads to the installer page.
+#: lib/common.php:146
 msgid "Go to the installer."
 msgstr "Menj a telepítőhöz."
 
-#: lib/connectsettingsaction.php:110
+#. TRANS: Menu item for Instant Messaging settings.
+#: lib/connectsettingsaction.php:106
+msgctxt "MENU"
 msgid "IM"
 msgstr ""
 
-#: lib/connectsettingsaction.php:111
+#. TRANS: Tooltip for Instant Messaging menu item.
+#: lib/connectsettingsaction.php:108
 msgid "Updates by instant messenger (IM)"
 msgstr ""
 
-#: lib/connectsettingsaction.php:116
+#. TRANS: Menu item for Short Message Service settings.
+#: lib/connectsettingsaction.php:113
+#, fuzzy
+msgctxt "MENU"
+msgid "SMS"
+msgstr "SMS"
+
+#. TRANS: Tooltip for Short Message Service menu item.
+#: lib/connectsettingsaction.php:115
 msgid "Updates by SMS"
 msgstr ""
 
+#. TRANS: Menu item for OAth connection settings.
 #: lib/connectsettingsaction.php:120
+#, fuzzy
+msgctxt "MENU"
 msgid "Connections"
 msgstr "Kapcsolatok"
 
-#: lib/connectsettingsaction.php:121
+#. TRANS: Tooltip for connected applications (Connections through OAth) menu item.
+#: lib/connectsettingsaction.php:122
 msgid "Authorized connected applications"
 msgstr ""
 
@@ -6002,11 +6052,11 @@ msgstr ""
 msgid "Design defaults restored."
 msgstr ""
 
-#: lib/disfavorform.php:114 lib/disfavorform.php:140
+#: lib/disfavorform.php:114 lib/disfavorform.php:144
 msgid "Disfavor this notice"
 msgstr "Nem kedvelem ezt a hírt"
 
-#: lib/favorform.php:114 lib/favorform.php:140
+#: lib/favorform.php:114 lib/favorform.php:143
 msgid "Favor this notice"
 msgstr "Kedvelem ezt a hírt"
 
@@ -6026,7 +6076,7 @@ msgstr "Atom"
 msgid "FOAF"
 msgstr ""
 
-#: lib/feedlist.php:64
+#: lib/feedlist.php:66
 msgid "Feeds"
 msgstr ""
 
@@ -6528,7 +6578,7 @@ msgstr ""
 "keveredj más felhasználókkal. Olyan üzenetet küldhetnek neked emberek, amit "
 "csak te láthatsz."
 
-#: lib/mailbox.php:228 lib/noticelist.php:506
+#: lib/mailbox.php:228 lib/noticelist.php:516
 msgid "from"
 msgstr "írta"
 
@@ -6673,55 +6723,55 @@ msgid ""
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:436
+#: lib/noticelist.php:446
 msgid "N"
 msgstr "É"
 
 #. TRANS: Used in coordinates as abbreviation of south
-#: lib/noticelist.php:438
+#: lib/noticelist.php:448
 msgid "S"
 msgstr "D"
 
 #. TRANS: Used in coordinates as abbreviation of east
-#: lib/noticelist.php:440
+#: lib/noticelist.php:450
 msgid "E"
 msgstr "K"
 
 #. TRANS: Used in coordinates as abbreviation of west
-#: lib/noticelist.php:442
+#: lib/noticelist.php:452
 msgid "W"
 msgstr "Ny"
 
-#: lib/noticelist.php:444
+#: lib/noticelist.php:454
 #, php-format
 msgid "%1$u°%2$u'%3$u\"%4$s %5$u°%6$u'%7$u\"%8$s"
 msgstr ""
 
-#: lib/noticelist.php:453
+#: lib/noticelist.php:463
 msgid "at"
 msgstr ""
 
-#: lib/noticelist.php:502
+#: lib/noticelist.php:512
 msgid "web"
 msgstr ""
 
-#: lib/noticelist.php:568
+#: lib/noticelist.php:578
 msgid "in context"
 msgstr "előzmény"
 
-#: lib/noticelist.php:603
+#: lib/noticelist.php:613
 msgid "Repeated by"
 msgstr "Megismételte:"
 
-#: lib/noticelist.php:630
+#: lib/noticelist.php:640
 msgid "Reply to this notice"
 msgstr "Válaszoljunk erre a hírre"
 
-#: lib/noticelist.php:631
+#: lib/noticelist.php:641
 msgid "Reply"
 msgstr "Válasz"
 
-#: lib/noticelist.php:675
+#: lib/noticelist.php:685
 msgid "Notice repeated"
 msgstr "A hírt megismételtük"
 
@@ -6792,7 +6842,7 @@ msgid "Tags in %s's notices"
 msgstr "Címkék %s híreiben"
 
 #. TRANS: Displayed as version information for a plugin if no version information was found.
-#: lib/plugin.php:116
+#: lib/plugin.php:121
 msgid "Unknown"
 msgstr ""
 

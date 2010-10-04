@@ -1,5 +1,4 @@
 <?php
-
 /**
  * DirectionDetector plugin, detects notices with RTL content & sets RTL
  * style for them.
@@ -252,10 +251,13 @@ class DirectionDetectorPlugin extends Plugin {
      * plugin details
      */
     function onPluginVersion(&$versions){
+        $url = 'http://status.net/wiki/Plugin:DirectionDetector';
+
         $versions[] = array(
             'name' => 'Direction detector',
             'version' => DIRECTIONDETECTORPLUGIN_VERSION,
             'author' => 'Behrooz Shabani',
+            'homepage' => $url,
             'rawdescription' => _m('Shows notices with right-to-left content in correct direction.')
         );
         return true;
