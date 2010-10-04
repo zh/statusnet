@@ -150,7 +150,7 @@ class FacebookhomeAction extends FacebookAction
 	    // over and over..
             // TRANS: Page title.
             // TRANS: %1$s is a user nickname, %2$s is a page number.
-            return sprintf(_m("%1$s and friends, page %2$d"), $this->user->nickname, $this->page);
+            return sprintf(_m('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
         } else {
             // TRANS: Page title.
             // TRANS: %s is a user nickname

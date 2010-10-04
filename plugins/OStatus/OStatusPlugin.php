@@ -655,7 +655,7 @@ class OStatusPlugin extends Plugin
             $act->title = _m("Join");
             // TRANS: Success message for subscribe to group attempt through OStatus.
             // TRANS: %1$s is the member name, %2$s is the subscribed group's name.
-            $act->content = sprintf(_m("%1$s has joined group %2$s."),
+            $act->content = sprintf(_m('%1$s has joined group %2$s.'),
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
@@ -707,7 +707,7 @@ class OStatusPlugin extends Plugin
             $act->title = _m("Leave");
             // TRANS: Success message for unsubscribe from group attempt through OStatus.
             // TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
-            $act->content = sprintf(_m("%1$s has left group %2$s."),
+            $act->content = sprintf(_m('%1$s has left group %2$s.'),
                                     $member->getBestName(),
                                     $oprofile->getBestName());
 
