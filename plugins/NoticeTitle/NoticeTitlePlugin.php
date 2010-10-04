@@ -221,7 +221,9 @@ class NoticeTitlePlugin extends Plugin
         $title = Notice_title::fromNotice($nli->notice);
 
         if (!empty($title)) {
-            $nli->out->element('h4', array('class' => 'notice_title'), $title);
+            $nli->out->elementStart('h4', array('class' => 'notice_title'));
+            $nli->out->element('a', array('href' => $nli->notice->bestUrl()), $title);
+            $nli->out->elementEnd('h4');
         }
 
         return true;

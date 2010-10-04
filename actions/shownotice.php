@@ -297,7 +297,7 @@ class ShownoticeAction extends OwnerDesignAction
         $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
         $avatarUrl = ($avatar) ?
                      $avatar->displayUrl() :
-                     Avatar::defaultImage($avatar_size);
+                     Avatar::defaultImage(AVATAR_PROFILE_SIZE);
         $this->element('meta', array('property' => 'og:image',
                                      'content' => $avatarUrl));
         $this->element('meta', array('property' => 'og:description',
