@@ -77,7 +77,7 @@ class AllmapAction extends MapAction
             // @todo CHECKME: does this even happen? May not be needed.
             // TRANS: Page title.
             // TRANS: %1$s is a user nickname, %2$d is a page number.
-            return sprintf(_m("%1$s friends map, page %2$d"),
+            return sprintf(_m('%1$s friends map, page %2$d'),
                            $base,
                            $this->page);
         }

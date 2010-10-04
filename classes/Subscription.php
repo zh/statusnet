@@ -255,7 +255,7 @@ class Subscription extends Memcached_DataObject
         $act->title   = _("Follow");
         // TRANS: Notification given when one person starts following another.
         // TRANS: %1$s is the subscriber, %2$s is the subscribed.
-        $act->content = sprintf(_("%1$s is now following %2$s."),
+        $act->content = sprintf(_('%1$s is now following %2$s.'),
                                $subscriber->getBestName(),
                                $subscribed->getBestName());
 

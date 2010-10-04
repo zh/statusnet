@@ -252,14 +252,14 @@ function mail_subscribe_notify_profile($listenee, $other)
 
         // TRANS: Main body of new-subscriber notification e-mail
         $body = sprintf(_('%1$s is now listening to your notices on %2$s.'."\n\n".
-                          "\t".'%3$s'."\n\n".
+                          "\t".'%3\$s'."\n\n".
                           '%4$s'.
                           '%5$s'.
                           '%6$s'.
-                          "\n".'Faithfully yours,'."\n".'%7$s.'."\n\n".
+                          "\n".'Faithfully yours,'."\n".'%7\$s.'."\n\n".
                           "----\n".
                           "Change your email address or ".
-                          "notification options at ".'%8$s' ."\n"),
+                          "notification options at ".'%8\$s' ."\n"),
                         $long_name,
                         common_config('site', 'name'),
                         $other->profileurl,
