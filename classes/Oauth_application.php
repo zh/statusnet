@@ -110,7 +110,6 @@ class Oauth_application extends Memcached_DataObject
      *
      * @return void
      */
-
     function uploadLogo()
     {
         if ($_FILES['app_icon']['error'] ==
@@ -153,5 +152,4 @@ class Oauth_application extends Memcached_DataObject
         $oauser->application_id = $this->id;
         $oauser->delete();
     }
-
 }

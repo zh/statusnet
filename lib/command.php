@@ -23,7 +23,6 @@ require_once(INSTALLDIR.'/lib/channel.php');
 
 class Command
 {
-
     var $user = null;
 
     function __construct($user=null)
@@ -48,7 +47,6 @@ class Command
             $channel->error($this->user, $e->getMessage());
         }
     }
-
 
     /**
      * Override this with the meat!
@@ -313,7 +311,6 @@ class FavCommand extends Command
         // TRANS: Text shown when a notice has been marked as favourite successfully.
         $channel->output($this->user, _('Notice marked as fave.'));
     }
-
 }
 
 class JoinCommand extends Command
@@ -361,8 +358,8 @@ class JoinCommand extends Command
                                               $cur->nickname,
                                               $group->nickname));
     }
-
 }
+
 class DropCommand extends Command
 {
     var $other = null;
@@ -409,7 +406,6 @@ class DropCommand extends Command
                                               $cur->nickname,
                                               $group->nickname));
     }
-
 }
 
 class WhoisCommand extends Command
@@ -471,6 +467,7 @@ class MessageCommand extends Command
                 throw $e;
             }
             // TRANS: Command exception text shown when trying to send a direct message to a remote user (a user not registered at the current server).
+            // TRANS: %s is a remote profile.
             throw new CommandException(sprintf(_('%s is a remote profile; you can only send direct messages to users on the same server.'), $this->other));
         }
 
@@ -611,7 +608,6 @@ class ReplyCommand extends Command
 
 class GetCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -638,7 +634,6 @@ class GetCommand extends Command
 
 class SubCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -678,7 +673,6 @@ class SubCommand extends Command
 
 class UnsubCommand extends Command
 {
-
     var $other = null;
 
     function __construct($user, $other)
@@ -712,6 +706,7 @@ class UnsubCommand extends Command
 class OffCommand extends Command
 {
     var $other = null;
+
     function __construct($user, $other=null)
     {
         parent::__construct($user);
@@ -831,7 +826,7 @@ class SubscriptionsCommand extends Command
             $out=_('You are not subscribed to anyone.');
         }else{
             // TRANS: Text shown after requesting other users a user is subscribed to.
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed users.
             $out = ngettext('You are subscribed to this person:',
                 'You are subscribed to these people:',
@@ -858,7 +853,7 @@ class SubscribersCommand extends Command
             $out=_('No one is subscribed to you.');
         }else{
             // TRANS: Text shown after requesting other users that are subscribed to a user (followers).
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribing users.
             $out = ngettext('This person is subscribed to you:',
                 'These people are subscribed to you:',
@@ -885,7 +880,7 @@ class GroupsCommand extends Command
             $out=_('You are not a member of any groups.');
         }else{
             // TRANS: Text shown after requesting groups a user is subscribed to.
-            // TRANS: This message support plural forms. This message is followed by a
+            // TRANS: This message supports plural forms. This message is followed by a
             // TRANS: hard coded space and a comma separated list of subscribed groups.
             $out = ngettext('You are a member of this group:',
                 'You are a member of these groups:',
@@ -900,8 +895,8 @@ class HelpCommand extends Command
 {
     function handle($channel)
     {
-    	// TRANS: Help text for commands.
         $channel->output($this->user,
+                         // TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
                          _("Commands:\n".
                            "on - turn on notifications\n".
                            "off - turn off notifications\n".

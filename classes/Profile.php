@@ -103,7 +103,6 @@ class Profile extends Memcached_DataObject
         foreach (array(AVATAR_PROFILE_SIZE, AVATAR_STREAM_SIZE, AVATAR_MINI_SIZE) as $size) {
             # We don't do a scaled one if original is our scaled size
             if (!($avatar->width == $size && $avatar->height == $size)) {
-
                 $scaled_filename = $imagefile->resize($size);
 
                 //$scaled = DB_DataObject::factory('avatar');
@@ -474,6 +473,41 @@ class Profile extends Memcached_DataObject
         return $cnt;
     }
 
+    function hasFave($notice)
+    {
+        $cache = Cache::instance();
+
+        // XXX: Kind of a hack.
+
+        if (!empty($cache)) {
+            // This is the stream of favorite notices, in rev chron
+            // order. This forces it into cache.
+
+            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
+
+            // If it's in the list, then it's a fave
+
+            if (in_array($notice->id, $ids)) {
+                return true;
+            }
+
+            // If we're not past the end of the cache window,
+            // then the cache has all available faves, so this one
+            // is not a fave.
+
+            if (count($ids) < NOTICE_CACHE_WINDOW) {
+                return false;
+            }
+
+            // Otherwise, cache doesn't have all faves;
+            // fall through to the default
+        }
+
+        $fave = Fave::pkeyGet(array('user_id' => $this->id,
+                                    'notice_id' => $notice->id));
+        return ((is_null($fave)) ? false : true);
+    }
+
     function faveCount()
     {
         $c = Cache::instance();
@@ -515,6 +549,20 @@ class Profile extends Memcached_DataObject
         }
 
         return $cnt;
+    }
+
+    function blowFavesCache()
+    {
+        $cache = common_memcache();
+        if ($cache) {
+            // Faves don't happen chronologically, so we need to blow
+            // ;last cache, too
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
+        }
+        $this->blowFaveCount();
     }
 
     function blowSubscriberCount()
@@ -790,13 +838,14 @@ class Profile extends Memcached_DataObject
      * @param $right string Name of the right, usually a constant in class Right
      * @return boolean whether the user has the right in question
      */
-
     function hasRight($right)
     {
         $result = false;
+
         if ($this->hasRole(Profile_role::DELETED)) {
             return false;
         }
+
         if (Event::handle('UserRightsCheck', array($this, $right, &$result))) {
             switch ($right)
             {

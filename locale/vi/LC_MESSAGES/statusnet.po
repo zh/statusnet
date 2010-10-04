@@ -1,27 +1,29 @@
-# Translation of StatusNet to Vietnamese
+# Translation of StatusNet - Core to Vietnamese (Tiếng Việt)
+# Expored from translatewiki.net
 #
-# Author@translatewiki.net: Minh Nguyen
+# Author: Minh Nguyen
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: StatusNet\n"
+"Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-08 22:33+0000\n"
-"PO-Revision-Date: 2010-09-08 22:35:41+0000\n"
-"Language-Team: Vietnamese\n"
+"POT-Creation-Date: 2010-09-18 22:06+0000\n"
+"PO-Revision-Date: 2010-09-18 22:08:30+0000\n"
+"Language-Team: Vietnamese <http://translatewiki.net/wiki/Portal:vi>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r72348); Translate extension (2010-08-20)\n"
+"X-Generator: MediaWiki 1.17alpha (r73298); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: vi\n"
-"X-Message-Group: out-statusnet\n"
+"X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-POT-Import-Date: 1284-74-75 38::+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:376
+#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:363
 msgid "Access"
 msgstr "Truy cập"
 
@@ -59,25 +61,25 @@ msgstr "Đóng"
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
 #. TRANS: Button label to save SMS preferences.
-#. TRANS: Button label
-#: actions/accessadminpanel.php:203 actions/emailsettings.php:224
-#: actions/imsettings.php:184 actions/smssettings.php:209
-#: lib/applicationeditform.php:361
+#. TRANS: Button label in the "Edit application" form.
+#: actions/accessadminpanel.php:203 actions/emailsettings.php:228
+#: actions/imsettings.php:187 actions/smssettings.php:209
+#: lib/applicationeditform.php:351
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Lưu"
 
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:114
-#: actions/apiaccountupdateprofile.php:105
-#: actions/apiaccountupdateprofilebackgroundimage.php:116
-#: actions/apiaccountupdateprofileimage.php:105 actions/apiblockcreate.php:97
-#: actions/apiblockdestroy.php:96 actions/apidirectmessage.php:77
-#: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:113
-#: actions/apigroupismember.php:91 actions/apigroupjoin.php:100
-#: actions/apigroupleave.php:100 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:229 actions/apisubscriptions.php:87
+#: actions/apiaccountupdatedeliverydevice.php:115
+#: actions/apiaccountupdateprofile.php:106
+#: actions/apiaccountupdateprofilebackgroundimage.php:117
+#: actions/apiaccountupdateprofileimage.php:106 actions/apiblockcreate.php:98
+#: actions/apiblockdestroy.php:97 actions/apidirectmessage.php:77
+#: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:114
+#: actions/apigroupismember.php:91 actions/apigroupjoin.php:101
+#: actions/apigroupleave.php:101 actions/apigrouplist.php:73
+#: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:87
 #: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
 #: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
 #: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
@@ -136,39 +138,41 @@ msgstr ""
 msgid "You and friends"
 msgstr "Bạn và bạn bè"
 
-#: actions/apiaccountupdatedeliverydevice.php:86
-#: actions/apiaccountupdateprofile.php:89
-#: actions/apiaccountupdateprofilebackgroundimage.php:86
-#: actions/apiaccountupdateprofilecolors.php:110
-#: actions/apiaccountupdateprofileimage.php:84 actions/apiblockcreate.php:89
-#: actions/apiblockdestroy.php:88 actions/apidirectmessagenew.php:109
-#: actions/apifavoritecreate.php:91 actions/apifavoritedestroy.php:92
-#: actions/apifriendshipscreate.php:91 actions/apifriendshipsdestroy.php:91
-#: actions/apigroupcreate.php:105 actions/apigroupjoin.php:92
-#: actions/apigroupleave.php:92 actions/apimediaupload.php:67
-#: actions/apistatusesretweet.php:65 actions/apistatusesupdate.php:198
+#. TRANS: Client error message. POST is a HTTP command. It should not be translated.
+#. TRANS: Client error. POST is a HTTP command. It should not be translated.
+#: actions/apiaccountupdatedeliverydevice.php:87
+#: actions/apiaccountupdateprofile.php:90
+#: actions/apiaccountupdateprofilebackgroundimage.php:87
+#: actions/apiaccountupdateprofilecolors.php:111
+#: actions/apiaccountupdateprofileimage.php:85 actions/apiblockcreate.php:90
+#: actions/apiblockdestroy.php:89 actions/apidirectmessagenew.php:110
+#: actions/apifavoritecreate.php:92 actions/apifavoritedestroy.php:93
+#: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
+#: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
+#: actions/apigroupleave.php:93 actions/apimediaupload.php:68
+#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:199
 msgid "This method requires a POST."
 msgstr "Phương thức này yêu cầu là POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:106
+#: actions/apiaccountupdatedeliverydevice.php:107
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 
-#: actions/apiaccountupdateprofile.php:112
-#: actions/apiaccountupdateprofilebackgroundimage.php:194
-#: actions/apiaccountupdateprofilecolors.php:185
-#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofile.php:113
+#: actions/apiaccountupdateprofilebackgroundimage.php:195
+#: actions/apiaccountupdateprofilecolors.php:186
+#: actions/apiaccountupdateprofileimage.php:131 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Người dùng không có thông tin."
 
-#: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:97 actions/apimediaupload.php:80
-#: actions/apistatusesupdate.php:212 actions/avatarsettings.php:257
+#: actions/apiaccountupdateprofilebackgroundimage.php:109
+#: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
+#: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
 #: actions/designadminpanel.php:123 actions/editapplication.php:118
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
@@ -176,10 +180,6 @@ msgstr "Người dùng không có thông tin."
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
-msgstr ""
-
-#: actions/apiblockcreate.php:105
-msgid "You cannot block yourself!"
 msgstr ""
 
 #: actions/apidirectmessage.php:89
@@ -192,43 +192,44 @@ msgstr "Bạn có tin nhắn riêng từ %s"
 msgid "Direct messages to %s"
 msgstr "Bạn có tin nhắn riêng từ %s"
 
-#: actions/apidirectmessagenew.php:127 actions/newmessage.php:150
+#: actions/apidirectmessage.php:105
+#, php-format
+msgid "All the direct messages sent to %s"
+msgstr ""
+
+#: actions/apidirectmessagenew.php:128 actions/newmessage.php:150
 #, php-format
 msgid "That's too long. Max message size is %d chars."
 msgstr ""
 "Bạn có thể cập nhật hồ sơ cá nhân tại đây để mọi người có thể biết thông tin "
 "về bạn."
 
-#: actions/apidirectmessagenew.php:138
+#: actions/apidirectmessagenew.php:139
 msgid "Recipient user not found."
 msgstr "Không tìm thấy mã xác nhận."
 
-#: actions/apidirectmessagenew.php:142
+#: actions/apidirectmessagenew.php:143
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
 
-#: actions/apifavoritecreate.php:109 actions/apifavoritedestroy.php:110
+#: actions/apifavoritecreate.php:110 actions/apifavoritedestroy.php:111
 #: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 
 #. TRANS: Error message text shown when a favorite could not be set.
-#: actions/apifavoritecreate.php:131 actions/favor.php:84 lib/command.php:296
+#: actions/apifavoritecreate.php:132 actions/favor.php:84 lib/command.php:296
 msgid "Could not create favorite."
 msgstr "Không thể tạo favorite."
 
-#: actions/apifavoritedestroy.php:123
+#: actions/apifavoritedestroy.php:124
 msgid "That status is not a favorite."
 msgstr "Không thể tạo favorite."
 
-#: actions/apifriendshipscreate.php:118
+#: actions/apifriendshipscreate.php:119
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr "Không thể theo bạn này: %s đã có trong danh sách bạn bè của bạn rồi."
-
-#: actions/apifriendshipsdestroy.php:120
-msgid "You cannot unfollow yourself."
-msgstr ""
 
 #: actions/apifriendshipsexists.php:91
 msgid "Two valid IDs or screen_names must be supplied."
@@ -242,85 +243,79 @@ msgstr "Không thể cập nhật thành viên."
 msgid "Could not find target user."
 msgstr "Không thể cập nhật thành viên."
 
-#: actions/apigroupcreate.php:167 actions/editgroup.php:186
+#: actions/apigroupcreate.php:168 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:215
 #: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Biệt hiệu phải là chữ viết thường hoặc số và không có khoảng trắng."
 
-#: actions/apigroupcreate.php:176 actions/editgroup.php:190
+#: actions/apigroupcreate.php:177 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:238
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "Biệt hiệu này đã dùng rồi. Hãy nhập biệt hiệu khác."
 
-#: actions/apigroupcreate.php:183 actions/editgroup.php:193
+#: actions/apigroupcreate.php:184 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:218
 #: actions/register.php:217
 msgid "Not a valid nickname."
 msgstr "Biệt hiệu không hợp lệ."
 
-#: actions/apigroupcreate.php:199 actions/editapplication.php:215
+#: actions/apigroupcreate.php:200 actions/editapplication.php:215
 #: actions/editgroup.php:199 actions/newapplication.php:203
 #: actions/newgroup.php:139 actions/profilesettings.php:222
 #: actions/register.php:224
 msgid "Homepage is not a valid URL."
 msgstr "Trang chủ không phải là URL"
 
-#: actions/apigroupcreate.php:208 actions/editgroup.php:202
+#: actions/apigroupcreate.php:209 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:225
 #: actions/register.php:227
 msgid "Full name is too long (max 255 chars)."
 msgstr "Tên đầy đủ quá dài (tối đa là 255 ký tự)."
 
-#: actions/apigroupcreate.php:216 actions/editapplication.php:190
+#: actions/apigroupcreate.php:217 actions/editapplication.php:190
 #: actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Tên khu vực quá dài (không quá %d ký tự)."
 
-#: actions/apigroupcreate.php:227 actions/editgroup.php:208
+#: actions/apigroupcreate.php:228 actions/editgroup.php:208
 #: actions/newgroup.php:148 actions/profilesettings.php:232
 #: actions/register.php:234
 msgid "Location is too long (max 255 chars)."
 msgstr "Tên khu vực quá dài (không quá 255 ký tự)."
 
-#: actions/apigroupcreate.php:246 actions/editgroup.php:219
+#: actions/apigroupcreate.php:247 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr ""
 
-#: actions/apigroupcreate.php:267
+#: actions/apigroupcreate.php:268
 #, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "Địa chỉ email không đúng:%s"
 
-#: actions/apigroupcreate.php:289 actions/editgroup.php:238
+#: actions/apigroupcreate.php:290 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr ""
 
-#: actions/apigroupismember.php:96 actions/apigroupjoin.php:105
-#: actions/apigroupleave.php:105 actions/apigroupmembership.php:92
+#: actions/apigroupismember.php:96 actions/apigroupjoin.php:106
+#: actions/apigroupleave.php:106 actions/apigroupmembership.php:92
 #: actions/apigroupshow.php:83 actions/apitimelinegroup.php:92
 msgid "Group not found."
 msgstr "Không tìm thấy nhóm."
 
 #. TRANS: Error text shown a user tries to join a group they already are a member of.
-#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:336
+#: actions/apigroupjoin.php:112 actions/joingroup.php:100 lib/command.php:336
 msgid "You are already a member of that group."
 msgstr "Bạn chưa cập nhật thông tin riêng"
 
 #. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
-#: actions/apigroupjoin.php:120 actions/joingroup.php:105 lib/command.php:341
+#: actions/apigroupjoin.php:121 actions/joingroup.php:105 lib/command.php:341
 msgid "You have been blocked from that group by the admin."
-msgstr ""
-
-#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
-#: actions/apigrouplist.php:108
-#, php-format
-msgid "%1$s groups %2$s is a member of."
 msgstr ""
 
 #. TRANS: Message is used as a title. %s is a site name.
@@ -336,9 +331,9 @@ msgstr ""
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
 #: actions/deletenotice.php:169 actions/disfavor.php:74
-#: actions/emailsettings.php:267 actions/favor.php:75 actions/geocode.php:55
+#: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
-#: actions/groupunblock.php:66 actions/imsettings.php:227
+#: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:56 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
@@ -369,8 +364,8 @@ msgstr ""
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
 #: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:139
-#: actions/emailsettings.php:286 actions/grouplogo.php:322
-#: actions/imsettings.php:242 actions/newapplication.php:121
+#: actions/emailsettings.php:290 actions/grouplogo.php:322
+#: actions/imsettings.php:245 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
@@ -431,18 +426,18 @@ msgstr "Phương thức này yêu cầu là POST hoặc DELETE"
 msgid "You may not delete another user's status."
 msgstr "Bạn đã không xóa trạng thái của những người khác."
 
-#: actions/apistatusesretweet.php:75 actions/apistatusesretweets.php:72
+#: actions/apistatusesretweet.php:76 actions/apistatusesretweets.php:72
 #: actions/deletenotice.php:52 actions/shownotice.php:92
 msgid "No such notice."
 msgstr "Không có tin nhắn nào."
 
 #. TRANS: Error text shown when trying to repeat an own notice.
-#: actions/apistatusesretweet.php:83 lib/command.php:538
+#: actions/apistatusesretweet.php:84 lib/command.php:538
 msgid "Cannot repeat your own notice."
 msgstr "Không thể xóa tin nhắn này."
 
 #. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
-#: actions/apistatusesretweet.php:91 lib/command.php:544
+#: actions/apistatusesretweet.php:92 lib/command.php:544
 msgid "Already repeated that notice."
 msgstr "Không thể xóa tin nhắn này."
 
@@ -450,15 +445,15 @@ msgstr "Không thể xóa tin nhắn này."
 msgid "No status with that ID found."
 msgstr "Không tìm thấy trạng thái nào tương ứng với ID đó."
 
-#: actions/apistatusesupdate.php:221
+#: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:283 actions/apiusershow.php:96
+#: actions/apistatusesupdate.php:284 actions/apiusershow.php:96
 msgid "Not found."
 msgstr "Không tìm thấy."
 
-#: actions/apistatusesupdate.php:306 actions/newnotice.php:181
+#: actions/apistatusesupdate.php:307 actions/newnotice.php:181
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
@@ -477,6 +472,11 @@ msgstr "Dòng tin nhắn cho %s"
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
 msgstr "Trạng thái của %1$s vào %2$s"
+
+#: actions/apitimelinementions.php:131
+#, php-format
+msgid "%1$s updates that reply to updates from %2$s / %3$s."
+msgstr ""
 
 #: actions/apitimelinepublic.php:202 actions/publicrss.php:105
 #, php-format
@@ -574,20 +574,10 @@ msgid ""
 "will not be notified of any @-replies from them."
 msgstr ""
 
-#. TRANS: Button label on the user block form.
-#. TRANS: Button label on the delete application form.
-#. TRANS: Button label on the delete notice form.
-#. TRANS: Button label on the delete user form.
-#. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:153 actions/deleteapplication.php:154
-#: actions/deletenotice.php:147 actions/deleteuser.php:152
-#: actions/groupblock.php:178
-msgctxt "BUTTON"
-msgid "No"
-msgstr ""
-
 #. TRANS: Submit button title for 'Yes' when blocking a user.
-#: actions/block.php:164 actions/groupmembers.php:392 lib/blockform.php:80
+#. TRANS: Submit button title.
+#. TRANS: Description of the form to block a user.
+#: actions/block.php:164 actions/groupmembers.php:403 lib/blockform.php:82
 msgid "Block this user"
 msgstr "Bỏ chặn người dùng này"
 
@@ -611,20 +601,17 @@ msgstr ""
 msgid "No such group."
 msgstr "Không có user nào."
 
-#: actions/blockedfromgroup.php:100
-#, php-format
-msgid "%1$s blocked profiles, page %2$d"
-msgstr ""
-
 #: actions/blockedfromgroup.php:115
 msgid "A list of the users blocked from joining this group."
 msgstr ""
 
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:69
+#. TRANS: Title for the form to unblock a user.
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:70
 msgid "Unblock"
 msgstr "Bỏ chặn"
 
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:80
+#. TRANS: Description of the form to unblock a user.
+#: actions/blockedfromgroup.php:320 lib/unblockform.php:82
 msgid "Unblock this user"
 msgstr "Bỏ chặn người dùng này"
 
@@ -646,12 +633,6 @@ msgstr "Không tìm thấy mã xác nhận."
 msgid "That confirmation code is not for you!"
 msgstr "Mã xác nhận này không phải của bạn!"
 
-#. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
-#: actions/confirmaddress.php:91
-#, php-format
-msgid "Unrecognized address type %s."
-msgstr ""
-
 #. TRANS: Client error for an already confirmed email/jabbel/sms address.
 #: actions/confirmaddress.php:96
 msgid "That address has already been confirmed."
@@ -663,9 +644,9 @@ msgstr "Địa chỉ đó đã được xác nhận rồi."
 #. TRANS: Server error thrown on database error removing a registered IM address.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
-#: actions/confirmaddress.php:116 actions/emailsettings.php:327
-#: actions/emailsettings.php:473 actions/imsettings.php:280
-#: actions/imsettings.php:439 actions/othersettings.php:174
+#: actions/confirmaddress.php:116 actions/emailsettings.php:331
+#: actions/emailsettings.php:477 actions/imsettings.php:283
+#: actions/imsettings.php:442 actions/othersettings.php:174
 #: actions/profilesettings.php:283 actions/smssettings.php:308
 #: actions/smssettings.php:464
 msgid "Couldn't update user."
@@ -673,7 +654,7 @@ msgstr "Không thể cập nhật thành viên."
 
 #. TRANS: Server error thrown on database error canceling e-mail address confirmation.
 #. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/confirmaddress.php:128 actions/emailsettings.php:433
+#: actions/confirmaddress.php:128 actions/emailsettings.php:437
 #: actions/smssettings.php:422
 msgid "Couldn't delete email confirmation."
 msgstr "Không thể xóa email xác nhận."
@@ -713,7 +694,7 @@ msgstr ""
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
-#: lib/adminpanelaction.php:73 lib/profileformaction.php:64
+#: lib/adminpanelaction.php:71 lib/profileformaction.php:64
 #: lib/settingsaction.php:72
 msgid "Not logged in."
 msgstr "Chưa đăng nhập."
@@ -721,12 +702,6 @@ msgstr "Chưa đăng nhập."
 #: actions/deletenotice.php:71
 msgid "Can't delete this notice."
 msgstr "Không thể xóa tin nhắn này."
-
-#: actions/deletenotice.php:103
-msgid ""
-"You are about to permanently delete a notice. Once this is done, it cannot "
-"be undone."
-msgstr ""
 
 #: actions/deletenotice.php:109 actions/deletenotice.php:141
 msgid "Delete notice"
@@ -749,17 +724,11 @@ msgstr ""
 #. TRANS: Message used as title for design settings for the site.
 #. TRANS: Link description in user account settings menu.
 #: actions/designadminpanel.php:63 lib/accountsettingsaction.php:139
-#: lib/groupnav.php:119
 msgid "Design"
 msgstr ""
 
 #: actions/designadminpanel.php:74
 msgid "Design settings for this StatusNet site."
-msgstr ""
-
-#: actions/designadminpanel.php:322
-#, php-format
-msgid "Theme not available: %s."
 msgstr ""
 
 #: actions/designadminpanel.php:426
@@ -770,21 +739,8 @@ msgstr "Thay đổi"
 msgid "Theme for the site."
 msgstr ""
 
-#: actions/designadminpanel.php:467
-msgid "Custom theme"
-msgstr ""
-
 #: actions/designadminpanel.php:471
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
-msgstr ""
-
-#: actions/designadminpanel.php:486 lib/designsettings.php:101
-msgid "Change background image"
-msgstr ""
-
-#: actions/designadminpanel.php:491 actions/designadminpanel.php:574
-#: lib/designsettings.php:178
-msgid "Background"
 msgstr ""
 
 #. TRANS: Used as radio button label to add a background image.
@@ -799,10 +755,6 @@ msgstr ""
 
 #: actions/designadminpanel.php:545 lib/designsettings.php:156
 msgid "Turn background image on or off."
-msgstr ""
-
-#: actions/designadminpanel.php:550 lib/designsettings.php:161
-msgid "Tile background image"
 msgstr ""
 
 #: actions/designadminpanel.php:613 lib/designsettings.php:217
@@ -829,20 +781,16 @@ msgstr ""
 msgid "Reset back to default"
 msgstr ""
 
-#. TRANS: Submit button title
+#. TRANS: Submit button title.
 #: actions/designadminpanel.php:685 actions/othersettings.php:126
 #: actions/pathsadminpanel.php:351 actions/profilesettings.php:174
 #: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
 #: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
 #: actions/subscriptions.php:226 actions/tagother.php:154
-#: actions/useradminpanel.php:294 lib/applicationeditform.php:363
+#: actions/useradminpanel.php:294 lib/applicationeditform.php:353
 #: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Lưu"
-
-#: actions/designadminpanel.php:686 lib/designsettings.php:257
-msgid "Save design"
-msgstr ""
 
 #: actions/disfavor.php:94
 msgid "Add to favorites"
@@ -853,8 +801,8 @@ msgstr "Ưa thích"
 msgid "No such document \"%s\""
 msgstr "Không có tin nhắn nào."
 
-#: actions/editapplication.php:54
-msgid "Edit Application"
+#: actions/editapplication.php:161
+msgid "Use this form to edit your application."
 msgstr ""
 
 #: actions/editapplication.php:194
@@ -918,7 +866,7 @@ msgstr "Đã xác nhận địa chỉ này."
 #. TRANS: Button label to remove a confirmed IM address.
 #. TRANS: Button label to remove a confirmed SMS address.
 #. TRANS: Button label for removing a set sender SMS e-mail address to post notices from.
-#: actions/emailsettings.php:115 actions/emailsettings.php:158
+#: actions/emailsettings.php:115 actions/emailsettings.php:162
 #: actions/imsettings.php:116 actions/smssettings.php:124
 #: actions/smssettings.php:180
 msgctxt "BUTTON"
@@ -933,112 +881,97 @@ msgstr ""
 "Đang đợi xác nhận đến địa chỉ này. Hãy kiểm tra hộp thư đến (hoặc thư rác) "
 "để nhận tin nhắn và lời hướng dẫn."
 
-#. TRANS: Instructions for e-mail address input form.
-#: actions/emailsettings.php:135
-msgid "Email address, like \"UserName@example.org\""
-msgstr ""
-
-#. TRANS: Button label for adding an e-mail address in e-mail settings form.
-#. TRANS: Button label for adding an IM address in IM settings form.
-#. TRANS: Button label for adding a SMS phone number in SMS settings form.
-#: actions/emailsettings.php:139 actions/imsettings.php:148
-#: actions/smssettings.php:162
-msgctxt "BUTTON"
-msgid "Add"
+#. TRANS: Form legend for incoming e-mail settings form.
+#. TRANS: Form legend for incoming SMS settings form.
+#: actions/emailsettings.php:151 actions/smssettings.php:171
+msgid "Incoming email"
 msgstr ""
 
 #. TRANS: Form instructions for incoming e-mail form in e-mail settings.
 #. TRANS: Form instructions for incoming SMS e-mail address form in SMS settings.
-#: actions/emailsettings.php:155 actions/smssettings.php:178
+#: actions/emailsettings.php:159 actions/smssettings.php:178
 msgid "Send email to this address to post new notices."
 msgstr "Gửi email đến địa chỉ này để đưa tin nhắn mới lên."
 
 #. TRANS: Instructions for incoming e-mail address input form.
 #. TRANS: Instructions for incoming SMS e-mail address input form.
-#: actions/emailsettings.php:164 actions/smssettings.php:186
+#: actions/emailsettings.php:168 actions/smssettings.php:186
 msgid "Make a new email address for posting to; cancels the old one."
 msgstr "Tạo một địa chỉ email mới để đưa tin nhắn lên; và xóa "
 
-#. TRANS: Button label for adding an e-mail address to send notices from.
-#. TRANS: Button label for adding an SMS e-mail address to send notices from.
-#: actions/emailsettings.php:168 actions/smssettings.php:189
-msgctxt "BUTTON"
-msgid "New"
-msgstr ""
-
 #. TRANS: Form legend for e-mail preferences form.
-#: actions/emailsettings.php:174
+#: actions/emailsettings.php:178
 msgid "Email preferences"
 msgstr "Địa chỉ email"
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:180
+#: actions/emailsettings.php:184
 msgid "Send me notices of new subscriptions through email."
 msgstr "Hãy gửi email cho tôi thông báo về các đăng nhận mới."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:186
+#: actions/emailsettings.php:190
 msgid "Send me email when someone adds my notice as a favorite."
 msgstr ""
 "Gửi email thông báo tôi khi có ai đó lưu tin nhắn của tôi vào danh sách ưa "
 "thích của họ."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:193
+#: actions/emailsettings.php:197
 msgid "Send me email when someone sends me a private message."
 msgstr "Gửi email báo cho tôi biết khi có ai đó gửi tin nhắn riêng cho tôi."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:205
+#: actions/emailsettings.php:209
 msgid "Allow friends to nudge me and send me an email."
 msgstr ""
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:212
+#: actions/emailsettings.php:216
 msgid "I want to post notices by email."
 msgstr "Tôi muốn đưa tin nhắn lên bằng email."
 
 #. TRANS: Checkbox label in e-mail preferences form.
-#: actions/emailsettings.php:219
+#: actions/emailsettings.php:223
 msgid "Publish a MicroID for my email address."
 msgstr "Xuất bản một MicroID đến địa chỉ email của tôi."
 
 #. TRANS: Message given saving e-mail address without having provided one.
-#: actions/emailsettings.php:353
+#: actions/emailsettings.php:357
 msgid "No email address."
 msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given saving e-mail address that cannot be normalised.
-#: actions/emailsettings.php:361
+#: actions/emailsettings.php:365
 msgid "Cannot normalize that email address"
 msgstr "Không thể bình thường hóa Jabber ID"
 
 #. TRANS: Message given saving e-mail address that not valid.
-#: actions/emailsettings.php:366 actions/register.php:208
+#: actions/emailsettings.php:370 actions/register.php:208
 #: actions/siteadminpanel.php:144
 msgid "Not a valid email address."
 msgstr "Địa chỉ email không hợp lệ."
 
 #. TRANS: Message given saving e-mail address that is already set.
-#: actions/emailsettings.php:370
+#: actions/emailsettings.php:374
 msgid "That is already your email address."
 msgstr "Tài khoản đó đã là tên tài khoản Jabber của bạn rồi."
 
 #. TRANS: Message given saving e-mail address that is already set for another user.
-#: actions/emailsettings.php:374
+#: actions/emailsettings.php:378
 msgid "That email address already belongs to another user."
 msgstr "Jabber ID này đã thuộc về người khác rồi."
 
 #. TRANS: Server error thrown on database error adding e-mail confirmation code.
 #. TRANS: Server error thrown on database error adding IM confirmation code.
 #. TRANS: Server error thrown on database error adding SMS confirmation code.
-#: actions/emailsettings.php:391 actions/imsettings.php:348
+#: actions/emailsettings.php:395 actions/imsettings.php:351
 #: actions/smssettings.php:373
 msgid "Couldn't insert confirmation code."
 msgstr "Không thể  chèn mã xác nhận."
 
 #. TRANS: Message given saving valid e-mail address that is to be confirmed.
-#: actions/emailsettings.php:398
+#: actions/emailsettings.php:402
 msgid ""
 "A confirmation code was sent to the email address you added. Check your "
 "inbox (and spam box!) for the code and instructions on how to use it."
@@ -1049,32 +982,32 @@ msgstr ""
 #. TRANS: Message given canceling e-mail address confirmation that is not pending.
 #. TRANS: Message given canceling IM address confirmation that is not pending.
 #. TRANS: Message given canceling SMS phone number confirmation that is not pending.
-#: actions/emailsettings.php:419 actions/imsettings.php:383
+#: actions/emailsettings.php:423 actions/imsettings.php:386
 #: actions/smssettings.php:408
 msgid "No pending confirmation to cancel."
 msgstr "Sự xác nhận chưa được hủy bỏ."
 
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
-#: actions/emailsettings.php:438
+#: actions/emailsettings.php:442
 msgid "Email confirmation cancelled."
 msgstr "Sự xác nhận chưa được hủy bỏ."
 
 #. TRANS: Message given after successfully removing a registered e-mail address.
-#: actions/emailsettings.php:479
+#: actions/emailsettings.php:483
 msgid "The email address was removed."
 msgstr "Không có địa chỉ email."
 
-#: actions/emailsettings.php:493 actions/smssettings.php:568
+#: actions/emailsettings.php:497 actions/smssettings.php:568
 msgid "No incoming email address."
 msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given after successfully removing an incoming e-mail address.
-#: actions/emailsettings.php:508 actions/smssettings.php:581
+#: actions/emailsettings.php:512 actions/smssettings.php:581
 msgid "Incoming email address removed."
 msgstr "Không có địa chỉ email."
 
 #. TRANS: Message given after successfully adding an incoming e-mail address.
-#: actions/emailsettings.php:532 actions/smssettings.php:605
+#: actions/emailsettings.php:536 actions/smssettings.php:605
 msgid "New incoming email address added."
 msgstr "Không có địa chỉ email."
 
@@ -1086,10 +1019,6 @@ msgstr "Tin nhắn này đã có trong danh sách tin nhắn ưa thích của b�
 #: lib/publicgroupnav.php:93
 msgid "Popular notices"
 msgstr "Không có tin nhắn nào."
-
-#: actions/favorited.php:79
-msgid "The most popular notices on the site right now."
-msgstr ""
 
 #: actions/favorited.php:150
 msgid "Favorite notices appear on this page but no one has favorited one yet."
@@ -1119,6 +1048,11 @@ msgstr "Những tin nhắn ưa thích của %s"
 msgid "Updates favored by %1$s on %2$s!"
 msgstr "Dòng tin nhắn cho %s"
 
+#: actions/featured.php:69 lib/featureduserssection.php:87
+#: lib/publicgroupnav.php:89
+msgid "Featured users"
+msgstr ""
+
 #: actions/featured.php:71
 #, php-format
 msgid "Featured users, page %d"
@@ -1141,10 +1075,6 @@ msgstr "Không có tin nhắn nào."
 msgid "Not expecting this response!"
 msgstr "Không mong đợi trả lời lại!"
 
-#: actions/finishremotesubscribe.php:80
-msgid "User being listened to does not exist."
-msgstr ""
-
 #: actions/finishremotesubscribe.php:87 actions/remotesubscribe.php:59
 msgid "You can use the local subscription!"
 msgstr "Bạn có thể đăng ký tại nơi bạn ở!"
@@ -1157,20 +1087,18 @@ msgstr ""
 msgid "You are not authorized."
 msgstr "Đăng nhận được phép"
 
-#: actions/finishremotesubscribe.php:113
-msgid "Could not convert request token to access token."
-msgstr ""
-
-#: actions/finishremotesubscribe.php:118
-msgid "Remote service uses unknown version of OMB protocol."
-msgstr ""
-
 #: actions/getfile.php:83
 msgid "Cannot read file."
 msgstr "Không thể tạo favorite."
 
 #: actions/grantrole.php:66 actions/revokerole.php:66
 msgid "This role is reserved and cannot be set."
+msgstr ""
+
+#: actions/groupblock.php:71 actions/groupunblock.php:71
+#: actions/makeadmin.php:71 actions/subedit.php:46
+#: lib/profileformaction.php:79
+msgid "No profile specified."
 msgstr ""
 
 #: actions/groupblock.php:81 actions/groupunblock.php:81
@@ -1182,11 +1110,7 @@ msgstr ""
 msgid "Only an admin can block group members."
 msgstr ""
 
-#: actions/groupblock.php:95
-msgid "User is already blocked from group."
-msgstr ""
-
-#: actions/groupblock.php:134 actions/groupmembers.php:360
+#: actions/groupblock.php:134 actions/groupmembers.php:364
 msgid "Block user from group"
 msgstr "Chặn người dùng"
 
@@ -1196,6 +1120,10 @@ msgid ""
 "Are you sure you want to block user \"%1$s\" from the group \"%2$s\"? They "
 "will be removed from the group, unable to post, and unable to subscribe to "
 "the group in the future."
+msgstr ""
+
+#: actions/groupblock.php:206
+msgid "Database error blocking user from group."
 msgstr ""
 
 #: actions/groupbyid.php:74 actions/userbyid.php:70
@@ -1216,28 +1144,29 @@ msgstr "Nhóm"
 msgid "Pick a square area of the image to be the logo."
 msgstr ""
 
-#: actions/groupmembers.php:103
-#, php-format
-msgid "%1$s group members, page %2$d"
-msgstr ""
-
-#: actions/groupmembers.php:118
+#: actions/groupmembers.php:122
 msgid "A list of the users in this group."
 msgstr ""
 
-#: actions/groupmembers.php:182 lib/groupnav.php:107
+#: actions/groupmembers.php:186
 msgid "Admin"
 msgstr ""
 
-#: actions/groupmembers.php:487
-msgid "Make user an admin of the group"
+#. TRANS: Button text for the form that will block a user from a group.
+#: actions/groupmembers.php:399
+msgctxt "BUTTON"
+msgid "Block"
 msgstr ""
 
-#: actions/groupmembers.php:519
+#. TRANS: Button text for the form that will make a user administrator.
+#: actions/groupmembers.php:533
+msgctxt "BUTTON"
 msgid "Make Admin"
 msgstr ""
 
-#: actions/groupmembers.php:519
+#. TRANS: Submit button title.
+#: actions/groupmembers.php:537
+msgctxt "TOOLTIP"
 msgid "Make this user an admin"
 msgstr ""
 
@@ -1250,11 +1179,6 @@ msgstr ""
 msgid "%s timeline"
 msgstr "Dòng tin công cộng"
 
-#: actions/groups.php:64
-#, php-format
-msgid "Groups, page %d"
-msgstr ""
-
 #: actions/groups.php:90
 #, php-format
 msgid ""
@@ -1263,15 +1187,6 @@ msgid ""
 "using the syntax \"!groupname\". Don't see a group you like? Try [searching "
 "for one](%%%%action.groupsearch%%%%) or [start your own!](%%%%action.newgroup"
 "%%%%)"
-msgstr ""
-
-#: actions/groups.php:107 actions/usergroups.php:126 lib/groupeditform.php:122
-msgid "Create a new group"
-msgstr ""
-
-#: actions/groupsearch.php:79 actions/noticesearch.php:117
-#: actions/peoplesearch.php:83
-msgid "No results."
 msgstr ""
 
 #: actions/groupsearch.php:82
@@ -1309,11 +1224,6 @@ msgstr ""
 "Bạn có thể gửi và nhận những tin nhắn qua Jabber hoặc GTalk [tin nhắn nhanh]"
 "(%%doc.im%%). Định dạng địa chỉ của bạn và các thiết lập sau."
 
-#. TRANS: Message given in the IM settings if XMPP is not enabled on the site.
-#: actions/imsettings.php:94
-msgid "IM is not available."
-msgstr ""
-
 #. TRANS: Form legend for IM settings form.
 #. TRANS: Field label for IM address input in IM settings form.
 #: actions/imsettings.php:106 actions/imsettings.php:136
@@ -1337,7 +1247,10 @@ msgstr ""
 
 #. TRANS: IM address input field instructions in IM settings form.
 #. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:140
+#. TRANS: Do not translate "example.org". It is one of the domain names reserved for use in examples by
+#. TRANS: http://www.rfc-editor.org/rfc/rfc2606.txt. Any other domain may be owned by a legitimate
+#. TRANS: person or organization.
+#: actions/imsettings.php:143
 #, php-format
 msgid ""
 "Jabber or GTalk address, like \"UserName@example.org\". First, make sure to "
@@ -1347,65 +1260,65 @@ msgstr ""
 "tạo thêm %s vào danh sách buddy trên IM client hoặc GTalk của bạn."
 
 #. TRANS: Form legend for IM preferences form.
-#: actions/imsettings.php:155
+#: actions/imsettings.php:158
 msgid "IM preferences"
 msgstr "Các tính năng đã được lưu."
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:160
+#: actions/imsettings.php:163
 msgid "Send me notices through Jabber/GTalk."
 msgstr "Hãy gửi tin nhắn đến tôi qua Jabber hay GTalk"
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:166
+#: actions/imsettings.php:169
 msgid "Post a notice when my Jabber/GTalk status changes."
 msgstr "Gửi một tin nhắn khi trạng thái của tôi trên Jabber hay GTalk "
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:172
+#: actions/imsettings.php:175
 msgid "Send me replies through Jabber/GTalk from people I'm not subscribed to."
 msgstr ""
 "Gửi những tin nhắn trả lời của tôi từ những người mà tôi không theo qua "
 "Jabber/GTalk."
 
 #. TRANS: Checkbox label in IM preferences form.
-#: actions/imsettings.php:179
+#: actions/imsettings.php:182
 msgid "Publish a MicroID for my Jabber/GTalk address."
 msgstr "Gửi MicroID đến địa chỉ Jabber/GTalk của tôi. "
 
 #. TRANS: Confirmation message for successful IM preferences save.
-#: actions/imsettings.php:287 actions/othersettings.php:180
+#: actions/imsettings.php:290 actions/othersettings.php:180
 msgid "Preferences saved."
 msgstr "Các tính năng đã được lưu."
 
 #. TRANS: Message given saving IM address without having provided one.
-#: actions/imsettings.php:309
+#: actions/imsettings.php:312
 msgid "No Jabber ID."
 msgstr "Không có Jabber ID."
 
 #. TRANS: Message given saving IM address that cannot be normalised.
-#: actions/imsettings.php:317
+#: actions/imsettings.php:320
 msgid "Cannot normalize that Jabber ID"
 msgstr "Không thể bình thường hóa Jabber ID"
 
 #. TRANS: Message given saving IM address that not valid.
-#: actions/imsettings.php:322
+#: actions/imsettings.php:325
 msgid "Not a valid Jabber ID"
 msgstr "Jabber ID không hợp lệ"
 
 #. TRANS: Message given saving IM address that is already set.
-#: actions/imsettings.php:326
+#: actions/imsettings.php:329
 msgid "That is already your Jabber ID."
 msgstr "Tài khoản đó đã là tên tài khoản Jabber của bạn rồi."
 
 #. TRANS: Message given saving IM address that is already set for another user.
-#: actions/imsettings.php:330
+#: actions/imsettings.php:333
 msgid "Jabber ID already belongs to another user."
 msgstr "Jabber ID này đã thuộc về người khác rồi."
 
 #. TRANS: Message given saving valid IM address that is to be confirmed.
 #. TRANS: %s is the IM address set for the site.
-#: actions/imsettings.php:358
+#: actions/imsettings.php:361
 #, php-format
 msgid ""
 "A confirmation code was sent to the IM address you added. You must approve %"
@@ -1415,18 +1328,18 @@ msgstr ""
 "tin nhắn đến bạn."
 
 #. TRANS: Message given canceling IM address confirmation for the wrong IM address.
-#: actions/imsettings.php:388
+#: actions/imsettings.php:391
 msgid "That is the wrong IM address."
 msgstr "Sai IM."
 
 #. TRANS: Message given after successfully canceling IM address confirmation.
-#: actions/imsettings.php:402
+#: actions/imsettings.php:405
 msgid "IM confirmation cancelled."
 msgstr "Không có mã số xác nhận."
 
 #. TRANS: Message given trying to remove an IM address that is not
 #. TRANS: registered for the active user.
-#: actions/imsettings.php:424
+#: actions/imsettings.php:427
 msgid "That is not your Jabber ID."
 msgstr "Đây không phải Jabber ID của bạn."
 
@@ -1514,12 +1427,6 @@ msgstr "Tin nhắn cá nhân"
 #: actions/invite.php:194
 msgid "Optionally add a personal message to the invitation."
 msgstr "Không bắt buộc phải thêm thông điệp vào thư mời."
-
-#. TRANS: Send button for inviting friends
-#: actions/invite.php:198
-msgctxt "BUTTON"
-msgid "Send"
-msgstr ""
 
 #. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
 #: actions/invite.php:228
@@ -1626,28 +1533,8 @@ msgstr ""
 "Vì lý do bảo mật, bạn hãy nhập lại tên đăng nhập và mật khẩu trước khi thay "
 "đổi trong điều chỉnh."
 
-#: actions/login.php:295
-#, php-format
-msgid ""
-"Don't have a username yet? [Register](%%action.register%%) a new account."
-msgstr ""
-
 #: actions/makeadmin.php:92
 msgid "Only an admin can make another user an admin."
-msgstr ""
-
-#: actions/makeadmin.php:133
-#, php-format
-msgid "Can't get membership record for %1$s in group %2$s."
-msgstr ""
-
-#: actions/makeadmin.php:146
-#, php-format
-msgid "Can't make %1$s an admin for group %2$s."
-msgstr ""
-
-#: actions/microsummary.php:69
-msgid "No current status."
 msgstr ""
 
 #: actions/newapplication.php:143
@@ -1686,14 +1573,6 @@ msgstr ""
 #: actions/newmessage.php:164 lib/command.php:506
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
-msgstr ""
-
-#: actions/newmessage.php:181
-msgid "Message sent"
-msgstr ""
-
-#: actions/newmessage.php:210 actions/newnotice.php:261 lib/channel.php:189
-msgid "Ajax Error"
 msgstr ""
 
 #: actions/newnotice.php:69
@@ -1736,11 +1615,6 @@ msgid ""
 "[post on this topic](%%%%action.newnotice%%%%?status_textarea=%s)!"
 msgstr ""
 
-#: actions/noticesearchrss.php:96
-#, php-format
-msgid "Updates with \"%s\""
-msgstr ""
-
 #: actions/noticesearchrss.php:98
 #, php-format
 msgid "Updates matching search term \"%1$s\" on %2$s!"
@@ -1751,6 +1625,10 @@ msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email yet."
 msgstr ""
 
+#: actions/oauthappssettings.php:74
+msgid "OAuth applications"
+msgstr ""
+
 #: actions/oauthappssettings.php:85
 msgid "Applications you have registered"
 msgstr ""
@@ -1758,6 +1636,10 @@ msgstr ""
 #: actions/oauthappssettings.php:135
 #, php-format
 msgid "You have not registered any applications yet."
+msgstr ""
+
+#: actions/oauthconnectionssettings.php:72
+msgid "Connected applications"
 msgstr ""
 
 #: actions/oauthconnectionssettings.php:83
@@ -1786,12 +1668,6 @@ msgstr "Người dùng không có thông tin."
 msgid "%1$s's status on %2$s"
 msgstr "Trạng thái của %1$s vào %2$s"
 
-#. TRANS: Error message displaying attachments. %s is a raw MIME type (eg 'image/png')
-#: actions/oembed.php:159
-#, php-format
-msgid "Content type %s not supported."
-msgstr ""
-
 #. TRANS: Error message displaying attachments. %s is the site's base URL.
 #: actions/oembed.php:163
 #, php-format
@@ -1799,8 +1675,8 @@ msgid "Only %s URLs over plain HTTP please."
 msgstr ""
 
 #. TRANS: Client error on an API request with an unsupported data format.
-#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1215
-#: lib/apiaction.php:1243 lib/apiaction.php:1366
+#: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1206
+#: lib/apiaction.php:1233 lib/apiaction.php:1356
 msgid "Not a supported data format."
 msgstr "Không hỗ trợ định dạng dữ liệu này."
 
@@ -1832,13 +1708,13 @@ msgstr ""
 msgid "Show or hide profile designs."
 msgstr ""
 
-#: actions/otp.php:69
-msgid "No user ID specified."
-msgstr ""
-
 #: actions/otp.php:90
 msgid "No login token requested."
 msgstr "Không có yêu cầu!"
+
+#: actions/otp.php:104
+msgid "Login token expired."
+msgstr ""
 
 #: actions/outbox.php:61
 #, php-format
@@ -1901,32 +1777,12 @@ msgid "Password saved."
 msgstr "Đã lưu mật khẩu."
 
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:384
+#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:371
 msgid "Paths"
 msgstr ""
 
 #: actions/pathsadminpanel.php:70
 msgid "Path and server settings for this StatusNet site."
-msgstr ""
-
-#: actions/pathsadminpanel.php:157
-#, php-format
-msgid "Theme directory not readable: %s."
-msgstr ""
-
-#: actions/pathsadminpanel.php:163
-#, php-format
-msgid "Avatar directory not writable: %s."
-msgstr ""
-
-#: actions/pathsadminpanel.php:169
-#, php-format
-msgid "Background directory not writable: %s."
-msgstr ""
-
-#: actions/pathsadminpanel.php:177
-#, php-format
-msgid "Locales directory not readable: %s."
 msgstr ""
 
 #: actions/pathsadminpanel.php:183
@@ -1973,26 +1829,6 @@ msgstr ""
 msgid "Theme directory"
 msgstr ""
 
-#: actions/pathsadminpanel.php:292
-msgid "Avatar directory"
-msgstr ""
-
-#: actions/pathsadminpanel.php:301
-msgid "Backgrounds"
-msgstr ""
-
-#: actions/pathsadminpanel.php:305
-msgid "Background server"
-msgstr ""
-
-#: actions/pathsadminpanel.php:309
-msgid "Background path"
-msgstr ""
-
-#: actions/pathsadminpanel.php:313
-msgid "Background directory"
-msgstr ""
-
 #: actions/pathsadminpanel.php:325
 msgid "Always"
 msgstr ""
@@ -2005,16 +1841,8 @@ msgstr ""
 msgid "When to use SSL"
 msgstr ""
 
-#: actions/pathsadminpanel.php:335
-msgid "SSL server"
-msgstr ""
-
 #: actions/pathsadminpanel.php:336
 msgid "Server to direct SSL requests to"
-msgstr ""
-
-#: actions/pathsadminpanel.php:352
-msgid "Save paths"
 msgstr ""
 
 #: actions/peoplesearch.php:52
@@ -2066,22 +1894,13 @@ msgstr "Tên đầy đủ"
 
 #. TRANS: Form input field label.
 #: actions/profilesettings.php:115 actions/register.php:460
-#: lib/applicationeditform.php:244 lib/groupeditform.php:161
+#: lib/applicationeditform.php:235 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Trang chủ hoặc Blog"
 
 #: actions/profilesettings.php:117 actions/register.php:462
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL về Trang chính, Blog, hoặc hồ sơ cá nhân của bạn trên "
-
-#: actions/profilesettings.php:122 actions/register.php:468
-#, php-format
-msgid "Describe yourself and your interests in %d chars"
-msgstr ""
-
-#: actions/profilesettings.php:125 actions/register.php:471
-msgid "Describe yourself and your interests"
-msgstr ""
 
 #: actions/profilesettings.php:127 actions/register.php:473
 msgid "Bio"
@@ -2157,7 +1976,7 @@ msgid "Couldn't save profile."
 msgstr "Không thể lưu hồ sơ cá nhân."
 
 #. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:141
+#: actions/profilesettings.php:391 lib/adminpanelaction.php:138
 msgid "Settings saved."
 msgstr "Đã lưu các điều chỉnh."
 
@@ -2169,10 +1988,6 @@ msgstr ""
 #: actions/public.php:132 lib/publicgroupnav.php:79
 msgid "Public timeline"
 msgstr "Dòng tin công cộng"
-
-#: actions/public.php:168
-msgid "Public Stream Feed (Atom)"
-msgstr ""
 
 #: actions/public.php:188
 #, php-format
@@ -2206,10 +2021,6 @@ msgid ""
 "This is %%site.name%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-"
 "blogging) service based on the Free Software [StatusNet](http://status.net/) "
 "tool."
-msgstr ""
-
-#: actions/publictagcloud.php:57
-msgid "Public tag cloud"
 msgstr ""
 
 #: actions/publictagcloud.php:63
@@ -2429,33 +2240,6 @@ msgstr ""
 msgid "All rights reserved."
 msgstr ""
 
-#. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:540
-#, php-format
-msgid ""
-"My text and files are available under %s except this private data: password, "
-"email address, IM address, and phone number."
-msgstr ""
-
-#: actions/register.php:583
-#, php-format
-msgid ""
-"Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
-"want to...\n"
-"\n"
-"* Go to [your profile](%2$s) and post your first message.\n"
-"* Add a [Jabber/GTalk address](%%%%action.imsettings%%%%) so you can send "
-"notices through instant messages.\n"
-"* [Search for people](%%%%action.peoplesearch%%%%) that you may know or that "
-"share your interests. \n"
-"* Update your [profile settings](%%%%action.profilesettings%%%%) to tell "
-"others more about you. \n"
-"* Read over the [online docs](%%%%doc.help%%%%) for features you may have "
-"missed. \n"
-"\n"
-"Thanks for signing up and we hope you enjoy using this service."
-msgstr ""
-
 #: actions/register.php:607
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
@@ -2509,16 +2293,8 @@ msgstr "Theo bạn này"
 msgid "Invalid profile URL (bad format)"
 msgstr "URL hồ sơ cá nhân không đúng định dạng."
 
-#: actions/remotesubscribe.php:168
-msgid "Not a valid profile URL (no YADIS document or invalid XRDS defined)."
-msgstr ""
-
 #: actions/remotesubscribe.php:176
 msgid "That’s a local profile! Login to subscribe."
-msgstr ""
-
-#: actions/remotesubscribe.php:183
-msgid "Couldn’t get a request token."
 msgstr ""
 
 #: actions/repeat.php:57
@@ -2580,13 +2356,9 @@ msgstr "%s chào mừng bạn "
 msgid "StatusNet"
 msgstr "Số liệu thống kê"
 
-#: actions/sandbox.php:72
-msgid "User is already sandboxed."
-msgstr ""
-
 #. TRANS: Menu item for site administration
 #: actions/sessionsadminpanel.php:54 actions/sessionsadminpanel.php:170
-#: lib/adminpanelaction.php:392
+#: lib/adminpanelaction.php:379
 msgid "Sessions"
 msgstr ""
 
@@ -2611,18 +2383,13 @@ msgid "Turn on debugging output for sessions."
 msgstr ""
 
 #. TRANS: Form input field label for application icon.
-#: actions/showapplication.php:159 lib/applicationeditform.php:182
+#: actions/showapplication.php:159 lib/applicationeditform.php:173
 msgid "Icon"
 msgstr ""
 
 #. TRANS: Form input field label.
-#: actions/showapplication.php:178 lib/applicationeditform.php:235
-msgid "Organization"
-msgstr ""
-
-#. TRANS: Form input field label.
 #: actions/showapplication.php:187 actions/version.php:200
-#: lib/applicationeditform.php:216 lib/groupeditform.php:172
+#: lib/applicationeditform.php:207 lib/groupeditform.php:172
 msgid "Description"
 msgstr "Mô tả"
 
@@ -2636,8 +2403,16 @@ msgstr "Số liệu thống kê"
 msgid "Created by %1$s - %2$s access by default - %3$d users"
 msgstr ""
 
+#: actions/showapplication.php:213
+msgid "Application actions"
+msgstr ""
+
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
+msgstr ""
+
+#: actions/showapplication.php:261
+msgid "Application info"
 msgstr ""
 
 #: actions/showapplication.php:263
@@ -2710,7 +2485,7 @@ msgstr ""
 msgid "This is a way to share what you like."
 msgstr ""
 
-#: actions/showgroup.php:82 lib/groupnav.php:86
+#: actions/showgroup.php:82
 #, php-format
 msgid "%s group"
 msgstr "Hộp thư đi của %s"
@@ -2747,7 +2522,7 @@ msgstr "Chọn những người bạn của %s"
 msgid "FOAF for %s group"
 msgstr "Hộp thư đi của %s"
 
-#: actions/showgroup.php:393 actions/showgroup.php:445 lib/groupnav.php:91
+#: actions/showgroup.php:393 actions/showgroup.php:445
 msgid "Members"
 msgstr "Thành viên"
 
@@ -2783,10 +2558,6 @@ msgstr ""
 #: actions/showmessage.php:81
 msgid "No such message."
 msgstr "Không có tin nhắn nào."
-
-#: actions/showmessage.php:98
-msgid "Only the sender and recipient may read this message."
-msgstr ""
 
 #: actions/shownotice.php:90
 msgid "Notice deleted."
@@ -2845,10 +2616,6 @@ msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
 "wikipedia.org/wiki/Micro-blogging) service based on the Free Software "
 "[StatusNet](http://status.net/) tool. "
-msgstr ""
-
-#: actions/silence.php:72
-msgid "User is already silenced."
 msgstr ""
 
 #: actions/siteadminpanel.php:69
@@ -2960,11 +2727,6 @@ msgstr "Thay đổi hình đại diện"
 msgid "You can receive SMS messages through email from %%site.name%%."
 msgstr "Bạn có thể nhận tin nhắn SMS qua email từ %%site.name%%."
 
-#. TRANS: Message given in the SMS settings if SMS is not enabled on the site.
-#: actions/smssettings.php:97
-msgid "SMS is not available."
-msgstr ""
-
 #. TRANS: Form legend for SMS settings form.
 #: actions/smssettings.php:111
 msgid "SMS address"
@@ -3049,13 +2811,17 @@ msgstr "Không có mã nào được nhập"
 
 #. TRANS: Menu item for site administration
 #: actions/snapshotadminpanel.php:54 actions/snapshotadminpanel.php:196
-#: lib/adminpanelaction.php:408
+#: lib/adminpanelaction.php:395
 msgid "Snapshots"
 msgstr ""
 
 #: actions/snapshotadminpanel.php:65
 msgid "Manage snapshot configuration"
 msgstr "Xac nhan dia chi email"
+
+#: actions/snapshotadminpanel.php:127
+msgid "Invalid snapshot run value."
+msgstr ""
 
 #: actions/snapshotadminpanel.php:133
 msgid "Snapshot frequency must be a number."
@@ -3108,11 +2874,6 @@ msgstr "Không thể chèn thêm vào đăng nhận."
 
 #: actions/subscribe.php:77
 msgid "This action only accepts POST requests."
-msgstr ""
-
-#: actions/subscribers.php:52
-#, php-format
-msgid "%1$s subscribers, page %2$d"
 msgstr ""
 
 #: actions/subscribers.php:63
@@ -3190,10 +2951,6 @@ msgstr "Chọn những người bạn của %s"
 msgid "Notice feed for tag %s (Atom)"
 msgstr "Chọn những người bạn của %s"
 
-#: actions/tagother.php:39
-msgid "No ID argument."
-msgstr ""
-
 #: actions/tagother.php:77 lib/userprofile.php:76
 msgid "User profile"
 msgstr "Người dùng không có thông tin."
@@ -3226,6 +2983,12 @@ msgstr "Không có yêu cầu!"
 #, php-format
 msgid ""
 "Listenee stream license ‘%1$s’ is not compatible with site license ‘%2$s’."
+msgstr ""
+
+#. TRANS: User admin panel title
+#: actions/useradminpanel.php:59
+msgctxt "TITLE"
+msgid "User"
 msgstr ""
 
 #: actions/useradminpanel.php:70
@@ -3275,13 +3038,6 @@ msgstr ""
 msgid "Authorize subscription"
 msgstr "Đăng nhận cho phép"
 
-#: actions/userauthorization.php:110
-msgid ""
-"Please check these details to make sure that you want to subscribe to this "
-"user’s notices. If you didn’t just ask to subscribe to someone’s notices, "
-"click “Reject”."
-msgstr ""
-
 #: actions/userauthorization.php:196 actions/version.php:167
 msgid "License"
 msgstr ""
@@ -3311,23 +3067,9 @@ msgstr "Không có yêu cầu!"
 msgid "Subscription authorized"
 msgstr "Đăng nhận được phép"
 
-#: actions/userauthorization.php:256
-msgid ""
-"The subscription has been authorized, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to authorize the "
-"subscription. Your subscription token is:"
-msgstr ""
-
 #: actions/userauthorization.php:266
 msgid "Subscription rejected"
 msgstr "Đăng nhận từ chối"
-
-#: actions/userauthorization.php:268
-msgid ""
-"The subscription has been rejected, but no callback URL was passed. Check "
-"with the site’s instructions for details on how to fully reject the "
-"subscription."
-msgstr ""
 
 #: actions/userauthorization.php:303
 #, php-format
@@ -3352,16 +3094,6 @@ msgstr ""
 #: actions/userauthorization.php:345
 #, php-format
 msgid "Avatar URL ‘%s’ is not valid."
-msgstr ""
-
-#: actions/userauthorization.php:350
-#, php-format
-msgid "Can’t read avatar URL ‘%s’."
-msgstr ""
-
-#: actions/userauthorization.php:355
-#, php-format
-msgid "Wrong image type for avatar URL ‘%s’."
 msgstr ""
 
 #: actions/userdesignsettings.php:87 lib/designsettings.php:76
@@ -3505,6 +3237,11 @@ msgid ""
 "few minutes."
 msgstr ""
 
+#. TRANS: Client exception thrown when a user tries to post while being banned.
+#: classes/Notice.php:291
+msgid "You are banned from posting notices on this site."
+msgstr ""
+
 #. TRANS: Server exception thrown when a notice cannot be saved.
 #. TRANS: Server exception thrown when a notice cannot be updated.
 #: classes/Notice.php:358 classes/Notice.php:385
@@ -3538,7 +3275,7 @@ msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
-#: classes/Subscription.php:75 lib/oauthstore.php:465
+#: classes/Subscription.php:75 lib/oauthstore.php:466
 msgid "You have been banned from subscribing."
 msgstr ""
 
@@ -3592,9 +3329,9 @@ msgstr "Đang thực hiện việc thay đổi email"
 msgid "Design your profile"
 msgstr "Người dùng không có thông tin."
 
-#. TRANS: Link description in user account settings menu.
-#: lib/accountsettingsaction.php:146
-msgid "Other"
+#. TRANS: Link title attribute in user account settings menu.
+#: lib/accountsettingsaction.php:144
+msgid "Other options"
 msgstr ""
 
 #. TRANS: Page title. %1$s is the title, %2$s is the site name.
@@ -3619,19 +3356,14 @@ msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr ""
 
-#. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:465
-msgctxt "TOOLTIP"
-msgid "Connect to services"
-msgstr ""
-
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
 #: lib/action.php:468
 msgid "Connect"
 msgstr "Kết nối"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
-#: lib/action.php:474
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/action.php:474 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
 msgstr ""
@@ -3642,17 +3374,16 @@ msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr ""
 
-#. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:495
-msgctxt "TOOLTIP"
-msgid "Create an account"
-msgstr ""
-
 #. TRANS: Tooltip for main menu option "Login"
 #: lib/action.php:501
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr ""
+
+#: lib/action.php:510
+msgctxt "MENU"
+msgid "Help"
+msgstr "Trợ giúp"
 
 #. TRANS: Tooltip for main menu option "Search"
 #: lib/action.php:513
@@ -3663,11 +3394,6 @@ msgstr ""
 #. TRANS: DT element for local views block. String is hidden in default CSS.
 #: lib/action.php:605
 msgid "Local views"
-msgstr ""
-
-#. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:778
-msgid "Secondary site navigation"
 msgstr ""
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
@@ -3705,73 +3431,41 @@ msgstr "Nguồn"
 msgid "Contact"
 msgstr "Liên hệ"
 
-#: lib/action.php:810
-msgid "Badge"
-msgstr ""
-
 #. TRANS: DT element for StatusNet software license.
 #: lib/action.php:839
 msgid "StatusNet software license"
 msgstr ""
 
-#. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
-#: lib/action.php:843
-#, php-format
-msgid ""
-"**%%site.name%%** is a microblogging service brought to you by [%%site."
-"broughtby%%](%%site.broughtbyurl%%)."
-msgstr ""
-
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:846
+#: lib/action.php:849
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** là dịch vụ gửi tin nhắn."
 
-#. TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
-#: lib/action.php:850
-#, php-format
-msgid ""
-"It runs the [StatusNet](http://status.net/) microblogging software, version %"
-"s, available under the [GNU Affero General Public License](http://www.fsf."
-"org/licensing/licenses/agpl-3.0.html)."
-msgstr ""
-
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:873
+#: lib/action.php:879
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:880
+#: lib/action.php:886
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:884
+#: lib/action.php:890
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 
-#. TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:897
+#. TRANS: license message in footer.
+#. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
+#: lib/action.php:904
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
-msgstr ""
-
-#. TRANS: Pagination message to go to a page displaying information more in the
-#. TRANS: present than the currently displayed information.
-#: lib/action.php:1247
-msgid "After"
-msgstr ""
-
-#. TRANS: Pagination message to go to a page displaying information more in the
-#. TRANS: past than the currently displayed information.
-#: lib/action.php:1257
-msgid "Before"
 msgstr ""
 
 #. TRANS: Client exception thrown when a feed instance is a DOMDocument.
@@ -3779,125 +3473,163 @@ msgstr ""
 msgid "Expecting a root feed element but got a whole XML document."
 msgstr ""
 
-#: lib/activityutils.php:208
+#. TRANS: Client exception thrown when there is no source attribute.
+#: lib/activityutils.php:203
 msgid "Can't handle remote content yet."
 msgstr ""
 
-#: lib/activityutils.php:244
+#. TRANS: Client exception thrown when there embedded XML content is found that cannot be processed yet.
+#: lib/activityutils.php:240
 msgid "Can't handle embedded XML content yet."
 msgstr ""
 
-#: lib/activityutils.php:248
+#. TRANS: Client exception thrown when base64 encoded content is found that cannot be processed yet.
+#: lib/activityutils.php:245
 msgid "Can't handle embedded Base64 content yet."
 msgstr ""
 
 #. TRANS: Client error message.
-#: lib/adminpanelaction.php:229
+#: lib/adminpanelaction.php:222
 msgid "showForm() not implemented."
 msgstr ""
 
 #. TRANS: Client error message
-#: lib/adminpanelaction.php:259
+#: lib/adminpanelaction.php:250
 msgid "saveSettings() not implemented."
 msgstr ""
 
 #. TRANS: Menu item for site administration
-#: lib/adminpanelaction.php:360
-msgctxt "MENU"
-msgid "Design"
+#: lib/adminpanelaction.php:355 lib/personalgroupnav.php:115
+msgid "User"
 msgstr ""
 
 #. TRANS: Menu item title/tooltip
-#: lib/adminpanelaction.php:398
+#: lib/adminpanelaction.php:385
 msgid "Edit site notice"
 msgstr "Xóa tin nhắn"
 
 #. TRANS: Client error 401.
-#: lib/apiauth.php:113
+#: lib/apiauth.php:111
 msgid "API resource requires read-write access, but you only have read access."
 msgstr ""
 
+#. TRANS: OAuth exception thrown when no application is found for a given consumer key.
+#: lib/apiauth.php:175
+msgid "No application for that consumer key."
+msgstr ""
+
+#. TRANS: OAuth exception given when an incorrect access token was given for a user.
+#: lib/apiauth.php:212
+msgid "Bad access token."
+msgstr ""
+
+#. TRANS: OAuth exception given when no user was found for a given token (no token was found).
+#: lib/apiauth.php:217
+msgid "No user for that token."
+msgstr ""
+
+#. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
+#. TRANS: Client error thrown when authentication fails.
+#: lib/apiauth.php:258 lib/apiauth.php:290
+msgid "Could not authenticate you."
+msgstr ""
+
+#. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
+#: lib/apioauthstore.php:178
+msgid "Tried to revoke unknown token."
+msgstr ""
+
+#. TRANS: Exception thrown when an attempt is made to remove a revoked token.
+#: lib/apioauthstore.php:182
+msgid "Failed to delete revoked token."
+msgstr ""
+
+#. TRANS: Form legend.
+#: lib/applicationeditform.php:129
+msgid "Edit application"
+msgstr ""
+
+#. TRANS: Form guide.
+#: lib/applicationeditform.php:178
+msgid "Icon for this application"
+msgstr ""
+
 #. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:213
+#: lib/applicationeditform.php:204
 msgid "Describe your application"
 msgstr "Mô tả"
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:224
-msgid "URL of the homepage of this application"
-msgstr ""
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:233
 msgid "Organization responsible for this application"
 msgstr ""
 
 #. TRANS: Form input field instructions.
 #: lib/applicationeditform.php:242
-msgid "URL for the homepage of the organization"
-msgstr ""
-
-#. TRANS: Form input field instructions.
-#: lib/applicationeditform.php:251
 msgid "URL to redirect to after authentication"
 msgstr ""
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:278
+#: lib/applicationeditform.php:269
 msgid "Browser"
 msgstr ""
 
 #. TRANS: Radio button label for application type
-#: lib/applicationeditform.php:295
+#: lib/applicationeditform.php:286
 msgid "Desktop"
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:297
+#: lib/applicationeditform.php:288
 msgid "Type of application, browser or desktop"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:320
+#: lib/applicationeditform.php:311
 msgid "Read-only"
 msgstr ""
 
 #. TRANS: Radio button label for access type.
-#: lib/applicationeditform.php:339
+#: lib/applicationeditform.php:330
 msgid "Read-write"
 msgstr ""
 
 #. TRANS: Form guide.
-#: lib/applicationeditform.php:341
+#: lib/applicationeditform.php:332
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
-#. TRANS: Submit button title
-#: lib/applicationeditform.php:359
+#. TRANS: Submit button title.
+#: lib/applicationeditform.php:349
 msgid "Cancel"
 msgstr "Hủy"
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:136
+#: lib/applicationlist.php:135
 msgid "read-write"
 msgstr ""
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:138
+#: lib/applicationlist.php:137
 msgid "read-only"
 msgstr ""
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
-#: lib/applicationlist.php:144
+#: lib/applicationlist.php:143
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr ""
 
 #. TRANS: Button label
-#: lib/applicationlist.php:159
+#: lib/applicationlist.php:158
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Khôi phục"
+
+#. TRANS: DT element label in attachment list.
+#: lib/attachmentlist.php:88
+msgid "Attachments"
+msgstr ""
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:265
@@ -3909,17 +3641,30 @@ msgstr ""
 msgid "Provider"
 msgstr "Xem trước"
 
-#: lib/attachmentnoticesection.php:67
+#. TRANS: Title.
+#: lib/attachmentnoticesection.php:68
 msgid "Notices where this attachment appears"
 msgstr ""
 
-#: lib/authenticationplugin.php:236
-msgid "Password changing is not allowed"
+#. TRANS: Title.
+#: lib/attachmenttagcloudsection.php:49
+msgid "Tags for this attachment"
+msgstr ""
+
+#: lib/channel.php:229 lib/mailhandler.php:142
+msgid "Command complete"
 msgstr ""
 
 #: lib/channel.php:240
 msgid "Command failed"
 msgstr "Bạn và bạn bè"
+
+#. TRANS: Message given getting a non-existing user.
+#. TRANS: %s is the nickname of the user that could not be found.
+#: lib/command.php:150
+#, php-format
+msgid "Could not find a local user with nickname %s."
+msgstr ""
 
 #. TRANS: Error text shown when an unimplemented command is given.
 #: lib/command.php:185
@@ -3929,13 +3674,6 @@ msgstr ""
 #. TRANS: Command exception text shown when a user tries to nudge themselves.
 #: lib/command.php:231
 msgid "It does not make a lot of sense to nudge yourself!"
-msgstr ""
-
-#. TRANS: Message given having nudged another user.
-#. TRANS: %s is the nickname of the user that was nudged.
-#: lib/command.php:240
-#, php-format
-msgid "Nudge sent to %s."
 msgstr ""
 
 #. TRANS: User statistics text.
@@ -3948,6 +3686,20 @@ msgid ""
 "Subscriptions: %1$s\n"
 "Subscribers: %2$s\n"
 "Notices: %3$s"
+msgstr ""
+
+#. TRANS: Message given having added a user to a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:360
+#, php-format
+msgid "%1$s joined group %2$s."
+msgstr ""
+
+#. TRANS: Message given having removed a user from a group.
+#. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
+#: lib/command.php:408
+#, php-format
+msgid "%1$s left group %2$s."
 msgstr ""
 
 #. TRANS: Whois output. %s is the location of the queried user.
@@ -3996,10 +3748,24 @@ msgstr ""
 msgid "Specify the name of the user to subscribe to."
 msgstr ""
 
+#. TRANS: Text shown after having subscribed to another user successfully.
+#. TRANS: %s is the name of the user the subscription was requested for.
+#: lib/command.php:672
+#, php-format
+msgid "Subscribed to %s."
+msgstr ""
+
 #. TRANS: Error text shown when no username was provided when issuing an unsubscribe command.
 #. TRANS: Error text shown when no username was provided when issuing the command.
 #: lib/command.php:694 lib/command.php:804
 msgid "Specify the name of the user to unsubscribe from."
+msgstr ""
+
+#. TRANS: Text shown after having unsubscribed from another user successfully.
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:705
+#, php-format
+msgid "Unsubscribed from %s."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the command "off" with a setting which has not yet been implemented.
@@ -4011,6 +3777,11 @@ msgstr ""
 #. TRANS: Error text shown when the command "off" fails for an unknown reason.
 #: lib/command.php:731
 msgid "Can't turn off notification."
+msgstr ""
+
+#. TRANS: Error text shown when the command "on" fails for an unknown reason.
+#: lib/command.php:757
+msgid "Can't turn on notification."
 msgstr ""
 
 #. TRANS: Error text shown when issuing the login command while login is disabled.
@@ -4025,13 +3796,20 @@ msgstr ""
 msgid "This link is useable only once and is valid for only 2 minutes: %s."
 msgstr ""
 
+#. TRANS: Text shown after issuing the lose command successfully (stop another user from following the current user).
+#. TRANS: %s is the name of the user the unsubscription was requested for.
+#: lib/command.php:813
+#, php-format
+msgid "Unsubscribed %s."
+msgstr ""
+
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:831
 msgid "You are not subscribed to anyone."
 msgstr "Bạn đã theo những người này:"
 
 #. TRANS: Text shown after requesting other users a user is subscribed to.
-#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed users.
 #: lib/command.php:836
 msgid "You are subscribed to this person:"
@@ -4039,7 +3817,7 @@ msgid_plural "You are subscribed to these people:"
 msgstr[0] "Bạn đã theo những người này:"
 
 #. TRANS: Text shown after requesting other users that are subscribed to a user (followers).
-#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribing users.
 #: lib/command.php:863
 msgid "This person is subscribed to you:"
@@ -4047,13 +3825,14 @@ msgid_plural "These people are subscribed to you:"
 msgstr[0] "Không thể tạo favorite."
 
 #. TRANS: Text shown after requesting groups a user is subscribed to.
-#. TRANS: This message support plural forms. This message is followed by a
+#. TRANS: This message supports plural forms. This message is followed by a
 #. TRANS: hard coded space and a comma separated list of subscribed groups.
 #: lib/command.php:890
 msgid "You are a member of this group:"
 msgid_plural "You are a member of these groups:"
 msgstr[0] "Bạn chưa cập nhật thông tin riêng"
 
+#. TRANS: Help text for commands. Do not translate the command names themselves; they are fixed strings.
 #: lib/command.php:905
 msgid ""
 "Commands:\n"
@@ -4128,6 +3907,10 @@ msgstr ""
 msgid "Database error"
 msgstr ""
 
+#: lib/designsettings.php:105
+msgid "Upload file"
+msgstr "Tải tập tin lên"
+
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr ""
@@ -4181,45 +3964,81 @@ msgstr ""
 msgid "Grant this user the \"%s\" role"
 msgstr ""
 
-#: lib/groupeditform.php:170
-#, php-format
-msgid "Describe the group or topic in %d characters"
-msgstr ""
-
 #: lib/groupeditform.php:187
 #, php-format
 msgid "Extra nicknames for the group, comma- or space- separated, max %d"
 msgstr ""
 
-#: lib/groupnav.php:85
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:86
+msgctxt "MENU"
 msgid "Group"
-msgstr "Nhóm"
+msgstr ""
 
-#: lib/groupnav.php:101
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:89
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page.
+#: lib/groupnav.php:95
+msgctxt "MENU"
+msgid "Members"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:98
+#, php-format
+msgctxt "TOOLTIP"
+msgid "%s group members"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:108
+msgctxt "MENU"
 msgid "Blocked"
-msgstr "Chặn người dùng"
+msgstr ""
 
-#: lib/groupnav.php:102
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:111
 #, php-format
+msgctxt "TOOLTIP"
 msgid "%s blocked users"
-msgstr "Chặn người dùng"
+msgstr ""
 
-#: lib/groupnav.php:113
-msgid "Logo"
-msgstr "Đăng nhập"
-
-#: lib/groupnav.php:114
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:120
 #, php-format
+msgctxt "TOOLTIP"
+msgid "Edit %s group properties"
+msgstr ""
+
+#. TRANS: Menu item in the group navigation page. Only shown for group administrators.
+#: lib/groupnav.php:126
+msgctxt "MENU"
+msgid "Logo"
+msgstr ""
+
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:129
+#, php-format
+msgctxt "TOOLTIP"
 msgid "Add or edit %s logo"
 msgstr ""
 
-#: lib/groupnav.php:120
+#. TRANS: Tooltip for menu item in the group navigation page. Only shown for group administrators.
+#. TRANS: %s is the nickname of the group.
+#: lib/groupnav.php:138
 #, php-format
+msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
-msgstr ""
-
-#: lib/groupsbymemberssection.php:71
-msgid "Groups with most members"
 msgstr ""
 
 #: lib/groupsbypostssection.php:71
@@ -4244,17 +4063,14 @@ msgstr "Không hỗ trợ kiểu file ảnh này."
 msgid "Partial upload."
 msgstr "Upload từng phần."
 
-#: lib/imagefile.php:101 lib/mediafile.php:170
+#. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
+#: lib/imagefile.php:101 lib/mediafile.php:179
 msgid "System error uploading file."
 msgstr "Hệ thống xảy ra lỗi trong khi tải file."
 
 #: lib/imagefile.php:109
 msgid "Not an image or corrupt file."
 msgstr "File hỏng hoặc không phải là file ảnh."
-
-#: lib/imagefile.php:163 lib/imagefile.php:224
-msgid "Unknown file type"
-msgstr ""
 
 #: lib/imagefile.php:244
 msgid "MB"
@@ -4278,32 +4094,10 @@ msgstr ""
 msgid "Login with a username and password"
 msgstr "Tên đăng nhập hoặc mật khẩu không hợp lệ."
 
-#: lib/logingroupnav.php:86
-msgid "Sign up for a new account"
-msgstr ""
-
 #. TRANS: Subject for address confirmation email
 #: lib/mail.php:174
 msgid "Email address confirmation"
 msgstr "Xac nhan dia chi email"
-
-#. TRANS: Body for address confirmation email.
-#: lib/mail.php:177
-#, php-format
-msgid ""
-"Hey, %s.\n"
-"\n"
-"Someone just entered this email address on %s.\n"
-"\n"
-"If it was you, and you want to confirm your entry, use the URL below:\n"
-"\n"
-"\t%s\n"
-"\n"
-"If not, just ignore this message.\n"
-"\n"
-"Thanks for your time, \n"
-"%s\n"
-msgstr ""
 
 #. TRANS: Subject of new-subscriber notification e-mail
 #: lib/mail.php:243
@@ -4316,22 +4110,6 @@ msgstr "%1$s đang theo dõi lưu ý của bạn trên %2$s."
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
 "your subscribers list and report as spam to site administrators at %s"
-msgstr ""
-
-#. TRANS: Main body of new-subscriber notification e-mail
-#: lib/mail.php:254
-#, php-format
-msgid ""
-"%1$s is now listening to your notices on %2$s.\n"
-"\n"
-"\t%3$s\n"
-"\n"
-"%4$s%5$s%6$s\n"
-"Faithfully yours,\n"
-"%7$s.\n"
-"\n"
-"----\n"
-"Change your email address or notification options at %8$s\n"
 msgstr ""
 
 #. TRANS: Profile info line in new-subscriber notification e-mail
@@ -4372,12 +4150,6 @@ msgstr ""
 #: lib/mail.php:460
 msgid "SMS confirmation"
 msgstr "Xác nhận SMS"
-
-#. TRANS: Main body heading for SMS-by-email address confirmation message
-#: lib/mail.php:463
-#, php-format
-msgid "%s: confirm you own this phone number with this code:"
-msgstr ""
 
 #. TRANS: Subject for 'nudge' notification email
 #: lib/mail.php:484
@@ -4450,28 +4222,6 @@ msgstr ""
 "Gửi email thông báo tôi khi có ai đó lưu tin nhắn của tôi vào danh sách ưa "
 "thích của họ."
 
-#. TRANS: Body for favorite notification email
-#: lib/mail.php:592
-#, php-format
-msgid ""
-"%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
-"\n"
-"The URL of your notice is:\n"
-"\n"
-"%3$s\n"
-"\n"
-"The text of your notice is:\n"
-"\n"
-"%4$s\n"
-"\n"
-"You can see the list of %1$s's favorites here:\n"
-"\n"
-"%5$s\n"
-"\n"
-"Faithfully yours,\n"
-"%6$s\n"
-msgstr ""
-
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
 #: lib/mail.php:651
 #, php-format
@@ -4479,6 +4229,11 @@ msgid ""
 "The full conversation can be read here:\n"
 "\n"
 "\t%s"
+msgstr ""
+
+#: lib/mail.php:657
+#, php-format
+msgid "%s (@%s) sent a notice to your attention"
 msgstr ""
 
 #. TRANS: Body of @-reply notification e-mail.
@@ -4519,10 +4274,6 @@ msgid ""
 "users in conversation. People can send you messages for your eyes only."
 msgstr ""
 
-#: lib/mailbox.php:228 lib/noticelist.php:506
-msgid "from"
-msgstr ""
-
 #: lib/mailhandler.php:42
 msgid "Not a registered user."
 msgstr "Không có người dùng nào đăng ký"
@@ -4535,61 +4286,73 @@ msgstr "Xin lỗi, đó không phải là địa chỉ email mà bạn nhập v�
 msgid "Sorry, no incoming email allowed."
 msgstr "Xin lỗi, không có địa chỉ email cho phép."
 
-#: lib/mediafile.php:98 lib/mediafile.php:123
+#. TRANS: Client exception thrown when a database error was thrown during a file upload operation.
+#: lib/mediafile.php:99 lib/mediafile.php:125
 msgid "There was a database error while saving your file. Please try again."
 msgstr ""
 
-#: lib/mediafile.php:142
+#. TRANS: Client exception thrown when an uploaded file is larger than set in php.ini.
+#: lib/mediafile.php:145
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini."
 msgstr ""
 
-#: lib/mediafile.php:147
+#. TRANS: Client exception.
+#: lib/mediafile.php:151
 msgid ""
 "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
 "the HTML form."
 msgstr ""
 
-#: lib/mediafile.php:152
+#. TRANS: Client exception.
+#: lib/mediafile.php:157
 msgid "The uploaded file was only partially uploaded."
 msgstr ""
 
-#: lib/mediafile.php:159
+#. TRANS: Client exception thrown when a temporary folder is not present to store a file upload.
+#: lib/mediafile.php:165
 msgid "Missing a temporary folder."
 msgstr ""
 
-#: lib/mediafile.php:162
+#. TRANS: Client exception thrown when writing to disk is not possible during a file upload operation.
+#: lib/mediafile.php:169
 msgid "Failed to write file to disk."
 msgstr ""
 
-#: lib/mediafile.php:165
+#. TRANS: Client exception thrown when a file upload operation has been stopped by an extension.
+#: lib/mediafile.php:173
 msgid "File upload stopped by extension."
 msgstr ""
 
-#: lib/mediafile.php:179 lib/mediafile.php:217
+#. TRANS: Client exception thrown when a file upload operation would cause a user to exceed a set quota.
+#: lib/mediafile.php:189 lib/mediafile.php:232
 msgid "File exceeds user's quota."
 msgstr ""
 
-#: lib/mediafile.php:197 lib/mediafile.php:234
+#. TRANS: Client exception thrown when a file upload operation fails because the file could
+#. TRANS: not be moved from the temporary folder to the permanent file location.
+#: lib/mediafile.php:209 lib/mediafile.php:251
 msgid "File could not be moved to destination directory."
 msgstr ""
 
-#: lib/mediafile.php:318
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %1$s is the file type that was denied, %2$s is the application part of
+#. TRANS: the MIME type that was denied.
+#: lib/mediafile.php:340
 #, php-format
-msgid " Try using another %s format."
+msgid ""
+"\"%1$s\" is not a supported file type on this server. Try using another %2$s "
+"format."
 msgstr ""
 
-#: lib/mediafile.php:323
+#. TRANS: Client exception thrown trying to upload a forbidden MIME type.
+#. TRANS: %s is the file type that was denied.
+#: lib/mediafile.php:345
 #, php-format
-msgid "%s is not a supported file type on this server."
+msgid "\"%s\" is not a supported file type on this server."
 msgstr ""
 
 #: lib/messageform.php:146
 msgid "To"
-msgstr ""
-
-#: lib/messageform.php:178 lib/noticeform.php:237
-msgctxt "Send button for sending notice"
-msgid "Send"
 msgstr ""
 
 #: lib/noticeform.php:174
@@ -4605,23 +4368,10 @@ msgstr ""
 msgid "Attach a file"
 msgstr ""
 
-#: lib/noticeform.php:213
-msgid "Share my location"
-msgstr ""
-
-#: lib/noticeform.php:216
-msgid "Do not share my location"
-msgstr ""
-
 #: lib/noticeform.php:217
 msgid ""
 "Sorry, retrieving your geo location is taking longer than expected, please "
 "try again later"
-msgstr ""
-
-#. TRANS: Used in coordinates as abbreviation of north
-#: lib/noticelist.php:436
-msgid "N"
 msgstr ""
 
 #. TRANS: Used in coordinates as abbreviation of south
@@ -4668,27 +4418,24 @@ msgstr "Tìm kiếm thông báo"
 msgid "Nudge this user"
 msgstr "Bỏ chặn người dùng này"
 
-#: lib/nudgeform.php:128
-msgid "Nudge"
+#: lib/oauthstore.php:283
+msgid "Error inserting new profile."
 msgstr ""
 
-#: lib/oauthstore.php:283
-msgid "Error inserting new profile"
-msgstr "Lỗi xảy ra khi thêm mới hồ sơ cá nhân"
-
 #: lib/oauthstore.php:291
-msgid "Error inserting avatar"
-msgstr "Lỗi xảy ra khi thêm mới hình đại diện"
-
-#: lib/oauthstore.php:306
-msgid "Error updating remote profile"
-msgstr "Lỗi xảy ra khi cập nhật hồ sơ cá nhân"
+msgid "Error inserting avatar."
+msgstr ""
 
 #: lib/oauthstore.php:311
-msgid "Error inserting remote profile"
-msgstr "Lỗi xảy ra khi thêm mới hồ sơ cá nhân"
+msgid "Error inserting remote profile."
+msgstr ""
 
-#: lib/oauthstore.php:490
+#. TRANS: Exception thrown when a notice is denied because it has been sent before.
+#: lib/oauthstore.php:346
+msgid "Duplicate notice."
+msgstr ""
+
+#: lib/oauthstore.php:491
 msgid "Couldn't insert new subscription."
 msgstr "Không thể chèn thêm vào đăng nhận."
 
@@ -4720,11 +4467,6 @@ msgstr "Hộp thư đi"
 msgid "Your sent messages"
 msgstr "Thư bạn đã gửi"
 
-#: lib/personaltagcloudsection.php:56
-#, php-format
-msgid "Tags in %s's notices"
-msgstr ""
-
 #: lib/profileaction.php:109 lib/profileaction.php:205 lib/subgroupnav.php:82
 msgid "Subscriptions"
 msgstr "Tôi theo bạn này"
@@ -4736,6 +4478,10 @@ msgstr "Tất cả đăng nhận"
 #: lib/profileaction.php:144 lib/profileaction.php:214 lib/subgroupnav.php:90
 msgid "Subscribers"
 msgstr "Bạn này theo tôi"
+
+#: lib/profileaction.php:191
+msgid "User ID"
+msgstr ""
 
 #: lib/profileaction.php:196
 msgid "Member since"
@@ -4754,12 +4500,8 @@ msgstr ""
 msgid "Public"
 msgstr "Công cộng"
 
-#: lib/publicgroupnav.php:84 lib/publicgroupnav.php:85
-msgid "Recent tags"
-msgstr ""
-
-#: lib/redirectingaction.php:95
-msgid "No return-to arguments."
+#: lib/publicgroupnav.php:88
+msgid "Featured"
 msgstr ""
 
 #: lib/repeatform.php:107
@@ -4774,22 +4516,20 @@ msgstr "Có"
 msgid "Repeat this notice"
 msgstr "Không thể xóa tin nhắn này."
 
-#: lib/revokeroleform.php:91
-#, php-format
-msgid "Revoke the \"%s\" role from this user"
-msgstr ""
-
 #: lib/router.php:709
 msgid "No single user defined for single-user mode."
 msgstr ""
 
-#: lib/searchaction.php:126
+#. TRANS: Used as a field label for the field where one or more keywords
+#. TRANS: for searching can be entered.
+#: lib/searchaction.php:129
 msgid "Keyword(s)"
 msgstr ""
 
-#: lib/searchaction.php:127
+#: lib/searchaction.php:130
+msgctxt "BUTTON"
 msgid "Search"
-msgstr "Tìm kiếm"
+msgstr ""
 
 #: lib/searchgroupnav.php:80
 msgid "People"
@@ -4809,10 +4549,6 @@ msgstr ""
 
 #: lib/section.php:106
 msgid "More..."
-msgstr ""
-
-#: lib/silenceform.php:67
-msgid "Silence"
 msgstr ""
 
 #: lib/silenceform.php:78
@@ -4841,10 +4577,6 @@ msgstr ""
 #: lib/subscriberspeopletagcloudsection.php:48
 #: lib/subscriptionspeopletagcloudsection.php:48
 msgid "People Tagcloud as tagged"
-msgstr ""
-
-#: lib/tagcloudsection.php:56
-msgid "None"
 msgstr ""
 
 #: lib/themeuploader.php:50
@@ -4881,10 +4613,6 @@ msgstr ""
 #: lib/themeuploader.php:241
 #, php-format
 msgid "Theme contains file of type '.%s', which is not allowed."
-msgstr ""
-
-#: lib/topposterssection.php:74
-msgid "Top posters"
 msgstr ""
 
 #: lib/unsandboxform.php:69
@@ -4930,56 +4658,60 @@ msgid "Moderator"
 msgstr ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1102
+#: lib/util.php:1103
 msgid "a few seconds ago"
 msgstr "vài giây trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1105
+#: lib/util.php:1106
 msgid "about a minute ago"
 msgstr "1 phút trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1109
+#: lib/util.php:1110
 #, php-format
-msgid "about %d minutes ago"
-msgstr "%d phút trước"
+msgid "about one minute ago"
+msgid_plural "about %d minutes ago"
+msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1112
+#: lib/util.php:1113
 msgid "about an hour ago"
 msgstr "1 giờ trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1116
+#: lib/util.php:1117
 #, php-format
-msgid "about %d hours ago"
-msgstr "%d giờ trước"
+msgid "about one hour ago"
+msgid_plural "about %d hours ago"
+msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1119
+#: lib/util.php:1120
 msgid "about a day ago"
 msgstr "1 ngày trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1123
+#: lib/util.php:1124
 #, php-format
-msgid "about %d days ago"
-msgstr "%d ngày trước"
+msgid "about one day ago"
+msgid_plural "about %d days ago"
+msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1126
+#: lib/util.php:1127
 msgid "about a month ago"
 msgstr "1 tháng trước"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1130
+#: lib/util.php:1131
 #, php-format
-msgid "about %d months ago"
-msgstr "%d tháng trước"
+msgid "about one month ago"
+msgid_plural "about %d months ago"
+msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1133
+#: lib/util.php:1134
 msgid "about a year ago"
 msgstr "1 năm trước"
 

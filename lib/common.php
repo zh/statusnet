@@ -150,11 +150,17 @@ try {
 } catch (NoConfigException $e) {
     // XXX: Throw a conniption if database not installed
     // XXX: Find a way to use htmlwriter for this instead of handcoded markup
+    // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     echo '<p>'. _('No configuration file found. ') .'</p>';
-    echo '<p>'. _('I looked for configuration files in the following places: ') .'<br/> ';
-    echo implode($e->configFiles, '<br/>');
+    // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+    // TRANS: Is followed by a list of directories (separated by HTML breaks).
+    echo '<p>'. _('I looked for configuration files in the following places: ') .'<br /> ';
+    echo implode($e->configFiles, '<br />');
+    // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
+    // @todo FIXME Link should be in a para?
+    // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
+    // TRANS: The text is link text that leads to the installer page.
     echo '<a href="install.php">'. _('Go to the installer.') .'</a>';
     exit;
 }
-

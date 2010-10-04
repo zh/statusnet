@@ -43,7 +43,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class AutocompleteAction extends Action
 {
     private $result;
@@ -80,6 +79,7 @@ class AutocompleteAction extends Action
     function etag()
     {
         return '"' . implode(':', array($this->arg('action'),
+            common_user_cache_hash(),
             crc32($this->arg('q')), //the actual string can have funny characters in we don't want showing up in the etag
             $this->arg('limit'),
             $this->lastModified())) . '"';

@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 {
     /**
@@ -59,7 +58,6 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
      * @return void
      *
      **/
-
     function __construct($id = null, $interval = 60,
                          $max_children = 2, $debug = null)
     {
@@ -71,7 +69,6 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
      *
      * @return string Name of the daemon.
      */
-
     function name()
     {
         return ('synctwitterfriends.' . $this->_id);
@@ -110,12 +107,10 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
     }
 
     function childTask($flink) {
-
         // Each child ps needs its own DB connection
 
         // Note: DataObject::getDatabaseConnection() creates
         // a new connection if there isn't one already
-
         $conn = &$flink->getDatabaseConnection();
 
         $this->subscribeTwitterFriends($flink);
@@ -127,7 +122,6 @@ class SyncTwitterFriendsDaemon extends ParallelizingDaemon
 
         // XXX: Couldn't find a less brutal way to blow
         // away a cached connection
-
         global $_DB_DATAOBJECT;
         unset($_DB_DATAOBJECT['CONNECTIONS']);
     }
@@ -277,4 +271,3 @@ if (have_option('d') || have_option('debug')) {
 
 $syncer = new SyncTwitterFriendsDaemon($id, 60, 2, $debug);
 $syncer->runOnce();
-
