@@ -67,7 +67,7 @@ class PathsadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('Path and server settings for this StatusNet site.');
+        return _('Path and server settings for this StatusNet site');
     }
 
     /**

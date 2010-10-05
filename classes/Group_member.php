@@ -65,4 +65,59 @@ class Group_member extends Memcached_DataObject
 
         return true;
     }
+
+    function getMember()
+    {
+        $member = Profile::staticGet('id', $this->profile_id);
+
+        if (empty($member)) {
+            // TRANS: Exception thrown providing an invalid profile ID.
+            // TRANS: %s is the invalid profile ID.
+            throw new Exception(sprintf(_("Profile ID %s is invalid."),$this->profile_id));
+        }
+
+        return $member;
+    }
+
+    function getGroup()
+    {
+        $group  = User_group::staticGet('id', $this->group_id);
+
+        if (empty($group)) {
+            // TRANS: Exception thrown providing an invalid group ID.
+            // TRANS: %s is the invalid group ID.
+            throw new Exception(sprintf(_("Group ID %s is invalid."),$this->group_id));
+        }
+
+        return $group;
+    }
+
+    function asActivity()
+    {
+        $member = $this->getMember();
+        $group  = $this->getGroup();
+
+        $act = new Activity();
+
+        $act->id = TagURI::mint('join:%d:%d:%s',
+                                $member->id,
+                                $group->id,
+                                common_date_iso8601($this->created));
+
+        $act->actor     = ActivityObject::fromProfile($member);
+        $act->verb      = ActivityVerb::JOIN;
+        $act->objects[] = ActivityObject::fromGroup($group);
+
+        $act->time  = strtotime($this->created);
+        // TRANS: Activity title.
+        $act->title = _("Join");
+
+        // TRANS: Success message for subscribe to group attempt through OStatus.
+        // TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+        $act->content = sprintf(_('%1$s has joined group %2$s.'),
+                                $member->getBestName(),
+                                $group->getBestName());
+
+        return $act;
+    }
 }

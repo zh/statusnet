@@ -1,0 +1,195 @@
+/** theme: clean
+ *
+ * @package   StatusNet
+ * @author    Samantha Doherty <sammy@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://creativecommons.org/licenses/by/3.0/ Creative Commons Attribution 3.0 Unported
+ * @link      http://status.net/
+ */
+
+
+@media screen, projection, tv {
+
+body {
+    background: #9a9aa4 url(../images/page_bg.png) no-repeat fixed 50% 100%;
+    background-color: #6e6e8c;
+    font-family: "Liberation Sans", "Nimbus Sans L", "FreeSans", "Helvetica Neue", Helvetica, Arial, sans-serif; 
+    font-size: 86%;
+}
+
+#wrap {
+    width: 860px;
+    margin: 0px auto;
+    padding: 10px;
+    padding-top: 0px;
+    background-color: #fff;
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+    -moz-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+    -webkit-box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+}
+
+#header {
+    padding-top: 70px;
+}
+
+address {
+    float: left;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.poweredby {
+    background: url(../images/sn-tiny.png) no-repeat top left;
+    height: 40px;
+    font-size: 0.8em;
+    color: #fff;
+    line-height: 42px;
+    padding-left: 50px;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    z-index: 99;
+    font-style: normal;
+}
+
+.poweredby a {
+    color: #fff !important;
+    font-weight: bold;
+}
+
+#site_nav_global_primary {
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 98;
+    background-color: #829d25;
+    width: 880px;
+    left: 50%;
+    margin-left: -440px; 
+    margin-top: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-align: right;
+    border-top: 10px solid #fff;
+    border-bottom: 1px solid #fff;
+}
+
+#site_nav_global_primary a {
+    color: #fff !important;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+#site_notice {
+    float: right;
+    width: 266px; 
+    margin-left: 40px;
+}
+
+.form_notice {
+    float: right;
+    width: 500px;   
+    margin-top: 0px;
+}
+
+#anon_notice {
+    clear: both;
+    background: none;
+    padding: 0px;
+    margin-bottom: 0px;
+}
+
+.form_notice fieldset {
+    width: 100%;
+}
+
+.form_notice textarea {
+    width: 364px;
+    height: 54px;
+}
+
+.form_notice #notice_data-geo_wrap label,
+.form_notice #notice_data-geo_wrap input {
+    top: 48px;
+}
+
+.form_notice #notice_action-submit {
+    font-size: 0.9em;
+    top: 74px;
+    right:0;
+    height: 2.4em;
+    width: 106px;
+}
+
+#core {
+    clear: both;
+    margin-top: 14px;
+}
+
+#content {
+    padding-top: 10px;
+}
+
+#site_nav_local_views {
+    background-color: #6e6e8c;
+    height: 2em;
+    line-height: 2em;
+    margin-bottom: 0px;
+    padding-left: 4px;
+}
+
+#site_nav_local_views a {
+    color: #fff !important;
+    padding: 2px 6px 2px 6px;
+}
+
+#site_nav_local_views .current a {
+    background: #fff !important;
+    color: #000 !important;
+    text-decoration: none;
+}
+
+.notice {
+    line-height: 1.35em;
+}
+
+#content .notice .author .photo {
+    left: 0px;
+}
+
+#content .notice .entry-title {
+    min-height: 26px;
+}
+
+#showstream .notice .entry-title {
+    min-height: 0px;
+}
+
+#shownotice .notice .entry-title {
+    min-height:123px;
+}
+
+.user_in .notice div.entry-content {
+    max-width: 360px;
+    opacity: 0.6;
+}
+
+.user_in .notice div.entry-content:hover {
+    opacity: 1;
+}
+
+.notice div.entry-content {
+    font-size: 0.9em;
+    line-height: 1.2em;
+    margin-top: 10px;
+}
+
+.notice-options {
+    margin-top: 6px;
+}
+
+.pagination {
+    height: 1.2em;
+}
+
+}/*end of @media screen, projection, tv*/
+

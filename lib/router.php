@@ -490,19 +490,19 @@ class Router
             // Social graph
 
             $m->connect('api/friends/ids/:id.:format',
-                        array('action' => 'apiuserfriends',
+                        array('action' => 'ApiUserFriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids/:id.:format',
-                        array('action' => 'apiuserfollowers',
+                        array('action' => 'ApiUserFollowers',
                               'ids_only' => true));
 
             $m->connect('api/friends/ids.:format',
-                        array('action' => 'apiuserfriends',
+                        array('action' => 'ApiUserFriends',
                               'ids_only' => true));
 
             $m->connect('api/followers/ids.:format',
-                        array('action' => 'apiuserfollowers',
+                        array('action' => 'ApiUserFollowers',
                               'ids_only' => true));
 
             // account
@@ -680,13 +680,13 @@ class Router
             $m->connect('api/trends.json', array('action' => 'ApiTrends'));
 
             $m->connect('api/oauth/request_token',
-                        array('action' => 'apioauthrequesttoken'));
+                        array('action' => 'ApiOauthRequestToken'));
 
             $m->connect('api/oauth/access_token',
-                        array('action' => 'apioauthaccesstoken'));
+                        array('action' => 'ApiOauthAccessToken'));
 
             $m->connect('api/oauth/authorize',
-                        array('action' => 'apioauthauthorize'));
+                        array('action' => 'ApiOauthAuthorize'));
 
             // Admin
 
@@ -698,6 +698,7 @@ class Router
             $m->connect('admin/sessions', array('action' => 'sessionsadminpanel'));
             $m->connect('admin/sitenotice', array('action' => 'sitenoticeadminpanel'));
             $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
+            $m->connect('admin/license', array('action' => 'licenseadminpanel'));
             $m->connect('admin/plugins', array('action' => 'pluginsadminpanel'));
             $m->connect('admin/plugins/enable/:plugin',
                         array('action' => 'pluginenable'),

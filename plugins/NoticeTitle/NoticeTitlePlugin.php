@@ -51,6 +51,12 @@ define('NOTICE_TITLE_PLUGIN_VERSION', '0.1');
 
 class NoticeTitlePlugin extends Plugin
 {
+
+    // By default, notice-title widget will be available to all users.
+    // With restricted on, only users who have been granted the
+    // "richedit" role get it.
+    public $restricted = false;
+
     /**
      * Database schema setup
      *
@@ -123,7 +129,7 @@ class NoticeTitlePlugin extends Plugin
                             'author' => 'Evan Prodromou',
                             'homepage' => $url,
                             'rawdescription' =>
-                            _m('Adds optional titles to notices'));
+                            _m('Adds optional titles to notices.'));
         return true;
     }
 
@@ -137,14 +143,16 @@ class NoticeTitlePlugin extends Plugin
 
     function onStartShowNoticeFormData($form)
     {
-        $form->out->element('style',
-                            null,
-                            'label#notice_data-text-label { display: none }');
-        $form->out->element('input', array('type' => 'text',
-                                           'id' => 'notice_title',
-                                           'name' => 'notice_title',
-                                           'size' => 40,
-                                           'maxlength' => Notice_title::MAXCHARS));
+        if ($this->isAllowedRichEdit()) {
+            $form->out->element('style',
+                                null,
+                                'label#notice_data-text-label { display: none }');
+            $form->out->element('input', array('type' => 'text',
+                                               'id' => 'notice_title',
+                                               'name' => 'notice_title',
+                                               'size' => 40,
+                                               'maxlength' => Notice_title::MAXCHARS));
+        }
         return true;
     }
 
@@ -162,9 +170,9 @@ class NoticeTitlePlugin extends Plugin
     function onStartNoticeSaveWeb($action, &$authorId, &$text, &$options)
     {
         $title = $action->trimmed('notice_title');
-        if (!empty($title)) {
+        if (!empty($title) && $this->isAllowedRichEdit()) {
             if (mb_strlen($title) > Notice_title::MAXCHARS) {
-                throw new Exception(sprintf(_m("Notice title too long (max %d)",
+                throw new Exception(sprintf(_m("The notice title is too long (max %d characters).",
                                                Notice_title::MAXCHARS)));
             }
         }
@@ -186,7 +194,7 @@ class NoticeTitlePlugin extends Plugin
 
             $title = $action->trimmed('notice_title');
 
-            if (!empty($title)) {
+            if (!empty($title) && $this->isAllowedRichEdit()) {
 
                 $nt = new Notice_title();
 
@@ -213,7 +221,9 @@ class NoticeTitlePlugin extends Plugin
         $title = Notice_title::fromNotice($nli->notice);
 
         if (!empty($title)) {
-            $nli->out->element('h4', array('class' => 'notice_title'), $title);
+            $nli->out->elementStart('h4', array('class' => 'notice_title'));
+            $nli->out->element('a', array('href' => $nli->notice->bestUrl()), $title);
+            $nli->out->elementEnd('h4');
         }
 
         return true;
@@ -296,7 +306,7 @@ class NoticeTitlePlugin extends Plugin
             if (!empty($title)) {
                 $action->element('title', null,
                                  // TRANS: Page title. %1$s is the title, %2$s is the site name.
-                                 sprintf(_("%1\$s - %2\$s"),
+                                 sprintf(_m("%1\$s - %2\$s"),
                                          $title,
                                          common_config('site', 'name')));
             }
@@ -327,5 +337,24 @@ class NoticeTitlePlugin extends Plugin
 
         return true;
     }
-}
 
+    /**
+     * Does the current user have permission to use the notice-title widget?
+     * Always true unless the plugin's "restricted" setting is on, in which
+     * case it's limited to users with the "richedit" role.
+     *
+     * @fixme make that more sanely configurable :)
+     *
+     * @return boolean
+     */
+    private function isAllowedRichEdit()
+    {
+        if ($this->restricted) {
+            $user = common_current_user();
+            return !empty($user) && $user->hasRole('richedit');
+        } else {
+            return true;
+        }
+    }
+
+}

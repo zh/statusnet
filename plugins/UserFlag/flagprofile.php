@@ -40,7 +40,6 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-
 class FlagprofileAction extends ProfileFormAction
 {
     /**
@@ -50,7 +49,6 @@ class FlagprofileAction extends ProfileFormAction
      *
      * @return boolean success flag
      */
-
     function prepare($args)
     {
         if (!parent::prepare($args)) {
@@ -64,7 +62,8 @@ class FlagprofileAction extends ProfileFormAction
 
         if (User_flag_profile::exists($this->profile->id,
                                       $user->id)) {
-            $this->clientError(_('Flag already exists.'));
+            // TRANS: Client error when setting flag that has already been set for a profile.
+            $this->clientError(_m('Flag already exists.'));
             return false;
         }
 
@@ -81,7 +80,6 @@ class FlagprofileAction extends ProfileFormAction
      *
      * @return void
      */
-
     function handle($args)
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -97,7 +95,6 @@ class FlagprofileAction extends ProfileFormAction
      *
      * @return void
      */
-
     function handlePost()
     {
         $user = common_current_user();
@@ -119,19 +116,19 @@ class FlagprofileAction extends ProfileFormAction
      *
      * @return void
      */
-
     function ajaxResults()
     {
         header('Content-Type: text/xml;charset=utf-8');
         $this->xw->startDocument('1.0', 'UTF-8');
         $this->elementStart('html');
         $this->elementStart('head');
-        $this->element('title', null, _('Flagged for review'));
+        // TRANS: AJAX form title for a flagged profile.
+        $this->element('title', null, _m('Flagged for review'));
         $this->elementEnd('head');
         $this->elementStart('body');
-        $this->element('p', 'flagged', _('Flagged'));
+        // TRANS: Body text for AJAX form when a profile has been flagged for review.
+        $this->element('p', 'flagged', _m('Flagged'));
         $this->elementEnd('body');
         $this->elementEnd('html');
     }
 }
-

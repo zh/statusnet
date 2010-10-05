@@ -45,17 +45,14 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitter.php';
  * @link     http://status.net/
  * @link     http://twitter.com/
  */
-
 class TwitterBridgePlugin extends Plugin
 {
-
     const VERSION = STATUSNET_VERSION;
     public $adminImportControl = false; // Should the 'import' checkbox be exposed in the admin panel?
 
     /**
      * Initializer for the plugin.
      */
-
     function initialize()
     {
         // Allow the key and secret to be passed in
@@ -86,7 +83,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return boolean result
      */
-
     static function hasKeys()
     {
         $ckey    = common_config('twitter', 'consumer_key');
@@ -113,7 +109,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('admin/twitter', array('action' => 'twitteradminpanel'));
@@ -310,7 +305,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array(
@@ -319,8 +313,8 @@ class TwitterBridgePlugin extends Plugin
             'author' => 'Zach Copley, Julien C',
             'homepage' => 'http://status.net/wiki/Plugin:TwitterBridge',
             'rawdescription' => _m(
-                'The Twitter "bridge" plugin allows you to integrate ' .
-                'your StatusNet instance with ' .
+                'The Twitter "bridge" plugin allows integration ' .
+                'of a StatusNet instance with ' .
                 '<a href="http://twitter.com/">Twitter</a>.'
             )
         );
@@ -374,7 +368,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -416,7 +409,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onStartDeleteOwnNotice(User $user, Notice $notice)
     {
         $n2s = Notice_to_status::staticGet('notice_id', $notice->id);
@@ -452,7 +444,6 @@ class TwitterBridgePlugin extends Plugin
      * @param Notice $notice being favored
      * @return hook return value
      */
-
     function onEndFavorNotice(Profile $profile, Notice $notice)
     {
         $flink = Foreign_link::getByUserID($profile->id,
@@ -489,7 +480,6 @@ class TwitterBridgePlugin extends Plugin
      *
      * @return hook return value
      */
-
     function onEndDisfavorNotice(Profile $profile, Notice $notice)
     {
         $flink = Foreign_link::getByUserID($profile->id,

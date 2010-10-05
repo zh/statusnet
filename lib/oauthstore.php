@@ -280,7 +280,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
                 $profile->created = DB_DataObject_Cast::dateTime(); # current time
                 $id = $profile->insert();
                 if (!$id) {
-                    throw new Exception(_('Error inserting new profile'));
+                    throw new Exception(_('Error inserting new profile.'));
                 }
                 $remote->id = $id;
             }
@@ -288,7 +288,7 @@ class StatusNetOAuthDataStore extends OAuthDataStore
             $avatar_url = $omb_profile->getAvatarURL();
             if ($avatar_url) {
                 if (!$this->add_avatar($profile, $avatar_url)) {
-                    throw new Exception(_('Error inserting avatar'));
+                    throw new Exception(_('Error inserting avatar.'));
                 }
             } else {
                 $avatar = $profile->getOriginalAvatar();
@@ -303,12 +303,12 @@ class StatusNetOAuthDataStore extends OAuthDataStore
 
             if ($exists) {
                 if (!$remote->update($orig_remote)) {
-                    throw new Exception(_('Error updating remote profile'));
+                    throw new Exception(_('Error updating remote profile.'));
                 }
             } else {
                 $remote->created = DB_DataObject_Cast::dateTime(); # current time
                 if (!$remote->insert()) {
-                    throw new Exception(_('Error inserting remote profile'));
+                    throw new Exception(_('Error inserting remote profile.'));
                 }
             }
         }
@@ -342,7 +342,8 @@ class StatusNetOAuthDataStore extends OAuthDataStore
      **/
     public function saveNotice(&$omb_notice) {
         if (Notice::staticGet('uri', $omb_notice->getIdentifierURI())) {
-            throw new Exception(_('Duplicate notice'));
+            // TRANS: Exception thrown when a notice is denied because it has been sent before.
+            throw new Exception(_('Duplicate notice.'));
         }
         $author_uri = $omb_notice->getAuthor()->getIdentifierURI();
         common_log(LOG_DEBUG, $author_uri, __FILE__);

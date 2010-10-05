@@ -62,7 +62,6 @@ require_once INSTALLDIR . '/plugins/TwitterBridge/twitteroauthclient.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class TwitterStatusFetcher extends ParallelizingDaemon
 {
     /**
@@ -87,7 +86,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      *
      * @return string Name of the daemon.
      */
-
     function name()
     {
         return ('twitterstatusfetcher.'.$this->_id);
@@ -99,7 +97,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      *
      * @return array flinks an array of Foreign_link objects
      */
-
     function getObjects()
     {
         global $_DB_DATAOBJECT;
@@ -133,12 +130,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     }
 
     function childTask($flink) {
-
         // Each child ps needs its own DB connection
 
         // Note: DataObject::getDatabaseConnection() creates
         // a new connection if there isn't one already
-
         $conn = &$flink->getDatabaseConnection();
 
         $this->getTimeline($flink);
@@ -150,7 +145,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         // XXX: Couldn't find a less brutal way to blow
         // away a cached connection
-
         global $_DB_DATAOBJECT;
         unset($_DB_DATAOBJECT['CONNECTIONS']);
     }
@@ -201,9 +195,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         // Reverse to preserve order
 
         foreach (array_reverse($timeline) as $status) {
-
             // Hacktastic: filter out stuff coming from this StatusNet
-
             $source = mb_strtolower(common_config('integration', 'source'));
 
             if (preg_match("/$source/", mb_strtolower($status->source))) {
@@ -214,7 +206,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
             // Don't save it if the user is protected
             // FIXME: save it but treat it as private
-
             if ($status->user->protected) {
                 continue;
             }
@@ -232,7 +223,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         // Okay, record the time we synced with Twitter for posterity
-
         $flink->last_noticesync = common_sql_now();
         $flink->update();
     }
@@ -250,7 +240,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $statusUri = $this->makeStatusURI($status->user->screen_name, $status->id);
 
         // check to see if we've already imported the status
-
         $n2s = Notice_to_status::staticGet('status_id', $status->id);
 
         if (!empty($n2s)) {
@@ -263,7 +252,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         }
 
         // If it's a retweet, save it as a repeat!
-
         if (!empty($status->retweeted_status)) {
             common_log(LOG_INFO, "Status {$status->id} is a retweet of {$status->retweeted_status->id}.");
             $original = $this->saveStatus($status->retweeted_status);
@@ -273,7 +261,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
                 $author = $original->getProfile();
                 // TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
                 // TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
-                $content = sprintf(_('RT @%1$s %2$s'),
+                $content = sprintf(_m('RT @%1$s %2$s'),
                                    $author->nickname,
                                    $original->content);
 
@@ -333,7 +321,7 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
         $notice->is_local   = Notice::GATEWAY;
 
-        $notice->content  = html_entity_decode($status->text);
+        $notice->content  = html_entity_decode($status->text, ENT_QUOTES, 'UTF-8');
         $notice->rendered = $this->linkify($status);
 
         if (Event::handle('StartNoticeSave', array(&$notice))) {
@@ -365,7 +353,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      *
      * @return string URI
      */
-
     function makeStatusURI($username, $id)
     {
         return 'http://twitter.com/'
@@ -383,7 +370,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      *
      * @return mixed value the first Profile with that url, or null
      */
-
     function getProfileByUrl($nickname, $profileurl)
     {
         $profile = new Profile();
@@ -407,7 +393,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
      *
      * @return mixed value a matching Notice or null
      */
-
     function checkDupe($profile, $statusUri)
     {
         $notice = new Notice();
@@ -426,7 +411,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
     function ensureProfile($user)
     {
         // check to see if there's already a profile for this user
-
         $profileurl = 'http://twitter.com/' . $user->screen_name;
         $profile = $this->getProfileByUrl($user->screen_name, $profileurl);
 
@@ -440,7 +424,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             return $profile;
 
         } else {
-
             common_debug($this->name() . ' - Adding profile and remote profile ' .
                          "for Twitter user: $profileurl.");
 
@@ -472,7 +455,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $remote_pro = Remote_profile::staticGet('uri', $profileurl);
 
             if (empty($remote_pro)) {
-
                 $remote_pro = new Remote_profile();
 
                 $remote_pro->id = $id;
@@ -619,7 +601,6 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $avatar = $profile->getAvatar($sizes[$size]);
 
         // Delete the avatar, if present
-
         if ($avatar) {
             $avatar->delete();
         }
@@ -644,10 +625,8 @@ class TwitterStatusFetcher extends ParallelizingDaemon
             $avatar->height = 48;
             break;
         default:
-
             // Note: Twitter's big avatars are a different size than
             // StatusNet's (StatusNet's = 96)
-
             $avatar->width  = 73;
             $avatar->height = 73;
         }
@@ -713,6 +692,10 @@ class TwitterStatusFetcher extends ParallelizingDaemon
         $text = $status->text;
 
         if (empty($status->entities)) {
+            common_log(LOG_WARNING, "No entities data for {$status->id}; trying to fake up links ourselves.");
+            $text = common_replace_urls_callback($text, 'common_linkify');
+            $text = preg_replace('/(^|\&quot\;|\'|\(|\[|\{|\s+)#([\pL\pN_\-\.]{1,64})/e', "'\\1#'.TwitterStatusFetcher::tagLink('\\2')", $text);
+            $text = preg_replace('/(^|\s+)@([a-z0-9A-Z_]{1,64})/e', "'\\1@'.TwitterStatusFetcher::atLink('\\2')", $text);
             return $text;
         }
 
@@ -771,12 +754,26 @@ class TwitterStatusFetcher extends ParallelizingDaemon
 
     function makeHashtagLink($object)
     {
-        return "#<a href='https://twitter.com/search?q=%23{$object->text}' class='hashtag'>{$object->text}</a>";
+        return "#" . self::tagLink($object->text);
     }
 
     function makeMentionLink($object)
     {
-        return "@<a href='http://twitter.com/{$object->screen_name}' title='{$object->name}'>{$object->screen_name}</a>";
+        return "@".self::atLink($object->screen_name, $object->name);
+    }
+
+    static function tagLink($tag)
+    {
+        return "<a href='https://twitter.com/search?q=%23{$tag}' class='hashtag'>{$tag}</a>";
+    }
+
+    static function atLink($screenName, $fullName=null)
+    {
+        if (!empty($fullName)) {
+            return "<a href='http://twitter.com/{$screenName}' title='{$fullName}'>{$screenName}</a>";
+        } else {
+            return "<a href='http://twitter.com/{$screenName}'>{$screenName}</a>";
+        }
     }
 
     function saveStatusMentions($notice, $status)
@@ -822,4 +819,3 @@ if (have_option('d') || have_option('debug')) {
 
 $fetcher = new TwitterStatusFetcher($id, 60, 2, $debug);
 $fetcher->runOnce();
-

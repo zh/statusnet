@@ -188,7 +188,7 @@ class EditApplicationAction extends OwnerDesignAction
         } elseif (Oauth_application::descriptionTooLong($description)) {
             $this->showForm(sprintf(
                 _('Description is too long (max %d chars).'),
-                                    Oauth_application::maxDescription()));
+                                    Oauth_application::maxDesc()));
             return;
         } elseif (mb_strlen($source_url) > 255) {
             $this->showForm(_('Source URL is too long.'));
@@ -253,7 +253,10 @@ class EditApplicationAction extends OwnerDesignAction
 
         $result = $this->app->update($orig);
 
-        if (!$result) {
+        // Note: 0 means no rows changed, which can happen if the only
+        // thing we changed was the icon, since it's not altered until
+        // the next step.
+        if ($result === false) {
             common_log_db_error($this->app, 'UPDATE', __FILE__);
             $this->serverError(_('Could not update application.'));
         }

@@ -66,6 +66,7 @@ class UnblockForm extends ProfileActionForm
 
     function title()
     {
+        // TRANS: Title for the form to unblock a user.
         return _('Unblock');
     }
 
@@ -77,6 +78,7 @@ class UnblockForm extends ProfileActionForm
 
     function description()
     {
+        // TRANS: Description of the form to unblock a user.
         return _('Unblock this user');
     }
 }

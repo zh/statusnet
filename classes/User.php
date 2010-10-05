@@ -250,6 +250,19 @@ class User extends Memcached_DataObject
 
         $user->inboxed = 1;
 
+        // Set default-on options here, otherwise they'll be disabled
+        // initially for sites using caching, since the initial encache
+        // doesn't know about the defaults in the database.
+        $user->emailnotifysub = 1;
+        $user->emailnotifyfav = 1;
+        $user->emailnotifynudge = 1;
+        $user->emailnotifymsg = 1;
+        $user->emailnotifyattn = 1;
+        $user->emailmicroid = 1;
+        $user->emailpost = 1;
+        $user->jabbermicroid = 1;
+        $user->viewdesigns = 1;
+
         $user->created = common_sql_now();
 
         if (Event::handle('StartUserRegister', array(&$user, &$profile))) {
@@ -264,7 +277,13 @@ class User extends Memcached_DataObject
             }
 
             $user->id = $id;
-            $user->uri = common_user_uri($user);
+
+            if (!empty($uri)) {
+                $user->uri = $uri;
+            } else {
+                $user->uri = common_user_uri($user);
+            }
+
             if (!empty($password)) { // may not have a password for OpenID users
                 $user->password = common_munge_password($password, $id);
             }
@@ -388,37 +407,8 @@ class User extends Memcached_DataObject
 
     function hasFave($notice)
     {
-        $cache = Cache::instance();
-
-        // XXX: Kind of a hack.
-
-        if ($cache) {
-            // This is the stream of favorite notices, in rev chron
-            // order. This forces it into cache.
-
-            $ids = Fave::stream($this->id, 0, NOTICE_CACHE_WINDOW);
-
-            // If it's in the list, then it's a fave
-
-            if (in_array($notice->id, $ids)) {
-                return true;
-            }
-
-            // If we're not past the end of the cache window,
-            // then the cache has all available faves, so this one
-            // is not a fave.
-
-            if (count($ids) < NOTICE_CACHE_WINDOW) {
-                return false;
-            }
-
-            // Otherwise, cache doesn't have all faves;
-            // fall through to the default
-        }
-
-        $fave = Fave::pkeyGet(array('user_id' => $this->id,
-                                    'notice_id' => $notice->id));
-        return ((is_null($fave)) ? false : true);
+        $profile = $this->getProfile();
+        return $profile->hasFave($notice);
     }
 
     function mutuallySubscribed($other)
@@ -487,17 +477,8 @@ class User extends Memcached_DataObject
 
     function blowFavesCache()
     {
-        $cache = Cache::instance();
-        if ($cache) {
-            // Faves don't happen chronologically, so we need to blow
-            // ;last cache, too
-            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id));
-            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id.';last'));
-            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id));
-            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id.';last'));
-        }
         $profile = $this->getProfile();
-        $profile->blowFaveCount();
+        $profile->blowFavesCache();
     }
 
     function getSelfTags()
@@ -546,6 +527,9 @@ class User extends Memcached_DataObject
         $self = $this->getProfile();
         if (Subscription::exists($other, $self)) {
             Subscription::cancel($other, $self);
+        }
+        if (Subscription::exists($self, $other)) {
+            Subscription::cancel($self, $other);
         }
 
         $block->query('COMMIT');

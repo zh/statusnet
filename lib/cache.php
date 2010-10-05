@@ -41,7 +41,6 @@
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class Cache
 {
     var $_items   = array();
@@ -56,7 +55,6 @@ class Cache
      *
      * @return Cache cache object
      */
-
     static function instance()
     {
         if (is_null(self::$_inst)) {
@@ -77,7 +75,6 @@ class Cache
      *
      * @return string full key
      */
-
     static function key($extra)
     {
         $base_key = common_config('cache', 'base');
@@ -98,7 +95,6 @@ class Cache
      *
      * @return string keyized string
      */
-
     static function keyize($str)
     {
         $str = strtolower($str);
@@ -115,7 +111,6 @@ class Cache
      *
      * @return string retrieved value or null if unfound
      */
-
     function get($key)
     {
         $value = false;
@@ -140,7 +135,6 @@ class Cache
      *
      * @return boolean success flag
      */
-
     function set($key, $value, $flag=null, $expiry=null)
     {
         $success = false;
@@ -192,7 +186,6 @@ class Cache
      *
      * @return boolean success flag
      */
-
     function delete($key)
     {
         $success = false;
@@ -214,7 +207,6 @@ class Cache
      *
      * @return boolean success flag
      */
-
     function reconnect()
     {
         $success = false;

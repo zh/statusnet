@@ -83,6 +83,7 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->clientError(
+                // TRANS: Client error. POST is a HTTP command. It should not be translated.
                 _('This method requires a POST.'),
                 400, $this->format
             );
