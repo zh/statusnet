@@ -49,7 +49,9 @@ abstract class JsonStreamReader
     /**
      * Starts asynchronous connect operation...
      *
-     * @param <type> $url
+     * @fixme Can we do the open-socket fully async to? (need write select infrastructure)
+     *
+     * @param string $url
      */
     public function connect($url)
     {
@@ -114,6 +116,13 @@ abstract class JsonStreamReader
         return $buffer;
     }
 
+    /**
+     * Build HTTP request headers.
+     *
+     * @param string $host
+     * @param string $path
+     * @return string
+     */
     protected function httpOpen($host, $path)
     {
         $lines = array(
@@ -165,61 +174,69 @@ abstract class JsonStreamReader
 
     /**
      * Take a chunk of input over the horn and go go go! :D
+     *
      * @param string $buffer
      */
-    function handleInput($socket)
+    public function handleInput($socket)
     {
         if ($this->socket !== $socket) {
             throw new Exception('Got input from unexpected socket!');
         }
 
-        $buffer = $this->read();
+        try {
+            $buffer = $this->read();
+            $lines = explode(self::CRLF, $buffer);
+            foreach ($lines as $line) {
+                $this->handleLine($line);
+            }
+        } catch (Exception $e) {
+            common_log(LOG_ERR, "$this->id aborting connection due to error: " . $e->getMessage());
+            fclose($this->socket);
+            throw $e;
+        }
+    }
+
+    protected function handleLine($line)
+    {
         switch ($this->state)
         {
             case 'waiting':
-                $this->handleInputWaiting($buffer);
+                $this->handleLineWaiting($line);
                 break;
             case 'headers':
-                $this->handleInputHeaders($buffer);
+                $this->handleLineHeaders($line);
                 break;
             case 'active':
-                $this->handleInputActive($buffer);
+                $this->handleLineActive($line);
                 break;
             default:
-                throw new Exception('Invalid state in handleInput: ' . $this->state);
+                throw new Exception('Invalid state in handleLine: ' . $this->state);
         }
     }
 
-    function handleInputWaiting($buffer)
+    /**
+     *
+     * @param <type> $line
+     */
+    protected function handleLineWaiting($line)
     {
-        common_log(LOG_DEBUG, "$this->id Does this happen? " . $buffer);
+        $bits = explode(' ', $line, 3);
+        if (count($bits) != 3) {
+            throw new Exception("Invalid HTTP response line: $line");
+        }
+
+        list($http, $status, $text) = $bits;
+        if (substr($http, 0, 5) != 'HTTP/') {
+            throw new Exception("Invalid HTTP response line chunk '$http': $line");
+        }
+        if ($status != '200') {
+            throw new Exception("Bad HTTP response code $status: $line");
+        }
+        common_log(LOG_DEBUG, "$this->id $line");
         $this->state = 'headers';
-        $this->handleInputHeaders($buffer);
     }
 
-    function handleInputHeaders($buffer)
-    {
-        $lines = explode(self::CRLF, $buffer);
-        foreach ($lines as $line) {
-            if ($this->state == 'headers') {
-                $this->handleLineHeaders($line);
-            } else if ($this->state == 'active') {
-                $this->handleLineActive($line);
-            }
-        }
-    }
-
-    function handleInputActive($buffer)
-    {
-        // One JSON object on each line...
-        // Will we always deliver on packet boundaries?
-        $lines = explode(self::CRLF, $buffer);
-        foreach ($lines as $line) {
-            $this->handleLineActive($line);
-        }
-    }
-
-    function handleLineHeaders($line)
+    protected function handleLineHeaders($line)
     {
         if ($line == '') {
             $this->state = 'active';
@@ -230,7 +247,7 @@ abstract class JsonStreamReader
         }
     }
 
-    function handleLineActive($line)
+    protected function handleLineActive($line)
     {
         if ($line == "") {
             // Server sends empty lines as keepalive.
