@@ -94,11 +94,22 @@ abstract class TwitterStreamReader extends JsonStreamReader
 
     abstract function routeMessage($data);
 
-    function handleMessage($data, $forUserId=null)
+    /**
+     * Send the decoded JSON object out to any event listeners.
+     *
+     * @param array $data
+     * @param int $forUserId
+     */
+    function handleMessage(array $data, $forUserId=null)
     {
         $this->fireEvent('raw', $data, $forUserId);
-        $known = array('friends');
-        foreach ($known as $key) {
+
+        if (isset($data['id']) && isset($data['text']) && isset($data['user'])) {
+            $this->fireEvent('status', $data);
+        }
+
+        $knownMeta = array('friends', 'delete', 'scrubgeo', 'limit', 'event', 'direct_message');
+        foreach ($knownMeta as $key) {
             if (isset($data[$key])) {
                 $this->fireEvent($key, $data[$key], $forUserId);
             }

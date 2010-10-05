@@ -93,18 +93,24 @@ abstract class JsonStreamReader
         $this->state = 'waiting';
     }
 
+    /**
+     * Send some fun data off to the server.
+     *
+     * @param string $buffer
+     */
     function send($buffer)
     {
-        echo "Writing...\n";
-        var_dump($buffer);
         fwrite($this->socket, $buffer);
     }
 
+    /**
+     * Read next packet of data from the socket.
+     *
+     * @return string
+     */
     function read()
     {
-        echo "Reading...\n";
         $buffer = fread($this->socket, 65536);
-        var_dump($buffer);
         return $buffer;
     }
 
@@ -195,12 +201,16 @@ abstract class JsonStreamReader
     {
         $lines = explode(self::CRLF, $buffer);
         foreach ($lines as $line) {
-            if ($line == '') {
-                $this->state = 'active';
-                common_log(LOG_DEBUG, "$this->id connection is active!");
-            } else {
-                common_log(LOG_DEBUG, "$this->id read HTTP header: $line");
-                $this->responseHeaders[] = $line;
+            if ($this->state == 'headers') {
+                if ($line == '') {
+                    $this->state = 'active';
+                    common_log(LOG_DEBUG, "$this->id connection is active!");
+                } else {
+                    common_log(LOG_DEBUG, "$this->id read HTTP header: $line");
+                    $this->responseHeaders[] = $line;
+                }
+            } else if ($this->state == 'active') {
+                $this->handleLineActive($line);
             }
         }
     }
@@ -211,12 +221,21 @@ abstract class JsonStreamReader
         // Will we always deliver on packet boundaries?
         $lines = explode("\n", $buffer);
         foreach ($lines as $line) {
-            $data = json_decode($line, true);
-            if ($data) {
-                $this->handleJson($data);
-            } else {
-                common_log(LOG_ERR, "$this->id received bogus JSON data: " . $line);
-            }
+            $this->handleLineActive($line);
+        }
+    }
+
+    function handleLineActive($line)
+    {
+        if ($line == '') {
+            // Server sends empty lines as keepalive.
+            return;
+        }
+        $data = json_decode($line, true);
+        if ($data) {
+            $this->handleJson($data);
+        } else {
+            common_log(LOG_ERR, "$this->id received bogus JSON data: " . $line);
         }
     }
 
