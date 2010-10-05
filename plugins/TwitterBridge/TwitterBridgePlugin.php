@@ -200,6 +200,7 @@ class TwitterBridgePlugin extends Plugin
             return false;
         case 'TwitterOAuthClient':
         case 'TwitterQueueHandler':
+        case 'TwitterImport':
             include_once $dir . '/' . strtolower($cls) . '.php';
             return false;
         case 'Notice_to_status':
