@@ -86,11 +86,18 @@ class ApiOauthAction extends Action
         }
 
         // strip out the p param added in index.php
-
-        // XXX: should we strip anything else?  Or alternatively
-        // only allow a known list of params?
         unset($_GET['p']);
         unset($_POST['p']);
+        unset($_REQUEST['p']);
+
+        $queryArray = explode('&', $_SERVER['QUERY_STRING']);
+        for ($i = 0; $i < sizeof($queryArray); $i++) {
+            if (substr($queryArray[$i], 0, 1) == 'p=') {
+                unset($queryArray[$i]);
+            }
+        }
+
+        $_SERVER['QUERY_STRING'] = implode('&', $queryString);
     }
 
     function getCallback($url, $params)
