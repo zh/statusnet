@@ -2,7 +2,7 @@
 <?php
 /*
  * StatusNet - a distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2008-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -24,6 +24,15 @@ require_once INSTALLDIR . '/scripts/commandline.inc';
 require_once INSTALLDIR . '/extlib/OAuth.php';
 
 $ini = parse_ini_file("oauth.ini");
+
+// Check to make sure we have everything we need from the ini file
+foreach(array('consumer_key', 'consumer_secret', 'apiroot', 'request_token_url') as $inikey) {
+    if (empty($ini[$inikey])) {
+        print "You forgot to specify a $inikey in your oauth.ini file.\n";
+        exit(1);
+    }
+}
+
 $test_consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
 $rt_endpoint = $ini['apiroot'] . $ini['request_token_url'];
 $parsed = parse_url($rt_endpoint);
@@ -37,6 +46,7 @@ try {
     $req_req->sign_request($hmac_method, $test_consumer, NULL);
     $r = httpRequest($req_req->to_url());
 } catch (Exception $e) {
+    // oh noez
     print $e->getMessage();
     var_dump($req_req);
     exit(1);
