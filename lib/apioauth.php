@@ -30,7 +30,7 @@
 if (!defined('STATUSNET')) {
     exit(1);
 }
-
+require_once INSTALLDIR . '/lib/apiaction.php';
 require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
@@ -44,7 +44,7 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class ApiOauthAction extends Action
+class ApiOauthAction extends ApiAction
 {
     /**
      * Is this a read-only action?
@@ -91,13 +91,14 @@ class ApiOauthAction extends Action
         unset($_REQUEST['p']);
 
         $queryArray = explode('&', $_SERVER['QUERY_STRING']);
+
         for ($i = 0; $i < sizeof($queryArray); $i++) {
             if (substr($queryArray[$i], 0, 1) == 'p=') {
                 unset($queryArray[$i]);
             }
         }
 
-        $_SERVER['QUERY_STRING'] = implode('&', $queryString);
+        $_SERVER['QUERY_STRING'] = implode('&', $queryArray);
     }
 
     function getCallback($url, $params)
@@ -120,4 +121,5 @@ class ApiOauthAction extends Action
             return ($url . '&' . $k . '=' . $v);
         }
     }
+
 }
