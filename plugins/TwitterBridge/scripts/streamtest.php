@@ -81,7 +81,41 @@ function homeStreamForUser(User $user)
 $user = User::staticGet('nickname', $nickname);
 $stream = homeStreamForUser($user);
 $stream->hookEvent('raw', function($data) {
-    var_dump($data);
+    common_log(LOG_INFO, json_encode($data));
+});
+$stream->hookEvent('friends', function($data) {
+    printf("Friend list: %s\n", implode(', ', $data));
+});
+$stream->hookEvent('favorite', function($data) {
+    printf("%s favorited %s's notice: %s\n",
+            $data['source']['screen_name'],
+            $data['target']['screen_name'],
+            $data['target_object']['text']);
+});
+$stream->hookEvent('follow', function($data) {
+    printf("%s friended %s\n",
+            $data['source']['screen_name'],
+            $data['target']['screen_name']);
+});
+$stream->hookEvent('delete', function($data) {
+    printf("Deleted status notification: %s\n",
+            $data['status']['id']);
+});
+$stream->hookEvent('scrub_geo', function($data) {
+    printf("Req to scrub geo data for user id %s up to status ID %s\n",
+            $data['user_id'],
+            $data['up_to_status_id']);
+});
+$stream->hookEvent('status', function($data) {
+    printf("Received status update from %s: %s\n",
+            $data['user']['screen_name'],
+            $data['text']);
+});
+$stream->hookEvent('direct_message', function($data) {
+    printf("Direct message from %s to %s: %s\n",
+            $data['sender']['screen_name'],
+            $data['recipient']['screen_name'],
+            $data['text']);
 });
 
 class TwitterManager extends IoManager

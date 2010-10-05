@@ -104,14 +104,20 @@ abstract class TwitterStreamReader extends JsonStreamReader
     {
         $this->fireEvent('raw', $data, $forUserId);
 
-        if (isset($data['id']) && isset($data['text']) && isset($data['user'])) {
+        if (isset($data['text'])) {
             $this->fireEvent('status', $data);
+            return;
+        }
+        if (isset($data['event'])) {
+            $this->fireEvent($data['event'], $data);
+            return;
         }
 
-        $knownMeta = array('friends', 'delete', 'scrubgeo', 'limit', 'event', 'direct_message');
+        $knownMeta = array('friends', 'delete', 'scrubgeo', 'limit', 'direct_message');
         foreach ($knownMeta as $key) {
             if (isset($data[$key])) {
                 $this->fireEvent($key, $data[$key], $forUserId);
+                return;
             }
         }
     }
