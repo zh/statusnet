@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:57:15+0000\n"
+"POT-Creation-Date: 2010-10-04 22:30+0000\n"
+"PO-Revision-Date: 2010-10-04 22:33:41+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-01 20:39:03+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-03 20:57:03+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -58,6 +58,13 @@ msgstr "%1$s cessava de sequer %2$s."
 msgid "Could not set up remote group membership."
 msgstr "Non poteva configurar le membrato del gruppo remote."
 
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: OStatusPlugin.php:658
+#, fuzzy, php-format
+msgid "%1$s has joined group %2$s."
+msgstr "%1$s cessava de sequer %2$s."
+
 #. TRANS: Exception.
 #: OStatusPlugin.php:667
 msgid "Failed joining remote group."
@@ -66,6 +73,13 @@ msgstr "Falleva de facer se membro del gruppo remote."
 #: OStatusPlugin.php:707
 msgid "Leave"
 msgstr "Quitar"
+
+#. TRANS: Success message for unsubscribe from group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
+#: OStatusPlugin.php:710
+#, php-format
+msgid "%1$s has left group %2$s."
+msgstr ""
 
 #: OStatusPlugin.php:785
 msgid "Disfavor"
@@ -744,25 +758,25 @@ msgid "Unknown PuSH feed id %s"
 msgstr "ID de syndication PuSH %s incognite"
 
 #. TRANS: Client exception. %s is an invalid feed name.
-#: actions/pushcallback.php:93
+#: actions/pushcallback.php:94
 #, php-format
 msgid "Bad hub.topic feed \"%s\"."
 msgstr "Syndication hub.topic \"%s\" incorrecte."
 
 #. TRANS: Client exception. %1$s the invalid token, %2$s is the topic for which the invalid token was given.
-#: actions/pushcallback.php:98
+#: actions/pushcallback.php:99
 #, php-format
 msgid "Bad hub.verify_token %1$s for %2$s."
 msgstr "Incorrecte hub.verify_token %1$s pro %2$s."
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:105
+#: actions/pushcallback.php:106
 #, php-format
 msgid "Unexpected subscribe request for %s."
 msgstr "Requesta de subscription inexpectate pro %s."
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:110
+#: actions/pushcallback.php:111
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Requesta de cancellation de subscription inexpectate pro %s."
