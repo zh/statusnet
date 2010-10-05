@@ -202,13 +202,7 @@ abstract class JsonStreamReader
         $lines = explode(self::CRLF, $buffer);
         foreach ($lines as $line) {
             if ($this->state == 'headers') {
-                if ($line == '') {
-                    $this->state = 'active';
-                    common_log(LOG_DEBUG, "$this->id connection is active!");
-                } else {
-                    common_log(LOG_DEBUG, "$this->id read HTTP header: $line");
-                    $this->responseHeaders[] = $line;
-                }
+                $this->handleLineHeaders($line);
             } else if ($this->state == 'active') {
                 $this->handleLineActive($line);
             }
@@ -219,15 +213,26 @@ abstract class JsonStreamReader
     {
         // One JSON object on each line...
         // Will we always deliver on packet boundaries?
-        $lines = explode("\n", $buffer);
+        $lines = explode(self::CRLF, $buffer);
         foreach ($lines as $line) {
             $this->handleLineActive($line);
         }
     }
 
-    function handleLineActive($line)
+    function handleLineHeaders($line)
     {
         if ($line == '') {
+            $this->state = 'active';
+            common_log(LOG_DEBUG, "$this->id connection is active!");
+        } else {
+            common_log(LOG_DEBUG, "$this->id read HTTP header: $line");
+            $this->responseHeaders[] = $line;
+        }
+    }
+
+    function handleLineActive($line)
+    {
+        if ($line == "") {
             // Server sends empty lines as keepalive.
             return;
         }
@@ -235,9 +240,9 @@ abstract class JsonStreamReader
         if ($data) {
             $this->handleJson($data);
         } else {
-            common_log(LOG_ERR, "$this->id received bogus JSON data: " . $line);
+            common_log(LOG_ERR, "$this->id received bogus JSON data: " . var_export($line, true));
         }
     }
 
-    abstract function handleJson(array $data);
+    abstract protected function handleJson(array $data);
 }

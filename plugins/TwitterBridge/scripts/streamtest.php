@@ -92,8 +92,19 @@ $stream->hookEvent('favorite', function($data) {
             $data['target']['screen_name'],
             $data['target_object']['text']);
 });
+$stream->hookEvent('unfavorite', function($data) {
+    printf("%s unfavorited %s's notice: %s\n",
+            $data['source']['screen_name'],
+            $data['target']['screen_name'],
+            $data['target_object']['text']);
+});
 $stream->hookEvent('follow', function($data) {
     printf("%s friended %s\n",
+            $data['source']['screen_name'],
+            $data['target']['screen_name']);
+});
+$stream->hookEvent('unfollow', function($data) {
+    printf("%s unfriended %s\n",
             $data['source']['screen_name'],
             $data['target']['screen_name']);
 });

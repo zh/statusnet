@@ -25,7 +25,14 @@
  * @link      http://status.net/
  */
 
-// A single stream connection
+/**
+ * Base class for reading Twitter's User Streams and Site Streams
+ * real-time streaming APIs.
+ *
+ * Caller can hook event callbacks for various types of messages;
+ * the data from the stream and some context info will be passed
+ * on to the callbacks.
+ */
 abstract class TwitterStreamReader extends JsonStreamReader
 {
     protected $callbacks = array();
@@ -36,9 +43,9 @@ abstract class TwitterStreamReader extends JsonStreamReader
         $this->oauth = $auth;
     }
 
-    public function connect($method)
+    public function connect($method, $params=array())
     {
-        $url = $this->oAuthUrl($this->baseUrl . '/' . $method);
+        $url = $this->oAuthUrl($this->baseUrl . '/' . $method, $params);
         return parent::connect($url);
     }
 
@@ -49,7 +56,7 @@ abstract class TwitterStreamReader extends JsonStreamReader
      * @param array $params
      * @return string 
      */
-    function oAuthUrl($url, $params=array())
+    protected function oAuthUrl($url, $params=array())
     {
         // In an ideal world this would be better encapsulated. :)
         $request = OAuthRequest::from_consumer_and_token($this->oauth->consumer,
@@ -59,9 +66,64 @@ abstract class TwitterStreamReader extends JsonStreamReader
 
         return $request->to_url();
     }
+
     /**
-     * Add an event callback. Available event names include
-     * 'raw' (all data), 'friends', 'delete', 'scrubgeo', etc
+     * Add an event callback to receive notifications when things come in
+     * over the wire.
+     *
+     * Callbacks should be in the form: function(array $data, array $context)
+     * where $context may list additional data on some streams, such as the
+     * user to whom the message should be routed.
+     *
+     * Available events:
+     *
+     * Messaging:
+     *
+     * 'status': $data contains a status update in standard Twitter JSON format.
+     *      $data['user']: sending user in standard Twitter JSON format.
+     *      $data['text']... etc
+     *
+     * 'direct_message': $data contains a direct message in standard Twitter JSON format.
+     *      $data['sender']: sending user in standard Twitter JSON format.
+     *      $data['recipient']: receiving user in standard Twitter JSON format.
+     *      $data['text']... etc
+     *
+     *
+     * Out of band events:
+     *
+     * 'follow': User has either started following someone, or is being followed.
+     *      $data['source']: following user in standard Twitter JSON format.
+     *      $data['target']: followed user in standard Twitter JSON format.
+     *
+     * 'favorite': Someone has favorited a status update.
+     *      $data['source']: user doing the favoriting, in standard Twitter JSON format.
+     *      $data['target']: user whose status was favorited, in standard Twitter JSON format.
+     *      $data['target_object']: the favorited status update in standard Twitter JSON format.
+     *
+     * 'unfavorite': Someone has unfavorited a status update.
+     *      $data['source']: user doing the unfavoriting, in standard Twitter JSON format.
+     *      $data['target']: user whose status was unfavorited, in standard Twitter JSON format.
+     *      $data['target_object']: the unfavorited status update in standard Twitter JSON format.
+     *
+     *
+     * Meta information:
+     *
+     * 'friends': $data is a list of user IDs of the current user's friends.
+     *
+     * 'delete': Advisory that a Twitter status has been deleted; nice clients
+     *           should follow suit.
+     *      $data['id']: ID of status being deleted
+     *      $data['user_id']: ID of its owning user
+     *
+     * 'scrub_geo': Advisory that a user is clearing geo data from their status
+     *              stream; nice clients should follow suit.
+     *      $data['user_id']: ID of user
+     *      $data['up_to_status_id']: any notice older than this should be scrubbed.
+     *
+     * 'limit': Advisory that tracking has hit a resource limit.
+     *      $data['track']
+     *
+     * 'raw': receives the full JSON data for all message types.
      *
      * @param string $event
      * @param callable $callback
@@ -77,7 +139,7 @@ abstract class TwitterStreamReader extends JsonStreamReader
      * @param string $event
      * @param mixed $arg1 ... one or more params to pass on
      */
-    public function fireEvent($event, $arg1)
+    protected function fireEvent($event, $arg1)
     {
         if (array_key_exists($event, $this->callbacks)) {
             $args = array_slice(func_get_args(), 1);
@@ -87,42 +149,57 @@ abstract class TwitterStreamReader extends JsonStreamReader
         }
     }
 
-    function handleJson(array $data)
+    protected function handleJson(array $data)
     {
         $this->routeMessage($data);
     }
 
-    abstract function routeMessage($data);
+    abstract protected function routeMessage($data);
 
     /**
      * Send the decoded JSON object out to any event listeners.
      *
      * @param array $data
-     * @param int $forUserId
+     * @param array $context optional additional context data to pass on
      */
-    function handleMessage(array $data, $forUserId=null)
+    protected function handleMessage(array $data, array $context=array())
     {
-        $this->fireEvent('raw', $data, $forUserId);
+        $this->fireEvent('raw', $data, $context);
 
         if (isset($data['text'])) {
-            $this->fireEvent('status', $data);
+            $this->fireEvent('status', $data, $context);
             return;
         }
         if (isset($data['event'])) {
-            $this->fireEvent($data['event'], $data);
+            $this->fireEvent($data['event'], $data, $context);
             return;
         }
 
         $knownMeta = array('friends', 'delete', 'scrubgeo', 'limit', 'direct_message');
         foreach ($knownMeta as $key) {
             if (isset($data[$key])) {
-                $this->fireEvent($key, $data[$key], $forUserId);
+                $this->fireEvent($key, $data[$key], $context);
                 return;
             }
         }
     }
 }
 
+/**
+ * Multiuser stream listener for Twitter Site Streams API
+ * http://dev.twitter.com/pages/site_streams
+ *
+ * The site streams API allows listening to updates for multiple users.
+ * Pass in the user IDs to listen to in via followUser() -- note they
+ * must each have a valid OAuth token for the application ID we're
+ * connecting as.
+ *
+ * You'll need to be connecting with the auth keys for the user who
+ * owns the application registration.
+ *
+ * The user each message is destined for will be passed to event handlers
+ * in $context['for_user_id'].
+ */
 class TwitterSiteStream extends TwitterStreamReader
 {
     protected $userIds;
@@ -134,9 +211,21 @@ class TwitterSiteStream extends TwitterStreamReader
 
     public function connect($method='2b/site.json')
     {
-        return parent::connect($method);
+        $params = array();
+        if ($this->userIds) {
+            $params['follow'] = implode(',', $this->userIds);
+        }
+        return parent::connect($method, $params);
     }
 
+    /**
+     * Set the users whose home streams should be pulled.
+     * They all must have valid oauth tokens for this application.
+     *
+     * Must be called before connect().
+     *
+     * @param array $userIds
+     */
     function followUsers($userIds)
     {
         $this->userIds = $userIds;
@@ -150,10 +239,21 @@ class TwitterSiteStream extends TwitterStreamReader
      */
     function routeMessage($data)
     {
-        parent::handleMessage($data['message'], $data['for_user']);
+        $context = array(
+            'source' => 'sitestream',
+            'for_user' => $data['for_user']
+        );
+        parent::handleMessage($data['message'], $context);
     }
 }
 
+/**
+ * Stream listener for Twitter User Streams API
+ * http://dev.twitter.com/pages/user_streams
+ *
+ * This will pull the home stream and additional events just for the user
+ * we've authenticated as.
+ */
 class TwitterUserStream extends TwitterStreamReader
 {
     public function __construct(TwitterOAuthClient $auth, $baseUrl='https://userstream.twitter.com')
@@ -173,6 +273,9 @@ class TwitterUserStream extends TwitterStreamReader
      */
     function routeMessage($data)
     {
-        parent::handleMessage($data, $this->userId);
+        $context = array(
+            'source' => 'userstream'
+        );
+        parent::handleMessage($data, $context);
     }
 }
