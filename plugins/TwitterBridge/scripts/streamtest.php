@@ -28,10 +28,13 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'n:';
-$longoptions = array('nick=');
+$longoptions = array('nick=','import');
 
 $helptext = <<<ENDOFHELP
 USAGE: streamtest.php -n <username>
+
+  -n --nick <username> Local user whose Twitter timeline to watch
+     --import          Experimental: run incoming messages through import
 
 Attempts a User Stream connection to Twitter as the given user, dumping
 data as it comes.
@@ -79,54 +82,70 @@ function homeStreamForUser(User $user)
 }
 
 $user = User::staticGet('nickname', $nickname);
+global $myuser;
+$myuser = $user;
+
 $stream = homeStreamForUser($user);
 $stream->hookEvent('raw', function($data) {
     common_log(LOG_INFO, json_encode($data));
 });
 $stream->hookEvent('friends', function($data) {
-    printf("Friend list: %s\n", implode(', ', $data));
+    printf("Friend list: %s\n", implode(', ', $data->friends));
 });
 $stream->hookEvent('favorite', function($data) {
     printf("%s favorited %s's notice: %s\n",
-            $data['source']['screen_name'],
-            $data['target']['screen_name'],
-            $data['target_object']['text']);
+            $data->source->screen_name,
+            $data->target->screen_name,
+            $data->target_object->text);
 });
 $stream->hookEvent('unfavorite', function($data) {
     printf("%s unfavorited %s's notice: %s\n",
-            $data['source']['screen_name'],
-            $data['target']['screen_name'],
-            $data['target_object']['text']);
+            $data->source->screen_name,
+            $data->target->screen_name,
+            $data->target_object->text);
 });
 $stream->hookEvent('follow', function($data) {
     printf("%s friended %s\n",
-            $data['source']['screen_name'],
-            $data['target']['screen_name']);
+            $data->source->screen_name,
+            $data->target->screen_name);
 });
 $stream->hookEvent('unfollow', function($data) {
     printf("%s unfriended %s\n",
-            $data['source']['screen_name'],
-            $data['target']['screen_name']);
+            $data->source->screen_name,
+            $data->target->screen_name);
 });
 $stream->hookEvent('delete', function($data) {
     printf("Deleted status notification: %s\n",
-            $data['status']['id']);
+            $data->status->id);
 });
 $stream->hookEvent('scrub_geo', function($data) {
     printf("Req to scrub geo data for user id %s up to status ID %s\n",
-            $data['user_id'],
-            $data['up_to_status_id']);
+            $data->user_id,
+            $data->up_to_status_id);
 });
 $stream->hookEvent('status', function($data) {
     printf("Received status update from %s: %s\n",
-            $data['user']['screen_name'],
-            $data['text']);
+            $data->user->screen_name,
+            $data->text);
+
+    if (have_option('import')) {
+        $importer = new TwitterImport();
+        printf("\timporting...");
+        $notice = $importer->importStatus($data);
+        if ($notice) {
+            global $myuser;
+            Inbox::insertNotice($myuser->id, $notice->id);
+            printf(" %s\n", $notice->id);
+        } else {
+            printf(" FAIL\n");
+        }
+    }
 });
 $stream->hookEvent('direct_message', function($data) {
     printf("Direct message from %s to %s: %s\n",
-            $data['sender']['screen_name'],
-            $data['recipient']['screen_name'],
-            $data['text']);
+            $data->sender->screen_name,
+            $data->recipient->screen_name,
+            $data->text);
 });
 
 class TwitterManager extends IoManager

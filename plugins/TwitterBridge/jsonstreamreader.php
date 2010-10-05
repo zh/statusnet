@@ -253,7 +253,7 @@ abstract class JsonStreamReader
             // Server sends empty lines as keepalive.
             return;
         }
-        $data = json_decode($line, true);
+        $data = json_decode($line);
         if ($data) {
             $this->handleJson($data);
         } else {
@@ -261,5 +261,5 @@ abstract class JsonStreamReader
         }
     }
 
-    abstract protected function handleJson(array $data);
+    abstract protected function handleJson(stdClass $data);
 }
