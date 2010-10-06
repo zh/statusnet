@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:56:09+0000\n"
+"POT-Creation-Date: 2010-10-04 22:30+0000\n"
+"PO-Revision-Date: 2010-10-04 22:32:34+0000\n"
 "Language-Team: Norwegian Nynorsk <http://translatewiki.net/wiki/Portal:nn>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nn\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
+"X-POT-Import-Date: 2010-10-03 20:54:28+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -4121,7 +4121,7 @@ msgid ""
 "%?status_textarea=%2$s)."
 msgstr ""
 
-#: actions/showstream.php:243
+#: actions/showstream.php:246
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4130,7 +4130,7 @@ msgid ""
 "follow **%s**'s notices and many more! ([Read more](%%%%doc.help%%%%))"
 msgstr ""
 
-#: actions/showstream.php:248
+#: actions/showstream.php:251
 #, fuzzy, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4140,7 +4140,7 @@ msgstr ""
 "**%s** har ein konto på %%%%site.name%%%%, ei [mikroblogging](http://en."
 "wikipedia.org/wiki/Micro-blogging)-teneste"
 
-#: actions/showstream.php:305
+#: actions/showstream.php:308
 #, fuzzy, php-format
 msgid "Repeat of %s"
 msgstr "Svar til %s"
@@ -5002,6 +5002,14 @@ msgstr ""
 msgid "Favor"
 msgstr "Tjeneste"
 
+#. TRANS: Ntofication given when a user marks a notice as favorite.
+#. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
+#: classes/Fave.php:151
+#, fuzzy, php-format
+msgid "%1$s marked notice %2$s as a favorite."
+msgstr ""
+"Send meg ein epost når nokon legg til ein av mine notisar som favoritt."
+
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
 #, php-format
@@ -5181,6 +5189,13 @@ msgstr ""
 msgid "Problem saving group inbox."
 msgstr "Eit problem oppstod ved lagring av notis."
 
+#. TRANS: Server exception thrown when a reply cannot be saved.
+#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
+#: classes/Notice.php:1120
+#, fuzzy, php-format
+msgid "Could not save reply for %1$d, %2$d."
+msgstr "Kunne ikkje lagra abonnement."
+
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #: classes/Notice.php:1822
@@ -5255,6 +5270,13 @@ msgstr "Kunne ikkje lagra abonnement."
 #: classes/Subscription.php:255
 msgid "Follow"
 msgstr ""
+
+#. TRANS: Notification given when one person starts following another.
+#. TRANS: %1$s is the subscriber, %2$s is the subscribed.
+#: classes/Subscription.php:258
+#, fuzzy, php-format
+msgid "%1$s is now following %2$s."
+msgstr "%1$s høyrer no på notisane dine på %2$s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -7358,6 +7380,13 @@ msgstr "Fjern tinging fra denne brukaren"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "Fjern tinging"
+
+#. TRANS: Exception text shown when no profile can be found for a user.
+#. TRANS: %1$s is a user nickname, $2$d is a user ID (number).
+#: lib/usernoprofileexception.php:60
+#, fuzzy, php-format
+msgid "User %1$s (%2$d) has no profile record."
+msgstr "Brukaren har inga profil."
 
 #: lib/userprofile.php:117
 #, fuzzy

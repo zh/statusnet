@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
+"POT-Creation-Date: 2010-10-04 22:30+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,13 @@ msgstr ""
 msgid "Could not set up remote group membership."
 msgstr ""
 
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: OStatusPlugin.php:658
+#, php-format
+msgid "%1$s has joined group %2$s."
+msgstr ""
+
 #. TRANS: Exception.
 #: OStatusPlugin.php:667
 msgid "Failed joining remote group."
@@ -60,6 +67,13 @@ msgstr ""
 
 #: OStatusPlugin.php:707
 msgid "Leave"
+msgstr ""
+
+#. TRANS: Success message for unsubscribe from group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
+#: OStatusPlugin.php:710
+#, php-format
+msgid "%1$s has left group %2$s."
 msgstr ""
 
 #: OStatusPlugin.php:785
@@ -715,25 +729,25 @@ msgid "Unknown PuSH feed id %s"
 msgstr ""
 
 #. TRANS: Client exception. %s is an invalid feed name.
-#: actions/pushcallback.php:93
+#: actions/pushcallback.php:94
 #, php-format
 msgid "Bad hub.topic feed \"%s\"."
 msgstr ""
 
 #. TRANS: Client exception. %1$s the invalid token, %2$s is the topic for which the invalid token was given.
-#: actions/pushcallback.php:98
+#: actions/pushcallback.php:99
 #, php-format
 msgid "Bad hub.verify_token %1$s for %2$s."
 msgstr ""
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:105
+#: actions/pushcallback.php:106
 #, php-format
 msgid "Unexpected subscribe request for %s."
 msgstr ""
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:110
+#: actions/pushcallback.php:111
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr ""
