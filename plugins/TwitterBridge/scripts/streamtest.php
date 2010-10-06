@@ -28,13 +28,14 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'n:';
-$longoptions = array('nick=','import');
+$longoptions = array('nick=','import','all');
 
 $helptext = <<<ENDOFHELP
 USAGE: streamtest.php -n <username>
 
-  -n --nick <username> Local user whose Twitter timeline to watch
+  -n --nick=<username> Local user whose Twitter timeline to watch
      --import          Experimental: run incoming messages through import
+     --all             Experimental: run multiuser; requires nick be the app owner
 
 Attempts a User Stream connection to Twitter as the given user, dumping
 data as it comes.
@@ -81,49 +82,80 @@ function homeStreamForUser(User $user)
     return new TwitterUserStream($auth);
 }
 
+function siteStreamForOwner(User $user)
+{
+    // The user we auth as must be the owner of the application.
+    $auth = twitterAuthForUser($user);
+    $stream = new TwitterSiteStream($auth);
+
+    // Pull Twitter user IDs for all users we want to pull data for
+    $userIds = array();
+
+    $flink = new Foreign_link();
+    $flink->service = TWITTER_SERVICE;
+    $flink->find();
+
+    while ($flink->fetch()) {
+        if (($flink->noticesync & FOREIGN_NOTICE_RECV) ==
+            FOREIGN_NOTICE_RECV) {
+            $userIds[] = $flink->foreign_id;
+        }
+    }
+
+    $stream->followUsers($userIds);
+    return $stream;
+}
+
+
 $user = User::staticGet('nickname', $nickname);
 global $myuser;
 $myuser = $user;
 
-$stream = homeStreamForUser($user);
-$stream->hookEvent('raw', function($data) {
-    common_log(LOG_INFO, json_encode($data));
+if (have_option('all')) {
+    $stream = siteStreamForOwner($user);
+} else {
+    $stream = homeStreamForUser($user);
+}
+
+
+$stream->hookEvent('raw', function($data, $context) {
+    common_log(LOG_INFO, json_encode($data) . ' for ' . json_encode($context));
 });
-$stream->hookEvent('friends', function($data) {
+$stream->hookEvent('friends', function($data, $context) {
     printf("Friend list: %s\n", implode(', ', $data->friends));
 });
-$stream->hookEvent('favorite', function($data) {
+$stream->hookEvent('favorite', function($data, $context) {
     printf("%s favorited %s's notice: %s\n",
             $data->source->screen_name,
             $data->target->screen_name,
             $data->target_object->text);
 });
-$stream->hookEvent('unfavorite', function($data) {
+$stream->hookEvent('unfavorite', function($data, $context) {
     printf("%s unfavorited %s's notice: %s\n",
             $data->source->screen_name,
             $data->target->screen_name,
             $data->target_object->text);
 });
-$stream->hookEvent('follow', function($data) {
+$stream->hookEvent('follow', function($data, $context) {
     printf("%s friended %s\n",
             $data->source->screen_name,
             $data->target->screen_name);
 });
-$stream->hookEvent('unfollow', function($data) {
+$stream->hookEvent('unfollow', function($data, $context) {
     printf("%s unfriended %s\n",
             $data->source->screen_name,
             $data->target->screen_name);
 });
-$stream->hookEvent('delete', function($data) {
+$stream->hookEvent('delete', function($data, $context) {
     printf("Deleted status notification: %s\n",
             $data->status->id);
 });
-$stream->hookEvent('scrub_geo', function($data) {
+$stream->hookEvent('scrub_geo', function($data, $context) {
     printf("Req to scrub geo data for user id %s up to status ID %s\n",
             $data->user_id,
             $data->up_to_status_id);
 });
-$stream->hookEvent('status', function($data) {
+$stream->hookEvent('status', function($data, $context) {
     printf("Received status update from %s: %s\n",
             $data->user->screen_name,
             $data->text);
