@@ -93,7 +93,7 @@ class ApiOauthAction extends ApiAction
         $queryArray = explode('&', $_SERVER['QUERY_STRING']);
 
         for ($i = 0; $i < sizeof($queryArray); $i++) {
-            if (substr($queryArray[$i], 0, 1) == 'p=') {
+            if (substr($queryArray[$i], 0, 2) == 'p=') {
                 unset($queryArray[$i]);
             }
         }
