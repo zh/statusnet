@@ -1244,23 +1244,29 @@ class ApiAction extends Action
 
         // Do not emit error header for JSONP
         if (!isset($this->callback)) {
-            header('HTTP/1.1 '.$code.' '.$status_string);
+            header('HTTP/1.1 ' . $code . ' ' . $status_string);
         }
 
-        if ($format == 'xml') {
+        switch($format) {
+        case 'xml':
             $this->initDocument('xml');
             $this->elementStart('hash');
             $this->element('error', null, $msg);
             $this->element('request', null, $_SERVER['REQUEST_URI']);
             $this->elementEnd('hash');
             $this->endDocument('xml');
-        } elseif ($format == 'json'){
+            break;
+        case 'json':
             $this->initDocument('json');
             $error_array = array('error' => $msg, 'request' => $_SERVER['REQUEST_URI']);
             print(json_encode($error_array));
             $this->endDocument('json');
-        } else {
-
+            break;
+        case 'text':
+            header('Content-Type: text/plain; charset=utf-8');
+            print $msg;
+            break;
+        default:
             // If user didn't request a useful format, throw a regular client error
             throw new ClientException($msg, $code);
         }
