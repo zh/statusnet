@@ -2,7 +2,7 @@
 <?php
 /*
  * StatusNet - a distributed open-source microblogging tool
- * Copyright (C) 2008-2010, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,38 +33,45 @@ foreach(array('consumer_key', 'consumer_secret', 'apiroot', 'request_token_url')
     }
 }
 
-$test_consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
-$rt_endpoint = $ini['apiroot'] . $ini['request_token_url'];
-$parsed = parse_url($rt_endpoint);
+$testConsumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
+$requestTokenUrl = $ini['apiroot'] . $ini['request_token_url'];
+$parsed = parse_url($requestTokenUrl);
 $params = array();
 parse_str($parsed['query'], $params);
+$params['oauth_callback'] = 'oob';
 
 $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
 try {
-    $req_req = OAuthRequest::from_consumer_and_token($test_consumer, NULL, "GET", $rt_endpoint, $params);
-    $req_req->sign_request($hmac_method, $test_consumer, NULL);
-    $r = httpRequest($req_req->to_url());
+    $req = OAuthRequest::from_consumer_and_token(
+        $testConsumer,
+        null,
+        "GET",
+        $requestTokenUrl,
+        $params
+    );
+    $req->sign_request($hmac_method, $testConsumer, NULL);
+    $r = httpRequest($req->to_url());
 } catch (Exception $e) {
     // oh noez
     print $e->getMessage();
-    var_dump($req_req);
+    var_dump($req);
     exit(1);
 }
 
 $body = $r->getBody();
-$token_stuff = array();
-parse_str($body, $token_stuff);
+$tokenStuff = array();
+parse_str($body, $tokenStuff);
 
-if (empty($token_stuff['oauth_token'])) {
+if (empty($tokenStuff['oauth_token'])) {
     print "Error: $body\n";
     exit(1);
 }
 
-$authurl = $ini['apiroot'] . $ini['authorize_url'] . '?oauth_token=' . $token_stuff['oauth_token'];
+$authurl = $ini['apiroot'] . $ini['authorize_url'] . '?oauth_token=' . $tokenStuff['oauth_token'];
 print "\nSuccess!\n\n";
-print 'Request token        : ' . $token_stuff['oauth_token'] . "\n";
-print 'Request token secret : ' . $token_stuff['oauth_token_secret'] . "\n";
+print 'Request token        : ' . $tokenStuff['oauth_token'] . "\n";
+print 'Request token secret : ' . $tokenStuff['oauth_token_secret'] . "\n";
 print "Authorize URL        : $authurl\n";
 
 print "\nNow paste the Authorize URL into your browser and authorize the request token.\n";
@@ -72,7 +79,7 @@ print "\nNow paste the Authorize URL into your browser and authorize the request
 function httpRequest($url)
 {
     $request = HTTPClient::start();
-    
+
     $request->setConfig(
         array(
             'follow_redirects' => true,
@@ -82,7 +89,7 @@ function httpRequest($url)
 	    'ssl_verify_host' => false
         )
     );
-    
+
     return $request->get($url);
 }
 
