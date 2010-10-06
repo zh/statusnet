@@ -183,4 +183,30 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             throw new Exception(_('Failed to delete revoked token.'));
         }
     }
+
+    /*
+     * Create a new request token. Overrided to support OAuth 1.0a callback
+     *
+     * @param OAuthConsumer $consumer the OAuth Consumer for this token
+     * @param string        $callback the verified OAuth callback URL
+     *
+     * @return OAuthToken   $token a new unauthorized OAuth request token
+     */
+
+    function new_request_token($consumer, $callback)
+    {
+        $t = new Token();
+        $t->consumer_key = $consumer->key;
+        $t->tok = common_good_rand(16);
+        $t->secret = common_good_rand(16);
+        $t->type = 0; // request
+        $t->state = 0; // unauthorized
+        $t->verified_callback = $callback;
+        $t->created = DB_DataObject_Cast::dateTime();
+        if (!$t->insert()) {
+            return null;
+        } else {
+            return new OAuthToken($t->tok, $t->secret);
+        }
+    }
 }
