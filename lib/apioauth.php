@@ -77,6 +77,11 @@ class ApiOauthAction extends ApiAction
         self::cleanRequest();
     }
 
+    /*
+     * Clean up the request so the OAuth library doesn't find
+     * any extra parameters or anything else it's not expecting.
+     * I'm looking at you, p parameter.
+     */
     static function cleanRequest()
     {
         // kill evil effects of magical slashing
