@@ -397,7 +397,10 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowSiteNotice', array($this));
         }
         if (common_logged_in()) {
-            $this->showNoticeForm();
+            if (Event::handle('StartShowNoticeForm', array($this))) {
+                $this->showNoticeForm();
+                Event::handle('EndShowNoticeForm', array($this));
+            }
         } else {
             $this->showAnonymousMessage();
         }
