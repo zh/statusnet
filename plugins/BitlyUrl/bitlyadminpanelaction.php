@@ -206,11 +206,18 @@ class BitlyAdminPanelForm extends AdminForm
             array('id' => 'settings_bitly')
         );
         $this->out->element('legend', null, _m('Default credentials'));
-        $this->out->element('p', 'form_guide',
-            _m('When users select the bit.ly shortening service, by default ' .
-               'these credentials will be used. If you leave these empty, ' .
-               'users will need to set up their own credentials in order to ' .
-               'use bit.ly.'));
+
+        // Do we have global defaults to fall back on?
+        $login = $apiKey = false;
+        Event::handle('BitlyDefaultCredentials', array(&$login, &$apiKey));
+        $haveGlobalDefaults = ($login && $apiKey);
+        if ($login && $apiKey) {
+            $this->out->element('p', 'form_guide',
+                _m('Leave these empty to use the default credentials.'));
+        } else {
+            $this->out->element('p', 'form_guide',
+                _m('If you leave these empty, bit.ly will be unavailable to users.'));
+        }
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();

@@ -39,12 +39,29 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
 {
     public $shortenerName = 'bit.ly';
     public $serviceUrl = 'http://bit.ly/api?method=shorten&version=2.0.1&longUrl=%s';
+    public $login; // To set a site-default when admins or users don't override it.
+    public $apiKey;
 
     function onInitializePlugin(){
         parent::onInitializePlugin();
         if(!isset($this->serviceUrl)){
             throw new Exception(_m("You must specify a serviceUrl for bit.ly shortening."));
         }
+    }
+
+    /**
+     * Add bit.ly to the list of available URL shorteners if it's configured,
+     * otherwise leave it out.
+     *
+     * @param array $shorteners
+     * @return boolean hook return value
+     */
+    function onGetUrlShorteners(&$shorteners)
+    {
+        if ($this->getLogin() && $this->getApiKey()) {
+            return parent::onGetUrlShorteners($shorteners);
+        }
+        return true;
     }
 
     /**
@@ -68,7 +85,11 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
      */
     protected function getLogin()
     {
-        return common_config('bitly', 'default_login');
+        $login = common_config('bitly', 'default_login');
+        if (!$login) {
+            $login = $this->login;
+        }
+        return $login;
     }
 
     /**
@@ -78,7 +99,11 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
      */
     protected function getApiKey()
     {
-        return common_config('bitly', 'default_apikey');
+        $key = common_config('bitly', 'default_apikey');
+        if (!$key) {
+            $key = $this->apiKey;
+        }
+        return $key;
     }
 
     /**
@@ -213,4 +238,20 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
             return true;
         }
     }
+
+    /**
+     * Internal hook point to check the default global credentials so
+     * the admin form knows if we have a fallback or not.
+     *
+     * @param string $login
+     * @param string $apiKey
+     * @return boolean hook return value
+     */
+    function onBitlyDefaultCredentials(&$login, &$apiKey)
+    {
+        $login = $this->login;
+        $apiKey = $this->apiKey;
+        return false;
+    }
+
 }
