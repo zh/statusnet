@@ -464,7 +464,10 @@ class ApiOauthAuthorizeAction extends Action
             $pin->showPage();
         } else {
 
-            // NOTE: This should probably never happen; trhow an error instead?
+            // NOTE: This would only happen if an application registered as
+            // a web application but sent in 'oob' for the oauth_callback
+            // parameter. Usually web apps will send in a callback and
+            // not use the pin-based workflow.
 
             $info = new InfoAction(
                 $title,

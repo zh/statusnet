@@ -87,7 +87,7 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
 
         try {
 
-            $req   = OAuthRequest::from_request();
+            $req = OAuthRequest::from_request();
 
             // verify callback
             if (!$this->verifyCallback($req->get_parameter('oauth_callback'))) {
@@ -137,6 +137,11 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
     {
         if ($callback == "oob") {
             common_debug("OAuth request token requested for out of bounds client.");
+
+            // XXX: Should we throw an error if a client is registered as a
+            // web application but requests the pin based workflow? For now I'm
+            // allowing the workflow to proceed and issuing a pin. --Zach
+
             return true;
         } else {
             return Validate::uri(
