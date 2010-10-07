@@ -81,7 +81,8 @@ class MysqlSchema extends Schema
     public function getTableDef($name)
     {
         $query = "SELECT * FROM INFORMATION_SCHEMA.COLUMNS " .
-                 "WHERE TABLE_SCHEMA='%s' AND TABLE_NAME='%s'";
+                 "WHERE TABLE_SCHEMA='%s' AND TABLE_NAME='%s' " .
+                 "ORDER BY ORDINAL_POSITION";
         $schema = $this->conn->dsn['database'];
         $sql = sprintf($query, $schema, $name);
         $res = $this->conn->query($sql);
@@ -98,45 +99,124 @@ class MysqlSchema extends Schema
 
         $td->name    = $name;
         $td->columns = array();
+        $def = array();
 
         $row = array();
 
         while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
 
-            $cd = new ColumnDef();
+            $name = $row['COLUMN_NAME'];
+            $field = array();
 
-            $cd->name = $row['COLUMN_NAME'];
-
-            $packed = $row['COLUMN_TYPE'];
-
-            if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
-                $cd->type = $match[1];
-                $cd->size = $match[2];
-            } else {
-                $cd->type = $packed;
+            if ($row['DATA_TYPE'] !== null) {
+                $field['type'] = $row['DATA_TYPE'];
+            }
+            if ($row['CHARACTER_MAXIMUM_LENGTH'] !== null) {
+                $field['length'] = intval($row['CHARACTER_MAXIMUM_LENGTH']);
+            }
+            if ($row['NUMERIC_PRECISION'] !== null) {
+                $field['precision'] = intval($row['NUMERIC_PRECISION']);
+            }
+            if ($row['NUMERIC_SCALE'] !== null) {
+                $field['scale'] = intval($row['NUMERIC_SCALE']);
+            }
+            if ($row['IS_NULLABLE'] == 'NO') {
+                $field['not null'] = true;
+            }
+            if ($row['COLUMN_DEFAULT'] !== null) {
+                $field['default'] = $row['COLUMN_DEFAULT'];
+            }
+            /*
+            if ($row['COLUMN_KEY'] == 'PRI') {
+                if (isset($def['primary keys'])) {
+                    $def['primary keys'][] = $name;
+                } else {
+                    $def['primary keys'][] = array($name);
+                }
+            } else if ($row['COLUMN_KEY'] == 'MUL') {
+                // @fixme
+            } else if ($row['COLUMN_KEY'] == 'UNI') {
+                // @fixme
+            }
+            */
+            if ($row['COLUMN_COMMENT'] !== null) {
+                $field['description'] = $row['COLUMN_COMMENT'];
             }
 
-            $cd->nullable = ($row['IS_NULLABLE'] == 'YES') ? true : false;
-            $cd->key      = $row['COLUMN_KEY'];
-            $cd->default  = $row['COLUMN_DEFAULT'];
-            $cd->extra    = $row['EXTRA'];
-
-            // Autoincrement is stuck into the extra column.
-            // Pull it out so we don't accidentally mod it every time...
-            $extra = preg_replace('/(^|\s)auto_increment(\s|$)/i', '$1$2', $cd->extra);
-            if ($extra != $cd->extra) {
-                $cd->extra = trim($extra);
-                $cd->auto_increment = true;
+            // $row['EXTRA'] may contain 'autoincrement'
+            // ^ type=serial?
+            // $row['EXTRA'] may contain 'on update CURRENT_TIMESTAMP'
+            // ^ ...... how to specify?
+            // these seem to be the only values in curent use
+            
+            if ($row['CHARACTER_SET_NAME'] !== null) {
+                // @fixme check against defaults?
+                //$def['charset'] = $row['CHARACTER_SET_NAME'];
+                //$def['collate']  = $row['COLLATION_NAME'];
             }
 
-            // mysql extensions -- not (yet) used by base class
-            $cd->charset  = $row['CHARACTER_SET_NAME'];
-            $cd->collate  = $row['COLLATION_NAME'];
-
-            $td->columns[] = $cd;
+            $def['fields'][$name] = $field;
         }
         $res->free();
 
+
+        /*
+        BLURRRRRRF
+        we need to first pull the list/types of keys
+
+        we could get those and the columns like this:
+        // this works but is insanely slow!
+        SELECT CONSTRAINT_NAME AS keyName,
+        (SELECT GROUP_CONCAT(COLUMN_NAME)
+            FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE AS keyColumns
+            WHERE keyColumns.TABLE_SCHEMA=keyDefs.TABLE_SCHEMA
+              AND keyColumns.TABLE_NAME=keyDefs.TABLE_NAME
+              AND keyColumns.CONSTRAINT_NAME=keyDefs.CONSTRAINT_NAME
+            ORDER BY ORDINAL_POSITION)
+        FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS AS keyDefs
+        WHERE TABLE_SCHEMA='mublog'
+          AND TABLE_NAME='subscription'
+        ORDER BY TABLE_NAME, CONSTRAINT_NAME;
+
+        However MySQL's query optimizer is crap here and it does something
+        insane. ;) Using constants is faster, but won't let us do bulk
+        fetches. So... maybe go ahead and fetch each table separately.
+         */
+
+        // Now fetch the key info...
+        $query = "SELECT * FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE " .
+                 "WHERE TABLE_SCHEMA='%s' AND TABLE_NAME='%s' " .
+                 "ORDER BY CONSTRAINT_NAME,ORDINAL_POSITION";
+        $schema = $this->conn->dsn['database'];
+        $sql = sprintf($query, $schema, $name);
+        $res = $this->conn->query($sql);
+
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+        if ($res->numRows() == 0) {
+            $res->free();
+            throw new SchemaTableMissingException("No such table: $name");
+        }
+        $row = array();
+
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+            $keyName = $row['CONSTRAINT_NAME'];
+            $colName = $row['COLUMN_NAME'];
+            // @fixme what about prefixes?
+            if ($keyName == 'PRIMARY') {
+                if (!isset($def['primary key'])) {
+                    $def['primary key'] = array();
+                }
+                $def['primary key'][] = $colName;
+            } else {
+                if (!isset($def['indexes'][$keyName])) {
+                    $def['indexes'][$keyName] = array();
+                }
+                $def['indexes'][$keyName][] = $colName;
+            }
+        }
+        $res->free();
         return $td;
     }
 
