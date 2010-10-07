@@ -27,12 +27,56 @@ END_OF_CHECKSCHEMA_HELP;
 
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
+function indentOptions($indent)
+{
+    $cutoff = 3;
+    if ($indent < $cutoff) {
+        $space = str_repeat(' ', $indent * 4);
+        $sep = ",";
+        $lf = "\n";
+        $endspace = "$lf" . str_repeat(' ', ($indent - 1) * 4);
+    } else {
+        $space = '';
+        $sep = ", ";
+        $lf = '';
+        $endspace = '';
+    }
+    if ($indent - 1 < $cutoff) {
+    }
+    return array($space, $sep, $lf, $endspace);
+}
+
+function prettyDumpArray($arr, $key=null, $indent=0)
+{
+    list($space, $sep, $lf, $endspace) = indentOptions($indent);
+    list($inspace, $insep, $inlf, $inendspace) = indentOptions($indent + 1);
+
+    print "{$space}";
+    if (!is_numeric($key)) {
+        print "'$key' => ";
+    }
+    if (is_array($arr)) {
+        print "array({$inlf}";
+        $n = 0;
+        foreach ($arr as $key => $row) {
+            $n++;
+            prettyDumpArray($row, $key, $indent + 1);
+            if ($n < count($arr)) {
+                print "$insep$inlf";
+            }
+        }
+        // hack!
+        print "{$inendspace})";
+    } else {
+        print var_export($arr, true);
+    }
+}
+
 function dumpTable($tableName)
 {
-    echo "$tableName\n";
     $schema = Schema::get();
     $def = $schema->getTableDef($tableName);
-    var_export($def);
+    prettyDumpArray($def, $tableName);
     echo "\n";
 }
 
