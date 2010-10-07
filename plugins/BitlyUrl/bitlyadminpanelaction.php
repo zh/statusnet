@@ -93,23 +93,12 @@ class BitlyadminpanelAction extends AdminPanelAction
             'bitly' => array('default_login', 'default_apikey')
         );
 
-        static $booleans = array(
-            'bitly' => array('allow_override')
-        );
-
         $values = array();
 
         foreach ($settings as $section => $parts) {
             foreach ($parts as $setting) {
                 $values[$section][$setting]
                     = $this->trimmed($setting);
-            }
-        }
-
-        foreach ($booleans as $section => $parts) {
-            foreach ($parts as $setting) {
-                $values[$section][$setting]
-                    = ($this->boolean($setting)) ? 1 : 0;
             }
         }
 
@@ -124,12 +113,6 @@ class BitlyadminpanelAction extends AdminPanelAction
         $config->query('BEGIN');
 
         foreach ($settings as $section => $parts) {
-            foreach ($parts as $setting) {
-                Config::save($section, $setting, $values[$section][$setting]);
-            }
-        }
-
-        foreach ($booleans as $section => $parts) {
             foreach ($parts as $setting) {
                 Config::save($section, $setting, $values[$section][$setting]);
             }
@@ -239,29 +222,6 @@ class BitlyAdminPanelForm extends AdminForm
         $this->unli();
 
         $this->out->elementEnd('ul');
-        $this->out->elementEnd('fieldset');
-
-        $this->out->elementStart(
-            'fieldset',
-            array('id' => 'settings_bitly-options')
-        );
-        $this->out->element('legend', null, _m('Options'));
-
-        $this->out->elementStart('ul', 'form_data');
-
-        $this->li();
-
-        $this->out->checkbox(
-            'allow_override', _m('Allow users to specify their own API key.'),
-            (bool) $this->value('bitly', 'allow_override'),
-            _m('If set, users will be able to specify their own bit.ly login and API key ' .
-               'to be used for shortening their links.'),
-            'true'
-        );
-        $this->unli();
-
-        $this->out->elementEnd('ul');
-
         $this->out->elementEnd('fieldset');
     }
 
