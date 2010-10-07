@@ -38,7 +38,9 @@ abstract class Managed_DataObject extends Memcached_DataObject
      */
     function table()
     {
-        $table = self::schemaDef();
+        // Hack for PHP 5.2 not supporting late static binding
+        //$table = static::schemaDef();
+        $table = call_user_func(array(get_class($this), 'schemaDef'));
         return array_map(array($this, 'columnBitmap'), $table['fields']);
     }
 
