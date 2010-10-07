@@ -38,36 +38,38 @@ class SalmonAction extends Action
         parent::prepare($args);
 
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+            // TRANS: Client error. POST is a HTTP command. It should not be translated.
             $this->clientError(_m('This method requires a POST.'));
         }
 
         if (empty($_SERVER['CONTENT_TYPE']) || $_SERVER['CONTENT_TYPE'] != 'application/magic-envelope+xml') {
-            $this->clientError(_m('Salmon requires application/magic-envelope+xml'));
+            // TRANS: Client error. Do not translate "application/magic-envelope+xml"
+            $this->clientError(_m('Salmon requires "application/magic-envelope+xml".'));
         }
 
         $xml = file_get_contents('php://input');
-
 
         // Check the signature
         $salmon = new Salmon;
         if (!$salmon->verifyMagicEnv($xml)) {
             common_log(LOG_DEBUG, "Salmon signature verification failed.");
+            // TRANS: Client error.
             $this->clientError(_m('Salmon signature verification failed.'));
         } else {
             $magic_env = new MagicEnvelope();
             $env = $magic_env->parse($xml);
             $xml = $magic_env->unfold($env);
         }
-        
 
         $dom = DOMDocument::loadXML($xml);
         if ($dom->documentElement->namespaceURI != Activity::ATOM ||
             $dom->documentElement->localName != 'entry') {
             common_log(LOG_DEBUG, "Got invalid Salmon post: $xml");
+            // TRANS: Client error.
             $this->clientError(_m('Salmon post must be an Atom entry.'));
         }
 
-        $this->act = new Activity($dom->documentElement);
+        $this->activity = new Activity($dom->documentElement);
         return true;
     }
 
@@ -79,9 +81,9 @@ class SalmonAction extends Action
     {
         StatusNet::setApi(true); // Send smaller error pages
 
-        common_log(LOG_DEBUG, "Got a " . $this->act->verb);
+        common_log(LOG_DEBUG, "Got a " . $this->activity->verb);
         if (Event::handle('StartHandleSalmon', array($this->activity))) {
-            switch ($this->act->verb)
+            switch ($this->activity->verb)
             {
             case ActivityVerb::POST:
                 $this->handlePost();
@@ -112,6 +114,7 @@ class SalmonAction extends Action
                 $this->handleUpdateProfile();
                 break;
             default:
+                // TRANS: Client exception.
                 throw new ClientException(_m("Unrecognized activity type."));
             }
             Event::handle('EndHandleSalmon', array($this->activity));
@@ -120,41 +123,49 @@ class SalmonAction extends Action
 
     function handlePost()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand posts."));
     }
 
     function handleFollow()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand follows."));
     }
 
     function handleUnfollow()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand unfollows."));
     }
 
     function handleFavorite()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand favorites."));
     }
 
     function handleUnfavorite()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand unfavorites."));
     }
 
     function handleShare()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand share events."));
     }
 
     function handleJoin()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand joins."));
     }
 
     function handleLeave()
     {
+        // TRANS: Client exception.
         throw new ClientException(_m("This target doesn't understand leave events."));
     }
 
@@ -164,12 +175,12 @@ class SalmonAction extends Action
      */
     function handleUpdateProfile()
     {
-        $oprofile = Ostatus_profile::getActorProfile($this->act);
+        $oprofile = Ostatus_profile::getActorProfile($this->activity);
         if ($oprofile) {
             common_log(LOG_INFO, "Got a profile-update ping from $oprofile->uri");
-            $oprofile->updateFromActivityObject($this->act->actor);
+            $oprofile->updateFromActivityObject($this->activity->actor);
         } else {
-            common_log(LOG_INFO, "Ignoring profile-update ping from unknown " . $this->act->actor->id);
+            common_log(LOG_INFO, "Ignoring profile-update ping from unknown " . $this->activity->actor->id);
         }
     }
 
@@ -178,11 +189,12 @@ class SalmonAction extends Action
      */
     function ensureProfile()
     {
-        $actor = $this->act->actor;
+        $actor = $this->activity->actor;
         if (empty($actor->id)) {
             common_log(LOG_ERR, "broken actor: " . var_export($actor, true));
-            common_log(LOG_ERR, "activity with no actor: " . var_export($this->act, true));
-            throw new Exception("Received a salmon slap from unidentified actor.");
+            common_log(LOG_ERR, "activity with no actor: " . var_export($this->activity, true));
+            // TRANS: Exception.
+            throw new Exception(_m('Received a salmon slap from unidentified actor.'));
         }
 
         return Ostatus_profile::ensureActivityObjectProfile($actor);
@@ -191,6 +203,6 @@ class SalmonAction extends Action
     function saveNotice()
     {
         $oprofile = $this->ensureProfile();
-        return $oprofile->processPost($this->act, 'salmon');
+        return $oprofile->processPost($this->activity, 'salmon');
     }
 }

@@ -235,4 +235,33 @@ class Subscription extends Memcached_DataObject
                                            'subscribed' => $other->id));
         return (empty($sub)) ? false : true;
     }
+
+    function asActivity()
+    {
+        $subscriber = Profile::staticGet('id', $this->subscriber);
+        $subscribed = Profile::staticGet('id', $this->subscribed);
+
+        $act = new Activity();
+
+        $act->verb = ActivityVerb::FOLLOW;
+
+        $act->id   = TagURI::mint('follow:%d:%d:%s',
+                                  $subscriber->id,
+                                  $subscribed->id,
+                                  common_date_iso8601($this->created));
+
+        $act->time    = strtotime($this->created);
+        // TRANS: Activity tile when subscribing to another person.
+        $act->title   = _("Follow");
+        // TRANS: Notification given when one person starts following another.
+        // TRANS: %1$s is the subscriber, %2$s is the subscribed.
+        $act->content = sprintf(_('%1$s is now following %2$s.'),
+                               $subscriber->getBestName(),
+                               $subscribed->getBestName());
+
+        $act->actor     = ActivityObject::fromProfile($subscriber);
+        $act->objects[] = ActivityObject::fromProfile($subscribed);
+
+        return $act;
+    }
 }

@@ -101,7 +101,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class SamplePlugin extends Plugin
 {
     /**
@@ -129,7 +128,6 @@ class SamplePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function initialize()
     {
         return true;
@@ -143,7 +141,6 @@ class SamplePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function cleanup()
     {
         return true;
@@ -168,7 +165,6 @@ class SamplePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -201,7 +197,6 @@ class SamplePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onAutoload($cls)
     {
         $dir = dirname(__FILE__);
@@ -231,7 +226,6 @@ class SamplePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onRouterInitialized($m)
     {
         $m->connect('main/hello',
@@ -256,7 +250,6 @@ class SamplePlugin extends Plugin
      *
      * @see Action
      */
-
     function onEndPrimaryNav($action)
     {
         // common_local_url() gets the correct URL for the action name
@@ -278,4 +271,3 @@ class SamplePlugin extends Plugin
         return true;
     }
 }
-

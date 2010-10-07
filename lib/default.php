@@ -299,10 +299,11 @@ $default =
                                  'RSSCloud' => null,
                                  'ClientSideShorten' => null,
                                  'OpenID' => null),
+              'locale_path' => false, // Set to a path to use *instead of* each plugin's own locale subdirectories
               ),
         'pluginlist' => array(),
         'admin' =>
-        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'plugins')),
+        array('panels' => array('design', 'site', 'user', 'paths', 'access', 'sessions', 'sitenotice', 'license', 'plugins')),
         'singleuser' =>
         array('enabled' => false,
               'nickname' => null),

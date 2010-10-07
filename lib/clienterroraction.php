@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Client error action.
  *

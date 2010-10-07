@@ -17,15 +17,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * @package OStatusPlugin
- * @author James Walker <james@status.net>
- */
-
 if (!defined('STATUSNET')) {
     exit(1);
 }
 
+/**
+ * @package OStatusPlugin
+ * @author James Walker <james@status.net>
+ */
 class UsersalmonAction extends SalmonAction
 {
     function prepare($args)
@@ -35,13 +34,13 @@ class UsersalmonAction extends SalmonAction
         $id = $this->trimmed('id');
 
         if (!$id) {
-            $this->clientError(_('No ID.'));
+            $this->clientError(_m('No ID.'));
         }
 
         $this->user = User::staticGet('id', $id);
 
         if (empty($this->user)) {
-            $this->clientError(_('No such user.'));
+            $this->clientError(_m('No such user.'));
         }
 
         return true;
@@ -55,10 +54,10 @@ class UsersalmonAction extends SalmonAction
      */
     function handlePost()
     {
-        common_log(LOG_INFO, "Received post of '{$this->act->objects[0]->id}' from '{$this->act->actor->id}'");
+        common_log(LOG_INFO, "Received post of '{$this->activity->objects[0]->id}' from '{$this->activity->actor->id}'");
 
         // @fixme: process all activity objects?
-        switch ($this->act->objects[0]->type) {
+        switch ($this->activity->objects[0]->type) {
         case ActivityObject::ARTICLE:
         case ActivityObject::BLOGENTRY:
         case ActivityObject::NOTE:
@@ -71,28 +70,34 @@ class UsersalmonAction extends SalmonAction
 
         // Notice must either be a) in reply to a notice by this user
         // or b) to the attention of this user
+        // or c) in reply to a notice to the attention of this user
 
-        $context = $this->act->context;
+        $context = $this->activity->context;
 
         if (!empty($context->replyToID)) {
             $notice = Notice::staticGet('uri', $context->replyToID);
             if (empty($notice)) {
-                throw new ClientException("In reply to unknown notice");
+                // TRANS: Client exception.
+                throw new ClientException(_m('In reply to unknown notice.'));
             }
-            if ($notice->profile_id != $this->user->id) {
-                throw new ClientException("In reply to a notice not by this user");
+            if ($notice->profile_id != $this->user->id &&
+                !in_array($this->user->id, $notice->getReplies())) {
+                // TRANS: Client exception.
+                throw new ClientException(_m('In reply to a notice not by this user and not mentioning this user.'));
             }
         } else if (!empty($context->attention)) {
             if (!in_array($this->user->uri, $context->attention) &&
                 !in_array(common_profile_url($this->user->nickname), $context->attention)) {
                 common_log(LOG_ERR, "{$this->user->uri} not in attention list (".implode(',', $context->attention).")");
-                throw new ClientException("To the attention of user(s) not including this one!");
+                // TRANS: Client exception.
+                throw new ClientException('To the attention of user(s), not including this one.');
             }
         } else {
-            throw new ClientException("Not to anyone in reply to anything!");
+            // TRANS: Client exception.
+            throw new ClientException('Not to anyone in reply to anything.');
         }
 
-        $existing = Notice::staticGet('uri', $this->act->objects[0]->id);
+        $existing = Notice::staticGet('uri', $this->activity->objects[0]->id);
 
         if (!empty($existing)) {
             common_log(LOG_ERR, "Not saving notice '{$existing->uri}'; already exists.");
@@ -106,7 +111,6 @@ class UsersalmonAction extends SalmonAction
      * We've gotten a follow/subscribe notification from a remote user.
      * Save a subscription relationship for them.
      */
-
     function handleFollow()
     {
         $oprofile = $this->ensureProfile();
@@ -143,18 +147,20 @@ class UsersalmonAction extends SalmonAction
 
     function handleFavorite()
     {
-        $notice = $this->getNotice($this->act->objects[0]);
+        $notice = $this->getNotice($this->activity->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $old = Fave::pkeyGet(array('user_id' => $profile->id,
                                    'notice_id' => $notice->id));
 
         if (!empty($old)) {
-            throw new ClientException("We already know that's a fave!");
+            // TRANS: Client exception.
+            throw new ClientException(_('This is already a favorite.'));
         }
 
         if (!Fave::addNew($profile, $notice)) {
-            throw new ClientException("Could not save new favorite.");
+           // TRANS: Client exception.
+           throw new ClientException(_m('Could not save new favorite.'));
         }
     }
 
@@ -164,13 +170,14 @@ class UsersalmonAction extends SalmonAction
      */
     function handleUnfavorite()
     {
-        $notice = $this->getNotice($this->act->objects[0]);
+        $notice = $this->getNotice($this->activity->objects[0]);
         $profile = $this->ensureProfile()->localProfile();
 
         $fave = Fave::pkeyGet(array('user_id' => $profile->id,
                                    'notice_id' => $notice->id));
         if (empty($fave)) {
-            throw new ClientException("Notice wasn't favorited!");
+            // TRANS: Client exception.
+            throw new ClientException(_('Notice wasn\'t favorited!'));
         }
 
         $fave->delete();
@@ -184,7 +191,8 @@ class UsersalmonAction extends SalmonAction
     function getNotice($object)
     {
         if (!$object) {
-            throw new ClientException("Can't favorite/unfavorite without an object.");
+            // TRANS: Client exception.
+            throw new ClientException(_m('Can\'t favorite/unfavorite without an object.'));
         }
 
         switch ($object->type) {
@@ -195,20 +203,22 @@ class UsersalmonAction extends SalmonAction
         case ActivityObject::COMMENT:
             break;
         default:
-            throw new ClientException("Can't handle that kind of object for liking/faving.");
+            // TRANS: Client exception.
+            throw new ClientException(_m('Can\'t handle that kind of object for liking/faving.'));
         }
 
         $notice = Notice::staticGet('uri', $object->id);
 
         if (empty($notice)) {
-            throw new ClientException("Notice with ID $object->id unknown.");
+            // TRANS: Client exception. %s is an object ID.
+            throw new ClientException(sprintf(_m('Notice with ID %s unknown.'),$object->id));
         }
 
         if ($notice->profile_id != $this->user->id) {
-            throw new ClientException("Notice with ID $object->id not posted by $this->user->id.");
+            // TRANS: Client exception. %1$s is a notice ID, %2$s is a user ID.
+            throw new ClientException(sprintf(_m('Notice with ID %1$s not posted by %2$s.'),$object->id,$this->user->id));
         }
 
         return $notice;
     }
-
 }

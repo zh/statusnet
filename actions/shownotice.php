@@ -151,6 +151,7 @@ class ShownoticeAction extends OwnerDesignAction
           strtotime($this->avatar->modified) : 0;
 
         return 'W/"' . implode(':', array($this->arg('action'),
+                                          common_user_cache_hash(),
                                           common_language(),
                                           $this->notice->id,
                                           strtotime($this->notice->created),
@@ -291,6 +292,16 @@ class ShownoticeAction extends OwnerDesignAction
                 array(),
                 array('format'=>'xml','url'=>$this->notice->uri)),
             'title'=>'oEmbed'),null);
+
+        // Extras to aid in sharing notices to Facebook
+        $avatar = $this->profile->getAvatar(AVATAR_PROFILE_SIZE);
+        $avatarUrl = ($avatar) ?
+                     $avatar->displayUrl() :
+                     Avatar::defaultImage(AVATAR_PROFILE_SIZE);
+        $this->element('meta', array('property' => 'og:image',
+                                     'content' => $avatarUrl));
+        $this->element('meta', array('property' => 'og:description',
+                                     'content' => $this->notice->content));
     }
 }
 
@@ -307,10 +318,14 @@ class SingleNoticeItem extends NoticeListItem
     function show()
     {
         $this->showStart();
-        $this->showNotice();
-        $this->showNoticeAttachments();
-        $this->showNoticeInfo();
-        $this->showNoticeOptions();
+        if (Event::handle('StartShowNoticeItem', array($this))) {
+            $this->showNotice();
+            $this->showNoticeAttachments();
+            $this->showNoticeInfo();
+            $this->showNoticeOptions();
+            Event::handle('EndShowNoticeItem', array($this));
+        }
+
         $this->showEnd();
     }
 

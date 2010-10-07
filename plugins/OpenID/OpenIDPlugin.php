@@ -102,9 +102,14 @@ class OpenIDPlugin extends Plugin
     function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
     {
         if (common_config('site', 'openidonly')) {
-            static $block = array('main/login',
-                                  'main/register',
-                                  'main/recoverpassword',
+            // Note that we should not remove the login and register
+            // actions. Lots of auth-related things link to them,
+            // such as when visiting a private site without a session
+            // or revalidating a remembered login for admin work.
+            //
+            // We take those two over with redirects to ourselves
+            // over in onArgsInitialize().
+            static $block = array('main/recoverpassword',
                                   'settings/password');
 
             if (in_array($path, $block)) {
@@ -628,6 +633,28 @@ class OpenIDPlugin extends Plugin
         }
 
         return true;
+    }
+
+    /**
+     * Add OpenID information to the Account Management Control Document
+     * Event supplied by the Account Manager plugin
+     *
+     * @param array &$amcd Array that expresses the AMCD
+     *
+     * @return boolean hook value
+     */
+
+    function onEndAccountManagementControlDocument(&$amcd)
+    {
+        $amcd['auth-methods']['openid'] = array(
+            'connect' => array(
+                'method' => 'POST',
+                'path' => common_local_url('openidlogin'),
+                'params' => array(
+                    'identity' => 'openid_url'
+                )
+            )
+        );
     }
 
     /**

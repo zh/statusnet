@@ -20,7 +20,6 @@
  */
 
 class DiscoveryHints {
-
     static function fromXRD($xrd)
     {
         $hints = array();
@@ -114,9 +113,10 @@ class DiscoveryHints {
 
     static function _hcard($body, $url)
     {
-        // DOMDocument::loadHTML may throw warnings on unrecognized elements.
+        // DOMDocument::loadHTML may throw warnings on unrecognized elements,
+        // and notices on unrecognized namespaces.
 
-        $old = error_reporting(error_reporting() & ~E_WARNING);
+        $old = error_reporting(error_reporting() & ~(E_WARNING | E_NOTICE));
 
         $doc = new DOMDocument();
         $doc->loadHTML($body);

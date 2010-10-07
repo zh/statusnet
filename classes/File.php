@@ -29,7 +29,6 @@ require_once INSTALLDIR.'/classes/File_to_post.php';
 /**
  * Table Definition for file
  */
-
 class File extends Memcached_DataObject
 {
     ###START_AUTOCODE

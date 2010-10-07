@@ -48,7 +48,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPLv3
  * @link      http://status.net/
  */
-
 class Activity
 {
     const SPEC   = 'http://activitystrea.ms/spec/1.0/';
@@ -108,7 +107,6 @@ class Activity
      * @param DOMElement $entry Atom entry to poke at
      * @param DOMElement $feed  Atom feed, for context
      */
-
     function __construct($entry = null, $feed = null)
     {
         if (is_null($entry)) {
@@ -133,6 +131,7 @@ class Activity
                    $entry->localName == 'item') {
             $this->_fromRssItem($entry, $feed);
         } else {
+            // Low level exception. No need for i18n.
             throw new Exception("Unknown DOM element: {$entry->namespaceURI} {$entry->localName}");
         }
     }
@@ -313,13 +312,12 @@ class Activity
      *
      * @return DOMElement Atom entry
      */
-
     function toAtomEntry()
     {
         return null;
     }
 
-    function asString($namespace=false)
+    function asString($namespace=false, $author=true)
     {
         $xs = new XMLStringer(true);
 
@@ -338,7 +336,7 @@ class Activity
 
         $xs->element('id', null, $this->id);
         $xs->element('title', null, $this->title);
-        $xs->element('published', null, common_date_iso8601($this->time));
+        $xs->element('published', null, self::iso8601Date($this->time));
         $xs->element('content', array('type' => 'html'), $this->content);
 
         if (!empty($this->summary)) {
@@ -353,13 +351,15 @@ class Activity
 
         // XXX: add context
 
-        $xs->elementStart('author');
-        $xs->element('uri', array(), $this->actor->id);
-        if ($this->actor->title) {
-            $xs->element('name', array(), $this->actor->title);
+        if ($author) {
+            $xs->elementStart('author');
+            $xs->element('uri', array(), $this->actor->id);
+            if ($this->actor->title) {
+                $xs->element('name', array(), $this->actor->title);
+            }
+            $xs->elementEnd('author');
+            $xs->raw($this->actor->asString('activity:actor'));
         }
-        $xs->elementEnd('author');
-        $xs->raw($this->actor->asString('activity:actor'));
 
         $xs->element('activity:verb', null, $this->verb);
 
@@ -386,5 +386,12 @@ class Activity
     {
         return ActivityUtils::child($element, $tag, $namespace);
     }
-}
 
+    static function iso8601Date($tm)
+    {
+        $dateStr = date('d F Y H:i:s', $tm);
+        $d = new DateTime($dateStr, new DateTimeZone('UTC'));
+        $d->setTimezone(new DateTimeZone(common_timezone()));
+        return $d->format('c');
+    }
+}

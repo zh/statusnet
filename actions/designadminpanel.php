@@ -71,7 +71,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
     function getInstructions()
     {
-        return _('Design settings for this StatusNet site.');
+        return _('Design settings for this StatusNet site');
     }
 
     /**
@@ -154,9 +154,22 @@ class DesignadminpanelAction extends AdminPanelAction
 
         $config->query('BEGIN');
 
-        // Only update colors if the theme has not changed.
+        if ($themeChanged) {
+            // If the theme has changed, reset custom colors and let them pick
+            // up the new theme's defaults.
+            $colors = array('background', 'content', 'sidebar', 'text', 'link');
+            foreach ($colors as $colorKey) {
+                // Clear from global config so we see defaults on this page...
+                $GLOBALS['config']['design'][$colorKey . 'color'] = false;
 
-        if (!$themeChanged) {
+                // And remove old settings from DB...
+                $this->deleteSetting('design', $colorKey . 'color');
+            }
+        } else {
+            // Only save colors from the form if the theme has not changed.
+            //
+            // @fixme a future more ajaxy form should allow theme switch
+            // and color customization in one step.
 
             $bgcolor = new WebColor($this->trimmed('design_background'));
             $ccolor  = new WebColor($this->trimmed('design_content'));

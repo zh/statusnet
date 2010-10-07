@@ -42,7 +42,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  */
-
 class Registration_ip extends Memcached_DataObject
 {
     public $__table = 'registration_ip';     // table name
@@ -59,7 +58,6 @@ class Registration_ip extends Memcached_DataObject
      * @return User_greeting_count object found, or null for no hits
      *
      */
-
     function staticGet($k, $v=null)
     {
         return Memcached_DataObject::staticGet('Registration_ip', $k, $v);
@@ -70,7 +68,6 @@ class Registration_ip extends Memcached_DataObject
      *
      * @return array array of column definitions
      */
-
     function table()
     {
         return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
@@ -86,7 +83,6 @@ class Registration_ip extends Memcached_DataObject
      *
      * @return array key definitions
      */
-
     function keys()
     {
         return array('user_id' => 'K');
@@ -100,7 +96,6 @@ class Registration_ip extends Memcached_DataObject
      *
      * @return array key definitions
      */
-
     function keyTypes()
     {
         return $this->keys();
@@ -116,7 +111,6 @@ class Registration_ip extends Memcached_DataObject
      *
      * @return array magic three-false array that stops auto-incrementing.
      */
-
     function sequenceKey()
     {
         return array(false, false, false);

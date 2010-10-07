@@ -32,15 +32,15 @@ class OwnerxrdAction extends XrdAction
     function prepare($args)
     {
         $this->user = User::siteOwner();
-        
+
         if (!$this->user) {
-            $this->clientError(_('No such user.'), 404);
+            $this->clientError(_m('No such user.'), 404);
             return false;
         }
 
         $nick = common_canonical_nickname($this->user->nickname);
         $acct = 'acct:' . $nick . '@' . common_config('site', 'server');
-        
+
         $this->xrd = new XRD();
 
         // Check to see if a $config['webfinger']['owner'] has been set

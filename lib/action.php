@@ -121,7 +121,10 @@ class Action extends HTMLOutputter // lawsuit
         // XXX: attributes (profile?)
         $this->elementStart('head');
         if (Event::handle('StartShowHeadElements', array($this))) {
-            $this->showTitle();
+            if (Event::handle('StartShowHeadTitle', array($this))) {
+                $this->showTitle();
+                Event::handle('EndShowHeadTitle', array($this));
+            }
             $this->showShortcutIcon();
             $this->showStylesheets();
             $this->showOpenSearch();
@@ -200,7 +203,7 @@ class Action extends HTMLOutputter // lawsuit
 
             if (Event::handle('StartShowStatusNetStyles', array($this)) &&
                 Event::handle('StartShowLaconicaStyles', array($this))) {
-                $this->cssLink('css/display.css',null, 'screen, projection, tv, print');
+                $this->primaryCssLink(null, 'screen, projection, tv, print');
                 Event::handle('EndShowStatusNetStyles', array($this));
                 Event::handle('EndShowLaconicaStyles', array($this));
             }
@@ -235,7 +238,7 @@ class Action extends HTMLOutputter // lawsuit
                 Event::handle('EndShowDesign', array($this));
             }
             Event::handle('EndShowStyles', array($this));
-            
+
             if (common_config('custom_css', 'enabled')) {
                 $css = common_config('custom_css', 'css');
                 if (Event::handle('StartShowCustomCss', array($this, &$css))) {
@@ -246,6 +249,18 @@ class Action extends HTMLOutputter // lawsuit
                 }
             }
         }
+    }
+
+    function primaryCssLink($mainTheme=null, $media=null)
+    {
+        // If the currently-selected theme has dependencies on other themes,
+        // we'll need to load their display.css files as well in order.
+        $theme = new Theme($mainTheme);
+        $baseThemes = $theme->getDeps();
+        foreach ($baseThemes as $baseTheme) {
+            $this->cssLink('css/display.css', $baseTheme, $media);
+        }
+        $this->cssLink('css/display.css', $mainTheme, $media);
     }
 
     /**
@@ -266,9 +281,7 @@ class Action extends HTMLOutputter // lawsuit
             }
             if (Event::handle('StartShowStatusNetScripts', array($this)) &&
                 Event::handle('StartShowLaconicaScripts', array($this))) {
-                $this->script('xbImportNode.js');
                 $this->script('util.js');
-                $this->script('geometa.js');
                 // Frame-busting code to avoid clickjacking attacks.
                 $this->inlineScript('if (window.top !== window.self) { window.top.location.href = window.self.location.href; }');
                 Event::handle('EndShowStatusNetScripts', array($this));
@@ -301,7 +314,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-
     function showFeeds()
     {
         $feeds = $this->getFeeds();
@@ -616,7 +628,10 @@ class Action extends HTMLOutputter // lawsuit
     function showContentBlock()
     {
         $this->elementStart('div', array('id' => 'content'));
-        $this->showPageTitle();
+        if (Event::handle('StartShowPageTitle', array($this))) {
+            $this->showPageTitle();
+            Event::handle('EndShowPageTitle', array($this));
+        }
         $this->showPageNoticeBlock();
         $this->elementStart('div', array('id' => 'content_inner'));
         // show the actual content (forms, lists, whatever)
@@ -694,18 +709,17 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-
     function showAside()
     {
         $this->elementStart('div', array('id' => 'aside_primary',
                                          'class' => 'aside'));
-        if (Event::handle('StartShowExportData', array($this))) {
-            $this->showExportData();
-            Event::handle('EndShowExportData', array($this));
-        }
         if (Event::handle('StartShowSections', array($this))) {
             $this->showSections();
             Event::handle('EndShowSections', array($this));
+        }
+        if (Event::handle('StartShowExportData', array($this))) {
+            $this->showExportData();
+            Event::handle('EndShowExportData', array($this));
         }
         $this->elementEnd('div');
     }
@@ -715,7 +729,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return void
      */
-
     function showExportData()
     {
         $feeds = $this->getFeeds();
@@ -791,6 +804,7 @@ class Action extends HTMLOutputter // lawsuit
                             // TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),
+                            // TRANS: Secondary navigation menu option.
                             _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }
@@ -824,6 +838,9 @@ class Action extends HTMLOutputter // lawsuit
         $this->elementStart('dd', null);
         if (common_config('site', 'broughtby')) {
             // TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is set.
+            // TRANS: Text between [] is a link description, text between () is the link itself.
+            // TRANS: Make sure there is no whitespace between "]" and "(".
+            // TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
             $instr = _('**%%site.name%%** is a microblogging service brought to you by [%%site.broughtby%%](%%site.broughtbyurl%%).');
         } else {
             // TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
@@ -831,6 +848,9 @@ class Action extends HTMLOutputter // lawsuit
         }
         $instr .= ' ';
         // TRANS: Second sentence of the StatusNet site license. Mentions the StatusNet source code license.
+        // TRANS: Make sure there is no whitespace between "]" and "(".
+        // TRANS: Text between [] is a link description, text between () is the link itself.
+        // TRANS: %s is the version of StatusNet that is being used.
         $instr .= sprintf(_('It runs the [StatusNet](http://status.net/) microblogging software, version %s, available under the [GNU Affero General Public License](http://www.fsf.org/licensing/licenses/agpl-3.0.html).'), STATUSNET_VERSION);
         $output = common_markup_to_html($instr);
         $this->raw($output);
@@ -877,7 +897,8 @@ class Action extends HTMLOutputter // lawsuit
                                             'width' => '80',
                                             'height' => '15'));
                 $this->text(' ');
-                // TRANS: license message in footer. %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
+                // TRANS: license message in footer.
+                // TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
                 $notice = _('All %1$s content and data are available under the %2$s license.');
                 $link = "<a class=\"license\" rel=\"external license\" href=\"" .
                         htmlspecialchars(common_config('license', 'url')) .
@@ -931,7 +952,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean is read only action?
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -978,29 +998,61 @@ class Action extends HTMLOutputter // lawsuit
     function handle($argarray=null)
     {
         header('Vary: Accept-Encoding,Cookie');
+
         $lm   = $this->lastModified();
         $etag = $this->etag();
+
         if ($etag) {
             header('ETag: ' . $etag);
         }
+
         if ($lm) {
             header('Last-Modified: ' . date(DATE_RFC1123, $lm));
-            if (array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
-                $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
-                $ims = strtotime($if_modified_since);
-                if ($lm <= $ims) {
-                    $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
-                      $_SERVER['HTTP_IF_NONE_MATCH'] : null;
-                    if (!$if_none_match ||
-                        !$etag ||
-                        $this->_hasEtag($etag, $if_none_match)) {
-                        header('HTTP/1.1 304 Not Modified');
-                        // Better way to do this?
-                        exit(0);
-                    }
+            if ($this->isCacheable()) {
+                header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', 0 ) . ' GMT' );
+                header( "Cache-Control: private, must-revalidate, max-age=0" );
+                header( "Pragma:");
+            }
+        }
+
+        $checked = false;
+        if ($etag) {
+            $if_none_match = (array_key_exists('HTTP_IF_NONE_MATCH', $_SERVER)) ?
+              $_SERVER['HTTP_IF_NONE_MATCH'] : null;
+            if ($if_none_match) {
+                // If this check fails, ignore the if-modified-since below.
+                $checked = true;
+                if ($this->_hasEtag($etag, $if_none_match)) {
+                    header('HTTP/1.1 304 Not Modified');
+                    // Better way to do this?
+                    exit(0);
                 }
             }
         }
+
+        if (!$checked && $lm && array_key_exists('HTTP_IF_MODIFIED_SINCE', $_SERVER)) {
+            $if_modified_since = $_SERVER['HTTP_IF_MODIFIED_SINCE'];
+            $ims = strtotime($if_modified_since);
+            if ($lm <= $ims) {
+                header('HTTP/1.1 304 Not Modified');
+                // Better way to do this?
+                exit(0);
+            }
+        }
+    }
+
+    /**
+     * Is this action cacheable?
+     *
+     * If the action returns a last-modified
+     *
+     * @param array $argarray is ignored since it's now passed in in prepare()
+     *
+     * @return boolean is read only action?
+     */
+    function isCacheable()
+    {
+        return true;
     }
 
     /**
@@ -1011,7 +1063,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return boolean
      */
-
     function _hasEtag($etag, $if_none_match)
     {
         $etags = explode(',', $if_none_match);
@@ -1051,7 +1102,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return integer integer value
      */
-
     function int($key, $defValue=null, $maxValue=null, $minValue=null)
     {
         $arg = strtolower($this->trimmed($key));
@@ -1079,7 +1129,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-
     function serverError($msg, $code=500)
     {
         $action = $this->trimmed('action');
@@ -1095,7 +1144,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return nothing
      */
-
     function clientError($msg, $code=400)
     {
         $action = $this->trimmed('action');
@@ -1108,7 +1156,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return string current URL
      */
-
     function selfUrl()
     {
         list($action, $args) = $this->returnToArgs();
@@ -1120,7 +1167,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return array two elements: action, other args
      */
-
     function returnToArgs()
     {
         $action = $this->trimmed('action');
@@ -1227,7 +1273,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return array Feed object to show in head and links
      */
-
     function getFeeds()
     {
         return null;
@@ -1238,7 +1283,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return Design a design object to use
      */
-
     function getDesign()
     {
         return Design::siteDesign();
@@ -1252,7 +1296,6 @@ class Action extends HTMLOutputter // lawsuit
      *
      * @return void
      */
-
     // XXX: Finding this type of check with the same message about 50 times.
     //      Possible to refactor?
     function checkSessionToken()
@@ -1260,6 +1303,7 @@ class Action extends HTMLOutputter // lawsuit
         // CSRF protection
         $token = $this->trimmed('token');
         if (empty($token) || $token != common_session_token()) {
+            // TRANS: Client error text when there is a problem with the session token.
             $this->clientError(_('There was a problem with your session token.'));
         }
     }

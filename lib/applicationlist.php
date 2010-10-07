@@ -1,5 +1,4 @@
 <?php
-
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
@@ -45,7 +44,6 @@ define('APPS_PER_PAGE', 20);
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApplicationList extends Widget
 {
     /** Current application, application query */
@@ -140,7 +138,7 @@ class ApplicationList extends Widget
             $access = ($this->application->access_type & Oauth_application::$writeAccess)
               ? $readWriteText : $readOnlyText;
             $modifiedDate = common_date_string($appUser->modified);
-            // TRANS: Used in application list. %1$s is a modified date, %2$s is access type (read-write or read-only)
+            // TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
             $txt = sprintf(_('Approved %1$s - "%2$s" access.'),$modifiedDate,$access);
 
             $this->out->raw($txt);
@@ -164,10 +162,8 @@ class ApplicationList extends Widget
     }
 
     /* Override this in subclasses. */
-
     function showOwnerControls()
     {
         return;
     }
-
 }

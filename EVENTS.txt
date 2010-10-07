@@ -258,10 +258,28 @@ EndShowExportData: just after showing the <div> with export data (feeds)
 - $action: action object being shown
 
 StartShowNoticeItem: just before showing the notice item
-- $action: action object being shown
+- $item: The NoticeListItem object being shown
 
 EndShowNoticeItem: just after showing the notice item
-- $action: action object being shown
+- $item: the NoticeListItem object being shown
+
+StartShowNoticeInfo: just before showing notice info
+- $item: The NoticeListItem object being shown
+
+EndShowNoticeInfo: just after showing notice info
+- $item: The NoticeListItem object being shown
+
+StartShowNoticeOptions: just before showing notice options like fave, repeat, etc.
+- $item: the NoticeListItem object being shown
+
+EndShowNoticeOptions: just after showing notice options like fave, repeat, etc.
+- $item: the NoticeListItem object being shown
+
+StartShowFaveForm: just before showing the fave form
+- $item: the NoticeListItem object being shown
+
+EndShowFaveForm: just after showing the fave form
+- $item: the NoticeListItem object being shown
 
 StartShowPageNotice: just before showing the page notice (instructions or error)
 - $action: action object being shown
@@ -551,6 +569,12 @@ EndPublicXRDS: End XRDS output (right before the closing XRDS tag)
 - $action: the current action
 - &$xrdsoutputter - XRDSOutputter object to write to
 
+StartHostMetaLinks: Start /.well-known/host-meta links
+- &links: array containing the links elements to be written
+
+EndHostMetaLinks: End /.well-known/host-meta links
+- &links: array containing the links elements to be written
+
 StartCheckPassword: Check a username/password
 - $nickname: The nickname to check
 - $password: The password to check
@@ -773,6 +797,22 @@ StartDisfavorNotice: Saving a notice as a favorite
 EndDisfavorNotice: After saving a notice as a favorite
 - $profile: profile of the person faving (can be remote!)
 - $notice: notice being faved
+
+StartFavorNoticeForm: starting the data in the form for favoring a notice
+- $FavorForm: the favor form being shown
+- $notice: notice being favored
+
+EndFavorNoticeForm: Ending the data in the form for favoring a notice
+- $FavorForm: the favor form being shown
+- $notice: notice being favored
+
+StartDisFavorNoticeForm: starting the data in the form for disfavoring a notice
+- $DisfavorForm: the disfavor form being shown
+- $notice: notice being difavored
+
+EndDisFavorNoticeForm: Ending the data in the form for disfavoring a notice
+- $DisfavorForm: the disfavor form being shown
+- $notice: notice being disfavored
 
 StartFindMentions: start finding mentions in a block of text
 - $sender: sender profile
@@ -1063,3 +1103,60 @@ StartActivityEnd: before the closing </entry> in a notice activity entry (last c
 EndActivityEnd: after the closing </entry> in a notice activity entry
 - &$notice: notice being output
 - &$xs: XMLStringer for output
+
+StartNoticeSaveWeb: before saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- &$authorId: integer ID of the author
+- &$text: text of the notice
+- &$options: additional options (location, replies, etc.)
+
+EndNoticeSaveWeb: after saving a notice through the Web interface
+- $action: action being executed (instance of NewNoticeAction)
+- $notice: notice that was saved
+
+StartRssEntryArray: at the start of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry (empty at beginning)
+
+EndRssEntryArray: at the end of copying a notice to an array
+- $notice: the notice being copied
+- &$entry: the entry, with all the fields filled up
+
+NoticeDeleteRelated: at the beginning of deleting related fields to a notice
+- $notice: notice being deleted
+
+StartShowHeadTitle: when beginning to show the <title> element
+- $action: action being shown
+
+EndShowHeadTitle: when done showing the <title>
+- $action: action being shown
+
+StartShowPageTitle: when beginning to show the page title <h1>
+- $action: action being shown
+
+EndShowPageTitle: when done showing the page title <h1>
+- $action: action being shown
+
+StartDeleteOwnNotice: when a user starts to delete their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted
+
+EndDeleteOwnNotice: when a user has deleted their own notice
+- $user: the user doing the delete
+- $notice: the notice being deleted
+
+StartShowFeedLinkList: before showing the feed list in the sidebar
+- $action: action being executed
+- $feeds: list of feeds to show
+
+EndShowFeedLinkList: after showing the feed list in the sidebar
+- $action: action being executed
+- $feeds: list of feeds shown
+
+StartShowFeedLink: before showing an individual feed item
+- $action: action being executed
+- $feed: feed to show
+
+EndShowFeedLink: after showing an individual feed
+- $action: action being executed
+- $feed: feed to show

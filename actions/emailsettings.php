@@ -131,7 +131,11 @@ class EmailsettingsAction extends AccountSettingsAction
                 // TRANS: Field label for e-mail address input in e-mail settings form.
                 $this->input('email', _('Email address'),
                              ($this->arg('email')) ? $this->arg('email') : null,
-                             // TRANS: Instructions for e-mail address input form.
+                             // TRANS: Instructions for e-mail address input form. Do not translate
+                             // TRANS: "example.org". It is one of the domain names reserved for
+                             // TRANS: use in examples by http://www.rfc-editor.org/rfc/rfc2606.txt.
+                             // TRANS: Any other domain may be owned by a legitimate person or
+                             // TRANS: organization.
                              _('Email address, like "UserName@example.org"'));
                 $this->elementEnd('li');
                 $this->elementEnd('ul');
