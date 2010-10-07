@@ -457,7 +457,7 @@ $schema['foreign_service'] = array(
 
 $schema['foreign_user'] = array(
     'fields' => array(
-        'id' => array('type' => 'bigint', 'not null' => true, 'description' => 'unique numeric key on foreign service'),
+        'id' => array('type' => 'int', 'size' => 'big', 'not null' => true, 'description' => 'unique numeric key on foreign service'),
         'service' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to service'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'identifying URI'),
         'nickname' => array('type' => 'varchar', 'length' => 255, 'description' => 'nickname on foreign service'),

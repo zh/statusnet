@@ -48,8 +48,15 @@ function indentOptions($indent)
 
 function prettyDumpArray($arr, $key=null, $indent=0)
 {
+    // hack
+    if ($key == 'primary key') {
+        $subIndent = $indent + 2;
+    } else {
+        $subIndent = $indent + 1;
+    }
+
     list($space, $sep, $lf, $endspace) = indentOptions($indent);
-    list($inspace, $insep, $inlf, $inendspace) = indentOptions($indent + 1);
+    list($inspace, $insep, $inlf, $inendspace) = indentOptions($subIndent);
 
     print "{$space}";
     if (!is_numeric($key)) {
@@ -60,7 +67,7 @@ function prettyDumpArray($arr, $key=null, $indent=0)
         $n = 0;
         foreach ($arr as $key => $row) {
             $n++;
-            prettyDumpArray($row, $key, $indent + 1);
+            prettyDumpArray($row, $key, $subIndent);
             if ($n < count($arr)) {
                 print "$insep$inlf";
             }
