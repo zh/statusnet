@@ -41,9 +41,10 @@ $schema['profile'] = array(
     'primary key' => array('id'),
     'indexes' => array(
         'profile_nickname_idx' => array('nickname'),
-        'FULLTEXT' => array('nickname', 'fullname', 'location', 'bio', 'homepage') // ??
     ),
-// Any way to specify that this table needs to be myisam if using the fulltext?
+    'fulltext indexes' => array(
+        'content' => array('nickname', 'fullname', 'location', 'bio', 'homepage') // ??
+    ),
 );
 
 $schema['avatar'] = array(
