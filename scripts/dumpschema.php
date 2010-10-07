@@ -25,6 +25,7 @@ Attempt to pull a schema definition for a given table.
 
 END_OF_CHECKSCHEMA_HELP;
 
+$longoptions = array('diff');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -79,17 +80,58 @@ function prettyDumpArray($arr, $key=null, $indent=0)
     }
 }
 
-function dumpTable($tableName)
+function getCoreSchema($tableName)
 {
-    $schema = Schema::get();
-    $def = $schema->getTableDef($tableName);
+    $schema = array();
+    include INSTALLDIR . '/db/core.php';
+    return $schema[$tableName];
+}
+
+function dumpTable($tableName, $live)
+{
+    if ($live) {
+        $schema = Schema::get();
+        $def = $schema->getTableDef($tableName);
+    } else {
+        // hack
+        $def = getCoreSchema($tableName);
+    }
     prettyDumpArray($def, $tableName);
     echo "\n";
 }
 
+function showDiff($a, $b)
+{
+    $fnameA = tempnam(sys_get_temp_dir(), 'diff-a');
+    file_put_contents($fnameA, $a);
+
+    $fnameB = tempnam(sys_get_temp_dir(), 'diff-b');
+    file_put_contents($fnameB, $b);
+
+    $cmd = sprintf('diff -U 100 %s %s',
+            escapeshellarg($fnameA),
+            escapeshellarg($fnameB));
+    passthru($cmd);
+
+    unlink($fnameA);
+    unlink($fnameB);
+}
+
 if (count($args)) {
     foreach ($args as $tableName) {
-        dumpTable($tableName);
+        if (have_option('diff')) {
+            ob_start();
+            dumpTable($tableName, false);
+            $defined = ob_get_clean();
+
+            ob_start();
+            dumpTable($tableName, true);
+            $detected = ob_get_clean();
+
+            showDiff($defined, $detected);
+        } else {
+            dumpTable($tableName, true);
+        }
     }
 } else {
     show_help($helptext);
