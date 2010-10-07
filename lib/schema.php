@@ -583,6 +583,13 @@ class Schema
 
         return $table;
     }
+
+    function isNumericType($type)
+    {
+        $type = strtolower($type);
+        $known = array('int', 'serial', 'numeric');
+        return in_array($type, $known);
+    }
 }
 
 class SchemaTableMissingException extends Exception
