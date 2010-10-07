@@ -47,7 +47,7 @@ try {
     $req = OAuthRequest::from_consumer_and_token(
         $testConsumer,
         null,
-        "GET",
+        "POST",
         $requestTokenUrl,
         $params
     );
@@ -56,6 +56,7 @@ try {
 } catch (Exception $e) {
     // oh noez
     print $e->getMessage();
+    print "OAuth Request:\n";
     var_dump($req);
     exit(1);
 }
@@ -93,5 +94,5 @@ function httpRequest($url)
         )
     );
 
-    return $request->get($url);
+    return $request->post($url);
 }
