@@ -202,6 +202,14 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         $t->type = 0; // request
         $t->state = 0; // unauthorized
         $t->verified_callback = $callback;
+
+        if ($callback === 'oob') {
+            // six digit pin
+            $t->verifier = mt_rand(0, 999999);
+        } else {
+            $t->verifier = common_good_rand(8);
+        }
+
         $t->created = DB_DataObject_Cast::dateTime();
         if (!$t->insert()) {
             return null;

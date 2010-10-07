@@ -34,9 +34,8 @@ require_once INSTALLDIR . '/lib/apiaction.php';
 require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
- * Base action for API OAuth enpoints.  Clean up the
- * the request, and possibly some other common things
- * here.
+ * Base action for API OAuth enpoints. Clean up the
+ * request. Some other common functions.
  *
  * @category API
  * @package  StatusNet
@@ -82,6 +81,7 @@ class ApiOauthAction extends ApiAction
      * any extra parameters or anything else it's not expecting.
      * I'm looking at you, p parameter.
      */
+
     static function cleanRequest()
     {
         // kill evil effects of magical slashing
@@ -104,27 +104,6 @@ class ApiOauthAction extends ApiAction
         }
 
         $_SERVER['QUERY_STRING'] = implode('&', $queryArray);
-    }
-
-    function getCallback($url, $params)
-    {
-        foreach ($params as $k => $v) {
-            $url = $this->appendQueryVar($url,
-                                         OAuthUtil::urlencode_rfc3986($k),
-                                         OAuthUtil::urlencode_rfc3986($v));
-        }
-
-        return $url;
-    }
-
-    function appendQueryVar($url, $k, $v) {
-        $url = preg_replace('/(.*)(\?|&)' . $k . '=[^&]+?(&)(.*)/i', '$1$2$4', $url . '&');
-        $url = substr($url, 0, -1);
-        if (strpos($url, '?') === false) {
-            return ($url . '?' . $k . '=' . $v);
-        } else {
-            return ($url . '&' . $k . '=' . $v);
-        }
     }
 
 }
