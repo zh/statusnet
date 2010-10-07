@@ -39,19 +39,11 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
 {
     public $shortenerName = 'bit.ly';
     public $serviceUrl = 'http://bit.ly/api?method=shorten&version=2.0.1&longUrl=%s';
-    public $login;
-    public $apiKey;
 
     function onInitializePlugin(){
         parent::onInitializePlugin();
         if(!isset($this->serviceUrl)){
             throw new Exception(_m("You must specify a serviceUrl for bit.ly shortening."));
-        }
-        if(!isset($this->login)){
-            throw new Exception(_m("You must specify a login name for bit.ly shortening."));
-        }
-        if(!isset($this->login)){
-            throw new Exception(_m("You must specify an API key for bit.ly shortening."));
         }
     }
 
@@ -70,6 +62,26 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
     }
 
     /**
+     * Get the user's or site-wide default bit.ly login name.
+     *
+     * @return string
+     */
+    protected function getLogin()
+    {
+        return common_config('bitly', 'default_login');
+    }
+
+    /**
+     * Get the user's or site-wide default bit.ly API key.
+     *
+     * @return string
+     */
+    protected function getApiKey()
+    {
+        return common_config('bitly', 'default_apikey');
+    }
+
+    /**
      * Inject API key into query before sending out...
      *
      * @param string $url
@@ -79,8 +91,8 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
     {
         // http://code.google.com/p/bitly-api/wiki/ApiDocumentation#/shorten
         $params = http_build_query(array(
-            'login' => $this->login,
-            'apiKey' => $this->apiKey), '', '&');
+            'login' => $this->getLogin(),
+            'apiKey' => $this->getApiKey()), '', '&');
         $serviceUrl = sprintf($this->serviceUrl, $url) . '&' . $params;
 
         $request = HTTPClient::start();
@@ -135,5 +147,70 @@ class BitlyUrlPlugin extends UrlShortenerPlugin
                                     $this->shortenerName));
 
         return true;
+    }
+
+    /**
+     * Hook for RouterInitialized event.
+     *
+     * @param Net_URL_Mapper $m path-to-action mapper
+     * @return boolean hook return
+     */
+    function onRouterInitialized($m)
+    {
+        $m->connect('admin/bitly',
+                    array('action' => 'bitlyadminpanel'));
+        return true;
+    }
+
+    /**
+     * If the plugin's installed, this should be accessible to admins.
+     */
+    function onAdminPanelCheck($name, &$isOK)
+    {
+        if ($name == 'bitly') {
+            $isOK = true;
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add the bit.ly admin panel to the list...
+     */
+    function onEndAdminPanelNav($nav)
+    {
+        if (AdminPanelAction::canAdmin('bitly')) {
+            $action_name = $nav->action->trimmed('action');
+
+            $nav->out->menuItem(common_local_url('bitlyadminpanel'),
+                                _m('bit.ly'),
+                                _m('bit.ly URL shortening'),
+                                $action_name == 'bitlyadminpanel',
+                                'nav_bitly_admin_panel');
+        }
+
+        return true;
+    }
+
+    /**
+     * Automatically load the actions and libraries used by the plugin
+     *
+     * @param Class $cls the class
+     *
+     * @return boolean hook return
+     *
+     */
+    function onAutoload($cls)
+    {
+        $base = dirname(__FILE__);
+        $lower = strtolower($cls);
+        switch ($lower) {
+        case 'bitlyadminpanelaction':
+            require_once "$base/$lower.php";
+            return false;
+        default:
+            return true;
+        }
     }
 }
