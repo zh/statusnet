@@ -56,7 +56,7 @@ try {
 } catch (Exception $e) {
     // oh noez
     print $e->getMessage();
-    print "OAuth Request:\n";
+    print "\nOAuth Request:\n";
     var_dump($req);
     exit(1);
 }

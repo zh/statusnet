@@ -449,21 +449,28 @@ class ApiOauthAuthorizeAction extends Action
 
     function showAuthorized()
     {
+        $title = sprintf(
+            _("You have successfully authorized %s."),
+            $this->app->name
+        );
+
+        $msg = sprintf(
+            _('Please return to %s and enter the following security code to complete the process.'),
+            $this->app->name
+        );
 
         if ($this->reqToken->verified_callback == 'oob') {
-
-            $pin = new ApiOauthPinAction($this->reqToken->verifier);
+            $pin = new ApiOauthPinAction($title, $msg, $this->reqToken->verifier);
             $pin->showPage();
-
         } else {
 
+            // NOTE: This should probably never happen; trhow an error instead?
+
             $info = new InfoAction(
-                _("Authorization succeeded."),
-                sprintf(
-                    _('The request token %s has been authorized. Please exchange it for an access token using this verifier: %s'),
-                    $this->oauthTokenParam,
-                    $this->reqToken->verifier
-                )
+                $title,
+                $msg,
+                $this->oauthTokenParam,
+                $this->reqToken->verifier
             );
 
             $info->showPage();

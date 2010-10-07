@@ -36,6 +36,8 @@ require_once INSTALLDIR . '/lib/info.php';
 /**
  * Class for displaying an OAuth verifier pin
  *
+ * XXX: I'm pretty sure we don't need to check the logged in state here. -- Zach
+ *
  * @category Action
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
@@ -45,15 +47,12 @@ require_once INSTALLDIR . '/lib/info.php';
 
 class ApiOauthPinAction extends InfoAction
 {
-
-    function __construct($verifier)
+    function __construct($title, $message, $verifier)
     {
         $this->verifier = $verifier;
-        $title = _('Authorization succeeded.');
-        parent::__construct($title, $title);
+        $this->title    = $title;
+        parent::__construct($title, $message);
     }
-
-    // TODO: Check for logged in state!
 
     /**
      * Display content.
@@ -62,8 +61,7 @@ class ApiOauthPinAction extends InfoAction
      */
     function showContent()
     {
-        // XXX: make this much nicer
-        $this->element('div', array('class' => 'info'), $this->verifier);
+        $this->element('div', array('class' => 'info'), $this->message);
+        $this->element('div', array('id' => 'oauth_pin'), $this->verifier);
     }
-
 }
