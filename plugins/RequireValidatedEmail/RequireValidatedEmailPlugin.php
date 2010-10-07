@@ -216,4 +216,23 @@ class RequireValidatedEmailPlugin extends Plugin
                 _m('Disables posting without a validated email address.'));
         return true;
     }
+
+    /**
+     * Hide the notice form if the user isn't able to post.
+     *
+     * @param Action $action action being shown
+     *
+     * @return boolean hook value
+     */
+
+    function onStartShowNoticeForm($action)
+    {
+        $user = common_current_user();
+        if (!empty($user)) { // it's a remote notice
+            if (!$this->validated($user)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
