@@ -966,7 +966,7 @@ class OStatusPlugin extends Plugin
     {
         $group = User_group::staticGet('uri', $url);
         if ($group) {
-            $local = Local_group::staticGet('id', $group->id);
+            $local = Local_group::staticGet('group_id', $group->id);
             if ($local) {
                 return $group->id;
             }
