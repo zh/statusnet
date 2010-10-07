@@ -33,12 +33,13 @@ foreach(array('consumer_key', 'consumer_secret', 'apiroot', 'request_token_url')
     }
 }
 
-$testConsumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
+$testConsumer    = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
 $requestTokenUrl = $ini['apiroot'] . $ini['request_token_url'];
-$parsed = parse_url($requestTokenUrl);
-$params = array();
+$parsed          = parse_url($requestTokenUrl);
+$params          = array();
+
 parse_str($parsed['query'], $params);
-$params['oauth_callback'] = 'oob';
+$params['oauth_callback'] = 'oob'; // out-of-band
 
 $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
@@ -59,22 +60,24 @@ try {
     exit(1);
 }
 
-$body = $r->getBody();
+$body       = $r->getBody();
 $tokenStuff = array();
+
 parse_str($body, $tokenStuff);
 
-if (empty($tokenStuff['oauth_token'])) {
+$tok       = $tokenStuff['oauth_token'];
+$confirmed = $tokenStuff['oauth_callback_confirmed'];
+
+if (empty($tokenStuff['oauth_token']) || empty($confirmed) || $confirmed != 'true') {
     print "Error: $body\n";
     exit(1);
 }
 
-$authurl = $ini['apiroot'] . $ini['authorize_url'] . '?oauth_token=' . $tokenStuff['oauth_token'];
-print "\nSuccess!\n\n";
-print 'Request token        : ' . $tokenStuff['oauth_token'] . "\n";
-print 'Request token secret : ' . $tokenStuff['oauth_token_secret'] . "\n";
-print "Authorize URL        : $authurl\n";
+$authurl = $ini['apiroot'] . $ini['authorize_url'] . '?oauth_token=' . $tok;
 
-print "\nNow paste the Authorize URL into your browser and authorize the request token.\n";
+print "\nSuccess! ";
+print "Authorize URL:\n\n$authurl\n\n";
+print "Now paste the Authorize URL into your browser and authorize your temporary credentials.\n";
 
 function httpRequest($url)
 {
@@ -92,4 +95,3 @@ function httpRequest($url)
 
     return $request->get($url);
 }
-
