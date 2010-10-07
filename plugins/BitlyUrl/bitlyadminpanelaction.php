@@ -188,7 +188,7 @@ class BitlyAdminPanelForm extends AdminForm
             'fieldset',
             array('id' => 'settings_bitly')
         );
-        $this->out->element('legend', null, _m('Default credentials'));
+        $this->out->element('legend', null, _m('Credentials'));
 
         // Do we have global defaults to fall back on?
         $login = $apiKey = false;
@@ -196,7 +196,7 @@ class BitlyAdminPanelForm extends AdminForm
         $haveGlobalDefaults = ($login && $apiKey);
         if ($login && $apiKey) {
             $this->out->element('p', 'form_guide',
-                _m('Leave these empty to use the default credentials.'));
+                _m('Leave these empty to use global default credentials.'));
         } else {
             $this->out->element('p', 'form_guide',
                 _m('If you leave these empty, bit.ly will be unavailable to users.'));
