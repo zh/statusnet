@@ -205,7 +205,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
         if ($callback === 'oob') {
             // six digit pin
-            $t->verifier = mt_rand(0, 999999);
+            $t->verifier = mt_rand(0, 9999999);
         } else {
             $t->verifier = common_good_rand(8);
         }
