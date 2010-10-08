@@ -40,8 +40,10 @@ $shortoptions = 't:s:v:';
 $longoptions = array('oauth_token=', 'oauth_token_secret=', 'oauth_verifier=');
 
 $helptext = <<<END_OF_ETOKENS_HELP
-  exchangetokens.php [options]
-  Exchange an authorized OAuth request token for an access token
+  fetch_token_creds.php [options]
+
+  Exchange authorized OAuth temporary credentials for token credentials
+  (an authorized request token for an access token)
 
     -t --oauth_token        authorized request token
     -s --oauth_token_secret authorized request token secret
