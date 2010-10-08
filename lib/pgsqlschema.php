@@ -208,93 +208,6 @@ class PgsqlSchema extends Schema
         return true;
     }
 
-
-    /**
-     * Ensures that a table exists with the given
-     * name and the given column definitions.
-     *
-     * If the table does not yet exist, it will
-     * create the table. If it does exist, it will
-     * alter the table to match the column definitions.
-     *
-     * @param string $tableName name of the table
-     * @param array  $columns   array of ColumnDef
-     *                          objects for the table
-     *
-     * @return boolean success flag
-     */
-
-    public function ensureTable($tableName, $columns)
-    {
-        // XXX: DB engine portability -> toilet
-
-        try {
-            $td = $this->getTableDef($tableName);
-            
-        } catch (Exception $e) {
-            if (preg_match('/no such table/', $e->getMessage())) {
-                return $this->createTable($tableName, $columns);
-            } else {
-                throw $e;
-            }
-        }
-
-        $cur = $this->_names($td->columns);
-        $new = $this->_names($columns);
-
-        $toadd  = array_diff($new, $cur);
-        $todrop = array_diff($cur, $new);
-        $same   = array_intersect($new, $cur);
-        $tomod  = array();
-        foreach ($same as $m) {
-            $curCol = $this->_byName($td->columns, $m);
-            $newCol = $this->_byName($columns, $m);
-            
-
-            if (!$newCol->equals($curCol)) {
-            // BIG GIANT TODO!
-            // stop it detecting different types and trying to modify on every page request
-//                 $tomod[] = $newCol->name;
-            }
-        }
-        if (count($toadd) + count($todrop) + count($tomod) == 0) {
-            // nothing to do
-            return true;
-        }
-
-        // For efficiency, we want this all in one
-        // query, instead of using our methods.
-
-        $phrase = array();
-
-        foreach ($toadd as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
-        }
-
-        foreach ($todrop as $columnName) {
-            $phrase[] = 'DROP COLUMN ' . $columnName;
-        }
-
-        foreach ($tomod as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-	/* brute force */
-            $phrase[] = 'DROP COLUMN ' . $columnName;
-            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
-        }
-
-        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
     /**
      * Return the proper SQL for creating or
      * altering a column.
@@ -324,6 +237,49 @@ class PgsqlSchema extends Schema
         }
 
         return implode(' ', $line);
+    }
+
+    /**
+     * Append phrase(s) to an array of partial ALTER TABLE chunks in order
+     * to alter the given column from its old state to a new one.
+     *
+     * @param array $phrase
+     * @param string $columnName
+     * @param array $old previous column definition as found in DB
+     * @param array $cd current column definition
+     */
+    function appendAlterModifyColumn(array &$phrase, $columnName, array $old, array $cd)
+    {
+        $prefix = 'ALTER COLUMN ' . $this->quoteIdentifier($columnName) . ' ';
+
+        $oldType = $this->mapType($old);
+        $newType = $this->mapType($cd);
+        if ($oldType != $newType) {
+            $phrase[] .= $prefix . 'TYPE ' . $newType;
+        }
+
+        if (!empty($old['not null']) && empty($cd['not null'])) {
+            $phrase[] .= $prefix . 'DROP NOT NULL';
+        } else if (empty($old['not null']) && !empty($cd['not null'])) {
+            $phrase[] .= $prefix . 'SET NOT NULL';
+        }
+
+        if (isset($old['default']) && !isset($cd['default'])) {
+            $phrase[] . $prefix . 'DROP DEFAULT';
+        } else if (!isset($old['default']) && isset($cd['default'])) {
+            $phrase[] . $prefix . 'SET DEFAULT ' . $this->quoteDefaultValue($cd);
+        }
+    }
+
+    /**
+     * Quote a db/table/column identifier if necessary.
+     *
+     * @param string $name
+     * @return string
+     */
+    function quoteIdentifier($name)
+    {
+        return '"' . $name . '"';
     }
 
     function mapType($column)

@@ -345,12 +345,12 @@ class Schema
      * @return boolean success flag
      */
 
-    public function ensureTable($tableName, $columns)
+    public function ensureTable($tableName, $def)
     {
         // XXX: DB engine portability -> toilet
 
         try {
-            $td = $this->getTableDef($tableName);
+            $old = $this->getTableDef($tableName);
         } catch (Exception $e) {
             if (preg_match('/no such table/', $e->getMessage())) {
                 return $this->createTable($tableName, $columns);
@@ -359,20 +359,22 @@ class Schema
             }
         }
 
-        $cur = $this->_names($td->columns);
-        $new = $this->_names($columns);
+        $cur = array_keys($old['fields']);
+        $new = array_keys($def['fields']);
 
         $toadd  = array_diff($new, $cur);
         $todrop = array_diff($cur, $new);
         $same   = array_intersect($new, $cur);
         $tomod  = array();
 
-        foreach ($same as $m) {
-            $curCol = $this->_byName($td->columns, $m);
-            $newCol = $this->_byName($columns, $m);
+        // Find which fields have actually changed definition
+        // in a way that we need to tweak them for this DB type.
+        foreach ($same as $name) {
+            $curCol = $old['fields'][$name];
+            $newCol = $cur['fields'][$name];
 
-            if (!$newCol->equals($curCol)) {
-                $tomod[] = $newCol->name;
+            if (!$this->columnsEqual($curCol, $newCol)) {
+                $tomod[] = $name;
             }
         }
 
@@ -387,19 +389,18 @@ class Schema
         $phrase = array();
 
         foreach ($toadd as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
+            $this->appendAlterAddColumn($phrase, $columnName,
+                    $def['fields'][$columnName]);
         }
 
         foreach ($todrop as $columnName) {
-            $phrase[] = 'DROP COLUMN ' . $columnName;
+            $this->appendAlterModifyColumn($phrase, $columnName,
+                    $old['fields'][$columnName],
+                    $def['fields'][$columnName]);
         }
 
         foreach ($tomod as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-            $phrase[] = 'MODIFY COLUMN ' . $this->_columnSql($cd);
+            $this->appendAlterDropColumn($phrase, $columnName);
         }
 
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
@@ -411,6 +412,90 @@ class Schema
         }
 
         return true;
+    }
+
+    /**
+     * Append phrase(s) to an array of partial ALTER TABLE chunks in order
+     * to add the given column definition to the table.
+     *
+     * @param array $phrase
+     * @param string $columnName
+     * @param array $cd 
+     */
+    function appendAlterAddColumn(array &$phrase, $columnName, array $cd)
+    {
+        $phrase[] = 'ADD COLUMN ' .
+                    $this->quoteIdentifier($columnName) .
+                    ' ' .
+                    $this->columnSql($cd);
+    }
+
+    /**
+     * Append phrase(s) to an array of partial ALTER TABLE chunks in order
+     * to alter the given column from its old state to a new one.
+     *
+     * @param array $phrase
+     * @param string $columnName
+     * @param array $old previous column definition as found in DB
+     * @param array $cd current column definition
+     */
+    function appendAlterModifyColumn(array &$phrase, $columnName, array $old, array $cd)
+    {
+        $phrase[] = 'MODIFY COLUMN ' .
+                    $this->quoteIdentifier($columnName) .
+                    ' ' .
+                    $this->columnSql($cd);
+    }
+
+    /**
+     * Append phrase(s) to an array of partial ALTER TABLE chunks in order
+     * to drop the given column definition from the table.
+     *
+     * @param array $phrase
+     * @param string $columnName
+     */
+    function appendAlterDropColumn(array &$phrase, $columnName)
+    {
+        $phrase[] = 'DROP COLUMN ' . $this->quoteIdentifier($columnName);
+    }
+
+    /**
+     * Quote a db/table/column identifier if necessary.
+     *
+     * @param string $name
+     * @return string
+     */
+    function quoteIdentifier($name)
+    {
+        return $name;
+    }
+
+    function quoteDefaultValue($cd)
+    {
+        if ($cd['type'] == 'datetime' && $cd['default'] == 'CURRENT_TIMESTAMP') {
+            return $cd['default'];
+        } else {
+            return $this->quoteValue($cd['default']);
+        }
+    }
+
+    function quoteValue($val)
+    {
+        return $this->conn->escape($val);
+    }
+
+    /**
+     * Check if two column definitions are equivalent.
+     * The default implementation checks _everything_ but in many cases
+     * you may be able to discard a bunch of equivalencies.
+     *
+     * @param array $a
+     * @param array $b
+     * @return boolean
+     */
+    function columnsEqual(array $a, array $b)
+    {
+        return !array_diff_assoc($a, $b) && !array_diff_assoc($b, $a);
     }
 
     /**
