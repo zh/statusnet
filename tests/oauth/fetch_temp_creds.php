@@ -33,10 +33,10 @@ foreach(array('consumer_key', 'consumer_secret', 'apiroot', 'request_token_url')
     }
 }
 
-$testConsumer    = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
-$requestTokenUrl = $ini['apiroot'] . $ini['request_token_url'];
-$parsed          = parse_url($requestTokenUrl);
-$params          = array();
+$consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
+$endpoint = $ini['apiroot'] . $ini['request_token_url'];
+$parsed   = parse_url($endpoint);
+$params   = array();
 
 parse_str($parsed['query'], $params);
 $params['oauth_callback'] = 'oob'; // out-of-band
@@ -45,14 +45,14 @@ $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
 try {
     $req = OAuthRequest::from_consumer_and_token(
-        $testConsumer,
+        $consumer,
         null,
         "POST",
-        $requestTokenUrl,
+        $endpoint,
         $params
     );
-    $req->sign_request($hmac_method, $testConsumer, NULL);
-    $r = httpRequest($req->to_url());
+    $req->sign_request($hmac_method, $consumer, NULL);
+    $r = httpRequest($endpoint, $req->to_postdata());
 } catch (Exception $e) {
     // oh noez
     print $e->getMessage();
@@ -69,18 +69,24 @@ parse_str($body, $tokenStuff);
 $tok       = $tokenStuff['oauth_token'];
 $confirmed = $tokenStuff['oauth_callback_confirmed'];
 
-if (empty($tokenStuff['oauth_token']) || empty($confirmed) || $confirmed != 'true') {
-    print "Error: $body\n";
+if (empty($tokenStuff['oauth_token'])
+    || empty($tokenStuff['oauth_token_secret'])
+    || empty($confirmed)
+    || $confirmed != 'true')
+{
+    print "Error! HTTP response body: $body\n";
     exit(1);
 }
 
 $authurl = $ini['apiroot'] . $ini['authorize_url'] . '?oauth_token=' . $tok;
 
-print "\nSuccess! ";
-print "Authorize URL:\n\n$authurl\n\n";
+print "Request Token\n";
+print '   - oauth_token        = ' . $tokenStuff['oauth_token'] . "\n";
+print '   - oauth_token_secret = ' . $tokenStuff['oauth_token_secret'] . "\n";
+print "Authorize URL\n    $authurl\n\n";
 print "Now paste the Authorize URL into your browser and authorize your temporary credentials.\n";
 
-function httpRequest($url)
+function httpRequest($endpoint, $poststr)
 {
     $request = HTTPClient::start();
 
@@ -94,5 +100,7 @@ function httpRequest($url)
         )
     );
 
-    return $request->post($url);
+    // Turn signed request query string back into an array
+    parse_str($poststr, $postdata);
+    return $request->post($endpoint, null, $postdata);
 }

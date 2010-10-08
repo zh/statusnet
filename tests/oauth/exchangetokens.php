@@ -24,82 +24,121 @@ require_once INSTALLDIR . '/extlib/OAuth.php';
 
 $ini = parse_ini_file("oauth.ini");
 
-$test_consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
+// Check to make sure we have everything we need from the ini file
+foreach(array('consumer_key', 'consumer_secret', 'apiroot', 'access_token_url') as $inikey) {
+    if (empty($ini[$inikey])) {
+        print "You forgot to specify a $inikey in your oauth.ini file.\n";
+        exit(1);
+    }
+}
 
-$at_endpoint = $ini['apiroot'] . $ini['access_token_url'];
+$consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
 
-$shortoptions = 't:s:';
-$longoptions = array('oauth_token=', 'token_secret=');
+$endpoint = $ini['apiroot'] . $ini['access_token_url'];
+
+$shortoptions = 't:s:v:';
+$longoptions = array('oauth_token=', 'oauth_token_secret=', 'oauth_verifier=');
 
 $helptext = <<<END_OF_ETOKENS_HELP
   exchangetokens.php [options]
   Exchange an authorized OAuth request token for an access token
 
-    -t --oauth_token       authorized request token
-    -s --token_secret      authorized request token secret
+    -t --oauth_token        authorized request token
+    -s --oauth_token_secret authorized request token secret
+    -v --oauth_verifier     authorized request token verifier
+
 
 END_OF_ETOKENS_HELP;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
 
-$token        = null;
-$token_secret = null;
+$token = $secret = $verifier = null;
 
 if (have_option('t', 'oauth_token')) {
-    $token = get_option_value('oauth_token');
+    $token = get_option_value('t', 'oauth_token');
 }
 
-if (have_option('s', 'token_secret')) {
-    $token_secret = get_option_value('s', 'token_secret');
+if (have_option('s', 'oauth_token_secret')) {
+    $secret = get_option_value('s', 'oauth_token_secret');
+}
+
+if (have_option('v', 'oauth_verifier')) {
+    $verifier = get_option_value('v', 'oauth_verifier');
 }
 
 if (empty($token)) {
-    print "Please specify a request token.\n";
+    print "Please specify the request token (--help for help).\n";
     exit(1);
 }
 
-if (empty($token_secret)) {
-    print "Please specify a request token secret.\n";
+if (empty($secret)) {
+    print "Please specify the request token secret (--help for help).\n";
     exit(1);
 }
 
-$rt = new OAuthToken($token, $token_secret);
-common_debug("Exchange request token = " . var_export($rt, true));
+if (empty($verifier)) {
+    print "Please specify the request token verifier (--help for help).\n";
+    exit(1);
+}
 
-$parsed = parse_url($at_endpoint);
-$params = array();
+$rtok   = new OAuthToken($token, $secret);
+$parsed = parse_url($endpoint);
 parse_str($parsed['query'], $params);
+
+$params['oauth_verifier'] = $verifier; // 1.0a
 
 $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
-$req_req = OAuthRequest::from_consumer_and_token($test_consumer, $rt, "GET", $at_endpoint, $params);
-$req_req->sign_request($hmac_method, $test_consumer, $rt);
+try {
 
-$r = httpRequest($req_req->to_url());
+    $oauthReq = OAuthRequest::from_consumer_and_token(
+        $consumer,
+        $rtok,
+        "POST",
+        $endpoint,
+        $params
+    );
 
-common_debug("Exchange request token = " . var_export($rt, true));
-common_debug("Exchange tokens URL: " . $req_req->to_url());
+    $oauthReq->sign_request($hmac_method, $consumer, $rtok);
 
-$body = $r->getBody();
+    $httpReq    = httpRequest($endpoint, $oauthReq->to_postdata());
+    $body       = $httpReq->getBody();
 
-$token_stuff = array();
-parse_str($body, $token_stuff);
+} catch (Exception $e) {
+    // oh noez
+    print $e->getMessage();
+    print "\nOAuth Request:\n";
+    var_dump($oauthReq);
+    exit(1);
+}
 
-print 'Access token        : ' . $token_stuff['oauth_token'] . "\n";
-print 'Access token secret : ' . $token_stuff['oauth_token_secret'] . "\n";
+$tokenStuff = array();
+parse_str($body, $tokenStuff);
 
-function httpRequest($url)
+if (empty($tokenStuff['oauth_token']) || empty($tokenStuff['oauth_token_secret'])) {
+    print "Error! HTTP response body: $body\n";
+    exit(1);
+}
+
+print "Access Token\n";
+print '   - oauth_token        = ' . $tokenStuff['oauth_token'] . "\n";
+print '   - oauth_token_secret = ' . $tokenStuff['oauth_token_secret'] . "\n";
+
+function httpRequest($endpoint, $poststr)
 {
     $request = HTTPClient::start();
 
-    $request->setConfig(array(
-			      'follow_redirects' => true,
-			      'connect_timeout' => 120,
-			      'timeout' => 120,
-			      'ssl_verify_peer' => false,
-			      'ssl_verify_host' => false
-			      ));
+    $request->setConfig(
+        array(
+            'follow_redirects' => true,
+	    'connect_timeout'  => 120,
+	    'timeout'          => 120,
+	    'ssl_verify_peer'  => false,
+	    'ssl_verify_host'  => false
+	)
+    );
 
-    return $request->get($url);
+    parse_str($poststr, $postdata);
+    return $request->post($endpoint, null, $postdata);
 }
 
