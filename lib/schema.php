@@ -516,6 +516,17 @@ class Schema
     }
 
     /**
+     * Map a native type back to an independent type + size
+     *
+     * @param string $type
+     * @return array ($type, $size) -- $size may be null
+     */
+    protected function reverseMapType($type)
+    {
+        return array($type, null);
+    }
+
+    /**
      * Convert an old-style set of ColumnDef objects into the current
      * Drupal-style schema definition array, for backwards compatibility
      * with plugins written for 0.9.x.
@@ -590,6 +601,30 @@ class Schema
         $known = array('int', 'serial', 'numeric');
         return in_array($type, $known);
     }
+
+    /**
+     * Pull info from the query into a fun-fun array of dooooom
+     *
+     * @param string $sql
+     * @return array of arrays
+     */
+    protected function fetchQueryData($sql)
+    {
+        $res = $this->conn->query($sql);
+        if (PEAR::isError($res)) {
+            throw new Exception($res->getMessage());
+        }
+
+        $out = array();
+        $row = array();
+        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
+            $out[] = $row;
+        }
+        $res->free();
+
+        return $out;
+    }
+
 }
 
 class SchemaTableMissingException extends Exception

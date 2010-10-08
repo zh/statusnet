@@ -42,6 +42,7 @@ if (!defined('STATUSNET')) {
  * @package  StatusNet
  * @author   Evan Prodromou <evan@status.net>
  * @author   Brenda Wallace <shiny@cpan.org>
+ * @author   Brion Vibber <brion@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
@@ -50,57 +51,104 @@ class PgsqlSchema extends Schema
 {
 
     /**
-     * Returns a TableDef object for the table
+     * Returns a table definition array for the table
      * in the schema with the given name.
      *
      * Throws an exception if the table is not found.
      *
-     * @param string $name Name of the table to get
+     * @param string $table Name of the table to get
      *
-     * @return TableDef tabledef for that table.
+     * @return array tabledef for that table.
      */
 
-    public function getTableDef($name)
+    public function getTableDef($table)
     {
-        $res = $this->conn->query("SELECT *, column_default as default, is_nullable as Null,
-        udt_name as Type, column_name AS Field from INFORMATION_SCHEMA.COLUMNS where table_name = '$name'");
+        $def = array();
+        $hasKeys = false;
 
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
+        // Pull column data from INFORMATION_SCHEMA
+        $columns = $this->fetchMetaInfo($table, 'columns', 'ordinal_position');
+        if (count($columns) == 0) {
+            throw new SchemaTableMissingException("No such table: $table");
         }
 
-        $td = new TableDef();
+        foreach ($columns as $row) {
 
-        $td->name    = $name;
-        $td->columns = array();
+            $name = $row['column_name'];
+            $field = array();
 
-        if ($res->numRows() == 0 ) {
-          throw new Exception('no such table'); //pretend to be the msyql error. yeah, this sucks.
-        }
-        $row = array();
-
-        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
-            $cd = new ColumnDef();
-
-            $cd->name = $row['field'];
-
-            $packed = $row['type'];
-
-            if (preg_match('/^(\w+)\((\d+)\)$/', $packed, $match)) {
-                $cd->type = $match[1];
-                $cd->size = $match[2];
-            } else {
-                $cd->type = $packed;
+            // ??
+            list($type, $size) = $this->reverseMapType($row['udt_name']);
+            $field['type'] = $type;
+            if ($size !== null) {
+                $field['size'] = $size;
             }
 
-            $cd->nullable = ($row['null'] == 'YES') ? true : false;
-            $cd->key      = $row['Key'];
-            $cd->default  = $row['default'];
-            $cd->extra    = $row['Extra'];
+            if ($type == 'char' || $type == 'varchar') {
+                if ($row['character_maximum_length'] !== null) {
+                    $field['length'] = intval($row['character_maximum_length']);
+                }
+            }
+            if ($type == 'numeric') {
+                // Other int types may report these values, but they're irrelevant.
+                // Just ignore them!
+                if ($row['numeric_precision'] !== null) {
+                    $field['precision'] = intval($row['numeric_precision']);
+                }
+                if ($row['numeric_scale'] !== null) {
+                    $field['scale'] = intval($row['numeric_scale']);
+                }
+            }
+            if ($row['is_nullable'] == 'NO') {
+                $field['not null'] = true;
+            }
+            if ($row['column_default'] !== null) {
+                $field['default'] = $row['column_default'];
+                if ($this->isNumericType($type)) {
+                    $field['default'] = intval($field['default']);
+                }
+            }
 
-            $td->columns[] = $cd;
+            $def['fields'][$name] = $field;
         }
-        return $td;
+
+        // Pull constraint data from INFORMATION_SCHEMA
+        // @fixme also find multi-val indexes
+        // @fixme distinguish the primary key
+        // @fixme pull foreign key references
+        $keyColumns = $this->fetchMetaInfo($table, 'key_column_usage', 'constraint_name,ordinal_position');
+        $keys = array();
+
+        foreach ($keyColumns as $row) {
+            $keyName = $row['constraint_name'];
+            $keyCol = $row['column_name'];
+            if (!isset($keys[$keyName])) {
+                $keys[$keyName] = array();
+            }
+            $keys[$keyName][] = $keyCol;
+        }
+
+        foreach ($keys as $keyName => $cols) {
+            $def['unique indexes'][$keyName] = $cols;
+        }
+        return $def;
+    }
+
+    /**
+     * Pull some INFORMATION.SCHEMA data for the given table.
+     *
+     * @param string $table
+     * @return array of arrays
+     */
+    function fetchMetaInfo($table, $infoTable, $orderBy=null)
+    {
+        $query = "SELECT * FROM information_schema.%s " .
+                 "WHERE table_name='%s'";
+        $sql = sprintf($query, $infoTable, $table);
+        if ($orderBy) {
+            $sql .= ' ORDER BY ' . $orderBy;
+        }
+        return $this->fetchQueryData($sql);
     }
 
     /**
@@ -357,6 +405,27 @@ class PgsqlSchema extends Schema
             return "text check ($name in " . implode(',', $vals) . ')';
         } else {
             return parent::typeAndSize($column);
+        }
+    }
+
+    /**
+     * Map a native type back to an independent type + size
+     *
+     * @param string $type
+     * @return array ($type, $size) -- $size may be null
+     */
+    protected function reverseMapType($type)
+    {
+        $type = strtolower($type);
+        $map = array(
+            'int4' => array('int', null),
+            'int8' => array('int', 'big'),
+            'bytea' => array('blob', null),
+        );
+        if (isset($map[$type])) {
+            return $map[$type];
+        } else {
+            return array($type, null);
         }
     }
 

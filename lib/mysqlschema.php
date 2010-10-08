@@ -244,29 +244,6 @@ class MysqlSchema extends Schema
     }
 
     /**
-     * Pull info from the query into a fun-fun array of dooooom
-     *
-     * @param string $sql
-     * @return array of arrays
-     */
-    protected function fetchQueryData($sql)
-    {
-        $res = $this->conn->query($sql);
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        $out = array();
-        $row = array();
-        while ($res->fetchInto($row, DB_FETCHMODE_ASSOC)) {
-            $out[] = $row;
-        }
-        $res->free();
-
-        return $out;
-    }
-
-    /**
      * Creates a table with the given names and columns.
      *
      * @param string $name    Name of the table
