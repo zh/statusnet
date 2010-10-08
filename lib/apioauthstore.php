@@ -71,29 +71,33 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         }
     }
 
-    function new_access_token($token, $consumer)
+    function new_access_token($token, $consumer, $verifier)
     {
-        common_debug('new_access_token("'.$token->key.'","'.$consumer->key.'")', __FILE__);
+        common_debug(
+            'new_access_token("' . $token->key . '","' . $consumer->key. '","' . $verifier . '")',
+             __FILE__
+        );
 
         $rt = new Token();
+
         $rt->consumer_key = $consumer->key;
-        $rt->tok = $token->key;
-        $rt->type = 0; // request
+        $rt->tok          = $token->key;
+        $rt->type         = 0; // request
 
         $app = Oauth_application::getByConsumerKey($consumer->key);
+        assert(!empty($app));
 
-        if (empty($app)) {
-            common_debug("empty app!");
-        }
+        if ($rt->find(true) && $rt->state == 1 && $rt->verifier == $verifier) { // authorized
 
-        if ($rt->find(true) && $rt->state == 1) { // authorized
             common_debug('request token found.', __FILE__);
 
             // find the associated user of the app
 
             $appUser = new Oauth_application_user();
+
             $appUser->application_id = $app->id;
-            $appUser->token = $rt->tok;
+            $appUser->token          = $rt->tok;
+
             $result = $appUser->find(true);
 
             if (!empty($result)) {
@@ -106,10 +110,12 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             // go ahead and make the access token
 
             $at = new Token();
-            $at->consumer_key = $consumer->key;
-            $at->tok = common_good_rand(16);
-            $at->secret = common_good_rand(16);
-            $at->type = 1; // access
+            $at->consumer_key      = $consumer->key;
+            $at->tok               = common_good_rand(16);
+            $at->secret            = common_good_rand(16);
+            $at->type              = 1; // access
+            $at->verifier          = $verifier;
+            $at->verified_callback = $rt->verified_callback; // 1.0a
             $at->created = DB_DataObject_Cast::dateTime();
 
             if (!$at->insert()) {
@@ -217,4 +223,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             return new OAuthToken($t->tok, $t->secret);
         }
     }
+
+
 }
