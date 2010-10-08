@@ -45,6 +45,12 @@ class DeletenoticeAction extends Action
         parent::prepare($args);
 
         $this->user   = common_current_user();
+
+        if (!$this->user) {
+            common_user_error(_('Not logged in.'));
+            exit;
+        }
+
         $notice_id    = $this->trimmed('notice');
         $this->notice = Notice::staticGet($notice_id);
 
@@ -63,10 +69,7 @@ class DeletenoticeAction extends Action
     {
         parent::handle($args);
 
-        if (!common_logged_in()) {
-            common_user_error(_('Not logged in.'));
-            exit;
-        } else if ($this->notice->profile_id != $this->user_profile->id &&
+        if ($this->notice->profile_id != $this->user_profile->id &&
                    !$this->user->hasRight(Right::DELETEOTHERSNOTICE)) {
             common_user_error(_('Can\'t delete this notice.'));
             exit;
