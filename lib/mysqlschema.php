@@ -300,31 +300,6 @@ class MysqlSchema extends Schema
     }
 
     /**
-     * Look over a list of column definitions and list up which
-     * indices will be present
-     */
-    private function _indexList(array $columns)
-    {
-        $list = array('uniques' => array(),
-                      'primary' => array(),
-                      'indices' => array());
-        foreach ($columns as $cd) {
-            switch ($cd->key) {
-            case 'UNI':
-                $list['uniques'][] = $cd->name;
-                break;
-            case 'PRI':
-                $list['primary'][] = $cd->name;
-                break;
-            case 'MUL':
-                $list['indices'][] = $cd->name;
-                break;
-            }
-        }
-        return $list;
-    }
-
-    /**
      * Get the unique index key name for a given column on this table
      */
     function _uniqueKey($tableName, $columnName)
