@@ -24,7 +24,9 @@
  * @author   Craig Andrews <candrews@integralblue.com>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 class HostMetaAction extends Action
 {
