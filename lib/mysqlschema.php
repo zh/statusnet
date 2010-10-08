@@ -130,7 +130,7 @@ class MysqlSchema extends Schema
                 // We'll need to look up key info...
                 $hasKeys = true;
             }
-            if ($row['COLUMN_COMMENT'] !== null) {
+            if ($row['COLUMN_COMMENT'] !== null && $row['COLUMN_COMMENT'] != '') {
                 $field['description'] = $row['COLUMN_COMMENT'];
             }
 
