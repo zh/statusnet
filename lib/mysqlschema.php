@@ -134,12 +134,15 @@ class MysqlSchema extends Schema
                 $field['description'] = $row['COLUMN_COMMENT'];
             }
 
-            // $row['EXTRA'] may contain 'autoincrement'
-            // ^ type=serial?
-            // $row['EXTRA'] may contain 'on update CURRENT_TIMESTAMP'
-            // ^ ...... how to specify?
-            // these seem to be the only values in curent use
-            
+            $extra = $row['EXTRA'];
+            if ($extra) {
+                if (preg_match('/(^|\s)auto_increment(\s|$)/i', $extra)) {
+                    $field['type'] = 'serial';
+                }
+                // $row['EXTRA'] may contain 'on update CURRENT_TIMESTAMP'
+                // ^ ...... how to specify?
+            }
+
             if ($row['CHARACTER_SET_NAME'] !== null) {
                 // @fixme check against defaults?
                 //$def['charset'] = $row['CHARACTER_SET_NAME'];
