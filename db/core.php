@@ -43,14 +43,14 @@ $schema['profile'] = array(
         'profile_nickname_idx' => array('nickname'),
     ),
     'fulltext indexes' => array(
-        'content' => array('nickname', 'fullname', 'location', 'bio', 'homepage') // ??
+        'nickname' => array('nickname', 'fullname', 'location', 'bio', 'homepage')
     ),
 );
 
 $schema['avatar'] = array(
     'fields' => array(
         'profile_id' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to profile table'),
-        'original' => array('type' => 'boolean', 'default' => false, 'description' => 'uploaded by user or generated?'),
+        'original' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'uploaded by user or generated?'),
         'width' => array('type' => 'int', 'not null' => true, 'description' => 'image width'),
         'height' => array('type' => 'int', 'not null' => true, 'description' => 'image height'),
         'mediatype' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'file type'),
@@ -93,26 +93,26 @@ $schema['user'] = array(
         'password' => array('type' => 'varchar', 'length' => 255, 'description' => 'salted password, can be null for OpenID users'),
         'email' => array('type' => 'varchar', 'length' => 255, 'description' => 'email address for password recovery etc.'),
         'incomingemail' => array('type' => 'varchar', 'length' => 255, 'description' => 'email address for post-by-email'),
-        'emailnotifysub' => array('type' => 'bool', 'default' => 1, 'description' => 'Notify by email of subscriptions'),
-        'emailnotifyfav' => array('type' => 'bool', 'default' => 1, 'description' => 'Notify by email of favorites'),
-        'emailnotifynudge' => array('type' => 'bool', 'default' => 1, 'description' => 'Notify by email of nudges'),
-        'emailnotifymsg' => array('type' => 'bool', 'default' => 1, 'description' => 'Notify by email of direct messages'),
-        'emailnotifyattn' => array('type' => 'bool', 'default' => 1, 'description' => 'Notify by email of @-replies'),
-        'emailmicroid' => array('type' => 'bool', 'default' => 1, 'description' => 'whether to publish email microid'),
+        'emailnotifysub' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Notify by email of subscriptions'),
+        'emailnotifyfav' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Notify by email of favorites'),
+        'emailnotifynudge' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Notify by email of nudges'),
+        'emailnotifymsg' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Notify by email of direct messages'),
+        'emailnotifyattn' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Notify by email of @-replies'),
+        'emailmicroid' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to publish email microid'),
         'language' => array('type' => 'varchar', 'length' => 50, 'description' => 'preferred language'),
         'timezone' => array('type' => 'varchar', 'length' => 50, 'description' => 'timezone'),
-        'emailpost' => array('type' => 'bool', 'default' => 1, 'description' => 'Post by email'),
+        'emailpost' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Post by email'),
         'sms' => array('type' => 'varchar', 'length' => 64, 'description' => 'sms phone number'),
         'carrier' => array('type' => 'int', 'description' => 'foreign key to sms_carrier'),
-        'smsnotify' => array('type' => 'bool', 'default' => 0, 'description' => 'whether to send notices to SMS'),
-        'smsreplies' => array('type' => 'bool', 'default' => 0, 'description' => 'whether to send notices to SMS on replies'),
+        'smsnotify' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'whether to send notices to SMS'),
+        'smsreplies' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'whether to send notices to SMS on replies'),
         'smsemail' => array('type' => 'varchar', 'length' => 255, 'description' => 'built from sms and carrier'),
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universally unique identifier, usually a tag URI'),
-        'autosubscribe' => array('type' => 'bool', 'default' => 0, 'description' => 'automatically subscribe to users who subscribe to us'),
+        'autosubscribe' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'automatically subscribe to users who subscribe to us'),
         'urlshorteningservice' => array('type' => 'varchar', 'length' => 50, 'default' => 'ur1.ca', 'description' => 'service to use for auto-shortening URLs'),
-        'inboxed' => array('type' => 'bool', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
+        'inboxed' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'has an inbox been created for this user?'),
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
-        'viewdesigns' => array('type' => 'bool', 'default' => 1, 'description' => 'whether to view user-provided designs'),
+        'viewdesigns' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to view user-provided designs'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
@@ -158,8 +158,8 @@ $schema['subscription'] = array(
     'fields' => array(
         'subscriber' => array('type' => 'int', 'not null' => true, 'description' => 'profile listening'),
         'subscribed' => array('type' => 'int', 'not null' => true, 'description' => 'profile being listened to'),
-        'jabber' => array('type' => 'bool', 'default' => 1, 'description' => 'deliver jabber messages'),
-        'sms' => array('type' => 'bool', 'default' => 1, 'description' => 'deliver sms messages'),
+        'jabber' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'deliver jabber messages'),
+        'sms' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'deliver sms messages'),
         'token' => array('type' => 'varchar', 'length' => 255, 'description' => 'authorization token'),
         'secret' => array('type' => 'varchar', 'length' => 255, 'description' => 'token secret'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
@@ -184,7 +184,7 @@ $schema['notice'] = array(
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
         'reply_to' => array('type' => 'int', 'description' => 'notice replied to (usually a guess)'),
-        'is_local' => array('type' => 'bool', 'default' => 0, 'description' => 'notice was generated by a user'),
+        'is_local' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'notice was generated by a user'),
         'source' => array('type' => 'varchar', 'length' => 32, 'description' => 'source of comment, like "web", "im", or "clientname"'),
         'conversation' => array('type' => 'int', 'description' => 'id of root notice in this conversation'),
         'lat' => array('type' => 'numeric', 'precision' => 10, 'scale' => 7, 'description' => 'latitude'),
@@ -204,13 +204,15 @@ $schema['notice'] = array(
         'repeat_of' => array('notice', 'id'), # @fixme: what about repeats of deleted notices?
     ),
     'indexes' => array(
-        'notice_profile_id_idx' => array('profile_id,created,id'),
+        'notice_profile_id_idx' => array('profile_id', 'created', 'id'),
         'notice_conversation_idx' => array('conversation'),
         'notice_created_idx' => array('created'),
         'notice_replyto_idx' => array('reply_to'),
         'notice_repeatof_idx' => array('repeat_of'),
-        'FULLTEXT' => array('content'),
     ),
+    'fulltext indexes' => array(
+        'content' => array('content'),
+    )
 );
 
 $schema['notice_source'] = array(
@@ -282,8 +284,8 @@ $schema['token'] = array(
         'consumer_key' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'unique identifier, root URL'),
         'tok' => array('type' => 'char', 'length' => 32, 'not null' => true, 'description' => 'identifying value'),
         'secret' => array('type' => 'char', 'length' => 32, 'not null' => true, 'description' => 'secret value'),
-        'type' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'request or access'),
-        'state' => array('type' => 'bool', 'default' => 0, 'description' => 'for requests, 0 = initial, 1 = authorized, 2 = used'),
+        'type' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 0, 'description' => 'request or access'),
+        'state' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'for requests, 0 = initial, 1 = authorized, 2 = used'),
         'verifier' => array('type' => 'varchar', 'length' => 255, 'description' => 'verifier string for OAuth 1.0a'),
         'verified_callback' => array('type' => 'varchar', 'length' => 255, 'description' => 'verified callback URL for OAuth 1.0a'),
 
@@ -323,8 +325,8 @@ $schema['oauth_application'] = array(
         'organization' => array('type' => 'varchar', 'length' => 255, 'description' => 'name of the organization running the application'),
         'homepage' => array('type' => 'varchar', 'length' => 255, 'description' => 'homepage for the organization'),
         'callback_url' => array('type' => 'varchar', 'length' => 255, 'description' => 'url to redirect to after authentication'),
-        'type' => array('type' => 'bool', 'default' => 0, 'description' => 'type of app, 1 = browser, 2 = desktop'),
-        'access_type' => array('type' => 'bool', 'default' => 0, 'description' => 'default access type, bit 1 = read, bit 2 = write'),
+        'type' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'type of app, 1 = browser, 2 = desktop'),
+        'access_type' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'default access type, bit 1 = read, bit 2 = write'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
@@ -571,7 +573,7 @@ $schema['notice_inbox'] = array(
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user receiving the message'),
         'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice received'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date the notice was created'),
-        'source' => array('type' => 'bool', 'default' => 1, 'description' => 'reason it is in the inbox, 1=subscription'),
+        'source' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'reason it is in the inbox, 1=subscription'),
     ),
     'primary key' => array('user_id', 'notice_id'),
     'foreign keys' => array(
@@ -653,7 +655,7 @@ $schema['group_member'] = array(
     'fields' => array(
         'group_id' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to user_group'),
         'profile_id' => array('type' => 'int', 'not null' => true, 'description' => 'foreign key to profile table'),
-        'is_admin' => array('type' => 'boolean', 'default' => false, 'description' => 'is this user an admin?'),
+        'is_admin' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'is this user an admin?'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
@@ -913,11 +915,11 @@ $schema['login_token'] = array(
 $schema['user_location_prefs'] = array(
     'fields' => array(
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who has the preference'),
-        'share_location' => array('type' => 'bool', 'default' => 1, 'description' => 'Whether to share location data'),
+        'share_location' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Whether to share location data'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),
-    'primary key' => array(user_id),
+    'primary key' => array('user_id'),
     'foreign keys' => array(
         'user_id' => array('user' => 'id'),
     ),
@@ -940,10 +942,10 @@ $schema['user_im_prefs'] = array(
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user'),
         'screenname' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'screenname on this service'),
         'transport' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'transport (ex xmpp, aim)'),
-        'notify' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Notify when a new notice is sent'),
-        'replies' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Send replies  from people not subscribed to'),
-        'microid' => array('type' => 'bool', 'not null' => true, 'default' => 1, 'description' => 'Publish a MicroID'),
-        'updatefrompresence' => array('type' => 'bool', 'not null' => true, 'default' => 0, 'description' => 'Send replies from people not subscribed to.'),
+        'notify' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 0, 'description' => 'Notify when a new notice is sent'),
+        'replies' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 0, 'description' => 'Send replies  from people not subscribed to'),
+        'microid' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 1, 'description' => 'Publish a MicroID'),
+        'updatefrompresence' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 0, 'description' => 'Send replies from people not subscribed to.'),
         'created' => array('type' => 'timestamp', 'not null' => true, 'default' => 'CURRENT_TIMESTAMP', 'description' => 'date this record was created'), // @fixme will that default work?
         'modified' => array('type' => 'timestamp', 'description' => 'date this record was modified'),
     ),

@@ -102,10 +102,10 @@ function dumpTable($tableName, $live)
 
 function showDiff($a, $b)
 {
-    $fnameA = tempnam(sys_get_temp_dir(), 'diff-a');
+    $fnameA = tempnam(sys_get_temp_dir(), 'defined-diff-a');
     file_put_contents($fnameA, $a);
 
-    $fnameB = tempnam(sys_get_temp_dir(), 'diff-b');
+    $fnameB = tempnam(sys_get_temp_dir(), 'detected-diff-b');
     file_put_contents($fnameB, $b);
 
     $cmd = sprintf('diff -U 100 %s %s',
