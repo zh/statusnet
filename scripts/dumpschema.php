@@ -32,10 +32,10 @@ function indentOptions($indent)
 {
     $cutoff = 3;
     if ($indent < $cutoff) {
-        $space = str_repeat(' ', $indent * 4);
+        $space = $indent ? str_repeat(' ', $indent * 4) : '';
         $sep = ",";
         $lf = "\n";
-        $endspace = "$lf" . str_repeat(' ', ($indent - 1) * 4);
+        $endspace = "$lf" . ($indent ? str_repeat(' ', ($indent - 1) * 4) : '');
     } else {
         $space = '';
         $sep = ", ";
