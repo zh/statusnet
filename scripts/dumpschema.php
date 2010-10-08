@@ -25,7 +25,7 @@ Attempt to pull a schema definition for a given table.
 
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff');
+$longoptions = array('diff', 'all');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -87,6 +87,13 @@ function getCoreSchema($tableName)
     return $schema[$tableName];
 }
 
+function getCoreTables()
+{
+    $schema = array();
+    include INSTALLDIR . '/db/core.php';
+    return array_keys($schema);
+}
+
 function dumpTable($tableName, $live)
 {
     if ($live) {
@@ -115,6 +122,10 @@ function showDiff($a, $b)
 
     unlink($fnameA);
     unlink($fnameB);
+}
+
+if (have_option('all')) {
+    $args = getCoreTables();
 }
 
 if (count($args)) {
