@@ -9,19 +9,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Facebook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 22:30+0000\n"
-"PO-Revision-Date: 2010-10-04 22:33:08+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
+"PO-Revision-Date: 2010-10-09 14:07:36+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-03 20:55:46+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-04 23:10:56+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-facebook\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
 
-#: facebookutil.php:425
+#: facebookutil.php:429
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that we are unable to update your "
@@ -46,29 +46,29 @@ msgstr ""
 "\n"
 "%2$s"
 
-#: FBConnectAuth.php:51
+#: FBConnectAuth.php:55
 msgid "You must be logged into Facebook to use Facebook Connect."
 msgstr ""
 "Мора да сте најавени на Facebook за да можете да користите Facebook Connect."
 
-#: FBConnectAuth.php:75
+#: FBConnectAuth.php:79
 msgid "There is already a local user linked with this Facebook account."
 msgstr "Веќе постои локален корисник поврзан со оваа сметка на Facebook."
 
-#: FBConnectAuth.php:87 FBConnectSettings.php:166
+#: FBConnectAuth.php:91 FBConnectSettings.php:166
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Се појави проблем со жетонот на Вашата сесија. Обидете се повторно."
 
-#: FBConnectAuth.php:92
+#: FBConnectAuth.php:96
 msgid "You can't register if you don't agree to the license."
 msgstr "Не можете да се регистрирате ако не се согласувате со лиценцата."
 
-#: FBConnectAuth.php:102
+#: FBConnectAuth.php:106
 msgid "An unknown error has occured."
 msgstr "Се појави непозната грешка."
 
 #. TRANS: %s is the site name.
-#: FBConnectAuth.php:117
+#: FBConnectAuth.php:121
 #, php-format
 msgid ""
 "This is the first time you've logged into %s so we must connect your "
@@ -80,17 +80,17 @@ msgstr ""
 "сметка, или пак да се поврзете со Вашата постоечка сметка (ако ја имате)."
 
 #. TRANS: Page title.
-#: FBConnectAuth.php:124
+#: FBConnectAuth.php:128
 msgid "Facebook Account Setup"
 msgstr "Поставки за сметка на Facebook"
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:158
+#: FBConnectAuth.php:162
 msgid "Connection options"
 msgstr "Нагодувања за врска"
 
 #. TRANS: %s is the name of the license used by the user for their status updates.
-#: FBConnectAuth.php:168
+#: FBConnectAuth.php:172
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -100,34 +100,34 @@ msgstr ""
 "податоци: лозинка, е-пошта, IM-адреса, и телефонскиот број."
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:185
+#: FBConnectAuth.php:189
 msgid "Create new account"
 msgstr "Создај нова сметка"
 
-#: FBConnectAuth.php:187
+#: FBConnectAuth.php:191
 msgid "Create a new user with this nickname."
 msgstr "Создај нов корисник со овој прекар."
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:191
+#: FBConnectAuth.php:195
 msgid "New nickname"
 msgstr "Нов прекар"
 
-#: FBConnectAuth.php:193
+#: FBConnectAuth.php:197
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr "1-64 мали букви или бројки, без интерпункциски знаци и празни места"
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:197
+#: FBConnectAuth.php:201
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Создај"
 
-#: FBConnectAuth.php:203
+#: FBConnectAuth.php:207
 msgid "Connect existing account"
 msgstr "Поврзи постоечка сметка"
 
-#: FBConnectAuth.php:205
+#: FBConnectAuth.php:209
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Facebook."
@@ -136,49 +136,49 @@ msgstr ""
 "поврзете со профилот на Facebook."
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:209
+#: FBConnectAuth.php:213
 msgid "Existing nickname"
 msgstr "Постоечки прекар"
 
-#: FBConnectAuth.php:212 facebookaction.php:277
+#: FBConnectAuth.php:216 facebookaction.php:277
 msgid "Password"
 msgstr "Лозинка"
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:216
+#: FBConnectAuth.php:220
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Поврзи се"
 
 #. TRANS: Client error trying to register with registrations not allowed.
 #. TRANS: Client error trying to register with registrations 'invite only'.
-#: FBConnectAuth.php:233 FBConnectAuth.php:243
+#: FBConnectAuth.php:237 FBConnectAuth.php:247
 msgid "Registration not allowed."
 msgstr "Регистрацијата не е дозволена."
 
 #. TRANS: Client error trying to register with an invalid invitation code.
-#: FBConnectAuth.php:251
+#: FBConnectAuth.php:255
 msgid "Not a valid invitation code."
 msgstr "Ова не е важечки код за покана."
 
-#: FBConnectAuth.php:261
+#: FBConnectAuth.php:265
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "Прекарот мора да се состои само од мали букви и бројки, без празни места."
 
-#: FBConnectAuth.php:266
+#: FBConnectAuth.php:270
 msgid "Nickname not allowed."
 msgstr "Прекарот не е дозволен."
 
-#: FBConnectAuth.php:271
+#: FBConnectAuth.php:275
 msgid "Nickname already in use. Try another one."
 msgstr "Прекарот е зафатен. Одберете друг."
 
-#: FBConnectAuth.php:289 FBConnectAuth.php:323 FBConnectAuth.php:343
+#: FBConnectAuth.php:293 FBConnectAuth.php:327 FBConnectAuth.php:347
 msgid "Error connecting user to Facebook."
 msgstr "Грешка при поврзувањето на корисникот со Facebook."
 
-#: FBConnectAuth.php:309
+#: FBConnectAuth.php:313
 msgid "Invalid username or password."
 msgstr "Неважечко корисничко име или лозинка."
 
@@ -219,9 +219,9 @@ msgstr "Погрешно корисничко име или лозинка."
 #. TRANS: Page title.
 #. TRANS: %1$s is a user nickname, %2$s is a page number.
 #: facebookhome.php:153
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%s и пријателите"
+msgstr "%1$s и пријателите, страница %2$d"
 
 #. TRANS: Page title.
 #. TRANS: %s is a user nickname
@@ -346,7 +346,12 @@ msgstr "Најавете се со Вашата сметка на Facebook"
 msgid "Facebook Login"
 msgstr "Најава со Facebook"
 
-#: facebookremove.php:57
+#: facebookremove.php:53
+#, fuzzy
+msgid "Couldn't remove Facebook user: already deleted."
+msgstr "Не можев да го отстранам корисниот на Facebook."
+
+#: facebookremove.php:63
 msgid "Couldn't remove Facebook user."
 msgstr "Не можев да го отстранам корисниот на Facebook."
 
