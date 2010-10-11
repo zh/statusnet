@@ -72,9 +72,14 @@ class PgsqlSchema extends Schema
             throw new SchemaTableMissingException("No such table: $table");
         }
 
+        // We'll need to match up fields by ordinal reference
+        $orderedFields = array();
+
         foreach ($columns as $row) {
 
             $name = $row['column_name'];
+            $orderedFields[$row['ordinal_position']] = $name;
+
             $field = array();
 
             // ??
@@ -112,6 +117,38 @@ class PgsqlSchema extends Schema
             $def['fields'][$name] = $field;
         }
 
+        // Pulling index info from pg_class & pg_index
+        // This can provide us basic info on primary, unique, and multi-val keys
+        // But... it doesn't list plain constraints or foreign key constraints. :P
+        $indexInfo = $this->getIndexInfo($table);
+        foreach ($indexInfo as $row) {
+            $keyName = $row['key_name'];
+
+            // Dig the column references out!
+            $cols = array();
+            $colPositions = explode(' ', $row['indkey']);
+            foreach ($colPositions as $ord) {
+                // ordinal_position from above is 1-based
+                // but values in indkey are 0-based
+                if ($ord == 0) {
+                    $cols[] = 'FUNCTION'; // @fixme
+                } else {
+                    $cols[] = $orderedFields[$ord];
+                }
+            }
+
+            // @fixme foreign keys?
+            // @fixme prefixes?
+            // @fixme funky stuff like fulltext?
+            if ($row['indisprimary'] == 't') {
+                $def['primary key'] = $cols;
+            } else if ($row['indisunique'] == 't') {
+                $def['unique keys'][$keyName] = $cols;
+            } else {
+                $def['indexes'][$keyName] = $cols;
+            }
+        }
+
         // Pull constraint data from INFORMATION_SCHEMA
         // @fixme also find multi-val indexes
         // @fixme distinguish the primary key
@@ -120,6 +157,7 @@ class PgsqlSchema extends Schema
         $keys = array();
 
         foreach ($keyColumns as $row) {
+            var_dump($row);
             $keyName = $row['constraint_name'];
             $keyCol = $row['column_name'];
             if (!isset($keys[$keyName])) {
@@ -129,7 +167,18 @@ class PgsqlSchema extends Schema
         }
 
         foreach ($keys as $keyName => $cols) {
-            $def['unique indexes'][$keyName] = $cols;
+            // hack -- is this reliable?
+            if ($keyName == "{$table}_pkey") {
+                $def['xprimary key'] = $cols;
+            } else if (preg_match("/^{$table}_(.*)_fkey$/", $keyName, $matches)) {
+                $keys = array_keys($cols);
+                if (count($cols) == 1 && $cols[$keys[0]] == $keyName) {
+                    $def['foreign keys'][$keyname][$matches[1]] = $keys[0];
+                }
+                $def['foreign keys'][$keyName][$matches[1]] = $cols;
+            } else {
+                $def['xunique indexes'][$keyName] = $cols;
+            }
         }
         return $def;
     }
@@ -152,6 +201,23 @@ class PgsqlSchema extends Schema
     }
 
     /**
+     * Pull some PG-specific index info
+     * @param string $table
+     * @return array of arrays
+     */
+    function getIndexInfo($table)
+    {
+        $query = 'SELECT ' .
+                 '(SELECT relname FROM pg_class WHERE oid=indexrelid) AS key_name, ' .
+                 '* FROM pg_index ' .
+                 'WHERE indrelid=(SELECT oid FROM pg_class WHERE relname=\'%s\') ' .
+                 'ORDER BY indrelid, indexrelid';
+        $sql = sprintf($query, $table);
+        return $this->fetchQueryData($sql);
+    }
+
+    /**
+     *
      * Creates a table with the given names and columns.
      *
      * @param string $name    Name of the table
