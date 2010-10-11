@@ -118,18 +118,20 @@ class PgsqlSchema extends Schema
         }
 
         // Pulling index info from pg_class & pg_index
-        // This can provide us basic info on primary, unique, and multi-val keys
-        // But... it doesn't list plain constraints or foreign key constraints. :P
+        // This can give us primary & unique key info, but not foreign key constraints
+        // so we exclude them and pick them up later.
         $indexInfo = $this->getIndexInfo($table);
         foreach ($indexInfo as $row) {
             $keyName = $row['key_name'];
 
             // Dig the column references out!
+            //
+            // These are inconvenient arrays with partial references to the
+            // pg_att table, but since we've already fetched up the column
+            // info on the current table, we can look those up locally.
             $cols = array();
             $colPositions = explode(' ', $row['indkey']);
             foreach ($colPositions as $ord) {
-                // ordinal_position from above is 1-based
-                // but values in indkey are 0-based
                 if ($ord == 0) {
                     $cols[] = 'FUNCTION'; // @fixme
                 } else {
@@ -137,27 +139,15 @@ class PgsqlSchema extends Schema
                 }
             }
 
-            // @fixme foreign keys?
-            // @fixme prefixes?
-            // @fixme funky stuff like fulltext?
-            if ($row['indisprimary'] == 't') {
-                $def['primary key'] = $cols;
-            } else if ($row['indisunique'] == 't') {
-                $def['unique keys'][$keyName] = $cols;
-            } else {
-                $def['indexes'][$keyName] = $cols;
-            }
+            $def['indexes'][$keyName] = $cols;
         }
 
-        // Pull constraint data from INFORMATION_SCHEMA
-        // @fixme also find multi-val indexes
-        // @fixme distinguish the primary key
-        // @fixme pull foreign key references
+        // Pull constraint data from INFORMATION_SCHEMA:
+        // Primary key, unique keys, foreign keys
         $keyColumns = $this->fetchMetaInfo($table, 'key_column_usage', 'constraint_name,ordinal_position');
         $keys = array();
 
         foreach ($keyColumns as $row) {
-            var_dump($row);
             $keyName = $row['constraint_name'];
             $keyCol = $row['column_name'];
             if (!isset($keys[$keyName])) {
@@ -167,17 +157,15 @@ class PgsqlSchema extends Schema
         }
 
         foreach ($keys as $keyName => $cols) {
-            // hack -- is this reliable?
+            // name hack -- is this reliable?
             if ($keyName == "{$table}_pkey") {
-                $def['xprimary key'] = $cols;
+                $def['primary key'] = $cols;
             } else if (preg_match("/^{$table}_(.*)_fkey$/", $keyName, $matches)) {
-                $keys = array_keys($cols);
-                if (count($cols) == 1 && $cols[$keys[0]] == $keyName) {
-                    $def['foreign keys'][$keyname][$matches[1]] = $keys[0];
-                }
-                $def['foreign keys'][$keyName][$matches[1]] = $cols;
+                $fkey = $this->getForeignKeyInfo($table, $keyName);
+                $colMap = array_combine($cols, $fkey['col_names']);
+                $def['foreign keys'][$keyName] = array($fkey['table_name'], $colMap);
             } else {
-                $def['xunique indexes'][$keyName] = $cols;
+                $def['unique keys'][$keyName] = $cols;
             }
         }
         return $def;
@@ -211,9 +199,67 @@ class PgsqlSchema extends Schema
                  '(SELECT relname FROM pg_class WHERE oid=indexrelid) AS key_name, ' .
                  '* FROM pg_index ' .
                  'WHERE indrelid=(SELECT oid FROM pg_class WHERE relname=\'%s\') ' .
+                 'AND indisprimary=\'f\' AND indisunique=\'f\' ' .
                  'ORDER BY indrelid, indexrelid';
         $sql = sprintf($query, $table);
         return $this->fetchQueryData($sql);
+    }
+
+    /**
+     * Column names from the foreign table can be resolved with a call to getTableColumnNames()
+     * @param <type> $table
+     * @return array array of rows with keys: fkey_name, table_name, table_id, col_names (array of strings)
+     */
+    function getForeignKeyInfo($table, $constraint_name)
+    {
+        // In a sane world, it'd be easier to query the column names directly.
+        // But it's pretty hard to work with arrays such as col_indexes in direct SQL here.
+        $query = 'SELECT ' .
+                 '(SELECT relname FROM pg_class WHERE oid=confrelid) AS table_name, ' .
+                 'confrelid AS table_id, ' .
+                 '(SELECT indkey FROM pg_index WHERE indexrelid=conindid) AS col_indexes ' .
+                 'FROM pg_constraint ' .
+                 'WHERE conrelid=(SELECT oid FROM pg_class WHERE relname=\'%s\') ' .
+                 'AND conname=\'%s\' ' .
+                 'AND contype=\'f\'';
+        $sql = sprintf($query, $table, $constraint_name);
+        $data = $this->fetchQueryData($sql);
+        if (count($data) < 1) {
+            throw new Exception("Could not find foreign key " . $constraint_name . " on table " . $table);
+        }
+
+        $row = $data[0];
+        return array(
+            'table_name' => $row['table_name'],
+            'col_names' => $this->getTableColumnNames($row['table_id'], $row['col_indexes'])
+        );
+    }
+
+    /**
+     *
+     * @param int $table_id
+     * @param array $col_indexes
+     * @return array of strings
+     */
+    function getTableColumnNames($table_id, $col_indexes)
+    {
+        $indexes = array_map('intval', explode(' ', $col_indexes));
+        $query = 'SELECT attnum AS col_index, attname AS col_name ' .
+                 'FROM pg_attribute where attrelid=%d ' .
+                 'AND attnum IN (%s)';
+        $sql = sprintf($query, $table_id, implode(',', $indexes));
+        $data = $this->fetchQueryData($sql);
+
+        $byId = array();
+        foreach ($data as $row) {
+            $byId[$row['col_index']] = $row['col_name'];
+        }
+
+        $out = array();
+        foreach ($indexes as $id) {
+            $out[] = $byId[$id];
+        }
+        return $out;
     }
 
     /**
