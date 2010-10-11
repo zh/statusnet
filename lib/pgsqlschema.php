@@ -303,19 +303,19 @@ class PgsqlSchema extends Schema
         $oldType = $this->mapType($old);
         $newType = $this->mapType($cd);
         if ($oldType != $newType) {
-            $phrase[] .= $prefix . 'TYPE ' . $newType;
+            $phrase[] = $prefix . 'TYPE ' . $newType;
         }
 
         if (!empty($old['not null']) && empty($cd['not null'])) {
-            $phrase[] .= $prefix . 'DROP NOT NULL';
+            $phrase[] = $prefix . 'DROP NOT NULL';
         } else if (empty($old['not null']) && !empty($cd['not null'])) {
-            $phrase[] .= $prefix . 'SET NOT NULL';
+            $phrase[] = $prefix . 'SET NOT NULL';
         }
 
         if (isset($old['default']) && !isset($cd['default'])) {
-            $phrase[] . $prefix . 'DROP DEFAULT';
+            $phrase[] = $prefix . 'DROP DEFAULT';
         } else if (!isset($old['default']) && isset($cd['default'])) {
-            $phrase[] . $prefix . 'SET DEFAULT ' . $this->quoteDefaultValue($cd);
+            $phrase[] = $prefix . 'SET DEFAULT ' . $this->quoteDefaultValue($cd);
         }
     }
 
