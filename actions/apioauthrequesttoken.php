@@ -100,6 +100,16 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
             // check signature and issue a new request token
             $token = $server->fetch_request_token($req);
 
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "API OAuth - Issued request token %s for consumer %s with oauth_callback %s",
+                    $token->key,
+                    $req->get_parameter('oauth_consumer_key'),
+                    "'" . $req->get_parameter('oauth_callback') ."'"
+                )
+            );
+
             // return token to the client
             $this->showRequestToken($token);
 
