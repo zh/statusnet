@@ -169,7 +169,7 @@ class Schema
                         $this->endCreateTable($name, $def);
         if (!empty($def['indexes'])) {
             foreach ($def['indexes'] as $col => $colDef) {
-                $this->appendCreateIndex($statements, $table, $col, $colDef);
+                $this->appendCreateIndex($statements, $name, $col, $colDef);
             }
         }
 
