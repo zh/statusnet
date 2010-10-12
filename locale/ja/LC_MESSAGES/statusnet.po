@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:56:04+0000\n"
+"POT-Creation-Date: 2010-10-04 22:30+0000\n"
+"PO-Revision-Date: 2010-10-04 22:32:28+0000\n"
 "Language-Team: Japanese <http://translatewiki.net/wiki/Portal:ja>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-01 20:37:46+0000\n"
+"X-POT-Import-Date: 2010-10-03 20:54:28+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -4094,7 +4094,7 @@ msgstr ""
 "最初の [このトピック投稿](%%%%action.newnotice%%%%?status_textarea=%s) をして"
 "ください!"
 
-#: actions/showstream.php:243
+#: actions/showstream.php:246
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4108,7 +4108,7 @@ msgstr ""
 "%%%%)して、**%s** のつぶやきなどをフォローしましょう! ([もっと読む](%%%%doc."
 "help%%%%))"
 
-#: actions/showstream.php:248
+#: actions/showstream.php:251
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4119,7 +4119,7 @@ msgstr ""
 "[StatusNet](http://status.net/)を基にした[マイクロブロギング](http://en."
 "wikipedia.org/wiki/Micro-blogging) サービス。"
 
-#: actions/showstream.php:305
+#: actions/showstream.php:308
 #, php-format
 msgid "Repeat of %s"
 msgstr "%s の繰り返し"
@@ -4983,6 +4983,13 @@ msgstr "作者"
 msgid "Favor"
 msgstr "お気に入り"
 
+#. TRANS: Ntofication given when a user marks a notice as favorite.
+#. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
+#: classes/Fave.php:151
+#, fuzzy, php-format
+msgid "%1$s marked notice %2$s as a favorite."
+msgstr "%s (@%s) はお気に入りとしてあなたのつぶやきを加えました"
+
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
 #, php-format
@@ -5162,6 +5169,13 @@ msgstr ""
 msgid "Problem saving group inbox."
 msgstr "グループ受信箱を保存する際に問題が発生しました。"
 
+#. TRANS: Server exception thrown when a reply cannot be saved.
+#. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
+#: classes/Notice.php:1120
+#, fuzzy, php-format
+msgid "Could not save reply for %1$d, %2$d."
+msgstr "フォローを保存できません。"
+
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
 #: classes/Notice.php:1822
@@ -5233,6 +5247,13 @@ msgstr "フォローを保存できません。"
 #: classes/Subscription.php:255
 msgid "Follow"
 msgstr ""
+
+#. TRANS: Notification given when one person starts following another.
+#. TRANS: %1$s is the subscriber, %2$s is the subscribed.
+#: classes/Subscription.php:258
+#, fuzzy, php-format
+msgid "%1$s is now following %2$s."
+msgstr "%1$s は %2$s であなたのつぶやきを聞いています。"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -7372,6 +7393,13 @@ msgstr "この利用者からのフォローを解除する"
 #: lib/unsubscribeform.php:137
 msgid "Unsubscribe"
 msgstr "フォロー解除"
+
+#. TRANS: Exception text shown when no profile can be found for a user.
+#. TRANS: %1$s is a user nickname, $2$d is a user ID (number).
+#: lib/usernoprofileexception.php:60
+#, fuzzy, php-format
+msgid "User %1$s (%2$d) has no profile record."
+msgstr "ユーザはプロフィールをもっていません。"
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"

@@ -57,7 +57,7 @@ class UserNoProfileException extends ServerException
 
         // TRANS: Exception text shown when no profile can be found for a user.
         // TRANS: %1$s is a user nickname, $2$d is a user ID (number).
-        $message = sprintf(_("User %1$s (%2$d) has no profile record."),
+        $message = sprintf(_('User %1$s (%2$d) has no profile record.'),
                            $user->nickname, $user->id);
 
         parent::__construct($message);

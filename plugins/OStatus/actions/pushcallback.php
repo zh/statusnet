@@ -22,7 +22,9 @@
  * @maintainer Brion Vibber <brion@status.net>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 class PushCallbackAction extends Action
 {
@@ -81,6 +83,7 @@ class PushCallbackAction extends Action
         $challenge = $this->arg('hub_challenge');
         $lease_seconds = $this->arg('hub_lease_seconds');
         $verify_token = $this->arg('hub_verify_token');
+        common_log(LOG_INFO, __METHOD__ . ": sub verification mode: $mode topic: $topic challenge: $challenge lease_seconds: $lease_seconds verify_token: $verify_token");
 
         if ($mode != 'subscribe' && $mode != 'unsubscribe') {
             // TRANS: Client exception. %s is an invalid value for hub.mode.
