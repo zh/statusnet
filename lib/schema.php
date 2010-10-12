@@ -600,7 +600,11 @@ class Schema
 
     function quoteValue($val)
     {
-        return $this->conn->escapeSimple($val); // ??
+        if (is_int($val) || is_float($val) || is_double($val)) {
+            return strval($val);
+        } else {
+            return '"' . $this->conn->escapeSimple($val) . '"';
+        }
     }
 
     /**
