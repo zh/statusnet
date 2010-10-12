@@ -105,7 +105,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             common_log(LOG_WARNING, $msg);
 
-            print "Invalid request token or verifier.";
+            $this->clientError(_("Invalid request token or verifier.", 400, 'text'));
 
         } else {
             $this->showAccessToken($atok);
