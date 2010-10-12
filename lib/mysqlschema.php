@@ -444,19 +444,15 @@ class MysqlSchema extends Schema
     function columnSql(array $cd)
     {
         $line = array();
-        $line[] = parent::_columnSql($cd);
+        $line[] = parent::columnSql($cd);
 
         if ($cd['type'] == 'serial') {
             $line[] = 'auto_increment';
         }
 
-        if (!empty($cd['extra'])) {
-            $line[] = $cd['extra']; // hisss boooo
-        }
-
         if (!empty($cd['description'])) {
             $line[] = 'comment';
-            $line[] = $this->quote($cd['description']);
+            $line[] = $this->quoteValue($cd['description']);
         }
 
         return implode(' ', $line);
