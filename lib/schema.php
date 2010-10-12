@@ -254,7 +254,16 @@ class Schema
     function buildIndexList(array $def)
     {
         // @fixme
-        return '(' . implode(',', array_map(array($this, 'quoteIdentifier'), $def)) . ')';
+        return '(' . implode(',', array_map(array($this, 'buildIndexItem'), $def)) . ')';
+    }
+
+    function buildIndexItem($def)
+    {
+        if (is_array($def)) {
+            list($name, $size) = $def;
+            return $this->quoteIdentifier($name) . '(' . intval($size) . ')';
+        }
+        return $this->quoteIdentifier($def);
     }
 
     /**

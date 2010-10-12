@@ -119,7 +119,7 @@ $schema['user'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'user_name_idx' => array('name'),
+        'user_nickname_idx' => array('nickname'),
         'user_email_idx' => array('email'),
         'user_incomingemail_idx' => array('incomingemail'),
         'user_sms_idx' => array('sms'),
