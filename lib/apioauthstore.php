@@ -101,7 +101,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             $result = $appUser->find(true);
 
             if (!empty($result)) {
-                common_debug("Oath app user found.");
+                common_debug("Ouath app user found.");
             } else {
                 common_debug("Oauth app user not found. app id $app->id token $rt->tok");
                 return null;
