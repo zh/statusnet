@@ -547,4 +547,36 @@ class User_group extends Memcached_DataObject
         $group->query('COMMIT');
         return $group;
     }
+
+    /**
+     * Handle cascading deletion, on the model of notice and profile.
+     *
+     * Pretty sure some caching won't get handled properly here.
+     */
+    function delete()
+    {
+        if ($this->id) {
+            $related = array('Group_inbox',
+                             'Group_alias',
+                             'Group_block',
+                             'Group_member',
+                             'Local_group',
+                             'Related_group',
+                             );
+            Event::handle('UserGroupDeleteRelated', array($this, &$related));
+
+            foreach ($related as $cls) {
+                $inst = new $cls();
+                $inst->group_id = $this->id;
+                $inst->delete();
+            }
+
+            $inst = new Related_group();
+            $inst->related_group_id = $this->id;
+            $inst->delete();
+        } else {
+            common_log(LOG_WARN, "Ambiguous user_group->delete(); skipping related tables.");
+        }
+        parent::delete();
+    }
 }
