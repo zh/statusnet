@@ -25,7 +25,7 @@ Attempt to pull a schema definition for a given table.
 
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff', 'all');
+$longoptions = array('diff', 'all', 'build');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -104,6 +104,20 @@ function dumpTable($tableName, $live)
         $def = getCoreSchema($tableName);
     }
     prettyDumpArray($def, $tableName);
+}
+
+function dumpBuildTable($tableName)
+{
+    echo "-- \n";
+    echo "-- $tableName\n";
+    echo "-- \n";
+
+    $schema = Schema::get();
+    $def = getCoreSchema($tableName);
+    $sql = $schema->buildCreateTable($tableName, $def);
+    $sql[] = '';
+
+    echo implode(";\n", $sql);
     echo "\n";
 }
 
@@ -140,6 +154,8 @@ if (count($args)) {
             $detected = ob_get_clean();
 
             showDiff($defined, $detected);
+        } else if (have_option('build')) {
+            dumpBuildTable($tableName);
         } else {
             dumpTable($tableName, true);
         }

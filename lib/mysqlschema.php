@@ -244,59 +244,15 @@ class MysqlSchema extends Schema
     }
 
     /**
-     * Creates a table with the given names and columns.
+     * Close out a 'create table' SQL statement.
      *
-     * @param string $name    Name of the table
-     * @param array  $columns Array of ColumnDef objects
-     *                        for new table.
-     *
-     * @return boolean success flag
+     * @param array $sql
+     * @param string $name
+     * @param array $def
      */
-
-    public function createTable($name, $columns)
+    function appendCreateTableEnd(array &$sql, $name, array $def)
     {
-        $uniques = array();
-        $primary = array();
-        $indices = array();
-
-        $sql = "CREATE TABLE $name (\n";
-
-        for ($i = 0; $i < count($columns); $i++) {
-
-            $cd =& $columns[$i];
-
-            if ($i > 0) {
-                $sql .= ",\n";
-            }
-
-            $sql .= $this->_columnSql($cd);
-        }
-
-        $idx = $this->_indexList($columns);
-
-        if ($idx['primary']) {
-            $sql .= ",\nconstraint primary key (" . implode(',', $idx['primary']) . ")";
-        }
-
-        foreach ($idx['uniques'] as $u) {
-            $key = $this->_uniqueKey($name, $u);
-            $sql .= ",\nunique index $key ($u)";
-        }
-
-        foreach ($idx['indices'] as $i) {
-            $key = $this->_key($name, $i);
-            $sql .= ",\nindex $key ($i)";
-        }
-
-        $sql .= ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin; ";
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
+        $sql[] = ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin";
     }
 
     /**

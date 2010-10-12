@@ -128,56 +128,133 @@ class Schema
 
     public function createTable($name, $columns)
     {
-        $uniques = array();
-        $primary = array();
-        $indices = array();
+        $statements = $this->buildCreateTable($tableName, $def);
+        return $this->runSqlSet($statements);
+    }
 
-        $sql = "CREATE TABLE $name (\n";
+    /**
+     * Build a set of SQL statements to create a table with the given
+     * name and columns.
+     *
+     * @param string $name    Name of the table
+     * @param array  $def     Table definition array
+     *
+     * @return boolean success flag
+     */
+    public function buildCreateTable($name, $def)
+    {
+        $sql = array();
 
-        for ($i = 0; $i < count($columns); $i++) {
+        foreach ($def['fields'] as $col => $colDef) {
+            $this->appendColumnDef($sql, $col, $colDef);
+        }
 
-            $cd =& $columns[$i];
+        // Primary and unique keys are constraints, so go within
+        // the CREATE TABLE statement normally.
+        if (!empty($def['primary key'])) {
+            $this->appendPrimaryKeyDef($sql, $def['primary key']);
+        }
 
-            if ($i > 0) {
-                $sql .= ",\n";
+        if (!empty($def['unique keys'])) {
+            foreach ($def['unique keys'] as $col => $colDef) {
+                $this->appendUniqueKeyDef($sql, $col, $colDef);
             }
+        }
 
-            $sql .= $this->_columnSql($cd);
-
-            switch ($cd->key) {
-            case 'UNI':
-                $uniques[] = $cd->name;
-                break;
-            case 'PRI':
-                $primary[] = $cd->name;
-                break;
-            case 'MUL':
-                $indices[] = $cd->name;
-                break;
+        // Multi-value indexes are advisory and for best portability
+        // should be created as separate statements.
+        $statements = array();
+        $statements[] = $this->startCreateTable($name, $def) . "\n" .
+                        implode($sql, ",\n") . "\n" .
+                        $this->endCreateTable($name, $def);
+        if (!empty($def['indexes'])) {
+            foreach ($def['indexes'] as $col => $colDef) {
+                $this->appendCreateIndex($statements, $table, $col, $colDef);
             }
         }
 
-        if (count($primary) > 0) { // it really should be...
-            $sql .= ",\nconstraint primary key (" . implode(',', $primary) . ")";
-        }
+        return $statements;
+    }
 
-        foreach ($uniques as $u) {
-            $sql .= ",\nunique index {$name}_{$u}_idx ($u)";
-        }
+    /**
+     * Set up a 'create table' SQL statement.
+     *
+     * @param string $name table name
+     * @param array $def table definition
+     * @param $string
+     */
+    function startCreateTable($name, array $def)
+    {
+        return 'CREATE TABLE ' . $this->quoteIdentifier($name)  . ' (';
+    }
 
-        foreach ($indices as $i) {
-            $sql .= ",\nindex {$name}_{$i}_idx ($i)";
-        }
+    /**
+     * Close out a 'create table' SQL statement.
+     *
+     * @param string $name table name
+     * @param array $def table definition
+     * @return string
+     */
+    function endCreateTable($name, array $def)
+    {
+        return ')';
+    }
 
-        $sql .= "); ";
+    /**
+     * Append an SQL fragment with a column definition in a CREATE TABLE statement.
+     *
+     * @param array $sql
+     * @param string $name
+     * @param array $def
+     */
+    function appendColumnDef(array &$sql, $name, array $def)
+    {
+        $sql[] = "$name " . $this->columnSql($def);
+    }
 
-        $res = $this->conn->query($sql);
+    /**
+     * Append an SQL fragment with a constraint definition for a primary
+     * key in a CREATE TABLE statement.
+     *
+     * @param array $sql
+     * @param array $def
+     */
+    function appendPrimaryKeyDef(array &$sql, array $def)
+    {
+        $sql[] = "PRIMARY KEY " . $this->buildIndexList($def);
+    }
 
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
+    /**
+     * Append an SQL fragment with a constraint definition for a primary
+     * key in a CREATE TABLE statement.
+     *
+     * @param array $sql
+     * @param string $name
+     * @param array $def
+     */
+    function appendUniqueKeyDef(array &$sql, $name, array $def)
+    {
+        $sql[] = "UNIQUE $key " . $this->buildIndexList($def);
+    }
 
-        return true;
+    /**
+     * Append an SQL statement with an index definition for an advisory
+     * index over one or more columns on a table.
+     *
+     * @param array $statements
+     * @param string $table
+     * @param string $name
+     * @param array $def
+     */
+    function appendCreateIndex(array &$statements, $table, $name, array $def)
+    {
+        $statements[] = "CREATE INDEX $name ON $table " . $this->buildIndexList($def);
+    }
+
+    function buildIndexList(array $def)
+    {
+        // @fixme
+        return '(' . implode(',', array_map(array($this, 'quoteIdentifier'), $def)) . ')';
     }
 
     /**
@@ -339,21 +416,63 @@ class Schema
      * alter the table to match the column definitions.
      *
      * @param string $tableName name of the table
-     * @param array  $columns   array of ColumnDef
-     *                          objects for the table
+     * @param array  $def       Table definition array
      *
      * @return boolean success flag
      */
 
     public function ensureTable($tableName, $def)
     {
-        // XXX: DB engine portability -> toilet
+        $statements = $this->buildEnsureTable($tableName, $def);
+        return $this->runSqlSet($statements);
+    }
 
+    /**
+     * Run a given set of SQL commands on the connection in sequence.
+     * Empty input is ok.
+     *
+     * @fixme if multiple statements, wrap in a transaction?
+     * @param array $statements
+     * @return boolean success flag
+     */
+    function runSqlSet(array $statements)
+    {
+        $ok = true;
+        foreach ($statements as $sql) {
+            $res = $this->conn->query($sql);
+
+            if (PEAR::isError($res)) {
+                throw new Exception($res->getMessage());
+            }
+        }
+        return $ok;
+    }
+
+    /**
+     * Check a table's status, and if needed build a set
+     * of SQL statements which change it to be consistent
+     * with the given table definition.
+     *
+     * If the table does not yet exist, statements will
+     * be returned to create the table. If it does exist,
+     * statements will be returned to alter the table to
+     * match the column definitions.
+     *
+     * @param string $tableName name of the table
+     * @param array  $columns   array of ColumnDef
+     *                          objects for the table
+     *
+     * @return array of SQL statements
+     */
+
+    function buildEnsureTable($tableName, $def)
+    {
         try {
             $old = $this->getTableDef($tableName);
         } catch (Exception $e) {
+            // @fixme this is a terrible check :D
             if (preg_match('/no such table/', $e->getMessage())) {
-                return $this->createTable($tableName, $columns);
+                return $this->buildCreateTable($tableName, $def);
             } else {
                 throw $e;
             }
@@ -481,7 +600,7 @@ class Schema
 
     function quoteValue($val)
     {
-        return $this->conn->escape($val);
+        return $this->conn->escapeSimple($val); // ??
     }
 
     /**
@@ -554,11 +673,11 @@ class Schema
     function columnSql(array $cd)
     {
         $line = array();
-        $line[] = $this->typeAndSize();
+        $line[] = $this->typeAndSize($cd);
 
         if (isset($cd['default'])) {
             $line[] = 'default';
-            $line[] = $this->quoted($cd['default']);
+            $line[] = $this->quoteDefaultValue($cd);
         } else if (!empty($cd['not null'])) {
             // Can't have both not null AND default!
             $line[] = 'not null';

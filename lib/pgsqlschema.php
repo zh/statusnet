@@ -263,71 +263,6 @@ class PgsqlSchema extends Schema
     }
 
     /**
-     *
-     * Creates a table with the given names and columns.
-     *
-     * @param string $name    Name of the table
-     * @param array  $columns Array of ColumnDef objects
-     *                        for new table.
-     *
-     * @return boolean success flag
-     */
-
-    public function createTable($name, $columns)
-    {
-        $uniques = array();
-        $primary = array();
-        $indices = array();
-	$onupdate = array();
-
-        $sql = "CREATE TABLE $name (\n";
-
-        for ($i = 0; $i < count($columns); $i++) {
-
-            $cd =& $columns[$i];
-
-            if ($i > 0) {
-                $sql .= ",\n";
-            }
-
-            $sql .= $this->_columnSql($cd);
-            switch ($cd->key) {
-            case 'UNI':
-                $uniques[] = $cd->name;
-                break;
-            case 'PRI':
-                $primary[] = $cd->name;
-                break;
-            case 'MUL':
-                $indices[] = $cd->name;
-                break;
-            }
-        }
-
-        if (count($primary) > 0) { // it really should be...
-            $sql .= ",\n PRIMARY KEY (" . implode(',', $primary) . ")";
-        }
-
-        $sql .= "); ";
-
-
-        foreach ($uniques as $u) {
-            $sql .= "\n CREATE index {$name}_{$u}_idx ON {$name} ($u); ";
-        }
-
-        foreach ($indices as $i) {
-            $sql .= "CREATE index {$name}_{$i}_idx ON {$name} ($i)";
-        }
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage(). ' SQL was '. $sql);
-        }
-
-        return true;
-    }
-
-    /**
      * Translate the (mostly) mysql-ish column types into somethings more standard
      * @param string column type
      *
@@ -344,57 +279,31 @@ class PgsqlSchema extends Schema
     }
 
     /**
-     * Modifies a column in the schema.
-     *
-     * The name must match an existing column and table.
-     *
-     * @param string    $table     name of the table
-     * @param ColumnDef $columndef new definition of the column.
-     *
-     * @return boolean success flag
-     */
-
-    public function modifyColumn($table, $columndef)
-    {
-        $sql = "ALTER TABLE $table ALTER COLUMN TYPE " .
-          $this->_columnSql($columndef);
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
      * Return the proper SQL for creating or
      * altering a column.
      *
      * Appropriate for use in CREATE TABLE or
      * ALTER TABLE statements.
      *
-     * @param string $tableName
-     * @param array $tableDef
-     * @param string $columnName
      * @param array $cd column to create
      *
      * @return string correct SQL for that column
      */
 
-    function columnSql($name, array $cd)
+    function columnSql(array $cd)
     {
         $line = array();
-        $line[] = parent::_columnSql($cd);
+        $line[] = parent::columnSql($cd);
 
+        /*
         if ($table['foreign keys'][$name]) {
             foreach ($table['foreign keys'][$name] as $foreignTable => $foreignColumn) {
                 $line[] = 'references';
-                $line[] = $this->quoteId($foreignTable);
-                $line[] = '(' . $this->quoteId($foreignColumn) . ')';
+                $line[] = $this->quoteIdentifier($foreignTable);
+                $line[] = '(' . $this->quoteIdentifier($foreignColumn) . ')';
             }
         }
+        */
 
         return implode(' ', $line);
     }
