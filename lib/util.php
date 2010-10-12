@@ -906,6 +906,33 @@ function common_shorten_links($text, $always = false)
     return common_replace_urls_callback($text, array('File_redirection', 'makeShort'));
 }
 
+/**
+ * Very basic stripping of invalid UTF-8 input text.
+ *
+ * @param string $str
+ * @return mixed string or null if invalid input
+ *
+ * @todo ideally we should drop bad chars, and maybe do some of the checks
+ *       from common_xml_safe_str. But we can't strip newlines, etc.
+ * @todo Unicode normalization might also be useful, but not needed now.
+ */
+function common_validate_utf8($str)
+{
+    // preg_replace will return NULL on invalid UTF-8 input.
+    //
+    // Note: empty regex //u also caused NULL return on some
+    // production machines, but none of our test machines.
+    //
+    // This should be replaced with a more reliable check.
+    return preg_replace('/\x00/u', '', $str);
+}
+
+/**
+ * Make sure an arbitrary string is safe for output in XML as a single line.
+ *
+ * @param string $str
+ * @return string
+ */
 function common_xml_safe_str($str)
 {
     // Replace common eol and extra whitespace input chars
@@ -1663,19 +1690,25 @@ function common_config($main, $sub)
             array_key_exists($sub, $config[$main])) ? $config[$main][$sub] : false;
 }
 
+/**
+ * Pull arguments from a GET/POST/REQUEST array with first-level input checks:
+ * strips "magic quotes" slashes if necessary, and kills invalid UTF-8 strings.
+ *
+ * @param array $from
+ * @return array
+ */
 function common_copy_args($from)
 {
     $to = array();
     $strip = get_magic_quotes_gpc();
     foreach ($from as $k => $v) {
-        if($strip) {
-            if(is_array($v)) {
-                $to[$k] = common_copy_args($v);
-            } else {
-                $to[$k] = stripslashes($v);
-            }
+        if(is_array($v)) {
+            $to[$k] = common_copy_args($v);
         } else {
-            $to[$k] = $v;
+            if ($strip) {
+                $v = stripslashes($v);
+            }
+            $to[$k] = strval(common_validate_utf8($v));
         }
     }
     return $to;

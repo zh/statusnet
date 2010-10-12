@@ -14,18 +14,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 22:30+0000\n"
-"PO-Revision-Date: 2010-10-04 22:32:46+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
+"PO-Revision-Date: 2010-10-09 14:07:10+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-03 20:54:28+0000\n"
+"X-POT-Import-Date: 2010-10-04 23:06:40+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -531,7 +531,7 @@ msgid "Invalid token."
 msgstr "无效的 token。"
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
-#: actions/deletenotice.php:169 actions/disfavor.php:74
+#: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
@@ -642,7 +642,7 @@ msgid "You may not delete another user's status."
 msgstr "你不能删除其他用户的消息。"
 
 #: actions/apistatusesretweet.php:76 actions/apistatusesretweets.php:72
-#: actions/deletenotice.php:52 actions/shownotice.php:92
+#: actions/deletenotice.php:58 actions/shownotice.php:92
 msgid "No such notice."
 msgstr "没有这条消息。"
 
@@ -852,7 +852,7 @@ msgstr ""
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:153 actions/deleteapplication.php:154
-#: actions/deletenotice.php:147 actions/deleteuser.php:152
+#: actions/deletenotice.php:150 actions/deleteuser.php:152
 #: actions/groupblock.php:178
 msgctxt "BUTTON"
 msgid "No"
@@ -870,7 +870,7 @@ msgstr "不要屏蔽这个用户"
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletenotice.php:154 actions/deleteuser.php:159
+#: actions/deletenotice.php:157 actions/deleteuser.php:159
 #: actions/groupblock.php:185
 msgctxt "BUTTON"
 msgid "Yes"
@@ -1042,7 +1042,7 @@ msgid "Delete this application"
 msgstr "删除这个应用"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/deletenotice.php:50 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
@@ -1052,31 +1052,31 @@ msgstr "删除这个应用"
 msgid "Not logged in."
 msgstr "未登录。"
 
-#: actions/deletenotice.php:71
+#: actions/deletenotice.php:74
 msgid "Can't delete this notice."
 msgstr "无法删除这条消息。"
 
-#: actions/deletenotice.php:103
+#: actions/deletenotice.php:106
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
 msgstr "你即将永久删除一条消息，此操作无法撤销。"
 
-#: actions/deletenotice.php:109 actions/deletenotice.php:141
+#: actions/deletenotice.php:112 actions/deletenotice.php:144
 msgid "Delete notice"
 msgstr "删除消息"
 
-#: actions/deletenotice.php:144
+#: actions/deletenotice.php:147
 msgid "Are you sure you want to delete this notice?"
 msgstr "你确定要删除这条消息吗？"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
-#: actions/deletenotice.php:151
+#: actions/deletenotice.php:154
 msgid "Do not delete this notice"
 msgstr "不要删除这个消息"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:667
+#: actions/deletenotice.php:161 lib/noticelist.php:667
 msgid "Delete this notice"
 msgstr "删除"
 
@@ -4836,9 +4836,9 @@ msgstr "收藏"
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
 #: classes/Fave.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s marked notice %2$s as a favorite."
-msgstr "%s (@%s) 收藏了你的消息"
+msgstr "%1$s 将消息 %2$s 标记了收藏。"
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
@@ -4900,14 +4900,14 @@ msgstr "离开小组失败。"
 #: classes/Group_member.php:76
 #, php-format
 msgid "Profile ID %s is invalid."
-msgstr ""
+msgstr "无效的用户 ID %s。"
 
 #. TRANS: Exception thrown providing an invalid group ID.
 #. TRANS: %s is the invalid group ID.
 #: classes/Group_member.php:89
-#, fuzzy, php-format
+#, php-format
 msgid "Group ID %s is invalid."
-msgstr "保存用户时出错；无效。"
+msgstr "小组 ID %s 无效。"
 
 #. TRANS: Activity title.
 #: classes/Group_member.php:113 lib/joinform.php:114
@@ -5013,9 +5013,9 @@ msgstr "保存小组收件箱时出错。"
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
 #: classes/Notice.php:1120
-#, fuzzy, php-format
+#, php-format
 msgid "Could not save reply for %1$d, %2$d."
-msgstr "无法保存本地小组信息。"
+msgstr "无法保存回复，%1$d 对 %2$d。"
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
@@ -5091,9 +5091,9 @@ msgstr "关注"
 #. TRANS: Notification given when one person starts following another.
 #. TRANS: %1$s is the subscriber, %2$s is the subscribed.
 #: classes/Subscription.php:258
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is now following %2$s."
-msgstr "%1$s加入了%2$s小组。"
+msgstr "%1$s 现在开始关注了 %2$s。"
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5590,7 +5590,7 @@ msgstr "该应用的图标"
 #. TRANS: Form input field instructions.
 #. TRANS: %d is the number of available characters for the description.
 #: lib/applicationeditform.php:201
-#, fuzzy, php-format
+#, php-format
 msgid "Describe your application in %d character"
 msgid_plural "Describe your application in %d characters"
 msgstr[0] "用不超过%d个字符描述你的应用"
@@ -5684,7 +5684,7 @@ msgstr "取消"
 
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
-msgstr ""
+msgstr "作者元素必须包含一个名称元素。"
 
 #. TRANS: DT element label in attachment list.
 #: lib/attachmentlist.php:85
@@ -5713,15 +5713,13 @@ msgstr "此附件的标签"
 
 #. TRANS: Exception thrown when a password change fails.
 #: lib/authenticationplugin.php:221 lib/authenticationplugin.php:227
-#, fuzzy
 msgid "Password changing failed."
-msgstr "不允许更改密码"
+msgstr "修改密码失败。"
 
 #. TRANS: Exception thrown when a password change attempt fails because it is not allowed.
 #: lib/authenticationplugin.php:238
-#, fuzzy
 msgid "Password changing is not allowed."
-msgstr "不允许更改密码"
+msgstr "不允许更改密码。"
 
 #. TRANS: Title for the form to block a user.
 #: lib/blockform.php:68
@@ -5735,9 +5733,8 @@ msgstr "执行结果"
 
 #. TRANS: Title for command results.
 #: lib/channel.php:194
-#, fuzzy
 msgid "AJAX error"
-msgstr "Ajax错误"
+msgstr "AJAX 错误"
 
 #. TRANS: E-mail subject when a command has completed.
 #: lib/channel.php:233 lib/mailhandler.php:142
@@ -6124,7 +6121,6 @@ msgstr "去安装程序。"
 
 #. TRANS: Menu item for Instant Messaging settings.
 #: lib/connectsettingsaction.php:106
-#, fuzzy
 msgctxt "MENU"
 msgid "IM"
 msgstr "即时通讯IM"
@@ -6136,7 +6132,6 @@ msgstr "使用即时通讯工具(IM)更新"
 
 #. TRANS: Menu item for Short Message Service settings.
 #: lib/connectsettingsaction.php:113
-#, fuzzy
 msgctxt "MENU"
 msgid "SMS"
 msgstr "SMS"
@@ -6148,7 +6143,6 @@ msgstr "使用 SMS 更新"
 
 #. TRANS: Menu item for OAth connection settings.
 #: lib/connectsettingsaction.php:120
-#, fuzzy
 msgctxt "MENU"
 msgid "Connections"
 msgstr "关联"
@@ -7256,9 +7250,9 @@ msgstr "取消关注"
 #. TRANS: Exception text shown when no profile can be found for a user.
 #. TRANS: %1$s is a user nickname, $2$d is a user ID (number).
 #: lib/usernoprofileexception.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "User %1$s (%2$d) has no profile record."
-msgstr "用户没有个人信息。"
+msgstr "用户 %1$s (%2$d) 没有个人信息记录。"
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -7307,60 +7301,60 @@ msgid "Moderator"
 msgstr "审核员"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1126
+#: lib/util.php:1153
 msgid "a few seconds ago"
 msgstr "几秒前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1129
+#: lib/util.php:1156
 msgid "about a minute ago"
 msgstr "约1分钟前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1133
+#: lib/util.php:1160
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
 msgstr[0] "约1分钟前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1136
+#: lib/util.php:1163
 msgid "about an hour ago"
 msgstr "约1小时前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1140
+#: lib/util.php:1167
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
 msgstr[0] "约一小时前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1143
+#: lib/util.php:1170
 msgid "about a day ago"
 msgstr "约1天前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1147
+#: lib/util.php:1174
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
 msgstr[0] "约1天前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1150
+#: lib/util.php:1177
 msgid "about a month ago"
 msgstr "约1个月前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1154
+#: lib/util.php:1181
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
 msgstr[0] "约1个月前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1157
+#: lib/util.php:1184
 msgid "about a year ago"
 msgstr "约1年前"
 
@@ -7377,7 +7371,7 @@ msgstr "%s不是有效的颜色！应使用3或6个十六进制字符。"
 #: scripts/restoreuser.php:82
 #, php-format
 msgid "Backup file for user %s (%s)"
-msgstr "用户 %s (%s) 的备份文件"
+msgstr "用户 %s (%s) 的备份文件\n"
 
 #: scripts/restoreuser.php:88
 msgid "No user specified; using backup user."

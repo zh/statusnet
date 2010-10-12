@@ -247,6 +247,11 @@ class TwittersettingsAction extends ConnectSettingsAction
         $user = common_current_user();
         $flink = Foreign_link::getByUserID($user->id, TWITTER_SERVICE);
 
+        if (empty($flink)) {
+            $this->clientError(_m('No Twitter connection to remove.'));
+            return;
+        }
+
         $result = $flink->safeDelete();
 
         if (empty($result)) {
