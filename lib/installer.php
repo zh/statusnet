@@ -85,7 +85,11 @@ abstract class Installer
         $config = INSTALLDIR.'/config.php';
         if (file_exists($config)) {
             if (!is_writable($config) || filesize($config) > 0) {
-                $this->warning('Config file "config.php" already exists.');
+                if (filesize($config) == 0) {
+                    $this->warning('Config file "config.php" already exists and is empty, but is not writable.');
+                } else {
+                    $this->warning('Config file "config.php" already exists.');
+                }
                 $pass = false;
             }
         }

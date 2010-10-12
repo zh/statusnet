@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-04 22:30+0000\n"
-"PO-Revision-Date: 2010-10-04 22:32:35+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
+"PO-Revision-Date: 2010-10-09 14:07:01+0000\n"
 "Language-Team: Norwegian (bokmål)‬ <http://translatewiki.net/wiki/Portal:no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74276); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-03 20:54:28+0000\n"
+"X-POT-Import-Date: 2010-10-04 23:06:40+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -533,7 +533,7 @@ msgid "Invalid token."
 msgstr "Ugyldig symbol."
 
 #: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
-#: actions/deletenotice.php:169 actions/disfavor.php:74
+#: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
@@ -645,7 +645,7 @@ msgid "You may not delete another user's status."
 msgstr "Du kan ikke slette statusen til en annen bruker."
 
 #: actions/apistatusesretweet.php:76 actions/apistatusesretweets.php:72
-#: actions/deletenotice.php:52 actions/shownotice.php:92
+#: actions/deletenotice.php:58 actions/shownotice.php:92
 msgid "No such notice."
 msgstr "Ingen slik notis."
 
@@ -856,7 +856,7 @@ msgstr ""
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:153 actions/deleteapplication.php:154
-#: actions/deletenotice.php:147 actions/deleteuser.php:152
+#: actions/deletenotice.php:150 actions/deleteuser.php:152
 #: actions/groupblock.php:178
 msgctxt "BUTTON"
 msgid "No"
@@ -874,7 +874,7 @@ msgstr "Ikke blokker denne brukeren"
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletenotice.php:154 actions/deleteuser.php:159
+#: actions/deletenotice.php:157 actions/deleteuser.php:159
 #: actions/groupblock.php:185
 msgctxt "BUTTON"
 msgid "Yes"
@@ -1048,7 +1048,7 @@ msgid "Delete this application"
 msgstr "Slett dette programmet"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
-#: actions/deletenotice.php:67 actions/disfavor.php:61 actions/favor.php:62
+#: actions/deletenotice.php:50 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
@@ -1058,11 +1058,11 @@ msgstr "Slett dette programmet"
 msgid "Not logged in."
 msgstr "Ikke logget inn."
 
-#: actions/deletenotice.php:71
+#: actions/deletenotice.php:74
 msgid "Can't delete this notice."
 msgstr "Kan ikke slette notisen."
 
-#: actions/deletenotice.php:103
+#: actions/deletenotice.php:106
 msgid ""
 "You are about to permanently delete a notice. Once this is done, it cannot "
 "be undone."
@@ -1070,21 +1070,21 @@ msgstr ""
 "Du er i ferd med å slette en notis permanent. Når dette er gjort kan det "
 "ikke gjøres om."
 
-#: actions/deletenotice.php:109 actions/deletenotice.php:141
+#: actions/deletenotice.php:112 actions/deletenotice.php:144
 msgid "Delete notice"
 msgstr "Slett notis"
 
-#: actions/deletenotice.php:144
+#: actions/deletenotice.php:147
 msgid "Are you sure you want to delete this notice?"
 msgstr "Er du sikker på at du vil slette denne notisen?"
 
 #. TRANS: Submit button title for 'No' when deleting a notice.
-#: actions/deletenotice.php:151
+#: actions/deletenotice.php:154
 msgid "Do not delete this notice"
 msgstr "Ikke slett denne notisen"
 
 #. TRANS: Submit button title for 'Yes' when deleting a notice.
-#: actions/deletenotice.php:158 lib/noticelist.php:667
+#: actions/deletenotice.php:161 lib/noticelist.php:667
 msgid "Delete this notice"
 msgstr "Slett denne notisen"
 
@@ -7415,17 +7415,17 @@ msgid "Moderator"
 msgstr "Moderator"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1126
+#: lib/util.php:1153
 msgid "a few seconds ago"
 msgstr "noen få sekunder siden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1129
+#: lib/util.php:1156
 msgid "about a minute ago"
 msgstr "omtrent ett minutt siden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1133
+#: lib/util.php:1160
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -7433,12 +7433,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1136
+#: lib/util.php:1163
 msgid "about an hour ago"
 msgstr "omtrent én time siden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1140
+#: lib/util.php:1167
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -7446,12 +7446,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1143
+#: lib/util.php:1170
 msgid "about a day ago"
 msgstr "omtrent én dag siden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1147
+#: lib/util.php:1174
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -7459,12 +7459,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1150
+#: lib/util.php:1177
 msgid "about a month ago"
 msgstr "omtrent én måned siden"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1154
+#: lib/util.php:1181
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -7472,7 +7472,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1157
+#: lib/util.php:1184
 msgid "about a year ago"
 msgstr "omtrent ett år siden"
 
