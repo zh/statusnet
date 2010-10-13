@@ -417,7 +417,7 @@ class PgsqlSchema extends Schema
      */
     function filterDef(array $tableDef)
     {
-        foreach (array_keys($tableDef['fields']) as $name => &$col) {
+        foreach ($tableDef['fields'] as $name => &$col) {
             // No convenient support for field descriptions
             unset($col['description']);
 
