@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * class for a server exception (user error)
+ * Action for displaying an OAuth verifier pin
  *
  * PHP version 5
  *
@@ -19,10 +19,10 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Exception
+ * @category  Action
  * @package   StatusNet
- * @author    Evan Prodromou <evan@status.net>
- * @copyright 2008-2010 StatusNet, Inc.
+ * @author    Zach Copley <zach@status.net>
+ * @copyright 2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -31,25 +31,37 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+require_once INSTALLDIR . '/lib/info.php';
+
 /**
- * Class for server exceptions
+ * Class for displaying an OAuth verifier pin
  *
- * Subclass of PHP Exception for server errors. The user typically can't fix these.
+ * XXX: I'm pretty sure we don't need to check the logged in state here. -- Zach
  *
- * @category Exception
+ * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
+ * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
 
-class ServerException extends Exception
+class ApiOauthPinAction extends InfoAction
 {
-    public function __construct($message = null, $code = 400) {
-        parent::__construct($message, $code);
+    function __construct($title, $message, $verifier)
+    {
+        $this->verifier = $verifier;
+        $this->title    = $title;
+        parent::__construct($title, $message);
     }
 
-    public function __toString() {
-        return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
+    /**
+     * Display content.
+     *
+     * @return nothing
+     */
+    function showContent()
+    {
+        $this->element('div', array('class' => 'info'), $this->message);
+        $this->element('div', array('id' => 'oauth_pin'), $this->verifier);
     }
 }

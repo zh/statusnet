@@ -55,6 +55,17 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         }
     }
 
+    function getTokenByKey($token_key)
+    {
+        $t = new Token();
+        $t->tok = $token_key;
+        if ($t->find(true)) {
+            return $t;
+        } else {
+            return null;
+        }
+    }
+
     // http://oauth.net/core/1.0/#nonce
     // "The Consumer SHALL then generate a Nonce value that is unique for
     // all requests with that timestamp."
@@ -317,13 +328,18 @@ class StatusNetOAuthDataStore extends OAuthDataStore
     function add_avatar($profile, $url)
     {
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
-        copy($url, $temp_filename);
-        $imagefile = new ImageFile($profile->id, $temp_filename);
-        $filename = Avatar::filename($profile->id,
-                                     image_type_to_extension($imagefile->type),
-                                     null,
-                                     common_timestamp());
-        rename($temp_filename, Avatar::path($filename));
+        try {
+            copy($url, $temp_filename);
+            $imagefile = new ImageFile($profile->id, $temp_filename);
+            $filename = Avatar::filename($profile->id,
+                                         image_type_to_extension($imagefile->type),
+                                         null,
+                                         common_timestamp());
+            rename($temp_filename, Avatar::path($filename));
+        } catch (Exception $e) {
+            unlink($temp_filename);
+            throw $e;
+        }
         return $profile->setOriginal($filename);
     }
 

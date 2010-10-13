@@ -276,7 +276,7 @@ class Router
 
             $m->connect('group/new', array('action' => 'newgroup'));
 
-            foreach (array('edit', 'join', 'leave') as $v) {
+            foreach (array('edit', 'join', 'leave', 'delete') as $v) {
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => '[a-zA-Z0-9]+'));
