@@ -436,18 +436,23 @@ class YammerImporter
         // @fixme this should be better encapsulated
         // ripped from oauthstore.php (for old OMB client)
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
-        if (!copy($url, $temp_filename)) {
-            throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
-        }
+        try {
+            if (!copy($url, $temp_filename)) {
+                throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
+            }
 
-        $id = $dest->id;
-        // @fixme should we be using different ids?
-        $imagefile = new ImageFile($id, $temp_filename);
-        $filename = Avatar::filename($id,
-                                     image_type_to_extension($imagefile->type),
-                                     null,
-                                     common_timestamp());
-        rename($temp_filename, Avatar::path($filename));
+            $id = $dest->id;
+            // @fixme should we be using different ids?
+            $imagefile = new ImageFile($id, $temp_filename);
+            $filename = Avatar::filename($id,
+                                         image_type_to_extension($imagefile->type),
+                                         null,
+                                         common_timestamp());
+            rename($temp_filename, Avatar::path($filename));
+        } catch (Exception $e) {
+            unlink($temp_filename);
+            throw $e;
+        }
         // @fixme hardcoded chmod is lame, but seems to be necessary to
         // keep from accidentally saving images from command-line (queues)
         // that can't be read from web server, which causes hard-to-notice
