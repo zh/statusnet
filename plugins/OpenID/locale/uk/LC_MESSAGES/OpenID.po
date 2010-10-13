@@ -9,24 +9,24 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:57:06+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
+"PO-Revision-Date: 2010-10-09 14:08:03+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-01 20:39:00+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-03 20:57:03+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
 
-#: openidsettings.php:59 openidadminpanel.php:65
+#: openidsettings.php:58 openidadminpanel.php:65
 msgid "OpenID settings"
 msgstr "Налаштування OpenID"
 
-#: openidsettings.php:70
+#: openidsettings.php:69
 #, php-format
 msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
@@ -36,11 +36,11 @@ msgstr ""
 "використовуючи той самий лоґін і пароль. Тут можна впорядкувати ваші OpenID-"
 "акаунти."
 
-#: openidsettings.php:101
+#: openidsettings.php:100
 msgid "Add OpenID"
 msgstr "Додати OpenID"
 
-#: openidsettings.php:104
+#: openidsettings.php:103
 msgid ""
 "If you want to add an OpenID to your account, enter it in the box below and "
 "click \"Add\"."
@@ -49,19 +49,19 @@ msgstr ""
 "натисніть «Додати»."
 
 #. TRANS: OpenID plugin logon form field label.
-#: openidsettings.php:109 openidlogin.php:159
+#: openidsettings.php:108 openidlogin.php:161
 msgid "OpenID URL"
 msgstr "URL-адреса OpenID"
 
-#: openidsettings.php:119
+#: openidsettings.php:118
 msgid "Add"
 msgstr "Додати"
 
-#: openidsettings.php:131
+#: openidsettings.php:130
 msgid "Remove OpenID"
 msgstr "Видалити OpenID"
 
-#: openidsettings.php:136
+#: openidsettings.php:135
 msgid ""
 "Removing your only OpenID would make it impossible to log in! If you need to "
 "remove it, add another OpenID first."
@@ -70,21 +70,21 @@ msgstr ""
 "вхід у майбутньому! Якщо вам потрібно видалити ваш єдиний OpenID, то спершу "
 "додайте інший."
 
-#: openidsettings.php:151
+#: openidsettings.php:150
 msgid ""
 "You can remove an OpenID from your account by clicking the button marked "
 "\"Remove\"."
 msgstr "Ви можете видалити ваш OpenID просто натиснувши кнопку «Видалити»."
 
-#: openidsettings.php:174 openidsettings.php:215
+#: openidsettings.php:173 openidsettings.php:214
 msgid "Remove"
 msgstr "Видалити"
 
-#: openidsettings.php:188
+#: openidsettings.php:187
 msgid "OpenID Trusted Sites"
 msgstr "Довірені сайти OpenID"
 
-#: openidsettings.php:191
+#: openidsettings.php:190
 msgid ""
 "The following sites are allowed to access your identity and log you in. You "
 "can remove a site from this list to deny it access to your OpenID."
@@ -94,36 +94,36 @@ msgstr ""
 "на вхід."
 
 #. TRANS: Message given when there is a problem with the user's session token.
-#: openidsettings.php:233 finishopenidlogin.php:40 openidlogin.php:49
+#: openidsettings.php:232 finishopenidlogin.php:42 openidlogin.php:51
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Виникли певні проблеми з токеном поточної сесії. Спробуйте знов, будь ласка."
 
-#: openidsettings.php:240
+#: openidsettings.php:239
 msgid "Can't add new providers."
 msgstr "Не вдається додати нового OpenID-провайдера."
 
-#: openidsettings.php:253
+#: openidsettings.php:252
 msgid "Something weird happened."
 msgstr "Сталося щось незрозуміле."
 
-#: openidsettings.php:277
+#: openidsettings.php:276
 msgid "No such OpenID trustroot."
 msgstr "Серед довірених такого OpenID немає."
 
-#: openidsettings.php:281
+#: openidsettings.php:280
 msgid "Trustroots removed"
 msgstr "Довірені OpenID видалено"
 
-#: openidsettings.php:304
+#: openidsettings.php:303
 msgid "No such OpenID."
 msgstr "Немає такого OpenID."
 
-#: openidsettings.php:309
+#: openidsettings.php:308
 msgid "That OpenID does not belong to you."
 msgstr "Даний OpenID належить не вам."
 
-#: openidsettings.php:313
+#: openidsettings.php:312
 msgid "OpenID removed."
 msgstr "OpenID видалено."
 
@@ -340,7 +340,7 @@ msgstr ""
 "Використання <a href=\"http://openid.net/\">OpenID</a> для входу на сайт."
 
 #. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
-#: openidserver.php:118
+#: openidserver.php:116
 #, php-format
 msgid "You are not authorized to use the identity %s."
 msgstr ""
@@ -348,28 +348,28 @@ msgstr ""
 "ідентичності на %s."
 
 #. TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
-#: openidserver.php:139
+#: openidserver.php:137
 msgid "Just an OpenID provider. Nothing to see here, move along..."
 msgstr "Просто OpenID-провайдер. Нічого належного чомусь не видно..."
 
 #. TRANS: Client error message trying to log on with OpenID while already logged on.
-#: finishopenidlogin.php:35 openidlogin.php:31
+#: finishopenidlogin.php:37 openidlogin.php:33
 msgid "Already logged in."
 msgstr "Тепер ви увійшли."
 
 #. TRANS: Message given if user does not agree with the site's license.
-#: finishopenidlogin.php:46
+#: finishopenidlogin.php:48
 msgid "You can't register if you don't agree to the license."
 msgstr "Ви не зможете зареєструватися, якщо не погодитесь з умовами ліцензії."
 
 #. TRANS: Messag given on an unknown error.
-#: finishopenidlogin.php:55
+#: finishopenidlogin.php:57
 msgid "An unknown error has occured."
 msgstr "Виникла якась незрозуміла помилка."
 
 #. TRANS: Instructions given after a first successful logon using OpenID.
 #. TRANS: %s is the site name.
-#: finishopenidlogin.php:71
+#: finishopenidlogin.php:73
 #, php-format
 msgid ""
 "This is the first time you've logged into %s so we must connect your OpenID "
@@ -381,40 +381,40 @@ msgstr ""
 "використати такий, що вже існує."
 
 #. TRANS: Title
-#: finishopenidlogin.php:78
+#: finishopenidlogin.php:80
 msgid "OpenID Account Setup"
 msgstr "Створення акаунту OpenID"
 
-#: finishopenidlogin.php:108
+#: finishopenidlogin.php:110
 msgid "Create new account"
 msgstr "Створити новий акаунт"
 
-#: finishopenidlogin.php:110
+#: finishopenidlogin.php:112
 msgid "Create a new user with this nickname."
 msgstr "Створити нового користувача з цим нікнеймом."
 
-#: finishopenidlogin.php:113
+#: finishopenidlogin.php:115
 msgid "New nickname"
 msgstr "Новий нікнейм"
 
-#: finishopenidlogin.php:115
+#: finishopenidlogin.php:117
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 "1-64 літери нижнього регістру і цифри, ніякої пунктуації або інтервалів"
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
-#: finishopenidlogin.php:140
+#: finishopenidlogin.php:142
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Створити"
 
 #. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:146
+#: finishopenidlogin.php:148
 msgid "Connect existing account"
 msgstr "Приєднати акаунт, який вже існує"
 
 #. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:149
+#: finishopenidlogin.php:151
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
@@ -423,91 +423,91 @@ msgstr ""
 "приєднати їх до вашого OpenID."
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:153
+#: finishopenidlogin.php:155
 msgid "Existing nickname"
 msgstr "Нікнейм, який вже існує"
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:157
+#: finishopenidlogin.php:159
 msgid "Password"
 msgstr "Пароль"
 
 #. TRANS: Button label in form in which to connect an OpenID to an existing user on the site.
-#: finishopenidlogin.php:161
+#: finishopenidlogin.php:163
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Під’єднати"
 
 #. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
-#: finishopenidlogin.php:174 finishaddopenid.php:90
+#: finishopenidlogin.php:176 finishaddopenid.php:90
 msgid "OpenID authentication cancelled."
 msgstr "Автентифікацію за OpenID скасовано."
 
 #. TRANS: OpenID authentication failed; display the error message. %s is the error message.
 #. TRANS: OpenID authentication failed; display the error message.
 #. TRANS: %s is the error message.
-#: finishopenidlogin.php:178 finishaddopenid.php:95
+#: finishopenidlogin.php:180 finishaddopenid.php:95
 #, php-format
 msgid "OpenID authentication failed: %s"
 msgstr "Автентифікуватись за OpenID не вдалося: %s"
 
-#: finishopenidlogin.php:198 finishaddopenid.php:111
+#: finishopenidlogin.php:200 finishaddopenid.php:111
 msgid ""
 "OpenID authentication aborted: you are not allowed to login to this site."
 msgstr "Автентифікацію за OpenID перервано: ви не можете увійти на цей сайт."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site.
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
-#: finishopenidlogin.php:250 finishopenidlogin.php:260
+#: finishopenidlogin.php:252 finishopenidlogin.php:262
 msgid "Registration not allowed."
 msgstr "Реєстрацію не дозволено."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
-#: finishopenidlogin.php:268
+#: finishopenidlogin.php:270
 msgid "Not a valid invitation code."
 msgstr "Це не дійсний код запрошення."
 
 #. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
-#: finishopenidlogin.php:279
+#: finishopenidlogin.php:281
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "Ім’я користувача повинно складатись з літер нижнього регістру і цифр, ніяких "
 "інтервалів."
 
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
-#: finishopenidlogin.php:285
+#: finishopenidlogin.php:287
 msgid "Nickname not allowed."
 msgstr "Нікнейм не допускається."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
-#: finishopenidlogin.php:291
+#: finishopenidlogin.php:293
 msgid "Nickname already in use. Try another one."
 msgstr "Цей нікнейм вже використовується. Спробуйте інший."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
-#: finishopenidlogin.php:299 finishopenidlogin.php:386
+#: finishopenidlogin.php:301 finishopenidlogin.php:388
 msgid "Stored OpenID not found."
 msgstr "Збережений OpenID не знайдено."
 
 #. TRANS: OpenID plugin server error.
-#: finishopenidlogin.php:309
+#: finishopenidlogin.php:311
 msgid "Creating new account for OpenID that already has a user."
 msgstr "Створення нового акаунту для OpenID користувачем, який вже існує."
 
 #. TRANS: OpenID plugin message.
-#: finishopenidlogin.php:374
+#: finishopenidlogin.php:376
 msgid "Invalid username or password."
 msgstr "Невірне ім’я або пароль."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
-#: finishopenidlogin.php:394
+#: finishopenidlogin.php:396
 msgid "Error connecting user to OpenID."
 msgstr "Помилка при підключенні користувача до OpenID."
 
 #. TRANS: OpenID plugin message. Rememberme logins have to reauthenticate before changing any profile settings.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:80
+#: openidlogin.php:82
 #, php-format
 msgid ""
 "For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
@@ -518,68 +518,68 @@ msgstr ""
 
 #. TRANS: OpenID plugin message.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
-#: openidlogin.php:86
+#: openidlogin.php:88
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
 msgstr "Увійти з [OpenID](%%doc.openid%%)."
 
 #. TRANS: OpenID plugin message. Title.
 #. TRANS: Title after getting the status of the OpenID authorisation request.
-#: openidlogin.php:120 finishaddopenid.php:187
+#: openidlogin.php:122 finishaddopenid.php:187
 msgid "OpenID Login"
 msgstr "Вхід з OpenID"
 
 #. TRANS: OpenID plugin logon form legend.
-#: openidlogin.php:138
+#: openidlogin.php:140
 msgid "OpenID login"
 msgstr "Вхід з OpenID"
 
-#: openidlogin.php:146
+#: openidlogin.php:148
 msgid "OpenID provider"
 msgstr "OpenID-провайдер"
 
-#: openidlogin.php:154
+#: openidlogin.php:156
 msgid "Enter your username."
 msgstr "Введіть ім’я користувача."
 
-#: openidlogin.php:155
+#: openidlogin.php:157
 msgid "You will be sent to the provider's site for authentication."
 msgstr "Вас буде перенаправлено на веб-сторінку провайдера для автентифікації."
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:162
+#: openidlogin.php:164
 msgid "Your OpenID URL"
 msgstr "URL вашого OpenID"
 
 #. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
-#: openidlogin.php:167
+#: openidlogin.php:169
 msgid "Remember me"
 msgstr "Пам’ятати мене"
 
 #. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:169
+#: openidlogin.php:171
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Автоматично входити у майбутньому; не для комп’ютерів загального "
 "користування!"
 
 #. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
-#: openidlogin.php:174
+#: openidlogin.php:176
 msgctxt "BUTTON"
 msgid "Login"
 msgstr "Увійти"
 
-#: openidtrust.php:51
+#: openidtrust.php:52
 msgid "OpenID Identity Verification"
 msgstr "Перевірка ідентичності OpenID"
 
-#: openidtrust.php:69
+#: openidtrust.php:70
 msgid ""
 "This page should only be reached during OpenID processing, not directly."
 msgstr ""
 "Ви потрапляєте на цю сторінку лише при обробці запитів OpenID, не напряму."
 
-#: openidtrust.php:117
+#: openidtrust.php:118
 #, php-format
 msgid ""
 "%s  has asked to verify your identity. Click Continue to verify your "
@@ -588,11 +588,11 @@ msgstr ""
 "%s запрошує вас пройти перевірку на ідентичність. Натисніть «Продовжити», щоб "
 "перевірити вашу особу та увійти, не створюючи нового паролю."
 
-#: openidtrust.php:135
+#: openidtrust.php:136
 msgid "Continue"
 msgstr "Продовжити"
 
-#: openidtrust.php:136
+#: openidtrust.php:137
 msgid "Cancel"
 msgstr "Скасувати"
 

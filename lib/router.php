@@ -278,7 +278,7 @@ class Router
 
             $m->connect('group/new', array('action' => 'newgroup'));
 
-            foreach (array('edit', 'join', 'leave') as $v) {
+            foreach (array('edit', 'join', 'leave', 'delete') as $v) {
                 $m->connect('group/:nickname/'.$v,
                             array('action' => $v.'group'),
                             array('nickname' => '[a-zA-Z0-9]+'));
@@ -321,6 +321,11 @@ class Router
             // Twitter-compatible API
 
             // statuses API
+
+            $m->connect('api',
+                        array('action' => 'Redirect',
+                              'nextAction' => 'doc',
+                              'args' => array('title' => 'api')));
 
             $m->connect('api/statuses/public_timeline.:format',
                         array('action' => 'ApiTimelinePublic',

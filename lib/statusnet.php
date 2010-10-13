@@ -341,8 +341,11 @@ class StatusNet
 
         foreach ($config_files as $_config_file) {
             if (@file_exists($_config_file)) {
-                include($_config_file);
-                self::$have_config = true;
+                // Ignore 0-byte config files
+                if (filesize($_config_file) > 0) {
+                    include($_config_file);
+                    self::$have_config = true;
+                }
             }
         }
 
