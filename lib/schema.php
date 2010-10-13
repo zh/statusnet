@@ -143,6 +143,7 @@ class Schema
      */
     public function buildCreateTable($name, $def)
     {
+        $def = $this->filterDef($def);
         $sql = array();
 
         foreach ($def['fields'] as $col => $colDef) {
@@ -487,17 +488,19 @@ class Schema
             }
         }
 
+        $old = $this->filterDef($old);
+        $def = $this->filterDef($def);
+
         // @fixme check if not present
         $fields = $this->diffArrays($old['fields'], $def['fields'], array($this, 'columnsEqual'));
         $uniques = $this->diffArrays($old['unique keys'], $def['unique keys']);
         $indexes = $this->diffArrays($old['indexes'], $def['indexes']);
 
-        /*
-        if (count($toadd) + count($todrop) + count($tomod) == 0) {
+        $total = $fields['count'] + $uniques['count'] + $indexes['count'];
+        if ($total == 0) {
             // nothing to do
-            return true;
+            return array();
         }
-         */
 
         // For efficiency, we want this all in one
         // query, instead of using our methods.
@@ -561,7 +564,8 @@ class Schema
         return array('add' => $toadd,
                      'del' => $todrop,
                      'mod' => $tomod,
-                     'keep' => $tokeep);
+                     'keep' => $tokeep,
+                     'count' => count($toadd) + count($todrop) + count($tomod));
     }
 
     /**
@@ -845,6 +849,20 @@ class Schema
         }
 
         return $table;
+    }
+
+    /**
+     * Filter the given table definition array to match features available
+     * in this database.
+     *
+     * This lets us strip out unsupported things like comments, foreign keys,
+     * or type variants that we wouldn't get back from getTableDef().
+     *
+     * @param array $tableDef
+     */
+    function filterDef(array $tableDef)
+    {
+        return $tableDef;
     }
 
     function isNumericType($type)

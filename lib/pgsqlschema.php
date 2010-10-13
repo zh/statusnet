@@ -406,4 +406,29 @@ class PgsqlSchema extends Schema
         }
     }
 
+    /**
+     * Filter the given table definition array to match features available
+     * in this database.
+     *
+     * This lets us strip out unsupported things like comments, foreign keys,
+     * or type variants that we wouldn't get back from getTableDef().
+     *
+     * @param array $tableDef
+     */
+    function filterDef(array $tableDef)
+    {
+        foreach (array_keys($tableDef['fields']) as $name => &$col) {
+            // No convenient support for field descriptions
+            unset($col['description']);
+
+            if (isset($col['size'])) {
+                // Don't distinguish between tinyint and int.
+                if ($col['size'] == 'tiny' && $col['type'] == 'int') {
+                    unset($col['size']);
+                }
+            }
+        }
+        return $tableDef;
+    }
+
 }

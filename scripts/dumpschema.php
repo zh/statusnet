@@ -129,17 +129,19 @@ function dumpBuildTable($tableName)
 
 function dumpEnsureTable($tableName)
 {
-    echo "-- \n";
-    echo "-- $tableName\n";
-    echo "-- \n";
-
     $schema = Schema::get();
     $def = getCoreSchema($tableName);
     $sql = $schema->buildEnsureTable($tableName, $def);
-    $sql[] = '';
 
-    echo implode(";\n", $sql);
-    echo "\n";
+    if ($sql) {
+        echo "-- \n";
+        echo "-- $tableName\n";
+        echo "-- \n";
+
+        $sql[] = '';
+        echo implode(";\n", $sql);
+        echo "\n";
+    }
 }
 
 function showDiff($a, $b)

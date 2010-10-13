@@ -523,4 +523,20 @@ class MysqlSchema extends Schema
             return parent::typeAndSize($column);
         }
     }
+
+    /**
+     * Filter the given table definition array to match features available
+     * in this database.
+     *
+     * This lets us strip out unsupported things like comments, foreign keys,
+     * or type variants that we wouldn't get back from getTableDef().
+     *
+     * @param array $tableDef
+     */
+    function filterDef(array $tableDef)
+    {
+        // @fixme add foreign-key support for MySQL
+        unset($tableDef['foreign keys']);
+        return $tableDef;
+    }
 }
