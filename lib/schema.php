@@ -234,7 +234,7 @@ class Schema
      */
     function appendUniqueKeyDef(array &$sql, $name, array $def)
     {
-        $sql[] = "UNIQUE $key " . $this->buildIndexList($def);
+        $sql[] = "UNIQUE $name " . $this->buildIndexList($def);
     }
 
     /**
@@ -487,59 +487,81 @@ class Schema
             }
         }
 
-        $cur = array_keys($old['fields']);
-        $new = array_keys($def['fields']);
+        // @fixme check if not present
+        $fields = $this->diffArrays($old['fields'], $def['fields'], array($this, 'columnsEqual'));
+        $uniques = $this->diffArrays($old['unique keys'], $def['unique keys']);
+        $indexes = $this->diffArrays($old['indexes'], $def['indexes']);
 
-        $toadd  = array_diff($new, $cur);
-        $todrop = array_diff($cur, $new);
-        $same   = array_intersect($new, $cur);
-        $tomod  = array();
-
-        // Find which fields have actually changed definition
-        // in a way that we need to tweak them for this DB type.
-        foreach ($same as $name) {
-            $curCol = $old['fields'][$name];
-            $newCol = $cur['fields'][$name];
-
-            if (!$this->columnsEqual($curCol, $newCol)) {
-                $tomod[] = $name;
-            }
-        }
-
+        /*
         if (count($toadd) + count($todrop) + count($tomod) == 0) {
             // nothing to do
             return true;
         }
+         */
 
         // For efficiency, we want this all in one
         // query, instead of using our methods.
 
         $phrase = array();
 
-        foreach ($toadd as $columnName) {
+        foreach ($uniques['del'] + $uniques['mod'] as $keyName) {
+            $this->appendAlterDropUnique($phrase, $keyName);
+        }
+
+        foreach ($fields['add'] as $columnName) {
             $this->appendAlterAddColumn($phrase, $columnName,
                     $def['fields'][$columnName]);
         }
 
-        foreach ($todrop as $columnName) {
+        foreach ($fields['mod'] as $columnName) {
             $this->appendAlterModifyColumn($phrase, $columnName,
                     $old['fields'][$columnName],
                     $def['fields'][$columnName]);
         }
 
-        foreach ($tomod as $columnName) {
+        foreach ($fields['del'] as $columnName) {
             $this->appendAlterDropColumn($phrase, $columnName);
         }
 
-        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
-
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
+        foreach ($uniques['mod'] + $uniques['add'] as $keyName) {
+            $this->appendAlterAddUnique($phrase, $keyName, $def['unique keys'][$keyName]);
         }
 
-        return true;
+        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(",\n", $phrase);
+
+        return array($sql);
+    }
+
+    function diffArrays($old, $new, $compareCallback=null)
+    {
+
+        $oldKeys = array_keys($old ? $old : array());
+        $newKeys = array_keys($new ? $new : array());
+
+        $toadd  = array_diff($newKeys, $oldKeys);
+        $todrop = array_diff($oldKeys, $newKeys);
+        $same   = array_intersect($newKeys, $oldKeys);
+        $tomod  = array();
+        $tokeep = array();
+
+        // Find which fields have actually changed definition
+        // in a way that we need to tweak them for this DB type.
+        foreach ($same as $name) {
+            if ($compareCallback) {
+                $same = call_user_func($compareCallback, $old[$name], $new[$name]);
+            } else {
+                $same = ($old[$name] != $new[$name]);
+            }
+            if ($same) {
+                $tokeep[] = $name;
+                continue;
+            }
+            $tomod[] = $name;
+        }
+        return array('add' => $toadd,
+                     'del' => $todrop,
+                     'mod' => $tomod,
+                     'keep' => $tokeep);
     }
 
     /**
@@ -585,6 +607,19 @@ class Schema
     function appendAlterDropColumn(array &$phrase, $columnName)
     {
         $phrase[] = 'DROP COLUMN ' . $this->quoteIdentifier($columnName);
+    }
+
+    function appendAlterAddUnique(array &$phrase, $keyName, array $def)
+    {
+        $sql = array();
+        $sql[] = 'ADD';
+        $this->appendUniqueKeyDef($sql, $keyName, $def);
+        $phrase[] = implode(' ', $sql);'ADD CONSTRAINT ' . $keyName;
+    }
+
+    function appendAlterDropUnique(array &$phrase, $keyName)
+    {
+        $phrase[] = 'DROP CONSTRAINT ' . $keyName;
     }
 
     /**

@@ -23,9 +23,15 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
 $helptext = <<<END_OF_CHECKSCHEMA_HELP
 Attempt to pull a schema definition for a given table.
 
+  --all     run over all defined core tables
+  --diff    do a raw text diff between the expected and live table defs
+  --update  dump SQL that would be run to update or create this table
+  --build   dump SQL that would be run to create this table fresh
+
+
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff', 'all', 'build');
+$longoptions = array('diff', 'all', 'build', 'update');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -121,6 +127,21 @@ function dumpBuildTable($tableName)
     echo "\n";
 }
 
+function dumpEnsureTable($tableName)
+{
+    echo "-- \n";
+    echo "-- $tableName\n";
+    echo "-- \n";
+
+    $schema = Schema::get();
+    $def = getCoreSchema($tableName);
+    $sql = $schema->buildEnsureTable($tableName, $def);
+    $sql[] = '';
+
+    echo implode(";\n", $sql);
+    echo "\n";
+}
+
 function showDiff($a, $b)
 {
     $fnameA = tempnam(sys_get_temp_dir(), 'defined-diff-a');
@@ -156,6 +177,8 @@ if (count($args)) {
             showDiff($defined, $detected);
         } else if (have_option('build')) {
             dumpBuildTable($tableName);
+        } else if (have_option('update')) {
+            dumpEnsureTable($tableName);
         } else {
             dumpTable($tableName, true);
         }
