@@ -41,7 +41,7 @@ class ModHelperPlugin extends Plugin
 
     function onUserRightsCheck($profile, $right, &$result)
     {
-        if ($right == Right::SILENCEUSER || $right == Right::SANDBOXUSER) {
+        if ($right == Right::SILENCEUSER) {
             // Hrm.... really we should confirm that the *other* user isn't privleged. :)
             if ($profile->hasRole('modhelper')) {
                 $result = true;
