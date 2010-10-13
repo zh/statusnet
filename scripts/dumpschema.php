@@ -24,14 +24,15 @@ $helptext = <<<END_OF_CHECKSCHEMA_HELP
 Attempt to pull a schema definition for a given table.
 
   --all     run over all defined core tables
-  --diff    do a raw text diff between the expected and live table defs
+  --diff    show differences between the expected and live table defs
+  --raw     skip compatibility filtering for diffs
   --update  dump SQL that would be run to update or create this table
   --build   dump SQL that would be run to create this table fresh
 
 
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff', 'all', 'build', 'update');
+$longoptions = array('diff', 'all', 'build', 'update', 'raw');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -110,6 +111,7 @@ function dumpTable($tableName, $live)
         $def = getCoreSchema($tableName);
     }
     prettyDumpArray($def, $tableName);
+    print "\n";
 }
 
 function dumpBuildTable($tableName)
@@ -144,21 +146,65 @@ function dumpEnsureTable($tableName)
     }
 }
 
-function showDiff($a, $b)
+function dumpDiff($tableName, $filter)
 {
-    $fnameA = tempnam(sys_get_temp_dir(), 'defined-diff-a');
-    file_put_contents($fnameA, $a);
+    $schema = Schema::get();
+    $def = getCoreSchema($tableName);
+    try {
+        $old = $schema->getTableDef($tableName);
+    } catch (Exception $e) {
+        // @fixme this is a terrible check :D
+        if (preg_match('/no such table/', $e->getMessage())) {
+            return dumpTable($tableName, false);
+        } else {
+            throw $e;
+        }
+    }
 
-    $fnameB = tempnam(sys_get_temp_dir(), 'detected-diff-b');
-    file_put_contents($fnameB, $b);
+    if ($filter) {
+        $old = $schema->filterDef($old);
+        $def = $schema->filterDef($def);
+    }
 
-    $cmd = sprintf('diff -U 100 %s %s',
-            escapeshellarg($fnameA),
-            escapeshellarg($fnameB));
-    passthru($cmd);
+    // @hack
+    $old = tweakPrimaryKey($old);
+    $def = tweakPrimaryKey($def);
 
-    unlink($fnameA);
-    unlink($fnameB);
+    $sections = array_unique(array_merge(array_keys($old), array_keys($def)));
+    $final = array();
+    foreach ($sections as $section) {
+        if ($section == 'fields') {
+            // this shouldn't be needed maybe... wait what?
+        }
+        $diff = $schema->diffArrays($old, $def, $section, $compare);
+        $chunks = array('del', 'mod', 'add');
+        foreach ($chunks as $chunk) {
+            if ($diff[$chunk]) {
+                foreach ($diff[$chunk] as $key) {
+                    if ($chunk == 'del') {
+                        $final[$section]["DEL $key"] = $old[$section][$key];
+                    } else if ($chunk == 'add') {
+                        $final[$section]["ADD $key"] = $def[$section][$key];
+                    } else if ($chunk == 'mod') {
+                        $final[$section]["OLD $key"] = $old[$section][$key];
+                        $final[$section]["NEW $key"] = $def[$section][$key];
+                    }
+                }
+            }
+        }
+    }
+
+    prettyDumpArray($final, $tableName);
+    print "\n";
+}
+
+function tweakPrimaryKey($def)
+{
+    if (isset($def['primary key'])) {
+        $def['primary keys'] = array('primary key' => $def['primary key']);
+        unset($def['primary key']);
+    }
+    return $def;
 }
 
 if (have_option('all')) {
@@ -168,15 +214,7 @@ if (have_option('all')) {
 if (count($args)) {
     foreach ($args as $tableName) {
         if (have_option('diff')) {
-            ob_start();
-            dumpTable($tableName, false);
-            $defined = ob_get_clean();
-
-            ob_start();
-            dumpTable($tableName, true);
-            $detected = ob_get_clean();
-
-            showDiff($defined, $detected);
+            dumpDiff($tableName, !have_option('raw'));
         } else if (have_option('build')) {
             dumpBuildTable($tableName);
         } else if (have_option('update')) {
