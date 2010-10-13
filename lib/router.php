@@ -322,6 +322,11 @@ class Router
 
             // statuses API
 
+            $m->connect('api',
+                        array('action' => 'Redirect',
+                              'nextAction' => 'doc',
+                              'args' => array('title' => 'api')));
+
             $m->connect('api/statuses/public_timeline.:format',
                         array('action' => 'ApiTimelinePublic',
                               'format' => '(xml|json|rss|atom)'));
