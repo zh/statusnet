@@ -84,6 +84,50 @@ while ($group->fetch()) {
 }
 echo "\n";
 
+// And there may be user_group entries remaining where we've already killed
+// the ostatus_profile. These were "harmless" until our lookup started actually
+// using the uri field, at which point we can clearly see it breaks stuff.
+echo "Checking for leftover bogus user_group.uri entries obscuring local_group entries...\n";
+
+$group = new User_group();
+$group->joinAdd(array('id', 'local_group:group_id'), 'LEFT');
+$group->whereAdd('group_id IS NULL');
+
+
+$marker = mt_rand(31337, 31337000);
+$groupTemplate = common_local_url('groupbyid', array('id' => $marker));
+$encGroup = $group->escape($groupTemplate, true);
+$encGroup = str_replace($marker, '%', $encGroup);
+echo "  LIKE '$encGroup'\n";
+$group->whereAdd("uri LIKE '$encGroup'");
+
+$group->find();
+$count = $group->N;
+echo "Found $count...\n";
+
+while ($group->fetch()) {
+    $uri = $group->uri;
+    if (preg_match('!/group/(\d+)/id!', $uri, $matches)) {
+        $id = intval($matches[1]);
+        $local = Local_group::staticGet('group_id', $id);
+        if ($local) {
+            $nick = $local->nickname;
+        } else {
+            $nick = '<deleted>';
+        }
+        echo "local group $id ($local->nickname) hidden by $uri (bogus group id $group->id)";
+        if ($dry) {
+            echo " - skipping\n";
+        } else {
+            echo " - removing bogus user_group entry...";
+            $evil = User_group::staticGet('id', $group->id);
+            $evil->delete();
+            echo "  ok\n";
+        }
+    }
+}
+echo "\n";
+
 
 // Fallback?
 echo "Checking for bogus profiles blocking local users/groups by URI pattern match...\n";

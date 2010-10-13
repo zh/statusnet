@@ -854,6 +854,7 @@ class Profile extends Memcached_DataObject
             case Right::SANDBOXUSER:
             case Right::SILENCEUSER:
             case Right::DELETEUSER:
+            case Right::DELETEGROUP:
                 $result = $this->hasRole(Profile_role::MODERATOR);
                 break;
             case Right::CONFIGURESITE:

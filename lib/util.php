@@ -919,7 +919,12 @@ function common_shorten_links($text, $always = false)
 function common_validate_utf8($str)
 {
     // preg_replace will return NULL on invalid UTF-8 input.
-    return preg_replace('//u', '', $str);
+    //
+    // Note: empty regex //u also caused NULL return on some
+    // production machines, but none of our test machines.
+    //
+    // This should be replaced with a more reliable check.
+    return preg_replace('/\x00/u', '', $str);
 }
 
 /**
