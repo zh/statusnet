@@ -55,6 +55,17 @@ class StatusNetOAuthDataStore extends OAuthDataStore
         }
     }
 
+    function getTokenByKey($token_key)
+    {
+        $t = new Token();
+        $t->tok = $token_key;
+        if ($t->find(true)) {
+            return $t;
+        } else {
+            return null;
+        }
+    }
+
     // http://oauth.net/core/1.0/#nonce
     // "The Consumer SHALL then generate a Nonce value that is unique for
     // all requests with that timestamp."

@@ -22,15 +22,15 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 
 require_once INSTALLDIR . '/extlib/OAuth.php';
 
-$shortoptions = 'o:s:';
-$longoptions = array('oauth_token=', 'token_secret=');
+$shortoptions = 't:s:';
+$longoptions = array('oauth_token=', 'oauth_token_secret=');
 
 $helptext = <<<END_OF_VERIFY_HELP
-  verifycreds.php [options]
-  Use an access token to verify credentials thru the api
+  oauth_verify_creds.php [options]
+  Access /api/account/verify_credentials.xml with OAuth
 
-    -o --oauth_token       access token
-    -s --token_secret      access token secret
+    -t --oauth_token        access token
+    -s --oauth_token_secret access token secret
 
 END_OF_VERIFY_HELP;
 
@@ -39,63 +39,69 @@ $token_secret = null;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
 
-if (have_option('o', 'oauth_token')) {
-    $token = get_option_value('oauth_token');
+if (have_option('t', 'oauth_token')) {
+    $token = get_option_value('t', 'oauth_token');
 }
 
 if (have_option('s', 'token_secret')) {
-    $token_secret = get_option_value('s', 'token_secret');
+    $token_secret = get_option_value('s', 'oauth_token_secret');
 }
 
 if (empty($token)) {
-    print "Please specify an access token.\n";
+    print "Please specify an access token (--help for help).\n";
     exit(1);
 }
 
 if (empty($token_secret)) {
-    print "Please specify an access token secret.\n";
+    print "Please specify an access token secret (--help for help).\n";
     exit(1);
 }
 
-$ini = parse_ini_file("oauth.ini");
-
-$test_consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
-
+$ini      = parse_ini_file("oauth.ini");
+$consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
 $endpoint = $ini['apiroot'] . '/account/verify_credentials.xml';
 
-print "$endpoint\n";
-
-$at = new OAuthToken($token, $token_secret);
-
+$atok   = new OAuthToken($token, $token_secret);
 $parsed = parse_url($endpoint);
-$params = array();
+
 parse_str($parsed['query'], $params);
 
-$hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
+try {
 
-$req_req = OAuthRequest::from_consumer_and_token($test_consumer, $at, "GET", $endpoint, $params);
-$req_req->sign_request($hmac_method, $test_consumer, $at);
+    $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
-$r = httpRequest($req_req->to_url());
+    $oauthReq = OAuthRequest::from_consumer_and_token(
+        $consumer,
+        $atok,
+        "GET",
+        $endpoint,
+        $params
+    );
 
-$body = $r->getBody();
+    $oauthReq->sign_request($hmac_method, $consumer, $atok);
 
-print "$body\n";
+    $httpReq = httpRequest($oauthReq->to_url());
 
-//print $req_req->to_url() . "\n\n";
+} catch (Exception $e) {
+    print "Error! HTTP response body: " . $httpReq->getBody();
+    exit(1);
+}
+
+print $httpReq->getBody();
 
 function httpRequest($url)
 {
     $request = HTTPClient::start();
 
-    $request->setConfig(array(
-			      'follow_redirects' => true,
-			      'connect_timeout' => 120,
-			      'timeout' => 120,
-			      'ssl_verify_peer' => false,
-			      'ssl_verify_host' => false
-			      ));
+    $request->setConfig(
+        array(
+            'follow_redirects' => true,
+	    'connect_timeout' => 120,
+	    'timeout' => 120,
+	    'ssl_verify_peer' => false,
+	    'ssl_verify_host' => false
+        )
+    );
 
     return $request->get($url);
 }
-

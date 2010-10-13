@@ -22,16 +22,16 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 
 require_once INSTALLDIR . '/extlib/OAuth.php';
 
-$shortoptions = 'o:s:u:';
+$shortoptions = 't:s:u:';
 $longoptions = array('oauth_token=', 'token_secret=', 'update=');
 
 $helptext = <<<END_OF_VERIFY_HELP
-    statusupdate.php [options]
-    Update your status using OAuth
+    oauth_post_notice.php [options]
+    Update your status via OAuth
 
-    -o --oauth_token       access token
-    -s --token_secret      access token secret
-    -u --update            status update
+    -t --oauth_token        access token
+    -s --oauth_token_secret access token secret
+    -u --update             status update
 
 
 END_OF_VERIFY_HELP;
@@ -42,12 +42,12 @@ $update       = null;
 
 require_once INSTALLDIR . '/scripts/commandline.inc';
 
-if (have_option('o', 'oauth_token')) {
-    $token = get_option_value('oauth_token');
+if (have_option('t', 'oauth_token')) {
+    $token = get_option_value('t', 'oauth_token');
 }
 
-if (have_option('s', 'token_secret')) {
-    $token_secret = get_option_value('s', 'token_secret');
+if (have_option('s', 'oauth_token_secret')) {
+    $token_secret = get_option_value('s', 'oauth_token_secret');
 }
 
 if (have_option('u', 'update')) {
@@ -69,47 +69,56 @@ if (empty($update)) {
     exit(1);
 }
 
-$ini = parse_ini_file("oauth.ini");
-
-$test_consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
-
+$ini      = parse_ini_file("oauth.ini");
+$consumer = new OAuthConsumer($ini['consumer_key'], $ini['consumer_secret']);
 $endpoint = $ini['apiroot'] . '/statuses/update.xml';
 
-print "$endpoint\n";
-
-$at = new OAuthToken($token, $token_secret);
+$atok = new OAuthToken($token, $token_secret);
 
 $parsed = parse_url($endpoint);
-$params = array();
 parse_str($parsed['query'], $params);
 
 $params['status'] = $update;
 
 $hmac_method = new OAuthSignatureMethod_HMAC_SHA1();
 
-$req_req = OAuthRequest::from_consumer_and_token($test_consumer, $at, 'POST', $endpoint, $params);
-$req_req->sign_request($hmac_method, $test_consumer, $at);
+try {
 
-$r = httpRequest($req_req->to_url());
+    $oauthReq = OAuthRequest::from_consumer_and_token(
+        $consumer,
+        $atok,
+        'POST',
+        $endpoint,
+        $params
+    );
 
-$body = $r->getBody();
+    $oauthReq->sign_request($hmac_method, $consumer, $atok);
 
-print "$body\n";
+    $httpReq = httpRequest($endpoint, $oauthReq->to_postdata());
 
-//print $req_req->to_url() . "\n\n";
+    print $httpReq->getBody();
 
-function httpRequest($url)
+} catch (Exception $e) {
+    print "Error! . $e->getMessage() . 'HTTP reponse body: " . $httpReq->getBody();
+    exit(1);
+}
+
+function httpRequest($endpoint, $poststr)
 {
     $request = HTTPClient::start();
 
-    $request->setConfig(array(
-                              'follow_redirects' => true,
-                              'connect_timeout' => 120,
-                              'timeout' => 120,
-                              'ssl_verify_peer' => false,
-                              'ssl_verify_host' => false
-                              ));
+    $request->setConfig(
+        array(
+            'follow_redirects' => true,
+	    'connect_timeout' => 120,
+	    'timeout' => 120,
+	    'ssl_verify_peer' => false,
+	    'ssl_verify_host' => false
+        )
+    );
 
-    return $request->post($url);
+    // Turn signed request query string back into an array
+    parse_str($poststr, $postdata);
+    return $request->post($endpoint, null, $postdata);
 }
 

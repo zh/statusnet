@@ -116,9 +116,9 @@ class ConnectSettingsNav extends Widget
             }
 
             $menu['oauthconnectionssettings'] = array(
-                // TRANS: Menu item for OAth connection settings.
+                // TRANS: Menu item for OuAth connection settings.
                 _m('MENU','Connections'),
-                // TRANS: Tooltip for connected applications (Connections through OAth) menu item.
+                // TRANS: Tooltip for connected applications (Connections through OAuth) menu item.
                 _('Authorized connected applications')
             );
 
