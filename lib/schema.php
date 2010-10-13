@@ -555,7 +555,7 @@ class Schema
             if ($compareCallback) {
                 $same = call_user_func($compareCallback, $old[$name], $new[$name]);
             } else {
-                $same = ($old[$name] != $new[$name]);
+                $same = ($old[$name] == $new[$name]);
             }
             if ($same) {
                 $tokeep[] = $name;
