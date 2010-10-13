@@ -492,9 +492,9 @@ class Schema
         $def = $this->filterDef($def);
 
         // @fixme check if not present
-        $fields = $this->diffArrays($old['fields'], $def['fields'], array($this, 'columnsEqual'));
-        $uniques = $this->diffArrays($old['unique keys'], $def['unique keys']);
-        $indexes = $this->diffArrays($old['indexes'], $def['indexes']);
+        $fields = $this->diffArrays($old, $def, 'fields', array($this, 'columnsEqual'));
+        $uniques = $this->diffArrays($old, $def, 'unique keys');
+        $indexes = $this->diffArrays($old, $def, 'indexes');
 
         $total = $fields['count'] + $uniques['count'] + $indexes['count'];
         if ($total == 0) {
@@ -535,11 +535,13 @@ class Schema
         return array($sql);
     }
 
-    function diffArrays($old, $new, $compareCallback=null)
+    function diffArrays($oldDef, $newDef, $section, $compareCallback=null)
     {
+        $old = isset($oldDef[$section]) ? $oldDef[$section] : array();
+        $new = isset($newDef[$section]) ? $newDef[$section] : array();
 
-        $oldKeys = array_keys($old ? $old : array());
-        $newKeys = array_keys($new ? $new : array());
+        $oldKeys = array_keys($old);
+        $newKeys = array_keys($new);
 
         $toadd  = array_diff($newKeys, $oldKeys);
         $todrop = array_diff($oldKeys, $newKeys);
