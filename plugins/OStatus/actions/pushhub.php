@@ -23,6 +23,10 @@
  * @maintainer Brion Vibber <brion@status.net>
  */
 
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
 /**
 
 

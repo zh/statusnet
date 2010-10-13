@@ -22,7 +22,9 @@
  * @maintainer Brion Vibber <brion@status.net>
  */
 
-if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
+if (!defined('STATUSNET')) {
+    exit(1);
+}
 
 set_include_path(get_include_path() . PATH_SEPARATOR . dirname(__FILE__) . '/extlib/');
 
@@ -964,7 +966,7 @@ class OStatusPlugin extends Plugin
     {
         $group = User_group::staticGet('uri', $url);
         if ($group) {
-            $local = Local_group::staticGet('id', $group->id);
+            $local = Local_group::staticGet('group_id', $group->id);
             if ($local) {
                 return $group->id;
             }

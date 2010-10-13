@@ -27,6 +27,10 @@
  * @link      http://status.net/
  */
 
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
 require_once INSTALLDIR . '/plugins/Facebook/FacebookPlugin.php';
 
 class FBConnectauthAction extends Action
