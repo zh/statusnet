@@ -175,8 +175,9 @@ class Action extends HTMLOutputter // lawsuit
             $this->element('link', array('rel' => 'shortcut icon',
                                          'href' => Theme::path('favicon.ico')));
         } else {
+            // favicon.ico should be HTTPS if the rest of the page is
             $this->element('link', array('rel' => 'shortcut icon',
-                                         'href' => common_path('favicon.ico')));
+                                         'href' => common_path('favicon.ico', StatusNet::isHTTPS())));
         }
 
         if (common_config('site', 'mobile')) {
