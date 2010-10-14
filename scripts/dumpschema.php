@@ -154,7 +154,7 @@ function dumpDiff($tableName, $filter)
         $old = $schema->getTableDef($tableName);
     } catch (Exception $e) {
         // @fixme this is a terrible check :D
-        if (preg_match('/no such table/', $e->getMessage())) {
+        if (preg_match('/no such table/i', $e->getMessage())) {
             return dumpTable($tableName, false);
         } else {
             throw $e;
