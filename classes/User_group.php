@@ -559,16 +559,27 @@ class User_group extends Memcached_DataObject
     function delete()
     {
         if ($this->id) {
+
             // Safe to delete in bulk for now
+
             $related = array('Group_inbox',
                              'Group_block',
                              'Group_member',
                              'Related_group');
+
             Event::handle('UserGroupDeleteRelated', array($this, &$related));
+
             foreach ($related as $cls) {
+
                 $inst = new $cls();
                 $inst->group_id = $this->id;
-                $inst->delete();
+
+                if ($inst->find()) {
+                    while ($inst->fetch()) {
+                        $dup = clone($inst);
+                        $dup->delete();
+                    }
+                }
             }
 
             // And related groups in the other direction...
@@ -584,6 +595,10 @@ class User_group extends Memcached_DataObject
             if ($local) {
                 $local->delete();
             }
+
+            // blow the cached ids
+            self::blow('user_group:notice_ids:%d', $this->id);
+
         } else {
             common_log(LOG_WARN, "Ambiguous user_group->delete(); skipping related tables.");
         }

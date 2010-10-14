@@ -36,7 +36,8 @@ class XrdAction extends Action
 
     function handle()
     {
-        $nick =  $this->user->nickname;
+        $nick    = $this->user->nickname;
+        $profile = $this->user->getProfile();
 
         if (empty($this->xrd)) {
             $xrd = new XRD();
@@ -47,10 +48,28 @@ class XrdAction extends Action
         if (empty($xrd->subject)) {
             $xrd->subject = Discovery::normalize($this->uri);
         }
-        $xrd->alias[] = $this->user->uri;
+
+        // Possible aliases for the user
+
+        $uris = array($this->user->uri, $profile->profileurl);
+
+        // FIXME: Webfinger generation code should live somewhere on its own
+
+        $path = common_config('site', 'path');
+
+        if (empty($path)) {
+            $uris[] = sprintf('acct:%s@%s', $nick, common_config('site', 'server'));
+        }
+
+        foreach ($uris as $uri) {
+            if ($uri != $xrd->subject) {
+                $xrd->alias[] = $uri;
+            }
+        }
+
         $xrd->links[] = array('rel' => Discovery::PROFILEPAGE,
                               'type' => 'text/html',
-                              'href' => $this->user->uri);
+                              'href' => $profile->profileurl);
 
         $xrd->links[] = array('rel' => Discovery::UPDATESFROM,
                               'href' => common_local_url('ApiTimelineUser',
@@ -66,7 +85,7 @@ class XrdAction extends Action
         // XFN
         $xrd->links[] = array('rel' => 'http://gmpg.org/xfn/11',
                               'type' => 'text/html',
-                              'href' => $this->user->uri);
+                              'href' => $profile->profileurl);
         // FOAF
         $xrd->links[] = array('rel' => 'describedby',
                               'type' => 'application/rdf+xml',
