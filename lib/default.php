@@ -37,6 +37,7 @@ $default =
               'path' => $_path,
               'logfile' => null,
               'logo' => null,
+              'ssllogo' => null,
               'logdebug' => false,
               'fancy' => false,
               'locale_path' => INSTALLDIR.'/locale',
