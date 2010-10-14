@@ -371,7 +371,12 @@ class HTMLOutputter extends XMLOutputter
                         $sslserver = common_config('javascript', 'sslserver');
 
                         if (empty($sslserver)) {
-                            $server = common_config('site', 'server');
+                            if (is_string(common_config('site', 'sslserver')) &&
+                                mb_strlen(common_config('site', 'sslserver')) > 0) {
+                                $server = common_config('site', 'sslserver');
+                            } else if (common_config('site', 'server')) {
+                                $server = common_config('site', 'server');
+                            }
                             $path   = common_config('site', 'path') . '/js/';
                         } else {
                             $server = $sslserver;

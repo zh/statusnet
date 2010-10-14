@@ -146,7 +146,12 @@ class Design extends Memcached_DataObject
             if (empty($sslserver)) {
                 // XXX: this assumes that background dir == site dir + /background/
                 // not true if there's another server
-                $server = common_config('site', 'server');
+                if (is_string(common_config('site', 'sslserver')) &&
+                    mb_strlen(common_config('site', 'sslserver')) > 0) {
+                    $server = common_config('site', 'sslserver');
+                } else if (common_config('site', 'server')) {
+                    $server = common_config('site', 'server');
+                }
                 $path   = common_config('site', 'path') . '/background/';
             } else {
                 $server = $sslserver;
