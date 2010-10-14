@@ -426,11 +426,35 @@ class Action extends HTMLOutputter // lawsuit
             }
             $this->elementStart('a', array('class' => 'url home bookmark',
                                            'href' => $url));
-            if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
+
+            if (StatusNet::isHTTPS()) {
+                $logoUrl = common_config('site', 'ssllogo');
+                if (empty($logoUrl)) {
+                    // if logo is an uploaded file, try to fall back to HTTPS file URL
+                    $httpUrl = common_config('site', 'logo');
+                    if (!empty($httpUrl)) {
+                        $f = File::staticGet('url', $httpUrl);
+                        if (!empty($f) && !empty($f->filename)) {
+                            // this will handle the HTTPS case
+                            $logoUrl = File::url($f->filename);
+                        }
+                    }
+                }
+            } else {
+                $logoUrl = common_config('site', 'logo');
+            }
+
+            if (empty($logoUrl) && file_exists(Theme::file('logo.png'))) {
+                // This should handle the HTTPS case internally
+                $logoUrl = Theme::path('logo.png');
+            }
+
+            if (!empty($logoUrl)) {
                 $this->element('img', array('class' => 'logo photo',
-                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
+                                            'src' => $logoUrl,
                                             'alt' => common_config('site', 'name')));
             }
+
             $this->text(' ');
             $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
             $this->elementEnd('a');
