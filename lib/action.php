@@ -894,8 +894,26 @@ class Action extends HTMLOutputter // lawsuit
             case 'cc': // fall through
             default:
                 $this->elementStart('p');
+
+                $image    = common_config('license', 'image');
+                $sslimage = common_config('license', 'sslimage');
+
+                if (StatusNet::isHTTPS()) {
+                    if (!empty($sslimage)) {
+                        $url = $sslimage;
+                    } else if (preg_match('#^http://i.creativecommons.org/#', $image)) {
+                        // CC support HTTPS on their images
+                        $url = preg_replace('/^http/', 'https', $image);
+                    } else {
+                        // Better to show mixed content than no content
+                        $url = $image;
+                    }
+                } else {
+                    $url = $image;
+                }
+
                 $this->element('img', array('id' => 'license_cc',
-                                            'src' => common_config('license', 'image'),
+                                            'src' => $url,
                                             'alt' => common_config('license', 'title'),
                                             'width' => '80',
                                             'height' => '15'));
