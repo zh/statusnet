@@ -362,7 +362,7 @@ class HTMLOutputter extends XMLOutputter
 
                 if (strpos($src, 'plugins/') === 0 || strpos($src, 'local/') === 0) {
 
-                    $src = common_path($src) . '?version=' . STATUSNET_VERSION;
+                    $src = common_path($src, StatusNet::isHTTPS()) . '?version=' . STATUSNET_VERSION;
 
                 } else {
 
@@ -467,7 +467,7 @@ class HTMLOutputter extends XMLOutputter
                 if(file_exists(Theme::file($src,$theme))){
                    $src = Theme::path($src, $theme);
                 }else{
-                   $src = common_path($src);
+                    $src = common_path($src, StatusNet::isHTTPS());
                 }
                 $src.= '?version=' . STATUSNET_VERSION;
             }
