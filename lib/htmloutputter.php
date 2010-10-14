@@ -393,10 +393,7 @@ class HTMLOutputter extends XMLOutputter
                         $path = common_config('javascript', 'path');
 
                         if (empty($path)) {
-                            $path = common_config('site', 'path') . '/';
-                            if ($fallbackSubdir) {
-                                $path .= $fallbackSubdir . '/';
-                            }
+                            $path = common_config('site', 'path') . '/js/';
                         }
 
                         $server = common_config('javascript', 'server');
