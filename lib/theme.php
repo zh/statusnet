@@ -134,15 +134,7 @@ class Theme
                 }
             }
 
-            if ($path[strlen($path)-1] != '/') {
-                $path .= '/';
-            }
-
-            if ($path[0] != '/') {
-                $path = '/'.$path;
-            }
-
-            return 'https://'.$server.$path.$name;
+            $protocol = 'https';
 
         } else {
 
@@ -155,22 +147,24 @@ class Theme
                 }
             }
 
-            if ($path[strlen($path)-1] != '/') {
-                $path .= '/';
-            }
-
-            if ($path[0] != '/') {
-                $path = '/'.$path;
-            }
-
             $server = common_config($group, 'server');
 
             if (empty($server)) {
                 $server = common_config('site', 'server');
             }
 
-            return 'http://'.$server.$path.$name;
+            $protocol = 'http';
         }
+
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
+        return $protocol.'://'.$server.$path.$name;
     }
 
     /**
