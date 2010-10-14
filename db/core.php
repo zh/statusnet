@@ -61,10 +61,10 @@ $schema['avatar'] = array(
     ),
     'primary key' => array('profile_id', 'width', 'height'),
     'unique keys' => array(
-        'avatar_url_idx' => array('url'),
+        'avatar_url_key' => array('url'),
     ),
     'foreign keys' => array(
-        'profile_id' => array('profile' => 'id'),
+        'avatar_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
     ),
     'indexes' => array(
         'avatar_profile_id_idx' => array('profile_id'),
@@ -81,7 +81,7 @@ $schema['sms_carrier'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'sms_carrier_name_idx' => array('name'),
+        'sms_carrier_name_key' => array('name'),
     ),
 );
 
@@ -119,16 +119,16 @@ $schema['user'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'user_nickname_idx' => array('nickname'),
-        'user_email_idx' => array('email'),
-        'user_incomingemail_idx' => array('incomingemail'),
-        'user_sms_idx' => array('sms'),
-        'user_uri_idx' => array('uri'),
+        'user_nickname_key' => array('nickname'),
+        'user_email_key' => array('email'),
+        'user_incomingemail_key' => array('incomingemail'),
+        'user_sms_key' => array('sms'),
+        'user_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
-        'id' => array('profile' => 'id'),
-        'carrier' => array('sms_carrier' => 'id'),
-        'design_id' => array('desgin' => 'id'),
+        'user_id_fkey' => array('profile', array('id' => 'id')),
+        'user_carrier_fkey' => array('sms_carrier', array('carrier' => 'id')),
+        'user_design_id_fkey' => array('design', array('design_id' => 'id')),
     ),
     'indexes' => array(
         'user_smsemail_idx' => array('smsemail'),
@@ -147,10 +147,10 @@ $schema['remote_profile'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'remote_profile_uri_idx' => array('uri'),
+        'remote_profile_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
-        'id' => array('profile' => 'id'),
+        'remote_profile_id_fkey' => array('profile', array('id' => 'id')),
     ),
 );
 
@@ -195,13 +195,13 @@ $schema['notice'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'notice_uri_idx' => array('uri'),
+        'notice_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
-        'profile_id' => array('profile' => 'id'),
-        'reply_to' => array('notice', 'id'),
-        'conversation' => array('conversation', 'id'), # note... used to refer to notice.id
-        'repeat_of' => array('notice', 'id'), # @fixme: what about repeats of deleted notices?
+        'notice_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+        'notice_reply_to_fkey' => array('notice', array('reply_to' => 'id')),
+        'notice_conversation_fkey' => array('conversation', array('conversation' => 'id')), # note... used to refer to notice.id
+        'notice_repeat_of_fkey' => array('notice', array('repeat_of' => 'id')), # @fixme: what about repeats of deleted notices?
     ),
     'indexes' => array(
         'notice_profile_id_idx' => array('profile_id', 'created', 'id'),
@@ -235,8 +235,8 @@ $schema['reply'] = array(
     ),
     'primary key' => array('notice_id', 'profile_id'),
     'foreign keys' => array(
-        'notice_id' => array('notice' => 'id'),
-        'profile_id' => array('profile' => 'id'),
+        'reply_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
+        'reply_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
     ),
     'indexes' => array(
         'reply_notice_id_idx' => array('notice_id'),
@@ -253,8 +253,8 @@ $schema['fave'] = array(
     ),
     'primary key' => array('notice_id', 'user_id'),
     'foreign keys' => array(
-        'notice_id' => array('notice', 'id'),
-        'user_id' => array('profile', 'id'), // note: formerly referenced notice.id, but we can now record remote users' favorites
+        'fave_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
+        'fave_user_id_fkey' => array('profile', array('user_id' => 'id')), // note: formerly referenced notice.id, but we can now record remote users' favorites
     ),
     'indexes' => array(
         'fave_notice_id_idx' => array('notice_id'),
@@ -294,7 +294,7 @@ $schema['token'] = array(
     ),
     'primary key' => array('consumer_key', 'tok'),
     'foreign keys' => array(
-        'consumer_key' => array('consumer' => 'consumer_key'),
+        'token_consumer_key_fkey' => array('consumer', array('consumer_key'=> 'consumer_key')),
     ),
 );
 
@@ -332,11 +332,11 @@ $schema['oauth_application'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'oauth_application_name_idx' => array('name'), // in the long run, we should perhaps not force these unique, and use another source id
+        'oauth_application_name_key' => array('name'), // in the long run, we should perhaps not force these unique, and use another source id
     ),
     'foreign keys' => array(
-        'owner' => array('profile' => 'id'), // Are remote users allowed to create oauth application records?
-        'consumer_key' => array('consumer' => 'consumer_key'),
+        'oauth_application_owner_fkey' => array('profile', array('owner' => 'id')), // Are remote users allowed to create oauth application records?
+        'oauth_application_consumer_key_fkey' => array('consumer', array('consumer_key' => 'consumer_key')),
     ),
 );
 
@@ -351,8 +351,8 @@ $schema['oauth_application_user'] = array(
     ),
     'primary key' => array('profile_id', 'application_id'),
     'foreign keys' => array(
-        'profile_id' => array('profile' => 'id'),
-        'application_id' => array('oauth_application' => 'id'),
+        'oauth_application_user_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+        'oauth_application_user_application_id_fkey' => array('oauth_application', array('application_id' => 'id')),
     ),
 );
 
@@ -377,7 +377,7 @@ $schema['oid_nonces'] = array(
         'salt' => array('type' => 'char', 'length' => 40),
     ),
     'unique keys' => array(
-        'oid_nonces_server_url_type_idx' => array(array('server_url', 255), 'timestamp', 'salt'),
+        'oid_nonces_server_url_timestamp_salt_key' => array(array('server_url', 255), 'timestamp', 'salt'),
     ),
 );
 
@@ -394,7 +394,7 @@ $schema['confirm_address'] = array(
     ),
     'primary key' => array('code'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'confirm_address_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -406,7 +406,7 @@ $schema['remember_me'] = array(
     ),
     'primary key' => array('code'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'remember_me_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -433,7 +433,7 @@ $schema['notice_tag'] = array(
     ),
     'primary key' => array('tag', 'notice_id'),
     'foreign keys' => array(
-        'notice_id' => array('notice' => 'id'),
+        'notice_tag_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
     ),
     'indexes' => array(
         'notice_tag_created_idx' => array('created'),
@@ -453,7 +453,7 @@ $schema['foreign_service'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'foreign_service_name_idx' => array('name'),
+        'foreign_service_name_key' => array('name'),
     ),
 );
 
@@ -468,10 +468,11 @@ $schema['foreign_user'] = array(
     ),
     'primary key' => array('id', 'service'),
     'foreign keys' => array(
-        'service' => array('foreign_service' => 'id'),
+        'foreign_user_service_fkey' => array('foreign_service', array('service' => 'id')),
     ),
     'unique keys' => array(
-        'foreign_user_uri_idx' => array('uri'),
+        'foreign_user_id_key' => array('id'),
+        'foreign_user_uri_key' => array('uri'),
     ),
 );
 
@@ -491,9 +492,9 @@ $schema['foreign_link'] = array(
     ),
     'primary key' => array('user_id', 'foreign_id', 'service'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
-        'foreign_id' => array('foreign_user' => 'id'),
-        'service' => array('foreign_service' => 'id'),
+        'foreign_link_user_id_fkey' => array('user', array('user_id' => 'id')),
+        'foreign_link_foreign_id_fkey' => array('foreign_user', array('foreign_id' => 'id')),
+        'foreign_link_service_fkey' => array('foreign_service', array('service' => 'id')),
     ),
     'indexes' => array(
         'foreign_user_user_id_idx' => array('user_id'),
@@ -509,9 +510,9 @@ $schema['foreign_subscription'] = array(
     ),
     'primary key' => array('service', 'subscriber', 'subscribed'),
     'foreign keys' => array(
-        'service' => array('foreign_service' => 'id'),
-        'subscriber' => array('foreign_user' => 'id'),
-        'subscribed' => array('foreign_user' => 'id'),
+        'foreign_subscription_service_fkey' => array('foreign_service', array('service' => 'id')),
+        'foreign_subscription_subscriber_fkey' => array('foreign_user', array('subscriber' => 'id')),
+        'foreign_subscription_subscribed_fkey' => array('foreign_user', array('subscribed' => 'id')),
     ),
     'indexes' => array(
         'foreign_subscription_subscriber_idx' => array('subscriber'),
@@ -529,7 +530,7 @@ $schema['invitation'] = array(
     ),
     'primary key' => array('code'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'invitation_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
     'indexes' => array(
         'invitation_address_idx' => array('address', 'address_type'),
@@ -551,12 +552,12 @@ $schema['message'] = array(
         'source' => array('type' => 'varchar', 'length' => 32, 'description' => 'source of comment, like "web", "im", or "clientname"'),
     ),
     'primary key' => array('id'),
-    'unique key' => array(
-        'message_uri_idx' => array('uri'),
+    'unique keys' => array(
+        'message_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
-        'from_profile' => array('profile' => 'id'),
-        'to_profile' => array('profile' => 'id'),
+        'message_from_profile_fkey' => array('profile', array('from_profile' => 'id')),
+        'message_to_profile_fkey' => array('profile', array('to_profile' => 'id')),
     ),
     'indexes' => array(
         // @fixme these are really terrible indexes, since you can only sort on one of them at a time.
@@ -577,8 +578,8 @@ $schema['notice_inbox'] = array(
     ),
     'primary key' => array('user_id', 'notice_id'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
-        'notice_id' => array('notice' => 'id'),
+        'notice_inbox_user_id_fkey' => array('user', array('user_id' => 'id')),
+        'notice_inbox_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
     ),
     'indexes' => array(
         'notice_inbox_notice_id_idx' => array('notice_id'),
@@ -594,8 +595,8 @@ $schema['profile_tag'] = array(
     ),
     'primary key' => array('tagger', 'tagged', 'tag'),
     'foreign keys' => array(
-        'tagger' => array('user' => 'id'),
-        'tagged' => array('profile' => 'id'),
+        'profile_tag_tagger_fkey' => array('user', array('tagger' => 'id')),
+        'profile_tag_tagged_fkey' => array('profile', array('tagged' => 'id')),
     ),
     'indexes' => array(
         'profile_tag_modified_idx' => array('modified'),
@@ -611,8 +612,8 @@ $schema['profile_block'] = array(
         'modified' => array('type' => 'timestamp', 'description' => 'date of blocking'),
     ),
     'foreign keys' => array(
-        'blocker' => array('user' => 'id'),
-        'blocked' => array('profile' => 'id'),
+        'profile_block_blocker_fkey' => array('user', array('blocker' => 'id')),
+        'profile_block_blocked_fkey' => array('profile', array('blocked' => 'id')),
     ),
     'primary key' => array('blocker', 'blocked'),
 );
@@ -640,11 +641,11 @@ $schema['user_group'] = array(
         'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page for group info to link to'),
     ),
     'primary key' => array('id'),
-    'unique key' => array(
-        'user_uri_idx' => array('uri'),
+    'unique keys' => array(
+        'user_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
-        'design_id' => array('design' => 'id'),
+        'user_group_design_id_fkey' => array('design', array('design_id' => 'id')),
     ),
     'indexes' => array(
         'user_group_nickname_idx' => array('nickname'),
@@ -662,8 +663,8 @@ $schema['group_member'] = array(
     ),
     'primary key' => array('group_id', 'profile_id'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
-        'profile_id' => array('profile' => 'id'),
+        'group_member_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+        'group_member_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
     ),
     'indexes' => array(
         // @fixme probably we want a (profile_id, created) index here?
@@ -682,8 +683,8 @@ $schema['related_group'] = array(
     ),
     'primary key' => array('group_id', 'related_group_id'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
-        'related_group_id' => array('user_group' => 'id'),
+        'related_group_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+        'related_group_related_group_id_fkey' => array('user_group', array('related_group_id' => 'id')),
     ),
 );
 
@@ -696,8 +697,8 @@ $schema['group_inbox'] = array(
     ),
     'primary key' => array('group_id', 'notice_id'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
-        'notice_id' => array('notice' => 'id'),
+        'group_inbox_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+        'group_inbox_notice_id_fkey' => array('notice', array('notice_id' => 'id')),
     ),
     'indexes' => array(
         'group_inbox_created_idx' => array('created'),
@@ -720,7 +721,7 @@ $schema['file'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'file_url_idx' => array('url'),
+        'file_url_key' => array('url'),
     ),
 );
 
@@ -743,7 +744,7 @@ $schema['file_oembed'] = array(
     ),
     'primary key' => array('file_id'),
     'foreign keys' => array(
-         'file_id' => array('file' => 'id'),
+         'file_oembed_file_id_fkey' => array('file', array('file_id' => 'id')),
     ),
 );
 
@@ -757,7 +758,7 @@ $schema['file_redirection'] = array(
     ),
     'primary key' => array('url'),
     'foreign keys' => array(
-         'file_id' => array('file' => 'id'),
+         'file_redirection_file_id_fkey' => array('file' => array('file_id' => 'id')),
     ),
 );
 
@@ -771,10 +772,10 @@ $schema['file_thumbnail'] = array(
     ),
     'primary key' => array('file_id'),
     'foreign keys' => array(
-        'file_id' => array('file' => 'id'),
+        'file_thumbnail_file_id_fkey' => array('file', array('file_id' => 'id')),
     ),
     'unique keys' => array(
-        'file_thumbnail_url_idx' => array('url'),
+        'file_thumbnail_url_key' => array('url'),
     ),
 );
 
@@ -786,8 +787,8 @@ $schema['file_to_post'] = array(
     ),
     'primary key' => array('file_id', 'post_id'),
     'foreign keys' => array(
-        'file_id' => array('file' => 'id'),
-        'post_id' => array('notice' => 'id'),
+        'file_to_post_file_id_fkey' => array('file', array('file_id' => 'id')),
+        'file_to_post_post_id_fkey' => array('notice', array('post_id' => 'id')),
     ),
     'indexes' => array(
         'post_id_idx' => array('post_id'),
@@ -817,9 +818,9 @@ $schema['group_block'] = array(
     ),
     'primary key' => array('group_id', 'blocked'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
-        'blocked' => array('profile' => 'id'),
-        'blocker' => array('user' => 'id'),
+        'group_block_group_id_fkey' => array('user_group', array('group_id' => 'id')),
+        'group_block_blocked_fkey' => array('profile', array('blocked' => 'id')),
+        'group_block_blocker_fkey' => array('user', array('blocker' => 'id')),
     ),
 );
 
@@ -831,7 +832,7 @@ $schema['group_alias'] = array(
     ),
     'primary key' => array('alias'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
+        'group_alias_group_id_fkey' => array('user_group', array('group_id' => 'id')),
     ),
     'indexes' => array(
         'group_alias_group_id_idx' => array('group_id'),
@@ -861,7 +862,7 @@ $schema['deleted_notice'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'deleted_notice_uri_idx' => array('uri'),
+        'deleted_notice_uri_key' => array('uri'),
     ),
     'indexes' => array(
         'deleted_notice_profile_id_idx' => array('profile_id'),
@@ -885,7 +886,7 @@ $schema['profile_role'] = array(
     ),
     'primary key' => array('profile_id', 'role'),
     'foreign keys' => array(
-        'profile_id' => array('profile' => 'id'),
+        'profile_role_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
     ),
 );
 
@@ -908,7 +909,7 @@ $schema['login_token'] = array(
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'login_token_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -921,7 +922,7 @@ $schema['user_location_prefs'] = array(
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'user_location_prefs_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -932,7 +933,7 @@ $schema['inbox'] = array(
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'inbox_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -954,7 +955,7 @@ $schema['user_im_prefs'] = array(
         'transport_screenname_key' => array('transport', 'screenname'),
     ),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'user_im_prefs_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
 
@@ -967,7 +968,7 @@ $schema['conversation'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'conversation_uri_idx' => array('uri'),
+        'conversation_uri_key' => array('uri'),
     ),
 );
 
@@ -982,10 +983,10 @@ $schema['local_group'] = array(
     ),
     'primary key' => array('group_id'),
     'foreign keys' => array(
-        'group_id' => array('user_group' => 'id'),
+        'local_group_group_id_fkey' => array('user_group', array('group_id' => 'id')),
     ),
     'unique keys' => array(
-        'local_group_nickname_idx' => array('nickname'),
+        'local_group_nickname_key' => array('nickname'),
     ),
 );
 
@@ -1001,6 +1002,6 @@ $schema['user_urlshortener_prefs'] = array(
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
-        'user_id' => array('user' => 'id'),
+        'user_urlshortener_prefs_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
