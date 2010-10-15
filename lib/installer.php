@@ -2,7 +2,7 @@
 
 /**
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2009, StatusNet, Inc.
+ * Copyright (C) 2009-2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -32,9 +32,10 @@
  * @author   Sarven Capadisli <csarven@status.net>
  * @author   Tom Adams <tom@holizz.com>
  * @author   Zach Copley <zach@status.net>
+ * @copyright 2009-2010 StatusNet, Inc http://status.net
  * @copyright 2009 Free Software Foundation, Inc http://www.fsf.org
  * @license  GNU Affero General Public License http://www.gnu.org/licenses/
- * @version  0.9.x
+ * @version  1.0.x
  * @link     http://status.net
  */
 
