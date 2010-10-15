@@ -421,12 +421,16 @@ class PgsqlSchema extends Schema
             // No convenient support for field descriptions
             unset($col['description']);
 
+            /*
             if (isset($col['size'])) {
                 // Don't distinguish between tinyint and int.
                 if ($col['size'] == 'tiny' && $col['type'] == 'int') {
                     unset($col['size']);
                 }
             }
+             */
+            $col['type'] = $this->mapType($col);
+            unset($col['size']);
         }
         return $tableDef;
     }

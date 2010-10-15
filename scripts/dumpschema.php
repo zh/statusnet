@@ -162,7 +162,7 @@ function dumpDiff($tableName, $filter)
     }
 
     if ($filter) {
-        $old = $schema->filterDef($old);
+        //$old = $schema->filterDef($old);
         $def = $schema->filterDef($def);
     }
 

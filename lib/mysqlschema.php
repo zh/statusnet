@@ -96,18 +96,21 @@ class MysqlSchema extends Schema
 
             // warning -- 'unsigned' attr on numbers isn't given in DATA_TYPE and friends.
             // It is stuck in on COLUMN_TYPE though (eg 'bigint(20) unsigned')
+            /*
             list($type, $size) = $this->reverseMapType($row['DATA_TYPE']);
             $field['type'] = $type;
             if ($size !== null) {
                 $field['size'] = $size;
             }
+             */
+            $field['type'] = $type = $row['DATA_TYPE'];
 
             if ($type == 'char' || $type == 'varchar') {
                 if ($row['CHARACTER_MAXIMUM_LENGTH'] !== null) {
                     $field['length'] = intval($row['CHARACTER_MAXIMUM_LENGTH']);
                 }
             }
-            if ($type == 'numeric') {
+            if ($type == 'decimal') {
                 // Other int types may report these values, but they're irrelevant.
                 // Just ignore them!
                 if ($row['NUMERIC_PRECISION'] !== null) {
@@ -137,7 +140,7 @@ class MysqlSchema extends Schema
             $extra = $row['EXTRA'];
             if ($extra) {
                 if (preg_match('/(^|\s)auto_increment(\s|$)/i', $extra)) {
-                    $field['type'] = 'serial';
+                    $field['auto_increment'] = true;
                 }
                 // $row['EXTRA'] may contain 'on update CURRENT_TIMESTAMP'
                 // ^ ...... how to specify?
@@ -446,7 +449,8 @@ class MysqlSchema extends Schema
         $line = array();
         $line[] = parent::columnSql($cd);
 
-        if ($cd['type'] == 'serial') {
+        // This'll have been added from our transform of 'serial' type
+        if (!empty($cd['auto_increment'])) {
             $line[] = 'auto_increment';
         }
 
@@ -489,6 +493,7 @@ class MysqlSchema extends Schema
      * @param string $type
      * @return array ($type, $size) -- $size may be null
      */
+    /*
     protected function reverseMapType($type)
     {
         $type = strtolower($type);
@@ -511,6 +516,7 @@ class MysqlSchema extends Schema
             return array($type, null);
         }
     }
+     */
 
     function typeAndSize($column)
     {
@@ -535,6 +541,17 @@ class MysqlSchema extends Schema
      */
     function filterDef(array $tableDef)
     {
+        foreach ($tableDef['fields'] as $name => &$col) {
+            if ($col['type'] == 'serial') {
+                $col['type'] = 'int';
+                $col['auto_increment'] = true;
+            }
+            if ($col['type'] == 'datetime' && isset($col['default']) && $col['default'] == 'CURRENT_TIMESTAMP') {
+                $col['type'] = 'timestamp';
+            }
+            $col['type'] = $this->mapType($col);
+            unset($col['size']);
+        }
         // @fixme add foreign-key support for MySQL
         unset($tableDef['foreign keys']);
         return $tableDef;

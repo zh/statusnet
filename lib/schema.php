@@ -485,7 +485,7 @@ class Schema
             return $this->buildCreateTable($tableName, $def);
         }
 
-        $old = $this->filterDef($old);
+        //$old = $this->filterDef($old);
         $def = $this->filterDef($def);
 
         // @fixme check if not present
@@ -749,15 +749,17 @@ class Schema
 
     function typeAndSize($column)
     {
-        $type = $this->mapType($column);
+        //$type = $this->mapType($column);
+        $type = $column['type'];
+        if (isset($column['size'])) {
+            $type = $column['size'] . $type;
+        }
         $lengths = array();
 
-        if ($column['type'] == 'numeric') {
-            if (isset($column['precision'])) {
-                $lengths[] = $column['precision'];
-                if (isset($column['scale'])) {
-                    $lengths[] = $column['scale'];
-                }
+        if (isset($column['precision'])) {
+            $lengths[] = $column['precision'];
+            if (isset($column['scale'])) {
+                $lengths[] = $column['scale'];
             }
         } else if (isset($column['length'])) {
             $lengths[] = $column['length'];
@@ -778,6 +780,12 @@ class Schema
      */
     protected function reverseMapType($type)
     {
+        $sizes = array('tiny', 'small', 'medium', 'big');
+        foreach ($sizes as $prefix) {
+            if (substr($type, 0, strlen($prefix)) == $prefix) {
+                return array(substr($type, strlen($prefix)), $prefix);
+            }
+        }
         return array($type, null);
     }
 
