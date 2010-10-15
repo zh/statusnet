@@ -261,22 +261,41 @@ class File extends Memcached_DataObject
             // TRANS: Client exception thrown if a file upload does not have a valid name.
             throw new ClientException(_("Invalid filename."));
         }
-        if(common_config('site','private')) {
+
+        if (common_config('site','private')) {
 
             return common_local_url('getfile',
                                 array('filename' => $filename));
 
+        }
+
+        if (StatusNet::isHTTPS()) {
+
+            $sslserver = common_config('attachments', 'sslserver');
+
+            if (empty($sslserver)) {
+                // XXX: this assumes that background dir == site dir + /file/
+                // not true if there's another server
+                if (is_string(common_config('site', 'sslserver')) &&
+                    mb_strlen(common_config('site', 'sslserver')) > 0) {
+                    $server = common_config('site', 'sslserver');
+                } else if (common_config('site', 'server')) {
+                    $server = common_config('site', 'server');
+                }
+                $path = common_config('site', 'path') . '/file/';
+            } else {
+                $server = $sslserver;
+                $path   = common_config('attachments', 'sslpath');
+                if (empty($path)) {
+                    $path = common_config('attachments', 'path');
+                }
+            }
+
+            $protocol = 'https';
+
         } else {
+
             $path = common_config('attachments', 'path');
-
-            if ($path[strlen($path)-1] != '/') {
-                $path .= '/';
-            }
-
-            if ($path[0] != '/') {
-                $path = '/'.$path;
-            }
-
             $server = common_config('attachments', 'server');
 
             if (empty($server)) {
@@ -285,19 +304,18 @@ class File extends Memcached_DataObject
 
             $ssl = common_config('attachments', 'ssl');
 
-            if (is_null($ssl)) { // null -> guess
-                if (common_config('site', 'ssl') == 'always' &&
-                    !common_config('attachments', 'server')) {
-                    $ssl = true;
-                } else {
-                    $ssl = false;
-                }
-            }
-
             $protocol = ($ssl) ? 'https' : 'http';
-
-            return $protocol.'://'.$server.$path.$filename;
         }
+
+        if ($path[strlen($path)-1] != '/') {
+            $path .= '/';
+        }
+
+        if ($path[0] != '/') {
+            $path = '/'.$path;
+        }
+
+        return $protocol.'://'.$server.$path.$filename;
     }
 
     function getEnclosure(){

@@ -852,6 +852,8 @@ notice: A plain string that will appear on every page. A good place
     be escaped.
 logo: URL of an image file to use as the logo for the site. Overrides
     the logo in the theme, if any.
+ssllogo: URL of an image file to use as the logo on SSL pages. If unset,
+    theme logo is used instead.
 ssl: Whether to use SSL and https:// URLs for some or all pages.
     Possible values are 'always' (use it for all pages), 'never'
     (don't use it for any pages), or 'sometimes' (use it for
@@ -1109,6 +1111,9 @@ path: Path part of theme URLs, before the theme name. Relative to the
     which means to use the site path + '/theme'.
 ssl: Whether to use SSL for theme elements. Default is null, which means
     guess based on site SSL settings.
+sslserver: SSL server to use when page is HTTPS-encrypted. If
+    unspecified, site ssl server and so on will be used.
+sslpath: If sslserver if defined, path to use when page is HTTPS-encrypted.
 
 javascript
 ----------
@@ -1120,6 +1125,9 @@ path: Path part of Javascript URLs. Defaults to null,
     which means to use the site path + '/js/'.
 ssl: Whether to use SSL for JavaScript files. Default is null, which means
     guess based on site SSL settings.
+sslserver: SSL server to use when page is HTTPS-encrypted. If
+    unspecified, site ssl server and so on will be used.
+sslpath: If sslserver if defined, path to use when page is HTTPS-encrypted.
 
 xmpp
 ----
@@ -1347,6 +1355,11 @@ ssl: whether to use HTTPS for file URLs. Defaults to null, meaning to
 filecommand: command to use for determining the type of a file. May be
     skipped if fileinfo extension is installed. Defaults to
     '/usr/bin/file'.
+sslserver: if specified, this server will be used when creating HTTPS
+    URLs. Otherwise, the site SSL server will be used, with /file/ path.
+sslpath: if this and the sslserver are specified, this path will be used
+    when creating HTTPS URLs. Otherwise, the attachments|path value
+    will be used.
 
 group
 -----
@@ -1403,8 +1416,9 @@ dir: directory to write backgrounds too. Default is '/background/'
     subdir of install dir.
 path: path to backgrounds. Default is sub-path of install path; note
     that you may need to change this if you change site-path too.
-ssl: Whether or not to use HTTPS for background files. Defaults to
-    null, meaning to guess from site-wide SSL settings.
+sslserver: SSL server to use when page is HTTPS-encrypted. If
+    unspecified, site ssl server and so on will be used.
+sslpath: If sslserver if defined, path to use when page is HTTPS-encrypted.
 
 ping
 ----

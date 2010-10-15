@@ -1,19 +1,18 @@
 <?php
 
 /**
- * Error action.
+ * Information action
  *
  * PHP version 5
  *
  * @category Action
  * @package  StatusNet
- * @author   Evan Prodromou <evan@status.net>
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
  *
  * StatusNet - the distributed open-source microblogging tool
- * Copyright (C) 2008, 2009, StatusNet, Inc.
+ * Copyright (C) 2010, StatusNet, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -33,52 +32,77 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/info.php';
-
 /**
- * Base class for displaying HTTP errors
+ * Base class for displaying dialog box like messages to the user
  *
  * @category Action
  * @package  StatusNet
  * @author   Zach Copley <zach@status.net>
  * @license  http://www.fsf.org/licensing/licenses/agpl.html AGPLv3
  * @link     http://status.net/
+ *
+ * @see ErrorAction
  */
-class ErrorAction extends InfoAction
+
+class InfoAction extends Action
 {
-    static $status = array();
-
-    var $code    = null;
     var $message = null;
-    var $default = null;
 
-    function __construct($message, $code, $output='php://output', $indent=null)
+    function __construct($title, $message, $output='php://output', $indent=null)
     {
-        parent::__construct(null, $message, $output, $indent);
+        parent::__construct($output, $indent);
 
-        $this->code = $code;
         $this->message = $message;
-        $this->minimal = StatusNet::isApi();
+        $this->title   = $title;
 
         // XXX: hack alert: usually we aren't going to
         // call this page directly, but because it's
         // an action it needs an args array anyway
         $this->prepare($_REQUEST);
     }
+    
+    /**
+     * Page title.
+     *
+     * @return page title
+     */
 
-    function showPage()
+    function title()
     {
-        if ($this->minimal) {
-            // Even more minimal -- we're in a machine API
-            // and don't want to flood the output.
-            $this->extraHeaders();
-            $this->showContent();
-        } else {
-            parent::showPage();
-        }
+        return empty($this->title) ? '' : $this->title;
+    }
 
-        // We don't want to have any more output after this
-        exit();
+    function isReadOnly($args)
+    {
+        return true;
+    }
+
+    // Overload a bunch of stuff so the page isn't too bloated
+
+    function showBody()
+    {
+        $this->elementStart('body', array('id' => 'error'));
+        $this->elementStart('div', array('id' => 'wrap'));
+        $this->showHeader();
+        $this->showCore();
+        $this->showFooter();
+        $this->elementEnd('div');
+        $this->elementEnd('body');
+    }
+
+    function showCore()
+    {
+        $this->elementStart('div', array('id' => 'core'));
+        $this->showContentBlock();
+        $this->elementEnd('div');
+    }
+
+    function showHeader()
+    {
+        $this->elementStart('div', array('id' => 'header'));
+        $this->showLogo();
+        $this->showPrimaryNav();
+        $this->elementEnd('div');
     }
 
     /**
@@ -88,9 +112,7 @@ class ErrorAction extends InfoAction
      */
     function showContent()
     {
-        $this->element('div', array('class' => 'error'), $this->message);
+        $this->element('div', array('class' => 'info'), $this->message);
     }
-
-
 
 }

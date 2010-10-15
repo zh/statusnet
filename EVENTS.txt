@@ -1160,3 +1160,9 @@ StartShowFeedLink: before showing an individual feed item
 EndShowFeedLink: after showing an individual feed
 - $action: action being executed
 - $feed: feed to show
+
+StartShowNoticeForm: before showing the notice form (before <form>)
+- $action: action being executed
+
+EndShowNoticeForm: after showing the notice form (after <form>)
+- $action: action being executed

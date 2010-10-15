@@ -169,7 +169,6 @@ class StatusNet
         return $sites;
     }
 
-
     /**
      * Fire initialization events for all instantiated plugins.
      */
@@ -225,7 +224,7 @@ class StatusNet
     {
         return self::$is_api;
     }
-    
+
     public function setApi($mode)
     {
         self::$is_api = $mode;
@@ -386,6 +385,18 @@ class StatusNet
                 ));
             }
         }
+    }
+
+    /**
+     * Are we running from the web with HTTPS?
+     *
+     * @return boolean true if we're running with HTTPS; else false
+     */
+
+    static function isHTTPS()
+    {
+        // There are some exceptions to this; add them here!
+        return $_SERVER['HTTPS'];
     }
 }
 

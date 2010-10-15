@@ -30,13 +30,12 @@
 if (!defined('STATUSNET')) {
     exit(1);
 }
-
+require_once INSTALLDIR . '/lib/apiaction.php';
 require_once INSTALLDIR . '/lib/apioauthstore.php';
 
 /**
- * Base action for API OAuth enpoints.  Clean up the
- * the request, and possibly some other common things
- * here.
+ * Base action for API OAuth enpoints. Clean up the
+ * request. Some other common functions.
  *
  * @category API
  * @package  StatusNet
@@ -44,7 +43,7 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class ApiOauthAction extends Action
+class ApiOauthAction extends ApiAction
 {
     /**
      * Is this a read-only action?
@@ -77,6 +76,12 @@ class ApiOauthAction extends Action
         self::cleanRequest();
     }
 
+    /*
+     * Clean up the request so the OAuth library doesn't find
+     * any extra parameters or anything else it's not expecting.
+     * I'm looking at you, p parameter.
+     */
+
     static function cleanRequest()
     {
         // kill evil effects of magical slashing
@@ -86,31 +91,19 @@ class ApiOauthAction extends Action
         }
 
         // strip out the p param added in index.php
-
-        // XXX: should we strip anything else?  Or alternatively
-        // only allow a known list of params?
         unset($_GET['p']);
         unset($_POST['p']);
-    }
+        unset($_REQUEST['p']);
 
-    function getCallback($url, $params)
-    {
-        foreach ($params as $k => $v) {
-            $url = $this->appendQueryVar($url,
-                                         OAuthUtil::urlencode_rfc3986($k),
-                                         OAuthUtil::urlencode_rfc3986($v));
+        $queryArray = explode('&', $_SERVER['QUERY_STRING']);
+
+        for ($i = 0; $i < sizeof($queryArray); $i++) {
+            if (substr($queryArray[$i], 0, 2) == 'p=') {
+                unset($queryArray[$i]);
+            }
         }
 
-        return $url;
+        $_SERVER['QUERY_STRING'] = implode('&', $queryArray);
     }
 
-    function appendQueryVar($url, $k, $v) {
-        $url = preg_replace('/(.*)(\?|&)' . $k . '=[^&]+?(&)(.*)/i', '$1$2$4', $url . '&');
-        $url = substr($url, 0, -1);
-        if (strpos($url, '?') === false) {
-            return ($url . '?' . $k . '=' . $v);
-        } else {
-            return ($url . '&' . $k . '=' . $v);
-        }
-    }
 }
