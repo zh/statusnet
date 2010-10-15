@@ -377,7 +377,7 @@ class StatusNet
     static function isHTTPS()
     {
         // There are some exceptions to this; add them here!
-        return $_SERVER['HTTPS'];
+        return !empty($_SERVER['HTTPS']);
     }
 }
 
