@@ -25,7 +25,7 @@ if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
 // All the fun stuff to actually initialize StatusNet's framework code,
 // without loading up a site configuration.
-require_once INSTALLDIR . '/framework.php';
+require_once INSTALLDIR . '/lib/framework.php';
 
 try {
     StatusNet::init(@$server, @$path, @$conffile);
