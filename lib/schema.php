@@ -119,14 +119,13 @@ class Schema
     /**
      * Creates a table with the given names and columns.
      *
-     * @param string $name    Name of the table
-     * @param array  $columns Array of ColumnDef objects
-     *                        for new table.
+     * @param string $tableName    Name of the table
+     * @param array  $def          Table definition array listing fields and indexes.
      *
      * @return boolean success flag
      */
 
-    public function createTable($name, $columns)
+    public function createTable($tableName, $def)
     {
         $statements = $this->buildCreateTable($tableName, $def);
         return $this->runSqlSet($statements);
