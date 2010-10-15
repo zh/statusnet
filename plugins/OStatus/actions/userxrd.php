@@ -46,7 +46,15 @@ class UserxrdAction extends XrdAction
             }
         } else {
             $this->user = User::staticGet('uri', $this->uri);
+            if (empty($this->user)) {
+                // try and get it by profile url
+                $profile = Profile::staticGet('profileurl', $this->uri);
+                if (!empty($profile)) {
+                    $this->user = User::staticGet('id', $profile->id);
+                }
+            }
         }
+
         if (!$this->user) {
             $this->clientError(_m('No such user.'), 404);
             return false;
