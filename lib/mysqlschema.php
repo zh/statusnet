@@ -246,13 +246,13 @@ class MysqlSchema extends Schema
     /**
      * Close out a 'create table' SQL statement.
      *
-     * @param array $sql
      * @param string $name
      * @param array $def
+     * @return string;
      */
-    function appendCreateTableEnd(array &$sql, $name, array $def)
+    function endCreateTable($name, array $def)
     {
-        $sql[] = ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin";
+        return ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin";
     }
 
     /**
@@ -286,7 +286,7 @@ class MysqlSchema extends Schema
      * @return boolean success flag
      */
 
-    public function ensureTable($tableName, $columns)
+    public function oldensureTable($tableName, $columns)
     {
         // XXX: DB engine portability -> toilet
 

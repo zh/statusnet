@@ -264,25 +264,23 @@ abstract class Installer
         }
         $this->updateStatus("Starting installation...");
 
-        if (empty($password)) {
+        if (empty($this->password)) {
             $auth = '';
         } else {
             $auth = ":$this->password";
         }
         $scheme = self::$dbModules[$this->dbtype]['scheme'];
+        $dsn = "{$scheme}://{$this->username}{$auth}@{$this->host}/{$this->database}";
 
         $this->updateStatus("Checking database...");
         $conn = $this->connectDatabase($dsn);
-        if (DB::isError($conn)) {
-            $this->updateStatus("Database connection error: " . $conn->getMessage(), true);
-            return false;
-        }
 
         // ensure database encoding is UTF8
         if ($this->dbtype == 'mysql') {
             // @fixme utf8m4 support for mysql 5.5?
             // Force the comms charset to utf8 for sanity
-            $conn->execute('SET names utf8');
+            // This doesn't currently work. :P
+            //$conn->executes('set names utf8');
         } else if ($this->dbtype == 'pgsql') {
             $record = $conn->getRow('SHOW server_encoding');
             if ($record->server_encoding != 'UTF8') {
@@ -321,6 +319,8 @@ abstract class Installer
      */
     function connectDatabase($dsn)
     {
+        // @fixme move this someplace more sensible
+        //set_include_path(INSTALLDIR . '/extlib' . PATH_SEPARATOR . get_include_path());
         require_once 'DB.php';
         return DB::connect($dsn);
     }
@@ -335,6 +335,9 @@ abstract class Installer
         $schema = Schema::get($conn);
         $tableDefs = $this->getCoreSchema();
         foreach ($tableDefs as $name => $def) {
+            if (defined('DEBUG_INSTALLER')) {
+                echo " $name ";
+            }
             $schema->ensureTable($name, $def);
         }
     }
@@ -471,10 +474,22 @@ abstract class Installer
      */
     function doInstall()
     {
-        $this->db = $this->setupDatabase();
+        $this->updateStatus("Initializing...");
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+        define('STATUSNET', 1);
+        require_once INSTALLDIR . '/lib/framework.php';
+        StatusNet::initDefaults($this->server, $this->path);
 
-        if (!$this->db) {
-            // database connection failed, do not move on to create config file.
+        try {
+            $this->db = $this->setupDatabase();
+            if (!$this->db) {
+                // database connection failed, do not move on to create config file.
+                return false;
+            }
+        } catch (Exception $e) {
+            // Lower-level DB error!
+            $this->updateStatus("Database error: " . $e->getMessage(), true);
             return false;
         }
 

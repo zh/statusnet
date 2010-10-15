@@ -448,6 +448,9 @@ class Schema
     {
         $ok = true;
         foreach ($statements as $sql) {
+            if (defined('DEBUG_INSTALLER')) {
+                echo "<tt>" . htmlspecialchars($sql) . "</tt><br/>\n";
+            }
             $res = $this->conn->query($sql);
 
             if (PEAR::isError($res)) {
@@ -478,13 +481,8 @@ class Schema
     {
         try {
             $old = $this->getTableDef($tableName);
-        } catch (Exception $e) {
-            // @fixme this is a terrible check :D
-            if (preg_match('/no such table/', $e->getMessage())) {
-                return $this->buildCreateTable($tableName, $def);
-            } else {
-                throw $e;
-            }
+        } catch (SchemaTableMissingException $e) {
+            return $this->buildCreateTable($tableName, $def);
         }
 
         $old = $this->filterDef($old);
