@@ -45,7 +45,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @link     http://status.net/
  * @fixme merge more of this code with related variants
  */
-
 class DeletegroupAction extends RedirectingAction
 {
     var $group = null;
@@ -56,12 +55,12 @@ class DeletegroupAction extends RedirectingAction
      * @fixme merge common setup code with other group actions
      * @fixme allow group admins to delete their own groups
      */
-
     function prepare($args)
     {
         parent::prepare($args);
 
         if (!common_logged_in()) {
+            // TRANS: Client error when trying to delete group while not logged in.
             $this->clientError(_('You must be logged in to delete a group.'));
             return false;
         }
@@ -84,23 +83,27 @@ class DeletegroupAction extends RedirectingAction
             $local = Local_group::staticGet('nickname', $nickname);
 
             if (!$local) {
+                // TRANS: Client error when trying to delete a non-local group.
                 $this->clientError(_('No such group.'), 404);
                 return false;
             }
 
             $this->group = User_group::staticGet('id', $local->group_id);
         } else {
+            // TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
             $this->clientError(_('No nickname or ID.'), 404);
             return false;
         }
 
         if (!$this->group) {
+            // TRANS: Client error when trying to delete a non-existing group.
             $this->clientError(_('No such group.'), 404);
             return false;
         }
 
         $cur = common_current_user();
         if (!$cur->hasRight(Right::DELETEGROUP)) {
+            // TRANS: Client error when trying to delete a group without having the rights to delete it.
             $this->clientError(_('You are not allowed to delete this group.'), 403);
             return false;
         }
@@ -117,7 +120,6 @@ class DeletegroupAction extends RedirectingAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -143,14 +145,18 @@ class DeletegroupAction extends RedirectingAction
                 Event::handle('EndDeleteGroup', array($this->group));
             }
         } catch (Exception $e) {
-            $this->serverError(sprintf(_('Could not delete group %2$s.'),
+            // TRANS: Server error displayed if a group could not be deleted.
+            // TRANS: %s is the name of the group that could not be deleted.
+            $this->serverError(sprintf(_('Could not delete group %s.'),
                                        $this->group->nickname));
         }
 
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
-            $this->element('title', null, sprintf(_('Deleted group %2$s'),
+            // TRANS: Message given after deleting a group.
+            // TRANS: %s is the deleted group's name.
+            $this->element('title', null, sprintf(_('Deleted group %s'),
                                                   $this->group->nickname));
             $this->elementEnd('head');
             $this->elementStart('body');
@@ -166,6 +172,7 @@ class DeletegroupAction extends RedirectingAction
     }
 
     function title() {
+        // TRANS: Title.
         return _('Delete group');
     }
 
@@ -191,8 +198,10 @@ class DeletegroupAction extends RedirectingAction
                                            'action' => common_local_url('deletegroup', array('id' => $this->group->id))));
         $this->elementStart('fieldset');
         $this->hidden('token', common_session_token());
+        // TRANS: Form legend for deleting a group.
         $this->element('legend', _('Delete group'));
         if (Event::handle('StartDeleteGroupForm', array($this, $this->group))) {
+            // TRANS: Warning in form for deleleting a group.
             $this->element('p', null,
                            _('Are you sure you want to delete this group? '.
                              'This will clear all data about the group from the '.
