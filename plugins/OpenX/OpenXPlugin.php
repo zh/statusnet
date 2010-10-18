@@ -80,6 +80,22 @@ class OpenXPlugin extends UAPPlugin
 {
     public $adScript = null;
 
+    function initialize()
+    {
+        parent::initialize();
+
+        // A little bit of chicanery so we avoid overwriting values that
+        // are passed in with the constructor
+        foreach (array('mediumRectangle', 'rectangle', 'leaderboard', 'wideSkyscraper', 'adScript') as $setting) {
+            $value = common_config('openx', $setting);
+            if (!empty($value)) { // not found
+                $this->$setting = $value;
+            }
+        }
+
+        return true;
+    }
+
     /**
      * Show a medium rectangle 'ad'
      *
@@ -160,6 +176,39 @@ document.write ("'><\/scr"+"ipt>");
 ENDOFSCRIPT;
 
         $action->inlineScript(sprintf($scr, $this->adScript, $zone));
+        return true;
+    }
+
+    function onRouterInitialized($m)
+    {
+        $m->connect('admin/openx',
+                    array('action' => 'openxadminpanel'));
+
+        return true;
+    }
+
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'OpenxadminpanelAction':
+            require_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+            return false;
+        default:
+            return true;
+        }
+    }
+
+    function onEndAdminPanelNav($menu) {
+        if (AdminPanelAction::canAdmin('openx')) {
+            // TRANS: Menu item title/tooltip
+            $menu_title = _m('OpenX configuration');
+            // TRANS: Menu item for site administration
+            $menu->out->menuItem(common_local_url('openxadminpanel'), _m('OpenX'),
+                                 $menu_title, $action_name == 'openxadminpanel', 'nav_openx_admin_panel');
+        }
         return true;
     }
 }
