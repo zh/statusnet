@@ -1,6 +1,7 @@
 # Translation of StatusNet - Facebook to Breton (Brezhoneg)
 # Expored from translatewiki.net
 #
+# Author: Fulup
 # Author: Y-M D
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Facebook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:07:35+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:42:54+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-04 23:10:56+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:34:55+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-plugin-facebook\n"
@@ -203,9 +204,9 @@ msgstr "Anv implijer pe ger-tremen direizh."
 #. TRANS: Page title.
 #. TRANS: %1$s is a user nickname, %2$s is a page number.
 #: facebookhome.php:153
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s and friends, page %2$d"
-msgstr "%s hag e vignoned"
+msgstr "%1$s hag e vignoned, pajenn %2$d"
 
 #. TRANS: Page title.
 #. TRANS: %s is a user nickname
@@ -327,9 +328,8 @@ msgid "Facebook Login"
 msgstr "Kevreadenn Facebook"
 
 #: facebookremove.php:53
-#, fuzzy
 msgid "Couldn't remove Facebook user: already deleted."
-msgstr "Dibosupl eo dilemel an implijer Facebook."
+msgstr ""
 
 #: facebookremove.php:63
 msgid "Couldn't remove Facebook user."
@@ -366,7 +366,7 @@ msgstr "Arventennoù"
 #. TRANS: Tooltip for 'Settings' link that leads to a page user preferences can be set.
 #: facebookaction.php:194
 msgid "Settings"
-msgstr ""
+msgstr "Penndibaboù"
 
 #: facebookaction.php:233
 #, php-format
@@ -395,7 +395,7 @@ msgstr "Kevreañ"
 
 #: facebookaction.php:288
 msgid "Lost or forgotten password?"
-msgstr "Ha kollet o peus ho ker-tremen ?"
+msgstr "Ha kollet ho peus ho ker-tremen ?"
 
 #: facebookaction.php:370
 msgid "No notice content!"
@@ -416,7 +416,7 @@ msgstr "Facebook"
 
 #: facebookadminpanel.php:62
 msgid "Facebook integration settings"
-msgstr ""
+msgstr "Arventennoù enframmañ Facebook"
 
 #: facebookadminpanel.php:123
 msgid "Invalid Facebook API key. Max length is 255 characters."
@@ -432,11 +432,11 @@ msgstr ""
 
 #: facebookadminpanel.php:184
 msgid "API key"
-msgstr ""
+msgstr "Alc'hwez API"
 
 #: facebookadminpanel.php:185
 msgid "API key provided by Facebook"
-msgstr ""
+msgstr "Alc'hwez API pourchaset gant Facebook"
 
 #: facebookadminpanel.php:193
 msgid "Secret"
@@ -444,7 +444,7 @@ msgstr "Kuzh"
 
 #: facebookadminpanel.php:194
 msgid "API secret provided by Facebook"
-msgstr ""
+msgstr "Alc'hwez API kuzh pourchaset gant Facebook"
 
 #: facebookadminpanel.php:210
 msgid "Save"
@@ -457,7 +457,7 @@ msgstr ""
 #. TRANS: Instructions.
 #: FBConnectSettings.php:66
 msgid "Manage how your account connects to Facebook"
-msgstr ""
+msgstr "Merañ an doare ma kevre ho kont ouzh Facebook"
 
 #: FBConnectSettings.php:90
 msgid "There is no Facebook user connected to this account."
@@ -486,7 +486,7 @@ msgstr "Termeniñ ur ger-tremen"
 #. TRANS: Preceded by "Please set a password".
 #: FBConnectSettings.php:132
 msgid " first."
-msgstr ""
+msgstr "da gentañ."
 
 #. TRANS: Submit button.
 #: FBConnectSettings.php:145
@@ -496,7 +496,7 @@ msgstr "Digevrañ"
 
 #: FBConnectSettings.php:180
 msgid "Couldn't delete link to Facebook."
-msgstr ""
+msgstr "N'eus ket bet gallet diverkañ al liamm war-du Facebook."
 
 #: FBConnectSettings.php:196
 msgid "You have disconnected from Facebook."
@@ -504,7 +504,7 @@ msgstr ""
 
 #: FBConnectSettings.php:199
 msgid "Not sure what you're trying to do."
-msgstr ""
+msgstr "N'omp ket sur eus ar pezh emaoc'h o klask ober aze."
 
 #: facebooksettings.php:61
 msgid "There was a problem saving your sync preferences!"
@@ -521,7 +521,7 @@ msgstr ""
 
 #: facebooksettings.php:94
 msgid "Send \"@\" replies to Facebook."
-msgstr ""
+msgstr "Kas respontoù \"@\" da Facebook."
 
 #. TRANS: Submit button to save synchronisation settings.
 #: facebooksettings.php:102

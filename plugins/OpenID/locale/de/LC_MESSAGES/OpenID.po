@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:08:02+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:43:29+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-03 20:57:03+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:36:35+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -32,10 +32,12 @@ msgid ""
 "[OpenID](%%doc.openid%%) lets you log into many sites with the same user "
 "account. Manage your associated OpenIDs from here."
 msgstr ""
+"[OpenID](%%doc.openid%%) erlaubt die, dich auf vielen Seiten mit dem selben "
+"Benutzerkonto anzumelden. Verwalte deine verknüpften OpenIDs von hier aus."
 
 #: openidsettings.php:100
 msgid "Add OpenID"
-msgstr "Füge OpenID hinzu"
+msgstr "OpenID hinzufügen"
 
 #: openidsettings.php:103
 msgid ""
@@ -48,7 +50,7 @@ msgstr ""
 #. TRANS: OpenID plugin logon form field label.
 #: openidsettings.php:108 openidlogin.php:161
 msgid "OpenID URL"
-msgstr "OpenID URL"
+msgstr "OpenID-URL"
 
 #: openidsettings.php:118
 msgid "Add"
@@ -80,7 +82,7 @@ msgstr "Entfernen"
 
 #: openidsettings.php:187
 msgid "OpenID Trusted Sites"
-msgstr ""
+msgstr "Vertrauenswürdige OpenID-Seiten"
 
 #: openidsettings.php:190
 msgid ""
@@ -146,19 +148,24 @@ msgid ""
 "you are using your own OpenID service for shared sign-in, you can restrict "
 "access to only your own users here."
 msgstr ""
+"Standardmäßig dürfen sich Benutzer mit jedem OpenID-Provider "
+"authentifizieren. Wenn du deinen eigenen OpenID-Servide benutzt, kannst du "
+"hier den Zugang auf deine eigenen Benutzer beschränken."
 
 #: openidadminpanel.php:220
 msgid "Provider URL"
-msgstr ""
+msgstr "Provider-URL"
 
 #: openidadminpanel.php:221
 msgid ""
 "All OpenID logins will be sent to this URL; other providers may not be used."
 msgstr ""
+"Alle OpenID-Anmeldungen werden an diese URL gesendet; andere Provider können "
+"nicht verwendet werden."
 
 #: openidadminpanel.php:228
 msgid "Append a username to base URL"
-msgstr ""
+msgstr "Einen Benutzernamen an die Basis-URL anfügen"
 
 #: openidadminpanel.php:230
 msgid ""
@@ -166,32 +173,40 @@ msgid ""
 "end. Use when OpenID provider URL should be the profile page for individual "
 "users."
 msgstr ""
+"Die Anmelde-Form wird eine Basis-URL anzeigen und um einen Benutzernamen am "
+"Ende bitten. Benutzer dass, wenn die OpenID-Provider-URL die Profilseite "
+"individueller Benutzer sein sollte."
 
 #: openidadminpanel.php:238
 msgid "Required team"
-msgstr ""
+msgstr "Erforderliche Mannschaft"
 
 #: openidadminpanel.php:239
 msgid "Only allow logins from users in the given team (Launchpad extension)."
 msgstr ""
+"Nur Anmeldungen von Benutzern aus der gegebenen Mannschaft erlauben "
+"(Launchpad-Erweiterung)."
 
 #: openidadminpanel.php:251
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: openidadminpanel.php:258
 msgid "Enable OpenID-only mode"
-msgstr ""
+msgstr "Nur-OpenID-Modus aktivieren"
 
 #: openidadminpanel.php:260
+#, fuzzy
 msgid ""
-"Require all users to login via OpenID. WARNING: disables password "
+"Require all users to login via OpenID. Warning: disables password "
 "authentication for all users!"
 msgstr ""
+"Von allen Benutzern OpenID-Anmeldung verlangen. Warnung: deaktiviert "
+"Passwort-Authentifizierung aller Benutzer!"
 
 #: openidadminpanel.php:278
 msgid "Save OpenID settings"
-msgstr ""
+msgstr "OpenId-Einstellungen speichern"
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:138
@@ -208,14 +223,14 @@ msgstr "Keine gültige OpenID."
 #: openid.php:155
 #, php-format
 msgid "OpenID failure: %s"
-msgstr ""
+msgstr "OpenId-Fehler: %s"
 
 #. TRANS: OpenID plugin server error. Given when the OpenID authentication request cannot be redirected.
 #. TRANS: %s is the failure message.
 #: openid.php:205
 #, php-format
 msgid "Could not redirect to server: %s"
-msgstr ""
+msgstr "Konnte keine Verbindung zum Server erstellen: %s"
 
 #. TRANS: OpenID plugin user instructions.
 #: openid.php:244
@@ -227,17 +242,17 @@ msgstr ""
 #. TRANS: OpenID plugin server error.
 #: openid.php:280
 msgid "Error saving the profile."
-msgstr ""
+msgstr "Fehler beim Speichern des Profils."
 
 #. TRANS: OpenID plugin server error.
 #: openid.php:292
 msgid "Error saving the user."
-msgstr ""
+msgstr "Fehler beim Speichern des Benutzers."
 
 #. TRANS: OpenID plugin client exception (403).
 #: openid.php:322
 msgid "Unauthorized URL used for OpenID login."
-msgstr ""
+msgstr "Unauthorisierte URL für OpenID-Anmeldung benutzt."
 
 #. TRANS: Title
 #: openid.php:370
@@ -247,7 +262,7 @@ msgstr ""
 #. TRANS: OpenID plugin message used while requesting authorization user's OpenID login provider.
 #: openid.php:381
 msgid "Requesting authorization from your login provider..."
-msgstr ""
+msgstr "Authorisierung von deinem Login-Provider wird angefragt …"
 
 #. TRANS: OpenID plugin message. User instruction while requesting authorization user's OpenID login provider.
 #: openid.php:385
@@ -255,12 +270,14 @@ msgid ""
 "If you are not redirected to your login provider in a few seconds, try "
 "pushing the button below."
 msgstr ""
+"Wenn du nicht in wenigen Sekunden zu deinem Login-Provider weitergeleitet "
+"wirst, versuche den Button unten zu klicken."
 
 #. TRANS: Tooltip for main menu option "Login"
 #: OpenIDPlugin.php:226
 msgctxt "TOOLTIP"
 msgid "Login to the site"
-msgstr ""
+msgstr "Auf der Seite anmelden"
 
 #. TRANS: Main menu option when not logged in to log in
 #: OpenIDPlugin.php:229
@@ -284,7 +301,7 @@ msgstr "Hilfe"
 #: OpenIDPlugin.php:243
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
-msgstr ""
+msgstr "Suche nach Leuten oder Text"
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private
 #: OpenIDPlugin.php:246
@@ -311,7 +328,7 @@ msgstr "Hinzufügen oder Entfernen von OpenIDs"
 
 #: OpenIDPlugin.php:629
 msgid "OpenID configuration"
-msgstr ""
+msgstr "OpenId-Konfiguration"
 
 #. TRANS: OpenID plugin description.
 #: OpenIDPlugin.php:654
@@ -324,12 +341,12 @@ msgstr ""
 #: openidserver.php:116
 #, php-format
 msgid "You are not authorized to use the identity %s."
-msgstr ""
+msgstr "Du bist nicht berechtigt, die Identität %s zu benutzen."
 
 #. TRANS: OpenID plugin client error given when not getting a response for a given OpenID provider (500).
 #: openidserver.php:137
 msgid "Just an OpenID provider. Nothing to see here, move along..."
-msgstr ""
+msgstr "Nur ein OpenID-Provider. Hier gibt es nichts zu sehen …"
 
 #. TRANS: Client error message trying to log on with OpenID while already logged on.
 #: finishopenidlogin.php:37 openidlogin.php:33
@@ -340,11 +357,12 @@ msgstr "Bereits angemeldet."
 #: finishopenidlogin.php:48
 msgid "You can't register if you don't agree to the license."
 msgstr ""
+"Du kannst dich nicht registrieren, wenn du die Lizenz nicht akzeptierst."
 
 #. TRANS: Messag given on an unknown error.
 #: finishopenidlogin.php:57
 msgid "An unknown error has occured."
-msgstr ""
+msgstr "Ein unbekannter Fehler ist aufgetreten."
 
 #. TRANS: Instructions given after a first successful logon using OpenID.
 #. TRANS: %s is the site name.
@@ -355,6 +373,10 @@ msgid ""
 "to a local account. You can either create a new account, or connect with "
 "your existing account, if you have one."
 msgstr ""
+"Dies ist das erste Mal, dass du dich auf %s anmeldest, sodass wir deine "
+"OpenID mit einem lokalen Benutzerkonto verbinden müssen. Du kannst entweder "
+"ein neues Benutzerkonto erstellen oder dich mit deinem existierendem "
+"Benutzerkonto verbinden."
 
 #. TRANS: Title
 #: finishopenidlogin.php:80
@@ -367,15 +389,15 @@ msgstr "Neues Benutzerkonto erstellen"
 
 #: finishopenidlogin.php:112
 msgid "Create a new user with this nickname."
-msgstr ""
+msgstr "Neues Benutzerkonto mit diesem Benutzernamen erstellen."
 
 #: finishopenidlogin.php:115
 msgid "New nickname"
-msgstr ""
+msgstr "Neuer Benutzername"
 
 #: finishopenidlogin.php:117
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
-msgstr ""
+msgstr "1-64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
 
 #. TRANS: Button label in form in which to create a new user on the site for an OpenID.
 #: finishopenidlogin.php:142
@@ -386,7 +408,7 @@ msgstr "Erstellen"
 #. TRANS: Used as form legend for form in which to connect an OpenID to an existing user on the site.
 #: finishopenidlogin.php:148
 msgid "Connect existing account"
-msgstr ""
+msgstr "Bestehendes Benutzerkonto verbinden"
 
 #. TRANS: User instructions for form in which to connect an OpenID to an existing user on the site.
 #: finishopenidlogin.php:151
@@ -394,11 +416,13 @@ msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your OpenID."
 msgstr ""
+"Wenn du bereits ein Benutzerkonto hast, melde dich mit deinem Benutzernamen "
+"und Passwort an, um ihn mit deiner OpenID zu verbinden."
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
 #: finishopenidlogin.php:155
 msgid "Existing nickname"
-msgstr ""
+msgstr "Bestehender Benutzername"
 
 #. TRANS: Field label in form in which to connect an OpenID to an existing user on the site.
 #: finishopenidlogin.php:159
@@ -409,12 +433,12 @@ msgstr "Passwort"
 #: finishopenidlogin.php:163
 msgctxt "BUTTON"
 msgid "Connect"
-msgstr ""
+msgstr "Verbinden"
 
 #. TRANS: Status message in case the response from the OpenID provider is that the logon attempt was cancelled.
 #: finishopenidlogin.php:176 finishaddopenid.php:90
 msgid "OpenID authentication cancelled."
-msgstr ""
+msgstr "OpenID-Authentifizierung abgebrochen."
 
 #. TRANS: OpenID authentication failed; display the error message. %s is the error message.
 #. TRANS: OpenID authentication failed; display the error message.
@@ -422,38 +446,42 @@ msgstr ""
 #: finishopenidlogin.php:180 finishaddopenid.php:95
 #, php-format
 msgid "OpenID authentication failed: %s"
-msgstr ""
+msgstr "OpenID-Authentifizierung gescheitert: %s"
 
 #: finishopenidlogin.php:200 finishaddopenid.php:111
 msgid ""
 "OpenID authentication aborted: you are not allowed to login to this site."
 msgstr ""
+"OpenID-Authentifizierung abgebrochen: du darfst dich nicht auf dieser Seite "
+"anmelden."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site.
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and none was provided.
 #: finishopenidlogin.php:252 finishopenidlogin.php:262
 msgid "Registration not allowed."
-msgstr ""
+msgstr "Registrierung nicht erlaubt."
 
 #. TRANS: OpenID plugin message. No new user registration is allowed on the site without an invitation code, and the one provided was not valid.
 #: finishopenidlogin.php:270
 msgid "Not a valid invitation code."
-msgstr ""
+msgstr "Kein gültiger Einladungscode."
 
 #. TRANS: OpenID plugin message. The entered new user name did not conform to the requirements.
 #: finishopenidlogin.php:281
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
+"Der Benutzername darf nur aus Kleinbuchstaben und Zahlen bestehen. "
+"Leerzeichen sind nicht erlaubt."
 
 #. TRANS: OpenID plugin message. The entered new user name is blacklisted.
 #: finishopenidlogin.php:287
 msgid "Nickname not allowed."
-msgstr ""
+msgstr "Benutzername nicht erlaubt."
 
 #. TRANS: OpenID plugin message. The entered new user name is already used.
 #: finishopenidlogin.php:293
 msgid "Nickname already in use. Try another one."
-msgstr ""
+msgstr "Benutzername wird bereits verwendet. Suche dir einen anderen aus."
 
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be retrieved.
 #. TRANS: OpenID plugin server error. A stored OpenID cannot be found.
@@ -469,7 +497,7 @@ msgstr ""
 #. TRANS: OpenID plugin message.
 #: finishopenidlogin.php:376
 msgid "Invalid username or password."
-msgstr ""
+msgstr "Benutzername oder Passwort falsch."
 
 #. TRANS: OpenID plugin server error. The user or user profile could not be saved.
 #: finishopenidlogin.php:396
@@ -484,13 +512,15 @@ msgid ""
 "For security reasons, please re-login with your [OpenID](%%doc.openid%%) "
 "before changing your settings."
 msgstr ""
+"Bitte melde dich aus Sicherheitsgründen noch einmal mit deiner [OpenID](%%"
+"doc.openid%%), bevor du deine Einstellungen änderst."
 
 #. TRANS: OpenID plugin message.
 #. TRANS: "OpenID" is the display text for a link with URL "(%%doc.openid%%)".
 #: openidlogin.php:88
 #, php-format
 msgid "Login with an [OpenID](%%doc.openid%%) account."
-msgstr ""
+msgstr "Mit einem [OpenID](%%doc.openid%%)-Benutzerkonto anmelden."
 
 #. TRANS: OpenID plugin message. Title.
 #. TRANS: Title after getting the status of the OpenID authorisation request.
@@ -528,7 +558,7 @@ msgstr "Anmeldedaten merken"
 #. TRANS: OpenID plugin logon form field instructions.
 #: openidlogin.php:171
 msgid "Automatically login in the future; not for shared computers!"
-msgstr ""
+msgstr "Automatisch anmelden; nicht bei gemeinsam genutzten PCs einsetzen!"
 
 #. TRANS: OpenID plugin logon form button label to start logon with the data provided in the logon form.
 #: openidlogin.php:176
@@ -551,6 +581,9 @@ msgid ""
 "%s  has asked to verify your identity. Click Continue to verify your "
 "identity and login without creating a new password."
 msgstr ""
+"%s hat dich gebeten, deine Identität zu bestätigen. Klicke auf „Weiter“, um "
+"deine Identität zu bestätigen und dich anzumelden ohne ein neues Passwort zu "
+"erstellen."
 
 #: openidtrust.php:136
 msgid "Continue"
@@ -563,7 +596,7 @@ msgstr "Abbrechen"
 #. TRANS: Client error message
 #: finishaddopenid.php:68
 msgid "Not logged in."
-msgstr ""
+msgstr "Nicht angemeldet."
 
 #. TRANS: message in case a user tries to add an OpenID that is already connected to them.
 #: finishaddopenid.php:122
@@ -573,7 +606,7 @@ msgstr "Du hast bereits diese OpenID!"
 #. TRANS: message in case a user tries to add an OpenID that is already used by another user.
 #: finishaddopenid.php:125
 msgid "Someone else already has this OpenID."
-msgstr ""
+msgstr "Jemand anders hat bereits diese Open-ID."
 
 #. TRANS: message in case the OpenID object cannot be connected to the user.
 #: finishaddopenid.php:138
