@@ -305,7 +305,7 @@ class ShownoticeAction extends OwnerDesignAction
     }
 }
 
-class SingleNoticeItem extends NoticeListItem
+class SingleNoticeItem extends DoFollowListItem
 {
     /**
      * recipe function for displaying a single notice.

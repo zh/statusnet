@@ -356,6 +356,30 @@ abstract class Installer
     }
 
     /**
+     * Return a parseable PHP literal for the given value.
+     * This will include quotes for strings, etc.
+     *
+     * @param mixed $val
+     * @return string
+     */
+    function phpVal($val)
+    {
+        return var_export($val, true);
+    }
+
+    /**
+     * Return an array of parseable PHP literal for the given values.
+     * These will include quotes for strings, etc.
+     *
+     * @param mixed $val
+     * @return array
+     */
+    function phpVals($map)
+    {
+        return array_map(array($this, 'phpVal'), $map);
+    }
+
+    /**
      * Write a stock configuration file.
      *
      * @return boolean success
@@ -364,24 +388,32 @@ abstract class Installer
      */
     function writeConf()
     {
+        $vals = $this->phpVals(array(
+            'sitename' => $this->sitename,
+            'server' => $this->server,
+            'path' => $this->path,
+            'db_database' => $this->db['database'],
+            'db_type' => $this->db['type'],
+        ));
+
         // assemble configuration file in a string
         $cfg =  "<?php\n".
                 "if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }\n\n".
 
                 // site name
-                "\$config['site']['name'] = '{$this->sitename}';\n\n".
+                "\$config['site']['name'] = {$vals['sitename']};\n\n".
 
                 // site location
-                "\$config['site']['server'] = '{$this->server}';\n".
-                "\$config['site']['path'] = '{$this->path}'; \n\n".
+                "\$config['site']['server'] = {$vals['server']};\n".
+                "\$config['site']['path'] = {$vals['path']}; \n\n".
 
                 // checks if fancy URLs are enabled
                 ($this->fancy ? "\$config['site']['fancy'] = true;\n\n":'').
 
                 // database
-                "\$config['db']['database'] = '{$this->db['database']}';\n\n".
+                "\$config['db']['database'] = {$vals['db_database']};\n\n".
                 ($this->db['type'] == 'pgsql' ? "\$config['db']['quote_identifiers'] = true;\n\n":'').
-                "\$config['db']['type'] = '{$this->db['type']}';\n\n";
+                "\$config['db']['type'] = {$vals['db_type']};\n\n";
 
         // Normalize line endings for Windows servers
         $cfg = str_replace("\n", PHP_EOL, $cfg);
