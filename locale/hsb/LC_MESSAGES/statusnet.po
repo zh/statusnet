@@ -11,18 +11,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-18 18:35+0000\n"
-"PO-Revision-Date: 2010-10-18 18:41:29+0000\n"
+"POT-Creation-Date: 2010-10-18 20:49+0000\n"
+"PO-Revision-Date: 2010-10-18 20:50:44+0000\n"
 "Language-Team: Upper Sorbian <http://translatewiki.net/wiki/Portal:hsb>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74965); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: hsb\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : (n%100==3 || "
 "n%100==4) ? 2 : 3)\n"
-"X-POT-Import-Date: 2010-10-09 14:31:24+0000\n"
+"X-POT-Import-Date: 2010-10-18 20:28:37+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -886,7 +886,7 @@ msgstr ""
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:153 actions/deleteapplication.php:154
-#: actions/deletegroup.php:211 actions/deletenotice.php:150
+#: actions/deletegroup.php:220 actions/deletenotice.php:150
 #: actions/deleteuser.php:152 actions/groupblock.php:178
 msgctxt "BUTTON"
 msgid "No"
@@ -905,7 +905,7 @@ msgstr "Tutoho wužiwarja njeblokować"
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletegroup.php:218 actions/deletenotice.php:157
+#: actions/deletegroup.php:227 actions/deletenotice.php:157
 #: actions/deleteuser.php:159 actions/groupblock.php:185
 msgctxt "BUTTON"
 msgid "Yes"
@@ -922,10 +922,12 @@ msgstr "Tutoho wužiwarja blokować"
 msgid "Failed to save block information."
 msgstr "Njeje móžno, sydłowu zdźělenku składować."
 
+#. TRANS: Client error when trying to delete a non-local group.
+#. TRANS: Client error when trying to delete a non-existing group.
 #. TRANS: Command exception text shown when a group is requested that does not exist.
 #. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
-#: actions/deletegroup.php:87 actions/deletegroup.php:98
+#: actions/deletegroup.php:87 actions/deletegroup.php:100
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
@@ -1077,37 +1079,46 @@ msgstr "Tutu aplikaciju njezničić"
 msgid "Delete this application"
 msgstr "Tutu aplikaciju zničić"
 
-#: actions/deletegroup.php:65
+#. TRANS: Client error when trying to delete group while not logged in.
+#: actions/deletegroup.php:64
 #, fuzzy
 msgid "You must be logged in to delete a group."
 msgstr "Dyrbiš přizjewjeny być, zo by skupinu wopušćił."
 
-#: actions/deletegroup.php:93 actions/joingroup.php:88
+#. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
+#: actions/deletegroup.php:94 actions/joingroup.php:88
 #: actions/leavegroup.php:88
 msgid "No nickname or ID."
 msgstr "Žane přimjeno abo žadyn ID."
 
-#: actions/deletegroup.php:104
+#. TRANS: Client error when trying to delete a group without having the rights to delete it.
+#: actions/deletegroup.php:107
 #, fuzzy
 msgid "You are not allowed to delete this group."
 msgstr "Njejsy čłon tuteje skupiny."
 
-#: actions/deletegroup.php:146
+#. TRANS: Server error displayed if a group could not be deleted.
+#. TRANS: %s is the name of the group that could not be deleted.
+#: actions/deletegroup.php:150
 #, fuzzy, php-format
-msgid "Could not delete group %2$s."
+msgid "Could not delete group %s."
 msgstr "Skupina njeje so dała aktualizować."
 
-#: actions/deletegroup.php:153
+#. TRANS: Message given after deleting a group.
+#. TRANS: %s is the deleted group's name.
+#: actions/deletegroup.php:159
 #, fuzzy, php-format
-msgid "Deleted group %2$s"
+msgid "Deleted group %s"
 msgstr "%1$s je skupinu %2$s wopušćił"
 
-#: actions/deletegroup.php:169 actions/deletegroup.php:194
+#. TRANS: Title.
+#. TRANS: Form legend for deleting a group.
+#: actions/deletegroup.php:176 actions/deletegroup.php:202
 #, fuzzy
 msgid "Delete group"
 msgstr "Wužiwarja wušmórnyć"
 
-#: actions/deletegroup.php:197
+#: actions/deletegroup.php:206
 msgid ""
 "Are you sure you want to delete this group? This will clear all data about "
 "the group from the database, without a backup. Public posts to this group "
@@ -1115,13 +1126,13 @@ msgid ""
 msgstr ""
 
 #. TRANS: Submit button title for 'No' when deleting a group.
-#: actions/deletegroup.php:215
+#: actions/deletegroup.php:224
 #, fuzzy
 msgid "Do not delete this group"
 msgstr "Tutu zdźělenku njewušmórnyć"
 
 #. TRANS: Submit button title for 'Yes' when deleting a group.
-#: actions/deletegroup.php:222
+#: actions/deletegroup.php:231
 #, fuzzy
 msgid "Delete this group"
 msgstr "Tutoho wužiwarja wušmórnyć"
@@ -7374,24 +7385,3 @@ msgstr "Žadyn wužiwarski ID podaty."
 #, php-format
 msgid "%d entries in backup."
 msgstr ""
-
-#~ msgid "Deny"
-#~ msgstr "Wotpokazać"
-
-#~ msgid "Path to locales"
-#~ msgstr "Šćežka k lokalam"
-
-#~ msgid "Theme server"
-#~ msgstr "Šatowy serwer"
-
-#~ msgid "Theme path"
-#~ msgstr "Šatowa šćežka"
-
-#~ msgid "Background server"
-#~ msgstr "Pozadkowy serwer"
-
-#~ msgid "Background path"
-#~ msgstr "Pozadkowa šćežka"
-
-#~ msgid "Background directory"
-#~ msgstr "Pozadkowy zapis"
