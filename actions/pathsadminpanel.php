@@ -92,16 +92,17 @@ class PathsadminpanelAction extends AdminPanelAction
     function saveSettings()
     {
         static $settings = array(
-            'site' => array('path', 'locale_path', 'ssl', 'sslserver'),
-            'theme' => array('server', 'dir', 'path'),
-            'avatar' => array('server', 'dir', 'path'),
-            'background' => array('server', 'dir', 'path')
-        );
+                                 'site' => array('path', 'locale_path', 'ssl', 'sslserver'),
+                                 'theme' => array('server', 'dir', 'path', 'sslserver', 'sslpath'),
+                                 'avatar' => array('server', 'dir', 'path'),
+                                 'background' => array('server', 'dir', 'path', 'sslserver', 'sslpath'),
+                                 'attachments' => array('server', 'dir', 'path', 'sslserver', 'sslpath')
+                                 );
 
-	// XXX: If we're only going to have one boolean on thi page we
-	// can remove some of the boolean processing code --Z
+        // XXX: If we're only going to have one boolean on thi page we
+        // can remove some of the boolean processing code --Z
 
-	static $booleans = array('site' => array('fancy'));
+        static $booleans = array('site' => array('fancy'));
 
         $values = array();
 
@@ -131,13 +132,13 @@ class PathsadminpanelAction extends AdminPanelAction
             }
         }
 
-	foreach ($booleans as $section => $parts) {
-	    foreach ($parts as $setting) {
+        foreach ($booleans as $section => $parts) {
+            foreach ($parts as $setting) {
                 Config::save($section, $setting, $values[$section][$setting]);
             }
-	}
+        }
 
-	$config->query('COMMIT');
+        $config->query('COMMIT');
 
         return;
     }
@@ -230,11 +231,11 @@ class PathsAdminPanelForm extends AdminForm
 
     function formData()
     {
-	$this->out->elementStart('fieldset', array('id' => 'settings_paths_locale'));
+        $this->out->elementStart('fieldset', array('id' => 'settings_paths_locale'));
         $this->out->element('legend', null, _('Site'), 'site');
         $this->out->elementStart('ul', 'form_data');
 
-	$this->li();
+        $this->li();
         $this->input('server', _('Server'), _('Site\'s server hostname.'));
         $this->unli();
 
@@ -243,14 +244,14 @@ class PathsAdminPanelForm extends AdminForm
         $this->unli();
 
         $this->li();
-        $this->input('locale_path', _('Path to locales'), _('Directory path to locales'), 'site');
+        $this->input('locale_path', _('Locale Directory'), _('Directory path to locales'), 'site');
         $this->unli();
 
-	$this->li();
+        $this->li();
         $this->out->checkbox('fancy', _('Fancy URLs'),
                              (bool) $this->value('fancy'),
                              _('Use fancy (more readable and memorable) URLs?'));
-	$this->unli();
+        $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
@@ -261,15 +262,23 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Theme server'), 'Server for themes', 'theme');
+        $this->input('server', _('Server'), _('Server for themes'), 'theme');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Theme path'), 'Web path to themes', 'theme');
+        $this->input('path', _('Path'), _('Web path to themes'), 'theme');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Theme directory'), 'Directory where themes are located', 'theme');
+        $this->input('sslserver', _('SSL server'), _('SSL server for themes (default: SSL server)'), 'theme');
+        $this->unli();
+
+        $this->li();
+        $this->input('sslpath', _('SSL path'), _('SSL path to themes (default: /theme/)'), 'theme');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Directory'), _('Directory where themes are located'), 'theme');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -297,20 +306,57 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' =>
-            'settings_design_background-paths'));
+                                                   'settings_design_background-paths'));
         $this->out->element('legend', null, _('Backgrounds'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Background server'), 'Server for backgrounds', 'background');
+        $this->input('server', _('Server'), 'Server for backgrounds', 'background');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Background path'), 'Web path to backgrounds', 'background');
+        $this->input('path', _('Path'), 'Web path to backgrounds', 'background');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Background directory'), 'Directory where backgrounds are located', 'background');
+        $this->input('sslserver', _('SSL server'), 'Server for backgrounds on SSL pages', 'background');
+        $this->unli();
+
+        $this->li();
+        $this->input('sslpath', _('SSL path'), 'Web path to backgrounds on SSL pages', 'background');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Directory'), 'Directory where backgrounds are located', 'background');
+        $this->unli();
+
+        $this->out->elementEnd('ul');
+        $this->out->elementEnd('fieldset');
+
+        $this->out->elementStart('fieldset', array('id' =>
+                                                   'settings_design_attachments-paths'));
+
+        $this->out->element('legend', null, _('Attachments'));
+        $this->out->elementStart('ul', 'form_data');
+
+        $this->li();
+        $this->input('server', _('Server'), 'Server for attachments', 'attachments');
+        $this->unli();
+
+        $this->li();
+        $this->input('path', _('Path'), 'Web path to attachments', 'attachments');
+        $this->unli();
+
+        $this->li();
+        $this->input('sslserver', _('SSL server'), 'Server for attachments on SSL pages', 'attachments');
+        $this->unli();
+
+        $this->li();
+        $this->input('sslpath', _('SSL path'), 'Web path to attachments on SSL pages', 'attachments');
+        $this->unli();
+
+        $this->li();
+        $this->input('dir', _('Directory'), 'Directory where attachments are located', 'attachments');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -320,11 +366,10 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->element('legend', null, _('SSL'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
+
         $ssl = array('never' => _('Never'),
                      'sometimes' => _('Sometimes'),
                      'always' => _('Always'));
-
-        common_debug("site ssl = " . $this->value('site', 'ssl'));
 
         $this->out->dropdown('site-ssl', _('Use SSL'),
                              $ssl, _('When to use SSL'),
@@ -349,7 +394,7 @@ class PathsAdminPanelForm extends AdminForm
     function formActions()
     {
         $this->out->submit('save', _('Save'), 'submit',
-                'save', _('Save paths'));
+                           'save', _('Save paths'));
     }
 
     /**
@@ -370,5 +415,4 @@ class PathsAdminPanelForm extends AdminForm
     {
         $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
     }
-
 }

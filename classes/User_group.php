@@ -547,4 +547,61 @@ class User_group extends Memcached_DataObject
         $group->query('COMMIT');
         return $group;
     }
+
+    /**
+     * Handle cascading deletion, on the model of notice and profile.
+     *
+     * This should handle freeing up cached entries for the group's
+     * id, nickname, URI, and aliases. There may be other areas that
+     * are not de-cached in the UI, including the sidebar lists on
+     * GroupsAction
+     */
+    function delete()
+    {
+        if ($this->id) {
+
+            // Safe to delete in bulk for now
+
+            $related = array('Group_inbox',
+                             'Group_block',
+                             'Group_member',
+                             'Related_group');
+
+            Event::handle('UserGroupDeleteRelated', array($this, &$related));
+
+            foreach ($related as $cls) {
+
+                $inst = new $cls();
+                $inst->group_id = $this->id;
+
+                if ($inst->find()) {
+                    while ($inst->fetch()) {
+                        $dup = clone($inst);
+                        $dup->delete();
+                    }
+                }
+            }
+
+            // And related groups in the other direction...
+            $inst = new Related_group();
+            $inst->related_group_id = $this->id;
+            $inst->delete();
+
+            // Aliases and the local_group entry need to be cleared explicitly
+            // or we'll miss clearing some cache keys; that can make it hard
+            // to create a new group with one of those names or aliases.
+            $this->setAliases(array());
+            $local = Local_group::staticGet('group_id', $this->id);
+            if ($local) {
+                $local->delete();
+            }
+
+            // blow the cached ids
+            self::blow('user_group:notice_ids:%d', $this->id);
+
+        } else {
+            common_log(LOG_WARN, "Ambiguous user_group->delete(); skipping related tables.");
+        }
+        parent::delete();
+    }
 }

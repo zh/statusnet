@@ -32,7 +32,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-
 class FavoritedSliceAction extends FavoritedAction
 {
     private $includeUsers = array(), $excludeUsers = array();
@@ -46,7 +45,6 @@ class FavoritedSliceAction extends FavoritedAction
      *
      * @todo move queries from showContent() to here
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -54,6 +52,7 @@ class FavoritedSliceAction extends FavoritedAction
         $this->slice = $this->arg('slice', 'default');
         $data = array();
         if (Event::handle('SlicedFavoritesGetSettings', array($this->slice, &$data))) {
+            // TRANS: Client exception.
             throw new ClientException(_m('Unknown favorites slice.'));
         }
         if (isset($data['include'])) {
@@ -73,7 +72,6 @@ class FavoritedSliceAction extends FavoritedAction
      *
      * @return void
      */
-
     function showContent()
     {
         $slice = $this->sliceWhereClause();

@@ -2,6 +2,7 @@
 # Expored from translatewiki.net
 #
 # Author: Apmon
+# Author: The Evil IP address
 # --
 # This file is distributed under the same license as the StatusNet package.
 #
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Mapstraction\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:16+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:43:14+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-19-54 78::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:36:26+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-plugin-mapstraction\n"
@@ -28,13 +29,15 @@ msgstr "Karte"
 #. TRANS: Clickable item to allow opening the map in full size.
 #: MapstractionPlugin.php:190
 msgid "Full size"
-msgstr ""
+msgstr "in voller Größe"
 
 #: MapstractionPlugin.php:202
 msgid ""
 "Show maps of users' and friends' notices with <a href=\"http://www."
 "mapstraction.com/\">Mapstraction</a>."
 msgstr ""
+"Zeigt Karten mit Nachrichten von Freunden und Nutzern mit <a href=\"http://"
+"www.mapstraction.com/\">Mapstraction</a>."
 
 #: map.php:72
 msgid "No such user."
@@ -49,9 +52,16 @@ msgstr "Benutzer hat kein Profil."
 #: allmap.php:74
 #, php-format
 msgid "%s friends map"
-msgstr ""
+msgstr "Karte der Freunde von %s"
+
+#. TRANS: Page title.
+#. TRANS: %1$s is a user nickname, %2$d is a page number.
+#: allmap.php:80
+#, php-format
+msgid "%1$s friends map, page %2$d"
+msgstr "Karte der Freunde von %1$s, Seite %2$d"
 
 #: usermap.php:73
 #, php-format
 msgid "%s map, page %d"
-msgstr ""
+msgstr "%s-Karte, Seite %d"

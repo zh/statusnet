@@ -102,9 +102,14 @@ class OpenIDPlugin extends Plugin
     function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
     {
         if (common_config('site', 'openidonly')) {
-            static $block = array('main/login',
-                                  'main/register',
-                                  'main/recoverpassword',
+            // Note that we should not remove the login and register
+            // actions. Lots of auth-related things link to them,
+            // such as when visiting a private site without a session
+            // or revalidating a remembered login for admin work.
+            //
+            // We take those two over with redirects to ourselves
+            // over in onArgsInitialize().
+            static $block = array('main/recoverpassword',
                                   'settings/password');
 
             if (in_array($path, $block)) {

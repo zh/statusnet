@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Anonymous disfavor action
  *
@@ -58,6 +57,7 @@ class AnonDisfavorAction extends RedirectingAction
 
         if (empty($profile) || $_SERVER['REQUEST_METHOD'] != 'POST') {
             $this->clientError(
+                // TRANS: Client error.
                 _m('Could not disfavor notice! Please make sure your browser has cookies enabled.')
             );
             return;
@@ -68,6 +68,7 @@ class AnonDisfavorAction extends RedirectingAction
         $token  = $this->trimmed('token-' . $notice->id);
 
         if (!$token || $token != common_session_token()) {
+            // TRANS: Client error.
             $this->clientError(_m('There was a problem with your session token. Try again, please.'));
             return;
         }
@@ -77,6 +78,7 @@ class AnonDisfavorAction extends RedirectingAction
         $fave->notice_id = $notice->id;
 
         if (!$fave->find(true)) {
+            // TRANS: Client error.
             $this->clientError(_m('This notice is not a favorite!'));
             return;
         }
@@ -85,6 +87,7 @@ class AnonDisfavorAction extends RedirectingAction
 
         if (!$result) {
             common_log_db_error($fave, 'DELETE', __FILE__);
+            // TRANS: Server error.
             $this->serverError(_m('Could not delete favorite.'));
             return;
         }
@@ -94,6 +97,7 @@ class AnonDisfavorAction extends RedirectingAction
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
+            // TRANS: Title.
             $this->element('title', null, _m('Add to favorites'));
             $this->elementEnd('head');
             $this->elementStart('body');
@@ -121,4 +125,3 @@ class AnonDisfavorAction extends RedirectingAction
         }
     }
 }
-

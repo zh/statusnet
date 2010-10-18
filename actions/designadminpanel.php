@@ -140,7 +140,7 @@ class DesignadminpanelAction extends AdminPanelAction
             $themeChanged = ($this->trimmed('theme') != $oldtheme);
         }
 
-        static $settings = array('theme', 'logo');
+        static $settings = array('theme', 'logo', 'ssllogo');
 
         $values = array();
 
@@ -230,6 +230,7 @@ class DesignadminpanelAction extends AdminPanelAction
     function restoreDefaults()
     {
         $this->deleteSetting('site', 'logo');
+        $this->deleteSetting('site', 'ssllogo');
         $this->deleteSetting('site', 'theme');
 
         $settings = array(
@@ -293,7 +294,7 @@ class DesignadminpanelAction extends AdminPanelAction
 
     /**
      * Save the custom theme if the user uploaded one.
-     * 
+     *
      * @return mixed custom theme name, if succesful, or null if no theme upload.
      * @throws ClientException for invalid theme archives
      * @throws ServerException if trouble saving the theme files
@@ -329,6 +330,11 @@ class DesignadminpanelAction extends AdminPanelAction
         if (!empty($values['logo']) &&
             !Validate::uri($values['logo'], array('allowed_schemes' => array('http', 'https')))) {
             $this->clientError(_('Invalid logo URL.'));
+        }
+
+        if (!empty($values['ssllogo']) &&
+            !Validate::uri($values['ssllogo'], array('allowed_schemes' => array('https')))) {
+            $this->clientError(_('Invalid SSL logo URL.'));
         }
 
         if (!in_array($values['theme'], Theme::listAvailable())) {
@@ -442,6 +448,10 @@ class DesignAdminPanelForm extends AdminForm
 
         $this->li();
         $this->input('logo', _('Site logo'), 'Logo for the site (full URL)');
+        $this->unli();
+
+        $this->li();
+        $this->input('ssllogo', _('SSL logo'), 'Logo to show on SSL pages');
         $this->unli();
 
         $this->out->elementEnd('ul');

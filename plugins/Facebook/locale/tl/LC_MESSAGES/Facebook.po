@@ -9,19 +9,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Facebook\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:02+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:42:55+0000\n"
 "Language-Team: Tagalog <http://translatewiki.net/wiki/Portal:tl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-19-54 41::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:34:55+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: tl\n"
 "X-Message-Group: #out-statusnet-plugin-facebook\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: facebookutil.php:425
+#: facebookutil.php:429
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that we are unable to update your "
@@ -47,30 +47,30 @@ msgstr ""
 "\n"
 "%2$s"
 
-#: FBConnectAuth.php:51
+#: FBConnectAuth.php:55
 msgid "You must be logged into Facebook to use Facebook Connect."
 msgstr "Dapat na nakalagda ka sa Facebook upang magamit ang Ugnay sa Facebook."
 
-#: FBConnectAuth.php:75
+#: FBConnectAuth.php:79
 msgid "There is already a local user linked with this Facebook account."
 msgstr ""
 "Mayroon nang isang katutubong tagagamit na nakakawing sa ganitong akawnt ng "
 "Facebook."
 
-#: FBConnectAuth.php:87 FBConnectSettings.php:166
+#: FBConnectAuth.php:91 FBConnectSettings.php:166
 msgid "There was a problem with your session token. Try again, please."
 msgstr "May isang suliranin sa iyong token ng sesyon. Paki subukan uli."
 
-#: FBConnectAuth.php:92
+#: FBConnectAuth.php:96
 msgid "You can't register if you don't agree to the license."
 msgstr "Hindi ka makapagpapatala kung hindi ka sumasang-ayon sa lisensiya."
 
-#: FBConnectAuth.php:102
+#: FBConnectAuth.php:106
 msgid "An unknown error has occured."
 msgstr "Isang hindi nalalamang kamalian ang naganap."
 
 #. TRANS: %s is the site name.
-#: FBConnectAuth.php:117
+#: FBConnectAuth.php:121
 #, php-format
 msgid ""
 "This is the first time you've logged into %s so we must connect your "
@@ -83,17 +83,17 @@ msgstr ""
 "kung mayroon ka."
 
 #. TRANS: Page title.
-#: FBConnectAuth.php:124
+#: FBConnectAuth.php:128
 msgid "Facebook Account Setup"
 msgstr "Pagtatakda ng Akawnt ng Facebook"
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:158
+#: FBConnectAuth.php:162
 msgid "Connection options"
 msgstr "Mga pagpipilian na pang-ugnay"
 
 #. TRANS: %s is the name of the license used by the user for their status updates.
-#: FBConnectAuth.php:168
+#: FBConnectAuth.php:172
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -104,36 +104,36 @@ msgstr ""
 "na pangtelepono."
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:185
+#: FBConnectAuth.php:189
 msgid "Create new account"
 msgstr "Lumikha ng bagong akawnt"
 
-#: FBConnectAuth.php:187
+#: FBConnectAuth.php:191
 msgid "Create a new user with this nickname."
 msgstr "Lumikha ng isang bagong tagagamit na may ganitong palayaw."
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:191
+#: FBConnectAuth.php:195
 msgid "New nickname"
 msgstr "Bagong palayaw"
 
-#: FBConnectAuth.php:193
+#: FBConnectAuth.php:197
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 "1 hanggang 64 na maliliit na mga titik o mga bilang, walang bantas o mga "
 "patlang"
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:197
+#: FBConnectAuth.php:201
 msgctxt "BUTTON"
 msgid "Create"
 msgstr "Likhain"
 
-#: FBConnectAuth.php:203
+#: FBConnectAuth.php:207
 msgid "Connect existing account"
 msgstr "Umugnay sa umiiral na akawnt"
 
-#: FBConnectAuth.php:205
+#: FBConnectAuth.php:209
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Facebook."
@@ -142,50 +142,50 @@ msgstr ""
 "tagagamit at hudyat upang iugnay ito sa iyong Facebook."
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:209
+#: FBConnectAuth.php:213
 msgid "Existing nickname"
 msgstr "Umiiral na palayaw"
 
-#: FBConnectAuth.php:212 facebookaction.php:277
+#: FBConnectAuth.php:216 facebookaction.php:277
 msgid "Password"
 msgstr "Hudyat"
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:216
+#: FBConnectAuth.php:220
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr "Umugnay"
 
 #. TRANS: Client error trying to register with registrations not allowed.
 #. TRANS: Client error trying to register with registrations 'invite only'.
-#: FBConnectAuth.php:233 FBConnectAuth.php:243
+#: FBConnectAuth.php:237 FBConnectAuth.php:247
 msgid "Registration not allowed."
 msgstr "Hindi pinapahintulutan ang pagpapatala."
 
 #. TRANS: Client error trying to register with an invalid invitation code.
-#: FBConnectAuth.php:251
+#: FBConnectAuth.php:255
 msgid "Not a valid invitation code."
 msgstr "Hindi isang tanggap na kodigo ng paanyaya."
 
-#: FBConnectAuth.php:261
+#: FBConnectAuth.php:265
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 "Ang palayaw ay dapat na may mga maliliit na mga titik lamang at mga bilang "
 "at walang mga patlang."
 
-#: FBConnectAuth.php:266
+#: FBConnectAuth.php:270
 msgid "Nickname not allowed."
 msgstr "Hindi pinapahintulutan ang palayaw."
 
-#: FBConnectAuth.php:271
+#: FBConnectAuth.php:275
 msgid "Nickname already in use. Try another one."
 msgstr "Ginagamit na ang palayaw. Subukan ang iba."
 
-#: FBConnectAuth.php:289 FBConnectAuth.php:323 FBConnectAuth.php:343
+#: FBConnectAuth.php:293 FBConnectAuth.php:327 FBConnectAuth.php:347
 msgid "Error connecting user to Facebook."
 msgstr "May kamalian sa pag-ugnay ng tagagamit sa Facebook."
 
-#: FBConnectAuth.php:309
+#: FBConnectAuth.php:313
 msgid "Invalid username or password."
 msgstr "Hindi tanggap na pangalan ng tagagamit o hudyat."
 
@@ -222,6 +222,13 @@ msgstr "Kamalian ng tapaghain: Hindi makuha ang tagagamit!"
 #: facebookhome.php:122
 msgid "Incorrect username or password."
 msgstr "Hindi tamang pangalan ng tagagamit o hudyat."
+
+#. TRANS: Page title.
+#. TRANS: %1$s is a user nickname, %2$s is a page number.
+#: facebookhome.php:153
+#, php-format
+msgid "%1$s and friends, page %2$d"
+msgstr "%1$s at mga kaibigan, pahina %2$d"
 
 #. TRANS: Page title.
 #. TRANS: %s is a user nickname
@@ -348,7 +355,11 @@ msgstr "Lumagda sa pamamagitan ng iyong Akawnt sa Facebook"
 msgid "Facebook Login"
 msgstr "Paglagda sa Facebook"
 
-#: facebookremove.php:57
+#: facebookremove.php:53
+msgid "Couldn't remove Facebook user: already deleted."
+msgstr ""
+
+#: facebookremove.php:63
 msgid "Couldn't remove Facebook user."
 msgstr "Hindi matanggal ang tagagamit ng Facebook."
 

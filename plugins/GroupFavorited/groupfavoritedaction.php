@@ -32,27 +32,27 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-
 class GroupFavoritedAction extends ShowgroupAction
 {
-
     /**
      * Title of the page
      *
      * @return string page title, with page number
      */
-
     function title()
     {
         if (!empty($this->group->fullname)) {
+            // @todo Create a core method to create this properly. i18n issue.
             $base = $this->group->fullname . ' (' . $this->group->nickname . ')';
         } else {
             $base = $this->group->nickname;
         }
 
         if ($this->page == 1) {
+            // TRANS: %s is a group name.
             return sprintf(_m('Popular posts in %s group'), $base);
         } else {
+            // TRANS: %1$s is a group name, %2$s is a group number.
             return sprintf(_m('Popular posts in %1$s group, page %2$d'),
                            $base,
                            $this->page);
@@ -66,7 +66,6 @@ class GroupFavoritedAction extends ShowgroupAction
      *
      * @return void
      */
-
     function showContent()
     {
         $groupId = intval($this->group->id);

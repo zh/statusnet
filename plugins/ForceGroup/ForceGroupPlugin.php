@@ -73,10 +73,36 @@ class ForceGroupPlugin extends Plugin
                         Event::handle('EndJoinGroup', array($group, $user));
                     }
                 } catch (Exception $e) {
-                    throw new ServerException(sprintf(_('Could not join user %1$s to group %2$s.'),
+                    // TRANS: Server exception.
+                    // TRANS: %1$s is a user nickname, %2$s is a group nickname.
+                    throw new ServerException(sprintf(_m('Could not join user %1$s to group %2$s.'),
                                                $user->nickname, $group->nickname));
                 }
             }
         }
+    }
+
+    /**
+     * Provide plugin version information.
+     *
+     * This data is used when showing the version page.
+     *
+     * @param array &$versions array of version data arrays; see EVENTS.txt
+     *
+     * @return boolean hook value
+     */
+    function onPluginVersion(&$versions)
+    {
+        $url = 'http://status.net/wiki/Plugin:ForceGroup';
+
+        $versions[] = array('name' => 'ForceGroup',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Brion Vibber',
+            'homepage' => $url,
+            'rawdescription' =>
+            // TRANS: Plugin description.
+            _m('Allows forced group memberships and forces all notices to appear in groups that users were forced in.'));
+
+        return true;
     }
 }
