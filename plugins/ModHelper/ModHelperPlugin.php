@@ -50,5 +50,4 @@ class ModHelperPlugin extends Plugin
         }
         return true;
     }
-
 }

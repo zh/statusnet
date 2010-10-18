@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:06:44+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:41:21+0000\n"
 "Language-Team: Galician <http://translatewiki.net/wiki/Portal:gl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-04 23:06:40+0000\n"
+"X-POT-Import-Date: 2010-10-09 14:31:24+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -92,14 +92,15 @@ msgstr "Gardar"
 msgid "No such page."
 msgstr "Esa páxina non existe."
 
+#. TRANS: Client error given when a user was not found (404).
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
 #: actions/apiaccountupdatedeliverydevice.php:115
 #: actions/apiaccountupdateprofile.php:106
 #: actions/apiaccountupdateprofilebackgroundimage.php:117
 #: actions/apiaccountupdateprofileimage.php:106 actions/apiblockcreate.php:98
-#: actions/apiblockdestroy.php:97 actions/apidirectmessage.php:77
-#: actions/apidirectmessagenew.php:74 actions/apigroupcreate.php:114
+#: actions/apiblockdestroy.php:97 actions/apidirectmessage.php:78
+#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:114
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:101
 #: actions/apigroupleave.php:101 actions/apigrouplist.php:73
 #: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:87
@@ -201,12 +202,13 @@ msgstr "Vostede e mailos seus amigos"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Actualizacións de %1$s e amigos en %2$s!"
 
+#. TRANS: Client error given when an API method was not found (404).
 #: actions/apiaccountratelimitstatus.php:72
 #: actions/apiaccountupdatedeliverydevice.php:95
 #: actions/apiaccountupdateprofile.php:98
 #: actions/apiaccountupdateprofilebackgroundimage.php:95
 #: actions/apiaccountupdateprofilecolors.php:119
-#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:156
+#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:162
 #: actions/apifavoritecreate.php:101 actions/apifavoritedestroy.php:102
 #: actions/apifriendshipscreate.php:101 actions/apifriendshipsdestroy.php:101
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:140
@@ -233,7 +235,7 @@ msgstr "Non se atopou o método da API."
 #: actions/apiaccountupdateprofilebackgroundimage.php:87
 #: actions/apiaccountupdateprofilecolors.php:111
 #: actions/apiaccountupdateprofileimage.php:85 actions/apiblockcreate.php:90
-#: actions/apiblockdestroy.php:89 actions/apidirectmessagenew.php:110
+#: actions/apiblockdestroy.php:89 actions/apidirectmessagenew.php:107
 #: actions/apifavoritecreate.php:92 actions/apifavoritedestroy.php:93
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
 #: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
@@ -309,44 +311,61 @@ msgstr "Non se puido bloquear o usuario."
 msgid "Unblock user failed."
 msgstr "Non se puido desbloquear o usuario."
 
-#: actions/apidirectmessage.php:89
+#. TRANS: %s is a user nickname.
+#: actions/apidirectmessage.php:91
 #, php-format
 msgid "Direct messages from %s"
 msgstr "Mensaxes directas de %s"
 
-#: actions/apidirectmessage.php:93
+#. TRANS: %s is a user nickname.
+#: actions/apidirectmessage.php:96
 #, php-format
 msgid "All the direct messages sent from %s"
 msgstr "Todas as mensaxes directas enviadas por %s"
 
-#: actions/apidirectmessage.php:101
+#. TRANS: %s is a user nickname.
+#: actions/apidirectmessage.php:105
 #, php-format
 msgid "Direct messages to %s"
 msgstr "Mensaxes directas a %s"
 
-#: actions/apidirectmessage.php:105
+#. TRANS: %s is a user nickname.
+#: actions/apidirectmessage.php:110
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr "Todas as mensaxes directas enviadas a %s"
 
-#: actions/apidirectmessagenew.php:119
+#. TRANS: Client error (406).
+#: actions/apidirectmessagenew.php:117
 msgid "No message text!"
 msgstr "A mensaxe non ten texto!"
 
-#: actions/apidirectmessagenew.php:128 actions/newmessage.php:150
-#, php-format
-msgid "That's too long. Max message size is %d chars."
-msgstr ""
+#: actions/apidirectmessagenew.php:127
+#, fuzzy, php-format
+msgid "That's too long. Maximum message size is %d character."
+msgid_plural "That's too long. Maximum message size is %d characters."
+msgstr[0] ""
+"Iso é longo de máis. A lonxitude máxima das mensaxes é de %d caracteres."
+msgstr[1] ""
 "Iso é longo de máis. A lonxitude máxima das mensaxes é de %d caracteres."
 
+#. TRANS: Client error displayed if a recipient user could not be found (403).
 #: actions/apidirectmessagenew.php:139
 msgid "Recipient user not found."
 msgstr "Non se atopou o destinatario."
 
-#: actions/apidirectmessagenew.php:143
+#. TRANS: Client error displayed trying to direct message another user who's not a friend (403).
+#: actions/apidirectmessagenew.php:144
 msgid "Can't send direct messages to users who aren't your friend."
 msgstr ""
 "Non pode enviar mensaxes directas a usuarios que non sexan amigos seus."
+
+#. TRANS: Client error displayed trying to direct message self (403).
+#: actions/apidirectmessagenew.php:154
+#, fuzzy
+msgid ""
+"Do not send a message to yourself; just say it to yourself quietly instead."
+msgstr "Non se envíe unha mensaxe, limítese a pensar nela."
 
 #: actions/apifavoritecreate.php:110 actions/apifavoritedestroy.php:111
 #: actions/apistatusesdestroy.php:121
@@ -529,15 +548,21 @@ msgstr "grupos en %s"
 msgid "Upload failed."
 msgstr "Houbo un erro durante a carga."
 
-#: actions/apioauthauthorize.php:101
+#: actions/apioauthaccesstoken.php:108
+#, fuzzy
+msgid "Invalid request token or verifier."
+msgstr "O pase especificado é incorrecto."
+
+#: actions/apioauthauthorize.php:109
 msgid "No oauth_token parameter provided."
 msgstr "Non se forneceu o parámetro oauth_token."
 
-#: actions/apioauthauthorize.php:106
-msgid "Invalid token."
+#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:130
+#, fuzzy
+msgid "Invalid request token."
 msgstr "Pase incorrecto."
 
-#: actions/apioauthauthorize.php:123 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
@@ -555,38 +580,26 @@ msgstr "Pase incorrecto."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Houbo un erro co seu pase. Inténteo de novo."
 
-#: actions/apioauthauthorize.php:135
+#: actions/apioauthauthorize.php:163
 msgid "Invalid nickname / password!"
 msgstr "O alcume ou o contrasinal son incorrectos!"
 
-#: actions/apioauthauthorize.php:159
+#: actions/apioauthauthorize.php:193
 msgid "Database error deleting OAuth application user."
 msgstr ""
 "Houbo un erro na base de datos ao intentar borrar o usuario da aplicación "
 "OAuth."
 
-#: actions/apioauthauthorize.php:185
+#: actions/apioauthauthorize.php:218
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Houbo un erro na base de datos ao intentar inserir o usuario da aplicación "
 "OAuth."
 
-#: actions/apioauthauthorize.php:214
-#, php-format
-msgid ""
-"The request token %s has been authorized. Please exchange it for an access "
-"token."
-msgstr "Autorizouse a ficha da solicitude %s. Intercámbiea por un pase."
-
-#: actions/apioauthauthorize.php:227
-#, php-format
-msgid "The request token %s has been denied and revoked."
-msgstr "Denegouse e revogouse a ficha da solicitude %s."
-
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:232 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:265 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:139
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
@@ -595,15 +608,15 @@ msgstr "Denegouse e revogouse a ficha da solicitude %s."
 msgid "Unexpected form submission."
 msgstr "Envío de formulario inesperado."
 
-#: actions/apioauthauthorize.php:259
+#: actions/apioauthauthorize.php:291
 msgid "An application would like to connect to your account"
 msgstr "Unha aplicación quere conectarse á súa conta"
 
-#: actions/apioauthauthorize.php:276
+#: actions/apioauthauthorize.php:308
 msgid "Allow or deny access"
 msgstr "Permitir ou denegar o acceso"
 
-#: actions/apioauthauthorize.php:292
+#: actions/apioauthauthorize.php:324
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -615,11 +628,11 @@ msgstr ""
 "acceso á súa conta %4$s a xente de confianza."
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:310 lib/action.php:462
+#: actions/apioauthauthorize.php:342 lib/action.php:490
 msgid "Account"
 msgstr "Conta"
 
-#: actions/apioauthauthorize.php:313 actions/login.php:252
+#: actions/apioauthauthorize.php:345 actions/login.php:252
 #: actions/profilesettings.php:106 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -628,22 +641,46 @@ msgid "Nickname"
 msgstr "Alcume"
 
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:316 actions/login.php:255
+#: actions/apioauthauthorize.php:348 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Contrasinal"
 
-#: actions/apioauthauthorize.php:328
-msgid "Deny"
-msgstr "Denegar"
+#. TRANS: Submit button title.
+#: actions/apioauthauthorize.php:360 lib/applicationeditform.php:353
+msgid "Cancel"
+msgstr "Cancelar"
 
-#: actions/apioauthauthorize.php:334
+#: actions/apioauthauthorize.php:366
 msgid "Allow"
 msgstr "Permitir"
 
-#: actions/apioauthauthorize.php:351
-msgid "Allow or deny access to your account information."
+#: actions/apioauthauthorize.php:383
+#, fuzzy
+msgid "Authorize access to your account information."
 msgstr "Permitir ou denegar o acceso á información da súa conta."
+
+#: actions/apioauthauthorize.php:433
+#, fuzzy
+msgid "Authorization canceled."
+msgstr "Cancelouse a confirmación por mensaxería instantánea."
+
+#: actions/apioauthauthorize.php:435
+#, fuzzy, php-format
+msgid "The request token %s has been revoked."
+msgstr "Denegouse e revogouse a ficha da solicitude %s."
+
+#: actions/apioauthauthorize.php:453
+#, fuzzy, php-format
+msgid "You have successfully authorized %s."
+msgstr "Non está autorizado."
+
+#: actions/apioauthauthorize.php:458
+#, php-format
+msgid ""
+"Please return to %s and enter the following security code to complete the "
+"process."
+msgstr ""
 
 #: actions/apistatusesdestroy.php:112
 msgid "This method requires a POST or DELETE."
@@ -809,7 +846,8 @@ msgid "Preview"
 msgstr "Vista previa"
 
 #: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deleteuserform.php:66 lib/noticelist.php:667
+#: lib/deletegroupform.php:121 lib/deleteuserform.php:66
+#: lib/noticelist.php:667
 msgid "Delete"
 msgstr "Borrar"
 
@@ -865,12 +903,13 @@ msgstr ""
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
+#. TRANS: Button label on the delete group form.
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:153 actions/deleteapplication.php:154
-#: actions/deletenotice.php:150 actions/deleteuser.php:152
-#: actions/groupblock.php:178
+#: actions/deletegroup.php:211 actions/deletenotice.php:150
+#: actions/deleteuser.php:152 actions/groupblock.php:178
 msgctxt "BUTTON"
 msgid "No"
 msgstr "Non"
@@ -883,12 +922,13 @@ msgstr "Non bloquear este usuario"
 
 #. TRANS: Button label on the user block form.
 #. TRANS: Button label on the delete application form.
+#. TRANS: Button label on the delete group form.
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
 #: actions/block.php:160 actions/deleteapplication.php:161
-#: actions/deletenotice.php:157 actions/deleteuser.php:159
-#: actions/groupblock.php:185
+#: actions/deletegroup.php:218 actions/deletenotice.php:157
+#: actions/deleteuser.php:159 actions/groupblock.php:185
 msgctxt "BUTTON"
 msgid "Yes"
 msgstr "Si"
@@ -906,6 +946,7 @@ msgstr "Non se puido gardar a información do bloqueo."
 #. TRANS: Command exception text shown when a group is requested that does not exist.
 #. TRANS: Error text shown when trying to leave a group that does not exist.
 #: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/deletegroup.php:87 actions/deletegroup.php:98
 #: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
@@ -1031,7 +1072,7 @@ msgstr "Non é o dono desa aplicación."
 #. TRANS: Client error text when there is a problem with the session token.
 #: actions/deleteapplication.php:102 actions/editapplication.php:127
 #: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1307
+#: lib/action.php:1353
 msgid "There was a problem with your session token."
 msgstr "Houbo un problema co seu pase."
 
@@ -1058,6 +1099,58 @@ msgstr "Non borrar a aplicación"
 #: actions/deleteapplication.php:164
 msgid "Delete this application"
 msgstr "Borrar a aplicación"
+
+#: actions/deletegroup.php:65
+#, fuzzy
+msgid "You must be logged in to delete a group."
+msgstr "Ten que identificarse para deixar un grupo."
+
+#: actions/deletegroup.php:93 actions/joingroup.php:88
+#: actions/leavegroup.php:88
+msgid "No nickname or ID."
+msgstr "Nin alcume nin ID."
+
+#: actions/deletegroup.php:104
+#, fuzzy
+msgid "You are not allowed to delete this group."
+msgstr "Vostede non pertence a este grupo."
+
+#: actions/deletegroup.php:146
+#, fuzzy, php-format
+msgid "Could not delete group %2$s."
+msgstr "Non se puido actualizar o grupo."
+
+#: actions/deletegroup.php:153
+#, fuzzy, php-format
+msgid "Deleted group %2$s"
+msgstr "%1$s deixou o grupo %2$s"
+
+#: actions/deletegroup.php:169 actions/deletegroup.php:194
+#, fuzzy
+msgid "Delete group"
+msgstr "Borrar o usuario"
+
+#: actions/deletegroup.php:197
+#, fuzzy
+msgid ""
+"Are you sure you want to delete this group? This will clear all data about "
+"the group from the database, without a backup. Public posts to this group "
+"will still appear in individual timelines."
+msgstr ""
+"Está seguro de querer borrar este usuario? Isto borrará todos os datos do "
+"usuario da base de datos, sen posibilidade de recuperalos."
+
+#. TRANS: Submit button title for 'No' when deleting a group.
+#: actions/deletegroup.php:215
+#, fuzzy
+msgid "Do not delete this group"
+msgstr "Non borrar esta nota"
+
+#. TRANS: Submit button title for 'Yes' when deleting a group.
+#: actions/deletegroup.php:222
+#, fuzzy
+msgid "Delete this group"
+msgstr "Borrar o usuario"
 
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:50 actions/disfavor.php:61 actions/favor.php:62
@@ -1135,54 +1228,64 @@ msgstr "Deseño"
 msgid "Design settings for this StatusNet site"
 msgstr "Configuración de deseño para este sitio StatusNet"
 
-#: actions/designadminpanel.php:331
+#: actions/designadminpanel.php:332
 msgid "Invalid logo URL."
 msgstr "URL do logo incorrecto."
 
-#: actions/designadminpanel.php:335
+#: actions/designadminpanel.php:337
+#, fuzzy
+msgid "Invalid SSL logo URL."
+msgstr "URL do logo incorrecto."
+
+#: actions/designadminpanel.php:341
 #, php-format
 msgid "Theme not available: %s."
 msgstr "O tema visual non está dispoñible: %s."
 
-#: actions/designadminpanel.php:439
+#: actions/designadminpanel.php:445
 msgid "Change logo"
 msgstr "Cambiar o logo"
 
-#: actions/designadminpanel.php:444
+#: actions/designadminpanel.php:450
 msgid "Site logo"
 msgstr "Logo do sitio"
 
-#: actions/designadminpanel.php:456
+#: actions/designadminpanel.php:454
+#, fuzzy
+msgid "SSL logo"
+msgstr "Logo do sitio"
+
+#: actions/designadminpanel.php:466
 msgid "Change theme"
 msgstr "Cambar o tema visual"
 
-#: actions/designadminpanel.php:473
+#: actions/designadminpanel.php:483
 msgid "Site theme"
 msgstr "Tema visual do sitio"
 
-#: actions/designadminpanel.php:474
+#: actions/designadminpanel.php:484
 msgid "Theme for the site."
 msgstr "Tema visual para o sitio."
 
-#: actions/designadminpanel.php:480
+#: actions/designadminpanel.php:490
 msgid "Custom theme"
 msgstr "Tema visual personalizado"
 
-#: actions/designadminpanel.php:484
+#: actions/designadminpanel.php:494
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr ""
 "Pode cargar como arquivo .ZIP un tema visual personalizado para StatusNet"
 
-#: actions/designadminpanel.php:499 lib/designsettings.php:101
+#: actions/designadminpanel.php:509 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Cambiar a imaxe de fondo"
 
-#: actions/designadminpanel.php:504 actions/designadminpanel.php:587
+#: actions/designadminpanel.php:514 actions/designadminpanel.php:597
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Fondo"
 
-#: actions/designadminpanel.php:509
+#: actions/designadminpanel.php:519
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1192,66 +1295,66 @@ msgstr ""
 "ficheiro é de %1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:540 lib/designsettings.php:139
+#: actions/designadminpanel.php:550 lib/designsettings.php:139
 msgid "On"
 msgstr "Activado"
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:557 lib/designsettings.php:155
+#: actions/designadminpanel.php:567 lib/designsettings.php:155
 msgid "Off"
 msgstr "Desactivado"
 
-#: actions/designadminpanel.php:558 lib/designsettings.php:156
+#: actions/designadminpanel.php:568 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Activar ou desactivar a imaxe de fondo."
 
-#: actions/designadminpanel.php:563 lib/designsettings.php:161
+#: actions/designadminpanel.php:573 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Imaxe de fondo en mosaico"
 
-#: actions/designadminpanel.php:577 lib/designsettings.php:170
+#: actions/designadminpanel.php:587 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Cambiar as cores"
 
-#: actions/designadminpanel.php:600 lib/designsettings.php:191
+#: actions/designadminpanel.php:610 lib/designsettings.php:191
 msgid "Content"
 msgstr "Contido"
 
-#: actions/designadminpanel.php:613 lib/designsettings.php:204
+#: actions/designadminpanel.php:623 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Barra lateral"
 
-#: actions/designadminpanel.php:626 lib/designsettings.php:217
+#: actions/designadminpanel.php:636 lib/designsettings.php:217
 msgid "Text"
 msgstr "Texto"
 
-#: actions/designadminpanel.php:639 lib/designsettings.php:230
+#: actions/designadminpanel.php:649 lib/designsettings.php:230
 msgid "Links"
 msgstr "Ligazóns"
 
-#: actions/designadminpanel.php:664
+#: actions/designadminpanel.php:674
 msgid "Advanced"
 msgstr "Avanzado"
 
-#: actions/designadminpanel.php:668
+#: actions/designadminpanel.php:678
 msgid "Custom CSS"
 msgstr "CSS personalizado"
 
-#: actions/designadminpanel.php:689 lib/designsettings.php:247
+#: actions/designadminpanel.php:699 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "Utilizar os valores por defecto"
 
-#: actions/designadminpanel.php:690 lib/designsettings.php:248
+#: actions/designadminpanel.php:700 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Restaurar o deseño por defecto"
 
-#: actions/designadminpanel.php:696 lib/designsettings.php:254
+#: actions/designadminpanel.php:706 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Volver ao deseño por defecto"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:698 actions/licenseadminpanel.php:319
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:351
+#: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
+#: actions/othersettings.php:126 actions/pathsadminpanel.php:396
 #: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
 #: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
@@ -1261,7 +1364,7 @@ msgstr "Volver ao deseño por defecto"
 msgid "Save"
 msgstr "Gardar"
 
-#: actions/designadminpanel.php:699 lib/designsettings.php:257
+#: actions/designadminpanel.php:709 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Gardar o deseño"
 
@@ -1739,7 +1842,7 @@ msgstr "Non se puido converter a ficha da solicitude nun pase."
 msgid "Remote service uses unknown version of OMB protocol."
 msgstr "O servizo remoto utiliza unha versión descoñecida do protocolo OMB."
 
-#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:306
+#: actions/finishremotesubscribe.php:138 lib/oauthstore.php:317
 msgid "Error updating remote profile."
 msgstr "Houbo un erro ao actualizar o perfil remoto."
 
@@ -2334,10 +2437,6 @@ msgstr ""
 msgid "You must be logged in to join a group."
 msgstr "Ten que identificarse para unirse a un grupo."
 
-#: actions/joingroup.php:88 actions/leavegroup.php:88
-msgid "No nickname or ID."
-msgstr "Nin alcume nin ID."
-
 #: actions/joingroup.php:141
 #, php-format
 msgid "%1$s joined group %2$s"
@@ -2587,6 +2686,12 @@ msgstr "Non pode enviarlle unha mensaxe a este usuario."
 msgid "No content!"
 msgstr "Non hai contido ningún!"
 
+#: actions/newmessage.php:150
+#, php-format
+msgid "That's too long. Max message size is %d chars."
+msgstr ""
+"Iso é longo de máis. A lonxitude máxima das mensaxes é de %d caracteres."
+
 #: actions/newmessage.php:158
 msgid "No recipient specified."
 msgstr "Non se especificou ningún destinatario."
@@ -2748,7 +2853,7 @@ msgstr "Só %s enderezos URL sobre HTTP simple."
 
 #. TRANS: Client error on an API request with an unsupported data format.
 #: actions/oembed.php:184 actions/oembed.php:203 lib/apiaction.php:1200
-#: lib/apiaction.php:1227 lib/apiaction.php:1350
+#: lib/apiaction.php:1227 lib/apiaction.php:1356
 msgid "Not a supported data format."
 msgstr "Non se soporta ese formato de datos."
 
@@ -2899,147 +3004,166 @@ msgstr "Rutas"
 msgid "Path and server settings for this StatusNet site"
 msgstr "Configuración do servidor e das rutas para este sitio StatusNet"
 
-#: actions/pathsadminpanel.php:157
+#: actions/pathsadminpanel.php:158
 #, php-format
 msgid "Theme directory not readable: %s."
 msgstr "Non se pode ler o directorio de temas visuais: %s."
 
-#: actions/pathsadminpanel.php:163
+#: actions/pathsadminpanel.php:164
 #, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "Non se pode escribir no directorio de avatares: %s."
 
-#: actions/pathsadminpanel.php:169
+#: actions/pathsadminpanel.php:170
 #, php-format
 msgid "Background directory not writable: %s."
 msgstr "Non se pode escribir no directorio de fondos: %s."
 
-#: actions/pathsadminpanel.php:177
+#: actions/pathsadminpanel.php:178
 #, php-format
 msgid "Locales directory not readable: %s."
 msgstr "Non se pode ler o directorio de traducións: %s."
 
-#: actions/pathsadminpanel.php:183
+#: actions/pathsadminpanel.php:184
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Servidor SSL incorrecto. O tamaño máximo é de 255 caracteres."
 
-#: actions/pathsadminpanel.php:234 actions/siteadminpanel.php:58
+#: actions/pathsadminpanel.php:235 actions/siteadminpanel.php:58
 msgid "Site"
 msgstr "Sitio"
 
-#: actions/pathsadminpanel.php:238
+#: actions/pathsadminpanel.php:239 actions/pathsadminpanel.php:265
+#: actions/pathsadminpanel.php:314 actions/pathsadminpanel.php:343
 msgid "Server"
 msgstr "Servidor"
 
-#: actions/pathsadminpanel.php:238
+#: actions/pathsadminpanel.php:239
 msgid "Site's server hostname."
 msgstr "Nome do servidor do sitio."
 
-#: actions/pathsadminpanel.php:242
+#: actions/pathsadminpanel.php:243 actions/pathsadminpanel.php:269
+#: actions/pathsadminpanel.php:318 actions/pathsadminpanel.php:347
 msgid "Path"
 msgstr "Ruta"
 
-#: actions/pathsadminpanel.php:242
+#: actions/pathsadminpanel.php:243
 msgid "Site path"
 msgstr "Ruta do sitio"
 
-#: actions/pathsadminpanel.php:246
-msgid "Path to locales"
-msgstr "Ruta das traducións"
+#: actions/pathsadminpanel.php:247
+#, fuzzy
+msgid "Locale Directory"
+msgstr "Directorio de temas visuais"
 
-#: actions/pathsadminpanel.php:246
+#: actions/pathsadminpanel.php:247
 msgid "Directory path to locales"
 msgstr "Ruta do directorio das traducións"
 
-#: actions/pathsadminpanel.php:250
+#: actions/pathsadminpanel.php:251
 msgid "Fancy URLs"
 msgstr "Enderezos URL elegantes"
 
-#: actions/pathsadminpanel.php:252
+#: actions/pathsadminpanel.php:253
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "Quere utilizar os enderezos URL elegantes (mellores de ler e lembrar)?"
 
-#: actions/pathsadminpanel.php:259
+#: actions/pathsadminpanel.php:260
 msgid "Theme"
 msgstr "Tema visual"
 
-#: actions/pathsadminpanel.php:264
-msgid "Theme server"
-msgstr "Servidor de temas visuais"
+#: actions/pathsadminpanel.php:265
+#, fuzzy
+msgid "Server for themes"
+msgstr "Tema visual para o sitio."
 
-#: actions/pathsadminpanel.php:268
-msgid "Theme path"
-msgstr "Ruta do tema visual"
+#: actions/pathsadminpanel.php:269
+msgid "Web path to themes"
+msgstr ""
 
-#: actions/pathsadminpanel.php:272
-msgid "Theme directory"
-msgstr "Directorio de temas visuais"
-
-#: actions/pathsadminpanel.php:279
-msgid "Avatars"
-msgstr "Avatares"
-
-#: actions/pathsadminpanel.php:284
-msgid "Avatar server"
-msgstr "Servidor de avatares"
-
-#: actions/pathsadminpanel.php:288
-msgid "Avatar path"
-msgstr "Ruta do avatar"
-
-#: actions/pathsadminpanel.php:292
-msgid "Avatar directory"
-msgstr "Directorio de avatares"
-
-#: actions/pathsadminpanel.php:301
-msgid "Backgrounds"
-msgstr "Fondos"
-
-#: actions/pathsadminpanel.php:305
-msgid "Background server"
-msgstr "Servidor de fondos"
-
-#: actions/pathsadminpanel.php:309
-msgid "Background path"
-msgstr "Ruta do fondo"
-
-#: actions/pathsadminpanel.php:313
-msgid "Background directory"
-msgstr "Directorio de fondos"
-
-#: actions/pathsadminpanel.php:320
-msgid "SSL"
-msgstr "SSL"
-
-#: actions/pathsadminpanel.php:323 actions/snapshotadminpanel.php:202
-msgid "Never"
-msgstr "Nunca"
-
-#: actions/pathsadminpanel.php:324
-msgid "Sometimes"
-msgstr "Ás veces"
-
-#: actions/pathsadminpanel.php:325
-msgid "Always"
-msgstr "Sempre"
-
-#: actions/pathsadminpanel.php:329
-msgid "Use SSL"
-msgstr "Utilizar SSL"
-
-#: actions/pathsadminpanel.php:330
-msgid "When to use SSL"
-msgstr "Cando utilizar SSL"
-
-#: actions/pathsadminpanel.php:335
+#: actions/pathsadminpanel.php:273 actions/pathsadminpanel.php:322
+#: actions/pathsadminpanel.php:351 actions/pathsadminpanel.php:380
 msgid "SSL server"
 msgstr "Servidor SSL"
 
-#: actions/pathsadminpanel.php:336
+#: actions/pathsadminpanel.php:273
+msgid "SSL server for themes (default: SSL server)"
+msgstr ""
+
+#: actions/pathsadminpanel.php:277 actions/pathsadminpanel.php:326
+#: actions/pathsadminpanel.php:355
+#, fuzzy
+msgid "SSL path"
+msgstr "Ruta do sitio"
+
+#: actions/pathsadminpanel.php:277
+msgid "SSL path to themes (default: /theme/)"
+msgstr ""
+
+#: actions/pathsadminpanel.php:281 actions/pathsadminpanel.php:330
+#: actions/pathsadminpanel.php:359
+#, fuzzy
+msgid "Directory"
+msgstr "Directorio de temas visuais"
+
+#: actions/pathsadminpanel.php:281
+#, fuzzy
+msgid "Directory where themes are located"
+msgstr "Ruta do directorio das traducións"
+
+#: actions/pathsadminpanel.php:288
+msgid "Avatars"
+msgstr "Avatares"
+
+#: actions/pathsadminpanel.php:293
+msgid "Avatar server"
+msgstr "Servidor de avatares"
+
+#: actions/pathsadminpanel.php:297
+msgid "Avatar path"
+msgstr "Ruta do avatar"
+
+#: actions/pathsadminpanel.php:301
+msgid "Avatar directory"
+msgstr "Directorio de avatares"
+
+#: actions/pathsadminpanel.php:310
+msgid "Backgrounds"
+msgstr "Fondos"
+
+#. TRANS: DT element label in attachment list.
+#: actions/pathsadminpanel.php:339 lib/attachmentlist.php:85
+msgid "Attachments"
+msgstr "Ficheiros anexos"
+
+#: actions/pathsadminpanel.php:366
+msgid "SSL"
+msgstr "SSL"
+
+#: actions/pathsadminpanel.php:370 actions/snapshotadminpanel.php:202
+msgid "Never"
+msgstr "Nunca"
+
+#: actions/pathsadminpanel.php:371
+msgid "Sometimes"
+msgstr "Ás veces"
+
+#: actions/pathsadminpanel.php:372
+msgid "Always"
+msgstr "Sempre"
+
+#: actions/pathsadminpanel.php:374
+msgid "Use SSL"
+msgstr "Utilizar SSL"
+
+#: actions/pathsadminpanel.php:375
+msgid "When to use SSL"
+msgstr "Cando utilizar SSL"
+
+#: actions/pathsadminpanel.php:381
 msgid "Server to direct SSL requests to"
 msgstr "Servidor ao que dirixir as solicitudes SSL"
 
-#: actions/pathsadminpanel.php:352
+#: actions/pathsadminpanel.php:397
 msgid "Save paths"
 msgstr "Gardar as rutas"
 
@@ -3819,7 +3943,7 @@ msgstr "Organización"
 msgid "Description"
 msgstr "Descrición"
 
-#: actions/showapplication.php:192 actions/showgroup.php:436
+#: actions/showapplication.php:192 actions/showgroup.php:442
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Estatísticas"
@@ -3963,45 +4087,45 @@ msgstr "Pseudónimos"
 msgid "Group actions"
 msgstr "Accións do grupo"
 
-#: actions/showgroup.php:338
+#: actions/showgroup.php:344
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Fonte de novas das notas do grupo %s (RSS 1.0)"
 
-#: actions/showgroup.php:344
+#: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Fonte de novas das notas do grupo %s (RSS 2.0)"
 
-#: actions/showgroup.php:350
+#: actions/showgroup.php:356
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Fonte de novas das notas do grupo %s (Atom)"
 
-#: actions/showgroup.php:355
+#: actions/showgroup.php:361
 #, php-format
 msgid "FOAF for %s group"
 msgstr "Amigo dun amigo para o grupo %s"
 
-#: actions/showgroup.php:393 actions/showgroup.php:445
+#: actions/showgroup.php:399 actions/showgroup.php:451
 msgid "Members"
 msgstr "Membros"
 
-#: actions/showgroup.php:398 lib/profileaction.php:117
+#: actions/showgroup.php:404 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ningún)"
 
-#: actions/showgroup.php:404
+#: actions/showgroup.php:410
 msgid "All members"
 msgstr "Todos os membros"
 
-#: actions/showgroup.php:439
+#: actions/showgroup.php:445
 msgid "Created"
 msgstr "Creado"
 
-#: actions/showgroup.php:455
+#: actions/showgroup.php:461
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4017,7 +4141,7 @@ msgstr ""
 "[Únase agora](%%%%action.register%%%%) para pasar a formar parte deste grupo "
 "e de moitos máis! ([Máis información](%%%%doc.help%%%%))"
 
-#: actions/showgroup.php:461
+#: actions/showgroup.php:467
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4030,7 +4154,7 @@ msgstr ""
 "baseado na ferramenta de software libre [StatusNet](http://status.net/). Os "
 "seus membros comparten mensaxes curtas sobre as súas vidas e intereses. "
 
-#: actions/showgroup.php:489
+#: actions/showgroup.php:495
 msgid "Admins"
 msgstr "Administradores"
 
@@ -4989,7 +5113,7 @@ msgid "Plugins"
 msgstr "Complementos"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:802
+#: actions/version.php:198 lib/action.php:830
 msgid "Version"
 msgstr "Versión"
 
@@ -5005,9 +5129,9 @@ msgstr "Marcar como favorito"
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
 #: classes/Fave.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s marked notice %2$s as a favorite."
-msgstr "%s (@%s) marcou a súa nota como favorita"
+msgstr "%1$s marcou a nota %2$s como favorita"
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
@@ -5188,9 +5312,9 @@ msgstr "Houbo un problema ao gardar a caixa de entrada do grupo."
 #. TRANS: Server exception thrown when a reply cannot be saved.
 #. TRANS: %1$d is a notice ID, %2$d is the ID of the mentioned user.
 #: classes/Notice.php:1120
-#, fuzzy, php-format
+#, php-format
 msgid "Could not save reply for %1$d, %2$d."
-msgstr "Non se puido gardar a información do grupo local."
+msgstr "Non se puido gardar a resposta a %1$d, %2$d."
 
 #. TRANS: Message used to repeat a notice. RT is the abbreviation of 'retweet'.
 #. TRANS: %1$s is the repeated user's name, %2$s is the repeated notice.
@@ -5226,7 +5350,7 @@ msgid "Unable to save tag."
 msgstr "Non se puido gardar a nota do sitio."
 
 #. TRANS: Exception thrown when trying to subscribe while being banned from subscribing.
-#: classes/Subscription.php:75 lib/oauthstore.php:466
+#: classes/Subscription.php:75 lib/oauthstore.php:482
 msgid "You have been banned from subscribing."
 msgstr "Prohibíuselle realizar subscricións de momento."
 
@@ -5268,9 +5392,9 @@ msgstr "Seguir"
 #. TRANS: Notification given when one person starts following another.
 #. TRANS: %1$s is the subscriber, %2$s is the subscribed.
 #: classes/Subscription.php:258
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s is now following %2$s."
-msgstr "%1$s uniuse ao grupo %2$s."
+msgstr "%1$s xa segue a %2$s."
 
 #. TRANS: Notice given on user registration.
 #. TRANS: %1$s is the sitename, $2$s is the registering user's nickname.
@@ -5346,185 +5470,185 @@ msgid "Untitled page"
 msgstr "Páxina sen título"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:448
+#: lib/action.php:476
 msgid "Primary site navigation"
 msgstr "Navegación principal do sitio"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:454
+#: lib/action.php:482
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Liña do tempo do perfil persoal e os amigos"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:457
+#: lib/action.php:485
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Persoal"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:459
+#: lib/action.php:487
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Cambie o seu correo electrónico, avatar, contrasinal ou perfil"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:464
+#: lib/action.php:492
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "Conectarse aos servizos"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:467
+#: lib/action.php:495
 msgid "Connect"
 msgstr "Conectarse"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:470
+#: lib/action.php:498
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Cambiar a configuración do sitio"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/action.php:473 lib/groupnav.php:117
+#: lib/action.php:501 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Administrador"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:477
+#: lib/action.php:505
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Convide a amigos e compañeiros a unírselle en %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:480
+#: lib/action.php:508
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Convidar"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:486
+#: lib/action.php:514
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Saír ao anonimato"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:489
+#: lib/action.php:517
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Saír"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:494
+#: lib/action.php:522
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Crear unha conta"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:497
+#: lib/action.php:525
 msgctxt "MENU"
 msgid "Register"
 msgstr "Rexistrarse"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:500
+#: lib/action.php:528
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Identificarse no sitio"
 
-#: lib/action.php:503
+#: lib/action.php:531
 msgctxt "MENU"
 msgid "Login"
 msgstr "Identificarse"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:506
+#: lib/action.php:534
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Axuda!"
 
-#: lib/action.php:509
+#: lib/action.php:537
 msgctxt "MENU"
 msgid "Help"
 msgstr "Axuda"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:512
+#: lib/action.php:540
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Buscar persoas ou palabras"
 
-#: lib/action.php:515
+#: lib/action.php:543
 msgctxt "MENU"
 msgid "Search"
 msgstr "Buscar"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:537 lib/adminpanelaction.php:387
+#: lib/action.php:565 lib/adminpanelaction.php:387
 msgid "Site notice"
 msgstr "Nota do sitio"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:604
+#: lib/action.php:632
 msgid "Local views"
 msgstr "Vistas locais"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:674
+#: lib/action.php:702
 msgid "Page notice"
 msgstr "Nota da páxina"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:775
+#: lib/action.php:803
 msgid "Secondary site navigation"
 msgstr "Navegación secundaria do sitio"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:781
+#: lib/action.php:809
 msgid "Help"
 msgstr "Axuda"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:784
+#: lib/action.php:812
 msgid "About"
 msgstr "Acerca de"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:787
+#: lib/action.php:815
 msgid "FAQ"
 msgstr "Preguntas máis frecuentes"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:792
+#: lib/action.php:820
 msgid "TOS"
 msgstr "Condicións do servicio"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:796
+#: lib/action.php:824
 msgid "Privacy"
 msgstr "Protección de datos"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:799
+#: lib/action.php:827
 msgid "Source"
 msgstr "Código fonte"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:805
+#: lib/action.php:833
 msgid "Contact"
 msgstr "Contacto"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:808
+#: lib/action.php:836
 msgid "Badge"
 msgstr "Insignia"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:837
+#: lib/action.php:865
 msgid "StatusNet software license"
 msgstr "Licenza do software StatusNet"
 
@@ -5532,7 +5656,7 @@ msgstr "Licenza do software StatusNet"
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:844
+#: lib/action.php:872
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -5542,7 +5666,7 @@ msgstr ""
 "site.broughtby%%](%%site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:847
+#: lib/action.php:875
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** é un servizo de mensaxes de blogue curtas."
@@ -5551,7 +5675,7 @@ msgstr "**%%site.name%%** é un servizo de mensaxes de blogue curtas."
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:854
+#: lib/action.php:882
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -5563,20 +5687,20 @@ msgstr ""
 "GNU](http://www.fsf.org/licensing/licenses/agpl-3.0.html) (en inglés)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:870
+#: lib/action.php:898
 msgid "Site content license"
 msgstr "Licenza dos contidos do sitio"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:877
+#: lib/action.php:905
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "O contido e os datos de %1$s son privados e confidenciais."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:884
+#: lib/action.php:912
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr ""
@@ -5584,7 +5708,7 @@ msgstr ""
 "todos os dereitos."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:888
+#: lib/action.php:916
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Os contidos e datos son propiedade intelectual dos colaboradores. Quedan "
@@ -5592,26 +5716,26 @@ msgstr ""
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:902
+#: lib/action.php:948
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr ""
 "Todos os contidos e datos de %1$s están dispoñibles baixo a licenza %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1238
+#: lib/action.php:1284
 msgid "Pagination"
 msgstr "Paxinación"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1249
+#: lib/action.php:1295
 msgid "After"
 msgstr "Posteriores"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1259
+#: lib/action.php:1305
 msgid "Before"
 msgstr "Anteriores"
 
@@ -5754,12 +5878,12 @@ msgid "Could not authenticate you."
 msgstr "Non puidemos autenticalo."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:178
+#: lib/apioauthstore.php:184
 msgid "Tried to revoke unknown token."
 msgstr "Intentouse revogar un pase descoñecido."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:183
+#: lib/apioauthstore.php:189
 msgid "Failed to delete revoked token."
 msgstr "Erro ao borrar o pase revogado."
 
@@ -5843,11 +5967,6 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Permisos por defecto para esta aplicación: lectura ou lectura e escritura"
 
-#. TRANS: Submit button title.
-#: lib/applicationeditform.php:353
-msgid "Cancel"
-msgstr "Cancelar"
-
 #. TRANS: Application access type
 #: lib/applicationlist.php:134
 msgid "read-write"
@@ -5873,11 +5992,6 @@ msgstr "Revogar"
 #: lib/atom10feed.php:112
 msgid "author element must contain a name element."
 msgstr "o elemento \"autor\" debe conter un nome."
-
-#. TRANS: DT element label in attachment list.
-#: lib/attachmentlist.php:85
-msgid "Attachments"
-msgstr "Ficheiros anexos"
 
 #. TRANS: DT element label in attachment list item.
 #: lib/attachmentlist.php:256
@@ -6342,14 +6456,14 @@ msgstr "SMS"
 msgid "Updates by SMS"
 msgstr "Actualizacións por SMS"
 
-#. TRANS: Menu item for OAth connection settings.
+#. TRANS: Menu item for OuAth connection settings.
 #: lib/connectsettingsaction.php:120
 #, fuzzy
 msgctxt "MENU"
 msgid "Connections"
 msgstr "Conexións"
 
-#. TRANS: Tooltip for connected applications (Connections through OAth) menu item.
+#. TRANS: Tooltip for connected applications (Connections through OAuth) menu item.
 #: lib/connectsettingsaction.php:122
 msgid "Authorized connected applications"
 msgstr "Aplicacións conectadas autorizadas"
@@ -7151,24 +7265,24 @@ msgstr "Facer un aceno"
 msgid "Send a nudge to this user"
 msgstr "Facerlle un aceno a este usuario"
 
-#: lib/oauthstore.php:283
+#: lib/oauthstore.php:294
 msgid "Error inserting new profile."
 msgstr "Houbo un erro ao inserir o novo perfil."
 
-#: lib/oauthstore.php:291
+#: lib/oauthstore.php:302
 msgid "Error inserting avatar."
 msgstr "Houbo un erro ao inserir o avatar."
 
-#: lib/oauthstore.php:311
+#: lib/oauthstore.php:322
 msgid "Error inserting remote profile."
 msgstr "Houbo un erro ao inserir o perfil remoto."
 
 #. TRANS: Exception thrown when a notice is denied because it has been sent before.
-#: lib/oauthstore.php:346
+#: lib/oauthstore.php:362
 msgid "Duplicate notice."
 msgstr "Nota duplicada."
 
-#: lib/oauthstore.php:491
+#: lib/oauthstore.php:507
 msgid "Couldn't insert new subscription."
 msgstr "Non se puido inserir unha subscrición nova."
 
@@ -7474,9 +7588,9 @@ msgstr "Cancelar a subscrición"
 #. TRANS: Exception text shown when no profile can be found for a user.
 #. TRANS: %1$s is a user nickname, $2$d is a user ID (number).
 #: lib/usernoprofileexception.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "User %1$s (%2$d) has no profile record."
-msgstr "O usuario non ten perfil."
+msgstr "O usuario %1$s (%2$d) non ten perfil."
 
 #: lib/userprofile.php:117
 msgid "Edit Avatar"
@@ -7525,17 +7639,17 @@ msgid "Moderator"
 msgstr "Moderador"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1153
+#: lib/util.php:1163
 msgid "a few seconds ago"
 msgstr "hai uns segundos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1156
+#: lib/util.php:1166
 msgid "about a minute ago"
 msgstr "hai como un minuto"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1160
+#: lib/util.php:1170
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -7543,12 +7657,12 @@ msgstr[0] "hai un minuto"
 msgstr[1] "hai %d minutos"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1163
+#: lib/util.php:1173
 msgid "about an hour ago"
 msgstr "hai como unha hora"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1167
+#: lib/util.php:1177
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -7556,12 +7670,12 @@ msgstr[0] "hai unha hora"
 msgstr[1] "hai %d horas"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1170
+#: lib/util.php:1180
 msgid "about a day ago"
 msgstr "hai como un día"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1174
+#: lib/util.php:1184
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -7569,12 +7683,12 @@ msgstr[0] "hai un día"
 msgstr[1] "hai %d días"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1177
+#: lib/util.php:1187
 msgid "about a month ago"
 msgstr "hai como un mes"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1181
+#: lib/util.php:1191
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -7582,7 +7696,7 @@ msgstr[0] "hai un mes"
 msgstr[1] "hai %d meses"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1184
+#: lib/util.php:1194
 msgid "about a year ago"
 msgstr "hai como un ano"
 
@@ -7609,3 +7723,29 @@ msgstr "Non se especificou ningún usuario; emprégase o usuario de reserva."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d entradas na reserva."
+
+#~ msgid ""
+#~ "The request token %s has been authorized. Please exchange it for an "
+#~ "access token."
+#~ msgstr "Autorizouse a ficha da solicitude %s. Intercámbiea por un pase."
+
+#~ msgid "Deny"
+#~ msgstr "Denegar"
+
+#~ msgid "Path to locales"
+#~ msgstr "Ruta das traducións"
+
+#~ msgid "Theme server"
+#~ msgstr "Servidor de temas visuais"
+
+#~ msgid "Theme path"
+#~ msgstr "Ruta do tema visual"
+
+#~ msgid "Background server"
+#~ msgstr "Servidor de fondos"
+
+#~ msgid "Background path"
+#~ msgstr "Ruta do fondo"
+
+#~ msgid "Background directory"
+#~ msgstr "Directorio de fondos"
