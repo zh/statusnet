@@ -875,7 +875,8 @@ function common_linkify($url) {
             $longurl = $url;
         }
     }
-    $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
+
+    $attrs = array('href' => $canon, 'title' => $longurl);
 
     $is_attachment = false;
     $attachment_id = null;
@@ -909,6 +910,16 @@ function common_linkify($url) {
             $attrs['class'] = 'attachment thumbnail';
         }
         $attrs['id'] = "attachment-{$attachment_id}";
+    }
+
+    // Whether to nofollow
+
+    $nf = common_config('nofollow', 'external');
+
+    if ($nf == 'never') {
+        $attrs['rel'] = 'external';
+    } else {
+        $attrs['rel'] = 'nofollow external';
     }
 
     return XMLStringer::estring('a', $attrs, $url);

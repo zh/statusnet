@@ -319,7 +319,8 @@ $default =
         'nofollow' =>
         array('subscribers' => true,
               'members' => true,
-              'peopletag' => true),
+              'peopletag' => true,
+              'external' => 'sometimes'), // Options: 'sometimes', 'never', default = 'sometimes'
         'url' =>
         array('shortener' => 'ur1.ca',
               'maxlength' => 25,
