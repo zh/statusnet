@@ -269,7 +269,7 @@ class ProfileNoticeList extends NoticeList
     }
 }
 
-class ProfileNoticeListItem extends NoticeListItem
+class ProfileNoticeListItem extends DoFollowListItem
 {
     function showAuthor()
     {

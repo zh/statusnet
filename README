@@ -683,8 +683,9 @@ instructions; read to the end first before trying them.
 6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
 7. Unpack your StatusNet 0.9.5 tarball and move it to "statusnet" or
    wherever your code used to be.
-8. Copy the config.php file and avatar directory from your old
-   directory to your new directory.
+8. Copy the config.php file and the contents of the avatar/, background/,
+   file/, and local/ subdirectories from your old directory to your new
+   directory.
 9. Copy htaccess.sample to .htaccess in the new directory. Change the
    RewriteBase to use the correct path.
 10. Rebuild the database. (You can safely skip this step and go to #12
@@ -1498,6 +1499,33 @@ crawldelay: if non-empty, this value is provided as the Crawl-Delay:
 disallow: Array of (virtual) directories to disallow. Default is 'main',
     'search', 'message', 'settings', 'admin'. Ignored when site
     is private, in which case the entire site ('/') is disallowed.
+
+api
+---
+
+Options for the Twitter-like API.
+
+realm: HTTP Basic Auth realm (see http://tools.ietf.org/html/rfc2617
+    for details). Some third-party tools like ping.fm want this to be
+    'Identi.ca API', so set it to that if you want to. default = null,
+    meaning 'something based on the site name'.
+
+nofollow
+--------
+
+We optionally put 'rel="nofollow"' on some links in some pages. The
+following configuration settings let you fine-tune how or when things
+are nofollowed. See http://en.wikipedia.org/wiki/Nofollow for more
+information on what 'nofollow' means.
+
+subscribers: whether to nofollow links to subscribers on the profile
+    and personal pages. Default is true.
+members: links to members on the group page. Default true.
+peopletag: links to people listed in the peopletag page. Default true.
+external: external links in notices. One of three values: 'sometimes',
+    'always', 'never'. If 'sometimes', then external links are not
+    nofollowed on profile, notice, and favorites page. Default is
+    'sometimes'.
 
 url
 ---
