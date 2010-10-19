@@ -83,11 +83,14 @@ class PgsqlSchema extends Schema
             $field = array();
 
             // ??
+            /*
             list($type, $size) = $this->reverseMapType($row['udt_name']);
             $field['type'] = $type;
             if ($size !== null) {
                 $field['size'] = $size;
             }
+             */
+            $field['type'] = $row['udt_name'];
 
             if ($type == 'char' || $type == 'varchar') {
                 if ($row['character_maximum_length'] !== null) {
@@ -365,7 +368,7 @@ class PgsqlSchema extends Schema
 
         if (!empty($column['size'])) {
             $size = $column['size'];
-            if ($type == 'integer' &&
+            if ($type == 'int' &&
                        in_array($size, array('small', 'big'))) {
                 $type = $size . 'int';
             }
