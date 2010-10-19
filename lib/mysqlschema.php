@@ -400,8 +400,9 @@ class MysqlSchema extends Schema
             $col['type'] = $this->mapType($col);
             unset($col['size']);
         }
-        // @fixme add foreign-key support for MySQL
-        unset($tableDef['foreign keys']);
+        if (!common_config('db', 'mysql_foreign_keys')) {
+            unset($tableDef['foreign keys']);
+        }
         return $tableDef;
     }
 }
