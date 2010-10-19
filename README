@@ -2,8 +2,8 @@
 README
 ------
 
-StatusNet 0.9.5 "What's The Frequency, Kenneth?"
-10 September 2010
+StatusNet 0.9.6 "Man on the Moon"
+19 October 2010
 
 This is the README file for StatusNet, the Open Source microblogging
 platform. It includes installation instructions, descriptions of
@@ -96,8 +96,8 @@ for additional terms.
 New this version
 ================
 
-This is a security, bug and feature release since version 0.9.4 released on
-16 August 2010.
+This is a security, bug and feature release since version 0.9.5 released on
+10 September 2010.
 
 For best compatibility with client software and site federation, and a lot of
 bug fixes, it is highly recommended that all public sites upgrade to the new
@@ -105,24 +105,24 @@ version.
 
 Notable changes this version:
 
-- Change of license for default themes and documentation from
-  AGPLv3 to CC-By 3.0 Unported.
-- An experimental TinyMCE plugin to do in-browser rich editing of
-  status updates. Does not support StatusNet syntax like @-replies or
-  #hashtags very well.
-- An experimental plugin to add titles to notices.
-- A plugin to support the Echo <http://aboutecho.com/> commenting
-  system.
-- A plugin to support the Disqus <http://disqus.com/> commenting system.
-- Changes to OStatus support to make StatusNet work for the Social Web
-  Acid Test Level 0 <http://federatedsocialweb.net/wiki/SWAT0>.
-- Themes now support a theme.ini file for theme configuration, including
-  defining a "base" theme.
-- Improved two-way Twitter integration, including support for
-  repeats and retweets, replies, and faves going both ways across the
-  bridge, as well as better parsing of Twitter statuses.
+- Site moderators can now delete groups.
+- New themes: clean, shiny, mnml, victorian
+- New YammerImport plugin allows site admins to import non-private profiles and
+  message from an authenticated Yammer site.
+- New experimental plugins: AnonFavorites, SlicedFavorites, GroupFavorited,
+  ForceGroup, ShareNotice
+- OAuth upgraded to 1.0a
+- Localization updates now include plugins, thanks to translatewiki.net!
+- SSL link generation should be more consistent; alternate SSL URLs can be
+  set in the admin UI for more parts of the system.
+- Experimental backupuser.php, restoreuser.php command-line scripts to
+  dump/restore a user's complete activity stream. Can be used to transfer
+  accounts manually between sites, or to save a backup before deleting.
+- Unicode fixes for OStatus notices
+- Header metadata on notice pages to aid in manual reposting on Facebook
+- Lots of little fixes...
 
-A full changelog is available at http://status.net/wiki/StatusNet_0.9.5.
+A full changelog is available at http://status.net/wiki/StatusNet_0.9.6.
 
 Prerequisites
 =============
@@ -235,9 +235,9 @@ especially if you've previously installed PHP/MySQL packages.
 1. Unpack the tarball you downloaded on your Web server. Usually a
    command like this will work:
 
-       tar zxf statusnet-0.9.5.tar.gz
+       tar zxf statusnet-0.9.6.tar.gz
 
-   ...which will make a statusnet-0.9.5 subdirectory in your current
+   ...which will make a statusnet-0.9.6 subdirectory in your current
    directory. (If you don't have shell access on your Web server, you
    may have to unpack the tarball on your local computer and FTP the
    files to the server.)
@@ -245,7 +245,7 @@ especially if you've previously installed PHP/MySQL packages.
 2. Move the tarball to a directory of your choosing in your Web root
    directory. Usually something like this will work:
 
-       mv statusnet-0.9.5 /var/www/statusnet
+       mv statusnet-0.9.6 /var/www/statusnet
 
    This will make your StatusNet instance available in the statusnet path of
    your server, like "http://example.net/statusnet". "microblog" or
@@ -604,7 +604,7 @@ subdirectory to add a new language to your system. You'll need to
 compile the ".po" files into ".mo" files, however.
 
 Contributions of translation information to StatusNet are very easy:
-you can use the Web interface at TranslateWiki.net to add one
+you can use the Web interface at translatewiki.net to add one
 or a few or lots of new translations -- or even new languages. You can
 also download more up-to-date .po files there, if you so desire.
 
@@ -660,7 +660,7 @@ with this situation.
 If you've been using StatusNet 0.7, 0.6, 0.5 or lower, or if you've
 been tracking the "git" version of the software, you will probably
 want to upgrade and keep your existing data. There is no automated
-upgrade procedure in StatusNet 0.9.5. Try these step-by-step
+upgrade procedure in StatusNet 0.9.6. Try these step-by-step
 instructions; read to the end first before trying them.
 
 0. Download StatusNet and set up all the prerequisites as if you were
@@ -681,7 +681,7 @@ instructions; read to the end first before trying them.
 5. Once all writing processes to your site are turned off, make a
    final backup of the Web directory and database.
 6. Move your StatusNet directory to a backup spot, like "statusnet.bak".
-7. Unpack your StatusNet 0.9.5 tarball and move it to "statusnet" or
+7. Unpack your StatusNet 0.9.6 tarball and move it to "statusnet" or
    wherever your code used to be.
 8. Copy the config.php file and the contents of the avatar/, background/,
    file/, and local/ subdirectories from your old directory to your new
@@ -1586,7 +1586,7 @@ repository (see below), and you get a compilation error ("unexpected
 T_STRING") in the browser, check to see that you don't have any
 conflicts in your code.
 
-If you upgraded to StatusNet 0.9.5 without reading the "Notice
+If you upgraded to StatusNet 0.9.x without reading the "Notice
 inboxes" section above, and all your users' 'Personal' tabs are empty,
 read the "Notice inboxes" section above.
 
@@ -1697,6 +1697,10 @@ if anyone's been overlooked in error.
 * mEDI
 * Brett Taylor
 * Brigitte Schuster
+* Siebrand Mazeland and the amazing volunteer translators at translatewiki.net
+* Brion Vibber, StatusNet, Inc.
+* James Walker, StatusNet, Inc.
+* Samantha Doherty, designer, StatusNet, Inc.
 
 Thanks also to the developers of our upstream library code and to the
 thousands of people who have tried out Identi.ca, installed StatusNet,
