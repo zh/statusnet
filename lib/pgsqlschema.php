@@ -409,7 +409,33 @@ class PgsqlSchema extends Schema
             $col['type'] = $this->mapType($col);
             unset($col['size']);
         }
+        if (!empty($tableDef['primary key'])) {
+            $tableDef['primary key'] = $this->filterKeyDef($tableDef['primary key']);
+        }
+        if (!empty($tableDef['unique keys'])) {
+            foreach ($tableDef['unique keys'] as $i => $def) {
+                $tableDef['unique keys'][$i] = $this->filterKeyDef($def);
+            }
+        }
         return $tableDef;
     }
 
+    /**
+     * Filter the given key/index definition to match features available
+     * in this database.
+     *
+     * @param array $def
+     * @return array
+     */
+    function filterKeyDef(array $def)
+    {
+        // PostgreSQL doesn't like prefix lengths specified on keys...?
+        foreach ($def as $i => $item)
+        {
+            if (is_array($item)) {
+                $def[$i] = $item[0];
+            }
+        }
+        return $def;
+    }
 }
