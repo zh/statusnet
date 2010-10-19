@@ -335,6 +335,20 @@ class PgsqlSchema extends Schema
     }
 
     /**
+     * Append an SQL statement to drop an index from a table.
+     * Note that in PostgreSQL, index names are DB-unique.
+     *
+     * @param array $statements
+     * @param string $table
+     * @param string $name
+     * @param array $def
+     */
+    function appendDropIndex(array &$statements, $table, $name)
+    {
+        $statements[] = "DROP INDEX $name";
+    }
+
+    /**
      * Quote a db/table/column identifier if necessary.
      *
      * @param string $name
