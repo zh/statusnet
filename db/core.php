@@ -511,8 +511,8 @@ $schema['foreign_link'] = array(
 $schema['foreign_subscription'] = array(
     'fields' => array(
         'service' => array('type' => 'int', 'not null' => true, 'description' => 'service where relationship happens'),
-        'subscriber' => array('type' => 'int', 'not null' => true, 'description' => 'subscriber on foreign service'),
-        'subscribed' => array('type' => 'int', 'not null' => true, 'description' => 'subscribed user'),
+        'subscriber' => array('type' => 'int', 'size' => 'big', 'not null' => true, 'description' => 'subscriber on foreign service'),
+        'subscribed' => array('type' => 'int', 'size' => 'big', 'not null' => true, 'description' => 'subscribed user'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
     ),
     'primary key' => array('service', 'subscriber', 'subscribed'),

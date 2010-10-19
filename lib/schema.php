@@ -149,7 +149,7 @@ class Schema
             $this->appendColumnDef($sql, $col, $colDef);
         }
 
-        // Primary and unique keys are constraints, so go within
+        // Primary, unique, and foreign keys are constraints, so go within
         // the CREATE TABLE statement normally.
         if (!empty($def['primary key'])) {
             $this->appendPrimaryKeyDef($sql, $def['primary key']);
@@ -158,6 +158,12 @@ class Schema
         if (!empty($def['unique keys'])) {
             foreach ($def['unique keys'] as $col => $colDef) {
                 $this->appendUniqueKeyDef($sql, $col, $colDef);
+            }
+        }
+
+        if (!empty($def['foreign keys'])) {
+            foreach ($def['foreign keys'] as $keyName => $keyDef) {
+                $this->appendForeignKeyDef($sql, $keyName, $keyDef);
             }
         }
 
@@ -225,7 +231,7 @@ class Schema
     }
 
     /**
-     * Append an SQL fragment with a constraint definition for a primary
+     * Append an SQL fragment with a constraint definition for a unique
      * key in a CREATE TABLE statement.
      *
      * @param array $sql
@@ -235,6 +241,27 @@ class Schema
     function appendUniqueKeyDef(array &$sql, $name, array $def)
     {
         $sql[] = "CONSTRAINT $name UNIQUE " . $this->buildIndexList($def);
+    }
+
+    /**
+     * Append an SQL fragment with a constraint definition for a foreign
+     * key in a CREATE TABLE statement.
+     *
+     * @param array $sql
+     * @param string $name
+     * @param array $def
+     */
+    function appendForeignKeyDef(array &$sql, $name, array $def)
+    {
+        list($refTable, $map) = $def;
+        $srcCols = array_keys($map);
+        $refCols = array_values($map);
+        $sql[] = "CONSTRAINT $name FOREIGN KEY " .
+                 $this->buildIndexList($srcCols) .
+                 " REFERENCES " .
+                 $this->quoteIdentifier($refTable) .
+                 " " .
+                 $this->buildIndexList($refCols);
     }
 
     /**
@@ -249,6 +276,19 @@ class Schema
     function appendCreateIndex(array &$statements, $table, $name, array $def)
     {
         $statements[] = "CREATE INDEX $name ON $table " . $this->buildIndexList($def);
+    }
+
+    /**
+     * Append an SQL statement to drop an index from a table.
+     *
+     * @param array $statements
+     * @param string $table
+     * @param string $name
+     * @param array $def
+     */
+    function appendDropIndex(array &$statements, $table, $name)
+    {
+        $statements[] = "DROP INDEX $name ON " . $this->quoteIdentifier($table);
     }
 
     function buildIndexList(array $def)
@@ -485,18 +525,29 @@ class Schema
             return $this->buildCreateTable($tableName, $def);
         }
 
-        //$old = $this->filterDef($old);
+        // Filter the DB-independent table definition to match the current
+        // database engine's features and limitations.
         $def = $this->filterDef($def);
 
-        // @fixme check if not present
+        $statements = array();
         $fields = $this->diffArrays($old, $def, 'fields', array($this, 'columnsEqual'));
         $uniques = $this->diffArrays($old, $def, 'unique keys');
         $indexes = $this->diffArrays($old, $def, 'indexes');
+        $foreign = $this->diffArrays($old, $def, 'foreign keys');
+
+        // Drop any obsolete or modified indexes ahead...
+        foreach ($indexes['del'] + $indexes['mod'] as $indexName) {
+            $this->appendDropIndex($statements, $tableName, $indexName);
+        }
 
         // For efficiency, we want this all in one
         // query, instead of using our methods.
 
         $phrase = array();
+
+        foreach ($foreign['del'] + $foreign['mod'] as $keyName) {
+            $this->appendAlterDropForeign($phrase, $keyName);
+        }
 
         foreach ($uniques['del'] + $uniques['mod'] as $keyName) {
             $this->appendAlterDropUnique($phrase, $keyName);
@@ -521,16 +572,23 @@ class Schema
             $this->appendAlterAddUnique($phrase, $keyName, $def['unique keys'][$keyName]);
         }
 
-        $this->appendAlterExtras($phrase, $tableName);
-
-        if (count($phrase) == 0) {
-            // nothing to do
-            return array();
+        foreach ($foreign['mod'] + $foreign['add'] as $keyName) {
+            $this->appendAlterAddForeign($phrase, $keyName, $def['foreign keys'][$keyName]);
         }
 
-        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(",\n", $phrase);
+        $this->appendAlterExtras($phrase, $tableName);
 
-        return array($sql);
+        if (count($phrase) > 0) {
+            $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(",\n", $phrase);
+            $statements[] = $sql;
+        }
+
+        // Now create any indexes...
+        foreach ($indexes['mod'] + $indexes['add'] as $indexName) {
+            $this->appendCreateIndex($statements, $tableName, $indexName, $def['indexes'][$indexName]);
+        }
+
+        return $statements;
     }
 
     function diffArrays($oldDef, $newDef, $section, $compareCallback=null)
@@ -621,9 +679,22 @@ class Schema
         $phrase[] = implode(' ', $sql);
     }
 
+    function appendAlterAddForeign(array &$phrase, $keyName, array $def)
+    {
+        $sql = array();
+        $sql[] = 'ADD';
+        $this->appendForeignKeyDef($sql, $keyName, $def);
+        $phrase[] = implode(' ', $sql);
+    }
+
     function appendAlterDropUnique(array &$phrase, $keyName)
     {
         $phrase[] = 'DROP CONSTRAINT ' . $keyName;
+    }
+
+    function appendAlterDropForeign(array &$phrase, $keyName)
+    {
+        $phrase[] = 'DROP FOREIGN KEY ' . $keyName;
     }
 
     function appendAlterExtras(array &$phrase, $tableName)
