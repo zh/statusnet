@@ -146,7 +146,7 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
     function verifyCallback($callback)
     {
         if ($callback == "oob") {
-            common_debug("OAuth request token requested for out of bounds client.");
+            common_debug("OAuth request token requested for out of band client.");
 
             // XXX: Should we throw an error if a client is registered as a
             // web application but requests the pin based workflow? For now I'm
