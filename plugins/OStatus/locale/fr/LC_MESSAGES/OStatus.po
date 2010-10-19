@@ -1,6 +1,7 @@
 # Translation of StatusNet - OStatus to French (Français)
 # Expored from translatewiki.net
 #
+# Author: Peter17
 # Author: Verdy p
 # --
 # This file is distributed under the same license as the StatusNet package.
@@ -9,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:39+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:43:41+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-62-55 00::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:36:36+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -23,80 +24,94 @@ msgstr ""
 
 #. TRANS: Link description for link to subscribe to a remote user.
 #. TRANS: Link text for a user to subscribe to an OStatus user.
-#: OStatusPlugin.php:227 OStatusPlugin.php:937
+#: OStatusPlugin.php:229 OStatusPlugin.php:939
 msgid "Subscribe"
 msgstr "S'abonner"
 
 #. TRANS: Link description for link to join a remote group.
-#: OStatusPlugin.php:246 OStatusPlugin.php:655 actions/ostatussub.php:107
+#: OStatusPlugin.php:248 OStatusPlugin.php:657 actions/ostatussub.php:109
 msgid "Join"
 msgstr "Rejoindre"
 
 #. TRANSLATE: %s is a domain.
-#: OStatusPlugin.php:459
+#: OStatusPlugin.php:461
 #, php-format
 msgid "Sent from %s via OStatus"
 msgstr "Envoyé depuis %s via OStatus"
 
 #. TRANS: Exception.
-#: OStatusPlugin.php:531
+#: OStatusPlugin.php:533
 msgid "Could not set up remote subscription."
 msgstr "Impossible de mettre en place l’abonnement distant."
 
-#: OStatusPlugin.php:605
+#: OStatusPlugin.php:607
 msgid "Unfollow"
 msgstr "Ne plus suivre"
 
 #. TRANS: Success message for unsubscribe from user attempt through OStatus.
 #. TRANS: %1$s is the unsubscriber's name, %2$s is the unsubscribed user's name.
-#: OStatusPlugin.php:608
+#: OStatusPlugin.php:610
 #, php-format
 msgid "%1$s stopped following %2$s."
 msgstr "%1$s a cessé de suivre %2$s."
 
-#: OStatusPlugin.php:636
+#: OStatusPlugin.php:638
 msgid "Could not set up remote group membership."
 msgstr "Impossible de mettre en place l’appartenance au groupe distant."
 
+#. TRANS: Success message for subscribe to group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
+#: OStatusPlugin.php:660
+#, php-format
+msgid "%1$s has joined group %2$s."
+msgstr "%1$s a rejoint le groupe %2$s."
+
 #. TRANS: Exception.
-#: OStatusPlugin.php:667
+#: OStatusPlugin.php:669
 msgid "Failed joining remote group."
 msgstr "Échec lors de l’adhésion au groupe distant."
 
-#: OStatusPlugin.php:707
+#: OStatusPlugin.php:709
 msgid "Leave"
 msgstr "Sortir"
 
-#: OStatusPlugin.php:785
+#. TRANS: Success message for unsubscribe from group attempt through OStatus.
+#. TRANS: %1$s is the member name, %2$s is the unsubscribed group's name.
+#: OStatusPlugin.php:712
+#, php-format
+msgid "%1$s has left group %2$s."
+msgstr "%1$s a quitté le groupe %2$s."
+
+#: OStatusPlugin.php:787
 msgid "Disfavor"
 msgstr "Retirer des favoris"
 
 #. TRANS: Success message for remove a favorite notice through OStatus.
 #. TRANS: %1$s is the unfavoring user's name, %2$s is URI to the no longer favored notice.
-#: OStatusPlugin.php:788
+#: OStatusPlugin.php:790
 #, php-format
 msgid "%1$s marked notice %2$s as no longer a favorite."
 msgstr "%1$s a retiré l’avis %2$s de ses favoris."
 
 #. TRANS: Link text for link to remote subscribe.
-#: OStatusPlugin.php:864
+#: OStatusPlugin.php:866
 msgid "Remote"
 msgstr "À distance"
 
 #. TRANS: Title for activity.
-#: OStatusPlugin.php:904
+#: OStatusPlugin.php:906
 msgid "Profile update"
 msgstr "Mise à jour du profil"
 
 #. TRANS: Ping text for remote profile update through OStatus.
 #. TRANS: %s is user that updated their profile.
-#: OStatusPlugin.php:907
+#: OStatusPlugin.php:909
 #, php-format
 msgid "%s has updated their profile page."
 msgstr "%s a mis à jour sa page de profil."
 
 #. TRANS: Plugin description.
-#: OStatusPlugin.php:952
+#: OStatusPlugin.php:954
 msgid ""
 "Follow people across social networks that implement <a href=\"http://ostatus."
 "org/\">OStatus</a>."
@@ -104,20 +119,20 @@ msgstr ""
 "Suivez les personnes à travers les réseaux sociaux mettant en œuvre <a href="
 "\"http://ostatus.org/\">OStatus</a> ."
 
-#: classes/FeedSub.php:248
+#: classes/FeedSub.php:252
 msgid "Attempting to start PuSH subscription for feed with no hub."
 msgstr ""
 "Tente de démarrer l’inscription PuSH à un flux d’information sans "
 "concentrateur."
 
-#: classes/FeedSub.php:278
+#: classes/FeedSub.php:282
 msgid "Attempting to end PuSH subscription for feed with no hub."
 msgstr ""
 "Tente d’arrêter l’inscription PuSH à un flux d’information sans "
 "concentrateur."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:188
+#: classes/Ostatus_profile.php:192
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs set for %s."
 msgstr ""
@@ -125,7 +140,7 @@ msgstr ""
 "profil définis pour « %s »."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:191
+#: classes/Ostatus_profile.php:195
 #, php-format
 msgid "Invalid ostatus_profile state: both group and profile IDs empty for %s."
 msgstr ""
@@ -134,13 +149,13 @@ msgstr ""
 
 #. TRANS: Server exception.
 #. TRANS: %1$s is the method name the exception occured in, %2$s is the actor type.
-#: classes/Ostatus_profile.php:281
+#: classes/Ostatus_profile.php:285
 #, php-format
 msgid "Invalid actor passed to %1$s: %2$s."
 msgstr "Type d’acteur invalide passé à la méthode « %1$s » : « %2$s »."
 
 #. TRANS: Server exception.
-#: classes/Ostatus_profile.php:374
+#: classes/Ostatus_profile.php:378
 msgid ""
 "Invalid type passed to Ostatus_profile::notify. It must be XML string or "
 "Activity entry."
@@ -148,117 +163,117 @@ msgstr ""
 "Type invalide passé à la méthode « Ostatus_profile::notify ». Ce doit être "
 "une chaîne XML ou une entrée « Activity »."
 
-#: classes/Ostatus_profile.php:404
+#: classes/Ostatus_profile.php:408
 msgid "Unknown feed format."
 msgstr "Format de flux d’information inconnu."
 
-#: classes/Ostatus_profile.php:427
+#: classes/Ostatus_profile.php:431
 msgid "RSS feed without a channel."
 msgstr "Flux RSS sans canal."
 
 #. TRANS: Client exception.
-#: classes/Ostatus_profile.php:472
+#: classes/Ostatus_profile.php:476
 msgid "Can't handle that kind of post."
 msgstr "Impossible de gérer cette sorte de publication."
 
 #. TRANS: Client exception. %s is a source URL.
-#: classes/Ostatus_profile.php:555
+#: classes/Ostatus_profile.php:559
 #, php-format
 msgid "No content for notice %s."
 msgstr "Aucun contenu dans l’avis « %s »."
 
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present.
-#: classes/Ostatus_profile.php:588
+#: classes/Ostatus_profile.php:592
 msgid "Show more"
 msgstr "Voir davantage"
 
 #. TRANS: Exception. %s is a profile URL.
-#: classes/Ostatus_profile.php:781
+#: classes/Ostatus_profile.php:785
 #, php-format
 msgid "Could not reach profile page %s."
 msgstr "Impossible d’atteindre la page de profil « %s »."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:839
+#: classes/Ostatus_profile.php:843
 #, php-format
 msgid "Could not find a feed URL for profile page %s."
 msgstr ""
 "Impossible de trouver une adresse URL de flux d’information pour la page de "
 "profil « %s »."
 
-#: classes/Ostatus_profile.php:976
+#: classes/Ostatus_profile.php:980
 msgid "Can't find enough profile information to make a feed."
 msgstr ""
 "Impossible de trouver assez d’informations de profil pour créer un flux "
 "d’information."
 
-#: classes/Ostatus_profile.php:1035
+#: classes/Ostatus_profile.php:1039
 #, php-format
 msgid "Invalid avatar URL %s."
 msgstr "Adresse URL d’avatar « %s » invalide."
 
-#: classes/Ostatus_profile.php:1045
+#: classes/Ostatus_profile.php:1049
 #, php-format
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 "Tente de mettre à jour l’avatar associé au profil distant non sauvegardé « %s "
 "»."
 
-#: classes/Ostatus_profile.php:1053
+#: classes/Ostatus_profile.php:1058
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Impossible de récupérer l’avatar depuis « %s »."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1275
+#: classes/Ostatus_profile.php:1284
 msgid "Local user can't be referenced as remote."
 msgstr "L’utilisateur local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1280
+#: classes/Ostatus_profile.php:1289
 msgid "Local group can't be referenced as remote."
 msgstr "Le groupe local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1332 classes/Ostatus_profile.php:1343
+#: classes/Ostatus_profile.php:1341 classes/Ostatus_profile.php:1352
 msgid "Can't save local profile."
 msgstr "Impossible de sauvegarder le profil local."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1351
+#: classes/Ostatus_profile.php:1360
 msgid "Can't save OStatus profile."
 msgstr "Impossible de sauvegarder le profil OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1610 classes/Ostatus_profile.php:1638
+#: classes/Ostatus_profile.php:1619 classes/Ostatus_profile.php:1647
 msgid "Not a valid webfinger address."
 msgstr "Ce n’est pas une adresse « webfinger » valide."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1720
+#: classes/Ostatus_profile.php:1729
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Impossible de sauvegarder le profil pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1739
+#: classes/Ostatus_profile.php:1748
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Impossible d’enregistrer le profil OStatus pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1747
+#: classes/Ostatus_profile.php:1756
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Impossible de trouver un profil valide pour « %s »."
 
-#: classes/Ostatus_profile.php:1789
+#: classes/Ostatus_profile.php:1798
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Impossible de stocker le contenu HTML d’une longue publication en un fichier."
 
 #. TRANS: Client exception. %s is a HTTP status code.
-#: classes/HubSub.php:208
+#: classes/HubSub.php:212
 #, php-format
 msgid "Hub subscriber verification returned HTTP %s."
 msgstr ""
@@ -266,7 +281,7 @@ msgstr ""
 "»."
 
 #. TRANS: Exception. %1$s is a response status code, %2$s is the body of the response.
-#: classes/HubSub.php:355
+#: classes/HubSub.php:359
 #, php-format
 msgid "Callback returned status: %1$s. Body: %2$s"
 msgstr "La routine de rappel a retourné le statut « %1$s ». Corps : %2$s"
@@ -372,18 +387,18 @@ msgid "Feeds"
 msgstr "Flux d’informations"
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:66
+#: actions/pushhub.php:70
 msgid "Publishing outside feeds not supported."
 msgstr "La publication des flux externes n’est pas supportée."
 
 #. TRANS: Client exception. %s is a mode.
-#: actions/pushhub.php:69
+#: actions/pushhub.php:73
 #, php-format
 msgid "Unrecognized mode \"%s\"."
 msgstr "Mode « %s » non reconnu."
 
 #. TRANS: Client exception. %s is a topic.
-#: actions/pushhub.php:89
+#: actions/pushhub.php:93
 #, php-format
 msgid ""
 "Unsupported hub.topic %s this hub only serves local user and group Atom "
@@ -393,7 +408,7 @@ msgstr ""
 "que les flux Atom d’utilisateurs et groupes locaux."
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:95
+#: actions/pushhub.php:99
 #, php-format
 msgid "Invalid hub.verify \"%s\". It must be sync or async."
 msgstr ""
@@ -401,7 +416,7 @@ msgstr ""
 "« async »."
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:101
+#: actions/pushhub.php:105
 #, php-format
 msgid "Invalid hub.lease \"%s\". It must be empty or positive integer."
 msgstr ""
@@ -409,7 +424,7 @@ msgstr ""
 "positif."
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:109
+#: actions/pushhub.php:113
 #, php-format
 msgid "Invalid hub.secret \"%s\". It must be under 200 bytes."
 msgstr ""
@@ -417,26 +432,26 @@ msgstr ""
 "octets."
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:161
+#: actions/pushhub.php:165
 #, php-format
 msgid "Invalid hub.topic \"%s\". User doesn't exist."
 msgstr ""
 "Le sujet de concentrateur « %s » est invalide. L’utilisateur n’existe pas."
 
 #. TRANS: Client exception.
-#: actions/pushhub.php:170
+#: actions/pushhub.php:174
 #, php-format
 msgid "Invalid hub.topic \"%s\". Group doesn't exist."
 msgstr "Le sujet de concentrateur « %s » est invalide. Le groupe n’existe pas."
 
 #. TRANS: Client exception.
 #. TRANS: %1$s is this argument to the method this exception occurs in, %2$s is a URL.
-#: actions/pushhub.php:195
+#: actions/pushhub.php:199
 #, php-format
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "URL invalide passée à la méthode « %1$s » : « %2$s »"
 
-#: actions/userxrd.php:49 actions/ownerxrd.php:37 actions/usersalmon.php:43
+#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Utilisateur inexistant."
 
@@ -486,49 +501,49 @@ msgid "Notice with ID %1$s not posted by %2$s."
 msgstr "Avis d’identifiant « %1$s » non publié par %2$s."
 
 #. TRANS: Field label.
-#: actions/ostatusgroup.php:76
+#: actions/ostatusgroup.php:78
 msgid "Join group"
 msgstr "Rejoindre le groupe"
 
 #. TRANS: Tooltip for field label "Join group".
-#: actions/ostatusgroup.php:79
+#: actions/ostatusgroup.php:81
 msgid "OStatus group's address, like http://example.net/group/nickname."
 msgstr ""
 "Une adresse de groupe OStatus telle que « http://example.net/group/pseudonyme "
 "»."
 
 #. TRANS: Button text.
-#: actions/ostatusgroup.php:84 actions/ostatussub.php:73
+#: actions/ostatusgroup.php:86 actions/ostatussub.php:75
 msgctxt "BUTTON"
 msgid "Continue"
 msgstr "Continuer"
 
-#: actions/ostatusgroup.php:103
+#: actions/ostatusgroup.php:105
 msgid "You are already a member of this group."
 msgstr "Vous êtes déjà membre de ce groupe."
 
 #. TRANS: OStatus remote group subscription dialog error.
-#: actions/ostatusgroup.php:138
+#: actions/ostatusgroup.php:140
 msgid "Already a member!"
 msgstr "Déjà membre !"
 
 #. TRANS: OStatus remote group subscription dialog error.
-#: actions/ostatusgroup.php:149
+#: actions/ostatusgroup.php:151
 msgid "Remote group join failed!"
 msgstr "L’adhésion au groupe distant a échoué !"
 
 #. TRANS: OStatus remote group subscription dialog error.
-#: actions/ostatusgroup.php:153
+#: actions/ostatusgroup.php:155
 msgid "Remote group join aborted!"
 msgstr "L’adhésion au groupe distant a été avortée !"
 
 #. TRANS: Page title for OStatus remote group join form
-#: actions/ostatusgroup.php:165
+#: actions/ostatusgroup.php:167
 msgid "Confirm joining remote group"
 msgstr "Confirmer l’adhésion au groupe distant"
 
 #. TRANS: Instructions.
-#: actions/ostatusgroup.php:176
+#: actions/ostatusgroup.php:178
 msgid ""
 "You can subscribe to groups from other supported sites. Paste the group's "
 "profile URI below:"
@@ -566,7 +581,7 @@ msgstr "Vous avez été bloqué de ce groupe par l’administrateur."
 #: actions/groupsalmon.php:159
 #, php-format
 msgid "Could not join remote user %1$s to group %2$s."
-msgstr "Impossible de joindre l’utilisateur distant %1$s au groupe %2$s."
+msgstr "Impossible d’inscrire l’utilisateur distant %1$s au groupe %2$s."
 
 #: actions/groupsalmon.php:171
 msgid "Can't read profile to cancel group membership."
@@ -579,12 +594,12 @@ msgid "Could not remove remote user %1$s from group %2$s."
 msgstr "Impossible de retirer l’utilisateur distant %1$s du groupe %2$s."
 
 #. TRANS: Field label for a field that takes an OStatus user address.
-#: actions/ostatussub.php:66
+#: actions/ostatussub.php:68
 msgid "Subscribe to"
 msgstr "S’abonner à"
 
 #. TRANS: Tooltip for field label "Subscribe to".
-#: actions/ostatussub.php:69
+#: actions/ostatussub.php:71
 msgid ""
 "OStatus user's address, like nickname@example.com or http://example.net/"
 "nickname"
@@ -594,49 +609,49 @@ msgstr ""
 
 #. TRANS: Button text.
 #. TRANS: Tooltip for button "Join".
-#: actions/ostatussub.php:110
+#: actions/ostatussub.php:112
 msgctxt "BUTTON"
 msgid "Join this group"
 msgstr "Rejoindre ce groupe"
 
 #. TRANS: Button text.
-#: actions/ostatussub.php:113
+#: actions/ostatussub.php:115
 msgctxt "BUTTON"
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. TRANS: Tooltip for button "Confirm".
-#: actions/ostatussub.php:115
+#: actions/ostatussub.php:117
 msgid "Subscribe to this user"
 msgstr "S’abonner à cet utilisateur"
 
-#: actions/ostatussub.php:136
+#: actions/ostatussub.php:138
 msgid "You are already subscribed to this user."
 msgstr "Vous êtes déjà abonné à cet utilisateur."
 
-#: actions/ostatussub.php:165
+#: actions/ostatussub.php:167
 msgid "Photo"
 msgstr "Photo"
 
-#: actions/ostatussub.php:176
+#: actions/ostatussub.php:178
 msgid "Nickname"
 msgstr "Pseudonyme"
 
-#: actions/ostatussub.php:197
+#: actions/ostatussub.php:199
 msgid "Location"
 msgstr "Emplacement"
 
-#: actions/ostatussub.php:206
+#: actions/ostatussub.php:208
 msgid "URL"
 msgstr "Adresse URL"
 
-#: actions/ostatussub.php:218
+#: actions/ostatussub.php:220
 msgid "Note"
 msgstr "Note"
 
 #. TRANS: Error text.
-#: actions/ostatussub.php:254 actions/ostatussub.php:261
-#: actions/ostatussub.php:286
+#: actions/ostatussub.php:256 actions/ostatussub.php:263
+#: actions/ostatussub.php:288
 msgid ""
 "Sorry, we could not reach that address. Please make sure that the OStatus "
 "address is like nickname@example.com or http://example.net/nickname."
@@ -646,9 +661,9 @@ msgstr ""
 "forme pseudonyme@example.com ou http://example.net/pseudonyme."
 
 #. TRANS: Error text.
-#: actions/ostatussub.php:265 actions/ostatussub.php:269
-#: actions/ostatussub.php:273 actions/ostatussub.php:277
-#: actions/ostatussub.php:281
+#: actions/ostatussub.php:267 actions/ostatussub.php:271
+#: actions/ostatussub.php:275 actions/ostatussub.php:279
+#: actions/ostatussub.php:283
 msgid ""
 "Sorry, we could not reach that feed. Please try that OStatus address again "
 "later."
@@ -657,33 +672,33 @@ msgstr ""
 "cette adresse OStatus."
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:315
+#: actions/ostatussub.php:317
 msgid "Already subscribed!"
 msgstr "Déjà abonné !"
 
 #. TRANS: OStatus remote subscription dialog error.
-#: actions/ostatussub.php:320
+#: actions/ostatussub.php:322
 msgid "Remote subscription failed!"
 msgstr "Ĺ’abonnement distant a échoué !"
 
-#: actions/ostatussub.php:367 actions/ostatusinit.php:63
+#: actions/ostatussub.php:369 actions/ostatusinit.php:64
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 "Un problème est survenu avec votre jeton de session. Veuillez essayer à "
 "nouveau."
 
 #. TRANS: Form title.
-#: actions/ostatussub.php:395 actions/ostatusinit.php:82
+#: actions/ostatussub.php:397 actions/ostatusinit.php:83
 msgid "Subscribe to user"
 msgstr "S’abonner à un utilisateur"
 
 #. TRANS: Page title for OStatus remote subscription form
-#: actions/ostatussub.php:415
+#: actions/ostatussub.php:417
 msgid "Confirm"
 msgstr "Confirmer"
 
 #. TRANS: Instructions.
-#: actions/ostatussub.php:427
+#: actions/ostatussub.php:429
 msgid ""
 "You can subscribe to users from other supported sites. Paste their address "
 "or profile URI below:"
@@ -692,91 +707,91 @@ msgstr ""
 "Collez leur adresse ou l’URI de leur profil ci-dessous :"
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:41
+#: actions/ostatusinit.php:42
 msgid "You can use the local subscription!"
 msgstr "Vous pouvez utiliser l’abonnement local !"
 
 #. TRANS: Form legend.
-#: actions/ostatusinit.php:97
+#: actions/ostatusinit.php:98
 #, php-format
 msgid "Join group %s"
 msgstr "Rejoindre le groupe « %s »"
 
 #. TRANS: Button text.
-#: actions/ostatusinit.php:99
+#: actions/ostatusinit.php:100
 msgctxt "BUTTON"
 msgid "Join"
 msgstr "Rejoindre"
 
 #. TRANS: Form legend.
-#: actions/ostatusinit.php:102
+#: actions/ostatusinit.php:103
 #, php-format
 msgid "Subscribe to %s"
 msgstr "S’abonner à « %s »"
 
 #. TRANS: Button text.
-#: actions/ostatusinit.php:104
+#: actions/ostatusinit.php:105
 msgctxt "BUTTON"
 msgid "Subscribe"
 msgstr "S’abonner"
 
 #. TRANS: Field label.
-#: actions/ostatusinit.php:117
+#: actions/ostatusinit.php:118
 msgid "User nickname"
 msgstr "Pseudonyme de l’utilisateur"
 
-#: actions/ostatusinit.php:118
+#: actions/ostatusinit.php:119
 msgid "Nickname of the user you want to follow."
 msgstr "Pseudonyme de l’utilisateur que vous voulez suivre."
 
 #. TRANS: Field label.
-#: actions/ostatusinit.php:123
+#: actions/ostatusinit.php:124
 msgid "Profile Account"
 msgstr "Compte de profil"
 
 #. TRANS: Tooltip for field label "Profile Account".
-#: actions/ostatusinit.php:125
+#: actions/ostatusinit.php:126
 msgid "Your account id (e.g. user@identi.ca)."
 msgstr "Votre identifiant de compte (utilisateur@identi.ca, par exemple)."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:147
+#: actions/ostatusinit.php:148
 msgid "Must provide a remote profile."
 msgstr "Vous devez fournir un profil distant."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:159
+#: actions/ostatusinit.php:160
 msgid "Couldn't look up OStatus account profile."
 msgstr "Impossible de consulter le profil de compte OStatus."
 
 #. TRANS: Client error.
-#: actions/ostatusinit.php:172
+#: actions/ostatusinit.php:173
 msgid "Couldn't confirm remote profile address."
 msgstr "Impossible de confirmer l’adresse de profil distant."
 
 #. TRANS: Page title.
-#: actions/ostatusinit.php:217
+#: actions/ostatusinit.php:218
 msgid "OStatus Connect"
 msgstr "Connexion OStatus"
 
-#: actions/pushcallback.php:48
+#: actions/pushcallback.php:50
 msgid "Empty or invalid feed id."
 msgstr "Identifiant de flux vide ou invalide."
 
 #. TRANS: Server exception. %s is a feed ID.
-#: actions/pushcallback.php:54
+#: actions/pushcallback.php:56
 #, php-format
 msgid "Unknown PuSH feed id %s"
 msgstr "Identifiant de flux PuSH inconnu : « %s »"
 
 #. TRANS: Client exception. %s is an invalid feed name.
-#: actions/pushcallback.php:93
+#: actions/pushcallback.php:96
 #, php-format
 msgid "Bad hub.topic feed \"%s\"."
 msgstr "Flux de sujet de concentrateur incorrect : « %s »"
 
 #. TRANS: Client exception. %1$s the invalid token, %2$s is the topic for which the invalid token was given.
-#: actions/pushcallback.php:98
+#: actions/pushcallback.php:101
 #, php-format
 msgid "Bad hub.verify_token %1$s for %2$s."
 msgstr ""
@@ -784,13 +799,13 @@ msgstr ""
 "»."
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:105
+#: actions/pushcallback.php:108
 #, php-format
 msgid "Unexpected subscribe request for %s."
 msgstr "Demande d’abonnement inattendue pour le sujet invalide « %s »."
 
 #. TRANS: Client exception. %s is an invalid topic.
-#: actions/pushcallback.php:110
+#: actions/pushcallback.php:113
 #, php-format
 msgid "Unexpected unsubscribe request for %s."
 msgstr "Demande de désabonnement inattendue pour le sujet invalide « %s »."

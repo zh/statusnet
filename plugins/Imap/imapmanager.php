@@ -29,6 +29,10 @@
  * @link      http://status.net/
  */
 
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
 class ImapManager extends IoManager
 {
     protected $conn = null;

@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Mapstraction\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-27 22:20+0000\n"
-"PO-Revision-Date: 2010-09-27 22:42:16+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
+"PO-Revision-Date: 2010-10-09 14:07:47+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 1285-19-54 78::+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r73828); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-04 23:10:44+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-mapstraction\n"
@@ -36,8 +36,8 @@ msgid ""
 "Show maps of users' and friends' notices with <a href=\"http://www."
 "mapstraction.com/\">Mapstraction</a>."
 msgstr ""
-"Показувати на мапі користувачів і їхні повідомлення за допомогою <a href="
-"\"http://www.mapstraction.com/\">Mapstraction</a>."
+"Показ мапи дописів користувачів і друзів за допомогою <a href=\"http://www."
+"mapstraction.com/\">Mapstraction</a>."
 
 #: map.php:72
 msgid "No such user."
@@ -53,6 +53,13 @@ msgstr "Користувач не має профілю."
 #, php-format
 msgid "%s friends map"
 msgstr "Мапа друзів %s."
+
+#. TRANS: Page title.
+#. TRANS: %1$s is a user nickname, %2$d is a page number.
+#: allmap.php:80
+#, php-format
+msgid "%1$s friends map, page %2$d"
+msgstr "Мапа друзів %1$s, сторінка %2$d"
 
 #: usermap.php:73
 #, php-format

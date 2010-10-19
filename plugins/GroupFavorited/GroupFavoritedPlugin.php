@@ -76,4 +76,28 @@ class GroupFavoritedPlugin extends Plugin
                             $action_name == 'groupfavorited',
                             'nav_group_group');
     }
+
+    /**
+     * Provide plugin version information.
+     *
+     * This data is used when showing the version page.
+     *
+     * @param array &$versions array of version data arrays; see EVENTS.txt
+     *
+     * @return boolean hook value
+     */
+    function onPluginVersion(&$versions)
+    {
+        $url = 'http://status.net/wiki/Plugin:GroupFavorited';
+
+        $versions[] = array('name' => 'GroupFavorited',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Brion Vibber',
+            'homepage' => $url,
+            'rawdescription' =>
+            // TRANS: Plugin description.
+            _m('This plugin adds a menu item for popular notices in groups.'));
+
+        return true;
+    }
 }

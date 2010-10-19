@@ -102,6 +102,7 @@ abstract class GenericNoticeShareTarget extends NoticeShareTarget
 
     protected function statusText()
     {
+        // TRANS: Leave this message unchanged.
         $pattern = _m('"%s"');
         $url = $this->notice->bestUrl();
         $suffix = ' ' . $url;
@@ -125,6 +126,7 @@ class TwitterShareTarget extends GenericNoticeShareTarget
 
     public function getText()
     {
+        // TRANS: Tooltip for image to share a notice on Twitter.
         return _m('Share on Twitter');
     }
 
@@ -156,6 +158,8 @@ class StatusNetShareTarget extends GenericNoticeShareTarget
     public function getText()
     {
         $host = parse_url($this->baseurl, PHP_URL_HOST);
+        // TRANS: Tooltip for image to share a notice on another platform (other than Twitter or Facebook).
+        // TRANS: %s is a host name.
         return sprintf(_m('Share on %s'), $host);
     }
 
@@ -167,7 +171,6 @@ class StatusNetShareTarget extends GenericNoticeShareTarget
         return $this->baseurl . '/notice/new?' .
                 http_build_query($args, null, '&');
     }
-
 }
 
 class FacebookShareTarget extends NoticeShareTarget
@@ -179,6 +182,7 @@ class FacebookShareTarget extends NoticeShareTarget
 
     public function getText()
     {
+        // TRANS: Tooltip for image to share a notice on Facebook.
         return _m('Share on Facebook');
     }
 
@@ -186,9 +190,34 @@ class FacebookShareTarget extends NoticeShareTarget
     {
         $args = array(
             'u' => $this->notice->bestUrl(),
+            // TRANS: %s is notice content that is shared on Twitter, Facebook or another platform.
             't' => sprintf(_m('"%s"'), $this->notice->content),
         );
         return 'http://www.facebook.com/sharer.php?' .
             http_build_query($args, null, '&');
+    }
+
+    /**
+     * Provide plugin version information.
+     *
+     * This data is used when showing the version page.
+     *
+     * @param array &$versions array of version data arrays; see EVENTS.txt
+     *
+     * @return boolean hook value
+     */
+    function onPluginVersion(&$versions)
+    {
+        $url = 'http://status.net/wiki/Plugin:ShareNotice';
+
+        $versions[] = array('name' => 'ShareNotice',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Brion Vibber',
+            'homepage' => $url,
+            'rawdescription' =>
+            // TRANS: Plugin description.
+            _m('This plugin allows sharing of notices to Twitter, Facebook and other platforms.'));
+
+        return true;
     }
 }

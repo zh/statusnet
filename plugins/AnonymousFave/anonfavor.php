@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Anonyous favor action
  *
@@ -57,8 +56,8 @@ class AnonFavorAction extends RedirectingAction
         $profile = AnonymousFavePlugin::getAnonProfile();
 
         if (empty($profile) || $_SERVER['REQUEST_METHOD'] != 'POST') {
-            $this->clientError(
-                _m('Could not favor notice! Please make sure your browser has cookies enabled.')
+            // TRANS: Client error.
+            $this->clientError( _m('Could not favor notice! Please make sure your browser has cookies enabled.')
             );
             return;
         }
@@ -68,18 +67,21 @@ class AnonFavorAction extends RedirectingAction
         $token  = $this->trimmed('token-' . $notice->id);
 
         if (empty($token) || $token != common_session_token()) {
+            // TRANS: Client error.
             $this->clientError(_m('There was a problem with your session token. Try again, please.'));
             return;
         }
 
 
         if ($profile->hasFave($notice)) {
+            // TRANS: Client error.
             $this->clientError(_m('This notice is already a favorite!'));
             return;
         }
         $fave = Fave::addNew($profile, $notice);
 
         if (!$fave) {
+            // TRANS: Server error.
             $this->serverError(_m('Could not create favorite.'));
             return;
         }
@@ -89,6 +91,7 @@ class AnonFavorAction extends RedirectingAction
         if ($this->boolean('ajax')) {
             $this->startHTML('text/xml;charset=utf-8');
             $this->elementStart('head');
+            // TRANS: Title.
             $this->element('title', null, _m('Disfavor favorite'));
             $this->elementEnd('head');
             $this->elementStart('body');

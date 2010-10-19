@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-22 22:34+0000\n"
+"POT-Creation-Date: 2010-10-09 14:04+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: facebookutil.php:425
+#: facebookutil.php:429
 #, php-format
 msgid ""
 "Hi, %1$s. We're sorry to inform you that we are unable to update your "
@@ -31,28 +31,28 @@ msgid ""
 "%2$s"
 msgstr ""
 
-#: FBConnectAuth.php:51
+#: FBConnectAuth.php:55
 msgid "You must be logged into Facebook to use Facebook Connect."
 msgstr ""
 
-#: FBConnectAuth.php:75
+#: FBConnectAuth.php:79
 msgid "There is already a local user linked with this Facebook account."
 msgstr ""
 
-#: FBConnectAuth.php:87 FBConnectSettings.php:166
+#: FBConnectAuth.php:91 FBConnectSettings.php:166
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#: FBConnectAuth.php:92
+#: FBConnectAuth.php:96
 msgid "You can't register if you don't agree to the license."
 msgstr ""
 
-#: FBConnectAuth.php:102
+#: FBConnectAuth.php:106
 msgid "An unknown error has occured."
 msgstr ""
 
 #. TRANS: %s is the site name.
-#: FBConnectAuth.php:117
+#: FBConnectAuth.php:121
 #, php-format
 msgid ""
 "This is the first time you've logged into %s so we must connect your "
@@ -61,17 +61,17 @@ msgid ""
 msgstr ""
 
 #. TRANS: Page title.
-#: FBConnectAuth.php:124
+#: FBConnectAuth.php:128
 msgid "Facebook Account Setup"
 msgstr ""
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:158
+#: FBConnectAuth.php:162
 msgid "Connection options"
 msgstr ""
 
 #. TRANS: %s is the name of the license used by the user for their status updates.
-#: FBConnectAuth.php:168
+#: FBConnectAuth.php:172
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -79,82 +79,82 @@ msgid ""
 msgstr ""
 
 #. TRANS: Legend.
-#: FBConnectAuth.php:185
+#: FBConnectAuth.php:189
 msgid "Create new account"
 msgstr ""
 
-#: FBConnectAuth.php:187
+#: FBConnectAuth.php:191
 msgid "Create a new user with this nickname."
 msgstr ""
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:191
+#: FBConnectAuth.php:195
 msgid "New nickname"
 msgstr ""
 
-#: FBConnectAuth.php:193
+#: FBConnectAuth.php:197
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
 msgstr ""
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:197
+#: FBConnectAuth.php:201
 msgctxt "BUTTON"
 msgid "Create"
 msgstr ""
 
-#: FBConnectAuth.php:203
+#: FBConnectAuth.php:207
 msgid "Connect existing account"
 msgstr ""
 
-#: FBConnectAuth.php:205
+#: FBConnectAuth.php:209
 msgid ""
 "If you already have an account, login with your username and password to "
 "connect it to your Facebook."
 msgstr ""
 
 #. TRANS: Field label.
-#: FBConnectAuth.php:209
+#: FBConnectAuth.php:213
 msgid "Existing nickname"
 msgstr ""
 
-#: FBConnectAuth.php:212 facebookaction.php:277
+#: FBConnectAuth.php:216 facebookaction.php:277
 msgid "Password"
 msgstr ""
 
 #. TRANS: Submit button.
-#: FBConnectAuth.php:216
+#: FBConnectAuth.php:220
 msgctxt "BUTTON"
 msgid "Connect"
 msgstr ""
 
 #. TRANS: Client error trying to register with registrations not allowed.
 #. TRANS: Client error trying to register with registrations 'invite only'.
-#: FBConnectAuth.php:233 FBConnectAuth.php:243
+#: FBConnectAuth.php:237 FBConnectAuth.php:247
 msgid "Registration not allowed."
 msgstr ""
 
 #. TRANS: Client error trying to register with an invalid invitation code.
-#: FBConnectAuth.php:251
+#: FBConnectAuth.php:255
 msgid "Not a valid invitation code."
 msgstr ""
 
-#: FBConnectAuth.php:261
+#: FBConnectAuth.php:265
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr ""
 
-#: FBConnectAuth.php:266
+#: FBConnectAuth.php:270
 msgid "Nickname not allowed."
 msgstr ""
 
-#: FBConnectAuth.php:271
+#: FBConnectAuth.php:275
 msgid "Nickname already in use. Try another one."
 msgstr ""
 
-#: FBConnectAuth.php:289 FBConnectAuth.php:323 FBConnectAuth.php:343
+#: FBConnectAuth.php:293 FBConnectAuth.php:327 FBConnectAuth.php:347
 msgid "Error connecting user to Facebook."
 msgstr ""
 
-#: FBConnectAuth.php:309
+#: FBConnectAuth.php:313
 msgid "Invalid username or password."
 msgstr ""
 
@@ -190,6 +190,13 @@ msgstr ""
 
 #: facebookhome.php:122
 msgid "Incorrect username or password."
+msgstr ""
+
+#. TRANS: Page title.
+#. TRANS: %1$s is a user nickname, %2$s is a page number.
+#: facebookhome.php:153
+#, php-format
+msgid "%1$s and friends, page %2$d"
 msgstr ""
 
 #. TRANS: Page title.
@@ -311,7 +318,11 @@ msgstr ""
 msgid "Facebook Login"
 msgstr ""
 
-#: facebookremove.php:57
+#: facebookremove.php:53
+msgid "Couldn't remove Facebook user: already deleted."
+msgstr ""
+
+#: facebookremove.php:63
 msgid "Couldn't remove Facebook user."
 msgstr ""
 

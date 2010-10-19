@@ -316,6 +316,12 @@ class ShowgroupAction extends GroupDesignAction
             Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
         $this->elementEnd('li');
+        if ($cur->hasRight(Right::DELETEGROUP)) {
+            $this->elementStart('li', 'entity_delete');
+            $df = new DeleteGroupForm($this, $this->group);
+            $df->show();
+            $this->elementEnd('li');
+        }
         $this->elementEnd('ul');
         $this->elementEnd('div');
     }
