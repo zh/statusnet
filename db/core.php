@@ -479,7 +479,6 @@ $schema['foreign_user'] = array(
         'foreign_user_service_fkey' => array('foreign_service', array('service' => 'id')),
     ),
     'unique keys' => array(
-        'foreign_user_id_key' => array('id'),
         'foreign_user_uri_key' => array('uri'),
     ),
 );
@@ -501,7 +500,7 @@ $schema['foreign_link'] = array(
     'primary key' => array('user_id', 'foreign_id', 'service'),
     'foreign keys' => array(
         'foreign_link_user_id_fkey' => array('user', array('user_id' => 'id')),
-        'foreign_link_foreign_id_fkey' => array('foreign_user', array('foreign_id' => 'id')),
+        'foreign_link_foreign_id_fkey' => array('foreign_user', array('foreign_id' => 'id', 'service' => 'service')),
         'foreign_link_service_fkey' => array('foreign_service', array('service' => 'id')),
     ),
     'indexes' => array(
@@ -519,12 +518,12 @@ $schema['foreign_subscription'] = array(
     'primary key' => array('service', 'subscriber', 'subscribed'),
     'foreign keys' => array(
         'foreign_subscription_service_fkey' => array('foreign_service', array('service' => 'id')),
-        'foreign_subscription_subscriber_fkey' => array('foreign_user', array('subscriber' => 'id')),
-        'foreign_subscription_subscribed_fkey' => array('foreign_user', array('subscribed' => 'id')),
+        'foreign_subscription_subscriber_fkey' => array('foreign_user', array('subscriber' => 'id', 'service' => 'service')),
+        'foreign_subscription_subscribed_fkey' => array('foreign_user', array('subscribed' => 'id', 'service' => 'service')),
     ),
     'indexes' => array(
-        'foreign_subscription_subscriber_idx' => array('subscriber'),
-        'foreign_subscription_subscribed_idx' => array('subscribed'),
+        'foreign_subscription_subscriber_idx' => array('service', 'subscriber'),
+        'foreign_subscription_subscribed_idx' => array('service', 'subscribed'),
     ),
 );
 
