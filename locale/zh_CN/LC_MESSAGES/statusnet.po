@@ -14,18 +14,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-18 20:49+0000\n"
-"PO-Revision-Date: 2010-10-18 20:51:01+0000\n"
+"POT-Creation-Date: 2010-10-19 23:00+0000\n"
+"PO-Revision-Date: 2010-10-19 23:02:50+0000\n"
 "Language-Team: Simplified Chinese <http://translatewiki.net/wiki/Portal:zh-"
 "hans>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r74965); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75030); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: zh-hans\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-18 20:28:37+0000\n"
+"X-POT-Import-Date: 2010-10-18 21:13:08+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -81,10 +81,13 @@ msgstr "保存访问设置"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
+#. TRANS: Button to save input in profile settings.
 #. TRANS: Button label to save SMS preferences.
+#. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
-#: actions/imsettings.php:187 actions/smssettings.php:209
+#: actions/imsettings.php:187 actions/profilesettings.php:201
+#: actions/smssettings.php:209 actions/subscriptions.php:246
 #: lib/applicationeditform.php:355
 msgctxt "BUTTON"
 msgid "Save"
@@ -181,7 +184,7 @@ msgstr ""
 "你可以试着到他们的资料页 [呼叫%1$s](../%2$s) 他们或者 [给他们发消息](%%%%"
 "action.newnotice%%%%?status_textarea=%3$s)。"
 
-#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:211
+#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:208
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -269,10 +272,11 @@ msgstr "用户没有个人信息。"
 msgid "Could not save profile."
 msgstr "无法保存个人信息。"
 
+#. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
 #: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:123 actions/editapplication.php:118
+#: actions/designadminpanel.php:123 actions/editapplication.php:120
 #: actions/newapplication.php:101 actions/newnotice.php:94
 #: lib/designsettings.php:283
 #, php-format
@@ -411,46 +415,48 @@ msgstr "无法确定源用户。"
 msgid "Could not find target user."
 msgstr "无法找到目标用户。"
 
+#. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:168 actions/editgroup.php:186
-#: actions/newgroup.php:126 actions/profilesettings.php:215
+#: actions/newgroup.php:126 actions/profilesettings.php:243
 #: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "昵称只能使用小写字母和数字且不能使用空格。"
 
+#. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:177 actions/editgroup.php:190
-#: actions/newgroup.php:130 actions/profilesettings.php:238
+#: actions/newgroup.php:130 actions/profilesettings.php:277
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "昵称已被使用，换一个吧。"
 
+#. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:184 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:218
+#: actions/newgroup.php:133 actions/profilesettings.php:247
 #: actions/register.php:217
 msgid "Not a valid nickname."
 msgstr "不是有效的昵称。"
 
-#: actions/apigroupcreate.php:200 actions/editapplication.php:215
+#. TRANS: Validation error shown when providing an invalid homepage URL in the "Edit application" form.
+#. TRANS: Validation error in form for profile settings.
+#: actions/apigroupcreate.php:200 actions/editapplication.php:231
 #: actions/editgroup.php:199 actions/newapplication.php:203
-#: actions/newgroup.php:139 actions/profilesettings.php:222
+#: actions/newgroup.php:139 actions/profilesettings.php:252
 #: actions/register.php:224
 msgid "Homepage is not a valid URL."
 msgstr "主页的URL不正确。"
 
 #: actions/apigroupcreate.php:209 actions/editgroup.php:202
-#: actions/newgroup.php:142 actions/profilesettings.php:225
-#: actions/register.php:227
+#: actions/newgroup.php:142 actions/register.php:227
 msgid "Full name is too long (max 255 chars)."
 msgstr "全名过长(不能超过 255 个字符)。"
 
-#: actions/apigroupcreate.php:217 actions/editapplication.php:190
-#: actions/newapplication.php:172
+#: actions/apigroupcreate.php:217 actions/newapplication.php:172
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "描述过长(不能超过%d 个字符)。"
 
 #: actions/apigroupcreate.php:228 actions/editgroup.php:208
-#: actions/newgroup.php:148 actions/profilesettings.php:232
-#: actions/register.php:234
+#: actions/newgroup.php:148 actions/register.php:234
 msgid "Location is too long (max 255 chars)."
 msgstr "位置过长(不能超过255个字符)。"
 
@@ -539,7 +545,7 @@ msgstr "在%s上的小组"
 msgid "Upload failed."
 msgstr "上传失败"
 
-#: actions/apioauthaccesstoken.php:108
+#: actions/apioauthaccesstoken.php:103
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "指定的登录 token 无效。"
@@ -548,21 +554,22 @@ msgstr "指定的登录 token 无效。"
 msgid "No oauth_token parameter provided."
 msgstr "没有提供 oauth_token 参数"
 
-#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:130
+#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:121
+#: actions/apioauthauthorize.php:128
 #, fuzzy
 msgid "Invalid request token."
 msgstr "无效的 token。"
 
-#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:145 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
-#: actions/invite.php:56 actions/login.php:137 actions/makeadmin.php:66
+#: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
 #: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
-#: actions/profilesettings.php:194 actions/recoverpassword.php:350
+#: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
 #: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:38
 #: actions/subscribe.php:86 actions/tagother.php:166
@@ -571,23 +578,24 @@ msgstr "无效的 token。"
 msgid "There was a problem with your session token. Try again, please."
 msgstr "你的 session 出现了一个问题，请重试。"
 
-#: actions/apioauthauthorize.php:163
+#: actions/apioauthauthorize.php:161
 msgid "Invalid nickname / password!"
 msgstr "用户名或密码不正确。"
 
-#: actions/apioauthauthorize.php:193
+#: actions/apioauthauthorize.php:191
 msgid "Database error deleting OAuth application user."
 msgstr "删除 OAuth 应用用户时数据库出错。"
 
-#: actions/apioauthauthorize.php:218
+#: actions/apioauthauthorize.php:216
 msgid "Database error inserting OAuth application user."
 msgstr "插入 OAuth 应用用户时数据库出错。"
 
+#. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:265 actions/avatarsettings.php:281
-#: actions/designadminpanel.php:104 actions/editapplication.php:139
+#: actions/apioauthauthorize.php:279 actions/avatarsettings.php:281
+#: actions/designadminpanel.php:104 actions/editapplication.php:142
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
@@ -595,15 +603,15 @@ msgstr "插入 OAuth 应用用户时数据库出错。"
 msgid "Unexpected form submission."
 msgstr "未预料的表单提交。"
 
-#: actions/apioauthauthorize.php:291
+#: actions/apioauthauthorize.php:305
 msgid "An application would like to connect to your account"
 msgstr "一个应用想连接到你的账号"
 
-#: actions/apioauthauthorize.php:308
+#: actions/apioauthauthorize.php:322
 msgid "Allow or deny access"
 msgstr "允许或阻止访问"
 
-#: actions/apioauthauthorize.php:324
+#: actions/apioauthauthorize.php:338
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -614,12 +622,13 @@ msgstr ""
 "strong>你的%4$s账户数据。你应该只允许你信任信任的第三方程序访问你的%4$s账户。"
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:342 lib/action.php:490
+#: actions/apioauthauthorize.php:356 lib/action.php:490
 msgid "Account"
 msgstr "帐号"
 
-#: actions/apioauthauthorize.php:345 actions/login.php:252
-#: actions/profilesettings.php:106 actions/register.php:431
+#. TRANS: Field label in form for profile settings.
+#: actions/apioauthauthorize.php:359 actions/login.php:252
+#: actions/profilesettings.php:110 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:132
@@ -627,41 +636,41 @@ msgid "Nickname"
 msgstr "昵称"
 
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:348 actions/login.php:255
+#: actions/apioauthauthorize.php:362 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "密码"
 
 #. TRANS: Submit button title.
-#: actions/apioauthauthorize.php:360 lib/applicationeditform.php:353
+#: actions/apioauthauthorize.php:374 lib/applicationeditform.php:353
 msgid "Cancel"
 msgstr "取消"
 
-#: actions/apioauthauthorize.php:366
+#: actions/apioauthauthorize.php:380
 msgid "Allow"
 msgstr "允许"
 
-#: actions/apioauthauthorize.php:383
+#: actions/apioauthauthorize.php:397
 #, fuzzy
 msgid "Authorize access to your account information."
 msgstr "允许或阻止对你账户信息的访问。"
 
-#: actions/apioauthauthorize.php:433
+#: actions/apioauthauthorize.php:447
 #, fuzzy
 msgid "Authorization canceled."
 msgstr "IM 确认已取消。"
 
-#: actions/apioauthauthorize.php:435
+#: actions/apioauthauthorize.php:449
 #, fuzzy, php-format
 msgid "The request token %s has been revoked."
 msgstr "%s的 request token 被拒绝并被取消。"
 
-#: actions/apioauthauthorize.php:453
+#: actions/apioauthauthorize.php:467
 #, fuzzy, php-format
 msgid "You have successfully authorized %s."
 msgstr "你没有被授权。"
 
-#: actions/apioauthauthorize.php:458
+#: actions/apioauthauthorize.php:472
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -1004,12 +1013,13 @@ msgstr "此地址已被确认过了。"
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
 #. TRANS: Server error thrown on database error updating IM preferences.
 #. TRANS: Server error thrown on database error removing a registered IM address.
+#. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
 #: actions/confirmaddress.php:116 actions/emailsettings.php:331
 #: actions/emailsettings.php:477 actions/imsettings.php:283
 #: actions/imsettings.php:442 actions/othersettings.php:174
-#: actions/profilesettings.php:283 actions/smssettings.php:308
+#: actions/profilesettings.php:326 actions/smssettings.php:308
 #: actions/smssettings.php:464
 msgid "Couldn't update user."
 msgstr "无法更新用户。"
@@ -1047,13 +1057,14 @@ msgstr "你必须登录后才能删除应用。"
 msgid "Application not found."
 msgstr "未找到应用。"
 
-#: actions/deleteapplication.php:78 actions/editapplication.php:77
+#. TRANS: Client error displayed trying to edit an application while not being its owner.
+#: actions/deleteapplication.php:78 actions/editapplication.php:78
 #: actions/showapplication.php:94
 msgid "You are not the owner of this application."
 msgstr "你不是该应用的拥有者。"
 
 #. TRANS: Client error text when there is a problem with the session token.
-#: actions/deleteapplication.php:102 actions/editapplication.php:127
+#: actions/deleteapplication.php:102 actions/editapplication.php:129
 #: actions/newapplication.php:110 actions/showapplication.php:118
 #: lib/action.php:1353
 msgid "There was a problem with your session token."
@@ -1339,9 +1350,8 @@ msgstr "重置到默认"
 #. TRANS: Submit button title.
 #: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
 #: actions/othersettings.php:126 actions/pathsadminpanel.php:396
-#: actions/profilesettings.php:174 actions/sessionsadminpanel.php:199
-#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
-#: actions/snapshotadminpanel.php:245 actions/subscriptions.php:226
+#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
+#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
 #: actions/tagother.php:154 actions/useradminpanel.php:295
 #: lib/applicationeditform.php:357 lib/designsettings.php:256
 #: lib/groupeditform.php:202
@@ -1365,68 +1375,93 @@ msgstr "加入收藏"
 msgid "No such document \"%s\""
 msgstr "没有这个文件“%s”。"
 
-#: actions/editapplication.php:54
-msgid "Edit Application"
+#. TRANS: Title for "Edit application" form.
+#. TRANS: Form legend.
+#: actions/editapplication.php:54 lib/applicationeditform.php:129
+msgid "Edit application"
 msgstr "编辑应用"
 
+#. TRANS: Client error displayed trying to edit an application while not logged in.
 #: actions/editapplication.php:66
 msgid "You must be logged in to edit an application."
 msgstr "你必须登录后才能编辑应用。"
 
-#: actions/editapplication.php:81 actions/oauthconnectionssettings.php:166
+#. TRANS: Client error displayed trying to edit an application that does not exist.
+#: actions/editapplication.php:83 actions/oauthconnectionssettings.php:166
 #: actions/showapplication.php:87
 msgid "No such application."
 msgstr "没有这个应用。"
 
-#: actions/editapplication.php:161
+#. TRANS: Instructions for "Edit application" form.
+#: actions/editapplication.php:165
 msgid "Use this form to edit your application."
 msgstr "通过此表单来编辑你的应用。"
 
-#: actions/editapplication.php:177 actions/newapplication.php:159
+#. TRANS: Validation error shown when not providing a name in the "Edit application" form.
+#: actions/editapplication.php:182 actions/newapplication.php:159
 msgid "Name is required."
 msgstr "名字为必填项。"
 
-#: actions/editapplication.php:180 actions/newapplication.php:165
-msgid "Name is too long (max 255 chars)."
+#. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
+#: actions/editapplication.php:186
+#, fuzzy
+msgid "Name is too long (max 255 characters)."
 msgstr "名称过长(不能超过255个字符)。"
 
-#: actions/editapplication.php:183 actions/newapplication.php:162
+#. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
+#: actions/editapplication.php:190 actions/newapplication.php:162
 msgid "Name already in use. Try another one."
 msgstr "名字已被使用，换一个吧。"
 
-#: actions/editapplication.php:186 actions/newapplication.php:168
+#. TRANS: Validation error shown when not providing a description in the "Edit application" form.
+#: actions/editapplication.php:194 actions/newapplication.php:168
 msgid "Description is required."
 msgstr "必须填写描述。"
 
-#: actions/editapplication.php:194
+#. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
+#: actions/editapplication.php:199
+#, fuzzy, php-format
+msgid "Description is too long (maximum %d character)."
+msgid_plural "Description is too long (maximum %d characters)."
+msgstr[0] "描述过长(不能超过%d 个字符)。"
+
+#. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
+#: actions/editapplication.php:206
 msgid "Source URL is too long."
 msgstr "来源 URL 太长。"
 
-#: actions/editapplication.php:200 actions/newapplication.php:185
+#. TRANS: Validation error shown when providing an invalid source URL in the "Edit application" form.
+#: actions/editapplication.php:213 actions/newapplication.php:185
 msgid "Source URL is not valid."
 msgstr "来源 URL 无效。"
 
-#: actions/editapplication.php:203 actions/newapplication.php:188
+#. TRANS: Validation error shown when not providing an organisation in the "Edit application" form.
+#: actions/editapplication.php:217 actions/newapplication.php:188
 msgid "Organization is required."
 msgstr "组织名称必填。"
 
-#: actions/editapplication.php:206 actions/newapplication.php:191
-msgid "Organization is too long (max 255 chars)."
+#. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
+#: actions/editapplication.php:221
+#, fuzzy
+msgid "Organization is too long (maximum 255 characters)."
 msgstr "组织名称过长（不能超过255个字符）。"
 
-#: actions/editapplication.php:209 actions/newapplication.php:194
+#: actions/editapplication.php:224 actions/newapplication.php:194
 msgid "Organization homepage is required."
 msgstr "组织首页必填。"
 
-#: actions/editapplication.php:218 actions/newapplication.php:206
+#. TRANS: Validation error shown when providing too long a callback URL in the "Edit application" form.
+#: actions/editapplication.php:235 actions/newapplication.php:206
 msgid "Callback is too long."
 msgstr "调回地址（callback）过长。"
 
-#: actions/editapplication.php:225 actions/newapplication.php:215
+#. TRANS: Validation error shown when providing an invalid callback URL in the "Edit application" form.
+#: actions/editapplication.php:243 actions/newapplication.php:215
 msgid "Callback URL is not valid."
 msgstr "调回地址（Callback URL）无效。"
 
-#: actions/editapplication.php:261
+#. TRANS: Server error occuring when an application could not be updated from the "Edit application" form.
+#: actions/editapplication.php:280
 msgid "Could not update application."
 msgstr "无法更新应用。"
 
@@ -2248,89 +2283,128 @@ msgstr "%s 的收件箱"
 msgid "This is your inbox, which lists your incoming private messages."
 msgstr "这是你的收件箱，包含发给你的私信。"
 
-#: actions/invite.php:39
+#. TRANS: Client error displayed when trying to sent invites while they have been disabled.
+#: actions/invite.php:40
 msgid "Invites have been disabled."
 msgstr "邀请已被禁用。"
 
-#: actions/invite.php:41
+#. TRANS: Client error displayed when trying to sent invites while not logged in.
+#. TRANS: %s is the StatusNet site name.
+#: actions/invite.php:44
 #, php-format
 msgid "You must be logged in to invite other users to use %s."
 msgstr "你必须登录才能邀请他人使用%s。"
 
-#: actions/invite.php:72
-#, php-format
-msgid "Invalid email address: %s"
+#. TRANS: Form validation message when providing an e-mail address that does not validate.
+#. TRANS: %s is an invalid e-mail address.
+#: actions/invite.php:77
+#, fuzzy, php-format
+msgid "Invalid email address: %s."
 msgstr "无效的电子邮件地址：%s"
 
-#: actions/invite.php:110
-msgid "Invitation(s) sent"
+#. TRANS: Page title when invitations have been sent.
+#: actions/invite.php:116
+#, fuzzy
+msgid "Invitations sent"
 msgstr "已发送邀请"
 
-#: actions/invite.php:112
+#. TRANS: Page title when inviting potential users.
+#: actions/invite.php:119
 msgid "Invite new users"
 msgstr "邀请新用户"
 
-#: actions/invite.php:128
-msgid "You are already subscribed to these users:"
-msgstr "你已经关注了这些用户："
+#. TRANS: Message displayed inviting users to use a StatusNet site while the inviting user
+#. TRANS: is already subscribed to one or more users with the given e-mail address(es).
+#. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
+#. TRANS: Followed by a bullet list.
+#: actions/invite.php:139
+#, fuzzy
+msgid "You are already subscribed to this user:"
+msgid_plural "You are already subscribed to these users:"
+msgstr[0] "你已经关注了这些用户："
 
+#. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
+#. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Whois output.
 #. TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-#: actions/invite.php:131 actions/invite.php:139 lib/command.php:426
+#: actions/invite.php:145 actions/invite.php:159 lib/command.php:426
 #, php-format
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
-#: actions/invite.php:136
-msgid ""
+#. TRANS: Message displayed inviting users to use a StatusNet site while the invited user
+#. TRANS: already uses a this StatusNet site. Plural form is based on the number of
+#. TRANS: reported already present people. Followed by a bullet list.
+#: actions/invite.php:153
+#, fuzzy
+msgid "This person is already a user and you were automatically subscribed:"
+msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
-msgstr "这些好友已注册，你已自动关注了这些用户："
+msgstr[0] "这些好友已注册，你已自动关注了这些用户："
 
-#: actions/invite.php:144
-msgid "Invitation(s) sent to the following people:"
-msgstr "已发送邀请给这些人："
+#. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
+#. TRANS: based on the number of invitations sent. Followed by a bullet list of
+#. TRANS: e-mail addresses to which invitations were sent.
+#: actions/invite.php:167
+#, fuzzy
+msgid "Invitation sent to the following person:"
+msgid_plural "Invitations sent to the following people:"
+msgstr[0] "已发送邀请给这些人："
 
-#: actions/invite.php:150
+#. TRANS: Generic message displayed after sending out one or more invitations to
+#. TRANS: people to join a StatusNet site.
+#: actions/invite.php:177
 msgid ""
 "You will be notified when your invitees accept the invitation and register "
 "on the site. Thanks for growing the community!"
 msgstr "如果其他人接受邀请并注册，你将得到通知。谢谢你推动了社区发展壮大！"
 
-#: actions/invite.php:162
+#. TRANS: Form instructions.
+#: actions/invite.php:190
 msgid ""
 "Use this form to invite your friends and colleagues to use this service."
 msgstr "使用这个表单来邀请好友和同事加入。"
 
-#: actions/invite.php:187
+#. TRANS: Field label for a list of e-mail addresses.
+#: actions/invite.php:217
 msgid "Email addresses"
 msgstr "电邮地址"
 
-#: actions/invite.php:189
+#. TRANS: Tooltip for field label for a list of e-mail addresses.
+#: actions/invite.php:220
 msgid "Addresses of friends to invite (one per line)"
 msgstr "要邀请的好友地址(每行一个)"
 
-#: actions/invite.php:192
+#. TRANS: Field label for a personal message to send to invitees.
+#: actions/invite.php:224
 msgid "Personal message"
 msgstr "个人消息"
 
-#: actions/invite.php:194
+#. TRANS: Tooltip for field label for a personal message to send to invitees.
+#: actions/invite.php:227
 msgid "Optionally add a personal message to the invitation."
 msgstr "在邀请中加几句话(可选)。"
 
 #. TRANS: Send button for inviting friends
-#: actions/invite.php:198
+#: actions/invite.php:231
 msgctxt "BUTTON"
 msgid "Send"
 msgstr "发布"
 
-#. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
-#: actions/invite.php:228
+#. TRANS: Subject for invitation email. Note that 'them' is correct as a gender-neutral
+#. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, $2$s is
+#. TRANS: the StatusNet sitename.
+#: actions/invite.php:263
 #, php-format
 msgid "%1$s has invited you to join them on %2$s"
 msgstr "%1$s 邀请你加入 %2$s"
 
-#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral singular 3rd-person pronoun in English.
-#: actions/invite.php:231
+#. TRANS: Body text for invitation email. Note that 'them' is correct as a gender-neutral
+#. TRANS: singular 3rd-person pronoun in English. %1$s is the inviting user, %2$s is the
+#. TRANS: StatusNet sitename, %3$s is the site URL, %4$s is the personal message from the
+#. TRANS: inviting user, %s%5 a link to the timeline for the inviting user, %s$6 is a link
+#. TRANS: to register with the StatusNet site.
+#: actions/invite.php:270
 #, php-format
 msgid ""
 "%1$s has invited you to join them on %2$s (%3$s).\n"
@@ -2593,9 +2667,17 @@ msgstr "你必须登录才能登记你的应用。"
 msgid "Use this form to register a new application."
 msgstr "通过此表单登记一个新的应用。"
 
+#: actions/newapplication.php:165
+msgid "Name is too long (max 255 chars)."
+msgstr "名称过长(不能超过255个字符)。"
+
 #: actions/newapplication.php:176
 msgid "Source URL is required."
 msgstr "Source URL 必填。"
+
+#: actions/newapplication.php:191
+msgid "Organization is too long (max 255 chars)."
+msgstr "组织名称过长（不能超过255个字符）。"
 
 #: actions/newapplication.php:258 actions/newapplication.php:267
 msgid "Could not create application."
@@ -2710,8 +2792,10 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "%2$s上符合搜索关键字\"%1$s\"的更新！"
 
 #: actions/nudge.php:85
+#, fuzzy
 msgid ""
-"This user doesn't allow nudges or hasn't confirmed or set their email yet."
+"This user doesn't allow nudges or hasn't confirmed or set their email "
+"address yet."
 msgstr "此用户不允许呼叫或者还没有验证其电子邮件地址。"
 
 #: actions/nudge.php:94
@@ -3130,135 +3214,188 @@ msgstr "无效的消息内容。"
 msgid "Notice license ‘%1$s’ is not compatible with site license ‘%2$s’."
 msgstr "消息许可证“%1$s”与这个网站的许可证“%2$s”不兼容。"
 
-#: actions/profilesettings.php:60
+#. TRANS: Page title for profile settings.
+#: actions/profilesettings.php:61
 msgid "Profile settings"
 msgstr "个人设置"
 
-#: actions/profilesettings.php:71
+#. TRANS: Usage instructions for profile settings.
+#: actions/profilesettings.php:73
 msgid ""
 "You can update your personal profile info here so people know more about you."
 msgstr "在这里更新个人信息，让大家对你了解得更多。"
 
-#: actions/profilesettings.php:99
+#. TRANS: Profile settings form legend.
+#: actions/profilesettings.php:102
 msgid "Profile information"
 msgstr "个人信息"
 
-#: actions/profilesettings.php:108 lib/groupeditform.php:154
-msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+#. TRANS: Tooltip for field label in form for profile settings.
+#: actions/profilesettings.php:113
+#, fuzzy
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1 到 64 个小写字母或数字，不包含标点或空格"
 
-#: actions/profilesettings.php:111 actions/register.php:455
+#. TRANS: Field label in form for profile settings.
+#: actions/profilesettings.php:117 actions/register.php:455
 #: actions/showgroup.php:256 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "全名"
 
+#. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:115 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:460
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "主页"
 
-#: actions/profilesettings.php:117 actions/register.php:462
-msgid "URL of your homepage, blog, or profile on another site"
+#. TRANS: Tooltip for field label in form for profile settings.
+#: actions/profilesettings.php:125
+#, fuzzy
+msgid "URL of your homepage, blog, or profile on another site."
 msgstr "你的主页、博客或在其他网站的URL"
 
-#: actions/profilesettings.php:122 actions/register.php:468
-#, php-format
-msgid "Describe yourself and your interests in %d chars"
-msgstr "用不超过%d个字符描述你自己和你的兴趣"
+#. TRANS: Tooltip for field label in form for profile settings. Plural
+#. TRANS: is decided by the number of characters available for the
+#. TRANS: biography (%d).
+#: actions/profilesettings.php:133
+#, fuzzy, php-format
+msgid "Describe yourself and your interests in %d character"
+msgid_plural "Describe yourself and your interests in %d characters"
+msgstr[0] "用不超过%d个字符描述你自己和你的兴趣"
 
-#: actions/profilesettings.php:125 actions/register.php:471
+#. TRANS: Tooltip for field label in form for profile settings.
+#: actions/profilesettings.php:139 actions/register.php:471
 msgid "Describe yourself and your interests"
 msgstr "描述你自己和你的兴趣"
 
-#: actions/profilesettings.php:127 actions/register.php:473
+#. TRANS: Text area label in form for profile settings where users can provide.
+#. TRANS: their biography.
+#: actions/profilesettings.php:143 actions/register.php:473
 msgid "Bio"
 msgstr "自述"
 
-#: actions/profilesettings.php:132 actions/register.php:478
+#. TRANS: Field label in form for profile settings.
+#: actions/profilesettings.php:149 actions/register.php:478
 #: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:165
 msgid "Location"
 msgstr "位置"
 
-#: actions/profilesettings.php:134 actions/register.php:480
+#. TRANS: Tooltip for field label in form for profile settings.
+#: actions/profilesettings.php:152 actions/register.php:480
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "你的地理位置，格式类似\"城市，省份，国家\""
 
-#: actions/profilesettings.php:138
+#. TRANS: Checkbox label in form for profile settings.
+#: actions/profilesettings.php:157
 msgid "Share my current location when posting notices"
 msgstr "当发布消息时分享我的地理位置"
 
-#: actions/profilesettings.php:145 actions/tagother.php:149
+#. TRANS: Field label in form for profile settings.
+#: actions/profilesettings.php:165 actions/tagother.php:149
 #: actions/tagother.php:209 lib/subscriptionlist.php:106
 #: lib/subscriptionlist.php:108 lib/userprofile.php:210
 msgid "Tags"
 msgstr "标签"
 
-#: actions/profilesettings.php:147
+#. TRANS: Tooltip for field label in form for profile settings.
+#: actions/profilesettings.php:168
 msgid ""
 "Tags for yourself (letters, numbers, -, ., and _), comma- or space- separated"
 msgstr "你的标签 (字母、数字、“-”、“. ”和“ _”)， 以逗号或空格分隔"
 
-#: actions/profilesettings.php:151
+#. TRANS: Dropdownlist label in form for profile settings.
+#: actions/profilesettings.php:173
 msgid "Language"
 msgstr "语言"
 
-#: actions/profilesettings.php:152
+#. TRANS: Tooltip for dropdown list label in form for profile settings.
+#: actions/profilesettings.php:175
 msgid "Preferred language"
 msgstr "首选语言"
 
-#: actions/profilesettings.php:161
+#. TRANS: Dropdownlist label in form for profile settings.
+#: actions/profilesettings.php:185
 msgid "Timezone"
 msgstr "时区"
 
-#: actions/profilesettings.php:162
+#. TRANS: Tooltip for dropdown list label in form for profile settings.
+#: actions/profilesettings.php:187
 msgid "What timezone are you normally in?"
 msgstr "你一般处于哪个时区？"
 
-#: actions/profilesettings.php:167
+#. TRANS: Checkbox label in form for profile settings.
+#: actions/profilesettings.php:193
 msgid ""
 "Automatically subscribe to whoever subscribes to me (best for non-humans)"
 msgstr "自动关注任何关注我的人 (这个选项适合机器人)"
 
-#: actions/profilesettings.php:228 actions/register.php:230
-#, php-format
-msgid "Bio is too long (max %d chars)."
-msgstr "描述过长(不能超过%d个字符)。"
+#. TRANS: Validation error in form for profile settings.
+#: actions/profilesettings.php:256
+#, fuzzy
+msgid "Full name is too long (max 255 characters)."
+msgstr "全名过长(不能超过 255 个字符)。"
 
-#: actions/profilesettings.php:235 actions/siteadminpanel.php:151
+#. TRANS: Validation error in form for profile settings.
+#. TRANS: Plural form is used based on the maximum number of allowed
+#. TRANS: characters for the biography (%d).
+#: actions/profilesettings.php:262
+#, fuzzy, php-format
+msgid "Bio is too long (max %d character)."
+msgid_plural "Bio is too long (max %d characters)."
+msgstr[0] "描述过长(不能超过%d个字符)。"
+
+#. TRANS: Validation error in form for profile settings.
+#: actions/profilesettings.php:269
+#, fuzzy
+msgid "Location is too long (max 255 characters)."
+msgstr "位置过长(不能超过255个字符)。"
+
+#. TRANS: Validation error in form for profile settings.
+#: actions/profilesettings.php:273 actions/siteadminpanel.php:151
 msgid "Timezone not selected."
 msgstr "未选择时区。"
 
-#: actions/profilesettings.php:241
-msgid "Language is too long (max 50 chars)."
+#. TRANS: Validation error in form for profile settings.
+#: actions/profilesettings.php:281
+#, fuzzy
+msgid "Language is too long (max 50 characters)."
 msgstr "语言过长(不能超过50个字符)。"
 
-#: actions/profilesettings.php:253 actions/tagother.php:178
+#. TRANS: Validation error in form for profile settings.
+#. TRANS: %s is an invalid tag.
+#: actions/profilesettings.php:295 actions/tagother.php:178
 #, php-format
 msgid "Invalid tag: \"%s\""
 msgstr "无效的标签：\"%s\"。"
 
-#: actions/profilesettings.php:306
+#. TRANS: Server error thrown when user profile settings could not be updated to
+#. TRANS: automatically subscribe to any subscriber.
+#: actions/profilesettings.php:351
 msgid "Couldn't update user for autosubscribe."
 msgstr "无法更新用户的自动关注。"
 
-#: actions/profilesettings.php:363
+#. TRANS: Server error thrown when user profile location preference settings could not be updated.
+#: actions/profilesettings.php:409
 msgid "Couldn't save location prefs."
 msgstr "无法保存标签。"
 
-#: actions/profilesettings.php:375
+#. TRANS: Server error thrown when user profile settings could not be saved.
+#: actions/profilesettings.php:422
 msgid "Couldn't save profile."
 msgstr "无法保存个人信息。"
 
-#: actions/profilesettings.php:383
+#. TRANS: Server error thrown when user profile settings tags could not be saved.
+#: actions/profilesettings.php:431
 msgid "Couldn't save tags."
 msgstr "无法保存标签。"
 
+#. TRANS: Confirmation shown when user profile settings are saved.
 #. TRANS: Message after successful saving of administrative settings.
-#: actions/profilesettings.php:391 lib/adminpanelaction.php:138
+#: actions/profilesettings.php:440 lib/adminpanelaction.php:138
 msgid "Settings saved."
 msgstr "设置已保存。"
 
@@ -3332,32 +3469,45 @@ msgstr ""
 "这里是%%site.name%%，一个基于自由软件[StatusNet](http://status.net/)的[微博"
 "客](http://zh.wikipedia.org/zh-hans/%E5%BE%AE%E5%8D%9A%E5%AE%A2) 。"
 
+#. TRANS: Title for public tag cloud.
 #: actions/publictagcloud.php:57
 msgid "Public tag cloud"
 msgstr "公开的标签云"
 
-#: actions/publictagcloud.php:63
-#, php-format
-msgid "These are most popular recent tags on %s "
+#. TRANS: Instructions (more used like an explanation/header).
+#. TRANS: %s is the StatusNet sitename.
+#: actions/publictagcloud.php:65
+#, fuzzy, php-format
+msgid "These are most popular recent tags on %s"
 msgstr "这些是%s最近的流行的标签 "
 
-#: actions/publictagcloud.php:69
+#. TRANS: This message contains a Markdown URL. The link description is between
+#. TRANS: square brackets, and the link between parentheses. Do not separate "]("
+#. TRANS: and do not change the URL part.
+#: actions/publictagcloud.php:74
 #, php-format
 msgid "No one has posted a notice with a [hashtag](%%doc.tags%%) yet."
 msgstr "还没有人发布带[标签](%%doc.tags%%)的消息。"
 
-#: actions/publictagcloud.php:72
+#. TRANS: Message shown to a logged in user for the public tag cloud
+#. TRANS: while no tags exist yet. "One" refers to the non-existing hashtag.
+#: actions/publictagcloud.php:79
 msgid "Be the first to post one!"
 msgstr "成为第一个发布消息的人！"
 
-#: actions/publictagcloud.php:75
+#. TRANS: Message shown to a anonymous user for the public tag cloud
+#. TRANS: while no tags exist yet. "One" refers to the non-existing hashtag.
+#. TRANS: This message contains a Markdown URL. The link description is between
+#. TRANS: square brackets, and the link between parentheses. Do not separate "]("
+#. TRANS: and do not change the URL part.
+#: actions/publictagcloud.php:87
 #, php-format
 msgid ""
 "Why not [register an account](%%action.register%%) and be the first to post "
 "one!"
 msgstr "现在就[注册](%%action.register%%)并发布第一个！"
 
-#: actions/publictagcloud.php:134
+#: actions/publictagcloud.php:146
 msgid "Tag cloud"
 msgstr "标签云"
 
@@ -3509,6 +3659,11 @@ msgstr "你必须同意许可协议才能注册。"
 msgid "Email address already exists."
 msgstr "电子邮件地址已存在。"
 
+#: actions/register.php:230
+#, php-format
+msgid "Bio is too long (max %d chars)."
+msgstr "描述过长(不能超过%d个字符)。"
+
 #: actions/register.php:250 actions/register.php:272
 msgid "Invalid username or password."
 msgstr "用户名或密码不正确。"
@@ -3546,6 +3701,15 @@ msgstr "只用于更新、通知及密码恢复"
 #: actions/register.php:457
 msgid "Longer name, preferably your \"real\" name"
 msgstr "更长的名字，最好是“真实姓名”"
+
+#: actions/register.php:462
+msgid "URL of your homepage, blog, or profile on another site"
+msgstr "你的主页、博客或在其他网站的URL"
+
+#: actions/register.php:468
+#, php-format
+msgid "Describe yourself and your interests in %d chars"
+msgstr "用不超过%d个字符描述你自己和你的兴趣"
 
 #: actions/register.php:518
 #, php-format
@@ -4058,53 +4222,53 @@ msgstr "来自 %1$s 的 %2$s 消息"
 msgid "Notice deleted."
 msgstr "消息已删除"
 
-#: actions/showstream.php:73
+#: actions/showstream.php:72
 #, php-format
 msgid " tagged %s"
 msgstr "带%s标签的"
 
-#: actions/showstream.php:79
+#: actions/showstream.php:78
 #, php-format
 msgid "%1$s, page %2$d"
 msgstr "%1$s，第%2$d页"
 
-#: actions/showstream.php:122
+#: actions/showstream.php:120
 #, php-format
 msgid "Notice feed for %1$s tagged %2$s (RSS 1.0)"
 msgstr "%1$s的有%2$s标签的消息聚合 (RSS 1.0)"
 
-#: actions/showstream.php:129
+#: actions/showstream.php:127
 #, php-format
 msgid "Notice feed for %s (RSS 1.0)"
 msgstr "%s的消息聚合 (RSS 1.0)"
 
-#: actions/showstream.php:136
+#: actions/showstream.php:134
 #, php-format
 msgid "Notice feed for %s (RSS 2.0)"
 msgstr "%s的消息聚合 (RSS 2.0)"
 
-#: actions/showstream.php:143
+#: actions/showstream.php:141
 #, php-format
 msgid "Notice feed for %s (Atom)"
 msgstr "%s的消息聚合 (Atom)"
 
-#: actions/showstream.php:148
+#: actions/showstream.php:146
 #, php-format
 msgid "FOAF for %s"
 msgstr "%s的FOAF"
 
-#: actions/showstream.php:200
+#: actions/showstream.php:197
 #, php-format
 msgid "This is the timeline for %1$s but %2$s hasn't posted anything yet."
 msgstr "这是%1$s的时间线，但是%2$s还没有发布任何内容。"
 
-#: actions/showstream.php:205
+#: actions/showstream.php:202
 msgid ""
 "Seen anything interesting recently? You haven't posted any notices yet, now "
 "would be a good time to start :)"
 msgstr "最近看到了什么有趣的消息了么？你还没有发布消息呢，现在开始吧 :)"
 
-#: actions/showstream.php:207
+#: actions/showstream.php:204
 #, php-format
 msgid ""
 "You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%"
@@ -4113,7 +4277,7 @@ msgstr ""
 "你可以试着呼叫%1$s或给他们 [发一些消息](%%%%action.newnotice%%%%?"
 "status_textarea=%2$s)。"
 
-#: actions/showstream.php:246
+#: actions/showstream.php:243
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4126,7 +4290,7 @@ msgstr ""
 "E5%BE%AE%E5%8D%9A%E5%AE%A2)服务。[现在加入](%%%%action.register%%%%)并关注**%"
 "s**的消息和享受更多乐趣! （[阅读更多](%%%%doc.help%%%%)）"
 
-#: actions/showstream.php:251
+#: actions/showstream.php:248
 #, php-format
 msgid ""
 "**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4137,7 +4301,7 @@ msgstr ""
 "[StatusNet](http://status.net/)的[微博客](http://zh.wikipedia.org/zh-hans/%"
 "E5%BE%AE%E5%8D%9A%E5%AE%A2)。"
 
-#: actions/showstream.php:308
+#: actions/showstream.php:305
 #, php-format
 msgid "Repeat of %s"
 msgstr "%s 的转发"
@@ -4508,37 +4672,54 @@ msgstr "你不能用这个操作关注一个 OMB 0.1 远程用户。"
 msgid "Subscribed"
 msgstr "已关注"
 
-#: actions/subscribers.php:50
+#. TRANS: Header for list of subscribers for a user (first page).
+#. TRANS: %s is the user's nickname.
+#: actions/subscribers.php:51
 #, php-format
 msgid "%s subscribers"
 msgstr "%s的关注者"
 
-#: actions/subscribers.php:52
+#. TRANS: Header for list of subscribers for a user (not first page).
+#. TRANS: %1$s is the user's nickname, $2$d is the page number.
+#: actions/subscribers.php:55
 #, php-format
 msgid "%1$s subscribers, page %2$d"
 msgstr "%1$s的关注者，第%2$d页"
 
-#: actions/subscribers.php:63
+#. TRANS: Page notice for page with an overview of all subscribers
+#. TRANS: of the logged in user's own profile.
+#: actions/subscribers.php:68
 msgid "These are the people who listen to your notices."
 msgstr "这些用户关注了你的消息。"
 
-#: actions/subscribers.php:67
+#. TRANS: Page notice for page with an overview of all subscribers of a user other
+#. TRANS: than the logged in user. %s is the user nickname.
+#: actions/subscribers.php:74
 #, php-format
 msgid "These are the people who listen to %s's notices."
 msgstr "这些用户关注了%s的消息。"
 
-#: actions/subscribers.php:108
+#. TRANS: Subscriber list text when the logged in user has no subscribers.
+#: actions/subscribers.php:116
+#, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
-"return the favor"
+"return the favor."
 msgstr "还没有人关注你，尝试关注一些你认识的用户，他们或许会关注你"
 
-#: actions/subscribers.php:110
+#. TRANS: Subscriber list text when looking at the subscribers for a of a user other
+#. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
+#: actions/subscribers.php:120
 #, php-format
 msgid "%s has no subscribers. Want to be the first?"
 msgstr "还没有人关注%s，成为第一个关注者？"
 
-#: actions/subscribers.php:114
+#. TRANS: Subscriber list text when looking at the subscribers for a of a user that has none
+#. TRANS: as an anonymous user. %s is the user nickname.
+#. TRANS: This message contains a Markdown URL. The link description is between
+#. TRANS: square brackets, and the link between parentheses. Do not separate "]("
+#. TRANS: and do not change the URL part.
+#: actions/subscribers.php:129
 #, php-format
 msgid ""
 "%s has no subscribers. Why not [register an account](%%%%action.register%%%"
@@ -4547,26 +4728,38 @@ msgstr ""
 "还没有人关注%s。现在就[注册一个帐号](%%%%action.register%%%%)并成为第一个关注"
 "者！"
 
-#: actions/subscriptions.php:52
+#. TRANS: Header for subscriptions overview for a user (first page).
+#. TRANS: %s is a user nickname.
+#: actions/subscriptions.php:51
 #, php-format
 msgid "%s subscriptions"
 msgstr "%s 关注的用户"
 
-#: actions/subscriptions.php:54
+#. TRANS: Header for subscriptions overview for a user (not first page).
+#. TRANS: %1$s is a user nickname, %2$d is the page number.
+#: actions/subscriptions.php:55
 #, php-format
 msgid "%1$s subscriptions, page %2$d"
 msgstr "%1$s 关注的用户，第%2$d页"
 
-#: actions/subscriptions.php:65
+#. TRANS: Page notice for page with an overview of all subscriptions
+#. TRANS: of the logged in user's own profile.
+#: actions/subscriptions.php:68
 msgid "These are the people whose notices you listen to."
 msgstr "这是你关注的用户。"
 
-#: actions/subscriptions.php:69
+#. TRANS: Page notice for page with an overview of all subscriptions of a user other
+#. TRANS: than the logged in user. %s is the user nickname.
+#: actions/subscriptions.php:74
 #, php-format
 msgid "These are the people whose notices %s listens to."
 msgstr "这是%s关注的用户。"
 
-#: actions/subscriptions.php:126
+#. TRANS: Subscription list text when the logged in user has no subscriptions.
+#. TRANS: This message contains Markdown URLs. The link description is between
+#. TRANS: square brackets, and the link between parentheses. Do not separate "]("
+#. TRANS: and do not change the URL part.
+#: actions/subscriptions.php:135
 #, php-format
 msgid ""
 "You're not listening to anyone's notices right now, try subscribing to "
@@ -4580,16 +4773,22 @@ msgstr ""
 "兴趣的小组的用户。如果你是  [Twitter用户](%%action.twittersettings%%)，你可以"
 "自动关注你已经关注的用户。"
 
-#: actions/subscriptions.php:128 actions/subscriptions.php:132
+#. TRANS: Subscription list text when looking at the subscriptions for a of a user other
+#. TRANS: than the logged in user that has no subscriptions. %s is the user nickname.
+#. TRANS: Subscription list text when looking at the subscriptions for a of a user that has none
+#. TRANS: as an anonymous user. %s is the user nickname.
+#: actions/subscriptions.php:143 actions/subscriptions.php:149
 #, php-format
 msgid "%s is not listening to anyone."
 msgstr "%s没有关注任何人。"
 
-#: actions/subscriptions.php:208
+#. TRANS: Checkbox label for enabling Jabber messages for a profile in a subscriptions list.
+#: actions/subscriptions.php:226
 msgid "Jabber"
 msgstr "Jabber"
 
-#: actions/subscriptions.php:222
+#. TRANS: Checkbox label for enabling SMS messages for a profile in a subscriptions list.
+#: actions/subscriptions.php:241
 msgid "SMS"
 msgstr "SMS"
 
@@ -5678,40 +5877,35 @@ msgid "API resource requires read-write access, but you only have read access."
 msgstr "API 资源需要读写的访问权限，但是你只有只读的权限。"
 
 #. TRANS: OAuth exception thrown when no application is found for a given consumer key.
-#: lib/apiauth.php:175
+#: lib/apiauth.php:177
 msgid "No application for that consumer key."
 msgstr "没有应用使用这个 consumer key。"
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:212
+#: lib/apiauth.php:217
 msgid "Bad access token."
 msgstr "无效的 access token。"
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:217
+#: lib/apiauth.php:222
 msgid "No user for that token."
 msgstr "没有用户使用这个 token。"
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:258 lib/apiauth.php:290
+#: lib/apiauth.php:264 lib/apiauth.php:291
 msgid "Could not authenticate you."
 msgstr "无法验证你。"
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:184
+#: lib/apioauthstore.php:189
 msgid "Tried to revoke unknown token."
 msgstr "尝试了取消未知的 token。"
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:189
+#: lib/apioauthstore.php:194
 msgid "Failed to delete revoked token."
 msgstr "删除取消的 token 失败。"
-
-#. TRANS: Form legend.
-#: lib/applicationeditform.php:129
-msgid "Edit application"
-msgstr "编辑应用"
 
 #. TRANS: Form guide.
 #: lib/applicationeditform.php:178
@@ -5950,15 +6144,17 @@ msgid "Fullname: %s"
 msgstr "全名：%s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:434 lib/mail.php:268
+#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: %s is a location.
+#: lib/command.php:434 lib/mail.php:278
 #, php-format
 msgid "Location: %s"
 msgstr "位置：%s"
 
 #. TRANS: Whois output. %s is the homepage of the queried user.
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/command.php:438 lib/mail.php:271
+#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: %s is a homepage.
+#: lib/command.php:438 lib/mail.php:282
 #, php-format
 msgid "Homepage: %s"
 msgstr "主页：%s"
@@ -6220,13 +6416,15 @@ msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:136
-msgid "No configuration file found. "
+#, fuzzy
+msgid "No configuration file found."
 msgstr "没有找到配置文件。 "
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
 #: lib/common.php:139
-msgid "I looked for configuration files in the following places: "
+#, fuzzy
+msgid "I looked for configuration files in the following places:"
 msgstr "我在以下位置查找了配置文件："
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
@@ -6346,6 +6544,10 @@ msgstr "执行"
 #, php-format
 msgid "Grant this user the \"%s\" role"
 msgstr "给这个用户添加\\\"%s\\\"权限"
+
+#: lib/groupeditform.php:154
+msgid "1-64 lowercase letters or numbers, no punctuation or spaces"
+msgstr "1 到 64 个小写字母或数字，不包含标点或空格"
 
 #: lib/groupeditform.php:163
 msgid "URL of the homepage or blog of the group or topic"
@@ -6520,27 +6722,29 @@ msgstr "用用户名和密码登录。"
 msgid "Sign up for a new account"
 msgstr "注册一个新帐户"
 
-#. TRANS: Subject for address confirmation email
+#. TRANS: Subject for address confirmation email.
 #: lib/mail.php:174
 msgid "Email address confirmation"
 msgstr "电子邮件地址确认"
 
 #. TRANS: Body for address confirmation email.
-#: lib/mail.php:177
-#, php-format
+#. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
+#. TRANS: %3$s is the URL to confirm at.
+#: lib/mail.php:179
+#, fuzzy, php-format
 msgid ""
-"Hey, %s.\n"
+"Hey, %1$s.\n"
 "\n"
-"Someone just entered this email address on %s.\n"
+"Someone just entered this email address on %2$s.\n"
 "\n"
 "If it was you, and you want to confirm your entry, use the URL below:\n"
 "\n"
-"\t%s\n"
+"\t%3$s\n"
 "\n"
 "If not, just ignore this message.\n"
 "\n"
 "Thanks for your time, \n"
-"%s\n"
+"%2$s\n"
 msgstr ""
 "嗨， %s。\n"
 "\n"
@@ -6555,13 +6759,16 @@ msgstr ""
 "谢谢你的宝贵时间，\n"
 "%s\n"
 
-#. TRANS: Subject of new-subscriber notification e-mail
-#: lib/mail.php:243
+#. TRANS: Subject of new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
+#: lib/mail.php:246
 #, php-format
 msgid "%1$s is now listening to your notices on %2$s."
 msgstr "%1$s 开始关注你在 %2$s 的消息。"
 
-#: lib/mail.php:248
+#. TRANS: This is a paragraph in a new-subscriber e-mail.
+#. TRANS: %s is a URL where the subscriber can be reported as abusive.
+#: lib/mail.php:253
 #, php-format
 msgid ""
 "If you believe this account is being used abusively, you can block them from "
@@ -6570,9 +6777,13 @@ msgstr ""
 "如果你认为此帐户正被人恶意使用，你可以将其从你的关注者中屏蔽掉并到 %s 报告给"
 "网站的管理员为他们在发垃圾信息。"
 
-#. TRANS: Main body of new-subscriber notification e-mail
-#: lib/mail.php:254
-#, php-format
+#. TRANS: Main body of new-subscriber notification e-mail.
+#. TRANS: %1$s is the subscriber's long name, %2$s is the StatusNet sitename,
+#. TRANS: %3$s is the subscriber's profile URL, %4$s is the subscriber's location (or empty)
+#. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
+#. TRANS: %7$s is a link to the addressed user's e-mail settings.
+#: lib/mail.php:263
+#, fuzzy, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -6580,10 +6791,10 @@ msgid ""
 "\n"
 "%4$s%5$s%6$s\n"
 "Faithfully yours,\n"
-"%7$s.\n"
+"%2$s.\n"
 "\n"
 "----\n"
-"Change your email address or notification options at %8$s\n"
+"Change your email address or notification options at %7$s\n"
 msgstr ""
 "%1$s开始关注你在%2$s的消息。\n"
 "\n"
@@ -6596,21 +6807,25 @@ msgstr ""
 "----\n"
 "在%8$s更改你的 email 地址或通知选项\n"
 
-#. TRANS: Profile info line in new-subscriber notification e-mail
-#: lib/mail.php:274
+#. TRANS: Profile info line in new-subscriber notification e-mail.
+#. TRANS: %s is biographical information.
+#: lib/mail.php:286
 #, php-format
 msgid "Bio: %s"
 msgstr "自我介绍：%s"
 
-#. TRANS: Subject of notification mail for new posting email address
-#: lib/mail.php:304
+#. TRANS: Subject of notification mail for new posting email address.
+#. TRANS: %s is the StatusNet sitename.
+#: lib/mail.php:315
 #, php-format
 msgid "New email address for posting to %s"
 msgstr "新的电子邮件地址，用于发布 %s 信息"
 
-#. TRANS: Body of notification mail for new posting email address
-#: lib/mail.php:308
-#, php-format
+#. TRANS: Body of notification mail for new posting email address.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
+#. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
+#: lib/mail.php:321
+#, fuzzy, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -6619,7 +6834,7 @@ msgid ""
 "More email instructions at %3$s.\n"
 "\n"
 "Faithfully yours,\n"
-"%4$s"
+"%1$s"
 msgstr ""
 "你的 %1$s 发布用地址已更新。\n"
 "\n"
@@ -6631,31 +6846,36 @@ msgstr ""
 "\n"
 "%4$s"
 
-#. TRANS: Subject line for SMS-by-email notification messages
-#: lib/mail.php:433
+#. TRANS: Subject line for SMS-by-email notification messages.
+#. TRANS: %s is the posting user's nickname.
+#: lib/mail.php:442
 #, php-format
 msgid "%s status"
 msgstr "%s 状态"
 
-#. TRANS: Subject line for SMS-by-email address confirmation message
-#: lib/mail.php:460
+#. TRANS: Subject line for SMS-by-email address confirmation message.
+#: lib/mail.php:468
 msgid "SMS confirmation"
 msgstr "SMS 验证"
 
-#. TRANS: Main body heading for SMS-by-email address confirmation message
-#: lib/mail.php:463
+#. TRANS: Main body heading for SMS-by-email address confirmation message.
+#. TRANS: %s is the addressed user's nickname.
+#: lib/mail.php:472
 #, php-format
 msgid "%s: confirm you own this phone number with this code:"
 msgstr "%s：通过此代码证明这是你的手机："
 
-#. TRANS: Subject for 'nudge' notification email
-#: lib/mail.php:484
+#. TRANS: Subject for 'nudge' notification email.
+#. TRANS: %s is the nudging user.
+#: lib/mail.php:493
 #, php-format
 msgid "You've been nudged by %s"
 msgstr "你被%s呼叫了"
 
-#. TRANS: Body for 'nudge' notification email
-#: lib/mail.php:489
+#. TRANS: Body for 'nudge' notification email.
+#. TRANS: %1$s is the nuding user's long name, $2$s is the nudging user's nickname,
+#. TRANS: %3$s is a URL to post notices at, %4$s is the StatusNet sitename.
+#: lib/mail.php:500
 #, php-format
 msgid ""
 "%1$s (%2$s) is wondering what you are up to these days and is inviting you "
@@ -6681,14 +6901,18 @@ msgstr ""
 "亲切的问候，\n"
 "%4$s\n"
 
-#. TRANS: Subject for direct-message notification email
-#: lib/mail.php:536
+#. TRANS: Subject for direct-message notification email.
+#. TRANS: %s is the sending user's nickname.
+#: lib/mail.php:547
 #, php-format
 msgid "New private message from %s"
 msgstr "来自%s的私信"
 
-#. TRANS: Body for direct-message notification email
-#: lib/mail.php:541
+#. TRANS: Body for direct-message notification email.
+#. TRANS: %1$s is the sending user's long name, %2$s is the sending user's nickname,
+#. TRANS: %3$s is the message content, %4$s a URL to the message,
+#. TRANS: %5$s is the StatusNet sitename.
+#: lib/mail.php:555
 #, php-format
 msgid ""
 "%1$s (%2$s) sent you a private message:\n"
@@ -6721,14 +6945,19 @@ msgstr ""
 "亲切的问候，\n"
 "%5$s\n"
 
-#. TRANS: Subject for favorite notification email
-#: lib/mail.php:589
-#, php-format
-msgid "%s (@%s) added your notice as a favorite"
+#. TRANS: Subject for favorite notification e-mail.
+#. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
+#: lib/mail.php:603
+#, fuzzy, php-format
+msgid "%1s$ (@%2$s) added your notice as a favorite"
 msgstr "%s (@%s) 收藏了你的消息"
 
-#. TRANS: Body for favorite notification email
-#: lib/mail.php:592
+#. TRANS: Body for favorite notification e-mail.
+#. TRANS: %1$s is the adding user's long name, $2$s is the date the notice was created,
+#. TRANS: %3$s is a URL to the faved notice, %4$s is the faved notice text,
+#. TRANS: %5$s is a URL to all faves of the adding user, %6$s is the StatusNet sitename,
+#. TRANS: %7$s is the adding user's nickname.
+#: lib/mail.php:610
 #, php-format
 msgid ""
 "%1$s (@%7$s) just added your notice from %2$s as one of their favorites.\n"
@@ -6766,7 +6995,7 @@ msgstr ""
 "%6$s\n"
 
 #. TRANS: Line in @-reply notification e-mail. %s is conversation URL.
-#: lib/mail.php:651
+#: lib/mail.php:668
 #, php-format
 msgid ""
 "The full conversation can be read here:\n"
@@ -6777,13 +7006,20 @@ msgstr ""
 "\n"
 "\t%s"
 
-#: lib/mail.php:657
-#, php-format
-msgid "%s (@%s) sent a notice to your attention"
+#. TRANS: E-mail subject for notice notification.
+#. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
+#: lib/mail.php:676
+#, fuzzy, php-format
+msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr "%s (@%s) 给你发送了一条消息"
 
 #. TRANS: Body of @-reply notification e-mail.
-#: lib/mail.php:660
+#. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
+#. TRANS: %3$s is a URL to the notice, %4$s is the notice text,
+#. TRANS: %5$s is a URL to the full conversion if it exists (otherwise empty),
+#. TRANS: %6$s is a URL to reply to the notice, %7$s is a URL to all @-replied for the addressed user,
+#. TRANS: %8$s is a URL to the addressed user's e-mail settings, %9$s is the sender's nickname.
+#: lib/mail.php:684
 #, php-format
 msgid ""
 "%1$s (@%9$s) just sent a notice to your attention (an '@-reply') on %2$s.\n"
@@ -7479,14 +7715,16 @@ msgstr[0] "约1个月前"
 msgid "about a year ago"
 msgstr "约1年前"
 
-#: lib/webcolor.php:82
+#: lib/webcolor.php:80
 #, php-format
 msgid "%s is not a valid color!"
 msgstr "%s不是有效的颜色！"
 
-#: lib/webcolor.php:123
-#, php-format
-msgid "%s is not a valid color! Use 3 or 6 hex chars."
+#. TRANS: Validation error for a web colour.
+#. TRANS: %s is the provided (invalid) text for colour.
+#: lib/webcolor.php:120
+#, fuzzy, php-format
+msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "%s不是有效的颜色！应使用3或6个十六进制字符。"
 
 #: scripts/restoreuser.php:82
@@ -7502,3 +7740,6 @@ msgstr "没有用户被指定；使用备份用户。"
 #, php-format
 msgid "%d entries in backup."
 msgstr "备份中有 %d 个条目。"
+
+#~ msgid "Edit Application"
+#~ msgstr "编辑应用"
