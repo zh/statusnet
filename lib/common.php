@@ -133,10 +133,10 @@ try {
     // XXX: Throw a conniption if database not installed
     // XXX: Find a way to use htmlwriter for this instead of handcoded markup
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-    echo '<p>'. _('No configuration file found. ') .'</p>';
+    echo '<p>'. _('No configuration file found.') .'</p>';
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     // TRANS: Is followed by a list of directories (separated by HTML breaks).
-    echo '<p>'. _('I looked for configuration files in the following places: ') .'<br /> ';
+    echo '<p>'. _('I looked for configuration files in the following places:') .'<br /> ';
     echo implode($e->configFiles, '<br />');
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';
