@@ -26,13 +26,13 @@ Attempt to pull a schema definition for a given table.
   --all     run over all defined core tables
   --diff    show differences between the expected and live table defs
   --raw     skip compatibility filtering for diffs
-  --update  dump SQL that would be run to update or create this table
+  --create  dump SQL that would be run to update or create this table
   --build   dump SQL that would be run to create this table fresh
 
 
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff', 'all', 'build', 'update', 'raw');
+$longoptions = array('diff', 'all', 'create', 'update', 'raw');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -215,7 +215,7 @@ if (count($args)) {
     foreach ($args as $tableName) {
         if (have_option('diff')) {
             dumpDiff($tableName, !have_option('raw'));
-        } else if (have_option('build')) {
+        } else if (have_option('create')) {
             dumpBuildTable($tableName);
         } else if (have_option('update')) {
             dumpEnsureTable($tableName);
