@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:08:12+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:43:41+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-04 23:10:34+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:36:36+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -30,7 +30,7 @@ msgstr "Претплати се"
 #. TRANS: Link description for link to join a remote group.
 #: OStatusPlugin.php:248 OStatusPlugin.php:657 actions/ostatussub.php:109
 msgid "Join"
-msgstr "Придружи се"
+msgstr "Зачлени се"
 
 #. TRANSLATE: %s is a domain.
 #: OStatusPlugin.php:461
@@ -61,9 +61,9 @@ msgstr "Не можев да го поставам членството во д�
 #. TRANS: Success message for subscribe to group attempt through OStatus.
 #. TRANS: %1$s is the member name, %2$s is the subscribed group's name.
 #: OStatusPlugin.php:660
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s has joined group %2$s."
-msgstr "%1$s престана да го/ја следи %2$s."
+msgstr "%1$s се зачлени во групата %2$s."
 
 #. TRANS: Exception.
 #: OStatusPlugin.php:669
@@ -79,7 +79,7 @@ msgstr "Напушти"
 #: OStatusPlugin.php:712
 #, php-format
 msgid "%1$s has left group %2$s."
-msgstr ""
+msgstr "%1$s ја напушти групата %2$s."
 
 #: OStatusPlugin.php:787
 msgid "Disfavor"
@@ -210,55 +210,55 @@ msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr ""
 "Се обидов да го подновам аватарот за незачуваниот далечински профил %s."
 
-#: classes/Ostatus_profile.php:1057
+#: classes/Ostatus_profile.php:1058
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Не можам да го добијам аватарот од %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1279
+#: classes/Ostatus_profile.php:1284
 msgid "Local user can't be referenced as remote."
 msgstr "Локалниот корисник не може да се наведе како далечински."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1284
+#: classes/Ostatus_profile.php:1289
 msgid "Local group can't be referenced as remote."
 msgstr "Локалната група не може да се наведе како далечинска."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1336 classes/Ostatus_profile.php:1347
+#: classes/Ostatus_profile.php:1341 classes/Ostatus_profile.php:1352
 msgid "Can't save local profile."
 msgstr "Не можам да го зачувам локалниот профил."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1355
+#: classes/Ostatus_profile.php:1360
 msgid "Can't save OStatus profile."
 msgstr "Не можам да го зачувам профилот од OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1614 classes/Ostatus_profile.php:1642
+#: classes/Ostatus_profile.php:1619 classes/Ostatus_profile.php:1647
 msgid "Not a valid webfinger address."
 msgstr "Ова не е важечка Webfinger-адреса"
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1724
+#: classes/Ostatus_profile.php:1729
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Не можам да го зачувам профилот за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1743
+#: classes/Ostatus_profile.php:1748
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Не можам да го зачувам ostatus_profile за „%s“."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1751
+#: classes/Ostatus_profile.php:1756
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Не можев да пронајдам важечки профил за „%s“."
 
-#: classes/Ostatus_profile.php:1793
+#: classes/Ostatus_profile.php:1798
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Не можам да ја складирам HTML-содржината на долгата објава како податотека."
@@ -433,7 +433,7 @@ msgstr "Неважечки hub.topic „%s“. Групата не постои.
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "Добив неважечка URL-адреса за %1$s: „%2$s“"
 
-#: actions/userxrd.php:51 actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Нема таков корисник."
 
@@ -484,7 +484,7 @@ msgstr "Забелешката со ID %1$s не е објавена од %2$s."
 #. TRANS: Field label.
 #: actions/ostatusgroup.php:78
 msgid "Join group"
-msgstr "Придружи се на групата"
+msgstr "Зачлени се во групата"
 
 #. TRANS: Tooltip for field label "Join group".
 #: actions/ostatusgroup.php:81

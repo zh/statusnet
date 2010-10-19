@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:08:12+0000\n"
+"POT-Creation-Date: 2010-10-18 18:35+0000\n"
+"PO-Revision-Date: 2010-10-18 18:43:41+0000\n"
 "Language-Team: French <http://translatewiki.net/wiki/Portal:fr>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-04 23:10:34+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-09 14:36:36+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r74952); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: fr\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -219,55 +219,55 @@ msgstr ""
 "Tente de mettre à jour l’avatar associé au profil distant non sauvegardé « %s "
 "»."
 
-#: classes/Ostatus_profile.php:1057
+#: classes/Ostatus_profile.php:1058
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Impossible de récupérer l’avatar depuis « %s »."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1279
+#: classes/Ostatus_profile.php:1284
 msgid "Local user can't be referenced as remote."
 msgstr "L’utilisateur local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1284
+#: classes/Ostatus_profile.php:1289
 msgid "Local group can't be referenced as remote."
 msgstr "Le groupe local ne peut être référencé comme distant."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1336 classes/Ostatus_profile.php:1347
+#: classes/Ostatus_profile.php:1341 classes/Ostatus_profile.php:1352
 msgid "Can't save local profile."
 msgstr "Impossible de sauvegarder le profil local."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1355
+#: classes/Ostatus_profile.php:1360
 msgid "Can't save OStatus profile."
 msgstr "Impossible de sauvegarder le profil OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1614 classes/Ostatus_profile.php:1642
+#: classes/Ostatus_profile.php:1619 classes/Ostatus_profile.php:1647
 msgid "Not a valid webfinger address."
 msgstr "Ce n’est pas une adresse « webfinger » valide."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1724
+#: classes/Ostatus_profile.php:1729
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Impossible de sauvegarder le profil pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1743
+#: classes/Ostatus_profile.php:1748
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Impossible d’enregistrer le profil OStatus pour « %s »."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1751
+#: classes/Ostatus_profile.php:1756
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "Impossible de trouver un profil valide pour « %s »."
 
-#: classes/Ostatus_profile.php:1793
+#: classes/Ostatus_profile.php:1798
 msgid "Could not store HTML content of long post as file."
 msgstr ""
 "Impossible de stocker le contenu HTML d’une longue publication en un fichier."
@@ -451,7 +451,7 @@ msgstr "Le sujet de concentrateur « %s » est invalide. Le groupe n’existe pa
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "URL invalide passée à la méthode « %1$s » : « %2$s »"
 
-#: actions/userxrd.php:51 actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Utilisateur inexistant."
 
