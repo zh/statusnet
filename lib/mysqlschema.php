@@ -245,6 +245,9 @@ class MysqlSchema extends Schema
      * @param string $name
      * @param array $def
      * @return string;
+     *
+     * @fixme ENGINE may need to be set differently in some cases,
+     * such as to support fulltext index.
      */
     function endCreateTable($name, array $def)
     {
@@ -267,153 +270,36 @@ class MysqlSchema extends Schema
         return "{$tableName}_{$columnName}_idx";
     }
 
+
     /**
-     * Ensures that a table exists with the given
-     * name and the given column definitions.
+     * MySQL doesn't take 'DROP CONSTRAINT', need to treat unique keys as
+     * if they were indexes here.
      *
-     * If the table does not yet exist, it will
-     * create the table. If it does exist, it will
-     * alter the table to match the column definitions.
-     *
-     * @param string $tableName name of the table
-     * @param array  $columns   array of ColumnDef
-     *                          objects for the table
-     *
-     * @return boolean success flag
+     * @param array $phrase
+     * @param <type> $keyName MySQL
      */
-
-    public function oldensureTable($tableName, $columns)
+    function appendAlterDropUnique(array &$phrase, $keyName)
     {
-        // XXX: DB engine portability -> toilet
+        $phrase[] = 'DROP INDEX ' . $keyName;
+    }
 
-        try {
-            $td = $this->getTableDef($tableName);
-        } catch (SchemaTableMissingException $e) {
-            return $this->createTable($tableName, $columns);
-        }
-
-        $cur = $this->_names($td->columns);
-        $new = $this->_names($columns);
-
-        $dropIndex  = array();
-        $toadd      = array_diff($new, $cur);
-        $todrop     = array_diff($cur, $new);
-        $same       = array_intersect($new, $cur);
-        $tomod      = array();
-        $addIndex   = array();
-        $tableProps = array();
-
-        foreach ($same as $m) {
-            $curCol = $this->_byName($td->columns, $m);
-            $newCol = $this->_byName($columns, $m);
-
-            if (!$newCol->equals($curCol)) {
-                $tomod[] = $newCol->name;
-                continue;
-            }
-
-            // Earlier versions may have accidentally left tables at default
-            // charsets which might be latin1 or other freakish things.
-            if ($this->_isString($curCol)) {
-                if ($curCol->charset != 'utf8') {
-                    $tomod[] = $newCol->name;
-                    continue;
-                }
-            }
-        }
-
-        // Find any indices we have to change...
-        $curIdx = $this->_indexList($td->columns);
-        $newIdx = $this->_indexList($columns);
-
-        if ($curIdx['primary'] != $newIdx['primary']) {
-            if ($curIdx['primary']) {
-                $dropIndex[] = 'drop primary key';
-            }
-            if ($newIdx['primary']) {
-                $keys = implode(',', $newIdx['primary']);
-                $addIndex[] = "add constraint primary key ($keys)";
-            }
-        }
-
-        $dropUnique = array_diff($curIdx['uniques'], $newIdx['uniques']);
-        $addUnique = array_diff($newIdx['uniques'], $curIdx['uniques']);
-        foreach ($dropUnique as $columnName) {
-            $dropIndex[] = 'drop key ' . $this->_uniqueKey($tableName, $columnName);
-        }
-        foreach ($addUnique as $columnName) {
-            $addIndex[] = 'add constraint unique key ' . $this->_uniqueKey($tableName, $columnName) . " ($columnName)";;
-        }
-
-        $dropMultiple = array_diff($curIdx['indices'], $newIdx['indices']);
-        $addMultiple = array_diff($newIdx['indices'], $curIdx['indices']);
-        foreach ($dropMultiple as $columnName) {
-            $dropIndex[] = 'drop key ' . $this->_key($tableName, $columnName);
-        }
-        foreach ($addMultiple as $columnName) {
-            $addIndex[] = 'add key ' . $this->_key($tableName, $columnName) . " ($columnName)";
-        }
-
+    /**
+     * Throw some table metadata onto the ALTER TABLE if we have a mismatch
+     * in expected type, collation.
+     */
+    function appendAlterExtras(array &$phrase, $tableName)
+    {
         // Check for table properties: make sure we're using a sane
         // engine type and charset/collation.
         // @fixme make the default engine configurable?
         $oldProps = $this->getTableProperties($tableName, array('ENGINE', 'TABLE_COLLATION'));
         if (strtolower($oldProps['ENGINE']) != 'innodb') {
-            $tableProps['ENGINE'] = 'InnoDB';
+            $phrase[] = 'ENGINE=InnoDB';
         }
         if (strtolower($oldProps['TABLE_COLLATION']) != 'utf8_bin') {
-            $tableProps['DEFAULT CHARSET'] = 'utf8';
-            $tableProps['COLLATE'] = 'utf8_bin';
+            $phrase[] = 'DEFAULT CHARSET=utf8';
+            $phrase[] = 'COLLATE=utf8_bin';
         }
-
-        if (count($dropIndex) + count($toadd) + count($todrop) + count($tomod) + count($addIndex) + count($tableProps) == 0) {
-            // nothing to do
-            return true;
-        }
-
-        // For efficiency, we want this all in one
-        // query, instead of using our methods.
-
-        $phrase = array();
-
-        foreach ($dropIndex as $indexSql) {
-            $phrase[] = $indexSql;
-        }
-
-        foreach ($toadd as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-            $phrase[] = 'ADD COLUMN ' . $this->_columnSql($cd);
-        }
-
-        foreach ($todrop as $columnName) {
-            $phrase[] = 'DROP COLUMN ' . $columnName;
-        }
-
-        foreach ($tomod as $columnName) {
-            $cd = $this->_byName($columns, $columnName);
-
-            $phrase[] = 'MODIFY COLUMN ' . $this->_columnSql($cd);
-        }
-
-        foreach ($addIndex as $indexSql) {
-            $phrase[] = $indexSql;
-        }
-
-        foreach ($tableProps as $key => $val) {
-            $phrase[] = "$key=$val";
-        }
-
-        $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(', ', $phrase);
-
-        common_log(LOG_DEBUG, __METHOD__ . ': ' . $sql);
-        $res = $this->conn->query($sql);
-
-        if (PEAR::isError($res)) {
-            throw new Exception($res->getMessage());
-        }
-
-        return true;
     }
 
     /**

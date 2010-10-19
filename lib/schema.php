@@ -493,12 +493,6 @@ class Schema
         $uniques = $this->diffArrays($old, $def, 'unique keys');
         $indexes = $this->diffArrays($old, $def, 'indexes');
 
-        $total = $fields['count'] + $uniques['count'] + $indexes['count'];
-        if ($total == 0) {
-            // nothing to do
-            return array();
-        }
-
         // For efficiency, we want this all in one
         // query, instead of using our methods.
 
@@ -525,6 +519,13 @@ class Schema
 
         foreach ($uniques['mod'] + $uniques['add'] as $keyName) {
             $this->appendAlterAddUnique($phrase, $keyName, $def['unique keys'][$keyName]);
+        }
+
+        $this->appendAlterExtras($phrase, $tableName);
+
+        if (count($phrase) == 0) {
+            // nothing to do
+            return array();
         }
 
         $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(",\n", $phrase);
@@ -623,6 +624,11 @@ class Schema
     function appendAlterDropUnique(array &$phrase, $keyName)
     {
         $phrase[] = 'DROP CONSTRAINT ' . $keyName;
+    }
+
+    function appendAlterExtras(array &$phrase, $tableName)
+    {
+        // no-op
     }
 
     /**
