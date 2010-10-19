@@ -67,7 +67,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
         $server->add_signature_method($hmac_method);
 
-        $atok = null;
+        $atok = $app = null;
 
         // XXX: Insist that oauth_token and oauth_verifier be populated?
         // Spec doesn't say they MUST be.
@@ -78,7 +78,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             $this->reqToken = $req->get_parameter('oauth_token');
             $this->verifier = $req->get_parameter('oauth_verifier');
-
+            $app = $datastore->getAppByRequestToken($this->reqToken);
             $atok = $server->fetch_access_token($req);
 
         } catch (OAuthException $e) {
@@ -92,22 +92,26 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             // Token exchange failed -- log it
 
-            list($proxy, $ip) = common_client_ip();
-
             $msg = sprintf(
-                'API OAuth - Failure exchanging request token for access token, '
-                    . 'request token = %s, verifier = %s, IP = %s, proxy = %s',
+                'API OAuth - Failure exchanging OAuth request token for access token, '
+                    . 'request token = %s, verifier = %s',
                 $this->reqToken,
-                $this->verifier,
-                $ip,
-                $proxy
+                $this->verifier
             );
 
-            common_log(LOG_WARNING, $msg);
-
+            common_log(LOG_WARNIGN, $msg);
             $this->clientError(_("Invalid request token or verifier.", 400, 'text'));
 
         } else {
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "Issued now access token '%s' for application %d (%s).",
+                    $atok->key,
+                    $app->id,
+                    $app->name
+                )
+            );
             $this->showAccessToken($atok);
         }
     }
