@@ -96,13 +96,6 @@ class MysqlSchema extends Schema
 
             // warning -- 'unsigned' attr on numbers isn't given in DATA_TYPE and friends.
             // It is stuck in on COLUMN_TYPE though (eg 'bigint(20) unsigned')
-            /*
-            list($type, $size) = $this->reverseMapType($row['DATA_TYPE']);
-            $field['type'] = $type;
-            if ($size !== null) {
-                $field['size'] = $size;
-            }
-             */
             $field['type'] = $type = $row['DATA_TYPE'];
 
             if ($type == 'char' || $type == 'varchar') {
@@ -486,37 +479,6 @@ class MysqlSchema extends Schema
 
         return $type;
     }
-
-    /**
-     * Map a MySQL native type back to an independent type + size
-     *
-     * @param string $type
-     * @return array ($type, $size) -- $size may be null
-     */
-    /*
-    protected function reverseMapType($type)
-    {
-        $type = strtolower($type);
-        $map = array(
-            'decimal' => array('numeric', null),
-            'tinyint' => array('int', 'tiny'),
-            'smallint' => array('int', 'small'),
-            'mediumint' => array('int', 'medium'),
-            'bigint' => array('int', 'big'),
-            'tinyblob' => array('blob', 'tiny'),
-            'mediumblob' => array('blob', 'medium'),
-            'longblob' => array('blob', 'long'),
-            'tinytext' => array('text', 'tiny'),
-            'mediumtext' => array('text', 'medium'),
-            'longtext' => array('text', 'long'),
-        );
-        if (isset($map[$type])) {
-            return $map[$type];
-        } else {
-            return array($type, null);
-        }
-    }
-     */
 
     function typeAndSize($column)
     {

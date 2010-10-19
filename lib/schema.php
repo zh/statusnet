@@ -773,23 +773,6 @@ class Schema
     }
 
     /**
-     * Map a native type back to an independent type + size
-     *
-     * @param string $type
-     * @return array ($type, $size) -- $size may be null
-     */
-    protected function reverseMapType($type)
-    {
-        $sizes = array('tiny', 'small', 'medium', 'big');
-        foreach ($sizes as $prefix) {
-            if (substr($type, 0, strlen($prefix)) == $prefix) {
-                return array(substr($type, strlen($prefix)), $prefix);
-            }
-        }
-        return array($type, null);
-    }
-
-    /**
      * Convert an old-style set of ColumnDef objects into the current
      * Drupal-style schema definition array, for backwards compatibility
      * with plugins written for 0.9.x.

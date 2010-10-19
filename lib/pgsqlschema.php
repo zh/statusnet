@@ -81,15 +81,6 @@ class PgsqlSchema extends Schema
             $orderedFields[$row['ordinal_position']] = $name;
 
             $field = array();
-
-            // ??
-            /*
-            list($type, $size) = $this->reverseMapType($row['udt_name']);
-            $field['type'] = $type;
-            if ($size !== null) {
-                $field['size'] = $size;
-            }
-             */
             $field['type'] = $row['udt_name'];
 
             if ($type == 'char' || $type == 'varchar') {
@@ -366,12 +357,16 @@ class PgsqlSchema extends Schema
             $type = $map[$type];
         }
 
-        if (!empty($column['size'])) {
-            $size = $column['size'];
-            if ($type == 'int' &&
-                       in_array($size, array('small', 'big'))) {
-                $type = $size . 'int';
+        if ($type == 'int') {
+            if (!empty($column['size'])) {
+                $size = $column['size'];
+                if ($size == 'small') {
+                    return 'int2';
+                } else if ($size == 'big') {
+                    return 'int8';
+                }
             }
+            return 'int4';
         }
 
         return $type;
@@ -385,27 +380,6 @@ class PgsqlSchema extends Schema
             return "text check ($name in " . implode(',', $vals) . ')';
         } else {
             return parent::typeAndSize($column);
-        }
-    }
-
-    /**
-     * Map a native type back to an independent type + size
-     *
-     * @param string $type
-     * @return array ($type, $size) -- $size may be null
-     */
-    protected function reverseMapType($type)
-    {
-        $type = strtolower($type);
-        $map = array(
-            'int4' => array('int', null),
-            'int8' => array('int', 'big'),
-            'bytea' => array('blob', null),
-        );
-        if (isset($map[$type])) {
-            return $map[$type];
-        } else {
-            return array($type, null);
         }
     }
 
