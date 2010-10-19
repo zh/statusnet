@@ -650,7 +650,7 @@ $schema['user_group'] = array(
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-        'user_uri_key' => array('uri'),
+        'user_group_uri_key' => array('uri'),
     ),
     'foreign keys' => array(
         'user_group_design_id_fkey' => array('design', array('design_id' => 'id')),
