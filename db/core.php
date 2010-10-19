@@ -1012,3 +1012,13 @@ $schema['user_urlshortener_prefs'] = array(
         'user_urlshortener_prefs_user_id_fkey' => array('user', array('user_id' => 'id')),
     ),
 );
+
+$schema['schema_version'] = array(
+    'description' => 'To avoid checking database structure all the time, we store a checksum of the expected schema info for each table here. If it has not changed since the last time we checked the table, we can leave it as is.',
+    'fields' => array(
+        'table_name' => array('type' => 'varchar', 'length' => '64', 'not null' => true, 'description' => 'Table name'),
+        'checksum' => array('type' => 'varchar', 'length' => '64', 'not null' => true, 'description' => 'Checksum of schema array; a mismatch indicates we should check the table more thoroughly.'),
+        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+    ),
+    'primary key' => array('table_name'),
+);
