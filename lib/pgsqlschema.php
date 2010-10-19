@@ -342,7 +342,7 @@ class PgsqlSchema extends Schema
      */
     function quoteIdentifier($name)
     {
-        return '"' . $name . '"';
+        return $this->conn->quoteIdentifier($name);
     }
 
     function mapType($column)
