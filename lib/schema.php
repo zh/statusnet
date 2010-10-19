@@ -234,7 +234,7 @@ class Schema
      */
     function appendUniqueKeyDef(array &$sql, $name, array $def)
     {
-        $sql[] = "UNIQUE $name " . $this->buildIndexList($def);
+        $sql[] = "CONSTRAINT $name UNIQUE " . $this->buildIndexList($def);
     }
 
     /**
@@ -618,7 +618,7 @@ class Schema
         $sql = array();
         $sql[] = 'ADD';
         $this->appendUniqueKeyDef($sql, $keyName, $def);
-        $phrase[] = implode(' ', $sql);'ADD CONSTRAINT ' . $keyName;
+        $phrase[] = implode(' ', $sql);
     }
 
     function appendAlterDropUnique(array &$phrase, $keyName)
