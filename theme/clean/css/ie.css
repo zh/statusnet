@@ -1,13 +1,11 @@
-/* IE specific styles */
-
-/* base theme overrides */
+/* Temporary copy of base styles for overriding */
 
 input.checkbox,
 input.radio {
 top:0;
 }
 .form_notice textarea {
-    width: 364px;
+    width: 362px;
 }
 .form_notice .form_note + label {
 position:absolute;
@@ -17,8 +15,8 @@ text-indent:-9999px;
 height:16px;
 width:16px;
 display:block;
-        top: 31px;
-        right: 88px;
+    left: 390px;
+    top: 27px;
 }
 .form_notice #notice_action-submit {
     width: 96px;
@@ -57,6 +55,23 @@ z-index:9999;
 line-height:auto;
 }
 
+/* IE specific styles */
+
+.notice-options input.submit {
+    color:#FFFFFF;
+}
+
 .form_notice #notice_data-attach {
-filter: alpha(opacity=0);
+    filter: alpha(opacity=0);
+}
+
+.form_notice .form_note + label {
+    background:transparent url(../../rebase/images/icons/icons-01.gif) no-repeat 0 -328px;
+}
+
+.form_notice #notice_data-geo_wrap label {
+   background:transparent url(../../rebase/images/icons/icons-01.gif) no-repeat 0 -1780px;
+}
+.form_notice #notice_data-geo_wrap label.checked {
+   background:transparent url(../../rebase/images/icons/icons-01.gif) no-repeat 0 -1846px;
 }
