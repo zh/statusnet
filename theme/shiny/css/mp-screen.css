@@ -45,7 +45,7 @@ float:left;
     position:absolute;
     top:0;
     left:0;
-    background: #000;
+    background: #333;
     font-size: 1em;
 	letter-spacing: 0em;
 }
@@ -63,14 +63,18 @@ float:left;
     color: #fff !important;
 }
 
-#form_notice {
+.form_notice {
     float: left;
     margin-left: -10px;
     width: 300px;
     padding: 4px;
 }
 
-#form_notice textarea {
+#form_notice-direct.form_notice {
+    padding-top: 10px;
+}
+
+.form_notice textarea {
     width: 210px;
     height: 50px;
     padding: 4px;
@@ -84,14 +88,18 @@ bottom:2px;
 z-index:9;
 }
 
+#form_notice-direct.form_notice #notice_text-count {
+    left: -185px;
+}
+
 /*input type=file no good in
 iPhone/iPod Touch, Android, Opera Mini Simulator
 */
-#form_notice #notice_text-count + label,
-#form_notice label[for="notice_data-attach"] {
+.form_notice #notice_text-count + label,
+.form_notice label[for="notice_data-attach"] {
 display:none;
 }
-#form_notice #notice_data-attach {
+.form_notice #notice_data-attach {
 position:static;
 clear:both;
 width:65%;
@@ -104,19 +112,23 @@ background:none;
 opacity:1;
 }
 
-#form_notice #notice_action-submit {
-text-align:center;
+.form_notice #notice_action-submit {
+    text-align: center;
     left: 230px;
     top: 34px;
     width: 70px;
     font-size: 0.8em;
 }
 
+#form_notice-direct.form_notice #notice_action-submit {
+    top: 64px;
+}
+
 #site_nav_local_views {
 	position: relative;
 	z-index: 9;
 	float: left;
-	margin: 0px 10px 2px 0px;
+	margin: 0px 10px 2px 4px;
     width: auto;
 }
 
@@ -131,14 +143,14 @@ text-align:center;
     float: left;
 	padding: 4px;
     margin: 0px 10px 10px 0px;
-	border: none;
+	border: none !important;
 	font-size: 0.9em;
 	font-weight: normal;
 	letter-spacing: 0em;
 	text-transform: uppercase;
 	color: #f2f2f2 !important;
     background-color: #444;
-	text-shadow: 0px 1px 0px rgba(0,0,0,0.8); 
+	text-shadow: none; 
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -159,9 +171,9 @@ text-align:center;
     background: none;
 	display: inline;
     color: #4d4d4d !important;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    -moz-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-	-webkit-box-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+    box-shadow: none;
+    -moz-box-shadow: none;
+	-webkit-box-shadow: none;
 	border-bottom: 1px solid #fff;
 	text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
     background-color: #e2e2e2;
@@ -178,9 +190,53 @@ text-align:center;
     padding: 10px 2%;
     margin: 0;
     min-height: auto;
+	border-radius-topright: 4px;
+	-moz-border-radius-topright: 4px;
+	-webkit-border-top-right-radius: 4px;
 }
 
 #footer {
-    margin: 10px 0px 0px 0px;
-    padding: 4px;
+    margin: 0;
+    padding: 10px 4px 4px 4px;
+}
+
+
+.form_settings fieldset {
+margin-bottom:7px;
+}
+
+.form_settings label {
+width:auto;
+display:block;
+float:none;
+    text-align: left;
+}
+
+.form_settings .form_data li {
+margin-bottom:7px;
+}
+
+.form_settings .form_data textarea,
+.form_settings .form_data select, 
+.form_settings .form_data input {
+margin-left:0;
+display:block;
+}
+.form_settings .form_data textarea {
+width:96.41%;
+}
+
+.form_settings .form_data label {
+float:none;
+}
+
+.form_settings .form_data p.form_guide {
+width:auto;
+margin-left:0;
+}
+
+
+#settings_design_color .form_data {
+ width: auto;
+ margin-right: 0;
 }
