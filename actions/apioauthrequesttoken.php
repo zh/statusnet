@@ -154,10 +154,7 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
 
             return true;
         } else {
-            return Validate::uri(
-                $callback,
-                array('allowed_schemes' => array('http', 'https'))
-            );
+            return Validate::uri($callback);
         }
     }
 
