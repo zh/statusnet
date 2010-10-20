@@ -22,7 +22,7 @@
  * @category  Settings
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
- * @copyright 2008-2009 StatusNet, Inc.
+ * @copyright 2008-2010 StatusNet, Inc.
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link      http://status.net/
  */
@@ -50,13 +50,13 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
 class OauthconnectionssettingsAction extends ConnectSettingsAction
 {
 
-    var $page = null;
-    var $id   = null;
+    var $page        = null;
+    var $oauth_token = null;
 
     function prepare($args)
     {
         parent::prepare($args);
-        $this->id = (int)$this->arg('id');
+        $this->oauth_token = $this->arg('oauth_token');
         $this->page = ($this->arg('page')) ? ($this->arg('page') + 0) : 1;
         return true;
     }
@@ -80,7 +80,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
-        return _('You have allowed the following applications to access your account.');
+        return _('The following connections exist for your account.');
     }
 
     /**
@@ -97,22 +97,26 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         $offset = ($this->page - 1) * APPS_PER_PAGE;
         $limit  =  APPS_PER_PAGE + 1;
 
-        $application = $profile->getApplications($offset, $limit);
+        $connection = $profile->getConnectedApps($offset, $limit);
 
         $cnt = 0;
 
-        if (!empty($application)) {
-            $al = new ApplicationList($application, $user, $this, true);
-            $cnt = $al->show();
+        if (!empty($connection)) {
+            $cal = new ConnectedAppsList($connection, $user, $this);
+            $cnt = $cal->show();
         }
 
         if ($cnt == 0) {
             $this->showEmptyListMessage();
         }
 
-        $this->pagination($this->page > 1, $cnt > APPS_PER_PAGE,
-                          $this->page, 'connectionssettings',
-                          array('nickname' => $user->nickname));
+        $this->pagination(
+            $this->page > 1,
+            $cnt > APPS_PER_PAGE,
+            $this->page,
+            'connectionssettings',
+            array('nickname' => $user->nickname)
+        );
     }
 
     /**
@@ -138,11 +142,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         }
 
         if ($this->arg('revoke')) {
-            $this->revokeAccess($this->id);
-
-            // XXX: Show some indicator to the user of what's been done.
-
-            $this->showPage();
+            $this->revokeAccess($this->oauth_token);
         } else {
             $this->clientError(_('Unexpected form submission.'), 401);
             return false;
@@ -150,31 +150,26 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
     }
 
     /**
-     * Revoke access to an authorized OAuth application
+     * Revoke an access token
+     *
+     * XXX: Confirm revoke before doing it
      *
      * @param int $appId the ID of the application
      *
      */
 
-    function revokeAccess($appId)
+    function revokeAccess($token)
     {
         $cur = common_current_user();
 
-        $app = Oauth_application::staticGet('id', $appId);
-
-        if (empty($app)) {
-            $this->clientError(_('No such application.'), 404);
-            return false;
-        }
-
-        // XXX: Transaction here?
-
-        $appUser = Oauth_application_user::getByKeys($cur, $app);
+        $appUser = Oauth_application_user::getByUserAndToken($cur, $token);
 
         if (empty($appUser)) {
             $this->clientError(_('You are not a user of that application.'), 401);
             return false;
         }
+
+        $app = Oauth_application::staticGet('id', $appUser->application_id);
 
         $datastore = new ApiStatusNetOAuthDataStore();
         $datastore->revoke_token($appUser->token, 1);
@@ -187,10 +182,25 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
             return false;
         }
 
-        $msg = 'User %s (id: %d) revoked access to app %s (id: %d)';
-        common_log(LOG_INFO, sprintf($msg, $cur->nickname,
-                                     $cur->id, $app->name, $app->id));
+        $msg = 'API OAuth - user %s (id: %d) revoked access token %s for app id %d';
+        common_log(
+            LOG_INFO,
+            sprintf(
+                $msg,
+                $cur->nickname,
+                $cur->id,
+                $appUser->token,
+                $appUser->application_id
+            )
+        );
 
+        $msg = sprintf(
+            _('You have successfully revoked access for %s and the access token starting with %s'),
+             $app->name,
+             substr($appUser->token, 0, 7)
+        );
+
+        $this->showForm($msg, true);
     }
 
     function showEmptyListMessage()
@@ -204,15 +214,20 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function showSections()
     {
-       $cur = common_current_user();
+        $cur = common_current_user();
 
-       $this->element('h2', null, 'Developers');
-       $this->elementStart('p');
-       $this->raw(_('Developers can edit the registration settings for their applications '));
-       $this->element('a',
-           array('href' => common_local_url('oauthappssettings')),
-               'here.');
-       $this->elementEnd('p');
+        $this->element('h2', null, 'Developers');
+        $this->elementStart('p');
+
+        $devMsg = sprintf(
+            _('Are you a developer? [Register an OAuth client application](%s) to use with this instance of StatusNet.'),
+            common_local_url('oauthappssettings')
+        );
+
+        $output = common_markup_to_html($devMsg);
+
+        $this->raw($output);
+        $this->elementEnd('p');
     }
 
 }
