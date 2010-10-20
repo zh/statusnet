@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-19 23:00+0000\n"
-"PO-Revision-Date: 2010-10-19 23:02:34+0000\n"
+"POT-Creation-Date: 2010-10-20 00:18+0000\n"
+"PO-Revision-Date: 2010-10-20 00:20:13+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-18 21:13:08+0000\n"
+"X-POT-Import-Date: 2010-10-20 00:09:43+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -1430,7 +1430,6 @@ msgstr "Een naam is verplicht."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #: actions/editapplication.php:186
-#, fuzzy
 msgid "Name is too long (max 255 characters)."
 msgstr "De naam is te lang (maximaal 255 tekens)."
 
@@ -1446,10 +1445,10 @@ msgstr "Een beschrijving is verplicht"
 
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #: actions/editapplication.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
-msgstr[0] "De beschrijving is te lang (maximaal %d tekens)."
+msgstr[0] "De beschrijving is te lang (maximaal %d teken)."
 msgstr[1] "De beschrijving is te lang (maximaal %d tekens)."
 
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
@@ -1469,7 +1468,6 @@ msgstr "Organisatie is verplicht."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
 #: actions/editapplication.php:221
-#, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "De organisatienaam is te lang (maximaal 255 tekens)."
 
@@ -2358,15 +2356,14 @@ msgstr ""
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
 #: actions/invite.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid email address: %s."
-msgstr "Ongeldig e-mailadres: %s"
+msgstr "Ongeldig e-mailadres: %s."
 
 #. TRANS: Page title when invitations have been sent.
 #: actions/invite.php:116
-#, fuzzy
 msgid "Invitations sent"
-msgstr "De uitnodiging(en) zijn verzonden"
+msgstr "De uitnodigingen zijn verzonden"
 
 #. TRANS: Page title when inviting potential users.
 #: actions/invite.php:119
@@ -2378,10 +2375,9 @@ msgstr "Nieuwe gebruikers uitnodigen"
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
 #: actions/invite.php:139
-#, fuzzy
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
-msgstr[0] "U bent al geabonneerd op deze gebruikers:"
+msgstr[0] "U bent al geabonneerd op deze gebruiker:"
 msgstr[1] "U bent al geabonneerd op deze gebruikers:"
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
@@ -2397,26 +2393,21 @@ msgstr "%1$s (%2$s)"
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
 #: actions/invite.php:153
-#, fuzzy
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
-msgstr[0] ""
-"Deze gebruikers zijn al geregistreerd en u kunt zich automatisch bij hun "
-"abonneren:"
+msgstr[0] "Deze persoon is al gebruiker en u bent automatisch geabonneerd:"
 msgstr[1] ""
-"Deze gebruikers zijn al geregistreerd en u kunt zich automatisch bij hun "
-"abonneren:"
+"Deze personen zijn al gebruiker en u bent automatisch op ze geabonneerd:"
 
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
 #: actions/invite.php:167
-#, fuzzy
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
-msgstr[0] "Uitnodiging(en) zijn verzonden aan de volgende mensen:"
-msgstr[1] "Uitnodiging(en) zijn verzonden aan de volgende mensen:"
+msgstr[0] "De uitnodiging is verzonden naar de volgende persoon:"
+msgstr[1] "De uitnodigingen zijn verzonden naar de volgende personen:"
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
@@ -2877,7 +2868,6 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Updates die overeenkomen met de zoekterm \"%1$s\" op %2$s."
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email "
 "address yet."
@@ -3325,9 +3315,8 @@ msgstr "Profielinformatie"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:113
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
-msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties"
+msgstr "1-64 kleine letters of cijfers, geen leestekens of spaties."
 
 #. TRANS: Field label in form for profile settings.
 #: actions/profilesettings.php:117 actions/register.php:455
@@ -3345,19 +3334,18 @@ msgstr "Thuispagina"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:125
-#, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
-msgstr "De URL van uw thuispagina, blog of profiel bij een andere website"
+msgstr "De URL van uw thuispagina, blog of profiel bij een andere website."
 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
 #: actions/profilesettings.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
-msgstr[0] "Geef een beschrijving van uzelf en uw interesses in %d tekens"
-msgstr[1] "Geef een beschrijving van uzelf en uw interesses in %d tekens"
+msgstr[0] "Beschrijf uzelf en uw interesses in %d teken"
+msgstr[1] "Beschrijf uzelf en uw interesses in %d tekens"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:139 actions/register.php:471
@@ -3433,7 +3421,6 @@ msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:256
-#, fuzzy
 msgid "Full name is too long (max 255 characters)."
 msgstr "De volledige naam is te lang (maximaal 255 tekens)."
 
@@ -3441,15 +3428,14 @@ msgstr "De volledige naam is te lang (maximaal 255 tekens)."
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
 #: actions/profilesettings.php:262
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d character)."
 msgid_plural "Bio is too long (max %d characters)."
-msgstr[0] "De beschrijving is te lang (maximaal %d tekens)."
-msgstr[1] "De beschrijving is te lang (maximaal %d tekens)."
+msgstr[0] "De persoonlijke beschrijving is te lang (maximaal %d teken)."
+msgstr[1] "De persoonlijke beschrijving is te lang (maximaal %d tekens)."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:269
-#, fuzzy
 msgid "Location is too long (max 255 characters)."
 msgstr "Locatie is te lang (maximaal 255 tekens)."
 
@@ -3460,9 +3446,8 @@ msgstr "Er is geen tijdzone geselecteerd."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:281
-#, fuzzy
 msgid "Language is too long (max 50 characters)."
-msgstr "Taal is te lang (max 50 tekens)."
+msgstr "Taal is te lang (maximaal 50 tekens)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
@@ -3583,9 +3568,9 @@ msgstr "Publieke woordwolk"
 #. TRANS: Instructions (more used like an explanation/header).
 #. TRANS: %s is the StatusNet sitename.
 #: actions/publictagcloud.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "These are most popular recent tags on %s"
-msgstr "De meest recente en populairste labels op %s "
+msgstr "De meest recente en populairste labels op %s"
 
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
@@ -4863,7 +4848,6 @@ msgstr "Dit zijn de gebruikers die de mededelingen van %s volgen."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
 #: actions/subscribers.php:116
-#, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
@@ -6648,16 +6632,14 @@ msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:136
-#, fuzzy
 msgid "No configuration file found."
-msgstr "Er is geen instellingenbestand aangetroffen. "
+msgstr "Er is geen instellingenbestand aangetroffen."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
 #: lib/common.php:139
-#, fuzzy
 msgid "I looked for configuration files in the following places:"
-msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen: "
+msgstr "Er is gezocht naar instellingenbestanden op de volgende plaatsen:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:142
@@ -6968,7 +6950,7 @@ msgstr "E-mailadresbevestiging"
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
 #: lib/mail.php:179
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %1$s.\n"
 "\n"
@@ -6983,19 +6965,19 @@ msgid ""
 "Thanks for your time, \n"
 "%2$s\n"
 msgstr ""
-"Hallo %s.\n"
+"Hallo %1$s.\n"
 "\n"
-"Iemand heeft zojuist dit e-mailadres ingegeven op %s.\n"
+"Iemand heeft zojuist dit e-mailadres ingegeven op %2$s.\n"
 "\n"
-"Als u dit was, en als u uw ingave wilt bevestigen, gebruik dan de "
+"Als u dit was, en als u uw e-mailadres wilt bevestigen, gebruik dan de "
 "onderstaande URL:\n"
 "\n"
-"%s\n"
+"%3$s\n"
 "\n"
 "Als u het bovenstaande niet herkent, negeer dit bericht dan.\n"
 "\n"
 "Dank u wel voor uw tijd.\n"
-"%s\n"
+"%2$s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
@@ -7021,7 +7003,7 @@ msgstr ""
 #. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
 #. TRANS: %7$s is a link to the addressed user's e-mail settings.
 #: lib/mail.php:263
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -7036,14 +7018,14 @@ msgid ""
 msgstr ""
 "%1$s volgt nu uw medelingen op %2$s.\n"
 "\n"
-"\t%3$s\n"
+"%3$s\n"
 "\n"
 "%4$s%5$s%6$s\n"
 "\n"
 "Met vriendelijke groet,\n"
-"%7$s.\n"
+"%2$s.\n"
 "----\n"
-"Wijzig uw e-mailadres of instellingen op %8$s\n"
+"Wijzig uw e-mailadres of instellingen op %7$s\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail.
 #. TRANS: %s is biographical information.
@@ -7063,7 +7045,7 @@ msgstr "Nieuw e-mailadres om e-mail te versturen aan %s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
 #: lib/mail.php:321
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -7081,7 +7063,7 @@ msgstr ""
 "Meer informatie over e-mailen vindt u op %3$s.\n"
 "\n"
 "Met vriendelijke groet,\n"
-"%4$s"
+"%1$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
@@ -7190,7 +7172,7 @@ msgstr ""
 #: lib/mail.php:603
 #, fuzzy, php-format
 msgid "%1s$ (@%2$s) added your notice as a favorite"
-msgstr "%s (@%s) heeft uw mededeling als favoriet toegevoegd"
+msgstr "%1$s (@%2$s) heeft uw mededeling als favoriet toegevoegd"
 
 #. TRANS: Body for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, $2$s is the date the notice was created,
@@ -7250,9 +7232,9 @@ msgstr ""
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:676
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
-msgstr "%s (@%s) heeft u een mededeling gestuurd"
+msgstr "%1$s (@%2$s) heeft u een mededeling gestuurd"
 
 #. TRANS: Body of @-reply notification e-mail.
 #. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
@@ -7988,7 +7970,7 @@ msgstr "%s is geen geldige kleur."
 #. TRANS: Validation error for a web colour.
 #. TRANS: %s is the provided (invalid) text for colour.
 #: lib/webcolor.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "%s is geen geldige kleur. Gebruik drie of zes hexadecimale tekens."
 
@@ -8005,6 +7987,3 @@ msgstr "Geen gebruiker opgegeven; de back-upgebruiker wordt gebruikt."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d regels in de back-up."
-
-#~ msgid "Edit Application"
-#~ msgstr "Applicatie bewerken"
