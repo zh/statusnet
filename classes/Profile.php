@@ -401,10 +401,10 @@ class Profile extends Memcached_DataObject
         return $profile;
     }
 
-    function getApplications($offset = 0, $limit = null)
+    function getConnectedApps($offset = 0, $limit = null)
     {
         $qry =
-          'SELECT a.* ' .
+          'SELECT u.* ' .
           'FROM oauth_application_user u, oauth_application a ' .
           'WHERE u.profile_id = %d ' .
           'AND a.id = u.application_id ' .
@@ -419,11 +419,11 @@ class Profile extends Memcached_DataObject
             }
         }
 
-        $application = new Oauth_application();
+        $apps = new Oauth_application_user();
 
-        $cnt = $application->query(sprintf($qry, $this->id));
+        $cnt = $apps->query(sprintf($qry, $this->id));
 
-        return $application;
+        return $apps;
     }
 
     function subscriptionCount()

@@ -81,7 +81,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
             $app = $datastore->getAppByRequestToken($this->reqToken);
             $atok = $server->fetch_access_token($req);
 
-        } catch (OAuthException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
             common_debug(var_export($req, true));
             $code = $e->getCode();
@@ -99,7 +99,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
                 $this->verifier
             );
 
-            common_log(LOG_WARNIGN, $msg);
+            common_log(LOG_WARNING, $msg);
             $this->clientError(_("Invalid request token or verifier.", 400, 'text'));
 
         } else {
