@@ -254,6 +254,9 @@ class Schema
      */
     function appendForeignKeyDef(array &$sql, $name, array $def)
     {
+        if (count($def) != 2) {
+            throw new Exception("Invalid foreign key def for $name: " . var_export($def, true));
+        }
         list($refTable, $map) = $def;
         $srcCols = array_keys($map);
         $refCols = array_values($map);
@@ -884,7 +887,7 @@ class Schema
             if (!$cd->nullable) {
                 $column['not null'] = true;
             }
-            if ($cd->autoincrement) {
+            if ($cd->auto_increment) {
                 $column['type'] = 'serial';
             }
             if ($cd->default) {
@@ -942,13 +945,13 @@ class Schema
      */
     function validateDef($tableName, array $def)
     {
-        if (count($defs) && $defs[0] instanceof ColumnDef) {
-            $def = $this->oldToNew($tableName, $defs);
+        if (count($def) && $def[0] instanceof ColumnDef) {
+            $def = $this->oldToNew($tableName, $def);
         }
 
         // A few quick checks :D
         if (!isset($def['fields'])) {
-            throw new Exceptioni("Invalid table definition for $tableName: no fields.");
+            throw new Exception("Invalid table definition for $tableName: no fields.");
         }
 
         return $def;

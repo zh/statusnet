@@ -73,8 +73,8 @@ class Ostatus_profile extends Managed_DataObject
                 'ostatus_profile_feeduri_idx' => array('feeduri'),
             ),
             'foreign keys' => array(
-                'profile_id' => array('profile' => 'id'),
-                'group_id' => array('user_group' => 'id'),
+                'ostatus_profile_profile_id_fkey' => array('profile', array('profile_id' => 'id')),
+                'ostatus_profile_group_id_fkey' => array('user_group', array('group_id' => 'id')),
             ),
         );
     }
