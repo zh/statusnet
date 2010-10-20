@@ -37,7 +37,8 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 $con->consumer_secret = $consumerKey;
                 $result = $con->insert();
                 if (!$result) {
-                    $this->serverError(_("Could not create anonymous consumer."));
+                    // TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
+                    $this->serverError(_('Could not create anonymous consumer.'));
                 }
                 $app               = new OAuth_application();
                 $app->consumer_key = $con->consumer_key;
@@ -49,7 +50,8 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 $app->access_type  = 3; // read + write
                 $id = $app->insert();
                 if (!$id) {
-                    $this->serverError(_("Could not create anonymous OAuth application."));
+                    // TRANS: Server error displayed when trying to create an anynymous OAuth application.
+                    $this->serverError(_('Could not create anonymous OAuth application.'));
                 }
             } else {
                 return null;
@@ -230,7 +232,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
      *
      * @return OAuthToken   $token a new unauthorized OAuth request token
      */
-
     function new_request_token($consumer, $callback)
     {
         $t = new Token();
@@ -255,6 +256,4 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             return new OAuthToken($t->tok, $t->secret);
         }
     }
-
-
 }

@@ -43,7 +43,6 @@ require_once INSTALLDIR . '/lib/info.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiOauthAuthorizeAction extends Action
 {
     var $oauthTokenParam;
@@ -106,6 +105,7 @@ class ApiOauthAuthorizeAction extends Action
 
             // Make sure a oauth_token parameter was provided
             if (empty($this->oauthTokenParam)) {
+                // TRANS: Client error given when no oauth_token was passed to the OAuth API.
                 $this->clientError(_('No oauth_token parameter provided.'));
             } else {
 
@@ -113,11 +113,13 @@ class ApiOauthAuthorizeAction extends Action
                 $this->reqToken = $this->store->getTokenByKey($this->oauthTokenParam);
 
                 if (empty($this->reqToken)) {
+                    // TRANS: Client error given when an invalid request token was passed to the OAuth API.
                     $this->clientError(_('Invalid request token.'));
                 } else {
 
                     // Check to make sure we haven't already authorized the token
                     if ($this->reqToken->state != 0) {
+                        // TRANS: Client error given when an invalid request token was passed to the OAuth API.
                         $this->clientError(_("Invalid request token."));
                     }
                 }
@@ -125,6 +127,7 @@ class ApiOauthAuthorizeAction extends Action
 
             // make sure there's an app associated with this token
             if (empty($this->app)) {
+                // TRANS: Client error given when an invalid request token was passed to the OAuth API.
                 $this->clientError(_('Invalid request token.'));
             }
 
@@ -158,6 +161,7 @@ class ApiOauthAuthorizeAction extends Action
 
             $user = common_check_user($this->nickname, $this->password);
             if (empty($user)) {
+                // TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
                 $this->showForm(_("Invalid nickname / password!"));
                 return;
             }
@@ -198,6 +202,7 @@ class ApiOauthAuthorizeAction extends Action
 
             if (!$result) {
                 common_log_db_error($appUser, 'INSERT', __FILE__);
+                // TRANS: Server error given when a database error occurs inserting an OAuth application user.
                 $this->serverError(_('Database error inserting OAuth application user.'));
             }
 
@@ -211,7 +216,6 @@ class ApiOauthAuthorizeAction extends Action
             }
 
             if (!empty($this->callback)) {
-
                 $targetUrl = $this->getCallback(
                     $this->callback,
                     array(
@@ -222,9 +226,7 @@ class ApiOauthAuthorizeAction extends Action
 
                 // Redirect the user to the provided OAuth callback
                 common_redirect($targetUrl, 303);
-
             } elseif ($this->app->type == 2) {
-
                 // Strangely, a web application seems to want to do the OOB
                 // workflow. Because no callback was specified anywhere.
                 common_log(
@@ -261,6 +263,7 @@ class ApiOauthAuthorizeAction extends Action
             }
 
         } else {
+            // TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
             $this->clientError(_('Unexpected form submission.'));
         }
     }
@@ -287,6 +290,7 @@ class ApiOauthAuthorizeAction extends Action
 
     function title()
     {
+        // TRANS: Title for a page where a user can confirm/deny account access by an external application.
         return _('An application would like to connect to your account');
     }
 
@@ -304,6 +308,7 @@ class ApiOauthAuthorizeAction extends Action
                                           'action' => common_local_url('ApiOauthAuthorize')));
         $this->elementStart('fieldset');
         $this->element('legend', array('id' => 'apioauthauthorize_allowdeny'),
+                                 // TRANS: Fieldset legend.
                                  _('Allow or deny access'));
 
         $this->hidden('token', common_session_token());
@@ -320,6 +325,9 @@ class ApiOauthAuthorizeAction extends Action
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
+        // TRANS: User notification of external application requesting account access.
+        // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+        // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
         $msg = _('The application <strong>%1$s</strong> by ' .
                  '<strong>%2$s</strong> would like the ability ' .
                  'to <strong>%3$s</strong> your %4$s account data. ' .
@@ -336,33 +344,37 @@ class ApiOauthAuthorizeAction extends Action
         $this->elementEnd('ul');
 
         if (!common_logged_in()) {
-
             $this->elementStart('fieldset');
-            $this->element('legend', null, _('Account'));
+            // TRANS: Fieldset legend.
+            $this->element('legend', null, _m('LEGEND','Account'));
             $this->elementStart('ul', 'form_data');
             $this->elementStart('li');
+            // TRANS: Field label on OAuth API authorisation form.
             $this->input('nickname', _('Nickname'));
             $this->elementEnd('li');
             $this->elementStart('li');
+            // TRANS: Field label on OAuth API authorisation form.
             $this->password('password', _('Password'));
             $this->elementEnd('li');
             $this->elementEnd('ul');
 
             $this->elementEnd('fieldset');
-
         }
 
         $this->element('input', array('id' => 'cancel_submit',
                                       'class' => 'submit submit form_action-primary',
                                       'name' => 'cancel',
                                       'type' => 'submit',
-                                      'value' => _('Cancel')));
+                                      // TRANS: Button text that when clicked will cancel the process of allowing access to an account
+                                      // TRANS: by an external application.
+                                      'value' => _m('BUTTON','Cancel')));
 
         $this->element('input', array('id' => 'allow_submit',
                                       'class' => 'submit submit form_action-secondary',
                                       'name' => 'allow',
                                       'type' => 'submit',
-                                      'value' => _('Allow')));
+                                      // TRANS: Button text that when clicked will allow access to an account by an external application.
+                                      'value' => _m('BUTTON','Allow')));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');
@@ -376,9 +388,9 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return void
      */
-
     function getInstructions()
     {
+        // TRANS: Form instructions.
         return _('Authorize access to your account information.');
     }
 
@@ -389,7 +401,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return void
      */
-
     function showLocalNav()
     {
         // NOP
@@ -400,7 +411,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return nothing
      */
-
     function showSiteNotice()
     {
         // NOP
@@ -413,7 +423,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return nothing
      */
-
     function showNoticeForm()
     {
         // NOP
@@ -425,12 +434,14 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return nothing
      */
-
     function showCanceled()
     {
         $info = new InfoAction(
+            // TRANS: Header for user notification after revoking OAuth access to an application.
             _('Authorization canceled.'),
             sprintf(
+                // TRANS: User notification after revoking OAuth access to an application.
+                // TRANS: %s is an OAuth token.
                 _('The request token %s has been revoked.'),
                 $this->oauthTokenParm
             )
@@ -445,15 +456,18 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return nothing
      */
-
     function showAuthorized()
     {
         $title = sprintf(
+           // TRANS: Header of user notification after authorising an application access to a profile.
+           // TRANS: %s is the authorised application name.
             _("You have successfully authorized %s."),
             $this->app->name
         );
 
         $msg = sprintf(
+            // TRANS: Uer notification after authorising an application access to a profile.
+            // TRANS: %s is the authorised application name.
             _('Please return to %s and enter the following security code to complete the process.'),
             $this->app->name
         );
@@ -488,7 +502,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return string $url  a URL to use for redirecting to
      */
-
     function getCallback($url, $params)
     {
         foreach ($params as $k => $v) {
@@ -512,7 +525,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return string $url  the new URL with added parameter
      */
-
     function appendQueryVar($url, $k, $v) {
         $url = preg_replace('/(.*)(\?|&)' . $k . '=[^&]+?(&)(.*)/i', '$1$2$4', $url . '&');
         $url = substr($url, 0, -1);
