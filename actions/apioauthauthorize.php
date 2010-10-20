@@ -347,8 +347,10 @@ class ApiOauthAuthorizeAction extends Action
         $this->elementEnd('li');
         $this->elementEnd('ul');
 
+        // quickie hack
+        $button = false;
         if (!common_logged_in()) {
-            if (Event::handle('StartOAuthLoginForm', array($this))) {
+            if (Event::handle('StartOAuthLoginForm', array($this, &$button))) {
                 $this->elementStart('fieldset');
                 // TRANS: Fieldset legend.
                 $this->element('legend', null, _m('LEGEND','Account'));
@@ -365,7 +367,7 @@ class ApiOauthAuthorizeAction extends Action
 
                 $this->elementEnd('fieldset');
             }
-            Event::handle('EndOAuthLoginForm', array($this));
+            Event::handle('EndOAuthLoginForm', array($this, &$button));
         }
 
         $this->element('input', array('id' => 'cancel_submit',
@@ -381,7 +383,7 @@ class ApiOauthAuthorizeAction extends Action
                                       'name' => 'allow',
                                       'type' => 'submit',
                                       // TRANS: Button text that when clicked will allow access to an account by an external application.
-                                      'value' => _m('BUTTON','Allow')));
+                                      'value' => $button ? $button : _m('BUTTON','Allow')));
 
         $this->elementEnd('fieldset');
         $this->elementEnd('form');

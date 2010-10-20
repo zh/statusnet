@@ -655,11 +655,13 @@ class OpenIDPlugin extends Plugin
         return true;
     }
 
-    function onStartOAuthLoginForm($action)
+    function onStartOAuthLoginForm($action, &$button)
     {
         if (common_config('site', 'openidonly')) {
             // Cancel the regular password login form, we won't need it.
             $this->showOAuthLoginForm($action);
+            // TRANS: button label for OAuth authorization page when needing OpenID authentication first.
+            $button = _m('BUTTON', 'Continue');
             return false;
         } else {
             // Leave the regular password login form in place.
@@ -674,6 +676,10 @@ class OpenIDPlugin extends Plugin
      */
     protected function showOAuthLoginForm($action)
     {
+        $action->elementStart('fieldset');
+        // TRANS: OpenID plugin logon form legend.
+        $action->element('legend', null, _m('OpenID login'));
+
         $action->elementStart('ul', 'form_data');
         $action->elementStart('li');
         $provider = common_config('openid', 'trusted_provider');
@@ -699,6 +705,8 @@ class OpenIDPlugin extends Plugin
         }
         $action->elementEnd('li');
         $action->elementEnd('ul');
+
+        $action->elementEnd('fieldset');
     }
 
     /**
