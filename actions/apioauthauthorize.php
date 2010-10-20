@@ -177,21 +177,6 @@ class ApiOauthAuthorizeAction extends Action
                 $this->serverError($e->getMessage());
             }
 
-            // Check to see if there was a previous token associated
-            // with this user/app and kill it. If the user is doing this she
-            // probably doesn't want any old tokens anyway.
-
-            $appUser = Oauth_application_user::getByKeys($user, $this->app);
-
-            if (!empty($appUser)) {
-                $result = $appUser->delete();
-
-                if (!$result) {
-                    common_log_db_error($appUser, 'DELETE', __FILE__);
-                    $this->serverError(_('Database error deleting OAuth application user.'));
-                }
-            }
-
             // associated the authorized req token with the user and the app
 
             $appUser = new Oauth_application_user();

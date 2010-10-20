@@ -23,16 +23,43 @@ require_once INSTALLDIR . '/lib/oauthstore.php';
 
 class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 {
-    function lookup_consumer($consumer_key)
+    function lookup_consumer($consumerKey)
     {
-        $con = Consumer::staticGet('consumer_key', $consumer_key);
+        $con = Consumer::staticGet('consumer_key', $consumerKey);
 
         if (!$con) {
-            return null;
+
+            // Create an anon consumer and anon application if one
+            // doesn't exist already
+            if ($consumerKey == 'anonymous') {
+                $con = new Consumer();
+                $con->consumer_key    = $consumerKey;
+                $con->consumer_secret = $consumerKey;
+                $result = $con->insert();
+                if (!$result) {
+                    $this->serverError(_("Could not create anonymous consumer."));
+                }
+                $app               = new OAuth_application();
+                $app->consumer_key = $con->consumer_key;
+                $app->name         = 'anonymous';
+
+                // XXX: allow the user to set the access type when
+                // authorizing? Currently we default to r+w for anonymous
+                // OAuth client applications
+                $app->access_type  = 3; // read + write
+                $id = $app->insert();
+                if (!$id) {
+                    $this->serverError(_("Could not create anonymous OAuth application."));
+                }
+            } else {
+                return null;
+            }
         }
 
-        return new OAuthConsumer($con->consumer_key,
-                                 $con->consumer_secret);
+        return new OAuthConsumer(
+            $con->consumer_key,
+            $con->consumer_secret
+        );
     }
 
     function getAppByRequestToken($token_key)
@@ -94,7 +121,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
         if ($rt->find(true) && $rt->state == 1 && $rt->verifier == $verifier) { // authorized
 
-            common_debug('request token found.', __FILE__);
+            common_debug('request token found.');
 
             // find the associated user of the app
 
@@ -140,6 +167,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 // update the token from req to access for the user
 
                 $orig = clone($appUser);
+
                 $appUser->token = $at->tok;
 
                 // It's at this point that we change the access type
@@ -150,11 +178,10 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
                 $appUser->access_type = $app->access_type;
 
-                $result = $appUser->update($orig);
+                $result = $appUser->updateKeys($orig);
 
-                if (empty($result)) {
-                    common_debug('couldn\'t update OAuth app user.');
-                    return null;
+                if (!$result) {
+                    throw new Exception('Couldn\'t update OAuth app user.');
                 }
 
                 // Okay, good
@@ -179,9 +206,9 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
      * @return void
      */
     public function revoke_token($token_key, $type = 0) {
-        $rt = new Token();
-        $rt->tok = $token_key;
-        $rt->type = $type;
+        $rt        = new Token();
+        $rt->tok   = $token_key;
+        $rt->type  = $type;
         $rt->state = 0;
 
         if (!$rt->find(true)) {

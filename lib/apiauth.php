@@ -178,8 +178,10 @@ class ApiAuthAction extends ApiAction
             }
 
             // set the source attr
+            if ($app->name != 'anonymous') {
+                $this->source = $app->name;
+            }
 
-            $this->source = $app->name;
 
             $appUser = Oauth_application_user::staticGet('token', $access_token);
 

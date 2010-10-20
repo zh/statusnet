@@ -150,7 +150,6 @@ require_once INSTALLDIR . '/lib/mediafile.php';
 
 class ApiStatusesUpdateAction extends ApiAuthAction
 {
-    var $source                = null;
     var $status                = null;
     var $in_reply_to_status_id = null;
     var $lat                   = null;
