@@ -216,6 +216,8 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
     {
         $cur = common_current_user();
 
+        $this->elementStart('div', array('id' => 'developer-help', 'class' => 'section'));
+
         $this->element('h2', null, 'Developers');
         $this->elementStart('p');
 
@@ -228,6 +230,8 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $this->raw($output);
         $this->elementEnd('p');
+
+        $this->elementEnd('section');
     }
 
 }
