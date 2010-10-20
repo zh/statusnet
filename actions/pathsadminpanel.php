@@ -44,10 +44,8 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class PathsadminpanelAction extends AdminPanelAction
 {
-
     /**
      * Returns the page title
      *
@@ -56,6 +54,7 @@ class PathsadminpanelAction extends AdminPanelAction
 
     function title()
     {
+        // TRANS: Title for Paths admin panel.
         return _('Paths');
     }
 
@@ -64,9 +63,9 @@ class PathsadminpanelAction extends AdminPanelAction
      *
      * @return string instructions
      */
-
     function getInstructions()
     {
+        // TRANS: Form instructions for Path admin panel.
         return _('Path and server settings for this StatusNet site');
     }
 
@@ -75,7 +74,6 @@ class PathsadminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function showForm()
     {
         $form = new PathsAdminPanelForm($this);
@@ -88,7 +86,6 @@ class PathsadminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function saveSettings()
     {
         static $settings = array(
@@ -148,25 +145,29 @@ class PathsadminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function validate(&$values)
     {
-
         // Validate theme dir
 
         if (!empty($values['theme']['dir']) && !is_readable($values['theme']['dir'])) {
+            // TRANS: Client error in Paths admin panel.
+            // TRANS: %s is the directory that could not be read from.
             $this->clientError(sprintf(_("Theme directory not readable: %s."), $values['theme']['dir']));
         }
 
         // Validate avatar dir
 
         if (empty($values['avatar']['dir']) || !is_writable($values['avatar']['dir'])) {
+            // TRANS: Client error in Paths admin panel.
+            // TRANS: %s is the avatar directory that could not be written to.
             $this->clientError(sprintf(_("Avatar directory not writable: %s."), $values['avatar']['dir']));
         }
 
         // Validate background dir
 
         if (empty($values['background']['dir']) || !is_writable($values['background']['dir'])) {
+            // TRANS: Client error in Paths admin panel.
+            // TRANS: %s is the background directory that could not be written to.
             $this->clientError(sprintf(_("Background directory not writable: %s."), $values['background']['dir']));
         }
 
@@ -175,27 +176,28 @@ class PathsadminpanelAction extends AdminPanelAction
         // XXX: What else do we need to validate for lacales path here? --Z
 
         if (!empty($values['site']['locale_path']) && !is_readable($values['site']['locale_path'])) {
+            // TRANS: Client error in Paths admin panel.
+            // TRANS: %s is the locales directory that could not be read from.
             $this->clientError(sprintf(_("Locales directory not readable: %s."), $values['site']['locale_path']));
         }
 
         // Validate SSL setup
 
         if (mb_strlen($values['site']['sslserver']) > 255) {
+            // TRANS: Client error in Paths admin panel.
+            // TRANS: %s is the SSL server URL that is too long.
             $this->clientError(_('Invalid SSL server. The maximum length is 255 characters.'));
         }
     }
-
 }
 
 class PathsAdminPanelForm extends AdminForm
 {
-
     /**
      * ID of the form
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'form_paths_admin_panel';
@@ -206,7 +208,6 @@ class PathsAdminPanelForm extends AdminForm
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -217,7 +218,6 @@ class PathsAdminPanelForm extends AdminForm
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('pathsadminpanel');
@@ -228,27 +228,39 @@ class PathsAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'settings_paths_locale'));
+        // TRANS: Fieldset legend in Paths admin panel.
         $this->out->element('legend', null, _('Site'), 'site');
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Server'), _('Site\'s server hostname.'));
+        $this->input('server',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Server'),
+                     _('Site\'s server hostname.'));
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Path'), _('Site path'));
+        $this->input('path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Path'),
+                     _('Site path'));
         $this->unli();
 
         $this->li();
-        $this->input('locale_path', _('Locale Directory'), _('Directory path to locales'), 'site');
+        $this->input('locale_path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Locale directory'),
+                     _('Directory path to locales'),
+                     'site');
         $this->unli();
 
         $this->li();
-        $this->out->checkbox('fancy', _('Fancy URLs'),
+        $this->out->checkbox('fancy',
+                             // TRANS: Checkbox label in Paths admin panel.
+                             _('Fancy URLs'),
                              (bool) $this->value('fancy'),
                              _('Use fancy (more readable and memorable) URLs?'));
         $this->unli();
@@ -262,43 +274,84 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Server'), _('Server for themes'), 'theme');
+        $this->input('server',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for themes.'),
+                     'theme');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Path'), _('Web path to themes'), 'theme');
+        $this->input('path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to themes.'),
+                     'theme');
         $this->unli();
 
         $this->li();
-        $this->input('sslserver', _('SSL server'), _('SSL server for themes (default: SSL server)'), 'theme');
+        $this->input('sslserver',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('SSL server for themes (default: SSL server).'),
+                     'theme');
         $this->unli();
 
         $this->li();
-        $this->input('sslpath', _('SSL path'), _('SSL path to themes (default: /theme/)'), 'theme');
+        $this->input('sslpath',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('SSL path to themes (default: /theme/).'),
+                     'theme');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Directory'), _('Directory where themes are located'), 'theme');
+        $this->input('dir',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Directory'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Directory where themes are located.'),
+                     'theme');
         $this->unli();
 
         $this->out->elementEnd('ul');
 
         $this->out->elementEnd('fieldset');
         $this->out->elementStart('fieldset', array('id' => 'settings_avatar-paths'));
+        // TRANS: Fieldset legend in Paths admin panel.
         $this->out->element('legend', null, _('Avatars'));
 
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Avatar server'), 'Server for avatars', 'avatar');
+        $this->input('server',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Avatar server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for avatars.'),
+                     'avatar');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Avatar path'), 'Web path to avatars', 'avatar');
+        $this->input('path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Avatar path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to avatars'),
+                     'avatar');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Avatar directory'), 'Directory where avatars are located', 'avatar');
+        $this->input('dir',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Avatar directory'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Directory where avatars are located.'),
+                     'avatar');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -307,27 +360,53 @@ class PathsAdminPanelForm extends AdminForm
 
         $this->out->elementStart('fieldset', array('id' =>
                                                    'settings_design_background-paths'));
+        // TRANS: Fieldset legend in Paths admin panel.
         $this->out->element('legend', null, _('Backgrounds'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Server'), 'Server for backgrounds', 'background');
+        $this->input('server',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for backgrounds.'),
+                     'background');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Path'), 'Web path to backgrounds', 'background');
+        $this->input('path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to backgrounds.'),
+                     'background');
         $this->unli();
 
         $this->li();
-        $this->input('sslserver', _('SSL server'), 'Server for backgrounds on SSL pages', 'background');
+        $this->input('sslserver',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for backgrounds on SSL pages.'),
+                     'background');
         $this->unli();
 
         $this->li();
-        $this->input('sslpath', _('SSL path'), 'Web path to backgrounds on SSL pages', 'background');
+        $this->input('sslpath',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to backgrounds on SSL pages.'),
+                     'background');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Directory'), 'Directory where backgrounds are located', 'background');
+        $this->input('dir',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Directory'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Directory where backgrounds are located.'),
+                     'background');
         $this->unli();
 
         $this->out->elementEnd('ul');
@@ -336,53 +415,90 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->elementStart('fieldset', array('id' =>
                                                    'settings_design_attachments-paths'));
 
+        // TRANS: Fieldset legens in Paths admin panel.
         $this->out->element('legend', null, _('Attachments'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
-        $this->input('server', _('Server'), 'Server for attachments', 'attachments');
+        $this->input('server',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for attachments.'),
+                     'attachments');
         $this->unli();
 
         $this->li();
-        $this->input('path', _('Path'), 'Web path to attachments', 'attachments');
+        $this->input('path',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to attachments.'),
+                     'attachments');
         $this->unli();
 
         $this->li();
-        $this->input('sslserver', _('SSL server'), 'Server for attachments on SSL pages', 'attachments');
+        $this->input('sslserver',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server for attachments on SSL pages.'),
+                     'attachments');
         $this->unli();
 
         $this->li();
-        $this->input('sslpath', _('SSL path'), 'Web path to attachments on SSL pages', 'attachments');
+        $this->input('sslpath',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL path'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Web path to attachments on SSL pages.'),
+                     'attachments');
         $this->unli();
 
         $this->li();
-        $this->input('dir', _('Directory'), 'Directory where attachments are located', 'attachments');
+        $this->input('dir',
+                     // TRANS: Field label in Paths admin panel.
+                     _('Directory'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Directory where attachments are located.'),
+                     'attachments');
         $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' => 'settings_admin_ssl'));
+        // TRANS: Fieldset legend in Paths admin panel.
         $this->out->element('legend', null, _('SSL'));
         $this->out->elementStart('ul', 'form_data');
         $this->li();
 
+        // TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
         $ssl = array('never' => _('Never'),
+                     // TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
                      'sometimes' => _('Sometimes'),
+                      // TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
                      'always' => _('Always'));
 
-        $this->out->dropdown('site-ssl', _('Use SSL'),
+        // TRANS: Drop down label in Paths admin panel.
+        $this->out->dropdown('site-ssl',
+                             _('Use SSL'),
+                             // TRANS: Tooltip for field label in Paths admin panel.
                              $ssl, _('When to use SSL'),
-                             false, $this->value('ssl', 'site'));
+                             false,
+                             $this->value('ssl', 'site'));
         $this->unli();
 
         $this->li();
-        $this->input('sslserver', _('SSL server'),
-                     _('Server to direct SSL requests to'), 'site');
+        $this->input('sslserver',
+                     // TRANS: Field label in Paths admin panel.
+                     _('SSL server'),
+                     // TRANS: Tooltip for field label in Paths admin panel.
+                     _('Server to direct SSL requests to'),
+                     'site');
         $this->unli();
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
-
     }
 
     /**
@@ -390,10 +506,11 @@ class PathsAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('save', _('Save'), 'submit',
+        // TRANS: Button text to store form data in the Paths admin panel.
+        $this->out->submit('save', _m('BUTTON','Save'), 'submit',
+                           // TRANS: Button title text to store form data in the Paths admin panel.
                            'save', _('Save paths'));
     }
 
@@ -410,7 +527,6 @@ class PathsAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function input($setting, $title, $instructions, $section='site')
     {
         $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
