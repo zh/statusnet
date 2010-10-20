@@ -142,6 +142,7 @@ class Schema
      */
     public function buildCreateTable($name, $def)
     {
+        $def = $this->validateDef($name, $def);
         $def = $this->filterDef($def);
         $sql = array();
 
@@ -517,7 +518,7 @@ class Schema
      * @return array of SQL statements
      */
 
-    function buildEnsureTable($tableName, $def)
+    function buildEnsureTable($tableName, array $def)
     {
         try {
             $old = $this->getTableDef($tableName);
@@ -527,6 +528,7 @@ class Schema
 
         // Filter the DB-independent table definition to match the current
         // database engine's features and limitations.
+        $def = $this->validateDef($tableName, $def);
         $def = $this->filterDef($def);
 
         $statements = array();
@@ -851,10 +853,10 @@ class Schema
      * with plugins written for 0.9.x.
      *
      * @param string $tableName
-     * @param array $defs
+     * @param array $defs: array of ColumnDef objects
      * @return array
      */
-    function oldToNew($tableName, $defs)
+    protected function oldToNew($tableName, array $defs)
     {
         $table = array();
         $prefixes = array(
@@ -864,7 +866,6 @@ class Schema
             'big',
         );
         foreach ($defs as $cd) {
-            $cd->addToTableDef($table);
             $column = array();
             $column['type'] = $cd->type;
             foreach ($prefixes as $prefix) {
@@ -926,6 +927,31 @@ class Schema
     function filterDef(array $tableDef)
     {
         return $tableDef;
+    }
+
+    /**
+     * Validate a table definition array, checking for basic structure.
+     *
+     * If necessary, converts from an old-style array of ColumnDef objects.
+     *
+     * @param string $tableName
+     * @param array $def: table definition array
+     * @return array validated table definition array
+     *
+     * @throws Exception on wildly invalid input
+     */
+    function validateDef($tableName, array $def)
+    {
+        if (count($defs) && $defs[0] instanceof ColumnDef) {
+            $def = $this->oldToNew($tableName, $defs);
+        }
+
+        // A few quick checks :D
+        if (!isset($def['fields'])) {
+            throw new Exceptioni("Invalid table definition for $tableName: no fields.");
+        }
+
+        return $def;
     }
 
     function isNumericType($type)

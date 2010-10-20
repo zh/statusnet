@@ -28,11 +28,12 @@ Attempt to pull a schema definition for a given table.
   --raw     skip compatibility filtering for diffs
   --create  dump SQL that would be run to update or create this table
   --build   dump SQL that would be run to create this table fresh
+  --checksum just output checksums from the source schema defs
 
 
 END_OF_CHECKSCHEMA_HELP;
 
-$longoptions = array('diff', 'all', 'create', 'update', 'raw');
+$longoptions = array('diff', 'all', 'create', 'update', 'raw', 'checksum');
 require_once INSTALLDIR.'/scripts/commandline.inc';
 
 function indentOptions($indent)
@@ -207,6 +208,24 @@ function tweakPrimaryKey($def)
     return $def;
 }
 
+function dumpChecksum($tableName)
+{
+    $schema = Schema::get();
+    $def = getCoreSchema($tableName);
+
+    $updater = new SchemaUpdater($schema);
+    $checksum = $updater->checksum($def);
+    $old = @$updater->checksums[$tableName];
+
+    if ($old == $checksum) {
+        echo "OK  $checksum $tableName\n";
+    } else if (!$old) {
+        echo "NEW $checksum $tableName\n";
+    } else {
+        echo "MOD $checksum $tableName (was $old)\n";
+    }
+}
+
 if (have_option('all')) {
     $args = getCoreTables();
 }
@@ -219,6 +238,8 @@ if (count($args)) {
             dumpBuildTable($tableName);
         } else if (have_option('update')) {
             dumpEnsureTable($tableName);
+        } else if (have_option('checksum')) {
+            dumpChecksum($tableName);
         } else {
             dumpTable($tableName, true);
         }
