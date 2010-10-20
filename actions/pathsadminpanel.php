@@ -246,14 +246,14 @@ class PathsAdminPanelForm extends AdminForm
         $this->input('path',
                      // TRANS: Field label in Paths admin panel.
                      _('Path'),
-                     _('Site path'));
+                     _('Site path.'));
         $this->unli();
 
         $this->li();
         $this->input('locale_path',
                      // TRANS: Field label in Paths admin panel.
                      _('Locale directory'),
-                     _('Directory path to locales'),
+                     _('Directory path to locales.'),
                      'site');
         $this->unli();
 
@@ -341,7 +341,7 @@ class PathsAdminPanelForm extends AdminForm
                      // TRANS: Field label in Paths admin panel.
                      _('Avatar path'),
                      // TRANS: Tooltip for field label in Paths admin panel.
-                     _('Web path to avatars'),
+                     _('Web path to avatars.'),
                      'avatar');
         $this->unli();
 
@@ -484,7 +484,7 @@ class PathsAdminPanelForm extends AdminForm
         $this->out->dropdown('site-ssl',
                              _('Use SSL'),
                              // TRANS: Tooltip for field label in Paths admin panel.
-                             $ssl, _('When to use SSL'),
+                             $ssl, _('When to use SSL.'),
                              false,
                              $this->value('ssl', 'site'));
         $this->unli();
@@ -494,7 +494,7 @@ class PathsAdminPanelForm extends AdminForm
                      // TRANS: Field label in Paths admin panel.
                      _('SSL server'),
                      // TRANS: Tooltip for field label in Paths admin panel.
-                     _('Server to direct SSL requests to'),
+                     _('Server to direct SSL requests to.'),
                      'site');
         $this->unli();
         $this->out->elementEnd('ul');
