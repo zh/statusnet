@@ -74,8 +74,13 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
     function new_access_token($token, $consumer, $verifier)
     {
         common_debug(
-            'new_access_token("' . $token->key . '","' . $consumer->key. '","' . $verifier . '")',
-             __FILE__
+            sprintf(
+                "%s - New access token from request token %s, consumer %s and verifier %s ",
+                __FILE__,
+                $token,
+                $consumer,
+                $verifier
+            )
         );
 
         $rt = new Token();

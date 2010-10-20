@@ -113,14 +113,12 @@ class ApiOauthAuthorizeAction extends Action
                 $this->reqToken = $this->store->getTokenByKey($this->oauthTokenParam);
 
                 if (empty($this->reqToken)) {
-                    $this->serverError(
-                        _('Invalid request token.')
-                    );
+                    $this->clientError(_('Invalid request token.'));
                 } else {
 
                     // Check to make sure we haven't already authorized the token
                     if ($this->reqToken->state != 0) {
-                        $this->clientError("Invalid request token.");
+                        $this->clientError(_("Invalid request token."));
                     }
                 }
             }
@@ -240,14 +238,30 @@ class ApiOauthAuthorizeAction extends Action
                 // Redirect the user to the provided OAuth callback
                 common_redirect($targetUrl, 303);
 
-            } else {
+            } elseif ($this->app->type == 2) {
+
+                // Strangely, a web application seems to want to do the OOB
+                // workflow. Because no callback was specified anywhere.
                 common_log(
-                    LOG_INFO,
-                    "No oauth_callback parameter provided for application ID "
-                    . $this->app->id
-                    . " when authorizing request token."
+                    LOG_WARNING,
+                    sprintf(
+                        "API OAuth - No callback provided for OAuth web client ID %s (%s) "
+                         . "during authorization step. Falling back to OOB workflow.",
+                        $this->app->id,
+                        $this->app->name
+                    )
                 );
             }
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "The request token '%s' for OAuth application %s (%s) has been authorized.",
+                    $this->oauthTokenParam,
+                    $this->app->id,
+                    $this->app->name
+                )
+            );
 
             // Otherwise, inform the user that the rt was authorized
             $this->showAuthorized();
