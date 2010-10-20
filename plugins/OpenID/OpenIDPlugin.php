@@ -654,4 +654,91 @@ class OpenIDPlugin extends Plugin
                             _m('Use <a href="http://openid.net/">OpenID</a> to login to the site.'));
         return true;
     }
+
+    function onStartOAuthLoginForm($action)
+    {
+        if (common_config('site', 'openidonly')) {
+            // Cancel the regular password login form, we won't need it.
+            $this->showOAuthLoginForm($action);
+            return false;
+        } else {
+            // Leave the regular password login form in place.
+            // We'll add an OpenID link at bottom...?
+            return true;
+        }
+    }
+
+    /**
+     * @fixme merge with common code for main OpenID login form
+     * @param HTMLOutputter $action
+     */
+    protected function showOAuthLoginForm($action)
+    {
+        $action->elementStart('ul', 'form_data');
+        $action->elementStart('li');
+        $provider = common_config('openid', 'trusted_provider');
+        $appendUsername = common_config('openid', 'append_username');
+        if ($provider) {
+            $action->element('label', array(), _m('OpenID provider'));
+            $action->element('span', array(), $provider);
+            if ($appendUsername) {
+                $action->element('input', array('id' => 'openid_username',
+                                              'name' => 'openid_username',
+                                              'style' => 'float: none'));
+            }
+            $action->element('p', 'form_guide',
+                           ($appendUsername ? _m('Enter your username.') . ' ' : '') .
+                           _m('You will be sent to the provider\'s site for authentication.'));
+            $action->hidden('openid_url', $provider);
+        } else {
+            // TRANS: OpenID plugin logon form field label.
+            $action->input('openid_url', _m('OpenID URL'),
+                         '',
+                        // TRANS: OpenID plugin logon form field instructions.
+                         _m('Your OpenID URL'));
+        }
+        $action->elementEnd('li');
+        $action->elementEnd('ul');
+    }
+
+    /**
+     * Handle a POST user credential check in apioauthauthorization.
+     * If given an OpenID URL, we'll pass us over to the regular things
+     * and then redirect back here on completion.
+     *
+     * @fixme merge with common code for main OpenID login form
+     * @param HTMLOutputter $action
+     */
+    function onStartOAuthLoginCheck($action, &$user)
+    {
+        $provider = common_config('openid', 'trusted_provider');
+        if ($provider) {
+            $openid_url = $provider;
+            if (common_config('openid', 'append_username')) {
+                $openid_url .= $action->trimmed('openid_username');
+            }
+        } else {
+            $openid_url = $action->trimmed('openid_url');
+        }
+
+        if ($openid_url) {
+            require_once dirname(__FILE__) . '/openid.php';
+            oid_assert_allowed($openid_url);
+
+            $returnto = common_local_url('ApiOauthAuthorize', array(),
+                    array('oauth_token' => $action->arg('oauth_token')));
+            common_set_returnto($returnto);
+
+            // This will redirect if functional...
+            $result = oid_authenticate($openid_url,
+                                       'finishopenidlogin');
+            if (is_string($result)) { # error message
+                throw new ServerException($result);
+            } else {
+                exit(0);
+            }
+        }
+
+        return true;
+    }
 }

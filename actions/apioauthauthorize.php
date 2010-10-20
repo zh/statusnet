@@ -157,9 +157,13 @@ class ApiOauthAuthorizeAction extends Action
 
             // XXX Force credentials check?
 
-            // XXX OpenID
+            // @fixme this should probably use a unified login form handler
+            $user = null;
+            if (Event::handle('StartOAuthLoginCheck', array($this, &$user))) {
+                $user = common_check_user($this->nickname, $this->password);
+            }
+            Event::handle('EndOAuthLoginCheck', array($this, &$user));
 
-            $user = common_check_user($this->nickname, $this->password);
             if (empty($user)) {
                 // TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
                 $this->showForm(_("Invalid nickname / password!"));
@@ -344,21 +348,24 @@ class ApiOauthAuthorizeAction extends Action
         $this->elementEnd('ul');
 
         if (!common_logged_in()) {
-            $this->elementStart('fieldset');
-            // TRANS: Fieldset legend.
-            $this->element('legend', null, _m('LEGEND','Account'));
-            $this->elementStart('ul', 'form_data');
-            $this->elementStart('li');
-            // TRANS: Field label on OAuth API authorisation form.
-            $this->input('nickname', _('Nickname'));
-            $this->elementEnd('li');
-            $this->elementStart('li');
-            // TRANS: Field label on OAuth API authorisation form.
-            $this->password('password', _('Password'));
-            $this->elementEnd('li');
-            $this->elementEnd('ul');
+            if (Event::handle('StartOAuthLoginForm', array($this))) {
+                $this->elementStart('fieldset');
+                // TRANS: Fieldset legend.
+                $this->element('legend', null, _m('LEGEND','Account'));
+                $this->elementStart('ul', 'form_data');
+                $this->elementStart('li');
+                // TRANS: Field label on OAuth API authorisation form.
+                $this->input('nickname', _('Nickname'));
+                $this->elementEnd('li');
+                $this->elementStart('li');
+                // TRANS: Field label on OAuth API authorisation form.
+                $this->password('password', _('Password'));
+                $this->elementEnd('li');
+                $this->elementEnd('ul');
 
-            $this->elementEnd('fieldset');
+                $this->elementEnd('fieldset');
+            }
+            Event::handle('EndOAuthLoginForm', array($this));
         }
 
         $this->element('input', array('id' => 'cancel_submit',
