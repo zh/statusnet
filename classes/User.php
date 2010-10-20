@@ -898,9 +898,11 @@ class User extends Memcached_DataObject
             if ($user) {
                 return $user;
             } else {
-                throw new ServerException(_("No single user defined for single-user mode."));
+                // TRANS: Server exception.
+                throw new ServerException(_('No single user defined for single-user mode.'));
             }
         } else {
+            // TRANS: Server exception.
             throw new ServerException(_('Single-user mode code called when not enabled.'));
         }
     }

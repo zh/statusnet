@@ -527,20 +527,20 @@ class Action extends HTMLOutputter // lawsuit
                 }
                 // TRANS: Tooltip for main menu option "Login"
                 $tooltip = _m('TOOLTIP', 'Login to the site');
-                // TRANS: Main menu option when not logged in to log in
                 $this->menuItem(common_local_url('login'),
+                                // TRANS: Main menu option when not logged in to log in
                                 _m('MENU', 'Login'), $tooltip, false, 'nav_login');
             }
             // TRANS: Tooltip for main menu option "Help"
             $tooltip = _m('TOOLTIP', 'Help me!');
-            // TRANS: Main menu option for help on the StatusNet site
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
+                            // TRANS: Main menu option for help on the StatusNet site
                             _m('MENU', 'Help'), $tooltip, false, 'nav_help');
             if ($user || !common_config('site', 'private')) {
                 // TRANS: Tooltip for main menu option "Search"
                 $tooltip = _m('TOOLTIP', 'Search for people or text');
-                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                 $this->menuItem(common_local_url('peoplesearch'),
+                                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                                 _m('MENU', 'Search'), $tooltip, false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($this));
