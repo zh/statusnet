@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 17:39+0000\n"
-"PO-Revision-Date: 2010-10-20 17:41:04+0000\n"
+"POT-Creation-Date: 2010-10-20 19:20+0000\n"
+"PO-Revision-Date: 2010-10-20 19:22:19+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75070); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75096); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-20 01:18:32+0000\n"
+"X-POT-Import-Date: 2010-10-20 18:02:53+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -78,14 +78,15 @@ msgstr "Toegangsinstellingen opslaan"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
+#. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
-#: actions/imsettings.php:187 actions/profilesettings.php:201
-#: actions/smssettings.php:209 actions/subscriptions.php:246
-#: lib/applicationeditform.php:355
+#: actions/imsettings.php:187 actions/pathsadminpanel.php:512
+#: actions/profilesettings.php:201 actions/smssettings.php:209
+#: actions/subscriptions.php:246 lib/applicationeditform.php:355
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Opslaan"
@@ -647,10 +648,9 @@ msgstr ""
 
 #. TRANS: Fieldset legend.
 #: actions/apioauthauthorize.php:349
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Account"
-msgstr "Gebruiker"
+msgstr "Gebruikersgegevens"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
@@ -684,7 +684,6 @@ msgstr "Annuleren"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
 #: actions/apioauthauthorize.php:377
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Toestaan"
@@ -758,7 +757,7 @@ msgstr "Er is geen status gevonden met dit ID."
 #. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
 #: actions/apistatusesupdate.php:211
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s byte) due to its "
 "current configuration."
@@ -766,7 +765,7 @@ msgid_plural ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr[0] ""
-"De server was niet in staat zoveel POST-gegevens te verwerken (%s bytes) "
+"De server was niet in staat zoveel POST-gegevens te verwerken (%s byte) "
 "vanwege de huidige instellingen."
 msgstr[1] ""
 "De server was niet in staat zoveel POST-gegevens te verwerken (%s bytes) "
@@ -780,25 +779,23 @@ msgstr "De client moet een parameter \"status\" met een waarde opgeven."
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #: actions/apistatusesupdate.php:245
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
-msgstr[0] "De mededeling is te lang. Gebruik maximaal %d tekens."
+msgstr[0] "De mededeling is te lang. Gebruik maximaal %d teken."
 msgstr[1] "De mededeling is te lang. Gebruik maximaal %d tekens."
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
 #: actions/apistatusesupdate.php:285
-#, fuzzy
 msgid "Parent notice not found."
-msgstr "De API-functie is niet aangetroffen."
+msgstr "De bovenliggende mededeling is niet aangetroffen."
 
 #: actions/apistatusesupdate.php:307
-#, fuzzy, php-format
+#, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
 msgstr[0] ""
-"De maximale mededelingenlengte is %d tekens, inclusief de URL voor de "
-"bijlage."
+"De maximale mededelingenlengte is %d teken, inclusief de URL voor de bijlage."
 msgstr[1] ""
 "De maximale mededelingenlengte is %d tekens, inclusief de URL voor de "
 "bijlage."
@@ -1434,12 +1431,11 @@ msgstr "Standaardinstellingen toepassen"
 
 #. TRANS: Submit button title.
 #: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:396
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/tagother.php:154 actions/useradminpanel.php:295
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/othersettings.php:126 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/tagother.php:154
+#: actions/useradminpanel.php:295 lib/applicationeditform.php:357
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Opslaan"
 
@@ -2967,10 +2963,9 @@ msgstr "Verbonden applicaties"
 
 #. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-#, fuzzy
 msgid "The following connections exist for your account."
 msgstr ""
-"U hebt de volgende applicaties toegang gegeven tot uw gebruikersgegevens."
+"U hebt de onderstaande applicaties toegang gegeven tot uw gebruikersgegevens."
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
 #: actions/oauthconnectionssettings.php:168
@@ -2980,7 +2975,7 @@ msgstr "U bent geen gebruiker van die applicatie."
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
 #: actions/oauthconnectionssettings.php:183
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to revoke access for application: %s."
 msgstr ""
 "Het was niet mogelijk de toegang te ontzeggen voor de volgende applicatie: %"
@@ -2994,6 +2989,8 @@ msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
 "with %2$s."
 msgstr ""
+"U hebt de toegang voor %1$s en het toegangstoken dat begint met %2$s "
+"ingetrokken."
 
 #. TRANS: Empty list message when no applications have been authorised yet.
 #: actions/oauthconnectionssettings.php:213
@@ -3011,6 +3008,8 @@ msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
 "this instance of StatusNet."
 msgstr ""
+"Bet u ontwikkelaar? [Registreer dan een OAuthprogramma](%s) om te gebruiken "
+"met deze Statusnetsite."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3174,170 +3173,294 @@ msgstr "Het was niet mogelijk het nieuwe wachtwoord op te slaan."
 msgid "Password saved."
 msgstr "Het wachtwoord is opgeslagen."
 
+#. TRANS: Title for Paths admin panel.
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:371
+#: actions/pathsadminpanel.php:58 lib/adminpanelaction.php:371
 msgid "Paths"
 msgstr "Paden"
 
-#: actions/pathsadminpanel.php:70
+#. TRANS: Form instructions for Path admin panel.
+#: actions/pathsadminpanel.php:69
 msgid "Path and server settings for this StatusNet site"
 msgstr "Pad- en serverinstellingen voor de StatusNet-website"
 
-#: actions/pathsadminpanel.php:158
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the directory that could not be read from.
+#: actions/pathsadminpanel.php:155
 #, php-format
 msgid "Theme directory not readable: %s."
 msgstr "Er kan niet uit de vormgevingmap gelezen worden: %s."
 
-#: actions/pathsadminpanel.php:164
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the avatar directory that could not be written to.
+#: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "Er kan niet in de avatarmap geschreven worden: %s."
 
-#: actions/pathsadminpanel.php:170
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the background directory that could not be written to.
+#: actions/pathsadminpanel.php:171
 #, php-format
 msgid "Background directory not writable: %s."
 msgstr "Er kan niet in de achtergrondmap geschreven worden: %s."
 
-#: actions/pathsadminpanel.php:178
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the locales directory that could not be read from.
+#: actions/pathsadminpanel.php:181
 #, php-format
 msgid "Locales directory not readable: %s."
 msgstr "Er kan niet uit de talenmap gelezen worden: %s."
 
-#: actions/pathsadminpanel.php:184
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the SSL server URL that is too long.
+#: actions/pathsadminpanel.php:189
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "De SSL-server is ongeldig. De maximale lengte is 255 tekens."
 
+#. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:235 actions/siteadminpanel.php:58
 msgid "Site"
 msgstr "Website"
 
-#: actions/pathsadminpanel.php:239 actions/pathsadminpanel.php:265
-#: actions/pathsadminpanel.php:314 actions/pathsadminpanel.php:343
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:279
+#: actions/pathsadminpanel.php:370 actions/pathsadminpanel.php:425
 msgid "Server"
 msgstr "Server"
 
-#: actions/pathsadminpanel.php:239
+#: actions/pathsadminpanel.php:242
 msgid "Site's server hostname."
 msgstr "Hostnaam van de website server."
 
-#: actions/pathsadminpanel.php:243 actions/pathsadminpanel.php:269
-#: actions/pathsadminpanel.php:318 actions/pathsadminpanel.php:347
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:248 actions/pathsadminpanel.php:288
+#: actions/pathsadminpanel.php:379 actions/pathsadminpanel.php:434
 msgid "Path"
 msgstr "Pad"
 
-#: actions/pathsadminpanel.php:243
-msgid "Site path"
+#: actions/pathsadminpanel.php:249
+#, fuzzy
+msgid "Site path."
 msgstr "Websitepad"
 
-#: actions/pathsadminpanel.php:247
-msgid "Locale Directory"
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:255
+#, fuzzy
+msgid "Locale directory"
 msgstr "Lokale map"
 
-#: actions/pathsadminpanel.php:247
-msgid "Directory path to locales"
+#: actions/pathsadminpanel.php:256
+#, fuzzy
+msgid "Directory path to locales."
 msgstr "Talenmap"
 
-#: actions/pathsadminpanel.php:251
+#. TRANS: Checkbox label in Paths admin panel.
+#: actions/pathsadminpanel.php:263
 msgid "Fancy URLs"
 msgstr "Nette URL's"
 
-#: actions/pathsadminpanel.php:253
+#: actions/pathsadminpanel.php:265
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "Nette URL's (meer leesbaar en beter te onthouden) gebruiken?"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:272
 msgid "Theme"
 msgstr "Vormgeving"
 
-#: actions/pathsadminpanel.php:265
-msgid "Server for themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:281
+#, fuzzy
+msgid "Server for themes."
 msgstr "Server voor vormgevingen"
 
-#: actions/pathsadminpanel.php:269
-msgid "Web path to themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:290
+#, fuzzy
+msgid "Web path to themes."
 msgstr "Webpad voor vormgevingen"
 
-#: actions/pathsadminpanel.php:273 actions/pathsadminpanel.php:322
-#: actions/pathsadminpanel.php:351 actions/pathsadminpanel.php:380
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
+#: actions/pathsadminpanel.php:443 actions/pathsadminpanel.php:495
 msgid "SSL server"
 msgstr "SSL-server"
 
-#: actions/pathsadminpanel.php:273
-msgid "SSL server for themes (default: SSL server)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:299
+#, fuzzy
+msgid "SSL server for themes (default: SSL server)."
 msgstr "SSL-server voor vormgevingen (standaard: SSL-server)"
 
-#: actions/pathsadminpanel.php:277 actions/pathsadminpanel.php:326
-#: actions/pathsadminpanel.php:355
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
+#: actions/pathsadminpanel.php:452
 msgid "SSL path"
 msgstr "SSL-pad"
 
-#: actions/pathsadminpanel.php:277
-msgid "SSL path to themes (default: /theme/)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:308
+#, fuzzy
+msgid "SSL path to themes (default: /theme/)."
 msgstr "SSL-pad naar vorgevingen (standaard: /theme/)"
 
-#: actions/pathsadminpanel.php:281 actions/pathsadminpanel.php:330
-#: actions/pathsadminpanel.php:359
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
+#: actions/pathsadminpanel.php:461
 msgid "Directory"
 msgstr "Map"
 
-#: actions/pathsadminpanel.php:281
-msgid "Directory where themes are located"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:317
+#, fuzzy
+msgid "Directory where themes are located."
 msgstr "Map waar alle vormgevingen staan"
 
-#: actions/pathsadminpanel.php:288
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:326
 msgid "Avatars"
 msgstr "Avatars"
 
-#: actions/pathsadminpanel.php:293
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:333
 msgid "Avatar server"
 msgstr "Avatarserver"
 
-#: actions/pathsadminpanel.php:297
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:335
+#, fuzzy
+msgid "Server for avatars."
+msgstr "Server voor vormgevingen"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:342
 msgid "Avatar path"
 msgstr "Avatarpad"
 
-#: actions/pathsadminpanel.php:301
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:344
+#, fuzzy
+msgid "Web path to avatars."
+msgstr "Webpad voor vormgevingen"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:351
 msgid "Avatar directory"
 msgstr "Avatarmap"
 
-#: actions/pathsadminpanel.php:310
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:353
+#, fuzzy
+msgid "Directory where avatars are located."
+msgstr "Map waar alle vormgevingen staan"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:364
 msgid "Backgrounds"
 msgstr "Achtergronden"
 
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:372
+#, fuzzy
+msgid "Server for backgrounds."
+msgstr "Server voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:381
+#, fuzzy
+msgid "Web path to backgrounds."
+msgstr "Webpad voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:390
+msgid "Server for backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:399
+msgid "Web path to backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:408
+#, fuzzy
+msgid "Directory where backgrounds are located."
+msgstr "Map waar alle vormgevingen staan"
+
+#. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
-#: actions/pathsadminpanel.php:339 lib/attachmentlist.php:85
+#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:85
 msgid "Attachments"
 msgstr "Bijlagen"
 
-#: actions/pathsadminpanel.php:366
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:427
+#, fuzzy
+msgid "Server for attachments."
+msgstr "Server voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:436
+#, fuzzy
+msgid "Web path to attachments."
+msgstr "Webpad voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:445
+#, fuzzy
+msgid "Server for attachments on SSL pages."
+msgstr "Server voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:454
+#, fuzzy
+msgid "Web path to attachments on SSL pages."
+msgstr "Webpad voor vormgevingen"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:463
+#, fuzzy
+msgid "Directory where attachments are located."
+msgstr "Map waar alle vormgevingen staan"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:472
 msgid "SSL"
 msgstr "SSL"
 
-#: actions/pathsadminpanel.php:370 actions/snapshotadminpanel.php:202
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:477 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "Nooit"
 
-#: actions/pathsadminpanel.php:371
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:479
 msgid "Sometimes"
 msgstr "Soms"
 
-#: actions/pathsadminpanel.php:372
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:481
 msgid "Always"
 msgstr "Altijd"
 
-#: actions/pathsadminpanel.php:374
+#: actions/pathsadminpanel.php:485
 msgid "Use SSL"
 msgstr "SSL gebruiken"
 
-#: actions/pathsadminpanel.php:375
-msgid "When to use SSL"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:487
+#, fuzzy
+msgid "When to use SSL."
 msgstr "Wanneer SSL gebruikt moet worden"
 
-#: actions/pathsadminpanel.php:381
-msgid "Server to direct SSL requests to"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:497
+#, fuzzy
+msgid "Server to direct SSL requests to."
 msgstr "De server waar SSL-verzoeken heen gestuurd moeten worden"
 
-#: actions/pathsadminpanel.php:397
+#. TRANS: Button title text to store form data in the Paths admin panel.
+#: actions/pathsadminpanel.php:514
 msgid "Save paths"
 msgstr "Opslagpaden"
 
@@ -6185,15 +6308,13 @@ msgstr "U kon niet geauthenticeerd worden."
 
 #. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
 #: lib/apioauthstore.php:41
-#, fuzzy
 msgid "Could not create anonymous consumer."
-msgstr "Het was niet mogelijk de aliassen aan te maken."
+msgstr "Het was niet mogelijk een anonieme consumer aan te maken."
 
 #. TRANS: Server error displayed when trying to create an anynymous OAuth application.
 #: lib/apioauthstore.php:54
-#, fuzzy
 msgid "Could not create anonymous OAuth application."
-msgstr "Het was niet mogelijk de applicatie aan te maken."
+msgstr "Het was niet mogelijk een anonieme OAuthapplicatie aan te maken."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
 #: lib/apioauthstore.php:218
@@ -6287,7 +6408,7 @@ msgstr "Annuleren"
 
 #: lib/applicationlist.php:247
 msgid " by "
-msgstr ""
+msgstr " door "
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:260
@@ -6310,7 +6431,7 @@ msgstr "Goedgekeurd op %1$s met toegang \"%2$s\"."
 #: lib/applicationlist.php:282
 #, php-format
 msgid "Access token starting with: %s"
-msgstr ""
+msgstr "Toegangstoken begint met: %s"
 
 #. TRANS: Button label
 #: lib/applicationlist.php:298
@@ -7284,7 +7405,7 @@ msgstr ""
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%1$s (@%2$s) heeft uw mededeling als favoriet toegevoegd"
 
@@ -8101,13 +8222,3 @@ msgstr "Geen gebruiker opgegeven; de back-upgebruiker wordt gebruikt."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d regels in de back-up."
-
-#~ msgid "Database error deleting OAuth application user."
-#~ msgstr ""
-#~ "Er is een databasefout opgetreden tijdens het verwijderen van de OAuth "
-#~ "applicatiegebruiker."
-
-#~ msgid ""
-#~ "Developers can edit the registration settings for their applications "
-#~ msgstr ""
-#~ "Ontwikkelaars kunnen de registratiegegevens voor hun applicaties bewerken "

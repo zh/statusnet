@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 17:39+0000\n"
-"PO-Revision-Date: 2010-10-20 17:40:59+0000\n"
+"POT-Creation-Date: 2010-10-20 19:20+0000\n"
+"PO-Revision-Date: 2010-10-20 19:22:17+0000\n"
 "Language-Team: Korean <http://translatewiki.net/wiki/Portal:ko>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75070); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75096); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ko\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-20 01:18:32+0000\n"
+"X-POT-Import-Date: 2010-10-20 18:02:53+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -77,14 +77,15 @@ msgstr "접근 설정을 저장"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
+#. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
-#: actions/imsettings.php:187 actions/profilesettings.php:201
-#: actions/smssettings.php:209 actions/subscriptions.php:246
-#: lib/applicationeditform.php:355
+#: actions/imsettings.php:187 actions/pathsadminpanel.php:512
+#: actions/profilesettings.php:201 actions/smssettings.php:209
+#: actions/subscriptions.php:246 lib/applicationeditform.php:355
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "저장"
@@ -1404,12 +1405,11 @@ msgstr ""
 
 #. TRANS: Submit button title.
 #: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:396
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/tagother.php:154 actions/useradminpanel.php:295
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/othersettings.php:126 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/tagother.php:154
+#: actions/useradminpanel.php:295 lib/applicationeditform.php:357
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "저장"
 
@@ -3104,174 +3104,285 @@ msgstr "새 비밀번호를 저장 할 수 없습니다."
 msgid "Password saved."
 msgstr "비밀 번호 저장"
 
+#. TRANS: Title for Paths admin panel.
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:371
+#: actions/pathsadminpanel.php:58 lib/adminpanelaction.php:371
 msgid "Paths"
 msgstr "경로"
 
-#: actions/pathsadminpanel.php:70
+#. TRANS: Form instructions for Path admin panel.
+#: actions/pathsadminpanel.php:69
 msgid "Path and server settings for this StatusNet site"
 msgstr ""
 
-#: actions/pathsadminpanel.php:158
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the directory that could not be read from.
+#: actions/pathsadminpanel.php:155
 #, php-format
 msgid "Theme directory not readable: %s."
 msgstr "인스턴트 메신저를 사용할 수 없습니다."
 
-#: actions/pathsadminpanel.php:164
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the avatar directory that could not be written to.
+#: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "아바타가 삭제되었습니다."
 
-#: actions/pathsadminpanel.php:170
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the background directory that could not be written to.
+#: actions/pathsadminpanel.php:171
 #, fuzzy, php-format
 msgid "Background directory not writable: %s."
 msgstr "아바타 디렉토리에 쓸 수 없습니다 : %s"
 
-#: actions/pathsadminpanel.php:178
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the locales directory that could not be read from.
+#: actions/pathsadminpanel.php:181
 #, fuzzy, php-format
 msgid "Locales directory not readable: %s."
 msgstr "이 페이지는 귀하가 승인한 미디어 타입에서는 이용할 수 없습니다."
 
-#: actions/pathsadminpanel.php:184
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the SSL server URL that is too long.
+#: actions/pathsadminpanel.php:189
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr ""
 
+#. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:235 actions/siteadminpanel.php:58
 msgid "Site"
 msgstr "사이트"
 
-#: actions/pathsadminpanel.php:239 actions/pathsadminpanel.php:265
-#: actions/pathsadminpanel.php:314 actions/pathsadminpanel.php:343
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:279
+#: actions/pathsadminpanel.php:370 actions/pathsadminpanel.php:425
 msgid "Server"
 msgstr "SSL 서버"
 
-#: actions/pathsadminpanel.php:239
+#: actions/pathsadminpanel.php:242
 msgid "Site's server hostname."
 msgstr ""
 
-#: actions/pathsadminpanel.php:243 actions/pathsadminpanel.php:269
-#: actions/pathsadminpanel.php:318 actions/pathsadminpanel.php:347
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:248 actions/pathsadminpanel.php:288
+#: actions/pathsadminpanel.php:379 actions/pathsadminpanel.php:434
 msgid "Path"
 msgstr "경로"
 
-#: actions/pathsadminpanel.php:243
-msgid "Site path"
+#: actions/pathsadminpanel.php:249
+#, fuzzy
+msgid "Site path."
 msgstr "사이트 테마"
 
-#: actions/pathsadminpanel.php:247
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:255
 #, fuzzy
-msgid "Locale Directory"
+msgid "Locale directory"
 msgstr "테마 디렉터리"
 
-#: actions/pathsadminpanel.php:247
-msgid "Directory path to locales"
+#: actions/pathsadminpanel.php:256
+msgid "Directory path to locales."
 msgstr ""
 
-#: actions/pathsadminpanel.php:251
+#. TRANS: Checkbox label in Paths admin panel.
+#: actions/pathsadminpanel.php:263
 msgid "Fancy URLs"
 msgstr ""
 
-#: actions/pathsadminpanel.php:253
+#: actions/pathsadminpanel.php:265
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr ""
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:272
 msgid "Theme"
 msgstr "테마"
 
-#: actions/pathsadminpanel.php:265
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:281
 #, fuzzy
-msgid "Server for themes"
+msgid "Server for themes."
 msgstr "사이트에 대한 테마"
 
-#: actions/pathsadminpanel.php:269
-msgid "Web path to themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:290
+msgid "Web path to themes."
 msgstr ""
 
-#: actions/pathsadminpanel.php:273 actions/pathsadminpanel.php:322
-#: actions/pathsadminpanel.php:351 actions/pathsadminpanel.php:380
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
+#: actions/pathsadminpanel.php:443 actions/pathsadminpanel.php:495
 msgid "SSL server"
 msgstr "SSL 서버"
 
-#: actions/pathsadminpanel.php:273
-msgid "SSL server for themes (default: SSL server)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:299
+msgid "SSL server for themes (default: SSL server)."
 msgstr ""
 
-#: actions/pathsadminpanel.php:277 actions/pathsadminpanel.php:326
-#: actions/pathsadminpanel.php:355
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
+#: actions/pathsadminpanel.php:452
 #, fuzzy
 msgid "SSL path"
 msgstr "사이트 테마"
 
-#: actions/pathsadminpanel.php:277
-msgid "SSL path to themes (default: /theme/)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:308
+msgid "SSL path to themes (default: /theme/)."
 msgstr ""
 
-#: actions/pathsadminpanel.php:281 actions/pathsadminpanel.php:330
-#: actions/pathsadminpanel.php:359
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
+#: actions/pathsadminpanel.php:461
 #, fuzzy
 msgid "Directory"
 msgstr "테마 디렉터리"
 
-#: actions/pathsadminpanel.php:281
-msgid "Directory where themes are located"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:317
+msgid "Directory where themes are located."
 msgstr ""
 
-#: actions/pathsadminpanel.php:288
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:326
 msgid "Avatars"
 msgstr "아바타"
 
-#: actions/pathsadminpanel.php:293
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:333
 msgid "Avatar server"
 msgstr "아바타가 삭제되었습니다."
 
-#: actions/pathsadminpanel.php:297
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:335
+#, fuzzy
+msgid "Server for avatars."
+msgstr "사이트에 대한 테마"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:342
 msgid "Avatar path"
 msgstr "아바타 경로"
 
-#: actions/pathsadminpanel.php:301
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:344
+#, fuzzy
+msgid "Web path to avatars."
+msgstr "아바타 업데이트 실패"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:351
 msgid "Avatar directory"
 msgstr "아바타가 삭제되었습니다."
 
-#: actions/pathsadminpanel.php:310
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:353
+msgid "Directory where avatars are located."
+msgstr ""
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:364
 msgid "Backgrounds"
 msgstr "배경"
 
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:372
+#, fuzzy
+msgid "Server for backgrounds."
+msgstr "사이트에 대한 테마"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:381
+msgid "Web path to backgrounds."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:390
+msgid "Server for backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:399
+msgid "Web path to backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:408
+msgid "Directory where backgrounds are located."
+msgstr ""
+
+#. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
-#: actions/pathsadminpanel.php:339 lib/attachmentlist.php:85
+#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:85
 msgid "Attachments"
 msgstr "첨부파일"
 
-#: actions/pathsadminpanel.php:366
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:427
+#, fuzzy
+msgid "Server for attachments."
+msgstr "사이트에 대한 테마"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:436
+#, fuzzy
+msgid "Web path to attachments."
+msgstr "첨부문서 없음"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:445
+#, fuzzy
+msgid "Server for attachments on SSL pages."
+msgstr "사이트에 대한 테마"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:454
+msgid "Web path to attachments on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:463
+msgid "Directory where attachments are located."
+msgstr ""
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:472
 msgid "SSL"
 msgstr "SSL"
 
-#: actions/pathsadminpanel.php:370 actions/snapshotadminpanel.php:202
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:477 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "SSL 서버"
 
-#: actions/pathsadminpanel.php:371
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:479
 msgid "Sometimes"
 msgstr "가끔"
 
-#: actions/pathsadminpanel.php:372
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:481
 msgid "Always"
 msgstr "언제나"
 
-#: actions/pathsadminpanel.php:374
+#: actions/pathsadminpanel.php:485
 msgid "Use SSL"
 msgstr "SSL 사용"
 
-#: actions/pathsadminpanel.php:375
-msgid "When to use SSL"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:487
+#, fuzzy
+msgid "When to use SSL."
 msgstr "언제 SSL 사용"
 
-#: actions/pathsadminpanel.php:381
-msgid "Server to direct SSL requests to"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:497
+msgid "Server to direct SSL requests to."
 msgstr ""
 
-#: actions/pathsadminpanel.php:397
+#. TRANS: Button title text to store form data in the Paths admin panel.
+#: actions/pathsadminpanel.php:514
 msgid "Save paths"
 msgstr "사이트 테마"
 
@@ -7805,10 +7916,3 @@ msgstr "프로필을 지정하지 않았습니다."
 #, php-format
 msgid "%d entries in backup."
 msgstr ""
-
-#~ msgid "Database error deleting OAuth application user."
-#~ msgstr "OAuth 응용프로그램 사용자 삭제 중 데이터베이스 오류"
-
-#~ msgid ""
-#~ "Developers can edit the registration settings for their applications "
-#~ msgstr "개발자는 자기 응용 프로그램의 등록 정보를 편집할 수 있습니다"
