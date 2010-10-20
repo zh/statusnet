@@ -419,8 +419,9 @@ class Action extends HTMLOutputter // lawsuit
                                              'class' => 'vcard'));
         if (Event::handle('StartAddressData', array($this))) {
             if (common_config('singleuser', 'enabled')) {
+                $user = User::singleUser();
                 $url = common_local_url('showstream',
-                                        array('nickname' => common_config('singleuser', 'nickname')));
+                                        array('nickname' => $user->nickname));
             } else {
                 $url = common_local_url('public');
             }

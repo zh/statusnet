@@ -974,8 +974,9 @@ function common_tag_link($tag)
     $canonical = common_canonical_tag($tag);
     if (common_config('singleuser', 'enabled')) {
         // regular TagAction isn't set up in 1user mode
+        $user = User::singleUser();
         $url = common_local_url('showstream',
-                                array('nickname' => common_config('singleuser', 'nickname'),
+                                array('nickname' => $user->nickname,
                                       'tag' => $canonical));
     } else {
         $url = common_local_url('tag', array('tag' => $canonical));
