@@ -19,17 +19,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 00:18+0000\n"
-"PO-Revision-Date: 2010-10-20 00:19:53+0000\n"
+"POT-Creation-Date: 2010-10-20 17:39+0000\n"
+"PO-Revision-Date: 2010-10-20 17:40:38+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75030); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75070); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-20 00:09:43+0000\n"
+"X-POT-Import-Date: 2010-10-20 01:18:32+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -252,7 +252,7 @@ msgstr "API-Methode nicht gefunden."
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
 #: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
 #: actions/apigroupleave.php:93 actions/apimediaupload.php:68
-#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:199
+#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
 msgid "This method requires a POST."
 msgstr "Diese Methode benötigt ein POST."
 
@@ -285,10 +285,9 @@ msgstr "Konnte Profil nicht speichern."
 #. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
-#: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:123 actions/editapplication.php:120
-#: actions/newapplication.php:101 actions/newnotice.php:94
-#: lib/designsettings.php:283
+#: actions/avatarsettings.php:257 actions/designadminpanel.php:123
+#: actions/editapplication.php:120 actions/newapplication.php:101
+#: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -566,29 +565,32 @@ msgstr "Gruppen von %s"
 msgid "Upload failed."
 msgstr "Hochladen fehlgeschlagen."
 
-#: actions/apioauthaccesstoken.php:103
+#. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
+#: actions/apioauthaccesstoken.php:102
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "Login-Token ungültig oder abgelaufen."
 
+#. TRANS: Client error given when no oauth_token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:109
 msgid "No oauth_token parameter provided."
 msgstr "Kein oauth_token Parameter angegeben."
 
-#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:121
-#: actions/apioauthauthorize.php:128
+#. TRANS: Client error given when an invalid request token was passed to the OAuth API.
+#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:123
+#: actions/apioauthauthorize.php:131
 #, fuzzy
 msgid "Invalid request token."
 msgstr "Ungültiges Token."
 
-#: actions/apioauthauthorize.php:145 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:148 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
@@ -599,23 +601,23 @@ msgstr "Ungültiges Token."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Es gab ein Problem mit deinem Sitzungstoken. Bitte versuche es erneut."
 
-#: actions/apioauthauthorize.php:161
+#. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
+#: actions/apioauthauthorize.php:165
 msgid "Invalid nickname / password!"
 msgstr "Benutzername oder Passwort falsch."
 
-#: actions/apioauthauthorize.php:191
-msgid "Database error deleting OAuth application user."
-msgstr "Datenbankfehler beim Löschen des OAuth Anwendungs Nutzers."
-
-#: actions/apioauthauthorize.php:216
+#. TRANS: Server error given when a database error occurs inserting an OAuth application user.
+#: actions/apioauthauthorize.php:206
 msgid "Database error inserting OAuth application user."
 msgstr "Datenbankfehler beim Einfügen des OAuth-Programm-Benutzers."
 
+#. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:279 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:267 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:142
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
@@ -624,15 +626,20 @@ msgstr "Datenbankfehler beim Einfügen des OAuth-Programm-Benutzers."
 msgid "Unexpected form submission."
 msgstr "Unerwartete Formulareingabe."
 
-#: actions/apioauthauthorize.php:305
+#. TRANS: Title for a page where a user can confirm/deny account access by an external application.
+#: actions/apioauthauthorize.php:294
 msgid "An application would like to connect to your account"
 msgstr "Ein Programm will eine Verbindung zu deinem Konto aufbauen"
 
-#: actions/apioauthauthorize.php:322
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:312
 msgid "Allow or deny access"
 msgstr "Zugriff erlauben oder ablehnen"
 
-#: actions/apioauthauthorize.php:338
+#. TRANS: User notification of external application requesting account access.
+#. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#: actions/apioauthauthorize.php:331
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -643,13 +650,16 @@ msgstr ""
 "<strong>%3$s</strong> bei deinem %4$s Zugang. Du solltest nur "
 "vertrauenswürdigen Quellen Erlaubnis zu deinem %4$s Zugang geben."
 
-#. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:356 lib/action.php:490
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:349
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Account"
 msgstr "Profil"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:359 actions/login.php:252
+#: actions/apioauthauthorize.php:353 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -657,40 +667,60 @@ msgstr "Profil"
 msgid "Nickname"
 msgstr "Benutzername"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:362 actions/login.php:255
+#: actions/apioauthauthorize.php:357 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Passwort"
 
-#. TRANS: Submit button title.
-#: actions/apioauthauthorize.php:374 lib/applicationeditform.php:353
+#. TRANS: Button text that when clicked will cancel the process of allowing access to an account
+#. TRANS: by an external application.
+#. TRANS: Button label to cancel an e-mail address confirmation procedure.
+#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel a SMS address confirmation procedure.
+#. TRANS: Button label in the "Edit application" form.
+#: actions/apioauthauthorize.php:370 actions/emailsettings.php:127
+#: actions/imsettings.php:131 actions/smssettings.php:137
+#: lib/applicationeditform.php:351
+msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: actions/apioauthauthorize.php:380
+#. TRANS: Button text that when clicked will allow access to an account by an external application.
+#: actions/apioauthauthorize.php:377
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Erlauben"
 
-#: actions/apioauthauthorize.php:397
+#. TRANS: Form instructions.
+#: actions/apioauthauthorize.php:394
 msgid "Authorize access to your account information."
 msgstr "Zugang zu deinem Benutzerkonto autorisieren."
 
-#: actions/apioauthauthorize.php:447
+#. TRANS: Header for user notification after revoking OAuth access to an application.
+#: actions/apioauthauthorize.php:441
 msgid "Authorization canceled."
 msgstr "Authorisierung abgebrochen."
 
-#: actions/apioauthauthorize.php:449
+#. TRANS: User notification after revoking OAuth access to an application.
+#. TRANS: %s is an OAuth token.
+#: actions/apioauthauthorize.php:445
 #, fuzzy, php-format
 msgid "The request token %s has been revoked."
 msgstr "Die Anfrage %s wurde gesperrt und widerrufen."
 
-#: actions/apioauthauthorize.php:467
+#. TRANS: Header of user notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:464
 #, php-format
 msgid "You have successfully authorized %s."
 msgstr "Du hast %s erfolgreich authorisiert."
 
-#: actions/apioauthauthorize.php:472
+#. TRANS: Uer notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:471
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -730,27 +760,55 @@ msgstr "Status gelöscht."
 msgid "No status with that ID found."
 msgstr "Keine Nachricht mit dieser ID gefunden."
 
+#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#: actions/apistatusesupdate.php:211
+#, fuzzy, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s byte) due to its "
+"current configuration."
+msgid_plural ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr[0] ""
+"Der Server kann so große POST Abfragen (%s bytes) aufgrund der Konfiguration "
+"nicht verarbeiten."
+msgstr[1] ""
+"Der Server kann so große POST Abfragen (%s bytes) aufgrund der Konfiguration "
+"nicht verarbeiten."
+
+#. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 "Der Client muss einen „status“-Parameter mit einen Wert zur Verfügung "
 "stellen."
 
-#: actions/apistatusesupdate.php:243 actions/newnotice.php:157
-#: lib/mailhandler.php:60
-#, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr ""
+#. TRANS: Client error displayed when the parameter "status" is missing.
+#. TRANS: %d is the maximum number of character for a notice.
+#: actions/apistatusesupdate.php:245
+#, fuzzy, php-format
+msgid "That's too long. Maximum notice size is %d character."
+msgid_plural "That's too long. Maximum notice size is %d characters."
+msgstr[0] ""
+"Das war zu lang. Die Länge einer Nachricht ist auf %d Zeichen beschränkt."
+msgstr[1] ""
 "Das war zu lang. Die Länge einer Nachricht ist auf %d Zeichen beschränkt."
 
-#: actions/apistatusesupdate.php:284 actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Nicht gefunden."
+#. TRANS: Client error displayed when replying to a non-existing notice.
+#: actions/apistatusesupdate.php:285
+#, fuzzy
+msgid "Parent notice not found."
+msgstr "API-Methode nicht gefunden."
 
-#: actions/apistatusesupdate.php:307 actions/newnotice.php:181
-#, php-format
-msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+#: actions/apistatusesupdate.php:307
+#, fuzzy, php-format
+msgid "Maximum notice size is %d character, including attachment URL."
+msgid_plural "Maximum notice size is %d characters, including attachment URL."
+msgstr[0] ""
+"Die maximale Größe von Nachrichten ist %d Zeichen, inklusive der URL der "
+"Anhänge"
+msgstr[1] ""
 "Die maximale Größe von Nachrichten ist %d Zeichen, inklusive der URL der "
 "Anhänge"
 
@@ -811,6 +869,10 @@ msgstr "Aktualisierungen mit %1$s getagt auf %2$s!"
 #: actions/apitrends.php:87
 msgid "API method under construction."
 msgstr "API-Methode im Aufbau."
+
+#: actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Nicht gefunden."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -1416,8 +1478,7 @@ msgid "You must be logged in to edit an application."
 msgstr "Du musst angemeldet sein, um eine Anwendung zu bearbeiten."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:87
 msgid "No such application."
 msgstr "Anwendung nicht bekannt."
 
@@ -1433,7 +1494,6 @@ msgstr "Name ist erforderlich."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #: actions/editapplication.php:186
-#, fuzzy
 msgid "Name is too long (max 255 characters)."
 msgstr "Der Name ist zu lang (maximal 255 Zeichen)."
 
@@ -1449,7 +1509,7 @@ msgstr "Beschreibung ist erforderlich."
 
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #: actions/editapplication.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
 msgstr[0] "Die Beschreibung ist zu lang (max. %d Zeichen)."
@@ -1473,7 +1533,6 @@ msgstr "Organisation ist erforderlich. (Pflichtangabe)"
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
 #: actions/editapplication.php:221
-#, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "Die angegebene Organisation ist zu lang (maximal 255 Zeichen)."
 
@@ -1579,16 +1638,6 @@ msgid ""
 msgstr ""
 "Warte auf die Bestätigung dieser Adresse. Prüfe deinen Nachrichteneingang "
 "(auch den Spam-Ordner) auf eine Nachricht mit weiteren Instruktionen."
-
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label in the "Edit application" form.
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:351
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #. TRANS: Instructions for e-mail address input form. Do not translate
 #. TRANS: "example.org". It is one of the domain names reserved for
@@ -2358,13 +2407,12 @@ msgstr "Du musst angemeldet sein, um andere Benutzer zu %s einzuladen"
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
 #: actions/invite.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid email address: %s."
 msgstr "Ungültige E-Mail-Adresse: %s"
 
 #. TRANS: Page title when invitations have been sent.
 #: actions/invite.php:116
-#, fuzzy
 msgid "Invitations sent"
 msgstr "Einladung(en) verschickt"
 
@@ -2378,10 +2426,9 @@ msgstr "Lade neue Leute ein"
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
 #: actions/invite.php:139
-#, fuzzy
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
-msgstr[0] "Du hast diese Benutzer bereits abonniert:"
+msgstr[0] "Du hast diesen Benutzer bereits abonniert:"
 msgstr[1] "Du hast diese Benutzer bereits abonniert:"
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
@@ -2397,26 +2444,24 @@ msgstr "%1$s (%2$s)"
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
 #: actions/invite.php:153
-#, fuzzy
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
 msgstr[0] ""
-"Diese Leute sind bereits registrierte Benutzer und du hast sie automatisch "
+"Diese Person ist bereits registrierter Benutzer und du hast ihn automatisch "
 "abonniert."
 msgstr[1] ""
-"Diese Leute sind bereits registrierte Benutzer und du hast sie automatisch "
-"abonniert."
+"Diese Personen sind bereits registrierte Benutzer und du hast sie "
+"automatisch abonniert."
 
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
 #: actions/invite.php:167
-#, fuzzy
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
-msgstr[0] "Einladung(en) an folgende Personen geschickt:"
-msgstr[1] "Einladung(en) an folgende Personen geschickt:"
+msgstr[0] "Einladung an folgende Personen geschickt:"
+msgstr[1] "Einladungen an folgende Personen geschickt:"
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
@@ -2827,6 +2872,19 @@ msgstr "Ajax-Fehler"
 msgid "New notice"
 msgstr "Neue Nachricht"
 
+#: actions/newnotice.php:157 lib/mailhandler.php:60
+#, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr ""
+"Das war zu lang. Die Länge einer Nachricht ist auf %d Zeichen beschränkt."
+
+#: actions/newnotice.php:181
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr ""
+"Die maximale Größe von Nachrichten ist %d Zeichen, inklusive der URL der "
+"Anhänge"
+
 #: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Nachricht hinzugefügt"
@@ -2880,7 +2938,6 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Alle Aktualisierungen, die den Suchbegriff „%s“ enthalten"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email "
 "address yet."
@@ -2913,33 +2970,54 @@ msgstr "Registrierte Programme"
 msgid "You have not registered any applications yet."
 msgstr "Du hast noch keine Programme registriert"
 
-#: actions/oauthconnectionssettings.php:72
+#. TRANS: Title for OAuth connection settings.
+#: actions/oauthconnectionssettings.php:71
 msgid "Connected applications"
 msgstr "Verbundene Programme"
 
+#. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access your account."
+#, fuzzy
+msgid "The following connections exist for your account."
 msgstr ""
 "Du hast den folgenden Programmen erlaubt, auf dein Benutzerkonto zuzugreifen."
 
-#: actions/oauthconnectionssettings.php:175
+#. TRANS: Client error when trying to revoke access for an application while not being a user of it.
+#: actions/oauthconnectionssettings.php:168
 msgid "You are not a user of that application."
 msgstr "Du bist kein Benutzer dieses Programms."
 
-#: actions/oauthconnectionssettings.php:186
-#, php-format
-msgid "Unable to revoke access for app: %s."
+#. TRANS: Client error when revoking access has failed for some reason.
+#. TRANS: %s is the application ID revoking access failed for.
+#: actions/oauthconnectionssettings.php:183
+#, fuzzy, php-format
+msgid "Unable to revoke access for application: %s."
 msgstr "Kann Zugang dieses Programm nicht entfernen: %s."
 
-#: actions/oauthconnectionssettings.php:198
+#. TRANS: Success message after revoking access for an application.
+#. TRANS: %1$s is the application name, %2$s is the first part of the user token.
+#: actions/oauthconnectionssettings.php:202
+#, php-format
+msgid ""
+"You have successfully revoked access for %1$s and the access token starting "
+"with %2$s."
+msgstr ""
+
+#. TRANS: Empty list message when no applications have been authorised yet.
+#: actions/oauthconnectionssettings.php:213
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 "Du hast noch keinem Programm die Erlaubnis gegeben, dein Profil zu benutzen."
 
-#: actions/oauthconnectionssettings.php:211
-msgid "Developers can edit the registration settings for their applications "
+#. TRANS: Note for developers in the OAuth connection settings form.
+#. TRANS: This message contains a Markdown link. Do not separate "](".
+#. TRANS: %s is the URL to the OAuth settings.
+#: actions/oauthconnectionssettings.php:233
+#, php-format
+msgid ""
+"Are you a developer? [Register an OAuth client application](%s) to use with "
+"this instance of StatusNet."
 msgstr ""
-"Entwickler können die Registrierungseinstellungen ihrer Programme ändern "
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3326,16 +3404,15 @@ msgstr "Profilinformation"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:113
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
-msgstr "1-64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen"
+msgstr "1-64 Kleinbuchstaben oder Zahlen, keine Satz- oder Leerzeichen."
 
 #. TRANS: Field label in form for profile settings.
 #: actions/profilesettings.php:117 actions/register.php:455
 #: actions/showgroup.php:256 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
-msgstr "Vollständiger Name"
+msgstr "Bürgerlicher Name"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
@@ -3346,20 +3423,19 @@ msgstr "Homepage"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:125
-#, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
 msgstr ""
 "URL deiner Homepage, deines Blogs, oder deines Profils auf einer anderen "
-"Website"
+"Website."
 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
 #: actions/profilesettings.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
-msgstr[0] "Beschreibe dich selbst und deine Interessen in %d Zeichen"
+msgstr[0] "Beschreibe dich selbst und deine Interessen in einem Zeichen"
 msgstr[1] "Beschreibe dich selbst und deine Interessen in %d Zeichen"
 
 #. TRANS: Tooltip for field label in form for profile settings.
@@ -3436,23 +3512,21 @@ msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:256
-#, fuzzy
 msgid "Full name is too long (max 255 characters)."
-msgstr "Der vollständige Name ist zu lang (maximal 255 Zeichen)."
+msgstr "Der bürgerliche Name ist zu lang (maximal 255 Zeichen)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
 #: actions/profilesettings.php:262
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d character)."
 msgid_plural "Bio is too long (max %d characters)."
-msgstr[0] "Die Biografie ist zu lang (max. %d Zeichen)"
-msgstr[1] "Die Biografie ist zu lang (max. %d Zeichen)"
+msgstr[0] "Die Biografie ist zu lang (maximal ein Zeichen)."
+msgstr[1] "Die Biografie ist zu lang (maximal %d Zeichen)."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:269
-#, fuzzy
 msgid "Location is too long (max 255 characters)."
 msgstr "Der eingegebene Aufenthaltsort ist zu lang (maximal 255 Zeichen)."
 
@@ -3463,7 +3537,6 @@ msgstr "Keine Zeitzone ausgewählt."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:281
-#, fuzzy
 msgid "Language is too long (max 50 characters)."
 msgstr "Die eingegebene Sprache ist zu lang (maximal 50 Zeichen)"
 
@@ -3585,9 +3658,9 @@ msgstr "Öffentliche Stichwort-Wolke"
 #. TRANS: Instructions (more used like an explanation/header).
 #. TRANS: %s is the StatusNet sitename.
 #: actions/publictagcloud.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "These are most popular recent tags on %s"
-msgstr "Das sind die beliebtesten Stichwörter auf %s "
+msgstr "Das sind die beliebtesten Stichwörter auf %s"
 
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
@@ -4856,7 +4929,6 @@ msgstr "Dies sind die Leute, die Nachrichten von %s lesen."
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
 #: actions/subscribers.php:116
-#, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
@@ -5715,6 +5787,11 @@ msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Ändere deine E-Mail, Avatar, Passwort und Profil"
 
+#. TRANS: Main menu option when logged in for access to user settings
+#: lib/action.php:490
+msgid "Account"
+msgstr "Profil"
+
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:492
 msgctxt "TOOLTIP"
@@ -6081,28 +6158,40 @@ msgid "No application for that consumer key."
 msgstr "Kein Programm mit diesem Anwender-Schlüssel."
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:217
+#: lib/apiauth.php:219
 msgid "Bad access token."
 msgstr "Schlechter Zugangstoken."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:222
+#: lib/apiauth.php:224
 msgid "No user for that token."
 msgstr "Kein Benutzer mit diesem Token."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:264 lib/apiauth.php:291
+#: lib/apiauth.php:266 lib/apiauth.php:293
 msgid "Could not authenticate you."
 msgstr "Konnte dich nicht authentifizieren."
 
+#. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
+#: lib/apioauthstore.php:41
+#, fuzzy
+msgid "Could not create anonymous consumer."
+msgstr "Konnte keinen Favoriten erstellen."
+
+#. TRANS: Server error displayed when trying to create an anynymous OAuth application.
+#: lib/apioauthstore.php:54
+#, fuzzy
+msgid "Could not create anonymous OAuth application."
+msgstr "Konnte das Programm nicht erstellen."
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:189
+#: lib/apioauthstore.php:218
 msgid "Tried to revoke unknown token."
 msgstr "Versuchte, unbekanntes Token ungültig zu machen."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:194
+#: lib/apioauthstore.php:223
 msgid "Failed to delete revoked token."
 msgstr "Konnte ungültig gemachtes Token nicht löschen."
 
@@ -6182,24 +6271,40 @@ msgstr ""
 "Standardeinstellung dieses Programms: Schreibgeschützt oder Lese/"
 "Schreibzugriff"
 
+#. TRANS: Submit button title.
+#: lib/applicationeditform.php:353
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: lib/applicationlist.php:247
+msgid " by "
+msgstr ""
+
 #. TRANS: Application access type
-#: lib/applicationlist.php:134
+#: lib/applicationlist.php:260
 msgid "read-write"
 msgstr "Lese/Schreibzugriff"
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:136
+#: lib/applicationlist.php:262
 msgid "read-only"
 msgstr "Schreibgeschützt"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
-#: lib/applicationlist.php:142
+#: lib/applicationlist.php:268
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr "Genehmigte %1$s - „%2$s“ Zugriff."
 
+#. TRANS: Access token in the application list.
+#. TRANS: %s are the first 7 characters of the access token.
+#: lib/applicationlist.php:282
+#, php-format
+msgid "Access token starting with: %s"
+msgstr ""
+
 #. TRANS: Button label
-#: lib/applicationlist.php:157
+#: lib/applicationlist.php:298
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Widerrufen"
@@ -6346,7 +6451,7 @@ msgstr "%1$s hat die Gruppe %2$s verlassen."
 #: lib/command.php:430
 #, php-format
 msgid "Fullname: %s"
-msgstr "Vollständiger Name: %s"
+msgstr "Bürgerlicher Name: %s"
 
 #. TRANS: Whois output. %s is the location of the queried user.
 #. TRANS: Profile info line in new-subscriber notification e-mail.
@@ -6628,16 +6733,14 @@ msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:136
-#, fuzzy
 msgid "No configuration file found."
 msgstr "Keine Konfigurationsdatei gefunden."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
 #: lib/common.php:139
-#, fuzzy
 msgid "I looked for configuration files in the following places:"
-msgstr "Ich habe an folgenden Stellen nach Konfigurationsdateien gesucht: "
+msgstr "Ich habe an folgenden Stellen nach Konfigurationsdateien gesucht:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:142
@@ -6950,7 +7053,7 @@ msgstr "Bestätigung der E-Mail-Adresse"
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
 #: lib/mail.php:179
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %1$s.\n"
 "\n"
@@ -6965,19 +7068,19 @@ msgid ""
 "Thanks for your time, \n"
 "%2$s\n"
 msgstr ""
-"Hallo %s,\n"
+"Hallo %1$s,\n"
 "\n"
-"jemand hat diese E-Mail-Adresse gerade auf %s eingegeben.\n"
+"jemand hat diese E-Mail-Adresse gerade auf %2$s eingegeben.\n"
 "\n"
 "Falls du es warst und du deinen Eintrag bestätigen möchtest, benutze\n"
 "bitte diese URL:\n"
 "\n"
-"%s\n"
+"%3$s\n"
 "\n"
 "Falls nicht, ignoriere diese Nachricht einfach.\n"
 "\n"
 "Vielen Dank!\n"
-"%s\n"
+"%2$s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
@@ -7004,7 +7107,7 @@ msgstr ""
 #. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
 #. TRANS: %7$s is a link to the addressed user's e-mail settings.
 #: lib/mail.php:263
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -7023,10 +7126,10 @@ msgstr ""
 "\n"
 "%4$s%5$s%6$s\n"
 "Mit freundlichen Grüßen,\n"
-"%7$s.\n"
+"%2$s.\n"
 "\n"
 "----\n"
-"Du kannst deine E-Mail-Adresse und die Benachrichtigungseinstellungen auf %8"
+"Du kannst deine E-Mail-Adresse und die Benachrichtigungseinstellungen auf %7"
 "$s ändern.\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail.
@@ -7047,7 +7150,7 @@ msgstr "Neue E-Mail-Adresse um auf %s zu schreiben"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
 #: lib/mail.php:321
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -7060,12 +7163,12 @@ msgid ""
 msgstr ""
 "Du hast eine neue Adresse zum Hinzufügen von Nachrichten auf %1$s.\n"
 "\n"
-"Schicke eine E-Mail an %2$s um eine neue Nachricht hinzuzufügen.\n"
+"Schicke eine E-Mail an %2$s, um eine neue Nachricht hinzuzufügen.\n"
 "\n"
 "Weitere E-Mail-Anweisungen unter %3$s.\n"
 "\n"
 "Viele Grüße,\n"
-"%4$s"
+"%1$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
@@ -7173,7 +7276,7 @@ msgstr ""
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
 #, fuzzy, php-format
-msgid "%1s$ (@%2$s) added your notice as a favorite"
+msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%s (@%s) hat deine Nachricht als Favorit gespeichert"
 
 #. TRANS: Body for favorite notification e-mail.
@@ -7227,10 +7330,11 @@ msgstr ""
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:676
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
 msgstr ""
-"%s (@%s) hat dir eine Nachricht gesendet um deine Aufmerksamkeit zu erlangen"
+"%1$s (@%2$s) hat dir eine Nachricht gesendet, um deine Aufmerksamkeit zu "
+"erlangen"
 
 #. TRANS: Body of @-reply notification e-mail.
 #. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
@@ -7959,9 +8063,9 @@ msgstr "%s ist keine gültige Farbe!"
 #. TRANS: Validation error for a web colour.
 #. TRANS: %s is the provided (invalid) text for colour.
 #: lib/webcolor.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
-msgstr "%s ist keine gültige Farbe! Verwenden Sie 3 oder 6 Hex-Zeichen."
+msgstr "%s ist keine gültige Farbe! Verwende 3 oder 6 Hex-Zeichen."
 
 #: scripts/restoreuser.php:82
 #, php-format
@@ -7976,3 +8080,11 @@ msgstr "Keine Benutzer-ID angegeben"
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d Einträge im Backup."
+
+#~ msgid "Database error deleting OAuth application user."
+#~ msgstr "Datenbankfehler beim Löschen des OAuth Anwendungs Nutzers."
+
+#~ msgid ""
+#~ "Developers can edit the registration settings for their applications "
+#~ msgstr ""
+#~ "Entwickler können die Registrierungseinstellungen ihrer Programme ändern "

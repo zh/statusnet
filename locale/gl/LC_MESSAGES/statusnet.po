@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 00:18+0000\n"
-"PO-Revision-Date: 2010-10-20 00:20:00+0000\n"
+"POT-Creation-Date: 2010-10-20 17:39+0000\n"
+"PO-Revision-Date: 2010-10-20 17:40:47+0000\n"
 "Language-Team: Galician <http://translatewiki.net/wiki/Portal:gl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75030); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75070); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: gl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-20 00:09:43+0000\n"
+"X-POT-Import-Date: 2010-10-20 01:18:32+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -243,7 +243,7 @@ msgstr "Non se atopou o método da API."
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
 #: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
 #: actions/apigroupleave.php:93 actions/apimediaupload.php:68
-#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:199
+#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
 msgid "This method requires a POST."
 msgstr "Este método require un POST."
 
@@ -276,10 +276,9 @@ msgstr "Non se puido gardar o perfil."
 #. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
-#: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:123 actions/editapplication.php:120
-#: actions/newapplication.php:101 actions/newnotice.php:94
-#: lib/designsettings.php:283
+#: actions/avatarsettings.php:257 actions/designadminpanel.php:123
+#: actions/editapplication.php:120 actions/newapplication.php:101
+#: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -554,29 +553,32 @@ msgstr "grupos en %s"
 msgid "Upload failed."
 msgstr "Houbo un erro durante a carga."
 
-#: actions/apioauthaccesstoken.php:103
+#. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
+#: actions/apioauthaccesstoken.php:102
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "O pase especificado é incorrecto."
 
+#. TRANS: Client error given when no oauth_token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:109
 msgid "No oauth_token parameter provided."
 msgstr "Non se forneceu o parámetro oauth_token."
 
-#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:121
-#: actions/apioauthauthorize.php:128
+#. TRANS: Client error given when an invalid request token was passed to the OAuth API.
+#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:123
+#: actions/apioauthauthorize.php:131
 #, fuzzy
 msgid "Invalid request token."
 msgstr "Pase incorrecto."
 
-#: actions/apioauthauthorize.php:145 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:148 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
@@ -587,27 +589,25 @@ msgstr "Pase incorrecto."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Houbo un erro co seu pase. Inténteo de novo."
 
-#: actions/apioauthauthorize.php:161
+#. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
+#: actions/apioauthauthorize.php:165
 msgid "Invalid nickname / password!"
 msgstr "O alcume ou o contrasinal son incorrectos!"
 
-#: actions/apioauthauthorize.php:191
-msgid "Database error deleting OAuth application user."
-msgstr ""
-"Houbo un erro na base de datos ao intentar borrar o usuario da aplicación "
-"OAuth."
-
-#: actions/apioauthauthorize.php:216
+#. TRANS: Server error given when a database error occurs inserting an OAuth application user.
+#: actions/apioauthauthorize.php:206
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Houbo un erro na base de datos ao intentar inserir o usuario da aplicación "
 "OAuth."
 
+#. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:279 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:267 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:142
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
@@ -616,15 +616,20 @@ msgstr ""
 msgid "Unexpected form submission."
 msgstr "Envío de formulario inesperado."
 
-#: actions/apioauthauthorize.php:305
+#. TRANS: Title for a page where a user can confirm/deny account access by an external application.
+#: actions/apioauthauthorize.php:294
 msgid "An application would like to connect to your account"
 msgstr "Unha aplicación quere conectarse á súa conta"
 
-#: actions/apioauthauthorize.php:322
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:312
 msgid "Allow or deny access"
 msgstr "Permitir ou denegar o acceso"
 
-#: actions/apioauthauthorize.php:338
+#. TRANS: User notification of external application requesting account access.
+#. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#: actions/apioauthauthorize.php:331
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -635,13 +640,16 @@ msgstr ""
 "<strong>%3$s</strong> os datos da súa conta %4$s. Só debería permitir o "
 "acceso á súa conta %4$s a xente de confianza."
 
-#. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:356 lib/action.php:490
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:349
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Account"
 msgstr "Conta"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:359 actions/login.php:252
+#: actions/apioauthauthorize.php:353 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -649,42 +657,62 @@ msgstr "Conta"
 msgid "Nickname"
 msgstr "Alcume"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:362 actions/login.php:255
+#: actions/apioauthauthorize.php:357 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Contrasinal"
 
-#. TRANS: Submit button title.
-#: actions/apioauthauthorize.php:374 lib/applicationeditform.php:353
+#. TRANS: Button text that when clicked will cancel the process of allowing access to an account
+#. TRANS: by an external application.
+#. TRANS: Button label to cancel an e-mail address confirmation procedure.
+#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel a SMS address confirmation procedure.
+#. TRANS: Button label in the "Edit application" form.
+#: actions/apioauthauthorize.php:370 actions/emailsettings.php:127
+#: actions/imsettings.php:131 actions/smssettings.php:137
+#: lib/applicationeditform.php:351
+msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: actions/apioauthauthorize.php:380
+#. TRANS: Button text that when clicked will allow access to an account by an external application.
+#: actions/apioauthauthorize.php:377
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Permitir"
 
-#: actions/apioauthauthorize.php:397
+#. TRANS: Form instructions.
+#: actions/apioauthauthorize.php:394
 #, fuzzy
 msgid "Authorize access to your account information."
 msgstr "Permitir ou denegar o acceso á información da súa conta."
 
-#: actions/apioauthauthorize.php:447
+#. TRANS: Header for user notification after revoking OAuth access to an application.
+#: actions/apioauthauthorize.php:441
 #, fuzzy
 msgid "Authorization canceled."
 msgstr "Cancelouse a confirmación por mensaxería instantánea."
 
-#: actions/apioauthauthorize.php:449
+#. TRANS: User notification after revoking OAuth access to an application.
+#. TRANS: %s is an OAuth token.
+#: actions/apioauthauthorize.php:445
 #, fuzzy, php-format
 msgid "The request token %s has been revoked."
 msgstr "Denegouse e revogouse a ficha da solicitude %s."
 
-#: actions/apioauthauthorize.php:467
+#. TRANS: Header of user notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:464
 #, fuzzy, php-format
 msgid "You have successfully authorized %s."
 msgstr "Non está autorizado."
 
-#: actions/apioauthauthorize.php:472
+#. TRANS: Uer notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:471
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -722,24 +750,51 @@ msgstr "Borrouse o estado."
 msgid "No status with that ID found."
 msgstr "Non se atopou ningún estado con esa ID."
 
+#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#: actions/apistatusesupdate.php:211
+#, fuzzy, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s byte) due to its "
+"current configuration."
+msgid_plural ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr[0] ""
+"O servidor non puido manexar tantos datos POST (%s bytes) por mor da súa "
+"configuración actual."
+msgstr[1] ""
+"O servidor non puido manexar tantos datos POST (%s bytes) por mor da súa "
+"configuración actual."
+
+#. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "O cliente debe proporcionar un parámetro de \"estado\" cun valor."
 
-#: actions/apistatusesupdate.php:243 actions/newnotice.php:157
-#: lib/mailhandler.php:60
-#, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr "Iso é longo de máis. A nota non pode exceder os %d caracteres."
+#. TRANS: Client error displayed when the parameter "status" is missing.
+#. TRANS: %d is the maximum number of character for a notice.
+#: actions/apistatusesupdate.php:245
+#, fuzzy, php-format
+msgid "That's too long. Maximum notice size is %d character."
+msgid_plural "That's too long. Maximum notice size is %d characters."
+msgstr[0] "Iso é longo de máis. A nota non pode exceder os %d caracteres."
+msgstr[1] "Iso é longo de máis. A nota non pode exceder os %d caracteres."
 
-#: actions/apistatusesupdate.php:284 actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Non se atopou."
+#. TRANS: Client error displayed when replying to a non-existing notice.
+#: actions/apistatusesupdate.php:285
+#, fuzzy
+msgid "Parent notice not found."
+msgstr "Non se atopou o método da API."
 
-#: actions/apistatusesupdate.php:307 actions/newnotice.php:181
-#, php-format
-msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+#: actions/apistatusesupdate.php:307
+#, fuzzy, php-format
+msgid "Maximum notice size is %d character, including attachment URL."
+msgid_plural "Maximum notice size is %d characters, including attachment URL."
+msgstr[0] ""
+"A lonxitude máxima das notas é de %d caracteres, incluído o URL do dato "
+"adxunto."
+msgstr[1] ""
 "A lonxitude máxima das notas é de %d caracteres, incluído o URL do dato "
 "adxunto."
 
@@ -800,6 +855,10 @@ msgstr "Actualizacións etiquetadas con %1$s en %2$s!"
 #: actions/apitrends.php:87
 msgid "API method under construction."
 msgstr "Método API en desenvolvemento."
+
+#: actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Non se atopou."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -1414,8 +1473,7 @@ msgid "You must be logged in to edit an application."
 msgstr "Ten que iniciar sesión para editar unha aplicación."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:87
 msgid "No such application."
 msgstr "Non existe esa aplicación."
 
@@ -1576,16 +1634,6 @@ msgid ""
 msgstr ""
 "Agardando pola confirmación deste enderezo. Busque unha mensaxe con máis "
 "instrucións na súa bandexa de entrada (e na de correo non desexado!)."
-
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label in the "Edit application" form.
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:351
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "Cancelar"
 
 #. TRANS: Instructions for e-mail address input form. Do not translate
 #. TRANS: "example.org". It is one of the domain names reserved for
@@ -2819,6 +2867,18 @@ msgstr "Houbo un erro de AJAX"
 msgid "New notice"
 msgstr "Nova nota"
 
+#: actions/newnotice.php:157 lib/mailhandler.php:60
+#, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr "Iso é longo de máis. A nota non pode exceder os %d caracteres."
+
+#: actions/newnotice.php:181
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr ""
+"A lonxitude máxima das notas é de %d caracteres, incluído o URL do dato "
+"adxunto."
+
 #: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Publicouse a nota"
@@ -2903,32 +2963,52 @@ msgstr "Aplicacións que rexistrou"
 msgid "You have not registered any applications yet."
 msgstr "Aínda non rexistrou ningunha aplicación."
 
-#: actions/oauthconnectionssettings.php:72
+#. TRANS: Title for OAuth connection settings.
+#: actions/oauthconnectionssettings.php:71
 msgid "Connected applications"
 msgstr "Aplicacións conectadas"
 
+#. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access your account."
+#, fuzzy
+msgid "The following connections exist for your account."
 msgstr "Permitiulle o acceso á súa conta ás seguintes aplicacións."
 
-#: actions/oauthconnectionssettings.php:175
+#. TRANS: Client error when trying to revoke access for an application while not being a user of it.
+#: actions/oauthconnectionssettings.php:168
 msgid "You are not a user of that application."
 msgstr "Non é usuario desa aplicación."
 
-#: actions/oauthconnectionssettings.php:186
-#, php-format
-msgid "Unable to revoke access for app: %s."
+#. TRANS: Client error when revoking access has failed for some reason.
+#. TRANS: %s is the application ID revoking access failed for.
+#: actions/oauthconnectionssettings.php:183
+#, fuzzy, php-format
+msgid "Unable to revoke access for application: %s."
 msgstr "Non se puido revogar o acceso da aplicación: %s."
 
-#: actions/oauthconnectionssettings.php:198
+#. TRANS: Success message after revoking access for an application.
+#. TRANS: %1$s is the application name, %2$s is the first part of the user token.
+#: actions/oauthconnectionssettings.php:202
+#, php-format
+msgid ""
+"You have successfully revoked access for %1$s and the access token starting "
+"with %2$s."
+msgstr ""
+
+#. TRANS: Empty list message when no applications have been authorised yet.
+#: actions/oauthconnectionssettings.php:213
 msgid "You have not authorized any applications to use your account."
 msgstr "Non autorizou o acceso á súa conta para ningunha aplicación."
 
-#: actions/oauthconnectionssettings.php:211
-msgid "Developers can edit the registration settings for their applications "
+#. TRANS: Note for developers in the OAuth connection settings form.
+#. TRANS: This message contains a Markdown link. Do not separate "](".
+#. TRANS: %s is the URL to the OAuth settings.
+#: actions/oauthconnectionssettings.php:233
+#, php-format
+msgid ""
+"Are you a developer? [Register an OAuth client application](%s) to use with "
+"this instance of StatusNet."
 msgstr ""
-"Os desenvolvedores poden editar a configuración de rexistro das súas "
-"aplicacións "
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -5709,6 +5789,11 @@ msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Cambie o seu correo electrónico, avatar, contrasinal ou perfil"
 
+#. TRANS: Main menu option when logged in for access to user settings
+#: lib/action.php:490
+msgid "Account"
+msgstr "Conta"
+
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:492
 msgctxt "TOOLTIP"
@@ -6079,28 +6164,40 @@ msgid "No application for that consumer key."
 msgstr "Non hai ningunha aplicación para esa clave."
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:217
+#: lib/apiauth.php:219
 msgid "Bad access token."
 msgstr "Pase de acceso incorrecto."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:222
+#: lib/apiauth.php:224
 msgid "No user for that token."
 msgstr "Non hai ningún usuario para ese pase."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:264 lib/apiauth.php:291
+#: lib/apiauth.php:266 lib/apiauth.php:293
 msgid "Could not authenticate you."
 msgstr "Non puidemos autenticalo."
 
+#. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
+#: lib/apioauthstore.php:41
+#, fuzzy
+msgid "Could not create anonymous consumer."
+msgstr "Non se puideron crear os pseudónimos."
+
+#. TRANS: Server error displayed when trying to create an anynymous OAuth application.
+#: lib/apioauthstore.php:54
+#, fuzzy
+msgid "Could not create anonymous OAuth application."
+msgstr "Non se puido crear a aplicación."
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:189
+#: lib/apioauthstore.php:218
 msgid "Tried to revoke unknown token."
 msgstr "Intentouse revogar un pase descoñecido."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:194
+#: lib/apioauthstore.php:223
 msgid "Failed to delete revoked token."
 msgstr "Erro ao borrar o pase revogado."
 
@@ -6179,24 +6276,40 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Permisos por defecto para esta aplicación: lectura ou lectura e escritura"
 
+#. TRANS: Submit button title.
+#: lib/applicationeditform.php:353
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: lib/applicationlist.php:247
+msgid " by "
+msgstr ""
+
 #. TRANS: Application access type
-#: lib/applicationlist.php:134
+#: lib/applicationlist.php:260
 msgid "read-write"
 msgstr "lectura e escritura"
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:136
+#: lib/applicationlist.php:262
 msgid "read-only"
 msgstr "lectura"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
-#: lib/applicationlist.php:142
+#: lib/applicationlist.php:268
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr "Aprobado o %1$s - permisos de \"%2$s\"."
 
+#. TRANS: Access token in the application list.
+#. TRANS: %s are the first 7 characters of the access token.
+#: lib/applicationlist.php:282
+#, php-format
+msgid "Access token starting with: %s"
+msgstr ""
+
 #. TRANS: Button label
-#: lib/applicationlist.php:157
+#: lib/applicationlist.php:298
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Revogar"
@@ -7172,7 +7285,7 @@ msgstr ""
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
 #, fuzzy, php-format
-msgid "%1s$ (@%2$s) added your notice as a favorite"
+msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "%s (@%s) marcou a súa nota como favorita"
 
 #. TRANS: Body for favorite notification e-mail.
@@ -7981,3 +8094,14 @@ msgstr "Non se especificou ningún usuario; emprégase o usuario de reserva."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d entradas na reserva."
+
+#~ msgid "Database error deleting OAuth application user."
+#~ msgstr ""
+#~ "Houbo un erro na base de datos ao intentar borrar o usuario da aplicación "
+#~ "OAuth."
+
+#~ msgid ""
+#~ "Developers can edit the registration settings for their applications "
+#~ msgstr ""
+#~ "Os desenvolvedores poden editar a configuración de rexistro das súas "
+#~ "aplicacións "
