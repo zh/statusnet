@@ -243,7 +243,7 @@ class ConnectedAppsList extends Widget
         $this->out->elementEnd('span');
 
         if ($app->name != 'anonymous') {
-
+            // @todo FIXME: i18n trouble.
             $this->out->raw(_(' by '));
 
             $this->out->element(
