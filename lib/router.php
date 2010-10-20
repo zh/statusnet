@@ -34,7 +34,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 require_once 'Net/URL/Mapper.php';
 
 class StatusNet_URL_Mapper extends Net_URL_Mapper {
-
     private static $_singleton = null;
 
     private function __construct()
@@ -71,7 +70,6 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class Router
 {
     var $m = null;
@@ -692,7 +690,6 @@ class Router
             $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
             $m->connect('admin/license', array('action' => 'licenseadminpanel'));
 
-
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
                         array('filename' => '[A-Za-z0-9._-]+'));
@@ -757,9 +754,7 @@ class Router
                 $m->connect('',
                             array('action' => 'showstream',
                                   'nickname' => $nickname));
-
             } else {
-
                 $m->connect('', array('action' => 'public'));
                 $m->connect('rss', array('action' => 'publicrss'));
                 $m->connect('featuredrss', array('action' => 'featuredrss'));
@@ -840,7 +835,8 @@ class Router
         } catch (Net_URL_Mapper_InvalidException $e) {
             common_log(LOG_ERR, "Problem getting route for $path - " .
                        $e->getMessage());
-            $cac = new ClientErrorAction("Page not found.", 404);
+            // TRANS: Client error on action trying to visit a non-existing page.
+            $cac = new ClientErrorAction(_('Page not found.'), 404);
             $cac->showPage();
         }
 
