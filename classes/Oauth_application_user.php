@@ -13,7 +13,7 @@ class Oauth_application_user extends Memcached_DataObject
     public $profile_id;                      // int(4)  primary_key not_null
     public $application_id;                  // int(4)  primary_key not_null
     public $access_type;                     // tinyint(1)
-    public $token;                           // varchar(255) primary_key not_null
+    public $token;                           // varchar(255)
     public $created;                         // datetime   not_null
     public $modified;                        // timestamp   not_null default_CURRENT_TIMESTAMP
 
