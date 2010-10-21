@@ -46,10 +46,8 @@ require_once INSTALLDIR . '/lib/apioauthstore.php';
  *
  * @see      SettingsAction
  */
-
 class OauthconnectionssettingsAction extends ConnectSettingsAction
 {
-
     var $page        = null;
     var $oauth_token = null;
 
@@ -69,6 +67,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function title()
     {
+        // TRANS: Title for OAuth connection settings.
         return _('Connected applications');
     }
 
@@ -80,6 +79,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function getInstructions()
     {
+        // TRANS: Instructions for OAuth connection settings.
         return _('The following connections exist for your account.');
     }
 
@@ -129,7 +129,6 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
      *
      * @return void
      */
-
     function handlePost()
     {
         // CSRF protection
@@ -144,6 +143,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         if ($this->arg('revoke')) {
             $this->revokeAccess($this->oauth_token);
         } else {
+            // TRANS: Client error when submitting a form with unexpected information.
             $this->clientError(_('Unexpected form submission.'), 401);
             return false;
         }
@@ -157,7 +157,6 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
      * @param int $appId the ID of the application
      *
      */
-
     function revokeAccess($token)
     {
         $cur = common_current_user();
@@ -165,6 +164,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         $appUser = Oauth_application_user::getByUserAndToken($cur, $token);
 
         if (empty($appUser)) {
+            // TRANS: Client error when trying to revoke access for an application while not being a user of it.
             $this->clientError(_('You are not a user of that application.'), 401);
             return false;
         }
@@ -178,7 +178,9 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         if (!$result) {
             common_log_db_error($orig, 'DELETE', __FILE__);
-            $this->clientError(sprintf(_('Unable to revoke access for app: %s.'), $app->id));
+            // TRANS: Client error when revoking access has failed for some reason.
+            // TRANS: %s is the application ID revoking access failed for.
+            $this->clientError(sprintf(_('Unable to revoke access for application: %s.'), $app->id));
             return false;
         }
 
@@ -195,7 +197,9 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         );
 
         $msg = sprintf(
-            _('You have successfully revoked access for %s and the access token starting with %s'),
+            // TRANS: Success message after revoking access for an application.
+            // TRANS: %1$s is the application name, %2$s is the first part of the user token.
+            _('You have successfully revoked access for %1$s and the access token starting with %2$s.'),
              $app->name,
              substr($appUser->token, 0, 7)
         );
@@ -205,6 +209,7 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
     function showEmptyListMessage()
     {
+        // TRANS: Empty list message when no applications have been authorised yet.
         $message = _('You have not authorized any applications to use your account.');
 
         $this->elementStart('div', 'guide');
@@ -222,6 +227,9 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
         $this->elementStart('p');
 
         $devMsg = sprintf(
+            // TRANS: Note for developers in the OAuth connection settings form.
+            // TRANS: This message contains a Markdown link. Do not separate "](".
+            // TRANS: %s is the URL to the OAuth settings.
             _('Are you a developer? [Register an OAuth client application](%s) to use with this instance of StatusNet.'),
             common_local_url('oauthappssettings')
         );
@@ -233,5 +241,4 @@ class OauthconnectionssettingsAction extends ConnectSettingsAction
 
         $this->elementEnd('section');
     }
-
 }

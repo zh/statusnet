@@ -142,9 +142,7 @@ class ApplicationList extends Widget
     {
         return;
     }
-
 }
-
 
 /**
  * Widget to show a list of connected OAuth clients
@@ -245,7 +243,7 @@ class ConnectedAppsList extends Widget
         $this->out->elementEnd('span');
 
         if ($app->name != 'anonymous') {
-
+            // @todo FIXME: i18n trouble.
             $this->out->raw(_(' by '));
 
             $this->out->element(
@@ -279,7 +277,9 @@ class ConnectedAppsList extends Widget
         $this->out->element(
             'p', array(
             'class' => 'access_token'),
-            _('Access token starting with: ') . substr($this->connection->token, 0, 7)
+            // TRANS: Access token in the application list.
+            // TRANS: %s are the first 7 characters of the access token.
+            sprintf(_('Access token starting with: %s'), substr($this->connection->token, 0, 7))
         );
 
         $this->out->elementStart(
@@ -295,11 +295,10 @@ class ConnectedAppsList extends Widget
         $this->out->hidden('oauth_token', $this->connection->token);
         $this->out->hidden('token', common_session_token());
         // TRANS: Button label
-        $this->out->submit('revoke', _('Revoke'));
+        $this->out->submit('revoke', _m('BUTTON','Revoke'));
         $this->out->elementEnd('fieldset');
         $this->out->elementEnd('form');
 
         $this->out->elementEnd('li');
-
     }
 }

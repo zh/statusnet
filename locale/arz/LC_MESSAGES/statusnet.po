@@ -11,19 +11,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 00:18+0000\n"
-"PO-Revision-Date: 2010-10-20 00:19:49+0000\n"
+"POT-Creation-Date: 2010-10-20 19:20+0000\n"
+"PO-Revision-Date: 2010-10-20 19:21:52+0000\n"
 "Language-Team: Egyptian Spoken Arabic <http://translatewiki.net/wiki/Portal:"
 "arz>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75030); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75096); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: arz\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=6; plural= n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
-"X-POT-Import-Date: 2010-10-20 00:09:43+0000\n"
+"X-POT-Import-Date: 2010-10-20 18:02:53+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -82,14 +82,15 @@ msgstr "اذف إعدادت الموقع"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
+#. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
-#: actions/imsettings.php:187 actions/profilesettings.php:201
-#: actions/smssettings.php:209 actions/subscriptions.php:246
-#: lib/applicationeditform.php:355
+#: actions/imsettings.php:187 actions/pathsadminpanel.php:512
+#: actions/profilesettings.php:201 actions/smssettings.php:209
+#: actions/subscriptions.php:246 lib/applicationeditform.php:355
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Save"
@@ -243,7 +244,7 @@ msgstr "الـ API method مش موجوده."
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
 #: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
 #: actions/apigroupleave.php:93 actions/apimediaupload.php:68
-#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:199
+#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
 msgid "This method requires a POST."
 msgstr "تتطلب هذه الطريقه POST."
 
@@ -274,10 +275,9 @@ msgstr "لم يمكن حفظ الملف."
 #. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
-#: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:123 actions/editapplication.php:120
-#: actions/newapplication.php:101 actions/newnotice.php:94
-#: lib/designsettings.php:283
+#: actions/avatarsettings.php:257 actions/designadminpanel.php:123
+#: actions/editapplication.php:120 actions/newapplication.php:101
+#: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -558,29 +558,32 @@ msgstr "مجموعات %s"
 msgid "Upload failed."
 msgstr "ارفع ملفًا"
 
-#: actions/apioauthaccesstoken.php:103
+#. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
+#: actions/apioauthaccesstoken.php:102
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "امارة تسجيل الدخول اللى اتحطت مش موجوده."
 
+#. TRANS: Client error given when no oauth_token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:109
 msgid "No oauth_token parameter provided."
 msgstr ""
 
-#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:121
-#: actions/apioauthauthorize.php:128
+#. TRANS: Client error given when an invalid request token was passed to the OAuth API.
+#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:123
+#: actions/apioauthauthorize.php:131
 #, fuzzy
 msgid "Invalid request token."
 msgstr "حجم غير صالح."
 
-#: actions/apioauthauthorize.php:145 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:148 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
@@ -591,25 +594,24 @@ msgstr "حجم غير صالح."
 msgid "There was a problem with your session token. Try again, please."
 msgstr ""
 
-#: actions/apioauthauthorize.php:161
+#. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
+#: actions/apioauthauthorize.php:165
 msgid "Invalid nickname / password!"
 msgstr "نيكنيم / پاسوورد مش مظبوطه!"
 
-#: actions/apioauthauthorize.php:191
-#, fuzzy
-msgid "Database error deleting OAuth application user."
-msgstr "خطأ قاعده البيانات أثناء حذف المستخدم OAuth app"
-
-#: actions/apioauthauthorize.php:216
+#. TRANS: Server error given when a database error occurs inserting an OAuth application user.
+#: actions/apioauthauthorize.php:206
 #, fuzzy
 msgid "Database error inserting OAuth application user."
 msgstr "خطأ قاعده البيانات أثناء إدخال المستخدم OAuth app"
 
+#. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:279 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:267 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:142
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
@@ -618,15 +620,20 @@ msgstr "خطأ قاعده البيانات أثناء إدخال المستخد�
 msgid "Unexpected form submission."
 msgstr ""
 
-#: actions/apioauthauthorize.php:305
+#. TRANS: Title for a page where a user can confirm/deny account access by an external application.
+#: actions/apioauthauthorize.php:294
 msgid "An application would like to connect to your account"
 msgstr ""
 
-#: actions/apioauthauthorize.php:322
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:312
 msgid "Allow or deny access"
 msgstr ""
 
-#: actions/apioauthauthorize.php:338
+#. TRANS: User notification of external application requesting account access.
+#. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#: actions/apioauthauthorize.php:331
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -634,13 +641,16 @@ msgid ""
 "give access to your %4$s account to third parties you trust."
 msgstr ""
 
-#. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:356 lib/action.php:490
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:349
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Account"
 msgstr "الحساب"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:359 actions/login.php:252
+#: actions/apioauthauthorize.php:353 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -648,41 +658,62 @@ msgstr "الحساب"
 msgid "Nickname"
 msgstr "الاسم المستعار"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:362 actions/login.php:255
+#: actions/apioauthauthorize.php:357 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "كلمه السر"
 
-#. TRANS: Submit button title.
-#: actions/apioauthauthorize.php:374 lib/applicationeditform.php:353
+#. TRANS: Button text that when clicked will cancel the process of allowing access to an account
+#. TRANS: by an external application.
+#. TRANS: Button label to cancel an e-mail address confirmation procedure.
+#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel a SMS address confirmation procedure.
+#. TRANS: Button label in the "Edit application" form.
+#: actions/apioauthauthorize.php:370 actions/emailsettings.php:127
+#: actions/imsettings.php:131 actions/smssettings.php:137
+#: lib/applicationeditform.php:351
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "ألغِ"
 
-#: actions/apioauthauthorize.php:380
+#. TRANS: Button text that when clicked will allow access to an account by an external application.
+#: actions/apioauthauthorize.php:377
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Allow"
 msgstr "اسمح"
 
-#: actions/apioauthauthorize.php:397
+#. TRANS: Form instructions.
+#: actions/apioauthauthorize.php:394
 msgid "Authorize access to your account information."
 msgstr ""
 
-#: actions/apioauthauthorize.php:447
+#. TRANS: Header for user notification after revoking OAuth access to an application.
+#: actions/apioauthauthorize.php:441
 #, fuzzy
 msgid "Authorization canceled."
 msgstr "لا رمز تأكيد."
 
-#: actions/apioauthauthorize.php:449
+#. TRANS: User notification after revoking OAuth access to an application.
+#. TRANS: %s is an OAuth token.
+#: actions/apioauthauthorize.php:445
 #, php-format
 msgid "The request token %s has been revoked."
 msgstr ""
 
-#: actions/apioauthauthorize.php:467
+#. TRANS: Header of user notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:464
 #, fuzzy, php-format
 msgid "You have successfully authorized %s."
 msgstr "لا تملك تصريحًا."
 
-#: actions/apioauthauthorize.php:472
+#. TRANS: Uer notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:471
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -723,24 +754,57 @@ msgstr "حُذِفت الحاله."
 msgid "No status with that ID found."
 msgstr "لا ملف شخصى بهذه الهويه."
 
+#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#: actions/apistatusesupdate.php:211
+#, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s byte) due to its "
+"current configuration."
+msgid_plural ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+#. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
-#: actions/apistatusesupdate.php:243 actions/newnotice.php:157
-#: lib/mailhandler.php:60
+#. TRANS: Client error displayed when the parameter "status" is missing.
+#. TRANS: %d is the maximum number of character for a notice.
+#: actions/apistatusesupdate.php:245
 #, fuzzy, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgid "That's too long. Maximum notice size is %d character."
+msgid_plural "That's too long. Maximum notice size is %d characters."
+msgstr[0] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgstr[1] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgstr[2] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgstr[3] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgstr[4] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+msgstr[5] "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
 
-#: actions/apistatusesupdate.php:284 actions/apiusershow.php:96
-msgid "Not found."
-msgstr "لم يوجد."
+#. TRANS: Client error displayed when replying to a non-existing notice.
+#: actions/apistatusesupdate.php:285
+#, fuzzy
+msgid "Parent notice not found."
+msgstr "الـ API method مش موجوده."
 
-#: actions/apistatusesupdate.php:307 actions/newnotice.php:181
+#: actions/apistatusesupdate.php:307
 #, php-format
-msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+msgid "Maximum notice size is %d character, including attachment URL."
+msgid_plural "Maximum notice size is %d characters, including attachment URL."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
 
 #: actions/apisubscriptions.php:233 actions/apisubscriptions.php:263
 msgid "Unsupported format."
@@ -800,6 +864,10 @@ msgstr "الإشعارات الموسومه ب%s"
 #, fuzzy
 msgid "API method under construction."
 msgstr "الـ API method مش موجوده."
+
+#: actions/apiusershow.php:96
+msgid "Not found."
+msgstr "لم يوجد."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -1369,12 +1437,11 @@ msgstr "ارجع إلى المبدئي"
 
 #. TRANS: Submit button title.
 #: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:396
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/tagother.php:154 actions/useradminpanel.php:295
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/othersettings.php:126 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/tagother.php:154
+#: actions/useradminpanel.php:295 lib/applicationeditform.php:357
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "أرسل"
 
@@ -1408,8 +1475,7 @@ msgid "You must be logged in to edit an application."
 msgstr "لازم يكون متسجل دخولك علشان تعدّل application."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:87
 msgid "No such application."
 msgstr "ما فيش application زى كده."
 
@@ -1576,17 +1642,6 @@ msgid ""
 "Awaiting confirmation on this address. Check your inbox (and spam box!) for "
 "a message with further instructions."
 msgstr ""
-
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label in the "Edit application" form.
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:351
-#, fuzzy
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "ألغِ"
 
 #. TRANS: Instructions for e-mail address input form. Do not translate
 #. TRANS: "example.org". It is one of the domain names reserved for
@@ -2778,6 +2833,16 @@ msgstr "خطأ أجاكس"
 msgid "New notice"
 msgstr "إشعار جديد"
 
+#: actions/newnotice.php:157 lib/mailhandler.php:60
+#, fuzzy, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr "هذا الملف كبير جدًا. إن أقصى حجم للملفات هو %d."
+
+#: actions/newnotice.php:181
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr ""
+
 #: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "أُرسل الإشعار"
@@ -2853,30 +2918,51 @@ msgstr ""
 msgid "You have not registered any applications yet."
 msgstr "لازم تكون مسجل دخوللك علشان تسجل application."
 
-#: actions/oauthconnectionssettings.php:72
+#. TRANS: Title for OAuth connection settings.
+#: actions/oauthconnectionssettings.php:71
 #, fuzzy
 msgid "Connected applications"
 msgstr "مش ممكن إنشاء الapplication."
 
+#. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access your account."
+msgid "The following connections exist for your account."
 msgstr ""
 
-#: actions/oauthconnectionssettings.php:175
+#. TRANS: Client error when trying to revoke access for an application while not being a user of it.
+#: actions/oauthconnectionssettings.php:168
 msgid "You are not a user of that application."
 msgstr "انت مش يوزر للapplication دى."
 
-#: actions/oauthconnectionssettings.php:186
+#. TRANS: Client error when revoking access has failed for some reason.
+#. TRANS: %s is the application ID revoking access failed for.
+#: actions/oauthconnectionssettings.php:183
+#, fuzzy, php-format
+msgid "Unable to revoke access for application: %s."
+msgstr "استعمل الفورمه دى علشان تعدّل الapplication بتاعتك."
+
+#. TRANS: Success message after revoking access for an application.
+#. TRANS: %1$s is the application name, %2$s is the first part of the user token.
+#: actions/oauthconnectionssettings.php:202
 #, php-format
-msgid "Unable to revoke access for app: %s."
+msgid ""
+"You have successfully revoked access for %1$s and the access token starting "
+"with %2$s."
 msgstr ""
 
-#: actions/oauthconnectionssettings.php:198
+#. TRANS: Empty list message when no applications have been authorised yet.
+#: actions/oauthconnectionssettings.php:213
 msgid "You have not authorized any applications to use your account."
 msgstr ""
 
-#: actions/oauthconnectionssettings.php:211
-msgid "Developers can edit the registration settings for their applications "
+#. TRANS: Note for developers in the OAuth connection settings form.
+#. TRANS: This message contains a Markdown link. Do not separate "](".
+#. TRANS: %s is the URL to the OAuth settings.
+#: actions/oauthconnectionssettings.php:233
+#, php-format
+msgid ""
+"Are you a developer? [Register an OAuth client application](%s) to use with "
+"this instance of StatusNet."
 msgstr ""
 
 #: actions/oembed.php:80 actions/shownotice.php:100
@@ -3044,176 +3130,290 @@ msgstr "تعذّر حفظ كلمه السر الجديده."
 msgid "Password saved."
 msgstr "حُفظت كلمه السر."
 
+#. TRANS: Title for Paths admin panel.
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:371
+#: actions/pathsadminpanel.php:58 lib/adminpanelaction.php:371
 msgid "Paths"
 msgstr "المسارات"
 
-#: actions/pathsadminpanel.php:70
+#. TRANS: Form instructions for Path admin panel.
+#: actions/pathsadminpanel.php:69
 msgid "Path and server settings for this StatusNet site"
 msgstr ""
 
-#: actions/pathsadminpanel.php:158
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the directory that could not be read from.
+#: actions/pathsadminpanel.php:155
 #, php-format
 msgid "Theme directory not readable: %s."
 msgstr "دليل السمات"
 
-#: actions/pathsadminpanel.php:164
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the avatar directory that could not be written to.
+#: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "دليل الأفتار."
 
-#: actions/pathsadminpanel.php:170
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the background directory that could not be written to.
+#: actions/pathsadminpanel.php:171
 #, php-format
 msgid "Background directory not writable: %s."
 msgstr "دليل الخلفيات"
 
-#: actions/pathsadminpanel.php:178
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the locales directory that could not be read from.
+#: actions/pathsadminpanel.php:181
 #, fuzzy, php-format
 msgid "Locales directory not readable: %s."
 msgstr "لا يمكن قراءه دليل المحليات: %s"
 
-#: actions/pathsadminpanel.php:184
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the SSL server URL that is too long.
+#: actions/pathsadminpanel.php:189
 #, fuzzy
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "رساله ترحيب غير صالحه. أقصى طول هو 255 حرف."
 
+#. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:235 actions/siteadminpanel.php:58
 msgid "Site"
 msgstr "الموقع"
 
-#: actions/pathsadminpanel.php:239 actions/pathsadminpanel.php:265
-#: actions/pathsadminpanel.php:314 actions/pathsadminpanel.php:343
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:279
+#: actions/pathsadminpanel.php:370 actions/pathsadminpanel.php:425
 msgid "Server"
 msgstr "خادوم"
 
-#: actions/pathsadminpanel.php:239
+#: actions/pathsadminpanel.php:242
 msgid "Site's server hostname."
 msgstr "اسم مضيف خادوم الموقع."
 
-#: actions/pathsadminpanel.php:243 actions/pathsadminpanel.php:269
-#: actions/pathsadminpanel.php:318 actions/pathsadminpanel.php:347
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:248 actions/pathsadminpanel.php:288
+#: actions/pathsadminpanel.php:379 actions/pathsadminpanel.php:434
 msgid "Path"
 msgstr "المسار"
 
-#: actions/pathsadminpanel.php:243
-msgid "Site path"
+#: actions/pathsadminpanel.php:249
+#, fuzzy
+msgid "Site path."
 msgstr "مسار الموقع"
 
-#: actions/pathsadminpanel.php:247
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:255
 #, fuzzy
-msgid "Locale Directory"
+msgid "Locale directory"
 msgstr "دليل السمات"
 
-#: actions/pathsadminpanel.php:247
-msgid "Directory path to locales"
+#: actions/pathsadminpanel.php:256
+#, fuzzy
+msgid "Directory path to locales."
 msgstr "مسار دليل المحليات"
 
-#: actions/pathsadminpanel.php:251
+#. TRANS: Checkbox label in Paths admin panel.
+#: actions/pathsadminpanel.php:263
 msgid "Fancy URLs"
 msgstr "مسارات فاخرة"
 
-#: actions/pathsadminpanel.php:253
+#: actions/pathsadminpanel.php:265
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "أأستخدم مسارات فاخره (يمكن قراءتها وتذكرها بسهوله أكبر)؟"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:272
 msgid "Theme"
 msgstr "السمة"
 
-#: actions/pathsadminpanel.php:265
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:281
 #, fuzzy
-msgid "Server for themes"
+msgid "Server for themes."
 msgstr "سمه الموقع."
 
-#: actions/pathsadminpanel.php:269
-msgid "Web path to themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:290
+msgid "Web path to themes."
 msgstr ""
 
-#: actions/pathsadminpanel.php:273 actions/pathsadminpanel.php:322
-#: actions/pathsadminpanel.php:351 actions/pathsadminpanel.php:380
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
+#: actions/pathsadminpanel.php:443 actions/pathsadminpanel.php:495
 msgid "SSL server"
 msgstr "SSL server"
 
-#: actions/pathsadminpanel.php:273
-msgid "SSL server for themes (default: SSL server)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:299
+msgid "SSL server for themes (default: SSL server)."
 msgstr ""
 
-#: actions/pathsadminpanel.php:277 actions/pathsadminpanel.php:326
-#: actions/pathsadminpanel.php:355
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
+#: actions/pathsadminpanel.php:452
 #, fuzzy
 msgid "SSL path"
 msgstr "مسار الموقع"
 
-#: actions/pathsadminpanel.php:277
-msgid "SSL path to themes (default: /theme/)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:308
+msgid "SSL path to themes (default: /theme/)."
 msgstr ""
 
-#: actions/pathsadminpanel.php:281 actions/pathsadminpanel.php:330
-#: actions/pathsadminpanel.php:359
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
+#: actions/pathsadminpanel.php:461
 #, fuzzy
 msgid "Directory"
 msgstr "دليل السمات"
 
-#: actions/pathsadminpanel.php:281
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:317
 #, fuzzy
-msgid "Directory where themes are located"
+msgid "Directory where themes are located."
 msgstr "مسار دليل المحليات"
 
-#: actions/pathsadminpanel.php:288
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:326
 msgid "Avatars"
 msgstr "أفتارات"
 
-#: actions/pathsadminpanel.php:293
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:333
 msgid "Avatar server"
 msgstr "خادوم الأفتارات"
 
-#: actions/pathsadminpanel.php:297
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:335
+#, fuzzy
+msgid "Server for avatars."
+msgstr "سمه الموقع."
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:342
 msgid "Avatar path"
 msgstr "مسار الأفتارات"
 
-#: actions/pathsadminpanel.php:301
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:344
+#, fuzzy
+msgid "Web path to avatars."
+msgstr "فشل تحديث الأفتار."
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:351
 msgid "Avatar directory"
 msgstr "دليل الأفتار."
 
-#: actions/pathsadminpanel.php:310
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:353
+#, fuzzy
+msgid "Directory where avatars are located."
+msgstr "مسار دليل المحليات"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:364
 msgid "Backgrounds"
 msgstr "خلفيات"
 
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:372
+#, fuzzy
+msgid "Server for backgrounds."
+msgstr "سمه الموقع."
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:381
+msgid "Web path to backgrounds."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:390
+msgid "Server for backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:399
+msgid "Web path to backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:408
+#, fuzzy
+msgid "Directory where backgrounds are located."
+msgstr "مسار دليل المحليات"
+
+#. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
-#: actions/pathsadminpanel.php:339 lib/attachmentlist.php:85
+#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:85
 msgid "Attachments"
 msgstr "مرفقات"
 
-#: actions/pathsadminpanel.php:366
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:427
+#, fuzzy
+msgid "Server for attachments."
+msgstr "سمه الموقع."
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:436
+#, fuzzy
+msgid "Web path to attachments."
+msgstr "لا مرفقات."
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:445
+#, fuzzy
+msgid "Server for attachments on SSL pages."
+msgstr "سمه الموقع."
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:454
+msgid "Web path to attachments on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:463
+#, fuzzy
+msgid "Directory where attachments are located."
+msgstr "مسار دليل المحليات"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:472
 msgid "SSL"
 msgstr "SSL"
 
-#: actions/pathsadminpanel.php:370 actions/snapshotadminpanel.php:202
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:477 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "مطلقا"
 
-#: actions/pathsadminpanel.php:371
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:479
 msgid "Sometimes"
 msgstr "أحيانًا"
 
-#: actions/pathsadminpanel.php:372
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:481
 msgid "Always"
 msgstr "دائمًا"
 
-#: actions/pathsadminpanel.php:374
+#: actions/pathsadminpanel.php:485
 msgid "Use SSL"
 msgstr "استخدم SSL"
 
-#: actions/pathsadminpanel.php:375
-msgid "When to use SSL"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:487
+msgid "When to use SSL."
 msgstr ""
 
-#: actions/pathsadminpanel.php:381
-msgid "Server to direct SSL requests to"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:497
+msgid "Server to direct SSL requests to."
 msgstr ""
 
-#: actions/pathsadminpanel.php:397
+#. TRANS: Button title text to store form data in the Paths admin panel.
+#: actions/pathsadminpanel.php:514
 msgid "Save paths"
 msgstr "احفظ المسارات"
 
@@ -5576,6 +5776,11 @@ msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "غير كلمه سرّك"
 
+#. TRANS: Main menu option when logged in for access to user settings
+#: lib/action.php:490
+msgid "Account"
+msgstr "الحساب"
+
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:492
 #, fuzzy
@@ -5960,28 +6165,40 @@ msgid "No application for that consumer key."
 msgstr ""
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:217
+#: lib/apiauth.php:219
 msgid "Bad access token."
 msgstr ""
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:222
+#: lib/apiauth.php:224
 msgid "No user for that token."
 msgstr ""
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:264 lib/apiauth.php:291
+#: lib/apiauth.php:266 lib/apiauth.php:293
 msgid "Could not authenticate you."
 msgstr ""
 
+#. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
+#: lib/apioauthstore.php:41
+#, fuzzy
+msgid "Could not create anonymous consumer."
+msgstr "تعذّر إنشاء الكنى."
+
+#. TRANS: Server error displayed when trying to create an anynymous OAuth application.
+#: lib/apioauthstore.php:54
+#, fuzzy
+msgid "Could not create anonymous OAuth application."
+msgstr "مش ممكن إنشاء الapplication."
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:189
+#: lib/apioauthstore.php:218
 msgid "Tried to revoke unknown token."
 msgstr ""
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:194
+#: lib/apioauthstore.php:223
 msgid "Failed to delete revoked token."
 msgstr ""
 
@@ -6066,24 +6283,40 @@ msgstr ""
 msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 
+#. TRANS: Submit button title.
+#: lib/applicationeditform.php:353
+msgid "Cancel"
+msgstr "ألغِ"
+
+#: lib/applicationlist.php:247
+msgid " by "
+msgstr ""
+
 #. TRANS: Application access type
-#: lib/applicationlist.php:134
+#: lib/applicationlist.php:260
 msgid "read-write"
 msgstr ""
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:136
+#: lib/applicationlist.php:262
 msgid "read-only"
 msgstr ""
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
-#: lib/applicationlist.php:142
+#: lib/applicationlist.php:268
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr ""
 
+#. TRANS: Access token in the application list.
+#. TRANS: %s are the first 7 characters of the access token.
+#: lib/applicationlist.php:282
+#, php-format
+msgid "Access token starting with: %s"
+msgstr ""
+
 #. TRANS: Button label
-#: lib/applicationlist.php:157
+#: lib/applicationlist.php:298
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "استرجع"
@@ -6976,7 +7209,7 @@ msgstr ""
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
 #, fuzzy, php-format
-msgid "%1s$ (@%2$s) added your notice as a favorite"
+msgid "%1$s (@%2$s) added your notice as a favorite"
 msgstr "أرسل لى بريدًا إلكرتونيًا عندما يضيف أحدهم إشعارى مفضله."
 
 #. TRANS: Body for favorite notification e-mail.

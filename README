@@ -1486,7 +1486,8 @@ If an installation has only one user, this can simplify a lot of the
 interface. It also makes the user's profile the root URL.
 
 enabled: Whether to run in "single user mode". Default false.
-nickname: nickname of the single user.
+nickname: nickname of the single user. If no nickname is specified,
+          the site owner account will be used (if present).
 
 robotstxt
 ---------

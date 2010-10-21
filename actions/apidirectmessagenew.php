@@ -121,9 +121,9 @@ class ApiDirectMessageNewAction extends ApiAuthAction
         } else {
             $content_shortened = common_shorten_links($this->content);
             if (Message::contentTooLong($content_shortened)) {
-                // TRANS: Client error displayed when message content is too long.
-                // TRANS: %d is the maximum number of characters for a message.
                 $this->clientError(
+                    // TRANS: Client error displayed when message content is too long.
+                    // TRANS: %d is the maximum number of characters for a message.
                     sprintf(_m('That\'s too long. Maximum message size is %d character.', 'That\'s too long. Maximum message size is %d characters.', Message::maxContent()),
                         Message::maxContent()
                     ),

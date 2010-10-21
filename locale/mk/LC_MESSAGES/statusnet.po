@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 00:18+0000\n"
-"PO-Revision-Date: 2010-10-20 00:20:12+0000\n"
+"POT-Creation-Date: 2010-10-20 19:20+0000\n"
+"PO-Revision-Date: 2010-10-20 19:22:18+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75030); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75096); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2010-10-20 00:09:43+0000\n"
+"X-POT-Import-Date: 2010-10-20 18:02:53+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -78,14 +78,15 @@ msgstr "Зачувај нагодувања на пристап"
 
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
+#. TRANS: Button text to store form data in the Paths admin panel.
 #. TRANS: Button to save input in profile settings.
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
 #: actions/accessadminpanel.php:203 actions/emailsettings.php:228
-#: actions/imsettings.php:187 actions/profilesettings.php:201
-#: actions/smssettings.php:209 actions/subscriptions.php:246
-#: lib/applicationeditform.php:355
+#: actions/imsettings.php:187 actions/pathsadminpanel.php:512
+#: actions/profilesettings.php:201 actions/smssettings.php:209
+#: actions/subscriptions.php:246 lib/applicationeditform.php:355
 msgctxt "BUTTON"
 msgid "Save"
 msgstr "Зачувај"
@@ -243,7 +244,7 @@ msgstr "API методот не е пронајден."
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
 #: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
 #: actions/apigroupleave.php:93 actions/apimediaupload.php:68
-#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:199
+#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
 msgid "This method requires a POST."
 msgstr "Овој метод бара POST."
 
@@ -276,10 +277,9 @@ msgstr "Не може да се зачува профил."
 #. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
 #: actions/apiaccountupdateprofilebackgroundimage.php:109
 #: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
-#: actions/apistatusesupdate.php:213 actions/avatarsettings.php:257
-#: actions/designadminpanel.php:123 actions/editapplication.php:120
-#: actions/newapplication.php:101 actions/newnotice.php:94
-#: lib/designsettings.php:283
+#: actions/avatarsettings.php:257 actions/designadminpanel.php:123
+#: actions/editapplication.php:120 actions/newapplication.php:101
+#: actions/newnotice.php:94 lib/designsettings.php:283
 #, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
@@ -554,27 +554,30 @@ msgstr "групи на %s"
 msgid "Upload failed."
 msgstr "Подигањето не успеа."
 
-#: actions/apioauthaccesstoken.php:103
+#. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
+#: actions/apioauthaccesstoken.php:102
 msgid "Invalid request token or verifier."
 msgstr "Неважечки жетон за барање или потврдник."
 
+#. TRANS: Client error given when no oauth_token was passed to the OAuth API.
 #: actions/apioauthauthorize.php:109
 msgid "No oauth_token parameter provided."
 msgstr "Нема наведено oauth_token параметар."
 
-#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:121
-#: actions/apioauthauthorize.php:128
+#. TRANS: Client error given when an invalid request token was passed to the OAuth API.
+#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:123
+#: actions/apioauthauthorize.php:131
 msgid "Invalid request token."
 msgstr "Неважечки жетон за барање."
 
-#: actions/apioauthauthorize.php:145 actions/avatarsettings.php:268
+#: actions/apioauthauthorize.php:148 actions/avatarsettings.php:268
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:135
+#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
@@ -585,25 +588,25 @@ msgstr "Неважечки жетон за барање."
 msgid "There was a problem with your session token. Try again, please."
 msgstr "Се поајви проблем со Вашиот сесиски жетон. Обидете се повторно."
 
-#: actions/apioauthauthorize.php:161
+#. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
+#: actions/apioauthauthorize.php:165
 msgid "Invalid nickname / password!"
 msgstr "Погрешен прекар / лозинка!"
 
-#: actions/apioauthauthorize.php:191
-msgid "Database error deleting OAuth application user."
-msgstr "Грешка при бришењето на корисникот на OAuth-програмот."
-
-#: actions/apioauthauthorize.php:216
+#. TRANS: Server error given when a database error occurs inserting an OAuth application user.
+#: actions/apioauthauthorize.php:206
 msgid "Database error inserting OAuth application user."
 msgstr ""
 "Грешка во базата на податоци при вметнувањето на корисникот на OAuth-"
 "програмот."
 
+#. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
+#. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:279 actions/avatarsettings.php:281
+#: actions/apioauthauthorize.php:267 actions/avatarsettings.php:281
 #: actions/designadminpanel.php:104 actions/editapplication.php:142
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:121
@@ -612,15 +615,20 @@ msgstr ""
 msgid "Unexpected form submission."
 msgstr "Неочекувано поднесување на образец."
 
-#: actions/apioauthauthorize.php:305
+#. TRANS: Title for a page where a user can confirm/deny account access by an external application.
+#: actions/apioauthauthorize.php:294
 msgid "An application would like to connect to your account"
 msgstr "Има програм кој сака да се поврзе со Вашата сметка"
 
-#: actions/apioauthauthorize.php:322
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:312
 msgid "Allow or deny access"
 msgstr "Дозволи или одбиј пристап"
 
-#: actions/apioauthauthorize.php:338
+#. TRANS: User notification of external application requesting account access.
+#. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#: actions/apioauthauthorize.php:331
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -631,13 +639,16 @@ msgstr ""
 "<strong>%3$s</strong> податоците за Вашата %4$s сметка. Треба да дозволувате "
 "пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
 
-#. TRANS: Main menu option when logged in for access to user settings
-#: actions/apioauthauthorize.php:356 lib/action.php:490
+#. TRANS: Fieldset legend.
+#: actions/apioauthauthorize.php:349
+#, fuzzy
+msgctxt "LEGEND"
 msgid "Account"
 msgstr "Сметка"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:359 actions/login.php:252
+#: actions/apioauthauthorize.php:353 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:431
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -645,40 +656,60 @@ msgstr "Сметка"
 msgid "Nickname"
 msgstr "Прекар"
 
+#. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:362 actions/login.php:255
+#: actions/apioauthauthorize.php:357 actions/login.php:255
 #: actions/register.php:436 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Лозинка"
 
-#. TRANS: Submit button title.
-#: actions/apioauthauthorize.php:374 lib/applicationeditform.php:353
+#. TRANS: Button text that when clicked will cancel the process of allowing access to an account
+#. TRANS: by an external application.
+#. TRANS: Button label to cancel an e-mail address confirmation procedure.
+#. TRANS: Button label to cancel an IM address confirmation procedure.
+#. TRANS: Button label to cancel a SMS address confirmation procedure.
+#. TRANS: Button label in the "Edit application" form.
+#: actions/apioauthauthorize.php:370 actions/emailsettings.php:127
+#: actions/imsettings.php:131 actions/smssettings.php:137
+#: lib/applicationeditform.php:351
+msgctxt "BUTTON"
 msgid "Cancel"
 msgstr "Откажи"
 
-#: actions/apioauthauthorize.php:380
+#. TRANS: Button text that when clicked will allow access to an account by an external application.
+#: actions/apioauthauthorize.php:377
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Дозволи"
 
-#: actions/apioauthauthorize.php:397
+#. TRANS: Form instructions.
+#: actions/apioauthauthorize.php:394
 msgid "Authorize access to your account information."
 msgstr "Овластете пристап до податоците за Вашата сметка."
 
-#: actions/apioauthauthorize.php:447
+#. TRANS: Header for user notification after revoking OAuth access to an application.
+#: actions/apioauthauthorize.php:441
 msgid "Authorization canceled."
 msgstr "Овластувањето е откажано."
 
-#: actions/apioauthauthorize.php:449
+#. TRANS: User notification after revoking OAuth access to an application.
+#. TRANS: %s is an OAuth token.
+#: actions/apioauthauthorize.php:445
 #, php-format
 msgid "The request token %s has been revoked."
 msgstr "Жетонот за барање %s е повлечен."
 
-#: actions/apioauthauthorize.php:467
+#. TRANS: Header of user notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:464
 #, php-format
 msgid "You have successfully authorized %s."
 msgstr "Успешно го/ја овластивте %s."
 
-#: actions/apioauthauthorize.php:472
+#. TRANS: Uer notification after authorising an application access to a profile.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:471
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -718,24 +749,51 @@ msgstr "Статусот е избришан."
 msgid "No status with that ID found."
 msgstr "Нема пронајдено статус со тој ID."
 
+#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#: actions/apistatusesupdate.php:211
+#, fuzzy, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s byte) due to its "
+"current configuration."
+msgid_plural ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr[0] ""
+"Опслужувачот не можеше да обработи толку многу POST-податоци (%s бајти) "
+"заради неговата тековна поставеност."
+msgstr[1] ""
+"Опслужувачот не можеше да обработи толку многу POST-податоци (%s бајти) "
+"заради неговата тековна поставеност."
+
+#. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
 msgstr "Клиентот мора да укаже вредност за параметарот „статус“"
 
-#: actions/apistatusesupdate.php:243 actions/newnotice.php:157
-#: lib/mailhandler.php:60
-#, php-format
-msgid "That's too long. Max notice size is %d chars."
-msgstr "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
+#. TRANS: Client error displayed when the parameter "status" is missing.
+#. TRANS: %d is the maximum number of character for a notice.
+#: actions/apistatusesupdate.php:245
+#, fuzzy, php-format
+msgid "That's too long. Maximum notice size is %d character."
+msgid_plural "That's too long. Maximum notice size is %d characters."
+msgstr[0] "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
+msgstr[1] "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
 
-#: actions/apistatusesupdate.php:284 actions/apiusershow.php:96
-msgid "Not found."
-msgstr "Не е пронајдено."
+#. TRANS: Client error displayed when replying to a non-existing notice.
+#: actions/apistatusesupdate.php:285
+#, fuzzy
+msgid "Parent notice not found."
+msgstr "API методот не е пронајден."
 
-#: actions/apistatusesupdate.php:307 actions/newnotice.php:181
-#, php-format
-msgid "Max notice size is %d chars, including attachment URL."
-msgstr ""
+#: actions/apistatusesupdate.php:307
+#, fuzzy, php-format
+msgid "Maximum notice size is %d character, including attachment URL."
+msgid_plural "Maximum notice size is %d characters, including attachment URL."
+msgstr[0] ""
+"Максималната големина на забелешката е %d знаци, вклучувајќи ја URL-адресата "
+"на прилогот."
+msgstr[1] ""
 "Максималната големина на забелешката е %d знаци, вклучувајќи ја URL-адресата "
 "на прилогот."
 
@@ -796,6 +854,10 @@ msgstr "Подновувањата се означени со %1$s на %2$s!"
 #: actions/apitrends.php:87
 msgid "API method under construction."
 msgstr "API-методот е во изработка."
+
+#: actions/apiusershow.php:96
+msgid "Not found."
+msgstr "Не е пронајдено."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -1365,12 +1427,11 @@ msgstr "Врати по основно"
 
 #. TRANS: Submit button title.
 #: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
-#: actions/othersettings.php:126 actions/pathsadminpanel.php:396
-#: actions/sessionsadminpanel.php:199 actions/siteadminpanel.php:292
-#: actions/sitenoticeadminpanel.php:195 actions/snapshotadminpanel.php:245
-#: actions/tagother.php:154 actions/useradminpanel.php:295
-#: lib/applicationeditform.php:357 lib/designsettings.php:256
-#: lib/groupeditform.php:202
+#: actions/othersettings.php:126 actions/sessionsadminpanel.php:199
+#: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
+#: actions/snapshotadminpanel.php:245 actions/tagother.php:154
+#: actions/useradminpanel.php:295 lib/applicationeditform.php:357
+#: lib/designsettings.php:256 lib/groupeditform.php:202
 msgid "Save"
 msgstr "Зачувај"
 
@@ -1403,8 +1464,7 @@ msgid "You must be logged in to edit an application."
 msgstr "Мора да сте најавени за да можете да уредувате програми."
 
 #. TRANS: Client error displayed trying to edit an application that does not exist.
-#: actions/editapplication.php:83 actions/oauthconnectionssettings.php:166
-#: actions/showapplication.php:87
+#: actions/editapplication.php:83 actions/showapplication.php:87
 msgid "No such application."
 msgstr "Нема таков програм."
 
@@ -1420,7 +1480,6 @@ msgstr "Треба име."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
 #: actions/editapplication.php:186
-#, fuzzy
 msgid "Name is too long (max 255 characters)."
 msgstr "Името е предолго (највеќе 255 знаци)."
 
@@ -1436,10 +1495,10 @@ msgstr "Треба опис."
 
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
 #: actions/editapplication.php:199
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
-msgstr[0] "Описот е предолг (дозволено е највеќе %d знаци)."
+msgstr[0] "Описот е предолг (дозволено е највеќе %d знак."
 msgstr[1] "Описот е предолг (дозволено е највеќе %d знаци)."
 
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
@@ -1459,9 +1518,8 @@ msgstr "Треба организација."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
 #: actions/editapplication.php:221
-#, fuzzy
 msgid "Organization is too long (maximum 255 characters)."
-msgstr "Организацијата е предолга (максимумот е 255 знаци)."
+msgstr "Името на организацијата е предолго (највеќе 255 знаци)."
 
 #: actions/editapplication.php:224 actions/newapplication.php:194
 msgid "Organization homepage is required."
@@ -1565,16 +1623,6 @@ msgid ""
 msgstr ""
 "Очекувам потврда за оваа адреса. Проверете си го приемното сандаче (а и "
 "сандачето за спам!). Во писмото ќе следат понатамошни напатствија."
-
-#. TRANS: Button label to cancel an e-mail address confirmation procedure.
-#. TRANS: Button label to cancel an IM address confirmation procedure.
-#. TRANS: Button label to cancel a SMS address confirmation procedure.
-#. TRANS: Button label in the "Edit application" form.
-#: actions/emailsettings.php:127 actions/imsettings.php:131
-#: actions/smssettings.php:137 lib/applicationeditform.php:351
-msgctxt "BUTTON"
-msgid "Cancel"
-msgstr "Откажи"
 
 #. TRANS: Instructions for e-mail address input form. Do not translate
 #. TRANS: "example.org". It is one of the domain names reserved for
@@ -2343,15 +2391,14 @@ msgstr ""
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
 #: actions/invite.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid email address: %s."
-msgstr "Неважечка е-поштенска адреса: %s"
+msgstr "Неважечка е-поштенска адреса: %s."
 
 #. TRANS: Page title when invitations have been sent.
 #: actions/invite.php:116
-#, fuzzy
 msgid "Invitations sent"
-msgstr "Пораките се испратени"
+msgstr "Поканите се испратени"
 
 #. TRANS: Page title when inviting potential users.
 #: actions/invite.php:119
@@ -2363,10 +2410,9 @@ msgstr "Покани нови корисници"
 #. TRANS: Plural form is based on the number of reported already subscribed e-mail addresses.
 #. TRANS: Followed by a bullet list.
 #: actions/invite.php:139
-#, fuzzy
 msgid "You are already subscribed to this user:"
 msgid_plural "You are already subscribed to these users:"
-msgstr[0] "Веќе сте претплатени на овие корисници:"
+msgstr[0] "Веќе сте претплатени на овој корисник:"
 msgstr[1] "Веќе сте претплатени на овие корисници:"
 
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
@@ -2382,24 +2428,20 @@ msgstr "%1$s (%2$s)"
 #. TRANS: already uses a this StatusNet site. Plural form is based on the number of
 #. TRANS: reported already present people. Followed by a bullet list.
 #: actions/invite.php:153
-#, fuzzy
 msgid "This person is already a user and you were automatically subscribed:"
 msgid_plural ""
 "These people are already users and you were automatically subscribed to them:"
-msgstr[0] ""
-"Овие луѓе веќе се корисници и Вие бевте автоматски претплатени на нив:"
-msgstr[1] ""
-"Овие луѓе веќе се корисници и Вие бевте автоматски претплатени на нив:"
+msgstr[0] "Ова лице веќе е корисник и автоматски сте претплатени:"
+msgstr[1] "Овие луѓе веќе се корисници и автоматски сте претплатени на нив:"
 
 #. TRANS: Message displayed inviting users to use a StatusNet site. Plural form is
 #. TRANS: based on the number of invitations sent. Followed by a bullet list of
 #. TRANS: e-mail addresses to which invitations were sent.
 #: actions/invite.php:167
-#, fuzzy
 msgid "Invitation sent to the following person:"
 msgid_plural "Invitations sent to the following people:"
-msgstr[0] "Испратени се покани до следниве луѓе:"
-msgstr[1] "Испратени се покани до следниве луѓе:"
+msgstr[0] "Испратена е покана до следново лице:"
+msgstr[1] "Испратени се покани до следниве лица:"
 
 #. TRANS: Generic message displayed after sending out one or more invitations to
 #. TRANS: people to join a StatusNet site.
@@ -2812,6 +2854,18 @@ msgstr "Ajax-грешка"
 msgid "New notice"
 msgstr "Ново забелешка"
 
+#: actions/newnotice.php:157 lib/mailhandler.php:60
+#, php-format
+msgid "That's too long. Max notice size is %d chars."
+msgstr "Ова е предолго. Максималната дозволена должина изнесува %d знаци."
+
+#: actions/newnotice.php:181
+#, php-format
+msgid "Max notice size is %d chars, including attachment URL."
+msgstr ""
+"Максималната големина на забелешката е %d знаци, вклучувајќи ја URL-адресата "
+"на прилогот."
+
 #: actions/newnotice.php:227
 msgid "Notice posted"
 msgstr "Забелешката е објавена"
@@ -2864,13 +2918,12 @@ msgid "Updates matching search term \"%1$s\" on %2$s!"
 msgstr "Подновувања кои се совпаѓаат со пребараниот израз „%1$s“ на %2$s!"
 
 #: actions/nudge.php:85
-#, fuzzy
 msgid ""
 "This user doesn't allow nudges or hasn't confirmed or set their email "
 "address yet."
 msgstr ""
 "Овој корисник не дозволува подбуцнувања или сè уште нема потврдено или "
-"поставено своја е-пошта."
+"внесено своја е-пошта."
 
 #: actions/nudge.php:94
 msgid "Nudge sent"
@@ -2897,31 +2950,52 @@ msgstr "Програми што ги имате регистрирано"
 msgid "You have not registered any applications yet."
 msgstr "Сè уште немате регистрирано ниеден програм,"
 
-#: actions/oauthconnectionssettings.php:72
+#. TRANS: Title for OAuth connection settings.
+#: actions/oauthconnectionssettings.php:71
 msgid "Connected applications"
 msgstr "Поврзани програми"
 
+#. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-msgid "You have allowed the following applications to access your account."
+#, fuzzy
+msgid "The following connections exist for your account."
 msgstr "Им имате дозволено пристап до Вашата сметка на следните програми."
 
-#: actions/oauthconnectionssettings.php:175
+#. TRANS: Client error when trying to revoke access for an application while not being a user of it.
+#: actions/oauthconnectionssettings.php:168
 msgid "You are not a user of that application."
 msgstr "Не сте корисник на тој програм."
 
-#: actions/oauthconnectionssettings.php:186
-#, php-format
-msgid "Unable to revoke access for app: %s."
+#. TRANS: Client error when revoking access has failed for some reason.
+#. TRANS: %s is the application ID revoking access failed for.
+#: actions/oauthconnectionssettings.php:183
+#, fuzzy, php-format
+msgid "Unable to revoke access for application: %s."
 msgstr "Не можам да му го одземам пристапот на програмот: %s."
 
-#: actions/oauthconnectionssettings.php:198
+#. TRANS: Success message after revoking access for an application.
+#. TRANS: %1$s is the application name, %2$s is the first part of the user token.
+#: actions/oauthconnectionssettings.php:202
+#, php-format
+msgid ""
+"You have successfully revoked access for %1$s and the access token starting "
+"with %2$s."
+msgstr ""
+
+#. TRANS: Empty list message when no applications have been authorised yet.
+#: actions/oauthconnectionssettings.php:213
 msgid "You have not authorized any applications to use your account."
 msgstr "Му немате дозволено пристап до Вашата сметка на ниеден програм."
 
-#: actions/oauthconnectionssettings.php:211
-msgid "Developers can edit the registration settings for their applications "
+#. TRANS: Note for developers in the OAuth connection settings form.
+#. TRANS: This message contains a Markdown link. Do not separate "](".
+#. TRANS: %s is the URL to the OAuth settings.
+#: actions/oauthconnectionssettings.php:233
+#, php-format
+msgid ""
+"Are you a developer? [Register an OAuth client application](%s) to use with "
+"this instance of StatusNet."
 msgstr ""
-"Развивачите можат да ги нагодат регистрациските поставки за нивните програми "
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3087,170 +3161,294 @@ msgstr "Не можам да ја зачувам новата лозинка."
 msgid "Password saved."
 msgstr "Лозинката е зачувана."
 
+#. TRANS: Title for Paths admin panel.
 #. TRANS: Menu item for site administration
-#: actions/pathsadminpanel.php:59 lib/adminpanelaction.php:371
+#: actions/pathsadminpanel.php:58 lib/adminpanelaction.php:371
 msgid "Paths"
 msgstr "Патеки"
 
-#: actions/pathsadminpanel.php:70
+#. TRANS: Form instructions for Path admin panel.
+#: actions/pathsadminpanel.php:69
 msgid "Path and server settings for this StatusNet site"
 msgstr "Нагодувања за патеки и опслужувачи за оваа StatusNet-мрежно место."
 
-#: actions/pathsadminpanel.php:158
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the directory that could not be read from.
+#: actions/pathsadminpanel.php:155
 #, php-format
 msgid "Theme directory not readable: %s."
 msgstr "Директориумот на темата е нечитлив: %s."
 
-#: actions/pathsadminpanel.php:164
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the avatar directory that could not be written to.
+#: actions/pathsadminpanel.php:163
 #, php-format
 msgid "Avatar directory not writable: %s."
 msgstr "Директориумот на аватарот е недостапен за запишување: %s."
 
-#: actions/pathsadminpanel.php:170
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the background directory that could not be written to.
+#: actions/pathsadminpanel.php:171
 #, php-format
 msgid "Background directory not writable: %s."
 msgstr "Директориумот на позадината е нечитлив: %s."
 
-#: actions/pathsadminpanel.php:178
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the locales directory that could not be read from.
+#: actions/pathsadminpanel.php:181
 #, php-format
 msgid "Locales directory not readable: %s."
 msgstr "Директориумот на локалите е нечитлив: %s."
 
-#: actions/pathsadminpanel.php:184
+#. TRANS: Client error in Paths admin panel.
+#. TRANS: %s is the SSL server URL that is too long.
+#: actions/pathsadminpanel.php:189
 msgid "Invalid SSL server. The maximum length is 255 characters."
 msgstr "Неважечки SSL-опслужувач. Дозволени се најмногу до 255 знаци"
 
+#. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:235 actions/siteadminpanel.php:58
 msgid "Site"
 msgstr "Мреж. место"
 
-#: actions/pathsadminpanel.php:239 actions/pathsadminpanel.php:265
-#: actions/pathsadminpanel.php:314 actions/pathsadminpanel.php:343
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:241 actions/pathsadminpanel.php:279
+#: actions/pathsadminpanel.php:370 actions/pathsadminpanel.php:425
 msgid "Server"
 msgstr "Опслужувач"
 
-#: actions/pathsadminpanel.php:239
+#: actions/pathsadminpanel.php:242
 msgid "Site's server hostname."
 msgstr "Назив на домаќинот на опслужувачот на мрежното место"
 
-#: actions/pathsadminpanel.php:243 actions/pathsadminpanel.php:269
-#: actions/pathsadminpanel.php:318 actions/pathsadminpanel.php:347
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:248 actions/pathsadminpanel.php:288
+#: actions/pathsadminpanel.php:379 actions/pathsadminpanel.php:434
 msgid "Path"
 msgstr "Патека"
 
-#: actions/pathsadminpanel.php:243
-msgid "Site path"
+#: actions/pathsadminpanel.php:249
+#, fuzzy
+msgid "Site path."
 msgstr "Патека на мрежното место"
 
-#: actions/pathsadminpanel.php:247
-msgid "Locale Directory"
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:255
+#, fuzzy
+msgid "Locale directory"
 msgstr "Директориум на местото"
 
-#: actions/pathsadminpanel.php:247
-msgid "Directory path to locales"
+#: actions/pathsadminpanel.php:256
+#, fuzzy
+msgid "Directory path to locales."
 msgstr "Патека до директориумот на локалите"
 
-#: actions/pathsadminpanel.php:251
+#. TRANS: Checkbox label in Paths admin panel.
+#: actions/pathsadminpanel.php:263
 msgid "Fancy URLs"
 msgstr "Интересни URL-адреси"
 
-#: actions/pathsadminpanel.php:253
+#: actions/pathsadminpanel.php:265
 msgid "Use fancy (more readable and memorable) URLs?"
 msgstr "Да користам интересни (почитливи и повпечатливи) URL-адреси?"
 
-#: actions/pathsadminpanel.php:260
+#: actions/pathsadminpanel.php:272
 msgid "Theme"
 msgstr "Изглед"
 
-#: actions/pathsadminpanel.php:265
-msgid "Server for themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:281
+#, fuzzy
+msgid "Server for themes."
 msgstr "Опслужувач за изгледи"
 
-#: actions/pathsadminpanel.php:269
-msgid "Web path to themes"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:290
+#, fuzzy
+msgid "Web path to themes."
 msgstr "Мрежна патека до изгледите"
 
-#: actions/pathsadminpanel.php:273 actions/pathsadminpanel.php:322
-#: actions/pathsadminpanel.php:351 actions/pathsadminpanel.php:380
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
+#: actions/pathsadminpanel.php:443 actions/pathsadminpanel.php:495
 msgid "SSL server"
 msgstr "SSL-опслужувач"
 
-#: actions/pathsadminpanel.php:273
-msgid "SSL server for themes (default: SSL server)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:299
+#, fuzzy
+msgid "SSL server for themes (default: SSL server)."
 msgstr "SSL-опслужувач за изгледите (стандарден: SSL-опслужувач)"
 
-#: actions/pathsadminpanel.php:277 actions/pathsadminpanel.php:326
-#: actions/pathsadminpanel.php:355
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
+#: actions/pathsadminpanel.php:452
 msgid "SSL path"
 msgstr "SSL-патека"
 
-#: actions/pathsadminpanel.php:277
-msgid "SSL path to themes (default: /theme/)"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:308
+#, fuzzy
+msgid "SSL path to themes (default: /theme/)."
 msgstr "SSL-патека до изгледите (стандардно: /theme/)"
 
-#: actions/pathsadminpanel.php:281 actions/pathsadminpanel.php:330
-#: actions/pathsadminpanel.php:359
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
+#: actions/pathsadminpanel.php:461
 msgid "Directory"
 msgstr "Директориум"
 
-#: actions/pathsadminpanel.php:281
-msgid "Directory where themes are located"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:317
+#, fuzzy
+msgid "Directory where themes are located."
 msgstr "Директориумот кадешто се сместени изгледите"
 
-#: actions/pathsadminpanel.php:288
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:326
 msgid "Avatars"
 msgstr "Аватари"
 
-#: actions/pathsadminpanel.php:293
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:333
 msgid "Avatar server"
 msgstr "Опслужувач на аватарот"
 
-#: actions/pathsadminpanel.php:297
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:335
+#, fuzzy
+msgid "Server for avatars."
+msgstr "Опслужувач за изгледи"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:342
 msgid "Avatar path"
 msgstr "Патека на аватарот"
 
-#: actions/pathsadminpanel.php:301
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:344
+#, fuzzy
+msgid "Web path to avatars."
+msgstr "Мрежна патека до изгледите"
+
+#. TRANS: Field label in Paths admin panel.
+#: actions/pathsadminpanel.php:351
 msgid "Avatar directory"
 msgstr "Директориум на аватарот"
 
-#: actions/pathsadminpanel.php:310
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:353
+#, fuzzy
+msgid "Directory where avatars are located."
+msgstr "Директориумот кадешто се сместени изгледите"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:364
 msgid "Backgrounds"
 msgstr "Позадини"
 
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:372
+#, fuzzy
+msgid "Server for backgrounds."
+msgstr "Опслужувач за изгледи"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:381
+#, fuzzy
+msgid "Web path to backgrounds."
+msgstr "Мрежна патека до изгледите"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:390
+msgid "Server for backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:399
+msgid "Web path to backgrounds on SSL pages."
+msgstr ""
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:408
+#, fuzzy
+msgid "Directory where backgrounds are located."
+msgstr "Директориумот кадешто се сместени изгледите"
+
+#. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
-#: actions/pathsadminpanel.php:339 lib/attachmentlist.php:85
+#: actions/pathsadminpanel.php:419 lib/attachmentlist.php:85
 msgid "Attachments"
 msgstr "Прилози"
 
-#: actions/pathsadminpanel.php:366
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:427
+#, fuzzy
+msgid "Server for attachments."
+msgstr "Опслужувач за изгледи"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:436
+#, fuzzy
+msgid "Web path to attachments."
+msgstr "Мрежна патека до изгледите"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:445
+#, fuzzy
+msgid "Server for attachments on SSL pages."
+msgstr "Опслужувач за изгледи"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:454
+#, fuzzy
+msgid "Web path to attachments on SSL pages."
+msgstr "Мрежна патека до изгледите"
+
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:463
+#, fuzzy
+msgid "Directory where attachments are located."
+msgstr "Директориумот кадешто се сместени изгледите"
+
+#. TRANS: Fieldset legend in Paths admin panel.
+#: actions/pathsadminpanel.php:472
 msgid "SSL"
 msgstr "SSL"
 
-#: actions/pathsadminpanel.php:370 actions/snapshotadminpanel.php:202
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:477 actions/snapshotadminpanel.php:202
 msgid "Never"
 msgstr "Никогаш"
 
-#: actions/pathsadminpanel.php:371
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:479
 msgid "Sometimes"
 msgstr "Понекогаш"
 
-#: actions/pathsadminpanel.php:372
+#. TRANS: Drop down option in Paths admin panel (option for "When to use SSL").
+#: actions/pathsadminpanel.php:481
 msgid "Always"
 msgstr "Секогаш"
 
-#: actions/pathsadminpanel.php:374
+#: actions/pathsadminpanel.php:485
 msgid "Use SSL"
 msgstr "Користи SSL"
 
-#: actions/pathsadminpanel.php:375
-msgid "When to use SSL"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:487
+#, fuzzy
+msgid "When to use SSL."
 msgstr "Кога се користи SSL"
 
-#: actions/pathsadminpanel.php:381
-msgid "Server to direct SSL requests to"
+#. TRANS: Tooltip for field label in Paths admin panel.
+#: actions/pathsadminpanel.php:497
+#, fuzzy
+msgid "Server to direct SSL requests to."
 msgstr "Oпслужувач, кому ќе му се испраќаат SSL-барања"
 
-#: actions/pathsadminpanel.php:397
+#. TRANS: Button title text to store form data in the Paths admin panel.
+#: actions/pathsadminpanel.php:514
 msgid "Save paths"
 msgstr "Зачувај патеки"
 
@@ -3309,9 +3507,8 @@ msgstr "Информации за профил"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:113
-#, fuzzy
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
-msgstr "1-64 мали букви или бројки. Без интерпукциски знаци и празни места."
+msgstr "1-64 мали букви или бројки, без интерпукциски знаци и празни места."
 
 #. TRANS: Field label in form for profile settings.
 #: actions/profilesettings.php:117 actions/register.php:455
@@ -3329,19 +3526,19 @@ msgstr "Домашна страница"
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:125
-#, fuzzy
 msgid "URL of your homepage, blog, or profile on another site."
-msgstr "URL на Вашата домашна страница, блог или профил на друго мрежно место."
+msgstr ""
+"URL-адреса на Вашата домашна страница, блог или профил на друго мрежно место."
 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
 #: actions/profilesettings.php:133
-#, fuzzy, php-format
+#, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
-msgstr[0] "Опишете се себеси и своите интереси во %d знаци."
-msgstr[1] "Опишете се себеси и своите интереси во %d знаци."
+msgstr[0] "Опишете се себеси и своите интереси со %d знак."
+msgstr[1] "Опишете се себеси и своите интереси со %d знаци."
 
 #. TRANS: Tooltip for field label in form for profile settings.
 #: actions/profilesettings.php:139 actions/register.php:471
@@ -3418,25 +3615,23 @@ msgstr ""
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:256
-#, fuzzy
 msgid "Full name is too long (max 255 characters)."
-msgstr "Целото име е предолго (највеќе 255 знаци)"
+msgstr "Полното име е предолго (највеќе 255 знаци)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
 #: actions/profilesettings.php:262
-#, fuzzy, php-format
+#, php-format
 msgid "Bio is too long (max %d character)."
 msgid_plural "Bio is too long (max %d characters)."
-msgstr[0] "Биографијата е преголема (највеќе до %d знаци)."
+msgstr[0] "Биографијата е преголема (највеќе до %d знак)."
 msgstr[1] "Биографијата е преголема (највеќе до %d знаци)."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:269
-#, fuzzy
 msgid "Location is too long (max 255 characters)."
-msgstr "Локацијата е предолга (максимумот е 255 знаци)."
+msgstr "Местоположбата е предолга (највеќе 255 знаци)."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:273 actions/siteadminpanel.php:151
@@ -3445,9 +3640,8 @@ msgstr "Не е избрана часовна зона."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:281
-#, fuzzy
 msgid "Language is too long (max 50 characters)."
-msgstr "Јазикот е предлог (највеќе до 50 знаци)."
+msgstr "Јазикот е предолг (највеќе до 50 знаци)."
 
 #. TRANS: Validation error in form for profile settings.
 #. TRANS: %s is an invalid tag.
@@ -3566,9 +3760,9 @@ msgstr "Јавен облак од ознаки"
 #. TRANS: Instructions (more used like an explanation/header).
 #. TRANS: %s is the StatusNet sitename.
 #: actions/publictagcloud.php:65
-#, fuzzy, php-format
+#, php-format
 msgid "These are most popular recent tags on %s"
-msgstr "Овие се најпопуларните скорешни ознаки на %s "
+msgstr "Овие се најпопуларните скорешни ознаки на %s"
 
 #. TRANS: This message contains a Markdown URL. The link description is between
 #. TRANS: square brackets, and the link between parentheses. Do not separate "]("
@@ -4839,13 +5033,12 @@ msgstr "Ова се луѓето што ги следат забелешките
 
 #. TRANS: Subscriber list text when the logged in user has no subscribers.
 #: actions/subscribers.php:116
-#, fuzzy
 msgid ""
 "You have no subscribers. Try subscribing to people you know and they might "
 "return the favor."
 msgstr ""
 "Немате претплатници. Претплатете се на луѓе што ги знаете, и тие можеби ќе "
-"го сторат истото за Вас"
+"го сторат истото за Вас."
 
 #. TRANS: Subscriber list text when looking at the subscribers for a of a user other
 #. TRANS: than the logged in user that has no subscribers. %s is the user nickname.
@@ -5693,6 +5886,11 @@ msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Промена на е-пошта, аватар, лозинка, профил"
 
+#. TRANS: Main menu option when logged in for access to user settings
+#: lib/action.php:490
+msgid "Account"
+msgstr "Сметка"
+
 #. TRANS: Tooltip for main menu option "Services"
 #: lib/action.php:492
 msgctxt "TOOLTIP"
@@ -6061,28 +6259,40 @@ msgid "No application for that consumer key."
 msgstr "Нема програм за тој потрошувачки клуч."
 
 #. TRANS: OAuth exception given when an incorrect access token was given for a user.
-#: lib/apiauth.php:217
+#: lib/apiauth.php:219
 msgid "Bad access token."
 msgstr "Лош пристапен жетон."
 
 #. TRANS: OAuth exception given when no user was found for a given token (no token was found).
-#: lib/apiauth.php:222
+#: lib/apiauth.php:224
 msgid "No user for that token."
 msgstr "Нема корисник за тој жетон."
 
 #. TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
 #. TRANS: Client error thrown when authentication fails.
-#: lib/apiauth.php:264 lib/apiauth.php:291
+#: lib/apiauth.php:266 lib/apiauth.php:293
 msgid "Could not authenticate you."
 msgstr "Не можевме да Ве потврдиме."
 
+#. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
+#: lib/apioauthstore.php:41
+#, fuzzy
+msgid "Could not create anonymous consumer."
+msgstr "Не можеше да се создадат алијаси."
+
+#. TRANS: Server error displayed when trying to create an anynymous OAuth application.
+#: lib/apioauthstore.php:54
+#, fuzzy
+msgid "Could not create anonymous OAuth application."
+msgstr "Не можеше да се создаде програмот."
+
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:189
+#: lib/apioauthstore.php:218
 msgid "Tried to revoke unknown token."
 msgstr "Се обидовте да отповикате непознат жетон."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:194
+#: lib/apioauthstore.php:223
 msgid "Failed to delete revoked token."
 msgstr "Не успеав да го избришам отповиканиот жетон."
 
@@ -6161,24 +6371,40 @@ msgid "Default access for this application: read-only, or read-write"
 msgstr ""
 "Основно-зададен пристап за овој програм: само читање, или читање-пишување"
 
+#. TRANS: Submit button title.
+#: lib/applicationeditform.php:353
+msgid "Cancel"
+msgstr "Откажи"
+
+#: lib/applicationlist.php:247
+msgid " by "
+msgstr ""
+
 #. TRANS: Application access type
-#: lib/applicationlist.php:134
+#: lib/applicationlist.php:260
 msgid "read-write"
 msgstr "читање-пишување"
 
 #. TRANS: Application access type
-#: lib/applicationlist.php:136
+#: lib/applicationlist.php:262
 msgid "read-only"
 msgstr "само читање"
 
 #. TRANS: Used in application list. %1$s is a modified date, %2$s is access type ("read-write" or "read-only")
-#: lib/applicationlist.php:142
+#: lib/applicationlist.php:268
 #, php-format
 msgid "Approved %1$s - \"%2$s\" access."
 msgstr "Одобрено %1$s - „%2$s“ пристап."
 
+#. TRANS: Access token in the application list.
+#. TRANS: %s are the first 7 characters of the access token.
+#: lib/applicationlist.php:282
+#, php-format
+msgid "Access token starting with: %s"
+msgstr ""
+
 #. TRANS: Button label
-#: lib/applicationlist.php:157
+#: lib/applicationlist.php:298
 msgctxt "BUTTON"
 msgid "Revoke"
 msgstr "Одземи"
@@ -6607,16 +6833,14 @@ msgstr ""
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:136
-#, fuzzy
 msgid "No configuration file found."
-msgstr "Нема пронајдено конфигурациска податотека. "
+msgstr "Нема пронајдено податотека со поставки."
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #. TRANS: Is followed by a list of directories (separated by HTML breaks).
 #: lib/common.php:139
-#, fuzzy
 msgid "I looked for configuration files in the following places:"
-msgstr "Побарав конфигурациони податотеки на следниве места: "
+msgstr "Пребарав податотеки со поставки на следниве места:"
 
 #. TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
 #: lib/common.php:142
@@ -6929,7 +7153,7 @@ msgstr "Потврдување на адресата"
 #. TRANS: %1$s is the addressed user's nickname, %2$s is the StatusNet sitename,
 #. TRANS: %3$s is the URL to confirm at.
 #: lib/mail.php:179
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Hey, %1$s.\n"
 "\n"
@@ -6944,19 +7168,19 @@ msgid ""
 "Thanks for your time, \n"
 "%2$s\n"
 msgstr ""
-"Здраво %s.\n"
+"Здраво %1$s.\n"
 "\n"
-"Некој штотуку ја внесе оваа адреса на %s.\n"
+"Некој штотуку ја внесе оваа адреса на %2$s.\n"
 "\n"
 "Ако тоа бевте Вие, и сакате да го потврдите влезот, употребете ја URL-"
 "адресата подолу:\n"
 "\n"
-"%s\n"
+"%3$s\n"
 "\n"
 "Ако не сте Вие, едноставно занемарете ја поракава.\n"
 "\n"
 "Ви благодариме за потрошеното време,  \n"
-"%s\n"
+"%2$s\n"
 
 #. TRANS: Subject of new-subscriber notification e-mail.
 #. TRANS: %1$s is the subscribing user's nickname, %2$s is the StatusNet sitename.
@@ -6983,7 +7207,7 @@ msgstr ""
 #. TRANS: %5$s is the subscriber's homepage URL (or empty), %6%s is the subscriber's bio (or empty)
 #. TRANS: %7$s is a link to the addressed user's e-mail settings.
 #: lib/mail.php:263
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s is now listening to your notices on %2$s.\n"
 "\n"
@@ -7002,10 +7226,10 @@ msgstr ""
 "\n"
 "%4$s%5$s%6$s\n"
 "Со искрена почит,\n"
-"%7$s.\n"
+"%2$s.\n"
 "\n"
 "----\n"
-"Изменете си ја е-поштенската адреса или ги нагодувањата за известувања на %8"
+"Изменете си ја е-поштенската адреса или ги нагодувањата за известувања на %7"
 "$s\n"
 
 #. TRANS: Profile info line in new-subscriber notification e-mail.
@@ -7026,7 +7250,7 @@ msgstr "Нова е-поштенска адреса за објавување н
 #. TRANS: %1$s is the StatusNet sitename, %2$s is the e-mail address to send
 #. TRANS: to to post by e-mail, %3$s is a URL to more instructions.
 #: lib/mail.php:321
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "You have a new posting address on %1$s.\n"
 "\n"
@@ -7044,7 +7268,7 @@ msgstr ""
 "Повеќе напатствија за е-пошта на %3$s.\n"
 "\n"
 "Со искрена почит,\n"
-"%4$s"
+"%1$s"
 
 #. TRANS: Subject line for SMS-by-email notification messages.
 #. TRANS: %s is the posting user's nickname.
@@ -7150,8 +7374,8 @@ msgstr ""
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
 #, fuzzy, php-format
-msgid "%1s$ (@%2$s) added your notice as a favorite"
-msgstr "%s (@%s) бендиса Ваша забелешка"
+msgid "%1$s (@%2$s) added your notice as a favorite"
+msgstr "%1s$ (@%2$s) бендиса Ваша забелешка"
 
 #. TRANS: Body for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, $2$s is the date the notice was created,
@@ -7210,9 +7434,9 @@ msgstr ""
 #. TRANS: E-mail subject for notice notification.
 #. TRANS: %1$s is the sending user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:676
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) sent a notice to your attention"
-msgstr "%s (@%s) Ви испрати забелешка што сака да ја прочитате"
+msgstr "%1$s (@%2$s) Ви испрати забелешка што сака да ја прочитате"
 
 #. TRANS: Body of @-reply notification e-mail.
 #. TRANS: %1$s is the sending user's long name, $2$s is the StatusNet sitename,
@@ -7943,9 +8167,10 @@ msgstr "%s не е важечка боја!"
 #. TRANS: Validation error for a web colour.
 #. TRANS: %s is the provided (invalid) text for colour.
 #: lib/webcolor.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
-msgstr "%s не е важечка боја! Користете 3 или 6 шеснаесетни (hex) знаци."
+msgstr ""
+"%s не претставува важечка боја! Користете 3 или 6 шеснаесетни (hex) знаци."
 
 #: scripts/restoreuser.php:82
 #, php-format
