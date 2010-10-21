@@ -220,7 +220,7 @@ class ApiOauthAuthorizeAction extends Action
 
             if (!empty($callback) && $this->reqToken->verified_callback != 'oob') {
                 $targetUrl = $this->buildCallbackUrl(
-                    $this->callback,
+                    $callback,
                     array(
                         'oauth_token'    => $this->oauthTokenParam,
                         'oauth_verifier' => $this->reqToken->verifier // 1.0a
