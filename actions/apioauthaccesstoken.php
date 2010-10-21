@@ -78,7 +78,8 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             $this->reqToken = $req->get_parameter('oauth_token');
             $this->verifier = $req->get_parameter('oauth_verifier');
-            $app = $datastore->getAppByRequestToken($this->reqToken);
+
+            $app  = $datastore->getAppByRequestToken($this->reqToken);
             $atok = $server->fetch_access_token($req);
 
         } catch (Exception $e) {
@@ -106,7 +107,7 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
             common_log(
                 LOG_INFO,
                 sprintf(
-                    "Issued now access token '%s' for application %d (%s).",
+                    "Issued access token '%s' for application %d (%s).",
                     $atok->key,
                     $app->id,
                     $app->name

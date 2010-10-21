@@ -177,28 +177,24 @@ class ApiOauthAuthorizeAction extends Action
                 $this->serverError($e->getMessage());
             }
 
-            // associated the authorized req token with the user and the app
+            // XXX: Make sure we have a oauth_token_association table. The table
+            // is now in the main schema, but because it is being added with
+            // a point release, it's unlikely to be there. This code can be
+            // removed as of 1.0.
+            $this->ensureOauthTokenAssociationTable();
 
-            $appUser = new Oauth_application_user();
+            $tokenAssoc = new Oauth_token_association();
 
-            $appUser->profile_id     = $user->id;
-            $appUser->application_id = $this->app->id;
+            $tokenAssoc->profile_id     = $user->id;
+            $tokenAssoc->application_id = $this->app->id;
+            $tokenAssoc->token          = $this->oauthTokenParam;
+            $tokenAssoc->created        = common_sql_now();
 
-            // Note: do not copy the access type from the application.
-            // The access type should always be 0 when the OAuth app
-            // user record has a request token associated with it.
-            // Access type gets assigned once an access token has been
-            // granted.  The OAuth app user record then gets updated
-            // with the new access token and access type.
-
-            $appUser->token          = $this->oauthTokenParam;
-            $appUser->created        = common_sql_now();
-
-            $result = $appUser->insert();
+            $result = $tokenAssoc->insert();
 
             if (!$result) {
-                common_log_db_error($appUser, 'INSERT', __FILE__);
-                $this->serverError(_('Database error inserting OAuth application user.'));
+                common_log_db_error($tokenAssoc, 'INSERT', __FILE__);
+                $this->serverError(_('Database error inserting oauth_token_association.'));
             }
 
             // If we have a callback redirect and provide the token
@@ -263,6 +259,30 @@ class ApiOauthAuthorizeAction extends Action
         } else {
             $this->clientError(_('Unexpected form submission.'));
         }
+    }
+
+    // XXX Remove this function when we hit 1.0
+    function ensureOauthTokenAssociationTable()
+    {
+        $schema = Schema::get();
+
+        $reqTokenCols = array(
+            new ColumnDef('profile_id', 'integer', null, true, 'PRI'),
+            new ColumnDef('application_id', 'integer', null, true, 'PRI'),
+            new ColumnDef('token', 'varchar', 255, true, 'PRI'),
+            new ColumnDef('created', 'datetime', null, false),
+            new ColumnDef(
+                'modified',
+                'timestamp',
+                null,
+                false,
+                null,
+                'CURRENT_TIMESTAMP',
+                'on update CURRENT_TIMESTAMP'
+            )
+        );
+
+        $schema->ensureTable('oauth_token_association', $reqTokenCols);
     }
 
     function showForm($error=null)

@@ -32,24 +32,41 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             // Create an anon consumer and anon application if one
             // doesn't exist already
             if ($consumerKey == 'anonymous') {
+
+                common_debug("API OAuth - creating anonymous consumer");
                 $con = new Consumer();
                 $con->consumer_key    = $consumerKey;
                 $con->consumer_secret = $consumerKey;
+                $con->created         = common_sql_now();
+
                 $result = $con->insert();
                 if (!$result) {
                     $this->serverError(_("Could not create anonymous consumer."));
                 }
-                $app               = new OAuth_application();
-                $app->consumer_key = $con->consumer_key;
-                $app->name         = 'anonymous';
 
-                // XXX: allow the user to set the access type when
-                // authorizing? Currently we default to r+w for anonymous
-                // OAuth client applications
-                $app->access_type  = 3; // read + write
-                $id = $app->insert();
-                if (!$id) {
-                    $this->serverError(_("Could not create anonymous OAuth application."));
+                $app = Oauth_application::getByConsumerKey('anonymous');
+
+                if (!$app) {
+
+                    common_debug("API OAuth - creating anonymous application");
+                    $app               = new OAuth_application();
+                    $app->owner        = 1; // XXX: What to do here?
+                    $app->consumer_key = $con->consumer_key;
+                    $app->name         = 'anonymous';
+                    $app->icon         = 'default-avatar-stream.png'; // XXX: Fix this!
+                    $app->description  = "An anonymous application";
+                    // XXX: allow the user to set the access type when
+                    // authorizing? Currently we default to r+w for anonymous
+                    // OAuth client applications
+                    $app->access_type  = 3; // read + write
+                    $app->type         = 2; // desktop
+                    $app->created      = common_sql_now();
+
+                    $id = $app->insert();
+
+                    if (!$id) {
+                        $this->serverError(_("Could not create anonymous OAuth application."));
+                    }
                 }
             } else {
                 return null;
@@ -64,10 +81,12 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
     function getAppByRequestToken($token_key)
     {
-        // Look up the full req tokenx
-        $req_token = $this->lookup_token(null,
-                                         'request',
-                                         $token_key);
+        // Look up the full req token
+        $req_token = $this->lookup_token(
+            null,
+            'request',
+            $token_key
+        );
 
         if (empty($req_token)) {
             common_debug("couldn't get request token from oauth datastore");
@@ -85,7 +104,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
         }
 
         // Look up the app
-
         $app = new Oauth_application();
         $app->consumer_key = $token->consumer_key;
         $result = $app->find(true);
@@ -102,12 +120,12 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
     {
         common_debug(
             sprintf(
-                "%s - New access token from request token %s, consumer %s and verifier %s ",
-                __FILE__,
+                "New access token from request token %s, consumer %s and verifier %s ",
                 $token,
                 $consumer,
                 $verifier
-            )
+            ),
+            __FILE__
         );
 
         $rt = new Token();
@@ -121,73 +139,121 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
         if ($rt->find(true) && $rt->state == 1 && $rt->verifier == $verifier) { // authorized
 
-            common_debug('request token found.');
+            common_debug('Request token found.', __FILE__);
 
-            // find the associated user of the app
+            // find the app and profile associated with this token
+
+            $tokenAssoc = OAuth_token_association::staticGet('token', $rt->tok);
+
+            if (!$tokenAssoc) {
+                throw new Exception(
+                    _('Could not find a profile and application associated with the request token.')
+                );
+            }
+
+            // check to see if we have previously issued an access token for this application
+            // and profile
 
             $appUser = new Oauth_application_user();
 
             $appUser->application_id = $app->id;
-            $appUser->token          = $rt->tok;
+            $appUser->profile_id     = $tokenAssoc->profile_id;
 
             $result = $appUser->find(true);
 
             if (!empty($result)) {
-                common_debug("Ouath app user found.");
-            } else {
-                common_debug("Oauth app user not found. app id $app->id token $rt->tok");
-                return null;
-            }
 
-            // go ahead and make the access token
+                common_log(LOG_INFO,
+                     sprintf(
+                        "Existing access token found for application %s, profile %s.",
+                        $app->id,
+                        $tokenAssoc->profile_id
+                     )
+                );
 
-            $at = new Token();
-            $at->consumer_key      = $consumer->key;
-            $at->tok               = common_good_rand(16);
-            $at->secret            = common_good_rand(16);
-            $at->type              = 1; // access
-            $at->verifier          = $verifier;
-            $at->verified_callback = $rt->verified_callback; // 1.0a
-            $at->created = DB_DataObject_Cast::dateTime();
+                $at = new Token();
 
-            if (!$at->insert()) {
-                $e = $at->_lastError;
-                common_debug('access token "'.$at->tok.'" not inserted: "'.$e->message.'"', __FILE__);
-                return null;
-            } else {
-                common_debug('access token "'.$at->tok.'" inserted', __FILE__);
-                // burn the old one
-                $orig_rt = clone($rt);
-                $rt->state = 2; // used
-                if (!$rt->update($orig_rt)) {
-                    return null;
-                }
-                common_debug('request token "'.$rt->tok.'" updated', __FILE__);
+                // fetch the full access token
+                $at->consumer_key = $consumer->key;
+                $at->tok          = $appUser->token;
 
-                // update the token from req to access for the user
-
-                $orig = clone($appUser);
-
-                $appUser->token = $at->tok;
-
-                // It's at this point that we change the access type
-                // to whatever the application's access is.  Request
-                // tokens should always have an access type of 0, and
-                // therefore be unuseable for making requests for
-                // protected resources.
-
-                $appUser->access_type = $app->access_type;
-
-                $result = $appUser->updateKeys($orig);
+                $result = $at->find(true);
 
                 if (!$result) {
-                    throw new Exception('Couldn\'t update OAuth app user.');
+                    throw new Exception(
+                        _('Could not issue access token.')
+                    );
+                }
+
+                // Yay, we can re-issue the access token
+                return new OAuthToken($at->tok, $at->secret);
+
+            } else {
+
+               common_log(LOG_INFO,
+                    sprintf(
+                        "Creating new access token for application %s, profile %s.",
+                        $app->id,
+                        $tokenAssoc->profile_id
+                     )
+                );
+
+                // make a brand new access token
+                $at = new Token();
+
+                $at->consumer_key      = $consumer->key;
+                $at->tok               = common_good_rand(16);
+                $at->secret            = common_good_rand(16);
+                $at->type              = 1; // access
+                $at->verifier          = $verifier;
+                $at->verified_callback = $rt->verified_callback; // 1.0a
+                $at->created           = common_sql_now();
+
+                if (!$at->insert()) {
+                    $e = $at->_lastError;
+                    common_debug('access token "' . $at->tok . '" not inserted: "' . $e->message . '"', __FILE__);
+                    return null;
+                } else {
+                    common_debug('access token "' . $at->tok . '" inserted', __FILE__);
+                    // burn the old one
+                    $orig_rt   = clone($rt);
+                    $rt->state = 2; // used
+                    if (!$rt->update($orig_rt)) {
+                        return null;
+                    }
+                    common_debug('request token "' . $rt->tok . '" updated', __FILE__);
+                }
+
+                // insert a new Oauth_application_user record w/access token
+                $appUser = new Oauth_application_user();
+
+                $appUser->profile_id     = $tokenAssoc->profile_id;;
+                $appUser->application_id = $app->id;
+                $appUser->access_type    = $app->access_type;
+                $appUser->token          = $at->tok;
+                $appUser->created        = common_sql_now();
+
+                $result = $appUser->insert();
+
+                if (!$result) {
+                    common_log_db_error($appUser, 'INSERT', __FILE__);
+                    $this->serverError(_('Database error inserting OAuth application user.'));
                 }
 
                 // Okay, good
                 return new OAuthToken($at->tok, $at->secret);
             }
+
         } else {
+
+            // the token was not authorized or not verfied
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "API OAuth - Attempt to exchange unauthorized or unverified request token %s for an access token.",
+                     $rt->tok
+                )
+            );
             return null;
         }
     }
