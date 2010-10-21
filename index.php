@@ -283,6 +283,14 @@ function main()
         return;
     }
 
+    $site_ssl = common_config('site', 'ssl');
+
+    // If the request is HTTP and it should be HTTPS...
+    if ($site_ssl != 'never' && !StatusNet::isHTTPS() && common_is_sensitive($args['action'])) {
+        common_redirect(common_local_url($args['action'], $args));
+        return;
+    }
+
     $args = array_merge($args, $_REQUEST);
 
     Event::handle('ArgsInitialize', array(&$args));
