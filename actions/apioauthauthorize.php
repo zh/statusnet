@@ -68,11 +68,12 @@ class ApiOauthAuthorizeAction extends Action
     {
         parent::prepare($args);
 
-        $this->nickname         = $this->trimmed('nickname');
-        $this->password         = $this->arg('password');
-        $this->oauthTokenParam  = $this->arg('oauth_token');
-        $this->callback         = $this->arg('oauth_callback');
-        $this->store            = new ApiStatusNetOAuthDataStore();
+        $this->nickname        = $this->trimmed('nickname');
+        $this->password        = $this->arg('password');
+        $this->oauthTokenParam = $this->arg('oauth_token');
+        $this->callback        = $this->arg('oauth_callback');
+        $this->mode            = $this->arg('mode');
+        $this->store           = new ApiStatusNetOAuthDataStore();
 
         try {
             $this->app = $this->store->getAppByRequestToken($this->oauthTokenParam);
@@ -427,6 +428,51 @@ class ApiOauthAuthorizeAction extends Action
     function showLocalNav()
     {
         // NOP
+    }
+
+    /*
+     * Checks to see if a the "mode" parameter is present in the request
+     * and set to "desktop". If it is, the page is meant to be displayed in
+     * a small frame of another application, and we should  suppress the
+     * header, aside, and footer.
+     */
+    function desktopMode()
+    {
+        if (isset($this->mode) && $this->mode == 'desktop') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showHeader()
+    {
+        if ($this->desktopMode() == false) {
+            parent::showHeader();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showAside()
+    {
+        if ($this->desktopMode() == false) {
+            parent::showHeader();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showFooter()
+    {
+        if ($this->desktopMode() == false) {
+            parent::showHeader();
+        }
     }
 
     /**
