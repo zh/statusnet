@@ -35,7 +35,7 @@ require_once INSTALLDIR . '/lib/apioauth.php';
 require_once INSTALLDIR . '/lib/info.php';
 
 /**
- * Authorize an OAuth request token
+ * Authorize an Oputh request token
  *
  * @category API
  * @package  StatusNet
@@ -43,7 +43,7 @@ require_once INSTALLDIR . '/lib/info.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class ApiOauthAuthorizeAction extends Action
+class ApioauthauthorizeAction extends Action
 {
     var $oauthTokenParam;
     var $reqToken;
@@ -120,7 +120,7 @@ class ApiOauthAuthorizeAction extends Action
                     // Check to make sure we haven't already authorized the token
                     if ($this->reqToken->state != 0) {
                         // TRANS: Client error given when an invalid request token was passed to the OAuth API.
-                        $this->clientError(_('Invalid request token.'));
+                        $this->clientError(_('Request token already authorized.'));
                     }
                 }
             }
@@ -461,7 +461,7 @@ class ApiOauthAuthorizeAction extends Action
     function showAside()
     {
         if ($this->desktopMode() == false) {
-            parent::showHeader();
+            parent::showAside();
         }
     }
 
@@ -471,7 +471,7 @@ class ApiOauthAuthorizeAction extends Action
     function showFooter()
     {
         if ($this->desktopMode() == false) {
-            parent::showHeader();
+            parent::showFooter();
         }
     }
 
