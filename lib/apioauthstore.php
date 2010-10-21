@@ -144,8 +144,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
             common_debug('Request token found.', __FILE__);
 
             // find the app and profile associated with this token
-
-            $tokenAssoc = OAuth_token_association::staticGet('token', $rt->tok);
+            $tokenAssoc = Oauth_token_association::staticGet('token', $rt->tok);
 
             if (!$tokenAssoc) {
                 throw new Exception(
