@@ -199,13 +199,13 @@ class EditgroupAction extends GroupDesignAction
             $this->showForm(_('Homepage is not a valid URL.'));
             return;
         } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
-            $this->showForm(_('Full name is too long (max 255 chars).'));
+            $this->showForm(_('Full name is too long (maximum 255 characters).'));
             return;
         } else if (User_group::descriptionTooLong($description)) {
-            $this->showForm(sprintf(_('description is too long (max %d chars).'), User_group::maxDescription()));
+            $this->showForm(sprintf(_('Description is too long (max %d chars).'), User_group::maxDescription()));
             return;
         } else if (!is_null($location) && mb_strlen($location) > 255) {
-            $this->showForm(_('Location is too long (max 255 chars).'));
+            $this->showForm(_('Location is too long (maximum 255 characters).'));
             return;
         }
 

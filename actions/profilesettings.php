@@ -253,20 +253,20 @@ class ProfilesettingsAction extends AccountSettingsAction
                 return;
             } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
                 // TRANS: Validation error in form for profile settings.
-                $this->showForm(_('Full name is too long (max 255 characters).'));
+                $this->showForm(_('Full name is too long (maximum 255 characters).'));
                 return;
             } else if (Profile::bioTooLong($bio)) {
                 // TRANS: Validation error in form for profile settings.
                 // TRANS: Plural form is used based on the maximum number of allowed
                 // TRANS: characters for the biography (%d).
-                $this->showForm(sprintf(_m('Bio is too long (max %d character).',
-                                           'Bio is too long (max %d characters).',
+                $this->showForm(sprintf(_m('Bio is too long (maximum %d character).',
+                                           'Bio is too long (maximum %d characters).',
                                            Profile::maxBio()),
                                         Profile::maxBio()));
                 return;
             } else if (!is_null($location) && mb_strlen($location) > 255) {
                 // TRANS: Validation error in form for profile settings.
-                $this->showForm(_('Location is too long (max 255 characters).'));
+                $this->showForm(_('Location is too long (maximum 255 characters).'));
                 return;
             }  else if (is_null($timezone) || !in_array($timezone, DateTimeZone::listIdentifiers())) {
                 // TRANS: Validation error in form for profile settings.
@@ -278,7 +278,7 @@ class ProfilesettingsAction extends AccountSettingsAction
                 return;
             } else if (!is_null($language) && strlen($language) > 50) {
                 // TRANS: Validation error in form for profile settings.
-                $this->showForm(_('Language is too long (max 50 characters).'));
+                $this->showForm(_('Language is too long (maximum 50 characters).'));
                 return;
             }
 
