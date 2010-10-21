@@ -48,7 +48,6 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                 $app = Oauth_application::getByConsumerKey('anonymous');
 
                 if (!$app) {
-
                     common_debug("API OAuth - creating anonymous application");
                     $app               = new OAuth_application();
                     $app->owner        = 1; // XXX: What to do here?
@@ -66,7 +65,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
                     $id = $app->insert();
 
                     if (!$id) {
-						// TRANS: Server error displayed when trying to create an anynymous OAuth application.
+			// TRANS: Server error displayed when trying to create an anynymous OAuth application.
                         $this->serverError(_("Could not create anonymous OAuth application."));
                     }
                 }
@@ -149,6 +148,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
             if (!$tokenAssoc) {
                 throw new Exception(
+                    // TRANS: Exception thrown when no token association could be found.
                     _('Could not find a profile and application associated with the request token.')
                 );
             }
@@ -183,6 +183,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
                 if (!$result) {
                     throw new Exception(
+                        // TRANS: Exception thrown when no access token can be issued.
                         _('Could not issue access token.')
                     );
                 }
@@ -239,6 +240,7 @@ class ApiStatusNetOAuthDataStore extends StatusNetOAuthDataStore
 
                 if (!$result) {
                     common_log_db_error($appUser, 'INSERT', __FILE__);
+                    // TRANS: Server error displayed when a database error occurs.
                     $this->serverError(_('Database error inserting OAuth application user.'));
                 }
 

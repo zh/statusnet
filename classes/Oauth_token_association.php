@@ -39,6 +39,4 @@ class Oauth_token_association extends Memcached_DataObject
 
         return empty($result) ? null : $oau;
     }
-
 }
-
