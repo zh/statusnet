@@ -362,7 +362,7 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showBody()
     {
-        $this->elementStart('body', (common_current_user()) ? array('id' => $this->trimmed('action'),
+        $this->elementStart('body', (common_current_user()) ? array('id' => strtolower($this->trimmed('action')),
                                                                     'class' => 'user_in')
                             : array('id' => $this->trimmed('action')));
         $this->elementStart('div', array('id' => 'wrap'));
