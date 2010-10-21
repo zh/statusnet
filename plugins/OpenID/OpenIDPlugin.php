@@ -46,7 +46,6 @@ if (!defined('STATUSNET')) {
  * @link     http://status.net/
  * @link     http://openid.net/
  */
-
 class OpenIDPlugin extends Plugin
 {
     // Plugin parameter: set true to disallow non-OpenID logins
@@ -60,7 +59,6 @@ class OpenIDPlugin extends Plugin
             global $config;
             $config['site']['openidonly'] = (bool)$this->openidOnly;
         }
-
     }
 
     /**
@@ -72,7 +70,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartInitializeRouter($m)
     {
         $m->connect('main/openid', array('action' => 'openidlogin'));
@@ -98,7 +95,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartConnectPath(&$path, &$defaults, &$rules, &$result)
     {
         if (common_config('site', 'openidonly')) {
@@ -127,7 +123,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onArgsInitialize($args)
     {
         if (common_config('site', 'openidonly')) {
@@ -158,7 +153,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onEndPublicXRDS($action, &$xrdsOutputter)
     {
         $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
@@ -189,7 +183,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onEndUserXRDS($action, &$xrdsOutputter)
     {
         $xrdsOutputter->elementStart('XRD', array('xmlns' => 'xri://$xrd*($v*2.0)',
@@ -218,7 +211,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartPrimaryNav($action)
     {
         if (common_config('site', 'openidonly') && !common_logged_in()) {
@@ -260,7 +252,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onStartLoginGroupNav(&$action)
     {
         if (common_config('site', 'openidonly')) {
@@ -281,7 +272,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onEndLoginGroupNav(&$action)
     {
         $this->showOpenIDLoginTab($action);
@@ -296,7 +286,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return void
      */
-
     function showOpenIDLoginTab($action)
     {
         $action_name = $action->trimmed('action');
@@ -319,7 +308,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return void
      */
-
     function onStartAccountSettingsPasswordMenuItem($menu, &$unused) {
         if (common_config('site', 'openidonly')) {
             return false;
@@ -334,7 +322,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onEndAccountSettingsNav(&$action)
     {
         $action_name = $action->trimmed('action');
@@ -358,7 +345,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onAutoload($cls)
     {
         switch ($cls)
@@ -400,7 +386,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onSensitiveAction($action, &$ssl)
     {
         switch ($action)
@@ -424,7 +409,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook return
      */
-
     function onLoginAction($action, &$login)
     {
         switch ($action)
@@ -447,7 +431,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return void
      */
-
     function onEndShowHeadElements($action)
     {
         if ($action instanceof ShowstreamAction) {
@@ -471,7 +454,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean whether to continue
      */
-
     function onRedirectToLogin($action, $user)
     {
         if (common_config('site', 'openid_only') || (!empty($user) && User_openid::hasOpenID($user->id))) {
@@ -488,7 +470,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndShowPageNotice($action)
     {
         $name = $action->trimmed('action');
@@ -527,7 +508,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onStartLoadDoc(&$title, &$output)
     {
         if ($title == 'openid') {
@@ -549,7 +529,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndLoadDoc($title, &$output)
     {
         if ($title == 'help') {
@@ -568,7 +547,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -601,7 +579,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onUserDeleteRelated($user, &$tables)
     {
         $tables[] = 'User_openid';
@@ -616,7 +593,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndAdminPanelNav($nav)
     {
         if (AdminPanelAction::canAdmin('openid')) {
@@ -625,7 +601,9 @@ class OpenIDPlugin extends Plugin
 
             $nav->out->menuItem(
                 common_local_url('openidadminpanel'),
-                _m('OpenID'),
+                // TRANS: OpenID configuration menu item.
+                _m('MENU','OpenID'),
+                // TRANS: Tooltip for OpenID configuration menu item.
                 _m('OpenID configuration'),
                 $action_name == 'openidadminpanel',
                 'nav_openid_admin_panel'
@@ -642,7 +620,6 @@ class OpenIDPlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'OpenID',
@@ -685,6 +662,7 @@ class OpenIDPlugin extends Plugin
         $provider = common_config('openid', 'trusted_provider');
         $appendUsername = common_config('openid', 'append_username');
         if ($provider) {
+            // TRANS: Field label.
             $action->element('label', array(), _m('OpenID provider'));
             $action->element('span', array(), $provider);
             if ($appendUsername) {
@@ -693,7 +671,9 @@ class OpenIDPlugin extends Plugin
                                               'style' => 'float: none'));
             }
             $action->element('p', 'form_guide',
+                           // TRANS: Form guide.
                            ($appendUsername ? _m('Enter your username.') . ' ' : '') .
+                           // TRANS: Form guide.
                            _m('You will be sent to the provider\'s site for authentication.'));
             $action->hidden('openid_url', $provider);
         } else {
