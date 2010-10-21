@@ -281,7 +281,7 @@ class ShowApplicationAction extends OwnerDesignAction
 
         $this->elementStart('dl', 'entity_authorize_url');
         $this->element('dt', null, _('Authorize URL'));
-        $this->element('dd', null, common_local_url('ApiOauthAuthorize'));
+        $this->element('dd', null, common_local_url('apioauthauthorize'));
         $this->elementEnd('dl');
 
         $this->element('p', 'note',

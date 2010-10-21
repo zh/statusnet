@@ -43,7 +43,7 @@ require_once INSTALLDIR . '/lib/info.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-class ApioauthauthorizeAction extends Action
+class ApiOauthAuthorizeAction extends Action
 {
     var $oauthTokenParam;
     var $reqToken;
@@ -71,7 +71,6 @@ class ApioauthauthorizeAction extends Action
         $this->nickname        = $this->trimmed('nickname');
         $this->password        = $this->arg('password');
         $this->oauthTokenParam = $this->arg('oauth_token');
-        $this->callback        = $this->arg('oauth_callback');
         $this->mode            = $this->arg('mode');
         $this->store           = new ApiStatusNetOAuthDataStore();
 
@@ -175,6 +174,7 @@ class ApioauthauthorizeAction extends Action
 
         if ($this->arg('allow')) {
 
+            common_debug("allow");
             // fetch the token
             $this->reqToken = $this->store->getTokenByKey($this->oauthTokenParam);
 
@@ -184,6 +184,16 @@ class ApioauthauthorizeAction extends Action
             } catch (Exception $e) {
                 $this->serverError($e->getMessage());
             }
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "The request token '%s' for OAuth application %s (%s) has been authorized.",
+                    $this->oauthTokenParam,
+                    $this->app->id,
+                    $this->app->name
+                )
+            );
 
             // XXX: Make sure we have a oauth_token_association table. The table
             // is now in the main schema, but because it is being added with
@@ -206,17 +216,10 @@ class ApioauthauthorizeAction extends Action
                 $this->serverError(_('Database error inserting oauth_token_association.'));
             }
 
-            // If we have a callback redirect and provide the token
+            $callback = $this->getCallback();
 
-            // Note: A callback specified in the app setup overrides whatever
-            // is passed in with the request.
-
-            if (!empty($this->app->callback_url)) {
-                $this->callback = $this->app->callback_url;
-            }
-
-            if (!empty($this->callback)) {
-                $targetUrl = $this->getCallback(
+            if (!empty($callback) && $this->reqToken->verified_callback != 'oob') {
+                $targetUrl = $this->buildCallbackUrl(
                     $this->callback,
                     array(
                         'oauth_token'    => $this->oauthTokenParam,
@@ -224,8 +227,14 @@ class ApioauthauthorizeAction extends Action
                     )
                 );
 
+                common_log(
+                    LOG_INFO, 
+                    "API OAuth - Request token authorized; doing callback to $targetUrl"
+                );
+
                 // Redirect the user to the provided OAuth callback
                 common_redirect($targetUrl, 303);
+
             } elseif ($this->app->type == 2) {
                 // Strangely, a web application seems to want to do the OOB
                 // workflow. Because no callback was specified anywhere.
@@ -240,25 +249,18 @@ class ApioauthauthorizeAction extends Action
                 );
             }
 
-            common_log(
-                LOG_INFO,
-                sprintf(
-                    "The request token '%s' for OAuth application %s (%s) has been authorized.",
-                    $this->oauthTokenParam,
-                    $this->app->id,
-                    $this->app->name
-                )
-            );
-
             // Otherwise, inform the user that the rt was authorized
             $this->showAuthorized();
+
         } else if ($this->arg('cancel')) {
+
             try {
                 $this->store->revoke_token($this->oauthTokenParam, 0);
                 $this->showCanceled();
             } catch (Exception $e) {
                 $this->ServerError($e->getMessage());
             }
+
         } else {
             // TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
             $this->clientError(_('Unexpected form submission.'));
@@ -287,6 +289,22 @@ class ApioauthauthorizeAction extends Action
         );
 
         $schema->ensureTable('oauth_token_association', $reqTokenCols);
+    }
+
+
+    /**
+     * Override to add some special (more compact) styling when the page is
+     * being displayed in desktop mode.
+     *
+     * @return nothing
+     */
+    function showStylesheets()
+    {
+        parent::showStyleSheets();
+
+        if ($this->desktopMode()) {
+            $this->style('#wrap {min-width: 500px; } #content {width: 480px; padding: 10px;} fieldset {margin-bottom: 10px !important;}</style>');
+        }
     }
 
     function showForm($error=null)
@@ -324,7 +342,7 @@ class ApioauthauthorizeAction extends Action
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_apioauthauthorize',
                                           'class' => 'form_settings',
-                                          'action' => common_local_url('ApiOauthAuthorize')));
+                                          'action' => common_local_url('apioauthauthorize')));
         $this->elementStart('fieldset');
         $this->element('legend', array('id' => 'apioauthauthorize_allowdeny'),
                                  // TRANS: Fieldset legend.
@@ -563,6 +581,36 @@ class ApioauthauthorizeAction extends Action
     }
 
     /*
+     * Figure out what the callback should be
+     */
+    function getCallback()
+    {
+        $callback = null;
+
+        // Return the verified callback if we have one
+        if ($this->app->type == 2) {
+
+            $callback = $this->reqToken->verified_callback;
+
+            // Otherwise return the callback that was provided when
+            // registering the app
+            if (empty($callback)) {
+
+                common_debug(
+                    "No verified callback found for request token, using application callback: "
+                        . $this->app->callback_url,
+                     __FILE__
+                );
+
+                $callback = $this->app->callback_url;
+            }
+
+        }
+
+        return $callback;
+    }
+
+    /*
      * Properly format the callback URL and parameters so it's
      * suitable for a redirect in the OAuth dance
      *
@@ -571,7 +619,7 @@ class ApioauthauthorizeAction extends Action
      *
      * @return string $url  a URL to use for redirecting to
      */
-    function getCallback($url, $params)
+    function buildCallbackUrl($url, $params)
     {
         foreach ($params as $k => $v) {
             $url = $this->appendQueryVar(
