@@ -92,7 +92,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -120,7 +119,7 @@ class ApiOauthAuthorizeAction extends Action
                     // Check to make sure we haven't already authorized the token
                     if ($this->reqToken->state != 0) {
                         // TRANS: Client error given when an invalid request token was passed to the OAuth API.
-                        $this->clientError(_("Invalid request token."));
+                        $this->clientError(_('Invalid request token.'));
                     }
                 }
             }
@@ -202,6 +201,7 @@ class ApiOauthAuthorizeAction extends Action
 
             if (!$result) {
                 common_log_db_error($tokenAssoc, 'INSERT', __FILE__);
+                // TRANS: Server error displayed when a database action fails.
                 $this->serverError(_('Database error inserting oauth_token_association.'));
             }
 
@@ -251,16 +251,13 @@ class ApiOauthAuthorizeAction extends Action
 
             // Otherwise, inform the user that the rt was authorized
             $this->showAuthorized();
-
         } else if ($this->arg('cancel')) {
-
             try {
                 $this->store->revoke_token($this->oauthTokenParam, 0);
                 $this->showCanceled();
             } catch (Exception $e) {
                 $this->ServerError($e->getMessage());
             }
-
         } else {
             // TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
             $this->clientError(_('Unexpected form submission.'));
@@ -310,7 +307,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return string title of the page
      */
-
     function title()
     {
         // TRANS: Title for a page where a user can confirm/deny account access by an external application.
@@ -322,7 +318,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return void
      */
-
     function showContent()
     {
         $this->elementStart('form', array('method' => 'post',
