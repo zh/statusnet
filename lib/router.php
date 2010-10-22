@@ -676,7 +676,7 @@ class Router
                         array('action' => 'ApiOauthAccessToken'));
 
             $m->connect('api/oauth/authorize',
-                        array('action' => 'apioauthauthorize'));
+                        array('action' => 'ApiOauthAuthorize'));
 
             // Admin
 
