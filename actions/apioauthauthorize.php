@@ -560,7 +560,7 @@ class ApiOauthAuthorizeAction extends Action
                 // TRANS: User notification after revoking OAuth access to an application.
                 // TRANS: %s is an OAuth token.
                 _('The request token %s has been revoked.'),
-                $this->oauthTokenParm
+                $this->oauthTokenParam
             )
         );
 
@@ -618,7 +618,7 @@ class ApiOauthAuthorizeAction extends Action
         $callback = null;
 
         // Return the verified callback if we have one
-        if ($this->app->type == 2) {
+        if ($this->reqToken->verified_callback != 'oob') {
 
             $callback = $this->reqToken->verified_callback;
 
