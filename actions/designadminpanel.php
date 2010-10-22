@@ -258,8 +258,8 @@ class DesignadminpanelAction extends AdminPanelAction
     function saveBackgroundImage()
     {
         $filename = null;
-
-        if ($_FILES['design_background-image_file']['error'] ==
+        if (isset($_FILES['design_background-image_file']['error']) &&
+            $_FILES['design_background-image_file']['error'] ==
             UPLOAD_ERR_OK) {
 
             $filepath = null;
