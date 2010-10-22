@@ -379,6 +379,7 @@ class ApiOauthAuthorizeAction extends Action
                                  _('Allow or deny access'));
 
         $this->hidden('token', common_session_token());
+	$this->hidden('mode', $this->mode);
         $this->hidden('oauth_token', $this->oauthTokenParam);
         $this->hidden('oauth_callback', $this->callback);
 

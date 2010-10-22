@@ -713,8 +713,14 @@ class OpenIDPlugin extends Plugin
             require_once dirname(__FILE__) . '/openid.php';
             oid_assert_allowed($openid_url);
 
-            $returnto = common_local_url('ApiOauthAuthorize', array(),
-                    array('oauth_token' => $action->arg('oauth_token')));
+            $returnto = common_local_url(
+                'ApiOauthAuthorize',
+                array(),
+                array(
+                    'oauth_token' => $action->arg('oauth_token'),
+	            'mode'        => $action->arg('mode')
+                )
+            );
             common_set_returnto($returnto);
 
             // This will redirect if functional...
