@@ -863,7 +863,16 @@ class Router
         if ($qpos !== false) {
             $url = substr($url, 0, $qpos+1) .
               str_replace('?', '&', substr($url, $qpos+1));
+
+            // @fixme this is a hacky workaround for http_build_query in the
+            // lower-level code and bad configs that set the default separator
+            // to &amp; instead of &. Encoded &s in parameters will not be
+            // affected.
+            $url = substr($url, 0, $qpos+1) .
+              str_replace('&amp;', '&', substr($url, $qpos+1));
+
         }
+
         return $url;
     }
 }
