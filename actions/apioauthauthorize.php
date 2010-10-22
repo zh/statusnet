@@ -372,7 +372,7 @@ class ApiOauthAuthorizeAction extends Action
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_apioauthauthorize',
                                           'class' => 'form_settings',
-                                          'action' => common_local_url('apioauthauthorize')));
+                                          'action' => common_local_url('ApiOauthAuthorize')));
         $this->elementStart('fieldset');
         $this->element('legend', array('id' => 'apioauthauthorize_allowdeny'),
                                  // TRANS: Fieldset legend.
