@@ -22,10 +22,10 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
 //exit with 200 response, if this is checking fancy from the installer
 if (isset($_REQUEST['p']) && $_REQUEST['p'] == 'check-fancy') {  exit; }
 
-define('STATUSNET_VERSION', '0.9.5');
+define('STATUSNET_VERSION', '0.9.6');
 define('LACONICA_VERSION', STATUSNET_VERSION); // compatibility
 
-define('STATUSNET_CODENAME', 'What\'s The Frequency, Kenneth?');
+define('STATUSNET_CODENAME', 'Man on the Moon');
 
 define('AVATAR_PROFILE_SIZE', 96);
 define('AVATAR_STREAM_SIZE', 48);
@@ -133,10 +133,10 @@ try {
     // XXX: Throw a conniption if database not installed
     // XXX: Find a way to use htmlwriter for this instead of handcoded markup
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
-    echo '<p>'. _('No configuration file found. ') .'</p>';
+    echo '<p>'. _('No configuration file found.') .'</p>';
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     // TRANS: Is followed by a list of directories (separated by HTML breaks).
-    echo '<p>'. _('I looked for configuration files in the following places: ') .'<br /> ';
+    echo '<p>'. _('I looked for configuration files in the following places:') .'<br /> ';
     echo implode($e->configFiles, '<br />');
     // TRANS: Error message displayed when no configuration file was found for a StatusNet installation.
     echo '<p>'. _('You may wish to run the installer to fix this.') .'</p>';

@@ -30,7 +30,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) { exit(1); }
  * In a multi-site queuedaemon.php run, one connection will be instantiated
  * for each site being handled by the current process that has XMPP enabled.
  */
-
 class XmppManager extends IoManager
 {
     protected $site = null;
@@ -102,6 +101,7 @@ class XmppManager extends IoManager
         $this->conn->addEventHandler('reconnect', 'handle_reconnect', $this);
 
         $this->conn->setReconnectTimeout(600);
+        // @todo Needs i18n?
         jabber_send_presence("Send me a message to post a notice", 'available', null, 'available', 100);
 
         return !is_null($this->conn);
@@ -281,9 +281,9 @@ class XmppManager extends IoManager
         $_cur = $user;
 
         if (!$user) {
-            $this->from_site($from, 'Unknown user; go to ' .
-                             common_local_url('imsettings') .
-                             ' to add your address to your account');
+            // TRANS: %s is the URL to the StatusNet site's Instant Messaging settings.
+            $this->from_site($from, sprintf(_('Unknown user. Go to %s ' .
+                             'to add your address to your account'),common_local_url('imsettings')));
             $this->log(LOG_WARNING, 'Message from unknown user ' . $from);
             return;
         }
@@ -313,7 +313,6 @@ class XmppManager extends IoManager
         $pl = null;
         unset($pl);
     }
-
 
     function is_self($from)
     {
@@ -400,7 +399,11 @@ class XmppManager extends IoManager
         $content_shortened = common_shorten_links($body);
         if (Notice::contentTooLong($content_shortened)) {
           $from = jabber_normalize_jid($pl['from']);
-          $this->from_site($from, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
+          // TRANS: Response to XMPP source when it sent too long a message.
+          // TRANS: %1$d the maximum number of allowed characters (used for plural), %2$d is the sent number.
+          $this->from_site($from, sprintf(_m('Message too long. Maximum is %1$d character, you sent %2$d.',
+                                             'Message too long. Maximum is %1$d characters, you sent %2$d.',
+                                             Notice::maxContent()),
                                           Notice::maxContent(),
                                           mb_strlen($content_shortened)));
           return;

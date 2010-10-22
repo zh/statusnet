@@ -224,14 +224,16 @@ class RegisterAction extends Action
                 $this->showForm(_('Homepage is not a valid URL.'));
                 return;
             } else if (!is_null($fullname) && mb_strlen($fullname) > 255) {
-                $this->showForm(_('Full name is too long (max 255 chars).'));
+                $this->showForm(_('Full name is too long (maximum 255 characters).'));
                 return;
             } else if (Profile::bioTooLong($bio)) {
-                $this->showForm(sprintf(_('Bio is too long (max %d chars).'),
+                $this->showForm(sprintf(_m('Bio is too long (maximum %d character).',
+                                           'Bio is too long (maximum %d characters).',
+                                           Profile::maxBio()),
                                         Profile::maxBio()));
                 return;
             } else if (!is_null($location) && mb_strlen($location) > 255) {
-                $this->showForm(_('Location is too long (max 255 chars).'));
+                $this->showForm(_('Location is too long (maximum 255 characters).'));
                 return;
             } else if (strlen($password) < 6) {
                 $this->showForm(_('Password must be 6 or more characters.'));
@@ -465,7 +467,12 @@ class RegisterAction extends Action
             $this->elementStart('li');
             $maxBio = Profile::maxBio();
             if ($maxBio > 0) {
-                $bioInstr = sprintf(_('Describe yourself and your interests in %d chars'),
+                // TRANS: Tooltip for field label in form for profile settings. Plural
+                // TRANS: is decided by the number of characters available for the
+                // TRANS: biography (%d).
+                $bioInstr = sprintf(_m('Describe yourself and your interests in %d character',
+                                       'Describe yourself and your interests in %d characters',
+                                       $maxBio),
                                     $maxBio);
             } else {
                 $bioInstr = _('Describe yourself and your interests');

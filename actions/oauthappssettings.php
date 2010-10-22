@@ -100,6 +100,7 @@ class OauthappssettingsAction extends SettingsAction
 
         $application = new Oauth_application();
         $application->owner = $user->id;
+        $application->whereAdd("name != 'anonymous'");
         $application->limit($offset, $limit);
         $application->orderBy('created DESC');
         $application->find();
