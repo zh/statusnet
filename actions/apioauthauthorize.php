@@ -172,11 +172,11 @@ class ApiOauthAuthorizeAction extends Action
             $user = common_current_user();
         }
 
-        if ($this->arg('allow')) {
+        // fetch the token
+        $this->reqToken = $this->store->getTokenByKey($this->oauthTokenParam);
+        assert(!empty($this->reqToken));
 
-            common_debug("allow");
-            // fetch the token
-            $this->reqToken = $this->store->getTokenByKey($this->oauthTokenParam);
+        if ($this->arg('allow')) {
 
             // mark the req token as authorized
             try {
@@ -188,8 +188,10 @@ class ApiOauthAuthorizeAction extends Action
             common_log(
                 LOG_INFO,
                 sprintf(
-                    "The request token '%s' for OAuth application %s (%s) has been authorized.",
-                    $this->oauthTokenParam,
+                    "API OAuth - User %d (%s) has authorized request token %s for OAuth application %d (%s).",
+                    $user->id,
+                    $user->nickname,
+                    $this->reqToken->tok,
                     $this->app->id,
                     $this->app->name
                 )
@@ -227,10 +229,7 @@ class ApiOauthAuthorizeAction extends Action
                     )
                 );
 
-                common_log(
-                    LOG_INFO, 
-                    "API OAuth - Request token authorized; doing callback to $targetUrl"
-                );
+                common_log(LOG_INFO, "Redirecting to callback: $targetUrl");
 
                 // Redirect the user to the provided OAuth callback
                 common_redirect($targetUrl, 303);
@@ -254,12 +253,44 @@ class ApiOauthAuthorizeAction extends Action
 
         } else if ($this->arg('cancel')) {
 
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "API OAuth - User %d (%s) refused to authorize request token %s for OAuth application %d (%s).",
+                    $user->id,
+                    $user->nickname,
+                    $this->reqToken->tok,
+                    $this->app->id,
+                    $this->app->name
+                )
+            );
+
             try {
                 $this->store->revoke_token($this->oauthTokenParam, 0);
-                $this->showCanceled();
             } catch (Exception $e) {
                 $this->ServerError($e->getMessage());
             }
+
+            $callback = $this->getCallback();
+
+            // If there's a callback available, inform the consumer the user
+            // has refused authorization
+            if (!empty($callback) && $this->reqToken->verified_callback != 'oob') {
+                $targetUrl = $this->buildCallbackUrl(
+                    $callback,
+                    array(
+                        'oauth_problem' => 'user_refused',
+                    )
+                );
+
+                common_log(LOG_INFO, "Redirecting to callback: $targetUrl");
+
+                // Redirect the user to the provided OAuth callback
+                common_redirect($targetUrl, 303);
+            }
+
+            // otherwise inform the user that authorization for the rt was declined
+            $this->showCanceled();
 
         } else {
             // TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
@@ -290,7 +321,6 @@ class ApiOauthAuthorizeAction extends Action
 
         $schema->ensureTable('oauth_token_association', $reqTokenCols);
     }
-
 
     /**
      * Override to add some special (more compact) styling when the page is
