@@ -111,8 +111,33 @@ class Registration_ip extends Memcached_DataObject
      *
      * @return array magic three-false array that stops auto-incrementing.
      */
+
     function sequenceKey()
     {
         return array(false, false, false);
+    }
+
+    /**
+     * Get the users who've registered with this ip address.
+     *
+     * @param Array $ipaddress IP address to check for
+     *
+     * @return Array IDs of users who registered with this address.
+     */
+
+    static function usersByIP($ipaddress)
+    {
+        $ids = array();
+
+        $ri            = new Registration_ip();
+        $ri->ipaddress = $ipaddress;
+
+        if ($ri->find()) {
+            while ($ri->fetch()) {
+                $ids[] = $ri->user_id;
+            }
+        }
+
+        return $ids;
     }
 }
