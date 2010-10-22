@@ -758,43 +758,52 @@ class Profile extends Memcached_DataObject
 
     function grantRole($name)
     {
-        $role = new Profile_role();
+        if (Event::handle('StartGrantRole', array($this, $name))) {
 
-        $role->profile_id = $this->id;
-        $role->role       = $name;
-        $role->created    = common_sql_now();
+            $role = new Profile_role();
 
-        $result = $role->insert();
+            $role->profile_id = $this->id;
+            $role->role       = $name;
+            $role->created    = common_sql_now();
 
-        if (!$result) {
-            common_log_db_error($role, 'INSERT', __FILE__);
-            return false;
+            $result = $role->insert();
+
+            if (!$result) {
+                throw new Exception("Can't save role '$name' for profile '{$this->id}'");
+            }
+
+            Event::handle('EndGrantRole', array($this, $name));
         }
 
-        return true;
+        return $result;
     }
 
     function revokeRole($name)
     {
-        $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
-                                            'role' => $name));
+        if (Event::handle('StartRevokeRole', array($this, $name))) {
 
-        if (empty($role)) {
-            // TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
-            // TRANS: %1$s is the role name, %2$s is the user ID (number).
-            throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; does not exist.'),$name, $this->id));
+            $role = Profile_role::pkeyGet(array('profile_id' => $this->id,
+                                                'role' => $name));
+
+            if (empty($role)) {
+                // TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
+                // TRANS: %1$s is the role name, %2$s is the user ID (number).
+                throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; does not exist.'),$name, $this->id));
+            }
+
+            $result = $role->delete();
+
+            if (!$result) {
+                common_log_db_error($role, 'DELETE', __FILE__);
+                // TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
+                // TRANS: %1$s is the role name, %2$s is the user ID (number).
+                throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; database error.'),$name, $this->id));
+            }
+
+            Event::handle('EndRevokeRole', array($this, $name));
+
+            return true;
         }
-
-        $result = $role->delete();
-
-        if (!$result) {
-            common_log_db_error($role, 'DELETE', __FILE__);
-            // TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
-            // TRANS: %1$s is the role name, %2$s is the user ID (number).
-            throw new Exception(sprintf(_('Cannot revoke role "%1$s" for user #%2$d; database error.'),$name, $this->id));
-        }
-
-        return true;
     }
 
     function isSandboxed()
