@@ -333,7 +333,7 @@ class ApiOauthAuthorizeAction extends Action
         parent::showStyleSheets();
 
         if ($this->desktopMode()) {
-            $this->style('#wrap {min-width: 500px; } #content {width: 480px; padding: 10px;} fieldset {margin-bottom: 10px !important;}</style>');
+            $this->style('#wrap {min-width: 500px;} #content {width: 480px; padding: 6px; margin: 4px 0px 0px 4px; border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; -webkit-border-top-left-radius: 7px;} fieldset {margin-bottom: 10px !important;}');
         }
     }
 

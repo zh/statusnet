@@ -364,7 +364,7 @@ class Action extends HTMLOutputter // lawsuit
     {
         $this->elementStart('body', (common_current_user()) ? array('id' => strtolower($this->trimmed('action')),
                                                                     'class' => 'user_in')
-                            : array('id' => $this->trimmed('action')));
+                            : array('id' => strtolower($this->trimmed('action'))));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
