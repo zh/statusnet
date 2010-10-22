@@ -551,9 +551,17 @@ class Router
                               'format' => '(xml|json)'));
             // blocks
 
+            $m->connect('api/blocks/create.:format',
+                        array('action' => 'ApiBlockCreate',
+                              'format' => '(xml|json)'));
+
             $m->connect('api/blocks/create/:id.:format',
                         array('action' => 'ApiBlockCreate',
                               'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/blocks/destroy.:format',
+                        array('action' => 'ApiBlockDestroy',
                               'format' => '(xml|json)'));
 
             $m->connect('api/blocks/destroy/:id.:format',
