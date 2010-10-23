@@ -12,18 +12,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-20 19:20+0000\n"
-"PO-Revision-Date: 2010-10-20 19:22:30+0000\n"
+"POT-Creation-Date: 2010-10-23 18:02+0000\n"
+"PO-Revision-Date: 2010-10-23 18:04:33+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75096); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75280); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2010-10-20 18:02:53+0000\n"
+"X-POT-Import-Date: 2010-10-20 20:23:09+0000\n"
 
 #. TRANS: Page title
 #. TRANS: Menu item for site administration
@@ -100,15 +100,17 @@ msgstr "Зберегти"
 msgid "No such page."
 msgstr "Немає такої сторінки."
 
+#. TRANS: Client error displayed when no existing user is provided for a user's delivery device setting.
+#. TRANS: Client error displayed if a user could not be found.
 #. TRANS: Client error given when a user was not found (404).
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:79 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:115
-#: actions/apiaccountupdateprofile.php:106
+#: actions/apiaccountupdatedeliverydevice.php:111
+#: actions/apiaccountupdateprofile.php:103
 #: actions/apiaccountupdateprofilebackgroundimage.php:117
-#: actions/apiaccountupdateprofileimage.php:106 actions/apiblockcreate.php:98
-#: actions/apiblockdestroy.php:97 actions/apidirectmessage.php:78
-#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:114
+#: actions/apiaccountupdateprofileimage.php:108 actions/apiblockcreate.php:95
+#: actions/apiblockdestroy.php:94 actions/apidirectmessage.php:78
+#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:113
 #: actions/apigroupismember.php:91 actions/apigroupjoin.php:101
 #: actions/apigroupleave.php:101 actions/apigrouplist.php:73
 #: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:87
@@ -132,42 +134,44 @@ msgstr "Такого користувача немає."
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s та друзі, сторінка %2$d"
 
-#. TRANS: Page title. %1$s is user nickname
-#. TRANS: H1 text. %1$s is user nickname
+#. TRANS: Page title. %s is user nickname
+#. TRANS: H1 text. %s is a user nickname
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:93 actions/all.php:185 actions/allrss.php:116
+#: actions/all.php:93 actions/all.php:190 actions/allrss.php:116
 #: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s з друзями"
 
-#. TRANS: %1$s is user nickname
+#. TRANS: %s is user nickname
 #: actions/all.php:107
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 1.0)"
 
-#. TRANS: %1$s is user nickname
+#. TRANS: %s is user nickname
 #: actions/all.php:116
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "Стрічка дописів для друзів %s (RSS 2.0)"
 
-#. TRANS: %1$s is user nickname
+#. TRANS: %s is user nickname
 #: actions/all.php:125
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "Стрічка дописів для друзів %s (Atom)"
 
-#. TRANS: %1$s is user nickname
+#. TRANS: %s is user nickname
 #: actions/all.php:138
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
 msgstr "Це стрічка дописів %s і друзів, але вона поки що порожня."
 
-#: actions/all.php:143
+#. TRANS: Encouragement displayed on logged in user's empty timeline.
+#. TRANS: This message contains Markdown links. Keep "](" together.
+#: actions/all.php:145
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -177,7 +181,8 @@ msgstr ""
 "%) або напишіть щось самі."
 
 #. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
-#: actions/all.php:146
+#. TRANS: This message contains Markdown links. Keep "](" together.
+#: actions/all.php:149
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
@@ -186,7 +191,9 @@ msgstr ""
 "Ви можете [«розштовхати» %1$s](../%2$s) зі сторінки його профілю або [щось "
 "йому написати](%%%%action.newnotice%%%%?status_textarea=%3$s)."
 
-#: actions/all.php:149 actions/replies.php:210 actions/showstream.php:208
+#. TRANS: Encoutagement displayed on empty timeline user pages for anonymous users.
+#. TRANS: %s is a user nickname. This message contains Markdown links. Keep "](" together.
+#: actions/all.php:154 actions/replies.php:210 actions/showstream.php:208
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -196,7 +203,7 @@ msgstr ""
 "«розштовхати» %s або щось йому написати."
 
 #. TRANS: H1 text
-#: actions/all.php:182
+#: actions/all.php:187
 msgid "You and friends"
 msgstr "Ви з друзями"
 
@@ -208,14 +215,16 @@ msgstr "Ви з друзями"
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "Оновлення від %1$s та друзів на %2$s!"
 
+#. TRANS: Client error displayed handling a non-existing API method.
+#. TRANS: Client error displayed when trying to handle an unknown API method.
 #. TRANS: Client error given when an API method was not found (404).
 #: actions/apiaccountratelimitstatus.php:72
-#: actions/apiaccountupdatedeliverydevice.php:95
-#: actions/apiaccountupdateprofile.php:98
-#: actions/apiaccountupdateprofilebackgroundimage.php:95
+#: actions/apiaccountupdatedeliverydevice.php:93
+#: actions/apiaccountupdateprofile.php:94
+#: actions/apiaccountupdateprofilebackgroundimage.php:92
 #: actions/apiaccountupdateprofilecolors.php:119
 #: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:162
-#: actions/apifavoritecreate.php:101 actions/apifavoritedestroy.php:102
+#: actions/apifavoritecreate.php:98 actions/apifavoritedestroy.php:102
 #: actions/apifriendshipscreate.php:101 actions/apifriendshipsdestroy.php:101
 #: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:140
 #: actions/apigroupismember.php:115 actions/apigroupjoin.php:157
@@ -236,61 +245,78 @@ msgstr "API метод не знайдено."
 
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
-#: actions/apiaccountupdatedeliverydevice.php:87
-#: actions/apiaccountupdateprofile.php:90
-#: actions/apiaccountupdateprofilebackgroundimage.php:87
+#: actions/apiaccountupdatedeliverydevice.php:84
+#: actions/apiaccountupdateprofile.php:86
+#: actions/apiaccountupdateprofilebackgroundimage.php:83
 #: actions/apiaccountupdateprofilecolors.php:111
-#: actions/apiaccountupdateprofileimage.php:85 actions/apiblockcreate.php:90
-#: actions/apiblockdestroy.php:89 actions/apidirectmessagenew.php:107
-#: actions/apifavoritecreate.php:92 actions/apifavoritedestroy.php:93
+#: actions/apiaccountupdateprofileimage.php:85 actions/apiblockcreate.php:87
+#: actions/apiblockdestroy.php:86 actions/apidirectmessagenew.php:107
+#: actions/apifavoritecreate.php:89 actions/apifavoritedestroy.php:93
 #: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
-#: actions/apigroupcreate.php:106 actions/apigroupjoin.php:93
+#: actions/apigroupcreate.php:104 actions/apigroupjoin.php:93
 #: actions/apigroupleave.php:93 actions/apimediaupload.php:68
 #: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
 msgid "This method requires a POST."
 msgstr "Цей метод потребує POST."
 
-#: actions/apiaccountupdatedeliverydevice.php:107
+#. TRANS: Client error displayed when no valid device parameter is provided for a user's delivery device setting.
+#: actions/apiaccountupdatedeliverydevice.php:104
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
 "none."
 msgstr ""
 "Ви мусите встановити параметр «device» з одним зі значень: sms, im, none."
 
-#: actions/apiaccountupdatedeliverydevice.php:134
+#. TRANS: Server error displayed when a user's delivery device cannot be updated.
+#: actions/apiaccountupdatedeliverydevice.php:131
 msgid "Could not update user."
 msgstr "Не вдалося оновити користувача."
 
-#: actions/apiaccountupdateprofile.php:113
-#: actions/apiaccountupdateprofilebackgroundimage.php:195
+#. TRANS: Client error displayed if a user profile could not be found.
+#. TRANS: Client error displayed when a user has no profile.
+#: actions/apiaccountupdateprofile.php:111
+#: actions/apiaccountupdateprofilebackgroundimage.php:198
 #: actions/apiaccountupdateprofilecolors.php:186
-#: actions/apiaccountupdateprofileimage.php:131 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofileimage.php:133 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
 msgid "User has no profile."
 msgstr "Користувач не має профілю."
 
-#: actions/apiaccountupdateprofile.php:148
+#. TRANS: Server error displayed if a user profile could not be saved.
+#: actions/apiaccountupdateprofile.php:147
 msgid "Could not save profile."
 msgstr "Не вдалося зберегти профіль."
 
-#. TRANS: Client exception. %s is CONTENT_LENGTH (in bytes).
-#: actions/apiaccountupdateprofilebackgroundimage.php:109
-#: actions/apiaccountupdateprofileimage.php:98 actions/apimediaupload.php:81
-#: actions/avatarsettings.php:257 actions/designadminpanel.php:123
-#: actions/editapplication.php:120 actions/newapplication.php:101
-#: actions/newnotice.php:94 lib/designsettings.php:283
+#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+#: actions/apiaccountupdateprofilebackgroundimage.php:108
+#: actions/apiaccountupdateprofileimage.php:100 actions/apimediaupload.php:83
+#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:259
+#: actions/designadminpanel.php:125 actions/editapplication.php:121
+#: actions/newapplication.php:104 actions/newnotice.php:95
 #, php-format
 msgid ""
+"The server was unable to handle that much POST data (%s byte) due to its "
+"current configuration."
+msgid_plural ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
-msgstr ""
-"Сервер нездатен обробити таку кількість даних (%s байтів) за поточної "
+msgstr[0] ""
+"Сервер не здатен обробити таку кількість даних (%s байт) за поточної "
+"конфігурації."
+msgstr[1] ""
+"Сервер не здатен обробити таку кількість даних (%s байтів) за поточної "
+"конфігурації."
+msgstr[2] ""
+"Сервер не здатен обробити таку кількість даних (%s байтів) за поточної "
 "конфігурації."
 
+#. TRANS: Client error displayed when saving design settings fails because of an empty id.
+#. TRANS: Client error displayed when saving design settings fails because of an empty result.
 #: actions/apiaccountupdateprofilebackgroundimage.php:137
-#: actions/apiaccountupdateprofilebackgroundimage.php:147
+#: actions/apiaccountupdateprofilebackgroundimage.php:148
 #: actions/apiaccountupdateprofilecolors.php:165
 #: actions/apiaccountupdateprofilecolors.php:175
 #: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
@@ -299,20 +325,24 @@ msgstr ""
 msgid "Unable to save your design settings."
 msgstr "Не маю можливості зберегти налаштування дизайну."
 
-#: actions/apiaccountupdateprofilebackgroundimage.php:188
+#. TRANS: Error displayed when updating design settings fails.
+#: actions/apiaccountupdateprofilebackgroundimage.php:190
 #: actions/apiaccountupdateprofilecolors.php:143
 msgid "Could not update your design."
 msgstr "Не вдалося оновити ваш дизайн."
 
-#: actions/apiblockcreate.php:106
+#. TRANS: Client error displayed when users try to block themselves.
+#: actions/apiblockcreate.php:104
 msgid "You cannot block yourself!"
 msgstr "Ви не можете блокувати самого себе!"
 
-#: actions/apiblockcreate.php:127
+#. TRANS: Server error displayed when blocking a user has failed.
+#: actions/apiblockcreate.php:126
 msgid "Block user failed."
 msgstr "Спроба заблокувати користувача невдала."
 
-#: actions/apiblockdestroy.php:115
+#. TRANS: Server error displayed when unblocking a user has failed.
+#: actions/apiblockdestroy.php:113
 msgid "Unblock user failed."
 msgstr "Спроба розблокувати користувача невдала."
 
@@ -345,7 +375,11 @@ msgstr "Всі прямі повідомлення надіслані до %s"
 msgid "No message text!"
 msgstr "Повідомлення без тексту!"
 
-#: actions/apidirectmessagenew.php:127
+#. TRANS: Client error displayed when message content is too long.
+#. TRANS: %d is the maximum number of characters for a message.
+#. TRANS: Form validation error displayed when message content is too long.
+#. TRANS: %d is the maximum number of characters for a message.
+#: actions/apidirectmessagenew.php:127 actions/newmessage.php:152
 #, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
@@ -372,15 +406,18 @@ msgstr ""
 "Не надсилайте повідомлень самому собі; поговоріть самі з собою тихенько, так "
 "щоб ніхто не почув."
 
-#: actions/apifavoritecreate.php:110 actions/apifavoritedestroy.php:111
+#. TRANS: Client error displayed when requesting a status with a non-existing ID.
+#: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:111
 #: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "Жодних статусів з таким ID."
 
-#: actions/apifavoritecreate.php:121
+#. TRANS: Client error displayed when trying to mark a notice favourite that already is a favourite.
+#: actions/apifavoritecreate.php:120
 msgid "This status is already a favorite."
 msgstr "Цей статус вже є обраним."
 
+#. TRANS: Client error displayed when marking a notice as favourite fails.
 #. TRANS: Error message text shown when a favorite could not be set.
 #: actions/apifavoritecreate.php:132 actions/favor.php:84 lib/command.php:294
 msgid "Could not create favorite."
@@ -432,62 +469,72 @@ msgstr ""
 "Ім’я користувача повинно складатись з літер нижнього регістру і цифр, ніяких "
 "інтервалів."
 
+#. TRANS: Client error trying to create a group with a nickname this is already in use.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:177 actions/editgroup.php:190
+#: actions/apigroupcreate.php:178 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:277
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "Це ім’я вже використовується. Спробуйте інше."
 
+#. TRANS: Client error in form for group creation.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:184 actions/editgroup.php:193
+#: actions/apigroupcreate.php:186 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:247
 #: actions/register.php:217
 msgid "Not a valid nickname."
 msgstr "Це недійсне ім’я користувача."
 
+#. TRANS: Client error in form for group creation.
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "Edit application" form.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:200 actions/editapplication.php:231
-#: actions/editgroup.php:199 actions/newapplication.php:203
+#: actions/apigroupcreate.php:203 actions/editapplication.php:233
+#: actions/editgroup.php:199 actions/newapplication.php:211
 #: actions/newgroup.php:139 actions/profilesettings.php:252
 #: actions/register.php:224
 msgid "Homepage is not a valid URL."
 msgstr "Веб-сторінка має недійсну URL-адресу."
 
-#: actions/apigroupcreate.php:209 actions/editgroup.php:202
-#: actions/newgroup.php:142 actions/register.php:227
-msgid "Full name is too long (max 255 chars)."
-msgstr "Повне ім’я задовге (255 знаків максимум)"
+#. TRANS: Client error in form for group creation.
+#. TRANS: Validation error in form for profile settings.
+#: actions/apigroupcreate.php:213 actions/editgroup.php:202
+#: actions/newgroup.php:142 actions/profilesettings.php:256
+#: actions/register.php:227
+#, fuzzy
+msgid "Full name is too long (maximum 255 characters)."
+msgstr "Повне ім’я задовге (не більше 255 символів)."
 
-#: actions/apigroupcreate.php:217 actions/newapplication.php:172
+#: actions/apigroupcreate.php:221 actions/editgroup.php:205
 #, php-format
 msgid "Description is too long (max %d chars)."
 msgstr "Опис надто довгий (%d знаків максимум)."
 
-#: actions/apigroupcreate.php:228 actions/editgroup.php:208
-#: actions/newgroup.php:148 actions/register.php:234
-msgid "Location is too long (max 255 chars)."
-msgstr "Розташування надто довге (255 знаків максимум)."
+#. TRANS: Validation error in form for profile settings.
+#: actions/apigroupcreate.php:232 actions/editgroup.php:208
+#: actions/newgroup.php:148 actions/profilesettings.php:269
+#: actions/register.php:236
+#, fuzzy
+msgid "Location is too long (maximum 255 characters)."
+msgstr "Розташування надто довге (не більше 255 символів)."
 
-#: actions/apigroupcreate.php:247 actions/editgroup.php:219
+#: actions/apigroupcreate.php:251 actions/editgroup.php:219
 #: actions/newgroup.php:159
 #, php-format
 msgid "Too many aliases! Maximum %d."
 msgstr "Забагато додаткових імен! Максимум становить %d."
 
-#: actions/apigroupcreate.php:268
+#: actions/apigroupcreate.php:272
 #, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "Помилкове додаткове ім’я: «%s»."
 
-#: actions/apigroupcreate.php:277 actions/editgroup.php:232
+#: actions/apigroupcreate.php:281 actions/editgroup.php:232
 #: actions/newgroup.php:172
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Додаткове ім’я «%s» вже використовується. Спробуйте інше."
 
-#: actions/apigroupcreate.php:290 actions/editgroup.php:238
+#: actions/apigroupcreate.php:294 actions/editgroup.php:238
 #: actions/newgroup.php:178
 msgid "Alias can't be the same as nickname."
 msgstr "Додаткове ім’я не може бути таким самим що й основне."
@@ -551,34 +598,39 @@ msgstr "Спільноти %s"
 msgid "groups on %s"
 msgstr "спільноти на %s"
 
-#: actions/apimediaupload.php:100
+#: actions/apimediaupload.php:102
 msgid "Upload failed."
 msgstr "Збій при завантаженні."
 
 #. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
-#: actions/apioauthaccesstoken.php:102
+#: actions/apioauthaccesstoken.php:103
 msgid "Invalid request token or verifier."
 msgstr "Неправильний запит токену або його підтвердження."
 
 #. TRANS: Client error given when no oauth_token was passed to the OAuth API.
-#: actions/apioauthauthorize.php:109
+#: actions/apioauthauthorize.php:108
 msgid "No oauth_token parameter provided."
 msgstr "Жодного параметру oauth_token не забезпечено."
 
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
-#: actions/apioauthauthorize.php:117 actions/apioauthauthorize.php:123
-#: actions/apioauthauthorize.php:131
+#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:130
 msgid "Invalid request token."
 msgstr "Неправильний запит токену."
 
-#: actions/apioauthauthorize.php:148 actions/avatarsettings.php:268
+#. TRANS: Client error given when an invalid request token was passed to the OAuth API.
+#: actions/apioauthauthorize.php:122
+#, fuzzy
+msgid "Request token already authorized."
+msgstr "Не авторизовано."
+
+#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:270
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
 #: actions/groupunblock.php:66 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
-#: actions/newmessage.php:135 actions/newnotice.php:103 actions/nudge.php:80
-#: actions/oauthappssettings.php:159 actions/oauthconnectionssettings.php:138
+#: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
+#: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
@@ -591,13 +643,14 @@ msgstr ""
 "Виникли певні проблеми з токеном поточної сесії. Спробуйте знов, будь ласка."
 
 #. TRANS: Form validation error given when an invalid username and/or password was passed to the OAuth API.
-#: actions/apioauthauthorize.php:165
+#: actions/apioauthauthorize.php:168
 msgid "Invalid nickname / password!"
 msgstr "Недійсне ім’я / пароль!"
 
-#. TRANS: Server error given when a database error occurs inserting an OAuth application user.
-#: actions/apioauthauthorize.php:206
-msgid "Database error inserting OAuth application user."
+#. TRANS: Server error displayed when a database action fails.
+#: actions/apioauthauthorize.php:218
+#, fuzzy
+msgid "Database error inserting oauth_token_association."
 msgstr "Помилка бази даних при додаванні користувача OAuth-додатку."
 
 #. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
@@ -606,29 +659,29 @@ msgstr "Помилка бази даних при додаванні корис�
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:267 actions/avatarsettings.php:281
-#: actions/designadminpanel.php:104 actions/editapplication.php:142
+#: actions/apioauthauthorize.php:297 actions/avatarsettings.php:283
+#: actions/designadminpanel.php:104 actions/editapplication.php:144
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
-#: actions/imsettings.php:245 actions/newapplication.php:121
+#: actions/imsettings.php:245 actions/newapplication.php:125
 #: actions/oauthconnectionssettings.php:147 actions/recoverpassword.php:44
 #: actions/smssettings.php:277 lib/designsettings.php:304
 msgid "Unexpected form submission."
 msgstr "Несподіване представлення форми."
 
 #. TRANS: Title for a page where a user can confirm/deny account access by an external application.
-#: actions/apioauthauthorize.php:294
+#: actions/apioauthauthorize.php:362
 msgid "An application would like to connect to your account"
 msgstr "Запит на дозвіл під’єднатися до вашого облікового запису"
 
 #. TRANS: Fieldset legend.
-#: actions/apioauthauthorize.php:312
+#: actions/apioauthauthorize.php:379
 msgid "Allow or deny access"
 msgstr "Дозволити або заборонити доступ"
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
-#: actions/apioauthauthorize.php:331
+#: actions/apioauthauthorize.php:399
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -641,16 +694,15 @@ msgstr ""
 "довіряєте."
 
 #. TRANS: Fieldset legend.
-#: actions/apioauthauthorize.php:349
-#, fuzzy
+#: actions/apioauthauthorize.php:420
 msgctxt "LEGEND"
 msgid "Account"
 msgstr "Акаунт"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:353 actions/login.php:252
-#: actions/profilesettings.php:110 actions/register.php:431
+#: actions/apioauthauthorize.php:424 actions/login.php:252
+#: actions/profilesettings.php:110 actions/register.php:433
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
 #: lib/userprofile.php:132
@@ -659,8 +711,8 @@ msgstr "Ім’я користувача"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:357 actions/login.php:255
-#: actions/register.php:436 lib/accountsettingsaction.php:120
+#: actions/apioauthauthorize.php:428 actions/login.php:255
+#: actions/register.php:438 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "Пароль"
 
@@ -670,7 +722,7 @@ msgstr "Пароль"
 #. TRANS: Button label to cancel an IM address confirmation procedure.
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/apioauthauthorize.php:370 actions/emailsettings.php:127
+#: actions/apioauthauthorize.php:443 actions/emailsettings.php:127
 #: actions/imsettings.php:131 actions/smssettings.php:137
 #: lib/applicationeditform.php:351
 msgctxt "BUTTON"
@@ -678,39 +730,38 @@ msgid "Cancel"
 msgstr "Скасувати"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
-#: actions/apioauthauthorize.php:377
-#, fuzzy
+#: actions/apioauthauthorize.php:450
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Дозволити"
 
 #. TRANS: Form instructions.
-#: actions/apioauthauthorize.php:394
+#: actions/apioauthauthorize.php:467
 msgid "Authorize access to your account information."
 msgstr "Дозвіл на доступ до вашого облікового запису."
 
 #. TRANS: Header for user notification after revoking OAuth access to an application.
-#: actions/apioauthauthorize.php:441
+#: actions/apioauthauthorize.php:559
 msgid "Authorization canceled."
 msgstr "Авторизацію скасовано."
 
 #. TRANS: User notification after revoking OAuth access to an application.
 #. TRANS: %s is an OAuth token.
-#: actions/apioauthauthorize.php:445
+#: actions/apioauthauthorize.php:563
 #, php-format
 msgid "The request token %s has been revoked."
 msgstr "Запит токену %s було скасовано."
 
 #. TRANS: Header of user notification after authorising an application access to a profile.
 #. TRANS: %s is the authorised application name.
-#: actions/apioauthauthorize.php:464
+#: actions/apioauthauthorize.php:582
 #, php-format
 msgid "You have successfully authorized %s."
 msgstr "Вас успішно авторизовано на %s."
 
 #. TRANS: Uer notification after authorising an application access to a profile.
 #. TRANS: %s is the authorised application name.
-#: actions/apioauthauthorize.php:471
+#: actions/apioauthauthorize.php:589
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
@@ -750,26 +801,6 @@ msgstr "Статус видалено."
 msgid "No status with that ID found."
 msgstr "Не знайдено жодних статусів з таким ID."
 
-#. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
-#. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
-#: actions/apistatusesupdate.php:211
-#, fuzzy, php-format
-msgid ""
-"The server was unable to handle that much POST data (%s byte) due to its "
-"current configuration."
-msgid_plural ""
-"The server was unable to handle that much POST data (%s bytes) due to its "
-"current configuration."
-msgstr[0] ""
-"Сервер нездатен обробити таку кількість даних (%s байтів) за поточної "
-"конфігурації."
-msgstr[1] ""
-"Сервер нездатен обробити таку кількість даних (%s байтів) за поточної "
-"конфігурації."
-msgstr[2] ""
-"Сервер нездатен обробити таку кількість даних (%s байтів) за поточної "
-"конфігурації."
-
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:222
 msgid "Client must provide a 'status' parameter with a value."
@@ -778,25 +809,24 @@ msgstr "Клієнт мусить надати параметр «статус»
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #: actions/apistatusesupdate.php:245
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
-msgstr[0] "Надто довго. Максимальний розмір допису — %d знаків."
+msgstr[0] "Надто довго. Максимальний розмір допису — %d знак."
 msgstr[1] "Надто довго. Максимальний розмір допису — %d знаків."
 msgstr[2] "Надто довго. Максимальний розмір допису — %d знаків."
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
 #: actions/apistatusesupdate.php:285
-#, fuzzy
 msgid "Parent notice not found."
-msgstr "API метод не знайдено."
+msgstr "Початковий допис не знайдено."
 
 #: actions/apistatusesupdate.php:307
-#, fuzzy, php-format
+#, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
 msgstr[0] ""
-"Максимальна довжина допису становить %d знаків, включно з URL-адресою "
+"Максимальна довжина допису становить %d знак, включно з URL-адресою "
 "вкладення."
 msgstr[1] ""
 "Максимальна довжина допису становить %d знаків, включно з URL-адресою "
@@ -932,27 +962,27 @@ msgstr "Завантажити"
 msgid "Crop"
 msgstr "Втяти"
 
-#: actions/avatarsettings.php:305
+#: actions/avatarsettings.php:307
 msgid "No file uploaded."
 msgstr "Жодного файлу не завантажено."
 
-#: actions/avatarsettings.php:332
+#: actions/avatarsettings.php:334
 msgid "Pick a square area of the image to be your avatar"
 msgstr "Оберіть квадратну ділянку зображення, яка й буде вашою автарою."
 
-#: actions/avatarsettings.php:347 actions/grouplogo.php:380
+#: actions/avatarsettings.php:349 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Дані вашого файлу загублено."
 
-#: actions/avatarsettings.php:370
+#: actions/avatarsettings.php:372
 msgid "Avatar updated."
 msgstr "Аватару оновлено."
 
-#: actions/avatarsettings.php:373
+#: actions/avatarsettings.php:375
 msgid "Failed updating avatar."
 msgstr "Оновлення аватари невдале."
 
-#: actions/avatarsettings.php:397
+#: actions/avatarsettings.php:399
 msgid "Avatar deleted."
 msgstr "Аватару видалено."
 
@@ -1147,9 +1177,9 @@ msgid "You are not the owner of this application."
 msgstr "Ви не є власником цього додатку."
 
 #. TRANS: Client error text when there is a problem with the session token.
-#: actions/deleteapplication.php:102 actions/editapplication.php:129
-#: actions/newapplication.php:110 actions/showapplication.php:118
-#: lib/action.php:1353
+#: actions/deleteapplication.php:102 actions/editapplication.php:131
+#: actions/newapplication.php:114 actions/showapplication.php:118
+#: lib/action.php:1354
 msgid "There was a problem with your session token."
 msgstr "Виникли певні проблеми з токеном поточної сесії."
 
@@ -1236,7 +1266,7 @@ msgstr "Видалити спільноту"
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:50 actions/disfavor.php:61 actions/favor.php:62
 #: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
-#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:89
+#: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
 #: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:64
@@ -1307,61 +1337,61 @@ msgstr "Дизайн"
 msgid "Design settings for this StatusNet site"
 msgstr "Налаштування дизайну для цього сайту StatusNet"
 
-#: actions/designadminpanel.php:332
+#: actions/designadminpanel.php:335
 msgid "Invalid logo URL."
 msgstr "Помилкова URL-адреса логотипу."
 
-#: actions/designadminpanel.php:337
+#: actions/designadminpanel.php:340
 msgid "Invalid SSL logo URL."
 msgstr "Невірний SSL або URL-адреса логотипу."
 
-#: actions/designadminpanel.php:341
+#: actions/designadminpanel.php:344
 #, php-format
 msgid "Theme not available: %s."
 msgstr "Тема недоступна: %s."
 
-#: actions/designadminpanel.php:445
+#: actions/designadminpanel.php:448
 msgid "Change logo"
 msgstr "Змінити логотип"
 
-#: actions/designadminpanel.php:450
+#: actions/designadminpanel.php:453
 msgid "Site logo"
 msgstr "Логотип сайту"
 
-#: actions/designadminpanel.php:454
+#: actions/designadminpanel.php:457
 msgid "SSL logo"
 msgstr "Логотип сайту з SSL"
 
-#: actions/designadminpanel.php:466
+#: actions/designadminpanel.php:469
 msgid "Change theme"
 msgstr "Змінити тему"
 
-#: actions/designadminpanel.php:483
+#: actions/designadminpanel.php:486
 msgid "Site theme"
 msgstr "Тема сайту"
 
-#: actions/designadminpanel.php:484
+#: actions/designadminpanel.php:487
 msgid "Theme for the site."
 msgstr "Тема для цього сайту."
 
-#: actions/designadminpanel.php:490
+#: actions/designadminpanel.php:493
 msgid "Custom theme"
 msgstr "Своя тема"
 
-#: actions/designadminpanel.php:494
+#: actions/designadminpanel.php:497
 msgid "You can upload a custom StatusNet theme as a .ZIP archive."
 msgstr "Ви можете завантажити свою тему для сайту StatusNet як .ZIP архів."
 
-#: actions/designadminpanel.php:509 lib/designsettings.php:101
+#: actions/designadminpanel.php:512 lib/designsettings.php:101
 msgid "Change background image"
 msgstr "Змінити фонове зображення"
 
-#: actions/designadminpanel.php:514 actions/designadminpanel.php:597
+#: actions/designadminpanel.php:517 actions/designadminpanel.php:600
 #: lib/designsettings.php:178
 msgid "Background"
 msgstr "Фон"
 
-#: actions/designadminpanel.php:519
+#: actions/designadminpanel.php:522
 #, php-format
 msgid ""
 "You can upload a background image for the site. The maximum file size is %1"
@@ -1371,65 +1401,65 @@ msgstr ""
 "%1$s."
 
 #. TRANS: Used as radio button label to add a background image.
-#: actions/designadminpanel.php:550 lib/designsettings.php:139
+#: actions/designadminpanel.php:553 lib/designsettings.php:139
 msgid "On"
 msgstr "Увімк."
 
 #. TRANS: Used as radio button label to not add a background image.
-#: actions/designadminpanel.php:567 lib/designsettings.php:155
+#: actions/designadminpanel.php:570 lib/designsettings.php:155
 msgid "Off"
 msgstr "Вимк."
 
-#: actions/designadminpanel.php:568 lib/designsettings.php:156
+#: actions/designadminpanel.php:571 lib/designsettings.php:156
 msgid "Turn background image on or off."
 msgstr "Увімкнути або вимкнути фонове зображення."
 
-#: actions/designadminpanel.php:573 lib/designsettings.php:161
+#: actions/designadminpanel.php:576 lib/designsettings.php:161
 msgid "Tile background image"
 msgstr "Замостити фон"
 
-#: actions/designadminpanel.php:587 lib/designsettings.php:170
+#: actions/designadminpanel.php:590 lib/designsettings.php:170
 msgid "Change colours"
 msgstr "Змінити кольори"
 
-#: actions/designadminpanel.php:610 lib/designsettings.php:191
+#: actions/designadminpanel.php:613 lib/designsettings.php:191
 msgid "Content"
 msgstr "Зміст"
 
-#: actions/designadminpanel.php:623 lib/designsettings.php:204
+#: actions/designadminpanel.php:626 lib/designsettings.php:204
 msgid "Sidebar"
 msgstr "Сайдбар"
 
-#: actions/designadminpanel.php:636 lib/designsettings.php:217
+#: actions/designadminpanel.php:639 lib/designsettings.php:217
 msgid "Text"
 msgstr "Текст"
 
-#: actions/designadminpanel.php:649 lib/designsettings.php:230
+#: actions/designadminpanel.php:652 lib/designsettings.php:230
 msgid "Links"
 msgstr "Посилання"
 
-#: actions/designadminpanel.php:674
+#: actions/designadminpanel.php:677
 msgid "Advanced"
 msgstr "Додатково"
 
-#: actions/designadminpanel.php:678
+#: actions/designadminpanel.php:681
 msgid "Custom CSS"
 msgstr "Свій CSS"
 
-#: actions/designadminpanel.php:699 lib/designsettings.php:247
+#: actions/designadminpanel.php:702 lib/designsettings.php:247
 msgid "Use defaults"
 msgstr "За замовч."
 
-#: actions/designadminpanel.php:700 lib/designsettings.php:248
+#: actions/designadminpanel.php:703 lib/designsettings.php:248
 msgid "Restore default designs"
 msgstr "Оновити налаштування за замовчуванням"
 
-#: actions/designadminpanel.php:706 lib/designsettings.php:254
+#: actions/designadminpanel.php:709 lib/designsettings.php:254
 msgid "Reset back to default"
 msgstr "Повернутись до початкових налаштувань"
 
 #. TRANS: Submit button title.
-#: actions/designadminpanel.php:708 actions/licenseadminpanel.php:319
+#: actions/designadminpanel.php:711 actions/licenseadminpanel.php:319
 #: actions/othersettings.php:126 actions/sessionsadminpanel.php:199
 #: actions/siteadminpanel.php:292 actions/sitenoticeadminpanel.php:195
 #: actions/snapshotadminpanel.php:245 actions/tagother.php:154
@@ -1438,7 +1468,7 @@ msgstr "Повернутись до початкових налаштувань"
 msgid "Save"
 msgstr "Зберегти"
 
-#: actions/designadminpanel.php:709 lib/designsettings.php:257
+#: actions/designadminpanel.php:712 lib/designsettings.php:257
 msgid "Save design"
 msgstr "Зберегти дизайн"
 
@@ -1472,32 +1502,34 @@ msgid "No such application."
 msgstr "Такого додатку немає."
 
 #. TRANS: Instructions for "Edit application" form.
-#: actions/editapplication.php:165
+#: actions/editapplication.php:167
 msgid "Use this form to edit your application."
 msgstr "Скористайтесь цією формою, щоб відредагувати додаток."
 
 #. TRANS: Validation error shown when not providing a name in the "Edit application" form.
-#: actions/editapplication.php:182 actions/newapplication.php:159
+#: actions/editapplication.php:184 actions/newapplication.php:163
 msgid "Name is required."
 msgstr "Потрібне ім’я."
 
 #. TRANS: Validation error shown when providing too long a name in the "Edit application" form.
-#: actions/editapplication.php:186
+#: actions/editapplication.php:188
 msgid "Name is too long (max 255 characters)."
 msgstr "Ім’я задовге (не більше 255 знаків)."
 
 #. TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.
-#: actions/editapplication.php:190 actions/newapplication.php:162
+#: actions/editapplication.php:192 actions/newapplication.php:166
 msgid "Name already in use. Try another one."
 msgstr "Це ім’я вже використовується. Спробуйте інше."
 
 #. TRANS: Validation error shown when not providing a description in the "Edit application" form.
-#: actions/editapplication.php:194 actions/newapplication.php:168
+#: actions/editapplication.php:196 actions/newapplication.php:172
 msgid "Description is required."
 msgstr "Потрібен опис."
 
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
-#: actions/editapplication.php:199
+#. TRANS: Form validation error in New application form.
+#. TRANS: %d is the maximum number of characters for the description.
+#: actions/editapplication.php:201 actions/newapplication.php:178
 #, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -1506,41 +1538,41 @@ msgstr[1] "Опис надто довгий (максимум — %d знакі�
 msgstr[2] "Опис надто довгий (максимум — %d знаків)."
 
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
-#: actions/editapplication.php:206
+#: actions/editapplication.php:208
 msgid "Source URL is too long."
 msgstr "URL-адреса надто довга."
 
 #. TRANS: Validation error shown when providing an invalid source URL in the "Edit application" form.
-#: actions/editapplication.php:213 actions/newapplication.php:185
+#: actions/editapplication.php:215 actions/newapplication.php:193
 msgid "Source URL is not valid."
 msgstr "URL-адреса не є дійсною."
 
 #. TRANS: Validation error shown when not providing an organisation in the "Edit application" form.
-#: actions/editapplication.php:217 actions/newapplication.php:188
+#: actions/editapplication.php:219 actions/newapplication.php:196
 msgid "Organization is required."
 msgstr "Потрібна організація."
 
 #. TRANS: Validation error shown when providing too long an arganisation name in the "Edit application" form.
-#: actions/editapplication.php:221
+#: actions/editapplication.php:223
 msgid "Organization is too long (maximum 255 characters)."
 msgstr "Назва організації надто довга (не більше 255 знаків)."
 
-#: actions/editapplication.php:224 actions/newapplication.php:194
+#: actions/editapplication.php:226 actions/newapplication.php:202
 msgid "Organization homepage is required."
 msgstr "Потрібна домашня сторінка організації."
 
 #. TRANS: Validation error shown when providing too long a callback URL in the "Edit application" form.
-#: actions/editapplication.php:235 actions/newapplication.php:206
+#: actions/editapplication.php:237 actions/newapplication.php:214
 msgid "Callback is too long."
 msgstr "Форма зворотнього дзвінка надто довга."
 
 #. TRANS: Validation error shown when providing an invalid callback URL in the "Edit application" form.
-#: actions/editapplication.php:243 actions/newapplication.php:215
+#: actions/editapplication.php:245 actions/newapplication.php:223
 msgid "Callback URL is not valid."
 msgstr "URL-адреса для зворотнього дзвінка не є дійсною."
 
 #. TRANS: Server error occuring when an application could not be updated from the "Edit application" form.
-#: actions/editapplication.php:280
+#: actions/editapplication.php:282
 msgid "Could not update application."
 msgstr "Не вдалося оновити додаток."
 
@@ -1563,11 +1595,6 @@ msgstr ""
 #: actions/editgroup.php:158
 msgid "Use this form to edit the group."
 msgstr "Скористайтесь цією формою, щоб відредагувати властивості спільноти."
-
-#: actions/editgroup.php:205 actions/newgroup.php:145
-#, php-format
-msgid "description is too long (max %d chars)."
-msgstr "опис надто довгий (%d знаків максимум)."
 
 #: actions/editgroup.php:228 actions/newgroup.php:168
 #, php-format
@@ -2714,11 +2741,11 @@ msgstr "Увійти"
 msgid "Login to site"
 msgstr "Вхід на сайт"
 
-#: actions/login.php:258 actions/register.php:485
+#: actions/login.php:258 actions/register.php:492
 msgid "Remember me"
 msgstr "Пам’ятати мене"
 
-#: actions/login.php:259 actions/register.php:487
+#: actions/login.php:259 actions/register.php:494
 msgid "Automatically login in the future; not for shared computers!"
 msgstr ""
 "Автоматично входити у майбутньому; не для комп’ютерів загального "
@@ -2774,31 +2801,36 @@ msgstr "Не можна надати %1$s права адміністратор�
 msgid "No current status."
 msgstr "Жодного поточного статусу."
 
+#. TRANS: This is the title of the form for adding a new application.
 #: actions/newapplication.php:52
-msgid "New Application"
+#, fuzzy
+msgid "New application"
 msgstr "Новий додаток"
 
-#: actions/newapplication.php:64
+#. TRANS: Client error displayed trying to add a new application while not logged in.
+#: actions/newapplication.php:65
 msgid "You must be logged in to register an application."
 msgstr "Ви маєте спочатку увійти, аби мати змогу зареєструвати додаток."
 
-#: actions/newapplication.php:143
+#: actions/newapplication.php:147
 msgid "Use this form to register a new application."
 msgstr "Скористайтесь цією формою, щоб зареєструвати новий додаток."
 
-#: actions/newapplication.php:165
-msgid "Name is too long (max 255 chars)."
+#: actions/newapplication.php:169
+#, fuzzy
+msgid "Name is too long (maximum 255 chars)."
 msgstr "Ім’я задовге (255 знаків максимум)."
 
-#: actions/newapplication.php:176
+#: actions/newapplication.php:184
 msgid "Source URL is required."
 msgstr "Потрібна URL-адреса."
 
-#: actions/newapplication.php:191
-msgid "Organization is too long (max 255 chars)."
+#: actions/newapplication.php:199
+#, fuzzy
+msgid "Organization is too long (maximum 255 chars)."
 msgstr "Назва організації надто довга (255 знаків максимум)."
 
-#: actions/newapplication.php:258 actions/newapplication.php:267
+#: actions/newapplication.php:266 actions/newapplication.php:275
 msgid "Could not create application."
 msgstr "Не вдалося створити додаток."
 
@@ -2810,50 +2842,50 @@ msgstr "Нова спільнота"
 msgid "Use this form to create a new group."
 msgstr "Скористайтесь цією формою для створення нової спільноти."
 
-#: actions/newmessage.php:71 actions/newmessage.php:231
+#: actions/newgroup.php:145
+#, php-format
+msgid "description is too long (max %d chars)."
+msgstr "опис надто довгий (%d знаків максимум)."
+
+#: actions/newmessage.php:71 actions/newmessage.php:234
 msgid "New message"
 msgstr "Нове повідомлення"
 
 #. TRANS: Error text shown when trying to send a direct message to a user without a mutual subscription (each user must be subscribed to the other).
-#: actions/newmessage.php:121 actions/newmessage.php:161 lib/command.php:499
+#: actions/newmessage.php:121 actions/newmessage.php:164 lib/command.php:499
 msgid "You can't send a message to this user."
 msgstr "Ви не можете надіслати повідомлення цьому користувачеві."
 
 #. TRANS: Command exception text shown when trying to send a direct message to another user without content.
 #. TRANS: Command exception text shown when trying to reply to a notice without providing content for the reply.
-#: actions/newmessage.php:144 actions/newnotice.php:138 lib/command.php:478
+#: actions/newmessage.php:144 actions/newnotice.php:140 lib/command.php:478
 #: lib/command.php:579
 msgid "No content!"
 msgstr "Немає змісту!"
 
-#: actions/newmessage.php:150
-#, php-format
-msgid "That's too long. Max message size is %d chars."
-msgstr "Надто довго. Максимальний розмір %d знаків."
-
-#: actions/newmessage.php:158
+#: actions/newmessage.php:161
 msgid "No recipient specified."
 msgstr "Жодного отримувача не визначено."
 
 #. TRANS: Error text shown when trying to send a direct message to self.
-#: actions/newmessage.php:164 lib/command.php:503
+#: actions/newmessage.php:167 lib/command.php:503
 msgid ""
 "Don't send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
 "Не надсилайте повідомлень самому собі; краще поговоріть із собою вголос."
 
-#: actions/newmessage.php:181
+#: actions/newmessage.php:184
 msgid "Message sent"
 msgstr "Повідомлення надіслано"
 
 #. TRANS: Message given have sent a direct message to another user.
 #. TRANS: %s is the name of the other user.
-#: actions/newmessage.php:185 lib/command.php:511
+#: actions/newmessage.php:188 lib/command.php:511
 #, php-format
 msgid "Direct message to %s sent."
 msgstr "Пряме повідомлення для %s надіслано."
 
-#: actions/newmessage.php:210 actions/newnotice.php:261
+#: actions/newmessage.php:213 actions/newnotice.php:263
 msgid "Ajax Error"
 msgstr "Помилка в Ajax"
 
@@ -2861,19 +2893,19 @@ msgstr "Помилка в Ajax"
 msgid "New notice"
 msgstr "Новий допис"
 
-#: actions/newnotice.php:157 lib/mailhandler.php:60
+#: actions/newnotice.php:159 lib/mailhandler.php:60
 #, php-format
 msgid "That's too long. Max notice size is %d chars."
 msgstr "Надто довго. Максимальний розмір допису — %d знаків."
 
-#: actions/newnotice.php:181
+#: actions/newnotice.php:183
 #, php-format
 msgid "Max notice size is %d chars, including attachment URL."
 msgstr ""
 "Максимальна довжина допису становить %d знаків, включно з URL-адресою "
 "вкладення."
 
-#: actions/newnotice.php:227
+#: actions/newnotice.php:229
 msgid "Notice posted"
 msgstr "Допис надіслано"
 
@@ -2939,19 +2971,23 @@ msgstr "Спробу «розштовхати» зараховано"
 msgid "Nudge sent!"
 msgstr "Спробу «розштовхати» зараховано!"
 
-#: actions/oauthappssettings.php:59
+#. TRANS: Message displayed to an anonymous user trying to view OAuth application list.
+#: actions/oauthappssettings.php:60
 msgid "You must be logged in to list your applications."
 msgstr "Ви повинні увійти, аби переглянути список ваших додатків."
 
-#: actions/oauthappssettings.php:74
+#. TRANS: Page title for OAuth applications
+#: actions/oauthappssettings.php:76
 msgid "OAuth applications"
 msgstr "Додатки OAuth"
 
-#: actions/oauthappssettings.php:85
+#. TRANS: Page instructions for OAuth applications
+#: actions/oauthappssettings.php:88
 msgid "Applications you have registered"
 msgstr "Додатки, які ви зареєстрували"
 
-#: actions/oauthappssettings.php:135
+#. TRANS: Empty list message on page with OAuth applications.
+#: actions/oauthappssettings.php:141
 #, php-format
 msgid "You have not registered any applications yet."
 msgstr "Поки що ви не зареєстрували жодних додатків."
@@ -2963,9 +2999,8 @@ msgstr "Під’єднані додатки"
 
 #. TRANS: Instructions for OAuth connection settings.
 #: actions/oauthconnectionssettings.php:83
-#, fuzzy
 msgid "The following connections exist for your account."
-msgstr "Ви дозволили наступним додаткам доступ до вашого акаунту."
+msgstr "Наступні з’єднання вже існують для вашого профілю."
 
 #. TRANS: Client error when trying to revoke access for an application while not being a user of it.
 #: actions/oauthconnectionssettings.php:168
@@ -2975,9 +3010,9 @@ msgstr "Ви не є користувачем даного додатку."
 #. TRANS: Client error when revoking access has failed for some reason.
 #. TRANS: %s is the application ID revoking access failed for.
 #: actions/oauthconnectionssettings.php:183
-#, fuzzy, php-format
+#, php-format
 msgid "Unable to revoke access for application: %s."
-msgstr "Не вдалося скасувати доступ для додатку: %s."
+msgstr "Неможливо скасувати доступ для додатку: %s."
 
 #. TRANS: Success message after revoking access for an application.
 #. TRANS: %1$s is the application name, %2$s is the first part of the user token.
@@ -2987,6 +3022,8 @@ msgid ""
 "You have successfully revoked access for %1$s and the access token starting "
 "with %2$s."
 msgstr ""
+"Ви успішно відкликали дозвіл для додатку %1$s, токен доступу починається з %2"
+"$s."
 
 #. TRANS: Empty list message when no applications have been authorised yet.
 #: actions/oauthconnectionssettings.php:213
@@ -3002,6 +3039,8 @@ msgid ""
 "Are you a developer? [Register an OAuth client application](%s) to use with "
 "this instance of StatusNet."
 msgstr ""
+"Ви — розробник? [Зареєструйте клієнтський додаток OAuth](%s) щоб "
+"користуватися ним на даному сайті StatusNet."
 
 #: actions/oembed.php:80 actions/shownotice.php:100
 msgid "Notice has no profile."
@@ -3131,7 +3170,7 @@ msgid "6 or more characters"
 msgstr "6 або більше знаків"
 
 #: actions/passwordsettings.php:112 actions/recoverpassword.php:239
-#: actions/register.php:440
+#: actions/register.php:442
 msgid "Confirm"
 msgstr "Підтвердити"
 
@@ -3143,11 +3182,11 @@ msgstr "Такий само, як і пароль вище"
 msgid "Change"
 msgstr "Змінити"
 
-#: actions/passwordsettings.php:154 actions/register.php:237
+#: actions/passwordsettings.php:154 actions/register.php:239
 msgid "Password must be 6 or more characters."
 msgstr "Пароль має складатись з 6-ти або більше знаків."
 
-#: actions/passwordsettings.php:157 actions/register.php:240
+#: actions/passwordsettings.php:157 actions/register.php:242
 msgid "Passwords don't match."
 msgstr "Паролі не співпадають."
 
@@ -3234,20 +3273,17 @@ msgid "Path"
 msgstr "Шлях"
 
 #: actions/pathsadminpanel.php:249
-#, fuzzy
 msgid "Site path."
-msgstr "Шлях до сайту"
+msgstr "Шлях до сайту."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:255
-#, fuzzy
 msgid "Locale directory"
 msgstr "Директорія локалі"
 
 #: actions/pathsadminpanel.php:256
-#, fuzzy
 msgid "Directory path to locales."
-msgstr "Директорія шляху до локалей"
+msgstr "Шлях до директорії локалей."
 
 #. TRANS: Checkbox label in Paths admin panel.
 #: actions/pathsadminpanel.php:263
@@ -3264,15 +3300,13 @@ msgstr "Тема"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:281
-#, fuzzy
 msgid "Server for themes."
-msgstr "Сервер для тем"
+msgstr "Сервер для тем."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:290
-#, fuzzy
 msgid "Web path to themes."
-msgstr "Шлях до тем"
+msgstr "Шлях до тем."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:297 actions/pathsadminpanel.php:388
@@ -3282,9 +3316,8 @@ msgstr "SSL-сервер"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:299
-#, fuzzy
 msgid "SSL server for themes (default: SSL server)."
-msgstr "SSL-сервер для тем (SSL-сервер за замовчуванням)"
+msgstr "SSL-сервер для тем (за замовчуванням: SSL-сервер)."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:306 actions/pathsadminpanel.php:397
@@ -3294,9 +3327,8 @@ msgstr "Шлях з SSL"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:308
-#, fuzzy
 msgid "SSL path to themes (default: /theme/)."
-msgstr "SSL-шлях до тем (за замовчуванням: /theme/)"
+msgstr "SSL-шлях до тем (за замовчуванням: /theme/)."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:315 actions/pathsadminpanel.php:406
@@ -3306,9 +3338,8 @@ msgstr "Директорія"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:317
-#, fuzzy
 msgid "Directory where themes are located."
-msgstr "Директорія, в якій знаходяться теми"
+msgstr "Директорія, в якій знаходяться теми."
 
 #. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:326
@@ -3322,9 +3353,8 @@ msgstr "Сервер аватари"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:335
-#, fuzzy
 msgid "Server for avatars."
-msgstr "Сервер для тем"
+msgstr "Сервер для аватар."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:342
@@ -3333,9 +3363,8 @@ msgstr "Шлях до аватари"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:344
-#, fuzzy
 msgid "Web path to avatars."
-msgstr "Шлях до тем"
+msgstr "Шлях до аватар."
 
 #. TRANS: Field label in Paths admin panel.
 #: actions/pathsadminpanel.php:351
@@ -3344,9 +3373,8 @@ msgstr "Директорія аватари"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:353
-#, fuzzy
 msgid "Directory where avatars are located."
-msgstr "Директорія, в якій знаходяться теми"
+msgstr "Директорія, в якій знаходяться аватари."
 
 #. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:364
@@ -3355,31 +3383,28 @@ msgstr "Фони"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:372
-#, fuzzy
 msgid "Server for backgrounds."
-msgstr "Сервер для тем"
+msgstr "Сервер для фонових зображень."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:381
-#, fuzzy
 msgid "Web path to backgrounds."
-msgstr "Шлях до тем"
+msgstr "Шлях до фонових зображень."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:390
 msgid "Server for backgrounds on SSL pages."
-msgstr ""
+msgstr "Сервер для фонових зображень на захищених SSL-сторінках."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:399
 msgid "Web path to backgrounds on SSL pages."
-msgstr ""
+msgstr "Шлях до фонових зображень на захищених SSL-сторінках."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:408
-#, fuzzy
 msgid "Directory where backgrounds are located."
-msgstr "Директорія, в якій знаходяться теми"
+msgstr "Директорія, в якій знаходяться фонові зображення."
 
 #. TRANS: Fieldset legens in Paths admin panel.
 #. TRANS: DT element label in attachment list.
@@ -3389,33 +3414,28 @@ msgstr "Вкладення"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:427
-#, fuzzy
 msgid "Server for attachments."
-msgstr "Сервер для тем"
+msgstr "Сервер для вкладень."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:436
-#, fuzzy
 msgid "Web path to attachments."
-msgstr "Шлях до тем"
+msgstr "Шлях до вкладень."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:445
-#, fuzzy
 msgid "Server for attachments on SSL pages."
-msgstr "Сервер для тем"
+msgstr "Сервер для вкладень на захищених SSL-сторінках."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:454
-#, fuzzy
 msgid "Web path to attachments on SSL pages."
-msgstr "Шлях до тем"
+msgstr "Шлях до вкладень на захищених SSL-сторінках."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:463
-#, fuzzy
 msgid "Directory where attachments are located."
-msgstr "Директорія, в якій знаходяться теми"
+msgstr "Директорія, в якій знаходяться вкладення."
 
 #. TRANS: Fieldset legend in Paths admin panel.
 #: actions/pathsadminpanel.php:472
@@ -3443,15 +3463,13 @@ msgstr "Використовувати SSL"
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:487
-#, fuzzy
 msgid "When to use SSL."
-msgstr "Тоді використовувати SSL"
+msgstr "Коли використовувати SSL."
 
 #. TRANS: Tooltip for field label in Paths admin panel.
 #: actions/pathsadminpanel.php:497
-#, fuzzy
 msgid "Server to direct SSL requests to."
-msgstr "Сервер на який направляти SSL-запити"
+msgstr "Сервер на який направляти SSL-запити."
 
 #. TRANS: Button title text to store form data in the Paths admin panel.
 #: actions/pathsadminpanel.php:514
@@ -3514,7 +3532,7 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 рядкових літер і цифр, ніякої пунктуації або інтервалів."
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:117 actions/register.php:455
+#: actions/profilesettings.php:117 actions/register.php:457
 #: actions/showgroup.php:256 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
@@ -3522,7 +3540,7 @@ msgstr "Повне ім’я"
 
 #. TRANS: Field label in form for profile settings.
 #. TRANS: Form input field label.
-#: actions/profilesettings.php:122 actions/register.php:460
+#: actions/profilesettings.php:122 actions/register.php:462
 #: lib/applicationeditform.php:236 lib/groupeditform.php:161
 msgid "Homepage"
 msgstr "Веб-сторінка"
@@ -3535,7 +3553,7 @@ msgstr "URL-адреса вашої веб-сторінки, блоґу, або 
 #. TRANS: Tooltip for field label in form for profile settings. Plural
 #. TRANS: is decided by the number of characters available for the
 #. TRANS: biography (%d).
-#: actions/profilesettings.php:133
+#: actions/profilesettings.php:133 actions/register.php:473
 #, php-format
 msgid "Describe yourself and your interests in %d character"
 msgid_plural "Describe yourself and your interests in %d characters"
@@ -3544,18 +3562,18 @@ msgstr[1] "Опишіть себе та свої інтереси інтерес
 msgstr[2] "Опишіть себе та свої інтереси інтереси вкладаючись у %d символів"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:139 actions/register.php:471
+#: actions/profilesettings.php:139 actions/register.php:478
 msgid "Describe yourself and your interests"
 msgstr "Опишіть себе та свої інтереси"
 
 #. TRANS: Text area label in form for profile settings where users can provide.
 #. TRANS: their biography.
-#: actions/profilesettings.php:143 actions/register.php:473
+#: actions/profilesettings.php:143 actions/register.php:480
 msgid "Bio"
 msgstr "Про себе"
 
 #. TRANS: Field label in form for profile settings.
-#: actions/profilesettings.php:149 actions/register.php:478
+#: actions/profilesettings.php:149 actions/register.php:485
 #: actions/showgroup.php:265 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:165
@@ -3563,7 +3581,7 @@ msgid "Location"
 msgstr "Розташування"
 
 #. TRANS: Tooltip for field label in form for profile settings.
-#: actions/profilesettings.php:152 actions/register.php:480
+#: actions/profilesettings.php:152 actions/register.php:487
 msgid "Where you are, like \"City, State (or Region), Country\""
 msgstr "Де ви живете, на кшталт «Місто, область (регіон), країна»"
 
@@ -3615,25 +3633,15 @@ msgstr ""
 "Автоматично підписуватись до тих, хто підписався до мене. (Слава роботам!)"
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:256
-msgid "Full name is too long (max 255 characters)."
-msgstr "Повне ім’я задовге (не більше 255 символів)."
-
-#. TRANS: Validation error in form for profile settings.
 #. TRANS: Plural form is used based on the maximum number of allowed
 #. TRANS: characters for the biography (%d).
-#: actions/profilesettings.php:262
-#, php-format
-msgid "Bio is too long (max %d character)."
-msgid_plural "Bio is too long (max %d characters)."
+#: actions/profilesettings.php:262 actions/register.php:230
+#, fuzzy, php-format
+msgid "Bio is too long (maximum %d character)."
+msgid_plural "Bio is too long (maximum %d characters)."
 msgstr[0] "Біографія надто довга (не більше %d символу)."
 msgstr[1] "Біографія надто довга (не більше %d символів)."
 msgstr[2] "Біографія надто довга (не більше %d символів)."
-
-#. TRANS: Validation error in form for profile settings.
-#: actions/profilesettings.php:269
-msgid "Location is too long (max 255 characters)."
-msgstr "Розташування надто довге (не більше 255 символів)."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:273 actions/siteadminpanel.php:151
@@ -3642,7 +3650,8 @@ msgstr "Часовий пояс не обрано."
 
 #. TRANS: Validation error in form for profile settings.
 #: actions/profilesettings.php:281
-msgid "Language is too long (max 50 characters)."
+#, fuzzy
+msgid "Language is too long (maximum 50 characters)."
 msgstr "Мова задовга (не більше 50 символів)."
 
 #. TRANS: Validation error in form for profile settings.
@@ -3915,7 +3924,7 @@ msgstr "Пароль має складатись з 6-ти або більше �
 msgid "Password and confirmation do not match."
 msgstr "Пароль та підтвердження не співпадають."
 
-#: actions/recoverpassword.php:388 actions/register.php:255
+#: actions/recoverpassword.php:388 actions/register.php:257
 msgid "Error setting user."
 msgstr "Помилка в налаштуваннях користувача."
 
@@ -3923,7 +3932,7 @@ msgstr "Помилка в налаштуваннях користувача."
 msgid "New password successfully saved. You are now logged in."
 msgstr "Новий пароль успішно збережено. Тепер ви увійшли."
 
-#: actions/register.php:92 actions/register.php:196 actions/register.php:412
+#: actions/register.php:92 actions/register.php:196 actions/register.php:414
 msgid "Sorry, only invited people can register."
 msgstr ""
 "Пробачте, але лише ті, кого було запрошено, мають змогу зареєструватись тут."
@@ -3936,7 +3945,7 @@ msgstr "Даруйте, помилка у коді запрошення."
 msgid "Registration successful"
 msgstr "Реєстрація успішна"
 
-#: actions/register.php:121 actions/register.php:506 lib/logingroupnav.php:85
+#: actions/register.php:121 actions/register.php:513 lib/logingroupnav.php:85
 msgid "Register"
 msgstr "Реєстрація"
 
@@ -3952,16 +3961,11 @@ msgstr "Ви не зможете зареєструватись, якщо не �
 msgid "Email address already exists."
 msgstr "Ця адреса вже використовується."
 
-#: actions/register.php:230
-#, php-format
-msgid "Bio is too long (max %d chars)."
-msgstr "Ви перевищили ліміт (%d знаків максимум)."
-
-#: actions/register.php:250 actions/register.php:272
+#: actions/register.php:252 actions/register.php:274
 msgid "Invalid username or password."
 msgstr "Недійсне ім’я або пароль."
 
-#: actions/register.php:350
+#: actions/register.php:352
 msgid ""
 "With this form you can create a new account. You can then post notices and "
 "link up to friends and colleagues. "
@@ -3969,66 +3973,61 @@ msgstr ""
 "Ця форма дозволить вам створити новий акаунт. Ви зможете робити дописи і "
 "будете в курсі справ ваших друзів та колег. "
 
-#: actions/register.php:432
+#: actions/register.php:434
 msgid "1-64 lowercase letters or numbers, no punctuation or spaces. Required."
 msgstr ""
 "1-64 літери нижнього регістра і цифри, ніякої пунктуації або інтервалів. "
 "Неодмінно."
 
-#: actions/register.php:437
+#: actions/register.php:439
 msgid "6 or more characters. Required."
 msgstr "6 або більше знаків. Неодмінно."
 
-#: actions/register.php:441
+#: actions/register.php:443
 msgid "Same as password above. Required."
 msgstr "Такий само, як і пароль вище. Неодмінно."
 
 #. TRANS: Link description in user account settings menu.
-#: actions/register.php:445 actions/register.php:449
+#: actions/register.php:447 actions/register.php:451
 #: actions/siteadminpanel.php:238 lib/accountsettingsaction.php:127
 msgid "Email"
 msgstr "Пошта"
 
-#: actions/register.php:446 actions/register.php:450
+#: actions/register.php:448 actions/register.php:452
 msgid "Used only for updates, announcements, and password recovery"
 msgstr "Використовується лише для оновлень, оголошень та відновлення паролю"
 
-#: actions/register.php:457
+#: actions/register.php:459
 msgid "Longer name, preferably your \"real\" name"
 msgstr "Повне ім’я, звісно ж ваше справжнє ім’я"
 
-#: actions/register.php:462
+#: actions/register.php:464
 msgid "URL of your homepage, blog, or profile on another site"
 msgstr "URL-адреса вашої веб-сторінки, блоґу, або профілю на іншому сайті"
 
-#: actions/register.php:468
-#, php-format
-msgid "Describe yourself and your interests in %d chars"
-msgstr "Опишіть себе та свої інтереси (%d знаків)"
-
-#: actions/register.php:518
+#: actions/register.php:525
 #, php-format
 msgid ""
 "I understand that content and data of %1$s are private and confidential."
 msgstr "Я розумію, що зміст і дані %1$s є приватними і конфіденційними."
 
-#: actions/register.php:528
+#: actions/register.php:535
 #, php-format
 msgid "My text and files are copyright by %1$s."
 msgstr "Авторські права на мої тексти і файли належать %1$s."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved with ownership left to contributors.
-#: actions/register.php:532
+#: actions/register.php:539
 msgid "My text and files remain under my own copyright."
 msgstr "Авторські права на мої тексти і файли залишаються за мною."
 
 #. TRANS: Copyright checkbox label in registration dialog, for all rights reserved.
-#: actions/register.php:535
+#: actions/register.php:542
 msgid "All rights reserved."
 msgstr "Всі права захищені."
 
 #. TRANS: Copyright checkbox label in registration dialog, for Creative Commons-style licenses.
-#: actions/register.php:540
+#: actions/register.php:547
 #, php-format
 msgid ""
 "My text and files are available under %s except this private data: password, "
@@ -4037,7 +4036,7 @@ msgstr ""
 "Мої дописи і файли доступні на умовах %s, окрім цих приватних даних: пароль, "
 "електронна адреса, адреса IM, телефонний номер."
 
-#: actions/register.php:583
+#: actions/register.php:590
 #, php-format
 msgid ""
 "Congratulations, %1$s! And welcome to %%%%site.name%%%%. From here, you may "
@@ -4070,7 +4069,7 @@ msgstr ""
 "Дякуємо, що зареєструвались у нас, і, сподіваємось, вам сподобається наш "
 "сервіс."
 
-#: actions/register.php:607
+#: actions/register.php:614
 msgid ""
 "(You should receive a message by email momentarily, with instructions on how "
 "to confirm your email address.)"
@@ -5498,7 +5497,7 @@ msgid "Plugins"
 msgstr "Додатки"
 
 #. TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
-#: actions/version.php:198 lib/action.php:830
+#: actions/version.php:198 lib/action.php:831
 msgid "Version"
 msgstr "Версія"
 
@@ -5709,14 +5708,14 @@ msgstr "RT @%1$s %2$s"
 
 #. TRANS: Exception thrown when trying to revoke an existing role for a user that does not exist.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:785
+#: classes/Profile.php:791
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; does not exist."
 msgstr "Не вдалося скасувати роль «%s» для користувача #%2$s; не існує."
 
 #. TRANS: Exception thrown when trying to revoke a role for a user with a failing database query.
 #. TRANS: %1$s is the role name, %2$s is the user ID (number).
-#: classes/Profile.php:794
+#: classes/Profile.php:800
 #, php-format
 msgid "Cannot revoke role \"%1$s\" for user #%2$d; database error."
 msgstr ""
@@ -5786,6 +5785,16 @@ msgstr "%1$s тепер слідкує за %2$s."
 msgid "Welcome to %1$s, @%2$s!"
 msgstr "Вітаємо на %1$s, @%2$s!"
 
+#. TRANS: Server exception.
+#: classes/User.php:902
+msgid "No single user defined for single-user mode."
+msgstr "Користувача для однокористувацького режиму не визначено."
+
+#. TRANS: Server exception.
+#: classes/User.php:906
+msgid "Single-user mode code called when not enabled."
+msgstr ""
+
 #. TRANS: Server exception thrown when creating a group failed.
 #: classes/User_group.php:495
 msgid "Could not create group."
@@ -5853,190 +5862,193 @@ msgid "Untitled page"
 msgstr "Сторінка без заголовку"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
-#: lib/action.php:476
+#: lib/action.php:477
 msgid "Primary site navigation"
 msgstr "Відправна навігація по сайту"
 
 #. TRANS: Tooltip for main menu option "Personal"
-#: lib/action.php:482
+#: lib/action.php:483
 msgctxt "TOOLTIP"
 msgid "Personal profile and friends timeline"
 msgstr "Персональний профіль і стрічка друзів"
 
 #. TRANS: Main menu option when logged in for access to personal profile and friends timeline
-#: lib/action.php:485
+#: lib/action.php:486
 msgctxt "MENU"
 msgid "Personal"
 msgstr "Особисте"
 
 #. TRANS: Tooltip for main menu option "Account"
-#: lib/action.php:487
+#: lib/action.php:488
 msgctxt "TOOLTIP"
 msgid "Change your email, avatar, password, profile"
 msgstr "Змінити електронну адресу, аватару, пароль, профіль"
 
 #. TRANS: Main menu option when logged in for access to user settings
-#: lib/action.php:490
+#: lib/action.php:491
 msgid "Account"
 msgstr "Акаунт"
 
 #. TRANS: Tooltip for main menu option "Services"
-#: lib/action.php:492
+#: lib/action.php:493
 msgctxt "TOOLTIP"
 msgid "Connect to services"
 msgstr "З’єднання з сервісами"
 
 #. TRANS: Main menu option when logged in and connection are possible for access to options to connect to other services
-#: lib/action.php:495
+#: lib/action.php:496
 msgid "Connect"
 msgstr "З’єднання"
 
 #. TRANS: Tooltip for menu option "Admin"
-#: lib/action.php:498
+#: lib/action.php:499
 msgctxt "TOOLTIP"
 msgid "Change site configuration"
 msgstr "Змінити конфігурацію сайту"
 
 #. TRANS: Main menu option when logged in and site admin for access to site configuration
 #. TRANS: Menu item in the group navigation page. Only shown for group administrators.
-#: lib/action.php:501 lib/groupnav.php:117
+#: lib/action.php:502 lib/groupnav.php:117
 msgctxt "MENU"
 msgid "Admin"
 msgstr "Адмін"
 
 #. TRANS: Tooltip for main menu option "Invite"
-#: lib/action.php:505
+#: lib/action.php:506
 #, php-format
 msgctxt "TOOLTIP"
 msgid "Invite friends and colleagues to join you on %s"
 msgstr "Запросіть друзів та колег приєднатись до вас на %s"
 
 #. TRANS: Main menu option when logged in and invitations are allowed for inviting new users
-#: lib/action.php:508
+#: lib/action.php:509
 msgctxt "MENU"
 msgid "Invite"
 msgstr "Запросити"
 
 #. TRANS: Tooltip for main menu option "Logout"
-#: lib/action.php:514
+#: lib/action.php:515
 msgctxt "TOOLTIP"
 msgid "Logout from the site"
 msgstr "Вийти з сайту"
 
 #. TRANS: Main menu option when logged in to log out the current user
-#: lib/action.php:517
+#: lib/action.php:518
 msgctxt "MENU"
 msgid "Logout"
 msgstr "Вийти"
 
 #. TRANS: Tooltip for main menu option "Register"
-#: lib/action.php:522
+#: lib/action.php:523
 msgctxt "TOOLTIP"
 msgid "Create an account"
 msgstr "Створити новий акаунт"
 
 #. TRANS: Main menu option when not logged in to register a new account
-#: lib/action.php:525
+#: lib/action.php:526
 msgctxt "MENU"
 msgid "Register"
 msgstr "Реєстрація"
 
 #. TRANS: Tooltip for main menu option "Login"
-#: lib/action.php:528
+#: lib/action.php:529
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Увійти на сайт"
 
-#: lib/action.php:531
+#. TRANS: Main menu option when not logged in to log in
+#: lib/action.php:532
 msgctxt "MENU"
 msgid "Login"
 msgstr "Увійти"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: lib/action.php:534
+#: lib/action.php:535
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Допоможіть!"
 
-#: lib/action.php:537
+#. TRANS: Main menu option for help on the StatusNet site
+#: lib/action.php:538
 msgctxt "MENU"
 msgid "Help"
 msgstr "Довідка"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: lib/action.php:540
+#: lib/action.php:541
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пошук людей або текстів"
 
-#: lib/action.php:543
+#. TRANS: Main menu option when logged in or when the StatusNet instance is not private
+#: lib/action.php:544
 msgctxt "MENU"
 msgid "Search"
 msgstr "Пошук"
 
 #. TRANS: DT element for site notice. String is hidden in default CSS.
 #. TRANS: Menu item for site administration
-#: lib/action.php:565 lib/adminpanelaction.php:387
+#: lib/action.php:566 lib/adminpanelaction.php:387
 msgid "Site notice"
 msgstr "Об’яви на сайті"
 
 #. TRANS: DT element for local views block. String is hidden in default CSS.
-#: lib/action.php:632
+#: lib/action.php:633
 msgid "Local views"
 msgstr "Огляд"
 
 #. TRANS: DT element for page notice. String is hidden in default CSS.
-#: lib/action.php:702
+#: lib/action.php:703
 msgid "Page notice"
 msgstr "Зауваження сторінки"
 
 #. TRANS: DT element for secondary navigation menu. String is hidden in default CSS.
-#: lib/action.php:803
+#: lib/action.php:804
 msgid "Secondary site navigation"
 msgstr "Другорядна навігація по сайту"
 
 #. TRANS: Secondary navigation menu option leading to help on StatusNet.
-#: lib/action.php:809
+#: lib/action.php:810
 msgid "Help"
 msgstr "Допомога"
 
 #. TRANS: Secondary navigation menu option leading to text about StatusNet site.
-#: lib/action.php:812
+#: lib/action.php:813
 msgid "About"
 msgstr "Про"
 
 #. TRANS: Secondary navigation menu option leading to Frequently Asked Questions.
-#: lib/action.php:815
+#: lib/action.php:816
 msgid "FAQ"
 msgstr "ЧаП"
 
 #. TRANS: Secondary navigation menu option leading to Terms of Service.
-#: lib/action.php:820
+#: lib/action.php:821
 msgid "TOS"
 msgstr "Умови"
 
 #. TRANS: Secondary navigation menu option leading to privacy policy.
-#: lib/action.php:824
+#: lib/action.php:825
 msgid "Privacy"
 msgstr "Приватність"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:827
+#: lib/action.php:828
 msgid "Source"
 msgstr "Джерело"
 
 #. TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
-#: lib/action.php:833
+#: lib/action.php:834
 msgid "Contact"
 msgstr "Контакт"
 
 #. TRANS: Secondary navigation menu option.
-#: lib/action.php:836
+#: lib/action.php:837
 msgid "Badge"
 msgstr "Бедж"
 
 #. TRANS: DT element for StatusNet software license.
-#: lib/action.php:865
+#: lib/action.php:866
 msgid "StatusNet software license"
 msgstr "Ліцензія програмного забезпечення StatusNet"
 
@@ -6044,7 +6056,7 @@ msgstr "Ліцензія програмного забезпечення StatusN
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: "%%site.broughtby%%" is the value of the variable site.broughtby
-#: lib/action.php:872
+#: lib/action.php:873
 #, php-format
 msgid ""
 "**%%site.name%%** is a microblogging service brought to you by [%%site."
@@ -6054,7 +6066,7 @@ msgstr ""
 "site.broughtbyurl%%)."
 
 #. TRANS: First sentence of the StatusNet site license. Used if 'broughtby' is not set.
-#: lib/action.php:875
+#: lib/action.php:876
 #, php-format
 msgid "**%%site.name%%** is a microblogging service."
 msgstr "**%%site.name%%** — це сервіс мікроблоґів."
@@ -6063,7 +6075,7 @@ msgstr "**%%site.name%%** — це сервіс мікроблоґів."
 #. TRANS: Make sure there is no whitespace between "]" and "(".
 #. TRANS: Text between [] is a link description, text between () is the link itself.
 #. TRANS: %s is the version of StatusNet that is being used.
-#: lib/action.php:882
+#: lib/action.php:883
 #, php-format
 msgid ""
 "It runs the [StatusNet](http://status.net/) microblogging software, version %"
@@ -6075,51 +6087,51 @@ msgstr ""
 "License](http://www.fsf.org/licensing/licenses/agpl-3.0.html)."
 
 #. TRANS: DT element for StatusNet site content license.
-#: lib/action.php:898
+#: lib/action.php:899
 msgid "Site content license"
 msgstr "Ліцензія змісту сайту"
 
 #. TRANS: Content license displayed when license is set to 'private'.
 #. TRANS: %1$s is the site name.
-#: lib/action.php:905
+#: lib/action.php:906
 #, php-format
 msgid "Content and data of %1$s are private and confidential."
 msgstr "Зміст і дані %1$s є приватними і конфіденційними."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved'.
 #. TRANS: %1$s is the copyright owner.
-#: lib/action.php:912
+#: lib/action.php:913
 #, php-format
 msgid "Content and data copyright by %1$s. All rights reserved."
 msgstr "Авторські права на зміст і дані належать %1$s. Всі права захищено."
 
 #. TRANS: Content license displayed when license is set to 'allrightsreserved' and no owner is set.
-#: lib/action.php:916
+#: lib/action.php:917
 msgid "Content and data copyright by contributors. All rights reserved."
 msgstr ""
 "Авторські права на зміст і дані належать розробникам. Всі права захищено."
 
 #. TRANS: license message in footer.
 #. TRANS: %1$s is the site name, %2$s is a link to the license URL, with a licence name set in configuration.
-#: lib/action.php:948
+#: lib/action.php:949
 #, php-format
 msgid "All %1$s content and data are available under the %2$s license."
 msgstr "Весь зміст і дані %1$s доступні на умовах ліцензії %2$s."
 
 #. TRANS: DT element for pagination (previous/next, etc.).
-#: lib/action.php:1284
+#: lib/action.php:1285
 msgid "Pagination"
 msgstr "Нумерація сторінок"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: present than the currently displayed information.
-#: lib/action.php:1295
+#: lib/action.php:1296
 msgid "After"
 msgstr "Вперед"
 
 #. TRANS: Pagination message to go to a page displaying information more in the
 #. TRANS: past than the currently displayed information.
-#: lib/action.php:1305
+#: lib/action.php:1306
 msgid "Before"
 msgstr "Назад"
 
@@ -6262,24 +6274,39 @@ msgid "Could not authenticate you."
 msgstr "Не вдалося автентифікувати вас."
 
 #. TRANS: Server error displayed when trying to create an anynymous OAuth consumer.
-#: lib/apioauthstore.php:41
-#, fuzzy
+#: lib/apioauthstore.php:45
 msgid "Could not create anonymous consumer."
-msgstr "Неможна призначити додаткові імена."
+msgstr "Не вдалося створити анонімного споживача."
 
 #. TRANS: Server error displayed when trying to create an anynymous OAuth application.
-#: lib/apioauthstore.php:54
-#, fuzzy
+#: lib/apioauthstore.php:69
 msgid "Could not create anonymous OAuth application."
-msgstr "Не вдалося створити додаток."
+msgstr "Не вдалося створити анонімний додаток OAuth."
+
+#. TRANS: Exception thrown when no token association could be found.
+#: lib/apioauthstore.php:151
+msgid ""
+"Could not find a profile and application associated with the request token."
+msgstr ""
+
+#. TRANS: Exception thrown when no access token can be issued.
+#: lib/apioauthstore.php:186
+#, fuzzy
+msgid "Could not issue access token."
+msgstr "Не можна долучити повідомлення."
+
+#. TRANS: Server error displayed when a database error occurs.
+#: lib/apioauthstore.php:243
+msgid "Database error inserting OAuth application user."
+msgstr "Помилка бази даних при додаванні користувача OAuth-додатку."
 
 #. TRANS: Exception thrown when an attempt is made to revoke an unknown token.
-#: lib/apioauthstore.php:218
+#: lib/apioauthstore.php:285
 msgid "Tried to revoke unknown token."
 msgstr "Спроба скасувати невідомий токен."
 
 #. TRANS: Exception thrown when an attempt is made to remove a revoked token.
-#: lib/apioauthstore.php:223
+#: lib/apioauthstore.php:290
 msgid "Failed to delete revoked token."
 msgstr "Не вдалося видалити скасований токен."
 
@@ -6366,7 +6393,7 @@ msgstr "Скасувати"
 
 #: lib/applicationlist.php:247
 msgid " by "
-msgstr ""
+msgstr "від  "
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:260
@@ -6389,7 +6416,7 @@ msgstr "Підтверджено доступ %1$s — «%2$s»."
 #: lib/applicationlist.php:282
 #, php-format
 msgid "Access token starting with: %s"
-msgstr ""
+msgstr "Токен доступу починається з:  %s"
 
 #. TRANS: Button label
 #: lib/applicationlist.php:298
@@ -6514,7 +6541,7 @@ msgid ""
 msgstr ""
 "Підписки: %1$s\n"
 "Підписані: %2$s\n"
-"Дописів: %3$s"
+"Дописи: %3$s"
 
 #. TRANS: Text shown when a notice has been marked as favourite successfully.
 #: lib/command.php:312
@@ -6576,7 +6603,7 @@ msgstr ""
 
 #. TRANS: Message given if content is too long.
 #. TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-#: lib/command.php:488 lib/xmppmanager.php:403
+#: lib/command.php:488
 #, php-format
 msgid "Message too long - maximum is %1$d characters, you sent %2$d."
 msgstr ""
@@ -6879,7 +6906,7 @@ msgstr "З’єднання"
 msgid "Authorized connected applications"
 msgstr "Авторизовані під’єднані додатки"
 
-#: lib/dberroraction.php:60
+#: lib/dberroraction.php:59
 msgid "Database error"
 msgstr "Помилка бази даних"
 
@@ -6894,6 +6921,15 @@ msgstr ""
 "Ви можете завантажити власне фонове зображення. Максимальний розмір файлу "
 "становить 2Мб."
 
+#: lib/designsettings.php:283
+#, php-format
+msgid ""
+"The server was unable to handle that much POST data (%s bytes) due to its "
+"current configuration."
+msgstr ""
+"Сервер нездатен обробити таку кількість даних (%s байтів) за поточної "
+"конфігурації."
+
 #: lib/designsettings.php:418
 msgid "Design defaults restored."
 msgstr "Дизайн за замовчуванням відновлено."
@@ -6906,23 +6942,23 @@ msgstr "Видалити з обраних"
 msgid "Favor this notice"
 msgstr "Позначити як обране"
 
-#: lib/feed.php:85
+#: lib/feed.php:84
 msgid "RSS 1.0"
 msgstr "RSS 1.0"
 
-#: lib/feed.php:87
+#: lib/feed.php:86
 msgid "RSS 2.0"
 msgstr "RSS 2.0"
 
-#: lib/feed.php:89
+#: lib/feed.php:88
 msgid "Atom"
 msgstr "Atom"
 
-#: lib/feed.php:91
+#: lib/feed.php:90
 msgid "FOAF"
 msgstr "FOAF"
 
-#: lib/feedlist.php:66
+#: lib/feedlist.php:65
 msgid "Feeds"
 msgstr "Веб-стрічки"
 
@@ -7057,15 +7093,19 @@ msgctxt "TOOLTIP"
 msgid "Add or edit %s design"
 msgstr "Додати або редагувати дизайн %s"
 
+#. TRANS: Title for groups with the most members section.
 #: lib/groupsbymemberssection.php:71
 msgid "Groups with most members"
 msgstr "Спільноти з найбільшою кількістю учасників"
 
+#. TRANS: Title for groups with the most posts section.
 #: lib/groupsbypostssection.php:71
 msgid "Groups with most posts"
 msgstr "Спільноти з найбільшою кількістю дописів"
 
-#: lib/grouptagcloudsection.php:56
+#. TRANS: Title for group tag cloud section.
+#. TRANS: %s is a group name.
+#: lib/grouptagcloudsection.php:57
 #, php-format
 msgid "Tags in %s group's notices"
 msgstr "Теґи у дописах спільноти %s"
@@ -7364,9 +7404,9 @@ msgstr ""
 #. TRANS: Subject for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, %2$s is the adding user's nickname.
 #: lib/mail.php:603
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s (@%2$s) added your notice as a favorite"
-msgstr "%1s$ (@%2$s) додав(ла) ваш допис обраних"
+msgstr "%1$s (@%2$s) додав(ла) ваш допис обраних"
 
 #. TRANS: Body for favorite notification e-mail.
 #. TRANS: %1$s is the adding user's long name, $2$s is the date the notice was created,
@@ -7851,9 +7891,11 @@ msgstr "Повторити цей допис"
 msgid "Revoke the \"%s\" role from this user"
 msgstr "Відкликати роль «%s» для цього користувача"
 
-#: lib/router.php:711
-msgid "No single user defined for single-user mode."
-msgstr "Користувача для однокористувацького режиму не визначено."
+#. TRANS: Client error on action trying to visit a non-existing page.
+#: lib/router.php:847
+#, fuzzy
+msgid "Page not found."
+msgstr "API метод не знайдено."
 
 #: lib/sandboxform.php:67
 msgid "Sandbox"
@@ -8088,17 +8130,17 @@ msgid "Moderator"
 msgstr "Модератор"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1163
+#: lib/util.php:1164
 msgid "a few seconds ago"
 msgstr "мить тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1166
+#: lib/util.php:1167
 msgid "about a minute ago"
 msgstr "хвилину тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1170
+#: lib/util.php:1171
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
@@ -8107,12 +8149,12 @@ msgstr[1] "близько %d хвилин тому"
 msgstr[2] "близько %d хвилин тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1173
+#: lib/util.php:1174
 msgid "about an hour ago"
 msgstr "годину тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1177
+#: lib/util.php:1178
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
@@ -8121,12 +8163,12 @@ msgstr[1] "близько %d годин тому"
 msgstr[2] "близько %d годин тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1180
+#: lib/util.php:1181
 msgid "about a day ago"
 msgstr "день тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1184
+#: lib/util.php:1185
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
@@ -8135,12 +8177,12 @@ msgstr[1] "близько %d днів тому"
 msgstr[2] "близько %d днів тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1187
+#: lib/util.php:1188
 msgid "about a month ago"
 msgstr "місяць тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1191
+#: lib/util.php:1192
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
@@ -8149,7 +8191,7 @@ msgstr[1] "близько %d місяців тому"
 msgstr[2] "близько %d місяців тому"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1194
+#: lib/util.php:1195
 msgid "about a year ago"
 msgstr "близько року тому"
 
@@ -8164,6 +8206,28 @@ msgstr "%s є неприпустимим кольором!"
 #, php-format
 msgid "%s is not a valid color! Use 3 or 6 hex characters."
 msgstr "%s є неприпустимим кольором! Використайте 3 або 6 знаків (HEX-формат)"
+
+#. TRANS: %s is the URL to the StatusNet site's Instant Messaging settings.
+#: lib/xmppmanager.php:285
+#, php-format
+msgid "Unknown user. Go to %s to add your address to your account"
+msgstr ""
+
+#. TRANS: Response to XMPP source when it sent too long a message.
+#. TRANS: %1$d the maximum number of allowed characters (used for plural), %2$d is the sent number.
+#: lib/xmppmanager.php:404
+#, fuzzy, php-format
+msgid "Message too long. Maximum is %1$d character, you sent %2$d."
+msgid_plural "Message too long. Maximum is %1$d characters, you sent %2$d."
+msgstr[0] ""
+"Повідомлення надто довге, максимум становить %1$d символів, натомість ви "
+"надсилаєте %2$d."
+msgstr[1] ""
+"Повідомлення надто довге, максимум становить %1$d символів, натомість ви "
+"надсилаєте %2$d."
+msgstr[2] ""
+"Повідомлення надто довге, максимум становить %1$d символів, натомість ви "
+"надсилаєте %2$d."
 
 #: scripts/restoreuser.php:82
 #, php-format
@@ -8180,3 +8244,18 @@ msgstr ""
 #, php-format
 msgid "%d entries in backup."
 msgstr "У резервному файлі збережено %d дописів."
+
+#~ msgid "Full name is too long (max 255 chars)."
+#~ msgstr "Повне ім’я задовге (255 знаків максимум)"
+
+#~ msgid "Location is too long (max 255 chars)."
+#~ msgstr "Розташування надто довге (255 знаків максимум)."
+
+#~ msgid "That's too long. Max message size is %d chars."
+#~ msgstr "Надто довго. Максимальний розмір %d знаків."
+
+#~ msgid "Bio is too long (max %d chars)."
+#~ msgstr "Ви перевищили ліміт (%d знаків максимум)."
+
+#~ msgid "Describe yourself and your interests in %d chars"
+#~ msgstr "Опишіть себе та свої інтереси (%d знаків)"
