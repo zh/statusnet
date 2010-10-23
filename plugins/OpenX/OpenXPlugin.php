@@ -75,7 +75,6 @@ if (!defined('STATUSNET')) {
  *
  * @seeAlso  UAPPlugin
  */
-
 class OpenXPlugin extends UAPPlugin
 {
     public $adScript = null;
@@ -103,7 +102,6 @@ class OpenXPlugin extends UAPPlugin
      *
      * @return void
      */
-
     protected function showMediumRectangle($action)
     {
         $this->showAd($action, $this->mediumRectangle);
@@ -116,7 +114,6 @@ class OpenXPlugin extends UAPPlugin
      *
      * @return void
      */
-
     protected function showRectangle($action)
     {
         $this->showAd($action, $this->rectangle);
@@ -129,7 +126,6 @@ class OpenXPlugin extends UAPPlugin
      *
      * @return void
      */
-
     protected function showWideSkyscraper($action)
     {
         $this->showAd($action, $this->wideSkyscraper);
@@ -142,7 +138,6 @@ class OpenXPlugin extends UAPPlugin
      *
      * @return void
      */
-
     protected function showLeaderboard($action)
     {
         $this->showAd($action, $this->leaderboard);
@@ -156,7 +151,6 @@ class OpenXPlugin extends UAPPlugin
      *
      * @return void
      */
-
     protected function showAd($action, $zone)
     {
 $scr = <<<ENDOFSCRIPT
@@ -209,6 +203,25 @@ ENDOFSCRIPT;
             $menu->out->menuItem(common_local_url('openxadminpanel'), _m('OpenX'),
                                  $menu_title, $action_name == 'openxadminpanel', 'nav_openx_admin_panel');
         }
+        return true;
+    }
+
+    /**
+     * Add our version information to output
+     *
+     * @param array &$versions Array of version-data arrays
+     *
+     * @return boolean hook value
+     */
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'OpenX',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:OpenX',
+                            'rawdescription' =>
+                            // TRANS: Plugin description.
+                            _m('Plugin for <a href="http://www.openx.org/">OpenX Ad Server</a>.'));
         return true;
     }
 }

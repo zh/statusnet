@@ -49,6 +49,7 @@ class OpenXadminpanelAction extends AdminPanelAction
      */
     function title()
     {
+        // TRANS: Page title for OpenX admin panel.
         return _m('TITLE', 'OpenX');
     }
 
@@ -59,6 +60,7 @@ class OpenXadminpanelAction extends AdminPanelAction
      */
     function getInstructions()
     {
+        // TRANS: Instructions for OpenX admin panel.
         return _m('OpenX settings for this StatusNet site');
     }
 
@@ -161,31 +163,41 @@ class OpenXAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
         $this->li();
         $this->input('adScript',
+                     // TRANS: Form label in OpenX admin panel.
                      _m('Ad script URL'),
+                     // TRANS: Tooltip for form label in OpenX admin panel.
                      _m('Script URL'),
                      'openx');
         $this->unli();
         $this->li();
         $this->input('mediumRectangle',
+                     // TRANS: Form label in OpenX admin panel. Refers to advertisement format.
                      _m('Medium rectangle'),
+                     // TRANS: Tooltip for form label in OpenX admin panel. Refers to advertisement format.
                      _m('Medium rectangle zone'),
                      'openx');
         $this->unli();
         $this->li();
         $this->input('rectangle',
+                     // TRANS: Form label in OpenX admin panel. Refers to advertisement format.
                      _m('Rectangle'),
+                     // TRANS: Tooltip for form label in OpenX admin panel. Refers to advertisement format.
                      _m('Rectangle zone'),
                      'openx');
         $this->unli();
         $this->li();
         $this->input('leaderboard',
+                     // TRANS: Form label in OpenX admin panel. Refers to advertisement format.
                      _m('Leaderboard'),
+                     // TRANS: Tooltip for form label in OpenX admin panel. Refers to advertisement format.
                      _m('Leaderboard zone'),
                      'openx');
         $this->unli();
         $this->li();
         $this->input('wideSkyscraper',
+                     // TRANS: Form label in OpenX admin panel. Refers to advertisement format.
                      _m('Skyscraper'),
+                     // TRANS: Tooltip for form label in OpenX admin panel. Refers to advertisement format.
                      _m('Wide skyscraper zone'),
                      'openx');
         $this->unli();
@@ -199,6 +211,12 @@ class OpenXAdminPanelForm extends AdminForm
      */
     function formActions()
     {
-        $this->out->submit('submit', _m('Save'), 'submit', null, _m('Save OpenX settings'));
+        $this->out->submit('submit',
+                    // TRANS: Submit button text in OpenX admin panel.
+                    _m('BUTTON','Save'),
+                    'submit',
+                    null,
+                    // TRANS: Submit button title in OpenX admin panel.
+                    _m('Save OpenX settings'));
     }
 }

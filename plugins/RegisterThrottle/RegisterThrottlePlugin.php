@@ -158,7 +158,7 @@ class RegisterThrottlePlugin extends Plugin
             foreach ($ids as $id) {
                 $profile = Profile::staticGet('id', $id);
                 if ($profile && $profile->isSilenced()) {
-                    throw new Exception(_("A banned user has registered from this address."));
+                    throw new Exception(_m("A banned user has registered from this address."));
                 }
             }
         }
