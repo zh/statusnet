@@ -579,7 +579,7 @@ class ApiOauthAuthorizeAction extends Action
         $title = sprintf(
            // TRANS: Header of user notification after authorising an application access to a profile.
            // TRANS: %s is the authorised application name.
-            _("You have successfully authorized %s."),
+            _('You have successfully authorized %s.'),
             $this->app->name
         );
 

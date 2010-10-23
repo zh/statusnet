@@ -43,7 +43,6 @@ class Status_network_tag extends Safe_DataObject
         $this->_connect();
     }
 
-
     /* Static get */
     function staticGet($k,$v=null)
     {
