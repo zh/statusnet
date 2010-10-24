@@ -1354,4 +1354,15 @@ class Action extends HTMLOutputter // lawsuit
             $this->clientError(_('There was a problem with your session token.'));
         }
     }
+
+    /**
+     * Check if the current request is a POST
+     *
+     * @return boolean true if POST; otherwise false.
+     */
+
+    function isPost()
+    {
+        return ($_SERVER['REQUEST_METHOD'] == 'POST');
+    }
 }
