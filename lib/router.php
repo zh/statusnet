@@ -399,12 +399,12 @@ class Router
 
             $m->connect('api/statuses/show.:format',
                         array('action' => 'ApiStatusesShow',
-                              'format' => '(xml|json)'));
+                              'format' => '(xml|json|atom)'));
 
             $m->connect('api/statuses/show/:id.:format',
                         array('action' => 'ApiStatusesShow',
                               'id' => '[0-9]+',
-                              'format' => '(xml|json)'));
+                              'format' => '(xml|json|atom)'));
 
             $m->connect('api/statuses/update.:format',
                         array('action' => 'ApiStatusesUpdate',

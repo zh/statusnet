@@ -105,8 +105,8 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     {
         parent::handle($args);
 
-        if (!in_array($this->format, array('xml', 'json'))) {
-            $this->clientError(_('API method not found.'), $code = 404);
+        if (!in_array($this->format, array('xml', 'json', 'atom'))) {
+            $this->clientError(_('API method not found.'), 404);
             return;
         }
 
@@ -122,10 +122,18 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
     function showNotice()
     {
         if (!empty($this->notice)) {
-            if ($this->format == 'xml') {
+            switch ($this->format) {
+            case 'xml':
                 $this->showSingleXmlStatus($this->notice);
-            } elseif ($this->format == 'json') {
+                break;
+            case 'json':
                 $this->show_single_json_status($this->notice);
+                break;
+            case 'atom':
+                $this->showSingleAtomStatus($this->notice);
+                break;
+            default:
+                throw new Exception(sprintf(_("Unsupported format: %s"), $this->format));
             }
         } else {
 
