@@ -240,7 +240,7 @@ class Profile extends Memcached_DataObject
             }
 
             if ($max_id != 0) {
-                $query .= " and id < $max_id";
+                $query .= " and id <= $max_id";
             }
 
             $query .= ' order by id DESC';
