@@ -686,6 +686,13 @@ class Router
             $m->connect('api/oauth/authorize',
                         array('action' => 'ApiOauthAuthorize'));
 
+            $m->connect('api/statusnet/app/service/:id.xml',
+                        array('action' => 'ApiAtomService',
+                              'id' => '[a-zA-Z0-9]+'));
+
+            $m->connect('api/statusnet/app/service.xml',
+                        array('action' => 'ApiAtomService'));
+
             // Admin
 
             $m->connect('admin/site', array('action' => 'siteadminpanel'));
