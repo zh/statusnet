@@ -43,7 +43,7 @@ if (have_option('t', 'oauth_token')) {
     $token = get_option_value('t', 'oauth_token');
 }
 
-if (have_option('s', 'token_secret')) {
+if (have_option('s', 'oauth_token_secret')) {
     $token_secret = get_option_value('s', 'oauth_token_secret');
 }
 

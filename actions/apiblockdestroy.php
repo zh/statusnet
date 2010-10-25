@@ -45,7 +45,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiBlockDestroyAction extends ApiAuthAction
 {
     var $other   = null;
@@ -58,7 +57,6 @@ class ApiBlockDestroyAction extends ApiAuthAction
      * @return boolean success flag
      *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -78,7 +76,6 @@ class ApiBlockDestroyAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -112,10 +109,8 @@ class ApiBlockDestroyAction extends ApiAuthAction
             $this->showProfile($this->other, $this->format);
             $this->endDocument($this->format);
         } else {
+            // TRANS: Server error displayed when unblocking a user has failed.
             $this->serverError(_('Unblock user failed.'));
         }
-
     }
-
 }
-
