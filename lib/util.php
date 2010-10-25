@@ -1088,6 +1088,7 @@ function common_is_sensitive($action)
         'ApiOauthRequestToken',
         'ApiOauthAccessToken',
         'ApiOauthAuthorize',
+        'ApiOauthPin',
         'showapplication'
     );
     $ssl = null;
