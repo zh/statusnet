@@ -55,7 +55,6 @@ class ApiBlockDestroyAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
     function prepare($args)
     {
@@ -91,6 +90,7 @@ class ApiBlockDestroyAction extends ApiAuthAction
         }
 
         if (empty($this->user) || empty($this->other)) {
+            // TRANS: Client error when user not found for an API action to remove a block for a user.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }

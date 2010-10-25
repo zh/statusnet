@@ -1,5 +1,4 @@
 <?php
-
 /**
  * RSS feed for user and friends timeline action class.
  *
@@ -57,7 +56,6 @@ class AllrssAction extends Rss10Action
      * @param array $args Web and URL arguments
      *
      * @return boolean false if user doesn't exist
-     */
     function prepare($args)
     {
         parent::prepare($args);
@@ -65,6 +63,7 @@ class AllrssAction extends Rss10Action
         $this->user = User::staticGet('nickname', $nickname);
 
         if (!$this->user) {
+            // TRANS: Client error when user not found for an rss related action.
             $this->clientError(_('No such user.'));
             return false;
         } else {
@@ -127,7 +126,7 @@ class AllrssAction extends Rss10Action
      * Get image.
      *
      * @return string user avatar URL or null
-    */
+     */
     function getImage()
     {
         $user    = $this->user;
@@ -139,4 +138,3 @@ class AllrssAction extends Rss10Action
         return $avatar ? $avatar->url : null;
     }
 }
-

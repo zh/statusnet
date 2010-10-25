@@ -142,7 +142,12 @@ class NewgroupAction extends Action
             $this->showForm(_('Full name is too long (maximum 255 characters).'));
             return;
         } else if (User_group::descriptionTooLong($description)) {
-            $this->showForm(sprintf(_('description is too long (max %d chars).'), User_group::maxDescription()));
+            // TRANS: Form validation error creating a new group because the description is too long.
+            // TRANS: %d is the maximum number of allowed characters.
+            $this->showForm(sprintf(_m('Description is too long (maximum %d character).',
+                                       'Description is too long (maximum %d characters).',
+                                       User_group::maxDescription(),
+                                    User_group::maxDescription()));
             return;
         } else if (!is_null($location) && mb_strlen($location) > 255) {
             $this->showForm(_('Location is too long (maximum 255 characters).'));
@@ -156,7 +161,11 @@ class NewgroupAction extends Action
         }
 
         if (count($aliases) > common_config('group', 'maxaliases')) {
-            $this->showForm(sprintf(_('Too many aliases! Maximum %d.'),
+            // TRANS: Client error shown when providing too many aliases during group creation.
+            // TRANS: %d is the maximum number of allowed aliases.
+            $this->showForm(sprintf(_m('Too many aliases! Maximum %d allowed.',
+                                       'Too many aliases! Maximum %d allowed.',
+                                       common_config('group', 'maxaliases')),
                                     common_config('group', 'maxaliases')));
             return;
         }
