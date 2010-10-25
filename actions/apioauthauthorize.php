@@ -386,7 +386,7 @@ class ApiOauthAuthorizeAction extends Action
         $this->elementStart('ul', 'form_data');
         $this->elementStart('li');
         $this->elementStart('p');
-        if (!empty($this->app->icon)) {
+        if (!empty($this->app->icon) && $this->app->name != 'anonymous') {
             $this->element('img', array('src' => $this->app->icon));
         }
 
@@ -396,11 +396,19 @@ class ApiOauthAuthorizeAction extends Action
         // TRANS: User notification of external application requesting account access.
         // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
         // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
-        $msg = _('The application <strong>%1$s</strong> by ' .
-                 '<strong>%2$s</strong> would like the ability ' .
+        if ($this->app->name == 'anonymous') {
+        // Special message for the anonymous app and consumer
+            $msg = _('An application would like the ability ' .
                  'to <strong>%3$s</strong> your %4$s account data. ' .
                  'You should only give access to your %4$s account ' .
                  'to third parties you trust.');
+        } else {
+            $msg = _('The application <strong>%1$s</strong> by ' .
+                     '<strong>%2$s</strong> would like the ability ' .
+                     'to <strong>%3$s</strong> your %4$s account data. ' .
+                     'You should only give access to your %4$s account ' .
+                     'to third parties you trust.');
+        }
 
         $this->raw(sprintf($msg,
                            $this->app->name,
@@ -580,14 +588,14 @@ class ApiOauthAuthorizeAction extends Action
            // TRANS: Header of user notification after authorising an application access to a profile.
            // TRANS: %s is the authorised application name.
             _('You have successfully authorized %s.'),
-            $this->app->name
+            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
         );
 
         $msg = sprintf(
             // TRANS: Uer notification after authorising an application access to a profile.
             // TRANS: %s is the authorised application name.
             _('Please return to %s and enter the following security code to complete the process.'),
-            $this->app->name
+            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
         );
 
         if ($this->reqToken->verified_callback == 'oob') {

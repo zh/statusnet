@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/info.php';
-
 /**
  * Class for displaying an OAuth verifier pin
  *
