@@ -97,6 +97,70 @@ class ApiOauthPinAction extends InfoAction
     }
 
     /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+    function showLocalNav()
+    {
+        // NOP
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showHeader()
+    {
+        if ($this->desktopMode == false) {
+            parent::showHeader();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showAside()
+    {
+        if ($this->desktopMode == false) {
+            parent::showAside();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showFooter()
+    {
+        if ($this->desktopMode == false) {
+            parent::showFooter();
+        }
+    }
+
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
+    function showSiteNotice()
+    {
+        // NOP
+    }
+
+    /**
+     * Show notice form.
+     *
+     * Show the form for posting a new notice
+     *
+     * @return nothing
+     */
+    function showNoticeForm()
+    {
+        // NOP
+    }
+
+    /**
      * Display content.
      *
      * @return nothing
