@@ -157,6 +157,49 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
             $atom->setId($self);
             $atom->setSelfLink($self);
+
+            // Add navigation links: next, prev, first
+            // Note: we use IDs rather than pages for navigation; page boundaries
+            // change too quickly!
+
+            if (!empty($this->next_id)) {
+                $nextUrl = common_local_url('ApiTimelineUser',
+                                            array('format' => 'atom',
+                                                  'id' => $this->user->id),
+                                            array('max_id' => $this->next_id));
+
+                $atom->addLink($nextUrl,
+                               array('rel' => 'next',
+                                     'type' => 'application/atom+xml'));
+            }
+
+            if (($this->page > 1 || !empty($this->max_id)) && !empty($this->notices)) {
+
+                $lastNotice = $this->notices[0];
+                $lastId     = $lastNotice->id;
+
+                $prevUrl = common_local_url('ApiTimelineUser',
+                                            array('format' => 'atom',
+                                                  'id' => $this->user->id),
+                                            array('since_id' => $lastId));
+
+                $atom->addLink($prevUrl,
+                               array('rel' => 'prev',
+                                     'type' => 'application/atom+xml'));
+            }
+
+            if ($this->page > 1 || !empty($this->since_id) || !empty($this->max_id)) {
+
+                $firstUrl = common_local_url('ApiTimelineUser',
+                                            array('format' => 'atom',
+                                                  'id' => $this->user->id));
+
+                $atom->addLink($firstUrl,
+                               array('rel' => 'first',
+                                     'type' => 'application/atom+xml'));
+
+            }
+
             $atom->addEntryFromNotices($this->notices);
             $this->raw($atom->getString());
 
@@ -181,13 +224,18 @@ class ApiTimelineUserAction extends ApiBareAuthAction
     {
         $notices = array();
 
-        $notice = $this->user->getNotices(
-                                          ($this->page-1) * $this->count, $this->count,
-                                          $this->since_id, $this->max_id
-                                          );
+        $notice = $this->user->getNotices(($this->page-1) * $this->count,
+                                          $this->count + 1,
+                                          $this->since_id,
+                                          $this->max_id);
 
         while ($notice->fetch()) {
-            $notices[] = clone($notice);
+            if (count($notices) < $this->count) {
+                $notices[] = clone($notice);
+            } else {
+                $this->next_id = $notice->id;
+                break;
+            }
         }
 
         return $notices;
