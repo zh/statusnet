@@ -323,18 +323,46 @@ class ApiOauthAuthorizeAction extends Action
     }
 
     /**
-     * Override to add some special (more compact) styling when the page is
-     * being displayed in desktop mode.
+     * Show body - override to add a special CSS class for the authorize
+     * page's "desktop mode" (minimal display)
+     *
+     * Calls template methods
      *
      * @return nothing
      */
-    function showStylesheets()
+    function showBody()
     {
-        parent::showStyleSheets();
+        $bodyClasses = array();
 
         if ($this->desktopMode()) {
-            $this->style('#wrap {min-width: 500px;} #content {width: 480px; padding: 6px; margin: 4px 0px 0px 4px; border-top-left-radius: 7px; -moz-border-radius-topleft: 7px; -webkit-border-top-left-radius: 7px;} fieldset {margin-bottom: 10px !important;}');
+            $bodyClasses[] = 'oauth-desktop-mode';
         }
+
+        if (common_current_user()) {
+            $bodyClasses[] = 'user_in';
+        }
+
+        $attrs = array('id' => strtolower($this->trimmed('action')));
+
+        if (!empty($bodyClasses)) {
+            $attrs['class'] = implode(' ', $bodyClasses);
+        }
+
+        $this->elementStart('body', $attrs);
+
+        $this->elementStart('div', array('id' => 'wrap'));
+        if (Event::handle('StartShowHeader', array($this))) {
+            $this->showHeader();
+            Event::handle('EndShowHeader', array($this));
+        }
+        $this->showCore();
+        if (Event::handle('StartShowFooter', array($this))) {
+            $this->showFooter();
+            Event::handle('EndShowFooter', array($this));
+        }
+        $this->elementEnd('div');
+        $this->showScripts();
+        $this->elementEnd('body');
     }
 
     function showForm($error=null)
@@ -599,7 +627,12 @@ class ApiOauthAuthorizeAction extends Action
         );
 
         if ($this->reqToken->verified_callback == 'oob') {
-            $pin = new ApiOauthPinAction($title, $msg, $this->reqToken->verifier);
+            $pin = new ApiOauthPinAction(
+                $title,
+                $msg,
+                $this->reqToken->verifier,
+                $this->desktopMode()
+            );
             $pin->showPage();
         } else {
 

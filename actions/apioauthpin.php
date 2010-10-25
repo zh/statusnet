@@ -45,11 +45,55 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 
 class ApiOauthPinAction extends InfoAction
 {
-    function __construct($title, $message, $verifier)
+    function __construct($title, $message, $verifier, $desktopMode = false)
     {
-        $this->verifier = $verifier;
-        $this->title    = $title;
+        $this->verifier    = $verifier;
+        $this->title       = $title;
+        $this->desktopMode = $desktopMode;
         parent::__construct($title, $message);
+    }
+
+    /**
+     * Show body - override to add a special CSS class for the pin pages's
+     * "desktop mode" (minimal display)
+     *
+     * Calls template methods
+     *
+     * @return nothing
+     */
+    function showBody()
+    {
+        $bodyClasses = array();
+
+        if ($this->desktopMode) {
+            $bodyClasses[] = 'oauth-desktop-mode';
+        }
+
+        if (common_current_user()) {
+            $bodyClasses[] = 'user_in';
+        }
+
+        $attrs = array('id' => strtolower($this->trimmed('action')));
+
+        if (!empty($bodyClasses)) {
+            $attrs['class'] = implode(' ', $bodyClasses);
+        }
+
+        $this->elementStart('body', $attrs);
+
+        $this->elementStart('div', array('id' => 'wrap'));
+        if (Event::handle('StartShowHeader', array($this))) {
+            $this->showHeader();
+            Event::handle('EndShowHeader', array($this));
+        }
+        $this->showCore();
+        if (Event::handle('StartShowFooter', array($this))) {
+            $this->showFooter();
+            Event::handle('EndShowFooter', array($this));
+        }
+        $this->elementEnd('div');
+        $this->showScripts();
+        $this->elementEnd('body');
     }
 
     /**
