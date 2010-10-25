@@ -46,7 +46,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  *
  * @see      Action::showExportList()
  */
-
 class FeedList extends Widget
 {
     var $action = null;

@@ -95,9 +95,11 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             && empty($_POST)
             && ($_SERVER['CONTENT_LENGTH'] > 0)
         ) {
-             $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
-
+            // TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+            // TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+            $msg = _m('The server was unable to handle that much POST data (%s byte) due to its current configuration.',
+                      'The server was unable to handle that much POST data (%s bytes) due to its current configuration.',
+                      intval($_SERVER['CONTENT_LENGTH']));
             $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
         }
