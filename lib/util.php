@@ -1080,7 +1080,17 @@ function common_local_url($action, $args=null, $params=null, $fragment=null, $ad
 
 function common_is_sensitive($action)
 {
-    static $sensitive = array('login', 'register', 'passwordsettings', 'api');
+    static $sensitive = array(
+        'login',
+        'register',
+        'passwordsettings',
+        'api',
+        'ApiOauthRequestToken',
+        'ApiOauthAccessToken',
+        'ApiOauthAuthorize',
+        'showapplication',
+        'editapplication'
+    );
     $ssl = null;
 
     if (Event::handle('SensitiveAction', array($action, &$ssl))) {
