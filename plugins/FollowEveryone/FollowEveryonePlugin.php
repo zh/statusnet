@@ -151,6 +151,47 @@ class FollowEveryonePlugin extends Plugin
     }
 
     /**
+     * Show a checkbox on the profile form to ask whether to follow everyone
+     *
+     * @param Action $action The action being executed
+     *
+     * @return boolean hook value
+     */
+
+    function onEndProfileFormData($action)
+    {
+        $user = common_current_user();
+
+        $action->elementStart('li');
+        // TRANS: Checkbox label in form for profile settings.
+        $action->checkbox('followeveryone', _('Follow everyone'),
+                          ($action->arg('followeveryone')) ?
+                          $action->arg('followeveryone') :
+                          User_followeveryone_prefs::followEveryone($user->id));
+        $action->elementEnd('li');
+
+        return true;
+    }
+
+    /**
+     * Save checkbox value for following everyone
+     *
+     * @param Action $action The action being executed
+     *
+     * @return boolean hook value
+     */
+
+    function onEndProfileSaveForm($action)
+    {
+        $user = common_current_user();
+
+        User_followeveryone_prefs::savePref($user->id,
+                                            $action->boolean('followeveryone'));
+
+        return true;
+    }
+
+    /**
      * Provide version information about this plugin.
      *
      * @param Array &$versions Array of version data

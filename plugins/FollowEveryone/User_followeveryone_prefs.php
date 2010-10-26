@@ -145,4 +145,22 @@ class User_followeveryone_prefs extends Memcached_DataObject
             return (bool)$ufep->followeveryone;
         }
     }
+
+    static function savePref($user_id, $followEveryone)
+    {
+        $ufep = self::staticGet('user_id', $user_id);
+
+        if (empty($ufep)) {
+            $ufep = new User_followeveryone_prefs();
+            $ufep->user_id = $user_id;
+            $ufep->followeveryone = $followEveryone;
+            $ufep->insert();
+        } else {
+            $orig = clone($ufep);
+            $ufep->followeveryone = $followEveryone;
+            $ufep->update();
+        }
+
+        return true;
+    }
 }
