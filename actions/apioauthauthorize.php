@@ -612,19 +612,36 @@ class ApiOauthAuthorizeAction extends Action
      */
     function showAuthorized()
     {
-        $title = sprintf(
-           // TRANS: Header of user notification after authorising an application access to a profile.
-           // TRANS: %s is the authorised application name.
-            _('You have successfully authorized %s.'),
-            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
-        );
+        $title = null;
+        $msg   = null;
 
-        $msg = sprintf(
-            // TRANS: Uer notification after authorising an application access to a profile.
-            // TRANS: %s is the authorised application name.
-            _('Please return to %s and enter the following security code to complete the process.'),
-            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
-        );
+        if ($this->app->name == 'anonymous') {
+
+            $title =
+                // TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+                _('You have successfully authorized the application');
+
+            $msg =
+                // TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+                _('Please return to the application and enter the following security code to complete the process.');
+
+        } else {
+
+            $title = sprintf(
+                // TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
+                // TRANS: %s is the authorised application name.
+                _('You have successfully authorized %s'),
+                $this->app->name
+            );
+
+            $msg = sprintf(
+                // TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
+                // TRANS: %s is the authorised application name.
+                _('Please return to %s and enter the following security code to complete the process.'),
+                $this->app->name
+            );
+
+        }
 
         if ($this->reqToken->verified_callback == 'oob') {
             $pin = new ApiOauthPinAction(
