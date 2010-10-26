@@ -61,36 +61,26 @@ class CacheLogPlugin extends Plugin
     function onEndCacheGet($key, &$value)
     {
         if ($value === false) {
-            $this->log(LOG_INFO, "Cache MISS for key '$key'");
+            $this->log(LOG_INFO, sprintf('Cache MISS for key "%s"', $key));
         } else {
-            $this->log(LOG_INFO, "Cache HIT for key '$key'");
+            $this->log(LOG_INFO, sprintf('Cache HIT for key "%s": %s', $key, self::showValue($value)));
         }
         return true;
     }
 
     function onStartCacheSet(&$key, &$value, &$flag, &$expiry, &$success)
     {
-        if (empty($value)) {
-            if (is_array($value)) {
-                $this->log(LOG_INFO, "Setting empty array for key '$key'");
-            } else if (is_null($value)) {
-                $this->log(LOG_INFO, "Setting null value for key '$key'");
-            } else if (is_string($value)) {
-                $this->log(LOG_INFO, "Setting empty string for key '$key'");
-            } else if (is_integer($value)) {
-                $this->log(LOG_INFO, "Setting integer 0 for key '$key'");
-            } else {
-                $this->log(LOG_INFO, "Setting empty value '$value' for key '$key'");
-            }
-        } else {
-            $this->log(LOG_INFO, "Setting non-empty value for key '$key'");
-        }
+        $this->log(LOG_INFO, "Begin setting cache value for key '$key'");
         return true;
     }
 
     function onEndCacheSet($key, $value, $flag, $expiry)
     {
-        $this->log(LOG_INFO, "Done setting cache value for key '$key'");
+        $this->log(LOG_INFO, sprintf('Set cache value %s for key "%s" (flags: %d, expiry %d)',
+                                     self::showValue($value),
+                                     $key,
+                                     $flag,
+                                     $expiry));
         return true;
     }
 
@@ -115,5 +105,22 @@ class CacheLogPlugin extends Plugin
                             'description' =>
                             _m('Log reads and writes to the cache.'));
         return true;
+    }
+
+    static function showValue($value)
+    {
+        if (is_object($value)) {
+            return sprintf('object of class %s', get_class($value));
+        } else if (is_array($value)) {
+            return sprintf('array of length %d', count($value));
+        } else if (is_string($value)) {
+            return sprintf('string "%s"', $value);
+        } else if (is_integer($value)) {
+            return sprintf('integer %d', $value);
+        } else if (is_null($value)) {
+            return 'null';
+        } else {
+            return 'unknown';
+        }
     }
 }

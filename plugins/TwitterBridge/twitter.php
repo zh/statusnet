@@ -282,15 +282,14 @@ function process_error($e, $flink, $notice)
 
 function format_status($notice)
 {
-    // XXX: Hack to get around PHP cURL's use of @ being a a meta character
-    $statustxt = preg_replace('/^@/', ' @', $notice->content);
+    // Start with the plaintext source of this notice...
+    $statustxt = $notice->content;
 
     // Convert !groups to #hashes
-
     // XXX: Make this an optional setting?
-
     $statustxt = preg_replace('/(^|\s)!([A-Za-z0-9]{1,64})/', "\\1#\\2", $statustxt);
 
+    // Twitter still has a 140-char hardcoded max.
     if (mb_strlen($statustxt) > 140) {
         $noticeUrl = common_shorten_url($notice->uri);
         $urlLen = mb_strlen($noticeUrl);

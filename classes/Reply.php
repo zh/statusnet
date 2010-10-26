@@ -55,7 +55,7 @@ class Reply extends Memcached_DataObject
         }
 
         if ($max_id != 0) {
-            $reply->whereAdd('notice_id < ' . $max_id);
+            $reply->whereAdd('notice_id <= ' . $max_id);
         }
 
         $reply->orderBy('notice_id DESC');

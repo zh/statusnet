@@ -178,8 +178,10 @@ class ApiAuthAction extends ApiAction
             }
 
             // set the source attr
+            if ($app->name != 'anonymous') {
+                $this->source = $app->name;
+            }
 
-            $this->source = $app->name;
 
             $appUser = Oauth_application_user::staticGet('token', $access_token);
 
@@ -261,7 +263,7 @@ class ApiAuthAction extends ApiAction
 
             // show error if the user clicks 'cancel'
             // TRANS: Client error thrown when authentication fails becaus a user clicked "Cancel".
-            $this->clientError(_("Could not authenticate you."), 401, $this->format);
+            $this->clientError(_('Could not authenticate you.'), 401, $this->format);
             exit;
 
         } else {
@@ -288,7 +290,7 @@ class ApiAuthAction extends ApiAction
                 );
                 $this->logAuthFailure($msg);
                 // TRANS: Client error thrown when authentication fails.
-                $this->clientError(_("Could not authenticate you."), 401, $this->format);
+                $this->clientError(_('Could not authenticate you.'), 401, $this->format);
                 exit;
             }
         }
@@ -340,7 +342,6 @@ class ApiAuthAction extends ApiAction
      *
      * @param string $logMsg additional log message
      */
-
      function logAuthFailure($logMsg)
      {
         list($proxy, $ip) = common_client_ip();

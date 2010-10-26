@@ -44,7 +44,6 @@ require_once INSTALLDIR . '/lib/apioauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiOauthAccessTokenAction extends ApiOauthAction
 {
     protected $reqToken = null;
@@ -73,15 +72,15 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
         // Spec doesn't say they MUST be.
 
         try {
-
             $req  = OAuthRequest::from_request();
 
             $this->reqToken = $req->get_parameter('oauth_token');
             $this->verifier = $req->get_parameter('oauth_verifier');
-            $app = $datastore->getAppByRequestToken($this->reqToken);
+
+            $app  = $datastore->getAppByRequestToken($this->reqToken);
             $atok = $server->fetch_access_token($req);
 
-        } catch (OAuthException $e) {
+        } catch (Exception $e) {
             common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
             common_debug(var_export($req, true));
             $code = $e->getCode();
@@ -99,14 +98,15 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
                 $this->verifier
             );
 
-            common_log(LOG_WARNIGN, $msg);
+            common_log(LOG_WARNING, $msg);
+            // TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
             $this->clientError(_("Invalid request token or verifier.", 400, 'text'));
 
         } else {
             common_log(
                 LOG_INFO,
                 sprintf(
-                    "Issued now access token '%s' for application %d (%s).",
+                    "Issued access token '%s' for application %d (%s).",
                     $atok->key,
                     $app->id,
                     $app->name
