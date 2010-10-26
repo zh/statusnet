@@ -463,4 +463,45 @@ class BlacklistPlugin extends Plugin
         $hostname = parse_url($homepage, PHP_URL_HOST);
         return $hostname;
     }
+
+    function onStartHandleFeedEntry($activity)
+    {
+        return $this->_checkActivity($activity);
+    }
+
+    function onStartHandleSalmon($activity)
+    {
+        return $this->_checkActivity($activity);
+    }
+
+    function _checkActivity($activity)
+    {
+        $actor = $activity->actor;
+
+        if (empty($actor)) {
+            return true;
+        }
+
+        $homepage = strtolower($actor->link);
+
+        if (!empty($homepage)) {
+            if (!$this->_checkUrl($homepage)) {
+                $msg = sprintf(_m("Users from '%s' blocked."),
+                               $homepage);
+                throw new ClientException($msg);
+            }
+        }
+
+        $nickname = strtolower($actor->poco->preferredUsername);
+
+        if (!empty($nickname)) {
+            if (!$this->_checkNickname($nickname)) {
+                $msg = sprintf(_m("Posts from nickname '%s' disallowed."),
+                               $nickname);
+                throw new ClientException($msg);
+            }
+        }
+
+        return true;
+    }
 }
