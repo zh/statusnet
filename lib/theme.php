@@ -38,7 +38,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * Themes are directories with some expected sub-directories and files
  * in them. They're found in either local/theme (for locally-installed themes)
  * or theme/ subdir of installation dir.
- * 
+ *
  * Note that the 'local' directory can be overridden as $config['local']['path']
  * and $config['local']['dir'] etc.
  *
@@ -104,25 +104,61 @@ class Theme
     /**
      * Build a full URL to the given theme's base directory, possibly
      * using an offsite theme server path.
-     * 
+     *
      * @param string $group configuration section name to pull paths from
      * @param string $fallbackSubdir default subdirectory under INSTALLDIR
      * @param string $name theme name
-     * 
+     *
      * @return string URL
-     * 
+     *
      * @todo consolidate code with that for other customizable paths
      */
 
     protected function relativeThemePath($group, $fallbackSubdir, $name)
     {
-        $path = common_config($group, 'path');
+        if (StatusNet::isHTTPS()) {
 
-        if (empty($path)) {
-            $path = common_config('site', 'path') . '/';
-            if ($fallbackSubdir) {
-                $path .= $fallbackSubdir . '/';
+            $sslserver = common_config($group, 'sslserver');
+
+            if (empty($sslserver)) {
+                if (is_string(common_config('site', 'sslserver')) &&
+                    mb_strlen(common_config('site', 'sslserver')) > 0) {
+                    $server = common_config('site', 'sslserver');
+                } else if (common_config('site', 'server')) {
+                    $server = common_config('site', 'server');
+                }
+                $path   = common_config('site', 'path') . '/';
+                if ($fallbackSubdir) {
+                    $path .= $fallbackSubdir . '/';
+                }
+            } else {
+                $server = $sslserver;
+                $path   = common_config($group, 'sslpath');
+                if (empty($path)) {
+                    $path = common_config($group, 'path');
+                }
             }
+
+            $protocol = 'https';
+
+        } else {
+
+            $path = common_config($group, 'path');
+
+            if (empty($path)) {
+                $path = common_config('site', 'path') . '/';
+                if ($fallbackSubdir) {
+                    $path .= $fallbackSubdir . '/';
+                }
+            }
+
+            $server = common_config($group, 'server');
+
+            if (empty($server)) {
+                $server = common_config('site', 'server');
+            }
+
+            $protocol = 'http';
         }
 
         if ($path[strlen($path)-1] != '/') {
@@ -133,27 +169,7 @@ class Theme
             $path = '/'.$path;
         }
 
-        $server = common_config($group, 'server');
-
-        if (empty($server)) {
-            $server = common_config('site', 'server');
-        }
-
-        $ssl = common_config($group, 'ssl');
-
-        if (is_null($ssl)) { // null -> guess
-            if (common_config('site', 'ssl') == 'always' &&
-                !common_config($group, 'server')) {
-                $ssl = true;
-            } else {
-                $ssl = false;
-            }
-        }
-
-        $protocol = ($ssl) ? 'https' : 'http';
-
-        $path = $protocol . '://'.$server.$path.$name;
-        return $path;
+        return $protocol.'://'.$server.$path.$name;
     }
 
     /**
@@ -221,7 +237,7 @@ class Theme
     /**
      * Pull data from the theme's theme.ini file.
      * @fixme calling getFile will fall back to default theme, this may be unsafe.
-     * 
+     *
      * @return associative array of strings
      */
     function getMetadata()

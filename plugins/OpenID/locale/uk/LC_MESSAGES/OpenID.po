@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OpenID\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:08:03+0000\n"
+"POT-Creation-Date: 2010-10-23 18:02+0000\n"
+"PO-Revision-Date: 2010-10-23 18:05:38+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-03 20:57:03+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-20 17:54:48+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r75280); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-openid\n"
@@ -49,7 +49,7 @@ msgstr ""
 "натисніть «Додати»."
 
 #. TRANS: OpenID plugin logon form field label.
-#: openidsettings.php:108 openidlogin.php:161
+#: openidsettings.php:108 OpenIDPlugin.php:681 openidlogin.php:161
 msgid "OpenID URL"
 msgstr "URL-адреса OpenID"
 
@@ -127,7 +127,7 @@ msgstr "Даний OpenID належить не вам."
 msgid "OpenID removed."
 msgstr "OpenID видалено."
 
-#: openidadminpanel.php:54 OpenIDPlugin.php:628
+#: openidadminpanel.php:54
 msgid "OpenID"
 msgstr "OpenID"
 
@@ -199,11 +199,11 @@ msgstr "Увімкнути режим входу лише за OpenID"
 
 #: openidadminpanel.php:260
 msgid ""
-"Require all users to login via OpenID. WARNING: disables password "
+"Require all users to login via OpenID. Warning: disables password "
 "authentication for all users!"
 msgstr ""
-"Вимагає, щоб всі користувачі входили лише за наявності OpenID. УВАГА: ця "
-"опція вимикає автентифікацію за паролем для всіх користувачів."
+"Вимагає, щоб всі користувачі входили лише за допомогою OpenID. Увага: ця "
+"опція вимикає автентифікацію за паролем для всіх користувачів!"
 
 #: openidadminpanel.php:278
 msgid "Save OpenID settings"
@@ -277,67 +277,101 @@ msgstr ""
 "OpenID-провайдера, просто натисніть кнопку внизу."
 
 #. TRANS: Tooltip for main menu option "Login"
-#: OpenIDPlugin.php:226
+#: OpenIDPlugin.php:218
 msgctxt "TOOLTIP"
 msgid "Login to the site"
 msgstr "Вхід на сайт"
 
 #. TRANS: Main menu option when not logged in to log in
-#: OpenIDPlugin.php:229
+#: OpenIDPlugin.php:221
 msgctxt "MENU"
 msgid "Login"
 msgstr "Увійти"
 
 #. TRANS: Tooltip for main menu option "Help"
-#: OpenIDPlugin.php:234
+#: OpenIDPlugin.php:226
 msgctxt "TOOLTIP"
 msgid "Help me!"
 msgstr "Допоможіть!"
 
 #. TRANS: Main menu option for help on the StatusNet site
-#: OpenIDPlugin.php:237
+#: OpenIDPlugin.php:229
 msgctxt "MENU"
 msgid "Help"
 msgstr "Довідка"
 
 #. TRANS: Tooltip for main menu option "Search"
-#: OpenIDPlugin.php:243
+#: OpenIDPlugin.php:235
 msgctxt "TOOLTIP"
 msgid "Search for people or text"
 msgstr "Пошук людей або текстів"
 
 #. TRANS: Main menu option when logged in or when the StatusNet instance is not private
-#: OpenIDPlugin.php:246
+#: OpenIDPlugin.php:238
 msgctxt "MENU"
 msgid "Search"
 msgstr "Пошук"
 
 #. TRANS: OpenID plugin menu item on site logon page.
 #. TRANS: OpenID plugin menu item on user settings page.
-#: OpenIDPlugin.php:306 OpenIDPlugin.php:344
+#. TRANS: OpenID configuration menu item.
+#: OpenIDPlugin.php:295 OpenIDPlugin.php:331 OpenIDPlugin.php:605
 msgctxt "MENU"
 msgid "OpenID"
 msgstr "OpenID"
 
 #. TRANS: OpenID plugin tooltip for logon menu item.
-#: OpenIDPlugin.php:308
+#: OpenIDPlugin.php:297
 msgid "Login or register with OpenID"
 msgstr "Увійти або зареєструватися за допомогою OpenID"
 
 #. TRANS: OpenID plugin tooltip for user settings menu item.
-#: OpenIDPlugin.php:346
+#: OpenIDPlugin.php:333
 msgid "Add or remove OpenIDs"
 msgstr "Додати або видалити OpenID"
 
-#: OpenIDPlugin.php:629
+#. TRANS: Tooltip for OpenID configuration menu item.
+#: OpenIDPlugin.php:607
 msgid "OpenID configuration"
 msgstr "Конфігурація OpenID"
 
 #. TRANS: OpenID plugin description.
-#: OpenIDPlugin.php:654
+#: OpenIDPlugin.php:631
 msgid "Use <a href=\"http://openid.net/\">OpenID</a> to login to the site."
 msgstr ""
 "Використання <a href=\"http://openid.net/\">OpenID</a> для входу на сайт."
+
+#. TRANS: button label for OAuth authorization page when needing OpenID authentication first.
+#: OpenIDPlugin.php:641
+#, fuzzy
+msgctxt "BUTTON"
+msgid "Continue"
+msgstr "Продовжити"
+
+#. TRANS: OpenID plugin logon form legend.
+#: OpenIDPlugin.php:658 openidlogin.php:140
+msgid "OpenID login"
+msgstr "Вхід з OpenID"
+
+#. TRANS: Field label.
+#: OpenIDPlugin.php:666 openidlogin.php:148
+msgid "OpenID provider"
+msgstr "OpenID-провайдер"
+
+#. TRANS: Form guide.
+#: OpenIDPlugin.php:675 openidlogin.php:156
+msgid "Enter your username."
+msgstr "Введіть ім’я користувача."
+
+#. TRANS: Form guide.
+#: OpenIDPlugin.php:677 openidlogin.php:157
+msgid "You will be sent to the provider's site for authentication."
+msgstr "Вас буде перенаправлено на веб-сторінку провайдера для автентифікації."
+
+#. TRANS: OpenID plugin logon form field instructions.
+#: OpenIDPlugin.php:684 openidlogin.php:164
+msgid "Your OpenID URL"
+msgstr "URL вашого OpenID"
 
 #. TRANS: OpenID plugin client error given trying to add an unauthorised OpenID to a user (403).
 #: openidserver.php:116
@@ -528,28 +562,6 @@ msgstr "Увійти з [OpenID](%%doc.openid%%)."
 #: openidlogin.php:122 finishaddopenid.php:187
 msgid "OpenID Login"
 msgstr "Вхід з OpenID"
-
-#. TRANS: OpenID plugin logon form legend.
-#: openidlogin.php:140
-msgid "OpenID login"
-msgstr "Вхід з OpenID"
-
-#: openidlogin.php:148
-msgid "OpenID provider"
-msgstr "OpenID-провайдер"
-
-#: openidlogin.php:156
-msgid "Enter your username."
-msgstr "Введіть ім’я користувача."
-
-#: openidlogin.php:157
-msgid "You will be sent to the provider's site for authentication."
-msgstr "Вас буде перенаправлено на веб-сторінку провайдера для автентифікації."
-
-#. TRANS: OpenID plugin logon form field instructions.
-#: openidlogin.php:164
-msgid "Your OpenID URL"
-msgstr "URL вашого OpenID"
 
 #. TRANS: OpenID plugin logon form checkbox label for setting to put the OpenID information in a cookie.
 #: openidlogin.php:169

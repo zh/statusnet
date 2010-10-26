@@ -145,7 +145,6 @@ function common_switch_locale($language=null)
     textdomain("statusnet");
 }
 
-
 function common_timezone()
 {
     if (common_logged_in()) {
@@ -860,7 +859,8 @@ function common_linkify($url) {
             $longurl = $url;
         }
     }
-    $attrs = array('href' => $canon, 'title' => $longurl, 'rel' => 'external');
+
+    $attrs = array('href' => $canon, 'title' => $longurl);
 
     $is_attachment = false;
     $attachment_id = null;
@@ -894,6 +894,16 @@ function common_linkify($url) {
             $attrs['class'] = 'attachment thumbnail';
         }
         $attrs['id'] = "attachment-{$attachment_id}";
+    }
+
+    // Whether to nofollow
+
+    $nf = common_config('nofollow', 'external');
+
+    if ($nf == 'never') {
+        $attrs['rel'] = 'external';
+    } else {
+        $attrs['rel'] = 'nofollow external';
     }
 
     return XMLStringer::estring('a', $attrs, $url);
@@ -964,8 +974,9 @@ function common_tag_link($tag)
     $canonical = common_canonical_tag($tag);
     if (common_config('singleuser', 'enabled')) {
         // regular TagAction isn't set up in 1user mode
+        $user = User::singleUser();
         $url = common_local_url('showstream',
-                                array('nickname' => common_config('singleuser', 'nickname'),
+                                array('nickname' => $user->nickname,
                                       'tag' => $canonical));
     } else {
         $url = common_local_url('tag', array('tag' => $canonical));
@@ -1069,7 +1080,17 @@ function common_local_url($action, $args=null, $params=null, $fragment=null, $ad
 
 function common_is_sensitive($action)
 {
-    static $sensitive = array('login', 'register', 'passwordsettings', 'api');
+    static $sensitive = array(
+        'login',
+        'register',
+        'passwordsettings',
+        'api',
+        'ApiOauthRequestToken',
+        'ApiOauthAccessToken',
+        'ApiOauthAuthorize',
+        'ApiOauthPin',
+        'showapplication'
+    );
     $ssl = null;
 
     if (Event::handle('SensitiveAction', array($action, &$ssl))) {

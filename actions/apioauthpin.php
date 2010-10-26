@@ -31,8 +31,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
-require_once INSTALLDIR . '/lib/info.php';
-
 /**
  * Class for displaying an OAuth verifier pin
  *
@@ -47,11 +45,119 @@ require_once INSTALLDIR . '/lib/info.php';
 
 class ApiOauthPinAction extends InfoAction
 {
-    function __construct($title, $message, $verifier)
+    function __construct($title, $message, $verifier, $desktopMode = false)
     {
-        $this->verifier = $verifier;
-        $this->title    = $title;
+        $this->verifier    = $verifier;
+        $this->title       = $title;
+        $this->desktopMode = $desktopMode;
         parent::__construct($title, $message);
+    }
+
+    /**
+     * Show body - override to add a special CSS class for the pin pages's
+     * "desktop mode" (minimal display)
+     *
+     * Calls template methods
+     *
+     * @return nothing
+     */
+    function showBody()
+    {
+        $bodyClasses = array();
+
+        if ($this->desktopMode) {
+            $bodyClasses[] = 'oauth-desktop-mode';
+        }
+
+        if (common_current_user()) {
+            $bodyClasses[] = 'user_in';
+        }
+
+        $attrs = array('id' => strtolower($this->trimmed('action')));
+
+        if (!empty($bodyClasses)) {
+            $attrs['class'] = implode(' ', $bodyClasses);
+        }
+
+        $this->elementStart('body', $attrs);
+
+        $this->elementStart('div', array('id' => 'wrap'));
+        if (Event::handle('StartShowHeader', array($this))) {
+            $this->showHeader();
+            Event::handle('EndShowHeader', array($this));
+        }
+        $this->showCore();
+        if (Event::handle('StartShowFooter', array($this))) {
+            $this->showFooter();
+            Event::handle('EndShowFooter', array($this));
+        }
+        $this->elementEnd('div');
+        $this->showScripts();
+        $this->elementEnd('body');
+    }
+
+    /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+    function showLocalNav()
+    {
+        // NOP
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showHeader()
+    {
+        if ($this->desktopMode == false) {
+            parent::showHeader();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showAside()
+    {
+        if ($this->desktopMode == false) {
+            parent::showAside();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showFooter()
+    {
+        if ($this->desktopMode == false) {
+            parent::showFooter();
+        }
+    }
+
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
+    function showSiteNotice()
+    {
+        // NOP
+    }
+
+    /**
+     * Show notice form.
+     *
+     * Show the form for posting a new notice
+     *
+     * @return nothing
+     */
+    function showNoticeForm()
+    {
+        // NOP
     }
 
     /**

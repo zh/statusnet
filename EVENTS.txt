@@ -1136,3 +1136,25 @@ StartShowFeedLink: before showing an individual feed item
 EndShowFeedLink: after showing an individual feed
 - $action: action being executed
 - $feed: feed to show
+
+StartShowNoticeForm: before showing the notice form (before <form>)
+- $action: action being executed
+
+EndShowNoticeForm: after showing the notice form (after <form>)
+- $action: action being executed
+
+StartGrantRole: when a role is being assigned
+- $profile: profile that will have the role
+- $role: string name of the role
+
+EndGrantRole: when a role has been successfully assigned
+- $profile: profile that will have the role
+- $role: string name of the role
+
+StartRevokeRole: when a role is being revoked
+- $profile: profile that will lose the role
+- $role: string name of the role
+
+EndRevokeRole: when a role has been revoked
+- $profile: profile that lost the role
+- $role: string name of the role

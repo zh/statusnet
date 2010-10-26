@@ -34,7 +34,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
 require_once 'Net/URL/Mapper.php';
 
 class StatusNet_URL_Mapper extends Net_URL_Mapper {
-
     private static $_singleton = null;
 
     private function __construct()
@@ -71,7 +70,6 @@ class StatusNet_URL_Mapper extends Net_URL_Mapper {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class Router
 {
     var $m = null;
@@ -553,9 +551,17 @@ class Router
                               'format' => '(xml|json)'));
             // blocks
 
+            $m->connect('api/blocks/create.:format',
+                        array('action' => 'ApiBlockCreate',
+                              'format' => '(xml|json)'));
+
             $m->connect('api/blocks/create/:id.:format',
                         array('action' => 'ApiBlockCreate',
                               'id' => '[a-zA-Z0-9]+',
+                              'format' => '(xml|json)'));
+
+            $m->connect('api/blocks/destroy.:format',
+                        array('action' => 'ApiBlockDestroy',
                               'format' => '(xml|json)'));
 
             $m->connect('api/blocks/destroy/:id.:format',
@@ -692,7 +698,6 @@ class Router
             $m->connect('admin/snapshot', array('action' => 'snapshotadminpanel'));
             $m->connect('admin/license', array('action' => 'licenseadminpanel'));
 
-
             $m->connect('getfile/:filename',
                         array('action' => 'getfile'),
                         array('filename' => '[A-Za-z0-9._-]+'));
@@ -701,16 +706,8 @@ class Router
 
             if (common_config('singleuser', 'enabled')) {
 
-                $user = User::siteOwner();
-
-                if (!empty($user)) {
-                    $nickname = $user->nickname;
-                } else {
-                    $nickname = common_config('singleuser', 'nickname');
-                    if (empty($nickname)) {
-                        throw new ServerException(_("No single user defined for single-user mode."));
-                    }
-                }
+                $user = User::singleUser();
+                $nickname = $user->nickname;
 
                 foreach (array('subscriptions', 'subscribers',
                                'all', 'foaf', 'xrds',
@@ -765,9 +762,7 @@ class Router
                 $m->connect('',
                             array('action' => 'showstream',
                                   'nickname' => $nickname));
-
             } else {
-
                 $m->connect('', array('action' => 'public'));
                 $m->connect('rss', array('action' => 'publicrss'));
                 $m->connect('featuredrss', array('action' => 'featuredrss'));
@@ -848,7 +843,8 @@ class Router
         } catch (Net_URL_Mapper_InvalidException $e) {
             common_log(LOG_ERR, "Problem getting route for $path - " .
                        $e->getMessage());
-            $cac = new ClientErrorAction("Page not found.", 404);
+            // TRANS: Client error on action trying to visit a non-existing page.
+            $cac = new ClientErrorAction(_('Page not found.'), 404);
             $cac->showPage();
         }
 
@@ -875,7 +871,16 @@ class Router
         if ($qpos !== false) {
             $url = substr($url, 0, $qpos+1) .
               str_replace('?', '&', substr($url, $qpos+1));
+
+            // @fixme this is a hacky workaround for http_build_query in the
+            // lower-level code and bad configs that set the default separator
+            // to &amp; instead of &. Encoded &s in parameters will not be
+            // affected.
+            $url = substr($url, 0, $qpos+1) .
+              str_replace('&amp;', '&', substr($url, $qpos+1));
+
         }
+
         return $url;
     }
 }

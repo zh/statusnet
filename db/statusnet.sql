@@ -237,6 +237,15 @@ create table oauth_application_user (
     constraint primary key (profile_id, application_id)
 ) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
 
+create table oauth_token_association (
+    profile_id integer not null comment 'user of the application' references profile (id),
+    application_id integer not null comment 'id of the application' references oauth_application (id),
+    token varchar(255) comment 'request or access token',
+    created datetime not null comment 'date this record was created',
+    modified timestamp comment 'date this record was modified',
+    constraint primary key (profile_id, application_id, token)
+) ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin;
+
 /* These are used by JanRain OpenID library */
 
 create table oid_associations (

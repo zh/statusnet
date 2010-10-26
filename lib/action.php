@@ -175,8 +175,9 @@ class Action extends HTMLOutputter // lawsuit
             $this->element('link', array('rel' => 'shortcut icon',
                                          'href' => Theme::path('favicon.ico')));
         } else {
+            // favicon.ico should be HTTPS if the rest of the page is
             $this->element('link', array('rel' => 'shortcut icon',
-                                         'href' => common_path('favicon.ico')));
+                                         'href' => common_path('favicon.ico', StatusNet::isHTTPS())));
         }
 
         if (common_config('site', 'mobile')) {
@@ -361,9 +362,9 @@ class Action extends HTMLOutputter // lawsuit
      */
     function showBody()
     {
-        $this->elementStart('body', (common_current_user()) ? array('id' => $this->trimmed('action'),
+        $this->elementStart('body', (common_current_user()) ? array('id' => strtolower($this->trimmed('action')),
                                                                     'class' => 'user_in')
-                            : array('id' => $this->trimmed('action')));
+                            : array('id' => strtolower($this->trimmed('action'))));
         $this->elementStart('div', array('id' => 'wrap'));
         if (Event::handle('StartShowHeader', array($this))) {
             $this->showHeader();
@@ -397,7 +398,10 @@ class Action extends HTMLOutputter // lawsuit
             Event::handle('EndShowSiteNotice', array($this));
         }
         if (common_logged_in()) {
-            $this->showNoticeForm();
+            if (Event::handle('StartShowNoticeForm', array($this))) {
+                $this->showNoticeForm();
+                Event::handle('EndShowNoticeForm', array($this));
+            }
         } else {
             $this->showAnonymousMessage();
         }
@@ -415,18 +419,43 @@ class Action extends HTMLOutputter // lawsuit
                                              'class' => 'vcard'));
         if (Event::handle('StartAddressData', array($this))) {
             if (common_config('singleuser', 'enabled')) {
+                $user = User::singleUser();
                 $url = common_local_url('showstream',
-                                        array('nickname' => common_config('singleuser', 'nickname')));
+                                        array('nickname' => $user->nickname));
             } else {
                 $url = common_local_url('public');
             }
             $this->elementStart('a', array('class' => 'url home bookmark',
                                            'href' => $url));
-            if (common_config('site', 'logo') || file_exists(Theme::file('logo.png'))) {
+
+            if (StatusNet::isHTTPS()) {
+                $logoUrl = common_config('site', 'ssllogo');
+                if (empty($logoUrl)) {
+                    // if logo is an uploaded file, try to fall back to HTTPS file URL
+                    $httpUrl = common_config('site', 'logo');
+                    if (!empty($httpUrl)) {
+                        $f = File::staticGet('url', $httpUrl);
+                        if (!empty($f) && !empty($f->filename)) {
+                            // this will handle the HTTPS case
+                            $logoUrl = File::url($f->filename);
+                        }
+                    }
+                }
+            } else {
+                $logoUrl = common_config('site', 'logo');
+            }
+
+            if (empty($logoUrl) && file_exists(Theme::file('logo.png'))) {
+                // This should handle the HTTPS case internally
+                $logoUrl = Theme::path('logo.png');
+            }
+
+            if (!empty($logoUrl)) {
                 $this->element('img', array('class' => 'logo photo',
-                                            'src' => (common_config('site', 'logo')) ? common_config('site', 'logo') : Theme::path('logo.png'),
+                                            'src' => $logoUrl,
                                             'alt' => common_config('site', 'name')));
             }
+
             $this->text(' ');
             $this->element('span', array('class' => 'fn org'), common_config('site', 'name'));
             $this->elementEnd('a');
@@ -498,20 +527,20 @@ class Action extends HTMLOutputter // lawsuit
                 }
                 // TRANS: Tooltip for main menu option "Login"
                 $tooltip = _m('TOOLTIP', 'Login to the site');
-                // TRANS: Main menu option when not logged in to log in
                 $this->menuItem(common_local_url('login'),
+                                // TRANS: Main menu option when not logged in to log in
                                 _m('MENU', 'Login'), $tooltip, false, 'nav_login');
             }
             // TRANS: Tooltip for main menu option "Help"
             $tooltip = _m('TOOLTIP', 'Help me!');
-            // TRANS: Main menu option for help on the StatusNet site
             $this->menuItem(common_local_url('doc', array('title' => 'help')),
+                            // TRANS: Main menu option for help on the StatusNet site
                             _m('MENU', 'Help'), $tooltip, false, 'nav_help');
             if ($user || !common_config('site', 'private')) {
                 // TRANS: Tooltip for main menu option "Search"
                 $tooltip = _m('TOOLTIP', 'Search for people or text');
-                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                 $this->menuItem(common_local_url('peoplesearch'),
+                                // TRANS: Main menu option when logged in or when the StatusNet instance is not private
                                 _m('MENU', 'Search'), $tooltip, false, 'nav_search');
             }
             Event::handle('EndPrimaryNav', array($this));
@@ -891,8 +920,26 @@ class Action extends HTMLOutputter // lawsuit
             case 'cc': // fall through
             default:
                 $this->elementStart('p');
+
+                $image    = common_config('license', 'image');
+                $sslimage = common_config('license', 'sslimage');
+
+                if (StatusNet::isHTTPS()) {
+                    if (!empty($sslimage)) {
+                        $url = $sslimage;
+                    } else if (preg_match('#^http://i.creativecommons.org/#', $image)) {
+                        // CC support HTTPS on their images
+                        $url = preg_replace('/^http/', 'https', $image);
+                    } else {
+                        // Better to show mixed content than no content
+                        $url = $image;
+                    }
+                } else {
+                    $url = $image;
+                }
+
                 $this->element('img', array('id' => 'license_cc',
-                                            'src' => common_config('license', 'image'),
+                                            'src' => $url,
                                             'alt' => common_config('license', 'title'),
                                             'width' => '80',
                                             'height' => '15'));

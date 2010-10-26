@@ -74,6 +74,7 @@ class ApiDirectMessageAction extends ApiAuthAction
         $this->user = $this->auth_user;
 
         if (empty($this->user)) {
+            // TRANS: Client error given when a user was not found (404).
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -86,10 +87,12 @@ class ApiDirectMessageAction extends ApiAuthAction
             // Action was called by /api/direct_messages/sent.format
 
             $this->title = sprintf(
+                // TRANS: %s is a user nickname.
                 _("Direct messages from %s"),
                 $this->user->nickname
             );
             $this->subtitle = sprintf(
+                // TRANS: %s is a user nickname.
                 _("All the direct messages sent from %s"),
                 $this->user->nickname
             );
@@ -98,10 +101,12 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->id = "tag:$taguribase:SentDirectMessages:" . $this->user->id;
         } else {
             $this->title = sprintf(
+                // TRANS: %s is a user nickname.
                 _("Direct messages to %s"),
                 $this->user->nickname
             );
             $this->subtitle = sprintf(
+                // TRANS: %s is a user nickname.
                 _("All the direct messages sent to %s"),
                 $this->user->nickname
             );
@@ -153,6 +158,7 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->showJsonDirectMessages();
             break;
         default:
+            // TRANS: Client error given when an API method was not found (404).
             $this->clientError(_('API method not found.'), $code = 404);
             break;
         }

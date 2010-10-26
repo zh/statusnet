@@ -81,6 +81,9 @@ class DirectionDetectorPlugin extends Plugin {
      * @return boolean
      */
     public static function startsWithRTLCharacter($str){
+        if (strlen($str) < 1) {
+            return false;
+        }
         if( is_array($cc = self::utf8ToUnicode(mb_substr($str, 0, 1, 'utf-8'))) )
             $cc = $cc[0];
         else

@@ -89,7 +89,7 @@ class AllAction extends ProfileAction
             // TRANS: Page title. %1$s is user nickname, %2$d is page number
             return sprintf(_('%1$s and friends, page %2$d'), $this->user->nickname, $this->page);
         } else {
-            // TRANS: Page title. %1$s is user nickname
+            // TRANS: Page title. %s is user nickname
             return sprintf(_("%s and friends"), $this->user->nickname);
         }
     }
@@ -103,7 +103,7 @@ class AllAction extends ProfileAction
                         'nickname' =>
                         $this->user->nickname)
                 ),
-            // TRANS: %1$s is user nickname
+            // TRANS: %s is user nickname
                 sprintf(_('Feed for friends of %s (RSS 1.0)'), $this->user->nickname)),
             new Feed(Feed::RSS2,
                 common_local_url(
@@ -112,7 +112,7 @@ class AllAction extends ProfileAction
                         'id' => $this->user->nickname
                     )
                 ),
-            // TRANS: %1$s is user nickname
+            // TRANS: %s is user nickname
                 sprintf(_('Feed for friends of %s (RSS 2.0)'), $this->user->nickname)),
             new Feed(Feed::ATOM,
                 common_local_url(
@@ -121,7 +121,7 @@ class AllAction extends ProfileAction
                         'id' => $this->user->nickname
                     )
                 ),
-                // TRANS: %1$s is user nickname
+                // TRANS: %s is user nickname
                 sprintf(_('Feed for friends of %s (Atom)'), $this->user->nickname))
         );
     }
@@ -134,18 +134,23 @@ class AllAction extends ProfileAction
 
     function showEmptyListMessage()
     {
-        // TRANS: %1$s is user nickname
+        // TRANS: %s is user nickname
         $message = sprintf(_('This is the timeline for %s and friends but no one has posted anything yet.'), $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
+                // TRANS: Encouragement displayed on logged in user's empty timeline.
+                // TRANS: This message contains Markdown links. Keep "](" together.
                 $message .= _('Try subscribing to more people, [join a group](%%action.groups%%) or post something yourself.');
             } else {
                 // TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+                // TRANS: This message contains Markdown links. Keep "](" together.
                 $message .= sprintf(_('You can try to [nudge %1$s](../%2$s) from their profile or [post something to them](%%%%action.newnotice%%%%?status_textarea=%3$s).'), $this->user->nickname, $this->user->nickname, '@' . $this->user->nickname);
             }
         } else {
+            // TRANS: Encoutagement displayed on empty timeline user pages for anonymous users.
+            // TRANS: %s is a user nickname. This message contains Markdown links. Keep "](" together.
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to them.'), $this->user->nickname);
         }
 
@@ -181,7 +186,7 @@ class AllAction extends ProfileAction
             // TRANS: H1 text
             $this->element('h1', null, _("You and friends"));
         } else {
-            // TRANS: H1 text. %1$s is user nickname
+            // TRANS: H1 text. %s is a user nickname
             $this->element('h1', null, sprintf(_('%s and friends'), $this->user->nickname));
         }
     }

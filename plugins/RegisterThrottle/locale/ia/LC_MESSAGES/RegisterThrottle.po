@@ -9,30 +9,34 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - RegisterThrottle\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-03 19:53+0000\n"
-"PO-Revision-Date: 2010-10-03 19:57:19+0000\n"
+"POT-Creation-Date: 2010-10-23 18:02+0000\n"
+"PO-Revision-Date: 2010-10-23 18:05:52+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-01 20:39:03+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74231); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-18 20:30:56+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r75280); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-plugin-registerthrottle\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: RegisterThrottlePlugin.php:121 RegisterThrottlePlugin.php:160
+#: RegisterThrottlePlugin.php:134 RegisterThrottlePlugin.php:185
 msgid "Cannot find IP address."
 msgstr "Non pote trovar adresse IP."
 
-#: RegisterThrottlePlugin.php:136
+#: RegisterThrottlePlugin.php:149
 msgid "Too many registrations. Take a break and try again later."
 msgstr "Troppo de registrationes. Face un pausa e reproba plus tarde."
 
-#: RegisterThrottlePlugin.php:166
+#: RegisterThrottlePlugin.php:161
+msgid "A banned user has registered from this address."
+msgstr ""
+
+#: RegisterThrottlePlugin.php:191
 msgid "Cannot find user after successful registration."
 msgstr "Non pote trovar usator post registration succedite."
 
-#: RegisterThrottlePlugin.php:199
+#: RegisterThrottlePlugin.php:224
 msgid "Throttles excessive registration from a single IP address."
 msgstr "Inhibi le creation de contos excessive ab un sol adresse IP."

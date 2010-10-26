@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - OStatus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-09 14:04+0000\n"
-"PO-Revision-Date: 2010-10-09 14:08:12+0000\n"
+"POT-Creation-Date: 2010-10-23 18:02+0000\n"
+"PO-Revision-Date: 2010-10-23 18:05:48+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-POT-Import-Date: 2010-10-04 23:10:34+0000\n"
-"X-Generator: MediaWiki 1.17alpha (r74529); Translate extension (2010-09-17)\n"
+"X-POT-Import-Date: 2010-10-18 20:30:46+0000\n"
+"X-Generator: MediaWiki 1.17alpha (r75280); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-plugin-ostatus\n"
@@ -184,7 +184,7 @@ msgstr "Допис %s не має змісту."
 #. TRANS: Shown when a notice is longer than supported and/or when attachments are present.
 #: classes/Ostatus_profile.php:592
 msgid "Show more"
-msgstr "Дивитись далі"
+msgstr "Розгорнути"
 
 #. TRANS: Exception. %s is a profile URL.
 #: classes/Ostatus_profile.php:785
@@ -213,55 +213,55 @@ msgstr "Невірна URL-адреса аватари %s."
 msgid "Tried to update avatar for unsaved remote profile %s."
 msgstr "Намагаюся оновити аватару для не збереженого віддаленого профілю %s."
 
-#: classes/Ostatus_profile.php:1057
+#: classes/Ostatus_profile.php:1058
 #, php-format
 msgid "Unable to fetch avatar from %s."
 msgstr "Неможливо завантажити аватару з %s."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1279
+#: classes/Ostatus_profile.php:1284
 msgid "Local user can't be referenced as remote."
 msgstr "Місцевий користувач не може бути зазначеним у якості віддаленого."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1284
+#: classes/Ostatus_profile.php:1289
 msgid "Local group can't be referenced as remote."
 msgstr "Локальну спільноту не можна зазначити у якості віддаленої."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1336 classes/Ostatus_profile.php:1347
+#: classes/Ostatus_profile.php:1341 classes/Ostatus_profile.php:1352
 msgid "Can't save local profile."
 msgstr "Не вдається зберегти місцевий профіль."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1355
+#: classes/Ostatus_profile.php:1360
 msgid "Can't save OStatus profile."
 msgstr "Не вдається зберегти профіль OStatus."
 
 #. TRANS: Exception.
-#: classes/Ostatus_profile.php:1614 classes/Ostatus_profile.php:1642
+#: classes/Ostatus_profile.php:1619 classes/Ostatus_profile.php:1647
 msgid "Not a valid webfinger address."
 msgstr "Це недійсна адреса для протоколу WebFinger."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1724
+#: classes/Ostatus_profile.php:1729
 #, php-format
 msgid "Couldn't save profile for \"%s\"."
 msgstr "Не можу зберегти профіль для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1743
+#: classes/Ostatus_profile.php:1748
 #, php-format
 msgid "Couldn't save ostatus_profile for \"%s\"."
 msgstr "Не можу зберегти профіль OStatus для «%s»."
 
 #. TRANS: Exception. %s is a webfinger address.
-#: classes/Ostatus_profile.php:1751
+#: classes/Ostatus_profile.php:1756
 #, php-format
 msgid "Couldn't find a valid profile for \"%s\"."
 msgstr "не можу знайти відповідний й профіль для «%s»."
 
-#: classes/Ostatus_profile.php:1793
+#: classes/Ostatus_profile.php:1798
 msgid "Could not store HTML content of long post as file."
 msgstr "Не можу зберегти HTML місткого допису у якості файлу."
 
@@ -437,7 +437,7 @@ msgstr "hub.topic «%s» невірний. Спільноти не існує."
 msgid "Invalid URL passed for %1$s: \"%2$s\""
 msgstr "Для %1$s передано невірний URL: «%2$s»"
 
-#: actions/userxrd.php:51 actions/ownerxrd.php:39 actions/usersalmon.php:43
+#: actions/userxrd.php:59 actions/ownerxrd.php:39 actions/usersalmon.php:43
 msgid "No such user."
 msgstr "Такого користувача немає."
 

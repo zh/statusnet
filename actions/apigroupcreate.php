@@ -49,7 +49,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiGroupCreateAction extends ApiAuthAction
 {
     var $group       = null;
@@ -95,7 +94,6 @@ class ApiGroupCreateAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -111,6 +109,7 @@ class ApiGroupCreateAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
+            // TRANS: Client error given when a user was not found (404).
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -137,13 +136,13 @@ class ApiGroupCreateAction extends ApiAuthAction
             break;
         default:
             $this->clientError(
+                // TRANS: Client error given when an API method was not found (404).
                 _('API method not found.'),
                 404,
                 $this->format
             );
             break;
         }
-
     }
 
     /**
@@ -164,6 +163,7 @@ class ApiGroupCreateAction extends ApiAuthAction
 
         if (!$valid) {
             $this->clientError(
+                // TRANS: Validation error in form for group creation.
                 _(
                     'Nickname must have only lowercase letters ' .
                     'and numbers and no spaces.'
@@ -174,6 +174,7 @@ class ApiGroupCreateAction extends ApiAuthAction
             return false;
         } elseif ($this->groupNicknameExists($this->nickname)) {
             $this->clientError(
+                // TRANS: Client error trying to create a group with a nickname this is already in use.
                 _('Nickname already in use. Try another one.'),
                 403,
                 $this->format
@@ -181,6 +182,7 @@ class ApiGroupCreateAction extends ApiAuthAction
             return false;
         } else if (!User_group::allowedNickname($this->nickname)) {
             $this->clientError(
+                // TRANS: Client error in form for group creation.
                 _('Not a valid nickname.'),
                 403,
                 $this->format
@@ -197,6 +199,7 @@ class ApiGroupCreateAction extends ApiAuthAction
                 )
             )) {
             $this->clientError(
+                // TRANS: Client error in form for group creation.
                 _('Homepage is not a valid URL.'),
                 403,
                 $this->format
@@ -206,7 +209,8 @@ class ApiGroupCreateAction extends ApiAuthAction
             !is_null($this->fullname)
             && mb_strlen($this->fullname) > 255) {
                 $this->clientError(
-                    _('Full name is too long (max 255 chars).'),
+                    // TRANS: Client error in form for group creation.
+                    _('Full name is too long (maximum 255 characters).'),
                     403,
                     $this->format
                 );
@@ -225,7 +229,7 @@ class ApiGroupCreateAction extends ApiAuthAction
             !is_null($this->location)
             && mb_strlen($this->location) > 255) {
                 $this->clientError(
-                    _('Location is too long (max 255 chars).'),
+                    _('Location is too long (maximum 255 characters).'),
                     403,
                     $this->format
                 );
