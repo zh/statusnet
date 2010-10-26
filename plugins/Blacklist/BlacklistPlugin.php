@@ -504,4 +504,38 @@ class BlacklistPlugin extends Plugin
 
         return true;
     }
+
+    /**
+     * Check URLs and homepages for blacklisted users.
+     */
+
+    function onStartSubscribe($subscriber, $other)
+    {
+        foreach (array($other->profileurl, $other->homepage) as $url) {
+
+            if (empty($url)) {
+                continue;
+            }
+
+            $url = strtolower($url);
+
+            if (!$this->_checkUrl($url)) {
+                $msg = sprintf(_m("Users from '%s' blocked."),
+                               $url);
+                throw new ClientException($msg);
+            }
+        }
+
+        $nickname = $other->nickname;
+
+        if (!empty($nickname)) {
+            if (!$this->_checkNickname($nickname)) {
+                $msg = sprintf(_m("Can't subscribe to nickname '%s'."),
+                               $nickname);
+                throw new ClientException($msg);
+            }
+        }
+
+        return true;
+    }
 }
