@@ -72,7 +72,9 @@ class FollowEveryonePlugin extends Plugin
             while ($otherUser->fetch()) {
                 $otherProfile = $otherUser->getProfile();
                 try {
-                    Subscription::start($otherProfile, $newProfile);
+                    if (User_followeveryone_prefs::followEveryone($otherUser->id)) {
+                        Subscription::start($otherProfile, $newProfile);
+                    }
                     Subscription::start($newProfile, $otherProfile);
                 } catch (Exception $e) {
                     common_log(LOG_WARNING, $e->getMessage());
@@ -81,7 +83,71 @@ class FollowEveryonePlugin extends Plugin
             }
         }
 
+        $ufep = new User_followeveryone_prefs();
+
+        $ufep->user_id        = $newUser->id;
+        $ufep->followeveryone = true;
+
+        $ufep->insert();
+
         return true;
+    }
+
+    /**
+     * Database schema setup
+     *
+     * Plugins can add their own tables to the StatusNet database. Plugins
+     * should use StatusNet's schema interface to add or delete tables. The
+     * ensureTable() method provides an easy way to ensure a table's structure
+     * and availability.
+     *
+     * By default, the schema is checked every time StatusNet is run (say, when
+     * a Web page is hit). Admins can configure their systems to only check the
+     * schema when the checkschema.php script is run, greatly improving performance.
+     * However, they need to remember to run that script after installing or
+     * upgrading a plugin!
+     *
+     * @see Schema
+     * @see ColumnDef
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing user-submitted flags on profiles
+
+        $schema->ensureTable('user_followeveryone_prefs',
+                             array(new ColumnDef('user_id', 'integer', null,
+                                                 true, 'PRI'),
+                                   new ColumnDef('followeveryone', 'tinyint', null,
+                                                 false, null, 1)));
+
+        return true;
+    }
+
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     */
+
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+        case 'User_followeveryone_prefs':
+            include_once $dir . '/'.$cls.'.php';
+            return false;
+        default:
+            return true;
+        }
     }
 
     /**
