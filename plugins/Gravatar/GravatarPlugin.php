@@ -183,7 +183,7 @@ class GravatarPlugin extends Plugin
 
     function gravatar_url($email, $size)
     {
-        $url = "http://www.gravatar.com/avatar.php?gravatar_id=".
+        $url = "https://secure.gravatar.com/avatar.php?gravatar_id=".
                 md5(strtolower($email)).
                 "&default=".urlencode(Avatar::defaultImage($size)).
                 "&size=".$size;
