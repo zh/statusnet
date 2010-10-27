@@ -51,15 +51,6 @@ class RecaptchaPlugin extends Plugin
         }
     }
 
-    function checkssl()
-    {
-        if(common_config('site', 'ssl') === 'sometimes' || common_config('site', 'ssl') === 'always') {
-            return true;
-        }
-        return false;
-    }
-
-
     function onEndRegistrationFormData($action)
     {
         $action->elementStart('li');
@@ -79,7 +70,7 @@ class RecaptchaPlugin extends Plugin
     {
         if (isset($action->recaptchaPluginNeedsOutput) && $action->recaptchaPluginNeedsOutput) {
             // Load the AJAX API
-            if ($this->checkssl()) {
+            if (StatusNet::isHTTPS()) {
                 $url = "https://api-secure.recaptcha.net/js/recaptcha_ajax.js";
             } else {
                 $url = "http://api.recaptcha.net/js/recaptcha_ajax.js";
