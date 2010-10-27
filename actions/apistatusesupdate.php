@@ -160,7 +160,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
     function prepare($args)
     {
@@ -227,6 +226,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         }
 
         if (empty($this->auth_user)) {
+            // TRANS: Client error displayed when updating a status for a non-existing user.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -234,7 +234,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $status_shortened = common_shorten_links($this->status);
 
         if (Notice::contentTooLong($status_shortened)) {
-
             // Note: Twitter truncates anything over 140, flags the status
             // as "truncated."
 
@@ -304,6 +303,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
                 if (Notice::contentTooLong($status_shortened)) {
                     $upload->delete();
+                    // TRANS: Client error displayed exceeding the maximum notice length.
+                    // TRANS: %d is the maximum lenth for a notice.
                     $msg = _m('Maximum notice size is %d character, including attachment URL.',
                              'Maximum notice size is %d characters, including attachment URL.',
                              Notice::maxContent());

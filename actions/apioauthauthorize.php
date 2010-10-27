@@ -144,6 +144,7 @@ class ApiOauthAuthorizeAction extends Action
 
         if (!$token || $token != common_session_token()) {
             $this->showForm(
+                // TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
                 _('There was a problem with your session token. Try again, please.'));
             return;
         }
@@ -177,7 +178,6 @@ class ApiOauthAuthorizeAction extends Action
         assert(!empty($this->reqToken));
 
         if ($this->arg('allow')) {
-
             // mark the req token as authorized
             try {
                 $this->store->authorize_token($this->oauthTokenParam);
@@ -250,9 +250,7 @@ class ApiOauthAuthorizeAction extends Action
 
             // Otherwise, inform the user that the rt was authorized
             $this->showAuthorized();
-
         } else if ($this->arg('cancel')) {
-
             common_log(
                 LOG_INFO,
                 sprintf(
@@ -652,7 +650,6 @@ class ApiOauthAuthorizeAction extends Action
             );
             $pin->showPage();
         } else {
-
             // NOTE: This would only happen if an application registered as
             // a web application but sent in 'oob' for the oauth_callback
             // parameter. Usually web apps will send in a callback and
@@ -693,7 +690,6 @@ class ApiOauthAuthorizeAction extends Action
 
                 $callback = $this->app->callback_url;
             }
-
         }
 
         return $callback;

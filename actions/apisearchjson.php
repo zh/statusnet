@@ -44,7 +44,6 @@ require_once INSTALLDIR.'/lib/jsonsearchresultslist.php';
  * @link     http://status.net/
  * @see      ApiAction
  */
-
 class ApiSearchJSONAction extends ApiPrivateAuthAction
 {
     var $query;
@@ -62,7 +61,6 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
      *
      * @return boolean true if nothing goes wrong
      */
-
     function prepare($args)
     {
         common_debug("apisearchjson prepare()");
@@ -100,7 +98,6 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -112,10 +109,8 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showResults()
     {
-
         // TODO: Support search operators like from: and to:, boolean, etc.
 
         $notice = new Notice();
@@ -146,7 +141,6 @@ class ApiSearchJSONAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
