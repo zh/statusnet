@@ -301,6 +301,7 @@ $default =
                                  'WikiHashtags' => null,
                                  'RSSCloud' => null,
                                  'ClientSideShorten' => null,
+                                 'StrictTransportSecurity' => null,
                                  'OpenID' => null),
               'locale_path' => false, // Set to a path to use *instead of* each plugin's own locale subdirectories
               ),
