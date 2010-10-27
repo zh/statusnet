@@ -58,7 +58,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return boolean false
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -419,16 +418,18 @@ class ApiOauthAuthorizeAction extends Action
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        // TRANS: User notification of external application requesting account access.
-        // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
-        // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
         if ($this->app->name == 'anonymous') {
-        // Special message for the anonymous app and consumer
+            // Special message for the anonymous app and consumer.
+            // TRANS: User notification of external application requesting account access.
+            // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
             $msg = _('An application would like the ability ' .
                  'to <strong>%3$s</strong> your %4$s account data. ' .
                  'You should only give access to your %4$s account ' .
                  'to third parties you trust.');
         } else {
+            // TRANS: User notification of external application requesting account access.
+            // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+            // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
             $msg = _('The application <strong>%1$s</strong> by ' .
                      '<strong>%2$s</strong> would like the ability ' .
                      'to <strong>%3$s</strong> your %4$s account data. ' .
