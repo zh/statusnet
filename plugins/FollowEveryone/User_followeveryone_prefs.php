@@ -52,7 +52,6 @@ require_once INSTALLDIR . '/classes/Memcached_DataObject.php';
  *
  * @see      DB_DataObject
  */
-
 class User_followeveryone_prefs extends Memcached_DataObject
 {
     public $__table = 'user_followeveryone_prefs'; // table name
@@ -68,7 +67,6 @@ class User_followeveryone_prefs extends Memcached_DataObject
      * @param mixed  $v Value to lookup
      *
      * @return User_followeveryone_prefs object found, or null for no hits
-     *
      */
     function staticGet($k, $v=null)
     {
