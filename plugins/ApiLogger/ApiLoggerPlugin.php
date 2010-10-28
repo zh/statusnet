@@ -52,6 +52,14 @@ class ApiLoggerPlugin extends Plugin
                 $etag = empty($_SERVER['HTTP_IF_MATCH']) ? 'no' : 'yes';
                 $last = empty($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? 'no' : 'yes';
                 $auth = empty($_SERVER['HTTP_AUTHORIZATION']) ? 'no' : 'yes';
+                if ($auth == 'no' && function_exists('apache_request_headers')) {
+                    // Sometimes Authorization doesn't make it into $_SERVER.
+                    // Probably someone thought it was scary.
+                    $headers = apache_request_headers();
+                    if (isset($headers['Authorization'])) {
+                        $auth = 'yes';
+                    }
+                }
                 $agent = empty($_SERVER['HTTP_USER_AGENT']) ? 'no' : $_SERVER['HTTP_USER_AGENT'];
 
                 $query = (strpos($uri, '?') === false) ? 'no' : 'yes';
