@@ -43,7 +43,6 @@ require_once INSTALLDIR . '/lib/mediafile.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiMediaUploadAction extends ApiAuthAction
 {
     /**
@@ -57,7 +56,6 @@ class ApiMediaUploadAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -99,6 +97,7 @@ class ApiMediaUploadAction extends ApiAuthAction
         if (isset($upload)) {
             $this->showResponse($upload);
         } else {
+            // TRANS: Client error displayed when uploading a media file has failed.
             $this->clientError(_('Upload failed.'));
             return;
         }
@@ -126,7 +125,6 @@ class ApiMediaUploadAction extends ApiAuthAction
      * Overrided clientError to show a more Twitpic-like error
      *
      * @param String $msg an error message
-     *
      */
     function clientError($msg)
     {
@@ -140,5 +138,4 @@ class ApiMediaUploadAction extends ApiAuthAction
         $this->elementEnd('rsp');
         $this->endDocument();
     }
-
 }

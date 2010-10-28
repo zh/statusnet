@@ -53,7 +53,6 @@ class ApiAccountUpdateDeliveryDeviceAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
     function prepare($args)
     {

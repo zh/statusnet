@@ -42,7 +42,6 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiOauthPinAction extends InfoAction
 {
     function __construct($title, $message, $verifier, $desktopMode = false)
@@ -94,6 +93,70 @@ class ApiOauthPinAction extends InfoAction
         $this->elementEnd('div');
         $this->showScripts();
         $this->elementEnd('body');
+    }
+
+    /**
+     * A local menu
+     *
+     * Shows different login/register actions.
+     *
+     * @return void
+     */
+    function showLocalNav()
+    {
+        // NOP
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showHeader()
+    {
+        if ($this->desktopMode == false) {
+            parent::showHeader();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showAside()
+    {
+        if ($this->desktopMode == false) {
+            parent::showAside();
+        }
+    }
+
+    /*
+     * Override - suppress output in "desktop" mode
+     */
+    function showFooter()
+    {
+        if ($this->desktopMode == false) {
+            parent::showFooter();
+        }
+    }
+
+    /**
+     * Show site notice.
+     *
+     * @return nothing
+     */
+    function showSiteNotice()
+    {
+        // NOP
+    }
+
+    /**
+     * Show notice form.
+     *
+     * Show the form for posting a new notice
+     *
+     * @return nothing
+     */
+    function showNoticeForm()
+    {
+        // NOP
     }
 
     /**

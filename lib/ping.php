@@ -27,7 +27,14 @@ function ping_broadcast_notice($notice) {
 
 	# Array of servers, URL => type
 	$notify = common_config('ping', 'notify');
-	$profile = $notice->getProfile();
+    try {
+        $profile = $notice->getProfile();
+    } catch (Exception $e) {
+        // @todo: distinguish the 'broken notice/profile' case from more general
+        //        transitory errors.
+        common_log(LOG_ERR, "Exception getting notice profile: " . $e->getMessage());
+        return true;
+    }
 	$tags = ping_notice_tags($notice);
 
 	foreach ($notify as $notify_url => $type) {
