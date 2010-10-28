@@ -10,16 +10,16 @@ msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:45:34+0000\n"
+"PO-Revision-Date: 2010-10-28 23:09:06+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-23 18:59:23+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -568,11 +568,11 @@ msgstr "Loco es troppo longe (maximo 255 characteres)."
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/newgroup.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
-msgstr[0] "Troppo de aliases! Maximo: %d."
-msgstr[1] "Troppo de aliases! Maximo: %d."
+msgstr[0] "Troppo de aliases! Solmente un es permittite."
+msgstr[1] "Troppo de aliases! Maximo permittite: %d."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
@@ -751,15 +751,15 @@ msgstr "Permitter o refusar accesso"
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"Le application <strong>%1$s</strong> per <strong>%2$s</strong> vole poter "
-"<strong>%3$s</strong> le datos de tu conto de %4$s. Tu debe solmente dar "
-"accesso a tu conto de %4$s a tertie personas in le quales tu ha confidentia."
+"Un application vole poter <strong>%3$s</strong> le datos de tu conto de %4"
+"$s. Tu debe solmente dar accesso a tu conto de %4$s a tertie personas in le "
+"quales tu ha confidentia."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -836,26 +836,24 @@ msgstr "Le indicio de requesta %s ha essite revocate."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Tu ha autorisate %s con successo."
+msgstr "Application autorisate con successo"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
-#, fuzzy
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
-"Per favor retorna a %s e entra le sequente codice de securitate pro "
-"completar le processo."
+"Per favor retorna al application e entra le sequente codice de securitate "
+"pro completar le processo."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Tu ha autorisate %s con successo."
+msgstr "Autorisation de %s succedite"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -957,16 +955,16 @@ msgstr "%1$s / Favorites de %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s actualisationes favoritisate per %2$s / %2$s."
+msgstr "%1$s actualisationes favoritisate per %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Non poteva deler le gruppo %s."
+msgstr "Non poteva generar un syndication pro le gruppo %s."
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -998,9 +996,8 @@ msgstr "Actualisationes de totes in %s!"
 
 #. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
 #: actions/apitimelineretweetedbyme.php:71
-#, fuzzy
 msgid "Unimplemented."
-msgstr "Methodo non implementate."
+msgstr "Non implementate."
 
 #. TRANS: Title for Atom feed "repeated to me". %s is the user nickname.
 #: actions/apitimelineretweetedtome.php:108
@@ -1036,9 +1033,8 @@ msgstr "Methodo API in construction."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
-msgstr "Pagina non trovate."
+msgstr "Usator non trovate."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -8359,9 +8355,3 @@ msgstr "Nulle usator specificate; le usator de reserva es usate."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d entratas in copia de reserva."
-
-#~ msgid "Not found."
-#~ msgstr "Non trovate."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "description es troppo longe (max %d chars)."

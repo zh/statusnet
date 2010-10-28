@@ -11,16 +11,16 @@ msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:45:51+0000\n"
+"PO-Revision-Date: 2010-10-28 23:09:21+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2010-10-23 18:59:23+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -574,7 +574,7 @@ msgstr "Местоположбата е предолга (највеќе 255 з�
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/newgroup.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
 msgstr[0] "Премногу алијаси! Дозволено е највеќе %d."
@@ -756,15 +756,15 @@ msgstr "Дозволи или одбиј пристап"
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"Програмот <strong>%1$s</strong> од <strong>%2$s</strong> би сакал да може да "
-"<strong>%3$s</strong> податоците за Вашата %4$s сметка. Треба да дозволувате "
-"пристап до Вашата %4$s сметка само на трети страни на кои им верувате."
+"Еден програм би сакал да може да ги <strong>%3$s</strong> податоците за "
+"Вашата %4$s сметка. Треба да дозволувате пристап до Вашата %4$s сметка само "
+"на трети лица на кои им верувате."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -841,26 +841,24 @@ msgstr "Жетонот за барање %s е повлечен."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Успешно го/ја овластивте %s."
+msgstr "Успешно го овластивте програмот."
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
-#, fuzzy
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
-"Вратете се на %s и внесете го следниов безбедносен код за да ја завршите "
-"постапката."
+"Вратете се на програмот и внесете го следниов безбедносен код за да ја "
+"завршите постапката."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Успешно го/ја овластивте %s."
+msgstr "Успешно дадовте овластување на %s."
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -962,16 +960,16 @@ msgstr "%1$s / Бендисани од %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "Подновувања на %1$s бендисани од %2$s / %2$s."
+msgstr "Подновувања на %1$s бендисани од %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Не можев да ја избришам групата %s."
+msgstr "Не можев да создадам канал за групата - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1002,9 +1000,8 @@ msgstr "%s подновуввања од сите!"
 
 #. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
 #: actions/apitimelineretweetedbyme.php:71
-#, fuzzy
 msgid "Unimplemented."
-msgstr "Неимплементиран метод."
+msgstr "Неспроведено."
 
 #. TRANS: Title for Atom feed "repeated to me". %s is the user nickname.
 #: actions/apitimelineretweetedtome.php:108
@@ -1040,9 +1037,8 @@ msgstr "API-методот е во изработка."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
-msgstr "Страницата не е пронајдена."
+msgstr "Корисникот не е пронајден."
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -8389,9 +8385,3 @@ msgstr "Нема назначено корисник. Ќе го употреба
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d резервни ставки."
-
-#~ msgid "Not found."
-#~ msgstr "Не е пронајдено."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "описот е предолг (највеќе %d знаци)"

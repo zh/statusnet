@@ -13,17 +13,17 @@ msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:46:06+0000\n"
+"PO-Revision-Date: 2010-10-28 23:09:42+0000\n"
 "Language-Team: Ukrainian <http://translatewiki.net/wiki/Portal:uk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: uk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=3; plural=(n%10 == 1 && n%100 != 11) ? 0 : ( (n%10 >= "
 "2 && n%10 <= 4 && (n%100 < 10 || n%100 >= 20)) ? 1 : 2 );\n"
-"X-POT-Import-Date: 2010-10-23 18:59:23+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -579,12 +579,12 @@ msgstr "Розташування надто довге (не більше 255 с
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/newgroup.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
-msgstr[0] "Забагато додаткових імен! Максимум становить %d."
-msgstr[1] "Забагато додаткових імен! Максимум становить %d."
-msgstr[2] "Забагато додаткових імен! Максимум становить %d."
+msgstr[0] "Надто багато додаткових імен! Максимум становить %d."
+msgstr[1] "Надто багато додаткових імен! Максимум становить %d."
+msgstr[2] "Надто багато додаткових імен! Максимум становить %d."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
@@ -763,16 +763,15 @@ msgstr "Дозволити або заборонити доступ"
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"Додаток <strong>%1$s</strong> від <strong>%2$s</strong> запитує дозвіл на "
-"<strong>%3$s</strong> дані вашого акаунту %4$s. Ви повинні надавати дозвіл "
-"на доступ до вашого акаунту %4$s лише тим стороннім додаткам, яким ви "
-"довіряєте."
+"Додаток запитує дозвіл на <strong>%3$s</strong> до вашого акаунту %4$s. Ви "
+"повинні надавати дозвіл на доступ до вашого акаунту %4$s лише тим стороннім "
+"додаткам, яким ви довіряєте."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -850,26 +849,24 @@ msgstr "Запит токену %s було скасовано."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Вас успішно авторизовано на %s."
+msgstr "Ви успішно авторизували додаток"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
-#, fuzzy
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
-"Будь ласка, поверніться на %s і уведіть наступний код безпеки, аби завершити "
-"процес."
+"Будь ласка, поверніться до додатку і уведіть наступний код безпеки, аби "
+"завершити процес."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Вас успішно авторизовано на %s."
+msgstr "Ви успішно авторизували додаток %s"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -975,16 +972,16 @@ msgstr "%1$s / Обрані від %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s оновлення обраних від %2$s / %2$s."
+msgstr "%1$s, оновлення обраних дописів %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Не вдалося видалити спільноту %s."
+msgstr "Не вдалося створити веб-стрічку для спільноти — %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1015,7 +1012,6 @@ msgstr "%s оновлення від усіх!"
 
 #. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
 #: actions/apitimelineretweetedbyme.php:71
-#, fuzzy
 msgid "Unimplemented."
 msgstr "Метод не виконується."
 
@@ -1053,7 +1049,6 @@ msgstr "API метод наразі знаходиться у розробці."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
 msgstr "Сторінку не знайдено."
 
@@ -8393,9 +8388,3 @@ msgstr ""
 #, php-format
 msgid "%d entries in backup."
 msgstr "У резервному файлі збережено %d дописів."
-
-#~ msgid "Not found."
-#~ msgstr "Не знайдено."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "опис надто довгий (%d знаків максимум)."
