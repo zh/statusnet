@@ -20,16 +20,16 @@ msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:45:19+0000\n"
+"PO-Revision-Date: 2010-10-28 23:08:52+0000\n"
 "Language-Team: German <http://translatewiki.net/wiki/Portal:de>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: de\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-23 18:59:23+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -586,11 +586,11 @@ msgstr "Der eingegebene Aufenthaltsort ist zu lang (maximal 255 Zeichen)."
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/newgroup.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
-msgstr[0] "Zu viele Pseudonyme! Maximale Anzahl ist %d."
-msgstr[1] "Zu viele Pseudonyme! Maximale Anzahl ist %d."
+msgstr[0] "Zu viele Pseudonyme! Maximal eins ist erlaubt."
+msgstr[1] "Zu viele Pseudonyme! Maximal %d sind erlaubt."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
@@ -1058,7 +1058,6 @@ msgstr "API-Methode im Aufbau."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
 msgstr "API-Methode nicht gefunden."
 
@@ -8409,9 +8408,3 @@ msgstr "Keine Benutzer-ID angegeben"
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d Einträge im Backup."
-
-#~ msgid "Not found."
-#~ msgstr "Nicht gefunden."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "Die Beschreibung ist zu lang (max. %d Zeichen)."

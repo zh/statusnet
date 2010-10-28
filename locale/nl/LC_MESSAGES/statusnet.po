@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-27 23:45:53+0000\n"
+"PO-Revision-Date: 2010-10-28 23:09:22+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75590); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-23 18:59:23+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -579,7 +579,7 @@ msgstr "De locatie is te lang (maximaal 255 tekens)."
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/newgroup.php:166
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
 msgstr[0] "Te veel aliassen! Het maximale aantal is %d."
@@ -765,15 +765,15 @@ msgstr "Toegang toestaan of ontzeggen"
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"De <strong>applicatie %1$s</strong> van <strong>%2$s</strong> vraagt toegang "
-"van het type \"<strong>%3$s</strong> tot uw gebruikersgegevens. Geef alleen "
-"toegang tot uw gebruiker bij %4$s aan derde partijen die u vertrouwt."
+"Een applicatie vraagt toegang van het type \"<strong>%3$s</strong> tot uw "
+"gebruikersgegevens bij %4$s. Geef alleen toegang tot uw gebruiker bij %4$s "
+"aan derde partijen die u vertrouwt."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -850,26 +850,24 @@ msgstr "Het verzoektoken %s is ingetrokken."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "U hebt %s geautoriseerd."
+msgstr "U hebt de applicatie toegang gegeven"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
-#, fuzzy
 msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
-"Ga terug naar %s en voer daar de volgende beveiligingscode in om het proces "
-"af te ronden."
+"Ga terug naar de applicatie en voer daar de volgende beveiligingscode in om "
+"het proces af te ronden."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "U hebt %s geautoriseerd."
+msgstr "U hebt %s toegang gegeven"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -970,16 +968,18 @@ msgstr "%1$s / Favorieten van %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s updates op de favorietenlijst geplaatst door %2$s / %3$s"
+msgstr ""
+"Mededelingen van %1$s die op de favorietenlijst zijn geplaatst door %2$s / %3"
+"$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Het was niet mogelijk de groep %s te verwijderen."
+msgstr "Het was niet mogelijk een groepfeed te maken - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1010,9 +1010,8 @@ msgstr "%s updates van iedereen"
 
 #. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
 #: actions/apitimelineretweetedbyme.php:71
-#, fuzzy
 msgid "Unimplemented."
-msgstr "Methode niet geïmplementeerd."
+msgstr "Niet geïmplementeerd."
 
 #. TRANS: Title for Atom feed "repeated to me". %s is the user nickname.
 #: actions/apitimelineretweetedtome.php:108
@@ -1048,7 +1047,6 @@ msgstr "De API-functie is in bewerking."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
 msgstr "De pagina is niet aangetroffen."
 
@@ -8437,9 +8435,3 @@ msgstr "Geen gebruiker opgegeven; de back-upgebruiker wordt gebruikt."
 #, php-format
 msgid "%d entries in backup."
 msgstr "%d regels in de back-up."
-
-#~ msgid "Not found."
-#~ msgstr "Niet aangetroffen."
-
-#~ msgid "description is too long (max %d chars)."
-#~ msgstr "de beschrijving is te lang (maximaal %d tekens)"
