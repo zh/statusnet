@@ -298,12 +298,12 @@ class ShowgroupAction extends GroupDesignAction
 
         $this->elementEnd('div');
 
+        $cur = common_current_user();
         $this->elementStart('div', 'entity_actions');
         $this->element('h2', null, _('Group actions'));
         $this->elementStart('ul');
         $this->elementStart('li', 'entity_subscribe');
         if (Event::handle('StartGroupSubscribe', array($this, $this->group))) {
-            $cur = common_current_user();
             if ($cur) {
                 if ($cur->isMember($this->group)) {
                     $lf = new LeaveForm($this, $this->group);
@@ -316,7 +316,7 @@ class ShowgroupAction extends GroupDesignAction
             Event::handle('EndGroupSubscribe', array($this, $this->group));
         }
         $this->elementEnd('li');
-        if ($cur->hasRight(Right::DELETEGROUP)) {
+        if ($cur && $cur->hasRight(Right::DELETEGROUP)) {
             $this->elementStart('li', 'entity_delete');
             $df = new DeleteGroupForm($this, $this->group);
             $df->show();
