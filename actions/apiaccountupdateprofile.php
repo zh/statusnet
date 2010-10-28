@@ -51,7 +51,6 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
     function prepare($args)
     {
@@ -91,6 +90,7 @@ class ApiAccountUpdateProfileAction extends ApiAuthAction
 
         if (!in_array($this->format, array('xml', 'json'))) {
             $this->clientError(
+                // TRANS: Client error displayed when trying to handle an unknown API method.
                 _('API method not found.'),
                 404,
                 $this->format

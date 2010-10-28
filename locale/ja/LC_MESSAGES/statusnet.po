@@ -12,70 +12,71 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-23 18:02+0000\n"
-"PO-Revision-Date: 2010-10-23 18:04:18+0000\n"
+"POT-Creation-Date: 2010-10-27 23:43+0000\n"
+"PO-Revision-Date: 2010-10-28 23:09:15+0000\n"
 "Language-Team: Japanese <http://translatewiki.net/wiki/Portal:ja>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75280); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ja\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-POT-Import-Date: 2010-10-20 20:23:09+0000\n"
+"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
 
-#. TRANS: Page title
+#. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
-#: actions/accessadminpanel.php:55 lib/adminpanelaction.php:363
+#: actions/accessadminpanel.php:53 lib/adminpanelaction.php:363
 msgid "Access"
 msgstr "アクセス"
 
-#. TRANS: Page notice
-#: actions/accessadminpanel.php:67
+#. TRANS: Page notice.
+#: actions/accessadminpanel.php:64
 msgid "Site access settings"
 msgstr "サイトアクセス設定"
 
 #. TRANS: Form legend for registration form.
-#: actions/accessadminpanel.php:161
+#: actions/accessadminpanel.php:151
 msgid "Registration"
 msgstr "登録"
 
-#. TRANS: Checkbox instructions for admin setting "Private"
-#: actions/accessadminpanel.php:165
+#. TRANS: Checkbox instructions for admin setting "Private".
+#: actions/accessadminpanel.php:155
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
 msgstr "匿名ユーザー(ログインしていません)がサイトを見るのを禁止しますか?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
-#: actions/accessadminpanel.php:167
+#: actions/accessadminpanel.php:157
 msgctxt "LABEL"
 msgid "Private"
 msgstr "プライバシー"
 
-#. TRANS: Checkbox instructions for admin setting "Invite only"
-#: actions/accessadminpanel.php:174
+#. TRANS: Checkbox instructions for admin setting "Invite only".
+#: actions/accessadminpanel.php:164
 msgid "Make registration invitation only."
 msgstr "招待のみ登録する"
 
 #. TRANS: Checkbox label for configuring site as invite only.
-#: actions/accessadminpanel.php:176
+#: actions/accessadminpanel.php:166
 msgid "Invite only"
 msgstr "招待のみ"
 
-#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations)
-#: actions/accessadminpanel.php:183
+#. TRANS: Checkbox instructions for admin setting "Closed" (no new registrations).
+#: actions/accessadminpanel.php:173
 msgid "Disable new registrations."
 msgstr "新規登録を無効。"
 
 #. TRANS: Checkbox label for disabling new user registrations.
-#: actions/accessadminpanel.php:185
+#: actions/accessadminpanel.php:175
 msgid "Closed"
 msgstr "閉じられた"
 
-#. TRANS: Title / tooltip for button to save access settings in site admin panel
-#: actions/accessadminpanel.php:202
+#. TRANS: Title for button to save access settings in site admin panel.
+#: actions/accessadminpanel.php:191
 msgid "Save access settings"
 msgstr "アクセス設定の保存"
 
+#. TRANS: Tooltip for button to save access settings in site admin panel.
 #. TRANS: Button label to save e-mail preferences.
 #. TRANS: Button label to save IM preferences.
 #. TRANS: Button text to store form data in the Paths admin panel.
@@ -83,7 +84,7 @@ msgstr "アクセス設定の保存"
 #. TRANS: Button label to save SMS preferences.
 #. TRANS: Save button for settings for a profile in a subscriptions list.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/accessadminpanel.php:203 actions/emailsettings.php:228
+#: actions/accessadminpanel.php:193 actions/emailsettings.php:228
 #: actions/imsettings.php:187 actions/pathsadminpanel.php:512
 #: actions/profilesettings.php:201 actions/smssettings.php:209
 #: actions/subscriptions.php:246 lib/applicationeditform.php:355
@@ -92,29 +93,45 @@ msgctxt "BUTTON"
 msgid "Save"
 msgstr "保存"
 
+#. TRANS: Server error when page not found (404).
 #. TRANS: Server error when page not found (404)
 #: actions/all.php:68 actions/public.php:98 actions/replies.php:93
 #: actions/showfavorites.php:138 actions/tag.php:52
 msgid "No such page."
 msgstr "そのようなタグはありません。"
 
+#. TRANS: Client error when user not found for an action.
 #. TRANS: Client error displayed when no existing user is provided for a user's delivery device setting.
 #. TRANS: Client error displayed if a user could not be found.
+#. TRANS: Client error when user not found updating a profile background image.
+#. TRANS: Client error displayed updating profile image without having a user object.
+#. TRANS: Client error when user not found for an API action to remove a block for a user.
 #. TRANS: Client error given when a user was not found (404).
+#. TRANS: Client error when user not found for an API direct message action.
+#. TRANS: Client error given when a user was not found (404).
+#. TRANS: Client error displayed when checking group membership for a non-existing user.
+#. TRANS: Client error displayed when trying to have a non-existing user join a group.
+#. TRANS: Client error displayed when trying to have a non-existing user leave a group.
+#. TRANS: Client error displayed when updating a status for a non-existing user.
+#. TRANS: Client error displayed when requesting a list of followers for a non-existing user.
+#. TRANS: Client error displayed when requesting most recent favourite notices by a user for a non-existing user.
+#. TRANS: Client error displayed when requesting dents of a user and friends for a user that does not exist.
+#. TRANS: Client error displayed when requesting most recent dents by user and friends for a non-existing user.
+#. TRANS: Client error displayed when requesting most recent mentions for a non-existing user.
+#. TRANS: Client error displayed requesting most recent notices for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
-#: actions/all.php:79 actions/allrss.php:68
-#: actions/apiaccountupdatedeliverydevice.php:111
+#: actions/all.php:80 actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
-#: actions/apiaccountupdateprofilebackgroundimage.php:117
-#: actions/apiaccountupdateprofileimage.php:108 actions/apiblockcreate.php:95
-#: actions/apiblockdestroy.php:94 actions/apidirectmessage.php:78
-#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:113
-#: actions/apigroupismember.php:91 actions/apigroupjoin.php:101
-#: actions/apigroupleave.php:101 actions/apigrouplist.php:73
-#: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:87
-#: actions/apitimelinefavorites.php:72 actions/apitimelinefriends.php:174
-#: actions/apitimelinehome.php:80 actions/apitimelinementions.php:80
-#: actions/apitimelineuser.php:82 actions/avatarbynickname.php:75
+#: actions/apiaccountupdateprofilebackgroundimage.php:118
+#: actions/apiaccountupdateprofileimage.php:104 actions/apiblockcreate.php:95
+#: actions/apiblockdestroy.php:94 actions/apidirectmessage.php:75
+#: actions/apidirectmessagenew.php:72 actions/apigroupcreate.php:111
+#: actions/apigroupismember.php:89 actions/apigroupjoin.php:98
+#: actions/apigroupleave.php:98 actions/apigrouplist.php:70
+#: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:85
+#: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:173
+#: actions/apitimelinehome.php:78 actions/apitimelinementions.php:77
+#: actions/apitimelineuser.php:79 actions/avatarbynickname.php:75
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
 #: actions/otp.php:76 actions/remotesubscribe.php:145
@@ -127,41 +144,42 @@ msgid "No such user."
 msgstr "そのようなユーザはいません。"
 
 #. TRANS: Page title. %1$s is user nickname, %2$d is page number
-#: actions/all.php:90
+#: actions/all.php:91
 #, php-format
 msgid "%1$s and friends, page %2$d"
 msgstr "%1$s と友人、ページ %2$d"
 
 #. TRANS: Page title. %s is user nickname
-#. TRANS: H1 text. %s is a user nickname
+#. TRANS: H1 text for page. %s is a user nickname.
 #. TRANS: Message is used as link title. %s is a user nickname.
-#: actions/all.php:93 actions/all.php:190 actions/allrss.php:116
-#: actions/apitimelinefriends.php:210 actions/apitimelinehome.php:116
+#. TRANS: Timeline title for user and friends. %s is a user nickname.
+#: actions/all.php:94 actions/all.php:191 actions/allrss.php:115
+#: actions/apitimelinefriends.php:207 actions/apitimelinehome.php:113
 #: lib/personalgroupnav.php:100
 #, php-format
 msgid "%s and friends"
 msgstr "%s と友人"
 
-#. TRANS: %s is user nickname
-#: actions/all.php:107
+#. TRANS: %s is user nickname.
+#: actions/all.php:108
 #, php-format
 msgid "Feed for friends of %s (RSS 1.0)"
 msgstr "%s の友人のフィード (RSS 1.0)"
 
-#. TRANS: %s is user nickname
-#: actions/all.php:116
+#. TRANS: %s is user nickname.
+#: actions/all.php:117
 #, php-format
 msgid "Feed for friends of %s (RSS 2.0)"
 msgstr "%s の友人のフィード (RSS 2.0)"
 
-#. TRANS: %s is user nickname
-#: actions/all.php:125
+#. TRANS: %s is user nickname.
+#: actions/all.php:126
 #, php-format
 msgid "Feed for friends of %s (Atom)"
 msgstr "%s の友人のフィード (Atom)"
 
-#. TRANS: %s is user nickname
-#: actions/all.php:138
+#. TRANS: Empty list message. %s is a user nickname.
+#: actions/all.php:139
 #, php-format
 msgid ""
 "This is the timeline for %s and friends but no one has posted anything yet."
@@ -169,7 +187,7 @@ msgstr "これは %s と友人のタイムラインです。まだ誰も投稿�
 
 #. TRANS: Encouragement displayed on logged in user's empty timeline.
 #. TRANS: This message contains Markdown links. Keep "](" together.
-#: actions/all.php:145
+#: actions/all.php:146
 #, php-format
 msgid ""
 "Try subscribing to more people, [join a group](%%action.groups%%) or post "
@@ -178,9 +196,9 @@ msgstr ""
 "もっと多くの人をフォローしてみましょう。[グループに参加](%%action.groups%%) "
 "してみたり、何か投稿してみましょう。"
 
-#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@"
+#. TRANS: %1$s is user nickname, %2$s is user nickname, %2$s is user nickname prefixed with "@".
 #. TRANS: This message contains Markdown links. Keep "](" together.
-#: actions/all.php:149
+#: actions/all.php:150
 #, php-format
 msgid ""
 "You can try to [nudge %1$s](../%2$s) from their profile or [post something "
@@ -191,7 +209,7 @@ msgstr ""
 
 #. TRANS: Encoutagement displayed on empty timeline user pages for anonymous users.
 #. TRANS: %s is a user nickname. This message contains Markdown links. Keep "](" together.
-#: actions/all.php:154 actions/replies.php:210 actions/showstream.php:208
+#: actions/all.php:155 actions/replies.php:210 actions/showstream.php:208
 #, php-format
 msgid ""
 "Why not [register an account](%%%%action.register%%%%) and then nudge %s or "
@@ -200,65 +218,80 @@ msgstr ""
 "なぜ [アカウント登録](%%action.register%%) しないのですか。そして最初の投稿を"
 "してください!"
 
-#. TRANS: H1 text
-#: actions/all.php:187
+#. TRANS: H1 text for page when viewing a list for self.
+#: actions/all.php:188
 msgid "You and friends"
 msgstr "あなたと友人"
 
 #. TRANS: Message is used as link description. %1$s is a username, %2$s is a site name.
 #. TRANS: Message is used as a subtitle. %1$s is a user nickname, %2$s is a site name.
-#: actions/allrss.php:121 actions/apitimelinefriends.php:216
-#: actions/apitimelinehome.php:122
+#: actions/allrss.php:120 actions/apitimelinefriends.php:213
+#: actions/apitimelinehome.php:119
 #, php-format
 msgid "Updates from %1$s and friends on %2$s!"
 msgstr "%2$s に %1$s と友人からの更新があります！"
 
 #. TRANS: Client error displayed handling a non-existing API method.
 #. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed trying to execute an unknown API method updating profile colours.
+#. TRANS: Client error displayed trying to execute an unknown API method verifying user credentials.
 #. TRANS: Client error given when an API method was not found (404).
-#: actions/apiaccountratelimitstatus.php:72
-#: actions/apiaccountupdatedeliverydevice.php:93
+#. TRANS: Client error displayed when trying to handle an unknown API method.
+#. TRANS: Client error displayed trying to execute an unknown API method showing friendship.
+#. TRANS: Client error given when an API method was not found (404).
+#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
+#. TRANS: Client error displayed trying to execute an unknown API method joining a group.
+#. TRANS: Client error displayed trying to execute an unknown API method leaving a group.
+#. TRANS: Client error displayed trying to execute an unknown API method checking group membership.
+#. TRANS: Client error displayed trying to execute an unknown API method listing the latest 20 groups.
+#. TRANS: Client error displayed trying to execute an unknown API method showing group membership.
+#. TRANS: Client error displayed trying to execute an unknown API method showing a group.
+#. TRANS: Client error displayed trying to execute an unknown API method testing API connectivity.
+#. TRANS: Client error displayed trying to execute an unknown API method deleting a status.
+#. TRANS: Client error displayed when trying to handle an unknown API method.
+#: actions/apiaccountratelimitstatus.php:69
+#: actions/apiaccountupdatedeliverydevice.php:92
 #: actions/apiaccountupdateprofile.php:94
 #: actions/apiaccountupdateprofilebackgroundimage.php:92
-#: actions/apiaccountupdateprofilecolors.php:119
-#: actions/apiaccountverifycredentials.php:70 actions/apidirectmessage.php:162
-#: actions/apifavoritecreate.php:98 actions/apifavoritedestroy.php:102
-#: actions/apifriendshipscreate.php:101 actions/apifriendshipsdestroy.php:101
-#: actions/apifriendshipsshow.php:128 actions/apigroupcreate.php:140
-#: actions/apigroupismember.php:115 actions/apigroupjoin.php:157
-#: actions/apigroupleave.php:143 actions/apigrouplist.php:137
-#: actions/apigrouplistall.php:122 actions/apigroupmembership.php:107
-#: actions/apigroupshow.php:116 actions/apihelptest.php:88
-#: actions/apistatusesdestroy.php:104 actions/apistatusesretweets.php:112
-#: actions/apistatusesshow.php:109 actions/apistatusnetconfig.php:141
-#: actions/apistatusnetversion.php:93 actions/apisubscriptions.php:111
-#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:271
-#: actions/apitimelinegroup.php:154 actions/apitimelinehome.php:175
-#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:241
-#: actions/apitimelineretweetedtome.php:121
-#: actions/apitimelineretweetsofme.php:152 actions/apitimelinetag.php:161
-#: actions/apitimelineuser.php:163 actions/apiusershow.php:101
+#: actions/apiaccountupdateprofilecolors.php:115
+#: actions/apiaccountverifycredentials.php:68 actions/apidirectmessage.php:157
+#: actions/apifavoritecreate.php:98 actions/apifavoritedestroy.php:98
+#: actions/apifriendshipscreate.php:99 actions/apifriendshipsdestroy.php:99
+#: actions/apifriendshipsshow.php:124 actions/apigroupcreate.php:138
+#: actions/apigroupismember.php:115 actions/apigroupjoin.php:160
+#: actions/apigroupleave.php:145 actions/apigrouplist.php:134
+#: actions/apigrouplistall.php:120 actions/apigroupmembership.php:105
+#: actions/apigroupshow.php:114 actions/apihelptest.php:84
+#: actions/apistatusesdestroy.php:101 actions/apistatusesretweets.php:110
+#: actions/apistatusesshow.php:105 actions/apistatusnetconfig.php:138
+#: actions/apistatusnetversion.php:91 actions/apisubscriptions.php:109
+#: actions/apitimelinefavorites.php:174 actions/apitimelinefriends.php:268
+#: actions/apitimelinegroup.php:151 actions/apitimelinehome.php:173
+#: actions/apitimelinementions.php:174 actions/apitimelinepublic.php:239
+#: actions/apitimelineretweetedtome.php:118
+#: actions/apitimelineretweetsofme.php:150 actions/apitimelinetag.php:159
+#: actions/apitimelineuser.php:158 actions/apiusershow.php:100
 msgid "API method not found."
 msgstr "API メソッドが見つかりません。"
 
 #. TRANS: Client error message. POST is a HTTP command. It should not be translated.
 #. TRANS: Client error. POST is a HTTP command. It should not be translated.
-#: actions/apiaccountupdatedeliverydevice.php:84
-#: actions/apiaccountupdateprofile.php:86
+#: actions/apiaccountupdatedeliverydevice.php:83
+#: actions/apiaccountupdateprofile.php:85
 #: actions/apiaccountupdateprofilebackgroundimage.php:83
-#: actions/apiaccountupdateprofilecolors.php:111
-#: actions/apiaccountupdateprofileimage.php:85 actions/apiblockcreate.php:87
-#: actions/apiblockdestroy.php:86 actions/apidirectmessagenew.php:107
-#: actions/apifavoritecreate.php:89 actions/apifavoritedestroy.php:93
-#: actions/apifriendshipscreate.php:92 actions/apifriendshipsdestroy.php:92
-#: actions/apigroupcreate.php:104 actions/apigroupjoin.php:93
-#: actions/apigroupleave.php:93 actions/apimediaupload.php:68
-#: actions/apistatusesretweet.php:66 actions/apistatusesupdate.php:195
+#: actions/apiaccountupdateprofilecolors.php:106
+#: actions/apiaccountupdateprofileimage.php:80 actions/apiblockcreate.php:87
+#: actions/apiblockdestroy.php:85 actions/apidirectmessagenew.php:107
+#: actions/apifavoritecreate.php:88 actions/apifavoritedestroy.php:88
+#: actions/apifriendshipscreate.php:89 actions/apifriendshipsdestroy.php:89
+#: actions/apigroupcreate.php:102 actions/apigroupjoin.php:89
+#: actions/apigroupleave.php:89 actions/apimediaupload.php:66
+#: actions/apistatusesretweet.php:63 actions/apistatusesupdate.php:194
 msgid "This method requires a POST."
 msgstr "このメソッドには POST が必要です。"
 
 #. TRANS: Client error displayed when no valid device parameter is provided for a user's delivery device setting.
-#: actions/apiaccountupdatedeliverydevice.php:104
+#: actions/apiaccountupdatedeliverydevice.php:103
 #, fuzzy
 msgid ""
 "You must specify a parameter named 'device' with a value of one of: sms, im, "
@@ -268,16 +301,19 @@ msgstr ""
 "sms, im, none"
 
 #. TRANS: Server error displayed when a user's delivery device cannot be updated.
-#: actions/apiaccountupdatedeliverydevice.php:131
+#: actions/apiaccountupdatedeliverydevice.php:130
 msgid "Could not update user."
 msgstr "ユーザを更新できませんでした。"
 
 #. TRANS: Client error displayed if a user profile could not be found.
 #. TRANS: Client error displayed when a user has no profile.
+#. TRANS: Client error displayed a user has no profile updating profile colours.
+#. TRANS: Client error displayed if a user profile could not be found updating a profile image.
+#. TRANS: Client error displayed when requesting user information for a user without a profile.
 #: actions/apiaccountupdateprofile.php:111
-#: actions/apiaccountupdateprofilebackgroundimage.php:198
-#: actions/apiaccountupdateprofilecolors.php:186
-#: actions/apiaccountupdateprofileimage.php:133 actions/apiusershow.php:108
+#: actions/apiaccountupdateprofilebackgroundimage.php:199
+#: actions/apiaccountupdateprofilecolors.php:183
+#: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
 #: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
@@ -292,8 +328,8 @@ msgstr "プロフィールを保存できませんでした。"
 #. TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
-#: actions/apiaccountupdateprofileimage.php:100 actions/apimediaupload.php:83
-#: actions/apistatusesupdate.php:211 actions/avatarsettings.php:259
+#: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
+#: actions/apistatusesupdate.php:210 actions/avatarsettings.php:259
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
 #, fuzzy, php-format
@@ -309,10 +345,12 @@ msgstr[0] ""
 
 #. TRANS: Client error displayed when saving design settings fails because of an empty id.
 #. TRANS: Client error displayed when saving design settings fails because of an empty result.
-#: actions/apiaccountupdateprofilebackgroundimage.php:137
-#: actions/apiaccountupdateprofilebackgroundimage.php:148
-#: actions/apiaccountupdateprofilecolors.php:165
-#: actions/apiaccountupdateprofilecolors.php:175
+#. TRANS: Client error displayed when a database error occurs inserting profile colours.
+#. TRANS: Client error displayed when a database error occurs updating profile colours.
+#: actions/apiaccountupdateprofilebackgroundimage.php:138
+#: actions/apiaccountupdateprofilebackgroundimage.php:149
+#: actions/apiaccountupdateprofilecolors.php:160
+#: actions/apiaccountupdateprofilecolors.php:171
 #: actions/groupdesignsettings.php:290 actions/groupdesignsettings.php:300
 #: actions/userdesignsettings.php:210 actions/userdesignsettings.php:220
 #: actions/userdesignsettings.php:263 actions/userdesignsettings.php:273
@@ -320,8 +358,9 @@ msgid "Unable to save your design settings."
 msgstr "あなたのデザイン設定を保存できません。"
 
 #. TRANS: Error displayed when updating design settings fails.
-#: actions/apiaccountupdateprofilebackgroundimage.php:190
-#: actions/apiaccountupdateprofilecolors.php:143
+#. TRANS: Client error displayed when a database error occurs updating profile colours.
+#: actions/apiaccountupdateprofilebackgroundimage.php:191
+#: actions/apiaccountupdateprofilecolors.php:139
 msgid "Could not update your design."
 msgstr "デザインを更新できませんでした。"
 
@@ -340,31 +379,31 @@ msgstr "ユーザのブロックに失敗しました。"
 msgid "Unblock user failed."
 msgstr "ユーザのブロック解除に失敗しました。"
 
-#. TRANS: %s is a user nickname.
-#: actions/apidirectmessage.php:91
+#. TRANS: Title. %s is a user nickname.
+#: actions/apidirectmessage.php:88
 #, php-format
 msgid "Direct messages from %s"
 msgstr "%s からのダイレクトメッセージ"
 
-#. TRANS: %s is a user nickname.
-#: actions/apidirectmessage.php:96
+#. TRANS: Subtitle. %s is a user nickname.
+#: actions/apidirectmessage.php:93
 #, php-format
 msgid "All the direct messages sent from %s"
 msgstr "%s から送られた全てのダイレクトメッセージ"
 
-#. TRANS: %s is a user nickname.
-#: actions/apidirectmessage.php:105
+#. TRANS: Title. %s is a user nickname.
+#: actions/apidirectmessage.php:102
 #, php-format
 msgid "Direct messages to %s"
 msgstr "%s へのダイレクトメッセージ"
 
-#. TRANS: %s is a user nickname.
-#: actions/apidirectmessage.php:110
+#. TRANS: Subtitle. %s is a user nickname.
+#: actions/apidirectmessage.php:107
 #, php-format
 msgid "All the direct messages sent to %s"
 msgstr "%s へ送った全てのダイレクトメッセージ"
 
-#. TRANS: Client error (406).
+#. TRANS: Client error displayed when no message text was submitted (406).
 #: actions/apidirectmessagenew.php:117
 msgid "No message text!"
 msgstr "メッセージの本文がありません！"
@@ -398,7 +437,9 @@ msgstr ""
 "自分自身にメッセージを送ることはできません; かわりに独り言を言いましょう。"
 
 #. TRANS: Client error displayed when requesting a status with a non-existing ID.
-#: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:111
+#. TRANS: Client error displayed when trying to remove a favourite with an invalid ID.
+#. TRANS: Client error displayed trying to delete a status with an invalid ID.
+#: actions/apifavoritecreate.php:108 actions/apifavoritedestroy.php:108
 #: actions/apistatusesdestroy.php:121
 msgid "No status found with that ID."
 msgstr "そのＩＤのステータスが見つかりません。"
@@ -414,47 +455,57 @@ msgstr "このステータスはすでにお気に入りです。"
 msgid "Could not create favorite."
 msgstr "お気に入りを作成できません。"
 
-#: actions/apifavoritedestroy.php:124
+#. TRANS: Client error displayed when trying to remove a favourite that was not a favourite.
+#: actions/apifavoritedestroy.php:122
 msgid "That status is not a favorite."
 msgstr "そのステータスはお気に入りではありません。"
 
-#: actions/apifavoritedestroy.php:136 actions/disfavor.php:87
+#. TRANS: Client error displayed when removing a favourite has failed.
+#: actions/apifavoritedestroy.php:135 actions/disfavor.php:87
 msgid "Could not delete favorite."
 msgstr "お気に入りを取り消すことができません。"
 
-#: actions/apifriendshipscreate.php:110
+#. TRANS: Client error displayed when trying follow who's profile could not be found.
+#: actions/apifriendshipscreate.php:109
 msgid "Could not follow user: profile not found."
 msgstr "ユーザのフォローを停止できませんでした: ユーザが見つかりません。"
 
-#: actions/apifriendshipscreate.php:119
+#. TRANS: Client error displayed when trying to follow a user that's already being followed.
+#. TRANS: %s is the nickname of the user that is already being followed.
+#: actions/apifriendshipscreate.php:120
 #, php-format
 msgid "Could not follow user: %s is already on your list."
 msgstr ""
 "ユーザをフォローできませんでした: %s は既にあなたのリストに入っています。"
 
-#: actions/apifriendshipsdestroy.php:110
+#. TRANS: Client error displayed when trying to unfollow a user that cannot be found.
+#: actions/apifriendshipsdestroy.php:109
 msgid "Could not unfollow user: User not found."
 msgstr "ユーザのフォローを停止できませんでした: ユーザが見つかりません。"
 
+#. TRANS: Client error displayed when trying to unfollow self.
 #: actions/apifriendshipsdestroy.php:121
 msgid "You cannot unfollow yourself."
 msgstr "自分自身をフォロー停止することはできません。"
 
-#: actions/apifriendshipsexists.php:91
+#. TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
+#: actions/apifriendshipsexists.php:88
 #, fuzzy
 msgid "Two valid IDs or screen_names must be supplied."
 msgstr "ふたつのＩＤかスクリーンネームが必要です。"
 
-#: actions/apifriendshipsshow.php:134
+#. TRANS: Client error displayed when a source user could not be determined showing friendship.
+#: actions/apifriendshipsshow.php:131
 msgid "Could not determine source user."
 msgstr "ソースユーザーを決定できません。"
 
-#: actions/apifriendshipsshow.php:142
+#. TRANS: Client error displayed when a target user could not be determined showing friendship.
+#: actions/apifriendshipsshow.php:140
 msgid "Could not find target user."
 msgstr "ターゲットユーザーを見つけられません。"
 
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:168 actions/editgroup.php:186
+#: actions/apigroupcreate.php:165 actions/editgroup.php:186
 #: actions/newgroup.php:126 actions/profilesettings.php:243
 #: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
@@ -464,7 +515,7 @@ msgstr ""
 
 #. TRANS: Client error trying to create a group with a nickname this is already in use.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:178 actions/editgroup.php:190
+#: actions/apigroupcreate.php:175 actions/editgroup.php:190
 #: actions/newgroup.php:130 actions/profilesettings.php:277
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
@@ -472,7 +523,7 @@ msgstr "そのニックネームは既に使用されています。他のもの
 
 #. TRANS: Client error in form for group creation.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:186 actions/editgroup.php:193
+#: actions/apigroupcreate.php:183 actions/editgroup.php:193
 #: actions/newgroup.php:133 actions/profilesettings.php:247
 #: actions/register.php:217
 msgid "Not a valid nickname."
@@ -481,7 +532,7 @@ msgstr "有効なニックネームではありません。"
 #. TRANS: Client error in form for group creation.
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "Edit application" form.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:203 actions/editapplication.php:233
+#: actions/apigroupcreate.php:200 actions/editapplication.php:233
 #: actions/editgroup.php:199 actions/newapplication.php:211
 #: actions/newgroup.php:139 actions/profilesettings.php:252
 #: actions/register.php:224
@@ -490,135 +541,166 @@ msgstr "ホームページのURLが不適切です。"
 
 #. TRANS: Client error in form for group creation.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:213 actions/editgroup.php:202
+#: actions/apigroupcreate.php:210 actions/editgroup.php:202
 #: actions/newgroup.php:142 actions/profilesettings.php:256
 #: actions/register.php:227
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
 msgstr "フルネームが長すぎます。（255字まで）"
 
-#: actions/apigroupcreate.php:221 actions/editgroup.php:205
-#, php-format
-msgid "Description is too long (max %d chars)."
-msgstr "記述が長すぎます。（最長%d字）"
+#. TRANS: Client error shown when providing too long a description during group creation.
+#. TRANS: %d is the maximum number of allowed characters.
+#. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
+#. TRANS: Form validation error in New application form.
+#. TRANS: %d is the maximum number of characters for the description.
+#: actions/apigroupcreate.php:220 actions/editapplication.php:201
+#: actions/newapplication.php:178
+#, fuzzy, php-format
+msgid "Description is too long (maximum %d character)."
+msgid_plural "Description is too long (maximum %d characters)."
+msgstr[0] "記述が長すぎます。（最長%d字）"
 
+#. TRANS: Client error shown when providing too long a location during group creation.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:232 actions/editgroup.php:208
-#: actions/newgroup.php:148 actions/profilesettings.php:269
+#: actions/apigroupcreate.php:234 actions/editgroup.php:208
+#: actions/newgroup.php:153 actions/profilesettings.php:269
 #: actions/register.php:236
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
 msgstr "場所が長すぎます。（255字まで）"
 
-#: actions/apigroupcreate.php:251 actions/editgroup.php:219
-#: actions/newgroup.php:159
-#, php-format
-msgid "Too many aliases! Maximum %d."
-msgstr "別名が多すぎます! 最大 %d。"
+#. TRANS: Client error shown when providing too many aliases during group creation.
+#. TRANS: %d is the maximum number of allowed aliases.
+#: actions/apigroupcreate.php:255 actions/newgroup.php:166
+#, fuzzy, php-format
+msgid "Too many aliases! Maximum %d allowed."
+msgid_plural "Too many aliases! Maximum %d allowed."
+msgstr[0] "別名が多すぎます! 最大 %d。"
 
-#: actions/apigroupcreate.php:272
+#. TRANS: Client error shown when providing an invalid alias during group creation.
+#. TRANS: %s is the invalid alias.
+#: actions/apigroupcreate.php:280
 #, fuzzy, php-format
 msgid "Invalid alias: \"%s\"."
 msgstr "不正な別名: \"%s\""
 
-#: actions/apigroupcreate.php:281 actions/editgroup.php:232
-#: actions/newgroup.php:172
+#. TRANS: Client error displayed when trying to use an alias during group creation that is already in use.
+#. TRANS: %s is the alias that is already in use.
+#: actions/apigroupcreate.php:291 actions/editgroup.php:232
+#: actions/newgroup.php:181
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "別名 \"%s\" は既に使用されています。他のものを試してみて下さい。"
 
-#: actions/apigroupcreate.php:294 actions/editgroup.php:238
-#: actions/newgroup.php:178
+#. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
+#: actions/apigroupcreate.php:305 actions/editgroup.php:238
+#: actions/newgroup.php:187
 msgid "Alias can't be the same as nickname."
 msgstr "別名はニックネームと同じではいけません。"
 
-#: actions/apigroupismember.php:96 actions/apigroupjoin.php:106
-#: actions/apigroupleave.php:106 actions/apigroupmembership.php:92
-#: actions/apigroupshow.php:83 actions/apitimelinegroup.php:92
+#. TRANS: Client error displayed when checking group membership for a non-existing group.
+#. TRANS: Client error displayed when trying to join a group that does not exist.
+#. TRANS: Client error displayed when trying to leave a group that does not exist.
+#. TRANS: Client error displayed trying to show group membership on a non-existing group.
+#. TRANS: Client error displayed when trying to show a group that could not be found.
+#. TRANS: Client error displayed requesting most recent notices to a group for a non-existing group.
+#: actions/apigroupismember.php:95 actions/apigroupjoin.php:104
+#: actions/apigroupleave.php:104 actions/apigroupmembership.php:89
+#: actions/apigroupshow.php:81 actions/apitimelinegroup.php:89
 msgid "Group not found."
 msgstr "見つかりません。"
 
+#. TRANS: Server error displayed when trying to join a group the user is already a member of.
 #. TRANS: Error text shown a user tries to join a group they already are a member of.
-#: actions/apigroupjoin.php:112 actions/joingroup.php:100 lib/command.php:333
+#: actions/apigroupjoin.php:111 actions/joingroup.php:100 lib/command.php:333
 msgid "You are already a member of that group."
 msgstr "すでにこのグループのメンバーです。"
 
+#. TRANS: Server error displayed when trying to join a group the user is blocked from joining.
 #. TRANS: Error text shown when a user tries to join a group they are blocked from joining.
 #: actions/apigroupjoin.php:121 actions/joingroup.php:105 lib/command.php:338
 msgid "You have been blocked from that group by the admin."
 msgstr "管理者によってこのグループからブロックされています。"
 
+#. TRANS: Server error displayed when joining a group fails.
+#. TRANS: %1$s is a user nickname, $2$s is a group nickname.
 #. TRANS: Message given having failed to add a user to a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/apigroupjoin.php:140 actions/joingroup.php:134 lib/command.php:350
+#: actions/apigroupjoin.php:142 actions/joingroup.php:134 lib/command.php:350
 #, php-format
 msgid "Could not join user %1$s to group %2$s."
 msgstr "ユーザ %1$s はグループ %2$s に参加できません。"
 
-#: actions/apigroupleave.php:116
+#. TRANS: Server error displayed when trying to leave a group the user is not a member of.
+#: actions/apigroupleave.php:115
 msgid "You are not a member of this group."
 msgstr "このグループのメンバーではありません。"
 
+#. TRANS: Server error displayed when leaving a group fails.
+#. TRANS: %1$s is a user nickname, $2$s is a group nickname.
 #. TRANS: Message given having failed to remove a user from a group.
 #. TRANS: %1$s is the nickname of the user, %2$s is the nickname of the group.
-#: actions/apigroupleave.php:126 actions/leavegroup.php:129
+#: actions/apigroupleave.php:127 actions/leavegroup.php:129
 #: lib/command.php:398
 #, php-format
 msgid "Could not remove user %1$s from group %2$s."
 msgstr "ユーザ %1$s をグループ %2$s から削除できません。"
 
-#. TRANS: %s is a user name
-#: actions/apigrouplist.php:98
+#. TRANS: Used as title in check for group membership. %s is a user name.
+#: actions/apigrouplist.php:94
 #, php-format
 msgid "%s's groups"
 msgstr "%s のグループ"
 
-#. TRANS: Meant to convey the user %2$s is a member of each of the groups listed on site %1$s
-#: actions/apigrouplist.php:108
+#. TRANS: Used as subtitle in check for group membership. %1$s is a user name, %2$s is the site name.
+#: actions/apigrouplist.php:104
 #, fuzzy, php-format
 msgid "%1$s groups %2$s is a member of."
 msgstr "グループ %s はメンバー"
 
-#. TRANS: Message is used as a title. %s is a site name.
+#. TRANS: Message is used as a title when listing the lastest 20 groups. %s is a site name.
 #. TRANS: Message is used as a page title. %s is a nick name.
-#: actions/apigrouplistall.php:92 actions/usergroups.php:63
+#: actions/apigrouplistall.php:88 actions/usergroups.php:63
 #, php-format
 msgid "%s groups"
 msgstr "%s グループ"
 
-#: actions/apigrouplistall.php:96
+#. TRANS: Message is used as a subtitle when listing the lastest 20 groups. %s is a site name.
+#: actions/apigrouplistall.php:93
 #, php-format
 msgid "groups on %s"
 msgstr "%s 上のグループ"
 
-#: actions/apimediaupload.php:102
+#. TRANS: Client error displayed when uploading a media file has failed.
+#: actions/apimediaupload.php:101
 #, fuzzy
 msgid "Upload failed."
 msgstr "ファイルアップロード"
 
 #. TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
-#: actions/apioauthaccesstoken.php:103
+#: actions/apioauthaccesstoken.php:101
 #, fuzzy
 msgid "Invalid request token or verifier."
 msgstr "不正なログイントークンが指定されています。"
 
 #. TRANS: Client error given when no oauth_token was passed to the OAuth API.
-#: actions/apioauthauthorize.php:108
+#: actions/apioauthauthorize.php:107
 msgid "No oauth_token parameter provided."
 msgstr "oauth_token パラメータは提供されませんでした。"
 
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
-#: actions/apioauthauthorize.php:116 actions/apioauthauthorize.php:130
+#: actions/apioauthauthorize.php:115 actions/apioauthauthorize.php:129
 #, fuzzy
 msgid "Invalid request token."
 msgstr "不正なトークン。"
 
 #. TRANS: Client error given when an invalid request token was passed to the OAuth API.
-#: actions/apioauthauthorize.php:122
+#: actions/apioauthauthorize.php:121
 #, fuzzy
 msgid "Request token already authorized."
 msgstr "認証されていません。"
 
+#. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
 #: actions/apioauthauthorize.php:147 actions/avatarsettings.php:270
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
@@ -643,7 +725,7 @@ msgid "Invalid nickname / password!"
 msgstr "不正なユーザ名またはパスワード。"
 
 #. TRANS: Server error displayed when a database action fails.
-#: actions/apioauthauthorize.php:218
+#: actions/apioauthauthorize.php:217
 #, fuzzy
 msgid "Database error inserting oauth_token_association."
 msgstr "OAuth アプリケーションユーザの追加時ＤＢエラー。"
@@ -654,7 +736,7 @@ msgstr "OAuth アプリケーションユーザの追加時ＤＢエラー。"
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:297 actions/avatarsettings.php:283
+#: actions/apioauthauthorize.php:294 actions/avatarsettings.php:283
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:125
@@ -664,19 +746,29 @@ msgid "Unexpected form submission."
 msgstr "予期せぬフォーム送信です。"
 
 #. TRANS: Title for a page where a user can confirm/deny account access by an external application.
-#: actions/apioauthauthorize.php:362
+#: actions/apioauthauthorize.php:387
 msgid "An application would like to connect to your account"
 msgstr "アプリケーションはあなたのアカウントに接続したいです"
 
 #. TRANS: Fieldset legend.
-#: actions/apioauthauthorize.php:379
+#: actions/apioauthauthorize.php:404
 msgid "Allow or deny access"
 msgstr "アクセスを許可または拒絶"
 
 #. TRANS: User notification of external application requesting account access.
+#. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
+#: actions/apioauthauthorize.php:425
+#, php-format
+msgid ""
+"An application would like the ability to <strong>%3$s</strong> your %4$s "
+"account data. You should only give access to your %4$s account to third "
+"parties you trust."
+msgstr ""
+
+#. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
-#: actions/apioauthauthorize.php:399
+#: actions/apioauthauthorize.php:433
 #, php-format
 msgid ""
 "The application <strong>%1$s</strong> by <strong>%2$s</strong> would like "
@@ -685,7 +777,7 @@ msgid ""
 msgstr ""
 
 #. TRANS: Fieldset legend.
-#: actions/apioauthauthorize.php:420
+#: actions/apioauthauthorize.php:455
 #, fuzzy
 msgctxt "LEGEND"
 msgid "Account"
@@ -693,7 +785,7 @@ msgstr "アカウント"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
-#: actions/apioauthauthorize.php:424 actions/login.php:252
+#: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:433
 #: actions/showgroup.php:245 actions/tagother.php:94
 #: actions/userauthorization.php:145 lib/groupeditform.php:152
@@ -703,7 +795,7 @@ msgstr "ニックネーム"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Link description in user account settings menu.
-#: actions/apioauthauthorize.php:428 actions/login.php:255
+#: actions/apioauthauthorize.php:463 actions/login.php:255
 #: actions/register.php:438 lib/accountsettingsaction.php:120
 msgid "Password"
 msgstr "パスワード"
@@ -714,7 +806,7 @@ msgstr "パスワード"
 #. TRANS: Button label to cancel an IM address confirmation procedure.
 #. TRANS: Button label to cancel a SMS address confirmation procedure.
 #. TRANS: Button label in the "Edit application" form.
-#: actions/apioauthauthorize.php:443 actions/emailsettings.php:127
+#: actions/apioauthauthorize.php:478 actions/emailsettings.php:127
 #: actions/imsettings.php:131 actions/smssettings.php:137
 #: lib/applicationeditform.php:351
 #, fuzzy
@@ -723,164 +815,225 @@ msgid "Cancel"
 msgstr "中止"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
-#: actions/apioauthauthorize.php:450
+#: actions/apioauthauthorize.php:485
 #, fuzzy
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "許可"
 
 #. TRANS: Form instructions.
-#: actions/apioauthauthorize.php:467
+#: actions/apioauthauthorize.php:502
 #, fuzzy
 msgid "Authorize access to your account information."
 msgstr "アカウント情報へのアクセスを許可するか、または拒絶してください。"
 
 #. TRANS: Header for user notification after revoking OAuth access to an application.
-#: actions/apioauthauthorize.php:559
+#: actions/apioauthauthorize.php:594
 #, fuzzy
 msgid "Authorization canceled."
 msgstr "確認コードがありません。"
 
 #. TRANS: User notification after revoking OAuth access to an application.
 #. TRANS: %s is an OAuth token.
-#: actions/apioauthauthorize.php:563
+#: actions/apioauthauthorize.php:598
 #, fuzzy, php-format
 msgid "The request token %s has been revoked."
 msgstr "リクエストトークン%sは、拒否されて、取り消されました。"
 
-#. TRANS: Header of user notification after authorising an application access to a profile.
-#. TRANS: %s is the authorised application name.
-#: actions/apioauthauthorize.php:582
-#, fuzzy, php-format
-msgid "You have successfully authorized %s."
+#. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+#: actions/apioauthauthorize.php:621
+#, fuzzy
+msgid "You have successfully authorized the application"
 msgstr "認証されていません。"
 
-#. TRANS: Uer notification after authorising an application access to a profile.
+#. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+#: actions/apioauthauthorize.php:625
+msgid ""
+"Please return to the application and enter the following security code to "
+"complete the process."
+msgstr ""
+
+#. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
-#: actions/apioauthauthorize.php:589
+#: actions/apioauthauthorize.php:632
+#, fuzzy, php-format
+msgid "You have successfully authorized %s"
+msgstr "認証されていません。"
+
+#. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
+#. TRANS: %s is the authorised application name.
+#: actions/apioauthauthorize.php:639
 #, php-format
 msgid ""
 "Please return to %s and enter the following security code to complete the "
 "process."
 msgstr ""
 
-#: actions/apistatusesdestroy.php:112
+#. TRANS: Client error displayed trying to delete a status not using POST or DELETE.
+#. TRANS: POST and DELETE should not be translated.
+#: actions/apistatusesdestroy.php:111
 msgid "This method requires a POST or DELETE."
 msgstr "このメソッドには POST か DELETE が必要です。"
 
-#: actions/apistatusesdestroy.php:135
+#. TRANS: Client error displayed trying to delete a status of another user.
+#: actions/apistatusesdestroy.php:136
 msgid "You may not delete another user's status."
 msgstr "他のユーザのステータスを消すことはできません。"
 
-#: actions/apistatusesretweet.php:76 actions/apistatusesretweets.php:72
+#. TRANS: Client error displayed trying to repeat a non-existing notice through the API.
+#. TRANS: Client error displayed trying to display redents of a non-exiting notice.
+#: actions/apistatusesretweet.php:74 actions/apistatusesretweets.php:70
 #: actions/deletenotice.php:58 actions/shownotice.php:92
 msgid "No such notice."
 msgstr "そのようなつぶやきはありません。"
 
+#. TRANS: Client error displayed trying to repeat an own notice through the API.
 #. TRANS: Error text shown when trying to repeat an own notice.
-#: actions/apistatusesretweet.php:84 lib/command.php:535
+#: actions/apistatusesretweet.php:83 lib/command.php:535
 msgid "Cannot repeat your own notice."
 msgstr "あなたのつぶやきを繰り返せません。"
 
+#. TRANS: Client error displayed trying to re-repeat a notice through the API.
 #. TRANS: Error text shown when trying to repeat an notice that was already repeated by the user.
 #: actions/apistatusesretweet.php:92 lib/command.php:541
 msgid "Already repeated that notice."
 msgstr "すでにつぶやきを繰り返しています。"
 
-#: actions/apistatusesshow.php:139
+#. TRANS: Client error displayed requesting a deleted status.
+#: actions/apistatusesshow.php:134
 msgid "Status deleted."
 msgstr "ステータスを削除しました。"
 
-#: actions/apistatusesshow.php:145
+#. TRANS: Client error displayed requesting a status with an invalid ID.
+#: actions/apistatusesshow.php:141
 msgid "No status with that ID found."
 msgstr "そのＩＤでのステータスはありません。"
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
-#: actions/apistatusesupdate.php:222
+#: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
 msgstr ""
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
-#: actions/apistatusesupdate.php:245
+#: actions/apistatusesupdate.php:244
 #, fuzzy, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
 msgstr[0] "長すぎます。つぶやきは最大 %d 字までです。"
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
-#: actions/apistatusesupdate.php:285
+#: actions/apistatusesupdate.php:284
 #, fuzzy
 msgid "Parent notice not found."
 msgstr "API メソッドが見つかりません。"
 
-#: actions/apistatusesupdate.php:307
+#. TRANS: Client error displayed exceeding the maximum notice length.
+#. TRANS: %d is the maximum lenth for a notice.
+#: actions/apistatusesupdate.php:308
 #, fuzzy, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
 msgstr[0] "つぶやきは URL を含めて最大 %d 字までです。"
 
-#: actions/apisubscriptions.php:233 actions/apisubscriptions.php:263
+#. TRANS: Client error displayed when requesting profiles of followers in an unsupported format.
+#. TRANS: Client error displayed when requesting IDs of followers in an unsupported format.
+#: actions/apisubscriptions.php:228 actions/apisubscriptions.php:258
 msgid "Unsupported format."
 msgstr "サポート外の形式です。"
 
-#: actions/apitimelinefavorites.php:110
+#. TRANS: Title for timeline of most recent favourite notices by a user.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
+#: actions/apitimelinefavorites.php:108
 #, php-format
 msgid "%1$s / Favorites from %2$s"
 msgstr "%1$s / %2$s からのお気に入り"
 
-#: actions/apitimelinefavorites.php:119
-#, php-format
-msgid "%1$s updates favorited by %2$s / %2$s."
+#. TRANS: Subtitle for timeline of most recent favourite notices by a user.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
+#. TRANS: %3$s is a user nickname.
+#: actions/apitimelinefavorites.php:120
+#, fuzzy, php-format
+msgid "%1$s updates favorited by %2$s / %3$s."
 msgstr "%1$s は %2$s でお気に入りを更新しました / %2$s。"
 
-#: actions/apitimelinementions.php:118
+#. TRANS: Server error displayed when generating an Atom feed fails.
+#. TRANS: %s is the error.
+#: actions/apitimelinegroup.php:138
+#, fuzzy, php-format
+msgid "Could not generate feed for group - %s"
+msgstr "グループを更新できません。"
+
+#. TRANS: Title for timeline of most recent mentions of a user.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
+#: actions/apitimelinementions.php:115
 #, php-format
 msgid "%1$s / Updates mentioning %2$s"
 msgstr "%1$s / %2$s について更新"
 
+#. TRANS: Subtitle for timeline of most recent mentions of a user.
+#. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname,
+#. TRANS: %3$s is a user's full name.
 #: actions/apitimelinementions.php:131
 #, php-format
 msgid "%1$s updates that reply to updates from %2$s / %3$s."
 msgstr "%2$s からアップデートに答える %1$s アップデート"
 
-#: actions/apitimelinepublic.php:197 actions/publicrss.php:103
+#. TRANS: Title for site timeline. %s is the StatusNet sitename.
+#: actions/apitimelinepublic.php:193 actions/publicrss.php:103
 #, php-format
 msgid "%s public timeline"
 msgstr "%s のパブリックタイムライン"
 
-#: actions/apitimelinepublic.php:202 actions/publicrss.php:105
+#. TRANS: Subtitle for site timeline. %s is the StatusNet sitename.
+#: actions/apitimelinepublic.php:199 actions/publicrss.php:105
 #, php-format
 msgid "%s updates from everyone!"
 msgstr "皆からの %s アップデート!"
 
-#: actions/apitimelineretweetedtome.php:111
+#. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
+#: actions/apitimelineretweetedbyme.php:71
+#, fuzzy
+msgid "Unimplemented."
+msgstr "未実装のメソッド。"
+
+#. TRANS: Title for Atom feed "repeated to me". %s is the user nickname.
+#: actions/apitimelineretweetedtome.php:108
 #, php-format
 msgid "Repeated to %s"
 msgstr "%s への返信"
 
-#: actions/apitimelineretweetsofme.php:114
+#. TRANS: Title of list of repeated notices of the logged in user.
+#. TRANS: %s is the nickname of the logged in user.
+#: actions/apitimelineretweetsofme.php:112
 #, php-format
 msgid "Repeats of %s"
 msgstr "%s の返信"
 
-#: actions/apitimelinetag.php:105 actions/tag.php:67
+#. TRANS: Title for timeline with lastest notices with a given tag.
+#. TRANS: %s is the tag.
+#: actions/apitimelinetag.php:101 actions/tag.php:67
 #, php-format
 msgid "Notices tagged with %s"
 msgstr "%s とタグ付けされたつぶやき"
 
-#: actions/apitimelinetag.php:107 actions/tagrss.php:65
+#. TRANS: Subtitle for timeline with lastest notices with a given tag.
+#. TRANS: %1$s is the tag, $2$s is the StatusNet sitename.
+#: actions/apitimelinetag.php:105 actions/tagrss.php:65
 #, php-format
 msgid "Updates tagged with %1$s on %2$s!"
 msgstr "%2$s に %1$s による更新があります！"
 
-#: actions/apitrends.php:87
+#. TRANS: Server error for unfinished API method showTrends.
+#: actions/apitrends.php:85
 msgid "API method under construction."
 msgstr "API メソッドが工事中です。"
 
-#: actions/apiusershow.php:96
-msgid "Not found."
-msgstr "見つかりません。"
+#. TRANS: Client error displayed when requesting user information for a non-existing user.
+#: actions/apiusershow.php:94
+#, fuzzy
+msgid "User not found."
+msgstr "API メソッドが見つかりません。"
 
 #: actions/attachment.php:73
 msgid "No such attachment."
@@ -1526,15 +1679,6 @@ msgstr "そのニックネームは既に使用されています。他のもの
 msgid "Description is required."
 msgstr "概要が必要です。"
 
-#. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
-#. TRANS: Form validation error in New application form.
-#. TRANS: %d is the maximum number of characters for the description.
-#: actions/editapplication.php:201 actions/newapplication.php:178
-#, fuzzy, php-format
-msgid "Description is too long (maximum %d character)."
-msgid_plural "Description is too long (maximum %d characters)."
-msgstr[0] "記述が長すぎます。（最長%d字）"
-
 #. TRANS: Validation error shown when providing too long a source URL in the "Edit application" form.
 #: actions/editapplication.php:208
 msgid "Source URL is too long."
@@ -1593,7 +1737,17 @@ msgstr "グループを編集するには管理者である必要があります
 msgid "Use this form to edit the group."
 msgstr "このフォームを使ってグループを編集します。"
 
-#: actions/editgroup.php:228 actions/newgroup.php:168
+#: actions/editgroup.php:205
+#, php-format
+msgid "Description is too long (max %d chars)."
+msgstr "記述が長すぎます。（最長%d字）"
+
+#: actions/editgroup.php:219
+#, php-format
+msgid "Too many aliases! Maximum %d."
+msgstr "別名が多すぎます! 最大 %d。"
+
+#: actions/editgroup.php:228 actions/newgroup.php:177
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "不正な別名: \"%s\""
@@ -2799,7 +2953,6 @@ msgstr "結果なし。"
 
 #. TRANS: This is the title of the form for adding a new application.
 #: actions/newapplication.php:52
-#, fuzzy
 msgid "New application"
 msgstr "新しいアプリケーション"
 
@@ -2837,11 +2990,6 @@ msgstr "新しいグループ"
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
 msgstr "このフォームを使って新しいグループを作成します。"
-
-#: actions/newgroup.php:145
-#, php-format
-msgid "description is too long (max %d chars)."
-msgstr "記述が長すぎます。（最長 %d 字）"
 
 #: actions/newmessage.php:71 actions/newmessage.php:234
 msgid "New message"
@@ -8093,60 +8241,60 @@ msgid "Moderator"
 msgstr "管理"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1164
+#: lib/util.php:1175
 msgid "a few seconds ago"
 msgstr "数秒前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1167
+#: lib/util.php:1178
 msgid "about a minute ago"
 msgstr "約 1 分前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1171
+#: lib/util.php:1182
 #, php-format
 msgid "about one minute ago"
 msgid_plural "about %d minutes ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1174
+#: lib/util.php:1185
 msgid "about an hour ago"
 msgstr "約 1 時間前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1178
+#: lib/util.php:1189
 #, php-format
 msgid "about one hour ago"
 msgid_plural "about %d hours ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1181
+#: lib/util.php:1192
 msgid "about a day ago"
 msgstr "約 1 日前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1185
+#: lib/util.php:1196
 #, php-format
 msgid "about one day ago"
 msgid_plural "about %d days ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1188
+#: lib/util.php:1199
 msgid "about a month ago"
 msgstr "約 1 ヵ月前"
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1192
+#: lib/util.php:1203
 #, php-format
 msgid "about one month ago"
 msgid_plural "about %d months ago"
 msgstr[0] ""
 
 #. TRANS: Used in notices to indicate when the notice was made compared to now.
-#: lib/util.php:1195
+#: lib/util.php:1206
 msgid "about a year ago"
 msgstr "約 1 年前"
 
@@ -8190,18 +8338,3 @@ msgstr "ユーザIDの記述がありません。"
 #, php-format
 msgid "%d entries in backup."
 msgstr ""
-
-#~ msgid "Full name is too long (max 255 chars)."
-#~ msgstr "フルネームが長すぎます。（255字まで）"
-
-#~ msgid "Location is too long (max 255 chars)."
-#~ msgstr "場所が長すぎます。（255字まで）"
-
-#~ msgid "That's too long. Max message size is %d chars."
-#~ msgstr "長すぎます。メッセージは最大 %d 字までです。"
-
-#~ msgid "Bio is too long (max %d chars)."
-#~ msgstr "自己紹介が長すぎます (最長%d文字)。"
-
-#~ msgid "Describe yourself and your interests in %d chars"
-#~ msgstr "%d字以内で自分自身と自分の興味について書いてください"

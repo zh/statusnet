@@ -145,7 +145,8 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($homepage)) {
             if (!$this->_checkUrl($homepage)) {
-                $msg = sprintf(_m("You may not register with homepage '%s'."),
+                // TRANS: Validation failure for URL. %s is the URL.
+                $msg = sprintf(_m("You may not register with homepage \"%s\"."),
                                $homepage);
                 throw new ClientException($msg);
             }
@@ -155,7 +156,8 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($nickname)) {
             if (!$this->_checkNickname($nickname)) {
-                $msg = sprintf(_m("You may not register with nickname '%s'."),
+                // TRANS: Validation failure for nickname. %s is the nickname.
+                $msg = sprintf(_m("You may not register with nickname \"%s\"."),
                                $nickname);
                 throw new ClientException($msg);
             }
@@ -179,7 +181,8 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($homepage)) {
             if (!$this->_checkUrl($homepage)) {
-                $msg = sprintf(_m("You may not use homepage '%s'."),
+                // TRANS: Validation failure for URL. %s is the URL.
+                $msg = sprintf(_m("You may not use homepage \"%s\"."),
                                $homepage);
                 throw new ClientException($msg);
             }
@@ -189,7 +192,8 @@ class BlacklistPlugin extends Plugin
 
         if (!empty($nickname)) {
             if (!$this->_checkNickname($nickname)) {
-                $msg = sprintf(_m("You may not use nickname '%s'."),
+                // TRANS: Validation failure for nickname. %s is the nickname.
+                $msg = sprintf(_m("You may not use nickname \"%s\"."),
                                $nickname);
                 throw new ClientException($msg);
             }
@@ -231,6 +235,7 @@ class BlacklistPlugin extends Plugin
         $url = htmlspecialchars_decode($url);
 
         if (!$this->_checkUrl($url)) {
+            // TRANS: Validation failure for URL. %s is the URL.
             $msg = sprintf(_m("You may not use URL \"%s\" in notices."),
                            $url);
             throw new ClientException($msg);
@@ -372,8 +377,10 @@ class BlacklistPlugin extends Plugin
             $action_name = $nav->action->trimmed('action');
 
             $nav->out->menuItem(common_local_url('blacklistadminpanel'),
-                                _m('Blacklist'),
-                                _m('Blacklist configuration'),
+                                // TRANS: Menu item in admin panel.
+                                _m('MENU','Blacklist'),
+                                // TRANS: Tooltip for menu item in admin panel.
+                                _m('TOOLTIP','Blacklist configuration'),
                                 $action_name == 'blacklistadminpanel',
                                 'nav_blacklist_admin_panel');
         }
@@ -399,6 +406,7 @@ class BlacklistPlugin extends Plugin
         $action->elementStart('li');
         $this->checkboxAndText($action,
                                'blacklistnickname',
+                               // TRANS: Checkbox with text label in the delete user form.
                                _m('Add this nickname pattern to blacklist'),
                                'blacklistnicknamepattern',
                                $this->patternizeNickname($user->nickname));
@@ -408,6 +416,7 @@ class BlacklistPlugin extends Plugin
             $action->elementStart('li');
             $this->checkboxAndText($action,
                                    'blacklisthomepage',
+                                   // TRANS: Checkbox with text label in the delete user form.
                                    _m('Add this homepage pattern to blacklist'),
                                    'blacklisthomepagepattern',
                                    $this->patternizeHomepage($profile->homepage));
@@ -462,5 +471,83 @@ class BlacklistPlugin extends Plugin
     {
         $hostname = parse_url($homepage, PHP_URL_HOST);
         return $hostname;
+    }
+
+    function onStartHandleFeedEntry($activity)
+    {
+        return $this->_checkActivity($activity);
+    }
+
+    function onStartHandleSalmon($activity)
+    {
+        return $this->_checkActivity($activity);
+    }
+
+    function _checkActivity($activity)
+    {
+        $actor = $activity->actor;
+
+        if (empty($actor)) {
+            return true;
+        }
+
+        $homepage = strtolower($actor->link);
+
+        if (!empty($homepage)) {
+            if (!$this->_checkUrl($homepage)) {
+                // TRANS: Exception thrown trying to post a notice while having set a blocked homepage URL. %s is the blocked URL.
+                $msg = sprintf(_m("Users from \"%s\" blocked."),
+                               $homepage);
+                throw new ClientException($msg);
+            }
+        }
+
+        $nickname = strtolower($actor->poco->preferredUsername);
+
+        if (!empty($nickname)) {
+            if (!$this->_checkNickname($nickname)) {
+                // TRANS: Exception thrown trying to post a notice while having a blocked nickname. %s is the blocked nickname.
+                $msg = sprintf(_m("Posts from nickname \"%s\" disallowed."),
+                               $nickname);
+                throw new ClientException($msg);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Check URLs and homepages for blacklisted users.
+     */
+    function onStartSubscribe($subscriber, $other)
+    {
+        foreach (array($other->profileurl, $other->homepage) as $url) {
+
+            if (empty($url)) {
+                continue;
+            }
+
+            $url = strtolower($url);
+
+            if (!$this->_checkUrl($url)) {
+                // TRANS: Client exception thrown trying to subscribe to a person with a blocked homepage or site URL. %s is the blocked URL.
+                $msg = sprintf(_m("Users from \"%s\" blocked."),
+                               $url);
+                throw new ClientException($msg);
+            }
+        }
+
+        $nickname = $other->nickname;
+
+        if (!empty($nickname)) {
+            if (!$this->_checkNickname($nickname)) {
+                // TRANS: Client exception thrown trying to subscribe to a person with a blocked nickname. %s is the blocked nickname.
+                $msg = sprintf(_m("Can't subscribe to nickname \"%s\"."),
+                               $nickname);
+                throw new ClientException($msg);
+            }
+        }
+
+        return true;
     }
 }

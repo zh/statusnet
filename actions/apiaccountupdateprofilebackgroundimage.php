@@ -114,6 +114,7 @@ class ApiAccountUpdateProfileBackgroundImageAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
+            // TRANS: Client error when user not found updating a profile background image.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }

@@ -889,13 +889,23 @@ class User extends Memcached_DataObject
     static function singleUser()
     {
         if (common_config('singleuser', 'enabled')) {
+
+            $user = null;
+
             $nickname = common_config('singleuser', 'nickname');
-            if ($nickname) {
+
+            if (!empty($nickname)) {
                 $user = User::staticGet('nickname', $nickname);
-            } else {
+            }
+
+            // if there was no nickname or no user by that nickname,
+            // try the site owner.
+
+            if (empty($user)) {
                 $user = User::siteOwner();
             }
-            if ($user) {
+
+            if (!empty($user)) {
                 return $user;
             } else {
                 // TRANS: Server exception.

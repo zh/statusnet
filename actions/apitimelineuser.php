@@ -57,10 +57,8 @@ require_once INSTALLDIR . '/lib/apibareauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiTimelineUserAction extends ApiBareAuthAction
 {
-
     var $notices = null;
 
     /**
@@ -69,9 +67,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -79,6 +75,7 @@ class ApiTimelineUserAction extends ApiBareAuthAction
         $this->user = $this->getTargetUser($this->arg('id'));
 
         if (empty($this->user)) {
+            // TRANS: Client error displayed requesting most recent notices for a non-existing user.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -97,7 +94,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -109,7 +105,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return void
      */
-
     function showTimeline()
     {
         $profile = $this->user->getProfile();
@@ -147,7 +142,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             );
             break;
         case 'atom':
-
             header('Content-Type: application/atom+xml; charset=utf-8');
 
             $atom->setId($self);
@@ -160,10 +154,10 @@ class ApiTimelineUserAction extends ApiBareAuthAction
             $this->showJsonTimeline($this->notices);
             break;
         default:
+            // TRANS: Client error displayed when trying to handle an unknown API method.
             $this->clientError(_('API method not found.'), $code = 404);
             break;
         }
-
     }
 
     /**
@@ -171,7 +165,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return array notices
      */
-
     function getNotices()
     {
         $notices = array();
@@ -195,7 +188,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -206,7 +198,6 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return string datestamp of the latest notice in the stream
      */
-
     function lastModified()
     {
         if (!empty($this->notices) && (count($this->notices) > 0)) {
@@ -224,11 +215,9 @@ class ApiTimelineUserAction extends ApiBareAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->notices) && (count($this->notices) > 0)) {
-
             $last = count($this->notices) - 1;
 
             return '"' . implode(
@@ -245,5 +234,4 @@ class ApiTimelineUserAction extends ApiBareAuthAction
 
         return null;
     }
-
 }
