@@ -48,7 +48,6 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiDirectMessageAction extends ApiAuthAction
 {
     var $messages     = null;
@@ -64,9 +63,7 @@ class ApiDirectMessageAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -87,12 +84,12 @@ class ApiDirectMessageAction extends ApiAuthAction
             // Action was called by /api/direct_messages/sent.format
 
             $this->title = sprintf(
-                // TRANS: %s is a user nickname.
+                // TRANS: Title. %s is a user nickname.
                 _("Direct messages from %s"),
                 $this->user->nickname
             );
             $this->subtitle = sprintf(
-                // TRANS: %s is a user nickname.
+                // TRANS: Subtitle. %s is a user nickname.
                 _("All the direct messages sent from %s"),
                 $this->user->nickname
             );
@@ -101,12 +98,12 @@ class ApiDirectMessageAction extends ApiAuthAction
             $this->id = "tag:$taguribase:SentDirectMessages:" . $this->user->id;
         } else {
             $this->title = sprintf(
-                // TRANS: %s is a user nickname.
+                // TRANS: Title. %s is a user nickname.
                 _("Direct messages to %s"),
                 $this->user->nickname
             );
             $this->subtitle = sprintf(
-                // TRANS: %s is a user nickname.
+                // TRANS: Subtitle. %s is a user nickname.
                 _("All the direct messages sent to %s"),
                 $this->user->nickname
             );
@@ -129,7 +126,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -141,7 +137,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showMessages()
     {
         switch($this->format) {
@@ -169,7 +164,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return array notices
      */
-
     function getMessages()
     {
         $message  = new Message();
@@ -208,7 +202,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -219,7 +212,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return string datestamp of the latest notice in the stream
      */
-
     function lastModified()
     {
         if (!empty($this->messages)) {
@@ -234,7 +226,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showXmlDirectMessages()
     {
         $this->initDocument('xml');
@@ -255,7 +246,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showJsonDirectMessages()
     {
         $this->initDocument('json');
@@ -276,7 +266,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showRssDirectMessages()
     {
         $this->initDocument('rss');
@@ -311,7 +300,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showAtomDirectMessages()
     {
         $this->initDocument('atom');
@@ -353,7 +341,6 @@ class ApiDirectMessageAction extends ApiAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->messages)) {
@@ -374,5 +361,4 @@ class ApiDirectMessageAction extends ApiAuthAction
 
         return null;
     }
-
 }

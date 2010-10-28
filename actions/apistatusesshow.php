@@ -55,10 +55,8 @@ require_once INSTALLDIR . '/lib/apiprivateauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiStatusesShowAction extends ApiPrivateAuthAction
 {
-
     var $notice_id = null;
     var $notice    = null;
 
@@ -68,9 +66,7 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -100,12 +96,12 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
 
         if (!in_array($this->format, array('xml', 'json'))) {
+            // TRANS: Client error displayed when trying to handle an unknown API method.
             $this->clientError(_('API method not found.'), $code = 404);
             return;
         }
@@ -118,7 +114,6 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showNotice()
     {
         if (!empty($this->notice)) {
@@ -128,7 +123,6 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
                 $this->show_single_json_status($this->notice);
             }
         } else {
-
             // XXX: Twitter just sets a 404 header and doens't bother
             // to return an err msg
 
@@ -136,12 +130,14 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
 
             if (!empty($deleted)) {
                 $this->clientError(
+                    // TRANS: Client error displayed requesting a deleted status.
                     _('Status deleted.'),
                     410,
                     $this->format
                 );
             } else {
                 $this->clientError(
+                    // TRANS: Client error displayed requesting a status with an invalid ID.
                     _('No status with that ID found.'),
                     404,
                     $this->format
@@ -157,7 +153,6 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
-
     function isReadOnly($args)
     {
         return true;
@@ -168,7 +163,6 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return string datestamp of the latest notice in the stream
      */
-
     function lastModified()
     {
         if (!empty($this->notice)) {
@@ -186,7 +180,6 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
      *
      * @return string etag
      */
-
     function etag()
     {
         if (!empty($this->notice)) {
@@ -204,5 +197,4 @@ class ApiStatusesShowAction extends ApiPrivateAuthAction
 
         return null;
     }
-
 }

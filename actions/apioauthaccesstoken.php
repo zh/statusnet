@@ -79,7 +79,6 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
 
             $app  = $datastore->getAppByRequestToken($this->reqToken);
             $atok = $server->fetch_access_token($req);
-
         } catch (Exception $e) {
             common_log(LOG_WARNING, 'API OAuthException - ' . $e->getMessage());
             common_debug(var_export($req, true));
@@ -88,7 +87,6 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
         }
 
         if (empty($atok)) {
-
             // Token exchange failed -- log it
 
             $msg = sprintf(
@@ -101,7 +99,6 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
             common_log(LOG_WARNING, $msg);
             // TRANS: Client error given from the OAuth API when the request token or verifier is invalid.
             $this->clientError(_("Invalid request token or verifier.", 400, 'text'));
-
         } else {
             common_log(
                 LOG_INFO,
@@ -121,7 +118,6 @@ class ApiOauthAccessTokenAction extends ApiOauthAction
      *
      * @param OAuthToken token the access token
      */
-
     function showAccessToken($token)
     {
         header('Content-Type: application/x-www-form-urlencoded');

@@ -342,7 +342,8 @@ function common_set_cookie($key, $value, $expiration=0)
                      $value,
                      $expiration,
                      $cookiepath,
-                     $server);
+                     $server,
+                     common_config('site', 'ssl')=='always');
 }
 
 define('REMEMBERME', 'rememberme');
