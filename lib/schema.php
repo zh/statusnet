@@ -581,7 +581,7 @@ class Schema
             $this->appendAlterAddForeign($phrase, $keyName, $def['foreign keys'][$keyName]);
         }
 
-        $this->appendAlterExtras($phrase, $tableName);
+        $this->appendAlterExtras($phrase, $tableName, $def);
 
         if (count($phrase) > 0) {
             $sql = 'ALTER TABLE ' . $tableName . ' ' . implode(",\n", $phrase);
@@ -702,7 +702,7 @@ class Schema
         $phrase[] = 'DROP FOREIGN KEY ' . $keyName;
     }
 
-    function appendAlterExtras(array &$phrase, $tableName)
+    function appendAlterExtras(array &$phrase, $tableName, array $def)
     {
         // no-op
     }

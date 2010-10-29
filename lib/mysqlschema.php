@@ -117,9 +117,14 @@ class MysqlSchema extends Schema
                 $field['not null'] = true;
             }
             if ($row['COLUMN_DEFAULT'] !== null) {
-                $field['default'] = $row['COLUMN_DEFAULT'];
-                if ($this->isNumericType($type)) {
-                    $field['default'] = intval($field['default']);
+                // Hack for timestamp cols
+                if ($type == 'timestamp' && $row['COLUMN_DEFAULT'] == 'CURRENT_TIMESTAMP') {
+                    // skip
+                } else {
+                    $field['default'] = $row['COLUMN_DEFAULT'];
+                    if ($this->isNumericType($type)) {
+                        $field['default'] = intval($field['default']);
+                    }
                 }
             }
             if ($row['COLUMN_KEY'] !== null) {
@@ -251,7 +256,16 @@ class MysqlSchema extends Schema
      */
     function endCreateTable($name, array $def)
     {
-        return ") ENGINE=InnoDB CHARACTER SET utf8 COLLATE utf8_bin";
+        $engine = $this->preferredEngine($def);
+        return ") ENGINE=$engine CHARACTER SET utf8 COLLATE utf8_bin";
+    }
+    
+    function preferredEngine($def)
+    {
+        if (!empty($def['fulltext indexes'])) {
+            return 'MyISAM';
+        }
+        return 'InnoDB';
     }
 
     /**
@@ -287,14 +301,15 @@ class MysqlSchema extends Schema
      * Throw some table metadata onto the ALTER TABLE if we have a mismatch
      * in expected type, collation.
      */
-    function appendAlterExtras(array &$phrase, $tableName)
+    function appendAlterExtras(array &$phrase, $tableName, array $def)
     {
         // Check for table properties: make sure we're using a sane
         // engine type and charset/collation.
         // @fixme make the default engine configurable?
         $oldProps = $this->getTableProperties($tableName, array('ENGINE', 'TABLE_COLLATION'));
-        if (strtolower($oldProps['ENGINE']) != 'innodb') {
-            $phrase[] = 'ENGINE=InnoDB';
+        $engine = $this->preferredEngine($def);
+        if (strtolower($oldProps['ENGINE']) != strtolower($engine)) {
+            $phrase[] = "ENGINE=$engine";
         }
         if (strtolower($oldProps['TABLE_COLLATION']) != 'utf8_bin') {
             $phrase[] = 'DEFAULT CHARSET=utf8';

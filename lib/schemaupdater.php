@@ -37,7 +37,6 @@ class SchemaUpdater
     public function __construct($schema)
     {
         $this->schema = $schema;
-        $this->conn = $conn;
         $this->checksums = $this->getChecksums();
     }
 
@@ -51,13 +50,15 @@ class SchemaUpdater
     }
 
     /**
+     * Go ping em!
+     *
      * @fixme handle tables that belong on different database servers...?
      */
-    public function checkTables()
+    public function checkSchema()
     {
         $checksums = $this->checksums;
         foreach ($this->tables as $table => $def) {
-            $checksum = $this->tableChecksum($def);
+            $checksum = $this->checksum($def);
             if (empty($checksums[$table])) {
                 common_log(LOG_DEBUG, "No previous schema_version for $table: updating to $checksum");
             } else if ($checksums[$table] == $checksum) {
@@ -66,10 +67,10 @@ class SchemaUpdater
             } else {
                 common_log(LOG_DEBUG, "Last schema_version for $table is {$checksums[$table]}: updating to $checksum");
             }
-            $this->conn->query('BEGIN');
+            //$this->conn->query('BEGIN');
             $this->schema->ensureTable($table, $def);
             $this->saveChecksum($table, $checksum);
-            $this->conn->commit();
+            //$this->conn->commit();
         }
     }
 

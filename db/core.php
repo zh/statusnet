@@ -13,7 +13,8 @@
  * MySQL 'timestamp' columns were formerly used for 'modified' files for their
  * auto-updating properties. This didn't play well with changes to cache usage
  * in 0.9.x, as we don't know the timestamp value at INSERT time and never
- * have a chance to load it up again before caching.
+ * have a chance to load it up again before caching. For now I'm leaving them
+ * in, but we may want to clean them up later.
  *
  * Current code should be setting 'created' and 'modified' fields explicitly;
  * this also avoids mismatches between server and client timezone settings.
@@ -44,7 +45,7 @@ $schema['profile'] = array(
         'location_ns' => array('type' => 'int', 'description' => 'namespace for location'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'indexes' => array(
@@ -65,7 +66,7 @@ $schema['avatar'] = array(
         'filename' => array('type' => 'varchar', 'length' => 255, 'description' => 'local filename, if local'),
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'avatar location'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('profile_id', 'width', 'height'),
     'unique keys' => array(
@@ -85,7 +86,7 @@ $schema['sms_carrier'] = array(
         'name' => array('type' => 'varchar', 'length' => 64, 'description' => 'name of the carrier'),
         'email_pattern' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'sprintf pattern for making an email address from a phone number'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -123,7 +124,7 @@ $schema['user'] = array(
         'viewdesigns' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'whether to view user-provided designs'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -151,7 +152,7 @@ $schema['remote_profile'] = array(
         'postnoticeurl' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL we use for posting notices'),
         'updateprofileurl' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL we use for updates to this profile'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -171,7 +172,7 @@ $schema['subscription'] = array(
         'token' => array('type' => 'varchar', 'length' => 255, 'description' => 'authorization token'),
         'secret' => array('type' => 'varchar', 'length' => 255, 'description' => 'token secret'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('subscriber', 'subscribed'),
     'indexes' => array(
@@ -190,7 +191,7 @@ $schema['notice'] = array(
         'rendered' => array('type' => 'text', 'description' => 'HTML version of the content'),
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL of any attachment (image, video, bookmark, whatever)'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
         'reply_to' => array('type' => 'int', 'description' => 'notice replied to (usually a guess)'),
         'is_local' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'notice was generated by a user'),
         'source' => array('type' => 'varchar', 'length' => 32, 'description' => 'source of comment, like "web", "im", or "clientname"'),
@@ -229,7 +230,7 @@ $schema['notice_source'] = array(
         'name' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'name of the source'),
         'url' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'url to link to'),
         'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),
 );
@@ -238,7 +239,7 @@ $schema['reply'] = array(
     'fields' => array(
         'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice that is the reply'),
         'profile_id' => array('type' => 'int', 'not null' => true, 'description' => 'profile replied to'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
         'replied_id' => array('type' => 'int', 'description' => 'notice replied to (not used, see notice.reply_to)'),
     ),
     'primary key' => array('notice_id', 'profile_id'),
@@ -257,7 +258,7 @@ $schema['fave'] = array(
     'fields' => array(
         'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'notice that is the favorite'),
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who likes this notice'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('notice_id', 'user_id'),
     'foreign keys' => array(
@@ -281,7 +282,7 @@ $schema['consumer'] = array(
         'seed' => array('type' => 'char', 'length' => 32, 'not null' => true, 'description' => 'seed for new tokens by this consumer'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('consumer_key'),
 );
@@ -298,7 +299,7 @@ $schema['token'] = array(
         'verified_callback' => array('type' => 'varchar', 'length' => 255, 'description' => 'verified callback URL for OAuth 1.0a'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('consumer_key', 'tok'),
     'foreign keys' => array(
@@ -315,7 +316,7 @@ $schema['nonce'] = array(
         'ts' => array('type' => 'datetime', 'not null' => true, 'description' => 'timestamp sent'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('consumer_key', 'ts', 'nonce'),
 );
@@ -336,7 +337,7 @@ $schema['oauth_application'] = array(
         'type' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'type of app, 1 = browser, 2 = desktop'),
         'access_type' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'default access type, bit 1 = read, bit 2 = write'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -355,7 +356,7 @@ $schema['oauth_application_user'] = array(
         'access_type' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'access type, bit 1 = read, bit 2 = write'),
         'token' => array('type' => 'varchar', 'length' => 255, 'description' => 'request or access token'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('profile_id', 'application_id'),
     'foreign keys' => array(
@@ -398,7 +399,7 @@ $schema['confirm_address'] = array(
         'address_type' => array('type' => 'varchar', 'length' => 8, 'not null' => true, 'description' => 'address type ("email", "xmpp", "sms")'),
         'claimed' => array('type' => 'datetime', 'description' => 'date this was claimed for queueing'),
         'sent' => array('type' => 'datetime', 'description' => 'date this was sent for queueing'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),
     'foreign keys' => array(
@@ -410,7 +411,7 @@ $schema['remember_me'] = array(
     'fields' => array(
         'code' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'good random code'),
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who is logged in'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),
     'foreign keys' => array(
@@ -457,7 +458,7 @@ $schema['foreign_service'] = array(
         'name' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'name of the service'),
         'description' => array('type' => 'varchar', 'length' => 255, 'description' => 'description'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -472,7 +473,7 @@ $schema['foreign_user'] = array(
         'uri' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'identifying URI'),
         'nickname' => array('type' => 'varchar', 'length' => 255, 'description' => 'nickname on foreign service'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id', 'service'),
     'foreign keys' => array(
@@ -495,7 +496,7 @@ $schema['foreign_link'] = array(
         'last_noticesync' => array('type' => 'datetime', 'description' => 'last time notices were imported'),
         'last_friendsync' => array('type' => 'datetime', 'description' => 'last time friends were imported'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id', 'foreign_id', 'service'),
     'foreign keys' => array(
@@ -555,7 +556,7 @@ $schema['message'] = array(
         'rendered' => array('type' => 'text', 'description' => 'HTML version of the content'),
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL of any attachment (image, video, bookmark, whatever)'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
         'source' => array('type' => 'varchar', 'length' => 32, 'description' => 'source of comment, like "web", "im", or "clientname"'),
     ),
     'primary key' => array('id'),
@@ -598,7 +599,7 @@ $schema['profile_tag'] = array(
         'tagger' => array('type' => 'int', 'not null' => true, 'description' => 'user making the tag'),
         'tagged' => array('type' => 'int', 'not null' => true, 'description' => 'profile tagged'),
         'tag' => array('type' => 'varchar', 'length' => 64, 'not null' => true, 'description' => 'hash tag associated with this notice'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date the tag was added'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date the tag was added'),
     ),
     'primary key' => array('tagger', 'tagged', 'tag'),
     'foreign keys' => array(
@@ -616,7 +617,7 @@ $schema['profile_block'] = array(
     'fields' => array(
         'blocker' => array('type' => 'int', 'not null' => true, 'description' => 'user making the block'),
         'blocked' => array('type' => 'int', 'not null' => true, 'description' => 'profile that is blocked'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date of blocking'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date of blocking'),
     ),
     'foreign keys' => array(
         'profile_block_blocker_fkey' => array('user', array('blocker' => 'id')),
@@ -642,7 +643,7 @@ $schema['user_group'] = array(
         'design_id' => array('type' => 'int', 'description' => 'id of a design'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
 
         'uri' => array('type' => 'varchar', 'length' => 255, 'description' => 'universal identifier'),
         'mainpage' => array('type' => 'varchar', 'length' => 255, 'description' => 'page for group info to link to'),
@@ -666,7 +667,7 @@ $schema['group_member'] = array(
         'is_admin' => array('type' => 'int', 'size' => 'tiny', 'default' => 0, 'description' => 'is this user an admin?'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('group_id', 'profile_id'),
     'foreign keys' => array(
@@ -724,7 +725,7 @@ $schema['file'] = array(
         'protected' => array('type' => 'int', 'description' => 'true when URL is private (needs login)'),
         'filename' => array('type' => 'varchar', 'length' => 255, 'description' => 'if a local file, name of the file'),
 
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -747,7 +748,7 @@ $schema['file_oembed'] = array(
         'author_name' => array('type' => 'varchar', 'length' => 50, 'description' => 'author name for this oEmbed resource'),
         'author_url' => array('type' => 'varchar', 'length' => 255, 'description' => 'author URL for this oEmbed resource'),
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL for this oEmbed resource when applicable (photo, link)'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('file_id'),
     'foreign keys' => array(
@@ -761,7 +762,7 @@ $schema['file_redirection'] = array(
         'file_id' => array('type' => 'int', 'description' => 'short URL for what URL/file'),
         'redirections' => array('type' => 'int', 'description' => 'redirect count'),
         'httpcode' => array('type' => 'int', 'description' => 'HTTP status code (20x, 30x, etc.)'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('url'),
     'foreign keys' => array(
@@ -775,7 +776,7 @@ $schema['file_thumbnail'] = array(
         'url' => array('type' => 'varchar', 'length' => 255, 'description' => 'URL of thumbnail'),
         'width' => array('type' => 'int', 'description' => 'width of thumbnail'),
         'height' => array('type' => 'int', 'description' => 'height of thumbnail'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('file_id'),
     'foreign keys' => array(
@@ -790,7 +791,7 @@ $schema['file_to_post'] = array(
     'fields' => array(
         'file_id' => array('type' => 'int', 'not null' => true, 'description' => 'id of URL/file'),
         'post_id' => array('type' => 'int', 'not null' => true, 'description' => 'id of the notice it belongs to'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('file_id', 'post_id'),
     'foreign keys' => array(
@@ -821,7 +822,7 @@ $schema['group_block'] = array(
         'group_id' => array('type' => 'int', 'not null' => true, 'description' => 'group profile is blocked from'),
         'blocked' => array('type' => 'int', 'not null' => true, 'description' => 'profile that is blocked'),
         'blocker' => array('type' => 'int', 'not null' => true, 'description' => 'user making the block'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date of blocking'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date of blocking'),
     ),
     'primary key' => array('group_id', 'blocked'),
     'foreign keys' => array(
@@ -835,7 +836,7 @@ $schema['group_alias'] = array(
     'fields' => array(
         'alias' => array('type' => 'varchar', 'length' => 64, 'not null' => true, 'description' => 'additional nickname for the group'),
         'group_id' => array('type' => 'int', 'not null' => true, 'description' => 'group profile is blocked from'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date alias was created'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date alias was created'),
     ),
     'primary key' => array('alias'),
     'foreign keys' => array(
@@ -851,7 +852,7 @@ $schema['session'] = array(
         'id' => array('type' => 'varchar', 'length' => 32, 'not null' => true, 'description' => 'session ID'),
         'session_data' => array('type' => 'text', 'description' => 'session data'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'indexes' => array(
@@ -902,7 +903,7 @@ $schema['location_namespace'] = array(
         'id' => array('type' => 'int', 'not null' => true, 'description' => 'identity for this namespace'),
         'description' => array('type' => 'varchar', 'length' => 255, 'description' => 'description of the namespace'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date the record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
 );
@@ -912,7 +913,7 @@ $schema['login_token'] = array(
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user owning this token'),
         'token' => array('type' => 'char', 'length' => 32, 'not null' => true, 'description' => 'token useable for logging in'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
@@ -925,7 +926,7 @@ $schema['user_location_prefs'] = array(
         'user_id' => array('type' => 'int', 'not null' => true, 'description' => 'user who has the preference'),
         'share_location' => array('type' => 'int', 'size' => 'tiny', 'default' => 1, 'description' => 'Whether to share location data'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
@@ -955,7 +956,7 @@ $schema['user_im_prefs'] = array(
         'microid' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 1, 'description' => 'Publish a MicroID'),
         'updatefrompresence' => array('type' => 'int', 'size' => 'tiny', 'not null' => true, 'default' => 0, 'description' => 'Send replies from people not subscribed to.'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id', 'transport'),
     'unique keys' => array(
@@ -971,7 +972,7 @@ $schema['conversation'] = array(
         'id' => array('type' => 'serial', 'not null' => true, 'description' => 'unique identifier'),
         'uri' => array('type' => 'varchar', 'length' => 225, 'description' => 'URI of the conversation'),
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('id'),
     'unique keys' => array(
@@ -986,7 +987,7 @@ $schema['local_group'] = array(
         'nickname' => array('type' => 'varchar', 'length' => 64, 'description' => 'group represented'),
 
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('group_id'),
     'foreign keys' => array(
@@ -1005,7 +1006,7 @@ $schema['user_urlshortener_prefs'] = array(
         'maxnoticelength' => array('type' => 'int', 'not null' => true, 'description' => 'notices with content greater than this value will have all urls shortened, 0 = always, null = never'),
         
         'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('user_id'),
     'foreign keys' => array(
@@ -1018,7 +1019,7 @@ $schema['schema_version'] = array(
     'fields' => array(
         'table_name' => array('type' => 'varchar', 'length' => '64', 'not null' => true, 'description' => 'Table name'),
         'checksum' => array('type' => 'varchar', 'length' => '64', 'not null' => true, 'description' => 'Checksum of schema array; a mismatch indicates we should check the table more thoroughly.'),
-        'modified' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was modified'),
+        'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('table_name'),
 );
