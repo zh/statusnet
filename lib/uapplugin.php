@@ -95,6 +95,24 @@ abstract class UAPPlugin extends Plugin
             $action->elementEnd('div');
         }
 
+        // XXX: Hack to force ads to show on single-notice pages
+
+        if (!is_null($this->rectangle) &&
+            $action->trimmed('action') == 'shownotice') {
+
+            $action->elementStart('div', array('id' => 'aside_primary',
+                                               'class' => 'aside'));
+
+            if (Event::handle('StartShowSections', array($action))) {
+                $action->showSections();
+                Event::handle('EndShowSections', array($action));
+            }
+
+            $action->elementEnd('div');
+
+            return false;
+        }
+
         return true;
     }
 
