@@ -553,14 +553,14 @@ class Profile extends Memcached_DataObject
 
     function blowFavesCache()
     {
-        $cache = common_memcache();
+        $cache = Cache::instance();
         if ($cache) {
             // Faves don't happen chronologically, so we need to blow
             // ;last cache, too
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user:'.$this->id.';last'));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id));
-            $cache->delete(common_cache_key('fave:ids_by_user_own:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user:'.$this->id.';last'));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id));
+            $cache->delete(Cache::key('fave:ids_by_user_own:'.$this->id.';last'));
         }
         $this->blowFaveCount();
     }
