@@ -365,6 +365,14 @@ GetValidDaemons: Just before determining which daemons to run
 HandleQueuedNotice: Handle a queued notice at queue time (or immediately if no queue)
 - &$notice: notice to handle
 
+StartHtmlElement: Reight before outputting the HTML element - allows plugins to add namespaces
+- $action: the current action
+- &$attrs: attributes for the HTML element
+
+EndHtmlElement: Right after outputting the HTML element
+- $action: the current action
+- &$attrs: attributes for the HTML element
+
 StartShowHeadElements: Right after the <head> tag
 - $action: the current action
 
