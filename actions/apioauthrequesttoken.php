@@ -42,7 +42,6 @@ require_once INSTALLDIR . '/lib/apioauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiOauthRequestTokenAction extends ApiOauthAction
 {
     /**
@@ -51,9 +50,7 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -74,7 +71,6 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -127,7 +123,6 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
     /*
      * Display temporary OAuth credentials
      */
-
     function showRequestToken($token)
     {
         header('Content-Type: application/x-www-form-urlencoded');
@@ -142,7 +137,6 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
      *
      * @return boolean true or false
      */
-
     function verifyCallback($callback)
     {
         if ($callback == "oob") {
@@ -157,5 +151,4 @@ class ApiOauthRequestTokenAction extends ApiOauthAction
             return Validate::uri($callback);
         }
     }
-
 }

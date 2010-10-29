@@ -48,10 +48,8 @@ require_once INSTALLDIR.'/lib/apiprivateauth.php';
  *
  * @see      ApiPrivateAuthAction
  */
-
 class ApiSearchAtomAction extends ApiPrivateAuthAction
 {
-
     var $cnt;
     var $query;
     var $lang;
@@ -70,7 +68,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @see Action::__construct
      */
-
     function __construct($output='php://output', $indent=null)
     {
         parent::__construct($output, $indent);
@@ -81,7 +78,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return boolean true
      */
-
     function isReadonly()
     {
         return true;
@@ -93,15 +89,12 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      * @param array $args Arguments from $_REQUEST
      *
      * @return boolean success
-     *
      */
-
     function prepare($args)
     {
         common_debug("in apisearchatom prepare()");
 
         parent::prepare($args);
-
 
         $this->query = $this->trimmed('q');
         $this->lang  = $this->trimmed('lang');
@@ -139,7 +132,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -154,7 +146,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return array an array of Notice objects sorted in reverse chron
      */
-
     function getNotices()
     {
         // TODO: Support search operators like from: and to:, boolean, etc.
@@ -180,7 +171,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
 
         if ($this->cnt > 0) {
             while ($notice->fetch()) {
-
                 ++$cnt;
 
                 if (!$this->max_id) {
@@ -203,7 +193,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showAtom()
     {
         $notices = $this->getNotices();
@@ -212,7 +201,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
         $this->showFeed();
 
         foreach ($notices as $n) {
-
             $profile = $n->getProfile();
 
             // Don't show notices from deleted users
@@ -230,7 +218,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showFeed()
     {
         // TODO: A9 OpenSearch stuff like search.twitter.com?
@@ -278,6 +265,7 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
                                      'rel'  => 'self',
                                      'href' => $self_uri));
 
+        // @todo Needs i18n?
         $this->element('title', null, "$this->query - $sitename Search");
         $this->element('updated', null, common_date_iso8601('now'));
 
@@ -313,7 +301,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
                                          'rel'  => 'previous',
                                          'href' => $previous_uri));
         }
-
     }
 
     /**
@@ -324,7 +311,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function showEntry($notice)
     {
         $server  = common_config('site', 'server');
@@ -356,10 +342,10 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
         if ($ns) {
             if (!empty($ns->name) && !empty($ns->url)) {
                 $source = '<a href="'
-		   . htmlspecialchars($ns->url)
-		   . '" rel="nofollow">'
-		   . htmlspecialchars($ns->name)
-		   . '</a>';
+                   . htmlspecialchars($ns->url)
+                   . '" rel="nofollow">'
+                   . htmlspecialchars($ns->name)
+                   . '</a>';
             } else {
                 $source = $ns->code;
             }
@@ -372,6 +358,7 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
         $name = $profile->nickname;
 
         if ($profile->fullname) {
+            // @todo Needs proper i18n?
             $name .= ' (' . $profile->fullname . ')';
         }
 
@@ -387,7 +374,6 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function initAtom()
     {
         header('Content-Type: application/atom+xml; charset=utf-8');
@@ -399,10 +385,8 @@ class ApiSearchAtomAction extends ApiPrivateAuthAction
      *
      * @return void
      */
-
     function endAtom()
     {
         $this->elementEnd('feed');
     }
-
 }

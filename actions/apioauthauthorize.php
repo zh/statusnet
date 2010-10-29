@@ -58,7 +58,6 @@ class ApiOauthAuthorizeAction extends Action
      *
      * @return boolean false
      */
-
     function isReadOnly($args)
     {
         return false;
@@ -144,6 +143,7 @@ class ApiOauthAuthorizeAction extends Action
 
         if (!$token || $token != common_session_token()) {
             $this->showForm(
+                // TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
                 _('There was a problem with your session token. Try again, please.'));
             return;
         }
@@ -177,7 +177,6 @@ class ApiOauthAuthorizeAction extends Action
         assert(!empty($this->reqToken));
 
         if ($this->arg('allow')) {
-
             // mark the req token as authorized
             try {
                 $this->store->authorize_token($this->oauthTokenParam);
@@ -250,9 +249,7 @@ class ApiOauthAuthorizeAction extends Action
 
             // Otherwise, inform the user that the rt was authorized
             $this->showAuthorized();
-
         } else if ($this->arg('cancel')) {
-
             common_log(
                 LOG_INFO,
                 sprintf(
@@ -421,16 +418,18 @@ class ApiOauthAuthorizeAction extends Action
         $access = ($this->app->access_type & Oauth_application::$writeAccess) ?
           'access and update' : 'access';
 
-        // TRANS: User notification of external application requesting account access.
-        // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
-        // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
         if ($this->app->name == 'anonymous') {
-        // Special message for the anonymous app and consumer
+            // Special message for the anonymous app and consumer.
+            // TRANS: User notification of external application requesting account access.
+            // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
             $msg = _('An application would like the ability ' .
                  'to <strong>%3$s</strong> your %4$s account data. ' .
                  'You should only give access to your %4$s account ' .
                  'to third parties you trust.');
         } else {
+            // TRANS: User notification of external application requesting account access.
+            // TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
+            // TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
             $msg = _('The application <strong>%1$s</strong> by ' .
                      '<strong>%2$s</strong> would like the ability ' .
                      'to <strong>%3$s</strong> your %4$s account data. ' .
@@ -612,19 +611,36 @@ class ApiOauthAuthorizeAction extends Action
      */
     function showAuthorized()
     {
-        $title = sprintf(
-           // TRANS: Header of user notification after authorising an application access to a profile.
-           // TRANS: %s is the authorised application name.
-            _('You have successfully authorized %s.'),
-            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
-        );
+        $title = null;
+        $msg   = null;
 
-        $msg = sprintf(
-            // TRANS: Uer notification after authorising an application access to a profile.
-            // TRANS: %s is the authorised application name.
-            _('Please return to %s and enter the following security code to complete the process.'),
-            ($this->app->name == 'anonymous') ? 'the application' : $this->app->name
-        );
+        if ($this->app->name == 'anonymous') {
+
+            $title =
+                // TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+                _('You have successfully authorized the application');
+
+            $msg =
+                // TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
+                _('Please return to the application and enter the following security code to complete the process.');
+
+        } else {
+
+            $title = sprintf(
+                // TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
+                // TRANS: %s is the authorised application name.
+                _('You have successfully authorized %s'),
+                $this->app->name
+            );
+
+            $msg = sprintf(
+                // TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
+                // TRANS: %s is the authorised application name.
+                _('Please return to %s and enter the following security code to complete the process.'),
+                $this->app->name
+            );
+
+        }
 
         if ($this->reqToken->verified_callback == 'oob') {
             $pin = new ApiOauthPinAction(
@@ -635,7 +651,6 @@ class ApiOauthAuthorizeAction extends Action
             );
             $pin->showPage();
         } else {
-
             // NOTE: This would only happen if an application registered as
             // a web application but sent in 'oob' for the oauth_callback
             // parameter. Usually web apps will send in a callback and
@@ -676,7 +691,6 @@ class ApiOauthAuthorizeAction extends Action
 
                 $callback = $this->app->callback_url;
             }
-
         }
 
         return $callback;
