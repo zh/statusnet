@@ -42,13 +42,21 @@ class SchemaUpdater
     }
 
     /**
-     * @param array $tableDefs
+     * @param string $tableName
+     * @param array $tableDef
+     */
+    public function register($tableName, array $tableDef)
+    {
+        $this->tables[$tableName] = $tableDef;
+    }
+
+    /**
      * @fixme handle tables that belong on different database servers...?
      */
-    public function checkTables(array $tableDefs)
+    public function checkTables()
     {
         $checksums = $this->checksums;
-        foreach ($tableDefs as $table => $def) {
+        foreach ($this->tables as $table => $def) {
             $checksum = $this->tableChecksum($def);
             if (empty($checksums[$table])) {
                 common_log(LOG_DEBUG, "No previous schema_version for $table: updating to $checksum");
