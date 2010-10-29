@@ -201,7 +201,13 @@ class TwitterBridgePlugin extends Plugin
         case 'TwitterOAuthClient':
         case 'TwitterQueueHandler':
         case 'TwitterImport':
+        case 'JsonStreamReader':
+        case 'TwitterStreamReader':
             include_once $dir . '/' . strtolower($cls) . '.php';
+            return false;
+        case 'TwitterSiteStream':
+        case 'TwitterUserStream':
+            include_once $dir . '/twitterstreamreader.php';
             return false;
         case 'Notice_to_status':
         case 'Twitter_synch_status':

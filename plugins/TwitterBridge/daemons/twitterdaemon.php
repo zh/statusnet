@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('INSTALLDIR', realpath(dirname(__FILE__) . '/..'));
+define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'fi::a';
 $longoptions = array('id::', 'foreground', 'all');
@@ -82,13 +82,11 @@ class TwitterMaster extends IoMaster
      */
     function initManagers()
     {
-        if (common_config('twitter', 'enabled')) {
-            $qm = QueueManager::get();
-            $qm->setActiveGroup('twitter');
-            $this->instantiate($qm);
-            $this->instantiate(TwitterManager::get());
-            $this->instantiate($this->processManager);
-        }
+        $qm = QueueManager::get();
+        $qm->setActiveGroup('twitter');
+        $this->instantiate($qm);
+        $this->instantiate(new TwitterManager());
+        $this->instantiate($this->processManager);
     }
 }
 
@@ -103,10 +101,6 @@ class TwitterManager extends IoManager
     protected $twitterStreams;
     protected $twitterUsers;
 
-    function __construct()
-    {
-    }
-
     /**
      * Pull the site's active Twitter-importing users and start spawning
      * some data streams for them!
@@ -116,6 +110,7 @@ class TwitterManager extends IoManager
      */
     protected function initStreams()
     {
+        common_log(LOG_INFO, 'init...');
         // Pull Twitter user IDs for all users we want to pull data for
         $flink = new Foreign_link();
         $flink->service = TWITTER_SERVICE;
@@ -144,9 +139,9 @@ class TwitterManager extends IoManager
      * Prepare a Site Stream connection for the given chunk of users.
      * The actual connection will be opened later.
      *
-     * @param $users array of Twitter-side user IDs
+     * @param $userIds array of Twitter-side user IDs
      */
-    protected function spawnStream($users)
+    protected function spawnStream($userIds)
     {
         $stream = $this->initSiteStream();
         $stream->followUsers($userIds);
@@ -213,7 +208,7 @@ class TwitterManager extends IoManager
                 $sockets[] = $socket;
             }
         }
-        return $streams;
+        return $sockets;
     }
 
     /**
@@ -272,7 +267,7 @@ class TwitterManager extends IoManager
      *
      * @fixme add more event types as we add handling for them
      */
-    protected function setupEvents(TwitterStream $stream)
+    protected function setupEvents(TwitterStreamReader $stream)
     {
         $handlers = array(
             'status',
