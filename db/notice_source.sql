@@ -34,7 +34,7 @@ VALUES
     ('mbpidgin','mbpidgin','http://code.google.com/p/microblog-purple/', now()),
     ('Mobidentica', 'Mobidentica', 'http://www.substanceofcode.com/software/mobidentica/', now()),
     ('moconica','Moconica','http://moconica.com/', now()),
-    ('mustard', 'MuSTArDroid', 'https://launchpad.net/mustardroid', now()),
+    ('mustard', 'mustard', 'http://mustard.macno.org', now()),
     ('nambu','Nambu','http://www.nambu.com/', now()),
     ('peoplebrowsr', 'PeopleBrowsr', 'http://www.peoplebrowsr.com/', now()),
     ('Pikchur','Pikchur','http://www.pikchur.com/', now()),

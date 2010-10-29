@@ -52,4 +52,3 @@ class XmppOutQueueHandler extends QueueHandler
         return $ok;
     }
 }
-

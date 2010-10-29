@@ -43,7 +43,6 @@ class Status_network_tag extends Safe_DataObject
         $this->_connect();
     }
 
-
     /* Static get */
     function staticGet($k,$v=null)
     {
@@ -99,7 +98,7 @@ class Status_network_tag extends Safe_DataObject
 
         if (Status_network::$cache) {
             $packed = implode('|', $result);
-            Status_network::$cache->set($key, $packed, 3600);
+            Status_network::$cache->set($key, $packed, 0, 3600);
         }
 
         return $result;

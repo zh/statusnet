@@ -875,4 +875,45 @@ class User extends Memcached_DataObject
 
         return $owner;
     }
+
+    /**
+     * Pull the primary site account to use in single-user mode.
+     * If a valid user nickname is listed in 'singleuser':'nickname'
+     * in the config, this will be used; otherwise the site owner
+     * account is taken by default.
+     *
+     * @return User
+     * @throws ServerException if no valid single user account is present
+     * @throws ServerException if called when not in single-user mode
+     */
+    static function singleUser()
+    {
+        if (common_config('singleuser', 'enabled')) {
+
+            $user = null;
+
+            $nickname = common_config('singleuser', 'nickname');
+
+            if (!empty($nickname)) {
+                $user = User::staticGet('nickname', $nickname);
+            }
+
+            // if there was no nickname or no user by that nickname,
+            // try the site owner.
+
+            if (empty($user)) {
+                $user = User::siteOwner();
+            }
+
+            if (!empty($user)) {
+                return $user;
+            } else {
+                // TRANS: Server exception.
+                throw new ServerException(_('No single user defined for single-user mode.'));
+            }
+        } else {
+            // TRANS: Server exception.
+            throw new ServerException(_('Single-user mode code called when not enabled.'));
+        }
+    }
 }

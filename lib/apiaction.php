@@ -1398,8 +1398,10 @@ class ApiAction extends Action
             if (is_numeric($this->arg('id'))) {
                 return Profile::staticGet($this->arg('id'));
             } else if ($this->arg('id')) {
+                // Screen names currently can only uniquely identify a local user.
                 $nickname = common_canonical_nickname($this->arg('id'));
-                return Profile::staticGet('nickname', $nickname);
+                $user = User::staticGet('nickname', $nickname);
+                return $user ? $user->getProfile() : null;
             } else if ($this->arg('user_id')) {
                 // This is to ensure that a non-numeric user_id still
                 // overrides screen_name even if it doesn't get used
@@ -1408,13 +1410,15 @@ class ApiAction extends Action
                 }
             } else if ($this->arg('screen_name')) {
                 $nickname = common_canonical_nickname($this->arg('screen_name'));
-                return Profile::staticGet('nickname', $nickname);
+                $user = User::staticGet('nickname', $nickname);
+                return $user ? $user->getProfile() : null;
             }
         } else if (is_numeric($id)) {
             return Profile::staticGet($id);
         } else {
             $nickname = common_canonical_nickname($id);
-            return Profile::staticGet('nickname', $nickname);
+            $user = User::staticGet('nickname', $nickname);
+            return $user ? $user->getProfile() : null;
         }
     }
 

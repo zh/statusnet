@@ -23,7 +23,7 @@ define('INSTALLDIR', realpath(dirname(__FILE__) . '/../..'));
 require_once INSTALLDIR . '/extlib/OAuth.php';
 
 $shortoptions = 't:s:u:';
-$longoptions = array('oauth_token=', 'token_secret=', 'update=');
+$longoptions = array('oauth_token=', 'oauth_token_secret=', 'update=');
 
 $helptext = <<<END_OF_VERIFY_HELP
     oauth_post_notice.php [options]

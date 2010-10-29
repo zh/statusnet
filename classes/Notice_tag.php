@@ -60,7 +60,7 @@ class Notice_tag extends Memcached_DataObject
         }
 
         if ($max_id != 0) {
-            $nt->whereAdd('notice_id < ' . $max_id);
+            $nt->whereAdd('notice_id <= ' . $max_id);
         }
 
         $nt->orderBy('notice_id DESC');

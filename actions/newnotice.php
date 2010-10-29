@@ -82,7 +82,6 @@ class NewnoticeAction extends Action
      *
      * @return void
      */
-
     function handle($args)
     {
         if (!common_logged_in()) {
@@ -91,9 +90,12 @@ class NewnoticeAction extends Action
             // check for this before token since all POST and FILES data
             // is losts when size is exceeded
             if (empty($_POST) && $_SERVER['CONTENT_LENGTH']) {
-                $this->clientError(sprintf(_('The server was unable to handle ' .
-                                             'that much POST data (%s bytes) due to its current configuration.'),
-                                           $_SERVER['CONTENT_LENGTH']));
+                // TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+                // TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+                $msg = _m('The server was unable to handle that much POST data (%s byte) due to its current configuration.',
+                          'The server was unable to handle that much POST data (%s bytes) due to its current configuration.',
+                          intval($_SERVER['CONTENT_LENGTH']));
+                $this->clientError(sprintf($msg,$_SERVER['CONTENT_LENGTH']));
             }
             parent::handle($args);
 
@@ -352,4 +354,3 @@ class NewnoticeAction extends Action
         $nli->show();
     }
 }
-

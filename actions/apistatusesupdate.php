@@ -147,10 +147,8 @@ require_once INSTALLDIR . '/lib/mediafile.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiStatusesUpdateAction extends ApiAuthAction
 {
-    var $source                = null;
     var $status                = null;
     var $in_reply_to_status_id = null;
     var $lat                   = null;
@@ -164,7 +162,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
      * @return boolean success flag
      *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -188,7 +185,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -210,8 +206,11 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             && empty($_POST)
             && ($_SERVER['CONTENT_LENGTH'] > 0)
         ) {
-             $msg = _('The server was unable to handle that much POST ' .
-                    'data (%s bytes) due to its current configuration.');
+             // TRANS: Client error displayed when the number of bytes in a POST request exceeds a limit.
+             // TRANS: %s is the number of bytes of the CONTENT_LENGTH.
+             $msg = _m('The server was unable to handle that much POST data (%s byte) due to its current configuration.',
+                      'The server was unable to handle that much POST data (%s bytes) due to its current configuration.',
+                      intval($_SERVER['CONTENT_LENGTH']));
 
             $this->clientError(sprintf($msg, $_SERVER['CONTENT_LENGTH']));
             return;
@@ -219,6 +218,7 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
         if (empty($this->status)) {
             $this->clientError(
+                // TRANS: Client error displayed when the parameter "status" is missing.
                 _('Client must provide a \'status\' parameter with a value.'),
                 400,
                 $this->format
@@ -240,7 +240,11 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
             $this->clientError(
                 sprintf(
-                    _('That\'s too long. Max notice size is %d chars.'),
+                    // TRANS: Client error displayed when the parameter "status" is missing.
+                    // TRANS: %d is the maximum number of character for a notice.
+                    _m('That\'s too long. Maximum notice size is %d character.',
+                      'That\'s too long. Maximum notice size is %d characters.',
+                      Notice::maxContent()),
                     Notice::maxContent()
                 ),
                 406,
@@ -256,7 +260,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
         $cmd = $inter->handle_command($this->auth_user, $status_shortened);
 
         if ($cmd) {
-
             if ($this->supported($cmd)) {
                 $cmd->execute(new Channel());
             }
@@ -266,13 +269,10 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             // or not!
 
             $this->notice = $this->auth_user->getCurrentNotice();
-
         } else {
-
             $reply_to = null;
 
             if (!empty($this->in_reply_to_status_id)) {
-
                 // Check whether notice actually exists
 
                 $reply = Notice::staticGet($this->in_reply_to_status_id);
@@ -281,7 +281,8 @@ class ApiStatusesUpdateAction extends ApiAuthAction
                     $reply_to = $this->in_reply_to_status_id;
                 } else {
                     $this->clientError(
-                        _('Not found.'),
+                        // TRANS: Client error displayed when replying to a non-existing notice.
+                        _('Parent notice not found.'),
                         $code = 404,
                         $this->format
                     );
@@ -303,10 +304,9 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
                 if (Notice::contentTooLong($status_shortened)) {
                     $upload->delete();
-                    $msg = _(
-                        'Max notice size is %d chars, ' .
-                        'including attachment URL.'
-                    );
+                    $msg = _m('Maximum notice size is %d character, including attachment URL.',
+                             'Maximum notice size is %d characters, including attachment URL.',
+                             Notice::maxContent());
                     $this->clientError(
                         sprintf($msg, Notice::maxContent()),
                         400,
@@ -345,7 +345,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
             if (isset($upload)) {
                 $upload->attachToNotice($this->notice);
             }
-
         }
 
         $this->showNotice();
@@ -356,7 +355,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
      *
      * @return void
      */
-
     function showNotice()
     {
         if (!empty($this->notice)) {
@@ -375,7 +373,6 @@ class ApiStatusesUpdateAction extends ApiAuthAction
      *
      * @return boolean true or false
      */
-
     function supported($cmd)
     {
         static $cmdlist = array('MessageCommand', 'SubCommand', 'UnsubCommand',
@@ -387,5 +384,4 @@ class ApiStatusesUpdateAction extends ApiAuthAction
 
         return false;
     }
-
 }
