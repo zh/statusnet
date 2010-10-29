@@ -945,7 +945,7 @@ class Schema
      */
     function validateDef($tableName, array $def)
     {
-        if (count($def) && $def[0] instanceof ColumnDef) {
+        if (isset($def[0]) && $def[0] instanceof ColumnDef) {
             $def = $this->oldToNew($tableName, $def);
         }
 
