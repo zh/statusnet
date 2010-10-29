@@ -230,6 +230,7 @@ $schema['notice_source'] = array(
         'name' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'name of the source'),
         'url' => array('type' => 'varchar', 'length' => 255, 'not null' => true, 'description' => 'url to link to'),
         'notice_id' => array('type' => 'int', 'not null' => true, 'description' => 'date this record was created'),
+        'created' => array('type' => 'datetime', 'not null' => true, 'description' => 'date this record was created'),
         'modified' => array('type' => 'timestamp', 'not null' => true, 'description' => 'date this record was modified'),
     ),
     'primary key' => array('code'),

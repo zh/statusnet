@@ -341,6 +341,7 @@ abstract class Installer
             }
             $schema->ensureTable($name, $def);
         }
+        return true;
     }
 
     /**
@@ -441,11 +442,12 @@ abstract class Installer
             if (!mb_strlen($stmt)) {
                 continue;
             }
-            $res = $conn->execute($stmt);
-            if (DB::isError($res)) {
-                $error = $result->getMessage();
+            try {
+                $res = $conn->simpleQuery($stmt);
+            } catch (Exception $e) {
+                $error = $e->getMessage();
                 $this->updateStatus("ERROR ($error) for SQL '$stmt'");
-                return $res;
+                return false;
             }
         }
         return true;
@@ -458,9 +460,6 @@ abstract class Installer
      */
     function registerInitialUser()
     {
-        define('STATUSNET', true);
-        define('LACONICA', true); // compatibility
-
         require_once INSTALLDIR . '/lib/common.php';
 
         $data = array('nickname' => $this->adminNick,

@@ -387,7 +387,14 @@ class MysqlSchema extends Schema
             $vals = array_map(array($this, 'quote'), $column['enum']);
             return 'enum(' . implode(',', $vals) . ')';
         } else if ($this->_isString($column)) {
-            return parent::typeAndSize($column) . ' CHARSET utf8';
+            $col = parent::typeAndSize($column);
+            if (!empty($column['charset'])) {
+                $col .= ' CHARSET ' . $column['charset'];
+            }
+            if (!empty($column['collate'])) {
+                $col .= ' COLLATE ' . $column['collate'];
+            }
+            return $col;
         } else {
             return parent::typeAndSize($column);
         }
