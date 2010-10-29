@@ -57,13 +57,13 @@ class TwitterImport
         if (preg_match("/$source/", mb_strtolower($status->source))) {
             common_debug($this->name() . ' - Skipping import of status ' .
                          $status->id . ' with source ' . $source);
-            continue;
+            return null;
         }
 
         // Don't save it if the user is protected
         // FIXME: save it but treat it as private
         if ($status->user->protected) {
-            continue;
+            return null;
         }
 
         $notice = $this->saveStatus($status);
