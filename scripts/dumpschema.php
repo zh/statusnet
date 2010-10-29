@@ -177,7 +177,7 @@ function dumpDiff($tableName, $filter)
         if ($section == 'fields') {
             // this shouldn't be needed maybe... wait what?
         }
-        $diff = $schema->diffArrays($old, $def, $section, $compare);
+        $diff = $schema->diffArrays($old, $def, $section);
         $chunks = array('del', 'mod', 'add');
         foreach ($chunks as $chunk) {
             if ($diff[$chunk]) {
@@ -204,6 +204,10 @@ function tweakPrimaryKey($def)
     if (isset($def['primary key'])) {
         $def['primary keys'] = array('primary key' => $def['primary key']);
         unset($def['primary key']);
+    }
+    if (isset($def['description'])) {
+        $def['descriptions'] = array('description' => $def['description']);
+        unset($def['description']);
     }
     return $def;
 }
