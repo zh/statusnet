@@ -285,6 +285,7 @@ class TwittersettingsAction extends ConnectSettingsAction
         }
 
         $original = clone($flink);
+        $wasReceiving = (bool)($original->notice_sync & FOREIGN_NOTICE_RECV);
         $flink->set_flags($noticesend, $noticerecv, $replysync, $friendsync);
         $result = $flink->update($original);
 
@@ -294,6 +295,22 @@ class TwittersettingsAction extends ConnectSettingsAction
             return;
         }
 
+        if ($wasReceiving xor $noticerecv) {
+            $this->notifyDaemon($flink->foreign_id, $noticerecv);
+        }
+
         $this->showForm(_m('Twitter preferences saved.'), true);
     }
+
+    /**
+     * Tell the import daemon that we've updated a user's receive status.
+     */
+    function notifyDaemon($twitterUserId, $receiving)
+    {
+        $data = array('for_user' => $twitterUserId,
+                      'action' => $receiving ? 'stop' : 'start');
+        $qm = QueueManager::get();
+        $qm->enqueue($data, 'twitterctl');
+    }
+
 }

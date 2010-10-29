@@ -98,8 +98,8 @@ class TwitterManager extends IoManager
     const USERS_PER_STREAM = 100;
     const STREAMS_PER_SECOND = 20;
 
-    protected $twitterStreams;
-    protected $twitterUsers;
+    protected $streams;
+    protected $users;
 
     /**
      * Pull the site's active Twitter-importing users and start spawning
