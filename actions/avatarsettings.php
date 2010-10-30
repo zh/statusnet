@@ -381,6 +381,7 @@ class AvatarsettingsAction extends AccountSettingsAction
             @unlink($filedata['filepath']);
             unset($_SESSION['FILEDATA']);
             $this->mode = 'upload';
+            // TRANS: Success message for having updated a user avatar.
             $this->showForm(_('Avatar updated.'), true);
             common_broadcast_profile($profile);
         } else {
