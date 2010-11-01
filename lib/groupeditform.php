@@ -204,6 +204,6 @@ class GroupEditForm extends Form
 
     function formActions()
     {
-        $this->out->submit('submit', _('Save'));
+        $this->out->submit('submit', _m('BUTTON','Save'));
     }
 }

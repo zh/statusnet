@@ -159,7 +159,7 @@ class OthersettingsAction extends AccountSettingsAction
 
         if (!is_null($urlshorteningservice) && strlen($urlshorteningservice) > 50) {
             // TRANS: Form validation error for form "Other settings" in user profile.
-            $this->showForm(_('URL shortening service is too long (maximum 50 chars).'));
+            $this->showForm(_('URL shortening service is too long (maximum 50 characters).'));
             return;
         }
 
