@@ -245,6 +245,20 @@ class MysqlSchema extends Schema
     }
 
     /**
+     * Append an SQL statement with an index definition for a full-text search
+     * index over one or more columns on a table.
+     *
+     * @param array $statements
+     * @param string $table
+     * @param string $name
+     * @param array $def
+     */
+    function appendCreateFulltextIndex(array &$statements, $table, $name, array $def)
+    {
+        $statements[] = "CREATE FULLTEXT INDEX $name ON $table " . $this->buildIndexList($def);
+    }
+
+    /**
      * Close out a 'create table' SQL statement.
      *
      * @param string $name

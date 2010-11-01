@@ -168,15 +168,22 @@ class Schema
             }
         }
 
-        // Multi-value indexes are advisory and for best portability
-        // should be created as separate statements.
+        // Wrap the CREATE TABLE around the main body chunks...
         $statements = array();
         $statements[] = $this->startCreateTable($name, $def) . "\n" .
                         implode($sql, ",\n") . "\n" .
                         $this->endCreateTable($name, $def);
+
+        // Multi-value indexes are advisory and for best portability
+        // should be created as separate statements.
         if (!empty($def['indexes'])) {
             foreach ($def['indexes'] as $col => $colDef) {
                 $this->appendCreateIndex($statements, $name, $col, $colDef);
+            }
+        }
+        if (!empty($def['fulltext indexes'])) {
+            foreach ($def['fulltext indexes'] as $col => $colDef) {
+                $this->appendCreateFulltextIndex($statements, $name, $col, $colDef);
             }
         }
 
@@ -280,6 +287,20 @@ class Schema
     function appendCreateIndex(array &$statements, $table, $name, array $def)
     {
         $statements[] = "CREATE INDEX $name ON $table " . $this->buildIndexList($def);
+    }
+
+    /**
+     * Append an SQL statement with an index definition for a full-text search
+     * index over one or more columns on a table.
+     *
+     * @param array $statements
+     * @param string $table
+     * @param string $name
+     * @param array $def
+     */
+    function appendCreateFulltextIndex(array &$statements, $table, $name, array $def)
+    {
+        throw new Exception("Fulltext index not supported in this database");
     }
 
     /**
