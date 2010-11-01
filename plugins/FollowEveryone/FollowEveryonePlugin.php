@@ -46,7 +46,6 @@ if (!defined('STATUSNET')) {
  * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
  * @link      http://status.net/
  */
-
 class FollowEveryonePlugin extends Plugin
 {
     /**
@@ -62,7 +61,6 @@ class FollowEveryonePlugin extends Plugin
      * @return boolean hook value
      *
      */
-
     function onEndUserRegister(&$newProfile, &$newUser)
     {
         $otherUser = new User();
@@ -112,7 +110,6 @@ class FollowEveryonePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onCheckSchema()
     {
         $schema = Schema::get();
@@ -135,7 +132,6 @@ class FollowEveryonePlugin extends Plugin
      *
      * @return boolean hook value; true means continue processing, false means stop.
      */
-
     function onAutoload($cls)
     {
         $dir = dirname(__FILE__);
@@ -157,7 +153,6 @@ class FollowEveryonePlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndProfileFormData($action)
     {
         $user = common_current_user();
@@ -180,7 +175,6 @@ class FollowEveryonePlugin extends Plugin
      *
      * @return boolean hook value
      */
-
     function onEndProfileSaveForm($action)
     {
         $user = common_current_user();
@@ -199,7 +193,6 @@ class FollowEveryonePlugin extends Plugin
      * @return boolean hook value
      *
      */
-
     function onPluginVersion(&$versions)
     {
         $versions[] = array('name' => 'FollowEveryone',

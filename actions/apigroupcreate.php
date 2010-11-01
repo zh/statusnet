@@ -66,9 +66,7 @@ class ApiGroupCreateAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -150,7 +148,6 @@ class ApiGroupCreateAction extends ApiAuthAction
      *
      * @return void
      */
-
     function validateParams()
     {
         $valid = Validate::string(
@@ -218,7 +215,11 @@ class ApiGroupCreateAction extends ApiAuthAction
         } elseif (User_group::descriptionTooLong($this->description)) {
             $this->clientError(
                 sprintf(
-                    _('Description is too long (max %d chars).'),
+                    // TRANS: Client error shown when providing too long a description during group creation.
+                    // TRANS: %d is the maximum number of allowed characters.
+                    _m('Description is too long (maximum %d character).',
+                      'Description is too long (maximum %d characters).',
+                      User_group::maxDescription()),
                     User_group::maxDescription()
                 ),
                 403,
@@ -229,6 +230,7 @@ class ApiGroupCreateAction extends ApiAuthAction
             !is_null($this->location)
             && mb_strlen($this->location) > 255) {
                 $this->clientError(
+                    // TRANS: Client error shown when providing too long a location during group creation.
                     _('Location is too long (maximum 255 characters).'),
                     403,
                     $this->format
@@ -248,7 +250,11 @@ class ApiGroupCreateAction extends ApiAuthAction
         if (count($this->aliases) > common_config('group', 'maxaliases')) {
             $this->clientError(
                 sprintf(
-                    _('Too many aliases! Maximum %d.'),
+                    // TRANS: Client error shown when providing too many aliases during group creation.
+                    // TRANS: %d is the maximum number of allowed aliases.
+                    _m('Too many aliases! Maximum %d allowed.',
+                       'Too many aliases! Maximum %d allowed.',
+                       common_config('group', 'maxaliases')),
                     common_config('group', 'maxaliases')
                 ),
                 403,
@@ -269,6 +275,8 @@ class ApiGroupCreateAction extends ApiAuthAction
 
             if (!$valid) {
                 $this->clientError(
+                    // TRANS: Client error shown when providing an invalid alias during group creation.
+                    // TRANS: %s is the invalid alias.
                     sprintf(_('Invalid alias: "%s".'), $alias),
                     403,
                     $this->format
@@ -278,6 +286,8 @@ class ApiGroupCreateAction extends ApiAuthAction
             if ($this->groupNicknameExists($alias)) {
                 $this->clientError(
                     sprintf(
+                        // TRANS: Client error displayed when trying to use an alias during group creation that is already in use.
+                        // TRANS: %s is the alias that is already in use.
                         _('Alias "%s" already in use. Try another one.'),
                         $alias
                     ),
@@ -291,6 +301,7 @@ class ApiGroupCreateAction extends ApiAuthAction
 
             if (strcmp($alias, $this->nickname) == 0) {
                 $this->clientError(
+                    // TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
                     _('Alias can\'t be the same as nickname.'),
                     403,
                     $this->format
@@ -299,7 +310,7 @@ class ApiGroupCreateAction extends ApiAuthAction
             }
         }
 
-        // Evarything looks OK
+        // Everything looks OK
 
         return true;
     }
@@ -311,7 +322,6 @@ class ApiGroupCreateAction extends ApiAuthAction
      *
      * @return boolean true or false
      */
-
     function groupNicknameExists($nickname)
     {
         $local = Local_group::staticGet('nickname', $nickname);
@@ -328,5 +338,4 @@ class ApiGroupCreateAction extends ApiAuthAction
 
         return false;
     }
-
 }

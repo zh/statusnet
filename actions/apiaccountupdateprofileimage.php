@@ -43,19 +43,15 @@ require_once INSTALLDIR . '/lib/apiauth.php';
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class ApiAccountUpdateProfileImageAction extends ApiAuthAction
 {
-
     /**
      * Take arguments for running
      *
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
-
     function prepare($args)
     {
         parent::prepare($args);
@@ -74,7 +70,6 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
      *
      * @return void
      */
-
     function handle($args)
     {
         parent::handle($args);
@@ -105,6 +100,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
         }
 
         if (empty($this->user)) {
+            // TRANS: Client error displayed updating profile image without having a user object.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -130,6 +126,7 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
         $profile = $this->user->getProfile();
 
         if (empty($profile)) {
+            // TRANS: Client error displayed if a user profile could not be found updating a profile image.
             $this->clientError(_('User has no profile.'));
             return;
         }
@@ -150,5 +147,4 @@ class ApiAccountUpdateProfileImageAction extends ApiAuthAction
             $this->endDocument('json');
         }
     }
-
 }

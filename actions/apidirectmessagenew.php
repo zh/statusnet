@@ -60,7 +60,6 @@ class ApiDirectMessageNewAction extends ApiAuthAction
      * @param array $args $_REQUEST args
      *
      * @return boolean success flag
-     *
      */
     function prepare($args)
     {
@@ -69,6 +68,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
         $this->user = $this->auth_user;
 
         if (empty($this->user)) {
+            // TRANS: Client error when user not found for an API direct message action.
             $this->clientError(_('No such user.'), 404, $this->format);
             return;
         }
@@ -113,7 +113,7 @@ class ApiDirectMessageNewAction extends ApiAuthAction
 
         if (empty($this->content)) {
             $this->clientError(
-                // TRANS: Client error (406).
+                // TRANS: Client error displayed when no message text was submitted (406).
                 _('No message text!'),
                 406,
                 $this->format
