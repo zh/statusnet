@@ -62,6 +62,7 @@ class FeedList extends Widget
             if (!empty($feeds)) {
                 $this->out->elementStart('div', array('id' => 'export_data',
                                                       'class' => 'section'));
+                // TRANS: Header for feed links (h2).
                 $this->out->element('h2', null, _('Feeds'));
                 $this->out->elementStart('ul', array('class' => 'xoxo'));
 

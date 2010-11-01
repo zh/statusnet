@@ -32,6 +32,7 @@ if (!defined('STATUSNET') && !defined('LACONICA')) {
     exit(1);
 }
 
+// @todo FIXME: documentation needed.
 class DeletenoticeAction extends Action
 {
     var $error        = null;
@@ -47,6 +48,7 @@ class DeletenoticeAction extends Action
         $this->user   = common_current_user();
 
         if (!$this->user) {
+            // TRANS: Error message displayed trying to delete a notice while not logged in.
             common_user_error(_('Not logged in.'));
             exit;
         }
@@ -55,6 +57,7 @@ class DeletenoticeAction extends Action
         $this->notice = Notice::staticGet($notice_id);
 
         if (!$this->notice) {
+            // TRANS: Error message displayed trying to delete a non-existing notice.
             common_user_error(_('No such notice.'));
             exit;
         }
@@ -71,6 +74,7 @@ class DeletenoticeAction extends Action
 
         if ($this->notice->profile_id != $this->user_profile->id &&
                    !$this->user->hasRight(Right::DELETEOTHERSNOTICE)) {
+            // TRANS: Error message displayed trying to delete a notice that was not made by the current user.
             common_user_error(_('Can\'t delete this notice.'));
             exit;
         }
@@ -90,7 +94,6 @@ class DeletenoticeAction extends Action
      *
      * @return void
      */
-
     function showPageNotice()
     {
         $instr  = $this->getInstructions();
@@ -103,12 +106,14 @@ class DeletenoticeAction extends Action
 
     function getInstructions()
     {
+        // TRANS: Instructions for deleting a notice.
         return _('You are about to permanently delete a notice. ' .
                  'Once this is done, it cannot be undone.');
     }
 
     function title()
     {
+        // TRANS: Page title when deleting a notice.
         return _('Delete notice');
     }
 
@@ -121,7 +126,6 @@ class DeletenoticeAction extends Action
      *
      * @return void
      */
-
     function showForm($error = null)
     {
         $this->error = $error;
@@ -133,7 +137,6 @@ class DeletenoticeAction extends Action
      *
      * @return void
      */
-
     function showContent()
     {
         $this->elementStart('form', array('id' => 'form_notice_delete',
@@ -141,9 +144,11 @@ class DeletenoticeAction extends Action
                                           'method' => 'post',
                                           'action' => common_local_url('deletenotice')));
         $this->elementStart('fieldset');
+        // TRANS: Fieldset legend for the delete notice form.
         $this->element('legend', null, _('Delete notice'));
         $this->hidden('token', common_session_token());
         $this->hidden('notice', $this->trimmed('notice'));
+        // TRANS: Message for the delete notice form.
         $this->element('p', null, _('Are you sure you want to delete this notice?'));
         $this->submit('form_action-no',
                       // TRANS: Button label on the delete notice form.
