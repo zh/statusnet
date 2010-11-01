@@ -68,7 +68,7 @@ abstract class Managed_DataObject extends Memcached_DataObject
 
     function sequenceKey()
     {
-        $table = self::schemaDef();
+        $table = call_user_func(array(get_class($this), 'schemaDef'));
         foreach ($table['fields'] as $name => $column) {
             if ($column['type'] == 'serial') {
                 // We have a serial/autoincrement column.
@@ -92,8 +92,7 @@ abstract class Managed_DataObject extends Memcached_DataObject
 
     function keyTypes()
     {
-        $keys = array();
-        $table = self::schemaDef();
+        $table = call_user_func(array(get_class($this), 'schemaDef'));
 
         if (!empty($table['unique keys'])) {
             foreach ($table['unique keys'] as $idx => $fields) {
