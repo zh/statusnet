@@ -48,6 +48,8 @@ if (have_option('n')) {
     $nickname = get_option_value('n');
 } else if (have_option('nick')) {
     $nickname = get_option_value('nickname');
+} else if (have_option('all')) {
+    $nickname = null;
 } else {
     show_help($helptext);
     exit(0);
@@ -82,25 +84,64 @@ function twitterAuthForUser(User $user)
  */
 function dumpMessage($flink, $data)
 {
-    $msg->for_user = $flink->foreign_id;
-    $msg->message = $data;
+    $msg = prepMessage($flink, $data);
     print json_encode($msg) . "\r\n";
 }
 
+function prepMessage($flink, $data)
+{
+    $msg->for_user = $flink->foreign_id;
+    $msg->message = $data;
+    return $msg;
+}
+
 if (have_option('all')) {
-    throw new Exception('--all not yet implemented');
+    $users = array();
+
+    $flink = new Foreign_link();
+    $flink->service = TWITTER_SERVICE;
+    $flink->find();
+
+    while ($flink->fetch()) {
+        if (($flink->noticesync & FOREIGN_NOTICE_RECV) ==
+            FOREIGN_NOTICE_RECV) {
+            $users[] = $flink->user_id;
+        }
+    }
+} else {
+    $user = User::staticGet('nickname', $nickname);
+    $users = array($user->id);
 }
 
-$user = User::staticGet('nickname', $nickname);
-$auth = twitterAuthForUser($user);
-$flink = Foreign_link::getByUserID($user->id,
-                                   TWITTER_SERVICE);
+$output = array();
+foreach ($users as $id) {
+    $user = User::staticGet('id', $id);
+    if (!$user) {
+        throw new Exception("No user for id $id");
+    }
+    $auth = twitterAuthForUser($user);
+    $flink = Foreign_link::getByUserID($user->id,
+                                       TWITTER_SERVICE);
 
-$friends->friends = $auth->friendsIds();
-dumpMessage($flink, $friends);
+    $friends->friends = $auth->friendsIds();
+    dumpMessage($flink, $friends);
 
-$timeline = $auth->statusesHomeTimeline();
-foreach ($timeline as $status) {
-    dumpMessage($flink, $status);
+    $timeline = $auth->statusesHomeTimeline();
+    foreach ($timeline as $status) {
+        $output[] = prepMessage($flink, $status);
+    }
 }
 
+usort($output, function($a, $b) {
+    if ($a->message->id < $b->message->id) {
+        return -1;
+    } else if ($a->message->id == $b->message->id) {
+        return 0;
+    } else {
+        return 1;
+    }
+});
+
+foreach ($output as $msg) {
+    print json_encode($msg) . "\r\n";
+}
