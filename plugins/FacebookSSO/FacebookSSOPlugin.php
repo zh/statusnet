@@ -68,7 +68,6 @@ class FacebookSSOPlugin extends Plugin
      */
     function initialize()
     {
-        common_debug("XXXXXXXXXXXX " . $this->appId);
         // Check defaults and configuration for application ID and secret
         if (empty($this->appId)) {
             $this->appId = common_config('facebook', 'appid');
@@ -79,7 +78,6 @@ class FacebookSSOPlugin extends Plugin
         }
 
         if (empty($this->facebook)) {
-            common_debug('instantiating facebook obj');
             $this->facebook = new Facebook(
                 array(
                     'appId'  => $this->appId,
@@ -89,8 +87,6 @@ class FacebookSSOPlugin extends Plugin
             );
         }
         
-        common_debug("FACEBOOK = " . var_export($this->facebook, true));
-
         return true;
     }
 
@@ -243,7 +239,7 @@ class FacebookSSOPlugin extends Plugin
     }
 
     /*
-     * Add a tab for managing Facebook Connect settings
+     * Add a tab for user-level Facebook settings
      *
      * @param Action &action the current action
      *
@@ -254,13 +250,14 @@ class FacebookSSOPlugin extends Plugin
         if ($this->hasApplication()) {
             $action_name = $action->trimmed('action');
 
-            $action->menuItem(common_local_url('facebooksettings'),
-                              // @todo CHECKME: Should be 'Facebook Connect'?
-                              // TRANS: Menu item tab.
-                              _m('MENU','Facebook'),
-                              // TRANS: Tooltip for menu item "Facebook".
-                              _m('Facebook Connect Settings'),
-                              $action_name === 'facebooksettings');
+            $action->menuItem(
+                common_local_url('facebooksettings'),
+                // TRANS: Menu item tab.
+                _m('MENU','Facebook'),
+                // TRANS: Tooltip for menu item "Facebook".
+                _m('Facebook settings'),
+                $action_name === 'facebooksettings'
+            );
         }
 
         return true;
@@ -325,19 +322,75 @@ ENDOFSCRIPT;
         return true;
     }
 
+    /*
+     * Log the user out of Facebook, per the Facebook authentication guide
+     *
+     * @param Action action the action
+     */
+    function onEndLogout($action)
+    {
+        $session = $this->facebook->getSession();
+        $fbuser  = null;
+        $fbuid   = null;
+
+        if ($session) {
+            try {
+                $fbuid  = $this->facebook->getUser();
+                $fbuser = $this->facebook->api('/me');
+             } catch (FacebookApiException $e) {
+                 common_log(LOG_ERROR, $e, __FILE__);
+             }
+        }
+
+        if (!empty($fbuser)) {
+
+            $logoutUrl = $this->facebook->getLogoutUrl(
+                array('next' => common_local_url('public'))
+            );
+
+            common_log(
+                LOG_INFO,
+                sprintf(
+                    "Logging user out of Facebook (fbuid = %s)",
+                    $fbuid
+                ),
+                __FILE__
+            );
+
+            common_redirect($logoutUrl, 303);
+        }
+    }
+
+    /*
+     * Add fbml namespace so Facebook's JavaScript SDK can parse and render
+     * XFBML tags (e.g: <fb:login-button>)
+     *
+     * @param Action    $action   current action
+     * @param array     $attrs    array of attributes for the HTML tag
+     *
+     * @return nothing
+     */
     function onStartHtmlElement($action, $attrs) {
         $attrs = array_merge($attrs, array('xmlns:fb' => 'http://www.facebook.com/2008/fbml'));
         return true;
     }
 
+    /*
+     * Add version info for this plugin
+     *
+     * @param array &$versions    plugin version descriptions
+     */
     function onPluginVersion(&$versions)
     {
-        $versions[] = array('name' => 'Facebook Single-Sign-On',
-                            'version' => STATUSNET_VERSION,
-                            'author' => 'Zach Copley',
-                            'homepage' => 'http://status.net/wiki/Plugin:FacebookSSO',
-                            'rawdescription' =>
-                            _m('A plugin for single-sign-on with Facebook.'));
+        $versions[] = array(
+            'name' => 'Facebook Single-Sign-On',
+            'version' => STATUSNET_VERSION,
+            'author' => 'Zach Copley',
+            'homepage' => 'http://status.net/wiki/Plugin:FacebookSSO',
+            'rawdescription' =>
+            _m('A plugin for single-sign-on with Facebook.')
+        );
+
         return true;
     }
 }

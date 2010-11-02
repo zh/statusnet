@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @category  Pugin
+ * @category  Plugin
  * @package   StatusNet
  * @author    Zach Copley <zach@status.net>
  * @copyright 2010 StatusNet, Inc.
@@ -34,6 +34,7 @@ if (!defined('STATUSNET')) {
 
 class FacebookloginAction extends Action
 {
+
     function handle($args)
     {
         parent::handle($args);
@@ -53,7 +54,7 @@ class FacebookloginAction extends Action
             );
 
             $session = $facebook->getSession();
-            $me      = null;
+            $fbuser  = null;
 
             if ($session) {
                 try {
@@ -86,10 +87,11 @@ class FacebookloginAction extends Action
 
                     if (!empty($user)) {
 
-                        common_debug(
+                        common_log(
+                            LOG_INFO,
                             sprintf(
-                                'Logged in Facebook user $s as user %d (%s)',
-                                $this->fbuid,
+                                'Logged in Facebook user %s as user %s (%s)',
+                                $fbuid,
                                 $user->id,
                                 $user->nickname
                             ),
@@ -150,9 +152,9 @@ class FacebookloginAction extends Action
         $this->elementStart('fieldset');
 
         $attrs = array(
-            'show-faces' => 'true',
-            'width'      => '100',
-            'max-rows'   => '2',
+            //'show-faces' => 'true',
+            //'max-rows'   => '4',
+            //'width'      => '600',
             'perms'      => 'user_location,user_website,offline_access,publish_stream'
         );
 
