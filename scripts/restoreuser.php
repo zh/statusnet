@@ -57,7 +57,8 @@ function getActivityStreamDocument()
         throw new Exception("File '$filename' not readable.");
     }
 
-    printfv(_("Getting backup from file '$filename'.")."\n");
+    // TRANS: Commandline script output. %s is the filename that contains a backup for a user.
+    printfv(_("Getting backup from file '%s'.")."\n",$filename);
 
     $xml = file_get_contents($filename);
 
@@ -79,19 +80,22 @@ function importActivityStream($user, $doc)
 
     if (!empty($subjectEl)) {
         $subject = new ActivityObject($subjectEl);
-        printfv(_("Backup file for user %s (%s)")."\n", $subject->id, Ostatus_profile::getActivityObjectNickname($subject));
+        // TRANS: Commandline script output. %1$s is the subject ID, %2$s is the subject nickname.
+        printfv(_("Backup file for user %1$s (%2$s)")."\n", $subject->id, Ostatus_profile::getActivityObjectNickname($subject));
     } else {
         throw new Exception("Feed doesn't have an <activity:subject> element.");
     }
 
     if (is_null($user)) {
+        // TRANS: Commandline script output.
         printfv(_("No user specified; using backup user.")."\n");
         $user = userFromSubject($subject);
     }
 
     $entries = $feed->getElementsByTagNameNS(Activity::ATOM, 'entry');
 
-    printfv(_("%d entries in backup.")."\n", $entries->length);
+    // TRANS: Commandline script output. %d is the number of entries in the activity stream in backup; used for plural.
+    printfv(_m("%d entry in backup.","%d entries in backup.",$entries->length)."\n", $entries->length);
 
     for ($i = $entries->length - 1; $i >= 0; $i--) {
         try {
