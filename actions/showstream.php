@@ -65,17 +65,22 @@ class ShowstreamAction extends ProfileAction
     {
         $base = $this->profile->getFancyName();
         if (!empty($this->tag)) {
-            // TRANS: Page title showing tagged notices in one user's stream. Param 1 is the username, 2 is the hash tag.
-            $base = sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
-        }
-
-        if ($this->page == 1) {
-            return $base;
+            if ($this->page == 1) {
+                // TRANS: Page title showing tagged notices in one user's stream. Param 1 is the username, 2 is the hash tag.
+                return sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
+            } else {
+                // TRANS: Page title showing tagged notices in one user's stream. Param 1 is the username, 2 is the hash tag, 3 is the page number.
+                return sprintf(_('%1$s tagged %2$s, page %3$d'), $base, $this->tag, $this->page);
+            }
         } else {
-            // TRANS: Extended page title showing tagged notices in one user's stream. Param 1 is the main title clause; 2 is the page number.
-            return sprintf(_('%1$s, page %2$d'),
-                           $base,
-                           $this->page);
+            if ($this->page == 1) {
+                return $base;
+            } else {
+                // TRANS: Extended page title showing tagged notices in one user's stream. Param 1 is the username, param 2 is the page number.
+                return sprintf(_('%1$s, page %2$d'),
+                               $base,
+                               $this->page);
+            }
         }
     }
 
