@@ -40,7 +40,6 @@ RealtimeUpdate = {
      _documenttitle: '',
      _paused:false,
      _queuedNotices:[],
-     _messages:{},
 
      init: function(userid, replyurl, favorurl, repeaturl, deleteurl)
      {
@@ -263,8 +262,8 @@ RealtimeUpdate = {
 
         $('#realtime_playpause').remove();
         $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause"></button></li>');
-        $('#realtime_pause').text(RealtimeUpdate._messages['pause'])
-                            .attr('title', RealtimeUpdate._messages['pause_tooltip'])
+        $('#realtime_pause').text(SN.msg('realtime_pause'))
+                            .attr('title', SN.msg('realtime_pause_tooltip'))
                             .bind('click', function() {
             RealtimeUpdate.removeNoticesHover();
             RealtimeUpdate.showPlay();
@@ -277,8 +276,8 @@ RealtimeUpdate = {
         RealtimeUpdate.setPause(true);
         $('#realtime_playpause').remove();
         $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play"></button></li>');
-        $('#realtime_play').text(RealtimeUpdate._messages['play'])
-                           .attr('title', RealtimeUpdate._messages['play_tooltip'])
+        $('#realtime_play').text(SN.msg('realtime_play'))
+                           .attr('title', SN.msg('realtime_play_tooltip'))
                            .bind('click', function() {
             RealtimeUpdate.showPause();
             return false;
@@ -338,8 +337,8 @@ RealtimeUpdate = {
      initAddPopup: function(url, timeline, path)
      {
          $('#realtime_timeline').append('<button id="realtime_popup"></button>');
-         $('#realtime_popup').text(RealtimeUpdate._messages['popup'])
-                             .attr('title', RealtimeUpdate._messages['popup_tooltip'])
+         $('#realtime_popup').text(SN.msg('realtime_popup'))
+                             .attr('title', SN.msg('realtime_popup_tooltip'))
                              .bind('click', function() {
                 window.open(url,
                          '',

@@ -106,9 +106,7 @@ class RealtimePlugin extends Plugin
             $realtimeUI = ' RealtimeUpdate.initActions("'.$url.'", "'.$timeline.'", "'. $pluginPath .'");';
         }
 
-        $i18n = $this->_getMessages();
         $script = ' $(document).ready(function() { '.
-          'RealtimeUpdate._messages=' . json_encode($i18n) . ';' .
           $realtimeUI.
           $this->_updateInitialize($timeline, $user_id).
           '}); ';
@@ -329,25 +327,29 @@ class RealtimePlugin extends Plugin
     }
 
     /**
-     * Any i18n messages that need to be loaded at runtime.
-     * @return array of string key to output text string pairs
+     * Export any i18n messages that need to be loaded at runtime...
+     *
+     * @param Action $action
+     * @param array $messages
+     *
+     * @return boolean hook return value
      */
-    function _getMessages()
+    function onEndScriptMessages($action, &$messages)
     {
-        return array(
-            // TRANS: Text label for realtime view "play" button, usually replaced by an icon.
-            'play' => _m('BUTTON', 'Play'),
-            // TRANS: Tooltip for realtime view "play" button.
-            'play_tooltip' => _m('TOOLTIP', 'Play'),
-            // TRANS: Text label for realtime view "pause" button
-            'pause' => _m('BUTTON', 'Pause'),
-            // TRANS: Tooltip for realtime view "pause" button
-            'pause_tooltip' => _m('TOOLTIP', 'Pause'),
-            // TRANS: Text label for realtime view "popup" button, usually replaced by an icon.
-            'popup' => _m('BUTTON', 'Pop up'),
-            // TRANS: Tooltip for realtime view "popup" button.
-            'popup_tooltip' => _m('TOOLTIP', 'Pop up in a window'),
-        );
+        // TRANS: Text label for realtime view "play" button, usually replaced by an icon.
+        $messages['realtime_play'] = _m('BUTTON', 'Play');
+        // TRANS: Tooltip for realtime view "play" button.
+        $messages['realtime_play_tooltip'] = _m('TOOLTIP', 'Play');
+        // TRANS: Text label for realtime view "pause" button
+        $messages['realtime_pause'] = _m('BUTTON', 'Pause');
+        // TRANS: Tooltip for realtime view "pause" button
+        $messages['realtime_pause_tooltip'] = _m('TOOLTIP', 'Pause');
+        // TRANS: Text label for realtime view "popup" button, usually replaced by an icon.
+        $messages['realtime_popup'] = _m('BUTTON', 'Pop up');
+        // TRANS: Tooltip for realtime view "popup" button.
+        $messages['realtime_popup_tooltip'] = _m('TOOLTIP', 'Pop up in a window');
+
+        return true;
     }
 
     function _updateInitialize($timeline, $user_id)

@@ -311,10 +311,10 @@ class Action extends HTMLOutputter // lawsuit
 
             $messages = array_merge($messages, $this->getScriptMessages());
         }
+        Event::handle('EndScriptMessages', array($this, &$messages));
         if ($messages) {
             $this->inlineScript('SN.messages=' . json_encode($messages));
         }
-        Event::handle('EndScriptMessages', array($this, &$messages));
         return $messages;
     }
 
