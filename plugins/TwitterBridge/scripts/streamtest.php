@@ -28,7 +28,7 @@
 define('INSTALLDIR', realpath(dirname(__FILE__) . '/../../..'));
 
 $shortoptions = 'n:';
-$longoptions = array('nick=','import','all');
+$longoptions = array('nick=','import','all','apiroot=');
 
 $helptext = <<<ENDOFHELP
 USAGE: streamtest.php -n <username>
@@ -36,6 +36,7 @@ USAGE: streamtest.php -n <username>
   -n --nick=<username> Local user whose Twitter timeline to watch
      --import          Experimental: run incoming messages through import
      --all             Experimental: run multiuser; requires nick be the app owner
+     --apiroot=<url>   Provide alternate streaming API root URL
 
 Attempts a User Stream connection to Twitter as the given user, dumping
 data as it comes.
@@ -86,7 +87,12 @@ function siteStreamForOwner(User $user)
 {
     // The user we auth as must be the owner of the application.
     $auth = twitterAuthForUser($user);
-    $stream = new TwitterSiteStream($auth);
+
+    if (have_option('apiroot')) {
+        $stream = new TwitterSiteStream($auth, get_option_value('apiroot'));
+    } else {
+        $stream = new TwitterSiteStream($auth);
+    }
 
     // Pull Twitter user IDs for all users we want to pull data for
     $userIds = array();
