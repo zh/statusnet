@@ -185,7 +185,7 @@ class EditApplicationAction extends OwnerDesignAction
             return;
         } elseif (mb_strlen($name) > 255) {
             // TRANS: Validation error shown when providing too long a name in the "Edit application" form.
-            $this->showForm(_('Name is too long (max 255 characters).'));
+            $this->showForm(_('Name is too long (maximum 255 characters).'));
             return;
         } else if ($this->nameExists($name)) {
             // TRANS: Validation error shown when providing a name for an application that already exists in the "Edit application" form.

@@ -261,9 +261,10 @@ RealtimeUpdate = {
         RealtimeUpdate.addNoticesHover();
 
         $('#realtime_playpause').remove();
-        $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause" title="Pause">Pause</button></li>');
-
-        $('#realtime_pause').bind('click', function() {
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause"></button></li>');
+        $('#realtime_pause').text(SN.msg('realtime_pause'))
+                            .attr('title', SN.msg('realtime_pause_tooltip'))
+                            .bind('click', function() {
             RealtimeUpdate.removeNoticesHover();
             RealtimeUpdate.showPlay();
             return false;
@@ -274,9 +275,10 @@ RealtimeUpdate = {
      {
         RealtimeUpdate.setPause(true);
         $('#realtime_playpause').remove();
-        $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button></li>');
-
-        $('#realtime_play').bind('click', function() {
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play"></button></li>');
+        $('#realtime_play').text(SN.msg('realtime_play'))
+                           .attr('title', SN.msg('realtime_play_tooltip'))
+                           .bind('click', function() {
             RealtimeUpdate.showPause();
             return false;
         });
@@ -334,10 +336,11 @@ RealtimeUpdate = {
 
      initAddPopup: function(url, timeline, path)
      {
-         $('#realtime_timeline').append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
-
-         $('#realtime_popup').bind('click', function() {
-             window.open(url,
+         $('#realtime_timeline').append('<button id="realtime_popup"></button>');
+         $('#realtime_popup').text(SN.msg('realtime_popup'))
+                             .attr('title', SN.msg('realtime_popup_tooltip'))
+                             .bind('click', function() {
+                window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=no,menubar=no,personalbar=no,location=no,width=500,height=550');
 
