@@ -161,7 +161,7 @@ class Profile extends Memcached_DataObject
     {
         if ($this->fullname) {
             // TRANS: Full name of a profile or group followed by nickname in parens
-            return sprintf(_('%1$s (%2$s)'), $this->fullname, $this->nickname);
+            return sprintf(_m('FANCYNAME','%1$s (%2$s)'), $this->fullname, $this->nickname);
         } else {
             return $this->nickname;
         }
