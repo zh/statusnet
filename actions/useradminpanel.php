@@ -45,7 +45,6 @@ if (!defined('STATUSNET')) {
  * @license  http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License version 3.0
  * @link     http://status.net/
  */
-
 class UseradminpanelAction extends AdminPanelAction
 {
     /**
@@ -53,7 +52,6 @@ class UseradminpanelAction extends AdminPanelAction
      *
      * @return string page title
      */
-
     function title()
     {
         // TRANS: User admin panel title
@@ -65,9 +63,9 @@ class UseradminpanelAction extends AdminPanelAction
      *
      * @return string instructions
      */
-
     function getInstructions()
     {
+        // TRANS: Instruction for user admin panel.
         return _('User settings for this StatusNet site');
     }
 
@@ -76,7 +74,6 @@ class UseradminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function showForm()
     {
         $form = new UserAdminPanelForm($this);
@@ -89,7 +86,6 @@ class UseradminpanelAction extends AdminPanelAction
      *
      * @return void
      */
-
     function saveSettings()
     {
         static $settings = array(
@@ -147,13 +143,15 @@ class UseradminpanelAction extends AdminPanelAction
         // Validate biolimit
 
         if (!Validate::number($values['profile']['biolimit'])) {
-            $this->clientError(_("Invalid bio limit. Must be numeric."));
+            // TRANS: Form validation error in user admin panel when a non-numeric character limit was set.
+            $this->clientError(_('Invalid bio limit. Must be numeric.'));
         }
 
         // Validate welcome text
 
         if (mb_strlen($values['newuser']['welcome']) > 255) {
-            $this->clientError(_("Invalid welcome text. Max length is 255 characters."));
+            // TRANS: Form validation error in user admin panel when welcome text is too long.
+            $this->clientError(_('Invalid welcome text. Maximum length is 255 characters.'));
         }
 
         // Validate default subscription
@@ -163,7 +161,9 @@ class UseradminpanelAction extends AdminPanelAction
             if (empty($defuser)) {
                 $this->clientError(
                     sprintf(
-                        _('Invalid default subscripton: \'%1$s\' is not user.'),
+                        // TRANS: Client error displayed when trying to set a non-existing user as default subscription for new
+                        // TRANS: users in user admin panel. %1$s is the invalid nickname.
+                        _('Invalid default subscripton: \'%1$s\' is not a user.'),
                         $values['newuser']['default']
                     )
                 );
@@ -179,7 +179,6 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return int ID of the form
      */
-
     function id()
     {
         return 'useradminpanel';
@@ -190,7 +189,6 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return string class of the form
      */
-
     function formClass()
     {
         return 'form_settings';
@@ -201,7 +199,6 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return string URL of the action
      */
-
     function action()
     {
         return common_local_url('useradminpanel');
@@ -212,7 +209,6 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function formData()
     {
         $this->out->elementStart('fieldset', array('id' => 'settings_user-profile'));
@@ -220,7 +216,9 @@ class UserAdminPanelForm extends AdminForm
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
+        // TRANS: Field label in user admin panel for setting the character limit for the bio field.
         $this->input('biolimit', _('Bio Limit'),
+                     // TRANS: Tooltip in user admin panel for setting the character limit for the bio field.
                      _('Maximum length of a profile bio in characters.'),
                      'profile');
         $this->unli();
@@ -229,17 +227,22 @@ class UserAdminPanelForm extends AdminForm
         $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' => 'settings_user-newusers'));
+        // TRANS: Form legend in user admin panel.
         $this->out->element('legend', null, _('New users'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
+        // TRANS: Field label in user admin panel for setting new user welcome text.
         $this->input('welcome', _('New user welcome'),
-                     _('Welcome text for new users (Max 255 chars).'),
+                     // TRANS: Tooltip in user admin panel for setting new user welcome text.
+                     _('Welcome text for new users (maximum 255 characters).'),
                      'newuser');
         $this->unli();
 
         $this->li();
+        // TRANS: Field label in user admin panel for setting default subscription for new users.
         $this->input('default', _('Default subscription'),
+                     // TRANS: Tooltip in user admin panel for setting default subscription for new users.
                      _('Automatically subscribe new users to this user.'),
                      'newuser');
         $this->unli();
@@ -249,21 +252,21 @@ class UserAdminPanelForm extends AdminForm
         $this->out->elementEnd('fieldset');
 
         $this->out->elementStart('fieldset', array('id' => 'settings_user-invitations'));
+        // TRANS: Form legend in user admin panel.
         $this->out->element('legend', null, _('Invitations'));
         $this->out->elementStart('ul', 'form_data');
 
         $this->li();
 
+        // TRANS: Field label for checkbox in user admin panel for allowing users to invite friend using site e-mail.
         $this->out->checkbox('invite-enabled', _('Invitations enabled'),
                               (bool) $this->value('enabled', 'invite'),
+                              // TRANS: Tooltip for checkbox in user admin panel for allowing users to invite friend using site e-mail.
                               _('Whether to allow users to invite new users.'));
         $this->unli();
 
         $this->out->elementEnd('ul');
         $this->out->elementEnd('fieldset');
-
-
-
     }
 
     /**
@@ -278,7 +281,6 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function input($setting, $title, $instructions, $section='site')
     {
         $this->out->input("$section-$setting", $title, $this->value($setting, $section), $instructions);
@@ -289,9 +291,14 @@ class UserAdminPanelForm extends AdminForm
      *
      * @return void
      */
-
     function formActions()
     {
-        $this->out->submit('submit', _('Save'), 'submit', null, _('Save user settings'));
+        $this->out->submit('submit',
+                           // TRANS: Button text to save user settings in user admin panel.
+                           _m('BUTTON','Save'),
+                           'submit',
+                           null,
+                           // TRANS: Title for button to save user settings in user admin panel.
+                           _('Save user settings'));
     }
 }

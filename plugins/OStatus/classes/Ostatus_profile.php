@@ -550,7 +550,8 @@ class Ostatus_profile extends Managed_DataObject
                 // We mark up the attachment link specially for the HTML output
                 // so we can fold-out the full version inline.
 
-                // TRANS: Shown when a notice is longer than supported and/or when attachments are present.
+                // @fixme I18N this tooltip will be saved with the site's default language
+                // TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime this will usually be replaced with localized text from StatusNet core messages.
                 $showMoreText = _m('Show more');
                 $attachUrl = common_local_url('attachment',
                                               array('attachment' => $attachment->id));

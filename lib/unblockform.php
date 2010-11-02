@@ -44,7 +44,6 @@ if (!defined('STATUSNET')) {
  *
  * @see      BlockForm
  */
-
 class UnblockForm extends ProfileActionForm
 {
     /**
@@ -52,7 +51,6 @@ class UnblockForm extends ProfileActionForm
      *
      * @return string Name of the action, lowercased.
      */
-
     function target()
     {
         return 'unblock';
@@ -63,11 +61,10 @@ class UnblockForm extends ProfileActionForm
      *
      * @return string Title of the form, internationalized
      */
-
     function title()
     {
         // TRANS: Title for the form to unblock a user.
-        return _('Unblock');
+        return _m('TITLE','Unblock');
     }
 
     /**
@@ -75,7 +72,6 @@ class UnblockForm extends ProfileActionForm
      *
      * @return string description of the form, internationalized
      */
-
     function description()
     {
         // TRANS: Description of the form to unblock a user.

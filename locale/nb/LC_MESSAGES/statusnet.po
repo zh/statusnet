@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-27 23:43+0000\n"
-"PO-Revision-Date: 2010-10-28 23:09:25+0000\n"
+"POT-Creation-Date: 2010-10-30 23:18+0000\n"
+"PO-Revision-Date: 2010-10-30 23:20:38+0000\n"
 "Language-Team: Norwegian (bokmål)‬ <http://translatewiki.net/wiki/Portal:no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r75629); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r75708); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-10-28 00:13:15+0000\n"
+"X-POT-Import-Date: 2010-10-30 09:48:40+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -116,6 +116,7 @@ msgstr "Ingen slik side."
 #. TRANS: Client error displayed when requesting most recent dents by user and friends for a non-existing user.
 #. TRANS: Client error displayed when requesting most recent mentions for a non-existing user.
 #. TRANS: Client error displayed requesting most recent notices for a non-existing user.
+#. TRANS: Client error displayed trying to get an avatar for a non-existing user.
 #. TRANS: Error text shown when trying to send a direct message to a user that does not exist.
 #: actions/all.php:80 actions/apiaccountupdatedeliverydevice.php:110
 #: actions/apiaccountupdateprofile.php:103
@@ -128,7 +129,7 @@ msgstr "Ingen slik side."
 #: actions/apistatusesupdate.php:230 actions/apisubscriptions.php:85
 #: actions/apitimelinefavorites.php:70 actions/apitimelinefriends.php:173
 #: actions/apitimelinehome.php:78 actions/apitimelinementions.php:77
-#: actions/apitimelineuser.php:79 actions/avatarbynickname.php:75
+#: actions/apitimelineuser.php:79 actions/avatarbynickname.php:79
 #: actions/favoritesrss.php:74 actions/foaf.php:40 actions/foaf.php:58
 #: actions/hcard.php:67 actions/microsummary.php:62 actions/newmessage.php:116
 #: actions/otp.php:76 actions/remotesubscribe.php:145
@@ -306,11 +307,12 @@ msgstr "Klarte ikke å oppdatere bruker."
 #. TRANS: Client error displayed a user has no profile updating profile colours.
 #. TRANS: Client error displayed if a user profile could not be found updating a profile image.
 #. TRANS: Client error displayed when requesting user information for a user without a profile.
+#. TRANS: Client error displayed trying to get an avatar for a user without a profile.
 #: actions/apiaccountupdateprofile.php:111
 #: actions/apiaccountupdateprofilebackgroundimage.php:199
 #: actions/apiaccountupdateprofilecolors.php:183
 #: actions/apiaccountupdateprofileimage.php:130 actions/apiusershow.php:108
-#: actions/avatarbynickname.php:80 actions/foaf.php:65 actions/hcard.php:74
+#: actions/avatarbynickname.php:85 actions/foaf.php:65 actions/hcard.php:74
 #: actions/replies.php:80 actions/usergroups.php:100 lib/galleryaction.php:66
 #: lib/profileaction.php:84
 msgid "User has no profile."
@@ -326,7 +328,7 @@ msgstr "Klarte ikke å lagre profil."
 #. TRANS: %s is the number of bytes of the CONTENT_LENGTH.
 #: actions/apiaccountupdateprofilebackgroundimage.php:108
 #: actions/apiaccountupdateprofileimage.php:95 actions/apimediaupload.php:81
-#: actions/apistatusesupdate.php:210 actions/avatarsettings.php:259
+#: actions/apistatusesupdate.php:210 actions/avatarsettings.php:269
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
 #, fuzzy, php-format
@@ -504,43 +506,53 @@ msgstr "Kunne ikke bestemme kildebruker."
 msgid "Could not find target user."
 msgstr "Kunne ikke finne målbruker."
 
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:165 actions/editgroup.php:186
-#: actions/newgroup.php:126 actions/profilesettings.php:243
+#: actions/apigroupcreate.php:165 actions/editgroup.php:191
+#: actions/newgroup.php:127 actions/profilesettings.php:243
 #: actions/register.php:212
 msgid "Nickname must have only lowercase letters and numbers and no spaces."
 msgstr "Kallenavn kan kun ha små bokstaver og tall og ingen mellomrom."
 
 #. TRANS: Client error trying to create a group with a nickname this is already in use.
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:175 actions/editgroup.php:190
-#: actions/newgroup.php:130 actions/profilesettings.php:277
+#: actions/apigroupcreate.php:175 actions/editgroup.php:196
+#: actions/newgroup.php:132 actions/profilesettings.php:277
 #: actions/register.php:215
 msgid "Nickname already in use. Try another one."
 msgstr "Det nicket er allerede i bruk. Prøv et annet."
 
 #. TRANS: Client error in form for group creation.
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:183 actions/editgroup.php:193
-#: actions/newgroup.php:133 actions/profilesettings.php:247
+#: actions/apigroupcreate.php:183 actions/editgroup.php:200
+#: actions/newgroup.php:136 actions/profilesettings.php:247
 #: actions/register.php:217
 msgid "Not a valid nickname."
 msgstr "Ugyldig nick."
 
 #. TRANS: Client error in form for group creation.
 #. TRANS: Validation error shown when providing an invalid homepage URL in the "Edit application" form.
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
 #: actions/apigroupcreate.php:200 actions/editapplication.php:233
-#: actions/editgroup.php:199 actions/newapplication.php:211
-#: actions/newgroup.php:139 actions/profilesettings.php:252
+#: actions/editgroup.php:207 actions/newapplication.php:211
+#: actions/newgroup.php:143 actions/profilesettings.php:252
 #: actions/register.php:224
 msgid "Homepage is not a valid URL."
 msgstr "Hjemmesiden er ikke en gyldig URL."
 
 #. TRANS: Client error in form for group creation.
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:210 actions/editgroup.php:202
-#: actions/newgroup.php:142 actions/profilesettings.php:256
+#: actions/apigroupcreate.php:210 actions/editgroup.php:211
+#: actions/newgroup.php:147 actions/profilesettings.php:256
 #: actions/register.php:227
 #, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
@@ -549,10 +561,11 @@ msgstr "Beklager, navnet er for langt (max 250 tegn)."
 #. TRANS: Client error shown when providing too long a description during group creation.
 #. TRANS: %d is the maximum number of allowed characters.
 #. TRANS: Validation error shown when providing too long a description in the "Edit application" form.
+#. TRANS: Group edit form validation error.
 #. TRANS: Form validation error in New application form.
 #. TRANS: %d is the maximum number of characters for the description.
 #: actions/apigroupcreate.php:220 actions/editapplication.php:201
-#: actions/newapplication.php:178
+#: actions/editgroup.php:216 actions/newapplication.php:178
 #, fuzzy, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
@@ -560,9 +573,11 @@ msgstr[0] "Beskrivelsen er for lang (maks %d tegn)."
 msgstr[1] "Beskrivelsen er for lang (maks %d tegn)."
 
 #. TRANS: Client error shown when providing too long a location during group creation.
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
 #. TRANS: Validation error in form for profile settings.
-#: actions/apigroupcreate.php:234 actions/editgroup.php:208
-#: actions/newgroup.php:153 actions/profilesettings.php:269
+#: actions/apigroupcreate.php:234 actions/editgroup.php:223
+#: actions/newgroup.php:159 actions/profilesettings.php:269
 #: actions/register.php:236
 #, fuzzy
 msgid "Location is too long (maximum 255 characters)."
@@ -570,7 +585,12 @@ msgstr "Plassering er for lang (maks 255 tegn)."
 
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
-#: actions/apigroupcreate.php:255 actions/newgroup.php:166
+#. TRANS: Group edit form validation error.
+#. TRANS: %d is the maximum number of allowed aliases.
+#. TRANS: Group create form validation error.
+#. TRANS: %d is the maximum number of allowed aliases.
+#: actions/apigroupcreate.php:255 actions/editgroup.php:236
+#: actions/newgroup.php:172
 #, fuzzy, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
@@ -586,15 +606,19 @@ msgstr "Ugyldig alias: «%s»."
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is already in use.
 #. TRANS: %s is the alias that is already in use.
-#: actions/apigroupcreate.php:291 actions/editgroup.php:232
-#: actions/newgroup.php:181
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
+#: actions/apigroupcreate.php:291 actions/editgroup.php:253
+#: actions/newgroup.php:189
 #, php-format
 msgid "Alias \"%s\" already in use. Try another one."
 msgstr "Aliaset «%s» er allerede i bruk. Prøv et annet."
 
 #. TRANS: Client error displayed when trying to use an alias during group creation that is the same as the group's nickname.
-#: actions/apigroupcreate.php:305 actions/editgroup.php:238
-#: actions/newgroup.php:187
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
+#: actions/apigroupcreate.php:305 actions/editgroup.php:260
+#: actions/newgroup.php:196
 msgid "Alias can't be the same as nickname."
 msgstr "Alias kan ikke være det samme som kallenavn."
 
@@ -700,18 +724,18 @@ msgid "Request token already authorized."
 msgstr "Du er ikke autorisert."
 
 #. TRANS: Form validation error in API OAuth authorisation because of an invalid session token.
-#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:270
+#: actions/apioauthauthorize.php:147 actions/avatarsettings.php:280
 #: actions/deletenotice.php:172 actions/disfavor.php:74
 #: actions/emailsettings.php:271 actions/favor.php:75 actions/geocode.php:55
 #: actions/groupblock.php:66 actions/grouplogo.php:312
-#: actions/groupunblock.php:66 actions/imsettings.php:230
+#: actions/groupunblock.php:65 actions/imsettings.php:230
 #: actions/invite.php:59 actions/login.php:137 actions/makeadmin.php:66
 #: actions/newmessage.php:135 actions/newnotice.php:105 actions/nudge.php:80
 #: actions/oauthappssettings.php:165 actions/oauthconnectionssettings.php:138
 #: actions/othersettings.php:145 actions/passwordsettings.php:138
 #: actions/profilesettings.php:221 actions/recoverpassword.php:350
 #: actions/register.php:172 actions/remotesubscribe.php:77
-#: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:38
+#: actions/repeat.php:83 actions/smssettings.php:256 actions/subedit.php:40
 #: actions/subscribe.php:86 actions/tagother.php:166
 #: actions/unsubscribe.php:69 actions/userauthorization.php:52
 #: lib/designsettings.php:294
@@ -730,12 +754,13 @@ msgid "Database error inserting oauth_token_association."
 msgstr "Databasefeil ved innsetting av bruker i programmet OAuth."
 
 #. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
+#. TRANS: Unexpected validation error on avatar upload form.
 #. TRANS: Client error displayed submitting invalid form data for edit application.
 #. TRANS: Message given submitting a form with an unknown action in e-mail settings.
 #. TRANS: Message given submitting a form with an unknown action in IM settings.
 #. TRANS: Client error when submitting a form with unexpected information.
 #. TRANS: Message given submitting a form with an unknown action in SMS settings.
-#: actions/apioauthauthorize.php:294 actions/avatarsettings.php:283
+#: actions/apioauthauthorize.php:294 actions/avatarsettings.php:294
 #: actions/designadminpanel.php:104 actions/editapplication.php:144
 #: actions/emailsettings.php:290 actions/grouplogo.php:322
 #: actions/imsettings.php:245 actions/newapplication.php:125
@@ -790,6 +815,7 @@ msgstr "Konto"
 
 #. TRANS: Field label on OAuth API authorisation form.
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Label for group nickname (dt). Text hidden by default.
 #: actions/apioauthauthorize.php:459 actions/login.php:252
 #: actions/profilesettings.php:110 actions/register.php:433
 #: actions/showgroup.php:245 actions/tagother.php:94
@@ -1041,104 +1067,138 @@ msgstr "API-metode under utvikling."
 msgid "User not found."
 msgstr "API-metode ikke funnet!"
 
+#. TRANS: Client error displayed trying to get a non-existing attachment.
 #: actions/attachment.php:73
 msgid "No such attachment."
 msgstr "Ingen slike vedlegg."
 
-#: actions/avatarbynickname.php:59 actions/blockedfromgroup.php:73
-#: actions/editgroup.php:84 actions/groupdesignsettings.php:84
+#. TRANS: Client error displayed trying to get an avatar without providing a nickname.
+#. TRANS: Client error displayed when requesting a list of blocked users for a group without providing a group nickname.
+#. TRANS: Client error displayed trying to edit a group while not proving a nickname for the group to edit.
+#. TRANS: Client error displayed if no nickname argument was given requesting a group page.
+#: actions/avatarbynickname.php:60 actions/blockedfromgroup.php:73
+#: actions/editgroup.php:85 actions/groupdesignsettings.php:84
 #: actions/grouplogo.php:86 actions/groupmembers.php:76
 #: actions/grouprss.php:91 actions/showgroup.php:121
 msgid "No nickname."
 msgstr "Ingen kallenavn."
 
-#: actions/avatarbynickname.php:64
+#. TRANS: Client error displayed trying to get an avatar without providing an avatar size.
+#: actions/avatarbynickname.php:66
 msgid "No size."
 msgstr "Ingen størrelse."
 
-#: actions/avatarbynickname.php:69
+#. TRANS: Client error displayed trying to get an avatar providing an invalid avatar size.
+#: actions/avatarbynickname.php:72
 msgid "Invalid size."
 msgstr "Ugyldig størrelse"
 
+#. TRANS: Title for avatar upload page.
+#. TRANS: Label for group avatar (dt). Text hidden by default.
 #. TRANS: Link description in user account settings menu.
-#: actions/avatarsettings.php:67 actions/showgroup.php:230
+#: actions/avatarsettings.php:66 actions/showgroup.php:229
 #: lib/accountsettingsaction.php:113
 msgid "Avatar"
 msgstr "Brukerbilde"
 
+#. TRANS: Instruction for avatar upload page.
+#. TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
 #: actions/avatarsettings.php:78
 #, php-format
 msgid "You can upload your personal avatar. The maximum file size is %s."
 msgstr "Du kan laste opp en personlig avatar. Maks filstørrelse er %s."
 
-#: actions/avatarsettings.php:106 actions/avatarsettings.php:185
+#. TRANS: Server error displayed in avatar upload page when no matching profile can be found for a user.
+#: actions/avatarsettings.php:108 actions/avatarsettings.php:192
 #: actions/grouplogo.php:181 actions/remotesubscribe.php:191
 #: actions/userauthorization.php:72 actions/userrss.php:108
 msgid "User without matching profile."
 msgstr "Bruker uten samsvarende profil."
 
-#: actions/avatarsettings.php:119 actions/avatarsettings.php:197
+#. TRANS: Avatar upload page form legend.
+#. TRANS: Avatar upload page crop form legend.
+#: actions/avatarsettings.php:122 actions/avatarsettings.php:205
 #: actions/grouplogo.php:254
 msgid "Avatar settings"
 msgstr "Avatarinnstillinger"
 
-#: actions/avatarsettings.php:127 actions/avatarsettings.php:205
+#. TRANS: Header on avatar upload page for thumbnail of originally uploaded avatar (h2).
+#. TRANS: Header on avatar upload crop form for thumbnail of originally uploaded avatar (h2).
+#: actions/avatarsettings.php:131 actions/avatarsettings.php:214
 #: actions/grouplogo.php:202 actions/grouplogo.php:262
 msgid "Original"
 msgstr "Opprinnelig"
 
-#: actions/avatarsettings.php:142 actions/avatarsettings.php:217
+#. TRANS: Header on avatar upload page for thumbnail of to be used rendition of uploaded avatar (h2).
+#. TRANS: Header on avatar upload crop form for thumbnail of to be used rendition of uploaded avatar (h2).
+#: actions/avatarsettings.php:147 actions/avatarsettings.php:227
 #: actions/grouplogo.php:213 actions/grouplogo.php:274
 msgid "Preview"
 msgstr "Forhåndsvis"
 
-#: actions/avatarsettings.php:149 actions/showapplication.php:252
-#: lib/deletegroupform.php:121 lib/deleteuserform.php:66
-#: lib/noticelist.php:667
+#. TRANS: Button on avatar upload page to delete current avatar.
+#: actions/avatarsettings.php:155
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Slett"
 
-#: actions/avatarsettings.php:166 actions/grouplogo.php:236
+#. TRANS: Button on avatar upload page to upload an avatar.
+#: actions/avatarsettings.php:173
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Last opp"
 
-#: actions/avatarsettings.php:231 actions/grouplogo.php:289
+#. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
+#: actions/avatarsettings.php:243
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Crop"
 msgstr "Beskjær"
 
-#: actions/avatarsettings.php:307
+#. TRANS: Validation error on avatar upload form when no file was uploaded.
+#: actions/avatarsettings.php:318
 msgid "No file uploaded."
 msgstr "Ingen fil lastet opp."
 
-#: actions/avatarsettings.php:334
+#. TRANS: Avatar upload form unstruction after uploading a file.
+#: actions/avatarsettings.php:346
 msgid "Pick a square area of the image to be your avatar"
 msgstr "Velg et kvadratisk utsnitt av bildet som din avatar."
 
-#: actions/avatarsettings.php:349 actions/grouplogo.php:380
+#. TRANS: Server error displayed if an avatar upload went wrong somehow server side.
+#: actions/avatarsettings.php:361 actions/grouplogo.php:380
 msgid "Lost our file data."
 msgstr "Mistet våre fildata."
 
-#: actions/avatarsettings.php:372
+#: actions/avatarsettings.php:384
 msgid "Avatar updated."
 msgstr "Brukerbildet har blitt oppdatert."
 
-#: actions/avatarsettings.php:375
+#. TRANS: Error displayed on the avatar upload page if the avatar could not be updated for an unknown reason.
+#: actions/avatarsettings.php:388
 msgid "Failed updating avatar."
 msgstr "Oppdatering av avatar mislyktes."
 
-#: actions/avatarsettings.php:399
+#. TRANS: Success message for deleting a user avatar.
+#: actions/avatarsettings.php:412
 msgid "Avatar deleted."
 msgstr "Avatar slettet."
 
-#: actions/block.php:69
+#. TRANS: Client error displayed when blocking a user that has already been blocked.
+#: actions/block.php:68
 msgid "You already blocked that user."
 msgstr "Du har allerede blokkert den brukeren."
 
-#: actions/block.php:107 actions/block.php:136 actions/groupblock.php:158
+#. TRANS: Title for block user page.
+#. TRANS: Legend for block user form.
+#: actions/block.php:106 actions/block.php:136 actions/groupblock.php:158
 msgid "Block user"
 msgstr "Blokker brukeren"
 
-#: actions/block.php:138
+#. TRANS: Explanation of consequences when blocking a user on the block user page.
+#: actions/block.php:139
 msgid ""
 "Are you sure you want to block this user? Afterwards, they will be "
 "unsubscribed from you, unable to subscribe to you in the future, and you "
@@ -1154,7 +1214,7 @@ msgstr ""
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:153 actions/deleteapplication.php:154
+#: actions/block.php:154 actions/deleteapplication.php:154
 #: actions/deletegroup.php:220 actions/deletenotice.php:150
 #: actions/deleteuser.php:152 actions/groupblock.php:178
 msgctxt "BUTTON"
@@ -1163,7 +1223,7 @@ msgstr "Nei"
 
 #. TRANS: Submit button title for 'No' when blocking a user.
 #. TRANS: Submit button title for 'No' when deleting a user.
-#: actions/block.php:157 actions/deleteuser.php:156
+#: actions/block.php:158 actions/deleteuser.php:156
 msgid "Do not block this user"
 msgstr "Ikke blokker denne brukeren"
 
@@ -1173,7 +1233,7 @@ msgstr "Ikke blokker denne brukeren"
 #. TRANS: Button label on the delete notice form.
 #. TRANS: Button label on the delete user form.
 #. TRANS: Button label on the form to block a user from a group.
-#: actions/block.php:160 actions/deleteapplication.php:161
+#: actions/block.php:161 actions/deleteapplication.php:161
 #: actions/deletegroup.php:227 actions/deletenotice.php:157
 #: actions/deleteuser.php:159 actions/groupblock.php:185
 msgctxt "BUTTON"
@@ -1182,90 +1242,111 @@ msgstr "Ja"
 
 #. TRANS: Submit button title for 'Yes' when blocking a user.
 #. TRANS: Description of the form to block a user.
-#: actions/block.php:164 lib/blockform.php:79
+#: actions/block.php:165 lib/blockform.php:79
 msgid "Block this user"
 msgstr "Blokker denne brukeren"
 
-#: actions/block.php:187
+#. TRANS: Server error displayed when blocking a user fails.
+#: actions/block.php:189
 msgid "Failed to save block information."
 msgstr "Kunne ikke lagre blokkeringsinformasjon."
 
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-local group.
+#. TRANS: Client error displayed when requesting a list of blocked users for a non-existing group.
 #. TRANS: Client error when trying to delete a non-local group.
 #. TRANS: Client error when trying to delete a non-existing group.
+#. TRANS: Client error displayed trying to edit a non-existing group.
+#. TRANS: Client error displayed when trying to unblock a user from a non-existing group.
+#. TRANS: Client error displayed if no remote group with a given name was found requesting group page.
+#. TRANS: Client error displayed if no local group with a given name was found requesting group page.
 #. TRANS: Command exception text shown when a group is requested that does not exist.
 #. TRANS: Error text shown when trying to leave a group that does not exist.
-#: actions/blockedfromgroup.php:80 actions/blockedfromgroup.php:87
+#: actions/blockedfromgroup.php:81 actions/blockedfromgroup.php:89
 #: actions/deletegroup.php:87 actions/deletegroup.php:100
-#: actions/editgroup.php:100 actions/foafgroup.php:44 actions/foafgroup.php:62
+#: actions/editgroup.php:102 actions/foafgroup.php:44 actions/foafgroup.php:62
 #: actions/foafgroup.php:69 actions/groupblock.php:86 actions/groupbyid.php:83
 #: actions/groupdesignsettings.php:100 actions/grouplogo.php:102
 #: actions/groupmembers.php:83 actions/groupmembers.php:90
 #: actions/grouprss.php:98 actions/grouprss.php:105
-#: actions/groupunblock.php:86 actions/joingroup.php:82
+#: actions/groupunblock.php:88 actions/joingroup.php:82
 #: actions/joingroup.php:93 actions/leavegroup.php:82
 #: actions/leavegroup.php:93 actions/makeadmin.php:86
-#: actions/showgroup.php:138 actions/showgroup.php:146 lib/command.php:168
+#: actions/showgroup.php:139 actions/showgroup.php:148 lib/command.php:168
 #: lib/command.php:380
 msgid "No such group."
 msgstr "Ingen slik gruppe."
 
-#: actions/blockedfromgroup.php:97
+#. TRANS: Title for first page with list of users blocked from a group.
+#. TRANS: %s is a group nickname.
+#: actions/blockedfromgroup.php:101
 #, php-format
 msgid "%s blocked profiles"
 msgstr "%s blokkerte profiler"
 
-#: actions/blockedfromgroup.php:100
+#. TRANS: Title for any but the first page with list of users blocked from a group.
+#. TRANS: %1$s is a group nickname, %2$d is a page number.
+#: actions/blockedfromgroup.php:106
 #, php-format
 msgid "%1$s blocked profiles, page %2$d"
 msgstr "%1$s blokkerte profiler, side %2$d"
 
-#: actions/blockedfromgroup.php:115
+#. TRANS: Instructions for list of users blocked from a group.
+#: actions/blockedfromgroup.php:122
 msgid "A list of the users blocked from joining this group."
 msgstr "En liste over brukere som er blokkert fra å delta i denne gruppen."
 
-#: actions/blockedfromgroup.php:288
+#. TRANS: Form legend for unblocking a user from a group.
+#: actions/blockedfromgroup.php:291
 msgid "Unblock user from group"
 msgstr "Opphev blokkering av bruker fra gruppe"
 
-#. TRANS: Title for the form to unblock a user.
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:70
+#. TRANS: Button text for unblocking a user from a group.
+#: actions/blockedfromgroup.php:323
+#, fuzzy
+msgctxt "BUTTON"
 msgid "Unblock"
 msgstr "Opphev blokkering"
 
+#. TRANS: Tooltip for button for unblocking a user from a group.
 #. TRANS: Description of the form to unblock a user.
-#: actions/blockedfromgroup.php:320 lib/unblockform.php:82
+#: actions/blockedfromgroup.php:327 lib/unblockform.php:78
 msgid "Unblock this user"
 msgstr "Opphev blokkering av denne brukeren"
 
 #. TRANS: Title for mini-posting window loaded from bookmarklet.
+#. TRANS: %s is the StatusNet site name.
 #: actions/bookmarklet.php:51
 #, php-format
 msgid "Post to %s"
 msgstr "Post til %s"
 
-#: actions/confirmaddress.php:75
+#. TRANS: Client error displayed when not providing a confirmation code in the contact address confirmation action.
+#: actions/confirmaddress.php:74
 msgid "No confirmation code."
 msgstr "Ingen bekreftelseskode."
 
+#. TRANS: Client error displayed when providing a non-existing confirmation code in the contact address confirmation action.
 #: actions/confirmaddress.php:80
 msgid "Confirmation code not found."
 msgstr "Fant ikke bekreftelseskode."
 
-#: actions/confirmaddress.php:85
+#. TRANS: Client error displayed when not providing a confirmation code for another user in the contact address confirmation action.
+#: actions/confirmaddress.php:86
 msgid "That confirmation code is not for you!"
 msgstr "Den bekreftelseskoden er ikke til deg."
 
-#. TRANS: Server error for an unknow address type, which can be 'email', 'jabber', or 'sms'.
-#: actions/confirmaddress.php:91
+#. TRANS: Server error for a unknow address type %s, which can be 'email', 'jabber', or 'sms'.
+#: actions/confirmaddress.php:92
 #, php-format
 msgid "Unrecognized address type %s."
 msgstr "Ukjent adressetype %s."
 
-#. TRANS: Client error for an already confirmed email/jabbel/sms address.
-#: actions/confirmaddress.php:96
+#. TRANS: Client error for an already confirmed email/jabber/sms address.
+#: actions/confirmaddress.php:97
 msgid "That address has already been confirmed."
 msgstr "Den adressen har allerede blitt bekreftet."
 
+#. TRANS: Server error displayed when a user update to the database fails in the contact address confirmation action.
 #. TRANS: Server error thrown on database error updating e-mail preferences.
 #. TRANS: Server error thrown on database error removing a registered e-mail address.
 #. TRANS: Server error thrown on database error updating IM preferences.
@@ -1273,7 +1354,7 @@ msgstr "Den adressen har allerede blitt bekreftet."
 #. TRANS: Server error thrown when user profile settings could not be updated.
 #. TRANS: Server error thrown on database error updating SMS preferences.
 #. TRANS: Server error thrown on database error removing a registered SMS phone number.
-#: actions/confirmaddress.php:116 actions/emailsettings.php:331
+#: actions/confirmaddress.php:118 actions/emailsettings.php:331
 #: actions/emailsettings.php:477 actions/imsettings.php:283
 #: actions/imsettings.php:442 actions/othersettings.php:174
 #: actions/profilesettings.php:326 actions/smssettings.php:308
@@ -1281,27 +1362,32 @@ msgstr "Den adressen har allerede blitt bekreftet."
 msgid "Couldn't update user."
 msgstr "Klarte ikke å oppdatere bruker."
 
-#. TRANS: Server error thrown on database error canceling e-mail address confirmation.
-#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
-#: actions/confirmaddress.php:128 actions/emailsettings.php:437
-#: actions/smssettings.php:422
-msgid "Couldn't delete email confirmation."
-msgstr "Kunne ikke slette e-postbekreftelse."
+#. TRANS: Server error displayed when an address confirmation code deletion from the
+#. TRANS: database fails in the contact address confirmation action.
+#: actions/confirmaddress.php:132
+#, fuzzy
+msgid "Could not delete address confirmation."
+msgstr "Kunne ikke slette direktemeldingsbekreftelse."
 
-#: actions/confirmaddress.php:146
+#. TRANS: Title for the contact address confirmation action.
+#: actions/confirmaddress.php:150
 msgid "Confirm address"
 msgstr "Bekreft adresse"
 
-#: actions/confirmaddress.php:161
+#. TRANS: Success message for the contact address confirmation action.
+#. TRANS: %s can be 'email', 'jabber', or 'sms'.
+#: actions/confirmaddress.php:166
 #, php-format
 msgid "The address \"%s\" has been confirmed for your account."
 msgstr "Adressen «%s» har blitt bekreftet for din konto."
 
-#: actions/conversation.php:99
+#. TRANS: Title for page with a conversion (multiple notices in context).
+#: actions/conversation.php:96
 msgid "Conversation"
 msgstr "Samtale"
 
-#: actions/conversation.php:154 lib/mailbox.php:116 lib/noticelist.php:87
+#. TRANS: Header on conversation page. Hidden by default (h2).
+#: actions/conversation.php:149 lib/mailbox.php:116 lib/noticelist.php:87
 #: lib/profileaction.php:229 lib/searchgroupnav.php:82
 msgid "Notices"
 msgstr "Notiser"
@@ -1413,11 +1499,13 @@ msgstr "Ikke slett denne notisen"
 msgid "Delete this group"
 msgstr "Slett denne brukeren"
 
+#. TRANS: Client error displayed when trying to unblock a user from a group while not logged in.
+#. TRANS: Client error displayed trying a change a subscription while not logged in.
 #. TRANS: Client error message thrown when trying to access the admin panel while not logged in.
 #: actions/deletenotice.php:50 actions/disfavor.php:61 actions/favor.php:62
-#: actions/groupblock.php:61 actions/groupunblock.php:61 actions/logout.php:69
+#: actions/groupblock.php:61 actions/groupunblock.php:60 actions/logout.php:69
 #: actions/makeadmin.php:61 actions/newmessage.php:87 actions/newnotice.php:88
-#: actions/nudge.php:63 actions/subedit.php:31 actions/subscribe.php:96
+#: actions/nudge.php:63 actions/subedit.php:33 actions/subscribe.php:96
 #: actions/tagother.php:33 actions/unsubscribe.php:52
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:64
 #: lib/settingsaction.php:72
@@ -1720,49 +1808,49 @@ msgstr "Anrops-URL er ikke gyldig."
 msgid "Could not update application."
 msgstr "Kunne ikke oppdatere programmet."
 
-#: actions/editgroup.php:56
+#. TRANS: Title for form to edit a group. %s is a group nickname.
+#: actions/editgroup.php:55
 #, php-format
 msgid "Edit %s group"
 msgstr "Rediger %s gruppe"
 
+#. TRANS: Client error displayed trying to edit a group while not logged in.
+#. TRANS: Client error displayed trying to create a group while not logged in.
 #: actions/editgroup.php:68 actions/grouplogo.php:70 actions/newgroup.php:65
 msgid "You must be logged in to create a group."
 msgstr "Du må være innlogget for å opprette en gruppe."
 
-#: actions/editgroup.php:107 actions/editgroup.php:172
+#. TRANS: Client error displayed trying to edit a group while not being a group admin.
+#: actions/editgroup.php:110 actions/editgroup.php:176
 #: actions/groupdesignsettings.php:107 actions/grouplogo.php:109
 msgid "You must be an admin to edit the group."
 msgstr "Du må være en administrator for å redigere gruppen."
 
-#: actions/editgroup.php:158
+#. TRANS: Form instructions for group edit form.
+#: actions/editgroup.php:161
 msgid "Use this form to edit the group."
 msgstr "Bruk dette skjemaet for å redigere gruppen."
 
-#: actions/editgroup.php:205
-#, php-format
-msgid "Description is too long (max %d chars)."
-msgstr "Beskrivelsen er for lang (maks %d tegn)."
-
-#: actions/editgroup.php:219
-#, php-format
-msgid "Too many aliases! Maximum %d."
-msgstr "For mange alias! Maksimum %d."
-
-#: actions/editgroup.php:228 actions/newgroup.php:177
+#. TRANS: Group edit form validation error.
+#. TRANS: Group create form validation error.
+#: actions/editgroup.php:248 actions/newgroup.php:184
 #, php-format
 msgid "Invalid alias: \"%s\""
 msgstr "Ugyldig alias: «%s»"
 
-#: actions/editgroup.php:258
+#. TRANS: Server error displayed when editing a group fails.
+#: actions/editgroup.php:281
 msgid "Could not update group."
 msgstr "Kunne ikke oppdatere gruppe."
 
+#. TRANS: Server error displayed when group aliases could not be added.
 #. TRANS: Server exception thrown when creating group aliases failed.
-#: actions/editgroup.php:264 classes/User_group.php:513
+#: actions/editgroup.php:288 classes/User_group.php:513
 msgid "Could not create aliases."
 msgstr "Kunne ikke opprette alias."
 
-#: actions/editgroup.php:280
+#. TRANS: Group edit form success message.
+#: actions/editgroup.php:305
 msgid "Options saved."
 msgstr "Lagret valg."
 
@@ -1953,6 +2041,12 @@ msgstr "Ingen ventende bekreftelse å avbryte."
 msgid "That is the wrong email address."
 msgstr "Dette er feil e-postadresse."
 
+#. TRANS: Server error thrown on database error canceling e-mail address confirmation.
+#. TRANS: Server error thrown on database error canceling SMS phone number confirmation.
+#: actions/emailsettings.php:437 actions/smssettings.php:422
+msgid "Couldn't delete email confirmation."
+msgstr "Kunne ikke slette e-postbekreftelse."
+
 #. TRANS: Message given after successfully canceling e-mail address confirmation.
 #: actions/emailsettings.php:442
 msgid "Email confirmation cancelled."
@@ -2133,19 +2227,23 @@ msgstr "Du kan ikke tildele brukerroller på dette nettstedet."
 msgid "User already has this role."
 msgstr "Bruker har allerede denne rollen."
 
+#. TRANS: Client error displayed when trying to unblock a user from a group without providing a profile.
+#. TRANS: Client error displayed trying a change a subscription without providing a profile.
 #: actions/groupblock.php:71 actions/groupunblock.php:71
-#: actions/makeadmin.php:71 actions/subedit.php:46
+#: actions/makeadmin.php:71 actions/subedit.php:49
 #: lib/profileformaction.php:79
 msgid "No profile specified."
 msgstr "Ingen profil oppgitt."
 
-#: actions/groupblock.php:76 actions/groupunblock.php:76
-#: actions/makeadmin.php:76 actions/subedit.php:53 actions/tagother.php:46
+#. TRANS: Client error displayed when trying to unblock a user from a group without providing an existing profile.
+#. TRANS: Client error displayed trying a change a subscription for a non-existant profile ID.
+#: actions/groupblock.php:76 actions/groupunblock.php:77
+#: actions/makeadmin.php:76 actions/subedit.php:57 actions/tagother.php:46
 #: actions/unsubscribe.php:84 lib/profileformaction.php:86
 msgid "No profile with that ID."
 msgstr "Ingen profil med den ID'en."
 
-#: actions/groupblock.php:81 actions/groupunblock.php:81
+#: actions/groupblock.php:81 actions/groupunblock.php:82
 #: actions/makeadmin.php:81
 msgid "No group specified."
 msgstr "Ingen gruppe oppgitt."
@@ -2229,6 +2327,14 @@ msgstr "Gruppelogo"
 msgid ""
 "You can upload a logo image for your group. The maximum file size is %s."
 msgstr "Du kan laste opp en logo for gruppen din. Maks filstørrelse er %s."
+
+#: actions/grouplogo.php:236
+msgid "Upload"
+msgstr "Last opp"
+
+#: actions/grouplogo.php:289
+msgid "Crop"
+msgstr "Beskjær"
 
 #: actions/grouplogo.php:365
 msgid "Pick a square area of the image to be the logo."
@@ -2372,15 +2478,18 @@ msgstr ""
 "Hvorfor ikke [registrere en konto](%%action.register%%) og [opprette gruppen]"
 "(%%action.newgroup%%) selv!"
 
-#: actions/groupunblock.php:91
+#. TRANS: Client error displayed when trying to unblock a user from a group without being an administrator for the group.
+#: actions/groupunblock.php:94
 msgid "Only an admin can unblock group members."
 msgstr "Bare en admin kan oppheve blokkering av gruppemedlemmer."
 
-#: actions/groupunblock.php:95
+#. TRANS: Client error displayed when trying to unblock a non-blocked user from a group.
+#: actions/groupunblock.php:99
 msgid "User is not blocked from group."
 msgstr "Bruker er ikke blokkert fra gruppe."
 
-#: actions/groupunblock.php:128 actions/unblock.php:86
+#. TRANS: Server error displayed when unblocking a user from a group fails because of an unknown error.
+#: actions/groupunblock.php:131 actions/unblock.php:86
 msgid "Error removing the block."
 msgstr "Feil under oppheving av blokkering."
 
@@ -2965,10 +3074,12 @@ msgstr "Organisasjon er for lang (maks 255 tegn)."
 msgid "Could not create application."
 msgstr "Kunne ikke opprette program."
 
+#. TRANS: Title for form to create a group.
 #: actions/newgroup.php:53
 msgid "New group"
 msgstr "Ny gruppe"
 
+#. TRANS: Form instructions for group create form.
 #: actions/newgroup.php:110
 msgid "Use this form to create a new group."
 msgstr "Bruk dette skjemaet for å opprette en ny gruppe."
@@ -3672,8 +3783,9 @@ msgid "1-64 lowercase letters or numbers, no punctuation or spaces."
 msgstr "1-64 små bokstaver eller tall, ingen punktum eller mellomrom"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Label for full group name (dt). Text hidden by default.
 #: actions/profilesettings.php:117 actions/register.php:457
-#: actions/showgroup.php:256 actions/tagother.php:104
+#: actions/showgroup.php:257 actions/tagother.php:104
 #: lib/groupeditform.php:157 lib/userprofile.php:150
 msgid "Full name"
 msgstr "Fullt navn"
@@ -3713,8 +3825,9 @@ msgid "Bio"
 msgstr "Om meg"
 
 #. TRANS: Field label in form for profile settings.
+#. TRANS: Label for group location (dt). Text hidden by default.
 #: actions/profilesettings.php:149 actions/register.php:485
-#: actions/showgroup.php:265 actions/tagother.php:112
+#: actions/showgroup.php:267 actions/tagother.php:112
 #: actions/userauthorization.php:166 lib/groupeditform.php:177
 #: lib/userprofile.php:165
 msgid "Location"
@@ -4432,7 +4545,8 @@ msgstr "Organisasjon"
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: actions/showapplication.php:192 actions/showgroup.php:442
+#. TRANS: Header for group statistics on a group page (h2).
+#: actions/showapplication.php:192 actions/showgroup.php:453
 #: lib/profileaction.php:187
 msgid "Statistics"
 msgstr "Statistikk"
@@ -4449,6 +4563,11 @@ msgstr "Programhandlinger"
 #: actions/showapplication.php:236
 msgid "Reset key & secret"
 msgstr "Tilbakestill nøkkel & hemmelighet"
+
+#: actions/showapplication.php:252 lib/deletegroupform.php:121
+#: lib/deleteuserform.php:66 lib/noticelist.php:667
+msgid "Delete"
+msgstr "Slett"
 
 #: actions/showapplication.php:261
 msgid "Application info"
@@ -4544,77 +4663,106 @@ msgstr ""
 msgid "This is a way to share what you like."
 msgstr "Dette er en måte å dele det du liker."
 
-#: actions/showgroup.php:82
+#. TRANS: Page title for first group page. %s is a group name.
+#: actions/showgroup.php:80
 #, php-format
 msgid "%s group"
 msgstr "%s gruppe"
 
+#. TRANS: Page title for any but first group page.
+#. TRANS: %1$s is a group name, $2$s is a page number.
 #: actions/showgroup.php:84
 #, php-format
 msgid "%1$s group, page %2$d"
 msgstr "%1$s gruppe, side %2$d"
 
-#: actions/showgroup.php:227
+#. TRANS: Group profile header (h2). Text hidden by default.
+#: actions/showgroup.php:225
 msgid "Group profile"
 msgstr "Gruppeprofil"
 
-#: actions/showgroup.php:272 actions/tagother.php:118
+#. TRANS: Label for group URL (dt). Text hidden by default.
+#: actions/showgroup.php:275 actions/tagother.php:118
 #: actions/userauthorization.php:175 lib/userprofile.php:178
 msgid "URL"
 msgstr "Nettadresse"
 
-#: actions/showgroup.php:283 actions/tagother.php:128
+#. TRANS: Label for group description or group note (dt). Text hidden by default.
+#: actions/showgroup.php:287 actions/tagother.php:128
 #: actions/userauthorization.php:187 lib/userprofile.php:195
 msgid "Note"
 msgstr "Merk"
 
-#: actions/showgroup.php:293 lib/groupeditform.php:184
+#. TRANS: Label for group aliases (dt). Text hidden by default.
+#: actions/showgroup.php:298 lib/groupeditform.php:184
 msgid "Aliases"
 msgstr "Alias"
 
-#: actions/showgroup.php:302
+#. TRANS: Group actions header (h2). Text hidden by default.
+#: actions/showgroup.php:309
 msgid "Group actions"
 msgstr "Gruppehandlinger"
 
-#: actions/showgroup.php:344
+#. TRANS: Tooltip for feed link. %s is a group nickname.
+#: actions/showgroup.php:350
 #, php-format
 msgid "Notice feed for %s group (RSS 1.0)"
 msgstr "Notismating for %s gruppe (RSS 1.0)"
 
-#: actions/showgroup.php:350
+#. TRANS: Tooltip for feed link. %s is a group nickname.
+#: actions/showgroup.php:357
 #, php-format
 msgid "Notice feed for %s group (RSS 2.0)"
 msgstr "Notismating for %s gruppe (RSS 2.0)"
 
-#: actions/showgroup.php:356
+#. TRANS: Tooltip for feed link. %s is a group nickname.
+#: actions/showgroup.php:364
 #, php-format
 msgid "Notice feed for %s group (Atom)"
 msgstr "Notismating for %s gruppe (Atom)"
 
-#: actions/showgroup.php:361
+#. TRANS: Tooltip for feed link. %s is a group nickname.
+#: actions/showgroup.php:370
 #, php-format
 msgid "FOAF for %s group"
 msgstr "FOAF for gruppen %s"
 
-#: actions/showgroup.php:399 actions/showgroup.php:451
+#. TRANS: Header for mini list of group members on a group page (h2).
+#: actions/showgroup.php:407
 msgid "Members"
 msgstr "Medlemmer"
 
-#: actions/showgroup.php:404 lib/profileaction.php:117
+#. TRANS: Description for mini list of group members on a group page when the group has no members.
+#: actions/showgroup.php:413 lib/profileaction.php:117
 #: lib/profileaction.php:152 lib/profileaction.php:255 lib/section.php:95
 #: lib/subscriptionlist.php:127 lib/tagcloudsection.php:71
 msgid "(None)"
 msgstr "(Ingen)"
 
-#: actions/showgroup.php:410
+#. TRANS: Link to all group members from mini list of group members if group has more than n members.
+#: actions/showgroup.php:422
 msgid "All members"
 msgstr "Alle medlemmer"
 
-#: actions/showgroup.php:445
+#. TRANS: Label for creation date in statistics on group page.
+#: actions/showgroup.php:458
+#, fuzzy
+msgctxt "LABEL"
 msgid "Created"
 msgstr "Opprettet"
 
-#: actions/showgroup.php:461
+#. TRANS: Label for member count in statistics on group page.
+#: actions/showgroup.php:466
+#, fuzzy
+msgctxt "LABEL"
+msgid "Members"
+msgstr "Medlemmer"
+
+#. TRANS: Notice on group pages for anonymous users for StatusNet sites that accept new registrations.
+#. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
+#. TRANS: %%%%action.register%%%% is the URL for registration, %%%%doc.help%%%% is a URL to help.
+#. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
+#: actions/showgroup.php:481
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4630,7 +4778,10 @@ msgstr ""
 "%%%) for å bli medlem av denne gruppen og mange fler. ([Les mer](%%%%doc.help"
 "%%%%))"
 
-#: actions/showgroup.php:467
+#. TRANS: Notice on group pages for anonymous users for StatusNet sites that accept no new registrations.
+#. TRANS: **%s** is the group alias, %%%%site.name%%%% is the site name,
+#. TRANS: This message contains Markdown links. Ensure they are formatted correctly: [Description](link).
+#: actions/showgroup.php:491
 #, php-format
 msgid ""
 "**%s** is a user group on %%%%site.name%%%%, a [micro-blogging](http://en."
@@ -4643,24 +4794,31 @@ msgstr ""
 "programvareverktøyet [StatusNet](http://status.net/). Dets medlemmer deler "
 "korte meldinger om deres liv og interesser. "
 
-#: actions/showgroup.php:495
+#. TRANS: Header for list of group administrators on a group page (h2).
+#: actions/showgroup.php:520
 msgid "Admins"
 msgstr "Administratorer"
 
-#: actions/showmessage.php:81
+#. TRANS: Client error displayed requesting a single message that does not exist.
+#: actions/showmessage.php:79
 msgid "No such message."
 msgstr "Ingen slik melding."
 
-#: actions/showmessage.php:98
+#. TRANS: Client error displayed requesting a single direct message the requesting user was not a party in.
+#: actions/showmessage.php:97
 msgid "Only the sender and recipient may read this message."
 msgstr "Kun senderen og mottakeren kan lese denne meldingen."
 
-#: actions/showmessage.php:108
+#. TRANS: Page title for single direct message display when viewing user is the sender.
+#. TRANS: %1$s is the addressed user's nickname, $2$s is a timestamp.
+#: actions/showmessage.php:110
 #, php-format
 msgid "Message to %1$s on %2$s"
 msgstr "Melding til %1$s på %2$s"
 
-#: actions/showmessage.php:113
+#. TRANS: Page title for single message display.
+#. TRANS: %1$s is the sending user's nickname, $2$s is a timestamp.
+#: actions/showmessage.php:118
 #, php-format
 msgid "Message from %1$s on %2$s"
 msgstr "Melding fra %1$s på %2$s"
@@ -5106,13 +5264,15 @@ msgstr ""
 msgid "Save snapshot settings"
 msgstr "Lagre nettstedsinnstillinger"
 
-#: actions/subedit.php:70
+#. TRANS: Client error displayed trying a change a subscription for a non-subscribed profile.
+#: actions/subedit.php:75
 #, fuzzy
 msgid "You are not subscribed to that profile."
 msgstr "Ikke autorisert."
 
+#. TRANS: Server error displayed when updating a subscription fails with a database error.
 #. TRANS: Exception thrown when a subscription could not be stored on the server.
-#: actions/subedit.php:83 classes/Subscription.php:136
+#: actions/subedit.php:89 classes/Subscription.php:136
 msgid "Could not save subscription."
 msgstr "Kunne ikke lagre merkelapper."
 
@@ -5902,12 +6062,12 @@ msgid "Welcome to %1$s, @%2$s!"
 msgstr "Velkommen til %1$s, @%2$s."
 
 #. TRANS: Server exception.
-#: classes/User.php:902
+#: classes/User.php:912
 msgid "No single user defined for single-user mode."
 msgstr ""
 
 #. TRANS: Server exception.
-#: classes/User.php:906
+#: classes/User.php:916
 msgid "Single-user mode code called when not enabled."
 msgstr ""
 
@@ -7050,7 +7210,8 @@ msgstr "Atom"
 msgid "FOAF"
 msgstr "Venn av en venn"
 
-#: lib/feedlist.php:65
+#. TRANS: Header for feed links (h2).
+#: lib/feedlist.php:66
 msgid "Feeds"
 msgstr ""
 
@@ -7212,39 +7373,57 @@ msgstr "Denne siden er ikke tilgjengelig i en mediatype du aksepterer"
 msgid "Unsupported image file format."
 msgstr "Bildefilformatet støttes ikke."
 
-#: lib/imagefile.php:88
+#. TRANS: Exception thrown when too large a file is uploaded.
+#. TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
+#: lib/imagefile.php:90
 #, php-format
 msgid "That file is too big. The maximum file size is %s."
 msgstr "Filen er for stor. Maks filstørrelse er %s."
 
-#: lib/imagefile.php:93
+#: lib/imagefile.php:95
 msgid "Partial upload."
 msgstr "Delvis opplasting."
 
 #. TRANS: Client exception thrown when a file upload operation has failed with an unknown reason.
-#: lib/imagefile.php:101 lib/mediafile.php:179
+#: lib/imagefile.php:103 lib/mediafile.php:179
 msgid "System error uploading file."
 msgstr "Systemfeil ved opplasting av fil."
 
-#: lib/imagefile.php:109
+#: lib/imagefile.php:111
 msgid "Not an image or corrupt file."
 msgstr "Ikke et bilde eller en korrupt fil."
 
-#: lib/imagefile.php:122
+#: lib/imagefile.php:124
 msgid "Lost our file."
 msgstr "Mistet filen vår."
 
-#: lib/imagefile.php:163 lib/imagefile.php:224
+#: lib/imagefile.php:165 lib/imagefile.php:226
 msgid "Unknown file type"
 msgstr "Ukjent filtype"
 
-#: lib/imagefile.php:244
-msgid "MB"
-msgstr "MB"
+#. TRANS: Number of megabytes. %d is the number.
+#: lib/imagefile.php:248
+#, fuzzy, php-format
+msgid "%dMB"
+msgid_plural "%dMB"
+msgstr[0] "MB"
+msgstr[1] "MB"
 
-#: lib/imagefile.php:246
-msgid "kB"
-msgstr "kB"
+#. TRANS: Number of kilobytes. %d is the number.
+#: lib/imagefile.php:252
+#, fuzzy, php-format
+msgid "%dkB"
+msgid_plural "%dkB"
+msgstr[0] "kB"
+msgstr[1] "kB"
+
+#. TRANS: Number of bytes. %d is the number.
+#: lib/imagefile.php:255
+#, php-format
+msgid "%dB"
+msgid_plural "%dB"
+msgstr[0] ""
+msgstr[1] ""
 
 #: lib/jabber.php:387
 #, php-format
@@ -8142,6 +8321,13 @@ msgstr "Feil ved oppdatering av fjernprofil."
 msgid "Top posters"
 msgstr ""
 
+#. TRANS: Title for the form to unblock a user.
+#: lib/unblockform.php:67
+#, fuzzy
+msgctxt "TITLE"
+msgid "Unblock"
+msgstr "Opphev blokkering"
+
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
 msgstr ""
@@ -8326,3 +8512,9 @@ msgstr "Ingen bruker-ID spesifisert."
 #, php-format
 msgid "%d entries in backup."
 msgstr ""
+
+#~ msgid "Description is too long (max %d chars)."
+#~ msgstr "Beskrivelsen er for lang (maks %d tegn)."
+
+#~ msgid "Too many aliases! Maximum %d."
+#~ msgstr "For mange alias! Maksimum %d."

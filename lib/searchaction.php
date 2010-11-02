@@ -70,7 +70,6 @@ class SearchAction extends Action
      * @return void
      * @see SearchGroupNav
      */
-
     function showLocalNav()
     {
         $nav = new SearchGroupNav($this, $this->trimmed('q'));
@@ -127,6 +126,7 @@ class SearchAction extends Action
         // TRANS: Used as a field label for the field where one or more keywords
         // TRANS: for searching can be entered.
         $this->input('q', _('Keyword(s)'), $q);
+        // TRANS: Button text for searching site.
         $this->submit('search', _m('BUTTON','Search'));
         $this->elementEnd('li');
         $this->elementEnd('ul');
@@ -138,7 +138,7 @@ class SearchAction extends Action
     }
 
     function searchSuggestions($q) {
-        // @todo FIXME: This formatting does not make this string get picked up by gettext.
+        // @todo FIXME: i18n issue: This formatting does not make this string get picked up by gettext.
             // TRANS: Standard search suggestions shown when a search does not give any results.
         $message = _(<<<E_O_T
 * Make sure all words are spelled correctly.
@@ -150,7 +150,7 @@ E_O_T
 );
         if (!common_config('site', 'private')) {
             $qe = urlencode($q);
-            // @todo FIXME: This formatting does not make this string get picked up by gettext.
+            // @todo FIXME: i18n issue: This formatting does not make this string get picked up by gettext.
             // TRANS: Standard search suggestions shown when a search does not give any results.
             $message .= sprintf(_(<<<E_O_T
 

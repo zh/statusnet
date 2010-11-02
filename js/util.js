@@ -56,6 +56,15 @@ var SN = { // StatusNet
             NoticeDataGeoCookie: 'NoticeDataGeo',
             NoticeDataGeoSelected: 'notice_data-geo_selected',
             StatusNetInstance:'StatusNetInstance'
+        },
+    },
+
+    messages: {},
+    msg: function(key) {
+        if (typeof SN.messages[key] == "undefined") {
+            return '[' + key + ']';
+        } else {
+            return SN.messages[key];
         }
     },
 
@@ -416,7 +425,7 @@ var SN = { // StatusNet
                     });
 
                     return false;
-                });
+                }).attr('title', SN.msg('showmore_tooltip'));
             }
             else {
                 $.fn.jOverlay.options = {
