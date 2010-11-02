@@ -32,6 +32,8 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
+define("FACEBOOK_SERVICE", 2);
+
 /**
  * Main class for Facebook single-sign-on plugin
  *
@@ -136,7 +138,9 @@ class FacebookSSOPlugin extends Plugin
             include_once $dir . '/extlib/facebook.php';
             return false;
         case 'FacebookloginAction':
+        case 'FacebookregisterAction':
         case 'FacebookadminpanelAction':
+        case 'FacebooksettingsAction':
             include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
             return false;
         default:
@@ -165,7 +169,21 @@ class FacebookSSOPlugin extends Plugin
         // Only add these routes if an application has been setup on
         // Facebook for the plugin to use.
         if ($this->hasApplication()) {
-            $m->connect('main/facebooklogin', array('action' => 'facebooklogin'));
+
+            $m->connect(
+                'main/facebooklogin',
+                array('action' => 'facebooklogin')
+            );
+            $m->connect(
+                'main/facebookregister',
+                array('action' => 'facebookregister')
+            );
+
+            $m->connect(
+                'settings/facebook',
+                array('action' => 'facebooksettings')
+            );
+            
         }
 
         return true;
@@ -219,6 +237,30 @@ class FacebookSSOPlugin extends Plugin
                 $action_name == 'facebookadminpanel',
                 'nav_facebook_admin_panel'
             );
+        }
+
+        return true;
+    }
+
+    /*
+     * Add a tab for managing Facebook Connect settings
+     *
+     * @param Action &action the current action
+     *
+     * @return void
+     */
+    function onEndConnectSettingsNav(&$action)
+    {
+        if ($this->hasApplication()) {
+            $action_name = $action->trimmed('action');
+
+            $action->menuItem(common_local_url('facebooksettings'),
+                              // @todo CHECKME: Should be 'Facebook Connect'?
+                              // TRANS: Menu item tab.
+                              _m('MENU','Facebook'),
+                              // TRANS: Tooltip for menu item "Facebook".
+                              _m('Facebook Connect Settings'),
+                              $action_name === 'facebooksettings');
         }
 
         return true;
