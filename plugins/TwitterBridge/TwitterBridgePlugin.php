@@ -279,9 +279,6 @@ class TwitterBridgePlugin extends Plugin
 
             // Incoming statuses <- twitter
             $manager->connect('tweetin', 'TweetInQueueHandler');
-
-            // Control messages from our web interface to the import daemon
-            $manager->connect('tweetctl', 'TweetCtlQueueHandler', 'twitter');
         }
         return true;
     }

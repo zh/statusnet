@@ -285,7 +285,7 @@ class TwittersettingsAction extends ConnectSettingsAction
         }
 
         $original = clone($flink);
-        $wasReceiving = (bool)($original->notice_sync & FOREIGN_NOTICE_RECV);
+        $wasReceiving = (bool)($original->noticesync & FOREIGN_NOTICE_RECV);
         $flink->set_flags($noticesend, $noticerecv, $replysync, $friendsync);
         $result = $flink->update($original);
 
@@ -307,10 +307,7 @@ class TwittersettingsAction extends ConnectSettingsAction
      */
     function notifyDaemon($twitterUserId, $receiving)
     {
-        $data = array('for_user' => $twitterUserId,
-                      'action' => $receiving ? 'stop' : 'start');
-        $qm = QueueManager::get();
-        $qm->enqueue($data, 'twitterctl');
+        // todo... should use control signals rather than queues
     }
 
 }
