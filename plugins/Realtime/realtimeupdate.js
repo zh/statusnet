@@ -40,6 +40,7 @@ RealtimeUpdate = {
      _documenttitle: '',
      _paused:false,
      _queuedNotices:[],
+     _messages:{},
 
      init: function(userid, replyurl, favorurl, repeaturl, deleteurl)
      {
@@ -261,9 +262,10 @@ RealtimeUpdate = {
         RealtimeUpdate.addNoticesHover();
 
         $('#realtime_playpause').remove();
-        $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause" title="Pause">Pause</button></li>');
-
-        $('#realtime_pause').bind('click', function() {
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><button id="realtime_pause" class="pause"></button></li>');
+        $('#realtime_pause').text(RealtimeUpdate._messages['pause'])
+                            .attr('title', RealtimeUpdate._messages['pause_tooltip'])
+                            .bind('click', function() {
             RealtimeUpdate.removeNoticesHover();
             RealtimeUpdate.showPlay();
             return false;
@@ -274,9 +276,10 @@ RealtimeUpdate = {
      {
         RealtimeUpdate.setPause(true);
         $('#realtime_playpause').remove();
-        $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play" title="Play">Play</button></li>');
-
-        $('#realtime_play').bind('click', function() {
+        $('#realtime_actions').prepend('<li id="realtime_playpause"><span id="queued_counter"></span> <button id="realtime_play" class="play"></button></li>');
+        $('#realtime_play').text(RealtimeUpdate._messages['play'])
+                           .attr('title', RealtimeUpdate._messages['play_tooltip'])
+                           .bind('click', function() {
             RealtimeUpdate.showPause();
             return false;
         });
@@ -334,10 +337,11 @@ RealtimeUpdate = {
 
      initAddPopup: function(url, timeline, path)
      {
-         $('#realtime_timeline').append('<button id="realtime_popup" title="Pop up in a window">Pop up</button>');
-
-         $('#realtime_popup').bind('click', function() {
-             window.open(url,
+         $('#realtime_timeline').append('<button id="realtime_popup"></button>');
+         $('#realtime_popup').text(RealtimeUpdate._messages['popup'])
+                             .attr('title', RealtimeUpdate._messages['popup_tooltip'])
+                             .bind('click', function() {
+                window.open(url,
                          '',
                          'toolbar=no,resizable=yes,scrollbars=yes,status=no,menubar=no,personalbar=no,location=no,width=500,height=550');
 
