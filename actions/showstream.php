@@ -66,17 +66,19 @@ class ShowstreamAction extends ProfileAction
         $base = $this->profile->getFancyName();
         if (!empty($this->tag)) {
             if ($this->page == 1) {
-                // TRANS: Page title showing tagged notices in one user's stream. Param 1 is the username, 2 is the hash tag.
+                // TRANS: Page title showing tagged notices in one user's stream. %1$s is the username, %2$s is the hash tag.
                 return sprintf(_('%1$s tagged %2$s'), $base, $this->tag);
             } else {
-                // TRANS: Page title showing tagged notices in one user's stream. Param 1 is the username, 2 is the hash tag, 3 is the page number.
+                // TRANS: Page title showing tagged notices in one user's stream.
+                // TRANS: %1$s is the username, %2$s is the hash tag, %1$d is the page number.
                 return sprintf(_('%1$s tagged %2$s, page %3$d'), $base, $this->tag, $this->page);
             }
         } else {
             if ($this->page == 1) {
                 return $base;
             } else {
-                // TRANS: Extended page title showing tagged notices in one user's stream. Param 1 is the username, param 2 is the page number.
+                // TRANS: Extended page title showing tagged notices in one user's stream.
+                // TRANS: %1$s is the username, %2$d is the page number.
                 return sprintf(_('%1$s, page %2$d'),
                                $base,
                                $this->page);
@@ -120,6 +122,8 @@ class ShowstreamAction extends ProfileAction
                                   common_local_url('userrss',
                                                    array('nickname' => $this->user->nickname,
                                                          'tag' => $this->tag)),
+                                  // TRANS: Title for link to notice feed.
+                                  // TRANS: %1$s is a user nickname, %2$s is a hashtag.
                                   sprintf(_('Notice feed for %1$s tagged %2$s (RSS 1.0)'),
                                           $this->user->nickname, $this->tag)));
         }
@@ -127,6 +131,8 @@ class ShowstreamAction extends ProfileAction
         return array(new Feed(Feed::RSS1,
                               common_local_url('userrss',
                                                array('nickname' => $this->user->nickname)),
+                              // TRANS: Title for link to notice feed.
+                              // TRANS: %s is a user nickname.
                               sprintf(_('Notice feed for %s (RSS 1.0)'),
                                       $this->user->nickname)),
                      new Feed(Feed::RSS2,
@@ -134,6 +140,8 @@ class ShowstreamAction extends ProfileAction
                                                array(
                                                     'id' => $this->user->id,
                                                     'format' => 'rss')),
+                              // TRANS: Title for link to notice feed.
+                              // TRANS: %s is a user nickname.
                               sprintf(_('Notice feed for %s (RSS 2.0)'),
                                       $this->user->nickname)),
                      new Feed(Feed::ATOM,
@@ -146,6 +154,8 @@ class ShowstreamAction extends ProfileAction
                      new Feed(Feed::FOAF,
                               common_local_url('foaf', array('nickname' =>
                                                              $this->user->nickname)),
+                              // TRANS: Title for link to notice feed. FOAF stands for Friend of a Friend.
+                              // TRANS: More information at http://www.foaf-project.org. %s is a user nickname.
                               sprintf(_('FOAF for %s'), $this->user->nickname)));
     }
 
@@ -197,17 +207,23 @@ class ShowstreamAction extends ProfileAction
 
     function showEmptyListMessage()
     {
-        $message = sprintf(_('This is the timeline for %1$s but %2$s hasn\'t posted anything yet.'), $this->user->nickname, $this->user->nickname) . ' ';
+        // TRANS: First sentence of empty list message for a stream. $1%s is a user nickname.
+        $message = sprintf(_('This is the timeline for %1$s, but %1$s hasn\'t posted anything yet.'), $this->user->nickname) . ' ';
 
         if (common_logged_in()) {
             $current_user = common_current_user();
             if ($this->user->id === $current_user->id) {
+                // TRANS: Second sentence of empty list message for a stream for the user themselves.
                 $message .= _('Seen anything interesting recently? You haven\'t posted any notices yet, now would be a good time to start :)');
             } else {
+                // TRANS: Second sentence of empty  list message for a non-self stream. %1$s is a user nickname, %2$s is a part of a URL.
+                // TRANS: This message contains a Markdown link. Keep "](" together.
                 $message .= sprintf(_('You can try to nudge %1$s or [post something to them](%%%%action.newnotice%%%%?status_textarea=%2$s).'), $this->user->nickname, '@' . $this->user->nickname);
             }
         }
         else {
+            // TRANS: Second sentence of empty message for anonymous users. %s is a user nickname.
+            // TRANS: This message contains a Markdown link. Keep "](" together.
             $message .= sprintf(_('Why not [register an account](%%%%action.register%%%%) and then nudge %s or post a notice to them.'), $this->user->nickname);
         }
 
@@ -243,11 +259,15 @@ class ShowstreamAction extends ProfileAction
     function showAnonymousMessage()
     {
         if (!(common_config('site','closed') || common_config('site','inviteonly'))) {
+            // TRANS: Announcement for anonymous users showing a stream if site registrations are open.
+            // TRANS: This message contains a Markdown link. Keep "](" together.
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                            'based on the Free Software [StatusNet](http://status.net/) tool. ' .
                            '[Join now](%%%%action.register%%%%) to follow **%s**\'s notices and many more! ([Read more](%%%%doc.help%%%%))'),
                          $this->user->nickname, $this->user->nickname);
         } else {
+            // TRANS: Announcement for anonymous users showing a stream if site registrations are closed or invite only.
+            // TRANS: This message contains a Markdown link. Keep "](" together.
             $m = sprintf(_('**%s** has an account on %%%%site.name%%%%, a [micro-blogging](http://en.wikipedia.org/wiki/Micro-blogging) service ' .
                            'based on the Free Software [StatusNet](http://status.net/) tool. '),
                          $this->user->nickname, $this->user->nickname);
@@ -287,7 +307,6 @@ class ProfileNoticeListItem extends DoFollowListItem
      *
      * @return void
      */
-
     function showRepeat()
     {
         if (!empty($this->repeat)) {
@@ -298,13 +317,14 @@ class ProfileNoticeListItem extends DoFollowListItem
                            'class' => 'url');
 
             if (!empty($this->profile->fullname)) {
-                $attrs['title'] = $this->profile->fullname . ' (' . $this->profile->nickname . ')';
+                $attrs['title'] = $this->getFancyName();
             }
 
             $this->out->elementStart('span', 'repeat');
 
             $text_link = XMLStringer::estring('a', $attrs, $this->profile->nickname);
 
+            // TRANS: Link to the author of a repeated notice. %s is a linked nickname.
             $this->out->raw(sprintf(_('Repeat of %s'), $text_link));
 
             $this->out->elementEnd('span');
