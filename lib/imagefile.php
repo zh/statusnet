@@ -85,6 +85,8 @@ class ImageFile
             break;
          case UPLOAD_ERR_INI_SIZE:
          case UPLOAD_ERR_FORM_SIZE:
+            // TRANS: Exception thrown when too large a file is uploaded.
+            // TRANS: %s is the maximum file size, for example "500b", "10kB" or "2MB".
             throw new Exception(sprintf(_('That file is too big. The maximum file size is %s.'),
                 ImageFile::maxFileSize()));
             return;
@@ -241,11 +243,16 @@ class ImageFile
         $value = ImageFile::maxFileSizeInt();
 
         if ($value > 1024 * 1024) {
-            return ($value/(1024*1024)) . _('MB');
+            $value = $value/(1024*1024);
+            // TRANS: Number of megabytes. %d is the number.
+            return sprintf(_m('%dMB','%dMB',$value),$value);
         } else if ($value > 1024) {
-            return ($value/(1024)) . _('kB');
+            $value = $value/1024;
+            // TRANS: Number of kilobytes. %d is the number.
+            return sprintf(_m('%dkB','%dkB',$value),$value);
         } else {
-            return $value;
+            // TRANS: Number of bytes. %d is the number.
+            return sprintf(_m('%dB','%dB',$value),$value);
         }
     }
 

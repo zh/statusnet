@@ -483,9 +483,11 @@ class MessageCommand extends Command
 
         if (Message::contentTooLong($this->text)) {
             // XXX: i18n. Needs plural support.
-            // TRANS: Message given if content is too long.
+            // TRANS: Message given if content is too long. %1$sd is used for plural.
             // TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-            $channel->error($this->user, sprintf(_('Message too long - maximum is %1$d characters, you sent %2$d.'),
+            $channel->error($this->user, sprintf(_m('Message too long - maximum is %1$d character, you sent %2$d.',
+                                                    'Message too long - maximum is %1$d characters, you sent %2$d.',
+                                                    Message::maxContent()),
                                                  Message::maxContent(), mb_strlen($this->text)));
             return;
         }
@@ -584,9 +586,11 @@ class ReplyCommand extends Command
 
         if (Notice::contentTooLong($this->text)) {
             // XXX: i18n. Needs plural support.
-            // TRANS: Message given if content of a notice for a reply is too long.
+            // TRANS: Message given if content of a notice for a reply is too long. %1$d is used for plural.
             // TRANS: %1$d is the maximum number of characters, %2$d is the number of submitted characters.
-            $channel->error($this->user, sprintf(_('Notice too long - maximum is %1$d characters, you sent %2$d.'),
+            $channel->error($this->user, sprintf(_m('Notice too long - maximum is %1$d character, you sent %2$d.',
+                                                    'Notice too long - maximum is %1$d characters, you sent %2$d.',
+                                                    Notice::maxContent()),
                                                  Notice::maxContent(), mb_strlen($this->text)));
             return;
         }

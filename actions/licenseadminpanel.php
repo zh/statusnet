@@ -153,7 +153,7 @@ class LicenseadminpanelAction extends AdminPanelAction
         // Make sure the license title is not too long
         if (mb_strlen($values['license']['type']) > 255) {
             $this->clientError(
-                _("Invalid license title. Max length is 255 characters.")
+                _('Invalid license title. Maximum length is 255 characters.')
             );
         }
 

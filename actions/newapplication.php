@@ -166,7 +166,7 @@ class NewApplicationAction extends OwnerDesignAction
             $this->showForm(_('Name already in use. Try another one.'));
             return;
         } elseif (mb_strlen($name) > 255) {
-            $this->showForm(_('Name is too long (maximum 255 chars).'));
+            $this->showForm(_('Name is too long (maximum 255 characters).'));
             return;
         } elseif (empty($description)) {
             $this->showForm(_('Description is required.'));
@@ -196,7 +196,7 @@ class NewApplicationAction extends OwnerDesignAction
             $this->showForm(_('Organization is required.'));
             return;
         } elseif (mb_strlen($organization) > 255) {
-            $this->showForm(_('Organization is too long (maximum 255 chars).'));
+            $this->showForm(_('Organization is too long (maximum 255 characters).'));
             return;
         } elseif (empty($homepage)) {
             $this->showForm(_('Organization homepage is required.'));
