@@ -234,6 +234,22 @@ class User_group extends Memcached_DataObject
         return ($this->fullname) ? $this->fullname : $this->nickname;
     }
 
+    /**
+     * Gets the full name (if filled) with nickname as a parenthetical, or the nickname alone
+     * if no fullname is provided.
+     *
+     * @return string
+     */
+    function getFancyName()
+    {
+        if ($this->fullname) {
+            // TRANS: Full name of a profile or group followed by nickname in parens
+            return sprintf(_m('FANCYNAME','%1$s (%2$s)'), $this->fullname, $this->nickname);
+        } else {
+            return $this->nickname;
+        }
+    }
+
     function getAliases()
     {
         $aliases = array();
