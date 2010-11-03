@@ -68,12 +68,7 @@ class ShowgroupAction extends GroupDesignAction
      */
     function title()
     {
-        if (!empty($this->group->fullname)) {
-            // @todo FIXME: Needs proper i18n. Maybe use a generic method for this?
-            $base = $this->group->fullname . ' (' . $this->group->nickname . ')';
-        } else {
-            $base = $this->group->nickname;
-        }
+        $base = $this->group->getFancyName();
 
         if ($this->page == 1) {
             // TRANS: Page title for first group page. %s is a group name.
