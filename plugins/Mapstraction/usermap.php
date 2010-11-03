@@ -58,12 +58,7 @@ class UsermapAction extends MapAction
 
     function title()
     {
-        if (!empty($this->profile->fullname)) {
-            // @todo FIXME: Bad i18n. Should be '%1$s (%2$s)'
-            $base = $this->profile->fullname . ' (' . $this->user->nickname . ')';
-        } else {
-            $base = $this->user->nickname;
-        }
+        $base = $this->profile->getFancyName();
 
         if ($this->page == 1) {
             // @todo CHECKME: inconsisten with paged variant below. " map" missing.

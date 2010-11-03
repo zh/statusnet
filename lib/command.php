@@ -423,7 +423,7 @@ class WhoisCommand extends Command
 
         // TRANS: Whois output.
         // TRANS: %1$s nickname of the queried user, %2$s is their profile URL.
-        $whois = sprintf(_("%1\$s (%2\$s)"), $recipient->nickname,
+        $whois = sprintf(_m('WHOIS',"%1\$s (%2\$s)"), $recipient->nickname,
                          $recipient->profileurl);
         if ($recipient->fullname) {
             // TRANS: Whois output. %s is the full name of the queried user.

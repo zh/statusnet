@@ -79,11 +79,7 @@ class OembedAction extends Action
                     if (empty($profile)) {
                         $this->serverError(_('Notice has no profile.'), 500);
                     }
-                    if (!empty($profile->fullname)) {
-                        $authorname = $profile->fullname . ' (' . $profile->nickname . ')';
-                    } else {
-                        $authorname = $profile->nickname;
-                    }
+                    $authorname = $profile->getFancyName();
                     $oembed['title'] = sprintf(_('%1$s\'s status on %2$s'),
                         $authorname,
                         common_exact_date($notice->created));

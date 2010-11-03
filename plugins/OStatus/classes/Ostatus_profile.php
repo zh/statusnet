@@ -150,10 +150,10 @@ class Ostatus_profile extends Managed_DataObject
         } else if ($this->group_id && !$this->profile_id) {
             return true;
         } else if ($this->group_id && $this->profile_id) {
-            // TRANS: Server exception.
+            // TRANS: Server exception. %s is a URI.
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs set for %s.'),$this->uri));
         } else {
-            // TRANS: Server exception.
+            // TRANS: Server exception. %s is a URI.
             throw new ServerException(sprintf(_m('Invalid ostatus_profile state: both group and profile IDs empty for %s.'),$this->uri));
         }
     }
@@ -367,6 +367,7 @@ class Ostatus_profile extends Managed_DataObject
         } else if ($feed->localName == 'rss') { // @fixme check namespace
             $this->processRssFeed($feed, $source);
         } else {
+            // TRANS: Exception.
             throw new Exception(_m('Unknown feed format.'));
         }
     }
@@ -390,6 +391,7 @@ class Ostatus_profile extends Managed_DataObject
         $channels = $rss->getElementsByTagName('channel');
 
         if ($channels->length == 0) {
+            // TRANS: Exception.
             throw new Exception(_m('RSS feed without a channel.'));
         } else if ($channels->length > 1) {
             common_log(LOG_WARNING, __METHOD__ . ": more than one channel in an RSS feed");
@@ -517,7 +519,7 @@ class Ostatus_profile extends Managed_DataObject
             $sourceContent = $note->title;
         } else {
             // @fixme fetch from $sourceUrl?
-            // TRANS: Client exception. %s is a source URL.
+            // TRANS: Client exception. %s is a source URI.
             throw new ClientException(sprintf(_m('No content for notice %s.'),$sourceUri));
         }
 
@@ -551,7 +553,8 @@ class Ostatus_profile extends Managed_DataObject
                 // so we can fold-out the full version inline.
 
                 // @fixme I18N this tooltip will be saved with the site's default language
-                // TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime this will usually be replaced with localized text from StatusNet core messages.
+                // TRANS: Shown when a notice is longer than supported and/or when attachments are present. At runtime
+                // TRANS: this will usually be replaced with localised text from StatusNet core messages.
                 $showMoreText = _m('Show more');
                 $attachUrl = common_local_url('attachment',
                                               array('attachment' => $attachment->id));
@@ -802,7 +805,7 @@ class Ostatus_profile extends Managed_DataObject
             return self::ensureFeedURL($feedurl, $hints);
         }
 
-        // TRANS: Exception.
+        // TRANS: Exception. %s is a URL.
         throw new Exception(sprintf(_m('Could not find a feed URL for profile page %s.'),$finalUrl));
     }
 
@@ -940,6 +943,7 @@ class Ostatus_profile extends Managed_DataObject
         }
 
         // XXX: make some educated guesses here
+        // TRANS: Feed sub exception.
         throw new FeedSubException(_m('Can\'t find enough profile information to make a feed.'));
     }
 
@@ -999,6 +1003,7 @@ class Ostatus_profile extends Managed_DataObject
             return;
         }
         if (!common_valid_http_url($url)) {
+            // TRANS: Server exception. %s is a URL.
             throw new ServerException(sprintf(_m("Invalid avatar URL %s."), $url));
         }
 
@@ -1009,6 +1014,7 @@ class Ostatus_profile extends Managed_DataObject
         }
         if (!$self) {
             throw new ServerException(sprintf(
+                // TRANS: Server exception. %s is a URI.
                 _m("Tried to update avatar for unsaved remote profile %s."),
                 $this->uri));
         }
@@ -1018,6 +1024,7 @@ class Ostatus_profile extends Managed_DataObject
         $temp_filename = tempnam(sys_get_temp_dir(), 'listener_avatar');
         try {
             if (!copy($url, $temp_filename)) {
+                // TRANS: Server exception. %s is a URL.
                 throw new ServerException(sprintf(_m("Unable to fetch avatar from %s."), $url));
             }
 
@@ -1300,7 +1307,7 @@ class Ostatus_profile extends Managed_DataObject
 
             $oprofile->profile_id = $profile->insert();
             if (!$oprofile->profile_id) {
-            // TRANS: Exception.
+            // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
             }
         } else {
@@ -1311,7 +1318,7 @@ class Ostatus_profile extends Managed_DataObject
 
             $oprofile->group_id = $group->insert();
             if (!$oprofile->group_id) {
-                // TRANS: Exception.
+                // TRANS: Server exception.
                 throw new ServerException(_m('Can\'t save local profile.'));
             }
         }
@@ -1319,7 +1326,7 @@ class Ostatus_profile extends Managed_DataObject
         $ok = $oprofile->insert();
 
         if (!$ok) {
-            // TRANS: Exception.
+            // TRANS: Server exception.
             throw new ServerException(_m('Can\'t save OStatus profile.'));
         }
 
@@ -1758,6 +1765,7 @@ class Ostatus_profile extends Managed_DataObject
 
         if ($file_id === false) {
             common_log_db_error($file, "INSERT", __FILE__);
+            // TRANS: Server exception.
             throw new ServerException(_m('Could not store HTML content of long post as file.'));
         }
 

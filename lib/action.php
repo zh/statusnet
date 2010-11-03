@@ -873,16 +873,17 @@ class Action extends HTMLOutputter // lawsuit
                             // TRANS: Secondary navigation menu option leading to privacy policy.
                             _('Privacy'));
             $this->menuItem(common_local_url('doc', array('title' => 'source')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about StatusNet and its license.
                             _('Source'));
             $this->menuItem(common_local_url('version'),
                             // TRANS: Secondary navigation menu option leading to version information on the StatusNet site.
                             _('Version'));
             $this->menuItem(common_local_url('doc', array('title' => 'contact')),
-                            // TRANS: Secondary navigation menu option leading to contact information on the StatusNet site.
+                            // TRANS: Secondary navigation menu option leading to e-mail contact information on the
+                            // TRANS: StatusNet site, where to report bugs, ...
                             _('Contact'));
             $this->menuItem(common_local_url('doc', array('title' => 'badge')),
-                            // TRANS: Secondary navigation menu option.
+                            // TRANS: Secondary navigation menu option. Leads to information about embedding a timeline widget.
                             _('Badge'));
             Event::handle('EndSecondaryNav', array($this));
         }

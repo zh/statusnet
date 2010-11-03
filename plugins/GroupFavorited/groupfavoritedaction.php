@@ -41,12 +41,7 @@ class GroupFavoritedAction extends ShowgroupAction
      */
     function title()
     {
-        if (!empty($this->group->fullname)) {
-            // @todo Create a core method to create this properly. i18n issue.
-            $base = $this->group->fullname . ' (' . $this->group->nickname . ')';
-        } else {
-            $base = $this->group->nickname;
-        }
+        $base = $this->group->getFancyName();
 
         if ($this->page == 1) {
             // TRANS: %s is a group name.
