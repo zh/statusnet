@@ -169,9 +169,9 @@ class File extends Memcached_DataObject
         if (empty($x)) {
             $x = File::staticGet($file_id);
             if (empty($x)) {
-                // FIXME: This could possibly be a clearer message :)
+                // @todo FIXME: This could possibly be a clearer message :)
                 // TRANS: Server exception thrown when... Robin thinks something is impossible!
-                throw new ServerException(_("Robin thinks something is impossible."));
+                throw new ServerException(_('Robin thinks something is impossible.'));
             }
         }
 
@@ -186,8 +186,10 @@ class File extends Memcached_DataObject
         if ($fileSize > common_config('attachments', 'file_quota')) {
             // TRANS: Message given if an upload is larger than the configured maximum.
             // TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
-            return sprintf(_('No file may be larger than %1$d bytes ' .
-                             'and the file you sent was %2$d bytes. Try to upload a smaller version.'),
+            // TRANS: %1$s is used for plural.
+            return sprintf(_m('No file may be larger than %1$d byte and the file you sent was %2$d bytes. Try to upload a smaller version.',
+                              'No file may be larger than %1$d bytes and the file you sent was %2$d bytes. Try to upload a smaller version.',
+                              common_config('attachments', 'file_quota')),
                            common_config('attachments', 'file_quota'), $fileSize);
         }
 
@@ -197,8 +199,11 @@ class File extends Memcached_DataObject
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'user_quota')) {
             // TRANS: Message given if an upload would exceed user quota.
-            // TRANS: %d (number) is the user quota in bytes.
-            return sprintf(_('A file this large would exceed your user quota of %d bytes.'), common_config('attachments', 'user_quota'));
+            // TRANS: %d (number) is the user quota in bytes and is used for plural.
+            return sprintf(_m('A file this large would exceed your user quota of %d byte.',
+                              'A file this large would exceed your user quota of %d bytes.',
+                              common_config('attachments', 'user_quota')),
+                           common_config('attachments', 'user_quota'));
         }
         $query .= ' AND EXTRACT(month FROM file.modified) = EXTRACT(month FROM now()) and EXTRACT(year FROM file.modified) = EXTRACT(year FROM now())';
         $this->query($query);
@@ -206,8 +211,11 @@ class File extends Memcached_DataObject
         $total = $this->total + $fileSize;
         if ($total > common_config('attachments', 'monthly_quota')) {
             // TRANS: Message given id an upload would exceed a user's monthly quota.
-            // TRANS: $d (number) is the monthly user quota in bytes.
-            return sprintf(_('A file this large would exceed your monthly quota of %d bytes.'), common_config('attachments', 'monthly_quota'));
+            // TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
+            return sprintf(_m('A file this large would exceed your monthly quota of %d byte.',
+                              'A file this large would exceed your monthly quota of %d bytes.',
+                              common_config('attachments', 'monthly_quota')),
+                           common_config('attachments', 'monthly_quota'));
         }
         return true;
     }
@@ -299,9 +307,7 @@ class File extends Memcached_DataObject
             }
 
             $protocol = 'https';
-
         } else {
-
             $path = common_config('attachments', 'path');
             $server = common_config('attachments', 'server');
 

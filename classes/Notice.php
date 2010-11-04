@@ -902,7 +902,7 @@ class Notice extends Memcached_DataObject
     {
         if (!is_array($group_ids)) {
             // TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
-            throw new ServerException(_("Bad type provided to saveKnownGroups"));
+            throw new ServerException(_('Bad type provided to saveKnownGroups.'));
         }
 
         $groups = array();
