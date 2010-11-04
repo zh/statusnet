@@ -54,6 +54,7 @@ define("FACEBOOK_SERVICE", 2);
 class FacebookSSOPlugin extends Plugin
 {
     public $appId    = null; // Facebook application ID
+    public $apikey   = null; // Facebook API key (for deprecated "Old REST API")
     public $secret   = null; // Facebook application secret
     public $facebook = null; // Facebook application instance
     public $dir      = null; // Facebook SSO plugin dir
@@ -68,25 +69,12 @@ class FacebookSSOPlugin extends Plugin
      */
     function initialize()
     {
-        // Check defaults and configuration for application ID and secret
-        if (empty($this->appId)) {
-            $this->appId = common_config('facebook', 'appid');
-        }
+        $this->facebook = Facebookclient::getFacebook(
+            $this->appId,
+            $this->apikey,
+            $this->secret
+        );
 
-        if (empty($this->secret)) {
-            $this->secret = common_config('facebook', 'secret');
-        }
-
-        if (empty($this->facebook)) {
-            $this->facebook = new Facebook(
-                array(
-                    'appId'  => $this->appId,
-                    'secret' => $this->secret,
-                    'cookie' => true
-                )
-            );
-        }
-        
         return true;
     }
 
@@ -130,19 +118,45 @@ class FacebookSSOPlugin extends Plugin
 
         switch ($cls)
         {
-        case 'Facebook':
+        case 'Facebook': // New JavaScript SDK
             include_once $dir . '/extlib/facebook.php';
+            return false;
+        case 'FacebookRestClient': // Old REST lib
+            include_once $dir . '/extlib/facebookapi_php5_restlib.php';
             return false;
         case 'FacebookloginAction':
         case 'FacebookregisterAction':
         case 'FacebookadminpanelAction':
         case 'FacebooksettingsAction':
-            include_once $dir . '/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+            include_once $dir . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
+            return false;
+        case 'Facebookclient':
+        case 'Facebookqueuehandler':
+            include_once $dir . '/lib/' . strtolower($cls) . '.php';
             return false;
         default:
             return true;
         }
 
+    }
+
+    /*
+     * Does this $action need the Facebook JavaScripts?
+     */
+    function needsScripts($action)
+    {
+        static $needy = array(
+            'FacebookloginAction',
+            'FacebookregisterAction',
+            'FacebookadminpanelAction',
+            'FacebooksettingsAction'
+        );
+
+        if (in_array(get_class($action), $needy)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -179,7 +193,7 @@ class FacebookSSOPlugin extends Plugin
                 'settings/facebook',
                 array('action' => 'facebooksettings')
             );
-            
+
         }
 
         return true;
@@ -268,24 +282,31 @@ class FacebookSSOPlugin extends Plugin
      */
     function hasApplication()
     {
-        if (!empty($this->appId) && !empty($this->secret)) {
-            return true;
-        } else {
-            return false;
+        if (!empty($this->facebook)) {
+
+            $appId  = $this->facebook->getAppId();
+            $secret = $this->facebook->getApiSecret();
+
+            if (!empty($appId) && !empty($secret)) {
+                return true;
+            }
+
         }
+
+        return false;
     }
 
     function onStartShowHeader($action)
     {
-        // output <div id="fb-root"></div> as close to <body> as possible
-        $action->element('div', array('id' => 'fb-root'));
+        if ($this->needsScripts($action)) {
 
-        $session = $this->facebook->getSession();
-        $dir = dirname(__FILE__);
+            // output <div id="fb-root"></div> as close to <body> as possible
+            $action->element('div', array('id' => 'fb-root'));
 
-        // XXX: minify this
-        $script = <<<ENDOFSCRIPT
-        window.fbAsyncInit = function() {
+            $dir = dirname(__FILE__);
+
+            $script = <<<ENDOFSCRIPT
+window.fbAsyncInit = function() {
 
     FB.init({
       appId   : %s,
@@ -312,13 +333,14 @@ class FacebookSSOPlugin extends Plugin
 }());
 ENDOFSCRIPT;
 
-        $action->inlineScript(
-            sprintf($script,
-                json_encode($this->appId),
-                json_encode($this->session)
-            )
-        );
-        
+            $action->inlineScript(
+                sprintf($script,
+                    json_encode($this->facebook->getAppId()),
+                    json_encode($this->facebook->getSession())
+                )
+            );
+        }
+
         return true;
     }
 
@@ -329,35 +351,38 @@ ENDOFSCRIPT;
      */
     function onEndLogout($action)
     {
-        $session = $this->facebook->getSession();
-        $fbuser  = null;
-        $fbuid   = null;
+        if ($this->hasApplication()) {
+            $session = $this->facebook->getSession();
+            $fbuser  = null;
+            $fbuid   = null;
 
-        if ($session) {
-            try {
-                $fbuid  = $this->facebook->getUser();
-                $fbuser = $this->facebook->api('/me');
-             } catch (FacebookApiException $e) {
-                 common_log(LOG_ERROR, $e, __FILE__);
-             }
-        }
+            if ($session) {
+                try {
+                    $fbuid  = $this->facebook->getUser();
+                    $fbuser = $this->facebook->api('/me');
+                 } catch (FacebookApiException $e) {
+                     common_log(LOG_ERROR, $e, __FILE__);
+                 }
+            }
 
-        if (!empty($fbuser)) {
+            if (!empty($fbuser)) {
 
-            $logoutUrl = $this->facebook->getLogoutUrl(
-                array('next' => common_local_url('public'))
-            );
+                $logoutUrl = $this->facebook->getLogoutUrl(
+                    array('next' => common_local_url('public'))
+                );
 
-            common_log(
-                LOG_INFO,
-                sprintf(
-                    "Logging user out of Facebook (fbuid = %s)",
-                    $fbuid
-                ),
-                __FILE__
-            );
+                common_log(
+                    LOG_INFO,
+                    sprintf(
+                        "Logging user out of Facebook (fbuid = %s)",
+                        $fbuid
+                    ),
+                    __FILE__
+                );
+                common_debug("LOGOUT URL = $logoutUrl");
+                common_redirect($logoutUrl, 303);
+            }
 
-            common_redirect($logoutUrl, 303);
         }
     }
 
@@ -371,7 +396,14 @@ ENDOFSCRIPT;
      * @return nothing
      */
     function onStartHtmlElement($action, $attrs) {
-        $attrs = array_merge($attrs, array('xmlns:fb' => 'http://www.facebook.com/2008/fbml'));
+
+        if ($this->needsScripts($action)) {
+            $attrs = array_merge(
+                $attrs,
+                array('xmlns:fb' => 'http://www.facebook.com/2008/fbml')
+            );
+        }
+
         return true;
     }
 
@@ -385,10 +417,10 @@ ENDOFSCRIPT;
         $versions[] = array(
             'name' => 'Facebook Single-Sign-On',
             'version' => STATUSNET_VERSION,
-            'author' => 'Zach Copley',
+            'author' => 'Craig Andrews, Zach Copley',
             'homepage' => 'http://status.net/wiki/Plugin:FacebookSSO',
             'rawdescription' =>
-            _m('A plugin for single-sign-on with Facebook.')
+            _m('A plugin for integrating StatusNet with Facebook.')
         );
 
         return true;
