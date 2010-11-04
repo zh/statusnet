@@ -524,10 +524,8 @@ class Notice extends Memcached_DataObject
         $notice = new Notice();
         $notice->profile_id = $profile_id;
         $notice->content = $content;
-        if (common_config('db','type') == 'pgsql')
-          $notice->whereAdd('extract(epoch from now() - created) < ' . common_config('site', 'dupelimit'));
-        else
-          $notice->whereAdd('now() - created < ' . common_config('site', 'dupelimit'));
+        $threshold = common_sql_date(time() - common_config('site', 'dupelimit'));
+        $notice->whereAdd(sprintf("created > '%s'", $notice->escape($threshold)));
 
         $cnt = $notice->count();
         return ($cnt == 0);
