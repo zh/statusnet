@@ -217,12 +217,19 @@ class File extends Memcached_DataObject
     static function filename($profile, $basename, $mimetype)
     {
         require_once 'MIME/Type/Extension.php';
+
+        // We have to temporarily disable auto handling of PEAR errors...
+        PEAR::staticPushErrorHandling(PEAR_ERROR_RETURN);
+
         $mte = new MIME_Type_Extension();
-        try {
-            $ext = $mte->getExtension($mimetype);
-        } catch ( Exception $e) {
+        $ext = $mte->getExtension($mimetype);
+        if (PEAR::isError($ext)) {
             $ext = strtolower(preg_replace('/\W/', '', $mimetype));
         }
+
+        // Restore error handling.
+        PEAR::staticPopErrorHandling();
+
         $nickname = $profile->nickname;
         $datestamp = strftime('%Y%m%dT%H%M%S', time());
         $random = strtolower(common_confirmation_code(32));
