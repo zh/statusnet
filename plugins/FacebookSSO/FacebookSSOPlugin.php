@@ -125,7 +125,7 @@ class FacebookSSOPlugin extends Plugin
             include_once $dir . '/extlib/facebookapi_php5_restlib.php';
             return false;
         case 'FacebookloginAction':
-        case 'FacebookregisterAction':
+        case 'FacebookfinishloginAction':
         case 'FacebookadminpanelAction':
         case 'FacebooksettingsAction':
             include_once $dir . '/actions/' . strtolower(mb_substr($cls, 0, -6)) . '.php';
@@ -146,15 +146,17 @@ class FacebookSSOPlugin extends Plugin
     function needsScripts($action)
     {
         static $needy = array(
-            'FacebookloginAction',
-            'FacebookregisterAction',
+            //'FacebookloginAction',
+            'FacebookfinishloginAction',
             'FacebookadminpanelAction',
             'FacebooksettingsAction'
         );
 
         if (in_array(get_class($action), $needy)) {
+            common_debug("needs scripts!");
             return true;
         } else {
+            common_debug("doesn't need scripts!");
             return false;
         }
     }
@@ -185,8 +187,8 @@ class FacebookSSOPlugin extends Plugin
                 array('action' => 'facebooklogin')
             );
             $m->connect(
-                'main/facebookregister',
-                array('action' => 'facebookregister')
+                'main/facebookfinishlogin',
+                array('action' => 'facebookfinishlogin')
             );
 
             $m->connect(
@@ -298,50 +300,42 @@ class FacebookSSOPlugin extends Plugin
 
     function onStartShowHeader($action)
     {
+        // output <div id="fb-root"></div> as close to <body> as possible
+        $action->element('div', array('id' => 'fb-root'));
+        return true;
+    }
+
+    function onEndShowScripts($action)
+    {
         if ($this->needsScripts($action)) {
 
-            // output <div id="fb-root"></div> as close to <body> as possible
-            $action->element('div', array('id' => 'fb-root'));
-
-            $dir = dirname(__FILE__);
+            $action->script('https://connect.facebook.net/en_US/all.js');
 
             $script = <<<ENDOFSCRIPT
-window.fbAsyncInit = function() {
+FB.init({appId: %1\$s, session: %2\$s, status: true, cookie: true, xfbml: true});
 
-    FB.init({
-      appId   : %s,
-      session : %s,   // don't refetch the session when PHP already has it
-      status  : true, // check login status
-      cookie  : true, // enable cookies to allow the server to access the session
-      xfbml   : true  // parse XFBML
-    });
+$('#facebook_button').bind('click', function(event) {
 
-    // whenever the user logs in, refresh the page
-    FB.Event.subscribe(
-        'auth.login',
-        function() {
-            window.location.reload();
+    event.preventDefault();
+
+    FB.login(function(response) {
+        if (response.session && response.perms) {
+            window.location.href = '%3\$s';
+        } else {
+            // NOP (user cancelled login)
         }
-    );
-};
-
-(function() {
-    var e = document.createElement('script');
-    e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-    e.async = true;
-    document.getElementById('fb-root').appendChild(e);
-}());
+    }, {perms:'read_stream,publish_stream,offline_access,user_status,user_location,user_website'});
+});
 ENDOFSCRIPT;
 
             $action->inlineScript(
                 sprintf($script,
                     json_encode($this->facebook->getAppId()),
-                    json_encode($this->facebook->getSession())
+                    json_encode($this->facebook->getSession()),
+                    common_local_url('facebookfinishlogin')
                 )
             );
         }
-
-        return true;
     }
 
     /*

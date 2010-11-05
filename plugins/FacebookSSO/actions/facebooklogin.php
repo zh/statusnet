@@ -40,90 +40,10 @@ class FacebookloginAction extends Action
         parent::handle($args);
 
         if (common_is_real_login()) {
-            
             $this->clientError(_m('Already logged in.'));
-
         } else {
-
-            $facebook = new Facebook(
-                array(
-                    'appId'  => common_config('facebook', 'appid'),
-                    'secret' => common_config('facebook', 'secret'),
-                    'cookie' => true,
-                )
-            );
-
-            $session = $facebook->getSession();
-            $fbuser  = null;
-
-            if ($session) {
-                try {
-                    $fbuid = $facebook->getUser();
-                    $fbuser  = $facebook->api('/me');
-                } catch (FacebookApiException $e) {
-                    common_log(LOG_ERROR, $e);
-                }
-            }
-
-            if (!empty($fbuser)) {
-                common_debug("Found a valid Facebook user", __FILE__);
-
-                // Check to see if we have a foreign link already
-                $flink = Foreign_link::getByForeignId($fbuid, FACEBOOK_SERVICE);
-
-                if (empty($flink)) {
-
-                    // See if the user would like to register a new local
-                    // account
-                    common_redirect(
-                        common_local_url('facebookregister'),
-                        303
-                    );
-
-                } else {
-
-                    // Log our user in!
-                    $user = $flink->getUser();
-
-                    if (!empty($user)) {
-
-                        common_log(
-                            LOG_INFO,
-                            sprintf(
-                                'Logged in Facebook user %s as user %s (%s)',
-                                $fbuid,
-                                $user->id,
-                                $user->nickname
-                            ),
-                            __FILE__
-                        );
-
-                        common_set_user($user);
-                        common_real_login(true);
-                        $this->goHome($user->nickname);
-                    }
-                }
-
-            }
+            $this->showPage();
         }
-
-        $this->showPage();
-    }
-
-    function goHome($nickname)
-    {
-        $url = common_get_returnto();
-        if ($url) {
-            // We don't have to return to it again
-            common_set_returnto(null);
-        } else {
-            $url = common_local_url(
-                'all',
-                array('nickname' => $nickname)
-            );
-        }
-
-        common_redirect($url, 303);
     }
 
     function getInstructions()
@@ -151,14 +71,45 @@ class FacebookloginAction extends Action
 
         $this->elementStart('fieldset');
 
-        $attrs = array(
-            //'show-faces' => 'true',
-            //'max-rows'   => '4',
-            //'width'      => '600',
-            'perms'      => 'user_location,user_website,offline_access,publish_stream'
+        $facebook = Facebookclient::getFacebook();
+
+        // Degrade to plain link if JavaScript is not available
+        $this->elementStart(
+            'a',
+            array(
+                'href' => $facebook->getLoginUrl(
+                    array(
+                        'next'   => common_local_url('facebookfinishlogin'),
+                        'cancel' => common_local_url('facebooklogin')
+                    )
+                 ),
+                'id'    => 'facebook_button'
+            )
         );
 
-        $this->element('fb:login-button', $attrs);
+        $attrs = array(
+            'src' => common_path(
+                'plugins/FacebookSSO/images/login-button.png',
+                true
+            ),
+            'alt'   => 'Login with Facebook',
+            'title' => 'Login with Facebook'
+        );
+
+        $this->element('img', $attrs);
+
+        $this->elementEnd('a');
+
+        /*
+        $this->element('div', array('id' => 'fb-root'));
+        $this->script(
+            sprintf(
+                'http://connect.facebook.net/en_US/all.js#appId=%s&xfbml=1',
+                common_config('facebook', 'appid')
+            )
+        );
+        $this->element('fb:facepile', array('max-rows' => '2', 'width' =>'300'));
+        */
         $this->elementEnd('fieldset');
     }
 

@@ -2,7 +2,7 @@
 /**
  * StatusNet, the distributed open-source microblogging tool
  *
- * Register a local user and connect it to a Facebook account
+ * Login or register a local user based on a Facebook user
  *
  * PHP version 5
  *
@@ -31,7 +31,7 @@ if (!defined('STATUSNET')) {
     exit(1);
 }
 
-class FacebookregisterAction extends Action
+class FacebookfinishloginAction extends Action
 {
 
     private $facebook = null; // Facebook client
@@ -220,7 +220,7 @@ class FacebookregisterAction extends Action
         $this->elementStart('form', array('method' => 'post',
                                           'id' => 'form_settings_facebook_connect',
                                           'class' => 'form_settings',
-                                          'action' => common_local_url('facebookregister')));
+                                          'action' => common_local_url('facebookfinishlogin')));
         $this->elementStart('fieldset', array('id' => 'settings_facebook_connect_options'));
         // TRANS: Legend.
         $this->element('legend', null, _m('Connection options'));
@@ -428,27 +428,46 @@ class FacebookregisterAction extends Action
             return;
         }
 
-        common_debug('Facebook Connect Plugin - ' .
-                     "Connected Facebook user $this->fbuid to local user $user->id");
+        common_debug(
+            sprintf(
+                'Connected Facebook user %s to local user %d',
+                $this->fbuid,
+                $user->id
+            ),
+            __FILE__
+        );
 
         // Return to Facebook connection settings tab
-        common_redirect(common_local_url('FBConnectSettings'), 303);
+        common_redirect(common_local_url('facebookfinishlogin'), 303);
     }
 
     function tryLogin()
     {
-        common_debug('Facebook Connect Plugin - ' .
-                     "Trying login for Facebook user $this->fbuid.");
+        common_debug(
+            sprintf(
+                'Trying login for Facebook user %s',
+                $this->fbuid
+            ),
+            __FILE__
+        );
 
-        $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_CONNECT_SERVICE);
+        $flink = Foreign_link::getByForeignID($this->fbuid, FACEBOOK_SERVICE);
 
         if (!empty($flink)) {
             $user = $flink->getUser();
 
             if (!empty($user)) {
 
-                common_debug('Facebook Connect Plugin - ' .
-                             "Logged in Facebook user $flink->foreign_id as user $user->id ($user->nickname)");
+                common_log(
+                    LOG_INFO,
+                    sprintf(
+                        'Logged in Facebook user %s as user %d (%s)',
+                        $this->fbuid,
+                        $user->nickname,
+                        $user->id
+                    ),
+                    __FILE__
+                );
 
                 common_set_user($user);
                 common_real_login(true);
@@ -457,8 +476,13 @@ class FacebookregisterAction extends Action
 
         } else {
 
-            common_debug('Facebook Connect Plugin - ' .
-                         "No flink found for fbuid: $this->fbuid - new user");
+            common_debug(
+                sprintf(
+                    'No flink found for fbuid: %s - new user',
+                    $this->fbuid
+                ),
+                __FILE__
+            );
 
             $this->showForm(null, $this->bestNewNickname());
         }
