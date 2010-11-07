@@ -85,7 +85,7 @@ class ApiFriendshipsExistsAction extends ApiPrivateAuthAction
         if (empty($this->profile_a) || empty($this->profile_b)) {
             $this->clientError(
                 // TRANS: Client error displayed when supplying invalid parameters to an API call checking if a friendship exists.
-                _('Two valid IDs or screen_names must be supplied.'),
+                _('Two valid IDs or nick names must be supplied.'),
                 400,
                 $this->format
             );
