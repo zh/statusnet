@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:42+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:37+0000\n"
 "Language-Team: Norwegian (bokmål)‬ <http://translatewiki.net/wiki/Portal:no>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: no\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -342,7 +342,7 @@ msgstr "Klarte ikke å lagre profil."
 #: actions/designadminpanel.php:125 actions/editapplication.php:121
 #: actions/newapplication.php:104 actions/newnotice.php:95
 #: lib/designsettings.php:298
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The server was unable to handle that much POST data (%s byte) due to its "
 "current configuration."
@@ -350,11 +350,11 @@ msgid_plural ""
 "The server was unable to handle that much POST data (%s bytes) due to its "
 "current configuration."
 msgstr[0] ""
-"Tjeneren kunne ikke håndtere så mye POST-data (%s bytes) på grunn av sitt "
-"nåværende oppsett."
+"Tjeneren kunne ikke håndtere så mye POST-data (%s byte) på grunn av sin "
+"gjeldende konfigurasjon."
 msgstr[1] ""
-"Tjeneren kunne ikke håndtere så mye POST-data (%s bytes) på grunn av sitt "
-"nåværende oppsett."
+"Tjeneren kunne ikke håndtere så mye POST-data (%s bytes) på grunn av sin "
+"gjeldende konfigurasjon."
 
 #. TRANS: Client error displayed when saving design settings fails because of an empty id.
 #. TRANS: Client error displayed when saving design settings fails because of an empty result.
@@ -427,7 +427,7 @@ msgstr "Ingen meldingstekst!"
 #. TRANS: Form validation error displayed when message content is too long.
 #. TRANS: %d is the maximum number of characters for a message.
 #: actions/apidirectmessagenew.php:127 actions/newmessage.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum message size is %d character."
 msgid_plural "That's too long. Maximum message size is %d characters."
 msgstr[0] "Dette er for langt. Meldingen kan bare være %d tegn lang."
@@ -445,7 +445,6 @@ msgstr "Kan ikke sende direktemeldinger til brukere du ikke er venn med."
 
 #. TRANS: Client error displayed trying to direct message self (403).
 #: actions/apidirectmessagenew.php:154
-#, fuzzy
 msgid ""
 "Do not send a message to yourself; just say it to yourself quietly instead."
 msgstr ""
@@ -565,9 +564,8 @@ msgstr "Hjemmesiden er ikke en gyldig URL."
 #: actions/apigroupcreate.php:210 actions/editgroup.php:211
 #: actions/newgroup.php:147 actions/profilesettings.php:256
 #: actions/register.php:227
-#, fuzzy
 msgid "Full name is too long (maximum 255 characters)."
-msgstr "Beklager, navnet er for langt (max 250 tegn)."
+msgstr "Fullt navn er for langt (maks 255 tegn)."
 
 #. TRANS: Client error shown when providing too long a description during group creation.
 #. TRANS: %d is the maximum number of allowed characters.
@@ -580,7 +578,7 @@ msgstr "Beklager, navnet er for langt (max 250 tegn)."
 #: actions/apigroupcreate.php:220 actions/editapplication.php:201
 #: actions/editgroup.php:216 actions/newapplication.php:178
 #: actions/newgroup.php:152
-#, fuzzy, php-format
+#, php-format
 msgid "Description is too long (maximum %d character)."
 msgid_plural "Description is too long (maximum %d characters)."
 msgstr[0] "Beskrivelsen er for lang (maks %d tegn)."
@@ -593,9 +591,8 @@ msgstr[1] "Beskrivelsen er for lang (maks %d tegn)."
 #: actions/apigroupcreate.php:234 actions/editgroup.php:223
 #: actions/newgroup.php:159 actions/profilesettings.php:269
 #: actions/register.php:236
-#, fuzzy
 msgid "Location is too long (maximum 255 characters)."
-msgstr "Plassering er for lang (maks 255 tegn)."
+msgstr "Plasseringen er for lang (maks 255 tegn)."
 
 #. TRANS: Client error shown when providing too many aliases during group creation.
 #. TRANS: %d is the maximum number of allowed aliases.
@@ -605,11 +602,11 @@ msgstr "Plassering er for lang (maks 255 tegn)."
 #. TRANS: %d is the maximum number of allowed aliases.
 #: actions/apigroupcreate.php:255 actions/editgroup.php:236
 #: actions/newgroup.php:172
-#, fuzzy, php-format
+#, php-format
 msgid "Too many aliases! Maximum %d allowed."
 msgid_plural "Too many aliases! Maximum %d allowed."
-msgstr[0] "For mange alias! Maksimum %d."
-msgstr[1] "For mange alias! Maksimum %d."
+msgstr[0] "For mange alias. Maks %d er tillatt."
+msgstr[1] "For mange alias. Maks %d er tillatt."
 
 #. TRANS: Client error shown when providing an invalid alias during group creation.
 #. TRANS: %s is the invalid alias.
@@ -763,9 +760,8 @@ msgstr "Ugyldig kallenavn / passord!"
 
 #. TRANS: Server error displayed when a database action fails.
 #: actions/apioauthauthorize.php:217
-#, fuzzy
 msgid "Database error inserting oauth_token_association."
-msgstr "Databasefeil ved innsetting av bruker i programmet OAuth."
+msgstr "Databasefeil ved innsetting av oauth_token_association."
 
 #. TRANS: Client error given on when invalid data was passed through a form in the OAuth API.
 #. TRANS: Unexpected validation error on avatar upload form.
@@ -797,15 +793,15 @@ msgstr "Tillat eller nekt tilgang"
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %3$s is the access type requested, %4$s is the StatusNet sitename.
 #: actions/apioauthauthorize.php:425
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "An application would like the ability to <strong>%3$s</strong> your %4$s "
 "account data. You should only give access to your %4$s account to third "
 "parties you trust."
 msgstr ""
-"Programmet <strong>%1$s</strong> av <strong>%2$s</strong> ønsker å kunne "
-"<strong>%3$s</strong> dine %4$s-kontodata. Du bør bare gi tilgang til din %4"
-"$s-konto til tredjeparter du stoler på."
+"Et program ønsker muligheten til å <strong>%3$s</strong> dine %4$s-"
+"kontodata. Du bør kun gi tilgang til din %4$s-konto til tredjeparter du "
+"stoler på."
 
 #. TRANS: User notification of external application requesting account access.
 #. TRANS: %1$s is the application name requesting access, %2$s is the organisation behind the application,
@@ -823,7 +819,6 @@ msgstr ""
 
 #. TRANS: Fieldset legend.
 #: actions/apioauthauthorize.php:455
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Account"
 msgstr "Konto"
@@ -861,22 +856,19 @@ msgstr "Avbryt"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
 #: actions/apioauthauthorize.php:485
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Tillat"
 
 #. TRANS: Form instructions.
 #: actions/apioauthauthorize.php:502
-#, fuzzy
 msgid "Authorize access to your account information."
-msgstr "Tillat eller nekt tilgang til din kontoinformasjon."
+msgstr "Autoriser tilgang til din kontoinformasjon."
 
 #. TRANS: Header for user notification after revoking OAuth access to an application.
 #: actions/apioauthauthorize.php:594
-#, fuzzy
 msgid "Authorization canceled."
-msgstr "Direktemeldingsbekreftelse avbrutt."
+msgstr "Autorisasjon kansellert."
 
 #. TRANS: User notification after revoking OAuth access to an application.
 #. TRANS: %s is an OAuth token.
@@ -887,9 +879,8 @@ msgstr ""
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Du er ikke autorisert."
+msgstr "Du har autorisert programmet"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
@@ -897,13 +888,15 @@ msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
+"Gå tilbake til programmet og skriv inn følgende sikkerhetskode for å "
+"fullføre prosessen."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Du er ikke autorisert."
+msgstr "Du har autorisert %s"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -913,6 +906,8 @@ msgid ""
 "Please return to %s and enter the following security code to complete the "
 "process."
 msgstr ""
+"Gå tilbake til %s og skriv inn følgende sikkerhetskode for å fullføre "
+"prosessen."
 
 #. TRANS: Client error displayed trying to delete a status not using POST or DELETE.
 #. TRANS: POST and DELETE should not be translated.
@@ -958,13 +953,13 @@ msgstr "Ingen status med den ID-en funnet."
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #: actions/apistatusesupdate.php:221
 msgid "Client must provide a 'status' parameter with a value."
-msgstr ""
+msgstr "Klienten må angi en 'status'-parameter med en verdi."
 
 #. TRANS: Client error displayed when the parameter "status" is missing.
 #. TRANS: %d is the maximum number of character for a notice.
 #: actions/apistatusesupdate.php:244 actions/newnotice.php:161
 #: lib/mailhandler.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
 msgstr[0] "Det er for langt. Maks notisstørrelse er %d tegn."
@@ -972,14 +967,13 @@ msgstr[1] "Det er for langt. Maks notisstørrelse er %d tegn."
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
 #: actions/apistatusesupdate.php:284
-#, fuzzy
 msgid "Parent notice not found."
-msgstr "API-metode ikke funnet!"
+msgstr "Foreldrenotis ikke funnet."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
 #: actions/apistatusesupdate.php:308 actions/newnotice.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
 msgstr[0] "Maks notisstørrelse er %d tegn, inklusive vedleggs-URL."
@@ -1002,16 +996,16 @@ msgstr "%1$s / Favoritter fra %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s oppdateringer markert som favoritt av %2$s / %2$s."
+msgstr "%1$s-oppdateringer markert som favoritt av %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Kunne ikke oppdatere gruppe."
+msgstr "Kunne ikke generere mating for gruppe - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -1042,9 +1036,8 @@ msgstr "%s oppdateringer fra alle sammen!"
 
 #. TRANS: Server error displayed calling unimplemented API method for 'retweeted by me'.
 #: actions/apitimelineretweetedbyme.php:71
-#, fuzzy
 msgid "Unimplemented."
-msgstr "Ikke-implementert metode."
+msgstr "Ikke-implementert."
 
 #. TRANS: Title for Atom feed "repeated to me". %s is the user nickname.
 #: actions/apitimelineretweetedtome.php:108
@@ -1080,9 +1073,8 @@ msgstr "API-metode under utvikling."
 
 #. TRANS: Client error displayed when requesting user information for a non-existing user.
 #: actions/apiusershow.php:94
-#, fuzzy
 msgid "User not found."
-msgstr "API-metode ikke funnet!"
+msgstr "Bruker ikke funnet."
 
 #. TRANS: Client error displayed trying to get a non-existing attachment.
 #: actions/attachment.php:73
@@ -1155,21 +1147,18 @@ msgstr "Forhåndsvis"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #: actions/avatarsettings.php:155
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "Slett"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
 #: actions/avatarsettings.php:173
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Last opp"
 
 #. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
 #: actions/avatarsettings.php:243
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Crop"
 msgstr "Beskjær"
@@ -1320,7 +1309,6 @@ msgstr "Opphev blokkering av bruker fra gruppe"
 
 #. TRANS: Button text for unblocking a user from a group.
 #: actions/blockedfromgroup.php:323
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unblock"
 msgstr "Opphev blokkering"
@@ -1384,9 +1372,8 @@ msgstr "Klarte ikke å oppdatere bruker."
 #. TRANS: Server error displayed when an address confirmation code deletion from the
 #. TRANS: database fails in the contact address confirmation action.
 #: actions/confirmaddress.php:132
-#, fuzzy
 msgid "Could not delete address confirmation."
-msgstr "Kunne ikke slette direktemeldingsbekreftelse."
+msgstr "Kunne ikke slette adressebekreftelse."
 
 #. TRANS: Title for the contact address confirmation action.
 #: actions/confirmaddress.php:150
@@ -1465,9 +1452,8 @@ msgstr "Slett dette programmet"
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
-#, fuzzy
 msgid "You must be logged in to delete a group."
-msgstr "Du må være innlogget for å forlate en gruppe."
+msgstr "Du må være innlogget for å slette en gruppe."
 
 #. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
 #: actions/deletegroup.php:94 actions/joingroup.php:88
@@ -1477,30 +1463,28 @@ msgstr "ngen kallenavn eller ID."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 #: actions/deletegroup.php:107
-#, fuzzy
 msgid "You are not allowed to delete this group."
-msgstr "Du er ikke et medlem av denne gruppen."
+msgstr "Du har ikke tillatelse til å slette denne gruppen."
 
 #. TRANS: Server error displayed if a group could not be deleted.
 #. TRANS: %s is the name of the group that could not be deleted.
 #: actions/deletegroup.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete group %s."
-msgstr "Kunne ikke oppdatere gruppe."
+msgstr "Kunne ikke slette gruppen %s."
 
 #. TRANS: Message given after deleting a group.
 #. TRANS: %s is the deleted group's name.
 #: actions/deletegroup.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted group %s"
-msgstr "%1$s forlot gruppe %2$s"
+msgstr "Slettet gruppen %s"
 
 #. TRANS: Title of delete group page.
 #. TRANS: Form legend for deleting a group.
 #: actions/deletegroup.php:176 actions/deletegroup.php:202
-#, fuzzy
 msgid "Delete group"
-msgstr "Slett bruker"
+msgstr "Slett gruppe"
 
 #. TRANS: Warning in form for deleleting a group.
 #: actions/deletegroup.php:206
@@ -8679,10 +8663,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] ""
 msgstr[1] ""
-
-#~ msgid ""
-#~ "The server was unable to handle that much POST data (%s bytes) due to its "
-#~ "current configuration."
-#~ msgstr ""
-#~ "Tjeneren kunne ikke håndtere så mye POST-data (%s bytes) på grunn av sitt "
-#~ "nåværende oppsett."

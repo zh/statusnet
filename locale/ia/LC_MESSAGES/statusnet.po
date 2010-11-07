@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:31+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:23+0000\n"
 "Language-Team: Interlingua <http://translatewiki.net/wiki/Portal:ia>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: ia\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -5893,7 +5893,7 @@ msgstr "Robin pensa que alique es impossibile."
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #. TRANS: %1$s is used for plural.
 #: classes/File.php:190
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d byte and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
@@ -5901,8 +5901,8 @@ msgid_plural ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr[0] ""
-"Nulle file pote esser plus grande que %1$d bytes e le file que tu inviava ha "
-"%2$d bytes. Tenta incargar un version minus grande."
+"Nulle file pote esser plus grande que %1$d byte e le file que tu inviava ha %"
+"2$d bytes. Tenta incargar un version minus grande."
 msgstr[1] ""
 "Nulle file pote esser plus grande que %1$d bytes e le file que tu inviava ha "
 "%2$d bytes. Tenta incargar un version minus grande."
@@ -5910,19 +5910,19 @@ msgstr[1] ""
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes and is used for plural.
 #: classes/File.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your user quota of %d byte."
 msgid_plural "A file this large would exceed your user quota of %d bytes."
-msgstr[0] "Un file de iste dimension excederea tu quota de usator de %d bytes."
+msgstr[0] "Un file de iste dimension excederea tu quota de usator de %d byte."
 msgstr[1] "Un file de iste dimension excederea tu quota de usator de %d bytes."
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
 #. TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
 #: classes/File.php:215
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your monthly quota of %d byte."
 msgid_plural "A file this large would exceed your monthly quota of %d bytes."
-msgstr[0] "Un file de iste dimension excederea tu quota mensual de %d bytes."
+msgstr[0] "Un file de iste dimension excederea tu quota mensual de %d byte."
 msgstr[1] "Un file de iste dimension excederea tu quota mensual de %d bytes."
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
@@ -6056,9 +6056,8 @@ msgstr "Problema salveguardar nota."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:905
-#, fuzzy
 msgid "Bad type provided to saveKnownGroups."
-msgstr "Mal typo fornite a saveKnownGroups"
+msgstr "Mal typo fornite a saveKnownGroups."
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
 #: classes/Notice.php:1004
@@ -7328,21 +7327,18 @@ msgstr ""
 
 #. TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
 #: lib/designsettings.php:139
-#, fuzzy
 msgctxt "RADIO"
 msgid "On"
 msgstr "Active"
 
 #. TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
 #: lib/designsettings.php:156
-#, fuzzy
 msgctxt "RADIO"
 msgid "Off"
 msgstr "Non active"
 
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
 #: lib/designsettings.php:264
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reset"
 msgstr "Reinitialisar"
@@ -8443,9 +8439,8 @@ msgstr "Nulle"
 
 #. TRANS: Server exception displayed if a theme name was invalid.
 #: lib/theme.php:74
-#, fuzzy
 msgid "Invalid theme name."
-msgstr "Nomine de file invalide."
+msgstr "Nomine de apparentia invalide."
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
@@ -8700,10 +8695,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] "%d entrata in copia de reserva."
 msgstr[1] "%d entratas in copia de reserva."
-
-#~ msgid ""
-#~ "The server was unable to handle that much POST data (%s bytes) due to its "
-#~ "current configuration."
-#~ msgstr ""
-#~ "Le servitor non ha potite tractar tante datos POST (%s bytes) a causa de "
-#~ "su configuration actual."

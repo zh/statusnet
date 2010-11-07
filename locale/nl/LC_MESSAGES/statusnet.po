@@ -12,17 +12,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:40+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:33+0000\n"
 "Language-Team: Dutch <http://translatewiki.net/wiki/Portal:nl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: nl\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -3452,7 +3452,7 @@ msgstr "Wachtwoord wijzigen"
 
 #: actions/passwordsettings.php:104
 msgid "Old password"
-msgstr "Oud wachtwoord"
+msgstr "Huidige wachtwoord"
 
 #: actions/passwordsettings.php:108 actions/recoverpassword.php:235
 msgid "New password"
@@ -5946,7 +5946,7 @@ msgstr "Robin denkt dat iets onmogelijk is."
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #. TRANS: %1$s is used for plural.
 #: classes/File.php:190
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d byte and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
@@ -5954,7 +5954,7 @@ msgid_plural ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr[0] ""
-"Bestanden mogen niet groter zijn dan %1$d bytes, en uw bestand was %2$d "
+"Bestanden mogen niet groter zijn dan %1$d byte, en uw bestand was %2$d "
 "bytes. Probeer een kleinere versie te uploaden."
 msgstr[1] ""
 "Bestanden mogen niet groter zijn dan %1$d bytes, en uw bestand was %2$d "
@@ -5963,24 +5963,23 @@ msgstr[1] ""
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes and is used for plural.
 #: classes/File.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your user quota of %d byte."
 msgid_plural "A file this large would exceed your user quota of %d bytes."
 msgstr[0] ""
-"Een bestand van deze grootte overschijdt uw gebruikersquota van %d bytes."
 msgstr[1] ""
-"Een bestand van deze grootte overschijdt uw gebruikersquota van %d bytes."
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
 #. TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
 #: classes/File.php:215
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your monthly quota of %d byte."
 msgid_plural "A file this large would exceed your monthly quota of %d bytes."
 msgstr[0] ""
-"Een bestand van deze grootte overschijdt uw maandelijkse quota van %d bytes."
+"Een bestand van deze grootte overschrijdt uw maandelijkse quotum van %d byte."
 msgstr[1] ""
-"Een bestand van deze grootte overschijdt uw maandelijkse quota van %d bytes."
+"Een bestand van deze grootte overschrijdt uw maandelijkse quotum van %d "
+"bytes."
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:262 classes/File.php:277
@@ -6118,7 +6117,6 @@ msgstr "Er is een probleem opgetreden bij het opslaan van de mededeling."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:905
-#, fuzzy
 msgid "Bad type provided to saveKnownGroups."
 msgstr "Het gegevenstype dat is opgegeven aan saveKnownGroups is onjuist"
 
@@ -7403,24 +7401,21 @@ msgstr ""
 
 #. TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
 #: lib/designsettings.php:139
-#, fuzzy
 msgctxt "RADIO"
 msgid "On"
 msgstr "Aan"
 
 #. TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
 #: lib/designsettings.php:156
-#, fuzzy
 msgctxt "RADIO"
 msgid "Off"
 msgstr "Uit"
 
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
 #: lib/designsettings.php:264
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reset"
-msgstr "Herstellen"
+msgstr "Opnieuw instellen"
 
 #. TRANS: Success message displayed if design settings were saved after clicking "Use defaults".
 #: lib/designsettings.php:433
@@ -8521,9 +8516,8 @@ msgstr "Geen"
 
 #. TRANS: Server exception displayed if a theme name was invalid.
 #: lib/theme.php:74
-#, fuzzy
 msgid "Invalid theme name."
-msgstr "Ongeldige bestandsnaam."
+msgstr "Ongeldige naam voor vormgeving."
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
@@ -8785,10 +8779,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] "%d element in de back-up."
 msgstr[1] "%d elementen in de back-up."
-
-#~ msgid ""
-#~ "The server was unable to handle that much POST data (%s bytes) due to its "
-#~ "current configuration."
-#~ msgstr ""
-#~ "De server was niet in staat zoveel POST-gegevens te verwerken (%s bytes) "
-#~ "vanwege de huidige instellingen."

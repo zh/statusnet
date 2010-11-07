@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:49+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:45+0000\n"
 "Language-Team: Telugu <http://translatewiki.net/wiki/Portal:te>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: te\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -1138,21 +1138,18 @@ msgstr "మునుజూపు"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #: actions/avatarsettings.php:155
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
 msgstr "తొలగించు"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
 #: actions/avatarsettings.php:173
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
-msgstr "ఎగుమతించు"
+msgstr "ఎక్కించు"
 
 #. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
 #: actions/avatarsettings.php:243
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Crop"
 msgstr "కత్తిరించు"
@@ -1445,9 +1442,8 @@ msgstr "ఈ ఉపకరణాన్ని తొలగించు"
 
 #. TRANS: Client error when trying to delete group while not logged in.
 #: actions/deletegroup.php:64
-#, fuzzy
 msgid "You must be logged in to delete a group."
-msgstr "గుంపుని వదిలివెళ్ళడానికి మీరు ప్రవేశించి ఉండాలి."
+msgstr "గుంపుని తొలగించడానికి మీరు ప్రవేశించి ఉండాలి."
 
 #. TRANS: Client error when trying to delete a group without providing a nickname or ID for the group.
 #: actions/deletegroup.php:94 actions/joingroup.php:88
@@ -1457,23 +1453,22 @@ msgstr "Jabber ID లేదు."
 
 #. TRANS: Client error when trying to delete a group without having the rights to delete it.
 #: actions/deletegroup.php:107
-#, fuzzy
 msgid "You are not allowed to delete this group."
-msgstr "మీరు ఈ గుంపులో సభ్యులు కాదు."
+msgstr "ఈ గుంపును తొలగించడానికి మీకు అనుమతి లేదు."
 
 #. TRANS: Server error displayed if a group could not be deleted.
 #. TRANS: %s is the name of the group that could not be deleted.
 #: actions/deletegroup.php:150
-#, fuzzy, php-format
+#, php-format
 msgid "Could not delete group %s."
-msgstr "గుంపుని తాజాకరించలేకున్నాం."
+msgstr "%s గుంపుని తొలగించలేకున్నాం."
 
 #. TRANS: Message given after deleting a group.
 #. TRANS: %s is the deleted group's name.
 #: actions/deletegroup.php:159
-#, fuzzy, php-format
+#, php-format
 msgid "Deleted group %s"
-msgstr "%2$s గుంపు నుండి %1$s వైదొలిగారు"
+msgstr "%s గుంపుని తొలగించాం"
 
 #. TRANS: Title of delete group page.
 #. TRANS: Form legend for deleting a group.
@@ -1589,9 +1584,8 @@ msgid "Invalid logo URL."
 msgstr "చిహ్నపు URL చెల్లదు."
 
 #: actions/designadminpanel.php:340
-#, fuzzy
 msgid "Invalid SSL logo URL."
-msgstr "చిహ్నపు URL చెల్లదు."
+msgstr "SSL చిహ్నపు URL చెల్లదు."
 
 #: actions/designadminpanel.php:344
 #, php-format
@@ -1607,9 +1601,8 @@ msgid "Site logo"
 msgstr "సైటు చిహ్నం"
 
 #: actions/designadminpanel.php:457
-#, fuzzy
 msgid "SSL logo"
-msgstr "సైటు చిహ్నం"
+msgstr "SSL చిహ్నం"
 
 #: actions/designadminpanel.php:469
 msgid "Change theme"
@@ -1986,7 +1979,7 @@ msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డార�
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:197
 msgid "Send me email when someone sends me a private message."
-msgstr ""
+msgstr "ఎవరైనా నాకు అంతరంగిక సందేశాన్ని పంపించినప్పుడు నాకు ఈమెయిలుని పంపించు"
 
 #. TRANS: Checkbox label in e-mail preferences form.
 #: actions/emailsettings.php:203
@@ -2727,7 +2720,7 @@ msgstr[1] "మీరు ఇప్పటికే ఈ వాడుకరులక
 #. TRANS: Used as list item for already subscribed users (%1$s is nickname, %2$s is e-mail address).
 #. TRANS: Used as list item for already registered people (%1$s is nickname, %2$s is e-mail address).
 #: actions/invite.php:145 actions/invite.php:159
-#, fuzzy, php-format
+#, php-format
 msgctxt "INVITE"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -2927,7 +2920,7 @@ msgstr ""
 
 #: actions/licenseadminpanel.php:239
 msgid "License selection"
-msgstr ""
+msgstr "లైసెన్సు ఎంపిక"
 
 #: actions/licenseadminpanel.php:245
 msgid "Private"
@@ -4749,7 +4742,6 @@ msgstr "సృష్టితం"
 
 #. TRANS: Label for member count in statistics on group page.
 #: actions/showgroup.php:461
-#, fuzzy
 msgctxt "LABEL"
 msgid "Members"
 msgstr "సభ్యులు"
@@ -5548,7 +5540,7 @@ msgstr "వాడుకరి"
 #. TRANS: Instruction for user admin panel.
 #: actions/useradminpanel.php:69
 msgid "User settings for this StatusNet site"
-msgstr ""
+msgstr "ఈ స్టేటస్&zwnj;నెట్ సైటుకి వాడుకరి అమరికలు"
 
 #. TRANS: Form validation error in user admin panel when a non-numeric character limit was set.
 #: actions/useradminpanel.php:147
@@ -5835,9 +5827,9 @@ msgstr "ఇష్టపడు"
 #. TRANS: Ntofication given when a user marks a notice as favorite.
 #. TRANS: %1$s is a user nickname or full name, %2$s is a notice URI.
 #: classes/Fave.php:151
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s marked notice %2$s as a favorite."
-msgstr "%s (@%s) మీ నోటీసుని ఇష్టపడ్డారు"
+msgstr "%2$s నోటీసుని %1$s ఇష్టాంశంగా గుర్తించారు."
 
 #. TRANS: Server exception thrown when a URL cannot be processed.
 #: classes/File.php:142
@@ -6037,7 +6029,7 @@ msgstr "RT @%1$s %2$s"
 
 #. TRANS: Full name of a profile or group followed by nickname in parens
 #: classes/Profile.php:164 classes/User_group.php:247
-#, fuzzy, php-format
+#, php-format
 msgctxt "FANCYNAME"
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
@@ -6203,7 +6195,7 @@ msgstr "శీర్షికలేని పేజీ"
 #: lib/action.php:310
 msgctxt "TOOLTIP"
 msgid "Show more"
-msgstr ""
+msgstr "మరింత చూపించు"
 
 #. TRANS: DT element for primary navigation menu. String is hidden in default CSS.
 #: lib/action.php:526
@@ -7083,7 +7075,7 @@ msgstr "ఈ లంకెని ఒకేసారి ఉపయోగించగ
 #: lib/command.php:812
 #, php-format
 msgid "Unsubscribed %s."
-msgstr ""
+msgstr "%sని చందా విరమింపజేసారు."
 
 #. TRANS: Text shown after requesting other users a user is subscribed to without having any subscriptions.
 #: lib/command.php:830
@@ -7285,11 +7277,11 @@ msgstr "ఈ నోటీసుని పునరావృతించు"
 
 #: lib/feed.php:84
 msgid "RSS 1.0"
-msgstr ""
+msgstr "RSS 1.0"
 
 #: lib/feed.php:86
 msgid "RSS 2.0"
-msgstr ""
+msgstr "RSS 2.0"
 
 #: lib/feed.php:88
 msgid "Atom"
@@ -8415,10 +8407,9 @@ msgstr ""
 
 #. TRANS: Title for the form to unblock a user.
 #: lib/unblockform.php:67
-#, fuzzy
 msgctxt "TITLE"
 msgid "Unblock"
-msgstr "నిరోధాన్ని ఎత్తివేయి"
+msgstr "నిరోధపు ఎత్తివేత"
 
 #: lib/unsandboxform.php:69
 msgid "Unsandbox"
