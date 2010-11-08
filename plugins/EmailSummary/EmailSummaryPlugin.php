@@ -1,0 +1,119 @@
+<?php
+/**
+ * StatusNet - the distributed open-source microblogging tool
+ * Copyright (C) 2010, StatusNet, Inc.
+ *
+ * Sends an email summary of the inbox to users in the network
+ *
+ * PHP version 5
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @category  Sample
+ * @package   StatusNet
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+if (!defined('STATUSNET')) {
+    exit(1);
+}
+
+/**
+ * Plugin for sending email summaries to users
+ *
+ * @category  Email
+ * @package   StatusNet
+ * @author    Brion Vibber <brionv@status.net>
+ * @author    Evan Prodromou <evan@status.net>
+ * @copyright 2010 StatusNet, Inc.
+ * @license   http://www.fsf.org/licensing/licenses/agpl-3.0.html AGPL 3.0
+ * @link      http://status.net/
+ */
+
+class EmailSummaryPlugin extends Plugin
+{
+    /**
+     * Database schema setup
+     *
+     * @return boolean hook value
+     */
+
+    function onCheckSchema()
+    {
+        $schema = Schema::get();
+
+        // For storing user-submitted flags on profiles
+
+        $schema->ensureTable('email_summary_status',
+                             array(new ColumnDef('user_id', 'integer', null,
+                                                 false, 'PRI'),
+                                   new ColumnDef('send_summary', 'tinyint', null,
+						 false, null, 1),
+                                   new ColumnDef('last_summary', 'datetime', null,
+						 true),
+                                   new ColumnDef('created', 'datetime', null,
+						 false),
+                                   new ColumnDef('modified', 'datetime', null,
+						 false),
+				   )
+			     );
+        return true;
+    }
+
+    /**
+     * Load related modules when needed
+     *
+     * @param string $cls Name of the class to be loaded
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     * 
+     */
+    
+    function onAutoload($cls)
+    {
+        $dir = dirname(__FILE__);
+
+        switch ($cls)
+        {
+	 case 'Email_summary_status':
+            include_once $dir . '/'.$cls.'.php';
+            return false;
+	 default:
+            return true;
+        }
+    }
+
+    /**
+     * Version info for this plugin
+     *
+     * @param array &$versions array of version data
+     *
+     * @return boolean hook value; true means continue processing, false means stop.
+     * 
+     */
+    
+    function onPluginVersion(&$versions)
+    {
+        $versions[] = array('name' => 'EmailSummary',
+                            'version' => STATUSNET_VERSION,
+                            'author' => 'Evan Prodromou',
+                            'homepage' => 'http://status.net/wiki/Plugin:EmailSummary',
+                            'rawdescription' =>
+                            _m('Send an email summary of the inbox to users.'));
+        return true;
+    }
+}
