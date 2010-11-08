@@ -181,9 +181,11 @@ class AttachmentListItem extends Widget
      */
     function show()
     {
-        $this->showStart();
-        $this->showNoticeAttachment();
-        $this->showEnd();
+        if ($this->attachment->isEnclosure()) {
+            $this->showStart();
+            $this->showNoticeAttachment();
+            $this->showEnd();
+        }
     }
 
     function linkAttr() {
@@ -203,9 +205,44 @@ class AttachmentListItem extends Widget
     }
 
     function showRepresentation() {
+        $thumb = $this->getThumbInfo();
+        if ($thumb) {
+            $thumb = $this->sizeThumb($thumb);
+            $this->out->element('img', array('alt' => '', 'src' => $thumb->url, 'width' => $thumb->width, 'height' => $thumb->height));
+        }
+    }
+
+    function getThumbInfo()
+    {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
-        if (!empty($thumbnail)) {
-            $this->out->element('img', array('alt' => '', 'src' => $thumbnail->url, 'width' => $thumbnail->width, 'height' => $thumbnail->height));
+        if ($thumbnail) {
+            return $thumbnail;
+        } else {
+            switch ($this->attachment->mimetype) {
+                case 'image/gif':
+                case 'image/png':
+                case 'image/jpg':
+                case 'image/jpeg':
+                    $thumb = (object)array();
+                    $thumb->url = $this->attachment->url;
+                    $thumb->width = 100;
+                    $thumb->height = 75; // @fixme
+                    return $thumb;
+            }
+        }
+        return false;
+    }
+
+    function sizeThumb($thumbnail) {
+        $maxWidth = 100;
+        $maxHeight = 75;
+        if ($thumbnail->width > $maxWidth) {
+            $thumb = clone($thumbnail);
+            $thumb->width = $maxWidth;
+            $thumb->height = intval($thumbnail->height * $maxWidth / $thumbnail->width);
+            return $thumb;
+        } else {
+            return $thumbnail;
         }
     }
 
@@ -234,6 +271,9 @@ class AttachmentListItem extends Widget
     }
 }
 
+/**
+ * used for one-off attachment action
+ */
 class Attachment extends AttachmentListItem
 {
     function showLink() {
@@ -413,19 +453,5 @@ class Attachment extends AttachmentListItem
         $scrubbed = htmLawed($body, $config);
 
         return $scrubbed;
-    }
-
-    function showFallback()
-    {
-        // If we don't know how to display an attachment inline, we probably
-        // shouldn't have gotten to this point.
-        //
-        // But, here we are... displaying details on a file or remote URL
-        // either on the main view or in an ajax-loaded lightbox. As a lesser
-        // of several evils, we'll try redirecting to the actual target via
-        // client-side JS.
-
-        common_log(LOG_ERR, "Empty or unknown type for file id {$this->attachment->id}; falling back to client-side redirect.");
-        $this->out->raw('<script>window.location = ' . json_encode($this->attachment->url) . ';</script>');
     }
 }

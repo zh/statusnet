@@ -1150,7 +1150,8 @@ border-radius:4px;
 -webkit-border-radius:4px;
 }
 
-.notice div.entry-content {
+.notice div.entry-content,
+.notice dl.entry-content {
 clear:left;
 float:left;
 font-size:0.95em;
@@ -1325,6 +1326,7 @@ margin-left:4px;
 .notice .attachment.more {
 padding-left:0;
 }
+/*
 .notice .attachment img {
 position:absolute;
 top:18px;
@@ -1334,20 +1336,30 @@ z-index:99;
 #shownotice .notice .attachment img {
 position:static;
 }
+*/
 
-#attachments {
+
+/* Small inline attachment list */
+#attachments ol li {
+    list-style-type: none;
+}
+#attachments dt {
+    display: none;
+}
+
+#shownotice #attachments {
 clear:both;
 float:left;
 width:100%;
 margin-top:18px;
 }
-#attachments dt {
+#shownotice #attachments dt {
 font-weight:bold;
 font-size:1.3em;
 margin-bottom:4px;
 }
 
-#attachments ol li {
+#shownotice #attachments ol li {
 margin-bottom:18px;
 list-style-type:decimal;
 float:left;

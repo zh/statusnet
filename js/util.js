@@ -431,16 +431,19 @@ var SN = { // StatusNet
                 //imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
 
                 notice.find('a.attachment').each(function() {
+                    /*
                     var attachId = ($(this).attr('id').substring('attachment'.length + 1));
                     if (attachId) {
                         var thumbUrl = $('address .url')[0].href+'attachment/' + attachId + '/thumb';
-                        var thumb = $('<div class="inline_thumb">Thumb: <img/></div>');
+                        var thumb = $('<div class="attachment-thumb">Thumb: <img/></div>');
                         thumb.find('img').attr('src', thumbUrl).last();
-                        notice.append(thumb);
+                        notice.find('.entry-title .entry-content').append(thumb);
                     }
+                    */
                 });
 
                 if ($('#shownotice').length == 0) {
+                    /*
                     var t;
                     notice.find('a.thumbnail').hover(
                         function() {
@@ -465,6 +468,7 @@ var SN = { // StatusNet
                             $(this).closest('.entry-title').removeClass('ov');
                         }
                     );
+                    */
                 }
             }
         },

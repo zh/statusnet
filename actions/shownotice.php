@@ -356,9 +356,4 @@ class SingleNoticeItem extends DoFollowListItem
                                          $this->profile->fullname :
                                          $this->profile->nickname));
     }
-
-    function showNoticeAttachments() {
-        $al = new AttachmentList($this->notice, $this->out);
-        $al->show();
-    }
 }
