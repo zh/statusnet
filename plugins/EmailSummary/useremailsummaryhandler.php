@@ -124,6 +124,8 @@ class UserEmailSummaryHandler extends QueueHandler
 	
 	$out = new XMLStringer();
 
+	$out->raw('<style>'.$this->stylesheet().'</style>');
+	
 	$out->raw(sprintf(_('<p>Recent updates from %1s for %2s:</p>'),
 			  common_config('site', 'name'),
 			  $profile->getBestName()));
@@ -168,5 +170,295 @@ class UserEmailSummaryHandler extends QueueHandler
 	
 	return true;
     }
+    
+    function stylesheet()
+    {
+	$ss = <<<END_OF_STYLESHEET
+
+#notices_primary {
+    padding-top: 8px;
+    clear: both;
+}
+
+#notices_primary h2 {
+    display: none;
+}
+
+.notice {
+    list-style-type: none;
+    margin-bottom: 25px;
+    clear: left;
+    min-height: 54px;
+    padding-bottom: 2px;
+}
+
+.notice, .profile, .application {
+    position:relative;
+    clear:both;
+    float:left;
+    width:100%;
+}
+
+.notice .author {
+    margin-right: 8px;
+}
+
+.fn {
+    overflow: hidden;
+}
+
+.notice .author .fn {
+    font-weight: bold;
+}
+
+#core .vcard .photo {
+    display: inline;
+    margin-right: 11px;
+    float: left;
+}
+
+#content .notice .author .photo {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    float: none;
+}
+
+#content .notice .entry-title {
+    margin: 2px 7px 0px 59px;
+}
+
+.vcard .url {
+    text-decoration:none;
+}
+.vcard .url:hover {
+    text-decoration:underline;
+}
+
+.notice .entry-title {
+    overflow:hidden;
+    word-wrap:break-word;
+}
+
+.notice .entry-title.ov {
+overflow:visible;
+}
+
+#showstream h1 { 
+    display:none;
+}
+
+#showstream .notice .entry-title, #showstream .notice div.entry-content {
+    margin-left: 0;
+}
+
+#showstream #content .notice .author {
+    display: none;
+}
+
+#showstream .notice {
+    min-height: 1em; 
+}
+
+#shownotice .vcard .photo {
+    margin-bottom: 4px;
+}
+
+#shownotice .notice .entry-title {
+    margin-left:110px;
+    font-size:2.2em;
+    min-height:123px;
+    font-size: 1.6em;
+    line-height: 1.2em;
+}
+
+#shownotice .notice div.entry-content {
+    margin-left:0;
+}
+
+.notice p.entry-content {
+    display:inline;
+}
+
+.notice div.entry-content {
+    clear:left;
+    float:left;
+    margin-left:59px;
+    margin-top: 10px;
+}
+
+.entry-content .repeat {
+    display: block;
+}
+
+.entry-content .repeat .photo {
+float:none;
+margin-right:1px;
+position:relative;
+top:4px;
+left:0;
+}
+
+.notice-options {
+    float: right;    
+    margin-top: 12px;
+    margin-right: -6px;
+}
+
+.notice-options fieldset {
+    border: none;
+}
+
+.notice-options legend {
+    display: none;
+}
+
+.notice-options form, .notice-options a, .notice-options .repeated {
+    float: left;
+    margin-right: 10px;
+}
+
+.notice-options input, .notice-options a, .notice-options .repeated {    
+    text-indent: -9999px;
+    outline:none;
+}
+
+.notice-options input.submit, .notice-options a, .notice-options .repeated {
+    display: block;
+    border: 0;
+    height: 16px;
+    width: 16px;
+}
+
+.notice-options input.submit, .notice-options a {
+    opacity: 0.6;
+}
+
+.notice-options input.submit:hover, .notice-options a:hover {
+    opacity: 1;
+}
+
+.notice .attachment {
+    position:relative;
+    padding-left:16px;
+}
+
+.notice .attachment.more {
+text-indent:-9999px;
+width:16px;
+height:16px;
+display:inline-block;
+overflow:hidden;
+vertical-align:middle;
+margin-left:4px;
+}
+
+#attachments .attachment,
+.notice .attachment.more {
+padding-left:0;
+}
+
+.notice .attachment img {
+position:absolute;
+top:18px;
+left:0;
+z-index:99;
+}
+
+#shownotice .notice .attachment img {
+position:static;
+}
+
+#attachments {
+clear:both;
+float:left;
+width:100%;
+margin-top:18px;
+}
+#attachments dt {
+font-weight:bold;
+font-size:1.3em;
+margin-bottom:4px;
+}
+
+#attachments ol li {
+margin-bottom:18px;
+list-style-type:decimal;
+float:left;
+clear:both;
+}
+
+#jOverlayContent,
+#jOverlayContent #content,
+#jOverlayContent #content_inner {
+width: auto !important;
+margin-bottom:0;
+}
+#jOverlayContent #content {
+padding:11px;
+min-height:auto;
+    border: 1px solid #fff;
+}
+#jOverlayContent .entry-title {
+display:block;
+margin-bottom:11px;
+}
+#jOverlayContent button {
+    position:absolute;
+    top: 5px;
+    right: 20px;
+}
+#jOverlayContent h1 {
+max-width:425px;
+}
+#jOverlayLoading {
+top:5%;
+left:40%;
+}
+#attachment_view img {
+max-width:480px;
+max-height:480px;
+}
+#attachment_view #oembed_info {
+margin-top:11px;
+}
+#attachment_view #oembed_info dt,
+#attachment_view #oembed_info dd {
+float:left;
+}
+#attachment_view #oembed_info dt {
+clear:left;
+margin-right:11px;
+font-weight:bold;
+}
+#attachment_view #oembed_info dt:after {
+content: ":";
+}
+
+#content .notice .notice {
+    width: 98%;
+    margin-left: 2%;
+    margin-top: 16px;
+    margin-bottom: 10px;
+}
+
+.notice .notice {
+background-color:rgba(200, 200, 200, 0.050);
+}
+.notice .notice .notice {
+background-color:rgba(200, 200, 200, 0.100);
+}
+.notice .notice .notice .notice {
+background-color:rgba(200, 200, 200, 0.150);
+}
+.notice .notice .notice .notice .notice {
+background-color:rgba(200, 200, 200, 0.300);
+}
+
+END_OF_STYLESHEET;
+
+        return $ss;
+    }
+    
 }
 
