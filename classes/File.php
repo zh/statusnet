@@ -352,6 +352,9 @@ class File extends Memcached_DataObject
                 $mimetype = substr($mimetype,0,$semicolon);
             }
             if(in_array($mimetype,$notEnclosureMimeTypes)){
+                // Never treat HTML as an enclosure type!
+                return false;
+            } else {
                 $oembed = File_oembed::staticGet('file_id',$this->id);
                 if($oembed){
                     $mimetype = strtolower($oembed->mimetype);
