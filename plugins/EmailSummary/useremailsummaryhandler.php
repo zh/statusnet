@@ -143,7 +143,7 @@ class UserEmailSummaryHandler extends QueueHandler
 	// FIXME: do something for people who don't like HTML email
 	
 	mail_to_user($user, _('Updates from your network'), $body,
-		     array('Content-Type', 'text/html; charset=UTF-8'));
+		     array('Content-Type' => 'text/html; charset=UTF-8'));
 
 	if (empty($ess)) {
 	    
