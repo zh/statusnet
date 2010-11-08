@@ -15,18 +15,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:46+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:42+0000\n"
 "Language-Team: Brazilian Portuguese <http://translatewiki.net/wiki/Portal:pt-"
 "br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: pt-br\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -891,9 +891,8 @@ msgstr "O token %s solicitado foi revogado."
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "Você não está autorizado."
+msgstr "A aplicação foi autorizada com sucesso"
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
@@ -901,13 +900,15 @@ msgid ""
 "Please return to the application and enter the following security code to "
 "complete the process."
 msgstr ""
+"Por favor, retorne à aplicação e digite o seguinte código de segurança para "
+"completar o processo."
 
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "Você não está autorizado."
+msgstr "A aplicação %s foi autorizada com sucesso"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -917,6 +918,8 @@ msgid ""
 "Please return to %s and enter the following security code to complete the "
 "process."
 msgstr ""
+"Por favor, retorne a %s e digite o seguinte código de segurança para "
+"completar o processo."
 
 #. TRANS: Client error displayed trying to delete a status not using POST or DELETE.
 #. TRANS: POST and DELETE should not be translated.
@@ -968,25 +971,24 @@ msgstr "O cliente tem de fornecer um parâmetro 'status' com um valor."
 #. TRANS: %d is the maximum number of character for a notice.
 #: actions/apistatusesupdate.php:244 actions/newnotice.php:161
 #: lib/mailhandler.php:60
-#, fuzzy, php-format
+#, php-format
 msgid "That's too long. Maximum notice size is %d character."
 msgid_plural "That's too long. Maximum notice size is %d characters."
-msgstr[0] "Está muito extenso. O tamanho máximo é de %d caracteres."
+msgstr[0] "Está muito extenso. O tamanho máximo é de %d caractere."
 msgstr[1] "Está muito extenso. O tamanho máximo é de %d caracteres."
 
 #. TRANS: Client error displayed when replying to a non-existing notice.
 #: actions/apistatusesupdate.php:284
-#, fuzzy
 msgid "Parent notice not found."
-msgstr "O método da API não foi encontrado!"
+msgstr "A mensagem pai não foi encontrada."
 
 #. TRANS: Client error displayed exceeding the maximum notice length.
 #. TRANS: %d is the maximum lenth for a notice.
 #: actions/apistatusesupdate.php:308 actions/newnotice.php:184
-#, fuzzy, php-format
+#, php-format
 msgid "Maximum notice size is %d character, including attachment URL."
 msgid_plural "Maximum notice size is %d characters, including attachment URL."
-msgstr[0] "O tamanho máximo da mensagem é de %d caracteres"
+msgstr[0] "O tamanho máximo da mensagem é de %d caractere"
 msgstr[1] "O tamanho máximo da mensagem é de %d caracteres"
 
 #. TRANS: Client error displayed when requesting profiles of followers in an unsupported format.
@@ -1006,16 +1008,16 @@ msgstr "%1$s / Favoritas de %2$s"
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user's full name,
 #. TRANS: %3$s is a user nickname.
 #: actions/apitimelinefavorites.php:120
-#, fuzzy, php-format
+#, php-format
 msgid "%1$s updates favorited by %2$s / %3$s."
-msgstr "%1$s marcadas como favoritas por %2$s / %2$s."
+msgstr "Mensagens de %1$s marcadas como favoritas por %2$s / %3$s."
 
 #. TRANS: Server error displayed when generating an Atom feed fails.
 #. TRANS: %s is the error.
 #: actions/apitimelinegroup.php:138
-#, fuzzy, php-format
+#, php-format
 msgid "Could not generate feed for group - %s"
-msgstr "Não foi possível atualizar o grupo."
+msgstr "Não foi possível gerar a fonte de notícias para o grupo - %s"
 
 #. TRANS: Title for timeline of most recent mentions of a user.
 #. TRANS: %1$s is the StatusNet sitename, %2$s is a user nickname.
@@ -8783,10 +8785,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] ""
 msgstr[1] ""
-
-#~ msgid ""
-#~ "The server was unable to handle that much POST data (%s bytes) due to its "
-#~ "current configuration."
-#~ msgstr ""
-#~ "O servidor não conseguiu manipular a quantidade de dados do POST (%s "
-#~ "bytes) devido à sua configuração atual."

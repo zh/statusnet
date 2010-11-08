@@ -10,17 +10,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:39+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:32+0000\n"
 "Language-Team: Macedonian <http://translatewiki.net/wiki/Portal:mk>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: mk\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n == 1 || n%10 == 1) ? 0 : 1;\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -5918,7 +5918,7 @@ msgstr "Робин мисли дека нешто е невозможно."
 #. TRANS: %1$d is the byte limit for uploads, %2$d is the byte count for the uploaded file.
 #. TRANS: %1$s is used for plural.
 #: classes/File.php:190
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "No file may be larger than %1$d byte and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
@@ -5926,33 +5926,34 @@ msgid_plural ""
 "No file may be larger than %1$d bytes and the file you sent was %2$d bytes. "
 "Try to upload a smaller version."
 msgstr[0] ""
-"Податотеките не смеат да бидат поголеми од %d бајти, а податотеката што ја "
-"испративте содржи %d бајти. Подигнете помала верзија."
+"Податотеките не смеат да бидат поголеми од %1$d бајт, а вие испративте "
+"податотека од %2$d бајти. Подигнете помала верзија."
 msgstr[1] ""
-"Податотеките не смеат да бидат поголеми од %d бајти, а податотеката што ја "
-"испративте содржи %d бајти. Подигнете помала верзија."
+"Податотеките не смеат да бидат поголеми од %1$d бајти, а вие испративте "
+"податотека од %2$d бајти. Подигнете помала верзија."
 
 #. TRANS: Message given if an upload would exceed user quota.
 #. TRANS: %d (number) is the user quota in bytes and is used for plural.
 #: classes/File.php:203
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your user quota of %d byte."
 msgid_plural "A file this large would exceed your user quota of %d bytes."
 msgstr[0] ""
-"Волку голема податотека ќе ја надмине Вашата корисничка квота од %d бајти."
+"Волку голема податотека ќе го надмине Вашето корисничко следување од %d бајт."
 msgstr[1] ""
-"Волку голема податотека ќе ја надмине Вашата корисничка квота од %d бајти."
+"Волку голема податотека ќе го надмине Вашето корисничко следување од %d "
+"бајти."
 
 #. TRANS: Message given id an upload would exceed a user's monthly quota.
 #. TRANS: $d (number) is the monthly user quota in bytes and is used for plural.
 #: classes/File.php:215
-#, fuzzy, php-format
+#, php-format
 msgid "A file this large would exceed your monthly quota of %d byte."
 msgid_plural "A file this large would exceed your monthly quota of %d bytes."
 msgstr[0] ""
-"ВОлку голема податотека ќе ја надмине Вашата месечна квота од %d бајти"
+"Волку голема податотека ќе го надмине Вашето месечно следување од %d бајт"
 msgstr[1] ""
-"ВОлку голема податотека ќе ја надмине Вашата месечна квота од %d бајти"
+"Волку голема податотека ќе го надмине Вашето месечно следување од %d бајти"
 
 #. TRANS: Client exception thrown if a file upload does not have a valid name.
 #: classes/File.php:262 classes/File.php:277
@@ -6085,9 +6086,8 @@ msgstr "Проблем во зачувувањето на белешката."
 
 #. TRANS: Server exception thrown when no array is provided to the method saveKnownGroups().
 #: classes/Notice.php:905
-#, fuzzy
 msgid "Bad type provided to saveKnownGroups."
-msgstr "На saveKnownGroups му е уакажан грешен тип"
+msgstr "На saveKnownGroups му е укажан погрешен тип."
 
 #. TRANS: Server exception thrown when an update for a group inbox fails.
 #: classes/Notice.php:1004
@@ -7361,21 +7361,18 @@ msgstr ""
 
 #. TRANS: Radio button on profile design page that will enable use of the uploaded profile image.
 #: lib/designsettings.php:139
-#, fuzzy
 msgctxt "RADIO"
 msgid "On"
 msgstr "Вкл."
 
 #. TRANS: Radio button on profile design page that will disable use of the uploaded profile image.
 #: lib/designsettings.php:156
-#, fuzzy
 msgctxt "RADIO"
 msgid "Off"
 msgstr "Искл."
 
 #. TRANS: Button text on profile design page to reset all colour settings to default without saving.
 #: lib/designsettings.php:264
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Reset"
 msgstr "Врати одново"
@@ -8481,9 +8478,8 @@ msgstr "Без ознаки"
 
 #. TRANS: Server exception displayed if a theme name was invalid.
 #: lib/theme.php:74
-#, fuzzy
 msgid "Invalid theme name."
-msgstr "Погрешно податотечно име."
+msgstr "Неважечко име за изгледот."
 
 #: lib/themeuploader.php:50
 msgid "This server cannot handle theme uploads without ZIP support."
@@ -8736,10 +8732,3 @@ msgid "%d entry in backup."
 msgid_plural "%d entries in backup."
 msgstr[0] "%d резервна ставка."
 msgstr[1] "%d резервни ставки."
-
-#~ msgid ""
-#~ "The server was unable to handle that much POST data (%s bytes) due to its "
-#~ "current configuration."
-#~ msgstr ""
-#~ "Опслужувачот не можеше да обработи толку многу POST-податоци (%s бајти) "
-#~ "заради неговата тековна поставеност."
