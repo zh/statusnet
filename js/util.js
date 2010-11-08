@@ -428,30 +428,15 @@ var SN = { // StatusNet
                 }).attr('title', SN.msg('showmore_tooltip'));
             }
             else {
-                $.fn.jOverlay.options = {
-                    method : 'GET',
-                    data : '',
-                    url : '',
-                    color : '#000',
-                    opacity : '0.6',
-                    zIndex : 9999,
-                    center : false,
-                    imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
-                    bgClickToClose : true,
-                    success : function() {
-                        $('#jOverlayContent').append('<button class="close">&#215;</button>');
-                        $('#jOverlayContent button').click($.closeOverlay);
-                    },
-                    timeout : 0,
-                    autoHide : true,
-                    css : {'max-width':'542px', 'top':'5%', 'left':'32.5%'}
-                };
+                //imgLoading : $('address .url')[0].href+'theme/base/images/illustrations/illu_progress_loading-01.gif',
 
-                notice.find('a.attachment').click(function() {
+                notice.find('a.attachment').each(function() {
                     var attachId = ($(this).attr('id').substring('attachment'.length + 1));
                     if (attachId) {
-                        $().jOverlay({url: $('address .url')[0].href+'attachment/' + attachId + '/ajax'});
-                        return false;
+                        var thumbUrl = $('address .url')[0].href+'attachment/' + attachId + '/thumb';
+                        var thumb = $('<div class="inline_thumb">Thumb: <img/></div>');
+                        thumb.find('img').attr('src', thumbUrl).last();
+                        notice.append(thumb);
                     }
                 });
 
