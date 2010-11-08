@@ -352,11 +352,10 @@ class File extends Memcached_DataObject
                 $mimetype = substr($mimetype,0,$semicolon);
             }
             if(in_array($mimetype,$notEnclosureMimeTypes)){
-                // Never treat HTML as an enclosure type!
-                return false;
-            } else {
+                // Never treat generic HTML links as an enclosure type!
+                // But if we have oEmbed info, we'll consider it golden.
                 $oembed = File_oembed::staticGet('file_id',$this->id);
-                if($oembed){
+                if($oembed && in_array($oembed->type, array('photo', 'video'))){
                     $mimetype = strtolower($oembed->mimetype);
                     $semicolon = strpos($mimetype,';');
                     if($semicolon){

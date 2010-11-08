@@ -212,19 +212,30 @@ class AttachmentListItem extends Widget
         }
     }
 
+    /**
+     * Pull a thumbnail image reference for the given file.
+     * In order we check:
+     *  1) file_thumbnail table (thumbnails found via oEmbed)
+     *  2) image URL from direct dereference or oEmbed 'photo' type URL
+     *  3) ???
+     *
+     * @return mixed object with (url, width, height) properties, or false
+     */
     function getThumbInfo()
     {
         $thumbnail = File_thumbnail::staticGet('file_id', $this->attachment->id);
         if ($thumbnail) {
             return $thumbnail;
-        } else {
-            switch ($this->attachment->mimetype) {
+        }
+        $enc = $this->attachment->getEnclosure();
+        if ($enc) {
+            switch ($enc->mimetype) {
                 case 'image/gif':
                 case 'image/png':
                 case 'image/jpg':
                 case 'image/jpeg':
                     $thumb = (object)array();
-                    $thumb->url = $this->attachment->url;
+                    $thumb->url = $enc->url;
                     $thumb->width = 100;
                     $thumb->height = 75; // @fixme
                     return $thumb;
