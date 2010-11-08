@@ -118,16 +118,16 @@ EndShowHTML: Showing after the html element
 - $action: the current action
 
 StartPublicGroupNav: Showing the public group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 EndPublicGroupNav: At the end of the public group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 StartSubGroupNav: Showing the subscriptions group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 EndSubGroupNav: At the end of the subscriptions group nav menu
-- $action: the current action
+- $menu: the menu widget; use $menu->action for output
 
 StartInitializeRouter: Before the router instance has been initialized; good place to add routes
 - $m: the Net_URL_Mapper that has just been set up
