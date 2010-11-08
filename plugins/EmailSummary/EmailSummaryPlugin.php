@@ -63,7 +63,7 @@ class EmailSummaryPlugin extends Plugin
                                                  false, 'PRI'),
                                    new ColumnDef('send_summary', 'tinyint', null,
 						 false, null, 1),
-                                   new ColumnDef('last_summary', 'datetime', null,
+                                   new ColumnDef('last_summary_id', 'integer', null,
 						 true),
                                    new ColumnDef('created', 'datetime', null,
 						 false),
@@ -89,6 +89,10 @@ class EmailSummaryPlugin extends Plugin
 
         switch ($cls)
         {
+	 case 'SiteEmailSummaryHandler':
+	 case 'UserEmailSummaryHandler':
+            include_once $dir . '/'.strtolower($cls).'.php';
+	    return false;
 	 case 'Email_summary_status':
             include_once $dir . '/'.$cls.'.php';
             return false;
@@ -115,5 +119,20 @@ class EmailSummaryPlugin extends Plugin
                             'rawdescription' =>
                             _m('Send an email summary of the inbox to users.'));
         return true;
+    }
+
+    /**
+     * Register our queue handlers
+     * 
+     * @param QueueManager $qm Current queue manager
+     * 
+     * @return boolean hook value
+     */
+    
+    function onEndInitializeQueueManager($qm)
+    {
+	$qm->connect('sitesum', 'SiteEmailSummaryHandler');
+	$qm->connect('usersum', 'UserEmailSummaryHandler');
+	return true;
     }
 }

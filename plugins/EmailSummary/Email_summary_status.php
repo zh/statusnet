@@ -52,9 +52,9 @@ class Email_summary_status extends Memcached_DataObject
     public $__table = 'email_summary_status'; // table name
     public $user_id;                         // int(4)  primary_key not_null
     public $send_summary;                    // tinyint not_null
-    public $last_summary;                    // int(4)  primary_key not_null
-    public $created;                         // int(4)  primary_key not_null
-    public $modified;                        // int(4)  primary_key not_null
+    public $last_summary_id;                 // int(4)  null
+    public $created;                         // datetime not_null
+    public $modified;                        // datetime not_null
 
     /**
      * Get an instance by key
@@ -83,9 +83,9 @@ class Email_summary_status extends Memcached_DataObject
     {
         return array('user_id' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
 		     'send_summary' => DB_DATAOBJECT_INT + DB_DATAOBJECT_NOTNULL,
-		     'last_summary' => DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
-		     'created' => DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME,
-		     'modified' => DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME);
+		     'last_summary_id' => DB_DATAOBJECT_INT,
+		     'created' => DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL,
+		     'modified' => DB_DATAOBJECT_DATE + DB_DATAOBJECT_TIME + DB_DATAOBJECT_NOTNULL);
     }
 
     /**
@@ -154,14 +154,14 @@ class Email_summary_status extends Memcached_DataObject
      * @return Email_summary_status instance for this user, with count already incremented.
      */
 
-    static function getLastSummary($user_id)
+    static function getLastSummaryID($user_id)
     {
         $ess = Email_summary_status::staticGet('user_id', $user_id);
 	
 	if (!empty($ess)) {
-	    return $ess->last_summary;
+	    return $ess->last_summary_id;
 	} else {
-	    return 1;
+	    return null;
 	}
     }
 }
