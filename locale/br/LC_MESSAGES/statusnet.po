@@ -11,17 +11,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: StatusNet - Core\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-11-04 18:25+0000\n"
-"PO-Revision-Date: 2010-11-04 18:27:07+0000\n"
+"POT-Creation-Date: 2010-11-07 20:24+0000\n"
+"PO-Revision-Date: 2010-11-07 20:27:04+0000\n"
 "Language-Team: Breton <http://translatewiki.net/wiki/Portal:br>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: MediaWiki 1.17alpha (r76004); Translate extension (2010-09-17)\n"
+"X-Generator: MediaWiki 1.17alpha (r76266); Translate extension (2010-09-17)\n"
 "X-Translation-Project: translatewiki.net at http://translatewiki.net\n"
 "X-Language-Code: br\n"
 "X-Message-Group: #out-statusnet-core\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-POT-Import-Date: 2010-11-02 23:22:49+0000\n"
+"X-POT-Import-Date: 2010-11-05 00:36:07+0000\n"
 
 #. TRANS: Page title for Access admin panel that allows configuring site access.
 #. TRANS: Menu item for site administration
@@ -42,7 +42,8 @@ msgstr "Enskrivadur"
 #. TRANS: Checkbox instructions for admin setting "Private".
 #: actions/accessadminpanel.php:155
 msgid "Prohibit anonymous users (not logged in) from viewing site?"
-msgstr "Nac'h ouzh an implijerien dizanv (nann-luget) da welet al lec'hienn ?"
+msgstr ""
+"Nac'h ouzh an implijerien dizanv (nann-kevreet) da welet al lec'hienn ?"
 
 #. TRANS: Checkbox label for prohibiting anonymous users from viewing site.
 #: actions/accessadminpanel.php:157
@@ -814,7 +815,6 @@ msgstr ""
 
 #. TRANS: Fieldset legend.
 #: actions/apioauthauthorize.php:455
-#, fuzzy
 msgctxt "LEGEND"
 msgid "Account"
 msgstr "Kont"
@@ -852,22 +852,19 @@ msgstr "Nullañ"
 
 #. TRANS: Button text that when clicked will allow access to an account by an external application.
 #: actions/apioauthauthorize.php:485
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Allow"
 msgstr "Aotreañ"
 
 #. TRANS: Form instructions.
 #: actions/apioauthauthorize.php:502
-#, fuzzy
 msgid "Authorize access to your account information."
-msgstr "Aotreañ pe nac'hañ ar moned da ditouroù ho kont."
+msgstr "Aotreañ ar moned da ditouroù ho kont."
 
 #. TRANS: Header for user notification after revoking OAuth access to an application.
 #: actions/apioauthauthorize.php:594
-#, fuzzy
 msgid "Authorization canceled."
-msgstr "Nullet eo bet kadarnadenn ar bostelerezh prim."
+msgstr "Nullet eo bet aotre."
 
 #. TRANS: User notification after revoking OAuth access to an application.
 #. TRANS: %s is an OAuth token.
@@ -878,9 +875,8 @@ msgstr ""
 
 #. TRANS: Title of the page notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:621
-#, fuzzy
 msgid "You have successfully authorized the application"
-msgstr "N'oc'h ket aotreet."
+msgstr "Aotreet ho peus ar poellad."
 
 #. TRANS: Message notifying the user that an anonymous client application was successfully authorized to access the user's account with OAuth.
 #: actions/apioauthauthorize.php:625
@@ -892,9 +888,9 @@ msgstr ""
 #. TRANS: Title of the page notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
 #: actions/apioauthauthorize.php:632
-#, fuzzy, php-format
+#, php-format
 msgid "You have successfully authorized %s"
-msgstr "N'oc'h ket aotreet."
+msgstr "Aotreet ho peus %s"
 
 #. TRANS: Message notifying the user that the client application was successfully authorized to access the user's account with OAuth.
 #. TRANS: %s is the authorised application name.
@@ -1146,21 +1142,18 @@ msgstr "Rakwelet"
 
 #. TRANS: Button on avatar upload page to delete current avatar.
 #: actions/avatarsettings.php:155
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Delete"
-msgstr "Diverkañ"
+msgstr "Dilemel"
 
 #. TRANS: Button on avatar upload page to upload an avatar.
 #: actions/avatarsettings.php:173
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Upload"
 msgstr "Enporzhiañ"
 
 #. TRANS: Button on avatar upload crop form to confirm a selected crop as avatar.
 #: actions/avatarsettings.php:243
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Crop"
 msgstr "Adframmañ"
@@ -1309,7 +1302,6 @@ msgstr "Distankañ implijer ar strollad"
 
 #. TRANS: Button text for unblocking a user from a group.
 #: actions/blockedfromgroup.php:323
-#, fuzzy
 msgctxt "BUTTON"
 msgid "Unblock"
 msgstr "Distankañ"
@@ -1483,9 +1475,8 @@ msgstr "%1$s en deus kuitaet ar strollad %2$s"
 #. TRANS: Title of delete group page.
 #. TRANS: Form legend for deleting a group.
 #: actions/deletegroup.php:176 actions/deletegroup.php:202
-#, fuzzy
 msgid "Delete group"
-msgstr "Diverkañ an implijer"
+msgstr "Dilemel ar strollad"
 
 #. TRANS: Warning in form for deleleting a group.
 #: actions/deletegroup.php:206
@@ -1519,7 +1510,7 @@ msgstr "Diverkañ an implijer-mañ"
 #: lib/adminpanelaction.php:71 lib/profileformaction.php:64
 #: lib/settingsaction.php:72
 msgid "Not logged in."
-msgstr "Nann-luget."
+msgstr "Nann-kevreet."
 
 #. TRANS: Error message displayed trying to delete a notice that was not made by the current user.
 #: actions/deletenotice.php:78
@@ -1610,9 +1601,8 @@ msgid "Site logo"
 msgstr "Logo al lec'hienn"
 
 #: actions/designadminpanel.php:457
-#, fuzzy
 msgid "SSL logo"
-msgstr "Logo al lec'hienn"
+msgstr "Logo SSL"
 
 #: actions/designadminpanel.php:469
 msgid "Change theme"
@@ -2684,15 +2674,14 @@ msgstr "Rankout a reoc'h bezañ luget evit pediñ implijerien all e %s."
 #. TRANS: Form validation message when providing an e-mail address that does not validate.
 #. TRANS: %s is an invalid e-mail address.
 #: actions/invite.php:77
-#, fuzzy, php-format
+#, php-format
 msgid "Invalid email address: %s."
-msgstr "Fall eo ar postel : %s"
+msgstr "Fall eo ar postel : %s."
 
 #. TRANS: Page title when invitations have been sent.
 #: actions/invite.php:116
-#, fuzzy
 msgid "Invitations sent"
-msgstr "Pedadenn(où) kaset"
+msgstr "Pedadennoù kaset"
 
 #. TRANS: Page title when inviting potential users.
 #: actions/invite.php:119
@@ -4698,14 +4687,12 @@ msgstr "An holl izili"
 
 #. TRANS: Label for creation date in statistics on group page.
 #: actions/showgroup.php:453
-#, fuzzy
 msgctxt "LABEL"
 msgid "Created"
 msgstr "Krouet"
 
 #. TRANS: Label for member count in statistics on group page.
 #: actions/showgroup.php:461
-#, fuzzy
 msgctxt "LABEL"
 msgid "Members"
 msgstr "Izili"
@@ -6678,7 +6665,7 @@ msgstr "Nullañ"
 
 #: lib/applicationlist.php:247
 msgid " by "
-msgstr ""
+msgstr "gant "
 
 #. TRANS: Application access type
 #: lib/applicationlist.php:260
@@ -6943,7 +6930,7 @@ msgstr[1] ""
 #: lib/command.php:604
 #, php-format
 msgid "Reply to %s sent."
-msgstr ""
+msgstr "Respont kaset da %s."
 
 #. TRANS: Error text shown when a reply to a notice fails with an unknown reason.
 #: lib/command.php:607
@@ -7248,7 +7235,7 @@ msgstr "Mignon ur mignon (FOAF)"
 #. TRANS: Header for feed links (h2).
 #: lib/feedlist.php:66
 msgid "Feeds"
-msgstr ""
+msgstr "Lanvioù"
 
 #: lib/galleryaction.php:121
 msgid "Filter tags"

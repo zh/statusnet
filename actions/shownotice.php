@@ -331,6 +331,32 @@ class SingleNoticeItem extends DoFollowListItem
         $this->showEnd();
     }
 
+    /**
+     * show the avatar of the notice's author
+     *
+     * We use the larger size for single notice page.
+     * 
+     * @return void
+     */
+
+    function showAvatar()
+    {
+	$avatar_size = AVATAR_PROFILE_SIZE;
+
+        $avatar = $this->profile->getAvatar($avatar_size);
+
+        $this->out->element('img', array('src' => ($avatar) ?
+                                         $avatar->displayUrl() :
+                                         Avatar::defaultImage($avatar_size),
+                                         'class' => 'avatar photo',
+                                         'width' => $avatar_size,
+                                         'height' => $avatar_size,
+                                         'alt' =>
+                                         ($this->profile->fullname) ?
+                                         $this->profile->fullname :
+                                         $this->profile->nickname));
+    }
+
     function showNoticeAttachments() {
         $al = new AttachmentList($this->notice, $this->out);
         $al->show();
