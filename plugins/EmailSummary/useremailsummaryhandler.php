@@ -142,7 +142,8 @@ class UserEmailSummaryHandler extends QueueHandler
 	    $avatar = $profile->getAvatar(AVATAR_STREAM_SIZE);
 
 	    $out->elementStart('tr');
-	    $out->elementStart('td');
+	    $out->elementStart('td', array('width' => AVATAR_STREAM_SIZE,
+					   'height' => AVATAR_STREAM_SIZE));
 	    $out->element('img', array('src' => ($avatar) ?
 				       $avatar->displayUrl() :
 				       Avatar::defaultImage($avatar_size),
