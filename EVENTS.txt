@@ -302,6 +302,20 @@ StartProfileSaveForm: before starting to save a profile settings form
 EndProfileSaveForm: after saving a profile settings form (after commit, no profile or user object!)
 - $action: action object being shown
 
+StartEmailFormData: just before showing text entry fields on email settings page
+- $action: action object being shown
+
+EndEmailFormData: just after showing text entry fields on email settings page
+- $action: action object being shown
+
+StartEmailSaveForm: before starting to save a email settings form
+- $action: action object being shown
+- &$user: user being saved
+
+EndEmailSaveForm: after saving a email settings form (after commit)
+- $action: action object being shown
+- &$user: user being saved
+
 StartRegistrationFormData: just before showing text entry fields on registration page
 - $action: action object being shown
 
