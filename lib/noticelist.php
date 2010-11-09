@@ -385,7 +385,7 @@ class NoticeListItem extends Widget
     }
 
     function showNoticeAttachments() {
-        $al = new AttachmentList($this->notice, $this->out);
+        $al = new InlineAttachmentList($this->notice, $this->out);
         $al->show();
     }
 

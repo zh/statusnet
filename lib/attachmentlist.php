@@ -79,23 +79,33 @@ class AttachmentList extends Widget
         $atts = new File;
         $att = $atts->getAttachments($this->notice->id);
         if (empty($att)) return 0;
-        $this->out->elementStart('dl', array('id' =>'attachments',
-                                             'class' => 'entry-content'));
-        // TRANS: DT element label in attachment list.
-        $this->out->element('dt', null, _('Attachments'));
-        $this->out->elementStart('dd');
-        $this->out->elementStart('ol', array('class' => 'attachments'));
+        $this->showListStart();
 
         foreach ($att as $n=>$attachment) {
             $item = $this->newListItem($attachment);
             $item->show();
         }
 
+        $this->showListEnd();
+
+        return count($att);
+    }
+
+    function showListStart()
+    {
+        $this->out->elementStart('dl', array('id' =>'attachments',
+                                             'class' => 'entry-content'));
+        // TRANS: DT element label in attachment list.
+        $this->out->element('dt', null, _('Attachments'));
+        $this->out->elementStart('dd');
+        $this->out->elementStart('ol', array('class' => 'attachments'));
+    }
+
+    function showListEnd()
+    {
         $this->out->elementEnd('dd');
         $this->out->elementEnd('ol');
         $this->out->elementEnd('dl');
-
-        return count($att);
     }
 
     /**
@@ -181,11 +191,9 @@ class AttachmentListItem extends Widget
      */
     function show()
     {
-        if ($this->attachment->isEnclosure()) {
-            $this->showStart();
-            $this->showNoticeAttachment();
-            $this->showEnd();
-        }
+        $this->showStart();
+        $this->showNoticeAttachment();
+        $this->showEnd();
     }
 
     function linkAttr() {
