@@ -143,16 +143,19 @@ class UserEmailSummaryHandler extends QueueHandler
 
 	    $out->elementStart('tr');
 	    $out->elementStart('td', array('width' => AVATAR_STREAM_SIZE,
-					   'height' => AVATAR_STREAM_SIZE));
+					   'height' => AVATAR_STREAM_SIZE,
+					   'align' => 'left',
+					   'valign' => 'top'));
 	    $out->element('img', array('src' => ($avatar) ?
 				       $avatar->displayUrl() :
 				       Avatar::defaultImage($avatar_size),
 				       'class' => 'avatar photo',
-				       'width' => $avatar_size,
-				       'height' => $avatar_size,
+				       'width' => AVATAR_STREAM_SIZE,
+				       'height' => AVATAR_STREAM_SIZE,
 				       'alt' => $profile->getBestName()));
 	    $out->elementEnd('td');
-	    $out->elementStart('td');
+	    $out->elementStart('td', array('align' => 'left',
+					   'valign' => 'top'));
 	    $out->element('a', array('href' => $profile->profileurl),
 			  $profile->nickname);
 	    $out->text(' ');
