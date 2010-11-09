@@ -129,7 +129,7 @@ class UserEmailSummaryHandler extends QueueHandler
 			  $profile->getBestName()));
 	
 
-	$out->elementStart('table', array('width' => '100%', 'style' => 'border: none'));
+	$out->elementStart('table', array('width' => '541px', 'style' => 'border: none'));
 	
 	while ($notice->fetch()) {
 	    
