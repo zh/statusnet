@@ -361,15 +361,19 @@ class File extends Memcached_DataObject
                     if($semicolon){
                         $mimetype = substr($mimetype,0,$semicolon);
                     }
-                    if(in_array($mimetype,$notEnclosureMimeTypes)){
-                        return false;
-                    }else{
+                    // @fixme uncertain if this is right.
+                    // we want to expose things like YouTube videos as
+                    // viewable attachments, but don't expose them as
+                    // downloadable enclosures.....?
+                    //if (in_array($mimetype, $notEnclosureMimeTypes)) {
+                    //    return false;
+                    //} else {
                         if($oembed->mimetype) $enclosure->mimetype=$oembed->mimetype;
                         if($oembed->url) $enclosure->url=$oembed->url;
                         if($oembed->title) $enclosure->title=$oembed->title;
                         if($oembed->modified) $enclosure->modified=$oembed->modified;
                         unset($oembed->size);
-                    }
+                    //}
                 } else {
                     return false;
                 }
