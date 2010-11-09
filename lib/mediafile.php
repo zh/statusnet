@@ -127,14 +127,28 @@ class MediaFile
         $outname = File::filename($this->user->getProfile(), 'thumb-' . $this->filename, $this->mimetype);
         $outpath = File::path($outname);
 
-        $width = common_config('attachments', 'thumb_width');
-        $height = common_config('attachments', 'thumb_height');
+        $maxWidth = common_config('attachments', 'thumb_width');
+        $maxHeight = common_config('attachments', 'thumb_height');
+        list($width, $height) = $this->scaleToFit($image->width, $image->height, $maxWidth, $maxHeight);
 
         $image->resizeTo($outpath, $width, $height);
         File_thumbnail::saveThumbnail($this->fileRecord->id,
                                       File::url($outname),
                                       $width,
                                       $height);
+    }
+
+    function scaleToFit($width, $height, $maxWidth, $maxHeight)
+    {
+        $aspect = $maxWidth / $maxHeight;
+        $w1 = $maxWidth;
+        $h1 = intval($height * $maxWidth / $width);
+        if ($h1 > $maxHeight) {
+            $w2 = intval($width * $maxHeight / $height);
+            $h2 = $maxHeight;
+            return array($w2, $h2);
+        }
+        return array($w1, $h1);
     }
 
     function rememberFile($file, $short)
